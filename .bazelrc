@@ -1,0 +1,2 @@
+startup --output_base=out/bazel/output-base
+startup --output_user_root=out/bazel/output-user-root
