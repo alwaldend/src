@@ -1,0 +1,23 @@
+filegroup(
+    name = "patches",
+    srcs = glob(["patches/*"]),
+)
+
+genrule(
+    name = "src-archive",
+    srcs = ["@infinitime//:src"],
+    outs = ["src.tar"],
+    cmd = "tar -cf $(location :src.tar) $(locations @infinitime//:src)",
+)
+
+genrule(
+    name = "src-patched",
+    srcs = [":src-archive", ":patches"],
+    outs = ["src-patched.tar"],
+    cmd = """
+        set -eux && \
+            tar -xvf $(location :src-archive) && \
+            git apply $(locations :patches) && \
+            tar -cf $(location :src-patched.tar) *
+    """,
+)
