@@ -1,0 +1,360 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 8b27c19d..d35a3034 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -421,6 +421,7 @@ list(APPEND SOURCE_FILES
+         displayapp/screens/WatchFaceDigital.cpp
+         displayapp/screens/WatchFaceInfineat.cpp
+         displayapp/screens/WatchFaceTerminal.cpp
++        displayapp/screens/WatchFaceTerminalCustom.cpp
+         displayapp/screens/WatchFacePineTimeStyle.cpp
+         displayapp/screens/WatchFaceCasioStyleG7710.cpp
+ 
+diff --git a/src/components/datetime/DateTimeController.cpp b/src/components/datetime/DateTimeController.cpp
+index 8d4a834e..d6bf8405 100644
+--- a/src/components/datetime/DateTimeController.cpp
++++ b/src/components/datetime/DateTimeController.cpp
+@@ -6,9 +6,9 @@ using namespace Pinetime::Controllers;
+ 
+ namespace {
+   char const* DaysStringShort[] = {"--", "MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"};
+-  char const* DaysStringShortLow[] = {"--", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
++  char const* DaysStringShortLow[] = {"--", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+   char const* MonthsString[] = {"--", "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
+-  char const* MonthsStringLow[] = {"--", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
++  char const* MonthsStringLow[] = {"--", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+ }
+ 
+ DateTime::DateTime(Controllers::Settings& settingsController) : settingsController {settingsController} {
+@@ -84,12 +84,12 @@ void DateTime::UpdateTime(uint32_t systickCounter) {
+     isHourAlreadyNotified = false;
+   }
+ 
+-  if ((minute == 0 || minute == 30) && !isHalfHourAlreadyNotified) {
++  if ((minute == 0 || minute == 20 || minute == 40) && !isHalfHourAlreadyNotified) {
+     isHalfHourAlreadyNotified = true;
+     if (systemTask != nullptr) {
+       systemTask->PushMessage(System::Messages::OnNewHalfHour);
+     }
+-  } else if (minute != 0 && minute != 30) {
++  } else if (minute != 0 && minute != 20 && minute != 40) {
+     isHalfHourAlreadyNotified = false;
+   }
+ 
+diff --git a/src/displayapp/UserApps.h b/src/displayapp/UserApps.h
+index 0307035a..205ea006 100644
+--- a/src/displayapp/UserApps.h
++++ b/src/displayapp/UserApps.h
+@@ -13,6 +13,7 @@
+ #include "displayapp/screens/WatchFaceInfineat.h"
+ #include "displayapp/screens/WatchFacePineTimeStyle.h"
+ #include "displayapp/screens/WatchFaceTerminal.h"
++#include "displayapp/screens/WatchFaceTerminalCustom.h"
+ 
+ namespace Pinetime {
+   namespace Applications {
+diff --git a/src/displayapp/apps/Apps.h.in b/src/displayapp/apps/Apps.h.in
+index e6e8d7dc..5a51f92f 100644
+--- a/src/displayapp/apps/Apps.h.in
++++ b/src/displayapp/apps/Apps.h.in
+@@ -49,6 +49,7 @@ namespace Pinetime {
+       Analog,
+       PineTimeStyle,
+       Terminal,
++      TerminalCustom,
+       Infineat,
+       CasioStyleG7710,
+     };
+diff --git a/src/displayapp/apps/CMakeLists.txt b/src/displayapp/apps/CMakeLists.txt
+index a531bdff..fd607348 100644
+--- a/src/displayapp/apps/CMakeLists.txt
++++ b/src/displayapp/apps/CMakeLists.txt
+@@ -7,11 +7,11 @@ else ()
+     set(DEFAULT_USER_APP_TYPES "${DEFAULT_USER_APP_TYPES}, Apps::Steps")
+     set(DEFAULT_USER_APP_TYPES "${DEFAULT_USER_APP_TYPES}, Apps::HeartRate")
+     set(DEFAULT_USER_APP_TYPES "${DEFAULT_USER_APP_TYPES}, Apps::Music")
+-    set(DEFAULT_USER_APP_TYPES "${DEFAULT_USER_APP_TYPES}, Apps::Paint")
+-    set(DEFAULT_USER_APP_TYPES "${DEFAULT_USER_APP_TYPES}, Apps::Paddle")
+-    set(DEFAULT_USER_APP_TYPES "${DEFAULT_USER_APP_TYPES}, Apps::Twos")
++    #set(DEFAULT_USER_APP_TYPES "${DEFAULT_USER_APP_TYPES}, Apps::Paint")
++    #set(DEFAULT_USER_APP_TYPES "${DEFAULT_USER_APP_TYPES}, Apps::Paddle")
++    #set(DEFAULT_USER_APP_TYPES "${DEFAULT_USER_APP_TYPES}, Apps::Twos")
+     set(DEFAULT_USER_APP_TYPES "${DEFAULT_USER_APP_TYPES}, Apps::Metronome")
+-    set(DEFAULT_USER_APP_TYPES "${DEFAULT_USER_APP_TYPES}, Apps::Navigation")
++    #set(DEFAULT_USER_APP_TYPES "${DEFAULT_USER_APP_TYPES}, Apps::Navigation")
+     #set(DEFAULT_USER_APP_TYPES "${DEFAULT_USER_APP_TYPES}, Apps::Weather")
+     #set(DEFAULT_USER_APP_TYPES "${DEFAULT_USER_APP_TYPES}, Apps::Motion")
+     set(USERAPP_TYPES "${DEFAULT_USER_APP_TYPES}" CACHE STRING "List of user apps to build into the firmware")
+@@ -20,12 +20,12 @@ endif ()
+ if(DEFINED ENABLE_WATCHFACES)
+     set(WATCHFACE_TYPES ${ENABLE_WATCHFACES} CACHE STRING "List of watch faces to build into the firmware")
+ else()
+-    set(DEFAULT_WATCHFACE_TYPES "WatchFace::Digital")
+-    set(DEFAULT_WATCHFACE_TYPES "${DEFAULT_WATCHFACE_TYPES}, WatchFace::Analog")
+-    set(DEFAULT_WATCHFACE_TYPES "${DEFAULT_WATCHFACE_TYPES}, WatchFace::PineTimeStyle")
+-    set(DEFAULT_WATCHFACE_TYPES "${DEFAULT_WATCHFACE_TYPES}, WatchFace::Terminal")
+-    set(DEFAULT_WATCHFACE_TYPES "${DEFAULT_WATCHFACE_TYPES}, WatchFace::Infineat")
+-    set(DEFAULT_WATCHFACE_TYPES "${DEFAULT_WATCHFACE_TYPES}, WatchFace::CasioStyleG7710")
++    set(DEFAULT_WATCHFACE_TYPES "WatchFace::TerminalCustom")
++    #set(DEFAULT_WATCHFACE_TYPES "${DEFAULT_WATCHFACE_TYPES}, WatchFace::Analog")
++    #set(DEFAULT_WATCHFACE_TYPES "${DEFAULT_WATCHFACE_TYPES}, WatchFace::PineTimeStyle")
++    #set(DEFAULT_WATCHFACE_TYPES "${DEFAULT_WATCHFACE_TYPES}, WatchFace::Terminal")
++    #set(DEFAULT_WATCHFACE_TYPES "${DEFAULT_WATCHFACE_TYPES}, WatchFace::Infineat")
++    #set(DEFAULT_WATCHFACE_TYPES "${DEFAULT_WATCHFACE_TYPES}, WatchFace::CasioStyleG7710")
+     set(WATCHFACE_TYPES "${DEFAULT_WATCHFACE_TYPES}" CACHE STRING "List of watch faces to build into the firmware")
+ endif()
+ 
+diff --git a/src/displayapp/screens/WatchFaceTerminalCustom.cpp b/src/displayapp/screens/WatchFaceTerminalCustom.cpp
+new file mode 100644
+index 00000000..6fc02997
+--- /dev/null
++++ b/src/displayapp/screens/WatchFaceTerminalCustom.cpp
+@@ -0,0 +1,147 @@
++#include <lvgl/lvgl.h>
++#include "displayapp/screens/WatchFaceTerminalCustom.h"
++#include "displayapp/screens/BatteryIcon.h"
++#include "displayapp/screens/NotificationIcon.h"
++#include "displayapp/screens/Symbols.h"
++#include "components/battery/BatteryController.h"
++#include "components/ble/BleController.h"
++#include "components/ble/NotificationManager.h"
++#include "components/heartrate/HeartRateController.h"
++#include "components/motion/MotionController.h"
++#include "components/settings/Settings.h"
++
++using namespace Pinetime::Applications::Screens;
++
++WatchFaceTerminalCustom::WatchFaceTerminalCustom(Controllers::DateTime& dateTimeController,
++                                     const Controllers::Battery& batteryController,
++                                     const Controllers::Ble& bleController,
++                                     Controllers::NotificationManager& notificationManager,
++                                     Controllers::Settings& settingsController,
++                                     Controllers::HeartRateController& heartRateController,
++                                     Controllers::MotionController& motionController)
++  : currentDateTime {{}},
++    dateTimeController {dateTimeController},
++    batteryController {batteryController},
++    bleController {bleController},
++    notificationManager {notificationManager},
++    settingsController {settingsController},
++    heartRateController {heartRateController},
++    motionController {motionController} {
++  notificationIcon = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(notificationIcon, nullptr, LV_ALIGN_IN_LEFT_MID, 0, -100);
++
++  label_time = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(label_time, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, -80);
++
++  label_date = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(label_date, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, -60);
++
++  weekdayValue = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(weekdayValue, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, -40);
++
++  monthValue = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(monthValue, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, -20);
++
++  batteryValue = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(batteryValue, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, 0);
++
++  stepValue = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(stepValue, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, 20);
++
++  heartbeatValue = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(heartbeatValue, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, 40);
++
++  connectState = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(connectState, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, 60);
++
++  taskRefresh = lv_task_create(RefreshTaskCallback, LV_DISP_DEF_REFR_PERIOD, LV_TASK_PRIO_MID, this);
++  Refresh();
++}
++
++WatchFaceTerminalCustom::~WatchFaceTerminalCustom() {
++  lv_task_del(taskRefresh);
++  lv_obj_clean(lv_scr_act());
++}
++
++void WatchFaceTerminalCustom::Refresh() {
++  powerPresent = batteryController.IsPowerPresent();
++  batteryPercentRemaining = batteryController.PercentRemaining();
++  if (batteryPercentRemaining.IsUpdated() || powerPresent.IsUpdated()) {
++    lv_label_set_text_fmt(batteryValue, "[BATT] %d%%", batteryPercentRemaining.Get());
++    if (batteryController.IsPowerPresent()) {
++      lv_label_ins_text(batteryValue, LV_LABEL_POS_LAST, " Charging");
++    }
++  }
++
++  bleState = bleController.IsConnected();
++  bleRadioEnabled = bleController.IsRadioEnabled();
++  if (bleState.IsUpdated() || bleRadioEnabled.IsUpdated()) {
++    if (!bleRadioEnabled.Get()) {
++      lv_label_set_text_static(connectState, "[STAT] Disabled");
++    } else {
++      if (bleState.Get()) {
++        lv_label_set_text_static(connectState, "[STAT] Connected");
++      } else {
++        lv_label_set_text_static(connectState, "[STAT] Disconnected");
++      }
++    }
++  }
++
++  notificationState = notificationManager.AreNewNotificationsAvailable();
++  if (notificationState.IsUpdated()) {
++    if (notificationState.Get()) {
++      lv_label_set_text_static(notificationIcon, "You have mail.");
++    } else {
++      lv_label_set_text_static(notificationIcon, "");
++    }
++  }
++
++  currentDateTime = std::chrono::time_point_cast<std::chrono::seconds>(dateTimeController.CurrentDateTime());
++  if (currentDateTime.IsUpdated()) {
++    uint8_t hour = dateTimeController.Hours();
++    uint8_t minute = dateTimeController.Minutes();
++    uint8_t second = dateTimeController.Seconds();
++
++    if (settingsController.GetClockType() == Controllers::Settings::ClockType::H12) {
++      char ampmChar[3] = "AM";
++      if (hour == 0) {
++        hour = 12;
++      } else if (hour == 12) {
++        ampmChar[0] = 'P';
++      } else if (hour > 12) {
++        hour = hour - 12;
++        ampmChar[0] = 'P';
++      }
++      lv_label_set_text_fmt(label_time, "[TIME] %s", hour, minute, second, ampmChar);
++    } else {
++      lv_label_set_text_fmt(label_time, "[TIME] %02d:%02d:%02d", hour, minute, second);
++    }
++
++    currentDate = std::chrono::time_point_cast<days>(currentDateTime.Get());
++    if (currentDate.IsUpdated()) {
++      uint16_t year = dateTimeController.Year();
++      Controllers::DateTime::Months month = dateTimeController.Month();
++      uint8_t day = dateTimeController.Day();
++      lv_label_set_text_fmt(label_date, "[DATE] %04d-%02d-%02d", short(year), char(month), char(day));
++    }
++  }
++
++  lv_label_set_text_fmt(weekdayValue, "[WDAY] %s %d", dateTimeController.DayOfWeekShortToStringLow(), dateTimeController.DayOfWeek());
++  
++  lv_label_set_text_fmt(monthValue, "[MNTH] %s %d", dateTimeController.MonthShortToStringLow(dateTimeController.Month()), dateTimeController.Month());
++
++  heartbeat = heartRateController.HeartRate();
++  heartbeatRunning = heartRateController.State() != Controllers::HeartRateController::States::Stopped;
++  if (heartbeat.IsUpdated() || heartbeatRunning.IsUpdated()) {
++    if (heartbeatRunning.Get()) {
++      lv_label_set_text_fmt(heartbeatValue, "[L_HR] %d bpm", heartbeat.Get());
++    } else {
++      lv_label_set_text_static(heartbeatValue, "[L_HR] ---");
++    }
++  }
++
++  stepCount = motionController.NbSteps();
++  if (stepCount.IsUpdated()) {
++    lv_label_set_text_fmt(stepValue, "[STEP] %lu steps", stepCount.Get());
++  }
++}
+diff --git a/src/displayapp/screens/WatchFaceTerminalCustom.h b/src/displayapp/screens/WatchFaceTerminalCustom.h
+new file mode 100644
+index 00000000..a95be7f3
+--- /dev/null
++++ b/src/displayapp/screens/WatchFaceTerminalCustom.h
+@@ -0,0 +1,95 @@
++#pragma once
++
++#include <lvgl/src/lv_core/lv_obj.h>
++#include <chrono>
++#include <cstdint>
++#include <memory>
++#include <displayapp/Controllers.h>
++#include "displayapp/screens/Screen.h"
++#include "components/datetime/DateTimeController.h"
++#include "utility/DirtyValue.h"
++
++namespace Pinetime {
++  namespace Controllers {
++    class Settings;
++    class Battery;
++    class Ble;
++    class NotificationManager;
++    class HeartRateController;
++    class MotionController;
++  }
++
++  namespace Applications {
++    namespace Screens {
++
++      class WatchFaceTerminalCustom : public Screen {
++      public:
++        WatchFaceTerminalCustom(Controllers::DateTime& dateTimeController,
++                          const Controllers::Battery& batteryController,
++                          const Controllers::Ble& bleController,
++                          Controllers::NotificationManager& notificationManager,
++                          Controllers::Settings& settingsController,
++                          Controllers::HeartRateController& heartRateController,
++                          Controllers::MotionController& motionController);
++        ~WatchFaceTerminalCustom() override;
++
++        void Refresh() override;
++
++      private:
++        Utility::DirtyValue<int> batteryPercentRemaining {};
++        Utility::DirtyValue<bool> powerPresent {};
++        Utility::DirtyValue<bool> bleState {};
++        Utility::DirtyValue<bool> bleRadioEnabled {};
++        Utility::DirtyValue<std::chrono::time_point<std::chrono::system_clock, std::chrono::seconds>> currentDateTime {};
++        Utility::DirtyValue<uint32_t> stepCount {};
++        Utility::DirtyValue<uint8_t> heartbeat {};
++        Utility::DirtyValue<bool> heartbeatRunning {};
++        Utility::DirtyValue<bool> notificationState {};
++        using days = std::chrono::duration<int32_t, std::ratio<86400>>; // TODO: days is standard in c++20
++        Utility::DirtyValue<std::chrono::time_point<std::chrono::system_clock, days>> currentDate;
++
++        lv_obj_t* label_time;
++        lv_obj_t* label_date;
++        lv_obj_t* label_prompt_1;
++        lv_obj_t* label_prompt_2;
++        lv_obj_t* batteryValue;
++        lv_obj_t* weekdayValue;
++        lv_obj_t* monthValue;
++        lv_obj_t* heartbeatValue;
++        lv_obj_t* stepValue;
++        lv_obj_t* notificationIcon;
++        lv_obj_t* connectState;
++
++        Controllers::DateTime& dateTimeController;
++        const Controllers::Battery& batteryController;
++        const Controllers::Ble& bleController;
++        Controllers::NotificationManager& notificationManager;
++        Controllers::Settings& settingsController;
++        Controllers::HeartRateController& heartRateController;
++        Controllers::MotionController& motionController;
++
++        lv_task_t* taskRefresh;
++      };
++    }
++
++    template <>
++    struct WatchFaceTraits<WatchFace::TerminalCustom> {
++      static constexpr WatchFace watchFace = WatchFace::TerminalCustom;
++      static constexpr const char* name = "TerminalCustom";
++
++      static Screens::Screen* Create(AppControllers& controllers) {
++        return new Screens::WatchFaceTerminalCustom(controllers.dateTimeController,
++                                              controllers.batteryController,
++                                              controllers.bleController,
++                                              controllers.notificationManager,
++                                              controllers.settingsController,
++                                              controllers.heartRateController,
++                                              controllers.motionController);
++      };
++
++      static bool IsAvailable(Pinetime::Controllers::FS& /*filesystem*/) {
++        return true;
++      }
++    };
++  }
++}
