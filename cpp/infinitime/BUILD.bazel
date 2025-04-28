@@ -1,3 +1,13 @@
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+load("@infinitime-mcuboot-venv//:requirements.bzl", "all_requirements")
+load("//bazel/utils:utils.bzl", "py_binary_shell")
+
+compile_pip_requirements(
+    name = "mcuboot-requirements",
+    src = "@infinitime-mcuboot//:requirements",
+    requirements_txt = "mcuboot-requirements-lock.txt",
+)
+
 filegroup(
     name = "patches",
     srcs = glob(["patches/*"]),
@@ -19,5 +29,21 @@ genrule(
             tar -xvf $(location :src-archive) && \
             git apply $(locations :patches) && \
             tar -cf $(location :src-patched.tar) *
+    """,
+)
+
+py_binary_shell(
+    name = "mcuboot-venv-shell",
+    deps = all_requirements,
+)
+
+genrule(
+    name = "check",
+    tools = [":mcuboot-venv-shell"],
+    outs = ["check1"],
+    cmd = """
+        set -eux
+	$(location :mcuboot-venv-shell) python3 -c "import cbor2"
+	exit 1
     """,
 )

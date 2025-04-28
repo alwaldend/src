@@ -1,0 +1,5 @@
+py_library(
+    name = "shell",
+    srcs = ["main.py"],
+    visibility = ["//visibility:public"],
+)
