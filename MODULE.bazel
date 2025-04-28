@@ -1,12 +1,5 @@
-bazel_dep(name = "rules_oci", version = "2.2.6")
-bazel_dep(name = "rules_license", version = "1.0.0")
-bazel_dep(name = "bazel_skylib", version = "1.7.1")
-bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.7.1", dev_dependency = True)
-bazel_dep(name = "aspect_bazel_lib", version = "2.15.3")
-
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-
 FILEGROUP = """
 filegroup(
     name = "all",
@@ -15,11 +8,20 @@ filegroup(
 )
 """
 
+bazel_dep(name = "rules_oci", version = "2.2.6")
+bazel_dep(name = "rules_license", version = "1.0.0")
+bazel_dep(name = "bazel_skylib", version = "1.7.1")
+bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.7.1", dev_dependency = True)
+bazel_dep(name = "aspect_bazel_lib", version = "2.15.3")
+bazel_dep(name = "rules_python", version = "1.3.0")
+
+python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+python.toolchain(
+    python_version = "3.13",
+)
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+
 # infinitime deps
-infinitime_gcc_version = "10.3-2021.10"
-infinitime_nrf_sdk_version = "nRF5_SDK_15.3.0_59ac345"
-infinitime_gcc_arm_path = "gcc-arm-none-eabi-{}".format(infinitime_gcc_version)
-infinitime_machine = "arm64"
 git_repository(
     name = "infinitime",
     commit = "2105a7b63da8d4065ebfc62e0057f225358eedfc", # 1.15.0
@@ -29,21 +31,42 @@ git_repository(
     shallow_since = "1733253068 +0100",
     build_file_content = FILEGROUP 
 )
+git_repository(
+    name = "infinitime-mcuboot",
+    commit = "9c99326b9756dbcc35b524636d99ed5f3e6cb29b", # v2.1.0
+    remote = "https://github.com/mcu-tools/mcuboot.git",
+    shallow_since = "1715263432 -0600",
+    build_file_content = """
+{filegroup}
+filegroup(
+    name = "requirements", 
+    srcs = ["scripts/requirements.txt"],
+    visibility = ["//visibility:public"],
+)
+    """.format(filegroup = FILEGROUP),
+)
+pip.parse(
+    hub_name = "infinitime-mcuboot-venv",
+    python_version = "3.13",
+    requirements_lock = "//cpp/infinitime:mcuboot-requirements-lock.txt",
+)
+use_repo(pip, "infinitime-mcuboot-venv")
 http_archive(
     name = "infinitime-gcc",
-    url = "https://developer.arm.com/-/media/Files/downloads/gnu-rm/{}/{}-{}-linux.tar.bz2".format(
-      infinitime_gcc_version, 
-      infinitime_gcc_arm_path, 
-      infinitime_machine
+    url = "https://developer.arm.com/-/media/Files/downloads/gnu-rm/{version}/{name}-{version}-{platform}.tar.bz2".format(
+      version = "10.3-2021.10", 
+      machine = "arm64",
+      name = "gcc-arm-none-eabi",
+      platform = "x86_64-linux",
     ),
-    integrity = "",
+    integrity = "sha256-l9u08BmtFlC3Mvr/zIgWic7cFOK37oY9OQ4KQe8WyaM=",
     build_file_content = FILEGROUP,
 )
 http_archive(
     name = "infinitime-nrfsdk",
-    url = "https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/{}.zip".format(
-       infinitime_nrf_sdk_version 
+    url = "https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/{version}.zip".format(
+       version = "nRF5_SDK_15.3.0_59ac345",
     ),
-    integrity = "",
+    integrity = "sha256-nJMH11fRCQB/L8xOVHrBCxqf2fqkd+jb8/fhYkxIAaU=",
     build_file_content = FILEGROUP, 
 )
