@@ -38,12 +38,24 @@ py_binary_shell(
 )
 
 genrule(
-    name = "check",
-    tools = [":mcuboot-venv-shell"],
+    name = "firmware",
+    tools = [":mcuboot-venv-shell", "@infinitime-cmake//:cmake", "@infinitime-gcc//:all", "@infinitime-nrfsdk//:all"],
     outs = ["check1"],
     cmd = """
         set -eux
-	$(location :mcuboot-venv-shell) python3 -c "import cbor2"
-	exit 1
+	$(location :mcuboot-venv-shell) $(location @infinitime-cmake//:cmake) \
+            -G "Unix Makefiles" \
+            -S "$SOURCES_DIR" \
+            -B "$BUILD_DIR" \
+            -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
+            -DARM_NONE_EABI_TOOLCHAIN_PATH="$TOOLS_DIR/$GCC_ARM_PATH" \
+            -DNRF5_SDK_PATH="$TOOLS_DIR/$NRF_SDK_VER" \
+            -DBUILD_DFU=1 \
+            -DBUILD_RESOURCES=1  
+	$(location :mcuboot-venv-shell) $(location @infinitime-cmake//:cmake) \
+            --build "$BUILD_DIR" \
+            --config $BUILD_TYPE \
+            $target \
+            -- -j$(nproc)
     """,
 )
