@@ -1,4 +1,5 @@
-load("private/utils.bzl", _custom_genrule = "custom_genrule", _py_binary_shell = "py_binary_shell")
+load("private/utils.bzl", _genrule_with_wheels = "genrule_with_wheels", _py_binary_shell = "py_binary_shell", _genrule_src = "genrule_src")
 
-custom_genrule = _custom_genrule
+genrule_with_wheels = _genrule_with_wheels
 py_binary_shell = _py_binary_shell
+genrule_src = _genrule_src
