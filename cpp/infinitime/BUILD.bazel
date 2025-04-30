@@ -14,19 +14,12 @@ filegroup(
 )
 
 genrule(
-    name = "src-archive",
-    srcs = ["@infinitime//:src"],
-    outs = ["src.tar"],
-    cmd = "tar -cf $(location :src.tar) $(locations @infinitime//:src)",
-)
-
-genrule(
     name = "src-patched",
-    srcs = [":src-archive", ":patches"],
+    srcs = ["@infinitime//:src-tar", ":patches"],
     outs = ["src-patched.tar"],
     cmd = """
         set -eux && \
-            tar -xvf $(location :src-archive) && \
+            tar -xf $(location @infinitime//:src-tar) && \
             git apply $(locations :patches) && \
             tar -cf $(location :src-patched.tar) *
     """,
@@ -39,23 +32,46 @@ py_binary_shell(
 
 genrule(
     name = "firmware",
-    tools = [":mcuboot-venv-shell", "@infinitime-cmake//:cmake", "@infinitime-gcc//:all", "@infinitime-nrfsdk//:all"],
+    srcs = [":src-patched"],
+    tools = [
+        ":mcuboot-venv-shell", 
+        "@infinitime-gcc//:src-tar",
+        "@infinitime-nrfsdk//:src-tar",
+	#"@rules_foreign_cc//toolchains:cmake_toolchain",
+    ],
     outs = ["check1"],
     cmd = """
         set -eux
-	$(location :mcuboot-venv-shell) $(location @infinitime-cmake//:cmake) \
+	build_dir=$$(realpath build)
+	gcc_dir=$$(realpath gcc)
+	gcc_path="$${gcc_dir}/bin/arm-none-eabi-gcc"
+	nrfsdk_dir=$$(realpath nrfsdk)
+	src_dir=$$(realpath src)
+	cmake_dir=$$(realpath cmake)
+	cmake_path="$${cmake_dir}/bin/cmake"
+	build_type="Release" 
+	strip_components="2"
+
+	export PATH="$${PATH}:$${gcc_dir}/bin:$${cmake_dir}/bin"
+
+	mkdir -p "$${src_dir}" "$${build_dir}" "$${gcc_dir}" "$${nrfsdk_dir}" "$${cmake_dir}"
+	ls -la $(locations @rules_foreign_cc//toolchains:cmake_toolchain)
+	tar -xf $(location :src-patched) --strip-components "$${strip_components}" -C "$${src_dir}"
+	tar -xf $(location @infinitime-cmake//:src-tar) --strip-components "$${strip_components}" -C "$${cmake_dir}"
+	tar -xf $(location @infinitime-gcc//:src-tar) --strip-components "$${strip_components}" -C "$${gcc_dir}"
+	tar -xf $(location @infinitime-nrfsdk//:src-tar) --strip-components "$${strip_components}" -C "$${nrfsdk_dir}"
+	#find "$${gcc_dir}/bin" -executable
+	$(location :mcuboot-venv-shell) "$${cmake_path}" \
             -G "Unix Makefiles" \
-            -S "$SOURCES_DIR" \
-            -B "$BUILD_DIR" \
-            -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
-            -DARM_NONE_EABI_TOOLCHAIN_PATH="$TOOLS_DIR/$GCC_ARM_PATH" \
-            -DNRF5_SDK_PATH="$TOOLS_DIR/$NRF_SDK_VER" \
+            -S "$${src_dir}" \
+            -B "$${build_dir}" \
+            -DCMAKE_BUILD_TYPE="$${build_type}" \
+            -DARM_NONE_EABI_TOOLCHAIN_PATH="$${gcc_dir}" \
+            -DNRF5_SDK_PATH="$${nrfsdk_dir}" \
             -DBUILD_DFU=1 \
             -DBUILD_RESOURCES=1  
-	$(location :mcuboot-venv-shell) $(location @infinitime-cmake//:cmake) \
-            --build "$BUILD_DIR" \
-            --config $BUILD_TYPE \
-            $target \
-            -- -j$(nproc)
+	$(location :mcuboot-venv-shell) "$${cmake_path}" \
+            --build "$${build_dir}" \
+            --config "$${build_type}"
     """,
 )

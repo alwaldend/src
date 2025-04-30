@@ -1,2 +1,11 @@
 startup --output_base=out/bazel/output-base
 startup --output_user_root=out/bazel/output-user-root
+
+common --enable_platform_specific_config
+
+build --incompatible_disallow_empty_glob
+build --verbose_failures
+build --worker_sandboxing
+
+test --sandbox_default_allow_network=false
+test --test_output=errors

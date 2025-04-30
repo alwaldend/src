@@ -1,19 +1,37 @@
+module(
+    name = "src",
+    version = "0.0.0"
+)
+
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
 FILEGROUP = """
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 filegroup(
-    name = "all",
+    name = "src-filegroup",
     srcs = glob(["**"]),
+    visibility = ["//visibility:public"],
+)
+pkg_tar(
+    name = "src-tar",
+    srcs = [":src-filegroup"],
+    strip_prefix = ".",
     visibility = ["//visibility:public"],
 )
 """
 
 bazel_dep(name = "rules_oci", version = "2.2.6")
 bazel_dep(name = "rules_license", version = "1.0.0")
+bazel_dep(name = "rules_python", version = "1.3.0")
+bazel_dep(name = "rules_pkg", version = "1.0.1")
+bazel_dep(name = "rules_go", version = "0.54.0")
+bazel_dep(name = "rules_nodejs", version = "6.3.5")
 bazel_dep(name = "bazel_skylib", version = "1.7.1")
 bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.7.1", dev_dependency = True)
 bazel_dep(name = "aspect_bazel_lib", version = "2.15.3")
-bazel_dep(name = "rules_python", version = "1.3.0")
+bazel_dep(name = "gazelle", version = "0.43.0", repo_name = "bazel_gazelle")
+bazel_dep(name = "rules_foreign_cc", version = "0.14.0")
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(
@@ -21,7 +39,6 @@ python.toolchain(
 )
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 
-# infinitime deps
 git_repository(
     name = "infinitime",
     commit = "2105a7b63da8d4065ebfc62e0057f225358eedfc", # 1.15.0
@@ -56,13 +73,7 @@ http_archive(
     url = "https://github.com/Kitware/CMake/releases/download/v4.0.1/cmake-4.0.1-linux-x86_64.tar.gz",
     integrity = "sha256-1mwRwBBYjIJW7iCia0WXfNWy9K7it0LUuKNTdplA0Uc=",
     strip_prefix = "cmake-4.0.1-linux-x86_64",
-    build_file_content = """
-filegroup(
-    name = "cmake",
-    srcs = ["bin/cmake"],
-    visibility = ["//visibility:public"],
-)
-""",
+    build_file_content = FILEGROUP,
 )
 http_archive(
     name = "infinitime-gcc",
