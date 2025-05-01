@@ -28,7 +28,8 @@ genrule(
 )
 
 py_binary_shell(
-    name = "mcuboot-venv-shell",
+    name = "mcuboot-python-shell",
+    shell_type = "bash",
     deps = all_requirements,
 )
 
@@ -43,36 +44,37 @@ pkg_tar_combined(
 
 genrule(
     name = "firmware",
-    srcs = [":firmware-deps","//:node_modules/lv_font_conv/dir" ],
-    tools = [":mcuboot-venv-shell"],
-    toolchains = ["@rules_foreign_cc//toolchains:current_cmake_toolchain", "@nodejs_toolchains//:resolved_toolchain"],
-    outs = ["check1"],
+    srcs = [":firmware-deps", "//:node_modules/lv_font_conv/dir"],
+    tools = [":mcuboot-python-shell"],
+    toolchains = [
+        "@rules_foreign_cc//toolchains:current_cmake_toolchain", 
+        "@nodejs_toolchains//:resolved_toolchain",
+        "@rules_python//python:current_py_toolchain",
+    ],
+    outs = ["build/*.zip"],
     cmd = """
         set -euxo pipefail
-	ls -la $(execpath //:node_modules/lv_font_conv/dir)
-	exit 1
-        find -name "lv_font_conv" -type f -executable
-	find -name "node"
-	which node
-	exit 1
-	export BAZEL_BINDIR=$(BINDIR) 
-	exit 1
-	export PATH="$${PATH}:$${PWD}:$$(dirname "$$(realpath "$$(find -name "cmake" -executable -print -quit)")")"
 	build_type="Release" 
-	build_dir="."
+	build_dir="$${PWD}/build"
+	bin_dir="$${PWD}/bin"
+	deps_dir="$${PWD}/deps"
+	$(location :mcuboot-python-shell) which python3
+	$(location :mcuboot-python-shell) python3 -c "import cbor2"
 
-	tar -xf $(location :firmware-deps)
-	$(location :mcuboot-venv-shell) cmake \
+	export PATH="$${bin_dir}:$$(realpath $$(dirname $(NODE_PATH))):$${PATH}"
+	mkdir -p "$${bin_dir}" "$${build_dir}" "$${deps_dir}"
+        ln -s "$$(realpath $(location //:node_modules/lv_font_conv/dir)/lv_font_conv.js)" "$${bin_dir}/lv_font_conv"
+	tar -xf $(location :firmware-deps) -C "$${deps_dir}"
+	$(location :mcuboot-python-shell) $(CMAKE) \
             -G "Unix Makefiles" \
-            -S "src" \
+            -S "$${deps_dir}/src" \
             -B "$${build_dir}" \
             -DCMAKE_BUILD_TYPE="$${build_type}" \
-	    -LV_FONT_CONV=lv_font_conf.js \
-            -DARM_NONE_EABI_TOOLCHAIN_PATH="gcc" \
-            -DNRF5_SDK_PATH="nrfsdk" \
+            -DARM_NONE_EABI_TOOLCHAIN_PATH="$${deps_dir}/gcc" \
+            -DNRF5_SDK_PATH="$${deps_dir}/nrfsdk" \
             -DBUILD_DFU=1 \
             -DBUILD_RESOURCES=1  
-	$(location :mcuboot-venv-shell) cmake \
+	$(location :mcuboot-python-shell) $(CMAKE) \
             --build "$${build_dir}" \
             --config "$${build_type}"
     """,)

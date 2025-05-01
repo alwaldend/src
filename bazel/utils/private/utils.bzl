@@ -37,15 +37,19 @@ def genrule_src(name = "src", patterns = ["**"], visibility = ["//visibility:pub
         visibility = visibility,
     )
 
-def py_binary_shell(name = "", cmd = "", deps = [], **kwargs):
+def py_binary_shell(name = "", cmd = "", deps = [], shell_type = "python", **kwargs):
     """
     Create a shell with linked python deps
     """
+    actual_kwargs = {"env": {}}
+    actual_kwargs.update(kwargs)
+    actual_kwargs["env"]["BAZEL_PYTHON_SHELL_TYPE"] = shell_type 
     native.py_binary(
         name = name,
-        srcs = ["//python/bazel-shell:shell"],
+        srcs = ["//python/bazel-python-shell:shell"],
 	main = "main.py",
 	deps = deps,
+	**actual_kwargs,
     )
 
 def genrule_with_wheels(wheels = None, srcs = [], cmd = [],  **kwargs):
