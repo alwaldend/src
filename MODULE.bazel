@@ -1,13 +1,21 @@
+### module
+
 module(
     name = "src",
     version = "0.0.0"
 )
 
-http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+### variables
 
 FILEGROUP = """
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@bazel_skylib//rules/directory:directory.bzl", "directory")
+exports_files(glob(["**"]))
+directory(
+    name = "src-directory",
+    srcs = glob(["**"]),
+    visibility = ["//visibility:public"],
+)
 filegroup(
     name = "src-filegroup",
     srcs = glob(["**"]),
@@ -21,23 +29,41 @@ pkg_tar(
 )
 """
 
+### bazel_dep
+
 bazel_dep(name = "rules_oci", version = "2.2.6")
 bazel_dep(name = "rules_license", version = "1.0.0")
 bazel_dep(name = "rules_python", version = "1.3.0")
 bazel_dep(name = "rules_pkg", version = "1.0.1")
 bazel_dep(name = "rules_go", version = "0.54.0")
-bazel_dep(name = "rules_nodejs", version = "6.3.5")
+bazel_dep(name = "rules_foreign_cc", version = "0.14.0")
+bazel_dep(name = "aspect_rules_js", version = "2.3.7")
+bazel_dep(name = "rules_nodejs", version = "6.3.0")
+bazel_dep(name = "aspect_bazel_lib", version = "2.15.3")
 bazel_dep(name = "bazel_skylib", version = "1.7.1")
 bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.7.1", dev_dependency = True)
-bazel_dep(name = "aspect_bazel_lib", version = "2.15.3")
-bazel_dep(name = "gazelle", version = "0.43.0", repo_name = "bazel_gazelle")
-bazel_dep(name = "rules_foreign_cc", version = "0.14.0")
+bazel_dep(name = "gazelle", version = "0.43.0")
 
+### extensions
+
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node", dev_dependency = True)
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm", dev_dependency = True)
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
+
+### toolchains
+
 python.toolchain(
     python_version = "3.13",
 )
-pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+node.toolchain(
+    node_version = "16.14.2"
+)
+
+### infinitime 
 
 git_repository(
     name = "infinitime",
@@ -53,26 +79,6 @@ git_repository(
     commit = "9c99326b9756dbcc35b524636d99ed5f3e6cb29b", # v2.1.0
     remote = "https://github.com/mcu-tools/mcuboot.git",
     shallow_since = "1715263432 -0600",
-    build_file_content = """
-{filegroup}
-filegroup(
-    name = "requirements", 
-    srcs = ["scripts/requirements.txt"],
-    visibility = ["//visibility:public"],
-)
-    """.format(filegroup = FILEGROUP),
-)
-pip.parse(
-    hub_name = "infinitime-mcuboot-venv",
-    python_version = "3.13",
-    requirements_lock = "//cpp/infinitime:mcuboot-requirements-lock.txt",
-)
-use_repo(pip, "infinitime-mcuboot-venv")
-http_archive(
-    name = "infinitime-cmake",
-    url = "https://github.com/Kitware/CMake/releases/download/v4.0.1/cmake-4.0.1-linux-x86_64.tar.gz",
-    integrity = "sha256-1mwRwBBYjIJW7iCia0WXfNWy9K7it0LUuKNTdplA0Uc=",
-    strip_prefix = "cmake-4.0.1-linux-x86_64",
     build_file_content = FILEGROUP,
 )
 http_archive(
@@ -96,3 +102,23 @@ http_archive(
     integrity = "sha256-nJMH11fRCQB/L8xOVHrBCxqf2fqkd+jb8/fhYkxIAaU=",
     build_file_content = FILEGROUP, 
 )
+
+### locks
+
+pip.parse(
+    hub_name = "infinitime-mcuboot-venv",
+    python_version = "3.13",
+    requirements_lock = "//cpp/infinitime:mcuboot-requirements-lock.txt",
+)
+npm.npm_translate_lock(
+    name = "npm",
+    pnpm_lock = "//:pnpm-lock.yaml",
+    verify_node_modules_ignored = "//:.bazelignore",
+)
+
+### use_repo
+
+use_repo(pip, "infinitime-mcuboot-venv")
+use_repo(npm, "npm")
+use_repo(pnpm, "pnpm")
+use_repo(node, "nodejs_toolchains")

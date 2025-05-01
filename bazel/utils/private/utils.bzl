@@ -1,3 +1,23 @@
+def pkg_tar_combined(name = None, tars = [], out = "out.tar", strip_components = 2, **genrule_kwargs):
+    """
+    combine several tars into one
+    """
+    cmd = "set -eux"
+    cmd += "\n".join(["""
+        mkdir -p '{dir}'
+        tar -xf $(location {label}) --strip-components '{strip_components}' -C '{dir}'
+    """.format(strip_components = strip_components, **tar) for tar in tars])
+    cmd += """
+        tar -cf $(location {output}) {dirs}
+    """.format(output = out, dirs = " ".join(["'{}'".format(tar["dir"]) for tar in tars]))
+    native.genrule(
+        name = name,
+	srcs = [tar["label"] for tar in tars],
+	outs = [out],
+	cmd = cmd,
+        **genrule_kwargs,
+    )
+
 def genrule_src(name = "src", patterns = ["**"], visibility = ["//visibility:public"]):
     """
     Create "{name}-filegroup" filegroup and "{name}"
