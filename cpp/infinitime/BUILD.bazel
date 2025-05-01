@@ -1,10 +1,12 @@
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@infinitime-mcuboot-venv//:requirements.bzl", "all_requirements")
-load("//bazel/utils:utils.bzl", "py_binary_shell")
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_run_binary")
+load("//bazel/utils:utils.bzl", "py_binary_shell", "pkg_tar_combined")
 
 compile_pip_requirements(
     name = "mcuboot-requirements",
-    src = "@infinitime-mcuboot//:requirements",
+    src = "@infinitime-mcuboot//scripts/requirements.txt",
     requirements_txt = "mcuboot-requirements-lock.txt",
 )
 
@@ -30,48 +32,47 @@ py_binary_shell(
     deps = all_requirements,
 )
 
+pkg_tar_combined(
+    name = "firmware-deps",
+    tars = [
+        { "label": ":src-patched", "dir": "src" },
+	{ "label": "@infinitime-gcc//:src-tar", "dir": "gcc" },
+	{ "label": "@infinitime-nrfsdk//:src-tar", "dir": "nrfsdk" },
+    ],
+)
+
 genrule(
     name = "firmware",
-    srcs = [":src-patched"],
-    tools = [
-        ":mcuboot-venv-shell", 
-        "@infinitime-gcc//:src-tar",
-        "@infinitime-nrfsdk//:src-tar",
-	#"@rules_foreign_cc//toolchains:cmake_toolchain",
-    ],
+    srcs = [":firmware-deps","//:node_modules/lv_font_conv/dir" ],
+    tools = [":mcuboot-venv-shell"],
+    toolchains = ["@rules_foreign_cc//toolchains:current_cmake_toolchain", "@nodejs_toolchains//:resolved_toolchain"],
     outs = ["check1"],
     cmd = """
-        set -eux
-	build_dir=$$(realpath build)
-	gcc_dir=$$(realpath gcc)
-	gcc_path="$${gcc_dir}/bin/arm-none-eabi-gcc"
-	nrfsdk_dir=$$(realpath nrfsdk)
-	src_dir=$$(realpath src)
-	cmake_dir=$$(realpath cmake)
-	cmake_path="$${cmake_dir}/bin/cmake"
+        set -euxo pipefail
+	ls -la $(execpath //:node_modules/lv_font_conv/dir)
+	exit 1
+        find -name "lv_font_conv" -type f -executable
+	find -name "node"
+	which node
+	exit 1
+	export BAZEL_BINDIR=$(BINDIR) 
+	exit 1
+	export PATH="$${PATH}:$${PWD}:$$(dirname "$$(realpath "$$(find -name "cmake" -executable -print -quit)")")"
 	build_type="Release" 
-	strip_components="2"
+	build_dir="."
 
-	export PATH="$${PATH}:$${gcc_dir}/bin:$${cmake_dir}/bin"
-
-	mkdir -p "$${src_dir}" "$${build_dir}" "$${gcc_dir}" "$${nrfsdk_dir}" "$${cmake_dir}"
-	ls -la $(locations @rules_foreign_cc//toolchains:cmake_toolchain)
-	tar -xf $(location :src-patched) --strip-components "$${strip_components}" -C "$${src_dir}"
-	tar -xf $(location @infinitime-cmake//:src-tar) --strip-components "$${strip_components}" -C "$${cmake_dir}"
-	tar -xf $(location @infinitime-gcc//:src-tar) --strip-components "$${strip_components}" -C "$${gcc_dir}"
-	tar -xf $(location @infinitime-nrfsdk//:src-tar) --strip-components "$${strip_components}" -C "$${nrfsdk_dir}"
-	#find "$${gcc_dir}/bin" -executable
-	$(location :mcuboot-venv-shell) "$${cmake_path}" \
+	tar -xf $(location :firmware-deps)
+	$(location :mcuboot-venv-shell) cmake \
             -G "Unix Makefiles" \
-            -S "$${src_dir}" \
+            -S "src" \
             -B "$${build_dir}" \
             -DCMAKE_BUILD_TYPE="$${build_type}" \
-            -DARM_NONE_EABI_TOOLCHAIN_PATH="$${gcc_dir}" \
-            -DNRF5_SDK_PATH="$${nrfsdk_dir}" \
+	    -LV_FONT_CONV=lv_font_conf.js \
+            -DARM_NONE_EABI_TOOLCHAIN_PATH="gcc" \
+            -DNRF5_SDK_PATH="nrfsdk" \
             -DBUILD_DFU=1 \
             -DBUILD_RESOURCES=1  
-	$(location :mcuboot-venv-shell) "$${cmake_path}" \
+	$(location :mcuboot-venv-shell) cmake \
             --build "$${build_dir}" \
             --config "$${build_type}"
-    """,
-)
+    """,)

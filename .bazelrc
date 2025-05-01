@@ -1,11 +1,196 @@
+### links
+
+# aspect bazelrc: https://docs.aspect.build/guides/bazelrc
+# bazel reference: https://bazel.build/reference/command-line-reference 
+
+### imports
+
+try-import %workspace%/user.bazelrc
+
+### startup
+
+# Allow the Bazel server to check directory sources for changes. Ensures that the Bazel server
+# notices when a directory changes, if you have a directory listed in the srcs of some target.
+# Recommended when using
+# [copy_directory](https://github.com/bazel-contrib/bazel-lib/blob/main/docs/copy_directory.md) and
+# [rules_js](https://github.com/aspect-build/rules_js) since npm package are source directories
+# inputs to copy_directory actions.
+# Docs: https://bazel.build/reference/command-line-reference#flag--host_jvm_args
+startup --host_jvm_args=-DBAZEL_TRACK_SOURCE_DIRECTORIES=1
 startup --output_base=out/bazel/output-base
 startup --output_user_root=out/bazel/output-user-root
 
-common --enable_platform_specific_config
+### common
 
-build --incompatible_disallow_empty_glob
+# Set default value of `allow_empty` to `False` in `glob()`. This prevents a common mistake when
+# attempting to use `glob()` to match files in a subdirectory that is opaque to the current package
+# because it contains a BUILD file. See https://github.com/bazelbuild/bazel/issues/8195.
+# Docs: https://bazel.build/reference/command-line-reference#flag--incompatible_disallow_empty_glob
+common --incompatible_disallow_empty_glob
+# Bazel picks up host-OS-specific config lines from bazelrc files. For example, if the host OS is
+# Linux and you run bazel build, Bazel picks up lines starting with build:linux. Supported OS
+# identifiers are `linux`, `macos`, `windows`, `freebsd`, and `openbsd`. Enabling this flag is
+# equivalent to using `--config=linux` on Linux, `--config=windows` on Windows, etc.
+# Docs: https://bazel.build/reference/command-line-reference#flag--enable_platform_specific_config
+common --enable_platform_specific_config
+# Output a heap dump if an OOM is thrown during a Bazel invocation
+# (including OOMs due to `--experimental_oom_more_eagerly_threshold`).
+# The dump will be written to `<output_base>/<invocation_id>.heapdump.hprof`.
+# You may need to configure CI to capture this artifact and upload for later use.
+# Docs: https://bazel.build/reference/command-line-reference#flag--heap_dump_on_oom
+common --heap_dump_on_oom
+
+### build
+
+# Show the output files created by builds that requested more than one target. This helps users
+# locate the build outputs in more cases
+# Docs: https://bazel.build/docs/user-manual#show-result
+build --show_result=20
+# Attempt to build & test every target whose prerequisites were successfully built.
+# Docs: https://bazel.build/docs/user-manual#keep-going
+build --keep_going
+# Do not upload locally executed action results to the remote cache.
+# This should be the default for local builds so local builds cannot poison the remote cache.
+# It should be flipped to `--remote_upload_local_results` on CI
+# by using `--bazelrc=.aspect/bazelrc/ci.bazelrc`.
+# Docs: https://bazel.build/reference/command-line-reference#flag--remote_upload_local_results
+build --noremote_upload_local_results
+# Don't allow network access for build actions in the sandbox.
+# Ensures that you don't accidentally make non-hermetic actions/tests which depend on remote
+# services.
+# Developers should tag targets with `tags=["requires-network"]` to opt-out of the enforcement.
+# Docs: https://bazel.build/reference/command-line-reference#flag--sandbox_default_allow_network
+build --sandbox_default_allow_network=false
+# Use a static value for `PATH` and does not inherit `LD_LIBRARY_PATH`. Doesn't let environment
+# variables like `PATH` sneak into the build, which can cause massive cache misses when they change.
+# Use `--action_env=ENV_VARIABLE` if you want to inherit specific environment variables from the
+# client, but note that doing so can prevent cross-user caching if a shared cache is used.
+# Docs: https://bazel.build/reference/command-line-reference#flag--incompatible_strict_action_env
+build --incompatible_strict_action_env
+# Do not automatically create `__init__.py` files in the runfiles of Python targets. Fixes the wrong
+# default that comes from Google's internal monorepo by using `__init__.py` to delimit a Python
+# package. Precisely, when a `py_binary` or `py_test` target has `legacy_create_init` set to `auto (the
+# default), it is treated as false if and only if this flag is set. See
+# https://github.com/bazelbuild/bazel/issues/10076.
+# Docs: https://bazel.build/reference/command-line-reference#flag--incompatible_default_to_explicit_init_py
+build --incompatible_default_to_explicit_init_py
+# Directories used by sandboxed non-worker execution may be reused to avoid unnecessary setup costs.
+# Save time on Sandbox creation and deletion when many of the same kind of action run during the
+# build.
+# Docs: https://bazel.build/reference/command-line-reference#flag--reuse_sandbox_directories
+build --reuse_sandbox_directories
+# Do not build runfiles symlink forests for external repositories under
+# `.runfiles/wsname/external/repo` (in addition to `.runfiles/repo`). This reduces runfiles &
+# sandbox creation times & prevents accidentally depending on this feature which may flip to off by
+# default in the future. Note, some rules may fail under this flag, please file issues with the rule
+# author.
+# Docs: https://bazel.build/reference/command-line-reference#flag--legacy_external_runfiles
+build --nolegacy_external_runfiles
+# Avoid creating a runfiles tree for binaries or tests until it is needed.
+# Docs: https://bazel.build/reference/command-line-reference#flag--build_runfile_links
+# See https://github.com/bazelbuild/bazel/issues/6627
+#
+# This may break local workflows that `build` a binary target, then run the resulting program
+# outside of `bazel run`. In those cases, the script will need to call
+# `bazel build --build_runfile_links //my/binary:target` and then execute the resulting program.
+build --nobuild_runfile_links
+# Use colors to highlight output on the screen. Set to `no` if your CI does not display colors.
+# Docs: https://bazel.build/docs/user-manual#color
+build --color=yes
+# The terminal width in columns. Configure this to override the default value based on what your CI system renders.
+# Docs: https://github.com/bazelbuild/bazel/blob/1af61b21df99edc2fc66939cdf14449c2661f873/src/main/java/com/google/devtools/build/lib/runtime/UiOptions.java#L151
+build --terminal_columns=79
+# The maximum amount of time to wait for remote execution and cache calls.
+# https://bazel.build/reference/command-line-reference#flag--remote_timeout
+build --remote_timeout=3600
 build --verbose_failures
 build --worker_sandboxing
 
-test --sandbox_default_allow_network=false
+### build:ci
+
+# Announce all announces command options read from the bazelrc file(s) when starting up at the
+# beginning of each Bazel invocation. This is very useful on CI to be able to inspect what Bazel rc
+# settings are being applied on each run.
+# Docs: https://bazel.build/docs/user-manual#announce-rc
+build:ci --announce_rc
+# Add a timestamp to each message generated by Bazel specifying the time at which the message was
+# displayed.
+# Docs: https://bazel.build/docs/user-manual#show-timestamps
+build:ci --show_timestamps
+# Only show progress every 60 seconds on CI.
+# We want to find a compromise between printing often enough to show that the build isn't stuck,
+# but not so often that we produce a long log file that requires a lot of scrolling.
+# https://bazel.build/reference/command-line-reference#flag--show_progress_rate_limit
+build:ci --show_progress_rate_limit=60
+# Use cursor controls in screen output.
+# Docs: https://bazel.build/docs/user-manual#curses
+build:ci --curses=yes
+# Only download remote outputs of top level targets to the local machine.
+# Docs: https://bazel.build/reference/command-line-reference#flag--remote_download_toplevel
+build:ci --remote_download_toplevel
+# Upload locally executed action results to the remote cache.
+# Docs: https://bazel.build/reference/command-line-reference#flag--remote_upload_local_results
+build --remote_upload_local_results
+# Fall back to standalone local execution strategy if remote execution fails. If the grpc remote
+# cache connection fails, it will fail the build, add this so it falls back to the local cache.
+# Docs: https://bazel.build/reference/command-line-reference#flag--remote_local_fallback
+build --remote_local_fallback
+# Fixes builds hanging on CI that get the TCP connection closed without sending RST packets.
+# Docs: https://bazel.build/reference/command-line-reference#flag--grpc_keepalive_time
+build --grpc_keepalive_time=30s
+
+### test
+
+# Output test errors to stderr so users don't have to `cat` or open test failure log files when test
+# fail. This makes the log noisier in exchange for reducing the time-to-feedback on test failures for
+# users.
+# Docs: https://bazel.build/docs/user-manual#test-output
 test --test_output=errors
+# Warn if a test's timeout is significantly longer than the test's actual execution time.
+# Bazel's default for test_timeout is medium (5 min), but most tests should instead be short (1 min).
+# While a test's timeout should be set such that it is not flaky, a test that has a highly
+# over-generous timeout can hide real problems that crop up unexpectedly.
+# For instance, a test that normally executes in a minute or two should not have a timeout of
+# ETERNAL or LONG as these are much, much too generous.
+# Docs: https://bazel.build/docs/user-manual#test-verbose-timeout-warnings
+test --test_verbose_timeout_warnings
+# Allow exclusive tests to run in the sandbox. Fixes a bug where Bazel doesn't enable sandboxing for
+# tests with `tags=["exclusive"]`.
+# Docs: https://bazel.build/reference/command-line-reference#flag--incompatible_exclusive_test_sandboxed
+test --incompatible_exclusive_test_sandboxed
+# Always download coverage files for tests from the remote cache. By default, coverage files are not
+# downloaded on test result cache hits when --remote_download_minimal is enabled, making it impossible
+# to generate a full coverage report.
+# Docs: https://bazel.build/reference/command-line-reference#flag--experimental_fetch_all_coverage_outputs
+# detching remote cache results
+test --experimental_fetch_all_coverage_outputs
+
+### test:debug
+
+# Stream stdout/stderr output from each test in real-time.
+# Docs: https://bazel.build/docs/user-manual#test-output
+test:debug --test_output=streamed
+# Run one test at a time.
+# Docs: https://bazel.build/reference/command-line-reference#flag--test_strategy
+test:debug --test_strategy=exclusive
+# Prevent long running tests from timing out.
+# Docs: https://bazel.build/docs/user-manual#test-timeout
+test:debug --test_timeout=9999
+# Always run tests even if they have cached results.
+# Docs: https://bazel.build/docs/user-manual#cache-test-results
+test:debug --nocache_test_results
+
+### test:ci
+
+# Set this flag to enable re-tries of failed tests on CI.
+# When any test target fails, try one or more times. This applies regardless of whether the "flaky"
+# tag appears on the target definition.
+# This is a tradeoff: legitimately failing tests will take longer to report,
+# but we can paper over flaky tests that pass most of the time.
+# The alternative is to mark every flaky test with the `flaky = True` attribute, but this requires
+# the buildcop to make frequent code edits.
+# Not recommended for local builds so that the flakiness is observed during development and thus
+# is more likely to get fixed.
+# Note that when passing after the first attempt, Bazel will give a special "FLAKY" status.
+# Docs: https://bazel.build/docs/user-manual#flaky-test-attempts
+test:ci --flaky_test_attempts=2
