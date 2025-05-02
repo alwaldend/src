@@ -2,7 +2,7 @@
 
 module(
     name = "src",
-    version = "0.0.0"
+    version = "0.0.0",
 )
 
 ### variables
@@ -40,68 +40,80 @@ bazel_dep(name = "rules_foreign_cc", version = "0.14.0")
 bazel_dep(name = "aspect_rules_js", version = "2.3.7")
 bazel_dep(name = "rules_nodejs", version = "6.3.0")
 bazel_dep(name = "aspect_bazel_lib", version = "2.15.3")
-bazel_dep(name = "bazel_skylib", version = "1.7.1")
-bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.7.1", dev_dependency = True)
 bazel_dep(name = "gazelle", version = "0.43.0")
+bazel_dep(name = "bazel_skylib", version = "1.7.1")
+
+bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.7.1", dev_dependency = True)
+
 
 ### extensions
 
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
 git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
+
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
+
 node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node", dev_dependency = True)
+
 npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm", dev_dependency = True)
+
 pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
 
 ### toolchains
 
 python.toolchain(
-    python_version = "3.13",
     is_default = True,
-)
-node.toolchain(
-    node_version = "16.14.2"
+    python_version = "3.13",
 )
 
-### infinitime 
+node.toolchain(
+    node_version = "16.14.2",
+)
+
+### infinitime
 
 git_repository(
     name = "infinitime",
-    commit = "2105a7b63da8d4065ebfc62e0057f225358eedfc", # 1.15.0
-    init_submodules = True,
-    recursive_init_submodules = True,
+    commit = "2105a7b63da8d4065ebfc62e0057f225358eedfc",  # 1.15.0
     remote = "https://github.com/InfiniTimeOrg/InfiniTime.git",
     shallow_since = "1733253068 +0100",
-    build_file_content = FILEGROUP 
+    init_submodules = True,
+    recursive_init_submodules = True,
+    build_file_content = FILEGROUP,
 )
+
 git_repository(
     name = "infinitime-mcuboot",
-    commit = "9c99326b9756dbcc35b524636d99ed5f3e6cb29b", # v2.1.0
+    build_file_content = FILEGROUP,
+    commit = "9c99326b9756dbcc35b524636d99ed5f3e6cb29b",  # v2.1.0
     remote = "https://github.com/mcu-tools/mcuboot.git",
     shallow_since = "1715263432 -0600",
-    build_file_content = FILEGROUP,
 )
+
 http_archive(
     name = "infinitime-gcc",
-    url = "https://developer.arm.com/-/media/Files/downloads/gnu-rm/{version}/{name}-{version}-{platform}.tar.bz2".format(
-      version = "10.3-2021.10", 
-      machine = "arm64",
-      name = "gcc-arm-none-eabi",
-      platform = "x86_64-linux",
-    ),
-    strip_prefix = "gcc-arm-none-eabi-10.3-2021.10",
-    integrity = "sha256-l9u08BmtFlC3Mvr/zIgWic7cFOK37oY9OQ4KQe8WyaM=",
     build_file_content = FILEGROUP,
+    integrity = "sha256-l9u08BmtFlC3Mvr/zIgWic7cFOK37oY9OQ4KQe8WyaM=",
+    strip_prefix = "gcc-arm-none-eabi-10.3-2021.10",
+    url = "https://developer.arm.com/-/media/Files/downloads/gnu-rm/{version}/{name}-{version}-{platform}.tar.bz2".format(
+        name = "gcc-arm-none-eabi",
+        machine = "arm64",
+        platform = "x86_64-linux",
+        version = "10.3-2021.10",
+    ),
 )
+
 http_archive(
     name = "infinitime-nrfsdk",
-    url = "https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/{version}.zip".format(
-       version = "nRF5_SDK_15.3.0_59ac345",
-    ),
-    strip_prefix = "nRF5_SDK_15.3.0_59ac345",
+    build_file_content = FILEGROUP,
     integrity = "sha256-nJMH11fRCQB/L8xOVHrBCxqf2fqkd+jb8/fhYkxIAaU=",
-    build_file_content = FILEGROUP, 
+    strip_prefix = "nRF5_SDK_15.3.0_59ac345",
+    url = "https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/{version}.zip".format(
+        version = "nRF5_SDK_15.3.0_59ac345",
+    ),
 )
 
 ### locks
@@ -111,6 +123,7 @@ pip.parse(
     python_version = "3.13",
     requirements_lock = "//cpp/infinitime:mcuboot-requirements-lock.txt",
 )
+
 npm.npm_translate_lock(
     name = "npm",
     pnpm_lock = "//:pnpm-lock.yaml",
@@ -120,7 +133,11 @@ npm.npm_translate_lock(
 ### use_repo
 
 use_repo(python)
+
 use_repo(pip, "infinitime-mcuboot-venv")
+
 use_repo(npm, "npm")
+
 use_repo(pnpm, "pnpm")
+
 use_repo(node, "nodejs_toolchains")
