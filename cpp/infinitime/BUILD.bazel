@@ -1,30 +1,14 @@
-load("@rules_python//python:pip.bzl", "compile_pip_requirements")
-load("@infinitime-mcuboot-venv//:requirements.bzl", "all_requirements")
-load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_run_binary")
-load("//bazel/utils:utils.bzl", "py_binary_shell", "pkg_tar_combined")
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load("@bazel_skylib//rules/directory:directory.bzl", "directory")
+load("@infinitime-mcuboot-venv//:requirements.bzl", "all_requirements")
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+load("//bazel/utils:utils.bzl", "pkg_tar_combined", "py_binary_shell")
 
 compile_pip_requirements(
     name = "mcuboot-requirements",
-    src = "@infinitime-mcuboot//scripts/requirements.txt",
+    src = "@infinitime-mcuboot//:scripts/requirements.txt",
     requirements_txt = "mcuboot-requirements-lock.txt",
-)
-
-filegroup(
-    name = "patches",
-    srcs = glob(["patches/*"]),
-)
-
-genrule(
-    name = "src-patched",
-    srcs = ["@infinitime//:src-tar", ":patches"],
-    outs = ["src-patched.tar"],
-    cmd = """
-        set -eux && \
-            tar -xf $(location @infinitime//:src-tar) && \
-            git apply $(locations :patches) && \
-            tar -cf $(location :src-patched.tar) *
-    """,
 )
 
 py_binary_shell(
@@ -36,20 +20,26 @@ py_binary_shell(
 pkg_tar_combined(
     name = "firmware-deps",
     tars = [
-        { "label": ":src-patched", "dir": "src" },
-	{ "label": "@infinitime-gcc//:src-tar", "dir": "gcc" },
-	{ "label": "@infinitime-nrfsdk//:src-tar", "dir": "nrfsdk" },
+        {
+            "label": "@infinitime//:src-tar",
+            "dir": "src",
+        },
+        {
+            "label": "@infinitime-gcc//:src-tar",
+            "dir": "gcc",
+        },
+        {
+            "label": "@infinitime-nrfsdk//:src-tar",
+            "dir": "nrfsdk",
+        },
     ],
 )
 
 genrule(
     name = "firmware",
-    srcs = [":firmware-deps", "//:node_modules/lv_font_conv/dir"],
-    tools = [":mcuboot-python-shell"],
-    toolchains = [
-        "@rules_foreign_cc//toolchains:current_cmake_toolchain", 
-        "@nodejs_toolchains//:resolved_toolchain",
-        "@rules_python//python:current_py_toolchain",
+    srcs = [
+        ":firmware-deps",
+        "//:node-modules/lv_font_conv/dir",
     ],
     outs = ["build/*.zip"],
     cmd = """
@@ -58,7 +48,7 @@ genrule(
 	build_dir="$${PWD}/build"
 	bin_dir="$${PWD}/bin"
 	deps_dir="$${PWD}/deps"
-	$(location :mcuboot-python-shell) which python3
+	"$${PWD}/$(location :mcuboot-python-shell)" which python3
 	$(location :mcuboot-python-shell) python3 -c "import cbor2"
 
 	export PATH="$${bin_dir}:$$(realpath $$(dirname $(NODE_PATH))):$${PATH}"
@@ -77,4 +67,11 @@ genrule(
 	$(location :mcuboot-python-shell) $(CMAKE) \
             --build "$${build_dir}" \
             --config "$${build_type}"
-    """,)
+    """,
+    toolchains = [
+        "@rules_foreign_cc//toolchains:current_cmake_toolchain",
+        "@nodejs_toolchains//:resolved_toolchain",
+        "@rules_python//python:current_py_toolchain",
+    ],
+    tools = [":mcuboot-python-shell"],
+)

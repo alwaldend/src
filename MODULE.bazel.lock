@@ -186,7 +186,7 @@
   "moduleExtensions": {
     "@@aspect_rules_js+//npm:extensions.bzl%pnpm": {
       "general": {
-        "bzlTransitiveDigest": "SXxnv1nPqX0nhpzsA/3HtQQ3mgKxOujebdSMvwRFFfg=",
+        "bzlTransitiveDigest": "Gs8GHDX805Iz1az5MO9IGY7WpZtPBcsjeob/fBeNgtU=",
         "usagesDigest": "z+uco8Z6XBy0MtCOy2rg8V+cqgIlsH2y4AaJA4Qiygk=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -301,10 +301,10 @@
     },
     "@@pybind11_bazel+//:python_configure.bzl%extension": {
       "general": {
-        "bzlTransitiveDigest": "d4N/SZrl3ONcmzE98rcV0Fsro0iUbjNQFTIiLiGuH+k=",
+        "bzlTransitiveDigest": "fBIaT15NUpVJvQxK1IZoRSQ9YUJ3Tc0LQ34eaB/+UvY=",
         "usagesDigest": "fycyB39YnXIJkfWCIXLUKJMZzANcuLy9ZE73hRucjFk=",
         "recordedFileInputs": {
-          "@@pybind11_bazel+//MODULE.bazel": "88af1c246226d87e65be78ed49ecd1e6f5e98648558c14ce99176da041dc378e"
+          "@@//out/bazel/output-base/external/pybind11_bazel+/MODULE.bazel": "88af1c246226d87e65be78ed49ecd1e6f5e98648558c14ce99176da041dc378e"
         },
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -1147,12 +1147,12 @@
         "bzlTransitiveDigest": "WD3u0/btO0mN3L3Kp2VR1KscvUFiaaOO1xN8BtxQ0x8=",
         "usagesDigest": "tP/IyeR5OJvH7gMUQKXVDSeagMMwesmRGaNksacYxzg=",
         "recordedFileInputs": {
-          "@@//cpp/infinitime/mcuboot-requirements-lock.txt": "19e36c168ddc8dedc65d5dd89a4cb6d63abf07e2ad490ec936bfc0ada61d3b2b",
-          "@@//out/bazel/output-base/external/protobuf+/python/requirements.txt": "983be60d3cec4b319dcab6d48aeb3f5b2f7c3350f26b3a9e97486c37967c73c5",
-          "@@//out/bazel/output-base/external/rules_fuzzing+/fuzzing/requirements.txt": "ab04664be026b632a0d2a2446c4f65982b7654f5b6851d2f9d399a19b7242a5b",
-          "@@//out/bazel/output-base/external/rules_python+/tools/publish/requirements_darwin.txt": "095d4a4f3d639dce831cd493367631cd51b53665292ab20194bac2c0c6458fa8",
-          "@@//out/bazel/output-base/external/rules_python+/tools/publish/requirements_linux.txt": "d576e0d8542df61396a9b38deeaa183c24135ed5e8e73bb9622f298f2671811e",
-          "@@//out/bazel/output-base/external/rules_python+/tools/publish/requirements_windows.txt": "d18538a3982beab378fd5687f4db33162ee1ece69801f9a451661b1b64286b76"
+          "@@//cpp/infinitime/mcuboot-requirements-lock.txt": "b17bb96042a94eb2bdb7aa9f3cb3aaa560cd42090dba1d5f2ef84d43c41309c2",
+          "@@protobuf+//python/requirements.txt": "983be60d3cec4b319dcab6d48aeb3f5b2f7c3350f26b3a9e97486c37967c73c5",
+          "@@rules_fuzzing+//fuzzing/requirements.txt": "ab04664be026b632a0d2a2446c4f65982b7654f5b6851d2f9d399a19b7242a5b",
+          "@@rules_python+//tools/publish/requirements_darwin.txt": "095d4a4f3d639dce831cd493367631cd51b53665292ab20194bac2c0c6458fa8",
+          "@@rules_python+//tools/publish/requirements_linux.txt": "d576e0d8542df61396a9b38deeaa183c24135ed5e8e73bb9622f298f2671811e",
+          "@@rules_python+//tools/publish/requirements_windows.txt": "d18538a3982beab378fd5687f4db33162ee1ece69801f9a451661b1b64286b76"
         },
         "recordedDirentsInputs": {},
         "envVariables": {

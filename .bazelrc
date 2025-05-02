@@ -17,8 +17,9 @@ try-import %workspace%/user.bazelrc
 # inputs to copy_directory actions.
 # Docs: https://bazel.build/reference/command-line-reference#flag--host_jvm_args
 startup --host_jvm_args=-DBAZEL_TRACK_SOURCE_DIRECTORIES=1
-startup --output_base=out/bazel/output-base
-startup --output_user_root=out/bazel/output-user-root
+startup --windows_enable_symlinks
+# startup --output_base=out/bazel/output-base
+# startup --output_user_root=out/bazel/output-user-root
 
 ### common
 
@@ -78,7 +79,7 @@ build --incompatible_default_to_explicit_init_py
 # Save time on Sandbox creation and deletion when many of the same kind of action run during the
 # build.
 # Docs: https://bazel.build/reference/command-line-reference#flag--reuse_sandbox_directories
-build --reuse_sandbox_directories
+#build --reuse_sandbox_directories
 # Do not build runfiles symlink forests for external repositories under
 # `.runfiles/wsname/external/repo` (in addition to `.runfiles/repo`). This reduces runfiles &
 # sandbox creation times & prevents accidentally depending on this feature which may flip to off by

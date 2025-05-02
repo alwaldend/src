@@ -1,7 +1,9 @@
-load("@rules_license//rules:license.bzl", "license")
 load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@rules_license//rules:license.bzl", "license")
 
-npm_link_all_packages(name = "node_modules")
+npm_link_all_packages(
+    name = "node_modules",
+)
 
 license(
     name = "license",
