@@ -1,5 +1,15 @@
+load("@rules_python//python:py_library.bzl", "py_library")
+load("@rules_python//python:py_binary.bzl", "py_binary")
+
 py_library(
-    name = "shell",
-    srcs = ["main.py"],
+    name = "library",
+    srcs = ["bazel_python_shell.py"],
+    visibility = ["//visibility:public"],
+)
+
+py_binary(
+    name = "binary",
+    srcs = [":library"],
+    main = "bazel_python_shell.py",
     visibility = ["//visibility:public"],
 )
