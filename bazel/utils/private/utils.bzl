@@ -1,5 +1,40 @@
 load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+
+def compile_pip_requirements_combined(name = "", srcs = [], **compile_kwargs):
+    """
+    Compile seveal requirement files
+
+    Args:
+        name: name
+        srcs: requirement files to combine
+        compile_kwargs: kwargs for `compile_pip_requirements`
+    """
+    combine_files(
+        name = "{}-src".format(name),
+        srcs = srcs,
+    )
+    compile_pip_requirements(
+        name = name,
+        src = ":{}-src".format(name),
+        **compile_kwargs,
+    )
+
+def combine_files(name = "", srcs = [], **genrule_kwargs):
+    """
+    Combine several files into one
+    Args:
+        name: target name
+        srcs: sources to combine
+    """
+    native.genrule(
+        name = name,
+        srcs = srcs,
+        outs = ["{}-output".format(name)],
+        cmd = "cat $(SRCS) >$(@)",
+        **genrule_kwargs,
+)
 
 def apply_patches(name = "patched", src = "", patches = "", visibility = ["//visibility:public"]):
     """
