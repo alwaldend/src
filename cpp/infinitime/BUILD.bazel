@@ -10,7 +10,10 @@ load("//bazel/utils:utils.bzl", "pkg_tar_combined", "py_binary_shell")
 
 genrule(
     name = "requirements-src",
-    srcs = ["requirements.txt", "@infinitime//:requirements"],
+    srcs = ["requirements.txt"] + select({
+        "//:use-local-repos-config": ["@infinitime-src-local//:requirements"],
+        "//conditions:default": ["@infinitime-src//:requirements"],
+    }),
     outs = ["requirements-combined.txt"],
     cmd = "cat $(SRCS) >$(@)",
 )
@@ -29,15 +32,35 @@ py_console_script_binary(
 
 py_binary_shell(
     name = "python-shell",
-    shell_type = "python",
-    deps = all_requirements + ["@infinitime//:imgtool"],
+    deps = all_requirements + select({
+        "//:use-local-repos-config": ["@infinitime-src-local//:imgtool"],
+        "//conditions:default": ["@infinitime-src//:imgtool"],
+    }),
 )
 
 pkg_tar_combined(
-    name = "firmware-deps",
+    name = "firmware-deps-remote",
     tars = [
         {
-            "label": "@infinitime//:src-tar",
+            "label": "@infinitime-src//:src-tar",
+            "dir": "src",
+        },
+        {
+            "label": "@infinitime-gcc//:src-tar",
+            "dir": "gcc",
+        },
+        {
+            "label": "@infinitime-nrfsdk//:src-tar",
+            "dir": "nrfsdk",
+        },
+    ],
+)
+
+pkg_tar_combined(
+    name = "firmware-deps-local",
+    tars = [
+        {
+            "label": "@infinitime-src-local//:src-tar",
             "dir": "src",
         },
         {
@@ -52,18 +75,11 @@ pkg_tar_combined(
 )
 
 genrule(
-    name = "check",
-    tools = [":python-shell-pure"],
-    outs = ["check.txt"],
-    cmd = "$(location :python-shell-pure) python3 -c 'import cbor2; print(cbor2)'",
-    visibility = ["//visibility:public"]
-)
-
-genrule(
     name = "firmware",
-    srcs = [
-        ":firmware-deps",
-    ],
+    srcs = select({
+        "//:use-local-repos-config": [":firmware-deps-local"],
+        "//conditions:default": [":firmware-deps-remote"],
+    }),
     tools = [
         ":python-shell",
         ":adafruit-nrfutil",
@@ -74,14 +90,14 @@ genrule(
         "@nodejs_toolchains//:resolved_toolchain",
         "@rules_python//python:current_py_toolchain",
     ],
-    outs = ["pinetime-mcuboot-app-dfu.zip"],
+    outs = ["firmware.tar"],
     cmd = """
-        set -eux
+        set -euxo pipefail
 	build_type="Release" 
-	build_dir="$${PWD}/build"
+	build_dir="/tmp/bazel/$$(whoami)/cpp/infinitime/firmware/build"
+	deps_dir="/tmp/bazel/$$(whoami)/cpp/infinitime/firmware/deps"
 	bin_dir="$${PWD}/bin"
-	deps_dir="$${PWD}/deps"
-        src_dir="$${deps_dir}/src"
+	src_dir="$${deps_dir}/src"
         gcc_dir="$${deps_dir}/gcc"
         nrfsdk_dir="$${deps_dir}/nrfsdk"
         export BAZEL_PYTHON_SHELL_TYPE=bash
@@ -90,7 +106,8 @@ genrule(
 	mkdir -p "$${bin_dir}" "$${build_dir}" "$${deps_dir}"
         ln -s "$${PWD}/$(execpath //:node_modules/lv_font_conv/dir)/lv_font_conv.js" "$${bin_dir}/lv_font_conv"
         ln -s "$${PWD}/$(execpath :adafruit-nrfutil)" "$${bin_dir}/adafruit-nrfutil"
-	tar -xf $(location :firmware-deps) -C "$${deps_dir}"
+        rm -rf "$${deps_dir}"/*
+	tar -xf "$$(find -name "firmware-deps-*" -print -quit)" -C "$${deps_dir}"
 	$(location :python-shell) $(CMAKE) \
             -G "Unix Makefiles" \
             -S "$${src_dir}" \
@@ -104,6 +121,8 @@ genrule(
             --build "$${build_dir}" \
             --config "$${build_type}" \
             --target pinetime-mcuboot-app
-        find -name "pinetime-mcuboot-app-dfu-*.zip" -exec mv "{}" "$(@)" ";"
+        mkdir output
+        find "$${build_dir}" -name "*.zip" -exec mv "{}" "output/" ";"
+        tar -cf "$(@)" -C output .
     """,
 )

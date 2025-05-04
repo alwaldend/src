@@ -1,8 +1,21 @@
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@rules_license//rules:license.bzl", "license")
+load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
 
 npm_link_all_packages(
     name = "node_modules",
+)
+
+config_setting(
+    name = "use-local-repos-config",
+    flag_values = {
+        ":use-local-repos": "true"
+    }
+)
+
+bool_flag(
+    name = "use-local-repos",
+    build_setting_default = False,
 )
 
 license(

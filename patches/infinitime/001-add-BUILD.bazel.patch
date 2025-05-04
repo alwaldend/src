@@ -1,0 +1,41 @@
+diff --git a/BUILD.bazel b/BUILD.bazel
+new file mode 100644
+index 00000000..c6e40cb0
+--- /dev/null
++++ b/BUILD.bazel
+@@ -0,0 +1,35 @@
++load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
++load("@rules_python//python:py_library.bzl", "py_library")
++load("@bazel_skylib//rules/directory:directory.bzl", "directory")
++
++directory(
++    name = "src-directory",
++    srcs = glob(["**"]),
++    visibility = ["//visibility:public"],
++)
++
++filegroup(
++    name = "src-filegroup",
++    srcs = glob(["**"]),
++    visibility = ["//visibility:public"],
++)
++
++pkg_tar(
++    name = "src-tar",
++    srcs = [":src-filegroup"],
++    strip_prefix = ".",
++    visibility = ["//visibility:public"],
++)
++
++filegroup(
++    name = "requirements",
++    srcs = ["tools/mcuboot/requirements.txt"],
++    visibility = ["//visibility:public"],
++)
++
++py_library(
++    name = "imgtool",
++    srcs = glob(["tools/mcuboot/imgtool/**/*.py"]),
++    imports = ["tools/mcuboot", "tools/mcuboot/imgtool"],
++    visibility = ["//visibility:public"],
++)

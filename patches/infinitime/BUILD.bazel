@@ -3,9 +3,11 @@ load("//bazel/utils:utils.bzl", "apply_patches")
 filegroup(
     name = "patches",
     srcs = glob(["*.patch"]),
+    visibility = ["//visibility:public"],
 )
 
 apply_patches(
    src = "@infinitime//:src-tar",
-   patches = ":patches"
+   patches = ":patches",
+   visibility = ["//visibility:public"],
 )
