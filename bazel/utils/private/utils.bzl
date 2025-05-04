@@ -14,7 +14,7 @@ def apply_patches(name = "patched", src = "", patches = "", visibility = ["//vis
     native.genrule(
         name = name,
         srcs = [src, patches],
-        outs = ["patched.tar"],
+        outs = ["{}.tar".format(name)],
         visibility = visibility,
         cmd = """
             set -eux
@@ -28,11 +28,12 @@ def apply_patches(name = "patched", src = "", patches = "", visibility = ["//vis
         """.format(src = src, patches = patches),
 )
 
-def pkg_tar_combined(name = None, tars = [], out = "out.tar", strip_components = 2, **genrule_kwargs):
+def pkg_tar_combined(name = None, tars = [], strip_components = 2, **genrule_kwargs):
     """
     combine several tars into one
     """
     cmd = "set -eux"
+    out = "{}.tar".format(name)
     cmd += "\n".join(["""
         mkdir -p '{dir}'
         tar -xf $(location {label}) --strip-components '{strip_components}' -C '{dir}'
@@ -62,7 +63,7 @@ def genrule_src(name = "src", patterns = ["**"], visibility = ["//visibility:pub
     native.genrule(
         name = name,
         srcs = native.glob(patterns),
-        outs = ["src.tar"],
+        outs = ["{}.tar".format(name)],
         cmd = "tar -cf ${@} ${<}",
         visibility = visibility,
     )

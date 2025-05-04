@@ -1,0 +1,19 @@
+diff --git a/src/components/datetime/DateTimeController.cpp b/src/components/datetime/DateTimeController.cpp
+index d439821b..19109533 100644
+--- a/src/components/datetime/DateTimeController.cpp
++++ b/src/components/datetime/DateTimeController.cpp
+@@ -117,12 +117,12 @@ void DateTime::UpdateTime(uint32_t systickCounter, bool forceUpdate) {
+     isHourAlreadyNotified = false;
+   }
+ 
+-  if ((minute == 0 || minute == 30) && !isHalfHourAlreadyNotified) {
++  if ((minute == 0 || minute == 20 || minute == 40) && !isHalfHourAlreadyNotified) {
+     isHalfHourAlreadyNotified = true;
+     if (systemTask != nullptr) {
+       systemTask->PushMessage(System::Messages::OnNewHalfHour);
+     }
+-  } else if (minute != 0 && minute != 30) {
++  } else if (minute != 0 && minute != 20 && minute != 40) {
+     isHalfHourAlreadyNotified = false;
+   }
+ 

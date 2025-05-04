@@ -55,6 +55,8 @@ http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "ht
 
 git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
+local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "local_repository")
+
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
@@ -79,26 +81,23 @@ node.toolchain(
 ### infinitime
 
 git_repository(
-    name = "infinitime",
+    name = "infinitime-src",
     commit = "2105a7b63da8d4065ebfc62e0057f225358eedfc",  # 1.15.0
     remote = "https://github.com/InfiniTimeOrg/InfiniTime.git",
     shallow_since = "1733253068 +0100",
     init_submodules = True,
     recursive_init_submodules = True,
-    build_file_content = FILEGROUP + """
-load("@rules_python//python:py_library.bzl", "py_library")
-filegroup(
-    name = "requirements",
-    srcs = ["tools/mcuboot/requirements.txt"],
-    visibility = ["//visibility:public"],
+    patches = [
+        "//patches/infinitime:001-add-BUILD.bazel.patch",
+        "//patches/infinitime:002-modify-30-minute-chimes-interval.patch",
+        "//patches/infinitime:003-add-WatchFaceTerminalCustom.patch",
+    ],
+    patch_args = ["-p1"],
 )
-py_library(
-    name = "imgtool",
-    srcs = glob(["tools/mcuboot/imgtool/**/*.py"]),
-    imports = ["tools/mcuboot", "tools/mcuboot/imgtool"],
-    visibility = ["//visibility:public"],
-)
-""",
+
+local_repository(
+    name = "infinitime-src-local",
+    path = "../../infinitimeorg/infinitime" 
 )
 
 http_archive(
