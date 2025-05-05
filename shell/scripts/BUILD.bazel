@@ -1,0 +1,25 @@
+load("//bazel/utils:utils.bzl", "sh_script")
+
+sh_script(name = "readme-tree")
+
+sh_script(name = "bashrc")
+
+sh_script(name = "functions")
+
+sh_script(name = "tmux-display-popup")
+
+sh_script(name = "tmux-kill-popup-sessions")
+
+sh_script(name = "tmux-new-window")
+
+sh_script(name = "tmux-start")
+
+sh_script(name = "tmux-toggle-popup")
+
+sh_script(name = "embed-archive-into-script")
+
+sh_script(name = "stow-install")
+
+sh_script(name = "git-add-commits-from-separate-repo")
+
+sh_script(name = "git-select-config")
