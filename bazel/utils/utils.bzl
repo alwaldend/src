@@ -7,6 +7,7 @@ load(
     _apply_patches = "apply_patches",
     _combine_files = "combine_files",
     _compile_pip_requirements_combined = "compile_pip_requirements_combined",
+    _sh_script = "sh_script",
 )
 
 genrule_with_wheels = _genrule_with_wheels
@@ -16,3 +17,4 @@ pkg_tar_combined = _pkg_tar_combined
 apply_patches = _apply_patches
 combine_files = _combine_files
 compile_pip_requirements_combined = _compile_pip_requirements_combined
+sh_script = _sh_script

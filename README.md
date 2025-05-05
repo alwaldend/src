@@ -8,7 +8,22 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 ## Contents
 
-- [collections](./collections): [Ansible collections](https://docs.ansible.com/ansible/latest/collections_guide/index.html)
-- [vial](./vial): [Vial configs](https://get.vial.today/)
-- [cpp](./cpp): C++ projects
-- [patches](./patches): git patches
+- [bazel](./bazel)
+  - [utils](./bazel/utils)
+    - [private](./bazel/utils/private)
+- [cpp](./cpp)
+  - [infinitime](./cpp/infinitime)
+- [drawio](./drawio)
+  - [diagrams](./drawio/diagrams)
+- [patches](./patches)
+  - [infinitime](./patches/infinitime)
+- [python](./python)
+  - [bazel-python-shell](./python/bazel-python-shell)
+- [shell](./shell)
+  - [scripts](./shell/scripts)
+- [vial](./vial)
+  - [keyboards](./vial/keyboards)
+
+## Setup
+
+- Install bazel: https://bazel.build/install/bazelisk

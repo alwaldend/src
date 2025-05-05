@@ -114,7 +114,7 @@ genrule(
             --config "$${build_type}" \
             --target pinetime-mcuboot-app
         mkdir output
-        find "$${build_dir}" -name "*.zip" -exec mv "{}" "output/" ";"
+        find "$${build_dir}" -name "*.zip" -exec cp "{}" "output/" ";"
         tar -cf "$(@)" -C output .
     """,
 )
