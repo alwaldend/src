@@ -25,3 +25,37 @@ sh_script(name = "git-add-commits-from-separate-repo")
 sh_script(name = "git-select-config")
 
 sh_script(name = "bazel-stamp")
+
+sh_script(name = "build-install-script")
+
+sh_script(name = "bazel")
+
+genrule(
+    name = "build-install-scripts",
+    srcs = [
+        ":readme-tree-lib",
+        ":bashrc-lib",
+        ":functions-lib",
+        ":tmux-display-popup-lib",
+        ":tmux-kill-popup-sessions-lib",
+        ":tmux-new-window-lib",
+        ":tmux-start-lib",
+        ":tmux-toggle-popup-lib",
+        ":embed-archive-into-script-lib",
+        ":stow-install-lib",
+        ":git-add-commits-from-separate-repo-lib",
+        ":git-select-config-lib",
+        ":bazel-stamp-lib",
+        ":bazel",
+    ],
+    tools = ["build-install-script-lib"],
+    outs = ["install-scripts.sh"],
+    cmd = """
+        $(execpath build-install-script-lib) $(@) $(SRCS)
+    """
+)
+
+sh_binary(
+    name = "install-scripts",
+    srcs = [":install-scripts.sh"],
+)
