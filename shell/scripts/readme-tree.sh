@@ -1,16 +1,26 @@
 #!/usr/bin/env sh
 set -o errexit -o nounset -o xtrace
 
+if [ -n "${1:-}" ]; then
+    cd "${1}"
+fi
 files=$(git ls-files | grep README.md)
-
-echo "$(tree -aifndI ".git" --noreport --filesfirst --sort name --gitignore . "${@}")" |
-    awk -F " ->" '{ printf $1 "\n" }' | 
-    awk -F "/" '
-        $0 != "." {
-            for (i = 0; i < NF - 2; i++) {
-                printf "  "
+for file in ${files}; do
+    if [ "${file}" = "README.md" ]; then
+       continue
+    fi
+    title=$(awk '/title: / { $1=""; print $0 }' "${file}")
+    if [ -n "${title}" ]; then
+       title=":${title}"
+    fi
+    echo "$(dirname ${file})" | \
+        awk -v title="${title}" -F "/" '
+            $0 != "." {
+                for (i = 0; i < NF - 1; i++) {
+                    printf "  "
+                }
+                printf "- " "[" $NF "]" "(" $0 ")" title
+                printf "\n"
             }
-            printf "- " "[" $NF "]" "(" $0 ")"
-            printf "\n"
-        }
-    '
+        '
+done

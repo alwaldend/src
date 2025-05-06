@@ -1,0 +1,15 @@
+load("@rules_python//python:py_library.bzl", "py_library")
+load("@rules_python//python:py_binary.bzl", "py_binary")
+
+py_library(
+    name = "replace-section-lib",
+    srcs = ["replace_section.py"],
+    visibility = ["//visibility:public"],
+)
+
+py_binary(
+    name = "replace-section",
+    srcs = [":replace-section-lib"],
+    main = "replace_section.py",
+    visibility = ["//visibility:public"],
+)
