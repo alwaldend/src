@@ -23,3 +23,5 @@ sh_script(name = "stow-install")
 sh_script(name = "git-add-commits-from-separate-repo")
 
 sh_script(name = "git-select-config")
+
+sh_script(name = "bazel-stamp")

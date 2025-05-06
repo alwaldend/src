@@ -171,6 +171,12 @@ build --remote_local_fallback
 # Docs: https://bazel.build/reference/command-line-reference#flag--grpc_keepalive_time
 build --grpc_keepalive_time=30s
 
+### build:release
+
+# stamping: https://github.com/bazel-contrib/bazel-lib/blob/main/docs/stamping.md
+build:release --stamp
+build:release --workspace_status_command=shell/scripts/bazel-stamp.sh
+
 ### test
 
 # Output test errors to stderr so users don't have to `cat` or open test failure log files when test
