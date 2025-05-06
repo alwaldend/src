@@ -1,0 +1,136 @@
+{
+    "telemetry.telemetryLevel": "off",
+    "keyboard.dispatch": "code",
+    "editor.inlayHints.enabled": "on",
+    "window.openFilesInNewWindow": "off",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": true,
+    "editor.fontFamily": "Source Code Pro",
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true,
+    "editor.renderWhitespace": "boundary",
+    "editor.trimAutoWhitespace": true,
+    "editor.quickSuggestions": {
+        "comments": "on",
+        "strings": "on",
+        "other": "on"
+    },
+    "editor.quickSuggestionsDelay": 0,
+    "editor.minimap.enabled": false,
+    "editor.autoClosingBrackets": "always",
+    "editor.autoClosingQuotes": "always",
+    "editor.fontSize": 22,
+    "editor.rulers": [
+        80
+    ],
+    "editor.accessibilitySupport": "off",
+    "editor.suggestSelection": "first",
+    "editor.formatOnPaste": true,
+    "editor.maxTokenizationLineLength": 999999,
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.editor.decorations.badges": true,
+    "workbench.editor.labelFormat": "long",
+    "workbench.editor.limit.value": 999,
+    "workbench.panel.opensMaximized": "never",
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "explorer.incrementalNaming": "smart",
+    "explorer.openEditors.visible": 999,
+    "files.trimTrailingWhitespace": true,
+    "zenMode.centerLayout": false,
+    "zenMode.silentNotifications": false,
+    "json.maxItemsComputed": 999999,
+    "shellcheck.exclude": [
+        "SC1091",
+        "SC1090",
+        "SC2174",
+        "SC2001",
+	"SC2028"
+    ],
+    "prettier.bracketSpacing": true,
+    "prettier.useTabs": false,
+    "prettier.enable": true,
+    "prettier.printWidth": 79,
+    "editor.tabCompletion": "on",
+    "editor.dragAndDrop": false,
+    "editor.detectIndentation": false,
+    "editor.minimap.renderCharacters": true,
+    "editor.smoothScrolling": true,
+    "editor.suggest.insertMode": "replace",
+    "editor.suggest.showStatusBar": true,
+    "files.trimFinalNewlines": true,
+    "workbench.tree.renderIndentGuides": "always",
+    "explorer.autoReveal": "focusNoScroll",
+    "editor.cursorStyle": "block",
+    "editor.cursorBlinking": "solid",
+    "redhat.telemetry.enabled": false,
+    "git.enableSmartCommit": true,
+    "gopls": {
+        "ui.semanticTokens": true,
+        "formatting.gofumpt": true
+    },
+    "python.languageServer": "Jedi",
+    "editor.wordWrap": "on",
+    "editor.wordWrapColumn": 79,
+    "terminal.integrated.minimumContrastRatio": 7,
+    "terminal.integrated.tabs.hideCondition": "never",
+    "workbench.editor.enablePreview": false,
+    "svg.preview.autoShow": true,
+    "svg.preview.mode": "svg",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "workbench.editor.closeEmptyGroups": false,
+    "workbench.editor.showTabs": false,
+    "explorer.openEditors.sortOrder": "editorOrder",
+    "window.menuBarVisibility": "toggle",
+    "go.toolsManagement.autoUpdate": true,
+    "window.zoomLevel": -1,
+    "git.pullBeforeCheckout": true,
+    "githubPullRequests.pullBranch": "always",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python",
+        "editor.codeActionsOnSave": {
+            "python.sortImports": true
+        }
+    },
+    "[shellscript]": {
+        "editor.defaultFormatter": "timonwong.shellcheck"
+    },
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[vue]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[go]": {
+        "editor.defaultFormatter": "golang.go"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "[terraform]": {
+        "editor.defaultFormatter": "hashicorp.terraform"
+    },
+    "[hcl]": {
+        "editor.defaultFormatter": "hashicorp.terraform"
+    },
+    "[terraform-vars]": {
+        "editor.defaultFormatter": "hashicorp.terraform"
+    }
+}
