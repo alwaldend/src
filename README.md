@@ -21,6 +21,7 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
   - [infinitime](patches/infinitime): Git patches for InfiniTimeOrg/InfiniTime
 - [python](python): Python projects
   - [bazel-python-shell](python/bazel-python-shell): Python shell allowing you to run shell commands in python environment
+  - [replace-section](python/replace-section): Replace sections in files
 - [shell](shell): Shell projects
   - [scripts](shell/scripts): Shell scripts
 - [vial](vial): Vial configs
