@@ -1,4 +1,4 @@
-load("//bazel/utils:utils.bzl", "sh_script")
+load("//bazel/macros:utils.bzl", "sh_script")
 
 sh_script(name = "readme-tree")
 

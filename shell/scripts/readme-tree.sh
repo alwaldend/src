@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 set -o errexit -o nounset -o xtrace
 
+files=$(git ls-files | grep README.md)
+
 echo "$(tree -aifndI ".git" --noreport --filesfirst --sort name --gitignore . "${@}")" |
     awk -F " ->" '{ printf $1 "\n" }' | 
     awk -F "/" '
