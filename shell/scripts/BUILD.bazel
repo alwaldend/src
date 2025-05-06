@@ -1,4 +1,5 @@
 load("//bazel/macros:utils.bzl", "sh_script")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
 sh_script(name = "readme-tree")
 
@@ -30,8 +31,9 @@ sh_script(name = "build-install-script")
 
 sh_script(name = "bazel")
 
-genrule(
-    name = "build-install-scripts",
+pkg_tar(
+    name = "scripts-archive",
+    strip_prefix = ".",
     srcs = [
         ":readme-tree-lib",
         ":bashrc-lib",
@@ -48,11 +50,14 @@ genrule(
         ":bazel-stamp-lib",
         ":bazel",
     ],
-    tools = ["build-install-script-lib"],
+)
+
+genrule(
+    name = "build-install-scripts",
+    srcs = [":scripts-archive"],
+    tools = [":build-install-script-lib"],
     outs = ["install-scripts.sh"],
-    cmd = """
-        $(execpath build-install-script-lib) $(@) $(SRCS)
-    """
+    cmd = "$(execpath build-install-script-lib) $(<) $(@)"
 )
 
 sh_binary(
