@@ -25,3 +25,15 @@ license(
     ],
     license_text = "LICENSE.txt",
 )
+
+genrule(
+    name = "update-readme",
+    tools = ["//python/replace-section", "//shell/scripts:readme-tree"],
+    local = True,
+    outs = ["update-readme-mark"],
+    cmd = """
+        replacement=$$($(execpath //shell/scripts:readme-tree))
+        $(execpath //python/replace-section) -i -s README_CONTENTS -r "$${replacement}" README.md
+	touch $(execpath update-readme-mark)
+    """
+)
