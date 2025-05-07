@@ -1,3 +1,3 @@
 ---
-title: Replace sections in files
+title: Replace sections of files
 ---

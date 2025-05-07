@@ -1,3 +1,3 @@
 ---
-title: Configs for dotfiles
+title: Dotfile configs 
 ---
