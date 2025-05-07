@@ -2,6 +2,17 @@ load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 
+
+def install_file(name = "", args = [], visibility = ["//visibility:public"], **py_binary_kwargs):
+    py_binary(
+        name = name,
+        srcs = ["//python/install-file"],
+        main = "install_file.py",
+        args = args,
+        visibility = visibility,
+        **py_binary_kwargs
+    )
+
 def sh_script(name = "", visibility = ["//visibility:public"], **common_kwargs):
     """
     Generate sh_library and sh_binary targets

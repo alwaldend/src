@@ -1,4 +1,5 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("//bazel/macros:utils.bzl", "install_file")
 
 pkg_tar(
    name = "nvim-lib",
@@ -22,15 +23,9 @@ pkg_tar(
     visibility = ["//visibility:public"],
 )
 
-genrule(
+install_file(
     name = "install",
-    srcs = [":nvim-config-install"],
-    outs = ["installed-mark"],
-    tools = ["//python/scripts:unpack-archive"],
+    data = [":nvim-config-install"],
     tags = ["local"],
-    cmd = """
-        $(execpath //python/scripts:unpack-archive) $(<) ~/check
-        touch $(@)
-
-    """
+    args = ["$(rootpath :nvim-config-install)"]
 )
