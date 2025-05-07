@@ -2,7 +2,7 @@ load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 
-def sh_script(name = "", **common_kwargs):
+def sh_script(name = "", visibility = ["//visibility:public"], **common_kwargs):
     """
     Generate sh_library and sh_binary targets
 
@@ -11,8 +11,8 @@ def sh_script(name = "", **common_kwargs):
         **common_kwargs: kwargs for both targets
     """
     lib_name = "{}-lib".format(name)
-    native.sh_library(name = lib_name, srcs = ["{}.sh".format(name)], **common_kwargs)
-    native.sh_binary(name = name, srcs = [":{}".format(lib_name)], **common_kwargs)
+    native.sh_library(name = lib_name, srcs = ["{}.sh".format(name)], visibility = visibility, **common_kwargs)
+    native.sh_binary(name = name, srcs = [":{}".format(lib_name)], visibility = visibility, **common_kwargs)
 
 def compile_pip_requirements_combined(name = "", srcs = [], **compile_kwargs):
     """

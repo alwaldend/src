@@ -4,6 +4,7 @@ set -o errexit -o nounset -o xtrace
 if [ -n "${1:-}" ]; then
     cd "${1}"
 fi
+
 files=$(git ls-files | grep README.md)
 for file in ${files}; do
     if [ "${file}" = "README.md" ]; then
