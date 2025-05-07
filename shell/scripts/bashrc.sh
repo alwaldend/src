@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # shellcheck source=functions.sh
-. "${DOTFILES_FUNCTIONS_PATH:-$(dirname "$(realpath "${0}")")/functions.sh}"
+. "${DOTFILES_FUNCTIONS_PATH:-"${HOME}/.local/bin/functions"}"
 
 export FZF_DEFAULT_COMMAND="fd --type f"
 export FZF_COMPLETION_TRIGGER="**"
@@ -53,7 +53,11 @@ export HISTSIZE=10000
 export ANDROID_HOME="${HOME}/Android/Sdk"
 ### path edits
 export GOPATH="${HOME}/.go"
-export JAVA_HOME="/usr/java/latest"
+if [ -L "/usr/java/latest" ]; then
+    export JAVA_HOME="/usr/java/latest"
+elif [ -L "/usr/lib/jvm/java" ]; then
+    export JAVA_HOME="/usr/lib/jvm/java"
+fi
 
 # https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 # vim mode for the terminal
@@ -86,6 +90,9 @@ d_add_to_path_front \
     ~/.cargo/bin \
     ~/yandex-cloud/bin \
     "${ANDROID_HOME}/tools" \
+    "${ANDROID_HOME}/tools/bin" \
+    "${ANDROID_HOME}/cmdline-tools/latest/bin" \
+    "${ANDROID_HOME}/platform-tools" \
     /usr/java/latest/bin \
     /usr/mvn/latest/bin
 

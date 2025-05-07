@@ -1,0 +1,36 @@
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+
+pkg_tar(
+   name = "nvim-lib",
+   deps = ["//lua/nvim-lib"],
+   package_dir = "lua/alwaldend/nvim-lib",
+)
+
+pkg_tar(
+    name = "nvim-config",
+    srcs = glob(["**"]),
+    strip_prefix = ".",
+    modes = {"lazy-lock.json": "0655"},
+    deps = [":nvim-lib"],
+    visibility = ["//visibility:public"],
+)
+
+pkg_tar(
+    name = "nvim-config-install",
+    deps = [":nvim-config"],
+    package_dir = ".config/nvim",
+    visibility = ["//visibility:public"],
+)
+
+genrule(
+    name = "install",
+    srcs = [":nvim-config-install"],
+    outs = ["installed-mark"],
+    tools = ["//python/scripts:unpack-archive"],
+    tags = ["local"],
+    cmd = """
+        $(execpath //python/scripts:unpack-archive) $(<) ~/check
+        touch $(@)
+
+    """
+)

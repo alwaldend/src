@@ -28,8 +28,9 @@ license(
 
 genrule(
     name = "update-readme",
+    srcs = glob(["**/README.md"]),
     tools = ["//python/replace-section", "//shell/scripts:readme-tree"],
-    local = True,
+    tags = ["local"],
     outs = ["update-readme-mark"],
     cmd = """
         replacement=$$($(execpath //shell/scripts:readme-tree))
