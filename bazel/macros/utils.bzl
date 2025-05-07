@@ -8,6 +8,7 @@ load(
     _combine_files = "combine_files",
     _compile_pip_requirements_combined = "compile_pip_requirements_combined",
     _sh_script = "sh_script",
+    _install_file = "install_file",
 )
 
 genrule_with_wheels = _genrule_with_wheels
@@ -18,3 +19,4 @@ apply_patches = _apply_patches
 combine_files = _combine_files
 compile_pip_requirements_combined = _compile_pip_requirements_combined
 sh_script = _sh_script
+install_file = _install_file
