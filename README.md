@@ -1,15 +1,17 @@
-# src 
+# src
 
 Source code
 
 ## Licence
 
-AGPLv3, see [LICENSE](./LICENSE.txt) 
+AGPLv3, see [LICENSE](./LICENSE.txt)
 
 ## Contents
 
 <!-- README_CONTENTS START -->
+- [android](android): Android projects
 - [bazel](bazel): Bazel projects
+  - [configs](bazel/configs): Bazel configs
   - [macros](bazel/macros): Bazel macros
 - [configs](configs): Configs for different tools
   - [dotfiles](configs/dotfiles): Dotfile configs
@@ -17,6 +19,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
   - [infinitime](cpp/infinitime): Fork of InfiniTimeOrg/InfiniTime
 - [drawio](drawio): Drawio diagrams
   - [diagrams](drawio/diagrams): Drawio diagrams
+- [go](go): Golangprojects
+- [javascript](javascript): Javascript projects
 - [lua](lua): Lua projects
   - [nvim-config](lua/nvim-config): Neovim config
   - [nvim-lib](lua/nvim-lib): Lua library for neovim

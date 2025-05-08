@@ -167,7 +167,7 @@ return {
                     gopls = {
                         -- fix for generated golang files
                         -- https://github.com/bazelbuild/rules_go/wiki/Editor-setup
-                        env = { GOPACKAGESDRIVER = "./tools/gopackagesdriver" },
+                        env = { GOPACKAGESDRIVER = "gopackagesdriver" },
                         directoryFilters = {
                             "-bazel-bin",
                             "-bazel-out",

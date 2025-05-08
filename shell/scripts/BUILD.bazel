@@ -31,6 +31,8 @@ sh_script(name = "build-install-script")
 
 sh_script(name = "bazel")
 
+sh_script(name = "gopackagesdriver")
+
 pkg_tar(
     name = "scripts-archive",
     strip_prefix = ".",
@@ -49,6 +51,7 @@ pkg_tar(
         ":git-select-config-lib",
         ":bazel-stamp-lib",
         ":bazel",
+        ":gopackagesdriver",
     ],
 )
 
@@ -61,6 +64,6 @@ genrule(
 )
 
 sh_binary(
-    name = "install-scripts",
+    name = "install",
     srcs = [":install-scripts.sh"],
 )
