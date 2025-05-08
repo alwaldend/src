@@ -63,20 +63,18 @@ return {
         version = config["folke/which-key.nvim"].version,
         config = function()
             local which_key = require("which-key")
-            which_key.register({
-                ["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
-                ["<leader>d"] = { name = "[D]ocument", _ = "which_key_ignore" },
-                ["<leader>g"] = { name = "[G]it", _ = "which_key_ignore" },
-                ["<leader>h"] = { name = "Git [H]unk", _ = "which_key_ignore" },
-                ["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
-                ["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
-                ["<leader>t"] = { name = "[T]oggle", _ = "which_key_ignore" },
-                ["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
+            which_key.add({
+                { "<leader>c", group = "[C]ode" },
+                { "<leader>d", group = "[D]ocument" },
+                { "<leader>g", group = "[G]it" },
+                { "<leader>h", group = "Git [H]unk" },
+                { "<leader>r", group = "[R]ename" },
+                { "<leader>s", group = "[S]earch" },
+                { "<leader>t", group = "[T]oggle" },
+                { "<leader>w", group = "[W]orkspace" },
+                { "<leader>", group = "VISUAL <leader>", mode = "v" },
+                { "<leader>h", desc = "Git [H]unk", mode = "v" },
             })
-            which_key.register({
-                ["<leader>"] = { name = "VISUAL <leader>" },
-                ["<leader>h"] = { "Git [H]unk" },
-            }, { mode = "v" })
         end,
     },
     {
@@ -467,17 +465,25 @@ return {
                 bash = { "shfmt", "shellcheck" },
                 sh = { "shfmt", "shellcheck" },
                 go = { "goimports", "gofumpt", "goimports-reviser" },
-                javascript = { { "prettierd", "prettier" } },
-                typescript = { { "prettierd", "prettier" } },
-                vue = { { "prettierd", "prettier" } },
-                css = { { "prettierd", "prettier" } },
-                scss = { { "prettierd", "prettier" } },
-                less = { { "prettierd", "prettier" } },
-                html = { { "prettierd", "prettier" } },
-                json = { { "prettierd", "prettier" } },
-                jsonc = { { "prettierd", "prettier" } },
-                markdown = { { "prettierd", "prettier" } },
-                yaml = { { "prettierd", "prettier" } },
+                javascript = {
+                    "prettierd",
+                    "prettier",
+                    stop_after_first = true,
+                },
+                typescript = {
+                    "prettierd",
+                    "prettier",
+                    stop_after_first = true,
+                },
+                vue = { "prettierd", "prettier", stop_after_first = true },
+                css = { "prettierd", "prettier", stop_after_first = true },
+                scss = { "prettierd", "prettier", stop_after_first = true },
+                less = { "prettierd", "prettier", stop_after_first = true },
+                html = { "prettierd", "prettier", stop_after_first = true },
+                json = { "prettierd", "prettier", stop_after_first = true },
+                jsonc = { "prettierd", "prettier", stop_after_first = true },
+                markdown = { "prettierd", "prettier", stop_after_first = true },
+                yaml = { "prettierd", "prettier", stop_after_first = true },
                 ["*"] = { "trim_whitespace", "trim_newlines" },
             },
             format_on_save = {
