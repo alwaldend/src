@@ -1,7 +1,7 @@
 ### module
 
 module(
-    name = "src",
+    name = "com-alwaldend-src",
     version = "0.0.0",
 )
 
@@ -27,6 +27,7 @@ bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.7.1", dev_dependenc
 
 NODE_VERSION = "16.14.2"
 PYTHON_VERSION = "3.13.2"
+GO_VERSION = "1.24.3"
 GCC_ARM_VERSION = "10.3-2021.10"
 NRFSDK_VERSION = "nRF5_SDK_15.3.0_59ac345"
 FILEGROUP = """
@@ -68,6 +69,10 @@ npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm", dev_dependenc
 
 pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
 
+go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
+
+go_deps = use_extension("@gazelle//:extensions.bzl", "go_deps")
+
 ### toolchains
 
 python.toolchain(
@@ -78,6 +83,8 @@ python.toolchain(
 node.toolchain(
     node_version = NODE_VERSION,
 )
+
+go_sdk.download(version = GO_VERSION)
 
 ### infinitime
 
@@ -98,7 +105,7 @@ git_repository(
 
 local_repository(
     name = "infinitime-src-local",
-    path = "../../infinitimeorg/infinitime" 
+    path = "../../infinitimeorg/infinitime"
 )
 
 http_archive(
@@ -134,9 +141,14 @@ pip.parse(
 
 npm.npm_translate_lock(
     name = "npm",
-    pnpm_lock = "//:pnpm-lock.yaml",
+    pnpm_lock = "//javascript:pnpm-lock.yaml",
     verify_node_modules_ignored = "//:.bazelignore",
+    run_lifecycle_hooks = False,
 )
+
+go_sdk.from_file(go_mod = "//go:go.mod")
+
+go_deps.from_file(go_mod = "//go:go.mod")
 
 ### use_repo
 
@@ -147,3 +159,5 @@ use_repo(npm, "npm")
 use_repo(pnpm, "pnpm")
 
 use_repo(node, "nodejs_toolchains")
+
+use_repo(go_deps)

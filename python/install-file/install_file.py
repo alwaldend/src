@@ -29,7 +29,7 @@ def install_archive(archive: pathlib.Path, target_dir: pathlib.Path) -> None:
 
 def main(argv: typing.Sequence[str] = ()) -> int:
     parser = argparse.ArgumentParser(
-        description="Unpack an archive into a directory",
+        description="Install a file",
     )
     parser.add_argument("--type", default="auto", help="installation type",)
     parser.add_argument("--target", default=os.environ["HOME"], help="installation target",)
