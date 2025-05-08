@@ -9,11 +9,11 @@ load("//bazel/macros:utils.bzl", "pkg_tar_combined", "py_binary_shell", "combine
 
 compile_pip_requirements_combined(
     name = "requirements",
-    srcs = ["requirements.txt"] + select({
+    srcs = ["requirements.in"] + select({
         "//bazel/configs:use-local-repos": ["@infinitime-src-local//:requirements"],
         "//conditions:default": ["@infinitime-src//:requirements"],
     }),
-    requirements_txt = "requirements-lock.txt",
+    requirements_txt = "requirements.txt",
     visibility = ["//visibility:public"],
 )
 

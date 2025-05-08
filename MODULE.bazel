@@ -136,7 +136,7 @@ http_archive(
 pip.parse(
     hub_name = "infinitime-venv",
     python_version = PYTHON_VERSION,
-    requirements_lock = "//cpp/infinitime:requirements-lock.txt",
+    requirements_lock = "//cpp/infinitime:requirements.txt",
 )
 
 npm.npm_translate_lock(
