@@ -10,7 +10,7 @@ load("//bazel/macros:utils.bzl", "pkg_tar_combined", "py_binary_shell", "combine
 compile_pip_requirements_combined(
     name = "requirements",
     srcs = ["requirements.txt"] + select({
-        "//:use-local-repos-config": ["@infinitime-src-local//:requirements"],
+        "//bazel/configs:use-local-repos": ["@infinitime-src-local//:requirements"],
         "//conditions:default": ["@infinitime-src//:requirements"],
     }),
     requirements_txt = "requirements-lock.txt",
@@ -25,7 +25,7 @@ py_console_script_binary(
 py_binary_shell(
     name = "python-shell",
     deps = all_requirements + select({
-        "//:use-local-repos-config": ["@infinitime-src-local//:imgtool"],
+        "//bazel/configs:use-local-repos": ["@infinitime-src-local//:imgtool"],
         "//conditions:default": ["@infinitime-src//:imgtool"],
     }),
 )
@@ -69,13 +69,13 @@ pkg_tar_combined(
 genrule(
     name = "infinitime",
     srcs = select({
-        "//:use-local-repos-config": [":firmware-deps-local"],
+        "//bazel/configs:use-local-repos": [":firmware-deps-local"],
         "//conditions:default": [":firmware-deps-remote"],
     }),
     tools = [
         ":python-shell",
         ":adafruit-nrfutil",
-        "//:node_modules/lv_font_conv/dir",
+        "//javascript:node_modules/lv_font_conv/dir",
     ],
     toolchains = [
         "@rules_foreign_cc//toolchains:current_cmake_toolchain",
@@ -85,7 +85,7 @@ genrule(
     outs = ["firmware.tar"],
     cmd = """
         set -euxo pipefail
-	build_type="Release" 
+	build_type="Release"
 	build_dir="/tmp/bazel/$$(whoami)/cpp/infinitime/firmware/build"
 	deps_dir="/tmp/bazel/$$(whoami)/cpp/infinitime/firmware/deps"
 	bin_dir="$${PWD}/bin"
@@ -96,7 +96,7 @@ genrule(
 	export PATH="$${bin_dir}:$${PWD}/$$(dirname $(NODE_PATH)):$${PWD}/$$(dirname $(PYTHON3)):$${gcc_dir}/bin:$${nrfsdk_dir}/bin:$${PATH}"
 
 	mkdir -p "$${bin_dir}" "$${build_dir}" "$${deps_dir}"
-        ln -s "$${PWD}/$(execpath //:node_modules/lv_font_conv/dir)/lv_font_conv.js" "$${bin_dir}/lv_font_conv"
+        ln -s "$${PWD}/$(execpath //javascript:node_modules/lv_font_conv/dir)/lv_font_conv.js" "$${bin_dir}/lv_font_conv"
         ln -s "$${PWD}/$(execpath :adafruit-nrfutil)" "$${bin_dir}/adafruit-nrfutil"
         rm -rf "$${deps_dir}"/*
 	tar -xf "$$(find -name "firmware-deps-*" -print -quit)" -C "$${deps_dir}"
@@ -108,7 +108,7 @@ genrule(
             -DARM_NONE_EABI_TOOLCHAIN_PATH="$${gcc_dir}" \
             -DNRF5_SDK_PATH="$${nrfsdk_dir}" \
             -DBUILD_DFU=1 \
-            -DBUILD_RESOURCES=1  
+            -DBUILD_RESOURCES=1
 	$(location :python-shell) $(CMAKE) \
             --build "$${build_dir}" \
             --config "$${build_type}" \
