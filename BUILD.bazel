@@ -1,7 +1,15 @@
-load("@rules_license//rules:license.bzl", "license")
 load("@gazelle//:def.bzl", "gazelle")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@rules_license//rules:license.bzl", "license")
 
-gazelle(name = "gazelle")
+npm_link_all_packages(
+    name = "node_modules",
+)
+
+gazelle(
+    name = "gazelle",
+    command = "fix",
+)
 
 license(
     name = "license",
@@ -14,12 +22,15 @@ license(
 genrule(
     name = "update-readme",
     srcs = glob(["**/README.md"]),
-    tools = ["//python/replace-section", "//shell/scripts:readme-tree"],
-    tags = ["local"],
     outs = ["update-readme-mark"],
     cmd = """
         replacement=$$($(execpath //shell/scripts:readme-tree))
         $(execpath //python/replace-section) -i -s README_CONTENTS -r "$${replacement}" README.md
 	touch $(execpath update-readme-mark)
-    """
+    """,
+    tags = ["local"],
+    tools = [
+        "//python/replace-section",
+        "//shell/scripts:readme-tree",
+    ],
 )

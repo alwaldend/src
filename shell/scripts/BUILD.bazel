@@ -1,5 +1,5 @@
-load("//bazel/macros:utils.bzl", "sh_script")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("//bazel/macros:utils.bzl", "sh_script")
 
 sh_script(name = "readme-tree")
 
@@ -35,32 +35,32 @@ sh_script(name = "gopackagesdriver")
 
 pkg_tar(
     name = "scripts-archive",
-    strip_prefix = ".",
     srcs = [
-        ":readme-tree-lib",
         ":bashrc-lib",
+        ":bazel",
+        ":bazel-stamp-lib",
+        ":embed-archive-into-script-lib",
         ":functions-lib",
+        ":git-add-commits-from-separate-repo-lib",
+        ":git-select-config-lib",
+        ":gopackagesdriver",
+        ":readme-tree-lib",
+        ":stow-install-lib",
         ":tmux-display-popup-lib",
         ":tmux-kill-popup-sessions-lib",
         ":tmux-new-window-lib",
         ":tmux-start-lib",
         ":tmux-toggle-popup-lib",
-        ":embed-archive-into-script-lib",
-        ":stow-install-lib",
-        ":git-add-commits-from-separate-repo-lib",
-        ":git-select-config-lib",
-        ":bazel-stamp-lib",
-        ":bazel",
-        ":gopackagesdriver",
     ],
+    strip_prefix = ".",
 )
 
 genrule(
     name = "build-install-scripts",
     srcs = [":scripts-archive"],
-    tools = [":build-install-script-lib"],
     outs = ["install-scripts.sh"],
-    cmd = "$(execpath build-install-script-lib) $(<) $(@)"
+    cmd = "$(execpath build-install-script-lib) $(<) $(@)",
+    tools = [":build-install-script-lib"],
 )
 
 sh_binary(
