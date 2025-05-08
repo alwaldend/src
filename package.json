@@ -1,0 +1,9 @@
+{
+  "name": "com-alwandend-src",
+  "private": true,
+  "license": "AGPL-3.0",
+  "// dependencies": "in the root package, only dependencies for monorepo-wide tooling should appear",
+    "devDependencies": {
+        "lv_font_conv": "^1.5.3"
+    }
+}

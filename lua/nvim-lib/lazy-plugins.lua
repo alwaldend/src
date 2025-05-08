@@ -165,6 +165,11 @@ return {
                 ansiblels = {},
                 gopls = {
                     gopls = {
+                        workspaceFiles = {
+                            "**/BUILD",
+                            "**/WORKSPACE",
+                            "**/*.{bzl,bazel}",
+                        },
                         -- fix for generated golang files
                         -- https://github.com/bazelbuild/rules_go/wiki/Editor-setup
                         env = { GOPACKAGESDRIVER = "gopackagesdriver" },
@@ -172,7 +177,6 @@ return {
                             "-bazel-bin",
                             "-bazel-out",
                             "-bazel-testlogs",
-                            "-bazel-things",
                         },
                     },
                 },

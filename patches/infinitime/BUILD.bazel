@@ -7,7 +7,7 @@ filegroup(
 )
 
 apply_patches(
-   src = "@infinitime//:src-tar",
-   patches = ":patches",
-   visibility = ["//visibility:public"],
+    src = "@infinitime//:src-tar",
+    patches = ":patches",
+    visibility = ["//visibility:public"],
 )

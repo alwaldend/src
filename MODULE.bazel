@@ -2,7 +2,6 @@
 
 module(
     name = "com-alwaldend-src",
-    version = "0.0.0",
 )
 
 ### bazel_dep
@@ -26,10 +25,15 @@ bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.7.1", dev_dependenc
 ### variables
 
 NODE_VERSION = "16.14.2"
+
 PYTHON_VERSION = "3.13.2"
+
 GO_VERSION = "1.24.3"
+
 GCC_ARM_VERSION = "10.3-2021.10"
+
 NRFSDK_VERSION = "nRF5_SDK_15.3.0_59ac345"
+
 FILEGROUP = """
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@bazel_skylib//rules/directory:directory.bzl", "directory")
@@ -91,21 +95,21 @@ go_sdk.download(version = GO_VERSION)
 git_repository(
     name = "infinitime-src",
     commit = "2105a7b63da8d4065ebfc62e0057f225358eedfc",  # 1.15.0
-    remote = "https://github.com/InfiniTimeOrg/InfiniTime.git",
-    shallow_since = "1733253068 +0100",
     init_submodules = True,
-    recursive_init_submodules = True,
+    patch_args = ["-p1"],
     patches = [
         "//patches/infinitime:001-add-BUILD.bazel.patch",
         "//patches/infinitime:002-modify-30-minute-chimes-interval.patch",
         "//patches/infinitime:003-add-WatchFaceTerminalCustom.patch",
     ],
-    patch_args = ["-p1"],
+    recursive_init_submodules = True,
+    remote = "https://github.com/InfiniTimeOrg/InfiniTime.git",
+    shallow_since = "1733253068 +0100",
 )
 
 local_repository(
     name = "infinitime-src-local",
-    path = "../../infinitimeorg/infinitime"
+    path = "../../infinitimeorg/infinitime",
 )
 
 http_archive(
@@ -141,14 +145,14 @@ pip.parse(
 
 npm.npm_translate_lock(
     name = "npm",
-    pnpm_lock = "//javascript:pnpm-lock.yaml",
-    verify_node_modules_ignored = "//:.bazelignore",
+    pnpm_lock = "//:pnpm-lock.yaml",
     run_lifecycle_hooks = False,
+    verify_node_modules_ignored = "//:.bazelignore",
 )
 
-go_sdk.from_file(go_mod = "//go:go.mod")
+go_sdk.from_file(go_mod = "//:go.mod")
 
-go_deps.from_file(go_mod = "//go:go.mod")
+go_deps.from_file(go_mod = "//:go.mod")
 
 ### use_repo
 
@@ -160,4 +164,4 @@ use_repo(pnpm, "pnpm")
 
 use_repo(node, "nodejs_toolchains")
 
-use_repo(go_deps)
+use_repo(go_deps, "com_github_spf13_cobra")
