@@ -165,6 +165,7 @@ return {
                 ansiblels = {},
                 gopls = {
                     gopls = {
+                        gofumpt = true,
                         workspaceFiles = {
                             "**/BUILD",
                             "**/WORKSPACE",

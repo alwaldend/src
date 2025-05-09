@@ -1,0 +1,24 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "leetcode-downloader_lib",
+    srcs = [
+        "cmd.go",
+        "downloader.go",
+        "generator.go",
+        "main.go",
+        "repo.go",
+    ],
+    importpath = "git.alwaldend.com/src/golang/leetcode-downloader",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//golang/leetcode-downloader/model",
+        "//proto/leetcode-downloader:downloader_go_proto",
+    ],
+)
+
+go_binary(
+    name = "leetcode-downloader",
+    embed = [":leetcode-downloader_lib"],
+    visibility = ["//visibility:public"],
+)
