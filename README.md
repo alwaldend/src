@@ -9,6 +9,7 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 ## Contents
 
 <!-- README_CONTENTS START -->
+
 - [android](android): Android projects
 - [bazel](bazel): Bazel projects
   - [configs](bazel/configs): Bazel configs
@@ -20,13 +21,16 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 - [drawio](drawio): Drawio diagrams
   - [diagrams](drawio/diagrams): Drawio diagrams
 - [golang](golang): Golangprojects
-  - [file-installer](golang/file-installer): File installer
+  - [file-installer](golang/file-installer)
+  - [leetcode-downloader](golang/leetcode-downloader): CLI app to download leetcode submissions
 - [javascript](javascript): Javascript projects
 - [lua](lua): Lua projects
   - [nvim-config](lua/nvim-config): Neovim config
   - [nvim-lib](lua/nvim-lib): Lua library for neovim
 - [patches](patches): Patches
   - [infinitime](patches/infinitime): Git patches for InfiniTimeOrg/InfiniTime
+- [proto](proto): Protobuf projects
+  - [leetcode-downloader](proto/leetcode-downloader): Models for leetcode-downloader
 - [python](python): Python projects
   - [bazel-python-shell](python/bazel-python-shell): Python shell allowing you to run shell commands in python environment
   - [install-file](python/install-file): Python scripts
@@ -35,7 +39,7 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
   - [scripts](shell/scripts): Shell scripts
 - [vial](vial): Vial configs
   - [keyboards](vial/keyboards): Keyboard configs
-<!-- README_CONTENTS END -->
+  <!-- README_CONTENTS END -->
 
 ## Setup
 

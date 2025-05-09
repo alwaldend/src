@@ -1,0 +1,54 @@
+syntax = "proto3";
+option go_package = "git.alwaldend.com/proto/leetcode-downloader";
+
+enum CliAction {
+  DOWNLOAD = 0;
+  GENERATE = 1;
+  UPDATE = 2;
+}
+
+message Config {
+  string base_url = 1;
+  string cookie = 2;
+  repeated string action_args = 4;
+  CliAction action = 5;
+  uint64 offset = 6;
+  uint64 limit = 7;
+  map<string, SubmissionConfig> submissions = 8;
+  string root_dir = 9;
+  map<string, string> headers = 11;
+}
+
+message SubmissionConfig {
+  string dir = 1;
+  string extension = 2;
+  repeated string types = 3;
+}
+
+message Submission {
+  uint64 id = 1;
+  string status_display = 2;
+  string lang = 3;
+  uint64 question_id = 4;
+  string title_slug = 5;
+  string code = 6;
+  string title = 7;
+  string url = 8;
+  string lang_name = 9;
+  string time = 10;
+  uint64 timestamp = 11;
+  uint64 status = 12;
+  string runtime = 13;
+  string is_pending = 14;
+  string memory = 15;
+  string compare_result = 16;
+  bool has_notes = 17;
+  uint64 flag_type = 18;
+}
+
+message SubmissonsResponse {
+  repeated Submission submissions_dump = 1;
+  bool has_next = 2;
+  string last_key = 3;
+}
+message SubmissonsStorage { repeated Submission submissions = 1; }

@@ -1,0 +1,6 @@
+{{ $comment := index .Config.Comments .Submission.Lang -}}
+{{ $comment }} Submission title: {{ .Submission.Title }}
+{{ $comment }} Submission url  : {{ .Config.BaseUrl }}/problems/{{ .Submission.TitleSlug }}/description/
+{{ $comment }} Submission url  : {{ .Config.BaseUrl }}{{ .Submission.Url }}"
+{{ index .Config.Headers .Submission.Lang }}
+{{ .Submission.Code }}
