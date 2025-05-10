@@ -1,0 +1,19 @@
+{
+    "id": 1099357056,
+    "status_display": "Accepted",
+    "lang": "cpp",
+    "question_id": 1956,
+    "title_slug": "maximum-element-after-decreasing-and-rearranging",
+    "code": "class Solution {\npublic:\n    int maximumElementAfterDecrementingAndRearranging(vector\u003cint\u003e\u0026 arr) {\n        std::sort(arr.begin(), arr.end());\n        auto length{arr.size()};\n        int prev{1};\n        for (int i = 1; i \u003c length; ++i) {\n            if (arr[i] != prev) {\n                ++prev;\n            }\n        }\n        return prev;\n    }\n};",
+    "title": "Maximum Element After Decreasing and Rearranging",
+    "url": "/submissions/detail/1099357056/",
+    "lang_name": "C++",
+    "time": "1 year, 5 months",
+    "timestamp": 1700050720,
+    "status": 10,
+    "runtime": "79 ms",
+    "is_pending": "Not Pending",
+    "memory": "51.5 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1096525336,
+    "status_display": "Accepted",
+    "lang": "cpp",
+    "question_id": 151,
+    "title_slug": "reverse-words-in-a-string",
+    "code": "class Solution {\npublic:\n    string reverseWords(string s) {\n        string ans = \"\";\n        string temp = \"\";\n        int length = s.length();\n        int j = 0;\n        for (j = 0; s[j] == ' ' \u0026\u0026 j \u003c length; ++j) { }\n        for (int i = length - 1; i \u003e= j; --i) {\n            if(s[i] == ' '){\n                if(temp != \"\"){                  \n                    ans = ans + temp + ' ';\n                    temp = \"\";\n                }\n                continue;\n            }\n            else{\n                temp = s[i] + temp;\n            }\n        }\n        return ans + temp;\n    }\n};",
+    "title": "Reverse Words in a String",
+    "url": "/submissions/detail/1096525336/",
+    "lang_name": "C++",
+    "time": "1 year, 6 months",
+    "timestamp": 1699705954,
+    "status": 10,
+    "runtime": "8 ms",
+    "is_pending": "Not Pending",
+    "memory": "46.8 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

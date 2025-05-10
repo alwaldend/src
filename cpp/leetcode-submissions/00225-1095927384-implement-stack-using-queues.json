@@ -1,0 +1,19 @@
+{
+    "id": 1095927384,
+    "status_display": "Accepted",
+    "lang": "cpp",
+    "question_id": 225,
+    "title_slug": "implement-stack-using-queues",
+    "code": "class MyStack {\npublic:\n    std::vector\u003cint\u003e v;\n\n    MyStack() {\n        this-\u003ev = {};\n    }\n    \n    void push(int x) {\n        this-\u003ev.push_back(x);\n    }\n    \n    int pop() {\n        int last = this-\u003ev.back();\n        this-\u003ev.pop_back();\n        return last;\n    }\n    \n    int top() {\n        return this-\u003ev.back();\n    }\n    \n    bool empty() {\n        return this-\u003ev.empty();\n    }\n};\n\n/**\n * Your MyStack object will be instantiated and called as such:\n * MyStack* obj = new MyStack();\n * obj-\u003epush(x);\n * int param_2 = obj-\u003epop();\n * int param_3 = obj-\u003etop();\n * bool param_4 = obj-\u003eempty();\n */",
+    "title": "Implement Stack using Queues",
+    "url": "/submissions/detail/1095927384/",
+    "lang_name": "C++",
+    "time": "1 year, 6 months",
+    "timestamp": 1699623033,
+    "status": 10,
+    "runtime": "0 ms",
+    "is_pending": "Not Pending",
+    "memory": "7.1 MB",
+    "compare_result": "111111111111111111",
+    "flag_type": 1
+}

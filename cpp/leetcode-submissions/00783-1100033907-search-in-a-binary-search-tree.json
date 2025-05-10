@@ -1,0 +1,19 @@
+{
+    "id": 1100033907,
+    "status_display": "Accepted",
+    "lang": "cpp",
+    "question_id": 783,
+    "title_slug": "search-in-a-binary-search-tree",
+    "code": "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* searchBST(TreeNode* root, int val) {\n        while (root != nullptr) {\n            if (root-\u003eval == val) {\n                return root;\n            }\n            if (root-\u003eval \u003e val) {\n                root = root-\u003eleft;\n            } else {\n                root = root-\u003eright;\n            }\n        }\n        return root;\n    }\n};",
+    "title": "Search in a Binary Search Tree",
+    "url": "/submissions/detail/1100033907/",
+    "lang_name": "C++",
+    "time": "1 year, 5 months",
+    "timestamp": 1700133496,
+    "status": 10,
+    "runtime": "36 ms",
+    "is_pending": "Not Pending",
+    "memory": "35 MB",
+    "compare_result": "111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1099400651,
+    "status_display": "Accepted",
+    "lang": "cpp",
+    "question_id": 1392,
+    "title_slug": "find-the-difference-of-two-arrays",
+    "code": "class Solution {\npublic:\n    vector\u003cint\u003e getElementsOnlyInFirstList(vector\u003cint\u003e\u0026 nums1, vector\u003cint\u003e\u0026 nums2) {\n        unordered_set\u003cint\u003e onlyInNums1;\n        for (int num : nums1) {\n            bool existInNums2 = false;\n            for (int x : nums2) {\n                if (x == num) {\n                    existInNums2 = true;\n                    break;\n                }\n            }\n            if (!existInNums2) {\n                onlyInNums1.insert(num);\n            }\n        }\n        return vector\u003cint\u003e (onlyInNums1.begin(), onlyInNums1.end());\n    }\n    \n    vector\u003cvector\u003cint\u003e\u003e findDifference(vector\u003cint\u003e\u0026 nums1, vector\u003cint\u003e\u0026 nums2) {\n        return {getElementsOnlyInFirstList(nums1, nums2), getElementsOnlyInFirstList(nums2, nums1)};\n    }\n};",
+    "title": "Find the Difference of Two Arrays",
+    "url": "/submissions/detail/1099400651/",
+    "lang_name": "C++",
+    "time": "1 year, 5 months",
+    "timestamp": 1700056427,
+    "status": 10,
+    "runtime": "102 ms",
+    "is_pending": "Not Pending",
+    "memory": "30.3 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}
