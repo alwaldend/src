@@ -20,13 +20,13 @@ for file in ${files}; do
             $0 != "." {
                 if (NF == 1) {
                     printf "<tr>"
-                    printf "<td><a href=./" $NF ">" $0 "</a></td>"
+                    printf "<td><a href=./" $0 ">" $NF "</a></td>"
                     printf "<td>" title "</td>"
                     printf "</tr>\n"
                 } else if (NF == 2) {
                     printf "<tr>"
                     printf "<td></td>"
-                    printf "<td><a href=./" $NF ">" $0 "</a></td>"
+                    printf "<td><a href=./" $0 ">" $NF "</a></td>"
                     printf "<td>" title "</td>"
                     printf "</tr>\n"
                 } else {
