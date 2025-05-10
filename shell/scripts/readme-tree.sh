@@ -6,22 +6,28 @@ if [ -n "${1:-}" ]; then
 fi
 
 files=$(git ls-files | grep README.md)
+echo ""
+echo "| Type | Directory | Title |"
+echo "| ---- | --------- | ----- |"
 for file in ${files}; do
     if [ "${file}" = "README.md" ]; then
        continue
     fi
     title=$(awk '/title: / { $1=""; print $0 }' "${file}")
     if [ -n "${title}" ]; then
-       title=":${title}"
+       title="${title}"
     fi
     echo "$(dirname ${file})" | \
         awk -v title="${title}" -F "/" '
             $0 != "." {
-                for (i = 0; i < NF - 1; i++) {
-                    printf "  "
+                if (NF == 1) {
+                    printf "| [" $NF "]" "(" $0 ")" " | | " title " |\n"
+                } else if (NF == 2) {
+                    printf "| | [" $NF "]" "(" $0 ")" " |" title " |\n"
+                } else {
+                    exit 1
                 }
-                printf "- " "[" $NF "]" "(" $0 ")" title
-                printf "\n"
             }
         '
 done
+echo ""
