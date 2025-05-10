@@ -6,9 +6,7 @@ if [ -n "${1:-}" ]; then
 fi
 
 files=$(git ls-files | grep README.md)
-echo ""
-echo "| Type | Directory | Title |"
-echo "| ---- | --------- | ----- |"
+echo "<table>"
 for file in ${files}; do
     if [ "${file}" = "README.md" ]; then
        continue
@@ -21,13 +19,20 @@ for file in ${files}; do
         awk -v title="${title}" -F "/" '
             $0 != "." {
                 if (NF == 1) {
-                    printf "| [" $NF "]" "(" $0 ")" " | | " title " |\n"
+                    printf "<tr>"
+                    printf "<td><a href=./" $NF ">" $0 "</a></td>"
+                    printf "<td>" title "</td>"
+                    printf "</tr>\n"
                 } else if (NF == 2) {
-                    printf "| | [" $NF "]" "(" $0 ")" " |" title " |\n"
+                    printf "<tr>"
+                    printf "<td></td>"
+                    printf "<td><a href=./" $NF ">" $0 "</a></td>"
+                    printf "<td>" title "</td>"
+                    printf "</tr>\n"
                 } else {
                     exit 1
                 }
             }
         '
 done
-echo ""
+echo "</table>"
