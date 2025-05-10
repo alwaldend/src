@@ -70,11 +70,13 @@ func Run(
 		}
 		return repo.AddSubmissions(submissions)
 	case proto.CliAction_GENERATE:
-		submissions, err := downloader.GetSubmissions(config.Offset, config.Limit)
+		submissionsText, _ := os.ReadFile(config.SubmissionsFile)
+		var submissions *proto.SubmissonsResponse
+		err := json.Unmarshal(submissionsText, &submissions)
 		if err != nil {
-			return fmt.Errorf("could not download submissions: %w", err)
+			return err
 		}
-		err = generator.Generate(submissions)
+		err = generator.Generate(submissions.SubmissionsDump)
 		if err != nil {
 			return err
 		}
@@ -101,6 +103,7 @@ func parseArgs(args []string, getenv func(string) string) (*proto.Config, error)
 	const sessionReplace = "${LEETCODE_SESSION}"
 	flagset := flag.NewFlagSet("flags", flag.ContinueOnError)
 	flagset.StringVar(&config.RootDir, "root-dir", wd, "")
+	flagset.StringVar(&config.SubmissionsFile, "submissions-file", "", "")
 	flagset.StringVar(&config.BaseUrl, "base_url", configDefault.BaseUrl, "")
 	flagset.StringVar(&config.Cookie, "cookie", cookie, "")
 	flagset.Uint64Var(&config.Offset, "offset", configDefault.Offset, "")
@@ -108,9 +111,6 @@ func parseArgs(args []string, getenv func(string) string) (*proto.Config, error)
 	err = flagset.Parse(args)
 	if err != nil {
 		return nil, err
-	}
-	if config.Cookie == "" {
-		return nil, fmt.Errorf("missing cookies")
 	}
 	action := flagset.Args()
 	if len(action) == 0 {
