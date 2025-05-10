@@ -1,7 +1,7 @@
 ### links
 
 # aspect bazelrc: https://docs.aspect.build/guides/bazelrc
-# bazel reference: https://bazel.build/reference/command-line-reference 
+# bazel reference: https://bazel.build/reference/command-line-reference
 
 ### imports
 
@@ -25,6 +25,16 @@ startup --windows_enable_symlinks
 # startup --output_user_root=out/bazel/output-user-root
 
 ### common
+
+# Speed up all builds by not checking if external repository files have been modified.
+# Docs: https://github.com/bazelbuild/bazel/blob/1af61b21df99edc2fc66939cdf14449c2661f873/src/main/java/com/google/devtools/build/lib/bazel/repository/RepositoryOptions.java#L244
+common --noexperimental_check_external_repository_files
+
+# Don't report when the root module's lower bound for a dependency happens to be less than the resolved version.
+# This is expected and should NOT prompt an engineer to update our lower bound to match.
+# WARNING: For repository 'aspect_bazel_lib', the root module requires module version aspect_bazel_lib@1.30.2,
+# but got aspect_bazel_lib@1.31.2 in the resolved dependency graph.
+common --check_direct_dependencies=off
 
 # Set default value of `allow_empty` to `False` in `glob()`. This prevents a common mistake when
 # attempting to use `glob()` to match files in a subdirectory that is opaque to the current package

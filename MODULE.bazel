@@ -114,7 +114,7 @@ local_repository(
 )
 
 http_archive(
-    name = "infinitime-gcc",
+    name = "gcc-arm",
     build_file_content = FILEGROUP,
     integrity = "sha256-l9u08BmtFlC3Mvr/zIgWic7cFOK37oY9OQ4KQe8WyaM=",
     strip_prefix = "gcc-arm-none-eabi-10.3-2021.10",
@@ -127,7 +127,7 @@ http_archive(
 )
 
 http_archive(
-    name = "infinitime-nrfsdk",
+    name = "nrfsdk",
     build_file_content = FILEGROUP,
     integrity = "sha256-nJMH11fRCQB/L8xOVHrBCxqf2fqkd+jb8/fhYkxIAaU=",
     strip_prefix = NRFSDK_VERSION,
@@ -136,12 +136,27 @@ http_archive(
     ),
 )
 
+### qt
+
+http_archive(
+    name = "qt",
+    build_file_content = FILEGROUP,
+    integrity = "sha256-T2HlBVHQAEpRP++9sKQQWV2UgSpIYAZG+3NB6g0X4cs=",
+    strip_prefix = "qt-everywhere-src-6.9.0",
+    url = "https://download.qt.io/official_releases/qt/6.9/6.9.0/single/qt-everywhere-src-6.9.0.tar.xz",
+)
+
 ### locks
 
 pip.parse(
     hub_name = "infinitime-venv",
     python_version = PYTHON_VERSION,
     requirements_lock = "//cpp/infinitime:requirements.txt",
+)
+pip.parse(
+    hub_name = "python-requirements",
+    python_version = PYTHON_VERSION,
+    requirements_lock = "//:requirements.txt",
 )
 
 npm.npm_translate_lock(
@@ -165,4 +180,4 @@ use_repo(pnpm, "pnpm")
 
 use_repo(node, "nodejs_toolchains")
 
-use_repo(go_deps, "com_github_spf13_cobra")
+use_repo(go_deps, "com_github_goccy_go_yaml", "com_github_spf13_cobra")
