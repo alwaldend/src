@@ -192,6 +192,7 @@ return {
                 bzl = {},
                 marksman = {},
                 taplo = {},
+                ts_ls = {},
                 jsonls = {},
                 tflint = {},
                 html = {},
