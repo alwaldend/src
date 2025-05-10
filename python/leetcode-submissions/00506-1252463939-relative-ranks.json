@@ -1,0 +1,19 @@
+{
+    "id": 1252463939,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 506,
+    "title_slug": "relative-ranks",
+    "code": "import heapq\n\nclass Solution:\n    def findRelativeRanks(self, score: List[int]) -\u003e List[str]:\n        heap = []\n        length = len(score)\n        scores = [0] * length\n        for i in range(length):\n            scores[i] = (score[i], i)\n        scores.sort(reverse=True)\n        ranks = {0: \"Gold Medal\", 1: \"Silver Medal\", 2: \"Bronze Medal\"}\n        for i in range(length):\n            _, idx = scores[i]\n            score[idx] = ranks.get(i, str(i + 1))\n        return score",
+    "title": "Relative Ranks",
+    "url": "/submissions/detail/1252463939/",
+    "lang_name": "Python3",
+    "time": "1 year",
+    "timestamp": 1715154628,
+    "status": 10,
+    "runtime": "62 ms",
+    "is_pending": "Not Pending",
+    "memory": "18.1 MB",
+    "compare_result": "111111111111111111",
+    "flag_type": 1
+}

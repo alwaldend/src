@@ -1,3 +1,3 @@
 ---
-title: Golangprojects
+title: Golang projects
 ---

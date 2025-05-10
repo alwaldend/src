@@ -1,0 +1,19 @@
+{
+    "id": 1128708587,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1263,
+    "title_slug": "number-of-dice-rolls-with-target-sum",
+    "code": "class Solution:\n    mod = 10 ** 9 + 7\n\n    def numRollsToTarget(self, n: int, k: int, target: int) -\u003e int:\n        dp = [[-1] * (target + 1) for _ in range(n + 1)]\n        return self.recursion(dp, n, k, target)\n\n    def recursion(self, dp: list, n: int, k: int, target: int) -\u003e int:\n        if target == 0 and n == 0:\n            return 1\n        if n == 0 or target \u003c= 0:\n            return 0\n\n        if dp[n][target] != -1:\n            return dp[n][target] % self.mod\n\n        ways = 0\n        for i in range(1, k + 1):\n            ways = (ways + self.recursion(dp, n - 1, k, target - i)) % self.mod\n\n        dp[n][target] = ways % self.mod\n        return dp[n][target]\n\n\n",
+    "title": "Number of Dice Rolls With Target Sum",
+    "url": "/submissions/detail/1128708587/",
+    "lang_name": "Python3",
+    "time": "1 year, 4 months",
+    "timestamp": 1703578105,
+    "status": 10,
+    "runtime": "282 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.6 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

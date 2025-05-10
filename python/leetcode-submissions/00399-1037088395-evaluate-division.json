@@ -1,0 +1,19 @@
+{
+    "id": 1037088395,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 399,
+    "title_slug": "evaluate-division",
+    "code": "class Solution:\n    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -\u003e List[float]:\n        equations_count = len(equations)\n        queries_count = len(queries) \n        edges = defaultdict(dict)\n        seen_nodes = set()\n        invalid = -1.0\n\n        def dfs(val1: str, val2: str) -\u003e float:\n            if val1 == val2:\n                return 1.0\n\n            if val2 in edges[val1]:\n                return edges[val1][val2]\n\n            if val1 in seen_nodes:\n                return invalid\n\n            seen_nodes.add(val1)\n\n            for connected_node in edges[val1]:\n                new_edge_res = dfs(connected_node, val2)\n                if new_edge_res == invalid:\n                    continue\n                new_edge_res *= edges[val1][connected_node]\n                edges[val1][val2] = new_edge_res\n                return new_edge_res\n            \n            return invalid\n\n        for i in range(equations_count):\n            (val1, val2), res = equations[i], values[i]\n            edges[val1][val2], edges[val2][val1] = res, 1 / res\n        \n        for i in range(queries_count):\n            res, (val1, val2) = -1, queries[i]\n            if val1 in edges and val2 in edges:\n                seen_nodes.clear()\n                res = dfs(val1, val2)\n            queries[i] = res\n\n        return queries",
+    "title": "Evaluate Division",
+    "url": "/submissions/detail/1037088395/",
+    "lang_name": "Python3",
+    "time": "1 year, 8 months",
+    "timestamp": 1693509298,
+    "status": 10,
+    "runtime": "39 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.3 MB",
+    "compare_result": "1111111111111111111111111111",
+    "flag_type": 1
+}

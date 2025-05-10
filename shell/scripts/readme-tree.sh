@@ -21,7 +21,7 @@ for file in ${files}; do
                 if (NF == 1) {
                     printf "<tr>"
                     printf "<td><a href=./" $0 ">" $NF "</a></td>"
-                    printf "<td>" title "</td>"
+                    printf "<td colspan=2>" title "</td>"
                     printf "</tr>\n"
                 } else if (NF == 2) {
                     printf "<tr>"

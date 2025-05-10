@@ -1,0 +1,19 @@
+{
+    "id": 1177763433,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1762,
+    "title_slug": "furthest-building-you-can-reach",
+    "code": "class Solution:\n    def furthestBuilding(self, heights: List[int], bricks: int, ladders: int) -\u003e int:\n        heap = []\n        i = 0\n        length = len(heights)\n        for i in range(length - 1):\n            diff = heights[i + 1] - heights[i]           \n            if diff \u003c= 0:\n                continue\n            bricks -= diff\n            heapq.heappush(heap, -diff)\n            if bricks \u003c 0:\n                bricks += -heapq.heappop(heap)\n                ladders -= 1\n            if ladders \u003c 0:\n                return i\n        return length - 1\n  \n\n",
+    "title": "Furthest Building You Can Reach",
+    "url": "/submissions/detail/1177763433/",
+    "lang_name": "Python3",
+    "time": "1 year, 2 months",
+    "timestamp": 1708171658,
+    "status": 10,
+    "runtime": "412 ms",
+    "is_pending": "Not Pending",
+    "memory": "31.1 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

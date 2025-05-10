@@ -1,0 +1,19 @@
+{
+    "id": 1606779128,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1656,
+    "title_slug": "count-good-triplets",
+    "code": "class Solution:\n    def countGoodTriplets(self, arr: List[int], a: int, b: int, c: int) -\u003e int:\n        ans = 0\n        n = len(arr)\n        total = [0] * 1001\n        for j in range(n):\n            for k in range(j + 1, n):\n                if abs(arr[j] - arr[k]) \u003c= b:\n                    lj, rj = arr[j] - a, arr[j] + a\n                    lk, rk = arr[k] - c, arr[k] + c\n                    l = max(0, lj, lk)\n                    r = min(1000, rj, rk)\n                    if l \u003c= r:\n                        ans += total[r] if l == 0 else total[r] - total[l - 1]\n            for k in range(arr[j], 1001):\n                total[k] += 1\n\n        return ans",
+    "title": "Count Good Triplets",
+    "url": "/submissions/detail/1606779128/",
+    "lang_name": "Python3",
+    "time": "3 weeks, 4 days",
+    "timestamp": 1744649107,
+    "status": 10,
+    "runtime": "168 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.7 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

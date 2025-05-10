@@ -1,0 +1,19 @@
+{
+    "id": 1061188297,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 941,
+    "title_slug": "sort-array-by-parity",
+    "code": "class Solution:\n    def sortArrayByParity(self, nums: List[int]) -\u003e List[int]:\n        left, right = 0, len(nums) - 1\n        while left \u003c right:\n            while left \u003c right and nums[left] % 2 == 0:\n                left += 1\n            while left \u003c right and nums[right] % 2 == 1:\n                right -= 1\n            nums[left], nums[right] = nums[right], nums[left]\n        return nums",
+    "title": "Sort Array By Parity",
+    "url": "/submissions/detail/1061188297/",
+    "lang_name": "Python3",
+    "time": "1 year, 7 months",
+    "timestamp": 1695885453,
+    "status": 10,
+    "runtime": "79 ms",
+    "is_pending": "Not Pending",
+    "memory": "17 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1212531862,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 287,
+    "title_slug": "find-the-duplicate-number",
+    "code": "func findDuplicate(nums []int) int {\n    seen := make(map[int]struct{}, len(nums) - 1)\n    for _, num := range nums {\n        if _, ok := seen[num]; ok {\n            return num\n        }\n        seen[num] = struct{}{}\n    }\n    return -1\n}",
+    "title": "Find the Duplicate Number",
+    "url": "/submissions/detail/1212531862/",
+    "lang_name": "Go",
+    "time": "1 year, 1 month",
+    "timestamp": 1711279637,
+    "status": 10,
+    "runtime": "70 ms",
+    "is_pending": "Not Pending",
+    "memory": "9 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1240750456,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 1236,
+    "title_slug": "n-th-tribonacci-number",
+    "code": "func tribonacci(n int) int {\n\tif n \u003c 2 {\n\t\treturn n\n\t}\n\n\tdp := []int{0, 1, 1}\n\n\tfor i := 3; i \u003c= n; i++ {\n\t\tnext := dp[0] + dp[1] + dp[2]\n\t\tdp[0], dp[1], dp[2] = dp[1], dp[2], next\n\t}\n\n\treturn dp[2]\n}",
+    "title": "N-th Tribonacci Number",
+    "url": "/submissions/detail/1240750456/",
+    "lang_name": "Go",
+    "time": "1 year",
+    "timestamp": 1713960372,
+    "status": 10,
+    "runtime": "1 ms",
+    "is_pending": "Not Pending",
+    "memory": "2.1 MB",
+    "compare_result": "111111111111111111111111111111111111111",
+    "flag_type": 1
+}

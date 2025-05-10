@@ -1,0 +1,19 @@
+{
+    "id": 1141624613,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 904,
+    "title_slug": "leaf-similar-trees",
+    "code": "class Solution:\n    def leafSimilar(self, root1, root2):\n        def dfs(node):\n            if node:\n                if not node.left and not node.right:\n                    yield node.val\n                yield from dfs(node.left)\n                yield from dfs(node.right)\n\n        return list(dfs(root1)) == list(dfs(root2))",
+    "title": "Leaf-Similar Trees",
+    "url": "/submissions/detail/1141624613/",
+    "lang_name": "Python3",
+    "time": "1 year, 4 months",
+    "timestamp": 1704818741,
+    "status": 10,
+    "runtime": "35 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.2 MB",
+    "compare_result": "1111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

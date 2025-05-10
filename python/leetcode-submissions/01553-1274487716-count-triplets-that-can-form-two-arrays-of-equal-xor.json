@@ -1,0 +1,19 @@
+{
+    "id": 1274487716,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1553,
+    "title_slug": "count-triplets-that-can-form-two-arrays-of-equal-xor",
+    "code": "class Solution:\n    def countTriplets(self, arr: List[int]) -\u003e int:\n        n = len(arr)\n        prefix = [0] * (n + 1)\n        \n        for i in range(n):\n            prefix[i + 1] = prefix[i] ^ arr[i]\n        \n        count = 0\n        for i in range(n):\n            for k in range(i + 1, n):\n                if prefix[i] == prefix[k + 1]:\n                    count += (k - i)\n        \n        return count",
+    "title": "Count Triplets That Can Form Two Arrays of Equal XOR",
+    "url": "/submissions/detail/1274487716/",
+    "lang_name": "Python3",
+    "time": "11 months, 1 week",
+    "timestamp": 1717268642,
+    "status": 10,
+    "runtime": "54 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.5 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

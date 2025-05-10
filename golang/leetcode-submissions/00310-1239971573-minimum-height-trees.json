@@ -1,0 +1,19 @@
+{
+    "id": 1239971573,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 310,
+    "title_slug": "minimum-height-trees",
+    "code": "\n\nfunc findMinHeightTrees(n int, edges [][]int) []int {\n\tcounts := make([]int, n)\n\tlinks := make([]int, n)\n\tfor _, edge := range edges {\n\t\tlinks[edge[0]] ^= edge[1]\n\t\tcounts[edge[0]]++\n\t\tlinks[edge[1]] ^= edge[0]\n\t\tcounts[edge[1]]++\n\t}\n\tQu := make([]int, 0)\n\tdists := make([]int, n)\n\tfor i := 0; i \u003c n; i++ {\n\t\tif counts[i] == 1 {\n\t\t\tQu = append(Qu, i)\n\t\t}\n\t}\n\tstp := 1\n\tfor len(Qu) \u003e 0 {\n\t\tsize := len(Qu)\n\t\tfor j := 0; j \u003c size; j++ {\n\t\t\ttmp := Qu[0]\n\t\t\tQu = Qu[1:]\n\t\t\tlinks[links[tmp]] ^= tmp\n\t\t\tcounts[links[tmp]]--\n\t\t\tif counts[links[tmp]] == 1 {\n\t\t\t\tdists[links[tmp]] = int(math.Max(float64(stp), float64(dists[links[tmp]])))\n\t\t\t\tQu = append(Qu, links[tmp])\n\t\t\t}\n\t\t}\n\t\tstp++\n\t}\n\tmaxDist := 0\n\tfor _, dist := range dists {\n\t\tif dist \u003e maxDist {\n\t\t\tmaxDist = dist\n\t\t}\n\t}\n\tres := make([]int, 0)\n\tfor i, dist := range dists {\n\t\tif dist == maxDist {\n\t\t\tres = append(res, i)\n\t\t}\n\t}\n\treturn res\n}",
+    "title": "Minimum Height Trees",
+    "url": "/submissions/detail/1239971573/",
+    "lang_name": "Go",
+    "time": "1 year",
+    "timestamp": 1713885249,
+    "status": 10,
+    "runtime": "49 ms",
+    "is_pending": "Not Pending",
+    "memory": "7.8 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

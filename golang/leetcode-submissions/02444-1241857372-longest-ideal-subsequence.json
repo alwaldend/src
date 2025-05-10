@@ -1,0 +1,19 @@
+{
+    "id": 1241857372,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 2444,
+    "title_slug": "longest-ideal-subsequence",
+    "code": "func longestIdealString(s string, k int) int {\n\tdp := make([]int, 27)\n\tn := len(s)\n\n\tfor i := n - 1; i \u003e= 0; i-- {\n\t\tcc := s[i]\n\t\tidx := int(cc - 'a')\n\t\tmaxi := -1 \u003c\u003c 31\n\n\t\tleft := max(idx-k, 0)\n\t\tright := min(idx+k, 26)\n\n\t\tfor j := left; j \u003c= right; j++ {\n\t\t\tmaxi = max(maxi, dp[j])\n\t\t}\n\n\t\tdp[idx] = maxi + 1\n\t}\n\n\tmax := -1 \u003c\u003c 31\n\tfor _, val := range dp {\n\t\tif val \u003e max {\n\t\t\tmax = val\n\t\t}\n\t}\n\n\treturn max\n}\n\nfunc max(a, b int) int {\n\tif a \u003e b {\n\t\treturn a\n\t}\n\treturn b\n}\n\nfunc min(a, b int) int {\n\tif a \u003c b {\n\t\treturn a\n\t}\n\treturn b\n}",
+    "title": "Longest Ideal Subsequence",
+    "url": "/submissions/detail/1241857372/",
+    "lang_name": "Go",
+    "time": "1 year",
+    "timestamp": 1714066344,
+    "status": 10,
+    "runtime": "17 ms",
+    "is_pending": "Not Pending",
+    "memory": "5.3 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

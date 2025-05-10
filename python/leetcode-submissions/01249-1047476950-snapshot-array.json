@@ -1,0 +1,19 @@
+{
+    "id": 1047476950,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1249,
+    "title_slug": "snapshot-array",
+    "code": "class SnapshotArray:\n\n    def __init__(self, length: int):\n        self._cur_snap = 0\n        self._elems = [[(0, 0)] for _ in range(length)]\n\n    def set(self, index: int, val: int) -\u003e None:\n        values = self._elems[index]\n        if values[-1][0] == self._cur_snap:\n            values.pop()\n        values.append((self._cur_snap, val))\n\n    def snap(self) -\u003e int:\n        self._cur_snap += 1\n        return self._cur_snap - 1 \n\n    def get(self, index: int, snap_id: int) -\u003e int:\n        for cur_snap_id, val in reversed(self._elems[index]):\n            if cur_snap_id \u003e snap_id:\n                continue\n            return val\n        \n        return -1\n        \n\n\n# Your SnapshotArray object will be instantiated and called as such:\n# obj = SnapshotArray(length)\n# obj.set(index,val)\n# param_2 = obj.snap()\n# param_3 = obj.get(index,snap_id)",
+    "title": "Snapshot Array",
+    "url": "/submissions/detail/1047476950/",
+    "lang_name": "Python3",
+    "time": "1 year, 8 months",
+    "timestamp": 1694525530,
+    "status": 10,
+    "runtime": "3918 ms",
+    "is_pending": "Not Pending",
+    "memory": "41.8 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

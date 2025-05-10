@@ -1,0 +1,19 @@
+{
+    "id": 1068472872,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 343,
+    "title_slug": "integer-break",
+    "code": "class Solution:\n    def integerBreak(self, n: int) -\u003e int:\n        @cache\n        def dp(num: int) -\u003e int:\n            if num \u003c= 3:\n                return num\n            ans = num\n            for i in range(2, num):\n                ans = max(ans, i * dp(num - i))\n            return ans\n\n        return dp(n) if n \u003e 3 else n - 1",
+    "title": "Integer Break",
+    "url": "/submissions/detail/1068472872/",
+    "lang_name": "Python3",
+    "time": "1 year, 7 months",
+    "timestamp": 1696584249,
+    "status": 10,
+    "runtime": "39 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.3 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

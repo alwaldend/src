@@ -1,0 +1,19 @@
+{
+    "id": 991898322,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 125,
+    "title_slug": "valid-palindrome",
+    "code": "class Solution:\n    def isPalindrome(self, s: str) -\u003e bool:\n        length = len(s)\n\n        # if the sring has only one symbol and it is alphanumeric, it is a palyndrom\n        if s.isalnum() and length == 1:\n            return True \n        \n        i, j = 0, length - 1\n        # iterate from the start and from the end using two indexes:\n        # - if one the symbols is not alphanumeric, move the corresponding index\n        # - if symbols are alphanumeric and not equal, return False\n        # - move indexes\n        while i \u003c j:\n            symbol_start, symbol_end = s[i].lower(), s[j].lower()\n            if not symbol_start.isalnum():\n                i += 1\n                continue\n            if not symbol_end.isalnum():\n                j -= 1\n                continue\n            \n            if symbol_start != symbol_end:\n                return False\n            \n            i += 1\n            j -= 1\n        \n        return True",
+    "title": "Valid Palindrome",
+    "url": "/submissions/detail/991898322/",
+    "lang_name": "Python3",
+    "time": "1 year, 10 months",
+    "timestamp": 1689086548,
+    "status": 10,
+    "runtime": "68 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.1 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

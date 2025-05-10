@@ -1,0 +1,19 @@
+{
+    "id": 691650979,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 374,
+    "title_slug": "guess-number-higher-or-lower",
+    "code": "\nfunc guessNumber(n int) int {\n\t// checking edge cases\n\tif guess(1) == 0 {\n\t\treturn 1\n\t} else if guess(n) == 0 {\n\t\treturn n\n\t}\n\tleft, right := 1, n\n\tfor right \u003e= left {\n\t\t// overflow protection\n\t\tnumber := left + (right-left)/2\n\t\tswitch guess(number) {\n\t\tcase 0:\n\t\t\t// found the target\n\t\t\treturn number\n\t\tcase -1:\n\t\t\t// the number is bigger -\u003e the target is to the left -\u003e discard right\n\t\t\tright = number - 1\n\t\tcase 1:\n\t\t\t// the number is smaller -\u003e the target is to the right -\u003e discard left\n\t\t\tleft = number + 1\n\t\t}\n\t}\n\t// ide shows an error, this return is unreachable in this issue\n\treturn 0\n}\n",
+    "title": "Guess Number Higher or Lower",
+    "url": "/submissions/detail/691650979/",
+    "lang_name": "Go",
+    "time": "3 years",
+    "timestamp": 1651502962,
+    "status": 10,
+    "runtime": "0 ms",
+    "is_pending": "Not Pending",
+    "memory": "1.9 MB",
+    "compare_result": "1111111111111111111111111",
+    "flag_type": 1
+}

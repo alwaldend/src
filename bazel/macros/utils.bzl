@@ -1,14 +1,14 @@
 load(
     "private/utils.bzl",
-    _genrule_src = "genrule_src",
-    _genrule_with_wheels = "genrule_with_wheels",
-    _pkg_tar_combined = "pkg_tar_combined",
-    _py_binary_shell = "py_binary_shell",
     _apply_patches = "apply_patches",
     _combine_files = "combine_files",
     _compile_pip_requirements_combined = "compile_pip_requirements_combined",
-    _sh_script = "sh_script",
+    _genrule_src = "genrule_src",
+    _genrule_with_wheels = "genrule_with_wheels",
     _install_file = "install_file",
+    _pkg_tar_combined = "pkg_tar_combined",
+    _py_binary_shell = "py_binary_shell",
+    _sh_script = "sh_script",
 )
 
 genrule_with_wheels = _genrule_with_wheels

@@ -1,0 +1,19 @@
+{
+    "id": 1295810242,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1138,
+    "title_slug": "grumpy-bookstore-owner",
+    "code": "class Solution:\n    def maxSatisfied(self, customers: List[int], grumpy: List[int], minutes: int) -\u003e int:\n        ans = 0\n        total = sum((1 - grumpy[i]) * customers[i] for i in range(len(customers)))\n\n        window_all = 0\n        window_partial = 0\n        for i in range(len(customers)):\n            window_all += customers[i]\n            window_partial += (1 - grumpy[i]) * customers[i]\n            if i + 1 \u003e= minutes:\n                ans = max(ans, total - window_partial + window_all)\n                left = i - minutes + 1\n                window_all -= customers[left]\n                window_partial -= (1 - grumpy[left]) * customers[left]\n\n        return ans",
+    "title": "Grumpy Bookstore Owner",
+    "url": "/submissions/detail/1295810242/",
+    "lang_name": "Python3",
+    "time": "10 months, 3 weeks",
+    "timestamp": 1718986867,
+    "status": 10,
+    "runtime": "214 ms",
+    "is_pending": "Not Pending",
+    "memory": "18.7 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

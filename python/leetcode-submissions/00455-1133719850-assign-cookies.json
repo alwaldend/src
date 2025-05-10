@@ -1,0 +1,19 @@
+{
+    "id": 1133719850,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 455,
+    "title_slug": "assign-cookies",
+    "code": "class Solution:\n    def findContentChildren(self, g: List[int], s: List[int]) -\u003e int:\n        g.sort()\n        s.sort()\n        content_children = 0\n        cookie_index = 0\n        while cookie_index \u003c len(s) and content_children \u003c len(g):\n            if s[cookie_index] \u003e= g[content_children]:\n                content_children += 1\n            cookie_index += 1\n        return content_children",
+    "title": "Assign Cookies",
+    "url": "/submissions/detail/1133719850/",
+    "lang_name": "Python3",
+    "time": "1 year, 4 months",
+    "timestamp": 1704114642,
+    "status": 10,
+    "runtime": "137 ms",
+    "is_pending": "Not Pending",
+    "memory": "19.2 MB",
+    "compare_result": "111111111111111111111",
+    "flag_type": 1
+}

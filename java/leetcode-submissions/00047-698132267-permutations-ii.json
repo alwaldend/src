@@ -1,0 +1,19 @@
+{
+    "id": 698132267,
+    "status_display": "Accepted",
+    "lang": "java",
+    "question_id": 47,
+    "title_slug": "permutations-ii",
+    "code": "class Solution {\npublic List\u003cList\u003cInteger\u003e\u003e permuteUnique(int[] nums) {\n        List\u003cList\u003cInteger\u003e\u003e permutations = new ArrayList\u003c\u003e();\n        Arrays.sort(nums);\n        backtracking(permutations, new ArrayList\u003c\u003e(), nums, new boolean[nums.length]);\n        return permutations;\n    }\n\n    private void backtracking(List\u003cList\u003cInteger\u003e\u003e permutations, List\u003cInteger\u003e current, int[] nums, boolean[] used) {\n        if (current.size() == nums.length)\n            permutations.add(new ArrayList\u003c\u003e(current));\n        else {\n            for (int i = 0; i \u003c nums.length; i++) {\n                if (used[i] || (i \u003e 0 \u0026\u0026 nums[i] == nums[i - 1] \u0026\u0026 !used[i - 1])) continue;\n                current.add(nums[i]);\n                used[i] = true;\n                backtracking(permutations, current, nums, used);\n                used[i] = false;\n                current.remove(current.size() - 1);\n            }\n        }\n    }\n}",
+    "title": "Permutations II",
+    "url": "/submissions/detail/698132267/",
+    "lang_name": "Java",
+    "time": "2 years, 12 months",
+    "timestamp": 1652367933,
+    "status": 10,
+    "runtime": "4 ms",
+    "is_pending": "Not Pending",
+    "memory": "48.2 MB",
+    "compare_result": "111111111111111111111111111111111",
+    "flag_type": 1
+}

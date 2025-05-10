@@ -1,0 +1,19 @@
+{
+    "id": 1016031490,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 123,
+    "title_slug": "best-time-to-buy-and-sell-stock-iii",
+    "code": "class Solution:\n    def maxProfit(self, prices: List[int]) -\u003e int:\n        if not prices:\n            return 0\n\n        # initialize variables for first buy, first sell, second buy, and second sell\n        buy1, buy2 = float('inf'), float('inf')\n        sell1, sell2 = 0, 0\n\n        # iterate over prices to update buy and sell values\n        for price in prices:\n            # update first buy and sell values\n            buy1 = min(buy1, price)\n            sell1 = max(sell1, price - buy1)\n            # update second buy and sell values\n            buy2 = min(buy2, price - sell1)\n            sell2 = max(sell2, price - buy2)\n\n        return sell2\n",
+    "title": "Best Time to Buy and Sell Stock III",
+    "url": "/submissions/detail/1016031490/",
+    "lang_name": "Python3",
+    "time": "1 year, 9 months",
+    "timestamp": 1691527008,
+    "status": 10,
+    "runtime": "845 ms",
+    "is_pending": "Not Pending",
+    "memory": "30.6 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

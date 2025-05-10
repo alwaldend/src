@@ -1,0 +1,19 @@
+{
+    "id": 995698084,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 202,
+    "title_slug": "happy-number",
+    "code": "class Solution:\n    def isHappy(self, n: int) -\u003e bool:\n        while True:\n            sum = 0\n            while n \u003e 0:\n                sum += (n % 10 )**2\n                n = n // 10\n            n = sum\n            print(n)\n            if sum \u003c 10:\n                break\n\n        return n in [1, 7]",
+    "title": "Happy Number",
+    "url": "/submissions/detail/995698084/",
+    "lang_name": "Python3",
+    "time": "1 year, 9 months",
+    "timestamp": 1689493286,
+    "status": 10,
+    "runtime": "51 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.4 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

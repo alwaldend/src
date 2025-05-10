@@ -1,0 +1,19 @@
+{
+    "id": 1224033828,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 1666,
+    "title_slug": "make-the-string-great",
+    "code": "func makeGood(s string) string {\n\tstack := make([]byte, 0, len(s))\n\tstack = append(stack, s[0])\n\tfor i := 1; i \u003c len(s); i++ {\n\t\tif len(stack) \u003e 0 \u0026\u0026 getDiff(stack[len(stack)-1], s[i]) == 32 {\n\t\t\tstack = stack[:len(stack)-1]\n\t\t\tcontinue\n\t\t}\n\t\tstack = append(stack, s[i])\n\t}\n\treturn string(stack)\n}\n\nfunc getDiff(a, b uint8) uint8 {\n\tif b \u003e a {\n\t\treturn b - a\n\t}\n\treturn a - b\n}",
+    "title": "Make The String Great",
+    "url": "/submissions/detail/1224033828/",
+    "lang_name": "Go",
+    "time": "1 year, 1 month",
+    "timestamp": 1712326659,
+    "status": 10,
+    "runtime": "2 ms",
+    "is_pending": "Not Pending",
+    "memory": "2.4 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

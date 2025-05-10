@@ -1,0 +1,19 @@
+{
+    "id": 1080534787,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1286,
+    "title_slug": "constrained-subsequence-sum",
+    "code": "import heapq\n\nclass Solution:\n    def constrainedSubsetSum(self, nums: List[int], k: int) -\u003e int:\n        heap = [(-nums[0], 0)]\n        ans = nums[0]\n        \n        for i in range(1, len(nums)):\n            while i - heap[0][1] \u003e k:\n                heapq.heappop(heap)\n\n            curr = max(0, -heap[0][0]) + nums[i]\n            ans = max(ans, curr)\n            heapq.heappush(heap, (-curr, i))\n\n        return ans",
+    "title": "Constrained Subsequence Sum",
+    "url": "/submissions/detail/1080534787/",
+    "lang_name": "Python3",
+    "time": "1 year, 6 months",
+    "timestamp": 1697887253,
+    "status": 10,
+    "runtime": "1729 ms",
+    "is_pending": "Not Pending",
+    "memory": "36.4 MB",
+    "compare_result": "111111111111111111111111111111111111",
+    "flag_type": 1
+}

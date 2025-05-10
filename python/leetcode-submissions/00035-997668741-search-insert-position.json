@@ -1,0 +1,19 @@
+{
+    "id": 997668741,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 35,
+    "title_slug": "search-insert-position",
+    "code": "class Solution:\n    def searchInsert(self, nums: List[int], target: int) -\u003e int:\n        length = len(nums)\n        left, right = 0, length - 1\n\n        while left \u003c= right:\n            mid = left + (right - left) // 2\n            mid_number = nums[mid]\n\n            if mid_number == target:\n                return mid\n\n            if mid_number \u003e target:\n                right = mid - 1\n            else:\n                left = mid + 1\n\n        return left",
+    "title": "Search Insert Position",
+    "url": "/submissions/detail/997668741/",
+    "lang_name": "Python3",
+    "time": "1 year, 9 months",
+    "timestamp": 1689693287,
+    "status": 10,
+    "runtime": "67 ms",
+    "is_pending": "Not Pending",
+    "memory": "17 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

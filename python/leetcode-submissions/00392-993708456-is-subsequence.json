@@ -1,0 +1,19 @@
+{
+    "id": 993708456,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 392,
+    "title_slug": "is-subsequence",
+    "code": "class Solution:\n    # create two pointers, original and sub, both are zero\n    # while either of those pointers have not reached the end:\n    # - if original symbol is equal to the sub, move both pointer to the right\n    # - if not, move original pointer to the right\n    # if sub pointer reached the end, return True, otherwise False\n    def isSubsequence(self, s: str, t: str) -\u003e bool:\n        original, sub = 0, 0\n        original_length, sub_length = len(t), len(s)\n\n        while original \u003c original_length and sub \u003c sub_length:\n            if s[sub] == t[original]:\n                original += 1\n                sub += 1\n                continue\n            \n            original += 1\n\n        return sub == sub_length",
+    "title": "Is Subsequence",
+    "url": "/submissions/detail/993708456/",
+    "lang_name": "Python3",
+    "time": "1 year, 10 months",
+    "timestamp": 1689271893,
+    "status": 10,
+    "runtime": "47 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.3 MB",
+    "compare_result": "1111111111111111111",
+    "flag_type": 1
+}

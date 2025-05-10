@@ -1,0 +1,19 @@
+{
+    "id": 1209937595,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 206,
+    "title_slug": "reverse-linked-list",
+    "code": "/**\n * Definition for singly-linked list.\n * type ListNode struct {\n *     Val int\n *     Next *ListNode\n * }\n */\nfunc reverseList(head *ListNode) *ListNode {\n    if head == nil {\n        return nil\n    }\n    cur, next := head, head.Next\n    cur.Next = nil\n    for next != nil {\n        cur, next, next.Next = next, next.Next, cur\n    }\n    return cur\n}",
+    "title": "Reverse Linked List",
+    "url": "/submissions/detail/1209937595/",
+    "lang_name": "Go",
+    "time": "1 year, 1 month",
+    "timestamp": 1711019127,
+    "status": 10,
+    "runtime": "2 ms",
+    "is_pending": "Not Pending",
+    "memory": "2.8 MB",
+    "compare_result": "1111111111111111111111111111",
+    "flag_type": 1
+}

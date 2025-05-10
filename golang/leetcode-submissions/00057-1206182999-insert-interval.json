@@ -1,0 +1,19 @@
+{
+    "id": 1206182999,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 57,
+    "title_slug": "insert-interval",
+    "code": "func insert(intervals [][]int, newInterval []int) [][]int {\n\tvar result [][]int\n\n    // Iterate through intervals and add non-overlapping intervals before newInterval\n\ti := 0\n\tfor i \u003c len(intervals) \u0026\u0026 intervals[i][1] \u003c newInterval[0] {\n\t\tresult = append(result, intervals[i])\n\t\ti++\n\t}\n\n    // Merge overlapping intervals\n\tfor i \u003c len(intervals) \u0026\u0026 intervals[i][0] \u003c= newInterval[1] {\n\t\tnewInterval[0] = int(math.Min(float64(newInterval[0]), float64(intervals[i][0])))\n\t\tnewInterval[1] = int(math.Max(float64(newInterval[1]), float64(intervals[i][1])))\n\t\ti++\n\t}\n\n    // Add merged newInterval\n\tresult = append(result, newInterval)\n\n    // Add non-overlapping intervals after newInterval\n\tfor i \u003c len(intervals) {\n\t\tresult = append(result, intervals[i])\n\t\ti++\n\t}\n\n\treturn result\n}\n",
+    "title": "Insert Interval",
+    "url": "/submissions/detail/1206182999/",
+    "lang_name": "Go",
+    "time": "1 year, 1 month",
+    "timestamp": 1710667926,
+    "status": 10,
+    "runtime": "7 ms",
+    "is_pending": "Not Pending",
+    "memory": "4.4 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

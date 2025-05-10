@@ -1,0 +1,19 @@
+{
+    "id": 691657897,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 278,
+    "title_slug": "first-bad-version",
+    "code": "\nfunc firstBadVersion(n int) int {\n\t// checking edge cases\n\tif isBadVersion(1) {\n\t\treturn 1\n\t}\n\tleft, right, bad_version := 1, n, math.MaxInt\n\tfor right \u003e= left {\n\t\t// overflow protection\n\t\tversion := left + (right-left)/2\n\t\tswitch isBadVersion(version) {\n\t\tcase false:\n\t\t\t// it is good -\u003e versions to the left are good -\u003e discard left\n\t\t\tleft = version + 1\n\t\tcase true:\n\t\t\t// it is bad -\u003e the first bad version is either this one or to the left\n\t\t\t// discard right\n\t\t\tbad_version = version\n\t\t\tright = version - 1\n\t\t}\n\t}\n\t// the search space is empty\n\treturn bad_version\n}\n",
+    "title": "First Bad Version",
+    "url": "/submissions/detail/691657897/",
+    "lang_name": "Go",
+    "time": "3 years",
+    "timestamp": 1651503756,
+    "status": 10,
+    "runtime": "0 ms",
+    "is_pending": "Not Pending",
+    "memory": "1.9 MB",
+    "compare_result": "1111111111111111111111",
+    "flag_type": 1
+}

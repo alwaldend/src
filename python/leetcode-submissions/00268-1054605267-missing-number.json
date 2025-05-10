@@ -1,0 +1,19 @@
+{
+    "id": 1054605267,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 268,
+    "title_slug": "missing-number",
+    "code": "class Solution:\n    def missingNumber(self, nums: List[int]) -\u003e int:\n        def xor(total: int, i: int) -\u003e int:\n            return total ^ nums[i] ^ (i + 1)\n        return reduce(xor, chain((0, ), range(len(nums))))",
+    "title": "Missing Number",
+    "url": "/submissions/detail/1054605267/",
+    "lang_name": "Python3",
+    "time": "1 year, 7 months",
+    "timestamp": 1695222159,
+    "status": 10,
+    "runtime": "126 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.5 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

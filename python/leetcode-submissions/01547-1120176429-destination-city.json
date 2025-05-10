@@ -1,0 +1,19 @@
+{
+    "id": 1120176429,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1547,
+    "title_slug": "destination-city",
+    "code": "class Solution:\n    def destCity(self, paths: List[List[str]]) -\u003e str:\n        paths_from, paths_to = set(), set()\n        for path_from, path_to in paths:\n            paths_from.add(path_from)\n            paths_to.add(path_to)\n        \n        return (paths_to - paths_from).pop()",
+    "title": "Destination City",
+    "url": "/submissions/detail/1120176429/",
+    "lang_name": "Python3",
+    "time": "1 year, 4 months",
+    "timestamp": 1702626892,
+    "status": 10,
+    "runtime": "67 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.4 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

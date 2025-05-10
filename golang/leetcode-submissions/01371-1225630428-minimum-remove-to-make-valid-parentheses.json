@@ -1,0 +1,19 @@
+{
+    "id": 1225630428,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 1371,
+    "title_slug": "minimum-remove-to-make-valid-parentheses",
+    "code": "type stack struct {\n    top   int\n    v     []byte\n    index []int\n}\n\nfunc minRemoveToMakeValid(s string) string {\n    stc := stack{top: -1}\n\n    // collect bad brackets\n    for i, v := range s {\n        if v == '(' {\n            stc.v = append(stc.v, '(')\n            stc.index = append(stc.index, i)\n            stc.top++\n        } else if v == ')' {\n            if stc.top \u003e -1 \u0026\u0026 stc.v[stc.top] == '(' {\n                stc.v = stc.v[:stc.top]\n                stc.index = stc.index[:stc.top]\n                stc.top--\n            } else {\n                stc.v = append(stc.v, ')')\n                stc.index = append(stc.index, i)\n                stc.top++\n            }\n        }\n    }\n\n    // remove them\n    res := []byte{}\n    i := 0\n    for _, v := range stc.index {\n        res = append(res, s[i:v]...)\n        i = v + 1\n    }\n\n    // checking of end\n    if len(res) + len(stc.index) \u003c len(s) {\n        res = append(res, s[i:]...)\n    }\n\n    return string(res)\n}",
+    "title": "Minimum Remove to Make Valid Parentheses",
+    "url": "/submissions/detail/1225630428/",
+    "lang_name": "Go",
+    "time": "1 year, 1 month",
+    "timestamp": 1712479314,
+    "status": 10,
+    "runtime": "18 ms",
+    "is_pending": "Not Pending",
+    "memory": "6.5 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1046649051,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 136,
+    "title_slug": "single-number",
+    "code": "class Solution:\n    def singleNumber(self, nums: List[int]) -\u003e int:\n        return reduce(lambda total, element: total ^ element, nums)",
+    "title": "Single Number",
+    "url": "/submissions/detail/1046649051/",
+    "lang_name": "Python3",
+    "time": "1 year, 8 months",
+    "timestamp": 1694447895,
+    "status": 10,
+    "runtime": "128 ms",
+    "is_pending": "Not Pending",
+    "memory": "19 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}
