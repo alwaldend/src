@@ -1,4 +1,4 @@
-load("//bazel/macros:utils.bzl", "apply_patches")
+load("//skylark/macros:utils.bzl", "apply_patches")
 
 filegroup(
     name = "patches",
