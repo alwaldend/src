@@ -1,5 +1,5 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//skylark/macros:utils.bzl", "install_file")
+load("//starlark/macros:utils.bzl", "install_file")
 
 pkg_tar(
     name = "nvim-lib",
