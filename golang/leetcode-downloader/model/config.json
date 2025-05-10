@@ -12,7 +12,7 @@
     },
     "golang": {
       "dir": "golang/leetcode-submissions",
-      "types": ["go"],
+      "types": ["go", "golang"],
       "extension": "go"
     },
     "cpp": {
