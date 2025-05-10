@@ -1,0 +1,19 @@
+{
+    "id": 995216343,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 383,
+    "title_slug": "ransom-note",
+    "code": "class Solution:\n    def canConstruct(self, ransomNote: str, magazine: str) -\u003e bool:\n        ransom_i, magazine_i = 0, 0\n        ransom_length, magazine_length = len(ransomNote), len(magazine)\n\n        if magazine_length \u003c ransom_length:\n            return False\n        \n        if ransom_length == 1:\n            return ransomNote in magazine\n\n        symbols = [0 for _ in range(26)]\n\n        for symbol in magazine:\n            symbols[ord(symbol)-97] += 1\n\n        for symbol in ransomNote:\n            symbols[ord(symbol)-97] -= 1\n        \n        \n        return not any((count \u003c 0 for count in symbols))",
+    "title": "Ransom Note",
+    "url": "/submissions/detail/995216343/",
+    "lang_name": "Python3",
+    "time": "1 year, 9 months",
+    "timestamp": 1689440744,
+    "status": 10,
+    "runtime": "89 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.7 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

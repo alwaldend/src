@@ -1,0 +1,19 @@
+{
+    "id": 1257674099,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1331,
+    "title_slug": "path-with-maximum-gold",
+    "code": "class Solution:\n    roww = [1, -1, 0, 0]\n    coll = [0, 0, -1, 1]\n\n    def dfs(self, grid, x, y, n, m):\n        if x \u003c 0 or x \u003e= n or y \u003c 0 or y \u003e= m or grid[x][y] == 0:\n            return 0\n        \n        curr = grid[x][y]\n        grid[x][y] = 0\n        localMaxGold = curr\n\n        for i in range(4):\n            newX = x + self.roww[i]\n            newY = y + self.coll[i]\n            localMaxGold = max(localMaxGold, curr + self.dfs(grid, newX, newY, n, m))\n\n        grid[x][y] = curr\n        return localMaxGold\n\n    def getMaximumGold(self, grid):\n        n = len(grid)\n        m = len(grid[0])\n        maxGold = 0\n\n        for i in range(n):\n            for j in range(m):\n                if grid[i][j] != 0:\n                    maxGold = max(maxGold, self.dfs(grid, i, j, n, m))\n\n        return maxGold",
+    "title": "Path with Maximum Gold",
+    "url": "/submissions/detail/1257674099/",
+    "lang_name": "Python3",
+    "time": "12 months",
+    "timestamp": 1715677567,
+    "status": 10,
+    "runtime": "4203 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.5 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

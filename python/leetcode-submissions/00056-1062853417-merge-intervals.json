@@ -1,0 +1,19 @@
+{
+    "id": 1062853417,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 56,
+    "title_slug": "merge-intervals",
+    "code": "class Solution:\n    def merge(self, intervals: List[List[int]]) -\u003e List[List[int]]:\n\n        intervals.sort(key=lambda item: item[0])\n\n        merged = []\n        for start, end in intervals:\n            # if the list of merged intervals is empty or if the current\n            # interval does not overlap with the previous, simply append it.\n            if not merged or merged[-1][1] \u003c start:\n                merged.append([start, end])\n            else:\n            # otherwise, there is overlap, so we merge the current and previous\n            # intervals.\n                merged[-1][1] = max(merged[-1][1], end)\n\n        return merged",
+    "title": "Merge Intervals",
+    "url": "/submissions/detail/1062853417/",
+    "lang_name": "Python3",
+    "time": "1 year, 7 months",
+    "timestamp": 1696058246,
+    "status": 10,
+    "runtime": "140 ms",
+    "is_pending": "Not Pending",
+    "memory": "21.4 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

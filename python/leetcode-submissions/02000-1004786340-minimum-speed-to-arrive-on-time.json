@@ -1,0 +1,19 @@
+{
+    "id": 1004786340,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 2000,
+    "title_slug": "minimum-speed-to-arrive-on-time",
+    "code": "class Solution:\n    def minSpeedOnTime(self, dist: List[int], hour: float) -\u003e int:\n        length = len(dist)\n        if hour \u003e= sum(dist):\n            return 1\n        \n        if hour \u003c= length - 1:\n            return -1\n        \n        time_remaining = hour - length + 1\n        max_speed = int(max(\n            max(dist), dist[-1] // time_remaining + 1\n        ))\n        min_speed = 1\n        result = -1\n        while min_speed \u003c max_speed:\n            speed = min_speed + (max_speed - min_speed) // 2\n            time = dist[-1] / speed + sum(\n                (distance + speed - 1) // speed \n                for distance in dist[:-1]\n            )\n            \n            if time \u003e hour:\n                min_speed = speed + 1\n            else:\n                max_speed = speed\n        \n        return min_speed",
+    "title": "Minimum Speed to Arrive on Time",
+    "url": "/submissions/detail/1004786340/",
+    "lang_name": "Python3",
+    "time": "1 year, 9 months",
+    "timestamp": 1690401416,
+    "status": 10,
+    "runtime": "2140 ms",
+    "is_pending": "Not Pending",
+    "memory": "30.3 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

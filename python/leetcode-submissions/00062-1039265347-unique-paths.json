@@ -1,0 +1,19 @@
+{
+    "id": 1039265347,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 62,
+    "title_slug": "unique-paths",
+    "code": "class Solution:\n    def uniquePaths(self, m: int, n: int) -\u003e int:\n\n        @cache\n        def dp(row: int, col: int) -\u003e int:\n            if not 0 \u003c= row \u003c m or not 0 \u003c= col \u003c n:\n                return 0\n            \n            if row == m - 1 and col == n - 1:\n                return 1\n            \n            return dp(row + 1, col) + dp(row, col + 1)\n\n        return dp(0, 0)",
+    "title": "Unique Paths",
+    "url": "/submissions/detail/1039265347/",
+    "lang_name": "Python3",
+    "time": "1 year, 8 months",
+    "timestamp": 1693729438,
+    "status": 10,
+    "runtime": "45 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.5 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

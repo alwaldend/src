@@ -1,0 +1,19 @@
+{
+    "id": 1044895894,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 91,
+    "title_slug": "decode-ways",
+    "code": "class Solution:\n    def numDecodings(self, s: str) -\u003e int:\n        char_count = len(s)\n\n        @cache\n        def dfs(i: int) -\u003e int:\n            if i == char_count: \n                return 1\n            if s[i] == \"0\": \n                return 0\n            return dfs(i + 1) + (\n                dfs(i + 2) if i + 1 \u003c char_count and s[i:i+2] \u003c \"27\" else 0\n            )\n\n        return dfs(0)",
+    "title": "Decode Ways",
+    "url": "/submissions/detail/1044895894/",
+    "lang_name": "Python3",
+    "time": "1 year, 8 months",
+    "timestamp": 1694279523,
+    "status": 10,
+    "runtime": "46 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.8 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

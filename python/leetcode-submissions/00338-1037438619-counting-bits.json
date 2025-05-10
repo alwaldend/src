@@ -1,0 +1,19 @@
+{
+    "id": 1037438619,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 338,
+    "title_slug": "counting-bits",
+    "code": "class Solution:\n    def countBits(self, n: int) -\u003e List[int]:\n        ans = [0] * (n + 1)\n        for i in range(1, n + 1):\n            ans[i] = ans[i \u003e\u003e 1] + (i \u0026 1)\n        return ans",
+    "title": "Counting Bits",
+    "url": "/submissions/detail/1037438619/",
+    "lang_name": "Python3",
+    "time": "1 year, 8 months",
+    "timestamp": 1693551501,
+    "status": 10,
+    "runtime": "72 ms",
+    "is_pending": "Not Pending",
+    "memory": "23 MB",
+    "compare_result": "111111111111111",
+    "flag_type": 1
+}

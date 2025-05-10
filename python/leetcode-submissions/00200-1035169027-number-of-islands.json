@@ -1,0 +1,19 @@
+{
+    "id": 1035169027,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 200,
+    "title_slug": "number-of-islands",
+    "code": "class Solution:\n    def numIslands(self, grid: List[List[str]]) -\u003e int:\n        row_count, col_count = len(grid), len(grid[0])\n        island_count = 0\n        moves = ((0, 1), (0, -1), (1, 0), (-1, 0))\n        queue = set((row, col) \n                    for row in range(row_count) \n                    for col in range(col_count) \n                    if grid[row][col] == \"1\")\n\n        def remove_island(row: int, col: int) -\u003e None:\n            if not 0 \u003c= row \u003c row_count or not 0 \u003c= col \u003c col_count or (row, col) not in queue:\n                return\n\n            queue.remove((row, col))\n\n            for row_delta, col_delta in moves:\n                remove_island(row + row_delta, col + col_delta)    \n\n        while queue:\n            remove_island(*next(iter(queue)))\n            island_count += 1\n\n        return island_count\n\n            ",
+    "title": "Number of Islands",
+    "url": "/submissions/detail/1035169027/",
+    "lang_name": "Python3",
+    "time": "1 year, 8 months",
+    "timestamp": 1693323857,
+    "status": 10,
+    "runtime": "871 ms",
+    "is_pending": "Not Pending",
+    "memory": "26.3 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

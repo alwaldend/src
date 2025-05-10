@@ -1,0 +1,19 @@
+{
+    "id": 1091202059,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 295,
+    "title_slug": "find-median-from-data-stream",
+    "code": "type MaxHeap []int\nfunc (m MaxHeap) Len() int { return len(m) }\nfunc (m MaxHeap) Less(i, j int) bool { return m[i] \u003e m[j] }\nfunc (m MaxHeap) Swap(i, j int) { m[i], m[j] = m[j], m[i] }\nfunc (m *MaxHeap) Pop() interface{} {\n    v := (*m)[len(*m)-1]\n    *m = (*m)[:len(*m)-1]\n    return v\n}\nfunc (m *MaxHeap) Push(v interface{}) { *m = append(*m, v.(int)) }\nfunc (m MaxHeap) Top() int { return m[0] }\n\ntype MinHeap []int\nfunc (m MinHeap) Len() int { return len(m) }\nfunc (m MinHeap) Less(i, j int) bool { return m[i] \u003c m[j] }\nfunc (m MinHeap) Swap(i, j int) { m[i], m[j] = m[j], m[i] }\nfunc (m *MinHeap) Pop() interface{} {\n    v := (*m)[len(*m)-1]\n    *m = (*m)[:len(*m)-1]\n    return v\n}\nfunc (m *MinHeap) Push(v interface{}) { *m = append(*m, v.(int)) }\nfunc (m MinHeap) Top() int { return m[0] }\n\ntype MedianFinder struct {\n    left MaxHeap\n    right MinHeap    \n}\n\nfunc Constructor() MedianFinder {\n    return MedianFinder{}    \n}\n\nfunc (mf *MedianFinder) AddNum(num int)  {\n    if len(mf.left) + len(mf.right) == 0 {\n        heap.Push(\u0026(mf.left), num)\n        return\n    }\n    for {\n        if len(mf.left) \u003c len(mf.right) {\n            if num \u003c= mf.right.Top() {\n                heap.Push(\u0026(mf.left), num)\n                return\n            } else {\n                v := heap.Pop(\u0026(mf.right))\n                heap.Push(\u0026(mf.left), v)\n            }\n        } else {\n            if num \u003e= mf.left.Top() {\n                heap.Push(\u0026(mf.right), num)\n                return\n            } else {\n                v := heap.Pop(\u0026(mf.left))\n                heap.Push(\u0026(mf.right), v)\n            }\n        }\n    }\n}\n\nfunc (mf *MedianFinder) FindMedian() float64 {\n    if len(mf.left) == len(mf.right) {\n        return float64(mf.left.Top() + mf.right.Top()) / 2.0\n    } else if len(mf.left) \u003e len(mf.right) {\n        return float64(mf.left.Top())\n    } else {\n        return float64(mf.right.Top())\n    }   \n}",
+    "title": "Find Median from Data Stream",
+    "url": "/submissions/detail/1091202059/",
+    "lang_name": "Go",
+    "time": "1 year, 6 months",
+    "timestamp": 1699093864,
+    "status": 10,
+    "runtime": "299 ms",
+    "is_pending": "Not Pending",
+    "memory": "20.2 MB",
+    "compare_result": "111111111111111111111",
+    "flag_type": 1
+}

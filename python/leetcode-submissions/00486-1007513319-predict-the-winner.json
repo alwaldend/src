@@ -1,0 +1,19 @@
+{
+    "id": 1007513319,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 486,
+    "title_slug": "predict-the-winner",
+    "code": "class Solution:\n    def PredictTheWinner(self, nums: List[int]) -\u003e bool:\n        length = len(nums)\n        is_even = length % 2 == 0\n\n        if length \u003c 3:\n            return True\n        \n        @cache\n        def max_diff(left: int, right: int) -\u003e int:\n            left_num, right_num = nums[left], nums[right]\n            \n            if left == right:\n                return left_num\n            \n            score_by_left = left_num - max_diff(left + 1, right)\n            score_by_right = right_num - max_diff(left, right - 1)\n            return max(score_by_left, score_by_right)\n\n        return max_diff(0, length - 1) \u003e= 0\n",
+    "title": "Predict the Winner",
+    "url": "/submissions/detail/1007513319/",
+    "lang_name": "Python3",
+    "time": "1 year, 9 months",
+    "timestamp": 1690701122,
+    "status": 10,
+    "runtime": "44 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.5 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

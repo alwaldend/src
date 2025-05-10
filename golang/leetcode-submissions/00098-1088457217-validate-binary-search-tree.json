@@ -1,0 +1,19 @@
+{
+    "id": 1088457217,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 98,
+    "title_slug": "validate-binary-search-tree",
+    "code": "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc isValidBST(root *TreeNode) bool {\n    if root == nil {\n        return false\n    }\n    return dfs(root.Left, \u0026root.Val, nil) \u0026\u0026 dfs(root.Right, nil, \u0026root.Val)\n}\n\nfunc dfs(root *TreeNode, max *int, min *int) bool {\n    if root == nil {\n        return true\n    }\n    if (max != nil \u0026\u0026 root.Val \u003e= *max) || (min != nil \u0026\u0026 root.Val \u003c= *min) {\n        return false\n    }\n    return dfs(root.Left, \u0026root.Val, min) \u0026\u0026 dfs(root.Right, max, \u0026root.Val)\n}",
+    "title": "Validate Binary Search Tree",
+    "url": "/submissions/detail/1088457217/",
+    "lang_name": "Go",
+    "time": "1 year, 6 months",
+    "timestamp": 1698767957,
+    "status": 10,
+    "runtime": "6 ms",
+    "is_pending": "Not Pending",
+    "memory": "5.4 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

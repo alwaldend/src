@@ -1,0 +1,19 @@
+{
+    "id": 1043821324,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 118,
+    "title_slug": "pascals-triangle",
+    "code": "class Solution:\n    def generate(self, numRows: int) -\u003e List[List[int]]:\n        answer = [[1]]\n        numRows -= 1\n\n        while numRows \u003e 0:\n            cur, prev = [1], answer[-1]\n            for i in range(len(prev) - 1):\n                cur.append(prev[i] + prev[i+1])\n            cur.append(1)\n            answer.append(cur)\n            numRows -= 1\n        \n        return answer",
+    "title": "Pascal's Triangle",
+    "url": "/submissions/detail/1043821324/",
+    "lang_name": "Python3",
+    "time": "1 year, 8 months",
+    "timestamp": 1694169670,
+    "status": 10,
+    "runtime": "41 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.2 MB",
+    "compare_result": "111111111111111111111111111111",
+    "flag_type": 1
+}

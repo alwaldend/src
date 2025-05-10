@@ -1,0 +1,19 @@
+{
+    "id": 1030523976,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 373,
+    "title_slug": "find-k-pairs-with-smallest-sums",
+    "code": "class Solution:\n    def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -\u003e List[List[int]]:\n        nums1_count, nums2_count = len(nums1), len(nums2)\n        result = []\n        visited = set(((0, 0)))\n        min_heap = [(nums1[0] + nums2[0], (0, 0))]\n        count = 0\n\n        while k \u003e 0 and min_heap:\n            _, (i, j) = heappop(min_heap)\n            new_i, new_j = i + 1, j + 1\n            new_pair1, new_pair2 = (new_i, j), (i, new_j)\n            num1, num2 = nums1[i], nums2[j]\n            result.append((num1, num2))\n\n            if new_i \u003c nums1_count and new_pair1 not in visited:\n                heappush(min_heap, (nums1[new_i] + num2, new_pair1))\n                visited.add(new_pair1)\n\n            if new_j \u003c nums2_count and new_pair2 not in visited:\n                heappush(min_heap, (num1 + nums2[new_j], new_pair2))\n                visited.add(new_pair2)\n\n            k -= 1\n        \n        return result",
+    "title": "Find K Pairs with Smallest Sums",
+    "url": "/submissions/detail/1030523976/",
+    "lang_name": "Python3",
+    "time": "1 year, 8 months",
+    "timestamp": 1692884527,
+    "status": 10,
+    "runtime": "930 ms",
+    "is_pending": "Not Pending",
+    "memory": "36.5 MB",
+    "compare_result": "111111111111111111111111111111111111",
+    "flag_type": 1
+}

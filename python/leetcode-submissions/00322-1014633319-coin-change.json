@@ -1,0 +1,19 @@
+{
+    "id": 1014633319,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 322,
+    "title_slug": "coin-change",
+    "code": "class Solution:\n    def coinChange(self, coins: List[int], amount: int) -\u003e int:\n        dp = [amount + 1] * (amount + 1)\n        dp[0] = 0\n\n        for current_amount in range(1, amount + 1):\n            for coin in coins:\n                diff = current_amount - coin\n                if diff \u003c 0:\n                    continue\n                \n                dp[current_amount] = min(dp[current_amount], dp[diff] + 1)\n\n        return dp[-1] if dp[-1] != amount + 1 else -1\n",
+    "title": "Coin Change",
+    "url": "/submissions/detail/1014633319/",
+    "lang_name": "Python3",
+    "time": "1 year, 9 months",
+    "timestamp": 1691408345,
+    "status": 10,
+    "runtime": "918 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.6 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

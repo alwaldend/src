@@ -1,0 +1,19 @@
+{
+    "id": 1234268575,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 623,
+    "title_slug": "add-one-row-to-tree",
+    "code": "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc addOneRow(root *TreeNode, val int, depth int) *TreeNode {\n    if root == nil {\n        return nil\n    }\n\n    if depth == 1 {\n        root = \u0026TreeNode{Val: val, Left: root}\n    } else if (depth == 2) {\n        root.Left = \u0026TreeNode{Val: val, Left: root.Left}\n        root.Right = \u0026TreeNode{Val: val, Right: root.Right}\n    } else {\n        addOneRow(root.Left, val, depth - 1)\n        addOneRow(root.Right, val, depth - 1)\n    }\n\n    return root;\n}",
+    "title": "Add One Row to Tree",
+    "url": "/submissions/detail/1234268575/",
+    "lang_name": "Go",
+    "time": "1 year",
+    "timestamp": 1713294994,
+    "status": 10,
+    "runtime": "6 ms",
+    "is_pending": "Not Pending",
+    "memory": "6.1 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

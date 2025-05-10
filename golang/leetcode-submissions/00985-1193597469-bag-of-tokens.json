@@ -1,0 +1,19 @@
+{
+    "id": 1193597469,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 985,
+    "title_slug": "bag-of-tokens",
+    "code": "func bagOfTokensScore(tokens []int, power int) int {\n    n := len(tokens)\n\tsort.Ints(tokens)\n\tres := 0\n\n\tl := 0\n\tr := n - 1\n\n\tfor l \u003c= r {\n\t\tfor l \u003c= r \u0026\u0026 power \u003e= tokens[l] {\n\t\t\tpower -= tokens[l]\n\t\t\tl++\n\t\t\tres++\n\t\t}\n\t\t\n\t\tif res == 0 {\n\t\t\tbreak\n\t\t}\n\n        if r - l + 1 \u003c= 2 {\n\t\t\tbreak\n\t\t}\n\n\t\tpower += tokens[r]\n\t\tr--\n\t\tres--\n\t}\n\n\treturn res\n}",
+    "title": "Bag of Tokens",
+    "url": "/submissions/detail/1193597469/",
+    "lang_name": "Go",
+    "time": "1 year, 2 months",
+    "timestamp": 1709558501,
+    "status": 10,
+    "runtime": "5 ms",
+    "is_pending": "Not Pending",
+    "memory": "2.9 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1259722346,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 2416,
+    "title_slug": "evaluate-boolean-binary-tree",
+    "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def helper(self, root):\n        if root.val == 0 or root.val == 1:\n            return root.val == 1\n        elif root.val == 2:\n            return self.helper(root.left) or self.helper(root.right)\n        elif root.val == 3:\n            return self.helper(root.left) and self.helper(root.right)\n        return False\n        \n    def evaluateTree(self, root: Optional[TreeNode]) -\u003e bool:\n        return self.helper(root)",
+    "title": "Evaluate Boolean Binary Tree",
+    "url": "/submissions/detail/1259722346/",
+    "lang_name": "Python3",
+    "time": "11 months, 4 weeks",
+    "timestamp": 1715872293,
+    "status": 10,
+    "runtime": "44 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.7 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

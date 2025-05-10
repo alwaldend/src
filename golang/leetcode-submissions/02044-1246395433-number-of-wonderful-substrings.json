@@ -1,0 +1,19 @@
+{
+    "id": 1246395433,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 2044,
+    "title_slug": "number-of-wonderful-substrings",
+    "code": "func get(c rune) int {\r\n\r\n    return int(c - 'a')\r\n\r\n}\r\n\r\n\r\n\r\nfunc wonderfulSubstrings(word string) int64 {\r\n\r\n    cnt := make([]int64, 1024)\r\n\r\n    cnt[0] = 1\r\n\r\n\r\n\r\n    curState := 0\r\n\r\n    res := int64(0)\r\n\r\n\r\n\r\n    for _, c := range word {\r\n\r\n        curState ^= 1 \u003c\u003c get(c)\r\n\r\n\r\n\r\n        res += cnt[curState]\r\n\r\n        for odd := 'a'; odd \u003c= 'j'; odd++ {\r\n\r\n            oddState := curState ^ (1 \u003c\u003c get(odd))\r\n\r\n            res += cnt[oddState]\r\n\r\n        }\r\n\r\n\r\n\r\n        cnt[curState]++\r\n\r\n    }\r\n\r\n\r\n\r\n    return res\r\n\r\n}",
+    "title": "Number of Wonderful Substrings",
+    "url": "/submissions/detail/1246395433/",
+    "lang_name": "Go",
+    "time": "1 year",
+    "timestamp": 1714554286,
+    "status": 10,
+    "runtime": "27 ms",
+    "is_pending": "Not Pending",
+    "memory": "6.8 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

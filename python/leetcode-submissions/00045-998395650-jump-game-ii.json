@@ -1,0 +1,19 @@
+{
+    "id": 998395650,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 45,
+    "title_slug": "jump-game-ii",
+    "code": "class Solution:\n    def jump(self, nums: List[int]) -\u003e int:\n        length = len(nums)\n        result = 0\n        end = 0\n        farthest = 0\n\n        for i in range(length - 1):\n            number = nums[i]\n            max_jump = i + number\n            if max_jump \u003e farthest:\n                farthest = max_jump\n\n            if farthest \u003e= length - 1:\n                result += 1\n                break\n            \n            if i == end:\n                result += 1\n                end = farthest\n\n\n        return result\n",
+    "title": "Jump Game II",
+    "url": "/submissions/detail/998395650/",
+    "lang_name": "Python3",
+    "time": "1 year, 9 months",
+    "timestamp": 1689765591,
+    "status": 10,
+    "runtime": "128 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.4 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

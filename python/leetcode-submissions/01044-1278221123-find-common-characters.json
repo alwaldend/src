@@ -1,0 +1,19 @@
+{
+    "id": 1278221123,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1044,
+    "title_slug": "find-common-characters",
+    "code": "class Solution:\n    def commonChars(self, words: List[str]) -\u003e List[str]:\n        result = []\n        \n        # Check each character from 'a' to 'z'\n        for char in range(ord('a'), ord('z') + 1):\n            char = chr(char)\n            min_count = float('inf')  # Start with a very high number\n            \n            # Find the minimum count of the character in all words\n            for word in words:\n                count = word.count(char)  # Count the current character in the current word\n                min_count = min(min_count, count)  # Keep track of the smallest count\n                if min_count == 0:\n                    break  # If the character is not in one of the words, we can skip further checking\n            \n            # Add the character to the result list the required number of times\n            result.extend([char] * min_count)\n        \n        return result",
+    "title": "Find Common Characters",
+    "url": "/submissions/detail/1278221123/",
+    "lang_name": "Python3",
+    "time": "11 months, 1 week",
+    "timestamp": 1717572756,
+    "status": 10,
+    "runtime": "41 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.8 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

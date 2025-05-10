@@ -1,0 +1,19 @@
+{
+    "id": 1209931328,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 1765,
+    "title_slug": "merge-in-between-linked-lists",
+    "code": "/**\n * Definition for singly-linked list.\n * type ListNode struct {\n *     Val int\n *     Next *ListNode\n * }\n */\nfunc mergeInBetween(list1 *ListNode, a int, b int, list2 *ListNode) *ListNode {\n    if list1 == nil {\n        return list2 \n    }\n    list2Head, list2Tail := list2, list2\n    for list2 != nil {\n        list2Tail = list2\n        list2 = list2.Next\n    }\n    count := 0\n    list1Head := list1\n    for list1 != nil {\n        next := list1.Next\n        if count == a - 1 {\n            list1.Next = list2Head\n        } else if count == b {\n            list2Tail.Next = list1.Next\n        }\n        list1 = next\n        count++\n    }\n    return list1Head\n}",
+    "title": "Merge In Between Linked Lists",
+    "url": "/submissions/detail/1209931328/",
+    "lang_name": "Go",
+    "time": "1 year, 1 month",
+    "timestamp": 1711018408,
+    "status": 10,
+    "runtime": "83 ms",
+    "is_pending": "Not Pending",
+    "memory": "7.2 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

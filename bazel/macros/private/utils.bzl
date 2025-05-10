@@ -1,7 +1,6 @@
-load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
-
+load("@rules_python//python:py_binary.bzl", "py_binary")
 
 def install_file(name = "", args = [], visibility = ["//visibility:public"], **py_binary_kwargs):
     py_binary(
@@ -41,7 +40,7 @@ def compile_pip_requirements_combined(name = "", srcs = [], **compile_kwargs):
     compile_pip_requirements(
         name = name,
         src = ":{}-src".format(name),
-        **compile_kwargs,
+        **compile_kwargs
     )
 
 def combine_files(name = "", srcs = [], **genrule_kwargs):
@@ -56,8 +55,8 @@ def combine_files(name = "", srcs = [], **genrule_kwargs):
         srcs = srcs,
         outs = ["{}-output".format(name)],
         cmd = "cat $(SRCS) >$(@)",
-        **genrule_kwargs,
-)
+        **genrule_kwargs
+    )
 
 def apply_patches(name = "patched", src = "", patches = "", visibility = ["//visibility:public"]):
     """
@@ -84,7 +83,7 @@ def apply_patches(name = "patched", src = "", patches = "", visibility = ["//vis
             cd ../
             tar -cf "$(@)" -C "_src"
         """.format(src = src, patches = patches),
-)
+    )
 
 def pkg_tar_combined(name = None, tars = [], strip_components = 2, **genrule_kwargs):
     """

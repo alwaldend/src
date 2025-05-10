@@ -17,6 +17,7 @@ message Config {
   map<string, SubmissionConfig> submissions = 8;
   string root_dir = 9;
   map<string, string> headers = 11;
+  string submissions_file = 12;
 }
 
 message SubmissionConfig {

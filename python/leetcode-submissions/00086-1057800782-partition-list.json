@@ -1,0 +1,19 @@
+{
+    "id": 1057800782,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 86,
+    "title_slug": "partition-list",
+    "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def partition(self, head: Optional[ListNode], x: int) -\u003e Optional[ListNode]:\n        before_head, after_head = ListNode(0), ListNode(0)\n        before_tail, after_tail = before_head, after_head\n        \n        while head: \n            if head.val \u003c x:\n                before_tail.next, before_tail = head, head\n            else:\n                after_tail.next, after_tail = head, head\n            head = head.next\n        \n        after_tail.next, before_tail.next = None, after_head.next\n        \n        return before_head.next",
+    "title": "Partition List",
+    "url": "/submissions/detail/1057800782/",
+    "lang_name": "Python3",
+    "time": "1 year, 7 months",
+    "timestamp": 1695548445,
+    "status": 10,
+    "runtime": "43 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.3 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

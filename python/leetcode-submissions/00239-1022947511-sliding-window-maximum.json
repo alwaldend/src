@@ -1,0 +1,19 @@
+{
+    "id": 1022947511,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 239,
+    "title_slug": "sliding-window-maximum",
+    "code": "import sortedcontainers\n\nclass Solution:\n    def maxSlidingWindow(self, nums: List[int], k: int) -\u003e List[int]:\n        nums_count = len(nums)\n        if nums_count \u003c= k:\n            return [max(nums)]\n\n        counter = defaultdict(int)\n        elems = sortedcontainers.SortedSet()\n        \n        for num in nums[:k]:\n            counter[num] += 1\n            elems.add(num)\n        \n        result = [elems[-1]]\n        \n        for i in range(k, nums_count):\n            new_num = nums[i]\n            remove_num = nums[i-k]\n\n            counter[new_num] += 1\n            elems.add(new_num)\n\n            counter[remove_num] -= 1\n            if counter[remove_num] == 0:\n                elems.discard(remove_num)\n\n            result.append(elems[-1])\n\n        return result",
+    "title": "Sliding Window Maximum",
+    "url": "/submissions/detail/1022947511/",
+    "lang_name": "Python3",
+    "time": "1 year, 8 months",
+    "timestamp": 1692185781,
+    "status": 10,
+    "runtime": "2438 ms",
+    "is_pending": "Not Pending",
+    "memory": "32.9 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

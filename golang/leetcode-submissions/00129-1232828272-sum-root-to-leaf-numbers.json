@@ -1,0 +1,19 @@
+{
+    "id": 1232828272,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 129,
+    "title_slug": "sum-root-to-leaf-numbers",
+    "code": "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc sumNumbers(root *TreeNode) int {\n    return dfs(root, 0)\n}\n\nfunc dfs(node *TreeNode, num int) int {\n    if node == nil {\n        return 0\n    }\n    if node.Left == nil \u0026\u0026 node.Right == nil {\n        return num * 10 + node.Val\n    }\n    return dfs(node.Left, num * 10 + node.Val) + dfs(node.Right, num * 10 + node.Val)\n}",
+    "title": "Sum Root to Leaf Numbers",
+    "url": "/submissions/detail/1232828272/",
+    "lang_name": "Go",
+    "time": "1 year",
+    "timestamp": 1713163862,
+    "status": 10,
+    "runtime": "0 ms",
+    "is_pending": "Not Pending",
+    "memory": "2.3 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

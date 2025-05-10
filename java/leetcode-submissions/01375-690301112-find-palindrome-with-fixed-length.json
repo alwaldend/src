@@ -1,0 +1,19 @@
+{
+    "id": 690301112,
+    "status_display": "Accepted",
+    "lang": "java",
+    "question_id": 1375,
+    "title_slug": "find-palindrome-with-fixed-length",
+    "code": "class Solution {\n    public long[] kthPalindrome(int[] queries, int intLength) {\n        long[] res= new long[queries.length];\n        for(int i=0;i\u003cqueries.length;i++){\n            res[i]=nthPalindrome(queries[i],intLength);\n        }\n        return res;\n    }\n    public long nthPalindrome(int nth, int kdigit)\n    {\n    long temp = (kdigit \u0026 1)!=0 ? (kdigit / 2) : (kdigit/2 - 1);\n    long palindrome = (long)Math.pow(10, temp);\n    palindrome += nth - 1;\n    long res1=palindrome;\n    if ((kdigit \u0026 1)\u003e0)\n        palindrome /= 10;\n    while (palindrome\u003e0)\n    {\n        res1=res1*10+(palindrome % 10);\n        palindrome /= 10;\n    }\n    String g=\"\";\n    g+=res1;\n    if(g.length()!=kdigit)\n        return -1;\n    return res1;\n}\n}",
+    "title": "Find Palindrome With Fixed Length",
+    "url": "/submissions/detail/690301112/",
+    "lang_name": "Java",
+    "time": "3 years",
+    "timestamp": 1651332888,
+    "status": 10,
+    "runtime": "73 ms",
+    "is_pending": "Not Pending",
+    "memory": "52.7 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

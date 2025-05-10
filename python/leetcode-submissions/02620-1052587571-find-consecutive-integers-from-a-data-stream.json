@@ -1,0 +1,19 @@
+{
+    "id": 1052587571,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 2620,
+    "title_slug": "find-consecutive-integers-from-a-data-stream",
+    "code": "class DataStream:\n\n    def __init__(self, value: int, k: int):\n        self.required, self.value, self.value_count = k, value, 0\n\n    def consec(self, num: int) -\u003e bool:\n        if num != self.value:\n            self.value_count = 0\n            return False\n        self.value_count += 1\n        return self.value_count \u003e= self.required\n\n\n# Your DataStream object will be instantiated and called as such:\n# obj = DataStream(value, k)\n# param_1 = obj.consec(num)",
+    "title": "Find Consecutive Integers from a Data Stream",
+    "url": "/submissions/detail/1052587571/",
+    "lang_name": "Python3",
+    "time": "1 year, 7 months",
+    "timestamp": 1695039177,
+    "status": 10,
+    "runtime": "400 ms",
+    "is_pending": "Not Pending",
+    "memory": "42.5 MB",
+    "compare_result": "11111111111111111111111111111111111111",
+    "flag_type": 1
+}

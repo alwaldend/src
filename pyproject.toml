@@ -1,2 +1,8 @@
+[project]
+name = "src"
+version = "0.0.0"
+requires-python = ">=3.10, <4"
+dependencies = ["ansible", "proxmoxer", "black", "mypy", "isort", "pre-commit"]
+
 [tool.pyright]
 exclude = ["**/node_modules", "**/__pycache__", "out", "bazel-*"]

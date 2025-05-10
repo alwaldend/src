@@ -94,7 +94,8 @@ d_add_to_path_front \
     "${ANDROID_HOME}/cmdline-tools/latest/bin" \
     "${ANDROID_HOME}/platform-tools" \
     /usr/java/latest/bin \
-    /usr/mvn/latest/bin
+    /usr/mvn/latest/bin \
+    /opt/nvim-linux-x86_64/bin
 
 d_source_scripts \
     /etc/profile.d/bash_completion.sh \

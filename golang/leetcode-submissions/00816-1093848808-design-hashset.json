@@ -1,0 +1,19 @@
+{
+    "id": 1093848808,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 816,
+    "title_slug": "design-hashset",
+    "code": "type MyHashSet struct {\n    m map[int]struct{}\n}\n\n\nfunc Constructor() MyHashSet {\n    return MyHashSet{map[int]struct{}{}}\n}\n\n\nfunc (this *MyHashSet) Add(key int)  {\n    this.m[key] = struct{}{}\n}\n\n\nfunc (this *MyHashSet) Remove(key int)  {\n    delete(this.m, key)\n}\n\n\nfunc (this *MyHashSet) Contains(key int) bool {\n    _, ok := this.m[key]\n    return ok\n}\n\n\n/**\n * Your MyHashSet object will be instantiated and called as such:\n * obj := Constructor();\n * obj.Add(key);\n * obj.Remove(key);\n * param_3 := obj.Contains(key);\n */",
+    "title": "Design HashSet",
+    "url": "/submissions/detail/1093848808/",
+    "lang_name": "Go",
+    "time": "1 year, 6 months",
+    "timestamp": 1699383405,
+    "status": 10,
+    "runtime": "68 ms",
+    "is_pending": "Not Pending",
+    "memory": "8.1 MB",
+    "compare_result": "111111111111111111111111111111111",
+    "flag_type": 1
+}

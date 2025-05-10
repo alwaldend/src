@@ -1,0 +1,19 @@
+{
+    "id": 1003583841,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 882,
+    "title_slug": "peak-index-in-a-mountain-array",
+    "code": "class Solution:\n    # [0,3,2,1,0]\n    def peakIndexInMountainArray(self, arr: List[int]) -\u003e int:\n        length = len(arr)\n\n        left, right = 0, length - 1\n        while left \u003c= right:\n            peak = left + (right - left) // 2\n            left_val, right_val = arr[peak-1], arr[peak+1]\n            peak_val = arr[peak]\n\n            if left_val \u003c peak_val \u003e right_val:\n                return peak\n            \n            if right_val \u003e peak_val:\n                left = peak + 1\n            else:\n                right = peak - 1\n        \n        return left\n        ",
+    "title": "Peak Index in a Mountain Array",
+    "url": "/submissions/detail/1003583841/",
+    "lang_name": "Python3",
+    "time": "1 year, 9 months",
+    "timestamp": 1690292305,
+    "status": 10,
+    "runtime": "603 ms",
+    "is_pending": "Not Pending",
+    "memory": "30.2 MB",
+    "compare_result": "111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1093844607,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 1894,
+    "title_slug": "merge-strings-alternately",
+    "code": "func mergeAlternately(word1 string, word2 string) string {\n    var sb strings.Builder\n    length1, length2 := len(word1), len(word2)\n    for i := 0; i \u003c max(length1, length2); i++ {\n        if i == length1 {\n            sb.WriteString(word2[i:length2])\n            break\n        }\n        if i == length2 {\n            sb.WriteString(word1[i:length1])\n            break\n        }\n        sb.WriteByte(word1[i])\n        sb.WriteByte(word2[i])\n    }\n    return sb.String()\n}",
+    "title": "Merge Strings Alternately",
+    "url": "/submissions/detail/1093844607/",
+    "lang_name": "Go",
+    "time": "1 year, 6 months",
+    "timestamp": 1699383049,
+    "status": 10,
+    "runtime": "1 ms",
+    "is_pending": "Not Pending",
+    "memory": "2.1 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

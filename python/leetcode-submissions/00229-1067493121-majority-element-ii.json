@@ -1,0 +1,19 @@
+{
+    "id": 1067493121,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 229,
+    "title_slug": "majority-element-ii",
+    "code": "class Solution:\n    def majorityElement(self, nums: List[int]) -\u003e List[int]:\n        nums.sort()\n        threshold = len(nums) // 3\n        cur_num, cur_count = nums[0], 1\n        answer = []\n        for num in nums[1:]:\n            if num == cur_num:\n                cur_count += 1\n                continue\n            if cur_count \u003e threshold:\n                answer.append(cur_num)\n            cur_num, cur_count = num, 1\n        if cur_count \u003e threshold:\n            answer.append(cur_num)\n        return answer",
+    "title": "Majority Element II",
+    "url": "/submissions/detail/1067493121/",
+    "lang_name": "Python3",
+    "time": "1 year, 7 months",
+    "timestamp": 1696488397,
+    "status": 10,
+    "runtime": "105 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.8 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

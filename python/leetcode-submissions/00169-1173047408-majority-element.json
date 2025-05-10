@@ -1,0 +1,19 @@
+{
+    "id": 1173047408,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 169,
+    "title_slug": "majority-element",
+    "code": "class Solution:\n    def majorityElement(self, nums: List[int]) -\u003e int:\n        counter = defaultdict(int)\n        half = len(nums) // 2\n        for num in nums:\n            counter[num] += 1\n            if counter[num] \u003e half:\n                return num\n        raise Exception()",
+    "title": "Majority Element",
+    "url": "/submissions/detail/1173047408/",
+    "lang_name": "Python3",
+    "time": "1 year, 2 months",
+    "timestamp": 1707731444,
+    "status": 10,
+    "runtime": "143 ms",
+    "is_pending": "Not Pending",
+    "memory": "18 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

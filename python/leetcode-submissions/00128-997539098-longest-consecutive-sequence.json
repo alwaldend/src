@@ -1,0 +1,19 @@
+{
+    "id": 997539098,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 128,
+    "title_slug": "longest-consecutive-sequence",
+    "code": "class Solution:\n    def longestConsecutive(self, nums: List[int]) -\u003e int:\n        length = len(nums)\n        if length \u003c 2:\n            return length\n        \n        nums = set(nums)\n        longest = 1\n        for number in nums:\n            if number - 1 in nums:\n                continue\n            consequent = 1\n            while number + consequent in nums:\n                consequent += 1\n            longest = max(longest, consequent)\n        \n        return longest",
+    "title": "Longest Consecutive Sequence",
+    "url": "/submissions/detail/997539098/",
+    "lang_name": "Python3",
+    "time": "1 year, 9 months",
+    "timestamp": 1689682534,
+    "status": 10,
+    "runtime": "439 ms",
+    "is_pending": "Not Pending",
+    "memory": "31 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

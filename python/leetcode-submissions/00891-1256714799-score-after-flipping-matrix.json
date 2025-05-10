@@ -1,0 +1,19 @@
+{
+    "id": 1256714799,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 891,
+    "title_slug": "score-after-flipping-matrix",
+    "code": "class Solution:\n    def matrixScore(self, grid: List[List[int]]) -\u003e int:\n        n, m = len(grid), len(grid[0])\n        res = (1 \u003c\u003c (m - 1)) * n\n\n        for j in range(1, m):\n            val = 1 \u003c\u003c (m - 1 - j)\n            set_count = 0\n\n            for i in range(n):\n                if grid[i][j] == grid[i][0]:\n                    set_count += 1\n\n            res += max(set_count, n - set_count) * val\n\n        return res",
+    "title": "Score After Flipping Matrix",
+    "url": "/submissions/detail/1256714799/",
+    "lang_name": "Python3",
+    "time": "12 months",
+    "timestamp": 1715584935,
+    "status": 10,
+    "runtime": "43 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.5 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

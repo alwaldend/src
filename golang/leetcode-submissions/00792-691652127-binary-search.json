@@ -1,0 +1,19 @@
+{
+    "id": 691652127,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 792,
+    "title_slug": "binary-search",
+    "code": "/* https://leetcode.com/problems/binary-search/\n\nGiven an array of integers nums which is sorted in ascending order, and an integer target, write a function to search target in nums. If target exists, then return its index. Otherwise, return -1.\n\nYou must write an algorithm with O(log n) runtime complexity.\n\n\n\nExample 1:\n\nInput: nums = [-1,0,3,5,9,12], target = 9\nOutput: 4\nExplanation: 9 exists in nums and its index is 4\n\nExample 2:\n\nInput: nums = [-1,0,3,5,9,12], target = 2\nOutput: -1\nExplanation: 2 does not exist in nums so return -1\n\n\n\nConstraints:\n\n    1 \u003c= nums.length \u003c= 104\n    -104 \u003c nums[i], target \u003c 104\n    All the integers in nums are unique.\n    nums is sorted in ascending order.\n\n*/\npackage main\n\nfunc search(numbers []int, target int) int {\n\tlength := len(numbers)\n\tswitch {\n\tcase numbers[0] \u003e target:\n\t\t// smallet number \u003e target = there is no target in the array\n\t\tfallthrough\n\tcase numbers[length-1] \u003c target:\n\t\t// biggest number \u003c target = there is no target in the array\n\t\treturn -1\n\tcase numbers[length-1] == target:\n\t\t// checking just in case, can save time\n\t\treturn length - 1\n\tcase numbers[0] == target:\n\t\t// checking just in case, can save time\n\t\treturn 0\n\t}\n\n\tleft, right := 0, length-1\n\tfor right \u003e= left {\n\t\t// overflow protection\n\t\tindex := left + (right-left)/2\n\t\tnumber := numbers[index]\n\t\tswitch {\n\t\tcase number == target:\n\t\t\t// found the target\n\t\t\treturn index\n\t\tcase number \u003e target:\n\t\t\t// array is in the ascending order, the number is bigger\n\t\t\t// -\u003e the target is to the left -\u003e discard right\n\t\t\tright = index - 1\n\t\tcase number \u003c target:\n\t\t\t// array is in the ascending order, the number is smaller\n\t\t\t// -\u003e the target is to the right -\u003e discard left\n\t\t\tleft = index + 1\n\t\t}\n\t}\n\t// search space is empty, there is no target\n\treturn -1\n}\n",
+    "title": "Binary Search",
+    "url": "/submissions/detail/691652127/",
+    "lang_name": "Go",
+    "time": "3 years",
+    "timestamp": 1651503093,
+    "status": 10,
+    "runtime": "34 ms",
+    "is_pending": "Not Pending",
+    "memory": "7.1 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1182831320,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 1039,
+    "title_slug": "find-the-town-judge",
+    "code": "func findJudge(n int, trust [][]int) int {\n    fromTo := make([][]int, n)\n    toFrom := make([][]int, n)\n    for _, trustArray := range trust {\n        from, to := trustArray[0], trustArray[1]\n        fromTo[from-1] = append(fromTo[from-1], to)\n        toFrom[to-1] = append(toFrom[to-1], from)\n    }\n    for i, from := range toFrom {\n        if len(from) == n - 1 \u0026\u0026 len(fromTo[i]) == 0 {\n            return i + 1\n        }\n    }\n    return -1\n}",
+    "title": "Find the Town Judge",
+    "url": "/submissions/detail/1182831320/",
+    "lang_name": "Go",
+    "time": "1 year, 2 months",
+    "timestamp": 1708590036,
+    "status": 10,
+    "runtime": "90 ms",
+    "is_pending": "Not Pending",
+    "memory": "7.6 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

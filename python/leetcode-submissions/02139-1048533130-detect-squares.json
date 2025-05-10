@@ -1,0 +1,19 @@
+{
+    "id": 1048533130,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 2139,
+    "title_slug": "detect-squares",
+    "code": "class DetectSquares:\n\n    def __init__(self):\n        self._row_col = defaultdict(lambda: defaultdict(int))\n\n    def add(self, point: List[int]) -\u003e None:\n        self._row_col[point[0]][point[1]] += 1\n\n    def count(self, point: List[int]) -\u003e int:\n        ways_count = 0\n        row1, col1 = point\n        for col2, col2_count in self._row_col[row1].items():\n            if col2 == col1:\n                continue\n\n            side = col2 - col1\n            for row2 in (row1 + side, row1 - side):\n                point3_count = self._row_col[row2][col1]\n                point4_count = self._row_col[row2][col2]\n                ways_count += col2_count * point3_count * point4_count\n\n        return ways_count\n\n# Your DetectSquares object will be instantiated and called as such:\n# obj = DetectSquares()\n# obj.add(point)\n# param_2 = obj.count(point)",
+    "title": "Detect Squares",
+    "url": "/submissions/detail/1048533130/",
+    "lang_name": "Python3",
+    "time": "1 year, 7 months",
+    "timestamp": 1694622005,
+    "status": 10,
+    "runtime": "217 ms",
+    "is_pending": "Not Pending",
+    "memory": "18.2 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

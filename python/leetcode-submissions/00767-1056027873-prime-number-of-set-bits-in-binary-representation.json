@@ -1,0 +1,19 @@
+{
+    "id": 1056027873,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 767,
+    "title_slug": "prime-number-of-set-bits-in-binary-representation",
+    "code": "class Solution:\n    def countPrimeSetBits(self, left: int, right: int) -\u003e int:\n        prime_bits = (2, 3, 5, 7, 11, 13, 17, 19)\n        answer = 0\n        for num in range(left, right + 1):\n            bit_count = num.bit_count()\n            if bit_count in prime_bits:\n                answer += 1\n            \n        return answer",
+    "title": "Prime Number of Set Bits in Binary Representation",
+    "url": "/submissions/detail/1056027873/",
+    "lang_name": "Python3",
+    "time": "1 year, 7 months",
+    "timestamp": 1695361885,
+    "status": 10,
+    "runtime": "85 ms",
+    "is_pending": "Not Pending",
+    "memory": "16 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1089076574,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 236,
+    "title_slug": "lowest-common-ancestor-of-a-binary-tree",
+    "code": "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\n func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {\n    if root == nil {\n\t\treturn nil\n\t}\n    if root == p || root == q {\n\t\treturn root\n\t}\n    left, right := lowestCommonAncestor(root.Left, p, q), lowestCommonAncestor(root.Right, p, q)\n    if left != nil \u0026\u0026 right != nil {\n\t\treturn root\n\t}\n\tif left != nil {\n\t\treturn left\n\t}\n\treturn right\n}",
+    "title": "Lowest Common Ancestor of a Binary Tree",
+    "url": "/submissions/detail/1089076574/",
+    "lang_name": "Go",
+    "time": "1 year, 6 months",
+    "timestamp": 1698840114,
+    "status": 10,
+    "runtime": "6 ms",
+    "is_pending": "Not Pending",
+    "memory": "7 MB",
+    "compare_result": "1111111111111111111111111111111",
+    "flag_type": 1
+}
