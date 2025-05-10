@@ -37,9 +37,9 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 <tr><td></td><td><a href=./python/replace-section>replace-section</a></td><td> Replace sections of files</td></tr>
 <tr><td><a href=./shell>shell</a></td><td colspan=2> Shell projects</td></tr>
 <tr><td></td><td><a href=./shell/scripts>scripts</a></td><td> Shell scripts</td></tr>
-<tr><td><a href=./skylark>skylark</a></td><td colspan=2> Skylark projects</td></tr>
-<tr><td></td><td><a href=./skylark/configs>configs</a></td><td> Bazel configs</td></tr>
-<tr><td></td><td><a href=./skylark/macros>macros</a></td><td> Bazel macros</td></tr>
+<tr><td><a href=./starlark>starlark</a></td><td colspan=2> Skylark projects</td></tr>
+<tr><td></td><td><a href=./starlark/configs>configs</a></td><td> Bazel configs</td></tr>
+<tr><td></td><td><a href=./starlark/macros>macros</a></td><td> Bazel macros</td></tr>
 <tr><td><a href=./vial>vial</a></td><td colspan=2> Vial configs</td></tr>
 <tr><td></td><td><a href=./vial/keyboards>keyboards</a></td><td> Keyboard configs</td></tr>
 </table>
