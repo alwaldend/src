@@ -10,6 +10,9 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 <!-- README_CONTENTS START -->
 <table>
+<tr><td><a href=./bazel>bazel</a></td><td colspan=2> Bazel projects</td></tr>
+<tr><td></td><td><a href=./bazel/configs>configs</a></td><td> Bazel configs</td></tr>
+<tr><td></td><td><a href=./bazel/macros>macros</a></td><td> Bazel macros</td></tr>
 <tr><td><a href=./configs>configs</a></td><td colspan=2> Configs for different tools</td></tr>
 <tr><td></td><td><a href=./configs/dotfiles>dotfiles</a></td><td> Dotfile configs</td></tr>
 <tr><td><a href=./cpp>cpp</a></td><td colspan=2> C++ projects</td></tr>
@@ -37,9 +40,6 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 <tr><td></td><td><a href=./python/replace-section>replace-section</a></td><td> Replace sections of files</td></tr>
 <tr><td><a href=./shell>shell</a></td><td colspan=2> Shell projects</td></tr>
 <tr><td></td><td><a href=./shell/scripts>scripts</a></td><td> Shell scripts</td></tr>
-<tr><td><a href=./starlark>starlark</a></td><td colspan=2> Skylark projects</td></tr>
-<tr><td></td><td><a href=./starlark/configs>configs</a></td><td> Bazel configs</td></tr>
-<tr><td></td><td><a href=./starlark/macros>macros</a></td><td> Bazel macros</td></tr>
 <tr><td><a href=./vial>vial</a></td><td colspan=2> Vial configs</td></tr>
 <tr><td></td><td><a href=./vial/keyboards>keyboards</a></td><td> Keyboard configs</td></tr>
 </table>

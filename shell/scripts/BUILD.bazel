@@ -1,5 +1,5 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//starlark/macros:utils.bzl", "sh_script")
+load("//bazel/macros:utils.bzl", "sh_script")
 
 sh_script(name = "readme-tree")
 

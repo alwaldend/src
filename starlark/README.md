@@ -1,3 +1,0 @@
----
-title: Skylark projects
----
