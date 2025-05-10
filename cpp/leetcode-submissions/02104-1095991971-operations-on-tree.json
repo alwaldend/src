@@ -1,0 +1,19 @@
+{
+    "id": 1095991971,
+    "status_display": "Accepted",
+    "lang": "cpp",
+    "question_id": 2104,
+    "title_slug": "operations-on-tree",
+    "code": "class LockingTree {\npublic:\n    std::vector\u003cint\u003e parents, locked;\n    std::vector\u003cstd::vector\u003cint\u003e\u003e children;\n    LockingTree(vector\u003cint\u003e\u0026 parent) {\n        int length = parent.size();\n        this-\u003echildren.resize(length);\n        this-\u003elocked.resize(length, -1);\n        this-\u003eparents = parent;\n        for (int i = 1; i \u003c length; ++i) {\n            this-\u003echildren[this-\u003eparents[i]].push_back(i);\n        }\n    }\n    \n    bool lock(int num, int user) {\n        if (this-\u003elocked[num] != -1) {\n            return false;\n        }\n        this-\u003elocked[num] = user;\n        return true;\n    }\n    \n    bool unlock(int num, int user) {\n        if (this-\u003elocked[num] != user) {\n            return false;\n        }\n        this-\u003elocked[num] = -1;\n        return true;\n    }\n\n    bool upgrade(int num, int user) {\n        if (this-\u003elocked[num] != -1) {\n            return false;\n        }\n        int parent = this-\u003eparents[num];\n        while (parent != -1) {\n            if (this-\u003elocked[parent] != -1) {\n                return false;\n            }\n            parent = this-\u003eparents[parent];\n        }\n        if (!this-\u003eunlockDesc(num)) {\n            return false;\n        }\n        this-\u003elocked[num] = user;\n        return true;\n    }\n\n    bool unlockDesc(int parent) {\n        bool hasLocked = false;\n        for (auto const\u0026 child : this-\u003echildren[parent]) {\n            if (this-\u003elocked[child] != -1) {\n                this-\u003elocked[child] = -1;\n                hasLocked = true;\n            }\n            bool descHasLocked = unlockDesc(child);\n            if (descHasLocked) {\n                hasLocked = true;\n            }\n        }\n        return hasLocked;\n    }\n};\n\n/**\n * Your LockingTree object will be instantiated and called as such:\n * LockingTree* obj = new LockingTree(parent);\n * bool param_1 = obj-\u003elock(num,user);\n * bool param_2 = obj-\u003eunlock(num,user);\n * bool param_3 = obj-\u003eupgrade(num,user);\n */",
+    "title": "Operations on Tree",
+    "url": "/submissions/detail/1095991971/",
+    "lang_name": "C++",
+    "time": "1 year, 6 months",
+    "timestamp": 1699630679,
+    "status": 10,
+    "runtime": "291 ms",
+    "is_pending": "Not Pending",
+    "memory": "123.5 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

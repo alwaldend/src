@@ -1,0 +1,19 @@
+{
+    "id": 1096023462,
+    "status_display": "Accepted",
+    "lang": "cpp",
+    "question_id": 1572,
+    "title_slug": "subrectangle-queries",
+    "code": "class SubrectangleQueries {\n    vector\u003cvector\u003cint\u003e\u003e res;\npublic:\n    SubrectangleQueries(vector\u003cvector\u003cint\u003e\u003e\u0026 rectangle) {\n        res=rectangle;\n    }\n    \n    void updateSubrectangle(int row1, int col1, int row2, int col2, int newValue) {\n        for(int i = row1; i \u003c= row2; ++i) {\n            for(int j= col1; j \u003c= col2; ++j) {\n                res[i][j] = newValue;\n            }\n        }\n    }\n    \n    int getValue(int row, int col) {\n        return res[row][col];\n    }\n};\n\n/**\n * Your SubrectangleQueries object will be instantiated and called as such:\n * SubrectangleQueries* obj = new SubrectangleQueries(rectangle);\n * obj-\u003eupdateSubrectangle(row1,col1,row2,col2,newValue);\n * int param_2 = obj-\u003egetValue(row,col);\n */",
+    "title": "Subrectangle Queries",
+    "url": "/submissions/detail/1096023462/",
+    "lang_name": "C++",
+    "time": "1 year, 6 months",
+    "timestamp": 1699634090,
+    "status": 10,
+    "runtime": "35 ms",
+    "is_pending": "Not Pending",
+    "memory": "18.8 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

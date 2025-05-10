@@ -1,0 +1,19 @@
+{
+    "id": 1116406430,
+    "status_display": "Accepted",
+    "lang": "cpp",
+    "question_id": 898,
+    "title_slug": "transpose-matrix",
+    "code": "class Solution {\npublic:\n    vector\u003cvector\u003cint\u003e\u003e transpose(vector\u003cvector\u003cint\u003e\u003e\u0026 matrix) {\n        int row = matrix.size();\n        int col = matrix[0].size();\n        vector\u003cvector\u003cint\u003e\u003e result(col, vector\u003cint\u003e(row, 0));\n        \n        for (int i = 0; i \u003c col; ++i) {\n            for (int j = 0; j \u003c row; ++j) {\n                result[i][j] = matrix[j][i];\n            }\n        }\n        \n        return result;\n    }\n};",
+    "title": "Transpose Matrix",
+    "url": "/submissions/detail/1116406430/",
+    "lang_name": "C++",
+    "time": "1 year, 5 months",
+    "timestamp": 1702205146,
+    "status": 10,
+    "runtime": "7 ms",
+    "is_pending": "Not Pending",
+    "memory": "10.9 MB",
+    "compare_result": "111111111111111111111111111111111111",
+    "flag_type": 1
+}
