@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 
-	proto "git.alwaldend.com/proto/leetcode-downloader"
+	proto "git.alwaldend.com/src/golang/leetcode-downloader/proto"
 )
 
 type Repo struct {

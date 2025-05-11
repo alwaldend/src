@@ -1,15 +1,23 @@
+load("@rules_go//go:def.bzl", "go_library")
 load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 
 proto_library(
-    name = "downloader_proto",
+    name = "proto_proto",
     srcs = ["types.proto"],
     visibility = ["//visibility:public"],
 )
 
 go_proto_library(
-    name = "downloader_go_proto",
-    importpath = "git.alwaldend.com/proto/leetcode-downloader",
-    proto = ":downloader_proto",
+    name = "proto_go_proto",
+    importpath = "git.alwaldend.com/src/golang/leetcode-downloader/proto",
+    proto = ":proto_proto",
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "proto",
+    embed = [":proto_go_proto"],
+    importpath = "git.alwaldend.com/src/golang/leetcode-downloader/proto",
     visibility = ["//visibility:public"],
 )

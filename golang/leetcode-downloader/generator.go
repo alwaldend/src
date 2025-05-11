@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 	"slices"
 
-	proto "git.alwaldend.com/proto/leetcode-downloader"
+	proto "git.alwaldend.com/src/golang/leetcode-downloader/proto"
 )
 
 type Generator struct {
