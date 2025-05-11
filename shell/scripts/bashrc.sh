@@ -49,6 +49,14 @@ export HISTFILESIZE=
 # bash history size (number of lines)
 export HISTSIZE=10000
 
+### proxy
+export all_proxy="http://127.0.0.1:10808"
+export ALL_PROXY="${all_proxy}"
+export http_proxy="${all_proxy}"
+export HTTP_PROXY="${all_proxy}"
+export https_proxy="${all_proxy}"
+export HTTPS_PROXY="${all_proxy}"
+
 # android sdk
 export ANDROID_HOME="${HOME}/Android/Sdk"
 ### path edits

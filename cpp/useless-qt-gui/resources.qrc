@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>img/close_windiow.png</file>
+        <file>img/maximize_window.png</file>
+        <file>img/minimize_window.png</file>
+        <file>img/select.png</file>
+        <file>img/add.png</file>
+        <file>img/home.png</file>
+        <file>img/close_windiowWhite.png</file>
+        <file>img/maximize_windowWhite.png</file>
+        <file>img/minimize_windowWhite.png</file>
+        <file>img/leftArrow.png</file>
+        <file>img/rightArrow.png</file>
+    </qresource>
+</RCC>
