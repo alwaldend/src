@@ -10,19 +10,24 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 <!-- README_CONTENTS START -->
 <table>
+<tr><td><a href=./assets>assets</a></td><td colspan=2> Assets</td></tr>
+<tr><td></td><td><a href=./assets/useless-qt-gui>useless-qt-gui</a></td><td> Assets for useless-qt-gui</td></tr>
 <tr><td><a href=./bazel>bazel</a></td><td colspan=2> Bazel projects</td></tr>
 <tr><td></td><td><a href=./bazel/configs>configs</a></td><td> Bazel configs</td></tr>
 <tr><td></td><td><a href=./bazel/macros>macros</a></td><td> Bazel macros</td></tr>
+<tr><td></td><td><a href=./bazel/qt>qt</a></td><td> Qt wrapper for bazel</td></tr>
 <tr><td><a href=./configs>configs</a></td><td colspan=2> Configs for different tools</td></tr>
 <tr><td></td><td><a href=./configs/dotfiles>dotfiles</a></td><td> Dotfile configs</td></tr>
 <tr><td><a href=./cpp>cpp</a></td><td colspan=2> C++ projects</td></tr>
 <tr><td></td><td><a href=./cpp/infinitime>infinitime</a></td><td> Fork of InfiniTimeOrg/InfiniTime</td></tr>
 <tr><td></td><td><a href=./cpp/leetcode-submissions>leetcode-submissions</a></td><td> Leetcode submissions</td></tr>
+<tr><td></td><td><a href=./cpp/useless-qt-gui>useless-qt-gui</a></td><td> Useless qt GUI</td></tr>
 <tr><td><a href=./drawio>drawio</a></td><td colspan=2> Drawio diagrams</td></tr>
 <tr><td></td><td><a href=./drawio/diagrams>diagrams</a></td><td> Drawio diagrams</td></tr>
 <tr><td><a href=./golang>golang</a></td><td colspan=2> Golang projects</td></tr>
 <tr><td></td><td><a href=./golang/file-installer>file-installer</a></td><td></td></tr>
 <tr><td></td><td><a href=./golang/leetcode-downloader>leetcode-downloader</a></td><td> CLI app to download leetcode submissions</td></tr>
+<tr><td><a href=./java>java</a></td><td colspan=2> Java projects</td></tr>
 <tr><td></td><td><a href=./java/leetcode-submissions>leetcode-submissions</a></td><td> Leetcode submissions</td></tr>
 <tr><td><a href=./javascript>javascript</a></td><td colspan=2> Javascript projects</td></tr>
 <tr><td></td><td><a href=./javascript/leetcode-downloader>leetcode-downloader</a></td><td> Tampermonkey script to download leetcode submissions</td></tr>

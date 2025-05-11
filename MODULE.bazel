@@ -160,11 +160,6 @@ pip.parse(
     python_version = PYTHON_VERSION,
     requirements_lock = "//:requirements.txt",
 )
-pip.parse(
-    hub_name = "cpp-useless-qt-gui-requirements",
-    python_version = PYTHON_VERSION,
-    requirements_lock = "//cpp/useless-qt-gui:requirements.txt",
-)
 
 npm.npm_translate_lock(
     name = "npm",
@@ -179,7 +174,7 @@ go_deps.from_file(go_mod = "//:go.mod")
 
 ### use_repo
 
-use_repo(pip, "cpp-infinitime-requirements", "cpp-useless-qt-gui-requirements")
+use_repo(pip, "cpp-infinitime-requirements")
 
 use_repo(npm, "npm")
 
