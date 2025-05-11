@@ -1,0 +1,26 @@
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+
+pkg_tar(
+    name = "img",
+    package_dir = "img",
+    deps = ["//assets/useless-qt-gui"],
+)
+
+pkg_tar(
+    name = "src",
+    srcs = glob(["**"]),
+    deps = [":img"],
+)
+
+genrule(
+    name = "useless-qt-gui",
+    srcs = [":src"],
+    outs = ["useless-qt-gui-bin"],
+    cmd = """
+        tar -xf $(<) && $(QMAKE) && $(MAKE) && mv useless-qt-gui $(@)
+    """,
+    toolchains = [
+        "@rules_foreign_cc//toolchains:current_make_toolchain",
+        "//bazel/qt:current-qt-toolchain",
+    ],
+)

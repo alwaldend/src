@@ -1,0 +1,23 @@
+load("//bazel/qt:toolchains.bzl", "current_qt_toolchain", "preinstalled_qt_toolchain")
+
+toolchain_type(
+    name = "qt-toolchain",
+    visibility = ["//visibility:public"],
+)
+
+current_qt_toolchain(
+    name = "current-qt-toolchain",
+    visibility = ["//visibility:public"],
+)
+
+toolchain(
+    name = "preinstalled-qt-toolchain",
+    toolchain = ":preinstalled-qt-toolchain-impl",
+    toolchain_type = ":qt-toolchain",
+    visibility = ["//visibility:public"],
+)
+
+preinstalled_qt_toolchain(
+    name = "preinstalled-qt-toolchain-impl",
+    visibility = ["//visibility:public"],
+)
