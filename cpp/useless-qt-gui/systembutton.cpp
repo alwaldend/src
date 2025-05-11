@@ -75,16 +75,16 @@ void SystemButton::switchIcon(int state)
     switch (state) {
     case 0:
             switch (this->type) {
-            case 0: this->setIcon(QPixmap(":/Img/Img/minimize_windowWhite.png")); break;
-            case 1: this->setIcon(QPixmap(":/Img/Img/maximize_windowWhite.png")); break;
-            case 2: this->setIcon(QPixmap(":/Img/Img/close_windiowWhite.png")); break;
+            case 0: this->setIcon(QPixmap(":/img/img/minimize_windowWhite.png")); break;
+            case 1: this->setIcon(QPixmap(":/img/img/maximize_windowWhite.png")); break;
+            case 2: this->setIcon(QPixmap(":/img/img/close_windiowWhite.png")); break;
             }
             break;
     case 1:
             switch (this->type) {
-            case 0: this->setIcon(QPixmap(":/Img/Img/minimize_window.png")); break;
-            case 1: this->setIcon(QPixmap(":/Img/Img/maximize_window.png")); break;
-            case 2: this->setIcon(QPixmap(":/Img/Img/close_windiow.png")); break;
+            case 0: this->setIcon(QPixmap(":/img/img/minimize_window.png")); break;
+            case 1: this->setIcon(QPixmap(":/img/img/maximize_window.png")); break;
+            case 2: this->setIcon(QPixmap(":/img/img/close_windiow.png")); break;
             }
             break;
     }

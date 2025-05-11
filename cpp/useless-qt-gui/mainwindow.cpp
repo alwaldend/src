@@ -81,17 +81,17 @@ void MainWindow::setContentFrame() {
 void MainWindow::fillMenuPanel() {
   this->amountOfMenuPages++;
   if (this->menuPanel->currentIndex()) {
-    addNewMenuButton("", 4, ":/Img/Img/home.png");
+    addNewMenuButton("", 4, ":/img/img/home.png");
   } else {
-    addNewMenuButton("", 2, ":/Img/Img/home.png");
+    addNewMenuButton("", 2, ":/img/img/home.png");
   }
-  addNewMenuButton("", 6, ":/Img/Img/add.png");
-  addNewMenuButton("", 6, ":/Img/Img/add.png");
-  addNewMenuButton("", 6, ":/Img/Img/add.png");
-  addNewMenuButton("", 6, ":/Img/Img/add.png");
-  addNewMenuButton("", 6, ":/Img/Img/add.png");
-  addNewMenuButton("", 6, ":/Img/Img/add.png");
-  addNewMenuButton("", 3, ":/Img/Img/add.png");
+  addNewMenuButton("", 6, ":/img/img/add.png");
+  addNewMenuButton("", 6, ":/img/img/add.png");
+  addNewMenuButton("", 6, ":/img/img/add.png");
+  addNewMenuButton("", 6, ":/img/img/add.png");
+  addNewMenuButton("", 6, ":/img/img/add.png");
+  addNewMenuButton("", 6, ":/img/img/add.png");
+  addNewMenuButton("", 3, ":/img/img/add.png");
 }
 
 void MainWindow::addNewMenuButton(QString text, int type, QString iconPath) {
@@ -103,7 +103,7 @@ void MainWindow::addNewMenuButton(QString text, int type, QString iconPath) {
       this->menuPanelPage_Layout->addStretch();
     }
     MenuButton *newMenuArrowLeft =
-        new MenuButton(this, "", -51, ":/Img/Img/leftArrow.png");
+        new MenuButton(this, "", -51, ":/img/img/leftArrow.png");
     MenuButton *newMenuArrowRight = new MenuButton(this, "", -52, "");
     if (type == 2 || type == 4) {
       this->menuArrowTop = newMenuArrowRight;
@@ -140,8 +140,8 @@ void MainWindow::addButtonWasClicked(MenuButton *button) {
     menuPanelPage->setLayout(menuPanelPage_Layout);
     this->menuPanelPage_Layout = menuPanelPage_Layout;
     this->menuPanel->setCurrentIndex(this->menuPanel->currentIndex() + 1);
-    this->menuArrowTop->setIcon(QPixmap(":/Img/Img/rightArrow.png"));
-    this->menuArrowBot->setIcon(QPixmap(":/Img/Img/rightArrow.png"));
+    this->menuArrowTop->setIcon(QPixmap(":/img/img/rightArrow.png"));
+    this->menuArrowBot->setIcon(QPixmap(":/img/img/rightArrow.png"));
     this->addButton->setIcon(QPixmap(""));
     this->addButton->disconnect(this->addButton,
                                 SIGNAL(addButtonWasClicked(MenuButton *)), this,
