@@ -1,5 +1,5 @@
 syntax = "proto3";
-option go_package = "git.alwaldend.com/proto/leetcode-downloader";
+option go_package = "git.alwaldend.com/src/golang/leetcode-downloader/proto";
 
 enum CliAction {
   DOWNLOAD = 0;

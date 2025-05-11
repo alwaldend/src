@@ -6,5 +6,5 @@ go_library(
     embedsrcs = ["config.json"],
     importpath = "git.alwaldend.com/src/golang/leetcode-downloader/model",
     visibility = ["//visibility:public"],
-    deps = ["//proto/leetcode-downloader:downloader_go_proto"],
+    deps = ["//proto/leetcode-downloader:proto"],
 )

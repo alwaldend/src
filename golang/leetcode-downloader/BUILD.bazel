@@ -13,7 +13,7 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "//golang/leetcode-downloader/model",
-        "//proto/leetcode-downloader:downloader_go_proto",
+        "//proto/leetcode-downloader:proto",
     ],
 )
 

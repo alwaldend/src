@@ -11,7 +11,7 @@ import (
 	"os/signal"
 	"strings"
 
-	proto "git.alwaldend.com/proto/leetcode-downloader"
+	proto "git.alwaldend.com/src/golang/leetcode-downloader/proto"
 
 	"git.alwaldend.com/src/golang/leetcode-downloader/model"
 )
