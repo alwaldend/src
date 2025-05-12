@@ -10,10 +10,12 @@ bazel_dep(name = "rules_oci", version = "2.2.6")
 bazel_dep(name = "rules_android", version = "0.6.4")
 bazel_dep(name = "rules_license", version = "1.0.0")
 bazel_dep(name = "rules_python", version = "1.4.0-rc4")
-bazel_dep(name = "rules_python_gazelle_plugin", version = "1.4.0-rc4")
 bazel_dep(name = "rules_pkg", version = "1.0.1")
 bazel_dep(name = "rules_go", version = "0.54.0")
+bazel_dep(name = "rules_java", version = "8.11.0")
+bazel_dep(name = "contrib_rules_jvm", version = "0.28.0")
 bazel_dep(name = "rules_proto", version = "7.1.0")
+bazel_dep(name = "rules_jvm_external", version = "6.7")
 bazel_dep(name = "rules_foreign_cc", version = "0.14.0")
 bazel_dep(name = "aspect_rules_js", version = "2.3.7")
 bazel_dep(name = "rules_nodejs", version = "6.3.0")
@@ -22,6 +24,16 @@ bazel_dep(name = "gazelle", version = "0.43.0")
 bazel_dep(name = "bazel_skylib", version = "1.7.1")
 
 bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.7.1", dev_dependency = True)
+bazel_dep(name = "rules_python_gazelle_plugin", version = "1.4.0-rc4", dev_dependency = True)
+bazel_dep(name = "hedron_compile_commands", dev_dependency = True)
+
+### overrides
+
+git_override(
+    module_name = "hedron_compile_commands",
+    commit = "4f28899228fb3ad0126897876f147ca15026151e",
+    remote = "https://github.com/hedronvision/bazel-compile-commands-extractor.git",
+)
 
 ### variables
 
@@ -66,11 +78,13 @@ local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl"
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+
 pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
 
-node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node", dev_dependency = True)
+node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node")
 
-npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm", dev_dependency = True)
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
 
 pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
 
@@ -172,6 +186,31 @@ go_sdk.from_file(go_mod = "//:go.mod")
 
 go_deps.from_file(go_mod = "//:go.mod")
 
+maven.install(
+    name = "maven-deps",
+    artifacts = [
+        "com.squareup.retrofit2:converter-jackson:2.11.0",
+        "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.19.0",
+        "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.19.0",
+        "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.19.0",
+        "org.yaml:snakeyaml:2.4",
+        "org.apache.velocity:velocity-engine-core:2.4.1",
+        "com.squareup.okhttp3:okhttp:4.12.0",
+        "org.sonatype.nexus:nexus-capability:3.70.1-02",
+        "org.sonatype.nexus:nexus-core:3.70.1-02",
+        "org.sonatype.nexus:nexus-plugin-api:3.70.1-02",
+        "org.sonatype.nexus:nexus-repository:3.70.1-02",
+        "org.sonatype.nexus:nexus-rapture:3.70.1-02",
+        "org.sonatype.nexus:nexus-security:3.70.1-02",
+    ],
+    lock_file = "//:maven-install.json",
+    repositories = [
+        "https://repo1.maven.org/maven2",
+        "https://maven.google.com",
+        "https://repository.sonatype.org/content/groups/sonatype-public-grid",
+    ],
+)
+
 ### use_repo
 
 use_repo(pip, "cpp-infinitime-requirements")
@@ -183,3 +222,5 @@ use_repo(pnpm, "pnpm")
 use_repo(node, "nodejs_toolchains")
 
 use_repo(go_deps, "com_github_goccy_go_yaml", "com_github_spf13_cobra")
+
+use_repo(maven, "maven-deps")
