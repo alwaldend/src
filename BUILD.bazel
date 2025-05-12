@@ -1,4 +1,5 @@
-load("@gazelle//:def.bzl", "gazelle")
+load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
+load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@rules_license//rules:license.bzl", "license")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
@@ -8,9 +9,27 @@ npm_link_all_packages(
 )
 
 # gazelle:exclude **/leetcode-submissions/*
+# gazelle:java_maven_install_file maven-install.json
+# gazelle:resolve java javax.annotation @maven//:org_apache_tomcat_annotations_api
+# gazelle:resolve java org.joda.time @maven//:joda_time_joda_time
+# gazelle:resolve java org.joda.time.format @maven//:joda_time_joda_time
+# gazelle:resolve java org.sonatype.nexus.repository.view @maven//:org_sonatype_nexus_nexus_repository
+# gazelle:resolve java org.sonatype.nexus.repository.storage @maven//:org_sonatype_nexus_nexus_repository
 gazelle(
     name = "gazelle",
     command = "fix",
+    gazelle = ":gazelle-bin",
+)
+
+gazelle_binary(
+    name = "gazelle-bin",
+    languages = DEFAULT_LANGUAGES + [
+        "@contrib_rules_jvm//java/gazelle",
+    ],
+)
+
+refresh_compile_commands(
+    name = "refresh_compile_commands",
 )
 
 license(
