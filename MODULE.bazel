@@ -22,6 +22,9 @@ bazel_dep(name = "rules_nodejs", version = "6.3.0")
 bazel_dep(name = "aspect_bazel_lib", version = "2.15.3")
 bazel_dep(name = "gazelle", version = "0.43.0")
 bazel_dep(name = "bazel_skylib", version = "1.7.1")
+bazel_dep(name = "rules_apple", version = "3.21.0")
+bazel_dep(name = "abseil-cpp", version = "20250127.1")
+bazel_dep(name = "re2", version = "2024-07-02.bcr.1")
 
 bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.7.1", dev_dependency = True)
 bazel_dep(name = "rules_python_gazelle_plugin", version = "1.4.0-rc4", dev_dependency = True)
@@ -187,7 +190,7 @@ go_sdk.from_file(go_mod = "//:go.mod")
 go_deps.from_file(go_mod = "//:go.mod")
 
 maven.install(
-    name = "maven-deps",
+    name = "maven",
     artifacts = [
         "com.squareup.retrofit2:converter-jackson:2.11.0",
         "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.19.0",
@@ -196,6 +199,7 @@ maven.install(
         "org.yaml:snakeyaml:2.4",
         "org.apache.velocity:velocity-engine-core:2.4.1",
         "com.squareup.okhttp3:okhttp:4.12.0",
+        "org.hibernate.validator:hibernate-validator:8.0.2.Final",
         "org.sonatype.nexus:nexus-capability:3.70.1-02",
         "org.sonatype.nexus:nexus-core:3.70.1-02",
         "org.sonatype.nexus:nexus-plugin-api:3.70.1-02",
@@ -213,7 +217,7 @@ maven.install(
 
 ### use_repo
 
-use_repo(pip, "cpp-infinitime-requirements")
+use_repo(pip, "cpp-infinitime-requirements", "python-requirements")
 
 use_repo(npm, "npm")
 
@@ -223,4 +227,4 @@ use_repo(node, "nodejs_toolchains")
 
 use_repo(go_deps, "com_github_goccy_go_yaml", "com_github_spf13_cobra")
 
-use_repo(maven, "maven-deps")
+use_repo(maven, "maven")
