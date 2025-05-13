@@ -28,7 +28,7 @@ startup --windows_enable_symlinks
 
 # Speed up all builds by not checking if external repository files have been modified.
 # Docs: https://github.com/bazelbuild/bazel/blob/1af61b21df99edc2fc66939cdf14449c2661f873/src/main/java/com/google/devtools/build/lib/bazel/repository/RepositoryOptions.java#L244
-common --noexperimental_check_external_repository_files
+# common --noexperimental_check_external_repository_files
 
 # Don't report when the root module's lower bound for a dependency happens to be less than the resolved version.
 # This is expected and should NOT prompt an engineer to update our lower bound to match.
