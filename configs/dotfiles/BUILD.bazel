@@ -1,0 +1,12 @@
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+
+pkg_tar(
+    name = "archive",
+    srcs = glob([
+        "*.json",
+        "*.rules",
+        "*.hcl",
+        "*.conf",
+    ]),
+    visibility = ["//visibility:public"],
+)

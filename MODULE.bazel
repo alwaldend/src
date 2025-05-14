@@ -13,18 +13,15 @@ bazel_dep(name = "rules_python", version = "1.4.0-rc4")
 bazel_dep(name = "rules_pkg", version = "1.0.1")
 bazel_dep(name = "rules_go", version = "0.54.0")
 bazel_dep(name = "rules_java", version = "8.11.0")
-bazel_dep(name = "contrib_rules_jvm", version = "0.28.0")
 bazel_dep(name = "rules_proto", version = "7.1.0")
 bazel_dep(name = "rules_jvm_external", version = "6.7")
 bazel_dep(name = "rules_foreign_cc", version = "0.14.0")
-bazel_dep(name = "aspect_rules_js", version = "2.3.7")
 bazel_dep(name = "rules_nodejs", version = "6.3.0")
 bazel_dep(name = "aspect_bazel_lib", version = "2.15.3")
+bazel_dep(name = "aspect_rules_js", version = "2.3.7")
 bazel_dep(name = "gazelle", version = "0.43.0")
 bazel_dep(name = "bazel_skylib", version = "1.7.1")
-bazel_dep(name = "rules_apple", version = "3.21.0")
-bazel_dep(name = "abseil-cpp", version = "20250127.1")
-bazel_dep(name = "re2", version = "2024-07-02.bcr.1")
+bazel_dep(name = "contrib_rules_jvm", version = "0.28.0")
 
 bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.7.1", dev_dependency = True)
 bazel_dep(name = "rules_python_gazelle_plugin", version = "1.4.0-rc4", dev_dependency = True)
@@ -165,15 +162,24 @@ http_archive(
     url = "https://download.qt.io/official_releases/qt/6.9/6.9.0/single/qt-everywhere-src-6.9.0.tar.xz",
 )
 
+### java-language-server
+
+git_repository(
+    name = "com_github_georgewfraser_java_language_server",
+    commit = "0dd0c8cc8e62bfa0ef6888ecee5877608014db06",  # main
+    remote = "https://github.com/georgewfraser/java-language-server.git",
+    shallow_since = "1733253068 +0100",
+)
+
 ### locks
 
 pip.parse(
-    hub_name = "cpp-infinitime-requirements",
+    hub_name = "cpp-infinitime-pip",
     python_version = PYTHON_VERSION,
     requirements_lock = "//cpp/infinitime:requirements.txt",
 )
 pip.parse(
-    hub_name = "python-requirements",
+    hub_name = "pip",
     python_version = PYTHON_VERSION,
     requirements_lock = "//:requirements.txt",
 )
@@ -188,6 +194,10 @@ npm.npm_translate_lock(
 go_sdk.from_file(go_mod = "//:go.mod")
 
 go_deps.from_file(go_mod = "//:go.mod")
+go_deps.gazelle_override(
+    # directives = ["gazelle:build_tags extended"], # doesn't work without CGO
+    path = "github.com/gohugoio/hugo",
+)
 
 maven.install(
     name = "maven",
@@ -217,7 +227,7 @@ maven.install(
 
 ### use_repo
 
-use_repo(pip, "cpp-infinitime-requirements", "python-requirements")
+use_repo(pip, "cpp-infinitime-pip", "pip")
 
 use_repo(npm, "npm")
 
@@ -225,6 +235,6 @@ use_repo(pnpm, "pnpm")
 
 use_repo(node, "nodejs_toolchains")
 
-use_repo(go_deps, "com_github_goccy_go_yaml", "com_github_spf13_cobra")
+use_repo(go_deps, "com_github_goccy_go_yaml", "com_github_gohugoio_hugo", "com_github_spf13_cobra")
 
 use_repo(maven, "maven")
