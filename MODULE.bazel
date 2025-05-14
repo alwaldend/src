@@ -166,9 +166,20 @@ http_archive(
 
 git_repository(
     name = "com_github_georgewfraser_java_language_server",
+    build_file_content = FILEGROUP,
     commit = "0dd0c8cc8e62bfa0ef6888ecee5877608014db06",  # main
     remote = "https://github.com/georgewfraser/java-language-server.git",
-    shallow_since = "1733253068 +0100",
+    shallow_since = "1746654411 -0700",
+)
+
+### docsy
+
+git_repository(
+    name = "com_github_google_docsy",
+    build_file_content = FILEGROUP,
+    commit = "cf0c68f041daac066a0292d521461dbd092d7c31",  # v0.11.0
+    remote = "https://github.com/google/docsy.git",
+    shallow_since = "1729295371 -0400",
 )
 
 ### locks
