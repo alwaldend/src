@@ -4,12 +4,14 @@ def _unpack_archives_impl(ctx):
     cmd = "mkdir '{}'".format(directory)
     for src in ctx.files.srcs:
         cmd += " && tar -xf '{}' -C '{}'".format(src.path, directory)
+
     ctx.actions.run_shell(
         command = cmd,
         outputs = [output],
         inputs = ctx.files.srcs,
         progress_message = "Unpacking %{label} to %{output}",
     )
+
     return DefaultInfo(
         files = depset([output]),
     )
