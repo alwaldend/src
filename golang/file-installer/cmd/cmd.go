@@ -11,6 +11,8 @@ import (
 	"sync"
 
 	cobra "github.com/spf13/cobra"
+
+	"git.alwaldend.com/src/golang/utils"
 )
 
 type configType struct {
@@ -127,17 +129,12 @@ func installTarHeader(header *tar.Header, archive io.Reader, targetDirectory str
 		return nil
 	case tar.TypeReg:
 		targetPath := filepath.Join(targetDirectory, header.Name)
-		os.OpenFile(targetPath)
+		targetBytes, err := utils.StreamToByte(archive)
 		if err != nil {
 			return err
 		}
-		defer func() {
-			err := tempFile.Close()
-			if err != nil {
-				log.Printf("could not close file %s: %v\n", tempFile.Name(), err)
-			}
-		}()
-		if _, err := io.Copy(tempFile, archive); err != nil {
+		err = os.WriteFile(targetPath, targetBytes, os.FileMode(header.Mode))
+		if err != nil {
 			return err
 		}
 	}

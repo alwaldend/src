@@ -5,5 +5,8 @@ go_library(
     srcs = ["cmd.go"],
     importpath = "git.alwaldend.com/src/golang/file-installer/cmd",
     visibility = ["//visibility:public"],
-    deps = ["@com_github_spf13_cobra//:cobra"],
+    deps = [
+        "//golang/utils",
+        "@com_github_spf13_cobra//:cobra",
+    ],
 )
