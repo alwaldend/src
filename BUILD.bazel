@@ -2,7 +2,12 @@ load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@rules_license//rules:license.bzl", "license")
-load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+
+filegroup(
+    name = "pyproject",
+    srcs = ["pyproject.toml"],
+    visibility = ["//visibility:public"],
+)
 
 npm_link_all_packages(
     name = "node_modules",
@@ -38,12 +43,6 @@ license(
         "@rules_license//licenses/spdx:AGPL-3.0",
     ],
     license_text = "LICENSE.txt",
-)
-
-compile_pip_requirements(
-    name = "requirements",
-    srcs = ["pyproject.toml"],
-    requirements_txt = "requirements.txt",
 )
 
 genrule(

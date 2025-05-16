@@ -1,5 +1,15 @@
 load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@rules_python//python:py_library.bzl", "py_library")
+load("//starlark/bazel/macros:defs.bzl", "py_checkers")
+
+filegroup(
+    name = "src",
+    srcs = glob(["**/*.py"]),
+)
+
+py_checkers(
+    src = ":src",
+)
 
 py_library(
     name = "library",

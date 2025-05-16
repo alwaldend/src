@@ -1,4 +1,4 @@
-load("//bazel/qt:toolchains.bzl", "current_qt_toolchain", "preinstalled_qt_toolchain")
+load(":toolchains.bzl", "current_qt_toolchain", "preinstalled_qt_toolchain")
 
 toolchain_type(
     name = "qt-toolchain",

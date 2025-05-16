@@ -1,8 +1,9 @@
-import sys
-import time
 import os
 import shlex
+import sys
+import time
 import typing
+
 
 def main(argv: typing.Sequence[str]) -> None:
     shell_type = os.environ.get("BAZEL_PYTHON_SHELL_TYPE", "python")
