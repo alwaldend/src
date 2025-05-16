@@ -11,7 +11,7 @@ py_checkers(
 )
 
 py_library(
-    name = "install-file",
+    name = "lib",
     srcs = ["install_file.py"],
     visibility = ["//visibility:public"],
 )

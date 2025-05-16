@@ -19,7 +19,7 @@ group_by_package = true
 skip_gitignore = true
 
 [tool.mypy]
-exclude = [".venv", "docs"]
+exclude = [".venv", "docs", "out", "bazel-*"]
 namespace_packages = true
 python_version = "3.9"
 cache_dir = ".mypy_cache"

@@ -9,71 +9,94 @@ def py_checkers(
         mypy_src = "//python:mypy",
         pyproject_src = "//:pyproject",
         run_args_src = "//shell/scripts:run-args-lib"):
-    isort(
-        name = "isort",
-        src = src,
-        isort_src = isort_src,
-        pyproject_src = pyproject_src,
-        run_args_src = run_args_src,
-    )
-    black(
-        name = "black",
-        src = src,
-        black_src = black_src,
-        pyproject_src = pyproject_src,
-        run_args_src = run_args_src,
-    )
+    """
+    Generate -fix and -test targets for isort
 
-def isort(name = "", src = "", isort_src = "", pyproject_src = "", run_args_src = ""):
-    native.sh_binary(
-        name = "{}-fix".format(name),
+    Args:
+        src: source files label
+    """
+    kwargs = {
+        "pyproject_src": pyproject_src,
+        "src": src,
+        "run_args_src": run_args_src,
+    }
+    py_isort(name = "isort", isort_src = isort_src, **kwargs)
+    py_black(name = "black", black_src = black_src, **kwargs)
+    py_mypy(name = "mypy", mypy_src = mypy_src, **kwargs)
+
+def py_isort(name = "", src = "", isort_src = "", pyproject_src = "", run_args_src = ""):
+    """
+    Generate -fix and -test targets for isort
+    """
+    args = [
+        "$(location {})".format(isort_src),
+        "--settings-path=$(location {})".format(pyproject_src),
+        "$(locations {})".format(src),
+    ]
+    py_checker(
+        name,
+        args_bin = args,
+        args_test = [args[0], "--check-only"] + args[1:],
         srcs = [run_args_src],
         data = [src, isort_src, run_args_src, pyproject_src],
-        args = [
-            "$(location {})".format(isort_src),
-            "--settings-path=$(location {})".format(pyproject_src),
-            "$(locations {})".format(src),
-        ],
-    )
-    native.sh_test(
-        name = "{}-test".format(name),
-        srcs = [run_args_src],
-        data = [src, isort_src, run_args_src, pyproject_src],
-        args = [
-            "$(location {})".format(isort_src),
-            "--settings-path=$(location {})".format(pyproject_src),
-            "--check-only",
-            "$(locations {})".format(src),
-        ],
     )
 
-def black(name = "", src = "", black_src = "", pyproject_src = "", run_args_src = ""):
-    native.sh_binary(
-        name = "{}-fix".format(name),
+def py_black(name = "", src = "", black_src = "", pyproject_src = "", run_args_src = ""):
+    """
+    Generate -fix and -test targets for black
+    """
+    args = [
+        "$(location {})".format(black_src),
+        "--config=$(location {})".format(pyproject_src),
+        "$(locations {})".format(src),
+    ]
+    py_checker(
+        name,
+        args_bin = args,
+        args_test = [args[0], "--check"] + args[1:],
         srcs = [run_args_src],
         data = [src, black_src, run_args_src, pyproject_src],
-        args = [
-            "$(location {})".format(black_src),
-            "--config=$(location {})".format(pyproject_src),
-            "$(locations {})".format(src),
-        ],
-    )
-    native.sh_test(
-        name = "{}-test".format(name),
-        srcs = [run_args_src],
-        data = [src, black_src, run_args_src, pyproject_src],
-        args = [
-            "$(location {})".format(black_src),
-            "--config=$(location {})".format(pyproject_src),
-            "--check",
-            "$(locations {})".format(src),
-        ],
     )
 
-def install_file(name = "", args = [], visibility = ["//visibility:public"], **py_binary_kwargs):
+def py_mypy(name = "", src = "", mypy_src = "", pyproject_src = "", run_args_src = ""):
+    """
+    Generate -fix and -test targets for mypy
+    """
+    args = [
+        "$(location {})".format(mypy_src),
+        "--config-file=$(location {})".format(pyproject_src),
+        "$(locations {})".format(src),
+    ]
+    py_checker(
+        name,
+        args_bin = args,
+        args_test = [args[0], "--check"] + args[1:],
+        srcs = [run_args_src],
+        data = [src, mypy_src, run_args_src, pyproject_src],
+        disable_fix = True,
+    )
+
+def py_checker(name = "", args_bin = [], args_test = [], disable_fix = False, **kwargs):
+    """
+    Create -fix and -test targets for a python checker
+    """
+    if not disable_fix:
+        native.sh_binary(
+            name = "{}-fix".format(name),
+            args = args_bin,
+            **kwargs
+        )
+    native.sh_test(
+        name = "{}-test".format(name),
+        args = args_test,
+        size = "small",
+        **kwargs
+    )
+
+def install_file(name = "", args = [], install_file_src = "//python/install-file:lib", visibility = ["//visibility:public"], **py_binary_kwargs):
     py_binary(
         name = name,
-        srcs = ["//python/install-file"],
+        srcs = [install_file_src],
         main = "install_file.py",
         args = args,
         visibility = visibility,
@@ -155,7 +178,7 @@ def apply_patches(name = "patched", src = "", patches = "", visibility = ["//vis
 
 def pkg_tar_combined(name = None, tars = [], strip_components = 2, **genrule_kwargs):
     """
-    combine several tars into one
+    Combine several tars into one
     """
     cmd = "set -eux"
     out = "{}.tar".format(name)

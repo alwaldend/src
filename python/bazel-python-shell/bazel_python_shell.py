@@ -17,9 +17,10 @@ def main(argv: typing.Sequence[str]) -> None:
         executable = "/bin/sh"
         args = ("-c", shlex.join(argv[1:]))
     else:
-       raise Exception(f"invalid shell_type: {shell_type}")
+        raise Exception(f"invalid shell_type: {shell_type}")
     sys.stdout.flush()
     os.execv(executable, (executable, *args))
+
 
 if __name__ == "__main__":
     main(sys.argv)
