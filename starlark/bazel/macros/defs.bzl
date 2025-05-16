@@ -2,6 +2,74 @@ load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python//python:py_binary.bzl", "py_binary")
 
+def py_checkers(
+        src = "",
+        black_src = "//python:black",
+        isort_src = "//python:isort",
+        mypy_src = "//python:mypy",
+        pyproject_src = "//:pyproject",
+        run_args_src = "//shell/scripts:run-args-lib"):
+    isort(
+        name = "isort",
+        src = src,
+        isort_src = isort_src,
+        pyproject_src = pyproject_src,
+        run_args_src = run_args_src,
+    )
+    black(
+        name = "black",
+        src = src,
+        black_src = black_src,
+        pyproject_src = pyproject_src,
+        run_args_src = run_args_src,
+    )
+
+def isort(name = "", src = "", isort_src = "", pyproject_src = "", run_args_src = ""):
+    native.sh_binary(
+        name = "{}-fix".format(name),
+        srcs = [run_args_src],
+        data = [src, isort_src, run_args_src, pyproject_src],
+        args = [
+            "$(location {})".format(isort_src),
+            "--settings-path=$(location {})".format(pyproject_src),
+            "$(locations {})".format(src),
+        ],
+    )
+    native.sh_test(
+        name = "{}-test".format(name),
+        srcs = [run_args_src],
+        data = [src, isort_src, run_args_src, pyproject_src],
+        args = [
+            "$(location {})".format(isort_src),
+            "--settings-path=$(location {})".format(pyproject_src),
+            "--check-only",
+            "$(locations {})".format(src),
+        ],
+    )
+
+def black(name = "", src = "", black_src = "", pyproject_src = "", run_args_src = ""):
+    native.sh_binary(
+        name = "{}-fix".format(name),
+        srcs = [run_args_src],
+        data = [src, black_src, run_args_src, pyproject_src],
+        args = [
+            "$(location {})".format(black_src),
+            "--config=$(location {})".format(pyproject_src),
+            "$(locations {})".format(src),
+        ],
+    )
+    native.sh_test(
+        name = "{}-test".format(name),
+        srcs = [run_args_src],
+        data = [src, black_src, run_args_src, pyproject_src],
+        args = [
+            "$(location {})".format(black_src),
+            "--config=$(location {})".format(pyproject_src),
+            "--check",
+            "$(locations {})".format(src),
+        ],
+    )
+
 def install_file(name = "", args = [], visibility = ["//visibility:public"], **py_binary_kwargs):
     py_binary(
         name = name,

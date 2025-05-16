@@ -1,9 +1,9 @@
-import sys
-import shutil
-import tempfile
 import argparse
-import typing
 import pathlib
+import shutil
+import sys
+import tempfile
+import typing
 
 SECTION_START = "START"
 SECTION_END = "END"

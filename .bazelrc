@@ -64,7 +64,6 @@ build:macos --sandbox_add_mount_pair=/var/tmp
 
 build:windows --sandbox_add_mount_pair=C:\Temp
 
-
 # If enabled, singleplex workers will run in a sandboxed environment.
 # Singleplex workers are always sandboxed when running under the dynamic execution strategy, irrespective of this flag.
 build --worker_sandboxing

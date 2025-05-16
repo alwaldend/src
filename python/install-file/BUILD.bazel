@@ -1,4 +1,14 @@
 load("@rules_python//python:py_binary.bzl", "py_binary")
+load("//starlark/bazel/macros:defs.bzl", "py_checkers")
+
+filegroup(
+    name = "src",
+    srcs = glob(["**/*.py"]),
+)
+
+py_checkers(
+    src = ":src",
+)
 
 py_library(
     name = "install-file",

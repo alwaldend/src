@@ -1,8 +1,35 @@
 [project]
-name = "src"
+name = "com-alwaldend-src"
 version = "0.0.0"
 requires-python = ">=3.10, <4"
 dependencies = ["ansible", "proxmoxer", "black", "mypy", "isort", "pre-commit"]
 
 [tool.pyright]
 exclude = ["**/node_modules", "**/__pycache__", "out", "bazel-*"]
+
+[tool.black]
+target-version = ["py39"]
+line-length = 79
+
+[tool.isort]
+py_version = 39
+profile = "black"
+line_length = 79
+group_by_package = true
+skip_gitignore = true
+
+[tool.mypy]
+exclude = [".venv", "docs"]
+namespace_packages = true
+python_version = "3.9"
+cache_dir = ".mypy_cache"
+explicit_package_bases = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_calls = true
+
+[tool.flake8]
+per-file-ignores = []
+exclude = [".git", "pycache", "dist", ".venv", "out", "bazel-*"]
+max-complexity = 10
+max-line-length = 100

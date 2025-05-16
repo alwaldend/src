@@ -105,7 +105,7 @@ node.toolchain(
 
 go_sdk.download(version = GO_VERSION)
 
-register_toolchains("//bazel/qt:preinstalled-qt-toolchain")
+register_toolchains("//starlark/bazel/qt:preinstalled-qt-toolchain")
 
 ### infinitime
 
@@ -192,7 +192,7 @@ pip.parse(
 pip.parse(
     hub_name = "pip",
     python_version = PYTHON_VERSION,
-    requirements_lock = "//:requirements.txt",
+    requirements_lock = "//python:requirements.txt",
 )
 
 npm.npm_translate_lock(

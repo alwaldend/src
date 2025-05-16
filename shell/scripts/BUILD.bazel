@@ -1,5 +1,5 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//bazel/macros:defs.bzl", "sh_script")
+load("//starlark/bazel/macros:defs.bzl", "sh_script")
 
 sh_script(name = "readme-tree")
 
@@ -33,6 +33,8 @@ sh_script(name = "bazel")
 
 sh_script(name = "gopackagesdriver")
 
+sh_script(name = "run-args")
+
 pkg_tar(
     name = "scripts-archive",
     srcs = [
@@ -45,6 +47,7 @@ pkg_tar(
         ":git-select-config-lib",
         ":gopackagesdriver",
         ":readme-tree-lib",
+        ":run-args",
         ":stow-install-lib",
         ":tmux-display-popup-lib",
         ":tmux-kill-popup-sessions-lib",
