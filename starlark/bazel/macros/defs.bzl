@@ -2,13 +2,19 @@ load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python//python:py_binary.bzl", "py_binary")
 
+BLACK_SRC = "//python:black"
+ISORT_SRC = "//python:isort"
+MYPY_SRC = "//python:mypy"
+PYPROJECT_SRC = "//:pyproject"
+RUN_ARGS_SRC = "//shell/scripts:run-args-lib"
+
 def py_checkers(
-        src = "",
-        black_src = "//python:black",
-        isort_src = "//python:isort",
-        mypy_src = "//python:mypy",
-        pyproject_src = "//:pyproject",
-        run_args_src = "//shell/scripts:run-args-lib"):
+        srcs = [],
+        black_src = BLACK_SRC,
+        isort_src = ISORT_SRC,
+        mypy_src = MYPY_SRC,
+        pyproject_src = PYPROJECT_SRC,
+        run_args_src = RUN_ARGS_SRC):
     """
     Generate -fix and -test targets for isort
 
@@ -17,66 +23,63 @@ def py_checkers(
     """
     kwargs = {
         "pyproject_src": pyproject_src,
-        "src": src,
+        "srcs": srcs,
         "run_args_src": run_args_src,
     }
     py_isort(name = "isort", isort_src = isort_src, **kwargs)
     py_black(name = "black", black_src = black_src, **kwargs)
     py_mypy(name = "mypy", mypy_src = mypy_src, **kwargs)
 
-def py_isort(name = "", src = "", isort_src = "", pyproject_src = "", run_args_src = ""):
+def py_isort(name = None, srcs = None, isort_src = None, pyproject_src = None, run_args_src = None):
     """
     Generate -fix and -test targets for isort
     """
     args = [
-        "$(location {})".format(isort_src),
-        "--settings-path=$(location {})".format(pyproject_src),
-        "$(locations {})".format(src),
-    ]
+        "$(execpath {})".format(isort_src),
+        "--settings-path=$(execpath {})".format(pyproject_src),
+    ] + ["$(execpaths {})".format(src) for src in srcs]
     py_checker(
         name,
         args_bin = args,
         args_test = [args[0], "--check-only"] + args[1:],
         srcs = [run_args_src],
-        data = [src, isort_src, run_args_src, pyproject_src],
+        data = srcs + [isort_src, run_args_src, pyproject_src],
     )
 
-def py_black(name = "", src = "", black_src = "", pyproject_src = "", run_args_src = ""):
+def py_black(name = None, srcs = None, black_src = None, pyproject_src = None, run_args_src = None):
     """
     Generate -fix and -test targets for black
     """
     args = [
-        "$(location {})".format(black_src),
-        "--config=$(location {})".format(pyproject_src),
-        "$(locations {})".format(src),
-    ]
+        "$(execpath {})".format(black_src),
+        "--config=$(execpath {})".format(pyproject_src),
+    ] + ["$(execpaths {})".format(src) for src in srcs]
     py_checker(
         name,
         args_bin = args,
         args_test = [args[0], "--check"] + args[1:],
         srcs = [run_args_src],
-        data = [src, black_src, run_args_src, pyproject_src],
+        data = srcs + [black_src, run_args_src, pyproject_src],
     )
 
-def py_mypy(name = "", src = "", mypy_src = "", pyproject_src = "", run_args_src = ""):
+def py_mypy(name = None, srcs = None, mypy_src = None, pyproject_src = None, run_args_src = None):
     """
     Generate -fix and -test targets for mypy
     """
     args = [
-        "$(location {})".format(mypy_src),
-        "--config-file=$(location {})".format(pyproject_src),
-        "$(locations {})".format(src),
-    ]
+        "$(execpath {})".format(mypy_src),
+        "--config-file=$(execpath {})".format(pyproject_src),
+    ] + ["$(execpaths {})".format(src) for src in srcs]
     py_checker(
         name,
         args_bin = args,
         args_test = [args[0], "--check"] + args[1:],
         srcs = [run_args_src],
-        data = [src, mypy_src, run_args_src, pyproject_src],
+        data = srcs + [mypy_src, run_args_src, pyproject_src],
         disable_fix = True,
     )
 
-def py_checker(name = "", args_bin = [], args_test = [], disable_fix = False, **kwargs):
+def py_checker(name = None, args_bin = None, args_test = None, disable_fix = False, **kwargs):
     """
     Create -fix and -test targets for a python checker
     """
@@ -184,10 +187,10 @@ def pkg_tar_combined(name = None, tars = [], strip_components = 2, **genrule_kwa
     out = "{}.tar".format(name)
     cmd += "\n".join(["""
         mkdir -p '{dir}'
-        tar -xf $(location {label}) --strip-components '{strip_components}' -C '{dir}'
+        tar -xf $(execpath {label}) --strip-components '{strip_components}' -C '{dir}'
     """.format(strip_components = strip_components, **tar) for tar in tars])
     cmd += """
-        tar -cf $(location {output}) {dirs}
+        tar -cf $(execpath {output}) {dirs}
     """.format(output = out, dirs = " ".join(["'{}'".format(tar["dir"]) for tar in tars]))
     native.genrule(
         name = name,
@@ -239,7 +242,7 @@ def genrule_with_wheels(wheels = None, srcs = [], cmd = [], **kwargs):
     if wheels:
         wheel_paths = []
         for wheel in wheels:
-            wheel_paths.append("$(location {})".format(wheel))
+            wheel_paths.append("$(execpath {})".format(wheel))
             srcs = srcs + [wheel]
             wheels_env_script = 'export PYTHONPATH="{}"\n'.format(":".join(wheel_paths))
         wheel_paths.append(["$${PYTHONPATH:-}"])

@@ -1,7 +1,25 @@
+load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "buildifier_test")
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@rules_license//rules:license.bzl", "license")
+
+BUILDIFIER_EXCLUDE = [
+    "./.git/**/*",
+    "bazel-*",
+]
+
+buildifier(
+    name = "buildifier",
+    exclude_patterns = BUILDIFIER_EXCLUDE,
+)
+
+buildifier_test(
+    name = "buildifier-test",
+    exclude_patterns = BUILDIFIER_EXCLUDE,
+    no_sandbox = True,
+    workspace = "//:BUILD.bazel",
+)
 
 filegroup(
     name = "pyproject",

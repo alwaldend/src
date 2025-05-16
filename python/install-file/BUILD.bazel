@@ -7,7 +7,7 @@ filegroup(
 )
 
 py_checkers(
-    src = ":src",
+    srcs = [":src"],
 )
 
 py_library(
