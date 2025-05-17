@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
 
-set -eux
+set -ex
 
 "${@}"

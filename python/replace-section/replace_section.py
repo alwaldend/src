@@ -75,18 +75,24 @@ def main(args: typing.Sequence[str] = ()) -> int:
         help="edit files in-place",
     )
     parser.add_argument(
-        "-r", "--replacement", required=True, help="section replacement"
+        "-r", "--replacement", help="section replacement"
+    )
+    parser.add_argument(
+        "-f", "--replacement-file", help="replacement file"
     )
     parser.add_argument("files", nargs="+", help="file paths")
     args_parsed = parser.parse_args(args)
+    replacement = args_parsed.replacement or pathlib.Path(args_parsed.replacement_file).read_text()
+    if not replacement:
+        raise Exception(f"missing both --replacement and --replacement-file")
     for file in args_parsed.files:
         if args_parsed.in_place:
             replace_section_in_file(
-                file, args_parsed.section, args_parsed.replacement
+                file, args_parsed.section, replacement
             )
         else:
             output_replacement_in_file(
-                file, args_parsed.section, args_parsed.replacement
+                file, args_parsed.section, replacement
             )
     return 0
 
