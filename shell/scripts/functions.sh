@@ -14,7 +14,7 @@ nvim_lazy_update_lockfile() {
 
 d_ssh_keygen() {
     _name="${1:?missing key name}"
-    ssh-keygen -t ed25519 -f "${HOME}/.ssh/${_name}" -C "${_name}"	
+    ssh-keygen -t ed25519 -f "${HOME}/.ssh/${_name}" -C "${_name}"
 }
 
 #######################################

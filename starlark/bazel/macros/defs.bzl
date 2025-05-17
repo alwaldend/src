@@ -8,9 +8,11 @@ load("@stardoc//stardoc:stardoc.bzl", "stardoc")
 BLACK_SRC = "//python:black"
 ISORT_SRC = "//python:isort"
 MYPY_SRC = "//python:mypy"
-PYPROJECT_SRC = "//:pyproject"
+PYPROJECT_SRC = "//:pyproject.toml"
 RUN_ARGS_SRC = "//shell/scripts:run-args-lib"
+EDITORCONFIG_SRC = "//:.editorconfig"
 STYLUA_SRC = "@cargo//:stylua__stylua"
+SHFMT_SRC = "@cc_mvdan_sh_v3//cmd/shfmt:shfmt"
 STYLUA_CONFIG_SRC = "//lua:stylua.toml"
 INSTALL_FILE_SRC = "//python/install-file:lib"
 VISIBILITY_PUBLIC = ["//visibility:public"]
@@ -221,7 +223,13 @@ def al_install_file(
         **py_binary_kwargs
     )
 
-def al_sh_script(name = "", visibility = VISIBILITY_PUBLIC, **common_kwargs):
+def al_sh_script(
+        name = "",
+        shfmt_src = SHFMT_SRC,
+        editorconfig_src = EDITORCONFIG_SRC,
+        run_args_src = RUN_ARGS_SRC,
+        visibility = VISIBILITY_PUBLIC,
+        **common_kwargs):
     """
     Generate sh_library and sh_binary targets
 
@@ -241,6 +249,25 @@ def al_sh_script(name = "", visibility = VISIBILITY_PUBLIC, **common_kwargs):
         srcs = [":{}".format(lib_name)],
         visibility = visibility,
         **common_kwargs
+    )
+    shfmt_args = [
+        "$(rootpath {})".format(shfmt_src),
+        "$(rootpath {})".format(lib_name),
+    ]
+    shfmt_kwargs = {
+        "srcs": [run_args_src],
+        "data": [lib_name, shfmt_src, editorconfig_src],
+    }
+    native.sh_binary(
+        name = "{}-shfmt-fix".format(name),
+        args = [shfmt_args[0], "--write"] + shfmt_args[1:],
+        **shfmt_kwargs
+    )
+    native.sh_test(
+        name = "{}-shfmt-test".format(name),
+        args = [shfmt_args[0], "--diff"] + shfmt_args[1:],
+        size = "small",
+        **shfmt_kwargs
     )
 
 def al_compile_pip_requirements_combined(name = "", srcs = [], **compile_kwargs):

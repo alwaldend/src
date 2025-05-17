@@ -18,6 +18,7 @@ def _unpack_archives_impl(ctx):
 
 unpack_archives = rule(
     implementation = _unpack_archives_impl,
+    doc = "Unpack several archives using tar into a directory",
     attrs = {
         "srcs": attr.label_list(allow_files = [".tar"], mandatory = True),
         "out": attr.string(default = ""),
