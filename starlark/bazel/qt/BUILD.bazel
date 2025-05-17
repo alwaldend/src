@@ -2,6 +2,7 @@ load("//starlark/bazel/macros:defs.bzl", "al_bzl_library")
 load(":defs.bzl", "current_qt_toolchain", "preinstalled_qt_toolchain")
 
 al_bzl_library(
+    name = "lib",
     deps = [
         "@bazel_skylib//:bzl_library",
         "@bazel_skylib//lib:paths",

@@ -1,12 +1,12 @@
 load("@rules_python//python:py_binary.bzl", "py_binary")
-load("//starlark/bazel/macros:defs.bzl", "py_checkers")
+load("//starlark/bazel/macros:defs.bzl", "al_py_checkers")
 
 filegroup(
     name = "src",
     srcs = glob(["**/*.py"]),
 )
 
-py_checkers(
+al_py_checkers(
     srcs = [":src"],
 )
 
