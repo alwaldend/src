@@ -2,4 +2,9 @@ load("//starlark/bazel/macros:defs.bzl", "al_bzl_library")
 
 al_bzl_library(
     name = "lib",
+    deps = [
+        "@bazel_tools//tools/build_defs/repo:cache.bzl",
+        "@bazel_tools//tools/build_defs/repo:http.bzl",
+        "@bazel_tools//tools/build_defs/repo:utils.bzl",
+    ],
 )
