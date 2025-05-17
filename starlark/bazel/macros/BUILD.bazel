@@ -1,9 +1,11 @@
-load("@rules_license//rules:license.bzl", "license")
+load(":defs.bzl", "al_bzl_library")
 
-license(
-    name = "license",
-    license_kinds = [
-        "@rules_license//licenses/spdx:AGPL-3.0",
+al_bzl_library(
+    deps = [
+        "@bazel_skylib//:bzl_library",
+        "@rules_pkg//pkg:bzl_srcs",
+        "@rules_python//python:defs_bzl",
+        "@rules_python//python:pip_bzl",
+        "@stardoc//stardoc:stardoc_lib",
     ],
-    license_text = "LICENSE.txt",
 )
