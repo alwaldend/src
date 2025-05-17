@@ -14,6 +14,7 @@ EDITORCONFIG_SRC = "//:.editorconfig"
 STYLUA_SRC = "@cargo//:stylua__stylua"
 SHFMT_SRC = "@cc_mvdan_sh_v3//cmd/shfmt:shfmt"
 STYLUA_CONFIG_SRC = "//lua:stylua.toml"
+SHELLCHECK_SRC = "@com-github-koalaman-shellcheck//:shellcheck"
 INSTALL_FILE_SRC = "//python/install-file:lib"
 VISIBILITY_PUBLIC = ["//visibility:public"]
 REPLACE_SECTION_SRC = "//python/replace-section"
@@ -227,6 +228,7 @@ def al_sh_script(
         name = "",
         shfmt_src = SHFMT_SRC,
         editorconfig_src = EDITORCONFIG_SRC,
+        shellcheck_src = SHELLCHECK_SRC,
         run_args_src = RUN_ARGS_SRC,
         visibility = VISIBILITY_PUBLIC,
         **common_kwargs):
@@ -268,6 +270,13 @@ def al_sh_script(
         args = [shfmt_args[0], "--diff"] + shfmt_args[1:],
         size = "small",
         **shfmt_kwargs
+    )
+    native.sh_test(
+        name = "{}-shellcheck-test".format(name),
+        args = ["$(rootpath {})".format(shellcheck_src), "$(rootpath {})".format(lib_name)],
+        size = "small",
+        srcs = [run_args_src],
+        data = [lib_name, shellcheck_src],
     )
 
 def al_compile_pip_requirements_combined(name = "", srcs = [], **compile_kwargs):

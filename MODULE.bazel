@@ -98,6 +98,8 @@ rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
 
 crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
 
+shellcheck = use_extension("//starlark/bazel/extensions:defs.bzl", "shellcheck")
+
 ### toolchains
 
 python.toolchain(
@@ -188,6 +190,18 @@ git_repository(
     shallow_since = "1729295371 -0400",
 )
 
+### shellcheck
+
+shellcheck.install(
+    name = "com-github-koalaman-shellcheck",
+    integrity = {
+        "linux:amd64": "sha256-bIgasGmOTm6iNSRfIoMoYFRPF7o4ZEL+fp1in4y+34c=",
+    },
+    urls = {
+        "linux:amd64": "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz",
+    },
+)
+
 ### locks
 
 pip.parse(
@@ -267,3 +281,5 @@ use_repo(go_deps, "cc_mvdan_sh_v3", "com_github_bazelbuild_buildtools", "com_git
 use_repo(maven, "maven")
 
 use_repo(crate, "cargo")
+
+use_repo(shellcheck, "com-github-koalaman-shellcheck")
