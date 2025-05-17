@@ -1,3 +1,5 @@
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+
 def _print_aspect_impl(target, ctx):
     # Make sure the rule has a srcs attribute.
     if hasattr(ctx.rule.attr, "srcs"):

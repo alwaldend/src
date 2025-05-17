@@ -1,4 +1,12 @@
-load(":toolchains.bzl", "current_qt_toolchain", "preinstalled_qt_toolchain")
+load("//starlark/bazel/macros:defs.bzl", "al_bzl_library")
+load(":defs.bzl", "current_qt_toolchain", "preinstalled_qt_toolchain")
+
+al_bzl_library(
+    deps = [
+        "@bazel_skylib//:bzl_library",
+        "@bazel_skylib//lib:paths",
+    ],
+)
 
 toolchain_type(
     name = "qt-toolchain",

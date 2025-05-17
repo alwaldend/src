@@ -1,12 +1,45 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python//python:py_binary.bzl", "py_binary")
+load("@stardoc//stardoc:stardoc.bzl", "stardoc")
 
 BLACK_SRC = "//python:black"
 ISORT_SRC = "//python:isort"
 MYPY_SRC = "//python:mypy"
 PYPROJECT_SRC = "//:pyproject"
 RUN_ARGS_SRC = "//shell/scripts:run-args-lib"
+
+def al_bzl_library(
+        prefix = "",
+        deps = [],
+        srcs = ["defs.bzl"],
+        out = "api.md",
+        input = "defs.bzl",
+        visibility = ["//visibility:public"]):
+    """
+    Generate stardoc and bzl_library targets
+
+    Args:
+        prefix: prefix to add to names
+        deps: library dependencies
+        srcs: library sources
+        out: generated md file
+        input: input file
+    """
+    stardoc(
+        name = "{}stardoc".format(prefix),
+        out = out,
+        input = input,
+        deps = [":{}lib".format(prefix)],
+        visibility = visibility,
+    )
+    bzl_library(
+        name = "{}lib".format(prefix),
+        srcs = srcs,
+        deps = deps,
+        visibility = visibility,
+    )
 
 def py_checkers(
         srcs = [],
@@ -16,7 +49,7 @@ def py_checkers(
         pyproject_src = PYPROJECT_SRC,
         run_args_src = RUN_ARGS_SRC):
     """
-    Generate -fix and -test targets for isort
+    Generate -fix and -test targets for python checkers
 
     Args:
         src: source files label
@@ -140,6 +173,7 @@ def compile_pip_requirements_combined(name = "", srcs = [], **compile_kwargs):
 def combine_files(name = "", srcs = [], **genrule_kwargs):
     """
     Combine several files into one
+
     Args:
         name: target name
         srcs: sources to combine
@@ -202,8 +236,7 @@ def pkg_tar_combined(name = None, tars = [], strip_components = 2, **genrule_kwa
 
 def genrule_src(name = "src", patterns = ["**"], visibility = ["//visibility:public"]):
     """
-    Create "{name}-filegroup" filegroup and "{name}"
-    genrule to create a tar archive out of it
+    Create a and a genrule generating a tar archive
     """
     filegroup = name + "-filegroup"
     native.filegroup(
