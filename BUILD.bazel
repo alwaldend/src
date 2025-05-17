@@ -9,11 +9,15 @@ BUILDIFIER_EXCLUDE = [
     "bazel-*",
 ]
 
-exports_files(["LICENSE.txt"])
+exports_files([
+    "LICENSE.txt",
+    ".editorconfig",
+    "pyproject.toml",
+])
 
 compile_pip_requirements(
     name = "requirements",
-    srcs = [":pyproject"],
+    srcs = ["pyproject.toml"],
     requirements_txt = "requirements.txt",
 )
 
@@ -27,12 +31,6 @@ buildifier_test(
     exclude_patterns = BUILDIFIER_EXCLUDE,
     no_sandbox = True,
     workspace = "//:BUILD.bazel",
-)
-
-filegroup(
-    name = "pyproject",
-    srcs = ["pyproject.toml"],
-    visibility = ["//visibility:public"],
 )
 
 npm_link_all_packages(

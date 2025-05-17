@@ -9,13 +9,13 @@ files=$(git ls-files | grep README.md)
 echo "<table>"
 for file in ${files}; do
     if [ "${file}" = "README.md" ]; then
-       continue
+        continue
     fi
     title=$(awk '/title: / { $1=""; print $0 }' "${file}")
     if [ -n "${title}" ]; then
-       title="${title}"
+        title="${title}"
     fi
-    echo "$(dirname ${file})" | \
+    echo "$(dirname ${file})" |
         awk -v title="${title}" -F "/" '
             $0 != "." {
                 if (NF == 1) {

@@ -83,7 +83,7 @@ return {
             },
             formatters = {
                 shfmt = {
-                    prepend_args = { "-i", "4" },
+                    prepend_args = { "-i", "4", "--simplify" },
                 },
             },
         },
