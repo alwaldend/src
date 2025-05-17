@@ -1,4 +1,5 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python//python:py_binary.bzl", "py_binary")
@@ -13,6 +14,7 @@ STYLUA_SRC = "@cargo//:stylua__stylua"
 STYLUA_CONFIG_SRC = "//lua:stylua.toml"
 INSTALL_FILE_SRC = "//python/install-file:lib"
 VISIBILITY_PUBLIC = ["//visibility:public"]
+REPLACE_SECTION_SRC = "//python/replace-section"
 
 def al_lua_library(
         name,
@@ -35,8 +37,8 @@ def al_lua_library(
     """
     stylua_args = [
         "$(rootpath {})".format(stylua_src),
-        "--config-path=$(execpath {})".format(stylua_config_src),
-    ] + ["$(execpaths {})".format(src) for src in (check or srcs)]
+        "--config-path=$(rootpath {})".format(stylua_config_src),
+    ] + ["$(rootpaths {})".format(src) for src in (check or srcs)]
     stylua_kwargs = {
         "srcs": [run_args_src],
         "data": (check or srcs) + [stylua_config_src, stylua_src],
@@ -65,6 +67,8 @@ def al_bzl_library(
         srcs = ["defs.bzl"],
         out = "api.md",
         input = "defs.bzl",
+        replace_section_src = REPLACE_SECTION_SRC,
+        run_args_src = RUN_ARGS_SRC,
         visibility = VISIBILITY_PUBLIC):
     """
     Generate stardoc and bzl_library targets
@@ -89,6 +93,25 @@ def al_bzl_library(
         deps = [":{}".format(name)],
         visibility = visibility,
     )
+    native.sh_binary(
+        name = "{}-stardoc-copy".format(name),
+        srcs = [run_args_src],
+        args = [
+            "$(rootpath {})".format(replace_section_src),
+            "-i",
+            "-s",
+            "STARDOC",
+            "-f",
+            "$(rootpath :{}-stardoc)".format(name),
+            "$(rootpath :README.md)",
+        ],
+        data = [":{}-stardoc".format(name), replace_section_src, ":README.md"],
+    )
+    # diff_test(
+    #     name = "{}-stardoc-test".format(name),
+    #     file1 = "{}-stardoc".format(name),
+    #     file2 = ":{}".format(out),
+    # )
 
 def al_py_checkers(
         srcs = [],
@@ -117,9 +140,9 @@ def al_py_isort(name = None, srcs = None, isort_src = None, pyproject_src = None
     Generate -fix and -test targets for isort
     """
     args = [
-        "$(execpath {})".format(isort_src),
-        "--settings-path=$(execpath {})".format(pyproject_src),
-    ] + ["$(execpaths {})".format(src) for src in srcs]
+        "$(rootpath {})".format(isort_src),
+        "--settings-path=$(rootpath {})".format(pyproject_src),
+    ] + ["$(rootpaths {})".format(src) for src in srcs]
     al_py_checker(
         name,
         args_bin = args,
@@ -133,9 +156,9 @@ def al_py_black(name = None, srcs = None, black_src = None, pyproject_src = None
     Generate -fix and -test targets for black
     """
     args = [
-        "$(execpath {})".format(black_src),
-        "--config=$(execpath {})".format(pyproject_src),
-    ] + ["$(execpaths {})".format(src) for src in srcs]
+        "$(rootpath {})".format(black_src),
+        "--config=$(rootpath {})".format(pyproject_src),
+    ] + ["$(rootpaths {})".format(src) for src in srcs]
     al_py_checker(
         name,
         args_bin = args,
@@ -149,9 +172,9 @@ def al_py_mypy(name = None, srcs = None, mypy_src = None, pyproject_src = None, 
     Generate -fix and -test targets for mypy
     """
     args = [
-        "$(execpath {})".format(mypy_src),
-        "--config-file=$(execpath {})".format(pyproject_src),
-    ] + ["$(execpaths {})".format(src) for src in srcs]
+        "$(rootpath {})".format(mypy_src),
+        "--config-file=$(rootpath {})".format(pyproject_src),
+    ] + ["$(rootpaths {})".format(src) for src in srcs]
     al_py_checker(
         name,
         args_bin = args,
@@ -277,8 +300,8 @@ def al_apply_patches(
         cmd = """
             set -eux
             mkdir _src _patches
-            cp $(execpaths {patches}) _patches/
-            tar -xf "$(execpath {src})" -C _src --strip-components 2
+            cp $(rootpaths {patches}) _patches/
+            tar -xf "$(rootpath {src})" -C _src --strip-components 2
             cd _src
             git apply -v ../_patches/*
             cd ../
@@ -294,10 +317,10 @@ def al_pkg_tar_combined(name = None, tars = [], strip_components = 2, **genrule_
     out = "{}.tar".format(name)
     cmd += "\n".join(["""
         mkdir -p '{dir}'
-        tar -xf $(execpath {label}) --strip-components '{strip_components}' -C '{dir}'
+        tar -xf $(rootpath {label}) --strip-components '{strip_components}' -C '{dir}'
     """.format(strip_components = strip_components, **tar) for tar in tars])
     cmd += """
-        tar -cf $(execpath {output}) {dirs}
+        tar -cf $(rootpath {output}) {dirs}
     """.format(output = out, dirs = " ".join(["'{}'".format(tar["dir"]) for tar in tars]))
     native.genrule(
         name = name,
@@ -348,7 +371,7 @@ def al_genrule_with_wheels(wheels = None, srcs = [], cmd = [], **kwargs):
     if wheels:
         wheel_paths = []
         for wheel in wheels:
-            wheel_paths.append("$(execpath {})".format(wheel))
+            wheel_paths.append("$(rootpath {})".format(wheel))
             srcs = srcs + [wheel]
             wheels_env_script = 'export PYTHONPATH="{}"\n'.format(":".join(wheel_paths))
         wheel_paths.append(["$${PYTHONPATH:-}"])
