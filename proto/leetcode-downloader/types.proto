@@ -1,4 +1,5 @@
 syntax = "proto3";
+
 option go_package = "git.alwaldend.com/src/golang/leetcode-downloader/proto";
 
 enum CliAction {
@@ -52,4 +53,6 @@ message SubmissonsResponse {
   bool has_next = 2;
   string last_key = 3;
 }
-message SubmissonsStorage { repeated Submission submissions = 1; }
+message SubmissonsStorage {
+  repeated Submission submissions = 1;
+}

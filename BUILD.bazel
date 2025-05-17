@@ -2,12 +2,13 @@ load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "bui
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 load("@npm//:defs.bzl", "npm_link_all_packages")
-load("@rules_license//rules:license.bzl", "license")
 
 BUILDIFIER_EXCLUDE = [
     "./.git/**/*",
     "bazel-*",
 ]
+
+exports_files(["LICENSE.txt"])
 
 buildifier(
     name = "buildifier",
@@ -53,14 +54,6 @@ gazelle_binary(
 
 refresh_compile_commands(
     name = "refresh_compile_commands",
-)
-
-license(
-    name = "license",
-    license_kinds = [
-        "@rules_license//licenses/spdx:AGPL-3.0",
-    ],
-    license_text = "LICENSE.txt",
 )
 
 genrule(
