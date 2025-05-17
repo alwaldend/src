@@ -1,0 +1,35 @@
+load("@rules_go//go:def.bzl", "go_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
+load("@rules_java//java:defs.bzl", "java_library", "java_proto_library")
+load("@rules_proto//proto:defs.bzl", "proto_library")
+
+proto_library(
+    name = "worker_protocol_proto",
+    srcs = ["worker_protocol.proto"],
+    visibility = ["//visibility:public"],
+)
+
+go_proto_library(
+    name = "worker_protocol_go_proto",
+    importpath = "git.alwaldend.com/src/proto/bazel-worker/worker_protocol",
+    proto = ":worker_protocol_proto",
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "worker_protocol",
+    embed = [":worker_protocol_go_proto"],
+    importpath = "git.alwaldend.com/src/proto/bazel-worker/worker_protocol",
+    visibility = ["//visibility:public"],
+)
+
+java_proto_library(
+    name = "worker_protocol_java_proto",
+    deps = [":worker_protocol_proto"],
+)
+
+java_library(
+    name = "worker_protocol_java_library",
+    visibility = ["//:__subpackages__"],
+    exports = [":worker_protocol_java_proto"],
+)

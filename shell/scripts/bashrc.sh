@@ -92,11 +92,11 @@ shopt -s cmdhist
 
 d_add_to_path_front \
     ~/.local/share/gem/ruby/*/bin \
-    ~/.local/bin \
+    "${HOME}/.local/bin" \
     /usr/bin \
     "${GOPATH}/bin" \
-    ~/.cargo/bin \
-    ~/yandex-cloud/bin \
+    "${HOME}/.cargo/bin" \
+    "${HOME}/yandex-cloud/bin" \
     "${ANDROID_HOME}/tools" \
     "${ANDROID_HOME}/tools/bin" \
     "${ANDROID_HOME}/cmdline-tools/latest/bin" \
