@@ -1,5 +1,7 @@
 load("@bazel_skylib//lib:paths.bzl", "paths")
 
+QT_TOOLCHAIN = "//starlark/bazel/qt:qt-toolchain"
+
 def _current_qt_toolchain_impl(ctx):
     toolchain = ctx.toolchains[ctx.attr._toolchain]
     return [
@@ -18,18 +20,16 @@ def _preinstalled_qt_toolchain_impl(ctx):
 
 def register_qt_toolchains():
     """Register qt toolchains"""
-    native.register_toolchains(
-        "//bazel/qt:qt-toolchain",
-    )
+    native.register_toolchains(QT_TOOLCHAIN)
 
 current_qt_toolchain = rule(
     doc = "Get current selected qt toolchain",
     implementation = _current_qt_toolchain_impl,
     attrs = {
-        "_toolchain": attr.string(default = str(Label("//bazel/qt:qt-toolchain"))),
+        "_toolchain": attr.string(default = str(Label(QT_TOOLCHAIN))),
     },
     toolchains = [
-        str(Label("//bazel/qt:qt-toolchain")),
+        str(Label(QT_TOOLCHAIN)),
     ],
 )
 
