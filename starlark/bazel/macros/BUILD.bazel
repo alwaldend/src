@@ -1,6 +1,7 @@
 load(":defs.bzl", "al_bzl_library")
 
 al_bzl_library(
+    name = "lib",
     deps = [
         "@bazel_skylib//:bzl_library",
         "@rules_pkg//pkg:bzl_srcs",

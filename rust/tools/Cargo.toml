@@ -1,0 +1,9 @@
+[project]
+name = "com-alwandend-src-rust-tools"
+
+[[bin]]
+name = "placeholder"
+path = "main.rs"
+
+[dev-dependencies]
+stylua = "2.1.0"

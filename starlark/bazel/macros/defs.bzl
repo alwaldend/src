@@ -9,39 +9,88 @@ ISORT_SRC = "//python:isort"
 MYPY_SRC = "//python:mypy"
 PYPROJECT_SRC = "//:pyproject"
 RUN_ARGS_SRC = "//shell/scripts:run-args-lib"
+STYLUA_SRC = "@cargo//:stylua__stylua"
+STYLUA_CONFIG_SRC = "//lua:stylua.toml"
+INSTALL_FILE_SRC = "//python/install-file:lib"
+VISIBILITY_PUBLIC = ["//visibility:public"]
+
+def al_lua_library(
+        name,
+        srcs = [],
+        check = [],
+        run_args_src = RUN_ARGS_SRC,
+        stylua_config_src = STYLUA_CONFIG_SRC,
+        stylua_src = STYLUA_SRC,
+        pkg_tar_kwargs = {},
+        visibility = VISIBILITY_PUBLIC):
+    """
+    Generate targets for a lua library
+
+    Args:
+        name: library name
+        srcs: library sources
+        check: if set, only these files will be checked
+        visibility: visibility
+        pkg_tar_kwargs: kwargs for pkg_tar
+    """
+    stylua_args = [
+        "$(rootpath {})".format(stylua_src),
+        "--config-path=$(execpath {})".format(stylua_config_src),
+    ] + ["$(execpaths {})".format(src) for src in (check or srcs)]
+    stylua_kwargs = {
+        "srcs": [run_args_src],
+        "data": (check or srcs) + [stylua_config_src, stylua_src],
+    }
+    pkg_tar(
+        name = name,
+        srcs = srcs,
+        visibility = visibility,
+        **pkg_tar_kwargs
+    )
+    native.sh_binary(
+        name = "{}-stylua-fix".format(name),
+        args = stylua_args,
+        **stylua_kwargs
+    )
+    native.sh_test(
+        name = "{}-stylua-test".format(name),
+        args = [stylua_args[0], "--check"] + stylua_args[1:],
+        size = "small",
+        **stylua_kwargs
+    )
 
 def al_bzl_library(
-        prefix = "",
+        name,
         deps = [],
         srcs = ["defs.bzl"],
         out = "api.md",
         input = "defs.bzl",
-        visibility = ["//visibility:public"]):
+        visibility = VISIBILITY_PUBLIC):
     """
     Generate stardoc and bzl_library targets
 
     Args:
-        prefix: prefix to add to names
+        name: library name
         deps: library dependencies
         srcs: library sources
         out: generated md file
         input: input file
     """
-    stardoc(
-        name = "{}stardoc".format(prefix),
-        out = out,
-        input = input,
-        deps = [":{}lib".format(prefix)],
-        visibility = visibility,
-    )
     bzl_library(
-        name = "{}lib".format(prefix),
+        name = name,
         srcs = srcs,
         deps = deps,
         visibility = visibility,
     )
+    stardoc(
+        name = "{}-stardoc".format(name),
+        out = out,
+        input = input,
+        deps = [":{}".format(name)],
+        visibility = visibility,
+    )
 
-def py_checkers(
+def al_py_checkers(
         srcs = [],
         black_src = BLACK_SRC,
         isort_src = ISORT_SRC,
@@ -59,11 +108,11 @@ def py_checkers(
         "srcs": srcs,
         "run_args_src": run_args_src,
     }
-    py_isort(name = "isort", isort_src = isort_src, **kwargs)
-    py_black(name = "black", black_src = black_src, **kwargs)
-    py_mypy(name = "mypy", mypy_src = mypy_src, **kwargs)
+    al_py_isort(name = "isort", isort_src = isort_src, **kwargs)
+    al_py_black(name = "black", black_src = black_src, **kwargs)
+    al_py_mypy(name = "mypy", mypy_src = mypy_src, **kwargs)
 
-def py_isort(name = None, srcs = None, isort_src = None, pyproject_src = None, run_args_src = None):
+def al_py_isort(name = None, srcs = None, isort_src = None, pyproject_src = None, run_args_src = None):
     """
     Generate -fix and -test targets for isort
     """
@@ -71,7 +120,7 @@ def py_isort(name = None, srcs = None, isort_src = None, pyproject_src = None, r
         "$(execpath {})".format(isort_src),
         "--settings-path=$(execpath {})".format(pyproject_src),
     ] + ["$(execpaths {})".format(src) for src in srcs]
-    py_checker(
+    al_py_checker(
         name,
         args_bin = args,
         args_test = [args[0], "--check-only"] + args[1:],
@@ -79,7 +128,7 @@ def py_isort(name = None, srcs = None, isort_src = None, pyproject_src = None, r
         data = srcs + [isort_src, run_args_src, pyproject_src],
     )
 
-def py_black(name = None, srcs = None, black_src = None, pyproject_src = None, run_args_src = None):
+def al_py_black(name = None, srcs = None, black_src = None, pyproject_src = None, run_args_src = None):
     """
     Generate -fix and -test targets for black
     """
@@ -87,7 +136,7 @@ def py_black(name = None, srcs = None, black_src = None, pyproject_src = None, r
         "$(execpath {})".format(black_src),
         "--config=$(execpath {})".format(pyproject_src),
     ] + ["$(execpaths {})".format(src) for src in srcs]
-    py_checker(
+    al_py_checker(
         name,
         args_bin = args,
         args_test = [args[0], "--check"] + args[1:],
@@ -95,7 +144,7 @@ def py_black(name = None, srcs = None, black_src = None, pyproject_src = None, r
         data = srcs + [black_src, run_args_src, pyproject_src],
     )
 
-def py_mypy(name = None, srcs = None, mypy_src = None, pyproject_src = None, run_args_src = None):
+def al_py_mypy(name = None, srcs = None, mypy_src = None, pyproject_src = None, run_args_src = None):
     """
     Generate -fix and -test targets for mypy
     """
@@ -103,7 +152,7 @@ def py_mypy(name = None, srcs = None, mypy_src = None, pyproject_src = None, run
         "$(execpath {})".format(mypy_src),
         "--config-file=$(execpath {})".format(pyproject_src),
     ] + ["$(execpaths {})".format(src) for src in srcs]
-    py_checker(
+    al_py_checker(
         name,
         args_bin = args,
         args_test = [args[0], "--check"] + args[1:],
@@ -112,7 +161,12 @@ def py_mypy(name = None, srcs = None, mypy_src = None, pyproject_src = None, run
         disable_fix = True,
     )
 
-def py_checker(name = None, args_bin = None, args_test = None, disable_fix = False, **kwargs):
+def al_py_checker(
+        name = None,
+        args_bin = None,
+        args_test = None,
+        disable_fix = False,
+        **kwargs):
     """
     Create -fix and -test targets for a python checker
     """
@@ -129,7 +183,12 @@ def py_checker(name = None, args_bin = None, args_test = None, disable_fix = Fal
         **kwargs
     )
 
-def install_file(name = "", args = [], install_file_src = "//python/install-file:lib", visibility = ["//visibility:public"], **py_binary_kwargs):
+def al_install_file(
+        name = None,
+        args = [],
+        install_file_src = INSTALL_FILE_SRC,
+        visibility = VISIBILITY_PUBLIC,
+        **py_binary_kwargs):
     py_binary(
         name = name,
         srcs = [install_file_src],
@@ -139,7 +198,7 @@ def install_file(name = "", args = [], install_file_src = "//python/install-file
         **py_binary_kwargs
     )
 
-def sh_script(name = "", visibility = ["//visibility:public"], **common_kwargs):
+def al_sh_script(name = "", visibility = VISIBILITY_PUBLIC, **common_kwargs):
     """
     Generate sh_library and sh_binary targets
 
@@ -148,10 +207,20 @@ def sh_script(name = "", visibility = ["//visibility:public"], **common_kwargs):
         **common_kwargs: kwargs for both targets
     """
     lib_name = "{}-lib".format(name)
-    native.sh_library(name = lib_name, srcs = ["{}.sh".format(name)], visibility = visibility, **common_kwargs)
-    native.sh_binary(name = name, srcs = [":{}".format(lib_name)], visibility = visibility, **common_kwargs)
+    native.sh_library(
+        name = lib_name,
+        srcs = ["{}.sh".format(name)],
+        visibility = visibility,
+        **common_kwargs
+    )
+    native.sh_binary(
+        name = name,
+        srcs = [":{}".format(lib_name)],
+        visibility = visibility,
+        **common_kwargs
+    )
 
-def compile_pip_requirements_combined(name = "", srcs = [], **compile_kwargs):
+def al_compile_pip_requirements_combined(name = "", srcs = [], **compile_kwargs):
     """
     Compile seveal requirement files
 
@@ -160,7 +229,7 @@ def compile_pip_requirements_combined(name = "", srcs = [], **compile_kwargs):
         srcs: requirement files to combine
         **compile_kwargs: kwargs for `compile_pip_requirements`
     """
-    combine_files(
+    al_combine_files(
         name = "{}-src".format(name),
         srcs = srcs,
     )
@@ -170,7 +239,7 @@ def compile_pip_requirements_combined(name = "", srcs = [], **compile_kwargs):
         **compile_kwargs
     )
 
-def combine_files(name = "", srcs = [], **genrule_kwargs):
+def al_combine_files(name = "", srcs = [], **genrule_kwargs):
     """
     Combine several files into one
 
@@ -186,7 +255,11 @@ def combine_files(name = "", srcs = [], **genrule_kwargs):
         **genrule_kwargs
     )
 
-def apply_patches(name = "patched", src = "", patches = "", visibility = ["//visibility:public"]):
+def al_apply_patches(
+        name = "patched",
+        src = "",
+        patches = "",
+        visibility = VISIBILITY_PUBLIC):
     """
     Apply patches
 
@@ -213,7 +286,7 @@ def apply_patches(name = "patched", src = "", patches = "", visibility = ["//vis
         """.format(src = src, patches = patches),
     )
 
-def pkg_tar_combined(name = None, tars = [], strip_components = 2, **genrule_kwargs):
+def al_pkg_tar_combined(name = None, tars = [], strip_components = 2, **genrule_kwargs):
     """
     Combine several tars into one
     """
@@ -234,9 +307,9 @@ def pkg_tar_combined(name = None, tars = [], strip_components = 2, **genrule_kwa
         **genrule_kwargs
     )
 
-def genrule_src(name = "src", patterns = ["**"], visibility = ["//visibility:public"]):
+def al_genrule_src(name = "src", patterns = ["**"], visibility = VISIBILITY_PUBLIC):
     """
-    Create a and a genrule generating a tar archive
+    Create a filegroup and a genrule generating a tar archive
     """
     filegroup = name + "-filegroup"
     native.filegroup(
@@ -252,7 +325,7 @@ def genrule_src(name = "src", patterns = ["**"], visibility = ["//visibility:pub
         visibility = visibility,
     )
 
-def py_binary_shell(name = "", cmd = "", deps = [], srcs = [], shell_type = "python", **kwargs):
+def al_py_binary_shell(name = "", cmd = "", deps = [], srcs = [], shell_type = "python", **kwargs):
     """
     Create a shell with linked python deps
     """
@@ -267,7 +340,7 @@ def py_binary_shell(name = "", cmd = "", deps = [], srcs = [], shell_type = "pyt
         **actual_kwargs
     )
 
-def genrule_with_wheels(wheels = None, srcs = [], cmd = [], **kwargs):
+def al_genrule_with_wheels(wheels = None, srcs = [], cmd = [], **kwargs):
     """
     Regular genrule with wheels added to ${PYTHONPATH}
     """

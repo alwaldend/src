@@ -2,6 +2,7 @@ load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "bui
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 load("@npm//:defs.bzl", "npm_link_all_packages")
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 
 BUILDIFIER_EXCLUDE = [
     "./.git/**/*",
@@ -9,6 +10,12 @@ BUILDIFIER_EXCLUDE = [
 ]
 
 exports_files(["LICENSE.txt"])
+
+compile_pip_requirements(
+    name = "requirements",
+    srcs = [":pyproject"],
+    requirements_txt = "requirements.txt",
+)
 
 buildifier(
     name = "buildifier",
