@@ -340,7 +340,7 @@
   "moduleExtensions": {
     "//starlark/bazel/extensions:defs.bzl%shellcheck": {
       "general": {
-        "bzlTransitiveDigest": "yuAShrhW94wecCgnhD3mm4GQuyu/mup7EgXwsP2OSmk=",
+        "bzlTransitiveDigest": "czF2lgarAcLFCm7CvfdPEoCoi9O0Ok3/cCL26T7fid8=",
         "usagesDigest": "w9sVaPZ0/StEFsdX5Ha1GnkBBjts7PtH4xUPRxAGBXE=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},

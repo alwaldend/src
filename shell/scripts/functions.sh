@@ -46,6 +46,7 @@ d_venv() {
     poetry_venv=$(poetry env info -p 2>/dev/null || true)
     for venv in "${poetry_venv}" ./.venv ./venv ~/.venv ~/venv; do
         if [ -s "${venv}/bin/activate" ]; then
+            # shellcheck disable=SC1091
             . "${venv}/bin/activate"
             break
         fi
@@ -108,6 +109,7 @@ d_info_ram() {
 d_source_scripts() {
     for script in "${@}"; do
         if [ -s "${script}" ]; then
+            # shellcheck disable=SC1090
             . "${script}"
         fi
     done

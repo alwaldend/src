@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# shellcheck source=functions.sh
+# shellcheck disable=SC1090
 . "${DOTFILES_FUNCTIONS_PATH:-"${HOME}/.local/bin/functions"}"
 
 export FZF_DEFAULT_COMMAND="fd --type f"

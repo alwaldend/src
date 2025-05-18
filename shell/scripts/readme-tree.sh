@@ -12,10 +12,7 @@ for file in ${files}; do
         continue
     fi
     title=$(awk '/title: / { $1=""; print $0 }' "${file}")
-    if [ -n "${title}" ]; then
-        title="${title}"
-    fi
-    echo "$(dirname ${file})" |
+    dirname "${file}" |
         awk -v title="${title}" -F "/" '
             $0 != "." {
                 if (NF == 1) {

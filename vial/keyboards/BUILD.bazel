@@ -1,0 +1,13 @@
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+
+filegroup(
+    name = "src",
+    srcs = glob(["*.vil"]),
+    visibility = ["//visibility:public"],
+)
+
+pkg_tar(
+    name = "src-tar",
+    srcs = [":src"],
+    visibility = ["//visibility:public"],
+)
