@@ -110,11 +110,12 @@ def al_bzl_library(
         ],
         data = [":{}-stardoc".format(name), replace_section_src, ":README.md"],
     )
-    # diff_test(
-    #     name = "{}-stardoc-test".format(name),
-    #     file1 = "{}-stardoc".format(name),
-    #     file2 = ":{}".format(out),
-    # )
+    diff_test(
+        name = "{}-stardoc-test".format(name),
+        file1 = "{}-stardoc".format(name),
+        file2 = ":{}".format(out),
+        size = "small",
+    )
 
 def al_py_checkers(
         srcs = [],
