@@ -12,7 +12,7 @@ temp=\$(mktemp -d)
 archive="\${temp}/archive.tar"
 trap 'rm -r "\${temp}"' EXIT
 
-echo '$(base64 --wrap 0 "${1}")' | base64 --decode >"\${archive}"
+echo '$(base64 --wrap 0 "${archive}")' | base64 --decode >"\${archive}"
 tar -xf "\${archive}" -C "\${temp}"
 for script in "\${temp}"/*.sh; do
     name=\$(basename "\${script}")

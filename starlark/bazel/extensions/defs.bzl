@@ -21,7 +21,7 @@ filegroup(
 
 shellcheck = module_extension(
     implementation = _shellcheck_impl,
-    doc = "Rule to download shellcheck",
+    doc = "Extension to download shellcheck",
     tag_classes = {
         "install": tag_class({
             "name": attr.string(mandatory = True, doc = "name"),

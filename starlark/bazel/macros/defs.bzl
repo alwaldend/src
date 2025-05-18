@@ -353,10 +353,10 @@ def al_pkg_tar_combined(name = None, tars = [], strip_components = 2, **genrule_
     out = "{}.tar".format(name)
     cmd += "\n".join(["""
         mkdir -p '{dir}'
-        tar -xf $(rootpath {label}) --strip-components '{strip_components}' -C '{dir}'
+        tar -xf $(execpath {label}) --strip-components '{strip_components}' -C '{dir}'
     """.format(strip_components = strip_components, **tar) for tar in tars])
     cmd += """
-        tar -cf $(rootpath {output}) {dirs}
+        tar -cf $(execpath {output}) {dirs}
     """.format(output = out, dirs = " ".join(["'{}'".format(tar["dir"]) for tar in tars]))
     native.genrule(
         name = name,
