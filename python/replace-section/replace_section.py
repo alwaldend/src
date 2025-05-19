@@ -83,7 +83,7 @@ def main(args: typing.Sequence[str] = ()) -> int:
         or pathlib.Path(args_parsed.replacement_file).read_text()
     )
     if not replacement:
-        raise Exception(f"missing both --replacement and --replacement-file")
+        raise Exception("missing both --replacement and --replacement-file")
     for file in args_parsed.files:
         if args_parsed.in_place:
             replace_section_in_file(file, args_parsed.section, replacement)

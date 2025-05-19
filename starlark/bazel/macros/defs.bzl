@@ -10,6 +10,8 @@ ISORT_SRC = "//python:isort"
 MYPY_SRC = "//python:mypy"
 PYPROJECT_SRC = "//:pyproject.toml"
 RUN_ARGS_SRC = "//shell/scripts:run-args-lib"
+GO_SRC = "@rules_go//go:go"
+FLAKE8_SRC = "//python:flake8"
 EDITORCONFIG_SRC = "//:.editorconfig"
 STYLUA_SRC = "@cargo//:stylua__stylua"
 SHFMT_SRC = "@cc_mvdan_sh_v3//cmd/shfmt:shfmt"
@@ -18,6 +20,27 @@ SHELLCHECK_SRC = "@com-github-koalaman-shellcheck//:shellcheck"
 INSTALL_FILE_SRC = "//python/install-file:lib"
 VISIBILITY_PUBLIC = ["//visibility:public"]
 REPLACE_SECTION_SRC = "//python/replace-section"
+
+# def al_go_checkers(
+#         name,
+#         srcs = [],
+#         go_src = GO_SRC,
+#         run_args_src = RUN_ARGS_SRC):
+#     """
+#     Generate golang checkers for
+#     """
+#     kwargs = {"srcs": [run_args_src], "data": srcs + [go_src]}
+#     native.sh_binary(
+#         name = "{}-stylua-fix".format(name),
+#         args = stylua_args,
+#         **stylua_kwargs
+#     )
+#     native.sh_test(
+#         name = "{}-stylua-test".format(name),
+#         args = [stylua_args[0], "--check"] + stylua_args[1:],
+#         size = "small",
+#         **stylua_kwargs
+#     )
 
 def al_lua_library(
         name,
@@ -122,6 +145,7 @@ def al_py_checkers(
         black_src = BLACK_SRC,
         isort_src = ISORT_SRC,
         mypy_src = MYPY_SRC,
+        flake8_src = FLAKE8_SRC,
         pyproject_src = PYPROJECT_SRC,
         run_args_src = RUN_ARGS_SRC):
     """
@@ -138,6 +162,22 @@ def al_py_checkers(
     al_py_isort(name = "isort", isort_src = isort_src, **kwargs)
     al_py_black(name = "black", black_src = black_src, **kwargs)
     al_py_mypy(name = "mypy", mypy_src = mypy_src, **kwargs)
+    al_py_flake8(name = "flake8", flake8_src = flake8_src, **kwargs)
+
+def al_py_flake8(name = None, srcs = None, flake8_src = None, pyproject_src = None, run_args_src = None):
+    """
+    Generate -fix and -test targets for isort
+    """
+    al_py_checker(
+        name,
+        disable_fix = True,
+        args_test = [
+            "$(rootpath {})".format(flake8_src),
+            "--toml-config=$(rootpath {})".format(pyproject_src),
+        ] + ["$(rootpaths {})".format(src) for src in srcs],
+        srcs = [run_args_src],
+        data = srcs + [flake8_src, run_args_src, pyproject_src],
+    )
 
 def al_py_isort(name = None, srcs = None, isort_src = None, pyproject_src = None, run_args_src = None):
     """
