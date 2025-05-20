@@ -8,14 +8,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func Run(
+func Execute(
 	ctx context.Context,
 	args []string,
 	getenv func(string) string,
 	stdin io.Reader,
 	stdout, stderr io.Writer,
 ) error {
-	root, err := NewRootCommand(args, stdin, stdout, stderr)
+	root, err := newRootCommand(args, stdin, stdout, stderr)
 	if err != nil {
 		return err
 	}
@@ -26,14 +26,14 @@ func Run(
 	return nil
 }
 
-func NewRootCommand(
+func newRootCommand(
 	args []string,
 	stdin io.Reader,
 	stdout, stderr io.Writer,
 ) (*cobra.Command, error) {
 	config := &Config{}
 	outputter := NewOutputter(config, stdout)
-	parser := NewParse(config, outputter)
+	parser := NewParser(config, outputter)
 
 	cmd := &cobra.Command{
 		Use:           "readme-tree",
@@ -61,7 +61,7 @@ func NewRootCommand(
 	cmd.SetIn(stdin)
 	cmd.SetArgs(args)
 
-	cmdParse, err := NewParseCommand(parser, cmd)
+	cmdParse, err := newParseCommand(parser)
 	if err != nil {
 		return nil, err
 	}
@@ -69,19 +69,21 @@ func NewRootCommand(
 	return cmd, nil
 }
 
-func NewParseCommand(parse *Parser, parent *cobra.Command) (*cobra.Command, error) {
+func newParseCommand(parse *Parser) (*cobra.Command, error) {
 	config := &ParseConfig{}
 	cmd := &cobra.Command{
 		Use:   "parse",
 		Short: "Parse readme files",
 		Long:  "Parse readme files",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			workingDir, err := os.Getwd()
-			if err != nil {
-				return err
+			if config.RootPath == "" {
+				workingDir, err := os.Getwd()
+				if err != nil {
+					return err
+				}
+				config.RootPath = workingDir
 			}
-			config.RootPath = workingDir
-			return parse.ParsePathsAndOutput(args, config)
+			return parse.ParseAndOutput(args, config)
 		},
 	}
 	flags := cmd.PersistentFlags()
@@ -97,6 +99,13 @@ func NewParseCommand(parse *Parser, parent *cobra.Command) (*cobra.Command, erro
 		"n",
 		"README.md",
 		"Filename to process",
+	)
+	flags.StringVarP(
+		&config.RootPath,
+		"root-path",
+		"r",
+		"",
+		"Root path to use to resolve relative paths (default: working directory)",
 	)
 	flags.BoolVarP(
 		&config.UseGit,
