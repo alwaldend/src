@@ -17,22 +17,22 @@ type Parser struct {
 	config    *Config
 }
 
-func NewParse(config *Config, outputter *Outputter) *Parser {
+func NewParser(config *Config, outputter *Outputter) *Parser {
 	return &Parser{config: config, outputter: outputter}
 }
 
-func (self *Parser) ParsePathsAndOutput(paths []string, config *ParseConfig) error {
-	result, err := self.ParsePaths(paths, config)
+func (self *Parser) ParseAndOutput(paths []string, config *ParseConfig) error {
+	result, err := self.Parse(paths, config)
 	if err != nil {
 		return err
 	}
 	return self.outputter.Output(result, config.OutputType)
 }
 
-func (self *Parser) ParsePaths(paths []string, config *ParseConfig) (*ParsePathsResult, error) {
+func (self *Parser) Parse(paths []string, config *ParseConfig) (*ParsePathsResult, error) {
 	result := &ParsePathsResult{Dir: config.RootPath}
 	for _, path := range paths {
-		readmes, err := self.ParsePath(path, config)
+		readmes, err := self.parsePath(path, config)
 		if err != nil {
 			return nil, fmt.Errorf("could not process path %s: %w", path, err)
 		}
@@ -41,7 +41,7 @@ func (self *Parser) ParsePaths(paths []string, config *ParseConfig) (*ParsePaths
 	return result, nil
 }
 
-func (self *Parser) ParsePath(path string, config *ParseConfig) ([]*Readme, error) {
+func (self *Parser) parsePath(path string, config *ParseConfig) ([]*Readme, error) {
 	absPath, err := filepath.Abs(path)
 	if err != nil {
 		return nil, fmt.Errorf("could not get absolute path of %s: %w", path, err)
@@ -52,12 +52,12 @@ func (self *Parser) ParsePath(path string, config *ParseConfig) ([]*Readme, erro
 	}
 	var readmes []*Readme
 	if stat.IsDir() {
-		readmes, err = self.ParseDirectory(absPath, config)
+		readmes, err = self.parseDirectory(absPath, config)
 		if err != nil {
 			return nil, err
 		}
 	} else {
-		readme, ok, err := self.ParseFile(absPath, config)
+		readme, ok, err := self.parseFile(absPath, config)
 		if err != nil {
 			return nil, err
 		}
@@ -68,29 +68,33 @@ func (self *Parser) ParsePath(path string, config *ParseConfig) ([]*Readme, erro
 	return readmes, nil
 }
 
-func (self *Parser) ParseDirectory(dirPath string, config *ParseConfig) ([]*Readme, error) {
+func (self *Parser) parseDirectory(dirPath string, config *ParseConfig) ([]*Readme, error) {
 	if config.UseGit {
-		return self.ParseDirectoryGit(dirPath, config)
+		return self.parseDirectoryGit(dirPath, config)
 	}
-	return self.ParseDirectoryWalk(dirPath, config)
+	return self.parseDirectoryWalk(dirPath, config)
 }
 
-func (self *Parser) ParseDirectoryGit(dirPath string, config *ParseConfig) ([]*Readme, error) {
+func (self *Parser) parseDirectoryGit(dirPath string, config *ParseConfig) ([]*Readme, error) {
 	stdout, err := exec.Command("git", "ls-files", dirPath).Output()
 	if err != nil {
 		return nil, err
 	}
-	lines := regexp.MustCompile("\r?\n").Split(string(stdout), -1)
+	expr, err := regexp.Compile("\r?\n")
+	if err != nil {
+		return nil, err
+	}
+	lines := expr.Split(string(stdout), -1)
 	result := []*Readme{}
 	for _, filePath := range lines {
 		absPath, err := filepath.Abs(filePath)
-		if self.IgnoreReadme(filePath, config) {
+		if self.ignoreReadme(filePath, config) {
 			continue
 		}
 		if err != nil {
 			return nil, fmt.Errorf("could not get absolute path of %s: %w", filePath, err)
 		}
-		readme, ok, err := self.ParseFile(absPath, config)
+		readme, ok, err := self.parseFile(absPath, config)
 		if err != nil {
 			return nil, err
 		}
@@ -101,7 +105,7 @@ func (self *Parser) ParseDirectoryGit(dirPath string, config *ParseConfig) ([]*R
 	return result, nil
 }
 
-func (self *Parser) IgnoreReadme(filePath string, config *ParseConfig) bool {
+func (self *Parser) ignoreReadme(filePath string, config *ParseConfig) bool {
 	name := filepath.Base(filePath)
 	if name != config.ReadmeName {
 		return true
@@ -113,16 +117,16 @@ func (self *Parser) IgnoreReadme(filePath string, config *ParseConfig) bool {
 	return false
 }
 
-func (self *Parser) ParseDirectoryWalk(dirPath string, config *ParseConfig) ([]*Readme, error) {
+func (self *Parser) parseDirectoryWalk(dirPath string, config *ParseConfig) ([]*Readme, error) {
 	result := []*Readme{}
 	err := filepath.WalkDir(dirPath, func(path string, d fs.DirEntry, err error) error {
 		if d.IsDir() {
 			return nil
 		}
-		if self.IgnoreReadme(path, config) {
+		if self.ignoreReadme(path, config) {
 			return nil
 		}
-		readme, ok, err := self.ParseFile(path, config)
+		readme, ok, err := self.parseFile(path, config)
 		if err != nil {
 			return err
 		}
@@ -137,21 +141,7 @@ func (self *Parser) ParseDirectoryWalk(dirPath string, config *ParseConfig) ([]*
 	return result, nil
 }
 
-func (self *Parser) ParseFiles(filePaths []string, config *ParseConfig) ([]*Readme, error) {
-	result := []*Readme{}
-	for _, path := range filePaths {
-		readme, ok, err := self.ParseFile(path, config)
-		if err != nil {
-			return nil, err
-		}
-		if ok {
-			result = append(result, readme)
-		}
-	}
-	return result, nil
-}
-
-func (self *Parser) ParseFile(filePath string, config *ParseConfig) (*Readme, bool, error) {
+func (self *Parser) parseFile(filePath string, config *ParseConfig) (*Readme, bool, error) {
 	relativePath, err := filepath.Rel(config.RootPath, filePath)
 	if err != nil {
 		return nil, false, fmt.Errorf("could not create relative path of %s: %w", filePath, err)
