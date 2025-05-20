@@ -1,0 +1,3 @@
+{{ range .Readmes }}
+{{ range .DirRelativeSplit }}  {{ end }}- [{{ .DirName }}](./{{ .DirRelative }}): {{ .Data.title }}
+{{ end }}

@@ -6,8 +6,10 @@ go_library(
         "cmd.go",
         "main.go",
         "model.go",
-        "parse.go",
+        "outputter.go",
+        "parser.go",
     ],
+    embedsrcs = ["template-markdown.txt"],
     importpath = "git.alwaldend.com/src/golang/readme-tree",
     visibility = ["//visibility:private"],
     deps = [

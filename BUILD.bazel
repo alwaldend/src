@@ -59,13 +59,13 @@ genrule(
     srcs = glob(["**/README.md"]),
     outs = ["update-readme-mark"],
     cmd = """
-        replacement=$$($(execpath //shell/scripts:readme-tree))
+        replacement=$$($(execpath //golang/readme-tree:readme-tree) parse -g -o markdown .)
         $(execpath //python/replace-section) -i -s README_CONTENTS -r "$${replacement}" README.md
 	touch $(execpath update-readme-mark)
     """,
     tags = ["local"],
     tools = [
+        "//golang/readme-tree",
         "//python/replace-section",
-        "//shell/scripts:readme-tree",
     ],
 )
