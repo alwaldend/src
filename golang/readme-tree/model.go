@@ -2,39 +2,38 @@ package main
 
 import (
 	"fmt"
-	"io"
 )
 
-type ParseOutputType string
+type OutputType string
 
 const (
-	ParseOutputTypeJson     = "json"
-	ParseOutputTypeMarkdown = "markdown"
-	ParseOutputTypeTemplate = "template"
+	OutputTypeJson     = "json"
+	OutputTypeMarkdown = "markdown"
+	OutputTypeTemplate = "template"
 )
 
 // String is used both by fmt.Print and by Cobra in help text
-func (self *ParseOutputType) String() string {
+func (self *OutputType) String() string {
 	return string(*self)
 }
 
 // Set must have pointer receiver so it doesn't change the value of a copy
-func (self *ParseOutputType) Set(v string) error {
+func (self *OutputType) Set(v string) error {
 	switch v {
-	case ParseOutputTypeJson, ParseOutputTypeMarkdown, ParseOutputTypeTemplate:
-		*self = ParseOutputType(v)
+	case OutputTypeJson, OutputTypeMarkdown, OutputTypeTemplate:
+		*self = OutputType(v)
 		return nil
 	default:
 		return fmt.Errorf(
 			"invalid value: %s: not one of (%s, %s, %s)",
 			v,
-			ParseOutputTypeJson, ParseOutputTypeMarkdown, ParseOutputTypeTemplate,
+			OutputTypeJson, OutputTypeMarkdown, OutputTypeTemplate,
 		)
 	}
 }
 
 // Type is only used in help text
-func (self *ParseOutputType) Type() string {
+func (self *OutputType) Type() string {
 	return "ParseOutputType"
 }
 
@@ -54,19 +53,12 @@ type Readme struct {
 }
 
 type ParseConfig struct {
-	OutputType ParseOutputType
+	OutputType OutputType
+	UseGit     bool
+	ReadmeName string
+	RootPath   string
 }
 
 type Config struct {
-	UseGit     bool
-	ChangeDir  string
-	ReadmeName string
-	Parse      *ParseConfig
-}
-
-type State struct {
-	Getenv         func(string) string
-	Stdin          io.Reader
-	Stdout, Stderr io.Writer
-	Config         *Config
+	ChangeDir string
 }
