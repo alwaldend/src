@@ -31,24 +31,66 @@ func NewRootCommand(
 	stdin io.Reader,
 	stdout, stderr io.Writer,
 ) (*cobra.Command, error) {
-	config := &State{Stdout: stdout, Stderr: stderr, Stdin: stdin}
-	changeDir := ""
-	readmeName := ""
-	useGit := false
+	state := &State{
+		Stdout: stdout,
+		Stderr: stderr,
+		Stdin:  stdin,
+		Config: &Config{
+			Parse: &ParseConfig{},
+		},
+	}
+	outputter := NewOutputter(state)
+	parser := NewParse(state, outputter)
 
-	cmdRoot := &cobra.Command{
+	cmd := &cobra.Command{
 		Use:           "readme-tree",
 		Short:         "Readme tree generator",
 		Long:          "Readme tree generator",
 		SilenceErrors: true,
 		PersistentPreRunE: func(cmd *cobra.Command, args []string) error {
-			if changeDir != "" {
-				return os.Chdir(changeDir)
+			if state.Config.ChangeDir != "" {
+				return os.Chdir(state.Config.ChangeDir)
 			}
 			return nil
 		},
 	}
-	cmdParse := &cobra.Command{
+	flags := cmd.PersistentFlags()
+	flags.StringVarP(
+		&state.Config.ChangeDir,
+		"change-dir",
+		"C",
+		"",
+		"Change directory to the specified before running commands",
+	)
+	flags.StringVarP(
+		&state.Config.ReadmeName,
+		"readme-name",
+		"n",
+		"README.md",
+		"Filename to process",
+	)
+	flags.BoolVarP(
+		&state.Config.UseGit,
+		"git",
+		"g",
+		false,
+		"If set, use git to get files",
+	)
+
+	cmd.SetOut(stdout)
+	cmd.SetErr(stderr)
+	cmd.SetIn(stdin)
+	cmd.SetArgs(args)
+
+	err := AddParseCommand(parser, state, cmd)
+	if err != nil {
+		return nil, err
+	}
+	return cmd, nil
+}
+
+func AddParseCommand(parse *Parser, state *State, parent *cobra.Command) error {
+	cmd := &cobra.Command{
 		Use:   "parse",
 		Short: "Parse readme files",
 		Long:  "Parse readme files",
@@ -57,36 +99,16 @@ func NewRootCommand(
 			if err != nil {
 				return err
 			}
-			return NewParse(config, readmeName, useGit).ParsePathsAndOutput(args, workingDir)
+			return parse.ParsePathsAndOutput(args, workingDir)
 		},
 	}
-
-	cmdRoot.PersistentFlags().StringVarP(
-		&changeDir,
-		"change-dir",
-		"C",
-		"",
-		"Change directory to the specified before running commands",
+	flags := cmd.PersistentFlags()
+	flags.VarP(
+		&state.Config.Parse.OutputType,
+		"output-type",
+		"o",
+		"Output type",
 	)
-	cmdRoot.PersistentFlags().StringVarP(
-		&readmeName,
-		"readme-name",
-		"n",
-		"README.md",
-		"Filename to process",
-	)
-	cmdRoot.PersistentFlags().BoolVarP(
-		&useGit,
-		"git",
-		"g",
-		false,
-		"If set, use git to get files",
-	)
-
-	cmdRoot.SetOut(stdout)
-	cmdRoot.SetErr(stderr)
-	cmdRoot.SetIn(stdin)
-	cmdRoot.SetArgs(args)
-	cmdRoot.AddCommand(cmdParse)
-	return cmdRoot, nil
+	parent.AddCommand(cmd)
+	return nil
 }

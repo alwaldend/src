@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"io/fs"
 	"os"
@@ -13,33 +12,31 @@ import (
 	"github.com/goccy/go-yaml"
 )
 
-type Parse struct {
-	state      *State
-	readmeName string
-	useGit     bool
+type Parser struct {
+	state     *State
+	outputter *Outputter
 }
 
-func NewParse(state *State, readmeName string, useGit bool) *Parse {
-	return &Parse{state: state, readmeName: readmeName, useGit: useGit}
+func NewParse(state *State, outputter *Outputter) *Parser {
+	return &Parser{state: state, outputter: outputter}
 }
 
-func (self *Parse) ParsePathsAndOutput(paths []string, rootPath string) error {
+func (self *Parser) ParsePathsAndOutput(paths []string, rootPath string) error {
 	result, err := self.ParsePaths(paths, rootPath)
 	if err != nil {
 		return err
 	}
-	resultJson, err := json.MarshalIndent(result, "", "    ")
-	if err != nil {
-		return fmt.Errorf("could not serialise result: %w", err)
+	switch self.state.Config.Parse.OutputType {
+	case ParseOutputTypeJson:
+		return self.outputter.OutputJson(result)
+	case ParseOutputTypeMarkdown:
+		return self.outputter.OutputMarkdown(result)
+	default:
+		return fmt.Errorf("output type %s is not supported", self.state.Config.Parse.OutputType)
 	}
-	_, err = fmt.Fprintf(self.state.Stdout, "%s\n", resultJson)
-	if err != nil {
-		return fmt.Errorf("could not print: %w", err)
-	}
-	return nil
 }
 
-func (self *Parse) ParsePaths(paths []string, rootPath string) (*ParsePathsResult, error) {
+func (self *Parser) ParsePaths(paths []string, rootPath string) (*ParsePathsResult, error) {
 	result := &ParsePathsResult{Dir: rootPath}
 	for _, path := range paths {
 		readmes, err := self.ParsePath(path, rootPath)
@@ -51,7 +48,7 @@ func (self *Parse) ParsePaths(paths []string, rootPath string) (*ParsePathsResul
 	return result, nil
 }
 
-func (self *Parse) ParsePath(path string, rootPath string) ([]*Readme, error) {
+func (self *Parser) ParsePath(path string, rootPath string) ([]*Readme, error) {
 	absPath, err := filepath.Abs(path)
 	if err != nil {
 		return nil, fmt.Errorf("could not get absolute path of %s: %w", path, err)
@@ -71,30 +68,32 @@ func (self *Parse) ParsePath(path string, rootPath string) ([]*Readme, error) {
 		if err != nil {
 			return nil, err
 		}
-		readmes = []*Readme{readme}
+		if readme != nil {
+			readmes = []*Readme{readme}
+		}
 	}
 	return readmes, nil
 }
 
-func (self *Parse) ParseDirectory(dirPath string, rootPath string) ([]*Readme, error) {
-	if self.useGit {
+func (self *Parser) ParseDirectory(dirPath string, rootPath string) ([]*Readme, error) {
+	if self.state.Config.UseGit {
 		return self.ParseDirectoryGit(dirPath, rootPath)
 	}
 	return self.ParseDirectoryWalk(dirPath, rootPath)
 }
 
-func (self *Parse) ParseDirectoryGit(dirPath string, rootPath string) ([]*Readme, error) {
+func (self *Parser) ParseDirectoryGit(dirPath string, rootPath string) ([]*Readme, error) {
 	stdout, err := exec.Command("git", "ls-files", dirPath).Output()
 	if err != nil {
 		return nil, err
 	}
 	lines := regexp.MustCompile("\r?\n").Split(string(stdout), -1)
 	result := []*Readme{}
-	ignore := filepath.Join(dirPath, self.readmeName)
+	ignore := filepath.Join(dirPath, self.state.Config.ReadmeName)
 	for _, filePath := range lines {
 		absPath, err := filepath.Abs(filePath)
 		name := filepath.Base(filePath)
-		if name != self.readmeName || filePath == ignore {
+		if name != self.state.Config.ReadmeName || filePath == ignore {
 			continue
 		}
 		if err != nil {
@@ -104,20 +103,22 @@ func (self *Parse) ParseDirectoryGit(dirPath string, rootPath string) ([]*Readme
 		if err != nil {
 			return nil, err
 		}
-		result = append(result, readme)
+		if readme != nil {
+			result = append(result, readme)
+		}
 	}
 	return result, nil
 }
 
-func (self *Parse) ParseDirectoryWalk(dirPath string, rootPath string) ([]*Readme, error) {
+func (self *Parser) ParseDirectoryWalk(dirPath string, rootPath string) ([]*Readme, error) {
 	result := []*Readme{}
-	ignore := filepath.Join(dirPath, self.readmeName)
+	ignore := filepath.Join(dirPath, self.state.Config.ReadmeName)
 	err := filepath.WalkDir(dirPath, func(path string, d fs.DirEntry, err error) error {
 		if d.IsDir() {
 			return nil
 		}
 		name := filepath.Base(path)
-		if name != self.readmeName || path == ignore {
+		if name != self.state.Config.ReadmeName || path == ignore {
 			return nil
 		}
 		readme, err := self.ParseFile(path, rootPath)
@@ -135,7 +136,7 @@ func (self *Parse) ParseDirectoryWalk(dirPath string, rootPath string) ([]*Readm
 	return result, nil
 }
 
-func (self *Parse) ParseFiles(filePaths []string, rootPath string) ([]*Readme, error) {
+func (self *Parser) ParseFiles(filePaths []string, rootPath string) ([]*Readme, error) {
 	result := []*Readme{}
 	for _, path := range filePaths {
 		readme, err := self.ParseFile(path, rootPath)
@@ -149,11 +150,12 @@ func (self *Parse) ParseFiles(filePaths []string, rootPath string) ([]*Readme, e
 	return result, nil
 }
 
-func (self *Parse) ParseFile(filePath string, rootPath string) (*Readme, error) {
+func (self *Parser) ParseFile(filePath string, rootPath string) (*Readme, error) {
 	relativePath, err := filepath.Rel(rootPath, filePath)
 	if err != nil {
 		return nil, fmt.Errorf("could not create relative path of %s: %w", filePath, err)
 	}
+	dirRelative := filepath.Dir(relativePath)
 	fileContent, err := os.ReadFile(filePath)
 	if err != nil {
 		return nil, fmt.Errorf("could not read file %s: %w", filePath, err)
@@ -167,5 +169,13 @@ func (self *Parse) ParseFile(filePath string, rootPath string) (*Readme, error) 
 	if err != nil {
 		return nil, fmt.Errorf("could not unmarshal yaml in file %s: %w", filePath, err)
 	}
-	return &Readme{Path: filePath, RelativePath: relativePath, Data: data}, nil
+	return &Readme{
+		Path:             filePath,
+		PathRelative:     relativePath,
+		Data:             data,
+		Dir:              filepath.Dir(filePath),
+		DirRelative:      dirRelative,
+		DirRelativeSplit: strings.Split(dirRelative, string(os.PathSeparator)),
+		DirName:          filepath.Base(dirRelative),
+	}, nil
 }
