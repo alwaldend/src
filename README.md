@@ -32,6 +32,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 - [golang](./golang): Golang projects
 
+  - [bazel-shell-worker](./golang/bazel-shell-worker): Bazel worker that runs shell commands
+
   - [file-installer](./golang/file-installer): Tool to install files
 
   - [leetcode-downloader](./golang/leetcode-downloader): CLI app to download leetcode submissions
