@@ -1,0 +1,24 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "bazel-shell-worker_lib",
+    srcs = [
+        "cmd.go",
+        "main.go",
+        "worker.go",
+    ],
+    importpath = "git.alwaldend.com/src/golang/bazel-shell-worker",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//proto/bazel-worker:worker_protocol",
+        "@com_github_spf13_cobra//:cobra",
+        "@org_golang_google_protobuf//encoding/protodelim",
+        "@org_golang_google_protobuf//encoding/prototext",
+    ],
+)
+
+go_binary(
+    name = "bazel-shell-worker",
+    embed = [":bazel-shell-worker_lib"],
+    visibility = ["//visibility:public"],
+)
