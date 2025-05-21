@@ -21,6 +21,7 @@ buildifier(
 
 buildifier_test(
     name = "buildifier-test",
+    size = "small",
     exclude_patterns = BUILDIFIER_EXCLUDE,
     no_sandbox = True,
     workspace = "//:BUILD.bazel",
@@ -56,14 +57,14 @@ refresh_compile_commands(
 
 genrule(
     name = "update-readme",
-    srcs = glob(["**/README.md"]),
-    outs = ["update-readme-mark"],
+    outs = ["update-readme-bin"],
     cmd = """
-        replacement=$$($(execpath //golang/readme-tree:readme-tree) parse -g -o markdown .)
-        $(execpath //python/replace-section) -i -s README_CONTENTS -r "$${replacement}" README.md
-	touch $(execpath update-readme-mark)
+cat - >$(@) <<EOF
+    replacement=\\$$($(execpath //golang/readme-tree:readme-tree) parse -g -o markdown .)
+    $(execpath //python/replace-section) -i -s README_CONTENTS -r "\\$${replacement}" README.md
+EOF
     """,
-    tags = ["local"],
+    executable = True,
     tools = [
         "//golang/readme-tree",
         "//python/replace-section",
