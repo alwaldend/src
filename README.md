@@ -80,6 +80,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 - [shell](./shell): Shell projects
 
+  - [git-hooks](./shell/git-hooks): Git hooks
+
   - [scripts](./shell/scripts): Shell scripts
 
 - [starlark](./starlark): Starlark projects
@@ -101,8 +103,11 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 - [vial](./vial): Vial configs
 
   - [keyboards](./vial/keyboards): Keyboard configs
-  <!-- README_CONTENTS END -->
+
+<!-- README_CONTENTS END -->
 
 ## Setup
 
 - Install bazel: https://bazel.build/install/bazelisk
+- Install git hooks: `bazel run //shell/git-hooks:install`
+- Run tests: `bazel test //...`

@@ -1,0 +1,17 @@
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
+
+genrule(
+    name = "install",
+    srcs = [":pre-commit"],
+    outs = ["install-bin"],
+    cmd = """
+cat - >$(@) <<EOF
+    #!/usr/bin/env sh
+    set -eux
+    for file in $(SRCS); do
+        cp "\\$${file}" "\\$$(git rev-parse --show-toplevel)/.git/hooks/"
+    done
+EOF
+    """,
+    executable = True,
+)
