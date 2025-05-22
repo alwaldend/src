@@ -23,8 +23,41 @@ type WorkerRequestArguments struct {
 	Flagfile     *WorkerFlagfile `json:"flagfile"`
 }
 
+type WorkerLabel struct {
+	Label string `json:"label"`
+}
+
+type WorkerTarget struct {
+	Label string `json:"label"`
+}
+
+type WorkerFlagfileAttr struct {
+	Cmd                  string            `json:"cmd"`
+	CompatibleWith       []string          `json:"compatible_with"`
+	Deprecation          string            `json:"deprecation"`
+	ExecCompatibleWith   string            `json:"exec_oompatible_with"`
+	ExecProperties       map[string]string `json:"exec_properties"`
+	ExpectFailure        string            `json:"expect_failure"`
+	Features             []string          `json:"features"`
+	GeneratorFunction    string            `json:"generator_function"`
+	GeneratorLocation    string            `json:"generator_location"`
+	GeneratorName        string            `json:"generator_name"`
+	Name                 string            `json:"name"`
+	Outs                 []WorkerLabel     `json:"outs"`
+	PackageMetadata      []WorkerTarget    `json:"package_metadata"`
+	RestrictedTo         []string          `json:"restricted_to"`
+	Srcs                 []string          `json:"srcs"`
+	Tags                 []string          `json:"tags"`
+	TargetCompatibleWith []string          `json:"target_compatible_with"`
+	Testonly             bool              `json:"testonly"`
+	Toolchains           []string          `json:"toolchains"`
+	TransitiveConfigs    []string          `json:"transitive_configs"`
+	Visibility           []string          `json:"visibility"`
+	Worker               WorkerLabel       `json:"worker"`
+}
+
 type WorkerFlagfile struct {
-	Cmd string `json:"cmd"`
+	Attr WorkerFlagfileAttr `json:"attr"`
 }
 
 type WorkerErrorResponse struct {
@@ -116,5 +149,5 @@ func (self *Worker) errorResponse(request *worker_protocol.WorkRequest, args *Wo
 }
 
 func (self *Worker) handleRequest(request *worker_protocol.WorkRequest, args *WorkerRequestArguments) (*worker_protocol.WorkResponse, error) {
-	return nil, fmt.Errorf("error")
+	return nil, fmt.Errorf("request error")
 }
