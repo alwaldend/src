@@ -51,6 +51,7 @@ def _al_genrule_impl(ctx):
         "transitive_configs",
         "visibility",
         "worker",
+        "set_flags",
     ]:
         value = getattr(ctx.attr, key)
         if type(value) == Label:
@@ -90,12 +91,14 @@ al_genrule = rule(
     implementation = _al_genrule_impl,
     doc = "Shell worker",
     attrs = {
-        "srcs": attr.label_list(default = [], doc = "Sources"),
+        "srcs": attr.label_list(default = [], doc = "Sources", allow_files = True),
         "outs": attr.output_list(mandatory = True, doc = "Outputs"),
         "cmd": attr.string(mandatory = True, doc = "Script to execute"),
+        "set_flags": attr.string_list(doc = "set flags", default = ["-eux"]),
         "worker": attr.label(
             default = Label("//golang/bazel-shell-worker"),
             executable = True,
+            allow_single_file = True,
             cfg = "exec",
             doc = "Worker binary",
         ),

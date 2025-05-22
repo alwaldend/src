@@ -119,6 +119,7 @@ return {
                         directoryFilters = {
                             "-bazel-bin",
                             "-bazel-out",
+                            "-bazel-src",
                             "-bazel-testlogs",
                         },
                     },
