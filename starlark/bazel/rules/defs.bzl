@@ -25,12 +25,53 @@ al_unpack_archives = rule(
     },
 )
 
-def _sh_worker_impl(ctx):
+def _al_genrule_impl(ctx):
     flagfile = ctx.actions.declare_file(ctx.label.name + "-flagfile")
+    attr = {}
+    for key in [
+        "cmd",
+        "compatible_with",
+        "deprecation",
+        "exec_compatible_with",
+        "exec_properties",
+        "expect_failure",
+        "features",
+        "generator_function",
+        "generator_location",
+        "generator_name",
+        "name",
+        "outs",
+        "package_metadata",
+        "restricted_to",
+        "srcs",
+        "tags",
+        "target_compatible_with",
+        "testonly",
+        "toolchains",
+        "transitive_configs",
+        "visibility",
+        "worker",
+    ]:
+        value = getattr(ctx.attr, key)
+        if type(value) == Label:
+            value = {"label": str(value)}
+        elif str(type(value)) == "Target":
+            value = {"label": str(value.label)}
+        elif str(type(value)) == "list":
+            new_value = []
+            for item in value:
+                if str(type(item)) == "Label":
+                    item = {"label": str(item)}
+                elif str(type(item)) == "Target":
+                    item = {"label": str(item.label)}
+                new_value.append(item)
+            value = new_value
+        attr[key] = value
+
     ctx.actions.write(
         output = flagfile,
         content = json.encode_indent({
-            "cmd": ctx.attr.cmd,
+            "attr": attr,
         }),
     )
     ctx.actions.run(
@@ -45,8 +86,8 @@ def _sh_worker_impl(ctx):
         },
     )
 
-al_sh_worker = rule(
-    implementation = _sh_worker_impl,
+al_genrule = rule(
+    implementation = _al_genrule_impl,
     doc = "Shell worker",
     attrs = {
         "srcs": attr.label_list(default = [], doc = "Sources"),

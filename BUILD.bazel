@@ -2,14 +2,14 @@ load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "bui
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 load("@npm//:defs.bzl", "npm_link_all_packages")
-load("//starlark/bazel/rules:defs.bzl", "al_sh_worker")
+load("//starlark/bazel/rules:defs.bzl", "al_genrule")
 
 BUILDIFIER_EXCLUDE = [
     "./.git/**/*",
     "bazel-*",
 ]
 
-al_sh_worker(
+al_genrule(
     name = "check",
     outs = ["check-bin"],
     cmd = "echo check >{{ .Request.Inputs[0] }}",
