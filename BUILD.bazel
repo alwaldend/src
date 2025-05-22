@@ -11,8 +11,12 @@ BUILDIFIER_EXCLUDE = [
 
 al_genrule(
     name = "check",
+    srcs = [
+        ".editorconfig",
+        "LICENSE.txt",
+    ],
     outs = ["check-bin"],
-    cmd = "echo check >{{ .Request.Inputs[0] }}",
+    cmd = "echo check >{{ (index .Request.Inputs 0).Path }}",
 )
 
 exports_files([
