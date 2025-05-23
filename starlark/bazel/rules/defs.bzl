@@ -27,59 +27,20 @@ al_unpack_archives = rule(
 
 def _al_genrule_impl(ctx):
     flagfile = ctx.actions.declare_file(ctx.label.name + "-flagfile")
-    attr = {}
-    for key in [
-        "cmd",
-        "shell",
-        "compatible_with",
-        "deprecation",
-        "exec_compatible_with",
-        "exec_properties",
-        "expect_failure",
-        "features",
-        "generator_function",
-        "generator_location",
-        "generator_name",
-        "name",
-        "outs",
-        "package_metadata",
-        "restricted_to",
-        "srcs",
-        "tags",
-        "target_compatible_with",
-        "testonly",
-        "toolchains",
-        "transitive_configs",
-        "visibility",
-        "worker",
-        "set_flags",
-    ]:
-        value = getattr(ctx.attr, key)
-        if type(value) == Label:
-            value = {"label": str(value)}
-        elif str(type(value)) == "Target":
-            value = {"label": str(value.label)}
-        elif str(type(value)) == "list":
-            new_value = []
-            for item in value:
-                if str(type(item)) == "Label":
-                    item = {"label": str(item)}
-                elif str(type(item)) == "Target":
-                    item = {"label": str(item.label)}
-                new_value.append(item)
-            value = new_value
-        attr[key] = value
-
+    cmd = ctx.expand_location(ctx.attr.cmd)
     ctx.actions.write(
         output = flagfile,
         content = json.encode_indent({
-            "attr": attr,
+            "cmd": cmd,
+            "set_args": ctx.attr.set_flags,
+            "shell": ctx.attr.shell,
+            "var": ctx.var,
         }),
     )
     ctx.actions.run(
         mnemonic = "Shell",
         executable = ctx.executable.worker,
-        inputs = [flagfile] + ctx.files.srcs,
+        inputs = [flagfile] + ctx.files.srcs + [tool["FilesToRunProvider"].executable for tool in ctx.attr.tools],
         outputs = ctx.outputs.outs,
         arguments = ["run", "--flagfile={}".format(flagfile.path)],
         execution_requirements = {
@@ -93,6 +54,7 @@ al_genrule = rule(
     doc = "Shell worker",
     attrs = {
         "srcs": attr.label_list(default = [], doc = "Sources", allow_files = True),
+        "tools": attr.label_list(default = [], doc = "tools"),
         "outs": attr.output_list(mandatory = True, doc = "Outputs"),
         "cmd": attr.string(mandatory = True, doc = "Script to execute"),
         "set_flags": attr.string_list(doc = "set flags", default = ["-eux"]),

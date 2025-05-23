@@ -6,6 +6,7 @@ go_library(
         "cmd.go",
         "main.go",
         "worker.go",
+        "worker_protocol.go",
     ],
     importpath = "git.alwaldend.com/src/golang/bazel-shell-worker",
     visibility = ["//visibility:private"],
@@ -13,7 +14,6 @@ go_library(
         "//proto/bazel-worker:worker_protocol",
         "@com_github_spf13_cobra//:cobra",
         "@org_golang_google_protobuf//encoding/protodelim",
-        "@org_golang_google_protobuf//encoding/prototext",
     ],
 )
 

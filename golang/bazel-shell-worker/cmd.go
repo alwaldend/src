@@ -50,7 +50,8 @@ func newRootCommand(
 }
 
 func newRunCommand(stdout io.Writer, stdin io.Reader) (*cobra.Command, error) {
-	worker := NewWorker(stdout, stdin)
+	protocol := NewWorkerProtocol(stdout, stdin)
+	worker := NewWorker(protocol)
 	persist := false
 	cmd := &cobra.Command{
 		Use:   "run",
