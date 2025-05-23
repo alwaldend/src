@@ -38,6 +38,7 @@ type WorkerTarget struct {
 
 type WorkerFlagfileAttr struct {
 	Cmd                  string            `json:"cmd"`
+	Shell                string            `json:"shell"`
 	CompatibleWith       []string          `json:"compatible_with"`
 	Deprecation          string            `json:"deprecation"`
 	ExecCompatibleWith   string            `json:"exec_oompatible_with"`
@@ -66,9 +67,15 @@ type WorkerFlagfile struct {
 	Attr WorkerFlagfileAttr `json:"attr"`
 }
 
+type WorkerRequestCmd struct {
+	Cmd    []string `json:"cmd"`
+	Output string   `json:"stdout"`
+}
+
 type WorkerRequestData struct {
 	Request   *worker_protocol.WorkRequest `json:"reqquest"`
 	Arguments *WorkerRequestArguments      `json:"arguments"`
+	Cmd       *WorkerRequestCmd            `json:"cmd"`
 }
 
 type WorkerErrorResponse struct {
@@ -158,43 +165,45 @@ func (self *Worker) errorResponse(request *worker_protocol.WorkRequest, data *Wo
 	}
 	return &worker_protocol.WorkResponse{
 		ExitCode:  1,
-		Output:    string(responseBytes),
+		Output:    fmt.Sprintf("Data:%s\nOutput:\n%s", string(responseBytes), data.Cmd.Output),
 		RequestId: request.RequestId,
 	}
 }
 
-func (self *Worker) templateCmd(data *WorkerRequestData) (string, error) {
+func (self *Worker) constructCmd(data *WorkerRequestData) ([]string, error) {
 	var buffer bytes.Buffer
 	t, err := template.New("cmd").Parse(data.Arguments.Flagfile.Attr.Cmd)
 	if err != nil {
-		return "", fmt.Errorf("could not parse template: %w", err)
+		return nil, fmt.Errorf("could not parse template: %w", err)
 	}
 
 	if err := t.Execute(&buffer, data); err != nil {
-		return "", fmt.Errorf("could not execute template: %w", err)
+		return nil, fmt.Errorf("could not execute template: %w", err)
 	}
-	return buffer.String(), nil
+	cmdText := fmt.Sprintf("set %s\n%s", strings.Join(data.Arguments.Flagfile.Attr.SetFlags, " "), buffer.String())
+	cmdArgs := []string{
+		data.Arguments.Flagfile.Attr.Shell, "-c", cmdText,
+	}
+	return cmdArgs, nil
 }
 
 func (self *Worker) handleRequest(data *WorkerRequestData) (*worker_protocol.WorkResponse, error) {
-	cmdText, err := self.templateCmd(data)
+	var output bytes.Buffer
+	cmdArgs, err := self.constructCmd(data)
 	if err != nil {
 		return nil, err
 	}
-	args := []string{
-		"bash", "-c",
-		fmt.Sprintf("%s\n%s", strings.Join(data.Arguments.Flagfile.Attr.SetFlags, " "), cmdText),
-	}
-	cmd := exec.Command(args[0], args[1:]...)
+	cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...)
+	cmd.Stdout = &output
+	cmd.Stderr = &output
 	err = cmd.Run()
+	data.Cmd = &WorkerRequestCmd{Cmd: cmdArgs, Output: output.String()}
 	if err != nil {
-		return nil, fmt.Errorf("could not run command %s: %w",
-			os.Getenv("PATH"),
-			err)
+		return nil, fmt.Errorf("could not run command: %w", err)
 	}
 	return &worker_protocol.WorkResponse{
 		RequestId: data.Request.RequestId,
-		ExitCode:  int32(cmd.ProcessState.ExitCode()),
+		ExitCode:  0,
 		Output:    "success",
 	}, nil
 }

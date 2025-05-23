@@ -30,6 +30,7 @@ def _al_genrule_impl(ctx):
     attr = {}
     for key in [
         "cmd",
+        "shell",
         "compatible_with",
         "deprecation",
         "exec_compatible_with",
@@ -95,6 +96,7 @@ al_genrule = rule(
         "outs": attr.output_list(mandatory = True, doc = "Outputs"),
         "cmd": attr.string(mandatory = True, doc = "Script to execute"),
         "set_flags": attr.string_list(doc = "set flags", default = ["-eux"]),
+        "shell": attr.string(doc = "shell to use", default = "/bin/sh"),
         "worker": attr.label(
             default = Label("//golang/bazel-shell-worker"),
             executable = True,
