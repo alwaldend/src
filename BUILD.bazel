@@ -61,7 +61,7 @@ genrule(
     cmd = """
 cat - >$(@) <<EOF
     replacement=\\$$($(execpath //golang/readme-tree:readme-tree) parse -g -o markdown .)
-    $(execpath //python/replace-section) -i -s README_CONTENTS -r "\\$${replacement}" README.md
+    $(rootpath //python/replace-section) -i -s README_CONTENTS -r "\\$${replacement}" README.md
 EOF
     """,
     executable = True,
