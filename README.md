@@ -10,101 +10,107 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 <!-- README_CONTENTS START -->
 
-- [assets](./assets): Assets
+- [assets](/assets): Assets
 
-  - [useless-qt-gui](./assets/useless-qt-gui): Assets for useless-qt-gui
+  - [useless-qt-gui](/assets/useless-qt-gui): Assets for useless-qt-gui
 
-- [configs](./configs): Configs for different tools
+- [configs](/configs): Configs for different tools
 
-  - [dotfiles](./configs/dotfiles): Dotfile configs
+  - [dotfiles](/configs/dotfiles): Dotfile configs
 
-- [cpp](./cpp): C&#43;&#43; projects
+- [cpp](/cpp): C&#43;&#43; projects
 
-  - [infinitime](./cpp/infinitime): Fork of InfiniTimeOrg/InfiniTime
+  - [infinitime](/cpp/infinitime): Fork of InfiniTimeOrg/InfiniTime
 
-  - [leetcode-submissions](./cpp/leetcode-submissions): Leetcode submissions
+  - [leetcode-submissions](/cpp/leetcode-submissions): Leetcode submissions
 
-  - [useless-qt-gui](./cpp/useless-qt-gui): Useless qt GUI
+  - [useless-qt-gui](/cpp/useless-qt-gui): Useless qt GUI
 
-- [drawio](./drawio): Drawio diagrams
+- [drawio](/drawio): Drawio diagrams
 
-  - [diagrams](./drawio/diagrams): Drawio diagrams
+  - [diagrams](/drawio/diagrams): Drawio diagrams
 
-- [golang](./golang): Golang projects
+- [golang](/golang): Golang projects
 
-  - [bazel-shell-worker](./golang/bazel-shell-worker): Bazel worker that runs shell commands
+  - [bazel-shell-worker](/golang/bazel-shell-worker): Bazel worker that runs shell commands
 
-  - [file-installer](./golang/file-installer): Tool to install files
+  - [file-installer](/golang/file-installer): Tool to install files
 
-  - [leetcode-downloader](./golang/leetcode-downloader): CLI app to download leetcode submissions
+  - [leetcode-downloader](/golang/leetcode-downloader): CLI app to download leetcode submissions
 
-  - [readme-tree](./golang/readme-tree): Tool to parse README.md files
+  - [readme-tree](/golang/readme-tree): Tool to parse README.md files
 
-  - [utils](./golang/utils): Random golang tools
+  - [utils](/golang/utils): Random golang tools
 
-- [java](./java): Java projects
+- [hugo](/hugo): Hugo projects
 
-  - [leetcode-submissions](./java/leetcode-submissions): Leetcode submissions
+  - [projects](/hugo/projects): Project documentation
 
-- [javascript](./javascript): Javascript projects
+  - [wiki](/hugo/wiki): Wiki
 
-  - [leetcode-downloader](./javascript/leetcode-downloader): Tampermonkey script to download leetcode submissions
+- [java](/java): Java projects
 
-- [lua](./lua): Lua projects
+  - [leetcode-submissions](/java/leetcode-submissions): Leetcode submissions
 
-  - [nvim-config](./lua/nvim-config): Neovim config
+- [javascript](/javascript): Javascript projects
 
-  - [nvim-lib](./lua/nvim-lib): Lua library for neovim
+  - [leetcode-downloader](/javascript/leetcode-downloader): Tampermonkey script to download leetcode submissions
 
-- [patches](./patches): Patches
+- [lua](/lua): Lua projects
 
-  - [infinitime](./patches/infinitime): Git patches for InfiniTimeOrg/InfiniTime
+  - [nvim-config](/lua/nvim-config): Neovim config
 
-- [proto](./proto): Protobuf projects
+  - [nvim-lib](/lua/nvim-lib): Lua library for neovim
 
-  - [bazel-worker](./proto/bazel-worker): Bazel worker protocol
+- [patches](/patches): Patches
 
-  - [leetcode-downloader](./proto/leetcode-downloader): Models for leetcode-downloader
+  - [infinitime](/patches/infinitime): Git patches for InfiniTimeOrg/InfiniTime
 
-- [python](./python): Python projects
+- [proto](/proto): Protobuf projects
 
-  - [bazel-python-shell](./python/bazel-python-shell): Python shell allowing you to run shell commands in python environment
+  - [bazel-worker](/proto/bazel-worker): Bazel worker protocol
 
-  - [install-file](./python/install-file): Python scripts
+  - [leetcode-downloader](/proto/leetcode-downloader): Models for leetcode-downloader
 
-  - [leetcode-submissions](./python/leetcode-submissions): Leetcode submissions
+- [python](/python): Python projects
 
-  - [replace-section](./python/replace-section): Replace sections of files
+  - [bazel-python-shell](/python/bazel-python-shell): Python shell allowing you to run shell commands in python environment
 
-- [rust](./rust): Rust projects
+  - [install-file](/python/install-file): Python scripts
 
-  - [tools](./rust/tools): Rust tools
+  - [leetcode-submissions](/python/leetcode-submissions): Leetcode submissions
 
-- [shell](./shell): Shell projects
+  - [replace-section](/python/replace-section): Replace sections of files
 
-  - [git-hooks](./shell/git-hooks): Git hooks
+- [rust](/rust): Rust projects
 
-  - [scripts](./shell/scripts): Shell scripts
+  - [tools](/rust/tools): Rust tools
 
-- [starlark](./starlark): Starlark projects
+- [shell](/shell): Shell projects
 
-  - [bazel](./starlark/bazel): Bazel projects
+  - [git-hooks](/shell/git-hooks): Git hooks
 
-    - [aspects](./starlark/bazel/aspects): Bazel aspects
+  - [scripts](/shell/scripts): Shell scripts
 
-    - [configs](./starlark/bazel/configs): Bazel configs
+- [starlark](/starlark): Starlark projects
 
-    - [extensions](./starlark/bazel/extensions): Module extensions
+  - [bazel](/starlark/bazel): Bazel projects
 
-    - [macros](./starlark/bazel/macros): Bazel macros
+    - [aspects](/starlark/bazel/aspects): Bazel aspects
 
-    - [qt](./starlark/bazel/qt): Qt wrapper for bazel
+    - [configs](/starlark/bazel/configs): Bazel configs
 
-    - [rules](./starlark/bazel/rules): Bazel rules
+    - [extensions](/starlark/bazel/extensions): Module extensions
 
-- [vial](./vial): Vial configs
+    - [macros](/starlark/bazel/macros): Bazel macros
 
-  - [keyboards](./vial/keyboards): Keyboard configs
+    - [qt](/starlark/bazel/qt): Qt wrapper for bazel
+
+    - [rules](/starlark/bazel/rules): Bazel rules
+
+- [vial](/vial): Vial configs
+
+  - [keyboards](/vial/keyboards): Keyboard configs
 
 <!-- README_CONTENTS END -->
 
