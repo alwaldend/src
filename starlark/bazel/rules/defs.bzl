@@ -40,7 +40,7 @@ def _al_genrule_impl(ctx):
     ctx.actions.run(
         mnemonic = "Shell",
         executable = ctx.executable.worker,
-        inputs = [flagfile] + ctx.files.srcs + [tool["FilesToRunProvider"].executable for tool in ctx.attr.tools],
+        inputs = [flagfile] + ctx.files.srcs + ctx.files.tools,
         outputs = ctx.outputs.outs,
         arguments = ["run", "--flagfile={}".format(flagfile.path)],
         execution_requirements = {

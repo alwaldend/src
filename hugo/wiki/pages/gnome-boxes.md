@@ -2,12 +2,12 @@
 title: Gnome boxes
 ---
 
-[Gnome boxes](https://apps.gnome.org/Boxes/) is a hypervisor, it works decently.
+[Gnome boxes](https://apps.gnome.org/Boxes/) is a hypervisor.
 
 ## Cpu
 
 The default cpu doesn't have a lot of capabilities, so you might need to patch
-the cpu config co compile some stuff:
+the config:
 
 ```xml
   <!-- https://www.qemu.org/docs/master/system/i386/cpu.html -->
@@ -21,3 +21,15 @@ Default libvirt network interferes with gnome-boxes, you might need to disable i
 ```sh
 sudo systemctl disable --now libvirtd
 ```
+
+### Disk size
+
+Just increasing the disk size is not enough, you need to increase the logical volume
+size:
+
+```sh
+sudo lvextend -l +100%FREE /dev/fedora/root
+sudo xfs_growfs /dev/fedora/root
+```
+
+Source: https://www.redhat.com/en/blog/resize-lvm-simple
