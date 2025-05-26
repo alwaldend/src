@@ -10,10 +10,7 @@ load("//starlark/bazel/rules:defs.bzl", "al_genrule")
 
 al_compile_pip_requirements_combined(
     name = "requirements",
-    srcs = ["requirements.in"] + select({
-        "//starlark/bazel/configs:use-local-repos": ["@infinitime-src-local//:requirements"],
-        "//conditions:default": ["@infinitime-src//:requirements"],
-    }),
+    srcs = ["requirements.in"] + ["@infinitime-src//:requirements"],
     requirements_txt = "requirements.txt",
     visibility = ["//visibility:public"],
 )
@@ -25,14 +22,11 @@ py_console_script_binary(
 
 al_py_binary_shell(
     name = "python-shell",
-    deps = all_requirements + select({
-        "//starlark/bazel/configs:use-local-repos": ["@infinitime-src-local//:imgtool"],
-        "//conditions:default": ["@infinitime-src//:imgtool"],
-    }),
+    deps = all_requirements + ["@infinitime-src//:imgtool"],
 )
 
 al_pkg_tar_combined(
-    name = "firmware-deps-remote",
+    name = "firmware-deps",
     tars = [
         {
             "label": "@infinitime-src//:src-tar",
@@ -49,30 +43,9 @@ al_pkg_tar_combined(
     ],
 )
 
-al_pkg_tar_combined(
-    name = "firmware-deps-local",
-    tars = [
-        {
-            "label": "@infinitime-src-local//:src-tar",
-            "dir": "src",
-        },
-        {
-            "label": "@gcc-arm//:src-tar",
-            "dir": "gcc",
-        },
-        {
-            "label": "@nrfsdk//:src-tar",
-            "dir": "nrfsdk",
-        },
-    ],
-)
-
 al_genrule(
     name = "firmware",
-    srcs = select({
-        "//starlark/bazel/configs:use-local-repos": [":firmware-deps-local"],
-        "//conditions:default": [":firmware-deps-remote"],
-    }),
+    srcs = [":firmware-deps"],
     outs = ["firmware.tar"],
     cmd = """
 	build_type="Release"
@@ -91,8 +64,8 @@ al_genrule(
         ln -s "${PWD}/$(execpath //:node_modules/lv_font_conv/dir)/lv_font_conv.js" "${bin_dir}/lv_font_conv"
         ln -s "${PWD}/$(execpath :adafruit-nrfutil)" "${bin_dir}/adafruit-nrfutil"
         rm -rf "${deps_dir}"/*
-	tar -xf "$(find -name "firmware-deps-*" -print -quit)" -C "${deps_dir}"
-	$(execpath :python-shell) {{ .Ctx.Var.CMAKE }} \
+	tar -xf "$(find -name "*firmware-deps*" -print -quit)" -C "${deps_dir}"
+	$(rootpath :python-shell) {{ .Ctx.Var.CMAKE }} \
             -G "Unix Makefiles" \
             -S "${src_dir}" \
             -B "${build_dir}" \
@@ -101,9 +74,7 @@ al_genrule(
             -DNRF5_SDK_PATH="${nrfsdk_dir}" \
             -DBUILD_DFU=1 \
             -DBUILD_RESOURCES=1
-        find -name "*python*" -type d -ls
-        exit 1
-	$(execpath :python-shell) {{ .Ctx.Var.CMAKE }} \
+	$(rootpath :python-shell) {{ .Ctx.Var.CMAKE }} \
             --build "${build_dir}" \
             --config "${build_type}" \
             --target pinetime-mcuboot-app

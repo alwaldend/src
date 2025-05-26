@@ -133,10 +133,11 @@ git_repository(
     shallow_since = "1733253068 +0100",
 )
 
-local_repository(
-    name = "infinitime-src-local",
-    path = "../../infinitimeorg/infinitime",
-)
+# Uncomment if you want to use local infinitime repository
+# local_repository(
+#     name = "infinitime-src",
+#     path = "~/Git/github.com/infinitimeorg/infinitime",
+# )
 
 http_archive(
     name = "gcc-arm",
