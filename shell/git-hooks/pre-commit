@@ -1,3 +1,6 @@
 #!/usr/bin/env sh
 
+set -eux
+
+bazel build //...
 exec bazel test //...

@@ -1,5 +1,33 @@
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+load("@rules_python//python/entry_points:py_console_script_binary.bzl", "py_console_script_binary")
 load("//starlark/bazel/macros:defs.bzl", "al_bzl_library")
 load(":defs.bzl", "current_qt_toolchain", "preinstalled_qt_toolchain")
+
+py_console_script_binary(
+    name = "aqt",
+    pkg = "@com-alwaldend-src-starlark-bazel-qt-requirements//aqtinstall:pkg",
+)
+
+genrule(
+    name = "install",
+    outs = ["install-script"],
+    cmd = """
+    cat - >$(@) <<EOF
+        #!/usr/bin/env sh
+        set -eux
+        mkdir -p /opt/qt
+        $(execpath :aqt) install-qt -O /opt/qt linux desktop 6.9.0
+    EOF
+    """,
+    executable = True,
+    tools = [":aqt"],
+)
+
+compile_pip_requirements(
+    name = "requirements",
+    srcs = [":requirements.in"],
+    requirements_txt = ":requirements.txt",
+)
 
 al_bzl_library(
     name = "lib",

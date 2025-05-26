@@ -26,6 +26,12 @@ startup --windows_enable_symlinks
 
 ### common
 
+# java setup
+
+common --config=java21
+common:java21 --java_language_version=21
+common:java21 --java_runtime_version=remotejdk_21
+
 # Speed up all builds by not checking if external repository files have been modified.
 # Docs: https://github.com/bazelbuild/bazel/blob/1af61b21df99edc2fc66939cdf14449c2661f873/src/main/java/com/google/devtools/build/lib/bazel/repository/RepositoryOptions.java#L244
 # common --noexperimental_check_external_repository_files
