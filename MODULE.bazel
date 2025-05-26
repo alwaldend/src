@@ -216,6 +216,11 @@ pip.parse(
     python_version = PYTHON_VERSION,
     requirements_lock = "//python:requirements.txt",
 )
+pip.parse(
+    hub_name = "com-alwaldend-src-starlark-bazel-qt-requirements",
+    python_version = PYTHON_VERSION,
+    requirements_lock = "//starlark/bazel/qt:requirements.txt",
+)
 
 npm.npm_translate_lock(
     name = "npm",
@@ -270,7 +275,7 @@ crate.from_cargo(
 
 ### use_repo
 
-use_repo(pip, "cpp-infinitime-pip", "pip")
+use_repo(pip, "com-alwaldend-src-starlark-bazel-qt-requirements", "cpp-infinitime-pip", "pip")
 
 use_repo(npm, "npm")
 
