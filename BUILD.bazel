@@ -2,6 +2,7 @@ load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "bui
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 load("@npm//:defs.bzl", "npm_link_all_packages")
+load("//starlark/bazel/rules:defs.bzl", "al_genrule")
 
 BUILDIFIER_EXCLUDE = [
     "./.git/**/*",
@@ -55,16 +56,17 @@ refresh_compile_commands(
     name = "refresh_compile_commands",
 )
 
-genrule(
+al_genrule(
     name = "update-readme",
     outs = ["update-readme-bin"],
     cmd = """
-cat - >$(@) <<EOF
-    replacement=\\$$($(execpath //golang/readme-tree:readme-tree) parse -g -o markdown .)
-    $(rootpath //python/replace-section) -i -s README_CONTENTS -r "\\$${replacement}" README.md
-EOF
+        echo '
+            #!/usr/bin/env sh
+            set -eux
+            replacement=$($(execpath //golang/readme-tree) parse -g -o markdown .)
+            $(rootpath //python/replace-section) -i -s README_CONTENTS -r "${replacement}" README.md
+        ' | tee $(execpath :update-readme-bin)
     """,
-    executable = True,
     tools = [
         "//golang/readme-tree",
         "//python/replace-section",
