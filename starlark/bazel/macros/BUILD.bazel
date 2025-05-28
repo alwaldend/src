@@ -3,6 +3,7 @@ load(":defs.bzl", "al_bzl_library")
 al_bzl_library(
     name = "lib",
     deps = [
+        "//starlark/bazel/rules:lib",
         "@bazel_skylib//:bzl_library",
         "@bazel_skylib//rules:diff_test",
         "@rules_pkg//pkg:bzl_srcs",

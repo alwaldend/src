@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"html/template"
+	"text/template"
 	"os"
 	"os/exec"
 	"strings"
@@ -138,12 +138,12 @@ func (self *Worker) errorResponse(request *worker_protocol.WorkRequest, data *Wo
 
 func (self *Worker) constructCmd(data *WorkerRequestData) ([]string, error) {
 	var buffer bytes.Buffer
-	t, err := template.New("cmd").Parse(data.Arguments.Flagfile.Cmd)
+	temp, err := template.New("cmd").Option("missingkey=error").Parse(data.Arguments.Flagfile.Cmd)
 	if err != nil {
 		return nil, fmt.Errorf("could not parse template: %w", err)
 	}
 
-	if err := t.Execute(&buffer, WorkerTemplateContext{
+	if err := temp.Execute(&buffer, WorkerTemplateContext{
 		Ctx:       data.Arguments.Flagfile,
 		Request:   data.Request,
 		Arguments: data.Arguments,

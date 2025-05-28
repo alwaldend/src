@@ -10,113 +10,114 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 <!-- README_CONTENTS START -->
 
-- [assets](/assets): Assets
+  - [assets](/assets): Assets
 
-  - [useless-qt-gui](/assets/useless-qt-gui): Assets for useless-qt-gui
+    - [useless-qt-gui](/assets/useless-qt-gui): Assets for useless-qt-gui
 
-- [configs](/configs): Configs for different tools
+  - [configs](/configs): Configs for different tools
 
-  - [dotfiles](/configs/dotfiles): Dotfile configs
+    - [dotfiles](/configs/dotfiles): Dotfile configs
 
-- [cpp](/cpp): C&#43;&#43; projects
+  - [cpp](/cpp): C&#43;&#43; projects
 
-  - [infinitime](/cpp/infinitime): Fork of InfiniTimeOrg/InfiniTime
+    - [infinitime](/cpp/infinitime): Fork of InfiniTimeOrg/InfiniTime
 
-  - [leetcode-submissions](/cpp/leetcode-submissions): Leetcode submissions
+    - [leetcode-submissions](/cpp/leetcode-submissions): Leetcode submissions
 
-  - [useless-qt-gui](/cpp/useless-qt-gui): Useless qt GUI
+    - [useless-qt-gui](/cpp/useless-qt-gui): Useless qt GUI
 
-- [drawio](/drawio): Drawio diagrams
+  - [drawio](/drawio): Drawio diagrams
 
-  - [diagrams](/drawio/diagrams): Drawio diagrams
+    - [diagrams](/drawio/diagrams): Drawio diagrams
 
-- [golang](/golang): Golang projects
+  - [golang](/golang): Golang projects
 
-  - [bazel-shell-worker](/golang/bazel-shell-worker): Bazel worker that runs shell commands
+    - [bazel-shell-worker](/golang/bazel-shell-worker): Bazel worker that runs shell commands
 
-  - [file-installer](/golang/file-installer): Tool to install files
+    - [file-installer](/golang/file-installer): Tool to install files
 
-  - [leetcode-downloader](/golang/leetcode-downloader): CLI app to download leetcode submissions
+    - [leetcode-downloader](/golang/leetcode-downloader): CLI app to download leetcode submissions
 
-  - [readme-tree](/golang/readme-tree): Tool to parse README.md files
+    - [readme-tree](/golang/readme-tree): Tool to parse README.md files
 
-  - [utils](/golang/utils): Random golang tools
+    - [utils](/golang/utils): Random golang tools
 
-- [hugo](/hugo): Hugo projects
+  - [hugo](/hugo): Hugo projects
 
-  - [projects](/hugo/projects): Project documentation
+    - [knowledge](/hugo/knowledge): Wiki
 
-  - [wiki](/hugo/wiki): Wiki
+    - [projects](/hugo/projects): Project documentation
 
-- [java](/java): Java projects
+  - [java](/java): Java projects
 
-  - [leetcode-submissions](/java/leetcode-submissions): Leetcode submissions
+    - [leetcode-submissions](/java/leetcode-submissions): Leetcode submissions
 
-- [javascript](/javascript): Javascript projects
+  - [javascript](/javascript): Javascript projects
 
-  - [leetcode-downloader](/javascript/leetcode-downloader): Tampermonkey script to download leetcode submissions
+    - [leetcode-downloader](/javascript/leetcode-downloader): Tampermonkey script to download leetcode submissions
 
-- [lua](/lua): Lua projects
+  - [lua](/lua): Lua projects
 
-  - [nvim-config](/lua/nvim-config): Neovim config
+    - [nvim-config](/lua/nvim-config): Neovim config
 
-  - [nvim-lib](/lua/nvim-lib): Lua library for neovim
+    - [nvim-lib](/lua/nvim-lib): Lua library for neovim
 
-- [patches](/patches): Patches
+  - [patches](/patches): Patches
 
-  - [infinitime](/patches/infinitime): Git patches for InfiniTimeOrg/InfiniTime
+    - [infinitime](/patches/infinitime): Git patches for InfiniTimeOrg/InfiniTime
 
-- [proto](/proto): Protobuf projects
+  - [proto](/proto): Protobuf projects
 
-  - [bazel-worker](/proto/bazel-worker): Bazel worker protocol
+    - [bazel-worker](/proto/bazel-worker): Bazel worker protocol
 
-  - [leetcode-downloader](/proto/leetcode-downloader): Models for leetcode-downloader
+    - [leetcode-downloader](/proto/leetcode-downloader): Models for leetcode-downloader
 
-- [python](/python): Python projects
+  - [python](/python): Python projects
 
-  - [bazel-python-shell](/python/bazel-python-shell): Python shell allowing you to run shell commands in python environment
+    - [bazel-python-shell](/python/bazel-python-shell): Python shell allowing you to run shell commands in python environment
 
-  - [install-file](/python/install-file): Python scripts
+    - [install-file](/python/install-file): Python scripts
 
-  - [leetcode-submissions](/python/leetcode-submissions): Leetcode submissions
+    - [leetcode-submissions](/python/leetcode-submissions): Leetcode submissions
 
-  - [replace-section](/python/replace-section): Replace sections of files
+    - [replace-section](/python/replace-section): Replace sections of files
 
-- [rust](/rust): Rust projects
+  - [rust](/rust): Rust projects
 
-  - [tools](/rust/tools): Rust tools
+    - [tools](/rust/tools): Rust tools
 
-- [shell](/shell): Shell projects
+  - [shell](/shell): Shell projects
 
-  - [git-hooks](/shell/git-hooks): Git hooks
+    - [git-hooks](/shell/git-hooks): Git hooks
 
-  - [scripts](/shell/scripts): Shell scripts
+    - [scripts](/shell/scripts): Shell scripts
 
-- [starlark](/starlark): Starlark projects
+  - [starlark](/starlark): Starlark projects
 
-  - [bazel](/starlark/bazel): Bazel projects
+    - [bazel](/starlark/bazel): Bazel projects
 
-    - [aspects](/starlark/bazel/aspects): Bazel aspects
+      - [aspects](/starlark/bazel/aspects): Bazel aspects
 
-    - [configs](/starlark/bazel/configs): Bazel configs
+      - [configs](/starlark/bazel/configs): Bazel configs
 
-    - [extensions](/starlark/bazel/extensions): Module extensions
+      - [extensions](/starlark/bazel/extensions): Module extensions
 
-    - [macros](/starlark/bazel/macros): Bazel macros
+      - [macros](/starlark/bazel/macros): Bazel macros
 
-    - [qt](/starlark/bazel/qt): Qt wrapper for bazel
+      - [providers](/starlark/bazel/providers): Bazel providers
 
-    - [rules](/starlark/bazel/rules): Bazel rules
+      - [qt](/starlark/bazel/qt): Qt wrapper for bazel
 
-- [vial](/vial): Vial configs
+      - [rules](/starlark/bazel/rules): Bazel rules
 
-  - [keyboards](/vial/keyboards): Keyboard configs
+  - [vial](/vial): Vial configs
 
+    - [keyboards](/vial/keyboards): Keyboard configs
 <!-- README_CONTENTS END -->
 
 ## Setup
 
-- Install packages: `sudo dnf install clang java-latest-openjdk-devel rust mesa-libGL-devel`
+- Install packages: `sudo dnf install clang java-latest-openjdk-devel rust mesa-libGL-devel go`
 - Install bazel: https://bazel.build/install/bazelisk
 - Install nvm: https://github.com/nvm-sh/nvm
 - Install node: `nvm install node`
