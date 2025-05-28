@@ -2,7 +2,7 @@ load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "bui
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 load("@npm//:defs.bzl", "npm_link_all_packages")
-load("//starlark/bazel/rules:defs.bzl", "al_genrule")
+load("//starlark/bazel/macros:defs.bzl", "al_genrule")
 
 BUILDIFIER_EXCLUDE = [
     "./.git/**/*",
@@ -60,13 +60,16 @@ al_genrule(
     name = "update-readme",
     outs = ["update-readme-bin"],
     cmd = """
-        echo '
-            #!/usr/bin/env sh
-            set -eux
-            replacement=$($(execpath //golang/readme-tree) parse -g -o markdown .)
-            $(rootpath //python/replace-section) -i -s README_CONTENTS -r "${replacement}" README.md
-        ' | tee $(execpath :update-readme-bin)
+cat - >$(execpath :update-readme-bin) <<EOF
+    #!/usr/bin/env bash
+    set -euxo pipefail
+    env
+    dir="\\${BUILD_WORKING_DIRECTORY}"
+    replacement=\\$($(rootpath //golang/readme-tree) parse -C "\\${dir}" -g -o markdown .)
+    $(rootpath //python/replace-section) -i -s README_CONTENTS -r "\\${replacement}" "\\${dir}/README.md"
+EOF
     """,
+    executable = True,
     tools = [
         "//golang/readme-tree",
         "//python/replace-section",

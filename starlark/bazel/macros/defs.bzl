@@ -1,9 +1,14 @@
+"""
+Bazel macros
+"""
+
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@stardoc//stardoc:stardoc.bzl", "stardoc")
+load("//starlark/bazel/rules:defs.bzl", "al_genrule_executable", "al_genrule_regular", "al_genrule_test")
 
 BLACK_SRC = "//python:black"
 ISORT_SRC = "//python:isort"
@@ -41,6 +46,22 @@ REPLACE_SECTION_SRC = "//python/replace-section"
 #         size = "small",
 #         **stylua_kwargs
 #     )
+
+def al_genrule(test = False, executable = False, **kwargs):
+    """
+    Generate al_genrule target
+
+    Args:
+        test: If set, use al_genrule_test
+        executable: if set, use al_genrule_executable
+        **kwargs: kwargs for the rule
+    """
+    if test:
+        al_genrule_test(**kwargs)
+    elif executable:
+        al_genrule_executable(**kwargs)
+    else:
+        al_genrule_regular(**kwargs)
 
 def al_lua_library(
         name,

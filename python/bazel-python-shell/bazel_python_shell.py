@@ -5,7 +5,10 @@ import typing
 
 
 def main(argv: typing.Sequence[str]) -> None:
-    shell_type = os.environ.get("BAZEL_PYTHON_SHELL_TYPE", "python")
+    shell_type = os.getenv("BAZEL_PYTHON_SHELL_TYPE", "python")
+    bazel_working_dir = os.getenv("BUILD_WORKING_DIRECTORY")
+    if bazel_working_dir:
+        os.chdir(bazel_working_dir)
     if shell_type == "python":
         executable = sys.executable
         args = argv[1:]
