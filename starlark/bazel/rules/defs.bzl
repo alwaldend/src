@@ -113,3 +113,16 @@ al_genrule_regular = rule(
     doc = "Build shell worker rule",
     attrs = _al_genrule_attrs,
 )
+
+def _al_write_script_impl(ctx):
+    pass
+
+al_write_script = rule(
+    implementation = _al_write_script_impl,
+    doc = "Write a script",
+    attrs = {
+        "shebang": attr.string(default = "#!/usr/bin/env sh", doc = "Sheband to use"),
+        "set_flags": attr.string_list(default = ["-eu"], doc = "Flags to pass to set"),
+        "content": attr.string(mandatory = True, doc = "Script content"),
+    },
+)
