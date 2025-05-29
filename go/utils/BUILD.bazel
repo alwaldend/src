@@ -3,6 +3,6 @@ load("@rules_go//go:def.bzl", "go_library")
 go_library(
     name = "utils",
     srcs = ["utils.go"],
-    importpath = "git.alwaldend.com/src/golang/utils",
+    importpath = "git.alwaldend.com/src/go/utils",
     visibility = ["//visibility:public"],
 )

@@ -12,7 +12,7 @@ import (
 
 	cobra "github.com/spf13/cobra"
 
-	"git.alwaldend.com/src/golang/utils"
+	"git.alwaldend.com/src/go/utils"
 )
 
 type configType struct {

@@ -233,7 +233,7 @@ def al_py_flake8(name = None, srcs = None, flake8_src = None, pyproject_src = No
         data = srcs + [pyproject_src],
     )
 
-def al_py_isort(name = None, srcs = None, isort_src = None, pyproject_src = None, run_args_src = None):
+def al_py_isort(name = None, srcs = None, isort_src = None, pyproject_src = None):
     """
     Generate -fix and -test targets for isort
     """
@@ -248,7 +248,7 @@ def al_py_isort(name = None, srcs = None, isort_src = None, pyproject_src = None
         data = srcs + [pyproject_src],
     )
 
-def al_py_black(name = None, srcs = None, black_src = None, pyproject_src = None, run_args_src = None):
+def al_py_black(name = None, srcs = None, black_src = None, pyproject_src = None):
     """
     Generate -fix and -test targets for black
     """
@@ -263,7 +263,7 @@ def al_py_black(name = None, srcs = None, black_src = None, pyproject_src = None
         data = srcs + [pyproject_src],
     )
 
-def al_py_mypy(name = None, srcs = None, mypy_src = None, pyproject_src = None, run_args_src = None):
+def al_py_mypy(name = None, srcs = None, mypy_src = None, pyproject_src = None):
     """
     Generate -fix and -test targets for mypy
     """

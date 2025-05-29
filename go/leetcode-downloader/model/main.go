@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"text/template"
 
-	proto "git.alwaldend.com/src/golang/leetcode-downloader/proto"
+	proto "git.alwaldend.com/src/go/leetcode-downloader/proto"
 )
 
 //go:embed config.json

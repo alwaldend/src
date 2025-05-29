@@ -9,10 +9,10 @@ go_library(
         "main.go",
         "repo.go",
     ],
-    importpath = "git.alwaldend.com/src/golang/leetcode-downloader",
+    importpath = "git.alwaldend.com/src/go/leetcode-downloader",
     visibility = ["//visibility:private"],
     deps = [
-        "//golang/leetcode-downloader/model",
+        "//go/leetcode-downloader/model",
         "//proto/leetcode-downloader:proto",
     ],
 )
