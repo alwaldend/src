@@ -47,6 +47,46 @@ REPLACE_SECTION_SRC = "//python/replace-section"
 #         **stylua_kwargs
 #     )
 
+def al_run_tool(**kwargs):
+    """
+    Run _al_run_tool with test = False
+
+    Args:
+        **kwargs: kwargs for `_al_run_tool`
+    """
+    kwargs["test"] = False
+    _al_run_tool(**kwargs)
+
+def al_run_tool_test(**kwargs):
+    """
+    Run _al_run_tool with test = True
+
+    Args:
+        **kwargs: kwargs for `_al_run_tool`
+    """
+    kwargs["test"] = True
+    _al_run_tool(**kwargs)
+
+def _al_run_tool(name = "", tool = "", test = False, run_args_src = RUN_ARGS_SRC, **kwargs):
+    """
+    Generate a target to run a tool
+
+    Args:
+        name: Target name (required)
+        tool: Tool label to run (required)
+        test: If true, generate native.sh_test, use native.sh_binary otherwise
+        **kwargs: kwargs for rules
+    """
+    kwargs["name"] = name
+    kwargs["data"] = kwargs.get("data", []) + [tool]
+    kwargs["args"] = ["$(rootpath {})".format(tool)] + kwargs.get("args", [])
+    kwargs["srcs"] = [run_args_src]
+
+    if test:
+        native.sh_test(**kwargs)
+    else:
+        native.sh_binary(**kwargs)
+
 def al_genrule(test = False, executable = False, **kwargs):
     """
     Generate al_genrule target
@@ -67,7 +107,6 @@ def al_lua_library(
         name,
         srcs = [],
         check = [],
-        run_args_src = RUN_ARGS_SRC,
         stylua_config_src = STYLUA_CONFIG_SRC,
         stylua_src = STYLUA_SRC,
         pkg_tar_kwargs = {},
@@ -83,29 +122,27 @@ def al_lua_library(
         pkg_tar_kwargs: kwargs for pkg_tar
     """
     stylua_args = [
-        "$(rootpath {})".format(stylua_src),
         "--config-path=$(rootpath {})".format(stylua_config_src),
     ] + ["$(rootpaths {})".format(src) for src in (check or srcs)]
-    stylua_kwargs = {
-        "srcs": [run_args_src],
-        "data": (check or srcs) + [stylua_config_src, stylua_src],
-    }
+    data = (check or srcs) + [stylua_config_src]
     pkg_tar(
         name = name,
         srcs = srcs,
         visibility = visibility,
         **pkg_tar_kwargs
     )
-    native.sh_binary(
+    al_run_tool(
         name = "{}-stylua-fix".format(name),
+        tool = stylua_src,
         args = stylua_args,
-        **stylua_kwargs
+        data = data,
     )
-    native.sh_test(
+    al_run_tool_test(
         name = "{}-stylua-test".format(name),
+        tool = stylua_src,
         args = [stylua_args[0], "--check"] + stylua_args[1:],
         size = "small",
-        **stylua_kwargs
+        data = data,
     )
 
 def al_bzl_library(
@@ -140,11 +177,10 @@ def al_bzl_library(
         deps = [":{}".format(name)],
         visibility = visibility,
     )
-    native.sh_binary(
+    al_run_tool(
         name = "{}-stardoc-copy".format(name),
-        srcs = [run_args_src],
+        tool = replace_section_src,
         args = [
-            "$(rootpath {})".format(replace_section_src),
             "-i",
             "-s",
             "STARDOC",
@@ -152,7 +188,7 @@ def al_bzl_library(
             "$(rootpath :{}-stardoc)".format(name),
             "$(rootpath :README.md)",
         ],
-        data = [":{}-stardoc".format(name), replace_section_src, ":README.md"],
+        data = [":{}-stardoc".format(name), ":README.md"],
     )
     diff_test(
         name = "{}-stardoc-test".format(name),
@@ -167,8 +203,7 @@ def al_py_checkers(
         isort_src = ISORT_SRC,
         mypy_src = MYPY_SRC,
         flake8_src = FLAKE8_SRC,
-        pyproject_src = PYPROJECT_SRC,
-        run_args_src = RUN_ARGS_SRC):
+        pyproject_src = PYPROJECT_SRC):
     """
     Generate -fix and -test targets for python checkers
 
@@ -178,7 +213,6 @@ def al_py_checkers(
     kwargs = {
         "pyproject_src": pyproject_src,
         "srcs": srcs,
-        "run_args_src": run_args_src,
     }
     al_py_isort(name = "isort", isort_src = isort_src, **kwargs)
     al_py_black(name = "black", black_src = black_src, **kwargs)
@@ -192,12 +226,11 @@ def al_py_flake8(name = None, srcs = None, flake8_src = None, pyproject_src = No
     al_py_checker(
         name,
         disable_fix = True,
+        tool = flake8_src,
         args_test = [
-            "$(rootpath {})".format(flake8_src),
             "--toml-config=$(rootpath {})".format(pyproject_src),
         ] + ["$(rootpaths {})".format(src) for src in srcs],
-        srcs = [run_args_src],
-        data = srcs + [flake8_src, run_args_src, pyproject_src],
+        data = srcs + [pyproject_src],
     )
 
 def al_py_isort(name = None, srcs = None, isort_src = None, pyproject_src = None, run_args_src = None):
@@ -205,15 +238,14 @@ def al_py_isort(name = None, srcs = None, isort_src = None, pyproject_src = None
     Generate -fix and -test targets for isort
     """
     args = [
-        "$(rootpath {})".format(isort_src),
         "--settings-path=$(rootpath {})".format(pyproject_src),
     ] + ["$(rootpaths {})".format(src) for src in srcs]
     al_py_checker(
-        name,
+        name = name,
         args_bin = args,
+        tool = isort_src,
         args_test = [args[0], "--check-only"] + args[1:],
-        srcs = [run_args_src],
-        data = srcs + [isort_src, run_args_src, pyproject_src],
+        data = srcs + [pyproject_src],
     )
 
 def al_py_black(name = None, srcs = None, black_src = None, pyproject_src = None, run_args_src = None):
@@ -221,15 +253,14 @@ def al_py_black(name = None, srcs = None, black_src = None, pyproject_src = None
     Generate -fix and -test targets for black
     """
     args = [
-        "$(rootpath {})".format(black_src),
         "--config=$(rootpath {})".format(pyproject_src),
     ] + ["$(rootpaths {})".format(src) for src in srcs]
     al_py_checker(
         name,
         args_bin = args,
+        tool = black_src,
         args_test = [args[0], "--check"] + args[1:],
-        srcs = [run_args_src],
-        data = srcs + [black_src, run_args_src, pyproject_src],
+        data = srcs + [pyproject_src],
     )
 
 def al_py_mypy(name = None, srcs = None, mypy_src = None, pyproject_src = None, run_args_src = None):
@@ -237,37 +268,48 @@ def al_py_mypy(name = None, srcs = None, mypy_src = None, pyproject_src = None, 
     Generate -fix and -test targets for mypy
     """
     args = [
-        "$(rootpath {})".format(mypy_src),
         "--config-file=$(rootpath {})".format(pyproject_src),
     ] + ["$(rootpaths {})".format(src) for src in srcs]
     al_py_checker(
         name,
         args_bin = args,
+        tool = mypy_src,
         args_test = [args[0], "--check"] + args[1:],
-        srcs = [run_args_src],
-        data = srcs + [mypy_src, run_args_src, pyproject_src],
+        data = srcs + [pyproject_src],
         disable_fix = True,
     )
 
 def al_py_checker(
         name = None,
+        tool = None,
         args_bin = None,
         args_test = None,
+        test_size = "small",
         disable_fix = False,
         **kwargs):
     """
     Create -fix and -test targets for a python checker
+
+    Args:
+        name: Name prefix
+        tool: Tool label
+        args_bin: Args for the binary target
+        args_test: Args for the test
+        disable_fix: If set, do not create fix target
+        **kwargs: Kwargs for both targets
     """
     if not disable_fix:
-        native.sh_binary(
+        al_run_tool(
             name = "{}-fix".format(name),
             args = args_bin,
+            tool = tool,
             **kwargs
         )
-    native.sh_test(
+    al_run_tool_test(
         name = "{}-test".format(name),
         args = args_test,
-        size = "small",
+        tool = tool,
+        size = test_size,
         **kwargs
     )
 
