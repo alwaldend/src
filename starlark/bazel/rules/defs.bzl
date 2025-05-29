@@ -85,7 +85,7 @@ _al_genrule_attrs = {
     "set_flags": attr.string_list(doc = "set flags", default = ["-eux"]),
     "shell": attr.string(doc = "shell to use", default = "/bin/sh"),
     "worker": attr.label(
-        default = Label("//golang/bazel-shell-worker"),
+        default = Label("//go/bazel-shell-worker"),
         executable = True,
         allow_single_file = True,
         cfg = "exec",

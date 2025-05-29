@@ -8,7 +8,7 @@ go_library(
         "worker.go",
         "worker_protocol.go",
     ],
-    importpath = "git.alwaldend.com/src/golang/bazel-shell-worker",
+    importpath = "git.alwaldend.com/src/go/bazel-shell-worker",
     visibility = ["//visibility:private"],
     deps = [
         "//proto/bazel-worker:worker_protocol",

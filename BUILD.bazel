@@ -32,7 +32,7 @@ npm_link_all_packages(
     name = "node_modules",
 )
 
-# gazelle:exclude **/leetcode-submissions/*
+# gazelle:exclude **/leetcode-submissions/**
 # gazelle:java_maven_install_file maven-lock.json
 # gazelle:resolve java javax.annotation @com-alwaldend-src-maven//:org_apache_tomcat_annotations_api
 # gazelle:resolve java org.joda.time @com-alwaldend-src-maven//:joda_time_joda_time
@@ -65,13 +65,13 @@ cat - >$(execpath :update-readme-bin) <<EOF
     set -euxo pipefail
     env
     dir="\\${BUILD_WORKING_DIRECTORY}"
-    replacement=\\$($(rootpath //golang/readme-tree) parse -C "\\${dir}" -g -o markdown .)
+    replacement=\\$($(rootpath //go/readme-tree) parse -C "\\${dir}" -g -o markdown .)
     $(rootpath //python/replace-section) -i -s README_CONTENTS -r "\\${replacement}" "\\${dir}/README.md"
 EOF
     """,
     executable = True,
     tools = [
-        "//golang/readme-tree",
+        "//go/readme-tree",
         "//python/replace-section",
     ],
 )
