@@ -55,6 +55,13 @@ return {
                 bash = { "shfmt", "shellcheck" },
                 sh = { "shfmt", "shellcheck" },
                 go = { "goimports", "gofumpt", "goimports-reviser" },
+                c = { "clang-format" },
+                cpp = { "clang-format" },
+                objc = { "clang-format" },
+                objcpp = { "clang-format" },
+                cuda = { "clang-format" },
+                hpp = { "clang-format" },
+                h = { "clang-format" },
                 proto = { "buf" },
                 javascript = {
                     "prettierd",
