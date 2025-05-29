@@ -171,6 +171,7 @@ require (
 	github.com/bazelbuild/buildtools v0.0.0-20250427233527-d9ed52af26ee
 	github.com/goccy/go-yaml v1.17.1
 	github.com/gohugoio/hugo v0.147.3
+	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.6 // indirect
 	google.golang.org/protobuf v1.36.6
