@@ -8,6 +8,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 ## Contents
 
+<details>
+
 <!-- README_CONTENTS START -->
 
   - [assets](/assets): Assets
@@ -114,6 +116,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
     - [keyboards](/vial/keyboards): Keyboard configs
 <!-- README_CONTENTS END -->
+
+</details>
 
 ## Setup
 

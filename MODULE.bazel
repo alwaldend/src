@@ -109,6 +109,7 @@ python.toolchain(
 )
 
 node.toolchain(
+    name = "com-alwaldend-src-nodejs-toolchains",
     node_version = NODE_VERSION,
 )
 
@@ -119,7 +120,7 @@ register_toolchains("//starlark/bazel/qt:preinstalled-qt-toolchain")
 ### infinitime
 
 git_repository(
-    name = "infinitime-src",
+    name = "com-github-infinitimeorg-infinitime",
     commit = "2105a7b63da8d4065ebfc62e0057f225358eedfc",  # 1.15.0
     init_submodules = True,
     patch_args = ["-p1"],
@@ -133,14 +134,14 @@ git_repository(
     shallow_since = "1733253068 +0100",
 )
 
-# Uncomment if you want to use local infinitime repository
+# Uncomment if you want to use a local infinitime repository
 # local_repository(
 #     name = "infinitime-src",
 #     path = "~/Git/github.com/infinitimeorg/infinitime",
 # )
 
 http_archive(
-    name = "gcc-arm",
+    name = "com-arm-developer-gcc-arm",
     build_file_content = FILEGROUP,
     integrity = "sha256-l9u08BmtFlC3Mvr/zIgWic7cFOK37oY9OQ4KQe8WyaM=",
     strip_prefix = "gcc-arm-none-eabi-10.3-2021.10",
@@ -153,7 +154,7 @@ http_archive(
 )
 
 http_archive(
-    name = "nrfsdk",
+    name = "com-nordicsemi-developer-nrfsdk",
     build_file_content = FILEGROUP,
     integrity = "sha256-nJMH11fRCQB/L8xOVHrBCxqf2fqkd+jb8/fhYkxIAaU=",
     strip_prefix = NRFSDK_VERSION,
@@ -165,7 +166,7 @@ http_archive(
 ### qt
 
 http_archive(
-    name = "qt",
+    name = "com-alwaldend-src-qt",
     build_file_content = FILEGROUP,
     integrity = "sha256-T2HlBVHQAEpRP++9sKQQWV2UgSpIYAZG+3NB6g0X4cs=",
     strip_prefix = "qt-everywhere-src-6.9.0",
@@ -175,7 +176,7 @@ http_archive(
 ### java-language-server
 
 git_repository(
-    name = "com_github_georgewfraser_java_language_server",
+    name = "com-github-georgewfraser-java-language-server",
     build_file_content = FILEGROUP,
     commit = "0dd0c8cc8e62bfa0ef6888ecee5877608014db06",  # main
     remote = "https://github.com/georgewfraser/java-language-server.git",
@@ -185,7 +186,7 @@ git_repository(
 ### docsy
 
 git_repository(
-    name = "com_github_google_docsy",
+    name = "com-github-google-docsy",
     build_file_content = FILEGROUP,
     commit = "cf0c68f041daac066a0292d521461dbd092d7c31",  # v0.11.0
     remote = "https://github.com/google/docsy.git",
@@ -207,12 +208,12 @@ shellcheck.install(
 ### locks
 
 pip.parse(
-    hub_name = "cpp-infinitime-pip",
+    hub_name = "com-alwaldend-src-cpp-infinitime-pip",
     python_version = PYTHON_VERSION,
     requirements_lock = "//cpp/infinitime:requirements.txt",
 )
 pip.parse(
-    hub_name = "pip",
+    hub_name = "com-alwaldend-src-pip",
     python_version = PYTHON_VERSION,
     requirements_lock = "//python:requirements.txt",
 )
@@ -223,7 +224,7 @@ pip.parse(
 )
 
 npm.npm_translate_lock(
-    name = "npm",
+    name = "com-alwaldend-src-npm",
     pnpm_lock = "//:pnpm-lock.yaml",
     run_lifecycle_hooks = False,
     verify_node_modules_ignored = "//:.bazelignore",
@@ -238,7 +239,7 @@ go_deps.gazelle_override(
 )
 
 maven.install(
-    name = "maven",
+    name = "com-alwaldend-src-maven",
     artifacts = [
         "com.squareup.retrofit2:converter-jackson:2.11.0",
         "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.19.0",
@@ -264,7 +265,7 @@ maven.install(
 )
 
 crate.from_cargo(
-    name = "cargo",
+    name = "com-alwaldend-src-cargo",
     cargo_lockfile = "//:Cargo.lock",
     generate_binaries = True,
     manifests = [
@@ -275,18 +276,32 @@ crate.from_cargo(
 
 ### use_repo
 
-use_repo(pip, "com-alwaldend-src-starlark-bazel-qt-requirements", "cpp-infinitime-pip", "pip")
+use_repo(
+    pip,
+    "com-alwaldend-src-cpp-infinitime-pip",
+    "com-alwaldend-src-pip",
+    "com-alwaldend-src-starlark-bazel-qt-requirements",
+)
 
-use_repo(npm, "npm")
+use_repo(npm, "com-alwaldend-src-npm")
 
-use_repo(pnpm, "pnpm")
+use_repo(pnpm, "com-alwaldend-src-pnpm")
 
-use_repo(node, "nodejs_toolchains")
+use_repo(node, **{"com-alwaldend-src-nodejs-toolchains": "nodejs_toolchains"})
 
-use_repo(go_deps, "cc_mvdan_sh_v3", "com_github_bazelbuild_buildtools", "com_github_goccy_go_yaml", "com_github_gohugoio_hugo", "com_github_spf13_cobra", "org_golang_google_protobuf")
+use_repo(
+    go_deps,
+    "cc_mvdan_sh_v3",
+    "com_github_bazelbuild_buildtools",
+    "com_github_goccy_go_yaml",
+    "com_github_gohugoio_hugo",
+    "com_github_google_shlex",
+    "com_github_spf13_cobra",
+    "org_golang_google_protobuf",
+)
 
-use_repo(maven, "maven")
+use_repo(maven, "com-alwaldend-src-maven")
 
-use_repo(crate, "cargo")
+use_repo(crate, "com-alwaldend-src-cargo")
 
 use_repo(shellcheck, "com-github-koalaman-shellcheck")

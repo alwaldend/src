@@ -16,14 +16,14 @@ PACKAGES = [
     ],
     [
         "flake8",
-        {"deps": ["@pip//flake8_pyproject:pkg"]},
+        {"deps": ["@com-alwaldend-src-pip//flake8_pyproject:pkg"]},
     ],
 ]
 
 [
     py_console_script_binary(
         name = package,
-        pkg = "@pip//{}:pkg".format(package),
+        pkg = "@com-alwaldend-src-pip//{}:pkg".format(package),
         visibility = ["//visibility:public"],
         deps = kwargs.get("deps", []),
     )
