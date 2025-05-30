@@ -16,6 +16,10 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
     - [useless-qt-gui](/assets/useless-qt-gui): Assets for useless-qt-gui
 
+  - [c](/c): C projects
+
+    - [bazel-tool-runner](/c/bazel-tool-runner): Cli app to run tools in bazel actions
+
   - [configs](/configs): Configs for different tools
 
     - [dotfiles](/configs/dotfiles): Dotfile configs
@@ -32,17 +36,17 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
     - [diagrams](/drawio/diagrams): Drawio diagrams
 
-  - [golang](/golang): Golang projects
+  - [go](/go): Golang projects
 
-    - [bazel-shell-worker](/golang/bazel-shell-worker): Bazel worker that runs shell commands
+    - [bazel-shell-worker](/go/bazel-shell-worker): Bazel worker that runs shell commands
 
-    - [file-installer](/golang/file-installer): Tool to install files
+    - [file-installer](/go/file-installer): Tool to install files
 
-    - [leetcode-downloader](/golang/leetcode-downloader): CLI app to download leetcode submissions
+    - [leetcode-downloader](/go/leetcode-downloader): CLI app to download leetcode submissions
 
-    - [readme-tree](/golang/readme-tree): Tool to parse README.md files
+    - [readme-tree](/go/readme-tree): Tool to parse README.md files
 
-    - [utils](/golang/utils): Random golang tools
+    - [utils](/go/utils): Random golang tools
 
   - [hugo](/hugo): Hugo projects
 
