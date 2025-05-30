@@ -55,7 +55,7 @@ gazelle_binary(
 refresh_compile_commands(
     name = "refresh_compile_commands",
     targets = {
-        "//c/bazel-tool-runner": "",
+        "//c/...": "",
     },
 )
 
@@ -65,8 +65,7 @@ al_genrule(
     cmd = """
 cat - >$(execpath :update-readme-bin) <<EOF
     #!/usr/bin/env bash
-    set -euxo pipefail
-    env
+    set -euo pipefail
     dir="\\${BUILD_WORKING_DIRECTORY}"
     replacement=\\$($(rootpath //go/readme-tree) parse -C "\\${dir}" -g -o markdown .)
     $(rootpath //python/replace-section) -i -s README_CONTENTS -r "\\${replacement}" "\\${dir}/README.md"

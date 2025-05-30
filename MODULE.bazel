@@ -226,8 +226,17 @@ pip.parse(
 
 npm.npm_translate_lock(
     name = "com-alwaldend-src-npm",
+    bins = {
+        "typescript": [
+            "tsc=./bin/tsc",
+            "tsserver=./bin/tsserver",
+        ],
+        "lv_font_conv": ["lv_font_conv=./lv_font_conv.js"],
+    },
+    data = ["//:package.json"],
     pnpm_lock = "//:pnpm-lock.yaml",
     run_lifecycle_hooks = False,
+    update_pnpm_lock = True,
     verify_node_modules_ignored = "//:.bazelignore",
 )
 
@@ -286,7 +295,7 @@ use_repo(
 
 use_repo(npm, "com-alwaldend-src-npm")
 
-use_repo(pnpm, "com-alwaldend-src-pnpm")
+use_repo(pnpm, "pnpm")
 
 use_repo(node, **{"com-alwaldend-src-nodejs-toolchains": "nodejs_toolchains"})
 
