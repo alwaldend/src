@@ -1,7 +1,9 @@
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@com-alwaldend-src-npm//:defs.bzl", "npm_link_all_packages")
 load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "buildifier_test")
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
+load("@rules_perl//perl/cpan:cpan_compiler.bzl", "cpan_compiler")
 load("//starlark/bazel/macros:defs.bzl", "al_genrule")
 
 BUILDIFIER_EXCLUDE = [
@@ -14,6 +16,12 @@ exports_files([
     ".editorconfig",
     "pyproject.toml",
 ])
+
+cpan_compiler(
+    name = "cpan-lock",
+    cpanfile = "//:cpanfile",
+    lockfile = "//:cpanfile.snapshot.lock.json",
+)
 
 buildifier(
     name = "buildifier",

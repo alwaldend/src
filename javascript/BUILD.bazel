@@ -1,4 +1,4 @@
 alias(
     name = "pnpm",
-    actual = "@pnpm",
+    actual = "@com-alwaldend-src-pnpm//:pnpm",
 )

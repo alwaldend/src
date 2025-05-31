@@ -20,16 +20,19 @@ bazel_dep(name = "rules_rust", version = "0.61.0")
 bazel_dep(name = "rules_jvm_external", version = "6.7")
 bazel_dep(name = "rules_foreign_cc", version = "0.14.0")
 bazel_dep(name = "rules_nodejs", version = "6.3.0")
+bazel_dep(name = "rules_proto", version = "7.1.0")
+bazel_dep(name = "rules_perl", version = "0.4.1")
+bazel_dep(name = "rules_shell", version = "0.4.1")
+bazel_dep(name = "rules_python_gazelle_plugin", version = "1.4.0-rc4")
+bazel_dep(name = "platforms", version = "1.0.0")
 bazel_dep(name = "aspect_bazel_lib", version = "2.15.3")
 bazel_dep(name = "aspect_rules_js", version = "2.3.7")
 bazel_dep(name = "gazelle", version = "0.43.0")
 bazel_dep(name = "contrib_rules_jvm", version = "0.28.0")
 bazel_dep(name = "stardoc", version = "0.8.0")
 bazel_dep(name = "bazel_skylib", version = "1.7.1")
-bazel_dep(name = "rules_python_gazelle_plugin", version = "1.4.0-rc4")
 bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.7.1")
 bazel_dep(name = "hedron_compile_commands")
-bazel_dep(name = "rules_proto", version = "7.1.0")
 
 ### overrides
 
@@ -102,6 +105,10 @@ crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
 
 shellcheck = use_extension("//starlark/bazel/extensions:defs.bzl", "shellcheck")
 
+perl_repositories = use_extension("@rules_perl//perl:extensions.bzl", "perl_repositories")
+
+cpan = use_extension("@rules_perl//perl/cpan:extensions.bzl", "cpan")
+
 ### toolchains
 
 python.toolchain(
@@ -118,7 +125,31 @@ go_sdk.download(version = GO_VERSION)
 
 register_toolchains("//starlark/bazel/qt:preinstalled-qt-toolchain")
 
-### infinitime
+register_toolchains(
+    "@rules_perl//perl:perl_darwin_arm64_toolchain",
+    "@rules_perl//perl:perl_darwin_amd64_toolchain",
+    "@rules_perl//perl:perl_linux_amd64_toolchain",
+    "@rules_perl//perl:perl_linux_arm64_toolchain",
+    "@rules_perl//perl:perl_windows_x86_64_toolchain",
+)
+
+### git repos
+
+git_repository(
+    name = "com-github-georgewfraser-java-language-server",
+    build_file_content = FILEGROUP,
+    commit = "0dd0c8cc8e62bfa0ef6888ecee5877608014db06",  # main
+    remote = "https://github.com/georgewfraser/java-language-server.git",
+    shallow_since = "1746654411 -0700",
+)
+
+git_repository(
+    name = "com-github-google-docsy",
+    build_file_content = FILEGROUP,
+    commit = "cf0c68f041daac066a0292d521461dbd092d7c31",  # v0.11.0
+    remote = "https://github.com/google/docsy.git",
+    shallow_since = "1729295371 -0400",
+)
 
 git_repository(
     name = "com-github-infinitimeorg-infinitime",
@@ -140,6 +171,27 @@ git_repository(
 #     name = "infinitime-src",
 #     path = "~/Git/github.com/infinitimeorg/infinitime",
 # )
+
+http_archive(
+    name = "org-openssl-openssl",
+    build_file = "//c/openssl:BUILD.openssl.bazel",
+    integrity = "sha256-NE0KefGpsIApsHROLMQBpD+ckKzRBE0JpTC0iFqOn8A=",
+    strip_prefix = "openssl-3.5.0",
+    urls = [
+        "https://github.com/openssl/openssl/releases/download/openssl-3.5.0/openssl-3.5.0.tar.gz",
+    ],
+)
+
+http_archive(
+    name = "us-nasm-nasm",
+    build_file = "//c/openssl:BUILD.nasm.bazel",
+    sha256 = "f5c93c146f52b4f1664fa3ce6579f961a910e869ab0dae431bd871bdd2584ef2",
+    strip_prefix = "nasm-2.15.05",
+    urls = [
+        "https://mirror.bazel.build/www.nasm.us/pub/nasm/releasebuilds/2.15.05/win64/nasm-2.15.05-win64.zip",
+        "https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/win64/nasm-2.15.05-win64.zip",
+    ],
+)
 
 http_archive(
     name = "com-arm-developer-gcc-arm",
@@ -164,34 +216,12 @@ http_archive(
     ),
 )
 
-### qt
-
 http_archive(
     name = "com-alwaldend-src-qt",
     build_file_content = FILEGROUP,
     integrity = "sha256-T2HlBVHQAEpRP++9sKQQWV2UgSpIYAZG+3NB6g0X4cs=",
     strip_prefix = "qt-everywhere-src-6.9.0",
     url = "https://download.qt.io/official_releases/qt/6.9/6.9.0/single/qt-everywhere-src-6.9.0.tar.xz",
-)
-
-### java-language-server
-
-git_repository(
-    name = "com-github-georgewfraser-java-language-server",
-    build_file_content = FILEGROUP,
-    commit = "0dd0c8cc8e62bfa0ef6888ecee5877608014db06",  # main
-    remote = "https://github.com/georgewfraser/java-language-server.git",
-    shallow_since = "1746654411 -0700",
-)
-
-### docsy
-
-git_repository(
-    name = "com-github-google-docsy",
-    build_file_content = FILEGROUP,
-    commit = "cf0c68f041daac066a0292d521461dbd092d7c31",  # v0.11.0
-    remote = "https://github.com/google/docsy.git",
-    shallow_since = "1729295371 -0400",
 )
 
 ### shellcheck
@@ -284,6 +314,11 @@ crate.from_cargo(
     ],
 )
 
+cpan.install(
+    name = "com-alwaldend-src-cpan",
+    lock = "//:cpanfile.snapshot.lock.json",
+)
+
 ### use_repo
 
 use_repo(
@@ -295,7 +330,7 @@ use_repo(
 
 use_repo(npm, "com-alwaldend-src-npm")
 
-use_repo(pnpm, "pnpm")
+use_repo(pnpm, **{"com-alwaldend-src-pnpm": "pnpm"})
 
 use_repo(node, **{"com-alwaldend-src-nodejs-toolchains": "nodejs_toolchains"})
 
@@ -315,3 +350,14 @@ use_repo(maven, "com-alwaldend-src-maven")
 use_repo(crate, "com-alwaldend-src-cargo")
 
 use_repo(shellcheck, "com-github-koalaman-shellcheck")
+
+use_repo(
+    perl_repositories,
+    "perl_darwin_amd64",
+    "perl_darwin_arm64",
+    "perl_linux_amd64",
+    "perl_linux_arm64",
+    "perl_windows_x86_64",
+)
+
+use_repo(cpan, "com-alwaldend-src-cpan")
