@@ -70,6 +70,10 @@ common --strategy=Shell=worker
 
 ### build
 
+build --copt="-Wall"
+build --copt="-Werror"
+build --copt="-Wextra"
+
 # build:linux --sandbox_add_mount_pair=/tmp
 #
 # build:macos --sandbox_add_mount_pair=/var/tmp
