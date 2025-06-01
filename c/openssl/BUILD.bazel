@@ -1,4 +1,4 @@
-# source: https://github.com/bazel-contrib/rules_foreign_cc/blob/main/examples/third_party/openssl/BUILD.bazel
+# source: https://github.com/bazel-contrib/rules_foreign_cc/blob/cb674adc97bdd4a5c5b9a6b5db46689f9be70939/examples/third_party/openssl/BUILD.bazel
 
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_cc//cc:defs.bzl", "cc_test")
@@ -11,53 +11,55 @@ exports_files(
     visibility = ["//visibility:public"],
 )
 
-# alias(
-#     name = "openssl",
-#     actual = "@org-openssl-openssl//:openssl",
-# )
-#
-# alias(
-#     name = "openssl-bin",
-#     actual = "@org-openssl-openssl//:openssl-bin",
-# )
+alias(
+    name = "openssl",
+    actual = "@org-openssl-openssl//:openssl",
+)
 
-# cc_test(
-#     name = "openssl-test",
-#     srcs = ["openssl_test.c"],
-#     linkopts = select({
-#         "@org-openssl-openssl//:msvc_compiler": [
-#             "advapi32.lib",
-#             "user32.lib",
-#         ],
-#         "//conditions:default": [],
-#     }),
-#     deps = ["@org-openssl-openssl//:openssl"],
-# )
+alias(
+    name = "openssl-bin",
+    actual = "@org-openssl-openssl//:openssl-bin",
+)
 
-# build_test(
-#     name = "build-test",
-#     targets = [
-#         "@org-openssl-openssl//:openssl",
-#         "@org-openssl-openssl//:openssl-bin",
-#     ],
-#     visibility = ["//:__pkg__"],
-# )
+cc_test(
+    name = "openssl-test",
+    size = "small",
+    srcs = ["openssl_test.c"],
+    linkopts = select({
+        "@org-openssl-openssl//:msvc_compiler": [
+            "advapi32.lib",
+            "user32.lib",
+        ],
+        "//conditions:default": [],
+    }),
+    deps = ["@org-openssl-openssl//:openssl"],
+)
 
-# sh_test(
-#     name = "openssl-launch-test",
-#     srcs = ["openssl_test.sh"],
-#     data = ["@org-openssl-openssl//:openssl"],
-#     env = {
-#         "OPENSSL": "$(rootpath @org-openssl-openssl//:openssl)",
-#     },
-# )
+build_test(
+    name = "build-test",
+    targets = [
+        "@org-openssl-openssl//:openssl",
+        "@org-openssl-openssl//:openssl-bin",
+    ],
+    visibility = ["//:__pkg__"],
+)
 
-# test_suite(
-#     name = "openssl-test-suite",
-#     tests = [
-#         ":build-test",
-#         ":openssl-launch-test",
-#         ":openssl-test",
-#     ],
-#     visibility = ["//:__pkg__"],
-# )
+sh_test(
+    name = "openssl-launch-test",
+    size = "small",
+    srcs = [":openssl_test.sh"],
+    data = ["@org-openssl-openssl//:openssl-bin"],
+    env = {
+        "OPENSSL": "$(rootpath @org-openssl-openssl//:openssl-bin)",
+    },
+)
+
+test_suite(
+    name = "openssl-test-suite",
+    tests = [
+        ":build-test",
+        ":openssl-launch-test",
+        ":openssl-test",
+    ],
+    visibility = ["//:__pkg__"],
+)
