@@ -18,7 +18,9 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
   - [c](/c): C projects
 
-    - [bazel-tool-runner](/c/bazel-tool-runner): Cli app to run tools in bazel actions
+    - [openssl](/c/openssl): Openssl build
+
+    - [subresource-integrity-calculator](/c/subresource-integrity-calculator): Cli app to calculate subresource integrity (SRI)
 
   - [configs](/configs): Configs for different tools
 
@@ -71,6 +73,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
   - [patches](/patches): Patches
 
     - [infinitime](/patches/infinitime): Git patches for InfiniTimeOrg/InfiniTime
+
+  - [perl](/perl): Perl projects
 
   - [proto](/proto): Protobuf projects
 

@@ -1,5 +1,6 @@
 #include <ctype.h>
 #include <getopt.h>
+#include <openssl/sha.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
