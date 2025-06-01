@@ -70,7 +70,6 @@ common --strategy=Shell=worker
 
 ### build
 
-build --copt="-Wall"
 build --copt="-Werror"
 build --copt="-Wextra"
 
