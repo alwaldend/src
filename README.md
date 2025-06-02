@@ -108,6 +108,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
       - [aspects](/starlark/bazel/aspects): Bazel aspects
 
+      - [build-files](/starlark/bazel/build-files): BUILD.bazel files
+
       - [configs](/starlark/bazel/configs): Bazel configs
 
       - [extensions](/starlark/bazel/extensions): Module extensions
