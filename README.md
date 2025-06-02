@@ -142,5 +142,6 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 ## Development
 
+- Build `compile_commands.json`: `bazel run :refresh_compile_commands`
 - Run builds: `bazel build //...`
 - Run tests: `bazel test //...`
