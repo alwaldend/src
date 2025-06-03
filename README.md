@@ -133,8 +133,6 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 <details>
   <summary>Lines of code</summary>
 <!-- CLOC START -->
-  --- | ---
-
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
 JSON|945|2|0|25661
