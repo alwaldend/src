@@ -133,6 +133,7 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 <details>
   <summary>Lines of code</summary>
 <!-- CLOC START -->
+
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
 JSON|945|2|0|25661
@@ -160,6 +161,7 @@ Snakemake|1|2|6|4
 Rust|1|0|0|3
 --------|--------|--------|--------|--------
 SUM:|2014|3958|2616|49983
+
 <!-- CLOC END -->
 
 </details>
