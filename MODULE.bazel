@@ -198,7 +198,15 @@ http_archive(
     build_file = "//starlark/bazel/build-files:BUILD.general.bazel",
     integrity = "sha256-T2HlBVHQAEpRP++9sKQQWV2UgSpIYAZG+3NB6g0X4cs=",
     strip_prefix = "qt-everywhere-src-6.9.0",
-    url = "https://download.qt.io/official_releases/qt/6.9/6.9.0/single/qt-everywhere-src-6.9.0.tar.xz",
+    urls = ["https://download.qt.io/official_releases/qt/6.9/6.9.0/single/qt-everywhere-src-6.9.0.tar.xz"],
+)
+
+http_archive(
+    name = "com-github-aldanial-cloc",
+    build_file = "//starlark/bazel/build-files:BUILD.cloc.bazel",
+    integrity = "sha256-YRO86DFLpwrTx5DeQCI14M0/fVUiLiAIp2C/73cO/Ho=",
+    strip_prefix = "cloc-2.04",
+    urls = ["https://github.com/AlDanial/cloc/releases/download/v2.04/cloc-2.04.tar.gz"],
 )
 
 ### shellcheck

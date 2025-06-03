@@ -23,3 +23,9 @@ perl_binary(
     srcs = [":carton-script"],
     deps = ["@com-alwaldend-src-cpan//:Carton"],
 )
+
+alias(
+    name = "cloc",
+    actual = "@com-github-aldanial-cloc//:cloc-bin",
+    visibility = ["//visibility:public"],
+)

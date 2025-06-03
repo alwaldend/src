@@ -9,6 +9,7 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 ## Contents
 
 <details>
+  <summary>Directory structure</summary>
 
 <!-- README_CONTENTS START -->
 
@@ -128,6 +129,43 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 <!-- README_CONTENTS END -->
 
 </details>
+
+<details>
+  <summary>Lines of code</summary>
+<!-- CLOC START -->
+  --- | ---
+
+Language|files|blank|comment|code
+:-------|-------:|-------:|-------:|-------:
+JSON|945|2|0|25661
+Python|571|2092|1159|8513
+Go|229|703|617|6351
+C++|87|138|199|2219
+Text|5|117|0|1766
+Starlark|53|265|266|1704
+Lua|8|60|90|987
+Markdown|60|311|23|716
+Bourne Shell|19|85|103|518
+YAML|3|77|0|504
+diff|4|7|51|319
+Java|11|37|15|250
+C|2|7|0|97
+C/C++ Header|3|8|0|94
+JavaScript|1|7|10|78
+Protocol Buffers|2|21|64|74
+TOML|5|7|0|54
+XML (Qt/GTK)|1|0|0|31
+ProGuard|1|9|8|25
+HCL|1|1|5|8
+INI|1|2|0|7
+Snakemake|1|2|6|4
+Rust|1|0|0|3
+--------|--------|--------|--------|--------
+SUM:|2014|3958|2616|49983
+<!-- CLOC END -->
+
+</details>
+
 
 ## Setup
 
