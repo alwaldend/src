@@ -66,15 +66,19 @@ al_genrule(
     cmd = """
 cat - >$(execpath :update-readme-bin) <<EOF
     #!/usr/bin/env bash
-    set -euo pipefail
+    set -euxo pipefail
     dir="\\${BUILD_WORKING_DIRECTORY}"
     replacement=\\$($(rootpath //go/readme-tree) parse -C "\\${dir}" -g -o markdown .)
     $(rootpath //python/replace-section) -i -s README_CONTENTS -r "\\${replacement}" "\\${dir}/README.md"
+    exit
+    replacement=\\$($(rootpath @com-github-aldanial-cloc//:cloc-bin) --md $(git -C "\\${dir}" ls-files | sed "s,/.*,/," | uniq | xargs -I "{}" echo "\\${dir}/{}"))
+    $(rootpath //python/replace-section) -i -s CLOC -r "\\${replacement}" "\\${dir}/README.md"
 EOF
     """,
     executable = True,
     tools = [
         "//go/readme-tree",
         "//python/replace-section",
+        "@com-github-aldanial-cloc//:cloc-bin",
     ],
 )
