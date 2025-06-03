@@ -1,5 +1,12 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_perl//perl:perl_binary.bzl", "perl_binary")
+load("@rules_perl//perl/cpan:cpan_compiler.bzl", "cpan_compiler")
+
+cpan_compiler(
+    name = "cpan-lock",
+    cpanfile = ":cpanfile",
+    lockfile = ":cpanfile.snapshot.lock.json",
+)
 
 write_file(
     name = "carton-script",
