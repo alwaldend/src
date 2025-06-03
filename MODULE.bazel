@@ -292,7 +292,7 @@ crate.from_cargo(
 
 cpan.install(
     name = "com-alwaldend-src-cpan",
-    lock = "//:cpanfile.snapshot.lock.json",
+    lock = "//perl:cpanfile.snapshot.lock.json",
 )
 
 ### use_repo
