@@ -47,7 +47,6 @@ pkg_tar(
         ":git-select-config-lib",
         ":gopackagesdriver",
         ":readme-tree-lib",
-        ":run-args",
         ":stow-install-lib",
         ":tmux-display-popup-lib",
         ":tmux-kill-popup-sessions-lib",
