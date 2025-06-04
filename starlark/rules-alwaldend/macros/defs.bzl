@@ -4,27 +4,27 @@ Bazel macros
 
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@bazel_skylib//rules:diff_test.bzl", "diff_test")
+load("@rules_alwaldend//rules:defs.bzl", "al_genrule_executable", "al_genrule_regular", "al_genrule_test")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@stardoc//stardoc:stardoc.bzl", "stardoc")
-load("//starlark/bazel/rules:defs.bzl", "al_genrule_executable", "al_genrule_regular", "al_genrule_test")
 
-BLACK_SRC = "//python:black"
-ISORT_SRC = "//python:isort"
-MYPY_SRC = "//python:mypy"
-PYPROJECT_SRC = "//:pyproject.toml"
-RUN_ARGS_SRC = "//shell/scripts:run-args-lib"
+BLACK_SRC = "@com-alwaldend-git-src//python:black"
+ISORT_SRC = "@com-alwaldend-git-src//python:isort"
+MYPY_SRC = "@com-alwaldend-git-src//python:mypy"
+PYPROJECT_SRC = "@com-alwaldend-git-src//:pyproject.toml"
+RUN_ARGS_SRC = "@com-alwaldend-git-src//shell/scripts:run-args-lib"
 GO_SRC = "@rules_go//go"
-FLAKE8_SRC = "//python:flake8"
-EDITORCONFIG_SRC = "//:.editorconfig"
+FLAKE8_SRC = "@com-alwaldend-git-src//python:flake8"
+EDITORCONFIG_SRC = "@com-alwaldend-git-src//:.editorconfig"
 STYLUA_SRC = "@com-alwaldend-src-cargo//:stylua__stylua"
 SHFMT_SRC = "@cc_mvdan_sh_v3//cmd/shfmt:shfmt"
-STYLUA_CONFIG_SRC = "//lua:stylua.toml"
+STYLUA_CONFIG_SRC = "@com-alwaldend-git-src//lua:stylua.toml"
 SHELLCHECK_SRC = "@com-github-koalaman-shellcheck//:shellcheck"
-INSTALL_FILE_SRC = "//python/install-file:lib"
+INSTALL_FILE_SRC = "@com-alwaldend-git-src//python/install-file:lib"
 VISIBILITY_PUBLIC = ["//visibility:public"]
-REPLACE_SECTION_SRC = "//python/replace-section"
+REPLACE_SECTION_SRC = "@com-alwaldend-git-src//python/replace-section"
 
 # def al_go_checkers(
 #         name,
