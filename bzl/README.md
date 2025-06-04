@@ -1,3 +1,3 @@
 ---
-title: Bazel starlark projects
+title: Bazel projects
 ---
