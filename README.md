@@ -13,6 +13,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 <!-- README_CONTENTS START -->
 
+  - [.](/.): 
+
   - [assets](/assets): Assets
 
     - [useless-qt-gui](/assets/useless-qt-gui): Assets for useless-qt-gui
@@ -61,9 +63,9 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
     - [leetcode-submissions](/java/leetcode-submissions): Leetcode submissions
 
-  - [javascript](/javascript): Javascript projects
+  - [js](/js): Javascript projects
 
-    - [leetcode-downloader](/javascript/leetcode-downloader): Tampermonkey script to download leetcode submissions
+    - [leetcode-downloader](/js/leetcode-downloader): Tampermonkey script to download leetcode submissions
 
   - [lua](/lua): Lua projects
 
@@ -75,7 +77,7 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
     - [infinitime](/patches/infinitime): Git patches for InfiniTimeOrg/InfiniTime
 
-  - [perl](/perl): Perl projects
+  - [pl](/pl): Perl projects
 
   - [proto](/proto): Protobuf projects
 
@@ -83,25 +85,25 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
     - [leetcode-downloader](/proto/leetcode-downloader): Models for leetcode-downloader
 
-  - [python](/python): Python projects
+  - [py](/py): Python projects
 
-    - [bazel-python-shell](/python/bazel-python-shell): Python shell allowing you to run shell commands in python environment
+    - [bazel-python-shell](/py/bazel-python-shell): Python shell allowing you to run shell commands in python environment
 
-    - [install-file](/python/install-file): Python scripts
+    - [install-file](/py/install-file): Python scripts
 
-    - [leetcode-submissions](/python/leetcode-submissions): Leetcode submissions
+    - [leetcode-submissions](/py/leetcode-submissions): Leetcode submissions
 
-    - [replace-section](/python/replace-section): Replace sections of files
+    - [replace-section](/py/replace-section): Replace sections of files
 
-  - [rust](/rust): Rust projects
+  - [rs](/rs): Rust projects
 
-    - [tools](/rust/tools): Rust tools
+    - [tools](/rs/tools): Rust tools
 
-  - [shell](/shell): Shell projects
+  - [sh](/sh): Shell projects
 
-    - [git-hooks](/shell/git-hooks): Git hooks
+    - [git-hooks](/sh/git-hooks): Git hooks
 
-    - [scripts](/shell/scripts): Shell scripts
+    - [scripts](/sh/scripts): Shell scripts
 
   - [starlark](/starlark): Starlark projects
 
