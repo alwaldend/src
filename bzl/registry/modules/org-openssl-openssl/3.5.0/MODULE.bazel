@@ -1,0 +1,8 @@
+module(
+    name = "org-openssl-openssl",
+    version = "3.5.0",
+)
+
+bazel_dep(name = "rules_foreign_cc", version = "0.14.0")
+bazel_dep(name = "platforms", version = "1.0.0")
+bazel_dep(name = "rules_perl", version = "0.4.1")

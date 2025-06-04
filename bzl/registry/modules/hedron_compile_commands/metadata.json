@@ -6,7 +6,7 @@
         "github:hedronvision/bazel-compile-commands-extractor"
     ],
     "versions": [
-        "0.0.0-4f28899"
+        "2024.1008.0"
     ],
     "yanked_versions": {}
 }

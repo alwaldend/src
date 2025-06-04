@@ -1,0 +1,6 @@
+module(
+    name = "com-github-aldanial-cloc",
+    version = "2.04.0",
+)
+
+bazel_dep(name = "rules_perl", version = "0.4.1")

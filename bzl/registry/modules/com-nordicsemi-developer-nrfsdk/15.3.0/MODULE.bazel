@@ -1,0 +1,6 @@
+module(
+    name = "com-nordicsemi-developer-nrfsdk",
+    version = "15.3.0",
+)
+
+bazel_dep(name = "rules_pkg", version = "1.0.1")

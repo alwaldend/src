@@ -1,0 +1,12 @@
+{
+    "homepage": "https://developer.nordicsemi.com",
+    "maintainers": [
+    ],
+    "repository": [
+        "https://developer.nordicsemi.com"
+    ],
+    "versions": [
+        "15.3.0"
+    ],
+    "yanked_versions": {}
+}

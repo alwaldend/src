@@ -13,7 +13,7 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 <!-- README_CONTENTS START -->
 
-  - [bzl](/bzl): Bazel starlark projects
+  - [bzl](/bzl): Bazel projects
 
     - [aspects](/bzl/aspects): Bazel aspects
 
@@ -28,6 +28,20 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
     - [providers](/bzl/providers): Bazel providers
 
     - [qt](/bzl/qt): Qt wrapper for bazel
+
+    - [registry](/bzl/registry): Bazel registry
+
+      - [modules](/bzl/registry/modules): Modules
+
+        - [com-github-aldanial-cloc](/bzl/registry/modules/com-github-aldanial-cloc): Cloc
+
+        - [com-github-georgewfraser-java-language-server](/bzl/registry/modules/com-github-georgewfraser-java-language-server): Java languange server
+
+        - [com-nordicsemi-developer-nrfsdk](/bzl/registry/modules/com-nordicsemi-developer-nrfsdk): Nrfsdk
+
+        - [hedron_compile_commands](/bzl/registry/modules/hedron_compile_commands): Bazel-compile-commands-extractor
+
+        - [org-openssl-openssl](/bzl/registry/modules/org-openssl-openssl): Openssl
 
     - [rules](/bzl/rules): Bazel rules
 
@@ -134,14 +148,14 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-JSON|945|2|0|25661
+JSON|956|2|0|25762
 Python|571|2092|1159|8513
 Go|229|703|617|6351
 C++|87|138|199|2219
 Text|5|117|0|1766
-Starlark|53|265|266|1704
+Starlark|59|266|267|1709
 Lua|8|60|90|987
-Markdown|60|311|23|716
+Markdown|66|323|23|772
 Bourne Shell|19|85|103|518
 YAML|3|77|0|504
 diff|4|7|51|319
@@ -158,7 +172,7 @@ INI|1|2|0|7
 Snakemake|1|2|6|4
 Rust|1|0|0|3
 --------|--------|--------|--------|--------
-SUM:|2014|3958|2616|49983
+SUM:|2037|3971|2617|50145
 
 <!-- CLOC END -->
 
@@ -173,11 +187,6 @@ SUM:|2014|3958|2616|49983
 - Install node: `nvm install node`
 - Install commandline tools to `${ANDROID_HOME}/cmdline-tools/latest`: https://developer.android.com/studio#command-tools
 - Install android tools: `sdkmanager "platforms;android-36" "build-tools;36.0.0"`
-- Setup user.bazelrc:
-  ```sh
-  echo "common --registry=file://${PWD}/bzl/registry" >>user.bazelrc
-  echo "common --registry=https://bcr.bazel.build" >>user.bazelrc
-  ```
 - Install qt: `bazel run //starlark/bazel/qt:install`
 - Install git hooks: `bazel run //shell/git-hooks:install`
 
