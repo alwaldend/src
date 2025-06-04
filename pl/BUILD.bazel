@@ -26,6 +26,6 @@ perl_binary(
 
 alias(
     name = "cloc",
-    actual = "@com-github-aldanial-cloc//:cloc-bin",
+    actual = "@com-github-aldanial-cloc//:bin",
     visibility = ["//visibility:public"],
 )

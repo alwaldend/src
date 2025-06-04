@@ -1,7 +1,7 @@
 load("@rules_perl//perl:perl_binary.bzl", "perl_binary")
 
 perl_binary(
-    name = "cloc-bin",
+    name = "bin",
     srcs = [":cloc"],
     visibility = ["//visibility:public"],
 )

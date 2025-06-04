@@ -1,4 +1,4 @@
 module(
     name = "hedron_compile_commands",
-    version = "0.0.0-4f28899",
+    version = "2024.1008.0",
 )

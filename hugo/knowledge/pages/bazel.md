@@ -18,6 +18,13 @@ title: Bazel
 - Lack of support, documentation, and information on the internet
 - The majority of advantages are irrelevant for the majority of codebases
 
+## Local registry module is cached
+
+If you changed a local registry module, but bazel still uses the old version,
+restart bazel: `bazel shutdown`
+
+https://github.com/bazelbuild/bazel/issues/20477#issuecomment-1851057077
+
 ## Output root ownership
 
 Bazel checks ownership of the output root at startup, so it will fail with
