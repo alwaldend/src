@@ -2,7 +2,7 @@
 Bazel rules
 """
 
-load("@rules_alwaldend//providers:defs.bzl", "al_transitive_sources")
+load("//starlark/bazel/providers:defs.bzl", "al_transitive_sources")
 
 def _unpack_archives_impl(ctx):
     directory = ctx.attr.out or (ctx.label.name + "-directory")
@@ -85,7 +85,7 @@ _al_genrule_attrs = {
     "set_flags": attr.string_list(doc = "set flags", default = ["-eux"]),
     "shell": attr.string(doc = "shell to use", default = "/bin/sh"),
     "worker": attr.label(
-        default = Label("@com-alwaldend-git-src//go/bazel-shell-worker"),
+        default = Label("//go/bazel-shell-worker"),
         executable = True,
         allow_single_file = True,
         cfg = "exec",

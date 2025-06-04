@@ -1,4 +1,13 @@
 load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
+load("@rules_license//rules:license.bzl", "license")
+
+license(
+    name = "license",
+    license_kinds = [
+        "@rules_license//licenses/spdx:AGPL-3.0",
+    ],
+    license_text = "//:LICENSE.txt",
+)
 
 config_setting(
     name = "use-local-repos",
