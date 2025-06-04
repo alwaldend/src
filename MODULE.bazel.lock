@@ -347,10 +347,10 @@
   },
   "selectedYankedVersions": {},
   "moduleExtensions": {
-    "//starlark/bazel/extensions:defs.bzl%shellcheck": {
+    "//bzl/extensions:defs.bzl%shellcheck": {
       "general": {
         "bzlTransitiveDigest": "czF2lgarAcLFCm7CvfdPEoCoi9O0Ok3/cCL26T7fid8=",
-        "usagesDigest": "t1ZBSmFKfnVCV/WxeJoff8yNg+uSL7X3JcHqqo+h6xo=",
+        "usagesDigest": "y6kbyOQBjM+X4crhpOj1kxl1f1mWeTCUPCFoBwsuq5A=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},

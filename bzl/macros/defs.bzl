@@ -8,7 +8,7 @@ load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@stardoc//stardoc:stardoc.bzl", "stardoc")
-load("//starlark/bazel/rules:defs.bzl", "al_genrule_executable", "al_genrule_regular", "al_genrule_test")
+load("//bzl/rules:defs.bzl", "al_genrule_executable", "al_genrule_regular", "al_genrule_test")
 
 BLACK_SRC = "//py:black"
 ISORT_SRC = "//py:isort"

@@ -2,7 +2,7 @@
 Bazel rules
 """
 
-load("//starlark/bazel/providers:defs.bzl", "al_transitive_sources")
+load("//bzl/providers:defs.bzl", "al_transitive_sources")
 
 def _unpack_archives_impl(ctx):
     directory = ctx.attr.out or (ctx.label.name + "-directory")

@@ -13,11 +13,27 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 <!-- README_CONTENTS START -->
 
-  - [.](/.): 
-
   - [assets](/assets): Assets
 
     - [useless-qt-gui](/assets/useless-qt-gui): Assets for useless-qt-gui
+
+  - [bzl](/bzl): Bazel starlark projects
+
+    - [aspects](/bzl/aspects): Bazel aspects
+
+    - [build-files](/bzl/build-files): BUILD.bazel files
+
+    - [configs](/bzl/configs): Bazel configs
+
+    - [extensions](/bzl/extensions): Module extensions
+
+    - [macros](/bzl/macros): Bazel macros
+
+    - [providers](/bzl/providers): Bazel providers
+
+    - [qt](/bzl/qt): Qt wrapper for bazel
+
+    - [rules](/bzl/rules): Bazel rules
 
   - [c](/c): C projects
 
@@ -104,26 +120,6 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
     - [git-hooks](/sh/git-hooks): Git hooks
 
     - [scripts](/sh/scripts): Shell scripts
-
-  - [starlark](/starlark): Starlark projects
-
-    - [bazel](/starlark/bazel): Bazel projects
-
-      - [aspects](/starlark/bazel/aspects): Bazel aspects
-
-      - [build-files](/starlark/bazel/build-files): BUILD.bazel files
-
-      - [configs](/starlark/bazel/configs): Bazel configs
-
-      - [extensions](/starlark/bazel/extensions): Module extensions
-
-      - [macros](/starlark/bazel/macros): Bazel macros
-
-      - [providers](/starlark/bazel/providers): Bazel providers
-
-      - [qt](/starlark/bazel/qt): Qt wrapper for bazel
-
-      - [rules](/starlark/bazel/rules): Bazel rules
 
   - [vial](/vial): Vial configs
 

@@ -1,6 +1,6 @@
 load("@bazel_skylib//lib:paths.bzl", "paths")
 
-QT_TOOLCHAIN = "//starlark/bazel/qt:qt-toolchain"
+QT_TOOLCHAIN = "//bzl/qt:qt-toolchain"
 
 def _current_qt_toolchain_impl(ctx):
     toolchain = ctx.toolchains[ctx.attr._toolchain]
