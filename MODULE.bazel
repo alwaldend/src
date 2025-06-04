@@ -1,7 +1,7 @@
 ### module
 
 module(
-    name = "com-alwaldend-git-src",
+    name = "com-alwaldend-src",
     version = "0.0.0",
     compatibility_level = 1,
 )
@@ -11,6 +11,7 @@ module(
 bazel_dep(name = "rules_oci", version = "2.2.6")
 bazel_dep(name = "rules_cc", version = "0.1.1")
 bazel_dep(name = "rules_android", version = "0.6.4")
+bazel_dep(name = "rules_license", version = "1.0.0")
 bazel_dep(name = "rules_python", version = "1.4.1")
 bazel_dep(name = "rules_kotlin", version = "2.1.4")
 bazel_dep(name = "rules_pkg", version = "1.0.1")
@@ -23,7 +24,6 @@ bazel_dep(name = "rules_nodejs", version = "6.3.0")
 bazel_dep(name = "rules_proto", version = "7.1.0")
 bazel_dep(name = "rules_perl", version = "0.4.1")
 bazel_dep(name = "rules_shell", version = "0.4.1")
-bazel_dep(name = "rules_alwaldend")
 bazel_dep(name = "rules_python_gazelle_plugin", version = "1.4.0-rc4")
 bazel_dep(name = "platforms", version = "1.0.0")
 bazel_dep(name = "aspect_bazel_lib", version = "2.15.3")
@@ -33,14 +33,6 @@ bazel_dep(name = "contrib_rules_jvm", version = "0.28.0")
 bazel_dep(name = "stardoc", version = "0.8.0")
 bazel_dep(name = "bazel_skylib", version = "1.7.1")
 bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.7.1")
-bazel_dep(name = "rules_license", version = "1.0.0")
-
-### overrides
-
-local_path_override(
-    module_name = "rules_alwaldend",
-    path = "starlark/rules-alwaldend",
-)
 
 ### variables
 
@@ -82,7 +74,7 @@ rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
 
 crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
 
-shellcheck = use_extension("@rules_alwaldend//extensions:defs.bzl", "shellcheck")
+shellcheck = use_extension("//starlark/bazel/extensions:defs.bzl", "shellcheck")
 
 perl_repositories = use_extension("@rules_perl//perl:extensions.bzl", "perl_repositories")
 
@@ -102,7 +94,7 @@ node.toolchain(
 
 go_sdk.download(version = GO_VERSION)
 
-register_toolchains("@rules_alwaldend//qt:preinstalled-qt-toolchain")
+register_toolchains("//starlark/bazel/qt:preinstalled-qt-toolchain")
 
 register_toolchains(
     "@rules_perl//perl:perl_darwin_arm64_toolchain",
@@ -116,7 +108,7 @@ register_toolchains(
 
 git_repository(
     name = "com-github-georgewfraser-java-language-server",
-    build_file = "@rules_alwaldend//build-files:BUILD.general.bazel",
+    build_file = "//starlark/bazel/build-files:BUILD.general.bazel",
     commit = "0dd0c8cc8e62bfa0ef6888ecee5877608014db06",  # main
     remote = "https://github.com/georgewfraser/java-language-server.git",
     shallow_since = "1746654411 -0700",
@@ -124,7 +116,7 @@ git_repository(
 
 git_repository(
     name = "com-github-google-docsy",
-    build_file = "@rules_alwaldend//build-files:BUILD.general.bazel",
+    build_file = "//starlark/bazel/build-files:BUILD.general.bazel",
     commit = "cf0c68f041daac066a0292d521461dbd092d7c31",  # v0.11.0
     remote = "https://github.com/google/docsy.git",
     shallow_since = "1729295371 -0400",
@@ -159,7 +151,7 @@ git_repository(
 
 http_archive(
     name = "org-openssl-openssl",
-    build_file = "@rules_alwaldend//build-files:BUILD.openssl.bazel",
+    build_file = "//starlark/bazel/build-files:BUILD.openssl.bazel",
     integrity = "sha256-NE0KefGpsIApsHROLMQBpD+ckKzRBE0JpTC0iFqOn8A=",
     strip_prefix = "openssl-3.5.0",
     urls = [
@@ -169,7 +161,7 @@ http_archive(
 
 http_archive(
     name = "us-nasm-nasm",
-    build_file = "@rules_alwaldend//build-files:BUILD.nasm.bazel",
+    build_file = "//starlark/bazel/build-files:BUILD.nasm.bazel",
     sha256 = "f5c93c146f52b4f1664fa3ce6579f961a910e869ab0dae431bd871bdd2584ef2",
     strip_prefix = "nasm-2.15.05",
     urls = [
@@ -180,7 +172,7 @@ http_archive(
 
 http_archive(
     name = "com-arm-developer-gcc-arm",
-    build_file = "@rules_alwaldend//build-files:BUILD.general.bazel",
+    build_file = "//starlark/bazel/build-files:BUILD.general.bazel",
     integrity = "sha256-l9u08BmtFlC3Mvr/zIgWic7cFOK37oY9OQ4KQe8WyaM=",
     strip_prefix = "gcc-arm-none-eabi-10.3-2021.10",
     url = "https://developer.arm.com/-/media/Files/downloads/gnu-rm/{version}/{name}-{version}-{platform}.tar.bz2".format(
@@ -193,7 +185,7 @@ http_archive(
 
 http_archive(
     name = "com-nordicsemi-developer-nrfsdk",
-    build_file = "@rules_alwaldend//build-files:BUILD.general.bazel",
+    build_file = "//starlark/bazel/build-files:BUILD.general.bazel",
     integrity = "sha256-nJMH11fRCQB/L8xOVHrBCxqf2fqkd+jb8/fhYkxIAaU=",
     strip_prefix = NRFSDK_VERSION,
     url = "https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/{version}.zip".format(
@@ -203,7 +195,7 @@ http_archive(
 
 http_archive(
     name = "com-alwaldend-src-qt",
-    build_file = "@rules_alwaldend//build-files:BUILD.general.bazel",
+    build_file = "//starlark/bazel/build-files:BUILD.general.bazel",
     integrity = "sha256-T2HlBVHQAEpRP++9sKQQWV2UgSpIYAZG+3NB6g0X4cs=",
     strip_prefix = "qt-everywhere-src-6.9.0",
     urls = ["https://download.qt.io/official_releases/qt/6.9/6.9.0/single/qt-everywhere-src-6.9.0.tar.xz"],
@@ -211,7 +203,7 @@ http_archive(
 
 http_archive(
     name = "com-github-aldanial-cloc",
-    build_file = "@rules_alwaldend//build-files:BUILD.cloc.bazel",
+    build_file = "//starlark/bazel/build-files:BUILD.cloc.bazel",
     integrity = "sha256-YRO86DFLpwrTx5DeQCI14M0/fVUiLiAIp2C/73cO/Ho=",
     strip_prefix = "cloc-2.04",
     urls = ["https://github.com/AlDanial/cloc/releases/download/v2.04/cloc-2.04.tar.gz"],
@@ -244,7 +236,7 @@ pip.parse(
 pip.parse(
     hub_name = "com-alwaldend-src-starlark-bazel-qt-requirements",
     python_version = PYTHON_VERSION,
-    requirements_lock = "@rules_alwaldend//qt:requirements.txt",
+    requirements_lock = "//starlark/bazel/qt:requirements.txt",
 )
 
 npm.npm_translate_lock(
