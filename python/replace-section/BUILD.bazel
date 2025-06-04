@@ -1,6 +1,6 @@
+load("@rules_alwaldend//macros:defs.bzl", "al_py_checkers")
 load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@rules_python//python:py_library.bzl", "py_library")
-load("//starlark/bazel/macros:defs.bzl", "al_py_checkers")
 
 filegroup(
     name = "src",

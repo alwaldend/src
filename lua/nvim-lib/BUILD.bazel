@@ -1,4 +1,4 @@
-load("//starlark/bazel/macros:defs.bzl", "al_lua_library")
+load("@rules_alwaldend//macros:defs.bzl", "al_lua_library")
 
 al_lua_library(
     name = "lib",

@@ -1,5 +1,0 @@
-load("//starlark/bazel/macros:defs.bzl", "al_bzl_library")
-
-al_bzl_library(
-    name = "lib",
-)

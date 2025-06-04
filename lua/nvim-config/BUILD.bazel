@@ -1,5 +1,5 @@
+load("@rules_alwaldend//macros:defs.bzl", "al_install_file", "al_lua_library")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//starlark/bazel/macros:defs.bzl", "al_install_file", "al_lua_library")
 
 al_lua_library(
     name = "lib",
