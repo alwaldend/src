@@ -69,16 +69,16 @@ cat - >$(execpath :update-readme-bin) <<EOF
     set -euxo pipefail
     dir="\\${BUILD_WORKING_DIRECTORY}"
     replacement=\\$($(rootpath //go/readme-tree) parse -C "\\${dir}" -g -o markdown .)
-    $(rootpath //python/replace-section) -i -s README_CONTENTS -r "\\${replacement}" "\\${dir}/README.md"
+    $(rootpath //py/replace-section) -i -s README_CONTENTS -r "\\${replacement}" "\\${dir}/README.md"
     exit
     replacement=\\$($(rootpath @com-github-aldanial-cloc//:cloc-bin) --md $(git -C "\\${dir}" ls-files | sed "s,/.*,/," | uniq | xargs -I "{}" echo "\\${dir}/{}"))
-    $(rootpath //python/replace-section) -i -s CLOC -r "\\${replacement}" "\\${dir}/README.md"
+    $(rootpath //py/replace-section) -i -s CLOC -r "\\${replacement}" "\\${dir}/README.md"
 EOF
     """,
     executable = True,
     tools = [
         "//go/readme-tree",
-        "//python/replace-section",
+        "//py/replace-section",
         "@com-github-aldanial-cloc//:cloc-bin",
     ],
 )

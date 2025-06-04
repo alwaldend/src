@@ -10,21 +10,22 @@ load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@stardoc//stardoc:stardoc.bzl", "stardoc")
 load("//starlark/bazel/rules:defs.bzl", "al_genrule_executable", "al_genrule_regular", "al_genrule_test")
 
-BLACK_SRC = "//python:black"
-ISORT_SRC = "//python:isort"
-MYPY_SRC = "//python:mypy"
+BLACK_SRC = "//py:black"
+ISORT_SRC = "//py:isort"
+MYPY_SRC = "//py:mypy"
 PYPROJECT_SRC = "//:pyproject.toml"
-RUN_ARGS_SRC = "//shell/scripts:run-args-lib"
+RUN_ARGS_SRC = "//sh/scripts:run-args-lib"
 GO_SRC = "@rules_go//go"
-FLAKE8_SRC = "//python:flake8"
+FLAKE8_SRC = "//py:flake8"
 EDITORCONFIG_SRC = "//:.editorconfig"
 STYLUA_SRC = "@com-alwaldend-src-cargo//:stylua__stylua"
 SHFMT_SRC = "@cc_mvdan_sh_v3//cmd/shfmt:shfmt"
 STYLUA_CONFIG_SRC = "//lua:stylua.toml"
 SHELLCHECK_SRC = "@com-github-koalaman-shellcheck//:shellcheck"
-INSTALL_FILE_SRC = "//python/install-file:lib"
+INSTALL_FILE_SRC = "//py/install-file:lib"
 VISIBILITY_PUBLIC = ["//visibility:public"]
-REPLACE_SECTION_SRC = "//python/replace-section"
+REPLACE_SECTION_SRC = "//py/replace-section"
+BAZEL_PYTHON_SHELL_SRC = "//py/bazel-python-shell:library"
 
 # def al_go_checkers(
 #         name,
@@ -497,7 +498,7 @@ def al_py_binary_shell(name = "", cmd = "", deps = [], srcs = [], shell_type = "
     actual_kwargs["env"]["BAZEL_PYTHON_SHELL_TYPE"] = shell_type
     py_binary(
         name = name,
-        srcs = ["//python/bazel-python-shell:library"] + srcs,
+        srcs = [BAZEL_PYTHON_SHELL_SRC] + srcs,
         main = "bazel_python_shell.py",
         deps = deps,
         **actual_kwargs
