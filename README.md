@@ -13,10 +13,6 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 <!-- README_CONTENTS START -->
 
-  - [assets](/assets): Assets
-
-    - [useless-qt-gui](/assets/useless-qt-gui): Assets for useless-qt-gui
-
   - [bzl](/bzl): Bazel starlark projects
 
     - [aspects](/bzl/aspects): Bazel aspects
@@ -74,6 +70,10 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
     - [knowledge](/hugo/knowledge): Wiki
 
     - [projects](/hugo/projects): Project documentation
+
+  - [img](/img): Images
+
+    - [useless-qt-gui](/img/useless-qt-gui): Assets for useless-qt-gui
 
   - [java](/java): Java projects
 
