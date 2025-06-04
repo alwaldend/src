@@ -3,7 +3,7 @@ load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 pkg_tar(
     name = "img",
     package_dir = "img",
-    deps = ["//assets/useless-qt-gui"],
+    deps = ["//img/useless-qt-gui"],
 )
 
 pkg_tar(
