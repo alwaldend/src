@@ -173,6 +173,11 @@ SUM:|2014|3958|2616|49983
 - Install node: `nvm install node`
 - Install commandline tools to `${ANDROID_HOME}/cmdline-tools/latest`: https://developer.android.com/studio#command-tools
 - Install android tools: `sdkmanager "platforms;android-36" "build-tools;36.0.0"`
+- Setup user.bazelrc:
+  ```sh
+  echo "common --registry=file://${PWD}/bzl/registry" >>user.bazelrc
+  echo "common --registry=https://bcr.bazel.build" >>user.bazelrc
+  ```
 - Install qt: `bazel run //starlark/bazel/qt:install`
 - Install git hooks: `bazel run //shell/git-hooks:install`
 

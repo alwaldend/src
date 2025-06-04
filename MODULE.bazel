@@ -34,6 +34,10 @@ bazel_dep(name = "stardoc", version = "0.8.0")
 bazel_dep(name = "bazel_skylib", version = "1.7.1")
 bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.7.1")
 
+### bazel_dep from ./bzl/registry
+
+bazel_dep(name = "hedron_compile_commands", version = "0.0.0-4f28899")
+
 ### variables
 
 NODE_VERSION = "16.14.2"
@@ -142,12 +146,6 @@ git_repository(
 #     name = "infinitime-src",
 #     path = "~/Git/github.com/infinitimeorg/infinitime",
 # )
-
-git_repository(
-    name = "hedron_compile_commands",
-    commit = "4f28899228fb3ad0126897876f147ca15026151e",
-    remote = "https://github.com/hedronvision/bazel-compile-commands-extractor.git",
-)
 
 http_archive(
     name = "org-openssl-openssl",

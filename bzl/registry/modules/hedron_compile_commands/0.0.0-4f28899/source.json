@@ -1,0 +1,7 @@
+{
+    "url": "https://github.com/hedronvision/bazel-compile-commands-extractor/archive/4f28899228fb3ad0126897876f147ca15026151e.zip",
+    "strip_prefix": "bazel-compile-commands-extractor-4f28899228fb3ad0126897876f147ca15026151e",
+    "integrity": "sha256-yAKektowLwoy/Q1AWTWMhle1y4JigAC3teJZxz+RiC0=",
+    "overlay": {
+    }
+}
