@@ -1,0 +1,6 @@
+load("//bzl/macros:defs.bzl", "al_bzl_library")
+
+al_bzl_library(
+    name = "lib",
+    deps = ["//bzl/providers:lib"],
+)
