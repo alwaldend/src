@@ -25,9 +25,9 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
     - [subresource-integrity-calculator](/c/subresource-integrity-calculator): Cli app to calculate subresource integrity (SRI)
 
-  - [configs](/configs): Configs for different tools
+  - [cfg](/cfg): Configs for different tools
 
-    - [dotfiles](/configs/dotfiles): Dotfile configs
+    - [dotfiles](/cfg/dotfiles): Dotfile configs
 
   - [cpp](/cpp): C&#43;&#43; projects
 
@@ -73,9 +73,9 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
     - [nvim-lib](/lua/nvim-lib): Lua library for neovim
 
-  - [patches](/patches): Patches
+  - [patch](/patch): Patches
 
-    - [infinitime](/patches/infinitime): Git patches for InfiniTimeOrg/InfiniTime
+    - [infinitime](/patch/infinitime): Git patches for InfiniTimeOrg/InfiniTime
 
   - [pl](/pl): Perl projects
 

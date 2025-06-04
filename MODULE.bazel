@@ -128,9 +128,9 @@ git_repository(
     init_submodules = True,
     patch_args = ["-p1"],
     patches = [
-        "//patches/infinitime:001-add-BUILD.bazel.patch",
-        "//patches/infinitime:002-modify-30-minute-chimes-interval.patch",
-        "//patches/infinitime:003-add-WatchFaceTerminalCustom.patch",
+        "//patch/infinitime:001-add-BUILD.bazel.patch",
+        "//patch/infinitime:002-modify-30-minute-chimes-interval.patch",
+        "//patch/infinitime:003-add-WatchFaceTerminalCustom.patch",
     ],
     recursive_init_submodules = True,
     remote = "https://github.com/InfiniTimeOrg/InfiniTime.git",
