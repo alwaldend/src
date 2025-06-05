@@ -13,8 +13,6 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 <!-- README_CONTENTS START -->
 
-  - [.](/.): 
-
   - [bzl](/bzl): Bazel projects
 
     - [aspects](/bzl/aspects): Bazel aspects
@@ -98,6 +96,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
   - [js](/js): Javascript projects
 
     - [leetcode-downloader](/js/leetcode-downloader): Tampermonkey script to download leetcode submissions
+
+  - [kt](/kt): Kotlin projects
 
   - [lua](/lua): Lua projects
 
