@@ -13,6 +13,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 <!-- README_CONTENTS START -->
 
+  - [.](/.): 
+
   - [bzl](/bzl): Bazel projects
 
     - [aspects](/bzl/aspects): Bazel aspects
@@ -81,7 +83,7 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
   - [hugo](/hugo): Hugo projects
 
-    - [knowledge](/hugo/knowledge): Wiki
+    - [misc](/hugo/misc): Miscellaneous knowledge
 
     - [projects](/hugo/projects): Project documentation
 
@@ -102,6 +104,10 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
     - [nvim-config](/lua/nvim-config): Neovim config
 
     - [nvim-lib](/lua/nvim-lib): Lua library for neovim
+
+  - [md](/md): Markdown projects
+
+    - [misc](/md/misc): Miscellaneous knowledge
 
   - [patch](/patch): Patches
 
