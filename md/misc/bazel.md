@@ -18,6 +18,12 @@ title: Bazel
 - Lack of support, documentation, and information on the internet
 - The majority of advantages are irrelevant for the majority of codebases
 
+## .bazelrc has variables
+
+- `%workspace%`: Workspace directory
+
+https://bazel.build/run/bazelrc
+
 ## Local registry module is cached
 
 If you changed a local registry module, but bazel still uses the old version,
