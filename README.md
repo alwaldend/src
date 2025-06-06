@@ -63,6 +63,10 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
     - [useless-qt-gui](/cpp/useless-qt-gui): Useless qt GUI
 
+  - [data](/data): Data
+
+    - [misc](/data/misc): Miscellaneous data
+
   - [drawio](/drawio): Drawio diagrams
 
     - [diagrams](/drawio/diagrams): Drawio diagrams
@@ -76,6 +80,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
     - [leetcode-downloader](/go/leetcode-downloader): CLI app to download leetcode submissions
 
     - [readme-tree](/go/readme-tree): Tool to parse README.md files
+
+    - [template-files](/go/template-files): Cli tool to template files
 
     - [utils](/go/utils): Random golang tools
 
@@ -156,21 +162,21 @@ Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
 JSON|956|2|0|25762
 Python|571|2092|1159|8513
-Go|229|703|617|6351
+Go|231|718|617|6496
 C++|87|138|199|2219
+Starlark|65|276|278|1803
 Text|5|117|0|1766
-Starlark|59|266|267|1709
+Markdown|72|645|23|1033
 Lua|8|60|90|987
-Markdown|66|323|23|772
 Bourne Shell|19|85|103|518
 YAML|3|77|0|504
 diff|4|7|51|319
+TOML|6|31|0|302
 Java|11|37|15|250
 C|2|7|0|97
 C/C++ Header|3|8|0|94
 JavaScript|1|7|10|78
 Protocol Buffers|2|21|64|74
-TOML|5|7|0|54
 XML (Qt/GTK)|1|0|0|31
 ProGuard|1|9|8|25
 HCL|1|1|5|8
@@ -178,7 +184,7 @@ INI|1|2|0|7
 Snakemake|1|2|6|4
 Rust|1|0|0|3
 --------|--------|--------|--------|--------
-SUM:|2037|3971|2617|50145
+SUM:|2052|4342|2628|50893
 
 <!-- CLOC END -->
 
