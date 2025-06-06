@@ -2,21 +2,30 @@
 title: Books
 ---
 
+
+
 ## My Longevity Simulation
 
 ![Thumbnail](https://cdn.novelupdates.com/images/2024/08/My-Longevity-Simulation.jpg)
 
 Quality: Good
 
-Completion status: Translation is not finished
+Completion: Translation is not finished
 
-Reading status: Reading chapter 724
+Reading: Reading chapter 724
 
-Author: Angry Squid (愤怒的乌贼)
+Authors:
+
+- Angry Squid (愤怒的乌贼) 
+
 
 Links:
+
 - https://www.novelupdates.com/series/my-longevity-simulation/
+
 - https://novelbin.com/b/my-longevity-simulation/chapter-724
+
+
 
 ## Shadow Slave
 
@@ -24,15 +33,22 @@ Links:
 
 Quality: Good
 
-Completion status: Not finished
+Completion: Not finished
 
-Reading status: Reading, chapter 2388
+Reading: Reading, chapter 2388
 
-Author: Guiltythree
+Authors:
+
+- Guiltythree 
+
 
 Links:
+
 - https://www.webnovel.com/book/shadow-slave_22196546206090805
+
 - https://novelbin.com/b/shadow-slave/chapter-2388-bait
+
+
 
 ## Unintended Immortality
 
@@ -40,18 +56,22 @@ Links:
 
 Quality: Good
 
-Completion status: Not finished
+Completion: Not finished
 
-Reading status: Reading, chapter 447
+Reading: Reading, chapter 447
 
-Author: Golden Jasmine (金色茉莉花)
+Authors:
 
-Alternative names:
-- The Unintentional Path to Immortality
+- Golden Jasmine (金色茉莉花)
+
 
 Links:
+
 - https://www.novelupdates.com/series/the-unintentional-path-to-immortality/
+
 - https://novelfire.net/book/unintended-immortality/chapter-447
+
+
 
 ## Hell Difficulty Tutorial
 
@@ -59,15 +79,22 @@ Links:
 
 Quality: Decent
 
-Completion status: Not finished
+Completion: Not finished
 
-Reading status: Reading, chapter 589
+Reading: Reading, chapter 589
 
-Author: Cerim
+Authors:
+
+- Cerim 
+
 
 Links:
+
 - https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial
+
 - https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial/chapter/2331110/chapter-589-gray-kitten
+
+
 
 ## Return of the Runebound Professor
 
@@ -75,15 +102,22 @@ Links:
 
 Quality: Decent
 
-Completion status: Not finished
+Completion: Not finished
 
-Reading status: Reading, chapter 702, book 7
+Reading: Reading, chapter 702, book 7
 
-Author: Actus
+Authors:
+
+- Actus 
+
 
 Links:
+
 - https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed
+
 - https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed/chapter/2330195/chapter-702-thats-an-answer
+
+
 
 ## Godclads
 
@@ -91,31 +125,45 @@ Links:
 
 Quality: Good, a bit too dramatic
 
-Completion status: Not finished
+Completion: Not finished
 
-Reading status: Reading, chapter 35-15, book 7
+Reading: Reading, chapter 35-15, book 7
 
-Author: OstensibleMammal
+Authors:
+
+- OstensibleMammal 
+
 
 Links:
+
 - https://www.royalroad.com/fiction/59663/godclads
+
 - https://www.royalroad.com/fiction/59663/godclads/chapter/2327646/35-15-fork-i
+
+
 
 ## Are You Even Human
 
-![Thumbnail](https://www.royalroad.com/fiction/92549/are-you-even-human)
+![Thumbnail](https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg?time=1724477376)
 
 Quality: Decent
 
-Completion status: Not finished
+Completion: Not finished
 
-Reading status: Reading, chapter 46
+Reading: Reading, chapter 46
 
-Author: Thundamoo
+Authors:
+
+- Thundamoo 
+
 
 Links:
+
 - https://www.royalroad.com/fiction/92549/are-you-even-human
+
 - https://www.royalroad.com/fiction/92549/are-you-even-human/chapter/2325503/46-outside-of-the-cage
+
+
 
 ## Defiance of the Fall
 
@@ -123,15 +171,22 @@ Links:
 
 Quality: Good
 
-Completion status: Not finished
+Completion: Not finished
 
-Reading status: Reading, chapter 1333
+Reading: Reading, chapter 1333
 
-Author: TheFirstDefier
+Authors:
+
+- TheFirstDefier 
+
 
 Links:
+
 - https://www.royalroad.com/fiction/24709/defiance-of-the-fall
+
 - https://www.royalroad.com/fiction/24709/defiance-of-the-fall/chapter/2330793/chapter-1333-light-and-dark
+
+
 
 ## Matabar
 
@@ -139,15 +194,22 @@ Links:
 
 Quality: Good
 
-Completion status: Not finished
+Completion: Not finished
 
-Reading status: Reading, chapter 84
+Reading: Reading, chapter 84
 
-Author: Kirill Klevanski
+Authors:
+
+- Kirill Klevanski 
+
 
 Links:
+
 - https://www.royalroad.com/fiction/94398/matabar
+
 - https://www.royalroad.com/fiction/94398/matabar/chapter/2325850/chapter-84-table-of-cards
+
+
 
 ## Ghost of the Truthseeker
 
@@ -155,15 +217,22 @@ Links:
 
 Quality: Decent
 
-Completion status: Not finished
+Completion: Not finished
 
-Reading status: Reading, chapter 218
+Reading: Reading, chapter 218
 
-Author: Strungbound
+Authors:
+
+- Strungbound 
+
 
 Links:
+
 - https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released
+
 - https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released/chapter/2329654/218-the-dao-is-the-dao
+
+
 
 ## Changeling
 
@@ -171,15 +240,22 @@ Links:
 
 Quality: Decent
 
-Completion status: Not finished
+Completion: Not finished
 
-Reading status: Reading, chapter 76
+Reading: Reading, chapter 76
 
-Author: Mecanimus
+Authors:
+
+- Mecanimus 
+
 
 Links:
+
 - https://www.royalroad.com/fiction/75345/changeling
+
 - https://www.royalroad.com/fiction/75345/changeling/chapter/2330439/part-76-expert-diplomat-nestra
+
+
 
 ## The Years of Apocalypse
 
@@ -187,15 +263,22 @@ Links:
 
 Quality: Good
 
-Completion status: Not finished
+Completion: Not finished
 
-Reading status: Reading, chapter 193
+Reading: Reading, chapter 193
 
-Author: UraniumPhoenix
+Authors:
+
+- UraniumPhoenix 
+
 
 Links:
+
 - https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression
+
 - https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression/chapter/2330456/chapter-193-into-persama
+
+
 
 ## Book Of The Dead
 
@@ -203,15 +286,22 @@ Links:
 
 Quality: Good
 
-Completion status: Not finished
+Completion: Not finished
 
-Reading status: Reading, book 5 chapter 25
+Reading: Reading, book 5 chapter 25
 
-Author: RinoZ
+Authors:
+
+- RinoZ 
+
 
 Links:
+
 - https://www.royalroad.com/fiction/47038/book-of-the-dead
+
 - https://www.royalroad.com/fiction/47038/book-of-the-dead/chapter/2331459/b5-chapter-25-return
+
+
 
 ## Downtown Druid
 
@@ -219,15 +309,22 @@ Links:
 
 Quality: Good
 
-Completion status: Not finished
+Completion: Not finished
 
-Reading status: Finished volume 1
+Reading: Finished volume 1
 
-Author: Seersucker
+Authors:
+
+- Seersucker 
+
 
 Links:
+
 - https://www.royalroad.com/fiction/79173/downtown-druid-book-1-stubbed
+
 - https://www.royalroad.com/fiction/79173/downtown-druid-book-1-stubbed/chapter/2240615/book-1-is-out-on-ku-and-audible
+
+
 
 ## A Practical Guide to Sorcery
 
@@ -235,13 +332,22 @@ Links:
 
 Quality: Good
 
-Completion status: Not finished
+Completion: Not finished
 
-Reading status: Reading, chapter 251
+Reading: Reading, chapter 251
+
+Authors:
+
+- Azalea Ellis 
+
 
 Links:
+
 - https://www.azaleaellis.com/a-practical-guide-to-sorcery/
+
 - https://www.azaleaellis.com/pgts/chapter-251-sudden-showers/
+
+
 
 ## The Beginning After the End
 
@@ -249,14 +355,20 @@ Links:
 
 Quality: Bad, isekai slop
 
-Completion status: Finished
+Completion: Finished
 
-Reading status: Dropped, volume 1, chapter 1
+Reading: Dropped, volume 1, chapter 1
 
-Author: TurtleMe
+Authors:
+
+- TurtleMe 
+
 
 Links:
+
 - https://en.wikipedia.org/wiki/The_Beginning_After_the_End
+
+
 
 ## Rise of the Living Forge
 
@@ -264,29 +376,41 @@ Links:
 
 Quality: Ok, isekai slop
 
-Completion status: Not finished
+Completion: Not finished
 
-Reading status: Dropped, volume 1, chapter 66
+Reading: Dropped, volume 1, chapter 66
 
-Author: Actus
+Authors:
+
+- Actus 
+
 
 Links:
+
 - https://www.royalroad.com/fiction/79094/rise-of-the-living-forge-a-blacksmith-litrpg
+
+
 
 ## Vigor Mortis
 
-![Thubmnail](https://www.royalroadcdn.com/public/covers-large/40373-vigor-mortis.jpg?time=1675224407)
+![Thumbnail](https://www.royalroadcdn.com/public/covers-large/40373-vigor-mortis.jpg?time=1675224407)
 
 Quality: Ok
 
-Completion status: Completed
+Completion: Completed
 
-Reading status: Dropped, volume 4, chapter 27
+Reading: Dropped, volume 4, chapter 27
 
-Author: Thundamoo
+Authors:
+
+- Thundamoo 
+
 
 Links:
+
 - https://www.royalroad.com/fiction/40373/vigor-mortis
+
+
 
 ## Ultimate Level 1
 
@@ -294,14 +418,20 @@ Links:
 
 Quality: Bad, litrpg slop
 
-Completion status: Not completed
+Completion: Not completed
 
-Reading status: Dropped, volume 1, chapter 17
+Reading: Dropped, volume 1, chapter 17
 
-Author: Dads Bedtime Stories
+Authors:
+
+- Dads Bedtime Stories 
+
 
 Links:
+
 - https://www.royalroad.com/fiction/76259/ultimate-level-1-litrpg
+
+
 
 ## If It’s for My Daughter, I’d Even Defeat a Demon Lord
 
@@ -309,14 +439,19 @@ Links:
 
 Quality: Bad, Japanese slice-of-life litrpg fantasy slop
 
-Completion status: Completed
+Completion: Completed
 
-Reading status: Dropped, volume 4, chapter 2
+Reading: Dropped, volume 4, chapter 2
 
-Author: Chirolu
+Authors:
+
+- Chirolu 
+
 
 Links:
+
 - https://www.novelupdates.com/series/if-its-for-my-daughter-id-even-defeat-a-demon-lord/
+
 
 
 ## Mark of the Fool
@@ -325,14 +460,20 @@ Links:
 
 Quality: Decent, not enough progression
 
-Completion status: Finished
+Completion: Finished
 
-Reading status: Finished
+Reading: Finished
 
-Author: J.M. Clarke (U Juggernaut)
+Authors:
+
+- J.M. Clarke (U Juggernaut)
+
 
 Links:
+
 - https://www.royalroad.com/fiction/41618/mark-of-the-fool
+
+
 
 ## DIE. RESPAWN. REPEAT.
 
@@ -340,14 +481,20 @@ Links:
 
 Quality: Decent, a bit bland
 
-Completion status: Not finished
+Completion: Not finished
 
-Reading status: Dropped, volume 4, chapter 8
+Reading: Dropped, volume 4, chapter 8
 
-Author: SilverLinings
+Authors:
+
+- SilverLinings 
+
 
 Links:
+
 - https://www.royalroad.com/fiction/66643/die-respawn-repeat
+
+
 
 ## System Breaker
 
@@ -355,14 +502,20 @@ Links:
 
 Quality: Decent, MC is a bit immature
 
-Completion status: Not completed
+Completion: Not completed
 
-Reading status: Dropped, volume 2, chapter 55
+Reading: Dropped, volume 2, chapter 55
 
-Author: OstensibleMammal
+Authors:
+
+- OstensibleMammal 
+
 
 Links:
+
 - https://www.royalroad.com/fiction/89249/system-breaker-xianxia-system-apocalypse-litrpg
+
+
 
 ## Dungeon Crawler Carl
 
@@ -370,11 +523,19 @@ Links:
 
 Quality: Good
 
-Completion status: Not completed
+Completion: Not completed
 
-Reading status: Finished volume 7
+Reading: Finished volume 7
 
-Author: DoctorHepa
+Authors:
+
+- DoctorHepa 
+
 
 Links:
+
 - https://www.royalroad.com/fiction/29358/dungeon-crawler-carl-book-6-the-ghosts-of-earth
+
+
+
+

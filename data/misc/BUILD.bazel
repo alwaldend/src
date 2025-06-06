@@ -1,0 +1,6 @@
+load("//bzl/macros:al-toml-data.bzl", "al_toml_data")
+
+al_toml_data(
+    name = "books",
+    srcs = ["books.toml"],
+)
