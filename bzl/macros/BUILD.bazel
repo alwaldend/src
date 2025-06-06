@@ -12,3 +12,10 @@ al_bzl_library(
         "@stardoc//stardoc:stardoc_lib",
     ],
 )
+
+al_bzl_library(
+    name = "al-toml-data",
+    srcs = ["al-toml-data.bzl"],
+    out = "al-toml-data.md",
+    input = "al-toml-data.bzl",
+)

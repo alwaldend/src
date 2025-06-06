@@ -4,3 +4,10 @@ al_bzl_library(
     name = "lib",
     deps = ["//bzl/providers:lib"],
 )
+
+al_bzl_library(
+    name = "al-template-files",
+    srcs = ["al-template-files.bzl"],
+    out = "al-template-files.md",
+    input = "al-template-files.bzl",
+)

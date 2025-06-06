@@ -168,6 +168,7 @@ require (
 )
 
 require (
+	github.com/BurntSushi/toml v1.5.0
 	github.com/bazelbuild/buildtools v0.0.0-20250427233527-d9ed52af26ee
 	github.com/goccy/go-yaml v1.17.1
 	github.com/gohugoio/hugo v0.147.3

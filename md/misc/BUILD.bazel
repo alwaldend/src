@@ -1,0 +1,8 @@
+load("//bzl/rules:al-template-files.bzl", "al_template_files")
+
+al_template_files(
+    name = "books",
+    srcs = ["books.md.tpl"],
+    outs = ["books.md"],
+    data = ["//data/misc:books"],
+)
