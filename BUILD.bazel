@@ -4,6 +4,7 @@ load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "bui
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 load("//bzl/macros:al_genrule.bzl", "al_genrule")
+load("//bzl/macros:al_toml_data.bzl", "al_toml_data")
 
 BUILDIFIER_EXCLUDE = [
     "./.git/**/*",
@@ -13,8 +14,12 @@ BUILDIFIER_EXCLUDE = [
 exports_files([
     "LICENSE.txt",
     ".editorconfig",
-    "pyproject.toml",
 ])
+
+al_toml_data(
+    name = "pyproject",
+    srcs = ["pyproject.toml"],
+)
 
 buildifier(
     name = "buildifier",

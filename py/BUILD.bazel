@@ -32,6 +32,6 @@ PACKAGES = [
 
 compile_pip_requirements(
     name = "requirements",
-    srcs = ["//:pyproject.toml"],
+    srcs = ["//:pyproject"],
     requirements_txt = ":requirements.txt",
 )

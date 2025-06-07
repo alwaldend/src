@@ -1,4 +1,7 @@
-alias(
-    name = "pnpm",
-    actual = "@com-alwaldend-src-pnpm//:pnpm",
+load("//bzl/macros:al_alias_map.bzl", "al_alias_map")
+
+al_alias_map(
+    {
+        "pnpm": {"actual": "@com-alwaldend-src-pnpm//:pnpm"},
+    },
 )
