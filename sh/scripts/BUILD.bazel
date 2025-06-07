@@ -1,39 +1,39 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//bzl/macros:defs.bzl", "al_sh_script")
+load("//bzl/macros:al_sh_library.bzl", "al_sh_library")
 
-al_sh_script(name = "readme-tree")
+al_sh_library(name = "readme-tree")
 
-al_sh_script(name = "bashrc")
+al_sh_library(name = "bashrc")
 
-al_sh_script(name = "functions")
+al_sh_library(name = "functions")
 
-al_sh_script(name = "tmux-display-popup")
+al_sh_library(name = "tmux-display-popup")
 
-al_sh_script(name = "tmux-kill-popup-sessions")
+al_sh_library(name = "tmux-kill-popup-sessions")
 
-al_sh_script(name = "tmux-new-window")
+al_sh_library(name = "tmux-new-window")
 
-al_sh_script(name = "tmux-start")
+al_sh_library(name = "tmux-start")
 
-al_sh_script(name = "tmux-toggle-popup")
+al_sh_library(name = "tmux-toggle-popup")
 
-al_sh_script(name = "embed-archive-into-script")
+al_sh_library(name = "embed-archive-into-script")
 
-al_sh_script(name = "stow-install")
+al_sh_library(name = "stow-install")
 
-al_sh_script(name = "git-add-commits-from-separate-repo")
+al_sh_library(name = "git-add-commits-from-separate-repo")
 
-al_sh_script(name = "git-select-config")
+al_sh_library(name = "git-select-config")
 
-al_sh_script(name = "bazel-stamp")
+al_sh_library(name = "bazel-stamp")
 
-al_sh_script(name = "build-install-script")
+al_sh_library(name = "build-install-script")
 
-al_sh_script(name = "bazel")
+al_sh_library(name = "bazel")
 
-al_sh_script(name = "gopackagesdriver")
+al_sh_library(name = "gopackagesdriver")
 
-al_sh_script(name = "run-args")
+al_sh_library(name = "run-args")
 
 pkg_tar(
     name = "scripts-archive",

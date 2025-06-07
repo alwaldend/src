@@ -1,5 +1,5 @@
 load("@rules_python//python:py_binary.bzl", "py_binary")
-load("//bzl/macros:defs.bzl", "al_py_checkers")
+load("//bzl/macros:al_py_checkers.bzl", "al_py_checkers")
 
 filegroup(
     name = "src",

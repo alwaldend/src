@@ -1,7 +1,7 @@
 ### module
 
 module(
-    name = "com-alwaldend-src",
+    name = "com-alwaldend-git-src",
     version = "0.0.0",
     compatibility_level = 1,
 )
@@ -80,7 +80,7 @@ rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
 
 crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
 
-shellcheck = use_extension("//bzl/extensions:defs.bzl", "shellcheck")
+al_shellcheck = use_extension("//bzl/extensions:al_shellcheck.bzl", "al_shellcheck")
 
 perl_repositories = use_extension("@rules_perl//perl:extensions.bzl", "perl_repositories")
 
@@ -175,7 +175,7 @@ http_archive(
 
 ### shellcheck
 
-shellcheck.install(
+al_shellcheck.install(
     name = "com-github-koalaman-shellcheck",
     integrity = {
         "linux:amd64": "sha256-bIgasGmOTm6iNSRfIoMoYFRPF7o4ZEL+fp1in4y+34c=",
@@ -299,7 +299,7 @@ use_repo(maven, "com-alwaldend-src-maven")
 
 use_repo(crate, "com-alwaldend-src-cargo")
 
-use_repo(shellcheck, "com-github-koalaman-shellcheck")
+use_repo(al_shellcheck, "com-github-koalaman-shellcheck")
 
 use_repo(
     perl_repositories,

@@ -19,7 +19,7 @@ filegroup(
                 """,
             )
 
-shellcheck = module_extension(
+al_shellcheck = module_extension(
     implementation = _shellcheck_impl,
     doc = "Extension to download shellcheck",
     tag_classes = {

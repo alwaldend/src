@@ -1,7 +1,7 @@
-load("//bzl/macros:defs.bzl", "al_bzl_library")
+load("//bzl/macros:al_bzl_library.bzl", "al_bzl_library")
 
 al_bzl_library(
-    name = "lib",
+    name = "al_shellcheck",
     deps = [
         "@bazel_tools//tools/build_defs/repo:cache.bzl",
         "@bazel_tools//tools/build_defs/repo:http.bzl",

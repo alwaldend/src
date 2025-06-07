@@ -1,21 +1,45 @@
-load(":defs.bzl", "al_bzl_library")
+load(":al_bzl_library.bzl", "al_bzl_library")
 
-al_bzl_library(
-    name = "lib",
-    deps = [
-        "//bzl/rules:lib",
-        "@bazel_skylib//:bzl_library",
-        "@bazel_skylib//rules:diff_test",
-        "@rules_pkg//pkg:bzl_srcs",
-        "@rules_python//python:defs_bzl",
-        "@rules_python//python:pip_bzl",
-        "@stardoc//stardoc:stardoc_lib",
-    ],
-)
+COMMON_DEPS = [
+    "@bazel_skylib//:bzl_library",
+    "@bazel_skylib//rules:run_binary",
+    "@stardoc//stardoc:stardoc_lib",
+    "@rules_python//python:py_library_bzl",
+    "@rules_python//python:py_binary_bzl",
+    "@rules_python//python:pip_bzl",
+    "@rules_shell//shell:rules_bzl",
+    "@rules_pkg//pkg:bzl_srcs",
+    "//bzl/rules:al_write_script",
+    "//bzl/rules:al_template_files",
+    "//bzl/rules:al_genrule",
+    "//bzl/vars",
+]
 
-al_bzl_library(
-    name = "al-toml-data",
-    srcs = ["al-toml-data.bzl"],
-    out = "al-toml-data.md",
-    input = "al-toml-data.bzl",
-)
+LIBS = {
+    "al_bzl_library": {},
+    "al_lua_library": {"deps": [":al_run_tool"]},
+    "al_run_tool": {},
+    "al_template_files": {},
+    "al_toml_data": {"deps": [":al_run_tool"]},
+    "al_install_file": {},
+    "al_genrule_with_wheels": {},
+    "al_py_binary_shell": {},
+    "al_genrule_src": {},
+    "al_pkg_tar_combined": {},
+    "al_apply_patches": {},
+    "al_combine_files": {},
+    "al_compile_pip_requirements_combined": {"deps": [":al_combine_files"]},
+    "al_sh_library": {},
+    "al_py_checker": {"deps": [":al_run_tool"]},
+    "al_py_checkers": {"deps": [":al_py_checker"]},
+    "al_genrule": {},
+    "al_go_checkers": {},
+}
+
+[
+    al_bzl_library(
+        name = name,
+        deps = COMMON_DEPS + LIBS[name].get("deps", []),
+    )
+    for name in LIBS
+]

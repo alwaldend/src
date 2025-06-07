@@ -1,4 +1,19 @@
-alias(
-    name = "go",
-    actual = "@rules_go//go",
-)
+ALIASES = [
+    [
+        "go",
+        "@rules_go//go",
+    ],
+    [
+        "tomlv",
+        "@com_github_burntsushi_toml//cmd/tomlv:tomlv",
+    ],
+]
+
+[
+    alias(
+        name = name,
+        actual = actual,
+        visibility = ["//visibility:public"],
+    )
+    for name, actual in ALIASES
+]
