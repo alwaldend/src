@@ -1,4 +1,4 @@
-load("//bzl/rules:al-template-files.bzl", "al_template_files")
+load("//bzl/rules:al_template_files.bzl", "al_template_files")
 
 al_template_files(
     name = "books",

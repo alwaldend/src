@@ -1,5 +1,5 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//bzl/rules:defs.bzl", "al_unpack_archives")
+load("//bzl/rules:al_unpack_archives.bzl", "al_unpack_archives")
 
 pkg_tar(
     name = "themes-docsy",
