@@ -45,6 +45,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
     - [rules](/bzl/rules): Bazel rules
 
+    - [vars](/bzl/vars): Static bazel variables
+
   - [c](/c): C projects
 
     - [openssl](/c/openssl): Openssl build
@@ -164,10 +166,10 @@ JSON|956|2|0|25762
 Python|571|2092|1159|8513
 Go|231|718|617|6496
 C++|87|138|199|2219
-Starlark|65|276|278|1803
+Starlark|86|274|296|1903
 Text|5|117|0|1766
-Markdown|72|645|23|1033
 Lua|8|60|90|987
+Markdown|73|444|5|695
 Bourne Shell|19|85|103|518
 YAML|3|77|0|504
 diff|4|7|51|319
@@ -184,7 +186,7 @@ INI|1|2|0|7
 Snakemake|1|2|6|4
 Rust|1|0|0|3
 --------|--------|--------|--------|--------
-SUM:|2052|4342|2628|50893
+SUM:|2074|4139|2628|50655
 
 <!-- CLOC END -->
 

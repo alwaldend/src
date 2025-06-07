@@ -1,4 +1,5 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("//bzl/macros:al_alias_map.bzl", "al_alias_map")
 load("//bzl/rules:al_unpack_archives.bzl", "al_unpack_archives")
 
 pkg_tar(
@@ -12,7 +13,8 @@ al_unpack_archives(
     srcs = [":themes-docsy"],
 )
 
-alias(
-    name = "hugo",
-    actual = "@com_github_gohugoio_hugo//:hugo",
+al_alias_map(
+    {
+        "hugo": {"actual": "@com_github_gohugoio_hugo//:hugo"},
+    },
 )

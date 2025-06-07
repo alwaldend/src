@@ -1,6 +1,13 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_perl//perl:perl_binary.bzl", "perl_binary")
 load("@rules_perl//perl/cpan:cpan_compiler.bzl", "cpan_compiler")
+load("//bzl/macros:al_alias_map.bzl", "al_alias_map")
+
+al_alias_map(
+    {
+        "cloc": {"actual": "@com-github-aldanial-cloc//:bin"},
+    },
+)
 
 cpan_compiler(
     name = "cpan-lock",
@@ -22,10 +29,4 @@ perl_binary(
     name = "carton",
     srcs = [":carton-script"],
     deps = ["@com-alwaldend-src-cpan//:Carton"],
-)
-
-alias(
-    name = "cloc",
-    actual = "@com-github-aldanial-cloc//:bin",
-    visibility = ["//visibility:public"],
 )

@@ -211,6 +211,7 @@ npm.npm_translate_lock(
             "tsserver=./bin/tsserver",
         ],
         "lv_font_conv": ["lv_font_conv=./lv_font_conv.js"],
+        "prettier": ["prettier=./bin/prettier.cjs"],
     },
     data = ["//:package.json"],
     pnpm_lock = "//:pnpm-lock.yaml",
