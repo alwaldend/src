@@ -1,0 +1,8 @@
+{
+    "url": "https://github.com/tweag/rules_haskell/archive/a361943682c2f312de4afff0e4438259bfd8119c.zip",
+    "strip_prefix": "rules_haskell-a361943682c2f312de4afff0e4438259bfd8119c",
+    "integrity": "sha256-WmgujR2UqdT5tV4sR71On3WscbjA/O3qVyRVbXfQ/Ak=",
+    "overlay": {
+        "haskell/ghc_bindist.bzl": "sha256-+KX52F8RbzjEx9K76SWojpA9jbeZk6Hv75FvCan4NOo="
+    }
+}

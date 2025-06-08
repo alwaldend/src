@@ -1,0 +1,12 @@
+{
+    "homepage": "https://github.com/tweag/rules_haskell",
+    "maintainers": [
+    ],
+    "repository": [
+        "github:tweag/rules_haskell"
+    ],
+    "versions": [
+        "1.0-patched"
+    ],
+    "yanked_versions": {}
+}
