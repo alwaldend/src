@@ -1,18 +1,11 @@
-load("//bzl/macros:al_bzl_library.bzl", "al_bzl_library")
+load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
 
-COMMON_DEPS = []
-
-LIBS = {
-    "al_genrule": {},
-    "al_template_files": {},
-    "al_write_script": {},
-    "al_unpack_archives": {},
-}
-
-[
-    al_bzl_library(
-        name = name,
-        deps = COMMON_DEPS + LIBS[name].get("deps", []),
-    )
-    for name in LIBS
-]
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_genrule": {},
+        "al_template_files": {},
+        "al_write_script": {},
+        "al_unpack_archives": {},
+    },
+)

@@ -1,4 +1,8 @@
-### module
+"""
+Module file
+
+https://bazel.build/rules/lib/globals/module
+"""
 
 module(
     name = "com-alwaldend-git-src",
@@ -18,6 +22,9 @@ bazel_dep(name = "rules_pkg", version = "1.0.1")
 bazel_dep(name = "rules_go", version = "0.54.0")
 bazel_dep(name = "rules_java", version = "8.11.0")
 bazel_dep(name = "rules_rust", version = "0.61.0")
+
+# bazel_dep(name = "rules_haskell", version = "1.0")
+bazel_dep(name = "rules_sh", version = "0.5.0")
 bazel_dep(name = "rules_jvm_external", version = "6.7")
 bazel_dep(name = "rules_foreign_cc", version = "0.14.0")
 bazel_dep(name = "rules_nodejs", version = "6.3.0")
@@ -26,7 +33,7 @@ bazel_dep(name = "rules_perl", version = "0.4.1")
 bazel_dep(name = "rules_shell", version = "0.4.1")
 bazel_dep(name = "rules_python_gazelle_plugin", version = "1.4.0-rc4")
 bazel_dep(name = "platforms", version = "1.0.0")
-bazel_dep(name = "aspect_bazel_lib", version = "2.15.3")
+bazel_dep(name = "aspect_bazel_lib", version = "2.17.1")
 bazel_dep(name = "aspect_rules_js", version = "2.3.7")
 bazel_dep(name = "gazelle", version = "0.43.0")
 bazel_dep(name = "contrib_rules_jvm", version = "0.28.0")
@@ -41,6 +48,11 @@ bazel_dep(name = "com-github-georgewfraser-java-language-server", version = "202
 bazel_dep(name = "com-nordicsemi-developer-nrfsdk", version = "15.3.0")
 bazel_dep(name = "com-github-aldanial-cloc", version = "2.04.0")
 bazel_dep(name = "org-openssl-openssl", version = "3.5.0")
+bazel_dep(name = "us-nasm-nasm", version = "2.15.05")
+
+### overrides
+
+# bazel_dep(name = "rules_haskell", patches = [])
 
 ### variables
 
@@ -140,17 +152,6 @@ git_repository(
 #     name = "infinitime-src",
 #     path = "~/Git/github.com/infinitimeorg/infinitime",
 # )
-
-http_archive(
-    name = "us-nasm-nasm",
-    build_file = "//bzl/build-files:BUILD.nasm.bazel",
-    sha256 = "f5c93c146f52b4f1664fa3ce6579f961a910e869ab0dae431bd871bdd2584ef2",
-    strip_prefix = "nasm-2.15.05",
-    urls = [
-        "https://mirror.bazel.build/www.nasm.us/pub/nasm/releasebuilds/2.15.05/win64/nasm-2.15.05-win64.zip",
-        "https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/win64/nasm-2.15.05-win64.zip",
-    ],
-)
 
 http_archive(
     name = "com-arm-developer-gcc-arm",

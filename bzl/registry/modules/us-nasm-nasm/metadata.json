@@ -1,0 +1,12 @@
+{
+    "homepage": "https://www.nasm.us",
+    "maintainers": [
+    ],
+    "repository": [
+        "https://www.nasm.us"
+    ],
+    "versions": [
+        "2.15.05"
+    ],
+    "yanked_versions": {}
+}
