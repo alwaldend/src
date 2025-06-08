@@ -1,3 +1,8 @@
-load("//bzl/macros:al_bzl_library.bzl", "al_bzl_library")
+load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
 
-al_bzl_library(name = "al_print_deps")
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_print_deps": {},
+    },
+)

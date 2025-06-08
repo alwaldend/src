@@ -1,15 +1,15 @@
 def al_md_data(name, srcs, visibility = ["//visibility:public"], **kwargs):
     """
-    Markdowd data backed by a filegroup
+    Markdown data backed by a filegroup
+
+    Targets:
+        ${name}: filegroup
 
     Args:
         name: filegroup name
         srcs: markdown files
         visibility: visibility
         **kwargs: kwargs
-
-    Targets:
-        ${name}: filegroup
     """
     native.filegroup(
         name = name,

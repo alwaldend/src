@@ -1,0 +1,14 @@
+load("//bzl/macros:al_md_data.bzl", "al_md_data")
+
+al_md_data(
+    name = "libs-stardoc",
+    srcs = [
+        "//bzl/aspects:libs-stardoc",
+        "//bzl/extensions:libs-stardoc",
+        "//bzl/macros:libs-stardoc",
+        "//bzl/providers:libs-stardoc",
+        "//bzl/qt:libs-stardoc",
+        "//bzl/rules:libs-stardoc",
+        "//bzl/vars:libs-stardoc",
+    ],
+)

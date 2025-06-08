@@ -1,3 +1,9 @@
+"""
+Repo file
+
+https://bazel.build/rules/lib/globals/repo
+"""
+
 repo(
     default_package_metadata = ["//bzl/configs:license"],
 )

@@ -1,0 +1,6 @@
+module(
+    name = "us-nasm-nasm",
+    version = "2.15.05",
+)
+
+bazel_dep(name = "rules_pkg", version = "1.0.1")
