@@ -1,1 +1,14 @@
-load("@aspect_bazel_lib//lib:copy_file.bzl", "copy_file")
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+load("//bzl/vars:bzl_libs.bzl", "BZL_LIBS")
+
+write_source_files(
+    name = "bzl-write",
+    files = {
+        "bzl/{}/{}.md".format(dir_name, lib): "//bzl/{}:{}-stardoc".format(dir_name, lib)
+        for dir_name, dir_config in BZL_LIBS.items()
+        for lib in dir_config["libs"].keys()
+    } | {
+        "bzl/{}/README.md".format(dir_name): "//bzl/{}:readme".format(dir_name)
+        for dir_name, dir_config in BZL_LIBS.items()
+    },
+)

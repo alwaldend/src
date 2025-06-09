@@ -1,8 +1,14 @@
 load("//bzl/macros:al_alias_map.bzl", "al_alias_map")
+load("//bzl/macros:al_md_data.bzl", "al_md_data")
 
 al_alias_map(
     {
         "go": {"actual": "@rules_go//go"},
         "tomlv": {"actual": "@com_github_burntsushi_toml//cmd/tomlv:tomlv"},
     },
+)
+
+al_md_data(
+    name = "readme",
+    srcs = [":README.md"],
 )
