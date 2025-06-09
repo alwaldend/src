@@ -6,7 +6,7 @@ title: Books
 {{ range .Data.book }}
 ## {{ .title }}
 
-![Thumbnail]({{ .thumbnail }})
+<img src="{{ .thumbnail }}" height=300>
 
 Quality: {{ .quality }}
 
