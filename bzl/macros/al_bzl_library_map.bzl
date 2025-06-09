@@ -23,19 +23,3 @@ def al_bzl_library_map(name, libs, common_deps = [], visibility = ["//visibility
             deps = common_deps + libs[key].get("deps", []),
             visibility = libs[key].get("visibility", visibility),
         )
-
-    bzl_library(
-        name = name,
-        srcs = libs.keys(),
-        visibility = visibility,
-    )
-    al_md_data(
-        name = "{}-readme".format(name),
-        srcs = [":README.md"],
-        visibility = visibility,
-    )
-    al_md_data(
-        name = "{}-stardoc".format(name),
-        srcs = ["{}.md".format(key) for key in libs.keys()] + ["{}-readme".format(name)],
-        visibility = visibility,
-    )

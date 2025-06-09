@@ -4,6 +4,7 @@ load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "bui
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 load("//bzl/macros:al_genrule.bzl", "al_genrule")
+load("//bzl/macros:al_md_data.bzl", "al_md_data")
 load("//bzl/macros:al_toml_data.bzl", "al_toml_data")
 
 BUILDIFIER_EXCLUDE = [
@@ -15,6 +16,11 @@ exports_files([
     "LICENSE.txt",
     ".editorconfig",
 ])
+
+al_md_data(
+    name = "readme",
+    srcs = [":README.md"],
+)
 
 al_toml_data(
     name = "pyproject",

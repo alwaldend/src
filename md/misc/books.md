@@ -542,7 +542,7 @@ Links:
 
 <img src="https://www.royalroadcdn.com/public/covers-large/62881-reborn-as-a-demonic-tree.jpg?time=1739372665" height=300>
 
-Quality: Decent, a bit basic
+Quality: Ok, a bit basic
 
 Completion: Not completed
 

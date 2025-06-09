@@ -1,8 +1,14 @@
 load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//bzl/macros:al_md_data.bzl", "al_md_data")
+load("//bzl/vars:bzl_libs.bzl", "BZL_LIBS")
 
 al_bzl_library_map(
     name = "libs",
-    libs = {
-        "vars": {},
-    },
+    common_deps = BZL_LIBS["vars"]["common_deps"],
+    libs = BZL_LIBS["vars"]["libs"],
+)
+
+al_md_data(
+    name = "readme",
+    srcs = [":README.md"],
 )
