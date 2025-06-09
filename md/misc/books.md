@@ -6,7 +6,7 @@ title: Books
 
 ## My Longevity Simulation
 
-![Thumbnail](https://cdn.novelupdates.com/images/2024/08/My-Longevity-Simulation.jpg)
+<img src="https://cdn.novelupdates.com/images/2024/08/My-Longevity-Simulation.jpg" height=300>
 
 Quality: Good
 
@@ -29,7 +29,7 @@ Links:
 
 ## Shadow Slave
 
-![Thumbnail](https://book-pic.webnovel.com/bookcover/22196546206090805?imageMogr2/thumbnail/600x&imageId=1705256017438)
+<img src="https://book-pic.webnovel.com/bookcover/22196546206090805?imageMogr2/thumbnail/600x&imageId=1705256017438" height=300>
 
 Quality: Good
 
@@ -52,7 +52,7 @@ Links:
 
 ## Unintended Immortality
 
-![Thumbnail](https://cdn.novelupdates.com/images/2024/11/The-Unintentional-Path-to-Immortality.jpg)
+<img src="https://cdn.novelupdates.com/images/2024/11/The-Unintentional-Path-to-Immortality.jpg" height=300>
 
 Quality: Good
 
@@ -75,7 +75,7 @@ Links:
 
 ## Hell Difficulty Tutorial
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg?time=1743538154)
+<img src="https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg?time=1743538154" height=300>
 
 Quality: Decent
 
@@ -98,7 +98,7 @@ Links:
 
 ## Return of the Runebound Professor
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-large/68679-return-of-the-runebound-professor.jpg?time=1696109628)
+<img src="https://www.royalroadcdn.com/public/covers-large/68679-return-of-the-runebound-professor.jpg?time=1696109628" height=300>
 
 Quality: Decent
 
@@ -121,7 +121,7 @@ Links:
 
 ## Godclads
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-large/59663-godclads.jpg?time=1733242909)
+<img src="https://www.royalroadcdn.com/public/covers-large/59663-godclads.jpg?time=1733242909" height=300>
 
 Quality: Good, a bit too dramatic
 
@@ -144,7 +144,7 @@ Links:
 
 ## Are You Even Human
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg?time=1724477376)
+<img src="https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg?time=1724477376" height=300>
 
 Quality: Decent
 
@@ -167,7 +167,7 @@ Links:
 
 ## Defiance of the Fall
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-large/24709-defiance-of-the-fall.jpg?time=1707310837)
+<img src="https://www.royalroadcdn.com/public/covers-large/24709-defiance-of-the-fall.jpg?time=1707310837" height=300>
 
 Quality: Good
 
@@ -190,7 +190,7 @@ Links:
 
 ## Matabar
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-large/matabar-aaaa9rj72ru.jpg?time=1727012411)
+<img src="https://www.royalroadcdn.com/public/covers-large/matabar-aaaa9rj72ru.jpg?time=1727012411" height=300>
 
 Quality: Good
 
@@ -213,7 +213,7 @@ Links:
 
 ## Ghost of the Truthseeker
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-large/56136-ghost-of-the-truthseeker.jpg?time=1721186189)
+<img src="https://www.royalroadcdn.com/public/covers-large/56136-ghost-of-the-truthseeker.jpg?time=1721186189" height=300>
 
 Quality: Decent
 
@@ -236,7 +236,7 @@ Links:
 
 ## Changeling
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg?time=1712108062)
+<img src="https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg?time=1712108062" height=300>
 
 Quality: Decent
 
@@ -259,7 +259,7 @@ Links:
 
 ## The Years of Apocalypse
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-large/the-years-of-apocalypse-a-time-loop-progression.jpg?time=1706941233)
+<img src="https://www.royalroadcdn.com/public/covers-large/the-years-of-apocalypse-a-time-loop-progression.jpg?time=1706941233" height=300>
 
 Quality: Good
 
@@ -282,7 +282,7 @@ Links:
 
 ## Book Of The Dead
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-full/47038-book-of-the-dead.jpg?time=1637047029)
+<img src="https://www.royalroadcdn.com/public/covers-full/47038-book-of-the-dead.jpg?time=1637047029" height=300>
 
 Quality: Good
 
@@ -305,7 +305,7 @@ Links:
 
 ## Downtown Druid
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-large/79173-downtown-druid.jpg?time=1738855641)
+<img src="https://www.royalroadcdn.com/public/covers-large/79173-downtown-druid.jpg?time=1738855641" height=300>
 
 Quality: Good
 
@@ -328,7 +328,7 @@ Links:
 
 ## A Practical Guide to Sorcery
 
-![Thumbnail](https://www.azaleaellis.com/wp-content/uploads/2022/10/A-Conjuring-of-Ravens-Web-800w-683x1024.jpg)
+<img src="https://www.azaleaellis.com/wp-content/uploads/2022/10/A-Conjuring-of-Ravens-Web-800w-683x1024.jpg" height=300>
 
 Quality: Good
 
@@ -351,7 +351,7 @@ Links:
 
 ## The Beginning After the End
 
-![Thumbnail](https://en.wikipedia.org/wiki/File:The_Beginning_After_the_End_webtoon_volume_1_cover.jpg)
+<img src="https://en.wikipedia.org/wiki/File:The_Beginning_After_the_End_webtoon_volume_1_cover.jpg" height=300>
 
 Quality: Bad, isekai slop
 
@@ -372,7 +372,7 @@ Links:
 
 ## Rise of the Living Forge
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-large/79094-rise-of-the-living-forge-stubbing-in-october.jpg?time=1723126402)
+<img src="https://www.royalroadcdn.com/public/covers-large/79094-rise-of-the-living-forge-stubbing-in-october.jpg?time=1723126402" height=300>
 
 Quality: Ok, isekai slop
 
@@ -393,7 +393,7 @@ Links:
 
 ## Vigor Mortis
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-large/40373-vigor-mortis.jpg?time=1675224407)
+<img src="https://www.royalroadcdn.com/public/covers-large/40373-vigor-mortis.jpg?time=1675224407" height=300>
 
 Quality: Ok
 
@@ -414,7 +414,7 @@ Links:
 
 ## Ultimate Level 1
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-large/76259-ultimate-level-1-litrpg-book-8-stubs-531.jpg?time=1748571204)
+<img src="https://www.royalroadcdn.com/public/covers-large/76259-ultimate-level-1-litrpg-book-8-stubs-531.jpg?time=1748571204" height=300>
 
 Quality: Bad, litrpg slop
 
@@ -435,7 +435,7 @@ Links:
 
 ## If It’s for My Daughter, I’d Even Defeat a Demon Lord
 
-![Thumbnail](https://cdn.novelupdates.com/images/2020/05/uchimusuLNv2.jpg)
+<img src="https://cdn.novelupdates.com/images/2020/05/uchimusuLNv2.jpg" height=300>
 
 Quality: Bad, Japanese slice-of-life litrpg fantasy slop
 
@@ -456,7 +456,7 @@ Links:
 
 ## Mark of the Fool
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-large/41618-mark-of-the-fool.jpg?time=1739370607)
+<img src="https://www.royalroadcdn.com/public/covers-large/41618-mark-of-the-fool.jpg?time=1739370607" height=300>
 
 Quality: Decent, not enough progression
 
@@ -477,7 +477,7 @@ Links:
 
 ## DIE. RESPAWN. REPEAT.
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-large/66643-die-respawn-repeat.jpg?time=1718032689)
+<img src="https://www.royalroadcdn.com/public/covers-large/66643-die-respawn-repeat.jpg?time=1718032689" height=300>
 
 Quality: Decent, a bit bland
 
@@ -498,7 +498,7 @@ Links:
 
 ## System Breaker
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-large/89249-system-breaker-xianxia-system-apocalypse.jpg?time=1721663785)
+<img src="https://www.royalroadcdn.com/public/covers-large/89249-system-breaker-xianxia-system-apocalypse.jpg?time=1721663785" height=300>
 
 Quality: Decent, MC is a bit immature
 
@@ -519,7 +519,7 @@ Links:
 
 ## Dungeon Crawler Carl
 
-![Thumbnail](https://www.royalroadcdn.com/public/covers-full/29358-dungeon-crawler-carl.jpg)
+<img src="https://www.royalroadcdn.com/public/covers-full/29358-dungeon-crawler-carl.jpg" height=300>
 
 Quality: Good
 
@@ -535,6 +535,27 @@ Authors:
 Links:
 
 - https://www.royalroad.com/fiction/29358/dungeon-crawler-carl-book-6-the-ghosts-of-earth
+
+
+
+## Reborn as a Demonic Tree
+
+<img src="https://www.royalroadcdn.com/public/covers-large/62881-reborn-as-a-demonic-tree.jpg?time=1739372665" height=300>
+
+Quality: Decent, a bit basic
+
+Completion: Not completed
+
+Reading: Reading, volume 3, chapter 42
+
+Authors:
+
+- XKARNATION 
+
+
+Links:
+
+- https://www.royalroad.com/fiction/62881/reborn-as-a-demonic-tree
 
 
 
