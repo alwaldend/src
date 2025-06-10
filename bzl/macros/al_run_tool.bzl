@@ -1,7 +1,7 @@
 load("@bazel_skylib//rules:run_binary.bzl", "run_binary")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
-load("//bzl/vars:vars.bzl", "LABELS")
+load("//bzl/vars:labels.bzl", "LABELS")
 
 def al_run_tool(name, tool, executable = False, test = False, run_args_label = LABELS.run_args, **kwargs):
     """

@@ -2,7 +2,7 @@ load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_perl//perl:perl_binary.bzl", "perl_binary")
 load("@rules_perl//perl/cpan:cpan_compiler.bzl", "cpan_compiler")
 load("//bzl/macros:al_alias_map.bzl", "al_alias_map")
-load("//bzl/macros:al_md_data.bzl", "al_md_data")
+load("//bzl/macros:al_readme.bzl", "al_readme")
 
 al_alias_map(
     {
@@ -32,7 +32,6 @@ perl_binary(
     deps = ["@com-alwaldend-src-cpan//:Carton"],
 )
 
-al_md_data(
+al_readme(
     name = "readme",
-    srcs = [":README.md"],
 )

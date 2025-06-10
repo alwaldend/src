@@ -1,5 +1,5 @@
 load("@bazel_skylib//lib:paths.bzl", "paths")
-load("//bzl/vars:vars.bzl", "TOOLCHAIN_TYPES")
+load("//bzl/vars:toolchain_types.bzl", "TOOLCHAIN_TYPES")
 
 def _current_qt_toolchain_impl(ctx):
     toolchain = ctx.toolchains[ctx.attr._toolchain]

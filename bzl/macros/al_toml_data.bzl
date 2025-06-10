@@ -1,5 +1,5 @@
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
-load("//bzl/vars:vars.bzl", "LABELS")
+load("//bzl/vars:labels.bzl", "LABELS")
 load(":al_run_tool.bzl", "al_run_tool")
 
 def al_toml_data(name, srcs, visibility = ["//visibility:public"], tomlv_label = LABELS.tomlv, size = "small", **kwargs):

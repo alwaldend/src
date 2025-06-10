@@ -30,7 +30,7 @@ BZL_LIBS = {
             "//bzl/rules:al_genrule",
             "//bzl/rules:al_template_files",
             "//bzl/rules:al_write_script",
-            "//bzl/vars",
+            "//bzl/vars:labels",
         ],
         "libs": {
             "al_bzl_library": {},
@@ -57,6 +57,7 @@ BZL_LIBS = {
             "al_go_checkers": {},
             "al_alias_map": {},
             "al_md_data": {},
+            "al_readme": {"deps": [":al_md_data"]},
         },
     },
     "providers": {
@@ -66,7 +67,7 @@ BZL_LIBS = {
         },
     },
     "qt": {
-        "common_deps": _common_deps + ["//bzl/vars"],
+        "common_deps": _common_deps + ["//bzl/vars:toolchain_types"],
         "libs": {
             "al_current_qt_toolchain": {},
             "al_preinstalled_qt_toolchain": {},
@@ -84,8 +85,9 @@ BZL_LIBS = {
     "vars": {
         "common_deps": _common_deps,
         "libs": {
-            "vars": {},
+            "labels": {},
             "bzl_libs": {},
+            "toolchain_types": {},
         },
     },
 }

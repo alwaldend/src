@@ -1,4 +1,4 @@
-load("//bzl/vars:vars.bzl", "LABELS")
+load("//bzl/vars:labels.bzl", "LABELS")
 load(":al_py_checker.bzl", "al_py_checker")
 
 def al_py_checkers(

@@ -1,5 +1,5 @@
 load("@rules_pkg//pkg/private/tar:tar.bzl", "pkg_tar")
-load("//bzl/vars:vars.bzl", "LABELS")
+load("//bzl/vars:labels.bzl", "LABELS")
 load(":al_run_tool.bzl", "al_run_tool")
 
 def al_lua_library(
