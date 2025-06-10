@@ -26,6 +26,6 @@ Targets:
 | <a id="al_md_data-name"></a>name |  filegroup name   |  none |
 | <a id="al_md_data-srcs"></a>srcs |  markdown files   |  none |
 | <a id="al_md_data-visibility"></a>visibility |  visibility   |  `["//visibility:public"]` |
-| <a id="al_md_data-kwargs"></a>kwargs |  kwargs   |  none |
+| <a id="al_md_data-kwargs"></a>kwargs |  filegroup kwargs   |  none |
 
 

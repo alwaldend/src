@@ -28,7 +28,7 @@ Targets:
 | <a id="al_lua_library-name"></a>name |  library name   |  none |
 | <a id="al_lua_library-srcs"></a>srcs |  library sources   |  none |
 | <a id="al_lua_library-check"></a>check |  if set, only these files will be checked   |  `[]` |
-| <a id="al_lua_library-stylua_config_label"></a>stylua_config_label |  <p align="center"> - </p>   |  `"//lua:stylua.toml"` |
+| <a id="al_lua_library-stylua_config_label"></a>stylua_config_label |  <p align="center"> - </p>   |  `"//lua:stylua-config"` |
 | <a id="al_lua_library-stylua_label"></a>stylua_label |  <p align="center"> - </p>   |  `"@com-alwaldend-src-cargo//:stylua__stylua"` |
 | <a id="al_lua_library-pkg_tar_kwargs"></a>pkg_tar_kwargs |  kwargs for pkg_tar   |  `{}` |
 | <a id="al_lua_library-visibility"></a>visibility |  visibility   |  `["//visibility:public"]` |

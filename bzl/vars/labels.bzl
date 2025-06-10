@@ -10,13 +10,9 @@ LABELS = struct(
     editorconfig = "//:.editorconfig",
     stylua = "@com-alwaldend-src-cargo//:stylua__stylua",
     shfmt = "@cc_mvdan_sh_v3//cmd/shfmt:shfmt",
-    stylua_config = "//lua:stylua.toml",
+    stylua_config = "//lua:stylua-config",
     shellcheck = "@com-github-koalaman-shellcheck//:shellcheck",
     install_file = "//py/install-file:lib",
     replace_section = "//py/replace-section",
     bazel_python_shell = "//py/bazel-python-shell:library",
-)
-
-TOOLCHAIN_TYPES = struct(
-    qt = "//bzl/qt:qt-toolchain",
 )

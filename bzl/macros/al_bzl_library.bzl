@@ -1,7 +1,7 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@stardoc//stardoc:stardoc.bzl", "stardoc")
 load("//bzl/rules:al_write_script.bzl", "al_write_script")
-load("//bzl/vars:vars.bzl", "LABELS")
+load("//bzl/vars:labels.bzl", "LABELS")
 
 def al_bzl_library(
         name,

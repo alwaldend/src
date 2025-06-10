@@ -1,7 +1,7 @@
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("@rules_shell//shell:sh_library.bzl", "sh_library")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
-load("//bzl/vars:vars.bzl", "LABELS")
+load("//bzl/vars:labels.bzl", "LABELS")
 
 def al_sh_library(
         name,

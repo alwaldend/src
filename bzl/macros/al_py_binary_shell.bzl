@@ -1,5 +1,5 @@
 load("@rules_python//python:py_binary.bzl", "py_binary")
-load("//bzl/vars:vars.bzl", "LABELS")
+load("//bzl/vars:labels.bzl", "LABELS")
 
 def al_py_binary_shell(
         name,

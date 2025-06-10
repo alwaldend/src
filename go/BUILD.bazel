@@ -1,5 +1,5 @@
 load("//bzl/macros:al_alias_map.bzl", "al_alias_map")
-load("//bzl/macros:al_md_data.bzl", "al_md_data")
+load("//bzl/macros:al_readme.bzl", "al_readme")
 
 al_alias_map(
     {
@@ -8,7 +8,6 @@ al_alias_map(
     },
 )
 
-al_md_data(
+al_readme(
     name = "readme",
-    srcs = [":README.md"],
 )
