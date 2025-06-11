@@ -66,7 +66,7 @@ BZL_LIBS = {
             "al_transitive_sources": {},
         },
     },
-    "qt": {
+    "toolchains": {
         "common_deps": _common_deps + ["//bzl/vars:toolchain_types"],
         "libs": {
             "al_current_qt_toolchain": {},

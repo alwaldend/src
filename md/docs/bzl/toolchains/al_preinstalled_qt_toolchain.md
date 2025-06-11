@@ -7,7 +7,7 @@
 ## al_preinstalled_qt_toolchain
 
 <pre>
-load("@com-alwaldend-git-src//bzl/qt:al_preinstalled_qt_toolchain.bzl", "al_preinstalled_qt_toolchain")
+load("@com-alwaldend-git-src//bzl/toolchains:al_preinstalled_qt_toolchain.bzl", "al_preinstalled_qt_toolchain")
 
 al_preinstalled_qt_toolchain(<a href="#al_preinstalled_qt_toolchain-name">name</a>, <a href="#al_preinstalled_qt_toolchain-dir">dir</a>, <a href="#al_preinstalled_qt_toolchain-platform">platform</a>, <a href="#al_preinstalled_qt_toolchain-version">version</a>)
 </pre>

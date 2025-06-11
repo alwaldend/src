@@ -7,7 +7,7 @@
 ## al_current_qt_toolchain
 
 <pre>
-load("@com-alwaldend-git-src//bzl/qt:al_current_qt_toolchain.bzl", "al_current_qt_toolchain")
+load("@com-alwaldend-git-src//bzl/toolchains:al_current_qt_toolchain.bzl", "al_current_qt_toolchain")
 
 al_current_qt_toolchain(<a href="#al_current_qt_toolchain-name">name</a>)
 </pre>

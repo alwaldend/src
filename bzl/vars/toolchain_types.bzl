@@ -1,3 +1,3 @@
 TOOLCHAIN_TYPES = struct(
-    qt = "//bzl/qt:qt-toolchain",
+    qt = "//bzl/toolchains:qt-toolchain",
 )

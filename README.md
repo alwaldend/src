@@ -27,8 +27,6 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
     - [providers](/bzl/providers): Bazel providers
 
-    - [qt](/bzl/qt): Qt wrapper for bazel
-
     - [registry](/bzl/registry): Bazel registry
 
       - [modules](/bzl/registry/modules): Modules
@@ -43,7 +41,13 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
         - [org-openssl-openssl](/bzl/registry/modules/org-openssl-openssl): Openssl
 
+        - [rules_haskell](/bzl/registry/modules/rules_haskell): Patched version of rules_haskell
+
+        - [us-nasm-nasm](/bzl/registry/modules/us-nasm-nasm): Netwide Assembler (NASM)
+
     - [rules](/bzl/rules): Bazel rules
+
+    - [toolchains](/bzl/toolchains): Qt wrapper for bazel
 
     - [vars](/bzl/vars): Static bazel variables
 
@@ -115,11 +119,15 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
   - [md](/md): Markdown projects
 
+    - [docs](/md/docs): Project documentation
+
     - [misc](/md/misc): Miscellaneous knowledge
 
   - [patch](/patch): Patches
 
     - [infinitime](/patch/infinitime): Git patches for InfiniTimeOrg/InfiniTime
+
+    - [rules-haskell](/patch/rules-haskell): Fixes for rules-haskell
 
   - [pl](/pl): Perl projects
 
@@ -162,18 +170,18 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 Language|files|blank|comment|code
 :-------|-------:|-------:|-------:|-------:
-JSON|956|2|0|25762
+JSON|960|2|0|25803
 Python|571|2092|1159|8513
 Go|231|718|617|6496
+Starlark|97|426|594|2819
 C++|87|138|199|2219
-Starlark|86|274|296|1903
 Text|5|117|0|1766
+Markdown|107|878|36|1230
 Lua|8|60|90|987
-Markdown|73|444|5|695
 Bourne Shell|19|85|103|518
 YAML|3|77|0|504
 diff|4|7|51|319
-TOML|6|31|0|302
+TOML|6|32|0|312
 Java|11|37|15|250
 C|2|7|0|97
 C/C++ Header|3|8|0|94
@@ -186,7 +194,7 @@ INI|1|2|0|7
 Snakemake|1|2|6|4
 Rust|1|0|0|3
 --------|--------|--------|--------|--------
-SUM:|2074|4139|2628|50655
+SUM:|2123|4726|2957|52157
 
 <!-- CLOC END -->
 
