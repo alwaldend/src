@@ -12,8 +12,8 @@ al_readme(
 
 al_bzl_library_map(
     name = "libs",
-    common_deps = BZL_LIBS["qt"]["common_deps"],
-    libs = BZL_LIBS["qt"]["libs"],
+    common_deps = BZL_LIBS["toolchains"]["common_deps"],
+    libs = BZL_LIBS["toolchains"]["libs"],
 )
 
 py_console_script_binary(
