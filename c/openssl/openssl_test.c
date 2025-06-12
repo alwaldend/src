@@ -6,8 +6,11 @@ int main(int argc, char *argv[]) {
     EVP_MD_CTX *mdctx;
     const EVP_MD *md;
     char message[] = "Hello World\n";
-    unsigned char md_value[EVP_MAX_MD_SIZE];
-    unsigned int md_len, i;
+    char message_digest_base64[] =
+        "0qhPS4tlCTfsj3PNi+LHSt1akRumTfJ0WO2CKdqASiY=";
+    unsigned char calc_digest_value[EVP_MAX_MD_SIZE];
+    unsigned int calc_digest_len, i;
+    char calc_digest_base64[EVP_MAX_MD_SIZE];
     if (argc != 1) {
         fprintf(stderr, "did not expect args: ");
         for (i = 0; i < (unsigned int)argc; i++) {
@@ -29,24 +32,32 @@ int main(int argc, char *argv[]) {
     mdctx = EVP_MD_CTX_create();
     EVP_DigestInit_ex(mdctx, md, NULL);
     EVP_DigestUpdate(mdctx, message, strlen(message));
-    EVP_DigestFinal_ex(mdctx, md_value, &md_len);
+    EVP_DigestFinal_ex(mdctx, calc_digest_value, &calc_digest_len);
     EVP_MD_CTX_destroy(mdctx);
 
     fprintf(stderr, "Digest is:\n");
-    for (i = 0; i < md_len; i++) {
-        fprintf(stderr, "%02x", md_value[i]);
+    for (i = 0; i < calc_digest_len; i++) {
+        fprintf(stderr, "%02x", calc_digest_value[i]);
     }
     fprintf(stderr, "\n");
 
     BIO *bio, *b64;
+    FILE *md_value_base64_file =
+        fmemopen(calc_digest_base64, EVP_MAX_MD_SIZE, "w");
 
     b64 = BIO_new(BIO_f_base64());
-    bio = BIO_new_fp(stderr, BIO_NOCLOSE);
+    bio = BIO_new_fp(md_value_base64_file, BIO_CLOSE);
     BIO_push(b64, bio);
-    BIO_write(b64, md_value, md_len);
+    BIO_write(b64, calc_digest_value, calc_digest_len);
     BIO_flush(b64);
-
     BIO_free_all(b64);
+
+    fprintf(stderr, "base64 digest: %s\n", calc_digest_base64);
+    if (!strncmp(message_digest_base64, calc_digest_base64, EVP_MAX_MD_SIZE)) {
+        fprintf(stderr, "calculated base64 digest '%s' is different from '%s'",
+                calc_digest_base64, message_digest_base64);
+        return 1;
+    }
 
     EVP_cleanup();
     return 0;
