@@ -32,7 +32,10 @@ cc_test(
         ],
         "//conditions:default": [],
     }),
-    deps = ["@org-openssl-openssl//:openssl"],
+    deps = [
+        "//c/utils:base64",
+        "@org-openssl-openssl//:openssl",
+    ],
 )
 
 build_test(
