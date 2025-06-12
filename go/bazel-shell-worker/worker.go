@@ -5,10 +5,10 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"text/template"
 	"os"
 	"os/exec"
 	"strings"
+	"text/template"
 
 	"git.alwaldend.com/src/proto/bazel-worker/worker_protocol"
 )

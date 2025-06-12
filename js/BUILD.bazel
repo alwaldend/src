@@ -1,11 +1,4 @@
-load("//bzl/macros:al_alias_map.bzl", "al_alias_map")
 load("//bzl/macros:al_readme.bzl", "al_readme")
-
-al_alias_map(
-    {
-        "pnpm": {"actual": "@com-alwaldend-src-pnpm//:pnpm"},
-    },
-)
 
 al_readme(
     name = "readme",

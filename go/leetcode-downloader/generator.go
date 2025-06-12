@@ -61,17 +61,17 @@ func (self *Generator) write(submission *proto.Submission) error {
 		return err
 	}
 	dir = filepath.Join(self.config.RootDir, dir)
-	err = os.MkdirAll(dir, 0755)
+	err = os.MkdirAll(dir, 0o755)
 	if err != nil {
 		return err
 	}
 	codePath := filepath.Join(dir, fmt.Sprintf("%s.%s", name, extension))
 	dataPath := filepath.Join(dir, fmt.Sprintf("%s.%s", name, "json"))
-	err = os.WriteFile(codePath, codeContent, 0644)
+	err = os.WriteFile(codePath, codeContent, 0o644)
 	if err != nil {
 		return fmt.Errorf("could not write '%s': %w", codePath, err)
 	}
-	err = os.WriteFile(dataPath, dataContent, 0644)
+	err = os.WriteFile(dataPath, dataContent, 0o644)
 	if err != nil {
 		return fmt.Errorf("could not write '%s': %w", codePath, err)
 	}

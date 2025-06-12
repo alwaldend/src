@@ -157,6 +157,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
     - [scripts](/sh/scripts): Shell scripts
 
+  - [tools](/tools): Tools
+
   - [vial](/vial): Vial configs
 
     - [keyboards](/vial/keyboards): Keyboard configs

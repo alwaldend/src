@@ -27,7 +27,7 @@ Targets:
 | <a id="al_toml_data-name"></a>name |  Target name   |  none |
 | <a id="al_toml_data-srcs"></a>srcs |  Toml files   |  none |
 | <a id="al_toml_data-visibility"></a>visibility |  visibility   |  `["//visibility:public"]` |
-| <a id="al_toml_data-tomlv_label"></a>tomlv_label |  <p align="center"> - </p>   |  `"//go:tomlv"` |
+| <a id="al_toml_data-tomlv_label"></a>tomlv_label |  <p align="center"> - </p>   |  `"//tools:tomlv"` |
 | <a id="al_toml_data-size"></a>size |  <p align="center"> - </p>   |  `"small"` |
 | <a id="al_toml_data-kwargs"></a>kwargs |  kwargs   |  none |
 
