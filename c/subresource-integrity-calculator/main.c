@@ -1,34 +1,24 @@
-#include <ctype.h>
-#include <getopt.h>
-#include <openssl/sha.h>
-#include <stdbool.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
 
-struct Config {
-    char* output_file;
-};
+#include "c/subresource-integrity-calculator/calculator.h"
 
 int main(int argc, char** argv) {
-    int option_character;
-    while ((option_character = getopt(argc, argv, "o:")) != -1) {
-        switch (option_character) {
-            case 'o':
-                break;
-            case '?':
-                if (optopt == 'c') {
-                    fprintf(stderr, "Option -%c requires an argument.\n",
-                            optopt);
-                } else if (isprint(optopt)) {
-                    fprintf(stderr, "Unknown option '-%c'.\n", optopt);
-                } else {
-                    fprintf(stderr, "Unknown option character `\\x%x'.\n",
-                            optopt);
-                }
-                return 1;
-            default:
-                abort();
-        }
+    unsigned char out[BUFSIZ];
+    unsigned int out_length;
+
+    if (argc != 3) {
+        fprintf(stderr, "invalid argument count\n");
+        return 1;
     }
-    return 0;
+
+    if (calculate_sri(argv[1], argv[2], strlen(argv[2]), out, &out_length) !=
+        0) {
+        fprintf(stderr, "could not calculate sri\n");
+        return 1;
+    }
+
+    fprintf(stderr, "output:\n");
+    printf("%s\n", out);
+    return 1;
 }
