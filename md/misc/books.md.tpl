@@ -23,6 +23,7 @@ title: Books
         {{ .title }}
         {{- range .alt_titles }} <br> ({{ . }}){{ end }}
         {{- range .authors }} <br> [{{ .main }}{{ range .alts }}, {{ . }}{{ end }}]{{ end }}
+        <br>
         <img src="{{ .thumbnail }}" alt="Thumbnail of {{ .title }}" height="300"></img>
       </th>
       <td>{{ .quality }}</td>
