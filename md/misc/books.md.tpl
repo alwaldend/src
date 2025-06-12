@@ -23,7 +23,7 @@ title: Books
       <th scope="row">
         {{ .title }}
         <br>
-        <img src="{{ .thumbnail }}" height=300>
+        <img src="{{ .thumbnail }}" alt="Thumbnail of {{ .title }}" width=100% height=300>
       </th>
       <td>
         <ul>
