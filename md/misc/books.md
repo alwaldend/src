@@ -33,8 +33,8 @@ title: Books
       <td>Reading chapter 724</td>
       <td>
         <ul>
-        <li><a href="https://www.novelupdates.com/series/my-longevity-simulation/"></a></li>
-        <li><a href="https://novelbin.com/b/my-longevity-simulation/chapter-724"></a></li>
+        <li><a href="https://www.novelupdates.com/series/my-longevity-simulation/">https://www.novelupdates.com/series/my-longevity-simulation/</a></li>
+        <li><a href="https://novelbin.com/b/my-longevity-simulation/chapter-724">https://novelbin.com/b/my-longevity-simulation/chapter-724</a></li>
         </ul>
       </td>
     </tr>
@@ -54,8 +54,8 @@ title: Books
       <td>Reading, chapter 2388</td>
       <td>
         <ul>
-        <li><a href="https://www.webnovel.com/book/shadow-slave_22196546206090805"></a></li>
-        <li><a href="https://novelbin.com/b/shadow-slave/chapter-2388-bait"></a></li>
+        <li><a href="https://www.webnovel.com/book/shadow-slave_22196546206090805">https://www.webnovel.com/book/shadow-slave_22196546206090805</a></li>
+        <li><a href="https://novelbin.com/b/shadow-slave/chapter-2388-bait">https://novelbin.com/b/shadow-slave/chapter-2388-bait</a></li>
         </ul>
       </td>
     </tr>
@@ -75,8 +75,8 @@ title: Books
       <td>Reading, chapter 447</td>
       <td>
         <ul>
-        <li><a href="https://www.novelupdates.com/series/the-unintentional-path-to-immortality/"></a></li>
-        <li><a href="https://novelfire.net/book/unintended-immortality/chapter-447"></a></li>
+        <li><a href="https://www.novelupdates.com/series/the-unintentional-path-to-immortality/">https://www.novelupdates.com/series/the-unintentional-path-to-immortality/</a></li>
+        <li><a href="https://novelfire.net/book/unintended-immortality/chapter-447">https://novelfire.net/book/unintended-immortality/chapter-447</a></li>
         </ul>
       </td>
     </tr>
@@ -96,8 +96,8 @@ title: Books
       <td>Reading, chapter 589</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial"></a></li>
-        <li><a href="https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial/chapter/2331110/chapter-589-gray-kitten"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial">https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial</a></li>
+        <li><a href="https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial/chapter/2331110/chapter-589-gray-kitten">https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial/chapter/2331110/chapter-589-gray-kitten</a></li>
         </ul>
       </td>
     </tr>
@@ -117,8 +117,8 @@ title: Books
       <td>Reading, chapter 702, book 7</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed"></a></li>
-        <li><a href="https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed/chapter/2330195/chapter-702-thats-an-answer"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed">https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed</a></li>
+        <li><a href="https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed/chapter/2330195/chapter-702-thats-an-answer">https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed/chapter/2330195/chapter-702-thats-an-answer</a></li>
         </ul>
       </td>
     </tr>
@@ -138,8 +138,8 @@ title: Books
       <td>Reading, chapter 35-15, book 7</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/59663/godclads"></a></li>
-        <li><a href="https://www.royalroad.com/fiction/59663/godclads/chapter/2327646/35-15-fork-i"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/59663/godclads">https://www.royalroad.com/fiction/59663/godclads</a></li>
+        <li><a href="https://www.royalroad.com/fiction/59663/godclads/chapter/2327646/35-15-fork-i">https://www.royalroad.com/fiction/59663/godclads/chapter/2327646/35-15-fork-i</a></li>
         </ul>
       </td>
     </tr>
@@ -159,8 +159,8 @@ title: Books
       <td>Reading, chapter 46</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/92549/are-you-even-human"></a></li>
-        <li><a href="https://www.royalroad.com/fiction/92549/are-you-even-human/chapter/2325503/46-outside-of-the-cage"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/92549/are-you-even-human">https://www.royalroad.com/fiction/92549/are-you-even-human</a></li>
+        <li><a href="https://www.royalroad.com/fiction/92549/are-you-even-human/chapter/2325503/46-outside-of-the-cage">https://www.royalroad.com/fiction/92549/are-you-even-human/chapter/2325503/46-outside-of-the-cage</a></li>
         </ul>
       </td>
     </tr>
@@ -180,8 +180,8 @@ title: Books
       <td>Reading, chapter 1333</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/24709/defiance-of-the-fall"></a></li>
-        <li><a href="https://www.royalroad.com/fiction/24709/defiance-of-the-fall/chapter/2330793/chapter-1333-light-and-dark"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/24709/defiance-of-the-fall">https://www.royalroad.com/fiction/24709/defiance-of-the-fall</a></li>
+        <li><a href="https://www.royalroad.com/fiction/24709/defiance-of-the-fall/chapter/2330793/chapter-1333-light-and-dark">https://www.royalroad.com/fiction/24709/defiance-of-the-fall/chapter/2330793/chapter-1333-light-and-dark</a></li>
         </ul>
       </td>
     </tr>
@@ -201,8 +201,8 @@ title: Books
       <td>Reading, chapter 84</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/94398/matabar"></a></li>
-        <li><a href="https://www.royalroad.com/fiction/94398/matabar/chapter/2325850/chapter-84-table-of-cards"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/94398/matabar">https://www.royalroad.com/fiction/94398/matabar</a></li>
+        <li><a href="https://www.royalroad.com/fiction/94398/matabar/chapter/2325850/chapter-84-table-of-cards">https://www.royalroad.com/fiction/94398/matabar/chapter/2325850/chapter-84-table-of-cards</a></li>
         </ul>
       </td>
     </tr>
@@ -222,8 +222,8 @@ title: Books
       <td>Reading, chapter 218</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released"></a></li>
-        <li><a href="https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released/chapter/2329654/218-the-dao-is-the-dao"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released">https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released</a></li>
+        <li><a href="https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released/chapter/2329654/218-the-dao-is-the-dao">https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released/chapter/2329654/218-the-dao-is-the-dao</a></li>
         </ul>
       </td>
     </tr>
@@ -243,8 +243,8 @@ title: Books
       <td>Reading, chapter 76</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/75345/changeling"></a></li>
-        <li><a href="https://www.royalroad.com/fiction/75345/changeling/chapter/2330439/part-76-expert-diplomat-nestra"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/75345/changeling">https://www.royalroad.com/fiction/75345/changeling</a></li>
+        <li><a href="https://www.royalroad.com/fiction/75345/changeling/chapter/2330439/part-76-expert-diplomat-nestra">https://www.royalroad.com/fiction/75345/changeling/chapter/2330439/part-76-expert-diplomat-nestra</a></li>
         </ul>
       </td>
     </tr>
@@ -264,8 +264,8 @@ title: Books
       <td>Reading, chapter 193</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression"></a></li>
-        <li><a href="https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression/chapter/2330456/chapter-193-into-persama"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression">https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression</a></li>
+        <li><a href="https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression/chapter/2330456/chapter-193-into-persama">https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression/chapter/2330456/chapter-193-into-persama</a></li>
         </ul>
       </td>
     </tr>
@@ -285,8 +285,8 @@ title: Books
       <td>Reading, book 5 chapter 25</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/47038/book-of-the-dead"></a></li>
-        <li><a href="https://www.royalroad.com/fiction/47038/book-of-the-dead/chapter/2331459/b5-chapter-25-return"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/47038/book-of-the-dead">https://www.royalroad.com/fiction/47038/book-of-the-dead</a></li>
+        <li><a href="https://www.royalroad.com/fiction/47038/book-of-the-dead/chapter/2331459/b5-chapter-25-return">https://www.royalroad.com/fiction/47038/book-of-the-dead/chapter/2331459/b5-chapter-25-return</a></li>
         </ul>
       </td>
     </tr>
@@ -306,8 +306,8 @@ title: Books
       <td>Finished volume 1</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/79173/downtown-druid-book-1-stubbed"></a></li>
-        <li><a href="https://www.royalroad.com/fiction/79173/downtown-druid-book-1-stubbed/chapter/2240615/book-1-is-out-on-ku-and-audible"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/79173/downtown-druid-book-1-stubbed">https://www.royalroad.com/fiction/79173/downtown-druid-book-1-stubbed</a></li>
+        <li><a href="https://www.royalroad.com/fiction/79173/downtown-druid-book-1-stubbed/chapter/2240615/book-1-is-out-on-ku-and-audible">https://www.royalroad.com/fiction/79173/downtown-druid-book-1-stubbed/chapter/2240615/book-1-is-out-on-ku-and-audible</a></li>
         </ul>
       </td>
     </tr>
@@ -327,8 +327,8 @@ title: Books
       <td>Reading, chapter 251</td>
       <td>
         <ul>
-        <li><a href="https://www.azaleaellis.com/a-practical-guide-to-sorcery/"></a></li>
-        <li><a href="https://www.azaleaellis.com/pgts/chapter-251-sudden-showers/"></a></li>
+        <li><a href="https://www.azaleaellis.com/a-practical-guide-to-sorcery/">https://www.azaleaellis.com/a-practical-guide-to-sorcery/</a></li>
+        <li><a href="https://www.azaleaellis.com/pgts/chapter-251-sudden-showers/">https://www.azaleaellis.com/pgts/chapter-251-sudden-showers/</a></li>
         </ul>
       </td>
     </tr>
@@ -348,7 +348,7 @@ title: Books
       <td>Dropped, volume 1, chapter 1</td>
       <td>
         <ul>
-        <li><a href="https://en.wikipedia.org/wiki/The_Beginning_After_the_End"></a></li>
+        <li><a href="https://en.wikipedia.org/wiki/The_Beginning_After_the_End">https://en.wikipedia.org/wiki/The_Beginning_After_the_End</a></li>
         </ul>
       </td>
     </tr>
@@ -368,7 +368,7 @@ title: Books
       <td>Dropped, volume 1, chapter 66</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/79094/rise-of-the-living-forge-a-blacksmith-litrpg"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/79094/rise-of-the-living-forge-a-blacksmith-litrpg">https://www.royalroad.com/fiction/79094/rise-of-the-living-forge-a-blacksmith-litrpg</a></li>
         </ul>
       </td>
     </tr>
@@ -388,7 +388,7 @@ title: Books
       <td>Dropped, volume 4, chapter 27</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/40373/vigor-mortis"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/40373/vigor-mortis">https://www.royalroad.com/fiction/40373/vigor-mortis</a></li>
         </ul>
       </td>
     </tr>
@@ -408,7 +408,7 @@ title: Books
       <td>Dropped, volume 1, chapter 17</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/76259/ultimate-level-1-litrpg"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/76259/ultimate-level-1-litrpg">https://www.royalroad.com/fiction/76259/ultimate-level-1-litrpg</a></li>
         </ul>
       </td>
     </tr>
@@ -428,7 +428,7 @@ title: Books
       <td>Dropped, volume 4, chapter 2</td>
       <td>
         <ul>
-        <li><a href="https://www.novelupdates.com/series/if-its-for-my-daughter-id-even-defeat-a-demon-lord/"></a></li>
+        <li><a href="https://www.novelupdates.com/series/if-its-for-my-daughter-id-even-defeat-a-demon-lord/">https://www.novelupdates.com/series/if-its-for-my-daughter-id-even-defeat-a-demon-lord/</a></li>
         </ul>
       </td>
     </tr>
@@ -448,7 +448,7 @@ title: Books
       <td>Finished</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/41618/mark-of-the-fool"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/41618/mark-of-the-fool">https://www.royalroad.com/fiction/41618/mark-of-the-fool</a></li>
         </ul>
       </td>
     </tr>
@@ -468,7 +468,7 @@ title: Books
       <td>Dropped, volume 4, chapter 8</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/66643/die-respawn-repeat"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/66643/die-respawn-repeat">https://www.royalroad.com/fiction/66643/die-respawn-repeat</a></li>
         </ul>
       </td>
     </tr>
@@ -488,7 +488,7 @@ title: Books
       <td>Dropped, volume 2, chapter 55</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/89249/system-breaker-xianxia-system-apocalypse-litrpg"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/89249/system-breaker-xianxia-system-apocalypse-litrpg">https://www.royalroad.com/fiction/89249/system-breaker-xianxia-system-apocalypse-litrpg</a></li>
         </ul>
       </td>
     </tr>
@@ -508,7 +508,7 @@ title: Books
       <td>Finished volume 7</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/29358/dungeon-crawler-carl-book-6-the-ghosts-of-earth"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/29358/dungeon-crawler-carl-book-6-the-ghosts-of-earth">https://www.royalroad.com/fiction/29358/dungeon-crawler-carl-book-6-the-ghosts-of-earth</a></li>
         </ul>
       </td>
     </tr>
@@ -528,7 +528,7 @@ title: Books
       <td>Dropped, volume 6, chapter 30</td>
       <td>
         <ul>
-        <li><a href="https://www.royalroad.com/fiction/62881/reborn-as-a-demonic-tree"></a></li>
+        <li><a href="https://www.royalroad.com/fiction/62881/reborn-as-a-demonic-tree">https://www.royalroad.com/fiction/62881/reborn-as-a-demonic-tree</a></li>
         </ul>
       </td>
     </tr>
