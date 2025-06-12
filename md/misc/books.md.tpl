@@ -2,27 +2,48 @@
 title: Books
 ---
 
-{{ range .Data }}
-{{ range .Data.book }}
-## {{ .title }}
-
-<img src="{{ .thumbnail }}" height=300>
-
-Quality: {{ .quality }}
-
-Completion: {{ .completion }}
-
-Reading: {{ .reading }}
-
-Authors:
-{{ range .authors }}
-- {{ .main }} {{ if .alts }}({{ range .alts }}{{ . }}{{ end }}){{ end }}
-{{ end }}
-
-Links:
-{{ range .links }}
-- {{ .url }}
-{{ end }}
-
-{{ end }}
-{{ end }}
+<table>
+  <caption>
+    Books
+  </caption>
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Authors</th>
+      <th scope="col">Quality</th>
+      <th scope="col">Completion</th>
+      <th scope="col">Reading</th>
+      <th scope="col">Links</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{ range .Data -}}
+    {{ range .Data.book -}}
+    <tr>
+      <th scope="row">
+        {{ .title }}
+        <br>
+        <img src="{{ .thumbnail }}" height=300>
+      </th>
+      <td>
+        <ul>
+        {{ range .authors -}}
+        <li>{{ .main }} {{ if .alts }}({{ range .alts }}{{ . }}{{ end }}){{ end }}</li>
+        {{ end -}}
+        </ul>
+      </td>
+      <td>{{ .quality }}</td>
+      <td>{{ .completion }}</td>
+      <td>{{ .reading }}</td>
+      <td>
+        <ul>
+        {{ range .links -}}
+        <li><a href="{{ .url }}">{{ if .title }}{{ . }}{{ end }}</a></li>
+        {{ end -}}
+        </ul>
+      </td>
+    </tr>
+    {{ end -}}
+    {{ end -}}
+  </tbody>
+</table>
