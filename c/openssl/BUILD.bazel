@@ -33,7 +33,7 @@ cc_test(
         "//conditions:default": [],
     }),
     deps = [
-        "//c/utils:base64",
+        "//c/misc:base64",
         "@org-openssl-openssl//:openssl",
     ],
 )
