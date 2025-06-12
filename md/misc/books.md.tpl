@@ -9,7 +9,6 @@ title: Books
   <thead>
     <tr>
       <th scope="col">Title</th>
-      <th scope="col">Authors</th>
       <th scope="col">Quality</th>
       <th scope="col">Completion</th>
       <th scope="col">Reading</th>
@@ -22,16 +21,10 @@ title: Books
     <tr>
       <th scope="row">
         {{ .title }}
-        <br>
+        {{ range .alt_titles }}({{ . }}){{ end }}
+        {{ range .authors }}[{{ .main }}{{ range .alts }}, {{ . }}{{ end }}]{{ end }}
         <img src="{{ .thumbnail }}" alt="Thumbnail of {{ .title }}" height="300"></img>
       </th>
-      <td>
-        <ul>
-        {{ range .authors -}}
-        <li>{{ .main }} {{ if .alts }}({{ range .alts }}{{ . }}{{ end }}){{ end }}</li>
-        {{ end -}}
-        </ul>
-      </td>
       <td>{{ .quality }}</td>
       <td>{{ .completion }}</td>
       <td>{{ .reading }}</td>

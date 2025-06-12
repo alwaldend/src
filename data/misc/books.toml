@@ -37,7 +37,7 @@ links = [
 
 [[book]]
 title = "Lord of the Mysteries"
-thumnail = "https://cdn.novelupdates.com/images/2018/11/Lord-of-the-Mysteries.jpeg"
+thumbnail = "https://cdn.novelupdates.com/images/2018/11/Lord-of-the-Mysteries.jpeg"
 quality = "Good"
 completion = "Finished"
 reading = "Finished"
@@ -483,7 +483,7 @@ links = [
 
 [[book]]
 title = "The Divine Dungeon"
-thumbnail = "https://www.goodreads.com/book/show/32509131-dungeon-born"
+thumbnail = "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1476063034i/32509131.jpg"
 quality = "Ok, a bit basic"
 completion = "Finished"
 reading = "Finished"
