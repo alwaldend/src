@@ -38,7 +38,7 @@ title: Books
       <td>
         <ul>
         {{ range .links -}}
-        <li><a href="{{ .url }}">{{ if .title }}{{ . }}{{ end }}</a></li>
+        <li><a href="{{ .url }}">{{ if .title }}{{ . }}{{ else }}{{ .url }}{{ end }}</a></li>
         {{ end -}}
         </ul>
       </td>
