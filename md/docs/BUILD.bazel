@@ -4,11 +4,11 @@ load("//bzl/vars:bzl_libs.bzl", "BZL_LIBS")
 write_source_files(
     name = "write",
     files = {
-        "bzl/{}/{}.md".format(dir_name, lib): "//bzl/{}:{}-stardoc".format(dir_name, lib)
+        "src/bzl/{}/{}.md".format(dir_name, lib): "//bzl/{}:{}-stardoc".format(dir_name, lib)
         for dir_name, dir_config in BZL_LIBS.items()
         for lib in dir_config["libs"].keys()
     } | {
-        "bzl/{}/README.md".format(dir_name): "//bzl/{}:readme".format(dir_name)
+        "src/bzl/{}/README.md".format(dir_name): "//bzl/{}:readme".format(dir_name)
         for dir_name, dir_config in BZL_LIBS.items()
     },
 )

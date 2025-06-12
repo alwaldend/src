@@ -21,7 +21,7 @@ type configType struct {
 	fileMode       fs.FileMode
 }
 
-var config = &configType{fileMode: fs.FileMode(int(0777))}
+var config = &configType{fileMode: fs.FileMode(int(0o777))}
 
 var rootCmd = &cobra.Command{
 	Use:   "file-installer",
