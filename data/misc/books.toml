@@ -1,62 +1,109 @@
 [[book]]
+title = "Reverend Insanity"
+alt_titles = ["Gu Daoist Master", "蛊真人"]
+thumbnail = "https://cdn.novelupdates.com/images/2025/06/Reverend-Insanity.jpg"
+quality = "Good"
+completion = "Not finished, banned by CCP"
+reading = "Finished, 2334 Chapters"
+authors = [{ main = "Gu Zhen Ren", alts = ["蛊真人"] }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/reverend-insanity/" },
+]
+
+[[book]]
 title = "My Longevity Simulation"
 thumbnail = "https://cdn.novelupdates.com/images/2024/08/My-Longevity-Simulation.jpg"
 quality = "Good"
 completion = "Translation is not finished"
-reading = "Reading chapter 724"
-authors = [{ main = "Angry Squid (愤怒的乌贼)" }]
+reading = "Reading, chapter 724"
+authors = [{ main = "Angry Squid", alts = ["愤怒的乌贼"] }]
 links = [
-    { url = "https://www.novelupdates.com/series/my-longevity-simulation/" },
-    { url = "https://novelbin.com/b/my-longevity-simulation/chapter-724" },
-]
-
-[[book]]
-title = "Shadow Slave"
-thumbnail = "https://book-pic.webnovel.com/bookcover/22196546206090805?imageMogr2/thumbnail/600x&imageId=1705256017438"
-quality = "Good"
-completion = "Not finished"
-reading = "Reading, chapter 2388"
-authors = [{ main = "Guiltythree" }]
-links = [
-    { url = "https://www.webnovel.com/book/shadow-slave_22196546206090805" },
-    { url = "https://novelbin.com/b/shadow-slave/chapter-2388-bait" },
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/my-longevity-simulation/" },
+    { title = "novelbin", url = "https://novelbin.com/b/my-longevity-simulation/chapter-724" },
 ]
 
 [[book]]
 title = "Unintended Immortality"
-alt_titles = ["The Unintentional Path to Immortality"]
+alt_titles = ["The Unintentional Path to Immortality", "我本无意成仙"]
 thumbnail = "https://cdn.novelupdates.com/images/2024/11/The-Unintentional-Path-to-Immortality.jpg"
 quality = "Good"
 completion = "Not finished"
 reading = "Reading, chapter 447"
 authors = [{ main = "Golden Jasmine", alts = ["金色茉莉花"] }]
 links = [
-    { url = "https://www.novelupdates.com/series/the-unintentional-path-to-immortality/" },
-    { url = "https://novelfire.net/book/unintended-immortality/chapter-447" },
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/the-unintentional-path-to-immortality/" },
+    { title = "novelfile", url = "https://novelfire.net/book/unintended-immortality/chapter-447" },
 ]
 
 [[book]]
-title = "Hell Difficulty Tutorial"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg?time=1743538154"
-quality = "Decent"
-completion = "Not finished"
-reading = "Reading, chapter 589"
-authors = [{ main = "Cerim" }]
+title = "Lord of the Mysteries"
+thumnail = "https://cdn.novelupdates.com/images/2018/11/Lord-of-the-Mysteries.jpeg"
+quality = "Good"
+completion = "Finished"
+reading = "Finished"
+authors = [{ main = "Cuttlefish That Loves Diving", alts = ["爱潜水的乌贼"] }]
 links = [
-    { url = "https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial" },
-    { url = "https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial/chapter/2331110/chapter-589-gray-kitten" },
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/lord-of-the-mysteries/" },
 ]
 
 [[book]]
-title = "Return of the Runebound Professor"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/68679-return-of-the-runebound-professor.jpg?time=1696109628"
-quality = "Decent"
-completion = "Not finished"
-reading = "Reading, chapter 702, book 7"
-authors = [{ main = "Actus" }]
+title = "Ze Tian Ji"
+alt_titles = ["Way of Choices", "择天记"]
+thumbnail = "https://cdn.novelupdates.com/images/2015/06/Zetianji.jpg"
+quality = "Good"
+completion = "Finished"
+reading = "Finished"
+authors = [{ main = "Mao Ni", alts = ["猫腻"] }]
 links = [
-    { url = "https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed" },
-    { url = "https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed/chapter/2330195/chapter-702-thats-an-answer" },
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/ze-tian-ji/" },
+]
+
+[[book]]
+title = "The Path Toward Heaven"
+alt_titles = ["大道朝天"]
+thumbnail = "https://cdn.novelupdates.com/images/2017/10/pathtowardheaven.jpg"
+quality = "Good"
+completion = "Finished, translation is not finished"
+reading = "Finished available chapters"
+authors = [{ main = "Mao Ni", alts = ["猫腻"] }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/the-path-toward-heaven/" },
+]
+
+[[book]]
+title = "Nightfall"
+alt_titles = ["Ever Night", "将夜"]
+thumbnail = "https://cdn.novelupdates.com/images/2015/06/JiangYe-.jpg"
+quality = "Good"
+completion = "Finished"
+reading = "Finished"
+authors = [{ main = "Mao Ni", alts = ["猫腻"] }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/nightfall/" },
+]
+
+[[book]]
+title = "The Experimental Log of the Crazy Lich"
+alt_titles = ["疯巫妖的实验日志"]
+thumbnail = "https://cdn.novelupdates.com/images/2017/11/The-Experimental-Log-of-the-Crazy-Lich.jpg"
+quality = "Good"
+completion = "Finished volume 2"
+reading = "Finished volume 1"
+authors = [{ main = "Angry Squirrel", alts = ["愤怒的松鼠"] }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/the-experimental-log-of-the-crazy-lich/" },
+]
+
+[[book]]
+title = "The Sage Who Transcended Samsara"
+alt_titles = ["一世之尊"]
+thumbnail = "https://cdn.novelupdates.com/images/2019/05/17435126d0d51135aa4a70eb4c00f08bc818d0de901c670ce979f03a966bf10f.jpg"
+quality = "Good, dropped at the end"
+completion = "Finished"
+reading = "Finished"
+authors = [{ main = "Cuttlefish That Loves Diving", alts = ["爱潜水的乌贼"] }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/the-sage-who-transcended-samsara/" },
 ]
 
 [[book]]
@@ -67,20 +114,8 @@ completion = "Not finished"
 reading = "Reading, chapter 35-15, book 7"
 authors = [{ main = "OstensibleMammal" }]
 links = [
-    { url = "https://www.royalroad.com/fiction/59663/godclads" },
-    { url = "https://www.royalroad.com/fiction/59663/godclads/chapter/2327646/35-15-fork-i" },
-]
-
-[[book]]
-title = "Are You Even Human"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg?time=1724477376"
-quality = "Decent"
-completion = "Not finished"
-reading = "Reading, chapter 46"
-authors = [{ main = "Thundamoo" }]
-links = [
-    { url = "https://www.royalroad.com/fiction/92549/are-you-even-human" },
-    { url = "https://www.royalroad.com/fiction/92549/are-you-even-human/chapter/2325503/46-outside-of-the-cage" },
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/59663/godclads" },
+    { title = "chapter", url = "https://www.royalroad.com/fiction/59663/godclads/chapter/2327646/35-15-fork-i" },
 ]
 
 [[book]]
@@ -91,8 +126,8 @@ completion = "Not finished"
 reading = "Reading, chapter 1333"
 authors = [{ main = "TheFirstDefier" }]
 links = [
-    { url = "https://www.royalroad.com/fiction/24709/defiance-of-the-fall" },
-    { url = "https://www.royalroad.com/fiction/24709/defiance-of-the-fall/chapter/2330793/chapter-1333-light-and-dark" },
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/24709/defiance-of-the-fall" },
+    { title = "chapter", url = "https://www.royalroad.com/fiction/24709/defiance-of-the-fall/chapter/2330793/chapter-1333-light-and-dark" },
 ]
 
 [[book]]
@@ -103,32 +138,31 @@ completion = "Not finished"
 reading = "Reading, chapter 84"
 authors = [{ main = "Kirill Klevanski" }]
 links = [
-    { url = "https://www.royalroad.com/fiction/94398/matabar" },
-    { url = "https://www.royalroad.com/fiction/94398/matabar/chapter/2325850/chapter-84-table-of-cards" },
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/94398/matabar" },
+    { title = "chapter", url = "https://www.royalroad.com/fiction/94398/matabar/chapter/2325850/chapter-84-table-of-cards" },
 ]
 
 [[book]]
-title = "Ghost of the Truthseeker"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/56136-ghost-of-the-truthseeker.jpg?time=1721186189"
-quality = "Decent"
-completion = "Not finished"
-reading = "Reading, chapter 218"
-authors = [{ main = "Strungbound" }]
+title = "Renegade Immortal"
+thumbnail = "https://cdn.novelupdates.com/images/2016/03/xianni-1.jpg"
+quality = "Good"
+completion = "Finished"
+reading = "Finished"
+authors = [{ main = "Er Gen" }]
 links = [
-    { url = "https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released" },
-    { url = "https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released/chapter/2329654/218-the-dao-is-the-dao" },
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/renegade-immortal/" },
 ]
 
 [[book]]
-title = "Changeling"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg?time=1712108062"
-quality = "Decent"
+title = "Shadow Slave"
+thumbnail = "https://book-pic.webnovel.com/bookcover/22196546206090805?imageMogr2/thumbnail/600x&imageId=1705256017438"
+quality = "Good"
 completion = "Not finished"
-reading = "Reading, chapter 76"
-authors = [{ main = "Mecanimus" }]
+reading = "Reading, chapter 2388"
+authors = [{ main = "Guiltythree" }]
 links = [
-    { url = "https://www.royalroad.com/fiction/75345/changeling" },
-    { url = "https://www.royalroad.com/fiction/75345/changeling/chapter/2330439/part-76-expert-diplomat-nestra" },
+    { title = "webnovel", url = "https://www.webnovel.com/book/shadow-slave_22196546206090805" },
+    { title = "novelbin", url = "https://novelbin.com/b/shadow-slave/chapter-2388-bait" },
 ]
 
 [[book]]
@@ -139,8 +173,8 @@ completion = "Not finished"
 reading = "Reading, chapter 193"
 authors = [{ main = "UraniumPhoenix" }]
 links = [
-    { url = "https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression" },
-    { url = "https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression/chapter/2330456/chapter-193-into-persama" },
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression" },
+    { title = "chapter", url = "https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression/chapter/2330456/chapter-193-into-persama" },
 ]
 
 [[book]]
@@ -151,8 +185,8 @@ completion = "Not finished"
 reading = "Reading, book 5 chapter 25"
 authors = [{ main = "RinoZ" }]
 links = [
-    { url = "https://www.royalroad.com/fiction/47038/book-of-the-dead" },
-    { url = "https://www.royalroad.com/fiction/47038/book-of-the-dead/chapter/2331459/b5-chapter-25-return" },
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/47038/book-of-the-dead" },
+    { title = "chapter", url = "https://www.royalroad.com/fiction/47038/book-of-the-dead/chapter/2331459/b5-chapter-25-return" },
 ]
 
 [[book]]
@@ -163,8 +197,8 @@ completion = "Not finished"
 reading = "Finished volume 1"
 authors = [{ main = "Seersucker" }]
 links = [
-    { url = "https://www.royalroad.com/fiction/79173/downtown-druid-book-1-stubbed" },
-    { url = "https://www.royalroad.com/fiction/79173/downtown-druid-book-1-stubbed/chapter/2240615/book-1-is-out-on-ku-and-audible" },
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/79173/downtown-druid-book-1-stubbed" },
+    { title = "chapter", url = "https://www.royalroad.com/fiction/79173/downtown-druid-book-1-stubbed/chapter/2240615/book-1-is-out-on-ku-and-audible" },
 ]
 
 [[book]]
@@ -175,89 +209,8 @@ completion = "Not finished"
 reading = "Reading, chapter 251"
 authors = [{ main = "Azalea Ellis" }]
 links = [
-    { url = "https://www.azaleaellis.com/a-practical-guide-to-sorcery/" },
-    { url = "https://www.azaleaellis.com/pgts/chapter-251-sudden-showers/" },
-]
-
-[[book]]
-title = "The Beginning After the End"
-thumbnail = "https://en.wikipedia.org/wiki/File:The_Beginning_After_the_End_webtoon_volume_1_cover.jpg"
-quality = "Bad, isekai slop"
-completion = "Finished"
-reading = "Dropped, volume 1, chapter 1"
-authors = [{ main = "TurtleMe" }]
-links = [{ url = "https://en.wikipedia.org/wiki/The_Beginning_After_the_End" }]
-
-[[book]]
-title = "Rise of the Living Forge"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/79094-rise-of-the-living-forge-stubbing-in-october.jpg?time=1723126402"
-quality = "Ok, isekai slop"
-completion = "Not finished"
-reading = "Dropped, volume 1, chapter 66"
-authors = [{ main = "Actus" }]
-links = [
-    { url = "https://www.royalroad.com/fiction/79094/rise-of-the-living-forge-a-blacksmith-litrpg" },
-]
-
-[[book]]
-title = "Vigor Mortis"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/40373-vigor-mortis.jpg?time=1675224407"
-quality = "Ok"
-completion = "Completed"
-reading = "Dropped, volume 4, chapter 27"
-authors = [{ main = "Thundamoo" }]
-links = [{ url = "https://www.royalroad.com/fiction/40373/vigor-mortis" }]
-
-[[book]]
-title = "Ultimate Level 1"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/76259-ultimate-level-1-litrpg-book-8-stubs-531.jpg?time=1748571204"
-quality = "Bad, litrpg slop"
-completion = "Not completed"
-reading = "Dropped, volume 1, chapter 17"
-authors = [{ main = "Dads Bedtime Stories" }]
-links = [
-    { url = "https://www.royalroad.com/fiction/76259/ultimate-level-1-litrpg" },
-]
-
-[[book]]
-title = "If It’s for My Daughter, I’d Even Defeat a Demon Lord"
-thumbnail = "https://cdn.novelupdates.com/images/2020/05/uchimusuLNv2.jpg"
-quality = "Bad, Japanese slice-of-life litrpg fantasy slop"
-completion = "Completed"
-reading = "Dropped, volume 4, chapter 2"
-authors = [{ main = "Chirolu" }]
-links = [
-    { url = "https://www.novelupdates.com/series/if-its-for-my-daughter-id-even-defeat-a-demon-lord/" },
-]
-
-[[book]]
-title = "Mark of the Fool"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/41618-mark-of-the-fool.jpg?time=1739370607"
-quality = "Decent, not enough progression"
-completion = "Finished"
-reading = "Finished"
-authors = [{ main = "J.M. Clarke", alts = ["U Juggernaut"] }]
-links = [{ url = "https://www.royalroad.com/fiction/41618/mark-of-the-fool" }]
-
-[[book]]
-title = "DIE. RESPAWN. REPEAT."
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/66643-die-respawn-repeat.jpg?time=1718032689"
-quality = "Decent, a bit bland"
-completion = "Not finished"
-reading = "Dropped, volume 4, chapter 8"
-authors = [{ main = "SilverLinings" }]
-links = [{ url = "https://www.royalroad.com/fiction/66643/die-respawn-repeat" }]
-
-
-[[book]]
-title = "System Breaker"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/89249-system-breaker-xianxia-system-apocalypse.jpg?time=1721663785"
-quality = "Decent, MC is a bit immature"
-completion = "Not completed"
-reading = "Dropped, volume 2, chapter 55"
-authors = [{ main = "OstensibleMammal" }]
-links = [
-    { url = "https://www.royalroad.com/fiction/89249/system-breaker-xianxia-system-apocalypse-litrpg" },
+    { title = "azaleaellis", url = "https://www.azaleaellis.com/a-practical-guide-to-sorcery/" },
+    { title = "chapter", url = "https://www.azaleaellis.com/pgts/chapter-251-sudden-showers/" },
 ]
 
 [[book]]
@@ -268,7 +221,178 @@ completion = "Not completed"
 reading = "Finished volume 7"
 authors = [{ main = "DoctorHepa" }]
 links = [
-    { url = "https://www.royalroad.com/fiction/29358/dungeon-crawler-carl-book-6-the-ghosts-of-earth" },
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/29358/dungeon-crawler-carl-book-6-the-ghosts-of-earth" },
+]
+
+[[book]]
+title = "Beware Of Chicken"
+thumbnail = "https://www.royalroadcdn.com/public/covers-full/beware-of-chicken-aacav1xoeg8.jpg?time=1610566797"
+quality = "Good"
+completion = "Not finished"
+reading = "Dropped at some point"
+authors = [{ main = "Casualfarmer" }]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/39408/beware-of-chicken" },
+]
+
+[[book]]
+title = "I Shall Seal the Heavens"
+thumbnail = "https://cdn.novelupdates.com/images/2015/06/15_ISSTH.jpg"
+quality = "Good"
+completion = "Finished"
+reading = "Finished"
+authors = [{ main = "Er Gen" }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/i-shall-seal-the-heavens/" },
+]
+
+[[book]]
+title = "Hell Difficulty Tutorial"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg?time=1743538154"
+quality = "Decent"
+completion = "Not finished"
+reading = "Reading, chapter 589"
+authors = [{ main = "Cerim" }]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial" },
+    { title = "chapter", url = "https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial/chapter/2331110/chapter-589-gray-kitten" },
+]
+
+[[book]]
+title = "Return of the Runebound Professor"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/68679-return-of-the-runebound-professor.jpg?time=1696109628"
+quality = "Decent"
+completion = "Not finished"
+reading = "Reading, chapter 702, book 7"
+authors = [{ main = "Actus" }]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed" },
+    { title = "chapter", url = "https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed/chapter/2330195/chapter-702-thats-an-answer" },
+]
+
+[[book]]
+title = "Are You Even Human"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg?time=1724477376"
+quality = "Decent"
+completion = "Not finished"
+reading = "Reading, chapter 46"
+authors = [{ main = "Thundamoo" }]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/92549/are-you-even-human" },
+    { title = "chapter", url = "https://www.royalroad.com/fiction/92549/are-you-even-human/chapter/2325503/46-outside-of-the-cage" },
+]
+
+[[book]]
+title = "Ghost of the Truthseeker"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/56136-ghost-of-the-truthseeker.jpg?time=1721186189"
+quality = "Decent"
+completion = "Not finished"
+reading = "Reading, chapter 218"
+authors = [{ main = "Strungbound" }]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released" },
+    { title = "chapter", url = "https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released/chapter/2329654/218-the-dao-is-the-dao" },
+]
+
+[[book]]
+title = "Changeling"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg?time=1712108062"
+quality = "Decent"
+completion = "Not finished"
+reading = "Reading, chapter 76"
+authors = [{ main = "Mecanimus" }]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/75345/changeling" },
+    { title = "chapter", url = "https://www.royalroad.com/fiction/75345/changeling/chapter/2330439/part-76-expert-diplomat-nestra" },
+]
+
+[[book]]
+title = "The Beginning After the End"
+thumbnail = "https://upload.wikimedia.org/wikipedia/en/c/cc/The_Beginning_After_the_End_webtoon_volume_1_cover.jpg"
+quality = "Bad, isekai slop"
+completion = "Finished"
+reading = "Dropped, volume 1, chapter 13"
+authors = [{ main = "TurtleMe" }]
+links = [
+    { title = "wikipedia", url = "https://en.wikipedia.org/wiki/The_Beginning_After_the_End" },
+]
+
+[[book]]
+title = "Rise of the Living Forge"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/79094-rise-of-the-living-forge-stubbing-in-october.jpg?time=1723126402"
+quality = "Ok, isekai slop"
+completion = "Not finished"
+reading = "Dropped, volume 1, chapter 66"
+authors = [{ main = "Actus" }]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/79094/rise-of-the-living-forge-a-blacksmith-litrpg" },
+]
+
+[[book]]
+title = "Vigor Mortis"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/40373-vigor-mortis.jpg?time=1675224407"
+quality = "Ok"
+completion = "Completed"
+reading = "Dropped, volume 4, chapter 27"
+authors = [{ main = "Thundamoo" }]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/40373/vigor-mortis" },
+]
+
+[[book]]
+title = "Ultimate Level 1"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/76259-ultimate-level-1-litrpg-book-8-stubs-531.jpg?time=1748571204"
+quality = "Bad, litrpg slop"
+completion = "Not completed"
+reading = "Dropped, volume 1, chapter 17"
+authors = [{ main = "Dads Bedtime Stories" }]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/76259/ultimate-level-1-litrpg" },
+]
+
+[[book]]
+title = "If It’s for My Daughter, I’d Even Defeat a Demon Lord"
+thumbnail = "https://cdn.novelupdates.com/images/2020/05/uchimusuLNv2.jpg"
+quality = "Bad, Japanese slice-of-life litrpg fantasy slop"
+completion = "Completed"
+reading = "Dropped, volume 4, chapter 2"
+authors = [{ main = "Chirolu" }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/if-its-for-my-daughter-id-even-defeat-a-demon-lord/" },
+]
+
+[[book]]
+title = "Mark of the Fool"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/41618-mark-of-the-fool.jpg?time=1739370607"
+quality = "Decent, not enough progression"
+completion = "Finished"
+reading = "Finished"
+authors = [{ main = "J.M. Clarke", alts = ["U Juggernaut"] }]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/41618/mark-of-the-fool" },
+]
+
+[[book]]
+title = "DIE. RESPAWN. REPEAT."
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/66643-die-respawn-repeat.jpg?time=1718032689"
+quality = "Decent, a bit bland"
+completion = "Not finished"
+reading = "Dropped, volume 4, chapter 8"
+authors = [{ main = "SilverLinings" }]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/66643/die-respawn-repeat" },
+]
+
+
+[[book]]
+title = "System Breaker"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/89249-system-breaker-xianxia-system-apocalypse.jpg?time=1721663785"
+quality = "Decent, MC is a bit immature"
+completion = "Not completed"
+reading = "Dropped, volume 2, chapter 55"
+authors = [{ main = "OstensibleMammal" }]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/89249/system-breaker-xianxia-system-apocalypse-litrpg" },
 ]
 
 [[book]]
@@ -279,5 +403,136 @@ completion = "Not completed"
 reading = "Dropped, volume 6, chapter 30"
 authors = [{ main = "XKARNATION" }]
 links = [
-    { url = "https://www.royalroad.com/fiction/62881/reborn-as-a-demonic-tree" },
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/62881/reborn-as-a-demonic-tree" },
+]
+
+[[book]]
+title = "Accel World"
+thumbnail = "https://cdn.novelupdates.com/images/2023/08/Accel-World.jpg"
+quality = "Bad, japanese slop"
+completion = "Finished"
+reading = "Dropped at some point"
+authors = [{ main = "Kawahara Reki" }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/accel-world/" },
+]
+
+[[book]]
+title = "The Jester of Apocalypse"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/62411-the-jester-of-apocalypse.jpg?time=1694501749"
+quality = "Ok, basic and a bit edgy"
+completion = "Not finished, hiatus"
+reading = "Finished available chapters"
+authors = [{ main = "Robert Blaise" }]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/62411/the-jester-of-apocalypse" },
+]
+
+[[book]]
+title = "Throne of Magical Arcana"
+thumbnail = "https://cdn.novelupdates.com/images/2017/04/Throne-of-Magical-Arcana.jpg"
+quality = "Decent, a bit mediocre"
+completion = "Finished"
+reading = "Dropped near the end when the main plot ended"
+authors = [{ main = "Cuttlefish That Loves Diving" }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/throne-of-magical-arcana/" },
+]
+
+[[book]]
+title = "The Charm of Soul Pets"
+thumbnail = "https://cdn.novelupdates.com/images/2016/08/The-Charm-of-Soul-Pets-1.jpg"
+quality = "Don't remember"
+completion = "Finished"
+reading = "Dropped, chapter 42"
+authors = [{ main = "Chaos", alts = ["乱"] }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/the-charm-of-soul-pets/" },
+]
+
+[[book]]
+title = "12 Miles Below"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/42367-12-miles-below.jpg?time=1666920024"
+quality = "Decent"
+completion = "Not finished"
+reading = "Dropped at some point"
+authors = [{ main = "Mark Arrows" }]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/42367/12-miles-below" },
+]
+
+[[book]]
+title = "Worm"
+thumbnail = "https://parahumans.wordpress.com/wp-content/uploads/2011/06/cityscape2.jpg"
+quality = "Decent"
+completion = "Finished"
+reading = "Finished"
+authors = [{ main = "Wildbow" }]
+links = [{ title = "website", url = "https://parahumans.wordpress.com/" }]
+
+[[book]]
+title = "Full Murderhobo"
+thumbnail = "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1598478055i/55134991._SX120_.jpg"
+quality = "Ok, a bit basic"
+completion = "Not finished"
+reading = "Finished, volume 3"
+authors = [{ main = "Dakota Krout" }]
+links = [
+    { title = "goodreads", url = "https://www.goodreads.com/series/298351-full-murderhobo" },
+]
+
+[[book]]
+title = "The Divine Dungeon"
+thumbnail = "https://www.goodreads.com/book/show/32509131-dungeon-born"
+quality = "Ok, a bit basic"
+completion = "Finished"
+reading = "Finished"
+authors = [{ main = "Dakota Krout" }]
+links = [
+    { title = "goodreads", url = "https://www.goodreads.com/series/192510-the-divine-dungeon" },
+]
+
+[[book]]
+title = "SSS-Class Suicide Hunter"
+thumbnail = "https://cdn.novelupdates.com/images/2021/05/SSSClass-Suicide-Hunter.jpg"
+quality = "Ok, too much emotional bullshit"
+completion = "Not finished"
+reading = "Dropped at some point"
+authors = [{ main = "Sinnoa" }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/sss-class-suicide-hunter" },
+]
+
+[[book]]
+title = "Corpo Age"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/75446-corpo-age-cyberpunk-progression-litrpg.jpg?time=1704495083"
+quality = "Ok, feels basic"
+completion = "Not finished"
+reading = "Dropped, volume 1, chapter 2"
+authors = [{ main = "RandomBlueCat" }]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/75446/corpo-age" },
+]
+
+[[book]]
+title = "Shen Yin Wang Zuo"
+alt_titles = ["Sealed Divine Throne", "神印王座"]
+thumbnail = "https://cdn.novelupdates.com/images/2015/06/sywz.jpg"
+quality = "Bad, too bland"
+completion = "Finished"
+reading = "Dropped, chapter 101"
+authors = [{ main = "Tang Jia San Shao", alts = ["唐家三少"] }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/shen-yin-wang-zuo/" },
+]
+
+[[book]]
+title = "Warlock of the Magus World"
+thumbnail = "https://cdn.novelupdates.com/images/2022/05/Warlock-of-the-Magus-World_1653417756.jpg"
+quality = "Bad, edgy slop, too much 'AI chip, do the thing'"
+completion = "Finished"
+reading = "Dropped, chapter 58"
+authors = [{ main = "The Plagiarist" }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/warlock-of-the-magus-world/" },
 ]

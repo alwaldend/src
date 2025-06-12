@@ -23,7 +23,7 @@ title: Books
       <th scope="row">
         {{ .title }}
         <br>
-        <img src="{{ .thumbnail }}" alt="Thumbnail of {{ .title }}" width=100% height=300>
+        <img src="{{ .thumbnail }}" alt="Thumbnail of {{ .title }}" height="300"></img>
       </th>
       <td>
         <ul>
@@ -38,7 +38,7 @@ title: Books
       <td>
         <ul>
         {{ range .links -}}
-        <li><a href="{{ .url }}">{{ if .title }}{{ . }}{{ else }}{{ .url }}{{ end }}</a></li>
+        <li><a href="{{ .url }}">{{ .title }}</a></li>
         {{ end -}}
         </ul>
       </td>
