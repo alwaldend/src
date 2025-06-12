@@ -21,8 +21,8 @@ title: Books
     <tr>
       <th scope="row">
         {{ .title }}
-        {{ range .alt_titles }}({{ . }}){{ end }}
-        {{ range .authors }}[{{ .main }}{{ range .alts }}, {{ . }}{{ end }}]{{ end }}
+        {{- range .alt_titles }} ({{ . }}){{ end }}
+        {{- range .authors }} [{{ .main }}{{ range .alts }}, {{ . }}{{ end }}]{{ end }}
         <img src="{{ .thumbnail }}" alt="Thumbnail of {{ .title }}" height="300"></img>
       </th>
       <td>{{ .quality }}</td>
