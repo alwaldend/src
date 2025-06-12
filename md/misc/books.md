@@ -21,7 +21,7 @@ title: Books
       <th scope="row">
         My Longevity Simulation
         <br>
-        <img src="https://cdn.novelupdates.com/images/2024/08/My-Longevity-Simulation.jpg" height=300>
+        <img src="https://cdn.novelupdates.com/images/2024/08/My-Longevity-Simulation.jpg" alt="Thumbnail of My Longevity Simulation" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -42,7 +42,7 @@ title: Books
       <th scope="row">
         Shadow Slave
         <br>
-        <img src="https://book-pic.webnovel.com/bookcover/22196546206090805?imageMogr2/thumbnail/600x&imageId=1705256017438" height=300>
+        <img src="https://book-pic.webnovel.com/bookcover/22196546206090805?imageMogr2/thumbnail/600x&imageId=1705256017438" alt="Thumbnail of Shadow Slave" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -63,7 +63,7 @@ title: Books
       <th scope="row">
         Unintended Immortality
         <br>
-        <img src="https://cdn.novelupdates.com/images/2024/11/The-Unintentional-Path-to-Immortality.jpg" height=300>
+        <img src="https://cdn.novelupdates.com/images/2024/11/The-Unintentional-Path-to-Immortality.jpg" alt="Thumbnail of Unintended Immortality" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -84,7 +84,7 @@ title: Books
       <th scope="row">
         Hell Difficulty Tutorial
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg?time=1743538154" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg?time=1743538154" alt="Thumbnail of Hell Difficulty Tutorial" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -105,7 +105,7 @@ title: Books
       <th scope="row">
         Return of the Runebound Professor
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/68679-return-of-the-runebound-professor.jpg?time=1696109628" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-large/68679-return-of-the-runebound-professor.jpg?time=1696109628" alt="Thumbnail of Return of the Runebound Professor" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -126,7 +126,7 @@ title: Books
       <th scope="row">
         Godclads
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/59663-godclads.jpg?time=1733242909" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-large/59663-godclads.jpg?time=1733242909" alt="Thumbnail of Godclads" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -147,7 +147,7 @@ title: Books
       <th scope="row">
         Are You Even Human
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg?time=1724477376" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg?time=1724477376" alt="Thumbnail of Are You Even Human" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -168,7 +168,7 @@ title: Books
       <th scope="row">
         Defiance of the Fall
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/24709-defiance-of-the-fall.jpg?time=1707310837" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-large/24709-defiance-of-the-fall.jpg?time=1707310837" alt="Thumbnail of Defiance of the Fall" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -189,7 +189,7 @@ title: Books
       <th scope="row">
         Matabar
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/matabar-aaaa9rj72ru.jpg?time=1727012411" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-large/matabar-aaaa9rj72ru.jpg?time=1727012411" alt="Thumbnail of Matabar" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -210,7 +210,7 @@ title: Books
       <th scope="row">
         Ghost of the Truthseeker
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/56136-ghost-of-the-truthseeker.jpg?time=1721186189" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-large/56136-ghost-of-the-truthseeker.jpg?time=1721186189" alt="Thumbnail of Ghost of the Truthseeker" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -231,7 +231,7 @@ title: Books
       <th scope="row">
         Changeling
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg?time=1712108062" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg?time=1712108062" alt="Thumbnail of Changeling" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -252,7 +252,7 @@ title: Books
       <th scope="row">
         The Years of Apocalypse
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/the-years-of-apocalypse-a-time-loop-progression.jpg?time=1706941233" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-large/the-years-of-apocalypse-a-time-loop-progression.jpg?time=1706941233" alt="Thumbnail of The Years of Apocalypse" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -273,7 +273,7 @@ title: Books
       <th scope="row">
         Book Of The Dead
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-full/47038-book-of-the-dead.jpg?time=1637047029" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-full/47038-book-of-the-dead.jpg?time=1637047029" alt="Thumbnail of Book Of The Dead" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -294,7 +294,7 @@ title: Books
       <th scope="row">
         Downtown Druid
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/79173-downtown-druid.jpg?time=1738855641" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-large/79173-downtown-druid.jpg?time=1738855641" alt="Thumbnail of Downtown Druid" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -315,7 +315,7 @@ title: Books
       <th scope="row">
         A Practical Guide to Sorcery
         <br>
-        <img src="https://www.azaleaellis.com/wp-content/uploads/2022/10/A-Conjuring-of-Ravens-Web-800w-683x1024.jpg" height=300>
+        <img src="https://www.azaleaellis.com/wp-content/uploads/2022/10/A-Conjuring-of-Ravens-Web-800w-683x1024.jpg" alt="Thumbnail of A Practical Guide to Sorcery" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -336,7 +336,7 @@ title: Books
       <th scope="row">
         The Beginning After the End
         <br>
-        <img src="https://en.wikipedia.org/wiki/File:The_Beginning_After_the_End_webtoon_volume_1_cover.jpg" height=300>
+        <img src="https://en.wikipedia.org/wiki/File:The_Beginning_After_the_End_webtoon_volume_1_cover.jpg" alt="Thumbnail of The Beginning After the End" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -356,7 +356,7 @@ title: Books
       <th scope="row">
         Rise of the Living Forge
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/79094-rise-of-the-living-forge-stubbing-in-october.jpg?time=1723126402" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-large/79094-rise-of-the-living-forge-stubbing-in-october.jpg?time=1723126402" alt="Thumbnail of Rise of the Living Forge" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -376,7 +376,7 @@ title: Books
       <th scope="row">
         Vigor Mortis
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/40373-vigor-mortis.jpg?time=1675224407" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-large/40373-vigor-mortis.jpg?time=1675224407" alt="Thumbnail of Vigor Mortis" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -396,7 +396,7 @@ title: Books
       <th scope="row">
         Ultimate Level 1
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/76259-ultimate-level-1-litrpg-book-8-stubs-531.jpg?time=1748571204" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-large/76259-ultimate-level-1-litrpg-book-8-stubs-531.jpg?time=1748571204" alt="Thumbnail of Ultimate Level 1" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -416,7 +416,7 @@ title: Books
       <th scope="row">
         If It’s for My Daughter, I’d Even Defeat a Demon Lord
         <br>
-        <img src="https://cdn.novelupdates.com/images/2020/05/uchimusuLNv2.jpg" height=300>
+        <img src="https://cdn.novelupdates.com/images/2020/05/uchimusuLNv2.jpg" alt="Thumbnail of If It’s for My Daughter, I’d Even Defeat a Demon Lord" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -436,7 +436,7 @@ title: Books
       <th scope="row">
         Mark of the Fool
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/41618-mark-of-the-fool.jpg?time=1739370607" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-large/41618-mark-of-the-fool.jpg?time=1739370607" alt="Thumbnail of Mark of the Fool" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -456,7 +456,7 @@ title: Books
       <th scope="row">
         DIE. RESPAWN. REPEAT.
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/66643-die-respawn-repeat.jpg?time=1718032689" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-large/66643-die-respawn-repeat.jpg?time=1718032689" alt="Thumbnail of DIE. RESPAWN. REPEAT." width=100% height=300>
       </th>
       <td>
         <ul>
@@ -476,7 +476,7 @@ title: Books
       <th scope="row">
         System Breaker
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/89249-system-breaker-xianxia-system-apocalypse.jpg?time=1721663785" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-large/89249-system-breaker-xianxia-system-apocalypse.jpg?time=1721663785" alt="Thumbnail of System Breaker" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -496,7 +496,7 @@ title: Books
       <th scope="row">
         Dungeon Crawler Carl
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-full/29358-dungeon-crawler-carl.jpg" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-full/29358-dungeon-crawler-carl.jpg" alt="Thumbnail of Dungeon Crawler Carl" width=100% height=300>
       </th>
       <td>
         <ul>
@@ -516,7 +516,7 @@ title: Books
       <th scope="row">
         Reborn as a Demonic Tree
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/62881-reborn-as-a-demonic-tree.jpg?time=1739372665" height=300>
+        <img src="https://www.royalroadcdn.com/public/covers-large/62881-reborn-as-a-demonic-tree.jpg?time=1739372665" alt="Thumbnail of Reborn as a Demonic Tree" width=100% height=300>
       </th>
       <td>
         <ul>
