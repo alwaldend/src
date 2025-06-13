@@ -9,7 +9,7 @@ al_template_files(
 )
 
 write_source_files(
-    name = "books-write",
+    name = "write",
     files = {
         "books.md": ":books-gen.md",
     },
