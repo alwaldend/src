@@ -70,19 +70,20 @@ bool sri_calculate_base64(const unsigned char *in, const unsigned int in_length,
  *
  * Args:
  *     digest_type: openssl digest type (sha256, for example)
- *     in: input string
- *     in_length: input string length
+ *     in: input stream
  *     out: output string (openssl digest)
  *     out_length: length of the output string
  *
  * Returns:
  *     true if success, false if failure
  * */
-bool sri_calculate_digest(char *digest_type, char *in, unsigned int in_length,
-                          unsigned char *out, unsigned int *out_length) {
+bool sri_calculate_digest(char *digest_type, FILE *in, unsigned char *out,
+                          unsigned int *out_length) {
     EVP_MD_CTX *evp_md_ctx;
     const EVP_MD *evp_md_st;
     char err[BUFSIZ];
+    unsigned char in_buffer[BUFSIZ];
+    size_t in_buffer_bytes_read = 0;
 
     OpenSSL_add_all_digests();
 
@@ -109,13 +110,17 @@ bool sri_calculate_digest(char *digest_type, char *in, unsigned int in_length,
         return false;
     };
 
-    if (EVP_DigestUpdate(evp_md_ctx, in, in_length) != 1) {
-        sprintf(err, "message digest update failed: %s\n",
-                ERR_error_string(ERR_get_error(), NULL));
-        errors_append(err);
-        EVP_MD_CTX_free(evp_md_ctx);
-        return false;
-    };
+    while ((in_buffer_bytes_read = fread(in_buffer, 1, sizeof(in_buffer), in)) >
+           0) {
+        if (EVP_DigestUpdate(evp_md_ctx, in_buffer, in_buffer_bytes_read) !=
+            1) {
+            sprintf(err, "message digest update failed: %s\n",
+                    ERR_error_string(ERR_get_error(), NULL));
+            errors_append(err);
+            EVP_MD_CTX_free(evp_md_ctx);
+            return false;
+        };
+    }
 
     if (EVP_DigestFinal_ex(evp_md_ctx, out, out_length) != 1) {
         sprintf(err, "message digest finalization failed: %s\n",
@@ -134,23 +139,21 @@ bool sri_calculate_digest(char *digest_type, char *in, unsigned int in_length,
  *
  * Args:
  *     digest_type: openssl digest type (sha256, for example)
- *     in: input string
- *     in_length: input string length
+ *     in: input stream
  *     out: output string (openssl digest)
  *     out_length: length of the output string
  *
  * Returns:
  *      true if success, false if failure
  * */
-bool sri_calculate(char *digest_type, char *in, unsigned int in_length,
-                   unsigned char *out, unsigned int *out_length) {
+bool sri_calculate(char *digest_type, FILE *in, unsigned char *out,
+                   unsigned int *out_length) {
     unsigned int digest_type_length = strlen(digest_type);
     unsigned char digest[BUFSIZ], digest_base64[BUFSIZ];
     unsigned int digest_length, digest_base64_length;
     char err[BUFSIZ];
 
-    if (!sri_calculate_digest(digest_type, in, in_length, digest,
-                              &digest_length)) {
+    if (!sri_calculate_digest(digest_type, in, digest, &digest_length)) {
         sprintf(err, "could not calculate '%s' sri: could not calculate digest",
                 digest_type);
         errors_append(err);
@@ -178,24 +181,22 @@ bool sri_calculate(char *digest_type, char *in, unsigned int in_length,
  *
  * Args:
  *     digest_type: openssl digest type (sha256, for example)
- *     in: input string
- *     in_length: input string length
- *     out: output string (openssl digest)
- *     out_length: length of the output string
+ *     in: input stream
+ *     out: output stream
  *
  * Returns:
  *      true if success, false if failure
  * */
-bool sri_write(char *digest_type, FILE *stream, char *in) {
+bool sri_write(char *digest_type, FILE *in, FILE *out) {
     unsigned char sri[BUFSIZ];
     unsigned int sri_length;
     char err[BUFSIZ];
-    if (!sri_calculate(digest_type, in, strlen(in), sri, &sri_length)) {
+    if (!sri_calculate(digest_type, in, sri, &sri_length)) {
         sprintf(err, "could not write '%s' sri", digest_type);
         errors_append(err);
         return false;
     }
-    if (fwrite(sri, sizeof sri[0], sri_length, stream) != sri_length) {
+    if (fwrite(sri, sizeof sri[0], sri_length, out) != sri_length) {
         sprintf(err, "could not write '%s' sri: %s", digest_type,
                 strerror(errno));
         errors_append(err);
