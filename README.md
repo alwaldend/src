@@ -53,9 +53,11 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
   - [c](/c): C projects
 
+    - [misc](/c/misc): C utils
+
     - [openssl](/c/openssl): Openssl build
 
-    - [subresource-integrity-calculator](/c/subresource-integrity-calculator): Cli app to calculate subresource integrity (SRI)
+    - [sri](/c/sri): Cli app to calculate subresource integrity (SRI)
 
   - [cfg](/cfg): Configs for different tools
 

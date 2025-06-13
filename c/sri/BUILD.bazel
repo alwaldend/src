@@ -1,0 +1,33 @@
+load("@rules_cc//cc:cc_binary.bzl", "cc_binary")
+load("@rules_cc//cc:cc_library.bzl", "cc_library")
+
+cc_library(
+    name = "lib",
+    srcs = ["main.c"],
+    deps = [
+        ":errors",
+        ":sri",
+    ],
+)
+
+cc_library(
+    name = "sri",
+    srcs = ["sri.c"],
+    hdrs = ["sri.h"],
+    deps = [
+        ":errors",
+        "@org-openssl-openssl//:openssl",
+    ],
+)
+
+cc_library(
+    name = "errors",
+    srcs = ["errors.c"],
+    hdrs = ["errors.h"],
+)
+
+cc_binary(
+    name = "bin",
+    visibility = ["//visibility:public"],
+    deps = [":lib"],
+)
