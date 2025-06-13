@@ -21,39 +21,47 @@
  * */
 bool sri_calculate_base64(const unsigned char *in, const unsigned int in_length,
                           unsigned char *out, unsigned int *out_length) {
-    BIO *bio_fp, *bio_base64;
+    BIO *bio_out, *bio_base64;
     char err[BUFSIZ];
-    *out_length = ((4 * in_length / 3) + 3) & ~3;
-    FILE *in_file = fmemopen(out, *out_length, "w");
-    if (in_file == NULL) {
+    FILE *out_file = fmemopen(out, BUFSIZ, "w");
+    if (out_file == NULL) {
         sprintf(err, "could not open fmemopen: %s", strerror(errno));
         errors_append(err);
         return false;
     }
     bio_base64 = BIO_new(BIO_f_base64());
     if (bio_base64 == NULL) {
-        sprintf(err, "could not create base64 BIO: %s", strerror(errno));
+        sprintf(err, "could not create base64 BIO: %s",
+                ERR_error_string(ERR_get_error(), NULL));
+        BIO_free_all(bio_base64);
         errors_append(err);
         return false;
     }
-    bio_fp = BIO_new_fp(in_file, BIO_CLOSE);
-    if (bio_fp == NULL) {
-        sprintf(err, "could not create fp BIO: %s", strerror(errno));
+    bio_out = BIO_new_fp(out_file, BIO_CLOSE);
+    if (bio_out == NULL) {
+        sprintf(err, "could not create fp BIO: %s",
+                ERR_error_string(ERR_get_error(), NULL));
+        BIO_free_all(bio_base64);
         errors_append(err);
         return false;
     }
-    BIO_push(bio_base64, bio_fp);
-    if (BIO_write(bio_base64, in, in_length) != 1) {
-        sprintf(err, "could not write to base64 bio: %s", strerror(errno));
+    BIO_push(bio_base64, bio_out);
+    if (BIO_write(bio_base64, in, in_length) != (int)in_length) {
+        sprintf(err, "could not write to base64 bio: %s",
+                ERR_error_string(ERR_get_error(), NULL));
+        BIO_free_all(bio_base64);
         errors_append(err);
         return false;
     };
     if (BIO_flush(bio_base64) != 1) {
-        sprintf(err, "could not flush base64 bio: %s", strerror(errno));
+        sprintf(err, "could not flush base64 bio: %s",
+                ERR_error_string(ERR_get_error(), NULL));
+        BIO_free_all(bio_base64);
         errors_append(err);
         return false;
     };
     BIO_free_all(bio_base64);
+    *out_length = strlen((char *)out);
     return true;
 }
 
