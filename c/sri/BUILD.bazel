@@ -1,9 +1,30 @@
 load("@rules_cc//cc:cc_binary.bzl", "cc_binary")
 load("@rules_cc//cc:cc_library.bzl", "cc_library")
+load("@rules_cc//cc:cc_test.bzl", "cc_test")
 
 cc_library(
     name = "lib",
     srcs = ["main.c"],
+    deps = [
+        ":cmd",
+    ],
+)
+
+cc_binary(
+    name = "bin",
+    visibility = ["//visibility:public"],
+    deps = [":lib"],
+)
+
+test_suite(
+    name = "tests",
+    tests = [":sri-test"],
+)
+
+cc_library(
+    name = "cmd",
+    srcs = ["cmd.c"],
+    hdrs = ["cmd.h"],
     deps = [
         ":errors",
         ":sri",
@@ -20,14 +41,17 @@ cc_library(
     ],
 )
 
+cc_test(
+    name = "sri-test",
+    size = "small",
+    srcs = ["sri_test.c"],
+    deps = [
+        ":cmd",
+    ],
+)
+
 cc_library(
     name = "errors",
     srcs = ["errors.c"],
     hdrs = ["errors.h"],
-)
-
-cc_binary(
-    name = "bin",
-    visibility = ["//visibility:public"],
-    deps = [":lib"],
 )
