@@ -379,9 +379,9 @@ title: Books
         <br>
         <img src="https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg?time=1724477376" alt="Thumbnail of Are You Even Human" height="300"></img>
       </th>
-      <td>Decent</td>
+      <td>Decent, too much mortal bullshit</td>
       <td>Not finished</td>
-      <td>Reading, chapter 46</td>
+      <td>Dropped, chapter 47</td>
       <td>
         <ul>
         <li><a href="https://www.royalroad.com/fiction/92549/are-you-even-human">royalroad</a></li>
@@ -547,9 +547,9 @@ title: Books
         <br>
         <img src="https://www.royalroadcdn.com/public/covers-large/62881-reborn-as-a-demonic-tree.jpg?time=1739372665" alt="Thumbnail of Reborn as a Demonic Tree" height="300"></img>
       </th>
-      <td>Ok, too basic</td>
+      <td>Ok, mediocre</td>
       <td>Not completed</td>
-      <td>Dropped, volume 6, chapter 30</td>
+      <td>Dropped, volume 8, chapter 421</td>
       <td>
         <ul>
         <li><a href="https://www.royalroad.com/fiction/62881/reborn-as-a-demonic-tree">royalroad</a></li>
