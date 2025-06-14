@@ -4,6 +4,7 @@ _common_deps = [
     "@bazel_tools//tools/build_defs/repo:utils.bzl",
     "@bazel_skylib//:bzl_library",
     "@bazel_skylib//rules:run_binary",
+    "@bazel_skylib//rules:native_binary",
     "@rules_pkg//pkg:bzl_srcs",
     "@rules_python//python:pip_bzl",
     "@rules_python//python:py_binary_bzl",

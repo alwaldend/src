@@ -1,30 +1,24 @@
+load("@bazel_skylib//rules:native_binary.bzl", "native_binary", "native_test")
 load("@bazel_skylib//rules:run_binary.bzl", "run_binary")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
 load("//bzl/vars:labels.bzl", "LABELS")
 
-def al_run_tool(name, tool, executable = False, test = False, run_args_label = LABELS.run_args, **kwargs):
+def al_run_tool(name, tool, executable = False, test = False, **kwargs):
     """
-    Generate either sh_test, sh_binary, or run_binary target
+    Generate either native_test, native_binary, or run_binary target
 
     Args:
         name: Target name (required)
         tool: Tool label to run (required)
-        test: If True, generate sh_test
-        executable: If True, generate sh_binary
+        test: If True, generate native_test
+        executable: If True, generate native_binary
         **kwargs: kwargs for rules
     """
-    kwargs["name"] = name
-    kwargs["data"] = kwargs.get("data", []) + [tool]
-    kwargs["args"] = ["$(rootpath {})".format(tool)] + kwargs.get("args", [])
-    kwargs["srcs"] = [run_args_label]
-
     if test:
-        sh_test(**kwargs)
+        native_test(name = name, src = tool, **kwargs)
     elif executable:
-        sh_binary(**kwargs)
+        native_binary(name = name, src = tool, **kwargs)
     else:
         kwargs["srcs"] += kwargs.pop("data")
-        kwargs["tool"] = tool
-        kwargs["args"] = kwargs["args"][1:]
-        run_binary(**kwargs)
+        run_binary(name = name, tool = tool, **kwargs)
