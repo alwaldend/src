@@ -271,6 +271,17 @@ links = [
 ]
 
 [[book]]
+title = "I Am Become Death"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/109537-i-am-become-death-a-progression-fantasy.jpg?time=1743174516"
+quality = "Decent"
+completion = "Not finished"
+reading = "Reading, chapter 55"
+authors = [{ main = "J.M. Clarke", alts = ["U Juggernaut"] }]
+links = [
+    { title = "royalroard", url = "https://www.royalroad.com/fiction/109537/i-am-become-death-a-progression-fantasy-cultivation-based" },
+]
+
+[[book]]
 title = "Are You Even Human"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg?time=1724477376"
 quality = "Decent, too much mortal bullshit"

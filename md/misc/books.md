@@ -375,6 +375,21 @@ title: Books
     </tr>
     <tr>
       <th scope="row">
+        I Am Become Death <br> [J.M. Clarke, U Juggernaut]
+        <br>
+        <img src="https://www.royalroadcdn.com/public/covers-large/109537-i-am-become-death-a-progression-fantasy.jpg?time=1743174516" alt="Thumbnail of I Am Become Death" height="300"></img>
+      </th>
+      <td>Decent</td>
+      <td>Not finished</td>
+      <td>Reading, chapter 55</td>
+      <td>
+        <ul>
+        <li><a href="https://www.royalroad.com/fiction/109537/i-am-become-death-a-progression-fantasy-cultivation-based">royalroard</a></li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">
         Are You Even Human <br> [Thundamoo]
         <br>
         <img src="https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg?time=1724477376" alt="Thumbnail of Are You Even Human" height="300"></img>
