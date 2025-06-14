@@ -15,7 +15,7 @@ al_md_data(<a href="#al_md_data-name">name</a>, <a href="#al_md_data-srcs">srcs<
 Markdown data backed by a filegroup
 
 Targets:
-    ${name}: filegroup
+- ${name}: filegroup
 
 
 **PARAMETERS**

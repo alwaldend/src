@@ -16,9 +16,9 @@ al_sh_library(<a href="#al_sh_library-name">name</a>, <a href="#al_sh_library-sh
 Create targets for a shell library
 
 Targets:
-    ${name}-shfmt-fix: executable to run shfmt
-    ${name}-shfmt-test: test whether the script is formatted
-    ${name}-shellcheck-test: shellcheck test
+- ${name}-shfmt-fix: executable to run shfmt
+- ${name}-shfmt-test: test whether the script is formatted
+- ${name}-shellcheck-test: shellcheck test
 
 
 **PARAMETERS**

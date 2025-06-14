@@ -7,8 +7,8 @@ def al_bzl_library_map(name, libs, common_deps = [], visibility = ["//visibility
     Create al_bzl_library targets from a map
 
     Targets:
-        ${name}-stardoc: all stardoc markdown
-        ${name}: all bzl_library targets
+    - ${name}-stardoc: all stardoc markdown
+    - ${name}: all bzl_library targets
 
     Args:
         name: al_md_data name

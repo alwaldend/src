@@ -15,9 +15,9 @@ al_lua_library(<a href="#al_lua_library-name">name</a>, <a href="#al_lua_library
 Generate targets for a lua library
 
 Targets:
-    ${name}: pkg_tar
-    ${name}-stylua-fix: al_run_tool executable
-    ${name}-stylua-test: al_run_tool test
+- ${name}: pkg_tar
+- ${name}-stylua-fix: al_run_tool executable
+- ${name}-stylua-test: al_run_tool test
 
 
 **PARAMETERS**

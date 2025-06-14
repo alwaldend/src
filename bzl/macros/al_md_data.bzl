@@ -3,7 +3,7 @@ def al_md_data(name, srcs, visibility = ["//visibility:public"], **kwargs):
     Markdown data backed by a filegroup
 
     Targets:
-        ${name}: filegroup
+    - ${name}: filegroup
 
     Args:
         name: filegroup name
