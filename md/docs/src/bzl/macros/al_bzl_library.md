@@ -15,8 +15,8 @@ al_bzl_library(<a href="#al_bzl_library-name">name</a>, <a href="#al_bzl_library
 Generate targets for a bzl library
 
 Targets:
-    ${name}: bzl_library
-    ${name}-stardoc: stardoc target
+- ${name}: bzl_library
+- ${name}-stardoc: stardoc target
 
 
 **PARAMETERS**

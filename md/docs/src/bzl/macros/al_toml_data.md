@@ -15,8 +15,8 @@ al_toml_data(<a href="#al_toml_data-name">name</a>, <a href="#al_toml_data-srcs"
 Create toml data targets
 
 Targets:
-    ${name}: filegroup
-    ${name}-test-load: al_run_tool test whether the file can be loaded
+- ${name}: filegroup
+- ${name}-test-load: al_run_tool test whether the file can be loaded
 
 
 **PARAMETERS**

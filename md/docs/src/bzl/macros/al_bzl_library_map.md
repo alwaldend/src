@@ -15,8 +15,8 @@ al_bzl_library_map(<a href="#al_bzl_library_map-name">name</a>, <a href="#al_bzl
 Create al_bzl_library targets from a map
 
 Targets:
-    ${name}-stardoc: all stardoc markdown
-    ${name}: all bzl_library targets
+- ${name}-stardoc: all stardoc markdown
+- ${name}: all bzl_library targets
 
 
 **PARAMETERS**
