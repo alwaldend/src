@@ -12,9 +12,9 @@ al_current_qt_toolchain = rule(
     doc = "Get current selected qt toolchain",
     implementation = _current_qt_toolchain_impl,
     attrs = {
-        "_toolchain": attr.string(default = str(Label(TOOLCHAIN_TYPES.qt))),
+        "_toolchain": attr.string(default = str(Label(TOOLCHAIN_TYPES["al-qt"]))),
     },
     toolchains = [
-        str(Label(TOOLCHAIN_TYPES.qt)),
+        str(Label(TOOLCHAIN_TYPES["al-qt"])),
     ],
 )

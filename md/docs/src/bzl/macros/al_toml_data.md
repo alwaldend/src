@@ -16,7 +16,7 @@ Create toml data targets
 
 Targets:
 - ${name}: filegroup
-- ${name}-test-load: al_run_tool test whether the file can be loaded
+- ${name}-tomlv-test: al_run_tool test whether the file can be loaded
 
 
 **PARAMETERS**

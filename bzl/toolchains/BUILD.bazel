@@ -4,6 +4,7 @@ load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 load("//bzl/vars:bzl_libs.bzl", "BZL_LIBS")
 load(":al_current_qt_toolchain.bzl", "al_current_qt_toolchain")
+load(":al_drawio_toolchain.bzl", "al_drawio_toolchain")
 load(":al_preinstalled_qt_toolchain.bzl", "al_preinstalled_qt_toolchain")
 
 al_readme(
@@ -42,11 +43,6 @@ compile_pip_requirements(
     requirements_txt = ":requirements.txt",
 )
 
-toolchain_type(
-    name = "qt-toolchain",
-    visibility = ["//visibility:public"],
-)
-
 al_current_qt_toolchain(
     name = "current-qt-toolchain",
     visibility = ["//visibility:public"],
@@ -55,11 +51,22 @@ al_current_qt_toolchain(
 toolchain(
     name = "preinstalled-qt-toolchain",
     toolchain = ":preinstalled-qt-toolchain-impl",
-    toolchain_type = ":qt-toolchain",
+    toolchain_type = "//bzl/toolchain-types:al-qt",
     visibility = ["//visibility:public"],
 )
 
 al_preinstalled_qt_toolchain(
     name = "preinstalled-qt-toolchain-impl",
     visibility = ["//visibility:public"],
+)
+
+toolchain(
+    name = "al-drawio-preinstalled",
+    toolchain = ":al-drawio-preinstalled-toolchain-impl",
+    toolchain_type = "//bzl/toolchain-types:al-drawio",
+    visibility = ["//visibility:public"],
+)
+
+al_drawio_toolchain(
+    name = "al-drawio-preinstalled-impl",
 )

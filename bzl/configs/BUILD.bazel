@@ -21,6 +21,20 @@ config_setting(
     },
 )
 
+config_setting(
+    name = "platform-os-linux",
+    constraint_values = [
+        "@platforms//os:linux",
+    ],
+)
+
+config_setting(
+    name = "platform-os-windows",
+    constraint_values = [
+        "@platforms//os:windows",
+    ],
+)
+
 bool_flag(
     name = "use-local-repos-flag",
     build_setting_default = False,

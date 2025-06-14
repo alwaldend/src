@@ -1,0 +1,9 @@
+load("//bzl/vars:toolchain_types.bzl", "TOOLCHAIN_TYPES")
+
+[
+    toolchain_type(
+        name = toolchain,
+        visibility = ["//visibility:public"],
+    )
+    for toolchain in TOOLCHAIN_TYPES.keys()
+]
