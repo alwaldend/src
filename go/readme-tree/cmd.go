@@ -107,6 +107,13 @@ func newParseCommand(parse *Parser) (*cobra.Command, error) {
 		"",
 		"Root path to use to resolve relative paths (default: working directory)",
 	)
+	flags.StringSliceVarP(
+		&config.Exclude,
+		"exclude",
+		"e",
+		[]string{},
+		"Directories to exclude",
+	)
 	flags.BoolVarP(
 		&config.UseGit,
 		"git",
