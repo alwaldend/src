@@ -88,11 +88,15 @@ func (self *Parser) parseDirectoryGit(dirPath string, config *ParseConfig) ([]*R
 	result := []*Readme{}
 	for _, filePath := range lines {
 		absPath, err := filepath.Abs(filePath)
-		if self.ignoreReadme(filePath, config) {
-			continue
-		}
 		if err != nil {
 			return nil, fmt.Errorf("could not get absolute path of %s: %w", filePath, err)
+		}
+		ignore, err := self.ignorePath(filePath, config)
+		if err != nil {
+			return nil, err
+		}
+		if ignore {
+			continue
 		}
 		readme, ok, err := self.parseFile(absPath, config)
 		if err != nil {
@@ -105,16 +109,28 @@ func (self *Parser) parseDirectoryGit(dirPath string, config *ParseConfig) ([]*R
 	return result, nil
 }
 
-func (self *Parser) ignoreReadme(filePath string, config *ParseConfig) bool {
-	name := filepath.Base(filePath)
+func (self *Parser) ignorePath(file string, config *ParseConfig) (bool, error) {
+	name := filepath.Base(file)
 	if name != config.ReadmeName {
-		return true
+		return true, nil
 	}
 	ignore := filepath.Join(config.RootPath, config.ReadmeName)
-	if ignore == filePath {
-		return true
+	if ignore == file || file == config.ReadmeName {
+		return true, nil
 	}
-	return false
+	for _, exclude := range config.Exclude {
+		if exclude == file {
+			return true, nil
+		}
+		rel, err := filepath.Rel(exclude, file)
+		if err != nil {
+			return true, fmt.Errorf("could not create relative path of %s and %s: %w", exclude, file, err)
+		}
+		if !strings.Contains(rel, "..") {
+			return true, nil
+		}
+	}
+	return false, nil
 }
 
 func (self *Parser) parseDirectoryWalk(dirPath string, config *ParseConfig) ([]*Readme, error) {
@@ -123,14 +139,15 @@ func (self *Parser) parseDirectoryWalk(dirPath string, config *ParseConfig) ([]*
 		if d.IsDir() {
 			return nil
 		}
-		if self.ignoreReadme(path, config) {
-			return nil
+		ignore, err := self.ignorePath(path, config)
+		if err != nil || ignore {
+			return err
 		}
-		readme, ok, err := self.parseFile(path, config)
+		readme, ignore, err := self.parseFile(path, config)
 		if err != nil {
 			return err
 		}
-		if ok {
+		if ignore {
 			result = append(result, readme)
 		}
 		return nil

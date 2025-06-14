@@ -78,7 +78,7 @@ cat - >$(execpath :update-readme-bin) <<EOF
     #!/usr/bin/env bash
     set -euxo pipefail
     dir="\\${BUILD_WORKING_DIRECTORY}"
-    replacement=\\$($(rootpath //go/readme-tree) parse -C "\\${dir}" -g -o markdown .)
+    replacement=\\$($(rootpath //go/readme-tree) parse -C "\\${dir}" -e "md/docs/src" -g -o markdown .)
     $(rootpath //py/replace-section) -i -s README_CONTENTS -r "\\${replacement}" "\\${dir}/README.md"
     exit
     replacement=\\$($(rootpath //tools:cloc) --md $(git -C "\\${dir}" ls-files | sed "s,/.*,/," | uniq | xargs -I "{}" echo "\\${dir}/{}"))

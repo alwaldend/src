@@ -57,6 +57,7 @@ type ParseConfig struct {
 	UseGit     bool
 	ReadmeName string
 	RootPath   string
+	Exclude    []string
 }
 
 type Config struct {
