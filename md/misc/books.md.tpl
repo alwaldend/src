@@ -16,12 +16,12 @@ title: Books
     {{ range .Data -}}
     {{ range .Data.book -}}
     <tr>
-      <th scope="row">
+      <td>
         {{ .title }}
         {{- range .alt_titles }} <br> ({{ . }}){{ end }}
         <br>
         <img src="{{ .thumbnail }}" alt="Thumbnail of {{ .title }}" height="300"></img>
-      </th>
+      </td>
       <td>
         Authors:
         <ul>
