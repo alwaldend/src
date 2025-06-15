@@ -10,7 +10,6 @@ title: Books
     <tr>
       <th scope="col">Title</th>
       <th scope="col">Info</th>
-      <th scope="col">Links</th>
     </tr>
   </thead>
   <tbody>
@@ -20,23 +19,33 @@ title: Books
       <th scope="row">
         {{ .title }}
         {{- range .alt_titles }} <br> ({{ . }}){{ end }}
-        {{- range .authors }} <br> [{{ .main }}{{ range .alts }}, {{ . }}{{ end }}]{{ end }}
         <br>
         <img src="{{ .thumbnail }}" alt="Thumbnail of {{ .title }}" height="300"></img>
       </th>
       <td>
+        Authors:
+        <ul>
+          {{ range .authors -}}
+          <li>
+            {{ .main }}{{ range .alts }} ({{ . }}){{ end }}
+          </li>
+          {{ end -}}
+        </ul>
+        <br>
         Completion status: {{ .completion }}
         <br>
         Reading status: {{ .reading }}
         <br>
         Quality: {{ .quality }}
+        {{ if .summary }}
         <br>
         Summary: {{ .summary }}
-      </td>
-      <td>
+        {{ end -}}
+        <br>
+        Links:
         <ul>
         {{ range .links -}}
-        <li><a href="{{ .url }}">{{ .title }}</a></li>
+          <li><a href="{{ .url }}">{{ .title }}</a></li>
         {{ end -}}
         </ul>
       </td>
