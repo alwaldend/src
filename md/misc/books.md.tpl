@@ -8,7 +8,7 @@ title: Books
   </caption>
   <thead>
     <tr>
-      <th>Title</th>
+      <th>Thumbnail</th>
       <th>Info</th>
     </tr>
   </thead>
@@ -17,17 +17,20 @@ title: Books
     {{ range .Data.book -}}
     <tr>
       <td>
-        {{ .title }}
-        <br>
         <img
           src="{{ .thumbnail }}"
           alt="Thumbnail of {{ .title }}"
-          width="400"
+          width="600"
         >
       </td>
       <td>
         <table>
           <tbody>
+            <tr>
+              <td>Title</td>
+              <td>{{ .title }}</td>
+            </tr>
+            </tr>
             {{ if .alt_titles -}}
             <tr>
               <td>ALternative titles</td>
