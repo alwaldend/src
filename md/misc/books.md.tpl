@@ -9,9 +9,7 @@ title: Books
   <thead>
     <tr>
       <th scope="col">Title</th>
-      <th scope="col">Quality</th>
-      <th scope="col">Completion</th>
-      <th scope="col">Reading</th>
+      <th scope="col">Info</th>
       <th scope="col">Links</th>
     </tr>
   </thead>
@@ -26,9 +24,15 @@ title: Books
         <br>
         <img src="{{ .thumbnail }}" alt="Thumbnail of {{ .title }}" height="300"></img>
       </th>
-      <td>{{ .quality }}</td>
-      <td>{{ .completion }}</td>
-      <td>{{ .reading }}</td>
+      <td>
+        Completion status: {{ .completion }}
+        <br>
+        Reading status: {{ .reading }}
+        <br>
+        Quality: {{ .quality }}
+        <br>
+        Summary: {{ .summary }}
+      </td>
       <td>
         <ul>
         {{ range .links -}}
