@@ -9,7 +9,7 @@ title: Books
   <thead>
     <tr>
       <th>Thumbnail</th>
-      <th>Info</th>
+      <th colspan="2">Info</th>
     </tr>
   </thead>
   <tbody>
@@ -20,10 +20,9 @@ title: Books
         <img
           src="{{ .thumbnail }}"
           alt="Thumbnail of {{ .title }}"
-          width="600"
         >
       </td>
-      <td>
+      <td colspan="2">
         <table>
           <tbody>
             <tr>
