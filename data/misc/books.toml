@@ -547,3 +547,26 @@ authors = [{ main = "The Plagiarist" }]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/warlock-of-the-magus-world/" },
 ]
+
+[[book]]
+title = "Perfect World"
+thumbnail = "https://cdn.novelupdates.com/images/2018/03/perfectworld.jpeg"
+quality = "Don't remember, children are boring"
+completion = "Completed"
+reading = "Dropped, chapter 75"
+authors = [{ main = "Chen Dong", alts = ["辰东"] }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/perfect-world/" },
+]
+
+[[book]]
+title = "Trash of the Count’s Family"
+thumbnail = "https://cdn.novelupdates.com/images/2022/10/Trash-of-the-Counts-Family.jpg"
+quality = "Bad"
+summary = "Korean slop, the same stuff happens over and over again, endless saving of useless garbage, humble bragging"
+completion = "Not finished"
+reading = "Dropped, chapter 215"
+authors = [{ main = "Yu Ryeo Han", alts = ["유려한"] }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/trash-of-the-counts-family/" },
+]
