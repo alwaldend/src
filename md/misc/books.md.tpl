@@ -20,7 +20,7 @@ title: Books
         {{ .title }}
         {{- range .alt_titles }} <br> ({{ . }}){{ end }}
         <br>
-        <img src="{{ .thumbnail }}" alt="Thumbnail of {{ .title }}" height="300">
+        <img src="{{ .thumbnail }}" alt="Thumbnail of {{ .title }}" width="300">
       </td>
       <td>
         {{ range .authors -}}
