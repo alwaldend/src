@@ -1,7 +1,15 @@
 load("//bzl/macros:al_toml_data.bzl", "al_toml_data")
 
-al_toml_data(
-    name = "books",
-    srcs = ["books.toml"],
-    visibility = ["//visibility:public"],
-)
+_DATA_NAMES = [
+    "books",
+    "countries",
+]
+
+[
+    al_toml_data(
+        name = data_name,
+        srcs = ["{}.toml".format(data_name)],
+        visibility = ["//visibility:public"],
+    )
+    for data_name in _DATA_NAMES
+]
