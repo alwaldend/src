@@ -17,7 +17,7 @@ title: Books
       <td>
         Reverend Insanity <br> (Gu Daoist Master) <br> (蛊真人)
         <br>
-        <img src="https://cdn.novelupdates.com/images/2025/06/Reverend-Insanity.jpg" alt="Thumbnail of Reverend Insanity" height="300">
+        <img src="https://cdn.novelupdates.com/images/2025/06/Reverend-Insanity.jpg" alt="Thumbnail of Reverend Insanity" width="300">
       </td>
       <td>
         Author: Gu Zhen Ren (蛊真人)
@@ -36,7 +36,7 @@ title: Books
       <td>
         My Longevity Simulation
         <br>
-        <img src="https://cdn.novelupdates.com/images/2024/08/My-Longevity-Simulation.jpg" alt="Thumbnail of My Longevity Simulation" height="300">
+        <img src="https://cdn.novelupdates.com/images/2024/08/My-Longevity-Simulation.jpg" alt="Thumbnail of My Longevity Simulation" width="300">
       </td>
       <td>
         Author: Angry Squid (愤怒的乌贼)
@@ -56,7 +56,7 @@ title: Books
       <td>
         Unintended Immortality <br> (The Unintentional Path to Immortality) <br> (我本无意成仙)
         <br>
-        <img src="https://cdn.novelupdates.com/images/2024/11/The-Unintentional-Path-to-Immortality.jpg" alt="Thumbnail of Unintended Immortality" height="300">
+        <img src="https://cdn.novelupdates.com/images/2024/11/The-Unintentional-Path-to-Immortality.jpg" alt="Thumbnail of Unintended Immortality" width="300">
       </td>
       <td>
         Author: Golden Jasmine (金色茉莉花)
@@ -76,7 +76,7 @@ title: Books
       <td>
         Lord of the Mysteries
         <br>
-        <img src="https://cdn.novelupdates.com/images/2018/11/Lord-of-the-Mysteries.jpeg" alt="Thumbnail of Lord of the Mysteries" height="300">
+        <img src="https://cdn.novelupdates.com/images/2018/11/Lord-of-the-Mysteries.jpeg" alt="Thumbnail of Lord of the Mysteries" width="300">
       </td>
       <td>
         Author: Cuttlefish That Loves Diving (爱潜水的乌贼)
@@ -95,7 +95,7 @@ title: Books
       <td>
         Ze Tian Ji <br> (Way of Choices) <br> (择天记)
         <br>
-        <img src="https://cdn.novelupdates.com/images/2015/06/Zetianji.jpg" alt="Thumbnail of Ze Tian Ji" height="300">
+        <img src="https://cdn.novelupdates.com/images/2015/06/Zetianji.jpg" alt="Thumbnail of Ze Tian Ji" width="300">
       </td>
       <td>
         Author: Mao Ni (猫腻)
@@ -114,7 +114,7 @@ title: Books
       <td>
         The Path Toward Heaven <br> (大道朝天)
         <br>
-        <img src="https://cdn.novelupdates.com/images/2017/10/pathtowardheaven.jpg" alt="Thumbnail of The Path Toward Heaven" height="300">
+        <img src="https://cdn.novelupdates.com/images/2017/10/pathtowardheaven.jpg" alt="Thumbnail of The Path Toward Heaven" width="300">
       </td>
       <td>
         Author: Mao Ni (猫腻)
@@ -133,7 +133,7 @@ title: Books
       <td>
         Nightfall <br> (Ever Night) <br> (将夜)
         <br>
-        <img src="https://cdn.novelupdates.com/images/2015/06/JiangYe-.jpg" alt="Thumbnail of Nightfall" height="300">
+        <img src="https://cdn.novelupdates.com/images/2015/06/JiangYe-.jpg" alt="Thumbnail of Nightfall" width="300">
       </td>
       <td>
         Author: Mao Ni (猫腻)
@@ -152,7 +152,7 @@ title: Books
       <td>
         The Experimental Log of the Crazy Lich <br> (疯巫妖的实验日志)
         <br>
-        <img src="https://cdn.novelupdates.com/images/2017/11/The-Experimental-Log-of-the-Crazy-Lich.jpg" alt="Thumbnail of The Experimental Log of the Crazy Lich" height="300">
+        <img src="https://cdn.novelupdates.com/images/2017/11/The-Experimental-Log-of-the-Crazy-Lich.jpg" alt="Thumbnail of The Experimental Log of the Crazy Lich" width="300">
       </td>
       <td>
         Author: Angry Squirrel (愤怒的松鼠)
@@ -171,7 +171,7 @@ title: Books
       <td>
         The Sage Who Transcended Samsara <br> (一世之尊)
         <br>
-        <img src="https://cdn.novelupdates.com/images/2019/05/17435126d0d51135aa4a70eb4c00f08bc818d0de901c670ce979f03a966bf10f.jpg" alt="Thumbnail of The Sage Who Transcended Samsara" height="300">
+        <img src="https://cdn.novelupdates.com/images/2019/05/17435126d0d51135aa4a70eb4c00f08bc818d0de901c670ce979f03a966bf10f.jpg" alt="Thumbnail of The Sage Who Transcended Samsara" width="300">
       </td>
       <td>
         Author: Cuttlefish That Loves Diving (爱潜水的乌贼)
@@ -190,7 +190,7 @@ title: Books
       <td>
         Godclads
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/59663-godclads.jpg?time=1733242909" alt="Thumbnail of Godclads" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/59663-godclads.jpg?time=1733242909" alt="Thumbnail of Godclads" width="300">
       </td>
       <td>
         Author: OstensibleMammal
@@ -210,7 +210,7 @@ title: Books
       <td>
         Defiance of the Fall
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/24709-defiance-of-the-fall.jpg?time=1707310837" alt="Thumbnail of Defiance of the Fall" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/24709-defiance-of-the-fall.jpg?time=1707310837" alt="Thumbnail of Defiance of the Fall" width="300">
       </td>
       <td>
         Author: TheFirstDefier
@@ -230,7 +230,7 @@ title: Books
       <td>
         Matabar
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/matabar-aaaa9rj72ru.jpg?time=1727012411" alt="Thumbnail of Matabar" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/matabar-aaaa9rj72ru.jpg?time=1727012411" alt="Thumbnail of Matabar" width="300">
       </td>
       <td>
         Author: Kirill Klevanski
@@ -250,7 +250,7 @@ title: Books
       <td>
         Renegade Immortal
         <br>
-        <img src="https://cdn.novelupdates.com/images/2016/03/xianni-1.jpg" alt="Thumbnail of Renegade Immortal" height="300">
+        <img src="https://cdn.novelupdates.com/images/2016/03/xianni-1.jpg" alt="Thumbnail of Renegade Immortal" width="300">
       </td>
       <td>
         Author: Er Gen
@@ -269,7 +269,7 @@ title: Books
       <td>
         Shadow Slave
         <br>
-        <img src="https://book-pic.webnovel.com/bookcover/22196546206090805?imageMogr2/thumbnail/600x&imageId=1705256017438" alt="Thumbnail of Shadow Slave" height="300">
+        <img src="https://book-pic.webnovel.com/bookcover/22196546206090805?imageMogr2/thumbnail/600x&imageId=1705256017438" alt="Thumbnail of Shadow Slave" width="300">
       </td>
       <td>
         Author: Guiltythree
@@ -289,7 +289,7 @@ title: Books
       <td>
         The Years of Apocalypse
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/the-years-of-apocalypse-a-time-loop-progression.jpg?time=1706941233" alt="Thumbnail of The Years of Apocalypse" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/the-years-of-apocalypse-a-time-loop-progression.jpg?time=1706941233" alt="Thumbnail of The Years of Apocalypse" width="300">
       </td>
       <td>
         Author: UraniumPhoenix
@@ -309,7 +309,7 @@ title: Books
       <td>
         Book Of The Dead
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-full/47038-book-of-the-dead.jpg?time=1637047029" alt="Thumbnail of Book Of The Dead" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-full/47038-book-of-the-dead.jpg?time=1637047029" alt="Thumbnail of Book Of The Dead" width="300">
       </td>
       <td>
         Author: RinoZ
@@ -329,7 +329,7 @@ title: Books
       <td>
         Downtown Druid
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/79173-downtown-druid.jpg?time=1738855641" alt="Thumbnail of Downtown Druid" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/79173-downtown-druid.jpg?time=1738855641" alt="Thumbnail of Downtown Druid" width="300">
       </td>
       <td>
         Author: Seersucker
@@ -349,7 +349,7 @@ title: Books
       <td>
         A Practical Guide to Sorcery
         <br>
-        <img src="https://www.azaleaellis.com/wp-content/uploads/2022/10/A-Conjuring-of-Ravens-Web-800w-683x1024.jpg" alt="Thumbnail of A Practical Guide to Sorcery" height="300">
+        <img src="https://www.azaleaellis.com/wp-content/uploads/2022/10/A-Conjuring-of-Ravens-Web-800w-683x1024.jpg" alt="Thumbnail of A Practical Guide to Sorcery" width="300">
       </td>
       <td>
         Author: Azalea Ellis
@@ -369,7 +369,7 @@ title: Books
       <td>
         Dungeon Crawler Carl
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-full/29358-dungeon-crawler-carl.jpg" alt="Thumbnail of Dungeon Crawler Carl" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-full/29358-dungeon-crawler-carl.jpg" alt="Thumbnail of Dungeon Crawler Carl" width="300">
       </td>
       <td>
         Author: DoctorHepa
@@ -388,7 +388,7 @@ title: Books
       <td>
         Beware Of Chicken
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-full/beware-of-chicken-aacav1xoeg8.jpg?time=1610566797" alt="Thumbnail of Beware Of Chicken" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-full/beware-of-chicken-aacav1xoeg8.jpg?time=1610566797" alt="Thumbnail of Beware Of Chicken" width="300">
       </td>
       <td>
         Author: Casualfarmer
@@ -407,7 +407,7 @@ title: Books
       <td>
         I Shall Seal the Heavens
         <br>
-        <img src="https://cdn.novelupdates.com/images/2015/06/15_ISSTH.jpg" alt="Thumbnail of I Shall Seal the Heavens" height="300">
+        <img src="https://cdn.novelupdates.com/images/2015/06/15_ISSTH.jpg" alt="Thumbnail of I Shall Seal the Heavens" width="300">
       </td>
       <td>
         Author: Er Gen
@@ -426,7 +426,7 @@ title: Books
       <td>
         Hell Difficulty Tutorial
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg?time=1743538154" alt="Thumbnail of Hell Difficulty Tutorial" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg?time=1743538154" alt="Thumbnail of Hell Difficulty Tutorial" width="300">
       </td>
       <td>
         Author: Cerim
@@ -446,7 +446,7 @@ title: Books
       <td>
         Return of the Runebound Professor
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/68679-return-of-the-runebound-professor.jpg?time=1696109628" alt="Thumbnail of Return of the Runebound Professor" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/68679-return-of-the-runebound-professor.jpg?time=1696109628" alt="Thumbnail of Return of the Runebound Professor" width="300">
       </td>
       <td>
         Author: Actus
@@ -466,7 +466,7 @@ title: Books
       <td>
         I Am Become Death
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/109537-i-am-become-death-a-progression-fantasy.jpg?time=1743174516" alt="Thumbnail of I Am Become Death" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/109537-i-am-become-death-a-progression-fantasy.jpg?time=1743174516" alt="Thumbnail of I Am Become Death" width="300">
       </td>
       <td>
         Author: J.M. Clarke (U Juggernaut)
@@ -485,7 +485,7 @@ title: Books
       <td>
         Are You Even Human
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg?time=1724477376" alt="Thumbnail of Are You Even Human" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg?time=1724477376" alt="Thumbnail of Are You Even Human" width="300">
       </td>
       <td>
         Author: Thundamoo
@@ -505,7 +505,7 @@ title: Books
       <td>
         Ghost of the Truthseeker
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/56136-ghost-of-the-truthseeker.jpg?time=1721186189" alt="Thumbnail of Ghost of the Truthseeker" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/56136-ghost-of-the-truthseeker.jpg?time=1721186189" alt="Thumbnail of Ghost of the Truthseeker" width="300">
       </td>
       <td>
         Author: Strungbound
@@ -525,7 +525,7 @@ title: Books
       <td>
         Changeling
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg?time=1712108062" alt="Thumbnail of Changeling" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg?time=1712108062" alt="Thumbnail of Changeling" width="300">
       </td>
       <td>
         Author: Mecanimus
@@ -545,7 +545,7 @@ title: Books
       <td>
         The Beginning After the End
         <br>
-        <img src="https://upload.wikimedia.org/wikipedia/en/c/cc/The_Beginning_After_the_End_webtoon_volume_1_cover.jpg" alt="Thumbnail of The Beginning After the End" height="300">
+        <img src="https://upload.wikimedia.org/wikipedia/en/c/cc/The_Beginning_After_the_End_webtoon_volume_1_cover.jpg" alt="Thumbnail of The Beginning After the End" width="300">
       </td>
       <td>
         Author: TurtleMe
@@ -564,7 +564,7 @@ title: Books
       <td>
         Rise of the Living Forge
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/79094-rise-of-the-living-forge-stubbing-in-october.jpg?time=1723126402" alt="Thumbnail of Rise of the Living Forge" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/79094-rise-of-the-living-forge-stubbing-in-october.jpg?time=1723126402" alt="Thumbnail of Rise of the Living Forge" width="300">
       </td>
       <td>
         Author: Actus
@@ -583,7 +583,7 @@ title: Books
       <td>
         Vigor Mortis
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/40373-vigor-mortis.jpg?time=1675224407" alt="Thumbnail of Vigor Mortis" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/40373-vigor-mortis.jpg?time=1675224407" alt="Thumbnail of Vigor Mortis" width="300">
       </td>
       <td>
         Author: Thundamoo
@@ -602,7 +602,7 @@ title: Books
       <td>
         Ultimate Level 1
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/76259-ultimate-level-1-litrpg-book-8-stubs-531.jpg?time=1748571204" alt="Thumbnail of Ultimate Level 1" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/76259-ultimate-level-1-litrpg-book-8-stubs-531.jpg?time=1748571204" alt="Thumbnail of Ultimate Level 1" width="300">
       </td>
       <td>
         Author: Dads Bedtime Stories
@@ -621,7 +621,7 @@ title: Books
       <td>
         If It’s for My Daughter, I’d Even Defeat a Demon Lord
         <br>
-        <img src="https://cdn.novelupdates.com/images/2020/05/uchimusuLNv2.jpg" alt="Thumbnail of If It’s for My Daughter, I’d Even Defeat a Demon Lord" height="300">
+        <img src="https://cdn.novelupdates.com/images/2020/05/uchimusuLNv2.jpg" alt="Thumbnail of If It’s for My Daughter, I’d Even Defeat a Demon Lord" width="300">
       </td>
       <td>
         Author: Chirolu
@@ -640,7 +640,7 @@ title: Books
       <td>
         Mark of the Fool
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/41618-mark-of-the-fool.jpg?time=1739370607" alt="Thumbnail of Mark of the Fool" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/41618-mark-of-the-fool.jpg?time=1739370607" alt="Thumbnail of Mark of the Fool" width="300">
       </td>
       <td>
         Author: J.M. Clarke (U Juggernaut)
@@ -659,7 +659,7 @@ title: Books
       <td>
         DIE. RESPAWN. REPEAT.
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/66643-die-respawn-repeat.jpg?time=1718032689" alt="Thumbnail of DIE. RESPAWN. REPEAT." height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/66643-die-respawn-repeat.jpg?time=1718032689" alt="Thumbnail of DIE. RESPAWN. REPEAT." width="300">
       </td>
       <td>
         Author: SilverLinings
@@ -678,7 +678,7 @@ title: Books
       <td>
         System Breaker
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/89249-system-breaker-xianxia-system-apocalypse.jpg?time=1721663785" alt="Thumbnail of System Breaker" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/89249-system-breaker-xianxia-system-apocalypse.jpg?time=1721663785" alt="Thumbnail of System Breaker" width="300">
       </td>
       <td>
         Author: OstensibleMammal
@@ -697,7 +697,7 @@ title: Books
       <td>
         Reborn as a Demonic Tree
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/62881-reborn-as-a-demonic-tree.jpg?time=1739372665" alt="Thumbnail of Reborn as a Demonic Tree" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/62881-reborn-as-a-demonic-tree.jpg?time=1739372665" alt="Thumbnail of Reborn as a Demonic Tree" width="300">
       </td>
       <td>
         Author: XKARNATION
@@ -716,7 +716,7 @@ title: Books
       <td>
         Accel World
         <br>
-        <img src="https://cdn.novelupdates.com/images/2023/08/Accel-World.jpg" alt="Thumbnail of Accel World" height="300">
+        <img src="https://cdn.novelupdates.com/images/2023/08/Accel-World.jpg" alt="Thumbnail of Accel World" width="300">
       </td>
       <td>
         Author: Kawahara Reki
@@ -735,7 +735,7 @@ title: Books
       <td>
         The Jester of Apocalypse
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/62411-the-jester-of-apocalypse.jpg?time=1694501749" alt="Thumbnail of The Jester of Apocalypse" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/62411-the-jester-of-apocalypse.jpg?time=1694501749" alt="Thumbnail of The Jester of Apocalypse" width="300">
       </td>
       <td>
         Author: Robert Blaise
@@ -754,7 +754,7 @@ title: Books
       <td>
         Throne of Magical Arcana
         <br>
-        <img src="https://cdn.novelupdates.com/images/2017/04/Throne-of-Magical-Arcana.jpg" alt="Thumbnail of Throne of Magical Arcana" height="300">
+        <img src="https://cdn.novelupdates.com/images/2017/04/Throne-of-Magical-Arcana.jpg" alt="Thumbnail of Throne of Magical Arcana" width="300">
       </td>
       <td>
         Author: Cuttlefish That Loves Diving
@@ -773,7 +773,7 @@ title: Books
       <td>
         The Charm of Soul Pets
         <br>
-        <img src="https://cdn.novelupdates.com/images/2016/08/The-Charm-of-Soul-Pets-1.jpg" alt="Thumbnail of The Charm of Soul Pets" height="300">
+        <img src="https://cdn.novelupdates.com/images/2016/08/The-Charm-of-Soul-Pets-1.jpg" alt="Thumbnail of The Charm of Soul Pets" width="300">
       </td>
       <td>
         Author: Chaos (乱)
@@ -792,7 +792,7 @@ title: Books
       <td>
         12 Miles Below
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/42367-12-miles-below.jpg?time=1666920024" alt="Thumbnail of 12 Miles Below" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/42367-12-miles-below.jpg?time=1666920024" alt="Thumbnail of 12 Miles Below" width="300">
       </td>
       <td>
         Author: Mark Arrows
@@ -811,7 +811,7 @@ title: Books
       <td>
         Worm
         <br>
-        <img src="https://parahumans.wordpress.com/wp-content/uploads/2011/06/cityscape2.jpg" alt="Thumbnail of Worm" height="300">
+        <img src="https://parahumans.wordpress.com/wp-content/uploads/2011/06/cityscape2.jpg" alt="Thumbnail of Worm" width="300">
       </td>
       <td>
         Author: Wildbow
@@ -830,7 +830,7 @@ title: Books
       <td>
         Full Murderhobo
         <br>
-        <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1598478055i/55134991._SX120_.jpg" alt="Thumbnail of Full Murderhobo" height="300">
+        <img src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1598478055i/55134991._SX120_.jpg" alt="Thumbnail of Full Murderhobo" width="300">
       </td>
       <td>
         Author: Dakota Krout
@@ -849,7 +849,7 @@ title: Books
       <td>
         The Divine Dungeon
         <br>
-        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1476063034i/32509131.jpg" alt="Thumbnail of The Divine Dungeon" height="300">
+        <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1476063034i/32509131.jpg" alt="Thumbnail of The Divine Dungeon" width="300">
       </td>
       <td>
         Author: Dakota Krout
@@ -868,7 +868,7 @@ title: Books
       <td>
         SSS-Class Suicide Hunter
         <br>
-        <img src="https://cdn.novelupdates.com/images/2021/05/SSSClass-Suicide-Hunter.jpg" alt="Thumbnail of SSS-Class Suicide Hunter" height="300">
+        <img src="https://cdn.novelupdates.com/images/2021/05/SSSClass-Suicide-Hunter.jpg" alt="Thumbnail of SSS-Class Suicide Hunter" width="300">
       </td>
       <td>
         Author: Sinnoa
@@ -887,7 +887,7 @@ title: Books
       <td>
         Corpo Age
         <br>
-        <img src="https://www.royalroadcdn.com/public/covers-large/75446-corpo-age-cyberpunk-progression-litrpg.jpg?time=1704495083" alt="Thumbnail of Corpo Age" height="300">
+        <img src="https://www.royalroadcdn.com/public/covers-large/75446-corpo-age-cyberpunk-progression-litrpg.jpg?time=1704495083" alt="Thumbnail of Corpo Age" width="300">
       </td>
       <td>
         Author: RandomBlueCat
@@ -906,7 +906,7 @@ title: Books
       <td>
         Shen Yin Wang Zuo <br> (Sealed Divine Throne) <br> (神印王座)
         <br>
-        <img src="https://cdn.novelupdates.com/images/2015/06/sywz.jpg" alt="Thumbnail of Shen Yin Wang Zuo" height="300">
+        <img src="https://cdn.novelupdates.com/images/2015/06/sywz.jpg" alt="Thumbnail of Shen Yin Wang Zuo" width="300">
       </td>
       <td>
         Author: Tang Jia San Shao (唐家三少)
@@ -925,7 +925,7 @@ title: Books
       <td>
         Warlock of the Magus World
         <br>
-        <img src="https://cdn.novelupdates.com/images/2022/05/Warlock-of-the-Magus-World_1653417756.jpg" alt="Thumbnail of Warlock of the Magus World" height="300">
+        <img src="https://cdn.novelupdates.com/images/2022/05/Warlock-of-the-Magus-World_1653417756.jpg" alt="Thumbnail of Warlock of the Magus World" width="300">
       </td>
       <td>
         Author: The Plagiarist
@@ -944,7 +944,7 @@ title: Books
       <td>
         Perfect World
         <br>
-        <img src="https://cdn.novelupdates.com/images/2018/03/perfectworld.jpeg" alt="Thumbnail of Perfect World" height="300">
+        <img src="https://cdn.novelupdates.com/images/2018/03/perfectworld.jpeg" alt="Thumbnail of Perfect World" width="300">
       </td>
       <td>
         Author: Chen Dong (辰东)
@@ -963,7 +963,7 @@ title: Books
       <td>
         Trash of the Count’s Family
         <br>
-        <img src="https://cdn.novelupdates.com/images/2022/10/Trash-of-the-Counts-Family.jpg" alt="Thumbnail of Trash of the Count’s Family" height="300">
+        <img src="https://cdn.novelupdates.com/images/2022/10/Trash-of-the-Counts-Family.jpg" alt="Thumbnail of Trash of the Count’s Family" width="300">
       </td>
       <td>
         Author: Yu Ryeo Han (유려한)
