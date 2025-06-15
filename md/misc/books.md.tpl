@@ -20,18 +20,13 @@ title: Books
         {{ .title }}
         {{- range .alt_titles }} <br> ({{ . }}){{ end }}
         <br>
-        <img src="{{ .thumbnail }}" alt="Thumbnail of {{ .title }}" height="300"></img>
+        <img src="{{ .thumbnail }}" alt="Thumbnail of {{ .title }}" height="300">
       </td>
       <td>
-        Authors:
-        <ul>
-          {{ range .authors -}}
-          <li>
-            {{ .main }}{{ range .alts }} ({{ . }}){{ end }}
-          </li>
-          {{ end -}}
-        </ul>
+        {{ range .authors -}}
+        Author: {{ .main }}{{ range .alts }} ({{ . }}){{ end }}
         <br>
+        {{ end -}}
         Completion status: {{ .completion }}
         <br>
         Reading status: {{ .reading }}
@@ -42,12 +37,10 @@ title: Books
         Summary: {{ .summary }}
         {{ end -}}
         <br>
-        Links:
-        <ul>
         {{ range .links -}}
-          <li><a href="{{ .url }}">{{ .title }}</a></li>
-        {{ end -}}
-        </ul>
+        Link: <a href="{{ .url }}">{{ .title }}</a>
+        <br>
+        {{- end }}
       </td>
     </tr>
     {{ end -}}
