@@ -2841,5 +2841,72 @@ title: Books
         </table>
       </td>
     </tr>
+    <tr>
+      <td>
+        <img
+          src="https://cdn.novelupdates.com/images/2023/04/Utsuro-no-Hako-to-Zero-no-Maria.jpg"
+          alt="Thumbnail of The Empty Box and Zeroth Maria"
+        >
+      </td>
+      <td colspan="2">
+        <table>
+          <tbody>
+            <tr>
+              <td>Title</td>
+              <td>The Empty Box and Zeroth Maria</td>
+            </tr>
+            </tr>
+            <tr>
+              <td>ALternative titles</td>
+              <td>
+                <ul>
+                  <li>
+                    Utsuro no Hako to Zero no Maria
+                  </li><li>
+                    空ろの箱と零のマリア
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>Authors</td>
+              <td>
+                <ul>
+                  <li>Mikage Eiji</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>Completion status</td>
+              <td>Finished</td>
+            </tr>
+            <tr>
+              <td>Reading status</td>
+              <td>Finished</td>
+            </tr>
+            <tr>
+              <td>Quality</td>
+              <td>Decent?</td>
+            </tr>
+            <tr>
+              <td>Summary</td>
+              <td>Don't remember</td>
+            </tr>
+            <tr>
+              <td>Links</td>
+              <td>
+                <ul>
+                  <li>
+                    <a href="https://www.novelupdates.com/series/utsuro-no-hako-to-zero-no-maria/">
+                      novelupdates
+                    </a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
     </tbody>
 </table>

@@ -1,9 +1,10 @@
 load("//bzl/macros:al_readme.bzl", "al_readme")
-load("//bzl/macros:al_toml_data.bzl", "al_toml_data")
+load("//bzl/rules:al_toml_data.bzl", "al_toml_data")
 
 al_toml_data(
     name = "stylua-config",
     srcs = [":stylua.toml"],
+    visibility = ["//visibility:public"],
 )
 
 al_readme(

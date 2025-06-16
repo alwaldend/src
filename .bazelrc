@@ -72,6 +72,10 @@ common --repo_env=CC=clang
 # enable the shell worker
 common --strategy=Shell=worker
 
+### aspects
+
+#common --aspects bzl/aspects/al_print_deps.bzl%al_print_deps
+
 ### build
 
 build --copt="-Werror"

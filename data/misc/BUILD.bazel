@@ -1,4 +1,4 @@
-load("//bzl/macros:al_toml_data.bzl", "al_toml_data")
+load("//bzl/rules:al_toml_data.bzl", "al_toml_data")
 
 _DATA_NAMES = [
     "books",
