@@ -42,7 +42,6 @@ BZL_LIBS = {
             "al_lua_library": {"deps": [":al_run_tool"]},
             "al_run_tool": {},
             "al_template_files": {},
-            "al_toml_data": {"deps": [":al_run_tool"]},
             "al_install_file": {},
             "al_genrule_with_wheels": {},
             "al_py_binary_shell": {},
@@ -65,6 +64,7 @@ BZL_LIBS = {
         "common_deps": _common_deps,
         "libs": {
             "al_transitive_sources": {},
+            "al_toml_info": {},
         },
     },
     "toolchains": {
@@ -78,6 +78,7 @@ BZL_LIBS = {
         "common_deps": _common_deps,
         "libs": {
             "al_genrule": {},
+            "al_toml_data": {"deps": ["//bzl/providers:al_toml_info"]},
             "al_template_files": {},
             "al_write_script": {},
             "al_unpack_archives": {},

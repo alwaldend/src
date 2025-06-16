@@ -19,7 +19,7 @@ al_print_deps()
 
 | Name | Type |
 | :------------- | :------------- |
-| deps| String |
+| srcs| String |
 
 
 **ATTRIBUTES**

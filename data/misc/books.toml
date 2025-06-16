@@ -593,3 +593,16 @@ authors = [{ main = "The Enlightened Master Crouching Cow", alts = ["卧牛真�
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/forty-millenniums-of-cultivation/" },
 ]
+
+[[book]]
+title = "The Empty Box and Zeroth Maria"
+alt_titles = ["Utsuro no Hako to Zero no Maria", "空ろの箱と零のマリア"]
+thumbnail = "https://cdn.novelupdates.com/images/2023/04/Utsuro-no-Hako-to-Zero-no-Maria.jpg"
+quality = "Decent?"
+summary = "Don't remember"
+completion = "Finished"
+reading = "Finished"
+authors = [{ main = "Mikage Eiji" }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/utsuro-no-hako-to-zero-no-maria/" },
+]

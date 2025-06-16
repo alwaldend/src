@@ -5,7 +5,7 @@ load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 load("//bzl/macros:al_genrule.bzl", "al_genrule")
 load("//bzl/macros:al_readme.bzl", "al_readme")
-load("//bzl/macros:al_toml_data.bzl", "al_toml_data")
+load("//bzl/rules:al_toml_data.bzl", "al_toml_data")
 
 BUILDIFIER_EXCLUDE = [
     "./.git/**/*",
@@ -24,6 +24,7 @@ al_readme(
 al_toml_data(
     name = "pyproject",
     srcs = ["pyproject.toml"],
+    visibility = ["//visibility:public"],
 )
 
 buildifier(
