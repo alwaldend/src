@@ -1205,6 +1205,71 @@ title: Books
     <tr>
       <td>
         <img
+          src="<no value>"
+          alt="Thumbnail of World of Cultivation"
+        >
+      </td>
+      <td colspan="2">
+        <table>
+          <tbody>
+            <tr>
+              <td>Title</td>
+              <td>World of Cultivation</td>
+            </tr>
+            </tr>
+            <tr>
+              <td>ALternative titles</td>
+              <td>
+                <ul>
+                  <li>
+                    修真世界
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>Authors</td>
+              <td>
+                <ul>
+                  <li>Fang Xiang (方想)</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>Completion status</td>
+              <td>Finished</td>
+            </tr>
+            <tr>
+              <td>Reading status</td>
+              <td>Finished</td>
+            </tr>
+            <tr>
+              <td>Quality</td>
+              <td>Good</td>
+            </tr>
+            <tr>
+              <td>Summary</td>
+              <td>9/10. Great book. It's not the best in anything but every part of it is at least decent</td>
+            </tr>
+            <tr>
+              <td>Links</td>
+              <td>
+                <ul>
+                  <li>
+                    <a href="https://www.novelupdates.com/series/world-of-cultivation/">
+                      novelupdates
+                    </a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img
           src="https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg?time=1743538154"
           alt="Thumbnail of Hell Difficulty Tutorial"
         >
@@ -1244,10 +1309,6 @@ title: Books
                   <li>
                     <a href="https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial">
                       royalroad
-                    </a>
-                  </li><li>
-                    <a href="https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial/chapter/2331110/chapter-589-gray-kitten">
-                      chapter
                     </a>
                   </li>
                 </ul>
@@ -1300,10 +1361,6 @@ title: Books
                     <a href="https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed">
                       royalroad
                     </a>
-                  </li><li>
-                    <a href="https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed/chapter/2330195/chapter-702-thats-an-answer">
-                      chapter
-                    </a>
                   </li>
                 </ul>
               </td>
@@ -1346,6 +1403,10 @@ title: Books
             <tr>
               <td>Quality</td>
               <td>Decent</td>
+            </tr>
+            <tr>
+              <td>Summary</td>
+              <td>Nothing exceptional</td>
             </tr>
             <tr>
               <td>Links</td>
@@ -1406,10 +1467,6 @@ title: Books
                     <a href="https://www.royalroad.com/fiction/92549/are-you-even-human">
                       royalroad
                     </a>
-                  </li><li>
-                    <a href="https://www.royalroad.com/fiction/92549/are-you-even-human/chapter/2325503/46-outside-of-the-cage">
-                      chapter
-                    </a>
                   </li>
                 </ul>
               </td>
@@ -1447,11 +1504,15 @@ title: Books
             </tr>
             <tr>
               <td>Reading status</td>
-              <td>Reading, chapter 218</td>
+              <td>Dropped, chapter 220</td>
             </tr>
             <tr>
               <td>Quality</td>
-              <td>Decent</td>
+              <td>Ok</td>
+            </tr>
+            <tr>
+              <td>Summary</td>
+              <td>Feels generic</td>
             </tr>
             <tr>
               <td>Links</td>
@@ -1460,10 +1521,6 @@ title: Books
                   <li>
                     <a href="https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released">
                       royalroad
-                    </a>
-                  </li><li>
-                    <a href="https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released/chapter/2329654/218-the-dao-is-the-dao">
-                      chapter
                     </a>
                   </li>
                 </ul>
@@ -2707,6 +2764,73 @@ title: Books
                 <ul>
                   <li>
                     <a href="https://www.novelupdates.com/series/trash-of-the-counts-family/">
+                      novelupdates
+                    </a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img
+          src="https://cdn.novelupdates.com/images/2017/03/Forty-Millenniums-of-Cultivation.jpg"
+          alt="Thumbnail of Forty Millenniums of Cultivation"
+        >
+      </td>
+      <td colspan="2">
+        <table>
+          <tbody>
+            <tr>
+              <td>Title</td>
+              <td>Forty Millenniums of Cultivation</td>
+            </tr>
+            </tr>
+            <tr>
+              <td>ALternative titles</td>
+              <td>
+                <ul>
+                  <li>
+                    Forty Thousand Years Of Cultivation
+                  </li><li>
+                    修真四万年
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>Authors</td>
+              <td>
+                <ul>
+                  <li>The Enlightened Master Crouching Cow (卧牛真人)</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td>Completion status</td>
+              <td>Finished</td>
+            </tr>
+            <tr>
+              <td>Reading status</td>
+              <td>Dropped, chapter 2935</td>
+            </tr>
+            <tr>
+              <td>Quality</td>
+              <td>0.8</td>
+            </tr>
+            <tr>
+              <td>Summary</td>
+              <td>Good worldbuilding, but too many empty exclamations and not enough substance</td>
+            </tr>
+            <tr>
+              <td>Links</td>
+              <td>
+                <ul>
+                  <li>
+                    <a href="https://www.novelupdates.com/series/forty-millenniums-of-cultivation/">
                       novelupdates
                     </a>
                   </li>

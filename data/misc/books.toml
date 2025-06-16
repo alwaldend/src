@@ -247,6 +247,18 @@ links = [
 ]
 
 [[book]]
+title = "World of Cultivation"
+alt_titles = ["修真世界"]
+quality = "Good"
+completion = "Finished"
+summary = "9/10. Great book. It's not the best in anything but every part of it is at least decent"
+reading = "Finished"
+authors = [{ main = "Fang Xiang", alts = ["方想"] }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/world-of-cultivation/" },
+]
+
+[[book]]
 title = "Hell Difficulty Tutorial"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg?time=1743538154"
 quality = "Decent"
@@ -255,7 +267,6 @@ reading = "Reading, chapter 589"
 authors = [{ main = "Cerim" }]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial" },
-    { title = "chapter", url = "https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial/chapter/2331110/chapter-589-gray-kitten" },
 ]
 
 [[book]]
@@ -267,13 +278,13 @@ reading = "Reading, chapter 702, book 7"
 authors = [{ main = "Actus" }]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed" },
-    { title = "chapter", url = "https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed/chapter/2330195/chapter-702-thats-an-answer" },
 ]
 
 [[book]]
 title = "I Am Become Death"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/109537-i-am-become-death-a-progression-fantasy.jpg?time=1743174516"
 quality = "Decent"
+summary = "Nothing exceptional"
 completion = "Not finished"
 reading = "Reading, chapter 55"
 authors = [{ main = "J.M. Clarke", alts = ["U Juggernaut"] }]
@@ -290,19 +301,18 @@ reading = "Dropped, chapter 47"
 authors = [{ main = "Thundamoo" }]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/92549/are-you-even-human" },
-    { title = "chapter", url = "https://www.royalroad.com/fiction/92549/are-you-even-human/chapter/2325503/46-outside-of-the-cage" },
 ]
 
 [[book]]
 title = "Ghost of the Truthseeker"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/56136-ghost-of-the-truthseeker.jpg?time=1721186189"
-quality = "Decent"
+quality = "Ok"
+summary = "Feels generic"
 completion = "Not finished"
-reading = "Reading, chapter 218"
+reading = "Dropped, chapter 220"
 authors = [{ main = "Strungbound" }]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released" },
-    { title = "chapter", url = "https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released/chapter/2329654/218-the-dao-is-the-dao" },
 ]
 
 [[book]]
@@ -569,4 +579,17 @@ reading = "Dropped, chapter 215"
 authors = [{ main = "Yu Ryeo Han", alts = ["유려한"] }]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/trash-of-the-counts-family/" },
+]
+
+[[book]]
+title = "Forty Millenniums of Cultivation"
+alt_titles = ["Forty Thousand Years Of Cultivation", "修真四万年"]
+thumbnail = "https://cdn.novelupdates.com/images/2017/03/Forty-Millenniums-of-Cultivation.jpg"
+quality = "0.8"
+summary = "Good worldbuilding, but too many empty exclamations and not enough substance"
+completion = "Finished"
+reading = "Dropped, chapter 2935"
+authors = [{ main = "The Enlightened Master Crouching Cow", alts = ["卧牛真人"] }]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/forty-millenniums-of-cultivation/" },
 ]
