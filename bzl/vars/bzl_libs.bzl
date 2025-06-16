@@ -17,6 +17,7 @@ BZL_LIBS = {
     "aspects": {
         "libs": {
             "al_print_deps": {},
+            "al_toml_validate": {"deps": ["//bzl/providers:al_toml_info"]},
         },
         "common_deps": _common_deps,
     },
