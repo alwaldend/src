@@ -2,7 +2,7 @@ load("//bzl/providers:al_toml_info.bzl", "AlTomlInfo")
 
 def _impl(ctx):
     return [
-        DefaultInfo(files = depset(direct = ctx.files.srcs)),
+        DefaultInfo(files = depset(direct = ctx.files.srcs, transitive = ctx.files.deps)),
         AlTomlInfo(srcs = ctx.files.srcs, deps = ctx.files.deps),
     ]
 
