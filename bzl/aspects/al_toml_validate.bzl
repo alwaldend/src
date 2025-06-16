@@ -1,7 +1,7 @@
 load("//bzl/providers:al_toml_info.bzl", "AlTomlInfo")
 
 def _run(ctx, script, tomlv, file):
-    output = ctx.actions.declare_file("{}-tomlv-mark".format(ctx.label.name))
+    output = ctx.actions.declare_file("{}-tomlv-output".format(ctx.label.name))
     ctx.actions.run(
         executable = script,
         inputs = [file, tomlv],
@@ -24,15 +24,13 @@ def _impl(target, ctx):
         content = """\
             #!/usr/bin/env sh
             set -eu
-            mark="${1}"
+            output="${1}"
             shift
-            "${@}"
-            touch "${mark}"
+            "${@}" 2>&1 | tee "${output}"
         """,
     )
-    for src in ctx.rule.attr.srcs:
-        for file in src.files.to_list():
-            outputs.append(_run(ctx, script, tomlv, file))
+    for file in ctx.rule.files.srcs:
+        outputs.append(_run(ctx, script, tomlv, file))
     return [
         OutputGroupInfo(
             al_toml_validate = depset(direct = outputs),
