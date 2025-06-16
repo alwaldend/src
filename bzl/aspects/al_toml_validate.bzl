@@ -1,7 +1,7 @@
 load("//bzl/providers:al_toml_info.bzl", "AlTomlInfo")
 
 def _impl(target, ctx):
-    if not hasattr(ctx.rule.attr, "srcs"):
+    if ctx.label.repo_name or not hasattr(ctx.rule.attr, "srcs"):
         return []
 
     script = ctx.actions.declare_file("{}-script".format(ctx.label.name))
