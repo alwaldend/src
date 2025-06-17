@@ -1,4 +1,9 @@
+load("//bzl/macros:al_readme.bzl", "al_readme")
 load("//bzl/rules:al_toml_data.bzl", "al_toml_data")
+
+al_readme(
+    name = "readme",
+)
 
 al_toml_data(
     name = "books",

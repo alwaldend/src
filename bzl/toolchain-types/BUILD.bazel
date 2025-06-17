@@ -1,9 +1,15 @@
-load("//bzl/vars:toolchain_types.bzl", "TOOLCHAIN_TYPES")
+load("//bzl/macros:al_readme.bzl", "al_readme")
 
-[
-    toolchain_type(
-        name = toolchain,
-        visibility = ["//visibility:public"],
-    )
-    for toolchain in TOOLCHAIN_TYPES.keys()
-]
+al_readme(
+    name = "readme",
+)
+
+toolchain_type(
+    name = "al-qt",
+    visibility = ["//visibility:public"],
+)
+
+toolchain_type(
+    name = "al-drawio",
+    visibility = ["//visibility:public"],
+)

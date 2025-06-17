@@ -68,7 +68,7 @@ BZL_LIBS = {
         },
     },
     "toolchains": {
-        "common_deps": _common_deps + ["//bzl/vars:toolchain_types"],
+        "common_deps": _common_deps,
         "libs": {
             "al_current_qt_toolchain": {},
             "al_preinstalled_qt_toolchain": {},
@@ -88,7 +88,7 @@ BZL_LIBS = {
         "common_deps": _common_deps,
         "libs": {
             "bzl_libs": {},
-            "toolchain_types": {},
+            "readmes": {},
         },
     },
 }

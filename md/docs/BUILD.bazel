@@ -1,5 +1,11 @@
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+load("//bzl/macros:al_readme.bzl", "al_readme")
 load("//bzl/vars:bzl_libs.bzl", "BZL_LIBS")
+load("//bzl/vars:readmes.bzl", "READMES")
+
+al_readme(
+    name = "readme",
+)
 
 write_source_files(
     name = "write",
@@ -8,7 +14,7 @@ write_source_files(
         for dir_name, dir_config in BZL_LIBS.items()
         for lib in dir_config["libs"].keys()
     } | {
-        "src/bzl/{}/README.md".format(dir_name): "//bzl/{}:readme".format(dir_name)
-        for dir_name, dir_config in BZL_LIBS.items()
+        readme.replace("//:readme", "src/README.md").replace("//", "src/").replace(":readme", "/README.md"): readme
+        for readme in READMES
     },
 )
