@@ -4,38 +4,34 @@ load("//bzl/rules:al_write_script.bzl", "al_write_script")
 
 def al_bzl_library(
         name,
+        visibility,
         src = None,
-        stardoc_out = None,
-        deps = [],
-        visibility = ["//visibility:public"],
-        replace_section_label = "//py/replace-section"):
+        deps = []):
     """
     Generate targets for a bzl library
 
     Targets:
     - ${name}: bzl_library
-    - ${name}-stardoc: stardoc target
+    - ${name}-stardoc: stardoc target (if src is passed)
 
     Args:
-        name: library name
-        src: source file (default: `${name}.bzl`)
-        stadoc_out: output stardoc (default: `${name}.md`)
-        deps: bzl_library deps
+        name (str): library name
+        src: (Optinal[str]): bzl source file
+        visibility (list[str]): visibility
+        deps (list[str]): bzl_library deps
     """
-    if not src:
-        src = "{}.bzl".format(name)
-    if not stardoc_out:
-        stardoc_out = "{}.md".format(name)
+    stardoc_out = "{}.md".format(name)
     bzl_library(
         name = name,
-        srcs = [src],
+        srcs = [src] if src else [],
         deps = deps,
         visibility = visibility,
     )
-    stardoc(
-        name = "{}-stardoc".format(name),
-        out = stardoc_out,
-        input = src,
-        deps = [name],
-        visibility = visibility,
-    )
+    if src:
+        stardoc(
+            name = "{}-stardoc".format(name),
+            out = stardoc_out,
+            input = src,
+            deps = [name],
+            visibility = visibility,
+        )

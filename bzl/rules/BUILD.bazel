@@ -1,11 +1,47 @@
-load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//bzl/macros:al_bzl_library.bzl", "al_bzl_library")
 load("//bzl/macros:al_readme.bzl", "al_readme")
-load("//bzl/vars:bzl_libs.bzl", "BZL_LIBS")
 
-al_bzl_library_map(
-    name = "libs",
-    common_deps = BZL_LIBS["rules"]["common_deps"],
-    libs = BZL_LIBS["rules"]["libs"],
+al_bzl_library(
+    name = "rules",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":al_genrule",
+        ":al_template_files",
+        ":al_toml_data",
+        ":al_unpack_archives",
+        ":al_write_script",
+    ],
+)
+
+al_bzl_library(
+    name = "al_genrule",
+    src = "al_genrule.bzl",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_library(
+    name = "al_toml_data",
+    src = "al_toml_data.bzl",
+    visibility = ["//visibility:public"],
+    deps = ["//bzl/providers:al_toml_info"],
+)
+
+al_bzl_library(
+    name = "al_template_files",
+    src = "al_template_files.bzl",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_library(
+    name = "al_write_script",
+    src = "al_write_script.bzl",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_library(
+    name = "al_unpack_archives",
+    src = "al_write_script.bzl",
+    visibility = ["//visibility:public"],
 )
 
 al_readme(

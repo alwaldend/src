@@ -1,6 +1,6 @@
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 load("//bzl/macros:al_readme.bzl", "al_readme")
-load("//bzl/rules:al_template_files.bzl", "al_template_files")
+load("//bzl/macros:al_template_files.bzl", "al_template_files")
 
 al_readme(
     name = "readme",
