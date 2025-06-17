@@ -1,4 +1,4 @@
-load("//bzl/macros:al_bzl_library.bzl", "al_bzl_library")
+load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//bzl/macros:al_genquery_write_to_source_file.bzl", "al_genquery_write_to_source_file")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 
@@ -6,13 +6,13 @@ al_readme(
     name = "readme",
 )
 
-al_bzl_library(
+al_bzl_library_map(
     name = "vars",
+    libs = {
+        "al_bzl_libs": [],
+        "al_readmes": [],
+    },
     visibility = ["//visibility:public"],
-    deps = [
-        ":al_bzl_libs",
-        ":al_readmes",
-    ],
 )
 
 al_genquery_write_to_source_file(
@@ -33,16 +33,4 @@ al_genquery_write_to_source_file(
     out_file = "al_bzl_libs.bzl",
     scope = ["//bzl"],
     var_name = "AL_BZL_LIBS",
-)
-
-al_bzl_library(
-    name = "al_bzl_libs",
-    src = "al_bzl_libs.bzl",
-    visibility = ["//visibility:public"],
-)
-
-al_bzl_library(
-    name = "al_readmes",
-    src = "al_readmes.bzl",
-    visibility = ["//visibility:public"],
 )
