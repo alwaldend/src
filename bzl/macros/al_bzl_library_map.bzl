@@ -1,25 +1,25 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
-load(":al_bzl_library.bzl", "al_bzl_library")
-load(":al_md_data.bzl", "al_md_data")
 
-def al_bzl_library_map(name, libs, common_deps = [], visibility = ["//visibility:public"]):
+def al_bzl_library_map(name, libs, **kwargs):
     """
-    Create al_bzl_library targets from a map
-
-    Targets:
-    - ${name}-stardoc: all stardoc markdown
-    - ${name}: all bzl_library targets
+    Create bzl_library targets from a map
 
     Args:
-        name: al_md_data name
-        libs: map of al_bzl_library, keys are names, values are kwargs for
-            al_bzl_library
-        common_deps: list of common blz_library deps
-        visibility: visibility
+        name (str): combined bzl_library target name
+        libs (dict[str, list[str]]): bzl_library names
+        **kwargs: bzl_library kwargs
     """
-    for key, config in libs.items():
-        al_bzl_library(
-            name = key,
-            deps = common_deps + libs[key].get("deps", []),
-            visibility = libs[key].get("visibility", visibility),
+    bzl_library(
+        name = name,
+        deps = libs.keys(),
+        **kwargs
+    )
+    for lib_name, lib_deps in libs.items():
+        lib_srcs = ["{}.bzl".format(lib_name)]
+        native.exports_files(lib_srcs)
+        bzl_library(
+            name = lib_name,
+            srcs = lib_srcs,
+            deps = lib_deps,
+            **kwargs
         )

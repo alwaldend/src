@@ -1,23 +1,16 @@
-load("//bzl/macros:al_bzl_library.bzl", "al_bzl_library")
+load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 
-al_bzl_library(
+al_bzl_library_map(
     name = "extensions",
+    libs = {
+        "al_shellcheck": [
+            "@bazel_tools//tools/build_defs/repo:cache.bzl",
+            "@bazel_tools//tools/build_defs/repo:http.bzl",
+            "@bazel_tools//tools/build_defs/repo:utils.bzl",
+        ],
+    },
     visibility = ["//visibility:public"],
-    deps = [
-        ":al_shellcheck",
-    ],
-)
-
-al_bzl_library(
-    name = "al_shellcheck",
-    src = "al_shellcheck.bzl",
-    visibility = ["//visibility:public"],
-    deps = [
-        "@bazel_tools//tools/build_defs/repo:cache.bzl",
-        "@bazel_tools//tools/build_defs/repo:http.bzl",
-        "@bazel_tools//tools/build_defs/repo:utils.bzl",
-    ],
 )
 
 al_readme(

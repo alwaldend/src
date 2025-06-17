@@ -4,7 +4,6 @@ AL_BZL_LIBS = [
     "//bzl/extensions:al_shellcheck",
     "//bzl/macros:al_alias_map",
     "//bzl/macros:al_apply_patches",
-    "//bzl/macros:al_bzl_library",
     "//bzl/macros:al_bzl_library_map",
     "//bzl/macros:al_combine_files",
     "//bzl/macros:al_compile_pip_requirements_combined",
