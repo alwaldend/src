@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
 	"text/template"
 
 	"github.com/BurntSushi/toml"
@@ -13,8 +14,9 @@ import (
 type Templater struct{}
 
 type TemplateDataFile struct {
-	Path string
-	Data any
+	Path  string
+	Lines []string
+	Data  any
 }
 
 type TemplateContext struct {
@@ -55,20 +57,36 @@ func (self *Templater) TemplateFiles(dataPaths []string, templatePath string, ou
 }
 
 func (self *Templater) loadData(path string) (*TemplateDataFile, error) {
-	file, err := os.ReadFile(path)
+	fileBytes, err := os.ReadFile(path)
 	if err != nil {
 		return nil, fmt.Errorf("could not read %s: %w", path, err)
+	}
+	expr, err := regexp.Compile("\r?\n")
+	if err != nil {
+		return nil, fmt.Errorf("could not compile regex: %w", err)
+	}
+	fileString := string(fileBytes)
+	fileLines := expr.Split(fileString, -1)
+	fileLinesCount := len(fileLines)
+	if fileLinesCount != 0 && fileLines[fileLinesCount-1] == "" {
+		fileLines = fileLines[:fileLinesCount-1]
+		fileLinesCount -= 1
 	}
 	extension := filepath.Ext(path)
 	var data any
 	switch extension {
 	case ".toml":
-		_, err := toml.Decode(string(file), &data)
+		_, err := toml.Decode(fileString, &data)
 		if err != nil {
 			return nil, err
 		}
+	case ".txt":
 	default:
 		return nil, fmt.Errorf("unsupported extension %s: %s", extension, path)
 	}
-	return &TemplateDataFile{Path: path, Data: data}, nil
+	return &TemplateDataFile{
+		Path:  path,
+		Data:  data,
+		Lines: fileLines,
+	}, nil
 }

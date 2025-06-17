@@ -1,11 +1,211 @@
-load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//bzl/macros:al_bzl_library.bzl", "al_bzl_library")
 load("//bzl/macros:al_readme.bzl", "al_readme")
-load("//bzl/vars:bzl_libs.bzl", "BZL_LIBS")
 
-al_bzl_library_map(
-    name = "libs",
-    common_deps = BZL_LIBS["macros"]["common_deps"],
-    libs = BZL_LIBS["macros"]["libs"],
+al_bzl_library(
+    name = "macros",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":al_alias_map",
+        ":al_apply_patches",
+        ":al_bzl_library",
+        ":al_bzl_library_map",
+        ":al_combine_files",
+        ":al_compile_pip_requirements_combined",
+        ":al_genquery_write_to_source_file",
+        ":al_genrule",
+        ":al_genrule_src",
+        ":al_genrule_with_wheels",
+        ":al_go_checkers",
+        ":al_install_file",
+        ":al_lua_library",
+        ":al_md_data",
+        ":al_pkg_tar_combined",
+        ":al_py_binary_shell",
+        ":al_py_checker",
+        ":al_py_checkers",
+        ":al_readme",
+        ":al_run_tool",
+        ":al_sh_library",
+        ":al_template_files",
+    ],
+)
+
+al_bzl_library(
+    name = "al_bzl_library",
+    src = "al_bzl_library.bzl",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//bzl/rules:al_write_script",
+        "@bazel_skylib//:bzl_library",
+        "@stardoc//stardoc:stardoc_lib",
+    ],
+)
+
+al_bzl_library(
+    name = "al_bzl_library_map",
+    src = "al_bzl_library_map.bzl",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":al_bzl_library",
+        ":al_md_data",
+    ],
+)
+
+al_bzl_library(
+    name = "al_lua_library",
+    src = "al_lua_library.bzl",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":al_run_tool",
+        "@rules_pkg//pkg:bzl_srcs",
+    ],
+)
+
+al_bzl_library(
+    name = "al_run_tool",
+    src = "al_run_tool.bzl",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@bazel_skylib//rules:native_binary",
+        "@bazel_skylib//rules:run_binary",
+        "@rules_shell//shell:rules_bzl",
+    ],
+)
+
+al_bzl_library(
+    name = "al_template_files",
+    src = "al_template_files.bzl",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//bzl/rules:al_template_files",
+        "//bzl/rules:al_write_script",
+    ],
+)
+
+al_bzl_library(
+    name = "al_install_file",
+    src = "al_install_file.bzl",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@rules_python//python:py_binary_bzl",
+    ],
+)
+
+al_bzl_library(
+    name = "al_genrule_with_wheels",
+    src = "al_genrule_with_wheels.bzl",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_library(
+    name = "al_py_binary_shell",
+    src = "al_py_binary_shell.bzl",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@rules_python//python:py_binary_bzl",
+    ],
+)
+
+al_bzl_library(
+    name = "al_genrule_src",
+    src = "al_genrule_src.bzl",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_library(
+    name = "al_pkg_tar_combined",
+    src = "al_pkg_tar_combined.bzl",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_library(
+    name = "al_apply_patches",
+    src = "al_apply_patches.bzl",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_library(
+    name = "al_combine_files",
+    src = "al_combine_files.bzl",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_library(
+    name = "al_compile_pip_requirements_combined",
+    src = "al_compile_pip_requirements_combined.bzl",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":al_combine_files",
+        "@rules_python//python:pip_bzl",
+    ],
+)
+
+al_bzl_library(
+    name = "al_sh_library",
+    src = "al_sh_library.bzl",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@rules_shell//shell:rules_bzl",
+    ],
+)
+
+al_bzl_library(
+    name = "al_py_checker",
+    src = "al_py_checker.bzl",
+    visibility = ["//visibility:public"],
+    deps = [":al_run_tool"],
+)
+
+al_bzl_library(
+    name = "al_py_checkers",
+    src = "al_py_checkers.bzl",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":al_py_checker",
+    ],
+)
+
+al_bzl_library(
+    name = "al_genrule",
+    src = "al_genrule.bzl",
+    visibility = ["//visibility:public"],
+    deps = ["//bzl/rules:al_genrule"],
+)
+
+al_bzl_library(
+    name = "al_go_checkers",
+    src = "al_go_checkers.bzl",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_library(
+    name = "al_alias_map",
+    src = "al_alias_map.bzl",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_library(
+    name = "al_md_data",
+    src = "al_md_data.bzl",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_library(
+    name = "al_readme",
+    src = "al_readme.bzl",
+    visibility = ["//visibility:public"],
+    deps = [":al_md_data"],
+)
+
+al_bzl_library(
+    name = "al_genquery_write_to_source_file",
+    src = "al_genquery_write_to_source_file.bzl",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":al_template_files",
+        "@aspect_bazel_lib//lib:write_source_files",
+        "@bazel_skylib//rules:write_file",
+    ],
 )
 
 al_readme(

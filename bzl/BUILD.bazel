@@ -1,5 +1,20 @@
+load("//bzl/macros:al_bzl_library.bzl", "al_bzl_library")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 
 al_readme(
     name = "readme",
+)
+
+al_bzl_library(
+    name = "bzl",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//bzl/aspects",
+        "//bzl/extensions",
+        "//bzl/macros",
+        "//bzl/providers",
+        "//bzl/rules",
+        "//bzl/toolchains",
+        "//bzl/vars",
+    ],
 )

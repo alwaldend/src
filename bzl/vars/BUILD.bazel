@@ -1,13 +1,48 @@
-load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//bzl/macros:al_bzl_library.bzl", "al_bzl_library")
+load("//bzl/macros:al_genquery_write_to_source_file.bzl", "al_genquery_write_to_source_file")
 load("//bzl/macros:al_readme.bzl", "al_readme")
-load("//bzl/vars:bzl_libs.bzl", "BZL_LIBS")
-
-al_bzl_library_map(
-    name = "libs",
-    common_deps = BZL_LIBS["vars"]["common_deps"],
-    libs = BZL_LIBS["vars"]["libs"],
-)
 
 al_readme(
     name = "readme",
+)
+
+al_bzl_library(
+    name = "vars",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":al_bzl_libs",
+        ":al_readmes",
+    ],
+)
+
+al_genquery_write_to_source_file(
+    name = "al_bzl_libs",
+    expression = """
+        filter(
+            "^//",
+            attr(
+                "srcs",
+                ".{3,}",
+                kind(
+                    "bzl_library",
+                    deps("//bzl")
+                )
+            )
+        )
+    """,
+    out_file = "al_bzl_libs.bzl",
+    scope = ["//bzl"],
+    var_name = "AL_BZL_LIBS",
+)
+
+al_bzl_library(
+    name = "al_bzl_libs",
+    src = "al_bzl_libs.bzl",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_library(
+    name = "al_readmes",
+    src = "al_readmes.bzl",
+    visibility = ["//visibility:public"],
 )

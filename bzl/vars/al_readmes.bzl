@@ -1,4 +1,4 @@
-READMES = [
+AL_READMES = [
     "//rs:readme",
     "//rs/tools:readme",
     "//pl:readme",

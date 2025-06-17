@@ -1,11 +1,26 @@
-load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//bzl/macros:al_bzl_library.bzl", "al_bzl_library")
 load("//bzl/macros:al_readme.bzl", "al_readme")
-load("//bzl/vars:bzl_libs.bzl", "BZL_LIBS")
 
-al_bzl_library_map(
-    name = "libs",
-    common_deps = BZL_LIBS["aspects"]["common_deps"],
-    libs = BZL_LIBS["aspects"]["libs"],
+al_bzl_library(
+    name = "aspects",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":al_print_deps",
+        ":al_toml_validate",
+    ],
+)
+
+al_bzl_library(
+    name = "al_print_deps",
+    src = "al_print_deps.bzl",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_library(
+    name = "al_toml_validate",
+    src = "al_toml_validate.bzl",
+    visibility = ["//visibility:public"],
+    deps = ["//bzl/providers:al_toml_info"],
 )
 
 al_readme(
