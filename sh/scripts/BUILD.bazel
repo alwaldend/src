@@ -1,5 +1,10 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("//bzl/macros:al_readme.bzl", "al_readme")
 load("//bzl/macros:al_sh_library.bzl", "al_sh_library")
+
+al_readme(
+    name = "readme",
+)
 
 al_sh_library(name = "readme-tree")
 

@@ -1,4 +1,9 @@
 load("@rules_cc//cc:defs.bzl", "cc_library")
+load("//bzl/macros:al_readme.bzl", "al_readme")
+
+al_readme(
+    name = "readme",
+)
 
 cc_library(
     name = "base64",

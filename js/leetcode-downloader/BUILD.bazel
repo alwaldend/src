@@ -1,4 +1,9 @@
 load("@aspect_rules_js//js:defs.bzl", "js_library")
+load("//bzl/macros:al_readme.bzl", "al_readme")
+
+al_readme(
+    name = "readme",
+)
 
 js_library(
     name = "lib",

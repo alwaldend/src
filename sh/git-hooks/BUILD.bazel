@@ -1,4 +1,9 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load("//bzl/macros:al_readme.bzl", "al_readme")
+
+al_readme(
+    name = "readme",
+)
 
 genrule(
     name = "install",

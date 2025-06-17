@@ -1,4 +1,9 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//bzl/macros:al_readme.bzl", "al_readme")
+
+al_readme(
+    name = "readme",
+)
 
 go_library(
     name = "readme-tree_lib",
