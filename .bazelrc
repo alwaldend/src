@@ -74,14 +74,12 @@ common --strategy=Shell=worker
 
 ### aspects
 
-common --output_groups validation
-
 # common --config=al_print_deps
 common:al_print_deps --aspects bzl/aspects/al_print_deps.bzl%al_print_deps
 
-# common --config=al_toml_validate
+common --config=al_toml_validate
 common:al_toml_validate --aspects bzl/aspects/al_toml_validate.bzl%al_toml_validate
-common:al_toml_validate --output_groups al_toml_validate
+common:al_toml_validate --output_groups=+al_toml_validate
 
 ### build
 

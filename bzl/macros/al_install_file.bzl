@@ -1,10 +1,9 @@
 load("@rules_python//python:py_binary.bzl", "py_binary")
-load("//bzl/vars:labels.bzl", "LABELS")
 
 def al_install_file(
         name,
         args = [],
-        install_file_label = LABELS.install_file,
+        install_file_label = "//py/install-file:lib",
         visibility = ["//visibility:public"],
         **py_binary_kwargs):
     """

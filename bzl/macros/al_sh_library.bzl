@@ -1,14 +1,13 @@
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("@rules_shell//shell:sh_library.bzl", "sh_library")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
-load("//bzl/vars:labels.bzl", "LABELS")
 
 def al_sh_library(
         name,
-        shfmt_src = LABELS.shfmt,
-        editorconfig_src = LABELS.editorconfig,
-        shellcheck_src = LABELS.shellcheck,
-        run_args_src = LABELS.run_args,
+        shfmt_src = "@cc_mvdan_sh_v3//cmd/shfmt:shfmt",
+        editorconfig_src = "//:.editorconfig",
+        shellcheck_src = "@com-github-koalaman-shellcheck//:shellcheck",
+        run_args_src = "//sh/scripts:run-args-lib",
         visibility = ["//visibility:public"],
         **common_kwargs):
     """

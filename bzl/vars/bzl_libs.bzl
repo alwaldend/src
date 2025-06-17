@@ -32,7 +32,6 @@ BZL_LIBS = {
             "//bzl/rules:al_genrule",
             "//bzl/rules:al_template_files",
             "//bzl/rules:al_write_script",
-            "//bzl/vars:labels",
         ],
         "libs": {
             "al_bzl_library": {},
@@ -88,7 +87,6 @@ BZL_LIBS = {
     "vars": {
         "common_deps": _common_deps,
         "libs": {
-            "labels": {},
             "bzl_libs": {},
             "toolchain_types": {},
         },

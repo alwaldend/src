@@ -1,15 +1,14 @@
 load("//bzl/rules:al_toml_data.bzl", "al_toml_data")
 
-_DATA_NAMES = [
-    "books",
-    "countries",
-]
+al_toml_data(
+    name = "books",
+    srcs = ["books.toml"],
+    visibility = ["//visibility:public"],
+)
 
-[
-    al_toml_data(
-        name = data_name,
-        srcs = ["{}.toml".format(data_name)],
-        visibility = ["//visibility:public"],
-    )
-    for data_name in _DATA_NAMES
-]
+al_toml_data(
+    name = "countries",
+    srcs = ["countries.toml"],
+    visibility = ["//visibility:public"],
+    deps = [":books"],
+)

@@ -1,7 +1,6 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@stardoc//stardoc:stardoc.bzl", "stardoc")
 load("//bzl/rules:al_write_script.bzl", "al_write_script")
-load("//bzl/vars:labels.bzl", "LABELS")
 
 def al_bzl_library(
         name,
@@ -9,7 +8,7 @@ def al_bzl_library(
         stardoc_out = None,
         deps = [],
         visibility = ["//visibility:public"],
-        replace_section_label = LABELS.replace_section):
+        replace_section_label = "//py/replace-section"):
     """
     Generate targets for a bzl library
 

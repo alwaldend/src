@@ -1,12 +1,11 @@
 load("@rules_python//python:py_binary.bzl", "py_binary")
-load("//bzl/vars:labels.bzl", "LABELS")
 
 def al_py_binary_shell(
         name,
         deps = [],
         srcs = [],
         shell_type = "python",
-        shell_label = LABELS.bazel_python_shell,
+        shell_label = "//py/bazel-python-shell:library",
         **kwargs):
     """
     Create a py_binary target that allows you to run commands in proper python environment

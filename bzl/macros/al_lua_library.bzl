@@ -1,13 +1,12 @@
-load("@rules_pkg//pkg/private/tar:tar.bzl", "pkg_tar")
-load("//bzl/vars:labels.bzl", "LABELS")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load(":al_run_tool.bzl", "al_run_tool")
 
 def al_lua_library(
         name,
         srcs,
         check = [],
-        stylua_config_label = LABELS.stylua_config,
-        stylua_label = LABELS.stylua,
+        stylua_config_label = "//lua:stylua-config",
+        stylua_label = "@com-alwaldend-src-cargo//:stylua__stylua",
         pkg_tar_kwargs = {},
         visibility = ["//visibility:public"]):
     """
