@@ -1,13 +1,12 @@
-load("//bzl/vars:labels.bzl", "LABELS")
 load(":al_py_checker.bzl", "al_py_checker")
 
 def al_py_checkers(
         srcs,
-        isort_label = LABELS.isort,
-        black_label = LABELS.black,
-        mypy_label = LABELS.mypy,
-        flake8_label = LABELS.flake8,
-        pyproject_label = LABELS.pyproject):
+        isort_label = "//py:isort",
+        black_label = "//py:black",
+        mypy_label = "//py:mypy",
+        flake8_label = "//py:flake8",
+        pyproject_label = "//:pyproject"):
     """
     Generate -fix and -test targets for python checkers
 
