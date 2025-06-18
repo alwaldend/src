@@ -1,0 +1,12 @@
+{
+    "homepage": "https://docsy.dev",
+    "maintainers": [
+    ],
+    "repository": [
+        "github:google/docsy"
+    ],
+    "versions": [
+        "0.12.0"
+    ],
+    "yanked_versions": {}
+}
