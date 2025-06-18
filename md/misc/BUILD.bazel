@@ -4,6 +4,7 @@ load("//bzl/macros:al_template_files.bzl", "al_template_files")
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
 )
 
 al_template_files(
@@ -11,11 +12,4 @@ al_template_files(
     srcs = ["books.md.tpl"],
     outs = ["books-gen.md"],
     data = ["//data/misc:books"],
-)
-
-write_source_files(
-    name = "write",
-    files = {
-        "books.md": ":books-gen.md",
-    },
 )

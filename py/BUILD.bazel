@@ -27,4 +27,5 @@ compile_pip_requirements(
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
 )

@@ -15,4 +15,5 @@ al_unpack_archives(
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
 )

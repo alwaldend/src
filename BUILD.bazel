@@ -3,22 +3,41 @@ load("@com-alwaldend-src-npm//:defs.bzl", "npm_link_all_packages")
 load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "buildifier_test")
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
+load("@rules_license//rules:license.bzl", "license")
 load("//bzl/macros:al_genrule.bzl", "al_genrule")
 load("//bzl/macros:al_readme.bzl", "al_readme")
-load("//bzl/rules:al_toml_data.bzl", "al_toml_data")
+load("//bzl/macros:al_toml_data.bzl", "al_toml_data")
+load("//bzl/macros:al_txt_data.bzl", "al_txt_data")
 
-BUILDIFIER_EXCLUDE = [
+_BUILDIFIER_EXCLUDE = [
     "./.git/**/*",
     "bazel-*",
 ]
 
-exports_files([
-    "LICENSE.txt",
-    ".editorconfig",
-])
+_SUBPACKAGES = subpackages(
+    include = ["*"],
+    allow_empty = True,
+    exclude = ["bazel-*"],
+)
+
+license(
+    name = "license",
+    license_kinds = [
+        "@rules_license//licenses/spdx:AGPL-3.0",
+    ],
+    license_text = ":LICENSE.txt",
+)
+
+al_txt_data(
+    name = "editorconfig",
+    srcs = [".editorconfig"],
+    visibility = ["//visibility:public"],
+)
 
 al_readme(
     name = "readme",
+    subpackages = _SUBPACKAGES,
+    visibility = ["//visibility:public"],
 )
 
 al_toml_data(
@@ -29,13 +48,13 @@ al_toml_data(
 
 buildifier(
     name = "buildifier",
-    exclude_patterns = BUILDIFIER_EXCLUDE,
+    exclude_patterns = _BUILDIFIER_EXCLUDE,
 )
 
 buildifier_test(
     name = "buildifier-test",
     size = "small",
-    exclude_patterns = BUILDIFIER_EXCLUDE,
+    exclude_patterns = _BUILDIFIER_EXCLUDE,
     no_sandbox = True,
     workspace = "//:BUILD.bazel",
 )

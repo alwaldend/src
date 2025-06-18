@@ -3,6 +3,7 @@ load(":al_bzl_library_map.bzl", "al_bzl_library_map")
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
 )
 
 al_bzl_library_map(
@@ -14,6 +15,8 @@ al_bzl_library_map(
         ],
         "al_bzl_library_map": [
             "@bazel_skylib//:bzl_library",
+            "@rules_pkg//pkg:bzl_srcs",
+            "@stardoc//stardoc:stardoc_lib",
         ],
         "al_combine_files": [
         ],
@@ -57,6 +60,7 @@ al_bzl_library_map(
         ],
         "al_readme": [
             ":al_md_data",
+            "@rules_pkg//pkg:bzl_srcs",
         ],
         "al_run_tool": [
             "@bazel_skylib//rules:native_binary",
@@ -69,6 +73,8 @@ al_bzl_library_map(
         "al_template_files": [
             "//bzl/rules:al_template_files",
             "//bzl/rules:al_write_script",
+        ],
+        "al_txt_data": [
         ],
     },
     visibility = ["//visibility:public"],

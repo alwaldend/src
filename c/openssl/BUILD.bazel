@@ -7,6 +7,7 @@ load("//bzl/macros:al_readme.bzl", "al_readme")
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
 )
 
 exports_files(

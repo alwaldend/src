@@ -11,6 +11,28 @@ def al_genquery_write_to_source_file(
     """
     Write genquery result to a bzl file
 
+    Example::
+
+        al_genquery_write_to_source_file(
+            name = "al_bzl_libs",
+            expression = \"\"\"
+                filter(
+                    "^//",
+                    attr(
+                        "srcs",
+                        ".{3,}",
+                        kind(
+                            "bzl_library",
+                            deps("//bzl")
+                        )
+                    )
+                )
+            \"\"\",
+            out_file = "al_bzl_libs.bzl",
+            scope = ["//bzl"],
+            var_name = "AL_BZL_LIBS",
+        )
+
     Args:
         name (string): name prefix
         expression (string): genquery expression
