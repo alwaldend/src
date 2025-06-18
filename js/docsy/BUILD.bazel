@@ -1,0 +1,16 @@
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+load("//bzl/macros:al_readme.bzl", "al_readme")
+
+exports_files(["package.json"])
+
+al_readme(
+    name = "readme",
+    visibility = ["//visibility:public"],
+)
+
+write_source_files(
+    name = "write",
+    files = {
+        "package.json": "@com-github-google-docsy//:package.json",
+    },
+)

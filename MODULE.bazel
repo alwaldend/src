@@ -48,6 +48,7 @@ bazel_dep(name = "com-nordicsemi-developer-nrfsdk", version = "15.3.0")
 bazel_dep(name = "com-github-aldanial-cloc", version = "2.04.0")
 bazel_dep(name = "org-openssl-openssl", version = "3.5.0")
 bazel_dep(name = "us-nasm-nasm", version = "2.15.05")
+bazel_dep(name = "com-github-google-docsy", version = "0.12.0")
 # bazel_dep(name = "rules_haskell", version = "1.0-patched")
 
 ### variables
@@ -119,14 +120,6 @@ register_toolchains(
 )
 
 ### git repos
-
-git_repository(
-    name = "com-github-google-docsy",
-    build_file = "//bzl/build-files:BUILD.general.bazel",
-    commit = "cf0c68f041daac066a0292d521461dbd092d7c31",  # v0.11.0
-    remote = "https://github.com/google/docsy.git",
-    shallow_since = "1729295371 -0400",
-)
 
 git_repository(
     name = "com-github-infinitimeorg-infinitime",
@@ -210,7 +203,11 @@ npm.npm_translate_lock(
         "lv_font_conv": ["lv_font_conv=./lv_font_conv.js"],
         "prettier": ["prettier=./bin/prettier.cjs"],
     },
-    data = ["//:package.json"],
+    data = [
+        "//:package.json",
+        "//:pnpm-workspace.yaml",
+        "//js/docsy:package.json",
+    ],
     pnpm_lock = "//:pnpm-lock.yaml",
     run_lifecycle_hooks = False,
     update_pnpm_lock = True,
