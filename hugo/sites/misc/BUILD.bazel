@@ -1,0 +1,21 @@
+load("//bzl/macros:al_readme.bzl", "al_readme")
+load("//bzl/macros:al_toml_data.bzl", "al_toml_data")
+load("//bzl/rules:al_hugo_build.bzl", "al_hugo_build")
+
+al_readme(
+    name = "readme",
+    visibility = ["//visibility:public"],
+)
+
+al_toml_data(
+    name = "hugo-config",
+    srcs = ["hugo.toml"],
+)
+
+# al_hugo_build(
+#     name = "misc",
+#     srcs = ["//md/misc"],
+#     out = "misc.tar",
+#     configs = [":hugo-config"],
+#     themes = ["//hugo:theme-docsy"],
+# )

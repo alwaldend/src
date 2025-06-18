@@ -19,7 +19,7 @@ def _impl(target, ctx):
     )
 
     tomlv = ctx.rule.executable.tomlv
-    outputs = []
+    outputs = [script]
     for i, file in enumerate(ctx.rule.files.srcs):
         output = ctx.actions.declare_file("{}-tomlv-mark-{}".format(ctx.label.name, i))
         outputs.append(output)

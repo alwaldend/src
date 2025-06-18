@@ -11,6 +11,7 @@ al_bzl_library_map(
     libs = {
         "al_toml_info": [],
         "al_transitive_sources": [],
+        "al_hugo_theme_info": [],
     },
     visibility = ["//visibility:public"],
 )

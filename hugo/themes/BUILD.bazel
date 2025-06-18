@@ -1,0 +1,16 @@
+load("//bzl/macros:al_readme.bzl", "al_readme")
+load("//bzl/rules:al_hugo_theme.bzl", "al_hugo_theme")
+
+al_readme(
+    name = "readme",
+    visibility = ["//visibility:public"],
+)
+
+al_hugo_theme(
+    name = "docsy",
+    srcs = [
+        "@com-github-google-docsy//:src-filegroup",
+    ],
+    node_modules = ["//js/docsy:node_modules"],
+    visibility = ["//visibility:public"],
+)

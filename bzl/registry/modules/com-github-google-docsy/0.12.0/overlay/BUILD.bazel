@@ -16,6 +16,7 @@ filegroup(
 pkg_tar(
     name = "src-tar",
     srcs = [":src-filegroup"],
+    remap_paths = {"external/{}/".format(repo_name()): ""},
     strip_prefix = ".",
     visibility = ["//visibility:public"],
 )
