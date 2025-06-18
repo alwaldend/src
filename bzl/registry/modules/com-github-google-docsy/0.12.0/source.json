@@ -3,6 +3,6 @@
     "strip_prefix": "docsy-0.12.0",
     "integrity": "sha256-Pp9LUpegOt+JTI1tIk7rzV1zZWBg+FdTuicKtIrvohQ=",
     "overlay": {
-        "BUILD.bazel": "sha256-/xhKGZC4JjlABaks3EarLr2RyWPPs2GOJjEoNHaG5uw="
+        "BUILD.bazel": "sha256-tMYRzB8g6fr9uvMvJKhVSWNxHmp9e7iERDAyou8VCTI="
     }
 }

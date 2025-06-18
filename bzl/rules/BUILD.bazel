@@ -11,6 +11,8 @@ al_bzl_library_map(
         ],
         "al_unpack_archives": [],
         "al_write_script": [],
+        "al_hugo_theme": ["//bzl/providers:al_hugo_theme_info"],
+        "al_hugo_build": ["//bzl/providers:al_hugo_theme_info"],
     },
     visibility = ["//visibility:public"],
 )

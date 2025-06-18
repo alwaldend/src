@@ -1,17 +1,4 @@
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/macros:al_readme.bzl", "al_readme")
-load("//bzl/rules:al_unpack_archives.bzl", "al_unpack_archives")
-
-pkg_tar(
-    name = "themes-docsy",
-    package_dir = "themes/docsy",
-    deps = ["@com-github-google-docsy//:src-tar"],
-)
-
-al_unpack_archives(
-    name = "themes",
-    srcs = [":themes-docsy"],
-)
 
 al_readme(
     name = "readme",
