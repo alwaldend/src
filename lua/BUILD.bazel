@@ -9,4 +9,5 @@ al_toml_data(
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
 )

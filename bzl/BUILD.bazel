@@ -1,20 +1,24 @@
-load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//bzl/macros:al_readme.bzl", "al_readme")
+
+_BZL_LIBS = subpackages(
+    include = ["*"],
+    exclude = [
+        "toolchain-types",
+        "build-files",
+        "vars",
+        "registry",
+        "configs",
+    ],
+)
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
 )
 
-bzl_library(
+al_bzl_library_map(
     name = "bzl",
     visibility = ["//visibility:public"],
-    deps = [
-        "//bzl/aspects",
-        "//bzl/extensions",
-        "//bzl/macros",
-        "//bzl/providers",
-        "//bzl/rules",
-        "//bzl/toolchains",
-        "//bzl/vars",
-    ],
+    deps = ["//bzl/{}:{}".format(package, package) for package in _BZL_LIBS],
 )

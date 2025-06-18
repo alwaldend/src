@@ -1,3 +1,0 @@
----
-title: BUILD.bazel files
----

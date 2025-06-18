@@ -28,4 +28,5 @@ perl_binary(
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
 )

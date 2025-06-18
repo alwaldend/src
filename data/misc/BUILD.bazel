@@ -3,6 +3,7 @@ load("//bzl/rules:al_toml_data.bzl", "al_toml_data")
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
 )
 
 al_toml_data(

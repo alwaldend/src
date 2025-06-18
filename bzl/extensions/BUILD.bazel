@@ -15,4 +15,5 @@ al_bzl_library_map(
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
 )

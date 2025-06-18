@@ -5,7 +5,7 @@ load("@rules_shell//shell:sh_test.bzl", "sh_test")
 def al_sh_library(
         name,
         shfmt_src = "@cc_mvdan_sh_v3//cmd/shfmt:shfmt",
-        editorconfig_src = "//:.editorconfig",
+        editorconfig_src = "//:editorconfig",
         shellcheck_src = "@com-github-koalaman-shellcheck//:shellcheck",
         run_args_src = "//sh/scripts:run-args-lib",
         visibility = ["//visibility:public"],

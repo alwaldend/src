@@ -4,9 +4,12 @@ load("//bzl/macros:al_sh_library.bzl", "al_sh_library")
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
 )
 
-al_sh_library(name = "readme-tree")
+al_sh_library(
+    name = "readme-tree",
+)
 
 al_sh_library(name = "bashrc")
 

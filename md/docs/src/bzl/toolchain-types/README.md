@@ -1,3 +1,0 @@
----
-title: Toolchain types
----

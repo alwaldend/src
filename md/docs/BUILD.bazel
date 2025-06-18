@@ -1,35 +1,16 @@
-load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
-load("@stardoc//stardoc:stardoc.bzl", "stardoc")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/macros:al_readme.bzl", "al_readme")
-load("//bzl/vars:al_bzl_libs.bzl", "AL_BZL_LIBS")
-load("//bzl/vars:al_readmes.bzl", "AL_READMES")
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
 )
 
-[
-    stardoc(
-        name = "stardoc-{}".format(lib.replace("/", "-").replace(":", "-")),
-        out = "stardoc-{}.md".format(i),
-        input = "{}.bzl".format(lib),
-        deps = [lib],
-    )
-    for i, lib in enumerate(AL_BZL_LIBS)
-]
-
-write_source_files(
-    name = "bzl-write",
-    files = {
-        "{}.md".format(lib.replace("//", "src/").replace(":", "/")): "stardoc-{}.md".format(i)
-        for i, lib in enumerate(AL_BZL_LIBS)
-    },
-)
-
-write_source_files(
-    name = "readmes-write",
-    files = {
-        readme.replace("//:readme", "src/README.md").replace("//", "src/").replace(":readme", "/README.md"): readme
-        for readme in AL_READMES
-    },
+pkg_tar(
+    name = "docs",
+    srcs = [":readme"],
+    deps = [
+        "//:readme-children",
+        "//bzl:bzl-stardoc",
+    ],
 )

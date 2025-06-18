@@ -6,8 +6,14 @@ load(":al_current_qt_toolchain.bzl", "al_current_qt_toolchain")
 load(":al_drawio_toolchain.bzl", "al_drawio_toolchain")
 load(":al_preinstalled_qt_toolchain.bzl", "al_preinstalled_qt_toolchain")
 
+_TOOLCHAINS = {
+    "preinstalled-qt-toolchain": "//bzl/toolchain-types:al-qt",
+    "al-drawio-preinstalled": "//bzl/toolchain-types:al-drawio",
+}
+
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
 )
 
 al_bzl_library_map(
@@ -23,21 +29,31 @@ al_bzl_library_map(
     visibility = ["//visibility:public"],
 )
 
+[
+    toolchain(
+        name = toolchain_name,
+        toolchain = ":{}-impl".format(toolchain_name),
+        toolchain_type = toolchain_type,
+        visibility = ["//visibility:public"],
+    )
+    for toolchain_name, toolchain_type in _TOOLCHAINS.items()
+]
+
 py_console_script_binary(
     name = "aqt",
-    pkg = "@com-alwaldend-src-starlark-bazel-qt-requirements//aqtinstall:pkg",
+    pkg = "@com-alwaldend-src-starlark-bazel-qt-requirements//aqtinstall",
 )
 
 genrule(
-    name = "install",
-    outs = ["install-script"],
+    name = "qt-install",
+    outs = ["qt-install.sh"],
     cmd = """
-    cat - >$(@) <<EOF
-        #!/usr/bin/env sh
-        set -eux
-        mkdir -p /opt/qt
-        $(execpath :aqt) install-qt -O /opt/qt linux desktop 6.9.0
-    EOF
+cat - >$(@) <<EOF
+    #!/usr/bin/env sh
+    set -eux
+    mkdir -p /opt/qt
+    $(rootpath :aqt) install-qt -O /opt/qt linux desktop 6.9.0
+EOF
     """,
     executable = True,
     tools = [":aqt"],
@@ -54,22 +70,8 @@ al_current_qt_toolchain(
     visibility = ["//visibility:public"],
 )
 
-toolchain(
-    name = "preinstalled-qt-toolchain",
-    toolchain = ":preinstalled-qt-toolchain-impl",
-    toolchain_type = "//bzl/toolchain-types:al-qt",
-    visibility = ["//visibility:public"],
-)
-
 al_preinstalled_qt_toolchain(
     name = "preinstalled-qt-toolchain-impl",
-    visibility = ["//visibility:public"],
-)
-
-toolchain(
-    name = "al-drawio-preinstalled",
-    toolchain = ":al-drawio-preinstalled-toolchain-impl",
-    toolchain_type = "//bzl/toolchain-types:al-drawio",
     visibility = ["//visibility:public"],
 )
 

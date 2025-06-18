@@ -5,5 +5,11 @@ https://bazel.build/rules/lib/globals/repo
 """
 
 repo(
-    default_package_metadata = ["//bzl/configs:license"],
+    default_package_metadata = ["//:license"],
+    default_visibility = ["//visibility:private"],
 )
+"""
+Global package configuration
+
+https://bazel.build/reference/be/functions#package
+"""
