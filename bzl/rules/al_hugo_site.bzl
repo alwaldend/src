@@ -1,61 +1,49 @@
+load("//bzl/providers:al_hugo_site_info.bzl", "AlHugoSiteInfo")
+
 def _impl(ctx):
-    hugo_args = ctx.actions.args()
-    destination_dir = ctx.actions.declare_directory("{}-destination".format(ctx.label.name))
-    src_dir = ctx.actions.declare_directory("{}-src".format(ctx.label.name))
-
-    hugo_args.add_all(["build"])
-    hugo_args.add_all(["--destination", destination_dir.path])
-    hugo_args.add_all(["--themesDir", "{}/{}".format(src_dir.path, "themes")])
-    hugo_args.add_all(["--contentDir", "{}/{}".format(src_dir.path, "content")])
-    hugo_args.add_all(["--config", ",".join([config.path for config in ctx.files.configs])])
-    hugo_args.add_all(["--destination", destination_dir.path])
-    hugo_args.add_all(ctx.attr.arguments)
-
+    content_dir = ctx.actions.declare_directory("{}-content".format(ctx.label.name))
     ctx.actions.run_shell(
-        inputs = [ctx.file.src],
-        outputs = [src_dir],
-        command = "tar -xf '{}' -C '{}'".format(ctx.file.src.path, src_dir.path),
+        inputs = [ctx.file.content],
+        outputs = [content_dir],
+        command = "tar -xf '{}' -C '{}'".format(ctx.file.content.path, content_dir.path),
     )
 
-    ctx.actions.run(
-        executable = ctx.executable.hugo,
-        inputs = [src_dir] + ctx.files.configs,
-        outputs = [destination_dir],
-        arguments = [hugo_args],
+    themes_dir = ctx.actions.declare_directory("{}-themes".format(ctx.label.name))
+    ctx.actions.run_shell(
+        inputs = [ctx.file.themes],
+        outputs = [themes_dir],
+        command = "tar -xf '{}' -C '{}'".format(ctx.file.themes.path, themes_dir.path),
     )
 
+    files = [content_dir, themes_dir]
     return [
         DefaultInfo(
-            files = depset([destination_dir]),
+            files = depset(files),
+            runfiles = ctx.runfiles(files),
+        ),
+        AlHugoSiteInfo(
+            content = content_dir,
+            themes = themes_dir,
         ),
     ]
 
 al_hugo_site = rule(
     implementation = _impl,
-    doc = "Build a hugo site",
+    doc = "Define a hugo site",
     toolchains = [
         # "@com-alwaldend-src-nodejs-toolchains//:resolved_toolchain",
     ],
+    provides = [AlHugoSiteInfo],
     attrs = {
-        "configs": attr.label_list(
-            allow_files = True,
-            mandatory = True,
-            doc = "Hugo configs",
-        ),
-        "arguments": attr.string_list(
-            default = [],
-            doc = "Additional CLI arguments for hugo",
-        ),
-        "src": attr.label(
+        "content": attr.label(
             allow_single_file = [".tar"],
             mandatory = True,
-            doc = "File tree for hugo",
+            doc = "Hugo content tree",
         ),
-        "hugo": attr.label(
-            default = "//tools:hugo",
-            executable = True,
-            cfg = "exec",
-            doc = "Hugo binary",
+        "themes": attr.label(
+            allow_single_file = [".tar"],
+            mandatory = True,
+            doc = "Hugo themes tree",
         ),
     },
 )

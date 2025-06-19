@@ -1,4 +1,6 @@
 ---
 title: Misc
-description: Misc
+description: Miscellaneous data
 ---
+
+{{ .TableOfContents }}

@@ -11,17 +11,11 @@ al_bzl_library_map(
         ],
         "al_unpack_archives": [],
         "al_write_script": [],
-        "al_hugo_theme": [
-            "//bzl/providers:al_hugo_theme_info",
-            "//bzl/providers:al_hugo_module_info",
-            "@aspect_rules_js//js:providers",
-        ],
         "al_hugo_site": [
-            "//bzl/providers:al_hugo_theme_info",
-            "//bzl/providers:al_hugo_module_info",
+            "//bzl/providers:al_hugo_site_info",
         ],
-        "al_hugo_module": [
-            "//bzl/providers:al_hugo_module_info",
+        "al_hugo_serve": [
+            "//bzl/providers:al_hugo_site_info",
         ],
         "al_remove_directories": [],
     },

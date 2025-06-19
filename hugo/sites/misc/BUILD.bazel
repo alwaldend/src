@@ -1,6 +1,7 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 load("//bzl/macros:al_toml_data.bzl", "al_toml_data")
+load("//bzl/rules:al_hugo_serve.bzl", "al_hugo_serve")
 load("//bzl/rules:al_hugo_site.bzl", "al_hugo_site")
 
 al_readme(
@@ -13,24 +14,16 @@ al_toml_data(
     srcs = ["hugo.toml"],
 )
 
-pkg_tar(
-    name = "content",
-    package_dir = "content",
-    deps = ["//md/misc"],
-)
-
-pkg_tar(
-    name = "misc-tree",
-    deps = [
-        ":content",
-        "//hugo/themes",
-    ],
-)
-
 al_hugo_site(
     name = "misc",
-    src = ":misc-tree",
+    content = "//md/misc",
+    themes = "//hugo/themes",
+)
+
+al_hugo_serve(
+    name = "misc-serve",
     configs = [":hugo-config"],
+    site = ":misc",
 )
 
 pkg_tar(

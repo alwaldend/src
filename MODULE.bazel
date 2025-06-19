@@ -145,6 +145,20 @@ git_repository(
 # )
 
 http_archive(
+    name = "com-github-gohugoio-hugo",
+    build_file_content = """
+load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
+native_binary(
+    name = "bin",
+    src = "hugo",
+    visibility = ["//visibility:public"],
+)
+    """,
+    integrity = "sha256-l3Atc7thGimVAJ383Ag+8XNGT8yk4ZHWMTwuRlpqMSE=",
+    url = "https://github.com/gohugoio/hugo/releases/download/v0.147.8/hugo_extended_0.147.8_linux-amd64.tar.gz",
+)
+
+http_archive(
     name = "com-arm-developer-gcc-arm",
     build_file = "//bzl/build-files:BUILD.general.bazel",
     integrity = "sha256-l9u08BmtFlC3Mvr/zIgWic7cFOK37oY9OQ4KQe8WyaM=",
