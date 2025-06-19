@@ -286,7 +286,7 @@ thumbnail = "https://www.royalroadcdn.com/public/covers-large/109537-i-am-become
 quality = "Decent"
 summary = "Nothing exceptional"
 completion = "Not finished"
-reading = "Reading, chapter 55"
+reading = "Dropped, chapter 55"
 authors = [{ main = "J.M. Clarke", alts = ["U Juggernaut"] }]
 links = [
     { title = "royalroard", url = "https://www.royalroad.com/fiction/109537/i-am-become-death-a-progression-fantasy-cultivation-based" },
@@ -605,4 +605,16 @@ reading = "Finished"
 authors = [{ main = "Mikage Eiji" }]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/utsuro-no-hako-to-zero-no-maria/" },
+]
+
+[[book]]
+title = "Rune Seeker"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/73095-rune-seeker-a-progression-fantasy-litrpg.jpg?time=1734535667"
+quality = "Ok"
+summary = "Mediocre"
+completion = "Not finished"
+reading = "Dropped, volume 2, chapter 12"
+authors = [{ main = "J.M. Clarke", alts = ["U Juggernaut"] }]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/73095/rune-seeker-a-progression-fantasy-litrpg-book" },
 ]
