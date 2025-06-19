@@ -1,16 +1,36 @@
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/macros:al_readme.bzl", "al_readme")
-load("//bzl/rules:al_hugo_theme.bzl", "al_hugo_theme")
 
 al_readme(
     name = "readme",
     visibility = ["//visibility:public"],
 )
 
-al_hugo_theme(
+pkg_tar(
     name = "docsy",
-    srcs = [
-        "@com-github-google-docsy//:src-filegroup",
-    ],
-    node_modules = ["//js/docsy:node_modules"],
+    package_dir = "docsy",
+    deps = ["@com-github-google-docsy//:src-tar"],
+)
+
+pkg_tar(
+    name = "fontawesome",
+    package_dir = "github.com/FortAwesome/Font-Awesome",
+    deps = ["@com-github-fortawesome-font-awesome//:src-tar"],
+)
+
+pkg_tar(
+    name = "bootstrap",
+    package_dir = "github.com/twbs/bootstrap",
+    deps = ["@com-github-twbs-bootstrap//:src-tar"],
+)
+
+pkg_tar(
+    name = "themes",
+    package_dir = "themes",
     visibility = ["//visibility:public"],
+    deps = [
+        ":bootstrap",
+        ":docsy",
+        ":fontawesome",
+    ],
 )

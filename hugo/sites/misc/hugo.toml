@@ -1,1 +1,3 @@
-theme = "docsy"
+theme = ["docsy"]
+
+title = "Misc"

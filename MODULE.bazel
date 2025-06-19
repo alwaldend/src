@@ -49,6 +49,8 @@ bazel_dep(name = "com-github-aldanial-cloc", version = "2.04.0")
 bazel_dep(name = "org-openssl-openssl", version = "3.5.0")
 bazel_dep(name = "us-nasm-nasm", version = "2.15.05")
 bazel_dep(name = "com-github-google-docsy", version = "0.12.0")
+bazel_dep(name = "com-github-fortawesome-font-awesome", version = "6.7.2")
+bazel_dep(name = "com-github-twbs-bootstrap", version = "5.3.7")
 # bazel_dep(name = "rules_haskell", version = "1.0-patched")
 
 ### variables

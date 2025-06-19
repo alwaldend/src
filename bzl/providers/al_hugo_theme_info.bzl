@@ -1,7 +1,8 @@
 AlHugoThemeInfo = provider(
     fields = {
         "name": "Theme name",
-        "files": "Theme files",
+        "archive": "Theme archive",
+        "modules": "Hugo modules depset for this theme",
     },
     doc = """
         Provide hugo theme info

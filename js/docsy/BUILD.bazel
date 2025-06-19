@@ -1,5 +1,4 @@
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
-load("@bazel_skylib//rules/directory:directory.bzl", "directory")
 load("@com-alwaldend-src-npm//:defs.bzl", "npm_link_all_packages")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/macros:al_readme.bzl", "al_readme")
@@ -20,9 +19,4 @@ write_source_files(
 
 npm_link_all_packages(
     name = "node_modules",
-)
-
-pkg_tar(
-    name = "docsy",
-    deps = [],
 )

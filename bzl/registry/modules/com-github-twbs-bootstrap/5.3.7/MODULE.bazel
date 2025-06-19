@@ -1,0 +1,6 @@
+module(
+    name = "com-github-twbs-bootstrap",
+    version = "5.3.7",
+)
+
+bazel_dep(name = "rules_pkg", version = "1.1.0")

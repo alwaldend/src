@@ -1,0 +1,8 @@
+{
+  "url": "https://github.com/FortAwesome/Font-Awesome/archive/refs/tags/6.7.2.tar.gz",
+  "strip_prefix": "Font-Awesome-6.7.2",
+  "integrity": "sha256-/evfPxuGQaS2ZcYfH0jkgrFAqBfOYZETVZIBuKH83VE=",
+  "overlay": {
+    "BUILD.bazel": "sha256-eDmXMENr7PHR8IwtZ7dmAObrCXNn84IqrBSk3tPhHdk="
+  }
+}
