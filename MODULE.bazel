@@ -255,6 +255,7 @@ npm.npm_translate_lock(
         ],
         "lv_font_conv": ["lv_font_conv=./lv_font_conv.js"],
         "prettier": ["prettier=./bin/prettier.cjs"],
+        "postcss-cli": ["postcss=./index.js"],
     },
     data = [
         "//:package.json",

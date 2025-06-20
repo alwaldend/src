@@ -1,6 +1,14 @@
-theme = ["docsy"]
-
 title = "Misc"
+theme = ["docsy"]
+baseURL = "https://alwaldend.com/misc"
+enableRobotsTXT = true
 
 [markup]
 goldmark.renderer.unsafe = true
+
+[security.exec]
+allow = ['.*']
+osEnv = ['.*']
+
+[security.funcs]
+getenv = ['.*']
