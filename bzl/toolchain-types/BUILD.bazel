@@ -1,8 +1,10 @@
 load("//bzl/macros:al_readme.bzl", "al_readme")
 
 _TOOLCHAIN_TYPES = [
-    "al-qt",
-    "al-drawio",
+    "qt",
+    "drawio",
+    "shellcheck",
+    "hugo",
 ]
 
 al_readme(

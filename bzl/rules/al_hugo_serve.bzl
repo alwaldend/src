@@ -2,8 +2,10 @@ load("//bzl/providers:al_hugo_site_info.bzl", "AlHugoSiteInfo")
 
 def _impl(ctx):
     info = ctx.attr.site[AlHugoSiteInfo]
+    hugo = ctx.toolchains["//bzl/toolchain-types:hugo"]
+
     runfiles = ctx.runfiles(
-        files = [ctx.executable.hugo, info.themes, info.content] + ctx.files.configs,
+        files = [hugo.hugo, info.themes, info.content] + ctx.files.configs,
     )
 
     script = ctx.actions.declare_file("{}-script".format(ctx.label.name))
@@ -19,7 +21,7 @@ def _impl(ctx):
                 --themesDir '{themes}' \
                 --contentDir '{content}'
         """.format(
-            hugo = ctx.executable.hugo.short_path,
+            hugo = hugo.hugo.short_path,
             configs = ",".join([config.short_path for config in ctx.files.configs]),
             themes = info.themes.short_path,
             content = info.content.short_path,
@@ -37,6 +39,7 @@ al_hugo_serve = rule(
     implementation = _impl,
     executable = True,
     doc = "Serve a hugo site",
+    toolchains = ["//bzl/toolchain-types:hugo"],
     attrs = {
         "configs": attr.label_list(
             allow_files = True,
@@ -47,12 +50,6 @@ al_hugo_serve = rule(
             mandatory = True,
             providers = [AlHugoSiteInfo],
             doc = "Hugo site",
-        ),
-        "hugo": attr.label(
-            default = "@com-github-gohugoio-hugo//:bin",
-            executable = True,
-            cfg = "exec",
-            doc = "Hugo binary",
         ),
     },
 )

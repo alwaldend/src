@@ -390,20 +390,38 @@
   },
   "selectedYankedVersions": {},
   "moduleExtensions": {
-    "//bzl/extensions:al_shellcheck.bzl%al_shellcheck": {
+    "//bzl/extensions:al_repo_map.bzl%al_repo_map": {
       "general": {
-        "bzlTransitiveDigest": "5VQor34WAsdUY9W4o0QAztFIqB6G4+t39VchQSSNysk=",
-        "usagesDigest": "wIAC5qq5m/my0kbPWxI5CUvkLghb9/X1TlnJeD1kaNY=",
+        "bzlTransitiveDigest": "OoZkJPSL7oYbSaJJey+YYWI1Bz198dXpU0ClT5oDIQw=",
+        "usagesDigest": "jiYycMFagLgfW//obuYeFvxGT5j23K+XvBMMLjvn1B4=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
         "generatedRepoSpecs": {
-          "com-github-koalaman-shellcheck": {
+          "com-github-koalaman-shellcheck-linux-x86_64": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_archive",
             "attributes": {
               "url": "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz",
               "integrity": "sha256-bIgasGmOTm6iNSRfIoMoYFRPF7o4ZEL+fp1in4y+34c=",
-              "build_file_content": "\nfilegroup(\n    name = \"shellcheck\",\n    srcs = glob([\"*/shellcheck\"]),\n    visibility = [\"//visibility:public\"],\n)\n                "
+              "build_file_content": "\nload(\"@bazel_skylib//rules:native_binary.bzl\", \"native_binary\")\nnative_binary(\n    name = \"bin\",\n    src = \"shellcheck\",\n    visibility = [\"//visibility:public\"],\n)\n    ",
+              "strip_prefix": "shellcheck-v0.10.0"
+            }
+          },
+          "com-github-gohugoio-hugo-linux-amd64": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_archive",
+            "attributes": {
+              "url": "https://github.com/gohugoio/hugo/releases/download/v0.147.8/hugo_extended_0.147.8_linux-amd64.tar.gz",
+              "integrity": "sha256-l3Atc7thGimVAJ383Ag+8XNGT8yk4ZHWMTwuRlpqMSE=",
+              "build_file_content": "\nload(\"@bazel_skylib//rules:native_binary.bzl\", \"native_binary\")\nnative_binary(\n    name = \"bin\",\n    src = \"hugo\",\n    visibility = [\"//visibility:public\"],\n)\n    ",
+              "strip_prefix": ""
+            }
+          },
+          "com-github-jgraph-drawio-desktop-linux-x86_64": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
+            "attributes": {
+              "executable": true,
+              "url": "https://github.com/jgraph/drawio-desktop/releases/download/v27.0.9/drawio-x86_64-27.0.9.AppImage",
+              "integrity": "sha256-m4fBtXU61p2dovR3pUVSalbJ+8jIsE8ko3IQdKFHtiY="
             }
           }
         },
