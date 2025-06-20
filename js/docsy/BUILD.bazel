@@ -1,19 +1,31 @@
-load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+load("@aspect_bazel_lib//lib:directory_path.bzl", "directory_path")
+load("@aspect_rules_js//js:defs.bzl", "js_binary")
 load("@com-alwaldend-src-npm//:defs.bzl", "npm_link_all_packages")
 load("//bzl/macros:al_readme.bzl", "al_readme")
+
+directory_path(
+    name = "postcss-entrypoint",
+    directory = ":node_modules/postcss-cli/dir",
+    path = "index.js",
+)
+
+js_binary(
+    name = "postcss",
+    data = [
+        ":node_modules/autoprefixer",
+        ":node_modules/postcss",
+        ":node_modules/postcss-cli",
+    ],
+    # entry_point = ":postcss-entrypoint",
+    entry_point = "check.js",
+    visibility = ["//visibility:public"],
+)
 
 exports_files(["package.json"])
 
 al_readme(
     name = "readme",
     visibility = ["//visibility:public"],
-)
-
-write_source_files(
-    name = "write",
-    files = {
-        "package.json": "@com-github-google-docsy//:package.json",
-    },
 )
 
 npm_link_all_packages(

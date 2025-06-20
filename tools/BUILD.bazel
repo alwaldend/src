@@ -16,7 +16,6 @@ al_alias_map(
         "tomlv": {"actual": "@com_github_burntsushi_toml//cmd/tomlv:tomlv"},
         "hugo": {"actual": "@com_github_gohugoio_hugo//:hugo"},
         "prettier": {"actual": "//js:prettier"},
-        "postcss-cli": {"actual": "//js:postcss-cli"},
     },
 )
 

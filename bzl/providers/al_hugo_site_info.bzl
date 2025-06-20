@@ -1,7 +1,6 @@
 AlHugoSiteInfo = provider(
     fields = {
-        "themes": "Themes dir",
-        "content": "Content dir",
+        "build": "Hugo build dir",
     },
     doc = "Information about a hugo site",
 )

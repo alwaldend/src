@@ -46,8 +46,19 @@ $ bazel --client_debug
 ```
 
 Traceback:
+
 - https://github.com/bazelbuild/bazel/blob/d798ebde6c6394203a87b5f1a6b62ecfc3880991/src/main/cpp/blaze_util_posix.cc#L497
 - https://github.com/bazelbuild/bazel/blob/d798ebde6c6394203a87b5f1a6b62ecfc3880991/src/main/cpp/util/file_posix.cc#L518
 - https://github.com/bazelbuild/bazel/blob/d798ebde6c6394203a87b5f1a6b62ecfc3880991/src/main/cpp/util/file_posix.cc#L90
 - https://github.com/bazelbuild/bazel/blob/d798ebde6c6394203a87b5f1a6b62ecfc3880991/src/main/cpp/util/file_posix.cc#L48
 - https://github.com/bazelbuild/bazel/blob/d798ebde6c6394203a87b5f1a6b62ecfc3880991/src/main/cpp/util/file_posix.cc#L67
+
+## js_binary does not work for some reason
+
+Example:
+
+```
+FATAL: aspect_rules_js[js_binary]: RUNFILES environment variable is not set
+```
+
+You need to `bazel run` the target, that fixes it

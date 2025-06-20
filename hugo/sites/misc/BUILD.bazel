@@ -4,29 +4,56 @@ load("//bzl/macros:al_toml_data.bzl", "al_toml_data")
 load("//bzl/rules:al_hugo_serve.bzl", "al_hugo_serve")
 load("//bzl/rules:al_hugo_site.bzl", "al_hugo_site")
 
+# al_hugo_site(
+#     name = "misc",
+#     data = [
+#         "//js/docsy:node_modules/autoprefixer",
+#         "//js/docsy:node_modules/postcss",
+#     ],
+#     env = {
+#         "PATH": ":".join((
+#             "$${PWD}/$$(dirname $(execpath //js/docsy:postcss))",
+#             "$${PATH}",
+#         )),
+#         "BAZEL_BINDIR": "$${PWD}/$(BINDIR)",
+#     },
+#     log_level = "debug",
+#     toolchains = [
+#         "@com-alwaldend-src-nodejs-toolchains//:resolved_toolchain",
+#     ],
+#     tools = [
+#         "//js/docsy:postcss",
+#         "@com-alwaldend-src-nodejs-toolchains//:resolved_toolchain",
+#     ],
+#     tree = ":tree",
+# )
+#
+# al_hugo_serve(
+#     name = "serve",
+#     site = ":misc",
+# )
+#
+# al_toml_data(
+#     name = "hugo-config",
+#     srcs = ["hugo.toml"],
+# )
+#
+# pkg_tar(
+#     name = "content",
+#     package_dir = "content",
+#     deps = ["//md/misc"],
+# )
+#
+# pkg_tar(
+#     name = "tree",
+#     srcs = [":hugo.toml"],
+#     deps = [
+#         ":content",
+#         "//hugo/themes",
+#     ],
+# )
+
 al_readme(
     name = "readme",
     visibility = ["//visibility:public"],
-)
-
-al_toml_data(
-    name = "hugo-config",
-    srcs = ["hugo.toml"],
-)
-
-al_hugo_site(
-    name = "misc",
-    content = "//md/misc",
-    themes = "//hugo/themes",
-)
-
-al_hugo_serve(
-    name = "misc-serve",
-    configs = [":hugo-config"],
-    site = ":misc",
-)
-
-pkg_tar(
-    name = "misc.tar",
-    srcs = [":misc"],
 )
