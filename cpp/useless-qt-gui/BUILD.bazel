@@ -23,10 +23,10 @@ genrule(
     srcs = [":src"],
     outs = ["useless-qt-gui-bin"],
     cmd = """
-        tar -xf $(<) && $(QMAKE) && $(MAKE) && mv useless-qt-gui $(@)
+        tar -xf $(<) && $(QT_QMAKE) && $(MAKE) && mv useless-qt-gui $(@)
     """,
     toolchains = [
         "@rules_foreign_cc//toolchains:current_make_toolchain",
-        "//bzl/toolchains:current-qt-toolchain",
+        "//bzl/toolchains:qt-resolved",
     ],
 )

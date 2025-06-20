@@ -1,23 +1,25 @@
 def _impl(ctx):
     env = {
-        "DRAWIO": ctx.executable.drawio.path,
+        "SHELLCHECK": ctx.executable.shellcheck.path,
     }
     return [
         platform_common.TemplateVariableInfo(env),
         platform_common.ToolchainInfo(
             env = env,
+            shellcheck_target = ctx.attr.shellcheck,
+            shellcheck = ctx.executable.shellcheck,
         ),
     ]
 
-al_drawio_toolchain = rule(
-    doc = "Drawio toolchain",
+al_shellcheck_toolchain = rule(
+    doc = "Shellcheck toolchain",
     implementation = _impl,
     attrs = {
-        "drawio": attr.label(
+        "shellcheck": attr.label(
             executable = True,
             mandatory = True,
             cfg = "exec",
-            doc = "Drawio binary",
+            doc = "Shellcheck binary",
         ),
     },
 )

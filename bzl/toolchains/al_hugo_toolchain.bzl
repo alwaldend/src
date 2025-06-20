@@ -1,23 +1,25 @@
 def _impl(ctx):
     env = {
-        "DRAWIO": ctx.executable.drawio.path,
+        "HUGO": ctx.executable.hugo.path,
     }
     return [
         platform_common.TemplateVariableInfo(env),
         platform_common.ToolchainInfo(
             env = env,
+            hugo_target = ctx.attr.hugo,
+            hugo = ctx.executable.hugo,
         ),
     ]
 
-al_drawio_toolchain = rule(
-    doc = "Drawio toolchain",
+al_hugo_toolchain = rule(
+    doc = "Hugo toolchain",
     implementation = _impl,
     attrs = {
-        "drawio": attr.label(
+        "hugo": attr.label(
             executable = True,
             mandatory = True,
             cfg = "exec",
-            doc = "Drawio binary",
+            doc = "Hugo binary",
         ),
     },
 )
