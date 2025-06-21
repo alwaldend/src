@@ -1,6 +1,6 @@
 title = "Misc"
 theme = ["docsy"]
-baseURL = "https://alwaldend.com/misc"
+# baseURL = "https://alwaldend.com/misc"
 enableRobotsTXT = true
 
 [markup]

@@ -14,9 +14,6 @@ def _impl(ctx):
     cmd.extend(
         [
             "tar -xf '{}' -C '{}'".format(ctx.file.tree.path, build_dir.path),
-            # "ls -la $(rootpath //js/docsy:node_modules/autoprefixer/dir) || true",
-            "$(execpath :postcss) $$(realpath {build}/themes/docsy/assets/scss/main.scss) --config $$(realpath {build}/themes/docsy)".format(build = build_dir.path),
-            "exit 1",
             "'{}' build --source '{}' --logLevel '{}' \"$${{@}}\"".format(
                 hugo.hugo.path,
                 build_dir.path,
@@ -37,7 +34,7 @@ def _impl(ctx):
     )
 
     ctx.actions.run(
-        inputs = [ctx.file.tree, hugo.hugo] + ctx.files.data,
+        inputs = [ctx.file.tree, hugo.hugo] + ctx.files.data + ctx.files.tools,
         executable = script,
         outputs = [build_dir],
         arguments = ctx.attr.arguments,

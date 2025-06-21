@@ -1,6 +1,11 @@
 {
   "devDependencies": {
     "lv_font_conv": "^1.5.3",
-    "prettier": "^3.5.3"
+    "prettier": "^3.5.3",
+    "@fortawesome/fontawesome-free": "6.7.2",
+    "bootstrap": "5.3.6",
+    "autoprefixer": "^10.4.21",
+    "postcss-cli": "^11.0.1",
+    "postcss": "^8.5.6"
   }
 }

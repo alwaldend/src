@@ -14,8 +14,9 @@ def _impl(ctx):
         content = """\
             #!/usr/bin/env sh
             set -eux
-
-            '{hugo}' serve --source '{build}' "${{@}}"
+            cp -r '{build}' work
+            chmod -R 777 work
+            '{hugo}' serve --source work "${{@}}"
         """.format(
             hugo = hugo.hugo.short_path,
             build = info.build.short_path,

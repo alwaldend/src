@@ -1,9 +1,16 @@
 load("@aspect_rules_js//js:defs.bzl", "js_binary")
+load("@com-alwaldend-src-npm//:postcss-cli/package_json.bzl", postcss = "bin")
 load("@com-alwaldend-src-npm//:prettier/package_json.bzl", prettier = "bin")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 
 prettier.prettier_binary(
     name = "prettier",
+    visibility = ["//visibility:public"],
+)
+
+postcss.postcss_binary(
+    name = "postcss",
+    data = ["//:node_modules/autoprefixer"],
     visibility = ["//visibility:public"],
 )
 
