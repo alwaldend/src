@@ -1,2 +1,1 @@
-console.info(require("autoprefixer"));
-process.exit(1);
+import buildCliConfig from "postcss-cli";

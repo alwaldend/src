@@ -14,6 +14,7 @@ title: Books
   </thead>
   <tbody>
     {{ range .Data -}}
+    {{ $authors := .Data.author -}}
     {{ range .Data.book -}}
     <tr>
       <td>
@@ -50,7 +51,9 @@ title: Books
               <td>
                 <ul>
                   {{ range .authors -}}
-                  <li>{{ .main }}{{ range .alts }} ({{ . }}){{ end }}</li>
+                  {{ with index $authors . -}}
+                  <li>{{ .name }}{{ range .alts }} ({{ . }}){{ end }}</li>
+                  {{- end }}
                   {{- end }}
                 </ul>
               </td>

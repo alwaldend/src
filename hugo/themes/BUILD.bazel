@@ -8,6 +8,7 @@ al_readme(
 
 pkg_tar(
     name = "docsy",
+    srcs = [":postcss.config.js"],
     package_dir = "docsy",
     deps = ["@com-github-google-docsy//:src-tar"],
 )
