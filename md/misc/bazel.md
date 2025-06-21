@@ -55,10 +55,22 @@ Traceback:
 
 ## js_binary does not work for some reason
 
-Example:
+One of possible errors:
 
 ```
 FATAL: aspect_rules_js[js_binary]: RUNFILES environment variable is not set
 ```
 
-You need to `bazel run` the target, that fixes it
+### Solutions
+
+#### Run the binary (that fixes it for some reason)
+
+```sh
+bazel run //tools:postcss
+```
+
+#### Run `pnpm install` (sometimes node_modules directory is not up-to-date)
+
+```sh
+bazel run -- tools:pnpm --dir "${PWD}" install
+```

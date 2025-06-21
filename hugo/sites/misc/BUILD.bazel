@@ -1,57 +1,28 @@
-load("@aspect_bazel_lib//lib:directory_path.bzl", "directory_path")
-load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 load("//bzl/macros:al_toml_data.bzl", "al_toml_data")
 load("//bzl/rules:al_hugo_serve.bzl", "al_hugo_serve")
 load("//bzl/rules:al_hugo_site.bzl", "al_hugo_site")
 
-directory_path(
-    name = "postcss-entrypoint",
-    directory = "//js/docsy:node_modules/postcss-cli/dir",
-    path = "./index.js",
-)
-
-js_binary(
-    name = "postcss",
-    data = [
-        "//js/docsy:node_modules/@fortawesome/fontawesome-free",
-        "//js/docsy:node_modules/autoprefixer",
-        "//js/docsy:node_modules/postcss",
-        "//js/docsy:node_modules/postcss-cli",
+al_hugo_site(
+    name = "misc",
+    env = {
+        "PATH": ":".join((
+            "$${PWD}/$$(dirname $(execpath //tools:postcss))",
+            "$${PATH}",
+        )),
+        "BAZEL_BINDIR": "$${PWD}/$(BINDIR)",
+    },
+    tools = [
+        "//tools:postcss",
     ],
-    entry_point = ":postcss-entrypoint",
+    tree = ":tree",
 )
 
-# al_hugo_site(
-#     name = "misc",
-#     data = [
-#         "//js/docsy:node_modules/autoprefixer",
-#         "//js/docsy:node_modules/autoprefixer/dir",
-#         "//js/docsy:node_modules/postcss",
-#     ],
-#     env = {
-#         "PATH": ":".join((
-#             "$${PWD}/$$(dirname $(execpath :postcss))",
-#             "$${PATH}",
-#         )),
-#         "BAZEL_BINDIR": "$${PWD}/$(BINDIR)",
-#     },
-#     # log_level = "debug",
-#     toolchains = [
-#         "@com-alwaldend-src-nodejs-toolchains//:resolved_toolchain",
-#     ],
-#     tools = [
-#         ":postcss",
-#         "@com-alwaldend-src-nodejs-toolchains//:resolved_toolchain",
-#     ],
-#     tree = ":tree",
-# )
-
-# al_hugo_serve(
-#     name = "serve",
-#     site = ":misc",
-# )
+al_hugo_serve(
+    name = "serve",
+    site = ":misc",
+)
 
 al_toml_data(
     name = "hugo-config",
