@@ -10,9 +10,13 @@ def _impl(ctx):
     for key, value in ctx.attr.env.items():
         cmd.append('{}="{}"'.format(key, value))
         cmd.append("export {}".format(key))
+
     cmd.extend(
         [
             "tar -xf '{}' -C '{}'".format(ctx.file.tree.path, build_dir.path),
+            # "ls -la $(rootpath //js/docsy:node_modules/autoprefixer/dir) || true",
+            "$(execpath :postcss) $$(realpath {build}/themes/docsy/assets/scss/main.scss) --config $$(realpath {build}/themes/docsy)".format(build = build_dir.path),
+            "exit 1",
             "'{}' build --source '{}' --logLevel '{}' \"$${{@}}\"".format(
                 hugo.hugo.path,
                 build_dir.path,
@@ -37,7 +41,7 @@ def _impl(ctx):
         executable = script,
         outputs = [build_dir],
         arguments = ctx.attr.arguments,
-        tools = [tool.files for tool in ctx.attr.tools],
+        tools = [tool.files for tool in ctx.attr.tools] + [tool[DefaultInfo].default_runfiles.files for tool in ctx.attr.tools],
         progress_message = "Building hugo site %{label} to %{output}",
     )
 
