@@ -12,11 +12,15 @@ def _impl(ctx):
     script_content = """\
         #!/usr/bin/env sh
         set -eux
-        tar -xf '{tree}'
+        ln -s '{content}' ./content
+        ln -s '{themes}' ./themes
+        ln -s '{config}' ./
         '{hugo}' {arguments} "$${{@}}"
     """.format(
         hugo = hugo.hugo.short_path,
-        tree = info.tree.short_path,
+        content = info.content.short_path,
+        themes = info.themes.short_path,
+        config = info.config.short_path,
         arguments = " ".join([
             shell.quote(argument)
             for argument in ctx.attr.arguments
