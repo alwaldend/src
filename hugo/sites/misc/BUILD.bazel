@@ -6,6 +6,8 @@ load("//bzl/rules:al_hugo_site_binary.bzl", "al_hugo_site_binary")
 
 al_hugo_site(
     name = "misc",
+    config = ":hugo.toml",
+    content = "//md/misc",
     env = {
         "PATH": ":".join((
             "$${PWD}/$$(dirname $(execpath //tools:postcss))",
@@ -13,10 +15,10 @@ al_hugo_site(
         )),
         "BAZEL_BINDIR": "$${PWD}/$(BINDIR)",
     },
+    themes = "//hugo/themes",
     tools = [
         "//tools:postcss",
     ],
-    tree = ":tree",
 )
 
 al_hugo_site_binary(
@@ -28,21 +30,6 @@ al_hugo_site_binary(
 al_toml_data(
     name = "hugo-config",
     srcs = ["hugo.toml"],
-)
-
-pkg_tar(
-    name = "content",
-    package_dir = "content",
-    deps = ["//md/misc"],
-)
-
-pkg_tar(
-    name = "tree",
-    srcs = [":hugo.toml"],
-    deps = [
-        ":content",
-        "//hugo/themes",
-    ],
 )
 
 al_readme(

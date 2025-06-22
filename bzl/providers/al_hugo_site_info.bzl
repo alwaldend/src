@@ -1,7 +1,9 @@
 AlHugoSiteInfo = provider(
     fields = {
-        "tree": "Hugo site tree archive (file, .tar))",
-        "env": "Environment variable (dict[str, str])",
+        "content": "Content dir",
+        "themes": "Themes dir",
+        "config": "Config file",
+        "env": "Environment variables",
         "env_script": "Shell script to export env variables",
     },
     doc = "Information about a hugo site",

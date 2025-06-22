@@ -26,7 +26,6 @@ pkg_tar(
 
 pkg_tar(
     name = "themes",
-    package_dir = "themes",
     visibility = ["//visibility:public"],
     deps = [
         ":bootstrap",
