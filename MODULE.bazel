@@ -260,10 +260,10 @@ npm.npm_translate_lock(
     data = [
         "//:package.json",
         "//:pnpm-workspace.yaml",
-        "//js/docsy:package.json",
     ],
     pnpm_lock = "//:pnpm-lock.yaml",
-    # run_lifecycle_hooks = False,
+    run_lifecycle_hooks = False,
+    update_pnpm_lock = True,
     verify_node_modules_ignored = "//:.bazelignore",
 )
 

@@ -4,31 +4,28 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-importers:
-
-  .:
-    devDependencies:
-      '@fortawesome/fontawesome-free':
-        specifier: 6.7.2
-        version: 6.7.2
-      autoprefixer:
-        specifier: ^10.4.21
-        version: 10.4.21(postcss@8.5.6)
-      bootstrap:
-        specifier: 5.3.6
-        version: 5.3.6(@popperjs/core@2.11.8)
-      lv_font_conv:
-        specifier: ^1.5.3
-        version: 1.5.3
-      postcss:
-        specifier: ^8.5.6
-        version: 8.5.6
-      postcss-cli:
-        specifier: ^11.0.1
-        version: 11.0.1(postcss@8.5.6)
-      prettier:
-        specifier: ^3.5.3
-        version: 3.5.3
+devDependencies:
+  '@fortawesome/fontawesome-free':
+    specifier: 6.7.2
+    version: 6.7.2
+  autoprefixer:
+    specifier: ^10.4.21
+    version: 10.4.21(postcss@8.5.6)
+  bootstrap:
+    specifier: 5.3.6
+    version: 5.3.6(@popperjs/core@2.11.8)
+  lv_font_conv:
+    specifier: ^1.5.3
+    version: 1.5.3
+  postcss:
+    specifier: ^8.5.6
+    version: 8.5.6
+  postcss-cli:
+    specifier: ^11.0.1
+    version: 11.0.1(postcss@8.5.6)
+  prettier:
+    specifier: ^3.5.3
+    version: 3.5.3
 
 packages:
 

@@ -1,8 +1,8 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 load("//bzl/macros:al_toml_data.bzl", "al_toml_data")
-load("//bzl/rules:al_hugo_serve.bzl", "al_hugo_serve")
 load("//bzl/rules:al_hugo_site.bzl", "al_hugo_site")
+load("//bzl/rules:al_hugo_site_binary.bzl", "al_hugo_site_binary")
 
 al_hugo_site(
     name = "misc",
@@ -19,8 +19,9 @@ al_hugo_site(
     tree = ":tree",
 )
 
-al_hugo_serve(
+al_hugo_site_binary(
     name = "serve",
+    arguments = ["serve"],
     site = ":misc",
 )
 
