@@ -14,8 +14,9 @@ al_bzl_library_map(
         "al_hugo_site": [
             "//bzl/providers:al_hugo_site_info",
         ],
-        "al_hugo_serve": [
+        "al_hugo_site_binary": [
             "//bzl/providers:al_hugo_site_info",
+            "@bazel_skylib//lib:shell",
         ],
         "al_remove_directories": [],
     },

@@ -2,73 +2,36 @@ load("//bzl/providers:al_hugo_site_info.bzl", "AlHugoSiteInfo")
 
 def _impl(ctx):
     hugo = ctx.toolchains["//bzl/toolchain-types:hugo"]
-    build_dir = ctx.actions.declare_directory("{}-build".format(ctx.label.name))
-    script = ctx.actions.declare_file("{}-script.sh".format(ctx.label.name))
-    files = [build_dir] + ctx.files.data
-    cmd = ["#!/usr/bin/env sh", "set -eux"]
-
-    for key, value in ctx.attr.env.items():
-        cmd.append('{}="{}"'.format(key, value))
-        cmd.append("export {}".format(key))
-
-    cmd.extend(
-        [
-            "tar -xf '{}' -C '{}'".format(ctx.file.tree.path, build_dir.path),
-            "'{}' build --source '{}' --logLevel '{}' \"$${{@}}\"".format(
-                hugo.hugo.path,
-                build_dir.path,
-                ctx.attr.log_level,
-            ),
-        ],
-    )
-    script_content = ctx.expand_make_variables(
-        "script",
-        ctx.expand_location("\n".join(cmd + [""])),
-        {},
-    )
-
-    ctx.actions.write(
-        content = script_content,
-        output = script,
-        is_executable = True,
-    )
-
-    ctx.actions.run(
-        inputs = [ctx.file.tree, hugo.hugo] + ctx.files.data + ctx.files.tools,
-        executable = script,
-        outputs = [build_dir],
-        arguments = ctx.attr.arguments,
-        tools = [tool.files for tool in ctx.attr.tools] + [tool[DefaultInfo].default_runfiles.files for tool in ctx.attr.tools],
-        progress_message = "Building hugo site %{label} to %{output}",
-    )
+    files = [hugo.hugo, ctx.file.tree] + ctx.files.tools + ctx.files.data
+    runfiles = ctx.runfiles(files)
+    for tool in ctx.attr.tools:
+        runfiles.merge(tool[DefaultInfo].default_runfiles)
+    env_script = " && ".join([
+        cmd
+        for name, value in ctx.attr.env.items()
+        for cmd in ['{}="{}"'.format(name, value), "export {}".format(name)]
+    ])
 
     return [
         DefaultInfo(
             files = depset(files),
-            runfiles = ctx.runfiles(files),
+            runfiles = runfiles,
         ),
         AlHugoSiteInfo(
-            build = build_dir,
+            tree = ctx.file.tree,
+            env = ctx.attr.env,
+            env_script = env_script,
         ),
     ]
 
 al_hugo_site = rule(
     implementation = _impl,
-    doc = "Build a hugo site",
+    doc = "Define a hugo site",
     toolchains = [
-        #"@com-alwaldend-src-nodejs-toolchains//:resolved_toolchain",
         "//bzl/toolchain-types:hugo",
     ],
     provides = [AlHugoSiteInfo],
     attrs = {
-        "log_level": attr.string(
-            doc = "Value for --logLevel",
-            default = "info",
-        ),
-        "arguments": attr.string_list(
-            doc = "Build arguments",
-            default = [],
-        ),
         "tree": attr.label(
             allow_single_file = [".tar"],
             mandatory = True,
