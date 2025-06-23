@@ -52,7 +52,7 @@ def _impl(ctx):
         ),
     ]
 
-al_hugo_site = rule(
+al_hugo_run_binary = rule(
     implementation = _impl,
     doc = "Build a hugo site",
     toolchains = [

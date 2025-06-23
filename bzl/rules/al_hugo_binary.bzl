@@ -44,7 +44,7 @@ def _impl(ctx):
         ),
     ]
 
-al_hugo_site_binary = rule(
+al_hugo_binary = rule(
     implementation = _impl,
     executable = True,
     doc = "Run a hugo command",

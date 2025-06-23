@@ -11,6 +11,7 @@ al_readme(
 pkg_tar(
     name = "misc",
     srcs = glob(["**/*.md"]) + [":books"],
+    package_dir = package_name(),
     strip_prefix = ".",
     visibility = ["//visibility:public"],
 )
