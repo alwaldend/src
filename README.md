@@ -13,158 +13,175 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 <!-- README_CONTENTS START -->
 
-  - [bzl](/bzl): Bazel projects
+- [bzl](/bzl): Bazel projects
 
-    - [aspects](/bzl/aspects): Bazel aspects
+  - [aspects](/bzl/aspects): Bazel aspects
 
-    - [build-files](/bzl/build-files): BUILD.bazel files
+  - [build-files](/bzl/build-files): BUILD.bazel files
 
-    - [configs](/bzl/configs): Bazel configs
+  - [configs](/bzl/configs): Bazel configs
 
-    - [extensions](/bzl/extensions): Module extensions
+  - [extensions](/bzl/extensions): Module extensions
 
-    - [macros](/bzl/macros): Bazel macros
+  - [macros](/bzl/macros): Bazel macros
 
-    - [providers](/bzl/providers): Bazel providers
+  - [providers](/bzl/providers): Bazel providers
 
-    - [registry](/bzl/registry): Bazel registry
+  - [registry](/bzl/registry): Bazel registry
 
-      - [modules](/bzl/registry/modules): Modules
+    - [modules](/bzl/registry/modules): Modules
 
-        - [com-github-aldanial-cloc](/bzl/registry/modules/com-github-aldanial-cloc): Cloc
+      - [com-github-aldanial-cloc](/bzl/registry/modules/com-github-aldanial-cloc): Cloc
 
-        - [com-github-georgewfraser-java-language-server](/bzl/registry/modules/com-github-georgewfraser-java-language-server): Java languange server
+      - [com-github-fortawesome-font-awesome](/bzl/registry/modules/com-github-fortawesome-font-awesome): Font-Awesome
 
-        - [com-nordicsemi-developer-nrfsdk](/bzl/registry/modules/com-nordicsemi-developer-nrfsdk): Nrfsdk
+      - [com-github-georgewfraser-java-language-server](/bzl/registry/modules/com-github-georgewfraser-java-language-server): Java languange server
 
-        - [hedron_compile_commands](/bzl/registry/modules/hedron_compile_commands): Bazel-compile-commands-extractor
+      - [com-github-google-docsy](/bzl/registry/modules/com-github-google-docsy): Docsy
 
-        - [org-openssl-openssl](/bzl/registry/modules/org-openssl-openssl): Openssl
+      - [com-github-twbs-bootstrap](/bzl/registry/modules/com-github-twbs-bootstrap): Bootstrap
 
-        - [rules_haskell](/bzl/registry/modules/rules_haskell): Patched version of rules_haskell
+      - [com-nordicsemi-developer-nrfsdk](/bzl/registry/modules/com-nordicsemi-developer-nrfsdk): Nrfsdk
 
-        - [us-nasm-nasm](/bzl/registry/modules/us-nasm-nasm): Netwide Assembler (NASM)
+      - [hedron_compile_commands](/bzl/registry/modules/hedron_compile_commands): Bazel-compile-commands-extractor
 
-    - [rules](/bzl/rules): Bazel rules
+      - [org-openssl-openssl](/bzl/registry/modules/org-openssl-openssl): Openssl
 
-    - [toolchains](/bzl/toolchains): Qt wrapper for bazel
+      - [rules_haskell](/bzl/registry/modules/rules_haskell): Patched version of rules_haskell
 
-    - [vars](/bzl/vars): Static bazel variables
+      - [us-nasm-nasm](/bzl/registry/modules/us-nasm-nasm): Netwide Assembler (NASM)
 
-  - [c](/c): C projects
+  - [rules](/bzl/rules): Bazel rules
 
-    - [misc](/c/misc): C utils
+  - [toolchain-types](/bzl/toolchain-types): Toolchain types
 
-    - [openssl](/c/openssl): Openssl build
+  - [toolchains](/bzl/toolchains): Qt wrapper for bazel
 
-    - [sri](/c/sri): Cli app to calculate subresource integrity (SRI)
+  - [vars](/bzl/vars): Static bazel variables
 
-  - [cfg](/cfg): Configs for different tools
+- [c](/c): C projects
 
-    - [dotfiles](/cfg/dotfiles): Dotfile configs
+  - [misc](/c/misc): C utils
 
-  - [cpp](/cpp): C&#43;&#43; projects
+  - [openssl](/c/openssl): Openssl build
 
-    - [infinitime](/cpp/infinitime): Fork of InfiniTimeOrg/InfiniTime
+  - [sri](/c/sri): Cli app to calculate subresource integrity (SRI)
 
-    - [leetcode-submissions](/cpp/leetcode-submissions): Leetcode submissions
+- [cfg](/cfg): Configs for different tools
 
-    - [useless-qt-gui](/cpp/useless-qt-gui): Useless qt GUI
+  - [dotfiles](/cfg/dotfiles): Dotfile configs
 
-  - [data](/data): Data
+- [cpp](/cpp): C&#43;&#43; projects
 
-    - [misc](/data/misc): Miscellaneous data
+  - [infinitime](/cpp/infinitime): Fork of InfiniTimeOrg/InfiniTime
 
-  - [drawio](/drawio): Drawio diagrams
+  - [leetcode-submissions](/cpp/leetcode-submissions): Leetcode submissions (cpp)
 
-    - [diagrams](/drawio/diagrams): Drawio diagrams
+  - [useless-qt-gui](/cpp/useless-qt-gui): Useless qt GUI
 
-  - [go](/go): Golang projects
+- [data](/data): Data
 
-    - [bazel-shell-worker](/go/bazel-shell-worker): Bazel worker that runs shell commands
+  - [misc](/data/misc): Miscellaneous data
 
-    - [file-installer](/go/file-installer): Tool to install files
+- [drawio](/drawio): Drawio diagrams
 
-    - [leetcode-downloader](/go/leetcode-downloader): CLI app to download leetcode submissions
+  - [diagrams](/drawio/diagrams): Drawio diagrams
 
-    - [readme-tree](/go/readme-tree): Tool to parse README.md files
+- [go](/go): Golang projects
 
-    - [template-files](/go/template-files): Cli tool to template files
+  - [bazel-shell-worker](/go/bazel-shell-worker): Bazel worker that runs shell commands
 
-    - [utils](/go/utils): Random golang tools
+  - [file-installer](/go/file-installer): Tool to install files
 
-  - [hugo](/hugo): Hugo projects
+    - [cmd](/go/file-installer/cmd): Cmd code for file-installer
 
-    - [misc](/hugo/misc): Miscellaneous knowledge
+  - [leetcode-downloader](/go/leetcode-downloader): CLI app to download leetcode submissions
 
-    - [projects](/hugo/projects): Project documentation
+    - [model](/go/leetcode-downloader/model): Models for leetcode-downloader
 
-  - [img](/img): Images
+  - [leetcode-submissions](/go/leetcode-submissions): Leetcode submissions (go)
 
-    - [useless-qt-gui](/img/useless-qt-gui): Assets for useless-qt-gui
+  - [readme-tree](/go/readme-tree): Tool to parse README.md files
 
-  - [java](/java): Java projects
+  - [template-files](/go/template-files): Cli tool to template files
 
-    - [leetcode-submissions](/java/leetcode-submissions): Leetcode submissions
+  - [utils](/go/utils): Random golang tools
 
-  - [js](/js): Javascript projects
+- [hugo](/hugo): Hugo projects
 
-    - [leetcode-downloader](/js/leetcode-downloader): Tampermonkey script to download leetcode submissions
+  - [modules](/hugo/modules): Hugo modules
 
-  - [kt](/kt): Kotlin projects
+  - [sites](/hugo/sites): Hugo sites
 
-  - [lua](/lua): Lua projects
+    - [docs](/hugo/sites/docs): Miscellaneous knowledge
 
-    - [nvim-config](/lua/nvim-config): Neovim config
+  - [themes](/hugo/themes): Hugo themes
 
-    - [nvim-lib](/lua/nvim-lib): Lua library for neovim
+- [img](/img): Images
 
-  - [md](/md): Markdown projects
+  - [useless-qt-gui](/img/useless-qt-gui): Assets for useless-qt-gui
 
-    - [docs](/md/docs): Project documentation
+- [java](/java): Java projects
 
-    - [misc](/md/misc): Miscellaneous knowledge
+  - [leetcode-submissions](/java/leetcode-submissions): Leetcode submissions (java)
 
-  - [patch](/patch): Patches
+- [js](/js): Javascript projects
 
-    - [infinitime](/patch/infinitime): Git patches for InfiniTimeOrg/InfiniTime
+  - [leetcode-downloader](/js/leetcode-downloader): Tampermonkey script to download leetcode submissions
 
-    - [rules-haskell](/patch/rules-haskell): Fixes for rules-haskell
+- [kt](/kt): Kotlin projects
 
-  - [pl](/pl): Perl projects
+- [lua](/lua): Lua projects
 
-  - [proto](/proto): Protobuf projects
+  - [nvim-config](/lua/nvim-config): Neovim config
 
-    - [bazel-worker](/proto/bazel-worker): Bazel worker protocol
+  - [nvim-lib](/lua/nvim-lib): Lua library for neovim
 
-    - [leetcode-downloader](/proto/leetcode-downloader): Models for leetcode-downloader
+- [md](/md): Markdown projects
 
-  - [py](/py): Python projects
+  - [misc](/md/misc): Miscellaneous knowledge
 
-    - [bazel-python-shell](/py/bazel-python-shell): Python shell allowing you to run shell commands in python environment
+- [patch](/patch): Patches
 
-    - [install-file](/py/install-file): Python scripts
+  - [infinitime](/patch/infinitime): Git patches for InfiniTimeOrg/InfiniTime
 
-    - [leetcode-submissions](/py/leetcode-submissions): Leetcode submissions
+  - [rules-haskell](/patch/rules-haskell): Fixes for rules-haskell
 
-    - [replace-section](/py/replace-section): Replace sections of files
+- [pl](/pl): Perl projects
 
-  - [rs](/rs): Rust projects
+- [proto](/proto): Protobuf projects
 
-    - [tools](/rs/tools): Rust tools
+  - [bazel-worker](/proto/bazel-worker): Bazel worker protocol
 
-  - [sh](/sh): Shell projects
+  - [leetcode-downloader](/proto/leetcode-downloader): Models for leetcode-downloader
 
-    - [git-hooks](/sh/git-hooks): Git hooks
+- [py](/py): Python projects
 
-    - [scripts](/sh/scripts): Shell scripts
+  - [bazel-python-shell](/py/bazel-python-shell): Python shell allowing you to run shell commands in python environment
 
-  - [tools](/tools): Tools
+  - [install-file](/py/install-file): Python scripts
 
-  - [vial](/vial): Vial configs
+  - [leetcode-submissions](/py/leetcode-submissions): Leetcode submissions (python)
 
-    - [keyboards](/vial/keyboards): Keyboard configs
-<!-- README_CONTENTS END -->
+  - [replace-section](/py/replace-section): Replace sections of files
+
+- [rs](/rs): Rust projects
+
+  - [tools](/rs/tools): Rust tools
+
+- [sh](/sh): Shell projects
+
+  - [git-hooks](/sh/git-hooks): Git hooks
+
+  - [scripts](/sh/scripts): Shell scripts
+
+- [tools](/tools): Tools
+
+- [vial](/vial): Vial configs
+
+      - [keyboards](/vial/keyboards): Keyboard configs
+
+  <!-- README_CONTENTS END -->
 
 </details>
 
@@ -172,38 +189,37 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
   <summary>Lines of code</summary>
 <!-- CLOC START -->
 
-Language|files|blank|comment|code
-:-------|-------:|-------:|-------:|-------:
-JSON|960|2|0|25803
-Python|571|2092|1159|8513
-Go|231|718|617|6521
-Starlark|96|425|594|2839
-C++|87|138|199|2219
-Text|5|117|0|1766
-Markdown|109|554|36|1726
-Lua|8|60|90|987
-TOML|6|54|0|545
-Bourne Shell|19|85|103|518
-YAML|3|77|0|504
-C|7|52|91|407
-diff|4|7|51|319
-Java|11|37|15|250
-C/C++ Header|7|14|9|111
-JavaScript|1|7|10|78
-Protocol Buffers|2|21|64|74
-XML (Qt/GTK)|1|0|0|31
-ProGuard|1|9|8|25
-HCL|1|1|5|8
-INI|1|2|0|7
-Snakemake|1|2|6|4
-Rust|1|0|0|3
---------|--------|--------|--------|--------
-SUM:|2133|4474|3057|53258
+| Language         |    files |    blank |  comment |     code |
+| :--------------- | -------: | -------: | -------: | -------: |
+| JSON             |      966 |        2 |        0 |    25853 |
+| Python           |      571 |     2092 |     1159 |     8513 |
+| TOML             |        7 |      358 |        2 |     7032 |
+| Go               |      231 |      718 |      617 |     6539 |
+| Starlark         |      116 |      530 |      663 |     3735 |
+| C++              |       87 |      138 |      199 |     2219 |
+| Text             |        5 |      117 |        0 |     1766 |
+| Lua              |        8 |       60 |       90 |      987 |
+| Markdown         |       90 |      170 |        5 |      562 |
+| YAML             |        4 |       80 |        0 |      531 |
+| Bourne Shell     |       19 |       85 |      103 |      518 |
+| C                |        7 |       52 |       91 |      407 |
+| diff             |        4 |        7 |       51 |      319 |
+| Java             |       11 |       37 |       15 |      250 |
+| C/C++ Header     |        7 |       14 |        9 |      111 |
+| JavaScript       |        1 |        7 |       10 |       78 |
+| Protocol Buffers |        2 |       21 |       64 |       74 |
+| XML (Qt/GTK)     |        1 |        0 |        0 |       31 |
+| ProGuard         |        1 |        9 |        8 |       25 |
+| INI              |        1 |        2 |        0 |        9 |
+| HCL              |        1 |        1 |        5 |        8 |
+| Snakemake        |        1 |        2 |        6 |        4 |
+| Rust             |        1 |        0 |        0 |        3 |
+| --------         | -------- | -------- | -------- | -------- |
+| SUM:             |     2142 |     4502 |     3097 |    59574 |
 
 <!-- CLOC END -->
 
 </details>
-
 
 ## Setup
 

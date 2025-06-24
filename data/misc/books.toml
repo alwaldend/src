@@ -768,9 +768,9 @@ links = [
 title = "Chrysalis"
 thumbnail = "https://www.royalroadcdn.com/public/covers-full/22518-chrysalis.jpg"
 quality = "Ok"
-summary = "Shallow and juvenile"
+summary = "Shallow"
 completion = "Not finished"
-reding = "Dropped, finished volume 2"
+reding = "Dropped, finished volume 6"
 authors = ["rinoz"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/22518/chrysalis" },
