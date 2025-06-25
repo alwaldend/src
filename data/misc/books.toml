@@ -150,6 +150,10 @@ alts = ["卧牛真人"]
 [author.mikage-eiji]
 name = "Mikage Eiji"
 
+[author.nocturnal-stranger]
+name = "Nocturnal Stranger"
+alts = ["厄夜怪客"]
+
 [[book]]
 title = "Reverend Insanity"
 alt_titles = ["Gu Daoist Master", "蛊真人"]
@@ -256,6 +260,31 @@ reading = "Finished"
 authors = ["cuttlefish-that-loves-diving"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/the-sage-who-transcended-samsara/" },
+]
+
+[[book]]
+title = "Beyond the Timescape"
+alt_titles = ["光阴之外"]
+thumbnail = "https://cdn.novelupdates.com/images/2024/08/Outside-of-Time.jpg"
+quality = "Ok"
+summary = "Shallow and edgy"
+completion = "Not finished"
+reading = "Dropped, chapter 65"
+authors = ["er-gen"]
+links = [
+    { title = "royalroad", url = "https://www.novelupdates.com/series/beyond-the-timescape/" },
+]
+
+[[book]]
+title = "Archfiend"
+alt_titles = ["最强妖孽"]
+thumbnail = "https://cdn.novelupdates.com/images/2017/11/strongest-evildoer.jpeg"
+quality = "Decent"
+completion = "Finished, not translated fully"
+reading = "Finished translated chapters, chapter 528"
+authors = ["nocturnal-stranger"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/archfiend/" },
 ]
 
 [[book]]
@@ -417,9 +446,10 @@ links = [
 [[book]]
 title = "Return of the Runebound Professor"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/68679-return-of-the-runebound-professor.jpg?time=1696109628"
-quality = "Decent"
+quality = "Ok"
+summary = "Shallow"
 completion = "Not finished"
-reading = "Reading, chapter 702, book 7"
+reading = "Dropped, chapter 702, book 715"
 authors = ["actus"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed" },
@@ -770,7 +800,7 @@ thumbnail = "https://www.royalroadcdn.com/public/covers-full/22518-chrysalis.jpg
 quality = "Ok"
 summary = "Shallow"
 completion = "Not finished"
-reding = "Dropped, finished volume 6"
+reading = "Dropped, finished volume 6"
 authors = ["rinoz"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/22518/chrysalis" },
