@@ -8,7 +8,7 @@ al_readme(
 
 pkg_tar(
     name = "docsy",
-    package_dir = "docsy",
+    package_dir = "github.com/google/docsy",
     deps = ["@com-github-google-docsy//:src-tar"],
 )
 

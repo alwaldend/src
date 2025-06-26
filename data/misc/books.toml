@@ -368,7 +368,7 @@ links = [
 [[book]]
 title = "Downtown Druid"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/79173-downtown-druid.jpg?time=1738855641"
-quality = "Good"
+quality = "Decent"
 completion = "Not finished"
 reading = "Finished volume 1"
 authors = ["seersucker"]
@@ -379,9 +379,10 @@ links = [
 [[book]]
 title = "A Practical Guide to Sorcery"
 thumbnail = "https://www.azaleaellis.com/wp-content/uploads/2022/10/A-Conjuring-of-Ravens-Web-800w-683x1024.jpg"
-quality = "Good"
+quality = "Decent"
+summary = "Slow publication"
 completion = "Not finished"
-reading = "Reading, chapter 251"
+reading = "Dropped, chapter 254"
 authors = ["azalea-ellis"]
 links = [
     { title = "azaleaellis", url = "https://www.azaleaellis.com/a-practical-guide-to-sorcery/" },
