@@ -348,7 +348,7 @@ title = "The Years of Apocalypse"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/the-years-of-apocalypse-a-time-loop-progression.jpg?time=1706941233"
 quality = "Good"
 completion = "Not finished"
-reading = "Reading, chapter 193"
+reading = "Dropped, chapter 199"
 authors = ["uraniumphoenix"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression" },
@@ -496,11 +496,10 @@ title = "Changeling"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg?time=1712108062"
 quality = "Decent"
 completion = "Not finished"
-reading = "Reading, chapter 76"
+reading = "Dropped, chapter 77"
 authors = ["mecanimus"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/75345/changeling" },
-    { title = "chapter", url = "https://www.royalroad.com/fiction/75345/changeling/chapter/2330439/part-76-expert-diplomat-nestra" },
 ]
 
 [[book]]
