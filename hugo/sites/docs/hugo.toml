@@ -1,5 +1,5 @@
 title = "Misc"
-theme = ["docsy"]
+theme = ["github.com/google/docsy"]
 # baseURL = "https://alwaldend.com/misc"
 enableRobotsTXT = true
 

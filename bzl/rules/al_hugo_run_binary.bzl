@@ -1,90 +1,67 @@
 load("//bzl/providers:al_hugo_site_info.bzl", "AlHugoSiteInfo")
 
 def _impl(ctx):
+    info = ctx.attr.site[AlHugoSiteInfo]
+    default_info = ctx.attr.site[DefaultInfo]
     hugo = ctx.toolchains["//bzl/toolchain-types:hugo"]
-    build_dir = ctx.actions.declare_directory("{}-build".format(ctx.label.name))
-    script = ctx.actions.declare_file("{}-script.sh".format(ctx.label.name))
-    files = [build_dir] + ctx.files.data
-    cmd = ["#!/usr/bin/env sh", "set -eux"]
+    script = ctx.actions.declare_file("{}-script".format(ctx.label.name))
+    destination = ctx.actions.declare_directory("{}-destination".format(ctx.label.name))
 
-    for key, value in ctx.attr.env.items():
-        cmd.append('{}="{}"'.format(key, value))
-        cmd.append("export {}".format(key))
-
-    cmd.extend(
-        [
-            "tar -xf '{}' -C '{}'".format(ctx.file.tree.path, build_dir.path),
-            "'{}' build --source '{}' \"$${{@}}\"".format(
-                hugo.hugo.path,
-                build_dir.path,
-                ctx.attr.log_level,
-            ),
-        ],
+    script_content = """\
+        #!/usr/bin/env sh
+        set -eux
+        top="$${{PWD}}"
+        cd '{destination}'
+        cp -r "$${{top}}/{content}" ./content
+        cp -r "$${{top}}/{themes}" ./themes
+        cp "$${{top}}/{config}" ./
+        "$${{top}}/{hugo}" "$${{@}}"
+    """.format(
+        hugo = hugo.hugo.path,
+        content = info.content.path,
+        themes = info.themes.path,
+        config = info.config.path,
+        destination = destination.path,
     )
     script_content = ctx.expand_make_variables(
         "script",
-        ctx.expand_location("\n".join(cmd + [""])),
+        ctx.expand_location(script_content),
         {},
     )
-
     ctx.actions.write(
-        content = script_content,
         output = script,
         is_executable = True,
+        content = script_content,
     )
-
     ctx.actions.run(
-        inputs = [ctx.file.tree, hugo.hugo] + ctx.files.data + ctx.files.tools,
         executable = script,
-        outputs = [build_dir],
+        inputs = [hugo.hugo] + ctx.files.site,
+        outputs = [destination],
+        tools = [default_info.default_runfiles.files, default_info.files],
         arguments = ctx.attr.arguments,
-        tools = [tool.files for tool in ctx.attr.tools] + [tool[DefaultInfo].default_runfiles.files for tool in ctx.attr.tools],
-        progress_message = "Building hugo site %{label} to %{output}",
     )
 
     return [
         DefaultInfo(
-            files = depset(files),
-            runfiles = ctx.runfiles(files),
-        ),
-        AlHugoSiteInfo(
-            build = build_dir,
+            files = depset([destination]),
         ),
     ]
 
 al_hugo_run_binary = rule(
     implementation = _impl,
-    doc = "Build a hugo site",
+    doc = "Run hugo binary as a build action",
     toolchains = [
-        #"@com-alwaldend-src-nodejs-toolchains//:resolved_toolchain",
         "//bzl/toolchain-types:hugo",
     ],
-    provides = [AlHugoSiteInfo],
     attrs = {
         "arguments": attr.string_list(
-            doc = "Build arguments",
-            default = [],
-        ),
-        "tree": attr.label(
-            allow_single_file = [".tar"],
             mandatory = True,
-            doc = "Hugo tree",
+            doc = "Hugo arguments",
         ),
-        "tools": attr.label_list(
-            doc = "Tools that should be available for the build",
-            default = [],
-        ),
-        "data": attr.label_list(
-            doc = "Data that is made available for the site",
-            default = [],
-        ),
-        "env": attr.string_dict(
-            default = {},
-            doc = """
-                Hugo environment variables
-                (support location statements, support make variables, support
-                shell commands)
-            """,
+        "site": attr.label(
+            mandatory = True,
+            providers = [AlHugoSiteInfo],
+            doc = "Hugo site",
         ),
     },
 )
