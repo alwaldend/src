@@ -4,8 +4,11 @@ def _impl(ctx):
     hugo = ctx.toolchains["//bzl/toolchain-types:hugo"]
     themes = ctx.actions.declare_directory("{}-themes".format(ctx.label.name))
     content = ctx.actions.declare_directory("{}-content".format(ctx.label.name))
-    files = [hugo.hugo, themes, content, ctx.file.config] + ctx.files.tools + ctx.files.data
-    runfiles = ctx.runfiles(files)
+    files = [hugo.hugo, themes, content, ctx.file.config]
+    runfiles = ctx.runfiles(
+        files = files,
+        transitive_files = depset(ctx.files.tools + ctx.files.data),
+    )
     for tool in ctx.attr.tools:
         runfiles.merge(tool[DefaultInfo].default_runfiles)
     env_script = " && ".join([
@@ -13,6 +16,11 @@ def _impl(ctx):
         for name, value in ctx.attr.env.items()
         for cmd in ['{}="{}"'.format(name, value), "export {}".format(name)]
     ])
+    env_script = ctx.expand_make_variables(
+        "env_script",
+        ctx.expand_location(env_script),
+        {},
+    )
 
     for output, input in [[content, ctx.file.content], [themes, ctx.file.themes]]:
         ctx.actions.run_shell(

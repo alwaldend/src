@@ -10,23 +10,20 @@ def _impl(ctx):
     script_content = """\
         #!/usr/bin/env sh
         set -eux
-        top="$${{PWD}}"
+        {env_script}
+        top="${{PWD}}"
         cd '{destination}'
-        cp -r "$${{top}}/{content}" ./content
-        cp -r "$${{top}}/{themes}" ./themes
-        cp "$${{top}}/{config}" ./
-        "$${{top}}/{hugo}" "$${{@}}"
+        cp -r "${{top}}/{content}" ./content
+        cp -r "${{top}}/{themes}" ./themes
+        cp "${{top}}/{config}" ./
+        "${{top}}/{hugo}" "${{@}}"
     """.format(
         hugo = hugo.hugo.path,
         content = info.content.path,
         themes = info.themes.path,
         config = info.config.path,
         destination = destination.path,
-    )
-    script_content = ctx.expand_make_variables(
-        "script",
-        ctx.expand_location(script_content),
-        {},
+        env_script = info.env_script,
     )
     ctx.actions.write(
         output = script,

@@ -11,10 +11,10 @@ al_hugo_site(
     content = ":content",
     env = {
         "PATH": ":".join((
-            "$${PWD}/$$(dirname $(execpath //tools:postcss))",
+            "$$(dirname $(execpath //tools:postcss))",
             "$${PATH}",
         )),
-        "BAZEL_BINDIR": "$${PWD}/$(BINDIR)",
+        "BAZEL_BINDIR": "$(BINDIR)",
     },
     themes = "//hugo/themes",
     tools = [
