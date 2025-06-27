@@ -12,24 +12,21 @@ def _impl(ctx):
     script_content = """\
         #!/usr/bin/env sh
         set -eux
+        {env_script}
         ln -s '{content}' ./content
         ln -s '{themes}' ./themes
         ln -s '{config}' ./
-        '{hugo}' {arguments} "$${{@}}"
+        '{hugo}' {arguments} "${{@}}"
     """.format(
         hugo = hugo.hugo.short_path,
         content = info.content.short_path,
         themes = info.themes.short_path,
         config = info.config.short_path,
+        env_script = info.env_script,
         arguments = " ".join([
             shell.quote(argument)
             for argument in ctx.attr.arguments
         ]),
-    )
-    script_content = ctx.expand_make_variables(
-        "script",
-        ctx.expand_location(script_content),
-        {},
     )
     ctx.actions.write(
         output = script,
