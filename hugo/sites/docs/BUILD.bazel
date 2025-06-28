@@ -32,7 +32,6 @@ al_hugo_binary(
     name = "serve",
     arguments = [
         "serve",
-        "--noChmod",
     ],
     site = ":site",
 )
