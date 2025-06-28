@@ -30,16 +30,27 @@ al_hugo_run_binary(
 
 al_hugo_binary(
     name = "serve",
-    arguments = ["serve"],
+    arguments = [
+        "serve",
+        "--noChmod",
+    ],
     site = ":site",
+)
+
+pkg_tar(
+    name = "content-en",
+    package_dir = "en/docs",
+    deps = [
+        "//:readme-children",
+        "//bzl:bzl-stardoc",
+        "//md/misc",
+    ],
 )
 
 pkg_tar(
     name = "content",
     deps = [
-        "//:readme-children",
-        "//bzl:bzl-stardoc",
-        "//md/misc",
+        ":content-en",
     ],
 )
 

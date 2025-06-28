@@ -41,6 +41,10 @@ alts = ["乱"]
 name = "Tang Jia San Shao"
 alts = ["唐家三少"]
 
+[author.can-fix-air-conditioners]
+name = "Can Fix Air-Conditioners"
+alts = ["我会修空调"]
+
 [author.thefirstdefier]
 name = "TheFirstDefier"
 
@@ -800,8 +804,21 @@ thumbnail = "https://www.royalroadcdn.com/public/covers-full/22518-chrysalis.jpg
 quality = "Ok"
 summary = "Shallow"
 completion = "Not finished"
-reading = "Dropped, finished volume 6"
+reading = "Dropped, volume 7, chapter 1151"
 authors = ["rinoz"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/22518/chrysalis" },
+]
+
+[[book]]
+title = "My House of Horrors"
+alt_titles = ["我有一座冒险屋"]
+thumbnail = "https://cdn.novelupdates.com/images/2024/09/My-House-of-Horrors.jpg"
+quality = "Ok"
+summary = "Repetetive"
+completion = "Finished"
+reading = "Dropped at some point"
+authors = ["can-fix-air-conditioners"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/my-house-of-horrors/" },
 ]

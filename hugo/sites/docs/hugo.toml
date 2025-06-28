@@ -1,7 +1,17 @@
 title = "Misc"
 theme = ["github.com/google/docsy"]
 # baseURL = "https://alwaldend.com/misc"
+
+contentDir = "content/en"
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+enableMissingTranslationPlaceholders = true
 enableRobotsTXT = true
+enableGitInfo = true
+pygmentsCodeFences = true
+pygmentsUseClasses = false
+pygmentsUseClassic = false
+pygmentsStyle = "tango"
 
 [markup]
 goldmark.renderer.unsafe = true
@@ -12,3 +22,113 @@ osEnv = ['.*']
 
 [security.funcs]
 getenv = ['.*']
+
+[taxonomies]
+tag = "tags"
+category = "categories"
+
+[permalinks]
+blog = "/:section/:year/:month/:day/:slug/"
+
+[imaging]
+resampleFilter = "CatmullRom"
+quality = 75
+anchor = "Smart"
+
+[languages.en]
+languageName = "English"
+title = "Goldydocs"
+
+[languages.en.params]
+description = "A Docsy example site"
+
+
+[markup.goldmark.parser.attribute]
+block = true
+
+[markup.highlight]
+style = "tango"
+
+[outputs]
+section = ["HTML", "print", "RSS"]
+
+[params]
+privacy_policy = "https://policies.google.com/privacy"
+version_menu = "Releases"
+archived_version = false
+version = 0
+url_latest_version = "https://example.com"
+github_repo = "https://github.com/google/docsy-example"
+github_project_repo = "https://github.com/google/docsy"
+github_branch = "main"
+gcs_engine_id = "d72aa9b2712488cc3"
+offlineSearch = false
+prism_syntax_highlighting = false
+
+[params.taxonomy]
+taxonomyCloud = ["tags", "categories"]
+taxonomyCloudTitle = ["Tag Cloud", "Categories"]
+taxonomyPageHeader = ["tags", "categories"]
+
+[params.copyright]
+authors = "Docsy Authors | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0) |"
+from_year = 2_018
+
+[params.ui]
+breadcrumb_disable = false
+navbar_logo = true
+navbar_translucent_over_cover_disable = false
+sidebar_menu_compact = false
+sidebar_search_disable = false
+
+[params.ui.feedback]
+enable = true
+yes = 'Glad to hear it! Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
+no = 'Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us how we can improve</a>.'
+
+[params.ui.readingtime]
+enable = false
+
+[[params.links.user]]
+name = "User mailing list"
+url = "https://example.org/mail"
+icon = "fa fa-envelope"
+desc = "Discussion and help from your fellow users"
+
+[[params.links.user]]
+name = "Twitter"
+url = "https://example.org/twitter"
+icon = "fab fa-twitter"
+desc = "Follow us on Twitter to get the latest news!"
+
+[[params.links.user]]
+name = "Stack Overflow"
+url = "https://example.org/stack"
+icon = "fab fa-stack-overflow"
+desc = "Practical questions and curated answers"
+
+[[params.links.developer]]
+name = "GitHub"
+url = "https://github.com/google/docsy"
+icon = "fab fa-github"
+desc = "Development takes place here!"
+
+[[params.links.developer]]
+name = "Slack"
+url = "https://example.org/slack"
+icon = "fab fa-slack"
+desc = "Chat with other project developers"
+
+[[params.links.developer]]
+name = "Developer mailing list"
+url = "https://example.org/mail"
+icon = "fa fa-envelope"
+desc = "Discuss development issues around the project"
+
+[module.hugoVersion]
+extended = true
+min = "0.146.0"
+
+[[module.imports]]
+path = "github.com/google/docsy"
+disable = false
