@@ -12,10 +12,12 @@ def _impl(ctx):
     script_content = """\
         #!/usr/bin/env sh
         set -eux
-        {env_script}
-        ln -s '{content}' ./content
-        ln -s '{themes}' ./themes
-        ln -s '{config}' ./
+        top="${{PWD}}"
+        ln -s "${{top}}/{content}" ./content
+        ln -s "${{top}}/{themes}" ./themes
+        ln -s "${{top}}/{config}" ./
+        chmod -R 700 .
+        #find content/ -name "README.md" -exec sh -c 'mv "{{}}" "$(dirname "{{}}")/_index.md"' ";"
         '{hugo}' {arguments} "${{@}}"
     """.format(
         hugo = hugo.hugo.short_path,

@@ -8,9 +8,6 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 ## Contents
 
-<details>
-  <summary>Directory structure</summary>
-
 <!-- README_CONTENTS START -->
 
 - [bzl](/bzl): Bazel projects
@@ -179,11 +176,9 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 - [vial](/vial): Vial configs
 
-      - [keyboards](/vial/keyboards): Keyboard configs
+  - [keyboards](/vial/keyboards): Keyboard configs
 
   <!-- README_CONTENTS END -->
-
-</details>
 
 <details>
   <summary>Lines of code</summary>
