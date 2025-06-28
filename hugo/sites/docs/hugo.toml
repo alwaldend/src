@@ -1,6 +1,6 @@
 title = "Misc"
 theme = ["github.com/google/docsy"]
-# baseURL = "https://alwaldend.com/misc"
+baseURL = "https://alwaldend.com/docs/"
 
 contentDir = "content/en"
 defaultContentLanguage = "en"
@@ -16,19 +16,12 @@ pygmentsStyle = "tango"
 [markup]
 goldmark.renderer.unsafe = true
 
-[security.exec]
-allow = ['.*']
-osEnv = ['.*']
-
-[security.funcs]
-getenv = ['.*']
-
-[taxonomies]
-tag = "tags"
-category = "categories"
-
-[permalinks]
-blog = "/:section/:year/:month/:day/:slug/"
+# [security.exec]
+# allow = ['.*']
+# osEnv = ['.*']
+#
+# [security.funcs]
+# getenv = ['.*']
 
 [imaging]
 resampleFilter = "CatmullRom"
@@ -41,7 +34,6 @@ title = "Goldydocs"
 
 [languages.en.params]
 description = "A Docsy example site"
-
 
 [markup.goldmark.parser.attribute]
 block = true

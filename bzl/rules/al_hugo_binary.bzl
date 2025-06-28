@@ -16,8 +16,7 @@ def _impl(ctx):
         ln -s "${{top}}/{content}" ./content
         ln -s "${{top}}/{themes}" ./themes
         ln -s "${{top}}/{config}" ./
-        chmod -R 700 .
-        #find content/ -name "README.md" -exec sh -c 'mv "{{}}" "$(dirname "{{}}")/_index.md"' ";"
+        chmod -R 700 ./content ./ ./themes
         '{hugo}' {arguments} "${{@}}"
     """.format(
         hugo = hugo.hugo.short_path,

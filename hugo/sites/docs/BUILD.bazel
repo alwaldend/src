@@ -38,6 +38,7 @@ al_hugo_binary(
 
 pkg_tar(
     name = "content-en",
+    srcs = ["//:LICENSE.txt"],
     package_dir = "en/docs",
     deps = [
         "//:readme-children",
