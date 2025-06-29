@@ -12,173 +12,173 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 <!-- README_CONTENTS START -->
 
-- [bzl](./bzl): Bazel projects
+- <a href="bzl">bzl</a>: Bazel projects
 
-  - [aspects](./bzl/aspects): Bazel aspects
+  - <a href="bzl/aspects">aspects</a>: Bazel aspects
 
-  - [build-files](./bzl/build-files): BUILD.bazel files
+  - <a href="bzl/build-files">build-files</a>: BUILD.bazel files
 
-  - [configs](./bzl/configs): Bazel configs
+  - <a href="bzl/configs">configs</a>: Bazel configs
 
-  - [extensions](./bzl/extensions): Module extensions
+  - <a href="bzl/extensions">extensions</a>: Module extensions
 
-  - [macros](./bzl/macros): Bazel macros
+  - <a href="bzl/macros">macros</a>: Bazel macros
 
-  - [providers](./bzl/providers): Bazel providers
+  - <a href="bzl/providers">providers</a>: Bazel providers
 
-  - [registry](./bzl/registry): Bazel registry
+  - <a href="bzl/registry">registry</a>: Bazel registry
 
-    - [modules](./bzl/registry/modules): Modules
+    - <a href="bzl/registry/modules">modules</a>: Modules
 
-      - [com-github-aldanial-cloc](./bzl/registry/modules/com-github-aldanial-cloc): Cloc
+      - <a href="bzl/registry/modules/com-github-aldanial-cloc">com-github-aldanial-cloc</a>: Cloc
 
-      - [com-github-fortawesome-font-awesome](./bzl/registry/modules/com-github-fortawesome-font-awesome): Font-Awesome
+      - <a href="bzl/registry/modules/com-github-fortawesome-font-awesome">com-github-fortawesome-font-awesome</a>: Font-Awesome
 
-      - [com-github-georgewfraser-java-language-server](./bzl/registry/modules/com-github-georgewfraser-java-language-server): Java languange server
+      - <a href="bzl/registry/modules/com-github-georgewfraser-java-language-server">com-github-georgewfraser-java-language-server</a>: Java languange server
 
-      - [com-github-google-docsy](./bzl/registry/modules/com-github-google-docsy): Docsy
+      - <a href="bzl/registry/modules/com-github-google-docsy">com-github-google-docsy</a>: Docsy
 
-      - [com-github-twbs-bootstrap](./bzl/registry/modules/com-github-twbs-bootstrap): Bootstrap
+      - <a href="bzl/registry/modules/com-github-twbs-bootstrap">com-github-twbs-bootstrap</a>: Bootstrap
 
-      - [com-nordicsemi-developer-nrfsdk](./bzl/registry/modules/com-nordicsemi-developer-nrfsdk): Nrfsdk
+      - <a href="bzl/registry/modules/com-nordicsemi-developer-nrfsdk">com-nordicsemi-developer-nrfsdk</a>: Nrfsdk
 
-      - [hedron_compile_commands](./bzl/registry/modules/hedron_compile_commands): Bazel-compile-commands-extractor
+      - <a href="bzl/registry/modules/hedron_compile_commands">hedron_compile_commands</a>: Bazel-compile-commands-extractor
 
-      - [org-openssl-openssl](./bzl/registry/modules/org-openssl-openssl): Openssl
+      - <a href="bzl/registry/modules/org-openssl-openssl">org-openssl-openssl</a>: Openssl
 
-      - [rules_haskell](./bzl/registry/modules/rules_haskell): Patched version of rules_haskell
+      - <a href="bzl/registry/modules/rules_haskell">rules_haskell</a>: Patched version of rules_haskell
 
-      - [us-nasm-nasm](./bzl/registry/modules/us-nasm-nasm): Netwide Assembler (NASM)
+      - <a href="bzl/registry/modules/us-nasm-nasm">us-nasm-nasm</a>: Netwide Assembler (NASM)
 
-  - [rules](./bzl/rules): Bazel rules
+  - <a href="bzl/rules">rules</a>: Bazel rules
 
-  - [toolchain-types](./bzl/toolchain-types): Toolchain types
+  - <a href="bzl/toolchain-types">toolchain-types</a>: Toolchain types
 
-  - [toolchains](./bzl/toolchains): Qt wrapper for bazel
+  - <a href="bzl/toolchains">toolchains</a>: Qt wrapper for bazel
 
-  - [vars](./bzl/vars): Static bazel variables
+  - <a href="bzl/vars">vars</a>: Static bazel variables
 
-- [c](./c): C projects
+- <a href="c">c</a>: C projects
 
-  - [misc](./c/misc): C utils
+  - <a href="c/misc">misc</a>: C utils
 
-  - [openssl](./c/openssl): Openssl build
+  - <a href="c/openssl">openssl</a>: Openssl build
 
-  - [sri](./c/sri): Cli app to calculate subresource integrity (SRI)
+  - <a href="c/sri">sri</a>: Cli app to calculate subresource integrity (SRI)
 
-- [cfg](./cfg): Configs for different tools
+- <a href="cfg">cfg</a>: Configs for different tools
 
-  - [dotfiles](./cfg/dotfiles): Dotfile configs
+  - <a href="cfg/dotfiles">dotfiles</a>: Dotfile configs
 
-- [cpp](./cpp): C&#43;&#43; projects
+- <a href="cpp">cpp</a>: C&#43;&#43; projects
 
-  - [infinitime](./cpp/infinitime): Fork of InfiniTimeOrg/InfiniTime
+  - <a href="cpp/infinitime">infinitime</a>: Fork of InfiniTimeOrg/InfiniTime
 
-  - [leetcode-submissions](./cpp/leetcode-submissions): Leetcode submissions (cpp)
+  - <a href="cpp/leetcode-submissions">leetcode-submissions</a>: Leetcode submissions (cpp)
 
-  - [useless-qt-gui](./cpp/useless-qt-gui): Useless qt GUI
+  - <a href="cpp/useless-qt-gui">useless-qt-gui</a>: Useless qt GUI
 
-- [data](./data): Data
+- <a href="data">data</a>: Data
 
-  - [misc](./data/misc): Miscellaneous data
+  - <a href="data/misc">misc</a>: Miscellaneous data
 
-- [drawio](./drawio): Drawio diagrams
+- <a href="drawio">drawio</a>: Drawio diagrams
 
-  - [diagrams](./drawio/diagrams): Drawio diagrams
+  - <a href="drawio/diagrams">diagrams</a>: Drawio diagrams
 
-- [go](./go): Golang projects
+- <a href="go">go</a>: Golang projects
 
-  - [bazel-shell-worker](./go/bazel-shell-worker): Bazel worker that runs shell commands
+  - <a href="go/bazel-shell-worker">bazel-shell-worker</a>: Bazel worker that runs shell commands
 
-  - [file-installer](./go/file-installer): Tool to install files
+  - <a href="go/file-installer">file-installer</a>: Tool to install files
 
-    - [cmd](./go/file-installer/cmd): Cmd code for file-installer
+    - <a href="go/file-installer/cmd">cmd</a>: Cmd code for file-installer
 
-  - [leetcode-downloader](./go/leetcode-downloader): CLI app to download leetcode submissions
+  - <a href="go/leetcode-downloader">leetcode-downloader</a>: CLI app to download leetcode submissions
 
-    - [model](./go/leetcode-downloader/model): Models for leetcode-downloader
+    - <a href="go/leetcode-downloader/model">model</a>: Models for leetcode-downloader
 
-  - [leetcode-submissions](./go/leetcode-submissions): Leetcode submissions (go)
+  - <a href="go/leetcode-submissions">leetcode-submissions</a>: Leetcode submissions (go)
 
-  - [readme-tree](./go/readme-tree): Tool to parse README.md files
+  - <a href="go/readme-tree">readme-tree</a>: Tool to parse README.md files
 
-  - [template-files](./go/template-files): Cli tool to template files
+  - <a href="go/template-files">template-files</a>: Cli tool to template files
 
-  - [utils](./go/utils): Random golang tools
+  - <a href="go/utils">utils</a>: Random golang tools
 
-- [hugo](./hugo): Hugo projects
+- <a href="hugo">hugo</a>: Hugo projects
 
-  - [modules](./hugo/modules): Hugo modules
+  - <a href="hugo/modules">modules</a>: Hugo modules
 
-  - [sites](./hugo/sites): Hugo sites
+  - <a href="hugo/sites">sites</a>: Hugo sites
 
-    - [docs](./hugo/sites/docs): Miscellaneous knowledge
+    - <a href="hugo/sites/docs">docs</a>: Miscellaneous knowledge
 
-  - [themes](./hugo/themes): Hugo themes
+  - <a href="hugo/themes">themes</a>: Hugo themes
 
-- [img](./img): Images
+- <a href="img">img</a>: Images
 
-  - [useless-qt-gui](./img/useless-qt-gui): Assets for useless-qt-gui
+  - <a href="img/useless-qt-gui">useless-qt-gui</a>: Assets for useless-qt-gui
 
-- [java](./java): Java projects
+- <a href="java">java</a>: Java projects
 
-  - [leetcode-submissions](./java/leetcode-submissions): Leetcode submissions (java)
+  - <a href="java/leetcode-submissions">leetcode-submissions</a>: Leetcode submissions (java)
 
-- [js](./js): Javascript projects
+- <a href="js">js</a>: Javascript projects
 
-  - [leetcode-downloader](./js/leetcode-downloader): Tampermonkey script to download leetcode submissions
+  - <a href="js/leetcode-downloader">leetcode-downloader</a>: Tampermonkey script to download leetcode submissions
 
-- [kt](./kt): Kotlin projects
+- <a href="kt">kt</a>: Kotlin projects
 
-- [lua](./lua): Lua projects
+- <a href="lua">lua</a>: Lua projects
 
-  - [nvim-config](./lua/nvim-config): Neovim config
+  - <a href="lua/nvim-config">nvim-config</a>: Neovim config
 
-  - [nvim-lib](./lua/nvim-lib): Lua library for neovim
+  - <a href="lua/nvim-lib">nvim-lib</a>: Lua library for neovim
 
-- [md](./md): Markdown projects
+- <a href="md">md</a>: Markdown projects
 
-  - [misc](./md/misc): Miscellaneous knowledge
+  - <a href="md/misc">misc</a>: Miscellaneous knowledge
 
-- [patch](./patch): Patches
+- <a href="patch">patch</a>: Patches
 
-  - [infinitime](./patch/infinitime): Git patches for InfiniTimeOrg/InfiniTime
+  - <a href="patch/infinitime">infinitime</a>: Git patches for InfiniTimeOrg/InfiniTime
 
-  - [rules-haskell](./patch/rules-haskell): Fixes for rules-haskell
+  - <a href="patch/rules-haskell">rules-haskell</a>: Fixes for rules-haskell
 
-- [pl](./pl): Perl projects
+- <a href="pl">pl</a>: Perl projects
 
-- [proto](./proto): Protobuf projects
+- <a href="proto">proto</a>: Protobuf projects
 
-  - [bazel-worker](./proto/bazel-worker): Bazel worker protocol
+  - <a href="proto/bazel-worker">bazel-worker</a>: Bazel worker protocol
 
-  - [leetcode-downloader](./proto/leetcode-downloader): Models for leetcode-downloader
+  - <a href="proto/leetcode-downloader">leetcode-downloader</a>: Models for leetcode-downloader
 
-- [py](./py): Python projects
+- <a href="py">py</a>: Python projects
 
-  - [bazel-python-shell](./py/bazel-python-shell): Python shell allowing you to run shell commands in python environment
+  - <a href="py/bazel-python-shell">bazel-python-shell</a>: Python shell allowing you to run shell commands in python environment
 
-  - [install-file](./py/install-file): Python scripts
+  - <a href="py/install-file">install-file</a>: Python scripts
 
-  - [leetcode-submissions](./py/leetcode-submissions): Leetcode submissions (python)
+  - <a href="py/leetcode-submissions">leetcode-submissions</a>: Leetcode submissions (python)
 
-  - [replace-section](./py/replace-section): Replace sections of files
+  - <a href="py/replace-section">replace-section</a>: Replace sections of files
 
-- [rs](./rs): Rust projects
+- <a href="rs">rs</a>: Rust projects
 
-  - [tools](./rs/tools): Rust tools
+  - <a href="rs/tools">tools</a>: Rust tools
 
-- [sh](./sh): Shell projects
+- <a href="sh">sh</a>: Shell projects
 
-  - [git-hooks](./sh/git-hooks): Git hooks
+  - <a href="sh/git-hooks">git-hooks</a>: Git hooks
 
-  - [scripts](./sh/scripts): Shell scripts
+  - <a href="sh/scripts">scripts</a>: Shell scripts
 
-- [tools](./tools): Tools
+- <a href="tools">tools</a>: Tools
 
-- [vial](./vial): Vial configs
+- <a href="vial">vial</a>: Vial configs
 
-  - [keyboards](./vial/keyboards): Keyboard configs
+  - <a href="vial/keyboards">keyboards</a>: Keyboard configs
   <!-- README_CONTENTS END -->
 
 <details>

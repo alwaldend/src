@@ -32,6 +32,7 @@ al_hugo_binary(
     name = "serve",
     arguments = [
         "serve",
+        "--renderToMemory",  # /js directory causes problems overwise
     ],
     site = ":site",
 )
