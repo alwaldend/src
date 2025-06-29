@@ -22,6 +22,7 @@ al_bzl_library_map(
             "//bzl/providers:al_hugo_site_info",
         ],
         "al_remove_directories": [],
+        "al_drawio_diagram": [],
     },
     visibility = ["//visibility:public"],
 )

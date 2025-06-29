@@ -6,6 +6,7 @@ def _impl(ctx):
         platform_common.TemplateVariableInfo(env),
         platform_common.ToolchainInfo(
             env = env,
+            drawio = ctx.executable.drawio,
         ),
     ]
 
