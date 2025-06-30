@@ -76,6 +76,9 @@ al_bzl_library_map(
         ],
         "al_txt_data": [
         ],
+        "al_drawio_run_binary": [
+            "//bzl/rules:al_drawio_run_binary",
+        ],
     },
     visibility = ["//visibility:public"],
 )

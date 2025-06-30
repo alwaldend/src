@@ -122,6 +122,10 @@ register_toolchains(
 )
 
 register_toolchains(
+    "//bzl/toolchains:drawio-remote-linux-x86_64",
+)
+
+register_toolchains(
     "//bzl/toolchains:shellcheck-remote-linux-x86_64",
 )
 

@@ -2,6 +2,7 @@ def _impl(ctx):
     env = {
         "DRAWIO": ctx.executable.drawio.path,
     }
+
     return [
         platform_common.TemplateVariableInfo(env),
         platform_common.ToolchainInfo(

@@ -21,8 +21,10 @@ al_bzl_library_map(
         "al_hugo_run_binary": [
             "//bzl/providers:al_hugo_site_info",
         ],
-        "al_remove_directories": [],
-        "al_drawio_diagram": [],
+        "al_remove_directories": [
+        ],
+        "al_drawio_run_binary": [
+        ],
     },
     visibility = ["//visibility:public"],
 )
