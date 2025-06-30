@@ -1,4 +1,7 @@
 def _impl(ctx):
+    """
+    Reference: https://github.com/rlespinasse/docker-drawio-desktop-headless
+    """
     drawio = ctx.toolchains["//bzl/toolchain-types:drawio"]
     script = ctx.actions.declare_file("{}-script.sh".format(ctx.label.name))
     script_content = """\
