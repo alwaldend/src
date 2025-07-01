@@ -181,8 +181,6 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
   - <a href="vial/keyboards">keyboards</a>: Keyboard configs
   <!-- README_CONTENTS END -->
 
-<details>
-  <summary>Lines of code</summary>
 <!-- CLOC START -->
 
 | Language         |    files |    blank |  comment |     code |
@@ -214,8 +212,6 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 | SUM:             |     2142 |     4502 |     3097 |    59574 |
 
 <!-- CLOC END -->
-
-</details>
 
 ## Setup
 
