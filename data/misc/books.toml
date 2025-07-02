@@ -158,16 +158,33 @@ name = "Mikage Eiji"
 name = "Nocturnal Stranger"
 alts = ["厄夜怪客"]
 
+[author.ya-boy]
+name = "Ya Boy"
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/profile/202632" },
+]
+
 [[book]]
 title = "Reverend Insanity"
 alt_titles = ["Gu Daoist Master", "蛊真人"]
 thumbnail = "https://cdn.novelupdates.com/images/2025/06/Reverend-Insanity.jpg"
-quality = "Good"
+quality = "Peak"
 completion = "Not finished, banned by CCP"
-reading = "Finished, 2334 Chapters"
+reading = "Finished available chapters, 2334 Chapters"
 authors = ["gu-zhen-ren"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/reverend-insanity/" },
+]
+
+[[book]]
+title = "Virtuous Sons"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/41330-virtuous-sons-a-greco-roman-xianxia.jpg?time=1664164206"
+quality = "Peak"
+completion = "Not finished"
+reading = "Reading, chapter 2.14"
+authors = ["ya-boy"]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/41330/virtuous-sons-a-greco-roman-xianxia" },
 ]
 
 [[book]]
