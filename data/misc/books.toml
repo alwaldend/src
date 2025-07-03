@@ -164,6 +164,10 @@ links = [
     { title = "royalroad", url = "https://www.royalroad.com/profile/202632" },
 ]
 
+[author.god-loves-the-world]
+name = "God Loves The World"
+alts = ["神仙爱凡尘"]
+
 [[book]]
 title = "Reverend Insanity"
 alt_titles = ["Gu Daoist Master", "蛊真人"]
@@ -335,7 +339,7 @@ title = "Matabar"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/matabar-aaaa9rj72ru.jpg?time=1727012411"
 quality = "Good"
 completion = "Not finished"
-reading = "Dropped, chapter 91"
+reading = "Reading, chapter 91"
 authors = ["kirill-klevanski"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/94398/matabar" },
@@ -369,7 +373,7 @@ title = "The Years of Apocalypse"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/the-years-of-apocalypse-a-time-loop-progression.jpg?time=1706941233"
 quality = "Good"
 completion = "Not finished"
-reading = "Dropped, chapter 199"
+reading = "Reading, chapter 199"
 authors = ["uraniumphoenix"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression" },
@@ -492,9 +496,9 @@ links = [
 [[book]]
 title = "Are You Even Human"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg?time=1724477376"
-quality = "Decent, too much mortal bullshit"
+quality = "Decent"
 completion = "Not finished"
-reading = "Dropped, chapter 47"
+reading = "Reading, chapter 47"
 authors = ["thundamoo"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/92549/are-you-even-human" },
@@ -517,7 +521,7 @@ title = "Changeling"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg?time=1712108062"
 quality = "Decent"
 completion = "Not finished"
-reading = "Dropped, chapter 77"
+reading = "Reading, chapter 78"
 authors = ["mecanimus"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/75345/changeling" },
@@ -838,4 +842,17 @@ reading = "Dropped at some point"
 authors = ["can-fix-air-conditioners"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/my-house-of-horrors/" },
+]
+
+[[book]]
+title = "The Spiritual Attainment of Minghe"
+alt_titles = ["明和的精神境界"]
+thumbnail = "https://cdn.novelupdates.com/images/2018/02/attain1.jpg"
+quality = "Ok"
+summary = "Mediocre, bad translation"
+completion = "Finished"
+reading = "Dropped, chapter 8"
+authors = ["god-loves-the-world"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/the-spiritual-attainment-of-minghe/" },
 ]
