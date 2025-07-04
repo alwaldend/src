@@ -108,8 +108,6 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 - <a href="hugo">hugo</a>: Hugo projects
 
-  - <a href="hugo/modules">modules</a>: Hugo modules
-
   - <a href="hugo/sites">sites</a>: Hugo sites
 
     - <a href="hugo/sites/docs">docs</a>: Miscellaneous knowledge
