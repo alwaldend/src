@@ -168,6 +168,35 @@ links = [
 name = "God Loves The World"
 alts = ["神仙爱凡尘"]
 
+[author.necariin]
+name = "Necariin"
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/profile/122394" },
+]
+
+[author.x-rhoden-x]
+name = "X-RHODEN-X"
+
+[author.fast-food-restaurant]
+name = "Fast Food Restaurant"
+alts = ["快餐店"]
+
+[author.chugong]
+name = "Chugong"
+alts = ["추공"]
+
+[author.xin-feng]
+name = "Xin Feng"
+alts = ["新丰"]
+
+[author.legend-of-the-paladin]
+name = "Legend of the Paladin"
+alts = ["圣骑士的传说"]
+
+[author.foxtail-quill]
+name = "Foxtail Quill"
+alts = ["狐尾的笔"]
+
 [[book]]
 title = "Reverend Insanity"
 alt_titles = ["Gu Daoist Master", "蛊真人"]
@@ -221,7 +250,7 @@ title = "Lord of the Mysteries"
 thumbnail = "https://cdn.novelupdates.com/images/2018/11/Lord-of-the-Mysteries.jpeg"
 quality = "Good"
 completion = "Finished"
-reading = "Finished"
+reading = "Finished volume 2"
 authors = ["cuttlefish-that-loves-diving"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/lord-of-the-mysteries/" },
@@ -405,9 +434,8 @@ links = [
 title = "A Practical Guide to Sorcery"
 thumbnail = "https://www.azaleaellis.com/wp-content/uploads/2022/10/A-Conjuring-of-Ravens-Web-800w-683x1024.jpg"
 quality = "Decent"
-summary = "Slow publication"
 completion = "Not finished"
-reading = "Dropped, chapter 254"
+reading = "Reading, chapter 254"
 authors = ["azalea-ellis"]
 links = [
     { title = "azaleaellis", url = "https://www.azaleaellis.com/a-practical-guide-to-sorcery/" },
@@ -473,9 +501,8 @@ links = [
 title = "Return of the Runebound Professor"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/68679-return-of-the-runebound-professor.jpg?time=1696109628"
 quality = "Ok"
-summary = "Shallow"
 completion = "Not finished"
-reading = "Dropped, chapter 702, book 715"
+reading = "Reading, chapter 715 (book 7)"
 authors = ["actus"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed" },
@@ -598,7 +625,7 @@ title = "DIE. RESPAWN. REPEAT."
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/66643-die-respawn-repeat.jpg?time=1718032689"
 quality = "Decent, a bit bland"
 completion = "Not finished"
-reading = "Dropped, volume 4, chapter 8"
+reading = "Dropped, volume 4, chapter 8 (chapter 222)"
 authors = ["silverlinings"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/66643/die-respawn-repeat" },
@@ -855,4 +882,91 @@ reading = "Dropped, chapter 8"
 authors = ["god-loves-the-world"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/the-spiritual-attainment-of-minghe/" },
+]
+
+[[book]]
+title = "Unbound"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/30321-unbound.jpg?time=1669144212"
+quality = "Ok"
+summary = "Mediocre"
+completion = "Not finished"
+reading = "Dropped, volume 3, chapter 51"
+authors = ["necariin"]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/30321/unbound" },
+]
+
+[[book]]
+title = "The Stubborn Skill-Grinder In A Time Loop"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/83294-the-stubborn-skill-grinder-in-a-time-loop.jpg?time=1744237319"
+quality = "Ok"
+summary = "Shallow litrpg slop"
+completion = "Not finished"
+reading = "Dropped, chapter 44"
+authors = ["x-rhoden-x"]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/83294/the-stubborn-skill-grinder-in-a-time-loop" },
+]
+
+[[book]]
+title = "I Shall Be Everlasting In the World of Immortals"
+alt_titles = ["我在修仙界万古长青"]
+thumbnail = "https://cdn.novelupdates.com/images/2024/08/I-Shall-Be-Everlasting-In-the-World-of-Immortals.jpg"
+quality = "Ok"
+summary = "Shallow"
+completion = "Not finished"
+reading = "Dropped, chapter 241"
+authors = ["fast-food-restaurant"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/i-shall-be-everlasting-in-the-world-of-immortals/" },
+]
+
+[[book]]
+title = "Solo Leveling"
+alt_titles = ["我独自升级"]
+thumbnail = "https://cdn.novelupdates.com/images/2019/01/Solo-Leveling.jpg"
+quality = "Ok"
+summary = "Shallow litrpg slop"
+completion = "Finished"
+reading = "Dropped, chapter 52"
+authors = ["chugong"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/solo-leveling/" },
+]
+
+[[book]]
+title = "The Strongest System"
+alt_titles = ["最强的系统"]
+thumbnail = "https://cdn.novelupdates.com/images/2022/06/The-Strongest-System.jpg"
+quality = "Ok"
+summary = "Shallow"
+completion = "Finished"
+reading = "Dropped, chapter 113"
+authors = ["xin-feng"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/the-strongest-system/" },
+]
+
+[[book]]
+title = "Cultivation Chat Group"
+alt_titles = ["修真聊天群"]
+thumbnail = "https://cdn.novelupdates.com/images/2017/10/Cultivation-Chat-Group.jpg"
+quality = "Decent"
+completion = "Finished"
+reading = "Finished"
+authors = ["legend-of-the-paladin"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/cultivation-chat-group/" },
+]
+
+[[book]]
+title = "Dao of the Bizarre Immortal"
+alt_titles = ["道诡异仙"]
+thumbnail = "https://cdn.novelupdates.com/images/2023/10/Mutated-Tao.jpg"
+quality = "Decent"
+completion = "Finished"
+reading = "Finished"
+authors = ["foxtail-quill"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/dao-of-the-bizarre-immortal/" },
 ]
