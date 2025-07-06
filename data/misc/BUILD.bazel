@@ -13,8 +13,13 @@ al_toml_data(
 )
 
 al_toml_data(
+    name = "authors",
+    srcs = ["authors.toml"],
+    visibility = ["//visibility:public"],
+)
+
+al_toml_data(
     name = "countries",
     srcs = ["countries.toml"],
     visibility = ["//visibility:public"],
-    deps = [":books"],
 )

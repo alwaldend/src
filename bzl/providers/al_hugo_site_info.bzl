@@ -1,6 +1,7 @@
 AlHugoSiteInfo = provider(
     fields = {
         "content": "Content dir",
+        "data": "Data dir",
         "themes": "Themes dir",
         "config": "Config file",
         "env": "Environment variables",

@@ -4,10 +4,11 @@ def _impl(ctx):
     hugo = ctx.toolchains["//bzl/toolchain-types:hugo"]
     themes = ctx.actions.declare_directory("{}-themes".format(ctx.label.name))
     content = ctx.actions.declare_directory("{}-content".format(ctx.label.name))
-    files = [hugo.hugo, themes, content, ctx.file.config]
+    data = ctx.actions.declare_directory("{}-data".format(ctx.label.name))
+    files = [hugo.hugo, themes, content, data, ctx.file.config]
     runfiles = ctx.runfiles(
         files = files,
-        transitive_files = depset(ctx.files.tools + ctx.files.data),
+        transitive_files = depset(ctx.files.tools),
     )
     for tool in ctx.attr.tools:
         runfiles.merge(tool[DefaultInfo].default_runfiles)
@@ -22,7 +23,11 @@ def _impl(ctx):
         {},
     )
 
-    for output, input in [[content, ctx.file.content], [themes, ctx.file.themes]]:
+    for output, input in [
+        [content, ctx.file.content],
+        [themes, ctx.file.themes],
+        [data, ctx.file.hugo_data],
+    ]:
         ctx.actions.run_shell(
             outputs = [output],
             inputs = [input],
@@ -37,6 +42,7 @@ def _impl(ctx):
         AlHugoSiteInfo(
             content = content,
             themes = themes,
+            data = data,
             config = ctx.file.config,
             env = ctx.attr.env,
             env_script = env_script,
@@ -61,6 +67,11 @@ al_hugo_site = rule(
             mandatory = True,
             doc = "Hugo content",
         ),
+        "hugo_data": attr.label(
+            allow_single_file = [".tar"],
+            mandatory = True,
+            doc = "Hugo data",
+        ),
         "config": attr.label(
             mandatory = True,
             allow_single_file = True,
@@ -68,10 +79,6 @@ al_hugo_site = rule(
         ),
         "tools": attr.label_list(
             doc = "Tools that should be available for the build",
-            default = [],
-        ),
-        "data": attr.label_list(
-            doc = "Data that is made available for the site",
             default = [],
         ),
         "env": attr.string_dict(

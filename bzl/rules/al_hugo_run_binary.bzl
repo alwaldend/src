@@ -15,6 +15,7 @@ def _impl(ctx):
         cd '{destination}'
         cp -r "${{top}}/{content}" ./content
         cp -r "${{top}}/{themes}" ./themes
+        cp -r "${{top}}/{data}" ./data
         cp "${{top}}/{config}" ./
         "${{top}}/{hugo}" "${{@}}"
     """.format(
@@ -22,6 +23,7 @@ def _impl(ctx):
         content = info.content.path,
         themes = info.themes.path,
         config = info.config.path,
+        data = info.data.path,
         destination = destination.path,
         env_script = info.env_script,
     )

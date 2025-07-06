@@ -16,6 +16,7 @@ al_hugo_site(
         )),
         "BAZEL_BINDIR": "$(BINDIR)",
     },
+    hugo_data = ":data",
     themes = "//hugo/themes",
     tools = [
         "//tools:postcss",
@@ -32,9 +33,20 @@ al_hugo_binary(
     name = "serve",
     arguments = [
         "serve",
+        "--logLevel",
+        "debug",
         "--renderToMemory",  # /js directory causes problems overwise
     ],
     site = ":site",
+)
+
+pkg_tar(
+    name = "data",
+    srcs = [
+        "//data/misc:authors",
+        "//data/misc:books",
+    ],
+    package_dir = package_name(),
 )
 
 pkg_tar(

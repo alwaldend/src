@@ -12,6 +12,9 @@ enableGitInfo = true
 [markup]
 goldmark.renderer.unsafe = true
 
+[security]
+enableInlineShortcodes = true
+
 # [security.exec]
 # allow = ['.*']
 # osEnv = ['.*']

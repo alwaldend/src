@@ -2,6 +2,8 @@
 title: Books
 ---
 
+{{< md_misc_books.inline >}}
+
 <table>
   <caption>
     Books
@@ -13,14 +15,14 @@ title: Books
     </tr>
   </thead>
   <tbody>
-    {{ range .Data -}}
-    {{ $authors := .Data.author -}}
-    {{ range .Data.book -}}
+    {{ $authors := .Site.Data.hugo.sites.docs.authors.author -}}
+    {{ range .Site.Data.hugo.sites.docs.books.book -}}
     <tr>
       <td>
         <img
           src="{{ .thumbnail }}"
           alt="Thumbnail of {{ .title }}"
+          width="300"
         >
       </td>
       <td colspan="2">
@@ -104,6 +106,7 @@ title: Books
       </td>
     </tr>
     {{ end -}}
-    {{ end -}}
   </tbody>
 </table>
+
+{{< /md_misc_books.inline >}}
