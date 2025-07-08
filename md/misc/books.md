@@ -18,11 +18,10 @@ title: Books
     {{ $authors := .Site.Data.hugo.sites.docs.authors.author -}}
     {{ range .Site.Data.hugo.sites.docs.books.book -}}
     <tr>
-      <td>
+      <td style="width: 30%;">
         <img
           src="{{ .thumbnail }}"
           alt="Thumbnail of {{ .title }}"
-          width="100%"
         >
       </td>
       <td colspan="2">
@@ -30,12 +29,12 @@ title: Books
           <tbody>
             <tr>
               <td>Title</td>
-              <td width="100%">{{ .title }}</td>
+              <td style="width: 100%;">{{ .title }}</td>
             </tr>
             {{ if .alt_titles -}}
             <tr>
               <td>ALternative titles</td>
-              <td width="100%">
+              <td style="width: 100%;">
                 <ul>
                   {{ range .alt_titles -}}
                   <li>
@@ -49,7 +48,7 @@ title: Books
             {{ if .authors -}}
             <tr>
               <td>Authors</td>
-              <td width="100%">
+              <td style="width: 100%;">
                 <ul>
                   {{ range .authors -}}
                   {{ with index $authors . -}}
@@ -63,31 +62,31 @@ title: Books
             {{ if .completion -}}
             <tr>
               <td>Completion status</td>
-              <td width="100%">{{ .completion }}</td>
+              <td style="width: 100%;">{{ .completion }}</td>
             </tr>
             {{ end -}}
             {{ if .reading -}}
             <tr>
               <td>Reading status</td>
-              <td width="100%">{{ .reading }}</td>
+              <td style="width: 100%;">{{ .reading }}</td>
             </tr>
             {{ end -}}
             {{ if .quality -}}
             <tr>
               <td>Quality</td>
-              <td width="100%">{{ .quality }}</td>
+              <td style="width: 100%;">{{ .quality }}</td>
             </tr>
             {{ end -}}
             {{ if .summary -}}
             <tr>
               <td>Summary</td>
-              <td width="100%">{{ .summary }}</td>
+              <td style="width: 100%;">{{ .summary }}</td>
             </tr>
             {{ end -}}
             {{ if .links -}}
             <tr>
               <td>Links</td>
-              <td width="100%">
+              <td style="width: 100%;">
                 <ul>
                   {{ range .links -}}
                   <li>
