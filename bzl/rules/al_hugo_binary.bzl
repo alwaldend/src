@@ -16,7 +16,7 @@ def _impl(ctx):
         ln -s "${{top}}/{content}" ./content
         ln -s "${{top}}/{themes}" ./themes
         ln -s "${{top}}/{data}" ./data
-        ln -s "${{top}}/{config}" ./
+        ln -s "${{top}}/{config}" ./config
         chmod -R 700 ./content ./ ./themes
         find content/ -name "README.md" -exec sh -c 'mv "{{}}" "$(dirname "{{}}")/_index.md"' ";"
         '{hugo}' {arguments} "${{@}}"

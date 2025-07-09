@@ -7,7 +7,7 @@ load("//bzl/rules:al_hugo_site.bzl", "al_hugo_site")
 
 al_hugo_site(
     name = "site",
-    config = ":hugo.toml",
+    configs = [":hugo-config"],
     content = ":content",
     env = {
         "PATH": ":".join((

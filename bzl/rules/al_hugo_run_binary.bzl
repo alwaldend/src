@@ -16,7 +16,7 @@ def _impl(ctx):
         cp -r "${{top}}/{content}" ./content
         cp -r "${{top}}/{themes}" ./themes
         cp -r "${{top}}/{data}" ./data
-        cp "${{top}}/{config}" ./
+        cp -r "${{top}}/{config}" ./config
         "${{top}}/{hugo}" "${{@}}"
     """.format(
         hugo = hugo.hugo.path,

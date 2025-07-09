@@ -5,7 +5,8 @@ def _impl(ctx):
     themes = ctx.actions.declare_directory("{}-themes".format(ctx.label.name))
     content = ctx.actions.declare_directory("{}-content".format(ctx.label.name))
     data = ctx.actions.declare_directory("{}-data".format(ctx.label.name))
-    files = [hugo.hugo, themes, content, data, ctx.file.config]
+    config = ctx.actions.declare_directory("{}-config".format(ctx.label.name))
+    files = [hugo.hugo, themes, config, content, data]
     runfiles = ctx.runfiles(
         files = files,
         transitive_files = depset(ctx.files.tools),
@@ -21,6 +22,18 @@ def _impl(ctx):
         "env_script",
         ctx.expand_location(env_script),
         {},
+    )
+
+    ctx.actions.run_shell(
+        outputs = [config],
+        inputs = ctx.files.configs,
+        command = """
+            mkdir '{config_dir}/_default' && \
+                cp {configs} '{config_dir}/_default/'
+        """.format(
+            config_dir = config.path,
+            configs = " ".join([file.path for file in ctx.files.configs]),
+        ),
     )
 
     for output, input in [
@@ -43,7 +56,7 @@ def _impl(ctx):
             content = content,
             themes = themes,
             data = data,
-            config = ctx.file.config,
+            config = config,
             env = ctx.attr.env,
             env_script = env_script,
         ),
@@ -72,10 +85,10 @@ al_hugo_site = rule(
             mandatory = True,
             doc = "Hugo data",
         ),
-        "config": attr.label(
+        "configs": attr.label_list(
             mandatory = True,
-            allow_single_file = True,
-            doc = "Hugo config",
+            allow_files = True,
+            doc = "Hugo configs",
         ),
         "tools": attr.label_list(
             doc = "Tools that should be available for the build",
