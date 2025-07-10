@@ -36,8 +36,22 @@ def al_bzl_library_map(name, visibility, libs = {}, deps = [], **kwargs):
             **kwargs
         )
         stardoc(
-            name = "{}-stardoc".format(lib_name),
-            out = "{}-stardoc.md".format(lib_name),
+            name = "{}-stardoc-raw".format(lib_name),
+            out = "{}-stardoc-raw.md".format(lib_name),
             input = "{}.bzl".format(lib_name),
             deps = [lib_name],
+        )
+        native.genrule(
+            name = "{}-stardoc".format(lib_name),
+            outs = ["{}-stardoc.md".format(lib_name)],
+            srcs = ["{}-stardoc-raw".format(lib_name)],
+            cmd = """
+                {{
+                    echo "---"
+                    echo "title: {title}"
+                    echo "tags: [{tags}]"
+                    echo "---"
+                    cat $(<)
+                }} >$(@)
+            """.format(title = lib_name, tags = "bzl"),
         )
