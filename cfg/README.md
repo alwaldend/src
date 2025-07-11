@@ -1,3 +1,3 @@
 ---
-title: Configs for different tools
+title: Configs
 ---

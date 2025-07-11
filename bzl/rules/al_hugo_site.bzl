@@ -6,7 +6,8 @@ def _impl(ctx):
     content = ctx.actions.declare_directory("{}-content".format(ctx.label.name))
     data = ctx.actions.declare_directory("{}-data".format(ctx.label.name))
     config = ctx.actions.declare_directory("{}-config".format(ctx.label.name))
-    files = [hugo.hugo, themes, config, content, data]
+    layouts = ctx.actions.declare_directory("{}-layouts".format(ctx.label.name))
+    files = [hugo.hugo, themes, config, content, data, layouts]
     runfiles = ctx.runfiles(
         files = files,
         transitive_files = depset(ctx.files.tools),
@@ -40,6 +41,7 @@ def _impl(ctx):
         [content, ctx.file.content],
         [themes, ctx.file.themes],
         [data, ctx.file.hugo_data],
+        [layouts, ctx.file.hugo_layouts],
     ]:
         ctx.actions.run_shell(
             outputs = [output],
@@ -57,6 +59,7 @@ def _impl(ctx):
             themes = themes,
             data = data,
             config = config,
+            layouts = layouts,
             env = ctx.attr.env,
             env_script = env_script,
         ),
@@ -79,6 +82,11 @@ al_hugo_site = rule(
             allow_single_file = [".tar"],
             mandatory = True,
             doc = "Hugo content",
+        ),
+        "hugo_layouts": attr.label(
+            allow_single_file = [".tar"],
+            mandatory = True,
+            doc = "Hugo layouts",
         ),
         "hugo_data": attr.label(
             allow_single_file = [".tar"],

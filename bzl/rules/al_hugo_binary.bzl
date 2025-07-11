@@ -17,6 +17,7 @@ def _impl(ctx):
         ln -s "${{top}}/{themes}" ./themes
         ln -s "${{top}}/{data}" ./data
         ln -s "${{top}}/{config}" ./config
+        ln -s "${{top}}/{layouts}" ./layouts
         chmod -R 700 ./content ./ ./themes
         find content/ -name "README.md" -exec sh -c 'mv "{{}}" "$(dirname "{{}}")/_index.md"' ";"
         '{hugo}' {arguments} "${{@}}"
@@ -26,6 +27,7 @@ def _impl(ctx):
         themes = info.themes.short_path,
         config = info.config.short_path,
         data = info.data.short_path,
+        layouts = info.layouts.short_path,
         env_script = info.env_script,
         arguments = " ".join([
             shell.quote(argument)

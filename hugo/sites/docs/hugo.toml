@@ -9,6 +9,9 @@ enableMissingTranslationPlaceholders = true
 enableRobotsTXT = true
 enableGitInfo = true
 
+[params.ui]
+sidebar_menu_foldable = true
+
 [markup]
 goldmark.renderer.unsafe = true
 

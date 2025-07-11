@@ -1,3 +1,4 @@
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/macros:al_drawio_run_binary.bzl", "al_drawio_run_binary")
 load("//bzl/macros:al_readme.bzl", "al_readme")
@@ -13,20 +14,50 @@ _DIAGRAMS = {
     "arch-interview-yandex-sre": {},
 }
 
+pkg_tar(
+    name = "docs",
+    package_dir = package_name(),
+    visibility = ["//visibility:public"],
+    deps = ["{}-doc".format(diagram) for diagram, _ in _DIAGRAMS.items()],
+)
+
 [
-    al_drawio_run_binary(
-        name = diagram,
-        srcs = ["{}.drawio".format(diagram)],
-        out = "{}.svg".format(diagram),
-        arguments = [
-            "$(execpath :{}.drawio)".format(diagram),
-            "--crop",
-            "--export",
-            "--format",
-            "svg",
-            "--output",
-            "$(execpath :{}.svg)".format(diagram),
-        ],
-    )
+    [
+        pkg_tar(
+            name = "{}-doc".format(diagram),
+            srcs = [
+                "{}-md".format(diagram),
+                "{}-svg".format(diagram),
+            ],
+            remap_paths = {
+                "/{}.md".format(diagram): "{}/_index.md".format(diagram),
+                "/{}.svg".format(diagram): "{}/diagram.svg".format(diagram),
+            },
+        ),
+        write_file(
+            name = "{}-md".format(diagram),
+            out = "{}.md".format(diagram),
+            content = [
+                "---",
+                "title: {}".format(diagram),
+                "---",
+                "{{< svg_file file=diagram.svg >}}",
+            ],
+        ),
+        al_drawio_run_binary(
+            name = "{}-svg".format(diagram),
+            srcs = ["{}.drawio".format(diagram)],
+            out = "{}.svg".format(diagram),
+            arguments = [
+                "$(execpath :{}.drawio)".format(diagram),
+                "--crop",
+                "--export",
+                "--format",
+                "svg",
+                "--output",
+                "$(execpath :{}.svg)".format(diagram),
+            ],
+        ),
+    ]
     for diagram, _ in _DIAGRAMS.items()
 ]

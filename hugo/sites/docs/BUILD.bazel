@@ -17,6 +17,7 @@ al_hugo_site(
         "BAZEL_BINDIR": "$(BINDIR)",
     },
     hugo_data = ":data",
+    hugo_layouts = ":layouts",
     themes = "//hugo/themes",
     tools = [
         "//tools:postcss",
@@ -56,8 +57,15 @@ pkg_tar(
     deps = [
         "//:readme-children",
         "//bzl:bzl-stardoc",
+        "//drawio/diagrams:docs",
         "//md/misc",
     ],
+)
+
+pkg_tar(
+    name = "layouts",
+    srcs = glob(["layouts/**"]),
+    strip_prefix = "layouts",
 )
 
 pkg_tar(

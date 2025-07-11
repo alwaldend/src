@@ -1,0 +1,2 @@
+{{ $file := .Get "file" -}} {{ $image := .Page.Resources.GetMatch $file -}}
+<img src="{{ $image.RelPermalink }}" />
