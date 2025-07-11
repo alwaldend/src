@@ -9,14 +9,44 @@ enableMissingTranslationPlaceholders = true
 enableRobotsTXT = true
 enableGitInfo = true
 
+[outputs]
+home = ["html", "json", "rss", "print"]
+page = ["html", "json", "rss", "print"]
+section = ["html", "json", "rss", "print"]
+
+[params]
+offlineSearch = true
+github_repo = "https://github.com/alwaldend/src"
+github_project_repo = "https://github.com/alwaldend/src"
+
 [params.ui]
 sidebar_menu_foldable = true
+showLightDarkModeMenu = true
+
+[params.drawio]
+enable = true
 
 [markup]
 goldmark.renderer.unsafe = true
 
 [security]
 enableInlineShortcodes = true
+
+[taxonomies]
+tag = "tags"
+category = "categories"
+
+[[menu.main]]
+name = "Docs"
+weight = 100
+identifier = "docs"
+url = "/"
+
+[[menu.main]]
+name = "Tags"
+identifier = "tags"
+weight = 200
+url = "/tags/"
 
 # [security.exec]
 # allow = ['.*']

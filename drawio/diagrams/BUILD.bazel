@@ -40,6 +40,7 @@ pkg_tar(
             content = [
                 "---",
                 "title: {}".format(diagram),
+                "tags: [generated]",
                 "---",
                 "{{< svg_file file=diagram.svg >}}",
             ],
@@ -52,6 +53,7 @@ pkg_tar(
                 "$(execpath :{}.drawio)".format(diagram),
                 "--crop",
                 "--export",
+                "--embed-diagram",
                 "--format",
                 "svg",
                 "--output",

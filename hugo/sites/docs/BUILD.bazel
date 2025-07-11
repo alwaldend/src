@@ -53,7 +53,7 @@ pkg_tar(
 pkg_tar(
     name = "content-en",
     srcs = ["//:LICENSE.txt"],
-    package_dir = "en/docs",
+    package_dir = "en",
     deps = [
         "//:readme-children",
         "//bzl:bzl-stardoc",
