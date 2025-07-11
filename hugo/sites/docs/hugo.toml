@@ -10,9 +10,7 @@ enableRobotsTXT = true
 enableGitInfo = true
 
 [outputs]
-home = ["html", "json", "rss", "print"]
-page = ["html", "json", "rss", "print"]
-section = ["html", "json", "rss", "print"]
+section = ["html", "rss", "print"]
 
 [params]
 offlineSearch = true
@@ -25,6 +23,12 @@ showLightDarkModeMenu = true
 
 [params.drawio]
 enable = true
+
+[[params.links.developer]]
+name = "Github"
+url = "https://github.com/alwaldend/src"
+icon = "fa-brands fa-github"
+desc = "Github"
 
 [markup]
 goldmark.renderer.unsafe = true
