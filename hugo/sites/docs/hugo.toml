@@ -11,8 +11,8 @@ enableGitInfo = true
 
 [outputs]
 section = ["html", "rss", "print"]
-home = ["html"]
-page = ["html"]
+# home = ["html"]
+# page = ["html"]
 
 [params]
 offlineSearch = true

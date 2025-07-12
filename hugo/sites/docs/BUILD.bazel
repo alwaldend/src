@@ -30,6 +30,7 @@ al_hugo_run_binary(
         "build",
         "--logLevel",
         "debug",
+        # "--panicOnWarning",
     ],
     site = ":site",
 )
@@ -41,6 +42,7 @@ al_hugo_binary(
         "--logLevel",
         "debug",
         "--renderToMemory",  # /js directory causes problems overwise
+        "--panicOnWarning",
     ],
     site = ":site",
 )
