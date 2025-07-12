@@ -7,7 +7,7 @@ def _impl(ctx):
     hugo = ctx.toolchains["//bzl/toolchain-types:hugo"]
     runfiles = ctx.runfiles(files = [hugo.hugo] + default_info.files.to_list())
     runfiles.merge(default_info.default_runfiles)
-    script = ctx.actions.declare_file("{}-script".format(ctx.label.name))
+    script = ctx.actions.declare_file("{}-script.sh".format(ctx.label.name))
 
     script_content = """\
         #!/usr/bin/env sh
@@ -16,11 +16,11 @@ def _impl(ctx):
         ln -s '{data}' ./data
         '{hugo}' \
             --ignoreCache \
-            --noChmod \
             --configDir '{config}' \
             --contentDir '{content}' \
             --layoutDir '{layouts}' \
             --themesDir '{themes}' \
+            {arguments} \
             "${{@}}"
     """.format(
         hugo = hugo.hugo.short_path,

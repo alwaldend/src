@@ -1,5 +1,7 @@
 ---
 title: Bazel
+tags:
+  - bzl
 ---
 
 ## Advantages

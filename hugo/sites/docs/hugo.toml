@@ -2,17 +2,13 @@ title = "Misc"
 theme = ["github.com/google/docsy"]
 # baseURL = "https://alwaldend.com/docs/"
 
-contentDir = "content/en"
 defaultContentLanguage = "en"
-defaultContentLanguageInSubdir = true
 enableMissingTranslationPlaceholders = true
 enableRobotsTXT = true
 enableGitInfo = true
 
 [outputs]
 section = ["html", "rss", "print"]
-# home = ["html"]
-# page = ["html"]
 
 [params]
 offlineSearch = true

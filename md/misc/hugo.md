@@ -1,5 +1,7 @@
 ---
 title: Hugo
+tags:
+  - hugo
 links:
   - url: https://gohugo.io
 ---

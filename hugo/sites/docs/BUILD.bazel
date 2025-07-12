@@ -13,6 +13,9 @@ al_hugo_site(
     hugo_layouts = ":layouts",
     postcss = "//tools:postcss",
     themes = "//hugo/themes",
+    tools = [
+        "//:node_modules",
+    ],
 )
 
 al_hugo_run_binary(
@@ -32,8 +35,8 @@ al_hugo_binary(
         "serve",
         "--logLevel",
         "debug",
-        "--renderToMemory",  # /js directory causes problems overwise
         "--panicOnWarning",
+        "--disableFastRender",
     ],
     site = ":site",
 )

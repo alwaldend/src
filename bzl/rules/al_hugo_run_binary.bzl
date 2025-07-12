@@ -4,7 +4,7 @@ def _impl(ctx):
     info = ctx.attr.site[AlHugoSiteInfo]
     default_info = ctx.attr.site[DefaultInfo]
     hugo = ctx.toolchains["//bzl/toolchain-types:hugo"]
-    script = ctx.actions.declare_file("{}-script".format(ctx.label.name))
+    script = ctx.actions.declare_file("{}-script.sh".format(ctx.label.name))
     destination = ctx.actions.declare_directory("{}-destination".format(ctx.label.name))
 
     script_content = """\
@@ -14,7 +14,6 @@ def _impl(ctx):
         ln -s '{data}' ./data
         '{hugo}' \
             --ignoreCache \
-            --noChmod \
             --configDir '{config}' \
             --contentDir '{content}' \
             --layoutDir '{layouts}' \

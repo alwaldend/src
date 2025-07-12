@@ -1,5 +1,3 @@
 ---
-title: Miscellaneous knowledge
+title: Miscellaneous pages
 ---
-
-{{ .TableOfContents }}
