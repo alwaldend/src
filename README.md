@@ -19,6 +19,7 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 ## Contents
 
 <details open>
+  <summary>Contents</summary>
 
 <!-- README_CONTENTS START -->
 
@@ -197,6 +198,7 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 <!-- README_CONTENTS END -->
 
 <details open>
+  <summary>Line count</summary>
 
 <!-- CLOC START -->
 
