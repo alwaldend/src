@@ -41,6 +41,17 @@ al_hugo_binary(
     site = ":site",
 )
 
+al_hugo_binary(
+    name = "build-run",
+    arguments = [
+        "build",
+        "--logLevel",
+        "debug",
+        "--panicOnWarning",
+    ],
+    site = ":site",
+)
+
 pkg_tar(
     name = "data",
     srcs = [

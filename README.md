@@ -6,7 +6,11 @@ cascade:
       path: "/**"
 ---
 
-Source code
+## Links
+
+Docs: https://alwaldend.github.io/src/en/
+Dev release: https://github.com/alwaldend/src/releases/tag/dev
+Dev release artifacts: https://github.com/alwaldend/src/releases/download/dev/alwaldend-src.tar.gz
 
 ## Licence
 

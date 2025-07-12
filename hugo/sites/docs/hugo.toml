@@ -1,6 +1,6 @@
-title = "Misc"
+title = "Docs"
 theme = ["github.com/google/docsy"]
-# baseURL = "https://alwaldend.com/docs/"
+baseURL = "http://127.0.0.1:1313/src"
 
 defaultContentLanguage = "en"
 enableMissingTranslationPlaceholders = true
