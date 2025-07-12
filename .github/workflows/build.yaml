@@ -51,6 +51,7 @@ jobs:
         run: |
           set -eux
           find bazel-bin/ -name "*.runfiles" -exec rm -rf "{}" +
+          find bazel-bin/ -name "*node_modules*" -exec rm -rf "{}" +
           sudo rm -rf bazel-bin/external/
           tar -czf "${{ env.ARTIFACTS_ARCHIVE }}" -C bazel-bin/ .
           sha256sum -b "${{ env.ARTIFACTS_ARCHIVE }}"  >"${{ env.ARTIFACTS_SHA256 }}"
