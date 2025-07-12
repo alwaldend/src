@@ -42,8 +42,8 @@ jobs:
           mkdir -p \
             "$(dirname "${{ env.ARTIFACTS_ARCHIVE }}")" \
             "$(dirname "${{ env.ARTIFACTS_SHA256 }}")"
-          find bazel-bin/ -name "*.runfiles" -exec rm -rfv "{}" +
-          tar -czf "${{ env.ARTIFACTS_ARCHIVE }}" -C bazel-bin/ .
+          find bazel-bin/ -name "*.runfiles" -exec rm -rf "{}" +
+          tar -czf "${{ env.ARTIFACTS_ARCHIVE }}" -C bazel-bin/ $(git ls-files | xargs dirname)
           sha256sum -b "${{ env.ARTIFACTS_ARCHIVE }}"  >"${{ env.ARTIFACTS_SHA256 }}"
       - name: Upload artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
