@@ -9,19 +9,10 @@ al_hugo_site(
     name = "site",
     configs = [":hugo-config"],
     content = ":content",
-    env = {
-        "PATH": ":".join((
-            "$$(dirname $(execpath //tools:postcss))",
-            "$${PATH}",
-        )),
-        "BAZEL_BINDIR": "$(BINDIR)",
-    },
     hugo_data = ":data",
     hugo_layouts = ":layouts",
+    postcss = "//tools:postcss",
     themes = "//hugo/themes",
-    tools = [
-        "//tools:postcss",
-    ],
 )
 
 al_hugo_run_binary(

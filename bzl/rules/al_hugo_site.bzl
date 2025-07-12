@@ -7,24 +7,38 @@ def _impl(ctx):
     data = ctx.actions.declare_directory("{}-data".format(ctx.label.name))
     config = ctx.actions.declare_directory("{}-config".format(ctx.label.name))
     layouts = ctx.actions.declare_directory("{}-layouts".format(ctx.label.name))
-    files = [hugo.hugo, themes, config, content, data, layouts]
+
+    files = [
+        hugo.hugo,
+        themes,
+        config,
+        content,
+        data,
+        layouts,
+    ] + ctx.files.postcss + ctx.files.tools
     runfiles = ctx.runfiles(
         files = files,
         transitive_files = depset(ctx.files.tools),
     )
     for tool in ctx.attr.tools:
         runfiles.merge(tool[DefaultInfo].default_runfiles)
+    runfiles.merge(ctx.attr.postcss[DefaultInfo].default_runfiles)
+
+    path = ":".join((
+        "$$(dirname '{}')".format(ctx.executable.postcss.path),
+        "$$(dirname '{}')".format(ctx.executable.postcss.short_path),
+        ctx.attr.env.get("PATH", ""),
+        "$${PATH}",
+    ))
+    env = {}
+    env.update(ctx.attr.env)
+    env["PATH"] = path
+    env["BAZEL_BINDIR"] = "$(BINDIR)"
     env_script = " && ".join([
         cmd
-        for name, value in ctx.attr.env.items()
+        for name, value in env.items()
         for cmd in ['{}="{}"'.format(name, value), "export {}".format(name)]
     ])
-    env_script = ctx.expand_make_variables(
-        "env_script",
-        ctx.expand_location(env_script),
-        {},
-    )
-
     ctx.actions.run_shell(
         outputs = [config],
         inputs = ctx.files.configs,
@@ -38,7 +52,6 @@ def _impl(ctx):
     )
 
     for output, input in [
-        [content, ctx.file.content],
         [themes, ctx.file.themes],
         [data, ctx.file.hugo_data],
         [layouts, ctx.file.hugo_layouts],
@@ -48,6 +61,15 @@ def _impl(ctx):
             inputs = [input],
             command = "tar -xf '{}' -C '{}'".format(input.path, output.path),
         )
+
+    ctx.actions.run_shell(
+        outputs = [content],
+        inputs = [ctx.file.content],
+        command = """
+            tar -xf '{input}' -C '{output}'
+            find '{output}/' -name "README.md" -exec sh -c 'chmod 700 "$(dirname "{{}}")" && mv "{{}}" "$(dirname "{{}}")/_index.md"' ";"
+        """.format(input = ctx.file.content.path, output = content.path),
+    )
 
     return [
         DefaultInfo(
@@ -97,6 +119,12 @@ al_hugo_site = rule(
             mandatory = True,
             allow_files = True,
             doc = "Hugo configs",
+        ),
+        "postcss": attr.label(
+            mandatory = True,
+            doc = "Postcss target",
+            executable = True,
+            cfg = "exec",
         ),
         "tools": attr.label_list(
             doc = "Tools that should be available for the build",

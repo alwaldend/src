@@ -43,7 +43,7 @@ jobs:
             "$(dirname "${{ env.ARTIFACTS_ARCHIVE }}")" \
             "$(dirname "${{ env.ARTIFACTS_SHA256 }}")"
           find bazel-bin/ -name "*.runfiles" -exec rm -rf "{}" +
-          rm -rf bazel-bin/external/
+          sudo rm -rf bazel-bin/external/
           tar -czf "${{ env.ARTIFACTS_ARCHIVE }}" -C bazel-bin/ .
           sha256sum -b "${{ env.ARTIFACTS_ARCHIVE }}"  >"${{ env.ARTIFACTS_SHA256 }}"
       - name: Upload artifacts

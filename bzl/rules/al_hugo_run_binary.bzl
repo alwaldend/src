@@ -11,15 +11,15 @@ def _impl(ctx):
         #!/usr/bin/env sh
         set -eux
         {env_script}
-        top="${{PWD}}"
-        ln -s "${{top}}/{content}" ./content
-        ln -s "${{top}}/{themes}" ./themes
-        ln -s "${{top}}/{data}" ./data
-        ln -s "${{top}}/{config}" ./config
-        ln -s "${{top}}/{layouts}" ./layouts
-        chmod -R 700 ./content ./ ./themes
-        find content/ -name "README.md" -exec sh -c 'mv "{{}}" "$(dirname "{{}}")/_index.md"' ";"
-        "${{top}}/{hugo}" --destination '{destination}' "${{@}}"
+        ln -s '{data}' ./data
+        '{hugo}' \
+            --ignoreCache \
+            --noChmod \
+            --configDir '{config}' \
+            --contentDir '{content}' \
+            --layoutDir '{layouts}' \
+            --themesDir '{themes}' \
+            "${{@}}"
     """.format(
         hugo = hugo.hugo.path,
         content = info.content.path,
@@ -28,7 +28,11 @@ def _impl(ctx):
         data = info.data.path,
         layouts = info.layouts.path,
         destination = destination.path,
-        env_script = info.env_script,
+        env_script = ctx.expand_make_variables(
+            "env_script",
+            ctx.expand_location(info.env_script),
+            {},
+        ),
     )
     ctx.actions.write(
         output = script,
