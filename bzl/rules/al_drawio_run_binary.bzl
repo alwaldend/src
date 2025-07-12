@@ -9,7 +9,7 @@ def _impl(ctx):
         set -eux
         Xvfb "${{DISPLAY}}" ${{XVFB_OPTIONS}} &
         sleep 0.5
-        '{drawio}' --no-sandbox "${{@}}" || true
+        timeout '{timeout}' '{drawio}' --no-sandbox "${{@}}" || true
         if [ ! -f '{out}' ]; then
             echo "Output {out} was not built, check the log"
             exit 1
@@ -17,6 +17,7 @@ def _impl(ctx):
     """.format(
         drawio = drawio.drawio.path,
         out = ctx.outputs.out.path,
+        timeout = ctx.attr.cmd_timeout,
     )
     ctx.actions.write(
         output = script,
@@ -46,6 +47,7 @@ al_drawio_run_binary = rule(
             mandatory = True,
             doc = "Arguments, location statements are expanded",
         ),
+        "cmd_timeout": attr.string(default = "1m", doc = "Drawio command timeout"),
         "srcs": attr.label_list(
             default = [],
             allow_files = True,
