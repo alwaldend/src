@@ -6,6 +6,8 @@ load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "bui
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 load("@rules_license//rules:license.bzl", "license")
+load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
+load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 load("//bzl/macros:al_genrule.bzl", "al_genrule")
 load("//bzl/macros:al_md_data.bzl", "al_md_data")
 load("//bzl/macros:al_readme.bzl", "al_readme")

@@ -16,6 +16,10 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 <!-- README_CONTENTS START -->
 
+- <a href=".github">.github</a>: Github config
+
+  - <a href=".github/workflows">workflows</a>: Github workflows
+
 - <a href="bzl">bzl</a>: Bazel projects
 
   - <a href="bzl/aspects">aspects</a>: Bazel aspects
@@ -58,7 +62,7 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
   - <a href="bzl/toolchain-types">toolchain-types</a>: Toolchain types
 
-  - <a href="bzl/toolchains">toolchains</a>: Qt wrapper for bazel
+  - <a href="bzl/toolchains">toolchains</a>: Bazel rules
 
   - <a href="bzl/vars">vars</a>: Static bazel variables
 
@@ -70,7 +74,7 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
   - <a href="c/sri">sri</a>: Cli app to calculate subresource integrity (SRI)
 
-- <a href="cfg">cfg</a>: Configs for different tools
+- <a href="cfg">cfg</a>: Configs
 
   - <a href="cfg/dotfiles">dotfiles</a>: Dotfile configs
 
@@ -181,22 +185,23 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 - <a href="vial">vial</a>: Vial configs
 
   - <a href="vial/keyboards">keyboards</a>: Keyboard configs
-  <!-- README_CONTENTS END -->
+
+<!-- README_CONTENTS END -->
 
 <!-- CLOC START -->
 
 | Language         |    files |    blank |  comment |     code |
 | :--------------- | -------: | -------: | -------: | -------: |
 | JSON             |      966 |        2 |        0 |    25853 |
-| Python           |      571 |     2092 |     1159 |     8513 |
-| TOML             |        7 |      358 |        2 |     7032 |
+| Python           |      581 |     2340 |     1222 |     9588 |
+| TOML             |        8 |      391 |        8 |     7259 |
 | Go               |      231 |      718 |      617 |     6539 |
-| Starlark         |      116 |      530 |      663 |     3735 |
+| Starlark         |      118 |      543 |      699 |     3903 |
 | C++              |       87 |      138 |      199 |     2219 |
-| Text             |        5 |      117 |        0 |     1766 |
+| Text             |        7 |      128 |        0 |     1788 |
 | Lua              |        8 |       60 |       90 |      987 |
-| Markdown         |       90 |      170 |        5 |      562 |
-| YAML             |        4 |       80 |        0 |      531 |
+| Markdown         |       94 |      214 |        6 |      862 |
+| YAML             |        5 |       80 |        2 |      606 |
 | Bourne Shell     |       19 |       85 |      103 |      518 |
 | C                |        7 |       52 |       91 |      407 |
 | diff             |        4 |        7 |       51 |      319 |
@@ -204,14 +209,16 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 | C/C++ Header     |        7 |       14 |        9 |      111 |
 | JavaScript       |        1 |        7 |       10 |       78 |
 | Protocol Buffers |        2 |       21 |       64 |       74 |
+| SVG              |        3 |        3 |        4 |       55 |
 | XML (Qt/GTK)     |        1 |        0 |        0 |       31 |
 | ProGuard         |        1 |        9 |        8 |       25 |
 | INI              |        1 |        2 |        0 |        9 |
 | HCL              |        1 |        1 |        5 |        8 |
 | Snakemake        |        1 |        2 |        6 |        4 |
+| HTML             |        2 |        0 |        0 |        3 |
 | Rust             |        1 |        0 |        0 |        3 |
 | --------         | -------- | -------- | -------- | -------- |
-| SUM:             |     2142 |     4502 |     3097 |    59574 |
+| SUM:             |     2167 |     4854 |     3209 |    61499 |
 
 <!-- CLOC END -->
 

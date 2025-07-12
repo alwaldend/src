@@ -1,0 +1,76 @@
+name: Build
+run-name: Build [${{ github.event_name }}]
+on:
+  push:
+    branches:
+      - "**"
+concurrency:
+  group: ${{ github.workflow }}-${{  github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+env:
+  DEV_TAG: dev
+  ARTIFACTS_ARCHIVE: out/alwaldend-src.tar.gz
+  ARTIFACTS_SHA256: out/sha256sums.txt
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Setup bazel
+        uses: bazel-contrib/setup-bazel@4fd964a13a440a8aeb0be47350db2fc640f19ca8 # 0.15.0
+        with:
+          bazelisk-cache: true
+          disk-cache: true
+          repository-cache: true
+          external-cache: true
+      - name: System info
+        run: |
+          set -eux
+          cat /etc/os-release
+          df -h
+      - name: Build
+        run: bazel build --config=ci //...
+      - name: Test
+        run: bazel test --config=ci //...
+      - name: Build artifact archive
+        run: |
+          set -eux
+          mkdir -p \
+            "$(dirname "${{ env.ARTIFACTS_ARCHIVE }}")" \
+            "$(dirname "${{ env.ARTIFACTS_SHA256 }}")"
+          find bazel-bin/ -name "*.runfiles" -exec rm -rfv "{}" +
+          tar -czf "${{ env.ARTIFACTS_ARCHIVE }}" -C bazel-bin/ .
+          sha256sum -b "${{ env.ARTIFACTS_ARCHIVE }}"  >"${{ env.ARTIFACTS_SHA256 }}"
+      - name: Upload artifacts
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: Build
+          path: |
+            ${{ env.ARTIFACTS_ARCHIVE }}
+            ${{ env.ARTIFACTS_SHA256 }}
+      - name: Create tag
+        if: github.ref_name == github.event.repository.default_branch
+        run: |
+          set -eux
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
+          git tag "${{ env.DEV_TAG }}"
+          git push -f origin "${{ env.DEV_TAG }}"
+      - name: Release
+        uses: softprops/action-gh-release@72f2c25fcb47643c292f7107632f7a47c1df5cd8 # v2.3.2
+        if: github.ref_name == github.event.repository.default_branch
+        with:
+          name: Dev
+          tag_name: ${{ env.DEV_TAG }}
+          fail_on_unmatched_files: true
+          prerelease: true
+          generate_release_notes: true
+          body: |
+            Dev build for ${{ github.sha }}
+          files: |
+            ${{ env.ARTIFACTS_ARCHIVE }}
+            ${{ env.ARTIFACTS_SHA256 }}

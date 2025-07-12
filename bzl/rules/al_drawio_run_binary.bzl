@@ -8,7 +8,7 @@ def _impl(ctx):
         #!/usr/bin/env sh
         set -eux
         Xvfb "${{DISPLAY}}" ${{XVFB_OPTIONS}} &
-        '{drawio}' "${{@}}" || true
+        '{drawio}' --no-sandbox "${{@}}" || true
     """.format(
         drawio = drawio.drawio.path,
     )
@@ -22,7 +22,7 @@ def _impl(ctx):
         inputs = ctx.files.srcs + [drawio.drawio],
         outputs = [ctx.outputs.out],
         env = {
-            "DISPLAY": ":42",
+            "DISPLAY": ":{}".format(hash(str(ctx.label))).replace("-", ""),
             "ELECTRON_DISABLE_SECURITY_WARNINGS": "true",
             "XVFB_OPTIONS": "-nolisten unix",
             "ELECTRON_ENABLE_LOGGING": "false",

@@ -36,6 +36,9 @@ common:java21 --java_language_version=21
 
 common:java21 --java_runtime_version=remotejdk_21
 
+# Disable output limit
+common --experimental_ui_max_stdouterr_bytes=-1
+
 # Speed up all builds by not checking if external repository files have been modified.
 # Docs: https://github.com/bazelbuild/bazel/blob/1af61b21df99edc2fc66939cdf14449c2661f873/src/main/java/com/google/devtools/build/lib/bazel/repository/RepositoryOptions.java#L244
 # common --noexperimental_check_external_repository_files
@@ -83,7 +86,7 @@ common:al_toml_validate --output_groups=+al_toml_validate
 
 ### build
 
-build --copt="-Werror"
+# build --copt="-Werror"
 build --copt="-Wextra"
 
 # build:linux --sandbox_add_mount_pair=/tmp

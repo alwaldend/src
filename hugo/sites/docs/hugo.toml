@@ -11,6 +11,8 @@ enableGitInfo = true
 
 [outputs]
 section = ["html", "rss", "print"]
+home = ["html"]
+page = ["html"]
 
 [params]
 offlineSearch = true
@@ -35,10 +37,6 @@ goldmark.renderer.unsafe = true
 
 [security]
 enableInlineShortcodes = true
-
-[taxonomies]
-tag = "tags"
-category = "categories"
 
 [[menu.main]]
 name = "Docs"
