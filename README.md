@@ -1,9 +1,9 @@
 ---
 title: Source code
 cascade:
-  - type: docs
-    _target:
-      path: "/**"
+  type: docs
+  _target:
+    path: "/**"
 ---
 
 Source code

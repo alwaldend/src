@@ -1,0 +1,31 @@
+load("@rules_python//python:py_binary.bzl", "py_binary")
+load("@rules_python//python:py_library.bzl", "py_library")
+load("//bzl/macros:al_py_checkers.bzl", "al_py_checkers")
+load("//bzl/macros:al_readme.bzl", "al_readme")
+
+al_readme(
+    name = "readme",
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "src",
+    srcs = glob(["src/**/*"]),
+)
+
+# al_py_checkers(
+#     srcs = glob(["**/*.py"]),
+# )
+
+py_library(
+    name = "library",
+    srcs = [":src"],
+    visibility = ["//visibility:public"],
+)
+
+py_binary(
+    name = "binary",
+    srcs = [":library"],
+    main = "__main__.py",
+    visibility = ["//visibility:public"],
+)

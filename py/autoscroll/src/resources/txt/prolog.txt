@@ -1,0 +1,31 @@
+Enables universal autoscroll.
+
+Pretty pointless since on Linux you can achieve it using config files and for Windows there are usually drivers.
+
+Supports only mouse buttons.
+
+The package requires 'pynput' to work, to display an icon you need to install 'pyside6' ('qt6' package).
+
+'pip install autoscroll pyside6'
+
+By default, the icon is disabled, to enable it pass '--icon-enable'.
+
+You can pass file contents as command line arguments using '@path/to/the/file' syntax.
+Arguments in that case can be placed wherever - on one line, on several lines.
+
+If you want to dynamically pass arguments without restarting the process you can use '--config' options for it.
+
+Once you press '--buttons-start', you can scroll vertically or horizontally just by moving your mouse untill you press '--buttons-end'.
+
+If '--buttons-hold' is set, the srolling ends once you release '--buttons-start'.
+
+You can change arguments on runtime by enabling a config file, you can do so by passing '--config-enable'.
+
+Once '--buttons-start' is pressed, the scroll thread starts looping.
+Every loop consists of sleeping for an interval, then scrolling for either 0, 1, or -1 pixels on both axis towards the starting point.
+Starting point is the point where '--buttons-start' was pressed.
+Sleep interval is recalculated on every mouse move as such:
+    100 / ('--scrolling-acceleration' * max(distance) + '--scrolling-speed')
+If '--scrolling-acceleration' is not 0, the speed of scrolling will be faster
+the farther away you are from the starting point.
+If '--scrolling-acceleration' is 0, the speed of the scrolling will be constant.
