@@ -8,9 +8,15 @@ def _impl(ctx):
         #!/usr/bin/env sh
         set -eux
         Xvfb "${{DISPLAY}}" ${{XVFB_OPTIONS}} &
+        sleep 0.5
         '{drawio}' --no-sandbox "${{@}}" || true
+        if [ ! -f '{out}' ]; then
+            echo "Output {out} was not built, check the log"
+            exit 1
+        fi
     """.format(
         drawio = drawio.drawio.path,
+        out = ctx.outputs.out.path,
     )
     ctx.actions.write(
         output = script,

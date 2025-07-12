@@ -14,6 +14,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 ## Contents
 
+<details open>
+
 <!-- README_CONTENTS START -->
 
 - <a href=".github">.github</a>: Github config
@@ -186,7 +188,11 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
   - <a href="vial/keyboards">keyboards</a>: Keyboard configs
 
+</details>
+
 <!-- README_CONTENTS END -->
+
+<details open>
 
 <!-- CLOC START -->
 
@@ -221,6 +227,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 | SUM:             |     2167 |     4854 |     3209 |    61499 |
 
 <!-- CLOC END -->
+
+</details>
 
 ## Setup
 
