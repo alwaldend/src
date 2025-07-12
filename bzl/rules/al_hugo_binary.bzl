@@ -22,12 +22,12 @@ def _impl(ctx):
         find content/ -name "README.md" -exec sh -c 'mv "{{}}" "$(dirname "{{}}")/_index.md"' ";"
         '{hugo}' {arguments} "${{@}}"
     """.format(
-        hugo = hugo.hugo.path,
-        content = info.content.path,
-        themes = info.themes.path,
-        config = info.config.path,
-        data = info.data.path,
-        layouts = info.layouts.path,
+        hugo = hugo.hugo.short_path,
+        content = info.content.short_path,
+        themes = info.themes.short_path,
+        config = info.config.short_path,
+        data = info.data.short_path,
+        layouts = info.layouts.short_path,
         env_script = info.env_script,
         arguments = " ".join([
             shell.quote(argument)

@@ -26,7 +26,11 @@ al_hugo_site(
 
 al_hugo_run_binary(
     name = "docs",
-    arguments = ["build"],
+    arguments = [
+        "build",
+        "--logLevel",
+        "debug",
+    ],
     site = ":site",
 )
 

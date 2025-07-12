@@ -12,18 +12,21 @@ def _impl(ctx):
         set -eux
         {env_script}
         top="${{PWD}}"
-        cd '{destination}'
-        cp -r "${{top}}/{content}" ./content
-        cp -r "${{top}}/{themes}" ./themes
-        cp -r "${{top}}/{data}" ./data
-        cp -r "${{top}}/{config}" ./config
-        "${{top}}/{hugo}" "${{@}}"
+        ln -s "${{top}}/{content}" ./content
+        ln -s "${{top}}/{themes}" ./themes
+        ln -s "${{top}}/{data}" ./data
+        ln -s "${{top}}/{config}" ./config
+        ln -s "${{top}}/{layouts}" ./layouts
+        chmod -R 700 ./content ./ ./themes
+        find content/ -name "README.md" -exec sh -c 'mv "{{}}" "$(dirname "{{}}")/_index.md"' ";"
+        "${{top}}/{hugo}" --destination '{destination}' "${{@}}"
     """.format(
         hugo = hugo.hugo.path,
         content = info.content.path,
         themes = info.themes.path,
         config = info.config.path,
         data = info.data.path,
+        layouts = info.layouts.path,
         destination = destination.path,
         env_script = info.env_script,
     )
