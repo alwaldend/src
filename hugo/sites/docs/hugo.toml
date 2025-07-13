@@ -34,13 +34,13 @@ goldmark.renderer.unsafe = true
 [security]
 enableInlineShortcodes = true
 
-[[menu.main]]
+[[languages.en.menus.main]]
 name = "Docs"
 weight = 100
 identifier = "docs"
-url = "/"
+url = "/en/"
 
-[[menu.main]]
+[[languages.en.menus.main]]
 name = "Tags"
 identifier = "tags"
 weight = 200
@@ -52,3 +52,11 @@ url = "/tags/"
 #
 # [security.funcs]
 # getenv = ['.*']
+
+[module.hugoVersion]
+extended = true
+min = "0.146.0"
+
+[[module.imports]]
+path = "github.com/google/docsy"
+disable = false
