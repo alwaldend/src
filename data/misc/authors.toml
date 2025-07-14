@@ -202,3 +202,10 @@ name = "Maxime J. Durand"
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/profile/107213" },
 ]
+
+[author.jin-nai]
+name = "Jin Nai"
+alts = ["今奈"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/jin-nai/" },
+]

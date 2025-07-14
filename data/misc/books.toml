@@ -793,3 +793,15 @@ authors = ["maxime-j-durand"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/36735/the-perfect-run" },
 ]
+
+[[book]]
+title = "Diary of a Dead Wizard"
+alt_titles = ["死亡巫师日记"]
+thumbnail = "https://cdn.novelupdates.com/images/2025/02/Diary-of-a-Dead-Wizard.jpeg"
+quality = "Good"
+completion = "Finished"
+reading = "Reading, chapter 377"
+authors = ["jin-nai"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/diary-of-a-dead-wizard/" },
+]

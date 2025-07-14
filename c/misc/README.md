@@ -1,3 +1,4 @@
 ---
-title: C utils
+title: Misc
+description: Random C code
 ---
