@@ -15,6 +15,10 @@ offlineSearch = true
 github_repo = "https://github.com/alwaldend/src"
 github_project_repo = "https://github.com/alwaldend/src"
 
+[params.path_base_for_github_subdir]
+from = "(.*)"
+to = "README.md"
+
 [params.ui]
 sidebar_menu_foldable = true
 showLightDarkModeMenu = true

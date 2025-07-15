@@ -1,4 +1,5 @@
-local bg = "#333333"
+local bg = "#000000"
+local bg_term = "0"
 local fg = "#ffffff"
 
 local colors = {
@@ -526,7 +527,7 @@ return {
         config = function()
             vim.g.sonokai_style = "default"
             vim.g.sonokai_colors_override = {
-                bg0 = { "#333333", "235" },
+                bg0 = { bg, bg_term },
             }
             vim.cmd.colorscheme("sonokai")
         end,
