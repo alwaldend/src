@@ -75,11 +75,11 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 - <a href="c">c</a>: C projects
 
-  - <a href="c/misc">misc</a>: C utils
+  - <a href="c/misc">misc</a>: Misc
 
   - <a href="c/openssl">openssl</a>: Openssl build
 
-  - <a href="c/sri">sri</a>: Cli app to calculate subresource integrity (SRI)
+  - <a href="c/sri">sri</a>: SRI calculator
 
 - <a href="cfg">cfg</a>: Configs
 
@@ -127,6 +127,10 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
     - <a href="hugo/sites/docs">docs</a>: Miscellaneous knowledge
 
+      - <a href="hugo/sites/docs/content">content</a>: Hugo site content
+
+      - <a href="hugo/sites/docs/layouts">layouts</a>: Hugo site layouts
+
   - <a href="hugo/themes">themes</a>: Hugo themes
 
 - <a href="img">img</a>: Images
@@ -139,7 +143,7 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 - <a href="js">js</a>: Javascript projects
 
-  - <a href="js/leetcode-downloader">leetcode-downloader</a>: Tampermonkey script to download leetcode submissions
+  - <a href="js/leetcode-downloader">leetcode-downloader</a>: Leetcode downloader
 
 - <a href="kt">kt</a>: Kotlin projects
 
@@ -148,10 +152,6 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
   - <a href="lua/nvim-config">nvim-config</a>: Neovim config
 
   - <a href="lua/nvim-lib">nvim-lib</a>: Lua library for neovim
-
-- <a href="md">md</a>: Markdown projects
-
-  - <a href="md/misc">misc</a>: Miscellaneous knowledge
 
 - <a href="patch">patch</a>: Patches
 
@@ -168,6 +168,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
   - <a href="proto/leetcode-downloader">leetcode-downloader</a>: Models for leetcode-downloader
 
 - <a href="py">py</a>: Python projects
+
+  - <a href="py/autoscroll">autoscroll</a>: Autoscroll
 
   - <a href="py/bazel-python-shell">bazel-python-shell</a>: Python shell allowing you to run shell commands in python environment
 
@@ -191,11 +193,9 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 - <a href="vial">vial</a>: Vial configs
 
-  - <a href="vial/keyboards">keyboards</a>: Keyboard configs
+      - <a href="vial/keyboards">keyboards</a>: Keyboard configs
 
-</details>
-
-<!-- README_CONTENTS END -->
+  <!-- README_CONTENTS END -->
 
 <details open>
   <summary>Line count</summary>

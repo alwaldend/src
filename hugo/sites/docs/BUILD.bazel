@@ -8,9 +8,9 @@ load("//bzl/rules:al_hugo_site.bzl", "al_hugo_site")
 al_hugo_site(
     name = "site",
     configs = [":hugo-config"],
-    content = ":content",
+    content = "//hugo/sites/docs/content",
     hugo_data = ":data",
-    hugo_layouts = ":layouts",
+    hugo_layouts = "//hugo/sites/docs/layouts",
     postcss = "//tools:postcss",
     themes = "//hugo/themes",
     tools = [
@@ -59,31 +59,6 @@ pkg_tar(
         "//data/misc:books",
     ],
     package_dir = package_name(),
-)
-
-pkg_tar(
-    name = "content-en",
-    srcs = ["//:LICENSE.txt"],
-    package_dir = "en",
-    deps = [
-        "//:readme-children",
-        "//bzl:bzl-stardoc",
-        "//drawio/diagrams:docs",
-        "//md/misc",
-    ],
-)
-
-pkg_tar(
-    name = "layouts",
-    srcs = glob(["layouts/**"]),
-    strip_prefix = "layouts",
-)
-
-pkg_tar(
-    name = "content",
-    deps = [
-        ":content-en",
-    ],
 )
 
 al_toml_data(
