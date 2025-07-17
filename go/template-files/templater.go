@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -77,6 +78,11 @@ func (self *Templater) loadData(path string) (*TemplateDataFile, error) {
 	switch extension {
 	case ".toml":
 		_, err := toml.Decode(fileString, &data)
+		if err != nil {
+			return nil, err
+		}
+	case ".json":
+		err := json.Unmarshal(fileBytes, &data)
 		if err != nil {
 			return nil, err
 		}

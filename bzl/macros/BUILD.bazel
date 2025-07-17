@@ -79,6 +79,11 @@ al_bzl_library_map(
         "al_drawio_run_binary": [
             "//bzl/rules:al_drawio_run_binary",
         ],
+        "al_gen_leetcode_submissions": [
+            ":al_template_files",
+            "@bazel_skylib//rules:write_file",
+            "@rules_pkg//pkg:bzl_srcs",
+        ],
     },
     visibility = ["//visibility:public"],
 )

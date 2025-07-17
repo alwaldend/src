@@ -21,6 +21,10 @@ pkg_tar(
     deps = [
         "//:readme-children",
         "//bzl:bzl-stardoc",
+        "//cpp/leetcode-submissions",
         "//drawio/diagrams:docs",
+        "//go/leetcode-submissions",
+        "//java/leetcode-submissions",
+        "//py/leetcode-submissions",
     ],
 )
