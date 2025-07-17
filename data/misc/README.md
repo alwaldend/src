@@ -1,3 +1,4 @@
 ---
-title: Miscellaneous data
+title: Misc
+description: Miscellaneous data
 ---

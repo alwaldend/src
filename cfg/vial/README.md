@@ -1,5 +1,6 @@
 ---
-title: Vial configs
+title: Vial
+description: Vial configs
 tags:
   - vial
 ---

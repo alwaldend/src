@@ -1,5 +1,6 @@
 ---
-title: Python projects
+title: Python
+description: Python projects
 cascade:
   - categories:
       - py

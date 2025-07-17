@@ -1,3 +1,4 @@
 ---
-title: Hugo themes
+title: Themes
+description: Hugo themes
 ---

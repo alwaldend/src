@@ -1,3 +1,3 @@
 ---
-title: Leetcode submissions (go)
+title: Leetcode submissions
 ---

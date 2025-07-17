@@ -1,3 +1,4 @@
 ---
-title: Assets for useless-qt-gui
+title: Useless qt GUI
+description: Assets for useless-qt-gui
 ---

@@ -1,6 +1,15 @@
 ---
-title: Bazel rules
+title: Toolchains
+description: Bazel toolchains
+cascade:
+  - categories:
+      - bzl
+      - bzl-toolchains
 ---
+
+## Links
+
+- https://bazel.build/extending/toolchains
 
 ## Qt setup
 

@@ -84,6 +84,11 @@ al_bzl_library_map(
             "@bazel_skylib//rules:write_file",
             "@rules_pkg//pkg:bzl_srcs",
         ],
+        "al_vial_configs": [
+            ":al_template_files",
+            "@bazel_skylib//rules:write_file",
+            "@rules_pkg//pkg:bzl_srcs",
+        ],
     },
     visibility = ["//visibility:public"],
 )

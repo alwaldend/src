@@ -16,9 +16,16 @@ import (
 type Templater struct{}
 
 type TemplateDataFile struct {
-	Path  string
+	// Data file path
+	Path string
+	// Data file basename
+	Basename string
+	// Data file dirname
+	Dirname string
+	// Data file lines
 	Lines []string
-	Data  any
+	// Parsed data
+	Data any
 }
 
 type TemplateContext struct {
@@ -100,8 +107,10 @@ func (self *Templater) loadData(path string) (*TemplateDataFile, error) {
 		return nil, fmt.Errorf("unsupported extension %s: %s", extension, path)
 	}
 	return &TemplateDataFile{
-		Path:  path,
-		Data:  data,
-		Lines: fileLines,
+		Path:     path,
+		Dirname:  filepath.Dir(path),
+		Basename: filepath.Base(path),
+		Data:     data,
+		Lines:    fileLines,
 	}, nil
 }

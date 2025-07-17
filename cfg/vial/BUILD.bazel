@@ -1,19 +1,14 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/macros:al_readme.bzl", "al_readme")
+load("//bzl/macros:al_vial_configs.bzl", "al_vial_configs")
 
 al_readme(
     name = "readme",
     visibility = ["//visibility:public"],
 )
 
-filegroup(
-    name = "src",
+al_vial_configs(
+    name = "vial",
     srcs = glob(["*.json"]),
-    visibility = ["//visibility:public"],
-)
-
-pkg_tar(
-    name = "src-tar",
-    srcs = [":src"],
     visibility = ["//visibility:public"],
 )

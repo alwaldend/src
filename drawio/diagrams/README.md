@@ -1,3 +1,4 @@
 ---
-title: Drawio diagrams
+title: Diagrams
+description: Various drawio diagrams
 ---

@@ -1,5 +1,6 @@
 ---
-title: Kotlin projects
+title: Kotlin
+description: Kotlin projects
 cascade:
   - categories:
       - kt

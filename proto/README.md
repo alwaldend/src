@@ -1,5 +1,6 @@
 ---
-title: Protobuf projects
+title: Proto
+description: Protobuf projects
 cascade:
   - categories:
       - proto

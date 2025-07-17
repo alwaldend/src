@@ -1,6 +1,6 @@
 ---
-title: SRI calculator
-description: Cli app to calculate subresource integrity
+title: SRI
+description: Cli app for subresource integrity calculation
 ---
 
 ## Links

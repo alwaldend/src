@@ -1,3 +1,3 @@
 ---
-title: Miscellaneous knowledge
+title: Docs
 ---

@@ -1,5 +1,6 @@
 ---
-title: Miscellaneous pages
+title: Misc
+description: Miscellaneous pages
 cascade:
   - categories:
       - misc

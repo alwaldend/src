@@ -1,3 +1,4 @@
 ---
-title: Dotfile configs 
+title: Dotfiles
+description: Dotfile configs
 ---

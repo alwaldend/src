@@ -1,3 +1,8 @@
 ---
-title: Bazel macros
+title: Macros
+description: Bazel macros
+cascade:
+  - categories:
+      - bzl
+      - bzl-macros
 ---

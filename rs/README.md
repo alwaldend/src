@@ -1,5 +1,6 @@
 ---
-title: Rust projects
+title: Rust
+description: Rust projects
 cascade:
   - categories:
       - rs

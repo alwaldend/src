@@ -1,5 +1,6 @@
 ---
-title: Hugo projects
+title: Hugo
+description: Hugo projects
 cascade:
   - categories:
       - hugo

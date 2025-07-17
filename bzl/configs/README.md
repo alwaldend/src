@@ -1,3 +1,4 @@
 ---
-title: Bazel configs
+title: Configs
+description: Bazel config targets
 ---

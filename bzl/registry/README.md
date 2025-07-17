@@ -1,5 +1,8 @@
 ---
-title: Bazel registry
+title: Registry
+description: Bazel registry
 ---
 
-Docs: https://bazel.build/external/registry
+## Links
+
+- Docs: https://bazel.build/external/registry

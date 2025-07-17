@@ -1,5 +1,6 @@
 ---
-title: Shell projects
+title: Shell
+description: Shell projects
 cascade:
   - categories:
       - sh

@@ -1,5 +1,6 @@
 ---
-title: Perl projects
+title: Perl
+description: Perl projects
 cascade:
   - categories:
       - pl
