@@ -21,6 +21,7 @@ def al_gen_leetcode_submissions(name, srcs, visibility, **kwargs):
             "title: {{ .Data.title_slug }}",
             "description: {{ .Data.title }}",
             "tags: [generated, leetcode]",
+            "date: {{ .Data.timestamp | timestamp_to_date }}",
             "---",
             "",
             "## Links",

@@ -1,3 +1,3 @@
 ---
-title: Leetcode submissions (cpp)
+title: Leetcode submissions
 ---

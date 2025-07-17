@@ -1,3 +1,3 @@
 ---
-title: Leetcode submissions (python)
+title: Leetcode submissions
 ---

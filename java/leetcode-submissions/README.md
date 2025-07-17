@@ -1,3 +1,3 @@
 ---
-title: Leetcode submissions (java)
+title: Leetcode submissions
 ---

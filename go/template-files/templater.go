@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"text/template"
+	"time"
 
 	"github.com/BurntSushi/toml"
 )
@@ -22,6 +23,11 @@ type TemplateDataFile struct {
 
 type TemplateContext struct {
 	Data []*TemplateDataFile
+}
+
+func timestampToDate(timestamp float64) (string, error) {
+	tm := time.Unix(int64(timestamp), 0)
+	return tm.String(), nil
 }
 
 func NewTemplater() *Templater {
@@ -41,7 +47,10 @@ func (self *Templater) TemplateFiles(dataPaths []string, templatePath string, ou
 	if err != nil {
 		return fmt.Errorf("could not read template %s: %w", templatePath, err)
 	}
-	templateObj, err := template.New("template").Parse(string(templateBytes))
+	funcMap := template.FuncMap{
+		"timestamp_to_date": timestampToDate,
+	}
+	templateObj, err := template.New("template").Funcs(funcMap).Parse(string(templateBytes))
 	if err != nil {
 		return fmt.Errorf("could not parse template %s: %w", templatePath, err)
 	}
