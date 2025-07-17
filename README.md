@@ -85,6 +85,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
     - <a href="cfg/dotfiles">dotfiles</a>: Dotfile configs
 
+    - <a href="cfg/vial">vial</a>: Vial configs
+
   - <a href="cpp">cpp</a>: C&#43;&#43; projects
 
     - <a href="cpp/infinitime">infinitime</a>: Fork of InfiniTimeOrg/InfiniTime
@@ -190,10 +192,6 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
     - <a href="sh/scripts">scripts</a>: Shell scripts
 
   - <a href="tools">tools</a>: Tools
-
-  - <a href="vial">vial</a>: Vial configs
-
-    - <a href="vial/keyboards">keyboards</a>: Keyboard configs
     <!-- README_CONTENTS END -->
 
 <details open>

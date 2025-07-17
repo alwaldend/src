@@ -8,7 +8,7 @@ al_readme(
 
 filegroup(
     name = "src",
-    srcs = glob(["*.vil"]),
+    srcs = glob(["*.json"]),
     visibility = ["//visibility:public"],
 )
 
