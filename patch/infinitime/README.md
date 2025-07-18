@@ -1,3 +1,4 @@
 ---
-title: Git patches for InfiniTimeOrg/InfiniTime
+title: Infinitime
+description: Git patches for InfiniTimeOrg/InfiniTime
 ---

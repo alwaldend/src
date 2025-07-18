@@ -9,19 +9,17 @@ enableGitInfo = true
 
 [outputs]
 section = ["html", "rss", "print"]
+home = ["html"]
+page = ["html"]
 
 [params]
 offlineSearch = true
-github_repo = "https://github.com/alwaldend/src"
 github_project_repo = "https://github.com/alwaldend/src"
 
-[params.path_base_for_github_subdir]
-from = "(.*)"
-to = "README.md"
-
 [params.ui]
-sidebar_menu_foldable = true
 showLightDarkModeMenu = true
+sidebar_menu_compact = true
+sidebar_menu_foldable = false
 
 [params.drawio]
 enable = true
@@ -32,17 +30,20 @@ url = "https://github.com/alwaldend/src"
 icon = "fa-brands fa-github"
 desc = "Github"
 
-[markup]
-goldmark.renderer.unsafe = true
+[markup.goldmark]
+renderer.unsafe = true
 
 [security]
 enableInlineShortcodes = true
+
+# [languages.en]
+# contentDir = "content/en"
 
 [[languages.en.menus.main]]
 name = "Docs"
 weight = 100
 identifier = "docs"
-url = "/en/"
+url = "/"
 
 [[languages.en.menus.main]]
 name = "Tags"

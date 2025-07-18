@@ -1,3 +1,4 @@
 ---
-title: Git hooks
+title: Hooks
+description: Git hooks
 ---

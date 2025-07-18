@@ -8,16 +8,29 @@ al_readme(
 
 pkg_tar(
     name = "content",
-    srcs = glob(["**"]),
-    strip_prefix = ".",
     visibility = ["//visibility:public"],
-    deps = [":content-en"],
+    deps = [
+        ":content-en",
+        ":content-src",
+    ],
+)
+
+pkg_tar(
+    name = "content-src",
+    srcs = glob(
+        ["**"],
+        exclude = [
+            "README.md",
+            "BUILD.bazel",
+        ],
+    ),
+    strip_prefix = ".",
 )
 
 pkg_tar(
     name = "content-en",
     srcs = ["//:LICENSE.txt"],
-    package_dir = "en",
+    # package_dir = "en",
     deps = [
         "//:readme-children",
         "//bzl:bzl-stardoc",

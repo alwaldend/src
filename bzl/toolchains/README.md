@@ -1,10 +1,6 @@
 ---
 title: Toolchains
 description: Bazel toolchains
-cascade:
-  - categories:
-      - bzl
-      - bzl-toolchains
 ---
 
 ## Links

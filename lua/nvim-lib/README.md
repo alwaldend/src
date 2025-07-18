@@ -1,3 +1,4 @@
 ---
-title: Lua library for neovim
+title: Neovim lib
+description: Lua library for neovim
 ---

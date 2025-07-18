@@ -1,5 +1,6 @@
 ---
-title: Tool to parse README.md files
+title: Readme tree
+description: Tool to parse README.md files
 ---
 
 ## Example

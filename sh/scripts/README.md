@@ -1,3 +1,4 @@
 ---
-title: Shell scripts
+title: Scripts
+description: Shell scripts
 ---

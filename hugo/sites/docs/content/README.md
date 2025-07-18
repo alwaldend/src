@@ -1,3 +1,4 @@
 ---
-title: Hugo site content
+title: Content
+description: Hugo site content
 ---

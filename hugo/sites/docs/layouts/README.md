@@ -1,3 +1,4 @@
 ---
-title: Hugo site layouts
+title: Layouts
+description: Hugo site layouts
 ---

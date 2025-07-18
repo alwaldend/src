@@ -1,5 +1,5 @@
 ---
-title: Patches
+title: Patch
 cascade:
   - categories:
       - patch

@@ -1,3 +1,4 @@
 ---
-title: Tool to install files
+title: File installer
+description: CLI tool to install files
 ---

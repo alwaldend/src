@@ -20,7 +20,7 @@ def al_vial_configs(name, srcs, visibility, **kwargs):
             "---",
             "title: {{ .Basename }}",
             "description: Vial config {{ .Data.Basename }}",
-            "tags: [generated]",
+            "tags: [generated, vial]",
             "---",
             "",
             "## Config",

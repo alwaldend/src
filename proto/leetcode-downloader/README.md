@@ -1,3 +1,4 @@
 ---
-title: Models for leetcode-downloader
+title: Leetcode downloader
+description: Models for leetcode-downloader
 ---

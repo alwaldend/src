@@ -12,10 +12,10 @@ def _impl(ctx):
         set -eux
         {env_script}
         ln -s '{data}' ./data
+        ln -s '{content}' ./content
         '{hugo}' \
             --ignoreCache \
             --configDir '{config}' \
-            --contentDir '{content}' \
             --layoutDir '{layouts}' \
             --themesDir '{themes}' \
             "${{@}}"

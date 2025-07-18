@@ -1,3 +1,4 @@
 ---
-title: Fixes for rules-haskell
+title: Rules Haskell
+description: Fixes for rules-haskell
 ---
