@@ -65,3 +65,11 @@ min = "0.146.0"
 [[module.imports]]
 path = "github.com/google/docsy"
 disable = false
+
+[[module.mounts]]
+source = "content"
+target = "content"
+
+[[module.mounts]]
+source = "content/.github"
+target = "content/github"

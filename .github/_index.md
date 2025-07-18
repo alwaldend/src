@@ -1,5 +1,8 @@
 ---
-title: Github config
+title: Github
+description: Github config
+aliases:
+  - /.github
 cascade:
   - categories:
       - github
