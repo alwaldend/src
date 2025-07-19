@@ -209,3 +209,9 @@ alts = ["今奈"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/jin-nai/" },
 ]
+
+[author.warby-picus]
+name = "Warby Picus"
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/profile/261544" },
+]
