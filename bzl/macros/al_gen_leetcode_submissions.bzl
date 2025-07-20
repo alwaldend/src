@@ -18,10 +18,11 @@ def al_gen_leetcode_submissions(name, srcs, visibility, **kwargs):
         content = [
             "{{ range .Data }}",
             "---",
-            "title: {{ .Data.title_slug }}",
+            "title: {{ .Data.timestamp | timestamp_to_date }}",
             "description: {{ .Data.title }}",
             "tags: [generated, leetcode]",
             "date: {{ .Data.timestamp | timestamp_to_date }}",
+            "toc_hide: true",
             "---",
             "",
             "## Links",
@@ -35,16 +36,19 @@ def al_gen_leetcode_submissions(name, srcs, visibility, **kwargs):
             "{{ end }}",
         ],
     )
+    src_names = []
     for src in srcs:
+        src_name = "{}-{}".format(name, src.replace(".json", ""))
+        src_names.append(src_name)
         al_template_files(
-            name = "{}-{}".format(name, src),
+            name = src_name,
             srcs = ["{}-template".format(name)],
             data = [src],
-            outs = ["{}-{}.md".format(name, src)],
+            outs = ["{}.md".format(src_name)],
         )
     pkg_tar(
         name = name,
         package_dir = native.package_name(),
-        srcs = ["{}-{}".format(name, src) for src in srcs],
+        srcs = src_names,
         visibility = visibility,
     )
