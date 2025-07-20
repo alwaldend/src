@@ -28,172 +28,234 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
   - <a href=".github/workflows">workflows</a>: Github workflows
 
-  - <a href="bzl">bzl</a>: Bazel projects
+- <a href="ansible">ansible</a>: Ansible
 
-    - <a href="bzl/aspects">aspects</a>: Bazel aspects
+  - <a href="ansible/playbooks">playbooks</a>: Playbooks
 
-    - <a href="bzl/build-files">build-files</a>: BUILD.bazel files
+  - <a href="ansible/roles">roles</a>: Roles
 
-    - <a href="bzl/configs">configs</a>: Bazel configs
+    - <a href="ansible/roles/adguard">adguard</a>: Adguard
 
-    - <a href="bzl/extensions">extensions</a>: Module extensions
+    - <a href="ansible/roles/caddy">caddy</a>: Caddy
 
-    - <a href="bzl/macros">macros</a>: Bazel macros
+    - <a href="ansible/roles/cifs">cifs</a>: CIFS
 
-    - <a href="bzl/providers">providers</a>: Bazel providers
+    - <a href="ansible/roles/consul">consul</a>: Consul
 
-    - <a href="bzl/registry">registry</a>: Bazel registry
+    - <a href="ansible/roles/consul_envoy">consul_envoy</a>: Consul envoy
 
-      - <a href="bzl/registry/modules">modules</a>: Modules
+    - <a href="ansible/roles/dns">dns</a>: DNS
 
-        - <a href="bzl/registry/modules/com-github-aldanial-cloc">com-github-aldanial-cloc</a>: Cloc
+    - <a href="ansible/roles/docker">docker</a>: Docker
 
-        - <a href="bzl/registry/modules/com-github-fortawesome-font-awesome">com-github-fortawesome-font-awesome</a>: Font-Awesome
+    - <a href="ansible/roles/facts">facts</a>: Facts
 
-        - <a href="bzl/registry/modules/com-github-georgewfraser-java-language-server">com-github-georgewfraser-java-language-server</a>: Java languange server
+    - <a href="ansible/roles/firewall">firewall</a>: Firewall
 
-        - <a href="bzl/registry/modules/com-github-google-docsy">com-github-google-docsy</a>: Docsy
+    - <a href="ansible/roles/hiddify_manager">hiddify_manager</a>: Hiddify manager
 
-        - <a href="bzl/registry/modules/com-github-twbs-bootstrap">com-github-twbs-bootstrap</a>: Bootstrap
+    - <a href="ansible/roles/hiddify_manager_host">hiddify_manager_host</a>: Hiddify manager with host
 
-        - <a href="bzl/registry/modules/com-nordicsemi-developer-nrfsdk">com-nordicsemi-developer-nrfsdk</a>: Nrfsdk
+    - <a href="ansible/roles/host">host</a>: Host
 
-        - <a href="bzl/registry/modules/hedron_compile_commands">hedron_compile_commands</a>: Bazel-compile-commands-extractor
+    - <a href="ansible/roles/k3s">k3s</a>: K3s
 
-        - <a href="bzl/registry/modules/org-openssl-openssl">org-openssl-openssl</a>: Openssl
+    - <a href="ansible/roles/k3s_bootstrap">k3s_bootstrap</a>: K3s bootstrap
 
-        - <a href="bzl/registry/modules/rules_haskell">rules_haskell</a>: Patched version of rules_haskell
+    - <a href="ansible/roles/k3s_cluster">k3s_cluster</a>: K3s cluster
 
-        - <a href="bzl/registry/modules/us-nasm-nasm">us-nasm-nasm</a>: Netwide Assembler (NASM)
+    - <a href="ansible/roles/os">os</a>: OS
 
-    - <a href="bzl/rules">rules</a>: Bazel rules
+    - <a href="ansible/roles/pve_cluster">pve_cluster</a>: PVE cluster
 
-    - <a href="bzl/toolchain-types">toolchain-types</a>: Toolchain types
+    - <a href="ansible/roles/pve_vm">pve_vm</a>: PVE VM
 
-    - <a href="bzl/toolchains">toolchains</a>: Bazel rules
+    - <a href="ansible/roles/pve_vm_remove">pve_vm_remove</a>: PVE VM remove
 
-    - <a href="bzl/vars">vars</a>: Static bazel variables
+    - <a href="ansible/roles/ssh">ssh</a>: SSH
 
-  - <a href="c">c</a>: C projects
+    - <a href="ansible/roles/ssh_port_forward">ssh_port_forward</a>: SSH port forwarding
 
-    - <a href="c/misc">misc</a>: Misc
+    - <a href="ansible/roles/ssh_update_known_hosts">ssh_update_known_hosts</a>: SSH update known hosts
 
-    - <a href="c/openssl">openssl</a>: Openssl build
+    - <a href="ansible/roles/traefik">traefik</a>: Traefik
 
-    - <a href="c/sri">sri</a>: SRI calculator
+    - <a href="ansible/roles/update_all_packages">update_all_packages</a>: Update all packages
 
-  - <a href="cfg">cfg</a>: Configs
+    - <a href="ansible/roles/users">users</a>: Users
 
-    - <a href="cfg/dotfiles">dotfiles</a>: Dotfile configs
+    - <a href="ansible/roles/vault">vault</a>: Vault
 
-    - <a href="cfg/vial">vial</a>: Vial configs
+    - <a href="ansible/roles/wireguard">wireguard</a>: Wireguard
 
-  - <a href="cpp">cpp</a>: C&#43;&#43; projects
+    - <a href="ansible/roles/xray">xray</a>: Xray
 
-    - <a href="cpp/infinitime">infinitime</a>: Fork of InfiniTimeOrg/InfiniTime
+- <a href="bzl">bzl</a>: Bazel
 
-    - <a href="cpp/leetcode-submissions">leetcode-submissions</a>: Leetcode submissions (cpp)
+  - <a href="bzl/aspects">aspects</a>: Aspects
 
-    - <a href="cpp/useless-qt-gui">useless-qt-gui</a>: Useless qt GUI
+  - <a href="bzl/build-files">build-files</a>: Build files
 
-  - <a href="data">data</a>: Data
+  - <a href="bzl/configs">configs</a>: Configs
 
-    - <a href="data/misc">misc</a>: Miscellaneous data
+  - <a href="bzl/extensions">extensions</a>: Extensions
 
-  - <a href="drawio">drawio</a>: Drawio diagrams
+  - <a href="bzl/macros">macros</a>: Macros
 
-    - <a href="drawio/diagrams">diagrams</a>: Drawio diagrams
+  - <a href="bzl/providers">providers</a>: Providers
 
-  - <a href="go">go</a>: Golang projects
+  - <a href="bzl/registry">registry</a>: Registry
 
-    - <a href="go/bazel-shell-worker">bazel-shell-worker</a>: Bazel worker that runs shell commands
+    - <a href="bzl/registry/modules">modules</a>: Modules
 
-    - <a href="go/file-installer">file-installer</a>: Tool to install files
+      - <a href="bzl/registry/modules/com-github-aldanial-cloc">com-github-aldanial-cloc</a>: Cloc
 
-      - <a href="go/file-installer/cmd">cmd</a>: Cmd code for file-installer
+      - <a href="bzl/registry/modules/com-github-fortawesome-font-awesome">com-github-fortawesome-font-awesome</a>: Font-Awesome
 
-    - <a href="go/leetcode-downloader">leetcode-downloader</a>: CLI app to download leetcode submissions
+      - <a href="bzl/registry/modules/com-github-georgewfraser-java-language-server">com-github-georgewfraser-java-language-server</a>: Java languange server
 
-      - <a href="go/leetcode-downloader/model">model</a>: Models for leetcode-downloader
+      - <a href="bzl/registry/modules/com-github-google-docsy">com-github-google-docsy</a>: Docsy
 
-    - <a href="go/leetcode-submissions">leetcode-submissions</a>: Leetcode submissions (go)
+      - <a href="bzl/registry/modules/com-github-twbs-bootstrap">com-github-twbs-bootstrap</a>: Bootstrap
 
-    - <a href="go/readme-tree">readme-tree</a>: Tool to parse README.md files
+      - <a href="bzl/registry/modules/com-nordicsemi-developer-nrfsdk">com-nordicsemi-developer-nrfsdk</a>: Nrfsdk
 
-    - <a href="go/template-files">template-files</a>: Cli tool to template files
+      - <a href="bzl/registry/modules/hedron_compile_commands">hedron_compile_commands</a>: Bazel-compile-commands-extractor
 
-    - <a href="go/utils">utils</a>: Random golang tools
+      - <a href="bzl/registry/modules/org-openssl-openssl">org-openssl-openssl</a>: Openssl
 
-  - <a href="hugo">hugo</a>: Hugo projects
+      - <a href="bzl/registry/modules/rules_haskell">rules_haskell</a>: Patched version of rules_haskell
 
-    - <a href="hugo/sites">sites</a>: Hugo sites
+      - <a href="bzl/registry/modules/us-nasm-nasm">us-nasm-nasm</a>: Netwide Assembler (NASM)
 
-      - <a href="hugo/sites/docs">docs</a>: Miscellaneous knowledge
+  - <a href="bzl/rules">rules</a>: Rules
 
-        - <a href="hugo/sites/docs/content">content</a>: Hugo site content
+  - <a href="bzl/toolchain-types">toolchain-types</a>: Toolchain types
 
-        - <a href="hugo/sites/docs/layouts">layouts</a>: Hugo site layouts
+  - <a href="bzl/toolchains">toolchains</a>: Toolchains
 
-    - <a href="hugo/themes">themes</a>: Hugo themes
+  - <a href="bzl/vars">vars</a>: Vars
 
-  - <a href="img">img</a>: Images
+- <a href="c">c</a>: C
 
-    - <a href="img/useless-qt-gui">useless-qt-gui</a>: Assets for useless-qt-gui
+  - <a href="c/misc">misc</a>: Misc
 
-  - <a href="java">java</a>: Java projects
+  - <a href="c/openssl">openssl</a>: Openssl
 
-    - <a href="java/leetcode-submissions">leetcode-submissions</a>: Leetcode submissions (java)
+  - <a href="c/sri">sri</a>: SRI
 
-  - <a href="js">js</a>: Javascript projects
+- <a href="cfg">cfg</a>: Configs
 
-    - <a href="js/leetcode-downloader">leetcode-downloader</a>: Leetcode downloader
+  - <a href="cfg/dotfiles">dotfiles</a>: Dotfiles
 
-  - <a href="kt">kt</a>: Kotlin projects
+  - <a href="cfg/vial">vial</a>: Vial
 
-  - <a href="lua">lua</a>: Lua projects
+- <a href="cpp">cpp</a>: C&#43;&#43;
 
-    - <a href="lua/nvim-config">nvim-config</a>: Neovim config
+  - <a href="cpp/infinitime">infinitime</a>: Infinitime
 
-    - <a href="lua/nvim-lib">nvim-lib</a>: Lua library for neovim
+  - <a href="cpp/leetcode-submissions">leetcode-submissions</a>: Leetcode submissions
 
-  - <a href="patch">patch</a>: Patches
+  - <a href="cpp/useless-qt-gui">useless-qt-gui</a>: Useless qt GUI
 
-    - <a href="patch/infinitime">infinitime</a>: Git patches for InfiniTimeOrg/InfiniTime
+- <a href="data">data</a>: Data
 
-    - <a href="patch/rules-haskell">rules-haskell</a>: Fixes for rules-haskell
+  - <a href="data/misc">misc</a>: Misc
 
-  - <a href="pl">pl</a>: Perl projects
+- <a href="drawio">drawio</a>: Drawio
 
-  - <a href="proto">proto</a>: Protobuf projects
+  - <a href="drawio/diagrams">diagrams</a>: Diagrams
 
-    - <a href="proto/bazel-worker">bazel-worker</a>: Bazel worker protocol
+- <a href="go">go</a>: Go
 
-    - <a href="proto/leetcode-downloader">leetcode-downloader</a>: Models for leetcode-downloader
+  - <a href="go/bazel-shell-worker">bazel-shell-worker</a>: Bazel shell worker
 
-  - <a href="py">py</a>: Python projects
+  - <a href="go/file-installer">file-installer</a>: File installer
 
-    - <a href="py/autoscroll">autoscroll</a>: Autoscroll
+    - <a href="go/file-installer/cmd">cmd</a>: Cmd code for file-installer
 
-    - <a href="py/bazel-python-shell">bazel-python-shell</a>: Python shell allowing you to run shell commands in python environment
+  - <a href="go/leetcode-downloader">leetcode-downloader</a>: Leetcode downloader
 
-    - <a href="py/install-file">install-file</a>: Python scripts
+    - <a href="go/leetcode-downloader/model">model</a>: Models for leetcode-downloader
 
-    - <a href="py/leetcode-submissions">leetcode-submissions</a>: Leetcode submissions (python)
+  - <a href="go/leetcode-submissions">leetcode-submissions</a>: Leetcode submissions
 
-    - <a href="py/replace-section">replace-section</a>: Replace sections of files
+  - <a href="go/readme-tree">readme-tree</a>: Readme tree
 
-  - <a href="rs">rs</a>: Rust projects
+  - <a href="go/template-files">template-files</a>: Template files
 
-    - <a href="rs/tools">tools</a>: Rust tools
+  - <a href="go/utils">utils</a>: Utils
 
-  - <a href="sh">sh</a>: Shell projects
+- <a href="hugo">hugo</a>: Hugo
 
-    - <a href="sh/git-hooks">git-hooks</a>: Git hooks
+  - <a href="hugo/sites">sites</a>: Sites
 
-    - <a href="sh/scripts">scripts</a>: Shell scripts
+    - <a href="hugo/sites/docs">docs</a>: Docs
 
-  - <a href="tools">tools</a>: Tools
-    <!-- README_CONTENTS END -->
+      - <a href="hugo/sites/docs/content">content</a>: Content
+
+      - <a href="hugo/sites/docs/layouts">layouts</a>: Layouts
+
+  - <a href="hugo/themes">themes</a>: Themes
+
+- <a href="img">img</a>: Images
+
+  - <a href="img/useless-qt-gui">useless-qt-gui</a>: Useless qt GUI
+
+- <a href="java">java</a>: Java
+
+  - <a href="java/leetcode-submissions">leetcode-submissions</a>: Leetcode submissions
+
+- <a href="js">js</a>: Javascript
+
+  - <a href="js/leetcode-downloader">leetcode-downloader</a>: Leetcode downloader
+
+- <a href="kt">kt</a>: Kotlin
+
+- <a href="lua">lua</a>: Lua
+
+  - <a href="lua/nvim-config">nvim-config</a>: Neovim config
+
+  - <a href="lua/nvim-lib">nvim-lib</a>: Neovim lib
+
+- <a href="patch">patch</a>: Patch
+
+  - <a href="patch/infinitime">infinitime</a>: Infinitime
+
+  - <a href="patch/rules-haskell">rules-haskell</a>: Rules Haskell
+
+- <a href="pl">pl</a>: Perl
+
+- <a href="proto">proto</a>: Proto
+
+  - <a href="proto/bazel-worker">bazel-worker</a>: Bazel worker
+
+  - <a href="proto/leetcode-downloader">leetcode-downloader</a>: Leetcode downloader
+
+- <a href="py">py</a>: Python
+
+  - <a href="py/autoscroll">autoscroll</a>: Autoscroll
+
+  - <a href="py/bazel-python-shell">bazel-python-shell</a>: Bazel python shell
+
+  - <a href="py/install-file">install-file</a>: Python scripts
+
+  - <a href="py/leetcode-submissions">leetcode-submissions</a>: Leetcode submissions
+
+  - <a href="py/replace-section">replace-section</a>: Replace section
+
+- <a href="rs">rs</a>: Rust
+
+  - <a href="rs/tools">tools</a>: Tools
+
+- <a href="sh">sh</a>: Shell
+
+  - <a href="sh/git-hooks">git-hooks</a>: Hooks
+
+  - <a href="sh/scripts">scripts</a>: Scripts
+
+- <a href="tools">tools</a>: Tools
+  <!-- README_CONTENTS END -->
 
 <details open>
   <summary>Line count</summary>
@@ -202,18 +264,19 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 | Language         |    files |    blank |  comment |     code |
 | :--------------- | -------: | -------: | -------: | -------: |
-| JSON             |      966 |        2 |        0 |    25853 |
-| TOML             |        8 |      396 |        7 |     7282 |
-| Starlark         |      122 |      551 |      722 |     4017 |
-| Text             |        7 |      128 |        0 |     1788 |
-| Go               |       19 |      144 |       20 |     1425 |
-| Python           |       13 |      271 |       63 |     1232 |
+| JSON             |      971 |        2 |        0 |    29800 |
+| TOML             |        8 |      402 |        7 |     7320 |
+| Starlark         |      126 |      562 |      810 |     4115 |
+| YAML             |       85 |       87 |        6 |     2686 |
+| Text             |        8 |      128 |        0 |     1798 |
+| Go               |       19 |      145 |       25 |     1437 |
+| Python           |       12 |      266 |       59 |     1204 |
+| Markdown         |      124 |      272 |        6 |     1117 |
 | Lua              |        8 |       60 |       90 |      988 |
-| Markdown         |       95 |      224 |        6 |      893 |
-| YAML             |        5 |       80 |        0 |      662 |
-| Bourne Shell     |       19 |       85 |      103 |      518 |
+| Bourne Shell     |       20 |       87 |      103 |      527 |
 | C++              |        4 |       33 |       13 |      502 |
 | C                |        7 |       55 |       93 |      434 |
+| Jinja Template   |        7 |       10 |        0 |      337 |
 | diff             |        4 |        7 |       51 |      319 |
 | C/C++ Header     |        7 |       14 |        9 |      111 |
 | JavaScript       |        1 |        7 |       10 |       78 |
@@ -227,7 +290,7 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 | HTML             |        2 |        0 |        0 |        3 |
 | Rust             |        1 |        0 |        0 |        3 |
 | --------         | -------- | -------- | -------- | -------- |
-| SUM:             |     1298 |     2095 |     1274 |    46314 |
+| SUM:             |     1424 |     2175 |     1369 |    52985 |
 
 <!-- CLOC END -->
 
