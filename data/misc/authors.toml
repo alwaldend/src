@@ -215,3 +215,9 @@ name = "Warby Picus"
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/profile/261544" },
 ]
+
+[author.flossindune]
+name = "Flossindune"
+links = [
+    { title = "royalorad", url = "https://www.royalroad.com/profile/299461" },
+]

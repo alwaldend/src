@@ -169,6 +169,10 @@ flake8==7.2.0 \
 flake8-pyproject==1.2.3 \
     --hash=sha256:6249fe53545205af5e76837644dc80b4c10037e73a0e5db87ff562d75fb5bd4a
     # via com-alwaldend-src (pyproject.toml)
+git-filter-repo==2.47.0 \
+    --hash=sha256:2cd04929b9024e83e65db571cbe36aec65ead0cb5f9ec5abe42158654af5ad83 \
+    --hash=sha256:411b27e68a080c07a69c233cb526dbc2d848b09a72f10477f4444dd0822cf290
+    # via com-alwaldend-src (pyproject.toml)
 identify==2.6.10 \
     --hash=sha256:45e92fd704f3da71cc3880036633f48b4b7265fd4de2b57627cb157216eb7eb8 \
     --hash=sha256:5f34248f54136beed1a7ba6a6b5c4b6cf21ff495aac7c359e1ef831ae3b8ab25
