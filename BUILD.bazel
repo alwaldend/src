@@ -27,6 +27,12 @@ _SUBPACKAGES = subpackages(
 
 exports_files(["LICENSE.txt"])
 
+filegroup(
+    name = "git",
+    srcs = glob([".git/**"]),
+    visibility = ["//visibility:public"],
+)
+
 license(
     name = "license",
     license_kinds = [
