@@ -17,6 +17,7 @@ al_bzl_library_map(
             "@bazel_skylib//:bzl_library",
             "@rules_pkg//pkg:bzl_srcs",
             "@stardoc//stardoc:stardoc_lib",
+            "@bazel_skylib//rules:write_file",
         ],
         "al_combine_files": [
         ],

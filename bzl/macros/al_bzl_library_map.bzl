@@ -1,4 +1,5 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@stardoc//stardoc:stardoc.bzl", "stardoc")
 
@@ -21,11 +22,33 @@ def al_bzl_library_map(name, visibility, libs = {}, deps = [], **kwargs):
     )
     pkg_tar(
         name = "{}-stardoc".format(name),
-        srcs = ["{}-stardoc".format(lib) for lib in libs.keys()],
-        out = "{}-stardoc.tar".format(name),
         package_dir = native.package_name().split("/")[-1],
-        deps = ["{}-stardoc".format(dep) for dep in deps],
+        deps = ["{}-stardoc-src".format(name), "{}-stardoc-deps".format(name)],
         visibility = visibility,
+    )
+    stardoc_readme_srcs = []
+    if libs:
+        stardoc_readme_srcs = ["{}-stardoc-readme".format(name)]
+        write_file(
+            name = "{}-stardoc-readme".format(name),
+            out = "{}-stardoc-readme.md".format(name),
+            content = [
+                "---",
+                "title: Stardoc",
+                "description: Stardoc documentation",
+                "tags: [generated, stardoc]",
+                "---",
+            ],
+        )
+    pkg_tar(
+        name = "{}-stardoc-src".format(name),
+        srcs = ["{}-stardoc".format(lib) for lib in libs.keys()] + stardoc_readme_srcs,
+        package_dir = "stardoc",
+        remap_paths = {"/{}-stardoc-readme.md".format(name): "_index.md"},
+    )
+    pkg_tar(
+        name = "{}-stardoc-deps".format(name),
+        deps = ["{}-stardoc".format(dep) for dep in deps],
     )
     for lib_name, lib_deps in libs.items():
         bzl_library(
@@ -53,5 +76,5 @@ def al_bzl_library_map(name, visibility, libs = {}, deps = [], **kwargs):
                     echo "---"
                     cat $(<)
                 }} >$(@)
-            """.format(title = lib_name, tags = "bzl, generated"),
+            """.format(title = lib_name, tags = "generated"),
         )
