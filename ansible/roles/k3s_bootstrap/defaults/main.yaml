@@ -1,0 +1,11 @@
+k3s_bootstrap_apply_path: 
+k3s_bootstrap_token_name: "{{ lookup('ansible.builtin.env', 'USER') }}"
+k3s_bootstrap_token_namespace: kube-system
+k3s_bootstrap_venv_dir: "/opt/bootstrap-venv"
+k3s_bootstrap_venv_bin: "{{ k3s_bootstrap_venv_dir | mandatory }}/bin/python"
+k3s_bootstrap_kubeconfig: /etc/rancher/k3s/k3s.yaml
+k3s_bootstrap_cluster_name: "{{ inventory_hostname }}"
+k3s_bootstrap_cluster_ca_path: "{{ lookup('ansible.builtin.env', 'HOME') | mandatory }}/.kube/ca-{{ k3s_bootstrap_cluster_name | mandatory }}.ca.crt"
+k3s_bootstrap_user_ca_path: "{{ k3s_bootstrap_cluster_ca_path | mandatory | dirname }}/ca-{{ k3s_bootstrap_cluster_name | mandatory }}-{{ k3s_bootstrap_token_name | mandatory }}.ca.crt"
+k3s_bootstrap_user_name: "{{ k3s_bootstrap_cluster_name | mandatory }}-{{ k3s_bootstrap_token_name | mandatory }}" 
+k3s_bootstrap_cluster_port: 

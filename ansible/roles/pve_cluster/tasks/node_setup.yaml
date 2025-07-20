@@ -1,0 +1,23 @@
+- tags:
+    - pve_cluster_node_setup 
+  block:
+    - name: Remove repos
+      loop: "{{ pve_cluster_remove_repos | list }}"
+      ansible.builtin.file:
+        path: "/etc/apt/sources.list.d/{{ item | mandatory }}"
+        state: absent
+    - name: Add repos
+      loop: "{{ pve_cluster_add_repos | list }}"
+      ansible.builtin.copy:
+        dest: "/etc/apt/sources.list.d/{{ item.name | mandatory }}.list"
+        content: "{{ item.value | mandatory }}\n"
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+    - ansible.builtin.import_role:
+        name: venv
+      vars:
+        venv_dir: "{{ pve_cluster_venv_dir }}"
+        venv_packages: "{{ pve_cluster_venv_packages | mandatory | list }}"
+    - ansible.builtin.import_role:
+        name: host

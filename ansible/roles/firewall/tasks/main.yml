@@ -1,0 +1,31 @@
+- name: Setup firewall
+  tags:
+    - firewall
+  block:
+    - name: Install ufw
+      ansible.builtin.package:
+        name: ufw
+        state: present
+    - name: Enable ufw
+      community.general.ufw:
+        state: "{{ firewall_state }}"
+    - name: Enable ufw logging
+      community.general.ufw:
+        logging: low  
+    - name: Deny incoming connections
+      community.general.ufw:
+        default: deny
+        direction: incoming
+    - name: Allow outgoing connections
+      community.general.ufw:
+        default: allow
+        direction: outgoing
+    - name: Allow port
+      loop: "{{ firewall_allow_port_from | list }}"
+      community.general.ufw:
+        rule: allow
+        direction: in
+        proto: "{{ item.proto | default('any') }}"
+        port: "{{ item.port | mandatory }}"
+        src: "{{ item.src | mandatory }}"
+        comment: "Allow {{ item.port | mandatory }}: {{ item.comment | mandatory }}"

@@ -1,0 +1,19 @@
+- tags:
+    - ssh
+  block:
+    - name: Install fail2ban packages
+      ansible.builtin.package:
+        name: 
+          - ssh
+          - fail2ban
+    - name: Start and enable fail2ban service
+      ansible.builtin.systemd_service:
+        name: fail2ban
+        enabled: true
+        state: started
+    - name: Harden ssh
+      tags:
+        - ssh_hardening
+        - length_long
+      ansible.builtin.include_role: 
+        name: devsec.hardening.ssh_hardening

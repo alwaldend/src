@@ -1,0 +1,9 @@
+- tags:
+    - dns
+  block:
+    - name: Setup domains
+      loop: "{{ dns_domains | mandatory | list }}"
+      loop_control:
+        loop_var: dns_domain
+      ansible.builtin.include_tasks:
+        file: domain.yaml

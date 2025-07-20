@@ -1,0 +1,22 @@
+- tags:
+    - pve_cluster_cluster_ceph
+  block:
+    - name: List current pools
+      register: pve_cluster_ceph_pool_result
+      ansible.builtin.command:
+        argv:
+          - pveceph
+          - pool
+          - ls
+    - name: Setup ceph pools
+      loop: "{{ pve_cluster_ceph_pools | mandatory | list }}"
+      vars:
+        exists: "{{ item.id in pve_cluster_ceph_pool_result.stdout }}"
+        argv_creation: "{{ [] if exists else (item.creation_args | default([])) }}"
+        argv_base: 
+          - pveceph
+          - pool
+          - "{{ 'set' if exists else 'create' }}"
+          - "{{ item.id }}"
+      ansible.builtin.command:
+        argv: "{{ argv_base + argv_creation + item.args }}"

@@ -1,0 +1,15 @@
+- block:
+    - name: Get current key
+      register: ssh_update_known_hosts_result
+      retries: 10
+      delay: 10
+      ansible.builtin.command:
+        argv:
+          - ssh-keyscan
+          - "{{ ssh_update_known_hosts_host.host }}"
+    - name: Add host to known hosts 
+      throttle: 1
+      ansible.builtin.known_hosts:
+        name: "{{ ssh_update_known_hosts_host.host }}" 
+        state: present
+        key: "{{ ssh_update_known_hosts_result.stdout }}"

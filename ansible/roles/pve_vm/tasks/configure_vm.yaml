@@ -1,0 +1,17 @@
+- block:
+    - name: Create value file
+      when: pve_vm_set_option.value_file is defined
+      register: pve_vm_set_option_value_file
+      ansible.builtin.tempfile:
+    - name: Write to the value file
+      when: pve_vm_set_option.value_file is defined
+      ansible.builtin.copy:
+        dest: "{{ pve_vm_set_option_value_file.path }}"
+        content: "{{ pve_vm_set_option.value_file }}"
+    - name: Set option
+      ansible.builtin.command:
+        argv:
+          - qm
+          - set
+          - "{{ pve_vm_result.vmid }}"
+          - "--{{ pve_vm_set_option.key }}={{ pve_vm_set_option_value_file.path | default(pve_vm_set_option.value) }}"

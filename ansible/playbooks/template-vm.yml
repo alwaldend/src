@@ -1,0 +1,11 @@
+- name: Setup templates
+  hosts: pve
+  force_handlers: true
+  become: true
+  roles:
+    - role: firewall
+    - role: users
+    - role: wireguard
+    - role: pve
+  tasks:
+    - name: Install qemu-agent

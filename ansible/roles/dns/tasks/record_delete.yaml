@@ -1,0 +1,38 @@
+- block:
+  - name: Find record
+    ansible.builtin.set_fact:
+      dns_record_count: "{{ 
+        dns_domain.records | 
+          mandatory | 
+          list | 
+          selectattr('type', 'in', [dns_record.type]) | 
+          selectattr('name', 'in', [dns_record.name]) | 
+          selectattr('content', 'in', [dns_record.content]) |
+          length
+      }}"
+  - name: Set action variables
+    ansible.builtin.set_fact:
+      dns_record_delete: "{{ (dns_record_count | mandatory | int) == 0 }}"
+  - name: Delete record
+    when: dns_record_delete
+    register: dns_record_result
+    ansible.builtin.uri:
+      url: "{{ dns_njalla_api_url }}"
+      method: POST
+      headers:
+        Authorization: "Njalla {{ dns_njalla_token }}" 
+        Content-Type: application/json
+      body_format: json
+      body:
+        method: "remove-record"
+        params: 
+          domain: "{{ dns_domain.domain }}"
+          id: "{{ dns_record.id }}"
+  - name: Fail if the response has an error
+    when: dns_record_delete and dns_record_result.json.result is not defined
+    ansible.builtin.fail:
+      msg: "request failed:\n{{ dns_domain_result.json.error | to_nice_yaml }}"
+  - name: Output deleted record
+    when: dns_record_delete 
+    ansible.builtin.debug:
+      msg: "deleted record {{ dns_record }}"

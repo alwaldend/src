@@ -1,0 +1,27 @@
+- tags:
+    - pve_vm_remove
+  block:
+    - name: Setup venv
+      delegate_to: "{{ pve_vm_delegate_pve }}"
+      ansible.builtin.import_role:
+        name: alwaldend.main.venv
+      vars:
+        venv_dir: "/opt/ansible/cluster01_remove_venv" 
+        venv_packages:
+          - proxmoxer
+          - requests 
+    - name: Remove proxmox vm
+      delegate_to: "{{ pve_vm_delegate_pve }}"
+      vars:
+        ansible_python_interpreter: "/opt/ansible/cluster01_remove_venv/bin/python"
+      retries: 5
+      delay: 1
+      community.general.proxmox_kvm:
+        name: "{{ inventory_hostname }}"
+        state: absent
+        force: true
+        api_user: "{{ pve_vm_api_user }}"
+        api_host: "{{ pve_vm_api_host }}"
+        api_token_secret: "{{ pve_vm_api_token_secret }}"
+        api_token_id: "{{ pve_vm_api_token_id }}"
+

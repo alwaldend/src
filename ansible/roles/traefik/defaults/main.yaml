@@ -1,0 +1,27 @@
+traefik_user: traefik
+traefik_user_uid: 3653
+traefik_env: {}
+traefik_data_dir: /mnt/traefik
+traefik_log_dir: "/var/log/traefik"
+traefik_certificates_dir: "{{ traefik_data_dir }}/certificates"
+traefik_configs_dir: "{{ traefik_data_dir }}/configs"
+traefik_configs_version: "{{ lookup('ansible.builtin.pipe', 'git rev-parse HEAD') }}"
+traefik_configs_dynamic_dir: "{{ traefik_configs_cur_dir }}/dynamic"
+traefik_configs_dynamic_dir_symlink: "{{ traefik_configs_symlink }}/dynamic"
+traefik_configs_cur_dir_name: "{{ traefik_configs_version }}"
+traefik_configs_cur_dir: "{{ traefik_configs_dir }}/{{ traefik_configs_cur_dir_name }}"
+traefik_configs_symlink: "{{ traefik_configs_dir }}/current"
+traefik_static_config_path: "{{ traefik_configs_symlink }}/traefik.yaml"
+traefik_releases_dir: /opt/traefik/releases
+traefik_static_config:
+traefik_dynamic_configs: []
+traefik_release_version: v3.3.1 
+traefik_release_dir_name: "{{ traefik_release_version }}"
+traefik_release_dir: "{{ traefik_releases_dir }}/{{ traefik_release_dir_name }}"
+traefik_release_symlink: "{{ traefik_releases_dir }}/current"
+traefik_release_symlink_bin: "{{ traefik_release_symlink }}/traefik"
+traefik_release_archive_name: "traefik_{{ traefik_release_version }}_linux_amd64"
+traefik_release_archive_full: "traefik_{{ traefik_release_version }}_linux_amd64.tar.gz"
+traefik_release_bin_path: "{{ traefik_release_dir }}/traefik"
+traefik_release_download_url: "https://github.com/traefik/traefik/releases/download/{{ traefik_release_version }}/{{ traefik_release_archive_full }}"
+traefik_release_download_checksum: sha256:27fd502a8d80fc81b97faf5cebd7a1cbc1a2c5369d18e0f4471a66d1a8c139ce

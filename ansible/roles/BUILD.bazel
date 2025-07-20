@@ -1,0 +1,31 @@
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("//bzl/macros:al_readme.bzl", "al_readme")
+
+_ROLES = subpackages(
+    include = ["*"],
+)
+
+pkg_tar(
+    name = "roles",
+    package_dir = "roles",
+    visibility = ["//visibility:public"],
+    deps = ["//{}/{}:role".format(
+        package_name(),
+        role,
+    ) for role in _ROLES],
+)
+
+pkg_tar(
+    name = "docs",
+    package_dir = package_name(),
+    visibility = ["//visibility:public"],
+    deps = ["//{}/{}:role-docs".format(
+        package_name(),
+        role,
+    ) for role in _ROLES],
+)
+
+al_readme(
+    name = "readme",
+    visibility = ["//visibility:public"],
+)

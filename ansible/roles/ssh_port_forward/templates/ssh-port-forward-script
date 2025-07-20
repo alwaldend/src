@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+set -eux
+
+exec ssh \
+    -NT \
+    -o ServerAliveInterval=60 \
+    -o ExitOnForwardFailure=yes \
+    -L \
+    "${LOCAL_ADDR}:${LOCAL_PORT}:${REMOTE_HOST}:${REMOTE_PORT}" \
+    "${TARGET}"

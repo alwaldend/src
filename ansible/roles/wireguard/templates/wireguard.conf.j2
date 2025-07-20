@@ -1,0 +1,53 @@
+# {{ ansible_managed }}
+# Template '{{ template_path }}' was rendered by '{{ template_uid }}' on '{{ template_host }}'
+# Date: {{ template_run_date }}
+
+[Interface]
+Address={{ wireguard_config.addresses | mandatory | join(', ') }}
+ListenPort={{ wireguard_config.port | default('51820') }}
+PrivateKey={{ wireguard_config.private_key }}
+
+{% if (wireguard_config.forward_traffic.ipv4 | default(false)) -%}
+# ipv4 setup
+PostUp   = sysctl --write net.ipv4.ip_forward=1
+PostDown = sysctl --write net.ipv4.ip_forward=0
+PostUp   = iptables --table filter --append FORWARD --in-interface %i --jump ACCEPT
+PostDown = iptables --table filter --delete FORWARD --in-interface %i  --jump ACCEPT
+PostUp   = iptables --table filter --append FORWARD --out-interface %i --jump ACCEPT
+PostDown = iptables --table filter --delete FORWARD --out-interface %i --jump ACCEPT
+PostUp   = iptables --table nat    --append POSTROUTING --out-interface {{ ansible_facts.default_ipv4.interface }} --jump MASQUERADE
+PostDown = iptables --table nat    --delete POSTROUTING --out-interface {{ ansible_facts.default_ipv4.interface }} --jump MASQUERADE
+{% else %}
+# ipv4 traffic forwarding is disabled
+{% endif %}
+{% if (wireguard_config.forward_traffic.ipv6 | default(false)) -%}
+# ipv6 setup
+PostUp   = sysctl --write net.ipv6.conf.all.forwarding=1
+PostDown = sysctl --write net.ipv6.conf.all.forwarding=0
+PostUp   = ip6tables --table filter --append FORWARD --in-interface %i --jump ACCEPT
+PostDown = ip6tables --table filter --delete FORWARD --in-interface %i --jump ACCEPT
+PostUp   = ip6tables --table filter --append FORWARD --out-interface %i --jump ACCEPT
+PostDown = ip6tables --table filter --delete FORWARD --out-interface %i --jump ACCEPT
+PostUp   = ip6tables --table nat    --append POSTROUTING --out-interface {{ ansible_facts.default_ipv6.interface }} --jump MASQUERADE
+PostDown = ip6tables --table nat    --delete POSTROUTING --out-interface {{ ansible_facts.default_ipv6.interface }} --jump MASQUERADE 
+{% else %}
+# ipv6 traffic forwarding is disabled
+{% endif %}
+
+{% if (wireguard_config.kill_switch | default(false)) -%}
+# ipv4 killswitch
+PostUp = iptables --table filter --insert OUTPUT ! --out-interface %i --match mark ! --mark $(wireguard show %i fwmark) --match addrtype ! --dst-type LOCAL --jump REJECT
+PreDown = iptables --table filter --delete OUTPUT ! --out-interface %i --match mark ! --mark $(wireguard show %i fwmark) --match addrtype ! --dst-type LOCAL --jump REJECT
+# ipv6 killswitch
+PostUp = ip6tables --table filter --insert OUTPUT ! --out-interface %i --match mark ! --mark $(wireguard show %i fwmark) --match addrtype ! --dst-type LOCAL --jump REJECT
+PreDown = ip6tables --table filter --delete OUTPUT ! --out-interface %i --match mark ! --mark $(wireguard show %i fwmark) --match addrtype ! --dst-type LOCAL --jump REJECT
+{% else -%}
+# killswitch is disabled
+{% endif %}
+
+{% for peer in wireguard_config.peers -%}
+[Peer]
+# {{ peer.name }}
+AllowedIPs={{ peer.allowed_ips | join(', ') }} 
+PublicKey={{ peer.public_key }}
+{% endfor -%}

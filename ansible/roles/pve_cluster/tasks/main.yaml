@@ -1,0 +1,24 @@
+- tags:
+    - pve_cluster
+  block:
+    - ansible.builtin.import_tasks:
+        file: node_setup.yaml
+- tags:
+    - pve_cluster
+  vars:
+    ansible_python_interpreter: "{{ pve_cluster_venv_dir }}/bin/python"
+  block:
+    - ansible.builtin.import_tasks:
+        file: node_pve.yaml
+    - ansible.builtin.import_tasks:
+        file: node_images.yaml
+    - when: pve_cluster_ceph_enabled
+      ansible.builtin.import_tasks:
+        file: node_ceph.yaml
+    - run_once: true
+      ansible.builtin.import_tasks:
+        file: cluster_setup.yaml
+    - run_once: true
+      when: pve_cluster_ceph_enabled
+      ansible.builtin.import_tasks:
+        file: cluster_ceph.yaml

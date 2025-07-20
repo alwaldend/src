@@ -33,6 +33,7 @@ pkg_tar(
     srcs = ["//:LICENSE.txt"],
     deps = [
         "//:readme-children",
+        "//ansible/roles:docs",
         "//bzl:bzl-stardoc",
         "//cfg/vial",
         "//cpp/leetcode-submissions",

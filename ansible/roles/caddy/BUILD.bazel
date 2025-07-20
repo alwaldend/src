@@ -1,0 +1,13 @@
+load("//bzl/macros:al_ansible_role.bzl", "al_ansible_role")
+load("//bzl/macros:al_readme.bzl", "al_readme")
+
+al_ansible_role(
+    name = "role",
+    srcs = glob(["**"]),
+    visibility = ["//visibility:public"],
+)
+
+al_readme(
+    name = "readme",
+    visibility = ["//visibility:public"],
+)

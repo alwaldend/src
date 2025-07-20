@@ -1,0 +1,16 @@
+pve_vm_agent: 
+pve_vm_name: "{{ inventory_hostname }}"
+pve_vm_delegate_update_known_hosts: localhost
+pve_vm_delegate_pve: 
+pve_vm_set: "{{ pve_vm_set_default + pve_vm_set_additional }}"
+pve_vm_set_default: []
+pve_vm_set_additional: []
+pve_vm_set_creation: "{{ pve_vm_set_creation_default + pve_vm_set_creation_additional }}"
+pve_vm_set_creation_default: []
+pve_vm_set_creation_additional: []
+pve_vm_resize: []
+pve_vm_venv_dir: "/opt/ansible/pve_vm_venv"
+pve_vm_init_user:
+pve_vm_venv_packages:
+  - proxmoxer
+  - requests

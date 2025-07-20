@@ -1,0 +1,32 @@
+- block:
+    - name: Get records
+      register: dns_domain_result
+      ansible.builtin.uri:
+        url: "{{ dns_njalla_api_url }}"
+        method: POST
+        headers:
+          Authorization: "Njalla {{ dns_njalla_token }}" 
+          Content-Type: application/json
+        body_format: json
+        body:
+          method: list-records
+          params:
+            domain: "{{ dns_domain.domain }}"
+    - name: Fail if the responses has an error
+      when: dns_domain_result.json.result is not defined
+      ansible.builtin.fail:
+        msg: "request failed:\n{{ dns_domain_result.json.error | to_nice_yaml }}"
+    - name: Create records
+      loop: "{{ dns_domain.records | mandatory | list }}"
+      loop_control:
+        loop_var: dns_record
+      vars:
+        dns_records_data: "{{ dns_domain_result.json.result.records | mandatory | list }}" 
+      ansible.builtin.include_tasks:
+        file: record_create.yaml
+    - name: Delete records
+      loop: "{{ dns_domain_result.json.result.records | mandatory | list }}"
+      loop_control:
+        loop_var: dns_record
+      ansible.builtin.include_tasks:
+        file: record_delete.yaml

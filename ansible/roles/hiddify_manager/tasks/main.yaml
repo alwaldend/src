@@ -1,0 +1,41 @@
+- tags:
+    - hiddify_manager
+  block:
+    - name: Install docker
+      ansible.builtin.import_role:
+        name: docker
+    - name: Create hiddify manager directory 
+      ansible.builtin.file:
+        state: directory
+        owner: root
+        group: root
+        mode: "0700" 
+        path: "{{ hiddify_manager_dir }}"
+    - name: Write .env file
+      #no_log: true
+      vars:
+        _env: "{{ (hiddify_manager_env | mandatory) | combine(hiddify_manager_env_override) }}"
+      ansible.builtin.copy:
+        owner: root
+        group: root
+        mode: "0600" 
+        dest: "{{ hiddify_manager_dir }}/.env"
+        content: |
+          {% for key, value in _env.items() %}
+          {{ key }}={{ value }}
+          {% endfor %}
+    - name: Write docker-compose file
+      ansible.builtin.template:
+        owner: root
+        group: root
+        mode: "0600" 
+        src: docker-compose.yaml
+        dest: "{{ hiddify_manager_dir }}/docker-compose.yaml"
+    - name: Start docker compose
+      ansible.builtin.command:
+        chdir: "{{ hiddify_manager_dir }}"
+        argv:
+          - docker
+          - compose
+          - up
+          - -d

@@ -1,0 +1,30 @@
+- tags:
+    - ssh_port_forward
+  block:
+    - name: Create ssh port forwarding service
+      ansible.builtin.template: 
+        src: ssh-port-forward.service.j2 
+        dest: "/etc/systemd/system/ssh-port-forward@.service"
+        mode: "0600"
+    - name: Create the script
+      ansible.builtin.template:
+        src: ssh-port-forward-script
+        dest: "{{ ssh_port_forward_script_path }}"
+        mode: "0555"
+    - name: Create env files
+      loop: "{{ ssh_port_forward_envs | list }}"
+      ansible.builtin.copy:
+        dest: "/etc/default/ssh-port-forward-{{ item.name | mandatory }}"
+        content: |
+          LOCAL_ADDR={{ item.local_addr | default(ssh_port_forward_local_addr) | quote }}
+          LOCAL_PORT={{ item.local_port | mandatory | quote }}
+          REMOTE_PORT={{ item.remote_port | mandatory | quote }}
+          REMOTE_HOST={{ item.remote_host | mandatory | quote }}
+          TARGET={{ item.target | mandatory | quote }}
+    - name: Start ssh forwarding service
+      loop: "{{ ssh_port_forward_envs | list }}"
+      ansible.builtin.systemd_service: 
+        name: "ssh-port-forward@{{ item.name | mandatory }}.service" 
+        state: restarted
+        enabled: true
+        daemon_reload: true 

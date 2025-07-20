@@ -1,0 +1,56 @@
+volumes:
+  data:
+    driver_opts: {{ vault_data_driver_opts | mandatory | to_json }}
+networks:
+  openbao:
+services:
+  traefik:
+    container_name: traefik
+    user: "{{ vault_user_uid }}"
+    restart: always
+    image: "{{ vault_traefik_image }}"
+    env_file: 
+      - .env
+    networks:
+      openbao:
+    ports:
+      - 443:443
+    volumes:
+      - ./traefik_static.yaml:/etc/traefik/traefik.yaml:ro
+      - ./traefik_dynamic.yaml:/etc/traefik/traefik_dynamic.yaml:ro
+      - type: volume
+        source: data
+        target: /certificates
+        volume:
+          subpath: traefik/certificates
+    healthcheck: 
+      test: "traefik healthcheck --ping"
+  openbao:
+    container_name: openbao
+    image: "{{ vault_openbao_image }}" 
+    user: "{{ vault_user_uid }}"
+    restart: always
+    env_file: 
+      - .env
+    command: 
+      - server
+      - --config=/openbao/config/bao.conf
+    cap_add:
+      - IPC_LOCK
+    environment:
+      - VAULT_DISABLE_MLOCK=true
+    healthcheck:
+      interval: 2s
+      retries: 10
+      start_period: 5s
+      test: "wget --spider  http://127.0.0.1:8200/v1/sys/seal-status || exit 1"
+      timeout: 10s
+    volumes:
+      - ./bao.hcl:/openbao/config/bao.conf:ro
+      - type: volume
+        source: data
+        target: /mnt/openbao/data
+        volume:
+          subpath: openbao
+    networks:
+      openbao:

@@ -1,0 +1,36 @@
+- block:
+  - name: Find record
+    ansible.builtin.set_fact:
+      dns_record_count: "{{ 
+        dns_records_data | 
+          mandatory | 
+          list | 
+          selectattr('type', 'in', [dns_record.type]) | 
+          selectattr('name', 'in', [dns_record.name]) | 
+          selectattr('content', 'in', [dns_record.content]) |
+          length
+      }}"
+  - name: Set action variables
+    ansible.builtin.set_fact:
+      dns_record_create: "{{ (dns_record_count | mandatory | int) == 0 }}"
+  - name: Create record
+    when: dns_record_create
+    register: dns_record_result
+    ansible.builtin.uri:
+      url: "{{ dns_njalla_api_url }}"
+      method: POST
+      headers:
+        Authorization: "Njalla {{ dns_njalla_token }}" 
+        Content-Type: application/json
+      body_format: json
+      body:
+        method: "add-record"
+        params: "{{ dns_record | combine({ 'domain': dns_domain.domain }) }}"
+  - name: Fail if the response has an error
+    when: dns_record_create and dns_record_result.json.result is not defined
+    ansible.builtin.fail:
+      msg: "request failed:\n{{ dns_domain_result.json.error | to_nice_yaml }}"
+  - name: Output created record
+    when: dns_record_create 
+    ansible.builtin.debug:
+      msg: "created record {{ dns_record }}"

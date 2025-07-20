@@ -1,0 +1,7 @@
+- tags:
+    - k3s_cluster
+  block:
+    - ansible.builtin.import_tasks:
+        file: node_setup.yaml
+    - ansible.builtin.import_role:
+        name: k3s 

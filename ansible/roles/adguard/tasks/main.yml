@@ -1,0 +1,83 @@
+- name: Setup AdGuard
+  tags:
+    - adguard
+  block:
+    - name: Create adguard dir - {{ adguard_release_dir }}
+      ansible.builtin.file:
+        path: "{{ adguard_release_dir }}" 
+        state: directory
+        mode: "0700"
+        owner: root
+        group: root
+    - name: Synchronize
+      ansible.posix.synchronize:
+        src: adguard/
+        dest: "{{ adguard_dir }}/"
+    - name: Download release - {{ adguard_release_url }}
+      ansible.builtin.get_url:
+        url: "{{ adguard_release_url }}"
+        dest: "{{ adguard_release_archive_dest }}"
+        checksum: "{{ adguard_release_checksum }}"
+        mode: "0400"
+        owner: root
+        group: root
+    - name: Copy gpg key
+      ansible.builtin.copy:
+        src: "{{ adguard_gpg_key_src }}" 
+        dest: "{{ adguard_gpg_key_path }}"
+        checksum: "{{ adguard_gpg_key_checksum }}"
+        mode: "0400"
+        owner: root
+        group: root
+    - name: Import gpg key - {{ adguard_gpg_key_path }}
+      ansible.builtin.command:
+        argv:
+          - gpg
+          - --import
+          - "{{ adguard_gpg_key_path }}"
+    - name: Extract release archive - {{ adguard_release_archive_dest }}
+      ansible.builtin.unarchive:
+        src: "{{ adguard_release_archive_dest }}"
+        dest: "{{ adguard_release_dest }}"
+        remote_src: true
+        mode: "0400"
+        owner: root
+        group: root
+    - name: Verify the binary - {{ adguard_release_bin }}
+      ansible.builtin.command:
+        argv:
+          - gpg
+          - --verify
+          - "{{ adguard_release_sig }}" 
+          - "{{ adguard_release_bin }}"
+    - name: Make binary executable - {{ adguard_release_bin }}
+      ansible.builtin.file:
+        path: "{{ adguard_release_bin }}" 
+        state: file
+        mode: "0700"
+        owner: root
+        group: root
+    - name: Install adguard - {{ adguard_release_bin }} 
+      ansible.builtin.command:
+        creates: /etc/systemd/system/AdGuardHome.service
+        argv:
+          - "{{ adguard_release_bin }}"
+          - --work-dir
+          - "{{ adguard_work_dir }}"
+          - --service
+          - install
+    - name: Start adguard - {{ adguard_release_bin }} 
+      ansible.builtin.command:
+        argv:
+          - "{{ adguard_release_bin }}"
+          - --work-dir
+          - "{{ adguard_work_dir }}"
+          - --service
+          - start
+    - name: Update adguard - {{ adguard_release_bin }} 
+      ansible.builtin.command:
+        argv:
+          - "{{ adguard_release_bin }}"
+          - --work-dir
+          - "{{ adguard_work_dir }}"
+          - --update

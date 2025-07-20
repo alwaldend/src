@@ -1,0 +1,37 @@
+[Unit]
+Description=Traefik
+Documentation=https://doc.traefik.io/traefik/
+After=network-online.target
+ConditionFileNotEmpty={{ traefik_static_config_path }}
+AssertFileIsExecutable={{ traefik_release_symlink_bin }}
+
+[Service]
+User={{ traefik_user }}
+Group={{ traefik_user }}
+Type=notify
+ExecStart={{ traefik_release_symlink_bin }} --configFile={{ traefik_static_config_path }}
+Restart=always
+WatchdogSec=1s
+{% for key, value in traefik_env.items() %}
+Environment={{ (key + '=' + value) | quote }}
+{% endfor %}
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+ProtectSystem=strict
+StartLimitInterval=0
+PrivateTmp=true
+ProtectHome=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=yes
+ProtectControlGroups=true
+KeyringMode=private
+ProtectClock=yes
+ProtectHostname=yes
+NoExecPaths=/
+ExecPaths={{ traefik_release_symlink_bin }}
+ReadWritePaths={{ traefik_certificates_dir }}
+ReadWritePaths={{ traefik_log_dir }}
+ReadOnlyPaths={{ traefik_configs_dir }}
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,11 @@
+- tags:
+    - os
+  block:
+    - tags:
+        - os_hardening
+        - length_long
+      when: os_hardening_enabled
+      block:
+        - name: Harden os
+          ansible.builtin.include_role: 
+            name: devsec.hardening.os_hardening

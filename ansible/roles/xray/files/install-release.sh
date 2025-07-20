@@ -1,0 +1,1 @@
+../../../../../../third_party/xtls/xray-install/install-release.sh

@@ -1,0 +1,79 @@
+- tags:
+    - k3s_bootstrap
+  block:
+    - name: Ensure python3-venv is present
+      ansible.builtin.package:
+        name:
+          - python3-venv
+        state: present
+    - name: Create venv
+      ansible.builtin.pip:
+        name: 
+          - kubernetes
+        virtualenv: "{{ k3s_bootstrap_venv_dir }}" 
+        virtualenv_command: python3 -m venv
+    - name: Create kubernetes resources 
+      kubernetes.core.k8s:
+        definition: "{{ lookup('kubernetes.core.kustomize', dir=k3s_bootstrap_apply_path) }}"
+        kubeconfig: "{{ k3s_bootstrap_kubeconfig }}"
+      vars:
+        ansible_python_interpreter: "{{ k3s_bootstrap_venv_bin }}"
+    - name: Get ca info
+      register: k3s_bootstrap_ca_cert
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: ConfigMap
+        name: kube-root-ca.crt
+        namespace: default
+        kubeconfig: "{{ k3s_bootstrap_kubeconfig }}"
+      vars:
+        ansible_python_interpreter: "{{ k3s_bootstrap_venv_bin }}"
+    - name: Get the service account token
+      register: k3s_bootstrap_token
+      kubernetes.core.k8s_info:
+        api_version: v1
+        kind: Secret
+        name: "{{ k3s_bootstrap_token_name }}"
+        namespace: "{{ k3s_bootstrap_token_namespace }}"
+        kubeconfig: "{{ k3s_bootstrap_kubeconfig }}"
+      vars:
+        ansible_python_interpreter: "{{ k3s_bootstrap_venv_bin }}"
+    - name: Create cluster ca file
+      delegate_to: localhost
+      become: false
+      ansible.builtin.copy:
+        dest: "{{ k3s_bootstrap_cluster_ca_path }}"
+        content: "{{ k3s_bootstrap_ca_cert.resources[0].data['ca.crt'] }}"
+        mode: "0600"
+    - name: Add the cluster to kubeconfig
+      delegate_to: localhost
+      become: false
+      ansible.builtin.command:
+        argv:
+          - kubectl
+          - config 
+          - set-cluster 
+          - "{{ k3s_bootstrap_cluster_name | mandatory }}" 
+          - "--server=https://127.0.0.1:{{ k3s_bootstrap_cluster_port | mandatory }}"
+          - "--certificate-authority={{ k3s_bootstrap_cluster_ca_path }}"
+    - name: Add the user to kubeconfig
+      delegate_to: localhost
+      become: false
+      ansible.builtin.command:
+        argv:
+          - kubectl
+          - config 
+          - set-credentials 
+          - "{{ k3s_bootstrap_user_name }}" 
+          - "--token={{ k3s_bootstrap_token.resources[0].data['token'] | mandatory | b64decode }}"
+    - name: Add the context to kubeconfig
+      delegate_to: localhost
+      become: false
+      ansible.builtin.command:
+        argv:
+          - kubectl
+          - config
+          - set-context 
+          - "{{ k3s_bootstrap_cluster_name }}"
+          - "--cluster={{ k3s_bootstrap_cluster_name }}" 
+          - "--user={{ k3s_bootstrap_user_name }}"

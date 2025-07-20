@@ -1,0 +1,16 @@
+adguard_dir: /etc/adguard
+adguard_work_dir: "{{ adguard_dir }}"
+adguard_gpg_key_url: https://keys.openpgp.org/vks/v1/by-fingerprint/28645AC9776EC4C00BCE2AFC0FE641E7235E2EC6
+adguard_gpg_key_src: files/key.asc
+adguard_gpg_key_path: "{{ adguard_dir }}/release-key.asc"
+adguard_gpg_key_checksum: "22d78dbacb461667861ee7d2dd13d13240ee003d"
+adguard_release_source_url: https://github.com/AdguardTeam/AdGuardHome/releases/download
+adguard_release_version: v0.107.48
+adguard_release_checksum: "sha512:c0a336212e3792ae6fc6b8de976befce0038c5d6ddde919a00994c43a929349958c7bd65f7fb7fdd471962afa20855ecbf5830cc7a1d26f3037a716db638c101"
+adguard_release_distrib: AdGuardHome_linux_amd64.tar.gz
+adguard_release_url: "{{ adguard_release_source_url }}/{{ adguard_release_version }}/{{ adguard_release_distrib }}"
+adguard_release_archive_dest: "{{ adguard_dir }}/release-{{ adguard_release_version }}-{{ adguard_release_distrib }}" 
+adguard_release_dest: "{{ adguard_dir }}/release-{{ adguard_release_version }}" 
+adguard_release_dir: "{{ adguard_release_dest }}/AdGuardHome"
+adguard_release_bin: "{{ adguard_release_dir }}/AdGuardHome"
+adguard_release_sig: "{{ adguard_release_bin }}.sig"

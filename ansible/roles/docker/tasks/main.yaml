@@ -1,0 +1,23 @@
+- tags:
+    - docker
+  when: docker_enabled
+  block:
+    - name: Check if docker is present
+      register: docker_check_result
+      ignore_errors: true
+      ansible.builtin.command:
+        argv:
+          - docker
+    - name: Copy docker install script
+      when: docker_check_result.rc != 0
+      ansible.builtin.copy:
+        src: install
+        dest: /opt/docker_install
+        mode: "0700"
+        owner: root
+        group: root
+    - name: Run docker install script 
+      when: docker_check_result.rc != 0
+      ansible.builtin.command:
+        argv:
+          - /opt/docker_install

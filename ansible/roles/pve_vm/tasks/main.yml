@@ -1,0 +1,86 @@
+- tags:
+    - pve_vm
+  delegate_to: "{{ pve_vm_delegate_pve }}"
+  block:
+    - name: Setup venv
+      throttle: 1
+      ansible.builtin.import_role:
+        name: venv
+      vars:
+        venv_dir: "{{ pve_vm_venv_dir }}" 
+        venv_packages: "{{ pve_vm_venv_packages }}" 
+- tags:
+    - pve_vm
+  delegate_to: "{{ pve_vm_delegate_pve }}"
+  vars:
+    ansible_python_interpreter: "{{ pve_vm_venv_dir }}/bin/python"
+  block:
+    - name: Create proxmox vm
+      register: pve_vm_result 
+      throttle: 1 # parallel id generation fails 
+      community.general.proxmox_kvm:
+        name: "{{ pve_vm_name }}"
+        node: "{{ pve_vm_node }}"
+        agent: "{{ pve_vm_agent }}"
+        api_user: "{{ pve_vm_api_user }}"
+        api_host: "{{ pve_vm_api_host }}"
+        api_token_secret: "{{ pve_vm_api_token_secret }}"
+        api_token_id: "{{ pve_vm_api_token_id }}"
+    - name: Wait 1 second if the VM was created
+      when: pve_vm_result.changed
+      ansible.builtin.wait_for:
+        timeout: 1
+    - name: Set creation args
+      when: pve_vm_result.changed
+      loop: "{{ pve_vm_set_creation | mandatory | list  }}"
+      loop_control:
+        loop_var: pve_vm_set_option
+      ansible.builtin.include_tasks:
+        file: configure_vm.yaml
+    - name: Configure Vm
+      loop: "{{ pve_vm_set | mandatory | list  }}"
+      loop_control:
+        loop_var: pve_vm_set_option
+      ansible.builtin.include_tasks:
+        file: configure_vm.yaml
+    - name: Resize disks
+      loop: "{{ pve_vm_resize | mandatory | list }}"
+      ansible.builtin.command:
+        argv:
+          - qm
+          - resize
+          - "{{ pve_vm_result.vmid }}"
+          - "{{ item.disk }}"
+          - "{{ item.size }}"
+    - name: Start proxmox vm
+      register: pve_vm_start_result
+      community.general.proxmox_kvm:
+        state: started 
+        name: "{{ pve_vm_name }}"
+        node: "{{ pve_vm_node }}"
+        api_user: "{{ pve_vm_api_user }}"
+        api_host: "{{ pve_vm_api_host }}"
+        api_token_secret: "{{ pve_vm_api_token_secret }}"
+        api_token_id: "{{ pve_vm_api_token_id }}"
+- tags:
+    - pve_vm
+  block:
+    - become: false
+      delegate_to: "{{ pve_vm_delegate_update_known_hosts }}"
+      ansible.builtin.import_role:
+        name: ssh_update_known_hosts
+      vars:
+       ssh_update_known_hosts_hosts:
+         - host: "{{ inventory_hostname }}"
+         - host: "{{ ipv4 }}"
+    - name: Install qemu-agent
+      ansible.builtin.package:
+        name: 
+          - qemu-guest-agent
+      delay: 5 # necessary because the package manager can be locked by cloud-init
+      retries: 10
+    - name: Enable qemu-agent-service
+      ansible.builtin.systemd_service:
+        name: qemu-guest-agent
+        state: started
+        enabled: true

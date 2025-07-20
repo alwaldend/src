@@ -1,0 +1,30 @@
+- tags:
+    - caddy
+  block:
+    - name: Ensure dependencies are installed.
+      when: caddy_enabled
+      ansible.builtin.apt:
+        name:
+          - caddy 
+    - name: Create directories
+      loop:
+        - "{{ caddy_config_dir }}"
+        - "{{ caddy_config_path | dirname }}"
+      ansible.builtin.file:
+        path: "{{ item }}"
+        owner: "{{ caddy_user }}"
+        group: "{{ caddy_user }}"
+        mode: "0700"
+        state: directory
+    - name: Setup the caddy config 
+      ansible.builtin.copy:
+        content: "{{ caddy_config }}"
+        dest: "{{ caddy_config_path }}" 
+        owner: "{{ caddy_user }}"
+        group: "{{ caddy_user }}"
+        mode: "0600"
+    - name: Start and enable caddy
+      ansible.builtin.systemd_service: 
+        name: caddy
+        enabled: "{{ caddy_enabled }}"
+        state: "{{ 'restarted' if caddy_enabled else 'stopped' }}"

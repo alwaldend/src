@@ -1,0 +1,7 @@
+- tags:
+    - hiddify_manager_host
+  block:
+    - ansible.builtin.import_role:
+        name: host
+    - ansible.builtin.import_role:
+        name: hiddify_manager

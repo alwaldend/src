@@ -1,0 +1,76 @@
+- tags:
+    - pve_cluster_node_ceph
+  block:
+    - name: Install ceph 
+      ansible.builtin.expect:
+        timeout: "{{ 60 * 10 }}"
+        responses:
+          "\\(y/N\\)": "y" 
+          "\\[Y/n\\]": "Y"
+        command: |
+          pveceph install --repository {{ pve_cluster_ceph_repository | quote }}
+    - name: Init ceph
+      ansible.builtin.command:
+       argv:
+         - pveceph
+         - init 
+    - name: Get ceph state
+      register: pve_cluster_info_result
+      ignore_errors: true
+      ansible.builtin.command:
+        argv:
+          - ceph
+          - node
+          - ls
+    - name: Parse ceph state
+      when: pve_cluster_info_result.rc == 0
+      ansible.builtin.set_fact:
+        pve_cluster_info: "{{ pve_cluster_info_result.stdout | from_json }}"
+    - name: Create monitors
+      loop: "{{ pve_cluster_ceph_mon | mandatory | list }}"
+      when: pve_cluster_info_result.rc != 0 or item.id not in (pve_cluster_info["mon"][(pve_cluster_node_name | mandatory)] | default([]))
+      ansible.builtin.command:
+        argv:
+          - pveceph
+          - mon
+          - create 
+          - "--monid={{ item.id }}"
+    - name: Get ceph state
+      register: pve_cluster_info_result
+      ansible.builtin.command:
+        argv:
+          - ceph
+          - node
+          - ls
+    - name: Parse ceph state
+      ansible.builtin.set_fact:
+        pve_cluster_info: "{{ pve_cluster_info_result.stdout | from_json }}"
+    - name: Install manager
+      loop: "{{ pve_cluster_ceph_mgr | mandatory | list }}"
+      when: item.id not in (pve_cluster_info["mgr"][(pve_cluster_node_name | mandatory)] | default([]))
+      ansible.builtin.command:
+        argv:
+          - ceph
+          - mgr
+          - create
+          - "--id={{ item.id }}"
+    - name: Create OSD
+      loop: "{{ pve_cluster_ceph_osd | mandatory | list }}"
+      when: item.id not in (pve_cluster_info["osd"][(pve_cluster_node_name | mandatory)] | default([]))
+      vars:
+        cmd: 
+          - pveceph
+          - osd
+          - create
+          - "{{ item.disk }}" 
+      ansible.builtin.command:
+        argv: "{{ cmd + (item.args | default([])) }}"
+    - name: Create mds
+      loop: "{{ pve_cluster_ceph_mds | mandatory | list }}"
+      when: item.id not in (pve_cluster_info["mds"][(pve_cluster_node_name | mandatory)] | default([]))
+      ansible.builtin.command:
+        argv:
+          - pveceph
+          - mds
+          - create
+          - "--name={{ item.id }}"

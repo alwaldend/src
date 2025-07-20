@@ -1,0 +1,5 @@
+- name: Remove bootstrap directory 
+  ansible.builtin.file:
+    path: "{{ k3s_bootstrap_target_dir }}"
+    state: absent
+   

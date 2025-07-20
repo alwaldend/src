@@ -1,0 +1,10 @@
+- name: Setup wireguard
+  tags:
+    - wireguard
+  block:
+    - name: Setup wireguard
+      loop: "{{ wireguard_configs | mandatory | list }}"
+      loop_control:
+        loop_var: wireguard_config
+      ansible.builtin.include_tasks:
+        file: wireguard.yaml

@@ -1,0 +1,47 @@
+- name: Setup users
+  tags:
+    - users
+  block:
+    - name: Install sudo
+      ansible.builtin.package:
+        name:
+          - sudo
+    - name: Create users
+      loop: "{{ (users_admins | mandatory | list) + (users_regular | mandatory | list) }}"
+      ansible.builtin.user:
+        name: "{{ item.name }}"
+        state: present
+        shell: /bin/bash
+        createhome: true
+        uid: "{{ item.uid | default(omit) }}"
+    - name: Disable passwords
+      loop: "{{ (users_admins | mandatory | list) + (users_regular | mandatory | list) }}"
+      when: item.disable_passwd is not defined or item.disable_passwd
+      ansible.builtin.user:
+        name: "{{ item.name }}"
+        password: "!"
+    - name: Add authorized keys to users
+      loop: "{{ users_ssh_keys | mandatory | list }}"
+      ansible.builtin.authorized_key: 
+        user: "{{ item.user }}" 
+        key: "{{ item.key }}"
+    - name: Enable sudo for admin users
+      loop: "{{ users_admins | mandatory | list }}"
+      ansible.builtin.copy:
+        content: |
+          %{{ item.name }} ALL=(ALL:ALL) {{ 'NO' if item.sudo_no_passwd is not defined or item.sudo_no_passwd else '' }}PASSWD:ALL
+        dest: "/etc/sudoers.d/{{ item.name }}-nopasswd"
+        mode: "0440"
+        owner: root
+        group: root
+    - name: Remove users
+      loop: "{{ users_remove | mandatory | list }}" 
+      ansible.builtin.user:
+        name: "{{ item.name }}"
+        state: absent
+    - name: Disable root
+      ansible.builtin.user:
+        name: "root"
+        state: present
+        password: "!"
+        shell: /sbin/nologin

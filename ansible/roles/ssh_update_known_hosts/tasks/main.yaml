@@ -1,0 +1,15 @@
+- tags:
+    - ssh_update_known_hosts
+  block:
+    - name: Remove entries from known_hosts
+      throttle: 1
+      loop: "{{ ssh_update_known_hosts_hosts | mandatory | list }}"
+      ansible.builtin.known_hosts:
+        name: "{{ item.host }}" 
+        state: absent
+    - name: Add entries
+      loop: "{{ ssh_update_known_hosts_hosts | mandatory | list }}"
+      loop_control:
+        loop_var: ssh_update_known_hosts_host
+      ansible.builtin.include_tasks:
+        file: add.yaml

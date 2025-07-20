@@ -1,0 +1,10 @@
+vault_data_driver_opts:
+vault_traefik_static_config:
+vault_traefik_dynamic_configs: []
+vault_openbao_config:
+vault_openbao_image: docker.io/openbao/openbao:2.1@sha256:7de07aa6df3937d44c96c2d65c188b2d4a70546f2a764ad4510301305af6a223
+vault_traefik_image: docker.io/traefik:v3.3@sha256:bc534d72121b187efc3706780d604b2a6590ef321c441ef137289052633d27d4
+vault_user: vault
+vault_user_uid: 3123
+vault_env: {}
+vault_dir: /opt/vault

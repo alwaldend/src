@@ -1,0 +1,15 @@
+- name: Setup cluster nodes
+  hosts: cluster_02
+  force_handlers: true
+  become: true
+  tags:
+    - cluster_02
+  roles:
+    - role: facts
+    - role: firewall
+    - role: fail2ban
+    - role: users
+    - role: hardening
+    #- role: containerd
+    - role: k3s
+    - role: update_all_packages

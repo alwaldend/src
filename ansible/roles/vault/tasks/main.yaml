@@ -1,0 +1,61 @@
+- tags:
+    - vault
+  block:
+    - name: Create vault user
+      ansible.builtin.user:
+        name: "{{ vault_user }}"
+        uid: "{{ vault_user_uid }}"
+        shell: /bin/bash
+    - name: Create vault directory 
+      ansible.builtin.file:
+        state: directory
+        owner: "{{ vault_user }}"
+        group: "{{ vault_user }}"
+        mode: "0700" 
+        path: "{{ vault_dir }}"
+    - name: Create dynamic configs directory 
+      ansible.builtin.file:
+        state: directory
+        owner: "{{ vault_user }}"
+        group: "{{ vault_user }}"
+        mode: "0700" 
+        path: "{{ vault_dir }}"
+    - name: Write docker-compose file
+      ansible.builtin.template:
+        owner: "{{ vault_user }}"
+        group: "{{ vault_user }}"
+        mode: "0600" 
+        src: docker-compose.yaml
+        dest: "{{ vault_dir }}/docker-compose.yaml"
+    - name: Write configs
+      loop:
+        - name: bao.hcl
+          value: "{{ vault_openbao_config | to_nice_json(indent=2) }}"
+        - name: traefik_static.yaml
+          value: "{{ vault_traefik_static_config | to_nice_yaml(indent=2) }}"
+        - name: traefik_dynamic.yaml
+          value: "{{ vault_traefik_dynamic_config | to_nice_yaml(indent=2) }}"
+        - name: .env
+          no_log: true
+          value: |
+            {% for key, value in vault_env.items() %}
+            {{ key }}={{ value }}
+            {% endfor %}
+      no_log: "{{ item.no_log | default(false) }}" 
+      ansible.builtin.copy:
+        owner: "{{ vault_user }}"
+        group: "{{ vault_user }}"
+        mode: "0600" 
+        content: "{{ item.value }}"
+        dest: "{{ vault_dir }}/{{ item.name }}"
+    - name: Start docker compose
+      become: true
+      become_user: "{{ vault_user }}"
+      ansible.builtin.command:
+        chdir: "{{ vault_dir }}"
+        argv:
+          - docker
+          - compose
+          - up
+          - -d
+          - --wait

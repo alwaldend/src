@@ -1,0 +1,61 @@
+- tags:
+    - consul_envoy
+  block:
+    - name: Install required packages
+      ansible.builtin.package:
+        name:
+          - unzip
+    - name: Create consul_envoy user
+      ansible.builtin.user:
+        name: "{{ consul_envoy_user_name }}"
+        shell: /sbin/nologin
+    - name: Create directories
+      loop:
+        - "{{ consul_envoy_dir }}"
+        - "{{ consul_envoy_deployments_dir }}"
+        - "{{ consul_envoy_releases_dir }}"
+        - "{{ consul_envoy_deployment_dir }}"
+        - "{{ consul_envoy_release_dir }}"
+        - "{{ consul_envoy_configs_dir }}"
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ consul_envoy_user_name }}"
+        group: "{{ consul_envoy_user_name }}"
+        mode: "0700"
+    - name: Download the archive
+      delegate_to: localhost
+      become: false
+      ansible.builtin.get_url:
+        url: "{{ consul_envoy_release_url }}"
+        checksum: "{{ consul_envoy_release_checksum }}" 
+        dest: "{{ consul_envoy_release_dir }}/{{ consul_envoy_release_archive_fullname }}"
+    - name: Unpack the archive
+      ansible.builtin.unarchive:
+         src: "{{ consul_envoy_release_dir }}/{{ consul_envoy_release_archive_fullname }}"
+         creates: "{{ consul_envoy_release_bin_path }}"
+         dest: "{{ consul_envoy_release_dir }}"
+         owner: "{{ consul_envoy_user_name }}"
+         group: "{{ consul_envoy_user_name }}"
+         mode: "0700"
+    - name: Create the symlink for the release
+      ansible.builtin.file:
+        src: "./{{ consul_envoy_release_dir | dirname }}"
+        path: "{{ consul_envoy_release_symlink_path }}"
+        state: link
+        owner: "{{ consul_envoy_user_name }}"
+        group: "{{ consul_envoy_user_name }}"
+        mode: "0700"
+    - name: Create systemd service
+      ansible.builtin.template:
+        src: consul_envoy.service.j2
+        dest: "/etc/systemd/system/consul.service"
+        owner: "root"
+        group: "root"
+        mode: "0600"
+    - name: Enable the systemd service
+      ansible.builtin.systemd_service:
+        name: consul_envoy.service
+        enabled: true
+        state: restarted
+        daemon_reload: true

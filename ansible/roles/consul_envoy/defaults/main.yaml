@@ -1,0 +1,15 @@
+consul_envoy_dir: "/opt/consul_envoy"
+consul_envoy_deployments_dir: "{{ consul_envoy_dir }}/deployments"
+consul_envoy_releases_dir: "{{ consul_envoy_dir }}/releases"
+consul_envoy_deployment_dir: "{{ consul_envoy_deployments_dir }}/{{ consul_envoy_deployment_version }}"
+consul_envoy_release_dir: "{{ consul_envoy_releases_dir }}/{{ consul_envoy_release_version }}"
+consul_envoy_configs_dir: "{{ consul_envoy_deployment_dir }}/configs"
+consul_envoy_bootstrap_config_path: "{{ consul_envoy_configs_dir }}/bootstrap.json"
+consul_envoy_deployment_version: "{{ lookup('ansible.builtin.pipe', 'git rev-parse HEAD') }}"
+consul_envoy_user_name: consul_envoy
+consul_envoy_release_version: 1.31.0
+consul_envoy_release_archive_fullname: "envoy_{{ consul_envoy_release_version }}_linux_amd64.zip"
+consul_envoy_release_url: "https://releases.hashicorp.com/envoy/{{ consul_envoy_release_version }}/{{ consul_envoy_release_archive_fullname }}"
+consul_envoy_release_bin_path: "{{ consul_envoy_release_dir }}/envoy"
+consul_envoy_release_symlink_path: "{{ consul_envoy_releases_dir }}/current"
+consul_envoy_release_checksum: "sha256:350782275de0fe50699844b4f9096d77a0193a5bcf205e14b8ad964ec429d45e"

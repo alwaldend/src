@@ -1,0 +1,32 @@
+{{ inventory_hostname }} {
+  #log {
+  #  level DEBUG
+  #}
+  file_server /subscriptions/* {
+    root {{ xray_subscriptions_dir }}/
+  }
+  @vless-grpc-freedom {
+    protocol grpc
+    path /vless-grpc-freedom/*
+  }
+  reverse_proxy @vless-grpc-freedom unix//{{ xray_socket_dir }}/inbound-vless-grpc-freedom.socket {
+    flush_interval -1
+    transport http {
+      versions h2c
+    }
+  }
+  {% for relay in xray_wireguard_relays %}
+  {% if relay.active %}
+  @vless-grpc-wg-{{ relay.hostname }} {
+    protocol grpc
+    path /vless-grpc-wg-{{ relay.hostname }}/*
+  }
+  reverse_proxy @vless-grpc-wg-{{ relay.hostname }} unix//{{ xray_socket_dir }}/inbound-vless-grpc-wg-{{ relay.hostname }}.socket {
+    flush_interval -1
+    transport http {
+      versions h2c
+    }
+  }
+  {% endif -%}
+  {% endfor -%}
+}

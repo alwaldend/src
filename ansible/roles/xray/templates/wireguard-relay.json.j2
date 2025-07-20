@@ -1,0 +1,108 @@
+{
+  "inbounds": [
+    {
+      "tag": "inbound-vless-grpc-freedom",
+      "protocol": "vless",
+      "listen": "{{ xray_socket_dir }}/inbound-vless-grpc-freedom.socket,0666",
+      "sniffing": {
+        "enabled": false
+      },
+      "settings": {
+        "decryption": "none",
+        "clients": [{ 
+          "id": "{{ xray_client_id }}"
+        }]
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "grpcSettings": {
+          "serviceName": "vless-grpc-freedom"
+        }
+      }
+    },
+    {% for relay in xray_wireguard_relays %}
+    {% if relay.active %}
+    {
+      "tag": "inbound-http-wg-{{ relay.hostname }}",
+      "protocol": "http",
+      "sniffing": {
+        "enabled": false
+      },
+      "listen": "127.0.0.1",
+      "port": {{ 20000 + loop.index }}
+    },
+    {
+      "tag": "inbound-vless-grpc-wg-{{ relay.hostname }}",
+      "protocol": "vless",
+      "listen": "{{ xray_socket_dir }}/inbound-vless-grpc-wg-{{ relay.hostname }}.socket,0666",
+      "sniffing": {
+        "enabled": false
+      },
+      "settings": {
+        "decryption": "none",
+        "clients": [{ 
+          "id": "{{ xray_client_id }}"
+        }]
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "grpcSettings": {
+          "serviceName": "vless-grpc-wg-{{ relay.hostname }}"
+        }
+      }
+    }
+    {%- if not loop.last %},{% endif %}
+    {% endif %}
+    {% endfor %}
+  ],
+  "outbounds": [
+    {% for relay in xray_wireguard_relays %}
+    {% if relay.active %}
+    {
+      "tag": "outbound-wg-{{ relay.hostname }}",
+      "protocol": "wireguard",
+      "settings": {
+        "secretKey": "{{ xray_wireguard_private_key }}",
+        "address": [
+          "{{ xray_wireguard_ipv4_address }}",
+          "{{ xray_wireguard_ipv6_address }}"
+        ],
+        "peers": [
+          {
+            "endpoint": "{{ relay.ipv4_addr_in }}:443",
+            "publicKey": "{{ relay.public_key }}",
+            "allowedIps": [
+              "0.0.0.0/0",
+              "::/0"
+            ]
+          }
+        ]
+      }
+    }
+    {%- if not loop.last %},{% endif %}
+    {% endif %}
+    {% endfor %}
+  ],
+  "routing": {
+    "rules": [
+      {
+        "inboundTag": [
+          "inbound-vless-grpc-freedom"
+        ],
+        "outboundTag": "outbound-freedom"
+      },
+      {% for relay in xray_wireguard_relays %}
+      {% if relay.active %}
+      {
+        "inboundTag": [
+          "inbound-vless-grpc-wg-{{ relay.hostname }}",
+          "inbound-http-wg-{{ relay.hostname }}"
+        ],
+        "outboundTag": "outbound-wg-{{ relay.hostname }}"
+      }
+      {%- if not loop.last %},{% endif %}
+      {% endif %}
+      {% endfor %}
+    ]
+  }
+}

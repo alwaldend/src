@@ -1,0 +1,61 @@
+- tags:
+    - pve_cluster_cluster_setup
+  block:
+    - name: Show cluster status
+      register: pve_cluster_cluster_status_result
+      ignore_errors: true
+      ansible.builtin.command:
+        argv:
+          - pvecm
+          - status
+    - name: Create cluster
+      when: pve_cluster_cluster_status_result.rc != 0
+      ansible.builtin.command:
+        argv:
+          - pvecm
+          - create
+          - "{{ pve_cluster_cluster_name }}"
+    - name: List users
+      register: pve_cluster_admin_users_result
+      ansible.builtin.command:
+        argv:
+          - pveum
+          - user
+          - list
+    - name: Add users to pve
+      loop: "{{ pve_cluster_admins | mandatory | list }}"
+      when: item.username is defined and (item.username + '@pam') not in pve_cluster_admin_users_result.stdout
+      ansible.builtin.command:
+        argv:
+          - pveum
+          - user
+          - add 
+          - "{{ item.username }}@pam"
+    - name: Set permissions
+      loop: "{{ pve_cluster_admins | mandatory | list }}"
+      ansible.builtin.command:
+        argv:
+          - pveum
+          - acl
+          - modify
+          - /
+          - --roles
+          - Administrator
+          - --users
+          - "{{ item.username }}@pam"
+    - name: Setup storage
+      ansible.builtin.copy:
+        mode: "0640"
+        owner: root
+        group: www-data 
+        dest: "{{ pve_cluster_storage_config_path }}"
+        content: |
+          # managed by ansible
+
+          {% for storage in pve_cluster_storages %}
+          {{ storage.type }}: {{ storage.name }}
+          {% for arg in storage.args %}
+          	{{ arg }}
+          {% endfor %}
+
+          {% endfor %}

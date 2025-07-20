@@ -1,0 +1,27 @@
+pve_cluster_remove_repos:
+  - pve-enterprise.list 
+  - ceph.list
+pve_cluster_add_repos:
+  - name: pve-no-subscription
+    value: deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
+  - name: ceph-squid
+    value: deb http://download.proxmox.com/debian/ceph-squid bookworm no-subscription
+pve_cluster_node_config: []
+pve_cluster_admins: []
+pve_cluster_cluster_name:
+pve_cluster_acme_accounts: []
+pve_cluster_acme_plugins: []
+pve_cluster_venv_dir: /opt/ansible/pve_cluster_venv
+pve_cluster_venv_packages: 
+  - pexpect
+pve_cluster_base_image_dir: /var/lib/vz/template
+pve_cluster_node_name: "{{ inventory_hostname | mandatory | split('.') | first }}"
+pve_cluster_ceph_enabled: false
+pve_cluster_ceph_repository: no-subscription
+pve_cluster_ceph_osd: []
+pve_cluster_ceph_pools: []
+pve_cluster_ceph_mon: []
+pve_cluster_ceph_mgr: []
+pve_cluster_ceph_mds: []
+pve_cluster_storages: []
+pve_cluster_storage_config_path: /etc/pve/storage.cfg

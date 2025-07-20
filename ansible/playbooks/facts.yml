@@ -1,0 +1,4 @@
+ - name: Dump facts
+   hosts: "{{ target | default('localhost') }}"
+   roles:
+     - role: facts

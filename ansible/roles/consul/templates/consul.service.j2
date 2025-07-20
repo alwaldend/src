@@ -1,0 +1,38 @@
+[Unit]
+Description="HashiCorp Consul - A service mesh solution"
+Documentation=https://www.consul.io/
+Requires=network-online.target
+After=network-online.target
+AssertPathIsDirectory={{ consul_config_symlink_dir }}
+AssertFileIsExecutable={{ consul_release_symlink_bin_path }}
+
+[Service]
+User={{ consul_user_name }}
+Group={{ consul_user_name }}
+Type=notify
+EnvironmentFile={{ consul_env_symlink_path }}
+ExecStart={{ consul_release_symlink_bin_path }} agent --config-dir={{ consul_config_symlink_data_dir }}
+ExecReload=/bin/kill --signal HUP $MAINPID
+StartLimitInterval=0
+Restart=always
+KillMode=process
+KillSignal=SIGTERM
+Restart=on-failure
+LimitNOFILE=65536
+ProtectSystem=strict
+PrivateTmp=true
+ProtectHome=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=yes
+ProtectControlGroups=true
+KeyringMode=private
+ProtectClock=yes
+ProtectHostname=yes
+NoExecPaths=/
+ExecPaths={{ consul_release_symlink_bin_path }}
+ReadWritePaths={{ consul_data_dir }}
+ReadOnlyPaths={{ consul_configs_dir }}
+
+[Install]
+WantedBy=multi-user.target

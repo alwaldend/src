@@ -1,0 +1,88 @@
+- tags:
+    - pve_cluster_node_pve
+  block:
+    - name: List acme accounts
+      register: pve_cluster_acme_accounts_result
+      ansible.builtin.command:
+        argv:
+          - pvenode
+          - acme
+          - account
+          - list
+    - name: Register acme accounts 
+      loop: "{{ pve_cluster_acme_accounts | mandatory | list }}"
+      when: item.name is defined and item.name not in pve_cluster_acme_accounts_result.stdout
+      ansible.builtin.expect:
+        responses:
+          ".+": "y"
+        command: >-
+          pvenode
+          acme
+          account
+          register
+          {{ item.name | mandatory | quote }}
+          {{ item.contact | mandatory | quote }}
+          --directory
+          {{ item.directory | mandatory | quote }}
+    - name: List plugins
+      register: pve_cluster_acme_plugins_result
+      ansible.builtin.command:
+        argv:
+          - pvenode
+          - acme
+          - plugin
+          - list 
+    - name: Create plugin data files
+      loop: "{{ pve_cluster_acme_plugins | mandatory | list }}"
+      no_log: true
+      register: pve_cluster_acme_tempfile_result
+      ansible.builtin.tempfile:
+    - name: Write to plugin data files
+      loop: "{{ pve_cluster_acme_plugins | mandatory | list }}"
+      no_log: true
+      loop_control:
+        index_var: index
+      ansible.builtin.copy:
+        dest: "{{ pve_cluster_acme_tempfile_result.results[index].path }}"
+        content: "{{ item.data }}\\n" 
+    - name: Set plugins
+      loop: "{{ pve_cluster_acme_plugins | mandatory | list }}"
+      no_log: true
+      loop_control:
+        index_var: index
+      ansible.builtin.command:
+        cmd: >-
+          pvenode
+          acme
+          plugin
+          {{ 'set' if item.name in pve_cluster_acme_plugins_result.stdout else 'add' }}
+          {{ '' if item.name in pve_cluster_acme_plugins_result.stdout else item.type | mandatory | quote }}
+          {{ item.name | mandatory | quote }}
+          --api {{ item.api | mandatory | quote }}
+          --data {{ pve_cluster_acme_tempfile_result.results[index].path | mandatory | quote }}
+    - name: Update config
+      loop: "{{ pve_cluster_node_config | mandatory | list }}"
+      ansible.builtin.command:
+        argv:
+          - pvenode
+          - config
+          - set
+          - "--{{ item.key | mandatory }}={{ item.value | mandatory }}"
+    - name: Wait after config update
+      ansible.builtin.wait_for:
+        timeout: 1
+    - name: Check current certificate
+      register: pve_cluster_cert_result
+      ansible.builtin.command:
+        argv:
+          - pvenode
+          - cert
+          - info
+    - name: Order new certificate
+      when: "'pveproxy-ssl.pem' not in pve_cluster_cert_result.stdout"
+      ansible.builtin.command:
+        argv:
+          - pvenode
+          - acme
+          - cert
+          - order

@@ -1,0 +1,75 @@
+- name: Setup xray
+  tags:
+    - xray
+  block:
+    - name: Create xray user
+      ansible.builtin.user:
+        name: "{{ xray_user }}"
+        shell: /sbin/nologin
+    - name: Create directories
+      loop:
+        - user: "{{ xray_user }}"
+          path: "{{ xray_log_dir }}"
+        - user: "{{ xray_user }}"
+          path: "{{ xray_config_dir }}"
+        - user: "{{ xray_caddy_user }}"
+          path: "{{ xray_subscriptions_dir }}/subscriptions"
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        owner: "{{ item.user }}"
+        group: "{{ item.user }}"
+        mode: "0700"
+        state: directory
+    - name: Create socket directory
+      ansible.builtin.file:
+        path: "{{ xray_socket_dir }}"
+        owner: root 
+        group: root 
+        mode: "0777"
+        state: directory
+    - name: Setup the main config 
+      ansible.builtin.copy:
+        content: "{{ xray_config | mandatory | to_json(indent=4, sort_keys=True) }}"
+        dest: "{{ xray_config_path }}" 
+        owner: "{{ xray_user }}"
+        group: "{{ xray_user }}"
+        mode: "0600"
+    - name: Setup wireguard config 
+      ansible.builtin.template:
+        src: wireguard-relay.json.j2
+        dest: "{{ xray_config_dir }}/99-wireguard-relays-tail.json" 
+        owner: "{{ xray_user }}"
+        group: "{{ xray_user }}"
+        mode: "0600"
+    - name: Setup caddy config 
+      ansible.builtin.template:
+        src: xray.Caddyfile.j2 
+        dest: "{{ xray_caddy_config_path }}" 
+        owner: "{{ xray_caddy_user }}"
+        group: "{{ xray_caddy_user }}"
+        mode: "0600"
+    - name: Setup xray subscriptions 
+      ansible.builtin.template:
+        src: wireguard-subscriptions.txt 
+        dest: "{{ xray_subscriptions_dir }}/subscriptions/{{ xray_client_id }}.txt" 
+        owner: "{{ xray_caddy_user }}"
+        group: "{{ xray_caddy_user }}"
+        mode: "0600"
+    - name: Install xray
+      environment:
+        INSTALL_USER: "{{ xray_user }}"
+        JSONS_PATH: "{{ xray_config_dir }}"
+      ansible.builtin.script:
+        cmd: 'install-release.sh install --install-user "{{ xray_user }}"'
+    - name: Start xray
+      ansible.builtin.systemd_service:
+        name: xray
+        state: restarted
+        enabled: true
+        daemon_reload: true
+    - name: Start caddy
+      ansible.builtin.systemd_service:
+        name: caddy
+        state: restarted
+        enabled: true
+        daemon_reload: true

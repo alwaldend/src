@@ -1,0 +1,14 @@
+- tags:
+    - cifs
+  block:
+    - name: Install required packages
+      when: cifs_mounts
+      ansible.builtin.package:
+        name:
+          - cifs-utils
+    - name: Setup cifs
+      loop: "{{ cifs_mounts | mandatory | list }}"
+      loop_control:
+        loop_var: cifs_mount
+      ansible.builtin.include_tasks:
+        file: cifs.yaml

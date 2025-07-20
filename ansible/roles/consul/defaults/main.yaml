@@ -1,0 +1,36 @@
+consul_is_server: false
+consul_user_name: consul
+consul_user_uid:
+consul_dir: "/opt/consul"
+consul_persistence_dir: "{{ consul_dir }}"
+consul_releases_dir: "{{ consul_dir }}/releases"
+consul_config_symlink_dir: "{{ consul_configs_dir }}/current"
+consul_config_symlink_data_dir: "{{ consul_config_symlink_dir }}/configs"
+consul_configs_dir: "{{ consul_persistence_dir }}/configs/{{ inventory_hostname }}"
+consul_data_dir: "{{ consul_persistence_dir }}/data/{{ inventory_hostname }}"
+consul_config_path: "{{ consul_config_config_dir }}/consul.json"
+consul_config_dir: "{{ consul_configs_dir }}/{{ consul_config_dir_name }}" 
+consul_config_data_dir: "{{ consul_config_dir }}/data"
+consul_config_config_dir: "{{ consul_config_dir }}/configs"
+consul_config_dir_name: "{{ consul_config_version }}"
+consul_config_version: "{{ lookup('ansible.builtin.pipe', 'git rev-parse HEAD') }}"
+consul_env: {}
+consul_configs: []
+consul_env_path: "{{ consul_config_data_dir }}/consul.env"
+consul_env_symlink_path: "{{ consul_config_symlink_dir }}/data/consul.env"
+consul_release_dir: "{{ consul_releases_dir }}/{{ consul_release_dir_name }}"
+consul_release_dir_name: "{{ consul_release_version }}"
+consul_release_symlink_path: "{{ consul_releases_dir }}/current"
+consul_release_symlink_bin_path: "{{ consul_release_symlink_path }}/consul"
+consul_release_version: 1.20.2
+consul_release_archive_name: "consul_{{ consul_release_version }}_linux_amd64"
+consul_release_archive_fullname: "{{ consul_release_archive_name }}.zip"
+consul_release_bin_path: "{{ consul_release_dir }}/consul"
+consul_release_url: "https://releases.hashicorp.com/consul/{{ consul_release_version }}/{{ consul_release_archive_fullname }}"
+consul_release_checksum: "sha256:1bf7ddf332f02e6e36082b0fdf6c3e8ce12a391e7ec7dafd3237bb12766a7fd5"
+consul_agent_ca_cert_path: "{{ consul_config_data_dir }}/agent_ca_cert.pub"
+consul_agent_ca_cert:
+consul_server_cert_path: "{{ consul_config_data_dir }}/server_cert_{{ inventory_hostname }}.pub"
+consul_server_cert:
+consul_server_key_path: "{{ consul_config_data_dir }}/server_cert_{{ inventory_hostname }}.key"
+consul_server_key:

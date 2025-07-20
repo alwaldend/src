@@ -1,0 +1,6 @@
+- name: Remove pve vms
+  hosts: "{{ custom_hosts }}"
+  gather_facts: false
+  become: true
+  roles:
+    - role: pve_vm_remove

@@ -1,0 +1,13 @@
+- tags:
+    - pve_cluster_node_images
+  block:
+    - name: Create image directory
+      ansible.builtin.file:
+        path: "{{ pve_cluster_base_image_dir }}"
+        state: directory
+    - name: Download images
+      loop: "{{ pve_cluster_images | mandatory | list }}"
+      ansible.builtin.get_url:
+        url: "{{ item.url }}"
+        dest: "{{ pve_cluster_base_image_dir }}/iso/{{ item.name }}"
+        checksum: "{{ item.checksum }}"

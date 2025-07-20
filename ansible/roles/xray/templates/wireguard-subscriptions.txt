@@ -1,0 +1,6 @@
+{% for relay in xray_wireguard_relays %}
+{% if relay.active %}
+vless://{{ xray_client_id }}@{{ ansible_default_ipv4.address }}:443?type=grpc&security=tls&sni={{ inventory_hostname }}&serviceName=vless-grpc-wg-{{ relay.hostname }}#{{ relay.hostname }} {{ '[NOT OWNED]' if not relay.owned else '' }}
+{% endif -%}
+{% endfor -%}
+vless://{{ xray_client_id }}@{{ ansible_default_ipv4.address }}:443?type=grpc&security=tls&sni={{ inventory_hostname }}&serviceName=vless-grpc-freedom#freedom

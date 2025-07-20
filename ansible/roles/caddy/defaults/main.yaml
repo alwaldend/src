@@ -1,0 +1,6 @@
+caddy_enabled: false
+caddy_user: caddy
+caddy_config_path: /etc/caddy/Caddyfile
+caddy_config_dir: /etc/caddy/configs
+caddy_config: |
+  import {{ caddy_config_dir }}/*

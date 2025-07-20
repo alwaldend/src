@@ -1,0 +1,2 @@
+ssh_port_forward_local_addr: 127.0.0.1
+ssh_port_forward_script_path: /usr/local/bin/ssh-port-forward

@@ -1,0 +1,32 @@
+- block:
+    - name: Create wireguard directory
+      ansible.builtin.file:
+        path: "{{ wireguard_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0700"
+    - name: Install wireguard
+      ansible.builtin.package:
+        name: wireguard
+        state: present
+    - name: Generate wireguard config
+      ansible.builtin.template:
+        dest: "{{ wireguard_dir }}/{{ wireguard_config.name }}.conf"
+        src: "wireguard.conf.j2"
+        owner: "root"
+        group: "root"
+        mode: "600" 
+    - name: Start wireguard and enable on boot
+      ansible.builtin.systemd:
+        name: "wg-quick@{{ wireguard_config.name }}"
+        enabled: true
+        state: restarted
+        daemon_reload: true
+  always:
+    - name: Show service status
+      ansible.builtin.command: 
+        argv:
+          - systemctl
+          - status
+          - "wg-quick@{{ wireguard_config.name }}"
