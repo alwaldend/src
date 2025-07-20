@@ -255,7 +255,10 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
   - <a href="sh/scripts">scripts</a>: Scripts
 
 - <a href="tools">tools</a>: Tools
-  <!-- README_CONTENTS END -->
+
+<!-- README_CONTENTS END -->
+
+</details>
 
 <details open>
   <summary>Line count</summary>

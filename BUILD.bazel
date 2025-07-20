@@ -17,12 +17,16 @@ load("//bzl/macros:al_txt_data.bzl", "al_txt_data")
 _BUILDIFIER_EXCLUDE = [
     "./.git/**/*",
     "bazel-*",
+    "out",
 ]
 
 _SUBPACKAGES = subpackages(
     include = ["*"],
     allow_empty = True,
-    exclude = ["bazel-*"],
+    exclude = [
+        "bazel-*",
+        "out",
+    ],
 )
 
 exports_files(["LICENSE.txt"])

@@ -37,6 +37,7 @@ pkg_tar(
         "//bzl:bzl-stardoc",
         "//cfg/vial",
         "//cpp/leetcode-submissions",
+        "//drawio:bzl-target-doc",
         "//drawio/diagrams:docs",
         "//go/leetcode-submissions",
         "//java/leetcode-submissions",

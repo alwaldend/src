@@ -37,6 +37,14 @@ func timestampToDate(timestamp float64) (string, error) {
 	return tm.String(), nil
 }
 
+func toJson(val any) (string, error) {
+	res, err := json.MarshalIndent(val, "", "    ")
+	if err != nil {
+		return "", err
+	}
+	return string(res), nil
+}
+
 func NewTemplater() *Templater {
 	return &Templater{}
 }
@@ -56,6 +64,7 @@ func (self *Templater) TemplateFiles(dataPaths []string, templatePath string, ou
 	}
 	funcMap := template.FuncMap{
 		"timestamp_to_date": timestampToDate,
+		"to_json":           toJson,
 	}
 	templateObj, err := template.New("template").Funcs(funcMap).Parse(string(templateBytes))
 	if err != nil {
@@ -102,6 +111,17 @@ func (self *Templater) loadData(path string) (*TemplateDataFile, error) {
 		if err != nil {
 			return nil, err
 		}
+	case ".ndjson":
+		dataSlice := []any{}
+		for _, line := range fileLines {
+			var lineJson any
+			err := json.Unmarshal([]byte(line), &lineJson)
+			if err != nil {
+				return nil, err
+			}
+			dataSlice = append(dataSlice, lineJson)
+		}
+		data = dataSlice
 	case ".txt":
 	default:
 		return nil, fmt.Errorf("unsupported extension %s: %s", extension, path)
