@@ -36,8 +36,8 @@ renderer.unsafe = true
 [security]
 enableInlineShortcodes = true
 
-# [languages.en]
-# contentDir = "content/en"
+[languages.en]
+contentDir = "content/en"
 
 [[languages.en.menus.main]]
 name = "Docs"
