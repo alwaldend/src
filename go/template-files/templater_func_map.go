@@ -16,22 +16,39 @@ var TemplaterFuncMap = template.FuncMap{
 	"to_json":           toJson,
 	"to_json_indent":    toJsonIndent,
 	"to_html_table":     toHtmlTable,
-	"set_map_key": func(val map[string]any, key string, value any) bool {
-		if val == nil {
-			return false
-		}
-		val[key] = value
-		return true
-	},
-	"unset_map_key": func(val map[string]any, keys ...string) bool {
-		if val == nil {
-			return false
-		}
-		for _, key := range keys {
-			delete(val, key)
-		}
-		return true
-	},
+	"last":              last[string],
+	"set_map_key":       setMapKey[string],
+	"unset_map_key":     unsetMapKey[string],
+	"split":             split,
+}
+
+func split(val string, sep string) []string {
+	return strings.Split(val, sep)
+}
+
+func last[T any](val []T) *T {
+	if val != nil && len(val) != 0 {
+		return &val[len(val)-1]
+	}
+	return nil
+}
+
+func setMapKey[T comparable](val map[T]any, key T, value any) bool {
+	if val == nil {
+		return false
+	}
+	val[key] = value
+	return true
+}
+
+func unsetMapKey[T comparable](val map[T]any, keys ...T) bool {
+	if val == nil {
+		return false
+	}
+	for _, key := range keys {
+		delete(val, key)
+	}
+	return true
 }
 
 func timestampToDate(timestamp float64) (string, error) {
