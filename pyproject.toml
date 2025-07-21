@@ -12,6 +12,8 @@ dependencies = [
     "flake8",
     "flake8-pyproject",
     "git-filter-repo",
+    "pynput",
+    "pyside6",
 ]
 
 [tool.pyright]

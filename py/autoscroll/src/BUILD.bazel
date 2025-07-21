@@ -1,0 +1,29 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/macros:al_readme.bzl", "al_readme")
+
+py_library(
+    name = "src",
+    srcs = [
+        "__init__.py",
+        "main.py",
+    ],
+    visibility = ["//:__subpackages__"],
+)
+
+py_binary(
+    name = "src_bin",
+    srcs = ["__main__.py"],
+    main = "__main__.py",
+    visibility = ["//:__subpackages__"],
+)
+
+al_readme(
+    name = "readme",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_target_doc(
+    name = "bzl-target-doc",
+    visibility = ["//visibility:public"],
+)

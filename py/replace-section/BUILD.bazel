@@ -18,20 +18,19 @@ al_py_checkers(
     srcs = [":src"],
 )
 
-py_library(
-    name = "replace-section-lib",
-    srcs = ["replace_section.py"],
+al_bzl_target_doc(
+    name = "bzl-target-doc",
     visibility = ["//visibility:public"],
 )
 
 py_binary(
-    name = "replace-section",
-    srcs = [":replace-section-lib"],
-    main = "replace_section.py",
-    visibility = ["//visibility:public"],
+    name = "replace_section",
+    srcs = ["replace_section.py"],
+    visibility = ["//:__subpackages__"],
 )
 
-al_bzl_target_doc(
-    name = "bzl-target-doc",
-    visibility = ["//visibility:public"],
+py_library(
+    name = "replace-section",
+    srcs = ["replace_section.py"],
+    visibility = ["//:__subpackages__"],
 )

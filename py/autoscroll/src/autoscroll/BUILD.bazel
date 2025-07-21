@@ -1,0 +1,31 @@
+load("@rules_python//python:defs.bzl", "py_library")
+load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/macros:al_readme.bzl", "al_readme")
+
+py_library(
+    name = "autoscroll",
+    srcs = [
+        "__init__.py",
+        "arguments.py",
+        "autoscroll.py",
+        "constants.py",
+        "functions.py",
+        "qt.py",
+        "support.py",
+    ],
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "@com-alwaldend-src-pip//pynput",
+        "@com-alwaldend-src-pip//pyside6_essentials",
+    ],
+)
+
+al_readme(
+    name = "readme",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_target_doc(
+    name = "bzl-target-doc",
+    visibility = ["//visibility:public"],
+)

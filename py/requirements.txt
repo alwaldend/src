@@ -156,6 +156,9 @@ distlib==0.3.9 \
     --hash=sha256:47f8c22fd27c27e25a65601af709b38e4f0a45ea4fc2e710f65755fa8caaaf87 \
     --hash=sha256:a60f20dea646b8a33f3e7772f74dc0b2d0772d2837ee1342a00645c81edf9403
     # via virtualenv
+evdev==1.9.2 \
+    --hash=sha256:5d3278892ce1f92a74d6bf888cc8525d9f68af85dbe336c95d1c87fb8f423069
+    # via pynput
 filelock==3.18.0 \
     --hash=sha256:adbc88eabb99d2fec8c9c1b229b171f18afa655400173ddc653d5d01501fb9f2 \
     --hash=sha256:c401f4f8377c4464e6db25fff06205fd89bdd83b65eb0488ed1b160f780e21de
@@ -332,6 +335,37 @@ pyflakes==3.3.2 \
     --hash=sha256:5039c8339cbb1944045f4ee5466908906180f13cc99cc9949348d10f82a5c32a \
     --hash=sha256:6dfd61d87b97fba5dcfaaf781171ac16be16453be6d816147989e7f6e6a9576b
     # via flake8
+pynput==1.8.1 \
+    --hash=sha256:42dfcf27404459ca16ca889c8fb8ffe42a9fe54f722fd1a3e130728e59e768d2 \
+    --hash=sha256:70d7c8373ee98911004a7c938742242840a5628c004573d84ba849d4601df81e
+    # via com-alwaldend-src (pyproject.toml)
+pyside6==6.9.1 \
+    --hash=sha256:1525d63dc6dc425b8c2dc5bc01a8cb1d67530401449f3a3490c09a14c095b9f9 \
+    --hash=sha256:531a6e67c429b045674d57fe9864b711eb59e4cded753c2640982e368fd468d1 \
+    --hash=sha256:c82dbb7d32bbdd465e01059174f71bddc97de152ab71bded3f1907c40f9a5f16 \
+    --hash=sha256:db44ac08b8f7ac1b421bc1c6a44200d03f08d80dc7b3f68dfdb1684f30f41c17 \
+    --hash=sha256:f843ef39970a2f79757810fffd7b8e93ac42a3de9ea62f2a03648cde57648aed
+    # via com-alwaldend-src (pyproject.toml)
+pyside6-addons==6.9.1 \
+    --hash=sha256:4f589631bdceb518080ae9c9fa288e64f092cd5bebe25adc8ad89e8eadd4db29 \
+    --hash=sha256:53fd08c8152b6ba8c435458afd189835ba905793a5077a2bb0b1b11222b375d4 \
+    --hash=sha256:7be0708fa89715c282541fca47e2ba97c0c8d2886e0236ef994b2dd8f52aacdd \
+    --hash=sha256:cd93a3a5e3886cd958f3a5acc7c061c24f10a394ce9f4ce657ac394544ca7ec2 \
+    --hash=sha256:da7869b02e3599d26546fad582db4656060786bc5ec8ece5ec9ee8aa8b42371c
+    # via pyside6
+pyside6-essentials==6.9.1 \
+    --hash=sha256:35c2c2bb4a88db74d11e638cf917524ff35785883f10b439ead07960a5733aa4 \
+    --hash=sha256:ad1ac94011492dba33051bc33db1c76a7d6f815a81c01422cb6220273b369145 \
+    --hash=sha256:e46a2801c9c6098025515fd0af6c594b9e9c951842f68b8f6f3da9858b9b26c2 \
+    --hash=sha256:e5da48883f006c6206ef85874db74ddebcdf69b0281bd4f1642b1c5ac1d54aea \
+    --hash=sha256:ed43435a70e018e1c22efcaf34a9430b83cfcad716dba661b03de21c13322fab
+    # via
+    #   pyside6
+    #   pyside6-addons
+python-xlib==0.33 \
+    --hash=sha256:55af7906a2c75ce6cb280a584776080602444f75815a7aff4d287bb2d7018b32 \
+    --hash=sha256:c3534038d42e0df2f1392a1b30a15a4ff5fdc2b86cfa94f072bf11b10a164398
+    # via pynput
 pyyaml==6.0.2 \
     --hash=sha256:01179a4a8559ab5de078078f37e5c1a30d76bb88519906844fd7bdea1b7729ff \
     --hash=sha256:0833f8694549e586547b576dcfaba4a6b55b9e96098b36cdc7ebefe667dfed48 \
@@ -393,6 +427,22 @@ resolvelib==1.0.1 \
     --hash=sha256:04ce76cbd63fded2078ce224785da6ecd42b9564b1390793f64ddecbe997b309 \
     --hash=sha256:d2da45d1a8dfee81bdd591647783e340ef3bcb104b54c383f70d422ef5cc7dbf
     # via ansible-core
+shiboken6==6.9.1 \
+    --hash=sha256:209ccf02c135bd70321143dcbc5023ae0c056aa4850a845955dd2f9b2ff280a9 \
+    --hash=sha256:2a39997ce275ced7853defc89d3a1f19a11c90991ac6eef3435a69bb0b7ff1de \
+    --hash=sha256:40e92afc88da06b5100c56b761e59837ff282166e9531268f3d910b6128e621e \
+    --hash=sha256:efcdfa8655d34aaf8d7a0c7724def3440bd46db02f5ad3b1785db5f6ccb0a8ff \
+    --hash=sha256:efcf75d48a29ae072d0bf54b3cd5a59ae91bb6b3ab7459e17c769355486c2e0b
+    # via
+    #   pyside6
+    #   pyside6-addons
+    #   pyside6-essentials
+six==1.17.0 \
+    --hash=sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274 \
+    --hash=sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81
+    # via
+    #   pynput
+    #   python-xlib
 typing-extensions==4.13.2 \
     --hash=sha256:a439e7c04b49fec3e5d3e2beaa21755cadbbdc391694e28ccdd36ca4a1408f8c \
     --hash=sha256:e6c81219bd689f51865d9e372991c540bda33a0379d5573cddb9a3a23f7caaef

@@ -35,3 +35,9 @@ al_bzl_target_doc(
     name = "bzl-target-doc",
     visibility = ["//visibility:public"],
 )
+
+py_binary(
+    name = "bazel_python_shell",
+    srcs = ["bazel_python_shell.py"],
+    visibility = ["//:__subpackages__"],
+)

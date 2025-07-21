@@ -9,27 +9,9 @@ al_readme(
     visibility = ["//visibility:public"],
 )
 
-filegroup(
-    name = "src",
-    srcs = glob(["src/**/*"]),
-)
-
 # al_py_checkers(
 #     srcs = glob(["**/*.py"]),
 # )
-
-py_library(
-    name = "library",
-    srcs = [":src"],
-    visibility = ["//visibility:public"],
-)
-
-py_binary(
-    name = "binary",
-    srcs = [":library"],
-    main = "__main__.py",
-    visibility = ["//visibility:public"],
-)
 
 al_bzl_target_doc(
     name = "bzl-target-doc",
