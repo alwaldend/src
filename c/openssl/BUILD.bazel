@@ -3,6 +3,7 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_cc//cc:defs.bzl", "cc_test")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
+load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 
 al_readme(
@@ -71,4 +72,9 @@ test_suite(
         ":openssl-test",
     ],
     visibility = ["//:__pkg__"],
+)
+
+al_bzl_target_doc(
+    name = "bzl-target-doc",
+    visibility = ["//visibility:public"],
 )

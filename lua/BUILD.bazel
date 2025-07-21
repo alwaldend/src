@@ -1,3 +1,4 @@
+load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 load("//bzl/rules:al_toml_data.bzl", "al_toml_data")
 
@@ -9,5 +10,10 @@ al_toml_data(
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_target_doc(
+    name = "bzl-target-doc",
     visibility = ["//visibility:public"],
 )

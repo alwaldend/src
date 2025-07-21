@@ -2,19 +2,19 @@ load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load(":al_template_files.bzl", "al_template_files")
 
-def al_bzl_target_doc(name, visibility, srcs = [], subpackages = []):
+def al_bzl_target_doc(name, visibility, subpackages = []):
     """
     Document bazel targets
 
     Args:
         name (str): target name
-        srcs (dict[str, str]): targets to document
         subpackages (list[str]): list of subpackages
         **kwargs: al_md_data kwargs
     """
     if not subpackages:
         subpackages = native.subpackages(include = ["*"], allow_empty = True)
     package_name = native.package_name()
+    srcs = native.existing_rules()
     if package_name:
         package_dir = package_name.split("/")[-1]
         package_name_prefix = "//{}/".format(package_name)
@@ -26,8 +26,12 @@ def al_bzl_target_doc(name, visibility, srcs = [], subpackages = []):
     if srcs:
         native.genquery(
             name = "{}-query.ndjson".format(name),
-            expression = " union ".join(["{}:{}".format(native.package_name(), src) for src in srcs.keys()]),
-            scope = srcs,
+            expression = " union ".join([
+                "//{}:{}".format(native.package_name(), src)
+                for src in srcs.keys()
+                if "node_modules" not in src
+            ]),
+            scope = srcs.keys(),
             opts = ["--output", "streamed_jsonproto"],
         )
         write_file(
@@ -40,10 +44,22 @@ def al_bzl_target_doc(name, visibility, srcs = [], subpackages = []):
                 "tags: [generated, bzl]",
                 "---",
                 "",
-                "{{ range .Data }}",
-                "## {{ .sourceFile.name }}",
-                "",
+                # print({key: value.items() for key, value in srcs.items()}),
+                "{{` {{< al_bzl_target_doc.inline >}} `}}",
+                "{{ range .Data -}}",
+                "{{ if .rule -}}",
+                "{{ $data := . -}}",
+                "{{ range .rule.attribute -}}",
+                '{{ if eq .name "visibility" -}}',
+                '{{ $_ := set_map_key $data "visibility" .stringListValue -}}',
+                "{{ end -}}",
+                "{{ end -}}",
+                '{{ $_ := unset_map_key .rule "attribute" "ruleInput" -}}',
+                "{{ end -}}",
+                "{{ to_html_table . }}",
                 "{{ end }}",
+                "{{` {{< /al_bzl_target_doc.inline >}} `}}",
+                "",
                 "{{ end }}",
             ],
         )

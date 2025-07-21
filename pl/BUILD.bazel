@@ -1,6 +1,7 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_perl//perl:perl_binary.bzl", "perl_binary")
 load("@rules_perl//perl/cpan:cpan_compiler.bzl", "cpan_compiler")
+load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 
 cpan_compiler(
@@ -28,5 +29,10 @@ perl_binary(
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_target_doc(
+    name = "bzl-target-doc",
     visibility = ["//visibility:public"],
 )

@@ -5,6 +5,7 @@ load("@com-alwaldend-src-cpp-infinitime-pip//:requirements.bzl", "all_requiremen
 load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@rules_python//python:py_library.bzl", "py_library")
 load("@rules_python//python/entry_points:py_console_script_binary.bzl", "py_console_script_binary")
+load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load(
     "//bzl/macros:al_combine_files.bzl",
     "al_combine_files",
@@ -113,4 +114,9 @@ al_genrule(
         ":python-shell",
         "//:node_modules/lv_font_conv/dir",
     ],
+)
+
+al_bzl_target_doc(
+    name = "bzl-target-doc",
+    visibility = ["//visibility:public"],
 )

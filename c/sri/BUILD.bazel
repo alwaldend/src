@@ -1,6 +1,7 @@
 load("@rules_cc//cc:cc_binary.bzl", "cc_binary")
 load("@rules_cc//cc:cc_library.bzl", "cc_library")
 load("@rules_cc//cc:cc_test.bzl", "cc_test")
+load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 
 al_readme(
@@ -60,4 +61,9 @@ cc_library(
     name = "errors",
     srcs = ["errors.c"],
     hdrs = ["errors.h"],
+)
+
+al_bzl_target_doc(
+    name = "bzl-target-doc",
+    visibility = ["//visibility:public"],
 )

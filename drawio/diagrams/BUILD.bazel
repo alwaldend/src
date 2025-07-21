@@ -15,12 +15,6 @@ al_readme(
     visibility = ["//visibility:public"],
 )
 
-al_bzl_target_doc(
-    name = "bzl-target-doc",
-    srcs = _DIAGRAMS,
-    visibility = ["//visibility:public"],
-)
-
 pkg_tar(
     name = "docs",
     package_dir = package_name(),
@@ -70,3 +64,8 @@ pkg_tar(
     ]
     for diagram, _ in _DIAGRAMS.items()
 ]
+
+al_bzl_target_doc(
+    name = "bzl-target-doc",
+    visibility = ["//visibility:public"],
+)

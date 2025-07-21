@@ -1,4 +1,5 @@
 load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 
 _BZL_LIBS = subpackages(
@@ -21,4 +22,9 @@ al_bzl_library_map(
     name = "bzl",
     visibility = ["//visibility:public"],
     deps = ["//bzl/{}:{}".format(package, package) for package in _BZL_LIBS],
+)
+
+al_bzl_target_doc(
+    name = "bzl-target-doc",
+    visibility = ["//visibility:public"],
 )

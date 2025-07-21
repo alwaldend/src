@@ -1,5 +1,6 @@
 load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@rules_python//python:py_library.bzl", "py_library")
+load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_py_checkers.bzl", "al_py_checkers")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 
@@ -27,5 +28,10 @@ py_binary(
     name = "binary",
     srcs = [":library"],
     main = "__main__.py",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_target_doc(
+    name = "bzl-target-doc",
     visibility = ["//visibility:public"],
 )

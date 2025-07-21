@@ -1,8 +1,8 @@
 {
-    "url": "https://github.com/openssl/openssl/releases/download/openssl-3.5.0/openssl-3.5.0.tar.gz",
-    "strip_prefix": "openssl-3.5.0",
-    "integrity": "sha256-NE0KefGpsIApsHROLMQBpD+ckKzRBE0JpTC0iFqOn8A=",
-    "overlay": {
-        "BUILD.bazel": "sha256-xo94m1S6YtojZdSWsk1A6AQ+MFDsj+fdyHI3yf1tqEw="
-    }
+  "url": "https://github.com/openssl/openssl/releases/download/openssl-3.5.0/openssl-3.5.0.tar.gz",
+  "strip_prefix": "openssl-3.5.0",
+  "integrity": "sha256-NE0KefGpsIApsHROLMQBpD+ckKzRBE0JpTC0iFqOn8A=",
+  "overlay": {
+    "BUILD.bazel": "sha256-h1DdGDPwH6VNlWZNrEFq9zBdGBihhzMaX6Cw4becVkM="
+  }
 }

@@ -1,4 +1,5 @@
 load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 
 al_bzl_library_map(
@@ -15,5 +16,10 @@ al_bzl_library_map(
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_target_doc(
+    name = "bzl-target-doc",
     visibility = ["//visibility:public"],
 )

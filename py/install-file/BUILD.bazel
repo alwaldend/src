@@ -1,4 +1,5 @@
 load("@rules_python//python:py_binary.bzl", "py_binary")
+load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_py_checkers.bzl", "al_py_checkers")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 
@@ -19,5 +20,10 @@ al_py_checkers(
 py_library(
     name = "lib",
     srcs = ["install_file.py"],
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_target_doc(
+    name = "bzl-target-doc",
     visibility = ["//visibility:public"],
 )
