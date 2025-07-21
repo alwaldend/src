@@ -1,8 +1,8 @@
-from argparse import SUPPRESS, ArgumentParser, HelpFormatter, _ArgumentGroup
-from typing import Any, Dict, List
+import typing
+import argparse
 
 
-def parse_arguments(**arguments: Any) -> Dict[str, Any]:
+def parse_arguments(**arguments: typing.Any) ->dict[str, typing.Any]:
     result = {}
     for key, value in arguments.items():
         key_split = key.split("_")
@@ -14,11 +14,13 @@ def parse_arguments(**arguments: Any) -> Dict[str, Any]:
     return result
 
 
-class ArgparseFormatter(HelpFormatter):
+class ArgparseFormatter(argparse.HelpFormatter):
+    def _split_lines(self, text: str, width: int) -> list[str]:
+        """
+        Do not split lines that start with 'R|'
 
-    # do not split lines that start with 'R|'
-    # https://stackoverflow.com/questions/3853722/how-to-insert-newlines-on-argparse-help-text
-    def _split_lines(self, text: str, width: int):
+        https://stackoverflow.com/questions/3853722/how-to-insert-newlines-on-argparse-help-text
+        """
         if not text.startswith("R|"):
             return super()._split_lines(text, width)
         result = []
@@ -26,22 +28,32 @@ class ArgparseFormatter(HelpFormatter):
             result.extend(super()._split_lines(line, width))
         return result
 
-    # do not format the description
-    # built-in argparse class argparse.RawDescriptionHelpFormatter
-    def _fill_text(self, text: str, width: int, indent: str):
+    def _fill_text(self, text: str, width: int, indent: str) -> str:
+        """
+        Do not format the description
+
+        Built-in argparse class argparse.RawDescriptionHelpFormatter
+        """
         return "\n".join(
             indent + line for line in text.splitlines(keepends=True)
         )
 
-    # change how 'metavar' is displayed
-    # https://stackoverflow.com/questions/23936145/python-argparse-help-message-disable-metavar-for-short-options
-    def _format_action_invocation(self, action):
+    def _format_action_invocation(self, action: argparse.Action) -> str:
+        """
+        Change how 'metavar' is displayed
+
+        https://stackoverflow.com/questions/23936145/python-argparse-help-message-disable-metavar-for-short-options
+        """
         if not action.option_strings:
             return self._metavar_formatter(action, action.dest)(1)[0]
         # option takes no arguments -> -s, --long
         # option takes arguments:
         #    default output -> -s ARGS, --long ARGS
         #    changed output -> -s, --long type
+        if action.type is None:
+            raise Exception(f"action type is None for some reason: {action}")
+        if isinstance(action.type, (str, argparse.FileType)):
+            raise Exception(f"unsupported action type: {action}")
         return ", ".join(action.option_strings) + (
             f" {action.type.__name__}" if action.nargs != 0 else ""
         )
@@ -54,11 +66,13 @@ class ArgparseFormatter(HelpFormatter):
     #    return f'{action.help}\n[default: %(default)s]'
 
 
-class _ArgparseArgumentGroup(_ArgumentGroup):
+class _ArgparseArgumentGroup(argparse._ArgumentGroup):
 
     def add_arguments(
-        self, **arguments: Dict[str, Any]
+        self, **arguments: dict[str, typing.Any]
     ) -> "_ArgparseArgumentGroup":
+        if self.title is None:
+            raise Exception("missing title for some reason")
         group = self.title.split()[0].lower()
         for name, kwargs in arguments.items():
             flags = f"-{group[0]}{name[0]}", f"--{group}-{name}"
@@ -66,28 +80,37 @@ class _ArgparseArgumentGroup(_ArgumentGroup):
         return self
 
 
-class ArgparseParser(ArgumentParser):
+class ArgparseParser(argparse.ArgumentParser):
 
-    # override
     def add_argument_group(
-        self, *args, parameters: Dict[str, Dict[str, Any]] = None, **kwargs
+        self, *args, parameters: typing.Optional[ dict[str,dict[str, typing.Any]]] = None,
+        **kwargs
     ):
+        """
+        Override
+        """
         group = _ArgparseArgumentGroup(self, *args, **kwargs)
         self._action_groups.append(group)
         if parameters is not None:
             group.add_arguments(**parameters)
         return group
 
-    # add a bunch of arguments and argument groups in one go
-    def add_arguments(self, **groups: Dict[str, Any]) -> "ArgparseParser":
+    def add_arguments(self, **groups:dict[str, typing.Any]) -> "ArgparseParser":
+        """
+        Add a bunch of arguments and argument groups in one go
+        """
         for name, parameters in groups.items():
             self.add_argument_group(
                 title=name, description="", parameters=parameters
             )
         return self
 
-    # change how '@' files are parsed
-    # allows to have several arguments on one line
-    # https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser.convert_arg_line_to_args
-    def convert_arg_line_to_args(self, arg_line: str) -> List[str]:
+    def convert_arg_line_to_args(self, arg_line: str) -> list[str]:
+        """
+        Change how '@' files are parsed
+
+        Allows to have several arguments on one line
+
+        https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser.convert_arg_line_to_args
+        """
         return arg_line.split()

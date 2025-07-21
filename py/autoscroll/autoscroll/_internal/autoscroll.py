@@ -1,38 +1,38 @@
-from threading import Event, Thread
-from time import sleep
-from typing import Any, Dict
+import threading
+import typing
+import time
 
-from pynput.mouse import Button, Listener
+import pynput.mouse
 
-from .support import Base, Buttons, Config, Debug, Icon, Scrolling
+from . import support
 
 
-class Autoscroll(Base):
+class Autoscroll(support.Base):
 
     def __init__(self, *args, **kwargs) -> None:
-        self.scrolling: Scrolling = Scrolling()
-        self.icon: Icon = Icon()
-        self.config: Config = Config()
-        self.buttons: Buttons = Buttons()
-        self.debug: Debug = Debug()
-        self.event_end: Event = Event()
+        self.scrolling: support.Scrolling = support.Scrolling()
+        self.icon: support.Icon = support.Icon()
+        self.config: support.Config = support.Config()
+        self.buttons: support.Buttons = support.Buttons()
+        self.debug: support.Debug = support.Debug()
+        self.event_end: threading.Event = threading.Event()
 
         # update from initializer arguments
         self.update(*args, **kwargs)
 
         # threads
         # mouse actions
-        self.thread_scroll_listener = Listener(
+        self.thread_scroll_listener = pynput.mouse.Listener(
             on_move=self._on_move, on_click=self._on_click, daemon=True
         )
         # scroll
-        self.thread_scroll_action = Thread(
+        self.thread_scroll_action = threading.Thread(
             target=self._loop,
             daemon=True,
             args=(self._is_not_end, self._scroll),
         )
         # update from the config file (if enabled)
-        self.thread_config = Thread(
+        self.thread_config = threading.Thread(
             target=self._loop,
             daemon=True,
             args=(self._is_not_end, self._update_from_config_file),
@@ -44,7 +44,7 @@ class Autoscroll(Base):
         # a qt application has to be running in the main thread.
         # so, if the icon is enabled, the thread will have to wait untill the
         # qt application is running in the main thread
-        Thread(
+        threading.Thread(
             target=self.update,
             kwargs=(self.config.parse_argv() if parse_argv else {}),
         ).start()
@@ -61,31 +61,21 @@ class Autoscroll(Base):
         self.icon.start_qt_when_icon_is_enabled()
 
     def _update_from_config_file(self) -> None:
-        # wait untill the config file is enabled
         self.config.wait()
-        # update from the config file
         self.update(**self.config.parse_config_file())
-        # debug
         self.config._print("config", self.debug.file, ["content"])
-        # sleep
-        sleep(self.config.interval)
+        time.sleep(self.config.interval)
 
     def _scroll(self) -> None:
-        # wait for the scrolling event to be set in _on_click
         self.scrolling.wait()
-        # wait for a period of time, calculated in _on_move
         self.scrolling.sleep_for_interval()
-        # scroll on x-axis and y-axis, each scroll is either 1px, 0px, or -1px
         self.scrolling.scroll_once()
 
     def _on_move(self, x: int, y: int) -> None:
-        # update coordinates
         self.scrolling.set_direction_and_coordinates(x, y)
-        # recalculate sleep interval
         self.scrolling.set_interval()
 
-    def _on_click(self, x: int, y: int, button: Button, pressed: bool) -> None:
-        # send information about which button was pressed/released
+    def _on_click(self, x: int, y: int, button: pynput.mouse.Button, pressed: bool) -> None:
         self.buttons.press(button, pressed)
 
         if (
@@ -113,11 +103,11 @@ class Autoscroll(Base):
 
     def update(
         self,
-        scrolling: Dict[str, Any] = None,
-        icon: Dict[str, Any] = None,
-        buttons: Dict[str, Any] = None,
-        debug: Dict[str, Any] = None,
-        config: Dict[str, Any] = None,
+        scrolling: typing.Optional[dict[str, typing.Any]] = None,
+        icon: typing.Optional[ dict[str, typing.Any]] = None,
+        buttons: typing.Optional[ dict[str, typing.Any]] = None,
+        debug: typing.Optional[ dict[str, typing.Any]] = None,
+        config: typing.Optional[ dict[str, typing.Any]] = None,
     ) -> None:
         self.config.update(**self._convert(config, {}, dict))
         self.scrolling.update(**self._convert(scrolling, {}, dict))
@@ -128,7 +118,7 @@ class Autoscroll(Base):
     def _is_not_end(self) -> bool:
         return not self.event_end.is_set()
 
-    def json(self) -> Dict[str, Any]:
+    def json(self) -> dict[str, typing.Any]:
         return {
             "scrolling": self.scrolling,
             "buttons": self.buttons,

@@ -1,23 +1,28 @@
-load("@rules_python//python:defs.bzl", "py_library")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_readme.bzl", "al_readme")
+
+filegroup(
+    name = "autoscroll-data",
+    srcs = glob(["resources/**"]),
+    visibility = ["//:__subpackages__"],
+)
 
 py_library(
     name = "autoscroll",
     srcs = [
         "__init__.py",
-        "arguments.py",
-        "autoscroll.py",
-        "constants.py",
-        "functions.py",
-        "qt.py",
-        "support.py",
+        "main.py",
     ],
+    data = [":autoscroll-data"],
     visibility = ["//:__subpackages__"],
-    deps = [
-        "@com-alwaldend-src-pip//pynput",
-        "@com-alwaldend-src-pip//pyside6_essentials",
-    ],
+)
+
+py_binary(
+    name = "autoscroll_bin",
+    srcs = ["__main__.py"],
+    main = "__main__.py",
+    visibility = ["//:__subpackages__"],
 )
 
 al_readme(

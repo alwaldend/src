@@ -5,7 +5,7 @@ description: CLI app for autoscroll
 
 ## About The Project
 
-This package implements autoscroll, so you can autoscroll without depending on OS or mouse drivers
+This package implements platfrom-independent autoscroll
 
 ## Features
 
@@ -47,7 +47,7 @@ If `--scrolling-acceleration` is 0, the speed of scrolling will be constant
 ```bash
 python3 -m venv venv
 . venv/bin/activate
-pip install autoscroll pyside6
+pip install autoscroll
 autoscroll
 ```
 

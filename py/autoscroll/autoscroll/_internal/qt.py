@@ -1,29 +1,28 @@
 from sys import argv as sys_argv
 
-from PySide6.QtCore import Qt
-from PySide6.QtSvgWidgets import QSvgWidget
-from PySide6.QtWidgets import QApplication
+import PySide6.QtCore
+import PySide6.QtSvgWidgets
+import PySide6.QtWidgets
 
 from .functions import get_path
 
-application = QApplication(sys_argv)
+application = PySide6.QtWidgets.QApplication(sys_argv)
 application.setQuitOnLastWindowClosed(False)
 
-
-class Icon(QSvgWidget):
+class Icon(PySide6.QtSvgWidgets.QSvgWidget):
 
     def __init__(self, path: str, size: int) -> None:
         super().__init__()
         self.update_icon(path, size)
-        self.renderer().setAspectRatioMode(Qt.KeepAspectRatio)
+        self.renderer().setAspectRatioMode(PySide6.QtCore.Qt.KeepAspectRatio)
         self.setWindowFlags(
-            Qt.FramelessWindowHint
-            | Qt.WindowStaysOnTopHint
-            | Qt.WindowTransparentForInput
-            | Qt.Tool
+            PySide6.QtCore.Qt.FramelessWindowHint
+            | PySide6.QtCore.Qt.WindowStaysOnTopHint
+            | PySide6.QtCore.Qt.WindowTransparentForInput
+            | PySide6.QtCore.Qt.Tool
         )
         self.setStyleSheet("background:transparent")
-        self.setAttribute(Qt.WA_TranslucentBackground)
+        self.setAttribute(PySide6.QtCore.Qt.WA_TranslucentBackground)
 
     def update_icon(self, path: str, size: int) -> None:
         self.load(get_path(path))

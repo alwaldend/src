@@ -1,3 +1,4 @@
+load("@rules_python//python:packaging.bzl", "py_package", "py_wheel")
 load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@rules_python//python:py_library.bzl", "py_library")
 load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
@@ -12,6 +13,42 @@ al_readme(
 # al_py_checkers(
 #     srcs = glob(["**/*.py"]),
 # )
+
+py_wheel(
+    name = "autoscroll",
+    author = "simeonwarren",
+    author_email = "simeonwarren-git-pzewq@alwaldend.com",
+    classifiers = [
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.9",
+        "Operating System :: OS Independent",
+    ],
+    description_file = "README.md",
+    distribution = "autoscroll",
+    entry_points = {
+        "console_scripts": ["autoscroll = autoscroll.main:cli"],
+    },
+    homepage = "https://github.com/alwaldend/src/tree/main/py/autoscroll",
+    license = "AGPL-3.0",
+    project_urls = {
+        "Documentation": "https://alwaldend.github.io/src/en/py/autoscroll/",
+    },
+    python_tag = "py3",
+    requires = [
+        "pynput",
+        "pyside6",
+    ],
+    strip_path_prefixes = [
+        "py/autoscroll",
+    ],
+    version = "0.0.0",
+    deps = [
+        "//py/autoscroll/autoscroll",
+        "//py/autoscroll/autoscroll:autoscroll-data",
+        "//py/autoscroll/autoscroll/_internal",
+    ],
+)
 
 al_bzl_target_doc(
     name = "bzl-target-doc",

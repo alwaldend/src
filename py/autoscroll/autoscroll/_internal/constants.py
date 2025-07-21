@@ -1,8 +1,7 @@
 from os import environ as os_environ
-from typing import Any, Dict
+import typing
 
-from .arguments import ArgparseFormatter
-from .functions import get_resource_content
+from . import arguments, functions
 
 SCROLLING_SPEED: int = 300
 SCROLLING_ACCELERATION_DISTANCE: int = 10
@@ -42,14 +41,14 @@ DEBUG_PADDING: int = 16
 COORDINATE_NAME: str = "coordinates"
 
 
-PARSER_INITIALIZER: Dict[str, Any] = {
+PARSER_INITIALIZER: dict[str, typing.Any] = {
     "prog": "linux-xorg-autoscroll",
-    "formatter_class": ArgparseFormatter,
-    "description": get_resource_content("resources/txt/prolog.txt"),
+    "formatter_class": arguments.ArgparseFormatter,
+    "description": functions.get_resource_content("resources/txt/prolog.txt"),
     "fromfile_prefix_chars": "@",
 }
 
-ARGUMENTS: Dict[str, Any] = {
+ARGUMENTS: dict[str, typing.Any] = {
     "scrolling": {
         "speed": {
             "type": int,

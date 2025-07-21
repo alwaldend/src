@@ -1,10 +1,10 @@
-from collections import ChainMap
-from importlib.resources import path as importlib_path
-from os.path import isfile as os_isfile
-from typing import Any, Dict, Iterable, List, Tuple, Union
+import collections
+import importlib.resources
+import os.path
+import typing
 
 
-def construct_argument(argument: Tuple[str, Dict[str, str]]):
+def construct_argument(argument: tuple[str, dict[str, str]]):
     help = "\n".join(
         [
             f"{key} ({value[0]}, default - {value[1]})"
@@ -17,7 +17,9 @@ def construct_argument(argument: Tuple[str, Dict[str, str]]):
     )
 
 
-def convert_bool(value: Union[str, bool] = None) -> bool:
+def convert_bool(value: typing.Optional[typing.Union[str, bool]] = None) -> bool:
+    if value is None:
+        return False
     return value if isinstance(value, bool) else value.lower() in ("true", "+")
 
 
@@ -25,31 +27,31 @@ def return_none(*args, **kwargs) -> None:
     return
 
 
-def return_kwargs(**kwargs) -> Dict[Any, Any]:
+def return_kwargs(**kwargs) -> dict[typing.Any, typing.Any]:
     return kwargs
 
 
-def has_dict(*values: Any) -> bool:
+def has_dict(*values: typing.Any) -> bool:
     return False in (hasattr(value, "__dict__") for value in values)
 
 
-def convert(value: Any) -> Dict[str, Any]:
+def convert(value: typing.Any) -> dict[str, typing.Any]:
     if value is None:
         return {}
-    if isinstance(value, Iterable) and not isinstance(value, str):
+    if isinstance(value, dict) and not isinstance(value, str):
         return value
-    return raise_type_error(value, (type(None), Iterable))
+    return raise_type_error(value, (type(None), typing.Iterable))
 
 
-def construct(item: Union[str, Tuple[str, Any]]) -> Dict[str, Any]:
+def construct(item: typing.Union[str, tuple[str, typing.Any]]) -> dict[str, typing.Any]:
     return {item: True} if isinstance(item, str) else {item[0]: item[1]}
 
 
-def parse_argument(argument: List[Tuple[str, Any]]) -> Dict[str, Any]:
-    return dict(ChainMap(*[construct(item) for item in convert(argument)]))
+def parse_argument(argument: list[tuple[str, typing.Any]]) -> dict[str, typing.Any]:
+    return dict(collections.ChainMap(*[construct(item) for item in convert(argument)]))
 
 
-def parse_arguments_old(arguments: Dict[str, Any]) -> Dict[str, Any]:
+def parse_arguments_old(arguments: dict[str, typing.Any]) -> dict[str, typing.Any]:
     return {name: parse_argument(value) for name, value in arguments.items()}
 
 
@@ -65,15 +67,15 @@ def documented_by(original):
     return wrapper
 
 
-def raise_type_error(value: Any, target_type: Any) -> Any:
+def raise_type_error(value: typing.Any, target_type: typing.Any) -> typing.Any:
     if isinstance(value, target_type):
         return value
     message = f"value {str(value)} is not {target_type}, it is {type(value)}"
     raise TypeError(message)
 
 
-def check_iterable(value: Iterable, length: int = 2) -> Iterable:
-    raise_type_error(value, Iterable)
+def check_iterable(value: typing.Sequence, length: int = 2) -> typing.Sequence:
+    raise_type_error(value, typing.Sequence)
     if len(value) >= length:
         return value
     message = f'value "{str(value)}" does not have the length of {str(length)}'
@@ -81,10 +83,10 @@ def check_iterable(value: Iterable, length: int = 2) -> Iterable:
 
 
 def get_path(path: str) -> str:
-    return path if os_isfile(path) else get_resource_path(path)
+    return path if os.path.isfile(path) else get_resource_path(path)
 
 
-def get_resource_path(resource: str = None) -> str:
+def get_resource_path(resource: typing.Optional[str] = None) -> str:
     if resource is None:
         file = ""
         addition = ""
@@ -94,7 +96,8 @@ def get_resource_path(resource: str = None) -> str:
         addition = f".{addition}" if addition else ""
         file = split[-1]
         file = file if file != addition else ""
-    return str(importlib_path(f"autoscroll{addition}", file))
+    with importlib.resources.path(f"autoscroll{addition}", file) as path:
+        return str(path)
 
 
 def get_resource_content(resource: str) -> str:
