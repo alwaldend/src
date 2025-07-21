@@ -1,11 +1,13 @@
 load("@aspect_bazel_lib//lib:directory_path.bzl", "directory_path")
 load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@bazel_skylib//rules/directory:directory.bzl", "directory")
 load("@com-alwaldend-src-npm//:defs.bzl", "npm_link_all_packages")
 load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "buildifier_test")
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 load("@rules_license//rules:license.bzl", "license")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
@@ -14,6 +16,7 @@ load("//bzl/macros:al_md_data.bzl", "al_md_data")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 load("//bzl/macros:al_toml_data.bzl", "al_toml_data")
 load("//bzl/macros:al_txt_data.bzl", "al_txt_data")
+load("//bzl/rules:al_git_library.bzl", "al_git_library")
 
 _EXCLUDE = [
     "./.git/**/*",
@@ -29,9 +32,17 @@ _SUBPACKAGES = subpackages(
 
 exports_files(["LICENSE.txt"])
 
-filegroup(
-    name = "git",
+pkg_tar(
+    name = "git-info",
     srcs = glob([".git/**"]),
+    mode = "0777",
+    strip_prefix = ".",
+    visibility = ["//visibility:public"],
+)
+
+al_git_library(
+    name = "git-lib",
+    src = ":git-info",
     visibility = ["//visibility:public"],
 )
 

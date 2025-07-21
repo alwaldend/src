@@ -34,6 +34,7 @@ pkg_tar(
     srcs = ["//:LICENSE.txt"],
     deps = [
         "//:bzl-target-doc",
+        "//:git-info",
         "//:readme-children",
         "//ansible/roles:docs",
         "//bzl:bzl-stardoc",

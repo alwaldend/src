@@ -60,7 +60,7 @@ def al_bzl_target_doc(name, visibility, subpackages = []):
                 '{{ $_ := unset_map_key .rule "attribute" "ruleInput" -}}',
                 "{{ end -}}",
                 "<tr>",
-                '<td><code>{{ last (split .rule.name ":") }}</code></td>',
+                '<td><b>{{ last (split .rule.name ":") }}</b></td>',
                 "<td>{{ to_html_table .rule }}</td>",
                 "</tr>",
                 "{{ end }}",

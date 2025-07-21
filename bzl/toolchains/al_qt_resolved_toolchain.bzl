@@ -1,12 +1,6 @@
-def _impl(ctx):
-    toolchain = ctx.toolchains["//bzl/toolchain-types:qt"]
-    return [
-        toolchain,
-        platform_common.TemplateVariableInfo(toolchain.env),
-    ]
+load(":al_resolved_toolchain.bzl", "al_resolved_toolchain")
 
-al_qt_resolved_toolchain = rule(
+al_qt_resolved_toolchain = al_resolved_toolchain(
     doc = "Resolved qt toolchain",
-    implementation = _impl,
-    toolchains = ["//bzl/toolchain-types:qt"],
+    toolchain_label = "//bzl/toolchain-types:qt",
 )

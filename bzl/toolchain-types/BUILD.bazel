@@ -6,6 +6,7 @@ _TOOLCHAIN_TYPES = [
     "drawio",
     "shellcheck",
     "hugo",
+    "git",
 ]
 
 al_readme(
