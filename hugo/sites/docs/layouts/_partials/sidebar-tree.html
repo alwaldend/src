@@ -55,7 +55,7 @@
 {{ range $curPage := $pages_unsorted -}}
 {{ $isGen := false -}}
 {{ range $curPage.GetTerms "tags" }}
-{{ if eq .LinkTitle $p.Site.Params.ui.generated_page_tag -}}
+{{ if in $p.Site.Params.ui.separate_page_tags .LinkTitle  -}}
 {{ $isGen = true -}}
 {{ break -}}
 {{ end -}}

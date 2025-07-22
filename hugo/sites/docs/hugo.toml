@@ -17,7 +17,7 @@ offlineSearch = true
 github_project_repo = "https://github.com/alwaldend/src"
 
 [params.ui]
-generated_page_tag = "Generated"
+separate_page_tags = ["Bzl-Targets", "Changelog"]
 showLightDarkModeMenu = true
 sidebar_menu_compact = true
 sidebar_menu_foldable = false

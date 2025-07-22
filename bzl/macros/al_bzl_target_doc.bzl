@@ -41,7 +41,7 @@ def al_bzl_target_doc(name, visibility, subpackages = []):
                 "{{ range .Data }}",
                 "---",
                 "title: Bazel targets",
-                "tags: [generated, bzl]",
+                "tags: [generated, bzl-targets, bzl]",
                 "---",
                 "",
                 # print({key: value.items() for key, value in srcs.items()}),
