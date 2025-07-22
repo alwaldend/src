@@ -15,8 +15,10 @@ page = ["html"]
 [params]
 offlineSearch = true
 github_project_repo = "https://github.com/alwaldend/src"
+github_repo = "https://github.com/alwaldend/src"
 
 [params.ui]
+generated_tags = ["Generated"]
 separate_page_tags = ["Bzl-Targets", "Changelog"]
 showLightDarkModeMenu = true
 sidebar_menu_compact = true
