@@ -10,6 +10,7 @@ import (
 	"text/template"
 
 	"github.com/BurntSushi/toml"
+	"github.com/goccy/go-yaml"
 )
 
 type Templater struct{}
@@ -48,7 +49,7 @@ func (self *Templater) TemplateFiles(dataPaths []string, templatePath string, ou
 	if err != nil {
 		return fmt.Errorf("could not read template %s: %w", templatePath, err)
 	}
-	templateObj, err := template.New("template").Funcs(TemplaterFuncMap).Parse(string(templateBytes))
+	templateObj, err := template.New("template").Funcs(TemplaterFuncMap()).Parse(string(templateBytes))
 	if err != nil {
 		return fmt.Errorf("could not parse template %s: %w", templatePath, err)
 	}
@@ -104,6 +105,11 @@ func (self *Templater) loadData(path string) (*TemplateDataFile, error) {
 			dataSlice = append(dataSlice, lineJson)
 		}
 		data = dataSlice
+	case ".yaml":
+		err := yaml.Unmarshal(fileBytes, &data)
+		if err != nil {
+			return nil, err
+		}
 	case ".txt":
 	default:
 		return nil, fmt.Errorf("unsupported extension %s: %s", extension, path)

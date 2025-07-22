@@ -1,0 +1,15 @@
+- hash: >2-
+    %H
+  author_date: >2-
+    %aI
+  committer_date: >2-
+    %cI
+  subject: >2-
+    %s
+  author: |2-
+    %w(0,0,4)%an <%ae>%w(0,0,0)
+  committer: |2-
+    %w(0,0,4)%cn <%ae>%w(0,0,0)
+  message: |2-
+    %w(0,0,4)%B%w(0,0,0)
+  changed_files:

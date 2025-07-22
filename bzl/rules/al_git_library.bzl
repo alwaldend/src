@@ -1,19 +1,9 @@
 load("//bzl/providers:al_git_info.bzl", "AlGitInfo")
 
 def _impl(ctx):
-    dir = ctx.actions.declare_directory("{}-dir".format(ctx.label.name))
-    files = [dir]
     git = ctx.toolchains["//bzl/toolchain-types:git"]
+    files = [ctx.file.src]
     runfiles = ctx.runfiles(files = files)
-
-    ctx.actions.run_shell(
-        inputs = [ctx.file.src],
-        outputs = [dir],
-        command = """
-            tar -xf '{src}' -C '{output}' && \
-                '{git}' -C '{output}' reset --hard
-        """.format(src = ctx.file.src.path, output = dir.path, git = git.git_bin),
-    )
 
     return [
         DefaultInfo(
@@ -21,7 +11,7 @@ def _impl(ctx):
             runfiles = runfiles,
         ),
         AlGitInfo(
-            git_dir = ctx.file.src,
+            archive = ctx.file.src,
         ),
     ]
 

@@ -26,25 +26,9 @@ def al_bzl_library_map(name, visibility, libs = {}, deps = [], **kwargs):
         deps = ["{}-stardoc-src".format(name), "{}-stardoc-deps".format(name)],
         visibility = visibility,
     )
-    stardoc_readme_srcs = []
-    if libs:
-        stardoc_readme_srcs = ["{}-stardoc-readme".format(name)]
-        write_file(
-            name = "{}-stardoc-readme".format(name),
-            out = "{}-stardoc-readme.md".format(name),
-            content = [
-                "---",
-                "title: Stardoc",
-                "description: Stardoc documentation",
-                "tags: [generated, stardoc]",
-                "---",
-            ],
-        )
     pkg_tar(
         name = "{}-stardoc-src".format(name),
-        srcs = ["{}-stardoc".format(lib) for lib in libs.keys()] + stardoc_readme_srcs,
-        package_dir = "stardoc",
-        remap_paths = {"/{}-stardoc-readme.md".format(name): "_index.md"},
+        srcs = ["{}-stardoc".format(lib) for lib in libs.keys()],
     )
     pkg_tar(
         name = "{}-stardoc-deps".format(name),

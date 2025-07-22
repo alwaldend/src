@@ -2,7 +2,6 @@ load("@aspect_rules_lint//format:defs.bzl", "format_multirun")
 load("//bzl/macros:al_alias_map.bzl", "al_alias_map")
 load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_readme.bzl", "al_readme")
-load("//bzl/rules:al_git_binary.bzl", "al_git_binary")
 
 al_readme(
     name = "readme",
@@ -19,13 +18,8 @@ al_alias_map(
         "hugo": {"actual": "@com_github_gohugoio_hugo//:hugo"},
         "prettier": {"actual": "//js:prettier"},
         "postcss": {"actual": "//js:postcss"},
+        "git": {"actual": "//:git"},
     },
-)
-
-al_git_binary(
-    name = "git",
-    src = "//:git-lib",
-    visibility = ["//visibility:public"],
 )
 
 format_multirun(

@@ -1,6 +1,6 @@
 AlGitInfo = provider(
     fields = {
-        "git_dir": "Git dir",
+        "archive": "Git archive",
     },
     doc = "Git info",
 )

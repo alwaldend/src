@@ -2,17 +2,22 @@ load("@bazel_skylib//lib:shell.bzl", "shell")
 load("//bzl/providers:al_git_info.bzl", "AlGitInfo")
 
 def _impl(ctx):
-    git = ctx.toolchains["//bzl/toolchain-types:git"]
+    git_toolchain = ctx.toolchains["//bzl/toolchain-types:git"]
+    git_info = ctx.attr.src[AlGitInfo]
     script = ctx.actions.declare_file("{}-script.sh".format(ctx.label.name))
-    runfiles = ctx.runfiles(files = [ctx.file.src])
+    runfiles = ctx.runfiles(files = ctx.files.src)
+    runfiles.merge(ctx.attr.src[DefaultInfo].default_runfiles)
 
+    # we cannot use a tree artifact here because bazel will create symlinks in
+    # the sandbox
     script_content = """\
         #!/usr/bin/env sh
-        set -eu
-        '{git}' -C '{git_dir}' {arguments} "${{@}}"
+        set -eux
+        tar -xf "${{0}}.runfiles/{git_archive}"
+        exec '{git}' --git-dir .git {arguments} "${{@}}"
     """.format(
-        git = git.git_bin,
-        git_dir = ctx.file.src.short_path,
+        git = git_toolchain.git_bin,
+        git_archive = "{}/{}".format(ctx.workspace_name, git_info.archive.short_path),
         arguments = " ".join([
             shell.quote(argument)
             for argument in ctx.attr.arguments

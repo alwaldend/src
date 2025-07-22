@@ -3,7 +3,9 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	html_template "html/template"
 	"maps"
+	"regexp"
 	"slices"
 	"strconv"
 	"strings"
@@ -11,15 +13,33 @@ import (
 	"time"
 )
 
-var TemplaterFuncMap = template.FuncMap{
-	"timestamp_to_date": timestampToDate,
-	"to_json":           toJson,
-	"to_json_indent":    toJsonIndent,
-	"to_html_table":     toHtmlTable,
-	"last":              last[string],
-	"set_map_key":       setMapKey[string],
-	"unset_map_key":     unsetMapKey[string],
-	"split":             split,
+func TemplaterFuncMap() template.FuncMap {
+	return template.FuncMap{
+		"timestamp_to_date": timestampToDate,
+		"to_json":           toJson,
+		"to_json_indent":    toJsonIndent,
+		"to_html_table":     toHtmlTable,
+		"last":              last[string],
+		"set_map_key":       setMapKey[string],
+		"unset_map_key":     unsetMapKey[string],
+		"split":             split,
+		"sliceString":       sliceString,
+		"indent":            indent,
+		"html_escape":       html_template.HTMLEscapeString,
+	}
+}
+
+func sliceString(val string, start, end int) string {
+	return val[start:end]
+}
+
+func indent(val string, indent string) (string, error) {
+	newlineExpr, err := regexp.Compile("\r?\n")
+	if err != nil {
+		return "", fmt.Errorf("could not compile regex: %w", err)
+	}
+	lines := newlineExpr.Split(val, -1)
+	return strings.Join(lines, fmt.Sprintf("%s\n", indent)), nil
 }
 
 func split(val string, sep string) []string {

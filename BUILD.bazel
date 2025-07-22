@@ -9,11 +9,13 @@ load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile
 load("@rules_license//rules:license.bzl", "license")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/macros:al_genrule.bzl", "al_genrule")
 load("//bzl/macros:al_md_data.bzl", "al_md_data")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 load("//bzl/macros:al_toml_data.bzl", "al_toml_data")
 load("//bzl/macros:al_txt_data.bzl", "al_txt_data")
+load("//bzl/rules:al_git_binary.bzl", "al_git_binary")
 load("//bzl/rules:al_git_library.bzl", "al_git_library")
 
 _EXCLUDE = [
@@ -31,17 +33,38 @@ _SUBPACKAGES = subpackages(
 
 exports_files(["LICENSE.txt"])
 
+genrule(
+    name = "git-log",
+    srcs = ["//cfg/misc:git-log"],
+    outs = ["git-log.yaml"],
+    cmd = '''
+        $(execpath :git) log \
+            "--pretty=format:$$(cat $(execpath //cfg/misc:git-log))" \
+            >$(@)
+    ''',
+    tools = [":git"],
+)
+
 pkg_tar(
-    name = "git-info",
+    name = "git-archive",
     srcs = glob([".git/**"]),
-    mode = "0777",
     strip_prefix = ".",
-    visibility = ["//visibility:public"],
 )
 
 al_git_library(
     name = "git-lib",
-    src = ":git-info",
+    src = ":git-archive",
+)
+
+al_gen_changelog(
+    name = "changelog",
+    data = [":git-log"],
+    visibility = ["//visibility:public"],
+)
+
+al_git_binary(
+    name = "git",
+    src = ":git-lib",
     visibility = ["//visibility:public"],
 )
 

@@ -31,10 +31,12 @@ pkg_tar(
 
 pkg_tar(
     name = "content-en",
-    srcs = ["//:LICENSE.txt"],
+    srcs = [
+        "//:LICENSE.txt",
+        "//:changelog-changelog",
+    ],
     deps = [
         "//:bzl-target-doc",
-        "//:git-info",
         "//:readme-children",
         "//ansible/roles:docs",
         "//bzl:bzl-stardoc",
