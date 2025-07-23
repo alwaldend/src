@@ -1,7 +1,7 @@
 {
-  "url": "https://github.com/google/docsy/archive/refs/tags/v0.12.0.tar.gz",
-  "strip_prefix": "docsy-0.12.0",
-  "integrity": "sha256-Pp9LUpegOt+JTI1tIk7rzV1zZWBg+FdTuicKtIrvohQ=",
+  "url": "https://github.com/google/docsy/archive/2cb372501b6cc15b5178681ff0c44030052457de.zip",
+  "strip_prefix": "docsy-2cb372501b6cc15b5178681ff0c44030052457de",
+  "integrity": "sha256-MbHVtG665pokxgGMhXVv1uGmn4wbBayceBRtLvA7rzw=",
   "overlay": {
     "BUILD.bazel": "sha256-tMYRzB8g6fr9uvMvJKhVSWNxHmp9e7iERDAyou8VCTI="
   }

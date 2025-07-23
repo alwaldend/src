@@ -3,7 +3,7 @@
 after 0.9.0 */ -}}
 
 {{ if .File -}}
-{{ $path := strings.TrimPrefix (add hugo.WorkingDir "/content/en/") $.File.Filename -}}
+{{ $path := strings.TrimPrefix (add hugo.WorkingDir "/content/") $.File.Filename -}}
 {{ if not (or (strings.Contains $path ".github/_index.md") (strings.Contains $path "misc/_index.md")) -}}
 {{ $path = strings.Replace $path "_index.md" "README.md" -}}
 {{ end -}}

@@ -16,7 +16,6 @@ def _impl(ctx):
         ln -s '{data}' ./data
         ln -s '{content}' ./content
         '{hugo}' \
-            --ignoreCache \
             --configDir '{config}' \
             --layoutDir '{layouts}' \
             --themesDir '{themes}' \
