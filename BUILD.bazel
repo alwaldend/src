@@ -33,18 +33,6 @@ _SUBPACKAGES = subpackages(
 
 exports_files(["LICENSE.txt"])
 
-genrule(
-    name = "git-log",
-    srcs = ["//cfg/misc:git-log"],
-    outs = ["git-log.yaml"],
-    cmd = '''
-        $(execpath :git) log \
-            "--pretty=format:$$(cat $(execpath //cfg/misc:git-log))" \
-            >$(@)
-    ''',
-    tools = [":git"],
-)
-
 pkg_tar(
     name = "git-archive",
     srcs = glob([".git/**"]),
@@ -58,7 +46,7 @@ al_git_library(
 
 al_gen_changelog(
     name = "changelog",
-    data = [":git-log"],
+    subpackages = _SUBPACKAGES,
     visibility = ["//visibility:public"],
 )
 

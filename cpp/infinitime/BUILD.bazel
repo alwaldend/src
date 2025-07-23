@@ -14,6 +14,7 @@ load(
     "//bzl/macros:al_compile_pip_requirements_combined.bzl",
     "al_compile_pip_requirements_combined",
 )
+load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/macros:al_genrule.bzl", "al_genrule")
 load("//bzl/macros:al_pkg_tar_combined.bzl", "al_pkg_tar_combined")
 load("//bzl/macros:al_py_binary_shell.bzl", "al_py_binary_shell")
@@ -21,6 +22,11 @@ load("//bzl/macros:al_readme.bzl", "al_readme")
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
+)
+
+al_gen_changelog(
+    name = "changelog",
     visibility = ["//visibility:public"],
 )
 

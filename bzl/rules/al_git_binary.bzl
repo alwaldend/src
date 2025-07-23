@@ -12,7 +12,7 @@ def _impl(ctx):
     # the sandbox
     script_content = """\
         #!/usr/bin/env sh
-        set -eux
+        set -eu
         tar -xf "${{0}}.runfiles/{git_archive}"
         exec '{git}' --git-dir .git {arguments} "${{@}}"
     """.format(

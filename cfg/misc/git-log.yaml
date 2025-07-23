@@ -12,4 +12,4 @@
     %w(0,0,4)%cn <%ae>%w(0,0,0)
   message: |2-
     %w(0,0,4)%B%w(0,0,0)
-  changed_files:
+  changed_files: []

@@ -1,9 +1,15 @@
 load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 load(":al_bzl_library_map.bzl", "al_bzl_library_map")
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
+)
+
+al_gen_changelog(
+    name = "changelog",
     visibility = ["//visibility:public"],
 )
 
@@ -102,6 +108,7 @@ al_bzl_library_map(
         ],
         "al_gen_changelog": [
             ":al_template_files",
+            "@rules_pkg//pkg:bzl_srcs",
             "@bazel_skylib//rules:write_file",
         ],
     },

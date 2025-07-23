@@ -1,5 +1,6 @@
 load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 
 _BZL_LIBS = subpackages(
@@ -15,6 +16,11 @@ _BZL_LIBS = subpackages(
 
 al_readme(
     name = "readme",
+    visibility = ["//visibility:public"],
+)
+
+al_gen_changelog(
+    name = "changelog",
     visibility = ["//visibility:public"],
 )
 

@@ -1,4 +1,5 @@
 load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 
 _TOOLCHAIN_TYPES = [
@@ -8,6 +9,11 @@ _TOOLCHAIN_TYPES = [
     "hugo",
     "git",
 ]
+
+al_gen_changelog(
+    name = "changelog",
+    visibility = ["//visibility:public"],
+)
 
 al_readme(
     name = "readme",
