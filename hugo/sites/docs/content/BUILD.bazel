@@ -15,10 +15,9 @@ al_gen_changelog(
 
 pkg_tar(
     name = "content",
-    package_dir = "en",
     visibility = ["//visibility:public"],
     deps = [
-        ":content-en",
+        ":content-ext",
         ":content-src",
     ],
 )
@@ -36,7 +35,7 @@ pkg_tar(
 )
 
 pkg_tar(
-    name = "content-en",
+    name = "content-ext",
     srcs = [
         "//:LICENSE.txt",
     ],

@@ -2,8 +2,6 @@ title = "Docs"
 theme = ["github.com/google/docsy"]
 baseURL = "http://127.0.0.1:1313/src"
 
-defaultContentLanguage = "en"
-enableMissingTranslationPlaceholders = true
 enableRobotsTXT = true
 enableGitInfo = true
 
@@ -39,16 +37,13 @@ renderer.unsafe = true
 [security]
 enableInlineShortcodes = true
 
-[languages.en]
-contentDir = "content/en"
-
-[[languages.en.menus.main]]
+[[menus.main]]
 name = "Docs"
 weight = 100
 identifier = "docs"
 url = "/"
 
-[[languages.en.menus.main]]
+[[menus.main]]
 name = "Tags"
 identifier = "tags"
 weight = 200
