@@ -6514,24 +6514,38 @@ manifest:
     black: black
     blackd: black
     blib2to3: black
+    certifi: certifi
     cffi: cffi
     cfgv: cfgv
+    charset_normalizer: charset_normalizer
     click: click
     cryptography: cryptography
     distlib: distlib
+    docutils: docutils
     evdev: evdev
     filelock: filelock
     flake8: flake8
     flake8p: flake8_pyproject
     git_filter_repo: git_filter_repo
+    id: id
     identify: identify
+    idna: idna
     isort: isort
+    jaraco.classes: jaraco.classes
+    jaraco.context: jaraco.context
+    jaraco.functools: jaraco_functools
+    jeepney: jeepney
     jinja2: jinja2
+    keyring: keyring
+    markdown_it: markdown_it_py
     markupsafe: MarkupSafe
     mccabe: mccabe
+    mdurl: mdurl
+    more_itertools: more_itertools
     mypy: mypy
     mypy_extensions: mypy_extensions
     mypyc: mypy
+    nh3: nh3
     nodeenv: nodeenv
     packaging: packaging
     pathspec: pathspec
@@ -6541,13 +6555,22 @@ manifest:
     pycodestyle: pycodestyle
     pycparser: pycparser
     pyflakes: pyflakes
+    pygments: pygments
     pynput: pynput
+    readme_renderer: readme_renderer
+    requests: requests
+    requests_toolbelt: requests_toolbelt
     resolvelib: resolvelib
+    rfc3986: rfc3986
+    rich: rich
+    secretstorage: SecretStorage
     shiboken6: shiboken6
     six: six
+    twine: twine
     typing_extensions: typing_extensions
+    urllib3: urllib3
     virtualenv: virtualenv
     yaml: PyYAML
   pip_repository:
     name: com-alwaldend-src-pip
-integrity: c73a1305ca876dc61ce99e9ba441abcf4d2dc57c562a2047d0212d97baa9b00c
+integrity: 7d6df486e5604ed575f58bbfbb13af787860c45f18f51ee1c619276d67e08d4b

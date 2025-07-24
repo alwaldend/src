@@ -45,9 +45,11 @@ py_wheel(
         "pynput",
         "pyside6",
     ],
+    stamp = 1,
     strip_path_prefixes = [
         "py/autoscroll",
     ],
+    twine = "//py:twine",
     version = "0.0.0",
     deps = [
         "//py/autoscroll/autoscroll",

@@ -13,6 +13,7 @@ PACKAGES = {
     "black": {},
     "flake8": {"deps": ["@com-alwaldend-src-pip//flake8_pyproject:pkg"]},
     "git-filter-repo": {},
+    "twine": {},
 }
 
 al_gen_changelog(
@@ -34,6 +35,7 @@ exports_files(["requirements.txt"])
 
 compile_pip_requirements(
     name = "requirements",
+    timeout = "moderate",
     srcs = ["//:pyproject"],
     requirements_txt = ":requirements.txt",
 )
