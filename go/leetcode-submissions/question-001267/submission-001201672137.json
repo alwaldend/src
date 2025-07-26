@@ -1,0 +1,19 @@
+{
+    "id": 1201672137,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 1267,
+    "title_slug": "remove-zero-sum-consecutive-nodes-from-linked-list",
+    "code": "/**\n * Definition for singly-linked list.\n * type ListNode struct {\n *     Val int\n *     Next *ListNode\n * }\n */\nfunc removeZeroSumSublists(head *ListNode) *ListNode {\n    dummy := \u0026ListNode{0, head}\n    prefixSumToNode := make(map[int]*ListNode)\n    prefixSum := 0\n    for current := dummy; current != nil; current = current.Next {\n        prefixSum += current.Val\n        if prev, found := prefixSumToNode[prefixSum]; found {\n            toRemove := prev.Next\n            p := prefixSum\n            if toRemove != nil {\n                p += toRemove.Val\n            }\n            for toRemove != nil \u0026\u0026 p != prefixSum {\n                delete(prefixSumToNode, p)\n                toRemove = toRemove.Next\n                if toRemove != nil {\n                    p += toRemove.Val\n                }\n            }\n            prev.Next = current.Next\n        } else {\n            prefixSumToNode[prefixSum] = current\n        }\n    }\n    return dummy.Next\n}\n",
+    "title": "Remove Zero Sum Consecutive Nodes from Linked List",
+    "url": "/submissions/detail/1201672137/",
+    "lang_name": "Go",
+    "time": "1 year, 4 months",
+    "timestamp": 1710259721,
+    "status": 10,
+    "runtime": "6 ms",
+    "is_pending": "Not Pending",
+    "memory": "3.3 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

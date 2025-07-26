@@ -1,0 +1,19 @@
+{
+    "id": 1052566573,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1387,
+    "title_slug": "find-elements-in-a-contaminated-binary-tree",
+    "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass FindElements:\n\n    def __init__(self, root: Optional[TreeNode]):\n        root.val = 0\n        nodes = [root]\n        self.values = set((0, )) \n        while nodes:\n            node = nodes.pop()\n            if node.left:\n                val = 2 * node.val + 1\n                node.left.val = val\n                nodes.append(node.left)\n                self.values.add(val)\n            if node.right:\n                val = 2 * node.val + 2\n                node.right.val = val\n                nodes.append(node.right)\n                self.values.add(val)\n\n    def find(self, target: int) -\u003e bool:\n        return target in self.values\n\n# Your FindElements object will be instantiated and called as such:\n# obj = FindElements(root)\n# param_1 = obj.find(target)",
+    "title": "Find Elements in a Contaminated Binary Tree",
+    "url": "/submissions/detail/1052566573/",
+    "lang_name": "Python3",
+    "time": "1 year, 10 months",
+    "timestamp": 1695037049,
+    "status": 10,
+    "runtime": "69 ms",
+    "is_pending": "Not Pending",
+    "memory": "20.6 MB",
+    "compare_result": "1111111111111111111111111111111",
+    "flag_type": 1
+}

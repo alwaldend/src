@@ -1,0 +1,19 @@
+{
+    "id": 1161011195,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 150,
+    "title_slug": "evaluate-reverse-polish-notation",
+    "code": "class Solution:\n    def evalRPN(self, tokens: List[str]) -\u003e int:\n        stack: list[int] = []\n        for token in tokens:\n            match token:\n                case \"+\":\n                    stack.append(stack.pop() + stack.pop())\n                case \"-\":\n                    last, prev = stack.pop(), stack.pop()\n                    stack.append(prev - last)\n                case \"*\":\n                    stack.append(stack.pop() * stack.pop())\n                case \"/\": \n                    last, prev = stack.pop(), stack.pop()\n                    stack.append(int(prev / last))\n                case _:\n                    stack.append(int(token))\n        return stack[0]",
+    "title": "Evaluate Reverse Polish Notation",
+    "url": "/submissions/detail/1161011195/",
+    "lang_name": "Python3",
+    "time": "1 year, 5 months",
+    "timestamp": 1706618213,
+    "status": 10,
+    "runtime": "64 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.1 MB",
+    "compare_result": "111111111111111111111",
+    "flag_type": 1
+}

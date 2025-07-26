@@ -1,0 +1,19 @@
+{
+    "id": 1049921218,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1706,
+    "title_slug": "min-cost-to-connect-all-points",
+    "code": "def manhattan_distance(p1: List[int], p2: List[int]) -\u003e int:\n    return abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])\n\nclass Solution:\n    def minCostConnectPoints(self, points: List[List[int]]) -\u003e int:\n        n = len(points)\n        visited = [False] * n\n        heap_dict = {0: 0}  \n        min_heap = [(0, 0)]\n        \n        mst_weight = 0\n        \n        while min_heap:\n            w, u = heappop(min_heap)\n            \n            if visited[u] or heap_dict.get(u, float('inf')) \u003c w:\n                continue\n            \n            visited[u] = True\n            mst_weight += w\n            \n            for v in range(n):\n                if not visited[v]:\n                    new_distance = manhattan_distance(points[u], points[v])\n      \n                    if new_distance \u003c heap_dict.get(v, float('inf')):\n                        heap_dict[v] = new_distance\n                        heappush(min_heap, (new_distance, v))\n        \n        return mst_weight",
+    "title": "Min Cost to Connect All Points",
+    "url": "/submissions/detail/1049921218/",
+    "lang_name": "Python3",
+    "time": "1 year, 10 months",
+    "timestamp": 1694761155,
+    "status": 10,
+    "runtime": "742 ms",
+    "is_pending": "Not Pending",
+    "memory": "20.3 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

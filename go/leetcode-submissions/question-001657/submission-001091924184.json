@@ -1,0 +1,19 @@
+{
+    "id": 1091924184,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 1657,
+    "title_slug": "find-the-winner-of-an-array-game",
+    "code": "func getWinner(arr []int, k int) int {\n    if k == 1 {\n        return max(arr[0], arr[1])\n    }\n    length := len(arr)\n    if k \u003e= length {\n        return slices.Max(arr)\n    }\n    curWinner, winCount := arr[0], 0\n    for _, num := range arr[1:] {\n        if curWinner \u003e num {\n            winCount++\n        } else {\n            curWinner = num\n            winCount = 1\n        }\n        if winCount == k {\n            return curWinner\n        }\n    }\n    return curWinner\n}",
+    "title": "Find the Winner of an Array Game",
+    "url": "/submissions/detail/1091924184/",
+    "lang_name": "Go",
+    "time": "1 year, 8 months",
+    "timestamp": 1699175164,
+    "status": 10,
+    "runtime": "79 ms",
+    "is_pending": "Not Pending",
+    "memory": "8.1 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

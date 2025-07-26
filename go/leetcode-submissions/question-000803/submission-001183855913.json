@@ -1,0 +1,19 @@
+{
+    "id": 1183855913,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 803,
+    "title_slug": "cheapest-flights-within-k-stops",
+    "code": "type Connection struct {\n\tcity int\n\tcost int\n}\n\ntype queue []Connection\n\nfunc (q *queue) push(c Connection) {\n\tq1 := []Connection{c}\n\t*q = append(*q, q1...)\n}\n\nfunc (q *queue) pop() (bool, Connection) {\n\n\tif q.isEmpty() {\n\t\treturn false, Connection{}\n\t} else {\n\t\telem := (*q)[0]\n\t\t*q = (*q)[1:]\n\t\treturn true, elem\n\t}\n}\n\nfunc (q queue) isEmpty() bool {\n\treturn q.size() \u003c= 0\n}\n\nfunc (q queue) size() int {\n\treturn len(q)\n}\n\nfunc findCheapestPrice(n int, flights [][]int, src int, dst int, k int) int {\n\n\tminCost := math.MaxInt64\n\n\tfQueue := new(queue)\n\tfQueue.push(Connection{src, 0})\n\n\tmaxStops := k + 1\n\n\tcostOfFlights := make([][]int, n)\n\tfor i := range costOfFlights {\n\t\tcostOfFlights[i] = make([]int, n)\n\t}\n\n\tflightsMap := make(map[int][]int)\n\tfor _, v := range flights {\n\t\tif _, ok := flightsMap[v[0]]; ok {\n\t\t\tflightsMap[v[0]] = append(flightsMap[v[0]], v[1])\n\t\t} else {\n\t\t\tflightsMap[v[0]] = []int{v[1]}\n\t\t}\n\n\t\tcostOfFlights[v[0]][v[1]] = v[2]\n\t}\n\n\tcityPathCost := make([]int, n) // path cost from source\n\tfor i := range cityPathCost {\n\t\tcityPathCost[i] = math.MaxInt64\n\t}\n\n\tcityPathCost[src] = 0\n\n\tfor !fQueue.isEmpty() \u0026\u0026 maxStops \u003e= 0 {\n\n\t\tsize := fQueue.size()\n\t\tmaxStops--\n\n\t\tfor size \u003e 0 {\n\t\t\t_, c := fQueue.pop()\n\t\t\tsize--\n\n\t\t\tif c.city == dst {\n\t\t\t\tif minCost \u003e c.cost {\n\t\t\t\t\tminCost = c.cost\n\t\t\t\t}\n\t\t\t\tcontinue\n\t\t\t}\n\n\t\t\tfor _, v := range flightsMap[c.city] {\n\n\t\t\t\tnewCost := c.cost + costOfFlights[c.city][v]\n\n\t\t\t\tif cityPathCost[v] \u003e newCost {\n\t\t\t\t\tfQueue.push(Connection{v, newCost})\n\t\t\t\t\tcityPathCost[v] = newCost\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n\n\tif minCost == math.MaxInt64 {\n\t\tminCost = -1\n\t}\n\n\treturn minCost\n}",
+    "title": "Cheapest Flights Within K Stops",
+    "url": "/submissions/detail/1183855913/",
+    "lang_name": "Go",
+    "time": "1 year, 5 months",
+    "timestamp": 1708680625,
+    "status": 10,
+    "runtime": "9 ms",
+    "is_pending": "Not Pending",
+    "memory": "5.4 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

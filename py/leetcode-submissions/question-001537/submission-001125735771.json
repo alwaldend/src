@@ -1,0 +1,19 @@
+{
+    "id": 1125735771,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1537,
+    "title_slug": "maximum-score-after-splitting-a-string",
+    "code": "class Solution:\n    def maxScore(self, s: str) -\u003e int:\n        ones = s.count(\"1\")\n        zeros = 0\n        ans = 0 \n\n        for i in range(len(s) - 1):\n            if s[i] == \"1\":\n                ones -= 1\n            else:\n                zeros += 1\n        \n            ans = max(ans, zeros + ones)\n        \n        return ans",
+    "title": "Maximum Score After Splitting a String",
+    "url": "/submissions/detail/1125735771/",
+    "lang_name": "Python3",
+    "time": "1 year, 7 months",
+    "timestamp": 1703235134,
+    "status": 10,
+    "runtime": "37 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.2 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

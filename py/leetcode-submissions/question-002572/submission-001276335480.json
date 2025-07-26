@@ -1,0 +1,19 @@
+{
+    "id": 1276335480,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 2572,
+    "title_slug": "append-characters-to-string-to-make-subsequence",
+    "code": "class Solution:\n    def appendCharacters(self, s: str, t: str) -\u003e int:\n        i, j = 0, 0  # Start both pointers at the beginning of s and t\n        \n        while i \u003c len(s) and j \u003c len(t):  # Continue until one of the strings is fully scanned\n            if s[i] == t[j]:  # If characters match\n                j += 1  # Move the pointer in t forward\n            i += 1  # Always move the pointer in s forward\n        \n        return len(t) - j  # The number of characters in t not matched in s\n               ",
+    "title": "Append Characters to String to Make Subsequence",
+    "url": "/submissions/detail/1276335480/",
+    "lang_name": "Python3",
+    "time": "1 year, 1 month",
+    "timestamp": 1717418420,
+    "status": 10,
+    "runtime": "75 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.6 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

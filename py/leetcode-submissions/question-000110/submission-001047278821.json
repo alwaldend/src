@@ -1,0 +1,19 @@
+{
+    "id": 1047278821,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 110,
+    "title_slug": "balanced-binary-tree",
+    "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isBalanced(self, root: Optional[TreeNode]) -\u003e bool:\n        def get_height(node: TreeNode) -\u003e int:\n            if not node:\n                return 0\n            \n            h_left = get_height(node.left)\n            if h_left \u003c 0:\n                return -1\n            h_right = get_height(node.right)\n            if h_right \u003c 0 or abs(h_left - h_right) \u003e 1:\n                return -1\n\n            return max(h_left, h_right) + 1\n        \n        return get_height(root) \u003e= 0",
+    "title": "Balanced Binary Tree",
+    "url": "/submissions/detail/1047278821/",
+    "lang_name": "Python3",
+    "time": "1 year, 10 months",
+    "timestamp": 1694506666,
+    "status": 10,
+    "runtime": "38 ms",
+    "is_pending": "Not Pending",
+    "memory": "21.2 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

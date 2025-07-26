@@ -1,0 +1,19 @@
+{
+    "id": 1091201489,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 772,
+    "title_slug": "construct-quad-tree",
+    "code": "/**\n * Definition for a QuadTree node.\n * type Node struct {\n *     Val bool\n *     IsLeaf bool\n *     TopLeft *Node\n *     TopRight *Node\n *     BottomLeft *Node\n *     BottomRight *Node\n * }\n */\n\nfunc construct(grid [][]int) *Node {\n\tvar dfs func(y0, x0, width int) *Node\n\tdfs = func(y0, x0, width int) *Node {\n\t\tif width == 1 {\n\t\t\treturn \u0026Node{\n\t\t\t\tVal:    grid[y0][x0] == 1,\n\t\t\t\tIsLeaf: true,\n\t\t\t}\n\t\t}\n\n\t\tw := width / 2\n\t\ttopLeft := dfs(y0, x0, w)\n\t\ttopRight := dfs(y0, x0+w, w)\n\t\tbottomLeft := dfs(y0+w, x0, w)\n\t\tbottomRight := dfs(y0+w, x0+w, w)\n\t\tvar node *Node\n\n\t\tif topLeft.Val == topRight.Val \u0026\u0026 bottomLeft.Val == bottomRight.Val \u0026\u0026 topLeft.Val == bottomLeft.Val \u0026\u0026\n\t\t\ttopLeft.IsLeaf \u0026\u0026 topRight.IsLeaf \u0026\u0026 bottomLeft.IsLeaf \u0026\u0026 bottomRight.IsLeaf {\n\t\t\tnode = \u0026Node{\n\t\t\t\tVal:    topLeft.Val,\n\t\t\t\tIsLeaf: true,\n\t\t\t}\n\t\t} else {\n\t\t\tnode = \u0026Node{\n\t\t\t\tVal:         true,\n\t\t\t\tIsLeaf:      false,\n\t\t\t\tTopLeft:     topLeft,\n\t\t\t\tTopRight:    topRight,\n\t\t\t\tBottomLeft:  bottomLeft,\n\t\t\t\tBottomRight: bottomRight,\n\t\t\t}\n\t\t}\n\t\treturn node\n\t}\n\treturn dfs(0, 0, len(grid))\n}\n",
+    "title": "Construct Quad Tree",
+    "url": "/submissions/detail/1091201489/",
+    "lang_name": "Go",
+    "time": "1 year, 8 months",
+    "timestamp": 1699093792,
+    "status": 10,
+    "runtime": "10 ms",
+    "is_pending": "Not Pending",
+    "memory": "6.6 MB",
+    "compare_result": "1111111111111111111111",
+    "flag_type": 1
+}

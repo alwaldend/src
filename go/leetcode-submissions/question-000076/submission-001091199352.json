@@ -1,0 +1,19 @@
+{
+    "id": 1091199352,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 76,
+    "title_slug": "minimum-window-substring",
+    "code": "func minWindow(s string, t string) string {\n    m := len(s)\n    n := len(t)\n    \n    if m == 0 || n == 0 || m \u003c n {\n        return \"\"\n    }\n\n    dict := make(map[byte]int)\n    for i := 0; i \u003c n; i++ {\n        dict[t[i]]++\n    }\n    \n    // required unique chars\n    required := len(dict)\n    actual := 0\n    window := make(map[byte]int)\n    minSize := math.MaxInt64\n    start := 0\n    left, right := 0, 0\n    \n    for end := 0; end \u003c m; end++ {\n        c := s[end]\n        window[c]++\n        \n        if value, ok := dict[c]; ok {\n            if value == window[c] {\n                actual++\n            }\n        }\n        \n        for start \u003c= end \u0026\u0026 actual == required {\n            size := end-start+1\n            if size \u003c minSize {\n                minSize = size\n                left = start\n                right = end\n            }\n            \n            rc := s[start]\n            window[rc]--\n            if value, ok := dict[rc]; ok {\n                if value \u003e window[rc] {\n                    actual--\n                }\n            }\n            start++\n        }\n    }\n    \n    if minSize == math.MaxInt64 {\n        return \"\"\n    }\n    return s[left:right+1]\n}",
+    "title": "Minimum Window Substring",
+    "url": "/submissions/detail/1091199352/",
+    "lang_name": "Go",
+    "time": "1 year, 8 months",
+    "timestamp": 1699093515,
+    "status": 10,
+    "runtime": "19 ms",
+    "is_pending": "Not Pending",
+    "memory": "3.1 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

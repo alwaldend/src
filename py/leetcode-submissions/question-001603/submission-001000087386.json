@@ -1,0 +1,19 @@
+{
+    "id": 1000087386,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1603,
+    "title_slug": "running-sum-of-1d-array",
+    "code": "class Solution:\r\n    def runningSum(self, nums: List[int]) -\u003e List[int]:\r\n        for i in range(1, len(nums)):\r\n            nums[i] += nums[i-1]\r\n        return nums",
+    "title": "Running Sum of 1d Array",
+    "url": "/submissions/detail/1000087386/",
+    "lang_name": "Python3",
+    "time": "2 years",
+    "timestamp": 1689934986,
+    "status": 10,
+    "runtime": "48 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.7 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

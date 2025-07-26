@@ -1,0 +1,19 @@
+{
+    "id": 1200706421,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 807,
+    "title_slug": "custom-sort-string",
+    "code": "func customSortString(order string, s string) string {\n    count := make([]int, 26)\n\n    for _, c := range s {\n        count[c-'a']++\n    }\n\n    var result strings.Builder\n\n    for _, c := range order {\n        result.WriteString(strings.Repeat(string(c), count[c-'a']))\n        count[c-'a'] = 0\n    }\n\n    for i := 0; i \u003c 26; i++ {\n        result.WriteString(strings.Repeat(string('a'+i), count[i]))\n    }\n    // UPVOTE :)\n    return result.String()\n}\n\n",
+    "title": "Custom Sort String",
+    "url": "/submissions/detail/1200706421/",
+    "lang_name": "Go",
+    "time": "1 year, 4 months",
+    "timestamp": 1710174624,
+    "status": 10,
+    "runtime": "1 ms",
+    "is_pending": "Not Pending",
+    "memory": "2.1 MB",
+    "compare_result": "111111111111111111111111111111111111111",
+    "flag_type": 1
+}

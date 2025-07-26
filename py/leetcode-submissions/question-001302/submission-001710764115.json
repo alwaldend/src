@@ -1,0 +1,19 @@
+{
+    "id": 1710764115,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1302,
+    "title_slug": "delete-characters-to-make-fancy-string",
+    "code": "class Solution:\n    def makeFancyString(self, s: str) -\u003e str:\n        length = len(s)\n        if length \u003c 3:\n            return s\n        prev_char, prev_char_count = \"\", 0\n        res = []\n        for char in s:\n            if char != prev_char:\n                prev_char = char\n                prev_char_count = 1\n                res.append(char)\n            elif prev_char_count \u003c 2:\n                prev_char_count += 1\n                res.append(char)\n        return \"\".join(res)\n\n\n",
+    "title": "Delete Characters to Make Fancy String",
+    "url": "/submissions/detail/1710764115/",
+    "lang_name": "Python3",
+    "time": "1 day, 6 hours",
+    "timestamp": 1753434473,
+    "status": 10,
+    "runtime": "128 ms",
+    "is_pending": "Not Pending",
+    "memory": "19.6 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

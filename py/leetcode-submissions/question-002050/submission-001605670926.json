@@ -1,0 +1,19 @@
+{
+    "id": 1605670926,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 2050,
+    "title_slug": "count-good-numbers",
+    "code": "class Solution:\n    def countGoodNumbers(self, n: int) -\u003e int:\n        mod = 10**9 + 7\n\n        # use fast exponentiation to calculate x^y % mod\n        def quickmul(x: int, y: int) -\u003e int:\n            ret, mul = 1, x\n            while y \u003e 0:\n                if y % 2 == 1:\n                    ret = ret * mul % mod\n                mul = mul * mul % mod\n                y //= 2\n            return ret\n\n        return quickmul(5, (n + 1) // 2) * quickmul(4, n // 2) % mod",
+    "title": "Count Good Numbers",
+    "url": "/submissions/detail/1605670926/",
+    "lang_name": "Python3",
+    "time": "3 months, 2 weeks",
+    "timestamp": 1744553423,
+    "status": 10,
+    "runtime": "2 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.8 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

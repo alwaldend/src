@@ -1,0 +1,19 @@
+{
+    "id": 1192437406,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 19,
+    "title_slug": "remove-nth-node-from-end-of-list",
+    "code": "/**\n * Definition for singly-linked list.\n * type ListNode struct {\n *     Val int\n *     Next *ListNode\n * }\n */\nfunc removeNthFromEnd(head *ListNode, n int) *ListNode {\n    res := \u0026ListNode{0, head}\n\n    lead := res\n    for i := 0; i \u003c= n; i++ {\n        lead = lead.Next\n    }\n\n    cur := res\n    for lead != nil {\n        cur = cur.Next\n        lead = lead.Next\n    }\n\n    cur.Next = cur.Next.Next\n    return res.Next\n}",
+    "title": "Remove Nth Node From End of List",
+    "url": "/submissions/detail/1192437406/",
+    "lang_name": "Go",
+    "time": "1 year, 4 months",
+    "timestamp": 1709452666,
+    "status": 10,
+    "runtime": "2 ms",
+    "is_pending": "Not Pending",
+    "memory": "2.2 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 693736702,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 1950,
+    "title_slug": "sign-of-the-product-of-an-array",
+    "code": "\nfunc arraySign(numbers []int) int {\n\tnegative_count := 0\n\tfor _, number := range numbers {\n\t\tswitch {\n\t\t// the number is 0 -\u003e product of all numbers is definitely zero\n\t\tcase number == 0:\n\t\t\treturn 0\n\t\t\t// the number is negative -\u003e add to count\n\t\tcase number \u003c 0:\n\t\t\tnegative_count++\n\t\t}\n\t}\n\t// even amount of negative numbers -\u003e result is positive\n\tif negative_count\u00261 == 0 {\n\t\treturn 1\n\t}\n\t// uneven amount of negative numbers -\u003e result is negative\n\treturn -1\n}",
+    "title": "Sign of the Product of an Array",
+    "url": "/submissions/detail/693736702/",
+    "lang_name": "Go",
+    "time": "3 years, 2 months",
+    "timestamp": 1651765193,
+    "status": 10,
+    "runtime": "3 ms",
+    "is_pending": "Not Pending",
+    "memory": "3.3 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

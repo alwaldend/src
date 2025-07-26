@@ -1,0 +1,19 @@
+{
+    "id": 1096014225,
+    "status_display": "Accepted",
+    "lang": "cpp",
+    "question_id": 1572,
+    "title_slug": "subrectangle-queries",
+    "code": "class SubrectangleQueries {\npublic:\n    std::vector\u003cstd::vector\u003cint\u003e\u003e rectangle;\n    std::vector\u003cstd::array\u003cint, 5\u003e\u003e updates;\n    SubrectangleQueries(vector\u003cvector\u003cint\u003e\u003e\u0026 rectangle) {\n        this-\u003erectangle = rectangle;\n    }\n    \n    void updateSubrectangle(int row1, int col1, int row2, int col2, int newValue) {\n        this-\u003eupdates.push_back({row1, col1, row2, col2, newValue});\n    }\n    \n    int getValue(int row, int col) {\n        int length = this-\u003eupdates.size();\n        for (int i = length - 1; i \u003e= 0; --i) {\n            auto const [row1, col1, row2, col2, newValue] = this-\u003eupdates[i];\n            if (row \u003c row1 || row \u003e row2 || col \u003c col1 || col \u003e col2) {\n                continue;\n            }\n            return newValue;\n        }\n        return this-\u003erectangle[row][col];\n    }\n};\n\n/**\n * Your SubrectangleQueries object will be instantiated and called as such:\n * SubrectangleQueries* obj = new SubrectangleQueries(rectangle);\n * obj-\u003eupdateSubrectangle(row1,col1,row2,col2,newValue);\n * int param_2 = obj-\u003egetValue(row,col);\n */",
+    "title": "Subrectangle Queries",
+    "url": "/submissions/detail/1096014225/",
+    "lang_name": "C++",
+    "time": "1 year, 8 months",
+    "timestamp": 1699633108,
+    "status": 10,
+    "runtime": "35 ms",
+    "is_pending": "Not Pending",
+    "memory": "19.1 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

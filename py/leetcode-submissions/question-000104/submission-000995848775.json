@@ -1,0 +1,19 @@
+{
+    "id": 995848775,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 104,
+    "title_slug": "maximum-depth-of-binary-tree",
+    "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def maxDepth(self, root: Optional[TreeNode], depth: int = 0) -\u003e int:\n        if not root:\n            return depth\n\n        return max(self.maxDepth(root.left, depth + 1), self.maxDepth(root.right, depth + 1))\n        ",
+    "title": "Maximum Depth of Binary Tree",
+    "url": "/submissions/detail/995848775/",
+    "lang_name": "Python3",
+    "time": "2 years",
+    "timestamp": 1689509198,
+    "status": 10,
+    "runtime": "43 ms",
+    "is_pending": "Not Pending",
+    "memory": "19 MB",
+    "compare_result": "111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1046647036,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 136,
+    "title_slug": "single-number",
+    "code": "class Solution:\n    def singleNumber(self, nums: List[int]) -\u003e int:\n        nums_count = len(nums)\n        if nums_count == 1:\n            return nums[0]\n        \n        nums.sort()\n        for i in range(0, nums_count, 2):\n            if i + 1 == nums_count:\n                return nums[i]\n\n            cur_num, next_num = nums[i], nums[i+1]\n            if cur_num == next_num:\n                continue\n            \n            return cur_num\n        \n        return 0",
+    "title": "Single Number",
+    "url": "/submissions/detail/1046647036/",
+    "lang_name": "Python3",
+    "time": "1 year, 10 months",
+    "timestamp": 1694447749,
+    "status": 10,
+    "runtime": "131 ms",
+    "is_pending": "Not Pending",
+    "memory": "19.1 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

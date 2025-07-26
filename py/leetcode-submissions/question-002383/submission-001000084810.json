@@ -1,0 +1,19 @@
+{
+    "id": 1000084810,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 2383,
+    "title_slug": "add-two-integers",
+    "code": "class Solution:\n    def sum(self, num1: int, num2: int) -\u003e int:\n        return num1 + num2",
+    "title": "Add Two Integers",
+    "url": "/submissions/detail/1000084810/",
+    "lang_name": "Python3",
+    "time": "2 years",
+    "timestamp": 1689934717,
+    "status": 10,
+    "runtime": "39 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.4 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

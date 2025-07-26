@@ -1,0 +1,19 @@
+{
+    "id": 1225630672,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 678,
+    "title_slug": "valid-parenthesis-string",
+    "code": "func checkValidString(s string) bool {\n    open := 0\n    openMax := 0\n    for _, char := range s {\n        switch char {\n        case '(':\n            open++\n            openMax++\n        case ')':\n            open--\n            openMax--\n        default:\n            open--\n            openMax++\n        }\n        if openMax \u003c 0 {\n            return false\n        }\n        if open \u003c 0 {\n            open = 0\n        }\n    }\n    return open == 0\n}",
+    "title": "Valid Parenthesis String",
+    "url": "/submissions/detail/1225630672/",
+    "lang_name": "Go",
+    "time": "1 year, 3 months",
+    "timestamp": 1712479338,
+    "status": 10,
+    "runtime": "1 ms",
+    "is_pending": "Not Pending",
+    "memory": "2.2 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

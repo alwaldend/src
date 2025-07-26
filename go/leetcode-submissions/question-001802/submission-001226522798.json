@@ -1,0 +1,19 @@
+{
+    "id": 1226522798,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 1802,
+    "title_slug": "number-of-students-unable-to-eat-lunch",
+    "code": "func countStudents(students []int, sandwiches []int) int {\n    req := make([]int, 2)\n    for _, student := range students {\n        req[student]++\n    }\n\n    for _, sandwich := range sandwiches {\n        if req[sandwich] == 0 {\n            return req[1 - sandwich]\n        } else {\n            req[sandwich]--\n        }\n    }\n\n    return 0\n}",
+    "title": "Number of Students Unable to Eat Lunch",
+    "url": "/submissions/detail/1226522798/",
+    "lang_name": "Go",
+    "time": "1 year, 3 months",
+    "timestamp": 1712564734,
+    "status": 10,
+    "runtime": "2 ms",
+    "is_pending": "Not Pending",
+    "memory": "2.4 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

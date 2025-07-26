@@ -1,0 +1,19 @@
+{
+    "id": 693729962,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 745,
+    "title_slug": "find-smallest-letter-greater-than-target",
+    "code": "\n\nfunc nextGreatestLetter(letters []byte, target byte) byte {\n\tlength := len(letters)\n\tleft, right := 0, length-1\n\tfor right \u003e= left {\n\t\tindex := left + (right-left)/2\n\t\tcharacter := letters[index]\n\t\t// the character is bigger, we found at least one result\n\t\t// smaller characters are to the left -\u003e discard right\n\t\tif character \u003e target {\n\t\t\tright = index - 1\n\t\t\tcontinue\n\t\t}\n\t\t// character is either equal or smaller -\u003e there is no results to the\n\t\t// left -\u003e discard left\n\t\tleft = index + 1\n\t}\n\treturn letters[left%length]\n}\n",
+    "title": "Find Smallest Letter Greater Than Target",
+    "url": "/submissions/detail/693729962/",
+    "lang_name": "Go",
+    "time": "3 years, 2 months",
+    "timestamp": 1651764399,
+    "status": 10,
+    "runtime": "0 ms",
+    "is_pending": "Not Pending",
+    "memory": "2.7 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

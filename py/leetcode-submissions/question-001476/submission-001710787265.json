@@ -1,0 +1,19 @@
+{
+    "id": 1710787265,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1476,
+    "title_slug": "count-negative-numbers-in-a-sorted-matrix",
+    "code": "class Solution:\n    def countNegatives(self, grid: List[List[int]]) -\u003e int:\n        count = 0\n        for i, row in enumerate(grid):\n            for j, num in enumerate(row):\n                if num \u003c 0:\n                    count += len(row) - j\n                    break \n        return count",
+    "title": "Count Negative Numbers in a Sorted Matrix",
+    "url": "/submissions/detail/1710787265/",
+    "lang_name": "Python3",
+    "time": "1 day, 6 hours",
+    "timestamp": 1753435793,
+    "status": 10,
+    "runtime": "0 ms",
+    "is_pending": "Not Pending",
+    "memory": "18.8 MB",
+    "compare_result": "11111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1140526976,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 975,
+    "title_slug": "range-sum-of-bst",
+    "code": "class Solution:\n    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -\u003e int:\n        def dfs(node):\n            if not node:\n                return 0\n            \n            current_val = 0\n            if low \u003c= node.val \u003c= high:\n                current_val = node.val\n            \n            left_sum = dfs(node.left)\n            right_sum = dfs(node.right)\n            \n            return current_val + left_sum + right_sum\n        \n        return dfs(root)",
+    "title": "Range Sum of BST",
+    "url": "/submissions/detail/1140526976/",
+    "lang_name": "Python3",
+    "time": "1 year, 6 months",
+    "timestamp": 1704725061,
+    "status": 10,
+    "runtime": "143 ms",
+    "is_pending": "Not Pending",
+    "memory": "24.5 MB",
+    "compare_result": "11111111111111111111111111111111111111111",
+    "flag_type": 1
+}

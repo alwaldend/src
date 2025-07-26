@@ -1,0 +1,19 @@
+{
+    "id": 1107276717,
+    "status_display": "Accepted",
+    "lang": "cpp",
+    "question_id": 1845,
+    "title_slug": "largest-submatrix-with-rearrangements",
+    "code": "class Solution {\npublic:\n    int largestSubmatrix(vector\u003cvector\u003cint\u003e\u003e\u0026 matrix) {\n        int m = matrix.size();\n        int n = matrix[0].size();\n        int ans = 0;\n        \n        for (int row = 0; row \u003c m; row++) {\n            for (int col = 0; col \u003c n; col++) {\n                if (matrix[row][col] != 0 \u0026\u0026 row \u003e 0) {\n                    matrix[row][col] += matrix[row - 1][col];\n                }\n            }\n            \n            vector\u003cint\u003e currRow = matrix[row];\n            sort(currRow.begin(), currRow.end(), greater());\n            for (int i = 0; i \u003c n; i++) {\n                ans = max(ans, currRow[i] * (i + 1));\n            }\n        }\n        \n        return ans;\n    }\n};",
+    "title": "Largest Submatrix With Rearrangements",
+    "url": "/submissions/detail/1107276717/",
+    "lang_name": "C++",
+    "time": "1 year, 8 months",
+    "timestamp": 1701070364,
+    "status": 10,
+    "runtime": "172 ms",
+    "is_pending": "Not Pending",
+    "memory": "74.8 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

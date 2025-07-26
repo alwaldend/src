@@ -1,0 +1,19 @@
+{
+    "id": 1065621000,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1635,
+    "title_slug": "number-of-good-pairs",
+    "code": "class Solution:\n    def numIdenticalPairs(self, nums: List[int]) -\u003e int:\n        counter = Counter(nums)\n        return sum((count ** 2 - count) // 2 for count in counter.values() if count \u003e 1)",
+    "title": "Number of Good Pairs",
+    "url": "/submissions/detail/1065621000/",
+    "lang_name": "Python3",
+    "time": "1 year, 9 months",
+    "timestamp": 1696313643,
+    "status": 10,
+    "runtime": "47 ms",
+    "is_pending": "Not Pending",
+    "memory": "16 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

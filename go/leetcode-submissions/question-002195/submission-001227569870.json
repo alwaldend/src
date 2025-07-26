@@ -1,0 +1,19 @@
+{
+    "id": 1227569870,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 2195,
+    "title_slug": "time-needed-to-buy-tickets",
+    "code": "func timeRequiredToBuy(tickets []int, k int) int {\n    n := len(tickets)\n    d := tickets[k]\n    res := 0\n    for i := 0; i \u003c= k; i++ {\n        res += min(d, tickets[i])\n    }\n    for i := k + 1; i \u003c n; i++ {\n        res += min(d - 1, tickets[i])\n    }\n    return res\n}",
+    "title": "Time Needed to Buy Tickets",
+    "url": "/submissions/detail/1227569870/",
+    "lang_name": "Go",
+    "time": "1 year, 3 months",
+    "timestamp": 1712661706,
+    "status": 10,
+    "runtime": "2 ms",
+    "is_pending": "Not Pending",
+    "memory": "2.3 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

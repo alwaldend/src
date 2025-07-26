@@ -1,0 +1,19 @@
+{
+    "id": 1236388052,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 200,
+    "title_slug": "number-of-islands",
+    "code": "func numIslands(grid [][]byte) int {\n    if len(grid) == 0 || len(grid[0]) == 0 {\n        return 0\n    }\n    \n    rows := len(grid)\n    cols := len(grid[0])\n    islands := 0\n    \n    var dfs func(row, col int)\n    dfs = func(row, col int) {\n        if row \u003c 0 || col \u003c 0 || row \u003e= rows || col \u003e= cols || grid[row][col] != '1' {\n            return\n        }\n        grid[row][col] = '0'\n        dfs(row-1, col)\n        dfs(row+1, col)\n        dfs(row, col-1)\n        dfs(row, col+1)\n    }\n    \n    for row := 0; row \u003c rows; row++ {\n        for col := 0; col \u003c cols; col++ {\n            if grid[row][col] == '1' {\n                dfs(row, col)\n                islands++\n            }\n        }\n    }\n    \n    return islands\n}\n",
+    "title": "Number of Islands",
+    "url": "/submissions/detail/1236388052/",
+    "lang_name": "Go",
+    "time": "1 year, 3 months",
+    "timestamp": 1713512240,
+    "status": 10,
+    "runtime": "5 ms",
+    "is_pending": "Not Pending",
+    "memory": "4 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1050849923,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1905,
+    "title_slug": "design-authentication-manager",
+    "code": "class AuthenticationManager:\n\n    def __init__(self, timeToLive: int):\n        self.ttl = timeToLive\n        self.tokens = {}\n\n    def generate(self, tokenId: str, currentTime: int) -\u003e None:\n        self.tokens[tokenId] = currentTime + self.ttl\n\n    def renew(self, tokenId: str, currentTime: int) -\u003e None:\n        if currentTime \u003c self.tokens.get(tokenId, currentTime):\n            self.generate(tokenId, currentTime)\n        else:\n            self.tokens.pop(tokenId, None)\n\n    def countUnexpiredTokens(self, currentTime: int) -\u003e int:\n        count = 0\n        remove_tokens = []\n        for token, expir_time in self.tokens.items():\n            if currentTime \u003c expir_time:\n                count += 1\n            else:\n                remove_tokens.append(token)\n        \n        for token in remove_tokens:\n            self.tokens.pop(token)\n        \n        return count\n\n\n# Your AuthenticationManager object will be instantiated and called as such:\n# obj = AuthenticationManager(timeToLive)\n# obj.generate(tokenId,currentTime)\n# obj.renew(tokenId,currentTime)\n# param_3 = obj.countUnexpiredTokens(currentTime)",
+    "title": "Design Authentication Manager",
+    "url": "/submissions/detail/1050849923/",
+    "lang_name": "Python3",
+    "time": "1 year, 10 months",
+    "timestamp": 1694868403,
+    "status": 10,
+    "runtime": "189 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.7 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

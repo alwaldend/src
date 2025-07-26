@@ -1,0 +1,19 @@
+{
+    "id": 1282744059,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1016,
+    "title_slug": "subarray-sums-divisible-by-k",
+    "code": "class Solution:\n    def subarraysDivByK(self, nums: List[int], k: int) -\u003e int:\n        count = 0\n        prefix_sum = 0\n        prefix_map = {0: 1}  \n        \n        for num in nums:\n            prefix_sum += num\n            mod = prefix_sum % k\n            if mod \u003c 0:  \n                mod += k\n            if mod in prefix_map:\n                count += prefix_map[mod]\n                prefix_map[mod] += 1\n            else:\n                prefix_map[mod] = 1\n        \n        return count",
+    "title": "Subarray Sums Divisible by K",
+    "url": "/submissions/detail/1282744059/",
+    "lang_name": "Python3",
+    "time": "1 year, 1 month",
+    "timestamp": 1717930605,
+    "status": 10,
+    "runtime": "218 ms",
+    "is_pending": "Not Pending",
+    "memory": "21.4 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

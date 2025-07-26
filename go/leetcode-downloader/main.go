@@ -70,15 +70,27 @@ func Run(
 		}
 		return repo.AddSubmissions(submissions)
 	case proto.CliAction_GENERATE:
-		submissionsText, _ := os.ReadFile(config.SubmissionsFile)
-		var submissions *proto.SubmissonsResponse
-		err := json.Unmarshal(submissionsText, &submissions)
+		submissionsText, err := os.ReadFile(config.SubmissionsFile)
 		if err != nil {
-			return err
+			return fmt.Errorf(
+				"could not open submission file %s: %w",
+				config.SubmissionsFile, err,
+			)
+		}
+		var submissions *proto.SubmissonsResponse
+		err = json.Unmarshal(submissionsText, &submissions)
+		if err != nil {
+			return fmt.Errorf(
+				"could not unmarshal submission file %s: %w",
+				config.SubmissionsFile, err,
+			)
 		}
 		err = generator.Generate(submissions.SubmissionsDump)
 		if err != nil {
-			return err
+			return fmt.Errorf(
+				"could not generate submissions from submission file %s: %w",
+				config.SubmissionsFile, err,
+			)
 		}
 	default:
 		return fmt.Errorf("unsupported action: %s", config.Action)

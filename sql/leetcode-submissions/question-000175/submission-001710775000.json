@@ -1,0 +1,19 @@
+{
+    "id": 1710775000,
+    "status_display": "Accepted",
+    "lang": "postgresql",
+    "question_id": 175,
+    "title_slug": "combine-two-tables",
+    "code": "SELECT firstName, lastName, city, state \nFROM Person LEFT JOIN Address \n    ON Person.personId = Address.personId",
+    "title": "Combine Two Tables",
+    "url": "/submissions/detail/1710775000/",
+    "lang_name": "PostgreSQL",
+    "time": "1 day, 6 hours",
+    "timestamp": 1753435092,
+    "status": 10,
+    "runtime": "343 ms",
+    "is_pending": "Not Pending",
+    "memory": "0.0B",
+    "compare_result": "11111111",
+    "flag_type": 1
+}

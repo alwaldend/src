@@ -1,0 +1,19 @@
+{
+    "id": 1267849880,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 140,
+    "title_slug": "word-break-ii",
+    "code": "class Solution:\n    def wordBreak(self, s: str, wordDict: List[str]) -\u003e List[str]:\n        wordSet = set(wordDict)\n        @cache\n        def helper(t):\n            combos = []\n            if not t:\n                return [\"\"]\n            for i, _ in enumerate(t):\n                w = t[:i+1] \n                if w in wordSet:\n                    combos.extend([\n                        f'{w} {sentence}' if sentence else w \n                        for sentence in helper(t[i+1:])\n                    ])\n            return combos\n        return helper(s)",
+    "title": "Word Break II",
+    "url": "/submissions/detail/1267849880/",
+    "lang_name": "Python3",
+    "time": "1 year, 2 months",
+    "timestamp": 1716667198,
+    "status": 10,
+    "runtime": "44 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.6 MB",
+    "compare_result": "111111111111111111111111111",
+    "flag_type": 1
+}

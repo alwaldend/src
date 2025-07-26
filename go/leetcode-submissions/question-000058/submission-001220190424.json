@@ -1,0 +1,19 @@
+{
+    "id": 1220190424,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 58,
+    "title_slug": "length-of-last-word",
+    "code": "func lengthOfLastWord(s string) int {\n    length := len(s)\n    count := 0\n    for i := length - 1; i \u003e= 0; i-- {\n        isSpace := s[i] == ' '\n        if isSpace \u0026\u0026 count != 0 {\n            return count\n        } else if isSpace {\n            continue\n        }\n        count++\n    }\n    return count\n}",
+    "title": "Length of Last Word",
+    "url": "/submissions/detail/1220190424/",
+    "lang_name": "Go",
+    "time": "1 year, 3 months",
+    "timestamp": 1711983783,
+    "status": 10,
+    "runtime": "1 ms",
+    "is_pending": "Not Pending",
+    "memory": "2.4 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

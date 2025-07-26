@@ -1,0 +1,19 @@
+{
+    "id": 1710834313,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 742,
+    "title_slug": "to-lower-case",
+    "code": "class Solution:\n    def toLowerCase(self, s: str) -\u003e str:\n        return s.lower()",
+    "title": "To Lower Case",
+    "url": "/submissions/detail/1710834313/",
+    "lang_name": "Python3",
+    "time": "1 day, 5 hours",
+    "timestamp": 1753438513,
+    "status": 10,
+    "runtime": "0 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.6 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

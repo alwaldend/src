@@ -1,0 +1,19 @@
+{
+    "id": 995248128,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 205,
+    "title_slug": "isomorphic-strings",
+    "code": "class Solution:\n    def isIsomorphic(self, s: str, t: str) -\u003e bool:\n        return list(map(s.index, s)) == list(map(t.index, t))",
+    "title": "Isomorphic Strings",
+    "url": "/submissions/detail/995248128/",
+    "lang_name": "Python3",
+    "time": "2 years",
+    "timestamp": 1689443371,
+    "status": 10,
+    "runtime": "55 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.2 MB",
+    "compare_result": "11111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

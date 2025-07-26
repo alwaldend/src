@@ -1,0 +1,19 @@
+{
+    "id": 1246395696,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 2121,
+    "title_slug": "find-if-path-exists-in-graph",
+    "code": "type UnionFind struct {\n    parent []int\n    rank   []int\n}\n\nfunc NewUnionFind(n int) *UnionFind {\n    parent := make([]int, n)\n    rank := make([]int, n)\n    for i := 0; i \u003c n; i++ {\n        parent[i] = i\n    }\n    return \u0026UnionFind{parent, rank}\n}\n\nfunc (uf *UnionFind) Find(u int) int {\n    if uf.parent[u] != u {\n        uf.parent[u] = uf.Find(uf.parent[u])\n    }\n    return uf.parent[u]\n}\n\nfunc (uf *UnionFind) UnionByRank(u, v int) {\n    i := uf.Find(u)\n    j := uf.Find(v)\n    if i == j {\n        return\n    }\n    if uf.rank[i] \u003c uf.rank[j] {\n        uf.parent[i] = j\n    } else if uf.rank[i] \u003e uf.rank[j] {\n        uf.parent[j] = i\n    } else {\n        uf.parent[i] = j\n        uf.rank[j]++\n    }\n}\n\nfunc validPath(n int, edges [][]int, source int, destination int) bool {\n    uf := NewUnionFind(n)\n    for _, edge := range edges {\n        u, v := edge[0], edge[1]\n        uf.UnionByRank(u, v)\n    }\n    return uf.Find(source) == uf.Find(destination)\n}\n",
+    "title": "Find if Path Exists in Graph",
+    "url": "/submissions/detail/1246395696/",
+    "lang_name": "Go",
+    "time": "1 year, 2 months",
+    "timestamp": 1714554311,
+    "status": 10,
+    "runtime": "226 ms",
+    "is_pending": "Not Pending",
+    "memory": "26 MB",
+    "compare_result": "111111111111111111111111111111",
+    "flag_type": 1
+}

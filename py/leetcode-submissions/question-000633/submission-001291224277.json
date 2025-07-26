@@ -1,0 +1,19 @@
+{
+    "id": 1291224277,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 633,
+    "title_slug": "sum-of-square-numbers",
+    "code": "from math import sqrt\n\nclass Solution:\n    def judgeSquareSum(self, c: int) -\u003e bool:\n        for a in range(int(sqrt(c)) + 1):  # Iterate through all possible values of `a`\n            b = sqrt(c - a * a)  # Compute `b` as the square root of `c - a^2`\n            if b == int(b):  # Check if `b` is an integer\n                return True  # If `b` is an integer, return true\n        return False  # If no such pair `(a, b)` is found, return false",
+    "title": "Sum of Square Numbers",
+    "url": "/submissions/detail/1291224277/",
+    "lang_name": "Python3",
+    "time": "1 year, 1 month",
+    "timestamp": 1718627997,
+    "status": 10,
+    "runtime": "124 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.6 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1057826154,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 11,
+    "title_slug": "container-with-most-water",
+    "code": "class Solution:\n    def maxArea(self, height: List[int]) -\u003e int:\n        left = 0\n        right = len(height) - 1\n        maxArea = 0\n\n        while left \u003c right:\n            currentArea = min(height[left], height[right]) * (right - left)\n            if currentArea \u003e maxArea:\n                maxArea = currentArea\n\n            if height[left] \u003c height[right]:\n                left += 1\n            else:\n                right -= 1\n\n        return maxArea",
+    "title": "Container With Most Water",
+    "url": "/submissions/detail/1057826154/",
+    "lang_name": "Python3",
+    "time": "1 year, 10 months",
+    "timestamp": 1695551335,
+    "status": 10,
+    "runtime": "576 ms",
+    "is_pending": "Not Pending",
+    "memory": "29.3 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

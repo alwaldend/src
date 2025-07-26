@@ -1,0 +1,19 @@
+{
+    "id": 1217254445,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 3213,
+    "title_slug": "count-subarrays-where-max-element-appears-at-least-k-times",
+    "code": "func countSubarrays(nums []int, k int) int64 {\n\tmaxValue := 0\n\tvar maxValueIds []int\n\tvar ans int64\n\n\tfor i, x := range nums {\n\t\tif x \u003e maxValue {\n\t\t\tmaxValue, ans, maxValueIds = x, 0, []int{}\n\t\t}\n\n\t\tif x == maxValue {\n\t\t\tmaxValueIds = append(maxValueIds, i)\n\t\t}\n\n\t\tif len(maxValueIds) \u003e= k {\n\t\t\tans += int64(maxValueIds[len(maxValueIds)-k]) + 1\n\t\t}\n\t}\n\n\treturn ans\n}",
+    "title": "Count Subarrays Where Max Element Appears at Least K Times",
+    "url": "/submissions/detail/1217254445/",
+    "lang_name": "Go",
+    "time": "1 year, 3 months",
+    "timestamp": 1711711816,
+    "status": 10,
+    "runtime": "125 ms",
+    "is_pending": "Not Pending",
+    "memory": "8.8 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

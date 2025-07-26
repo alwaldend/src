@@ -1,0 +1,19 @@
+{
+    "id": 1709900160,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1818,
+    "title_slug": "maximum-score-from-removing-substrings",
+    "code": "class Solution:\n    def maximumGain(self, s: str, x: int, y: int) -\u003e int:\n        total_score = 0\n        high_priority_pair = \"ab\" if x \u003e y else \"ba\"\n        low_priority_pair = \"ba\" if high_priority_pair == \"ab\" else \"ab\"\n\n        # First pass: remove high priority pair\n        string_after_first_pass = self.remove_substring(s, high_priority_pair)\n        removed_pairs_count = (len(s) - len(string_after_first_pass)) // 2\n\n        # Calculate score from first pass\n        total_score += removed_pairs_count * max(x, y)\n\n        # Second pass: remove low priority pair\n        string_after_second_pass = self.remove_substring(\n            string_after_first_pass, low_priority_pair\n        )\n        removed_pairs_count = (\n            len(string_after_first_pass) - len(string_after_second_pass)\n        ) // 2\n\n        # Calculate score from second pass\n        total_score += removed_pairs_count * min(x, y)\n\n        return total_score\n\n    def remove_substring(self, input: str, target_pair: str) -\u003e str:\n        char_stack = []\n\n        # Iterate through each character in the input string\n        for current_char in input:\n            # Check if current character forms the target pair with the top of the stack\n            if (\n                current_char == target_pair[1]\n                and char_stack\n                and char_stack[-1] == target_pair[0]\n            ):\n                char_stack.pop()  # Remove the matching character from the stack\n            else:\n                char_stack.append(current_char)\n\n        # Reconstruct the remaining string after removing target pairs\n        return \"\".join(char_stack)",
+    "title": "Maximum Score From Removing Substrings",
+    "url": "/submissions/detail/1709900160/",
+    "lang_name": "Python3",
+    "time": "2 days",
+    "timestamp": 1753372344,
+    "status": 10,
+    "runtime": "192 ms",
+    "is_pending": "Not Pending",
+    "memory": "19.5 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

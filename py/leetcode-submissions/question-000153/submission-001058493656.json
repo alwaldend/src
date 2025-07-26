@@ -1,0 +1,19 @@
+{
+    "id": 1058493656,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 153,
+    "title_slug": "find-minimum-in-rotated-sorted-array",
+    "code": "class Solution:\n    def findMin(self, nums: List[int]) -\u003e int:\n        length = len(nums)\n        if length == 1:\n            return nums[0]\n        first, last = nums[0], nums[-1]\n        if first \u003c last:\n            return first\n        left, right = 0, length - 1\n        while left \u003c= right:\n            mid = left + (right - left) // 2\n            left_num = nums[mid - 1] if mid \u003e 0 else first\n            mid_num = nums[mid] \n            right_num = nums[mid + 1] if mid + 1 \u003c length else last\n            if left_num \u003e mid_num \u003c= right_num:\n                return mid_num\n            if left_num \u003e mid_num or (left_num \u003c= mid_num and mid_num \u003e= first):\n                left = mid + 1\n            else:\n                right = mid\n        return nums[left]\n\n",
+    "title": "Find Minimum in Rotated Sorted Array",
+    "url": "/submissions/detail/1058493656/",
+    "lang_name": "Python3",
+    "time": "1 year, 10 months",
+    "timestamp": 1695622620,
+    "status": 10,
+    "runtime": "51 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.3 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1223069081,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 1737,
+    "title_slug": "maximum-nesting-depth-of-the-parentheses",
+    "code": "func maxDepth(s string) int {\n    maxDepth := 0\n    curDepth := 0\n    for _, ch := range s {\n        if ch == '(' {\n            curDepth++\n            maxDepth = max(maxDepth, curDepth)\n        } else if ch == ')' {\n            curDepth--\n        }\n    }\n    return maxDepth\n}",
+    "title": "Maximum Nesting Depth of the Parentheses",
+    "url": "/submissions/detail/1223069081/",
+    "lang_name": "Go",
+    "time": "1 year, 3 months",
+    "timestamp": 1712236005,
+    "status": 10,
+    "runtime": "0 ms",
+    "is_pending": "Not Pending",
+    "memory": "2.1 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

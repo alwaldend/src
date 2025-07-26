@@ -1,0 +1,19 @@
+{
+    "id": 1113522285,
+    "status_display": "Accepted",
+    "lang": "cpp",
+    "question_id": 234,
+    "title_slug": "palindrome-linked-list",
+    "code": "class Solution {\npublic:\n    bool isPalindrome(ListNode* head) {\n        ListNode* slow {head};\n        ListNode* fast {head};\n        ListNode* next;\n        ListNode* prev {new ListNode()};\n\n        while(fast \u0026\u0026 fast-\u003enext) {\n            slow = slow-\u003enext;\n            fast = fast-\u003enext-\u003enext; \n\n            next = head-\u003enext;\n            head-\u003enext = prev;\n            prev = head;\n            head = next;\n        }\n    \n        if (fast) {\n            slow = slow-\u003enext;\n        }\n        head = prev;\n\n        while (slow) {\n            if (head-\u003eval != slow-\u003eval) {\n                return false;\n            }\n            head = head-\u003enext;\n            slow = slow-\u003enext;\n        }\n        return true;\n    }\n};",
+    "title": "Palindrome Linked List",
+    "url": "/submissions/detail/1113522285/",
+    "lang_name": "C++",
+    "time": "1 year, 7 months",
+    "timestamp": 1701855940,
+    "status": 10,
+    "runtime": "137 ms",
+    "is_pending": "Not Pending",
+    "memory": "110.7 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

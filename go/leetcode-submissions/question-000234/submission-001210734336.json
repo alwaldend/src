@@ -1,0 +1,19 @@
+{
+    "id": 1210734336,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 234,
+    "title_slug": "palindrome-linked-list",
+    "code": "/**\n * Definition for singly-linked list.\n * type ListNode struct {\n *     Val int\n *     Next *ListNode\n * }\n */\nfunc isPalindrome(head *ListNode) bool {\n    nodes := []int{}\n    for head != nil {\n        nodes = append(nodes, head.Val)\n        head = head.Next\n    }\n    length := len(nodes)\n    for i := range(length / 2) {\n        start, end := nodes[i], nodes[length-i-1]\n        if start != end {\n            return false\n        }\n    }\n    return true\n}",
+    "title": "Palindrome Linked List",
+    "url": "/submissions/detail/1210734336/",
+    "lang_name": "Go",
+    "time": "1 year, 4 months",
+    "timestamp": 1711097100,
+    "status": 10,
+    "runtime": "130 ms",
+    "is_pending": "Not Pending",
+    "memory": "10.1 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1009446618,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 77,
+    "title_slug": "combinations",
+    "code": "class Solution:\n    def combine(self, n: int, k: int) -\u003e List[List[int]]:\n        current, result = [], []\n        \n        def backtrack(first: int) -\u003e None:\n            if len(current) == k:\n                result.append(tuple(current[:]))\n                return\n\n            for i in range(first, n + 1):\n                current.append(i)\n                backtrack(i + 1)\n                current.pop()\n            \n            return\n\n        backtrack(1)\n\n        return result ",
+    "title": "Combinations",
+    "url": "/submissions/detail/1009446618/",
+    "lang_name": "Python3",
+    "time": "1 year, 11 months",
+    "timestamp": 1690900403,
+    "status": 10,
+    "runtime": "281 ms",
+    "is_pending": "Not Pending",
+    "memory": "18.3 MB",
+    "compare_result": "111111111111111111111111111",
+    "flag_type": 1
+}

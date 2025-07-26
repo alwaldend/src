@@ -1,0 +1,19 @@
+{
+    "id": 1118673519,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1704,
+    "title_slug": "special-positions-in-a-binary-matrix",
+    "code": "class Solution:\n    def numSpecial(self, mat: List[List[int]]) -\u003e int:\n        def get_column_sum(col_idx):\n            return sum(row[col_idx] for row in mat)\n\n        special = 0\n        for row in mat:\n            if sum(row) == 1:\n                col_idx = row.index(1)\n                special += get_column_sum(col_idx) == 1\n\n        return special",
+    "title": "Special Positions in a Binary Matrix",
+    "url": "/submissions/detail/1118673519/",
+    "lang_name": "Python3",
+    "time": "1 year, 7 months",
+    "timestamp": 1702455060,
+    "status": 10,
+    "runtime": "137 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.7 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

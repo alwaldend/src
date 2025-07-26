@@ -1,0 +1,19 @@
+{
+    "id": 1103351460,
+    "status_display": "Accepted",
+    "lang": "cpp",
+    "question_id": 1925,
+    "title_slug": "count-nice-pairs-in-an-array",
+    "code": "class Solution {\npublic:\n    int countNicePairs(vector\u003cint\u003e\u0026 nums) {\n        std::unordered_map\u003cint, int\u003e diffs{};\n        int ans{};\n        double mod{1e9 + 7};\n        for (const int\u0026 num : nums) {\n            int revNum{};\n            int tempNum{num};\n            while(tempNum) {\n                revNum = (revNum * 10) + (tempNum % 10);\n                tempNum /= 10;\n            }\n            int diff{num-revNum};\n            if (diffs.contains(diff)) {\n                ans = std::fmod(ans + diffs[diff], mod);\n            }\n            ++diffs[diff];\n        }\n        return ans;\n    }\n\n};",
+    "title": "Count Nice Pairs in an Array",
+    "url": "/submissions/detail/1103351460/",
+    "lang_name": "C++",
+    "time": "1 year, 8 months",
+    "timestamp": 1700559844,
+    "status": 10,
+    "runtime": "100 ms",
+    "is_pending": "Not Pending",
+    "memory": "57.2 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1073327223,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1185,
+    "title_slug": "find-in-mountain-array",
+    "code": "class Solution:\n    def findInMountainArray(self, target: int, mountain_arr: 'MountainArray') -\u003e int:\n        # Save the length of the mountain array\n        length = mountain_arr.length()\n\n        # 1. Find the index of the peak element\n        low = 1\n        high = length - 2\n        while low != high:\n            test_index = (low + high) // 2\n            if mountain_arr.get(test_index) \u003c mountain_arr.get(test_index + 1):\n                low = test_index + 1\n            else:\n                high = test_index\n        peak_index = low\n\n        # 2. Search in the strictly increasing part of the array\n        low = 0\n        high = peak_index\n        while low != high:\n            test_index = (low + high) // 2\n            if mountain_arr.get(test_index) \u003c target:\n                low = test_index + 1\n            else:\n                high = test_index    \n        # Check if the target is present in the strictly increasing part\n        if mountain_arr.get(low) == target:\n            return low\n        \n        # 3. Otherwise, search in the strictly decreasing part\n        low = peak_index + 1\n        high = length - 1\n        while low != high:\n            test_index = (low + high) // 2\n            if mountain_arr.get(test_index) \u003e target:\n                low = test_index + 1\n            else:\n                high = test_index\n        # Check if the target is present in the strictly decreasing part\n        if mountain_arr.get(low) == target:\n            return low\n        \n        # Target is not present in the mountain array\n        return -1",
+    "title": "Find in Mountain Array",
+    "url": "/submissions/detail/1073327223/",
+    "lang_name": "Python3",
+    "time": "1 year, 9 months",
+    "timestamp": 1697101785,
+    "status": 10,
+    "runtime": "34 ms",
+    "is_pending": "Not Pending",
+    "memory": "17 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1010407820,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 207,
+    "title_slug": "course-schedule",
+    "code": "class Solution:\n    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -\u003e bool:\n        courses = defaultdict(set)\n\n        for course, prereq in prerequisites:\n            courses[course].add(prereq)\n\n        if not courses:\n            return True\n        \n        stack = set()\n\n        @cache\n        def check(course: int) -\u003e bool:\n            if course not in courses:\n                return True\n            \n            if course in stack:\n                return False\n\n            prereqs = courses[course]\n\n            if prereqs \u0026 stack:\n                return False\n\n            stack.add(course)\n\n            for prereq in prereqs:\n                if not check(prereq):\n                    return False\n    \n            stack.remove(course)\n            \n            return True\n\n        for course in courses:\n            if not check(course):\n                return False\n\n        return True",
+    "title": "Course Schedule",
+    "url": "/submissions/detail/1010407820/",
+    "lang_name": "Python3",
+    "time": "1 year, 11 months",
+    "timestamp": 1690992178,
+    "status": 10,
+    "runtime": "99 ms",
+    "is_pending": "Not Pending",
+    "memory": "21 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

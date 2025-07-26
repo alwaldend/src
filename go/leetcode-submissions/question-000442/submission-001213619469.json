@@ -1,0 +1,19 @@
+{
+    "id": 1213619469,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 442,
+    "title_slug": "find-all-duplicates-in-an-array",
+    "code": "func findDuplicates(nums []int) []int {\n    output := []int{}\n    for _, num := range nums {\n        idx := abs(num)\n        if nums[idx-1] \u003c 0 {\n            output = append(output, idx)\n        } else {\n            nums[idx-1] *= -1\n        }\n    }\n    return output\n}\nfunc abs(num int) int {\n    if num \u003c 0 {\n        return -num\n    }\n    return num\n}",
+    "title": "Find All Duplicates in an Array",
+    "url": "/submissions/detail/1213619469/",
+    "lang_name": "Go",
+    "time": "1 year, 4 months",
+    "timestamp": 1711383791,
+    "status": 10,
+    "runtime": "65 ms",
+    "is_pending": "Not Pending",
+    "memory": "7.8 MB",
+    "compare_result": "1111111111111111111111111111",
+    "flag_type": 1
+}

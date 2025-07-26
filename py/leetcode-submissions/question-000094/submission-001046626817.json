@@ -1,0 +1,19 @@
+{
+    "id": 1046626817,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 94,
+    "title_slug": "binary-tree-inorder-traversal",
+    "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def inorderTraversal(self, root: Optional[TreeNode]) -\u003e List[int]:\n        def get_nodes(root: TreeNode) -\u003e Generator[None, None, TreeNode]:\n            if not root:\n                return\n\n            if root.left:\n                yield from get_nodes(root.left)\n            \n            yield root.val\n\n            if root.right:\n                yield from get_nodes(root.right)\n        \n        return tuple(get_nodes(root))",
+    "title": "Binary Tree Inorder Traversal",
+    "url": "/submissions/detail/1046626817/",
+    "lang_name": "Python3",
+    "time": "1 year, 10 months",
+    "timestamp": 1694446256,
+    "status": 10,
+    "runtime": "41 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.3 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1050267339,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 2434,
+    "title_slug": "design-a-number-container-system",
+    "code": "class NumberContainers:\n\n    def __init__(self):\n        self.num_indices = defaultdict(list)\n        self.num_at_index = {}\n        \n\n    def change(self, index: int, number: int) -\u003e None:\n        self.num_at_index[index] = number\n        heapq.heappush(self.num_indices[number], index)\n        \n\n    def find(self, number: int) -\u003e int:\n        while self.num_indices[number] and self.num_at_index[self.num_indices[number][0]] != number:\n            heapq.heappop(self.num_indices[number])\n        \n        return self.num_indices[number][0] if len(self.num_indices[number]) \u003e 0 else -1\n        \n\n\n# Your NumberContainers object will be instantiated and called as such:\n# obj = NumberContainers()\n# obj.change(index,number)\n# param_2 = obj.find(number)",
+    "title": "Design a Number Container System",
+    "url": "/submissions/detail/1050267339/",
+    "lang_name": "Python3",
+    "time": "1 year, 10 months",
+    "timestamp": 1694797196,
+    "status": 10,
+    "runtime": "584 ms",
+    "is_pending": "Not Pending",
+    "memory": "72.6 MB",
+    "compare_result": "111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

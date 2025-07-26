@@ -1,0 +1,19 @@
+{
+    "id": 1014625631,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 322,
+    "title_slug": "coin-change",
+    "code": "class Solution:\n    def coinChange(self, coins: List[int], amount: int) -\u003e int:\n        if amount == 0:\n            return 0\n        \n        @cache\n        def dp(coins_value: int) -\u003e int:\n            if coins_value == amount:\n                return 0\n            \n            if coins_value \u003e amount:\n                return -1\n            \n            min_coins_count = -1\n\n            for coin in coins:\n                new_count = 1 + dp(coin + coins_value)\n                if new_count == 0:\n                    continue\n                \n                if min_coins_count == -1 or new_count \u003c min_coins_count:\n                    min_coins_count = new_count\n            \n            return min_coins_count\n\n        return dp(0)\n",
+    "title": "Coin Change",
+    "url": "/submissions/detail/1014625631/",
+    "lang_name": "Python3",
+    "time": "1 year, 11 months",
+    "timestamp": 1691407627,
+    "status": 10,
+    "runtime": "704 ms",
+    "is_pending": "Not Pending",
+    "memory": "37.5 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

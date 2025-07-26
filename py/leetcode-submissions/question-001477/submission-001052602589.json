@@ -1,0 +1,19 @@
+{
+    "id": 1052602589,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1477,
+    "title_slug": "product-of-the-last-k-numbers",
+    "code": "class ProductOfNumbers:\n\n    def __init__(self):\n        self.products, self.last_zero, self.length = [], -1, 0\n\n    def add(self, num: int) -\u003e None:\n        if num == 0:\n            self.last_zero = self.length\n            num = 1\n        self.products.append(num * (self.products[-1] if self.products else 1))\n        self.length += 1\n\n    def getProduct(self, k: int) -\u003e int:\n        first_elem = self.length - k\n        if self.last_zero \u003e= first_elem:\n            return 0\n        if first_elem == 0:\n            return self.products[-1]\n        return self.products[-1] // self.products[first_elem - 1]\n\n\n# Your ProductOfNumbers object will be instantiated and called as such:\n# obj = ProductOfNumbers()\n# obj.add(num)\n# param_2 = obj.getProduct(k)",
+    "title": "Product of the Last K Numbers",
+    "url": "/submissions/detail/1052602589/",
+    "lang_name": "Python3",
+    "time": "1 year, 10 months",
+    "timestamp": 1695040684,
+    "status": 10,
+    "runtime": "235 ms",
+    "is_pending": "Not Pending",
+    "memory": "165.6 MB",
+    "compare_result": "111111111111111111111111111111111",
+    "flag_type": 1
+}

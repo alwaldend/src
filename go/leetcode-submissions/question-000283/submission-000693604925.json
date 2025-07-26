@@ -1,0 +1,19 @@
+{
+    "id": 693604925,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 283,
+    "title_slug": "move-zeroes",
+    "code": "func moveZeroes(nums []int)  {\n    \tif len(nums) \u003c 2 {\n\t\treturn\n\t}\n\n\tfor z, p := 0, 1; p \u003c len(nums) \u0026\u0026 z \u003c len(nums); {\n\t\tif nums[z] == 0 \u0026\u0026 nums[p] != 0 {\n\t\t\tif p \u003e z {\n\t\t\t\tnums[z], nums[p] = nums[p], nums[z]\n\t\t\t\tz++\n\t\t\t}\n\t\t\tp = z+1\n\t\t} else {\n\t\t\tif nums[z] != 0 {\n\t\t\t\tz++\n\t\t\t}\n\t\t\tif nums[p] == 0 {\n\t\t\t\tp++\n\t\t\t}\n\t\t}\n\t}\n\n}",
+    "title": "Move Zeroes",
+    "url": "/submissions/detail/693604925/",
+    "lang_name": "Go",
+    "time": "3 years, 2 months",
+    "timestamp": 1651747105,
+    "status": 10,
+    "runtime": "137 ms",
+    "is_pending": "Not Pending",
+    "memory": "7.4 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

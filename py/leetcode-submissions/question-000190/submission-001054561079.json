@@ -1,0 +1,19 @@
+{
+    "id": 1054561079,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 190,
+    "title_slug": "reverse-bits",
+    "code": "class Solution:\n    def reverseBits(self, n: int) -\u003e int:\n        # Initialize the reversed number to 0\n        reversed_num = 0\n        \n        # Iterate over all 32 bits of the given number\n        for i in range(32):\n            # Left shift the reversed number by 1 and add the last bit of the given number to it\n            reversed_num = (reversed_num \u003c\u003c 1) | (n \u0026 1)\n            # remove the last bit from the original number\n            n \u003e\u003e= 1\n        \n        # Return the reversed number\n        return reversed_num\n",
+    "title": "Reverse Bits",
+    "url": "/submissions/detail/1054561079/",
+    "lang_name": "Python3",
+    "time": "1 year, 10 months",
+    "timestamp": 1695218870,
+    "status": 10,
+    "runtime": "40 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.1 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

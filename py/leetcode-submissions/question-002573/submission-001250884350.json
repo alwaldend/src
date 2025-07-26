@@ -1,0 +1,19 @@
+{
+    "id": 1250884350,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 2573,
+    "title_slug": "remove-nodes-from-linked-list",
+    "code": "class Solution:\n    def removeNodes(self, head: Optional[ListNode]) -\u003e Optional[ListNode]:\n        cur = head\n        stack = []\n        while cur:\n            while stack and stack[-1].val \u003c cur.val:\n                stack.pop()\n            stack.append(cur)\n            cur = cur.next\n        \n        nxt = None\n        while stack:\n            cur = stack.pop()\n            cur.next = nxt\n            nxt = cur\n        \n        return cur",
+    "title": "Remove Nodes From Linked List",
+    "url": "/submissions/detail/1250884350/",
+    "lang_name": "Python3",
+    "time": "1 year, 2 months",
+    "timestamp": 1715003246,
+    "status": 10,
+    "runtime": "461 ms",
+    "is_pending": "Not Pending",
+    "memory": "51.2 MB",
+    "compare_result": "11111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1002666484,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 389,
+    "title_slug": "find-the-difference",
+    "code": "class Solution:\n    def findTheDifference(self, s: str, t: str) -\u003e str:\n        letters = defaultdict(int)\n        for letter in s:\n            letters[letter] += 1\n\n        for letter in t:\n            if letters[letter] == 0:\n                return letter\n            \n            letters[letter] -= 1\n        \n        return None",
+    "title": "Find the Difference",
+    "url": "/submissions/detail/1002666484/",
+    "lang_name": "Python3",
+    "time": "2 years",
+    "timestamp": 1690206879,
+    "status": 10,
+    "runtime": "51 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.4 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

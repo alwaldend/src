@@ -1,0 +1,19 @@
+{
+    "id": 1230172245,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 42,
+    "title_slug": "trapping-rain-water",
+    "code": "func trap(height []int) int {\n\tvar waterStored int\n\tleftElevationPoint, rightElevationPoint := 0, len(height)-1                                    // pointers for left and right elevations\n\tmaxLeftElevation, maxRightElevation := height[leftElevationPoint], height[rightElevationPoint] // max value of left and right elevation points\n\n\tfor leftElevationPoint \u003c rightElevationPoint { // until left elevation point reaches right elevation point or right elevation point reaches left elevation point\n\t\tif maxLeftElevation \u003c maxRightElevation { // if max left elevation is smaller than max right elevation\n\t\t\tleftElevationPoint++                               // move the left elevation point by 1\n\t\t\tif height[leftElevationPoint] \u003e maxLeftElevation { // if height of current left elevation after moving is greater than max left elevation\n\t\t\t\tmaxLeftElevation = height[leftElevationPoint] // swap the max left elevation with current left elevation point value\n\t\t\t}\n\t\t\twaterStored += maxLeftElevation - height[leftElevationPoint] // store water with delta of max left elevation and current left elevation\n\t\t} else {\n\t\t\trightElevationPoint--                                // decrease the right elevation by 1\n\t\t\tif height[rightElevationPoint] \u003e maxRightElevation { // if height of current right elevation after decreasing is greater than max right elevation\n\t\t\t\tmaxRightElevation = height[rightElevationPoint] // swap the max right elevation with current right elevation point value\n\t\t\t}\n\t\t\twaterStored += maxRightElevation - height[rightElevationPoint] // store water with delta of max right elevation and current right elevation\n\t\t}\n\t}\n\n\treturn waterStored\n}",
+    "title": "Trapping Rain Water",
+    "url": "/submissions/detail/1230172245/",
+    "lang_name": "Go",
+    "time": "1 year, 3 months",
+    "timestamp": 1712907619,
+    "status": 10,
+    "runtime": "7 ms",
+    "is_pending": "Not Pending",
+    "memory": "5.4 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

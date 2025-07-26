@@ -1,0 +1,19 @@
+{
+    "id": 1088997757,
+    "status_display": "Accepted",
+    "lang": "golang",
+    "question_id": 501,
+    "title_slug": "find-mode-in-binary-search-tree",
+    "code": "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc findMode(root *TreeNode) []int {\n    if root == nil {\n        return []int{}\n    }\n    counter := map[int]int{}\n    queue := []*TreeNode{root}\n    for length := len(queue); length \u003e 0; length = len(queue) {\n        for i := 0; i \u003c length; i++ {\n            node := queue[i]\n            if _, ok := counter[node.Val]; ok {\n                counter[node.Val] += 1\n            } else {\n                counter[node.Val] = 1\n            }\n            if node.Left != nil {\n                queue = append(queue, node.Left)\n            }\n            if node.Right != nil {\n                queue = append(queue, node.Right)\n            }\n        }\n        queue = queue[length:]\n    }\n    maxCount, answer := 0, []int{}\n    for key, count := range counter {\n        if count \u003c maxCount {\n            continue\n        }\n        if count \u003e maxCount {\n            answer = answer[:0]\n            maxCount = count\n        }\n        answer = append(answer, key)\n    }\n    return answer\n}",
+    "title": "Find Mode in Binary Search Tree",
+    "url": "/submissions/detail/1088997757/",
+    "lang_name": "Go",
+    "time": "1 year, 8 months",
+    "timestamp": 1698830458,
+    "status": 10,
+    "runtime": "14 ms",
+    "is_pending": "Not Pending",
+    "memory": "7.1 MB",
+    "compare_result": "11111111111111111111111",
+    "flag_type": 1
+}

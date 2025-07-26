@@ -1,0 +1,19 @@
+{
+    "id": 1710842774,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 717,
+    "title_slug": "1-bit-and-2-bit-characters",
+    "code": "class Solution(object):\n    def isOneBitCharacter(self, bits):\n        i = 0\n        while i \u003c len(bits) - 1:\n            i += bits[i] + 1\n        return i == len(bits) - 1",
+    "title": "1-bit and 2-bit Characters",
+    "url": "/submissions/detail/1710842774/",
+    "lang_name": "Python3",
+    "time": "1 day, 5 hours",
+    "timestamp": 1753439008,
+    "status": 10,
+    "runtime": "0 ms",
+    "is_pending": "Not Pending",
+    "memory": "18 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

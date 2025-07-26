@@ -1,0 +1,19 @@
+{
+    "id": 1039615645,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 289,
+    "title_slug": "game-of-life",
+    "code": "class Solution:\n    def gameOfLife(self, board: List[List[int]]) -\u003e None:\n        \"\"\"\n        Do not return anything, modify board in-place instead.\n        \"\"\"\n        rows_count, cols_count = len(board), len(board[0])\n        moves = ((0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1))\n        flip_cells = set()\n        \n        for row in range(rows_count):\n            for col in range(cols_count):\n                live_neighbors = 0\n                is_alive = board[row][col] == 1\n\n                for row_delta, col_delta in moves:\n                    new_row, new_col = row + row_delta, col + col_delta\n                    if not 0 \u003c= new_row \u003c rows_count or not 0 \u003c= new_col \u003c cols_count:\n                        continue\n                    if board[new_row][new_col] == 1:\n                        live_neighbors += 1\n\n                if (is_alive and (live_neighbors \u003c 2 or live_neighbors \u003e 3)) or (\n                    not is_alive and live_neighbors == 3\n                ):\n                    flip_cells.add((row, col))\n        \n        while flip_cells:\n            row, col = flip_cells.pop()\n            board[row][col] = 0 if board[row][col] == 1 else 1",
+    "title": "Game of Life",
+    "url": "/submissions/detail/1039615645/",
+    "lang_name": "Python3",
+    "time": "1 year, 10 months",
+    "timestamp": 1693760789,
+    "status": 10,
+    "runtime": "44 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.3 MB",
+    "compare_result": "1111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1029418158,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 778,
+    "title_slug": "reorganize-string",
+    "code": "class Solution:\n    def reorganizeString(self, s: str) -\u003e str:\n        result = []\n        # Min heap ordered by character counts, so we will use\n        # negative values for count\n        priority_queue = [(-count, char) for char, count in Counter(s).items()]\n        heapify(priority_queue)\n\n        while priority_queue:\n            count_first, char_first = heappop(priority_queue)\n            if not result or char_first != result[-1]:\n                result.append(char_first)\n                if count_first != -1: \n                    heappush(priority_queue, (count_first + 1, char_first))\n                continue\n            \n            if not priority_queue: \n                return \"\"\n            \n            count_second, char_second = heappop(priority_queue)\n            result.append(char_second)\n            if count_second != -1:\n                heappush(priority_queue, (count_second + 1, char_second))\n            heappush(priority_queue, (count_first, char_first))\n\n        return \"\".join(result)",
+    "title": "Reorganize String",
+    "url": "/submissions/detail/1029418158/",
+    "lang_name": "Python3",
+    "time": "1 year, 11 months",
+    "timestamp": 1692783905,
+    "status": 10,
+    "runtime": "45 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.4 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

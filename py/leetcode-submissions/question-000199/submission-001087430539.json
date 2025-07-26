@@ -1,0 +1,19 @@
+{
+    "id": 1087430539,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 199,
+    "title_slug": "binary-tree-right-side-view",
+    "code": "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def rightSideView(self, root: Optional[TreeNode]) -\u003e List[int]:\n        if not root:\n            return []\n        \n        q_cur, q_next, answer = deque(), deque(), []\n        q_cur.append(root)\n\n        while q_cur:\n            last_val = None\n            \n            while q_cur:\n                node = q_cur.popleft()\n                last_val = node.val\n                if node.left:\n                    q_next.append(node.left)\n                if node.right:\n                    q_next.append(node.right)\n            \n            q_cur, q_next = q_next, q_cur\n            answer.append(last_val)\n    \n        return answer",
+    "title": "Binary Tree Right Side View",
+    "url": "/submissions/detail/1087430539/",
+    "lang_name": "Python3",
+    "time": "1 year, 8 months",
+    "timestamp": 1698657425,
+    "status": 10,
+    "runtime": "32 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.3 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

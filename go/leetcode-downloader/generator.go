@@ -67,27 +67,31 @@ func (self *Generator) write(submission *proto.Submission) error {
 	}
 	codePath := filepath.Join(dir, fmt.Sprintf("%s.%s", name, extension))
 	dataPath := filepath.Join(dir, fmt.Sprintf("%s.%s", name, "json"))
-	err = os.WriteFile(codePath, codeContent, 0o644)
-	if err != nil {
-		return fmt.Errorf("could not write '%s': %w", codePath, err)
+	if self.config.WriteCode {
+		err = os.WriteFile(codePath, codeContent, 0o644)
+		if err != nil {
+			return fmt.Errorf("could not write '%s': %w", codePath, err)
+		}
 	}
 	err = os.WriteFile(dataPath, dataContent, 0o644)
 	if err != nil {
-		return fmt.Errorf("could not write '%s': %w", codePath, err)
+		return fmt.Errorf("could not write '%s': %w", dataPath, err)
 	}
 	return nil
 }
 
-func (g *Generator) submissionDir(submission *proto.Submission) (string, error) {
-	config, err := g.submissionConfig(submission)
+func (self *Generator) submissionDir(submission *proto.Submission) (string, error) {
+	config, err := self.submissionConfig(submission)
 	if err != nil {
-		return "", nil
+		return "", err
 	}
-	return config.Dir, nil
+	question := fmt.Sprintf("question-%06d", submission.QuestionId)
+	res := filepath.Join(config.Dir, question)
+	return res, nil
 }
 
-func (g *Generator) submissionConfig(submission *proto.Submission) (*proto.SubmissionConfig, error) {
-	for _, config := range g.config.Submissions {
+func (self *Generator) submissionConfig(submission *proto.Submission) (*proto.SubmissionConfig, error) {
+	for _, config := range self.config.Submissions {
 		if slices.Contains(config.Types, submission.Lang) {
 			return config, nil
 		}
@@ -95,15 +99,15 @@ func (g *Generator) submissionConfig(submission *proto.Submission) (*proto.Submi
 	return nil, fmt.Errorf("could not find config for submission %v", submission)
 }
 
-func (g *Generator) submissionExtension(submission *proto.Submission) (string, error) {
-	config, err := g.submissionConfig(submission)
+func (self *Generator) submissionExtension(submission *proto.Submission) (string, error) {
+	config, err := self.submissionConfig(submission)
 	if err != nil {
 		return "", err
 	}
 	return config.Extension, nil
 }
 
-func (g *Generator) submissionName(submission *proto.Submission) (string, error) {
-	name := fmt.Sprintf("%05d-%05d-%s", submission.QuestionId, submission.Id, submission.TitleSlug)
+func (self *Generator) submissionName(submission *proto.Submission) (string, error) {
+	name := fmt.Sprintf("submission-%012d", submission.Id)
 	return name, nil
 }

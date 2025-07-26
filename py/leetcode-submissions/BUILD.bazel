@@ -15,7 +15,7 @@ al_gen_changelog(
 
 al_gen_leetcode_submissions(
     name = "leetcode-submissions",
-    srcs = glob(["*.json"]),
+    srcs = glob(["question-*/*.json"]),
     visibility = ["//visibility:public"],
 )
 

@@ -19,6 +19,7 @@ message Config {
   string root_dir = 9;
   map<string, string> headers = 11;
   string submissions_file = 12;
+  bool write_code = 13;
 }
 
 message SubmissionConfig {

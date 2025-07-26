@@ -1,0 +1,19 @@
+{
+    "id": 1086938416,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 458,
+    "title_slug": "poor-pigs",
+    "code": "class Solution:\n    def poorPigs(self, buckets: int, a: int, b: int) -\u003e int:\n        pigs = 0\n        while (b / a + 1) ** pigs \u003c buckets:\n            pigs += 1\n\n        return pigs ",
+    "title": "Poor Pigs",
+    "url": "/submissions/detail/1086938416/",
+    "lang_name": "Python3",
+    "time": "1 year, 8 months",
+    "timestamp": 1698597393,
+    "status": 10,
+    "runtime": "30 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.3 MB",
+    "compare_result": "111111111111111111",
+    "flag_type": 1
+}

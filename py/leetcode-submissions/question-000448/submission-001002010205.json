@@ -1,0 +1,19 @@
+{
+    "id": 1002010205,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 448,
+    "title_slug": "find-all-numbers-disappeared-in-an-array",
+    "code": "class Solution:\n    # [1,1,3,4], [1,2,3,4] -\u003e [2]\n    def findDisappearedNumbers(self, nums: List[int]) -\u003e List[int]:\n        nums.sort()\n        result = []\n        length = len(nums)\n        j = 0\n        for i in range(1, length + 1):\n            while j \u003c length and nums[j] \u003c i:\n                j += 1\n            \n            if j \u003c length and nums[j] == i:\n                continue\n\n            result.append(i)\n\n        return result\n",
+    "title": "Find All Numbers Disappeared in an Array",
+    "url": "/submissions/detail/1002010205/",
+    "lang_name": "Python3",
+    "time": "2 years",
+    "timestamp": 1690134957,
+    "status": 10,
+    "runtime": "399 ms",
+    "is_pending": "Not Pending",
+    "memory": "25.2 MB",
+    "compare_result": "1111111111111111111111111111111111",
+    "flag_type": 1
+}

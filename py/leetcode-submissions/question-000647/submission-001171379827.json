@@ -1,0 +1,19 @@
+{
+    "id": 1171379827,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 647,
+    "title_slug": "palindromic-substrings",
+    "code": "class Solution:\n    def countSubstrings(self, s: str) -\u003e int:\n        n = len(s)\n        palindrome = [[False] * n for _ in range(n)]\n        ans = 0\n\n        for i in range(n):\n            palindrome[i][i] = True\n            ans += 1\n\n        for i in range(n - 1):\n            if s[i] == s[i + 1]:\n                palindrome[i][i + 1] = True\n                ans += 1\n\n        for length in range(3, n + 1):\n            for i in range(n - length + 1):\n                if s[i] == s[i + length - 1] and palindrome[i + 1][i + length - 2]:\n                    palindrome[i][i + length - 1] = True\n                    ans += 1\n\n        return ans",
+    "title": "Palindromic Substrings",
+    "url": "/submissions/detail/1171379827/",
+    "lang_name": "Python3",
+    "time": "1 year, 5 months",
+    "timestamp": 1707567174,
+    "status": 10,
+    "runtime": "159 ms",
+    "is_pending": "Not Pending",
+    "memory": "24.4 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

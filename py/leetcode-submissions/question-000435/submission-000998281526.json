@@ -1,0 +1,19 @@
+{
+    "id": 998281526,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 435,
+    "title_slug": "non-overlapping-intervals",
+    "code": "class Solution:\n    def eraseOverlapIntervals(self, intervals: List[List[int]]) -\u003e int:\n        intervals = sorted(intervals, key=lambda element: element[1])\n        length = len(intervals)\n        prev, count = 0, 1\n\n        for i in range(1, length):\n            if intervals[i][0] \u003c intervals[prev][1]:\n                continue\n            \n            prev = i\n            count += 1\n        \n        return length - count",
+    "title": "Non-overlapping Intervals",
+    "url": "/submissions/detail/998281526/",
+    "lang_name": "Python3",
+    "time": "2 years",
+    "timestamp": 1689754484,
+    "status": 10,
+    "runtime": "1240 ms",
+    "is_pending": "Not Pending",
+    "memory": "55.3 MB",
+    "compare_result": "1111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

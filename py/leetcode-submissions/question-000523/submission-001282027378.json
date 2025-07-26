@@ -1,0 +1,19 @@
+{
+    "id": 1282027378,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 523,
+    "title_slug": "continuous-subarray-sum",
+    "code": "class Solution:\n    def checkSubarraySum(self, nums: List[int], k: int) -\u003e bool:\n        remainder_map = {0: -1}  \n        cumulative_sum = 0\n        \n        for i, num in enumerate(nums):\n            cumulative_sum += num\n            remainder = cumulative_sum % k\n            if remainder in remainder_map:\n                if i - remainder_map[remainder] \u003e 1:\n                    return True\n            else:\n                remainder_map[remainder] = i\n        return False",
+    "title": "Continuous Subarray Sum",
+    "url": "/submissions/detail/1282027378/",
+    "lang_name": "Python3",
+    "time": "1 year, 1 month",
+    "timestamp": 1717874007,
+    "status": 10,
+    "runtime": "999 ms",
+    "is_pending": "Not Pending",
+    "memory": "36.4 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

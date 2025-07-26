@@ -1,0 +1,19 @@
+{
+    "id": 1001966755,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 908,
+    "title_slug": "middle-of-the-linked-list",
+    "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def middleNode(self, head: Optional[ListNode]) -\u003e Optional[ListNode]:\n        middle = head.next if head else None \n        tail = middle.next if middle else None\n        move = True\n        while tail and tail.next:\n            tail = tail.next\n            if move:\n                middle = middle.next\n            \n            move = not move\n\n        return middle if middle else head\n",
+    "title": "Middle of the Linked List",
+    "url": "/submissions/detail/1001966755/",
+    "lang_name": "Python3",
+    "time": "2 years",
+    "timestamp": 1690131342,
+    "status": 10,
+    "runtime": "40 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.4 MB",
+    "compare_result": "111111111111111111111111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1050711409,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 1753,
+    "title_slug": "path-with-minimum-effort",
+    "code": "class Solution:\r\n\r\n    def minimumEffortPath(self, heights: List[List[int]]) -\u003e int:\r\n        rows, cols = len(heights), len(heights[0])\r\n        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]\r\n        dist = [[math.inf for _ in range(cols)] for _ in range(rows)]\r\n        dist[0][0] = 0\r\n        minHeap = [(0, 0, 0)] \r\n        while minHeap:\r\n            effort, x, y = heappop(minHeap)\r\n            if x == rows - 1 and y == cols - 1:\r\n                return effort\r\n            for dx, dy in directions:\r\n                nx, ny = x + dx, y + dy\r\n                if 0 \u003c= nx \u003c rows and 0 \u003c= ny \u003c cols:\r\n                    new_effort = max(effort, abs(heights[x][y] - heights[nx][ny]))\r\n                    if new_effort \u003c dist[nx][ny]:\r\n                        dist[nx][ny] = new_effort\r\n                        heappush(minHeap, (new_effort, nx, ny))",
+    "title": "Path With Minimum Effort",
+    "url": "/submissions/detail/1050711409/",
+    "lang_name": "Python3",
+    "time": "1 year, 10 months",
+    "timestamp": 1694852754,
+    "status": 10,
+    "runtime": "521 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.7 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

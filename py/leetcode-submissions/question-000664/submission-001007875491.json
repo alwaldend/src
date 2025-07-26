@@ -1,0 +1,19 @@
+{
+    "id": 1007875491,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 664,
+    "title_slug": "strange-printer",
+    "code": "class Solution:\n    def strangePrinter(self, s: str) -\u003e int:\n        n = len(s)\n        dp = [[n] * n for _ in range(n)]\n        for length in range(1, n + 1):\n            for left in range(n - length + 1):\n                right = left + length - 1\n                j = -1\n                for i in range(left, right):\n                    if s[i] != s[right] and j == -1:\n                        j = i\n                    if j != -1:\n                        dp[left][right] = min(dp[left][right], 1 + dp[j][i] + dp[i + 1][right])\n        \n                if j == -1:\n                    dp[left][right] = 0\n\n        return dp[0][n - 1] + 1",
+    "title": "Strange Printer",
+    "url": "/submissions/detail/1007875491/",
+    "lang_name": "Python3",
+    "time": "1 year, 12 months",
+    "timestamp": 1690737075,
+    "status": 10,
+    "runtime": "1399 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.3 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

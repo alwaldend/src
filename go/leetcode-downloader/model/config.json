@@ -6,12 +6,12 @@
   "session": "${LEETCODE_SESSION}",
   "submissions": {
     "python": {
-      "dir": "python/leetcode-submissions",
+      "dir": "py/leetcode-submissions",
       "types": ["python3", "python"],
       "extension": "py"
     },
     "golang": {
-      "dir": "golang/leetcode-submissions",
+      "dir": "go/leetcode-submissions",
       "types": ["go", "golang"],
       "extension": "go"
     },
@@ -19,6 +19,11 @@
       "dir": "cpp/leetcode-submissions",
       "types": ["cpp"],
       "extension": "cpp"
+    },
+    "sql": {
+      "dir": "sql/leetcode-submissions",
+      "types": ["postgresql"],
+      "extension": "sql"
     },
     "java": {
       "dir": "java/leetcode-submissions",

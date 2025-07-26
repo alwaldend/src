@@ -1,0 +1,19 @@
+{
+    "id": 1049407796,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 2778,
+    "title_slug": "frequency-tracker",
+    "code": "class FrequencyTracker:\n\n    def __init__(self):\n        self._num_freq = defaultdict(int)\n        self._freq_nums = defaultdict(set)    \n\n    def add(self, number: int) -\u003e None:\n        cur_freq = self._num_freq[number]\n        self._num_freq[number] = cur_freq + 1\n        self._freq_nums[cur_freq].discard(number)\n        self._freq_nums[cur_freq + 1].add(number)\n\n    def deleteOne(self, number: int) -\u003e None:\n        cur_freq = self._num_freq[number]\n        if cur_freq == 0:\n            return    \n        self._num_freq[number] = cur_freq - 1 \n        self._freq_nums[cur_freq].discard(number)\n        if cur_freq != 1:\n            self._freq_nums[cur_freq - 1].add(number)\n\n    def hasFrequency(self, frequency: int) -\u003e bool:\n        return len(self._freq_nums[frequency]) != 0\n\n\n# Your FrequencyTracker object will be instantiated and called as such:\n# obj = FrequencyTracker()\n# obj.add(number)\n# obj.deleteOne(number)\n# param_3 = obj.hasFrequency(frequency)",
+    "title": "Frequency Tracker",
+    "url": "/submissions/detail/1049407796/",
+    "lang_name": "Python3",
+    "time": "1 year, 10 months",
+    "timestamp": 1694707335,
+    "status": 10,
+    "runtime": "536 ms",
+    "is_pending": "Not Pending",
+    "memory": "80.1 MB",
+    "compare_result": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}

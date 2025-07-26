@@ -1,0 +1,19 @@
+{
+    "id": 1022114292,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 86,
+    "title_slug": "partition-list",
+    "code": "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def partition(self, head: Optional[ListNode], x: int) -\u003e Optional[ListNode]:\n        first_left, last_left, first_right, last_right = None, None, None, None\n\n        while head:\n            is_left = head.val \u003c x\n            is_right = not is_left\n            next_node = head.next\n            head.next = first_right if is_left else None\n            \n            if is_left and last_left:\n                last_left.next = head\n                last_left = head\n            elif is_left and not first_left:\n                first_left, last_left = head, head\n\n            if is_right and first_right:\n                last_right.next = head\n                last_right = head\n            elif is_right and not first_right:\n                first_right, last_right = head, head\n                if last_left:\n                    last_left.next = head\n\n            head = next_node\n\n        return first_left if first_left else first_right",
+    "title": "Partition List",
+    "url": "/submissions/detail/1022114292/",
+    "lang_name": "Python3",
+    "time": "1 year, 11 months",
+    "timestamp": 1692108169,
+    "status": 10,
+    "runtime": "52 ms",
+    "is_pending": "Not Pending",
+    "memory": "16.4 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}
