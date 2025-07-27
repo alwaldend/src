@@ -51,6 +51,7 @@ pkg_tar(
         "//go/leetcode-submissions",
         "//java/leetcode-submissions",
         "//py/leetcode-submissions",
+        "//sql/leetcode-submissions",
     ],
 )
 

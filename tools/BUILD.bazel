@@ -25,6 +25,7 @@ al_alias_map(
         "prettier": {"actual": "//js:prettier"},
         "postcss": {"actual": "//js:postcss"},
         "git": {"actual": "//:git"},
+        "ansible-playbook": {"actual": "//ansible:ansible-playbook"},
     },
 )
 

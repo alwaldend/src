@@ -221,3 +221,10 @@ name = "Flossindune"
 links = [
     { title = "royalorad", url = "https://www.royalroad.com/profile/299461" },
 ]
+
+[author.quiet-support]
+name = "Quiet Support"
+alts = ["安静捧场"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/quiet-support/" },
+]
