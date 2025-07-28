@@ -23,7 +23,7 @@ links = [
 title = "My Longevity Simulation"
 thumbnail = "https://cdn.novelupdates.com/images/2024/08/My-Longevity-Simulation.jpg"
 quality = "Good"
-reading = "Reading, chapter 724"
+reading = "Dropped, chapter 776"
 authors = ["angry-squid"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/my-longevity-simulation/" },
@@ -184,8 +184,8 @@ links = [
 [[book]]
 title = "The Years of Apocalypse"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/the-years-of-apocalypse-a-time-loop-progression.jpg?time=1706941233"
-quality = "Good"
-reading = "Reading, chapter 199"
+quality = "Decent"
+reading = "Dropped, chapter 208"
 authors = ["uraniumphoenix"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression" },
@@ -215,7 +215,7 @@ links = [
 title = "A Practical Guide to Sorcery"
 thumbnail = "https://www.azaleaellis.com/wp-content/uploads/2022/10/A-Conjuring-of-Ravens-Web-800w-683x1024.jpg"
 quality = "Decent"
-reading = "Reading, chapter 254"
+reading = "Dropped, chapter 259"
 authors = ["azalea-ellis"]
 links = [
     { title = "azaleaellis", url = "https://www.azaleaellis.com/a-practical-guide-to-sorcery/" },
@@ -276,7 +276,7 @@ links = [
 title = "Return of the Runebound Professor"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/68679-return-of-the-runebound-professor.jpg?time=1696109628"
 quality = "Ok"
-reading = "Dropped, chapter 722 (book 7)"
+reading = "Dropped, chapter 734 (book 7)"
 authors = ["actus"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed" },
@@ -593,9 +593,8 @@ links = [
 [[book]]
 title = "Chrysalis"
 thumbnail = "https://www.royalroadcdn.com/public/covers-full/22518-chrysalis.jpg"
-quality = "Ok"
-summary = "Shallow"
-reading = "Reading, chapter 1596"
+quality = "Ok, shallow"
+reading = "Dropped, chapter 1609"
 authors = ["rinoz"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/22518/chrysalis" },
@@ -740,7 +739,7 @@ links = [
 title = "Sky Pride"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/107917-sky-pride.jpg?time=1741721709"
 quality = "Good"
-reading = "Reading, volume 3, chapter 5"
+reading = "Dropped, volume 3, chapter 10"
 authors = ["warby-picus"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/107917/sky-pride" },
@@ -776,4 +775,14 @@ reading = "Dropped, chapter 8"
 authors = ["chaos"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/versatile-mage/" },
+]
+
+[[book]]
+title = "1% Lifesteal"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/72301-1-lifesteal.jpg?time=1749132068"
+quality = "Ok, boring protagonist"
+reading = "Dropped, chapter 128 (volume 2)"
+authors = ["robert-blaise"]
+links = [
+    { title = "royaloroad", url = "https://www.royalroad.com/fiction/72301/1-lifesteal" },
 ]

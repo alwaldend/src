@@ -260,45 +260,6 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 </details>
 
-<details open>
-  <summary>Line count</summary>
-
-<!-- CLOC START -->
-
-| Language         |    files |    blank |  comment |     code |
-| :--------------- | -------: | -------: | -------: | -------: |
-| JSON             |      971 |        2 |        0 |    29800 |
-| TOML             |        8 |      402 |        7 |     7320 |
-| Starlark         |      127 |      621 |      818 |     4475 |
-| YAML             |       85 |       87 |        6 |     2686 |
-| Text             |        8 |      128 |        0 |     1798 |
-| Go               |       20 |      151 |       25 |     1529 |
-| Python           |       12 |      266 |       59 |     1204 |
-| Markdown         |      124 |      274 |        6 |     1119 |
-| Lua              |        8 |       60 |       90 |      988 |
-| Bourne Shell     |       20 |       87 |      103 |      527 |
-| C++              |        4 |       33 |       13 |      502 |
-| C                |        7 |       55 |       93 |      434 |
-| Jinja Template   |        7 |       10 |        0 |      337 |
-| diff             |        4 |        7 |       51 |      319 |
-| C/C++ Header     |        7 |       14 |        9 |      111 |
-| JavaScript       |        1 |        7 |       10 |       78 |
-| Protocol Buffers |        2 |       21 |       64 |       74 |
-| SVG              |        3 |        3 |        4 |       55 |
-| XML (Qt/GTK)     |        1 |        0 |        0 |       31 |
-| ProGuard         |        1 |        9 |        8 |       25 |
-| INI              |        1 |        2 |        0 |        9 |
-| HCL              |        1 |        1 |        5 |        8 |
-| Snakemake        |        1 |        2 |        6 |        4 |
-| HTML             |        2 |        0 |        0 |        3 |
-| Rust             |        1 |        0 |        0 |        3 |
-| --------         | -------- | -------- | -------- | -------- |
-| SUM:             |     1426 |     2242 |     1377 |    53439 |
-
-<!-- CLOC END -->
-
-</details>
-
 ## Setup
 
 - Install packages: `sudo dnf install clang clang-format java-latest-openjdk-devel rust mesa-libGL-devel go Xvfb`

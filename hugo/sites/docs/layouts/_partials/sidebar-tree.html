@@ -61,9 +61,9 @@
 {{ end -}}
 {{ end -}}
 {{ if $isGen -}}
-{{ $pages_gen = $pages_gen | append $curPage -}}
+{{ $pages_gen = append $curPage $pages_gen -}}
 {{ else -}}
-{{ $pages_source = $pages_source | append $curPage -}}
+{{ $pages_source = append $curPage $pages_source -}}
 {{ end -}}
 {{ end -}}
 {{ $truncatedEntryCount := sub (len $pages_tmp) $sidebarMenuTruncate -}}
