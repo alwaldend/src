@@ -1,0 +1,19 @@
+{
+    "id": 1714568245,
+    "status_display": "Accepted",
+    "lang": "postgresql",
+    "question_id": 182,
+    "title_slug": "duplicate-emails",
+    "code": "SELECT email FROM Person\nGROUP BY email\nHAVING COUNT(email) \u003e 1;",
+    "title": "Duplicate Emails",
+    "url": "/submissions/detail/1714568245/",
+    "lang_name": "PostgreSQL",
+    "time": "1 day, 3 hours",
+    "timestamp": 1753709755,
+    "status": 10,
+    "runtime": "204 ms",
+    "is_pending": "Not Pending",
+    "memory": "0.0B",
+    "compare_result": "111111111111111",
+    "flag_type": 1
+}

@@ -1,0 +1,19 @@
+{
+    "id": 1714589042,
+    "status_display": "Accepted",
+    "lang": "bash",
+    "question_id": 193,
+    "title_slug": "valid-phone-numbers",
+    "code": "awk '\n/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/ { print $0 }\n/^\\([0-9]{3}\\) [0-9]{3}-[0-9]{4}$/ { print $0 }\n' file.txt",
+    "title": "Valid Phone Numbers",
+    "url": "/submissions/detail/1714589042/",
+    "lang_name": "Bash",
+    "time": "1 day, 2 hours",
+    "timestamp": 1753710792,
+    "status": 10,
+    "runtime": "74 ms",
+    "is_pending": "Not Pending",
+    "memory": "3.9 MB",
+    "compare_result": "11111111111111111111111111",
+    "flag_type": 1
+}

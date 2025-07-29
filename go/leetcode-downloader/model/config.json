@@ -29,6 +29,11 @@
       "dir": "java/leetcode-submissions",
       "types": ["java"],
       "extension": "java"
+    },
+    "sh": {
+      "dir": "sh/leetcode-submissions",
+      "types": ["bash"],
+      "extension": "sh"
     }
   },
   "headers": {

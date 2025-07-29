@@ -1,0 +1,19 @@
+{
+    "id": 1715941950,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 401,
+    "title_slug": "binary-watch",
+    "code": "class Solution:\n    def readBinaryWatch(self, num: int) -\u003e list[str]:\n        times = []\n\n        for h in range(12):\n            for m in range(60):\n                hOnes = bin(h).count('1')\n                mOnes = bin(m).count('1')\n                if hOnes + mOnes == num:\n                    times.append(f\"{h}:{m:02d}\")\n\n        return times",
+    "title": "Binary Watch",
+    "url": "/submissions/detail/1715941950/",
+    "lang_name": "Python3",
+    "time": "1 hour, 46 minutes",
+    "timestamp": 1753801194,
+    "status": 10,
+    "runtime": "0 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.9 MB",
+    "compare_result": "11111111111",
+    "flag_type": 1
+}

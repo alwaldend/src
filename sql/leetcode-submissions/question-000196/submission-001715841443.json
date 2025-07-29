@@ -1,0 +1,19 @@
+{
+    "id": 1715841443,
+    "status_display": "Accepted",
+    "lang": "postgresql",
+    "question_id": 196,
+    "title_slug": "delete-duplicate-emails",
+    "code": "DELETE FROM\n    Person\nWHERE \n    id NOT IN (\n        SELECT MIN(id) FROM Person \n        GROUP BY email\n    )\n;",
+    "title": "Delete Duplicate Emails",
+    "url": "/submissions/detail/1715841443/",
+    "lang_name": "PostgreSQL",
+    "time": "3 hours, 9 minutes",
+    "timestamp": 1753796229,
+    "status": 10,
+    "runtime": "328 ms",
+    "is_pending": "Not Pending",
+    "memory": "0.0B",
+    "compare_result": "1111111111111111111111",
+    "flag_type": 1
+}

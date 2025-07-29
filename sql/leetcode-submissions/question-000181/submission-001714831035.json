@@ -1,0 +1,19 @@
+{
+    "id": 1714831035,
+    "status_display": "Accepted",
+    "lang": "postgresql",
+    "question_id": 181,
+    "title_slug": "employees-earning-more-than-their-managers",
+    "code": "SELECT employee.name AS Employee\nFROM Employee employee\nJOIN Employee manager\nON employee.managerId = manager.id\nWHERE employee.salary \u003e manager.salary;",
+    "title": "Employees Earning More Than Their Managers",
+    "url": "/submissions/detail/1714831035/",
+    "lang_name": "PostgreSQL",
+    "time": "23 hours, 40 minutes",
+    "timestamp": 1753722374,
+    "status": 10,
+    "runtime": "258 ms",
+    "is_pending": "Not Pending",
+    "memory": "0.0B",
+    "compare_result": "11111111111111",
+    "flag_type": 1
+}

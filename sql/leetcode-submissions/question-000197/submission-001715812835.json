@@ -1,0 +1,19 @@
+{
+    "id": 1715812835,
+    "status_display": "Accepted",
+    "lang": "postgresql",
+    "question_id": 197,
+    "title_slug": "rising-temperature",
+    "code": "SELECT \n    today.id\nFROM \n    Weather today\nCROSS JOIN \n    Weather yesterday\nWHERE \n    (today.recordDate - yesterday.recordDate = 1)\n    AND today.temperature \u003e yesterday.temperature",
+    "title": "Rising Temperature",
+    "url": "/submissions/detail/1715812835/",
+    "lang_name": "PostgreSQL",
+    "time": "3 hours, 34 minutes",
+    "timestamp": 1753794709,
+    "status": 10,
+    "runtime": "273 ms",
+    "is_pending": "Not Pending",
+    "memory": "0.0B",
+    "compare_result": "111111111111111",
+    "flag_type": 1
+}

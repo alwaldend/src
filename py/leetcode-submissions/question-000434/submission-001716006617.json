@@ -1,0 +1,19 @@
+{
+    "id": 1716006617,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 434,
+    "title_slug": "number-of-segments-in-a-string",
+    "code": "class Solution:\n    def countSegments(self, s: str) -\u003e int:\n        length = len(s)\n        count = 0\n        is_segment = False\n        for char in s:\n            is_space = char == \" \"\n            if not is_segment and not is_space:\n                is_segment = True\n                count += 1\n            elif is_space:\n                is_segment = False\n        return count",
+    "title": "Number of Segments in a String",
+    "url": "/submissions/detail/1716006617/",
+    "lang_name": "Python3",
+    "time": "53 minutes",
+    "timestamp": 1753804343,
+    "status": 10,
+    "runtime": "0 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.8 MB",
+    "compare_result": "1111111111111111111111111111",
+    "flag_type": 1
+}

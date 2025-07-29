@@ -1,0 +1,19 @@
+{
+    "id": 1714579585,
+    "status_display": "Accepted",
+    "lang": "postgresql",
+    "question_id": 183,
+    "title_slug": "customers-who-never-order",
+    "code": "SELECT name as \"Customers\"\nFROM Customers\nWHERE id NOT IN (\n    SELECT customerId \n    FROM Orders\n);",
+    "title": "Customers Who Never Order",
+    "url": "/submissions/detail/1714579585/",
+    "lang_name": "PostgreSQL",
+    "time": "1 day, 3 hours",
+    "timestamp": 1753710320,
+    "status": 10,
+    "runtime": "195 ms",
+    "is_pending": "Not Pending",
+    "memory": "0.0B",
+    "compare_result": "111111111111",
+    "flag_type": 1
+}

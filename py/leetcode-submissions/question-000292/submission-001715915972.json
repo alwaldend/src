@@ -1,0 +1,19 @@
+{
+    "id": 1715915972,
+    "status_display": "Accepted",
+    "lang": "python3",
+    "question_id": 292,
+    "title_slug": "nim-game",
+    "code": "class Solution:\n    def canWinNim(self, n: int) -\u003e bool:\n        return n % 4 != 0",
+    "title": "Nim Game",
+    "url": "/submissions/detail/1715915972/",
+    "lang_name": "Python3",
+    "time": "2 hours, 7 minutes",
+    "timestamp": 1753799924,
+    "status": 10,
+    "runtime": "0 ms",
+    "is_pending": "Not Pending",
+    "memory": "17.8 MB",
+    "compare_result": "111111111111111111111111111111111111111111111111111111111111",
+    "flag_type": 1
+}
