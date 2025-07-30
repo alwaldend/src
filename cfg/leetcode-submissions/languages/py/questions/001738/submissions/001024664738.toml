@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1024664738
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1738
+  TitleSlug = "maximal-network-rank"
+  Code = "class Solution:\n    def maximalNetworkRank(self, n: int, roads: List[List[int]]) -> int:\n        city_roads = [set() for _ in range(n)]\n\n        for city_one, city_two in roads:\n            city_roads[city_one].add(city_two)\n            city_roads[city_two].add(city_one)\n        \n        max_rank = 0\n\n        for city_one in range(n):\n            for city_two in range(city_one + 1, n):\n                rank = len(city_roads[city_one]) + len(city_roads[city_two])\n                if city_one in city_roads[city_two]:\n                    rank -= 1\n                \n                if rank > max_rank:\n                    max_rank = rank\n        \n        return max_rank"
+  Title = "Maximal Network Rank"
+  Url = "/submissions/detail/1024664738/"
+  LangName = "Python3"
+  Timestamp = 1692345153
+  Status = 10
+  Runtime = "292 ms"
+  IsPending = "Not Pending"
+  Memory = "18.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

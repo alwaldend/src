@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1116406709
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 94
+  TitleSlug = "binary-tree-inorder-traversal"
+  Code = "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    vector<int> inorderTraversal(TreeNode* root) {\n        vector<int> result;\n        helper(root, result);\n        return result;\n    }\n\n    void helper(TreeNode* root, vector<int>& result) {\n        if (root != nullptr) {\n            helper(root->left, result);\n            result.push_back(root->val);\n            helper(root->right, result);\n        }\n    }\n};"
+  Title = "Binary Tree Inorder Traversal"
+  Url = "/submissions/detail/1116406709/"
+  LangName = "C++"
+  Timestamp = 1702205182
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "8.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1246394299
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 2128
+  TitleSlug = "reverse-prefix-of-word"
+  Code = "func reversePrefix(word string, ch byte) string {\n    var natija string\n    for i := 0; i < len(word); i++ {\n        if word[i] == ch { \n            ch_index := i\n            for i >= 0 {\n                natija += string(word[i])\n                i--\n            } \n            return natija + word[ch_index + 1 : ]\n        }\n    }    \n    return word\n}\n\n"
+  Title = "Reverse Prefix of Word"
+  Url = "/submissions/detail/1246394299/"
+  LangName = "Go"
+  Timestamp = 1714554172
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "2.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

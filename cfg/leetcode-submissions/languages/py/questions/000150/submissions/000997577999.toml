@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 997577999
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 150
+  TitleSlug = "evaluate-reverse-polish-notation"
+  Code = "class Solution:\n    def evalRPN(self, tokens: List[str]) -> int:\n        stack = []\n        operations = {\n            \"+\": lambda first, second: first + second,\n            \"-\": lambda first, second: first - second,\n            \"*\": lambda first, second: first * second,\n            \"/\": lambda first, second: int(first / second)\n        }\n        for token in tokens:\n            if token not in operations:\n                stack.append(int(token))\n                continue\n\n            second, first = stack.pop(), stack.pop()\n            result = operations[token](first, second)\n            stack.append(result)\n            \n        return stack[-1]"
+  Title = "Evaluate Reverse Polish Notation"
+  Url = "/submissions/detail/997577999/"
+  LangName = "Python3"
+  Timestamp = 1689686143
+  Status = 10
+  Runtime = "75 ms"
+  IsPending = "Not Pending"
+  Memory = "16.6 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

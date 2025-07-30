@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 998405195
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 122
+  TitleSlug = "best-time-to-buy-and-sell-stock-ii"
+  Code = "class Solution:\n    def maxProfit(self, prices: List[int]) -> int:\n\t\t# It is impossible to sell stock on first day, set -infinity as initial value for cur_hold\n        cur_hold, cur_not_hold = -float('inf'), 0\n        \n        for stock_price in prices:\n            prev_hold, prev_not_hold = cur_hold, cur_not_hold\n\t\t\t# either keep hold, or buy in stock today at stock price\n            cur_hold = max(prev_hold, prev_not_hold - stock_price)\n\t\t\t\n\t\t\t# either keep not-hold, or sell out stock today at stock price\n            cur_not_hold = max(prev_not_hold, \n                               prev_hold + stock_price)\n            \n        # maximum profit must be in not-hold state\n        return cur_not_hold"
+  Title = "Best Time to Buy and Sell Stock II"
+  Url = "/submissions/detail/998405195/"
+  LangName = "Python3"
+  Timestamp = 1689766552
+  Status = 10
+  Runtime = "75 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

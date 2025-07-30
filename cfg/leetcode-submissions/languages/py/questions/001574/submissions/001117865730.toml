@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1117865730
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1574
+  TitleSlug = "maximum-product-of-two-elements-in-an-array"
+  Code = "class Solution:\n    def maxProduct(self, nums: List[int]) -> int:\n        biggest = 0\n        second_biggest = 0\n        for num in nums:\n            if num > biggest:\n                second_biggest = biggest\n                biggest = num\n            else:\n                second_biggest = max(second_biggest, num)\n        \n        return (biggest - 1) * (second_biggest - 1)"
+  Title = "Maximum Product of Two Elements in an Array"
+  Url = "/submissions/detail/1117865730/"
+  LangName = "Python3"
+  Timestamp = 1702366785
+  Status = 10
+  Runtime = "59 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

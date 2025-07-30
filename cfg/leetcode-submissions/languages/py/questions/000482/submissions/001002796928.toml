@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1002796928
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 482
+  TitleSlug = "license-key-formatting"
+  Code = "class Solution:\n    def licenseKeyFormatting(self, s: str, k: int) -> str:\n        result = []\n        count = 0\n        for letter in reversed(s):\n            if letter == \"-\":\n                continue\n\n            if count == k:\n                result.append(\"-\")\n                count = 0\n            \n            count += 1\n            result.append(letter.upper())\n\n        return \"\".join(reversed(result))"
+  Title = "License Key Formatting"
+  Url = "/submissions/detail/1002796928/"
+  LangName = "Python3"
+  Timestamp = 1690216488
+  Status = 10
+  Runtime = "71 ms"
+  IsPending = "Not Pending"
+  Memory = "20.5 MB"
+  CompareResult = "11111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

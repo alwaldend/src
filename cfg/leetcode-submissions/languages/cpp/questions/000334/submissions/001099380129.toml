@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1099380129
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 334
+  TitleSlug = "increasing-triplet-subsequence"
+  Code = "class Solution {\npublic:\n    bool increasingTriplet(vector<int>& nums) {\n        auto length{nums.size()};\n        int num1{INT_MAX}, num2{INT_MAX}; \n        for (int num : nums) {\n            if (num <= num1) {\n                num1 = num;\n            } else if (num <= num2) {\n                num2 = num;\n            } else {\n                return true;\n            }\n        }\n        return false;\n    }\n};"
+  Title = "Increasing Triplet Subsequence"
+  Url = "/submissions/detail/1099380129/"
+  LangName = "C++"
+  Timestamp = 1700053947
+  Status = 10
+  Runtime = "82 ms"
+  IsPending = "Not Pending"
+  Memory = "112 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1009431912
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 77
+  TitleSlug = "combinations"
+  Code = "class Solution:\n    def combine(self, n: int, k: int) -> List[List[int]]:\n        def generate_combinations(elems: List[int], num: int):\n            total = len(elems)\n            if num > total:\n                return\n            curr_indices = list(range(num))\n            reversed_num = tuple(reversed(range(num)))\n\n            while True:\n                yield list(elems[i] for i in curr_indices)\n                \n                for idx in reversed_num:\n                    if curr_indices[idx] != idx + total - num:\n                        break\n                else:\n                    return\n\n                curr_indices[idx] += 1\n                for j in range(idx+1, num):\n                    curr_indices[j] = curr_indices[j-1] + 1\n\n        return [combination for combination in generate_combinations(tuple(range(1, n+1)), k)]"
+  Title = "Combinations"
+  Url = "/submissions/detail/1009431912/"
+  LangName = "Python3"
+  Timestamp = 1690899295
+  Status = 10
+  Runtime = "82 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -71,7 +71,7 @@ func unsetMapKey[T comparable](val map[T]any, keys ...T) bool {
 	return true
 }
 
-func timestampToDate(timestamp float64) (string, error) {
+func timestampToDate(timestamp int64) (string, error) {
 	tm := time.Unix(int64(timestamp), 0)
 	return tm.String(), nil
 }

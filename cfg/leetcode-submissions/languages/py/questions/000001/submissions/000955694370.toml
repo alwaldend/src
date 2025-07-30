@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 955694370
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1
+  TitleSlug = "two-sum"
+  Code = "class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        indexes = {}\n        for i, number in enumerate(nums):\n            diff = target - number\n            if diff in indexes: \n                return [indexes[diff], i]\n            indexes[number] = i"
+  Title = "Two Sum"
+  Url = "/submissions/detail/955694370/"
+  LangName = "Python3"
+  Timestamp = 1684834590
+  Status = 10
+  Runtime = "80 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

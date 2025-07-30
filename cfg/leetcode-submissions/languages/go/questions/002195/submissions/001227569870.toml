@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1227569870
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 2195
+  TitleSlug = "time-needed-to-buy-tickets"
+  Code = "func timeRequiredToBuy(tickets []int, k int) int {\n    n := len(tickets)\n    d := tickets[k]\n    res := 0\n    for i := 0; i <= k; i++ {\n        res += min(d, tickets[i])\n    }\n    for i := k + 1; i < n; i++ {\n        res += min(d - 1, tickets[i])\n    }\n    return res\n}"
+  Title = "Time Needed to Buy Tickets"
+  Url = "/submissions/detail/1227569870/"
+  LangName = "Go"
+  Timestamp = 1712661706
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "2.3 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

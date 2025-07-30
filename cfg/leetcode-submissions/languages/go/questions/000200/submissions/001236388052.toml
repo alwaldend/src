@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1236388052
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 200
+  TitleSlug = "number-of-islands"
+  Code = "func numIslands(grid [][]byte) int {\n    if len(grid) == 0 || len(grid[0]) == 0 {\n        return 0\n    }\n    \n    rows := len(grid)\n    cols := len(grid[0])\n    islands := 0\n    \n    var dfs func(row, col int)\n    dfs = func(row, col int) {\n        if row < 0 || col < 0 || row >= rows || col >= cols || grid[row][col] != '1' {\n            return\n        }\n        grid[row][col] = '0'\n        dfs(row-1, col)\n        dfs(row+1, col)\n        dfs(row, col-1)\n        dfs(row, col+1)\n    }\n    \n    for row := 0; row < rows; row++ {\n        for col := 0; col < cols; col++ {\n            if grid[row][col] == '1' {\n                dfs(row, col)\n                islands++\n            }\n        }\n    }\n    \n    return islands\n}\n"
+  Title = "Number of Islands"
+  Url = "/submissions/detail/1236388052/"
+  LangName = "Go"
+  Timestamp = 1713512240
+  Status = 10
+  Runtime = "5 ms"
+  IsPending = "Not Pending"
+  Memory = "4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

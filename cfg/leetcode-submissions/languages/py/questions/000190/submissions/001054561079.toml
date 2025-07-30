@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1054561079
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 190
+  TitleSlug = "reverse-bits"
+  Code = "class Solution:\n    def reverseBits(self, n: int) -> int:\n        # Initialize the reversed number to 0\n        reversed_num = 0\n        \n        # Iterate over all 32 bits of the given number\n        for i in range(32):\n            # Left shift the reversed number by 1 and add the last bit of the given number to it\n            reversed_num = (reversed_num << 1) | (n & 1)\n            # remove the last bit from the original number\n            n >>= 1\n        \n        # Return the reversed number\n        return reversed_num\n"
+  Title = "Reverse Bits"
+  Url = "/submissions/detail/1054561079/"
+  LangName = "Python3"
+  Timestamp = 1695218870
+  Status = 10
+  Runtime = "40 ms"
+  IsPending = "Not Pending"
+  Memory = "16.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

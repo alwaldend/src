@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1174925506
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2271
+  TitleSlug = "rearrange-array-elements-by-sign"
+  Code = "class Solution:\n    def rearrangeArray(self, nums: List[int]) -> List[int]:\n        res = []\n        pos, neg = [], []\n        length = len(nums)\n        for i in range(length):\n            num = nums[i]\n            if num > 0:\n                pos.append(num)\n            else:\n                neg.append(num)\n        pos.reverse()\n        neg.reverse()\n        while pos and neg:\n            res.extend((pos.pop(), neg.pop()))\n        return res"
+  Title = "Rearrange Array Elements by Sign"
+  Url = "/submissions/detail/1174925506/"
+  LangName = "Python3"
+  Timestamp = 1707896897
+  Status = 10
+  Runtime = "1001 ms"
+  IsPending = "Not Pending"
+  Memory = "47.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

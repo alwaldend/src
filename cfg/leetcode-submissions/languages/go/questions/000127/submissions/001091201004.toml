@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1091201004
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 127
+  TitleSlug = "word-ladder"
+  Code = "func ladderLength(beginWord string, endWord string, wordList []string) int {\n    \n    set := make(map[string]struct{}, len(wordList))\n    \n    present := false\n    \n    for _, v := range wordList {\n        if endWord == v {\n            present = true\n        } \n        \n        set[v] = struct{}{} \n    }\n    \n    if !present {\n        return 0\n    }\n    \n    set[beginWord] = struct{}{}\n    q := []string{beginWord}\n    \n    depth := 1\n    breadth := 0\n    \n    breadth = len(q)\n    \n    for ;breadth > 0; {\n        s := q[0]\n        \n        if s == endWord {\n            return depth\n        }\n        \n        for i:='a'; i <= 'z'; i += 1 {\n                        \n            for j := 0; j<len(s); j++ {\n \n                if rune(s[j]) != i {\n                    \n                    temp := s[:j] + string(i) + s[j+1:]\n                    if _, ok := set[temp]; !ok {\n                        continue\n                    }\n                    \n                    q = append(q, temp)\n                    delete(set, s)\n                }\n            }\n        }\n        \n        q = q[1:]\n        \n        breadth -= 1\n        if breadth == 0 {\n            breadth = len(q)\n            depth += 1\n        }\n    }\n    \n    return 0 \n}"
+  Title = "Word Ladder"
+  Url = "/submissions/detail/1091201004/"
+  LangName = "Go"
+  Timestamp = 1699093730
+  Status = 10
+  Runtime = "2746 ms"
+  IsPending = "Not Pending"
+  Memory = "8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

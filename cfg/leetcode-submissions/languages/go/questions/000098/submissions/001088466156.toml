@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1088466156
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 98
+  TitleSlug = "validate-binary-search-tree"
+  Code = "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\ntype queueItem struct  {\n    node *TreeNode\n    max *int\n    min *int\n}\n\nfunc isValidBST(root *TreeNode) bool {\n    queue := []queueItem{queueItem{root, nil, nil}}\n    for length := len(queue); length > 0; length = len(queue) {\n        for i := 0; i < length; i++ {\n            item := queue[i]\n            if item.node == nil {\n                continue\n            }\n            node := item.node\n            if (item.max != nil && node.Val >= *item.max) || (item.min != nil && node.Val <= *item.min) {\n                return false\n            }\n            queue = append(\n                queue, \n                queueItem{node.Left, &node.Val, item.min}, \n                queueItem{node.Right, item.max, &node.Val},\n            )\n        }\n        queue = queue[length:]\n    }\n    return true\n}"
+  Title = "Validate Binary Search Tree"
+  Url = "/submissions/detail/1088466156/"
+  LangName = "Go"
+  Timestamp = 1698768701
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "6.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

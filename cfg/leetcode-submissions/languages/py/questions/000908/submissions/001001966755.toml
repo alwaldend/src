@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1001966755
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 908
+  TitleSlug = "middle-of-the-linked-list"
+  Code = "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        middle = head.next if head else None \n        tail = middle.next if middle else None\n        move = True\n        while tail and tail.next:\n            tail = tail.next\n            if move:\n                middle = middle.next\n            \n            move = not move\n\n        return middle if middle else head\n"
+  Title = "Middle of the Linked List"
+  Url = "/submissions/detail/1001966755/"
+  LangName = "Python3"
+  Timestamp = 1690131342
+  Status = 10
+  Runtime = "40 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

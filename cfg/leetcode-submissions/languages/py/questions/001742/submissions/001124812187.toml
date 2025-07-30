@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1124812187
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1742
+  TitleSlug = "widest-vertical-area-between-two-points-containing-no-points"
+  Code = "class Solution:\n    def maxWidthOfVerticalArea(self, points: List[List[int]]) -> int:\n        points.sort(key=lambda x: x[0])\n\n        max_width = 0\n\n        for i in range(1, len(points)):\n            width = points[i][0] - points[i-1][0]\n            max_width = max(max_width, width)\n\n        return max_width"
+  Title = "Widest Vertical Area Between Two Points Containing No Points"
+  Url = "/submissions/detail/1124812187/"
+  LangName = "Python3"
+  Timestamp = 1703137354
+  Status = 10
+  Runtime = "741 ms"
+  IsPending = "Not Pending"
+  Memory = "60.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

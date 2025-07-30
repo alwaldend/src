@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 692284664
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 189
+  TitleSlug = "rotate-array"
+  Code = "\nfunc rotate(numbers []int, steps int) {\n\tlength := len(numbers)\n\t// removing unnecessary steps\n\tif steps >= length {\n\t\tsteps %= length\n\t}\n\t// checking edge cases\n\tif length == 1 || steps == 0 {\n\t\treturn\n\t}\n\tremainder, rotation_start := make([]int, steps), length-steps\n\t// copy everything that needs to be shifted to another array\n\tcopy(remainder, numbers[rotation_start:])\n\t// move everything to the right\n\tcopy(numbers[steps:], numbers[0:rotation_start])\n\t// move shifted elements to the beginning\n\tcopy(numbers[0:steps], remainder)\n}\n"
+  Title = "Rotate Array"
+  Url = "/submissions/detail/692284664/"
+  LangName = "Go"
+  Timestamp = 1651580932
+  Status = 10
+  Runtime = "57 ms"
+  IsPending = "Not Pending"
+  Memory = "9.1 MB"
+  CompareResult = "11111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 998399818
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 134
+  TitleSlug = "gas-station"
+  Code = "class Solution:\n    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:\n        if sum(gas) < sum(cost): \n            return -1\n        \n        tank, idx = 0, 0\n        for i in range(len(gas)):\n            tank += gas[i] - cost[i] \n            if tank < 0: \n                tank, idx = 0, i+1\n        return idx "
+  Title = "Gas Station"
+  Url = "/submissions/detail/998399818/"
+  LangName = "Python3"
+  Timestamp = 1689765999
+  Status = 10
+  Runtime = "1223 ms"
+  IsPending = "Not Pending"
+  Memory = "22.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

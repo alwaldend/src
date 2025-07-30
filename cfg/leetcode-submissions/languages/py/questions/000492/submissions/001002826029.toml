@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1002826029
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 492
+  TitleSlug = "construct-the-rectangle"
+  Code = "class Solution:\n    def constructRectangle(self, area: int) -> List[int]:\n        return next([area//width, width] \n                    for width in range(int(area**0.5), 0, -1) \n                    if area % width == 0)"
+  Title = "Construct the Rectangle"
+  Url = "/submissions/detail/1002826029/"
+  LangName = "Python3"
+  Timestamp = 1690218478
+  Status = 10
+  Runtime = "44 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

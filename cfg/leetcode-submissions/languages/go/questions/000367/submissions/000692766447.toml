@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 692766447
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 367
+  TitleSlug = "valid-perfect-square"
+  Code = "\nfunc isPerfectSquare(number int) bool {\n\tleft, right := 1, number\n\tfor right >= left {\n\t\tcurrent := left + (right-left)/2\n\t\tsquare := current * current\n\t\tswitch {\n\t\tcase square == number:\n\t\t\t// found the target\n\t\t\treturn true\n\t\tcase square > number:\n\t\t\t// square is bigger -> root is to the left -> discard right\n\t\t\tright = current - 1\n\t\tcase square < number:\n\t\t\t// square is smaller -> root is to the right -> discard left\n\t\t\tleft = current + 1\n\t\t}\n\t}\n\treturn false\n}"
+  Title = "Valid Perfect Square"
+  Url = "/submissions/detail/692766447/"
+  LangName = "Go"
+  Timestamp = 1651638864
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "1.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

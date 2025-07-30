@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1020320273
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2443
+  TitleSlug = "check-if-there-is-a-valid-partition-for-the-array"
+  Code = "class Solution:\n    def validPartition(self, nums: List[int]) -> bool:\n        n = len(nums)\n        dp = [True] + [False] * n\n\n        # Determine if the prefix array nums[0 ~ i] has a valid partition\n        for i in range(n):\n            dp_index = i + 1\n\n            # Check 3 possibilities\n            if i > 0 and nums[i] == nums[i - 1]:\n                dp[dp_index] |= dp[dp_index - 2]\n            if i > 1 and nums[i] == nums[i - 1] == nums[i - 2]:\n                dp[dp_index] |= dp[dp_index - 3]\n            if i > 1 and nums[i] == nums[i - 1] + 1 == nums[i - 2] + 2:\n                dp[dp_index] |= dp[dp_index - 3]\n \n        return dp[n]"
+  Title = "Check if There is a Valid Partition For The Array"
+  Url = "/submissions/detail/1020320273/"
+  LangName = "Python3"
+  Timestamp = 1691940913
+  Status = 10
+  Runtime = "907 ms"
+  IsPending = "Not Pending"
+  Memory = "30.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

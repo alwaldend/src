@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1014567047
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 198
+  TitleSlug = "house-robber"
+  Code = "class Solution:\n    def rob(self, nums: List[int]) -> int:\n        house_count = len(nums)\n        \n        @cache\n        def dp(house: int) -> int:\n            if house >= house_count:\n                return 0\n\n            return max(dp(house + 1), nums[house] + dp(house + 2)) \n\n        return dp(0)\n"
+  Title = "House Robber"
+  Url = "/submissions/detail/1014567047/"
+  LangName = "Python3"
+  Timestamp = 1691402238
+  Status = 10
+  Runtime = "35 ms"
+  IsPending = "Not Pending"
+  Memory = "16.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

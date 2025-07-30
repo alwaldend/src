@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1057808554
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 22
+  TitleSlug = "generate-parentheses"
+  Code = "class Solution:\n    def generateParenthesis(self, n: int) -> List[str]:\n\n        current = []\n        current_max = n * 2\n        chars = \"()\"\n\n\n        def backtrack(open: int, closed: int) -> Generator[None, None, List[str]]:\n            if len(current) == current_max:\n                yield \"\".join(current)\n            \n            if open:\n                current.append(chars[0])\n                yield from backtrack(open - 1, closed)\n                current.pop()\n            \n            if closed and closed > open:\n                current.append(chars[1])\n                yield from backtrack(open, closed - 1)\n                current.pop()\n        \n        return tuple(combination for combination in backtrack(n, n))"
+  Title = "Generate Parentheses"
+  Url = "/submissions/detail/1057808554/"
+  LangName = "Python3"
+  Timestamp = 1695549319
+  Status = 10
+  Runtime = "38 ms"
+  IsPending = "Not Pending"
+  Memory = "16.6 MB"
+  CompareResult = "11111111"
+  HasNotes = false
+  FlagType = 1

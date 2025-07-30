@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1092217408
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 297
+  TitleSlug = "serialize-and-deserialize-binary-tree"
+  Code = "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\n\ntype Codec struct {\n    \n}\n\nfunc Constructor() Codec {\n    return Codec{}\n}\n\n// Serializes a tree to a single string.\nfunc (this *Codec) serialize(root *TreeNode) string {\n    if root == nil {\n        return \"\"\n    }\n    var buffer bytes.Buffer\n    queue := []*TreeNode{root}\n    for length := len(queue); length > 0; length = len(queue) {\n        for i := 0; i < length; i++ {\n            node := queue[i]\n            if node != nil {\n                buffer.WriteString(strconv.Itoa(node.Val))\n                queue = append(queue, node.Left, node.Right)\n            }\n            buffer.WriteString(\",\")\n        }\n        queue = queue[length:]\n    }\n    ans := buffer.String()\n    return ans[:len(ans)-1]\n}\n\n// Deserializes your encoded data to tree.\nfunc (this *Codec) deserialize(data string) *TreeNode {    \n    nodes := []*TreeNode{}\n    for _, str := range strings.Split(data, \",\") {\n        if str == \"\" {\n            nodes = append(nodes, nil)\n        } else {\n            num, _ := strconv.Atoi(str)\n            nodes = append(nodes, &TreeNode{num, nil, nil})\n        }\n    }\n    start := 0\n    length := len(nodes)\n    for _, node := range nodes {\n        if node == nil {\n            continue\n        }\n        left, right := 2 * start + 1, 2 * start + 2\n        if left < length {\n            node.Left = nodes[left]\n        }\n        if right < length {\n            node.Right = nodes[right]\n        }\n        start++\n    }\n    return nodes[0]\n}\n\n\n/**\n * Your Codec object will be instantiated and called as such:\n * ser := Constructor();\n * deser := Constructor();\n * data := ser.serialize(root);\n * ans := deser.deserialize(data);\n */"
+  Title = "Serialize and Deserialize Binary Tree"
+  Url = "/submissions/detail/1092217408/"
+  LangName = "Go"
+  Timestamp = 1699207360
+  Status = 10
+  Runtime = "11 ms"
+  IsPending = "Not Pending"
+  Memory = "7.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

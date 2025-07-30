@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1058461369
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 389
+  TitleSlug = "find-the-difference"
+  Code = "class Solution:\n    def findTheDifference(self, s: str, t: str) -> str:\n        return chr(reduce(operator.xor, (ord(char) for char in chain(s, t))))"
+  Title = "Find the Difference"
+  Url = "/submissions/detail/1058461369/"
+  LangName = "Python3"
+  Timestamp = 1695619718
+  Status = 10
+  Runtime = "40 ms"
+  IsPending = "Not Pending"
+  Memory = "16.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

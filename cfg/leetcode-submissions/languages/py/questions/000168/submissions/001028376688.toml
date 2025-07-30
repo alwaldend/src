@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1028376688
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 168
+  TitleSlug = "excel-sheet-column-title"
+  Code = "class Solution:\n    def convertToTitle(self, columnNumber: int) -> str:\n        result = []\n        while columnNumber:\n            columnNumber, remainder = divmod(columnNumber - 1, 26)\n            result.append(chr(65 + remainder))\n        return ''.join(reversed(result))"
+  Title = "Excel Sheet Column Title"
+  Url = "/submissions/detail/1028376688/"
+  LangName = "Python3"
+  Timestamp = 1692689547
+  Status = 10
+  Runtime = "32 ms"
+  IsPending = "Not Pending"
+  Memory = "16.2 MB"
+  CompareResult = "1111111111111111111"
+  HasNotes = false
+  FlagType = 1

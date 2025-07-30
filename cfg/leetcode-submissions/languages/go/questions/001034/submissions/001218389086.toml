@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1218389086
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1034
+  TitleSlug = "subarrays-with-k-different-integers"
+  Code = "func subarraysWithAtMostKDistinct(nums []int, k int) int {\n    if k == 0 {\n        return 0\n    }\n\n    countOccurrence := make(map[int]int)\n    differentIntegers := 0\n    left := 0\n    result := 0\n\n    for right := 0; right < len(nums); right++ {\n        countOccurrence[nums[right]]++\n        if countOccurrence[nums[right]] == 1 {\n            differentIntegers++\n        }\n\n        for differentIntegers > k {\n            countOccurrence[nums[left]]--\n            if countOccurrence[nums[left]] == 0 {\n                differentIntegers--\n            }\n            left++\n        }\n\n        result += right - left + 1\n    }\n    return result\n}\n\nfunc subarraysWithKDistinct(nums []int, k int) int {\n    return subarraysWithAtMostKDistinct(nums, k) - subarraysWithAtMostKDistinct(nums, k-1)\n}"
+  Title = "Subarrays with K Different Integers"
+  Url = "/submissions/detail/1218389086/"
+  LangName = "Go"
+  Timestamp = 1711815887
+  Status = 10
+  Runtime = "61 ms"
+  IsPending = "Not Pending"
+  Memory = "7.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

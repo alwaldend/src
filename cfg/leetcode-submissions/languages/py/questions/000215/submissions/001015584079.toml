@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1015584079
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 215
+  TitleSlug = "kth-largest-element-in-an-array"
+  Code = "class Solution:\n    def findKthLargest(self, nums, k):\n        heap = []\n        for num in nums:\n            heapq.heappush(heap, num)\n            if len(heap) > k:\n                heapq.heappop(heap)\n        \n        return heap[0]"
+  Title = "Kth Largest Element in an Array"
+  Url = "/submissions/detail/1015584079/"
+  LangName = "Python3"
+  Timestamp = 1691494605
+  Status = 10
+  Runtime = "468 ms"
+  IsPending = "Not Pending"
+  Memory = "29.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

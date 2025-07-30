@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1141624613
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 904
+  TitleSlug = "leaf-similar-trees"
+  Code = "class Solution:\n    def leafSimilar(self, root1, root2):\n        def dfs(node):\n            if node:\n                if not node.left and not node.right:\n                    yield node.val\n                yield from dfs(node.left)\n                yield from dfs(node.right)\n\n        return list(dfs(root1)) == list(dfs(root2))"
+  Title = "Leaf-Similar Trees"
+  Url = "/submissions/detail/1141624613/"
+  LangName = "Python3"
+  Timestamp = 1704818741
+  Status = 10
+  Runtime = "35 ms"
+  IsPending = "Not Pending"
+  Memory = "17.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

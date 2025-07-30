@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1286207731
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 75
+  TitleSlug = "sort-colors"
+  Code = "class Solution:\n    def sortColors(self, nums: List[int]) -> None:\n        \"\"\"\n        Do not return anything, modify nums in-place instead.\n        \"\"\"\n        zeros, ones, n = 0, 0, len(nums)\n        for num in nums:\n            if num == 0:\n                zeros += 1\n            elif num == 1:\n                ones += 1\n\n        for i in range(0, zeros):\n            nums[i] = 0\n\n        for i in range(zeros, zeros + ones):\n            nums[i] = 1\n\n        for i in range(zeros + ones, n):\n            nums[i] = 2"
+  Title = "Sort Colors"
+  Url = "/submissions/detail/1286207731/"
+  LangName = "Python3"
+  Timestamp = 1718211555
+  Status = 10
+  Runtime = "43 ms"
+  IsPending = "Not Pending"
+  Memory = "16.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

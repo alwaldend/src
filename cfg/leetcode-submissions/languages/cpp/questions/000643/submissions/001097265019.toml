@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1097265019
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 643
+  TitleSlug = "maximum-average-subarray-i"
+  Code = "class Solution {\npublic:\n    double findMaxAverage(vector<int>& nums, int k) {\n        int length = nums.size();\n        double sum = std::accumulate(nums.begin(), nums.begin() + k , 0);\n        double maxSum = sum;\n        for (int i = k; i < length; ++i) {\n            sum += nums[i] - nums[i-k];\n            maxSum = max(sum, maxSum);\n        }\n        return maxSum / k;\n    }\n};"
+  Title = "Maximum Average Subarray I"
+  Url = "/submissions/detail/1097265019/"
+  LangName = "C++"
+  Timestamp = 1699797622
+  Status = 10
+  Runtime = "144 ms"
+  IsPending = "Not Pending"
+  Memory = "109.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

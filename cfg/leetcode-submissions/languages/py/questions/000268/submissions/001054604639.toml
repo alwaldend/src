@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1054604639
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 268
+  TitleSlug = "missing-number"
+  Code = "class Solution:\n    def missingNumber(self, nums: List[int]) -> int:\n        return reduce(lambda total, i: total ^ nums[i] ^ (i + 1), chain((0, ), range(len(nums))))"
+  Title = "Missing Number"
+  Url = "/submissions/detail/1054604639/"
+  LangName = "Python3"
+  Timestamp = 1695222110
+  Status = 10
+  Runtime = "130 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

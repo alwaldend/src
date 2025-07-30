@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1288264771
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 982
+  TitleSlug = "minimum-increment-to-make-array-unique"
+  Code = "class Solution:\n    def minIncrementForUnique(self, nums: List[int]) -> int:\n        # nums = [3,2,1,2,1,7]\n        #        [1,1,2,2,3,7]\n\n        # mySet = set({ num for num in nums }), 2+4\n        nums.sort()\n        numTracker = 0\n        minIncreament = 0\n\n        for num in nums:\n            numTracker = max(numTracker, num)\n            minIncreament += numTracker - num\n            numTracker += 1\n        return minIncreament\n"
+  Title = "Minimum Increment to Make Array Unique"
+  Url = "/submissions/detail/1288264771/"
+  LangName = "Python3"
+  Timestamp = 1718380475
+  Status = 10
+  Runtime = "645 ms"
+  IsPending = "Not Pending"
+  Memory = "30.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

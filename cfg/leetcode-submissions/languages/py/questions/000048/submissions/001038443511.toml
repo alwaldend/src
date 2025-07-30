@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1038443511
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 48
+  TitleSlug = "rotate-image"
+  Code = "class Solution:\n    def rotate(self, matrix: List[List[int]]) -> None:\n        \"\"\"\n        Do not return anything, modify matrix in-place instead.\n        \"\"\"\n        side_length = len(matrix)\n\n        for row in range(side_length // 2):\n            matrix[row], matrix[-row-1] = matrix[-row-1], matrix[row]\n        \n        for i in range(side_length):\n            for j in range(i):\n                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]"
+  Title = "Rotate Image"
+  Url = "/submissions/detail/1038443511/"
+  LangName = "Python3"
+  Timestamp = 1693661174
+  Status = 10
+  Runtime = "46 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

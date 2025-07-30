@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1715841443
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 196
+  TitleSlug = "delete-duplicate-emails"
+  Code = "DELETE FROM\n    Person\nWHERE \n    id NOT IN (\n        SELECT MIN(id) FROM Person \n        GROUP BY email\n    )\n;"
+  Title = "Delete Duplicate Emails"
+  Url = "/submissions/detail/1715841443/"
+  LangName = "PostgreSQL"
+  Timestamp = 1753796229
+  Status = 10
+  Runtime = "328 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111111111111111111"
+  HasNotes = false
+  FlagType = 1

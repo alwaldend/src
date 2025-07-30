@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 694387207
+  StatusDisplay = "Accepted"
+  Lang = "java"
+  QuestionId = 1320
+  TitleSlug = "remove-all-adjacent-duplicates-in-string-ii"
+  Code = "class Solution {\n    public String removeDuplicates(String s, int k) {\n        Stack<int []> Master = new Stack<>();\n        \n        for(char ch : s.toCharArray()){\n            if(!Master.isEmpty() && Master.peek()[0] == ch){\n                Master.peek()[1]++;\n            }\n            else Master.push(new int[]{ch, 1});\n            if(Master.peek()[1] == k) Master.pop();\n        }\n        StringBuilder sb = new StringBuilder();\n        while(!Master.isEmpty()){\n            int top[] = Master.pop();\n            while(top[1] --> 0)\n                sb.append((char)top[0]);\n        }\n        return sb.reverse().toString();\n    }\n}"
+  Title = "Remove All Adjacent Duplicates in String II"
+  Url = "/submissions/detail/694387207/"
+  LangName = "Java"
+  Timestamp = 1651854300
+  Status = 10
+  Runtime = "84 ms"
+  IsPending = "Not Pending"
+  Memory = "50 MB"
+  CompareResult = "11111111111111111111"
+  HasNotes = false
+  FlagType = 1

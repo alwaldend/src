@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1112898278
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1806
+  TitleSlug = "count-of-matches-in-tournament"
+  Code = "class Solution {\npublic:\n    int numberOfMatches(int n) {\n        int ans = 0;\n        while (n > 1) {\n            if (n % 2 == 0) {\n                int matches {n / 2};\n                ans += matches;\n                n = matches;\n            } else {\n                int matches {(n - 1) / 2};\n                ans += matches;\n                n = matches + 1;\n            }\n        }\n        \n        return ans;\n    }\n};"
+  Title = "Count of Matches in Tournament"
+  Url = "/submissions/detail/1112898278/"
+  LangName = "C++"
+  Timestamp = 1701781944
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "6.3 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

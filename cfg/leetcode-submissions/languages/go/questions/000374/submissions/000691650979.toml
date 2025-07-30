@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 691650979
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 374
+  TitleSlug = "guess-number-higher-or-lower"
+  Code = "\nfunc guessNumber(n int) int {\n\t// checking edge cases\n\tif guess(1) == 0 {\n\t\treturn 1\n\t} else if guess(n) == 0 {\n\t\treturn n\n\t}\n\tleft, right := 1, n\n\tfor right >= left {\n\t\t// overflow protection\n\t\tnumber := left + (right-left)/2\n\t\tswitch guess(number) {\n\t\tcase 0:\n\t\t\t// found the target\n\t\t\treturn number\n\t\tcase -1:\n\t\t\t// the number is bigger -> the target is to the left -> discard right\n\t\t\tright = number - 1\n\t\tcase 1:\n\t\t\t// the number is smaller -> the target is to the right -> discard left\n\t\t\tleft = number + 1\n\t\t}\n\t}\n\t// ide shows an error, this return is unreachable in this issue\n\treturn 0\n}\n"
+  Title = "Guess Number Higher or Lower"
+  Url = "/submissions/detail/691650979/"
+  LangName = "Go"
+  Timestamp = 1651502962
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "1.9 MB"
+  CompareResult = "1111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

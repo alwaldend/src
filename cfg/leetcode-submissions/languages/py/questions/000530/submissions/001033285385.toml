@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1033285385
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 530
+  TitleSlug = "minimum-absolute-difference-in-bst"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:\n        \n        def min_node_diff(node: TreeNode, low: int, high: int) -> int:\n            if not node:\n                return high - low\n\n            return min(min_node_diff(node.left, low, node.val),\n                       min_node_diff(node.right, node.val, high))\n    \n        return min_node_diff(root, -maxsize, maxsize)"
+  Title = "Minimum Absolute Difference in BST"
+  Url = "/submissions/detail/1033285385/"
+  LangName = "Python3"
+  Timestamp = 1693148976
+  Status = 10
+  Runtime = "58 ms"
+  IsPending = "Not Pending"
+  Memory = "18.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

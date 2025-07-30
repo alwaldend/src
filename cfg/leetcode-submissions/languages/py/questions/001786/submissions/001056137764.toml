@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1056137764
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1786
+  TitleSlug = "count-the-number-of-consistent-strings"
+  Code = "class Solution:\n    def countConsistentStrings(self, allowed: str, words: List[str]) -> int:\n        allowed = set(allowed)\n        count = 0\n        for word in words:\n            if all(char in allowed for char in word):\n                count += 1\n        return count"
+  Title = "Count the Number of Consistent Strings"
+  Url = "/submissions/detail/1056137764/"
+  LangName = "Python3"
+  Timestamp = 1695371682
+  Status = 10
+  Runtime = "239 ms"
+  IsPending = "Not Pending"
+  Memory = "18.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

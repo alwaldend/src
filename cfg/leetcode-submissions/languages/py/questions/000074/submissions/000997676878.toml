@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 997676878
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 74
+  TitleSlug = "search-a-2d-matrix"
+  Code = "class Solution:\n    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:\n        length_vertical, length_horizontal = len(matrix), len(matrix[0])\n\n\n        left, right = 0, length_vertical - 1\n        while left <= right:\n            mid = left + (right - left) // 2\n            mid_number = matrix[mid][0]\n            \n            if mid_number == target:\n                return True\n            \n            if mid_number > target:\n                right = mid - 1\n            else:\n                left = mid + 1\n        \n        vertical_index = right\n        left, right = 0, length_horizontal - 1\n        while left <= right:\n            mid = left + (right - left) // 2\n            mid_number = matrix[vertical_index][mid]\n\n            if mid_number == target:\n                return True\n            \n            if mid_number > target:\n                right = mid - 1\n            else:\n                left = mid + 1\n            \n        return False"
+  Title = "Search a 2D Matrix"
+  Url = "/submissions/detail/997676878/"
+  LangName = "Python3"
+  Timestamp = 1689693923
+  Status = 10
+  Runtime = "67 ms"
+  IsPending = "Not Pending"
+  Memory = "16.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

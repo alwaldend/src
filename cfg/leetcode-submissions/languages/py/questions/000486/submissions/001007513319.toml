@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1007513319
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 486
+  TitleSlug = "predict-the-winner"
+  Code = "class Solution:\n    def PredictTheWinner(self, nums: List[int]) -> bool:\n        length = len(nums)\n        is_even = length % 2 == 0\n\n        if length < 3:\n            return True\n        \n        @cache\n        def max_diff(left: int, right: int) -> int:\n            left_num, right_num = nums[left], nums[right]\n            \n            if left == right:\n                return left_num\n            \n            score_by_left = left_num - max_diff(left + 1, right)\n            score_by_right = right_num - max_diff(left, right - 1)\n            return max(score_by_left, score_by_right)\n\n        return max_diff(0, length - 1) >= 0\n"
+  Title = "Predict the Winner"
+  Url = "/submissions/detail/1007513319/"
+  LangName = "Python3"
+  Timestamp = 1690701122
+  Status = 10
+  Runtime = "44 ms"
+  IsPending = "Not Pending"
+  Memory = "16.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

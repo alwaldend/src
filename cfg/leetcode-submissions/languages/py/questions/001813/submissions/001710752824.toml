@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1710752824
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1813
+  TitleSlug = "maximum-erasure-value"
+  Code = "class Solution:\n    def maximumUniqueSubarray(self, nums: List[int]) -> int:\n        sub: deque[int] = deque()\n        sub_nums: set[int] = set()\n        cur_sum: int = 0\n        max_sum: int = 0\n        for num in nums:\n            while num in sub_nums:\n                sub_num = sub.popleft()\n                sub_nums.remove(sub_num)\n                cur_sum -= sub_num\n            sub.append(num)\n            sub_nums.add(num)\n            cur_sum += num\n            max_sum = max(cur_sum, max_sum)\n        return max_sum\n                \n            "
+  Title = "Maximum Erasure Value"
+  Url = "/submissions/detail/1710752824/"
+  LangName = "Python3"
+  Timestamp = 1753433825
+  Status = 10
+  Runtime = "203 ms"
+  IsPending = "Not Pending"
+  Memory = "29.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

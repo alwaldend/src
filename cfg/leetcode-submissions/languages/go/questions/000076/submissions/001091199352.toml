@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1091199352
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 76
+  TitleSlug = "minimum-window-substring"
+  Code = "func minWindow(s string, t string) string {\n    m := len(s)\n    n := len(t)\n    \n    if m == 0 || n == 0 || m < n {\n        return \"\"\n    }\n\n    dict := make(map[byte]int)\n    for i := 0; i < n; i++ {\n        dict[t[i]]++\n    }\n    \n    // required unique chars\n    required := len(dict)\n    actual := 0\n    window := make(map[byte]int)\n    minSize := math.MaxInt64\n    start := 0\n    left, right := 0, 0\n    \n    for end := 0; end < m; end++ {\n        c := s[end]\n        window[c]++\n        \n        if value, ok := dict[c]; ok {\n            if value == window[c] {\n                actual++\n            }\n        }\n        \n        for start <= end && actual == required {\n            size := end-start+1\n            if size < minSize {\n                minSize = size\n                left = start\n                right = end\n            }\n            \n            rc := s[start]\n            window[rc]--\n            if value, ok := dict[rc]; ok {\n                if value > window[rc] {\n                    actual--\n                }\n            }\n            start++\n        }\n    }\n    \n    if minSize == math.MaxInt64 {\n        return \"\"\n    }\n    return s[left:right+1]\n}"
+  Title = "Minimum Window Substring"
+  Url = "/submissions/detail/1091199352/"
+  LangName = "Go"
+  Timestamp = 1699093515
+  Status = 10
+  Runtime = "19 ms"
+  IsPending = "Not Pending"
+  Memory = "3.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

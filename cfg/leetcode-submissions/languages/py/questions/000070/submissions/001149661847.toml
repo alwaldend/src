@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1149661847
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 70
+  TitleSlug = "climbing-stairs"
+  Code = "class Solution:\n    def climbStairs(self, n: int) -> int:\n        prev, cur = 1, 2\n        if n == prev:\n            return prev\n        if n == cur:\n            return cur\n        for i in range(2, n):\n            new = prev + cur\n            cur, prev = new, cur\n        return cur"
+  Title = "Climbing Stairs"
+  Url = "/submissions/detail/1149661847/"
+  LangName = "Python3"
+  Timestamp = 1705573630
+  Status = 10
+  Runtime = "29 ms"
+  IsPending = "Not Pending"
+  Memory = "17.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

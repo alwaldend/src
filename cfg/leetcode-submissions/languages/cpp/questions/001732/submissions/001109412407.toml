@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1109412407
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1732
+  TitleSlug = "minimum-one-bit-operations-to-make-integers-zero"
+  Code = "class Solution {\npublic:\n    int minimumOneBitOperations(int n) {\n        if (n == 0) {\n            return 0;\n        }\n        \n        int k = 0;\n        int curr = 1;\n        while (curr * 2 <= n) {\n            curr *= 2;\n            k++;\n        }\n        \n        return (1 << (k + 1)) - 1 - minimumOneBitOperations(n ^ curr);\n    }\n};"
+  Title = "Minimum One Bit Operations to Make Integers Zero"
+  Url = "/submissions/detail/1109412407/"
+  LangName = "C++"
+  Timestamp = 1701330612
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "6.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

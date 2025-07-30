@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1012983639
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2903
+  TitleSlug = "insert-greatest-common-divisors-in-linked-list"
+  Code = "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def insertGreatestCommonDivisors(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        root = head\n        \n        while head and head.next:\n            next = head.next\n            new_node = ListNode(math.gcd(head.val, head.next.val), next)\n            head.next = new_node\n            head = next\n        \n        return root"
+  Title = "Insert Greatest Common Divisors in Linked List"
+  Url = "/submissions/detail/1012983639/"
+  LangName = "Python3"
+  Timestamp = 1691247204
+  Status = 10
+  Runtime = "100 ms"
+  IsPending = "Not Pending"
+  Memory = "21.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

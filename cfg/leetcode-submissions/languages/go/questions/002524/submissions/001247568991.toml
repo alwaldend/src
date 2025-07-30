@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1247568991
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 2524
+  TitleSlug = "largest-positive-integer-that-exists-with-its-negative"
+  Code = "func findMaxK(nums []int) int {\n    alreadySeenNums := map[int]bool{}\n    res := -1\n\n    for _, num := range nums {\n        numAbs := int(math.Abs(float64(num)))\n\n        if numAbs < res {\n            continue\n        }\n\n        if alreadySeenNums[-num] {\n            res = numAbs\n        } else {\n            alreadySeenNums[num] = true\n        }\n    }\n\n    return res\n}"
+  Title = "Largest Positive Integer That Exists With Its Negative"
+  Url = "/submissions/detail/1247568991/"
+  LangName = "Go"
+  Timestamp = 1714668560
+  Status = 10
+  Runtime = "16 ms"
+  IsPending = "Not Pending"
+  Memory = "5.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

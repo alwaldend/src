@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1283694905
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1137
+  TitleSlug = "height-checker"
+  Code = "class Solution:\n    def heightChecker(self, heights: List[int]) -> int:\n        return sum(h!=s for h, s in zip(heights, sorted(heights)))"
+  Title = "Height Checker"
+  Url = "/submissions/detail/1283694905/"
+  LangName = "Python3"
+  Timestamp = 1718014544
+  Status = 10
+  Runtime = "37 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

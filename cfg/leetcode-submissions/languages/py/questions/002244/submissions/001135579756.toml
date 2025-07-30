@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1135579756
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2244
+  TitleSlug = "number-of-laser-beams-in-a-bank"
+  Code = "class Solution:\n    def numberOfBeams(self, bank):\n        ans, temp = 0, 0\n        for s in bank:\n            n = s.count('1')\n            if n == 0:\n                continue\n            ans += temp * n\n            temp = n\n        return ans\n\n\n"
+  Title = "Number of Laser Beams in a Bank"
+  Url = "/submissions/detail/1135579756/"
+  LangName = "Python3"
+  Timestamp = 1704282410
+  Status = 10
+  Runtime = "91 ms"
+  IsPending = "Not Pending"
+  Memory = "19.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1300062297
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1114
+  TitleSlug = "binary-search-tree-to-greater-sum-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def bstToGst(self, root: TreeNode) -> TreeNode:\n        self.val = 0\n        \n        def dfs(node):\n            if not node:\n                return\n            \n            dfs(node.right)\n            self.val += node.val\n            node.val = self.val\n            dfs(node.left)\n        \n        dfs(root)\n        return root"
+  Title = "Binary Search Tree to Greater Sum Tree"
+  Url = "/submissions/detail/1300062297/"
+  LangName = "Python3"
+  Timestamp = 1719335221
+  Status = 10
+  Runtime = "37 ms"
+  IsPending = "Not Pending"
+  Memory = "16.5 MB"
+  CompareResult = "111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

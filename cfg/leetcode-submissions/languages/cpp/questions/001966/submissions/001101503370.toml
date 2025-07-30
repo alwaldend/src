@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1101503370
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1966
+  TitleSlug = "frequency-of-the-most-frequent-element"
+  Code = "class Solution {\npublic:\n    int maxFrequency(vector<int>& nums, int k) {\n        sort(nums.begin(), nums.end());\n        int left = 0;\n        int ans = 0;\n        long curr = 0;\n        \n        for (int right = 0; right < nums.size(); right++) {\n            long target = nums[right];\n            curr += target;\n            \n            while ((right - left + 1) * target - curr > k) {\n                curr -= nums[left];\n                left++;\n            }\n            \n            ans = max(ans, right - left + 1);\n        }\n        \n        return ans;\n    }\n};"
+  Title = "Frequency of the Most Frequent Element"
+  Url = "/submissions/detail/1101503370/"
+  LangName = "C++"
+  Timestamp = 1700324628
+  Status = 10
+  Runtime = "161 ms"
+  IsPending = "Not Pending"
+  Memory = "99.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

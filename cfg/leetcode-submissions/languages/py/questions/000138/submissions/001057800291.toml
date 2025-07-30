@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1057800291
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 138
+  TitleSlug = "copy-list-with-random-pointer"
+  Code = "\"\"\"\n# Definition for a Node.\nclass Node:\n    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):\n        self.val = int(x)\n        self.next = next\n        self.random = random\n\"\"\"\n\nclass Solution:\n    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':\n        \n        copied = {None: None}\n\n        def copy_node(node: Node) -> Node:\n            if node in copied:\n                return copied[node]\n            \n            new_node = Node(node.val)\n            copied[node] = new_node\n            new_node.next = copy_node(node.next)\n            new_node.random = copy_node(node.random)\n            return new_node\n        \n        return copy_node(head)\n"
+  Title = "Copy List with Random Pointer"
+  Url = "/submissions/detail/1057800291/"
+  LangName = "Python3"
+  Timestamp = 1695548392
+  Status = 10
+  Runtime = "49 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111"
+  HasNotes = false
+  FlagType = 1

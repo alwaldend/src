@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1091201914
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 502
+  TitleSlug = "ipo"
+  Code = "type Project struct {\n    profit, capital int\n}\n\ntype IntHeap []int\nfunc (h IntHeap) Len() int           { return len(h) }\nfunc (h IntHeap) Less(i, j int) bool { return h[i] > h[j] }\nfunc (h IntHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }\nfunc (h *IntHeap) Push(x interface{}) { *h = append(*h, x.(int)) }\nfunc (h *IntHeap) Pop() interface{} {\n\told := *h\n\tn := len(old)\n\tx := old[n-1]\n\t*h = old[0 : n-1]\n\treturn x\n}\n\nfunc findMaximizedCapital(k int, w int, profits []int, capital []int) int {\n    n := len(profits)\n    projects := make([]Project, n)\n    for i := range profits {\n        projects[i] = Project{profits[i], capital[i]}\n    }\n    sort.Slice(projects, func (i, j int) bool {\n        return projects[i].capital < projects[j].capital\n    })\n    \n    q := &IntHeap{}\n    heap.Init(q)\n\n    ptr := 0\n    for i := 0; i < k; i++ {\n        for ptr < n && projects[ptr].capital <= w {\n            heap.Push(q, projects[ptr].profit)\n            ptr++\n        }\n        if q.Len() == 0 {\n            break\n        }\n        w += heap.Pop(q).(int)\n    }\n    return w\n}"
+  Title = "IPO"
+  Url = "/submissions/detail/1091201914/"
+  LangName = "Go"
+  Timestamp = 1699093846
+  Status = 10
+  Runtime = "155 ms"
+  IsPending = "Not Pending"
+  Memory = "10.8 MB"
+  CompareResult = "11111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

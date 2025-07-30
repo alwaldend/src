@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1091201217
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 212
+  TitleSlug = "word-search-ii"
+  Code = "type Node struct {\n\tchildren [26]*Node\n\tword     string\n}\n\nfunc (n *Node) Insert(word string) {\n\tcur := n\n\tfor _, c := range word {\n\t\tidx := c - 'a'\n\t\tif cur.children[idx] == nil {\n\t\t\tcur.children[idx] = &Node{}\n\t\t}\n\t\tcur = cur.children[idx]\n\t}\n\tcur.word = word\n}\n\nfunc (n *Node) IsEmpty() bool {\n\tfor _, child := range n.children {\n\t\tif child != nil {\n\t\t\treturn false\n\t\t}\n\t}\n\treturn true\n}\n\nfunc (n *Node) Remove(word string) bool {\n\tif len(word) == 0 {\n\t\tn.word = \"\"\n\t\treturn n.IsEmpty()\n\t}\n\tchild := n.children[word[0]-'a']\n\tif child.Remove(word[1:]) {\n\t\tn.children[word[0]-'a'] = nil\n\t\treturn n.IsEmpty()\n\t}\n\treturn false\n}\n\nfunc dfs(board [][]byte, r, c int, root, cur *Node, res *[]string) {\n\trc := board[r][c]\n\tboard[r][c] = 0\n    \n\tif cur.word != \"\" {\n\t\t*res = append(*res, cur.word)\n\t\troot.Remove(cur.word)\n\t}\n\tds := [5]int{0, 1, 0, -1, 0}\n\tfor i := 0; i < len(ds)-1; i++ {\n\t\tdr, dc := r+ds[i], c+ds[i+1]\n\t\tif dr < 0 || dr >= len(board) || dc < 0 || dc >= len(board[0]) {\n\t\t\tcontinue\n\t\t}\n\t\tb := board[dr][dc]\n\t\tif b == 0 || cur.children[b-'a'] == nil {\n\t\t\tcontinue\n\t\t}\n\t\tdfs(board, dr, dc, root, cur.children[b-'a'], res)\n\t}\n\tboard[r][c] = rc\n}\n\nfunc findWords(board [][]byte, words []string) []string {\n\tm, n := len(board), len(board[0])\n\tres, trie, has := []string{}, &Node{}, map[string]bool{}\n\n\tfor r := 0; r < m; r++ {\n\t\tfor c := 0; c < n-1; c++ {\n\t\t\tp := string(board[r][c]) + string(board[r][c+1])\n\t\t\thas[p] = true\n\t\t}\n\t}\n\tfor r := 0; r < m-1; r++ {\n\t\tfor c := 0; c < n; c++ {\n\t\t\tp := string(board[r][c]) + string(board[r+1][c])\n\t\t\thas[p] = true\n\t\t}\n\t}\n\tfor _, word := range words {\n\t\tvalid := true\n\t\tfor i := 0; i < len(word)-1; i++ {\n\t\t\ta, b := string(word[i]), string(word[i+1])\n\t\t\tif !has[a+b] && !has[b+a] {\n\t\t\t\tvalid = false\n\t\t\t\tbreak\n\t\t\t}\n\t\t}\n\t\tif valid {\n\t\t\ttrie.Insert(word)\n\t\t}\n\t}\n\tfor r := 0; r < m; r++ {\n\t\tfor c := 0; c < n; c++ {\n\t\t\tb := board[r][c]\n\t\t\tif trie.children[b-'a'] != nil {\n\t\t\t\tdfs(board, r, c, trie, trie.children[b-'a'], &res)\n\t\t\t}\n\t\t}\n\t}\n\treturn res\n}"
+  Title = "Word Search II"
+  Url = "/submissions/detail/1091201217/"
+  LangName = "Go"
+  Timestamp = 1699093757
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "2.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 694407273
+  StatusDisplay = "Accepted"
+  Lang = "java"
+  QuestionId = 874
+  TitleSlug = "backspace-string-compare"
+  Code = "class Solution {\n    public boolean backspaceCompare(String S, String T) {\n        return build(S).equals(build(T));\n    }\n\n    public String build(String S) {\n        Stack<Character> ans = new Stack();\n        for (char c: S.toCharArray()) {\n            if (c != '#')\n                ans.push(c);\n            else if (!ans.empty())\n                ans.pop();\n        }\n        return String.valueOf(ans);\n    }\n}"
+  Title = "Backspace String Compare"
+  Url = "/submissions/detail/694407273/"
+  LangName = "Java"
+  Timestamp = 1651856578
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "40.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

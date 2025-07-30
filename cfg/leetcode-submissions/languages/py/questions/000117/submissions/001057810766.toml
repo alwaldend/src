@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1057810766
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 117
+  TitleSlug = "populating-next-right-pointers-in-each-node-ii"
+  Code = "from collections import deque\n\nclass Solution:\n  def connect(self, root: 'Node') -> 'Node':\n    # Edge case - If the root is None, then return None\n    if root is None:\n        return None\n    \n    # Create a queue and enqueue the root node\n    q = deque([root])\n    \n    # Traverse the tree level by level\n    while q:\n        \n        # Get the number of nodes of the current level\n        level_size = len(q)\n        \n        # Process the nodes of the current level\n        for i in range(level_size):\n            \n            # Dequeue a node from the front of the queue\n            node = q.popleft()\n            \n            # Assign the next pointer of the node\n            if i < level_size - 1:\n                node.next = q[0]\n            \n            # Enqueue the children of the node (if any)\n            if node.left is not None:\n                q.append(node.left)\n            if node.right is not None:\n                q.append(node.right)\n    \n    # Return the root node\n    return root\n"
+  Title = "Populating Next Right Pointers in Each Node II"
+  Url = "/submissions/detail/1057810766/"
+  LangName = "Python3"
+  Timestamp = 1695549564
+  Status = 10
+  Runtime = "51 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

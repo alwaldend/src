@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1139390559
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1352
+  TitleSlug = "maximum-profit-in-job-scheduling"
+  Code = "class Solution:\n    def jobScheduling(self, startTime: List[int], endTime: List[int], profit: List[int]) -> int:\n        jobs = sorted(zip(endTime, startTime, profit))\n      \n        number_of_jobs = len(profit)\n      \n        dp = [0] * (number_of_jobs + 1)\n      \n        for i, (current_end_time, current_start_time, current_profit) in enumerate(jobs):\n            index = bisect_right(jobs, current_start_time, hi=i, key=lambda x: x[0])\n            dp[i + 1] = max(dp[i], dp[index] + current_profit)\n      \n        return dp[number_of_jobs]"
+  Title = "Maximum Profit in Job Scheduling"
+  Url = "/submissions/detail/1139390559/"
+  LangName = "Python3"
+  Timestamp = 1704619569
+  Status = 10
+  Runtime = "603 ms"
+  IsPending = "Not Pending"
+  Memory = "29.3 MB"
+  CompareResult = "1111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

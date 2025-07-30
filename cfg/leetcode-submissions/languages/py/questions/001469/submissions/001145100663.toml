@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1145100663
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1469
+  TitleSlug = "minimum-number-of-steps-to-make-two-strings-anagram"
+  Code = "class Solution:\n    def minSteps(self, s: str, t: str) -> int:\n        count_s = [0] * 26\n        count_t = [0] * 26\n\n        for char in s:\n            count_s[ord(char) - ord('a')] += 1\n\n        for char in t:\n            count_t[ord(char) - ord('a')] += 1\n\n        steps = 0\n        for i in range(26):\n            steps += abs(count_s[i] - count_t[i])\n\n        return steps // 2"
+  Title = "Minimum Number of Steps to Make Two Strings Anagram"
+  Url = "/submissions/detail/1145100663/"
+  LangName = "Python3"
+  Timestamp = 1705156428
+  Status = 10
+  Runtime = "149 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

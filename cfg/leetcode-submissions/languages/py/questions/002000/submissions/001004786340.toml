@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1004786340
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2000
+  TitleSlug = "minimum-speed-to-arrive-on-time"
+  Code = "class Solution:\n    def minSpeedOnTime(self, dist: List[int], hour: float) -> int:\n        length = len(dist)\n        if hour >= sum(dist):\n            return 1\n        \n        if hour <= length - 1:\n            return -1\n        \n        time_remaining = hour - length + 1\n        max_speed = int(max(\n            max(dist), dist[-1] // time_remaining + 1\n        ))\n        min_speed = 1\n        result = -1\n        while min_speed < max_speed:\n            speed = min_speed + (max_speed - min_speed) // 2\n            time = dist[-1] / speed + sum(\n                (distance + speed - 1) // speed \n                for distance in dist[:-1]\n            )\n            \n            if time > hour:\n                min_speed = speed + 1\n            else:\n                max_speed = speed\n        \n        return min_speed"
+  Title = "Minimum Speed to Arrive on Time"
+  Url = "/submissions/detail/1004786340/"
+  LangName = "Python3"
+  Timestamp = 1690401416
+  Status = 10
+  Runtime = "2140 ms"
+  IsPending = "Not Pending"
+  Memory = "30.3 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

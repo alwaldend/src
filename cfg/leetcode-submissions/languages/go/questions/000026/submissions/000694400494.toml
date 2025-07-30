@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 694400494
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 26
+  TitleSlug = "remove-duplicates-from-sorted-array"
+  Code = "func removeDuplicates(numbers []int) int {\n\t// ensure there are at least two numbers\n\tlength := len(numbers)\n\tif length == 1 {\n\t\treturn 1\n\t}\n\tindex_non_duplicate := 1\n\tfor index := 1; index < length; index++ {\n\t\tcurrent, previous := numbers[index], numbers[index-1]\n\t\tif current == previous {\n\t\t\t// it is a duplicate - ignore it\n\t\t\tcontinue\n\t\t}\n\t\t// it is not a duplicate -> place it and move the index\n\t\tnumbers[index_non_duplicate] = current\n\t\tindex_non_duplicate++\n\t}\n\treturn index_non_duplicate\n}\n"
+  Title = "Remove Duplicates from Sorted Array"
+  Url = "/submissions/detail/694400494/"
+  LangName = "Go"
+  Timestamp = 1651855838
+  Status = 10
+  Runtime = "12 ms"
+  IsPending = "Not Pending"
+  Memory = "4.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1142229574
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2461
+  TitleSlug = "amount-of-time-for-binary-tree-to-be-infected"
+  Code = "class Solution:\n    def amountOfTime(self, root: Optional[TreeNode], start: int) -> int:\n        def dfs(node):\n            if node is None:\n                return\n            if node.left:\n                graph[node.val].append(node.left.val)\n                graph[node.left.val].append(node.val)\n            if node.right:\n                graph[node.val].append(node.right.val)\n                graph[node.right.val].append(node.val)\n            dfs(node.left)\n            dfs(node.right)\n\n        graph = defaultdict(list)\n        dfs(root)\n        visited = set()\n        queue = deque([start])\n        time = -1\n        while queue:\n            time += 1\n            for _ in range(len(queue)):\n                current_node = queue.popleft()\n                visited.add(current_node)\n                for neighbor in graph[current_node]:\n                    if neighbor not in visited:\n                        queue.append(neighbor)\n        return time"
+  Title = "Amount of Time for Binary Tree to Be Infected"
+  Url = "/submissions/detail/1142229574/"
+  LangName = "Python3"
+  Timestamp = 1704875666
+  Status = 10
+  Runtime = "414 ms"
+  IsPending = "Not Pending"
+  Memory = "63.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

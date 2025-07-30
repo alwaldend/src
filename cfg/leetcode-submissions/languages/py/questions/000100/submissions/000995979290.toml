@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 995979290
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 100
+  TitleSlug = "same-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:\n        if p and not q or (q and not p):\n            return False\n        \n        if not p and not q:\n            return True\n        \n        if p.val != q.val:\n            return False\n        \n        return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)"
+  Title = "Same Tree"
+  Url = "/submissions/detail/995979290/"
+  LangName = "Python3"
+  Timestamp = 1689521746
+  Status = 10
+  Runtime = "49 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

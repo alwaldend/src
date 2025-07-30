@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1097233786
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 605
+  TitleSlug = "can-place-flowers"
+  Code = "class Solution {\npublic:\n    bool canPlaceFlowers(vector<int>& flowerbed, int n) {\n        int curZeros = 0, length = flowerbed.size();\n        if (flowerbed[0] == 0) {\n            curZeros = 2;\n        }\n        int ans = 0;\n        for (int i = 1; i < length; ++i) {\n            bool isFlower = flowerbed[i] == 1; \n            if (!isFlower) {\n                curZeros += 1;\n                continue;\n            }\n            ans += (curZeros - 1) / 2;\n            curZeros = 0;\n            if (ans >= n) {\n                return true;\n            }\n        }\n        ans += curZeros / 2;\n        return ans >= n;\n    }\n};"
+  Title = "Can Place Flowers"
+  Url = "/submissions/detail/1097233786/"
+  LangName = "C++"
+  Timestamp = 1699792886
+  Status = 10
+  Runtime = "6 ms"
+  IsPending = "Not Pending"
+  Memory = "20.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

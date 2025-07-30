@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1264232619
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 78
+  TitleSlug = "subsets"
+  Code = "class Solution:\n    def subsets(self, nums: List[int]) -> List[List[int]]:\n        def backtrack(start, path):\n            result.append(path)\n            for i in range(start, len(nums)):\n                backtrack(i + 1, path + [nums[i]])\n\n        result = []\n        backtrack(0, [])\n        return result"
+  Title = "Subsets"
+  Url = "/submissions/detail/1264232619/"
+  LangName = "Python3"
+  Timestamp = 1716314528
+  Status = 10
+  Runtime = "41 ms"
+  IsPending = "Not Pending"
+  Memory = "16.7 MB"
+  CompareResult = "1111111111"
+  HasNotes = false
+  FlagType = 1

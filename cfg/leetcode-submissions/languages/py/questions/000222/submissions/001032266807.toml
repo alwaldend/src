@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1032266807
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 222
+  TitleSlug = "count-complete-tree-nodes"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def countNodes(self, root: Optional[TreeNode]) -> int:\n        if not root:\n            return 0\n        \n        def left_height(root: TreeNode) -> int:\n            return 0 if not root else 1 + left_height(root.left)\n        \n        def right_height(root: TreeNode) -> int:\n            return 0 if not root else 1+ right_height(root.right)\n        \n        left, right = left_height(root), right_height(root)\n        if left > right:\n            return 1 + self.countNodes(root.left) + self.countNodes(root.right)\n        \n        return 2**left - 1\n\n        "
+  Title = "Count Complete Tree Nodes"
+  Url = "/submissions/detail/1032266807/"
+  LangName = "Python3"
+  Timestamp = 1693055806
+  Status = 10
+  Runtime = "67 ms"
+  IsPending = "Not Pending"
+  Memory = "23.7 MB"
+  CompareResult = "111111111111111111"
+  HasNotes = false
+  FlagType = 1

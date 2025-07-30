@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1189736064
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1731
+  TitleSlug = "even-odd-tree"
+  Code = "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc isEvenOddTree(root *TreeNode) bool {\n    q := []*TreeNode{root}\n    for i:= 0; len(q) > 0; i++ {\n        var prev *TreeNode\n        for _, node := range q {\n            q = q[1:]\n\n            if i % 2 == 0 && node.Val % 2 != 1 {\n                return false\n            }\n\n            if i % 2 == 1 && node.Val % 2 != 0 {\n                return false\n            }\n\n            if prev != nil && i % 2 == 0 && prev.Val >= node.Val {\n                return false\n            }\n\n            if prev != nil && i % 2 == 1 && prev.Val <= node.Val {\n                return false\n            }\n           \n            prev = node\n            if node.Left != nil {\n                q = append(q, node.Left)\n            }\n\n            if node.Right != nil {\n                q = append(q, node.Right)\n            }\n        }\n    }\n    return true\n}"
+  Title = "Even Odd Tree"
+  Url = "/submissions/detail/1189736064/"
+  LangName = "Go"
+  Timestamp = 1709217524
+  Status = 10
+  Runtime = "177 ms"
+  IsPending = "Not Pending"
+  Memory = "22.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

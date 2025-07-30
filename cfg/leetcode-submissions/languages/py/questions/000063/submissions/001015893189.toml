@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1015893189
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 63
+  TitleSlug = "unique-paths-ii"
+  Code = "class Solution:\n    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:\n        row_count = len(obstacleGrid)\n        column_count = len(obstacleGrid[0])\n        # dp = [[0] * column_count for _ in range(row_count)]\n\n        # for row in range(row_count):\n        #     for column in range(column_count):\n\n        @cache\n        def dp(row: int, column: int) -> int:\n            if row == row_count or column == column_count or obstacleGrid[row][column] == 1:\n                return 0\n            \n            if row == row_count - 1 and column == column_count - 1:\n                return 1\n            \n            return dp(row + 1, column) + dp(row, column + 1)\n        \n        return dp(0, 0)"
+  Title = "Unique Paths II"
+  Url = "/submissions/detail/1015893189/"
+  LangName = "Python3"
+  Timestamp = 1691516839
+  Status = 10
+  Runtime = "54 ms"
+  IsPending = "Not Pending"
+  Memory = "16.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

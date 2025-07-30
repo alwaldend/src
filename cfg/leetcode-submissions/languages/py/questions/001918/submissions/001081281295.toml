@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1081281295
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1918
+  TitleSlug = "maximum-score-of-a-good-subarray"
+  Code = "class Solution:\n    def maximumScore(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        left = k\n        right = k\n        ans = nums[k]\n        curr_min = nums[k]\n        \n        while left > 0 or right < n - 1:\n            if (nums[left - 1] if left else 0) < (nums[right + 1] if right < n - 1 else 0):\n                right += 1\n                curr_min = min(curr_min, nums[right])\n            else:\n                left -= 1\n                curr_min = min(curr_min, nums[left])\n\n            ans = max(ans, curr_min * (right - left + 1))\n        \n        return ans"
+  Title = "Maximum Score of a Good Subarray"
+  Url = "/submissions/detail/1081281295/"
+  LangName = "Python3"
+  Timestamp = 1697972267
+  Status = 10
+  Runtime = "1024 ms"
+  IsPending = "Not Pending"
+  Memory = "27.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 993708456
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 392
+  TitleSlug = "is-subsequence"
+  Code = "class Solution:\n    # create two pointers, original and sub, both are zero\n    # while either of those pointers have not reached the end:\n    # - if original symbol is equal to the sub, move both pointer to the right\n    # - if not, move original pointer to the right\n    # if sub pointer reached the end, return True, otherwise False\n    def isSubsequence(self, s: str, t: str) -> bool:\n        original, sub = 0, 0\n        original_length, sub_length = len(t), len(s)\n\n        while original < original_length and sub < sub_length:\n            if s[sub] == t[original]:\n                original += 1\n                sub += 1\n                continue\n            \n            original += 1\n\n        return sub == sub_length"
+  Title = "Is Subsequence"
+  Url = "/submissions/detail/993708456/"
+  LangName = "Python3"
+  Timestamp = 1689271893
+  Status = 10
+  Runtime = "47 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "1111111111111111111"
+  HasNotes = false
+  FlagType = 1

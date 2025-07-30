@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1013917016
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1851
+  TitleSlug = "maximum-number-of-events-that-can-be-attended-ii"
+  Code = "class Solution:\n    def maxValue(self, events: List[List[int]], k: int) -> int:        \n        events.sort()\n        n = len(events)\n        starts = [start for start, end, value in events]\n        dp = [[-1] * n for _ in range(k + 1)]\n        \n        def dfs(cur_index, count):\n            if count == 0 or cur_index == n:\n                return 0\n            if dp[count][cur_index] != -1:\n                return dp[count][cur_index]\n\n            # Find the nearest available event after attending event 0.\n\n            next_index = bisect_right(starts, events[cur_index][1])\n            dp[count][cur_index] = max(dfs(cur_index + 1, count), events[cur_index][2] + dfs(next_index, count - 1))\n            return dp[count][cur_index]\n        \n        return dfs(0, k)"
+  Title = "Maximum Number of Events That Can Be Attended II"
+  Url = "/submissions/detail/1013917016/"
+  LangName = "Python3"
+  Timestamp = 1691334012
+  Status = 10
+  Runtime = "1228 ms"
+  IsPending = "Not Pending"
+  Memory = "159.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

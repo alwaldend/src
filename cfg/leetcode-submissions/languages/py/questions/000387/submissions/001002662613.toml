@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1002662613
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 387
+  TitleSlug = "first-unique-character-in-a-string"
+  Code = "class Solution:\n    def firstUniqChar(self, s: str) -> int:\n        counts = {}\n        repeated_index = len(s)\n        for i, letter in enumerate(s):\n            if letter in counts:\n                counts[letter] = repeated_index\n                continue\n            \n            counts[letter] = i\n        \n        result = repeated_index\n\n        for letter, index in counts.items():\n            if index == repeated_index:\n                continue\n            \n            if index < result:\n                result = index\n\n        return result if result != repeated_index else -1"
+  Title = "First Unique Character in a String"
+  Url = "/submissions/detail/1002662613/"
+  LangName = "Python3"
+  Timestamp = 1690206578
+  Status = 10
+  Runtime = "107 ms"
+  IsPending = "Not Pending"
+  Memory = "16.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

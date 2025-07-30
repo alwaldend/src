@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 692273896
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1019
+  TitleSlug = "squares-of-a-sorted-array"
+  Code = "\nfunc sortedSquares(numbers []int) []int {\n\tlength := len(numbers)\n\tswitch length {\n\tcase 0:\n\t\treturn numbers\n\tcase 1:\n\t\treturn []int{numbers[0] * numbers[0]}\n\t}\n\tindex_left, index_right := 0, length-1\n\tresults := make([]int, length)\n\tfor index := index_right; index_left <= index_right; index-- {\n\t\tleft_square := numbers[index_left] * numbers[index_left]\n\t\tright_square := numbers[index_right] * numbers[index_right]\n\t\tif right_square > left_square {\n\t\t\tresults[index] = right_square\n\t\t\tindex_right--\n\t\t\tcontinue\n\t\t}\n\t\tresults[index] = left_square\n\t\tindex_left++\n\t}\n\treturn results\n}\n"
+  Title = "Squares of a Sorted Array"
+  Url = "/submissions/detail/692273896/"
+  LangName = "Go"
+  Timestamp = 1651579502
+  Status = 10
+  Runtime = "60 ms"
+  IsPending = "Not Pending"
+  Memory = "7.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1102661782
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 2471
+  TitleSlug = "minimum-amount-of-time-to-collect-garbage"
+  Code = "class Solution {\npublic:\n    int garbageCollection(vector<string>& garbage, vector<int>& travel) {\n        vector<int> prefixSum(travel.size() + 1, 0);\n        prefixSum[1] = travel[0];\n        for (int i = 1; i < travel.size(); i++) {\n            prefixSum[i + 1] = prefixSum[i] + travel[i];\n        }\n        unordered_map<char, int> garbageLastPos;\n        unordered_map<char, int> garbageCount;\n        for (int i = 0; i < garbage.size(); i++) {\n            for (char c : garbage[i]) {\n                garbageLastPos[c] = i;\n                garbageCount[c]++;\n            }\n        }\n        char garbageTypes[3] = {'M', 'P', 'G'};\n        int ans = 0;\n        for (char c : garbageTypes) {\n            if (garbageCount[c]) {\n                ans += prefixSum[garbageLastPos[c]] + garbageCount[c];\n            }\n        }\n        return ans;\n    }\n};"
+  Title = "Minimum Amount of Time to Collect Garbage"
+  Url = "/submissions/detail/1102661782/"
+  LangName = "C++"
+  Timestamp = 1700478707
+  Status = 10
+  Runtime = "214 ms"
+  IsPending = "Not Pending"
+  Memory = "104.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1057808298
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 53
+  TitleSlug = "maximum-subarray"
+  Code = "class Solution:\n    def maxSubArray(self, nums: List[int]) -> int:\n        length = len(nums)\n        if length == 0:\n            return 0\n        if length == 1:\n            return nums[0]\n        max_cur, max_overall = 0, float(\"-inf\")\n        for num in nums:\n            max_cur += num\n            if max_cur > max_overall:\n                max_overall = max_cur\n            if max_cur < 0:\n                max_cur = 0\n        return max_overall\n        "
+  Title = "Maximum Subarray"
+  Url = "/submissions/detail/1057808298/"
+  LangName = "Python3"
+  Timestamp = 1695549291
+  Status = 10
+  Runtime = "551 ms"
+  IsPending = "Not Pending"
+  Memory = "30.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

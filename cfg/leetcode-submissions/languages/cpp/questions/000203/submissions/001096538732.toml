@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1096538732
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 203
+  TitleSlug = "remove-linked-list-elements"
+  Code = "/**\n * Definition for singly-linked list.\n * struct ListNode {\n *     int val;\n *     ListNode *next;\n *     ListNode() : val(0), next(nullptr) {}\n *     ListNode(int x) : val(x), next(nullptr) {}\n *     ListNode(int x, ListNode *next) : val(x), next(next) {}\n * };\n */\nclass Solution {\npublic:\n    ListNode* removeElements(ListNode* head, int val) {\n        head = new ListNode(-1, head);\n        auto ans = head;\n        while (head) {\n            auto next = head->next;\n            if (next && next->val == val) {\n                head->next = next->next;\n            } else {\n                head = head->next;\n            }\n        }\n        return ans->next;\n    }\n};"
+  Title = "Remove Linked List Elements"
+  Url = "/submissions/detail/1096538732/"
+  LangName = "C++"
+  Timestamp = 1699707971
+  Status = 10
+  Runtime = "16 ms"
+  IsPending = "Not Pending"
+  Memory = "15.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

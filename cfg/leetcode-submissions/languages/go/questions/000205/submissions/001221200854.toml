@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1221200854
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 205
+  TitleSlug = "isomorphic-strings"
+  Code = "func isIsomorphic(s string, t string) bool {\n    map1 := make([]int, 128) // Stores frequency of s\n    map2 := make([]int, 128) // Stores frequency of t\n\n    for i := 0; i < len(s); i++ {\n        sCh := s[i]\n        tCh := t[i]\n\n        if map1[sCh] == 0 && map2[tCh] == 0 {\n            map1[sCh] = int(tCh)\n            map2[tCh] = int(sCh)\n        } else if map1[sCh] != int(tCh) || map2[tCh] != int(sCh) {\n            return false\n        }\n    }\n    return true\n}"
+  Title = "Isomorphic Strings"
+  Url = "/submissions/detail/1221200854/"
+  LangName = "Go"
+  Timestamp = 1712068137
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "2.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

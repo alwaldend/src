@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1088205506
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 2519
+  TitleSlug = "find-the-original-array-of-prefix-xor"
+  Code = "func findArray(pref []int) []int {\n    prev := pref[0]\n    for i := 1; i < len(pref); i++ {\n        cur := pref[i]\n        prev, pref[i] = cur, prev ^ cur \n    }\n    return pref\n}"
+  Title = "Find The Original Array of Prefix Xor"
+  Url = "/submissions/detail/1088205506/"
+  LangName = "Go"
+  Timestamp = 1698741218
+  Status = 10
+  Runtime = "98 ms"
+  IsPending = "Not Pending"
+  Memory = "8.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

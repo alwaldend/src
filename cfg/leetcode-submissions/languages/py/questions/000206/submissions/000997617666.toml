@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 997617666
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 206
+  TitleSlug = "reverse-linked-list"
+  Code = "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        previous = None\n        while head:\n            next, head.next = head.next, previous\n            previous, head = head, next\n\n        return previous"
+  Title = "Reverse Linked List"
+  Url = "/submissions/detail/997617666/"
+  LangName = "Python3"
+  Timestamp = 1689689430
+  Status = 10
+  Runtime = "65 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

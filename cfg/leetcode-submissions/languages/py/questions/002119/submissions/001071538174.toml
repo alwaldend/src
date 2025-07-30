@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1071538174
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2119
+  TitleSlug = "minimum-number-of-operations-to-make-array-continuous"
+  Code = "class Solution:\n    def minOperations(self, nums: List[int]) -> int:\n        n = len(nums)\n        ans = n\n        new_nums = sorted(set(nums))\n        \n        for i in range(len(new_nums)):\n            left = new_nums[i]\n            right = left + n - 1\n            j = bisect_right(new_nums, right)\n            count = j - i\n            ans = min(ans, n - count)\n\n        return ans"
+  Title = "Minimum Number of Operations to Make Array Continuous"
+  Url = "/submissions/detail/1071538174/"
+  LangName = "Python3"
+  Timestamp = 1696915408
+  Status = 10
+  Runtime = "687 ms"
+  IsPending = "Not Pending"
+  Memory = "35.3 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1196835085
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 908
+  TitleSlug = "middle-of-the-linked-list"
+  Code = "/**\n * Definition for singly-linked list.\n * type ListNode struct {\n *     Val int\n *     Next *ListNode\n * }\n */\nfunc middleNode(head *ListNode) *ListNode {\n    if head.Next == nil {\n        return head\n    }\n    slow, fast := head, head.Next\n    move := true\n    for fast.Next != nil {\n        if move {\n            slow = slow.Next\n            move = false\n        } else {\n            move = true\n        }\n        fast = fast.Next\n    }\n    if move {\n        slow = slow.Next\n    }\n    return slow\n}"
+  Title = "Middle of the Linked List"
+  Url = "/submissions/detail/1196835085/"
+  LangName = "Go"
+  Timestamp = 1709827666
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "2.1 MB"
+  CompareResult = "111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

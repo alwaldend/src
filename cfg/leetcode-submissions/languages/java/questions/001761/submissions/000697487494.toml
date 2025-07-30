@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 697487494
+  StatusDisplay = "Accepted"
+  Lang = "java"
+  QuestionId = 1761
+  TitleSlug = "count-sorted-vowel-strings"
+  Code = "class Solution {\n    public int countVowelStrings(int n) {\n        int a,e,i,o,u;\n        a = e = i = o = u = 1;\n        \n        for(int t = 1; t < n; t++){\n            \n            a = a + e + i + o + u;\n            e = e + i + o + u;\n            i = i + o + u;\n            o = o + u;\n            u = u;\n        }\n        return a + e + i + o + u;\n    }\n}"
+  Title = "Count Sorted Vowel Strings"
+  Url = "/submissions/detail/697487494/"
+  LangName = "Java"
+  Timestamp = 1652281386
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "40.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

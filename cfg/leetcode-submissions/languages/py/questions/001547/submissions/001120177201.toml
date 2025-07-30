@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1120177201
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1547
+  TitleSlug = "destination-city"
+  Code = "class Solution:\n    def destCity(self, paths: List[List[str]]) -> str:\n        paths_from = set()\n        for path_from, path_to in paths:\n            paths_from.add(path_from)\n        \n        ans = \"\"\n        for _, path_to in paths:\n            if path_to not in paths_from:\n                ans = path_to\n                break\n        \n        return ans"
+  Title = "Destination City"
+  Url = "/submissions/detail/1120177201/"
+  LangName = "Python3"
+  Timestamp = 1702626978
+  Status = 10
+  Runtime = "71 ms"
+  IsPending = "Not Pending"
+  Memory = "16.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1279654463
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 876
+  TitleSlug = "hand-of-straights"
+  Code = "class Solution:\n    def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:\n        # Step 1: Check if grouping is possible\n        if len(hand) % groupSize != 0:\n            return False\n        \n        # Step 2: Count the occurrences of each card\n        count = Counter(hand)\n        \n        # Step 3: Sort the unique card values\n        sorted_keys = sorted(count.keys())\n        \n        # Step 4: Form consecutive groups\n        for key in sorted_keys:\n            if count[key] > 0:  # If this card is still available\n                start_count = count[key]\n                # Check and form a group starting from `key`\n                for i in range(key, key + groupSize):\n                    if count[i] < start_count:\n                        return False\n                    count[i] -= start_count\n        \n        # Step 5: Return True if all groups are formed successfully\n        return True\n"
+  Title = "Hand of Straights"
+  Url = "/submissions/detail/1279654463/"
+  LangName = "Python3"
+  Timestamp = 1717687323
+  Status = 10
+  Runtime = "149 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

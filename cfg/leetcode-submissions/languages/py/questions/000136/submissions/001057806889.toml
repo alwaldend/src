@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1057806889
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 136
+  TitleSlug = "single-number"
+  Code = "class Solution:\n    def singleNumber(self, nums: List[int]) -> int:\n        return reduce(xor, nums)"
+  Title = "Single Number"
+  Url = "/submissions/detail/1057806889/"
+  LangName = "Python3"
+  Timestamp = 1695549133
+  Status = 10
+  Runtime = "115 ms"
+  IsPending = "Not Pending"
+  Memory = "18.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

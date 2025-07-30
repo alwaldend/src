@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1286796629
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2148
+  TitleSlug = "minimum-number-of-moves-to-seat-everyone"
+  Code = "class Solution:\n    def minMovesToSeat(self, seats: List[int], students: List[int]) -> int:\n        seats.sort()\n        students.sort()\n        moves = 0\n\n        for i in range(len(seats)) :\n            moves += abs(seats[i] - students[i])\n\n        return moves"
+  Title = "Minimum Number of Moves to Seat Everyone"
+  Url = "/submissions/detail/1286796629/"
+  LangName = "Python3"
+  Timestamp = 1718263932
+  Status = 10
+  Runtime = "55 ms"
+  IsPending = "Not Pending"
+  Memory = "16.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

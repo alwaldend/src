@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1046647036
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 136
+  TitleSlug = "single-number"
+  Code = "class Solution:\n    def singleNumber(self, nums: List[int]) -> int:\n        nums_count = len(nums)\n        if nums_count == 1:\n            return nums[0]\n        \n        nums.sort()\n        for i in range(0, nums_count, 2):\n            if i + 1 == nums_count:\n                return nums[i]\n\n            cur_num, next_num = nums[i], nums[i+1]\n            if cur_num == next_num:\n                continue\n            \n            return cur_num\n        \n        return 0"
+  Title = "Single Number"
+  Url = "/submissions/detail/1046647036/"
+  LangName = "Python3"
+  Timestamp = 1694447749
+  Status = 10
+  Runtime = "131 ms"
+  IsPending = "Not Pending"
+  Memory = "19.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

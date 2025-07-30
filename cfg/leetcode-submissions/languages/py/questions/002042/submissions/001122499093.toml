@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1122499093
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2042
+  TitleSlug = "maximum-product-difference-between-two-pairs"
+  Code = "class Solution:\r\n    def maxProductDifference(self, nums: List[int]) -> int:\r\n        nums.sort()\r\n        return nums[-1] * nums[-2] - nums[0] * nums[1]"
+  Title = "Maximum Product Difference Between Two Pairs"
+  Url = "/submissions/detail/1122499093/"
+  LangName = "Python3"
+  Timestamp = 1702895229
+  Status = 10
+  Runtime = "166 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

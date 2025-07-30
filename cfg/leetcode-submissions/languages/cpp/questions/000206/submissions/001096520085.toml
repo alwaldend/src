@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1096520085
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 206
+  TitleSlug = "reverse-linked-list"
+  Code = "\nclass Solution {\npublic:\n    ListNode* reverseList(ListNode* head) {\n        ListNode* prev = NULL;\n        ListNode* curr = head;\n        while(curr != NULL){\n            ListNode* next = curr->next;\n            curr->next = prev;\n            prev = curr;\n            curr = next;\n        }\n        return prev;\n    }\n};"
+  Title = "Reverse Linked List"
+  Url = "/submissions/detail/1096520085/"
+  LangName = "C++"
+  Timestamp = 1699705119
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "8.8 MB"
+  CompareResult = "1111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

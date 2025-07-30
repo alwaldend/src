@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1714579585
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 183
+  TitleSlug = "customers-who-never-order"
+  Code = "SELECT name as \"Customers\"\nFROM Customers\nWHERE id NOT IN (\n    SELECT customerId \n    FROM Orders\n);"
+  Title = "Customers Who Never Order"
+  Url = "/submissions/detail/1714579585/"
+  LangName = "PostgreSQL"
+  Timestamp = 1753710320
+  Status = 10
+  Runtime = "195 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111111"
+  HasNotes = false
+  FlagType = 1

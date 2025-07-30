@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1009598832
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1723
+  TitleSlug = "maximum-number-of-achievable-transfer-requests"
+  Code = "class Solution:\n    def maximumRequests(self, n, requests):\n        current = [0] * n\n        length = len(requests)\n        \n        def backtrack(req_index: int, count: int) -> int:\n            if req_index == length:\n                return 0 if any(current) else count\n\n            req_from, req_to = requests[req_index]\n            \n            current[req_from] -= 1\n            current[req_to] += 1\n            take = backtrack(req_index + 1, count + 1)\n\n            current[req_from] += 1\n            current[req_to] -= 1\n            non_take = backtrack(req_index + 1, count)\n            \n            return max(take, non_take)\n        \n        return backtrack(0, 0)"
+  Title = "Maximum Number of Achievable Transfer Requests"
+  Url = "/submissions/detail/1009598832/"
+  LangName = "Python3"
+  Timestamp = 1690911489
+  Status = 10
+  Runtime = "759 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

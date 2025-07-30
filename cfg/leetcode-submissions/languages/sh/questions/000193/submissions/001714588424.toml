@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1714588424
+  StatusDisplay = "Accepted"
+  Lang = "bash"
+  QuestionId = 193
+  TitleSlug = "valid-phone-numbers"
+  Code = "cat file.txt | awk '\n/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/ { print $0 }\n/^\\([0-9]{3}\\) [0-9]{3}-[0-9]{4}$/ { print $0 }\n'"
+  Title = "Valid Phone Numbers"
+  Url = "/submissions/detail/1714588424/"
+  LangName = "Bash"
+  Timestamp = 1753710763
+  Status = 10
+  Runtime = "80 ms"
+  IsPending = "Not Pending"
+  Memory = "3.9 MB"
+  CompareResult = "11111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

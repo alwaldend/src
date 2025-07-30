@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 995216343
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 383
+  TitleSlug = "ransom-note"
+  Code = "class Solution:\n    def canConstruct(self, ransomNote: str, magazine: str) -> bool:\n        ransom_i, magazine_i = 0, 0\n        ransom_length, magazine_length = len(ransomNote), len(magazine)\n\n        if magazine_length < ransom_length:\n            return False\n        \n        if ransom_length == 1:\n            return ransomNote in magazine\n\n        symbols = [0 for _ in range(26)]\n\n        for symbol in magazine:\n            symbols[ord(symbol)-97] += 1\n\n        for symbol in ransomNote:\n            symbols[ord(symbol)-97] -= 1\n        \n        \n        return not any((count < 0 for count in symbols))"
+  Title = "Ransom Note"
+  Url = "/submissions/detail/995216343/"
+  LangName = "Python3"
+  Timestamp = 1689440744
+  Status = 10
+  Runtime = "89 ms"
+  IsPending = "Not Pending"
+  Memory = "16.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

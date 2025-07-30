@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1096529439
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1
+  TitleSlug = "two-sum"
+  Code = "class Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        std::map<int, int> numToIndex;\n        int length = nums.size();\n        std::vector<int> ans;\n        for (int i = 0; i < length; ++i) {\n            int num = nums[i];\n            int diff = target - num;\n            if (numToIndex.contains(diff)) {\n                ans = {numToIndex[diff], i};\n                break;\n            }\n            numToIndex[num] = i;\n        }\n        return ans;\n    }\n};"
+  Title = "Two Sum"
+  Url = "/submissions/detail/1096529439/"
+  LangName = "C++"
+  Timestamp = 1699706616
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "11.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

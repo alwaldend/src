@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1026672462
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1309
+  TitleSlug = "sort-items-by-groups-respecting-dependencies"
+  Code = "class Solution:\n    def sortItems(self, n, m, group, beforeItems):\n        # If an item belongs to zero group, assign it a unique group id.\n        group_id = m\n        for i in range(n):\n            if group[i] == -1:\n                group[i] = group_id\n                group_id += 1\n        \n        # Sort all item regardless of group dependencies.\n        item_graph = [[] for _ in range(n)]\n        item_indegree = [0] * n\n        \n        # Sort all groups regardless of item dependencies.\n        group_graph = [[] for _ in range(group_id)]\n        group_indegree = [0] * group_id      \n        \n        for curr in range(n):\n            for prev in beforeItems[curr]:\n                # Each (prev -> curr) represents an edge in the item graph.\n                item_graph[prev].append(curr)\n                item_indegree[curr] += 1\n                \n                # If they belong to different groups, add an edge in the group graph.\n                if group[curr] != group[prev]:\n                    group_graph[group[prev]].append(group[curr])\n                    group_indegree[group[curr]] += 1      \n        \n        # Tologlogical sort nodes in graph, return [] if a cycle exists.\n        def topologicalSort(graph, indegree):\n            visited = []\n            stack = [node for node in range(len(graph)) if indegree[node] == 0]\n            while stack:\n                cur = stack.pop()\n                visited.append(cur)\n                for neib in graph[cur]:\n                    indegree[neib] -= 1\n                    if indegree[neib] == 0:\n                        stack.append(neib)\n            return visited if len(visited) == len(graph) else []\n\n        item_order = topologicalSort(item_graph, item_indegree)\n        group_order = topologicalSort(group_graph, group_indegree)\n        \n        if not item_order or not group_order: \n            return []\n        \n        # Items are sorted regardless of groups, we need to \n        # differentiate them by the groups they belong to.\n        ordered_groups = collections.defaultdict(list)\n        for item in item_order:\n            ordered_groups[group[item]].append(item)\n        \n        # Concatenate sorted items in all sorted groups.\n        # [group 1, group 2, ... ] -> [(item 1, item 2, ...), (item 1, item 2, ...), ...]\n        answer = []\n        for group_index in group_order:\n            answer += ordered_groups[group_index]\n        return answer"
+  Title = "Sort Items by Groups Respecting Dependencies"
+  Url = "/submissions/detail/1026672462/"
+  LangName = "Python3"
+  Timestamp = 1692531281
+  Status = 10
+  Runtime = "352 ms"
+  IsPending = "Not Pending"
+  Memory = "35.6 MB"
+  CompareResult = "11111111111111111"
+  HasNotes = false
+  FlagType = 1

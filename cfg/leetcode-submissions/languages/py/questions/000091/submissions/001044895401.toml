@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1044895401
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 91
+  TitleSlug = "decode-ways"
+  Code = "class Solution:\n    def numDecodings(self, s: str) -> int:\n        char_count = len(s)\n\n        @cache\n        def dfs(i: int) -> int:\n            if i == char_count: \n                return 1\n            if s[i] == \"0\": \n                return 0\n            return dfs(i + 1) + (dfs(i + 2) if i + 1 < char_count and s[i:i+2] < \"27\" else 0)\n\n        return dfs(0)"
+  Title = "Decode Ways"
+  Url = "/submissions/detail/1044895401/"
+  LangName = "Python3"
+  Timestamp = 1694279483
+  Status = 10
+  Runtime = "44 ms"
+  IsPending = "Not Pending"
+  Memory = "16.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

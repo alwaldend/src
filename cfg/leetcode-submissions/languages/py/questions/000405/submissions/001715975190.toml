@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1715975190
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 405
+  TitleSlug = "convert-a-number-to-hexadecimal"
+  Code = "class Solution:\n    def toHex(self, num: int) -> str:\n        if num >=0 and num < 10:\n            return str(num)\n        if num < 0:\n            num = (1 << 32) + num\n        symbols = \"0123456789abcdef\"\n        res = []\n        while num > 0:\n            mod = num % 16\n            res.append(symbols[mod])\n            num //= 16\n        return \"\".join(reversed(res))"
+  Title = "Convert a Number to Hexadecimal"
+  Url = "/submissions/detail/1715975190/"
+  LangName = "Python3"
+  Timestamp = 1753802843
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

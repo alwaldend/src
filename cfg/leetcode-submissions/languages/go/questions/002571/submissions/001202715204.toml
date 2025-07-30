@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1202715204
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 2571
+  TitleSlug = "find-the-pivot-integer"
+  Code = "func getSum(x int) int {\n\treturn x * (x + 1) / 2\n}\n\nfunc pivotInteger(n int) int {\n    sum := getSum(n)\n\n\tl, r := 1, n\n\tfor l <= r {\n\t\tm := (l + r) / 2\n\t\tfirstPart := getSum(m)\n\t\tsecondPart := sum - firstPart + m\n\n\t\tif firstPart == secondPart {\n\t\t\treturn m\n\t\t} else if firstPart > secondPart {\n\t\t\tr = m - 1\n\t\t} else {\n\t\t\tl = m + 1\n\t\t}\n\t}\n\n\treturn -1\n}"
+  Title = "Find the Pivot Integer"
+  Url = "/submissions/detail/1202715204/"
+  LangName = "Go"
+  Timestamp = 1710348799
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

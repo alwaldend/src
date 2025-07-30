@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1052541293
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1294
+  TitleSlug = "range-frequency-queries"
+  Code = "class RangeFreqQuery:\n    def __init__(self, arr: List[int]):\n        self.l = [[] for _ in range(10001)]\n        for i, v in enumerate(arr):\n            self.l[v].append(i)\n            \n    def query(self, left: int, right: int, v: int) -> int:\n        return bisect_right(self.l[v], right) - bisect_left(self.l[v], left)\n\n# Your RangeFreqQuery object will be instantiated and called as such:\n# obj = RangeFreqQuery(arr)\n# param_1 = obj.query(left,right,value)"
+  Title = "Range Frequency Queries"
+  Url = "/submissions/detail/1052541293/"
+  LangName = "Python3"
+  Timestamp = 1695034451
+  Status = 10
+  Runtime = "1095 ms"
+  IsPending = "Not Pending"
+  Memory = "55.8 MB"
+  CompareResult = "11111111111111111111"
+  HasNotes = false
+  FlagType = 1

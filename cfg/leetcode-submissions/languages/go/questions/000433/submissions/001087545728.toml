@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1087545728
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 433
+  TitleSlug = "minimum-genetic-mutation"
+  Code = "func minMutation(startGene string, endGene string, bank []string) int {\n    if startGene == endGene {\n        return 0\n    }\n\n    bank = append(bank, startGene)\n\n    isMut := func (gene1 string, gene2 string) bool {\n        foundDiff := false\n        for i := 0; i < len(gene1); i++ {\n            if gene1[i] == gene2[i] {\n                continue\n            }\n            if foundDiff {\n                return false\n            }\n            foundDiff = true\n        } \n        return foundDiff\n    }\n\n    graph := map[string][]string{}\n\n    for i, gene1 := range bank {\n        for _, gene2 := range bank[i+1:] {\n            if !isMut(gene1, gene2) {\n                continue\n            }\n            if _, ok := graph[gene1]; !ok {\n                graph[gene1] = []string{}\n            }\n            if _, ok := graph[gene2]; !ok {\n                graph[gene2] = []string{}\n            }\n            graph[gene1] = append(graph[gene1], gene2)\n            graph[gene2] = append(graph[gene2], gene1)\n        }\n    }\n\n    queue, ok := graph[endGene]\n    if !ok {\n        return -1\n    }\n    delete(graph, endGene)\n    num := 1\n    for length := len(queue); length > 0; length = len(queue) {\n        for i := 0; i < length; i++ {\n            gene := queue[i]\n            muts, ok := graph[gene]\n            if !ok {\n                continue\n            }\n            if gene == startGene {\n                return num \n            }\n            delete(graph, gene)\n            queue = append(queue, muts...)\n        }\n        num += 1\n        queue = queue[length:]\n    }\n\n    return -1\n}"
+  Title = "Minimum Genetic Mutation"
+  Url = "/submissions/detail/1087545728/"
+  LangName = "Go"
+  Timestamp = 1698670998
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "2 MB"
+  CompareResult = "111111111111111111"
+  HasNotes = false
+  FlagType = 1

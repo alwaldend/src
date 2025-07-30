@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1200706421
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 807
+  TitleSlug = "custom-sort-string"
+  Code = "func customSortString(order string, s string) string {\n    count := make([]int, 26)\n\n    for _, c := range s {\n        count[c-'a']++\n    }\n\n    var result strings.Builder\n\n    for _, c := range order {\n        result.WriteString(strings.Repeat(string(c), count[c-'a']))\n        count[c-'a'] = 0\n    }\n\n    for i := 0; i < 26; i++ {\n        result.WriteString(strings.Repeat(string('a'+i), count[i]))\n    }\n    // UPVOTE :)\n    return result.String()\n}\n\n"
+  Title = "Custom Sort String"
+  Url = "/submissions/detail/1200706421/"
+  LangName = "Go"
+  Timestamp = 1710174624
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "2.1 MB"
+  CompareResult = "111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

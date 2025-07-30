@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1606779128
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1656
+  TitleSlug = "count-good-triplets"
+  Code = "class Solution:\n    def countGoodTriplets(self, arr: List[int], a: int, b: int, c: int) -> int:\n        ans = 0\n        n = len(arr)\n        total = [0] * 1001\n        for j in range(n):\n            for k in range(j + 1, n):\n                if abs(arr[j] - arr[k]) <= b:\n                    lj, rj = arr[j] - a, arr[j] + a\n                    lk, rk = arr[k] - c, arr[k] + c\n                    l = max(0, lj, lk)\n                    r = min(1000, rj, rk)\n                    if l <= r:\n                        ans += total[r] if l == 0 else total[r] - total[l - 1]\n            for k in range(arr[j], 1001):\n                total[k] += 1\n\n        return ans"
+  Title = "Count Good Triplets"
+  Url = "/submissions/detail/1606779128/"
+  LangName = "Python3"
+  Timestamp = 1744649107
+  Status = 10
+  Runtime = "168 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1089001471
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 501
+  TitleSlug = "find-mode-in-binary-search-tree"
+  Code = "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc findMode(root *TreeNode) []int {\n    if root == nil {\n        return []int{}\n    }\n    counter := map[int]int{}\n    dfs(root, counter)\n    maxCount, answer := 0, []int{}\n    for key, count := range counter {\n        if count < maxCount {\n            continue\n        }\n        if count > maxCount {\n            answer = answer[:0]\n            maxCount = count\n        }\n        answer = append(answer, key)\n    }\n    return answer\n}\n\nfunc dfs(root *TreeNode, counter map[int]int) {\n    if root == nil {\n        return\n    }\n    if _, ok := counter[root.Val]; ok {\n        counter[root.Val] += 1\n    } else {\n        counter[root.Val] = 1\n    }\n    dfs(root.Left, counter)\n    dfs(root.Right, counter)\n}"
+  Title = "Find Mode in Binary Search Tree"
+  Url = "/submissions/detail/1089001471/"
+  LangName = "Go"
+  Timestamp = 1698830897
+  Status = 10
+  Runtime = "12 ms"
+  IsPending = "Not Pending"
+  Memory = "6.6 MB"
+  CompareResult = "11111111111111111111111"
+  HasNotes = false
+  FlagType = 1

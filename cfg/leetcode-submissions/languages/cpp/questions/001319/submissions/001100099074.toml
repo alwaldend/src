@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1100099074
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1319
+  TitleSlug = "unique-number-of-occurrences"
+  Code = "class Solution {\npublic:\n    bool uniqueOccurrences(vector<int>& arr) {\n        std::unordered_map<int, int> counts;\n        std::unordered_set<int> encountered;\n        for (int num : arr) {\n            counts[num] += 1;\n        }\n        for (const auto [num, count] : counts) {\n            if (encountered.find(count) == encountered.end()) {\n                encountered.insert(count);\n            } else {\n                return false;\n            }\n        }\n        return true;\n    }\n};"
+  Title = "Unique Number of Occurrences"
+  Url = "/submissions/detail/1100099074/"
+  LangName = "C++"
+  Timestamp = 1700142180
+  Status = 10
+  Runtime = "5 ms"
+  IsPending = "Not Pending"
+  Memory = "8.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

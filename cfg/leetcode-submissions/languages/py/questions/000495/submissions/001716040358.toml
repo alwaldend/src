@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1716040358
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 495
+  TitleSlug = "teemo-attacking"
+  Code = "class Solution:\n    def findPoisonedDuration(self, timeSeries: List[int], duration: int) -> int:\n        total = 0\n        cur_end = -1\n        for second in timeSeries:\n            if second > cur_end:\n                total += duration\n            else:\n                total += duration - (cur_end - second) - 1\n            cur_end = second + duration - 1\n        return total"
+  Title = "Teemo Attacking"
+  Url = "/submissions/detail/1716040358/"
+  LangName = "Python3"
+  Timestamp = 1753805874
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "18.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

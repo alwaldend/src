@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 690739883
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 21
+  TitleSlug = "merge-two-sorted-lists"
+  Code = "func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {\n\t// ensure both lists are valid\n\tswitch {\n\tcase list1 == nil && list2 == nil:\n\t\treturn nil\n\tcase list1 == nil && list2 != nil:\n\t\treturn list2\n\tcase list1 != nil && list2 == nil:\n\t\treturn list1\n\t}\n\tvar root *ListNode\n\tif list1.Val < list2.Val {\n\t\troot = &ListNode{list1.Val, nil}\n\t\tlist1 = list1.Next\n\t} else {\n\t\troot = &ListNode{list2.Val, nil}\n\t\tlist2 = list2.Next\n\t}\n\tcurrent := &root\n\tfor {\n\t\tswitch {\n\t\tcase list1 == nil && list2 == nil:\n\t\t\treturn root\n\t\tcase list1 != nil && list2 != nil && list1.Val <= list2.Val:\n\t\t\tfallthrough\n\t\tcase list1 != nil && list2 == nil:\n\t\t\tfmt.Println(\"1\", list1.Val)\n\t\t\tupdateResult(&current, &list1)\n\t\tcase list1 != nil && list2 != nil && list1.Val > list2.Val:\n\t\t\tfallthrough\n\t\tcase list1 == nil && list2 != nil:\n\t\t\tfmt.Println(\"2\", list2.Val)\n\t\t\tupdateResult(&current, &list2)\n\t\t}\n\t}\n}\nfunc updateResult(current ***ListNode, node **ListNode) {\n\t// modify the current result node\n\t(**current).Next = &ListNode{(*node).Val, nil}\n\t// move the current pointer\n\t*current = &(**current).Next\n\t// there is no next node -> nill it\n\t// there is next -> move it\n\tif (*node).Next == nil {\n\t\t*node = nil\n\t} else {\n\t\t*node = (*node).Next\n\t}\n}\n"
+  Title = "Merge Two Sorted Lists"
+  Url = "/submissions/detail/690739883/"
+  LangName = "Go"
+  Timestamp = 1651385209
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "2.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

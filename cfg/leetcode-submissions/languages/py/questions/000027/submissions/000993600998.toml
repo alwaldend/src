@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 993600998
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 27
+  TitleSlug = "remove-element"
+  Code = "class Solution:\n    # create replace index\n    # iterate over nums:\n    # - if the current number is equal to val, continue\n    # - set nums[replace] to that number, increase the index\n\n    def removeElement(self, nums: List[int], val: int) -> int:\n        replace = 0\n        for i, number in enumerate(nums):\n            if number == val:\n                continue\n            nums[replace] = number\n            replace += 1\n        \n        return replace"
+  Title = "Remove Element"
+  Url = "/submissions/detail/993600998/"
+  LangName = "Python3"
+  Timestamp = 1689263564
+  Status = 10
+  Runtime = "44 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

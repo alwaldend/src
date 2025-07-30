@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1126931784
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1619
+  TitleSlug = "path-crossing"
+  Code = "class Solution:\n    def isPathCrossing(self, path: str) -> bool:\n        moves = {\n            \"N\": (0, 1),\n            \"S\": (0, -1),\n            \"W\": (-1, 0),\n            \"E\": (1, 0)\n        }\n        \n        visited = {(0, 0)}\n        x = 0\n        y = 0\n\n        for c in path:\n            dx, dy = moves[c]\n            x += dx\n            y += dy\n            \n            if (x, y) in visited:\n                return True\n\n            visited.add((x, y))\n        \n        return False"
+  Title = "Path Crossing"
+  Url = "/submissions/detail/1126931784/"
+  LangName = "Python3"
+  Timestamp = 1703367696
+  Status = 10
+  Runtime = "31 ms"
+  IsPending = "Not Pending"
+  Memory = "17.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

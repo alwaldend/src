@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1100033907
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 783
+  TitleSlug = "search-in-a-binary-search-tree"
+  Code = "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    TreeNode* searchBST(TreeNode* root, int val) {\n        while (root != nullptr) {\n            if (root->val == val) {\n                return root;\n            }\n            if (root->val > val) {\n                root = root->left;\n            } else {\n                root = root->right;\n            }\n        }\n        return root;\n    }\n};"
+  Title = "Search in a Binary Search Tree"
+  Url = "/submissions/detail/1100033907/"
+  LangName = "C++"
+  Timestamp = 1700133496
+  Status = 10
+  Runtime = "36 ms"
+  IsPending = "Not Pending"
+  Memory = "35 MB"
+  CompareResult = "111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1069463764
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1535
+  TitleSlug = "build-array-where-you-can-find-the-maximum-exactly-k-comparisons"
+  Code = "class Solution:\n    def numOfArrays(self, n: int, m: int, k: int) -> int:\n        @cache\n        def dp(i, max_so_far, remain):\n            if i == n:\n                if remain == 0:\n                    return 1\n                \n                return 0\n            \n            ans = (max_so_far * dp(i + 1, max_so_far, remain)) % MOD\n            for num in range(max_so_far + 1, m + 1):\n                ans = (ans + dp(i + 1, num, remain - 1)) % MOD\n                \n            return ans\n        \n        MOD = 10 ** 9 + 7\n        return dp(0, 0, k)"
+  Title = "Build Array Where You Can Find The Maximum Exactly K Comparisons"
+  Url = "/submissions/detail/1069463764/"
+  LangName = "Python3"
+  Timestamp = 1696697290
+  Status = 10
+  Runtime = "867 ms"
+  IsPending = "Not Pending"
+  Memory = "43.5 MB"
+  CompareResult = "1111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

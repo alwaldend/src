@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1049228462
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 332
+  TitleSlug = "reconstruct-itinerary"
+  Code = "class Solution:\n    def findItinerary(self, tickets: List[List[str]]) -> List[str]:\n        graph = defaultdict(list)\n        \n        for src, dst in sorted(tickets, reverse=True):\n            graph[src].append(dst)\n            \n        itinerary = []\n        def dfs(airport: str) -> None:\n            while graph[airport]:\n                dfs(graph[airport].pop())\n            \n            itinerary.append(airport)\n        \n        dfs(\"JFK\")\n        \n        return itinerary[::-1]"
+  Title = "Reconstruct Itinerary"
+  Url = "/submissions/detail/1049228462/"
+  LangName = "Python3"
+  Timestamp = 1694691703
+  Status = 10
+  Runtime = "84 ms"
+  IsPending = "Not Pending"
+  Memory = "16.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

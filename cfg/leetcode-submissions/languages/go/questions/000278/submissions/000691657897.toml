@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 691657897
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 278
+  TitleSlug = "first-bad-version"
+  Code = "\nfunc firstBadVersion(n int) int {\n\t// checking edge cases\n\tif isBadVersion(1) {\n\t\treturn 1\n\t}\n\tleft, right, bad_version := 1, n, math.MaxInt\n\tfor right >= left {\n\t\t// overflow protection\n\t\tversion := left + (right-left)/2\n\t\tswitch isBadVersion(version) {\n\t\tcase false:\n\t\t\t// it is good -> versions to the left are good -> discard left\n\t\t\tleft = version + 1\n\t\tcase true:\n\t\t\t// it is bad -> the first bad version is either this one or to the left\n\t\t\t// discard right\n\t\t\tbad_version = version\n\t\t\tright = version - 1\n\t\t}\n\t}\n\t// the search space is empty\n\treturn bad_version\n}\n"
+  Title = "First Bad Version"
+  Url = "/submissions/detail/691657897/"
+  LangName = "Go"
+  Timestamp = 1651503756
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "1.9 MB"
+  CompareResult = "1111111111111111111111"
+  HasNotes = false
+  FlagType = 1

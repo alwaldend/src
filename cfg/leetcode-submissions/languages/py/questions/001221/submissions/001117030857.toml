@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1117030857
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1221
+  TitleSlug = "element-appearing-more-than-25-in-sorted-array"
+  Code = "class Solution:\n    def findSpecialInteger(self, arr: List[int]) -> int:\n        prev, count = arr[0], 1\n        quarter = len(arr) / 4\n        for num in arr[1:]:\n            if num == prev:\n                count += 1\n            else:\n                prev = num\n                count = 1\n            if count > quarter:\n                break\n        return prev"
+  Title = "Element Appearing More Than 25% In Sorted Array"
+  Url = "/submissions/detail/1117030857/"
+  LangName = "Python3"
+  Timestamp = 1702279615
+  Status = 10
+  Runtime = "87 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "1111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

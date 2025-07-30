@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 956340930
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 20
+  TitleSlug = "valid-parentheses"
+  Code = "class Solution:\n    def isValid(self, s: str) -> bool:\n        brackets = []\n\n        symbols = {\n            \"{\": \"}\",\n            \"(\": \")\",\n            \"[\": \"]\"\n        }\n\n        open = symbols.keys()\n        closed = symbols.values()\n\n        for bracket in s:\n            if bracket in open:\n                brackets.append(bracket)\n                continue\n\n            if not brackets:\n                return False\n\n            last_bracket = brackets[-1]\n            if last_bracket in closed: \n                return False\n\n            correct_closing_bracket = symbols[last_bracket]\n            if bracket != correct_closing_bracket:\n                return False\n            \n            brackets.pop()\n\n        return not len(brackets)"
+  Title = "Valid Parentheses"
+  Url = "/submissions/detail/956340930/"
+  LangName = "Python3"
+  Timestamp = 1684919609
+  Status = 10
+  Runtime = "43 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

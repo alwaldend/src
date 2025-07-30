@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 692275599
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1019
+  TitleSlug = "squares-of-a-sorted-array"
+  Code = "func sortedSquares(numbers []int) []int {\n\tlength := len(numbers)\n\tif length == 0 || length == 1 {\n\t\treturn square(numbers, false)\n\t}\n\tnegativesIndex := -1\n\tfor index, number := range numbers {\n\t\tif number >= 0 {\n\t\t\tnegativesIndex = index\n\t\t\tbreak\n\t\t}\n\t}\n\tif negativesIndex == 0 || negativesIndex == -1 {\n\t\treturn square(numbers, negativesIndex == -1)\n\t}\n//\tfmt.Println(\"negativesIndex\", negativesIndex)\n\tresult, resultIndex, negativesIndex := make([]int, length), 0, negativesIndex-1\n\tfor positivesIndex := negativesIndex + 1; resultIndex < length; positivesIndex++ {\n\t\tpositiveOverflow := positivesIndex >= length\n\t\tfor {\n\t\t\tif negativesIndex < 0 || resultIndex >= length {\n\t\t\t\tbreak\n\t\t\t}\n\t\t\tif !positiveOverflow && numbers[negativesIndex]*-1 > numbers[positivesIndex] {\n\t\t\t\tbreak\n\t\t\t}\n\t\t\tresult[resultIndex] = numbers[negativesIndex]\n\t\t\tresultIndex++\n//\t\t\tfmt.Println(\"negative\", negativesIndex, resultIndex, numbers[negativesIndex], result, numbers)\n\t\t\tnegativesIndex--\n\t\t}\n\t\tif resultIndex < length && !positiveOverflow {\n//\t\t\tfmt.Println(\"positivesIndex\", positivesIndex, resultIndex, numbers[positivesIndex], result, numbers)\n\t\t\tresult[resultIndex] = numbers[positivesIndex]\n\t\t\tresultIndex++\n\t\t}\n\t}\n\treturn square(result, false)\n}\n\nfunc square(array []int, reverse bool) []int {\n\tif reverse {\n\t\tlength := len(array)\n\t\treversed := make([]int, length)\n\t\tfor index := length - 1; index >= 0; index-- {\n\t\t\treversed[length-index-1] = array[index] * array[index]\n\t\t}\n\t\treturn reversed\n\t} else {\n\t\tfor index, number := range array {\n\t\t\tarray[index] = number * number\n\t\t}\n\t\treturn array\n\t}\n}\n"
+  Title = "Squares of a Sorted Array"
+  Url = "/submissions/detail/692275599/"
+  LangName = "Go"
+  Timestamp = 1651579733
+  Status = 10
+  Runtime = "26 ms"
+  IsPending = "Not Pending"
+  Memory = "7.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

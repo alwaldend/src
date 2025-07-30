@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1232827492
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 404
+  TitleSlug = "sum-of-left-leaves"
+  Code = "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc sumOfLeftLeaves(root *TreeNode) int {\n    if root == nil {\n        return 0\n    }\n\n    left := 0\n    if root.Left != nil && root.Left.Left == nil && root.Left.Right == nil {\n        left = root.Left.Val\n    }\n\n    return left + sumOfLeftLeaves(root.Left) + sumOfLeftLeaves(root.Right)\n}"
+  Title = "Sum of Left Leaves"
+  Url = "/submissions/detail/1232827492/"
+  LangName = "Go"
+  Timestamp = 1713163796
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "2.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

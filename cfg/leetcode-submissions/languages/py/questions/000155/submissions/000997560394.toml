@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 997560394
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 155
+  TitleSlug = "min-stack"
+  Code = "from sortedcontainers import sortedset\n\nclass MinStack:\n\n    def __init__(self):\n        self.stack: List[int] = []\n        self.min_stack: List[int] = []\n\n    def push(self, val: int) -> None:\n        self.stack.append(val)\n        if not self.min_stack or val <= self.min_stack[-1]:\n            self.min_stack.append(val)\n\n    def pop(self) -> None:\n        if not self.stack:\n            return\n        pop = self.stack.pop()\n        if pop == self.min_stack[-1]:\n            self.min_stack.pop()\n\n    def top(self) -> int:\n        return self.stack[-1]\n\n    def getMin(self) -> int:\n        return self.min_stack[-1]\n\n\n# Your MinStack object will be instantiated and called as such:\n# obj = MinStack()\n# obj.push(val)\n# obj.pop()\n# param_3 = obj.top()\n# param_4 = obj.getMin()"
+  Title = "Min Stack"
+  Url = "/submissions/detail/997560394/"
+  LangName = "Python3"
+  Timestamp = 1689684557
+  Status = 10
+  Runtime = "77 ms"
+  IsPending = "Not Pending"
+  Memory = "20.4 MB"
+  CompareResult = "1111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

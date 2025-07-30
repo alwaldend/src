@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1199909940
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 349
+  TitleSlug = "intersection-of-two-arrays"
+  Code = "func intersection(nums1 []int, nums2 []int) []int {\n    seen := make([]int, 1000)\n    for i := range nums1 {\n        seen[nums1[i]]++\n    }\n\n    res := make([]int, 0)\n    for i := range nums2 {\n        if seen[nums2[i]] > 0 {\n            res = append(res, nums2[i])\n            seen[nums2[i]] = 0\n        }\n    }\n\n    return res\n}"
+  Title = "Intersection of Two Arrays"
+  Url = "/submissions/detail/1199909940/"
+  LangName = "Go"
+  Timestamp = 1710100724
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "2.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

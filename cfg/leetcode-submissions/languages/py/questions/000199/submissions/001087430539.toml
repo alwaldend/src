@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1087430539
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 199
+  TitleSlug = "binary-tree-right-side-view"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:\n        if not root:\n            return []\n        \n        q_cur, q_next, answer = deque(), deque(), []\n        q_cur.append(root)\n\n        while q_cur:\n            last_val = None\n            \n            while q_cur:\n                node = q_cur.popleft()\n                last_val = node.val\n                if node.left:\n                    q_next.append(node.left)\n                if node.right:\n                    q_next.append(node.right)\n            \n            q_cur, q_next = q_next, q_cur\n            answer.append(last_val)\n    \n        return answer"
+  Title = "Binary Tree Right Side View"
+  Url = "/submissions/detail/1087430539/"
+  LangName = "Python3"
+  Timestamp = 1698657425
+  Status = 10
+  Runtime = "32 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

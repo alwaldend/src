@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1061185383
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 941
+  TitleSlug = "sort-array-by-parity"
+  Code = "class Solution:\n    def sortArrayByParity(self, nums: List[int]) -> List[int]:\n        length = len(nums)\n        left, right = 0, length - 1\n        answer = [None] * length\n        for num in nums:\n            if num % 2 == 0:\n                answer[left] = num\n                left += 1\n            else:\n                answer[right] = num\n                right -= 1\n        return answer"
+  Title = "Sort Array By Parity"
+  Url = "/submissions/detail/1061185383/"
+  LangName = "Python3"
+  Timestamp = 1695885196
+  Status = 10
+  Runtime = "79 ms"
+  IsPending = "Not Pending"
+  Memory = "17 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1061998725
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 932
+  TitleSlug = "monotonic-array"
+  Code = "class Solution:\n    def isMonotonic(self, nums: List[int]) -> bool:\n        length = len(nums)\n        if length < 3:\n            return True\n        is_increasing = None\n        for i in range(1, length):\n            cur, prev = nums[i], nums[i-1]\n            if cur == prev:\n                continue\n            is_increasing_cur = cur > prev\n            if is_increasing is None:\n                is_increasing = is_increasing_cur\n                continue\n            if is_increasing and not is_increasing_cur or (\n                not is_increasing and is_increasing_cur\n            ):\n                return False\n        return True"
+  Title = "Monotonic Array"
+  Url = "/submissions/detail/1061998725/"
+  LangName = "Python3"
+  Timestamp = 1695965769
+  Status = 10
+  Runtime = "836 ms"
+  IsPending = "Not Pending"
+  Memory = "30.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1057824838
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 149
+  TitleSlug = "max-points-on-a-line"
+  Code = "class Solution:\n    def maxPoints(self, points: List[List[int]]) -> int:\n        lines = defaultdict(set)\n        length = len(points)\n        if length < 3:\n            return length\n        for i in range(length):\n            x1, y1 = points[i]\n            for j in range(i + 1, length):\n                x2, y2 = points[j]\n                k1, k2 = None, None\n                if y1 == y2:\n                    k2 = y1\n                elif x1 == x2:\n                    k1 = x1\n                else: \n                    k1 = (y2 - y1) / (x2 - x1)\n                    k2 = y1 - k1 * x1\n                lines[(k1, k2)].update(((x1, y1), (x2, y2)))\n        return max((len(points) for points in lines.values()), default=0)\n"
+  Title = "Max Points on a Line"
+  Url = "/submissions/detail/1057824838/"
+  LangName = "Python3"
+  Timestamp = 1695551188
+  Status = 10
+  Runtime = "103 ms"
+  IsPending = "Not Pending"
+  Memory = "40.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

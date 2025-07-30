@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 698479659
+  StatusDisplay = "Accepted"
+  Lang = "java"
+  QuestionId = 17
+  TitleSlug = "letter-combinations-of-a-phone-number"
+  Code = "class Solution {\n    public List<String> letterCombinations(String digits) {\n        if(digits.length() == 0){\n            List<String> result = new ArrayList<>();\n            return result;\n        }\n        List<String> res = combine(digits); \n        return res;\n    }\n    \n    public List<String> combine(String digit){\n        if(digit.length() == 0 ){\n            List<String> result = new ArrayList<>();\n            result.add(\"\");\n            return result;\n        }\n        \n        String[] codes = {\"\",\"\",\"abc\",\"def\",\"ghi\",\"jkl\",\"mno\",\"pqrs\",\"tuv\",\"wxyz\"};\n        \n        char c = digit.charAt(0);\n        \n        String  digits_left = digit.substring(1);\n        \n        List<String> res = combine(digits_left);\n        \n        List<String> result = new ArrayList<>();\n        \n        String code_for_current_digit = codes[c-'0'];\n        \n        for(int i=0;i<code_for_current_digit.length();i++){\n            char code_char = code_for_current_digit.charAt(i);\n            \n            if(!res.isEmpty()){\n                for(String s : res){\n                    result.add(code_char + s);\n                }    \n            }\n            else{\n                res.add(String.valueOf(code_char));\n            }\n            \n        }\n        \n        \n        return result;\n    }\n}"
+  Title = "Letter Combinations of a Phone Number"
+  Url = "/submissions/detail/698479659/"
+  LangName = "Java"
+  Timestamp = 1652415550
+  Status = 10
+  Runtime = "8 ms"
+  IsPending = "Not Pending"
+  Memory = "42.8 MB"
+  CompareResult = "1111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

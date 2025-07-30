@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1710842774
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 717
+  TitleSlug = "1-bit-and-2-bit-characters"
+  Code = "class Solution(object):\n    def isOneBitCharacter(self, bits):\n        i = 0\n        while i < len(bits) - 1:\n            i += bits[i] + 1\n        return i == len(bits) - 1"
+  Title = "1-bit and 2-bit Characters"
+  Url = "/submissions/detail/1710842774/"
+  LangName = "Python3"
+  Timestamp = 1753439008
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

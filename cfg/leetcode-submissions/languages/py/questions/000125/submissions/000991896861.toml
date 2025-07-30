@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 991896861
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 125
+  TitleSlug = "valid-palindrome"
+  Code = "class Solution:\n    def isPalindrome(self, s: str) -> bool:\n        length = len(s)\n\n        # if the sring has only one symbol and it is alphanumeric, it is a palyndrom\n        if s.isalnum() and length == 1:\n            return True \n        \n        i, j = 0, length - 1\n        # iterate from start and from end:\n    # - if the symbol is not alphanumeric, skip\n    # - if the symbol is alphanumeric, compare\n    # - if indexes are equal or reversed, return\n        while i < j:\n            symbol_start, symbol_end = s[i].lower(), s[j].lower()\n            if not symbol_start.isalnum():\n                i += 1\n                continue\n            if not symbol_end.isalnum():\n                j -= 1\n                continue\n            \n            if symbol_start != symbol_end:\n                return False\n            \n            i += 1\n            j -= 1\n        \n        return True"
+  Title = "Valid Palindrome"
+  Url = "/submissions/detail/991896861/"
+  LangName = "Python3"
+  Timestamp = 1689086420
+  Status = 10
+  Runtime = "68 ms"
+  IsPending = "Not Pending"
+  Memory = "17 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

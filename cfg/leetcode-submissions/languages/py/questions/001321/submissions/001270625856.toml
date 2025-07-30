@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1270625856
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1321
+  TitleSlug = "get-equal-substrings-within-budget"
+  Code = "class Solution:\n    def equalSubstring(self, s: str, t: str, maxCost: int) -> int:\n        n = len(s)\n        start = 0\n        current_cost = 0\n        max_length = 0\n\n        for end in range(n):\n            current_cost += abs(ord(s[end]) - ord(t[end]))\n\n            while current_cost > maxCost:\n                current_cost -= abs(ord(s[start]) - ord(t[start]))\n                start += 1\n\n            max_length = max(max_length, end - start + 1)\n        \n        return max_length"
+  Title = "Get Equal Substrings Within Budget"
+  Url = "/submissions/detail/1270625856/"
+  LangName = "Python3"
+  Timestamp = 1716915920
+  Status = 10
+  Runtime = "59 ms"
+  IsPending = "Not Pending"
+  Memory = "17.2 MB"
+  CompareResult = "1111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

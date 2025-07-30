@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 990965698
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 28
+  TitleSlug = "find-the-index-of-the-first-occurrence-in-a-string"
+  Code = "class Solution:\n    # check edge cases:\n    # - if length of the needle is less than the length of the haystack: -1\n    # - if strings are equal: 0\n    # - if length of the needle is equal to the length of the haystack, but \n    #   strings are not equal: -1\n    # iterate over haystack and needle cheking if a symbol from haystack \n    #   corresponds to the symbol in needle\n    def strStr(self, haystack: str, needle: str) -> int:\n        length_needle, length_haystack = len(needle), len(haystack)\n        last_needle_index = length_needle - 1\n\n        if length_needle > length_haystack:\n            return -1\n        \n        if haystack == needle:\n            return 0\n\n        if length_needle == length_haystack:\n            return -1\n        \n        if needle == haystack:\n            return 0\n\n        i, j = 0, length_needle\n        while j <= len(haystack):\n            current_needle = haystack[i:j]\n            if current_needle == needle:\n                return i\n\n            i += 1\n            j += 1\n        \n        return -1\n"
+  Title = "Find the Index of the First Occurrence in a String"
+  Url = "/submissions/detail/990965698/"
+  LangName = "Python3"
+  Timestamp = 1688993358
+  Status = 10
+  Runtime = "50 ms"
+  IsPending = "Not Pending"
+  Memory = "16.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

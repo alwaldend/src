@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1060597351
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 916
+  TitleSlug = "decoded-string-at-index"
+  Code = "class Solution:\n    def decodeAtIndex(self, s: str, k: int) -> str:\n        length = 0\n        i = 0\n        \n        while length < k:\n            if s[i].isdigit():\n                length *= int(s[i])\n            else:\n                length += 1\n            i += 1\n        \n        for j in range(i-1, -1, -1):\n            char = s[j]\n            if char.isdigit():\n                length //= int(char)\n                k %= length\n            else:\n                if k == 0 or k == length:\n                    return char\n                length -= 1"
+  Title = "Decoded String at Index"
+  Url = "/submissions/detail/1060597351/"
+  LangName = "Python3"
+  Timestamp = 1695827480
+  Status = 10
+  Runtime = "36 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

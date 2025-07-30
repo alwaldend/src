@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 993634402
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 169
+  TitleSlug = "majority-element"
+  Code = "class Solution:\n    def majorityElement(self, nums: List[int]) -> int:\n        return sorted(nums)[len(nums)//2]\n                "
+  Title = "Majority Element"
+  Url = "/submissions/detail/993634402/"
+  LangName = "Python3"
+  Timestamp = 1689266256
+  Status = 10
+  Runtime = "169 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1056131848
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1610
+  TitleSlug = "xor-operation-in-an-array"
+  Code = "class Solution:\n    def xorOperation(self, n: int, start: int) -> int:\n        return reduce(lambda total, i: total ^ (start + 2 * i), chain((0, ), range(n)))"
+  Title = "XOR Operation in an Array"
+  Url = "/submissions/detail/1056131848/"
+  LangName = "Python3"
+  Timestamp = 1695371035
+  Status = 10
+  Runtime = "38 ms"
+  IsPending = "Not Pending"
+  Memory = "16 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

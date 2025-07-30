@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1016554386
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 188
+  TitleSlug = "best-time-to-buy-and-sell-stock-iv"
+  Code = "class Solution:\n    def maxProfit(self, k: int, prices: List[int]) -> int:\n        # no transaction, no profit\n        if k == 0: return 0\n        # dp[k][0] = min cost you need to spend at most k transactions\n        # dp[k][1] = max profit you can achieve at most k transactions\n        dp = [[1000, 0] for _ in range(k + 1)]\n        for price in prices:\n            for i in range(1, k + 1):\n                # price - dp[i - 1][1] is how much you need to spend\n                # i.e use the profit you earned from previous transaction to buy the stock\n                # we want to minimize it\n                dp[i][0] = min(dp[i][0], price - dp[i - 1][1])\n                # price - dp[i][0] is how much you can achieve from previous min cost\n                # we want to maximize it\n                dp[i][1] = max(dp[i][1], price - dp[i][0])\n        # return max profit at most k transactions\n\t\t# or you can write `return dp[-1][1]`\n        return dp[k][1]"
+  Title = "Best Time to Buy and Sell Stock IV"
+  Url = "/submissions/detail/1016554386/"
+  LangName = "Python3"
+  Timestamp = 1691583208
+  Status = 10
+  Runtime = "99 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1012956760
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2955
+  TitleSlug = "account-balance-after-rounded-purchase"
+  Code = "class Solution:\n    def accountBalanceAfterPurchase(self, purchaseAmount: int) -> int:\n        remainder = purchaseAmount % 10\n        if remainder == 0:\n            return 100 - purchaseAmount\n\n        if remainder >= 5:\n            return 100 - ((purchaseAmount // 10) + 1) * 10 \n        \n        return 100 - (purchaseAmount // 10) * 10"
+  Title = "Account Balance After Rounded Purchase"
+  Url = "/submissions/detail/1012956760/"
+  LangName = "Python3"
+  Timestamp = 1691246438
+  Status = 10
+  Runtime = "40 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

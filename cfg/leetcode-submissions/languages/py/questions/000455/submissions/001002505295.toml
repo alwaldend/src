@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1002505295
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 455
+  TitleSlug = "assign-cookies"
+  Code = "class Solution:\n    def findContentChildren(self, g: List[int], s: List[int]) -> int:\n        g.sort(reverse=True)\n        s.sort(reverse=True)\n        count = 0\n        cookie_index = 0\n        cookie_count = len(s)\n        for greed in g:\n            if cookie_index >= cookie_count or greed > s[cookie_index]:\n                continue\n\n            count += 1\n            cookie_index += 1\n            \n        return count"
+  Title = "Assign Cookies"
+  Url = "/submissions/detail/1002505295/"
+  LangName = "Python3"
+  Timestamp = 1690191883
+  Status = 10
+  Runtime = "175 ms"
+  IsPending = "Not Pending"
+  Memory = "18.3 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1052580166
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2413
+  TitleSlug = "smallest-number-in-infinite-set"
+  Code = "class SmallestInfiniteSet:\n\n    def __init__(self):\n        self.heap, self.next_num, self.nums = [], 1, set() \n\n    def popSmallest(self) -> int:\n        if self.heap:\n            val = heappop(self.heap)\n            self.nums.remove(val)\n            return val\n        self.next_num += 1\n        return self.next_num - 1\n\n    def addBack(self, num: int) -> None:\n        if num in self.nums or num >= self.next_num:\n            return\n        self.nums.add(num)\n        heappush(self.heap, num)\n\n\n# Your SmallestInfiniteSet object will be instantiated and called as such:\n# obj = SmallestInfiniteSet()\n# param_1 = obj.popSmallest()\n# obj.addBack(num)"
+  Title = "Smallest Number in Infinite Set"
+  Url = "/submissions/detail/1052580166/"
+  LangName = "Python3"
+  Timestamp = 1695038425
+  Status = 10
+  Runtime = "96 ms"
+  IsPending = "Not Pending"
+  Memory = "16.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

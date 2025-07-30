@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 694834562
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 456
+  TitleSlug = "132-pattern"
+  Code = "\nfunc find132pattern(numbers []int) bool {\n\tlength := len(numbers)\n\tif length < 3 {\n\t\t// if the array doesn't have at least three numbers, it cannot have\n\t\t// '123' pattern\n\t\treturn false\n\t}\n\tlist, third_element := list.List{}, math.MinInt\n\tfor index := length - 1; index >= 0; index-- {\n\t\tcurrent := numbers[index]\n\t\tif current < third_element {\n\t\t\treturn true\n\t\t}\n\t\tfor list.Len() != 0 && list.Front().Value.(int) < current {\n\t\t\tthird_element = list.Front().Value.(int)\n\t\t\tlist.Remove(list.Front())\n\t\t}\n\t\tlist.PushFront(current)\n\t}\n\treturn false\n}"
+  Title = "132 Pattern"
+  Url = "/submissions/detail/694834562/"
+  LangName = "Go"
+  Timestamp = 1651920256
+  Status = 10
+  Runtime = "95 ms"
+  IsPending = "Not Pending"
+  Memory = "12.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

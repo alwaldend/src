@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1009497441
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2856
+  TitleSlug = "count-complete-subarrays-in-an-array"
+  Code = "class Solution:\n    def countCompleteSubarrays(self, nums: List[int]) -> int:\n        length = len(nums)\n        elems_count = len(set(nums))\n        \n        if elems_count == length:\n            return 1\n        \n        if elems_count == 1:\n            return length + sum(i for i in range(1, length))\n        \n        result, elems, min_j = 0, defaultdict(int), 0\n        for i in range(length):\n            left = nums[i]\n            \n            for j in range(min_j, length):\n                right = nums[j]\n                elems[right] += 1\n                \n                if len(elems) != elems_count:\n                    continue\n                \n                if elems[right] == 1:\n                    elems.pop(right)\n                else:\n                    elems[right] -= 1 \n    \n                result += length - j\n                min_j = j\n                break\n            else:\n                return result\n            \n            if elems[left] == 1:\n                elems.pop(left)\n            else:\n                elems[left] -= 1\n                    \n        return result"
+  Title = "Count Complete Subarrays in an Array"
+  Url = "/submissions/detail/1009497441/"
+  LangName = "Python3"
+  Timestamp = 1690904343
+  Status = 10
+  Runtime = "110 ms"
+  IsPending = "Not Pending"
+  Memory = "16.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1091201363
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 52
+  TitleSlug = "n-queens-ii"
+  Code = "func totalNQueens(n int) int {\n    sCol:=make([]bool,n)\n    sD1:=make([]bool,2*n)\n    sD2:=make([]bool,2*n)\n    return helper(0,n,sCol,sD1,sD2)\n}\nfunc helper(r,n int,sCol,sD1,sD2 []bool) int{\n    if r==n{\n        return 1\n    }\n    res:=0\n    for i:=0; i < n; i++ {\n        if !sCol[i] && !sD1[i+r] && !sD2[(r-i)+n]{\n          // board[r][i]=true\n            sCol[i]=true\n            sD1[i+r]=true\n            sD2[(r-i)+n]=true\n            res=res+helper(r+1,n,sCol,sD1,sD2)\n          //  board[r][i]=false\n            sCol[i]=false\n            sD1[i+r]=false\n            sD2[(r-i)+n]=false\n        }\n    }\n    return res\n}"
+  Title = "N-Queens II"
+  Url = "/submissions/detail/1091201363/"
+  LangName = "Go"
+  Timestamp = 1699093775
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "2 MB"
+  CompareResult = "111111111"
+  HasNotes = false
+  FlagType = 1

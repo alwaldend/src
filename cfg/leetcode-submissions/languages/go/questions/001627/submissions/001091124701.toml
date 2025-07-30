@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1091124701
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1627
+  TitleSlug = "last-moment-before-all-ants-fall-out-of-a-plank"
+  Code = "func getLastMoment(n int, left []int, right []int) int {\n    maxLeft := 0\n    for _, val := range left {\n        if val > maxLeft {\n            maxLeft = val\n        }\n    }\n    minRight := n\n    for _, val := range right {\n        if val < minRight {\n            minRight = val\n        }\n    }\n    return max(maxLeft, n - minRight)\n}"
+  Title = "Last Moment Before All Ants Fall Out of a Plank"
+  Url = "/submissions/detail/1091124701/"
+  LangName = "Go"
+  Timestamp = 1699083012
+  Status = 10
+  Runtime = "16 ms"
+  IsPending = "Not Pending"
+  Memory = "6.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

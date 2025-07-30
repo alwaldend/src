@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1096525336
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 151
+  TitleSlug = "reverse-words-in-a-string"
+  Code = "class Solution {\npublic:\n    string reverseWords(string s) {\n        string ans = \"\";\n        string temp = \"\";\n        int length = s.length();\n        int j = 0;\n        for (j = 0; s[j] == ' ' && j < length; ++j) { }\n        for (int i = length - 1; i >= j; --i) {\n            if(s[i] == ' '){\n                if(temp != \"\"){                  \n                    ans = ans + temp + ' ';\n                    temp = \"\";\n                }\n                continue;\n            }\n            else{\n                temp = s[i] + temp;\n            }\n        }\n        return ans + temp;\n    }\n};"
+  Title = "Reverse Words in a String"
+  Url = "/submissions/detail/1096525336/"
+  LangName = "C++"
+  Timestamp = 1699705954
+  Status = 10
+  Runtime = "8 ms"
+  IsPending = "Not Pending"
+  Memory = "46.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

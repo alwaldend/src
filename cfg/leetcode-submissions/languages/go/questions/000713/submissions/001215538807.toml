@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1215538807
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 713
+  TitleSlug = "subarray-product-less-than-k"
+  Code = "func numSubarrayProductLessThanK(nums []int, k int) int {\n\tif k <= 1 {\n\t\treturn 0\n\t}\n\n\tl := 0\n\tp := 1\n\tres := 0\n\tfor r, num := range nums {\n\t\tp *= num\n\t\tfor p >= k {\n\t\t\tp /= nums[l]\n\t\t\tl++\n\t\t}\n        \n\t\tres += r - l + 1\n\t}\n\n\treturn res\n}"
+  Title = "Subarray Product Less Than K"
+  Url = "/submissions/detail/1215538807/"
+  LangName = "Go"
+  Timestamp = 1711554943
+  Status = 10
+  Runtime = "57 ms"
+  IsPending = "Not Pending"
+  Memory = "6.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

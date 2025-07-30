@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1234268575
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 623
+  TitleSlug = "add-one-row-to-tree"
+  Code = "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc addOneRow(root *TreeNode, val int, depth int) *TreeNode {\n    if root == nil {\n        return nil\n    }\n\n    if depth == 1 {\n        root = &TreeNode{Val: val, Left: root}\n    } else if (depth == 2) {\n        root.Left = &TreeNode{Val: val, Left: root.Left}\n        root.Right = &TreeNode{Val: val, Right: root.Right}\n    } else {\n        addOneRow(root.Left, val, depth - 1)\n        addOneRow(root.Right, val, depth - 1)\n    }\n\n    return root;\n}"
+  Title = "Add One Row to Tree"
+  Url = "/submissions/detail/1234268575/"
+  LangName = "Go"
+  Timestamp = 1713294994
+  Status = 10
+  Runtime = "6 ms"
+  IsPending = "Not Pending"
+  Memory = "6.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

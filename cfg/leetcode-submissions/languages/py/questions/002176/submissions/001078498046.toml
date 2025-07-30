@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1078498046
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2176
+  TitleSlug = "parallel-courses-iii"
+  Code = "class Solution:\n    def minimumTime(self, n: int, relations: List[List[int]], time: List[int]) -> int:\n        graph = defaultdict(list)\n        indegree = [0] * n\n        \n        for (x, y) in relations:\n            graph[x - 1].append(y - 1)\n            indegree[y - 1] += 1\n        \n        queue = deque()\n        max_time = [0] * n\n        for node in range(n):\n            if indegree[node] == 0:\n                queue.append(node)\n                max_time[node] = time[node]\n\n        while queue:\n            node = queue.popleft()\n            for neighbor in graph[node]:\n                max_time[neighbor] = max(max_time[neighbor], max_time[node] + time[neighbor])\n                indegree[neighbor] -= 1\n                if indegree[neighbor] == 0:\n                    queue.append(neighbor)\n\n        return max(max_time)"
+  Title = "Parallel Courses III"
+  Url = "/submissions/detail/1078498046/"
+  LangName = "Python3"
+  Timestamp = 1697647133
+  Status = 10
+  Runtime = "1416 ms"
+  IsPending = "Not Pending"
+  Memory = "45.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

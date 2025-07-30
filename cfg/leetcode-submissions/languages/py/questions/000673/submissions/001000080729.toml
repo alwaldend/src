@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1000080729
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 673
+  TitleSlug = "number-of-longest-increasing-subsequence"
+  Code = "class Solution:\n    def findNumberOfLIS(self, nums: List[int]) -> int:\n        n = len(nums)\n        if n <= 1:\n            return n\n\n        lengths = [1] * n\n        counts = [1] * n\n\n        for i in range(1, n):\n            for j in range(i):\n                if nums[i] > nums[j]:\n                    if lengths[j] + 1 > lengths[i]:\n                        lengths[i] = lengths[j] + 1\n                        counts[i] = counts[j]\n                    elif lengths[j] + 1 == lengths[i]:\n                        counts[i] += counts[j]\n\n        max_length = max(lengths)\n        return sum(count for length, count in zip(lengths, counts) if length == max_length)\n"
+  Title = "Number of Longest Increasing Subsequence"
+  Url = "/submissions/detail/1000080729/"
+  LangName = "Python3"
+  Timestamp = 1689934297
+  Status = 10
+  Runtime = "1126 ms"
+  IsPending = "Not Pending"
+  Memory = "16.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1097244070
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 443
+  TitleSlug = "string-compression"
+  Code = "class Solution {\npublic:\n    int compress(vector<char>& chars) {\n        int i = 0, res = 0;\n        int length = chars.size();\n        while (i < length) {\n            int groupLength = 1;\n            while (i + groupLength < length && chars[i + groupLength] == chars[i]) {\n                groupLength++;\n            }\n            chars[res++] = chars[i];\n            if (groupLength > 1) {\n                for (char c : to_string(groupLength)) {\n                    chars[res++] = c;\n                }\n            }\n            i += groupLength;\n        }\n        return res;\n    }\n};"
+  Title = "String Compression"
+  Url = "/submissions/detail/1097244070/"
+  LangName = "C++"
+  Timestamp = 1699794484
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "9.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1051791289
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 535
+  TitleSlug = "encode-and-decode-tinyurl"
+  Code = "class Codec:\n\n    def __init__(self):\n        self.urls = {}\n        self.id = 0\n\n    def encode(self, longUrl: str) -> str:\n        \"\"\"Encodes a URL to a shortened URL.\n        \"\"\"\n        id = self.id\n        self.urls[id] = longUrl\n        self.id += 1\n        return id\n        \n\n    def decode(self, shortUrl: str) -> str:\n        \"\"\"Decodes a shortened URL to its original URL.\n        \"\"\"\n        return self.urls[int(shortUrl)]\n        \n\n# Your Codec object will be instantiated and called as such:\n# codec = Codec()\n# codec.decode(codec.encode(url))"
+  Title = "Encode and Decode TinyURL"
+  Url = "/submissions/detail/1051791289/"
+  LangName = "Python3"
+  Timestamp = 1694956499
+  Status = 10
+  Runtime = "28 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

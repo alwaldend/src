@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1003583841
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 882
+  TitleSlug = "peak-index-in-a-mountain-array"
+  Code = "class Solution:\n    # [0,3,2,1,0]\n    def peakIndexInMountainArray(self, arr: List[int]) -> int:\n        length = len(arr)\n\n        left, right = 0, length - 1\n        while left <= right:\n            peak = left + (right - left) // 2\n            left_val, right_val = arr[peak-1], arr[peak+1]\n            peak_val = arr[peak]\n\n            if left_val < peak_val > right_val:\n                return peak\n            \n            if right_val > peak_val:\n                left = peak + 1\n            else:\n                right = peak - 1\n        \n        return left\n        "
+  Title = "Peak Index in a Mountain Array"
+  Url = "/submissions/detail/1003583841/"
+  LangName = "Python3"
+  Timestamp = 1690292305
+  Status = 10
+  Runtime = "603 ms"
+  IsPending = "Not Pending"
+  Memory = "30.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 998293324
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 55
+  TitleSlug = "jump-game"
+  Code = "class Solution:\n    def canJump(self, nums: List[int]) -> bool:\n        length = len(nums)\n\n        if length < 2:\n            return True\n        \n        current = nums[0]\n\n        for i in range(1, length):\n            if current == 0:\n                return False\n            current -= 1\n            current = max(current, nums[i])\n        \n        return True\n            "
+  Title = "Jump Game"
+  Url = "/submissions/detail/998293324/"
+  LangName = "Python3"
+  Timestamp = 1689755657
+  Status = 10
+  Runtime = "553 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

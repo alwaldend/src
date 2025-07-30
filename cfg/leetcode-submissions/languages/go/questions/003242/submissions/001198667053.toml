@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1198667053
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 3242
+  TitleSlug = "count-elements-with-maximum-frequency"
+  Code = "func maxFrequencyElements(nums []int) int {\n    mapCount := make(map[int]int)\n\n    for _, val := range nums {\n        mapCount[val]++\n    }\n\n    count := 0\n    max := -1\n    for _, freq := range mapCount {\n        if freq > max {\n            max = freq\n        }\n    }\n\n    for _, freq := range mapCount {\n        if freq == max {\n            count += max\n        }\n    }\n    return count\n}"
+  Title = "Count Elements With Maximum Frequency"
+  Url = "/submissions/detail/1198667053/"
+  LangName = "Go"
+  Timestamp = 1710000071
+  Status = 10
+  Runtime = "5 ms"
+  IsPending = "Not Pending"
+  Memory = "2.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

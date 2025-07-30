@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1091201621
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 23
+  TitleSlug = "merge-k-sorted-lists"
+  Code = "/**\n * Definition for singly-linked list.\n * type ListNode struct {\n *     Val int\n *     Next *ListNode\n * }\n */\nfunc mergeKLists(lists []*ListNode) *ListNode {\n    n:=len(lists)\n    if n==0{\n        return nil\n    }\n    curr:=lists[0]\n    if n==1{\n        return curr\n    }\n    for i:=1;i<n;i++{\n        curr=mergeList(curr,lists[i])\n    }\n    return curr\n}\n\nfunc mergeList(l1,l2 *ListNode) *ListNode {\n    head:=&ListNode{}\n    curr:=head\n    for l1!=nil && l2!=nil{\n        if l1.Val<l2.Val{\n            curr.Next=l1\n            l1=l1.Next\n            curr=curr.Next\n        }else{\n            curr.Next=l2\n            l2=l2.Next\n            curr=curr.Next\n        }\n    }\n    if l1 != nil {\n        curr.Next = l1\n    } else if l2 != nil {\n        curr.Next = l2\n    }\n    return head.Next\n}"
+  Title = "Merge k Sorted Lists"
+  Url = "/submissions/detail/1091201621/"
+  LangName = "Go"
+  Timestamp = 1699093808
+  Status = 10
+  Runtime = "81 ms"
+  IsPending = "Not Pending"
+  Memory = "5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

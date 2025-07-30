@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 995248128
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 205
+  TitleSlug = "isomorphic-strings"
+  Code = "class Solution:\n    def isIsomorphic(self, s: str, t: str) -> bool:\n        return list(map(s.index, s)) == list(map(t.index, t))"
+  Title = "Isomorphic Strings"
+  Url = "/submissions/detail/995248128/"
+  LangName = "Python3"
+  Timestamp = 1689443371
+  Status = 10
+  Runtime = "55 ms"
+  IsPending = "Not Pending"
+  Memory = "17.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

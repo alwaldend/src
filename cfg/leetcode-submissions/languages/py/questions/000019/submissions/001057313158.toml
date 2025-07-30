@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1057313158
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 19
+  TitleSlug = "remove-nth-node-from-end-of-list"
+  Code = "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:\n        cur_length, target_length, before_removed = 0, n + 1, head\n        tail = head\n        while tail and cur_length != target_length:\n            tail = tail.next\n            cur_length += 1\n        if not tail and cur_length != target_length:\n            return head.next\n        while tail:\n            before_removed = before_removed.next\n            tail = tail.next\n        before_removed.next = before_removed.next.next\n        return head"
+  Title = "Remove Nth Node From End of List"
+  Url = "/submissions/detail/1057313158/"
+  LangName = "Python3"
+  Timestamp = 1695495299
+  Status = 10
+  Runtime = "39 ms"
+  IsPending = "Not Pending"
+  Memory = "16.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

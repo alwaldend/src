@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 997484713
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 189
+  TitleSlug = "rotate-array"
+  Code = "class Solution:\n    def rotate(self, nums: List[int], k: int) -> None:\n        \"\"\"\n        Do not return anything, modify nums in-place instead.\n        \"\"\"\n        length = len(nums)\n        k %= length\n        nums[length - k:] = nums[length - k:][::-1]  \n        nums[:length - k] = nums[:length - k][::-1]   \n        nums[:] = nums[::-1] \n"
+  Title = "Rotate Array"
+  Url = "/submissions/detail/997484713/"
+  LangName = "Python3"
+  Timestamp = 1689677300
+  Status = 10
+  Runtime = "230 ms"
+  IsPending = "Not Pending"
+  Memory = "27.7 MB"
+  CompareResult = "11111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

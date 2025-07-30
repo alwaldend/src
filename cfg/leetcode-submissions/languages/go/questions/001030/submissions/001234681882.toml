@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1234681882
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1030
+  TitleSlug = "smallest-string-starting-from-leaf"
+  Code = "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc smallestFromLeaf(root *TreeNode) string {\n\tans := \"\"\n\tvar dfs func(node *TreeNode, text string)\n\tdfs = func(node *TreeNode, text string) {\n\t\tif node == nil {\n\t\t\treturn\n\t\t}\n\t\ttext = string(rune(node.Val + 97)) + text\n\t\tif node.Right == nil && node.Left == nil {\n\t\t\tif ans == \"\" || ans > text {\n\t\t\t\tans = text\n\t\t\t}\n\t\t\treturn\n\t\t}\n\t\tdfs(node.Left, text)\n\t\tdfs(node.Right, text)\n\t}\n\n\tdfs(root, \"\")\n\treturn ans\n}"
+  Title = "Smallest String Starting From Leaf"
+  Url = "/submissions/detail/1234681882/"
+  LangName = "Go"
+  Timestamp = 1713340175
+  Status = 10
+  Runtime = "5 ms"
+  IsPending = "Not Pending"
+  Memory = "4.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

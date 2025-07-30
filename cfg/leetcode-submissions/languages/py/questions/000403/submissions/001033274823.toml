@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1033274823
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 403
+  TitleSlug = "frog-jump"
+  Code = "class Solution:\n    def canCross(self, stones: List[int]) -> bool:\n        m = set(stones)\n        @cache\n        def dfs(i, j):\n            if i == stones[-1]: return True\n            return any(x and x + i in m and dfs(x + i, x) for x in range(j - 1, j + 2))\n        return dfs(0, 0)"
+  Title = "Frog Jump"
+  Url = "/submissions/detail/1033274823/"
+  LangName = "Python3"
+  Timestamp = 1693148109
+  Status = 10
+  Runtime = "160 ms"
+  IsPending = "Not Pending"
+  Memory = "25.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

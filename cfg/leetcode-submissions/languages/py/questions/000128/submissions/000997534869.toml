@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 997534869
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 128
+  TitleSlug = "longest-consecutive-sequence"
+  Code = "from sortedcontainers import SortedSet\n\nclass Solution:\n    def longestConsecutive(self, nums: List[int]) -> int:\n        nums = SortedSet(nums)\n        longest, current = 0, 0\n        for number in nums:\n            if number - 1 in nums:\n                current += 1\n                continue\n            if current > longest:\n                longest = current\n            current = 1\n        return max(current, longest)\n            "
+  Title = "Longest Consecutive Sequence"
+  Url = "/submissions/detail/997534869/"
+  LangName = "Python3"
+  Timestamp = 1689682124
+  Status = 10
+  Runtime = "415 ms"
+  IsPending = "Not Pending"
+  Memory = "35.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

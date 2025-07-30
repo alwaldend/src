@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 996012746
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 80
+  TitleSlug = "remove-duplicates-from-sorted-array-ii"
+  Code = "class Solution:\n    def removeDuplicates(self, nums: List[int]) -> int:\n        length = len(nums)\n\n        if length < 2:\n            return length\n        \n        current_index = 2\n\n        for number in nums[2:]:\n            if number == nums[current_index-2]:\n                continue\n            \n            nums[current_index] = number\n            current_index += 1\n\n        return current_index"
+  Title = "Remove Duplicates from Sorted Array II"
+  Url = "/submissions/detail/996012746/"
+  LangName = "Python3"
+  Timestamp = 1689524791
+  Status = 10
+  Runtime = "66 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

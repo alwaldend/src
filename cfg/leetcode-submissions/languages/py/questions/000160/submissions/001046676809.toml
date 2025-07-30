@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1046676809
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 160
+  TitleSlug = "intersection-of-two-linked-lists"
+  Code = "class Solution:\n    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:\n        if headA and headB:\n            A, B = headA, headB\n            while A != B:\n                A = A.next if A else headB\n                B = B.next if B else headA\n            return B\n        "
+  Title = "Intersection of Two Linked Lists"
+  Url = "/submissions/detail/1046676809/"
+  LangName = "Python3"
+  Timestamp = 1694449871
+  Status = 10
+  Runtime = "130 ms"
+  IsPending = "Not Pending"
+  Memory = "31.4 MB"
+  CompareResult = "111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

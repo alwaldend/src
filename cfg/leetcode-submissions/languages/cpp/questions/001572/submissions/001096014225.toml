@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1096014225
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1572
+  TitleSlug = "subrectangle-queries"
+  Code = "class SubrectangleQueries {\npublic:\n    std::vector<std::vector<int>> rectangle;\n    std::vector<std::array<int, 5>> updates;\n    SubrectangleQueries(vector<vector<int>>& rectangle) {\n        this->rectangle = rectangle;\n    }\n    \n    void updateSubrectangle(int row1, int col1, int row2, int col2, int newValue) {\n        this->updates.push_back({row1, col1, row2, col2, newValue});\n    }\n    \n    int getValue(int row, int col) {\n        int length = this->updates.size();\n        for (int i = length - 1; i >= 0; --i) {\n            auto const [row1, col1, row2, col2, newValue] = this->updates[i];\n            if (row < row1 || row > row2 || col < col1 || col > col2) {\n                continue;\n            }\n            return newValue;\n        }\n        return this->rectangle[row][col];\n    }\n};\n\n/**\n * Your SubrectangleQueries object will be instantiated and called as such:\n * SubrectangleQueries* obj = new SubrectangleQueries(rectangle);\n * obj->updateSubrectangle(row1,col1,row2,col2,newValue);\n * int param_2 = obj->getValue(row,col);\n */"
+  Title = "Subrectangle Queries"
+  Url = "/submissions/detail/1096014225/"
+  LangName = "C++"
+  Timestamp = 1699633108
+  Status = 10
+  Runtime = "35 ms"
+  IsPending = "Not Pending"
+  Memory = "19.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

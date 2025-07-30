@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1091922545
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1657
+  TitleSlug = "find-the-winner-of-an-array-game"
+  Code = "func getWinner(arr []int, k int) int {\n    curMax, winCount := arr[0], 0\n    i, length := 1, len(arr)\n    for {\n        num := arr[i]\n        if num > curMax {\n            curMax = num\n            winCount = 1\n        } else {\n            winCount++\n        }\n        if winCount == k {\n            return curMax\n        }\n        i = (i + 1) % length\n    }\n    return -1\n}"
+  Title = "Find the Winner of an Array Game"
+  Url = "/submissions/detail/1091922545/"
+  LangName = "Go"
+  Timestamp = 1699174919
+  Status = 10
+  Runtime = "3261 ms"
+  IsPending = "Not Pending"
+  Memory = "11.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

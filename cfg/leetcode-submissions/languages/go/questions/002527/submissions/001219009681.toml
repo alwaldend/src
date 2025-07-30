@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1219009681
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 2527
+  TitleSlug = "count-subarrays-with-fixed-bounds"
+  Code = "func countSubarrays(nums []int, minK int, maxK int) int64 {\n    var res int64\n\tleft := 0\n\tpmin := -1\n\tpmax := -1\n\n\tfor right, num := range nums {\n\t\tif num < minK || num > maxK {\n\t\t\tleft = right + 1\n\t\t\tpmin = -1\n\t\t\tpmax = -1\n\t\t} else {\n\t\t\tif num == minK {\n\t\t\t\tpmin = right\n\t\t\t}\n\t\t\tif num == maxK {\n\t\t\t\tpmax = right\n\t\t\t}\n\t\t\tres += int64(max(0, min(pmin, pmax) - left + 1))\n\t\t}\n\t}\n\n\treturn res\n}"
+  Title = "Count Subarrays With Fixed Bounds"
+  Url = "/submissions/detail/1219009681/"
+  LangName = "Go"
+  Timestamp = 1711871910
+  Status = 10
+  Runtime = "74 ms"
+  IsPending = "Not Pending"
+  Memory = "8.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

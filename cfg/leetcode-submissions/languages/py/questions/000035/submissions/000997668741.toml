@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 997668741
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 35
+  TitleSlug = "search-insert-position"
+  Code = "class Solution:\n    def searchInsert(self, nums: List[int], target: int) -> int:\n        length = len(nums)\n        left, right = 0, length - 1\n\n        while left <= right:\n            mid = left + (right - left) // 2\n            mid_number = nums[mid]\n\n            if mid_number == target:\n                return mid\n\n            if mid_number > target:\n                right = mid - 1\n            else:\n                left = mid + 1\n\n        return left"
+  Title = "Search Insert Position"
+  Url = "/submissions/detail/997668741/"
+  LangName = "Python3"
+  Timestamp = 1689693287
+  Status = 10
+  Runtime = "67 ms"
+  IsPending = "Not Pending"
+  Memory = "17 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

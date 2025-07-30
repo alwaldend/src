@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1001107966
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 688
+  TitleSlug = "knight-probability-in-chessboard"
+  Code = "class Solution:\n    # y x x\n    # x x x\n    # x x x: (2 / 8) * (4 / 16) = 0.0625\n    #        (1/8, 1/8), (2/8, 2/8)\n    # \n    # x x x\n    # x y x\n    # x x x: 0\n    def __init__(self):\n        self.available_moves = (\n            (2, 1), (1, 2), (-2, 1), (-1, 2), (2, -1), (1, -2), \n            (-2, -1), (-1, -2)\n        )\n    \n\n    def knightProbability(self, n: int, k: int, row: int, column: int) -> float:\n        if k < 1:\n            return 1\n        \n        if n < 3:\n            return 0\n\n        return self.calculate(row, column, n, k)\n    \n    @cache\n    def calculate(self, row: int, column: int, size: int, \n                       moves_left: int) -> float:\n       \n        if moves_left < 1:\n            return 1\n\n        probability = 0\n\n        for row_add, column_add in self.available_moves:\n            new_row = row_add + row\n            new_column = column_add + column\n\n            if new_row < 0 or new_row >= size or (\n                new_column < 0 or new_column >= size\n            ):\n                continue\n\n            probability += self.calculate(\n                new_row, new_column, size, moves_left - 1\n            ) / 8\n\n        return probability"
+  Title = "Knight Probability in Chessboard"
+  Url = "/submissions/detail/1001107966/"
+  LangName = "Python3"
+  Timestamp = 1690042140
+  Status = 10
+  Runtime = "268 ms"
+  IsPending = "Not Pending"
+  Memory = "27.8 MB"
+  CompareResult = "1111111111111111111111"
+  HasNotes = false
+  FlagType = 1

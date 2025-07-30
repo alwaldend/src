@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1710833164
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 789
+  TitleSlug = "kth-largest-element-in-a-stream"
+  Code = "class KthLargest:\n\n    def __init__(self, k: int, nums: List[int]):\n        if len(nums) < k:\n            nums.extend((float(\"-inf\"),) * (k - len(nums)))\n        nums.sort()\n        self._nums: list[int] = nums[-k:]\n        self._k: int = k\n        \n    def add(self, val: int) -> int:\n        if val > self._nums[0]:\n            self._nums[0] = val\n            self._nums.sort()\n        return self._nums[-self._k]\n\n# Your KthLargest object will be instantiated and called as such:\n# obj = KthLargest(k, nums)\n# param_1 = obj.add(val)"
+  Title = "Kth Largest Element in a Stream"
+  Url = "/submissions/detail/1710833164/"
+  LangName = "Python3"
+  Timestamp = 1753438451
+  Status = 10
+  Runtime = "763 ms"
+  IsPending = "Not Pending"
+  Memory = "23.9 MB"
+  CompareResult = "111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1168587650
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 451
+  TitleSlug = "sort-characters-by-frequency"
+  Code = "class Solution:\n    def frequencySort(self, s: str) -> str:\n        counter = defaultdict(int)\n        for char in s:\n            counter[char] += 1\n        pq = [(-freq, char) for char, freq in counter.items()]\n        heapq.heapify(pq)\n        result = []\n        while pq:\n            freq, char = heapq.heappop(pq)\n            result.append(char * -freq)\n        return \"\".join(result)"
+  Title = "Sort Characters By Frequency"
+  Url = "/submissions/detail/1168587650/"
+  LangName = "Python3"
+  Timestamp = 1707292784
+  Status = 10
+  Runtime = "49 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

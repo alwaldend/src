@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1087481177
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 102
+  TitleSlug = "binary-tree-level-order-traversal"
+  Code = "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc levelOrder(root *TreeNode) [][]int {\n    if root == nil {\n        return [][]int{}\n    }\n\n    stack, answer := []*TreeNode{root}, [][]int{}\n\n    for length := len(stack); length != 0; length = len(stack) {\n        answerRow := []int{}\n        for i := 0; i < length; i++ {\n            node := stack[0]\n            answerRow = append(answerRow, node.Val)\n            stack = stack[1:]\n            if left := node.Left; left != nil {\n                stack = append(stack, node.Left)\n            }\n            if right := node.Right; right != nil {\n                stack = append(stack, node.Right)\n            }\n        }\n        answer = append(answer, answerRow)\n    }\n\n    return answer\n}"
+  Title = "Binary Tree Level Order Traversal"
+  Url = "/submissions/detail/1087481177/"
+  LangName = "Go"
+  Timestamp = 1698663075
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "3.6 MB"
+  CompareResult = "11111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

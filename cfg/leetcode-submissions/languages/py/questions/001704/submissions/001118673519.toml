@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1118673519
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1704
+  TitleSlug = "special-positions-in-a-binary-matrix"
+  Code = "class Solution:\n    def numSpecial(self, mat: List[List[int]]) -> int:\n        def get_column_sum(col_idx):\n            return sum(row[col_idx] for row in mat)\n\n        special = 0\n        for row in mat:\n            if sum(row) == 1:\n                col_idx = row.index(1)\n                special += get_column_sum(col_idx) == 1\n\n        return special"
+  Title = "Special Positions in a Binary Matrix"
+  Url = "/submissions/detail/1118673519/"
+  LangName = "Python3"
+  Timestamp = 1702455060
+  Status = 10
+  Runtime = "137 ms"
+  IsPending = "Not Pending"
+  Memory = "16.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1005172261
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1418
+  TitleSlug = "fair-distribution-of-cookies"
+  Code = "class Solution:\n    def distributeCookies(self, cookies: List[int], k: int) -> int:\n        cur = [0] * k\n        n = len(cookies)\n\n        def dfs(i, zero_count):\n            # If there are not enough cookies remaining, return `float('inf')` \n            # as it leads to an invalid distribution.\n            if n - i < zero_count:\n                return float('inf')\n            \n            # After distributing all cookies, return the unfairness of this\n            # distribution.\n            if i == n:\n                return max(cur)\n            \n            # Try to distribute the i-th cookie to each child, and update answer\n            # as the minimum unfairness in these distributions.\n            answer = float('inf')\n            for j in range(k):\n                zero_count -= int(cur[j] == 0)\n                cur[j] += cookies[i]\n                \n                # Recursively distribute the next cookie.\n                answer = min(answer, dfs(i + 1, zero_count))\n                \n                cur[j] -= cookies[i]\n                zero_count += int(cur[j] == 0)\n            \n            return answer\n        \n        return dfs(0, k)"
+  Title = "Fair Distribution of Cookies"
+  Url = "/submissions/detail/1005172261/"
+  LangName = "Python3"
+  Timestamp = 1690447271
+  Status = 10
+  Runtime = "1604 ms"
+  IsPending = "Not Pending"
+  Memory = "16.2 MB"
+  CompareResult = "11111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

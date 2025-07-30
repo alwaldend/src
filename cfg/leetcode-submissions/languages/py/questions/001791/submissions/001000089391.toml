@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1000089391
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1791
+  TitleSlug = "richest-customer-wealth"
+  Code = "class Solution:\n    def maximumWealth(self, accounts: List[List[int]]) -> int:\n        max_wealth = 0\n        for i in range(len(accounts)):\n            wealth = 0\n            for j in range(len(accounts[i])):\n                wealth += accounts[i][j]\n            \n            if wealth > max_wealth:\n                max_wealth = wealth\n        \n        return max_wealth"
+  Title = "Richest Customer Wealth"
+  Url = "/submissions/detail/1000089391/"
+  LangName = "Python3"
+  Timestamp = 1689935194
+  Status = 10
+  Runtime = "66 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "1111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

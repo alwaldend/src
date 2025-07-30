@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1054605267
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 268
+  TitleSlug = "missing-number"
+  Code = "class Solution:\n    def missingNumber(self, nums: List[int]) -> int:\n        def xor(total: int, i: int) -> int:\n            return total ^ nums[i] ^ (i + 1)\n        return reduce(xor, chain((0, ), range(len(nums))))"
+  Title = "Missing Number"
+  Url = "/submissions/detail/1054605267/"
+  LangName = "Python3"
+  Timestamp = 1695222159
+  Status = 10
+  Runtime = "126 ms"
+  IsPending = "Not Pending"
+  Memory = "17.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

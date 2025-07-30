@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1095991971
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 2104
+  TitleSlug = "operations-on-tree"
+  Code = "class LockingTree {\npublic:\n    std::vector<int> parents, locked;\n    std::vector<std::vector<int>> children;\n    LockingTree(vector<int>& parent) {\n        int length = parent.size();\n        this->children.resize(length);\n        this->locked.resize(length, -1);\n        this->parents = parent;\n        for (int i = 1; i < length; ++i) {\n            this->children[this->parents[i]].push_back(i);\n        }\n    }\n    \n    bool lock(int num, int user) {\n        if (this->locked[num] != -1) {\n            return false;\n        }\n        this->locked[num] = user;\n        return true;\n    }\n    \n    bool unlock(int num, int user) {\n        if (this->locked[num] != user) {\n            return false;\n        }\n        this->locked[num] = -1;\n        return true;\n    }\n\n    bool upgrade(int num, int user) {\n        if (this->locked[num] != -1) {\n            return false;\n        }\n        int parent = this->parents[num];\n        while (parent != -1) {\n            if (this->locked[parent] != -1) {\n                return false;\n            }\n            parent = this->parents[parent];\n        }\n        if (!this->unlockDesc(num)) {\n            return false;\n        }\n        this->locked[num] = user;\n        return true;\n    }\n\n    bool unlockDesc(int parent) {\n        bool hasLocked = false;\n        for (auto const& child : this->children[parent]) {\n            if (this->locked[child] != -1) {\n                this->locked[child] = -1;\n                hasLocked = true;\n            }\n            bool descHasLocked = unlockDesc(child);\n            if (descHasLocked) {\n                hasLocked = true;\n            }\n        }\n        return hasLocked;\n    }\n};\n\n/**\n * Your LockingTree object will be instantiated and called as such:\n * LockingTree* obj = new LockingTree(parent);\n * bool param_1 = obj->lock(num,user);\n * bool param_2 = obj->unlock(num,user);\n * bool param_3 = obj->upgrade(num,user);\n */"
+  Title = "Operations on Tree"
+  Url = "/submissions/detail/1095991971/"
+  LangName = "C++"
+  Timestamp = 1699630679
+  Status = 10
+  Runtime = "291 ms"
+  IsPending = "Not Pending"
+  Memory = "123.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

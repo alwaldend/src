@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1040170625
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 108
+  TitleSlug = "convert-sorted-array-to-binary-search-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:\n        nums_count = len(nums)\n        if nums_count == 0:\n            return None\n        \n        mid = nums_count // 2\n        return TreeNode(nums[mid], \n                        self.sortedArrayToBST(nums[:mid]), \n                        self.sortedArrayToBST(nums[mid+1:]))"
+  Title = "Convert Sorted Array to Binary Search Tree"
+  Url = "/submissions/detail/1040170625/"
+  LangName = "Python3"
+  Timestamp = 1693820641
+  Status = 10
+  Runtime = "55 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

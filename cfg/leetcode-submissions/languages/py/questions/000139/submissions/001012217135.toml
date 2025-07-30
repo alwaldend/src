@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1012217135
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 139
+  TitleSlug = "word-break"
+  Code = "class Solution:\n    def wordBreak(self, s: str, wordDict: List[str]) -> bool:\n        words = set(wordDict)\n    \n        @cache\n        def calculate(i: int) -> bool:\n            if i < 0:\n                return True\n            \n            for word in wordDict:\n                length = len(word)\n                if s[i-length+1:i+1] == word and calculate(i-length):\n                    return True\n            \n            return False\n\n        return calculate(len(s) - 1)\n        \n"
+  Title = "Word Break"
+  Url = "/submissions/detail/1012217135/"
+  LangName = "Python3"
+  Timestamp = 1691167035
+  Status = 10
+  Runtime = "52 ms"
+  IsPending = "Not Pending"
+  Memory = "16.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

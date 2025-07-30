@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1710834313
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 742
+  TitleSlug = "to-lower-case"
+  Code = "class Solution:\n    def toLowerCase(self, s: str) -> str:\n        return s.lower()"
+  Title = "To Lower Case"
+  Url = "/submissions/detail/1710834313/"
+  LangName = "Python3"
+  Timestamp = 1753438513
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

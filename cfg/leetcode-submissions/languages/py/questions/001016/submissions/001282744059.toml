@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1282744059
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1016
+  TitleSlug = "subarray-sums-divisible-by-k"
+  Code = "class Solution:\n    def subarraysDivByK(self, nums: List[int], k: int) -> int:\n        count = 0\n        prefix_sum = 0\n        prefix_map = {0: 1}  \n        \n        for num in nums:\n            prefix_sum += num\n            mod = prefix_sum % k\n            if mod < 0:  \n                mod += k\n            if mod in prefix_map:\n                count += prefix_map[mod]\n                prefix_map[mod] += 1\n            else:\n                prefix_map[mod] = 1\n        \n        return count"
+  Title = "Subarray Sums Divisible by K"
+  Url = "/submissions/detail/1282744059/"
+  LangName = "Python3"
+  Timestamp = 1717930605
+  Status = 10
+  Runtime = "218 ms"
+  IsPending = "Not Pending"
+  Memory = "21.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

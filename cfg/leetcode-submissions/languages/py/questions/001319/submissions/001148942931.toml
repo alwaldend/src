@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1148942931
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1319
+  TitleSlug = "unique-number-of-occurrences"
+  Code = "class Solution:\n    def uniqueOccurrences(self, arr: List[int]) -> bool:\n        counts = defaultdict(int)\n        for num in arr:\n            counts[num] += 1\n\n        viewed = set()\n        for _, count in counts.items():\n            if count in viewed:\n                return False\n            viewed.add(count)\n        return True"
+  Title = "Unique Number of Occurrences"
+  Url = "/submissions/detail/1148942931/"
+  LangName = "Python3"
+  Timestamp = 1705508044
+  Status = 10
+  Runtime = "31 ms"
+  IsPending = "Not Pending"
+  Memory = "17.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

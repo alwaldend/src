@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1047265181
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1770
+  TitleSlug = "minimum-deletions-to-make-character-frequencies-unique"
+  Code = "class Solution:\n    def minDeletions(self, s: str) -> int:\n        length = len(s)\n        char_count = Counter(s)\n        counts = set()\n        deleted_chars = 0\n\n        for char, count in char_count.items():\n            while count != 0 and count in counts:\n                count -= 1\n                deleted_chars += 1\n            if count != 0:\n                counts.add(count)\n            \n        return deleted_chars\n"
+  Title = "Minimum Deletions to Make Character Frequencies Unique"
+  Url = "/submissions/detail/1047265181/"
+  LangName = "Python3"
+  Timestamp = 1694505304
+  Status = 10
+  Runtime = "111 ms"
+  IsPending = "Not Pending"
+  Memory = "17.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

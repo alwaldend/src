@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1714779779
+  StatusDisplay = "Accepted"
+  Lang = "bash"
+  QuestionId = 195
+  TitleSlug = "tenth-line"
+  Code = "awk 'NR == 10 { print $0 }' file.txt"
+  Title = "Tenth Line"
+  Url = "/submissions/detail/1714779779/"
+  LangName = "Bash"
+  Timestamp = 1753720135
+  Status = 10
+  Runtime = "21 ms"
+  IsPending = "Not Pending"
+  Memory = "4 MB"
+  CompareResult = "1111111"
+  HasNotes = false
+  FlagType = 1

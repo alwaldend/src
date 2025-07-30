@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1089829638
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 148
+  TitleSlug = "sort-list"
+  Code = "\nfunc sortList(head *ListNode) *ListNode {\n\tif head == nil || head.Next == nil {\n\t\treturn head\n\t}\n\tif head.Next.Next == nil {\n\t\ta := head\n\t\tb := head.Next\n\t\tif a.Val <= b.Val {\n\t\t\ta.Next = b\n\t\t\tb.Next = nil\n\t\t\treturn a\n\t\t} else {\n\t\t\tb.Next = a\n\t\t\ta.Next = nil\n\t\t\treturn b\n\t\t}\n\t}\n\tslow := head\n\tfast := head\n\tfor fast != nil && fast.Next != nil {\n\t\tslow = slow.Next\n\t\tfast = fast.Next.Next\n\t}\n\tnextList := slow.Next\n\tslow.Next = nil\n\tlist1 := sortList(head)\n\tlist2 := sortList(nextList)\n\tdummy := &ListNode{Val: -1, Next: nil}\n\tit := dummy\n\tfor list1 != nil && list2 != nil {\n\t\tif list1.Val <= list2.Val {\n\t\t\tit.Next = list1\n\t\t\tlist1 = list1.Next\n\t\t} else {\n\t\t\tit.Next = list2\n\t\t\tlist2 = list2.Next\n\t\t}\n\t\tit = it.Next\n\t}\n\tif list1 != nil {\n\t\tit.Next = list1\n\t} else {\n\t\tit.Next = list2\n\t}\n\treturn dummy.Next\n}\n"
+  Title = "Sort List"
+  Url = "/submissions/detail/1089829638/"
+  LangName = "Go"
+  Timestamp = 1698924814
+  Status = 10
+  Runtime = "53 ms"
+  IsPending = "Not Pending"
+  Memory = "7.4 MB"
+  CompareResult = "111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1260759463
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1450
+  TitleSlug = "delete-leaves-with-a-given-value"
+  Code = "# Definition for a binary tree node.\n# class TreeNode(object):\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\n\nclass Solution(object):\n    def removeLeafNodes(self, root, target):\n        \"\"\"\n        :type root: TreeNode\n        :type target: int\n        :rtype: TreeNode\n        \"\"\"\n        if not root:\n            return None\n        root.left = self.removeLeafNodes(root.left, target)\n        root.right = self.removeLeafNodes(root.right, target)\n        if not root.left and not root.right and root.val == target:\n            return None\n        return root"
+  Title = "Delete Leaves With a Given Value"
+  Url = "/submissions/detail/1260759463/"
+  LangName = "Python3"
+  Timestamp = 1715970339
+  Status = 10
+  Runtime = "44 ms"
+  IsPending = "Not Pending"
+  Memory = "17.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

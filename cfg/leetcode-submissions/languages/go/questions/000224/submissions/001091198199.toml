@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1091198199
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 224
+  TitleSlug = "basic-calculator"
+  Code = "func calculate(s string) int {\n\tresult, _ := calculateFrom(s, 0)\n\treturn result\n}\n\nfunc calculateFrom(s string, idFrom int) (result, idEnd int) {\n\tresult, currNum, sign := 0, 0, 1\n\n\tfor idEnd = idFrom; idEnd < len(s) && s[idEnd] != ')'; idEnd++ {\n\t\tswitch {\n\t\tcase s[idEnd] >= '0':\n\t\t\tcurrNum = currNum*10 + int(s[idEnd]-'0')\n\t\tcase s[idEnd] == '(':\n\t\t\tcurrNum, idEnd = calculateFrom(s, idEnd+1)\n\t\tcase s[idEnd] == '-' || s[idEnd] == '+':\n\t\t\tresult, currNum = result+currNum*sign, 0\n\t\t\tsign = 44 - int(s[idEnd]) // '-'=45; '+'=43\n\t\t}\n\t}\n\n\treturn result + currNum*sign, idEnd\n}"
+  Title = "Basic Calculator"
+  Url = "/submissions/detail/1091198199/"
+  LangName = "Go"
+  Timestamp = 1699093361
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "2.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

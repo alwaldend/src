@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1177051612
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1604
+  TitleSlug = "least-number-of-unique-integers-after-k-removals"
+  Code = "class Solution:\r\n    def findLeastNumOfUniqueInts(self, arr: List[int], k: int) -> int:\r\n        counter = defaultdict(int)\r\n        for num in arr:\r\n            counter[num] += 1\r\n        nums = [(count, num) for num, count in counter.items()]\r\n        nums.sort()\r\n        removed = 0\r\n        for count, num in nums:\r\n            if k < count:\r\n                break\r\n            k -= count\r\n            removed += 1\r\n        return len(counter) - removed"
+  Title = "Least Number of Unique Integers after K Removals"
+  Url = "/submissions/detail/1177051612/"
+  LangName = "Python3"
+  Timestamp = 1708097349
+  Status = 10
+  Runtime = "426 ms"
+  IsPending = "Not Pending"
+  Memory = "37.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

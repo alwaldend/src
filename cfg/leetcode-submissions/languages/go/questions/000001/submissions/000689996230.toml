@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 689996230
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1
+  TitleSlug = "two-sum"
+  Code = "func twoSum(numbers []int, target int) []int {\n\tnumbers_len := len(numbers)\n\tfor index, number := range numbers {\n\t\tfor index_inner := index + 1; index_inner < numbers_len; index_inner++ {\n\t\t\tif numbers[index_inner]+number == target {\n\t\t\t\treturn []int{index, index_inner}\n\t\t\t}\n\t\t}\n\t}\n\treturn []int{}\n}"
+  Title = "Two Sum"
+  Url = "/submissions/detail/689996230/"
+  LangName = "Go"
+  Timestamp = 1651289356
+  Status = 10
+  Runtime = "42 ms"
+  IsPending = "Not Pending"
+  Memory = "3.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

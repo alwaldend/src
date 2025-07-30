@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 691613273
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1584
+  TitleSlug = "average-salary-excluding-the-minimum-and-maximum-salary"
+  Code = "\nfunc average(salary []int) float64 {\n\tlength := len(salary)\n\thighest, lowest := math.MinInt, math.MaxInt\n\tresult := 0\n\tfor _, number := range salary {\n\t\tresult += number\n\t\tif number > highest {\n\t\t\thighest = number\n\t\t}\n\t\tif number < lowest {\n\t\t\tlowest = number\n\t\t}\n\t}\n\treturn float64(result-highest-lowest) / float64(length-2)\n}\n"
+  Title = "Average Salary Excluding the Minimum and Maximum Salary"
+  Url = "/submissions/detail/691613273/"
+  LangName = "Go"
+  Timestamp = 1651498535
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

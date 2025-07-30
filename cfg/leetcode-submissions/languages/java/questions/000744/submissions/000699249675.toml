@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 699249675
+  StatusDisplay = "Accepted"
+  Lang = "java"
+  QuestionId = 744
+  TitleSlug = "network-delay-time"
+  Code = "class Solution {\n   private final Map<Integer, List<Node>> connected = new HashMap<>();\n\n    public int networkDelayTime(int[][] times, int n, int k) {\n        for (int[] time : times) {\n            connected.putIfAbsent(time[0], new ArrayList<>());\n            connected.get(time[0]).add(new Node(time[2], time[1]));\n        }\n        connected.forEach((source, nodes) -> nodes.sort(Comparator.comparing(Node::travelTime)));\n        int[] receivedTime = new int[n + 1]; Arrays.fill(receivedTime, 1, receivedTime.length, Integer.MAX_VALUE);\n        dfs(receivedTime, 0, k);\n        \n        int max = Arrays.stream(receivedTime).max().orElseThrow(RuntimeException::new);\n        return max == Integer.MAX_VALUE ? -1 : max;\n    }\n\n    private void dfs(int[] receivedTime, int currentTime, int currentNode) {\n        if (receivedTime[currentNode] <= currentTime) return;\n        receivedTime[currentNode] = currentTime;\n        if (connected.containsKey(currentNode))\n            connected.get(currentNode).forEach(node -> dfs(receivedTime, currentTime + node.travelTime(), node.destination()));\n    }\n\n    public record Node(int travelTime, int destination) {}\n}"
+  Title = "Network Delay Time"
+  Url = "/submissions/detail/699249675/"
+  LangName = "Java"
+  Timestamp = 1652531316
+  Status = 10
+  Runtime = "43 ms"
+  IsPending = "Not Pending"
+  Memory = "44.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

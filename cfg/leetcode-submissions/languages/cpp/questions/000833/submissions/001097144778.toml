@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1097144778
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 833
+  TitleSlug = "bus-routes"
+  Code = "class Solution {\npublic:\n    int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {\n        if (source == target) {\n            return 0;\n        }\n\n        unordered_map<int, vector<int>> adjList;\n        // Create a map from the bus stop to all the routes that include this stop.\n        for (int route = 0; route < routes.size(); route++) {\n            for (auto stop : routes[route]) {\n                // Add all the routes that have this stop.\n                adjList[stop].push_back(route);\n            }\n        }\n\n        queue<int> q;\n        unordered_set<int> vis;\n        // Insert all the routes in the queue that have the source stop.\n        for (auto route : adjList[source]){\n            q.push(route);\n            vis.insert(route);\n        }\n\n        int busCount = 1;\n        while (q.size()) {\n            int size = q.size();\n\n            for (int i = 0; i < size; i++) {\n                int route = q.front(); q.pop();\n\n                // Iterate over the stops in the current route.\n                for (auto stop: routes[route]) {\n                    // Return the current count if the target is found.\n                    if (stop == target) {\n                        return busCount;\n                    }\n\n                    // Iterate over the next possible routes from the current stop.\n                    for (auto nextRoute : adjList[stop]) {\n                        if (!vis.count(nextRoute)) {\n                            vis.insert(nextRoute);\n                            q.push(nextRoute);\n                        }\n                    }\n                }\n            }\n            busCount++;\n        }\n        return -1;\n    }\n};"
+  Title = "Bus Routes"
+  Url = "/submissions/detail/1097144778/"
+  LangName = "C++"
+  Timestamp = 1699778425
+  Status = 10
+  Runtime = "687 ms"
+  IsPending = "Not Pending"
+  Memory = "55.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

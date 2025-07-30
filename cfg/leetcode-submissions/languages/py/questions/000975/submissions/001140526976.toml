@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1140526976
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 975
+  TitleSlug = "range-sum-of-bst"
+  Code = "class Solution:\n    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:\n        def dfs(node):\n            if not node:\n                return 0\n            \n            current_val = 0\n            if low <= node.val <= high:\n                current_val = node.val\n            \n            left_sum = dfs(node.left)\n            right_sum = dfs(node.right)\n            \n            return current_val + left_sum + right_sum\n        \n        return dfs(root)"
+  Title = "Range Sum of BST"
+  Url = "/submissions/detail/1140526976/"
+  LangName = "Python3"
+  Timestamp = 1704725061
+  Status = 10
+  Runtime = "143 ms"
+  IsPending = "Not Pending"
+  Memory = "24.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

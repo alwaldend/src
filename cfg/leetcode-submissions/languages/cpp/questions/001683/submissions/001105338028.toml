@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1105338028
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1683
+  TitleSlug = "maximum-number-of-coins-you-can-get"
+  Code = "class Solution {\npublic:\n    int maxCoins(vector<int>& piles) {\n        std::sort(piles.begin(), piles.end());\n        size_t length {piles.size()};\n        size_t picks {length / 3};\n        int count {};\n        for (size_t i {length - 2}; picks > 0; i -= 2, --picks) {\n            count += piles[i];\n        }\n        return count;\n    }\n};"
+  Title = "Maximum Number of Coins You Can Get"
+  Url = "/submissions/detail/1105338028/"
+  LangName = "C++"
+  Timestamp = 1700813257
+  Status = 10
+  Runtime = "92 ms"
+  IsPending = "Not Pending"
+  Memory = "53.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

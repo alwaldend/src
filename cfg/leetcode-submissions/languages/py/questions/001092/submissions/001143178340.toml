@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1143178340
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1092
+  TitleSlug = "maximum-difference-between-node-and-ancestor"
+  Code = "# Definition for a binary tree node.\n# class TreeNode(object):\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution(object):\n    def maxAncestorDiff(self, root):\n        if not root:\n            return 0\n        self.diff = 0\n        self.helper(root, root.val, root.val)\n        return self.diff\n    \n    def helper(self, root, min_val, max_val):\n        if not root:\n            return\n        self.diff = max(self.diff, max(abs(min_val - root.val), abs(max_val - root.val)))\n        min_val = min(min_val, root.val)\n        max_val = max(max_val, root.val)\n        self.helper(root.left, min_val, max_val)\n        self.helper(root.right, min_val, max_val)\n        "
+  Title = "Maximum Difference Between Node and Ancestor"
+  Url = "/submissions/detail/1143178340/"
+  LangName = "Python3"
+  Timestamp = 1704964551
+  Status = 10
+  Runtime = "43 ms"
+  IsPending = "Not Pending"
+  Memory = "19 MB"
+  CompareResult = "1111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

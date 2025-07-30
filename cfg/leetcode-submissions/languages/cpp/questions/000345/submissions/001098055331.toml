@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1098055331
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 345
+  TitleSlug = "reverse-vowels-of-a-string"
+  Code = "class Solution {\npublic:\n    bool isVowel(char ch) {\n        return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' ||\n               ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U';\n    }\n\n    string reverseVowels(string s) {\n        unsigned long length{s.size()};\n        unsigned long left{0}, right{length-1};\n        while (left < right) {\n            char chLeft{s[left]};\n            char chRight{s[right]};\n            if (!isVowel(chLeft)) {\n                ++left;\n            } else if (!isVowel(chRight)) {\n                --right;\n            } else {\n                s[left] = chRight;\n                s[right] = chLeft;\n                ++left;\n                --right;\n            }\n        }\n        return s;\n    }\n};"
+  Title = "Reverse Vowels of a String"
+  Url = "/submissions/detail/1098055331/"
+  LangName = "C++"
+  Timestamp = 1699896295
+  Status = 10
+  Runtime = "6 ms"
+  IsPending = "Not Pending"
+  Memory = "7.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

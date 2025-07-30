@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1303158221
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2379
+  TitleSlug = "maximum-total-importance-of-roads"
+  Code = "class Solution:\n    def maximumImportance(self, n: int, roads: List[List[int]]) -> int:\n        res = 0\n        cost = 1\n        conn = [0] * n\n        for road in roads:\n            conn[road[0]] += 1\n            conn[road[1]] += 1\n\n        conn.sort()\n        for con in conn:\n            res += con * cost\n            cost += 1\n        return res"
+  Title = "Maximum Total Importance of Roads"
+  Url = "/submissions/detail/1303158221/"
+  LangName = "Python3"
+  Timestamp = 1719593610
+  Status = 10
+  Runtime = "1181 ms"
+  IsPending = "Not Pending"
+  Memory = "41.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

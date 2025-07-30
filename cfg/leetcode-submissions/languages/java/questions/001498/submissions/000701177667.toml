@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 701177667
+  StatusDisplay = "Accepted"
+  Lang = "java"
+  QuestionId = 1498
+  TitleSlug = "find-a-corresponding-node-of-a-binary-tree-in-a-clone-of-that-tree"
+  Code = "class Solution {\nTreeNode ans;\n\npublic void inorder(TreeNode c,TreeNode target) {\nif (c != null) {\ninorder(c.left, target);\nif (c.val == target.val) {\nans = c;\n}\ninorder(c.right, target);\n}\n}\n\npublic final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target)\n{\ninorder(cloned,target);\nreturn ans;\n}\n}"
+  Title = "Find a Corresponding Node of a Binary Tree in a Clone of That Tree"
+  Url = "/submissions/detail/701177667/"
+  LangName = "Java"
+  Timestamp = 1652763542
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "101.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

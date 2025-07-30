@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1090504012
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 114
+  TitleSlug = "flatten-binary-tree-to-linked-list"
+  Code = "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc flatten(root *TreeNode)  {\n    if root == nil {\n        return\n    }\n    right := root.Right\n    root.Right = nil\n    list := &TreeNode{0, nil, nil}\n    listTail := flattenNode(root, list)\n    if right != nil {\n        flattenNode(right, listTail)\n    }\n}\n\nfunc flattenNode(node, listTail *TreeNode) *TreeNode {\n    left, right := node.Left, node.Right\n    node.Left, node.Right = nil, nil\n    listTail.Right = node\n    listTail = listTail.Right\n    if left != nil {\n        listTail = flattenNode(left, listTail)\n    }\n    if right != nil {\n        listTail = flattenNode(right, listTail)\n    }\n    return listTail\n}"
+  Title = "Flatten Binary Tree to Linked List"
+  Url = "/submissions/detail/1090504012/"
+  LangName = "Go"
+  Timestamp = 1699004406
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "2.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

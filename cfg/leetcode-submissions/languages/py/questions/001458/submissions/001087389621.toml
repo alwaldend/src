@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1087389621
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1458
+  TitleSlug = "sort-integers-by-the-number-of-1-bits"
+  Code = "class Solution:\n    def sortByBits(self, arr: List[int]) -> List[int]:\n        return tuple(num for num in sorted(arr, key=lambda num: (num.bit_count(), num)))"
+  Title = "Sort Integers by The Number of 1 Bits"
+  Url = "/submissions/detail/1087389621/"
+  LangName = "Python3"
+  Timestamp = 1698652272
+  Status = 10
+  Runtime = "65 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

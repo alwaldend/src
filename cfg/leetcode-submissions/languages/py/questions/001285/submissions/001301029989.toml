@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1301029989
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1285
+  TitleSlug = "balance-a-binary-search-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def balanceBST(self, root: TreeNode) -> TreeNode:\n        self.sortedArr = []\n        self.inorderTraverse(root)\n        return self.sortedArrayToBST(0, len(self.sortedArr) - 1)\n\n    def inorderTraverse(self, root: TreeNode) -> None:\n        if not root:\n            return\n        self.inorderTraverse(root.left)\n        self.sortedArr.append(root)\n        self.inorderTraverse(root.right)\n\n    def sortedArrayToBST(self, start: int, end: int) -> TreeNode:\n        if start > end:\n            return None\n        mid = (start + end) // 2\n        root = self.sortedArr[mid]\n        root.left = self.sortedArrayToBST(start, mid - 1)\n        root.right = self.sortedArrayToBST(mid + 1, end)\n        return root        "
+  Title = "Balance a Binary Search Tree"
+  Url = "/submissions/detail/1301029989/"
+  LangName = "Python3"
+  Timestamp = 1719416354
+  Status = 10
+  Runtime = "176 ms"
+  IsPending = "Not Pending"
+  Memory = "20.2 MB"
+  CompareResult = "11111111111111111"
+  HasNotes = false
+  FlagType = 1

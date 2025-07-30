@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 997539098
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 128
+  TitleSlug = "longest-consecutive-sequence"
+  Code = "class Solution:\n    def longestConsecutive(self, nums: List[int]) -> int:\n        length = len(nums)\n        if length < 2:\n            return length\n        \n        nums = set(nums)\n        longest = 1\n        for number in nums:\n            if number - 1 in nums:\n                continue\n            consequent = 1\n            while number + consequent in nums:\n                consequent += 1\n            longest = max(longest, consequent)\n        \n        return longest"
+  Title = "Longest Consecutive Sequence"
+  Url = "/submissions/detail/997539098/"
+  LangName = "Python3"
+  Timestamp = 1689682534
+  Status = 10
+  Runtime = "439 ms"
+  IsPending = "Not Pending"
+  Memory = "31 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

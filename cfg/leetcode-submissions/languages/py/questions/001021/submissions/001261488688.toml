@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1261488688
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1021
+  TitleSlug = "distribute-coins-in-binary-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def distributeCoins(self, root: Optional[TreeNode]) -> int:\n        #move coins to parent DFS\n        def f(root, parent):\n            if root==None: return 0\n            moves=f(root.left, root)+f(root.right, root)\n            x=root.val-1\n            if parent!=None: parent.val+=x\n            moves+=abs(x)\n            return moves\n        return f(root, None)"
+  Title = "Distribute Coins in Binary Tree"
+  Url = "/submissions/detail/1261488688/"
+  LangName = "Python3"
+  Timestamp = 1716053054
+  Status = 10
+  Runtime = "42 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

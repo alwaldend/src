@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1016031490
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 123
+  TitleSlug = "best-time-to-buy-and-sell-stock-iii"
+  Code = "class Solution:\n    def maxProfit(self, prices: List[int]) -> int:\n        if not prices:\n            return 0\n\n        # initialize variables for first buy, first sell, second buy, and second sell\n        buy1, buy2 = float('inf'), float('inf')\n        sell1, sell2 = 0, 0\n\n        # iterate over prices to update buy and sell values\n        for price in prices:\n            # update first buy and sell values\n            buy1 = min(buy1, price)\n            sell1 = max(sell1, price - buy1)\n            # update second buy and sell values\n            buy2 = min(buy2, price - sell1)\n            sell2 = max(sell2, price - buy2)\n\n        return sell2\n"
+  Title = "Best Time to Buy and Sell Stock III"
+  Url = "/submissions/detail/1016031490/"
+  LangName = "Python3"
+  Timestamp = 1691527008
+  Status = 10
+  Runtime = "845 ms"
+  IsPending = "Not Pending"
+  Memory = "30.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

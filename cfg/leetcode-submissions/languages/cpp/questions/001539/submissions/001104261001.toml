@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1104261001
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1539
+  TitleSlug = "diagonal-traverse-ii"
+  Code = "class Solution {\npublic:\n    vector<int> findDiagonalOrder(vector<vector<int>>& nums) {\n        unordered_map<int, vector<int>> groups;\n        for (int row = nums.size() - 1; row >= 0; row--) {\n            for (int col = 0; col < nums[row].size(); col++) {\n                int diagonal = row + col;\n                groups[diagonal].push_back(nums[row][col]);\n            }\n        }\n        \n        vector<int> ans;\n        int curr = 0;\n        \n        while (groups.find(curr) != groups.end()) {\n            for (int num : groups[curr]) {\n                ans.push_back(num);\n            }\n            \n            curr++;\n        }\n        \n        return ans;\n    }\n};\n"
+  Title = "Diagonal Traverse II"
+  Url = "/submissions/detail/1104261001/"
+  LangName = "C++"
+  Timestamp = 1700668142
+  Status = 10
+  Runtime = "212 ms"
+  IsPending = "Not Pending"
+  Memory = "97.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

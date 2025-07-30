@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1133719850
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 455
+  TitleSlug = "assign-cookies"
+  Code = "class Solution:\n    def findContentChildren(self, g: List[int], s: List[int]) -> int:\n        g.sort()\n        s.sort()\n        content_children = 0\n        cookie_index = 0\n        while cookie_index < len(s) and content_children < len(g):\n            if s[cookie_index] >= g[content_children]:\n                content_children += 1\n            cookie_index += 1\n        return content_children"
+  Title = "Assign Cookies"
+  Url = "/submissions/detail/1133719850/"
+  LangName = "Python3"
+  Timestamp = 1704114642
+  Status = 10
+  Runtime = "137 ms"
+  IsPending = "Not Pending"
+  Memory = "19.2 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

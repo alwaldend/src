@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1115239284
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 606
+  TitleSlug = "construct-string-from-binary-tree"
+  Code = "class Solution {\npublic:\n    string tree2str(TreeNode* root) {\n        string str = \"\";\n         check(root, str);\n         return str;\n    }\n    void check(TreeNode* root, string &str) {\n        if (root == NULL) {\n            return;\n        }\n        str += to_string(root->val);\n        if (root->left || root->right) {\n            str += '(';\n            check(root->left, str);\n            str += ')';\n        }\n        if (root->right) {\n            str += '(';\n            check(root->right, str);\n            str += ')';\n        }\n        \n    }\n    \n};"
+  Title = "Construct String from Binary Tree"
+  Url = "/submissions/detail/1115239284/"
+  LangName = "C++"
+  Timestamp = 1702058637
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "23.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

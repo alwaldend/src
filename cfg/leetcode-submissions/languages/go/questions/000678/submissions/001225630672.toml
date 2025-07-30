@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1225630672
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 678
+  TitleSlug = "valid-parenthesis-string"
+  Code = "func checkValidString(s string) bool {\n    open := 0\n    openMax := 0\n    for _, char := range s {\n        switch char {\n        case '(':\n            open++\n            openMax++\n        case ')':\n            open--\n            openMax--\n        default:\n            open--\n            openMax++\n        }\n        if openMax < 0 {\n            return false\n        }\n        if open < 0 {\n            open = 0\n        }\n    }\n    return open == 0\n}"
+  Title = "Valid Parenthesis String"
+  Url = "/submissions/detail/1225630672/"
+  LangName = "Go"
+  Timestamp = 1712479338
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "2.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

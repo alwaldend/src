@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1114478635
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 2032
+  TitleSlug = "largest-odd-number-in-string"
+  Code = "class Solution {\npublic:\n    string largestOddNumber(string num) {\n        size_t length {num.size()};\n        for (int i = length - 1; i >= 0; --i) {\n            if ((num[i] - '0') % 2 != 0) {\n                return num.substr(0, i + 1);\n            }\n        }\n        return \"\";\n    }\n};"
+  Title = "Largest Odd Number in String"
+  Url = "/submissions/detail/1114478635/"
+  LangName = "C++"
+  Timestamp = 1701966048
+  Status = 10
+  Runtime = "31 ms"
+  IsPending = "Not Pending"
+  Memory = "15.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

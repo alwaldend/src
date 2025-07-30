@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1002666484
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 389
+  TitleSlug = "find-the-difference"
+  Code = "class Solution:\n    def findTheDifference(self, s: str, t: str) -> str:\n        letters = defaultdict(int)\n        for letter in s:\n            letters[letter] += 1\n\n        for letter in t:\n            if letters[letter] == 0:\n                return letter\n            \n            letters[letter] -= 1\n        \n        return None"
+  Title = "Find the Difference"
+  Url = "/submissions/detail/1002666484/"
+  LangName = "Python3"
+  Timestamp = 1690206879
+  Status = 10
+  Runtime = "51 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1204580754
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 238
+  TitleSlug = "product-of-array-except-self"
+  Code = "func productExceptSelf(nums []int) []int {\n    n := len(nums)\n    res := make([]int, n)\n\n    preProduct := 1\n    for i := 0; i < n; i++ {\n        res[i] = preProduct\n        preProduct *= nums[i]\n    }\n\n    sufProduct := 1\n    for i := n - 1; i >= 0; i-- {\n        res[i] *= sufProduct\n        sufProduct *= nums[i]\n    }\n\n    return res\n}"
+  Title = "Product of Array Except Self"
+  Url = "/submissions/detail/1204580754/"
+  LangName = "Go"
+  Timestamp = 1710522918
+  Status = 10
+  Runtime = "18 ms"
+  IsPending = "Not Pending"
+  Memory = "9.7 MB"
+  CompareResult = "1111111111111111111111"
+  HasNotes = false
+  FlagType = 1

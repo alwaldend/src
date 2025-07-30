@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1002638799
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 409
+  TitleSlug = "longest-palindrome"
+  Code = "class Solution:\n    def longestPalindrome(self, s: str) -> int:\n        counts = defaultdict(int)\n\n        for letter in s:\n            counts[letter] += 1\n        \n        result = 0\n        used_odd_letter = False\n        for letter, count in counts.items():\n            is_odd = count % 2 != 0 \n            if is_odd and used_odd_letter:\n                result -= 1\n            elif is_odd:\n                used_odd_letter = True\n            result += count\n\n        return result"
+  Title = "Longest Palindrome"
+  Url = "/submissions/detail/1002638799/"
+  LangName = "Python3"
+  Timestamp = 1690204630
+  Status = 10
+  Runtime = "46 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1059570814
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 316
+  TitleSlug = "remove-duplicate-letters"
+  Code = "class Solution:\n    def removeDuplicateLetters(self, s: str) -> str:\n        stack = []\n        seen = set() \n        last_occ = {char: i for i, char in enumerate(s)}\n        \n        for i, char in enumerate(s):\n            if char in seen:\n                continue\n                \n            while stack and char < stack[-1] and i < last_occ[stack[-1]]:\n                seen.discard(stack.pop())\n            seen.add(char)\n            stack.append(char)\n        \n        return ''.join(stack)"
+  Title = "Remove Duplicate Letters"
+  Url = "/submissions/detail/1059570814/"
+  LangName = "Python3"
+  Timestamp = 1695724989
+  Status = 10
+  Runtime = "41 ms"
+  IsPending = "Not Pending"
+  Memory = "16.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

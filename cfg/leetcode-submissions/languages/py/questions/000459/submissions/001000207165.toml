@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1000207165
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 459
+  TitleSlug = "repeated-substring-pattern"
+  Code = "class Solution:\n    def repeatedSubstringPattern(self, s: str) -> bool:\n        length = len(s)\n        for i in range(length-1):\n            if length % (i + 1) != 0:\n                continue\n            \n            if s == s[:i+1] * (length // (i + 1)):\n                return True\n        \n        return False"
+  Title = "Repeated Substring Pattern"
+  Url = "/submissions/detail/1000207165/"
+  LangName = "Python3"
+  Timestamp = 1689947602
+  Status = 10
+  Runtime = "82 ms"
+  IsPending = "Not Pending"
+  Memory = "16.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

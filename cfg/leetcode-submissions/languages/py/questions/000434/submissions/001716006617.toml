@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1716006617
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 434
+  TitleSlug = "number-of-segments-in-a-string"
+  Code = "class Solution:\n    def countSegments(self, s: str) -> int:\n        length = len(s)\n        count = 0\n        is_segment = False\n        for char in s:\n            is_space = char == \" \"\n            if not is_segment and not is_space:\n                is_segment = True\n                count += 1\n            elif is_space:\n                is_segment = False\n        return count"
+  Title = "Number of Segments in a String"
+  Url = "/submissions/detail/1716006617/"
+  LangName = "Python3"
+  Timestamp = 1753804343
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

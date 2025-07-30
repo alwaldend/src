@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1119489878
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2606
+  TitleSlug = "difference-between-ones-and-zeros-in-row-and-column"
+  Code = "class Solution:\n    def onesMinusZeros(self, grid: List[List[int]]) -> List[List[int]]:\n        m = len(grid)\n        n = len(grid[0])\n\n        rows = {}\n        for r in range(m):        \n            row_sum = 0\n            for c in range(n):\n                row_sum += grid[r][c]\n            \n            rows[r] = row_sum\n\n        cols = {}\n        for c in range(n):\n            col_sum = 0\n            for r in range(m):\n                col_sum += grid[r][c]\n            \n            cols[c] = col_sum\n\n        res = [[0] * n for _ in range(m)]\n\n        for r in range(m):\n            for c in range(n):\n                res[r][c] = rows[r] + cols[c] - (m - rows[r]) - (n - cols[c])\n        \n        return res"
+  Title = "Difference Between Ones and Zeros in Row and Column"
+  Url = "/submissions/detail/1119489878/"
+  LangName = "Python3"
+  Timestamp = 1702546255
+  Status = 10
+  Runtime = "1407 ms"
+  IsPending = "Not Pending"
+  Memory = "57.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

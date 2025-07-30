@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1168581047
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 451
+  TitleSlug = "sort-characters-by-frequency"
+  Code = "class Solution:\n    def frequencySort(self, s: str) -> str:\n        counter = defaultdict(int)\n        for char in s:\n            counter[char] += 1\n        return \"\".join(sorted(s, key=lambda val: -(ord(val) + counter[val] * 100)))"
+  Title = "Sort Characters By Frequency"
+  Url = "/submissions/detail/1168581047/"
+  LangName = "Python3"
+  Timestamp = 1707292148
+  Status = 10
+  Runtime = "80 ms"
+  IsPending = "Not Pending"
+  Memory = "23.3 MB"
+  CompareResult = "111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1098636058
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 2059
+  TitleSlug = "unique-length-3-palindromic-subsequences"
+  Code = "class Solution {\npublic:\n    int countPalindromicSubsequence(string s) {\n        unordered_set<char> letters;\n        for (char c : s) {\n            letters.insert(c);\n        }\n        int ans = 0;\n        for (char letter : letters) {\n            int i = -1;\n            int j = 0;\n            for (int k = 0; k < s.size(); k++) {\n                if (s[k] == letter) {\n                    if (i == -1) {\n                        i = k;\n                    }\n                    \n                    j = k;\n                }\n            }\n            unordered_set<char> between;\n            for (int k = i + 1; k < j; k++) {\n                between.insert(s[k]);\n            }\n            \n            ans += between.size();\n        }\n        return ans;\n    }\n};\n\n"
+  Title = "Unique Length-3 Palindromic Subsequences"
+  Url = "/submissions/detail/1098636058/"
+  LangName = "C++"
+  Timestamp = 1699965569
+  Status = 10
+  Runtime = "278 ms"
+  IsPending = "Not Pending"
+  Memory = "13.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

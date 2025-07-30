@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1211841978
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 143
+  TitleSlug = "reorder-list"
+  Code = "func reorderList(head *ListNode) {\n    if head == nil || head.Next == nil {\n        return\n    }\n\n    middle := midNode(head)\n    newHead := middle.Next\n    middle.Next = nil\n\n    newHead = reverseLinkedList(newHead)\n\n    c1 := head\n    c2 := newHead\n    var f1, f2 *ListNode\n\n    for c1 != nil && c2 != nil {\n        // Backup\n        f1 = c1.Next\n        f2 = c2.Next\n\n        // Linking\n        c1.Next = c2\n        c2.Next = f1\n\n        // Move\n        c1 = f1\n        c2 = f2\n    }\n}\n\nfunc midNode(head *ListNode) *ListNode {\n    slow := head\n    fast := head\n\n    for fast.Next != nil && fast.Next.Next != nil {\n        slow = slow.Next\n        fast = fast.Next.Next\n    }\n    return slow\n}\n\nfunc reverseLinkedList(head *ListNode) *ListNode {\n    var prev, curr, forw *ListNode = nil, head, nil\n\n    for curr != nil {\n        forw = curr.Next\n        curr.Next = prev\n        prev = curr\n        curr = forw\n    }\n    return prev\n}"
+  Title = "Reorder List"
+  Url = "/submissions/detail/1211841978/"
+  LangName = "Go"
+  Timestamp = 1711216304
+  Status = 10
+  Runtime = "9 ms"
+  IsPending = "Not Pending"
+  Memory = "6 MB"
+  CompareResult = "111111111111"
+  HasNotes = false
+  FlagType = 1

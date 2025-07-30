@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1040286655
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 39
+  TitleSlug = "combination-sum"
+  Code = "class Solution:\n    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:\n        result = set()\n        cur_nums = []\n\n        def backtrack(cur_sum: int) -> None:\n            if cur_sum == target:\n                result.add(tuple(sorted(cur_nums[:])))\n            if cur_sum >= target:\n                return\n\n            for num in candidates:\n                cur_nums.append(num)\n                backtrack(num + cur_sum)\n                cur_nums.pop() \n\n        backtrack(0)\n\n        return result"
+  Title = "Combination Sum"
+  Url = "/submissions/detail/1040286655/"
+  LangName = "Python3"
+  Timestamp = 1693832085
+  Status = 10
+  Runtime = "593 ms"
+  IsPending = "Not Pending"
+  Memory = "16.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

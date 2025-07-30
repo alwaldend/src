@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1002812663
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 485
+  TitleSlug = "max-consecutive-ones"
+  Code = "class Solution:\n    def findMaxConsecutiveOnes(self, nums: List[int]) -> int:\n        max_count, count = 0, 0\n        for number in nums:\n            if not number:\n                max_count = max(max_count, count)\n                count = 0\n                continue\n            \n            count += 1\n        \n        return max(max_count, count)"
+  Title = "Max Consecutive Ones"
+  Url = "/submissions/detail/1002812663/"
+  LangName = "Python3"
+  Timestamp = 1690217579
+  Status = 10
+  Runtime = "330 ms"
+  IsPending = "Not Pending"
+  Memory = "16.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

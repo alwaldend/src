@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1052396767
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1463
+  TitleSlug = "the-k-weakest-rows-in-a-matrix"
+  Code = "class Solution:\n    def kWeakestRows(self, mat: List[List[int]], k: int) -> List[int]:\n        rows_count, cols_count = len(mat), len(mat[0])\n        heap = []\n\n        for i, row in enumerate(mat):\n            count = 0\n            for j, val in enumerate(row):\n                if val == 0:\n                    count = j\n                    break\n            else:\n                count = cols_count\n        \n            heappush(heap, (count, i))\n        \n        return tuple(item[1] for item in nsmallest(k, heap))\n\n"
+  Title = "The K Weakest Rows in a Matrix"
+  Url = "/submissions/detail/1052396767/"
+  LangName = "Python3"
+  Timestamp = 1695019673
+  Status = 10
+  Runtime = "108 ms"
+  IsPending = "Not Pending"
+  Memory = "16.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1002448132
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 50
+  TitleSlug = "powx-n"
+  Code = "class Solution:\n    def myPow(self, x: float, n: int) -> float:\n        if n == 0:\n            return 1\n\n        if n < 0:\n            n *= -1\n            x = 1 / x\n\n        result = 1\n        while n:\n            if n % 2:\n                result *= x\n                n -= 1\n            x *= x\n            n //= 2\n        \n        return result"
+  Title = "Pow(x, n)"
+  Url = "/submissions/detail/1002448132/"
+  LangName = "Python3"
+  Timestamp = 1690186380
+  Status = 10
+  Runtime = "47 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

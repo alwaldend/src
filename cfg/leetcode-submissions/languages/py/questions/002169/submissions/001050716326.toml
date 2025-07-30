@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1050716326
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2169
+  TitleSlug = "simple-bank-system"
+  Code = "class Bank:\n\n    def __init__(self, balance: List[int]):\n        self.balance = balance\n        self.size = len(balance)\n\n    def transfer(self, account1: int, account2: int, money: int) -> bool:\n        if not 0 < account1 <= self.size or not 0 < account2 <= self.size or (\n            self.balance[account1-1] < money\n        ):\n            return False\n        self.balance[account2-1] += money\n        self.balance[account1-1] -= money\n        return True\n\n    def deposit(self, account: int, money: int) -> bool:\n        if not 0 < account <= self.size:\n            return False\n        self.balance[account-1] += money\n        return True\n\n    def withdraw(self, account: int, money: int) -> bool:\n        if not 0 < account <= self.size or self.balance[account-1] < money:\n            return False\n        self.balance[account-1] -= money\n        return True\n\n\n# Your Bank object will be instantiated and called as such:\n# obj = Bank(balance)\n# param_1 = obj.transfer(account1,account2,money)\n# param_2 = obj.deposit(account,money)\n# param_3 = obj.withdraw(account,money)"
+  Title = "Simple Bank System"
+  Url = "/submissions/detail/1050716326/"
+  LangName = "Python3"
+  Timestamp = 1694853352
+  Status = 10
+  Runtime = "590 ms"
+  IsPending = "Not Pending"
+  Memory = "46.2 MB"
+  CompareResult = "11111111111111111111111"
+  HasNotes = false
+  FlagType = 1

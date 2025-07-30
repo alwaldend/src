@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1185958704
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 2827
+  TitleSlug = "greatest-common-divisor-traversal"
+  Code = "func canTraverseAllPairs(nums []int) bool {\n    if len(nums) == 1 {\n        return true\n    }\n    n := len(nums)\n    maxElement := nums[0]\n    minElement := nums[0]\n    for _, num := range nums {\n        if num > maxElement {\n            maxElement = num\n        }\n        if num < minElement {\n            minElement = num\n        }\n    }\n    if minElement == 1 {\n        return false\n    }\n    factorArray := factorsCalculator(maxElement)\n\n    parent := make([]int, maxElement+1)\n    rank := make([]int, maxElement+1)\n    for i := 0; i <= maxElement; i++ {\n        parent[i] = i\n        rank[i] = 1\n    }\n\n    for _, num := range nums {\n        x := num\n        for x > 1 {\n            p := factorArray[x]\n            union(parent, rank, p, num)\n            for x%p == 0 {\n                x = x / p\n            }\n        }\n    }\n\n    p := find(parent, nums[0])\n    for i := 1; i < n; i++ {\n        if find(parent, nums[i]) != p {\n            return false\n        }\n    }\n\n    return true\n}\n\nfunc factorsCalculator(n int) []int {\n    dp := make([]int, n+2)\n    for i := 0; i < len(dp); i++ {\n        dp[i] = i\n    }\n    for i := 2; i <= n; i++ {\n        if dp[i] == i {\n            for j := i * 2; j <= n; j += i {\n                if dp[j] == j {\n                    dp[j] = i\n                }\n            }\n        }\n    }\n    return dp\n}\n\nfunc find(parent []int, a int) int {\n    if parent[a] == a {\n        return a\n    }\n    parent[a] = find(parent, parent[a])\n    return parent[a]\n}\n\nfunc union(parent []int, rank []int, a int, b int) {\n    a = find(parent, a)\n    b = find(parent, b)\n    if a == b {\n        return\n    }\n    if rank[a] < rank[b] {\n        a, b = b, a\n    }\n    parent[b] = a\n    rank[a] += rank[b]\n}"
+  Title = "Greatest Common Divisor Traversal"
+  Url = "/submissions/detail/1185958704/"
+  LangName = "Go"
+  Timestamp = 1708880645
+  Status = 10
+  Runtime = "99 ms"
+  IsPending = "Not Pending"
+  Memory = "9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

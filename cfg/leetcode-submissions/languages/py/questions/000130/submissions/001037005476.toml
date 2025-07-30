@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1037005476
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 130
+  TitleSlug = "surrounded-regions"
+  Code = "class Solution:\n    def solve(self, board: List[List[str]]) -> None:\n        \"\"\"\n        Do not return anything, modify board in-place instead.\n        \"\"\"\n        row_count, col_count = len(board), len(board[0])\n        moves = ((0, 1), (0, -1), (1, 0), (-1, 0))\n        ignore_stack = set()\n\n        @cache\n        def bfs(row: int, col: int) -> None:\n            if not 0 <= row < row_count or not 0 <= col < col_count:\n                return\n            if (row, col) in ignore_stack or board[row][col] == \"X\":\n                return\n\n            ignore_stack.add((row, col))\n            for row_delta, col_delta in moves:\n                bfs(row + row_delta, col + col_delta)\n        \n        for row, col in itertools.chain(\n            ((0, col) for col in range(col_count)),\n            ((row_count - 1, col) for col in range(col_count)),\n            ((row, 0) for row in range(row_count)),\n            ((row, col_count - 1) for row in range(row_count))\n        ):\n            bfs(row, col)\n        \n        flip_x = True\n        for row in range(1, row_count - 1):\n            for col in range(1, col_count - 1):\n                if (row, col) in ignore_stack:\n                    continue\n\n                board[row][col] = \"X\"\n        "
+  Title = "Surrounded Regions"
+  Url = "/submissions/detail/1037005476/"
+  LangName = "Python3"
+  Timestamp = 1693503271
+  Status = 10
+  Runtime = "145 ms"
+  IsPending = "Not Pending"
+  Memory = "18.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

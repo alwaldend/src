@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1167509057
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 49
+  TitleSlug = "group-anagrams"
+  Code = "class Solution:\n    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:\n        anagrams = defaultdict(list)\n        for anagram in strs:\n            anagrams[tuple(sorted(anagram))].append(anagram)\n        return anagrams.values()"
+  Title = "Group Anagrams"
+  Url = "/submissions/detail/1167509057/"
+  LangName = "Python3"
+  Timestamp = 1707199372
+  Status = 10
+  Runtime = "76 ms"
+  IsPending = "Not Pending"
+  Memory = "20.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1039265347
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 62
+  TitleSlug = "unique-paths"
+  Code = "class Solution:\n    def uniquePaths(self, m: int, n: int) -> int:\n\n        @cache\n        def dp(row: int, col: int) -> int:\n            if not 0 <= row < m or not 0 <= col < n:\n                return 0\n            \n            if row == m - 1 and col == n - 1:\n                return 1\n            \n            return dp(row + 1, col) + dp(row, col + 1)\n\n        return dp(0, 0)"
+  Title = "Unique Paths"
+  Url = "/submissions/detail/1039265347/"
+  LangName = "Python3"
+  Timestamp = 1693729438
+  Status = 10
+  Runtime = "45 ms"
+  IsPending = "Not Pending"
+  Memory = "16.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

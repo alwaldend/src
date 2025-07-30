@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1231309742
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 85
+  TitleSlug = "maximal-rectangle"
+  Code = "func maximalRectangle(matrix [][]byte) int {\n    heights := make([]int, len(matrix[0]) + 1)\n    heights[len(heights)-1] = -1\n    mx := 0\n    for _, row := range matrix {\n        for i := range row {\n            if row[i] == '1' {\n                heights[i]++\n            } else {\n                heights[i] = 0\n            }\n        }\n\n        stack := []int{}\n        for i, currentHeight := range heights {\n            for len(stack) > 0 && heights[stack[len(stack)-1]] > currentHeight {\n                prev := heights[stack[len(stack)-1]]\n                stack = stack[:len(stack)-1]\n\n                width := i\n                if len(stack) > 0 {\n                    width = i - stack[len(stack)-1] - 1\n                }\n                mx = max(mx, prev * width)\n            }\n            stack = append(stack, i)\n        } \n    }\n    return mx\n}"
+  Title = "Maximal Rectangle"
+  Url = "/submissions/detail/1231309742/"
+  LangName = "Go"
+  Timestamp = 1713022367
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

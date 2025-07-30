@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 690048286
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 653
+  TitleSlug = "two-sum-iv-input-is-a-bst"
+  Code = "import \"sort\"\nfunc construct(root *TreeNode, results map[int]int) {\n\tif root == nil {\n\t\treturn\n\t}\n\tif results[root.Val] < 2 {\n\t\tresults[root.Val] += 1\n\t}\n\tconstruct(root.Left, results)\n\tconstruct(root.Right, results)\n}\n\nfunc sorted(input_map map[int]int) (results []int) {\n\tfor key := range input_map {\n\t\tresults = append(results, key)\n\t}\n\treturn\n}\n\nfunc findTarget(root *TreeNode, target int) bool {\n\tif root == nil {\n\t\treturn false\n\t}\n\tresults := map[int]int{}\n\tconstruct(root, results)\n\tif target%2 == 0 && results[target/2] == 2 {\n\t\treturn true\n\t}\n\tresults_sorted := sorted(results)\n\tresults_sorted_len := len(results_sorted)\n\tsort.Ints(results_sorted)\n\tfor index, number := range results_sorted {\n\t\tfor index_inner := index + 1; index_inner < results_sorted_len; index_inner++ {\n\t\t\tif number+results_sorted[index_inner] == target {\n\t\t\t\treturn true\n\t\t\t}\n\t\t}\n\t}\n\treturn false\n}"
+  Title = "Two Sum IV - Input is a BST"
+  Url = "/submissions/detail/690048286/"
+  LangName = "Go"
+  Timestamp = 1651297788
+  Status = 10
+  Runtime = "35 ms"
+  IsPending = "Not Pending"
+  Memory = "7.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

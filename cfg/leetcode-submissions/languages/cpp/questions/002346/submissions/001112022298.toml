@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1112022298
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 2346
+  TitleSlug = "largest-3-same-digit-number-in-string"
+  Code = "class Solution {\npublic:\n    string largestGoodInteger(string num) {\n        int cur {-1};\n        int max {-1};\n        int count {0};\n        for (const char& ch : num) {\n            int i {ch - '0'};\n            if (i == cur) {\n                ++count;\n            } else {\n                cur = i;\n                count = 1; \n            }\n            if (count == 3) {\n                max = std::max(i, max);\n            }\n        }\n        if (max == -1) {\n            return \"\";\n        }\n        std::string ans {std::to_string(max)};\n        return ans + ans + ans;\n    }\n};"
+  Title = "Largest 3-Same-Digit Number in String"
+  Url = "/submissions/detail/1112022298/"
+  LangName = "C++"
+  Timestamp = 1701677340
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "6.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

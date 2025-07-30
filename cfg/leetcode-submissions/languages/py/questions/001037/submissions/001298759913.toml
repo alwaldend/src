@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1298759913
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1037
+  TitleSlug = "minimum-number-of-k-consecutive-bit-flips"
+  Code = "class Solution:\n    def minKBitFlips(self, A: List[int], K: int) -> int:\n        n, flipped, res = len(A), 0, 0\n        fp = [0] * n\n        for i in range(n):\n            if i >= K:\n                flipped ^= fp[i - K]\n            if flipped == A[i]:\n                if i + K > n:\n                    return -1\n                fp[i] = 1\n                flipped ^= 1\n                res += 1\n        return res"
+  Title = "Minimum Number of K Consecutive Bit Flips"
+  Url = "/submissions/detail/1298759913/"
+  LangName = "Python3"
+  Timestamp = 1719233717
+  Status = 10
+  Runtime = "779 ms"
+  IsPending = "Not Pending"
+  Memory = "19.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

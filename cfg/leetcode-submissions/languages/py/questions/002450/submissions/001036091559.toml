@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1036091559
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2450
+  TitleSlug = "minimum-replacements-to-sort-the-array"
+  Code = "class Solution:\n    def minimumReplacement(self, nums: List[int]) -> int:\n        nums_count = len(nums)\n        operations_count = 0\n        for i in reversed(range(nums_count - 1)):\n            cur, prev = nums[i], nums[i+1]\n            if cur <= prev:\n                continue\n            \n            elements_count = (cur + prev - 1) // prev\n            operations_count += elements_count - 1\n            nums[i] //= elements_count\n\n        return operations_count"
+  Title = "Minimum Replacements to Sort the Array"
+  Url = "/submissions/detail/1036091559/"
+  LangName = "Python3"
+  Timestamp = 1693411585
+  Status = 10
+  Runtime = "486 ms"
+  IsPending = "Not Pending"
+  Memory = "28 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

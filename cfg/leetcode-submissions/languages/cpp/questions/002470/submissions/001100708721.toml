@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1100708721
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 2470
+  TitleSlug = "removing-stars-from-a-string"
+  Code = "class Solution {\npublic:\n    string removeStars(string s) {\n        std::string ans;\n        unsigned long length {s.size()};\n        int remove {0};\n        for (int i = length - 1; i >= 0; --i) {\n            char c = s[i];\n            if (c == '*') {\n                ++remove;\n                continue;\n            }\n            if (remove == 0) {\n                ans += c;\n            } else {\n                --remove;\n            }\n        }\n        std::reverse(ans.begin(), ans.end());\n        return ans;\n    }\n};"
+  Title = "Removing Stars From a String"
+  Url = "/submissions/detail/1100708721/"
+  LangName = "C++"
+  Timestamp = 1700215954
+  Status = 10
+  Runtime = "74 ms"
+  IsPending = "Not Pending"
+  Memory = "25.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

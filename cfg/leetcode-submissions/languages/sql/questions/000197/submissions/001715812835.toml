@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1715812835
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 197
+  TitleSlug = "rising-temperature"
+  Code = "SELECT \n    today.id\nFROM \n    Weather today\nCROSS JOIN \n    Weather yesterday\nWHERE \n    (today.recordDate - yesterday.recordDate = 1)\n    AND today.temperature > yesterday.temperature"
+  Title = "Rising Temperature"
+  Url = "/submissions/detail/1715812835/"
+  LangName = "PostgreSQL"
+  Timestamp = 1753794709
+  Status = 10
+  Runtime = "273 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111111111"
+  HasNotes = false
+  FlagType = 1

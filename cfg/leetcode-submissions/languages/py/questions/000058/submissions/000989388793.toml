@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 989388793
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 58
+  TitleSlug = "length-of-last-word"
+  Code = "class Solution:\n    def lengthOfLastWord(self, s: str) -> int:\n        return len(s.split()[-1])"
+  Title = "Length of Last Word"
+  Url = "/submissions/detail/989388793/"
+  LangName = "Python3"
+  Timestamp = 1688829939
+  Status = 10
+  Runtime = "36 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

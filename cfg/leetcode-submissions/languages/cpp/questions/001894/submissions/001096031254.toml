@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1096031254
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1894
+  TitleSlug = "merge-strings-alternately"
+  Code = "class Solution {\npublic:\n    string mergeAlternately(string word1, string word2) {\n        std::stringstream ans;\n        int l1 = word1.size(), l2 = word2.size();\n        int lMax = max(l1, l2);\n        for (int i = 0; i < lMax; ++i) {\n            if (i < l1) {\n                ans << word1[i];\n            } else {\n                ans << word2.substr(i);\n                break;\n            }\n            if (i < l2) {\n                ans << word2[i];\n            } else {\n                ans << word1.substr(i + 1);\n                break;\n            }\n        }\n        return ans.str();\n    }\n};"
+  Title = "Merge Strings Alternately"
+  Url = "/submissions/detail/1096031254/"
+  LangName = "C++"
+  Timestamp = 1699634879
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

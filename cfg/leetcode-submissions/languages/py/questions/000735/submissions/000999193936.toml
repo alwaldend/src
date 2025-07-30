@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 999193936
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 735
+  TitleSlug = "asteroid-collision"
+  Code = "class Solution:\n    def asteroidCollision(self, asteroids: List[int]) -> List[int]:\n        stack = []\n        for asteroid in asteroids:\n            if asteroid > 0:\n                stack.append(asteroid)\n                continue\n            \n            asteroid_abs = abs(asteroid)\n            while stack and stack[-1] > 0 and stack[-1] < asteroid_abs:\n                stack.pop()\n            \n            if stack and stack[-1] == asteroid_abs:\n                stack.pop()\n            elif not stack or stack[-1] < 0:\n                stack.append(asteroid)\n\n        return stack"
+  Title = "Asteroid Collision"
+  Url = "/submissions/detail/999193936/"
+  LangName = "Python3"
+  Timestamp = 1689844342
+  Status = 10
+  Runtime = "118 ms"
+  IsPending = "Not Pending"
+  Memory = "17.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

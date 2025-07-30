@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1093720985
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 2049
+  TitleSlug = "eliminate-maximum-number-of-monsters"
+  Code = "func eliminateMaximum(dist []int, speed []int) int {\n    arrival := []float32{}\n    length := len(dist)\n    for i := 0; i < length; i++ {\n        arrival = append(arrival, float32(dist[i]) / float32(speed[i]))\n    }\n    slices.Sort(arrival)\n    ans := 0\n    for i := 0; i < length; i++ {\n        if arrival[i] <= float32(i) {\n            break\n        }\n        ans += 1\n    }\n    return ans\n}"
+  Title = "Eliminate Maximum Number of Monsters"
+  Url = "/submissions/detail/1093720985/"
+  LangName = "Go"
+  Timestamp = 1699373268
+  Status = 10
+  Runtime = "103 ms"
+  IsPending = "Not Pending"
+  Memory = "8.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

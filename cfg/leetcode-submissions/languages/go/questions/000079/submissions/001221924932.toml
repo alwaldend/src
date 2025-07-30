@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1221924932
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 79
+  TitleSlug = "word-search"
+  Code = "func exist(board [][]byte, word string) bool {\n    if nLetters := len(board) * len(board[0]); nLetters < len(word) {\n        return false\n    }\n\n    for i := range board {\n        for j := range board[i] {\n            if dfs(i, j, 0, board, word, make(map[pair]struct{})) {\n                return true\n            }\n        }\n    }\n\n    return false\n}\n\ntype pair struct {\n    r, c int\n}\n\nfunc dfs(r, c, i int, board [][]byte, word string, visited map[pair]struct{}) bool {\n    if i == len(word) {\n        return true\n    }\n\n    inBounds := r >= 0 && r < len(board) && c >= 0 && c < len(board[0])\n    if _, ok := visited[pair{r, c}]; !inBounds || ok || word[i] != board[r][c] {\n        return false\n    }\n\n    visited[pair{r, c}] = struct{}{}\n\n    up := dfs(r+1, c, i+1, board, word, visited)\n    down := dfs(r-1, c, i+1, board, word, visited)\n    right := dfs(r, c+1, i+1, board, word, visited)\n    left := dfs(r, c-1, i+1, board, word, visited)\n\n    delete(visited, pair{r, c})\n\n    return up || down || right || left\n}\n"
+  Title = "Word Search"
+  Url = "/submissions/detail/1221924932/"
+  LangName = "Go"
+  Timestamp = 1712130774
+  Status = 10
+  Runtime = "953 ms"
+  IsPending = "Not Pending"
+  Memory = "3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

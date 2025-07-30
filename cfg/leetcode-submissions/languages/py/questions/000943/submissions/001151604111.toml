@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1151604111
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 943
+  TitleSlug = "sum-of-subarray-minimums"
+  Code = "class Solution:\n    def sumSubarrayMins(self, arr: List[int]) -> int:\n        n = len(arr)\n        left = [-1] * n \n        right = [n] * n\n        stack = []\n\n        for i, value in enumerate(arr):\n            while stack and arr[stack[-1]] >= value:  \n                stack.pop()  \n            if stack:\n                left[i] = stack[-1]  \n            stack.append(i) \n\n        stack = [] \n\n        \n        for i in range(n - 1, -1, -1):  \n            while stack and arr[stack[-1]] > arr[i]: \n                stack.pop()  \n            if stack:\n                right[i] = stack[-1]  \n            stack.append(i) \n\n        mod = 10**9 + 7 \n\n        result = sum((i - left[i]) * (right[i] - i) * value for i, value in enumerate(arr)) % mod\n      \n        return result "
+  Title = "Sum of Subarray Minimums"
+  Url = "/submissions/detail/1151604111/"
+  LangName = "Python3"
+  Timestamp = 1705760504
+  Status = 10
+  Runtime = "368 ms"
+  IsPending = "Not Pending"
+  Memory = "21.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1161819645
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 739
+  TitleSlug = "daily-temperatures"
+  Code = "class Solution:\n    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:\n        temps_left = defaultdict(list)\n        to_pop = []\n        length = len(temperatures)\n        ans = [0] * length\n        for i in range(length):\n            temp = temperatures[i]\n            for temp_left, ids in temps_left.items():\n                if temp <= temp_left:\n                    continue\n                for id in ids:\n                    ans[id] = i - id\n                to_pop.append(temp_left)\n            temps_left[temp].append(i)\n            for temp in to_pop:\n                temps_left.pop(temp)\n            to_pop.clear()\n        \n        return ans"
+  Title = "Daily Temperatures"
+  Url = "/submissions/detail/1161819645/"
+  LangName = "Python3"
+  Timestamp = 1706688591
+  Status = 10
+  Runtime = "1098 ms"
+  IsPending = "Not Pending"
+  Memory = "31.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

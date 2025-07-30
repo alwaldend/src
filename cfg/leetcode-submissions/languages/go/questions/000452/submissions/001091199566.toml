@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1091199566
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 452
+  TitleSlug = "minimum-number-of-arrows-to-burst-balloons"
+  Code = "func findMinArrowShots(points [][]int) int {\n\t// greedy solution\n\tsort.Slice(points, func(i, j int) bool {\n\t\treturn points[i][1] < points[j][1]\n\t})\n\tcount := 1\n\tend := points[0][1]\n\tfor i := 1; i < len(points); i++ {\n\t\tif points[i][0] > end {\n\t\t\tcount++\n\t\t\tend = points[i][1]\n\t\t}\n\t}\n\treturn count\n}"
+  Title = "Minimum Number of Arrows to Burst Balloons"
+  Url = "/submissions/detail/1091199566/"
+  LangName = "Go"
+  Timestamp = 1699093542
+  Status = 10
+  Runtime = "204 ms"
+  IsPending = "Not Pending"
+  Memory = "17.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1047394948
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 303
+  TitleSlug = "range-sum-query-immutable"
+  Code = "class NumArray:\n\n    def __init__(self, nums: List[int]):\n        self._sums = tuple(accumulate(nums))\n\n    def sumRange(self, left: int, right: int) -> int:\n        # [-2, 0, 3, -5, 2, -1], [-2, -2, 1, -4, -2, -3]\n        # [0, 2] -> 1\n        if left == 0:\n            return self._sums[right]\n\n        return self._sums[right] - self._sums[left-1]\n\n\n# Your NumArray object will be instantiated and called as such:\n# obj = NumArray(nums)\n# param_1 = obj.sumRange(left,right)"
+  Title = "Range Sum Query - Immutable"
+  Url = "/submissions/detail/1047394948/"
+  LangName = "Python3"
+  Timestamp = 1694517838
+  Status = 10
+  Runtime = "77 ms"
+  IsPending = "Not Pending"
+  Memory = "20.1 MB"
+  CompareResult = "111111111111111"
+  HasNotes = false
+  FlagType = 1

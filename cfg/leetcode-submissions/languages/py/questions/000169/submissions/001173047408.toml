@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1173047408
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 169
+  TitleSlug = "majority-element"
+  Code = "class Solution:\n    def majorityElement(self, nums: List[int]) -> int:\n        counter = defaultdict(int)\n        half = len(nums) // 2\n        for num in nums:\n            counter[num] += 1\n            if counter[num] > half:\n                return num\n        raise Exception()"
+  Title = "Majority Element"
+  Url = "/submissions/detail/1173047408/"
+  LangName = "Python3"
+  Timestamp = 1707731444
+  Status = 10
+  Runtime = "143 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1194470777
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1850
+  TitleSlug = "minimum-length-of-string-after-deleting-similar-ends"
+  Code = "func minimumLength(s string) int {\n    left := 0\n    right := len(s) - 1\n    \n    for left < right {\n        lc := s[left]\n        rc := s[right]\n        \n        if lc != rc {\n            return right - left + 1\n        }\n        \n        for left + 1 < right && lc == s[left + 1] {\n            left++\n        }\n        \n        for left < right - 1 && rc == s[right - 1] {\n            right--\n        }\n        \n        right--\n        left++\n    }\n    \n    return right - left + 1\n}"
+  Title = "Minimum Length of String After Deleting Similar Ends"
+  Url = "/submissions/detail/1194470777/"
+  LangName = "Go"
+  Timestamp = 1709628758
+  Status = 10
+  Runtime = "9 ms"
+  IsPending = "Not Pending"
+  Memory = "6.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

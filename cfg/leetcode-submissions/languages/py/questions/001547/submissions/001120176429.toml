@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1120176429
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1547
+  TitleSlug = "destination-city"
+  Code = "class Solution:\n    def destCity(self, paths: List[List[str]]) -> str:\n        paths_from, paths_to = set(), set()\n        for path_from, path_to in paths:\n            paths_from.add(path_from)\n            paths_to.add(path_to)\n        \n        return (paths_to - paths_from).pop()"
+  Title = "Destination City"
+  Url = "/submissions/detail/1120176429/"
+  LangName = "Python3"
+  Timestamp = 1702626892
+  Status = 10
+  Runtime = "67 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

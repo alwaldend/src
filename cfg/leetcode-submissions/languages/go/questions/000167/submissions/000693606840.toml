@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 693606840
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 167
+  TitleSlug = "two-sum-ii-input-array-is-sorted"
+  Code = "func twoSum(numbers []int, target int) []int {\n\tnumbers_len := len(numbers)\n\tfor index, number := range numbers {\n\t\tfor index_inner := index + 1; index_inner < numbers_len; index_inner++ {\n\t\t\tif numbers[index_inner]+number == target {\n\t\t\t\treturn []int{index + 1, index_inner + 1}\n\t\t\t}\n\t\t}\n\t}\n\treturn []int{}\n}"
+  Title = "Two Sum II - Input Array Is Sorted"
+  Url = "/submissions/detail/693606840/"
+  LangName = "Go"
+  Timestamp = 1651747427
+  Status = 10
+  Runtime = "417 ms"
+  IsPending = "Not Pending"
+  Memory = "5.5 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

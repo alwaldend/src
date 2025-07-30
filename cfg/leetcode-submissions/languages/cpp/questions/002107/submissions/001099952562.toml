@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1099952562
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 2107
+  TitleSlug = "find-unique-binary-string"
+  Code = "class Solution {\npublic:\n    string findDifferentBinaryString(vector<string>& nums) {\n        unordered_set<int> integers;\n        for (string num : nums) {\n            integers.insert(stoi(num, 0, 2));\n        }\n\n        int n = nums.size();\n        string ans;\n        for (int num = 0; num <= n; num++) {\n            if (integers.find(num) == integers.end()) {\n                ans = bitset<16>(num).to_string();\n                break;\n            }\n        }\n        return ans.substr(16 - n);\n    }\n};"
+  Title = "Find Unique Binary String"
+  Url = "/submissions/detail/1099952562/"
+  LangName = "C++"
+  Timestamp = 1700122957
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "10.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

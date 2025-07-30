@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 998395390
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 209
+  TitleSlug = "minimum-size-subarray-sum"
+  Code = "class Solution:\n    def minSubArrayLen(self, target: int, nums: List[int]) -> int:\n        left = 0\n        sum_of_subarray = 0\n        min_length = float('inf')\n        \n        for right in range(len(nums)):\n            sum_of_subarray += nums[right]\n            \n            while sum_of_subarray >= target:\n                min_length = min(min_length, right - left + 1)\n                sum_of_subarray -= nums[left]\n                left += 1\n\n        if min_length == float('inf'):\n            return 0\n\n        return min_length"
+  Title = "Minimum Size Subarray Sum"
+  Url = "/submissions/detail/998395390/"
+  LangName = "Python3"
+  Timestamp = 1689765566
+  Status = 10
+  Runtime = "274 ms"
+  IsPending = "Not Pending"
+  Memory = "29.5 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

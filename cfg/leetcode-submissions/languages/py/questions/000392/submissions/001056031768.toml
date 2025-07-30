@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1056031768
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 392
+  TitleSlug = "is-subsequence"
+  Code = "class Solution:\n    def isSubsequence(self, s: str, t: str) -> bool:\n        i = 0\n        length = len(s)\n        for char in t:\n            if i == length:\n                break\n            if s[i] == char:\n                i += 1\n            \n        return i == length"
+  Title = "Is Subsequence"
+  Url = "/submissions/detail/1056031768/"
+  LangName = "Python3"
+  Timestamp = 1695362227
+  Status = 10
+  Runtime = "38 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "1111111111111111111"
+  HasNotes = false
+  FlagType = 1

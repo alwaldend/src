@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1055524154
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 476
+  TitleSlug = "number-complement"
+  Code = "class Solution:\n    def findComplement(self, num: int) -> int:\n        return ~num + (1 << num.bit_length())"
+  Title = "Number Complement"
+  Url = "/submissions/detail/1055524154/"
+  LangName = "Python3"
+  Timestamp = 1695310383
+  Status = 10
+  Runtime = "40 ms"
+  IsPending = "Not Pending"
+  Memory = "16.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

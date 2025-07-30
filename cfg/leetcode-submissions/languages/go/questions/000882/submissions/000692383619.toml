@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 692383619
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 882
+  TitleSlug = "peak-index-in-a-mountain-array"
+  Code = "\nfunc peakIndexInMountainArray(array []int) int {\n\tleft, right := 0, len(array)-1\n\tfor right > left {\n\t\t// overflow protection\n\t\tindex := left + (right-left)/2\n\t\t// next element is bigger -> top is to the right -> discard left\n\t\tif array[index+1] > array[index] {\n\t\t\tleft = index + 1\n\t\t\tcontinue\n\t\t}\n\t\t// next element is equal or smaller -> discard right\n\t\t// 'index' could be the answer, so it should not be discarded\n\t\tright = index\n\t}\n\treturn right\n}"
+  Title = "Peak Index in a Mountain Array"
+  Url = "/submissions/detail/692383619/"
+  LangName = "Go"
+  Timestamp = 1651592044
+  Status = 10
+  Runtime = "17 ms"
+  IsPending = "Not Pending"
+  Memory = "4.7 MB"
+  CompareResult = "11111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

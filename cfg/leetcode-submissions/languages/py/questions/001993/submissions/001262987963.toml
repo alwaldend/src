@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1262987963
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1993
+  TitleSlug = "sum-of-all-subset-xor-totals"
+  Code = "class Solution:\n    def subsetXORSum(self, nums: List[int]) -> int:\n        return reduce(operator.or_, nums) * 1 << (len(nums) - 1)\n        "
+  Title = "Sum of All Subset XOR Totals"
+  Url = "/submissions/detail/1262987963/"
+  LangName = "Python3"
+  Timestamp = 1716200929
+  Status = 10
+  Runtime = "44 ms"
+  IsPending = "Not Pending"
+  Memory = "16.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

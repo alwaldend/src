@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1047433200
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1708
+  TitleSlug = "design-parking-system"
+  Code = "class ParkingSystem:\n\n    def __init__(self, big: int, medium: int, small: int):\n        self._slots = [0, big, medium, small]\n\n    def addCar(self, carType: int) -> bool:\n        slots_avail = self._slots[carType]\n        if not slots_avail:\n            return False\n        self._slots[carType] = slots_avail - 1\n        return True\n\n\n# Your ParkingSystem object will be instantiated and called as such:\n# obj = ParkingSystem(big, medium, small)\n# param_1 = obj.addCar(carType)"
+  Title = "Design Parking System"
+  Url = "/submissions/detail/1047433200/"
+  LangName = "Python3"
+  Timestamp = 1694521676
+  Status = 10
+  Runtime = "109 ms"
+  IsPending = "Not Pending"
+  Memory = "16.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

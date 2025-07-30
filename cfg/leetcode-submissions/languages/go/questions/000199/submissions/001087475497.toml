@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1087475497
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 199
+  TitleSlug = "binary-tree-right-side-view"
+  Code = "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc rightSideView(root *TreeNode) []int {\n    if root == nil {\n        return []int{}\n    }\n\n    queue, answer := []*TreeNode{root}, []int{}\n\n    for length := len(queue); length != 0; length = len(queue) {\n        for i := 0; i < length; i++ {\n            node := queue[0]\n            queue = queue[1:]\n            if i == length - 1 {\n                answer = append(answer, node.Val)\n            }\n            if left := node.Left; left != nil {\n                queue = append(queue, left)\n            }\n            if right := node.Right; right != nil {\n                queue = append(queue, right)\n            }\n        }\n    }\n\n    return answer\n} "
+  Title = "Binary Tree Right Side View"
+  Url = "/submissions/detail/1087475497/"
+  LangName = "Go"
+  Timestamp = 1698662375
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "2.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

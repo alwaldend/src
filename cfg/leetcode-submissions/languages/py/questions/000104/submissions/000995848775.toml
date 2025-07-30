@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 995848775
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 104
+  TitleSlug = "maximum-depth-of-binary-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def maxDepth(self, root: Optional[TreeNode], depth: int = 0) -> int:\n        if not root:\n            return depth\n\n        return max(self.maxDepth(root.left, depth + 1), self.maxDepth(root.right, depth + 1))\n        "
+  Title = "Maximum Depth of Binary Tree"
+  Url = "/submissions/detail/995848775/"
+  LangName = "Python3"
+  Timestamp = 1689509198
+  Status = 10
+  Runtime = "43 ms"
+  IsPending = "Not Pending"
+  Memory = "19 MB"
+  CompareResult = "111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

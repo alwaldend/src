@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1100801416
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 649
+  TitleSlug = "dota2-senate"
+  Code = "class Solution {\npublic:\n    string predictPartyVictory(string senate) {\n        std::queue<int> rad, dir;\n        unsigned long length {senate.size()};\n        for (int i = 0; i < length; ++i){\n            if (senate[i] == 'R'){\n                rad.push(i);\n            } else {\n                dir.push(i);\n            }\n        }\n        while (!rad.empty() && !dir.empty()) {\n            if (rad.front() < dir.front()) {\n                rad.push(length);\n            } else {\n                dir.push(length);\n            }\n            ++length;\n            rad.pop();\n            dir.pop();\n        }\n        return rad.empty() ? \"Dire\" : \"Radiant\";\n    }\n};"
+  Title = "Dota2 Senate"
+  Url = "/submissions/detail/1100801416/"
+  LangName = "C++"
+  Timestamp = 1700228497
+  Status = 10
+  Runtime = "6 ms"
+  IsPending = "Not Pending"
+  Memory = "8.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

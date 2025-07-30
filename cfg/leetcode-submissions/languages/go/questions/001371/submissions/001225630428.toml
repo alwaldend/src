@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1225630428
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1371
+  TitleSlug = "minimum-remove-to-make-valid-parentheses"
+  Code = "type stack struct {\n    top   int\n    v     []byte\n    index []int\n}\n\nfunc minRemoveToMakeValid(s string) string {\n    stc := stack{top: -1}\n\n    // collect bad brackets\n    for i, v := range s {\n        if v == '(' {\n            stc.v = append(stc.v, '(')\n            stc.index = append(stc.index, i)\n            stc.top++\n        } else if v == ')' {\n            if stc.top > -1 && stc.v[stc.top] == '(' {\n                stc.v = stc.v[:stc.top]\n                stc.index = stc.index[:stc.top]\n                stc.top--\n            } else {\n                stc.v = append(stc.v, ')')\n                stc.index = append(stc.index, i)\n                stc.top++\n            }\n        }\n    }\n\n    // remove them\n    res := []byte{}\n    i := 0\n    for _, v := range stc.index {\n        res = append(res, s[i:v]...)\n        i = v + 1\n    }\n\n    // checking of end\n    if len(res) + len(stc.index) < len(s) {\n        res = append(res, s[i:]...)\n    }\n\n    return string(res)\n}"
+  Title = "Minimum Remove to Make Valid Parentheses"
+  Url = "/submissions/detail/1225630428/"
+  LangName = "Go"
+  Timestamp = 1712479314
+  Status = 10
+  Runtime = "18 ms"
+  IsPending = "Not Pending"
+  Memory = "6.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

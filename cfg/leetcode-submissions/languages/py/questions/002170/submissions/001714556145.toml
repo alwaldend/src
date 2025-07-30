@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1714556145
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2170
+  TitleSlug = "count-number-of-maximum-bitwise-or-subsets"
+  Code = "class Solution:\n    def countMaxOrSubsets(self, nums: List[int]) -> int:\n        max_or_value = 0\n        n = len(nums)\n        for num in nums:\n            max_or_value |= num\n        memo = [[-1] * (max_or_value + 1) for _ in range(n)]\n        return self._count_subsets_recursive(nums, 0, 0, max_or_value, memo)\n\n    def _count_subsets_recursive(\n        self,\n        nums: List[int],\n        index: int,\n        current_or: int,\n        target_or: int,\n        memo: List[List[int]],\n    ) -> int:\n        if index == len(nums):\n            return 1 if current_or == target_or else 0\n        if memo[index][current_or] != -1:\n            return memo[index][current_or]\n        count_without = self._count_subsets_recursive(\n            nums, index + 1, current_or, target_or, memo\n        )\n        count_with = self._count_subsets_recursive(\n            nums, index + 1, current_or | nums[index], target_or, memo\n        )\n        res = count_without + count_with\n        memo[index][current_or] = res\n        return res"
+  Title = "Count Number of Maximum Bitwise-OR Subsets"
+  Url = "/submissions/detail/1714556145/"
+  LangName = "Python3"
+  Timestamp = 1753709134
+  Status = 10
+  Runtime = "178 ms"
+  IsPending = "Not Pending"
+  Memory = "33.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

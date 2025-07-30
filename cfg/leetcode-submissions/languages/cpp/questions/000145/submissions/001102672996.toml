@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1102672996
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 145
+  TitleSlug = "binary-tree-postorder-traversal"
+  Code = "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    vector<int> postorderTraversal(TreeNode* root) {\n        if (root == nullptr) {\n            return {};\n        }\n        std::vector<int> ans{};\n        addNodes(root, ans);\n        return ans;\n    }\n\n    void addNodes(TreeNode* node, std::vector<int>& ans) {\n        auto left{node->left}, right{node->right};\n        if (left != nullptr) {\n            addNodes(left, ans);\n        }\n        if (right != nullptr) {\n            addNodes(right, ans);\n        }\n        ans.push_back(node->val);\n    }\n};"
+  Title = "Binary Tree Postorder Traversal"
+  Url = "/submissions/detail/1102672996/"
+  LangName = "C++"
+  Timestamp = 1700480320
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "8.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

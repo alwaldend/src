@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 998395650
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 45
+  TitleSlug = "jump-game-ii"
+  Code = "class Solution:\n    def jump(self, nums: List[int]) -> int:\n        length = len(nums)\n        result = 0\n        end = 0\n        farthest = 0\n\n        for i in range(length - 1):\n            number = nums[i]\n            max_jump = i + number\n            if max_jump > farthest:\n                farthest = max_jump\n\n            if farthest >= length - 1:\n                result += 1\n                break\n            \n            if i == end:\n                result += 1\n                end = farthest\n\n\n        return result\n"
+  Title = "Jump Game II"
+  Url = "/submissions/detail/998395650/"
+  LangName = "Python3"
+  Timestamp = 1689765591
+  Status = 10
+  Runtime = "128 ms"
+  IsPending = "Not Pending"
+  Memory = "17.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

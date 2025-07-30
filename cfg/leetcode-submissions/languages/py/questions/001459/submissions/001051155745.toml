@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1051155745
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1459
+  TitleSlug = "apply-discount-every-n-orders"
+  Code = "class Cashier:\n\n    def __init__(self, n: int, discount: int, products: List[int], prices: List[int]):\n        self.freq, self.discount = n, (100 - discount) / 100\n        self.cur = 0\n        self.products = {id: price for id, price in zip(products, prices)}\n\n    def getBill(self, product: List[int], amount: List[int]) -> float:\n        self.cur += 1\n        multiplier = 1\n        if self.cur == self.freq:\n            self.cur, multiplier = 0, self.discount\n        total = sum(amount[i] * self.products[product[i]] for i in range(len(product)))\n        return total * multiplier\n        \n\n\n# Your Cashier object will be instantiated and called as such:\n# obj = Cashier(n, discount, products, prices)\n# param_1 = obj.getBill(product,amount)"
+  Title = "Apply Discount Every n Orders"
+  Url = "/submissions/detail/1051155745/"
+  LangName = "Python3"
+  Timestamp = 1694887653
+  Status = 10
+  Runtime = "808 ms"
+  IsPending = "Not Pending"
+  Memory = "24.8 MB"
+  CompareResult = "1111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 690364689
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1375
+  TitleSlug = "find-palindrome-with-fixed-length"
+  Code = "func kthPalindrome(queries []int, intLength int) (answer []int64) {\n\tfor _, query := range queries {\n\t\tanswer = append(answer, getPalindrom(query, intLength))\n\t}\n\treturn\n}\n\nfunc getPalindrom(query int, length int) (result int64) {\n\tis_even := (length & 1) == 0\n\tpower := length / 2\n\tif is_even {\n\t\tpower -= 1\n\t}\n\tpalindrome := int64(math.Pow10(power)) + int64(query) - 1\n\tresult = palindrome\n\tif !is_even {\n\t\tpalindrome /= 10\n\t}\n\tfor palindrome > 0 {\n\t\tresult = result*10 + palindrome%10\n\t\tpalindrome /= 10\n\t}\n\tif len(fmt.Sprint(result)) != length {\n\t\treturn -1\n\t}\n\treturn\n}\n"
+  Title = "Find Palindrome With Fixed Length"
+  Url = "/submissions/detail/690364689/"
+  LangName = "Go"
+  Timestamp = 1651339624
+  Status = 10
+  Runtime = "151 ms"
+  IsPending = "Not Pending"
+  Memory = "9.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

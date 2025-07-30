@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1210734336
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 234
+  TitleSlug = "palindrome-linked-list"
+  Code = "/**\n * Definition for singly-linked list.\n * type ListNode struct {\n *     Val int\n *     Next *ListNode\n * }\n */\nfunc isPalindrome(head *ListNode) bool {\n    nodes := []int{}\n    for head != nil {\n        nodes = append(nodes, head.Val)\n        head = head.Next\n    }\n    length := len(nodes)\n    for i := range(length / 2) {\n        start, end := nodes[i], nodes[length-i-1]\n        if start != end {\n            return false\n        }\n    }\n    return true\n}"
+  Title = "Palindrome Linked List"
+  Url = "/submissions/detail/1210734336/"
+  LangName = "Go"
+  Timestamp = 1711097100
+  Status = 10
+  Runtime = "130 ms"
+  IsPending = "Not Pending"
+  Memory = "10.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

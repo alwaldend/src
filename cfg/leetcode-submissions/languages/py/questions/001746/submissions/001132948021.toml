@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1132948021
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1746
+  TitleSlug = "largest-substring-between-two-equal-characters"
+  Code = "class Solution:\n    def maxLengthBetweenEqualCharacters(self, s: str) -> int:\n        ans = -1\n        \n        for left in range(len(s)):\n            for right in range(left + 1, len(s)):\n                if s[left] == s[right]:\n                    ans = max(ans, right - left - 1)\n        \n        return ans"
+  Title = "Largest Substring Between Two Equal Characters"
+  Url = "/submissions/detail/1132948021/"
+  LangName = "Python3"
+  Timestamp = 1704017975
+  Status = 10
+  Runtime = "67 ms"
+  IsPending = "Not Pending"
+  Memory = "17.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

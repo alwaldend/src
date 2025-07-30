@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1073327223
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1185
+  TitleSlug = "find-in-mountain-array"
+  Code = "class Solution:\n    def findInMountainArray(self, target: int, mountain_arr: 'MountainArray') -> int:\n        # Save the length of the mountain array\n        length = mountain_arr.length()\n\n        # 1. Find the index of the peak element\n        low = 1\n        high = length - 2\n        while low != high:\n            test_index = (low + high) // 2\n            if mountain_arr.get(test_index) < mountain_arr.get(test_index + 1):\n                low = test_index + 1\n            else:\n                high = test_index\n        peak_index = low\n\n        # 2. Search in the strictly increasing part of the array\n        low = 0\n        high = peak_index\n        while low != high:\n            test_index = (low + high) // 2\n            if mountain_arr.get(test_index) < target:\n                low = test_index + 1\n            else:\n                high = test_index    \n        # Check if the target is present in the strictly increasing part\n        if mountain_arr.get(low) == target:\n            return low\n        \n        # 3. Otherwise, search in the strictly decreasing part\n        low = peak_index + 1\n        high = length - 1\n        while low != high:\n            test_index = (low + high) // 2\n            if mountain_arr.get(test_index) > target:\n                low = test_index + 1\n            else:\n                high = test_index\n        # Check if the target is present in the strictly decreasing part\n        if mountain_arr.get(low) == target:\n            return low\n        \n        # Target is not present in the mountain array\n        return -1"
+  Title = "Find in Mountain Array"
+  Url = "/submissions/detail/1073327223/"
+  LangName = "Python3"
+  Timestamp = 1697101785
+  Status = 10
+  Runtime = "34 ms"
+  IsPending = "Not Pending"
+  Memory = "17 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

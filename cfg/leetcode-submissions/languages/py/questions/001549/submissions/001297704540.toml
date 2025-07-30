@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1297704540
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1549
+  TitleSlug = "longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit"
+  Code = "class Solution:\n    def longestSubarray(self, nums: List[int], limit: int) -> int:\n        decQ = collections.deque() \n        incQ = collections.deque() \n        ans = 0\n        left = 0\n\n        for right, num in enumerate(nums):\n            while decQ and num > decQ[-1]:\n                decQ.pop()\n\n            decQ.append(num)\n\n            while incQ and num < incQ[-1]:\n                incQ.pop()\n\n            incQ.append(num)\n\n            while decQ[0] - incQ[0] > limit:\n                if decQ[0] == nums[left]:\n                    decQ.popleft()\n\n                if incQ[0] == nums[left]:\n                    incQ.popleft()\n\n                left += 1\n\n            ans = max(ans, right - left + 1)\n\n        return ans"
+  Title = "Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit"
+  Url = "/submissions/detail/1297704540/"
+  LangName = "Python3"
+  Timestamp = 1719142698
+  Status = 10
+  Runtime = "436 ms"
+  IsPending = "Not Pending"
+  Memory = "25.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -30,6 +30,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 - <a href="ansible">ansible</a>: Ansible
 
+  - <a href="ansible/collections">collections</a>: Collections
+
   - <a href="ansible/playbooks">playbooks</a>: Playbooks
 
   - <a href="ansible/roles">roles</a>: Roles
@@ -148,13 +150,15 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
   - <a href="cfg/dotfiles">dotfiles</a>: Dotfiles
 
+  - <a href="cfg/leetcode-submissions">leetcode-submissions</a>: Leetcode submissions
+
+  - <a href="cfg/misc">misc</a>: Misc
+
   - <a href="cfg/vial">vial</a>: Vial
 
 - <a href="cpp">cpp</a>: C&#43;&#43;
 
   - <a href="cpp/infinitime">infinitime</a>: Infinitime
-
-  - <a href="cpp/leetcode-submissions">leetcode-submissions</a>: Leetcode submissions
 
   - <a href="cpp/useless-qt-gui">useless-qt-gui</a>: Useless qt GUI
 
@@ -177,8 +181,6 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
   - <a href="go/leetcode-downloader">leetcode-downloader</a>: Leetcode downloader
 
     - <a href="go/leetcode-downloader/model">model</a>: Models for leetcode-downloader
-
-  - <a href="go/leetcode-submissions">leetcode-submissions</a>: Leetcode submissions
 
   - <a href="go/readme-tree">readme-tree</a>: Readme tree
 
@@ -203,8 +205,6 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
   - <a href="img/useless-qt-gui">useless-qt-gui</a>: Useless qt GUI
 
 - <a href="java">java</a>: Java
-
-  - <a href="java/leetcode-submissions">leetcode-submissions</a>: Leetcode submissions
 
 - <a href="js">js</a>: Javascript
 
@@ -236,11 +236,13 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
   - <a href="py/autoscroll">autoscroll</a>: Autoscroll
 
+    - <a href="py/autoscroll/autoscroll">autoscroll</a>: Src
+
+      - <a href="py/autoscroll/autoscroll/_internal">\_internal</a>: Autoscroll
+
   - <a href="py/bazel-python-shell">bazel-python-shell</a>: Bazel python shell
 
   - <a href="py/install-file">install-file</a>: Python scripts
-
-  - <a href="py/leetcode-submissions">leetcode-submissions</a>: Leetcode submissions
 
   - <a href="py/replace-section">replace-section</a>: Replace section
 
@@ -254,7 +256,9 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
   - <a href="sh/scripts">scripts</a>: Scripts
 
-- <a href="tools">tools</a>: Tools
+- <a href="sql">sql</a>: Sql
+
+- <a href="tools">tools</a>: Tools' /home/simeonwarren/Git/git.alwaldend.com/src/README.md
 
 <!-- README_CONTENTS END -->
 

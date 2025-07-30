@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1101990098
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 2016
+  TitleSlug = "reduction-operations-to-make-the-array-elements-equal"
+  Code = "class Solution {\npublic:\n    int reductionOperations(vector<int>& nums) {\n        sort(nums.begin(), nums.end());\n        int ans = 0;\n        int up = 0;\n        auto length {nums.size()};\n        for (int i = 1; i < length; ++i) {\n            if (nums[i] != nums[i - 1]) {\n                ++up;\n            }\n            ans += up;\n        }\n        return ans;\n    }\n};"
+  Title = "Reduction Operations to Make the Array Elements Equal"
+  Url = "/submissions/detail/1101990098/"
+  LangName = "C++"
+  Timestamp = 1700382665
+  Status = 10
+  Runtime = "147 ms"
+  IsPending = "Not Pending"
+  Memory = "83.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

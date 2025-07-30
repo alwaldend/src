@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1057799547
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 82
+  TitleSlug = "remove-duplicates-from-sorted-list-ii"
+  Code = "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        tail, before_tail = head, None\n        remove_tail = False\n        while tail:\n            if tail.next and tail.val == tail.next.val:\n                tail.next = tail.next.next\n                remove_tail = True\n                continue\n            if not remove_tail:\n                before_tail, tail = tail, tail.next\n                continue\n            remove_tail = False\n            if before_tail is None:\n                tail = head.next\n                head.next, head = None, head.next\n            else:\n                before_tail.next = tail.next\n                tail = tail.next\n        return head"
+  Title = "Remove Duplicates from Sorted List II"
+  Url = "/submissions/detail/1057799547/"
+  LangName = "Python3"
+  Timestamp = 1695548311
+  Status = 10
+  Runtime = "49 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

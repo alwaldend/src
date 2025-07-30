@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1282027378
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 523
+  TitleSlug = "continuous-subarray-sum"
+  Code = "class Solution:\n    def checkSubarraySum(self, nums: List[int], k: int) -> bool:\n        remainder_map = {0: -1}  \n        cumulative_sum = 0\n        \n        for i, num in enumerate(nums):\n            cumulative_sum += num\n            remainder = cumulative_sum % k\n            if remainder in remainder_map:\n                if i - remainder_map[remainder] > 1:\n                    return True\n            else:\n                remainder_map[remainder] = i\n        return False"
+  Title = "Continuous Subarray Sum"
+  Url = "/submissions/detail/1282027378/"
+  LangName = "Python3"
+  Timestamp = 1717874007
+  Status = 10
+  Runtime = "999 ms"
+  IsPending = "Not Pending"
+  Memory = "36.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1100732284
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 394
+  TitleSlug = "decode-string"
+  Code = "class Solution {\npublic:\n    string decodeString(string s) {\n        return std::get<1>(decode(0, s));\n    }\n    \n    std::tuple<int, string> decode(int pos, string s) {\n        int num {0};\n        string word {\"\"};\n        unsigned long length {s.size()};\n        for(; pos < length; ++pos) {\n            char c = s[pos];\n            if(c == '[') {\n                auto [newPos, repeat] {decode(++pos, s)};\n                for(; num > 0; --num) {\n                    word += repeat;\n                }\n                pos = newPos;\n            } else if (c >= '0' && c <='9') {\n                num = num * 10 + (c - '0');\n            } else if (c == ']') {\n                return {pos, word};\n            } else {\n                word += c;\n            }\n        }\n        return {pos, word};\n    }\n};"
+  Title = "Decode String"
+  Url = "/submissions/detail/1100732284/"
+  LangName = "C++"
+  Timestamp = 1700219135
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "7.1 MB"
+  CompareResult = "1111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

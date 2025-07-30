@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1056984947
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1129
+  TitleSlug = "longest-string-chain"
+  Code = "class Solution:\n    def longestStrChain(self, words: List[str]) -> int:\n        words.sort(key=len)\n        dp = {}\n        max_chain = 0\n        for word in words:\n            dp[word] = 1\n            for i in range(len(word)):\n                prev_word = word[:i] + word[i+1:]\n                if prev_word in dp:\n                    dp[word] = max(dp[word], dp[prev_word] + 1)\n            max_chain = max(max_chain, dp[word])\n        return max_chain"
+  Title = "Longest String Chain"
+  Url = "/submissions/detail/1056984947/"
+  LangName = "Python3"
+  Timestamp = 1695464340
+  Status = 10
+  Runtime = "119 ms"
+  IsPending = "Not Pending"
+  Memory = "16.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

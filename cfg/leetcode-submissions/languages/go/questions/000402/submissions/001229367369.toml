@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1229367369
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 402
+  TitleSlug = "remove-k-digits"
+  Code = "func removeKdigits(num string, k int) string {\n\tres := make([]rune, 0)\n    \n\tfor _, c := range num {\n\t\tfor len(res) > 0 && res[len(res) - 1] > c && k > 0 {\n\t\t\tres = res[:len(res) - 1]\n\t\t\tk--\n\t\t}\n\n\t\tif len(res) > 0 || c != '0' {\n\t\t\tres = append(res, c)\n\t\t}\n\t}\n\n\tfor len(res) > 0 && k > 0 {\n\t\tres = res[:len(res) - 1]\n\t\tk--\n\t}\n\n\tif len(res) == 0 {\n\t\treturn \"0\"\n\t}\n\treturn string(res)\n}"
+  Title = "Remove K Digits"
+  Url = "/submissions/detail/1229367369/"
+  LangName = "Go"
+  Timestamp = 1712832281
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "6.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

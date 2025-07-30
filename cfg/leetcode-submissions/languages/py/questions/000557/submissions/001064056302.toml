@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1064056302
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 557
+  TitleSlug = "reverse-words-in-a-string-iii"
+  Code = "class Solution:\n    def reverseWords(self, s: str) -> str:\n        return ' '.join(map(lambda word: word[::-1], s.split()))\n"
+  Title = "Reverse Words in a String III"
+  Url = "/submissions/detail/1064056302/"
+  LangName = "Python3"
+  Timestamp = 1696166948
+  Status = 10
+  Runtime = "28 ms"
+  IsPending = "Not Pending"
+  Memory = "17 MB"
+  CompareResult = "11111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

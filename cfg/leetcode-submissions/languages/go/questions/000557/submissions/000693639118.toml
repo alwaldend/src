@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 693639118
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 557
+  TitleSlug = "reverse-words-in-a-string-iii"
+  Code = "func reverseWords(_string string) string {\n\tindex_word_start, length, result := 0, len(_string), []rune(_string)\n\tfor index, character := range result {\n\t\t// ignore normal characters\n\t\tif character != ' ' {\n\t\t\tcontinue\n\t\t}\n\t\t// word ended -> reverse characters from the start of the word to the\n\t\t//end of it\n\t\treverse_word(result, length, index_word_start, index)\n\t\tindex_word_start = index + 1\n\t}\n\treverse_word(result, length, index_word_start, length)\n\treturn string(result)\n}\n\nfunc reverse_word(_string []rune, length int, start int, end int) {\n\t//fmt.Println(\"reversing\", string(_string), start, \"->\", end)\n\tlength_word := end - start\n\tfor index := start; index < start+length_word/2; index++ {\n\t\tindex_last := end - (index - start) - 1\n\t\tcurrent, last := _string[index], _string[index_last]\n\t\t_string[index], _string[index_last] = last, current\n\t}\n\t//fmt.Println(\"result\", string(_string), start, \"->\", end)\n}\n"
+  Title = "Reverse Words in a String III"
+  Url = "/submissions/detail/693639118/"
+  LangName = "Go"
+  Timestamp = 1651752654
+  Status = 10
+  Runtime = "5 ms"
+  IsPending = "Not Pending"
+  Memory = "6.4 MB"
+  CompareResult = "11111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

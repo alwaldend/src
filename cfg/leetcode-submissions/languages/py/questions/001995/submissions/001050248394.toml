@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1050248394
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1995
+  TitleSlug = "finding-pairs-with-a-certain-sum"
+  Code = "class FindSumPairs:\n\n    def __init__(self, nums1: List[int], nums2: List[int]):\n        self._nums1, self._nums2, self._nums2_raw = Counter(nums1), Counter(nums2), nums2\n\n    def add(self, index: int, val: int) -> None:\n        nums2_raw, nums2 = self._nums2_raw, self._nums2\n        cur_val = nums2_raw[index]\n        new_val = cur_val + val\n        if nums2[cur_val] > 0:\n            nums2[cur_val] -= 1\n        \n        nums2_raw[index] = new_val\n        nums2[new_val] += 1\n\n    def count(self, tot: int) -> int:\n        sum_count = 0\n        nums2 = self._nums2\n        for num1, num1_count in self._nums1.items():\n            sum_count += num1_count * nums2.get(tot - num1, 0) \n\n        return sum_count\n\n\n# Your FindSumPairs object will be instantiated and called as such:\n# obj = FindSumPairs(nums1, nums2)\n# obj.add(index,val)\n# param_2 = obj.count(tot)"
+  Title = "Finding Pairs With a Certain Sum"
+  Url = "/submissions/detail/1050248394/"
+  LangName = "Python3"
+  Timestamp = 1694795603
+  Status = 10
+  Runtime = "583 ms"
+  IsPending = "Not Pending"
+  Memory = "48.6 MB"
+  CompareResult = "11111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

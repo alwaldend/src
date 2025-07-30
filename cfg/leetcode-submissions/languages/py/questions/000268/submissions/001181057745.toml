@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1181057745
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 268
+  TitleSlug = "missing-number"
+  Code = "import operator\nclass Solution:\n    def missingNumber(self, nums: List[int]) -> int:\n        length = len(nums)\n        return reduce(operator.xor, range(length), reduce(operator.xor, nums, length))"
+  Title = "Missing Number"
+  Url = "/submissions/detail/1181057745/"
+  LangName = "Python3"
+  Timestamp = 1708442197
+  Status = 10
+  Runtime = "110 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1022117762
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 86
+  TitleSlug = "partition-list"
+  Code = "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:\n        before_head, after_head = ListNode(0), ListNode(0)\n        before_tail, after_tail = before_head, after_head\n        \n        while head: \n            if head.val < x:\n                before_tail.next, before_tail = head, head\n            else:\n                after_tail.next, after_tail = head, head\n            head = head.next\n        \n        after_tail.next, before_tail.next = None, after_head.next\n        \n        return before_head.next"
+  Title = "Partition List"
+  Url = "/submissions/detail/1022117762/"
+  LangName = "Python3"
+  Timestamp = 1692108409
+  Status = 10
+  Runtime = "42 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

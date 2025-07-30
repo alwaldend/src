@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1054695718
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 693
+  TitleSlug = "binary-number-with-alternating-bits"
+  Code = "class Solution:\n    def hasAlternatingBits(self, n: int) -> bool:\n        return n & (n >> 1) == 0 and n & (n >> 2) == n >> 2"
+  Title = "Binary Number with Alternating Bits"
+  Url = "/submissions/detail/1054695718/"
+  LangName = "Python3"
+  Timestamp = 1695228656
+  Status = 10
+  Runtime = "39 ms"
+  IsPending = "Not Pending"
+  Memory = "16.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1051787417
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 355
+  TitleSlug = "design-twitter"
+  Code = "class Twitter:\n\n    def __init__(self):\n        self.tweets = []\n        self.following = defaultdict(set)\n\n    def postTweet(self, userId: int, tweetId: int) -> None:\n        self.tweets.append((userId, tweetId))\n\n    def getNewsFeed(self, userId: int) -> List[int]:\n        tweets, following = [], self.following[userId]\n        for poster, tweet in reversed(self.tweets):\n            if poster != userId and poster not in following:\n                continue\n            tweets.append(tweet)\n            if len(tweets) == 10:\n                break\n            \n        return tweets\n\n    def follow(self, followerId: int, followeeId: int) -> None:\n        self.following[followerId].add(followeeId)\n\n    def unfollow(self, followerId: int, followeeId: int) -> None:\n        self.following[followerId].discard(followeeId)\n\n# Your Twitter object will be instantiated and called as such:\n# obj = Twitter()\n# obj.postTweet(userId,tweetId)\n# param_2 = obj.getNewsFeed(userId)\n# obj.follow(followerId,followeeId)\n# obj.unfollow(followerId,followeeId)"
+  Title = "Design Twitter"
+  Url = "/submissions/detail/1051787417/"
+  LangName = "Python3"
+  Timestamp = 1694956092
+  Status = 10
+  Runtime = "38 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "1111111111111111"
+  HasNotes = false
+  FlagType = 1

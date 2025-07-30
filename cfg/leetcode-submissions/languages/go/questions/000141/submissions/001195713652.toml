@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1195713652
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 141
+  TitleSlug = "linked-list-cycle"
+  Code = "/**\n * Definition for singly-linked list.\n * type ListNode struct {\n *     Val int\n *     Next *ListNode\n * }\n */\nfunc hasCycle(head *ListNode) bool {\n    nodes := map[*ListNode]struct{}{}\n    for head != nil {\n        if _, ok := nodes[head]; ok {\n            return true\n        }\n        nodes[head] = struct{}{}\n        head = head.Next\n    }\n    return false\n}"
+  Title = "Linked List Cycle"
+  Url = "/submissions/detail/1195713652/"
+  LangName = "Go"
+  Timestamp = 1709730323
+  Status = 10
+  Runtime = "11 ms"
+  IsPending = "Not Pending"
+  Memory = "6.2 MB"
+  CompareResult = "11111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 995698084
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 202
+  TitleSlug = "happy-number"
+  Code = "class Solution:\n    def isHappy(self, n: int) -> bool:\n        while True:\n            sum = 0\n            while n > 0:\n                sum += (n % 10 )**2\n                n = n // 10\n            n = sum\n            print(n)\n            if sum < 10:\n                break\n\n        return n in [1, 7]"
+  Title = "Happy Number"
+  Url = "/submissions/detail/995698084/"
+  LangName = "Python3"
+  Timestamp = 1689493286
+  Status = 10
+  Runtime = "51 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

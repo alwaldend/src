@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1017577860
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 81
+  TitleSlug = "search-in-rotated-sorted-array-ii"
+  Code = "class Solution:\n    def search(self, nums: List[int], target: int) -> bool:\n        left, right = 0, len(nums) - 1\n        \n        while left <= right:\n            mid = (left + right) // 2\n            \n            if nums[mid] == target:\n                return True\n            \n            if nums[mid] == nums[left]:\n                left += 1\n                continue\n\n            if nums[left] <= nums[mid]:\n                if nums[left] <= target < nums[mid]:\n                    right = mid - 1\n                else:\n                    left = mid + 1\n            else:\n                if nums[mid] < target <= nums[right]:\n                    left = mid + 1\n                else:\n                    right = mid - 1\n        \n        return False"
+  Title = "Search in Rotated Sorted Array II"
+  Url = "/submissions/detail/1017577860/"
+  LangName = "Python3"
+  Timestamp = 1691676278
+  Status = 10
+  Runtime = "50 ms"
+  IsPending = "Not Pending"
+  Memory = "16.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

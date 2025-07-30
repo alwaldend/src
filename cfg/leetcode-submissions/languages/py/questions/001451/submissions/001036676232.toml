@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1036676232
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1451
+  TitleSlug = "minimum-number-of-taps-to-open-to-water-a-garden"
+  Code = "class Solution:\n    def minTaps(self, n: int, ranges: List[int]) -> int:\n        arr = [0] * (n + 1)\n        for i, r in enumerate(ranges):\n            if r == 0:\n                continue\n            left = max(0, i - r)\n            arr[left] = max(arr[left], i + r)\n\n        end, far_can_reach, cnt = 0, 0, 0\n        \n        for i, reach in enumerate(arr):\n            if i > end:\n                if far_can_reach <= end:\n                    return -1\n                end, cnt = far_can_reach, cnt + 1\n            far_can_reach = max(far_can_reach, reach)\n\n        return cnt + (end < n)\n"
+  Title = "Minimum Number of Taps to Open to Water a Garden"
+  Url = "/submissions/detail/1036676232/"
+  LangName = "Python3"
+  Timestamp = 1693473280
+  Status = 10
+  Runtime = "116 ms"
+  IsPending = "Not Pending"
+  Memory = "16.9 MB"
+  CompareResult = "11111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

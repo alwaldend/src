@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1213619469
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 442
+  TitleSlug = "find-all-duplicates-in-an-array"
+  Code = "func findDuplicates(nums []int) []int {\n    output := []int{}\n    for _, num := range nums {\n        idx := abs(num)\n        if nums[idx-1] < 0 {\n            output = append(output, idx)\n        } else {\n            nums[idx-1] *= -1\n        }\n    }\n    return output\n}\nfunc abs(num int) int {\n    if num < 0 {\n        return -num\n    }\n    return num\n}"
+  Title = "Find All Duplicates in an Array"
+  Url = "/submissions/detail/1213619469/"
+  LangName = "Go"
+  Timestamp = 1711383791
+  Status = 10
+  Runtime = "65 ms"
+  IsPending = "Not Pending"
+  Memory = "7.8 MB"
+  CompareResult = "1111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

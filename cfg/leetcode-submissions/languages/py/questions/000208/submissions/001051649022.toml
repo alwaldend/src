@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1051649022
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 208
+  TitleSlug = "implement-trie-prefix-tree"
+  Code = "class Trie:\n\n    def __init__(self):\n        self.root = {}\n\n    def insert(self, word: str) -> None:\n        cur = self.root\n        for char in word:\n            if char not in cur:\n                cur[char] = {}\n            cur = cur[char]\n        \n        cur[\"_is_word\"] = None\n\n    def search(self, word: str) -> bool:\n        cur = self.root\n        for char in word:\n            if char not in cur:\n                return False\n            cur = cur[char]\n        \n        return \"_is_word\" in cur\n\n    def startsWith(self, prefix: str) -> bool:\n        cur = self.root\n        for char in prefix:\n            if char not in cur:\n                return False\n            cur = cur[char]\n            \n        return True\n\n\n# Your Trie object will be instantiated and called as such:\n# obj = Trie()\n# obj.insert(word)\n# param_2 = obj.search(word)\n# param_3 = obj.startsWith(prefix)"
+  Title = "Implement Trie (Prefix Tree)"
+  Url = "/submissions/detail/1051649022/"
+  LangName = "Python3"
+  Timestamp = 1694940244
+  Status = 10
+  Runtime = "114 ms"
+  IsPending = "Not Pending"
+  Memory = "29.7 MB"
+  CompareResult = "1111111111111111"
+  HasNotes = false
+  FlagType = 1

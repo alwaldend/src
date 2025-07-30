@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1050843823
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1955
+  TitleSlug = "seat-reservation-manager"
+  Code = "class SeatManager:\n\n    def __init__(self, n: int):\n        self.heap = list(range(1, n + 1))  \n\n    def reserve(self) -> int:\n        return heappop(self.heap)\n\n    def unreserve(self, seatNumber: int) -> None:\n        heappush(self.heap, seatNumber)\n\n\n# Your SeatManager object will be instantiated and called as such:\n# obj = SeatManager(n)\n# param_1 = obj.reserve()\n# obj.unreserve(seatNumber)"
+  Title = "Seat Reservation Manager"
+  Url = "/submissions/detail/1050843823/"
+  LangName = "Python3"
+  Timestamp = 1694867737
+  Status = 10
+  Runtime = "420 ms"
+  IsPending = "Not Pending"
+  Memory = "44.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

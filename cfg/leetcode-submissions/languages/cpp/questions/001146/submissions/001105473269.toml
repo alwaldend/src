@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1105473269
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1146
+  TitleSlug = "greatest-common-divisor-of-strings"
+  Code = "class Solution {\npublic:\n    bool valid(string str1, string str2, size_t k) {\n        size_t len1 {str1.size()}, len2 {str2.size()};\n        if (len1 % k != 0 || len2 % k != 0) {\n            return false;\n        }\n        string base = str1.substr(0, k);\n        size_t n1 {len1 / k}, n2 {len2 / k};\n        if (n1 == n2) {\n            return str1 == str2 && joinWords(base, n1) == str1;\n        }\n        return str1 == joinWords(base, n1) && str2 == joinWords(base, n2);\n    }\n\n    string joinWords(string str, size_t k) {\n        string ans = \"\";\n        for (size_t i = 0; i < k; ++i) {\n            ans += str;\n        }\n        return ans;\n    }\n    \n    \n    string gcdOfStrings(string str1, string str2) {\n        for (size_t i = min(str1.size(), str2.size()); i > 0; --i) {\n            if (valid(str1, str2, i)) {\n                return str1.substr(0, i);\n            }\n        }\n        return \"\";\n    }\n};"
+  Title = "Greatest Common Divisor of Strings"
+  Url = "/submissions/detail/1105473269/"
+  LangName = "C++"
+  Timestamp = 1700832772
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "34 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

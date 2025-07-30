@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1186923254
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 100
+  TitleSlug = "same-tree"
+  Code = "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc isSameTree(p *TreeNode, q *TreeNode) bool {\n    if p == nil && q == nil {\n        return true\n    }\n    if p == nil || q == nil || p.Val != q.Val {\n        return false\n    }\n    return isSameTree(p.Left, q.Left) && isSameTree(p.Right, q.Right)\n}"
+  Title = "Same Tree"
+  Url = "/submissions/detail/1186923254/"
+  LangName = "Go"
+  Timestamp = 1708966666
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "2.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

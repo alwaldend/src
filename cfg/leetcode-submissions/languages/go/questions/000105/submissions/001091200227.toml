@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1091200227
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 105
+  TitleSlug = "construct-binary-tree-from-preorder-and-inorder-traversal"
+  Code = "func buildTree(preorder []int, inorder []int) *TreeNode {\n\tn := len(inorder)\n\n\tif n == 0 {\n\t\treturn nil\n\t}\n\n\tpv := preorder[0]\n\tpi := 0\n\tfor pi < n && inorder[pi] != pv {\n\t\tpi++\n\t}\n\n\tans := new(TreeNode)\n\tans.Val = pv\n\tans.Left = buildTree(preorder[1:], inorder[:pi])\n\tans.Right = buildTree(preorder[1+pi:], inorder[pi+1:])\n\n\treturn ans\n}\n"
+  Title = "Construct Binary Tree from Preorder and Inorder Traversal"
+  Url = "/submissions/detail/1091200227/"
+  LangName = "Go"
+  Timestamp = 1699093632
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

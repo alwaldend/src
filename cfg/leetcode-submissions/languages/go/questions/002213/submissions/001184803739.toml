@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1184803739
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 2213
+  TitleSlug = "find-all-people-with-secret"
+  Code = "package main\n\nimport (\n\t\"sort\"\n)\n\nfunc find(groups []int, index int) int {\n\tfor index != groups[index] {\n\t\tindex = groups[index]\n\t}\n\treturn index\n}\n\nfunc findAllPeople(n int, meetings [][]int, firstPerson int) []int {\n\tgroups := make([]int, 100000)\n\tvar result []int\n\tvar temp []int\n\n\tfor i := 0; i < n; i++ {\n\t\tgroups[i] = i\n\t}\n\tgroups[firstPerson] = 0\n\n\tsort.Slice(meetings, func(i, j int) bool {\n\t\treturn meetings[i][2] < meetings[j][2]\n\t})\n\n\ti := 0\n\tfor i < len(meetings) {\n\t\tcurrentTime := meetings[i][2]\n\t\ttemp = temp[:0]\n\t\tfor i < len(meetings) && meetings[i][2] == currentTime {\n\t\t\tg1 := find(groups, meetings[i][0])\n\t\t\tg2 := find(groups, meetings[i][1])\n\t\t\tgroups[max(g1, g2)] = min(g1, g2)\n\t\t\ttemp = append(temp, meetings[i][0], meetings[i][1])\n\t\t\ti++\n\t\t}\n\t\tfor _, j := range temp {\n\t\t\tif find(groups, j) != 0 {\n\t\t\t\tgroups[j] = j\n\t\t\t}\n\t\t}\n\t}\n\n\tfor j := 0; j < n; j++ {\n\t\tif find(groups, j) == 0 {\n\t\t\tresult = append(result, j)\n\t\t}\n\t}\n\n\treturn result\n}\n\nfunc max(a, b int) int {\n\tif a > b {\n\t\treturn a\n\t}\n\treturn b\n}\n\nfunc min(a, b int) int {\n\tif a < b {\n\t\treturn a\n\t}\n\treturn b\n}\n"
+  Title = "Find All People With Secret"
+  Url = "/submissions/detail/1184803739/"
+  LangName = "Go"
+  Timestamp = 1708778737
+  Status = 10
+  Runtime = "288 ms"
+  IsPending = "Not Pending"
+  Memory = "19.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

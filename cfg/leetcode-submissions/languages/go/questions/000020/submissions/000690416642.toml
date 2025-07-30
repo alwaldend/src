@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 690416642
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 20
+  TitleSlug = "valid-parentheses"
+  Code = "\nfunc isValid(inputString string) bool {\n\tif len(inputString) == 0 || (len(inputString)&1) != 0 {\n\t\treturn false\n\t}\n\toccurences := []rune{}\n\tends := map[rune]rune{')': '(', '}': '{', ']': '['}\n\tfor _, character := range inputString {\n\t\tlength := len(occurences)\n\t\tlast_valid, is_end := ends[character]\n\t\tif (is_end && length == 0) || (is_end && occurences[length-1] != last_valid) {\n\t\t\treturn false\n\t\t}\n\t\tif is_end {\n\t\t\toccurences = occurences[0 : length-1]\n\t\t} else {\n\t\t\toccurences = append(occurences, character)\n\t\t}\n\t}\n\tif len(occurences) > 0 {\n\t\treturn false\n\t}\n\treturn true\n}\n"
+  Title = "Valid Parentheses"
+  Url = "/submissions/detail/690416642/"
+  LangName = "Go"
+  Timestamp = 1651345572
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "2.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

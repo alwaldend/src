@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1113427537
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1817
+  TitleSlug = "calculate-money-in-leetcode-bank"
+  Code = "class Solution {\npublic:\n    int totalMoney(int n) {\n        int ans {0};\n        int monday {1};\n        \n        while (n > 0) {\n            for (int day {0}; day < min(n, 7); ++day) {\n                ans += monday + day;\n            }\n            n -= 7;\n            ++monday;\n        }\n        \n        return ans;\n    }\n};"
+  Title = "Calculate Money in Leetcode Bank"
+  Url = "/submissions/detail/1113427537/"
+  LangName = "C++"
+  Timestamp = 1701844984
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "6.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

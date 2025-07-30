@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 997543979
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 71
+  TitleSlug = "simplify-path"
+  Code = "class Solution:\n    def simplifyPath(self, path: str) -> str:\n        canonical = []\n        for directory in path.split(\"/\"):\n            if not directory or directory == \".\":\n                continue\n            \n            if directory != \"..\":\n                canonical.append(directory)\n                continue\n            \n            if len(canonical):\n                canonical.pop()\n\n        return \"/\" + \"/\".join(canonical)"
+  Title = "Simplify Path"
+  Url = "/submissions/detail/997543979/"
+  LangName = "Python3"
+  Timestamp = 1689683002
+  Status = 10
+  Runtime = "50 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

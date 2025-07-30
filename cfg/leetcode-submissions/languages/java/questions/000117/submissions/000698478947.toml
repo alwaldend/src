@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 698478947
+  StatusDisplay = "Accepted"
+  Lang = "java"
+  QuestionId = 117
+  TitleSlug = "populating-next-right-pointers-in-each-node-ii"
+  Code = "class Solution {\n    public Node connect(Node root) {\n        Node leftMost = root;\n        while (leftMost != null) {\n            Node cur = leftMost;\n            leftMost = null;\n            Node pre = null;\n            while (cur != null) {\n                if (leftMost == null) {\n                    leftMost = cur.left == null ? cur.right: cur.left;\n                }\n                if (pre != null) {\n                    pre.next = cur.left == null ? cur.right : cur.left;\n                }\n                if (cur.left != null && cur.right != null) {\n                    cur.left.next = cur.right;\n                }\n                pre = cur.right == null ? (cur.left == null ? pre : cur.left) : cur.right;\n                cur = cur.next;\n            }\n        }\n        return root;\n    }\n}"
+  Title = "Populating Next Right Pointers in Each Node II"
+  Url = "/submissions/detail/698478947/"
+  LangName = "Java"
+  Timestamp = 1652415465
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "44.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

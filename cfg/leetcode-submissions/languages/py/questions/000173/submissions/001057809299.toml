@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1057809299
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 173
+  TitleSlug = "binary-search-tree-iterator"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass BSTIterator:\n\n    def __init__(self, root: Optional[TreeNode]):\n        def generate(node: TreeNode) -> int:\n            if not node:\n                return\n            yield from generate(node.left)\n            yield node\n            yield from generate(node.right)\n\n        self._generate = generate(root)\n        self._next = next(self._generate)\n\n    def next(self) -> int:\n        next_val = self._next.val\n        self._next = next(self._generate, None)\n        return next_val \n\n    def hasNext(self) -> bool:\n        return self._next is not None\n\n\n# Your BSTIterator object will be instantiated and called as such:\n# obj = BSTIterator(root)\n# param_1 = obj.next()\n# param_2 = obj.hasNext()"
+  Title = "Binary Search Tree Iterator"
+  Url = "/submissions/detail/1057809299/"
+  LangName = "Python3"
+  Timestamp = 1695549403
+  Status = 10
+  Runtime = "76 ms"
+  IsPending = "Not Pending"
+  Memory = "22.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

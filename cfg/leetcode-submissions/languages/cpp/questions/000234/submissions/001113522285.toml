@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1113522285
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 234
+  TitleSlug = "palindrome-linked-list"
+  Code = "class Solution {\npublic:\n    bool isPalindrome(ListNode* head) {\n        ListNode* slow {head};\n        ListNode* fast {head};\n        ListNode* next;\n        ListNode* prev {new ListNode()};\n\n        while(fast && fast->next) {\n            slow = slow->next;\n            fast = fast->next->next; \n\n            next = head->next;\n            head->next = prev;\n            prev = head;\n            head = next;\n        }\n    \n        if (fast) {\n            slow = slow->next;\n        }\n        head = prev;\n\n        while (slow) {\n            if (head->val != slow->val) {\n                return false;\n            }\n            head = head->next;\n            slow = slow->next;\n        }\n        return true;\n    }\n};"
+  Title = "Palindrome Linked List"
+  Url = "/submissions/detail/1113522285/"
+  LangName = "C++"
+  Timestamp = 1701855940
+  Status = 10
+  Runtime = "137 ms"
+  IsPending = "Not Pending"
+  Memory = "110.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1047631211
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1470
+  TitleSlug = "tweet-counts-per-frequency"
+  Code = "class TweetCounts:\n\n    def __init__(self):\n        self._tweets = defaultdict(list)\n        self._chunk_ranges = {\n            \"minute\": 60, \n            \"hour\": 3600, \n            \"day\": 86400\n        }\n\n    def recordTweet(self, tweetName: str, time: int) -> None:\n        self._tweets[tweetName].append(time)\n\n    def getTweetCountsPerFrequency(self, freq: str, tweetName: str, startTime: int, endTime: int) -> List[int]:\n        chunk_range = self._chunk_ranges[freq]\n        chunks = [0] * (1 + (endTime - startTime) // chunk_range)\n\n        for tweet in self._tweets[tweetName]:\n            if not startTime <= tweet <= endTime:\n                continue\n            chunks[(tweet - startTime) // chunk_range] += 1\n        \n        return chunks\n\n\n\n\n# Your TweetCounts object will be instantiated and called as such:\n# obj = TweetCounts()\n# obj.recordTweet(tweetName,time)\n# param_2 = obj.getTweetCountsPerFrequency(freq,tweetName,startTime,endTime)"
+  Title = "Tweet Counts Per Frequency"
+  Url = "/submissions/detail/1047631211/"
+  LangName = "Python3"
+  Timestamp = 1694536596
+  Status = 10
+  Runtime = "318 ms"
+  IsPending = "Not Pending"
+  Memory = "22.2 MB"
+  CompareResult = "1111111111111111111111"
+  HasNotes = false
+  FlagType = 1

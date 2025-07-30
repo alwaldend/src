@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1000084810
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2383
+  TitleSlug = "add-two-integers"
+  Code = "class Solution:\n    def sum(self, num1: int, num2: int) -> int:\n        return num1 + num2"
+  Title = "Add Two Integers"
+  Url = "/submissions/detail/1000084810/"
+  LangName = "Python3"
+  Timestamp = 1689934717
+  Status = 10
+  Runtime = "39 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

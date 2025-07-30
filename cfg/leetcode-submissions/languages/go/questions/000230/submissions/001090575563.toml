@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1090575563
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 230
+  TitleSlug = "kth-smallest-element-in-a-bst"
+  Code = "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc kthSmallest(root *TreeNode, k int) int {\n    heap := binaryheap.NewWithIntComparator()\n    queue := []*TreeNode{root}\n\n    for length := len(queue); length > 0; length = len(queue) {\n        for i := 0; i < length; i++ {\n            node := queue[i]\n            if node == nil {\n                continue\n            }\n            heap.Push(node.Val)\n            queue = append(queue, node.Left, node.Right)\n        }\n        queue = queue[length:]\n    }\n    var answer any\n    for i := 0; i < k; i++ {\n        answer, _ = heap.Pop()\n    }\n    return answer.(int)\n}\n"
+  Title = "Kth Smallest Element in a BST"
+  Url = "/submissions/detail/1090575563/"
+  LangName = "Go"
+  Timestamp = 1699014027
+  Status = 10
+  Runtime = "12 ms"
+  IsPending = "Not Pending"
+  Memory = "6.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

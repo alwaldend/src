@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1257674099
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1331
+  TitleSlug = "path-with-maximum-gold"
+  Code = "class Solution:\n    roww = [1, -1, 0, 0]\n    coll = [0, 0, -1, 1]\n\n    def dfs(self, grid, x, y, n, m):\n        if x < 0 or x >= n or y < 0 or y >= m or grid[x][y] == 0:\n            return 0\n        \n        curr = grid[x][y]\n        grid[x][y] = 0\n        localMaxGold = curr\n\n        for i in range(4):\n            newX = x + self.roww[i]\n            newY = y + self.coll[i]\n            localMaxGold = max(localMaxGold, curr + self.dfs(grid, newX, newY, n, m))\n\n        grid[x][y] = curr\n        return localMaxGold\n\n    def getMaximumGold(self, grid):\n        n = len(grid)\n        m = len(grid[0])\n        maxGold = 0\n\n        for i in range(n):\n            for j in range(m):\n                if grid[i][j] != 0:\n                    maxGold = max(maxGold, self.dfs(grid, i, j, n, m))\n\n        return maxGold"
+  Title = "Path with Maximum Gold"
+  Url = "/submissions/detail/1257674099/"
+  LangName = "Python3"
+  Timestamp = 1715677567
+  Status = 10
+  Runtime = "4203 ms"
+  IsPending = "Not Pending"
+  Memory = "16.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

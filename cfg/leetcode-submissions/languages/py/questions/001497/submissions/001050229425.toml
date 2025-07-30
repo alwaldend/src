@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1050229425
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1497
+  TitleSlug = "design-a-stack-with-increment-operation"
+  Code = "class CustomStack:\n\n    def __init__(self, maxSize: int):\n        self._stack = []\n        self._max_size = maxSize\n\n    def push(self, x: int) -> None:\n        if len(self._stack) != self._max_size:\n            self._stack.append(x)\n\n    def pop(self) -> int:\n        return self._stack.pop() if self._stack else -1 \n        \n    def increment(self, k: int, val: int) -> None:\n        for i in range(min(k, len(self._stack))):\n            self._stack[i] += val\n\n\n# Your CustomStack object will be instantiated and called as such:\n# obj = CustomStack(maxSize)\n# obj.push(x)\n# param_2 = obj.pop()\n# obj.increment(k,val)"
+  Title = "Design a Stack With Increment Operation"
+  Url = "/submissions/detail/1050229425/"
+  LangName = "Python3"
+  Timestamp = 1694793916
+  Status = 10
+  Runtime = "100 ms"
+  IsPending = "Not Pending"
+  Memory = "17.3 MB"
+  CompareResult = "1111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1033976929
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 225
+  TitleSlug = "implement-stack-using-queues"
+  Code = "class MyStack:\n\n    def __init__(self):\n        self._queue = []\n\n    def push(self, x: int) -> None:\n        self._queue.append(x)\n\n    def pop(self) -> int:\n        return self._queue.pop()\n\n    def top(self) -> int:\n        return self._queue[-1]\n\n    def empty(self) -> bool:\n        return len(self._queue) == 0 \n\n\n# Your MyStack object will be instantiated and called as such:\n# obj = MyStack()\n# obj.push(x)\n# param_2 = obj.pop()\n# param_3 = obj.top()\n# param_4 = obj.empty()"
+  Title = "Implement Stack using Queues"
+  Url = "/submissions/detail/1033976929/"
+  LangName = "Python3"
+  Timestamp = 1693218954
+  Status = 10
+  Runtime = "40 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "11111111111111111"
+  HasNotes = false
+  FlagType = 1

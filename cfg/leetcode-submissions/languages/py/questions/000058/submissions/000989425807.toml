@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 989425807
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 58
+  TitleSlug = "length-of-last-word"
+  Code = "class Solution:\n    # we need to iterate over the string searching for words\n    # add a whitespace to the end to avoid the situation when the last symbol is non-whitespace \n    # possible combinations:\n    # 1. a whitespace after a symbol: end of the word\n    # 2. a whitespace after a whitespace: ignore\n    # 3. a symbol after a symbol: ignore\n    def lengthOfLastWord(self, s: str) -> int:\n        s += \" \"\n        result, word_length = 0, 0\n\n        for i, symbol in enumerate(s):\n            if symbol != \" \":\n                word_length += 1\n                continue\n            \n            if word_length > 0:\n                result = word_length\n                word_length = 0\n        \n        return result"
+  Title = "Length of Last Word"
+  Url = "/submissions/detail/989425807/"
+  LangName = "Python3"
+  Timestamp = 1688831838
+  Status = 10
+  Runtime = "50 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

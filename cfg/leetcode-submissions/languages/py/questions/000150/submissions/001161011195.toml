@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1161011195
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 150
+  TitleSlug = "evaluate-reverse-polish-notation"
+  Code = "class Solution:\n    def evalRPN(self, tokens: List[str]) -> int:\n        stack: list[int] = []\n        for token in tokens:\n            match token:\n                case \"+\":\n                    stack.append(stack.pop() + stack.pop())\n                case \"-\":\n                    last, prev = stack.pop(), stack.pop()\n                    stack.append(prev - last)\n                case \"*\":\n                    stack.append(stack.pop() * stack.pop())\n                case \"/\": \n                    last, prev = stack.pop(), stack.pop()\n                    stack.append(int(prev / last))\n                case _:\n                    stack.append(int(token))\n        return stack[0]"
+  Title = "Evaluate Reverse Polish Notation"
+  Url = "/submissions/detail/1161011195/"
+  LangName = "Python3"
+  Timestamp = 1706618213
+  Status = 10
+  Runtime = "64 ms"
+  IsPending = "Not Pending"
+  Memory = "17.1 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

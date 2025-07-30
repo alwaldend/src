@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1259722346
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2416
+  TitleSlug = "evaluate-boolean-binary-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def helper(self, root):\n        if root.val == 0 or root.val == 1:\n            return root.val == 1\n        elif root.val == 2:\n            return self.helper(root.left) or self.helper(root.right)\n        elif root.val == 3:\n            return self.helper(root.left) and self.helper(root.right)\n        return False\n        \n    def evaluateTree(self, root: Optional[TreeNode]) -> bool:\n        return self.helper(root)"
+  Title = "Evaluate Boolean Binary Tree"
+  Url = "/submissions/detail/1259722346/"
+  LangName = "Python3"
+  Timestamp = 1715872293
+  Status = 10
+  Runtime = "44 ms"
+  IsPending = "Not Pending"
+  Memory = "16.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

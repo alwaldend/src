@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1217254445
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 3213
+  TitleSlug = "count-subarrays-where-max-element-appears-at-least-k-times"
+  Code = "func countSubarrays(nums []int, k int) int64 {\n\tmaxValue := 0\n\tvar maxValueIds []int\n\tvar ans int64\n\n\tfor i, x := range nums {\n\t\tif x > maxValue {\n\t\t\tmaxValue, ans, maxValueIds = x, 0, []int{}\n\t\t}\n\n\t\tif x == maxValue {\n\t\t\tmaxValueIds = append(maxValueIds, i)\n\t\t}\n\n\t\tif len(maxValueIds) >= k {\n\t\t\tans += int64(maxValueIds[len(maxValueIds)-k]) + 1\n\t\t}\n\t}\n\n\treturn ans\n}"
+  Title = "Count Subarrays Where Max Element Appears at Least K Times"
+  Url = "/submissions/detail/1217254445/"
+  LangName = "Go"
+  Timestamp = 1711711816
+  Status = 10
+  Runtime = "125 ms"
+  IsPending = "Not Pending"
+  Memory = "8.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

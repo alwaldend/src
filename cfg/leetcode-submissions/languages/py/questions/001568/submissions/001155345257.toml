@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1155345257
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1568
+  TitleSlug = "pseudo-palindromic-paths-in-a-binary-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def pseudoPalindromicPaths (self, root: Optional[TreeNode]) -> int:\n        if not root:\n            return 0\n        \n        num_count = defaultdict(int)\n        perm_count = 0\n\n        def traverse(node: TreeNode) -> int:\n            val, left, right = node.val, node.left, node.right\n            num_count[val] += 1\n            res = 0\n            if not left and not right:\n                non_even = 0\n                for num in num_count.values():\n                    if num % 2 == 0:\n                        continue\n                    if non_even == 1:\n                        break\n                    non_even += 1\n                else:\n                    res += 1\n            if left:\n                res += traverse(left)\n            if right: \n                res += traverse(right)\n            num_count[val] = max(0, num_count[val] - 1)\n            return res \n\n        return traverse(root)"
+  Title = "Pseudo-Palindromic Paths in a Binary Tree"
+  Url = "/submissions/detail/1155345257/"
+  LangName = "Python3"
+  Timestamp = 1706081967
+  Status = 10
+  Runtime = "415 ms"
+  IsPending = "Not Pending"
+  Memory = "43.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

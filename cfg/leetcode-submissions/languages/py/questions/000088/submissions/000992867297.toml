@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 992867297
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 88
+  TitleSlug = "merge-sorted-array"
+  Code = "class Solution:\n    # have three indexes: nums1 (end of array 1), nums2 (from the end), \n    # and current (nums1 from the end) \n    # if nums2 number is bigger or equal than nums1 number, put the number at the current index,\n    # move both indexes\n    # if nums1 number is smaller than nums2 number, put the number at the current index, \n    # move both indexes  \n    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:\n        \"\"\"\n        Do not return anything, modify nums1 in-place instead.\n        \"\"\"\n\n        nums1_i, nums2_i = m - 1, n - 1\n        for i in range(m + n - 1, -1, -1):\n            nums1_number  = nums1[nums1_i] if nums1_i >= 0 else nums2[0] - 1\n            nums2_number = nums2[nums2_i] if nums2_i >= 0 else nums1[0] - 1\n            if nums1_number >= nums2_number:\n                nums1[i] = nums1_number\n                nums1_i -= 1\n                continue\n            \n            nums1[i] = nums2_number\n            nums2_i -= 1"
+  Title = "Merge Sorted Array"
+  Url = "/submissions/detail/992867297/"
+  LangName = "Python3"
+  Timestamp = 1689183240
+  Status = 10
+  Runtime = "42 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1096516392
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 283
+  TitleSlug = "move-zeroes"
+  Code = "class Solution {\npublic:\n    void moveZeroes(vector<int>& nums) {\n        int length = nums.size();\n        int lastNonZeroFoundAt = 0;\n        for (int i = 0; i < length; ++i) {\n            if (nums[i] != 0) {\n                swap(nums[lastNonZeroFoundAt], nums[i]);\n                lastNonZeroFoundAt += 1;\n            }\n        }\n    }\n};"
+  Title = "Move Zeroes"
+  Url = "/submissions/detail/1096516392/"
+  LangName = "C++"
+  Timestamp = 1699704535
+  Status = 10
+  Runtime = "16 ms"
+  IsPending = "Not Pending"
+  Memory = "19.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

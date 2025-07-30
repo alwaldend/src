@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 995264601
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 290
+  TitleSlug = "word-pattern"
+  Code = "class Solution:\n    def wordPattern(self, pattern: str, s: str) -> bool:\n        words = s.split()\n        words_length, pattern_length = len(words), len(pattern)\n\n        if words_length != pattern_length:\n            return False\n        \n        symbol_to_word = {}\n        word_to_symbol = {}\n\n        for i, symbol in enumerate(pattern):\n            word = words[i]\n            symbol_in, word_in = symbol in symbol_to_word, word in word_to_symbol\n\n            if symbol_in and word_in and symbol_to_word[symbol] == word:\n                continue\n\n            if not symbol_in and not word_in:\n                symbol_to_word[symbol] = word\n                word_to_symbol[word] = symbol\n                continue\n\n            return False\n        \n        return True\n            \n"
+  Title = "Word Pattern"
+  Url = "/submissions/detail/995264601/"
+  LangName = "Python3"
+  Timestamp = 1689444696
+  Status = 10
+  Runtime = "57 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

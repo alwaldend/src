@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1050234332
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1582
+  TitleSlug = "design-browser-history"
+  Code = "class BrowserHistory:\n\n    def __init__(self, homepage: str):\n        self._history = [homepage]\n        self._cur = 0\n\n    def visit(self, url: str) -> None:\n        self._history[self._cur+1:] = (url, )\n        self._cur += 1\n\n    def back(self, steps: int) -> str:\n        self._cur = max(0, self._cur - steps)\n        return self._history[self._cur]\n\n    def forward(self, steps: int) -> str:\n        self._cur = min(len(self._history) - 1, self._cur + steps)\n        return self._history[self._cur]\n\n\n# Your BrowserHistory object will be instantiated and called as such:\n# obj = BrowserHistory(homepage)\n# obj.visit(url)\n# param_2 = obj.back(steps)\n# param_3 = obj.forward(steps)"
+  Title = "Design Browser History"
+  Url = "/submissions/detail/1050234332/"
+  LangName = "Python3"
+  Timestamp = 1694794372
+  Status = 10
+  Runtime = "208 ms"
+  IsPending = "Not Pending"
+  Memory = "19.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

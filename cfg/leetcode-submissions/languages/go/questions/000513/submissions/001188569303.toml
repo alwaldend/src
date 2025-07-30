@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1188569303
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 513
+  TitleSlug = "find-bottom-left-tree-value"
+  Code = "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc findBottomLeftValue(root *TreeNode) int {\n    _, val := getBottomLeft(root)\n    return val\n}\n\nfunc getBottomLeft(root *TreeNode) (int, int) {\n    left, right := root.Left, root.Right\n    if right == nil && left == nil {\n        return 0, root.Val\n    }\n    if right == nil {\n        depth, val := getBottomLeft(root.Left)\n        return 1 + depth, val\n    }\n    if left == nil {\n        depth, val := getBottomLeft(root.Right)\n        return 1 + depth, val\n    }\n    leftDepth, leftVal := getBottomLeft(root.Left)\n    rightDepth, rightVal := getBottomLeft(root.Right)\n    if rightDepth > leftDepth {\n        return 1 + rightDepth, rightVal\n    }\n    return 1 + leftDepth, leftVal\n}"
+  Title = "Find Bottom Left Tree Value"
+  Url = "/submissions/detail/1188569303/"
+  LangName = "Go"
+  Timestamp = 1709112673
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "5.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1091200011
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 25
+  TitleSlug = "reverse-nodes-in-k-group"
+  Code = "func reverseKGroup(head *ListNode, k int) *ListNode {\n\tnode, cnt := head, 0\n\tfor cnt < k {\n\t\tif node == nil {\n\t\t\treturn head\n\t\t}\n\t\tnode = node.Next\n\t\tcnt++\n\t}\n\n\tprev := reverseKGroup(node, k)\n\tfor cnt > 0 {\n\t\tnext := head.Next\n\t\thead.Next = prev\n\t\tprev = head\n\t\thead = next\n\t\tcnt--\n\t}\n\n\treturn prev\n}"
+  Title = "Reverse Nodes in k-Group"
+  Url = "/submissions/detail/1091200011/"
+  LangName = "Go"
+  Timestamp = 1699093603
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "3.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

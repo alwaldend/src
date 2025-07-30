@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1095037372
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1885
+  TitleSlug = "count-number-of-homogenous-substrings"
+  Code = "func countHomogenous(s string) int {\n    var (\n        mod int64 = 1000000007 \n        total int64 = 0\n        count int64 = 0\n        cur = s[0]\n    )\n    \n    for i := 0; i < len(s); i++ {\n        char := s[i]\n        if char == cur {\n            count++\n        } else {\n            count = 1\n            cur = char\n        }\n        total += count\n    }\n    \n    return int(total % mod)\n}"
+  Title = "Count Number of Homogenous Substrings"
+  Url = "/submissions/detail/1095037372/"
+  LangName = "Go"
+  Timestamp = 1699513421
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "6.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

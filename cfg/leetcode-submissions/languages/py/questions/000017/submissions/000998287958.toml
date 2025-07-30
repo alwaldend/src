@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 998287958
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 17
+  TitleSlug = "letter-combinations-of-a-phone-number"
+  Code = "class Solution:\n    def letterCombinations(self, digits: str) -> List[str]:\n        length = len(digits)\n        if length == 0:\n            return []\n        \n        digit_map: Dict[int, str] = {\n            1: [],\n            2: [\"a\", \"b\", \"c\"],\n            3: [\"d\", \"e\", \"f\"],\n            4: [\"g\", \"h\", \"i\"],\n            5: [\"j\", \"k\", \"l\"],\n            6: [\"m\", \"n\", \"o\"],\n            7: [\"p\", \"q\", \"r\", \"s\"],\n            8: [\"t\", \"u\", \"v\"],\n            9: [\"w\", \"x\", \"y\", \"z\"],\n            0: [\" \"]\n        }\n        result: List[List[str]] = [\n            digit_map[int(digit)] for digit in digits\n        ]\n        return [\"\".join(i) for i in product(*result)]"
+  Title = "Letter Combinations of a Phone Number"
+  Url = "/submissions/detail/998287958/"
+  LangName = "Python3"
+  Timestamp = 1689755119
+  Status = 10
+  Runtime = "44 ms"
+  IsPending = "Not Pending"
+  Memory = "16.1 MB"
+  CompareResult = "1111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

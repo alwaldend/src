@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 692928951
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 121
+  TitleSlug = "best-time-to-buy-and-sell-stock"
+  Code = "\nfunc maxProfit(prices []int) int {\n\tprofit, index_buy := 0, 0\n\tfor index, price := range prices {\n\t\tif prices[index_buy] > price {\n\t\t\tindex_buy = index\n\t\t}\n\t\tnew_profit := price - prices[index_buy]\n\t\tif new_profit > profit {\n\t\t\tprofit = new_profit\n\t\t}\n\t}\n\treturn profit\n}"
+  Title = "Best Time to Buy and Sell Stock"
+  Url = "/submissions/detail/692928951/"
+  LangName = "Go"
+  Timestamp = 1651659234
+  Status = 10
+  Runtime = "174 ms"
+  IsPending = "Not Pending"
+  Memory = "8.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

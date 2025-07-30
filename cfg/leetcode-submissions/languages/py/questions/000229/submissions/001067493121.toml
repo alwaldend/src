@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1067493121
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 229
+  TitleSlug = "majority-element-ii"
+  Code = "class Solution:\n    def majorityElement(self, nums: List[int]) -> List[int]:\n        nums.sort()\n        threshold = len(nums) // 3\n        cur_num, cur_count = nums[0], 1\n        answer = []\n        for num in nums[1:]:\n            if num == cur_num:\n                cur_count += 1\n                continue\n            if cur_count > threshold:\n                answer.append(cur_num)\n            cur_num, cur_count = num, 1\n        if cur_count > threshold:\n            answer.append(cur_num)\n        return answer"
+  Title = "Majority Element II"
+  Url = "/submissions/detail/1067493121/"
+  LangName = "Python3"
+  Timestamp = 1696488397
+  Status = 10
+  Runtime = "105 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

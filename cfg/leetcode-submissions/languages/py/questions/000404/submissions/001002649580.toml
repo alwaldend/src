@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1002649580
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 404
+  TitleSlug = "sum-of-left-leaves"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:\n        nodes = set([root])\n        result = 0\n\n        while nodes:\n            node = nodes.pop()\n            \n            if node.left and not node.left.left and not node.left.right:\n                result += node.left.val\n            elif node.left:\n                nodes.add(node.left)\n            \n            if node.right:\n                nodes.add(node.right)\n            \n        return result"
+  Title = "Sum of Left Leaves"
+  Url = "/submissions/detail/1002649580/"
+  LangName = "Python3"
+  Timestamp = 1690205534
+  Status = 10
+  Runtime = "47 ms"
+  IsPending = "Not Pending"
+  Memory = "16.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

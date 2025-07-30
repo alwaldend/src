@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 690860583
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 88
+  TitleSlug = "merge-sorted-array"
+  Code = "\nfunc merge(array1 []int, length1 int, array2 []int, length2 int) {\n\tindex1, index2, array1Copy := 0, 0, make([]int, length1)\n\tcopy(array1Copy, array1)\n\tfor index := 0; index < length1+length2; index++ {\n\t\tfmt.Println(index, index1, index2, array1, array2)\n\t\tif index2 < length2 && (index1 >= length1 || array2[index2] <= array1Copy[index1]) {\n\t\t\tarray1[index] = array2[index2]\n\t\t\tindex2++\n\t\t\tcontinue\n\t\t}\n\t\tarray1[index] = array1Copy[index1]\n\t\tindex1++\n\n\t}\n}"
+  Title = "Merge Sorted Array"
+  Url = "/submissions/detail/690860583/"
+  LangName = "Go"
+  Timestamp = 1651399965
+  Status = 10
+  Runtime = "97 ms"
+  IsPending = "Not Pending"
+  Memory = "6.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

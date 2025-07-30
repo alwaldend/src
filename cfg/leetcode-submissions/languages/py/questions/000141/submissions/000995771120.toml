@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 995771120
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 141
+  TitleSlug = "linked-list-cycle"
+  Code = "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.next = None\n\nclass Solution:\n    def hasCycle(self, head: Optional[ListNode]) -> bool:\n        slow_p, fast_p = head, head.next if head else None\n        while fast_p and fast_p.next:\n            if slow_p == fast_p:\n                return True\n            slow_p, fast_p = slow_p.next, fast_p.next.next\n\n        return False"
+  Title = "Linked List Cycle"
+  Url = "/submissions/detail/995771120/"
+  LangName = "Python3"
+  Timestamp = 1689501222
+  Status = 10
+  Runtime = "64 ms"
+  IsPending = "Not Pending"
+  Memory = "20.6 MB"
+  CompareResult = "11111111111111111111111"
+  HasNotes = false
+  FlagType = 1

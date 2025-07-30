@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1144544966
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1823
+  TitleSlug = "determine-if-string-halves-are-alike"
+  Code = "class Solution:\n    def halvesAreAlike(self, s: str) -> bool:\n        def count_vowels(string):\n            vowels = set('aeiouAEIOU')\n            return sum(1 for char in string if char in vowels)\n\n        length = len(s)\n        mid_point = length // 2\n\n        first_half = s[:mid_point]\n        second_half = s[mid_point:]\n\n        return count_vowels(first_half) == count_vowels(second_half)"
+  Title = "Determine if String Halves Are Alike"
+  Url = "/submissions/detail/1144544966/"
+  LangName = "Python3"
+  Timestamp = 1705092940
+  Status = 10
+  Runtime = "30 ms"
+  IsPending = "Not Pending"
+  Memory = "17.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

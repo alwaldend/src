@@ -2,12 +2,13 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log/slog"
 	"os"
 	"path/filepath"
 	"slices"
+
+	"github.com/BurntSushi/toml"
 
 	proto "git.alwaldend.com/src/go/leetcode-downloader/proto"
 )
@@ -52,7 +53,8 @@ func (self *Generator) write(submission *proto.Submission) error {
 		return err
 	}
 	codeContent := []byte(submission.Code)
-	dataContent, err := json.MarshalIndent(submission, "", "    ")
+	storage := &proto.SubmissonsStorage{Submissions: []*proto.Submission{submission}}
+	dataContent, err := toml.Marshal(storage)
 	if err != nil {
 		return err
 	}
@@ -66,7 +68,7 @@ func (self *Generator) write(submission *proto.Submission) error {
 		return err
 	}
 	codePath := filepath.Join(dir, fmt.Sprintf("%s.%s", name, extension))
-	dataPath := filepath.Join(dir, fmt.Sprintf("%s.%s", name, "json"))
+	dataPath := filepath.Join(dir, fmt.Sprintf("%s.%s", name, "toml"))
 	if self.config.WriteCode {
 		err = os.WriteFile(codePath, codeContent, 0o644)
 		if err != nil {
@@ -85,8 +87,8 @@ func (self *Generator) submissionDir(submission *proto.Submission) (string, erro
 	if err != nil {
 		return "", err
 	}
-	question := fmt.Sprintf("question-%06d", submission.QuestionId)
-	res := filepath.Join(config.Dir, question)
+	question := fmt.Sprintf("%06d", submission.QuestionId)
+	res := filepath.Join(config.Dir, "questions", question, "submissions")
 	return res, nil
 }
 
@@ -108,6 +110,6 @@ func (self *Generator) submissionExtension(submission *proto.Submission) (string
 }
 
 func (self *Generator) submissionName(submission *proto.Submission) (string, error) {
-	name := fmt.Sprintf("submission-%012d", submission.Id)
+	name := fmt.Sprintf("%012d", submission.Id)
 	return name, nil
 }

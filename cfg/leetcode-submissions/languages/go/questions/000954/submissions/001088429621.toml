@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1088429621
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 954
+  TitleSlug = "maximum-sum-circular-subarray"
+  Code = "func max(a, b int) int {\n    if a > b {\n        return a\n    }\n    return b\n}\n\nfunc min(a, b int) int {\n    if a < b {\n        return a\n    }\n    return b\n}\n\nfunc maxSubarraySumCircular(nums []int) int {\n    var (\n        max_sum_ending_here = 0\n        min_sum_ending_here = 0\n        max_sum_so_far = math.MinInt\n        min_sum_so_far = math.MaxInt\n        total = 0\n    )\n    for i := 0; i < len(nums); i++ {\n        num := nums[i]\n        total += num\n        max_sum_ending_here += num\n        min_sum_ending_here += num\n        max_sum_so_far = max(max_sum_so_far, max_sum_ending_here)\n        min_sum_so_far = min(min_sum_so_far, min_sum_ending_here)\n        max_sum_ending_here = max(max_sum_ending_here, 0)\n        min_sum_ending_here = min(min_sum_ending_here, 0)\n    }\n    if max_sum_so_far < 0 {\n        return max_sum_so_far\n    }\n    return max(max_sum_so_far, total - min_sum_so_far)\n}"
+  Title = "Maximum Sum Circular Subarray"
+  Url = "/submissions/detail/1088429621/"
+  LangName = "Go"
+  Timestamp = 1698765514
+  Status = 10
+  Runtime = "55 ms"
+  IsPending = "Not Pending"
+  Memory = "7.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

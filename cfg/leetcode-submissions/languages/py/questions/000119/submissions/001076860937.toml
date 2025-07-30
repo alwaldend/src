@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1076860937
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 119
+  TitleSlug = "pascals-triangle-ii"
+  Code = "class Solution:\n    def getRow(self, rowIndex: int) -> List[int]:\n        cur, prev = [], [1]\n        row = 0\n\n        while row < rowIndex:\n            cur.append(1)\n            for i in range(1, len(prev)):\n                cur.append(prev[i] + prev[i-1])\n            cur.append(1)\n            prev.clear()\n            cur, prev = prev, cur\n            row += 1\n        \n        return prev "
+  Title = "Pascal's Triangle II"
+  Url = "/submissions/detail/1076860937/"
+  LangName = "Python3"
+  Timestamp = 1697477527
+  Status = 10
+  Runtime = "46 ms"
+  IsPending = "Not Pending"
+  Memory = "16.2 MB"
+  CompareResult = "1111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

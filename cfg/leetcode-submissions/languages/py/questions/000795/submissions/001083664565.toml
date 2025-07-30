@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1083664565
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 795
+  TitleSlug = "k-th-symbol-in-grammar"
+  Code = "class Solution:\n    def kthGrammar(self, n: int, k: int) -> int:\n\n        def get(row: int, column: int) -> int:\n            if column == 0 or column == 1:\n                return column\n            \n            prev_row_length = 2 ** (row - 1)\n            if column >= prev_row_length:\n                return 1 ^ get(row - 1, column - prev_row_length)\n            return get(row - 1, column)\n\n        return get(n - 1, k - 1)\n\n        # 0\n        # 0 1\n        # 0 1 1 0\n        # 0 1 1 0 1 0 0 1\n        # 0 1 1 0 1 0 0 1\n"
+  Title = "K-th Symbol in Grammar"
+  Url = "/submissions/detail/1083664565/"
+  LangName = "Python3"
+  Timestamp = 1698222666
+  Status = 10
+  Runtime = "41 ms"
+  IsPending = "Not Pending"
+  Memory = "16.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

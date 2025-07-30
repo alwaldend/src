@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1014559313
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 70
+  TitleSlug = "climbing-stairs"
+  Code = "class Solution:\n    def climbStairs(self, n: int) -> int:\n\n        @cache\n        def dp(step: int) -> int:\n            if step <= 2:\n                return step\n            \n            return dp(step - 1) + dp(step - 2) \n \n        return dp(n)"
+  Title = "Climbing Stairs"
+  Url = "/submissions/detail/1014559313/"
+  LangName = "Python3"
+  Timestamp = 1691401554
+  Status = 10
+  Runtime = "40 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

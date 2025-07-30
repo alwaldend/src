@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 956374623
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 27
+  TitleSlug = "remove-element"
+  Code = "class Solution:\n    def removeElement(self, nums: List[int], val: int) -> int:\n        length = len(nums)\n\n        if not length: \n            return 0\n\n        first = nums[0]\n        if length == 1 and first == val:\n            nums.pop()\n            return 0\n        if length == 1 and first != val:\n            return 1\n        \n        not_equal_index = -1 if first == val else 0\n        for i, number in enumerate(nums[1:], 1):\n            if number == val:\n                continue\n\n            not_equal_index += 1\n            nums[not_equal_index] = number\n\n        return not_equal_index + 1\n            \n\n"
+  Title = "Remove Element"
+  Url = "/submissions/detail/956374623/"
+  LangName = "Python3"
+  Timestamp = 1684923903
+  Status = 10
+  Runtime = "47 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

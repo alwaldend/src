@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 995750483
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 219
+  TitleSlug = "contains-duplicate-ii"
+  Code = "class Solution:\n    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:\n        indexes = defaultdict(set)\n        for i, number in enumerate(nums):\n            if number in indexes and any(abs(i - j) <= k for j in indexes[number]):\n                return True\n            indexes[number].add(i)\n        return False\n\n            "
+  Title = "Contains Duplicate II"
+  Url = "/submissions/detail/995750483/"
+  LangName = "Python3"
+  Timestamp = 1689498970
+  Status = 10
+  Runtime = "682 ms"
+  IsPending = "Not Pending"
+  Memory = "46.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

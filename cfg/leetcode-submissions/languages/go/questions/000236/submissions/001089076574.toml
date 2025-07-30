@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1089076574
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 236
+  TitleSlug = "lowest-common-ancestor-of-a-binary-tree"
+  Code = "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\n func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {\n    if root == nil {\n\t\treturn nil\n\t}\n    if root == p || root == q {\n\t\treturn root\n\t}\n    left, right := lowestCommonAncestor(root.Left, p, q), lowestCommonAncestor(root.Right, p, q)\n    if left != nil && right != nil {\n\t\treturn root\n\t}\n\tif left != nil {\n\t\treturn left\n\t}\n\treturn right\n}"
+  Title = "Lowest Common Ancestor of a Binary Tree"
+  Url = "/submissions/detail/1089076574/"
+  LangName = "Go"
+  Timestamp = 1698840114
+  Status = 10
+  Runtime = "6 ms"
+  IsPending = "Not Pending"
+  Memory = "7 MB"
+  CompareResult = "1111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

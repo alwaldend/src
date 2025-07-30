@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1042088778
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 725
+  TitleSlug = "split-linked-list-in-parts"
+  Code = "class Solution:\n    def splitListToParts(self, head: Optional[ListNode], k: int) -> List[Optional[ListNode]]:        \n        nodes_count = 0\n        tail = head\n        while tail:\n            tail = tail.next\n            nodes_count += 1\n        \n        quotient, remainder = divmod(nodes_count, k)\n        answer = []\n        for i in range(k):\n            size = quotient + 1 if (remainder := remainder - 1) >= 0 else quotient\n\n            answer.append(head)\n            last = None\n            while size > 0:\n                last = head\n                head = head.next\n                size -= 1\n            if last: \n                last.next = None\n                \n        return answer"
+  Title = "Split Linked List in Parts"
+  Url = "/submissions/detail/1042088778/"
+  LangName = "Python3"
+  Timestamp = 1694001543
+  Status = 10
+  Runtime = "39 ms"
+  IsPending = "Not Pending"
+  Memory = "16.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

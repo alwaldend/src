@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1066540135
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 817
+  TitleSlug = "design-hashmap"
+  Code = "class ListNode:\n    def __init__(self, key, value):\n        self.key = key\n        self.value = value\n        self.next = None\n\nclass MyHashMap:\n\n    def __init__(self):\n        self.size = 1000\n        self.table = [None] * self.size\n\n    def _index(self, key: int) -> int:\n        return key % self.size\n\n    def put(self, key: int, value: int) -> None:\n        idx = self._index(key)\n        if not self.table[idx]:\n            self.table[idx] = ListNode(key, value)\n            return\n        current = self.table[idx]\n        while current:\n            if current.key == key:\n                current.value = value\n                return\n            if not current.next:\n                current.next = ListNode(key, value)\n                return\n            current = current.next\n\n    def get(self, key: int) -> int:\n        idx = self._index(key)\n        current = self.table[idx]\n        while current:\n            if current.key == key:\n                return current.value\n            current = current.next\n        return -1\n\n    def remove(self, key: int) -> None:\n        idx = self._index(key)\n        current = self.table[idx]\n        if not current:\n            return\n        if current.key == key:\n            self.table[idx] = current.next\n            return\n        while current.next:\n            if current.next.key == key:\n                current.next = current.next.next\n                return\n            current = current.next\n\n\n# Your MyHashMap object will be instantiated and called as such:\n# obj = MyHashMap()\n# obj.put(key,value)\n# param_2 = obj.get(key)\n# obj.remove(key)"
+  Title = "Design HashMap"
+  Url = "/submissions/detail/1066540135/"
+  LangName = "Python3"
+  Timestamp = 1696399201
+  Status = 10
+  Runtime = "210 ms"
+  IsPending = "Not Pending"
+  Memory = "20.1 MB"
+  CompareResult = "111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

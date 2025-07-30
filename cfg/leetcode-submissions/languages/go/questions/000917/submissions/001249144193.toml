@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1249144193
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 917
+  TitleSlug = "boats-to-save-people"
+  Code = "func numRescueBoats(people []int, limit int) int {\n    sort.Ints(people)\n\n    numberOfBouts := 0\n\n    start := 0\n    end := len(people)-1\n\n    for start < end {\n        if people[start] + people[end] <= limit {\n            numberOfBouts++\n            start++\n        }else{\n            numberOfBouts++\n        }\n        end--\n    }\n\n    if start == end {\n        numberOfBouts++\n    }\n\n    return numberOfBouts\n}"
+  Title = "Boats to Save People"
+  Url = "/submissions/detail/1249144193/"
+  LangName = "Go"
+  Timestamp = 1714835316
+  Status = 10
+  Runtime = "56 ms"
+  IsPending = "Not Pending"
+  Memory = "7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1102670067
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 144
+  TitleSlug = "binary-tree-preorder-traversal"
+  Code = "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    vector<int> preorderTraversal(TreeNode* root) {\n        if (root == nullptr) {\n            return {};\n        }\n        std::vector<int> ans{};\n        std::vector<TreeNode*> q{root};\n        while (q.size() != 0) {\n            auto node = q.back();\n            auto left{node->left}, right{node->right};\n            q.pop_back();\n            ans.push_back(node->val);\n            if (right != nullptr) {\n                q.push_back(right);\n            }\n            if (left != nullptr) {\n                q.push_back(left);\n            }\n        }\n        return ans;\n    }\n};"
+  Title = "Binary Tree Preorder Traversal"
+  Url = "/submissions/detail/1102670067/"
+  LangName = "C++"
+  Timestamp = 1700479885
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "8.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

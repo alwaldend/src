@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1062848616
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 456
+  TitleSlug = "132-pattern"
+  Code = "class Solution:\n    def find132pattern(self, nums: List[int]) -> bool:\n        if len(nums) < 3:\n            return False\n        min_array = [-1] * len(nums)\n        min_array[0] = nums[0]\n        for i in range(1, len(nums)):\n            min_array[i] = min(min_array[i - 1], nums[i])\n\n        k = len(nums)\n        for j in range(len(nums) - 1, -1, -1):\n            if nums[j] <= min_array[j]:\n                continue\n            while k < len(nums) and nums[k] <= min_array[j]:\n                k += 1\n            if k < len(nums) and nums[k] < nums[j]:\n                return True\n            k -= 1\n            nums[k] = nums[j]\n        return False"
+  Title = "132 Pattern"
+  Url = "/submissions/detail/1062848616/"
+  LangName = "Python3"
+  Timestamp = 1696057744
+  Status = 10
+  Runtime = "423 ms"
+  IsPending = "Not Pending"
+  Memory = "36.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

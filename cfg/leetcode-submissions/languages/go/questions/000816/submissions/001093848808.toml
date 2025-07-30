@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1093848808
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 816
+  TitleSlug = "design-hashset"
+  Code = "type MyHashSet struct {\n    m map[int]struct{}\n}\n\n\nfunc Constructor() MyHashSet {\n    return MyHashSet{map[int]struct{}{}}\n}\n\n\nfunc (this *MyHashSet) Add(key int)  {\n    this.m[key] = struct{}{}\n}\n\n\nfunc (this *MyHashSet) Remove(key int)  {\n    delete(this.m, key)\n}\n\n\nfunc (this *MyHashSet) Contains(key int) bool {\n    _, ok := this.m[key]\n    return ok\n}\n\n\n/**\n * Your MyHashSet object will be instantiated and called as such:\n * obj := Constructor();\n * obj.Add(key);\n * obj.Remove(key);\n * param_3 := obj.Contains(key);\n */"
+  Title = "Design HashSet"
+  Url = "/submissions/detail/1093848808/"
+  LangName = "Go"
+  Timestamp = 1699383405
+  Status = 10
+  Runtime = "68 ms"
+  IsPending = "Not Pending"
+  Memory = "8.1 MB"
+  CompareResult = "111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

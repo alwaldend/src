@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 689769078
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 14
+  TitleSlug = "longest-common-prefix"
+  Code = "func longestCommonPrefix(strings []string) string {\n\tswitch len(strings) {\n\tcase 0:\n\t\treturn \"\"\n\tcase 1:\n\t\treturn strings[0]\n\t}\n\tresult := strings[0]\nfor index := 1; index < len(strings); index++ {\n\t\tcurrent := strings[index]\n\t\tprevious := strings[index-1]\n\t\tcurrent_max := len(current)\n\t\tresult_max := len(result)\n\t\tvar slice_max int\n\t\tif result_max > current_max {\n\t\t\tslice_max = current_max\n\t\t\tresult = result[0:slice_max]\n\t\t} else {\n\t\t\tslice_max = result_max\n\t\t}\n\t\tfor ; slice_max >= 0; slice_max-- {\n\t\t\tcurrent_slice := current[0:slice_max]\n\t\t\tif current_slice == previous[0:slice_max] {\n\t\t\t\tresult = current_slice\n\t\t\t\tbreak\n\t\t\t}\n\t\t\tif slice_max == 0 {\n\t\t\t\treturn \"\"\n\t\t\t}\n\t\t}\n\t}\t\n    return result\n}"
+  Title = "Longest Common Prefix"
+  Url = "/submissions/detail/689769078/"
+  LangName = "Go"
+  Timestamp = 1651251166
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "2.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

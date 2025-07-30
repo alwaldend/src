@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1166558069
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 387
+  TitleSlug = "first-unique-character-in-a-string"
+  Code = "class Solution:\n    def firstUniqChar(self, s: str) -> int:\n        counter = [0] * 26\n\n        for char in s:\n            idx = ord(char) - ord('a')\n            if counter[idx] in (0, 1):\n                counter[idx] += 1\n        for i in range(len(s)):\n            if counter[ord(s[i]) - ord('a')] == 1:\n                return i\n        return -1"
+  Title = "First Unique Character in a String"
+  Url = "/submissions/detail/1166558069/"
+  LangName = "Python3"
+  Timestamp = 1707117178
+  Status = 10
+  Runtime = "103 ms"
+  IsPending = "Not Pending"
+  Memory = "16.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1037758248
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 207
+  TitleSlug = "course-schedule"
+  Code = "class Solution:\n    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:\n        \n        nodes = [[] for _ in range(numCourses)]\n        for target, required in prerequisites:\n            nodes[target].append(required)\n\n        visited = set()\n\n        @cache\n        def dfs(course: int) -> bool:\n            if course in visited:\n                return False\n    \n            edges = nodes[course]\n            if not edges:\n                return True\n            \n            visited.add(course)\n            return all(dfs(edge) for edge in edges)\n\n        for course in range(numCourses):\n            if not dfs(course):\n                return False\n            visited.clear()\n        \n        return True"
+  Title = "Course Schedule"
+  Url = "/submissions/detail/1037758248/"
+  LangName = "Python3"
+  Timestamp = 1693582708
+  Status = 10
+  Runtime = "110 ms"
+  IsPending = "Not Pending"
+  Memory = "22.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

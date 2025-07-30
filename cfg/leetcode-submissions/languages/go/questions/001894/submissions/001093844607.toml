@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1093844607
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1894
+  TitleSlug = "merge-strings-alternately"
+  Code = "func mergeAlternately(word1 string, word2 string) string {\n    var sb strings.Builder\n    length1, length2 := len(word1), len(word2)\n    for i := 0; i < max(length1, length2); i++ {\n        if i == length1 {\n            sb.WriteString(word2[i:length2])\n            break\n        }\n        if i == length2 {\n            sb.WriteString(word1[i:length1])\n            break\n        }\n        sb.WriteByte(word1[i])\n        sb.WriteByte(word2[i])\n    }\n    return sb.String()\n}"
+  Title = "Merge Strings Alternately"
+  Url = "/submissions/detail/1093844607/"
+  LangName = "Go"
+  Timestamp = 1699383049
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "2.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1242304216
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1224
+  TitleSlug = "minimum-falling-path-sum-ii"
+  Code = "\n\ntype Triplet struct {\n\tminSum       int\n\tsecondMinSum int\n\tminSumIndex  int\n}\n\nfunc minFallingPathSum(grid [][]int) int {\n\treturn minFallingPathSumHelper(0, grid).minSum\n}\n\nfunc minFallingPathSumHelper(row int, grid [][]int) Triplet {\n\tif row == len(grid) {\n\t\treturn Triplet{0, 0, 0}\n\t}\n\n\tnextRowTriplet := minFallingPathSumHelper(row+1, grid)\n\tcurrentTriplet := Triplet{math.MaxInt32, math.MaxInt32, -1}\n\n\tfor col := 0; col < len(grid[0]); col++ {\n\t\tvar value int\n\t\tif col != nextRowTriplet.minSumIndex {\n\t\t\tvalue = grid[row][col] + nextRowTriplet.minSum\n\t\t} else {\n\t\t\tvalue = grid[row][col] + nextRowTriplet.secondMinSum\n\t\t}\n\n\t\tif value <= currentTriplet.minSum {\n\t\t\tcurrentTriplet.secondMinSum = currentTriplet.minSum\n\t\t\tcurrentTriplet.minSum = value\n\t\t\tcurrentTriplet.minSumIndex = col\n\t\t} else if value < currentTriplet.secondMinSum {\n\t\t\tcurrentTriplet.secondMinSum = value\n\t\t}\n\t}\n\n\treturn currentTriplet\n}\n\n"
+  Title = "Minimum Falling Path Sum II"
+  Url = "/submissions/detail/1242304216/"
+  LangName = "Go"
+  Timestamp = 1714116862
+  Status = 10
+  Runtime = "22 ms"
+  IsPending = "Not Pending"
+  Memory = "6.8 MB"
+  CompareResult = "1111111111111111"
+  HasNotes = false
+  FlagType = 1

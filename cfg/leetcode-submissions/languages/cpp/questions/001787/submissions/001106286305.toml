@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1106286305
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1787
+  TitleSlug = "sum-of-absolute-differences-in-a-sorted-array"
+  Code = "class Solution {\npublic:\n    vector<int> getSumAbsoluteDifferences(vector<int>& nums) {\n        int n = nums.size();\n        vector<int> prefix = {nums[0]};\n        for (int i = 1; i < n; i++) {\n            prefix.push_back(prefix[i - 1] + nums[i]);\n        }\n        vector<int> ans;\n        for (int i = 0; i < n; i++) {\n            int leftSum = prefix[i] - nums[i];\n            int rightSum = prefix[n - 1] - prefix[i];\n            \n            int leftCount = i;\n            int rightCount = n - 1 - i;\n            \n            int leftTotal = leftCount * nums[i] - leftSum;\n            int rightTotal = rightSum - rightCount * nums[i];\n            \n            ans.push_back(leftTotal + rightTotal);\n        }\n        return ans;\n    }\n};"
+  Title = "Sum of Absolute Differences in a Sorted Array"
+  Url = "/submissions/detail/1106286305/"
+  LangName = "C++"
+  Timestamp = 1700938822
+  Status = 10
+  Runtime = "104 ms"
+  IsPending = "Not Pending"
+  Memory = "94.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1137494224
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 300
+  TitleSlug = "longest-increasing-subsequence"
+  Code = "class Solution:\n    def lengthOfLIS(self, nums: List[int]) -> int:\n        if not nums:\n            return 0\n\n        n = len(nums)\n        dp = [1] * n\n\n        for i in range(1, n):\n            for j in range(i):\n                if nums[i] > nums[j]:\n                    dp[i] = max(dp[i], dp[j] + 1)\n\n        return max(dp)\n\n"
+  Title = "Longest Increasing Subsequence"
+  Url = "/submissions/detail/1137494224/"
+  LangName = "Python3"
+  Timestamp = 1704448849
+  Status = 10
+  Runtime = "1779 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

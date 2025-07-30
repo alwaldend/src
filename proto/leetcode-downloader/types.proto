@@ -38,7 +38,7 @@ message Submission {
   string title = 7;
   string url = 8;
   string lang_name = 9;
-  string time = 10;
+  // string time = 10;
   uint64 timestamp = 11;
   uint64 status = 12;
   string runtime = 13;

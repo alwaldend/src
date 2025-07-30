@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 993689950
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 14
+  TitleSlug = "longest-common-prefix"
+  Code = "class Solution:\n    \n    def longestCommonPrefix(self, strs: List[str]) -> str:\n        if len(strs) == 1:\n            return strs[0]\n\n        min_length = min([len(string) for string in strs])\n        for i in range(min_length, -1, -1):\n            current = strs[0][0:i+1]\n            for string in strs[1:]:\n                if string[0:i+1] != current:\n                    break\n            else:\n                return current\n\n        return \"\"    "
+  Title = "Longest Common Prefix"
+  Url = "/submissions/detail/993689950/"
+  LangName = "Python3"
+  Timestamp = 1689270543
+  Status = 10
+  Runtime = "47 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

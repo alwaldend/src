@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1083730897
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 211
+  TitleSlug = "design-add-and-search-words-data-structure"
+  Code = "class TrieNode:\n    def __init__(self):\n        self.children = {}\n        self.is_word = False\n\nclass WordDictionary:\n\n    def __init__(self):\n        self.root = TrieNode()\n\n    def addWord(self, word: str) -> None:\n        cur = self.root\n        for char in word:\n            cur = cur.children.setdefault(char, TrieNode())\n        cur.is_word = True\n\n    def search(self, word: str) -> bool:\n        cur, nxt = [self.root], []\n        \n        for char in word:\n            if not cur:\n                return False\n\n            if char == \".\":\n                for node in cur:\n                    nxt.extend(node.children.values())\n            else:\n                for node in cur:\n                    if char in node.children:\n                        nxt.append(node.children[char]) \n                \n            cur.clear()\n            cur, nxt = nxt, cur\n\n        return any(node.is_word for node in cur)\n            \n\n\n\n# Your WordDictionary object will be instantiated and called as such:\n# obj = WordDictionary()\n# obj.addWord(word)\n# param_2 = obj.search(word)"
+  Title = "Design Add and Search Words Data Structure"
+  Url = "/submissions/detail/1083730897/"
+  LangName = "Python3"
+  Timestamp = 1698230259
+  Status = 10
+  Runtime = "2418 ms"
+  IsPending = "Not Pending"
+  Memory = "80.1 MB"
+  CompareResult = "11111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

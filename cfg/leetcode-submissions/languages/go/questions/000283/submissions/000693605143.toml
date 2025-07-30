@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 693605143
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 283
+  TitleSlug = "move-zeroes"
+  Code = "func moveZeroes(nums []int)  {\n    count:=0\n    for i:=0; i<len(nums);i++{\n        if nums[i] == 0{\n            count++\n        }else{\n            nums[i-count]=nums[i]\n        }\n    }\n    for count>0{\n        nums[len(nums)-count] = 0\n        count--\n    }\n    \n    \n}"
+  Title = "Move Zeroes"
+  Url = "/submissions/detail/693605143/"
+  LangName = "Go"
+  Timestamp = 1651747146
+  Status = 10
+  Runtime = "32 ms"
+  IsPending = "Not Pending"
+  Memory = "6.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 690025524
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 653
+  TitleSlug = "two-sum-iv-input-is-a-bst"
+  Code = "\nfunc construct(root *TreeNode, results map[int]int) {\n\tif root == nil {\n\t\treturn\n\t}\n\tif results[root.Val] < 2 {\n\t\tresults[root.Val] += 1\n\t}\n\tconstruct(root.Left, results)\n\tconstruct(root.Right, results)\n}\n\nfunc findTarget(root *TreeNode, target int) bool {\n\tresults := map[int]int{}\n\tconstruct(root, results)\n\tfor number, count := range results {\n\t\tif count == 2 && number*2 == target {\n\t\t\treturn true\n\t\t}\n\t\tfor number_inner := range results {\n\t\t\tif number_inner <= number {\n\t\t\t\tcontinue\n\t\t\t}\n\t\t\tif number+number_inner == target {\n\t\t\t\treturn true\n\t\t\t}\n\t\t}\n\t}\n\treturn false\n}"
+  Title = "Two Sum IV - Input is a BST"
+  Url = "/submissions/detail/690025524/"
+  LangName = "Go"
+  Timestamp = 1651294326
+  Status = 10
+  Runtime = "73 ms"
+  IsPending = "Not Pending"
+  Memory = "7.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

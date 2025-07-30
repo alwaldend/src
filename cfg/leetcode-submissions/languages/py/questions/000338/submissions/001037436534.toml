@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1037436534
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 338
+  TitleSlug = "counting-bits"
+  Code = "class Solution:\n    def countBits(self, n: int) -> List[int]:\n        return tuple(bin(i).count(\"1\") for i in range(n + 1))"
+  Title = "Counting Bits"
+  Url = "/submissions/detail/1037436534/"
+  LangName = "Python3"
+  Timestamp = 1693551313
+  Status = 10
+  Runtime = "78 ms"
+  IsPending = "Not Pending"
+  Memory = "23.1 MB"
+  CompareResult = "111111111111111"
+  HasNotes = false
+  FlagType = 1

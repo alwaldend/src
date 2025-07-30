@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1246395216
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 863
+  TitleSlug = "sum-of-distances-in-tree"
+  Code = "\nfunc sumOfDistancesInTree(n int, edges [][]int) []int {\n\tgraph := make(map[int][]int)\n\tcount := make([]int, n)\n\tres := make([]int, n)\n\n\tfor _, edge := range edges {\n\t\tu, v := edge[0], edge[1]\n\t\tgraph[u] = append(graph[u], v)\n\t\tgraph[v] = append(graph[v], u)\n\t}\n\n\tvar dfs1 func(cur, parent int)\n\tdfs1 = func(cur, parent int) {\n\t\tcount[cur] = 1\n\t\tfor _, child := range graph[cur] {\n\t\t\tif child != parent {\n\t\t\t\tdfs1(child, cur)\n\t\t\t\tcount[cur] += count[child]\n\t\t\t\tres[cur] += res[child] + count[child]\n\t\t\t}\n\t\t}\n\t}\n\n\tvar dfs2 func(cur, parent int)\n\tdfs2 = func(cur, parent int) {\n\t\tfor _, child := range graph[cur] {\n\t\t\tif child != parent {\n\t\t\t\tres[child] = res[cur] + n - 2*count[child]\n\t\t\t\tdfs2(child, cur)\n\t\t\t}\n\t\t}\n\t}\n\n\tdfs1(0, -1)\n\tdfs2(0, -1)\n\n\treturn res\n}\n"
+  Title = "Sum of Distances in Tree"
+  Url = "/submissions/detail/1246395216/"
+  LangName = "Go"
+  Timestamp = 1714554264
+  Status = 10
+  Runtime = "173 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

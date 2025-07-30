@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1193597469
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 985
+  TitleSlug = "bag-of-tokens"
+  Code = "func bagOfTokensScore(tokens []int, power int) int {\n    n := len(tokens)\n\tsort.Ints(tokens)\n\tres := 0\n\n\tl := 0\n\tr := n - 1\n\n\tfor l <= r {\n\t\tfor l <= r && power >= tokens[l] {\n\t\t\tpower -= tokens[l]\n\t\t\tl++\n\t\t\tres++\n\t\t}\n\t\t\n\t\tif res == 0 {\n\t\t\tbreak\n\t\t}\n\n        if r - l + 1 <= 2 {\n\t\t\tbreak\n\t\t}\n\n\t\tpower += tokens[r]\n\t\tr--\n\t\tres--\n\t}\n\n\treturn res\n}"
+  Title = "Bag of Tokens"
+  Url = "/submissions/detail/1193597469/"
+  LangName = "Go"
+  Timestamp = 1709558501
+  Status = 10
+  Runtime = "5 ms"
+  IsPending = "Not Pending"
+  Memory = "2.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

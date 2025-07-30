@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1027896199
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 36
+  TitleSlug = "valid-sudoku"
+  Code = "class Solution:\n    def isValidSudoku(self, board: List[List[str]]) -> bool:\n        row_count, column_count = 9, 9\n        row_counters = [defaultdict(bool) for _ in range(row_count)]\n        column_counters = [defaultdict(bool) for _ in range(column_count)]\n        subbox_counters = [[defaultdict(bool) for _ in range(column_count//3)] \n                            for _ in range(row_count//3)]\n\n        for row in range(row_count):\n            for column in range(column_count):\n                char = board[row][column]\n                if char == \".\":\n                    continue\n\n                counters = (\n                    row_counters[row], column_counters[column], \n                    subbox_counters[row//3][column//3]\n                )\n                for counter in counters:\n                    if counter[char]:\n                        return False\n\n                    counter[char] = True\n        \n        return True\n\n        "
+  Title = "Valid Sudoku"
+  Url = "/submissions/detail/1027896199/"
+  LangName = "Python3"
+  Timestamp = 1692641328
+  Status = 10
+  Runtime = "106 ms"
+  IsPending = "Not Pending"
+  Memory = "16.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

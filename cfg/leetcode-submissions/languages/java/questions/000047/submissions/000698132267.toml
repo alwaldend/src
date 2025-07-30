@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 698132267
+  StatusDisplay = "Accepted"
+  Lang = "java"
+  QuestionId = 47
+  TitleSlug = "permutations-ii"
+  Code = "class Solution {\npublic List<List<Integer>> permuteUnique(int[] nums) {\n        List<List<Integer>> permutations = new ArrayList<>();\n        Arrays.sort(nums);\n        backtracking(permutations, new ArrayList<>(), nums, new boolean[nums.length]);\n        return permutations;\n    }\n\n    private void backtracking(List<List<Integer>> permutations, List<Integer> current, int[] nums, boolean[] used) {\n        if (current.size() == nums.length)\n            permutations.add(new ArrayList<>(current));\n        else {\n            for (int i = 0; i < nums.length; i++) {\n                if (used[i] || (i > 0 && nums[i] == nums[i - 1] && !used[i - 1])) continue;\n                current.add(nums[i]);\n                used[i] = true;\n                backtracking(permutations, current, nums, used);\n                used[i] = false;\n                current.remove(current.size() - 1);\n            }\n        }\n    }\n}"
+  Title = "Permutations II"
+  Url = "/submissions/detail/698132267/"
+  LangName = "Java"
+  Timestamp = 1652367933
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "48.2 MB"
+  CompareResult = "111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

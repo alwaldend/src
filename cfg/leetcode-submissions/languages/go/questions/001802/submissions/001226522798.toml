@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1226522798
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1802
+  TitleSlug = "number-of-students-unable-to-eat-lunch"
+  Code = "func countStudents(students []int, sandwiches []int) int {\n    req := make([]int, 2)\n    for _, student := range students {\n        req[student]++\n    }\n\n    for _, sandwich := range sandwiches {\n        if req[sandwich] == 0 {\n            return req[1 - sandwich]\n        } else {\n            req[sandwich]--\n        }\n    }\n\n    return 0\n}"
+  Title = "Number of Students Unable to Eat Lunch"
+  Url = "/submissions/detail/1226522798/"
+  LangName = "Go"
+  Timestamp = 1712564734
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "2.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

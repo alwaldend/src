@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1086938416
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 458
+  TitleSlug = "poor-pigs"
+  Code = "class Solution:\n    def poorPigs(self, buckets: int, a: int, b: int) -> int:\n        pigs = 0\n        while (b / a + 1) ** pigs < buckets:\n            pigs += 1\n\n        return pigs "
+  Title = "Poor Pigs"
+  Url = "/submissions/detail/1086938416/"
+  LangName = "Python3"
+  Timestamp = 1698597393
+  Status = 10
+  Runtime = "30 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "111111111111111111"
+  HasNotes = false
+  FlagType = 1

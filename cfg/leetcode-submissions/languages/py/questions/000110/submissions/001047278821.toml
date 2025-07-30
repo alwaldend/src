@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1047278821
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 110
+  TitleSlug = "balanced-binary-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isBalanced(self, root: Optional[TreeNode]) -> bool:\n        def get_height(node: TreeNode) -> int:\n            if not node:\n                return 0\n            \n            h_left = get_height(node.left)\n            if h_left < 0:\n                return -1\n            h_right = get_height(node.right)\n            if h_right < 0 or abs(h_left - h_right) > 1:\n                return -1\n\n            return max(h_left, h_right) + 1\n        \n        return get_height(root) >= 0"
+  Title = "Balanced Binary Tree"
+  Url = "/submissions/detail/1047278821/"
+  LangName = "Python3"
+  Timestamp = 1694506666
+  Status = 10
+  Runtime = "38 ms"
+  IsPending = "Not Pending"
+  Memory = "21.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

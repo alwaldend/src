@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1047428915
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 969
+  TitleSlug = "number-of-recent-calls"
+  Code = "class RecentCounter:\n\n    def __init__(self):\n        self._queue = deque()\n\n    def ping(self, t: int) -> int:\n        self._queue.append(t)\n        while self._queue:\n            if t - self._queue[0] > 3000:\n                self._queue.popleft()\n            else:\n                break\n\n        return len(self._queue) \n\n\n# Your RecentCounter object will be instantiated and called as such:\n# obj = RecentCounter()\n# param_1 = obj.ping(t)"
+  Title = "Number of Recent Calls"
+  Url = "/submissions/detail/1047428915/"
+  LangName = "Python3"
+  Timestamp = 1694521266
+  Status = 10
+  Runtime = "217 ms"
+  IsPending = "Not Pending"
+  Memory = "21.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

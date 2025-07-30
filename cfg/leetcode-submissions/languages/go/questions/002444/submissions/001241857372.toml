@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1241857372
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 2444
+  TitleSlug = "longest-ideal-subsequence"
+  Code = "func longestIdealString(s string, k int) int {\n\tdp := make([]int, 27)\n\tn := len(s)\n\n\tfor i := n - 1; i >= 0; i-- {\n\t\tcc := s[i]\n\t\tidx := int(cc - 'a')\n\t\tmaxi := -1 << 31\n\n\t\tleft := max(idx-k, 0)\n\t\tright := min(idx+k, 26)\n\n\t\tfor j := left; j <= right; j++ {\n\t\t\tmaxi = max(maxi, dp[j])\n\t\t}\n\n\t\tdp[idx] = maxi + 1\n\t}\n\n\tmax := -1 << 31\n\tfor _, val := range dp {\n\t\tif val > max {\n\t\t\tmax = val\n\t\t}\n\t}\n\n\treturn max\n}\n\nfunc max(a, b int) int {\n\tif a > b {\n\t\treturn a\n\t}\n\treturn b\n}\n\nfunc min(a, b int) int {\n\tif a < b {\n\t\treturn a\n\t}\n\treturn b\n}"
+  Title = "Longest Ideal Subsequence"
+  Url = "/submissions/detail/1241857372/"
+  LangName = "Go"
+  Timestamp = 1714066344
+  Status = 10
+  Runtime = "17 ms"
+  IsPending = "Not Pending"
+  Memory = "5.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 692797975
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1486
+  TitleSlug = "find-the-distance-value-between-two-arrays"
+  Code = "\nfunc findTheDistanceValue(array_1 []int, array_2 []int, target int) int {\n\t// sorting it to use binary search\n\tsort.Ints(array_2)\n\tlength_2, count := len(array_2), 0\n\tfor _, current_1 := range array_1 {\n\t\tleft, right, add_to_count := 0, length_2-1, true\n\t\tfor right >= left {\n\t\t\tindex := left + (right-left)/2\n\t\t\tcurrent_2 := array_2[index]\n\t\t\tif abs(current_1, current_2) <= target {\n\t\t\t\t// current_1 is inside |arr1[i]-arr2[j]| <= d\n\t\t\t\t// -> ignore it\n\t\t\t\tadd_to_count = false\n\t\t\t\tbreak\n\t\t\t}\n\t\t\tswitch {\n\t\t\tcase current_2 > current_1:\n\t\t\t\t// current_2 is bigger than current_1\n\t\t\t\t// -> all numbers to the right are bigger\n\t\t\t\t// -> discard right, add to count\n\t\t\t\tright = index - 1\n\t\t\tcase current_2 < current_1:\n\t\t\t\t// current_2 is smaller than current_1\n\t\t\t\t// -> all numbers to the left are smaller\n\t\t\t\t// -> discard left, add to count\n\t\t\t\tleft = index + 1\n\t\t\t}\n\t\t}\n\t\tif add_to_count {\n\t\t\tcount++\n\t\t}\n\t}\n\treturn count\n}\n\nfunc abs(number_1 int, number_2 int) int {\n\tdifference := number_1 - number_2\n\tif difference < 0 {\n\t\treturn difference * -1\n\t}\n\treturn difference\n}\n"
+  Title = "Find the Distance Value Between Two Arrays"
+  Url = "/submissions/detail/692797975/"
+  LangName = "Go"
+  Timestamp = 1651642220
+  Status = 10
+  Runtime = "5 ms"
+  IsPending = "Not Pending"
+  Memory = "3.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1050262307
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2434
+  TitleSlug = "design-a-number-container-system"
+  Code = "import sortedcontainers\n\nclass NumberContainers:\n\n    def __init__(self):\n        self._idx_number = {}\n        self._number_idx = defaultdict(sortedcontainers.SortedSet)\n\n    def change(self, index: int, number: int) -> None:\n        cur_number = self._idx_number.get(index, -1)\n        if cur_number != -1:\n            self._number_idx[cur_number].remove(index)\n        self._idx_number[index] = number\n        self._number_idx[number].add(index)\n\n    def find(self, number: int) -> int:\n        ids = self._number_idx[number]\n        return ids[0] if ids else -1\n\n\n# Your NumberContainers object will be instantiated and called as such:\n# obj = NumberContainers()\n# obj.change(index,number)\n# param_2 = obj.find(number)"
+  Title = "Design a Number Container System"
+  Url = "/submissions/detail/1050262307/"
+  LangName = "Python3"
+  Timestamp = 1694796782
+  Status = 10
+  Runtime = "1415 ms"
+  IsPending = "Not Pending"
+  Memory = "156.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

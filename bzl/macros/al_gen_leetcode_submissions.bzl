@@ -2,13 +2,14 @@ load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load(":al_template_files.bzl", "al_template_files")
 
-def al_gen_leetcode_submissions(name, srcs, visibility, **kwargs):
+def al_gen_leetcode_submissions(name, srcs, package_dir, visibility = None, **kwargs):
     """
     Generate leetcode submission targets
 
     Args:
         name (str): generated md archive name
-        srcs (list[str]): leetcode submission json files
+        srcs (list[str]): leetcode submission configs
+        package_dir (str): package_dir to use
         visibility: visibility
         **kwargs: kwargs for al_template_files
     """
@@ -17,28 +18,31 @@ def al_gen_leetcode_submissions(name, srcs, visibility, **kwargs):
         out = "{}-template.md".format(name),
         content = [
             "{{ range .Data }}",
+            "{{ range .Data.Submissions }}",
             "---",
-            "title: {{ .Data.timestamp | timestamp_to_date }}",
-            "description: {{ .Data.title }}",
+            "title: {{ .Timestamp | timestamp_to_date }}",
+            "description: {{ .Title }}",
             "tags: [generated, leetcode]",
-            "date: {{ .Data.timestamp | timestamp_to_date }}",
+            "date: {{ .Timestamp | timestamp_to_date }}",
             "toc_hide: true",
             "---",
             "",
             "## Links",
             "",
-            "- https://leetcode.com{{ .Data.url }}",
+            "- https://leetcode.com{{ .Url }}",
             "",
             "## Code",
-            "```{{ .Data.lang }}",
-            "{{ .Data.code }}",
+            "",
+            "```{{ .Lang }}",
+            "{{ .Code }}",
             "```",
+            "{{ end }}",
             "{{ end }}",
         ],
     )
     src_names = []
     for src in srcs:
-        src_name = "{}-{}".format(name, src.replace(".json", ""))
+        src_name = "{}-{}".format(name, src.replace(".toml", ""))
         src_names.append(src_name)
         al_template_files(
             name = src_name,
@@ -48,7 +52,7 @@ def al_gen_leetcode_submissions(name, srcs, visibility, **kwargs):
         )
     pkg_tar(
         name = name,
-        package_dir = native.package_name(),
+        package_dir = package_dir,
         srcs = src_names,
         visibility = visibility,
     )

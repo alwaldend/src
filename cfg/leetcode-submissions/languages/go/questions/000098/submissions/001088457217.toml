@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1088457217
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 98
+  TitleSlug = "validate-binary-search-tree"
+  Code = "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc isValidBST(root *TreeNode) bool {\n    if root == nil {\n        return false\n    }\n    return dfs(root.Left, &root.Val, nil) && dfs(root.Right, nil, &root.Val)\n}\n\nfunc dfs(root *TreeNode, max *int, min *int) bool {\n    if root == nil {\n        return true\n    }\n    if (max != nil && root.Val >= *max) || (min != nil && root.Val <= *min) {\n        return false\n    }\n    return dfs(root.Left, &root.Val, min) && dfs(root.Right, max, &root.Val)\n}"
+  Title = "Validate Binary Search Tree"
+  Url = "/submissions/detail/1088457217/"
+  LangName = "Go"
+  Timestamp = 1698767957
+  Status = 10
+  Runtime = "6 ms"
+  IsPending = "Not Pending"
+  Memory = "5.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

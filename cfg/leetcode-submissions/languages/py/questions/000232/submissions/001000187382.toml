@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1000187382
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 232
+  TitleSlug = "implement-queue-using-stacks"
+  Code = "class MyQueue:\n\n    def __init__(self):\n        self.queue = []\n\n    def push(self, x: int) -> None:\n        self.queue.insert(0, x)\n\n    def pop(self) -> int:\n        return self.queue.pop()\n\n    def peek(self) -> int:\n        return self.queue[-1]\n\n    def empty(self) -> bool:\n        return len(self.queue) == 0\n\n\n# Your MyQueue object will be instantiated and called as such:\n# obj = MyQueue()\n# obj.push(x)\n# param_2 = obj.pop()\n# param_3 = obj.peek()\n# param_4 = obj.empty()"
+  Title = "Implement Queue using Stacks"
+  Url = "/submissions/detail/1000187382/"
+  LangName = "Python3"
+  Timestamp = 1689945649
+  Status = 10
+  Runtime = "55 ms"
+  IsPending = "Not Pending"
+  Memory = "16.5 MB"
+  CompareResult = "1111111111111111111111"
+  HasNotes = false
+  FlagType = 1

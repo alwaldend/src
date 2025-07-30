@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1012746905
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 95
+  TitleSlug = "unique-binary-search-trees-ii"
+  Code = "class Solution:\n    def generateTrees(self, n: int) -> List[Optional[TreeNode]]:\n        @cache\n        def generate_trees(l, r):\n            return [None] if l > r else [\n                TreeNode(val, left, right)\n                for val in range(l, r + 1)\n                for left in generate_trees(l, val - 1)\n                for right in generate_trees(val + 1, r)\n            ]\n        \n        return generate_trees(1, n)"
+  Title = "Unique Binary Search Trees II"
+  Url = "/submissions/detail/1012746905/"
+  LangName = "Python3"
+  Timestamp = 1691228381
+  Status = 10
+  Runtime = "45 ms"
+  IsPending = "Not Pending"
+  Memory = "17.2 MB"
+  CompareResult = "11111111"
+  HasNotes = false
+  FlagType = 1

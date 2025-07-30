@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1105481191
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1528
+  TitleSlug = "kids-with-the-greatest-number-of-candies"
+  Code = "class Solution {\npublic:\n    std::vector<bool> kidsWithCandies(std::vector<int>& candies, int extraCandies) {\n        size_t length {candies.size()};        \n        std::vector<bool> ans {};\n        ans.resize(length);\n        const int maxCandy {*std::max_element(candies.begin(), candies.end())};\n        for (size_t i = 0; i < length; ++i) {\n            ans[i] = (candies[i] + extraCandies) >= maxCandy;\n        }\n        return ans;\n    }\n};"
+  Title = "Kids With the Greatest Number of Candies"
+  Url = "/submissions/detail/1105481191/"
+  LangName = "C++"
+  Timestamp = 1700833772
+  Status = 10
+  Runtime = "5 ms"
+  IsPending = "Not Pending"
+  Memory = "9.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1011037555
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 17
+  TitleSlug = "letter-combinations-of-a-phone-number"
+  Code = "class Solution:\n    def letterCombinations(self, digits: str) -> List[str]:\n        length = len(digits)\n        if length == 0:\n            return []\n\n        digit_map: Dict[int, str] = {\n            \"1\": [],\n            \"2\": [\"a\", \"b\", \"c\"],\n            \"3\": [\"d\", \"e\", \"f\"],\n            \"4\": [\"g\", \"h\", \"i\"],\n            \"5\": [\"j\", \"k\", \"l\"],\n            \"6\": [\"m\", \"n\", \"o\"],\n            \"7\": [\"p\", \"q\", \"r\", \"s\"],\n            \"8\": [\"t\", \"u\", \"v\"],\n            \"9\": [\"w\", \"x\", \"y\", \"z\"],\n            \"0\": [\" \"]\n        }\n\n        current = []\n        \n        def backtrack(digit: int) -> Generator[None, None, str]:\n            if digit == length:\n                yield \"\".join(current[:])\n                return\n            \n            for char in digit_map[digits[digit]]:\n                current.append(char)\n                yield from backtrack(digit + 1)\n                current.pop()\n\n        return tuple(combination for combination in backtrack(0))"
+  Title = "Letter Combinations of a Phone Number"
+  Url = "/submissions/detail/1011037555/"
+  LangName = "Python3"
+  Timestamp = 1691055211
+  Status = 10
+  Runtime = "43 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "1111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

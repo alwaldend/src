@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 993596529
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 27
+  TitleSlug = "remove-element"
+  Code = "class Solution:\n    # create two indexes, current and replace\n    # create non_val_count\n    # while to-be-replaced has not reached the end:\n    # - if the current number is a regular number, move the current index, \n    #   increase non_val_count\n    # - if the replace index is equal or less than the current, move it and continue\n    # - if the replace number is a non-regular number, move the replace index and continue\n    # - if the current number is a non-regular, replace it with the replace number, \n    #   replace the replace number with val, move both indexes\n    # return the current index + 1\n\n    def removeElement(self, nums: List[int], val: int) -> int:\n        current, replace, val_count, length = 0, 0, 0, len(nums)\n        non_val_count = 0\n        \n        while replace < length and current < length:\n            current_number, replace_number = nums[current], nums[replace]\n            \n            if current_number != val:\n                current += 1\n                non_val_count += 1\n                continue\n\n            if replace <= current:\n                replace = current + 1\n                continue\n\n            if replace_number == val:\n                replace += 1\n                continue\n\n            nums[current], nums[replace] = replace_number, val\n            replace += 1\n            current += 1\n            non_val_count += 1\n            \n        return non_val_count"
+  Title = "Remove Element"
+  Url = "/submissions/detail/993596529/"
+  LangName = "Python3"
+  Timestamp = 1689263203
+  Status = 10
+  Runtime = "47 ms"
+  IsPending = "Not Pending"
+  Memory = "16.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

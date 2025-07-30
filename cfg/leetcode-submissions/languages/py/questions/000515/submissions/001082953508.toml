@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1082953508
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 515
+  TitleSlug = "find-largest-value-in-each-tree-row"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def largestValues(self, root: Optional[TreeNode]) -> List[int]:\n        if not root:\n            return []\n\n        largest = []\n        cur, nxt = [root], []\n        cur_val = None\n        while cur or nxt:\n            while cur:\n                node = cur.pop()\n                if cur_val is None or node.val > cur_val:\n                    cur_val = node.val\n                if node.left:\n                    nxt.append(node.left)\n                if node.right:\n                    nxt.append(node.right)\n            largest.append(cur_val)\n            cur.clear()\n            cur_val = None\n            cur, nxt = nxt, cur\n        return largest"
+  Title = "Find Largest Value in Each Tree Row"
+  Url = "/submissions/detail/1082953508/"
+  LangName = "Python3"
+  Timestamp = 1698148516
+  Status = 10
+  Runtime = "45 ms"
+  IsPending = "Not Pending"
+  Memory = "18.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

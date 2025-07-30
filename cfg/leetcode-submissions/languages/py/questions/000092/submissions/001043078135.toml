@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1043078135
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 92
+  TitleSlug = "reverse-linked-list-ii"
+  Code = "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:\n        cur_node = 1\n        left_head, left_tail = head if left > 1 else None, None\n\n        while cur_node < left:\n            cur_node += 1\n            head, left_tail = head.next, head\n\n        cur_node += 1\n        mid_head, mid_tail, head = head, head, head.next\n        mid_head.next = None\n\n        while cur_node <= right:\n            cur_node += 1\n            next_node = head.next\n            mid_head, head.next = head, mid_head\n            head = next_node\n    \n        mid_tail.next = head\n        if left_head:\n            left_tail.next = mid_head\n        else:\n            left_head = mid_head\n\n        return left_head"
+  Title = "Reverse Linked List II"
+  Url = "/submissions/detail/1043078135/"
+  LangName = "Python3"
+  Timestamp = 1694096014
+  Status = 10
+  Runtime = "44 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "11111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

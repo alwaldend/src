@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1130330804
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1637
+  TitleSlug = "string-compression-ii"
+  Code = "class Solution:\n    def getLengthOfOptimalCompression(self, s: str, k: int) -> int:\n        n = len(s)\n        dp = [[9999] * 110 for _ in range(110)]\n        dp[0][0] = 0\n\n        for i in range(1, n + 1):\n            for j in range(0, k + 1):\n                cnt, del_ = 0, 0\n                for l in range(i, 0, -1):\n                    if s[l - 1] == s[i - 1]:\n                        cnt += 1\n                    else:\n                        del_ += 1\n\n                    if j - del_ >= 0:\n                        dp[i][j] = min(dp[i][j], dp[l - 1][j - del_] + 1 + (3 if cnt >= 100 else 2 if cnt >= 10 else 1 if cnt >= 2 else 0))\n\n                if j > 0:\n                    dp[i][j] = min(dp[i][j], dp[i - 1][j - 1])\n\n        return dp[n][k]\n\n\n"
+  Title = "String Compression II"
+  Url = "/submissions/detail/1130330804/"
+  LangName = "Python3"
+  Timestamp = 1703747556
+  Status = 10
+  Runtime = "1916 ms"
+  IsPending = "Not Pending"
+  Memory = "17.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

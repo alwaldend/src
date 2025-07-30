@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1267849880
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 140
+  TitleSlug = "word-break-ii"
+  Code = "class Solution:\n    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:\n        wordSet = set(wordDict)\n        @cache\n        def helper(t):\n            combos = []\n            if not t:\n                return [\"\"]\n            for i, _ in enumerate(t):\n                w = t[:i+1] \n                if w in wordSet:\n                    combos.extend([\n                        f'{w} {sentence}' if sentence else w \n                        for sentence in helper(t[i+1:])\n                    ])\n            return combos\n        return helper(s)"
+  Title = "Word Break II"
+  Url = "/submissions/detail/1267849880/"
+  LangName = "Python3"
+  Timestamp = 1716667198
+  Status = 10
+  Runtime = "44 ms"
+  IsPending = "Not Pending"
+  Memory = "16.6 MB"
+  CompareResult = "111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 998302519
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 380
+  TitleSlug = "insert-delete-getrandom-o1"
+  Code = "class RandomizedSet:\n\n    def __init__(self):\n        self._set = set()\n        self._items = []\n        self._indexes = {}\n        \n\n    def insert(self, val: int) -> bool:\n        is_in = val in self._set\n        if not is_in:\n            self._set.add(val)\n            self._items.append(val)\n            self._indexes[val] = len(self._items) - 1\n        return not is_in\n\n    def remove(self, val: int) -> bool:\n        if val not in self._set:\n            return False\n\n        last = self._items[-1]\n        val_index = self._indexes[val]\n        self._items[val_index] = last\n        self._indexes[last] = val_index\n        \n        self._set.remove(val)\n        self._items.pop()\n        self._indexes.pop(val)\n\n        return True\n\n    def getRandom(self) -> int:\n        return random.choice(self._items)\n\n\n# Your RandomizedSet object will be instantiated and called as such:\n# obj = RandomizedSet()\n# param_1 = obj.insert(val)\n# param_2 = obj.remove(val)\n# param_3 = obj.getRandom()"
+  Title = "Insert Delete GetRandom O(1)"
+  Url = "/submissions/detail/998302519/"
+  LangName = "Python3"
+  Timestamp = 1689756543
+  Status = 10
+  Runtime = "363 ms"
+  IsPending = "Not Pending"
+  Memory = "63.2 MB"
+  CompareResult = "1111111111111111111"
+  HasNotes = false
+  FlagType = 1

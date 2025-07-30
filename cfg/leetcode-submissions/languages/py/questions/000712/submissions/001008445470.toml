@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1008445470
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 712
+  TitleSlug = "minimum-ascii-delete-sum-for-two-strings"
+  Code = "class Solution:\n    def minimumDeleteSum(self, s1: str, s2: str) -> int:\n        length_1, length_2 = len(s1), len(s2)\n\n        @cache\n        def calculate(i: int, j: int) -> int:    \n            if i >= length_1 and j >= length_2:\n                return 0\n            \n            if i >= length_1:\n                return sum(ord(char) for char in s2[j:])\n            \n            if j >= length_2:\n                return sum(ord(char) for char in s1[i:])\n            \n            if s1[i] == s2[j]:\n                return calculate(i + 1, j + 1)\n            \n            return min(\n                ord(s1[i]) + calculate(i + 1, j),\n                ord(s2[j]) + calculate(i, j + 1)\n            )\n\n        return calculate(0, 0)"
+  Title = "Minimum ASCII Delete Sum for Two Strings"
+  Url = "/submissions/detail/1008445470/"
+  LangName = "Python3"
+  Timestamp = 1690804000
+  Status = 10
+  Runtime = "862 ms"
+  IsPending = "Not Pending"
+  Memory = "221.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

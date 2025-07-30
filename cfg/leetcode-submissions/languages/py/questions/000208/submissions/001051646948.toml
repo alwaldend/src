@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1051646948
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 208
+  TitleSlug = "implement-trie-prefix-tree"
+  Code = "class Node:\n    def __init__(self):\n        self.ch, self.is_word = [None] * 128, False\n\nclass Trie:\n\n    def __init__(self):\n        self.head = Node()\n\n    def insert(self, word: str) -> None:\n        cur_node = self.head\n        for i in range(len(word)):\n            char = ord(word[i])\n            if cur_node.ch[char] is None:\n                cur_node.ch[char] = Node()\n            cur_node = cur_node.ch[char]\n        cur_node.is_word = True\n\n    def search(self, word: str) -> bool:\n        cur_node = self.head\n        for i in range(len(word)):\n            char = ord(word[i])\n            if cur_node.ch[char] is None:\n                return False\n            cur_node = cur_node.ch[char]\n        \n        return cur_node.is_word\n\n    def startsWith(self, prefix: str) -> bool:\n        cur_node = self.head\n        for i in range(len(prefix)):\n            char = ord(prefix[i])\n            if cur_node.ch[char] is None:\n                return False\n            cur_node = cur_node.ch[char]\n        \n        return True\n\n\n# Your Trie object will be instantiated and called as such:\n# obj = Trie()\n# obj.insert(word)\n# param_2 = obj.search(word)\n# param_3 = obj.startsWith(prefix)"
+  Title = "Implement Trie (Prefix Tree)"
+  Url = "/submissions/detail/1051646948/"
+  LangName = "Python3"
+  Timestamp = 1694940001
+  Status = 10
+  Runtime = "297 ms"
+  IsPending = "Not Pending"
+  Memory = "60.3 MB"
+  CompareResult = "1111111111111111"
+  HasNotes = false
+  FlagType = 1

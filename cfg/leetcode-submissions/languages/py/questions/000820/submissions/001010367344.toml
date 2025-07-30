@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1010367344
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 820
+  TitleSlug = "find-eventual-safe-states"
+  Code = "class Solution:\n    def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:\n        length = len(graph)\n        indegree = [0] * length\n        adj = [[] for _ in range(length)]\n\n        for i in range(length):\n            for edge in graph[i]:\n                adj[edge].append(i)\n                indegree[i] += 1\n\n        q = deque()\n        # Push all the nodes with indegree zero in the queue.\n        for i in range(length):\n            if indegree[i] == 0:\n                q.append(i)\n\n        safe = [False] * length\n        while q:\n            node = q.popleft()\n            safe[node] = True\n\n            for neighbor in adj[node]:\n                # Delete the edge \"node -> neighbor\".\n                indegree[neighbor] -= 1\n                if indegree[neighbor] == 0:\n                    q.append(neighbor)\n\n        safe_nodes = []\n        for i in range(length):\n            if safe[i]:\n                safe_nodes.append(i)\n\n        return safe_nodes"
+  Title = "Find Eventual Safe States"
+  Url = "/submissions/detail/1010367344/"
+  LangName = "Python3"
+  Timestamp = 1690989105
+  Status = 10
+  Runtime = "601 ms"
+  IsPending = "Not Pending"
+  Memory = "23.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

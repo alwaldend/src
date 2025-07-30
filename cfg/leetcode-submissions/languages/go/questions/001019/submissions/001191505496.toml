@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1191505496
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1019
+  TitleSlug = "squares-of-a-sorted-array"
+  Code = "func sortedSquares(nums []int) []int {\n    for i, num := range nums {\n        nums[i] = num * num\n    }\n    slices.Sort(nums)\n    return nums\n}"
+  Title = "Squares of a Sorted Array"
+  Url = "/submissions/detail/1191505496/"
+  LangName = "Go"
+  Timestamp = 1709384236
+  Status = 10
+  Runtime = "29 ms"
+  IsPending = "Not Pending"
+  Memory = "7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

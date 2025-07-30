@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1203614431
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 966
+  TitleSlug = "binary-subarrays-with-sum"
+  Code = "func numSubarraysWithSum(nums []int, goal int) int {\r\n\r\n    hashmap := make(map[int]int)\r\n\r\n    hashmap[0] = 1\r\n\r\n    sum := 0\r\n\r\n    count := 0\r\n\r\n\r\n\r\n    for _, num := range nums {\r\n\r\n        sum += num\r\n\r\n        rem := sum - goal\r\n\r\n        if val, ok := hashmap[rem]; ok {\r\n\r\n            count += val\r\n\r\n        }\r\n\r\n        hashmap[sum]++\r\n\r\n    }\r\n\r\n\r\n\r\n    return count\r\n\r\n}"
+  Title = "Binary Subarrays With Sum"
+  Url = "/submissions/detail/1203614431/"
+  LangName = "Go"
+  Timestamp = 1710432382
+  Status = 10
+  Runtime = "31 ms"
+  IsPending = "Not Pending"
+  Memory = "7.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1009446618
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 77
+  TitleSlug = "combinations"
+  Code = "class Solution:\n    def combine(self, n: int, k: int) -> List[List[int]]:\n        current, result = [], []\n        \n        def backtrack(first: int) -> None:\n            if len(current) == k:\n                result.append(tuple(current[:]))\n                return\n\n            for i in range(first, n + 1):\n                current.append(i)\n                backtrack(i + 1)\n                current.pop()\n            \n            return\n\n        backtrack(1)\n\n        return result "
+  Title = "Combinations"
+  Url = "/submissions/detail/1009446618/"
+  LangName = "Python3"
+  Timestamp = 1690900403
+  Status = 10
+  Runtime = "281 ms"
+  IsPending = "Not Pending"
+  Memory = "18.3 MB"
+  CompareResult = "111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

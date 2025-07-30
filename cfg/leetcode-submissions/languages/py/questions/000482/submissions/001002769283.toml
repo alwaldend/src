@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1002769283
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 482
+  TitleSlug = "license-key-formatting"
+  Code = "class Solution:\n    # \"5F3Z-2e-9-w\" -> \"5F3Z2E9W\" -> \"5F3Z2E9W\"\n    def licenseKeyFormatting(self, s: str, k: int) -> str:\n        letters = s.replace(\"-\", \"\").upper()\n        result = []\n        end = len(letters)\n        while end > 0:\n            start = end - k\n            if start < 0:\n                start = 0\n            result.append(letters[start:end])\n            end -= k\n\n        return \"-\".join(reversed(result))"
+  Title = "License Key Formatting"
+  Url = "/submissions/detail/1002769283/"
+  LangName = "Python3"
+  Timestamp = 1690214535
+  Status = 10
+  Runtime = "61 ms"
+  IsPending = "Not Pending"
+  Memory = "17.3 MB"
+  CompareResult = "11111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1037438619
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 338
+  TitleSlug = "counting-bits"
+  Code = "class Solution:\n    def countBits(self, n: int) -> List[int]:\n        ans = [0] * (n + 1)\n        for i in range(1, n + 1):\n            ans[i] = ans[i >> 1] + (i & 1)\n        return ans"
+  Title = "Counting Bits"
+  Url = "/submissions/detail/1037438619/"
+  LangName = "Python3"
+  Timestamp = 1693551501
+  Status = 10
+  Runtime = "72 ms"
+  IsPending = "Not Pending"
+  Memory = "23 MB"
+  CompareResult = "111111111111111"
+  HasNotes = false
+  FlagType = 1

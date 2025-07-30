@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1077634667
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1275
+  TitleSlug = "validate-binary-tree-nodes"
+  Code = "class Solution:\n    def validateBinaryTreeNodes(self, n: int, leftChild: List[int], rightChild: List[int]) -> bool:\n        parents = [-1] * n\n\n        for i in range(n):\n            left, right = leftChild[i], rightChild[i] \n            left_valid, right_valid = left != -1, right != -1\n            if (left_valid and parents[left] != -1) or (\n                right_valid and parents[right] != -1\n            ):\n                return False\n            if left_valid:\n                parents[left] = i\n            if right_valid:\n                parents[right] = i\n\n            parent = parents[i]\n            if parent != -1 and (parent == left or parent == right):\n                return False\n\n        root = None\n        for i, node in enumerate(parents):\n            if node == -1 and root is not None:\n                return False\n            if node == -1:\n                root = i\n\n        if root is None:\n            return False\n\n        to_visit = [root]\n        visited = set()\n\n        while to_visit:\n            node = to_visit.pop()\n            if node in visited:\n                return False\n            visited.add(node)\n            left, right = leftChild[node], rightChild[node]\n            if left != -1:\n                to_visit.append(left)\n            if right != -1:\n                to_visit.append(right)\n\n        return len(visited) == n \n        \n"
+  Title = "Validate Binary Tree Nodes"
+  Url = "/submissions/detail/1077634667/"
+  LangName = "Python3"
+  Timestamp = 1697557521
+  Status = 10
+  Runtime = "265 ms"
+  IsPending = "Not Pending"
+  Memory = "18.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

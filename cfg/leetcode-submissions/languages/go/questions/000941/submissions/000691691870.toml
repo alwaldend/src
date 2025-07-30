@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 691691870
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 941
+  TitleSlug = "sort-array-by-parity"
+  Code = "\nfunc sortArrayByParity(numbers []int) []int {\n\tlength := len(numbers)\n\tif length == 1 {\n\t\treturn numbers\n\t}\n\tresults, index_even, index_odd := make([]int, length), 0, length-1\n\tfor _, number := range numbers {\n\t\tif (number & 1) == 0 {\n\t\t\t// number is even -> place it from the beginning\n\t\t\tresults[index_even] = number\n\t\t\tindex_even++\n\t\t} else {\n\t\t\t// number is odd -> place it from the end\n\t\t\tresults[index_odd] = number\n\t\t\tindex_odd--\n\t\t}\n\t}\n\treturn results\n}\n"
+  Title = "Sort Array By Parity"
+  Url = "/submissions/detail/691691870/"
+  LangName = "Go"
+  Timestamp = 1651507660
+  Status = 10
+  Runtime = "9 ms"
+  IsPending = "Not Pending"
+  Memory = "5.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

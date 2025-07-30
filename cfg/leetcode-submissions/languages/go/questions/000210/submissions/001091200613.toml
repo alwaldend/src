@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1091200613
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 210
+  TitleSlug = "course-schedule-ii"
+  Code = "func findOrder(numCourses int, prerequisites [][]int) []int {\n    //build the graph\n    graph := make([][]int,numCourses)\n    in_degree := make([]int,numCourses)\n    for _,v := range prerequisites{\n        graph[v[1]] = append(graph[v[1]], v[0])\n        in_degree[v[0]]++\n    }\n\n    frontier := []int{}\n    for i,v := range in_degree{\n        if v==0{\n            frontier = append(frontier,i)\n        }\n    }\n\n    result := []int{}\n    for len(frontier)!=0{\n        cur := frontier[0]\n        frontier = frontier[1:]\n        result = append(result,cur)\n        for _,v := range graph[cur]{\n            in_degree[v]--\n            if in_degree[v]==0{\n                frontier = append(frontier,v)\n            }\n        }\n    }\n\n    if len(result)==numCourses{\n        return result\n    }\n    return []int{}\n}"
+  Title = "Course Schedule II"
+  Url = "/submissions/detail/1091200613/"
+  LangName = "Go"
+  Timestamp = 1699093684
+  Status = 10
+  Runtime = "9 ms"
+  IsPending = "Not Pending"
+  Memory = "5.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

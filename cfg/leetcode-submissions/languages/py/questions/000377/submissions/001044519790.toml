@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1044519790
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 377
+  TitleSlug = "combination-sum-iv"
+  Code = "class Solution:\n    def combinationSum4(self, nums: List[int], target: int) -> int:\n\n        @cache\n        def dp(cur_sum: int) -> int:\n            if cur_sum == target:\n                return 1\n            if cur_sum > target:\n                return 0\n            \n            return sum(dp(cur_sum + num) for num in nums)\n\n        return dp(0)\n            "
+  Title = "Combination Sum IV"
+  Url = "/submissions/detail/1044519790/"
+  LangName = "Python3"
+  Timestamp = 1694244058
+  Status = 10
+  Runtime = "44 ms"
+  IsPending = "Not Pending"
+  Memory = "16.9 MB"
+  CompareResult = "111111111111111"
+  HasNotes = false
+  FlagType = 1

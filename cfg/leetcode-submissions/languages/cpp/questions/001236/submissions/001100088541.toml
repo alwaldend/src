@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1100088541
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1236
+  TitleSlug = "n-th-tribonacci-number"
+  Code = "class Solution {\npublic:\n    int tribonacci(int n) {\n        if (n == 0) {\n            return 0;\n        }\n        if (n == 1 || n == 2) {\n            return 1;\n        }\n        int num1 {0}, num2 {1}, num3 {1};\n        for (int i = 3; i <= n; ++i) {\n            int newNum3 = num1 + num2 + num3; \n            num1 = num2;\n            num2 = num3;\n            num3 = newNum3;\n        }\n        return num3;\n    }\n};"
+  Title = "N-th Tribonacci Number"
+  Url = "/submissions/detail/1100088541/"
+  LangName = "C++"
+  Timestamp = 1700140970
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "6.3 MB"
+  CompareResult = "111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

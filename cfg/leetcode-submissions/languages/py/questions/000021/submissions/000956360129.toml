@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 956360129
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 21
+  TitleSlug = "merge-two-sorted-lists"
+  Code = "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\n\nclass Solution:\n    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:\n        result = ListNode()\n        current = result\n        while list1 and list2:               \n            if list1.val < list2.val:\n                current.next = list1\n                list1, current = list1.next, list1\n                continue\n\n            current.next = list2\n            list2, current = list2.next, list2\n                \n        if list1 or list2:\n            current.next = list1 if list1 else list2\n            \n        return result.next"
+  Title = "Merge Two Sorted Lists"
+  Url = "/submissions/detail/956360129/"
+  LangName = "Python3"
+  Timestamp = 1684922070
+  Status = 10
+  Runtime = "55 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

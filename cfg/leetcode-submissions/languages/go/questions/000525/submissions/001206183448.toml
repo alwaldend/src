@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1206183448
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 525
+  TitleSlug = "contiguous-array"
+  Code = "func findMaxLength(nums []int) int {\n    hashmap := make(map[int]int)\n    zeros, ones, maxLen := 0, 0, 0\n    hashmap[0] = -1 \n    for i, num := range nums {\n        if num == 0 {\n            zeros++\n        } else {\n            ones++\n        }\n        diff := zeros - ones\n        if val, ok := hashmap[diff]; ok {\n            maxLen = max(maxLen, i - val)\n        } else {\n            hashmap[diff] = i\n        }\n    }\n    return maxLen\n}"
+  Title = "Contiguous Array"
+  Url = "/submissions/detail/1206183448/"
+  LangName = "Go"
+  Timestamp = 1710667967
+  Status = 10
+  Runtime = "81 ms"
+  IsPending = "Not Pending"
+  Memory = "7.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

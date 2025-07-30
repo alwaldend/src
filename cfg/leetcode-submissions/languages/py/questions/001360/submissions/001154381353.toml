@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1154381353
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1360
+  TitleSlug = "maximum-length-of-a-concatenated-string-with-unique-characters"
+  Code = "class Solution:\n    def maxLength(self, arr: List[str]) -> int:\n        cur = set()\n        length = len(arr)\n        max_length = 0\n\n        def backtrack(start: int) -> None:\n            nonlocal max_length \n            \n            for i in range(start, length):\n                new_subs = arr[i]\n                new = set(new_subs)\n                if len(new_subs) != len(new) or len(cur.intersection(new)) != 0:\n                    continue\n                cur.update(new)\n                backtrack(i + 1)\n                cur.difference_update(new)\n\n            max_length = max(max_length, len(cur))\n\n        backtrack(0)\n\n        return max_length\n"
+  Title = "Maximum Length of a Concatenated String with Unique Characters"
+  Url = "/submissions/detail/1154381353/"
+  LangName = "Python3"
+  Timestamp = 1705996478
+  Status = 10
+  Runtime = "60 ms"
+  IsPending = "Not Pending"
+  Memory = "16.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

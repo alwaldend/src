@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1146049646
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1777
+  TitleSlug = "determine-if-two-strings-are-close"
+  Code = "\nclass Solution:\n    def closeStrings(self, word1: str, word2: str) -> bool:\n        freq1 = [0] * 26\n        freq2 = [0] * 26\n\n        for ch in word1:\n            freq1[ord(ch) - ord('a')] += 1\n\n        for ch in word2:\n            freq2[ord(ch) - ord('a')] += 1\n\n        for i in range(26):\n            if (freq1[i] == 0 and freq2[i] != 0) or (freq1[i] != 0 and freq2[i] == 0):\n                return False\n\n        freq1.sort()\n        freq2.sort()\n\n        for i in range(26):\n            if freq1[i] != freq2[i]:\n                return False\n\n        return True\n\n"
+  Title = "Determine if Two Strings Are Close"
+  Url = "/submissions/detail/1146049646/"
+  LangName = "Python3"
+  Timestamp = 1705242449
+  Status = 10
+  Runtime = "202 ms"
+  IsPending = "Not Pending"
+  Memory = "18.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

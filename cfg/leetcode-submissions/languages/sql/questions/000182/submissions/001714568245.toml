@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1714568245
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 182
+  TitleSlug = "duplicate-emails"
+  Code = "SELECT email FROM Person\nGROUP BY email\nHAVING COUNT(email) > 1;"
+  Title = "Duplicate Emails"
+  Url = "/submissions/detail/1714568245/"
+  LangName = "PostgreSQL"
+  Timestamp = 1753709755
+  Status = 10
+  Runtime = "204 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111111111"
+  HasNotes = false
+  FlagType = 1

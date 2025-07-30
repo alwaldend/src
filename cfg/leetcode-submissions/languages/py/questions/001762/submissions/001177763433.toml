@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1177763433
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1762
+  TitleSlug = "furthest-building-you-can-reach"
+  Code = "class Solution:\n    def furthestBuilding(self, heights: List[int], bricks: int, ladders: int) -> int:\n        heap = []\n        i = 0\n        length = len(heights)\n        for i in range(length - 1):\n            diff = heights[i + 1] - heights[i]           \n            if diff <= 0:\n                continue\n            bricks -= diff\n            heapq.heappush(heap, -diff)\n            if bricks < 0:\n                bricks += -heapq.heappop(heap)\n                ladders -= 1\n            if ladders < 0:\n                return i\n        return length - 1\n  \n\n"
+  Title = "Furthest Building You Can Reach"
+  Url = "/submissions/detail/1177763433/"
+  LangName = "Python3"
+  Timestamp = 1708171658
+  Status = 10
+  Runtime = "412 ms"
+  IsPending = "Not Pending"
+  Memory = "31.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1103355276
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 257
+  TitleSlug = "binary-tree-paths"
+  Code = "/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    vector<string> binaryTreePaths(TreeNode* root) {\n        vector<string> ans;\n        dfs(*root, ans, \"\");\n        return ans;\n    }\n\n    void dfs(TreeNode& root, vector<string> &ans, string path){\n        path += (path.size() ? \"->\" : \"\") + std::to_string(root.val);\n        if(!root.left && !root.right) {\n            ans.push_back(path);\n            return;\n        }\n        if(root.left) {\n            dfs(*root.left, ans, path);\n        }\n        if(root.right) {\n            dfs(*root.right, ans, path);\n        }\n    }\n};"
+  Title = "Binary Tree Paths"
+  Url = "/submissions/detail/1103355276/"
+  LangName = "C++"
+  Timestamp = 1700560281
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "13.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

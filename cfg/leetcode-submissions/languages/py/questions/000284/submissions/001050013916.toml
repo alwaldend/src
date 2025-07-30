@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1050013916
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 284
+  TitleSlug = "peeking-iterator"
+  Code = "# Below is the interface for Iterator, which is already defined for you.\n#\n# class Iterator:\n#     def __init__(self, nums):\n#         \"\"\"\n#         Initializes an iterator object to the beginning of a list.\n#         :type nums: List[int]\n#         \"\"\"\n#\n#     def hasNext(self):\n#         \"\"\"\n#         Returns true if the iteration has more elements.\n#         :rtype: bool\n#         \"\"\"\n#\n#     def next(self):\n#         \"\"\"\n#         Returns the next element in the iteration.\n#         :rtype: int\n#         \"\"\"\n\nclass PeekingIterator:\n    def __init__(self, iterator):\n        \"\"\"\n        Initialize your data structure here.\n        :type iterator: Iterator\n        \"\"\"\n        self._iter = iterator\n        self._next = iterator.next()\n        \n\n    def peek(self):\n        \"\"\"\n        Returns the next element in the iteration without advancing the iterator.\n        :rtype: int\n        \"\"\"\n        return self._next\n        \n\n    def next(self):\n        \"\"\"\n        :rtype: int\n        \"\"\"\n        cur_next = self._next\n        self._next = self._iter.next() if self._iter.hasNext() else None\n        return cur_next\n        \n\n    def hasNext(self):\n        \"\"\"\n        :rtype: bool\n        \"\"\"\n        return self._next is not None\n        \n\n# Your PeekingIterator object will be instantiated and called as such:\n# iter = PeekingIterator(Iterator(nums))\n# while iter.hasNext():\n#     val = iter.peek()   # Get the next element but not advance the iterator.\n#     iter.next()         # Should return the same value as [val]."
+  Title = "Peeking Iterator"
+  Url = "/submissions/detail/1050013916/"
+  LangName = "Python3"
+  Timestamp = 1694771471
+  Status = 10
+  Runtime = "39 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "11111111111111"
+  HasNotes = false
+  FlagType = 1

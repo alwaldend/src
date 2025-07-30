@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1293757321
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1605
+  TitleSlug = "minimum-number-of-days-to-make-m-bouquets"
+  Code = "class Solution:\n    def minDays(self, bloomDay: List[int], m: int, k: int) -> int:\n        n=len(bloomDay)\n        if m*k>n: return -1\n\n        def f(d):\n            len, bouquet=0, 0\n            i=0\n            while i<n:\n                while i<n and bloomDay[i]<=d:\n                    len+=1\n                    if len==k:\n                        bouquet+=1\n                        len=0\n                    i+=1\n                if i<n and bloomDay[i]>d: len=0\n                if bouquet>m: return True\n                i+=1\n            return bouquet>=m\n\n        l, r = min(bloomDay), max(bloomDay)\n        while l < r:\n            mid = l + (r - l) // 2\n            if f(mid):\n                r = mid\n            else:\n                l = mid + 1\n        return l\n        "
+  Title = "Minimum Number of Days to Make m Bouquets"
+  Url = "/submissions/detail/1293757321/"
+  LangName = "Python3"
+  Timestamp = 1718816371
+  Status = 10
+  Runtime = "961 ms"
+  IsPending = "Not Pending"
+  Memory = "29.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

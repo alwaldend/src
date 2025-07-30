@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1187876498
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 543
+  TitleSlug = "diameter-of-binary-tree"
+  Code = "var maxD int\n\nfunc diameterOfBinaryTree(root *TreeNode) int {\n    maxD = 0\n    find(root)\n    return maxD\n}\n\nfunc find(root *TreeNode) int {\n    if root == nil {\n        return 0\n    }\n    left := find(root.Left)\n    right := find(root.Right)\n    localMax := left + right\n    maxD = max(maxD, localMax)\n    return max(left, right) + 1\n}\n\nfunc max(a, b int) int {\n    if a > b {\n        return a\n    }\n    return b\n}"
+  Title = "Diameter of Binary Tree"
+  Url = "/submissions/detail/1187876498/"
+  LangName = "Go"
+  Timestamp = 1709051153
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "4.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

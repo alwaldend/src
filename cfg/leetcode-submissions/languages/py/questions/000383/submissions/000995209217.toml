@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 995209217
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 383
+  TitleSlug = "ransom-note"
+  Code = "class Solution:\n    # two indexes: ransom_i, magazine_i\n    # sort both ransomNote and magazine (ascending order)\n    # while indexes have not reached the end:\n    # - if ransom symbol is equal to the magazine_symbol: increase both indexes\n    # - if it is not equal, increase only magazine index\n    # return wheter the ranson index is equal to the length of the ransom\n    def canConstruct(self, ransomNote: str, magazine: str) -> bool:\n        ransom_i, magazine_i = 0, 0\n        ransom_length, magazine_length = len(ransomNote), len(magazine)\n\n        if magazine_length < ransom_length:\n            return False\n        \n        if ransom_length == 1:\n            return ransomNote in magazine\n\n        ransomNote = sorted(ransomNote)\n        magazine = sorted(magazine)\n\n        while ransom_i < ransom_length and magazine_i < magazine_length:\n            ransom_symbol, magazine_symbol = ransomNote[ransom_i], magazine[magazine_i]\n            \n            if magazine_symbol > ransom_symbol:\n                return False\n\n            if ransom_symbol == magazine_symbol:\n                ransom_i += 1\n            \n            magazine_i += 1\n\n        return ransom_i == ransom_length"
+  Title = "Ransom Note"
+  Url = "/submissions/detail/995209217/"
+  LangName = "Python3"
+  Timestamp = 1689440132
+  Status = 10
+  Runtime = "143 ms"
+  IsPending = "Not Pending"
+  Memory = "16.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 692728978
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1798
+  TitleSlug = "max-number-of-k-sum-pairs"
+  Code = "\nfunc maxOperations(numbers []int, sum int) int {\n\tcount, previous := 0, make(map[int]int, len(numbers))\n\tfor _, current := range numbers {\n\t\ttarget := sum - current\n\t\ttarget_unmatched, target_occured := previous[target]\n\t\t// if the current number has not occured before, then it is not in the map\n\t\t// -> it needs to be initialized\n\t\tif _, current_occured := previous[current]; !current_occured {\n\t\t\tprevious[current] = 0\n\t\t}\n\t\t// number of duplicates of the current number has increased\n\t\tprevious[current]++\n\t\tswitch {\n\t\tcase target_occured && target_unmatched == 0:\n\t\t\t// the target has occured before but there are no unmatched duplicates\n\t\t\tfallthrough\n\t\tcase !target_occured:\n\t\t\t// in order to get the sum we need the target, but it has not appeared yet\n\t\t\tcontinue\n\t\tcase target_occured && target_unmatched > 0:\n\t\t\t// the target has appeared before and there are some unmached duplicates left\n\t\t\t// -> removing the current number and the target from possible matches\n\t\t\tprevious[current]--\n\t\t\tprevious[target]--\n\t\t\tcount++\n\t\t}\n\t}\n\treturn count\n}\n"
+  Title = "Max Number of K-Sum Pairs"
+  Url = "/submissions/detail/692728978/"
+  LangName = "Go"
+  Timestamp = 1651634784
+  Status = 10
+  Runtime = "206 ms"
+  IsPending = "Not Pending"
+  Memory = "13 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

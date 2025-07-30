@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1237535932
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 2103
+  TitleSlug = "find-all-groups-of-farmland"
+  Code = "func findFarmland(land [][]int) [][]int {\n\tresult := [][]int{}\n\tm, n := len(land), len(land[0])\n\tfindFarmlandCoordinates := func(row, col int) []int {\n\t\tcoordinates := []int{row, col}\n\t\tr, c := row, col\n\t\tfor r < m && land[r][col] == 1 {\n\t\t\tr++\n\t\t}\n\t\tfor c < n && land[row][c] == 1 {\n\t\t\tc++\n\t\t}\n\t\tcoordinates = append(coordinates, r-1, c-1)\n\t\tfor i := row; i < r; i++ {\n\t\t\tfor j := col; j < c; j++ {\n\t\t\t\tland[i][j] = 0\n\t\t\t}\n\t\t}\n\t\treturn coordinates\n    }\n\tfor i := 0; i < m; i++ {\n\t\tfor j := 0; j < n; j++ {\n\t\t\tif land[i][j] == 1 {\n\t\t\t\tresult = append(result, findFarmlandCoordinates(i, j))\n\t\t\t}\n\t\t}\n\t}\n\treturn result\n}\n"
+  Title = "Find All Groups of Farmland"
+  Url = "/submissions/detail/1237535932/"
+  LangName = "Go"
+  Timestamp = 1713636172
+  Status = 10
+  Runtime = "121 ms"
+  IsPending = "Not Pending"
+  Memory = "11.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

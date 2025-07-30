@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1111055227
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1112
+  TitleSlug = "find-words-that-can-be-formed-by-characters"
+  Code = "class Solution {\npublic:\n    int countCharacters(vector<string>& words, string chars) {\n        std::vector<int> count {};\n        int ans {};\n        count.resize(26);\n        for (const char& ch : chars) {\n            ++count[ch - 'a'];\n        }\n        for (const string& word : words) {\n            std::vector<int> wordCount {};\n            wordCount.resize(26);\n            bool failure {false};\n            for (const char& ch : word) {\n                int i {ch - 'a'};\n                int cur {++wordCount[i]};\n                if (cur > count[i]) {\n                    failure = true;\n                    break;\n                }\n            }\n            if (!failure) {\n                ans += word.length();\n            }\n        }\n        return ans;\n    }\n};"
+  Title = "Find Words That Can Be Formed by Characters"
+  Url = "/submissions/detail/1111055227/"
+  LangName = "C++"
+  Timestamp = 1701549609
+  Status = 10
+  Runtime = "40 ms"
+  IsPending = "Not Pending"
+  Memory = "20.7 MB"
+  CompareResult = "111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

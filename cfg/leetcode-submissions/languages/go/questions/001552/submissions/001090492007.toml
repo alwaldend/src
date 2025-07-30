@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1090492007
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1552
+  TitleSlug = "build-an-array-with-stack-operations"
+  Code = "func buildArray(target []int, n int) []string {\n    ops := []string{}\n    length := len(target)\n    matchNext := 0\n    for i := 1; i <= n; i++ {\n        if matchNext == length {\n            break\n        }\n        ops = append(ops, \"Push\")\n        if i == target[matchNext] {\n            matchNext += 1\n        } else {\n            ops = append(ops, \"Pop\")\n        }\n    }\n    return ops\n}"
+  Title = "Build an Array With Stack Operations"
+  Url = "/submissions/detail/1090492007/"
+  LangName = "Go"
+  Timestamp = 1699002785
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "2.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

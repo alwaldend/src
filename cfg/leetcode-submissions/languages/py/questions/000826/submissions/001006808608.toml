@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1006808608
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 826
+  TitleSlug = "soup-servings"
+  Code = "class Solution:\n    def soupServings(self, n: int) -> float:\n        servings = ceil(n / 25)\n\n        states = defaultdict(dict)\n        moves = [[-4, 0], [-3, -1], [-2, -2], [-1, -3]]\n    \n        @cache\n        def calculate(soup_a: int, soup_b: int) -> float:\n            if soup_a <= 0 and soup_b <= 0:\n                return 0.5\n            if soup_a <= 0:\n                return 1.0\n            if soup_b <= 0:\n                return 0.0\n            if soup_a in states and soup_b in states[soup_a]:\n                return states[soup_a][soup_b]\n            \n            state = sum(calculate(soup_a + move[0], soup_b + move[1]) for move in moves) / 4.0\n            states[soup_a][soup_b] = state\n\n            return state\n\n        max_probability = 1 - 1e-5\n\n        for serving in range(1, servings + 1):\n            state = calculate(serving, serving)\n            if state > max_probability:\n                return 1.0\n        \n        return calculate(servings, servings)\n       \n\n"
+  Title = "Soup Servings"
+  Url = "/submissions/detail/1006808608/"
+  LangName = "Python3"
+  Timestamp = 1690626273
+  Status = 10
+  Runtime = "346 ms"
+  IsPending = "Not Pending"
+  Memory = "40 MB"
+  CompareResult = "11111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

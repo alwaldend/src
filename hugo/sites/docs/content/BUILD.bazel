@@ -45,13 +45,9 @@ pkg_tar(
         "//:readme-children",
         "//ansible/roles:docs",
         "//bzl:bzl-stardoc",
+        "//cfg/leetcode-submissions",
         "//cfg/vial",
-        "//cpp/leetcode-submissions",
         "//drawio/diagrams:docs",
-        "//go/leetcode-submissions",
-        "//java/leetcode-submissions",
-        "//py/leetcode-submissions",
-        "//sql/leetcode-submissions",
     ],
 )
 

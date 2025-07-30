@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1710764115
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1302
+  TitleSlug = "delete-characters-to-make-fancy-string"
+  Code = "class Solution:\n    def makeFancyString(self, s: str) -> str:\n        length = len(s)\n        if length < 3:\n            return s\n        prev_char, prev_char_count = \"\", 0\n        res = []\n        for char in s:\n            if char != prev_char:\n                prev_char = char\n                prev_char_count = 1\n                res.append(char)\n            elif prev_char_count < 2:\n                prev_char_count += 1\n                res.append(char)\n        return \"\".join(res)\n\n\n"
+  Title = "Delete Characters to Make Fancy String"
+  Url = "/submissions/detail/1710764115/"
+  LangName = "Python3"
+  Timestamp = 1753434473
+  Status = 10
+  Runtime = "128 ms"
+  IsPending = "Not Pending"
+  Memory = "19.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

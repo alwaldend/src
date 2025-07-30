@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1100039261
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 215
+  TitleSlug = "kth-largest-element-in-an-array"
+  Code = "class Solution {\npublic:\n    int findKthLargest(vector<int>& nums, int k) {\n        std::sort(nums.begin(), nums.end(), std::greater<int>());\n        return nums[k-1];\n    }\n};"
+  Title = "Kth Largest Element in an Array"
+  Url = "/submissions/detail/1100039261/"
+  LangName = "C++"
+  Timestamp = 1700134247
+  Status = 10
+  Runtime = "85 ms"
+  IsPending = "Not Pending"
+  Memory = "55.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

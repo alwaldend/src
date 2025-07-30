@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1224033828
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1666
+  TitleSlug = "make-the-string-great"
+  Code = "func makeGood(s string) string {\n\tstack := make([]byte, 0, len(s))\n\tstack = append(stack, s[0])\n\tfor i := 1; i < len(s); i++ {\n\t\tif len(stack) > 0 && getDiff(stack[len(stack)-1], s[i]) == 32 {\n\t\t\tstack = stack[:len(stack)-1]\n\t\t\tcontinue\n\t\t}\n\t\tstack = append(stack, s[i])\n\t}\n\treturn string(stack)\n}\n\nfunc getDiff(a, b uint8) uint8 {\n\tif b > a {\n\t\treturn b - a\n\t}\n\treturn a - b\n}"
+  Title = "Make The String Great"
+  Url = "/submissions/detail/1224033828/"
+  LangName = "Go"
+  Timestamp = 1712326659
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "2.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

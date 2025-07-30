@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1092890108
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 859
+  TitleSlug = "design-circular-deque"
+  Code = "type MyCircularDeque struct {\n    list []int\n    size int\n}\n\n\nfunc Constructor(k int) MyCircularDeque {\n    return MyCircularDeque{[]int{}, k}\n}\n\n\nfunc (this *MyCircularDeque) InsertFront(value int) bool {\n    if this.IsFull() {\n        return false\n    }\n    this.list = append([]int{value}, this.list...)\n    return true\n}\n\n\nfunc (this *MyCircularDeque) InsertLast(value int) bool {\n    if this.IsFull() {\n        return false\n    }\n    this.list = append(this.list, value)\n    return true\n}\n\n\nfunc (this *MyCircularDeque) DeleteFront() bool {\n    if this.IsEmpty() {\n        return false\n    }\n    this.list = this.list[1:]\n    return true\n}\n\n\nfunc (this *MyCircularDeque) DeleteLast() bool {\n    if this.IsEmpty() {\n        return false\n    }\n    this.list = this.list[:len(this.list) - 1]\n    return true\n}\n\n\nfunc (this *MyCircularDeque) GetFront() int {\n    if this.IsEmpty() {\n        return -1\n    }\n    return this.list[0]   \n}\n\n\nfunc (this *MyCircularDeque) GetRear() int {\n    if this.IsEmpty() {\n        return -1\n    }\n    return this.list[len(this.list) - 1]\n}\n\n\nfunc (this *MyCircularDeque) IsEmpty() bool {\n    return len(this.list) == 0\n}\n\n\nfunc (this *MyCircularDeque) IsFull() bool {\n    return len(this.list) == this.size\n}\n\n\n/**\n * Your MyCircularDeque object will be instantiated and called as such:\n * obj := Constructor(k);\n * param_1 := obj.InsertFront(value);\n * param_2 := obj.InsertLast(value);\n * param_3 := obj.DeleteFront();\n * param_4 := obj.DeleteLast();\n * param_5 := obj.GetFront();\n * param_6 := obj.GetRear();\n * param_7 := obj.IsEmpty();\n * param_8 := obj.IsFull();\n */"
+  Title = "Design Circular Deque"
+  Url = "/submissions/detail/1092890108/"
+  LangName = "Go"
+  Timestamp = 1699285294
+  Status = 10
+  Runtime = "8 ms"
+  IsPending = "Not Pending"
+  Memory = "7.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

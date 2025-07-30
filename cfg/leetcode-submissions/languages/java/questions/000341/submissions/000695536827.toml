@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 695536827
+  StatusDisplay = "Accepted"
+  Lang = "java"
+  QuestionId = 341
+  TitleSlug = "flatten-nested-list-iterator"
+  Code = "public class NestedIterator implements Iterator<Integer> {\n\n    private List<Integer> integerList = new ArrayList<>();\n    private int index = 0;\n    public NestedIterator(List<NestedInteger> nestedList) {\n        for (NestedInteger nestedInteger : nestedList) {\n            flatten(nestedInteger);\n        }\n    }\n    \n    private void flatten(NestedInteger nested) {\n        if (nested.isInteger()) \n            integerList.add(nested.getInteger());\n        else \n            for (NestedInteger nestedFromList : nested.getList()) {\n                flatten(nestedFromList);\n        }\n    }\n\n    @Override\n    public boolean hasNext() {\n        return index < integerList.size();\n    }\n\n    @Override\n    public Integer next() {\n        return integerList.get(index++);\n    }\n}\n"
+  Title = "Flatten Nested List Iterator"
+  Url = "/submissions/detail/695536827/"
+  LangName = "Java"
+  Timestamp = 1652020041
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "44.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

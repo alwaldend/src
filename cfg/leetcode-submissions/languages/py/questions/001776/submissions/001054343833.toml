@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1054343833
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1776
+  TitleSlug = "minimum-operations-to-reduce-x-to-zero"
+  Code = "class Solution:\n    def minOperations(self, nums: List[int], x: int) -> int:\n        target, length = sum(nums) - x, len(nums)\n        max_len = cur_sum = left = 0\n        \n        if target == 0:\n            return length\n        \n        for right, val in enumerate(nums):\n            cur_sum += val\n            while left <= right and cur_sum > target:\n                cur_sum -= nums[left]\n                left += 1\n            if cur_sum == target:\n                max_len = max(max_len, right - left + 1)\n        \n        return length - max_len if max_len else -1"
+  Title = "Minimum Operations to Reduce X to Zero"
+  Url = "/submissions/detail/1054343833/"
+  LangName = "Python3"
+  Timestamp = 1695199644
+  Status = 10
+  Runtime = "946 ms"
+  IsPending = "Not Pending"
+  Memory = "30.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

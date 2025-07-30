@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 692352888
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 189
+  TitleSlug = "rotate-array"
+  Code = "\nfunc rotate(numbers []int, steps int) {\n\tlength := len(numbers)\n\t// removing unnecessary steps\n\tif steps >= length {\n\t\tsteps %= length\n\t}\n\t// checking edge cases\n\tif length == 1 || steps == 0 {\n\t\treturn\n\t}\n\tresults := make([]int, length)\n\tfor index, number := range numbers {\n\t\tresults[(index+steps)%length] = number\n\t}\n\tcopy(numbers, results)\n}"
+  Title = "Rotate Array"
+  Url = "/submissions/detail/692352888/"
+  LangName = "Go"
+  Timestamp = 1651588798
+  Status = 10
+  Runtime = "79 ms"
+  IsPending = "Not Pending"
+  Memory = "8.6 MB"
+  CompareResult = "11111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

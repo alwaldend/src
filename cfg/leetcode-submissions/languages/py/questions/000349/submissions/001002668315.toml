@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1002668315
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 349
+  TitleSlug = "intersection-of-two-arrays"
+  Code = "class Solution:\n    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:\n        return set(nums1).intersection(nums2)"
+  Title = "Intersection of Two Arrays"
+  Url = "/submissions/detail/1002668315/"
+  LangName = "Python3"
+  Timestamp = 1690207016
+  Status = 10
+  Runtime = "60 ms"
+  IsPending = "Not Pending"
+  Memory = "16.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

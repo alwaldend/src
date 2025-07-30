@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1032230638
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 226
+  TitleSlug = "invert-binary-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:\n        if not root:\n            return None\n\n        self.invertTree(root.left)\n        self.invertTree(root.right) \n        root.left, root.right = root.right, root.left\n        \n        return root "
+  Title = "Invert Binary Tree"
+  Url = "/submissions/detail/1032230638/"
+  LangName = "Python3"
+  Timestamp = 1693052337
+  Status = 10
+  Runtime = "44 ms"
+  IsPending = "Not Pending"
+  Memory = "16.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

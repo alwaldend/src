@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1057808743
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 46
+  TitleSlug = "permutations"
+  Code = "class Solution:\n    def permute(self, nums: List[int]) -> List[List[int]]:\n\n        length = len(nums)\n        current = []\n        current_contains = [False] * length\n\n        def backtrack() -> Generator[None, None, List[int]]:\n            if len(current) == length:\n                yield tuple(current[:])\n                return\n\n            for i in range(length):\n                if current_contains[i]:\n                    continue\n\n                current_contains[i] = True\n                current.append(nums[i])\n\n                yield from backtrack()\n\n                current_contains[i] = False\n                current.pop()\n            \n            return\n\n        return tuple(combination for combination in backtrack()) "
+  Title = "Permutations"
+  Url = "/submissions/detail/1057808743/"
+  LangName = "Python3"
+  Timestamp = 1695549341
+  Status = 10
+  Runtime = "48 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "11111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

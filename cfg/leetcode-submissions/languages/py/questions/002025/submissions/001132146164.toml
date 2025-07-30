@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1132146164
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2025
+  TitleSlug = "redistribute-characters-to-make-all-strings-equal"
+  Code = "class Solution:\n    def makeEqual(self, words: List[str]) -> bool:\n        counts = defaultdict(int)\n        for word in words:\n            for c in word:\n                counts[c] += 1\n        \n        n = len(words)\n        for val in counts.values():\n            if val % n != 0:\n                return False\n        \n        return True"
+  Title = "Redistribute Characters to Make All Strings Equal"
+  Url = "/submissions/detail/1132146164/"
+  LangName = "Python3"
+  Timestamp = 1703935358
+  Status = 10
+  Runtime = "57 ms"
+  IsPending = "Not Pending"
+  Memory = "17.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

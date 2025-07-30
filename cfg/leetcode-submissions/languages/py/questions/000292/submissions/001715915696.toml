@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1715915696
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 292
+  TitleSlug = "nim-game"
+  Code = "class Solution:\n    def canWinNim(self, n: int) -> bool:\n        if n < 3:\n            return True\n        True, True, True, False, True, True, True\n        1,    2,    3,    4,     5,    6,    7    \n        return n % 4 != 0"
+  Title = "Nim Game"
+  Url = "/submissions/detail/1715915696/"
+  LangName = "Python3"
+  Timestamp = 1753799911
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

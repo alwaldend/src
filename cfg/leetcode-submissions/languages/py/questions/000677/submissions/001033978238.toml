@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1033978238
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 677
+  TitleSlug = "map-sum-pairs"
+  Code = "class MapSum:\n\n    def __init__(self):\n        self._map = {}\n\n    def insert(self, key: str, val: int) -> None:\n        self._map[key] = val\n\n    def sum(self, prefix: str) -> int:\n        return sum(value for key, value in self._map.items() if key.startswith(prefix))\n\n\n# Your MapSum object will be instantiated and called as such:\n# obj = MapSum()\n# obj.insert(key,val)\n# param_2 = obj.sum(prefix)"
+  Title = "Map Sum Pairs"
+  Url = "/submissions/detail/1033978238/"
+  LangName = "Python3"
+  Timestamp = 1693219078
+  Status = 10
+  Runtime = "44 ms"
+  IsPending = "Not Pending"
+  Memory = "16.5 MB"
+  CompareResult = "11111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1127327445
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1884
+  TitleSlug = "minimum-changes-to-make-alternating-binary-string"
+  Code = "class Solution:\n    def minOperations(self, s: str) -> int:\n        start0 = 0\n        start1 = 0\n        \n        for i in range(len(s)):\n            if i % 2 == 0:\n                if s[i] == \"0\":\n                    start1 += 1\n                else:\n                    start0 += 1\n            else:\n                if s[i] == \"1\":\n                    start1 += 1\n                else:\n                    start0 += 1\n        \n        return min(start0, start1)"
+  Title = "Minimum Changes To Make Alternating Binary String"
+  Url = "/submissions/detail/1127327445/"
+  LangName = "Python3"
+  Timestamp = 1703411655
+  Status = 10
+  Runtime = "42 ms"
+  IsPending = "Not Pending"
+  Memory = "17.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

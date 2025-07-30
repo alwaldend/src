@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 693596429
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 283
+  TitleSlug = "move-zeroes"
+  Code = "\nfunc moveZeroes(numbers []int) {\n\t// ensure there are at least two numbers\n\tlength := len(numbers)\n\tif length == 1 {\n\t\treturn\n\t}\n\tresult, index_result := make([]int, length), 0\n\tfor _, number := range numbers {\n\t\tif number == 0 {\n\t\t\tcontinue\n\t\t}\n\t\tresult[index_result] = number\n\t\tindex_result++\n\t}\n\tcopy(numbers, result)\n}"
+  Title = "Move Zeroes"
+  Url = "/submissions/detail/693596429/"
+  LangName = "Go"
+  Timestamp = 1651745691
+  Status = 10
+  Runtime = "26 ms"
+  IsPending = "Not Pending"
+  Memory = "6.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

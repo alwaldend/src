@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1099357056
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1956
+  TitleSlug = "maximum-element-after-decreasing-and-rearranging"
+  Code = "class Solution {\npublic:\n    int maximumElementAfterDecrementingAndRearranging(vector<int>& arr) {\n        std::sort(arr.begin(), arr.end());\n        auto length{arr.size()};\n        int prev{1};\n        for (int i = 1; i < length; ++i) {\n            if (arr[i] != prev) {\n                ++prev;\n            }\n        }\n        return prev;\n    }\n};"
+  Title = "Maximum Element After Decreasing and Rearranging"
+  Url = "/submissions/detail/1099357056/"
+  LangName = "C++"
+  Timestamp = 1700050720
+  Status = 10
+  Runtime = "79 ms"
+  IsPending = "Not Pending"
+  Memory = "51.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

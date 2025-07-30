@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1198666000
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 2634
+  TitleSlug = "minimum-common-value"
+  Code = "func getCommon(nums1 []int, nums2 []int) int {\n    var l, r int\n    for l < len(nums1) && r < len(nums2) {\n        switch {\n        case nums1[l] == nums2[r]:\n            return nums1[l]\n        case nums1[l] < nums2[r]:\n            l++\n        default:\n            r++\n        }\n    }\n    return -1\n}"
+  Title = "Minimum Common Value"
+  Url = "/submissions/detail/1198666000/"
+  LangName = "Go"
+  Timestamp = 1709999993
+  Status = 10
+  Runtime = "66 ms"
+  IsPending = "Not Pending"
+  Memory = "10.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

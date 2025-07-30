@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1131184930
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1457
+  TitleSlug = "minimum-difficulty-of-a-job-schedule"
+  Code = "class Solution:\n    def minDifficulty(self, jobDifficulty, days):\n        length = len(jobDifficulty)\n        if days > length:\n            return -1\n\n        min_difficulties = [[float('inf')] * length for _ in range(days)]\n\n        max_diff = 0\n        i = 0\n        while i <= length - days:\n            max_diff = max(max_diff, jobDifficulty[i])\n            min_difficulties[0][i] = max_diff\n            i += 1\n\n        current_day = 1\n        while current_day < days:\n            to = current_day\n            while to <= length - days + current_day:\n                current_job_difficulty = jobDifficulty[to]\n                result = float('inf')\n                j = to - 1\n                while j >= current_day - 1:\n                    result = min(result, min_difficulties[current_day - 1][j] + current_job_difficulty)\n                    current_job_difficulty = max(current_job_difficulty, jobDifficulty[j])\n                    j -= 1\n                min_difficulties[current_day][to] = result\n                to += 1\n            current_day += 1\n\n        return min_difficulties[days - 1][length - 1]\n\n\n"
+  Title = "Minimum Difficulty of a Job Schedule"
+  Url = "/submissions/detail/1131184930/"
+  LangName = "Python3"
+  Timestamp = 1703833766
+  Status = 10
+  Runtime = "805 ms"
+  IsPending = "Not Pending"
+  Memory = "17.5 MB"
+  CompareResult = "1111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

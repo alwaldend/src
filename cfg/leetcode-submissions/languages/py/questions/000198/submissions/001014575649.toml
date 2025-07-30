@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1014575649
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 198
+  TitleSlug = "house-robber"
+  Code = "class Solution:\n    def rob(self, nums: List[int]) -> int:\n        house_count = len(nums)\n\n        prev_1, prev_2 = 0, 0\n\n        for house in range(0, house_count):\n            prev_1, prev_2 = max(prev_2 + nums[house], prev_1), prev_1\n\n        return prev_1\n"
+  Title = "House Robber"
+  Url = "/submissions/detail/1014575649/"
+  LangName = "Python3"
+  Timestamp = 1691403004
+  Status = 10
+  Runtime = "36 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

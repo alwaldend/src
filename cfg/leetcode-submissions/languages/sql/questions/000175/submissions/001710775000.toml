@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1710775000
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 175
+  TitleSlug = "combine-two-tables"
+  Code = "SELECT firstName, lastName, city, state \nFROM Person LEFT JOIN Address \n    ON Person.personId = Address.personId"
+  Title = "Combine Two Tables"
+  Url = "/submissions/detail/1710775000/"
+  LangName = "PostgreSQL"
+  Timestamp = 1753435092
+  Status = 10
+  Runtime = "343 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111"
+  HasNotes = false
+  FlagType = 1

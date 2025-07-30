@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1045529518
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1461
+  TitleSlug = "count-all-valid-pickup-and-delivery-options"
+  Code = "class Solution:\n    def countOrders(self, n: int) -> int:\n        # P1, D1                 [01] -> (P1, D1)\n        # P1, D1, P2, D2         [06] -> (P1, P2, D1, D2), (P1, P2, D2, D1), \n        #                                (P1, D1, P2, D2), (P2, P1, D1, D2), \n        #                                (P2, P1, D2, D1), (P2, D2, P1, D1).\n        # P1, D1, P2, D2, P3, D3 [90]\n        \n        ways_count = 1\n        for order in range(2, n + 1):\n            avail_pos_count = 1 + (order - 1) * 2\n            ways_count *= sum(avail_pos_count - pos for pos in range(avail_pos_count))\n\n        return ways_count % (10**9 + 7)"
+  Title = "Count All Valid Pickup and Delivery Options"
+  Url = "/submissions/detail/1045529518/"
+  LangName = "Python3"
+  Timestamp = 1694338659
+  Status = 10
+  Runtime = "120 ms"
+  IsPending = "Not Pending"
+  Memory = "16.1 MB"
+  CompareResult = "111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

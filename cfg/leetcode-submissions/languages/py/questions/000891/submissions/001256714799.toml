@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1256714799
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 891
+  TitleSlug = "score-after-flipping-matrix"
+  Code = "class Solution:\n    def matrixScore(self, grid: List[List[int]]) -> int:\n        n, m = len(grid), len(grid[0])\n        res = (1 << (m - 1)) * n\n\n        for j in range(1, m):\n            val = 1 << (m - 1 - j)\n            set_count = 0\n\n            for i in range(n):\n                if grid[i][j] == grid[i][0]:\n                    set_count += 1\n\n            res += max(set_count, n - set_count) * val\n\n        return res"
+  Title = "Score After Flipping Matrix"
+  Url = "/submissions/detail/1256714799/"
+  LangName = "Python3"
+  Timestamp = 1715584935
+  Status = 10
+  Runtime = "43 ms"
+  IsPending = "Not Pending"
+  Memory = "16.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

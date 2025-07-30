@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1018287507
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 238
+  TitleSlug = "product-of-array-except-self"
+  Code = "class Solution:\n    def productExceptSelf(self, nums: List[int]) -> List[int]:\n        nums_count = len(nums)\n        result = [1] * nums_count\n        prefix = 1\n        postfix = 1\n        for i in range(nums_count):\n            result[i] *= prefix\n            prefix *= nums[i]\n\n            from_end = -1 * (i + 1)\n            result[from_end] *= postfix\n            postfix *= nums[from_end]\n        \n        return result"
+  Title = "Product of Array Except Self"
+  Url = "/submissions/detail/1018287507/"
+  LangName = "Python3"
+  Timestamp = 1691744733
+  Status = 10
+  Runtime = "198 ms"
+  IsPending = "Not Pending"
+  Memory = "24.1 MB"
+  CompareResult = "1111111111111111111111"
+  HasNotes = false
+  FlagType = 1

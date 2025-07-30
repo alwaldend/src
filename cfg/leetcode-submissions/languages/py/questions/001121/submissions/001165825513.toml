@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1165825513
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1121
+  TitleSlug = "partition-array-for-maximum-sum"
+  Code = "class Solution:\n    def maxSumAfterPartitioning(self, arr: List[int], k: int) -> int:\n        min_num = -1\n        length = len(arr)\n        last_idx = length - 1\n        cache = [-1] * length\n\n        def dp(start: int) -> int:\n            cached = cache[start]\n            if cached != -1:\n                return cached\n            max_num = min_num\n            max_sum = 0\n            for i in range(start, min(start + k, length)):\n                max_num = max(max_num, arr[i])\n                cur_sum = max_num * (i - start + 1)\n                if i != last_idx:\n                    cur_sum += dp(i + 1)\n                max_sum = max(max_sum, cur_sum)\n            cache[start] = max_sum\n            return max_sum\n        \n        return dp(0)\n            "
+  Title = "Partition Array for Maximum Sum"
+  Url = "/submissions/detail/1165825513/"
+  LangName = "Python3"
+  Timestamp = 1707050287
+  Status = 10
+  Runtime = "387 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

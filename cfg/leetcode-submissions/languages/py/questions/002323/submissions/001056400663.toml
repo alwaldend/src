@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1056400663
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2323
+  TitleSlug = "minimum-bit-flips-to-convert-number"
+  Code = "class Solution:\n    def minBitFlips(self, start: int, goal: int) -> int:\n        flips_count = 0\n        while start or goal:\n            start_is_one, goal_is_one = start & 1, goal & 1\n            if start_is_one and not goal_is_one or (not start_is_one and goal_is_one):\n                flips_count += 1\n            start >>= 1\n            goal >>= 1\n        return flips_count"
+  Title = "Minimum Bit Flips to Convert Number"
+  Url = "/submissions/detail/1056400663/"
+  LangName = "Python3"
+  Timestamp = 1695396598
+  Status = 10
+  Runtime = "37 ms"
+  IsPending = "Not Pending"
+  Memory = "16.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1095927384
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 225
+  TitleSlug = "implement-stack-using-queues"
+  Code = "class MyStack {\npublic:\n    std::vector<int> v;\n\n    MyStack() {\n        this->v = {};\n    }\n    \n    void push(int x) {\n        this->v.push_back(x);\n    }\n    \n    int pop() {\n        int last = this->v.back();\n        this->v.pop_back();\n        return last;\n    }\n    \n    int top() {\n        return this->v.back();\n    }\n    \n    bool empty() {\n        return this->v.empty();\n    }\n};\n\n/**\n * Your MyStack object will be instantiated and called as such:\n * MyStack* obj = new MyStack();\n * obj->push(x);\n * int param_2 = obj->pop();\n * int param_3 = obj->top();\n * bool param_4 = obj->empty();\n */"
+  Title = "Implement Stack using Queues"
+  Url = "/submissions/detail/1095927384/"
+  LangName = "C++"
+  Timestamp = 1699623033
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "7.1 MB"
+  CompareResult = "111111111111111111"
+  HasNotes = false
+  FlagType = 1

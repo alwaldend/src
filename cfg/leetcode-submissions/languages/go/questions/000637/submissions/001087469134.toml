@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1087469134
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 637
+  TitleSlug = "average-of-levels-in-binary-tree"
+  Code = "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\nfunc averageOfLevels(root *TreeNode) []float64 {\n    if root == nil {\n        return []float64{}\n    }\n    qCur, qNext, answer := []*TreeNode{root}, []*TreeNode{}, []float64{}\n\n    for len(qCur) != 0 {\n        av := 0\n        for _, node := range qCur {\n            av += node.Val\n            if left := node.Left; left != nil {\n                qNext = append(qNext, left)\n            }\n            if right := node.Right; right != nil {\n                qNext = append(qNext, right)\n            }\n        }\n        answer = append(answer, float64(av) / float64(len(qCur)))\n        qCur = qCur[:0]\n        qCur, qNext = qNext, qCur\n    }\n\n    return answer\n}"
+  Title = "Average of Levels in Binary Tree"
+  Url = "/submissions/detail/1087469134/"
+  LangName = "Go"
+  Timestamp = 1698661597
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "6.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

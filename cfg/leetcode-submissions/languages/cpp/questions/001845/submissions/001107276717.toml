@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1107276717
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1845
+  TitleSlug = "largest-submatrix-with-rearrangements"
+  Code = "class Solution {\npublic:\n    int largestSubmatrix(vector<vector<int>>& matrix) {\n        int m = matrix.size();\n        int n = matrix[0].size();\n        int ans = 0;\n        \n        for (int row = 0; row < m; row++) {\n            for (int col = 0; col < n; col++) {\n                if (matrix[row][col] != 0 && row > 0) {\n                    matrix[row][col] += matrix[row - 1][col];\n                }\n            }\n            \n            vector<int> currRow = matrix[row];\n            sort(currRow.begin(), currRow.end(), greater());\n            for (int i = 0; i < n; i++) {\n                ans = max(ans, currRow[i] * (i + 1));\n            }\n        }\n        \n        return ans;\n    }\n};"
+  Title = "Largest Submatrix With Rearrangements"
+  Url = "/submissions/detail/1107276717/"
+  LangName = "C++"
+  Timestamp = 1701070364
+  Status = 10
+  Runtime = "172 ms"
+  IsPending = "Not Pending"
+  Memory = "74.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

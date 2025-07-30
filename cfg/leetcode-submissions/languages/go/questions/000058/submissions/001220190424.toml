@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1220190424
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 58
+  TitleSlug = "length-of-last-word"
+  Code = "func lengthOfLastWord(s string) int {\n    length := len(s)\n    count := 0\n    for i := length - 1; i >= 0; i-- {\n        isSpace := s[i] == ' '\n        if isSpace && count != 0 {\n            return count\n        } else if isSpace {\n            continue\n        }\n        count++\n    }\n    return count\n}"
+  Title = "Length of Last Word"
+  Url = "/submissions/detail/1220190424/"
+  LangName = "Go"
+  Timestamp = 1711983783
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "2.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

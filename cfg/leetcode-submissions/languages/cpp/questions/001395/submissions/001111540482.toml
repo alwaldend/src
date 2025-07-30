@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1111540482
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1395
+  TitleSlug = "minimum-time-visiting-all-points"
+  Code = "class Solution {\npublic:\n    int minTimeToVisitAllPoints(vector<vector<int>>& points) {\n        int ans = 0;\n        for (int i = 0; i < points.size() - 1; i++) {\n            int currX = points[i][0];\n            int currY = points[i][1];\n            int targetX = points[i + 1][0];\n            int targetY = points[i + 1][1];\n            ans += max(abs(targetX - currX), abs(targetY - currY));\n        }\n        \n        return ans;\n    }\n};"
+  Title = "Minimum Time Visiting All Points"
+  Url = "/submissions/detail/1111540482/"
+  LangName = "C++"
+  Timestamp = 1701615193
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "10.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1057807270
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 33
+  TitleSlug = "search-in-rotated-sorted-array"
+  Code = "class Solution:\n    def search(self, nums: List[int], target: int) -> int:\n        nums_count = len(nums)\n        left, right = 0, len(nums) - 1\n\n        first_num, last_num = nums[0], nums[-1]\n        if first_num == target:\n            return 0\n        if last_num == target:\n            return nums_count - 1\n        \n        # Find the index of the pivot element (the smallest element)\n        while left <= right:\n            mid = left + (right - left) // 2\n            if nums[mid] > last_num:\n                left = mid + 1\n            else:\n                right = mid - 1\n        \n        pivot_num = nums[left]\n        if pivot_num == target:\n            return left\n        \n        if pivot_num < target < last_num:\n            right = nums_count - 1\n        else:\n            left = 0\n        \n        while left <= right:\n            mid = left + (right - left) // 2\n            mid_num = nums[mid]\n            if mid_num == target:\n                return mid\n            elif mid_num > target:\n                right = mid - 1\n            else:\n                left = mid + 1\n        \n        return -1"
+  Title = "Search in Rotated Sorted Array"
+  Url = "/submissions/detail/1057807270/"
+  LangName = "Python3"
+  Timestamp = 1695549176
+  Status = 10
+  Runtime = "34 ms"
+  IsPending = "Not Pending"
+  Memory = "16.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

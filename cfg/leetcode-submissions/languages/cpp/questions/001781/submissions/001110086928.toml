@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1110086928
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 1781
+  TitleSlug = "check-if-two-string-arrays-are-equivalent"
+  Code = "class Solution {\npublic:\n    bool arrayStringsAreEqual(vector<string>& word1, vector<string>& word2) {\n        string s1 = \"\";\n        string s2 = \"\";\n\n        for(const string& s : word1) {\n            s1 += s;\n        }\n        for(const string& s : word2) {\n            s2 += s;\n        }\n        return s1==s2;\n    }\n};"
+  Title = "Check If Two String Arrays are Equivalent"
+  Url = "/submissions/detail/1110086928/"
+  LangName = "C++"
+  Timestamp = 1701418889
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "12.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1065620395
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1635
+  TitleSlug = "number-of-good-pairs"
+  Code = "class Solution:\n    def numIdenticalPairs(self, nums: List[int]) -> int:\n        counter = Counter(nums)\n        \n        return sum((count ** 2 - count) // 2 for count in counter.values() if count > 1)"
+  Title = "Number of Good Pairs"
+  Url = "/submissions/detail/1065620395/"
+  LangName = "Python3"
+  Timestamp = 1696313591
+  Status = 10
+  Runtime = "28 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1210732154
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 206
+  TitleSlug = "reverse-linked-list"
+  Code = "/**\n * Definition for singly-linked list.\n * type ListNode struct {\n *     Val int\n *     Next *ListNode\n * }\n */\nfunc reverseList(head *ListNode) *ListNode {\n    if head == nil {\n        return nil\n    }\n    cur, next := head, head.Next\n    head.Next = nil\n    for next != nil {\n        cur, next, next.Next = next, next.Next, cur\n    }\n    return cur\n}"
+  Title = "Reverse Linked List"
+  Url = "/submissions/detail/1210732154/"
+  LangName = "Go"
+  Timestamp = 1711096872
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "2.7 MB"
+  CompareResult = "1111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

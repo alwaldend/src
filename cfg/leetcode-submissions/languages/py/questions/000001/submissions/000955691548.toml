@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 955691548
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1
+  TitleSlug = "two-sum"
+  Code = "class Solution:\n    def twoSum(self, nums: List[int], target: int) -> List[int]:\n        for i, number in enumerate(nums):\n            for j, number_inner in enumerate(nums[i+1:]):\n                if number + number_inner == target:\n                    return [i, i+j+1]"
+  Title = "Two Sum"
+  Url = "/submissions/detail/955691548/"
+  LangName = "Python3"
+  Timestamp = 1684834244
+  Status = 10
+  Runtime = "3364 ms"
+  IsPending = "Not Pending"
+  Memory = "17.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

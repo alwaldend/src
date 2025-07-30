@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1010085963
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 137
+  TitleSlug = "single-number-ii"
+  Code = "class Solution:\n    def singleNumber(self, nums: List[int]) -> int:\n        nums.sort()\n        length = len(nums)\n        for i in range(0, length, 3):\n            if i == length - 1:\n                return nums[i]\n    \n            num_1, num_2, num_3 = nums[i], nums[i+1], nums[i+2]\n\n            if num_1 == num_2 == num_3:\n                continue\n            \n            if num_2 == num_3:\n                return num_1\n            \n            if num_1 == num_3:\n                return num_2\n            \n            return num_3\n            "
+  Title = "Single Number II"
+  Url = "/submissions/detail/1010085963/"
+  LangName = "Python3"
+  Timestamp = 1690963627
+  Status = 10
+  Runtime = "61 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "11111111111111"
+  HasNotes = false
+  FlagType = 1

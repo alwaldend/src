@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1072633767
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2334
+  TitleSlug = "number-of-flowers-in-full-bloom"
+  Code = "class Solution:\n    def fullBloomFlowers(self, flowers: List[List[int]], people: List[int]) -> List[int]:\n        flowers.sort()\n        sorted_people = sorted(people)\n        dic = {}\n        heap = []\n        \n        i = 0\n        for person in sorted_people:\n            while i < len(flowers) and flowers[i][0] <= person:\n                heapq.heappush(heap, flowers[i][1])\n                i += 1\n            \n            while heap and heap[0] < person:\n                heapq.heappop(heap)\n            \n            dic[person] = len(heap)\n\n        return [dic[x] for x in people]"
+  Title = "Number of Flowers in Full Bloom"
+  Url = "/submissions/detail/1072633767/"
+  LangName = "Python3"
+  Timestamp = 1697029595
+  Status = 10
+  Runtime = "918 ms"
+  IsPending = "Not Pending"
+  Memory = "44.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

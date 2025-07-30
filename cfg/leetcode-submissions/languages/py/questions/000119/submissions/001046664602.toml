@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1046664602
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 119
+  TitleSlug = "pascals-triangle-ii"
+  Code = "class Solution:\n    def getRow(self, rowIndex: int) -> List[int]:\n        prev_row = (1,)\n        \n        for i in range(1, rowIndex + 1):\n            prev_row = (1, *(prev_row[j] + prev_row[j+1] for j in range(len(prev_row) - 1)), 1)\n        \n        return prev_row"
+  Title = "Pascal's Triangle II"
+  Url = "/submissions/detail/1046664602/"
+  LangName = "Python3"
+  Timestamp = 1694448999
+  Status = 10
+  Runtime = "33 ms"
+  IsPending = "Not Pending"
+  Memory = "16.3 MB"
+  CompareResult = "1111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

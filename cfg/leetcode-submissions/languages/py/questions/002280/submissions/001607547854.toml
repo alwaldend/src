@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1607547854
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2280
+  TitleSlug = "count-good-triplets-in-an-array"
+  Code = "from sortedcontainers import SortedList\nfrom typing import List\n\nclass Solution:\n    def goodTriplets(self, nums1: List[int], nums2: List[int]) -> int:\n\n        index_map = {num: i for i, num in enumerate(nums2)}\n  \n        indices = [index_map[num] for num in nums1]\n\n        left_counts = []\n        left_sorted = SortedList()\n        for idx in indices:\n            left_counts.append(left_sorted.bisect_left(idx))\n            left_sorted.add(idx)\n\n        right_counts = []\n        right_sorted = SortedList()\n        for idx in reversed(indices):\n            right_counts.append(len(right_sorted) - right_sorted.bisect_right(idx))\n            right_sorted.add(idx)\n        right_counts.reverse() \n        \n        return sum(left * right for left, right in zip(left_counts, right_counts))"
+  Title = "Count Good Triplets in an Array"
+  Url = "/submissions/detail/1607547854/"
+  LangName = "Python3"
+  Timestamp = 1744722846
+  Status = 10
+  Runtime = "757 ms"
+  IsPending = "Not Pending"
+  Memory = "49.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

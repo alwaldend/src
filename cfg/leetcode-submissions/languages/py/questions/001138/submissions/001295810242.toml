@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1295810242
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1138
+  TitleSlug = "grumpy-bookstore-owner"
+  Code = "class Solution:\n    def maxSatisfied(self, customers: List[int], grumpy: List[int], minutes: int) -> int:\n        ans = 0\n        total = sum((1 - grumpy[i]) * customers[i] for i in range(len(customers)))\n\n        window_all = 0\n        window_partial = 0\n        for i in range(len(customers)):\n            window_all += customers[i]\n            window_partial += (1 - grumpy[i]) * customers[i]\n            if i + 1 >= minutes:\n                ans = max(ans, total - window_partial + window_all)\n                left = i - minutes + 1\n                window_all -= customers[left]\n                window_partial -= (1 - grumpy[left]) * customers[left]\n\n        return ans"
+  Title = "Grumpy Bookstore Owner"
+  Url = "/submissions/detail/1295810242/"
+  LangName = "Python3"
+  Timestamp = 1718986867
+  Status = 10
+  Runtime = "214 ms"
+  IsPending = "Not Pending"
+  Memory = "18.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

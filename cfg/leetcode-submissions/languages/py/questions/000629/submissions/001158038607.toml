@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1158038607
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 629
+  TitleSlug = "k-inverse-pairs-array"
+  Code = "class Solution:\n    def kInversePairs(self, n: int, k: int) -> int:\n        MOD = 10**9 + 7\n        dp = [[0] * (k + 1) for _ in range(n + 1)]\n\n        for i in range(1, n + 1):\n            for j in range(k + 1):\n                if j == 0:\n                    dp[i][j] = 1\n                else:\n                    val = (dp[i - 1][j] + MOD - (dp[i - 1][j - i] if j - i >= 0 else 0)) % MOD\n                    dp[i][j] = (dp[i][j - 1] + val) % MOD\n\n        return (dp[n][k] + MOD - (dp[n][k - 1] if k > 0 else 0)) % MOD\n"
+  Title = "K Inverse Pairs Array"
+  Url = "/submissions/detail/1158038607/"
+  LangName = "Python3"
+  Timestamp = 1706339152
+  Status = 10
+  Runtime = "342 ms"
+  IsPending = "Not Pending"
+  Memory = "55.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

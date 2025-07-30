@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1087560136
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 42
+  TitleSlug = "trapping-rain-water"
+  Code = "func trap(height []int) int {\n    left, right := 0, len(height) - 1\n    res := 0\n    leftMax, rightMax := 0, 0\n\n    for left < right {\n        if height[left] < height[right] {\n            if height[left] >= leftMax {\n                leftMax = height[left]\n            } else {\n                res += (leftMax-height[left])\n            }\n            left++\n        } else {\n            if height[right] >= rightMax {\n                rightMax = height[right]\n            } else {\n                res += (rightMax-height[right])\n            }\n            right--\n        }\n    }\n\n    return res\n}"
+  Title = "Trapping Rain Water"
+  Url = "/submissions/detail/1087560136/"
+  LangName = "Go"
+  Timestamp = 1698672510
+  Status = 10
+  Runtime = "6 ms"
+  IsPending = "Not Pending"
+  Memory = "5.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

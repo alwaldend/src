@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1182831320
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1039
+  TitleSlug = "find-the-town-judge"
+  Code = "func findJudge(n int, trust [][]int) int {\n    fromTo := make([][]int, n)\n    toFrom := make([][]int, n)\n    for _, trustArray := range trust {\n        from, to := trustArray[0], trustArray[1]\n        fromTo[from-1] = append(fromTo[from-1], to)\n        toFrom[to-1] = append(toFrom[to-1], from)\n    }\n    for i, from := range toFrom {\n        if len(from) == n - 1 && len(fromTo[i]) == 0 {\n            return i + 1\n        }\n    }\n    return -1\n}"
+  Title = "Find the Town Judge"
+  Url = "/submissions/detail/1182831320/"
+  LangName = "Go"
+  Timestamp = 1708590036
+  Status = 10
+  Runtime = "90 ms"
+  IsPending = "Not Pending"
+  Memory = "7.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

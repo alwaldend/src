@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1047442678
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1023
+  TitleSlug = "time-based-key-value-store"
+  Code = "class TimeMap:\n\n    def __init__(self):\n        self._cache = defaultdict(list)\n        \n\n    def set(self, key: str, value: str, timestamp: int) -> None:\n        self._cache[key].append((timestamp, value))\n\n    def get(self, key: str, timestamp: int) -> str:\n        for cur_timestamp, value in reversed(self._cache[key]):\n            if cur_timestamp > timestamp:\n                continue\n            return value\n\n        return \"\"\n\n# Your TimeMap object will be instantiated and called as such:\n# obj = TimeMap()\n# obj.set(key,value,timestamp)\n# param_2 = obj.get(key,timestamp)"
+  Title = "Time Based Key-Value Store"
+  Url = "/submissions/detail/1047442678/"
+  LangName = "Python3"
+  Timestamp = 1694522555
+  Status = 10
+  Runtime = "583 ms"
+  IsPending = "Not Pending"
+  Memory = "73.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

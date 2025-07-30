@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1089106155
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 129
+  TitleSlug = "sum-root-to-leaf-numbers"
+  Code = "/**\n * Definition for a binary tree node.\n * type TreeNode struct {\n *     Val int\n *     Left *TreeNode\n *     Right *TreeNode\n * }\n */\n\ntype queueItem struct {\n    node *TreeNode\n    sum int\n}\nfunc sumNumbers(root *TreeNode) int {\n    if root == nil {\n        return 0\n    }\n    queue := []queueItem{queueItem{root, 0}}\n    sum := 0\n    for length := len(queue); length > 0; length = len(queue) {\n        for i := 0; i < length; i++ {\n            item := queue[i]\n            if item.node == nil {\n                continue\n            }\n            left, right, newVal := item.node.Left, item.node.Right, item.node.Val + item.sum * 10\n            if left == nil && right == nil {\n                sum += newVal\n            } else {\n                queue = append(queue, queueItem{left, newVal}, queueItem{right, newVal})\n            }\n        }\n        queue = queue[length:]\n    }\n    return sum\n}"
+  Title = "Sum Root to Leaf Numbers"
+  Url = "/submissions/detail/1089106155/"
+  LangName = "Go"
+  Timestamp = 1698843559
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "2.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

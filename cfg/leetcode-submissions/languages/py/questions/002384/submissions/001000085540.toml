@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1000085540
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2384
+  TitleSlug = "root-equals-sum-of-children"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def checkTree(self, root: Optional[TreeNode]) -> bool:\n        return root.val == (root.left.val + root.right.val)"
+  Title = "Root Equals Sum of Children"
+  Url = "/submissions/detail/1000085540/"
+  LangName = "Python3"
+  Timestamp = 1689934795
+  Status = 10
+  Runtime = "45 ms"
+  IsPending = "Not Pending"
+  Memory = "16.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 956368066
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 26
+  TitleSlug = "remove-duplicates-from-sorted-array"
+  Code = "class Solution:\n    def removeDuplicates(self, nums: List[int]) -> int:\n        length = len(nums)\n        if length == 1:\n            return 1\n        \n        unique_count = 1\n        last_unique_index = 0\n        for i, number in enumerate(nums[1:], 1):\n            last_unique = nums[last_unique_index]\n            if number == last_unique:\n                continue\n            \n            unique_count += 1\n            last_unique_index += 1\n            nums[last_unique_index] = number\n\n        nums = nums[:last_unique_index+1]\n\n        return unique_count"
+  Title = "Remove Duplicates from Sorted Array"
+  Url = "/submissions/detail/956368066/"
+  LangName = "Python3"
+  Timestamp = 1684923100
+  Status = 10
+  Runtime = "94 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

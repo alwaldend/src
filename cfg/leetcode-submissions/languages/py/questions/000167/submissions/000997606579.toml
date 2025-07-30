@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 997606579
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 167
+  TitleSlug = "two-sum-ii-input-array-is-sorted"
+  Code = "class Solution:\n    def twoSum(self, numbers: List[int], target: int) -> List[int]:\n        numbers_map: Dict[str, int] = {}\n\n        for i, number in enumerate(numbers):\n            diff = target - number\n            if diff in numbers_map:\n                return [numbers_map[diff] + 1, i + 1]\n            numbers_map[number] = i\n        \n        return []\n"
+  Title = "Two Sum II - Input Array Is Sorted"
+  Url = "/submissions/detail/997606579/"
+  LangName = "Python3"
+  Timestamp = 1689688529
+  Status = 10
+  Runtime = "136 ms"
+  IsPending = "Not Pending"
+  Memory = "17.3 MB"
+  CompareResult = "11111111111111111111111"
+  HasNotes = false
+  FlagType = 1

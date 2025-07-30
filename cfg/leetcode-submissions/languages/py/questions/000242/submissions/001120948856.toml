@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1120948856
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 242
+  TitleSlug = "valid-anagram"
+  Code = "class Solution:\n    def isAnagram(self, s: str, t: str) -> bool:\n        if (len(s) != len(t)):\n            return False\n            \n        letters = [0] * 26\n        for char in s:\n            letters[ord(char) - ord('a')] += 1\n        \n        for char in t:\n            i = ord(char) - ord('a')\n            letters[i] -= 1\n            if letters[i] < 0:\n                return False\n\n        return True"
+  Title = "Valid Anagram"
+  Url = "/submissions/detail/1120948856/"
+  LangName = "Python3"
+  Timestamp = 1702720915
+  Status = 10
+  Runtime = "63 ms"
+  IsPending = "Not Pending"
+  Memory = "16.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

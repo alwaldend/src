@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1250884350
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2573
+  TitleSlug = "remove-nodes-from-linked-list"
+  Code = "class Solution:\n    def removeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:\n        cur = head\n        stack = []\n        while cur:\n            while stack and stack[-1].val < cur.val:\n                stack.pop()\n            stack.append(cur)\n            cur = cur.next\n        \n        nxt = None\n        while stack:\n            cur = stack.pop()\n            cur.next = nxt\n            nxt = cur\n        \n        return cur"
+  Title = "Remove Nodes From Linked List"
+  Url = "/submissions/detail/1250884350/"
+  LangName = "Python3"
+  Timestamp = 1715003246
+  Status = 10
+  Runtime = "461 ms"
+  IsPending = "Not Pending"
+  Memory = "51.2 MB"
+  CompareResult = "11111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

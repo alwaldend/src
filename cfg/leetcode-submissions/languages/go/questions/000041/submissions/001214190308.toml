@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1214190308
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 41
+  TitleSlug = "first-missing-positive"
+  Code = "func firstMissingPositive(nums []int) int {\n    n := len(nums)\n\n\tfor i := 0; i < n; i++ {\n\t\tif nums[i] <= 0 || nums[i] > n {\n\t\t\tnums[i] = n + 1\n\t\t}\n\t}\n\n\tfor i := 0; i < n; i++ {\n\t\tval := abs(nums[i])\n\t\tif val >= 1 && val <= n {\n\t\t\tflagIndex := val - 1\n\t\t\tif nums[flagIndex] > 0 {\n\t\t\t\tnums[flagIndex] *= -1\n\t\t\t}\n\t\t}\n\t}\n\n\tfor i := 1; i <= n; i++ {\n\t\tif nums[i - 1] > 0 {\n\t\t\treturn i\n\t\t}\n\t}\n\n\treturn n + 1\n}\n\nfunc abs(x int) int {\n    if x < 0 {\n        return -x\n    }\n    return x\n}"
+  Title = "First Missing Positive"
+  Url = "/submissions/detail/1214190308/"
+  LangName = "Go"
+  Timestamp = 1711436677
+  Status = 10
+  Runtime = "39 ms"
+  IsPending = "Not Pending"
+  Memory = "9.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

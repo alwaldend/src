@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1050151618
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 304
+  TitleSlug = "range-sum-query-2d-immutable"
+  Code = "class NumMatrix:\n\n    def __init__(self, matrix: List[List[int]]):\n        self.dp=[[0] * (len(matrix[0])+1) for _ in range(len(matrix)+1)]\n        \n\t\t# calculate prefix sum\n        for r in range(len(self.dp)-1):\n            for c in range(len(self.dp[0])-1):\n                self.dp[r+1][c+1]=matrix[r][c] + self.dp[r][c+1] + self.dp[r+1][c] - self.dp[r][c]\n        \n    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:\n        return self.dp[row2+1][col2+1] - self.dp[row1][col2+1] - self.dp[row2+1][col1] + self.dp[row1][col1]\n                "
+  Title = "Range Sum Query 2D - Immutable"
+  Url = "/submissions/detail/1050151618/"
+  LangName = "Python3"
+  Timestamp = 1694786879
+  Status = 10
+  Runtime = "1162 ms"
+  IsPending = "Not Pending"
+  Memory = "26.9 MB"
+  CompareResult = "1111111111111111111111"
+  HasNotes = false
+  FlagType = 1

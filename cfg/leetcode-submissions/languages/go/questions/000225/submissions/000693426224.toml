@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 693426224
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 225
+  TitleSlug = "implement-stack-using-queues"
+  Code = "\ntype MyStack struct{ queue *list.List }\n\nfunc Constructor() MyStack           { return MyStack{&list.List{}} }\nfunc (this *MyStack) Push(value int) { this.queue.PushFront(value) }\nfunc (this *MyStack) Top() int       { return this.queue.Front().Value.(int) }\nfunc (this *MyStack) Empty() bool    { return this.queue.Len() == 0 }\nfunc (this *MyStack) Pop() int {\n\treturn this.queue.Remove(this.queue.Front()).(int)\n}"
+  Title = "Implement Stack using Queues"
+  Url = "/submissions/detail/693426224/"
+  LangName = "Go"
+  Timestamp = 1651723293
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "2 MB"
+  CompareResult = "1111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1053831460
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2285
+  TitleSlug = "design-bitset"
+  Code = "class Bitset:\n\n    def __init__(self, size: int):\n        self.bits = [0] * size\n        self.ones_count = 0\n        self.do_flip = False\n        self.size = size\n\n    def fix(self, idx: int) -> None:\n        cur = self.bits[idx]\n        if self.do_flip and cur == 1:\n            self.ones_count -= 1\n            self.bits[idx] = 0\n        elif not self.do_flip and cur == 0:\n            self.ones_count += 1\n            self.bits[idx] = 1\n\n    def unfix(self, idx: int) -> None:\n        cur = self.bits[idx]\n        if self.do_flip and cur == 0:\n            self.ones_count += 1\n            self.bits[idx] = 1\n        elif not self.do_flip and cur == 1:\n            self.ones_count -= 1\n            self.bits[idx] = 0\n\n    def flip(self) -> None:\n        self.do_flip = not self.do_flip\n\n    def all(self) -> bool:\n        return self.count() == self.size\n\n    def one(self) -> bool:\n        return self.count() > 0\n\n    def count(self) -> int:\n        return self.size - self.ones_count if self.do_flip else self.ones_count\n\n    def toString(self) -> str:\n        target = (bit ^ 1 for bit in self.bits) if self.do_flip else self.bits\n        return \"\".join(str(num) for num in target)\n\n\n# Your Bitset object will be instantiated and called as such:\n# obj = Bitset(size)\n# obj.fix(idx)\n# obj.unfix(idx)\n# obj.flip()\n# param_4 = obj.all()\n# param_5 = obj.one()\n# param_6 = obj.count()\n# param_7 = obj.toString()"
+  Title = "Design Bitset"
+  Url = "/submissions/detail/1053831460/"
+  LangName = "Python3"
+  Timestamp = 1695146896
+  Status = 10
+  Runtime = "605 ms"
+  IsPending = "Not Pending"
+  Memory = "47.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

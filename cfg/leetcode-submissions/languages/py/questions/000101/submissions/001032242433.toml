@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1032242433
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 101
+  TitleSlug = "symmetric-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isSymmetric(self, root: Optional[TreeNode]) -> bool:\n        comparison_stack = [(root.left, root.right)]\n        while comparison_stack:\n            left, right = comparison_stack.pop()\n            \n            if not left and not right:\n                continue\n            if not left or not right or left.val != right.val:\n                return False\n\n            comparison_stack.extend(((left.left, right.right), (left.right, right.left)))\n        \n        return True\n\n"
+  Title = "Symmetric Tree"
+  Url = "/submissions/detail/1032242433/"
+  LangName = "Python3"
+  Timestamp = 1693053492
+  Status = 10
+  Runtime = "43 ms"
+  IsPending = "Not Pending"
+  Memory = "16.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

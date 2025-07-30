@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1002512700
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 415
+  TitleSlug = "add-strings"
+  Code = "class Solution:\n    def addStrings(self, num1: str, num2: str) -> str:\n        result = []\n        length_1, length_2 = len(num1), len(num2)\n        index_1, index_2 = length_1 - 1, length_2 - 1\n\n\n        carry = 0\n        while index_1 >= 0 or index_2 >= 0 or carry:\n            digit_1 = num1[index_1] if index_1 >= 0 else 0\n            digit_2 = num2[index_2] if index_2 >= 0 else 0\n            digit = int(digit_1) + int(digit_2) + carry\n            if digit > 9:\n                carry = 1\n                digit %= 10\n            else:\n                carry = 0\n\n            result.append(str(digit))\n            index_1 -= 1\n            index_2 -= 1 \n\n        return \"\".join(reversed(result))"
+  Title = "Add Strings"
+  Url = "/submissions/detail/1002512700/"
+  LangName = "Python3"
+  Timestamp = 1690192582
+  Status = 10
+  Runtime = "62 ms"
+  IsPending = "Not Pending"
+  Memory = "16.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

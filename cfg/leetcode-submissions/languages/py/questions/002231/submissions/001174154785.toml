@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1174154785
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2231
+  TitleSlug = "find-first-palindromic-string-in-the-array"
+  Code = "class Solution:\n    def firstPalindrome(self, words: List[str]) -> str:\n        for s in words:\n            for i in range(len(s) // 2):\n                if s[i] != s[-i - 1]:\n                    break\n            else:\n                return s\n        return \"\""
+  Title = "Find First Palindromic String in the Array"
+  Url = "/submissions/detail/1174154785/"
+  LangName = "Python3"
+  Timestamp = 1707829855
+  Status = 10
+  Runtime = "96 ms"
+  IsPending = "Not Pending"
+  Memory = "16.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

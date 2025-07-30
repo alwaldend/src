@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1018257389
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 518
+  TitleSlug = "coin-change-ii"
+  Code = "class Solution:\n    def change(self, amount: int, coins: List[int]) -> int:\n        coins_count = len(coins)\n        memo = [[-1] * (amount + 1) for _ in range(coins_count)]\n        \n        def dp(i: int, amount: int) -> int:\n            if amount == 0:\n                return 1\n            if i == coins_count:\n                return 0\n            if memo[i][amount] != -1:\n                return memo[i][amount]\n\n            value = None\n\n            if coins[i] > amount:\n                value = dp(i + 1, amount)\n            else:\n                value = dp(i, amount - coins[i]) + dp(i + 1, amount)\n\n            memo[i][amount] = value\n            return value\n\n        return dp(0, amount)"
+  Title = "Coin Change II"
+  Url = "/submissions/detail/1018257389/"
+  LangName = "Python3"
+  Timestamp = 1691741551
+  Status = 10
+  Runtime = "331 ms"
+  IsPending = "Not Pending"
+  Memory = "40.6 MB"
+  CompareResult = "1111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

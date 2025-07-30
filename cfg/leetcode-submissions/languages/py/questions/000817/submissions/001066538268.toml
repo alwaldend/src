@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1066538268
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 817
+  TitleSlug = "design-hashmap"
+  Code = "class MyHashMap:\n    def __init__(self):\n        self.data = [None] * 1000001\n\n    def put(self, key: int, val: int) -> None:\n        self.data[key] = val\n        \n    def get(self, key: int) -> int:\n        val = self.data[key]\n        return -1 if val is None else val\n\n    def remove(self, key: int) -> None:\n        self.data[key] = None\n        \n\n\n# Your MyHashMap object will be instantiated and called as such:\n# obj = MyHashMap()\n# obj.put(key,value)\n# param_2 = obj.get(key)\n# obj.remove(key)"
+  Title = "Design HashMap"
+  Url = "/submissions/detail/1066538268/"
+  LangName = "Python3"
+  Timestamp = 1696399046
+  Status = 10
+  Runtime = "286 ms"
+  IsPending = "Not Pending"
+  Memory = "41.9 MB"
+  CompareResult = "111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

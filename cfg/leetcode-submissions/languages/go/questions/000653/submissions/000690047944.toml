@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 690047944
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 653
+  TitleSlug = "two-sum-iv-input-is-a-bst"
+  Code = "import \"sort\"\n\nfunc construct(root *TreeNode, results map[int]bool, doubles map[int]bool) {\n\tif root == nil {\n\t\treturn\n\t}\n\t_, exists := results[root.Val]\n\tif !exists {\n\t\tresults[root.Val] = true\n\t} else if _, double := doubles[root.Val]; exists && double {\n\t\tdoubles[root.Val] = true\n\t}\n\tconstruct(root.Left, results, doubles)\n\tconstruct(root.Right, results, doubles)\n}\n\nfunc sorted(input_map map[int]bool) (results []int) {\n\tfor key := range input_map {\n\t\tresults = append(results, key)\n\t}\n\treturn\n}\n\nfunc findTarget(root *TreeNode, target int) bool {\n\tif root == nil {\n\t\treturn false\n\t}\n\tresults := map[int]bool{}\n\tdoubles := map[int]bool{}\n\tconstruct(root, results, doubles)\n\tif _, double_exists := doubles[target/2]; target%2 == 0 && double_exists {\n\t\treturn true\n\t}\n\tresults_sorted := sorted(results)\n\tresults_sorted_len := len(results_sorted)\n\tsort.Ints(results_sorted)\n\tfor index, number := range results_sorted {\n\t\tfor index_inner := index + 1; index_inner < results_sorted_len; index_inner++ {\n\t\t\tif number+results_sorted[index_inner] == target {\n\t\t\t\treturn true\n\t\t\t}\n\t\t}\n\t}\n\treturn false\n}"
+  Title = "Two Sum IV - Input is a BST"
+  Url = "/submissions/detail/690047944/"
+  LangName = "Go"
+  Timestamp = 1651297740
+  Status = 10
+  Runtime = "46 ms"
+  IsPending = "Not Pending"
+  Memory = "8.3 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

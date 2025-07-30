@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1079918385
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 341
+  TitleSlug = "flatten-nested-list-iterator"
+  Code = "# \"\"\"\n# This is the interface that allows for creating nested lists.\n# You should not implement it, or speculate about its implementation\n# \"\"\"\n#class NestedInteger:\n#    def isInteger(self) -> bool:\n#        \"\"\"\n#        @return True if this NestedInteger holds a single integer, rather than a nested list.\n#        \"\"\"\n#\n#    def getInteger(self) -> int:\n#        \"\"\"\n#        @return the single integer that this NestedInteger holds, if it holds a single integer\n#        Return None if this NestedInteger holds a nested list\n#        \"\"\"\n#\n#    def getList(self) -> [NestedInteger]:\n#        \"\"\"\n#        @return the nested list that this NestedInteger holds, if it holds a nested list\n#        Return None if this NestedInteger holds a single integer\n#        \"\"\"\n\nclass NestedIterator:\n    def __init__(self, nestedList: [NestedInteger]):\n        self.list = []\n        self.flatten(self.list, nestedList)\n        self.cur = 0\n        self.length = len(self.list)\n\n    def flatten(self, flatList: List[int], nestedList: List[NestedInteger]):\n        for ni in nestedList:\n            if ni.isInteger():\n                flatList.append(ni.getInteger())\n            else:\n                self.flatten(flatList, ni.getList())\n\n    def next(self) -> int: \n        answer = self.list[self.cur]\n        self.cur += 1\n        return answer\n    \n    def hasNext(self) -> bool:\n        return self.cur < self.length\n\n# Your NestedIterator object will be instantiated and called as such:\n# i, v = NestedIterator(nestedList), []\n# while i.hasNext(): v.append(i.next())"
+  Title = "Flatten Nested List Iterator"
+  Url = "/submissions/detail/1079918385/"
+  LangName = "Python3"
+  Timestamp = 1697807196
+  Status = 10
+  Runtime = "51 ms"
+  IsPending = "Not Pending"
+  Memory = "19.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

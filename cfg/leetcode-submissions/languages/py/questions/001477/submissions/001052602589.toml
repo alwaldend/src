@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1052602589
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1477
+  TitleSlug = "product-of-the-last-k-numbers"
+  Code = "class ProductOfNumbers:\n\n    def __init__(self):\n        self.products, self.last_zero, self.length = [], -1, 0\n\n    def add(self, num: int) -> None:\n        if num == 0:\n            self.last_zero = self.length\n            num = 1\n        self.products.append(num * (self.products[-1] if self.products else 1))\n        self.length += 1\n\n    def getProduct(self, k: int) -> int:\n        first_elem = self.length - k\n        if self.last_zero >= first_elem:\n            return 0\n        if first_elem == 0:\n            return self.products[-1]\n        return self.products[-1] // self.products[first_elem - 1]\n\n\n# Your ProductOfNumbers object will be instantiated and called as such:\n# obj = ProductOfNumbers()\n# obj.add(num)\n# param_2 = obj.getProduct(k)"
+  Title = "Product of the Last K Numbers"
+  Url = "/submissions/detail/1052602589/"
+  LangName = "Python3"
+  Timestamp = 1695040684
+  Status = 10
+  Runtime = "235 ms"
+  IsPending = "Not Pending"
+  Memory = "165.6 MB"
+  CompareResult = "111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

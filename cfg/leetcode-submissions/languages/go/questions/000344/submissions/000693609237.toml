@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 693609237
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 344
+  TitleSlug = "reverse-string"
+  Code = "func reverseString(characters []byte) {\n\tlength := len(characters)\n\tfor index := 0; index < length/2; index++ {\n\t\tindex_last := length - index -1 \n\t\tcurrent, last := characters[index], characters[index_last]\n\t\tcharacters[index_last] = current\n\t\tcharacters[index] = last\n\t}\n}\n"
+  Title = "Reverse String"
+  Url = "/submissions/detail/693609237/"
+  LangName = "Go"
+  Timestamp = 1651747833
+  Status = 10
+  Runtime = "38 ms"
+  IsPending = "Not Pending"
+  Memory = "6.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

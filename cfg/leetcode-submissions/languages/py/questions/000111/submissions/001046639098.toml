@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1046639098
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 111
+  TitleSlug = "minimum-depth-of-binary-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def minDepth(self, root: Optional[TreeNode]) -> int:\n        \n        def dfs(node: TreeNode) -> int:\n            if not node:\n                return 0\n\n            return 1 + min((depth for depth in (dfs(node.left), dfs(node.right)) if depth > 0),\n                           default=0)\n\n        return dfs(root)"
+  Title = "Minimum Depth of Binary Tree"
+  Url = "/submissions/detail/1046639098/"
+  LangName = "Python3"
+  Timestamp = 1694447171
+  Status = 10
+  Runtime = "595 ms"
+  IsPending = "Not Pending"
+  Memory = "58.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

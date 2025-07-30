@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1209350940
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 621
+  TitleSlug = "task-scheduler"
+  Code = "func leastInterval(tasks []byte, n int) int {\n\tif n == 0 {\n\t\treturn len(tasks)\n\t}\n\n\tcnt := make([]int, 26)\n\tfor _, task := range tasks {\n\t\tcnt[task - 'A']++\n\t}\n\n\tvar maxCount, sameMaxCount int\n\tfor _, c := range cnt {\n\t\tif c > maxCount {\n\t\t\tmaxCount = c\n\t\t\tsameMaxCount = 1\n\t\t} else if c == maxCount {\n\t\t\tsameMaxCount++\n\t\t}\n\t}\n\n\tres := (n + 1) * (maxCount - 1) + sameMaxCount\n    if (res > len(tasks)) {\n        return res\n    } else {\n        return len(tasks)\n    }\n}"
+  Title = "Task Scheduler"
+  Url = "/submissions/detail/1209350940/"
+  LangName = "Go"
+  Timestamp = 1710958416
+  Status = 10
+  Runtime = "6 ms"
+  IsPending = "Not Pending"
+  Memory = "6.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
