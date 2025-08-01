@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719556575
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 958
+  TitleSlug = "sort-array-by-parity-ii"
+  Code = "class Solution:\n    def sortArrayByParityII(self, nums: List[int]) -> List[int]:\n        res = [None] * len(nums)\n        i1, i2 = 0, 1\n        for num in nums:\n            if num % 2 == 0:\n                res[i1] = num\n                i1 += 2\n            else:\n                res[i2] = num\n                i2 += 2\n        return res"
+  Title = "Sort Array By Parity II"
+  Url = "/submissions/detail/1719556575/"
+  LangName = "Python3"
+  Timestamp = 1754055785
+  Status = 10
+  Runtime = "5 ms"
+  IsPending = "Not Pending"
+  Memory = "19.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

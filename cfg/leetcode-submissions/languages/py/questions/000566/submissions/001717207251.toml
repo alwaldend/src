@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717207251
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 566
+  TitleSlug = "reshape-the-matrix"
+  Code = "class Solution:\n    def matrixReshape(self, mat: List[List[int]], r: int, c: int) -> List[List[int]]:\n        if len(mat) * len(mat[0]) != r * c:\n            return mat\n        new_mat = [[None] * c for _ in range(r)]\n        new_row = 0\n        new_col = 0\n        for row in mat:\n            for col in row:\n                if new_col == c:\n                    new_col = 0\n                    new_row += 1\n                new_mat[new_row][new_col] = col\n                new_col += 1\n        return new_mat\n                "
+  Title = "Reshape the Matrix"
+  Url = "/submissions/detail/1717207251/"
+  LangName = "Python3"
+  Timestamp = 1753886205
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

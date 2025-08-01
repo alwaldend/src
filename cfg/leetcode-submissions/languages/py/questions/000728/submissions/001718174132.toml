@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1718174132
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 728
+  TitleSlug = "self-dividing-numbers"
+  Code = "class Solution:\n    def selfDividingNumbers(self, left: int, right: int) -> List[int]:\n        def self_dividing(num: int) -> bool:\n            if num == 0:\n                return False\n            cur_num = num\n            while cur_num > 0:\n                mod = cur_num % 10\n                cur_num //= 10\n                if mod == 0 or num % mod > 0:\n                    return False\n            return True\n        ans = []\n        for n in range(left, right + 1):\n            if self_dividing(n):\n                ans.append(n)\n        return ans"
+  Title = "Self Dividing Numbers"
+  Url = "/submissions/detail/1718174132/"
+  LangName = "Python3"
+  Timestamp = 1753956226
+  Status = 10
+  Runtime = "9 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

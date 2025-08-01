@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719205237
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 890
+  TitleSlug = "lemonade-change"
+  Code = "class Solution:\n    def lemonadeChange(self, bills: List[int]) -> bool:\n        change_5, change_10 = 0, 0\n        for bill in bills:\n            if bill == 5:\n                change_5 += 1\n            elif bill == 10 and change_5 > 0:\n                change_5 -= 1\n                change_10 += 1\n            elif bill == 10 and change_5 <= 0:\n                return False\n            elif bill == 20 and change_10 > 0 and change_5 > 0:\n                change_10 -= 1\n                change_5 -= 1\n            elif bill == 20 and change_5 >= 3:\n                change_5 -= 3\n            else:\n                return False\n        return True\n"
+  Title = "Lemonade Change"
+  Url = "/submissions/detail/1719205237/"
+  LangName = "Python3"
+  Timestamp = 1754031583
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "21.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1718030916
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 682
+  TitleSlug = "baseball-game"
+  Code = "class Solution:\n    def calPoints(self, operations: List[str]) -> int:\n        stack = []\n        stack_sum = 0\n        for op in operations:\n            if op.isnumeric() or op.startswith(\"-\"):\n                new_score = int(op)\n                stack.append(new_score)\n                stack_sum += new_score\n            elif op == \"+\":\n                new_score = stack[-1] + stack[-2]\n                stack_sum += new_score\n                stack.append(new_score)\n            elif op == \"D\":\n                new_score = stack[-1] * 2\n                stack_sum += new_score\n                stack.append(new_score)\n            elif op == \"C\":\n                stack_sum -= stack[-1]\n                stack.pop()\n            else:\n                raise Exception(op)\n        return stack_sum"
+  Title = "Baseball Game"
+  Url = "/submissions/detail/1718030916/"
+  LangName = "Python3"
+  Timestamp = 1753946911
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

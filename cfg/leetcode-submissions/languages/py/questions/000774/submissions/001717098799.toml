@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717098799
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 774
+  TitleSlug = "maximum-depth-of-n-ary-tree"
+  Code = "\"\"\"\n# Definition for a Node.\nclass Node:\n    def __init__(self, val: Optional[int] = None, children: Optional[List['Node']] = None):\n        self.val = val\n        self.children = children\n\"\"\"\n\nclass Solution:\n    def maxDepth(self, root: 'Node') -> int:\n        if root is None:\n            return 0\n        queue: deque[tuple[Node, int]] = deque(((root, 1),))\n        max_depth = 0\n        while queue:\n            node, depth = queue.popleft()\n            max_depth = depth\n            for child in node.children:\n                queue.append((child, 1 + depth))\n        return max_depth"
+  Title = "Maximum Depth of N-ary Tree"
+  Url = "/submissions/detail/1717098799/"
+  LangName = "Python3"
+  Timestamp = 1753880656
+  Status = 10
+  Runtime = "45 ms"
+  IsPending = "Not Pending"
+  Memory = "19.2 MB"
+  CompareResult = "11111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

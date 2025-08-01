@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717027948
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 520
+  TitleSlug = "detect-capital"
+  Code = "class Solution:\n    def detectCapitalUse(self, word: str) -> bool:\n        length = len(word)\n        if length == 1:\n            return True\n        def is_cap(char: str) -> bool:\n            res = 65 <= ord(char) <= 90\n            return res\n        first_cap, second_cap = is_cap(word[0]), is_cap(word[1])\n        if first_cap and second_cap:\n            should_be_cap = True\n        elif first_cap and not second_cap:\n            should_be_cap = False\n        elif not first_cap and second_cap:\n            return False\n        elif not first_cap and not second_cap:\n            should_be_cap = False\n        else:\n            raise Exception\n        for char in word[2:]:\n            if is_cap(char) != should_be_cap:\n                return False\n        return True"
+  Title = "Detect Capital"
+  Url = "/submissions/detail/1717027948/"
+  LangName = "Python3"
+  Timestamp = 1753876168
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

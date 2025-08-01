@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719586814
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 978
+  TitleSlug = "valid-mountain-array"
+  Code = "class Solution:\n    def validMountainArray(self, arr: List[int]) -> bool:\n        length = len(arr)\n        if length < 3:\n            return False\n        enc_peak = False\n        prev = arr[0]\n        for i, num in enumerate(arr[1:], 1):\n            if num == prev:\n                return False\n            if not enc_peak and num < prev:\n                enc_peak = True\n            if enc_peak and (num > prev or i == 1):\n                return False   \n            prev = num\n        return enc_peak"
+  Title = "Valid Mountain Array"
+  Url = "/submissions/detail/1719586814/"
+  LangName = "Python3"
+  Timestamp = 1754057578
+  Status = 10
+  Runtime = "149 ms"
+  IsPending = "Not Pending"
+  Memory = "19 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

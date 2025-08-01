@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717460678
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 627
+  TitleSlug = "swap-salary"
+  Code = "UPDATE\n    Salary\nSET\n    sex = (\n        CASE\n            WHEN\n                sex = 'f'\n            THEN\n                'm'\n            ELSE\n                'f'\n        END\n    );"
+  Title = "Swap Salary"
+  Url = "/submissions/detail/1717460678/"
+  LangName = "PostgreSQL"
+  Timestamp = 1753897964
+  Status = 10
+  Runtime = "220 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111"
+  HasNotes = false
+  FlagType = 1

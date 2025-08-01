@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717550655
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 680
+  TitleSlug = "valid-palindrome-ii"
+  Code = "class Solution:\n    def validPalindrome(self, s: str) -> bool:\n        def check(i: int, j: int) -> bool:\n            while i < j:\n                if s[i] != s[j]:\n                    return False\n                i, j = i + 1, j - 1\n            return True\n\n        i, j = 0, len(s) - 1\n        while i < j:\n            if s[i] != s[j]:\n                return check(i + 1, j) or check(i, j - 1)\n            i, j = i + 1, j - 1\n        return True"
+  Title = "Valid Palindrome II"
+  Url = "/submissions/detail/1717550655/"
+  LangName = "Python3"
+  Timestamp = 1753902338
+  Status = 10
+  Runtime = "71 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719553224
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 958
+  TitleSlug = "sort-array-by-parity-ii"
+  Code = "class Solution:\n    def sortArrayByParityII(self, nums: List[int]) -> List[int]:\n        stack_even, stack_odd = [], []\n        for num in nums:\n            if num % 2 == 0:\n                stack_even.append(num)\n            else:\n                stack_odd.append(num)\n        for i in range(len(nums)):\n            if i % 2 == 0:\n                nums[i] = stack_even.pop()\n            else:\n                nums[i] = stack_odd.pop()\n        return nums"
+  Title = "Sort Array By Parity II"
+  Url = "/submissions/detail/1719553224/"
+  LangName = "Python3"
+  Timestamp = 1754055591
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "19.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717474879
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 657
+  TitleSlug = "robot-return-to-origin"
+  Code = "class Solution:\n    def judgeCircle(self, moves: str) -> bool:\n        row, col = 0, 0\n        coords = {\n            \"R\": (0, 1),\n            \"L\": (0, -1),\n            \"U\": (1, 0),\n            \"D\": (-1, 0)           \n        }\n        for move in moves:\n            row_delta, col_delta = coords[move]\n            row += row_delta\n            col += col_delta\n        return row == 0 and col == 0"
+  Title = "Robot Return to Origin"
+  Url = "/submissions/detail/1717474879/"
+  LangName = "Python3"
+  Timestamp = 1753898557
+  Status = 10
+  Runtime = "14 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

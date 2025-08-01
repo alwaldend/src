@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719506792
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 933
+  TitleSlug = "increasing-order-search-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def increasingBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:\n        if root is None:\n            return None\n        def dfs(node: TreeNode) -> tuple[TreeNode, TreeNode]:\n            if node.left:\n                root, tail = dfs(node.left)\n                tail.right = node\n                tail = node\n                node.left = None\n            else:\n                root, tail = node, node\n            if node.right:\n                right_root, right_tail = dfs(node.right)\n                tail.right = right_root\n                tail = right_tail\n            return root, tail\n\n        root, tail = dfs(root)\n        return root"
+  Title = "Increasing Order Search Tree"
+  Url = "/submissions/detail/1719506792/"
+  LangName = "Python3"
+  Timestamp = 1754052658
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

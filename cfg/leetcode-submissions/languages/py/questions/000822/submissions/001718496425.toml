@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1718496425
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 822
+  TitleSlug = "unique-morse-code-words"
+  Code = "MORSE = (\".-\",\"-...\",\"-.-.\",\"-..\",\".\",\"..-.\",\"--.\",\"....\",\"..\",\".---\",\"-.-\",\".-..\",\"--\",\"-.\",\"---\",\".--.\",\"--.-\",\".-.\",\"...\",\"-\",\"..-\",\"...-\",\".--\",\"-..-\",\"-.--\",\"--..\")\n\nclass Solution:\n    def uniqueMorseRepresentations(self, words: List[str]) -> int:\n        enc = set()\n        for word in words:\n            enc.add(\"\".join(MORSE[ord(char) - 97] for char in word))\n        return len(enc)"
+  Title = "Unique Morse Code Words"
+  Url = "/submissions/detail/1718496425/"
+  LangName = "Python3"
+  Timestamp = 1753975860
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

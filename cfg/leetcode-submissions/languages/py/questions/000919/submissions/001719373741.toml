@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719373741
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 919
+  TitleSlug = "projection-area-of-3d-shapes"
+  Code = "class Solution:\n    def projectionArea(self, grid: list[list[int]]) -> int:\n        res = 0\n        length = len(grid)\n\n        for i in range(length):\n            best_row = 0\n            best_col = 0 \n            for j in range(length):\n                if grid[i][j]: \n                    res += 1 \n                best_row = max(best_row, grid[i][j])\n                best_col = max(best_col, grid[j][i])\n\n            res += best_row + best_col\n\n        return res"
+  Title = "Projection Area of 3D Shapes"
+  Url = "/submissions/detail/1719373741/"
+  LangName = "Python3"
+  Timestamp = 1754043158
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

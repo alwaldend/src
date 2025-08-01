@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1716170257
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 504
+  TitleSlug = "base-7"
+  Code = "class Solution:\n    def convertToBase7(self, num: int) -> str:\n        if num > -7 and num < 7:\n            return str(num)\n        res_arr = []\n        sign = \"\"\n        if num < 0:\n            sign = \"-\"\n            num = -num\n        while num:\n            res_arr.append(str(num % 7))\n            num //= 7\n        res = sign + \"\".join(reversed(res_arr))\n        return res"
+  Title = "Base 7"
+  Url = "/submissions/detail/1716170257/"
+  LangName = "Python3"
+  Timestamp = 1753811401
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

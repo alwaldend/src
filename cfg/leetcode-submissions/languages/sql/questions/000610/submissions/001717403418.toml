@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717403418
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 610
+  TitleSlug = "triangle-judgement"
+  Code = "SELECT\n    x, y, z, ( \n        CASE\n            WHEN \n                ((x+y+z) - GREATEST(x,y,z)) > GREATEST(x,y,z) \n            THEN \n                'Yes' \n            ELSE \n                'No'\n        END\n    ) AS triangle\nFROM \n    Triangle;\n"
+  Title = "Triangle Judgement"
+  Url = "/submissions/detail/1717403418/"
+  LangName = "PostgreSQL"
+  Timestamp = 1753895559
+  Status = 10
+  Runtime = "193 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111111"
+  HasNotes = false
+  FlagType = 1

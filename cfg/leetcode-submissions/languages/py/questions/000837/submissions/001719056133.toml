@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719056133
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 837
+  TitleSlug = "most-common-word"
+  Code = "class Solution:\n    def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:\n        freqs = defaultdict(int)\n        banned_set = set(banned)\n        cur_word = []\n        for char in itertools.chain(paragraph, \".\"):\n            if char.isalpha():\n                cur_word.append(char.lower())\n                continue\n            if not cur_word:\n                continue\n            word = \"\".join(cur_word)\n            if word not in banned_set:\n                freqs[word] += 1\n            cur_word.clear()\n        most_freq = \"\"\n        most_freq_freq = 0\n        for word, freq in freqs.items():\n            if freq > most_freq_freq:\n                most_freq, most_freq_freq = word, freq\n        return most_freq"
+  Title = "Most Common Word"
+  Url = "/submissions/detail/1719056133/"
+  LangName = "Python3"
+  Timestamp = 1754022813
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1718514635
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 824
+  TitleSlug = "number-of-lines-to-write-string"
+  Code = "class Solution:\n    def numberOfLines(self, widths: List[int], s: str) -> List[int]:\n        line_count = 1\n        line_width = 0\n        for char in s:\n            char_width = widths[ord(char) - 97]\n            line_width += char_width\n            if line_width > 100:\n                line_width = char_width\n                line_count += 1\n        return line_count, line_width"
+  Title = "Number of Lines To Write String"
+  Url = "/submissions/detail/1718514635/"
+  LangName = "Python3"
+  Timestamp = 1753976805
+  Status = 10
+  Runtime = "45 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

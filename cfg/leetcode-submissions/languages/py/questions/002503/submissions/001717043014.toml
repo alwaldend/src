@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717043014
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2503
+  TitleSlug = "longest-subarray-with-maximum-bitwise-and"
+  Code = "class Solution:\n    def longestSubarray(self, nums: List[int]) -> int:\n        max_and = max(nums)\n        max_length = 0        \n        cur_length = 0\n        for num in nums:\n            if num == max_and:\n                cur_length += 1\n            else:\n                max_length = max(max_length, cur_length)\n                cur_length = 0\n        return max(max_length, cur_length)"
+  Title = "Longest Subarray With Maximum Bitwise AND"
+  Url = "/submissions/detail/1717043014/"
+  LangName = "Python3"
+  Timestamp = 1753877189
+  Status = 10
+  Runtime = "25 ms"
+  IsPending = "Not Pending"
+  Memory = "30.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

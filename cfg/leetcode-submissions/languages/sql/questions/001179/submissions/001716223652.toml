@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1716223652
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1179
+  TitleSlug = "game-play-analysis-i"
+  Code = "SELECT\n    player_id, MIN(event_date) as \"first_login\"\nFROM\n    Activity\nGROUP BY\n    player_id"
+  Title = "Game Play Analysis I"
+  Url = "/submissions/detail/1716223652/"
+  LangName = "PostgreSQL"
+  Timestamp = 1753813661
+  Status = 10
+  Runtime = "463 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111111"
+  HasNotes = false
+  FlagType = 1

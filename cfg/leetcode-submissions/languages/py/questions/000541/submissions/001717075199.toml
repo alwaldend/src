@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717075199
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 541
+  TitleSlug = "reverse-string-ii"
+  Code = "class Solution:\n    def reverseStr(self, s: str, k: int) -> str:\n        length = len(s)\n        if length == 1:\n            return s\n        if length <= k:\n            return s[::-1]\n        res = []\n        i = 0\n        while i < length:\n            new_i = i + 2 * k\n            res.append(s[i+k-1:i:-1])\n            res.append(s[i])\n            res.append(s[i+k:new_i])\n            i = new_i\n        return \"\".join(res)"
+  Title = "Reverse String II"
+  Url = "/submissions/detail/1717075199/"
+  LangName = "Python3"
+  Timestamp = 1753879251
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

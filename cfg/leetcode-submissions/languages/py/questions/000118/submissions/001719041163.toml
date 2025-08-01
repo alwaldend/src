@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719041163
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 118
+  TitleSlug = "pascals-triangle"
+  Code = "class Solution:\n    def generate(self, numRows: int) -> List[List[int]]:\n        res = [(1, )]\n        cur_row = []\n        for row in range(1, numRows):\n            cur_row.append(1)\n            prev_row = res[-1]\n            for i in range(1, row):\n                cur_row.append(prev_row[i] + prev_row[i - 1])\n            cur_row.append(1)\n            res.append(tuple(cur_row))\n            cur_row.clear()\n        return res\n                \n"
+  Title = "Pascal's Triangle"
+  Url = "/submissions/detail/1719041163/"
+  LangName = "Python3"
+  Timestamp = 1754021740
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

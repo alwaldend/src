@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717445945
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 619
+  TitleSlug = "biggest-single-number"
+  Code = "WITH nums AS (\n    SELECT \n        num\n    FROM \n        MyNumbers\n    GROUP BY \n        num\n    HAVING \n        COUNT(num) = 1\n) \nSELECT \n    MAX(num) AS num\nFROM \n    nums;"
+  Title = "Biggest Single Number"
+  Url = "/submissions/detail/1717445945/"
+  LangName = "PostgreSQL"
+  Timestamp = 1753897351
+  Status = 10
+  Runtime = "238 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111111111111"
+  HasNotes = false
+  FlagType = 1

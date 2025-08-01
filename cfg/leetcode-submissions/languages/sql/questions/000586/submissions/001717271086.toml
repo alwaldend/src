@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717271086
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 586
+  TitleSlug = "customer-placing-the-largest-number-of-orders"
+  Code = "SELECT \n    Orders.customer_number\nFROM \n    Orders\nGROUP BY \n    Orders.customer_number\nORDER BY \n    COUNT(Orders.customer_number) DESC\nLIMIT \n    1;"
+  Title = "Customer Placing the Largest Number of Orders"
+  Url = "/submissions/detail/1717271086/"
+  LangName = "PostgreSQL"
+  Timestamp = 1753889535
+  Status = 10
+  Runtime = "242 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111111111111111"
+  HasNotes = false
+  FlagType = 1

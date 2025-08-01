@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717255644
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 577
+  TitleSlug = "employee-bonus"
+  Code = "SELECT\n    Employee.name, Bonus.bonus\nFROM\n    Employee\nLEFT JOIN\n    Bonus\nON \n    Employee.empId = Bonus.empId\nWHERE\n    Bonus.bonus IS NULL\n    OR Bonus.bonus < 1000"
+  Title = "Employee Bonus"
+  Url = "/submissions/detail/1717255644/"
+  LangName = "PostgreSQL"
+  Timestamp = 1753888750
+  Status = 10
+  Runtime = "932 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

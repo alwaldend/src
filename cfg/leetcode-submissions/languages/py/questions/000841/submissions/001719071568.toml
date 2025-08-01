@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719071568
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 841
+  TitleSlug = "shortest-distance-to-a-character"
+  Code = "class Solution:\n    def shortestToChar(self, s: str, c: str) -> List[int]:\n        indexes = []\n        for i, char in enumerate(s):\n            if char == c:\n                indexes.append(i)\n        length = len(indexes)\n        res = []\n        i = 0\n        max_diff = float(\"inf\")\n        for j, char in enumerate(s):\n            diff1 = abs(indexes[i] - j)\n            if i + 1 >= length:\n                diff2 = max_diff\n            else:\n                diff2 = abs(indexes[i + 1] - j)\n            if diff1 <= diff2:\n                res.append(diff1)\n            else:\n                res.append(diff2)\n                i += 1\n        return res\n\n            "
+  Title = "Shortest Distance to a Character"
+  Url = "/submissions/detail/1719071568/"
+  LangName = "Python3"
+  Timestamp = 1754023863
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

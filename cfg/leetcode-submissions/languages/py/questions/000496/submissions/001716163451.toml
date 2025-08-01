@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1716163451
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 496
+  TitleSlug = "next-greater-element-i"
+  Code = "class Solution:\n    def nextGreaterElement(self, nums1: list[int], nums2: list[int]) -> list[int]:\n        stack = []\n        greater = {}\n        for num in nums2:\n            while stack and num > stack[-1]:\n                greater[stack.pop()] = num\n            stack.append(num)\n        for num in stack:\n            greater[num] = -1\n        return [greater[num] for num in nums1]"
+  Title = "Next Greater Element I"
+  Url = "/submissions/detail/1716163451/"
+  LangName = "Python3"
+  Timestamp = 1753811122
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111"
+  HasNotes = false
+  FlagType = 1

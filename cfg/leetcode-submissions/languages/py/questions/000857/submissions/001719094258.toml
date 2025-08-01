@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719094258
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 857
+  TitleSlug = "positions-of-large-groups"
+  Code = "class Solution:\n    def largeGroupPositions(self, s: str) -> List[List[int]]:\n        res = []\n        start = 0\n        prev = s[0]\n        for i, char in enumerate(itertools.chain(s[1:], \" \"), 1):\n            if char == prev:\n                continue\n            if i - 1 - start >= 2:\n                res.append((start, i - 1))\n            start = i\n            prev = char\n        return res"
+  Title = "Positions of Large Groups"
+  Url = "/submissions/detail/1719094258/"
+  LangName = "Python3"
+  Timestamp = 1754025227
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

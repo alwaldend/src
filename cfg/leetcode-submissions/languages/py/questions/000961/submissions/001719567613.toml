@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719567613
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 961
+  TitleSlug = "long-pressed-name"
+  Code = "class Solution:\n    def isLongPressedName(self, name: str, typed: str) -> bool:\n        name_i, typed_i = 0, 0\n        name_length, typed_length = len(name), len(typed)\n\n        while name_i < name_length and typed_i < typed_length:\n            if name[name_i] == typed[typed_i]:\n                name_i += 1\n                typed_i += 1\n            elif typed_i >= 1 and typed[typed_i] == typed[typed_i - 1]:\n                typed_i += 1\n            else:\n                return False\n\n        if name_i != name_length:\n            return False\n\n        while typed_i < typed_length:\n            if typed[typed_i] != typed[typed_i - 1]:\n                return False\n            typed_i += 1\n\n        return True"
+  Title = "Long Pressed Name"
+  Url = "/submissions/detail/1719567613/"
+  LangName = "Python3"
+  Timestamp = 1754056439
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

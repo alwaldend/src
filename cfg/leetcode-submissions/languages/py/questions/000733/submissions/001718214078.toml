@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1718214078
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 733
+  TitleSlug = "flood-fill"
+  Code = "class Solution:\n    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:\n        target_color = image[sr][sc]\n        enc = set()\n        length_row = len(image)\n        length_col = len(image[0])\n        dirs = ((1, 0), (-1, 0), (0, 1), (0, -1))\n        queue = [(sr, sc)]\n        while queue:\n            row, col = queue.pop()\n            if row < 0 or row >= length_row:\n                continue\n            if col < 0 or col >= length_col:\n                continue\n            if (row, col) in enc:\n                continue\n            if image[row][col] != target_color:\n                continue\n            image[row][col] = color\n            enc.add((row, col))\n            for row_delta, col_delta in dirs:\n                queue.append((row + row_delta, col + col_delta))\n        return image"
+  Title = "Flood Fill"
+  Url = "/submissions/detail/1718214078/"
+  LangName = "Python3"
+  Timestamp = 1753958802
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

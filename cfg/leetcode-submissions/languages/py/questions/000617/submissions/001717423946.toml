@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717423946
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 617
+  TitleSlug = "merge-two-binary-trees"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def mergeTrees(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> Optional[TreeNode]:\n        def dfs(node1: Optional[TreeNode], node2: Optional[TreeNode]) -> None:\n            if node1 is None:\n                return node2\n            if node2 is None:\n                return node1\n            node1.val += node2.val\n            node1.left = dfs(node1.left, node2.left)\n            node1.right = dfs(node1.right, node2.right)\n            return node1\n        \n        return dfs(root1, root2)"
+  Title = "Merge Two Binary Trees"
+  Url = "/submissions/detail/1717423946/"
+  LangName = "Python3"
+  Timestamp = 1753896429
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

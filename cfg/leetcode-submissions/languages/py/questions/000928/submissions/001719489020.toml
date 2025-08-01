@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719489020
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 928
+  TitleSlug = "surface-area-of-3d-shapes"
+  Code = "class Solution:\n    def surfaceArea(self, grid: list[list[int]]) -> int:\n        length = len(grid)\n        res = 0\n        adj_delta = (\n            (-1, 0), (1, 0), (0, -1), (0, 1)\n        )\n        for row in range(length):\n            for col in range(length):\n                height = grid[row][col]\n                if height == 0:\n                    continue\n                res += 2\n                for row_delta, col_delta in adj_delta:\n                    adj_row, adj_col = row + row_delta, col + col_delta\n                    if 0 <= adj_row < length and 0 <= adj_col < length:\n                        adj_height = grid[adj_row][adj_col]\n                    else:\n                        adj_height = 0\n                    if height > adj_height:\n                        res += grid[row][col] - adj_height\n        return res"
+  Title = "Surface Area of 3D Shapes"
+  Url = "/submissions/detail/1719489020/"
+  LangName = "Python3"
+  Timestamp = 1754051400
+  Status = 10
+  Runtime = "15 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

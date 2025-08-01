@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717320245
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 594
+  TitleSlug = "longest-harmonious-subsequence"
+  Code = "class Solution:\n    def findLHS(self, nums):\n        freq = defaultdict(int)\n        max_length = 0\n        for num in nums:\n            freq[num] += 1\n        for num in freq:\n            nxt = num + 1\n            if nxt not in freq:\n                continue\n            cur_length = freq[num] + freq[nxt]\n            max_length = max(max_length, cur_length)\n        return max_length \n"
+  Title = "Longest Harmonious Subsequence"
+  Url = "/submissions/detail/1717320245/"
+  LangName = "Python3"
+  Timestamp = 1753891917
+  Status = 10
+  Runtime = "31 ms"
+  IsPending = "Not Pending"
+  Memory = "19.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

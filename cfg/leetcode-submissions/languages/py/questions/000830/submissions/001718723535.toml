@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1718723535
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 830
+  TitleSlug = "largest-triangle-area"
+  Code = "class Solution:\n    def largestTriangleArea(self, points: list[int]) -> float:\n        def area(p: tuple[int, int], q: tuple[int, int], r: tuple[int, int]) -> float:\n            return 0.5 * abs(\n                (p[0] * q[1]) \n                + (q[0] * r[1]) \n                + (r[0] * p[1])\n                - (p[1] * q[0]) \n                - (q[1] * r[0]) \n                - (r[1] * p[0])\n            )\n\n        res = max(\n            area(p, q, r)\n            for p, q, r in itertools.combinations(points, 3)\n        )\n        return res"
+  Title = "Largest Triangle Area"
+  Url = "/submissions/detail/1718723535/"
+  LangName = "Python3"
+  Timestamp = 1753986515
+  Status = 10
+  Runtime = "55 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

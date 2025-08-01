@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719537812
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 950
+  TitleSlug = "x-of-a-kind-in-a-deck-of-cards"
+  Code = "import math\nimport functools\n\nclass Solution:\n    def hasGroupsSizeX(self, deck: List[int]) -> bool:\n        freqs = collections.defaultdict(int)\n        for num in deck:\n            freqs[num] += 1\n        gcd = functools.reduce(math.gcd, freqs.values())\n        return gcd > 1"
+  Title = "X of a Kind in a Deck of Cards"
+  Url = "/submissions/detail/1719537812/"
+  LangName = "Python3"
+  Timestamp = 1754054651
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

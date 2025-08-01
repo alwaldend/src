@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1718477814
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 812
+  TitleSlug = "rotate-string"
+  Code = "class Solution:\n    def rotateString(self, s: str, goal: str) -> bool:\n        if len(s) != len(goal):\n            return False\n        return goal in \"\".join((s, s))"
+  Title = "Rotate String"
+  Url = "/submissions/detail/1718477814/"
+  LangName = "Python3"
+  Timestamp = 1753974870
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

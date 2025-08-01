@@ -255,7 +255,6 @@ links = [
 title = "World of Cultivation"
 alt_titles = ["修真世界"]
 quality = "Good"
-summary = "9/10. Great book. It's not the best in anything but every part of it is at least decent"
 reading = "Finished"
 authors = ["fang-xiang"]
 links = [
@@ -318,7 +317,7 @@ links = [
 title = "Changeling"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg?time=1712108062"
 quality = "Decent"
-reading = "Reading, chapter 78"
+reading = "Dropped, chapter 83"
 authors = ["mecanimus"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/75345/changeling" },
@@ -605,7 +604,7 @@ title = "My House of Horrors"
 alt_titles = ["我有一座冒险屋"]
 thumbnail = "https://cdn.novelupdates.com/images/2024/09/My-House-of-Horrors.jpg"
 quality = "Ok"
-summary = "Repetetive"
+summary = "Repetitive"
 reading = "Dropped at some point"
 authors = ["can-fix-air-conditioners"]
 links = [

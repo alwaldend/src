@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717228106
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 572
+  TitleSlug = "subtree-of-another-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:\n        def dfs(node: Optional[TreeNode], sub_node: Optional[TreeNode]) -> bool:\n            if not node and not sub_node:\n                return True\n            if not node or not sub_node:\n                return False\n            if node.val != sub_node.val:\n                return False\n            return dfs(node.left, sub_node.left) and dfs(node.right, sub_node.right)\n        \n        def dfs2(node: Optional[TreeNode], sub_node: Optional[TreeNode]) -> bool:\n            if dfs(node, sub_node):\n                return True\n            if not node or not sub_node:\n                return False\n            return dfs2(node.left, sub_node) or dfs2(node.right, sub_node)\n\n        return dfs2(root, subRoot)"
+  Title = "Subtree of Another Tree"
+  Url = "/submissions/detail/1717228106/"
+  LangName = "Python3"
+  Timestamp = 1753887290
+  Status = 10
+  Runtime = "47 ms"
+  IsPending = "Not Pending"
+  Memory = "18.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

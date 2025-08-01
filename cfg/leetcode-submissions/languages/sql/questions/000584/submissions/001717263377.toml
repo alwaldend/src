@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717263377
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 584
+  TitleSlug = "find-customer-referee"
+  Code = "SELECT\n    Customer.name\nFROM \n    Customer\nWHERE\n    Customer.referee_id != 2\n    OR Customer.referee_id IS NULL\n"
+  Title = "Find Customer Referee"
+  Url = "/submissions/detail/1717263377/"
+  LangName = "PostgreSQL"
+  Timestamp = 1753889143
+  Status = 10
+  Runtime = "349 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111111111111111"
+  HasNotes = false
+  FlagType = 1

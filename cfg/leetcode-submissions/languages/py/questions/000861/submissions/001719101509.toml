@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719101509
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 861
+  TitleSlug = "flipping-an-image"
+  Code = "class Solution:\n    def flipAndInvertImage(self, image: List[List[int]]) -> List[List[int]]:\n        for row in image:\n            row.reverse()\n            for i in range(len(row)):\n                if row[i] == 0:\n                    row[i] = 1\n                else:\n                    row[i] = 0\n        return image"
+  Title = "Flipping an Image"
+  Url = "/submissions/detail/1719101509/"
+  LangName = "Python3"
+  Timestamp = 1754025680
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

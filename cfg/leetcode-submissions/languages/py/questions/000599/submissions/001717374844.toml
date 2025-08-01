@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717374844
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 599
+  TitleSlug = "minimum-index-sum-of-two-lists"
+  Code = "class Solution:\n    def findRestaurant(self, list1: List[str], list2: List[str]) -> List[str]:\n        indexes = {}\n        res = []\n        if len(list1) > len(list2):\n            first, second = list2, list1\n        else:\n            first, second = list1, list2\n        for i, string in enumerate(first):\n            indexes[string] = i\n        min_sum = float(\"inf\")\n        res = []\n        for j, string in enumerate(second):\n            if string not in indexes:\n                continue\n            cur_sum = indexes[string] + j\n            if cur_sum < min_sum:\n                res.clear()\n                res.append(string)\n                min_sum = cur_sum\n            elif cur_sum == min_sum:\n                res.append(string)\n        return res"
+  Title = "Minimum Index Sum of Two Lists"
+  Url = "/submissions/detail/1717374844/"
+  LangName = "Python3"
+  Timestamp = 1753894363
+  Status = 10
+  Runtime = "8 ms"
+  IsPending = "Not Pending"
+  Memory = "18.3 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

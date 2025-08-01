@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719547145
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 953
+  TitleSlug = "reverse-only-letters"
+  Code = "class Solution:\n    def reverseOnlyLetters(self, s: str) -> str:\n        i, j = 0, len(s) - 1\n        res = [None] * len(s)\n        while i <= j:\n            char1, char2 = s[i], s[j]\n            if not char1.isalpha():\n                res[i] = char1\n                i += 1\n            elif not char2.isalpha():\n                res[j] = char2\n                j -= 1\n            else:\n                res[i], res[j] = char2, char1\n                i += 1\n                j -= 1\n        return \"\".join(res)"
+  Title = "Reverse Only Letters"
+  Url = "/submissions/detail/1719547145/"
+  LangName = "Python3"
+  Timestamp = 1754055220
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

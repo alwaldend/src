@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1718413779
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 777
+  TitleSlug = "toeplitz-matrix"
+  Code = "class Solution:\n    def isToeplitzMatrix(self, matrix: List[List[int]]) -> bool:\n        for i in range(1, len(matrix)):\n            for j in range(1, len(matrix[0])):\n                if matrix[i-1][j-1] != matrix[i][j]:\n                    return False\n        return True"
+  Title = "Toeplitz Matrix"
+  Url = "/submissions/detail/1718413779/"
+  LangName = "Python3"
+  Timestamp = 1753971398
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

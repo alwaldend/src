@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1718401364
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 749
+  TitleSlug = "shortest-completing-word"
+  Code = "class Solution:\n    def shortestCompletingWord(self, licensePlate: str, words: List[str]) -> str:\n        freq = defaultdict(int)\n        for char in licensePlate:\n            if char == \" \" or char.isnumeric():\n                continue\n            freq[char.lower()] += 1\n        cur_freq = {}\n        shortest = None\n        for word in words:\n            cur_freq.clear()\n            cur_freq.update(freq)\n            for char in word:\n                if not cur_freq:\n                    break\n                if char not in cur_freq:\n                    continue\n                new_freq = cur_freq[char] - 1\n                if new_freq <= 0:\n                    cur_freq.pop(char)\n                else:\n                    cur_freq[char] = new_freq\n            if not cur_freq and (shortest is None or len(word) < len(shortest)):\n                shortest = word\n        return shortest"
+  Title = "Shortest Completing Word"
+  Url = "/submissions/detail/1718401364/"
+  LangName = "Python3"
+  Timestamp = 1753970737
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

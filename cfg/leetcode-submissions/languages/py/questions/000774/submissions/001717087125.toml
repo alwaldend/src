@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717087125
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 774
+  TitleSlug = "maximum-depth-of-n-ary-tree"
+  Code = "\"\"\"\n# Definition for a Node.\nclass Node:\n    def __init__(self, val: Optional[int] = None, children: Optional[List['Node']] = None):\n        self.val = val\n        self.children = children\n\"\"\"\n\nclass Solution:\n    def maxDepth(self, root: 'Node') -> int:\n        def dfs(node: Node) -> int:\n            if not node:\n                return 0\n            if not node.children:\n                return 1\n            return 1 + max(dfs(child) for child in node.children)\n        return dfs(root)"
+  Title = "Maximum Depth of N-ary Tree"
+  Url = "/submissions/detail/1717087125/"
+  LangName = "Python3"
+  Timestamp = 1753879982
+  Status = 10
+  Runtime = "54 ms"
+  IsPending = "Not Pending"
+  Memory = "19.2 MB"
+  CompareResult = "11111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

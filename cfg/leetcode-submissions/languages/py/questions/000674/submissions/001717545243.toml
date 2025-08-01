@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717545243
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 674
+  TitleSlug = "longest-continuous-increasing-subsequence"
+  Code = "class Solution:\n    def findLengthOfLCIS(self, nums: List[int]) -> int:\n        prev = nums[0]\n        length = 1\n        max_length = 1\n        for num in nums[1:]:\n            if num > prev:\n                length += 1\n            else:\n                max_length = max(length, max_length)\n                length = 1\n            prev = num\n        return max(length, max_length)"
+  Title = "Longest Continuous Increasing Subsequence"
+  Url = "/submissions/detail/1717545243/"
+  LangName = "Python3"
+  Timestamp = 1753902012
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "18.7 MB"
+  CompareResult = "11111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

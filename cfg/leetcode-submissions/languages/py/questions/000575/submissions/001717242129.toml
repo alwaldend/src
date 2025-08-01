@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717242129
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 575
+  TitleSlug = "distribute-candies"
+  Code = "class Solution:\n    def distributeCandies(self, candyType: List[int]) -> int:\n        types = set()\n        max_length = len(candyType) // 2\n        for candy in candyType:\n            types.add(candy)\n            if len(types) >= max_length:\n                return max_length\n        return len(types)"
+  Title = "Distribute Candies"
+  Url = "/submissions/detail/1717242129/"
+  LangName = "Python3"
+  Timestamp = 1753888039
+  Status = 10
+  Runtime = "30 ms"
+  IsPending = "Not Pending"
+  Memory = "19.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

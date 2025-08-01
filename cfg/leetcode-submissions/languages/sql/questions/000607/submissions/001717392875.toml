@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717392875
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 607
+  TitleSlug = "sales-person"
+  Code = "SELECT \n    sales_person.name\nFROM (\n    Orders orders\n    JOIN \n        Company company\n    ON \n        orders.com_id = company.com_id\n        AND company.name = 'RED'\n    RIGHT JOIN \n        SalesPerson sales_person\n    ON \n        sales_person.sales_id = orders.sales_id\n)\nWHERE\n    orders.sales_id IS NULL;"
+  Title = "Sales Person"
+  Url = "/submissions/detail/1717392875/"
+  LangName = "PostgreSQL"
+  Timestamp = 1753895118
+  Status = 10
+  Runtime = "345 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

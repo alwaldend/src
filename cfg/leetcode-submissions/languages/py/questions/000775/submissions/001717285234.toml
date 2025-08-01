@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717285234
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 775
+  TitleSlug = "n-ary-tree-preorder-traversal"
+  Code = "\"\"\"\n# Definition for a Node.\nclass Node:\n    def __init__(self, val: Optional[int] = None, children: Optional[List['Node']] = None):\n        self.val = val\n        self.children = children\n\"\"\"\n\nclass Solution:\n    def preorder(self, root: 'Node') -> List[int]:\n        if root is None:\n            return []\n        res = []\n        queue = deque((root, ))\n        while queue:\n            node = queue.popleft()\n            res.append(node.val)\n            queue.extendleft(reversed(node.children))\n        return res"
+  Title = "N-ary Tree Preorder Traversal"
+  Url = "/submissions/detail/1717285234/"
+  LangName = "Python3"
+  Timestamp = 1753890240
+  Status = 10
+  Runtime = "59 ms"
+  IsPending = "Not Pending"
+  Memory = "19.3 MB"
+  CompareResult = "111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

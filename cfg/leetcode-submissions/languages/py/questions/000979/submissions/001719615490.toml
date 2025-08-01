@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719615490
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 979
+  TitleSlug = "di-string-match"
+  Code = "class Solution:\n    def diStringMatch(self, s: str) -> List[int]:\n        length = len(s)\n        res = [None] * (length + 1)\n        num_i, num_d = 0, length\n        for i, char in enumerate(s):\n            if char == \"I\":\n                res[i] = num_i\n                num_i += 1\n            else:\n                res[i] = num_d\n                num_d -= 1\n        res[-1] = num_i\n        return res"
+  Title = "DI String Match"
+  Url = "/submissions/detail/1719615490/"
+  LangName = "Python3"
+  Timestamp = 1754059259
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "18.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

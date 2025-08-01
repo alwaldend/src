@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717328611
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 596
+  TitleSlug = "classes-with-at-least-5-students"
+  Code = "SELECT \n    class\nFROM \n    Courses\nGROUP BY \n    class\nHAVING \n    COUNT(class) >= 5;"
+  Title = "Classes With at Least 5 Students"
+  Url = "/submissions/detail/1717328611/"
+  LangName = "PostgreSQL"
+  Timestamp = 1753892309
+  Status = 10
+  Runtime = "317 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719870171
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1047
+  TitleSlug = "maximize-sum-of-array-after-k-negations"
+  Code = "class Solution:\n    def largestSumAfterKNegations(self, nums: List[int], k: int) -> int:\n        nums.sort()\n        for i in range(len(nums)):\n            num = nums[i]\n            if num < 0 and k > 0:\n                nums[i] = -num\n                k -= 1\n            else:\n                break\n        if k == 0 or k % 2 == 0:\n            return sum(nums)\n        nums.sort()\n        nums[0] = -nums[0]\n        return sum(nums)"
+  Title = "Maximize Sum Of Array After K Negations"
+  Url = "/submissions/detail/1719870171/"
+  LangName = "Python3"
+  Timestamp = 1754072626
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

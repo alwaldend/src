@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1718008899
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 934
+  TitleSlug = "bitwise-ors-of-subarrays"
+  Code = "class Solution:\n    def subarrayBitwiseORs(self, arr: List[int]) -> int:\n        ors = set()\n        cur = {0}\n        for num in arr:\n            cur = {num | cur_num for cur_num in cur} | {num}\n            ors |= cur\n        return len(ors)"
+  Title = "Bitwise ORs of Subarrays"
+  Url = "/submissions/detail/1718008899/"
+  LangName = "Python3"
+  Timestamp = 1753945489
+  Status = 10
+  Runtime = "439 ms"
+  IsPending = "Not Pending"
+  Memory = "44.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

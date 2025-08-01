@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717323931
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 595
+  TitleSlug = "big-countries"
+  Code = "SELECT\n    World.name, World.population, World.area\nFROM\n    World\nWHERE\n    World.area >= 3000000\n    OR World.population >= 25000000;"
+  Title = "Big Countries"
+  Url = "/submissions/detail/1717323931/"
+  LangName = "PostgreSQL"
+  Timestamp = 1753892086
+  Status = 10
+  Runtime = "325 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111"
+  HasNotes = false
+  FlagType = 1

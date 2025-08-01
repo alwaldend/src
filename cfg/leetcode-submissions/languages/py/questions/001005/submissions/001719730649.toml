@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719730649
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1005
+  TitleSlug = "univalued-binary-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isUnivalTree(self, root: Optional[TreeNode]) -> bool:\n        def dfs(node: Optional[TreeNode]) -> bool:\n            if node is None:\n                return True\n            if node.left and node.val != node.left.val:\n                return False\n            if node.right and node.val != node.right.val:\n                return False\n            return dfs(node.left) and dfs(node.right)\n        return dfs(root)"
+  Title = "Univalued Binary Tree"
+  Url = "/submissions/detail/1719730649/"
+  LangName = "Python3"
+  Timestamp = 1754065830
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

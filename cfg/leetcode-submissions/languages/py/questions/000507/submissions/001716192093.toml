@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1716192093
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 507
+  TitleSlug = "perfect-number"
+  Code = "class Solution:\n    def checkPerfectNumber(self, num: int) -> bool:\n        if num == 1:\n            return False\n        count = 1\n        for i in range(2, int(num**0.5) + 1):\n            if num % i == 0:\n                count += i + (num // i)\n        return num == count"
+  Title = "Perfect Number"
+  Url = "/submissions/detail/1716192093/"
+  LangName = "Python3"
+  Timestamp = 1753812302
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

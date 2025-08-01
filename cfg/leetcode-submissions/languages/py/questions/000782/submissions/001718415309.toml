@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1718415309
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 782
+  TitleSlug = "jewels-and-stones"
+  Code = "class Solution:\n    def numJewelsInStones(self, jewels: str, stones: str) -> int:\n        jewels_set = set(jewels)\n        count = 0\n        for char in stones:\n            if char in jewels:\n                count += 1\n        return count"
+  Title = "Jewels and Stones"
+  Url = "/submissions/detail/1718415309/"
+  LangName = "Python3"
+  Timestamp = 1753971480
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719714942
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 990
+  TitleSlug = "verifying-an-alien-dictionary"
+  Code = "class Solution:\n    def isAlienSorted(self, words: List[str], order: str) -> bool:\n        pos = {}\n        for i, char in enumerate(order):\n            pos[char] = i\n        for i in range(len(words) - 1):\n            cur, nxt = words[i], words[i + 1]\n            cur_length, nxt_length = len(cur), len(nxt)\n            for j in range(cur_length):\n                if j >= nxt_length:\n                    return False\n                cur_char, nxt_char = cur[j], nxt[j]\n                if cur_char == nxt_char:\n                    continue\n                if pos[cur_char] > pos[nxt_char]: \n                    return False\n                break\n        return True"
+  Title = "Verifying an Alien Dictionary"
+  Url = "/submissions/detail/1719714942/"
+  LangName = "Python3"
+  Timestamp = 1754065015
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

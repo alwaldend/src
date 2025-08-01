@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719080058
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 851
+  TitleSlug = "goat-latin"
+  Code = "class Solution:\n    def toGoatLatin(self, sentence: str) -> str:\n        cur_word = []\n        res = []\n        i = 0\n        for char in itertools.chain(sentence, \" \"):\n            if char != \" \":\n                cur_word.append(char)\n                continue\n            if not cur_word:\n                continue\n            i += 1\n            if cur_word[0].lower() in (\"a\", \"e\", \"i\", \"o\", \"u\"):\n                cur_word.append(\"ma\")\n            else:\n                cur_word.append(cur_word[0])\n                cur_word.append(\"ma\")\n                cur_word[0] = \"\"\n            cur_word.append(\"a\" * i)\n            res.append(\"\".join(cur_word))\n            cur_word.clear()\n        return \" \".join(res)"
+  Title = "Goat Latin"
+  Url = "/submissions/detail/1719080058/"
+  LangName = "Python3"
+  Timestamp = 1754024377
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719517287
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 944
+  TitleSlug = "smallest-range-i"
+  Code = "class Solution:\n    def smallestRangeI(self, nums: List[int], k: int) -> int:\n        min_num, max_num = min(nums), max(nums)\n        diff = max_num - min_num\n        res = max(diff - 2 * k, 0)\n        return res"
+  Title = "Smallest Range I"
+  Url = "/submissions/detail/1719517287/"
+  LangName = "Python3"
+  Timestamp = 1754053350
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

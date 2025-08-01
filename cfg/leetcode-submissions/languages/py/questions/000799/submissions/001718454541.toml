@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1718454541
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 799
+  TitleSlug = "minimum-distance-between-bst-nodes"
+  Code = "class Solution:\n    def minDiffInBST(self, root: TreeNode) -> int:\n        self.ans = float('inf')\n        self.pred = None\n        self.inorder(root)\n        return self.ans\n\n    def inorder(self, root: TreeNode) -> None:\n        if root is None:\n            return\n        \n        self.inorder(root.left)\n        if self.pred is not None:\n            self.ans = min(self.ans, root.val - self.pred)\n        self.pred = root.val\n        self.inorder(root.right)"
+  Title = "Minimum Distance Between BST Nodes"
+  Url = "/submissions/detail/1718454541/"
+  LangName = "Python3"
+  Timestamp = 1753973596
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

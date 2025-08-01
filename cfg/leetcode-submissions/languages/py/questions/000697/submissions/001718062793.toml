@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1718062793
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 697
+  TitleSlug = "degree-of-an-array"
+  Code = "class Solution:\n    def findShortestSubArray(self, nums: List[int]) -> int:\n        left, right, freq = defaultdict(int), defaultdict(int), defaultdict(int)\n        max_freq = 0\n        for i, num in enumerate(nums):\n            if num not in left:\n                left[num] = i\n            right[num] = i\n            freq[num] += 1\n            max_freq = max(max_freq, freq[num])\n        min_length = len(nums)\n        for num, num_freq in freq.items():\n            if num_freq != max_freq:\n                continue\n            min_length = min(min_length, right[num] - left[num] + 1)\n        return min_length"
+  Title = "Degree of an Array"
+  Url = "/submissions/detail/1718062793/"
+  LangName = "Python3"
+  Timestamp = 1753949269
+  Status = 10
+  Runtime = "28 ms"
+  IsPending = "Not Pending"
+  Memory = "19.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

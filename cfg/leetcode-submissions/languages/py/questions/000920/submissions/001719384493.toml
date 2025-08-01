@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719384493
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 920
+  TitleSlug = "uncommon-words-from-two-sentences"
+  Code = "class Solution:\n    def uncommonFromSentences(self, s1: str, s2: str) -> List[str]:\n        freqs1, freqs2 = defaultdict(int), defaultdict(int)\n        words1, words2 = s1.split(\" \"), s2.split(\" \")\n        for word in words1:\n            freqs1[word] += 1\n        for word in words2:\n            freqs2[word] += 1\n        res = []\n        for word, freq in freqs1.items():\n            if freq != 1 or word in freqs2:\n                continue\n            res.append(word)\n        for word, freq in freqs2.items():\n            if freq != 1 or word in freqs1:\n                continue\n            res.append(word)\n        return res"
+  Title = "Uncommon Words from Two Sentences"
+  Url = "/submissions/detail/1719384493/"
+  LangName = "Python3"
+  Timestamp = 1754043840
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

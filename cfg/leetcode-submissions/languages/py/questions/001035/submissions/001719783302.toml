@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719783302
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1035
+  TitleSlug = "cousins-in-binary-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isCousins(self, root: Optional[TreeNode], x: int, y: int) -> bool:\n        def dfs(node: Optional[TreeNode], depth: int) -> tuple[int, int]:\n            if node is None:\n                return 0, 0\n            if node.val == x:\n                return depth, 0\n            if node.val == y:\n                return 0, depth\n            depth1_x, depth1_y = dfs(node.left, depth + 1)\n            depth2_x, depth2_y = dfs(node.right, depth + 1)\n            depth1, depth2 = depth1_x or depth2_x, depth1_y or depth2_y\n            if depth1 and depth2 and depth1 == depth + 1:\n                return 0, 0\n            return depth1, depth2\n\n        depth1, depth2 = dfs(root, 0)\n        return depth1 == depth2 and depth1 > 1"
+  Title = "Cousins in Binary Tree"
+  Url = "/submissions/detail/1719783302/"
+  LangName = "Python3"
+  Timestamp = 1754068441
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

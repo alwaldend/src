@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717084159
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 551
+  TitleSlug = "student-attendance-record-i"
+  Code = "class Solution:\n    def checkRecord(self, s: str) -> bool:\n        a_count = 0\n        l_count = 0\n        for char in s:\n            if char == \"P\":\n                l_count = 0\n            elif char == \"A\":\n                a_count += 1\n                l_count = 0\n            elif char == \"L\":\n                l_count += 1\n            if l_count >= 3 or a_count >= 2:\n                return False\n        return True"
+  Title = "Student Attendance Record I"
+  Url = "/submissions/detail/1717084159/"
+  LangName = "Python3"
+  Timestamp = 1753879806
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

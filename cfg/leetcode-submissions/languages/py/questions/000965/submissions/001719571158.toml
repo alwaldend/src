@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719571158
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 965
+  TitleSlug = "unique-email-addresses"
+  Code = "class Solution:\n    def numUniqueEmails(self, emails: List[str]) -> int:\n        enc = set()\n        for email in emails:\n            name, domain = email.rsplit(\"@\", 1)\n            name = name.split(\"+\", 1)[0].replace(\".\", \"\")\n            enc.add(\"@\".join((name, domain)))\n        return len(enc)"
+  Title = "Unique Email Addresses"
+  Url = "/submissions/detail/1719571158/"
+  LangName = "Python3"
+  Timestamp = 1754056645
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

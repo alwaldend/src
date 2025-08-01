@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1718255326
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 748
+  TitleSlug = "largest-number-at-least-twice-of-others"
+  Code = "class Solution:\n    def dominantIndex(self, nums: List[int]) -> int:\n        largest1, largest2 = -1, -1\n        largest_i = -1\n        for i, num in enumerate(nums):\n            if num == largest2 or num == largest1:\n                continue\n            if num > largest2:\n                largest1 = largest2\n                largest2 = num\n                largest_i = i\n            elif num > largest1:\n                largest1 = num\n        if largest1 * 2 <= largest2:\n            return largest_i\n        return -1"
+  Title = "Largest Number At Least Twice of Others"
+  Url = "/submissions/detail/1718255326/"
+  LangName = "Python3"
+  Timestamp = 1753961736
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

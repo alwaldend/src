@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1719456349
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 924
+  TitleSlug = "fair-candy-swap"
+  Code = "class Solution:\n    def fairCandySwap(self, aliceSizes: List[int], bobSizes: List[int]) -> List[int]:\n        count1, count2 = sum(aliceSizes), sum(bobSizes)\n        delta = (count2 - count1) // 2\n        set2 = set(bobSizes)\n        for ex1 in aliceSizes:\n            ex2 = ex1 + delta\n            if ex2 in set2:\n                return ex1, ex2\n        raise Exception"
+  Title = "Fair Candy Swap"
+  Url = "/submissions/detail/1719456349/"
+  LangName = "Python3"
+  Timestamp = 1754049020
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "20.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

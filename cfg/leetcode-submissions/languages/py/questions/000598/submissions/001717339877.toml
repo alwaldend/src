@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717339877
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 598
+  TitleSlug = "range-addition-ii"
+  Code = "class Solution:\n    def maxCount(self, m: int, n: int, ops: List[List[int]]) -> int:\n        min_row = m\n        min_col = n\n        for range_row, range_col in ops:\n            min_row = min(min_row, range_row)\n            min_col = min(min_col, range_col)\n        return min_row * min_col"
+  Title = "Range Addition II"
+  Url = "/submissions/detail/1717339877/"
+  LangName = "Python3"
+  Timestamp = 1753892825
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "19.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

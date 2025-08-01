@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717540278
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 671
+  TitleSlug = "second-minimum-node-in-a-binary-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def findSecondMinimumValue(self, root):\n        self.ans = float('inf')\n        min1 = root.val\n\n        def dfs(node):\n            if node:\n                if min1 < node.val < self.ans:\n                    self.ans = node.val\n                elif node.val == min1:\n                    dfs(node.left)\n                    dfs(node.right)\n\n        dfs(root)\n        return self.ans if self.ans < float('inf') else -1"
+  Title = "Second Minimum Node In a Binary Tree"
+  Url = "/submissions/detail/1717540278/"
+  LangName = "Python3"
+  Timestamp = 1753901712
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

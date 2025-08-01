@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717399501
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 610
+  TitleSlug = "triangle-judgement"
+  Code = "(\n    SELECT\n        x, y, z, 'Yes' AS triangle\n    FROM\n        Triangle\n    WHERE \n        (x + y > z) AND (y + z > x) AND (z + x > y)\n) UNION (\n    SELECT \n        x, y, z, 'No' AS triangle\n    FROM\n        Triangle\n    WHERE (x + y <= z) OR (y + z <= x) OR (z + x <= y)\n);"
+  Title = "Triangle Judgement"
+  Url = "/submissions/detail/1717399501/"
+  LangName = "PostgreSQL"
+  Timestamp = 1753895395
+  Status = 10
+  Runtime = "222 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111111"
+  HasNotes = false
+  FlagType = 1

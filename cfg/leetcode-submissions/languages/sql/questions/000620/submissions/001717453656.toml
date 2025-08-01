@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717453656
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 620
+  TitleSlug = "not-boring-movies"
+  Code = "SELECT\n    id, movie, description, rating\nFROM\n    Cinema\nWHERE\n    description != 'boring'\n    AND id % 2 != 0\nORDER BY\n    rating DESC;"
+  Title = "Not Boring Movies"
+  Url = "/submissions/detail/1717453656/"
+  LangName = "PostgreSQL"
+  Timestamp = 1753897671
+  Status = 10
+  Runtime = "181 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111"
+  HasNotes = false
+  FlagType = 1

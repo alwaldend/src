@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717124103
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 563
+  TitleSlug = "binary-tree-tilt"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def findTilt(self, root: Optional[TreeNode]) -> int:\n        def dfs(node: Optional[TreeNode]) -> tuple[int, int]:\n            if node is None:\n                return 0, 0\n            left_sum, left_tilt = dfs(node.left)\n            right_sum, right_tilt = dfs(node.right)\n            tilt_sum = left_tilt + right_tilt + abs(left_sum - right_sum)\n            node_sum = node.val + left_sum + right_sum\n            return node_sum, tilt_sum\n        _, tilt_sum = dfs(root)\n        return tilt_sum"
+  Title = "Binary Tree Tilt"
+  Url = "/submissions/detail/1717124103/"
+  LangName = "Python3"
+  Timestamp = 1753882031
+  Status = 10
+  Runtime = "10 ms"
+  IsPending = "Not Pending"
+  Memory = "19 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1717047589
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 521
+  TitleSlug = "longest-uncommon-subsequence-i"
+  Code = "class Solution:\n    def findLUSlength(self, a: str, b: str) -> int:\n        if a == b:\n            return -1\n        else:\n            return max(len(a), len(b))"
+  Title = "Longest Uncommon Subsequence I"
+  Url = "/submissions/detail/1717047589/"
+  LangName = "Python3"
+  Timestamp = 1753877487
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
