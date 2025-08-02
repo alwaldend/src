@@ -87,8 +87,9 @@ func (self *Generator) submissionDir(submission *proto.Submission) (string, erro
 	if err != nil {
 		return "", err
 	}
-	question := fmt.Sprintf("%06d", submission.QuestionId)
-	res := filepath.Join(config.Dir, "questions", question, "submissions")
+	question := fmt.Sprintf("%d", submission.QuestionId)
+	submissionName := fmt.Sprintf("%d", submission.Id)
+	res := filepath.Join(config.Dir, "questions", question, "submissions", submissionName)
 	return res, nil
 }
 
@@ -110,6 +111,6 @@ func (self *Generator) submissionExtension(submission *proto.Submission) (string
 }
 
 func (self *Generator) submissionName(submission *proto.Submission) (string, error) {
-	name := fmt.Sprintf("%012d", submission.Id)
+	name := fmt.Sprintf("submission")
 	return name, nil
 }
