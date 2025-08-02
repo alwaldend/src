@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720334474
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1128
+  TitleSlug = "remove-all-adjacent-duplicates-in-string"
+  Code = "class Solution:\n    def removeDuplicates(self, s: str) -> str:\n        stack = []\n        for char in s:\n            if stack and char == stack[-1]:\n                stack.pop()\n            else:\n                stack.append(char)\n        return \"\".join(stack)"
+  Title = "Remove All Adjacent Duplicates In String"
+  Url = "/submissions/detail/1720334474/"
+  LangName = "Python3"
+  Timestamp = 1754120313
+  Status = 10
+  Runtime = "22 ms"
+  IsPending = "Not Pending"
+  Memory = "18.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

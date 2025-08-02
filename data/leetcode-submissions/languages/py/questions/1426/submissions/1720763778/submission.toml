@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720763778
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1426
+  TitleSlug = "find-n-unique-integers-sum-up-to-zero"
+  Code = "class Solution:\n    def sumZero(self, n: int) -> List[int]:\n        if n == 1:\n            return [0]\n        res = []\n        if n % 2 != 0:\n            res.append(0)\n            n -= 1\n        for i in range(1, (n // 2) + 1):\n            res.extend((i, -i))\n        return res"
+  Title = "Find N Unique Integers Sum up to Zero"
+  Url = "/submissions/detail/1720763778/"
+  LangName = "Python3"
+  Timestamp = 1754146743
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

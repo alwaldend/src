@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720959139
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1505
+  TitleSlug = "create-target-array-in-the-given-order"
+  Code = "class Solution:\n    def createTargetArray(self, nums: List[int], index: List[int]) -> List[int]:\n        res = []\n        for i, num in zip(index, nums):\n            res.insert(i, num)\n        return res"
+  Title = "Create Target Array in the Given Order"
+  Url = "/submissions/detail/1720959139/"
+  LangName = "Python3"
+  Timestamp = 1754153444
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

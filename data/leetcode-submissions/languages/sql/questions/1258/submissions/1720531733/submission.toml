@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720531733
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1258
+  TitleSlug = "article-views-i"
+  Code = "SELECT DISTINCT\n    views1.author_id as \"id\"\nFROM\n    Views views1\nCROSS JOIN\n    Views views2\nWHERE\n    views1.author_id = views2.viewer_id\n    AND views1.author_id = views2.author_id\nORDER BY\n    views1.author_id ASC"
+  Title = "Article Views I"
+  Url = "/submissions/detail/1720531733/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754133710
+  Status = 10
+  Runtime = "483 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720526360
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1245
+  TitleSlug = "user-activity-for-the-past-30-days-i"
+  Code = "SELECT \n    activity_date AS day, \n    COUNT(DISTINCT(user_id)) AS active_users  \nFROM \n    Activity \nWHERE \n    activity_date \n        BETWEEN '2019-07-27'::DATE - INTERVAL '29 DAYS' \n        AND '2019-07-27'::DATE\nGROUP BY \n    activity_date"
+  Title = "User Activity for the Past 30 Days I"
+  Url = "/submissions/detail/1720526360/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754133320
+  Status = 10
+  Runtime = "395 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111111111111"
+  HasNotes = false
+  FlagType = 1

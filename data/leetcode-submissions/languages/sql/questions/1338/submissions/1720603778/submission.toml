@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720603778
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1338
+  TitleSlug = "queries-quality-and-percentage"
+  Code = "SELECT \n    query_name,  \n    ROUND(SUM(rating * 1.0 / position) / COUNT(*), 2) AS quality,\n    ROUND(\n        COUNT(CASE WHEN rating < 3 THEN 1 END) * 1.0 / COUNT(*), \n        4\n    ) * 100 AS poor_query_percentage\nFROM \n    Queries\nGROUP BY \n    query_name;"
+  Title = "Queries Quality and Percentage"
+  Url = "/submissions/detail/1720603778/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754138807
+  Status = 10
+  Runtime = "260 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111111111"
+  HasNotes = false
+  FlagType = 1

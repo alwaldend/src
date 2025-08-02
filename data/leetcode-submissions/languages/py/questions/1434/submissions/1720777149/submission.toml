@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720777149
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1434
+  TitleSlug = "decrypt-string-from-alphabet-to-integer-mapping"
+  Code = "class Solution:\n    def freqAlphabets(self, s: str) -> str:\n        res = []\n        length = len(s)\n        i = 0\n        while i < length:\n            if i + 2 <  length and s[i + 2] == \"#\":\n                res.append(chr(int(s[i:i+2]) + 97 - 1))\n                i += 3\n            else:\n                res.append(chr(int(s[i]) + 97 - 1))\n                i += 1\n        return \"\".join(res)"
+  Title = "Decrypt String from Alphabet to Integer Mapping"
+  Url = "/submissions/detail/1720777149/"
+  LangName = "Python3"
+  Timestamp = 1754147044
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

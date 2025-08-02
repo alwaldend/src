@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720248259
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1094
+  TitleSlug = "matrix-cells-in-distance-order"
+  Code = "class Solution:\n    def allCellsDistOrder(self, rows: int, cols: int, rCenter: int, cCenter: int) -> List[List[int]]:\n        res = []\n        for row in range(rows):\n            for col in range(cols):\n                dist = abs(row - rCenter) + abs(col - cCenter)\n                res.append((dist, row, col))\n        res.sort()\n        for i in range(len(res)):\n            res[i] = res[i][1:] \n        return res"
+  Title = "Matrix Cells in Distance Order"
+  Url = "/submissions/detail/1720248259/"
+  LangName = "Python3"
+  Timestamp = 1754115091
+  Status = 10
+  Runtime = "19 ms"
+  IsPending = "Not Pending"
+  Memory = "19.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

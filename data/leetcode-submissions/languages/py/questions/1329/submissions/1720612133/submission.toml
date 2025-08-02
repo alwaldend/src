@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720612133
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1329
+  TitleSlug = "minimum-cost-to-move-chips-to-the-same-position"
+  Code = "class Solution:\n    def minCostToMoveChips(self, position: List[int]) -> int:\n        length = len(position)\n        odd, even = 0, 0\n        for pos in position:\n            if pos % 2 == 0:\n                even += 1\n            else:\n                odd += 1\n        return min(odd, even)"
+  Title = "Minimum Cost to Move Chips to The Same Position"
+  Url = "/submissions/detail/1720612133/"
+  LangName = "Python3"
+  Timestamp = 1754139366
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

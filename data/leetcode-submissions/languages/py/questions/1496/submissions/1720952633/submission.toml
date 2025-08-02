@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720952633
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1496
+  TitleSlug = "lucky-numbers-in-a-matrix"
+  Code = "class Solution:\n    def luckyNumbers(self, matrix: List[List[int]]) -> List[int]:\n        rows = len(matrix)\n        cols = len(matrix[0])\n        min_row = float(\"-inf\")\n        max_col = float(\"inf\")\n        for row in range(rows):\n            min_row = max(min_row, min(matrix[row]))\n        for col in range(cols):\n            cur_max_col = float(\"-inf\")\n            for row in range(rows):\n                cur_max_col = max(cur_max_col, matrix[row][col])\n            max_col = min(max_col, cur_max_col)\n        if min_row == max_col:\n            return [min_row]\n        return []"
+  Title = "Lucky Numbers in a Matrix"
+  Url = "/submissions/detail/1720952633/"
+  LangName = "Python3"
+  Timestamp = 1754153112
+  Status = 10
+  Runtime = "12 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

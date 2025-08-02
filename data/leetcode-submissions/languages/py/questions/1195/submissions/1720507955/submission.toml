@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720507955
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1195
+  TitleSlug = "distribute-candies-to-people"
+  Code = "class Solution:\n    def distributeCandies(self, candies: int, num_people: int) -> List[int]:\n        res = [0] * num_people\n        i = 0\n        while candies > 0:\n            loss = min(i + 1, candies)\n            res[i % num_people] += loss\n            i += 1\n            candies -= loss\n        return res"
+  Title = "Distribute Candies to People"
+  Url = "/submissions/detail/1720507955/"
+  LangName = "Python3"
+  Timestamp = 1754132066
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

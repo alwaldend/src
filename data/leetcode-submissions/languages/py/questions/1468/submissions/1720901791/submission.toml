@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720901791
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1468
+  TitleSlug = "check-if-n-and-its-double-exist"
+  Code = "class Solution:\n    def checkIfExist(self, arr: List[int]) -> bool:\n        enc = set()\n        for num in arr:\n            if num == 0 and 0 in enc:\n                return True\n            if num % 2 == 0 and num // 2 in enc:\n                return True\n            if num * 2 in enc:\n                return True\n            enc.add(num)\n        return False"
+  Title = "Check If N and Its Double Exist"
+  Url = "/submissions/detail/1720901791/"
+  LangName = "Python3"
+  Timestamp = 1754150392
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

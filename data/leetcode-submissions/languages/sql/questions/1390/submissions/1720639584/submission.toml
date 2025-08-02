@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720639584
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1390
+  TitleSlug = "average-selling-price"
+  Code = "SELECT \n    Prices.product_id,\n    CASE\n        WHEN \n            SUM(UnitsSold.units) is null\n        THEN \n            0\n        ELSE\n            ROUND(SUM(UnitsSold.units * Prices.price) / SUM(UnitsSold.units)::numeric, 2)\n    END AS average_price\nFROM \n    Prices\nLEFT JOIN \n    UnitsSold\nON \n    UnitsSold.product_id = Prices.product_id \n    AND UnitsSold.purchase_date \n        BETWEEN Prices.start_date AND Prices.end_date\nGROUP BY \n    Prices.product_id;\n\n"
+  Title = "Average Selling Price"
+  Url = "/submissions/detail/1720639584/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754141149
+  Status = 10
+  Runtime = "241 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720974080
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1519
+  TitleSlug = "minimum-subsequence-in-non-increasing-order"
+  Code = "class Solution:\n    def minSubsequence(self, nums: List[int]) -> List[int]:\n        max_sum = sum(nums)\n        nums.sort(reverse=True)\n        cur_sum = 0\n        res = []\n        for num in nums:\n            cur_sum += num\n            res.append(num)\n            if cur_sum > max_sum - cur_sum:\n                break\n        return res\n\n\n"
+  Title = "Minimum Subsequence in Non-Increasing Order"
+  Url = "/submissions/detail/1720974080/"
+  LangName = "Python3"
+  Timestamp = 1754154210
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

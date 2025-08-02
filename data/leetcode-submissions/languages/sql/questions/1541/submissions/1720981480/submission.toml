@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720981480
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1541
+  TitleSlug = "top-travellers"
+  Code = "SELECT\n    Users.name, \n    COALESCE(SUM(Rides.distance), 0) AS \"travelled_distance\"\nFROM\n    Users\nLEFT JOIN\n    Rides\nON\n    Users.id = Rides.user_id\nGROUP BY\n    Users.id, Users.name\nORDER BY\n    travelled_distance DESC,\n    Users.name ASC\n"
+  Title = "Top Travellers"
+  Url = "/submissions/detail/1720981480/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754154586
+  Status = 10
+  Runtime = "421 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111111111111"
+  HasNotes = false
+  FlagType = 1

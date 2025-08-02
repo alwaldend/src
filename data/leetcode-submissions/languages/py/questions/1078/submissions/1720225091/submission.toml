@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720225091
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1078
+  TitleSlug = "remove-outermost-parentheses"
+  Code = "class Solution:\n    def removeOuterParentheses(self, s: str) -> str:\n        res = []\n        balance = 0\n        start = 0\n\n        for i, char in enumerate(s):\n            if char == '(':\n                balance += 1\n            else:\n                balance -= 1\n            if balance == 0:\n                res.append(s[start + 1:i])\n                start = i + 1\n        return \"\".join(res)"
+  Title = "Remove Outermost Parentheses"
+  Url = "/submissions/detail/1720225091/"
+  LangName = "Python3"
+  Timestamp = 1754113731
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

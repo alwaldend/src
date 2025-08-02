@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720521931
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1227
+  TitleSlug = "number-of-equivalent-domino-pairs"
+  Code = "class Solution:\n    def numEquivDominoPairs(self, dominoes: List[List[int]]) -> int:\n        freqs = [0] * 100\n        res = 0\n        for num1, num2 in dominoes:\n            if num1 > num2:\n                val = num1 * 10 + num2\n            else:\n                val = num2 * 10 + num1\n            res += freqs[val]\n            freqs[val] += 1\n        return res"
+  Title = "Number of Equivalent Domino Pairs"
+  Url = "/submissions/detail/1720521931/"
+  LangName = "Python3"
+  Timestamp = 1754133021
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "24.3 MB"
+  CompareResult = "1111111111111111111"
+  HasNotes = false
+  FlagType = 1

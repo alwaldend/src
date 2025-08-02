@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720848295
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1462
+  TitleSlug = "list-the-products-ordered-in-a-period"
+  Code = "SELECT \n    Products.product_name, SUM(Orders.unit) as \"unit\"\nFROM \n    Products\nJOIN \n    Orders\nON \n    Orders.product_id = Products.product_id\nWHERE \n    Orders.order_date BETWEEN '2020-02-01' AND '2020-02-29'\nGROUP BY \n    Products.product_name\nHAVING \n    SUM(Orders.unit) >= 100;"
+  Title = "List the Products Ordered in a Period"
+  Url = "/submissions/detail/1720848295/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754148828
+  Status = 10
+  Runtime = "461 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111111111111"
+  HasNotes = false
+  FlagType = 1

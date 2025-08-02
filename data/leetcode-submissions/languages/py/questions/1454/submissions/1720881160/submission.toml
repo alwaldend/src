@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720881160
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1454
+  TitleSlug = "remove-palindromic-subsequences"
+  Code = "class Solution:\n    def removePalindromeSub(self, s: str) -> int:\n        if s == s[::-1]:\n            return 1\n        return 2"
+  Title = "Remove Palindromic Subsequences"
+  Url = "/submissions/detail/1720881160/"
+  LangName = "Python3"
+  Timestamp = 1754149788
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

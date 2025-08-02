@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720347115
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1161
+  TitleSlug = "project-employees-i"
+  Code = "SELECT \n    project_id,\n    ROUND(AVG(experience_years), 2) AS average_years\nFROM \n    Project\nJOIN \n    Employee\nON \n    Project.employee_id = Employee.employee_id\nGROUP BY \n    project_id"
+  Title = "Project Employees I"
+  Url = "/submissions/detail/1720347115/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754121224
+  Status = 10
+  Runtime = "450 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720435981
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1168
+  TitleSlug = "duplicate-zeros"
+  Code = "class Solution:\n    def duplicateZeros(self, arr: List[int]) -> None:\n        \"\"\"\n        Do not return anything, modify arr in-place instead.\n        \"\"\"\n        queue = deque()\n        for i in range(len(arr)):\n            num = arr[i]\n            if queue:\n                arr[i] = queue.popleft()\n                queue.append(num)\n            if num == 0:\n                queue.append(0)"
+  Title = "Duplicate Zeros"
+  Url = "/submissions/detail/1720435981/"
+  LangName = "Python3"
+  Timestamp = 1754127375
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "18.2 MB"
+  CompareResult = "1111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -41,8 +41,8 @@ def al_gen_leetcode_submissions(name, srcs, package_dir, visibility = None, **kw
         ],
     )
     src_names = []
-    for src in srcs:
-        src_name = "{}-{}".format(name, src.replace(".toml", ""))
+    for i, src in enumerate(srcs):
+        src_name = "{}-template-{}".format(name, i)
         src_names.append(src_name)
         al_template_files(
             name = src_name,

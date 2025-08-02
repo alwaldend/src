@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720697198
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1415
+  TitleSlug = "students-and-examinations"
+  Code = "SELECT\n    Students.student_id, \n    Students.student_name,\n    Subjects.subject_name,\n    COUNT(Examinations.subject_name) as \"attended_exams\"\nFROM\n    Students\nCROSS JOIN\n    Subjects\nLEFT JOIN\n    Examinations\nON\n    Students.student_id = Examinations.student_id\n    AND Subjects.subject_name = Examinations.subject_name\nGROUP BY\n    Students.student_id, \n    Students.student_name, \n    Subjects.subject_name\nORDER BY\n    Students.student_id, \n    Subjects.subject_name"
+  Title = "Students and Examinations"
+  Url = "/submissions/detail/1720697198/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754144686
+  Status = 10
+  Runtime = "363 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111111111"
+  HasNotes = false
+  FlagType = 1

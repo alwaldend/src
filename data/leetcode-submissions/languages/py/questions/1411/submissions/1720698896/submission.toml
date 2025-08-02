@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720698896
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1411
+  TitleSlug = "convert-binary-number-in-a-linked-list-to-integer"
+  Code = "# Definition for singly-linked list.\n# class ListNode:\n#     def __init__(self, val=0, next=None):\n#         self.val = val\n#         self.next = next\nclass Solution:\n    def getDecimalValue(self, head: Optional[ListNode]) -> int:\n        res = 0\n        while head:\n            res <<= 1\n            res |= head.val\n            head = head.next\n        return res"
+  Title = "Convert Binary Number in a Linked List to Integer"
+  Url = "/submissions/detail/1720698896/"
+  LangName = "Python3"
+  Timestamp = 1754144788
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

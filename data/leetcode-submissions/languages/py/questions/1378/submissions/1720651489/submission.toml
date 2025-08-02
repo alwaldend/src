@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720651489
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1378
+  TitleSlug = "cells-with-odd-values-in-a-matrix"
+  Code = "class Solution:\n    def oddCells(self, m: int, n: int, indices: List[List[int]]) -> int:\n        mat = [[0] * n for _ in range(m)]\n        for row, col in indices:\n            for cur_col in range(n):\n                mat[row][cur_col] += 1\n            for cur_row in range(m):\n                mat[cur_row][col] += 1\n        count = 0\n        for row in range(m):\n            for col in range(n):\n                if mat[row][col] % 2 != 0:\n                    count += 1\n        return count"
+  Title = "Cells with Odd Values in a Matrix"
+  Url = "/submissions/detail/1720651489/"
+  LangName = "Python3"
+  Timestamp = 1754141897
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

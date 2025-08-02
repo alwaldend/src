@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720963240
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1510
+  TitleSlug = "find-lucky-integer-in-an-array"
+  Code = "class Solution:\n    def findLucky(self, arr: List[int]) -> int:\n        freqs = defaultdict(int)\n        for num in arr:\n            freqs[num] += 1\n        max_num = -1\n        for num, freq in freqs.items():\n            if num == freq:\n                max_num = max(max_num, num)\n        return max_num"
+  Title = "Find Lucky Integer in an Array"
+  Url = "/submissions/detail/1720963240/"
+  LangName = "Python3"
+  Timestamp = 1754153661
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

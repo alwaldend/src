@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720750965
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1231
+  TitleSlug = "replace-elements-with-greatest-element-on-right-side"
+  Code = "class Solution:\n    def replaceElements(self, arr: List[int]) -> List[int]:\n        greatest = -1\n        for i in reversed(range(len(arr))):\n            current = arr[i]\n            arr[i] = greatest\n            if current > greatest:\n                greatest = current\n        return arr"
+  Title = "Replace Elements with Greatest Element on Right Side"
+  Url = "/submissions/detail/1720750965/"
+  LangName = "Python3"
+  Timestamp = 1754146454
+  Status = 10
+  Runtime = "17 ms"
+  IsPending = "Not Pending"
+  Memory = "18.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

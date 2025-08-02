@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720558747
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1279
+  TitleSlug = "prime-arrangements"
+  Code = "class Solution:\n    def numPrimeArrangements(self, n: int) -> int:\n        prime = [True] * (n + 1)\n        prime[0] = prime[1] = False\n        for i in range(2, int(n ** 0.5) + 1):\n            if not prime[i]:\n                continue\n            for j in range(i * i, n + 1, i):\n                prime[j] = False\n                    \n        prime_count = sum(prime)\n        mod = 10**9 + 7\n        fact_primes = math.factorial(prime_count)\n        fact_norm = math.factorial(n - prime_count)\n        return (fact_primes * fact_norm) % mod\n\n        "
+  Title = "Prime Arrangements"
+  Url = "/submissions/detail/1720558747/"
+  LangName = "Python3"
+  Timestamp = 1754135642
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

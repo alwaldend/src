@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720927327
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1472
+  TitleSlug = "increasing-decreasing-string"
+  Code = "class Solution:\n    def sortString(self, s: str) -> str:\n        freqs = defaultdict(int)\n        for char in s:\n            freqs[char] += 1\n        keys = list(freqs.keys())\n        keys.sort(key = ord)\n        length = len(keys)\n        res = []\n        while freqs:\n            for i in itertools.chain(range(length), reversed(range(length))):\n                key = keys[i]\n                if key not in freqs:\n                    continue\n                res.append(key)\n                freqs[key] -= 1\n                if freqs[key] == 0:\n                    freqs.pop(key)\n        return \"\".join(res)"
+  Title = "Increasing Decreasing String"
+  Url = "/submissions/detail/1720927327/"
+  LangName = "Python3"
+  Timestamp = 1754151740
+  Status = 10
+  Runtime = "21 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720423545
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1174
+  TitleSlug = "sales-analysis-iii"
+  Code = "SELECT \n    Product.product_id, Product.product_name\nFROM \n    Sales\nJOIN \n    Product \nON \n    Product.product_id = Sales.product_id\nGROUP BY \n    Product.product_id, Product.product_name\nHAVING\n    MIN(Sales.sale_date) >= '2019-01-01' \n    AND MAX(Sales.sale_date) <= '2019-03-31'"
+  Title = "Sales Analysis III"
+  Url = "/submissions/detail/1720423545/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754126569
+  Status = 10
+  Runtime = "1013 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111111111"
+  HasNotes = false
+  FlagType = 1

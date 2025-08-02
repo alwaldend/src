@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720508833
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1205
+  TitleSlug = "defanging-an-ip-address"
+  Code = "class Solution:\n    def defangIPaddr(self, address: str) -> str:\n        return address.replace(\".\", \"[.]\")"
+  Title = "Defanging an IP Address"
+  Url = "/submissions/detail/1720508833/"
+  LangName = "Python3"
+  Timestamp = 1754132122
+  Status = 10
+  Runtime = "41 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

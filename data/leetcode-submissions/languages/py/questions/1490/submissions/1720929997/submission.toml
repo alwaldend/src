@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720929997
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1490
+  TitleSlug = "generate-a-string-with-characters-that-have-odd-counts"
+  Code = "class Solution:\n    def generateTheString(self, n: int) -> str:\n        if n % 2 == 0:\n            return (\"a\" * (n - 1)) + \"b\"\n        return \"a\" * n"
+  Title = "Generate a String With Characters That Have Odd Counts"
+  Url = "/submissions/detail/1720929997/"
+  LangName = "Python3"
+  Timestamp = 1754151882
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

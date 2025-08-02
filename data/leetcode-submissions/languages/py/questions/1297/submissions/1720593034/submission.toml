@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720593034
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1297
+  TitleSlug = "maximum-number-of-balloons"
+  Code = "class Solution:\n    def maxNumberOfBalloons(self, text: str) -> int:\n        freqs = defaultdict(int)\n        for char in text:\n            freqs[char] += 1\n        res = min(\n            freqs[\"b\"],\n            freqs[\"a\"],\n            freqs[\"l\"] // 2,\n            freqs[\"o\"] // 2,\n            freqs[\"n\"]\n        )\n        return res"
+  Title = "Maximum Number of Balloons"
+  Url = "/submissions/detail/1720593034/"
+  LangName = "Python3"
+  Timestamp = 1754138056
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

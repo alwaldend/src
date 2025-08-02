@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720934354
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1509
+  TitleSlug = "replace-employee-id-with-the-unique-identifier"
+  Code = "SELECT\n    EmployeeUNI.unique_id, Employees.name\nFROM\n    Employees\nLEFT JOIN\n    EmployeeUNI\nON\n    Employees.id = EmployeeUNI.id"
+  Title = "Replace Employee ID With The Unique Identifier"
+  Url = "/submissions/detail/1720934354/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754152119
+  Status = 10
+  Runtime = "453 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

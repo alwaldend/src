@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720459880
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1168
+  TitleSlug = "duplicate-zeros"
+  Code = "class Solution:\n    def duplicateZeros(self, arr: List[int]) -> None:\n        \"\"\"\n        Do not return anything, modify arr in-place instead.\n        \"\"\"\n\n        possible_dups = 0\n        length_ = len(arr) - 1\n\n        for left in range(length_ + 1):\n            if left > length_ - possible_dups:\n                break\n            if arr[left] == 0:\n                if left == length_ - possible_dups:\n                    arr[length_] = 0\n                    length_ -= 1\n                    break\n                possible_dups += 1\n\n        last = length_ - possible_dups\n        for i in range(last, -1, -1):\n            if arr[i] == 0:\n                arr[i + possible_dups] = 0\n                possible_dups -= 1\n                arr[i + possible_dups] = 0\n            else:\n                arr[i + possible_dups] = arr[i]\n"
+  Title = "Duplicate Zeros"
+  Url = "/submissions/detail/1720459880/"
+  LangName = "Python3"
+  Timestamp = 1754128943
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18.2 MB"
+  CompareResult = "1111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

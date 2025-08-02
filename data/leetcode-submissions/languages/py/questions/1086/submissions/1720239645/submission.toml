@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720239645
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1086
+  TitleSlug = "divisor-game"
+  Code = "class Solution:\n    def divisorGame(self, n: int) -> bool:\n        return n % 2 == 0"
+  Title = "Divisor Game"
+  Url = "/submissions/detail/1720239645/"
+  LangName = "Python3"
+  Timestamp = 1754114591
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

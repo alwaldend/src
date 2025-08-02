@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720361987
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1156
+  TitleSlug = "occurrences-after-bigram"
+  Code = "class Solution:\n    def findOcurrences(self, text: str, first: str, second: str) -> List[str]:\n        words = text.split()\n        length = len(words)\n        if length < 3:\n            return []\n        res = []\n        i = 0\n        while i + 2 < length:\n            if words[i] == first and words[i+1] == second:\n                res.append(words[i+2])\n            i += 1\n        return res"
+  Title = "Occurrences After Bigram"
+  Url = "/submissions/detail/1720361987/"
+  LangName = "Python3"
+  Timestamp = 1754122331
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

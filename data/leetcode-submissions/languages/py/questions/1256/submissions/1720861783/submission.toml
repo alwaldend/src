@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720861783
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1256
+  TitleSlug = "rank-transform-of-an-array"
+  Code = "class Solution:\n    def arrayRankTransform(self, arr: List[int]) -> List[int]:\n        ind = defaultdict(list)\n        for i, num in enumerate(arr):\n            ind[num].append(i)\n        for rank, num in enumerate(sorted(ind.keys()), 1):\n            for i in ind[num]:\n                arr[i] = rank\n        return arr\n\n"
+  Title = "Rank Transform of an Array"
+  Url = "/submissions/detail/1720861783/"
+  LangName = "Python3"
+  Timestamp = 1754149213
+  Status = 10
+  Runtime = "71 ms"
+  IsPending = "Not Pending"
+  Memory = "46.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

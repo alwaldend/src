@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720642673
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2689
+  TitleSlug = "rearranging-fruits"
+  Code = "class Solution:\n    def minCost(self, basket1: List[int], basket2: List[int]) -> int:\n        freq = Counter()\n        m = float(\"inf\")\n        for b1 in basket1:\n            freq[b1] += 1\n            m = min(m, b1)\n        for b2 in basket2:\n            freq[b2] -= 1\n            m = min(m, b2)\n\n        merge = []\n        for k, c in freq.items():\n            if c % 2 != 0:\n                return -1\n            merge.extend([k] * (abs(c) // 2))\n\n        if not merge:\n            return 0\n        merge.sort()\n        return sum(min(2 * m, x) for x in merge[: len(merge) // 2])"
+  Title = "Rearranging Fruits"
+  Url = "/submissions/detail/1720642673/"
+  LangName = "Python3"
+  Timestamp = 1754141344
+  Status = 10
+  Runtime = "161 ms"
+  IsPending = "Not Pending"
+  Memory = "43.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

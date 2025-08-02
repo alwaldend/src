@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720325708
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1127
+  TitleSlug = "last-stone-weight"
+  Code = "class Solution:\n    def lastStoneWeight(self, stones: List[int]) -> int:\n        stones.sort()\n        while stones:\n            last = stones.pop()\n            if not stones:\n                return last\n            prev = stones[-1]\n            if last == prev:\n                stones.pop()\n            else:\n                stones[-1] = last - prev\n                stones.sort()\n        return 0"
+  Title = "Last Stone Weight"
+  Url = "/submissions/detail/1720325708/"
+  LangName = "Python3"
+  Timestamp = 1754119701
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

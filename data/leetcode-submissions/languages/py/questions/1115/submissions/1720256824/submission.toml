@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720256824
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1115
+  TitleSlug = "valid-boomerang"
+  Code = "class Solution:\n    def isBoomerang(self, points: List[List[int]]) -> bool:\n        x1, y1 = points[0]\n        x2, y2 = points[1]\n        x3, y3 = points[2]\n        return (y2 - y1) * (x3 - x2) != (y3 - y2) * (x2 - x1)"
+  Title = "Valid Boomerang"
+  Url = "/submissions/detail/1720256824/"
+  LangName = "Python3"
+  Timestamp = 1754115579
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

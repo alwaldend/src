@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720341218
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1153
+  TitleSlug = "product-sales-analysis-i"
+  Code = "SELECT\n    product_name, year, price\nFROM \n    Sales\nLEFT JOIN\n    Product\nON\n    Sales.product_id = Product.product_id"
+  Title = "Product Sales Analysis I"
+  Url = "/submissions/detail/1720341218/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754120804
+  Status = 10
+  Runtime = "1209 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111111111"
+  HasNotes = false
+  FlagType = 1

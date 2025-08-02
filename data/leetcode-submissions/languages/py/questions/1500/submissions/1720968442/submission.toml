@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720968442
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1500
+  TitleSlug = "count-largest-group"
+  Code = "class Solution:\n    def countLargestGroup(self, n: int) -> int:\n        freqs = defaultdict(int)\n        def count(num: int) -> int:\n            res = 0\n            while num > 0:\n                res += num % 10\n                num //= 10\n            return res\n        max_freq = 0\n        for i in range(1, n + 1):\n            group = count(i)\n            freq = freqs[group] + 1\n            freqs[group] = freq\n            if freq > max_freq:\n                max_freq = freq\n        res = 0\n        for freq in freqs.values():\n            if freq == max_freq:\n                res += 1\n        return res"
+  Title = "Count Largest Group"
+  Url = "/submissions/detail/1720968442/"
+  LangName = "Python3"
+  Timestamp = 1754153928
+  Status = 10
+  Runtime = "27 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

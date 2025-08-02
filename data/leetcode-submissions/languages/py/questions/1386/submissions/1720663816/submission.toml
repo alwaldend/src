@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720663816
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1386
+  TitleSlug = "shift-2d-grid"
+  Code = "class Solution:\n    def shiftGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:\n        if not grid or not grid[0]:\n            return grid\n        \n        row_length = len(grid)\n        col_length = len(grid[0])\n        num_count = row_length * col_length\n        k %= num_count\n        res = [[0] * col_length for _ in range(row_length)]\n        \n        for row in range(row_length):\n            for col in range(col_length):\n                flat_mat_index = (row * col_length) + col\n                new_flat_mat_index = (flat_mat_index + k) % num_count\n                new_row = new_flat_mat_index // col_length\n                new_col = new_flat_mat_index % col_length\n                res[new_row][new_col] = grid[row][col]\n        return res"
+  Title = "Shift 2D Grid"
+  Url = "/submissions/detail/1720663816/"
+  LangName = "Python3"
+  Timestamp = 1754142659
+  Status = 10
+  Runtime = "8 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

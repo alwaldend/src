@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720916483
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1482
+  TitleSlug = "how-many-numbers-are-smaller-than-the-current-number"
+  Code = "class Solution:\n    def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:\n        num_to_count = {}\n        for i, num in enumerate(sorted(nums)):\n            if num not in num_to_count:\n                num_to_count[num] = i\n        for i in range(len(nums)):\n            nums[i] = num_to_count[nums[i]]\n        return nums"
+  Title = "How Many Numbers Are Smaller Than the Current Number"
+  Url = "/submissions/detail/1720916483/"
+  LangName = "Python3"
+  Timestamp = 1754151162
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

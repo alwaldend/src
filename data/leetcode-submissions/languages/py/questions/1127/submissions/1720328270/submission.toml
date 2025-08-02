@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720328270
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1127
+  TitleSlug = "last-stone-weight"
+  Code = "class Solution:\n    def lastStoneWeight(self, stones: List[int]) -> int:\n        for i, num in enumerate(stones):\n            stones[i] = -num\n        heapq.heapify(stones)\n        while stones:\n            last = -heapq.heappop(stones)\n            if not stones:\n                return last\n            prev = -heapq.heappop(stones)\n            if last > prev:\n                heapq.heappush(stones, -(last - prev))\n        return 0"
+  Title = "Last Stone Weight"
+  Url = "/submissions/detail/1720328270/"
+  LangName = "Python3"
+  Timestamp = 1754119869
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

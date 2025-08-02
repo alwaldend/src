@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720211623
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1062
+  TitleSlug = "partition-array-into-three-parts-with-equal-sum"
+  Code = "class Solution:\n    def canThreePartsEqualSum(self, arr: List[int]) -> bool:\n        total = sum(arr)\n        if total % 3 != 0:\n            return False\n        length = len(arr)\n        target = total // 3\n        cur = 0\n        count = 0\n        for i, num in enumerate(arr):\n            cur += num\n            if cur == target:\n                cur = 0\n                count += 1\n            if count == 2 and i + 1 < length:\n                return True\n        return False"
+  Title = "Partition Array Into Three Parts With Equal Sum"
+  Url = "/submissions/detail/1720211623/"
+  LangName = "Python3"
+  Timestamp = 1754112880
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "23.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

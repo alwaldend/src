@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720513565
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1203
+  TitleSlug = "print-in-order"
+  Code = "class Foo:\n    def __init__(self):\n        self._lock1 = threading.Lock()\n        self._lock2 = threading.Lock()\n        self._lock1.acquire()\n        self._lock2.acquire()\n\n    def first(self, printFirst: 'Callable[[], None]') -> None:\n        printFirst()\n        self._lock1.release()\n\n\n    def second(self, printSecond: 'Callable[[], None]') -> None:\n        with self._lock1:\n            printSecond()\n        self._lock2.release()\n\n\n    def third(self, printThird: 'Callable[[], None]') -> None:\n        with self._lock2:\n            printThird()"
+  Title = "Print in Order"
+  Url = "/submissions/detail/1720513565/"
+  LangName = "Python3"
+  Timestamp = 1754132442
+  Status = 10
+  Runtime = "63 ms"
+  IsPending = "Not Pending"
+  Memory = "18.2 MB"
+  CompareResult = "111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

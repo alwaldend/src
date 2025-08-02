@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720565027
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1301
+  TitleSlug = "reformat-department-table"
+  Code = "SELECT id,\n        SUM(\n            CASE \n                WHEN \n                    month = 'Jan' \n                THEN \n                    revenue \n                ELSE \n                    NULL \n            END\n        ) AS Jan_Revenue,\n        SUM(\n            CASE \n                WHEN \n                    month = 'Feb' \n                THEN \n                    revenue \n                ELSE \n                    NULL \n                END\n        ) AS Feb_Revenue,\n        SUM(\n            CASE \n                WHEN \n                    month = 'Mar' \n                THEN \n                    revenue \n                ELSE \n                    NULL \n                END\n        ) AS Mar_Revenue,\n        SUM(\n            CASE \n                WHEN \n                    month = 'Apr' \n                THEN \n                    revenue \n                ELSE \n                    NULL \n                END\n        ) AS Apr_Revenue,\n        SUM(\n            CASE \n                WHEN \n                    month = 'May' \n                THEN \n                    revenue \n                ELSE \n                    NULL \n                END\n        ) AS May_Revenue,\n        SUM(\n            CASE \n                WHEN \n                    month = 'Jun' \n                THEN \n                    revenue \n                ELSE \n                    NULL \n                END\n        ) AS Jun_Revenue,\n        SUM(\n            CASE \n                WHEN \n                    month = 'Jul'\n                THEN \n                    revenue \n                ELSE \n                    NULL \n                END\n        ) AS Jul_Revenue,\n        SUM(\n            CASE \n                WHEN \n                    month = 'Aug'\n                THEN \n                    revenue \n                ELSE \n                    NULL\n                END\n        ) AS Aug_Revenue,\n        SUM(\n            CASE \n                WHEN \n                    month = 'Sep' \n                THEN \n                    revenue \n                ELSE \n                    NULL \n                END\n        ) AS Sep_Revenue,\n        SUM(\n            CASE \n                WHEN \n                    month = 'Oct' \n                THEN \n                    revenue \n                ELSE \n                    NULL \n            END\n        ) AS Oct_Revenue,\n        SUM(\n            CASE \n                WHEN \n                    month = 'Nov' \n                THEN \n                    revenue \n                ELSE \n                    NULL \n            END\n        ) AS Nov_Revenue,\n        SUM(\n            CASE \n                WHEN \n                    month = 'Dec' \n                THEN \n                    revenue \n                ELSE \n                    NULL \n            END\n        ) AS Dec_Revenue\nFROM \n    Department\nGROUP BY \n    id;"
+  Title = "Reformat Department Table"
+  Url = "/submissions/detail/1720565027/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754136085
+  Status = 10
+  Runtime = "402 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111111111111"
+  HasNotes = false
+  FlagType = 1

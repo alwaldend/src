@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720701101
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1421
+  TitleSlug = "find-numbers-with-even-number-of-digits"
+  Code = "class Solution:\n    def findNumbers(self, nums: List[int]) -> int:\n        def count(num: int) -> int:\n            res = 0\n            while num:\n                res += 1\n                num //= 10\n            return res\n        res = 0\n        for num in nums:\n            if count(num) % 2 == 0:\n                res += 1\n        return res"
+  Title = "Find Numbers with Even Number of Digits"
+  Url = "/submissions/detail/1720701101/"
+  LangName = "Python3"
+  Timestamp = 1754144934
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

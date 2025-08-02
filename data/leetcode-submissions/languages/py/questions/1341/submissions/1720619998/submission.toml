@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720619998
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1341
+  TitleSlug = "split-a-string-in-balanced-strings"
+  Code = "class Solution:\n    def balancedStringSplit(self, s: str) -> int:\n        count_l, count_r = 0, 0\n        count = 0\n        for char in s:\n            if char == \"R\":\n                count_r += 1\n            else:\n                count_l += 1\n            if count_l == count_r:\n                count += 1\n        return count\n            "
+  Title = "Split a String in Balanced Strings"
+  Url = "/submissions/detail/1720619998/"
+  LangName = "Python3"
+  Timestamp = 1754139887
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

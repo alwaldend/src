@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720787134
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1241
+  TitleSlug = "decompress-run-length-encoded-list"
+  Code = "class Solution:\n    def decompressRLElist(self, nums: List[int]) -> List[int]:\n        res = []\n        i = 0\n        length = len(nums)\n        while i < length:\n            freq, val = nums[i], nums[i + 1]\n            i += 2\n            res.extend((val, ) * freq)\n        return res"
+  Title = "Decompress Run-Length Encoded List"
+  Url = "/submissions/detail/1720787134/"
+  LangName = "Python3"
+  Timestamp = 1754147274
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

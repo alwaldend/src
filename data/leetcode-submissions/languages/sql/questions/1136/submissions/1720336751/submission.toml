@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1720336751
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1136
+  TitleSlug = "actors-and-directors-who-cooperated-at-least-three-times"
+  Code = "SELECT \n    actor_id, director_id\nFROM \n    ActorDirector\nGROUP BY \n    actor_id, director_id\nHAVING \n    COUNT(actor_id) >= 3;"
+  Title = "Actors and Directors Who Cooperated At Least Three Times"
+  Url = "/submissions/detail/1720336751/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754120477
+  Status = 10
+  Runtime = "314 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111111"
+  HasNotes = false
+  FlagType = 1
