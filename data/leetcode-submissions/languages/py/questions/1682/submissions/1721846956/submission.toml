@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721846956
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1682
+  TitleSlug = "most-visited-sector-in-a-circular-track"
+  Code = "class Solution:\n    def mostVisited(self, n: int, rounds: List[int]) -> List[int]:\n        start_sector, end_sector = rounds[0], rounds[-1]\n\n        if start_sector <= end_sector:\n            return tuple(range(start_sector, end_sector + 1))\n            \n        return tuple(\n            itertools.chain(\n                range(1, end_sector + 1),\n                range(start_sector, n + 1)\n            )\n        )"
+  Title = "Most Visited Sector in  a Circular Track"
+  Url = "/submissions/detail/1721846956/"
+  LangName = "Python3"
+  Timestamp = 1754223196
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

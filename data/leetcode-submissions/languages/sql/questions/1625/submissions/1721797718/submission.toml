@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721797718
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1625
+  TitleSlug = "group-sold-products-by-the-date"
+  Code = "SELECT \n    Activities.sell_date, \n    COUNT(\n        DISTINCT (Activities.product, Activities.sell_date)\n    ) AS num_sold, \n    STRING_AGG(\n        DISTINCT Activities.product, ',' ORDER BY product\n    ) AS products\nFROM \n    Activities\nGROUP BY \n    Activities.sell_date\nORDER BY \n    Activities.sell_date;"
+  Title = "Group Sold Products By The Date"
+  Url = "/submissions/detail/1721797718/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754219667
+  Status = 10
+  Runtime = "371 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111111111111"
+  HasNotes = false
+  FlagType = 1

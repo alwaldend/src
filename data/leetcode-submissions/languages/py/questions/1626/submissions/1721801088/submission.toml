@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721801088
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1626
+  TitleSlug = "can-make-arithmetic-progression-from-sequence"
+  Code = "class Solution:\n    def canMakeArithmeticProgression(self, arr: List[int]) -> bool:\n        arr.sort()\n        diff = abs(arr[0] - arr[1])\n        for i in range(1, len(arr) - 1):\n            if abs(arr[i] - arr[i+1]) != diff:\n                return False\n        return True"
+  Title = "Can Make Arithmetic Progression From Sequence"
+  Url = "/submissions/detail/1721801088/"
+  LangName = "Python3"
+  Timestamp = 1754219902
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

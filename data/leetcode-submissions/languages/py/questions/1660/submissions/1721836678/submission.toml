@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721836678
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1660
+  TitleSlug = "thousand-separator"
+  Code = "class Solution:\n    def thousandSeparator(self, n: int) -> str:\n        if n < 1000:\n            return str(n)\n        res = []\n        count = 0\n        while n > 0:\n            res.append(str(n % 10))\n            count += 1\n            n //= 10\n            if count % 3 == 0 and n > 0:\n                res.append(\".\")\n        res.reverse()\n        return \"\".join(res)"
+  Title = "Thousand Separator"
+  Url = "/submissions/detail/1721836678/"
+  LangName = "Python3"
+  Timestamp = 1754222478
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

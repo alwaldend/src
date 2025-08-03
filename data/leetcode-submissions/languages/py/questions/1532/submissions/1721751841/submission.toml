@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721751841
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1532
+  TitleSlug = "reformat-the-string"
+  Code = "class Solution:\n    def reformat(self, s: str) -> str:\n        res, digits, al = [\"\"], [], []\n        for char in s:\n            if char.isalpha():\n                al.append(char)\n            else:\n                digits.append(char)\n            while digits and al:\n                res.extend((digits.pop(), al.pop()))\n        if digits:\n            res.append(digits.pop())\n        elif al:\n            res[0] = al.pop()\n        if digits or al:\n            return \"\"\n        return \"\".join(res)\n"
+  Title = "Reformat The String"
+  Url = "/submissions/detail/1721751841/"
+  LangName = "Python3"
+  Timestamp = 1754216350
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

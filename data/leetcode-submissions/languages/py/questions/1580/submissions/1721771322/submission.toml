@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721771322
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1580
+  TitleSlug = "shuffle-the-array"
+  Code = "class Solution:\n    def shuffle(self, nums: List[int], n: int) -> List[int]:\n        res = []\n        for j in range(n, 2 * n):\n            res.extend((nums[j - n], nums[j]))\n        return res"
+  Title = "Shuffle the Array"
+  Url = "/submissions/detail/1721771322/"
+  LangName = "Python3"
+  Timestamp = 1754217764
+  Status = 10
+  Runtime = "60 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

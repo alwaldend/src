@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721672286
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1514
+  TitleSlug = "minimum-value-to-get-positive-step-by-step-sum"
+  Code = "class Solution:\n    def minStartValue(self, nums: List[int]) -> int:\n        min_sum = float('inf')\n        cur_sum = 0\n        for num in nums:\n            cur_sum += num\n            min_sum = min(min_sum, cur_sum)\n        return max(1 - min_sum, 1)"
+  Title = "Minimum Value to Get Positive Step by Step Sum"
+  Url = "/submissions/detail/1721672286/"
+  LangName = "Python3"
+  Timestamp = 1754210317
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

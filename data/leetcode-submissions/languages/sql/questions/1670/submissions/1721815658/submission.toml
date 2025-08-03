@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721815658
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1670
+  TitleSlug = "patients-with-a-condition"
+  Code = "SELECT\n    Patients.patient_id,\n    Patients.patient_name,\n    Patients.conditions\nFROM\n    Patients\nWHERE\n    Patients.conditions ~ '(^|\\s)DIAB1'"
+  Title = "Patients With a Condition"
+  Url = "/submissions/detail/1721815658/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754221006
+  Status = 10
+  Runtime = "178 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111111111"
+  HasNotes = false
+  FlagType = 1

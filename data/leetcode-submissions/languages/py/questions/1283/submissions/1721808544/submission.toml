@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721808544
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1283
+  TitleSlug = "reformat-date"
+  Code = "class Solution:\n    def reformatDate(self, date: str) -> str:\n        day_str, mnth_str, year_str = date.split()\n        if len(day_str) == 3:\n            day = int(day_str[0:1])\n        else:\n            day = int(day_str[0:2])\n        mnth = [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\", \"Jun\", \"Jul\", \"Aug\", \"Sep\", \"Oct\", \"Nov\", \"Dec\"].index(mnth_str) + 1\n        year = int(year_str)\n        return f\"{year}-{mnth:02}-{day:02}\""
+  Title = "Reformat Date"
+  Url = "/submissions/detail/1721808544/"
+  LangName = "Python3"
+  Timestamp = 1754220456
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

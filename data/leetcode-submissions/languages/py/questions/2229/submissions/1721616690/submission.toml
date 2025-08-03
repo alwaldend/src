@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721616690
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2229
+  TitleSlug = "maximum-fruits-harvested-after-at-most-k-steps"
+  Code = "class Solution:\n    def maxTotalFruits(\n        self, fruits: List[List[int]], startPos: int, k: int\n    ) -> int:\n        n = len(fruits)\n        sum_ = [0] * (n + 1)\n        indices = [0] * n\n\n        for i in range(n):\n            sum_[i + 1] = sum_[i] + fruits[i][1]\n            indices[i] = fruits[i][0]\n\n        ans = 0\n        for x in range(k // 2 + 1):\n            # move left x steps, then right (k - 2x) steps\n            y = k - 2 * x\n            left = startPos - x\n            right = startPos + y\n            start = bisect_left(indices, left)\n            end = bisect_right(indices, right)\n            ans = max(ans, sum_[end] - sum_[start])\n\n            # move right x steps, then left (k - 2x) steps\n            y = k - 2 * x\n            left = startPos - y\n            right = startPos + x\n            start = bisect_left(indices, left)\n            end = bisect_right(indices, right)\n            ans = max(ans, sum_[end] - sum_[start])\n\n        return ans"
+  Title = "Maximum Fruits Harvested After at Most K Steps"
+  Url = "/submissions/detail/1721616690/"
+  LangName = "Python3"
+  Timestamp = 1754205988
+  Status = 10
+  Runtime = "657 ms"
+  IsPending = "Not Pending"
+  Memory = "52.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

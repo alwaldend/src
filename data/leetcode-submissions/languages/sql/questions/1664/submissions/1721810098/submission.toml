@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721810098
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1664
+  TitleSlug = "find-users-with-valid-e-mails"
+  Code = "SELECT \n    *\nFROM \n    Users\nWHERE \n    Users.mail ~ '^[a-zA-Z][a-zA-Z0-9\\.\\-_]*@leetcode\\.com$';"
+  Title = "Find Users With Valid E-Mails"
+  Url = "/submissions/detail/1721810098/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754220575
+  Status = 10
+  Runtime = "363 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

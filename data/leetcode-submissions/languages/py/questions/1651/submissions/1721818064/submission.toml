@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721818064
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1651
+  TitleSlug = "shuffle-string"
+  Code = "class Solution:\n    def restoreString(self, s: str, indices: List[int]) -> str:\n        res = [None] * len(s)\n        for i, char in zip(indices, s):\n            res[i] = char\n        return \"\".join(res)"
+  Title = "Shuffle String"
+  Url = "/submissions/detail/1721818064/"
+  LangName = "Python3"
+  Timestamp = 1754221189
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

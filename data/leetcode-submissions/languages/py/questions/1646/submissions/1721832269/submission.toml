@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721832269
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1646
+  TitleSlug = "kth-missing-positive-number"
+  Code = "class Solution:\n    def findKthPositive(self, arr: List[int], k: int) -> int:\n        prev = 0\n        for num in arr:\n            diff = num - prev - 1\n            if k > diff:\n                k -= diff\n            else:\n                return prev + k\n            prev = num\n        return prev + k"
+  Title = "Kth Missing Positive Number"
+  Url = "/submissions/detail/1721832269/"
+  LangName = "Python3"
+  Timestamp = 1754222176
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

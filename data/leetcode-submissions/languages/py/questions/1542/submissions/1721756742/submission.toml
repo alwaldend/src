@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721756742
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1542
+  TitleSlug = "consecutive-characters"
+  Code = "class Solution:\n    def maxPower(self, s: str) -> int:\n        prev = s[0]\n        count = 1\n        max_count= 1\n        for char in s[1:]:\n            if char == prev:\n                count += 1\n                max_count = max(max_count, count)\n            else:\n                count = 1\n                prev = char\n        return max_count"
+  Title = "Consecutive Characters"
+  Url = "/submissions/detail/1721756742/"
+  LangName = "Python3"
+  Timestamp = 1754216711
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "17.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

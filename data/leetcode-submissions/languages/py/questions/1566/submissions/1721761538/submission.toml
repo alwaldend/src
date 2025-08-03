@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721761538
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1566
+  TitleSlug = "check-if-a-word-occurs-as-a-prefix-of-any-word-in-a-sentence"
+  Code = "class Solution:\n    def isPrefixOfWord(self, sentence: str, searchWord: str) -> int:\n        for i, word in enumerate(sentence.split()):\n            if word.startswith(searchWord):\n                return i + 1\n        return -1"
+  Title = "Check If a Word Occurs As a Prefix of Any Word in a Sentence"
+  Url = "/submissions/detail/1721761538/"
+  LangName = "Python3"
+  Timestamp = 1754217055
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

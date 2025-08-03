@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721833709
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1293
+  TitleSlug = "three-consecutive-odds"
+  Code = "class Solution:\n    def threeConsecutiveOdds(self, arr: List[int]) -> bool:\n        count = 0\n        for num in arr:\n            if num % 2 == 0:\n                count = 0\n            else:\n                count += 1\n            if count == 3:\n                return True\n        return False"
+  Title = "Three Consecutive Odds"
+  Url = "/submissions/detail/1721833709/"
+  LangName = "Python3"
+  Timestamp = 1754222277
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

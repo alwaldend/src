@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721783272
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1570
+  TitleSlug = "final-prices-with-a-special-discount-in-a-shop"
+  Code = "class Solution:\n    def finalPrices(self, prices: List[int]) -> List[int]:\n        stack = deque()\n        for i in range(len(prices)):\n            price = prices[i]\n            while True:\n                if not stack:\n                    break\n                last_i, last_price = stack[-1]\n                if last_price >= price:\n                    prices[last_i] -= price\n                    stack.pop()\n                else:\n                    break\n            stack.append((i, price))\n        return prices"
+  Title = "Final Prices With a Special Discount in a Shop"
+  Url = "/submissions/detail/1721783272/"
+  LangName = "Python3"
+  Timestamp = 1754218615
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

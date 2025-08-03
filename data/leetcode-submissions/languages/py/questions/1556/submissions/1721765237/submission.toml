@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721765237
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1556
+  TitleSlug = "make-two-arrays-equal-by-reversing-subarrays"
+  Code = "class Solution:\n    def canBeEqual(self, target: List[int], arr: List[int]) -> bool:\n        freqs = defaultdict(int)\n        length = len(target)\n        if length != len(arr):\n            return False\n        for i in range(length):\n            freqs[target[i]] += 1\n            freqs[arr[i]] -= 1\n        for count in freqs.values():\n            if count != 0:\n                return False\n        return True"
+  Title = "Make Two Arrays Equal by Reversing Subarrays"
+  Url = "/submissions/detail/1721765237/"
+  LangName = "Python3"
+  Timestamp = 1754217323
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

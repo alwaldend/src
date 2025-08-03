@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721813512
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1642
+  TitleSlug = "water-bottles"
+  Code = "class Solution:\n    def numWaterBottles(self, numBottles: int, numExchange: int) -> int:\n        res = 0\n        empty = 0\n        while numBottles > 0:\n            res += numBottles\n            empty += numBottles\n            numBottles = empty // numExchange\n            empty %= numExchange\n        return res"
+  Title = "Water Bottles"
+  Url = "/submissions/detail/1721813512/"
+  LangName = "Python3"
+  Timestamp = 1754220830
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

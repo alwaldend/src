@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721629695
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1524
+  TitleSlug = "string-matching-in-an-array"
+  Code = "class Solution:\n\n    class TrieNode:\n        def __init__(self):\n            # Tracks how many times this substring appears in the Trie.\n            self.frequency = 0\n            # Maps characters to their respective child nodes.\n            self.child_nodes = {}\n\n    def stringMatching(self, words: List[str]) -> List[str]:\n        matching_words = []\n        root = self.TrieNode()  # Initialize the root of the Trie.\n\n        # Insert all suffixes of each word into the Trie.\n        for word in words:\n            for start_index in range(len(word)):\n                # Insert each suffix starting from index start_index.\n                self._insert_word(root, word[start_index:])\n\n        # Check each word to see if it exists as a substring in the Trie.\n        for word in words:\n            if self._is_substring(root, word):\n                matching_words.append(word)\n\n        return matching_words\n\n    def _insert_word(self, root: \"TrieNode\", word: str) -> None:\n        current_node = root\n        for char in word:\n            if char not in current_node.child_nodes:\n                # Create a new node if the character does not exist.\n                current_node.child_nodes[char] = self.TrieNode()\n            current_node = current_node.child_nodes[char]\n            current_node.frequency += 1  # Increment the frequency of the node.\n\n    def _is_substring(self, root: \"TrieNode\", word: str) -> bool:\n        current_node = root\n        for char in word:\n            # Traverse the Trie following the characters of the word.\n            current_node = current_node.child_nodes[char]\n        # A word is a substring if its frequency in the Trie is greater than 1.\n        return current_node.frequency > 1"
+  Title = "String Matching in an Array"
+  Url = "/submissions/detail/1721629695/"
+  LangName = "Python3"
+  Timestamp = 1754206935
+  Status = 10
+  Runtime = "27 ms"
+  IsPending = "Not Pending"
+  Memory = "18.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
