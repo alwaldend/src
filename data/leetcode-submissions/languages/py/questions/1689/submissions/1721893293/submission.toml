@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721893293
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1689
+  TitleSlug = "detect-pattern-of-length-m-repeated-k-or-more-times"
+  Code = "class Solution:\n    def containsPattern(self, arr: List[int], m: int, k: int) -> bool:\n        length = len(arr)\n        if length < m * k:\n            return False\n        for i in range(length - m + 1):\n            cur_pat = arr[i:i+m]\n            count = 1\n            for j in range(i + m, length, m):\n                if arr[j:j+m] == cur_pat:\n                    count += 1\n                else:\n                    break\n            if count >= k:\n                return True\n        return False"
+  Title = "Detect Pattern of Length M Repeated K or More Times"
+  Url = "/submissions/detail/1721893293/"
+  LangName = "Python3"
+  Timestamp = 1754226234
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

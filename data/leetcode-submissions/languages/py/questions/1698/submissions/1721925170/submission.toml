@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721925170
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1698
+  TitleSlug = "replace-all-s-to-avoid-consecutive-repeating-characters"
+  Code = "class Solution:\n    def modifyString(self, s: str) -> str:\n        res = list(s)\n        length = len(s)\n\n        for i in range(length):\n            char = res[i]\n            if char != \"?\":\n                continue\n            for char_ascii in string.ascii_lowercase:\n                if (\n                    (i > 0 and res[i - 1] == char_ascii) \n                    or (i < length - 1 and res[i + 1] == char_ascii)\n                ):\n                    continue\n                res[i] = char_ascii\n                break\n        return \"\".join(res)\n"
+  Title = "Replace All ?'s to Avoid Consecutive Repeating Characters"
+  Url = "/submissions/detail/1721925170/"
+  LangName = "Python3"
+  Timestamp = 1754228176
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1721909936
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1677
+  TitleSlug = "matrix-diagonal-sum"
+  Code = "class Solution:\n    def diagonalSum(self, mat: List[List[int]]) -> int:\n        length = len(mat)\n        res = 0\n        for i in range(length):\n            row1, col1 = i, i\n            row2, col2 = i, length - i - 1\n            res += mat[row1][col1]\n            if row2 != row1 or col2 != col1:\n                res += mat[row2][col2]\n        return res"
+  Title = "Matrix Diagonal Sum"
+  Url = "/submissions/detail/1721909936/"
+  LangName = "Python3"
+  Timestamp = 1754227261
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

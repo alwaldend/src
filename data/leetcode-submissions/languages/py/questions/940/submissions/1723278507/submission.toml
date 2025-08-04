@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1723278507
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 940
+  TitleSlug = "fruit-into-baskets"
+  Code = "class Solution:\n    def totalFruit(self, fruits: list[int]) -> int:\n        start = 0\n        max_len = 0\n        fruit_count = defaultdict(int)\n\n        for end in range(len(fruits)):\n            fruit_count[fruits[end]] += 1\n\n            while len(fruit_count) > 2:\n                fruit_count[fruits[start]] -= 1\n                if fruit_count[fruits[start]] == 0:\n                    del fruit_count[fruits[start]]\n                start += 1\n\n            max_len = max(max_len, end - start + 1)\n\n        return max_len"
+  Title = "Fruit Into Baskets"
+  Url = "/submissions/detail/1723278507/"
+  LangName = "Python3"
+  Timestamp = 1754323562
+  Status = 10
+  Runtime = "183 ms"
+  IsPending = "Not Pending"
+  Memory = "23.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
