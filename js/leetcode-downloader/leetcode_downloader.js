@@ -120,10 +120,15 @@ class App {
     btn.addEventListener("click", () => this.onClick(btn));
     return btn;
   }
+
+  /** Entrypoint */
+  run() {
+    document.body.appendChild(this.createButton());
+  }
 }
 
 (function () {
   "use strict";
   const app = new App();
-  document.body.appendChild(app.createButton());
+  app.run();
 })();

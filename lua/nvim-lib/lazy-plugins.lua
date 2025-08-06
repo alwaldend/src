@@ -1,21 +1,3 @@
-local bg = "#000000"
-local bg_term = "0"
-local fg = "#ffffff"
-
-local colors = {
-    a = { bg = fg, fg = bg },
-    b = { bg = bg, fg = fg },
-    c = { bg = bg, fg = fg },
-}
-local theme = {
-    normal = colors,
-    insert = colors,
-    visual = colors,
-    replace = colors,
-    command = colors,
-    inactive = colors,
-}
-
 local config = {
     ["danymat/neogen"] = { version = "*" },
     ["folke/which-key.nvim"] = { version = "*" },
@@ -371,7 +353,7 @@ return {
         opts = {
             options = {
                 globalstatus = true,
-                theme = theme,
+                theme = "onedark",
                 icons_enabled = false,
                 component_separators = "|",
                 section_separators = " ",
@@ -517,19 +499,29 @@ return {
             require("nvim-treesitter.configs").setup(opts)
         end,
     },
+    -- {
+    --     --- theme
+    --     "sainnhe/sonokai",
+    --     version = config["sainnhe/sonokai"].version,
+    --     lazy = false,
+    --     priority = 1000,
+    --     enabled = true,
+    --     config = function()
+    --         vim.g.sonokai_style = "default"
+    --         vim.g.sonokai_colors_override = {
+    --             bg0 = { bg, bg_term },
+    --         }
+    --         vim.cmd.colorscheme("sonokai")
+    --     end,
+    -- },
     {
-        --- theme
-        "sainnhe/sonokai",
-        version = config["sainnhe/sonokai"].version,
-        lazy = false,
+        "navarasu/onedark.nvim",
         priority = 1000,
-        enabled = true,
         config = function()
-            vim.g.sonokai_style = "default"
-            vim.g.sonokai_colors_override = {
-                bg0 = { bg, bg_term },
-            }
-            vim.cmd.colorscheme("sonokai")
+            require("onedark").setup({
+                style = "light",
+            })
+            require("onedark").load()
         end,
     },
     {
