@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1726926901
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3648
+  TitleSlug = "find-the-maximum-number-of-fruits-collected"
+  Code = "class Solution:\n    def maxCollectedFruits(self, fruits):\n        n = len(fruits)\n        ans = sum(fruits[i][i] for i in range(n))\n\n        def dp():\n            prev = [float(\"-inf\")] * n\n            curr = [float(\"-inf\")] * n\n            prev[n - 1] = fruits[0][n - 1]\n            for i in range(1, n - 1):\n                for j in range(max(n - 1 - i, i + 1), n):\n                    best = prev[j]\n                    if j - 1 >= 0:\n                        best = max(best, prev[j - 1])\n                    if j + 1 < n:\n                        best = max(best, prev[j + 1])\n                    curr[j] = best + fruits[i][j]\n                prev, curr = curr, prev\n            return prev[n - 1]\n\n        ans += dp()\n\n        for i in range(n):\n            for j in range(i):\n                fruits[i][j], fruits[j][i] = fruits[j][i], fruits[i][j]\n\n        ans += dp()\n        return ans"
+  Title = "Find the Maximum Number of Fruits Collected"
+  Url = "/submissions/detail/1726926901/"
+  LangName = "Python3"
+  Timestamp = 1754576108
+  Status = 10
+  Runtime = "517 ms"
+  IsPending = "Not Pending"
+  Memory = "91.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

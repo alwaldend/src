@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1725669604
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3791
+  TitleSlug = "fruits-into-baskets-iii"
+  Code = "class Solution:\n    def numOfUnplacedFruits(self, fruits: List[int], baskets: List[int]) -> int:\n        length = len(baskets)\n        section_length = int(math.sqrt(length))\n        sections = (length + section_length - 1) // section_length\n        count = 0\n        sections_max = [0] * sections\n        for i in range(length):\n            section = i // section_length\n            sections_max[section] = max(sections_max[section], baskets[i])\n        for fruit in fruits:\n            unset = 1\n            for section in range(sections):\n                if sections_max[section] < fruit:\n                    continue\n                choose = 0\n                sections_max[section] = 0\n                for i in range(section_length):\n                    pos = section * section_length + i\n                    if pos < length and baskets[pos] >= fruit and not choose:\n                        baskets[pos] = 0\n                        choose = 1\n                    if pos < length:\n                        sections_max[section] = max(sections_max[section], baskets[pos])\n                unset = 0\n                break\n            count += unset\n        return count"
+  Title = "Fruits Into Baskets III"
+  Url = "/submissions/detail/1725669604/"
+  LangName = "Python3"
+  Timestamp = 1754486229
+  Status = 10
+  Runtime = "12900 ms"
+  IsPending = "Not Pending"
+  Memory = "36.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

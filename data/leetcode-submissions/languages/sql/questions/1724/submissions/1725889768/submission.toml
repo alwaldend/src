@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1725889768
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1724
+  TitleSlug = "customer-who-visited-but-did-not-make-any-transactions"
+  Code = "SELECT\n    Visits.customer_id,\n    COUNT(Visits.visit_id) AS \"count_no_trans\"\nFROM\n    Visits\nLEFT JOIN\n    Transactions\nON\n    Visits.visit_id = Transactions.visit_id\nWHERE\n    Transactions.visit_id IS NULL\nGROUP BY\n    Visits.customer_id"
+  Title = "Customer Who Visited but Did Not Make Any Transactions"
+  Url = "/submissions/detail/1725889768/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754497607
+  Status = 10
+  Runtime = "751 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
