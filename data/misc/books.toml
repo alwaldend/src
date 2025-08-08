@@ -785,3 +785,33 @@ authors = ["robert-blaise"]
 links = [
     { title = "royaloroad", url = "https://www.royalroad.com/fiction/72301/1-lifesteal" },
 ]
+
+[[book]]
+title = "Saving the school would have been easier as a cafeteria worker"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/86874-saving-the-school-would-have-been-easier.jpg?time=1754279197"
+quality = "Decent"
+reading = "Reading, chapter 82"
+authors = ["cluelessrr"]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/86874/saving-the-school-would-have-been-easier-as-a" },
+]
+
+[[book]]
+title = "Theos"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/64789-theos.jpg?time=1701661984"
+quality = "Decent"
+reading = "Reading, B3C4"
+authors = ["arthur-wordsmith"]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/64789/theos" },
+]
+
+[[book]]
+title = "The System is Abstract, Luckily, So Am I"
+thumbnail = "https://cdn.novelupdates.com/images/2025/02/The-System-is-Abstract-Luckily-So-Am-I.png"
+quality = "Slop"
+reading = "Reading, C249"
+authors = ["pu-jie-tianxian"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/the-system-is-abstract-luckily-so-am-i/" },
+]

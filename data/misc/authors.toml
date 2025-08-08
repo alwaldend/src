@@ -228,3 +228,22 @@ alts = ["安静捧场"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/quiet-support/" },
 ]
+
+[author.cluelessrr]
+name = "CluelessRR"
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/profile/471901" },
+]
+
+[author.arthur-wordsmith]
+name = "Arthur Wordsmith"
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/profile/323423" },
+]
+
+[author.pu-jie-tianxian]
+name = "Pū jiē tiānxiàn"
+alts = ["扑街天线"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/%e6%89%91%e8%a1%97%e5%a4%a9%e7%ba%bf/" },
+]

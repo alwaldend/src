@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1726971723
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1734
+  TitleSlug = "bank-account-summary-ii"
+  Code = "SELECT\n    Users.name AS \"NAME\",\n    SUM(Transactions.amount) AS \"BALANCE\"\nFROM\n    Users\nLEFT JOIN\n    Transactions\nON\n    Users.account = Transactions.account\nGROUP BY\n    Users.account, Users.name\nHAVING\n    SUM(Transactions.amount) > 10000"
+  Title = "Bank Account Summary II"
+  Url = "/submissions/detail/1726971723/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754578654
+  Status = 10
+  Runtime = "209 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111111111111"
+  HasNotes = false
+  FlagType = 1

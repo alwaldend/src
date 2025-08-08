@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1728074556
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 826
+  TitleSlug = "soup-servings"
+  Code = "class Solution:\n    def soupServings(self, n: int) -> float:\n        m = ceil(n / 25)\n        dp = collections.defaultdict(dict)\n\n        def calculate_dp(i: int, j: int) -> float:\n            if i <= 0 and j <= 0:\n                return 0.5\n            if i <= 0:\n                return 1.0\n            if j <= 0:\n                return 0.0\n            if i in dp and j in dp[i]:\n                return dp[i][j]\n\n            dp[i][j] = (\n                calculate_dp(i - 4, j)\n                + calculate_dp(i - 3, j - 1)\n                + calculate_dp(i - 2, j - 2)\n                + calculate_dp(i - 1, j - 3)\n            ) / 4.0\n            return dp[i][j]\n\n        for k in range(1, m + 1):\n            if calculate_dp(k, k) > 1 - 1e-5:\n                return 1.0\n        return calculate_dp(m, m)"
+  Title = "Soup Servings"
+  Url = "/submissions/detail/1728074556/"
+  LangName = "Python3"
+  Timestamp = 1754666373
+  Status = 10
+  Runtime = "187 ms"
+  IsPending = "Not Pending"
+  Memory = "25.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
