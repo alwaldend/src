@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1728956169
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1693
+  TitleSlug = "sum-of-all-odd-length-subarrays"
+  Code = "class Solution:\n    def sumOddLengthSubarrays(self, arr: List[int]) -> int:\n        res = 0\n        for i in range(len(arr)):\n            cur_sum = 0\n            for j in range(i, len(arr)):\n                cur_sum += arr[j]\n                if (j - i + 1) % 2 != 0:\n                    res += cur_sum\n        return res"
+  Title = "Sum of All Odd Length Subarrays"
+  Url = "/submissions/detail/1728956169/"
+  LangName = "Python3"
+  Timestamp = 1754743989
+  Status = 10
+  Runtime = "11 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

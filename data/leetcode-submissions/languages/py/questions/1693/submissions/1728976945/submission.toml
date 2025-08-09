@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1728976945
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1693
+  TitleSlug = "sum-of-all-odd-length-subarrays"
+  Code = "class Solution:\n    def sumOddLengthSubarrays(self, arr: List[int]) -> int:\n        length = len(arr)\n        answer = 0\n        for i, num in enumerate(arr):\n            left, right = i, length - i - 1\n            odd_left, odd_right = (left // 2) + 1, (right // 2) + 1\n            even_left, even_right = (left + 1) // 2, (right + 1) // 2\n            sub_count = (odd_left * odd_right) + (even_left * even_right)\n            answer += num * sub_count\n        return answer"
+  Title = "Sum of All Odd Length Subarrays"
+  Url = "/submissions/detail/1728976945/"
+  LangName = "Python3"
+  Timestamp = 1754745436
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1728990140
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1714
+  TitleSlug = "rearrange-spaces-between-words"
+  Code = "class Solution:\n    def reorderSpaces(self, text: str) -> str:\n        res = []\n        cur_word = []\n        space_count = 0\n        for char in text:\n            if char == \" \":\n                space_count += 1\n                if cur_word:\n                    res.append(\"\".join(cur_word))\n                    cur_word.clear()\n            else:\n                cur_word.append(char)\n        if cur_word:\n            res.append(\"\".join(cur_word))\n        words = len(res) - 1\n        if words == 0:\n            join_str = \"\"\n            rem_str = \" \" * space_count\n        else:\n            join_str = \" \" * (space_count // words) \n            rem_str = \" \" * (space_count % words)\n        return \"\".join((join_str.join(res), rem_str))"
+  Title = "Rearrange Spaces Between Words"
+  Url = "/submissions/detail/1728990140/"
+  LangName = "Python3"
+  Timestamp = 1754746309
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

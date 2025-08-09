@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1729000746
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1210
+  TitleSlug = "mean-of-array-after-removing-some-elements"
+  Code = "class Solution:\n    def trimMean(self, arr: List[int]) -> float:\n        arr.sort()\n        length = len(arr)\n        interval = length // 20\n        res = sum(arr[interval:length - interval])\n        res = (res / (length - interval * 2))\n        return res\n"
+  Title = "Mean of Array After Removing Some Elements"
+  Url = "/submissions/detail/1729000746/"
+  LangName = "Python3"
+  Timestamp = 1754747001
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
