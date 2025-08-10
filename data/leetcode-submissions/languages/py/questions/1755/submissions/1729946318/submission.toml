@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1729946318
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1755
+  TitleSlug = "defuse-the-bomb"
+  Code = "class Solution:\n    def decrypt(self, code: List[int], k: int) -> List[int]:\n        length = len(code)\n        result = [0 for _ in range(length)]\n        if k == 0:\n            return result\n        start, end, window_sum = 1, k + 1, 0\n        if k < 0:\n            start = length - (-k)\n            end = length\n        for i in range(start, end):\n            window_sum += code[i]\n        for i in range(length):\n            result[i] = window_sum\n            window_sum -= code[start % length]\n            window_sum += code[end % length]\n            start += 1\n            end += 1\n        return result"
+  Title = "Defuse the Bomb"
+  Url = "/submissions/detail/1729946318/"
+  LangName = "Python3"
+  Timestamp = 1754819106
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

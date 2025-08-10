@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1729955928
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1811
+  TitleSlug = "fix-names-in-a-table"
+  Code = "SELECT \n    Users.user_id,\n    UPPER(LEFT(Users.name, 1)) \n        || LOWER(SUBSTRING(Users.name FROM 2)) AS name\nFROM \n    Users\nORDER BY \n    Users.user_id;"
+  Title = "Fix Names in a Table"
+  Url = "/submissions/detail/1729955928/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754819778
+  Status = 10
+  Runtime = "429 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111111111111111111"
+  HasNotes = false
+  FlagType = 1

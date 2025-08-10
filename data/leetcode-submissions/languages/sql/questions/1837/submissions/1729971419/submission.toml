@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1729971419
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1837
+  TitleSlug = "daily-leads-and-partners"
+  Code = "SELECT \n    DailySales.date_id,\n    DailySales.make_name,\n    COUNT(DISTINCT DailySales.lead_id) AS unique_leads,\n    COUNT(DISTINCT DailySales.partner_id) AS unique_partners\nFROM \n    DailySales\nGROUP BY \n    DailySales.date_id,\n    DailySales.make_name;"
+  Title = "Daily Leads and Partners"
+  Url = "/submissions/detail/1729971419/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754820847
+  Status = 10
+  Runtime = "227 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111111111111111111"
+  HasNotes = false
+  FlagType = 1

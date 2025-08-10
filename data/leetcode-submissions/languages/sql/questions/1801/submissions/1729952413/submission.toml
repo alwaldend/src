@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1729952413
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1801
+  TitleSlug = "average-time-of-process-per-machine"
+  Code = "SELECT \n    act1.machine_id, \n    ROUND(AVG(act2.timestamp - act1.timestamp)::decimal, 3) AS processing_time\nFROM\n    Activity act1,\n    Activity act2\nWHERE \n    act1.machine_id = act2.machine_id\n    AND act1.process_id = act2.process_id\n    AND act1.activity_type = 'start'\n    AND act2.activity_type = 'end'\nGROUP BY \n    act1.machine_id;"
+  Title = "Average Time of Process per Machine"
+  Url = "/submissions/detail/1729952413/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754819527
+  Status = 10
+  Runtime = "171 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1729962057
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1764
+  TitleSlug = "maximum-repeating-substring"
+  Code = "class Solution:\n    def maxRepeating(self, sequence: str, word: str) -> int:\n        temp, res = word, 0\n        while temp in sequence:\n            res += 1\n            temp += word\n        return res"
+  Title = "Maximum Repeating Substring"
+  Url = "/submissions/detail/1729962057/"
+  LangName = "Python3"
+  Timestamp = 1754820202
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

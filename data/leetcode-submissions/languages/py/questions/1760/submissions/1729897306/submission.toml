@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1729897306
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1760
+  TitleSlug = "check-array-formation-through-concatenation"
+  Code = "class Solution:\n    def canFormArray(self, arr: List[int], pieces: List[List[int]]) -> bool:\n        num_to_piece = {}\n        for i, nums in enumerate(pieces):\n            for num in nums:\n                num_to_piece[num] = i\n        i = 0\n        length = len(arr)\n        while i < length:\n            num1 = arr[i]\n            if num1 not in num_to_piece:\n                return False\n            piece = pieces[num_to_piece[num1]]\n            for j, num2 in enumerate(piece):\n                if i + j >= length:\n                    return False\n                num1 = arr[i + j]\n                if num1 != num2:\n                    return False\n            i += len(piece)\n        return True"
+  Title = "Check Array Formation Through Concatenation"
+  Url = "/submissions/detail/1729897306/"
+  LangName = "Python3"
+  Timestamp = 1754815524
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

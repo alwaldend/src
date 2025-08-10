@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1729966283
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1797
+  TitleSlug = "goal-parser-interpretation"
+  Code = "class Solution:\n    def interpret(self, command: str) -> str:\n        stack = []\n        res = []\n        for char in command:\n            if char == \")\":\n                if stack:\n                    res.extend(stack)\n                    stack.clear()\n                else:\n                    res.append(\"o\")\n            elif char == \"G\":\n                res.append(\"G\")\n            elif char != \"(\":\n                stack.append(char)\n        return \"\".join(res)"
+  Title = "Goal Parser Interpretation"
+  Url = "/submissions/detail/1729966283/"
+  LangName = "Python3"
+  Timestamp = 1754820504
+  Status = 10
+  Runtime = "42 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

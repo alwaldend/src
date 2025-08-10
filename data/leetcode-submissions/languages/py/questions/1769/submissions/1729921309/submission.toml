@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1729921309
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1769
+  TitleSlug = "get-maximum-in-generated-array"
+  Code = "class Solution:\n    def getMaximumGenerated(self, n: int) -> int:\n        if n == 0 or n == 1:\n            return n\n        nums = [0] * (n + 1)\n        nums[1] = 1\n        res = 1\n        for i in range(2, n + 1):\n            if i % 2 == 0:\n                val = nums[i // 2]\n            else:\n                val = nums[i // 2] + nums[(i // 2) + 1]\n            nums[i] = val\n            res = max(res, val)\n        return res"
+  Title = "Get Maximum in Generated Array"
+  Url = "/submissions/detail/1729921309/"
+  LangName = "Python3"
+  Timestamp = 1754817352
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

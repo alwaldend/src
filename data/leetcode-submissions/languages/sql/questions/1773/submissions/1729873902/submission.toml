@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1729873902
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1773
+  TitleSlug = "percentage-of-users-attended-a-contest"
+  Code = "WITH total_users AS (\n    SELECT \n        COUNT(DISTINCT user_id) AS total_count\n    FROM \n        Users\n)\nSELECT \n    Register.contest_id,\n    ROUND(\n        COUNT(DISTINCT Register.user_id) * 100.0 / total_users.total_count,\n        2\n    ) AS percentage\nFROM\n    Register\nCROSS JOIN \n    total_users\nGROUP BY \n    Register.contest_id, \n    total_users.total_count\nORDER BY \n    percentage DESC, \n    Register.contest_id;"
+  Title = "Percentage of Users Attended a Contest"
+  Url = "/submissions/detail/1729873902/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754813670
+  Status = 10
+  Runtime = "1006 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111111111"
+  HasNotes = false
+  FlagType = 1

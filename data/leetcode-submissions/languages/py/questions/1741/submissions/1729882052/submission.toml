@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1729882052
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1741
+  TitleSlug = "sort-array-by-increasing-frequency"
+  Code = "class Solution:\n    def frequencySort(self, nums: List[int]) -> List[int]:\n        freqs = collections.defaultdict(int)\n        for num in nums:\n            freqs[num] += 1\n        nums.sort(key=lambda val: (freqs[val], -val))\n        return nums"
+  Title = "Sort Array by Increasing Frequency"
+  Url = "/submissions/detail/1729882052/"
+  LangName = "Python3"
+  Timestamp = 1754814309
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

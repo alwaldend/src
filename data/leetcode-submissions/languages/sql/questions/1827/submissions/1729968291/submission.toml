@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1729968291
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1827
+  TitleSlug = "invalid-tweets"
+  Code = "SELECT\n    Tweets.tweet_id\nFROM\n    Tweets\nWHERE\n    LENGTH(Tweets.content) > 15"
+  Title = "Invalid Tweets"
+  Url = "/submissions/detail/1729968291/"
+  LangName = "PostgreSQL"
+  Timestamp = 1754820637
+  Status = 10
+  Runtime = "409 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111111111111111111"
+  HasNotes = false
+  FlagType = 1

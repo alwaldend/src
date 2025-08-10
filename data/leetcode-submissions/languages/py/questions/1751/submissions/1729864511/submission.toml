@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1729864511
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1751
+  TitleSlug = "slowest-key"
+  Code = "class Solution:\n    def slowestKey(self, releaseTimes: List[int], keysPressed: str) -> str:\n        max_key, max_dur = keysPressed[0], releaseTimes[0]\n        for i, num in enumerate(releaseTimes[1:], 1):\n            dur = num - releaseTimes[i - 1]\n            cur_key = keysPressed[i]\n            if dur > max_dur or (dur == max_dur and cur_key > max_key):\n                max_dur = dur\n                max_key = cur_key\n        return max_key"
+  Title = "Slowest Key"
+  Url = "/submissions/detail/1729864511/"
+  LangName = "Python3"
+  Timestamp = 1754812940
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

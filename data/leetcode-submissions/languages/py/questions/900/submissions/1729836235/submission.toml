@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1729836235
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 900
+  TitleSlug = "reordered-power-of-2"
+  Code = "class Solution:\n    def reorderedPowerOf2(self, n: int) -> bool:\n        if n > 0 and n & (n - 1) == 0:\n            return True\n        def count_digits(num: int, out: list[int]) -> None:\n            while num > 0:\n                out.append(num % 10)\n                num //= 10\n            out.sort()\n        target = []\n        count_digits(n, target)\n        cur = []\n        for i in range(31):\n            cur.clear()\n            count_digits(1 << i, cur)\n            if cur == target:\n                return True\n        return False"
+  Title = "Reordered Power of 2"
+  Url = "/submissions/detail/1729836235/"
+  LangName = "Python3"
+  Timestamp = 1754810849
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
