@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1731357344
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2529
+  TitleSlug = "range-product-queries-of-powers"
+  Code = "class Solution:\n    def productQueries(self, n: int, queries: List[List[int]]) -> List[int]:\n        mod = 10**9 + 7\n\n        bins, rep = [], 1\n        while n > 0:\n            if n % 2 == 1:\n                bins.append(rep)\n            n //= 2\n            rep *= 2\n\n        m = len(bins)\n        results = [[0] * m for _ in range(m)]\n        for i in range(m):\n            cur = 1\n            for j in range(i, m):\n                cur = cur * bins[j] % mod\n                results[i][j] = cur\n\n        ans = []\n        for left, right in queries:\n            ans.append(results[left][right])\n        return ans"
+  Title = "Range Product Queries of Powers"
+  Url = "/submissions/detail/1731357344/"
+  LangName = "Python3"
+  Timestamp = 1754924584
+  Status = 10
+  Runtime = "10 ms"
+  IsPending = "Not Pending"
+  Memory = "45.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
