@@ -13,7 +13,7 @@ links = [
 title = "Virtuous Sons"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/41330-virtuous-sons-a-greco-roman-xianxia.jpg?time=1664164206"
 quality = "Peak"
-reading = "Reading, chapter 2.14"
+reading = "Dropped, C2.22"
 authors = ["ya-boy"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/41330/virtuous-sons-a-greco-roman-xianxia" },
@@ -185,7 +185,7 @@ links = [
 title = "The Years of Apocalypse"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/the-years-of-apocalypse-a-time-loop-progression.jpg?time=1706941233"
 quality = "Decent"
-reading = "Dropped, chapter 208"
+reading = "Dropped, C212"
 authors = ["uraniumphoenix"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression" },
@@ -215,7 +215,7 @@ links = [
 title = "A Practical Guide to Sorcery"
 thumbnail = "https://www.azaleaellis.com/wp-content/uploads/2022/10/A-Conjuring-of-Ravens-Web-800w-683x1024.jpg"
 quality = "Decent"
-reading = "Dropped, chapter 259"
+reading = "Dropped, chapter 261"
 authors = ["azalea-ellis"]
 links = [
     { title = "azaleaellis", url = "https://www.azaleaellis.com/a-practical-guide-to-sorcery/" },
@@ -275,7 +275,7 @@ links = [
 title = "Return of the Runebound Professor"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/68679-return-of-the-runebound-professor.jpg?time=1696109628"
 quality = "Ok"
-reading = "Dropped, chapter 734 (book 7)"
+reading = "Dropped, B7C745"
 authors = ["actus"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed" },
@@ -296,7 +296,7 @@ links = [
 title = "Are You Even Human"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg?time=1724477376"
 quality = "Decent"
-reading = "Reading, chapter 47"
+reading = "Dropped, C54"
 authors = ["thundamoo"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/92549/are-you-even-human" },
@@ -317,7 +317,7 @@ links = [
 title = "Changeling"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg?time=1712108062"
 quality = "Decent"
-reading = "Dropped, chapter 83"
+reading = "Dropped, C83"
 authors = ["mecanimus"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/75345/changeling" },
@@ -593,7 +593,7 @@ links = [
 title = "Chrysalis"
 thumbnail = "https://www.royalroadcdn.com/public/covers-full/22518-chrysalis.jpg"
 quality = "Ok, shallow"
-reading = "Dropped, chapter 1609"
+reading = "Dropped, C1623"
 authors = ["rinoz"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/22518/chrysalis" },
@@ -814,4 +814,14 @@ reading = "Dropped, C311"
 authors = ["pu-jie-tianxian"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/the-system-is-abstract-luckily-so-am-i/" },
+]
+
+[[book]]
+title = "Kill the Sun"
+thumbnail = "https://book-pic.webnovel.com/bookcover/27467949206850305?imageMogr2/thumbnail/180x|imageMogr2/quality/70!&imageId=1732809259404"
+quality = "Decent"
+reading = "Finished, C992"
+authors = "warmaisach"
+links = [
+    { title = "webnovel", url = "https://m.webnovel.com/book/kill-the-sun_27467949206850305" },
 ]

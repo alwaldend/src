@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1735191256
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2346
+  TitleSlug = "largest-3-same-digit-number-in-string"
+  Code = "class Solution:\n    def largestGoodInteger(self, num: str) -> str:\n        max_digit = \"\\0\"\n        for index in range(len(num) - 2):\n            if num[index] == num[index + 1] == num[index + 2]:\n                max_digit = max(max_digit, num[index])\n        if max_digit == \"\\0\":\n            return \"\"\n        return max_digit * 3"
+  Title = "Largest 3-Same-Digit Number in String"
+  Url = "/submissions/detail/1735191256/"
+  LangName = "Python3"
+  Timestamp = 1755191349
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

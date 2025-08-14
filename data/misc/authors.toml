@@ -247,3 +247,9 @@ alts = ["扑街天线"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/%e6%89%91%e8%a1%97%e5%a4%a9%e7%ba%bf/" },
 ]
+
+[author.warmaisach]
+name = "Warmaisach"
+links = [
+    { title = "webnovel", url = "https://m.webnovel.com/profile/3286855836" },
+]
