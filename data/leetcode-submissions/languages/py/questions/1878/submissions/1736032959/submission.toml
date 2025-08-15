@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736032959
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1878
+  TitleSlug = "check-if-array-is-sorted-and-rotated"
+  Code = "class Solution:\n    def check(self, nums: List[int]) -> bool:\n        prev = nums[0]\n        new_start = 0\n        for num in nums[1:]:\n            if num >= prev:\n                pass\n            elif new_start == 0:\n                new_start = num\n            else:\n                return False\n            prev = num\n        if new_start == 0:\n            return True\n        return nums[0] >= nums[-1]"
+  Title = "Check if Array Is Sorted and Rotated"
+  Url = "/submissions/detail/1736032959/"
+  LangName = "Python3"
+  Timestamp = 1755257470
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

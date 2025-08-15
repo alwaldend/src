@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1735951728
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1877
+  TitleSlug = "find-followers-count"
+  Code = "SELECT\n    followers1.user_id,\n    COUNT(DISTINCT followers1.follower_id) AS \"followers_count\"\nFROM\n    Followers followers1\nLEFT JOIN\n    Followers followers2\nON\n    followers1.user_id = followers2.user_id\nGROUP BY\n    followers1.user_id;"
+  Title = "Find Followers Count"
+  Url = "/submissions/detail/1735951728/"
+  LangName = "PostgreSQL"
+  Timestamp = 1755252472
+  Status = 10
+  Runtime = "305 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111111111111111111"
+  HasNotes = false
+  FlagType = 1

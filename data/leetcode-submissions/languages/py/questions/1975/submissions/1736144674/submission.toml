@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736144674
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1975
+  TitleSlug = "minimum-distance-to-the-target-element"
+  Code = "class Solution:\n    def getMinDistance(self, nums: List[int], target: int, start: int) -> int:\n        length = len(nums)\n        dist = 0\n        while dist < length:\n            left, right = start - dist, start + dist\n            if left >= 0 and nums[left] == target:\n                return dist\n            if right < length and nums[right] == target:\n                return dist\n            dist += 1\n        raise Exception"
+  Title = "Minimum Distance to the Target Element"
+  Url = "/submissions/detail/1736144674/"
+  LangName = "Python3"
+  Timestamp = 1755264344
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

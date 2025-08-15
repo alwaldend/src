@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1735966764
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1882
+  TitleSlug = "the-number-of-employees-which-report-to-each-employee"
+  Code = "SELECT \n    managers.employee_id, \n    managers.name, \n    COUNT(reports.employee_id) AS reports_count, \n    ROUND(AVG(reports.age)) AS average_age\nFROM \n    Employees managers\nINNER JOIN \n    Employees reports\nON\n    managers.employee_id = reports.reports_to\nGROUP BY \n    managers.employee_id, \n    managers.name\nORDER BY \n    managers.employee_id;"
+  Title = "The Number of Employees Which Report to Each Employee"
+  Url = "/submissions/detail/1735966764/"
+  LangName = "PostgreSQL"
+  Timestamp = 1755253420
+  Status = 10
+  Runtime = "329 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

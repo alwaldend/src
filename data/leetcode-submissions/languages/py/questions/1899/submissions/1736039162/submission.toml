@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736039162
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1899
+  TitleSlug = "count-items-matching-a-rule"
+  Code = "class Solution:\n    def countMatches(self, items: List[List[str]], ruleKey: str, ruleValue: str) -> int:\n        count = 0\n        for type, color, name in items:\n            if (\n                (ruleKey == \"type\" and ruleValue == type)\n                or (ruleKey == \"color\" and ruleValue == color)\n                or (ruleKey == \"name\" and ruleValue == name)\n            ):\n                count += 1\n        return count "
+  Title = "Count Items Matching a Rule"
+  Url = "/submissions/detail/1736039162/"
+  LangName = "Python3"
+  Timestamp = 1755257842
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "22.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

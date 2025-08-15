@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736023582
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1848
+  TitleSlug = "sum-of-unique-elements"
+  Code = "class Solution:\n    def sumOfUnique(self, nums: List[int]) -> int:\n        enc = [0] * 101\n        res = 0\n        for num in nums:\n            count = enc[num]\n            if count == 1:\n                res -= num\n                enc[num] = 2\n            elif count == 0:\n                res += num\n                enc[num] = 1\n        return res"
+  Title = "Sum of Unique Elements"
+  Url = "/submissions/detail/1736023582/"
+  LangName = "Python3"
+  Timestamp = 1755256902
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

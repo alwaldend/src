@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736120905
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1920
+  TitleSlug = "determine-color-of-a-chessboard-square"
+  Code = "class Solution:\n    def squareIsWhite(self, coordinates: str) -> bool:\n        col = ord(coordinates[0]) - 97\n        row = int(coordinates[1])\n        if row % 2 == 0:\n            return col % 2 == 0\n        return col % 2 != 0\n        "
+  Title = "Determine Color of a Chessboard Square"
+  Url = "/submissions/detail/1736120905/"
+  LangName = "Python3"
+  Timestamp = 1755262983
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736112454
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1933
+  TitleSlug = "number-of-different-integers-in-a-string"
+  Code = "class Solution:\n    def numDifferentIntegers(self, word: str) -> int:\n        enc = set()\n        cur = []\n        for char in itertools.chain(word, \"a\"):\n            if char.isalpha():\n                if cur:\n                    count = 0\n                    num = 0\n                    while cur:\n                        num += cur.pop() * (10 ** count)\n                        count += 1\n                    enc.add(num)\n            else:\n                cur.append(int(char))\n        return len(enc)\n        \n            "
+  Title = "Number of Different Integers in a String"
+  Url = "/submissions/detail/1736112454/"
+  LangName = "Python3"
+  Timestamp = 1755262470
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

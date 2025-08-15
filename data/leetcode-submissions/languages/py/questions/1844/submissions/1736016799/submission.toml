@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736016799
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1844
+  TitleSlug = "maximum-number-of-balls-in-a-box"
+  Code = "class Solution:\n    def countBalls(self, lowLimit: int, highLimit: int) -> int:\n        freqs = defaultdict(int)\n        max_freq = 0\n        for num in range(lowLimit, highLimit + 1):\n            box = 0\n            while num > 0:\n                box += num % 10\n                num //= 10\n            freqs[box] += 1\n            max_freq = max(max_freq, freqs[box])\n        return max_freq"
+  Title = "Maximum Number of Balls in a Box"
+  Url = "/submissions/detail/1736016799/"
+  LangName = "Python3"
+  Timestamp = 1755256489
+  Status = 10
+  Runtime = "237 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

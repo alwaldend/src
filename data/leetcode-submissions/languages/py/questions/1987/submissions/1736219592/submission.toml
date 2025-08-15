@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736219592
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1987
+  TitleSlug = "substrings-of-size-three-with-distinct-characters"
+  Code = "class Solution:\n    def countGoodSubstrings(self, s: str) -> int:\n        res = 0\n        for i in range(len(s) - 2):\n            char1, char2, char3 = s[i:i+3]\n            if char1 != char2 and char1 != char3 and char2 != char3:\n                res += 1\n        return res"
+  Title = "Substrings of Size Three with Distinct Characters"
+  Url = "/submissions/detail/1736219592/"
+  LangName = "Python3"
+  Timestamp = 1755268304
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

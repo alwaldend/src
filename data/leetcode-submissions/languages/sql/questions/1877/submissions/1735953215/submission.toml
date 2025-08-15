@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1735953215
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1877
+  TitleSlug = "find-followers-count"
+  Code = "SELECT \n    Followers.user_id, \n    COUNT(Followers.user_id) AS followers_count\nFROM \n    Followers\nGROUP BY \n    Followers.user_id\nORDER BY\n    Followers.user_id ASC;"
+  Title = "Find Followers Count"
+  Url = "/submissions/detail/1735953215/"
+  LangName = "PostgreSQL"
+  Timestamp = 1755252562
+  Status = 10
+  Runtime = "301 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111111111111111111"
+  HasNotes = false
+  FlagType = 1

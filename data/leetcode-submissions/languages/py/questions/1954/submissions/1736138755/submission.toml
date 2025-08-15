@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736138755
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1954
+  TitleSlug = "replace-all-digits-with-characters"
+  Code = "class Solution:\n    def replaceDigits(self, s: str) -> str:\n        res = []\n        for i in range(0, len(s) - 1, 2):\n            char, digit = s[i], int(s[i + 1])\n            res.append(char)\n            res.append(chr(ord(char) + digit))\n        if len(s) % 2 != 0:\n            res.append(s[-1])\n        return \"\".join(res)"
+  Title = "Replace All Digits with Characters"
+  Url = "/submissions/detail/1736138755/"
+  LangName = "Python3"
+  Timestamp = 1755264007
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736131516
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1965
+  TitleSlug = "sum-of-digits-in-base-k"
+  Code = "class Solution:\n    def sumBase(self, n: int, k: int) -> int:\n        digits = []\n        while n > 0:\n            digits.append(n % k)\n            n //= k\n        return sum(digits)"
+  Title = "Sum of Digits in Base K"
+  Url = "/submissions/detail/1736131516/"
+  LangName = "Python3"
+  Timestamp = 1755263605
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1735938859
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1843
+  TitleSlug = "number-of-rectangles-that-can-form-the-largest-square"
+  Code = "class Solution:\n    def countGoodRectangles(self, rectangles: List[List[int]]) -> int:\n        max_len, res = 0, 0\n        for length, width in rectangles:\n            side = min(length, width)\n            if side < max_len:\n                continue\n            elif side == max_len:\n                res += 1\n            else:\n                max_len = side\n                res = 1\n        return res"
+  Title = "Number Of Rectangles That Can Form The Largest Square"
+  Url = "/submissions/detail/1735938859/"
+  LangName = "Python3"
+  Timestamp = 1755251667
+  Status = 10
+  Runtime = "173 ms"
+  IsPending = "Not Pending"
+  Memory = "18.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736129980
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1960
+  TitleSlug = "check-if-the-sentence-is-pangram"
+  Code = "class Solution:\n    def checkIfPangram(self, sentence: str) -> bool:\n        freqs = [0] * 26\n        for char in sentence:\n            freqs[ord(char) - 97] += 1\n        return 0 not in freqs"
+  Title = "Check if the Sentence Is Pangram"
+  Url = "/submissions/detail/1736129980/"
+  LangName = "Python3"
+  Timestamp = 1755263517
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

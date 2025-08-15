@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736129032
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1938
+  TitleSlug = "minimum-operations-to-make-the-array-increasing"
+  Code = "class Solution:\n    def minOperations(self, nums: List[int]) -> int:\n        res = 0\n        prev = nums[0]\n        for num in nums[1:]:\n            if num > prev:\n                prev = num\n            else:\n                new = prev + 1\n                res += new - num\n                prev = new\n        return res"
+  Title = "Minimum Operations to Make the Array Increasing"
+  Url = "/submissions/detail/1736129032/"
+  LangName = "Python3"
+  Timestamp = 1755263463
+  Status = 10
+  Runtime = "105 ms"
+  IsPending = "Not Pending"
+  Memory = "18.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

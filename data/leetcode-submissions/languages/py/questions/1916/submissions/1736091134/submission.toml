@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736091134
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1916
+  TitleSlug = "find-center-of-star-graph"
+  Code = "class Solution:\n    def findCenter(self, edges: List[List[int]]) -> int:\n        num1, num2 = edges[0]\n        num3, num4 = edges[1]\n        if num1 == num3 or num1 == num4:\n            return num1\n        return num2"
+  Title = "Find Center of Star Graph"
+  Url = "/submissions/detail/1736091134/"
+  LangName = "Python3"
+  Timestamp = 1755261137
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "45.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

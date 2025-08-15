@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736072229
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1942
+  TitleSlug = "primary-department-for-each-employee"
+  Code = "SELECT \n    employee_id, \n    department_id\nFROM \n    (\n        SELECT \n            employee_id,\n            department_id,\n            primary_flag,\n            COUNT(employee_id) OVER(\n                PARTITION BY \n                    employee_id\n            ) AS employee_count\n        FROM \n            Employee\n    ) EmployeePartition\nWHERE \n    employee_count = 1 \n    OR primary_flag = 'Y';"
+  Title = "Primary Department for Each Employee"
+  Url = "/submissions/detail/1736072229/"
+  LangName = "PostgreSQL"
+  Timestamp = 1755259941
+  Status = 10
+  Runtime = "422 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111111111111111111"
+  HasNotes = false
+  FlagType = 1

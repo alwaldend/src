@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736124216
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1944
+  TitleSlug = "truncate-sentence"
+  Code = "class Solution:\n    def truncateSentence(self, s: str, k: int) -> str:\n        res = s.split(\" \")\n        while len(res) > k:\n            res.pop()\n        return \" \".join(res)"
+  Title = "Truncate Sentence"
+  Url = "/submissions/detail/1736124216/"
+  LangName = "Python3"
+  Timestamp = 1755263184
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

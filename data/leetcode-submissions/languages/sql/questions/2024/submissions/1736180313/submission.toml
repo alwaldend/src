@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736180313
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 2024
+  TitleSlug = "calculate-special-bonus"
+  Code = "SELECT\n    employee_id,\n    (\n        CASE \n            WHEN\n                employee_id % 2 != 0\n                AND NOT STARTS_WITH(name, 'M')\n            THEN\n                salary\n            ELSE\n                0\n        END\n\n    ) AS \"bonus\"\nFROM\n    Employees\nORDER BY\n    employee_id"
+  Title = "Calculate Special Bonus"
+  Url = "/submissions/detail/1736180313/"
+  LangName = "PostgreSQL"
+  Timestamp = 1755266262
+  Status = 10
+  Runtime = "372 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111111111111111111"
+  HasNotes = false
+  FlagType = 1

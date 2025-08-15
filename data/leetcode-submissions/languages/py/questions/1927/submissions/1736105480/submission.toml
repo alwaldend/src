@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736105480
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1927
+  TitleSlug = "maximum-ascending-subarray-sum"
+  Code = "class Solution:\n    def maxAscendingSum(self, nums: List[int]) -> int:\n        max_sum, cur_sum, prev = nums[0], nums[0], nums[0]\n        for num in nums[1:]:\n            if num > prev:\n                cur_sum += num\n            else:\n                cur_sum = num\n            if cur_sum > max_sum:\n                max_sum = cur_sum\n            prev = num\n        return max_sum"
+  Title = "Maximum Ascending Subarray Sum"
+  Url = "/submissions/detail/1736105480/"
+  LangName = "Python3"
+  Timestamp = 1755262042
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

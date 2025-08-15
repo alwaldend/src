@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1735974679
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1858
+  TitleSlug = "latest-time-by-replacing-hidden-digits"
+  Code = "class Solution:\n    def maximumTime(self, time: str) -> str:\n        hours, minutes = time.split(\":\")\n        hour1, hour2 = hours\n        minute1, minute2 = minutes\n        if hour1 == \"?\" and hour2 == \"?\":\n            hour1, hour2 = \"2\", \"3\"\n        elif hour1 == \"?\" and hour2 < \"4\":\n            hour1 = \"2\"\n        elif hour1 == \"?\":\n            hour1 = \"1\"\n        elif hour1 == \"2\" and hour2 == \"?\":\n            hour2 = \"3\"\n        elif hour2 == \"?\":\n            hour2 = \"9\"\n        if minute1 == \"?\":\n            minute1 = \"5\"\n        if minute2 == \"?\":\n            minute2 = \"9\"\n        return \":\".join((\"\".join((hour1, hour2)), \"\".join((minute1, minute2)))) \n"
+  Title = "Latest Time by Replacing Hidden Digits"
+  Url = "/submissions/detail/1735974679/"
+  LangName = "Python3"
+  Timestamp = 1755253901
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

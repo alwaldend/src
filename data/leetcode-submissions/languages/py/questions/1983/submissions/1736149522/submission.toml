@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736149522
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1983
+  TitleSlug = "maximum-population-year"
+  Code = "class Solution:\n    def maximumPopulation(self, logs: List[List[int]]) -> int:\n        population = [0] * 102\n        max_population = 0\n        for birth, death in logs:\n            for year in range(birth, death):\n                i = year - 1950\n                new_population = population[i] + 1\n                population[i] = new_population\n                if new_population > max_population:\n                    max_population = new_population\n        for i, count in enumerate(population):\n            if count == max_population:\n                return 1950 + i\n        raise Exception"
+  Title = "Maximum Population Year"
+  Url = "/submissions/detail/1736149522/"
+  LangName = "Python3"
+  Timestamp = 1755264608
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "17.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

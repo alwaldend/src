@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736097188
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1948
+  TitleSlug = "rearrange-products-table"
+  Code = "(\n    SELECT \n        product_id,\n        'store1' AS store,\n        store1 AS price\n    FROM \n        Products\n    WHERE \n        store1 IS NOT NULL\n) UNION (\n    SELECT \n        product_id,\n        'store2' AS store,\n        store2 AS price\n    FROM \n        Products\n    WHERE \n        store2 IS NOT NULL\n) UNION (\n    SELECT \n        product_id,\n       'store3' AS store,\n       store3 AS price\n    FROM \n        Products\n    WHERE \n        store3 IS NOT NULL\n)\nORDER BY \n    product_id, \n    store;"
+  Title = "Rearrange Products Table"
+  Url = "/submissions/detail/1736097188/"
+  LangName = "PostgreSQL"
+  Timestamp = 1755261520
+  Status = 10
+  Runtime = "226 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736036766
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 1908
+  TitleSlug = "recyclable-and-low-fat-products"
+  Code = "SELECT\n    Products.product_id\nFROM\n    Products\nWHERE\n    Products.low_fats = 'Y'\n    AND Products.recyclable = 'Y';"
+  Title = "Recyclable and Low Fat Products"
+  Url = "/submissions/detail/1736036766/"
+  LangName = "PostgreSQL"
+  Timestamp = 1755257698
+  Status = 10
+  Runtime = "263 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111111111111111111"
+  HasNotes = false
+  FlagType = 1

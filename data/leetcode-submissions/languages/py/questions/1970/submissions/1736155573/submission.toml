@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736155573
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1970
+  TitleSlug = "sorting-the-sentence"
+  Code = "class Solution:\n    def sortSentence(self, s: str) -> str:\n        res = [None] * 9\n        cur = []\n        for char in s:\n            if char.isalpha():\n                cur.append(char)\n            elif char.isdigit():\n                res[int(char) - 1] = \"\".join(cur)\n                cur.clear()\n        return \" \".join(word for word in res if word is not None)\n"
+  Title = "Sorting the Sentence"
+  Url = "/submissions/detail/1736155573/"
+  LangName = "Python3"
+  Timestamp = 1755264939
+  Status = 10
+  Runtime = "47 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

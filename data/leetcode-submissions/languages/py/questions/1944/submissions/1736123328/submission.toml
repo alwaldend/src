@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736123328
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1944
+  TitleSlug = "truncate-sentence"
+  Code = "class Solution:\n    def truncateSentence(self, s: str, k: int) -> str:\n        res = []\n        cur = []\n        for char in itertools.chain(s, \" \"):\n            if char.isalpha():\n                cur.append(char)\n            else:\n                res.append(\"\".join(cur))\n                cur.clear()\n                if len(res) == k:\n                    return \" \".join(res)\n        raise Exception"
+  Title = "Truncate Sentence"
+  Url = "/submissions/detail/1736123328/"
+  LangName = "Python3"
+  Timestamp = 1755263132
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

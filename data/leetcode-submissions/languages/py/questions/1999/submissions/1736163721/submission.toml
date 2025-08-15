@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736163721
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1999
+  TitleSlug = "longer-contiguous-segments-of-ones-than-zeros"
+  Code = "class Solution:\n    def checkZeroOnes(self, s: str) -> bool:\n        max_length = [0, 0]\n        cur = 0\n        prev = -1\n        for char in s:\n            val = int(char)\n            if val == prev:\n                cur += 1\n            else:\n                cur = 1\n            if cur > max_length[val]:\n                max_length[val] = cur\n            prev = val\n        return max_length[1] > max_length[0]"
+  Title = "Longer Contiguous Segments of Ones than Zeros"
+  Url = "/submissions/detail/1736163721/"
+  LangName = "Python3"
+  Timestamp = 1755265387
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
