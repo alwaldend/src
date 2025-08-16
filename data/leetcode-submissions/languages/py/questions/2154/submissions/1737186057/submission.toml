@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737186057
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2154
+  TitleSlug = "minimum-moves-to-convert-string"
+  Code = "class Solution:\n    def minimumMoves(self, s: str) -> int:\n        i = 0\n        length = len(s)\n        res = 0\n        while i < length:\n            if s[i] == \"X\":\n                res += 1\n                i += 3\n            else:\n                i += 1\n        return res "
+  Title = "Minimum Moves to Convert String"
+  Url = "/submissions/detail/1737186057/"
+  LangName = "Python3"
+  Timestamp = 1755343188
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

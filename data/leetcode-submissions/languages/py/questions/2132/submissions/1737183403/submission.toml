@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737183403
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2132
+  TitleSlug = "convert-1d-array-into-2d-array"
+  Code = "class Solution:\n    def construct2DArray(self, original: List[int], m: int, n: int) -> List[List[int]]:\n        i = 0\n        if len(original) != m * n:\n            return []\n        res = [[None] * n for _ in range(m)]\n        for row in range(m):\n            for col in range(n):\n                res[row][col] = original[i]\n                i += 1\n        return res"
+  Title = "Convert 1D Array Into 2D Array"
+  Url = "/submissions/detail/1737183403/"
+  LangName = "Python3"
+  Timestamp = 1755343013
+  Status = 10
+  Runtime = "29 ms"
+  IsPending = "Not Pending"
+  Memory = "22.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

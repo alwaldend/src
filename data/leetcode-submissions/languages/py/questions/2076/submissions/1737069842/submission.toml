@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737069842
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2076
+  TitleSlug = "sum-of-digits-of-string-after-convert"
+  Code = "class Solution:\n    def getLucky(self, s: str, k: int) -> int:\n        def trans(val: int, count: int) -> int:\n            if count == 0:\n                return val\n            res = 0\n            while val > 0:\n                res += val % 10\n                val //= 10\n            return trans(res, count - 1)\n        val = 0\n        for char in s:\n            val += trans(ord(char) - 97 + 1, 1)\n        return trans(val, k - 1)"
+  Title = "Sum of Digits of String After Convert"
+  Url = "/submissions/detail/1737069842/"
+  LangName = "Python3"
+  Timestamp = 1755335948
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

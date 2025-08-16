@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736953206
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1448
+  TitleSlug = "maximum-69-number"
+  Code = "class Solution:\n    def maximum69Number (self, num: int) -> int:\n        digits = []\n        while num > 0:\n            digits.append(num % 10)\n            num //= 10\n        digits.reverse()\n        for i in range(len(digits)):\n            if digits[i] == 6:\n                digits[i] = 9\n                break\n        res = 0\n        count = 0\n        while digits:\n            res += digits.pop() * (10 ** count)\n            count += 1\n        return res"
+  Title = "Maximum 69 Number"
+  Url = "/submissions/detail/1736953206/"
+  LangName = "Python3"
+  Timestamp = 1755328183
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

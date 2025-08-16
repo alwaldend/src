@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1735933602
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1839
+  TitleSlug = "decode-xored-array"
+  Code = "class Solution:\n    def decode(self, encoded: List[int], first: int) -> List[int]:\n        prev_encoded = encoded[0]\n        encoded[0] = first\n        for i in range(1, len(encoded)):\n            encoded[i], prev_encoded = prev_encoded ^ encoded[i - 1], encoded[i]\n        encoded.append(prev_encoded ^ encoded[-1])\n        return encoded"
+  Title = "Decode XORed Array"
+  Url = "/submissions/detail/1735933602/"
+  LangName = "Python3"
+  Timestamp = 1755251342
+  Status = 10
+  Runtime = "9 ms"
+  IsPending = "Not Pending"
+  Memory = "19.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

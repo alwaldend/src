@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737062859
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1264
+  TitleSlug = "maximum-number-of-words-you-can-type"
+  Code = "class Solution:\n    def canBeTypedWords(self, text: str, brokenLetters: str) -> int:\n        ignore = False\n        res = 0\n        for char in itertools.chain(text, \" \"):\n            if char == \" \":\n                if ignore:\n                    ignore = False\n                else:\n                    res += 1\n            elif char in brokenLetters:\n                ignore = True\n        return res"
+  Title = "Maximum Number of Words You Can Type"
+  Url = "/submissions/detail/1737062859/"
+  LangName = "Python3"
+  Timestamp = 1755335477
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111"
+  HasNotes = false
+  FlagType = 1

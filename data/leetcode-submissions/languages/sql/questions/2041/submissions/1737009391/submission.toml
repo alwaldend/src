@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737009391
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 2041
+  TitleSlug = "the-latest-login-in-2020"
+  Code = "SELECT \n    user_id, \n    MAX(time_stamp) AS last_stamp\nFROM \n    Logins \nWHERE \n    time_stamp >= '2020-01-01'\n    AND time_stamp < '2021-01-01'\nGROUP BY \n    user_id"
+  Title = "The Latest Login in 2020"
+  Url = "/submissions/detail/1737009391/"
+  LangName = "PostgreSQL"
+  Timestamp = 1755331757
+  Status = 10
+  Runtime = "414 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

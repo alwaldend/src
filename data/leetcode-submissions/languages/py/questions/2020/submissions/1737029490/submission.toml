@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737029490
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2020
+  TitleSlug = "remove-one-element-to-make-the-array-strictly-increasing"
+  Code = "class Solution:\n    def canBeIncreasing(self, nums: List[int]) -> bool:\n        removed = False\n        length = len(nums)\n        for i in range(length - 1):\n            cur, nxt = nums[i], nums[i + 1]\n            if nxt > cur:\n                continue\n            if removed:\n                return False\n            removed = True\n            if (\n                i > 0 and nums[i - 1] >= nxt\n            ) and (\n                i + 2 < length and cur >= nums[i + 2]\n            ):\n                return False\n        return True"
+  Title = "Remove One Element to Make the Array Strictly Increasing"
+  Url = "/submissions/detail/1737029490/"
+  LangName = "Python3"
+  Timestamp = 1755333178
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

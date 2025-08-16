@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737207428
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2163
+  TitleSlug = "kth-distinct-string-in-an-array"
+  Code = "class Solution:\n    def kthDistinct(self, arr: List[str], k: int) -> str:\n        freqs = defaultdict(int)\n        for string in arr:\n            if freqs[string] in (0, 1):\n                freqs[string] += 1\n        for string in arr:\n            if freqs[string] == 1:\n                if k == 1:\n                    return string\n                k -= 1\n        return \"\""
+  Title = "Kth Distinct String in an Array"
+  Url = "/submissions/detail/1737207428/"
+  LangName = "Python3"
+  Timestamp = 1755344571
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

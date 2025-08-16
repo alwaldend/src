@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737197521
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2173
+  TitleSlug = "number-of-valid-words-in-a-sentence"
+  Code = "class Solution:\n    def countValidWords(self, sentence: str) -> int:\n        def is_valid_word(token):\n            len_token = len(token)\n            \n            i = 0\n            while (i < len_token):\n                c = token[i]\n                if (ord(c) not in range(ord('a'), ord('z') + 1)\n                    and c != '-'\n                    and c not in ('!', '.', ',')):\n                    return False\n                elif (c == '-'\n                      and i > 1\n                      and not token[:i].isalpha()):\n                    return False\n                elif (c == '-'\n                      and i < len_token - 1\n                      and (not token[i+1:].isalpha() and not (token[i+1:-1].isalpha() and token[-1] in ('!', '.', ',')))):\n                    return False\n                elif (c == '-'\n                      and (i == 0 or i == len_token-1)):\n                    return False\n                elif (c in ('!', '.', ',')\n                      and i < len_token - 1):\n                    return False\n\n                i += 1\n\n            return True\n\n        tokens = [t for t in sentence.split(' ') if t != '']\n        count_valid_words = 0\n        for token in tokens:\n            print(token, is_valid_word(token))\n            if (is_valid_word(token)):\n                count_valid_words += 1\n        \n        return count_valid_words"
+  Title = "Number of Valid Words in a Sentence"
+  Url = "/submissions/detail/1737197521/"
+  LangName = "Python3"
+  Timestamp = 1755343917
+  Status = 10
+  Runtime = "29 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

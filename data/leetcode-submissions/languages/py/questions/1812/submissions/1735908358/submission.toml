@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1735908358
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1812
+  TitleSlug = "reformat-phone-number"
+  Code = "class Solution:\n    def reformatNumber(self, number: str) -> str:\n        digits = []\n        for char in number:\n            if char == \" \" or char == \"-\":\n                continue\n            digits.append(char)\n        res = []\n        digits.reverse()\n        while len(digits) > 4:\n            res.append(\"\".join((digits.pop(), digits.pop(), digits.pop())))\n        length = len(digits)\n        if length == 4:\n            res.append(\"\".join((digits.pop(), digits.pop())))\n            res.append(\"\".join((digits.pop(), digits.pop())))\n        elif length == 3:\n            res.append(\"\".join((digits.pop(), digits.pop(), digits.pop())))\n        elif length == 2:\n            res.append(\"\".join((digits.pop(), digits.pop())))\n        return \"-\".join(res)"
+  Title = "Reformat Phone Number"
+  Url = "/submissions/detail/1735908358/"
+  LangName = "Python3"
+  Timestamp = 1755249754
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

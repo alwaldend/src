@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737192949
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2159
+  TitleSlug = "two-out-of-three"
+  Code = "class Solution:\n    def twoOutOfThree(self, nums1: List[int], nums2: List[int], nums3: List[int]) -> List[int]:\n        freqs = [(False, False, False)] * 102\n        for num in nums1:\n            freqs[num] = (True, False, False)\n        for num in nums2:\n            stat1, stat2, _ = freqs[num]\n            if not stat2:\n                freqs[num] = (stat1, True, False)\n        for num in nums3:\n            stat1, stat2, stat3 = freqs[num]\n            if not stat3:\n                freqs[num] = (stat1, stat2, True) \n        nums1.clear()\n        for num in range(1, len(freqs)):\n            if sum(freqs[num]) >= 2:\n                nums1.append(num)\n        return nums1"
+  Title = "Two Out of Three"
+  Url = "/submissions/detail/1737192949/"
+  LangName = "Python3"
+  Timestamp = 1755343626
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

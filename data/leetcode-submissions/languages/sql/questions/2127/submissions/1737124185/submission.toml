@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737124185
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 2127
+  TitleSlug = "employees-whose-manager-left-the-company"
+  Code = "SELECT\n    employee_id\nFROM\n    Employees\nWHERE\n    manager_id NOT IN (\n        SELECT\n            employee_id\n        FROM\n            Employees\n    ) \n    AND salary < 30000\nORDER BY\n    employee_id"
+  Title = "Employees Whose Manager Left the Company"
+  Url = "/submissions/detail/1737124185/"
+  LangName = "PostgreSQL"
+  Timestamp = 1755339331
+  Status = 10
+  Runtime = "190 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "1111111111111"
+  HasNotes = false
+  FlagType = 1

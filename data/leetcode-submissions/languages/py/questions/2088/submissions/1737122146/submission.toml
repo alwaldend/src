@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737122146
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2088
+  TitleSlug = "minimum-time-to-type-word-using-special-typewriter"
+  Code = "class Solution:\n    def minTimeToType(self, word: str) -> int:\n        pos = 97\n        res = 0\n        for char in word:\n            cur_pos = ord(char)\n            diff = abs(cur_pos - pos) \n            res += min(diff, 26 - diff) + 1\n            pos = cur_pos\n        return res"
+  Title = "Minimum Time to Type Word Using Special Typewriter"
+  Url = "/submissions/detail/1737122146/"
+  LangName = "Python3"
+  Timestamp = 1755339210
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737091522
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2093
+  TitleSlug = "check-if-string-is-a-prefix-of-array"
+  Code = "class Solution:\n    def isPrefixString(self, s: str, words: List[str]) -> bool:\n        i = 0\n        length = len(s)\n        for word in words:\n            if i >= length:\n                return True\n            word_length = len(word)\n            if word_length > length - i:\n                return False\n            if word != s[i:i+word_length]:\n                return False\n            i += word_length\n        return i >= length\n"
+  Title = "Check If String Is a Prefix of Array"
+  Url = "/submissions/detail/1737091522/"
+  LangName = "Python3"
+  Timestamp = 1755337347
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

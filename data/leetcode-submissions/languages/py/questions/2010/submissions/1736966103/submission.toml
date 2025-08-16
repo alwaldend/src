@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1736966103
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2010
+  TitleSlug = "check-if-word-equals-summation-of-two-words"
+  Code = "class Solution:\n    def isSumEqual(self, firstWord: str, secondWord: str, targetWord: str) -> bool:\n        def count(word: str) -> int:\n            length = len(word)\n            res = 0\n            for i in reversed(range(length)):\n                res += (ord(word[i]) - 97) * (10 ** (length - i - 1))\n            return res\n        return count(firstWord) + count(secondWord) == count(targetWord)"
+  Title = "Check if Word Equals Summation of Two Words"
+  Url = "/submissions/detail/1736966103/"
+  LangName = "Python3"
+  Timestamp = 1755328928
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

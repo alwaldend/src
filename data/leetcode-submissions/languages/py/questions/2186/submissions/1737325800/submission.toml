@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737325800
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2186
+  TitleSlug = "count-vowel-substrings-of-a-string"
+  Code = "from collections import defaultdict\n\nclass Solution:\n    def countVowelSubstrings(self, word):\n        vowels_map = {'a': True, 'e': True, 'i': True, 'o': True, 'u': True}\n        len_word = len(word)\n        left_index = 0\n        right_index = 0\n        ret_val = 0\n        char_to_freq_map = defaultdict(int)\n        i = 0\n        while i < len_word:\n            c = word[i]\n            if c in vowels_map.keys():\n                char_to_freq_map[c] += 1\n                while set(char_to_freq_map.keys()) == set(vowels_map.keys()):\n                    c = word[right_index]\n                    char_to_freq_map[c] -= 1\n                    if (char_to_freq_map[c] <= 0):\n                        char_to_freq_map.pop(c)\n                    right_index += 1\n                ret_val += (right_index - left_index)\n            else:\n                char_to_freq_map.clear()\n                left_index = i + 1\n                right_index = i + 1\n            i += 1\n        return ret_val"
+  Title = "Count Vowel Substrings of a String"
+  Url = "/submissions/detail/1737325800/"
+  LangName = "Python3"
+  Timestamp = 1755352288
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -23,7 +23,7 @@ links = [
 title = "My Longevity Simulation"
 thumbnail = "https://cdn.novelupdates.com/images/2024/08/My-Longevity-Simulation.jpg"
 quality = "Good"
-reading = "Dropped, chapter 776"
+reading = "Dropped, C776"
 authors = ["angry-squid"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/my-longevity-simulation/" },
@@ -144,7 +144,7 @@ links = [
 title = "Defiance of the Fall"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/24709-defiance-of-the-fall.jpg?time=1707310837"
 quality = "Decent"
-reading = "Dropped, chapter 1343"
+reading = "Dropped, C1343"
 authors = ["thefirstdefier"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/24709/defiance-of-the-fall" },
@@ -185,7 +185,7 @@ links = [
 title = "The Years of Apocalypse"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/the-years-of-apocalypse-a-time-loop-progression.jpg?time=1706941233"
 quality = "Decent"
-reading = "Dropped, C212"
+reading = "Reading, C212"
 authors = ["uraniumphoenix"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression" },
@@ -214,8 +214,8 @@ links = [
 [[book]]
 title = "A Practical Guide to Sorcery"
 thumbnail = "https://www.azaleaellis.com/wp-content/uploads/2022/10/A-Conjuring-of-Ravens-Web-800w-683x1024.jpg"
-quality = "Decent"
-reading = "Dropped, chapter 261"
+quality = "Decent, slow upload"
+reading = "Dropped, C261"
 authors = ["azalea-ellis"]
 links = [
     { title = "azaleaellis", url = "https://www.azaleaellis.com/a-practical-guide-to-sorcery/" },
@@ -225,7 +225,7 @@ links = [
 title = "Dungeon Crawler Carl"
 thumbnail = "https://www.royalroadcdn.com/public/covers-full/29358-dungeon-crawler-carl.jpg"
 quality = "Good"
-reading = "Finished volume 7"
+reading = "Finished, B7"
 authors = ["doctorhepa"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/29358/dungeon-crawler-carl-book-6-the-ghosts-of-earth" },
@@ -275,7 +275,7 @@ links = [
 title = "Return of the Runebound Professor"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/68679-return-of-the-runebound-professor.jpg?time=1696109628"
 quality = "Ok"
-reading = "Dropped, B7C745"
+reading = "Reading, B7C745"
 authors = ["actus"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed" },
@@ -306,7 +306,6 @@ links = [
 title = "Ghost of the Truthseeker"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/56136-ghost-of-the-truthseeker.jpg?time=1721186189"
 quality = "Ok"
-summary = "Feels generic"
 reading = "Dropped, chapter 220"
 authors = ["strungbound"]
 links = [
@@ -392,7 +391,6 @@ authors = ["silverlinings"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/66643/die-respawn-repeat" },
 ]
-
 
 [[book]]
 title = "System Breaker"
@@ -593,7 +591,7 @@ links = [
 title = "Chrysalis"
 thumbnail = "https://www.royalroadcdn.com/public/covers-full/22518-chrysalis.jpg"
 quality = "Ok, shallow"
-reading = "Dropped, C1623"
+reading = "Reading, C1623"
 authors = ["rinoz"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/22518/chrysalis" },
@@ -738,7 +736,7 @@ links = [
 title = "Sky Pride"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/107917-sky-pride.jpg?time=1741721709"
 quality = "Good"
-reading = "Dropped, volume 3, chapter 10"
+reading = "Reading, B3C25"
 authors = ["warby-picus"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/107917/sky-pride" },
@@ -780,7 +778,7 @@ links = [
 title = "1% Lifesteal"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/72301-1-lifesteal.jpg?time=1749132068"
 quality = "Ok, boring protagonist"
-reading = "Dropped, chapter 128 (volume 2)"
+reading = "Dropped, C128 (volume 2)"
 authors = ["robert-blaise"]
 links = [
     { title = "royaloroad", url = "https://www.royalroad.com/fiction/72301/1-lifesteal" },
@@ -800,7 +798,7 @@ links = [
 title = "Theos"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/64789-theos.jpg?time=1701661984"
 quality = "Decent"
-reading = "Reading, B3C4"
+reading = "Finished available, hiatus, B3C4"
 authors = ["arthur-wordsmith"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/64789/theos" },

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737108325
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2099
+  TitleSlug = "number-of-strings-that-appear-as-substrings-in-word"
+  Code = "class Solution:\n    def numOfStrings(self, patterns: List[str], word: str) -> int:\n        count = 0\n        for pattern in patterns:\n            if pattern in word:\n                count += 1\n        return count"
+  Title = "Number of Strings That Appear as Substrings in Word"
+  Url = "/submissions/detail/1737108325/"
+  LangName = "Python3"
+  Timestamp = 1755338392
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

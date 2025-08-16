@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737131240
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2106
+  TitleSlug = "find-greatest-common-divisor-of-array"
+  Code = "class Solution:\n    def findGCD(self, nums: List[int]) -> int:\n        nums.sort()\n        small, big = nums[0], nums[-1]\n        for i in range(1, small + 1):\n            if small % i != 0:\n                continue\n            val = small // i\n            if big % val == 0:\n                return val\n        raise Exception"
+  Title = "Find Greatest Common Divisor of Array"
+  Url = "/submissions/detail/1737131240/"
+  LangName = "Python3"
+  Timestamp = 1755339770
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

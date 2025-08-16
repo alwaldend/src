@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737160872
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2122
+  TitleSlug = "count-special-quadruplets"
+  Code = "class Solution:\n    def countQuadruplets(self, nums: List[int]) -> int:\n        count = 0\n        numbers = defaultdict(list)\n        length = len(nums)\n        for i in range(length - 1):\n            for j in range(i + 1, length):\n                numbers[nums[i] + nums[j]].append(j)\n        for i in range(2, length - 1):\n            for j in range(i + 1, length):\n                target = nums[j] - nums[i]\n                for idx in numbers[target]:\n                    if i > idx:\n                        count += 1\n        return count"
+  Title = "Count Special Quadruplets"
+  Url = "/submissions/detail/1737160872/"
+  LangName = "Python3"
+  Timestamp = 1755341587
+  Status = 10
+  Runtime = "25 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

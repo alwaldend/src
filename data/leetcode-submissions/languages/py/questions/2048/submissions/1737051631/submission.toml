@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737051631
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2048
+  TitleSlug = "build-array-from-permutation"
+  Code = "class Solution:\n    def buildArray(self, nums: List[int]) -> List[int]:\n        length = len(nums)\n        for i in range(length):\n            val = nums[i] % 1000\n            res = 1000 * (nums[val] % 1000)\n            nums[i] = res + val\n        for i in range(length):\n            nums[i] //= 1000\n        return nums"
+  Title = "Build Array from Permutation"
+  Url = "/submissions/detail/1737051631/"
+  LangName = "Python3"
+  Timestamp = 1755334718
+  Status = 10
+  Runtime = "9 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

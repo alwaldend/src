@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737074861
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2083
+  TitleSlug = "three-divisors"
+  Code = "class Solution:\n    def isThree(self, n: int) -> bool:\n        count = 1\n        for num in range(2, n // 2 + 1):\n            if n % num == 0:\n                count += 2\n            if count > 3:\n                break\n        return count == 3"
+  Title = "Three Divisors"
+  Url = "/submissions/detail/1737074861/"
+  LangName = "Python3"
+  Timestamp = 1755336275
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737013293
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2005
+  TitleSlug = "check-if-all-the-integers-in-a-range-are-covered"
+  Code = "class Solution:\n    def isCovered(self, ranges: List[List[int]], left: int, right: int) -> bool:\n        cov = [False] * (right - left + 1)\n        for start, end in ranges:\n            for num in range(max(left, start), min(end, right) + 1):\n                cov[num - left] = True\n        return False not in cov"
+  Title = "Check if All the Integers in a Range Are Covered"
+  Url = "/submissions/detail/1737013293/"
+  LangName = "Python3"
+  Timestamp = 1755332031
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

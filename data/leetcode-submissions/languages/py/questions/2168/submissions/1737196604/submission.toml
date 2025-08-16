@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737196604
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2168
+  TitleSlug = "check-if-numbers-are-ascending-in-a-sentence"
+  Code = "class Solution:\n    def areNumbersAscending(self, s: str) -> bool:\n        cur = []\n        prev = 0\n        for char in itertools.chain(s, \" \"):\n            if char.isdigit():\n                cur.append(char)\n            elif cur:\n                val = 0\n                count = 0\n                while cur:\n                    val += int(cur.pop()) * (10 ** count)\n                    count += 1\n                if val <= prev:\n                    return False\n                prev = val\n        return True"
+  Title = "Check if Numbers Are Ascending in a Sentence"
+  Url = "/submissions/detail/1737196604/"
+  LangName = "Python3"
+  Timestamp = 1755343859
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

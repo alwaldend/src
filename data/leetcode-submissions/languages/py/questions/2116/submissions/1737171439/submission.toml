@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737171439
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2116
+  TitleSlug = "count-number-of-pairs-with-absolute-difference-k"
+  Code = "class Solution:\n    def countKDifference(self, nums: List[int], k: int) -> int:\n        freqs = [0] * 102\n        count = 0\n        for num in nums:\n            freqs[num] += 1\n        for num in nums:\n            freqs[num] = max(freqs[num] - 1, 0)\n            target = num + k\n            for target in (num - k, num + k):\n                if target >= 0 and target < 102 and freqs[target] > 0:\n                    count += freqs[target]\n        return count"
+  Title = "Count Number of Pairs With Absolute Difference K"
+  Url = "/submissions/detail/1737171439/"
+  LangName = "Python3"
+  Timestamp = 1755342252
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

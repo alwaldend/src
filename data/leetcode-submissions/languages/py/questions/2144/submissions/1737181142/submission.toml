@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737181142
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2144
+  TitleSlug = "maximum-difference-between-increasing-elements"
+  Code = "class Solution:\n    def maximumDifference(self, nums: List[int]) -> int:\n        res, left = -1, nums[0]\n        for num in nums[1:]:\n            if num > left:\n                diff = num - left\n                if diff > res:\n                    res = diff\n            else:\n                left = num\n        return res"
+  Title = "Maximum Difference Between Increasing Elements"
+  Url = "/submissions/detail/1737181142/"
+  LangName = "Python3"
+  Timestamp = 1755342874
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

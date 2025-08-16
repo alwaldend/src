@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737059398
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2058
+  TitleSlug = "concatenation-of-array"
+  Code = "class Solution:\n    def getConcatenation(self, nums: List[int]) -> List[int]:\n        for i in range(len(nums)):\n            nums.append(nums[i])\n        return nums"
+  Title = "Concatenation of Array"
+  Url = "/submissions/detail/1737059398/"
+  LangName = "Python3"
+  Timestamp = 1755335243
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

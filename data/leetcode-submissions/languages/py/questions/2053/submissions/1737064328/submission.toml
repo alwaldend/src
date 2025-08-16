@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737064328
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2053
+  TitleSlug = "check-if-all-characters-have-equal-number-of-occurrences"
+  Code = "class Solution:\n    def areOccurrencesEqual(self, s: str) -> bool:\n        freqs = defaultdict(int)\n        for char in s:\n            freqs[char] += 1\n        target = freqs[s[0]]\n        for freq in freqs.values():\n            if freq != target:\n                return False\n        return True"
+  Title = "Check if All Characters Have Equal Number of Occurrences"
+  Url = "/submissions/detail/1737064328/"
+  LangName = "Python3"
+  Timestamp = 1755335574
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1735914175
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1829
+  TitleSlug = "maximum-units-on-a-truck"
+  Code = "class Solution:\n    def maximumUnits(self, boxTypes: List[List[int]], truckSize: int) -> int:\n        boxTypes.sort(key=lambda item: item[1])\n        res = 0\n        while boxTypes and truckSize > 0:\n            boxes, units = boxTypes.pop()\n            count = min(boxes, truckSize)\n            truckSize -= count\n            res += count * units\n        return res\n"
+  Title = "Maximum Units on a Truck"
+  Url = "/submissions/detail/1735914175/"
+  LangName = "Python3"
+  Timestamp = 1755250126
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

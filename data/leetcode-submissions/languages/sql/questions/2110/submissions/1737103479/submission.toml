@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737103479
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 2110
+  TitleSlug = "employees-with-missing-information"
+  Code = "SELECT \n    COALESCE(\n        t1.employee_id, \n        t2.employee_id\n    ) AS employee_id\nFROM\n    Employees t1 \nFULL JOIN\n    Salaries t2\nON \n    t1.employee_id = t2.employee_id\nWHERE \n    t1.name IS NULL \n    OR t2.salary IS NULL\nORDER BY \n    employee_id;"
+  Title = "Employees With Missing Information"
+  Url = "/submissions/detail/1737103479/"
+  LangName = "PostgreSQL"
+  Timestamp = 1755338092
+  Status = 10
+  Runtime = "203 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "111111111111"
+  HasNotes = false
+  FlagType = 1
