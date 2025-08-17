@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738725060
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2304
+  TitleSlug = "cells-in-a-range-on-an-excel-sheet"
+  Code = "class Solution:\n    def cellsInRange(self, s: str) -> List[str]:\n        cell1, cell2 = s.split(\":\")\n        row1, col1 = cell1[0], int(cell1[1:])\n        row2, col2 = cell2[0], int(cell2[1:])\n        res = []\n        while row1 <= row2:\n            for col in range(col1, col2 + 1):\n                res.append(f\"{row1}{col}\")\n            row1 = chr(ord(row1) + 1)\n        return res"
+  Title = "Cells in a Range on an Excel Sheet"
+  Url = "/submissions/detail/1738725060/"
+  LangName = "Python3"
+  Timestamp = 1755447680
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738711247
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2298
+  TitleSlug = "count-integers-with-even-digit-sum"
+  Code = "class Solution:\n    def countEven(self, num: int) -> int:\n        dig_sum = 0\n        val = num\n        while val > 0:\n            dig_sum += val % 10\n            val //= 10\n        if dig_sum % 2 == 0:\n            return num // 2\n        return (num - 1) // 2"
+  Title = "Count Integers With Even Digit Sum"
+  Url = "/submissions/detail/1738711247/"
+  LangName = "Python3"
+  Timestamp = 1755446882
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

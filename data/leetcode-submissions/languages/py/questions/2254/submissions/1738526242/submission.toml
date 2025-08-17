@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738526242
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2254
+  TitleSlug = "check-if-every-row-and-column-contains-all-numbers"
+  Code = "class Solution:\n    def checkValid(self, matrix: List[List[int]]) -> bool:\n        length = len(matrix)\n        rows = bytearray(length + 1)\n        cols = bytearray(length + 1)\n        for row in range(length):    \n            for col in range(length):\n                row_col, col_row = matrix[row][col], matrix[col][row]\n                rows[row_col] += 1\n                cols[col_row] += 1\n                if rows[row_col] > 1 or cols[col_row] > 1:\n                    return False\n            for i in range(length + 1):\n                rows[i] = 0\n                cols[i] = 0\n        return True"
+  Title = "Check if Every Row and Column Contains All Numbers"
+  Url = "/submissions/detail/1738526242/"
+  LangName = "Python3"
+  Timestamp = 1755435607
+  Status = 10
+  Runtime = "63 ms"
+  IsPending = "Not Pending"
+  Memory = "18.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

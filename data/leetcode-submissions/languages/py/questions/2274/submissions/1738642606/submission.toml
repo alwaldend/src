@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738642606
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2274
+  TitleSlug = "keep-multiplying-found-values-by-two"
+  Code = "class Solution:\n    def findFinalValue(self, nums: List[int], original: int) -> int:\n        nums = set(nums)\n        while original in nums:\n            original *= 2\n        return original"
+  Title = "Keep Multiplying Found Values by Two"
+  Url = "/submissions/detail/1738642606/"
+  LangName = "Python3"
+  Timestamp = 1755442602
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

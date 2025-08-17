@@ -253,3 +253,10 @@ name = "Warmaisach"
 links = [
     { title = "webnovel", url = "https://m.webnovel.com/profile/3286855836" },
 ]
+
+[author.exploding-small-latte]
+name = "Exploding Small Latte"
+alts = ["爆炸小拿铁"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/exploding-small-latte/" },
+]

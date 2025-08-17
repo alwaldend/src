@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738388814
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2204
+  TitleSlug = "find-subsequence-of-length-k-with-the-largest-sum"
+  Code = "class Solution:\n    def maxSubsequence(self, nums: List[int], k: int) -> List[int]:\n        length = len(nums)\n        for i in range(length):\n            nums[i] = (i, nums[i])\n        nums.sort(key=lambda num: -num[1])\n        while len(nums) > k:\n            nums.pop()\n        nums.sort()\n        for i in range(k):\n            nums[i] = nums[i][1]\n        return nums"
+  Title = "Find Subsequence of Length K With the Largest Sum"
+  Url = "/submissions/detail/1738388814/"
+  LangName = "Python3"
+  Timestamp = 1755426354
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

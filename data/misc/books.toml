@@ -823,3 +823,14 @@ authors = "warmaisach"
 links = [
     { title = "webnovel", url = "https://m.webnovel.com/book/kill-the-sun_27467949206850305" },
 ]
+
+[[book]]
+title = "I Just Want to Slack Off in Cultivation"
+thumbnail = "https://cdn.novelupdates.com/images/2023/10/I-just-want-to-slack-off-in-cultivation.jpg"
+alt_titles = ["我只想安静的做个苟道中人"]
+quality = "Slop"
+reading = "Dropped, C54"
+authors = ["exploding-small-latte"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/__trashed-43/" },
+]

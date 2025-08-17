@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738375215
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2215
+  TitleSlug = "finding-3-digit-even-numbers"
+  Code = "class Solution:\n    def findEvenNumbers(self, digits: List[int]) -> List[int]:\n        res = []\n        freq = Counter(digits)  \n        for i in range(100, 1000, 2):\n            freq1 = Counter([int(d) for d in str(i)])\n            if all(freq[d] >= freq1[d] for d in freq1.keys()):\n                res.append(i)\n        return res"
+  Title = "Finding 3-Digit Even Numbers"
+  Url = "/submissions/detail/1738375215/"
+  LangName = "Python3"
+  Timestamp = 1755425443
+  Status = 10
+  Runtime = "71 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

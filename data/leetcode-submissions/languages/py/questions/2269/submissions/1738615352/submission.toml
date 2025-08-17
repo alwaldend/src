@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738615352
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2269
+  TitleSlug = "count-elements-with-strictly-smaller-and-greater-elements"
+  Code = "class Solution:\n    def countElements(self, nums: List[int]) -> int:\n        if len(nums) < 3:\n            return 0\n        nums.sort()\n        res = 0\n        prev, cur, cur_count = None, nums[0], 1\n        for num in nums:\n            if num == cur:\n                cur_count += 1\n            elif prev is None:\n                prev = cur\n                cur = num\n                cur_count = 1\n            else:\n                res += cur_count\n                prev = cur\n                cur = num\n                cur_count = 1\n        return res"
+  Title = "Count Elements With Strictly Smaller and Greater Elements "
+  Url = "/submissions/detail/1738615352/"
+  LangName = "Python3"
+  Timestamp = 1755440929
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738684487
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2288
+  TitleSlug = "count-operations-to-obtain-zero"
+  Code = "class Solution:\n    def countOperations(self, num1: int, num2: int) -> int:\n        count = 0\n        while num1 > 0 and num2 > 0:\n            if num1 >= num2:\n                count += num1 // num2\n                num1 %= num2\n            else:\n                count += num2 // num1\n                num2 %= num1\n        return count"
+  Title = "Count Operations to Obtain Zero"
+  Url = "/submissions/detail/1738684487/"
+  LangName = "Python3"
+  Timestamp = 1755445215
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

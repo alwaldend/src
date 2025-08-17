@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738713770
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2292
+  TitleSlug = "counting-words-with-a-given-prefix"
+  Code = "class Solution:\n    def prefixCount(self, words: List[str], pref: str) -> int:\n        res = 0\n        for word in words:\n            if word.startswith(pref):\n                res += 1\n        return res"
+  Title = "Counting Words With a Given Prefix"
+  Url = "/submissions/detail/1738713770/"
+  LangName = "Python3"
+  Timestamp = 1755447032
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

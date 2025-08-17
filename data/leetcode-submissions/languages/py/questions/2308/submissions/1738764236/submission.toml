@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738764236
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2308
+  TitleSlug = "divide-array-into-equal-pairs"
+  Code = "class Solution:\n    def divideArray(self, nums: List[int]) -> bool:\n        nums.sort()\n        prev = nums[0]\n        count = 1\n        for num in nums[1:]:\n            if num == prev:\n                count += 1\n            elif count % 2 != 0:\n                return False\n            else:\n                count = 1\n                prev = num\n        return count % 2 == 0\n"
+  Title = "Divide Array Into Equal Pairs"
+  Url = "/submissions/detail/1738764236/"
+  LangName = "Python3"
+  Timestamp = 1755449812
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

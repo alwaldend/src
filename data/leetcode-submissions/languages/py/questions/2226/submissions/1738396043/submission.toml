@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738396043
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2226
+  TitleSlug = "rings-and-rods"
+  Code = "class Solution:\n    def countPoints(self, rings: str) -> int:\n        rods = [(False, False, False)] * 10\n        res = 0\n        for i in range(0, len(rings), 2):\n            rod = int(rings[i + 1])\n            color = rings[i]\n            has_red, has_green, has_blue = rods[rod]\n            if color == \"R\":\n                has_red = True\n            elif color == \"G\":\n                has_green = True\n            else:\n                has_blue = True\n            rods[rod] = (has_red, has_green, has_blue)\n        for vals in rods:\n            if all(vals):\n                res += 1\n        return res"
+  Title = "Rings and Rods"
+  Url = "/submissions/detail/1738396043/"
+  LangName = "Python3"
+  Timestamp = 1755426851
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

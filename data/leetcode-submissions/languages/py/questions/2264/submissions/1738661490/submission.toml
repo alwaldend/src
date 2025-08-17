@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738661490
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2264
+  TitleSlug = "minimum-sum-of-four-digit-number-after-splitting-digits"
+  Code = "class Solution:\n    def minimumSum(self, num: int) -> int:\n        digits = []\n        while num > 0:\n            digits.append(num % 10)\n            num //= 10\n        digits.sort()\n        return digits[0] * 10 + digits[1] * 10 + digits[2] + digits[3]\n"
+  Title = "Minimum Sum of Four Digit Number After Splitting Digits"
+  Url = "/submissions/detail/1738661490/"
+  LangName = "Python3"
+  Timestamp = 1755443762
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

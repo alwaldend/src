@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738310277
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2199
+  TitleSlug = "two-furthest-houses-with-different-colors"
+  Code = "class Solution:\n    def maxDistance(self, colors: List[int]) -> int:\n        prev, res = math.inf, 0\n        start = colors[0]\n        for i, color in enumerate(colors):\n            if color != start:\n                res = i\n                prev = min(prev, i)\n            else:\n                res = max(res, i - prev)\n        return res"
+  Title = "Two Furthest Houses With Different Colors"
+  Url = "/submissions/detail/1738310277/"
+  LangName = "Python3"
+  Timestamp = 1755420852
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

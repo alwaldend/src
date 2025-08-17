@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738347723
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2190
+  TitleSlug = "count-common-words-with-one-occurrence"
+  Code = "class Solution:\n    def countWords(self, words1: List[str], words2: List[str]) -> int:\n        freqs = defaultdict(lambda: (0, 0))\n        for word in words1:\n            freq1, _ = freqs[word]\n            if freq1 in (0, 1):\n                freqs[word] = (freq1 + 1, 0)\n        for word in words2:\n            freq1, freq2 = freqs[word]\n            if freq2 in (0, 1):\n                freqs[word] = (freq1, freq2 + 1)\n        res = 0\n        for freq1, freq2 in freqs.values():\n            if freq1 == freq2 == 1:\n                res += 1\n        return res\n        "
+  Title = "Count Common Words With One Occurrence"
+  Url = "/submissions/detail/1738347723/"
+  LangName = "Python3"
+  Timestamp = 1755423545
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "18.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

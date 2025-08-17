@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738397942
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2219
+  TitleSlug = "maximum-number-of-words-found-in-sentences"
+  Code = "class Solution:\n    def mostWordsFound(self, sentences: List[str]) -> int:\n        res = 0\n        for sentence in sentences:\n            count = sentence.count(\" \") + 1\n            if count > res:\n                res = count\n        return res"
+  Title = "Maximum Number of Words Found in Sentences"
+  Url = "/submissions/detail/1738397942/"
+  LangName = "Python3"
+  Timestamp = 1755426984
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

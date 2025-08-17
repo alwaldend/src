@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738399402
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2238
+  TitleSlug = "a-number-after-a-double-reversal"
+  Code = "class Solution:\n    def isSameAfterReversals(self, num: int) -> bool:\n        if num == 0:\n            return True\n        return num % 10 != 0"
+  Title = "A Number After a Double Reversal"
+  Url = "/submissions/detail/1738399402/"
+  LangName = "Python3"
+  Timestamp = 1755427082
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

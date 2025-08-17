@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738718420
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2312
+  TitleSlug = "most-frequent-number-following-key-in-an-array"
+  Code = "class Solution:\n    def mostFrequent(self, nums: List[int], key: int) -> int:\n        freqs = [0] * 1001\n        prev = nums[0]\n        max_freq, max_freq_num = 0, 0\n        res = 0\n        for num in nums[1:]:\n            if prev == key:\n                freq = freqs[num] + 1 \n                freqs[num] = freq\n                if freq > max_freq:\n                    max_freq, max_freq_num = freq, num\n            prev = num\n        return max_freq_num"
+  Title = "Most Frequent Number Following Key In an Array"
+  Url = "/submissions/detail/1738718420/"
+  LangName = "Python3"
+  Timestamp = 1755447300
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738750780
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2320
+  TitleSlug = "find-all-k-distant-indices-in-an-array"
+  Code = "class Solution:\n    def findKDistantIndices(\n        self, nums: List[int], key: int, k: int\n    ) -> List[int]:\n        res = []\n        right = 0 \n        length = len(nums)\n        for j in range(length):\n            if nums[j] != key:\n                continue\n            left = max(right, j - k)\n            right = min(length - 1, j + k) + 1\n            res.extend(range(left, right))\n        return res"
+  Title = "Find All K-Distant Indices in an Array"
+  Url = "/submissions/detail/1738750780/"
+  LangName = "Python3"
+  Timestamp = 1755449095
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

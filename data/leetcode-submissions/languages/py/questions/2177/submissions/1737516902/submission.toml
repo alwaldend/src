@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1737516902
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2177
+  TitleSlug = "check-whether-two-strings-are-almost-equivalent"
+  Code = "class Solution:\n    def checkAlmostEquivalent(self, word1: str, word2: str) -> bool:\n        freqs = [0] * 26\n        for char in word1:\n            freqs[ord(char) - 97] += 1\n        for char in word2:\n            freqs[ord(char) - 97] -= 1\n        for freq in freqs:\n            if freq > 3 or freq < -3:\n                return False\n        return True"
+  Title = "Check Whether Two Strings are Almost Equivalent"
+  Url = "/submissions/detail/1737516902/"
+  LangName = "Python3"
+  Timestamp = 1755359000
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

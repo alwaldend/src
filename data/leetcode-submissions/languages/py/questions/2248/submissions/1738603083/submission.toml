@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738603083
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2248
+  TitleSlug = "minimum-cost-of-buying-candies-with-discount"
+  Code = "class Solution:\n    def minimumCost(self, cost: List[int]) -> int:\n        cost.sort()\n        res = 0\n        while cost:\n            if len(cost) > 2:\n                res += cost.pop() + cost.pop()\n                cost.pop()\n            else:\n                res += cost.pop()\n        return res"
+  Title = "Minimum Cost of Buying Candies With Discount"
+  Url = "/submissions/detail/1738603083/"
+  LangName = "Python3"
+  Timestamp = 1755440219
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

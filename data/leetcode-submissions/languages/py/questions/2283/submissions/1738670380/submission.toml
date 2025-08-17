@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738670380
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2283
+  TitleSlug = "sort-even-and-odd-indices-independently"
+  Code = "class Solution:\n    def sortEvenOdd(self, nums: List[int]) -> List[int]:\n        odd, even = [], []\n        for i, num in enumerate(nums):\n            if i % 2 == 0:\n                heapq.heappush(even, num)\n            else:\n                heapq.heappush(odd, -num)\n        for i in range(len(nums)):\n            if i % 2 == 0:\n                nums[i] = heapq.heappop(even)\n            else:\n                nums[i] = -heapq.heappop(odd)\n        return nums"
+  Title = "Sort Even and Odd Indices Independently"
+  Url = "/submissions/detail/1738670380/"
+  LangName = "Python3"
+  Timestamp = 1755444312
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

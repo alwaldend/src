@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738413804
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2235
+  TitleSlug = "capitalize-the-title"
+  Code = "class Solution:\n    def capitalizeTitle(self, title: str) -> str:\n        res = []\n        cur = []\n        for char in itertools.chain(title, \" \"):\n            if char != \" \":\n                cur.append(char)\n                continue\n            for i in range(len(cur)):\n                cur[i] = cur[i].lower()\n            if len(cur) > 2:\n                cur[0] = cur[0].upper()\n            res.append(\"\".join(cur))\n            cur.clear()\n        return \" \".join(res) "
+  Title = "Capitalize the Title"
+  Url = "/submissions/detail/1738413804/"
+  LangName = "Python3"
+  Timestamp = 1755428036
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738589527
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2260
+  TitleSlug = "divide-a-string-into-groups-of-size-k"
+  Code = "class Solution:\n    def divideString(self, s: str, k: int, fill: str) -> List[str]:\n        res = []\n        cur = []\n        for char in s:\n            cur.append(char)\n            if len(cur) == k:\n                res.append(\"\".join(cur))\n                cur.clear()\n        if cur and len(cur) < k:\n            cur.append(fill * (k - len(cur)))\n            res.append(\"\".join(cur))\n            cur.clear()\n        return res"
+  Title = "Divide a String Into Groups of Size k"
+  Url = "/submissions/detail/1738589527/"
+  LangName = "Python3"
+  Timestamp = 1755439441
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

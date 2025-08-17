@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738402241
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2243
+  TitleSlug = "check-if-all-as-appears-before-all-bs"
+  Code = "class Solution:\n    def checkString(self, s: str) -> bool:\n        found_a = False\n        found_b = False\n        for char in s:\n            if char == \"a\":\n                if found_b:\n                    return False\n                if not found_a:\n                    found_a = True\n            else:\n                if not found_b:\n                    found_b = True\n        return True"
+  Title = "Check if All A's Appears Before All B's"
+  Url = "/submissions/detail/1738402241/"
+  LangName = "Python3"
+  Timestamp = 1755427275
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

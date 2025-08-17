@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738770899
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2345
+  TitleSlug = "minimum-number-of-operations-to-convert-time"
+  Code = "class Solution:\n    def convertTime(self, current: str, correct: str) -> int:\n        current_time = 60 * int(current[0:2]) + int(current[3:5])\n        target_time = 60 * int(correct[0:2]) + int(correct[3:5])\n        diff = target_time - current_time\n        count = 0\n        for i in (60, 15, 5, 1):\n            count += diff // i\n            diff %= i\n        return count"
+  Title = "Minimum Number of Operations to Convert Time"
+  Url = "/submissions/detail/1738770899/"
+  LangName = "Python3"
+  Timestamp = 1755450176
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

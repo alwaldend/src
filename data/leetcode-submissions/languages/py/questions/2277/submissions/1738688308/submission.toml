@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738688308
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2277
+  TitleSlug = "count-equal-and-divisible-pairs-in-an-array"
+  Code = "class Solution:\n    def countPairs(self, nums: List[int], k: int) -> int:\n        length = len(nums)\n        res = 0\n        for i in range(length):\n            num1 = nums[i]\n            for j in range(i + 1, length):\n                if num1 == nums[j] and (i * j) % k == 0:\n                    res += 1\n        return res"
+  Title = "Count Equal and Divisible Pairs in an Array"
+  Url = "/submissions/detail/1738688308/"
+  LangName = "Python3"
+  Timestamp = 1755445454
+  Status = 10
+  Runtime = "19 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

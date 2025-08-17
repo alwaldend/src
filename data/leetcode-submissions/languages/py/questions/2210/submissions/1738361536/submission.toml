@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1738361536
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2210
+  TitleSlug = "find-target-indices-after-sorting-array"
+  Code = "class Solution:\n    def targetIndices(self, nums: List[int], target: int) -> List[int]:\n        count_eq = 0\n        count_less = 0\n        for num in nums:\n            if num == target:\n                count_eq += 1\n            elif num < target:\n                count_less += 1\n        return tuple(range(count_less, count_less + count_eq))"
+  Title = "Find Target Indices After Sorting Array"
+  Url = "/submissions/detail/1738361536/"
+  LangName = "Python3"
+  Timestamp = 1755424505
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
