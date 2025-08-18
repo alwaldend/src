@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739878942
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1382
+  TitleSlug = "calculate-amount-paid-in-taxes"
+  Code = "class Solution:\n    def calculateTax(self, brackets: List[List[int]], income: int) -> float:\n        tax = prev = 0\n        for upper, perc in brackets:\n            if income >= upper:\n                tax += (upper - prev) * perc / 100\n                prev = upper\n            else:\n                tax += (income - prev) * perc / 100\n                return tax\n        return tax"
+  Title = "Calculate Amount Paid in Taxes"
+  Url = "/submissions/detail/1739878942/"
+  LangName = "Python3"
+  Timestamp = 1755535973
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

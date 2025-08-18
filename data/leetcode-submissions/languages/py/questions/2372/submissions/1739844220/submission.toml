@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739844220
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2372
+  TitleSlug = "rearrange-characters-to-make-target-string"
+  Code = "class Solution:\n    def rearrangeCharacters(self, s: str, target: str) -> int:\n        freqs1, freqs2 = [0] * 26, [0] * 26\n        for char in s:\n            freqs1[ord(char) - 97] += 1\n        for char in target:\n            freqs2[ord(char) - 97] += 1\n        count = math.inf\n        for i in range(26):\n            freq1, freq2 = freqs1[i], freqs2[i]\n            if freq2 == 0:\n                continue\n            cur_count = freq1 // freq2\n            if cur_count == 0:\n                return 0\n            if cur_count < count:\n                count = cur_count\n        return count"
+  Title = "Rearrange Characters to Make Target String"
+  Url = "/submissions/detail/1739844220/"
+  LangName = "Python3"
+  Timestamp = 1755534370
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

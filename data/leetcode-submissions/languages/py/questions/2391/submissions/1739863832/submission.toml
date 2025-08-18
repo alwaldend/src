@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739863832
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2391
+  TitleSlug = "strong-password-checker-ii"
+  Code = "class Solution:\n    def strongPasswordCheckerII(self, password: str) -> bool:\n        if len(password) < 8:\n            return False\n        has_lower, has_upper, has_digit, has_spec = False, False, False, False\n        prev = None\n        spec = \"!@#$%^&*()-+\"\n        for char in password:\n            if char.islower():\n                has_lower = True\n            elif char.isupper():\n                has_upper = True\n            elif char.isdigit():\n                has_digit = True\n            elif char in spec:\n                has_spec = True\n            if prev is not None and char == prev:\n                return False\n            prev = char\n        return has_lower and has_upper and has_digit and has_spec"
+  Title = "Strong Password Checker II"
+  Url = "/submissions/detail/1739863832/"
+  LangName = "Python3"
+  Timestamp = 1755535287
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

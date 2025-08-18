@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739551415
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2361
+  TitleSlug = "calculate-digit-sum-of-a-string"
+  Code = "class Solution:\n    def digitSum(self, s: str, k: int) -> str:\n        res, cur, group = list(map(int, s)), [], []\n        i = 0\n        def add_digits(num: int) -> None:\n            if num == 0:\n                cur.append(0)\n                return\n            while num > 0:\n                group.append(num % 10)\n                num //= 10\n            group.reverse()\n            cur.extend(group)\n            group.clear()\n        while len(res) > k:\n            while i < len(res):\n                add_digits(sum(res[i:i + k]))\n                i += k\n            res, cur = cur, res\n            cur.clear()\n            i = 0\n        return \"\".join(map(str, res))"
+  Title = "Calculate Digit Sum of a String"
+  Url = "/submissions/detail/1739551415/"
+  LangName = "Python3"
+  Timestamp = 1755517416
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

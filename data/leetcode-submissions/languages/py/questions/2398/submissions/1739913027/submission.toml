@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739913027
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2398
+  TitleSlug = "check-if-matrix-is-x-matrix"
+  Code = "class Solution:\n    def checkXMatrix(self, grid: List[List[int]]) -> bool:\n        length = len(grid)\n        for row in range(length):\n            for col in range(length):\n                is_diag = row == col or length - row - 1 == col\n                val = grid[row][col]\n                if (is_diag and val == 0) or (not is_diag and val != 0):\n                    return False\n        return True"
+  Title = "Check if Matrix Is X-Matrix"
+  Url = "/submissions/detail/1739913027/"
+  LangName = "Python3"
+  Timestamp = 1755537496
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "18.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

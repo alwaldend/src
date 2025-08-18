@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739566964
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2341
+  TitleSlug = "count-prefixes-of-a-given-string"
+  Code = "class Solution:\n    def countPrefixes(self, words: List[str], s: str) -> int:\n        res = 0\n        for word in words:\n            if s.startswith(word):\n                res += 1\n        return res"
+  Title = "Count Prefixes of a Given String"
+  Url = "/submissions/detail/1739566964/"
+  LangName = "Python3"
+  Timestamp = 1755518586
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

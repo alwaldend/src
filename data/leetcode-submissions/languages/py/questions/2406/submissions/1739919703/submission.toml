@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739919703
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2406
+  TitleSlug = "decode-the-message"
+  Code = "class Solution:\n    def decodeMessage(self, key: str, message: str) -> str:\n        subst = [-1] * 26\n        res = []\n        count = 0\n        for char in key:\n            if char == \" \":\n                continue\n            idx = ord(char) - 97\n            if subst[idx] == -1:\n                subst[idx] = count\n                count += 1\n        for char in message:\n            if char == \" \":\n                val = char\n            else:\n                val = chr(subst[ord(char) - 97] + 97)\n            res.append(val)\n        return \"\".join(res)"
+  Title = "Decode the Message"
+  Url = "/submissions/detail/1739919703/"
+  LangName = "Python3"
+  Timestamp = 1755537798
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739495345
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2327
+  TitleSlug = "largest-number-after-digit-swaps-by-parity"
+  Code = "class Solution:\n    def largestInteger(self, num: int) -> int:\n        odd, even, res = [], [], []\n        while num > 0:\n            dig = num % 10\n            if dig % 2 == 0:\n                even.append(dig)\n                res.append(True)\n            else:\n                odd.append(dig)\n                res.append(False)\n            num //= 10\n        odd.sort(reverse=True)\n        even.sort(reverse=True)\n        res.reverse()\n        length = len(res)\n        num = 0\n        for i in reversed(range(length)):\n            if res[i]:\n                num += even.pop() * (10 ** (length - i - 1))\n            else:\n                num += odd.pop() * (10 ** (length - i - 1))\n        return num\n        "
+  Title = "Largest Number After Digit Swaps by Parity"
+  Url = "/submissions/detail/1739495345/"
+  LangName = "Python3"
+  Timestamp = 1755513249
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

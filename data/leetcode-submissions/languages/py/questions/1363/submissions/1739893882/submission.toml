@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739893882
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1363
+  TitleSlug = "greatest-english-letter-in-upper-and-lower-case"
+  Code = "class Solution:\n    def greatestLetter(self, s: str) -> str:\n        freqs = [(False, False)] * 26\n        for char in reversed(s):\n            if char.islower():\n                idx = ord(char) - 97\n                is_lower = True\n            else:\n                idx = ord(char) - 65\n                is_lower = False\n            enc_lower, enc_upper = freqs[idx]\n            new_val = (enc_lower or is_lower, enc_upper or not is_lower)\n            if new_val != (enc_lower, enc_upper):\n                freqs[idx] = new_val\n        for i in reversed(range(len(freqs))):\n            if all(freqs[i]):\n                return chr(i + 65)\n        return \"\""
+  Title = "Greatest English Letter in Upper and Lower Case"
+  Url = "/submissions/detail/1739893882/"
+  LangName = "Python3"
+  Timestamp = 1755536644
+  Status = 10
+  Runtime = "10 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

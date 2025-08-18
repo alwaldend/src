@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739814592
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1353
+  TitleSlug = "find-resultant-array-after-removing-anagrams"
+  Code = "class Solution:\n    def removeAnagrams(self, words: List[str]) -> List[str]:\n        prev = ()\n        res = []\n        for word in words:\n            word_sorted = sorted(word)\n            if prev != word_sorted:\n                res.append(word)\n                prev = word_sorted\n        return res"
+  Title = "Find Resultant Array After Removing Anagrams"
+  Url = "/submissions/detail/1739814592/"
+  LangName = "Python3"
+  Timestamp = 1755532921
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

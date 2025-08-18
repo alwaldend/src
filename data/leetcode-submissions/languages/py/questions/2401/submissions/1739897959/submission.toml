@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739897959
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2401
+  TitleSlug = "count-asterisks"
+  Code = "class Solution:\n    def countAsterisks(self, s: str) -> int:\n        start = False\n        res = 0\n        for char in s:\n            if char == \"|\":\n                start = not start\n            elif char == \"*\" and not start:\n                res += 1\n        return res\n"
+  Title = "Count Asterisks"
+  Url = "/submissions/detail/1739897959/"
+  LangName = "Python3"
+  Timestamp = 1755536827
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

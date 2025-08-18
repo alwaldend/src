@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739826234
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1353
+  TitleSlug = "find-resultant-array-after-removing-anagrams"
+  Code = "class Solution:\n    def removeAnagrams(self, words: List[str]) -> List[str]:\n        freqs1, freqs2 = bytearray(26), bytearray(26)\n        res = []\n        for i, word in enumerate(words):\n            for i in range(26):\n                freqs2[i] = 0\n            for char in word:\n                freqs2[ord(char) - 97] += 1\n            if i != 0 and freqs1 == freqs2:\n                continue\n            freqs1, freqs2 = freqs2, freqs1\n            res.append(word)\n        return res"
+  Title = "Find Resultant Array After Removing Anagrams"
+  Url = "/submissions/detail/1739826234/"
+  LangName = "Python3"
+  Timestamp = 1755533493
+  Status = 10
+  Runtime = "8 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

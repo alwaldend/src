@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739983972
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2421
+  TitleSlug = "maximum-number-of-pairs-in-array"
+  Code = "class Solution:\n    def numberOfPairs(self, nums: List[int]) -> List[int]:\n        cnt_pair, cnt_rest = 0, 0\n        nums.sort()\n        length = len(nums)\n        i = 0\n        while i < length:\n            cur = nums[i]\n            nxt = nums[i + 1] if i + 1 < length else -1\n            if nxt == cur:\n                cnt_pair += 1\n                i += 2\n            else:\n                cnt_rest += 1\n                i += 1\n        return cnt_pair, cnt_rest"
+  Title = "Maximum Number of Pairs in Array"
+  Url = "/submissions/detail/1739983972/"
+  LangName = "Python3"
+  Timestamp = 1755540617
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

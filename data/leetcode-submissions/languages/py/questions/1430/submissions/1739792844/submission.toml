@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739792844
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1430
+  TitleSlug = "find-the-k-beauty-of-a-number"
+  Code = "class Solution:\n    def divisorSubstrings(self, num: int, k: int) -> int:\n        digits = []\n        cur_num = num\n        while cur_num > 0:\n            digits.append(cur_num % 10)\n            cur_num //= 10\n        digits.reverse()\n        length = len(digits)\n        if length < k:\n            return 0\n        cur_sum = 0\n        res = 0\n        for i in range(k):\n            cur_sum += digits[i] * (10 ** (k - i - 1))\n        if num % cur_sum == 0:\n            res += 1 \n        i = k\n        while i < length:\n            cur_sum -= digits[i - k] * (10 ** (k - 1))\n            cur_sum = cur_sum * 10 + digits[i]\n            if cur_sum != 0 and num % cur_sum == 0:\n                res += 1\n            i += 1\n        return res"
+  Title = "Find the K-Beauty of a Number"
+  Url = "/submissions/detail/1739792844/"
+  LangName = "Python3"
+  Timestamp = 1755531802
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

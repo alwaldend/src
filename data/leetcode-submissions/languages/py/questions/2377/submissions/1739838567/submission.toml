@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739838567
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2377
+  TitleSlug = "check-if-number-has-equal-digit-count-and-digit-value"
+  Code = "class Solution:\n    def digitCount(self, num: str) -> bool:\n        freqs = [0] * 10\n        for char in num:\n            freqs[int(char)] += 1\n        for i, char in enumerate(num):\n            if freqs[i] != int(char):\n                return False\n        return True"
+  Title = "Check if Number Has Equal Digit Count and Digit Value"
+  Url = "/submissions/detail/1739838567/"
+  LangName = "Python3"
+  Timestamp = 1755534101
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

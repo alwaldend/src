@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739555038
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2331
+  TitleSlug = "intersection-of-multiple-arrays"
+  Code = "class Solution:\n    def intersection(self, nums: List[List[int]]) -> List[int]:\n        enc = set(nums[0])\n        for arr in nums[1:]:\n            enc.intersection_update(arr)\n        return sorted(enc)"
+  Title = "Intersection of Multiple Arrays"
+  Url = "/submissions/detail/1739555038/"
+  LangName = "Python3"
+  Timestamp = 1755517694
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

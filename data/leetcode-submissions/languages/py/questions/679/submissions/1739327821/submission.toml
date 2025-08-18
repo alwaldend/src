@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739327821
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 679
+  TitleSlug = "24-game"
+  Code = "from typing import List\nimport math\n\nclass Solution:\n    def judgePoint24(self, cards: List[int]) -> bool:\n        EPS = 1e-6\n\n        def backtrack(nums: List[float]) -> bool:\n            if len(nums) == 1:\n                return abs(nums[0] - 24.0) < EPS\n\n            n = len(nums)\n            for i in range(n):\n                for j in range(i + 1, n):\n                    rest = [nums[k] for k in range(n) if k != i and k != j]\n                    a, b = nums[i], nums[j]\n\n                    candidates = []\n                    candidates.append(a + b)\n                    candidates.append(a * b)\n                    candidates.append(a - b)\n                    candidates.append(b - a)\n\n                    if abs(b) > EPS:\n                        candidates.append(a / b)\n                    if abs(a) > EPS:\n                        candidates.append(b / a)\n\n                    for x in candidates:\n                        if backtrack(rest + [x]):\n                            return True\n            return False\n\n        return backtrack([float(x) for x in cards])\n"
+  Title = "24 Game"
+  Url = "/submissions/detail/1739327821/"
+  LangName = "Python3"
+  Timestamp = 1755500809
+  Status = 10
+  Runtime = "31 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

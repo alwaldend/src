@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739979170
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2412
+  TitleSlug = "minimum-amount-of-time-to-fill-cups"
+  Code = "class Solution:\n    def fillCups(self, amount: List[int]) -> int:\n        res = 0\n        for i in range(len(amount)):\n            amount[i] = -amount[i]\n        heapq.heapify(amount)\n        while len(amount) > 2:\n            num1, num2 = heapq.heappop(amount), heapq.heappop(amount)\n            if num1 < 0 or num2 < 0:\n                res += 1\n            if num1 < 0:\n                num1 += 1\n                heapq.heappush(amount, num1)\n            if num2 < 0:\n                num2 += 1\n                heapq.heappush(amount, num2)\n        if len(amount) == 1:\n            return res - amount[0]\n        num1, num2 = amount\n        res += min(-num1, -num2) + abs(num1 - num2)\n        return res"
+  Title = "Minimum Amount of Time to Fill Cups"
+  Url = "/submissions/detail/1739979170/"
+  LangName = "Python3"
+  Timestamp = 1755540405
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

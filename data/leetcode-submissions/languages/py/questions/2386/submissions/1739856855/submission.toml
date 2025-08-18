@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739856855
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2386
+  TitleSlug = "min-max-game"
+  Code = "class Solution:\n    def minMaxGame(self, nums: List[int]) -> int:\n        while len(nums) > 1:\n            length = len(nums) // 2\n            for i in range(length):\n                if i % 2 == 0:\n                    nums[i] = min(nums[i * 2], nums[i * 2 + 1])\n                else:\n                    nums[i] = max(nums[i * 2], nums[i * 2 + 1])\n            while len(nums) > length:\n                nums.pop()\n        return nums[0]"
+  Title = "Min Max Game"
+  Url = "/submissions/detail/1739856855/"
+  LangName = "Python3"
+  Timestamp = 1755534970
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

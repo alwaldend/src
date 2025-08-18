@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739504374
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2350
+  TitleSlug = "find-closest-number-to-zero"
+  Code = "class Solution:\n    def findClosestNumber(self, nums: List[int]) -> int:\n        max_diff, max_num = math.inf, 0\n        for num in nums:\n            diff = abs(num)\n            if diff < max_diff or (diff == max_diff and num > max_num):\n                max_diff, max_num = diff, num\n        return max_num"
+  Title = "Find Closest Number to Zero"
+  Url = "/submissions/detail/1739504374/"
+  LangName = "Python3"
+  Timestamp = 1755513886
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

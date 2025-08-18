@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1739574042
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2337
+  TitleSlug = "remove-digit-from-number-to-maximize-result"
+  Code = "class Solution:\n    def removeDigit(self, number: str, digit: str) -> str:\n        last_index = 0\n        digit_int = int(digit)\n        for i in range(1, len(number)):\n            cur, prev = int(number[i]), int(number[i - 1])\n            if prev == digit_int:\n                if cur > prev:\n                    return \"\".join((number[:i-1], number[i:]))\n                else:\n                    last_index = i - 1\n        if number[-1] == digit:\n            last_index = len(number) - 1\n        return \"\".join((number[:last_index], number[last_index + 1:]))"
+  Title = "Remove Digit From Number to Maximize Result"
+  Url = "/submissions/detail/1739574042/"
+  LangName = "Python3"
+  Timestamp = 1755519120
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
