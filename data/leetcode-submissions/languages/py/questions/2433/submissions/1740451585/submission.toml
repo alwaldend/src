@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1740451585
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2433
+  TitleSlug = "best-poker-hand"
+  Code = "class Solution:\n    def bestHand(self, ranks: List[int], suits: List[str]) -> str:\n        ranks.sort()\n        suits.sort()\n        same_suit = 1\n        cur_same_suit = 1\n        same_rank = 1\n        cur_same_rank = 1\n        for i in range(1, len(ranks)):\n            if ranks[i] == ranks[i - 1]:\n                cur_same_rank += 1\n                same_rank = max(same_rank, cur_same_rank)\n            else:\n                cur_same_rank = 1\n            if suits[i] == suits[i - 1]:\n                cur_same_suit += 1\n                same_suit = max(same_suit, cur_same_suit)\n            else:\n                cur_same_suit = 1\n        print(same_suit, same_rank)\n        if same_suit == 5:\n            return \"Flush\"\n        if same_rank >= 3:\n            return \"Three of a Kind\"\n        if same_rank >= 2:\n            return \"Pair\"\n        return \"High Card\""
+  Title = "Best Poker Hand"
+  Url = "/submissions/detail/1740451585/"
+  LangName = "Python3"
+  Timestamp = 1755582774
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1740520975
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2427
+  TitleSlug = "first-letter-to-appear-twice"
+  Code = "class Solution:\n    def repeatedCharacter(self, s: str) -> str:\n        freqs = [0] * 26\n        for char in s:\n            idx = ord(char) - 97\n            freq = freqs[idx] + 1\n            if freq == 2:\n                return char\n            freqs[idx] = freq\n        raise Exception"
+  Title = "First Letter to Appear Twice"
+  Url = "/submissions/detail/1740520975/"
+  LangName = "Python3"
+  Timestamp = 1755586734
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

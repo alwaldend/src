@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1740717028
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2447
+  TitleSlug = "merge-similar-items"
+  Code = "class Solution:\n    def mergeSimilarItems(self, items1: List[List[int]], items2: List[List[int]]) -> List[List[int]]:\n        freqs = [0] * 1001\n        for val, weight in itertools.chain(items1, items2):\n            freqs[val] += weight\n        res = [(num, weight) for num, weight in enumerate(freqs) if weight != 0]\n        return res"
+  Title = "Merge Similar Items"
+  Url = "/submissions/detail/1740717028/"
+  LangName = "Python3"
+  Timestamp = 1755600019
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "18.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

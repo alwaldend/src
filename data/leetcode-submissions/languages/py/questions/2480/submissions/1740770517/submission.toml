@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1740770517
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2480
+  TitleSlug = "find-subarrays-with-equal-sum"
+  Code = "class Solution:\n    def findSubarrays(self, nums: List[int]) -> bool:\n        enc = set()\n        for i in range(1, len(nums)):\n            val = nums[i] + nums[i - 1]\n            if val in enc:\n                return True\n            enc.add(val)\n        return False"
+  Title = "Find Subarrays With Equal Sum"
+  Url = "/submissions/detail/1740770517/"
+  LangName = "Python3"
+  Timestamp = 1755603754
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

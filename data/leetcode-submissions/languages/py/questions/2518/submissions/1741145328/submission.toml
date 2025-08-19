@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1741145328
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2518
+  TitleSlug = "the-employee-that-worked-on-the-longest-task"
+  Code = "class Solution:\n    def hardestWorker(self, n: int, logs: List[List[int]]) -> int:\n        max_id, max_dur = logs[0]\n        for i, (emp_id, leave) in enumerate(logs[1:], 1):\n            dur = leave - logs[i - 1][1]\n            if dur > max_dur:\n                max_id, max_dur = emp_id, dur\n            elif dur == max_dur and emp_id < max_id:\n                max_id = emp_id\n        return max_id"
+  Title = "The Employee That Worked on the Longest Task"
+  Url = "/submissions/detail/1741145328/"
+  LangName = "Python3"
+  Timestamp = 1755623493
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1740806829
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2496
+  TitleSlug = "count-days-spent-together"
+  Code = "class Solution:\n    def countDaysTogether(self, arriveAlice: str, leaveAlice: str, arriveBob: str, leaveBob: str) -> int:\n        months = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]\n        def count(date: str) -> int:\n            month = int(date[:2])\n            days = int(date[3:])\n            return sum(months[:month - 1]) + days\n        return max(0, count(min(leaveAlice, leaveBob)) - count(max(arriveAlice, arriveBob)) + 1)\n    "
+  Title = "Count Days Spent Together"
+  Url = "/submissions/detail/1740806829/"
+  LangName = "Python3"
+  Timestamp = 1755606280
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1740809286
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2491
+  TitleSlug = "smallest-even-multiple"
+  Code = "class Solution:\n    def smallestEvenMultiple(self, n: int) -> int:\n        if n % 2 == 0:\n            return n\n        return n * 2"
+  Title = "Smallest Even Multiple"
+  Url = "/submissions/detail/1740809286/"
+  LangName = "Python3"
+  Timestamp = 1755606444
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

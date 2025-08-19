@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1740601161
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 2495
+  TitleSlug = "number-of-unique-subjects-taught-by-each-teacher"
+  Code = "SELECT\n    teacher_id,\n    COUNT(DISTINCT subject_id) AS \"cnt\"\nFROM\n    Teacher\nGROUP BY\n    teacher_id"
+  Title = "Number of Unique Subjects Taught by Each Teacher"
+  Url = "/submissions/detail/1740601161/"
+  LangName = "PostgreSQL"
+  Timestamp = 1755592452
+  Status = 10
+  Runtime = "567 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111111111"
+  HasNotes = false
+  FlagType = 1

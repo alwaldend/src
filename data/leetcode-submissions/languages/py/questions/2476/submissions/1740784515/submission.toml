@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1740784515
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2476
+  TitleSlug = "check-distances-between-same-letters"
+  Code = "class Solution:\n    def checkDistances(self, s: str, distance: List[int]) -> bool:\n        for i, char in enumerate(s):\n            idx = ord(char) - 97\n            dist = distance[idx]\n            if dist == -1:\n                continue\n            nxt = i + dist + 1\n            if nxt >= len(s) or s[nxt] != char:\n                return False\n            distance[idx] = -1\n        return True"
+  Title = "Check Distances Between Same Letters"
+  Url = "/submissions/detail/1740784515/"
+  LangName = "Python3"
+  Timestamp = 1755604739
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

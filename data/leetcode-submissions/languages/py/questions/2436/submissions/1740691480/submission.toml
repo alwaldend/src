@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1740691480
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2436
+  TitleSlug = "make-array-zero-by-subtracting-equal-amounts"
+  Code = "class Solution:\n    def minimumOperations(self, nums: List[int]) -> int:\n        nums.sort(reverse=True)\n        res = 0\n        while nums:\n            num = nums.pop()\n            if num == 0:\n                continue\n            for i in range(len(nums)):\n                nums[i] = max(0, nums[i] - num)\n            res += 1\n        return res"
+  Title = "Make Array Zero by Subtracting Equal Amounts"
+  Url = "/submissions/detail/1740691480/"
+  LangName = "Python3"
+  Timestamp = 1755598300
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

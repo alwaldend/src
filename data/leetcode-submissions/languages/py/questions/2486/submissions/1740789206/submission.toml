@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1740789206
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2486
+  TitleSlug = "most-frequent-even-element"
+  Code = "class Solution:\n    def mostFrequentEven(self, nums: List[int]) -> int:\n        nums.sort()\n        max_freq, max_freq_num = 0, -1\n        cur_freq = 0\n        prev = -1\n        for num in nums:\n            if num % 2 != 0:\n                continue\n            if num == prev:\n                cur_freq += 1\n            else:\n                cur_freq, prev = 1, num\n            if cur_freq > max_freq:\n                max_freq, max_freq_num = cur_freq, num\n        return max_freq_num"
+  Title = "Most Frequent Even Element"
+  Url = "/submissions/detail/1740789206/"
+  LangName = "Python3"
+  Timestamp = 1755605061
+  Status = 10
+  Runtime = "23 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

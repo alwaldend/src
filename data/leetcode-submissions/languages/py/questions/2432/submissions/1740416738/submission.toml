@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1740416738
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2432
+  TitleSlug = "number-of-zero-filled-subarrays"
+  Code = "class Solution:\n    def zeroFilledSubarray(self, nums: List[int]) -> int:\n        res = 0\n        cur = 0\n        for num in nums:\n            if num == 0:\n                cur += 1\n                res += cur\n            elif cur != 0:\n                cur = 0\n        return res"
+  Title = "Number of Zero-Filled Subarrays"
+  Url = "/submissions/detail/1740416738/"
+  LangName = "Python3"
+  Timestamp = 1755580689
+  Status = 10
+  Runtime = "44 ms"
+  IsPending = "Not Pending"
+  Memory = "28.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

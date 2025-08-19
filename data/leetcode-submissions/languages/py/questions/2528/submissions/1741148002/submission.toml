@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1741148002
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2528
+  TitleSlug = "number-of-valid-clock-times"
+  Code = "class Solution:\n    def countTime(self, time: str) -> int:\n        hh, mm = time.split(':')\n        count_possible_hours = 1\n        if (hh == '??'):\n            count_possible_hours = 24\n        elif (hh[0] == '?' and int(hh[1]) >= 4):\n            count_possible_hours = 2\n        elif (hh[0] == '?' and int(hh[1]) <= 4):\n            count_possible_hours = 3\n        elif (int(hh[0]) <= 1 and hh[1] == '?'):\n            count_possible_hours = 10\n        elif (int(hh[0]) == 2 and hh[1] == '?'):\n            count_possible_hours = 4\n        count_possible_minutes = 1\n        if (mm == '??'):\n            count_possible_minutes = 60\n        elif (mm[0] == '?'):\n            count_possible_minutes = 6\n        elif (mm[1] == '?'):\n            count_possible_minutes = 10\n        return count_possible_hours * count_possible_minutes"
+  Title = "Number of Valid Clock Times"
+  Url = "/submissions/detail/1741148002/"
+  LangName = "Python3"
+  Timestamp = 1755623605
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

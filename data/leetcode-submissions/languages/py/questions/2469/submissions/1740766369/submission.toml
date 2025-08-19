@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1740766369
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2469
+  TitleSlug = "longest-subsequence-with-limited-sum"
+  Code = "class Solution:\n    def answerQueries(self, nums: List[int], queries: List[int]) -> List[int]:\n        nums.sort()\n        for i in range(1, len(nums)):\n            nums[i] += nums[i - 1]\n        for i in range(len(queries)):\n            target = queries[i]\n            count = 0\n            for num in nums:\n                if num <= target:\n                    count += 1\n                else:\n                    break\n            queries[i] = count\n        return queries"
+  Title = "Longest Subsequence With Limited Sum"
+  Url = "/submissions/detail/1740766369/"
+  LangName = "Python3"
+  Timestamp = 1755603455
+  Status = 10
+  Runtime = "80 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

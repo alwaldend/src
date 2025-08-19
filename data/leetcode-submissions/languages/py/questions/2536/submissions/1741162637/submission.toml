@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1741162637
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2536
+  TitleSlug = "determine-if-two-events-have-conflict"
+  Code = "class Solution:\n    def haveConflict(self, event1: List[str], event2: List[str]) -> bool:\n        def parse(clock: str) -> int:\n            hh, mm = clock[:2], clock[2:]\n            return hh * 60 + mm\n        start1, end1 = map(parse, event1)\n        start2, end2 = map(parse, event2)\n        if start1 == start2:\n            return True\n        if start1 > start2:\n            return start1 <= end2\n        return end1 >= start2"
+  Title = "Determine if Two Events Have Conflict"
+  Url = "/submissions/detail/1741162637/"
+  LangName = "Python3"
+  Timestamp = 1755624226
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

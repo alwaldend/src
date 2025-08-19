@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1740738143
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2463
+  TitleSlug = "minimum-recolors-to-get-k-consecutive-black-blocks"
+  Code = "class Solution:\n    def minimumRecolors(self, blocks: str, k: int) -> int:\n        left = 0\n        num_whites = 0\n        num_recolors = math.inf\n        for right in range(len(blocks)):\n            if blocks[right] == \"W\":\n                num_whites += 1\n            if right - left + 1 == k:\n                num_recolors = min(num_recolors, num_whites)\n                if blocks[left] == \"W\":\n                    num_whites -= 1\n                left += 1\n        return num_recolors"
+  Title = "Minimum Recolors to Get K Consecutive Black Blocks"
+  Url = "/submissions/detail/1740738143/"
+  LangName = "Python3"
+  Timestamp = 1755601471
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

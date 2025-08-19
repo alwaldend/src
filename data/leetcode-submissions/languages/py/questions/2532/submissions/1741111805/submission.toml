@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1741111805
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2532
+  TitleSlug = "remove-letter-to-equalize-frequency"
+  Code = "class Solution:\n    def equalFrequency(self, word: str) -> bool:\n        freqs1, freqs2 = defaultdict(int), defaultdict(int)\n        for char in word:\n            freqs1[char] += 1\n        for freq in freqs1.values():\n            freqs2[freq] += 1\n        if len(freqs2) == 1:\n            return next(iter(freqs2.keys())) == 1 or next(iter(freqs2.values())) == 1\n        if len(freqs2) == 2:\n            f1, f2 = min(freqs2.keys()), max(freqs2.keys())\n            return (\n                f1 + 1 == f2 and freqs2[f2] == 1\n            ) or (\n                f1 == 1 and freqs2[f1] == 1\n            )\n        return False"
+  Title = "Remove Letter To Equalize Frequency"
+  Url = "/submissions/detail/1741111805/"
+  LangName = "Python3"
+  Timestamp = 1755622067
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

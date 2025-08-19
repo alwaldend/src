@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1740759319
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2459
+  TitleSlug = "minimum-hours-of-training-to-win-a-competition"
+  Code = "class Solution:\n    def minNumberOfHours(self, initialEnergy: int, initialExperience: int, energy: List[int], experience: List[int]) -> int:\n        res = max(0, sum(energy) - initialEnergy + 1)\n        for exp in experience:\n            if initialExperience <= exp:\n                diff = exp - initialExperience + 1\n                res += diff\n                initialExperience += diff\n            initialExperience += exp\n        return res\n\n\n"
+  Title = "Minimum Hours of Training to Win a Competition"
+  Url = "/submissions/detail/1740759319/"
+  LangName = "Python3"
+  Timestamp = 1755602940
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
