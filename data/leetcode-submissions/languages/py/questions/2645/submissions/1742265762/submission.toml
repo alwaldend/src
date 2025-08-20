@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742265762
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2645
+  TitleSlug = "pass-the-pillow"
+  Code = "class Solution:\n    def passThePillow(self, n, time):\n        full_rounds = time // (n - 1)\n        extra_time = time % (n - 1)\n        if full_rounds % 2 == 0:\n            return extra_time + 1\n        else:\n            return n - extra_time"
+  Title = "Pass the Pillow"
+  Url = "/submissions/detail/1742265762/"
+  LangName = "Python3"
+  Timestamp = 1755706954
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

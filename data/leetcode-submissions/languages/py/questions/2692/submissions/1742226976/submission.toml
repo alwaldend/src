@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742226976
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2692
+  TitleSlug = "take-gifts-from-the-richest-pile"
+  Code = "class Solution:\n    def pickGifts(self, gifts: List[int], k: int) -> int:\n        for i in range(len(gifts)):\n            gifts[i] = -gifts[i]\n        heapq.heapify(gifts)\n        for _ in range(k):\n            val = int(math.sqrt(-heapq.heappop(gifts)))\n            heapq.heappush(gifts, -val)\n        return -sum(gifts)"
+  Title = "Take Gifts From the Richest Pile"
+  Url = "/submissions/detail/1742226976/"
+  LangName = "Python3"
+  Timestamp = 1755704952
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

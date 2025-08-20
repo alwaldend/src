@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1741908237
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2561
+  TitleSlug = "number-of-distinct-averages"
+  Code = "class Solution:\n    def distinctAverages(self, nums: List[int]) -> int:\n        nums.sort()\n        freqs = [False] * 201\n        n = len(nums)\n        res = 0\n        for i in range(n // 2 + 1):\n            freq = nums[i] + nums[n - i - 1]\n            if not freqs[freq]:\n                res += 1\n                freqs[freq] = True\n        return res"
+  Title = "Number of Distinct Averages"
+  Url = "/submissions/detail/1741908237/"
+  LangName = "Python3"
+  Timestamp = 1755684828
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

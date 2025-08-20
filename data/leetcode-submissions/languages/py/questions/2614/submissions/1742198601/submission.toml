@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742198601
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2614
+  TitleSlug = "maximum-count-of-positive-integer-and-negative-integer"
+  Code = "class Solution:\n    def maximumCount(self, nums: List[int]) -> int:\n        left, right = 0, len(nums) - 1\n        start_neg, start_pos = -1, len(nums)\n        while left <= right:\n            mid = left + (right - left) // 2\n            if nums[mid] >= 0:\n                right = mid - 1\n            else:\n                start_neg = mid\n                left = mid + 1\n        left, right = start_neg + 1, len(nums) - 1\n        while left <= right:\n            mid = left + (right - left) // 2\n            if nums[mid] > 0:\n                start_pos = mid\n                right = mid - 1\n            else:\n                left = mid + 1\n        return max(start_neg + 1, len(nums) - start_pos)"
+  Title = "Maximum Count of Positive Integer and Negative Integer"
+  Url = "/submissions/detail/1742198601/"
+  LangName = "Python3"
+  Timestamp = 1755703387
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

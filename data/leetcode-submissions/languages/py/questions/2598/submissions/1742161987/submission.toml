@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742161987
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2598
+  TitleSlug = "shortest-distance-to-target-string-in-a-circular-array"
+  Code = "class Solution:\n    def closestTarget(self, words: List[str], target: str, startIndex: int) -> int:\n        n = len(words)\n        for i in range(n):\n            left, right = (startIndex - i + n) % n, (startIndex + i) % n\n            if words[left] == target or words[right] == target:\n                return i\n        return -1"
+  Title = "Shortest Distance to Target String in a Circular Array"
+  Url = "/submissions/detail/1742161987/"
+  LangName = "Python3"
+  Timestamp = 1755701272
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

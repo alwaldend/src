@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742157347
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2602
+  TitleSlug = "maximum-enemy-forts-that-can-be-captured"
+  Code = "class Solution:\n    def captureForts(self, forts: List[int]) -> int:\n        start = None\n        max_capt = 0\n        for i, fort in enumerate(forts):\n            if fort == 0:\n                continue\n            if start is None:\n                start = i\n                continue\n            start_val = forts[start]\n            if (start_val == 1 and fort == -1) or (start_val == -1 and fort == 1):\n                max_capt = max(max_capt, i - start - 1)\n            start = i\n        return max_capt"
+  Title = "Maximum Enemy Forts That Can Be Captured"
+  Url = "/submissions/detail/1742157347/"
+  LangName = "Python3"
+  Timestamp = 1755701004
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

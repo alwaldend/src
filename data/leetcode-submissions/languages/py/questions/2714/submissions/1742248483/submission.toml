@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742248483
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2714
+  TitleSlug = "left-and-right-sum-differences"
+  Code = "class Solution:\n    def leftRightDifference(self, nums: List[int]) -> List[int]:\n        left, right = 0, sum(nums)\n        for i in range(len(nums)):\n            val = nums[i]\n            right -= val\n            nums[i] = abs(left - right)\n            left += val\n        return nums"
+  Title = "Left and Right Sum Differences"
+  Url = "/submissions/detail/1742248483/"
+  LangName = "Python3"
+  Timestamp = 1755706079
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

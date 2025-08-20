@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742003465
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2585
+  TitleSlug = "delete-greatest-value-in-each-row"
+  Code = "class Solution:\n    def deleteGreatestValue(self, grid: List[List[int]]) -> int:\n        for row in grid:\n            row.sort()\n        res = 0\n        for _ in range(len(grid[0])):\n            cur_sum = 0\n            for row in grid:\n                cur_sum = max(cur_sum, row.pop())\n            res += cur_sum\n        return res"
+  Title = "Delete Greatest Value in Each Row"
+  Url = "/submissions/detail/1742003465/"
+  LangName = "Python3"
+  Timestamp = 1755691742
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742252341
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2650
+  TitleSlug = "split-with-minimum-sum"
+  Code = "class Solution:\n    def splitNum(self, num: int) -> int:\n        count = 0\n        digits = []\n        while num > 0:\n            digits.append(num % 10)\n            num //= 10\n        digits.sort()\n        res = 0\n        while digits:\n            for _ in range(2):\n                if digits:    \n                    res += digits.pop() * (10 ** count)\n            count += 1\n        return res"
+  Title = "Split With Minimum Sum"
+  Url = "/submissions/detail/1742252341/"
+  LangName = "Python3"
+  Timestamp = 1755706273
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

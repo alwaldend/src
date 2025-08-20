@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742171930
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2619
+  TitleSlug = "categorize-box-according-to-criteria"
+  Code = "class Solution:\n    def categorizeBox(self, length: int, width: int, height: int, mass: int) -> str:\n        is_bulky = (\n            max(length, width, height) >= 10 ** 4\n            or length * width * height >= 10 ** 9\n        )\n        is_heavy = mass >= 100\n        if is_bulky and is_heavy:\n            return \"Both\"\n        if is_bulky and not is_heavy:\n            return \"Bulky\"\n        if is_heavy and not is_bulky:\n            return \"Heavy\"\n        return \"Neither\"\n        "
+  Title = "Categorize Box According to Criteria"
+  Url = "/submissions/detail/1742171930/"
+  LangName = "Python3"
+  Timestamp = 1755701827
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

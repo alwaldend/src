@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1741881482
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2542
+  TitleSlug = "average-value-of-even-numbers-that-are-divisible-by-three"
+  Code = "class Solution:\n    def averageValue(self, nums: List[int]) -> int:\n        res = 0\n        cnt = 0\n        for num in nums:\n            if num % 2 == 0 and num % 3 == 0:\n                cnt += 1\n                res += num\n        if cnt == 0:\n            return 0\n        return res // cnt"
+  Title = "Average Value of Even Numbers That Are Divisible by Three"
+  Url = "/submissions/detail/1741881482/"
+  LangName = "Python3"
+  Timestamp = 1755682989
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

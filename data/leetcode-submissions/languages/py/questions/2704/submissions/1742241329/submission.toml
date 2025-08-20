@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742241329
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2704
+  TitleSlug = "maximum-difference-by-remapping-a-digit"
+  Code = "class Solution:\n    def minMaxDifference(self, num: int) -> int:\n        s = str(num)\n        t = s\n        pos = 0\n        while pos < len(s) and s[pos] == \"9\":\n            pos += 1\n        if pos < len(s):\n            s = s.replace(s[pos], \"9\")\n        t = t.replace(t[0], \"0\")\n        return int(s) - int(t)"
+  Title = "Maximum Difference by Remapping a Digit"
+  Url = "/submissions/detail/1742241329/"
+  LangName = "Python3"
+  Timestamp = 1755705715
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

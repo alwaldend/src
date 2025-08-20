@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1741850417
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1402
+  TitleSlug = "count-square-submatrices-with-all-ones"
+  Code = "class Solution:\n    def countSquares(self, matrix: List[List[int]]) -> int:\n        rows, cols = len(matrix), len(matrix[0])\n        dp = [[0] * (cols + 1) for _ in range(rows + 1)]\n        res = 0\n        for row in range(rows):\n            for col in range(cols):\n                val = matrix[row][col]\n                if val == 0:\n                    continue\n                dp_row, dp_col = row + 1, col + 1\n                dp_val = min(\n                    dp[dp_row - 1][dp_col], \n                    dp[dp_row][dp_col - 1], \n                    dp[dp_row - 1][dp_col - 1]\n                ) + 1\n                dp[dp_row][dp_col] = dp_val\n                res += dp_val\n        return res"
+  Title = "Count Square Submatrices with All Ones"
+  Url = "/submissions/detail/1741850417/"
+  LangName = "Python3"
+  Timestamp = 1755680893
+  Status = 10
+  Runtime = "62 ms"
+  IsPending = "Not Pending"
+  Memory = "20.4 MB"
+  CompareResult = "11111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

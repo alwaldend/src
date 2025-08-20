@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742162812
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2608
+  TitleSlug = "count-the-digits-that-divide-a-number"
+  Code = "class Solution:\n    def countDigits(self, num: int) -> int:\n        cur = num\n        res = 0\n        while cur > 0:\n            dig = cur % 10\n            if num % dig == 0:\n                res += 1\n            cur //= 10\n        return res"
+  Title = "Count the Digits That Divide a Number"
+  Url = "/submissions/detail/1742162812/"
+  LangName = "Python3"
+  Timestamp = 1755701318
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

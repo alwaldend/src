@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1741928527
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2566
+  TitleSlug = "number-of-unequal-triplets-in-array"
+  Code = "class Solution:\n    def unequalTriplets(self, nums: List[int]) -> int:\n        freqs = [0] * 1001\n        for num in nums:\n            freqs[num] += 1\n        res = 0\n        left = 0\n        right = len(nums)\n        for freq in freqs:\n            if freq == 0:\n                continue\n            right -= freq\n            res += left * freq * right\n            left += freq\n        return res"
+  Title = "Number of Unequal Triplets in Array"
+  Url = "/submissions/detail/1741928527/"
+  LangName = "Python3"
+  Timestamp = 1755686218
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

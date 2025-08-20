@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1741911120
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2556
+  TitleSlug = "convert-the-temperature"
+  Code = "class Solution:\n    def convertTemperature(self, celsius: float) -> List[float]:\n        return (celsius + 273.15, (celsius * 1.80 + 32.00))"
+  Title = "Convert the Temperature"
+  Url = "/submissions/detail/1741911120/"
+  LangName = "Python3"
+  Timestamp = 1755685015
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742136013
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2594
+  TitleSlug = "count-pairs-of-similar-strings"
+  Code = "class Solution:\n    def similarPairs(self, words: List[str]) -> int:\n        freqs = defaultdict(int)\n        res = 0\n        for word in words:\n            freq = 0\n            for char in word:\n                freq |= 1 << (ord(char) - 97)\n            res += freqs[freq]\n            freqs[freq] += 1\n        return res"
+  Title = "Count Pairs Of Similar Strings"
+  Url = "/submissions/detail/1742136013/"
+  LangName = "Python3"
+  Timestamp = 1755699809
+  Status = 10
+  Runtime = "20 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

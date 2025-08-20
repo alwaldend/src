@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742223081
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2639
+  TitleSlug = "separate-the-digits-in-an-array"
+  Code = "class Solution:\n    def separateDigits(self, nums: List[int]) -> List[int]:\n        res = []\n        cur = []\n        for num in nums:\n            while num > 0:\n                cur.append(num % 10)\n                num //= 10\n            cur.reverse()\n            res.extend(cur)\n            cur.clear()\n        return res"
+  Title = "Separate the Digits in an Array"
+  Url = "/submissions/detail/1742223081/"
+  LangName = "Python3"
+  Timestamp = 1755704747
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

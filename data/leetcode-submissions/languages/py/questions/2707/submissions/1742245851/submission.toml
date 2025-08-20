@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742245851
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2707
+  TitleSlug = "merge-two-2d-arrays-by-summing-values"
+  Code = "class Solution:\n    def mergeArrays(self, nums1: List[List[int]], nums2: List[List[int]]) -> List[List[int]]:\n        freqs = [0] * 1001\n        for idx, val in itertools.chain(nums1, nums2):\n            freqs[idx] += val\n        res = []\n        for i, freq in enumerate(freqs):\n            if freq > 0:\n                res.append((i, freq))\n        return res"
+  Title = "Merge Two 2D Arrays by Summing Values"
+  Url = "/submissions/detail/1742245851/"
+  LangName = "Python3"
+  Timestamp = 1755705944
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

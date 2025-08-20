@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742204506
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2630
+  TitleSlug = "alternating-digit-sum"
+  Code = "class Solution:\n    def alternateDigitSum(self, n: int) -> int:\n        sign = 1\n        count = 0\n        res = 0\n        while n > 0: \n            res += (n % 10) * sign\n            sign *= -1\n            count += 1\n            n //= 10\n        if count % 2 == 0:\n            return -res\n        return res"
+  Title = "Alternating Digit Sum"
+  Url = "/submissions/detail/1742204506/"
+  LangName = "Python3"
+  Timestamp = 1755703715
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742221077
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2679
+  TitleSlug = "count-distinct-numbers-on-board"
+  Code = "class Solution:\n    def distinctIntegers(self, n: int) -> int:\n        if n == 1:\n            return 1\n        return n - 1"
+  Title = "Count Distinct Numbers on Board"
+  Url = "/submissions/detail/1742221077/"
+  LangName = "Python3"
+  Timestamp = 1755704640
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

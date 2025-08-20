@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1741876940
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2547
+  TitleSlug = "odd-string-difference"
+  Code = "class Solution:\n    def oddString(self, words: List[str]) -> str:\n        freq1, freq2, cur = None, None, []\n        freq1_word, freq2_word = None, None\n        freq1_cnt, freq2_cnt = 0, 0\n        for word in words:\n            for i in range(1, len(word)):\n                cur.append(ord(word[i]) - ord(word[i - 1]))\n            if freq1 is None:\n                freq1, freq1_word, freq1_cnt = cur, word, 1\n                cur = []\n            elif cur == freq1:\n                freq1_cnt += 1\n            elif freq2 is None:\n                freq2, freq2_word, freq2_cnt = cur, word, 1\n                cur = []\n            elif cur == freq2:\n                freq2_cnt += 1\n            cur.clear()\n            if min(freq1_cnt, freq2_cnt) == 1 and max(freq1_cnt, freq2_cnt) > 1:\n                if freq1_cnt == 1:\n                    return freq1_word\n                return freq2_word\n        raise Exception"
+  Title = "Odd String Difference"
+  Url = "/submissions/detail/1741876940/"
+  LangName = "Python3"
+  Timestamp = 1755682683
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "1111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

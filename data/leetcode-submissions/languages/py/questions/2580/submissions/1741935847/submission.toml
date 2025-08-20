@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1741935847
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2580
+  TitleSlug = "circular-sentence"
+  Code = "class Solution:\n    def isCircularSentence(self, sentence: str) -> bool:\n        if sentence[0] != sentence[-1]:\n            return False\n        for i, char in enumerate(sentence):\n            if char == \" \" and sentence[i - 1] != sentence[i + 1]:\n                return False\n        return True\n            "
+  Title = "Circular Sentence"
+  Url = "/submissions/detail/1741935847/"
+  LangName = "Python3"
+  Timestamp = 1755686738
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

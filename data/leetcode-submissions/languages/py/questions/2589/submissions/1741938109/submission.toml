@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1741938109
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2589
+  TitleSlug = "maximum-value-of-a-string-in-an-array"
+  Code = "class Solution:\n    def maximumValue(self, strs: List[str]) -> int:\n        max_val = 0\n        for s in strs:\n            if s.isdigit():\n                val = int(s)\n            else:\n                val = len(s)\n            if val > max_val:\n                max_val = val\n        return max_val"
+  Title = "Maximum Value of a String in an Array"
+  Url = "/submissions/detail/1741938109/"
+  LangName = "Python3"
+  Timestamp = 1755686896
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
