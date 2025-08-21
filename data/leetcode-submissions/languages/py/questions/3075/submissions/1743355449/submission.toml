@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743355449
+  StatusDisplay = "Accepted"
+  Lang = "pythondata"
+  QuestionId = 3075
+  TitleSlug = "drop-missing-data"
+  Code = "import pandas as pd\n\ndef dropMissingData(students: pd.DataFrame) -> pd.DataFrame:\n    students.dropna(subset=['name'], inplace=True)\n    return students"
+  Title = "Drop Missing Data"
+  Url = "/submissions/detail/1743355449/"
+  LangName = "Pandas"
+  Timestamp = 1755789882
+  Status = 10
+  Runtime = "297 ms"
+  IsPending = "Not Pending"
+  Memory = "67.2 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

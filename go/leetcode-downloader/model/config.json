@@ -7,8 +7,13 @@
   "submissions": {
     "python": {
       "dir": "data/leetcode-submissions/languages/py",
-      "types": ["python3", "python"],
+      "types": ["python3", "python", "pythondata"],
       "extension": "py"
+    },
+    "javascript": {
+      "dir": "data/leetcode-submissions/languages/js",
+      "types": ["javascript"],
+      "extension": "js"
     },
     "golang": {
       "dir": "data/leetcode-submissions/languages/go",

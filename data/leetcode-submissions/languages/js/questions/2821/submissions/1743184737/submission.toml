@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743184737
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2821
+  TitleSlug = "timeout-cancellation"
+  Code = "/**\n * @param {Function} fn\n * @param {Array} args\n * @param {number} t\n * @return {Function}\n */\nconst cancellable = function(fn, args, t) {\n    const timer = setTimeout(() => {\n        fn(...args)\n    }, t);\n    const cancelFn = function() {\n        clearTimeout(timer);\n    };\n    return cancelFn;\n};\n\n\n/**\n *  const result = []\n *\n *  const fn = (x) => x * 5\n *  const args = [2], t = 20, cancelT = 50\n *\n *  const log = (...argsArr) => {\n *      result.push(fn(...argsArr))\n *  }\n *       \n *  const cancel = cancellable(fn, args, t);\n *           \n *  setTimeout(() => {\n *     cancel()\n *     console.log(result) // [{\"time\":20,\"returned\":10}]\n *  }, cancelT)\n */"
+  Title = "Timeout Cancellation"
+  Url = "/submissions/detail/1743184737/"
+  LangName = "JavaScript"
+  Timestamp = 1755780165
+  Status = 10
+  Runtime = "59 ms"
+  IsPending = "Not Pending"
+  Memory = "54 MB"
+  CompareResult = "11111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

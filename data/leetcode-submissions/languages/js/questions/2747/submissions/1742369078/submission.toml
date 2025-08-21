@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742369078
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2747
+  TitleSlug = "apply-transform-over-each-element-in-array"
+  Code = "/**\n * @param {number[]} arr\n * @param {Function} fn\n * @return {number[]}\n */\nvar map = function(arr, fn) {\n  const transformedArr = [];\n  let index = 0;\n  for (const element of arr) {\n    transformedArr[index] = fn(element, index);\n    index++;\n  }\n  return transformedArr;\n};"
+  Title = "Apply Transform Over Each Element in Array"
+  Url = "/submissions/detail/1742369078/"
+  LangName = "JavaScript"
+  Timestamp = 1755711668
+  Status = 10
+  Runtime = "39 ms"
+  IsPending = "Not Pending"
+  Memory = "51.8 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

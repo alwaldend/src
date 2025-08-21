@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742350049
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2732
+  TitleSlug = "counter"
+  Code = "/**\n * @param {number} n\n * @return {Function} counter\n */\nvar createCounter = function(n) {\n    val = n - 1;\n    return function() {\n        val += 1;\n        return val;\n    };\n};\n\n/** \n * const counter = createCounter(10)\n * counter() // 10\n * counter() // 11\n * counter() // 12\n */"
+  Title = "Counter"
+  Url = "/submissions/detail/1742350049/"
+  LangName = "JavaScript"
+  Timestamp = 1755710817
+  Status = 10
+  Runtime = "44 ms"
+  IsPending = "Not Pending"
+  Memory = "53 MB"
+  CompareResult = "11111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743087899
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2675
+  TitleSlug = "find-the-width-of-columns-of-a-grid"
+  Code = "class Solution:\n    def findColumnWidth(self, grid: List[List[int]]) -> List[int]:\n        res = []\n        for col in range(len(grid[0])):\n            max_len = 0\n            for row in range(len(grid)):\n                val = grid[row][col]\n                if val == 0:\n                    count = 1\n                elif val < 0:\n                    count = 1\n                    val = -val\n                else:\n                    count = 0\n                while val > 0:\n                    count += 1\n                    val //= 10\n                max_len = max(max_len, count)\n            res.append(max_len)\n        return res"
+  Title = "Find the Width of Columns of a Grid"
+  Url = "/submissions/detail/1743087899/"
+  LangName = "Python3"
+  Timestamp = 1755772848
+  Status = 10
+  Runtime = "24 ms"
+  IsPending = "Not Pending"
+  Memory = "19 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

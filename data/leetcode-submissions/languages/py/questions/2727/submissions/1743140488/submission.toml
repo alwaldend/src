@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743140488
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2727
+  TitleSlug = "number-of-senior-citizens"
+  Code = "class Solution:\n    def countSeniors(self, details: List[str]) -> int:\n        count = 0\n        for detail in details:\n            if int(detail[-4:-2]) > 60:\n                count += 1\n        return count"
+  Title = "Number of Senior Citizens"
+  Url = "/submissions/detail/1743140488/"
+  LangName = "Python3"
+  Timestamp = 1755776830
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

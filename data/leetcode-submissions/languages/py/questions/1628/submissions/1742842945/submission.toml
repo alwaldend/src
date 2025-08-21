@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742842945
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1628
+  TitleSlug = "count-submatrices-with-all-ones"
+  Code = "class Solution:\n    def numSubmat(self, mat: List[List[int]]) -> int:\n        heights = [0] * len(mat[0])\n        res = 0\n        for row in mat:\n            for i, x in enumerate(row):\n                heights[i] = 0 if x == 0 else heights[i] + 1\n            stack = [[-1, 0, -1]]\n            for i, h in enumerate(heights):\n                while stack[-1][2] >= h:\n                    stack.pop()\n                j, prev, _ = stack[-1]\n                cur = prev + (i - j) * h\n                stack.append([i, cur, h])\n                res += cur\n        return res"
+  Title = "Count Submatrices With All Ones"
+  Url = "/submissions/detail/1742842945/"
+  LangName = "Python3"
+  Timestamp = 1755755541
+  Status = 10
+  Runtime = "30 ms"
+  IsPending = "Not Pending"
+  Memory = "18.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

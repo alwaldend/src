@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743325922
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3044
+  TitleSlug = "minimum-operations-to-collect-elements"
+  Code = "class Solution:\n    def minOperations(self, nums: List[int], k: int) -> int:\n        enc = [False] * (k + 1)\n        res = 0\n        rem = k\n        for num in reversed(nums):\n            res += 1\n            if 1 <= num <= k and not enc[num]:\n                enc[num] = True\n                rem -= 1\n                if rem == 0:\n                    return res\n        raise Exception"
+  Title = "Minimum Operations to Collect Elements"
+  Url = "/submissions/detail/1743325922/"
+  LangName = "Python3"
+  Timestamp = 1755788180
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

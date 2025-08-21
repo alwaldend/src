@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742362646
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2741
+  TitleSlug = "function-composition"
+  Code = "/**\n * @param {Function[]} functions\n * @return {Function}\n */\nvar compose = function(functions) {\n\tif (functions.length === 0) {\n        return function(x) { return x; };\n    }\n    return functions.reduceRight(function(prevFn, nextFn) {\n        return function(x) {\n            return nextFn(prevFn(x));\n        };\n    });\n};"
+  Title = "Function Composition"
+  Url = "/submissions/detail/1742362646/"
+  LangName = "JavaScript"
+  Timestamp = 1755711378
+  Status = 10
+  Runtime = "62 ms"
+  IsPending = "Not Pending"
+  Memory = "53.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

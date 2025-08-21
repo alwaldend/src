@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743365626
+  StatusDisplay = "Accepted"
+  Lang = "pythondata"
+  QuestionId = 3068
+  TitleSlug = "rename-columns"
+  Code = "import pandas as pd\n\ndef renameColumns(students: pd.DataFrame) -> pd.DataFrame:\n    students = students.rename(\n        columns={\n            \"id\": \"student_id\",\n            \"first\": \"first_name\",\n            \"last\": \"last_name\",\n            \"age\": \"age_in_years\",\n        }\n    )\n    return students\n"
+  Title = "Rename Columns"
+  Url = "/submissions/detail/1743365626/"
+  LangName = "Pandas"
+  Timestamp = 1755790471
+  Status = 10
+  Runtime = "296 ms"
+  IsPending = "Not Pending"
+  Memory = "66.4 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

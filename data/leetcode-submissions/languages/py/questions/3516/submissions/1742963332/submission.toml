@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742963332
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3516
+  TitleSlug = "design-neighbor-sum-service"
+  Code = "class NeighborSum:\n\n    def __init__(self, grid: List[List[int]]):\n        self._adj = [0] * 101\n        self._diag = [0] * 101\n        rows, cols = len(grid), len(grid[0])\n        adj_moves = ((0, 1), (0, -1), (-1, 0), (1, 0))\n        diag_moves = ((-1, -1), (-1, 1), (1, -1), (1, 1))\n        for row in range(rows):\n            for col in range(cols):\n                val = grid[row][col]\n                for row_dlt, col_dlt in adj_moves:\n                    adj_row, adj_col = row + row_dlt, col + col_dlt\n                    if 0 <= adj_row < rows and 0 <= adj_col < cols:\n                        self._adj[grid[adj_row][adj_col]] += val\n                for row_dlt, col_dlt in diag_moves:\n                    diag_row, diag_col = row + row_dlt, col + col_dlt\n                    if 0 <= diag_row < rows and 0 <= diag_col < cols:\n                        self._diag[grid[diag_row][diag_col]] += val\n\n    def adjacentSum(self, value: int) -> int:\n        return self._adj[value]\n\n    def diagonalSum(self, value: int) -> int:\n        return self._diag[value]\n\n\n# Your NeighborSum object will be instantiated and called as such:\n# obj = NeighborSum(grid)\n# param_1 = obj.adjacentSum(value)\n# param_2 = obj.diagonalSum(value)"
+  Title = "Design Neighbor Sum Service"
+  Url = "/submissions/detail/1742963332/"
+  LangName = "Python3"
+  Timestamp = 1755763710
+  Status = 10
+  Runtime = "45 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

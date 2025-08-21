@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742356253
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2761
+  TitleSlug = "array-reduce-transformation"
+  Code = "/**\n * @param {number[]} nums\n * @param {Function} fn\n * @param {number} init\n * @return {number}\n */\nvar reduce = function(nums, fn, init) {\n    let res = init;\n    for (const num of nums) {\n        res = fn(res, num);\n    }\n    return res;\n};"
+  Title = "Array Reduce Transformation"
+  Url = "/submissions/detail/1742356253/"
+  LangName = "JavaScript"
+  Timestamp = 1755711093
+  Status = 10
+  Runtime = "32 ms"
+  IsPending = "Not Pending"
+  Memory = "54.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

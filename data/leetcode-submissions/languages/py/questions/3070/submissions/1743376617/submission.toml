@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743376617
+  StatusDisplay = "Accepted"
+  Lang = "pythondata"
+  QuestionId = 3070
+  TitleSlug = "fill-missing-data"
+  Code = "import pandas as pd\n\ndef fillMissingValues(products: pd.DataFrame) -> pd.DataFrame:\n    products['quantity'].fillna(0, inplace=True)\n    return products\n"
+  Title = "Fill Missing Data"
+  Url = "/submissions/detail/1743376617/"
+  LangName = "Pandas"
+  Timestamp = 1755791102
+  Status = 10
+  Runtime = "292 ms"
+  IsPending = "Not Pending"
+  Memory = "66.2 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743382313
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3165
+  TitleSlug = "find-indices-with-index-and-value-difference-i"
+  Code = "class Solution:\n    def findIndices(self, A: List[int], d: int, valueDifference: int) -> List[int]:\n        mini = maxi = 0\n        for i in range(d, len(A)):\n            if A[i - d] < A[mini]: \n                mini = i - d\n            if A[i - d] > A[maxi]: \n                maxi = i - d\n            if A[i] - A[mini] >= valueDifference: \n                return [mini, i]\n            if A[maxi] - A[i] >= valueDifference: \n                return [maxi, i]\n        return [-1, -1]"
+  Title = "Find Indices With Index and Value Difference I"
+  Url = "/submissions/detail/1743382313/"
+  LangName = "Python3"
+  Timestamp = 1755791421
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

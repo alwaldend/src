@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743080258
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 307
+  TitleSlug = "range-sum-query-mutable"
+  Code = "class TreeNode:\n    def __init__(self, val, start, end, left_child = None, right_child = None):\n        self.val = val\n        self.start = start\n        self.end = end\n        self.left_child = left_child\n        self.right_child = right_child\n        \nclass SegmentTree:\n    def __init__(self, nums):\n        self.nums = nums\n        self.root = self.build(0, len(nums) - 1)\n    \n    def build(self, start, end):\n        if start == end:\n            return TreeNode(self.nums[start], start, end)\n        left_child = self.build(start, (start + end) //2)\n        right_child = self.build((start+end) // 2 + 1, end)\n        return TreeNode(left_child.val + right_child.val, start, end, left_child, right_child)\n    \n    def update(self, root, index, value):\n        if root.start == root.end and index == root.start: # target\n            root.val = value\n            return value\n        if root.start > index or root.end < index:\n            return root.val\n        root.val = self.update(root.left_child, index, value) + self.update(root.right_child, index, value)\n        return root.val\n\n    def query(self, root, left, right):\n        if root.start > right or root.end < left: return 0\n        if root.start >= left and root.end <= right: return root.val\n        return self.query(root.left_child, left, right) + self.query(root.right_child, left, right)\n\nclass NumArray:\n    def __init__(self, nums: List[int]):\n        self.tree = SegmentTree(nums)\n        self.root = self.tree.root\n\n    def update(self, index: int, val: int) -> None:\n        self.tree.update(self.root, index, val)\n\n    def sumRange(self, left: int, right: int) -> int:\n        return self.tree.query(self.root, left, right)\n\n"
+  Title = "Range Sum Query - Mutable"
+  Url = "/submissions/detail/1743080258/"
+  LangName = "Python3"
+  Timestamp = 1755772284
+  Status = 10
+  Runtime = "1061 ms"
+  IsPending = "Not Pending"
+  Memory = "51.1 MB"
+  CompareResult = "1111111111111111"
+  HasNotes = false
+  FlagType = 1

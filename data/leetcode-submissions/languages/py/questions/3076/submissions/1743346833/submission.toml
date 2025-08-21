@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743346833
+  StatusDisplay = "Accepted"
+  Lang = "pythondata"
+  QuestionId = 3076
+  TitleSlug = "get-the-size-of-a-dataframe"
+  Code = "import pandas as pd\n\ndef getDataframeSize(players: pd.DataFrame) -> List:\n    return [players.shape[0], players.shape[1]]"
+  Title = "Get the Size of a DataFrame"
+  Url = "/submissions/detail/1743346833/"
+  LangName = "Pandas"
+  Timestamp = 1755789385
+  Status = 10
+  Runtime = "279 ms"
+  IsPending = "Not Pending"
+  Memory = "67 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

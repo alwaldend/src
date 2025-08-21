@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743038394
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2178
+  TitleSlug = "walking-robot-simulation-ii"
+  Code = "class Robot:\n\n    def __init__(self, width: int, height: int):\n        self.cur = (0, 0)\n        self.cur_dir = 0\n        self.width = width\n        self.height = height\n        self.dir_mapping = {\n            0: \"East\",\n            1: \"North\",\n            2: \"West\",\n            3: \"South\"\n        }\n        self.mod = 2 * (self.width + self.height - 2)\n\n    def step(self, num: int) -> None:\n        if num >= self.mod:\n            num %= self.mod\n            if self.cur == (0, 0) and self.cur_dir == 0:\n                self.cur_dir = 3\n        row, col = self.cur\n        while num > 0:\n            if self.cur_dir == 0:\n                steps = min(num, self.width - row -1)\n                num -= steps\n                row += steps\n            elif self.cur_dir == 1:\n                steps = min(num, self.height -1 - col)\n                num -= steps\n                col += steps\n            elif self.cur_dir == 2:\n                steps = min(num, row)\n                num -= steps\n                row -= steps\n            else:\n                steps = min(num, col)\n                num -= steps\n                col -= steps\n            if num > 0:\n                self.cur_dir = (self.cur_dir + 1) % 4\n        self.cur = row, col\n\n    def getPos(self) -> List[int]:\n        return self.cur\n\n    def getDir(self) -> str:\n        return self.dir_mapping[self.cur_dir]\n\n# Your Robot object will be instantiated and called as such:\n# obj = Robot(width, height)\n# obj.step(num)\n# param_2 = obj.getPos()\n# param_3 = obj.getDir()"
+  Title = "Walking Robot Simulation II"
+  Url = "/submissions/detail/1743038394/"
+  LangName = "Python3"
+  Timestamp = 1755769314
+  Status = 10
+  Runtime = "95 ms"
+  IsPending = "Not Pending"
+  Memory = "22.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

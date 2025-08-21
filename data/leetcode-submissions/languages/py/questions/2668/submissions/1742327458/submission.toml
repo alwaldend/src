@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742327458
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2668
+  TitleSlug = "form-smallest-number-from-two-digit-arrays"
+  Code = "class Solution:\n    def minNumber(self, nums1: List[int], nums2: List[int]) -> int:\n        freqs1 = [False] * 10\n        freqs2 = [False] * 10\n        for num in nums1:\n            freqs1[num] = True\n        for num in nums2:\n            freqs2[num] = True\n        min1, min2 = None, None\n        for i in range(10):\n            if freqs1[i] and freqs2[i]:\n                return i\n            if min1 is None and freqs1[i]:\n                min1 = i\n            if min2 is None and freqs2[i]:\n                min2 = i\n        return min(min1, min2) * 10 + max(min1, min2) \n        "
+  Title = "Form Smallest Number From Two Digit Arrays"
+  Url = "/submissions/detail/1742327458/"
+  LangName = "Python3"
+  Timestamp = 1755709818
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

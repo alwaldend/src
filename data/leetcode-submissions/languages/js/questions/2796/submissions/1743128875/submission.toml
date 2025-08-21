@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743128875
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2796
+  TitleSlug = "allow-one-function-call"
+  Code = "/**\n * @param {Function} fn\n * @return {Function}\n */\nvar once = function(fn) {\n    let called = false;\n    return function(...args){\n        if (called) {\n            return undefined;\n        }\n        called = true;\n        return fn(...args);\n    }\n};\n\n/**\n * let fn = (a,b,c) => (a + b + c)\n * let onceFn = once(fn)\n *\n * onceFn(1,2,3); // 6\n * onceFn(2,3,6); // returns undefined without calling fn\n */\n"
+  Title = "Allow One Function Call"
+  Url = "/submissions/detail/1743128875/"
+  LangName = "JavaScript"
+  Timestamp = 1755775915
+  Status = 10
+  Runtime = "43 ms"
+  IsPending = "Not Pending"
+  Memory = "53.9 MB"
+  CompareResult = "1111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

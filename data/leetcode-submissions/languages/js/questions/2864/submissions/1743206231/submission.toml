@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743206231
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2864
+  TitleSlug = "is-object-empty"
+  Code = "/**\n * @param {Object|Array} obj\n * @return {boolean}\n */\nvar isEmpty = function(obj) {\n    if (Array.isArray(obj)) {\n        return obj.length === 0;\n    } else {\n        return Object.keys(obj).length === 0;\n    }\n};"
+  Title = "Is Object Empty"
+  Url = "/submissions/detail/1743206231/"
+  LangName = "JavaScript"
+  Timestamp = 1755781621
+  Status = 10
+  Runtime = "48 ms"
+  IsPending = "Not Pending"
+  Memory = "53.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

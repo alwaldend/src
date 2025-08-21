@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743346491
+  StatusDisplay = "Accepted"
+  Lang = "pythondata"
+  QuestionId = 3062
+  TitleSlug = "create-a-dataframe-from-list"
+  Code = "import pandas as pd\n\ndef createDataframe(student_data: List[List[int]]) -> pd.DataFrame:\n    column_names = [\"student_id\", \"age\"]\n    result_dataframe = pd.DataFrame(student_data, columns=column_names)\n    return result_dataframe"
+  Title = "Create a DataFrame from List"
+  Url = "/submissions/detail/1743346491/"
+  LangName = "Pandas"
+  Timestamp = 1755789366
+  Status = 10
+  Runtime = "286 ms"
+  IsPending = "Not Pending"
+  Memory = "65.9 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

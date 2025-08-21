@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742979417
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1330
+  TitleSlug = "longest-arithmetic-subsequence-of-given-difference"
+  Code = "class Solution:\n    def longestSubsequence(self, arr: List[int], difference: int) -> int:\n        n = len(arr)\n        freqs = defaultdict(list)\n        for i, num in enumerate(arr):\n            freqs[num].append(i)\n        dp = [1] * n\n        for i in reversed(range(n - 1)):\n            cur, nxt = arr[i], arr[i] + difference\n            if nxt not in freqs:\n                continue\n            cnt = 0\n            for j in freqs[nxt]:\n                if j > i:\n                    cnt = max(cnt, dp[j])\n            dp[i] = cnt + 1\n        return max(dp)"
+  Title = "Longest Arithmetic Subsequence of Given Difference"
+  Url = "/submissions/detail/1742979417/"
+  LangName = "Python3"
+  Timestamp = 1755764978
+  Status = 10
+  Runtime = "252 ms"
+  IsPending = "Not Pending"
+  Memory = "32.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

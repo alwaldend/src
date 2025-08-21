@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743205467
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2863
+  TitleSlug = "calculator-with-method-chaining"
+  Code = "class Calculator {\n    \n    /** \n     * @param {number} value\n     */\n    constructor(value) {\n        this.result = value \n    }\n    \n    /** \n     * @param {number} value\n     * @return {Calculator}\n     */\n    add(value){\n        this.result += value \n        return this \n    }\n    \n    /** \n     * @param {number} value\n     * @return {Calculator}\n     */\n    subtract(value){\n        this.result -= value \n        return this \n    }\n    \n    /** \n     * @param {number} value\n     * @return {Calculator}\n     */  \n    multiply(value) {\n        this.result *= value \n        return this \n    }\n    \n    /** \n     * @param {number} value\n     * @return {Calculator}\n     */\n    divide(value) {\n\n   if(value === 0){\n     throw new Error(\"Division by zero is not allowed\")\n        }\n        this.result /= value \n        return this \n    }\n    \n    /** \n     * @param {number} value\n     * @return {Calculator}\n     */\n    power(value) {\n        this.result **= value \n        return this \n    }\n    \n    /** \n     * @return {number}\n     */\n    getResult() {\n        return this.result \n    }\n}"
+  Title = "Calculator with Method Chaining"
+  Url = "/submissions/detail/1743205467/"
+  LangName = "JavaScript"
+  Timestamp = 1755781569
+  Status = 10
+  Runtime = "43 ms"
+  IsPending = "Not Pending"
+  Memory = "53.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

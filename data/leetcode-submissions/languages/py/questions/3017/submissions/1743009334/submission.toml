@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743009334
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3017
+  TitleSlug = "number-of-beautiful-integers-in-the-range"
+  Code = "class Solution:\n    def numberOfBeautifulIntegers(self, low: int, high: int, k: int) -> int:\n        low, hgh = str(low), str(high)  \n        n = len(hgh)                    \n        low = low.rjust(n,'0')          \n        @lru_cache(None)\n        def dfs(idx,\n                belowHgh,                \n                aboveLow,                \n                init0,\n                parity,\n                rem):                    \n            if idx == n: \n                return rem == 0 == parity  \n            lowD, hghD = int(low[idx]), int(hgh[idx])\n            res = 0\n            for digit in range(0 if aboveLow else lowD,\n                               (9 if belowHgh else hghD) + 1):\n                res += dfs(idx + 1,\n                           belowHgh or digit < hghD,\n                           aboveLow or digit > lowD,\n                           init0 and not digit,\n                           parity + digit % 2 - (\n                                    not init0 and not digit or\n                                    digit and not digit % 2),\n                           (rem * 10 + digit) % k)\n            return res\n        return dfs(0, False, False, True, 0, 0)"
+  Title = "Number of Beautiful Integers in the Range"
+  Url = "/submissions/detail/1743009334/"
+  LangName = "Python3"
+  Timestamp = 1755767242
+  Status = 10
+  Runtime = "31 ms"
+  IsPending = "Not Pending"
+  Memory = "18.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

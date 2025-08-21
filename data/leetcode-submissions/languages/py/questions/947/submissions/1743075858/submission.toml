@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743075858
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 947
+  TitleSlug = "online-election"
+  Code = "class TopVotedCandidate:\n\n    def __init__(self, persons: List[int], times: List[int]):\n        self._lead = times\n        freqs = [0] * 5001\n        prev = persons[0]\n        freqs[prev] = 1\n        times[0] = (times[0], prev)\n        for i in range(1, len(times)):\n            person = persons[i]\n            freq = freqs[person] + 1\n            freqs[person] = freq\n            if freq >= freqs[prev]:\n                prev = person\n            times[i] = (times[i], prev)\n        \n    def q(self, t: int) -> int:\n        left, right = 0, len(self._lead) - 1\n        res = None\n        while left <= right:\n            mid = left + (right - left) // 2\n            lead_time, lead_person = self._lead[mid]\n            if lead_time > t:\n                right = mid - 1\n            elif lead_time == t:\n                return lead_person\n            else:\n                res = lead_person\n                left = mid + 1\n        return res\n\n\n# Your TopVotedCandidate object will be instantiated and called as such:\n# obj = TopVotedCandidate(persons, times)\n# param_1 = obj.q(t)"
+  Title = "Online Election"
+  Url = "/submissions/detail/1743075858/"
+  LangName = "Python3"
+  Timestamp = 1755771967
+  Status = 10
+  Runtime = "212 ms"
+  IsPending = "Not Pending"
+  Memory = "24.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

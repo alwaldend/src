@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742340818
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2722
+  TitleSlug = "prime-in-diagonal"
+  Code = "class Solution:\n    def diagonalPrime(self, nums: List[List[int]]) -> int:\n        def is_prime(num: int) -> int:\n            if num <= 1:\n                return 0\n            for i in range(2, int(math.sqrt(num)) + 1):\n                if num % i == 0:\n                    return 0\n            return num\n        res = 0\n        n = len(nums)\n        for i in range(n):\n            res = max(res, is_prime(nums[i][i]), is_prime(nums[i][n - i - 1]))\n        return res"
+  Title = "Prime In Diagonal"
+  Url = "/submissions/detail/1742340818/"
+  LangName = "Python3"
+  Timestamp = 1755710402
+  Status = 10
+  Runtime = "79 ms"
+  IsPending = "Not Pending"
+  Memory = "29.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

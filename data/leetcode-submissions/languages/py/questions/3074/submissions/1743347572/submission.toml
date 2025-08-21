@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743347572
+  StatusDisplay = "Accepted"
+  Lang = "pythondata"
+  QuestionId = 3074
+  TitleSlug = "select-data"
+  Code = "import pandas as pd\n\ndef selectData(students: pd.DataFrame) -> pd.DataFrame:\n    return students.loc[students[\"student_id\"] == 101, [\"name\", \"age\"]]"
+  Title = "Select Data"
+  Url = "/submissions/detail/1743347572/"
+  LangName = "Pandas"
+  Timestamp = 1755789425
+  Status = 10
+  Runtime = "331 ms"
+  IsPending = "Not Pending"
+  Memory = "67.2 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

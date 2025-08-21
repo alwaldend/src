@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743390273
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3176
+  TitleSlug = "minimum-sum-of-mountain-triplets-i"
+  Code = "class Solution:\n    def minimumSum(self, nums: List[int]) -> int:\n        n = len(nums)\n        min_left, min_right = [0] * n, [0] * n\n        cur_min = math.inf\n        for i in range(n):\n            cur_min = min(cur_min, nums[i])\n            min_left[i] = cur_min\n        cur_min = math.inf\n        for i in reversed(range(n)):\n            cur_min = min(cur_min, nums[i])\n            min_right[i] = cur_min\n        min_sum = math.inf\n        for i in range(1, n - 1):\n            left, mid, right = min_left[i - 1], nums[i], min_right[i + 1]\n            if left < mid > right:\n                min_sum = min(min_sum, left + mid + right)\n        if min_sum == math.inf:\n            return -1\n        return min_sum"
+  Title = "Minimum Sum of Mountain Triplets I"
+  Url = "/submissions/detail/1743390273/"
+  LangName = "Python3"
+  Timestamp = 1755791861
+  Status = 10
+  Runtime = "44 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

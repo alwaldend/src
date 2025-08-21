@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743129301
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2809
+  TitleSlug = "create-hello-world-function"
+  Code = "/**\n * @return {Function}\n */\nvar createHelloWorld = function() {\n    \n    return function(...args) {\n        return \"Hello World\";\n    }\n};\n\n/**\n * const f = createHelloWorld();\n * f(); // \"Hello World\"\n */"
+  Title = "Create Hello World Function"
+  Url = "/submissions/detail/1743129301/"
+  LangName = "JavaScript"
+  Timestamp = 1755775948
+  Status = 10
+  Runtime = "38 ms"
+  IsPending = "Not Pending"
+  Memory = "53.9 MB"
+  CompareResult = "1111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

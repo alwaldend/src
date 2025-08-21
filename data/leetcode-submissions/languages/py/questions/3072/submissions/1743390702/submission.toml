@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743390702
+  StatusDisplay = "Accepted"
+  Lang = "pythondata"
+  QuestionId = 3072
+  TitleSlug = "reshape-data-pivot"
+  Code = "import pandas as pd\n\ndef pivotTable(weather: pd.DataFrame) -> pd.DataFrame:\n    ans = weather.pivot(index='month', columns='city', values='temperature')\n    return ans"
+  Title = "Reshape Data: Pivot"
+  Url = "/submissions/detail/1743390702/"
+  LangName = "Pandas"
+  Timestamp = 1755791886
+  Status = 10
+  Runtime = "335 ms"
+  IsPending = "Not Pending"
+  Memory = "67.4 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

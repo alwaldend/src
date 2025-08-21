@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743348678
+  StatusDisplay = "Accepted"
+  Lang = "pythondata"
+  QuestionId = 3071
+  TitleSlug = "drop-duplicate-rows"
+  Code = "import pandas as pd\n\ndef dropDuplicateEmails(customers: pd.DataFrame) -> pd.DataFrame:\n    customers.drop_duplicates(subset='email', keep='first', inplace=True)\n    return customers"
+  Title = "Drop Duplicate Rows"
+  Url = "/submissions/detail/1743348678/"
+  LangName = "Pandas"
+  Timestamp = 1755789489
+  Status = 10
+  Runtime = "284 ms"
+  IsPending = "Not Pending"
+  Memory = "66.8 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

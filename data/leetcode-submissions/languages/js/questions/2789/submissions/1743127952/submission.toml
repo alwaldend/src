@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743127952
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2789
+  TitleSlug = "counter-ii"
+  Code = "class Counter {\n    constructor(init) {\n        this.init = init;\n        this.val = init;\n    }\n    increment() {\n        let val = this.val + 1;\n        this.val = val;\n        return val;\n    }\n    decrement() {\n        let val = this.val - 1;\n        this.val = val;\n        return val;\n    }\n    reset() {\n        let val = this.init;\n        this.val = val;\n        return val;\n    }\n}\n\n/**\n * @param {integer} init\n * @return { increment: Function, decrement: Function, reset: Function }\n */\nvar createCounter = function(init) {\n    return new Counter(init)\n};\n\n/**\n * const counter = createCounter(5)\n * counter.increment(); // 6\n * counter.reset(); // 5\n * counter.decrement(); // 4\n */"
+  Title = "Counter II"
+  Url = "/submissions/detail/1743127952/"
+  LangName = "JavaScript"
+  Timestamp = 1755775846
+  Status = 10
+  Runtime = "55 ms"
+  IsPending = "Not Pending"
+  Memory = "56.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

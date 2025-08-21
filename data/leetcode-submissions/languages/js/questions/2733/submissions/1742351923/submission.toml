@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742351923
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2733
+  TitleSlug = "sleep"
+  Code = "/**\n * @param {number} millis\n * @return {Promise}\n */\nasync function sleep(millis) {\n    return new Promise((resolve) => setTimeout(resolve, millis));   \n}\n\n/** \n * let t = Date.now()\n * sleep(100).then(() => console.log(Date.now() - t)) // 100\n */"
+  Title = "Sleep"
+  Url = "/submissions/detail/1742351923/"
+  LangName = "JavaScript"
+  Timestamp = 1755710901
+  Status = 10
+  Runtime = "45 ms"
+  IsPending = "Not Pending"
+  Memory = "52.8 MB"
+  CompareResult = "111111"
+  HasNotes = false
+  FlagType = 1

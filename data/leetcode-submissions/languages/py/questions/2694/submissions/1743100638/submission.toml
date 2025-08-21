@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743100638
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2694
+  TitleSlug = "find-the-maximum-divisibility-score"
+  Code = "class Solution:\n    def maxDivScore(self, nums: List[int], divisors: List[int]) -> int:\n        freqs = defaultdict(int)\n        for num in nums:\n            freqs[num] += 1\n        divisors.sort()\n        max_div, max_count = divisors[0], 0\n        for div in divisors:\n            count = 0\n            for num, freq in freqs.items():\n                if num % div == 0:\n                    count += freq\n            if count > max_count:\n                max_div, max_count = div, count\n        return max_div"
+  Title = "Find the Maximum Divisibility Score"
+  Url = "/submissions/detail/1743100638/"
+  LangName = "Python3"
+  Timestamp = 1755773769
+  Status = 10
+  Runtime = "3370 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

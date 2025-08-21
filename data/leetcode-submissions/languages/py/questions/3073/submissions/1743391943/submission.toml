@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743391943
+  StatusDisplay = "Accepted"
+  Lang = "pythondata"
+  QuestionId = 3073
+  TitleSlug = "reshape-data-melt"
+  Code = "import pandas as pd\n\ndef meltTable(report: pd.DataFrame) -> pd.DataFrame:\n    report = report.melt(\n        id_vars=[\"product\"],\n        value_vars=[\"quarter_1\", \"quarter_2\", \"quarter_3\", \"quarter_4\"],\n        var_name=\"quarter\",\n        value_name=\"sales\",\n    )\n    return report"
+  Title = "Reshape Data: Melt"
+  Url = "/submissions/detail/1743391943/"
+  LangName = "Pandas"
+  Timestamp = 1755791954
+  Status = 10
+  Runtime = "276 ms"
+  IsPending = "Not Pending"
+  Memory = "67 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

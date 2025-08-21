@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743195703
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2859
+  TitleSlug = "add-two-promises"
+  Code = "/**\n * @param {Promise} promise1\n * @param {Promise} promise2\n * @return {Promise}\n */\nvar addTwoPromises = async function(promise1, promise2) {\n    const [value1, value2] = await Promise.all([promise1, promise2]);\n    return value1 + value2;\n};\n\n// // Example usage:\n// var promise1 = new Promise(resolve => setTimeout(() => resolve(2), 20));\n// var promise2 = new Promise(resolve => setTimeout(() => resolve(5), 60));\n\n// addTwoPromises(promise1, promise2)\n//   .then(console.log); // Output: 7"
+  Title = "Add Two Promises"
+  Url = "/submissions/detail/1743195703/"
+  LangName = "JavaScript"
+  Timestamp = 1755780914
+  Status = 10
+  Runtime = "65 ms"
+  IsPending = "Not Pending"
+  Memory = "52.8 MB"
+  CompareResult = "1111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

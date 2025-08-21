@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742991725
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2920
+  TitleSlug = "minimum-seconds-to-equalize-a-circular-array"
+  Code = "class Solution:\n    def minimumSeconds(self, nums: List[int]) -> int:\n        nums += nums\n        indices = defaultdict(list)\n        for i, num in enumerate(nums):\n            indices[num].append(i)\n        min_diff = math.inf\n        for idxs in indices.values():\n            max_diff = -math.inf\n            for i1, i2 in itertools.pairwise(idxs):\n                max_diff = max(max_diff, i2 - i1)\n            min_diff = min(min_diff, max_diff // 2)\n        return min_diff"
+  Title = "Minimum Seconds to Equalize a Circular Array"
+  Url = "/submissions/detail/1742991725/"
+  LangName = "Python3"
+  Timestamp = 1755765930
+  Status = 10
+  Runtime = "299 ms"
+  IsPending = "Not Pending"
+  Memory = "53.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

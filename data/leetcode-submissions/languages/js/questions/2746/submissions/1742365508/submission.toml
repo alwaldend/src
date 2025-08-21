@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1742365508
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2746
+  TitleSlug = "filter-elements-from-array"
+  Code = "/**\n * @param {number[]} arr\n * @param {Function} fn\n * @return {number[]}\n */\nvar filter = function(arr, fn) {\n    let res = [];\n    for (const [i, val] of arr.entries()) {\n        if (fn(val, i)) {\n            res.push(val);\n        }\n    }\n    return res;\n};"
+  Title = "Filter Elements from Array"
+  Url = "/submissions/detail/1742365508/"
+  LangName = "JavaScript"
+  Timestamp = 1755711507
+  Status = 10
+  Runtime = "43 ms"
+  IsPending = "Not Pending"
+  Memory = "51.9 MB"
+  CompareResult = "11111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

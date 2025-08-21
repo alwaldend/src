@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743138802
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2798
+  TitleSlug = "chunk-array"
+  Code = "/**\n * @param {Array} arr\n * @param {number} size\n * @return {Array}\n */\nvar chunk = function(arr, size) {\n    const chunkedArray = [];\n    let index = 0;\n    while (index < arr.length) {\n        chunkedArray.push(arr.slice(index, index + size));\n        index += size;\n    }\n    return chunkedArray;\n};\n"
+  Title = "Chunk Array"
+  Url = "/submissions/detail/1743138802/"
+  LangName = "JavaScript"
+  Timestamp = 1755776696
+  Status = 10
+  Runtime = "45 ms"
+  IsPending = "Not Pending"
+  Memory = "56.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

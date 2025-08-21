@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743348274
+  StatusDisplay = "Accepted"
+  Lang = "pythondata"
+  QuestionId = 3066
+  TitleSlug = "create-a-new-column"
+  Code = "import pandas as pd\n\ndef createBonusColumn(employees: pd.DataFrame) -> pd.DataFrame:\n    employees['bonus'] = employees['salary'] * 2\n    return employees"
+  Title = "Create a New Column"
+  Url = "/submissions/detail/1743348274/"
+  LangName = "Pandas"
+  Timestamp = 1755789464
+  Status = 10
+  Runtime = "283 ms"
+  IsPending = "Not Pending"
+  Memory = "66.3 MB"
+  CompareResult = "111111111111111111111"
+  HasNotes = false
+  FlagType = 1

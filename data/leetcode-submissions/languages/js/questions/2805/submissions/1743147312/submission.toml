@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743147312
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2805
+  TitleSlug = "array-wrapper"
+  Code = "/**\n * @param {number[]} nums\n * @return {void}\n */\nvar ArrayWrapper = function(nums) {\n    this.sum = nums.reduce((a, b) => a + b, 0);\n    this.string = `[${nums.toString()}]`;\n};\n\n/**\n * @return {number}\n */\nArrayWrapper.prototype.valueOf = function() {\n    return this.sum;\n}\n\n/**\n * @return {string}\n */\nArrayWrapper.prototype.toString = function() {\n    return this.string;\n}\n\n/**\n * const obj1 = new ArrayWrapper([1,2]);\n * const obj2 = new ArrayWrapper([3,4]);\n * obj1 + obj2; // 10\n * String(obj1); // \"[1,2]\"\n * String(obj2); // \"[3,4]\"\n */"
+  Title = "Array Wrapper"
+  Url = "/submissions/detail/1743147312/"
+  LangName = "JavaScript"
+  Timestamp = 1755777378
+  Status = 10
+  Runtime = "51 ms"
+  IsPending = "Not Pending"
+  Memory = "54.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743180245
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2813
+  TitleSlug = "to-be-or-not-to-be"
+  Code = "class Check {\n    constructor(val) {\n        this.val = val;\n    }\n    toBe(val) {\n        if (val === this.val) {\n            return true;\n        }\n        throw new Error(\"Not Equal\");\n    }\n    notToBe(val) {\n        if (val !== this.val) {\n            return true;\n        }\n        throw new Error(\"Equal\");\n    }\n}\n\n/**\n * @param {string} val\n * @return {Object}\n */\nvar expect = function(val) {\n    return new Check(val);  \n};\n\n/**\n * expect(5).toBe(5); // true\n * expect(5).notToBe(5); // throws \"Equal\"\n */"
+  Title = "To Be Or Not To Be"
+  Url = "/submissions/detail/1743180245/"
+  LangName = "JavaScript"
+  Timestamp = 1755779856
+  Status = 10
+  Runtime = "36 ms"
+  IsPending = "Not Pending"
+  Memory = "53.7 MB"
+  CompareResult = "111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

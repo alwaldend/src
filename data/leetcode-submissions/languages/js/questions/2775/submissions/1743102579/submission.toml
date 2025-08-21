@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743102579
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2775
+  TitleSlug = "generate-fibonacci-sequence"
+  Code = "/**\n * @return {Generator<number>}\n */\nvar fibGenerator = function*() {\n    let num1 = 0;\n    let num2 = 1;\n    yield num1;\n    yield num2;\n    while (true) {\n        const num3 = num1 + num2;\n        num1 = num2;\n        num2 = num3;\n        yield num3; \n    }\n};\n\n/**\n * const gen = fibGenerator();\n * gen.next().value; // 0\n * gen.next().value; // 1\n */"
+  Title = "Generate Fibonacci Sequence"
+  Url = "/submissions/detail/1743102579/"
+  LangName = "JavaScript"
+  Timestamp = 1755773917
+  Status = 10
+  Runtime = "44 ms"
+  IsPending = "Not Pending"
+  Memory = "52.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

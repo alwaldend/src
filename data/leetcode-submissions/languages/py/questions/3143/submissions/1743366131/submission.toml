@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743366131
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3143
+  TitleSlug = "longest-unequal-adjacent-groups-subsequence-i"
+  Code = "class Solution:\n    def getLongestSubsequence(self, words: List[str], groups: List[int]) -> List[str]:\n        res = [words[0]]\n        prev = groups[0]\n        for i in range(1, len(groups)):\n            cur = groups[i]\n            if cur == prev:\n                continue\n            prev = cur\n            res.append(words[i])\n        return res"
+  Title = "Longest Unequal Adjacent Groups Subsequence I"
+  Url = "/submissions/detail/1743366131/"
+  LangName = "Python3"
+  Timestamp = 1755790500
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1743176581
+  StatusDisplay = "Accepted"
+  Lang = "javascript"
+  QuestionId = 2820
+  TitleSlug = "return-length-of-arguments-passed"
+  Code = "/**\n * @param {...(null|boolean|number|string|Array|Object)} args\n * @return {number}\n */\nvar argumentsLength = function(...args) {\n    return args.length;\n};\n\n/**\n * argumentsLength(1, 2, 3); // 3\n */"
+  Title = "Return Length of Arguments Passed"
+  Url = "/submissions/detail/1743176581/"
+  LangName = "JavaScript"
+  Timestamp = 1755779595
+  Status = 10
+  Runtime = "36 ms"
+  IsPending = "Not Pending"
+  Memory = "53.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
