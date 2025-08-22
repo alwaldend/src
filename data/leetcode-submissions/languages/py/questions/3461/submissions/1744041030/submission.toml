@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1744041030
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3461
+  TitleSlug = "find-the-minimum-area-to-cover-all-ones-i"
+  Code = "class Solution:\n    def minimumArea(self, grid: List[List[int]]) -> int:\n        min_row, max_row = math.inf, -math.inf\n        min_col, max_col = math.inf, -math.inf\n        for row in range(len(grid)):\n            for col in range(len(grid[0])):\n                if grid[row][col] == 0:\n                    continue\n                min_row, max_row = min(min_row, row), max(max_row, row)\n                min_col, max_col = min(min_col, col), max(max_col, col)\n        return (max_row - min_row + 1) * (max_col - min_col + 1)\n"
+  Title = "Find the Minimum Area to Cover All Ones I"
+  Url = "/submissions/detail/1744041030/"
+  LangName = "Python3"
+  Timestamp = 1755845643
+  Status = 10
+  Runtime = "2972 ms"
+  IsPending = "Not Pending"
+  Memory = "47.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

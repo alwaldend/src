@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1744231169
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3188
+  TitleSlug = "find-champion-i"
+  Code = "class Solution:\n    def findChampion(self, grid: List[List[int]]) -> int:\n        loses = [False] * len(grid)\n        for row in range(len(grid)):\n            for col in range(len(grid)):\n                if row == col:\n                    continue\n                val = grid[row][col]\n                if val == 1:\n                    loses[col] = True\n                else:\n                    loses[row] = True\n        return loses.index(False)"
+  Title = "Find Champion I"
+  Url = "/submissions/detail/1744231169/"
+  LangName = "Python3"
+  Timestamp = 1755859460
+  Status = 10
+  Runtime = "21 ms"
+  IsPending = "Not Pending"
+  Memory = "18.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

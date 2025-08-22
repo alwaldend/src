@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1744488895
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3275
+  TitleSlug = "minimum-number-of-pushes-to-type-word-i"
+  Code = "class Solution:\n    def minimumPushes(self, word: str) -> int:\n        freqs = [0] * 26\n        for char in word:\n            freqs[ord(char) - 97] += 1\n        freqs.sort()\n        res = 0\n        for i in range(26):\n            freq = freqs[26 - i - 1]\n            if freq == 0:\n                break\n            res += freq * (i // 8 + 1)\n        return res"
+  Title = "Minimum Number of Pushes to Type Word I"
+  Url = "/submissions/detail/1744488895/"
+  LangName = "Python3"
+  Timestamp = 1755877012
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1744471840
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3236
+  TitleSlug = "smallest-missing-integer-greater-than-sequential-prefix-sum"
+  Code = "class Solution:\n    def missingInteger(self, nums: List[int]) -> int:\n        s = set(nums)\n        x = nums[0] - 1\n        seqSum = 0\n        for i in nums:\n            if i - x == 1:\n                seqSum += i\n                x = i\n            else:\n                break\n        index = seqSum\n        while True:\n            if index not in s:\n                return index\n            index += 1"
+  Title = "Smallest Missing Integer Greater Than Sequential Prefix Sum"
+  Url = "/submissions/detail/1744471840/"
+  LangName = "Python3"
+  Timestamp = 1755875984
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

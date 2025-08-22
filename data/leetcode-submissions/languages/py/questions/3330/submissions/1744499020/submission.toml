@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1744499020
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3330
+  TitleSlug = "modify-the-matrix"
+  Code = "class Solution:\n    def modifiedMatrix(self, matrix: List[List[int]]) -> List[List[int]]:\n        rows, cols = len(matrix), len(matrix[0])\n        for col in range(cols):\n            max_val = -1\n            for row in range(rows):\n                max_val = max(max_val, matrix[row][col])\n            for row in range(rows):\n                if matrix[row][col] == -1:\n                    matrix[row][col] = max_val\n        return matrix"
+  Title = "Modify the Matrix"
+  Url = "/submissions/detail/1744499020/"
+  LangName = "Python3"
+  Timestamp = 1755877605
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1744280776
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3227
+  TitleSlug = "find-missing-and-repeated-values"
+  Code = "class Solution:\n    def findMissingAndRepeatedValues(self, grid: List[List[int]]) -> List[int]:\n        n = len(grid)\n        freqs = [0] * (n ** 2 + 1)\n        res1 = None\n        for row in grid:\n            for num in row:\n                freqs[num] += 1\n                if freqs[num] == 2:\n                    res1 = num\n        return res1, freqs[1:].index(0) + 1"
+  Title = "Find Missing and Repeated Values"
+  Url = "/submissions/detail/1744280776/"
+  LangName = "Python3"
+  Timestamp = 1755863358
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "18.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
