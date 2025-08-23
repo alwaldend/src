@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1744561895
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3371
+  TitleSlug = "harshad-number"
+  Code = "class Solution:\n    def sumOfTheDigitsOfHarshadNumber(self, x: int) -> int:\n        cur = x\n        sm = 0\n        while cur > 0:\n            sm += cur % 10\n            cur //= 10\n        if x % sm == 0:\n            return sm\n        return -1"
+  Title = "Harshad Number"
+  Url = "/submissions/detail/1744561895/"
+  LangName = "Python3"
+  Timestamp = 1755881015
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

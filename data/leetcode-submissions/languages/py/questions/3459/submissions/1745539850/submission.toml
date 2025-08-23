@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1745539850
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3459
+  TitleSlug = "find-the-minimum-area-to-cover-all-ones-ii"
+  Code = "class Solution:\n    def minimumSum2(\n        self, grid: List[List[int]], u: int, d: int, l: int, r: int\n    ) -> int:\n        min_i = len(grid)\n        max_i = 0\n        min_j = len(grid[0])\n        max_j = 0\n\n        for i in range(u, d + 1):\n            for j in range(l, r + 1):\n                if grid[i][j] == 1:\n                    min_i = min(min_i, i)\n                    min_j = min(min_j, j)\n                    max_i = max(max_i, i)\n                    max_j = max(max_j, j)\n\n        return (\n            (max_i - min_i + 1) * (max_j - min_j + 1)\n            if min_i <= max_i\n            else sys.maxsize // 3\n        )\n\n    def rotate(self, vec: List[List[int]]) -> List[List[int]]:\n        n = len(vec)\n        m = len(vec[0]) if n > 0 else 0\n        ret = [[0] * n for _ in range(m)]\n\n        for i in range(n):\n            for j in range(m):\n                ret[m - j - 1][i] = vec[i][j]\n\n        return ret\n\n    def solve(self, grid: List[List[int]]) -> int:\n        n = len(grid)\n        m = len(grid[0]) if n > 0 else 0\n        res = n * m\n\n        for i in range(n - 1):\n            for j in range(m - 1):\n                res = min(\n                    res,\n                    self.minimumSum2(grid, 0, i, 0, m - 1)\n                    + self.minimumSum2(grid, i + 1, n - 1, 0, j)\n                    + self.minimumSum2(grid, i + 1, n - 1, j + 1, m - 1),\n                )\n\n                res = min(\n                    res,\n                    self.minimumSum2(grid, 0, i, 0, j)\n                    + self.minimumSum2(grid, 0, i, j + 1, m - 1)\n                    + self.minimumSum2(grid, i + 1, n - 1, 0, m - 1),\n                )\n\n        for i in range(n - 2):\n            for j in range(i + 1, n - 1):\n                res = min(\n                    res,\n                    self.minimumSum2(grid, 0, i, 0, m - 1)\n                    + self.minimumSum2(grid, i + 1, j, 0, m - 1)\n                    + self.minimumSum2(grid, j + 1, n - 1, 0, m - 1),\n                )\n\n        return res\n\n    def minimumSum(self, grid: List[List[int]]) -> int:\n        rgrid = self.rotate(grid)\n        return min(self.solve(grid), self.solve(rgrid))"
+  Title = "Find the Minimum Area to Cover All Ones II"
+  Url = "/submissions/detail/1745539850/"
+  LangName = "Python3"
+  Timestamp = 1755963008
+  Status = 10
+  Runtime = "6355 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1744607064
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3396
+  TitleSlug = "valid-word"
+  Code = "class Solution:\n    def isValid(self, word: str) -> bool:\n        vws = ('a', 'e', 'i', 'o', 'u')\n        if len(word) < 3:\n            return False\n        has_vw, has_cons = False, False\n        for i in range(len(word)):\n            ch = word[i]\n            if ch.isalpha():\n                if ch.lower() in vws:\n                    has_vw = True\n                else:\n                    has_cons = True\n            elif not ch.isdigit():\n                return False\n        return has_vw and has_cons"
+  Title = "Valid Word"
+  Url = "/submissions/detail/1744607064/"
+  LangName = "Python3"
+  Timestamp = 1755883258
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

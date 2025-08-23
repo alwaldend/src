@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1744579350
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3361
+  TitleSlug = "latest-time-you-can-obtain-after-replacing-characters"
+  Code = "class Solution:\n    def findLatestTime(self, time_str):\n        len_time_str = len(time_str)\n        ret_val = ''\n        i = 0\n        while (i < len_time_str):\n            c = time_str[i]\n            if (c == '?'):\n                if (i == 0):\n                    if (time_str[i+1] == '?'):\n                        ret_val += '1'\n                    elif (time_str[i+1] in ('0', '1')):\n                        ret_val += '1'\n                    else:\n                        ret_val += '0'\n                elif (i == 1):\n                    if (time_str[i-1] == '?'):\n                        ret_val += '1'\n                    elif (time_str[i-1] in ('0')):\n                        ret_val += '9'\n                    elif (time_str[i-1] in ('1')):\n                        ret_val += '1'\n                    else:\n                        ret_val += '0'\n                elif (i == 3):\n                    ret_val += '5'\n                elif (i == 4):\n                    ret_val += '9'\n            else:\n                ret_val += c\n            i += 1\n        return ret_val"
+  Title = "Latest Time You Can Obtain After Replacing Characters"
+  Url = "/submissions/detail/1744579350/"
+  LangName = "Python3"
+  Timestamp = 1755881897
+  Status = 10
+  Runtime = "38 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

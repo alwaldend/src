@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1744597220
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3398
+  TitleSlug = "make-a-square-with-the-same-color"
+  Code = "class Solution:\n    def canMakeSquare(self, grid: List[List[str]]) -> bool:\n        rows, cols = len(grid), len(grid[0])\n        moves = ((0, 0), (0, -1), (-1, -1), (-1, 0))\n        for row in range(1, rows):\n            for col in range(1, cols):\n                cnt = 0\n                for row_dlt, col_dlt in moves:\n                    if grid[row + row_dlt][col + col_dlt] == \"W\":\n                        cnt += 1\n                    else:\n                        cnt -= 1\n                if cnt in (2, -2, 4, -4):\n                    return True\n        return False"
+  Title = "Make a Square with the Same Color"
+  Url = "/submissions/detail/1744597220/"
+  LangName = "Python3"
+  Timestamp = 1755882779
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
