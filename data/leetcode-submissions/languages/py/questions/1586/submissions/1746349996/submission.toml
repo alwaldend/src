@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746349996
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1586
+  TitleSlug = "longest-subarray-of-1s-after-deleting-one-element"
+  Code = "class Solution:\n    def longestSubarray(self, nums: List[int]) -> int:\n        res, n, cnt1, cnt2 = 0, len(nums), 0, 0\n        for i in range(len(nums)):\n            cur = nums[i]\n            if cur == 1:\n                cnt2 += 1\n                res = max(res, cnt1 + cnt2)\n            elif cur == 0:\n                cnt1, cnt2 = cnt2, 0\n        if res == n:\n            return res - 1\n        return res"
+  Title = "Longest Subarray of 1's After Deleting One Element"
+  Url = "/submissions/detail/1746349996/"
+  LangName = "Python3"
+  Timestamp = 1756022108
+  Status = 10
+  Runtime = "35 ms"
+  IsPending = "Not Pending"
+  Memory = "21.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746442218
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3567
+  TitleSlug = "convert-date-to-binary"
+  Code = "class Solution:\n    def convertDateToBinary(self, date: str) -> str:\n        res, cur = [], []\n        for num in map(int, (date[:4], date[5:7], date[-2:])):\n            while num > 0:\n                cur.append(num & 1)\n                num >>= 1\n            cur.reverse()\n            res.append(\"\".join(map(str, cur)))\n            cur.clear()\n        return \"-\".join(res)"
+  Title = "Convert Date to Binary"
+  Url = "/submissions/detail/1746442218/"
+  LangName = "Python3"
+  Timestamp = 1756028686
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

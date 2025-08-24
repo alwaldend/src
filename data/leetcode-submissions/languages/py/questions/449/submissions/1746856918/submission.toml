@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746856918
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 449
+  TitleSlug = "serialize-and-deserialize-bst"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, x):\n#         self.val = x\n#         self.left = None\n#         self.right = None\n\nclass Codec:\n\n    def serialize(self, root: Optional[TreeNode]) -> str:\n        \"\"\"Encodes a tree to a single string.\n        \"\"\"\n        if root is None:\n            return \"\"\n        left, right = self.serialize(root.left), self.serialize(root.right)\n        return f\"{root.val}|{len(left)}|{left}{right}\"\n\n    def deserialize(self, data: str) -> Optional[TreeNode]:\n        \"\"\"Decodes your encoded data to tree.\n        \"\"\"\n        if not data:\n            return None\n        val, left_len, rest = data.split(\"|\", 2)\n        root = TreeNode(int(val))\n        root.left = self.deserialize(rest[:int(left_len)])\n        root.right = self.deserialize(rest[int(left_len):])\n        return root    \n\n# Your Codec object will be instantiated and called as such:\n# Your Codec object will be instantiated and called as such:\n# ser = Codec()\n# deser = Codec()\n# tree = ser.serialize(root)\n# ans = deser.deserialize(tree)\n# return ans"
+  Title = "Serialize and Deserialize BST"
+  Url = "/submissions/detail/1746856918/"
+  LangName = "Python3"
+  Timestamp = 1756054462
+  Status = 10
+  Runtime = "64 ms"
+  IsPending = "Not Pending"
+  Memory = "20.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

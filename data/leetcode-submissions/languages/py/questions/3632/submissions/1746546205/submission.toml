@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746546205
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3632
+  TitleSlug = "button-with-longest-push-time"
+  Code = "class Solution:\n    def buttonWithLongestTime(self, events: List[List[int]]) -> int:\n        (mx_idx, mx_time), n = events[0], len(events)\n        for i in range(n):\n            (cur_idx, cur_time), (prv_idx, prv_time) = events[i], events[i - 1]\n            diff = cur_time - prv_time\n            if diff > mx_time or (diff == mx_time and cur_idx < mx_idx):\n                mx_idx, mx_time = cur_idx, diff\n        return mx_idx"
+  Title = "Button with Longest Push Time"
+  Url = "/submissions/detail/1746546205/"
+  LangName = "Python3"
+  Timestamp = 1756035414
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

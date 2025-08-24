@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746622657
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 3803
+  TitleSlug = "find-products-with-valid-serial-numbers"
+  Code = "SELECT \n    *\nFROM \n    Products\nWHERE \n    description ~ '\\mSN[0-9]{4}-[0-9]{4}\\M'\nORDER BY \n    product_id ASC;"
+  Title = "Find Products with Valid Serial Numbers"
+  Url = "/submissions/detail/1746622657/"
+  LangName = "PostgreSQL"
+  Timestamp = 1756040453
+  Status = 10
+  Runtime = "329 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111111111111"
+  HasNotes = false
+  FlagType = 1

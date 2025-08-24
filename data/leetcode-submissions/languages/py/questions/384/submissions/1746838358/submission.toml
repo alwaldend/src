@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746838358
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 384
+  TitleSlug = "shuffle-an-array"
+  Code = "class Solution:\n\n    def __init__(self, nums: List[int]):\n        self._orig = nums\n        self._cur = nums.copy()\n\n    def reset(self) -> List[int]:\n        return self._orig\n\n    def shuffle(self) -> List[int]:\n        return random.sample(self._orig, k=len(self._orig))\n\n\n# Your Solution object will be instantiated and called as such:\n# obj = Solution(nums)\n# param_1 = obj.reset()\n# param_2 = obj.shuffle()"
+  Title = "Shuffle an Array"
+  Url = "/submissions/detail/1746838358/"
+  LangName = "Python3"
+  Timestamp = 1756053493
+  Status = 10
+  Runtime = "28 ms"
+  IsPending = "Not Pending"
+  Memory = "22 MB"
+  CompareResult = "11111111"
+  HasNotes = false
+  FlagType = 1

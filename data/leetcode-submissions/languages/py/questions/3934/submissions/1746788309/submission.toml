@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746788309
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3934
+  TitleSlug = "coupon-code-validator"
+  Code = "class Solution:\n    def validateCoupons(self, code: List[str], businessLine: List[str], isActive: List[bool]) -> List[str]:\n        res, n = [], len(code)\n        b_order = {\"electronics\": 0, \"grocery\": 1, \"pharmacy\": 2, \"restaurant\": 3}\n        for i in range(n):\n            if (\n                isActive[i] \n                and code[i] \n                and re.match(\"^[a-zA-Z0-9_]+$\", code[i]) \n                and businessLine[i] in (\n                    \"electronics\", \"grocery\", \"pharmacy\", \"restaurant\"\n                )\n            ):\n                res.append(i)\n        def sort(i: int) -> tuple[str, str]:\n            return (b_order[businessLine[i]], code[i])\n        res.sort(key=sort)\n        for i in range(len(res)):\n            res[i] = code[res[i]]\n        return res"
+  Title = "Coupon Code Validator"
+  Url = "/submissions/detail/1746788309/"
+  LangName = "Python3"
+  Timestamp = 1756050632
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "18.3 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

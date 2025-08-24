@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746436655
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3553
+  TitleSlug = "check-if-two-chessboard-squares-have-the-same-color"
+  Code = "class Solution:\n    def checkTwoChessboards(self, coordinate1: str, coordinate2: str) -> bool:\n        row1, col1 = ord(coordinate1[0]) - 97, int(coordinate1[1]) - 1\n        row2, col2 = ord(coordinate2[0]) - 97, int(coordinate2[1]) - 1\n        if row1 % 2 == 0:\n            is_black1 = col1 % 2 == 0\n        else:\n            is_black1 = col1 % 2 != 0\n        if row2 % 2 == 0:\n            is_black2 = col2 % 2 == 0\n        else:\n            is_black2 = col2 % 2 != 0\n        return is_black1 == is_black2"
+  Title = "Check if Two Chessboard Squares Have the Same Color"
+  Url = "/submissions/detail/1746436655/"
+  LangName = "Python3"
+  Timestamp = 1756028290
+  Status = 10
+  Runtime = "50 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

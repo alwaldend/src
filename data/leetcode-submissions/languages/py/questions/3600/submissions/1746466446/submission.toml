@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746466446
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3600
+  TitleSlug = "find-the-k-th-character-in-string-game-i"
+  Code = "class Solution:\n    def kthCharacter(self, k: int) -> str:\n        res = 0\n        while k != 1:\n            ln = k.bit_length() - 1\n            if (1 << ln) == k:\n                ln -= 1\n            k -= 1 << ln\n            res += 1\n        return chr(res + 97)"
+  Title = "Find the K-th Character in String Game I"
+  Url = "/submissions/detail/1746466446/"
+  LangName = "Python3"
+  Timestamp = 1756030251
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

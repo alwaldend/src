@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746804674
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 3996
+  TitleSlug = "find-books-with-polarized-opinions"
+  Code = " SELECT r.book_id,\n       b.title,\n       b.author,\n       b.genre,\n       b.pages,\n       Max(r.session_rating) - Min(r.session_rating) rating_spread,\n       Round(( Sum(CASE WHEN r.session_rating < 3 THEN 1 ELSE 0 END + CASE WHEN\n                           r.session_rating >\n                           3 THEN 1 ELSE 0 END) ) / COUNT(r.session_id) ::\n             Decimal(10, 2), 2)                      polarization_score\nFROM   reading_sessions r\n       INNER JOIN books b USING(book_id)\nGROUP  BY r.book_id,\n          b.title,\n          b.author,\n          b.genre,\n          b.pages\nHAVING COUNT(r.session_id) > 4\n       AND Max(r.session_rating) > 3\n       AND Min(r.session_rating) < 3\n       AND Round(( Sum(CASE WHEN r.session_rating < 3 THEN 1 ELSE 0 END + CASE\n                       WHEN\n                                   r.session_rating >\n                                   3 THEN 1 ELSE 0 END) ) / COUNT(r.session_id)\n                 ::\n                 Decimal(\n                     10, 2), 2) >= 0.6\nORDER  BY polarization_score desc,\n          b.title desc  "
+  Title = "Find Books with Polarized Opinions"
+  Url = "/submissions/detail/1746804674/"
+  LangName = "PostgreSQL"
+  Timestamp = 1756051626
+  Status = 10
+  Runtime = "436 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111111"
+  HasNotes = false
+  FlagType = 1

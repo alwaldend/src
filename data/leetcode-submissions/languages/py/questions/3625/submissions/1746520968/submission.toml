@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746520968
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3625
+  TitleSlug = "stone-removal-game"
+  Code = "class Solution:\n    def canAliceWin(self, n: int) -> bool:\n        cnt = 10\n        while True:\n            if n >= cnt:\n                n -= cnt\n                cnt -= 1\n            else:\n                return False\n            if n >= cnt:\n                n -= cnt\n                cnt -= 1\n            else:\n                return True"
+  Title = "Stone Removal Game"
+  Url = "/submissions/detail/1746520968/"
+  LangName = "Python3"
+  Timestamp = 1756033777
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

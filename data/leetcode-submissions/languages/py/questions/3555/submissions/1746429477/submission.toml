@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746429477
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3555
+  TitleSlug = "final-array-state-after-k-multiplication-operations-i"
+  Code = "class Solution:\n    def getFinalState(self, nums: List[int], k: int, multiplier: int) -> List[int]:\n        pos, n = defaultdict(list), len(nums)\n        hp = nums.copy()\n        heapq.heapify(hp)\n        for i in reversed(range(n)):\n            heapq.heappush(pos[nums[i]], i)\n        while k > 0:\n            k -= 1\n            val = heapq.heappop(hp)\n            new_val = val * multiplier\n            heapq.heappush(hp, new_val)\n            idx = heapq.heappop(pos[val])\n            nums[idx] = new_val\n            heapq.heappush(pos[new_val], idx)\n        return nums\n\n        "
+  Title = "Final Array State After K Multiplication Operations I"
+  Url = "/submissions/detail/1746429477/"
+  LangName = "Python3"
+  Timestamp = 1756027788
+  Status = 10
+  Runtime = "8 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

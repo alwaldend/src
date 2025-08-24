@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746456430
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3581
+  TitleSlug = "the-two-sneaky-numbers-of-digitville"
+  Code = "class Solution:\n    def getSneakyNumbers(self, nums: List[int]) -> List[int]:\n        n = len(nums) - 2\n        xor_all = 0\n        for num in nums:\n            xor_all ^= num\n        for num in range(n):\n            xor_all ^= num\n        rightmost_bit = xor_all & -xor_all\n        dup1, dup2 = 0, 0\n        for num in nums:\n            if num & rightmost_bit:\n                dup1 ^= num\n            else:\n                dup2 ^= num\n        for num in range(n):\n            if num & rightmost_bit:\n                dup1 ^= num\n            else:\n                dup2 ^= num\n        return [dup1, dup2]"
+  Title = "The Two Sneaky Numbers of Digitville"
+  Url = "/submissions/detail/1746456430/"
+  LangName = "Python3"
+  Timestamp = 1756029597
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

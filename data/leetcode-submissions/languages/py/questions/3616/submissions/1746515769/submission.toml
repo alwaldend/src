@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746515769
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3616
+  TitleSlug = "make-array-elements-equal-to-zero"
+  Code = "class Solution:\n    def countValidSelections(self, nums: List[int]) -> int:\n        n, res = len(nums), 0\n        left, right = [0 for _ in range(n)], [0 for _ in range(n)]\n        for i in range(1, n):\n            left[i] = left[i - 1] + nums[i - 1]\n            right[-i - 1] = right[-i] + nums[-i]\n        for i, num in enumerate(nums):\n            if num != 0: continue\n            if left[i] == right[i]: res += 2\n            if abs(left[i] - right[i]) == 1: res += 1\n        return res"
+  Title = "Make Array Elements Equal to Zero"
+  Url = "/submissions/detail/1746515769/"
+  LangName = "Python3"
+  Timestamp = 1756033431
+  Status = 10
+  Runtime = "45 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

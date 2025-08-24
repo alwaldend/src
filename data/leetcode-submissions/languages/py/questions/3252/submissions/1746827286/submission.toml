@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746827286
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3252
+  TitleSlug = "count-the-number-of-incremovable-subarrays-i"
+  Code = "class Solution:\n    def incremovableSubarrayCount(self, nums: List[int]) -> int:\n        result = 0\n        n = len(nums)\n        if n == 0:\n            return 0\n        prefix_idx, suffix_idx = 0, n - 1\n        while prefix_idx + 1 < n and nums[prefix_idx + 1] > nums[prefix_idx]:\n            prefix_idx += 1\n        if prefix_idx == n - 1:\n            return (n * (n + 1)) // 2\n        while suffix_idx > 0 and nums[suffix_idx] > nums[suffix_idx - 1]:\n            suffix_idx -= 1\n        result += prefix_idx + 1\n        result += n - suffix_idx + 1\n        i = 0\n        j = suffix_idx\n        while i <= prefix_idx:\n            while j < n and nums[i] >= nums[j]:\n                j += 1\n            result += n - j\n            i += 1\n        return result"
+  Title = "Count the Number of Incremovable Subarrays I"
+  Url = "/submissions/detail/1746827286/"
+  LangName = "Python3"
+  Timestamp = 1756052902
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

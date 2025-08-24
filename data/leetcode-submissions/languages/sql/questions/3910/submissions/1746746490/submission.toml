@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746746490
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 3910
+  TitleSlug = "find-books-with-no-available-copies"
+  Code = "SELECT \n    book_id, \n    MAX(title) AS title, \n    MAX(author) AS author, \n    MAX(genre) AS genre, \n    MAX(publication_year) AS publication_year, \n    MAX(total_copies) AS current_borrowers \nFROM\n    (\n        SELECT \n            book_id,\n            title,\n            author, \n            genre,publication_year, \n            total_copies,\n            total_copies AS total_remain \n        FROM \n            library_books\n        UNION \n            ALL\n        SELECT \n            book_id, \n            '', \n            '', \n            '', \n            1000, \n            0, \n            -1 \n        FROM \n            borrowing_records \n        WHERE \n            return_date IS NULL\n    ) sub\nGROUP BY \n    book_id\nHAVING \n    SUM(total_remain) = 0\nORDER BY \n    current_borrowers DESC, \n    title;\n"
+  Title = "Find Books with No Available Copies"
+  Url = "/submissions/detail/1746746490/"
+  LangName = "PostgreSQL"
+  Timestamp = 1756048024
+  Status = 10
+  Runtime = "233 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111111"
+  HasNotes = false
+  FlagType = 1

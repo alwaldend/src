@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746582670
+  StatusDisplay = "Accepted"
+  Lang = "postgresql"
+  QuestionId = 3782
+  TitleSlug = "find-valid-emails"
+  Code = "SELECT \n    user_id,\n    email\nFROM \n    users\nWHERE \n    email ~ '^\\w+@[A-Za-z]+\\.com$'\nORDER BY \n    user_id ASC;"
+  Title = "Find Valid Emails"
+  Url = "/submissions/detail/1746582670/"
+  LangName = "PostgreSQL"
+  Timestamp = 1756037844
+  Status = 10
+  Runtime = "194 ms"
+  IsPending = "Not Pending"
+  Memory = "0.0B"
+  CompareResult = "11111111111111111"
+  HasNotes = false
+  FlagType = 1
