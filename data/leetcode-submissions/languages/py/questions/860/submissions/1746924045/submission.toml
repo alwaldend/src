@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1746924045
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 860
+  TitleSlug = "design-circular-queue"
+  Code = "class MyCircularQueue:\n\n    def __init__(self, k: int):\n        self._k = k\n        self._q = [-1] * k\n        self._i = 0\n        self._len = 0\n\n    def enQueue(self, value: int) -> bool:\n        if self.isFull():\n            return False\n        self._q[self._i] = value\n        self._i = (self._i + 1) % self._k\n        self._len += 1\n        return True\n\n    def deQueue(self) -> bool:\n        if self._len > 0:\n            self._len -= 1\n            return True\n        return False\n\n    def Front(self) -> int:\n        if self.isEmpty():\n            return -1\n        return self._q[(self._i - self._len + self._k) % self._k]  \n        \n    def Rear(self) -> int:\n        if self.isEmpty():\n            return -1\n        return self._q[(self._i - 1 + self._k) % self._k]\n\n    def isEmpty(self) -> bool:\n        return self._len == 0\n\n    def isFull(self) -> bool:\n        return self._len == self._k\n\n\n# Your MyCircularQueue object will be instantiated and called as such:\n# obj = MyCircularQueue(k)\n# param_1 = obj.enQueue(value)\n# param_2 = obj.deQueue()\n# param_3 = obj.Front()\n# param_4 = obj.Rear()\n# param_5 = obj.isEmpty()\n# param_6 = obj.isFull()"
+  Title = "Design Circular Queue"
+  Url = "/submissions/detail/1746924045/"
+  LangName = "Python3"
+  Timestamp = 1756057874
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "18.7 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1747510528
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 498
+  TitleSlug = "diagonal-traverse"
+  Code = "class Solution:\n    def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:\n        res, rows, cols, cur = [], len(mat), len(mat[0]), []\n        for i in range(rows + cols):\n            if i < rows:\n                row, col = i, 0\n            else:\n                row, col = rows - 1, (i - rows) + 1 \n            while row >= 0 and col < cols:\n                cur.append(mat[row][col])\n                row, col = row - 1, col + 1\n            if i % 2 != 0:\n                cur.reverse()\n            res.extend(cur)\n            cur.clear()\n        return res\n        \n\n             \n"
+  Title = "Diagonal Traverse"
+  Url = "/submissions/detail/1747510528/"
+  LangName = "Python3"
+  Timestamp = 1756111244
+  Status = 10
+  Runtime = "8 ms"
+  IsPending = "Not Pending"
+  Memory = "19.9 MB"
+  CompareResult = "11111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

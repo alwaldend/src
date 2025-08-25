@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1747795293
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 729
+  TitleSlug = "my-calendar-i"
+  Code = "class MyCalendar:\n    def __init__(self): \n        self.events = SortedList()\n\n    def book(self, startTime: int, endTime: int) -> bool:\n        insert_index = self.events.bisect_left((startTime, endTime))\n        if (\n            insert_index - 1 >= 0 \n            and startTime < self.events[insert_index - 1][1]\n        ) or (\n            insert_index < len(self.events) \n            and self.events[insert_index][0] < endTime\n        ):\n            return False\n        self.events.add((startTime, endTime))\n        return True\n\n\n# Your MyCalendar object will be instantiated and called as such:\n# obj = MyCalendar()\n# param_1 = obj.book(startTime,endTime)"
+  Title = "My Calendar I"
+  Url = "/submissions/detail/1747795293/"
+  LangName = "Python3"
+  Timestamp = 1756130438
+  Status = 10
+  Runtime = "54 ms"
+  IsPending = "Not Pending"
+  Memory = "19 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
