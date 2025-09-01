@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1753843159
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 36
+  TitleSlug = "valid-sudoku"
+  Code = "class Solution:\n    def isValidSudoku(self, board: List[List[str]]) -> bool:\n        rows = [[False] * 9 for _ in range(9)]\n        cols = [[False] * 9 for _ in range(9)]\n        boxes = [[False] * 9 for _ in range(9)]\n\n        for i in range(9):\n            for j in range(9):\n                if board[i][j] != '.':\n                    num = ord(board[i][j]) - ord('1')\n                    boxIndex = (i // 3) * 3 + (j // 3)\n                    if rows[i][num] or cols[j][num] or boxes[boxIndex][num]:\n                        return False\n                    rows[i][num] = cols[j][num] = boxes[boxIndex][num] = True\n        return True"
+  Title = "Valid Sudoku"
+  Url = "/submissions/detail/1753843159/"
+  LangName = "Python3"
+  Timestamp = 1756574160
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

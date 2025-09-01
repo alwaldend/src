@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1755934038
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1917
+  TitleSlug = "maximum-average-pass-ratio"
+  Code = "class Solution:\n    def maxAverageRatio(self, classes: List[List[int]], extraStudents: int) -> float:\n        n = len(classes)\n        res = 0\n        for i in range(n):\n            pass_, total = classes[i]\n            profit = ((pass_ + 1) / (total + 1)) - (pass_ / total)\n            classes[i] = (-profit, pass_, total)\n        heapq.heapify(classes)\n        while classes and extraStudents > 0:\n            _, pass_, total = heapq.heappop(classes)\n            if pass_ == total:\n                res += 1\n            else:\n                pass_ += 1\n                total += 1\n                profit = ((pass_ + 1) / (total + 1)) - (pass_ / total)\n                heapq.heappush(classes, (-profit, pass_, total))\n                extraStudents -= 1\n        for _, pass_, total in classes:\n            res += pass_ / total\n        return res / n"
+  Title = "Maximum Average Pass Ratio"
+  Url = "/submissions/detail/1755934038/"
+  LangName = "Python3"
+  Timestamp = 1756737305
+  Status = 10
+  Runtime = "1136 ms"
+  IsPending = "Not Pending"
+  Memory = "43.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

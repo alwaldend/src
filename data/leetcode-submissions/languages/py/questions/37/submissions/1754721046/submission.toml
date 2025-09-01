@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1754721046
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 37
+  TitleSlug = "sudoku-solver"
+  Code = "class Solution:\n    def solveSudoku(self, board: list[list[str]]) -> None:\n        n, N = 3, 9\n        rows = [[0] * (N + 1) for _ in range(N)]\n        cols = [[0] * (N + 1) for _ in range(N)]\n        boxes = [[0] * (N + 1) for _ in range(N)]\n        sudokuSolved = False\n\n        def couldPlace(d, row, col):\n            idx = (row // n) * n + col // n\n            return (rows[row][d] + cols[col][d] + boxes[idx][d]) == 0\n\n        def placeNumber(d, row, col):\n            idx = (row // n) * n + col // n\n            rows[row][d] += 1\n            cols[col][d] += 1\n            boxes[idx][d] += 1\n            board[row][col] = str(d)\n\n        def removeNumber(d, row, col):\n            idx = (row // n) * n + col // n\n            rows[row][d] -= 1\n            cols[col][d] -= 1\n            boxes[idx][d] -= 1\n            board[row][col] = '.'\n\n        def placeNextNumbers(row, col):\n            nonlocal sudokuSolved\n            if row == N - 1 and col == N - 1:\n                sudokuSolved = True\n            elif col == N - 1:\n                backtrack(row + 1, 0)\n            else:\n                backtrack(row, col + 1)\n\n        def backtrack(row, col):\n            nonlocal sudokuSolved\n            if board[row][col] == '.':\n                for d in range(1, 10):\n                    if couldPlace(d, row, col):\n                        placeNumber(d, row, col)\n                        placeNextNumbers(row, col)\n                        if not sudokuSolved:\n                            removeNumber(d, row, col)\n            else:\n                placeNextNumbers(row, col)\n\n        for i in range(N):\n            for j in range(N):\n                if board[i][j] != '.':\n                    placeNumber(int(board[i][j]), i, j)\n        backtrack(0, 0)"
+  Title = "Sudoku Solver"
+  Url = "/submissions/detail/1754721046/"
+  LangName = "Python3"
+  Timestamp = 1756642052
+  Status = 10
+  Runtime = "3410 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111"
+  HasNotes = false
+  FlagType = 1
