@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1757332055
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3278
+  TitleSlug = "find-the-number-of-ways-to-place-people-i"
+  Code = "class Solution:\n    def numberOfPairs(self, points: List[List[int]]) -> int:\n        ans = 0\n        n = len(points)\n\n        for i in range(n):\n            pointA = points[i]\n            for j in range(n):\n                pointB = points[j]\n                if i == j or not (\n                    pointA[0] <= pointB[0] and pointA[1] >= pointB[1]\n                ):\n                    continue\n                if n == 2:\n                    ans += 1\n                    continue\n\n                illegal = False\n                for k in range(n):\n                    if k == i or k == j:\n                        continue\n\n                    pointTmp = points[k]\n                    isXContained = (\n                        pointTmp[0] >= pointA[0] and pointTmp[0] <= pointB[0]\n                    )\n                    isYContained = (\n                        pointTmp[1] <= pointA[1] and pointTmp[1] >= pointB[1]\n                    )\n                    if isXContained and isYContained:\n                        illegal = True\n                        break\n                if not illegal:\n                    ans += 1\n        return ans"
+  Title = "Find the Number of Ways to Place People I"
+  Url = "/submissions/detail/1757332055/"
+  LangName = "Python3"
+  Timestamp = 1756833503
+  Status = 10
+  Runtime = "264 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
