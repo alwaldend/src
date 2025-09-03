@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1758352529
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3277
+  TitleSlug = "find-the-number-of-ways-to-place-people-ii"
+  Code = "class Solution:\n    def numberOfPairs(self, points: List[List[int]]) -> int:\n        ans = 0\n        points.sort(key=lambda x: (x[0], -x[1]))\n\n        for i in range(len(points) - 1):\n            pointA = points[i]\n            xMin = pointA[0] - 1\n            xMax = math.inf\n            yMin = -math.inf\n            yMax = pointA[1] + 1\n\n            for j in range(i + 1, len(points)):\n                pointB = points[j]\n                if (\n                    pointB[0] > xMin\n                    and pointB[0] < xMax\n                    and pointB[1] > yMin\n                    and pointB[1] < yMax\n                ):\n                    ans += 1\n                    xMin = pointB[0]\n                    yMin = pointB[1]\n\n        return ans"
+  Title = "Find the Number of Ways to Place People II"
+  Url = "/submissions/detail/1758352529/"
+  LangName = "Python3"
+  Timestamp = 1756912851
+  Status = 10
+  Runtime = "2061 ms"
+  IsPending = "Not Pending"
+  Memory = "18.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
