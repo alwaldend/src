@@ -1,24 +1,18 @@
-# 2025-09-04 19:54:14 by RouterOS 7.19.4
+# 2025-09-05 19:24:20 by RouterOS 7.19.4
 # model = C53UiG+5HPaxD2HPaxD
 /interface bridge
 add admin-mac=78:9A:18:38:6C:CA auto-mac=no comment=bridge01 name=bridge01
 /interface ethernet
-set [ find default-name=ether1 ] comment=ether01 l2mtu=1500 mac-address=\
-    F4:28:53:7F:A4:59 name=ether01
+set [ find default-name=ether1 ] comment=ether01 l2mtu=1500 mac-address=F4:28:53:7F:A4:59 name=ether01
 set [ find default-name=ether2 ] comment=ether02 name=ether02
 set [ find default-name=ether3 ] comment=ether03 name=ether03
 set [ find default-name=ether4 ] comment=ether04 name=ether04
 set [ find default-name=ether5 ] comment=ether05 name=ether05
 /interface wifi
-set [ find default-name=wifi1 ] channel.frequency=5000-5400 \
-    .skip-dfs-channels=10min-cac comment="wifi01 (5GHz)" \
-    configuration.country=Russia .mode=ap .ssid=divinity-5GHz disabled=no \
-    name=wifi01 security.authentication-types=wpa2-psk,wpa3-psk \
-    .connect-priority=0 .ft=yes .ft-over-ds=yes
-set [ find default-name=wifi2 ] channel.skip-dfs-channels=10min-cac comment=\
-    "wifi02 (2GHz)" configuration.country=Russia .mode=ap .ssid=divinity-2GHz \
-    disabled=no name=wifi02 security.authentication-types=wpa2-psk,wpa3-psk \
-    .connect-priority=0 .ft=yes .ft-over-ds=yes
+set [ find default-name=wifi1 ] channel.frequency=5000-5400 .skip-dfs-channels=10min-cac comment="wifi01 (5GHz)" configuration.country=Russia .mode=ap .ssid=divinity-5GHz \
+    disabled=no name=wifi01 security.authentication-types=wpa2-psk,wpa3-psk .connect-priority=0 .ft=yes .ft-over-ds=yes
+set [ find default-name=wifi2 ] channel.skip-dfs-channels=10min-cac comment="wifi02 (2GHz)" configuration.country=Russia .mode=ap .ssid=divinity-2GHz disabled=no name=wifi02 \
+    security.authentication-types=wpa2-psk,wpa3-psk .connect-priority=0 .ft=yes .ft-over-ds=yes
 /interface list
 add comment=defconf name=WAN
 add comment=defconf name=LAN
@@ -27,11 +21,9 @@ add comment=wireless name=wireless
 /ip pool
 add comment=bridge01 name=bridge01 ranges=192.168.1.10-192.168.1.254
 /ip dhcp-server
-add address-pool=bridge01 comment=bridge01 interface=bridge01 lease-time=10m \
-    name=bridge01
+add address-pool=bridge01 comment=bridge01 interface=bridge01 lease-time=10m name=bridge01
 /ipv6 dhcp-server
-add address-pool=dc01 comment=bridge01 interface=bridge01 name=bridge01 \
-    prefix-pool=dc01
+add interface=bridge01 name=bridge01 prefix-pool=dc01
 /ipv6 pool
 add name=dc01 prefix=fd2e:546d:5738::/48 prefix-length=64
 /interface bridge port
@@ -43,8 +35,6 @@ add bridge=bridge01 comment=bridge01-wifi01 interface=wifi01
 add bridge=bridge01 comment=bridge01-wifi02 interface=wifi02
 add bridge=bridge01 comment=bridge01-LAN interface=LAN
 /ip neighbor discovery-settings
-# ipv6 neighbor configuration has changed, please restart the device in order to
- pply the new settings
 set discover-interface-list=LAN
 /interface detect-internet
 set detect-interface-list=WAN
@@ -56,65 +46,44 @@ add comment=wireless-wifi01 interface=wifi01 list=wireless
 /interface ovpn-server server
 add mac-address=FE:B3:B4:C4:A4:48 name=ovpn-server1
 /ip address
-add address=192.168.1.1/24 comment=bridge01 interface=bridge01 network=\
-    192.168.1.0
+add address=192.168.1.1/24 comment=bridge01 interface=bridge01 network=192.168.1.0
 /ip dhcp-client
 add comment=defconf interface=ether01 use-peer-dns=no
 /ip dhcp-server lease
-add address=192.168.1.254 client-id=1:78:9a:18:fb:9d:1b comment=\
-    router02.dc01.alwaldend.com mac-address=78:9A:18:FB:9D:1B server=bridge01
-add address=192.168.1.252 comment=nas01.dc01.alwaldend.com mac-address=\
-    34:5A:60:08:6D:AA server=bridge01
-add address=192.168.1.250 client-id=1:2c:cf:67:67:b5:13 comment=\
-    rancher01.dc01.alwaldend.com mac-address=2C:CF:67:67:B5:13 server=bridge01
+add address=192.168.1.254 client-id=1:78:9a:18:fb:9d:1b comment=router02.dc01.alwaldend.com mac-address=78:9A:18:FB:9D:1B server=bridge01
+add address=192.168.1.252 comment=nas01.dc01.alwaldend.com mac-address=34:5A:60:08:6D:AA server=bridge01
+add address=192.168.1.250 client-id=1:2c:cf:67:67:b5:13 comment=rancher01.dc01.alwaldend.com mac-address=2C:CF:67:67:B5:13 server=bridge01
 /ip dhcp-server network
-add address=192.168.1.0/24 comment=defconf dns-server=192.168.1.1 gateway=\
-    192.168.1.1
+add address=192.168.1.0/24 comment=defconf dns-server=192.168.1.1 gateway=192.168.1.1
 add address=192.168.2.0/24 dns-server=192.168.2.1 gateway=192.168.2.1
 /ip dns
-set allow-remote-requests=yes use-doh-server=https://1.1.1.1/dns-query \
-    verify-doh-cert=yes
+set allow-remote-requests=yes use-doh-server=https://1.1.1.1/dns-query verify-doh-cert=yes
 /ip dns static
 add address=192.168.88.1 comment=defconf name=router.lan type=A
 /ip firewall filter
-add action=accept chain=input comment=\
-    "defconf: accept established,related,untracked" connection-state=\
-    established,related,untracked
-add action=drop chain=input comment="defconf: drop invalid" connection-state=\
-    invalid
+add action=accept chain=input comment="defconf: accept established,related,untracked" connection-state=established,related,untracked
+add action=drop chain=input comment="defconf: drop invalid" connection-state=invalid log-prefix=drop-invalid
 add action=accept chain=input comment="defconf: accept ICMP" protocol=icmp
-add action=accept chain=input comment=\
-    "defconf: accept to local loopback (for CAPsMAN)" dst-address=127.0.0.1
-add action=drop chain=input comment="defconf: drop all not coming from LAN" \
-    in-interface-list=!LAN
-add action=accept chain=forward comment="defconf: accept in ipsec policy" \
-    ipsec-policy=in,ipsec
-add action=accept chain=forward comment="defconf: accept out ipsec policy" \
-    ipsec-policy=out,ipsec
-add action=fasttrack-connection chain=forward comment="defconf: fasttrack" \
-    connection-state=established,related hw-offload=yes
-add action=accept chain=forward comment=\
-    "defconf: accept established,related, untracked" connection-state=\
-    established,related,untracked
-add action=drop chain=forward comment="defconf: drop invalid" \
-    connection-state=invalid
-add action=drop chain=forward comment=\
-    "defconf: drop all from WAN not DSTNATed" connection-nat-state=!dstnat \
-    connection-state=new in-interface-list=WAN
+add action=accept chain=input comment="defconf: accept to local loopback (for CAPsMAN)" dst-address=127.0.0.1
+add action=drop chain=input comment="defconf: drop all not coming from LAN" in-interface-list=!LAN log-prefix=drop-not-coming-from-lan
+add action=accept chain=forward comment="defconf: accept in ipsec policy" ipsec-policy=in,ipsec
+add action=accept chain=forward comment="defconf: accept out ipsec policy" ipsec-policy=out,ipsec
+add action=fasttrack-connection chain=forward comment="defconf: fasttrack" connection-state=established,related hw-offload=yes
+add action=accept chain=forward comment="defconf: accept established,related, untracked" connection-state=established,related,untracked
+add action=drop chain=forward comment="defconf: drop invalid" connection-state=invalid log-prefix=drop-invalid
+add action=drop chain=forward comment="defconf: drop all from WAN not DSTNATed" connection-nat-state=!dstnat connection-state=new in-interface-list=WAN log-prefix=\
+    drop-from-wan-not-dstnated
 add action=accept chain=input in-interface=bridge01 protocol=gre
-add action=drop chain=forward comment="drop wireless not to WAN" \
-    in-interface-list=wireless log=yes log-prefix=wireless-not-to-wan-ipv4 \
-    out-interface-list=!WAN
+add action=drop chain=forward comment="drop wireless not to WAN" in-interface-list=wireless log=yes log-prefix=drop-wireless-not-to-wan out-interface-list=!WAN
+add action=drop chain=input comment="drop wireless web access" dst-port=80,443 in-interface-list=wireless log=yes log-prefix=drop-wireless-web-access protocol=tcp
 /ip firewall nat
-add action=masquerade chain=srcnat comment="defconf: masquerade" ipsec-policy=\
-    out,none out-interface-list=WAN
+add action=masquerade chain=srcnat comment="defconf: masquerade" ipsec-policy=out,none out-interface-list=WAN
 /ip ipsec profile
 set [ find default=yes ] dpd-interval=2m dpd-maximum-failures=5
 /ip service
 set www-ssl certificate=ssl-web-management disabled=no
 /ipv6 address
-add address=::7a9a:18ff:fe38:6cca comment=bridge01 eui-64=yes from-pool=dc01 \
-    interface=bridge01
+add address=::7a9a:18ff:fe38:6cca eui-64=yes from-pool=dc01 interface=bridge01
 /ipv6 firewall address-list
 add address=::/128 comment="defconf: unspecified address" list=bad_ipv6
 add address=::1/128 comment="defconf: lo" list=bad_ipv6
@@ -126,54 +95,31 @@ add address=2001:db8::/32 comment="defconf: documentation" list=bad_ipv6
 add address=2001:10::/28 comment="defconf: ORCHID" list=bad_ipv6
 add address=3ffe::/16 comment="defconf: 6bone" list=bad_ipv6
 /ipv6 firewall filter
-add action=accept chain=input comment=\
-    "defconf: accept established,related,untracked" connection-state=\
-    established,related,untracked
-add action=drop chain=input comment="defconf: drop invalid" connection-state=\
-    invalid
+add action=accept chain=input comment="defconf: accept established,related,untracked" connection-state=established,related,untracked
+add action=drop chain=input comment="defconf: drop invalid" connection-state=invalid
 add action=accept chain=input comment="defconf: accept ICMPv6" protocol=icmpv6
-add action=accept chain=input comment="defconf: accept UDP traceroute" \
-    dst-port=33434-33534 protocol=udp
-add action=accept chain=input comment=\
-    "defconf: accept DHCPv6-Client prefix delegation." dst-port=546 protocol=\
-    udp src-address=fe80::/10
-add action=accept chain=input comment="defconf: accept IKE" dst-port=500,4500 \
-    protocol=udp
-add action=accept chain=input comment="defconf: accept ipsec AH" protocol=\
-    ipsec-ah
-add action=accept chain=input comment="defconf: accept ipsec ESP" protocol=\
-    ipsec-esp
-add action=accept chain=input comment=\
-    "defconf: accept all that matches ipsec policy" ipsec-policy=in,ipsec
-add action=drop chain=input comment=\
-    "defconf: drop everything else not coming from LAN" in-interface-list=!LAN
-add action=accept chain=forward comment=\
-    "defconf: accept established,related,untracked" connection-state=\
-    established,related,untracked
-add action=drop chain=forward comment="defconf: drop invalid" \
-    connection-state=invalid
-add action=drop chain=forward comment=\
-    "defconf: drop packets with bad src ipv6" src-address-list=bad_ipv6
-add action=drop chain=forward comment=\
-    "defconf: drop packets with bad dst ipv6" dst-address-list=bad_ipv6
-add action=drop chain=forward comment="defconf: rfc4890 drop hop-limit=1" \
-    hop-limit=equal:1 protocol=icmpv6
-add action=accept chain=forward comment="defconf: accept ICMPv6" protocol=\
-    icmpv6
+add action=accept chain=input comment="defconf: accept UDP traceroute" dst-port=33434-33534 protocol=udp
+add action=accept chain=input comment="defconf: accept DHCPv6-Client prefix delegation." dst-port=546 protocol=udp src-address=fe80::/10
+add action=accept chain=input comment="defconf: accept IKE" dst-port=500,4500 protocol=udp
+add action=accept chain=input comment="defconf: accept ipsec AH" protocol=ipsec-ah
+add action=accept chain=input comment="defconf: accept ipsec ESP" protocol=ipsec-esp
+add action=accept chain=input comment="defconf: accept all that matches ipsec policy" ipsec-policy=in,ipsec
+add action=drop chain=input comment="defconf: drop everything else not coming from LAN" in-interface-list=!LAN
+add action=accept chain=forward comment="defconf: accept established,related,untracked" connection-state=established,related,untracked
+add action=drop chain=forward comment="defconf: drop invalid" connection-state=invalid
+add action=drop chain=forward comment="defconf: drop packets with bad src ipv6" src-address-list=bad_ipv6
+add action=drop chain=forward comment="defconf: drop packets with bad dst ipv6" dst-address-list=bad_ipv6
+add action=drop chain=forward comment="defconf: rfc4890 drop hop-limit=1" hop-limit=equal:1 protocol=icmpv6
+add action=accept chain=forward comment="defconf: accept ICMPv6" protocol=icmpv6
 add action=accept chain=forward comment="defconf: accept HIP" protocol=139
-add action=accept chain=forward comment="defconf: accept IKE" dst-port=\
-    500,4500 protocol=udp
-add action=accept chain=forward comment="defconf: accept ipsec AH" protocol=\
-    ipsec-ah
-add action=accept chain=forward comment="defconf: accept ipsec ESP" protocol=\
-    ipsec-esp
-add action=accept chain=forward comment=\
-    "defconf: accept all that matches ipsec policy" ipsec-policy=in,ipsec
-add action=drop chain=forward comment=\
-    "defconf: drop everything else not coming from LAN" in-interface-list=!LAN
-add action=drop chain=forward comment="drop wireless not to WAN" \
-    in-interface-list=wireless log=yes log-prefix=wireless-not-to-wan-ipv6 \
-    out-interface-list=!WAN
+add action=accept chain=forward comment="defconf: accept IKE" dst-port=500,4500 protocol=udp
+add action=accept chain=forward comment="defconf: accept ipsec AH" protocol=ipsec-ah
+add action=accept chain=forward comment="defconf: accept ipsec ESP" protocol=ipsec-esp
+add action=accept chain=forward comment="defconf: accept all that matches ipsec policy" ipsec-policy=in,ipsec
+add action=drop chain=forward comment="defconf: drop everything else not coming from LAN" in-interface-list=!LAN
+add action=drop chain=forward comment="drop wireless not to WAN" in-interface-list=wireless log=yes log-prefix=wireless-not-to-wan-ipv6 out-interface-list=!WAN
+/ipv6 nd
+set [ find default=yes ] interface=bridge01 managed-address-configuration=yes other-configuration=yes
 /system clock
 set time-zone-name=Europe/Moscow
 /system identity
