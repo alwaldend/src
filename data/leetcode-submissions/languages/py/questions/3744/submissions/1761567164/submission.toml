@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1761567164
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3744
+  TitleSlug = "minimum-operations-to-make-array-elements-zero"
+  Code = "class Solution:\n    def get(self, num: int) -> int:\n        i = 1\n        base = 1\n        cnt = 0\n        while base <= num:\n            cnt += ((i + 1) // 2) * (min(base * 2 - 1, num) - base + 1)\n            i += 1\n            base *= 2\n        return cnt\n\n    def minOperations(self, queries: List[List[int]]) -> int:\n        res = 0\n        for q in queries:\n            res += (self.get(q[1]) - self.get(q[0] - 1) + 1) // 2\n        return res"
+  Title = "Minimum Operations to Make Array Elements Zero"
+  Url = "/submissions/detail/1761567164/"
+  LangName = "Python3"
+  Timestamp = 1757169499
+  Status = 10
+  Runtime = "4372 ms"
+  IsPending = "Not Pending"
+  Memory = "54.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
