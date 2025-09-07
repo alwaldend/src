@@ -1,4 +1,4 @@
-# 2025-09-05 19:24:20 by RouterOS 7.19.4
+# 2025-09-07 11:02:44 by RouterOS 7.19.4
 # model = C53UiG+5HPaxD2HPaxD
 /interface bridge
 add admin-mac=78:9A:18:38:6C:CA auto-mac=no comment=bridge01 name=bridge01
@@ -22,8 +22,6 @@ add comment=wireless name=wireless
 add comment=bridge01 name=bridge01 ranges=192.168.1.10-192.168.1.254
 /ip dhcp-server
 add address-pool=bridge01 comment=bridge01 interface=bridge01 lease-time=10m name=bridge01
-/ipv6 dhcp-server
-add interface=bridge01 name=bridge01 prefix-pool=dc01
 /ipv6 pool
 add name=dc01 prefix=fd2e:546d:5738::/48 prefix-length=64
 /interface bridge port
@@ -83,7 +81,7 @@ set [ find default=yes ] dpd-interval=2m dpd-maximum-failures=5
 /ip service
 set www-ssl certificate=ssl-web-management disabled=no
 /ipv6 address
-add address=::7a9a:18ff:fe38:6cca eui-64=yes from-pool=dc01 interface=bridge01
+add address=::1 from-pool=dc01 interface=bridge01
 /ipv6 firewall address-list
 add address=::/128 comment="defconf: unspecified address" list=bad_ipv6
 add address=::1/128 comment="defconf: lo" list=bad_ipv6
@@ -119,7 +117,7 @@ add action=accept chain=forward comment="defconf: accept all that matches ipsec 
 add action=drop chain=forward comment="defconf: drop everything else not coming from LAN" in-interface-list=!LAN
 add action=drop chain=forward comment="drop wireless not to WAN" in-interface-list=wireless log=yes log-prefix=wireless-not-to-wan-ipv6 out-interface-list=!WAN
 /ipv6 nd
-set [ find default=yes ] interface=bridge01 managed-address-configuration=yes other-configuration=yes
+set [ find default=yes ] interface=bridge01
 /system clock
 set time-zone-name=Europe/Moscow
 /system identity
