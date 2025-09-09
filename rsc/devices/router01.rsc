@@ -1,4 +1,4 @@
-# 2025-09-07 11:02:44 by RouterOS 7.19.4
+# 2025-09-09 16:28:25 by RouterOS 7.19.4
 # model = C53UiG+5HPaxD2HPaxD
 /interface bridge
 add admin-mac=78:9A:18:38:6C:CA auto-mac=no comment=bridge01 name=bridge01
@@ -47,15 +47,11 @@ add mac-address=FE:B3:B4:C4:A4:48 name=ovpn-server1
 add address=192.168.1.1/24 comment=bridge01 interface=bridge01 network=192.168.1.0
 /ip dhcp-client
 add comment=defconf interface=ether01 use-peer-dns=no
-/ip dhcp-server lease
-add address=192.168.1.254 client-id=1:78:9a:18:fb:9d:1b comment=router02.dc01.alwaldend.com mac-address=78:9A:18:FB:9D:1B server=bridge01
-add address=192.168.1.252 comment=nas01.dc01.alwaldend.com mac-address=34:5A:60:08:6D:AA server=bridge01
-add address=192.168.1.250 client-id=1:2c:cf:67:67:b5:13 comment=rancher01.dc01.alwaldend.com mac-address=2C:CF:67:67:B5:13 server=bridge01
 /ip dhcp-server network
 add address=192.168.1.0/24 comment=defconf dns-server=192.168.1.1 gateway=192.168.1.1
 add address=192.168.2.0/24 dns-server=192.168.2.1 gateway=192.168.2.1
 /ip dns
-set allow-remote-requests=yes use-doh-server=https://1.1.1.1/dns-query verify-doh-cert=yes
+set allow-remote-requests=yes servers=1.1.1.2,1.0.0.2 use-doh-server=https://odoh.cloudflare-dns.com/dns-query verify-doh-cert=yes
 /ip dns static
 add address=192.168.88.1 comment=defconf name=router.lan type=A
 /ip firewall filter
@@ -79,6 +75,7 @@ add action=masquerade chain=srcnat comment="defconf: masquerade" ipsec-policy=ou
 /ip ipsec profile
 set [ find default=yes ] dpd-interval=2m dpd-maximum-failures=5
 /ip service
+set www disabled=yes
 set www-ssl certificate=ssl-web-management disabled=no
 /ipv6 address
 add address=::1 from-pool=dc01 interface=bridge01
