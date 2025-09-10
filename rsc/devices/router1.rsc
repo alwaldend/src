@@ -1,5 +1,4 @@
-# 2025-09-10 16:44:33 by RouterOS 7.19.4
-# model = C53UiG+5HPaxD2HPaxD
+# 2025-09-10 20:18:28 by RouterOS 7.19.4
 /interface bridge
 add admin-mac=78:9A:18:38:6C:CA auto-mac=no comment="bridge1 (wired)" name=bridge1
 add comment="bridge2 (wireless)" name=bridge2
@@ -19,6 +18,13 @@ set [ find default-name=wifi2 ] channel.skip-dfs-channels=10min-cac comment="wif
 add comment=defconf name=WAN
 add comment=defconf name=LAN
 add comment=WAN-only name=WAN-only
+add name=accept-forward-WAN
+add name=accept-input-DNS
+add name=accept-input-DHCP-server
+add name=accept-input-ICMP
+add name=accept-input-winbox
+add name=accept-input-web-ui
+add name=accept-input-mikrotik-neighbor-discovery
 /ip pool
 add comment=bridge1 name=bridge1 ranges=192.168.1.10-192.168.1.254
 add comment=bridge2 name=bridge2 ranges=192.168.2.10-192.168.2.254
@@ -39,10 +45,21 @@ set discover-interface-list=LAN
 /interface detect-internet
 set detect-interface-list=WAN
 /interface list member
-add comment=LAN-bridge1 interface=bridge1 list=LAN
-add comment=WAN-ether1 interface=ether1 list=WAN
-add comment=LAN-bridge2 interface=bridge2 list=LAN
-add comment=WAN-only-bridge2 interface=bridge2 list=WAN-only
+add interface=bridge1 list=LAN
+add interface=ether1 list=WAN
+add interface=bridge2 list=LAN
+add interface=bridge2 list=WAN-only
+add interface=bridge2 list=accept-forward-WAN
+add interface=bridge1 list=accept-forward-WAN
+add interface=bridge1 list=accept-input-DNS
+add interface=bridge2 list=accept-input-DNS
+add interface=bridge1 list=accept-input-DHCP-server
+add interface=bridge2 list=accept-input-DHCP-server
+add interface=bridge1 list=accept-input-ICMP
+add interface=bridge2 list=accept-input-ICMP
+add interface=bridge1 list=accept-input-winbox
+add interface=bridge1 list=accept-input-web-ui
+add interface=bridge1 list=accept-input-mikrotik-neighbor-discovery
 /interface ovpn-server server
 add mac-address=FE:B3:B4:C4:A4:48 name=ovpn-server1
 /ip address
@@ -62,7 +79,7 @@ add address=192.168.88.1 comment=defconf name=router.lan type=A
 add action=accept chain=input comment="defconf: accept established,related,untracked" connection-state=\
     established,related,untracked
 add action=drop chain=input comment="defconf: drop invalid" connection-state=invalid log-prefix=drop-invalid
-add action=accept chain=input comment="defconf: accept ICMP" in-interface-list=LAN protocol=icmp
+add action=accept chain=input comment="defconf: accept ICMP" in-interface-list=accept-input-ICMP protocol=icmp
 add action=accept chain=input comment="defconf: accept to local loopback (for CAPsMAN)" dst-address=127.0.0.1
 add action=drop chain=input comment="defconf: drop all not coming from LAN" in-interface-list=!LAN log-prefix=\
     drop-not-coming-from-lan
@@ -75,12 +92,17 @@ add action=drop chain=forward comment="defconf: drop invalid" connection-state=i
 add action=drop chain=forward comment="defconf: drop all from WAN not DSTNATed" connection-nat-state=!dstnat connection-state=\
     new in-interface-list=WAN log-prefix=drop-from-wan-not-dstnated
 add action=accept chain=input in-interface-list=WAN protocol=gre
-add action=accept chain=forward comment="accept WAN-only forward: to WAN" in-interface-list=WAN-only out-interface-list=WAN
-add action=accept chain=input comment="accept WAN-only input:  DNS, DHCP" dst-port=53,67,68 in-interface-list=WAN-only protocol=\
-    udp
-add action=drop chain=input comment="drop WAN-only input" in-interface-list=WAN-only log=yes log-prefix=drop-WAN-only-input
-add action=drop chain=forward comment="drop WAN-only forward" in-interface-list=WAN-only log=yes log-prefix=\
-    drop-wan-only-forward
+add action=accept chain=forward comment="accept forward WAN" in-interface-list=accept-forward-WAN out-interface-list=WAN
+add action=accept chain=input comment="accept input DNS" dst-port=53 in-interface-list=accept-input-DNS protocol=udp
+add action=accept chain=input comment="accept input DHCP-server" dst-port=67 in-interface-list=accept-input-DHCP-server \
+    log-prefix=accept-DHCP protocol=udp
+add action=accept chain=input comment="accept input winbox" dst-port=8291 in-interface-list=accept-input-winbox protocol=tcp
+add action=accept chain=input comment="accept input winbox" dst-port=20561 in-interface-list=accept-input-winbox protocol=udp
+add action=accept chain=input comment="accept input web ui" dst-port=80,443 in-interface-list=accept-input-web-ui protocol=tcp
+add action=accept chain=input comment="accept input mikrotik neighbor discovery" dst-port=5678 in-interface-list=\
+    accept-input-mikrotik-neighbor-discovery protocol=udp
+add action=drop chain=forward comment="drop forward" log=yes log-prefix=drop-forward
+add action=drop chain=input comment="drop input" log=yes log-prefix=drop-input
 /ip firewall nat
 add action=masquerade chain=srcnat comment="defconf: masquerade" ipsec-policy=out,none out-interface-list=WAN
 /ip ipsec profile
@@ -89,8 +111,8 @@ set [ find default=yes ] dpd-interval=2m dpd-maximum-failures=5
 set www disabled=yes
 set www-ssl certificate=ssl-web-management disabled=no
 /ipv6 address
-add address=::1 comment=bridge1 from-pool=dc01 interface=bridge1
-add address=::1 comment=bridge2 from-pool=dc01 interface=bridge2
+add address=::1 from-pool=dc01 interface=bridge1
+add address=::1 from-pool=dc01 interface=bridge2
 /ipv6 firewall address-list
 add address=::/128 comment="defconf: unspecified address" list=bad_ipv6
 add address=::1/128 comment="defconf: lo" list=bad_ipv6
@@ -105,7 +127,7 @@ add address=3ffe::/16 comment="defconf: 6bone" list=bad_ipv6
 add action=accept chain=input comment="defconf: accept established,related,untracked" connection-state=\
     established,related,untracked
 add action=drop chain=input comment="defconf: drop invalid" connection-state=invalid
-add action=accept chain=input comment="defconf: accept ICMPv6" protocol=icmpv6
+add action=accept chain=input comment="defconf: accept ICMPv6" in-interface-list=accept-input-ICMP protocol=icmpv6
 add action=accept chain=input comment="defconf: accept UDP traceroute" dst-port=33434-33534 protocol=udp
 add action=accept chain=input comment="defconf: accept DHCPv6-Client prefix delegation." dst-port=546 protocol=udp src-address=\
     fe80::/10
@@ -120,18 +142,21 @@ add action=drop chain=forward comment="defconf: drop invalid" connection-state=i
 add action=drop chain=forward comment="defconf: drop packets with bad src ipv6" src-address-list=bad_ipv6
 add action=drop chain=forward comment="defconf: drop packets with bad dst ipv6" dst-address-list=bad_ipv6
 add action=drop chain=forward comment="defconf: rfc4890 drop hop-limit=1" hop-limit=equal:1 protocol=icmpv6
-add action=accept chain=forward comment="defconf: accept ICMPv6" protocol=icmpv6
+add action=accept chain=forward comment="defconf: accept ICMPv6" in-interface-list=accept-input-ICMP protocol=icmpv6
 add action=accept chain=forward comment="defconf: accept HIP" protocol=139
 add action=accept chain=forward comment="defconf: accept IKE" dst-port=500,4500 protocol=udp
 add action=accept chain=forward comment="defconf: accept ipsec AH" protocol=ipsec-ah
 add action=accept chain=forward comment="defconf: accept ipsec ESP" protocol=ipsec-esp
 add action=accept chain=forward comment="defconf: accept all that matches ipsec policy" ipsec-policy=in,ipsec
 add action=drop chain=forward comment="defconf: drop everything else not coming from LAN" in-interface-list=!LAN
-add action=accept chain=forward comment="accept WAN-only forward: to WAN" in-interface-list=WAN-only out-interface-list=WAN
-add action=accept chain=input comment="accept WAN-only input: DNS" dst-port=53 in-interface-list=WAN-only protocol=udp
-add action=drop chain=forward comment="drop WAN-only forward" in-interface-list=WAN-only log=yes log-prefix=\
-    drop-wan-only-forward-ipv6
-add action=drop chain=input comment="drop WAN-only input" in-interface-list=WAN-only log=yes log-prefix=drop-wan-only-input-ipv6
+add action=accept chain=forward comment="accept forward WAN" in-interface-list=accept-forward-WAN out-interface-list=WAN
+add action=accept chain=input comment="accept input DNS" dst-port=53 in-interface-list=accept-input-DNS protocol=udp
+add action=accept chain=input comment="accept input winbox" dst-port=8291 in-interface-list=accept-input-winbox protocol=tcp
+add action=accept chain=input comment="accept input web ui" dst-port=80,443 in-interface-list=accept-input-web-ui protocol=tcp
+add action=accept chain=input comment="accept input mikrotik neighbor discovery" dst-port=5678 in-interface-list=\
+    accept-input-mikrotik-neighbor-discovery protocol=udp
+add action=drop chain=forward comment="drop forward" log=yes log-prefix=drop-forward-ipv6
+add action=drop chain=input comment="drop input" log=yes log-prefix=drop-input-ipv6
 /ipv6 nd
 set [ find default=yes ] interface=bridge1
 add interface=bridge2
