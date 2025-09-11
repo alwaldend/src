@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1766161666
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1834
+  TitleSlug = "minimum-number-of-people-to-teach"
+  Code = "class Solution:\n    def minimumTeachings(\n        self, n: int, languages: List[List[int]], friendships: List[List[int]]\n    ) -> int:\n        cncon = set()\n        for friendship in friendships:\n            mp = {}\n            conm = False\n            for lan in languages[friendship[0] - 1]:\n                mp[lan] = 1\n            for lan in languages[friendship[1] - 1]:\n                if lan in mp:\n                    conm = True\n                    break\n            if not conm:\n                cncon.add(friendship[0] - 1)\n                cncon.add(friendship[1] - 1)\n\n        max_cnt = 0\n        cnt = [0] * (n + 1)\n        for friendship in cncon:\n            for lan in languages[friendship]:\n                cnt[lan] += 1\n                max_cnt = max(max_cnt, cnt[lan])\n\n        return len(cncon) - max_cnt"
+  Title = "Minimum Number of People to Teach"
+  Url = "/submissions/detail/1766161666/"
+  LangName = "Python3"
+  Timestamp = 1757517064
+  Status = 10
+  Runtime = "56 ms"
+  IsPending = "Not Pending"
+  Memory = "27.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
