@@ -112,10 +112,10 @@ title = "Outside of time"
 alt_titles = ["光阴之外"]
 thumbnail = "https://cdn.novelupdates.com/images/2024/08/Outside-of-Time.jpg"
 quality = "Ok"
-reading = "Dropped, C366"
+reading = "Dropped, C1470"
 authors = ["er-gen"]
 links = [
-    { title = "royalroad", url = "https://www.novelupdates.com/series/beyond-the-timescape/" },
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/beyond-the-timescape/" },
 ]
 
 [[book]]
@@ -274,7 +274,7 @@ links = [
 title = "Return of the Runebound Professor"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/68679-return-of-the-runebound-professor.jpg?time=1696109628"
 quality = "Ok"
-reading = "Reading, B7C745"
+reading = "Reading, B7C749"
 authors = ["actus"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed" },

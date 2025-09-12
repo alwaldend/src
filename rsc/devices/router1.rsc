@@ -1,4 +1,4 @@
-# 2025-09-10 20:18:28 by RouterOS 7.19.4
+# 2025-09-12 21:23:31 by RouterOS 7.19.4
 /interface bridge
 add admin-mac=78:9A:18:38:6C:CA auto-mac=no comment="bridge1 (wired)" name=bridge1
 add comment="bridge2 (wireless)" name=bridge2
@@ -17,7 +17,6 @@ set [ find default-name=wifi2 ] channel.skip-dfs-channels=10min-cac comment="wif
 /interface list
 add comment=defconf name=WAN
 add comment=defconf name=LAN
-add comment=WAN-only name=WAN-only
 add name=accept-forward-WAN
 add name=accept-input-DNS
 add name=accept-input-DHCP-server
@@ -48,7 +47,6 @@ set detect-interface-list=WAN
 add interface=bridge1 list=LAN
 add interface=ether1 list=WAN
 add interface=bridge2 list=LAN
-add interface=bridge2 list=WAN-only
 add interface=bridge2 list=accept-forward-WAN
 add interface=bridge1 list=accept-forward-WAN
 add interface=bridge1 list=accept-input-DNS
