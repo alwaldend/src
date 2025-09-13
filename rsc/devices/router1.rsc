@@ -1,4 +1,4 @@
-# 2025-09-12 21:23:31 by RouterOS 7.19.4
+# 2025-09-13 15:17:52 by RouterOS 7.19.4
 /interface bridge
 add admin-mac=78:9A:18:38:6C:CA auto-mac=no comment="bridge1 (wired)" name=bridge1
 add comment="bridge2 (wireless)" name=bridge2
@@ -10,10 +10,11 @@ set [ find default-name=ether4 ] comment=ether4
 set [ find default-name=ether5 ] comment=ether5
 /interface wifi
 set [ find default-name=wifi1 ] channel.frequency=5000-5400 .skip-dfs-channels=10min-cac comment="wifi1 (5GHz)" \
-    configuration.country=Russia .mode=ap .ssid=divinity-5GHz disabled=no security.authentication-types=wpa2-psk,wpa3-psk \
-    .connect-priority=0 .ft=yes .ft-over-ds=yes
+    configuration.country=Russia .mode=ap .ssid=divinity-5GHz datapath.client-isolation=yes disabled=no \
+    security.authentication-types=wpa2-psk,wpa3-psk .connect-priority=0 .ft=yes .ft-over-ds=yes
 set [ find default-name=wifi2 ] channel.skip-dfs-channels=10min-cac comment="wifi2 (2GHz)" configuration.country=Russia .mode=ap \
-    .ssid=divinity-2GHz disabled=no security.authentication-types=wpa2-psk,wpa3-psk .connect-priority=0 .ft=yes .ft-over-ds=yes
+    .ssid=divinity-2GHz datapath.client-isolation=yes disabled=no security.authentication-types=wpa2-psk,wpa3-psk \
+    .connect-priority=0 .ft=yes .ft-over-ds=yes
 /interface list
 add comment=defconf name=WAN
 add comment=defconf name=LAN
