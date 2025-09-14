@@ -1,4 +1,4 @@
-# 2025-09-13 15:17:52 by RouterOS 7.19.4
+# 2025-09-14 10:53:06 by RouterOS 7.19.4
 /interface bridge
 add admin-mac=78:9A:18:38:6C:CA auto-mac=no comment="bridge1 (wired)" name=bridge1
 add comment="bridge2 (wireless)" name=bridge2
@@ -92,11 +92,14 @@ add action=drop chain=forward comment="defconf: drop all from WAN not DSTNATed" 
     new in-interface-list=WAN log-prefix=drop-from-wan-not-dstnated
 add action=accept chain=input in-interface-list=WAN protocol=gre
 add action=accept chain=forward comment="accept forward WAN" in-interface-list=accept-forward-WAN out-interface-list=WAN
-add action=accept chain=input comment="accept input DNS" dst-port=53 in-interface-list=accept-input-DNS protocol=udp
+add action=accept chain=input comment="accept input DNS (udp)" dst-port=53 in-interface-list=accept-input-DNS protocol=udp
+add action=accept chain=input comment="accept input DNS (tcp)" dst-port=53 in-interface-list=accept-input-DNS protocol=tcp
 add action=accept chain=input comment="accept input DHCP-server" dst-port=67 in-interface-list=accept-input-DHCP-server \
     log-prefix=accept-DHCP protocol=udp
-add action=accept chain=input comment="accept input winbox" dst-port=8291 in-interface-list=accept-input-winbox protocol=tcp
-add action=accept chain=input comment="accept input winbox" dst-port=20561 in-interface-list=accept-input-winbox protocol=udp
+add action=accept chain=input comment="accept input winbox (tcp)" dst-port=8291 in-interface-list=accept-input-winbox protocol=\
+    tcp
+add action=accept chain=input comment="accept input winbox (udp)" dst-port=20561 in-interface-list=accept-input-winbox protocol=\
+    udp
 add action=accept chain=input comment="accept input web ui" dst-port=80,443 in-interface-list=accept-input-web-ui protocol=tcp
 add action=accept chain=input comment="accept input mikrotik neighbor discovery" dst-port=5678 in-interface-list=\
     accept-input-mikrotik-neighbor-discovery protocol=udp
@@ -149,8 +152,12 @@ add action=accept chain=forward comment="defconf: accept ipsec ESP" protocol=ips
 add action=accept chain=forward comment="defconf: accept all that matches ipsec policy" ipsec-policy=in,ipsec
 add action=drop chain=forward comment="defconf: drop everything else not coming from LAN" in-interface-list=!LAN
 add action=accept chain=forward comment="accept forward WAN" in-interface-list=accept-forward-WAN out-interface-list=WAN
-add action=accept chain=input comment="accept input DNS" dst-port=53 in-interface-list=accept-input-DNS protocol=udp
-add action=accept chain=input comment="accept input winbox" dst-port=8291 in-interface-list=accept-input-winbox protocol=tcp
+add action=accept chain=input comment="accept input DNS (udp)" dst-port=53 in-interface-list=accept-input-DNS protocol=udp
+add action=accept chain=input comment="accept input DNS (tcp)" dst-port=53 in-interface-list=accept-input-DNS protocol=tcp
+add action=accept chain=input comment="accept input winbox (tcp)" dst-port=8291 in-interface-list=accept-input-winbox protocol=\
+    tcp
+add action=accept chain=input comment="accept input winbox (udp)" dst-port=20561 in-interface-list=accept-input-winbox protocol=\
+    udp
 add action=accept chain=input comment="accept input web ui" dst-port=80,443 in-interface-list=accept-input-web-ui protocol=tcp
 add action=accept chain=input comment="accept input mikrotik neighbor discovery" dst-port=5678 in-interface-list=\
     accept-input-mikrotik-neighbor-discovery protocol=udp
