@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1772900722
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2307
+  TitleSlug = "replace-non-coprime-numbers-in-array"
+  Code = "from math import gcd\n\nclass Solution(object):\n    def replaceNonCoprimes(self, nums):\n        stack = []\n\n        for num in nums:\n            while stack:\n                g = gcd(stack[-1], num)\n                if g == 1:\n                    break\n                num = (stack.pop() * num) // g\n            stack.append(num)\n\n        return stack"
+  Title = "Replace Non-Coprime Numbers in Array"
+  Url = "/submissions/detail/1772900722/"
+  LangName = "Python3"
+  Timestamp = 1758037300
+  Status = 10
+  Runtime = "119 ms"
+  IsPending = "Not Pending"
+  Memory = "31.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

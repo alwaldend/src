@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1770685197
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1006
+  TitleSlug = "vowel-spellchecker"
+  Code = "class Solution(object):\n    def spellchecker(self, wordlist, queries):\n        def devowel(word):\n            return \"\".join('*' if c in 'aeiou' else c\n                           for c in word)\n\n        words_perfect = set(wordlist)\n        words_cap = {}\n        words_vow = {}\n\n        for word in wordlist:\n            wordlow = word.lower()\n            words_cap.setdefault(wordlow, word)\n            words_vow.setdefault(devowel(wordlow), word)\n\n        def solve(query):\n            if query in words_perfect:\n                return query\n\n            queryL = query.lower()\n            if queryL in words_cap:\n                return words_cap[queryL]\n\n            queryLV = devowel(queryL)\n            if queryLV in words_vow:\n                return words_vow[queryLV]\n            return \"\"\n\n        return tuple(map(solve, queries))"
+  Title = "Vowel Spellchecker"
+  Url = "/submissions/detail/1770685197/"
+  LangName = "Python3"
+  Timestamp = 1757866303
+  Status = 10
+  Runtime = "39 ms"
+  IsPending = "Not Pending"
+  Memory = "20.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
