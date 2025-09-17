@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1774171081
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2429
+  TitleSlug = "design-a-food-rating-system"
+  Code = "from sortedcontainers import SortedSet\n\nclass FoodRatings:\n    def __init__(self, foods: List[str], cuisines: List[str], ratings: List[int]):\n        # Map food with its rating.\n        self.food_rating_map = {}\n        # Map food with the cuisine it belongs to.\n        self.food_cuisine_map = {}\n\n        # Store all food of cuisine in a set (to sort them on ratings/name)\n        # Set element -> Tuple: (-1 * food_rating, food_name)\n        self.cuisine_food_map = defaultdict(SortedSet)\n\n        for i in range(len(foods)):\n            # Store 'rating' and 'cuisine' of the current 'food' in 'food_rating_map' and 'food_cuisine_map' maps.\n            self.food_rating_map[foods[i]] = ratings[i]\n            self.food_cuisine_map[foods[i]] = cuisines[i]\n            # Insert the '(-1 * rating, name)' element in the current cuisine's set.\n            self.cuisine_food_map[cuisines[i]].add((-ratings[i], foods[i]))\n\n    def changeRating(self, food: str, newRating: int) -> None:\n        # Fetch cuisine name for food.\n        cuisine_name = self.food_cuisine_map[food]\n\n        # Find and delete the element from the respective cuisine's set.\n        old_element = (-self.food_rating_map[food], food)\n        self.cuisine_food_map[cuisine_name].remove(old_element)\n\n        # Update food's rating in 'food_rating' map.\n        self.food_rating_map[food] = newRating\n        # Insert the '(-1 * new rating, name)' element in the respective cuisine's set.\n        self.cuisine_food_map[cuisine_name].add((-newRating, food))\n\n    def highestRated(self, cuisine: str) -> str:\n        highest_rated = self.cuisine_food_map[cuisine][0]\n        # Return name of the highest-rated 'food' of 'cuisine'.\n        return highest_rated[1]"
+  Title = "Design a Food Rating System"
+  Url = "/submissions/detail/1774171081/"
+  LangName = "Python3"
+  Timestamp = 1758130794
+  Status = 10
+  Runtime = "255 ms"
+  IsPending = "Not Pending"
+  Memory = "54.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
