@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1775224194
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3678
+  TitleSlug = "design-task-manager"
+  Code = "class TaskManager:\n    def __init__(self, tasks: List[List[int]]):\n        self.tasks = SortedSet()\n        self.task_to_users = {}\n        self.task_to_priority = {}\n        for user_id, task_id, priority in tasks:\n            self.add(user_id, task_id, priority)\n    def add(self, userId: int, taskId: int, priority: int) -> None:\n        self.tasks.add((priority, taskId, userId))\n        self.task_to_users[taskId] = userId\n        self.task_to_priority[taskId] = priority\n    def edit(self, taskId: int, newPriority: int) -> None:\n        user = self.task_to_users[taskId]\n        self.rmv(taskId)\n        self.add(user, taskId, newPriority)        \n    def rmv(self, taskId: int) -> None:\n        user = self.task_to_users[taskId]        \n        priority = self.task_to_priority[taskId]\n        self.tasks.remove((priority, taskId, user))\n        del self.task_to_users[taskId]\n        del self.task_to_priority[taskId]\n    def execTop(self) -> int:\n        if not self.tasks:\n            return -1\n        _, task_id, user_id = self.tasks[-1]\n        self.rmv(task_id)\n        return user_id\n\n\n"
+  Title = "Design Task Manager"
+  Url = "/submissions/detail/1775224194/"
+  LangName = "Python3"
+  Timestamp = 1758214705
+  Status = 10
+  Runtime = "1154 ms"
+  IsPending = "Not Pending"
+  Memory = "104.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
