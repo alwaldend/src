@@ -589,8 +589,8 @@ links = [
 [[book]]
 title = "Chrysalis"
 thumbnail = "https://www.royalroadcdn.com/public/covers-full/22518-chrysalis.jpg"
-quality = "Ok, shallow"
-reading = "Reading, C1623"
+quality = "Ok"
+reading = "Reading, C1648"
 authors = ["rinoz"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/22518/chrysalis" },
