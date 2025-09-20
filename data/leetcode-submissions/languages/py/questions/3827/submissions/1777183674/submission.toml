@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1777183674
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3827
+  TitleSlug = "implement-router"
+  Code = "class Router:\n    def __init__(self, memoryLimit: int):\n        self.size = memoryLimit\n        self.packets = {}  # key -> [source, destination, timestamp]\n        self.counts = defaultdict(list)  # destination -> sorted list of timestamps\n        self.queue = deque()  # FIFO order of packets\n\n    def addPacket(self, source: int, destination: int, timestamp: int) -> bool:\n        key = self._encode(source, destination, timestamp)\n\n        # Duplicate check\n        if key in self.packets:\n            return False\n\n        # If memory full, forward oldest packet\n        if len(self.packets) >= self.size:\n            self.forwardPacket()\n\n        # Add packet\n        self.packets[key] = [source, destination, timestamp]\n        self.queue.append(key)\n        self.counts[destination].append(timestamp)\n\n        return True\n\n    def forwardPacket(self):\n        if not self.packets:\n            return []\n\n        key = self.queue.popleft()\n        packet = self.packets.pop(key)\n\n        dest = packet[1]\n        self.counts[dest].pop(0)  # remove the earliest timestamp\n\n        return packet\n\n    def getCount(self, destination: int, startTime: int, endTime: int) -> int:\n        timestamps = self.counts.get(destination, [])\n        if not timestamps:\n            return 0\n\n        # Binary search for range\n        left = bisect.bisect_left(timestamps, startTime)\n        right = bisect.bisect_right(timestamps, endTime)\n\n        return right - left\n\n    def _encode(self, source: int, destination: int, timestamp: int) -> int:\n        # Encode uniquely into 1 number\n        return (source << 40) | (destination << 20) | timestamp"
+  Title = "Implement Router"
+  Url = "/submissions/detail/1777183674/"
+  LangName = "Python3"
+  Timestamp = 1758385516
+  Status = 10
+  Runtime = "266 ms"
+  IsPending = "Not Pending"
+  Memory = "82.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

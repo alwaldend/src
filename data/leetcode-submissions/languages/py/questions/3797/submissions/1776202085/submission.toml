@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1776202085
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3797
+  TitleSlug = "design-spreadsheet"
+  Code = "class Spreadsheet:\n\n    def __init__(self, rows: int):\n        self._grid = [[0] * 26 for _ in range(rows)]\n\n    def _coord(self, cell: str) -> tuple[int, int]:\n        return int(cell[1:]) - 1, ord(cell[0]) - ord(\"A\")\n\n    def setCell(self, cell: str, value: int) -> None:\n        row, col = self._coord(cell)\n        self._grid[row][col] = value\n\n    def resetCell(self, cell: str) -> None:\n        row, col = self._coord(cell)\n        self._grid[row][col] = 0\n\n    def getValue(self, formula: str) -> int:\n        res = 0\n        for cell in formula[1:].split(\"+\"):\n            if cell[0].isdigit():\n                res += int(cell)\n            else:\n                row, col = self._coord(cell)\n                res += self._grid[row][col]\n        return res\n\n# Your Spreadsheet object will be instantiated and called as such:\n# obj = Spreadsheet(rows)\n# obj.setCell(cell,value)\n# obj.resetCell(cell)\n# param_3 = obj.getValue(formula)"
+  Title = "Design Spreadsheet"
+  Url = "/submissions/detail/1776202085/"
+  LangName = "Python3"
+  Timestamp = 1758296686
+  Status = 10
+  Runtime = "156 ms"
+  IsPending = "Not Pending"
+  Memory = "23.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
