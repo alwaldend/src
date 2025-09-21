@@ -18,6 +18,24 @@ local config = {
     ["mason-org/mason-lspconfig.nvim"] = { version = "^1.0.0" },
 }
 
+local colors_bg = "#000000"
+local colors_bg_term = "0"
+local colors_fg = "#ffffff"
+
+local lualine_colors = {
+    a = { bg = colors_fg, fg = colors_bg },
+    b = { bg = colors_bg, fg = colors_fg },
+    c = { bg = colors_bg, fg = colors_fg },
+}
+local lualine_theme = {
+    normal = lualine_colors,
+    insert = lualine_colors,
+    visual = lualine_colors,
+    replace = lualine_colors,
+    command = lualine_colors,
+    inactive = lualine_colors,
+}
+
 return {
     {
         --- autoformatting
@@ -347,35 +365,6 @@ return {
         opts = {},
     },
     {
-        -- better status line
-        "nvim-lualine/lualine.nvim",
-        version = config["nvim-lualine/lualine.nvim"].version,
-        opts = {
-            options = {
-                globalstatus = true,
-                theme = "onedark",
-                icons_enabled = false,
-                component_separators = "|",
-                section_separators = " ",
-            },
-            sections = {
-                lualine_a = { "mode" },
-                lualine_b = {
-                    "branch",
-                    "diff",
-                    "diagnostics",
-                    "location",
-                    "filetype",
-                    { "filename", path = 1 },
-                },
-                lualine_c = {},
-                lualine_x = {},
-                lualine_y = {},
-                lualine_z = {},
-            },
-        },
-    },
-    {
         -- Fuzzy Finder (files, lsp, etc)
         "nvim-telescope/telescope.nvim",
         version = config["nvim-telescope/telescope.nvim"].version,
@@ -499,29 +488,50 @@ return {
             require("nvim-treesitter.configs").setup(opts)
         end,
     },
-    -- {
-    --     --- theme
-    --     "sainnhe/sonokai",
-    --     version = config["sainnhe/sonokai"].version,
-    --     lazy = false,
-    --     priority = 1000,
-    --     enabled = true,
-    --     config = function()
-    --         vim.g.sonokai_style = "default"
-    --         vim.g.sonokai_colors_override = {
-    --             bg0 = { bg, bg_term },
-    --         }
-    --         vim.cmd.colorscheme("sonokai")
-    --     end,
-    -- },
     {
-        "navarasu/onedark.nvim",
+        --- theme
+        "sainnhe/sonokai",
+        version = config["sainnhe/sonokai"].version,
+        lazy = false,
         priority = 1000,
+        enabled = true,
         config = function()
-            require("onedark").setup({
-                style = "light",
+            vim.g.sonokai_style = "default"
+            vim.g.sonokai_colors_override = {
+                bg0 = { colors_bg, colors_bg_term },
+            }
+            vim.cmd.colorscheme("sonokai")
+        end,
+    },
+    {
+        -- better status line
+        "nvim-lualine/lualine.nvim",
+        version = config["nvim-lualine/lualine.nvim"].version,
+        config = function()
+            require("lualine").setup({
+                options = {
+                    globalstatus = true,
+                    theme = lualine_theme,
+                    icons_enabled = false,
+                    component_separators = "|",
+                    section_separators = " ",
+                },
+                sections = {
+                    lualine_a = { "mode" },
+                    lualine_b = {
+                        "branch",
+                        "diff",
+                        "diagnostics",
+                        "location",
+                        "filetype",
+                        { "filename", path = 1 },
+                    },
+                    lualine_c = {},
+                    lualine_x = {},
+                    lualine_y = {},
+                    lualine_z = {},
+                },
             })
-            require("onedark").load()
         end,
     },
     {
