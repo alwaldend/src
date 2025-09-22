@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1779298280
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3242
+  TitleSlug = "count-elements-with-maximum-frequency"
+  Code = "class Solution:\n    def maxFrequencyElements(self, nums: List[int]) -> int:\n        max_freq, max_freq_count = 0, 0\n        freqs = [0] * 101\n        for num in nums:\n            freqs[num] += 1\n        for num, freq in enumerate(freqs):\n            if freq > max_freq:\n                max_freq, max_freq_count = freq, freq\n            elif freq == max_freq:\n                max_freq_count += freq\n        return max_freq_count"
+  Title = "Count Elements With Maximum Frequency"
+  Url = "/submissions/detail/1779298280/"
+  LangName = "Python3"
+  Timestamp = 1758558884
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

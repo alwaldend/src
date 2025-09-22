@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1778249353
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2023
+  TitleSlug = "design-movie-rental-system"
+  Code = "class MovieRentingSystem:\n\n    def __init__(self, n: int, entries: List[List[int]]):\n        self.available = {}  # (shop, movie) -> price\n        self.movie_shops = {}  # movie -> list of (price, shop)\n        self.rented = set()  # (shop, movie) that are currently rented\n\n        for shop, movie, price in entries:\n            self.available[(shop, movie)] = price\n            if movie not in self.movie_shops:\n                self.movie_shops[movie] = []\n            self.movie_shops[movie].append((price, shop))\n\n        # Sort shops by price for each movie initially\n        for movie in self.movie_shops:\n            self.movie_shops[movie].sort()\n\n    def search(self, movie: int) -> List[int]:\n        result = []\n        for price, shop in self.movie_shops.get(movie, []):\n            if (shop, movie) not in self.rented:\n                result.append(shop)\n            if len(result) == 5:\n                break\n        return result\n\n    def rent(self, shop: int, movie: int) -> None:\n        self.rented.add((shop, movie))\n\n    def drop(self, shop: int, movie: int) -> None:\n        self.rented.discard((shop, movie))\n\n    def report(self) -> List[List[int]]:\n        rented_list = []\n        for shop, movie in self.rented:\n            price = self.available[(shop, movie)]\n            rented_list.append((price, shop, movie))\n\n        rented_list.sort()\n        return [[shop, movie] for price, shop, movie in rented_list[:5]]"
+  Title = "Design Movie Rental System"
+  Url = "/submissions/detail/1778249353/"
+  LangName = "Python3"
+  Timestamp = 1758472258
+  Status = 10
+  Runtime = "290 ms"
+  IsPending = "Not Pending"
+  Memory = "110 MB"
+  CompareResult = "111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
