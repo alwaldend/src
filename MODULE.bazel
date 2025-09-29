@@ -28,6 +28,8 @@ bazel_dep(name = "rules_jvm_external", version = "6.8")
 bazel_dep(name = "rules_foreign_cc", version = "0.15.1")
 bazel_dep(name = "rules_nodejs", version = "6.5.0")
 bazel_dep(name = "rules_proto", version = "7.1.0")
+bazel_dep(name = "rules_proto_grpc", version = "5.7.1")
+bazel_dep(name = "grpc", version = "1.74.1")
 bazel_dep(name = "rules_perl", version = "0.4.2")
 bazel_dep(name = "rules_shell", version = "0.6.1")
 bazel_dep(name = "platforms", version = "1.0.0")
@@ -57,7 +59,7 @@ bazel_dep(name = "com-github-twbs-bootstrap", version = "5.3.7")
 
 NODE_VERSION = "16.14.2"
 
-PYTHON_VERSION = "3.13.2"
+PYTHON_VERSION = "3.12.11"
 
 GO_VERSION = "1.24.3"
 

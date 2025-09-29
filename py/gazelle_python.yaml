@@ -167,4 +167,4 @@ manifest:
     yaml: PyYAML
   pip_repository:
     name: com-alwaldend-src-pip
-integrity: b8ff56256ad5fe7a38c240b55028c142c96d2811734193a615b3477aad60e459
+integrity: fff2a29c1f0d7e834eee22bddb408ad4cf5668c9992b8280eb1d4ff134af1cfd
