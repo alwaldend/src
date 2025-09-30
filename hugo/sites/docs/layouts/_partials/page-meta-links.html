@@ -49,9 +49,9 @@ after 0.9.0 */ -}}
     {{ if not $isGen -}}
     <a href="{{ $viewURL }}" class="td-page-meta--view td-page-meta__view" target="_blank" rel="noopener"><i
             class="fa-solid fa-file-lines fa-fw"></i> {{ T "post_view_this" }}</a>
-    <a href="{{ .RelPermalink }}/changelog" class="td-page-meta--view td-page-meta__view" target="_blank" rel="noopener"><i
+    <a href="{{ .RelPermalink }}changelog" class="td-page-meta--view td-page-meta__view" target="_blank" rel="noopener"><i
             class="fa-solid fa-file-lines fa-fw"></i> {{ T "post_view_changelog" }}</a>
-    <a href="{{ .RelPermalink }}/bazel-targets" class="td-page-meta--view td-page-meta__view" target="_blank" rel="noopener"><i
+    <a href="{{ .RelPermalink }}bazel-targets" class="td-page-meta--view td-page-meta__view" target="_blank" rel="noopener"><i
             class="fa-solid fa-file-lines fa-fw"></i> {{ T "post_view_bazel_targets" }}</a>
     <a href="{{ $editURL }}" class="td-page-meta--edit td-page-meta__edit" target="_blank" rel="noopener"><i
             class="fa-solid fa-pen-to-square fa-fw"></i> {{ T "post_edit_this" }}</a>
