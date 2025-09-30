@@ -14,8 +14,8 @@ al_gen_changelog(
 )
 
 pkg_tar(
-    name = "layouts",
-    srcs = glob(["*/**"]),
+    name = "i18n",
+    srcs = glob(["*.toml"]),
     strip_prefix = ".",
     visibility = ["//visibility:public"],
 )

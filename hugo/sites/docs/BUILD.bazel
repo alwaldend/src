@@ -17,6 +17,7 @@ al_hugo_site(
     configs = [":hugo-config"],
     content = "//hugo/sites/docs/content",
     hugo_data = ":data",
+    hugo_i18n = "//hugo/sites/docs/i18n",
     hugo_layouts = "//hugo/sites/docs/layouts",
     postcss = "//tools:postcss",
     themes = "//hugo/themes",

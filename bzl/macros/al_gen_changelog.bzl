@@ -27,6 +27,8 @@ def al_gen_changelog(name, visibility, subpackages = []):
             "---",
             "title: Changelog",
             "tags: [generated, changelog]",
+            "build:",
+            "  list: false",
             "---",
             "",
             "{{ range .Data -}}",

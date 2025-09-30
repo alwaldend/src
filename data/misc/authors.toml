@@ -260,3 +260,34 @@ alts = ["爆炸小拿铁"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/exploding-small-latte/" },
 ]
+
+[author.arcanecadence]
+name = "ArcaneCadence"
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/profile/729989" },
+]
+
+[author.the-whitest-crow]
+name = "The Whitest Crow"
+alts = ["最白的乌鸦"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/%e6%9c%80%e7%99%bd%e7%9a%84%e4%b9%8c%e9%b8%a6/" },
+]
+
+[author.emes]
+name = "EmEs"
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/profile/235726" },
+]
+
+[author.colin-j-d-crooks]
+name = "Colin J.D. Crooks"
+links = [
+    { title = "goodreads", url = "https://www.goodreads.com/author/show/21106941.Colin_J_D_Crooks" },
+]
+
+[author._172]
+name = "_172"
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/_172/" },
+]

@@ -1,0 +1,5 @@
+[post_view_changelog]
+other = "View changelog"
+
+[post_view_bazel_targets]
+other = "View bazel targets"

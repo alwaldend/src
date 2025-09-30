@@ -11,9 +11,9 @@ links = [
 
 [[book]]
 title = "Virtuous Sons"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/41330-virtuous-sons-a-greco-roman-xianxia.jpg?time=1664164206"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/41330-virtuous-sons-a-greco-roman-xianxia.jpg"
 quality = "Peak"
-reading = "Reading, C2.22"
+reading = "Hiatus, C2.22"
 authors = ["ya-boy"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/41330/virtuous-sons-a-greco-roman-xianxia" },
@@ -131,7 +131,7 @@ links = [
 
 [[book]]
 title = "Godclads"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/59663-godclads.jpg?time=1733242909"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/59663-godclads.jpg"
 quality = "Good, a bit too dramatic"
 reading = "Reading, chapter 35-15, book 7"
 authors = ["ostensible-mammal"]
@@ -141,7 +141,7 @@ links = [
 
 [[book]]
 title = "Defiance of the Fall"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/24709-defiance-of-the-fall.jpg?time=1707310837"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/24709-defiance-of-the-fall.jpg"
 quality = "Decent"
 reading = "Reading, C1343"
 authors = ["thefirstdefier"]
@@ -151,7 +151,7 @@ links = [
 
 [[book]]
 title = "Matabar"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/matabar-aaaa9rj72ru.jpg?time=1727012411"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/matabar-aaaa9rj72ru.jpg"
 quality = "Good"
 reading = "Reading, chapter 91"
 authors = ["kirill-klevanski"]
@@ -182,9 +182,9 @@ links = [
 
 [[book]]
 title = "The Years of Apocalypse"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/the-years-of-apocalypse-a-time-loop-progression.jpg?time=1706941233"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/the-years-of-apocalypse-a-time-loop-progression.jpg"
 quality = "Decent"
-reading = "Reading, C212"
+reading = "Dropped, C225"
 authors = ["uraniumphoenix"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression" },
@@ -192,7 +192,7 @@ links = [
 
 [[book]]
 title = "Book Of The Dead"
-thumbnail = "https://www.royalroadcdn.com/public/covers-full/47038-book-of-the-dead.jpg?time=1637047029"
+thumbnail = "https://www.royalroadcdn.com/public/covers-full/47038-book-of-the-dead.jpg"
 quality = "Good"
 reading = "Reading, book 5 chapter 25"
 authors = ["rinoz"]
@@ -202,7 +202,7 @@ links = [
 
 [[book]]
 title = "Downtown Druid"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/79173-downtown-druid.jpg?time=1738855641"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/79173-downtown-druid.jpg"
 quality = "Decent"
 reading = "Finished volume 1"
 authors = ["seersucker"]
@@ -214,7 +214,7 @@ links = [
 title = "A Practical Guide to Sorcery"
 thumbnail = "https://www.azaleaellis.com/wp-content/uploads/2022/10/A-Conjuring-of-Ravens-Web-800w-683x1024.jpg"
 quality = "Decent, slow upload"
-reading = "Reading, C262"
+reading = "Dropped, C262"
 authors = ["azalea-ellis"]
 links = [
     { title = "azaleaellis", url = "https://www.azaleaellis.com/a-practical-guide-to-sorcery/" },
@@ -224,7 +224,7 @@ links = [
 title = "Dungeon Crawler Carl"
 thumbnail = "https://www.royalroadcdn.com/public/covers-full/29358-dungeon-crawler-carl.jpg"
 quality = "Good"
-reading = "Finished, B7"
+reading = "Finished available, B7"
 authors = ["doctorhepa"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/29358/dungeon-crawler-carl-book-6-the-ghosts-of-earth" },
@@ -232,7 +232,7 @@ links = [
 
 [[book]]
 title = "Beware Of Chicken"
-thumbnail = "https://www.royalroadcdn.com/public/covers-full/beware-of-chicken-aacav1xoeg8.jpg?time=1610566797"
+thumbnail = "https://www.royalroadcdn.com/public/covers-full/beware-of-chicken-aacav1xoeg8.jpg"
 quality = "Good"
 reading = "Dropped at some point"
 authors = ["casualfarmer"]
@@ -262,7 +262,7 @@ links = [
 
 [[book]]
 title = "Hell Difficulty Tutorial"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg?time=1743538154"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg"
 quality = "Decent"
 reading = "Reading, chapter 589"
 authors = ["cerim"]
@@ -272,7 +272,7 @@ links = [
 
 [[book]]
 title = "Return of the Runebound Professor"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/68679-return-of-the-runebound-professor.jpg?time=1696109628"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/68679-return-of-the-runebound-professor.jpg"
 quality = "Ok"
 reading = "Reading, B7C749"
 authors = ["actus"]
@@ -282,7 +282,7 @@ links = [
 
 [[book]]
 title = "I Am Become Death"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/109537-i-am-become-death-a-progression-fantasy.jpg?time=1743174516"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/109537-i-am-become-death-a-progression-fantasy.jpg"
 quality = "Decent"
 summary = "Nothing exceptional"
 reading = "Dropped, chapter 55"
@@ -293,9 +293,9 @@ links = [
 
 [[book]]
 title = "Are You Even Human"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg?time=1724477376"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg"
 quality = "Decent"
-reading = "Reading, C54"
+reading = "Dropped, C54"
 authors = ["thundamoo"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/92549/are-you-even-human" },
@@ -303,7 +303,7 @@ links = [
 
 [[book]]
 title = "Ghost of the Truthseeker"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/56136-ghost-of-the-truthseeker.jpg?time=1721186189"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/56136-ghost-of-the-truthseeker.jpg"
 quality = "Ok"
 reading = "Dropped, chapter 220"
 authors = ["strungbound"]
@@ -313,9 +313,9 @@ links = [
 
 [[book]]
 title = "Changeling"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg?time=1712108062"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg"
 quality = "Decent"
-reading = "Reading, C83"
+reading = "Dropped, C83"
 authors = ["mecanimus"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/75345/changeling" },
@@ -333,7 +333,7 @@ links = [
 
 [[book]]
 title = "Rise of the Living Forge"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/79094-rise-of-the-living-forge-stubbing-in-october.jpg?time=1723126402"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/79094-rise-of-the-living-forge-stubbing-in-october.jpg"
 quality = "Ok, isekai slop"
 reading = "Dropped, volume 1, chapter 66"
 authors = ["actus"]
@@ -343,7 +343,7 @@ links = [
 
 [[book]]
 title = "Vigor Mortis"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/40373-vigor-mortis.jpg?time=1675224407"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/40373-vigor-mortis.jpg"
 quality = "Ok"
 reading = "Dropped, volume 4, chapter 27"
 authors = ["thundamoo"]
@@ -353,7 +353,7 @@ links = [
 
 [[book]]
 title = "Ultimate Level 1"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/76259-ultimate-level-1-litrpg-book-8-stubs-531.jpg?time=1748571204"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/76259-ultimate-level-1-litrpg-book-8-stubs-531.jpg"
 quality = "Bad, litrpg slop"
 reading = "Dropped, volume 1, chapter 17"
 authors = ["dads-bedtime-stories"]
@@ -373,7 +373,7 @@ links = [
 
 [[book]]
 title = "Mark of the Fool"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/41618-mark-of-the-fool.jpg?time=1739370607"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/41618-mark-of-the-fool.jpg"
 quality = "Decent, not enough progression"
 reading = "Finished"
 authors = ["clarke"]
@@ -383,7 +383,7 @@ links = [
 
 [[book]]
 title = "DIE. RESPAWN. REPEAT."
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/66643-die-respawn-repeat.jpg?time=1718032689"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/66643-die-respawn-repeat.jpg"
 quality = "Decent, a bit bland"
 reading = "Dropped, volume 4, chapter 8 (chapter 222)"
 authors = ["silverlinings"]
@@ -393,7 +393,7 @@ links = [
 
 [[book]]
 title = "System Breaker"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/89249-system-breaker-xianxia-system-apocalypse.jpg?time=1721663785"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/89249-system-breaker-xianxia-system-apocalypse.jpg"
 quality = "Decent, MC is a bit immature"
 reading = "Dropped, volume 2, chapter 55"
 authors = ["ostensiblemammal"]
@@ -403,7 +403,7 @@ links = [
 
 [[book]]
 title = "Reborn as a Demonic Tree"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/62881-reborn-as-a-demonic-tree.jpg?time=1739372665"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/62881-reborn-as-a-demonic-tree.jpg"
 quality = "Ok, mediocre"
 reading = "Dropped, volume 8, chapter 421"
 authors = ["xkarnation"]
@@ -423,7 +423,7 @@ links = [
 
 [[book]]
 title = "The Jester of Apocalypse"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/62411-the-jester-of-apocalypse.jpg?time=1694501749"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/62411-the-jester-of-apocalypse.jpg"
 quality = "Ok, basic and a bit edgy"
 reading = "Finished available chapters"
 authors = ["robert-blaise"]
@@ -453,7 +453,7 @@ links = [
 
 [[book]]
 title = "12 Miles Below"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/42367-12-miles-below.jpg?time=1666920024"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/42367-12-miles-below.jpg"
 quality = "Decent"
 reading = "Dropped at some point"
 authors = ["mark-arrows"]
@@ -501,7 +501,7 @@ links = [
 
 [[book]]
 title = "Corpo Age"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/75446-corpo-age-cyberpunk-progression-litrpg.jpg?time=1704495083"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/75446-corpo-age-cyberpunk-progression-litrpg.jpg"
 quality = "Ok, feels basic"
 reading = "Dropped, volume 1, chapter 2"
 authors = ["randombluecat"]
@@ -577,7 +577,7 @@ links = [
 
 [[book]]
 title = "Rune Seeker"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/73095-rune-seeker-a-progression-fantasy-litrpg.jpg?time=1734535667"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/73095-rune-seeker-a-progression-fantasy-litrpg.jpg"
 quality = "Ok"
 summary = "Shallow"
 reading = "Dropped, volume 2, chapter 12"
@@ -590,7 +590,7 @@ links = [
 title = "Chrysalis"
 thumbnail = "https://www.royalroadcdn.com/public/covers-full/22518-chrysalis.jpg"
 quality = "Ok"
-reading = "Reading, C1648"
+reading = "Dropped, C1654"
 authors = ["rinoz"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/22518/chrysalis" },
@@ -622,7 +622,7 @@ links = [
 
 [[book]]
 title = "Unbound"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/30321-unbound.jpg?time=1669144212"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/30321-unbound.jpg"
 quality = "Ok"
 summary = "Shallow"
 reading = "Dropped, finisehd volume 3"
@@ -633,7 +633,7 @@ links = [
 
 [[book]]
 title = "The Stubborn Skill-Grinder In A Time Loop"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/83294-the-stubborn-skill-grinder-in-a-time-loop.jpg?time=1744237319"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/83294-the-stubborn-skill-grinder-in-a-time-loop.jpg"
 quality = "Ok"
 summary = "Shallow litrpg slop"
 reading = "Dropped, chapter 44"
@@ -702,7 +702,7 @@ links = [
 
 [[book]]
 title = "Blood & Fur"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/70234-blood-fur.jpg?time=1710701426"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/70234-blood-fur.jpg"
 quality = "Good"
 reading = "Finished"
 authors = ["maxime-j-durand"]
@@ -712,7 +712,7 @@ links = [
 
 [[book]]
 title = "The Perfect Run"
-thumbnail = "https://www.royalroadcdn.com/public/covers-full/36735-the-perfect-run.jpg?time=1604749383"
+thumbnail = "https://www.royalroadcdn.com/public/covers-full/36735-the-perfect-run.jpg"
 quality = "Decent"
 reading = "Finished"
 authors = ["maxime-j-durand"]
@@ -725,7 +725,7 @@ title = "Diary of a Dead Wizard"
 alt_titles = ["死亡巫师日记"]
 thumbnail = "https://cdn.novelupdates.com/images/2025/02/Diary-of-a-Dead-Wizard.jpeg"
 quality = "Good"
-reading = "Reading, chapter 377"
+reading = "Reading, chapter 896"
 authors = ["jin-nai"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/diary-of-a-dead-wizard/" },
@@ -733,7 +733,7 @@ links = [
 
 [[book]]
 title = "Sky Pride"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/107917-sky-pride.jpg?time=1741721709"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/107917-sky-pride.jpg"
 quality = "Good"
 reading = "Reading, B3C25"
 authors = ["warby-picus"]
@@ -743,7 +743,7 @@ links = [
 
 [[book]]
 title = "Dungeon Inspector"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/63331-dungeon-inspector-book-2-complete.jpg?time=1736172027"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/63331-dungeon-inspector-book-2-complete.jpg"
 quality = "Ok, mediocre"
 reading = "Dropped, finished volume 1"
 authors = ["flossindune"]
@@ -775,7 +775,7 @@ links = [
 
 [[book]]
 title = "1% Lifesteal"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/72301-1-lifesteal.jpg?time=1749132068"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/72301-1-lifesteal.jpg"
 quality = "Ok, boring protagonist"
 reading = "Dropped, C128 (volume 2)"
 authors = ["robert-blaise"]
@@ -785,9 +785,9 @@ links = [
 
 [[book]]
 title = "Saving the school would have been easier as a cafeteria worker"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/86874-saving-the-school-would-have-been-easier.jpg?time=1754279197"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/86874-saving-the-school-would-have-been-easier.jpg"
 quality = "Decent"
-reading = "Reading, chapter 82"
+reading = "Dropped, chapter 87"
 authors = ["cluelessrr"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/86874/saving-the-school-would-have-been-easier-as-a" },
@@ -795,9 +795,9 @@ links = [
 
 [[book]]
 title = "Theos"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/64789-theos.jpg?time=1701661984"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/64789-theos.jpg"
 quality = "Decent"
-reading = "Finished available, hiatus, B3C4"
+reading = "Hiatus, B3C4"
 authors = ["arthur-wordsmith"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/64789/theos" },
@@ -818,7 +818,7 @@ title = "Kill the Sun"
 thumbnail = "https://book-pic.webnovel.com/bookcover/27467949206850305?imageMogr2/thumbnail/180x|imageMogr2/quality/70!&imageId=1732809259404"
 quality = "Decent"
 reading = "Finished, C992"
-authors = "warmaisach"
+authors = ["warmaisach"]
 links = [
     { title = "webnovel", url = "https://m.webnovel.com/book/kill-the-sun_27467949206850305" },
 ]
@@ -832,4 +832,54 @@ reading = "Dropped, C54"
 authors = ["exploding-small-latte"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/__trashed-43/" },
+]
+
+[[book]]
+title = "New Life As A Max Level Archmage"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/118891-new-life-as-a-max-level-archmage.jpg"
+quality = "Ok"
+reading = "Dropped, C44"
+authors = ["arcanecadence"]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/118891/new-life-as-a-max-level-archmage" },
+]
+
+[[book]]
+title = "Only at the Mahayana Stage Does the Reversal System Appear"
+thumbnail = "https://cdn.novelupdates.com/images/2025/02/Only-at-the-Mahayana-Stage-Does-the-Reversal-System-Appear.jpeg"
+quality = "Ok, bad translation"
+reading = "Dropped, C164"
+authors = ["the-whitest-crow"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/only-at-the-mahayana-stage-does-the-reversal-system-appear/" },
+]
+
+[[book]]
+title = "Etherious"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/52083-etherious--a-litrpg-story-book-2-stubbing.jpg"
+quality = "Ok"
+reading = "Dropped, finished V4"
+authors = ["emes"]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/52083/etherious--a-litrpg-story" },
+]
+
+[[book]]
+title = "The Shards of Etherious"
+thumbnail = "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1611195421i/56769296.jpg"
+quality = "Bad"
+reading = "Dropped, V1C9"
+authors = ["colin-j-d-crooks"]
+links = [
+    { title = "goodreads", url = "https://www.goodreads.com/book/show/56769296-arisen" },
+]
+
+[[book]]
+title = "I Became The Necromancer Of The Academy"
+thumbnail = "https://cdn.novelupdates.com/images/2024/03/I-Became-The-Necromancer-Of-The-Academy.jpg"
+quality = "Slop"
+reading = "Dropped, C37"
+authors = ["_172"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/i-became-the-necromancer-of-the-academy/" },
 ]

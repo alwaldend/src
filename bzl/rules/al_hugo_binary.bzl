@@ -15,6 +15,7 @@ def _impl(ctx):
         {env_script}
         ln -s '{data}' ./data
         ln -s '{content}' ./content
+        ln -s '{i18n}' ./i18n
         '{hugo}' \
             --configDir '{config}' \
             --layoutDir '{layouts}' \
@@ -28,6 +29,7 @@ def _impl(ctx):
         config = info.config.short_path,
         data = info.data.short_path,
         layouts = info.layouts.short_path,
+        i18n = info.i18n.short_path,
         env_script = ctx.expand_make_variables(
             "env_script",
             ctx.expand_location(info.env_script),
