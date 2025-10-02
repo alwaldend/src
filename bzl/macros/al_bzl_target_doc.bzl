@@ -44,6 +44,7 @@ def al_bzl_target_doc(name, visibility, subpackages = []):
                 "slug: bazel-targets",
                 "tags: [generated, bzl-targets, bzl]",
                 "toc_hide: true",
+                "hide_summary: true",
                 "---",
                 "",
                 # print({key: value.items() for key, value in srcs.items()}),
