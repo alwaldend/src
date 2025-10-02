@@ -10,7 +10,7 @@ import (
 
 	"github.com/BurntSushi/toml"
 
-	proto "git.alwaldend.com/src/go/leetcode-downloader/proto"
+	proto "git.alwaldend.com/src/proto/leetcode-downloader"
 )
 
 type Generator struct {

@@ -19,7 +19,7 @@ go_library(
     embedsrcs = ["config.json"],
     importpath = "git.alwaldend.com/src/go/leetcode-downloader/model",
     visibility = ["//visibility:public"],
-    deps = ["//proto/leetcode-downloader:proto"],
+    deps = ["//proto/leetcode-downloader"],
 )
 
 al_bzl_target_doc(

@@ -106,6 +106,7 @@ npm_link_all_packages(
 # gazelle:resolve java org.joda.time.format @com-alwandend-src-maven//:joda_time_joda_time
 # gazelle:resolve java org.sonatype.nexus.repository.view @com-alwandend-src-maven//:org_sonatype_nexus_nexus_repository
 # gazelle:resolve java org.sonatype.nexus.repository.storage @com-alwaldend-src-maven//:org_sonatype_nexus_nexus_repository
+# gazelle:exclude **/mod_tidy_fix.go
 gazelle(
     name = "gazelle",
     command = "fix",

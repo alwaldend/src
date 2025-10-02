@@ -63,7 +63,7 @@ NODE_VERSION = "16.14.2"
 
 PYTHON_VERSION = "3.12.11"
 
-GO_VERSION = "1.24.3"
+GO_VERSION = "1.25.1"
 
 GCC_ARM_VERSION = "10.3-2021.10"
 
@@ -287,10 +287,11 @@ npm.npm_translate_lock(
 go_sdk.from_file(go_mod = "//:go.mod")
 
 go_deps.from_file(go_mod = "//:go.mod")
-go_deps.gazelle_override(
-    # directives = ["gazelle:build_tags extended"], # doesn't work without CGO
-    path = "github.com/gohugoio/hugo",
-)
+
+# go_deps.gazelle_override(
+#     # directives = ["gazelle:build_tags extended"], # doesn't work without CGO
+#     path = "github.com/gohugoio/hugo",
+# )
 
 maven.install(
     name = "com-alwaldend-src-maven",
@@ -351,13 +352,15 @@ use_repo(node, **{"com-alwaldend-src-nodejs-toolchains": "nodejs_toolchains"})
 
 use_repo(
     go_deps,
+    "cc_mvdan_editorconfig",
     "cc_mvdan_sh_v3",
     "com_github_bazelbuild_buildtools",
     "com_github_burntsushi_toml",
     "com_github_goccy_go_yaml",
     "com_github_gohugoio_hugo",
-    "com_github_google_shlex",
+    "com_github_google_renameio_v2",
     "com_github_spf13_cobra",
+    "com_github_stackexchange_dnscontrol_v4",
     "org_golang_google_protobuf",
 )
 

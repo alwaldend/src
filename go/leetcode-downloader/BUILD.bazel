@@ -26,7 +26,7 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "//go/leetcode-downloader/model",
-        "//proto/leetcode-downloader:proto",
+        "//proto/leetcode-downloader",
         "@com_github_burntsushi_toml//:toml",
     ],
 )
