@@ -1,0 +1,41 @@
+NODE_VERSION = "16.14.2"
+
+bazel_dep(name = "rules_nodejs", version = "6.5.0")
+bazel_dep(name = "aspect_rules_js", version = "2.6.0")
+
+node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node")
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
+
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
+
+node.toolchain(
+    name = "com-alwaldend-src-nodejs-toolchains",
+    node_version = NODE_VERSION,
+)
+
+npm.npm_translate_lock(
+    name = "com-alwaldend-src-npm",
+    bins = {
+        "typescript": [
+            "tsc=./bin/tsc",
+            "tsserver=./bin/tsserver",
+        ],
+        "lv_font_conv": ["lv_font_conv=./lv_font_conv.js"],
+        "prettier": ["prettier=./bin/prettier.cjs"],
+        "postcss-cli": ["postcss=./index.js"],
+    },
+    data = [
+        "//:package.json",
+        "//:pnpm-workspace.yaml",
+    ],
+    pnpm_lock = "//:pnpm-lock.yaml",
+    run_lifecycle_hooks = False,
+    update_pnpm_lock = True,
+    verify_node_modules_ignored = "//:.bazelignore",
+)
+use_repo(npm, "com-alwaldend-src-npm")
+
+use_repo(pnpm, **{"com-alwaldend-src-pnpm": "pnpm"})
+
+use_repo(node, **{"com-alwaldend-src-nodejs-toolchains": "nodejs_toolchains"})

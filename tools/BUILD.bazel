@@ -21,11 +21,10 @@ al_alias_map(
         "carton": {"actual": "//pl:carton"},
         "go": {"actual": "@rules_go//go"},
         "tomlv": {"actual": "@com_github_burntsushi_toml//cmd/tomlv:tomlv"},
-        "hugo": {"actual": "@com_github_gohugoio_hugo//:hugo"},
         "prettier": {"actual": "//js:prettier"},
         "postcss": {"actual": "//js:postcss"},
         "git": {"actual": "//:git"},
-        "ansible-playbook": {"actual": "//ansible:ansible-playbook"},
+        "ansible-playbook": {"actual": "//bzl/rules/ansible:ansible-playbook"},
         "dnscontrol": {"actual": "@com_github_stackexchange_dnscontrol_v4//:v4"},
     },
 )

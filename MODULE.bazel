@@ -5,48 +5,22 @@ https://bazel.build/rules/lib/globals/module
 """
 
 module(
-    name = "com-alwaldend-git-src",
+    name = "com-alwaldend-src",
     version = "0.0.0",
     compatibility_level = 1,
 )
 
+### variables
+
+GCC_ARM_VERSION = "10.3-2021.10"
+
 ### bazel_dep: https://bcr.bazel.build
 
 bazel_dep(name = "rules_oci", version = "2.2.6")
-bazel_dep(name = "rules_cc", version = "0.2.8")
 bazel_dep(name = "rules_android", version = "0.6.6")
-bazel_dep(name = "rules_license", version = "1.0.0")
-bazel_dep(name = "rules_python", version = "1.6.3")
-bazel_dep(name = "rules_python_gazelle_plugin", version = "1.6.3")
-bazel_dep(name = "rules_kotlin", version = "2.1.9")
-bazel_dep(name = "rules_pkg", version = "1.1.0")
-bazel_dep(name = "rules_go", version = "0.57.0")
-bazel_dep(name = "rules_java", version = "7.12.2")
-bazel_dep(name = "contrib_rules_jvm", version = "0.30.0")
-bazel_dep(name = "rules_jvm_external", version = "6.8")
-bazel_dep(name = "bazel_worker_java", version = "0.0.6")
-bazel_dep(name = "grpc-java", version = "1.75.0")
-bazel_dep(name = "rules_rust", version = "0.65.0")
-bazel_dep(name = "rules_sh", version = "0.5.0")
-bazel_dep(name = "rules_foreign_cc", version = "0.15.1")
-bazel_dep(name = "rules_nodejs", version = "6.5.0")
-bazel_dep(name = "rules_proto", version = "7.1.0")
-bazel_dep(name = "rules_proto_grpc", version = "5.7.1")
-bazel_dep(name = "rules_perl", version = "0.4.2")
-bazel_dep(name = "rules_shell", version = "0.6.1")
-bazel_dep(name = "platforms", version = "1.0.0")
-bazel_dep(name = "aspect_bazel_lib", version = "2.21.2")
-bazel_dep(name = "aspect_rules_js", version = "2.6.0")
-bazel_dep(name = "gazelle", version = "0.45.0")
-bazel_dep(name = "grpc", version = "1.74.1")
-bazel_dep(name = "stardoc", version = "0.8.0")
-bazel_dep(name = "bazel_skylib", version = "1.8.2")
-bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.8.2")
-bazel_dep(name = "aspect_rules_lint", version = "1.9.0")
 
 ### bazel_dep: file://%workspace%/bzl/registry
 
-bazel_dep(name = "hedron_compile_commands", version = "2024.1008.0")
 bazel_dep(name = "com-github-georgewfraser-java-language-server", version = "2025.520.0")
 bazel_dep(name = "com-nordicsemi-developer-nrfsdk", version = "15.3.0")
 bazel_dep(name = "com-github-aldanial-cloc", version = "2.04.0")
@@ -57,15 +31,19 @@ bazel_dep(name = "com-github-fortawesome-font-awesome", version = "6.7.2")
 bazel_dep(name = "com-github-twbs-bootstrap", version = "5.3.7")
 # bazel_dep(name = "rules_haskell", version = "1.0-patched")
 
-### variables
+## includes
 
-NODE_VERSION = "16.14.2"
-
-PYTHON_VERSION = "3.12.11"
-
-GO_VERSION = "1.25.1"
-
-GCC_ARM_VERSION = "10.3-2021.10"
+include("//rs:rs.MODULE.bazel")
+include("//py:py.MODULE.bazel")
+include("//pl:pl.MODULE.bazel")
+include("//go:go.MODULE.bazel")
+include("//sh:sh.MODULE.bazel")
+include("//bzl:bzl.MODULE.bazel")
+include("//proto:proto.MODULE.bazel")
+include("//cpp:cpp.MODULE.bazel")
+include("//java:java.MODULE.bazel")
+include("//js:js.MODULE.bazel")
+include("//kt:kt.MODULE.bazel")
 
 ### extensions
 
@@ -75,47 +53,9 @@ git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "g
 
 local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "local_repository")
 
-python = use_extension("@rules_python//python/extensions:python.bzl", "python")
-
-maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
-
-pip = use_extension("@rules_python//python/extensions:pip.bzl", "pip")
-
-node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node")
-
-npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
-
-pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
-
-go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
-
-go_deps = use_extension("@gazelle//:extensions.bzl", "go_deps")
-
-rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
-
-crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
-
 al_repo_map = use_extension("//bzl/extensions:al_repo_map.bzl", "al_repo_map")
 
-perl_repositories = use_extension("@rules_perl//perl:extensions.bzl", "perl_repositories")
-
-cpan = use_extension("@rules_perl//perl/cpan:extensions.bzl", "cpan")
-
 ### toolchains
-
-python.toolchain(
-    is_default = True,
-    python_version = PYTHON_VERSION,
-)
-
-node.toolchain(
-    name = "com-alwaldend-src-nodejs-toolchains",
-    node_version = NODE_VERSION,
-)
-
-go_sdk.download(
-    version = GO_VERSION,
-)
 
 register_toolchains(
     "//bzl/toolchains:qt-local-linux-gcc_64",
@@ -135,14 +75,6 @@ register_toolchains(
 
 register_toolchains(
     "//bzl/toolchains:git-local",
-)
-
-register_toolchains(
-    "@rules_perl//perl:perl_darwin_arm64_toolchain",
-    "@rules_perl//perl:perl_darwin_amd64_toolchain",
-    "@rules_perl//perl:perl_linux_amd64_toolchain",
-    "@rules_perl//perl:perl_linux_arm64_toolchain",
-    "@rules_perl//perl:perl_windows_x86_64_toolchain",
 )
 
 ### git repos
@@ -242,131 +174,7 @@ al_repo_map.download(
 
 ### locks
 
-pip.parse(
-    hub_name = "com-alwaldend-src-cpp-infinitime-pip",
-    python_version = PYTHON_VERSION,
-    requirements_lock = "//cpp/infinitime:requirements.txt",
-)
-pip.parse(
-    hub_name = "com-alwaldend-src-pip",
-    python_version = PYTHON_VERSION,
-    requirements_lock = "//py:requirements.txt",
-)
-pip.parse(
-    hub_name = "com-alwaldend-src-pip-ansible",
-    python_version = PYTHON_VERSION,
-    requirements_lock = "//ansible:requirements.txt",
-)
-pip.parse(
-    hub_name = "com-alwaldend-src-starlark-bazel-qt-requirements",
-    python_version = PYTHON_VERSION,
-    requirements_lock = "//bzl/toolchains:requirements.txt",
-)
-
-npm.npm_translate_lock(
-    name = "com-alwaldend-src-npm",
-    bins = {
-        "typescript": [
-            "tsc=./bin/tsc",
-            "tsserver=./bin/tsserver",
-        ],
-        "lv_font_conv": ["lv_font_conv=./lv_font_conv.js"],
-        "prettier": ["prettier=./bin/prettier.cjs"],
-        "postcss-cli": ["postcss=./index.js"],
-    },
-    data = [
-        "//:package.json",
-        "//:pnpm-workspace.yaml",
-    ],
-    pnpm_lock = "//:pnpm-lock.yaml",
-    run_lifecycle_hooks = False,
-    update_pnpm_lock = True,
-    verify_node_modules_ignored = "//:.bazelignore",
-)
-
-go_sdk.from_file(go_mod = "//:go.mod")
-
-go_deps.from_file(go_mod = "//:go.mod")
-
-# go_deps.gazelle_override(
-#     # directives = ["gazelle:build_tags extended"], # doesn't work without CGO
-#     path = "github.com/gohugoio/hugo",
-# )
-
-maven.install(
-    name = "com-alwaldend-src-maven",
-    artifacts = [
-        "com.squareup.retrofit2:converter-jackson:2.11.0",
-        "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.19.0",
-        "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.19.0",
-        "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.19.0",
-        "org.yaml:snakeyaml:2.4",
-        "org.apache.velocity:velocity-engine-core:2.4.1",
-        "com.squareup.okhttp3:okhttp:4.12.0",
-        "org.hibernate.validator:hibernate-validator:8.0.2.Final",
-        "org.sonatype.nexus:nexus-capability:3.70.1-02",
-        "org.sonatype.nexus:nexus-core:3.70.1-02",
-        "org.sonatype.nexus:nexus-plugin-api:3.70.1-02",
-        "org.sonatype.nexus:nexus-repository:3.70.1-02",
-        "org.sonatype.nexus:nexus-rapture:3.70.1-02",
-        "org.sonatype.nexus:nexus-security:3.70.1-02",
-    ],
-    lock_file = "//:maven-lock.json",
-    repositories = [
-        "https://repo1.maven.org/maven2",
-        "https://maven.google.com",
-        "https://repository.sonatype.org/content/groups/sonatype-public-grid",
-    ],
-)
-
-crate.from_cargo(
-    name = "com-alwaldend-src-cargo",
-    cargo_lockfile = "//rs:Cargo.lock",
-    generate_binaries = True,
-    manifests = [
-        "//rs:Cargo.toml",
-        "//rs/tools:Cargo.toml",
-    ],
-)
-
-cpan.install(
-    name = "com-alwaldend-src-cpan",
-    lock = "//pl:cpanfile.snapshot.lock.json",
-)
-
 ### use_repo
-
-use_repo(
-    pip,
-    "com-alwaldend-src-cpp-infinitime-pip",
-    "com-alwaldend-src-pip",
-    "com-alwaldend-src-pip-ansible",
-    "com-alwaldend-src-starlark-bazel-qt-requirements",
-)
-
-use_repo(npm, "com-alwaldend-src-npm")
-
-use_repo(pnpm, **{"com-alwaldend-src-pnpm": "pnpm"})
-
-use_repo(node, **{"com-alwaldend-src-nodejs-toolchains": "nodejs_toolchains"})
-
-use_repo(
-    go_deps,
-    "cc_mvdan_editorconfig",
-    "cc_mvdan_sh_v3",
-    "com_github_bazelbuild_buildtools",
-    "com_github_burntsushi_toml",
-    "com_github_goccy_go_yaml",
-    "com_github_gohugoio_hugo",
-    "com_github_google_renameio_v2",
-    "com_github_spf13_cobra",
-    "com_github_stackexchange_dnscontrol_v4",
-    "org_golang_google_protobuf",
-)
-
-use_repo(maven, "com-alwaldend-src-maven")
-
-use_repo(crate, "com-alwaldend-src-cargo")
 
 use_repo(
     al_repo_map,
@@ -374,14 +182,3 @@ use_repo(
     "com-github-jgraph-drawio-desktop-linux-x86_64",
     "com-github-koalaman-shellcheck-linux-x86_64",
 )
-
-use_repo(
-    perl_repositories,
-    "perl_darwin_amd64",
-    "perl_darwin_arm64",
-    "perl_linux_amd64",
-    "perl_linux_arm64",
-    "perl_windows_x86_64",
-)
-
-use_repo(cpan, "com-alwaldend-src-cpan")

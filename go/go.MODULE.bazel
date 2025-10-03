@@ -1,0 +1,31 @@
+GO_VERSION = "1.25.1"
+
+bazel_dep(name = "rules_go", version = "0.57.0")
+
+go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
+go_sdk.download(
+    version = GO_VERSION,
+)
+go_sdk.from_file(go_mod = "//:go.mod")
+
+go_deps = use_extension("@gazelle//:extensions.bzl", "go_deps")
+go_deps.from_file(go_mod = "//:go.mod")
+# go_deps.gazelle_override(
+#     # directives = ["gazelle:build_tags extended"], # doesn't work without CGO
+#     path = "github.com/gohugoio/hugo",
+# )
+
+use_repo(
+    go_deps,
+    "cc_mvdan_editorconfig",
+    "cc_mvdan_sh_v3",
+    "com_github_bazelbuild_buildtools",
+    "com_github_burntsushi_toml",
+    "com_github_goccy_go_yaml",
+    "com_github_google_renameio_v2",
+    "com_github_rogpeppe_go_internal",
+    "com_github_spf13_cobra",
+    "com_github_stackexchange_dnscontrol_v4",
+    "org_golang_google_protobuf",
+    "org_golang_x_term",
+)

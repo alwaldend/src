@@ -1,0 +1,41 @@
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+load("@rules_python//python/entry_points:py_console_script_binary.bzl", "py_console_script_binary")
+load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
+load("//bzl/macros:al_readme.bzl", "al_readme")
+
+al_gen_changelog(
+    name = "changelog",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_library_map(
+    name = "al_ansible",
+    libs = {
+        "al_ansible_binary": [],
+    },
+    visibility = ["//visibility:public"],
+)
+
+compile_pip_requirements(
+    name = "requirements",
+    srcs = [":requirements-in.txt"],
+    requirements_txt = ":requirements.txt",
+)
+
+py_console_script_binary(
+    name = "ansible-playbook",
+    pkg = "@com-alwaldend-src-bzl-rules-ansible-pip//ansible_core:pkg",
+    visibility = ["//visibility:public"],
+)
+
+al_readme(
+    name = "readme",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_target_doc(
+    name = "bzl-target-doc",
+    visibility = ["//visibility:public"],
+)

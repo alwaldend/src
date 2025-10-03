@@ -1,0 +1,32 @@
+bazel_dep(name = "rules_java", version = "7.12.2")
+bazel_dep(name = "contrib_rules_jvm", version = "0.30.0")
+bazel_dep(name = "rules_jvm_external", version = "6.8")
+bazel_dep(name = "bazel_worker_java", version = "0.0.6")
+
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+maven.install(
+    name = "com-alwaldend-src-maven",
+    artifacts = [
+        "com.squareup.retrofit2:converter-jackson:2.11.0",
+        "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.19.0",
+        "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.19.0",
+        "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.19.0",
+        "org.yaml:snakeyaml:2.4",
+        "org.apache.velocity:velocity-engine-core:2.4.1",
+        "com.squareup.okhttp3:okhttp:4.12.0",
+        "org.hibernate.validator:hibernate-validator:8.0.2.Final",
+        "org.sonatype.nexus:nexus-capability:3.70.1-02",
+        "org.sonatype.nexus:nexus-core:3.70.1-02",
+        "org.sonatype.nexus:nexus-plugin-api:3.70.1-02",
+        "org.sonatype.nexus:nexus-repository:3.70.1-02",
+        "org.sonatype.nexus:nexus-rapture:3.70.1-02",
+        "org.sonatype.nexus:nexus-security:3.70.1-02",
+    ],
+    lock_file = "//:maven-lock.json",
+    repositories = [
+        "https://repo1.maven.org/maven2",
+        "https://maven.google.com",
+        "https://repository.sonatype.org/content/groups/sonatype-public-grid",
+    ],
+)
+use_repo(maven, "com-alwaldend-src-maven")
