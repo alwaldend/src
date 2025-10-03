@@ -291,3 +291,9 @@ name = "_172"
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/_172/" },
 ]
+
+[author.tk523]
+name = "TK523"
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/profile/112902" },
+]

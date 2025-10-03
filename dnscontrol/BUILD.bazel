@@ -12,6 +12,11 @@ al_gen_changelog(
     visibility = ["//visibility:public"],
 )
 
+alias(
+    name = "dnscontrol",
+    actual = "//tools:dnscontrol",
+)
+
 al_bzl_target_doc(
     name = "bzl-target-doc",
     visibility = ["//visibility:public"],

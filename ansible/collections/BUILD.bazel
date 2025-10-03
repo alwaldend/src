@@ -9,13 +9,20 @@ al_gen_changelog(
 )
 
 pkg_tar(
-    name = "alwaldend-main",
+    name = "alwaldend.main",
     package_dir = "alwaldend/main",
     visibility = ["//visibility:public"],
     deps = [
         "//ansible/playbooks",
         "//ansible/roles",
     ],
+)
+
+pkg_tar(
+    name = "collections",
+    package_dir = "collections",
+    visibility = ["//visibility:public"],
+    deps = [":alwaldend.main"],
 )
 
 al_readme(

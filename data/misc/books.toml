@@ -883,3 +883,13 @@ authors = ["_172"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/i-became-the-necromancer-of-the-academy/" },
 ]
+
+[[book]]
+title = "Dear Spellbook"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/49881-dear-spellbook.jpg"
+quality = "Ok"
+reading = "Dropped, V3C13"
+authors = ["tk523"]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/49881/dear-spellbook" },
+]

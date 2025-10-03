@@ -69,7 +69,6 @@ common --enable_platform_specific_config
 # Docs: https://bazel.build/reference/command-line-reference#flag--heap_dump_on_oom
 common --heap_dump_on_oom
 
-# clang is better than gcc
 common --repo_env=CC=clang
 
 # enable the shell worker
