@@ -40,15 +40,11 @@ al_bzl_library_map(
         "al_install_file": [
             "@rules_python//python:py_binary_bzl",
         ],
-        "al_lua_library": [
-            ":al_run_tool",
-            "@rules_pkg//pkg:bzl_srcs",
-        ],
         "al_py_binary_shell": [
             "@rules_python//python:py_binary_bzl",
         ],
         "al_py_checker": [
-            ":al_run_tool",
+            "//bzl/rules/run_tool:al_run_tool",
         ],
         "al_py_checkers": [
             ":al_py_checker",
@@ -56,11 +52,6 @@ al_bzl_library_map(
         "al_readme": [
             "//bzl/rules/md:al_md_data",
             "@rules_pkg//pkg:bzl_srcs",
-        ],
-        "al_run_tool": [
-            "@bazel_skylib//rules:native_binary",
-            "@bazel_skylib//rules:run_binary",
-            "@rules_shell//shell:rules_bzl",
         ],
         "al_gen_leetcode_submissions": [
             "//bzl/rules/template_files:al_template_files",

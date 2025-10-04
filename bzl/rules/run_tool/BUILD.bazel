@@ -1,0 +1,31 @@
+load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
+load("//bzl/macros:al_readme.bzl", "al_readme")
+
+al_gen_changelog(
+    name = "changelog",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_library_map(
+    name = "run_tool",
+    libs = {
+        "al_run_tool": [
+            "@bazel_skylib//rules:native_binary",
+            "@bazel_skylib//rules:run_binary",
+            "@rules_shell//shell:rules_bzl",
+        ],
+    },
+    visibility = ["//visibility:public"],
+)
+
+al_readme(
+    name = "readme",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_target_doc(
+    name = "bzl-target-doc",
+    visibility = ["//visibility:public"],
+)
