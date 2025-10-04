@@ -4,14 +4,12 @@ load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/macros:al_readme.bzl", "al_readme")
-load(":al_drawio_toolchain.bzl", "al_drawio_toolchain")
 load(":al_qt_local_toolchain.bzl", "al_qt_local_toolchain")
 load(":al_qt_resolved_toolchain.bzl", "al_qt_resolved_toolchain")
 load(":al_shellcheck_toolchain.bzl", "al_shellcheck_toolchain")
 
 _TOOLCHAINS = {
     "qt-local-linux-gcc_64": "//bzl/toolchain-types:qt",
-    "drawio-remote-linux-x86_64": "//bzl/toolchain-types:drawio",
     "shellcheck-remote-linux-x86_64": "//bzl/toolchain-types:shellcheck",
 }
 
@@ -29,8 +27,6 @@ al_bzl_library_map(
     name = "toolchains",
     libs = {
         "al_shellcheck_toolchain": [
-        ],
-        "al_drawio_toolchain": [
         ],
         "al_qt_local_toolchain": [
             "@bazel_skylib//lib:paths",
@@ -97,15 +93,6 @@ al_qt_local_toolchain(
 al_qt_resolved_toolchain(
     name = "qt-resolved",
     visibility = ["//visibility:public"],
-)
-
-al_drawio_toolchain(
-    name = "drawio-remote-linux-x86_64-impl",
-    drawio = "@com-github-jgraph-drawio-desktop-linux-x86_64//file",
-    exec_compatible_with = [
-        "@platforms//os:linux",
-        "@platforms//cpu:x86_64",
-    ],
 )
 
 al_bzl_target_doc(

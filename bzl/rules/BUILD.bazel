@@ -20,11 +20,6 @@ al_bzl_library_map(
         "al_write_script": [],
         "al_remove_directories": [
         ],
-        "al_drawio_run_binary": [
-        ],
-        # "al_git_run_binary": [
-        #     "//bzl/providers:al_git_info",
-        # ],
     },
     visibility = ["//visibility:public"],
     deps = ["//bzl/rules/{}:{}".format(package, package) for package in subpackages(include = ["*"])],

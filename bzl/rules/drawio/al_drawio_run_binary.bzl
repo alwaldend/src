@@ -2,7 +2,7 @@ def _impl(ctx):
     """
     Reference: https://github.com/rlespinasse/docker-drawio-desktop-headless
     """
-    drawio = ctx.toolchains["//bzl/toolchain-types:drawio"]
+    drawio = ctx.toolchains["//bzl/rules/drawio:toolchain_type"]
     script = ctx.actions.declare_file("{}-script.sh".format(ctx.label.name))
     script_content = """\
         #!/usr/bin/env sh
@@ -41,7 +41,7 @@ def _impl(ctx):
 al_drawio_run_binary = rule(
     implementation = _impl,
     doc = "Run drawio a a build action",
-    toolchains = ["//bzl/toolchain-types:drawio"],
+    toolchains = ["//bzl/rules/drawio:toolchain_type"],
     attrs = {
         "arguments": attr.string_list(
             mandatory = True,

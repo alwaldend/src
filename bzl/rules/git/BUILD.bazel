@@ -34,14 +34,14 @@ toolchain_type(
 )
 
 toolchain(
-    name = "toolchain_git_local",
-    toolchain = ":toolchain_git_local_impl",
+    name = "toolchain_local",
+    toolchain = ":toolchain_local_impl",
     toolchain_type = ":toolchain_type",
     visibility = ["//visibility:public"],
 )
 
 al_git_toolchain(
-    name = "toolchain_git_local_impl",
+    name = "toolchain_local_impl",
     local_bin = "git",
 )
 
