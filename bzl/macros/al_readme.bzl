@@ -1,5 +1,5 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load(":al_md_data.bzl", "al_md_data")
+load("//bzl/rules/md:al_md_data.bzl", "al_md_data")
 
 def al_readme(name, srcs = [":README.md"], subpackages = [], **kwargs):
     """

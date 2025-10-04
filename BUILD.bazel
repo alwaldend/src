@@ -10,12 +10,12 @@ load("@rules_license//rules:license.bzl", "license")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
-load("//bzl/macros:al_md_data.bzl", "al_md_data")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 load("//bzl/macros:al_txt_data.bzl", "al_txt_data")
 load("//bzl/rules/bazel_shell_worker:al_genrule.bzl", "al_genrule")
 load("//bzl/rules/git:al_git_binary.bzl", "al_git_binary")
 load("//bzl/rules/git:al_git_library.bzl", "al_git_library")
+load("//bzl/rules/md:al_md_data.bzl", "al_md_data")
 load("//bzl/rules/toml:al_toml_data.bzl", "al_toml_data")
 
 _EXCLUDE = [

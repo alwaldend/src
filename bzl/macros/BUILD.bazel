@@ -48,8 +48,6 @@ al_bzl_library_map(
             ":al_run_tool",
             "@rules_pkg//pkg:bzl_srcs",
         ],
-        "al_md_data": [
-        ],
         "al_pkg_tar_combined": [
         ],
         "al_py_binary_shell": [
@@ -62,7 +60,7 @@ al_bzl_library_map(
             ":al_py_checker",
         ],
         "al_readme": [
-            ":al_md_data",
+            "//bzl/rules/md:al_md_data",
             "@rules_pkg//pkg:bzl_srcs",
         ],
         "al_run_tool": [
