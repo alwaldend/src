@@ -78,11 +78,6 @@ al_bzl_library_map(
             "@bazel_skylib//rules:write_file",
             "@rules_pkg//pkg:bzl_srcs",
         ],
-        "al_vial_configs": [
-            "//bzl/rules/template_files:al_template_files",
-            "@bazel_skylib//rules:write_file",
-            "@rules_pkg//pkg:bzl_srcs",
-        ],
         "al_ansible_role": [
             "@rules_pkg//pkg:bzl_srcs",
             "@bazel_skylib//rules:write_file",
