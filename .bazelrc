@@ -81,7 +81,7 @@ common --strategy=Shell=worker
 ### aspects
 
 # common --config=al_print_deps
-common:al_print_deps --aspects bzl/aspects/al_print_deps.bzl%al_print_deps
+common:al_print_deps --aspects bzl/rules/print_deps/al_print_deps.bzl%al_print_deps
 
 common --config=al_toml_validate
 common:al_toml_validate --aspects bzl/rules/toml/al_toml_validate.bzl%al_toml_validate
