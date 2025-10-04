@@ -1,8 +1,4 @@
 ---
-title: Rules
-description: Bazel rules
+title: Ansible
+description: Ansible rules
 ---
-
-## Links
-
-- https://bazel.build/extending/rules

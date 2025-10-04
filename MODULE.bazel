@@ -10,10 +10,6 @@ module(
     compatibility_level = 1,
 )
 
-### variables
-
-GCC_ARM_VERSION = "10.3-2021.10"
-
 ### bazel_dep: https://bcr.bazel.build
 
 bazel_dep(name = "rules_oci", version = "2.2.6")
@@ -44,16 +40,7 @@ include("//cpp:deps.MODULE.bazel")
 include("//java:deps.MODULE.bazel")
 include("//js:deps.MODULE.bazel")
 include("//kt:deps.MODULE.bazel")
-
-### extensions
-
-http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
-git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-
-local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "local_repository")
-
-al_repo_map = use_extension("//bzl/extensions:al_repo_map.bzl", "al_repo_map")
+include("//tools:deps.MODULE.bazel")
 
 ### toolchains
 
@@ -75,110 +62,4 @@ register_toolchains(
 
 register_toolchains(
     "//bzl/toolchains:git-local",
-)
-
-### git repos
-
-git_repository(
-    name = "com-github-infinitimeorg-infinitime",
-    commit = "2105a7b63da8d4065ebfc62e0057f225358eedfc",  # 1.15.0
-    init_submodules = True,
-    patch_args = ["-p1"],
-    patches = [
-        "//patch/infinitime:001-add-BUILD.bazel.patch",
-        "//patch/infinitime:002-modify-30-minute-chimes-interval.patch",
-        "//patch/infinitime:003-add-WatchFaceTerminalCustom.patch",
-    ],
-    recursive_init_submodules = True,
-    remote = "https://github.com/InfiniTimeOrg/InfiniTime.git",
-    shallow_since = "1733253068 +0100",
-)
-
-# Uncomment if you want to use a local infinitime repository
-# local_repository(
-#     name = "infinitime-src",
-#     path = "~/Git/github.com/infinitimeorg/infinitime",
-# )
-
-http_archive(
-    name = "com-arm-developer-gcc-arm",
-    build_file = "//bzl/build-files:BUILD.general.bazel",
-    integrity = "sha256-l9u08BmtFlC3Mvr/zIgWic7cFOK37oY9OQ4KQe8WyaM=",
-    strip_prefix = "gcc-arm-none-eabi-10.3-2021.10",
-    url = "https://developer.arm.com/-/media/Files/downloads/gnu-rm/{version}/{name}-{version}-{platform}.tar.bz2".format(
-        name = "gcc-arm-none-eabi",
-        machine = "arm64",
-        platform = "x86_64-linux",
-        version = GCC_ARM_VERSION,
-    ),
-)
-
-http_archive(
-    name = "com-alwaldend-src-qt",
-    build_file = "//bzl/build-files:BUILD.general.bazel",
-    integrity = "sha256-T2HlBVHQAEpRP++9sKQQWV2UgSpIYAZG+3NB6g0X4cs=",
-    strip_prefix = "qt-everywhere-src-6.9.0",
-    urls = ["https://download.qt.io/official_releases/qt/6.9/6.9.0/single/qt-everywhere-src-6.9.0.tar.xz"],
-)
-
-### repo maps
-
-al_repo_map.download(
-    name = "com-github-koalaman-shellcheck",
-    build_file_content = """
-load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
-native_binary(
-    name = "bin",
-    src = "shellcheck",
-    visibility = ["//visibility:public"],
-)
-    """,
-    download_type = "http_archive",
-    repos = {
-        "linux-x86_64": [
-            "url=https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz",
-            "integrity=sha256-bIgasGmOTm6iNSRfIoMoYFRPF7o4ZEL+fp1in4y+34c=",
-        ],
-    },
-    strip_prefix = "shellcheck-v0.10.0",
-)
-al_repo_map.download(
-    name = "com-github-gohugoio-hugo",
-    build_file_content = """
-load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
-native_binary(
-    name = "bin",
-    src = "hugo",
-    visibility = ["//visibility:public"],
-)
-    """,
-    download_type = "http_archive",
-    repos = {
-        "linux-amd64": [
-            "url=https://github.com/gohugoio/hugo/releases/download/v0.147.8/hugo_extended_0.147.8_linux-amd64.tar.gz",
-            "integrity=sha256-l3Atc7thGimVAJ383Ag+8XNGT8yk4ZHWMTwuRlpqMSE=",
-        ],
-    },
-)
-al_repo_map.download(
-    name = "com-github-jgraph-drawio-desktop",
-    download_type = "http_file",
-    executable = True,
-    repos = {
-        "linux-x86_64": [
-            "url=https://github.com/jgraph/drawio-desktop/releases/download/v27.0.9/drawio-x86_64-27.0.9.AppImage",
-            "integrity=sha256-m4fBtXU61p2dovR3pUVSalbJ+8jIsE8ko3IQdKFHtiY=",
-        ],
-    },
-)
-
-### locks
-
-### use_repo
-
-use_repo(
-    al_repo_map,
-    "com-github-gohugoio-hugo-linux-amd64",
-    "com-github-jgraph-drawio-desktop-linux-x86_64",
-    "com-github-koalaman-shellcheck-linux-x86_64",
 )
