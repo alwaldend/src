@@ -9,12 +9,9 @@ al_gen_changelog(
 )
 
 al_bzl_library_map(
-    name = "extensions",
+    name = "rules",
     libs = {
-        "al_go_repository": [
-            "@gazelle//:deps",
-            "@gazelle//:def",
-            "@gazelle//:extensions",
+        "al_repo_map": [
             "@bazel_tools//tools/build_defs/repo:cache.bzl",
             "@bazel_tools//tools/build_defs/repo:http.bzl",
             "@bazel_tools//tools/build_defs/repo:utils.bzl",

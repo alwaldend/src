@@ -47,7 +47,7 @@ local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl"
 #     path = "~/Git/github.com/infinitimeorg/infinitime",
 # )
 
-al_repo_map = use_extension("//bzl/extensions:al_repo_map.bzl", "al_repo_map")
+al_repo_map = use_extension("//bzl/rules/repo_map:al_repo_map.bzl", "al_repo_map")
 al_repo_map.download(
     name = "com-github-koalaman-shellcheck",
     build_file_content = """

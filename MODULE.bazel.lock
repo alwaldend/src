@@ -428,10 +428,10 @@
   },
   "selectedYankedVersions": {},
   "moduleExtensions": {
-    "//bzl/extensions:al_repo_map.bzl%al_repo_map": {
+    "//bzl/rules/repo_map:al_repo_map.bzl%al_repo_map": {
       "general": {
         "bzlTransitiveDigest": "uBzEEGJLyOCqR/43s82jiB1wpnOhU3Vk4oyWmfGj+q4=",
-        "usagesDigest": "jecmgtqqyQKbhFHrSmoYAMQVrmUILY2wKP2Ih/dv2Ys=",
+        "usagesDigest": "3u0yZQf9+sQsrd+EnE/sjhTpnLGvOdyQNQa1e7IcY8c=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},

@@ -1,8 +1,6 @@
 ---
-title: Rules
-description: Bazel rules
+title: al_repo_map
+description: >-
+  Extension to download several versions of a repository depending
+  on a platform
 ---
-
-## Links
-
-- https://bazel.build/extending/rules
