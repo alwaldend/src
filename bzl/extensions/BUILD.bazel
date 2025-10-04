@@ -16,6 +16,14 @@ al_bzl_library_map(
             "@bazel_tools//tools/build_defs/repo:http.bzl",
             "@bazel_tools//tools/build_defs/repo:utils.bzl",
         ],
+        "al_go_repository": [
+            "@gazelle//:deps",
+            "@gazelle//:def",
+            "@gazelle//:extensions",
+            "@bazel_tools//tools/build_defs/repo:cache.bzl",
+            "@bazel_tools//tools/build_defs/repo:http.bzl",
+            "@bazel_tools//tools/build_defs/repo:utils.bzl",
+        ],
     },
     visibility = ["//visibility:public"],
 )

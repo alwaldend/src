@@ -33,17 +33,17 @@ bazel_dep(name = "com-github-twbs-bootstrap", version = "5.3.7")
 
 ## includes
 
-include("//rs:rs.MODULE.bazel")
-include("//py:py.MODULE.bazel")
-include("//pl:pl.MODULE.bazel")
-include("//go:go.MODULE.bazel")
-include("//sh:sh.MODULE.bazel")
-include("//bzl:bzl.MODULE.bazel")
-include("//proto:proto.MODULE.bazel")
-include("//cpp:cpp.MODULE.bazel")
-include("//java:java.MODULE.bazel")
-include("//js:js.MODULE.bazel")
-include("//kt:kt.MODULE.bazel")
+include("//rs:deps.MODULE.bazel")
+include("//py:deps.MODULE.bazel")
+include("//pl:deps.MODULE.bazel")
+include("//go:deps.MODULE.bazel")
+include("//sh:deps.MODULE.bazel")
+include("//bzl:deps.MODULE.bazel")
+include("//proto:deps.MODULE.bazel")
+include("//cpp:deps.MODULE.bazel")
+include("//java:deps.MODULE.bazel")
+include("//js:deps.MODULE.bazel")
+include("//kt:deps.MODULE.bazel")
 
 ### extensions
 

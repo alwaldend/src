@@ -799,7 +799,7 @@
     },
     "@@cel-spec+//:extensions.bzl%non_module_dependencies": {
       "general": {
-        "bzlTransitiveDigest": "8nZQmgB3HxICOnyv0klog1TNWAs02cNK3ZCw7EjqZMc=",
+        "bzlTransitiveDigest": "HJ0coYuNJK10my1jrB0u1DP0J7aCSCc/W6ZO2m2YgLI=",
         "usagesDigest": "HFQJtQrL9nKaFZEjgwaHVMHALMW+cafu696xy7J4ueM=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -996,7 +996,7 @@
     },
     "@@envoy_api+//bazel:repositories.bzl%non_module_deps": {
       "general": {
-        "bzlTransitiveDigest": "5hXvuwlRNwn7YHPlEPXT8C/Q1xo47MlKsrf/KDf9izs=",
+        "bzlTransitiveDigest": "ncZQocLNW6IL9ZxxnsVZ9qy0WTMbPTqodovpjzLiT34=",
         "usagesDigest": "cxAa0VVo9d210JBUBw6wpuGp8jg+ltqw3tzH0tPtIEg=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -1218,7 +1218,7 @@
     },
     "@@grpc+//bazel:grpc_deps.bzl%grpc_repo_deps_ext": {
       "general": {
-        "bzlTransitiveDigest": "eHIWDieihrf2ruscqCRO3lbrnwqxDyk7c6oO1S6XVbM=",
+        "bzlTransitiveDigest": "pWzcHzfdSYqHOPrVMcrgntQwvJKT+oCQEunGaV8dUaA=",
         "usagesDigest": "JRy5mn8l60PheiZTvsAmif/CiZhfYCkdmx6ULADtUrg=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -1252,7 +1252,7 @@
     },
     "@@pybind11_bazel+//:internal_configure.bzl%internal_configure_extension": {
       "general": {
-        "bzlTransitiveDigest": "yA4GkX1zdUTOXU4qKsh/YkjZKHAWkG8Fd7adNeGwiRc=",
+        "bzlTransitiveDigest": "G7xCmtNWXRuBtChRgB5OK5+gmM8Uoy8Mec/B7j3fhqs=",
         "usagesDigest": "D1r3lfzMuUBFxgG8V6o0bQTLMk3GkaGOaPzw53wrwyw=",
         "recordedFileInputs": {
           "@@pybind11_bazel+//MODULE.bazel": "e6f4c20442eaa7c90d7190d8dc539d0ab422f95c65a57cc59562170c58ae3d34"
@@ -1282,7 +1282,7 @@
     },
     "@@rules_android+//bzlmod_extensions:apksig.bzl%apksig_extension": {
       "general": {
-        "bzlTransitiveDigest": "BjalZzJZCCeFUitHa3nPXYW0o22VinHOSCBGaN0y87Q=",
+        "bzlTransitiveDigest": "oNxmR17oNBDtqdMtQ04f77G1dxpDmcW7KbgGb9I5vp0=",
         "usagesDigest": "xq6OVkELeJvOgYo3oY/sUBsGFbcqdV+9BYiNgSPV/po=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -1307,7 +1307,7 @@
     },
     "@@rules_android+//bzlmod_extensions:com_android_dex.bzl%com_android_dex_extension": {
       "general": {
-        "bzlTransitiveDigest": "BdBdkUCw12q7PiZUvEXBXYK0UThDPvrQfuMO7zGCHAM=",
+        "bzlTransitiveDigest": "Rux2kPXUP93tJLEXkVk6q0CHomvsLAuRfqBNU8xddsY=",
         "usagesDigest": "toF8IFMu98H/VU2p1sfVC5fVXVYJunpbbmtM6tOsQXY=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -1430,7 +1430,7 @@
     },
     "@@rules_apple+//apple:extensions.bzl%non_module_deps": {
       "general": {
-        "bzlTransitiveDigest": "rdeowIB16n42a/MEy5gV/a/kpjt45s1nmLJCD/kXsPU=",
+        "bzlTransitiveDigest": "hZq9NZQ3DfMM3SejWMrPlGSZAv38GRVt6iSG5FbwbhQ=",
         "usagesDigest": "M3VqFpeTCo4qmrNKGZw0dxBHvTYDrfV3cscGzlSAhQ4=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -3798,7 +3798,7 @@
     },
     "@@rules_rust+//crate_universe/private:internal_extensions.bzl%cu_nr": {
       "general": {
-        "bzlTransitiveDigest": "T8ICUCWwR3Ze/GjS+Swu7T4N8CTxWEHuRDI7/elz9KI=",
+        "bzlTransitiveDigest": "VKjZNtcl3B0fh2SwxJENk5kr1Px1NLD+GsoxJlld3lU=",
         "usagesDigest": "lAGiU7JGcUJ6BL7JrXrtglO7l/4CfFuSP4+oWoVk9Js=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -3977,7 +3977,7 @@
     },
     "@@rules_swift+//swift:extensions.bzl%non_module_deps": {
       "general": {
-        "bzlTransitiveDigest": "X3B53n1AmUggqagsfW3TwgDmiWEQnqWY1izDXQ3mZtY=",
+        "bzlTransitiveDigest": "7HCu9g5L/A6rnapg3vth7ZT5JAXGhHB5cfk39qhGYuM=",
         "usagesDigest": "mhACFnrdMv9Wi0Mt67bxocJqviRkDSV+Ee5Mqdj5akA=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
