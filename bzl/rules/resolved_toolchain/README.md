@@ -1,5 +1,5 @@
 ---
-title: Resolved_toolchain
+title: Resolved toolchain
 description: Helper rule to create a resolved toolchain
 ---
 
