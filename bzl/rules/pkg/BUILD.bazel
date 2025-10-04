@@ -9,12 +9,12 @@ al_gen_changelog(
 )
 
 al_bzl_library_map(
-    name = "rules",
+    name = "pkg",
     libs = {
-        "al_write_script": [],
+        "al_unpack_archives": [],
+        "al_pkg_tar_combined": [],
     },
     visibility = ["//visibility:public"],
-    deps = ["//bzl/rules/{}:{}".format(package, package) for package in subpackages(include = ["*"])],
 )
 
 al_readme(
