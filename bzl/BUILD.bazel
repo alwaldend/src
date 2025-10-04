@@ -6,9 +6,7 @@ load("//bzl/macros:al_readme.bzl", "al_readme")
 _BZL_LIBS = subpackages(
     include = ["*"],
     exclude = [
-        "toolchain-types",
-        "build-files",
-        "vars",
+        "build_files",
         "registry",
         "configs",
     ],

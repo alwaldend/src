@@ -44,7 +44,7 @@ include("//tools:deps.MODULE.bazel")
 
 ### toolchains
 
-register_toolchains("//bzl/toolchains:qt-local-linux-gcc_64")
+register_toolchains("//bzl/rules/qt:toolchain_local_linux_gcc_64")
 
 register_toolchains("//bzl/rules/hugo:toolchain_remote_linux_amd64")
 

@@ -7,22 +7,13 @@ load("//bzl/macros:al_readme.bzl", "al_readme")
 load(":al_qt_local_toolchain.bzl", "al_qt_local_toolchain")
 load(":al_qt_resolved_toolchain.bzl", "al_qt_resolved_toolchain")
 
-_TOOLCHAINS = {
-    "qt-local-linux-gcc_64": "//bzl/toolchain-types:qt",
-}
-
 al_gen_changelog(
     name = "changelog",
     visibility = ["//visibility:public"],
 )
 
-al_readme(
-    name = "readme",
-    visibility = ["//visibility:public"],
-)
-
 al_bzl_library_map(
-    name = "toolchains",
+    name = "qt",
     libs = {
         "al_qt_local_toolchain": [
             "@bazel_skylib//lib:paths",
@@ -34,15 +25,29 @@ al_bzl_library_map(
     visibility = ["//visibility:public"],
 )
 
-[
-    toolchain(
-        name = toolchain_name,
-        toolchain = ":{}-impl".format(toolchain_name),
-        toolchain_type = toolchain_type,
-        visibility = ["//visibility:public"],
-    )
-    for toolchain_name, toolchain_type in _TOOLCHAINS.items()
-]
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+toolchain(
+    name = "toolchain_local_linux_gcc_64",
+    toolchain = "toolchain_local_linux_gcc_64_impl",
+    toolchain_type = ":toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+al_qt_local_toolchain(
+    name = "toolchain_local_linux_gcc_64_impl",
+    dir = "/opt/qt",
+    platform = "gcc_64",
+    version = "6.9.0",
+)
+
+al_qt_resolved_toolchain(
+    name = "toolchain_resolved",
+    visibility = ["//visibility:public"],
+)
 
 py_console_script_binary(
     name = "aqt",
@@ -70,15 +75,8 @@ compile_pip_requirements(
     requirements_txt = ":requirements.txt",
 )
 
-al_qt_local_toolchain(
-    name = "qt-local-linux-gcc_64-impl",
-    dir = "/opt/qt",
-    platform = "gcc_64",
-    version = "6.9.0",
-)
-
-al_qt_resolved_toolchain(
-    name = "qt-resolved",
+al_readme(
+    name = "readme",
     visibility = ["//visibility:public"],
 )
 

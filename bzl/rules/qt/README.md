@@ -1,6 +1,6 @@
 ---
-title: Toolchains
-description: Bazel toolchains
+title: Qt
+description: Qt rules
 ---
 
 ## Links

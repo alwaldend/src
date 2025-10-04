@@ -4,7 +4,7 @@ http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "ht
 
 http_archive(
     name = "com-arm-developer-gcc-arm",
-    build_file = "//bzl/build-files:BUILD.general.bazel",
+    build_file = "//bzl/build_files:general.BUILD.bazel",
     integrity = "sha256-l9u08BmtFlC3Mvr/zIgWic7cFOK37oY9OQ4KQe8WyaM=",
     strip_prefix = "gcc-arm-none-eabi-10.3-2021.10",
     url = "https://developer.arm.com/-/media/Files/downloads/gnu-rm/{version}/{name}-{version}-{platform}.tar.bz2".format(
@@ -17,7 +17,7 @@ http_archive(
 
 http_archive(
     name = "com-alwaldend-src-qt",
-    build_file = "//bzl/build-files:BUILD.general.bazel",
+    build_file = "//bzl/build_files:general.BUILD.bazel",
     integrity = "sha256-T2HlBVHQAEpRP++9sKQQWV2UgSpIYAZG+3NB6g0X4cs=",
     strip_prefix = "qt-everywhere-src-6.9.0",
     urls = ["https://download.qt.io/official_releases/qt/6.9/6.9.0/single/qt-everywhere-src-6.9.0.tar.xz"],
