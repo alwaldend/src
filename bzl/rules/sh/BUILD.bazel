@@ -9,11 +9,14 @@ al_gen_changelog(
 )
 
 al_bzl_library_map(
-    name = "rules",
+    name = "sh",
     libs = {
+        "al_write_script": [],
+        "al_sh_library": [
+            "@rules_shell//shell:rules_bzl",
+        ],
     },
     visibility = ["//visibility:public"],
-    deps = ["//bzl/rules/{}:{}".format(package, package) for package in subpackages(include = ["*"])],
 )
 
 al_readme(

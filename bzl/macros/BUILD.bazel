@@ -66,9 +66,6 @@ al_bzl_library_map(
             "@bazel_skylib//rules:run_binary",
             "@rules_shell//shell:rules_bzl",
         ],
-        "al_sh_library": [
-            "@rules_shell//shell:rules_bzl",
-        ],
         "al_txt_data": [
         ],
         "al_gen_leetcode_submissions": [
