@@ -21,7 +21,7 @@ def al_readme(name, srcs = [":README.md"], subpackages = [], **kwargs):
         package_dir = package_name.split("/")[-1]
         package_name_prefix = "//{}/".format(package_name)
     else:
-        package_dir = "."
+        package_dir = None
         package_name_prefix = "//"
     al_md_data(
         name = name,
@@ -30,8 +30,9 @@ def al_readme(name, srcs = [":README.md"], subpackages = [], **kwargs):
     )
     pkg_tar(
         name = "{}.children".format(name),
-        srcs = [name],
         out = "{}.children.tar".format(name),
+        srcs = [name],
+        remap_paths = {"/README.md": "_index.md", "README.md": "_index.md"},
         package_dir = package_dir,
         deps = [
             "{}{}:{}.children".format(package_name_prefix, dep, name)

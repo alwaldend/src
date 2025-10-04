@@ -21,18 +21,18 @@ def al_bzl_library_map(name, visibility, libs = {}, deps = [], **kwargs):
         **kwargs
     )
     pkg_tar(
-        name = "{}-stardoc".format(name),
+        name = "{}.stardoc".format(name),
         package_dir = native.package_name().split("/")[-1],
-        deps = ["{}-stardoc-src".format(name), "{}-stardoc-deps".format(name)],
+        deps = ["{}.stardoc-src".format(name), "{}.stardoc-deps".format(name)],
         visibility = visibility,
     )
     pkg_tar(
-        name = "{}-stardoc-src".format(name),
-        srcs = ["{}-stardoc".format(lib) for lib in libs.keys()],
+        name = "{}.stardoc-src".format(name),
+        srcs = ["{}.stardoc".format(lib) for lib in libs.keys()],
     )
     pkg_tar(
-        name = "{}-stardoc-deps".format(name),
-        deps = ["{}-stardoc".format(dep) for dep in deps],
+        name = "{}.stardoc-deps".format(name),
+        deps = ["{}.stardoc".format(dep) for dep in deps],
     )
     for lib_name, lib_deps in libs.items():
         bzl_library(
@@ -43,15 +43,15 @@ def al_bzl_library_map(name, visibility, libs = {}, deps = [], **kwargs):
             **kwargs
         )
         stardoc(
-            name = "{}-stardoc-raw".format(lib_name),
-            out = "{}-stardoc-raw.md".format(lib_name),
+            name = "{}.stardoc-raw".format(lib_name),
+            out = "{}.stardoc-raw.md".format(lib_name),
             input = "{}.bzl".format(lib_name),
             deps = [lib_name],
         )
         native.genrule(
-            name = "{}-stardoc".format(lib_name),
-            outs = ["{}-stardoc.md".format(lib_name)],
-            srcs = ["{}-stardoc-raw".format(lib_name)],
+            name = "{}.stardoc".format(lib_name),
+            outs = ["{}.stardoc.md".format(lib_name)],
+            srcs = ["{}.stardoc-raw".format(lib_name)],
             cmd = """
                 {{
                     echo "---"

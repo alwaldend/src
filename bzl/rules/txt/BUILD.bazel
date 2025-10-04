@@ -1,7 +1,7 @@
 load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
-load("//bzl/macros:al_readme.bzl", "al_readme")
 load("//bzl/rules/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
 al_gen_changelog(
     name = "changelog",
@@ -9,7 +9,7 @@ al_gen_changelog(
 )
 
 al_bzl_library_map(
-    name = "txt",
+    name = "libs",
     libs = {
         "al_combine_files": [],
         "al_txt_data": [],

@@ -2,8 +2,8 @@ load("@aspect_rules_js//js:defs.bzl", "js_binary")
 load("@com-alwaldend-src-npm//:postcss-cli/package_json.bzl", postcss = "bin")
 load("@com-alwaldend-src-npm//:prettier/package_json.bzl", prettier = "bin")
 load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
-load("//bzl/macros:al_readme.bzl", "al_readme")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
 al_gen_changelog(
     name = "changelog",

@@ -70,7 +70,6 @@ def _impl(ctx):
         inputs = [ctx.file.content],
         command = """
             tar -xf '{input}' -C '{output}'
-            find '{output}/' -name "README.md" -exec sh -c 'chmod 700 "$(dirname "{{}}")" && mv "{{}}" "$(dirname "{{}}")/_index.md"' ";"
         """.format(input = ctx.file.content.path, output = content.path),
     )
 

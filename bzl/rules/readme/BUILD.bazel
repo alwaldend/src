@@ -1,7 +1,7 @@
 load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/rules/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
-load("//bzl/rules/readme:al_readme.bzl", "al_readme")
+load(":al_readme.bzl", "al_readme")
 
 al_gen_changelog(
     name = "changelog",
@@ -11,10 +11,9 @@ al_gen_changelog(
 al_bzl_library_map(
     name = "libs",
     libs = {
-        "al_repo_map": [
-            "@bazel_tools//tools/build_defs/repo:cache.bzl",
-            "@bazel_tools//tools/build_defs/repo:http.bzl",
-            "@bazel_tools//tools/build_defs/repo:utils.bzl",
+        "al_readme": [
+            "//bzl/rules/md:al_md_data",
+            "@rules_pkg//pkg:bzl_srcs",
         ],
     },
     visibility = ["//visibility:public"],

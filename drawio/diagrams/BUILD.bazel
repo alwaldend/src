@@ -1,9 +1,9 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
-load("//bzl/macros:al_readme.bzl", "al_readme")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/drawio:al_drawio_run_binary.bzl", "al_drawio_run_binary")
+load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
 _DIAGRAMS = {
     "arch-idea-anki-chinese-flashcards-enricher": {},
