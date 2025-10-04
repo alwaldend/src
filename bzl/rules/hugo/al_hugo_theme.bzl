@@ -1,6 +1,6 @@
 load("@aspect_rules_js//js:providers.bzl", "JsInfo")
-load("//bzl/providers:al_hugo_module_info.bzl", "AlHugoModuleInfo")
-load("//bzl/providers:al_hugo_theme_info.bzl", "AlHugoThemeInfo")
+load(":al_hugo_module_info.bzl", "AlHugoModuleInfo")
+load(":al_hugo_theme_info.bzl", "AlHugoThemeInfo")
 
 def _impl(ctx):
     theme_name = ctx.attr.theme_name or ctx.label.name

@@ -18,16 +18,6 @@ al_bzl_library_map(
         ],
         "al_unpack_archives": [],
         "al_write_script": [],
-        "al_hugo_site": [
-            "//bzl/providers:al_hugo_site_info",
-        ],
-        "al_hugo_binary": [
-            "//bzl/providers:al_hugo_site_info",
-            "@bazel_skylib//lib:shell",
-        ],
-        "al_hugo_run_binary": [
-            "//bzl/providers:al_hugo_site_info",
-        ],
         "al_remove_directories": [
         ],
         "al_drawio_run_binary": [
@@ -44,6 +34,7 @@ al_bzl_library_map(
         # ],
     },
     visibility = ["//visibility:public"],
+    deps = ["//bzl/rules/{}:{}".format(package, package) for package in subpackages(include = ["*"])],
 )
 
 al_readme(

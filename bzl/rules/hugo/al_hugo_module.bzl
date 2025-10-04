@@ -1,4 +1,4 @@
-load("//bzl/providers:al_hugo_module_info.bzl", "AlHugoModuleInfo")
+load(":al_hugo_module_info.bzl", "AlHugoModuleInfo")
 
 def _impl(ctx):
     return [

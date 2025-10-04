@@ -12,7 +12,7 @@ def _impl(ctx):
 
 al_go_repository = module_extension(
     implementation = _impl,
-    doc = "Run go_repository",
+    doc = "Extension wrapper around go_repository (useless because you can just call use_repo_rule)",
     tag_classes = {
         "go_repository": tag_class({
             "name": attr.string(

@@ -1,4 +1,4 @@
-load("//bzl/providers:al_hugo_site_info.bzl", "AlHugoSiteInfo")
+load(":al_hugo_site_info.bzl", "AlHugoSiteInfo")
 
 def _impl(ctx):
     hugo = ctx.toolchains["//bzl/toolchain-types:hugo"]
