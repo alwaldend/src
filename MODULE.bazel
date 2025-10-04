@@ -48,9 +48,9 @@ register_toolchains(
     "//bzl/toolchains:qt-local-linux-gcc_64",
 )
 
-register_toolchains(
-    "//bzl/toolchains:hugo-remote-linux-amd64",
-)
+register_toolchains("//bzl/rules/hugo:toolchain_hugo_remote_linux_amd64")
+
+register_toolchains("//bzl/rules/git:toolchain_git_local")
 
 register_toolchains(
     "//bzl/toolchains:drawio-remote-linux-x86_64",
@@ -58,8 +58,4 @@ register_toolchains(
 
 register_toolchains(
     "//bzl/toolchains:shellcheck-remote-linux-x86_64",
-)
-
-register_toolchains(
-    "//bzl/rules/git:toolchain_git_local",
 )

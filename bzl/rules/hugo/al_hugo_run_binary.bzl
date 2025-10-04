@@ -3,7 +3,7 @@ load(":al_hugo_site_info.bzl", "AlHugoSiteInfo")
 def _impl(ctx):
     info = ctx.attr.site[AlHugoSiteInfo]
     default_info = ctx.attr.site[DefaultInfo]
-    hugo = ctx.toolchains["//bzl/toolchain-types:hugo"]
+    hugo = ctx.toolchains["//bzl/rules/hugo:toolchain_type"]
     script = ctx.actions.declare_file("{}-script.sh".format(ctx.label.name))
     destination = ctx.actions.declare_directory("{}-destination".format(ctx.label.name))
 
@@ -55,7 +55,7 @@ al_hugo_run_binary = rule(
     implementation = _impl,
     doc = "Run hugo binary as a build action",
     toolchains = [
-        "//bzl/toolchain-types:hugo",
+        "//bzl/rules/hugo:toolchain_type",
     ],
     attrs = {
         "arguments": attr.string_list(

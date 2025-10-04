@@ -6,7 +6,6 @@ _TOOLCHAIN_TYPES = [
     "qt",
     "drawio",
     "shellcheck",
-    "hugo",
 ]
 
 al_gen_changelog(

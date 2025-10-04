@@ -1,7 +1,7 @@
 load(":al_hugo_site_info.bzl", "AlHugoSiteInfo")
 
 def _impl(ctx):
-    hugo = ctx.toolchains["//bzl/toolchain-types:hugo"]
+    hugo = ctx.toolchains["//bzl/rules/hugo:toolchain_type"]
     themes = ctx.actions.declare_directory("{}-themes".format(ctx.label.name))
     content = ctx.actions.declare_directory("{}-content".format(ctx.label.name))
     data = ctx.actions.declare_directory("{}-data".format(ctx.label.name))
@@ -95,7 +95,7 @@ al_hugo_site = rule(
     implementation = _impl,
     doc = "Define a hugo site",
     toolchains = [
-        "//bzl/toolchain-types:hugo",
+        "//bzl/rules/hugo:toolchain_type",
     ],
     provides = [AlHugoSiteInfo],
     attrs = {

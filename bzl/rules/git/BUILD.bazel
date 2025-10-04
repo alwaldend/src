@@ -9,11 +9,6 @@ al_gen_changelog(
     visibility = ["//visibility:public"],
 )
 
-toolchain_type(
-    name = "toolchain_type",
-    visibility = ["//visibility:public"],
-)
-
 al_bzl_library_map(
     name = "git",
     libs = {
@@ -30,6 +25,11 @@ al_bzl_library_map(
             "//bzl/rules/resolved_toolchain:al_resolved_toolchain",
         ],
     },
+    visibility = ["//visibility:public"],
+)
+
+toolchain_type(
+    name = "toolchain_type",
     visibility = ["//visibility:public"],
 )
 
