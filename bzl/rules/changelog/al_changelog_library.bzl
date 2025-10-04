@@ -21,8 +21,8 @@ def al_changelog_library(name, visibility, subpackages = []):
         package_dir = "."
         package_name_prefix = "//"
     write_file(
-        name = "{}-template".format(name),
-        out = "{}-template.md".format(name),
+        name = "{}.template".format(name),
+        out = "{}.template.md".format(name),
         content = [
             "---",
             "title: Changelog",
@@ -43,10 +43,10 @@ def al_changelog_library(name, visibility, subpackages = []):
         ],
     )
     native.genrule(
-        name = "{}-changelog-data".format(name),
+        name = "{}.changelog-data".format(name),
         srcs = ["//cfg/misc:git-log"],
         outs = [
-            "{}-changelog-data.yaml".format(name),
+            "{}.changelog-data.yaml".format(name),
         ],
         cmd = '''
             $(execpath //tools:git) log \
@@ -58,14 +58,14 @@ def al_changelog_library(name, visibility, subpackages = []):
         tools = ["//tools:git"],
     )
     al_template_files(
-        name = "{}-changelog".format(name),
-        srcs = ["{}-template".format(name)],
-        data = ["{}-changelog-data".format(name)],
-        outs = ["{}.md".format(name)],
+        name = "{}.changelog".format(name),
+        srcs = ["{}.template".format(name)],
+        data = ["{}.changelog-data".format(name)],
+        outs = ["{}.doc.md".format(name)],
         visibility = visibility,
     )
     pkg_tar(
-        name = "{}-children".format(name),
+        name = "{}.children".format(name),
         deps = [
             "{}{}:{}".format(package_name_prefix, dep, name)
             for dep in subpackages
@@ -74,7 +74,7 @@ def al_changelog_library(name, visibility, subpackages = []):
     pkg_tar(
         name = name,
         visibility = visibility,
-        srcs = ["{}-changelog".format(name)],
+        srcs = ["{}.changelog".format(name)],
         package_dir = package_dir,
-        deps = ["{}-children".format(name)],
+        deps = ["{}.children".format(name)],
     )

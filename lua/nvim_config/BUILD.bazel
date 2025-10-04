@@ -1,7 +1,7 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//bzl/macros:al_install_file.bzl", "al_install_file")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/changelog:al_changelog_library.bzl", "al_changelog_library")
+load("//bzl/rules/install_file:al_install_file.bzl", "al_install_file")
 load("//bzl/rules/lua:al_lua_library.bzl", "al_lua_library")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
@@ -20,13 +20,13 @@ al_lua_library(
     srcs = glob(["**"]),
     check = glob(["*.lua"]),
     pkg_tar_kwargs = {
-        "deps": ["//lua/nvim-lib:lib"],
+        "deps": ["//lua/nvim_lib:lib"],
         "modes": {"lazy-lock.json": "0655"},
     },
 )
 
 pkg_tar(
-    name = "nvim-config-install",
+    name = "nvim_config_install",
     package_dir = ".config/nvim",
     visibility = ["//visibility:public"],
     deps = [":lib"],
@@ -34,8 +34,8 @@ pkg_tar(
 
 al_install_file(
     name = "install",
-    args = ["$(rootpath :nvim-config-install)"],
-    data = [":nvim-config-install"],
+    args = ["$(rootpath :nvim_config_install)"],
+    data = [":nvim_config_install"],
     tags = ["local"],
 )
 

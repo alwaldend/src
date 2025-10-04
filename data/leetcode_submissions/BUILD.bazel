@@ -1,8 +1,8 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//bzl/macros:al_gen_leetcode_submissions.bzl", "al_gen_leetcode_submissions")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/changelog:al_changelog_library.bzl", "al_changelog_library")
+load("//bzl/rules/leetcode:al_leetcode_submissions.bzl", "al_leetcode_submissions")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
 _LANGS = [
@@ -26,14 +26,14 @@ al_changelog_library(
 
 [
     [
-        al_gen_leetcode_submissions(
-            name = "leetcode-submissions-{}".format(lang),
+        al_leetcode_submissions(
+            name = "leetcode_submissions.{}".format(lang),
             srcs = glob(["languages/{}/questions/*/submissions/*/submission.toml".format(lang)]),
-            package_dir = "{}/leetcode-submissions".format(lang),
+            package_dir = "{}/leetcode_submissions".format(lang),
         ),
         write_file(
-            name = "leetcode-submissions-{}-index".format(lang),
-            out = "leetcode-submissions-{}-index.md".format(lang),
+            name = "leetcode_submissions.{}_index".format(lang),
+            out = "leetcode_submissions.{}_index.md".format(lang),
             content = [
                 "---",
                 "title: Leetcode submissions",
@@ -45,14 +45,14 @@ al_changelog_library(
 ]
 
 pkg_tar(
-    name = "leetcode-submissions",
-    srcs = ["leetcode-submissions-{}-index".format(lang) for lang in _LANGS],
+    name = "leetcode_submissions",
+    srcs = ["leetcode_submissions.{}_index".format(lang) for lang in _LANGS],
     remap_paths = {
-        "/leetcode-submissions-{}-index.md".format(lang): "{}/leetcode-submissions/_index.md".format(lang)
+        "/leetcode_submissions.{}_index.md".format(lang): "{}/leetcode_submissions/_index.md".format(lang)
         for lang in _LANGS
     },
     visibility = ["//visibility:public"],
-    deps = ["leetcode-submissions-{}".format(lang) for lang in _LANGS],
+    deps = ["leetcode_submissions.{}".format(lang) for lang in _LANGS],
 )
 
 al_bzl_target_doc(

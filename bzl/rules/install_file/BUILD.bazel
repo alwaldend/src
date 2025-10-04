@@ -3,11 +3,6 @@ load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/changelog:al_changelog_library.bzl", "al_changelog_library")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
-al_readme(
-    name = "readme",
-    visibility = ["//visibility:public"],
-)
-
 al_changelog_library(
     name = "changelog",
     visibility = ["//visibility:public"],
@@ -19,16 +14,12 @@ al_bzl_library_map(
         "al_install_file": [
             "@rules_python//python:py_binary_bzl",
         ],
-        "al_gen_leetcode_submissions": [
-            "//bzl/rules/template_files:al_template_files",
-            "@bazel_skylib//rules:write_file",
-            "@rules_pkg//pkg:bzl_srcs",
-        ],
-        "al_ansible_role": [
-            "@rules_pkg//pkg:bzl_srcs",
-            "@bazel_skylib//rules:write_file",
-        ],
     },
+    visibility = ["//visibility:public"],
+)
+
+al_readme(
+    name = "readme",
     visibility = ["//visibility:public"],
 )
 

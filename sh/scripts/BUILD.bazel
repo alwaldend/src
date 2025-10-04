@@ -51,33 +51,33 @@ al_sh_library(name = "gopackagesdriver")
 al_sh_library(name = "run-args")
 
 pkg_tar(
-    name = "scripts-archive",
+    name = "scripts_archive",
     srcs = [
-        ":bashrc-lib",
-        ":bazel",
-        ":bazel-stamp-lib",
-        ":embed-archive-into-script-lib",
-        ":functions-lib",
-        ":git-add-commits-from-separate-repo-lib",
-        ":git-select-config-lib",
+        ":bashrc.lib",
+        ":bazel.lib",
+        ":bazel-stamp.lib",
+        ":embed-archive-into-script.lib",
+        ":functions.lib",
+        ":git-add-commits-from-separate-repo.lib",
+        ":git-select-config.lib",
         ":gopackagesdriver",
-        ":readme-tree-lib",
-        ":stow-install-lib",
-        ":tmux-display-popup-lib",
-        ":tmux-kill-popup-sessions-lib",
-        ":tmux-new-window-lib",
-        ":tmux-start-lib",
-        ":tmux-toggle-popup-lib",
+        ":readme-tree.lib",
+        ":stow-install.lib",
+        ":tmux-display-popup.lib",
+        ":tmux-kill-popup-sessions.lib",
+        ":tmux-new-window.lib",
+        ":tmux-start.lib",
+        ":tmux-toggle-popup.lib",
     ],
     strip_prefix = ".",
 )
 
 genrule(
-    name = "build-install-scripts",
-    srcs = [":scripts-archive"],
+    name = "build_install_scripts",
+    srcs = [":scripts_archive"],
     outs = ["install-scripts.sh"],
-    cmd = "$(execpath build-install-script-lib) $(<) $(@)",
-    tools = [":build-install-script-lib"],
+    cmd = "$(execpath build-install-script.lib) $(<) $(@)",
+    tools = [":build-install-script.lib"],
 )
 
 sh_binary(

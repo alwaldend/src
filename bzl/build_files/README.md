@@ -1,4 +1,4 @@
 ---
 title: Build files
-descripton: BUILD.bazel files
+description: BUILD.bazel files
 ---

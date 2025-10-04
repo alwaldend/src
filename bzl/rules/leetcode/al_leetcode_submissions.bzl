@@ -2,7 +2,7 @@ load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/rules/template_files:al_template_files.bzl", "al_template_files")
 
-def al_gen_leetcode_submissions(name, srcs, package_dir, visibility = None, **kwargs):
+def al_leetcode_submissions(name, srcs, package_dir, visibility = None, **kwargs):
     """
     Generate leetcode submission targets
 
@@ -14,8 +14,8 @@ def al_gen_leetcode_submissions(name, srcs, package_dir, visibility = None, **kw
         **kwargs: kwargs for al_template_files
     """
     write_file(
-        name = "{}-template".format(name),
-        out = "{}-template.md".format(name),
+        name = "{}.template".format(name),
+        out = "{}.template.md".format(name),
         content = [
             "{{ range .Data }}",
             "{{ range .Data.Submissions }}",
@@ -43,11 +43,11 @@ def al_gen_leetcode_submissions(name, srcs, package_dir, visibility = None, **kw
     )
     src_names = []
     for i, src in enumerate(srcs):
-        src_name = "{}-template-{}".format(name, i)
+        src_name = "{}.template_{}".format(name, i)
         src_names.append(src_name)
         al_template_files(
             name = src_name,
-            srcs = ["{}-template".format(name)],
+            srcs = ["{}.template".format(name)],
             data = [src],
             outs = ["{}.md".format(src_name)],
         )

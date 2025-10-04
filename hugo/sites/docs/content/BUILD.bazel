@@ -46,7 +46,7 @@ pkg_tar(
         "//ansible/roles:docs",
         "//bzl:libs.stardoc",
         "//cfg/vial",
-        "//data/leetcode-submissions",
+        "//data/leetcode_submissions",
         "//drawio/diagrams:docs",
     ],
 )
