@@ -6,11 +6,9 @@ load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 load(":al_qt_local_toolchain.bzl", "al_qt_local_toolchain")
 load(":al_qt_resolved_toolchain.bzl", "al_qt_resolved_toolchain")
-load(":al_shellcheck_toolchain.bzl", "al_shellcheck_toolchain")
 
 _TOOLCHAINS = {
     "qt-local-linux-gcc_64": "//bzl/toolchain-types:qt",
-    "shellcheck-remote-linux-x86_64": "//bzl/toolchain-types:shellcheck",
 }
 
 al_gen_changelog(
@@ -26,8 +24,6 @@ al_readme(
 al_bzl_library_map(
     name = "toolchains",
     libs = {
-        "al_shellcheck_toolchain": [
-        ],
         "al_qt_local_toolchain": [
             "@bazel_skylib//lib:paths",
         ],
@@ -72,15 +68,6 @@ compile_pip_requirements(
     name = "requirements",
     srcs = [":requirements.in"],
     requirements_txt = ":requirements.txt",
-)
-
-al_shellcheck_toolchain(
-    name = "shellcheck-remote-linux-x86_64-impl",
-    exec_compatible_with = [
-        "@platforms//os:linux",
-        "@platforms//cpu:x86_64",
-    ],
-    shellcheck = "@com-github-koalaman-shellcheck-linux-x86_64//:bin",
 )
 
 al_qt_local_toolchain(

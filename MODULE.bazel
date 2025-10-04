@@ -52,4 +52,4 @@ register_toolchains("//bzl/rules/git:toolchain_local")
 
 register_toolchains("//bzl/rules/drawio:toolchain_remote_linux_x86_64")
 
-register_toolchains("//bzl/toolchains:shellcheck-remote-linux-x86_64")
+register_toolchains("//bzl/rules/shellcheck:toolchain_remote_linux_x86_64")

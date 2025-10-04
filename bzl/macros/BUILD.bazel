@@ -44,8 +44,6 @@ al_bzl_library_map(
         ],
         "al_genrule_with_wheels": [
         ],
-        "al_go_checkers": [
-        ],
         "al_install_file": [
             "@rules_python//python:py_binary_bzl",
         ],

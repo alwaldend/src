@@ -1,0 +1,50 @@
+load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
+load("//bzl/macros:al_readme.bzl", "al_readme")
+load(":al_shellcheck_toolchain.bzl", "al_shellcheck_toolchain")
+
+al_gen_changelog(
+    name = "changelog",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_library_map(
+    name = "shellcheck",
+    libs = {
+        "al_shellcheck_toolchain": [
+        ],
+    },
+    visibility = ["//visibility:public"],
+)
+
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+toolchain(
+    name = "toolchain_remote_linux_x86_64",
+    toolchain = ":toolchain_remote_linux_x86_64_impl",
+    toolchain_type = ":toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+al_shellcheck_toolchain(
+    name = "toolchain_remote_linux_x86_64_impl",
+    exec_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    shellcheck = "@com-github-koalaman-shellcheck-linux-x86_64//:bin",
+)
+
+al_readme(
+    name = "readme",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_target_doc(
+    name = "bzl-target-doc",
+    visibility = ["//visibility:public"],
+)
