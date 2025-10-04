@@ -7,9 +7,6 @@ al_bzl_library_map(
     name = "aspects",
     libs = {
         "al_print_deps": [],
-        "al_toml_validate": [
-            "//bzl/providers:al_toml_info",
-        ],
     },
     visibility = ["//visibility:public"],
 )

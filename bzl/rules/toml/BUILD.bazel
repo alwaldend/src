@@ -8,16 +8,22 @@ al_gen_changelog(
     visibility = ["//visibility:public"],
 )
 
-al_readme(
-    name = "readme",
+al_bzl_library_map(
+    name = "toml",
+    libs = {
+        "al_toml_validate": [
+            ":al_toml_info",
+        ],
+        "al_toml_info": [],
+        "al_toml_data": [
+            ":al_toml_info",
+        ],
+    },
     visibility = ["//visibility:public"],
 )
 
-al_bzl_library_map(
-    name = "providers",
-    libs = {
-        "al_toml_info": [],
-    },
+al_readme(
+    name = "readme",
     visibility = ["//visibility:public"],
 )
 

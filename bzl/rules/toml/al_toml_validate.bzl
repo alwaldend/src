@@ -1,4 +1,4 @@
-load("//bzl/providers:al_toml_info.bzl", "AlTomlInfo")
+load(":al_toml_info.bzl", "AlTomlInfo")
 
 def _impl(target, ctx):
     if ctx.label.repo_name or not hasattr(ctx.rule.attr, "srcs"):

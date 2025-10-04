@@ -13,9 +13,6 @@ al_bzl_library_map(
     libs = {
         "al_genrule": [],
         "al_template_files": [],
-        "al_toml_data": [
-            "//bzl/providers:al_toml_info",
-        ],
         "al_unpack_archives": [],
         "al_write_script": [],
         "al_remove_directories": [
