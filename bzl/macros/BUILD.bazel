@@ -33,7 +33,7 @@ al_bzl_library_map(
             "@rules_python//python:pip_bzl",
         ],
         "al_genquery_write_to_source_file": [
-            ":al_template_files",
+            "//bzl/rules/template_files:al_template_files",
             "@aspect_bazel_lib//lib:write_source_files",
             "@bazel_skylib//rules:write_file",
         ],
@@ -73,19 +73,15 @@ al_bzl_library_map(
         "al_sh_library": [
             "@rules_shell//shell:rules_bzl",
         ],
-        "al_template_files": [
-            "//bzl/rules:al_template_files",
-            "//bzl/rules:al_write_script",
-        ],
         "al_txt_data": [
         ],
         "al_gen_leetcode_submissions": [
-            ":al_template_files",
+            "//bzl/rules/template_files:al_template_files",
             "@bazel_skylib//rules:write_file",
             "@rules_pkg//pkg:bzl_srcs",
         ],
         "al_vial_configs": [
-            ":al_template_files",
+            "//bzl/rules/template_files:al_template_files",
             "@bazel_skylib//rules:write_file",
             "@rules_pkg//pkg:bzl_srcs",
         ],
@@ -94,12 +90,12 @@ al_bzl_library_map(
             "@bazel_skylib//rules:write_file",
         ],
         "al_bzl_target_doc": [
-            ":al_template_files",
+            "//bzl/rules/template_files:al_template_files",
             "@rules_pkg//pkg:bzl_srcs",
             "@bazel_skylib//rules:write_file",
         ],
         "al_gen_changelog": [
-            ":al_template_files",
+            "//bzl/rules/template_files:al_template_files",
             "@rules_pkg//pkg:bzl_srcs",
             "@bazel_skylib//rules:write_file",
         ],
