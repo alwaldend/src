@@ -9,11 +9,10 @@ al_gen_changelog(
 )
 
 al_bzl_library_map(
-    name = "pkg",
+    name = "txt",
     libs = {
-        "al_unpack_archives": [],
-        "al_pkg_tar_combined": [],
-        "al_genrule_src": [],
+        "al_combine_files": [],
+        "al_txt_data": [],
     },
     visibility = ["//visibility:public"],
 )

@@ -26,18 +26,14 @@ al_bzl_library_map(
             "@stardoc//stardoc:stardoc_lib",
             "@bazel_skylib//rules:write_file",
         ],
-        "al_combine_files": [
-        ],
         "al_compile_pip_requirements_combined": [
-            ":al_combine_files",
+            "//bzl/rules/txt:al_combine_files",
             "@rules_python//python:pip_bzl",
         ],
         "al_genquery_write_to_source_file": [
             "//bzl/rules/template_files:al_template_files",
             "@aspect_bazel_lib//lib:write_source_files",
             "@bazel_skylib//rules:write_file",
-        ],
-        "al_genrule_src": [
         ],
         "al_genrule_with_wheels": [
         ],
@@ -65,8 +61,6 @@ al_bzl_library_map(
             "@bazel_skylib//rules:native_binary",
             "@bazel_skylib//rules:run_binary",
             "@rules_shell//shell:rules_bzl",
-        ],
-        "al_txt_data": [
         ],
         "al_gen_leetcode_submissions": [
             "//bzl/rules/template_files:al_template_files",
