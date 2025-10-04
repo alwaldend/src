@@ -15,10 +15,10 @@ load(
     "al_compile_pip_requirements_combined",
 )
 load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
-load("//bzl/macros:al_genrule.bzl", "al_genrule")
 load("//bzl/macros:al_pkg_tar_combined.bzl", "al_pkg_tar_combined")
 load("//bzl/macros:al_py_binary_shell.bzl", "al_py_binary_shell")
 load("//bzl/macros:al_readme.bzl", "al_readme")
+load("//bzl/rules/bazel_shell_worker:al_genrule.bzl", "al_genrule")
 
 al_readme(
     name = "readme",

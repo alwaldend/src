@@ -37,9 +37,6 @@ al_bzl_library_map(
             "@aspect_bazel_lib//lib:write_source_files",
             "@bazel_skylib//rules:write_file",
         ],
-        "al_genrule": [
-            "//bzl/rules:al_genrule",
-        ],
         "al_genrule_src": [
         ],
         "al_genrule_with_wheels": [

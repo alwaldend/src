@@ -9,16 +9,14 @@ al_gen_changelog(
 )
 
 al_bzl_library_map(
-    name = "rules",
+    name = "bazel_shell_worker",
     libs = {
-        "al_template_files": [],
-        "al_unpack_archives": [],
-        "al_write_script": [],
-        "al_remove_directories": [
+        "al_genrule_rule": [],
+        "al_genrule": [
+            ":al_genrule_rule",
         ],
     },
     visibility = ["//visibility:public"],
-    deps = ["//bzl/rules/{}:{}".format(package, package) for package in subpackages(include = ["*"])],
 )
 
 al_readme(

@@ -1,4 +1,4 @@
-load("//bzl/rules:al_genrule.bzl", "al_genrule_executable", "al_genrule_regular", "al_genrule_test")
+load(":al_genrule_rule.bzl", "al_genrule_executable", "al_genrule_regular", "al_genrule_test")
 
 def al_genrule(test = False, executable = False, **kwargs):
     """
