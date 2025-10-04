@@ -1,7 +1,7 @@
 load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
-load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/macros:al_readme.bzl", "al_readme")
+load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 
 al_readme(
     name = "readme",
@@ -40,6 +40,6 @@ bool_flag(
 )
 
 al_bzl_target_doc(
-    name = "bzl-target-doc",
+    name = "bazel_target_doc",
     visibility = ["//visibility:public"],
 )

@@ -1,7 +1,7 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/macros:al_readme.bzl", "al_readme")
+load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/hugo:al_hugo_binary.bzl", "al_hugo_binary")
 load("//bzl/rules/hugo:al_hugo_run_binary.bzl", "al_hugo_run_binary")
 load("//bzl/rules/hugo:al_hugo_site.bzl", "al_hugo_site")
@@ -89,6 +89,6 @@ al_readme(
 )
 
 al_bzl_target_doc(
-    name = "bzl-target-doc",
+    name = "bazel_target_doc",
     visibility = ["//visibility:public"],
 )

@@ -3,9 +3,9 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_cc//cc:defs.bzl", "cc_test")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
-load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/macros:al_readme.bzl", "al_readme")
+load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 
 al_readme(
     name = "readme",
@@ -81,6 +81,6 @@ test_suite(
 )
 
 al_bzl_target_doc(
-    name = "bzl-target-doc",
+    name = "bazel_target_doc",
     visibility = ["//visibility:public"],
 )

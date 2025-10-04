@@ -1,7 +1,7 @@
-load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/macros:al_readme.bzl", "al_readme")
-load(":al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//bzl/rules/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 
 al_readme(
     name = "readme",
@@ -16,21 +16,6 @@ al_gen_changelog(
 al_bzl_library_map(
     name = "macros",
     libs = {
-        "al_alias_map": [
-        ],
-        "al_bzl_library_map": [
-            "@bazel_skylib//:bzl_library",
-            "@rules_pkg//pkg:bzl_srcs",
-            "@stardoc//stardoc:stardoc_lib",
-            "@bazel_skylib//rules:write_file",
-        ],
-        "al_genquery_write_to_source_file": [
-            "//bzl/rules/template_files:al_template_files",
-            "@aspect_bazel_lib//lib:write_source_files",
-            "@bazel_skylib//rules:write_file",
-        ],
-        "al_genrule_with_wheels": [
-        ],
         "al_install_file": [
             "@rules_python//python:py_binary_bzl",
         ],
@@ -47,11 +32,6 @@ al_bzl_library_map(
             "@rules_pkg//pkg:bzl_srcs",
             "@bazel_skylib//rules:write_file",
         ],
-        "al_bzl_target_doc": [
-            "//bzl/rules/template_files:al_template_files",
-            "@rules_pkg//pkg:bzl_srcs",
-            "@bazel_skylib//rules:write_file",
-        ],
         "al_gen_changelog": [
             "//bzl/rules/template_files:al_template_files",
             "@rules_pkg//pkg:bzl_srcs",
@@ -62,6 +42,6 @@ al_bzl_library_map(
 )
 
 al_bzl_target_doc(
-    name = "bzl-target-doc",
+    name = "bazel_target_doc",
     visibility = ["//visibility:public"],
 )

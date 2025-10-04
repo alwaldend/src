@@ -29,12 +29,12 @@ def al_readme(name, srcs = [":README.md"], subpackages = [], **kwargs):
         **kwargs
     )
     pkg_tar(
-        name = "{}-children".format(name),
+        name = "{}.children".format(name),
         srcs = [name],
-        out = "{}-children.tar".format(name),
+        out = "{}.children.tar".format(name),
         package_dir = package_dir,
         deps = [
-            "{}{}:{}-children".format(package_name_prefix, dep, name)
+            "{}{}:{}.children".format(package_name_prefix, dep, name)
             for dep in subpackages
         ],
         **kwargs

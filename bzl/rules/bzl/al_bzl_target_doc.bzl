@@ -25,7 +25,7 @@ def al_bzl_target_doc(name, visibility, subpackages = []):
     docs = []
     if srcs:
         native.genquery(
-            name = "{}-query.ndjson".format(name),
+            name = "{}.query.ndjson".format(name),
             expression = " union ".join([
                 "//{}:{}".format(native.package_name(), src)
                 for src in srcs.keys()
@@ -35,8 +35,8 @@ def al_bzl_target_doc(name, visibility, subpackages = []):
             opts = ["--output", "streamed_jsonproto"],
         )
         write_file(
-            name = "{}-template".format(name),
-            out = "{}-template.md".format(name),
+            name = "{}.template".format(name),
+            out = "{}.template.md".format(name),
             content = [
                 "{{ range .Data }}",
                 "---",
@@ -74,16 +74,16 @@ def al_bzl_target_doc(name, visibility, subpackages = []):
                 "{{ end }}",
             ],
         )
-        docs.append("{}-doc".format(name))
+        docs.append("{}.doc".format(name))
         al_template_files(
-            name = "{}-doc".format(name),
-            srcs = ["{}-template".format(name)],
-            data = ["{}-query.ndjson".format(name)],
-            outs = ["{}-doc.md".format(name)],
+            name = "{}.doc".format(name),
+            srcs = ["{}.template".format(name)],
+            data = ["{}.query.ndjson".format(name)],
+            outs = ["{}.doc.md".format(name)],
         )
 
     pkg_tar(
-        name = "{}-children".format(name),
+        name = "{}.children".format(name),
         deps = [
             "{}{}:{}".format(package_name_prefix, dep, name)
             for dep in subpackages
@@ -94,5 +94,5 @@ def al_bzl_target_doc(name, visibility, subpackages = []):
         visibility = visibility,
         srcs = docs,
         package_dir = package_dir,
-        deps = ["{}-children".format(name)],
+        deps = ["{}.children".format(name)],
     )

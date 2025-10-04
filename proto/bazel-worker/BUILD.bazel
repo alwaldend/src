@@ -2,9 +2,9 @@ load("@rules_go//go:def.bzl", "go_library")
 load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_library", "java_proto_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
-load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/macros:al_readme.bzl", "al_readme")
+load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 
 al_readme(
     name = "readme",
@@ -48,6 +48,6 @@ java_library(
 )
 
 al_bzl_target_doc(
-    name = "bzl-target-doc",
+    name = "bazel_target_doc",
     visibility = ["//visibility:public"],
 )
