@@ -61,5 +61,5 @@ register_toolchains(
 )
 
 register_toolchains(
-    "//bzl/toolchains:git-local",
+    "//bzl/rules/git:toolchain_git_local",
 )

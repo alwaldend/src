@@ -1,8 +1,8 @@
 load("@bazel_skylib//lib:shell.bzl", "shell")
-load("//bzl/providers:al_git_info.bzl", "AlGitInfo")
+load(":al_git_info.bzl", "AlGitInfo")
 
 def _impl(ctx):
-    git_toolchain = ctx.toolchains["//bzl/toolchain-types:git"]
+    git_toolchain = ctx.toolchains["//bzl/rules/git:toolchain_type"]
     git_info = ctx.attr.src[AlGitInfo]
     script = ctx.actions.declare_file("{}-script.sh".format(ctx.label.name))
     runfiles = ctx.runfiles(files = ctx.files.src)
@@ -38,7 +38,7 @@ def _impl(ctx):
 al_git_binary = rule(
     doc = "Run git binary",
     executable = True,
-    toolchains = ["//bzl/toolchain-types:git"],
+    toolchains = ["//bzl/rules/git:toolchain_type"],
     implementation = _impl,
     attrs = {
         "src": attr.label(

@@ -5,7 +5,6 @@ load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 load(":al_drawio_toolchain.bzl", "al_drawio_toolchain")
-load(":al_git_toolchain.bzl", "al_git_toolchain")
 load(":al_hugo_toolchain.bzl", "al_hugo_toolchain")
 load(":al_qt_local_toolchain.bzl", "al_qt_local_toolchain")
 load(":al_qt_resolved_toolchain.bzl", "al_qt_resolved_toolchain")
@@ -16,7 +15,6 @@ _TOOLCHAINS = {
     "drawio-remote-linux-x86_64": "//bzl/toolchain-types:drawio",
     "hugo-remote-linux-amd64": "//bzl/toolchain-types:hugo",
     "shellcheck-remote-linux-x86_64": "//bzl/toolchain-types:shellcheck",
-    "git-local": "//bzl/toolchain-types:git",
 }
 
 al_gen_changelog(
@@ -42,13 +40,8 @@ al_bzl_library_map(
             "@bazel_skylib//lib:paths",
         ],
         "al_qt_resolved_toolchain": [
-            ":al_resolved_toolchain",
+            "//bzl/rules/resolved_toolchain:al_resolved_toolchain",
         ],
-        "al_git_toolchain": [],
-        "al_git_resolved_toolchain": [
-            ":al_resolved_toolchain",
-        ],
-        "al_resolved_toolchain": [],
     },
     visibility = ["//visibility:public"],
 )
@@ -126,11 +119,6 @@ al_drawio_toolchain(
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",
     ],
-)
-
-al_git_toolchain(
-    name = "git-local-impl",
-    local_bin = "git",
 )
 
 al_bzl_target_doc(

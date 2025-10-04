@@ -22,13 +22,6 @@ al_bzl_library_map(
         ],
         "al_drawio_run_binary": [
         ],
-        "al_git_library": [
-            "//bzl/providers:al_git_info",
-        ],
-        "al_git_binary": [
-            "//bzl/providers:al_git_info",
-            "@bazel_skylib//lib:shell",
-        ],
         # "al_git_run_binary": [
         #     "//bzl/providers:al_git_info",
         # ],

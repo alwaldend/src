@@ -1,7 +1,7 @@
-load("//bzl/providers:al_git_info.bzl", "AlGitInfo")
+load(":al_git_info.bzl", "AlGitInfo")
 
 def _impl(ctx):
-    git = ctx.toolchains["//bzl/toolchain-types:git"]
+    git = ctx.toolchains["//bzl/rules/git:toolchain_type"]
     files = [ctx.file.src]
     runfiles = ctx.runfiles(files = files)
 
@@ -18,7 +18,7 @@ def _impl(ctx):
 al_git_library = rule(
     implementation = _impl,
     doc = "Define git information",
-    toolchains = ["//bzl/toolchain-types:git"],
+    toolchains = ["//bzl/rules/git:toolchain_type"],
     provides = [AlGitInfo],
     attrs = {
         "src": attr.label(

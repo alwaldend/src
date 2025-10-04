@@ -15,8 +15,8 @@ load("//bzl/macros:al_md_data.bzl", "al_md_data")
 load("//bzl/macros:al_readme.bzl", "al_readme")
 load("//bzl/macros:al_toml_data.bzl", "al_toml_data")
 load("//bzl/macros:al_txt_data.bzl", "al_txt_data")
-load("//bzl/rules:al_git_binary.bzl", "al_git_binary")
-load("//bzl/rules:al_git_library.bzl", "al_git_library")
+load("//bzl/rules/git:al_git_binary.bzl", "al_git_binary")
+load("//bzl/rules/git:al_git_library.bzl", "al_git_library")
 
 _EXCLUDE = [
     "./.git/**/*",

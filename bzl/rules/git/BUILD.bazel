@@ -1,0 +1,56 @@
+load("//bzl/macros:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//bzl/macros:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
+load("//bzl/macros:al_readme.bzl", "al_readme")
+load(":al_git_toolchain.bzl", "al_git_toolchain")
+
+al_gen_changelog(
+    name = "changelog",
+    visibility = ["//visibility:public"],
+)
+
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_library_map(
+    name = "git",
+    libs = {
+        "al_git_info": [],
+        "al_git_library": [
+            ":al_git_info",
+        ],
+        "al_git_binary": [
+            ":al_git_info",
+            "@bazel_skylib//lib:shell",
+        ],
+        "al_git_toolchain": [],
+        "al_git_resolved_toolchain": [
+            "//bzl/rules/resolved_toolchain:al_resolved_toolchain",
+        ],
+    },
+    visibility = ["//visibility:public"],
+)
+
+toolchain(
+    name = "toolchain_git_local",
+    toolchain = ":toolchain_git_local_impl",
+    toolchain_type = ":toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+al_git_toolchain(
+    name = "toolchain_git_local_impl",
+    local_bin = "git",
+)
+
+al_readme(
+    name = "readme",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_target_doc(
+    name = "bzl-target-doc",
+    visibility = ["//visibility:public"],
+)
