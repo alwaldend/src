@@ -11,9 +11,10 @@ al_changelog_library(
 al_bzl_library_map(
     name = "libs",
     libs = {
-        "al_write_script": [],
-        "al_sh_library": [
-            "@rules_shell//shell:rules_bzl",
+        "al_changelog_library": [
+            "//bzl/rules/template_files:al_template_files",
+            "@rules_pkg//pkg:bzl_srcs",
+            "@bazel_skylib//rules:write_file",
         ],
     },
     visibility = ["//visibility:public"],

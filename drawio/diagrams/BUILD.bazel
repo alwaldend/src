@@ -1,7 +1,7 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/rules/changelog:al_changelog_library.bzl", "al_changelog_library")
 load("//bzl/rules/drawio:al_drawio_run_binary.bzl", "al_drawio_run_binary")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
@@ -66,7 +66,7 @@ pkg_tar(
     for diagram, _ in _DIAGRAMS.items()
 ]
 
-al_gen_changelog(
+al_changelog_library(
     name = "changelog",
     visibility = ["//visibility:public"],
 )

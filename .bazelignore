@@ -1,4 +1,5 @@
 node_modules
+bazel-*
 out
 bzl/registry/modules
 js/docsy/node_modules

@@ -1,10 +1,10 @@
-load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/rules/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/rules/changelog:al_changelog_library.bzl", "al_changelog_library")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 load(":al_git_toolchain.bzl", "al_git_toolchain")
 
-al_gen_changelog(
+al_changelog_library(
     name = "changelog",
     visibility = ["//visibility:public"],
 )

@@ -3,8 +3,8 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_cc//cc:defs.bzl", "cc_test")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
-load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/rules/changelog:al_changelog_library.bzl", "al_changelog_library")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
 al_readme(
@@ -12,7 +12,7 @@ al_readme(
     visibility = ["//visibility:public"],
 )
 
-al_gen_changelog(
+al_changelog_library(
     name = "changelog",
     visibility = ["//visibility:public"],
 )

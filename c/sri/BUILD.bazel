@@ -1,8 +1,8 @@
 load("@rules_cc//cc:cc_binary.bzl", "cc_binary")
 load("@rules_cc//cc:cc_library.bzl", "cc_library")
 load("@rules_cc//cc:cc_test.bzl", "cc_test")
-load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/rules/changelog:al_changelog_library.bzl", "al_changelog_library")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
 al_readme(
@@ -10,7 +10,7 @@ al_readme(
     visibility = ["//visibility:public"],
 )
 
-al_gen_changelog(
+al_changelog_library(
     name = "changelog",
     visibility = ["//visibility:public"],
 )

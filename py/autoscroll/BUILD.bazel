@@ -1,8 +1,8 @@
 load("@rules_python//python:packaging.bzl", "py_package", "py_wheel")
 load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@rules_python//python:py_library.bzl", "py_library")
-load("//bzl/macros:al_gen_changelog.bzl", "al_gen_changelog")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/rules/changelog:al_changelog_library.bzl", "al_changelog_library")
 load("//bzl/rules/py:al_py_checkers.bzl", "al_py_checkers")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
@@ -11,7 +11,7 @@ al_readme(
     visibility = ["//visibility:public"],
 )
 
-al_gen_changelog(
+al_changelog_library(
     name = "changelog",
     visibility = ["//visibility:public"],
 )

@@ -2,7 +2,7 @@ load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/rules/template_files:al_template_files.bzl", "al_template_files")
 
-def al_gen_changelog(name, visibility, subpackages = []):
+def al_changelog_library(name, visibility, subpackages = []):
     """
     Create changelog target
 
