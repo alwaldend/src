@@ -1,19 +1,27 @@
 load("@bazel_skylib//lib:shell.bzl", "shell")
 
 def _impl(ctx):
-    collections = ctx.actions.declare_directory("{}.collections".format(ctx.label.name))
+    runfiles_files = [ctx.file.config] + ctx.files.inventories
+    if ctx.file.collections:
+        collections = ctx.actions.declare_directory("{}.collections".format(ctx.label.name))
+        runfiles_files.append(collections)
+    else:
+        collections = None
     script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
     ansible = ctx.attr.ansible[ctx.attr.process_name]
+    runfiles_symlinks = {}
+    if ctx.file.config:
+        runfiles_symlinks["ansible.cfg"] = ctx.file.config
+    if collections:
+        runfiles_symlinks["collections/ansible_collections"] = collections
+
     runfiles = ctx.runfiles(
-        files = [collections, ctx.file.config],
+        files = runfiles_files,
         transitive_files = depset(transitive = [
             ansible[DefaultInfo].default_runfiles.files,
             ansible[DefaultInfo].data_runfiles.files,
         ]),
-        symlinks = {
-            "collections/ansible_collections": collections,
-            "ansible.cfg": ctx.file.config,
-        },
+        symlinks = runfiles_symlinks,
     )
 
     # this merge doesn't work for some reason
@@ -22,24 +30,25 @@ def _impl(ctx):
         ansible[DefaultInfo].data_runfiles,
     ])
 
-    ctx.actions.run_shell(
-        outputs = [collections],
-        inputs = [ctx.file.collections],
-        command = "tar -xf '{}' -C '{}'".format(ctx.file.collections.path, collections.path),
-    )
+    if collections:
+        ctx.actions.run_shell(
+            outputs = [collections],
+            inputs = [ctx.file.collections],
+            command = "tar -xf '{}' -C '{}'".format(ctx.file.collections.path, collections.path),
+        )
 
+    args = []
+    for inventory in ctx.files.inventories:
+        args.extend(["--inventory", inventory.short_path])
+    args.extend(ctx.attr.arguments)
     script_content = """\
         #!/usr/bin/env sh
         '{ansible}' \
             {arguments} \
             "${{@}}"
     """.format(
-        collections = collections.short_path,
         ansible = ansible[DefaultInfo].files_to_run.executable.short_path,
-        arguments = " ".join([
-            shell.quote(argument)
-            for argument in ctx.attr.arguments
-        ]),
+        arguments = " ".join([shell.quote(arg) for arg in args]),
     )
     ctx.actions.write(
         output = script,
@@ -69,11 +78,14 @@ al_ansible_binary = rule(
         ),
         "collections": attr.label(
             allow_single_file = [".tar"],
-            mandatory = True,
             doc = "Ansible collections",
         ),
+        "inventories": attr.label_list(
+            allow_files = True,
+            default = [],
+            doc = "Ansible inventories",
+        ),
         "config": attr.label(
-            mandatory = True,
             allow_single_file = True,
             doc = "Ansible config",
         ),

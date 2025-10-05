@@ -1,6 +1,0 @@
-- name: Setup vpn
-  hosts: vpn01
-  force_handlers: true
-  become: true
-  roles:
-    - role: host

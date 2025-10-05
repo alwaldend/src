@@ -1,3 +1,4 @@
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/rules/ansible:al_ansible_role.bzl", "al_ansible_role")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
@@ -8,10 +9,17 @@ al_git_changelog(
     visibility = ["//visibility:public"],
 )
 
+pkg_tar(
+    name = "files_install",
+    srcs = ["@com_github_k3s_io_k3s_install_script//file"],
+    package_dir = "files",
+)
+
 al_ansible_role(
     name = "role",
     srcs = glob(["**"]),
     visibility = ["//visibility:public"],
+    deps = [":files_install"],
 )
 
 al_readme(

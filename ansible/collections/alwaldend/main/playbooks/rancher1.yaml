@@ -1,15 +1,14 @@
-- name: Setup cluster nodes
-  hosts: cluster_02
+- name: Setup rancher cluster
+  hosts: rancher1
   force_handlers: true
   become: true
   tags:
-    - cluster_02
+    - rancher1
   roles:
     - role: facts
     - role: firewall
     - role: fail2ban
     - role: users
     - role: hardening
-    #- role: containerd
     - role: k3s
     - role: update_all_packages

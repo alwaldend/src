@@ -1,4 +1,0 @@
-- name: Setup dns
-  hosts: localhost
-  roles:
-    - role: dns

@@ -1,4 +1,5 @@
-- tags:
+- name: Main
+  tags:
     - k3s
   block:
     - name: Install curl
@@ -8,26 +9,26 @@
     - name: Install fuse packages
       ansible.builtin.package:
         name:
-          - fuse-overlayfs 
+          - fuse-overlayfs
           - fuse2fs
     - name: Copy install script
       ansible.builtin.copy:
         src: install
-        dest: "{{ k3s_install_script_path }}" 
+        dest: "{{ k3s_install_script_path }}"
         owner: root
         group: root
         mode: "0700"
     - name: Create the directory for the k3s config
       ansible.builtin.file:
-        path: "{{ k3s_config_path | dirname }}" 
-        state: directory 
+        path: "{{ k3s_config_path | dirname }}"
+        state: directory
         owner: root
         group: root
         mode: "0700"
-    - name: Write k3s config 
+    - name: Write k3s config
       register: k3s_config_info
       ansible.builtin.copy:
-        dest: "{{ k3s_config_path }}" 
+        dest: "{{ k3s_config_path }}"
         content: "{{ k3s_config | to_nice_yaml(indent=2) }}"
         owner: root
         group: root
@@ -35,7 +36,7 @@
     - name: Run install script
       environment: "{{ k3s_install_environment }}"
       ansible.builtin.command:
-        cmd: "{{ k3s_install_script_path }}" 
+        cmd: "{{ k3s_install_script_path }}"
     - name: Ensure k3s service is restarted
       when: k3s_config_info.changed
       ansible.builtin.systemd_service:

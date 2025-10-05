@@ -1,0 +1,30 @@
+## hardening
+sshd_custom_options:
+  - PermitOpen 127.0.0.1:6443
+ssh_allow_tcp_forwarding: local
+sysctl_overwrite:
+  net.ipv4.ip_forward: 1
+  net.ipv6.conf.all.forwarding: 1
+
+## users
+users_admins:
+  - name: "{{ ansible_user }}"
+    disable_passwd: true
+    sudo_no_passwd: true
+
+## firewall
+firewall_allow_port_from:
+  - src: "any"
+    port: 443
+    comment: Any 443
+firewall_allow_ssh_ipv4_from:
+  - src: "any"
+    comment: Any ssh
+firewall_allow_ssh_ipv6_from:
+  - src: "any"
+    comment: Any ssh
+
+## k3s
+k3s_config:
+  cluster-init: true
+  token: "{{ lookup('ansible.builtin.env', 'RANCHER1_DC1_K3S_SERVER_TOKEN') | mandatory }}"

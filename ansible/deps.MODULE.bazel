@@ -1,5 +1,7 @@
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
 http_archive(
     name = "com_ansible_galaxy_ansible_posix_v2",
     build_file = "//bzl/build_files:general.BUILD.bazel",
@@ -40,4 +42,12 @@ http_archive(
     build_file = "//bzl/build_files:general.BUILD.bazel",
     integrity = "sha256-sd44WSmHlZIA/g28CO/CbPkzrNfb8IA081y+ofk58+k=",
     url = "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/devsec-hardening-10.3.1.tar.gz",
+)
+
+http_file(
+    name = "com_github_k3s_io_k3s_install_script",
+    downloaded_file_path = "install",
+    executable = True,
+    integrity = "sha256-CP/ZLEeohu3VbOl3NPPWfn9hFfByldzc3G336iwL7ho=",
+    url = "https://raw.githubusercontent.com/k3s-io/k3s/ef6d6f4c363f30f2b7d296c94d50912663cb20ec/install.sh",
 )

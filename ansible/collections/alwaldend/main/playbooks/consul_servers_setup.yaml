@@ -1,9 +1,0 @@
-- name: Setup consul servers
-  hosts: consul01_servers
-  force_handlers: true
-  become: true
-  gather_facts: false
-  roles:
-    - role: pve_vm
-    - role: host
-    - role: consul

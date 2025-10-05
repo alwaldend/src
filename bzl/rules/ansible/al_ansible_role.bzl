@@ -1,7 +1,7 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
-def al_ansible_role(name, srcs, visibility):
+def al_ansible_role(name, srcs, visibility, deps = []):
     """
     Create targets for an ansible role
 
@@ -45,6 +45,7 @@ def al_ansible_role(name, srcs, visibility):
     pkg_tar(
         name = name,
         srcs = srcs,
+        deps = deps,
         package_dir = role_name,
         strip_prefix = ".",
         visibility = visibility,

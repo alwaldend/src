@@ -1,6 +1,6 @@
-k3s_install_environment: {} 
+k3s_install_environment: {}
 k3s_manifests_dir: /var/lib/rancher/k3s/server/manifests
-k3s_install_script_path: /usr/local/bin/k3s-install.sh
+k3s_install_script_path: /usr/local/bin/k3s_install.sh
 k3s_config_path: /etc/rancher/k3s/config.yaml
-k3s_config: {} 
+k3s_config: {}
 k3s_service_name: k3s

@@ -6,8 +6,8 @@ load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
 _DIAGRAMS = {
-    "arch-idea-anki-chinese-flashcards-enricher": {},
-    "arch-interview-yandex-sre": {},
+    "arch_idea_anki_chinese_flashcards_enricher": {},
+    "arch_interview_yandex_sre": {},
 }
 
 al_readme(
@@ -19,16 +19,16 @@ pkg_tar(
     name = "docs",
     package_dir = package_name(),
     visibility = ["//visibility:public"],
-    deps = ["{}-doc".format(diagram) for diagram, _ in _DIAGRAMS.items()],
+    deps = ["{}_doc".format(diagram) for diagram, _ in _DIAGRAMS.items()],
 )
 
 [
     [
         pkg_tar(
-            name = "{}-doc".format(diagram),
+            name = "{}_doc".format(diagram),
             srcs = [
-                "{}-md".format(diagram),
-                "{}-svg".format(diagram),
+                "{}_md".format(diagram),
+                "{}_svg".format(diagram),
             ],
             remap_paths = {
                 "/{}.md".format(diagram): "{}/_index.md".format(diagram),
@@ -36,7 +36,7 @@ pkg_tar(
             },
         ),
         write_file(
-            name = "{}-md".format(diagram),
+            name = "{}_md".format(diagram),
             out = "{}.md".format(diagram),
             content = [
                 "---",
@@ -47,7 +47,7 @@ pkg_tar(
             ],
         ),
         al_drawio_run_binary(
-            name = "{}-svg".format(diagram),
+            name = "{}_svg".format(diagram),
             srcs = ["{}.drawio".format(diagram)],
             out = "{}.svg".format(diagram),
             arguments = [
