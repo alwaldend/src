@@ -34,14 +34,14 @@ _SUBPACKAGES = subpackages(
 exports_files(["LICENSE.txt"])
 
 pkg_tar(
-    name = "git-archive",
+    name = "git_archive",
     srcs = glob([".git/**"]),
     strip_prefix = ".",
 )
 
 al_git_library(
-    name = "git-lib",
-    src = ":git-archive",
+    name = "git_lib",
+    src = ":git_archive",
 )
 
 al_git_changelog(
@@ -52,7 +52,7 @@ al_git_changelog(
 
 al_git_binary(
     name = "git",
-    src = ":git-lib",
+    src = ":git_lib",
     visibility = ["//visibility:public"],
 )
 
@@ -88,7 +88,7 @@ buildifier(
 )
 
 buildifier_test(
-    name = "buildifier-test",
+    name = "buildifier_test",
     size = "small",
     exclude_patterns = _EXCLUDE,
     no_sandbox = True,
@@ -110,11 +110,11 @@ npm_link_all_packages(
 gazelle(
     name = "gazelle",
     command = "fix",
-    gazelle = ":gazelle-bin",
+    gazelle = ":gazelle_bin",
 )
 
 gazelle_binary(
-    name = "gazelle-bin",
+    name = "gazelle_bin",
     languages = DEFAULT_LANGUAGES + [
         "@contrib_rules_jvm//java/gazelle",
         "@rules_python_gazelle_plugin//python:python",
@@ -130,10 +130,10 @@ refresh_compile_commands(
 )
 
 al_genrule(
-    name = "update-readme",
-    outs = ["update-readme-bin"],
+    name = "update_readme",
+    outs = ["update_readme_bin"],
     cmd = """
-cat - >$(execpath :update-readme-bin) <<EOF
+cat - >$(execpath :update_readme_bin) <<EOF
     #!/usr/bin/env bash
     set -euxo pipefail
     dir="\\${BUILD_WORKING_DIRECTORY}"

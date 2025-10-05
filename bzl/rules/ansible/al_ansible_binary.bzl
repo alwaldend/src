@@ -5,11 +5,19 @@ def _impl(ctx):
     script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
     ansible = ctx.attr.ansible[ctx.attr.process_name]
     runfiles = ctx.runfiles(
-        files = [collections] + ctx.files.ansible,
+        files = [collections],
+        transitive_files = depset(transitive = [
+            ansible[DefaultInfo].default_runfiles.files,
+            ansible[DefaultInfo].data_runfiles.files,
+        ]),
         symlinks = {"collections": collections},
     )
-    runfiles.merge(ansible[DefaultInfo].default_runfiles)
-    runfiles.merge(ansible[DefaultInfo].data_runfiles)
+
+    # this merge doesn't work for some reason
+    runfiles.merge_all([
+        ansible[DefaultInfo].default_runfiles,
+        ansible[DefaultInfo].data_runfiles,
+    ])
 
     ctx.actions.run_shell(
         outputs = [collections],
@@ -20,8 +28,7 @@ def _impl(ctx):
     script_content = """\
         #!/usr/bin/env sh
         set -eux
-        echo "${{PWD}}"
-        find ../ -name "*python*"
+        find
         '{ansible}' \
             {arguments} \
             "${{@}}"
