@@ -18,8 +18,8 @@ def al_ansible_role(name, srcs, visibility):
     else:
         fail("role {} is missing defaults: {}".format(native.package_name(), srcs))
     native.genrule(
-        name = "{}-defaults".format(name),
-        outs = ["{}-defaults.md".format(name)],
+        name = "{}_defaults".format(name),
+        outs = ["{}_defaults.md".format(name)],
         srcs = [defaults],
         cmd = """
             {{
@@ -36,10 +36,10 @@ def al_ansible_role(name, srcs, visibility):
         """.format(role_name = role_name),
     )
     pkg_tar(
-        name = "{}-docs".format(name),
-        srcs = [":{}-defaults".format(name)],
+        name = "{}_docs".format(name),
+        srcs = [":{}_defaults".format(name)],
         package_dir = role_name,
-        remap_paths = {"/{}-defaults.md".format(name): "defaults/_index.md"},
+        remap_paths = {"/{}_defaults.md".format(name): "defaults/_index.md"},
         visibility = visibility,
     )
     pkg_tar(

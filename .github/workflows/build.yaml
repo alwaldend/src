@@ -43,7 +43,7 @@ jobs:
         run: |
           bazel run \
             --config=ci \
-            hugo/sites/docs:build-run \
+            hugo/sites/docs:build_run \
             -- \
             --baseURL "https://alwaldend.github.io/src" \
             --destination "${PWD}/${{ env.ARTIFACTS_PAGES }}"

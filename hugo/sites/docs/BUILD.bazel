@@ -14,7 +14,7 @@ al_git_changelog(
 
 al_hugo_site(
     name = "site",
-    configs = [":hugo-config"],
+    configs = [":hugo_config"],
     content = "//hugo/sites/docs/content",
     hugo_data = ":data",
     hugo_i18n = "//hugo/sites/docs/i18n",
@@ -59,7 +59,7 @@ al_hugo_binary(
 )
 
 al_hugo_binary(
-    name = "build-run",
+    name = "build_run",
     arguments = [
         "build",
         "--logLevel",
@@ -79,7 +79,7 @@ pkg_tar(
 )
 
 al_toml_data(
-    name = "hugo-config",
+    name = "hugo_config",
     srcs = ["hugo.toml"],
 )
 

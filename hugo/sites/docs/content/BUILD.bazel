@@ -17,13 +17,13 @@ pkg_tar(
     name = "content",
     visibility = ["//visibility:public"],
     deps = [
-        ":content-ext",
-        ":content-src",
+        ":content_ext",
+        ":content_src",
     ],
 )
 
 pkg_tar(
-    name = "content-src",
+    name = "content_src",
     srcs = glob(
         ["**"],
         exclude = [
@@ -35,7 +35,7 @@ pkg_tar(
 )
 
 pkg_tar(
-    name = "content-ext",
+    name = "content_ext",
     srcs = [
         "//:LICENSE.txt",
     ],
@@ -43,7 +43,7 @@ pkg_tar(
         "//:bazel_target_doc",
         "//:changelog",
         "//:readme.children",
-        "//ansible/roles:docs",
+        "//ansible/collections/alwaldend/main/roles:docs",
         "//bzl:libs.stardoc",
         "//cfg/vial",
         "//data/leetcode_submissions",

@@ -26,7 +26,7 @@ pkg_tar(
     name = "docs",
     package_dir = package_name(),
     visibility = ["//visibility:public"],
-    deps = ["//{}/{}:role-docs".format(
+    deps = ["//{}/{}:role_docs".format(
         package_name(),
         role,
     ) for role in _ROLES],
