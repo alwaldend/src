@@ -16,7 +16,7 @@ al_git_changelog(
 pkg_tar(
     name = "img",
     package_dir = "img",
-    deps = ["//img/useless-qt-gui"],
+    deps = ["//img/useless_qt_gui"],
 )
 
 pkg_tar(
@@ -26,9 +26,9 @@ pkg_tar(
 )
 
 genrule(
-    name = "useless-qt-gui",
+    name = "useless_qt_gui",
     srcs = [":src"],
-    outs = ["useless-qt-gui-bin"],
+    outs = ["useless_qt_gui_bin"],
     cmd = """
         touch $(@) # doesn't work in CI
         exit 0

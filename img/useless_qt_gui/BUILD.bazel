@@ -14,7 +14,7 @@ al_git_changelog(
 )
 
 pkg_tar(
-    name = "useless-qt-gui",
+    name = "useless_qt_gui",
     srcs = glob(["*.png"]),
     visibility = ["//visibility:public"],
 )
