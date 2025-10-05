@@ -34,7 +34,7 @@ al_compile_pip_requirements_combined(
     name = "requirements",
     srcs = [
         "requirements.in",
-        "@com-github-infinitimeorg-infinitime//:requirements",
+        "@com_github_infinitimeorg_infinitime//:requirements",
     ],
     requirements_txt = "requirements.txt",
     visibility = ["//visibility:public"],
@@ -47,22 +47,22 @@ py_console_script_binary(
 
 al_py_binary_shell(
     name = "python-shell",
-    deps = all_requirements + ["@com-github-infinitimeorg-infinitime//:imgtool"],
+    deps = all_requirements + ["@com_github_infinitimeorg_infinitime//:imgtool"],
 )
 
 al_pkg_tar_combined(
     name = "firmware-deps",
     srcs = [
         {
-            "label": "@com-github-infinitimeorg-infinitime//:src-tar",
+            "label": "@com_github_infinitimeorg_infinitime//:src_tar",
             "dir": "src",
         },
         {
-            "label": "@com-arm-developer-gcc-arm//:src-tar",
+            "label": "@com_arm_developer_gcc_arm//:src_tar",
             "dir": "gcc",
         },
         {
-            "label": "@com-nordicsemi-developer-nrfsdk//:src-tar",
+            "label": "@com_nordicsemi_developer_nrfsdk//:src_tar",
             "dir": "nrfsdk",
         },
     ],

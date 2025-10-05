@@ -1,6 +1,15 @@
+load("//bzl/rules/ansible:al_ansible_binary.bzl", "al_ansible_binary")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
+
+al_ansible_binary(
+    name = "ansible_playbook",
+    arguments = [],
+    collections = "//ansible/collections",
+    config = ":config",
+    process_name = "ansible_playbook",
+)
 
 al_readme(
     name = "readme",
@@ -15,7 +24,6 @@ al_git_changelog(
 filegroup(
     name = "config",
     srcs = ["ansible.cfg"],
-    visibility = ["//visibility:public"],
 )
 
 al_bzl_target_doc(

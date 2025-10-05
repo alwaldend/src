@@ -9,9 +9,44 @@ al_git_changelog(
 )
 
 pkg_tar(
+    name = "ansible.posix",
+    package_dir = "ansible/posix",
+    deps = ["@com_ansible_galaxy_ansible_posix_v2//:src_tar"],
+)
+
+pkg_tar(
+    name = "devsec.hardening",
+    package_dir = "devsec/hardening",
+    deps = ["@com_ansible_galaxy_devsec_hardening_v10//:src_tar"],
+)
+
+pkg_tar(
+    name = "community.general",
+    package_dir = "community/general",
+    deps = ["@com_ansible_galaxy_community_general_v11//:src_tar"],
+)
+
+pkg_tar(
+    name = "community.crypto",
+    package_dir = "community/crypto",
+    deps = ["@com_ansible_galaxy_community_crypto_v3//:src_tar"],
+)
+
+pkg_tar(
+    name = "community.docker",
+    package_dir = "community/docker",
+    deps = ["@com_ansible_galaxy_community_docker_v4//:src_tar"],
+)
+
+pkg_tar(
+    name = "community.library_inventory_filtering_v1",
+    package_dir = "community/library_inventory_filtering_v1",
+    deps = ["@com_ansible_galaxy_community_library_inventory_filtering_v1//:src_tar"],
+)
+
+pkg_tar(
     name = "alwaldend.main",
     package_dir = "alwaldend/main",
-    visibility = ["//visibility:public"],
     deps = [
         "//ansible/playbooks",
         "//ansible/roles",
@@ -20,9 +55,16 @@ pkg_tar(
 
 pkg_tar(
     name = "collections",
-    package_dir = "collections",
     visibility = ["//visibility:public"],
-    deps = [":alwaldend.main"],
+    deps = [
+        ":alwaldend.main",
+        ":ansible.posix",
+        ":community.crypto",
+        ":community.docker",
+        ":community.general",
+        ":community.library_inventory_filtering_v1",
+        ":devsec.hardening",
+    ],
 )
 
 al_readme(

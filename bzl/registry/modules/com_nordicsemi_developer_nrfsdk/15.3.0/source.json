@@ -1,0 +1,8 @@
+{
+  "url": "https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/nRF5_SDK_15.3.0_59ac345.zip",
+  "strip_prefix": "nRF5_SDK_15.3.0_59ac345",
+  "integrity": "sha256-nJMH11fRCQB/L8xOVHrBCxqf2fqkd+jb8/fhYkxIAaU=",
+  "overlay": {
+    "BUILD.bazel": "sha256-37Wr+Xl7sXVNlMHYYo0c9S/S4Y+Gn8p5N6oVhwMm/mc="
+  }
+}

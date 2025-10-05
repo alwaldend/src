@@ -4,7 +4,7 @@ def _impl(ctx):
     for mod in ctx.modules:
         for tag in mod.tags.download:
             for name, repo in tag.repos.items():
-                repo_name = "{}-{}".format(tag.name, name)
+                repo_name = "{}_{}".format(tag.name, name)
                 kwargs = {}
                 for line in repo:
                     key, value = line.split("=", 1)

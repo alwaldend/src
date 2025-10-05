@@ -18,7 +18,7 @@ bazel_dep(name = "rules_android", version = "0.6.6")
 ### bazel_dep: file://%workspace%/bzl/registry
 
 bazel_dep(name = "com-github-georgewfraser-java-language-server", version = "2025.520.0")
-bazel_dep(name = "com-nordicsemi-developer-nrfsdk", version = "15.3.0")
+bazel_dep(name = "com_nordicsemi_developer_nrfsdk", version = "15.3.0")
 bazel_dep(name = "com-github-aldanial-cloc", version = "2.04.0")
 bazel_dep(name = "org-openssl-openssl", version = "3.5.0")
 bazel_dep(name = "us-nasm-nasm", version = "2.15.05")
@@ -41,6 +41,7 @@ include("//java:deps.MODULE.bazel")
 include("//js:deps.MODULE.bazel")
 include("//kt:deps.MODULE.bazel")
 include("//tools:deps.MODULE.bazel")
+include("//ansible:deps.MODULE.bazel")
 
 ### toolchains
 

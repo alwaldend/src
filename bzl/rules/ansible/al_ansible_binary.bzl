@@ -5,12 +5,15 @@ def _impl(ctx):
     script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
     ansible = ctx.attr.ansible[ctx.attr.process_name]
     runfiles = ctx.runfiles(
-        files = [collections],
+        files = [collections, ctx.file.config],
         transitive_files = depset(transitive = [
             ansible[DefaultInfo].default_runfiles.files,
             ansible[DefaultInfo].data_runfiles.files,
         ]),
-        symlinks = {"collections": collections},
+        symlinks = {
+            "collections/ansible_collections": collections,
+            "ansible.cfg": ctx.file.config,
+        },
     )
 
     # this merge doesn't work for some reason
@@ -27,8 +30,6 @@ def _impl(ctx):
 
     script_content = """\
         #!/usr/bin/env sh
-        set -eux
-        find
         '{ansible}' \
             {arguments} \
             "${{@}}"
@@ -70,6 +71,11 @@ al_ansible_binary = rule(
             allow_single_file = [".tar"],
             mandatory = True,
             doc = "Ansible collections",
+        ),
+        "config": attr.label(
+            mandatory = True,
+            allow_single_file = True,
+            doc = "Ansible config",
         ),
         "ansible": attr.string_keyed_label_dict(
             default = {

@@ -3,7 +3,7 @@ GCC_ARM_VERSION = "10.3-2021.10"
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
-    name = "com-arm-developer-gcc-arm",
+    name = "com_arm_developer_gcc_arm",
     build_file = "//bzl/build_files:general.BUILD.bazel",
     integrity = "sha256-l9u08BmtFlC3Mvr/zIgWic7cFOK37oY9OQ4KQe8WyaM=",
     strip_prefix = "gcc-arm-none-eabi-10.3-2021.10",
@@ -16,7 +16,7 @@ http_archive(
 )
 
 http_archive(
-    name = "com-alwaldend-src-qt",
+    name = "com_alwaldend_src_qt",
     build_file = "//bzl/build_files:general.BUILD.bazel",
     integrity = "sha256-T2HlBVHQAEpRP++9sKQQWV2UgSpIYAZG+3NB6g0X4cs=",
     strip_prefix = "qt-everywhere-src-6.9.0",
@@ -26,7 +26,7 @@ http_archive(
 git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 git_repository(
-    name = "com-github-infinitimeorg-infinitime",
+    name = "com_github_infinitimeorg_infinitime",
     commit = "2105a7b63da8d4065ebfc62e0057f225358eedfc",  # 1.15.0
     init_submodules = True,
     patch_args = ["-p1"],
@@ -49,7 +49,7 @@ local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl"
 
 al_repo_map = use_extension("//bzl/rules/repo_map:al_repo_map.bzl", "al_repo_map")
 al_repo_map.download(
-    name = "com-github-koalaman-shellcheck",
+    name = "com_github_koalaman_shellcheck",
     build_file_content = """
 load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
 native_binary(
@@ -60,7 +60,7 @@ native_binary(
     """,
     download_type = "http_archive",
     repos = {
-        "linux-x86_64": [
+        "linux_x86_64": [
             "url=https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz",
             "integrity=sha256-bIgasGmOTm6iNSRfIoMoYFRPF7o4ZEL+fp1in4y+34c=",
         ],
@@ -68,7 +68,7 @@ native_binary(
     strip_prefix = "shellcheck-v0.10.0",
 )
 al_repo_map.download(
-    name = "com-github-gohugoio-hugo",
+    name = "com_github_gohugoio_hugo",
     build_file_content = """
 load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
 native_binary(
@@ -79,18 +79,18 @@ native_binary(
     """,
     download_type = "http_archive",
     repos = {
-        "linux-amd64": [
+        "linux_amd64": [
             "url=https://github.com/gohugoio/hugo/releases/download/v0.147.8/hugo_extended_0.147.8_linux-amd64.tar.gz",
             "integrity=sha256-l3Atc7thGimVAJ383Ag+8XNGT8yk4ZHWMTwuRlpqMSE=",
         ],
     },
 )
 al_repo_map.download(
-    name = "com-github-jgraph-drawio-desktop",
+    name = "com_github_jgraph_drawio_desktop",
     download_type = "http_file",
     executable = True,
     repos = {
-        "linux-x86_64": [
+        "linux_x86_64": [
             "url=https://github.com/jgraph/drawio-desktop/releases/download/v27.0.9/drawio-x86_64-27.0.9.AppImage",
             "integrity=sha256-m4fBtXU61p2dovR3pUVSalbJ+8jIsE8ko3IQdKFHtiY=",
         ],
@@ -98,7 +98,7 @@ al_repo_map.download(
 )
 use_repo(
     al_repo_map,
-    "com-github-gohugoio-hugo-linux-amd64",
-    "com-github-jgraph-drawio-desktop-linux-x86_64",
-    "com-github-koalaman-shellcheck-linux-x86_64",
+    "com_github_gohugoio_hugo_linux_amd64",
+    "com_github_jgraph_drawio_desktop_linux_x86_64",
+    "com_github_koalaman_shellcheck_linux_x86_64",
 )

@@ -430,13 +430,13 @@
   "moduleExtensions": {
     "//bzl/rules/repo_map:al_repo_map.bzl%al_repo_map": {
       "general": {
-        "bzlTransitiveDigest": "uBzEEGJLyOCqR/43s82jiB1wpnOhU3Vk4oyWmfGj+q4=",
-        "usagesDigest": "3u0yZQf9+sQsrd+EnE/sjhTpnLGvOdyQNQa1e7IcY8c=",
+        "bzlTransitiveDigest": "dDBO7o9p8UPyeJHJYadq3MHqmIm7UXk8xwBF3ri038k=",
+        "usagesDigest": "+mE2/J+Ri4amaqAVYuk/J+0akkXmEfKRVMIvycOD9OA=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
         "generatedRepoSpecs": {
-          "com-github-koalaman-shellcheck-linux-x86_64": {
+          "com_github_koalaman_shellcheck_linux_x86_64": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_archive",
             "attributes": {
               "url": "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz",
@@ -445,7 +445,7 @@
               "strip_prefix": "shellcheck-v0.10.0"
             }
           },
-          "com-github-gohugoio-hugo-linux-amd64": {
+          "com_github_gohugoio_hugo_linux_amd64": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_archive",
             "attributes": {
               "url": "https://github.com/gohugoio/hugo/releases/download/v0.147.8/hugo_extended_0.147.8_linux-amd64.tar.gz",
@@ -454,7 +454,7 @@
               "strip_prefix": ""
             }
           },
-          "com-github-jgraph-drawio-desktop-linux-x86_64": {
+          "com_github_jgraph_drawio_desktop_linux_x86_64": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
               "executable": true,

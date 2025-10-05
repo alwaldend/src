@@ -2,20 +2,21 @@ load("@bazel_skylib//rules/directory:directory.bzl", "directory")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
 directory(
-    name = "src-directory",
+    name = "src_directory",
     srcs = glob(["**"]),
     visibility = ["//visibility:public"],
 )
 
 filegroup(
-    name = "src-filegroup",
+    name = "src_filegroup",
     srcs = glob(["**"]),
     visibility = ["//visibility:public"],
 )
 
 pkg_tar(
-    name = "src-tar",
-    srcs = [":src-filegroup"],
+    name = "src_tar",
+    srcs = [":src_filegroup"],
+    remap_paths = {"external/{}/".format(repo_name()): ""},
     strip_prefix = ".",
     visibility = ["//visibility:public"],
 )

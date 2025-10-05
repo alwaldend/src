@@ -32,7 +32,7 @@ toolchain(
 
 al_drawio_toolchain(
     name = "toolchain_remote_linux_x86_64_impl",
-    drawio = "@com-github-jgraph-drawio-desktop-linux-x86_64//file",
+    drawio = "@com_github_jgraph_drawio_desktop_linux_x86_64//file",
     exec_compatible_with = [
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",

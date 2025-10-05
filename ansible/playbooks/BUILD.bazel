@@ -1,5 +1,4 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//bzl/rules/ansible:al_ansible_binary.bzl", "al_ansible_binary")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
@@ -11,19 +10,9 @@ al_git_changelog(
 
 pkg_tar(
     name = "playbooks",
-    srcs = glob([
-        "*.yml",
-        "*.yaml",
-    ]),
+    srcs = glob(["*.yaml"]),
     package_dir = "playbooks",
     visibility = ["//visibility:public"],
-)
-
-al_ansible_binary(
-    name = "facts",
-    arguments = ["--help"],
-    collections = "//ansible/collections",
-    process_name = "ansible_playbook",
 )
 
 al_readme(

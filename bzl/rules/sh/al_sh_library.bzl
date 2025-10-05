@@ -6,7 +6,7 @@ def al_sh_library(
         name,
         shfmt_src = "@cc_mvdan_sh_v3//cmd/shfmt:shfmt",
         editorconfig_src = "//:editorconfig",
-        shellcheck_src = "@com-github-koalaman-shellcheck-linux-x86_64//:bin",
+        shellcheck_src = "@com_github_koalaman_shellcheck_linux_x86_64//:bin",
         run_args_src = "//sh/scripts:run-args.lib",
         visibility = ["//visibility:public"],
         **common_kwargs):
