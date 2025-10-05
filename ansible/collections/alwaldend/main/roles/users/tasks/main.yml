@@ -6,38 +6,38 @@
       ansible.builtin.package:
         name:
           - sudo
-    - name: Create users
-      loop: "{{ (users_admins | mandatory | list) + (users_regular | mandatory | list) }}"
+    - name: "Create users"
+      loop: "{{ users_admins | mandatory | combine(users_regular | mandatory) | dict2items }}"
       ansible.builtin.user:
-        name: "{{ item.name }}"
+        name: "{{ item.value.name }}"
         state: present
         shell: /bin/bash
         createhome: true
-        uid: "{{ item.uid | default(omit) }}"
-    - name: Disable passwords
-      loop: "{{ (users_admins | mandatory | list) + (users_regular | mandatory | list) }}"
-      when: item.disable_passwd is not defined or item.disable_passwd
+        uid: "{{ item.value.uid | default(omit) }}"
+    - name: "Disable passwords"
+      loop: "{{ users_admins | mandatory | combine(users_regular | mandatory) | dict2items }}"
+      when: item.value.disable_passwd is not defined or item.value.disable_passwd
       ansible.builtin.user:
-        name: "{{ item.name }}"
+        name: "{{ item.value.name }}"
         password: "!"
-    - name: Add authorized keys to users
-      loop: "{{ users_ssh_keys | mandatory | list }}"
-      ansible.builtin.authorized_key: 
-        user: "{{ item.user }}" 
-        key: "{{ item.key }}"
-    - name: Enable sudo for admin users
-      loop: "{{ users_admins | mandatory | list }}"
+    - name: "Add authorized keys to users"
+      loop: "{{ users_ssh_keys | mandatory | dict2items }}"
+      ansible.builtin.authorized_key:
+        user: "{{ item.value.user }}"
+        key: "{{ item.value.key }}"
+    - name: "Enable sudo for admin users"
+      loop: "{{ users_admins | mandatory | dict2items }}"
       ansible.builtin.copy:
         content: |
-          %{{ item.name }} ALL=(ALL:ALL) {{ 'NO' if item.sudo_no_passwd is not defined or item.sudo_no_passwd else '' }}PASSWD:ALL
-        dest: "/etc/sudoers.d/{{ item.name }}-nopasswd"
+          %{{ item.value.name }} ALL=(ALL:ALL) {{ 'NO' if item.value.sudo_no_passwd is not defined or item.value.sudo_no_passwd else '' }}PASSWD:ALL
+        dest: "/etc/sudoers.d/{{ item.value.name }}-nopasswd"
         mode: "0440"
         owner: root
         group: root
-    - name: Remove users
-      loop: "{{ users_remove | mandatory | list }}" 
+    - name: "Remove users"
+      loop: "{{ users_remove | mandatory | dict2items }}"
       ansible.builtin.user:
-        name: "{{ item.name }}"
+        name: "{{ item.value.name }}"
         state: absent
     - name: Disable root
       ansible.builtin.user:

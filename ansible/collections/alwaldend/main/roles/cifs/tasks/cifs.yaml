@@ -1,26 +1,31 @@
-- name: Create systemd service
-  ansible.builtin.copy:
-    dest: "{{ cifs_systemd_dir }}/mnt-{{ cifs_mount.name }}.mount"
-    mode: "0600"
-    owner: root
-    group: root
-    content: |
-      [Unit]
-      Description=cifs mount script for {{ cifs_mount.name }}
-      Requires=network-online.target
-      After=network-online.service
+- name: Setup cifs
+  tags:
+    - cifs
+  when: cifs_enabled
+  block:
+    - name: Create systemd service
+      ansible.builtin.copy:
+        dest: "{{ cifs_systemd_dir }}/mnt-{{ cifs_mount.name }}.mount"
+        mode: "0600"
+        owner: root
+        group: root
+        content: |
+          [Unit]
+          Description=cifs mount script for {{ cifs_mount.name }}
+          Requires=network-online.target
+          After=network-online.service
 
-      [Mount]
-      What={{ cifs_mount.what }}
-      Where={{ cifs_mount.where }}
-      Options={{ cifs_mount.options | join(',') }}
-      Type={{ cifs_mount.type | default('cifs') }}
+          [Mount]
+          What={{ cifs_mount.what }}
+          Where={{ cifs_mount.where }}
+          Options={{ cifs_mount.options | join(',') }}
+          Type={{ cifs_mount.type | default('cifs') }}
 
-      [Install]
-      WantedBy=multi-user.target
-- name: Start and enable the service
-  ansible.builtin.systemd_service:
-    name: "mnt-{{ cifs_mount.name }}.mount"
-    enabled: true 
-    daemon_reload: true
-    state: restarted
+          [Install]
+          WantedBy=multi-user.target
+    - name: Start and enable the service
+      ansible.builtin.systemd_service:
+        name: "mnt-{{ cifs_mount.name }}.mount"
+        enabled: true
+        daemon_reload: true
+        state: restarted

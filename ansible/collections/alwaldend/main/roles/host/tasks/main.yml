@@ -1,25 +1,22 @@
-- tags:
+- name: Setup host
+  tags:
     - host
   block:
-    - ansible.builtin.import_role:
+    - name: Setup facts
+      ansible.builtin.import_role:
         name: facts
-    - ansible.builtin.import_role:
+    - name: Setup firewall
+      ansible.builtin.import_role:
         name: firewall
-    - ansible.builtin.import_role:
+    - name: Setup users
+      ansible.builtin.import_role:
         name: users
-    - ansible.builtin.import_role:
+    - name: Setup ssh
+      ansible.builtin.import_role:
         name: ssh
-    - ansible.builtin.import_role:
+    - name: Setup os
+      ansible.builtin.import_role:
         name: os
-    - ansible.builtin.import_role:
-        name: cifs
-    - ansible.builtin.import_role:
-        name: docker
-    - ansible.builtin.import_role:
-        name: wireguard
-    - ansible.builtin.import_role:
-        name: caddy
-    - ansible.builtin.import_role:
-        name: xray
-    - ansible.builtin.import_role:
+    - name: Update all packages
+      ansible.builtin.import_role:
         name: update_all_packages

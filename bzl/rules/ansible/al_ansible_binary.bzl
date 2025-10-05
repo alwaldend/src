@@ -1,19 +1,23 @@
 load("@bazel_skylib//lib:shell.bzl", "shell")
 
 def _impl(ctx):
-    runfiles_files = [ctx.file.config] + ctx.files.inventories
-    if ctx.file.collections:
-        collections = ctx.actions.declare_directory("{}.collections".format(ctx.label.name))
-        runfiles_files.append(collections)
-    else:
-        collections = None
+    runfiles_files = []
+    runfiles_symlinks = {}
     script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
     ansible = ctx.attr.ansible[ctx.attr.process_name]
-    runfiles_symlinks = {}
-    if ctx.file.config:
-        runfiles_symlinks["ansible.cfg"] = ctx.file.config
-    if collections:
-        runfiles_symlinks["collections/ansible_collections"] = collections
+
+    for i, (symlink, file) in enumerate(ctx.attr.symlink_files.items()):
+        runfiles_symlinks[symlink] = file.files.to_list()[0]
+
+    for i, (symlink, archive) in enumerate(ctx.attr.symlink_archives.items()):
+        dir = ctx.actions.declare_directory("{}.symlink_archive_{}".format(ctx.label.name, i))
+        runfiles_symlinks[symlink] = dir
+        archive_file = archive.files.to_list()[0]
+        ctx.actions.run_shell(
+            outputs = [dir],
+            inputs = [archive_file],
+            command = "tar -xf '{}' -C '{}'".format(archive_file.path, dir.path),
+        )
 
     runfiles = ctx.runfiles(
         files = runfiles_files,
@@ -30,16 +34,7 @@ def _impl(ctx):
         ansible[DefaultInfo].data_runfiles,
     ])
 
-    if collections:
-        ctx.actions.run_shell(
-            outputs = [collections],
-            inputs = [ctx.file.collections],
-            command = "tar -xf '{}' -C '{}'".format(ctx.file.collections.path, collections.path),
-        )
-
     args = []
-    for inventory in ctx.files.inventories:
-        args.extend(["--inventory", inventory.short_path])
     args.extend(ctx.attr.arguments)
     script_content = """\
         #!/usr/bin/env sh
@@ -76,18 +71,15 @@ al_ansible_binary = rule(
             mandatory = True,
             doc = "Ansible arguments",
         ),
-        "collections": attr.label(
-            allow_single_file = [".tar"],
-            doc = "Ansible collections",
+        "symlink_archives": attr.string_keyed_label_dict(
+            default = {},
+            allow_files = [".tar"],
+            doc = "Archives to symlink",
         ),
-        "inventories": attr.label_list(
+        "symlink_files": attr.string_keyed_label_dict(
+            default = {},
             allow_files = True,
-            default = [],
-            doc = "Ansible inventories",
-        ),
-        "config": attr.label(
-            allow_single_file = True,
-            doc = "Ansible config",
+            doc = "Files to symlink",
         ),
         "ansible": attr.string_keyed_label_dict(
             default = {

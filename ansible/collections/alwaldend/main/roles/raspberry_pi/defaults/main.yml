@@ -1,0 +1,5 @@
+raspberry_pi_argon_enabled: false
+raspberry_pi_containers_enabled: false
+raspberry_pi_argon_eeprom_script_path: /usr/local/bin/argon_argon_eeprom.sh
+raspberry_pi_argon_argon1_script_path: /usr/local/bin/argon_argon1.sh
+raspberry_pi_cmdline_path: /boot/firmware/cmdline.txt

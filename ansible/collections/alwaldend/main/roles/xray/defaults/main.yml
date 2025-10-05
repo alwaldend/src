@@ -1,15 +1,16 @@
-xray_config_dir: /usr/local/etc/xray 
+xray_enabled: false
+xray_config_dir: /usr/local/etc/xray
 xray_log_dir: /var/log/xray
-xray_config_path: "{{ xray_config_dir }}/0-main.json" 
+xray_config_path: "{{ xray_config_dir }}/0-main.json"
 xray_client_id:
 xray_wireguard_relays: []
 xray_wireguard_ipv4_address:
 xray_wireguard_ipv6_address:
 xray_wireguard_private_key:
-xray_config: 
+xray_config:
 xray_configs: {}
 xray_user: xray
 xray_socket_dir: /var/shm/xray
 xray_caddy_config_path: /etc/caddy/configs/xray.Caddyfile
-xray_subscriptions_dir: /usr/local/etc/xray-subscriptions 
+xray_subscriptions_dir: /usr/local/etc/xray-subscriptions
 xray_caddy_user: caddy

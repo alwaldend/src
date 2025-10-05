@@ -1,0 +1,48 @@
+- name: Setup raspberry pi
+  tags:
+    - raspberry_pi
+  block:
+    - name: Setup argon
+      tags:
+        - raspberry_pi_argon
+      when: raspberry_pi_argon_enabled
+      block:
+        - name: Copy eeprom script
+          register: raspberry_pi_argon_eeprom
+          ansible.builtin.copy:
+            src: argon_eeprom.sh
+            dest: "{{ raspberry_pi_argon_eeprom_script_path }}"
+            owner: root
+            group: root
+            mode: "0700"
+        ## It is interactive
+        # - name: Run eeprom script
+        #   when: argon_eeprom.changed
+        #   changed_when: true
+        #   ansible.builtin.command:
+        #     argv:
+        #       - "{{ raspberry_pi_argon_eeprom_script_path }}"
+        - name: Copy argon1 script
+          register: raspberry_pi_argon_argon1
+          ansible.builtin.copy:
+            src: argon1.sh
+            dest: "{{ raspberry_pi_argon_argon1_script_path }}"
+            owner: root
+            group: root
+            mode: "0700"
+        - name: Run argon1 script
+          changed_when: true
+          when: raspberry_pi_argon_argon1.changed
+          ansible.builtin.command:
+            argv:
+              - "{{ raspberry_pi_argon_argon1_script_path }}"
+    - name: Setup cmdline
+      when: raspberry_pi_containers_enabled
+      ansible.builtin.replace:
+        path: "{{ raspberry_pi_cmdline_path }}"
+        regexp: '^([\w](?!.*\b{{ item }}\b).*)$'
+        replace: '\1 {{ item }}'
+      with_items:
+        - "cgroup_enable=cpuset"
+        - "cgroup_memory=1"
+        - "cgroup_enable=memory"

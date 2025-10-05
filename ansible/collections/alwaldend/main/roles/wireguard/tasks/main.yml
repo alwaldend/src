@@ -1,6 +1,7 @@
 - name: Setup wireguard
   tags:
     - wireguard
+  when: wireguard_enabled
   block:
     - name: Setup wireguard
       loop: "{{ wireguard_configs | mandatory | list }}"

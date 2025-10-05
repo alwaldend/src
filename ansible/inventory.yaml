@@ -1,2 +1,3 @@
 rancher1:
-  pi1.dc1.alwaldend.com:
+  hosts:
+    pi1.dc1.alwaldend.com:

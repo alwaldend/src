@@ -5,10 +5,6 @@
   tags:
     - rancher1
   roles:
-    - role: facts
-    - role: firewall
-    - role: fail2ban
-    - role: users
-    - role: hardening
-    - role: k3s
-    - role: update_all_packages
+    - role: alwaldend.main.host
+    - role: alwaldend.main.raspberry_pi
+    - role: alwaldend.main.k3s

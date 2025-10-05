@@ -1,6 +1,7 @@
 - name: Setup xray
   tags:
     - xray
+  when: xray_enabled
   block:
     - name: Create xray user
       ansible.builtin.user:
@@ -23,35 +24,35 @@
     - name: Create socket directory
       ansible.builtin.file:
         path: "{{ xray_socket_dir }}"
-        owner: root 
-        group: root 
+        owner: root
+        group: root
         mode: "0777"
         state: directory
-    - name: Setup the main config 
+    - name: Setup the main config
       ansible.builtin.copy:
         content: "{{ xray_config | mandatory | to_json(indent=4, sort_keys=True) }}"
-        dest: "{{ xray_config_path }}" 
+        dest: "{{ xray_config_path }}"
         owner: "{{ xray_user }}"
         group: "{{ xray_user }}"
         mode: "0600"
-    - name: Setup wireguard config 
+    - name: Setup wireguard config
       ansible.builtin.template:
         src: wireguard-relay.json.j2
-        dest: "{{ xray_config_dir }}/99-wireguard-relays-tail.json" 
+        dest: "{{ xray_config_dir }}/99-wireguard-relays-tail.json"
         owner: "{{ xray_user }}"
         group: "{{ xray_user }}"
         mode: "0600"
-    - name: Setup caddy config 
+    - name: Setup caddy config
       ansible.builtin.template:
-        src: xray.Caddyfile.j2 
-        dest: "{{ xray_caddy_config_path }}" 
+        src: xray.Caddyfile.j2
+        dest: "{{ xray_caddy_config_path }}"
         owner: "{{ xray_caddy_user }}"
         group: "{{ xray_caddy_user }}"
         mode: "0600"
-    - name: Setup xray subscriptions 
+    - name: Setup xray subscriptions
       ansible.builtin.template:
-        src: wireguard-subscriptions.txt 
-        dest: "{{ xray_subscriptions_dir }}/subscriptions/{{ xray_client_id }}.txt" 
+        src: wireguard-subscriptions.txt
+        dest: "{{ xray_subscriptions_dir }}/subscriptions/{{ xray_client_id }}.txt"
         owner: "{{ xray_caddy_user }}"
         group: "{{ xray_caddy_user }}"
         mode: "0600"

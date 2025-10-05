@@ -1,0 +1,4 @@
+raspberry_pi_argon_enabled: true
+raspberry_pi_containers_enabled: true
+sysctl_overwrite:
+  vm.mmap_rnd_bits: 16 # pies do not support 32 apparently

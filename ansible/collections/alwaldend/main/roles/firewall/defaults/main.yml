@@ -1,2 +1,3 @@
 firewall_state: enabled
+firewall_enabled: true
 firewall_allow_port_from: []

@@ -5,11 +5,20 @@ load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
 al_ansible_binary(
     name = "ansible_playbook",
-    arguments = [],
-    collections = "//ansible/collections",
-    config = ":config",
-    inventories = [":inventory"],
+    arguments = [
+        "--inventory",
+        "inventory.yaml",
+    ],
     process_name = "ansible_playbook",
+    symlink_archives = {
+        "collections/ansible_collections": "//ansible/collections",
+        "host_vars": "//ansible/host_vars",
+        "group_vars": "//ansible/group_vars",
+    },
+    symlink_files = {
+        "ansible.cfg": ":config",
+        "inventory.yaml": ":inventory",
+    },
 )
 
 al_readme(

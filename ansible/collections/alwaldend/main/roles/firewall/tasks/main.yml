@@ -1,6 +1,7 @@
 - name: Setup firewall
   tags:
     - firewall
+  when: firewall_enabled
   block:
     - name: Install ufw
       ansible.builtin.package:
@@ -11,7 +12,7 @@
         state: "{{ firewall_state }}"
     - name: Enable ufw logging
       community.general.ufw:
-        logging: low  
+        logging: low
     - name: Deny incoming connections
       community.general.ufw:
         default: deny
