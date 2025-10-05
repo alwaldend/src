@@ -2,7 +2,7 @@ load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/rules/template_files:al_template_files.bzl", "al_template_files")
 
-def al_changelog_library(name, visibility, subpackages = []):
+def al_git_changelog(name, visibility, subpackages = []):
     """
     Create changelog target
 
@@ -43,14 +43,14 @@ def al_changelog_library(name, visibility, subpackages = []):
         ],
     )
     native.genrule(
-        name = "{}.changelog-data".format(name),
-        srcs = ["//cfg/misc:git-log"],
+        name = "{}.changelog_data".format(name),
+        srcs = ["//bzl/rules/git:git_log_config"],
         outs = [
-            "{}.changelog-data.yaml".format(name),
+            "{}.changelog_data.yaml".format(name),
         ],
         cmd = '''
             $(execpath //tools:git) log \
-                "--pretty=format:$$(cat $(execpath //cfg/misc:git-log))" \
+                "--pretty=format:$$(cat $(execpath //bzl/rules/git:git_log_config))" \
                 -- \
                 '{}' \
                 >$(@)
@@ -60,7 +60,7 @@ def al_changelog_library(name, visibility, subpackages = []):
     al_template_files(
         name = "{}.changelog".format(name),
         srcs = ["{}.template".format(name)],
-        data = ["{}.changelog-data".format(name)],
+        data = ["{}.changelog_data".format(name)],
         outs = ["{}.doc.md".format(name)],
         visibility = visibility,
     )

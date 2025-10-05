@@ -39,6 +39,8 @@ override.tf.json
 terraform.rc
 
 ## bazel - https://github.com/bazelbuild/bazel/blob/master/.gitignore
+/external
+compile_commands.json
 # Ignore backup files.
 *~
 # Ignore Vim swap files.

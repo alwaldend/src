@@ -1,7 +1,7 @@
 load("@aspect_rules_lint//format:defs.bzl", "format_multirun")
 load("//bzl/rules/bzl:al_alias_map.bzl", "al_alias_map")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
-load("//bzl/rules/changelog:al_changelog_library.bzl", "al_changelog_library")
+load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
 al_readme(
@@ -9,7 +9,7 @@ al_readme(
     visibility = ["//visibility:public"],
 )
 
-al_changelog_library(
+al_git_changelog(
     name = "changelog",
     visibility = ["//visibility:public"],
 )
@@ -24,7 +24,7 @@ al_alias_map(
         "prettier": {"actual": "//js:prettier"},
         "postcss": {"actual": "//js:postcss"},
         "git": {"actual": "//:git"},
-        "ansible-playbook": {"actual": "//bzl/rules/ansible:ansible-playbook"},
+        "ansible-playbook": {"actual": "//bzl/rules/ansible:ansible_playbook"},
         "dnscontrol": {"actual": "@com_github_stackexchange_dnscontrol_v4//:v4"},
     },
 )

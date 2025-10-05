@@ -1,5 +1,5 @@
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
-load("//bzl/rules/changelog:al_changelog_library.bzl", "al_changelog_library")
+load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
 al_readme(
@@ -7,7 +7,7 @@ al_readme(
     visibility = ["//visibility:public"],
 )
 
-al_changelog_library(
+al_git_changelog(
     name = "changelog",
     visibility = ["//visibility:public"],
 )
@@ -17,25 +17,6 @@ filegroup(
     srcs = ["ansible.cfg"],
     visibility = ["//visibility:public"],
 )
-
-# genrule(
-#     name = "playbook",
-#     srcs = [
-#         "//ansible/collections",
-#     ],
-#     outs = ["playbook.sh"],
-#     cmd = """
-# cat - >$(@) <<EOF
-# #!/usr/bin/env sh
-# echo "\\$${PWD}"
-# #tar -xvf $(execpath //ansible/collections)
-# ls -la
-# $(rootpath :ansible-playbook) alwaldend.main.facts
-# EOF
-# """,
-#     executable = True,
-#     tools = [":ansible-playbook"],
-# )
 
 al_bzl_target_doc(
     name = "bazel_target_doc",

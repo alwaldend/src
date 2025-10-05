@@ -1,10 +1,10 @@
 load("//bzl/rules/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
-load("//bzl/rules/changelog:al_changelog_library.bzl", "al_changelog_library")
+load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 load(":al_git_toolchain.bzl", "al_git_toolchain")
 
-al_changelog_library(
+al_git_changelog(
     name = "changelog",
     visibility = ["//visibility:public"],
 )
@@ -24,7 +24,18 @@ al_bzl_library_map(
         "al_git_resolved_toolchain": [
             "//bzl/rules/resolved_toolchain:al_resolved_toolchain",
         ],
+        "al_git_changelog": [
+            "//bzl/rules/template_files:al_template_files",
+            "@rules_pkg//pkg:bzl_srcs",
+            "@bazel_skylib//rules:write_file",
+        ],
     },
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "git_log_config",
+    srcs = ["git_log_config.yaml"],
     visibility = ["//visibility:public"],
 )
 
