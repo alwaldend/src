@@ -3,4 +3,5 @@ bazel-*
 out
 bzl/registry/modules
 js/docsy/node_modules
+helm/*/*/charts
 .venv

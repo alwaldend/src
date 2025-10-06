@@ -1,0 +1,25 @@
+load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
+load("//bzl/rules/helm:al_helm_binary.bzl", "al_helm_binary")
+load("//bzl/rules/readme:al_readme.bzl", "al_readme")
+
+al_helm_binary(
+    name = "helm",
+    cd = "${BUILD_WORKING_DIRECTORY}",
+    visibility = ["//visibility:public"],
+)
+
+al_readme(
+    name = "readme",
+    visibility = ["//visibility:public"],
+)
+
+al_git_changelog(
+    name = "changelog",
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_target_doc(
+    name = "bazel_target_doc",
+    visibility = ["//visibility:public"],
+)

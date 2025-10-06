@@ -1,0 +1,6 @@
+al_helm_deps = use_extension("//bzl/rules/helm:al_helm_deps.bzl", "al_helm_deps")
+al_helm_deps.from_lock(
+    chart_lock = "//helm/charts/rancher.dc1.alwaldend.com:Chart.lock",
+    helm_lock = "//:helm_lock.json",
+)
+use_repo(al_helm_deps, "com_rancher_releases_rancher")

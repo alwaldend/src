@@ -1,0 +1,15 @@
+al_repo_map = use_extension("//bzl/rules/repo_map:al_repo_map.bzl", "al_repo_map")
+al_repo_map.download(
+    name = "com_github_helm_helm",
+    build_file_native_binary = {"src": "helm"},
+    repos = {
+        "linux_amd64": [
+            "url=https://get.helm.sh/helm-v3.19.0-linux-amd64.tar.gz",
+            "integrity=sha256-p/gc4IAHCRuG2L1pbrTYa40PLhufbHFL5i+C+WpZRJY=",
+        ],
+    },
+)
+use_repo(
+    al_repo_map,
+    "com_github_helm_helm_linux_amd64",
+)

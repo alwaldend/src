@@ -1,3 +1,7 @@
+## helm
+
+helm/*/**/charts
+
 ## dnscontrol
 
 creds.json

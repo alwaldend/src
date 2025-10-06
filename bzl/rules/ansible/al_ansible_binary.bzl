@@ -38,7 +38,7 @@ def _impl(ctx):
     args.extend(ctx.attr.arguments)
     script_content = """\
         #!/usr/bin/env sh
-        '{ansible}' \
+        exec '{ansible}' \
             {arguments} \
             "${{@}}"
     """.format(
@@ -68,7 +68,7 @@ al_ansible_binary = rule(
             doc = "Process name",
         ),
         "arguments": attr.string_list(
-            mandatory = True,
+            default = [],
             doc = "Ansible arguments",
         ),
         "symlink_archives": attr.string_keyed_label_dict(

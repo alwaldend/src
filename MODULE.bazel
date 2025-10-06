@@ -43,6 +43,7 @@ include("//kt:deps.MODULE.bazel")
 include("//tools:deps.MODULE.bazel")
 include("//ansible:deps.MODULE.bazel")
 include("//bzl/rules/helm:deps.MODULE.bazel")
+include("//helm:deps.MODULE.bazel")
 
 ### toolchains
 
