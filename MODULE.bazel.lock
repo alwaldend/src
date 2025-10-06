@@ -430,8 +430,8 @@
   "moduleExtensions": {
     "//bzl/rules/repo_map:al_repo_map.bzl%al_repo_map": {
       "general": {
-        "bzlTransitiveDigest": "dDBO7o9p8UPyeJHJYadq3MHqmIm7UXk8xwBF3ri038k=",
-        "usagesDigest": "+mE2/J+Ri4amaqAVYuk/J+0akkXmEfKRVMIvycOD9OA=",
+        "bzlTransitiveDigest": "aAMcGKM9KBwX+2M7Nspd4UmSBoXl5gZPuxYmC3gWsx0=",
+        "usagesDigest": "qUNt5TZVUPPVIzCcjLui5du7q0o/brSvbfI3YSnqW44=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -441,8 +441,8 @@
             "attributes": {
               "url": "https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz",
               "integrity": "sha256-bIgasGmOTm6iNSRfIoMoYFRPF7o4ZEL+fp1in4y+34c=",
-              "build_file_content": "\nload(\"@bazel_skylib//rules:native_binary.bzl\", \"native_binary\")\nnative_binary(\n    name = \"bin\",\n    src = \"shellcheck\",\n    visibility = [\"//visibility:public\"],\n)\n    ",
-              "strip_prefix": "shellcheck-v0.10.0"
+              "build_file_content": "\nload(\"@bazel_skylib//rules:native_binary.bzl\", \"native_binary\")\nnative_binary(\n    name = \"bin\",\n    src = glob([\"**/shellcheck\"])[0],\n    visibility = [\"//visibility:public\"],\n)\n",
+              "strip_prefix": ""
             }
           },
           "com_github_gohugoio_hugo_linux_amd64": {
@@ -450,7 +450,7 @@
             "attributes": {
               "url": "https://github.com/gohugoio/hugo/releases/download/v0.147.8/hugo_extended_0.147.8_linux-amd64.tar.gz",
               "integrity": "sha256-l3Atc7thGimVAJ383Ag+8XNGT8yk4ZHWMTwuRlpqMSE=",
-              "build_file_content": "\nload(\"@bazel_skylib//rules:native_binary.bzl\", \"native_binary\")\nnative_binary(\n    name = \"bin\",\n    src = \"hugo\",\n    visibility = [\"//visibility:public\"],\n)\n    ",
+              "build_file_content": "\nload(\"@bazel_skylib//rules:native_binary.bzl\", \"native_binary\")\nnative_binary(\n    name = \"bin\",\n    src = glob([\"**/hugo\"])[0],\n    visibility = [\"//visibility:public\"],\n)\n",
               "strip_prefix": ""
             }
           },
@@ -460,6 +460,15 @@
               "executable": true,
               "url": "https://github.com/jgraph/drawio-desktop/releases/download/v27.0.9/drawio-x86_64-27.0.9.AppImage",
               "integrity": "sha256-m4fBtXU61p2dovR3pUVSalbJ+8jIsE8ko3IQdKFHtiY="
+            }
+          },
+          "com_github_helm_helm_linux_amd64": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_archive",
+            "attributes": {
+              "url": "https://get.helm.sh/helm-v3.19.0-linux-amd64.tar.gz",
+              "integrity": "sha256-p/gc4IAHCRuG2L1pbrTYa40PLhufbHFL5i+C+WpZRJY=",
+              "build_file_content": "\nload(\"@bazel_skylib//rules:native_binary.bzl\", \"native_binary\")\nnative_binary(\n    name = \"bin\",\n    src = glob([\"**/helm\"])[0],\n    visibility = [\"//visibility:public\"],\n)\n",
+              "strip_prefix": ""
             }
           }
         },

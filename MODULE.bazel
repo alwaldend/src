@@ -42,6 +42,7 @@ include("//js:deps.MODULE.bazel")
 include("//kt:deps.MODULE.bazel")
 include("//tools:deps.MODULE.bazel")
 include("//ansible:deps.MODULE.bazel")
+include("//bzl/rules/helm:deps.MODULE.bazel")
 
 ### toolchains
 
@@ -54,3 +55,5 @@ register_toolchains("//bzl/rules/git:toolchain_local")
 register_toolchains("//bzl/rules/drawio:toolchain_remote_linux_x86_64")
 
 register_toolchains("//bzl/rules/shellcheck:toolchain_remote_linux_x86_64")
+
+register_toolchains("//bzl/rules/helm:toolchain_remote_linux_amd64")

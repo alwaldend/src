@@ -50,34 +50,17 @@ local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl"
 al_repo_map = use_extension("//bzl/rules/repo_map:al_repo_map.bzl", "al_repo_map")
 al_repo_map.download(
     name = "com_github_koalaman_shellcheck",
-    build_file_content = """
-load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
-native_binary(
-    name = "bin",
-    src = "shellcheck",
-    visibility = ["//visibility:public"],
-)
-    """,
-    download_type = "http_archive",
+    build_file_native_binary = {"src": "shellcheck"},
     repos = {
         "linux_x86_64": [
             "url=https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz",
             "integrity=sha256-bIgasGmOTm6iNSRfIoMoYFRPF7o4ZEL+fp1in4y+34c=",
         ],
     },
-    strip_prefix = "shellcheck-v0.10.0",
 )
 al_repo_map.download(
     name = "com_github_gohugoio_hugo",
-    build_file_content = """
-load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
-native_binary(
-    name = "bin",
-    src = "hugo",
-    visibility = ["//visibility:public"],
-)
-    """,
-    download_type = "http_archive",
+    build_file_native_binary = {"src": "hugo"},
     repos = {
         "linux_amd64": [
             "url=https://github.com/gohugoio/hugo/releases/download/v0.147.8/hugo_extended_0.147.8_linux-amd64.tar.gz",
