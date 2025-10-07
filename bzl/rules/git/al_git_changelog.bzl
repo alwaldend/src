@@ -1,5 +1,5 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//bzl/rules/template_files:al_template_files.bzl", "al_template_files")
 
 def al_git_changelog(name, visibility, subpackages = []):
@@ -62,19 +62,17 @@ def al_git_changelog(name, visibility, subpackages = []):
         srcs = ["{}.template".format(name)],
         data = ["{}.changelog_data".format(name)],
         outs = ["{}.doc.md".format(name)],
-        visibility = visibility,
     )
-    pkg_tar(
-        name = "{}.children".format(name),
-        deps = [
+    pkg_files(
+        name = "{}.changelog_files".format(name),
+        srcs = ["{}.changelog".format(name)],
+    )
+    pkg_filegroup(
+        name = name,
+        visibility = visibility,
+        srcs = ["{}.changelog_files".format(name)] + [
             "{}{}:{}".format(package_name_prefix, dep, name)
             for dep in subpackages
         ],
-    )
-    pkg_tar(
-        name = name,
-        visibility = visibility,
-        srcs = ["{}.changelog".format(name)],
-        package_dir = package_dir,
-        deps = ["{}.children".format(name)],
+        prefix = package_dir,
     )

@@ -28,6 +28,7 @@ al_bzl_library_map(
             "//bzl/rules/template_files:al_template_files",
             "@rules_pkg//pkg:bzl_srcs",
             "@bazel_skylib//rules:write_file",
+            "@bazel_skylib//lib:paths",
         ],
     },
     visibility = ["//visibility:public"],
