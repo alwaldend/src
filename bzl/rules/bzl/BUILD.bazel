@@ -26,6 +26,7 @@ al_bzl_library_map(
         "al_bzl_target_doc": [
             "//bzl/rules/template_files:al_template_files",
             "@rules_pkg//pkg:bzl_srcs",
+            "@bazel_skylib//lib:paths",
             "@bazel_skylib//rules:write_file",
         ],
     },

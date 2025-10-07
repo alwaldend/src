@@ -14,6 +14,7 @@ al_bzl_library_map(
         "al_readme": [
             "//bzl/rules/md:al_md_data",
             "@rules_pkg//pkg:bzl_srcs",
+            "@bazel_skylib//lib:paths",
         ],
     },
     visibility = ["//visibility:public"],

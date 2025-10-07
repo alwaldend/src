@@ -1,6 +1,6 @@
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("@stardoc//stardoc:stardoc.bzl", "stardoc")
 
 def al_bzl_library_map(name, visibility, libs = {}, deps = [], **kwargs):
@@ -20,19 +20,15 @@ def al_bzl_library_map(name, visibility, libs = {}, deps = [], **kwargs):
         visibility = visibility,
         **kwargs
     )
-    pkg_tar(
+    pkg_filegroup(
         name = "{}.stardoc".format(name),
-        package_dir = native.package_name().split("/")[-1],
-        deps = ["{}.stardoc_src".format(name), "{}.stardoc_deps".format(name)],
+        prefix = native.package_name().split("/")[-1],
+        srcs = ["{}.stardoc_src".format(name)] + ["{}.stardoc".format(dep) for dep in deps],
         visibility = visibility,
     )
-    pkg_tar(
+    pkg_files(
         name = "{}.stardoc_src".format(name),
         srcs = ["{}.stardoc".format(lib) for lib in libs.keys()],
-    )
-    pkg_tar(
-        name = "{}.stardoc_deps".format(name),
-        deps = ["{}.stardoc".format(dep) for dep in deps],
     )
     for lib_name, lib_deps in libs.items():
         bzl_library(

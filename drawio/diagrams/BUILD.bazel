@@ -1,5 +1,5 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/drawio:al_drawio_run_binary.bzl", "al_drawio_run_binary")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
@@ -15,29 +15,29 @@ al_readme(
     visibility = ["//visibility:public"],
 )
 
-pkg_tar(
+pkg_filegroup(
     name = "docs",
-    package_dir = package_name(),
+    srcs = ["{}.doc".format(diagram) for diagram, _ in _DIAGRAMS.items()],
+    prefix = package_name(),
     visibility = ["//visibility:public"],
-    deps = ["{}_doc".format(diagram) for diagram, _ in _DIAGRAMS.items()],
 )
 
 [
     [
-        pkg_tar(
-            name = "{}_doc".format(diagram),
+        pkg_files(
+            name = "{}.doc".format(diagram),
             srcs = [
-                "{}_md".format(diagram),
-                "{}_svg".format(diagram),
+                "{}.doc_md".format(diagram),
+                "{}.doc_svg".format(diagram),
             ],
-            remap_paths = {
-                "/{}.md".format(diagram): "{}/_index.md".format(diagram),
-                "/{}.svg".format(diagram): "{}/diagram.svg".format(diagram),
+            renames = {
+                "{}.doc.md".format(diagram): "{}/_index.md".format(diagram),
+                "{}.doc.svg".format(diagram): "{}/diagram.svg".format(diagram),
             },
         ),
         write_file(
-            name = "{}_md".format(diagram),
-            out = "{}.md".format(diagram),
+            name = "{}.doc_md".format(diagram),
+            out = "{}.doc.md".format(diagram),
             content = [
                 "---",
                 "title: {}".format(diagram),
@@ -47,9 +47,9 @@ pkg_tar(
             ],
         ),
         al_drawio_run_binary(
-            name = "{}_svg".format(diagram),
+            name = "{}.doc_svg".format(diagram),
             srcs = ["{}.drawio".format(diagram)],
-            out = "{}.svg".format(diagram),
+            out = "{}.doc.svg".format(diagram),
             arguments = [
                 "$(execpath :{}.drawio)".format(diagram),
                 "--crop",
@@ -58,7 +58,7 @@ pkg_tar(
                 "--format",
                 "svg",
                 "--output",
-                "$(execpath :{}.svg)".format(diagram),
+                "$(execpath :{}.doc.svg)".format(diagram),
             ],
         ),
     ]

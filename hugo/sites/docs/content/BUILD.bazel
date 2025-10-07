@@ -1,4 +1,4 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
@@ -16,14 +16,28 @@ al_git_changelog(
 
 pkg_tar(
     name = "content",
-    visibility = ["//visibility:public"],
-    deps = [
+    srcs = [
         ":content_ext",
         ":content_src",
     ],
+    visibility = ["//visibility:public"],
 )
 
-pkg_tar(
+pkg_filegroup(
+    name = "content_ext",
+    srcs = [
+        "//:bazel_target_doc",
+        "//:changelog",
+        "//:readme.with_children",
+        "//ansible/collections/alwaldend/main/roles:docs",
+        "//bzl:libs.stardoc",
+        "//cfg/vial",
+        "//data/leetcode_submissions",
+        "//drawio/diagrams:docs",
+    ],
+)
+
+pkg_files(
     name = "content_src",
     srcs = glob(
         ["**"],
@@ -31,25 +45,10 @@ pkg_tar(
             "README.md",
             "BUILD.bazel",
         ],
-    ),
-    strip_prefix = ".",
-)
-
-pkg_tar(
-    name = "content_ext",
-    srcs = [
+    ) + [
         "//:LICENSE.txt",
-        "//:changelog",
-        "//ansible/collections/alwaldend/main/roles:docs",
-        "//cfg/vial",
-        "//data/leetcode_submissions",
     ],
-    deps = [
-        "//:bazel_target_doc",
-        "//:readme.children",
-        "//bzl:libs.stardoc",
-        "//drawio/diagrams:docs",
-    ],
+    strip_prefix = strip_prefix.from_pkg(),
 )
 
 al_bzl_target_doc(

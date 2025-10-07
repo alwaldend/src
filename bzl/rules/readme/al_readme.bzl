@@ -1,7 +1,7 @@
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//bzl/rules/md:al_md_data.bzl", "al_md_data")
 
-def al_readme(name, srcs = [":README.md"], subpackages = [], **kwargs):
+def al_readme(name, srcs = [":README.md"], renames = {"README.md": "_index.md"}, subpackages = [], **kwargs):
     """
     Create readme targets
 
@@ -28,15 +28,17 @@ def al_readme(name, srcs = [":README.md"], subpackages = [], **kwargs):
         srcs = srcs,
         **kwargs
     )
-    pkg_tar(
-        name = "{}.children".format(name),
-        out = "{}.children.tar".format(name),
-        srcs = [name],
-        remap_paths = {"/README.md": "_index.md", "README.md": "_index.md"},
-        package_dir = package_dir,
-        deps = [
-            "{}{}:{}.children".format(package_name_prefix, dep, name)
+    pkg_files(
+        name = "{}.srcs".format(name),
+        renames = renames,
+        srcs = srcs,
+    )
+    pkg_filegroup(
+        name = "{}.with_children".format(name),
+        srcs = [":{}.srcs".format(name)] + [
+            "{}{}:{}.with_children".format(package_name_prefix, dep, name)
             for dep in subpackages
         ],
+        prefix = package_dir,
         **kwargs
     )

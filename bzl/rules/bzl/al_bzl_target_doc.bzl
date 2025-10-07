@@ -1,5 +1,5 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//bzl/rules/template_files:al_template_files.bzl", "al_template_files")
 
 def al_bzl_target_doc(name, visibility, subpackages = []):
@@ -81,17 +81,16 @@ def al_bzl_target_doc(name, visibility, subpackages = []):
             outs = ["{}.doc.md".format(name)],
         )
 
-    pkg_tar(
-        name = "{}.children".format(name),
-        deps = [
+    pkg_files(
+        name = "{}.docs".format(name),
+        srcs = docs,
+    )
+    pkg_filegroup(
+        name = name,
+        prefix = package_dir,
+        srcs = [":{}.docs".format(name)] + [
             "{}{}:{}".format(package_name_prefix, dep, name)
             for dep in subpackages
         ],
-    )
-    pkg_tar(
-        name = name,
         visibility = visibility,
-        srcs = docs,
-        package_dir = package_dir,
-        deps = ["{}.children".format(name)],
     )
