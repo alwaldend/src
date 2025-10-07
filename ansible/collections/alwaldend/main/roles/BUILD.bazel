@@ -1,4 +1,4 @@
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
@@ -12,24 +12,24 @@ al_git_changelog(
     visibility = ["//visibility:public"],
 )
 
-pkg_tar(
+pkg_filegroup(
     name = "roles",
-    package_dir = "roles",
-    visibility = ["//visibility:public"],
-    deps = ["//{}/{}:role".format(
+    srcs = ["//{}/{}:role".format(
         package_name(),
         role,
     ) for role in _ROLES],
+    prefix = "roles",
+    visibility = ["//visibility:public"],
 )
 
-pkg_tar(
+pkg_filegroup(
     name = "docs",
-    package_dir = package_name(),
-    visibility = ["//visibility:public"],
-    deps = ["//{}/{}:role_docs".format(
+    srcs = ["//{}/{}:role.docs".format(
         package_name(),
         role,
     ) for role in _ROLES],
+    prefix = package_name(),
+    visibility = ["//visibility:public"],
 )
 
 al_readme(

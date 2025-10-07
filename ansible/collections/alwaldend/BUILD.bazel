@@ -1,17 +1,9 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
 al_readme(
     name = "readme",
-    visibility = ["//visibility:public"],
-)
-
-pkg_files(
-    name = "group_vars",
-    srcs = glob(["**/*.yaml"]),
-    prefix = "group_vars",
     visibility = ["//visibility:public"],
 )
 

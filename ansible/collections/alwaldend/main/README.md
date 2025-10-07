@@ -1,4 +1,4 @@
 ---
-title: Alwaldend.main collection
+title: Main
 description: Alwaldend.main ansible collection
 ---

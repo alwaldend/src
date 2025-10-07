@@ -27,11 +27,13 @@ al_bzl_library_map(
     name = "libs",
     libs = {
         "al_ansible_binary": [
+            "@rules_pkg//pkg:bzl_srcs",
             "@bazel_skylib//lib:shell",
         ],
         "al_ansible_role": [
             "@rules_pkg//pkg:bzl_srcs",
             "@bazel_skylib//rules:write_file",
+            "@bazel_skylib//lib:paths",
         ],
     },
     visibility = ["//visibility:public"],

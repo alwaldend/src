@@ -1,4 +1,4 @@
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
@@ -8,10 +8,9 @@ al_git_changelog(
     visibility = ["//visibility:public"],
 )
 
-pkg_tar(
+pkg_filegroup(
     name = "collections",
-    visibility = ["//visibility:public"],
-    deps = [
+    srcs = [
         ":ansible.posix",
         ":community.crypto",
         ":community.docker",
@@ -20,42 +19,50 @@ pkg_tar(
         ":devsec.hardening",
         "//ansible/collections/alwaldend/main:collection",
     ],
+    prefix = "collections/ansible_collections",
+    visibility = ["//visibility:public"],
 )
 
-pkg_tar(
+pkg_files(
     name = "ansible.posix",
-    package_dir = "ansible/posix",
-    deps = ["@com_ansible_galaxy_ansible_posix_v2//:src_tar"],
+    srcs = ["@com_ansible_galaxy_ansible_posix_v2//:src_filegroup"],
+    prefix = "ansible/posix",
+    strip_prefix = strip_prefix.from_pkg(),
 )
 
-pkg_tar(
+pkg_files(
     name = "devsec.hardening",
-    package_dir = "devsec/hardening",
-    deps = ["@com_ansible_galaxy_devsec_hardening_v10//:src_tar"],
+    srcs = ["@com_ansible_galaxy_devsec_hardening_v10//:src_filegroup"],
+    prefix = "devsec/hardening",
+    strip_prefix = strip_prefix.from_pkg(),
 )
 
-pkg_tar(
+pkg_files(
     name = "community.general",
-    package_dir = "community/general",
-    deps = ["@com_ansible_galaxy_community_general_v11//:src_tar"],
+    srcs = ["@com_ansible_galaxy_community_general_v11//:src_filegroup"],
+    prefix = "community/general",
+    strip_prefix = strip_prefix.from_pkg(),
 )
 
-pkg_tar(
+pkg_files(
     name = "community.crypto",
-    package_dir = "community/crypto",
-    deps = ["@com_ansible_galaxy_community_crypto_v3//:src_tar"],
+    srcs = ["@com_ansible_galaxy_community_crypto_v3//:src_filegroup"],
+    prefix = "community/crypto",
+    strip_prefix = strip_prefix.from_pkg(),
 )
 
-pkg_tar(
+pkg_files(
     name = "community.docker",
-    package_dir = "community/docker",
-    deps = ["@com_ansible_galaxy_community_docker_v4//:src_tar"],
+    srcs = ["@com_ansible_galaxy_community_docker_v4//:src_filegroup"],
+    prefix = "community/docker",
+    strip_prefix = strip_prefix.from_pkg(),
 )
 
-pkg_tar(
+pkg_files(
     name = "community.library_inventory_filtering_v1",
-    package_dir = "community/library_inventory_filtering_v1",
-    deps = ["@com_ansible_galaxy_community_library_inventory_filtering_v1//:src_tar"],
+    srcs = ["@com_ansible_galaxy_community_library_inventory_filtering_v1//:src_filegroup"],
+    prefix = "community/library_inventory_filtering_v1",
+    strip_prefix = strip_prefix.from_pkg(),
 )
 
 al_readme(

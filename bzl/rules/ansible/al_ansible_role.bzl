@@ -1,7 +1,7 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 
-def al_ansible_role(name, srcs, visibility, deps = []):
+def al_ansible_role(name, srcs, visibility):
     """
     Create targets for an ansible role
 
@@ -18,8 +18,8 @@ def al_ansible_role(name, srcs, visibility, deps = []):
     else:
         fail("role {} is missing defaults: {}".format(native.package_name(), srcs))
     native.genrule(
-        name = "{}_defaults".format(name),
-        outs = ["{}_defaults.md".format(name)],
+        name = "{}.defaults".format(name),
+        outs = ["{}.defaults.md".format(name)],
         srcs = [defaults],
         cmd = """
             {{
@@ -35,18 +35,17 @@ def al_ansible_role(name, srcs, visibility, deps = []):
             }} >$(@)
         """.format(role_name = role_name),
     )
-    pkg_tar(
-        name = "{}_docs".format(name),
-        srcs = [":{}_defaults".format(name)],
-        package_dir = role_name,
-        remap_paths = {"/{}_defaults.md".format(name): "defaults/_index.md"},
+    pkg_files(
+        name = "{}.docs".format(name),
+        srcs = [":{}.defaults".format(name)],
+        renames = {"{}.defaults.md".format(name): "defaults/_index.md"},
+        prefix = role_name,
         visibility = visibility,
     )
-    pkg_tar(
+    pkg_files(
         name = name,
         srcs = srcs,
-        deps = deps,
-        package_dir = role_name,
-        strip_prefix = ".",
+        strip_prefix = strip_prefix.from_pkg(),
+        prefix = role_name,
         visibility = visibility,
     )

@@ -1,4 +1,5 @@
 load("@bazel_skylib//lib:shell.bzl", "shell")
+load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo")
 
 def _impl(ctx):
     runfiles_files = []
@@ -6,18 +7,9 @@ def _impl(ctx):
     script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
     ansible = ctx.attr.ansible[ctx.attr.process_name]
 
-    for i, (symlink, file) in enumerate(ctx.attr.symlink_files.items()):
-        runfiles_symlinks[symlink] = file.files.to_list()[0]
-
-    for i, (symlink, archive) in enumerate(ctx.attr.symlink_archives.items()):
-        dir = ctx.actions.declare_directory("{}.symlink_archive_{}".format(ctx.label.name, i))
-        runfiles_symlinks[symlink] = dir
-        archive_file = archive.files.to_list()[0]
-        ctx.actions.run_shell(
-            outputs = [dir],
-            inputs = [archive_file],
-            command = "tar -xf '{}' -C '{}'".format(archive_file.path, dir.path),
-        )
+    for symlink in ctx.attr.symlinks:
+        for info, _ in symlink[PackageFilegroupInfo].pkg_files:
+            runfiles_symlinks.update(info.dest_src_map)
 
     runfiles = ctx.runfiles(
         files = runfiles_files,
@@ -71,15 +63,10 @@ al_ansible_binary = rule(
             default = [],
             doc = "Ansible arguments",
         ),
-        "symlink_archives": attr.string_keyed_label_dict(
-            default = {},
-            allow_files = [".tar"],
-            doc = "Archives to symlink",
-        ),
-        "symlink_files": attr.string_keyed_label_dict(
-            default = {},
-            allow_files = True,
-            doc = "Files to symlink",
+        "symlinks": attr.label_list(
+            doc = "Symlinks",
+            default = [],
+            providers = [PackageFilegroupInfo],
         ),
         "ansible": attr.string_keyed_label_dict(
             default = {
