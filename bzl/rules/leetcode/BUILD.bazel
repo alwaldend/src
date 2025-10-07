@@ -14,6 +14,7 @@ al_bzl_library_map(
         "al_leetcode_submissions": [
             "//bzl/rules/template_files:al_template_files",
             "@bazel_skylib//rules:write_file",
+            "@bazel_skylib//lib:paths",
             "@rules_pkg//pkg:bzl_srcs",
         ],
     },

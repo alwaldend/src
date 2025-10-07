@@ -42,12 +42,12 @@ pkg_tar(
         "//:changelog",
         "//ansible/collections/alwaldend/main/roles:docs",
         "//cfg/vial",
+        "//data/leetcode_submissions",
     ],
     deps = [
         "//:bazel_target_doc",
         "//:readme.children",
         "//bzl:libs.stardoc",
-        "//data/leetcode_submissions",
         "//drawio/diagrams:docs",
     ],
 )

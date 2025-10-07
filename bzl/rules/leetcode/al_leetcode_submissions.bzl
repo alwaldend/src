@@ -1,5 +1,5 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("//bzl/rules/template_files:al_template_files.bzl", "al_template_files")
 
 def al_leetcode_submissions(name, srcs, package_dir, visibility = None, **kwargs):
@@ -51,9 +51,9 @@ def al_leetcode_submissions(name, srcs, package_dir, visibility = None, **kwargs
             data = [src],
             outs = ["{}.md".format(src_name)],
         )
-    pkg_tar(
+    pkg_files(
         name = name,
-        package_dir = package_dir,
+        prefix = package_dir,
         srcs = src_names,
         visibility = visibility,
     )
