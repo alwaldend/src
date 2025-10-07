@@ -1,4 +1,4 @@
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/helm:al_helm_binary.bzl", "al_helm_binary")
@@ -12,14 +12,18 @@ al_helm_binary(
 
 al_helm_chart(
     name = "chart",
-    source = ":chart_source",
+    source = ":chart_srcs",
     deps = [":rancher"],
 )
 
-pkg_tar(
-    name = "chart_source",
+pkg_filegroup(
+    name = "chart_srcs",
+    srcs = [":chart_files"],
+)
+
+pkg_files(
+    name = "chart_files",
     srcs = glob(["**/*"]),
-    strip_prefix = ".",
 )
 
 al_helm_chart(

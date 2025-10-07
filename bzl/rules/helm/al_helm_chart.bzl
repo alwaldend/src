@@ -1,5 +1,5 @@
 load("@bazel_skylib//lib:shell.bzl", "shell")
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo", "PackageFilesInfo")
 load(":al_helm_chart_info.bzl", "AlHelmChartInfo")
 
 def _impl(ctx):
@@ -7,36 +7,38 @@ def _impl(ctx):
         fail("missing both `source` and `package`")
 
     files = []
+    files_transitive = []
+    files_info = PackageFilesInfo(
+        attributes = {},
+        dest_src_map = {},
+    )
 
     if ctx.attr.source:
-        source = ctx.actions.declare_directory("{}.source".format(ctx.label.name))
+        source = ctx.attr.source[PackageFilegroupInfo]
         package = None
-        files.append(source)
-        deps = [dep[AlHelmChartInfo].package for dep in ctx.attr.deps]
-        cmd = [
-            "tar -xf '{}' -C '{}'".format(ctx.file.source.path, source.path),
-            "mkdir '{}/charts'".format(source.path),
-            "mv {} '{}/charts'".format(" ".join([shell.quote(dep.path) for dep in deps]), source.path),
-        ]
-        ctx.actions.run_shell(
-            outputs = [source],
-            inputs = [ctx.file.source] + deps,
-            command = " && ".join(cmd),
-        )
+        for info, _ in ctx.attr.source[PackageFilegroupInfo].pkg_files:
+            files.extend(info.dest_src_map.values())
+            files_info.dest_src_map.update(info.dest_src_map)
+            files_info.attributes.update(info.attributes)
+        for dep in ctx.attr.deps:
+            package = dep[AlHelmChartInfo].package
+            files_transitive.append(package)
+            files_info.dest_src_map["{}/{}".format("charts", package.basename)] = package
     else:
         source = None
         package = ctx.file.package
         files.append(package)
 
     default_info = DefaultInfo(
-        files = depset(files, transitive = [dep.files for dep in ctx.attr.deps]),
+        files = depset(files, transitive = [depset(files_transitive)]),
     )
     al_helm_chart_info = AlHelmChartInfo(
         source = source,
         deps = depset(ctx.attr.deps),
         package = package,
+        files_info = files_info,
     )
-    return [default_info, al_helm_chart_info]
+    return [default_info, al_helm_chart_info, files_info]
 
 al_helm_chart = rule(
     implementation = _impl,
@@ -49,7 +51,7 @@ al_helm_chart = rule(
             doc = "Helm chart deps",
         ),
         "source": attr.label(
-            allow_single_file = [".tar"],
+            providers = [PackageFilegroupInfo],
             doc = "Helm chart source",
         ),
         "package": attr.label(

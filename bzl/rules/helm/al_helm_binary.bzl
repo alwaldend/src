@@ -4,23 +4,18 @@ load(":al_helm_chart_info.bzl", "AlHelmChartInfo")
 def _impl(ctx):
     helm = ctx.toolchains["//bzl/rules/helm:toolchain_type"]
     runfiles_files = [] + ctx.files.chart
+    runfiles_symlinks = {}
     script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
 
     cd = ctx.attr.cd
     if ctx.attr.chart:
         chart = ctx.attr.chart[AlHelmChartInfo]
-        if chart.source:
-            if cd:
-                print("overriding cd")
-            cd = chart.source.short_path
-        else:
-            print("cannot link a chart with no source")
-    elif not cd:
-        cd = "."
+        runfiles_symlinks.update(chart.files_info.dest_src_map)
 
     runfiles = ctx.runfiles(
         files = runfiles_files,
         transitive_files = helm.default_info.default_runfiles.files,
+        symlinks = runfiles_symlinks,
     )
 
     args = []
