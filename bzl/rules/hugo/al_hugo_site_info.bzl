@@ -1,12 +1,8 @@
 AlHugoSiteInfo = provider(
     fields = {
-        "content": "Content dir",
-        "data": "Data dir",
-        "themes": "Themes dir",
-        "layouts": "Layouts dir",
-        "i18n": "i18n dir",
-        "config": "Config file",
+        "package_filegroup_info": "PackageFilegroupInfo",
         "env": "Environment variables",
+        "themes": "Themes dir",
         "env_script": "Shell script to export env variables",
     },
     doc = "Information about a hugo site",

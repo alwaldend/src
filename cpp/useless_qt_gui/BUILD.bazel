@@ -15,8 +15,8 @@ al_git_changelog(
 
 pkg_tar(
     name = "img",
+    srcs = ["//img/useless_qt_gui"],
     package_dir = "img",
-    deps = ["//img/useless_qt_gui"],
 )
 
 pkg_tar(

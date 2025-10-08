@@ -1,8 +1,0 @@
-{
-  "url": "https://github.com/twbs/bootstrap/archive/refs/tags/v5.3.7.tar.gz",
-  "strip_prefix": "bootstrap-5.3.7",
-  "integrity": "sha256-+aoFaJvJEWrg7DDmkNTGkbzr+r+76075kiI5+Xpqs9k=",
-  "overlay": {
-    "BUILD.bazel": "sha256-eDmXMENr7PHR8IwtZ7dmAObrCXNn84IqrBSk3tPhHdk="
-  }
-}

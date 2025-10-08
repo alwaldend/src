@@ -1,4 +1,5 @@
 load("@bazel_skylib//rules/directory:directory.bzl", "directory")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files", "strip_prefix")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
 directory(
@@ -10,6 +11,13 @@ directory(
 filegroup(
     name = "src_filegroup",
     srcs = glob(["**"]),
+    visibility = ["//visibility:public"],
+)
+
+pkg_files(
+    name = "src_files",
+    srcs = [":src_filegroup"],
+    strip_prefix = strip_prefix.from_pkg(),
     visibility = ["//visibility:public"],
 )
 

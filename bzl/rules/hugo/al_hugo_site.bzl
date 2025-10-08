@@ -1,30 +1,20 @@
+load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo", "PackageFilesInfo")
 load(":al_hugo_site_info.bzl", "AlHugoSiteInfo")
 
 def _impl(ctx):
     hugo = ctx.toolchains["//bzl/rules/hugo:toolchain_type"]
-    themes = ctx.actions.declare_directory("{}-themes".format(ctx.label.name))
-    content = ctx.actions.declare_directory("{}-content".format(ctx.label.name))
-    data = ctx.actions.declare_directory("{}-data".format(ctx.label.name))
-    config = ctx.actions.declare_directory("{}-config".format(ctx.label.name))
-    layouts = ctx.actions.declare_directory("{}-layouts".format(ctx.label.name))
-    i18n = ctx.actions.declare_directory("{}-i18n".format(ctx.label.name))
-
-    files = [
-        hugo.hugo,
-        themes,
-        config,
-        content,
-        data,
-        layouts,
-        i18n,
-    ] + ctx.files.postcss + ctx.files.tools
-    runfiles = ctx.runfiles(
-        files = files,
-        transitive_files = depset(ctx.files.tools),
-    )
+    themes = ctx.actions.declare_directory("{}.themes".format(ctx.label.name))
+    files = [themes] + ctx.files.site
+    runfiles = ctx.runfiles()
     for tool in ctx.attr.tools:
         runfiles.merge(tool[DefaultInfo].default_runfiles)
     runfiles.merge(ctx.attr.postcss[DefaultInfo].default_runfiles)
+
+    ctx.actions.run_shell(
+        inputs = [ctx.file.themes],
+        outputs = [themes],
+        command = "tar -xf '{}' -C '{}'".format(ctx.file.themes.path, themes.path),
+    )
 
     path = ":".join((
         "$$(dirname '{}')".format(ctx.executable.postcss.path),
@@ -41,37 +31,6 @@ def _impl(ctx):
         for name, value in env.items()
         for cmd in ['{}="{}"'.format(name, value), "export {}".format(name)]
     ])
-    ctx.actions.run_shell(
-        outputs = [config],
-        inputs = ctx.files.configs,
-        command = """
-            mkdir '{config_dir}/_default' && \
-                cp {configs} '{config_dir}/_default/'
-        """.format(
-            config_dir = config.path,
-            configs = " ".join([file.path for file in ctx.files.configs]),
-        ),
-    )
-
-    for output, input in [
-        [themes, ctx.file.themes],
-        [data, ctx.file.hugo_data],
-        [layouts, ctx.file.hugo_layouts],
-        [i18n, ctx.file.hugo_i18n],
-    ]:
-        ctx.actions.run_shell(
-            outputs = [output],
-            inputs = [input],
-            command = "tar -xf '{}' -C '{}'".format(input.path, output.path),
-        )
-
-    ctx.actions.run_shell(
-        outputs = [content],
-        inputs = [ctx.file.content],
-        command = """
-            tar -xf '{input}' -C '{output}'
-        """.format(input = ctx.file.content.path, output = content.path),
-    )
 
     return [
         DefaultInfo(
@@ -79,12 +38,8 @@ def _impl(ctx):
             runfiles = runfiles,
         ),
         AlHugoSiteInfo(
-            content = content,
             themes = themes,
-            data = data,
-            config = config,
-            layouts = layouts,
-            i18n = i18n,
+            package_filegroup_info = ctx.attr.site[PackageFilegroupInfo],
             env = ctx.attr.env,
             env_script = env_script,
         ),
@@ -98,35 +53,15 @@ al_hugo_site = rule(
     ],
     provides = [AlHugoSiteInfo],
     attrs = {
+        "site": attr.label(
+            mandatory = True,
+            providers = [PackageFilegroupInfo],
+            doc = "Hugo site layout",
+        ),
         "themes": attr.label(
+            mandatory = True,
             allow_single_file = [".tar"],
-            mandatory = True,
-            doc = "Hugo themes",
-        ),
-        "content": attr.label(
-            allow_single_file = [".tar"],
-            mandatory = True,
-            doc = "Hugo content",
-        ),
-        "hugo_layouts": attr.label(
-            allow_single_file = [".tar"],
-            mandatory = True,
-            doc = "Hugo layouts",
-        ),
-        "hugo_i18n": attr.label(
-            allow_single_file = [".tar"],
-            mandatory = True,
-            doc = "Hugo i18n",
-        ),
-        "hugo_data": attr.label(
-            allow_single_file = [".tar"],
-            mandatory = True,
-            doc = "Hugo data",
-        ),
-        "configs": attr.label_list(
-            mandatory = True,
-            allow_files = True,
-            doc = "Hugo configs",
+            doc = "Hugo themes archive (hugo doesn't support symlinks in themes/)",
         ),
         "postcss": attr.label(
             mandatory = True,

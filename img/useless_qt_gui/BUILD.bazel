@@ -1,4 +1,4 @@
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
@@ -13,7 +13,7 @@ al_git_changelog(
     visibility = ["//visibility:public"],
 )
 
-pkg_tar(
+pkg_files(
     name = "useless_qt_gui",
     srcs = glob(["*.png"]),
     visibility = ["//visibility:public"],

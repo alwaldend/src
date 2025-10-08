@@ -1,4 +1,4 @@
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/hugo:al_hugo_binary.bzl", "al_hugo_binary")
@@ -14,15 +14,22 @@ al_git_changelog(
 
 al_hugo_site(
     name = "site",
-    configs = [":hugo_config"],
-    content = "//hugo/sites/docs/content",
-    hugo_data = ":data",
-    hugo_i18n = "//hugo/sites/docs/i18n",
-    hugo_layouts = "//hugo/sites/docs/layouts",
     postcss = "//tools:postcss",
+    site = ":site_filegroup",
     themes = "//hugo/themes",
     tools = [
         "//:node_modules",
+    ],
+)
+
+pkg_filegroup(
+    name = "site_filegroup",
+    srcs = [
+        ":config",
+        ":data",
+        "//hugo/sites/docs/content",
+        "//hugo/sites/docs/i18n",
+        "//hugo/sites/docs/layouts",
     ],
 )
 
@@ -69,17 +76,28 @@ al_hugo_binary(
     site = ":site",
 )
 
-pkg_tar(
+pkg_filegroup(
     name = "data",
+    srcs = [":data_files"],
+    prefix = package_name(),
+)
+
+pkg_files(
+    name = "data_files",
     srcs = [
         "//data/misc:authors",
         "//data/misc:books",
     ],
-    package_dir = package_name(),
+)
+
+pkg_files(
+    name = "config",
+    srcs = [":config_src"],
+    renames = {"hugo.toml": "config/_default/hugo.toml"},
 )
 
 al_toml_data(
-    name = "hugo_config",
+    name = "config_src",
     srcs = ["hugo.toml"],
 )
 

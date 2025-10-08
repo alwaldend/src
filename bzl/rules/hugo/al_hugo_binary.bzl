@@ -1,35 +1,33 @@
 load("@bazel_skylib//lib:shell.bzl", "shell")
+load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo", "PackageFilesInfo")
 load(":al_hugo_site_info.bzl", "AlHugoSiteInfo")
 
 def _impl(ctx):
     info = ctx.attr.site[AlHugoSiteInfo]
     default_info = ctx.attr.site[DefaultInfo]
     hugo = ctx.toolchains["//bzl/rules/hugo:toolchain_type"]
-    runfiles = ctx.runfiles(files = [hugo.hugo] + default_info.files.to_list())
-    runfiles.merge(default_info.default_runfiles)
     script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
+    runfiles_symlinks = {"themes": info.themes}
+
+    for files, _ in info.package_filegroup_info.pkg_files:
+        runfiles_symlinks.update(files.dest_src_map)
+
+    runfiles = ctx.runfiles(
+        files = [],
+        transitive_files = hugo.default_info.default_runfiles.files,
+        symlinks = runfiles_symlinks,
+    )
+    runfiles.merge(default_info.default_runfiles)
 
     script_content = """\
         #!/usr/bin/env sh
         set -eux
         {env_script}
-        ln -s '{data}' ./data
-        ln -s '{content}' ./content
-        ln -s '{i18n}' ./i18n
-        '{hugo}' \
-            --configDir '{config}' \
-            --layoutDir '{layouts}' \
-            --themesDir '{themes}' \
+        exec '{hugo}' \
             {arguments} \
             "${{@}}"
     """.format(
         hugo = hugo.hugo.short_path,
-        content = info.content.short_path,
-        themes = info.themes.short_path,
-        config = info.config.short_path,
-        data = info.data.short_path,
-        layouts = info.layouts.short_path,
-        i18n = info.i18n.short_path,
         env_script = ctx.expand_make_variables(
             "env_script",
             ctx.expand_location(info.env_script),

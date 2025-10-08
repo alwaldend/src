@@ -1,4 +1,4 @@
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/readme:al_readme.bzl", "al_readme")
@@ -13,11 +13,16 @@ al_git_changelog(
     visibility = ["//visibility:public"],
 )
 
-pkg_tar(
+pkg_filegroup(
     name = "i18n",
-    srcs = glob(["*.toml"]),
-    strip_prefix = ".",
+    srcs = [":i18n_files"],
+    prefix = "i18n",
     visibility = ["//visibility:public"],
+)
+
+pkg_files(
+    name = "i18n_files",
+    srcs = glob(["*.toml"]),
 )
 
 al_bzl_target_doc(

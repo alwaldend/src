@@ -4,27 +4,16 @@ def _impl(ctx):
     info = ctx.attr.site[AlHugoSiteInfo]
     default_info = ctx.attr.site[DefaultInfo]
     hugo = ctx.toolchains["//bzl/rules/hugo:toolchain_type"]
-    script = ctx.actions.declare_file("{}-script.sh".format(ctx.label.name))
-    destination = ctx.actions.declare_directory("{}-destination".format(ctx.label.name))
+    script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
+    destination = ctx.actions.declare_directory("{}.destination".format(ctx.label.name))
 
     script_content = """\
         #!/usr/bin/env sh
         set -eux
         {env_script}
-        ln -s '{data}' ./data
-        ln -s '{content}' ./content
-        '{hugo}' \
-            --configDir '{config}' \
-            --layoutDir '{layouts}' \
-            --themesDir '{themes}' \
-            "${{@}}"
+        exec '{hugo}' -d '{destination}' "${{@}}"
     """.format(
         hugo = hugo.hugo.path,
-        content = info.content.path,
-        themes = info.themes.path,
-        config = info.config.path,
-        data = info.data.path,
-        layouts = info.layouts.path,
         destination = destination.path,
         env_script = ctx.expand_make_variables(
             "env_script",
