@@ -39,14 +39,9 @@ jobs:
             "$(dirname "${{ env.ARTIFACTS_PAGES }}")"
       - name: Build
         run: bazel build --config=ci //...
-      - name: Build pages
+      - name: Copy pages
         run: |
-          bazel run \
-            --config=ci \
-            hugo/sites/docs:build_run \
-            -- \
-            --baseURL "https://alwaldend.github.io/src" \
-            --destination "${PWD}/${{ env.ARTIFACTS_PAGES }}"
+          cp -r bazel-bin/hugo/sites/docs/docs.destination "${{ env.ARTIFACTS_PAGES }}"
       - name: Test
         run: bazel test --config=ci //...
       - name: Build artifact archive

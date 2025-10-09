@@ -16,7 +16,6 @@ al_git_changelog(
 
 al_hugo_site(
     name = "docs_site",
-    git = "@git//:git_lib",
     postcss = "//tools:postcss",
     site = ":docs_source_archive",
 )
