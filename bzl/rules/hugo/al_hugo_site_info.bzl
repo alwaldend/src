@@ -1,8 +1,8 @@
 AlHugoSiteInfo = provider(
     fields = {
-        "package_filegroup_info": "PackageFilegroupInfo",
+        "site_archive": "Site archive File (.tar)",
+        "git_archive": "Git archive (.tar)",
         "env": "Environment variables",
-        "themes": "Themes dir",
         "env_script": "Shell script to export env variables",
     },
     doc = "Information about a hugo site",

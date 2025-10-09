@@ -2,9 +2,11 @@ def _impl(ctx):
     env = {
         "HUGO": ctx.executable.hugo.path,
     }
+    runfiles = ctx.runfiles(files = ctx.files.hugo)
+    runfiles.merge(ctx.attr.hugo[DefaultInfo].default_runfiles)
     default_info = DefaultInfo(
         files = depset(ctx.files.hugo),
-        runfiles = ctx.runfiles(files = ctx.files.hugo),
+        runfiles = runfiles,
     )
     return [
         default_info,

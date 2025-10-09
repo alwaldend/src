@@ -2,6 +2,12 @@ GCC_ARM_VERSION = "10.3-2021.10"
 
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
+al_git_repo = use_repo_rule("//bzl/rules/git:al_git_repo.bzl", "al_git_repo")
+
+al_git_repo(
+    name = "git",
+)
+
 http_archive(
     name = "com_arm_developer_gcc_arm",
     build_file = "//bzl/build_files:general.BUILD.bazel",

@@ -21,7 +21,6 @@ def _impl(ctx):
                     kwargs[key] = value
                 if tag.download_type == "http_archive":
                     if tag.build_file_native_binary:
-                        print(_NATIVE_BINARY_DEFAULTS | tag.build_file_native_binary)
                         kwargs.setdefault(
                             "build_file_content",
                             _NATIVE_BINARY.format(**(_NATIVE_BINARY_DEFAULTS | tag.build_file_native_binary)),

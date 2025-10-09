@@ -53,7 +53,7 @@ py_wheel(
     version = "0.0.0",
     deps = [
         "//py/autoscroll/autoscroll",
-        "//py/autoscroll/autoscroll:autoscroll-data",
+        "//py/autoscroll/autoscroll:autoscroll_data",
         "//py/autoscroll/autoscroll/_internal",
     ],
 )

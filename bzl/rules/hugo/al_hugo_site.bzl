@@ -1,31 +1,36 @@
 load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo", "PackageFilesInfo")
+load("//bzl/rules/git:al_git_library_info.bzl", "AlGitLibraryInfo")
 load(":al_hugo_site_info.bzl", "AlHugoSiteInfo")
 
 def _impl(ctx):
     hugo = ctx.toolchains["//bzl/rules/hugo:toolchain_type"]
-    themes = ctx.actions.declare_directory("{}.themes".format(ctx.label.name))
-    files = [themes] + ctx.files.site
-    runfiles = ctx.runfiles()
+    files = ctx.files.site
+    transitive_files = []
+    git_archive = None
+    if ctx.attr.git:
+        git_archive = ctx.attr.git[AlGitLibraryInfo].git_archive
+        transitive_files.append(depset([git_archive]))
     for tool in ctx.attr.tools:
-        runfiles.merge(tool[DefaultInfo].default_runfiles)
-    runfiles.merge(ctx.attr.postcss[DefaultInfo].default_runfiles)
-
-    ctx.actions.run_shell(
-        inputs = [ctx.file.themes],
-        outputs = [themes],
-        command = "tar -xf '{}' -C '{}'".format(ctx.file.themes.path, themes.path),
+        transitive_files.append(tool[DefaultInfo].default_runfiles.files)
+        transitive_files.append(tool[DefaultInfo].files)
+    transitive_files.append(ctx.attr.postcss[DefaultInfo].default_runfiles.files)
+    transitive_files.append(hugo.default_info.default_runfiles.files)
+    runfiles = ctx.runfiles(
+        files = files,
+        transitive_files = depset(transitive = transitive_files),
     )
 
     path = ":".join((
-        "$$(dirname '{}')".format(ctx.executable.postcss.path),
-        "$$(dirname '{}')".format(ctx.executable.postcss.short_path),
+        "$${{PWD}}/$$(dirname '{}')".format(ctx.executable.postcss.short_path),
+        "$${{PWD}}/$$(dirname '{}')".format(ctx.executable.postcss.path),
+        "$${{PWD}}/$${{0}}.runfiles/{}/$$(dirname '{}')".format(ctx.workspace_name, ctx.executable.postcss.short_path),
         ctx.attr.env.get("PATH", ""),
         "$${PATH}",
     ))
     env = {}
     env.update(ctx.attr.env)
     env["PATH"] = path
-    env["BAZEL_BINDIR"] = "$(BINDIR)"
+    env["BAZEL_BINDIR"] = "$${PWD}/$(BINDIR)"
     env_script = " && ".join([
         cmd
         for name, value in env.items()
@@ -38,10 +43,10 @@ def _impl(ctx):
             runfiles = runfiles,
         ),
         AlHugoSiteInfo(
-            themes = themes,
-            package_filegroup_info = ctx.attr.site[PackageFilegroupInfo],
+            site_archive = ctx.file.site,
             env = ctx.attr.env,
             env_script = env_script,
+            git_archive = git_archive,
         ),
     ]
 
@@ -55,13 +60,12 @@ al_hugo_site = rule(
     attrs = {
         "site": attr.label(
             mandatory = True,
-            providers = [PackageFilegroupInfo],
-            doc = "Hugo site layout",
-        ),
-        "themes": attr.label(
-            mandatory = True,
             allow_single_file = [".tar"],
-            doc = "Hugo themes archive (hugo doesn't support symlinks in themes/)",
+            doc = "Hugo site archive",
+        ),
+        "git": attr.label(
+            providers = [AlGitLibraryInfo],
+            doc = "Git info",
         ),
         "postcss": attr.label(
             mandatory = True,

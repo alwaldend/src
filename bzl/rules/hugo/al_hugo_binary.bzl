@@ -7,27 +7,32 @@ def _impl(ctx):
     default_info = ctx.attr.site[DefaultInfo]
     hugo = ctx.toolchains["//bzl/rules/hugo:toolchain_type"]
     script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
-    runfiles_symlinks = {"themes": info.themes}
-
-    for files, _ in info.package_filegroup_info.pkg_files:
-        runfiles_symlinks.update(files.dest_src_map)
 
     runfiles = ctx.runfiles(
-        files = [],
-        transitive_files = hugo.default_info.default_runfiles.files,
-        symlinks = runfiles_symlinks,
+        transitive_files = depset(transitive = [
+            default_info.default_runfiles.files,
+            default_info.files,
+        ]),
     )
-    runfiles.merge(default_info.default_runfiles)
-
     script_content = """\
         #!/usr/bin/env sh
         set -eux
         {env_script}
+        if [ ! -f '{site_archive}' ]; then
+            cd "${{0}}.runfiles/{workspace_name}"
+        fi
+        tar -xf '{site_archive}'
+        if [ -f '{git_archive}' ]; then
+            tar -xf '{git_archive}'
+        fi
         exec '{hugo}' \
             {arguments} \
             "${{@}}"
     """.format(
         hugo = hugo.hugo.short_path,
+        site_archive = info.site_archive.short_path,
+        git_archive = info.git_archive.short_path if info.git_archive else None,
+        workspace_name = ctx.workspace_name,
         env_script = ctx.expand_make_variables(
             "env_script",
             ctx.expand_location(info.env_script),
@@ -60,7 +65,7 @@ al_hugo_binary = rule(
     ],
     attrs = {
         "arguments": attr.string_list(
-            mandatory = True,
+            default = [],
             doc = "Hugo arguments",
         ),
         "site": attr.label(

@@ -9,7 +9,7 @@ al_git_changelog(
 )
 
 filegroup(
-    name = "autoscroll-data",
+    name = "autoscroll_data",
     srcs = glob(["resources/**"]),
     visibility = ["//:__subpackages__"],
 )
@@ -20,7 +20,7 @@ py_library(
         "__init__.py",
         "main.py",
     ],
-    data = [":autoscroll-data"],
+    data = [":autoscroll_data"],
     visibility = ["//:__subpackages__"],
 )
 

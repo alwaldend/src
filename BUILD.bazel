@@ -2,7 +2,7 @@ load("@aspect_bazel_lib//lib:directory_path.bzl", "directory_path")
 load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@bazel_skylib//rules/directory:directory.bzl", "directory")
-load("@com-alwaldend-src-npm//:defs.bzl", "npm_link_all_packages")
+load("@com_alwaldend_src_npm//:defs.bzl", "npm_link_all_packages")
 load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "buildifier_test")
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
@@ -10,7 +10,6 @@ load("@rules_license//rules:license.bzl", "license")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/rules/bazel_shell_worker:al_genrule.bzl", "al_genrule")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
-load("//bzl/rules/git:al_git_binary.bzl", "al_git_binary")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/git:al_git_library.bzl", "al_git_library")
 load("//bzl/rules/md:al_md_data.bzl", "al_md_data")
@@ -33,26 +32,9 @@ _SUBPACKAGES = subpackages(
 
 exports_files(["LICENSE.txt"])
 
-pkg_tar(
-    name = "git_archive",
-    srcs = glob([".git/**"]),
-    strip_prefix = ".",
-)
-
-al_git_library(
-    name = "git_lib",
-    src = ":git_archive",
-)
-
 al_git_changelog(
     name = "changelog",
     subpackages = _SUBPACKAGES,
-    visibility = ["//visibility:public"],
-)
-
-al_git_binary(
-    name = "git",
-    src = ":git_lib",
     visibility = ["//visibility:public"],
 )
 
@@ -101,11 +83,11 @@ npm_link_all_packages(
 
 # gazelle:exclude **/leetcode-submissions/**
 # gazelle:java_maven_install_file maven-lock.json
-# gazelle:resolve java javax.annotation @com-alwaldend-src-maven//:org_apache_tomcat_annotations_api
-# gazelle:resolve java org.joda.time @com-alwaldend-src-maven//:joda_time_joda_time
-# gazelle:resolve java org.joda.time.format @com-alwandend-src-maven//:joda_time_joda_time
-# gazelle:resolve java org.sonatype.nexus.repository.view @com-alwandend-src-maven//:org_sonatype_nexus_nexus_repository
-# gazelle:resolve java org.sonatype.nexus.repository.storage @com-alwaldend-src-maven//:org_sonatype_nexus_nexus_repository
+# gazelle:resolve java javax.annotation @com_alwaldend_src_maven//:org_apache_tomcat_annotations_api
+# gazelle:resolve java org.joda.time @com_alwaldend_src_maven//:joda_time_joda_time
+# gazelle:resolve java org.joda.time.format @com_alwandend_src_maven//:joda_time_joda_time
+# gazelle:resolve java org.sonatype.nexus.repository.view @com_alwandend_src_maven//:org_sonatype_nexus_nexus_repository
+# gazelle:resolve java org.sonatype.nexus.repository.storage @com_alwaldend_src_maven//:org_sonatype_nexus_nexus_repository
 # gazelle:exclude **/mod_tidy_fix.go
 gazelle(
     name = "gazelle",

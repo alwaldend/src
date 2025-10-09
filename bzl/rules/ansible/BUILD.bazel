@@ -48,7 +48,7 @@ compile_pip_requirements(
 [
     py_console_script_binary(
         name = script.replace("-", "_"),
-        pkg = "@com-alwaldend-src-bzl-rules-ansible-pip//ansible_core:pkg",
+        pkg = "@com_alwaldend_src_bzl_rules_ansible_pip//ansible_core:pkg",
         script = script,
         visibility = ["//visibility:public"],
     )

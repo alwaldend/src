@@ -1,11 +1,5 @@
-"""
-Module file
-
-https://bazel.build/rules/lib/globals/module
-"""
-
 module(
-    name = "com-alwaldend-src",
+    name = "com_alwaldend_src",
     version = "0.0.0",
     compatibility_level = 1,
 )

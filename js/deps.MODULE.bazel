@@ -10,12 +10,12 @@ npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
 pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
 
 node.toolchain(
-    name = "com-alwaldend-src-nodejs-toolchains",
+    name = "com_alwaldend_src_nodejs_toolchains",
     node_version = NODE_VERSION,
 )
 
 npm.npm_translate_lock(
-    name = "com-alwaldend-src-npm",
+    name = "com_alwaldend_src_npm",
     bins = {
         "typescript": [
             "tsc=./bin/tsc",
@@ -34,8 +34,8 @@ npm.npm_translate_lock(
     update_pnpm_lock = True,
     verify_node_modules_ignored = "//:.bazelignore",
 )
-use_repo(npm, "com-alwaldend-src-npm")
+use_repo(npm, "com_alwaldend_src_npm")
 
-use_repo(pnpm, **{"com-alwaldend-src-pnpm": "pnpm"})
+use_repo(pnpm, **{"com_alwaldend_src_pnpm": "pnpm"})
 
-use_repo(node, **{"com-alwaldend-src-nodejs-toolchains": "nodejs_toolchains"})
+use_repo(node, **{"com_alwaldend_src_nodejs_toolchains": "nodejs_toolchains"})

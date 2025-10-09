@@ -11,11 +11,11 @@ def al_compile_pip_requirements_combined(name, srcs, **kwargs):
         **kwargs: kwargs for `compile_pip_requirements`
     """
     al_combine_files(
-        name = "{}-src".format(name),
+        name = "{}.src".format(name),
         srcs = srcs,
     )
     compile_pip_requirements(
         name = name,
-        src = ":{}-src".format(name),
+        src = ":{}.src".format(name),
         **kwargs
     )

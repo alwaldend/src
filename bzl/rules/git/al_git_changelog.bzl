@@ -1,8 +1,27 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//bzl/rules/git:al_git_run_binary.bzl", "al_git_run_binary")
 load("//bzl/rules/template_files:al_template_files.bzl", "al_template_files")
 
-def al_git_changelog(name, visibility, subpackages = []):
+_GIT_LOG_FORMAT = """
+- hash: >2-
+    %H
+  author_date: >2-
+    %aI
+  committer_date: >2-
+    %cI
+  subject: >2-
+    %s
+  author: |2-
+    %w(0,0,4)%an <%ae>%w(0,0,0)
+  committer: |2-
+    %w(0,0,4)%cn <%ae>%w(0,0,0)
+  message: |2-
+    %w(0,0,4)%B%w(0,0,0)
+  changed_files: []
+"""
+
+def al_git_changelog(name, visibility, git_binary = "@git//:git", subpackages = []):
     """
     Create changelog target
 
@@ -42,20 +61,21 @@ def al_git_changelog(name, visibility, subpackages = []):
             "{{ end }}",
         ],
     )
-    native.genrule(
+    al_git_run_binary(
         name = "{}.changelog_data".format(name),
         srcs = ["//bzl/rules/git:git_log_config"],
+        git = git_binary,
         outs = [
             "{}.changelog_data.yaml".format(name),
         ],
-        cmd = '''
-            $(execpath //tools:git) log \
-                "--pretty=format:$$(cat $(execpath //bzl/rules/git:git_log_config))" \
-                -- \
-                '{}' \
-                >$(@)
-        '''.format(package_name if package_name else "."),
-        tools = ["//tools:git"],
+        arguments = [
+            "log",
+            "--pretty=format:{}".format(_GIT_LOG_FORMAT),
+            "--output",
+            "$(execpath :{}.changelog_data.yaml)".format(name),
+            "--",
+            package_name if package_name else ".",
+        ],
     )
     al_template_files(
         name = "{}.changelog".format(name),

@@ -16,14 +16,14 @@ al_git_changelog(
 
 al_alias_map(
     {
-        "pnpm": {"actual": "@com-alwaldend-src-pnpm//:pnpm"},
+        "pnpm": {"actual": "@com_alwaldend_src_pnpm//:pnpm"},
         "cloc": {"actual": "@com-github-aldanial-cloc//:bin"},
         "carton": {"actual": "//pl:carton"},
         "go": {"actual": "@rules_go//go"},
         "tomlv": {"actual": "@com_github_burntsushi_toml//cmd/tomlv:tomlv"},
         "prettier": {"actual": "//js:prettier"},
         "postcss": {"actual": "//js:postcss"},
-        "git": {"actual": "//:git"},
+        "git": {"actual": "@git//:git"},
         "ansible-playbook": {"actual": "//bzl/rules/ansible:ansible_playbook"},
         "dnscontrol": {"actual": "@com_github_stackexchange_dnscontrol_v4//:v4"},
     },

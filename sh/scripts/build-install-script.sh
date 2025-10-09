@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-set -eux
+set -eu
 
 archive="${1}"
 output=${2}

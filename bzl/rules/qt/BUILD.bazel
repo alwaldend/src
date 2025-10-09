@@ -51,7 +51,7 @@ al_qt_resolved_toolchain(
 
 py_console_script_binary(
     name = "aqt",
-    pkg = "@com-alwaldend-src-starlark-bazel-qt-requirements//aqtinstall",
+    pkg = "@com_alwaldend_src_starlark_bazel_qt_requirements//aqtinstall",
 )
 
 genrule(

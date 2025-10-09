@@ -1,23 +1,31 @@
 load("@bazel_skylib//lib:shell.bzl", "shell")
-load(":al_git_info.bzl", "AlGitInfo")
+load(":al_git_library_info.bzl", "AlGitLibraryInfo")
 
 def _impl(ctx):
     git_toolchain = ctx.toolchains["//bzl/rules/git:toolchain_type"]
-    git_info = ctx.attr.src[AlGitInfo]
-    script = ctx.actions.declare_file("{}-script.sh".format(ctx.label.name))
-    runfiles = ctx.runfiles(files = ctx.files.src)
-    runfiles.merge(ctx.attr.src[DefaultInfo].default_runfiles)
+    git_info = ctx.attr.src[AlGitLibraryInfo]
+    script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
+    runfiles = ctx.runfiles(
+        transitive_files = ctx.attr.src[DefaultInfo].default_runfiles.files,
+    )
 
-    # we cannot use a tree artifact here because bazel will create symlinks in
-    # the sandbox
     script_content = """\
         #!/usr/bin/env sh
         set -eu
-        tar -xf "${{0}}.runfiles/{git_archive}"
-        exec '{git}' --git-dir .git {arguments} "${{@}}"
+        if [ -f '{git_archive}' ]; then
+            git_archive='{git_archive}'
+        elif [ -f "${{0}}.runfiles/{workspace_name}/{git_archive}" ]; then
+            git_archive="${{0}}.runfiles/{workspace_name}/{git_archive}"
+        else
+            echo "Missing runfiles"
+            exit 1
+        fi
+        tar -xf "${{git_archive}}"
+        exec '{git}' {arguments} "${{@}}"
     """.format(
         git = git_toolchain.git_bin,
-        git_archive = "{}/{}".format(ctx.workspace_name, git_info.archive.short_path),
+        workspace_name = ctx.workspace_name,
+        git_archive = git_info.git_archive.short_path,
         arguments = " ".join([
             shell.quote(argument)
             for argument in ctx.attr.arguments
@@ -42,8 +50,7 @@ al_git_binary = rule(
     implementation = _impl,
     attrs = {
         "src": attr.label(
-            providers = [AlGitInfo],
-            allow_single_file = True,
+            providers = [AlGitLibraryInfo],
             mandatory = True,
             doc = "Git info",
         ),

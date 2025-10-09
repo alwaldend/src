@@ -1,6 +1,8 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
+load("//bzl/rules/http_server:al_http_server_binary.bzl", "al_http_server_binary")
 load("//bzl/rules/hugo:al_hugo_binary.bzl", "al_hugo_binary")
 load("//bzl/rules/hugo:al_hugo_run_binary.bzl", "al_hugo_run_binary")
 load("//bzl/rules/hugo:al_hugo_site.bzl", "al_hugo_site")
@@ -13,24 +15,15 @@ al_git_changelog(
 )
 
 al_hugo_site(
-    name = "site",
+    name = "docs_site",
+    git = "@git//:git_lib",
     postcss = "//tools:postcss",
-    site = ":site_filegroup",
-    themes = "//hugo/themes",
-    tools = [
-        "//:node_modules",
-    ],
+    site = ":docs_source_archive",
 )
 
-pkg_filegroup(
-    name = "site_filegroup",
-    srcs = [
-        ":config",
-        ":data",
-        "//hugo/sites/docs/content",
-        "//hugo/sites/docs/i18n",
-        "//hugo/sites/docs/layouts",
-    ],
+al_hugo_binary(
+    name = "docs_hugo",
+    site = ":docs_site",
 )
 
 al_hugo_run_binary(
@@ -46,44 +39,65 @@ al_hugo_run_binary(
         "--printI18nWarnings",
         "--printPathWarnings",
         # "--printUnusedTemplates",
+        "--destination",
+        "{}/k8-fastbuild/bin/{}/{}".format(
+            "/".join([".."] * 7),
+            package_name(),
+            "docs.destination",
+        ),
     ],
-    site = ":site",
-)
-
-al_hugo_binary(
-    name = "serve",
-    arguments = [
-        "serve",
-        "--logLevel",
-        "debug",
-        # "--panicOnWarning",
-        "--disableFastRender",
-        "--printI18nWarnings",
-        "--printPathWarnings",
-        # "--printUnusedTemplates",
-    ],
-    site = ":site",
-)
-
-al_hugo_binary(
-    name = "build_run",
-    arguments = [
-        "build",
-        "--logLevel",
-        "debug",
-        "--panicOnWarning",
-    ],
-    site = ":site",
+    hugo = ":docs_hugo",
+    out_dirs = ["docs.destination"],
 )
 
 pkg_filegroup(
-    name = "data",
-    srcs = [":data_files"],
+    name = "docs_filegroup",
+    srcs = [":docs_files"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = [":docs"],
+    renames = {":docs": "src"},
+)
+
+al_http_server_binary(
+    name = "docs_serve",
+    srcs = [":docs_filegroup"],
+    arguments = [
+        "--bind",
+        "127.0.0.1",
+        "1313",
+    ],
+)
+
+pkg_tar(
+    name = "docs_archive",
+    srcs = [":docs"],
+    visibility = ["//visibility:public"],
+)
+
+pkg_tar(
+    name = "docs_source_archive",
+    srcs = [
+        ":docs_config",
+        ":docs_data",
+        "//hugo/sites/docs/content",
+        "//hugo/sites/docs/i18n",
+        "//hugo/sites/docs/layouts",
+        "//hugo/themes",
+    ],
+    strip_prefix = ".",
+)
+
+pkg_filegroup(
+    name = "docs_data",
+    srcs = [":docs_data_files"],
     prefix = package_name(),
 )
 
 pkg_files(
-    name = "data_files",
+    name = "docs_data_files",
     srcs = [
         "//data/misc:authors",
         "//data/misc:books",
@@ -91,13 +105,13 @@ pkg_files(
 )
 
 pkg_files(
-    name = "config",
-    srcs = [":config_src"],
+    name = "docs_config",
+    srcs = [":docs_config_src"],
     renames = {"hugo.toml": "config/_default/hugo.toml"},
 )
 
 al_toml_data(
-    name = "config_src",
+    name = "docs_config_src",
     srcs = ["hugo.toml"],
 )
 

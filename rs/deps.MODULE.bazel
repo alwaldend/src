@@ -4,11 +4,11 @@ rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
 
 crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
 crate.from_cargo(
-    name = "com-alwaldend-src-cargo",
+    name = "com_alwaldend_src_cargo",
     cargo_lockfile = "//rs:Cargo.lock",
     generate_binaries = True,
     manifests = [
         "//rs:Cargo.toml",
     ],
 )
-use_repo(crate, "com-alwaldend-src-cargo")
+use_repo(crate, "com_alwaldend_src_cargo")

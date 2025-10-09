@@ -1,60 +1,44 @@
 load(":al_hugo_site_info.bzl", "AlHugoSiteInfo")
 
 def _impl(ctx):
-    info = ctx.attr.site[AlHugoSiteInfo]
-    default_info = ctx.attr.site[DefaultInfo]
-    hugo = ctx.toolchains["//bzl/rules/hugo:toolchain_type"]
-    script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
-    destination = ctx.actions.declare_directory("{}.destination".format(ctx.label.name))
-
-    script_content = """\
-        #!/usr/bin/env sh
-        set -eux
-        {env_script}
-        exec '{hugo}' -d '{destination}' "${{@}}"
-    """.format(
-        hugo = hugo.hugo.path,
-        destination = destination.path,
-        env_script = ctx.expand_make_variables(
-            "env_script",
-            ctx.expand_location(info.env_script),
-            {},
-        ),
-    )
-    ctx.actions.write(
-        output = script,
-        is_executable = True,
-        content = script_content,
-    )
+    out_dirs = []
+    for out_dir in ctx.attr.out_dirs:
+        out_dirs.append(ctx.actions.declare_directory(out_dir))
+    args = ctx.actions.args()
+    for arg in ctx.attr.arguments:
+        args.add(ctx.expand_location(arg))
     ctx.actions.run(
-        executable = script,
-        inputs = [hugo.hugo] + ctx.files.site,
-        outputs = [destination],
-        tools = [default_info.default_runfiles.files, default_info.files],
-        arguments = ctx.attr.arguments,
+        executable = ctx.executable.hugo,
+        outputs = out_dirs + ctx.outputs.outs,
+        arguments = [args],
+        progress_message = "Running hugo action: %{label}",
     )
-
     return [
         DefaultInfo(
-            files = depset([destination]),
+            files = depset(out_dirs + ctx.outputs.outs),
         ),
     ]
 
 al_hugo_run_binary = rule(
     implementation = _impl,
     doc = "Run hugo binary as a build action",
-    toolchains = [
-        "//bzl/rules/hugo:toolchain_type",
-    ],
     attrs = {
+        "outs": attr.output_list(
+            doc = "Output files",
+        ),
+        "out_dirs": attr.string_list(
+            default = [],
+            doc = "Output directories",
+        ),
         "arguments": attr.string_list(
-            mandatory = True,
+            default = [],
             doc = "Hugo arguments",
         ),
-        "site": attr.label(
+        "hugo": attr.label(
             mandatory = True,
-            providers = [AlHugoSiteInfo],
-            doc = "Hugo site",
+            executable = True,
+            cfg = "exec",
+            doc = "Hugo binary to use",
         ),
     },
 )

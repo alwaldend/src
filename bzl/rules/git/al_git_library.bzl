@@ -1,17 +1,15 @@
-load(":al_git_info.bzl", "AlGitInfo")
+load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo")
+load(":al_git_library_info.bzl", "AlGitLibraryInfo")
 
 def _impl(ctx):
-    git = ctx.toolchains["//bzl/rules/git:toolchain_type"]
-    files = [ctx.file.src]
-    runfiles = ctx.runfiles(files = files)
-
+    runfiles = ctx.runfiles(files = [ctx.file.git_archive])
     return [
         DefaultInfo(
-            files = depset(files),
+            files = depset([ctx.file.git_archive]),
             runfiles = runfiles,
         ),
-        AlGitInfo(
-            archive = ctx.file.src,
+        AlGitLibraryInfo(
+            git_archive = ctx.file.git_archive,
         ),
     ]
 
@@ -19,12 +17,12 @@ al_git_library = rule(
     implementation = _impl,
     doc = "Define git information",
     toolchains = ["//bzl/rules/git:toolchain_type"],
-    provides = [AlGitInfo],
+    provides = [AlGitLibraryInfo],
     attrs = {
-        "src": attr.label(
+        "git_archive": attr.label(
             mandatory = True,
             allow_single_file = [".tar"],
-            doc = "Git dir",
+            doc = "Git directory",
         ),
     },
 )
