@@ -20,7 +20,6 @@ def _impl(ctx):
     script_content = """\
         #!/usr/bin/env sh
         set -eu
-        find -maxdepth 3 -ls
         exec '{python3}' \
             -m http.server \
             {arguments} \

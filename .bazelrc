@@ -87,6 +87,10 @@ common --config=al_toml_validate
 common:al_toml_validate --aspects bzl/rules/toml/al_toml_validate.bzl%al_toml_validate
 common:al_toml_validate --output_groups=+al_toml_validate
 
+### common:ci
+
+common:ci --//bzl/configs:ci_flag
+
 ### build
 
 # build --copt="-Werror"

@@ -14,28 +14,26 @@ al_git_changelog(
 )
 
 config_setting(
-    name = "use-local-repos",
+    name = "use_local_repos",
     flag_values = {
-        ":use-local-repos-flag": "true",
+        ":use_local_repos_flag": "true",
     },
 )
 
-config_setting(
-    name = "platform-os-linux",
-    constraint_values = [
-        "@platforms//os:linux",
-    ],
+bool_flag(
+    name = "use_local_repos_flag",
+    build_setting_default = False,
 )
 
 config_setting(
-    name = "platform-os-windows",
-    constraint_values = [
-        "@platforms//os:windows",
-    ],
+    name = "ci",
+    flag_values = {
+        ":ci_flag": "true",
+    },
 )
 
 bool_flag(
-    name = "use-local-repos-flag",
+    name = "ci_flag",
     build_setting_default = False,
 )
 
