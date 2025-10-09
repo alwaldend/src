@@ -1,6 +1,6 @@
 title = "Docs"
 theme = ["github.com/google/docsy"]
-baseURL = "https://github.com/alwaldend/src"
+baseURL = "https://alwaldend.github.io/src"
 
 enableRobotsTXT = true
 enableGitInfo = false
