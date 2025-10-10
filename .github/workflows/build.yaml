@@ -26,8 +26,8 @@ jobs:
         with:
           bazelisk-cache: true
           disk-cache: false
-          repository-cache: true
-          external-cache: true
+          repository-cache: false
+          external-cache: false
       - name: Setup
         run: |
           set -eux
