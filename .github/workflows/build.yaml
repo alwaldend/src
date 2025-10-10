@@ -36,8 +36,7 @@ jobs:
           mkdir -p \
             "$(dirname "${{ env.ARTIFACTS_ARCHIVE }}")" \
             "$(dirname "${{ env.ARTIFACTS_SHA256 }}")"
-          bazel build --config=ci //hugo/sites/docs
-          bazel build --config=ci //...
+          bazel build --config=ci //... || bazel build --config=ci //...
           bazel test --config=ci //...
           sudo find bazel-bin/ -name "*.runfiles" -exec rm -rf "{}" +
           sudo find bazel-bin/ -name "*node_modules*" -exec rm -rf "{}" +
