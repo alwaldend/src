@@ -9,6 +9,7 @@ def _impl(ctx):
         set -eu
         {{
             set -x
+            export DISPLAY=":${{$}}"
             Xvfb "${{DISPLAY}}" ${{XVFB_OPTIONS}} &
             sleep 0.5
             timeout '{timeout}' '{drawio}' --no-sandbox "${{@}}" || true
@@ -30,14 +31,11 @@ def _impl(ctx):
         content = script_content,
     )
 
-    display_parts = ctx.files.srcs + [ctx.label]
-    display = ":{}".format(abs(hash("".join([str(part) for part in display_parts]))))
     ctx.actions.run(
         executable = script,
         inputs = ctx.files.srcs + [drawio.drawio],
         outputs = [ctx.outputs.out],
         env = {
-            "DISPLAY": display,
             "ELECTRON_DISABLE_SECURITY_WARNINGS": "true",
             "XVFB_OPTIONS": "-nolisten unix",
             "ELECTRON_ENABLE_LOGGING": "false",

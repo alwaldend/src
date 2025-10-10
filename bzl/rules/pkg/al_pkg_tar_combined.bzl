@@ -8,7 +8,7 @@ def al_pkg_tar_combined(name, srcs = [], strip_components = 2, **kwargs):
         strip_components: value of --stip-components
         **kwargs: other genrule kwargs
     """
-    cmd = "set -eux"
+    cmd = "set -eu"
     out = "{}.tar".format(name)
     cmd += "\n".join(["""
         mkdir -p '{dir}'
