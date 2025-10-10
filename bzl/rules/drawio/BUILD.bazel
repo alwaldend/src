@@ -1,7 +1,6 @@
 load("//bzl/rules/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
-load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 load(":al_drawio_toolchain.bzl", "al_drawio_toolchain")
 
 al_git_changelog(
@@ -37,11 +36,6 @@ al_drawio_toolchain(
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",
     ],
-)
-
-al_readme(
-    name = "readme",
-    visibility = ["//visibility:public"],
 )
 
 al_bzl_target_doc(

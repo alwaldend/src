@@ -3,12 +3,6 @@ load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/install_file:al_install_file.bzl", "al_install_file")
 load("//bzl/rules/lua:al_lua_library.bzl", "al_lua_library")
-load("//bzl/rules/readme:al_readme.bzl", "al_readme")
-
-al_readme(
-    name = "readme",
-    visibility = ["//visibility:public"],
-)
 
 al_git_changelog(
     name = "changelog",

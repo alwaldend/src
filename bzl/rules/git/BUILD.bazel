@@ -1,7 +1,6 @@
 load("//bzl/rules/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
-load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 load(":al_git_toolchain.bzl", "al_git_toolchain")
 
 al_git_changelog(
@@ -59,11 +58,6 @@ toolchain(
 al_git_toolchain(
     name = "toolchain_local_impl",
     local_bin = "git",
-)
-
-al_readme(
-    name = "readme",
-    visibility = ["//visibility:public"],
 )
 
 al_bzl_target_doc(

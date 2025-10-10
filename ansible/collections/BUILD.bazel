@@ -1,7 +1,6 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
-load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
 al_git_changelog(
     name = "changelog",
@@ -63,11 +62,6 @@ pkg_files(
     srcs = ["@com_ansible_galaxy_community_library_inventory_filtering_v1//:src_filegroup"],
     prefix = "community/library_inventory_filtering_v1",
     strip_prefix = strip_prefix.from_pkg(),
-)
-
-al_readme(
-    name = "readme",
-    visibility = ["//visibility:public"],
 )
 
 al_bzl_target_doc(

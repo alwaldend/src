@@ -6,7 +6,6 @@ load("//bzl/rules/http_server:al_http_server_binary.bzl", "al_http_server_binary
 load("//bzl/rules/hugo:al_hugo_binary.bzl", "al_hugo_binary")
 load("//bzl/rules/hugo:al_hugo_run_binary.bzl", "al_hugo_run_binary")
 load("//bzl/rules/hugo:al_hugo_site.bzl", "al_hugo_site")
-load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 load("//bzl/rules/toml:al_toml_data.bzl", "al_toml_data")
 
 al_git_changelog(
@@ -120,11 +119,6 @@ pkg_files(
 al_toml_data(
     name = "docs_config_src",
     srcs = ["hugo.toml"],
-)
-
-al_readme(
-    name = "readme",
-    visibility = ["//visibility:public"],
 )
 
 al_bzl_target_doc(

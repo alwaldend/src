@@ -13,9 +13,9 @@ def _impl(ctx):
         #!/usr/bin/env sh
         set -eu
         if [ -f '{git_archive}' ]; then
-            git_archive='{git_archive}'
+            git_archive="${{PWD}}"/'{git_archive}'
         elif [ -f "${{0}}.runfiles/{workspace_name}/{git_archive}" ]; then
-            git_archive="${{0}}.runfiles/{workspace_name}/{git_archive}"
+            git_archive="${{PWD}}/${{0}}.runfiles/{workspace_name}/{git_archive}"
         else
             echo "Missing runfiles"
             exit 1

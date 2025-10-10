@@ -3,12 +3,6 @@ load("@rules_cc//cc:cc_library.bzl", "cc_library")
 load("@rules_cc//cc:cc_test.bzl", "cc_test")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
-load("//bzl/rules/readme:al_readme.bzl", "al_readme")
-
-al_readme(
-    name = "readme",
-    visibility = ["//visibility:public"],
-)
 
 al_git_changelog(
     name = "changelog",

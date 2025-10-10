@@ -3,7 +3,6 @@ load("@rules_perl//perl:perl_binary.bzl", "perl_binary")
 load("@rules_perl//perl/cpan:cpan_compiler.bzl", "cpan_compiler")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
-load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
 al_git_changelog(
     name = "changelog",
@@ -31,11 +30,6 @@ perl_binary(
     srcs = [":carton-script"],
     visibility = ["//visibility:public"],
     deps = ["@com-alwaldend-src-cpan//:Carton"],
-)
-
-al_readme(
-    name = "readme",
-    visibility = ["//visibility:public"],
 )
 
 al_bzl_target_doc(

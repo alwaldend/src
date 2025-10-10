@@ -3,17 +3,11 @@ load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/drawio:al_drawio_run_binary.bzl", "al_drawio_run_binary")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
-load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
 _DIAGRAMS = {
     "arch_idea_anki_chinese_flashcards_enricher": {},
     "arch_interview_yandex_sre": {},
 }
-
-al_readme(
-    name = "readme",
-    visibility = ["//visibility:public"],
-)
 
 pkg_filegroup(
     name = "docs",

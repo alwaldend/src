@@ -5,7 +5,6 @@ load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
-load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
 PACKAGES = {
     "isort": {},
@@ -38,11 +37,6 @@ compile_pip_requirements(
     timeout = "moderate",
     srcs = ["//:pyproject"],
     requirements_txt = ":requirements.txt",
-)
-
-al_readme(
-    name = "readme",
-    visibility = ["//visibility:public"],
 )
 
 gazelle_python_manifest(

@@ -1,7 +1,6 @@
 load("//bzl/rules/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
-load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 
 al_git_changelog(
     name = "changelog",
@@ -12,11 +11,6 @@ al_bzl_library_map(
     name = "libs",
     visibility = ["//visibility:public"],
     deps = ["//bzl/rules/{}:{}".format(package, "libs") for package in subpackages(include = ["*"])],
-)
-
-al_readme(
-    name = "readme",
-    visibility = ["//visibility:public"],
 )
 
 al_bzl_target_doc(

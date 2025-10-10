@@ -19,9 +19,7 @@ def _impl(ctx):
         set -eux
         {env_script}
         if [ ! -f '{site_archive}' ]; then
-            ls -la ./
             cd "${{0}}.runfiles/{workspace_name}"
-            ls -la ./node_modules
         fi
         tar -xf '{site_archive}'
         if [ -f '{git_archive}' ]; then

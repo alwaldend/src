@@ -13,7 +13,6 @@ load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/git:al_git_library.bzl", "al_git_library")
 load("//bzl/rules/md:al_md_data.bzl", "al_md_data")
-load("//bzl/rules/readme:al_readme.bzl", "al_readme")
 load("//bzl/rules/toml:al_toml_data.bzl", "al_toml_data")
 load("//bzl/rules/txt:al_txt_data.bzl", "al_txt_data")
 
@@ -49,12 +48,6 @@ license(
 al_txt_data(
     name = "editorconfig",
     srcs = [".editorconfig"],
-    visibility = ["//visibility:public"],
-)
-
-al_readme(
-    name = "readme",
-    subpackages = _SUBPACKAGES,
     visibility = ["//visibility:public"],
 )
 
