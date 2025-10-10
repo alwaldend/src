@@ -36,6 +36,7 @@ jobs:
           mkdir -p \
             "$(dirname "${{ env.ARTIFACTS_ARCHIVE }}")" \
             "$(dirname "${{ env.ARTIFACTS_SHA256 }}")"
+          bazel run @com_alwaldend_src_pnpm//:pnpm -- --dir "${PWD}" install --lockfile-only
       - name: Build
         run: bazel build --config=ci //...
       - name: Test
