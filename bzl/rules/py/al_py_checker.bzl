@@ -21,14 +21,14 @@ def al_py_checker(
     """
     if not disable_fix:
         al_run_tool(
-            name = "{}-fix".format(name),
+            name = "{}.fix".format(name),
             executable = True,
             args = args_bin,
             tool = tool,
             **kwargs
         )
     al_run_tool(
-        name = "{}-test".format(name),
+        name = "{}.test".format(name),
         test = True,
         args = args_test,
         tool = tool,

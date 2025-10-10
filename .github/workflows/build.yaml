@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: true
 env:
   DEV_TAG: dev
-  ARTIFACTS_ARCHIVE: out/alwaldend-src.tar.gz
+  ARTIFACTS_ARCHIVE: out/alwaldend_src.tar.gz
   ARTIFACTS_SHA256: out/sha256sums.txt
   ARTIFACTS_PAGES: bazel-bin/hugo/sites/docs/docs.destination
 jobs:
@@ -36,7 +36,6 @@ jobs:
           mkdir -p \
             "$(dirname "${{ env.ARTIFACTS_ARCHIVE }}")" \
             "$(dirname "${{ env.ARTIFACTS_SHA256 }}")"
-          bazel build --config=ci //hugo/sites/docs
           bazel build --config=ci //...
           bazel test --config=ci //...
           sudo find bazel-bin/ -name "*.runfiles" -exec rm -rf "{}" +

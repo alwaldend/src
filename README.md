@@ -11,7 +11,7 @@ cascade:
 
 - Docs: https://alwaldend.github.io/src/
 - Dev release: https://github.com/alwaldend/src/releases/tag/dev
-- Dev release artifacts: https://github.com/alwaldend/src/releases/download/dev/alwaldend-src.tar.gz
+- Dev release artifacts: https://github.com/alwaldend/src/releases/download/dev/alwaldend_src.tar.gz
 
 ## Licence
 
