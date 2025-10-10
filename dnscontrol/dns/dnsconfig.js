@@ -3,6 +3,7 @@
 
 var REG_NONE = NewRegistrar("none");
 var DSP_CLOUDFLARE = NewDnsProvider("cloudflare");
+var BIND = NewDnsProvider("bind");
 
 DEFAULTS(
   CF_PROXY_DEFAULT_OFF, // turn proxy off when not specified otherwise
@@ -12,6 +13,7 @@ D(
   "alwaldend.com",
   REG_NONE,
   DnsProvider(DSP_CLOUDFLARE),
+  DnsProvider(BIND),
 
   // tutanota
   MX("@", 0, "mail.tutanota.de.", TTL(10800)),

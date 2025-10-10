@@ -1,0 +1,24 @@
+$TTL 10800
+; generated with dnscontrol 2025-10-10T15:37:03+03:00
+@          300   IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2025101000 3600 600 604800 1440
+           300   IN NS    malavika.ns.cloudflare.com.
+           300   IN NS    terry.ns.cloudflare.com.
+                 IN MX    0 mail.tutanota.de.
+                 IN TXT   "t-verify=518bd0ae347aa5e3bcca726766106ad3"
+                 IN TXT   "v=spf1 include:spf.tutanota.de -all"
+_dmarc           IN TXT   "v=DMARC1; p=quarantine; adkim=s"
+s1._domainkey    IN CNAME s1.domainkey.tutanota.de.
+s2._domainkey    IN CNAME s2.domainkey.tutanota.de.
+_mta-sts         IN CNAME mta-sts.tutanota.de.
+pi1.dc1    300   IN A     192.168.1.250
+           300   IN AAAA  fd2e:546d:5738:0:e65d:726e:80d9:fef1
+router1.dc1 300  IN AAAA  fd2e:546d:5738::1
+mta-sts          IN CNAME mta-sts.tutanota.de.
+simplelogin      IN MX    10 mx1.simplelogin.co.
+                 IN MX    20 mx2.simplelogin.co.
+                 IN TXT   "sl-verification=bxfzzfjiggzsxyzxhhmkmjqkaskjgy"
+                 IN TXT   "v=spf1 include:simplelogin.co ~all"
+_dmarc.simplelogin IN TXT "v=DMARC1; p=quarantine; pct=100; adkim=s; aspf=s"
+dkim._domainkey.simplelogin IN CNAME dkim._domainkey.simplelogin.co.
+dkim02._domainkey.simplelogin IN CNAME dkim02._domainkey.simplelogin.co.
+dkim03._domainkey.simplelogin IN CNAME dkim03._domainkey.simplelogin.co.
