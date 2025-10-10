@@ -17,7 +17,7 @@ prettier.prettier_binary(
 
 postcss.postcss_binary(
     name = "postcss",
-    data = ["//:node_modules/autoprefixer"],
+    data = ["//:node_modules"],
     visibility = ["//visibility:public"],
 )
 
