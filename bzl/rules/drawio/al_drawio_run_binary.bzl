@@ -10,7 +10,7 @@ def _impl(ctx):
         {{
             set -x
             Xvfb "${{DISPLAY}}" ${{XVFB_OPTIONS}} &
-            sleep 0.2
+            sleep 0.5
             timeout '{timeout}' '{drawio}' --no-sandbox "${{@}}" || true
             set +x
         }} >stderr.txt 2>&1
@@ -39,6 +39,8 @@ def _impl(ctx):
             "ELECTRON_DISABLE_SECURITY_WARNINGS": "true",
             "XVFB_OPTIONS": "-nolisten unix",
             "ELECTRON_ENABLE_LOGGING": "false",
+            "NO_CLEANUP": "1",
+            "VERBOSE": "1",
             "APPIMAGE_EXTRACT_AND_RUN": "1",  # https://github.com/AppImage/AppImageKit/wiki/FUSE#docker
         },
         arguments = [ctx.expand_location(arg) for arg in ctx.attr.arguments],
