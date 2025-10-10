@@ -28,7 +28,7 @@ jobs:
           disk-cache: false
           repository-cache: false
           external-cache: false
-      - name: Setup
+      - name: Run shell
         run: |
           set -eux
           cat /etc/os-release
@@ -36,14 +36,8 @@ jobs:
           mkdir -p \
             "$(dirname "${{ env.ARTIFACTS_ARCHIVE }}")" \
             "$(dirname "${{ env.ARTIFACTS_SHA256 }}")"
-          bazel run @com_alwaldend_src_pnpm//:pnpm -- --dir "${PWD}" install --lockfile-only
-      - name: Build
-        run: bazel build --config=ci //...
-      - name: Test
-        run: bazel test --config=ci //...
-      - name: Build artifact archive
-        run: |
-          set -eux
+          bazel build --config=ci //...
+          bazel test --config=ci //...
           sudo find bazel-bin/ -name "*.runfiles" -exec rm -rf "{}" +
           sudo find bazel-bin/ -name "*node_modules*" -exec rm -rf "{}" +
           sudo rm -f bazel-bin/cpp/infinitime/firmware-deps.tar
