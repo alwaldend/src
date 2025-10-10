@@ -3,14 +3,19 @@ def _impl(ctx):
     Reference: https://github.com/rlespinasse/docker-drawio-desktop-headless
     """
     drawio = ctx.toolchains["//bzl/rules/drawio:toolchain_type"]
-    script = ctx.actions.declare_file("{}-script.sh".format(ctx.label.name))
+    script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
     script_content = """\
         #!/usr/bin/env sh
-        set -eux
-        Xvfb "${{DISPLAY}}" ${{XVFB_OPTIONS}} &
-        sleep 0.5
-        timeout '{timeout}' '{drawio}' --no-sandbox "${{@}}" || true
+        set -eu
+        {{
+            set -x
+            Xvfb "${{DISPLAY}}" ${{XVFB_OPTIONS}} &
+            sleep 0.2
+            timeout '{timeout}' '{drawio}' --no-sandbox "${{@}}" || true
+            set +x
+        }} >stderr.txt 2>&1
         if [ ! -f '{out}' ]; then
+            cat stderr.txt
             echo "Output {out} was not built, check the log"
             exit 1
         fi
@@ -24,12 +29,13 @@ def _impl(ctx):
         is_executable = True,
         content = script_content,
     )
+    display = ":{}".format(abs(hash(str(ctx.label))))
     ctx.actions.run(
         executable = script,
         inputs = ctx.files.srcs + [drawio.drawio],
         outputs = [ctx.outputs.out],
         env = {
-            "DISPLAY": ":{}".format(hash(str(ctx.label))).replace("-", ""),
+            "DISPLAY": display,
             "ELECTRON_DISABLE_SECURITY_WARNINGS": "true",
             "XVFB_OPTIONS": "-nolisten unix",
             "ELECTRON_ENABLE_LOGGING": "false",

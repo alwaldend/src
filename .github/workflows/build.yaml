@@ -11,7 +11,7 @@ env:
   DEV_TAG: dev
   ARTIFACTS_ARCHIVE: out/alwaldend-src.tar.gz
   ARTIFACTS_SHA256: out/sha256sums.txt
-  ARTIFACTS_PAGES: out/pages
+  ARTIFACTS_PAGES: bazel-bin/hugo/sites/docs/docs.destination
 jobs:
   build:
     name: Build
@@ -35,13 +35,9 @@ jobs:
           df -h
           mkdir -p \
             "$(dirname "${{ env.ARTIFACTS_ARCHIVE }}")" \
-            "$(dirname "${{ env.ARTIFACTS_SHA256 }}")" \
-            "$(dirname "${{ env.ARTIFACTS_PAGES }}")"
+            "$(dirname "${{ env.ARTIFACTS_SHA256 }}")"
       - name: Build
         run: bazel build --config=ci //...
-      - name: Copy pages
-        run: |
-          cp -r bazel-bin/hugo/sites/docs/docs.destination "${{ env.ARTIFACTS_PAGES }}"
       - name: Test
         run: bazel test --config=ci //...
       - name: Build artifact archive
@@ -57,7 +53,7 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: Pages
-          retention-days: 5
+          retention-days: 1
           if-no-files-found: error
           path: |
             ${{ env.ARTIFACTS_PAGES }}
