@@ -29,7 +29,10 @@ def _impl(ctx):
         is_executable = True,
         content = script_content,
     )
-    display = ":{}".format(abs(hash(str(ctx.label))))
+
+    display_parts = ctx.files.srcs + [ctx.label]
+    display = ":{}".format(abs(hash("".join([str(part) for part in display_parts]))))
+    print("DISPLAY: {}, {}".format(display, display_parts))
     ctx.actions.run(
         executable = script,
         inputs = ctx.files.srcs + [drawio.drawio],
