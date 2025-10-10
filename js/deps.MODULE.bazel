@@ -1,13 +1,19 @@
 NODE_VERSION = "16.14.2"
 
+PNPM_VERSION = "10.18.1"
+
 bazel_dep(name = "rules_nodejs", version = "6.5.0")
-bazel_dep(name = "aspect_rules_js", version = "2.6.0")
+bazel_dep(name = "aspect_rules_js", version = "2.6.2")
 
 node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node")
 
 npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
 
 pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
+pnpm.pnpm(
+    name = "com_alwaldend_src_pnpm",
+    pnpm_version = PNPM_VERSION,
+)
 
 node.toolchain(
     name = "com_alwaldend_src_nodejs_toolchains",
@@ -36,6 +42,6 @@ npm.npm_translate_lock(
 )
 use_repo(npm, "com_alwaldend_src_npm")
 
-use_repo(pnpm, **{"com_alwaldend_src_pnpm": "pnpm"})
+use_repo(pnpm, "com_alwaldend_src_pnpm")
 
 use_repo(node, **{"com_alwaldend_src_nodejs_toolchains": "nodejs_toolchains"})

@@ -1,0 +1,59 @@
+bazel_dep(name = "rules_haskell")
+
+# local_path_override(
+#     module_name = "rules_haskell",
+#     path = "../../github.com/tweag/rules_haskell",
+# )
+archive_override(
+    module_name = "rules_haskell",
+    integrity = "sha256-Sa3Rl+2VNXeURuPkwh+XBWEgZYM3rFYauGb90A2lMHg=",
+    patch_args = ["-p1"],
+    patches = ["//patch/github.com/tweag/rules_haskell:001_fix_for_bazel8.patch"],
+    strip_prefix = "rules_haskell-7bb6b0790b0c44603173196e1b4d1cd6e5f28078",
+    urls = ["https://github.com/tweag/rules_haskell/archive/7bb6b0790b0c44603173196e1b4d1cd6e5f28078.zip"],
+)
+
+haskell_toolchains = use_extension(
+    "@rules_haskell//extensions:haskell_toolchains.bzl",
+    "haskell_toolchains",
+)
+haskell_toolchains.bindists(
+    dist = {
+        "linux_amd64": "deb12",
+    },
+    version = "9.12.2",
+    # https://gitlab.haskell.org/ghc/ghc/-/wikis/GHC%20Status#all-released-ghc-versions
+    # https://www.haskell.org/ghc/download_ghc_9_12_2.html#binaries
+)
+use_repo(
+    haskell_toolchains,
+    "all_bindist_toolchains",
+)
+
+register_toolchains(
+    "@all_bindist_toolchains//:all",
+)
+
+stack_snapshot = use_extension(
+    "@rules_haskell//extensions:stack_snapshot.bzl",
+    "stack_snapshot",
+)
+stack_snapshot.stack_snapshot_json(
+    label = "//hs:stackage_snapshot.json",
+)
+stack_snapshot.snapshot(
+    local_snapshot = "//hs:stackage_snapshot.yaml",
+)
+stack_snapshot.package(
+    name = "ShellCheck",
+    components = [
+        "lib",
+        "exe:shellcheck",
+    ],
+)
+use_repo(
+    stack_snapshot,
+    "stackage",
+    "stackage-exe",
+    "stackage-unpinned",
+)

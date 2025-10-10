@@ -19,7 +19,12 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 
 ## Setup
 
-- Install packages: `sudo dnf install clang clang-format java-latest-openjdk-devel rust mesa-libGL-devel go Xvfb swiftc`
+- Install packages:
+  ```sh
+  sudo dnf install \
+    clang clang-format java-latest-openjdk-devel rust mesa-libGL-devel go \
+    Xvfb swiftc python3 gmp-devel
+  ```
 - Install bazel: https://bazel.build/install/bazelisk
 - Install nvm: https://github.com/nvm-sh/nvm
 - Install node: `nvm install node`

@@ -36,6 +36,9 @@ common:java21 --java_language_version=21
 
 common:java21 --java_runtime_version=remotejdk_21
 
+# rules_haskell fix
+common --noincompatible_disallow_ctx_resolve_tools
+
 # Allow isolated extensions
 # https://github.com/stefanpenner/rules_go/blob/master/docs/go/core/bzlmod.md#depending-on-tools
 common --experimental_isolated_extension_usages

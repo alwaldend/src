@@ -16,7 +16,6 @@ bazel_dep(name = "com_nordicsemi_developer_nrfsdk", version = "15.3.0")
 bazel_dep(name = "com-github-aldanial-cloc", version = "2.04.0")
 bazel_dep(name = "org-openssl-openssl", version = "3.5.0")
 bazel_dep(name = "us-nasm-nasm", version = "2.15.05")
-# bazel_dep(name = "rules_haskell", version = "1.0-patched")
 
 ## includes
 
@@ -36,6 +35,7 @@ include("//ansible:deps.MODULE.bazel")
 include("//bzl/rules/helm:deps.MODULE.bazel")
 include("//helm:deps.MODULE.bazel")
 include("//hugo:deps.MODULE.bazel")
+include("//hs:deps.MODULE.bazel")
 
 ### toolchains
 

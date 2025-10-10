@@ -1,0 +1,18 @@
+load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
+
+al_git_changelog(
+    name = "changelog",
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "patches",
+    srcs = glob(["*.patch"]),
+    visibility = ["//visibility:public"],
+)
+
+al_bzl_target_doc(
+    name = "bazel_target_doc",
+    visibility = ["//visibility:public"],
+)

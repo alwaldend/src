@@ -55,16 +55,6 @@ local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl"
 
 al_repo_map = use_extension("//bzl/rules/repo_map:al_repo_map.bzl", "al_repo_map")
 al_repo_map.download(
-    name = "com_github_koalaman_shellcheck",
-    build_file_native_binary = {"src": "shellcheck"},
-    repos = {
-        "linux_x86_64": [
-            "url=https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz",
-            "integrity=sha256-bIgasGmOTm6iNSRfIoMoYFRPF7o4ZEL+fp1in4y+34c=",
-        ],
-    },
-)
-al_repo_map.download(
     name = "com_github_gohugoio_hugo",
     build_file_native_binary = {"src": "hugo"},
     repos = {
@@ -89,5 +79,4 @@ use_repo(
     al_repo_map,
     "com_github_gohugoio_hugo_linux_amd64",
     "com_github_jgraph_drawio_desktop_linux_x86_64",
-    "com_github_koalaman_shellcheck_linux_x86_64",
 )
