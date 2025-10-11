@@ -4,3 +4,5 @@ al_helm_deps.from_lock(
     helm_lock = "//:helm_lock.json",
 )
 use_repo(al_helm_deps, "com_rancher_releases_rancher")
+
+register_toolchains("//bzl/rules/helm:toolchain_remote_linux_amd64")

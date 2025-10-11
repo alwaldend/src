@@ -1,5 +1,11 @@
 GCC_ARM_VERSION = "10.3-2021.10"
 
+bazel_dep(name = "com-github-georgewfraser-java-language-server", version = "2025.520.0")
+bazel_dep(name = "com_nordicsemi_developer_nrfsdk", version = "15.3.0")
+bazel_dep(name = "com-github-aldanial-cloc", version = "2.04.0")
+bazel_dep(name = "org-openssl-openssl", version = "3.5.0")
+bazel_dep(name = "us-nasm-nasm", version = "2.15.05")
+
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 al_git_repo = use_repo_rule("//bzl/rules/git:al_git_repo.bzl", "al_git_repo")
@@ -80,3 +86,9 @@ use_repo(
     "com_github_gohugoio_hugo_linux_amd64",
     "com_github_jgraph_drawio_desktop_linux_x86_64",
 )
+
+register_toolchains("//bzl/rules/qt:toolchain_local_linux_gcc_64")
+
+register_toolchains("//bzl/rules/git:toolchain_local")
+
+register_toolchains("//bzl/rules/shellcheck:toolchain_remote_linux_x86_64")

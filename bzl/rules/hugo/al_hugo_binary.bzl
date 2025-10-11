@@ -16,7 +16,7 @@ def _impl(ctx):
     )
     script_content = """\
         #!/usr/bin/env sh
-        set -eux
+        set -eu
         {env_script}
         if [ ! -f '{site_archive}' ]; then
             cd "${{0}}.runfiles/{workspace_name}"

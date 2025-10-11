@@ -28,13 +28,13 @@ _BUILD_FLAGS = [
     "build",
     "--logLevel",
     "debug",
-    # "--panicOnWarning",
-    # "--buildDrafts",
-    # "--buildExpired",
-    # "--buildFuture",
+    "--panicOnWarning",
+    "--buildDrafts",
+    "--buildExpired",
+    "--buildFuture",
     "--printI18nWarnings",
     "--printPathWarnings",
-    # "--printUnusedTemplates",
+    # "--printUnusedTemplates", /404.html is unused
     "--destination",
     "{}/k8-fastbuild/bin/{}/{}".format(
         "/".join([".."] * 7),

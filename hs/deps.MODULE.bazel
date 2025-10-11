@@ -1,9 +1,9 @@
 bazel_dep(name = "rules_haskell")
-
 # local_path_override(
 #     module_name = "rules_haskell",
-#     path = "../../github.com/tweag/rules_haskell",
+#     path = "../fork_com_github_tweag_rules_haskell",
 # )
+
 archive_override(
     module_name = "rules_haskell",
     integrity = "sha256-Sa3Rl+2VNXeURuPkwh+XBWEgZYM3rFYauGb90A2lMHg=",

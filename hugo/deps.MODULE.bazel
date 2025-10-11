@@ -25,3 +25,5 @@ http_archive(
     strip_prefix = "bootstrap-5.3.7",
     urls = ["https://github.com/twbs/bootstrap/archive/refs/tags/v5.3.7.tar.gz"],
 )
+
+register_toolchains("//bzl/rules/hugo:toolchain_remote_linux_amd64")

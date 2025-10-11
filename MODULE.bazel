@@ -4,21 +4,6 @@ module(
     compatibility_level = 1,
 )
 
-### bazel_dep: https://bcr.bazel.build
-
-bazel_dep(name = "rules_oci", version = "2.2.6")
-bazel_dep(name = "rules_android", version = "0.6.6")
-
-### bazel_dep: file://%workspace%/bzl/registry
-
-bazel_dep(name = "com-github-georgewfraser-java-language-server", version = "2025.520.0")
-bazel_dep(name = "com_nordicsemi_developer_nrfsdk", version = "15.3.0")
-bazel_dep(name = "com-github-aldanial-cloc", version = "2.04.0")
-bazel_dep(name = "org-openssl-openssl", version = "3.5.0")
-bazel_dep(name = "us-nasm-nasm", version = "2.15.05")
-
-## includes
-
 include("//js:deps.MODULE.bazel")
 include("//rs:deps.MODULE.bazel")
 include("//py:deps.MODULE.bazel")
@@ -30,23 +15,12 @@ include("//proto:deps.MODULE.bazel")
 include("//cpp:deps.MODULE.bazel")
 include("//java:deps.MODULE.bazel")
 include("//kt:deps.MODULE.bazel")
+include("//kt/android:deps.MODULE.bazel")
 include("//tools:deps.MODULE.bazel")
 include("//ansible:deps.MODULE.bazel")
 include("//bzl/rules/helm:deps.MODULE.bazel")
 include("//helm:deps.MODULE.bazel")
 include("//hugo:deps.MODULE.bazel")
 include("//hs:deps.MODULE.bazel")
-
-### toolchains
-
-register_toolchains("//bzl/rules/qt:toolchain_local_linux_gcc_64")
-
-register_toolchains("//bzl/rules/hugo:toolchain_remote_linux_amd64")
-
-register_toolchains("//bzl/rules/git:toolchain_local")
-
-register_toolchains("//bzl/rules/drawio:toolchain_remote_linux_x86_64")
-
-register_toolchains("//bzl/rules/shellcheck:toolchain_remote_linux_x86_64")
-
-register_toolchains("//bzl/rules/helm:toolchain_remote_linux_amd64")
+include("//oci:deps.MODULE.bazel")
+include("//drawio:deps.MODULE.bazel")

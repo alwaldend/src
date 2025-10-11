@@ -1,0 +1,1 @@
+register_toolchains("//bzl/rules/drawio:toolchain_remote_linux_x86_64")
