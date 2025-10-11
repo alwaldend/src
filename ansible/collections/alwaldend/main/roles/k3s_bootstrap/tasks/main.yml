@@ -1,4 +1,5 @@
-- tags:
+- name: Bootstrap k3s
+  tags:
     - k3s_bootstrap
   block:
     - name: Ensure python3-venv is present
@@ -8,11 +9,11 @@
         state: present
     - name: Create venv
       ansible.builtin.pip:
-        name: 
+        name:
           - kubernetes
-        virtualenv: "{{ k3s_bootstrap_venv_dir }}" 
+        virtualenv: "{{ k3s_bootstrap_venv_dir }}"
         virtualenv_command: python3 -m venv
-    - name: Create kubernetes resources 
+    - name: Create kubernetes resources
       kubernetes.core.k8s:
         definition: "{{ lookup('kubernetes.core.kustomize', dir=k3s_bootstrap_apply_path) }}"
         kubeconfig: "{{ k3s_bootstrap_kubeconfig }}"
@@ -51,9 +52,9 @@
       ansible.builtin.command:
         argv:
           - kubectl
-          - config 
-          - set-cluster 
-          - "{{ k3s_bootstrap_cluster_name | mandatory }}" 
+          - config
+          - set-cluster
+          - "{{ k3s_bootstrap_cluster_name | mandatory }}"
           - "--server=https://127.0.0.1:{{ k3s_bootstrap_cluster_port | mandatory }}"
           - "--certificate-authority={{ k3s_bootstrap_cluster_ca_path }}"
     - name: Add the user to kubeconfig
@@ -62,9 +63,9 @@
       ansible.builtin.command:
         argv:
           - kubectl
-          - config 
-          - set-credentials 
-          - "{{ k3s_bootstrap_user_name }}" 
+          - config
+          - set-credentials
+          - "{{ k3s_bootstrap_user_name }}"
           - "--token={{ k3s_bootstrap_token.resources[0].data['token'] | mandatory | b64decode }}"
     - name: Add the context to kubeconfig
       delegate_to: localhost
@@ -73,7 +74,7 @@
         argv:
           - kubectl
           - config
-          - set-context 
+          - set-context
           - "{{ k3s_bootstrap_cluster_name }}"
-          - "--cluster={{ k3s_bootstrap_cluster_name }}" 
+          - "--cluster={{ k3s_bootstrap_cluster_name }}"
           - "--user={{ k3s_bootstrap_user_name }}"
