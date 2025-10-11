@@ -1,6 +1,16 @@
 load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
+load("@rules_license//rules:license.bzl", "license")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
+
+license(
+    name = "license",
+    license_kinds = [
+        "@rules_license//licenses/spdx:AGPL-3.0",
+    ],
+    license_text = "//:LICENSE.txt",
+    visibility = ["//visibility:public"],
+)
 
 al_git_changelog(
     name = "changelog",
