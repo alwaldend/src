@@ -1,6 +1,6 @@
 ---
 title: DNSControl
-description: DNSControl
+description: DNSControl tree
 cascade:
   - categories:
       - dnscontrol
@@ -8,4 +8,6 @@ cascade:
 
 ## Links
 
-- Docs: https://docs.dnscontrol.org/
+- Website: https://dnscontrol.org
+- Docs: https://docs.dnscontrol.org
+- Rules: [../bzl/rules/dnscontrol]

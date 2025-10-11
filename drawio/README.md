@@ -1,6 +1,6 @@
 ---
 title: Drawio
-description: Drawio diagrams
+description: Drawio tree
 cascade:
   - categories:
       - drawio
@@ -8,4 +8,5 @@ cascade:
 
 ## Links
 
-- https://draw.io/
+- Website: https://draw.io
+- Rules: [../bzl/rules/drawio]

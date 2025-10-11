@@ -1,5 +1,6 @@
 ---
-title: Images
+title: Img
+description: Image tree
 cascade:
   - categories:
       - img

@@ -1,7 +1,6 @@
 bazel_dep(name = "rules_java", version = "7.12.2")
 bazel_dep(name = "contrib_rules_jvm", version = "0.30.0")
 bazel_dep(name = "rules_jvm_external", version = "6.8")
-bazel_dep(name = "bazel_worker_java", version = "0.0.6")
 
 maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(
@@ -22,7 +21,7 @@ maven.install(
         "org.sonatype.nexus:nexus-rapture:3.70.1-02",
         "org.sonatype.nexus:nexus-security:3.70.1-02",
     ],
-    lock_file = "//:maven-lock.json",
+    lock_file = "//java:maven-lock.json",
     repositories = [
         "https://repo1.maven.org/maven2",
         "https://maven.google.com",

@@ -1,7 +1,11 @@
 ---
 title: Sql
-description: Sql projects
+description: Sql tree
 cascade:
   - categories:
       - sql
 ---
+
+## Links
+
+- Docs: https://en.wikipedia.org/wiki/SQL
