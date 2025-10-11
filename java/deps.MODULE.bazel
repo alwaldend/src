@@ -21,7 +21,7 @@ maven.install(
         "org.sonatype.nexus:nexus-rapture:3.70.1-02",
         "org.sonatype.nexus:nexus-security:3.70.1-02",
     ],
-    lock_file = "//java:maven-lock.json",
+    lock_file = "//java:maven_lock.json",
     repositories = [
         "https://repo1.maven.org/maven2",
         "https://maven.google.com",

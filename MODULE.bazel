@@ -19,6 +19,7 @@ bazel_dep(name = "us-nasm-nasm", version = "2.15.05")
 
 ## includes
 
+include("//js:deps.MODULE.bazel")
 include("//rs:deps.MODULE.bazel")
 include("//py:deps.MODULE.bazel")
 include("//pl:deps.MODULE.bazel")
@@ -28,7 +29,6 @@ include("//bzl:deps.MODULE.bazel")
 include("//proto:deps.MODULE.bazel")
 include("//cpp:deps.MODULE.bazel")
 include("//java:deps.MODULE.bazel")
-include("//js:deps.MODULE.bazel")
 include("//kt:deps.MODULE.bazel")
 include("//tools:deps.MODULE.bazel")
 include("//ansible:deps.MODULE.bazel")

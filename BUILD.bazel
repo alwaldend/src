@@ -75,7 +75,7 @@ npm_link_all_packages(
 )
 
 # gazelle:exclude **/leetcode-submissions/**
-# gazelle:java_maven_install_file //java:maven-lock.json
+# gazelle:java_maven_install_file //java:maven_lock.json
 # gazelle:resolve java javax.annotation @com_alwaldend_src_maven//:org_apache_tomcat_annotations_api
 # gazelle:resolve java org.joda.time @com_alwaldend_src_maven//:joda_time_joda_time
 # gazelle:resolve java org.joda.time.format @com_alwandend_src_maven//:joda_time_joda_time

@@ -12,8 +12,8 @@ al_git_changelog(
 pkg_filegroup(
     name = "content",
     srcs = [
+        ":git_source_files",  # do not sort
         ":content_src",
-        ":git_source_files",
         "//:bazel_target_doc",
         "//:changelog",
         "//ansible/collections/alwaldend/main/roles:docs",

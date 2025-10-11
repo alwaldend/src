@@ -1,5 +1,5 @@
 ---
-title: Rust
+title: Rs
 description: Rust tree
 cascade:
   - categories:

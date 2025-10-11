@@ -1,5 +1,5 @@
 ---
-title: Bazel
+title: Bzl
 description: Bazel tree
 cascade:
   - categories:

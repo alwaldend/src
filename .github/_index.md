@@ -1,6 +1,6 @@
 ---
 title: Github
-description: Github config
+description: Github tree
 aliases:
   - /.github
 cascade:

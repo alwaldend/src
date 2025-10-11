@@ -25,7 +25,6 @@ def _impl(ctx):
         if [ -f '{git_archive}' ]; then
             tar -xf '{git_archive}'
         fi
-        which postcss
         exec '{hugo}' \
             {arguments} \
             "${{@}}"
