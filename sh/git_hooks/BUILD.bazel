@@ -9,8 +9,8 @@ al_git_changelog(
 
 genrule(
     name = "install",
-    srcs = [":pre-commit"],
-    outs = ["install-bin"],
+    srcs = [":precommit.sh"],
+    outs = ["install.sh"],
     cmd = """
 cat - >$(@) <<EOF
     #!/usr/bin/env sh

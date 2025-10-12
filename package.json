@@ -1,11 +1,11 @@
 {
+  "name": "com_alwaldend_src",
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^6.7.2",
     "autoprefixer": "^10.4.21",
-    "bootstrap": "^5.3.8",
-    "lv_font_conv": "^1.5.3",
-    "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "prettier": "^3.6.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": []
   }
 }

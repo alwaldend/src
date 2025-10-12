@@ -1,0 +1,94 @@
+<resources>
+    <string name="app_name">ATBL</string>
+
+    <string name="navigation_home">Home</string>
+    <string name="navigation_settings">Settings</string>
+    <string name="navigation_add_widget">Add widget</string>
+    <string name="navigation_edit_split_screen_shortcuts">
+        Edit split screen shortcuts
+    </string>
+
+    <string name="not_a_home_app_banner">
+        This launcher is not set as a home app, you will not be able to see shortcuts
+    </string>
+
+    <string name="drawer_app_info">Info</string>
+    <string name="drawer_app_uninstall">Uninstall</string>
+    <string name="drawer_app_hide">Hide</string>
+    <string name="drawer_app_show">Show</string>
+    <string name="drawer_app_delete_split_screen_shortcut">
+        Delete split screen shortcut
+    </string>
+
+    <string name="launcher_dialog_settings">Launcher settings</string>
+    <string name="launcher_dialog_add_widget">Add widget</string>
+    <string name="launcher_dialog_show_hidden_apps">Show hidden apps</string>
+    <string name="launcher_dialog_hide_hidden_apps">Hide hidden apps</string>
+    <string name="launcher_dialog_add_screen_after">Add screen after</string>
+    <string name="launcher_dialog_add_screen_before">Add screen before</string>
+    <string name="launcher_dialog_remove_screen">Remove screen</string>
+    <string name="launcher_dialog_edit_split_screen_shortcuts">
+        Edit split screen shortcuts
+    </string>
+
+    <string name="settings_group_general">General</string>
+    <string name="settings_group_split_screen">Split screen</string>
+    <string name="settings_group_hidden_apps">Hidden apps</string>
+    <string name="settings_group_layout">Layout</string>
+    <string name="settings_group_app_card">App card</string>
+
+    <string name="settings_backup_export">Export</string>
+    <string name="settings_backup_export_filename">atbl-settings.binpb</string>
+    <string name="settings_backup_export_label">
+        Export launcher settings
+    </string>
+    <string name="settings_backup_import">Import</string>
+    <string name="settings_backup_import_label">
+        Import launcher settings
+    </string>
+    <string name="settings_backup_reset">Reset</string>
+    <string name="settings_backup_reset_label">
+        Reset launcher settings
+    </string>
+    <string name="settings_backup_reset_confirmation">
+        Do you want to reset launcher settings?
+    </string>
+
+    <string name="settings_app_label_remove_spaces">Remove spaces</string>
+    <string name="settings_app_label_remove_spaces_label">Remove spaces in labels of
+        launcher apps</string>
+    <string name="settings_app_label_lowercase">Lowercase</string>
+    <string name="settings_app_label_lowercase_label">Make labels of
+        launcher apps lowercase</string>
+
+    <string name="settings_app_card_padding">Padding</string>
+    <string name="settings_app_card_text_style">Text style</string>
+    <string name="settings_app_card_text_color">Text color</string>
+    <string name="settings_app_card_font_family">Font family</string>
+
+    <string name="settings_layout_horizontal_arrangement">
+        Horizontal arrangement
+    </string>
+    <string name="settings_layout_vertical_arrangement">
+        Vertical arrangement
+    </string>
+    <string name="settings_layout_sort_by">Sort apps by</string>
+    <string name="settings_layout_reverse_order">Reverse</string>
+    <string name="settings_layout_horizontal_padding">Horizontal
+        screen padding</string>
+    <string name="settings_layout_vertical_padding">Vertical screen
+        padding</string>
+    <string name="settings_layout_reverse_order_label">Reverse order of
+        displayed apps</string>
+
+    <string name="settings_hidden_apps">Hidden apps</string>
+    <string name="settings_split_screen_shortcuts">
+        Split screen shortcuts
+    </string>
+    <string name="settings_split_screen_shortcut_separator">
+        Split screen shortcut separator
+    </string>
+
+    <string name="settings_choice_dialog_ok">OK</string>
+    <string name="settings_choice_dialog_cancel">Cancel</string>
+</resources>

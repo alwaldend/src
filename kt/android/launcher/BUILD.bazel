@@ -1,0 +1,76 @@
+load("@rules_android//android:rules.bzl", "android_library")
+load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
+load("@rules_kotlin//kotlin:core.bzl", "kt_compiler_plugin")
+load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_import")
+load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
+
+_PACKAGE = "com.alwaldend.src.kt.android.launcher"
+
+al_git_changelog(
+    name = "changelog",
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "manifest",
+    srcs = ["AndroidManifest.xml"],
+)
+
+kt_compiler_plugin(
+    name = "jetpack_compose_compiler_plugin",
+    # data = [":stability_config.txt"],
+    id = "org.jetbrains.kotlin.android",
+    options = {
+        # "stabilityConfigurationPath": "$(execpath :stability_config.txt)",
+    },
+    target_embedded_compiler = True,
+    visibility = ["//visibility:public"],
+    deps = ["@com_alwaldend_src_maven_android//:org_jetbrains_kotlin_kotlin_compose_compiler_plugin_embeddable"],
+)
+#
+# kt_jvm_import(
+#     name = "protobuf",
+#     jar = "@com_google_protobuf_protobuf_kotlin_lite//jar",
+# )
+
+kt_android_library(
+    name = "launcher_library",
+    srcs = glob(["main/java/**/*.kt"]),
+    custom_package = _PACKAGE,
+    manifest = ":manifest",
+    plugins = [":jetpack_compose_compiler_plugin"],
+    proguard_specs = [":proguard_rules.pro"],
+    resource_files = glob(["main/res/**"]),
+    deps = [
+        "//proto/android_launcher:model_java_library",
+        "@com_alwaldend_src_maven_android//:androidx_activity_activity_compose",
+        "@com_alwaldend_src_maven_android//:androidx_compose_foundation_foundation_layout",
+        "@com_alwaldend_src_maven_android//:androidx_compose_material3_material3",
+        "@com_alwaldend_src_maven_android//:androidx_compose_runtime_runtime",
+        "@com_alwaldend_src_maven_android//:androidx_compose_ui_ui",
+        "@com_alwaldend_src_maven_android//:androidx_compose_ui_ui_tooling",
+        "@com_alwaldend_src_maven_android//:androidx_datastore_datastore",
+        "@com_alwaldend_src_maven_android//:androidx_lifecycle_lifecycle_viewmodel_compose",
+        "@com_alwaldend_src_maven_android//:androidx_navigation_navigation_compose",
+        "@com_alwaldend_src_maven_android//:com_google_protobuf_protobuf_kotlin_lite",
+    ],
+)
+
+# android_binary(
+#     name = "launcher_binary",
+#     manifest = ":manifest",
+#     manifest_values = {
+#         "minSdkVersion": "25",
+#         "versionCode": "0",
+#         "versionName": "0.0.0",
+#         "targetSdkVersion": "36",
+#         "applicationId": _PACKAGE,
+#     },
+#     deps = [":launcher_library"],
+# )
+
+al_bzl_target_doc(
+    name = "bazel_target_doc",
+    visibility = ["//visibility:public"],
+)

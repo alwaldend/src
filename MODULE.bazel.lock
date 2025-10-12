@@ -1391,14 +1391,18 @@
     "@@rules_android+//rules/android_sdk_repository:rule.bzl%android_sdk_repository_extension": {
       "general": {
         "bzlTransitiveDigest": "NAy+0M15JNVEBb8Tny6t7j3lKqTnsAMjoBB6LJ+C370=",
-        "usagesDigest": "AGzsnZ7NSQtRBU+e5FeWGka7cQpovO9UY35xm+SCtpA=",
+        "usagesDigest": "AV4DGZ3c6uSLg18bwiSX+rDi/u7m+dtSRgG7WkurDEA=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
         "generatedRepoSpecs": {
           "androidsdk": {
             "repoRuleId": "@@rules_android+//rules/android_sdk_repository:rule.bzl%_android_sdk_repository",
-            "attributes": {}
+            "attributes": {
+              "api_level": 36,
+              "build_tools_version": "36.0.0",
+              "path": ""
+            }
           }
         },
         "recordedRepoMappingEntries": []
@@ -2056,7 +2060,7 @@
     "@@rules_kotlin+//src/main/starlark/core/repositories:bzlmod_setup.bzl%rules_kotlin_extensions": {
       "general": {
         "bzlTransitiveDigest": "BpKZEsNfgjUOuN2PY8cZR/67fJnftlcLJE4ZBh7TZ58=",
-        "usagesDigest": "MuUr8937cYwHs/gXOtu14rgCs0SvEk3vOhpKwe7uBqU=",
+        "usagesDigest": "+1+Z8PD9pSVwhxISzWGBjEW23qiHjbfvn25Z9iC1LxU=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},

@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+option java_package = "com.alwaldend.src.kt.android.launcher";
+option java_outer_classname = "Model";
+
+message State {
+  Apps apps = 1;
+  Settings settings = 3;
+  bool isHomeApp = 4;
+  bool showHiddenApps = 5;
+}
+
+message App {
+  string label = 1;
+  string packageName = 2;
+  repeated AppShortcut shortcuts = 3;
+  bool isHidden = 4;
+  bytes icon = 5;
+}
+
+message Apps {
+  map<string, App> apps = 2;
+}
+
+message AppShortcut {
+  string shortcutId = 1;
+  string packageName = 2;
+  string label = 3;
+}
+
+message Settings {
+  AppCard app_card = 1;
+  Layout layout = 2;
+
+  enum SortBy {
+    SortByLabel = 0;
+  }
+  enum TextStyle {
+    DisplayLarge = 0;
+    DisplayMedium = 1;
+    DisplaySmall = 2;
+    HeadlineLarge = 3;
+    HeadlineMedium = 4;
+    HeadlineSmall = 5;
+    TitleLarge = 6;
+    TitleMedium = 7;
+    TitleSmall = 8;
+    BodyLarge = 9;
+    BodyMedium = 10;
+    BodySmall = 11;
+    LabelLarge = 12;
+    LabelMedium = 13;
+    LabelSmall = 14;
+  }
+
+  enum TextColor {
+    Unspecified = 0;
+    Black = 1;
+    DarkGray = 2;
+    Gray = 3;
+    LightGray = 5;
+    White = 6;
+    Red = 7;
+    Green = 8;
+    Blue = 9;
+    Yellow = 10;
+    Cyan = 11;
+    Magenta = 12;
+    Transparent = 13;
+  }
+  enum HorizontalArrangement {
+    HorizontalStart = 0;
+    HorizontalEnd = 1;
+    HorizontalCenter = 2;
+    HorizontalSpaceEvenly = 3;
+    HorizontalSpaceBetween = 4;
+    HorizontalSpaceAround = 5;
+  }
+  enum VerticalArrangement {
+    VerticalTop = 0;
+    VerticalBottom = 1;
+    VerticalCenter = 2;
+    VerticalSpaceEvenly = 3;
+    VerticalSpaceBetween = 4;
+    VerticalSpaceAround = 5;
+  }
+  enum FontFamily {
+    Default = 0;
+    SansSerif = 1;
+    Serif = 3;
+    Monospace = 4;
+    Cursive = 5;
+  }
+  message AppCard {
+    int32 padding = 1;
+    bool label_remove_spaces = 2;
+    bool label_lowercase = 3;
+    TextStyle text_style = 4;
+    TextColor text_color = 5;
+    FontFamily font_family = 6;
+  }
+  message Layout {
+    HorizontalArrangement horizontal_arrangement = 1;
+    VerticalArrangement vertical_arrangement = 2;
+    SortBy sort_by = 3;
+    bool reverse_order = 4;
+    int32 horizontal_padding = 5;
+    int32 vertical_padding = 6;
+  }
+}

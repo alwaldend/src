@@ -19,3 +19,7 @@ cascade:
   ```sh
   REPIN=1 bazel run @com_alwaldend_src_maven//:pin
   ```
+- Check updates:
+  ```sh
+  bazel run @com_alwaldend_src_maven//:outdated
+  ```

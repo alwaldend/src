@@ -30,8 +30,8 @@ AGPLv3, see [LICENSE](./LICENSE.txt)
 - Install node: `nvm install node`
 - Install commandline tools to `${ANDROID_HOME}/cmdline-tools/latest`: https://developer.android.com/studio#command-tools
 - Install android tools: `sdkmanager "platforms;android-36" "build-tools;36.0.0"`
-- Install qt: `bazel run //starlark/bazel/qt:install`
-- Install git hooks: `bazel run //shell/git-hooks:install`
+- Install qt: `bazel run //bzl/rules/qt:install`
+- Install git hooks: `bazel run //sh/git_hooks:install`
 
 ## Development
 

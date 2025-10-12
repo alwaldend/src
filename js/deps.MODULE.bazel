@@ -34,13 +34,23 @@ npm.npm_translate_lock(
     data = [
         "//:package.json",
         "//:pnpm-workspace.yaml",
+        "//js/tools:package.json",
     ],
     pnpm_lock = "//:pnpm-lock.yaml",
-    public_hoist_packages = {
-        "postcss": [""],
-        "postcss-cli": [""],
-        "autoprefixer": [""],
-    },
+    # public_hoist_packages = {
+    #     "postcss": [
+    #         "js/tools",
+    #         "",
+    #     ],
+    #     "postcss-cli": [
+    #         "js/tools",
+    #         "",
+    #     ],
+    #     "autoprefixer": [
+    #         "js/tools",
+    #         "",
+    #     ],
+    # },
     run_lifecycle_hooks = False,
     verify_node_modules_ignored = "//:.bazelignore",
 )

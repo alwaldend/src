@@ -1,0 +1,6 @@
+{
+  "name": "com_alwaldend_src_js_tools",
+  "devDependencies": {
+    "lv_font_conv": "^1.5.3"
+  }
+}

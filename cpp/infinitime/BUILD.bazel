@@ -81,7 +81,7 @@ al_genrule(
         done
 
 	mkdir -p "${bin_dir}" "${build_dir}" "${deps_dir}"
-        ln -s "${PWD}/$(execpath //:node_modules/lv_font_conv/dir)/lv_font_conv.js" "${bin_dir}/lv_font_conv"
+        ln -s "${PWD}/$(execpath //js/tools:node_modules/lv_font_conv/dir)/lv_font_conv.js" "${bin_dir}/lv_font_conv"
         ln -s "${PWD}/$(execpath :adafruit-nrfutil)" "${bin_dir}/adafruit-nrfutil"
         rm -rf "${deps_dir}"/*
 	tar -xf "$(find -name "*firmware-deps*" -print -quit)" -C "${deps_dir}"
@@ -112,7 +112,7 @@ al_genrule(
     tools = [
         ":adafruit-nrfutil",
         ":python-shell",
-        "//:node_modules/lv_font_conv/dir",
+        "//js/tools:node_modules/lv_font_conv/dir",
     ],
 )
 

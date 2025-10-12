@@ -21,6 +21,7 @@ maven.install(
         "org.sonatype.nexus:nexus-rapture:3.70.1-02",
         "org.sonatype.nexus:nexus-security:3.70.1-02",
     ],
+    fetch_javadoc = True,
     fetch_sources = True,
     lock_file = "//java:maven_lock.json",
     repositories = [
@@ -28,5 +29,6 @@ maven.install(
         "https://maven.google.com",
         "https://repository.sonatype.org/content/groups/sonatype-public-grid",
     ],
+    strict_visibility = True,
 )
 use_repo(maven, "com_alwaldend_src_maven")
