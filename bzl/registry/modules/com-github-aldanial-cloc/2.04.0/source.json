@@ -1,8 +1,0 @@
-{
-    "url": "https://github.com/AlDanial/cloc/releases/download/v2.04/cloc-2.04.tar.gz",
-    "strip_prefix": "cloc-2.04",
-    "integrity": "sha256-YRO86DFLpwrTx5DeQCI14M0/fVUiLiAIp2C/73cO/Ho=",
-    "overlay": {
-        "BUILD.bazel": "sha256-W0IsGWQoJe24KezGh3dtHOLNDAnsZCIXSYAk43cBh4g="
-    }
-}

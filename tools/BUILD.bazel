@@ -11,7 +11,7 @@ al_git_changelog(
 al_alias_map(
     {
         "pnpm": {"actual": "@com_alwaldend_src_pnpm//:pnpm"},
-        "cloc": {"actual": "@com-github-aldanial-cloc//:bin"},
+        "cloc": {"actual": "//pl/tools:cloc"},
         "carton": {"actual": "//pl:carton"},
         "go": {"actual": "@rules_go//go"},
         "tomlv": {"actual": "@com_github_burntsushi_toml//cmd/tomlv:tomlv"},

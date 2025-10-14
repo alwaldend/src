@@ -4,8 +4,8 @@ perl_repositories = use_extension("@rules_perl//perl:extensions.bzl", "perl_repo
 
 cpan = use_extension("@rules_perl//perl/cpan:extensions.bzl", "cpan")
 cpan.install(
-    name = "com-alwaldend-src-cpan",
-    lock = "//pl:cpanfile.snapshot.lock.json",
+    name = "com_alwaldend_src_cpan",
+    lock = "//pl/tools:cpanfile.snapshot.lock.json",
 )
 
 register_toolchains(
@@ -25,4 +25,4 @@ use_repo(
     "perl_windows_x86_64",
 )
 
-use_repo(cpan, "com-alwaldend-src-cpan")
+use_repo(cpan, "com_alwaldend_src_cpan")

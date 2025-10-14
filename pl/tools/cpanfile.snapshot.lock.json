@@ -1,0 +1,45 @@
+{
+   "Algorithm-Diff" : {
+      "dependencies" : [],
+      "sha256" : "0022da5982645d9ef0207f3eb9ef63e70e9713ed2340ed7b3850779b0d842a7d",
+      "strip_prefix" : "Algorithm-Diff-1.201",
+      "url" : "https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Algorithm-Diff-1.201.tar.gz"
+   },
+   "App-cloc" : {
+      "dependencies" : [
+         "Algorithm-Diff",
+         "Regexp-Common",
+         "Test-Compile",
+         "Test-Pod"
+      ],
+      "sha256" : "79dde34c1ee24b7aac3837a06f5e7bb4c771c7b9cf4659af47c9c52ad1fdde4b",
+      "strip_prefix" : "App-cloc-1.76",
+      "url" : "https://cpan.metacpan.org/authors/id/F/FI/FIBO/App-cloc-1.76.tar.gz"
+   },
+   "Module-Build" : {
+      "dependencies" : [],
+      "sha256" : "66aeac6127418be5e471ead3744648c766bd01482825c5b66652675f2bc86a8f",
+      "strip_prefix" : "Module-Build-0.4234",
+      "url" : "https://cpan.metacpan.org/authors/id/L/LE/LEONT/Module-Build-0.4234.tar.gz"
+   },
+   "Regexp-Common" : {
+      "dependencies" : [],
+      "sha256" : "0677afaec8e1300cefe246b4d809e75cdf55e2cc0f77c486d13073b69ab4fbdd",
+      "strip_prefix" : "Regexp-Common-2024080801",
+      "url" : "https://cpan.metacpan.org/authors/id/A/AB/ABIGAIL/Regexp-Common-2024080801.tar.gz"
+   },
+   "Test-Compile" : {
+      "dependencies" : [
+         "Module-Build"
+      ],
+      "sha256" : "df3ab30ecb51ae14a1aa9b9fc14324c969cc258ef2adacc35bc68194112da685",
+      "strip_prefix" : "Test-Compile-v3.3.3",
+      "url" : "https://cpan.metacpan.org/authors/id/E/EG/EGILES/Test-Compile-v3.3.3.tar.gz"
+   },
+   "Test-Pod" : {
+      "dependencies" : [],
+      "sha256" : "60a8dbcc60168bf1daa5cc2350236df9343e9878f4ab9830970a5dde6fe8e5fc",
+      "strip_prefix" : "Test-Pod-1.52",
+      "url" : "https://cpan.metacpan.org/authors/id/E/ET/ETHER/Test-Pod-1.52.tar.gz"
+   }
+}
