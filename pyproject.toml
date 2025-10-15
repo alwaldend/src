@@ -1,19 +1,8 @@
 [project]
-name = "com-alwaldend-src"
+name = "com_alwaldend_src"
 version = "0.0.0"
 requires-python = ">=3.10, <4"
-dependencies = [
-    "black",
-    "mypy",
-    "isort",
-    "pre-commit",
-    "flake8",
-    "flake8-pyproject",
-    "git-filter-repo",
-    "pynput",
-    "pyside6",
-    "twine",
-]
+dependencies = []
 
 [tool.pyright]
 exclude = ["**/node_modules", "**/__pycache__", "out", "bazel-*"]

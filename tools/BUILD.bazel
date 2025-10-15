@@ -12,7 +12,6 @@ al_alias_map(
     {
         "pnpm": {"actual": "@com_alwaldend_src_pnpm//:pnpm"},
         "cloc": {"actual": "//pl/tools:cloc"},
-        "carton": {"actual": "//pl:carton"},
         "go": {"actual": "@rules_go//go"},
         "tomlv": {"actual": "@com_github_burntsushi_toml//cmd/tomlv:tomlv"},
         "prettier": {"actual": "//js/tools:prettier"},
@@ -21,6 +20,12 @@ al_alias_map(
         "ansible-playbook": {"actual": "//bzl/rules/ansible:ansible_playbook"},
         "dnscontrol": {"actual": "@com_github_stackexchange_dnscontrol_v4//:v4"},
         "shellcheck": {"actual": "//hs/tools:shellcheck"},
+        "isort": {"actual": "//py/tools:isort"},
+        "mypy": {"actual": "//py/tools:mypy"},
+        "black": {"actual": "//py/tools:black"},
+        "flake8": {"actual": "//py/tools:flake8"},
+        "git_filter_repo": {"actual": "//py/tools:git-filter-repo"},
+        "twine": {"actual": "//py/tools:twine"},
     },
 )
 

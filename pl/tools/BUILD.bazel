@@ -11,9 +11,9 @@ cpan_compiler(
 
 perl_binary(
     name = "cloc",
-    srcs = ["@com_alwaldend_src_cpan//:App-cloc"],
+    main = "bin/cloc",
     visibility = ["//visibility:public"],
-    deps = ["@com_alwaldend_src_cpan//:Carton"],
+    deps = ["@com_alwaldend_src_cpan//:App-cloc"],
 )
 
 al_git_changelog(
