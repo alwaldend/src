@@ -1,4 +1,4 @@
-bazel_dep(name = "rules_perl", version = "0.4.2")
+bazel_dep(name = "rules_perl", version = "0.4.3")
 
 perl_repositories = use_extension("@rules_perl//perl:extensions.bzl", "perl_repositories")
 
