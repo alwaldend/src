@@ -1,5 +1,10 @@
-bazel_dep(name = "rules_cc", version = "0.2.9")
+bazel_dep(name = "rules_cc", version = "0.2.10")
 bazel_dep(name = "rules_foreign_cc", version = "0.15.1")
 
-# local
-bazel_dep(name = "hedron_compile_commands", version = "2024.1008.0")
+bazel_dep(name = "hedron_compile_commands", dev_dependency = True)
+archive_override(
+    module_name = "hedron_compile_commands",
+    integrity = "sha256-7B5Bk1jrI9rqsN0CBt/JMDFrrJ3pQtlOuCAZ9AICKEc=",
+    strip_prefix = "bazel-compile-commands-extractor-abb61a688167623088f8768cc9264798df6a9d10",
+    urls = ["https://github.com/hedronvision/bazel-compile-commands-extractor/archive/abb61a688167623088f8768cc9264798df6a9d10.zip"],
+)
