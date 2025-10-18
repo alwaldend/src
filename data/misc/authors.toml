@@ -297,3 +297,9 @@ name = "TK523"
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/profile/112902" },
 ]
+
+[author.zaifyr]
+name = "zaifyr"
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/profile/285838" },
+]

@@ -35,7 +35,7 @@ title = "Unintended Immortality"
 alt_titles = ["The Unintentional Path to Immortality", "我本无意成仙"]
 thumbnail = "https://cdn.novelupdates.com/images/2024/11/The-Unintentional-Path-to-Immortality.jpg"
 quality = "Good"
-reading = "Reading, chapter 447"
+reading = "Finished, C713"
 authors = ["golden-jasmine"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/the-unintentional-path-to-immortality/" },
@@ -892,4 +892,14 @@ reading = "Dropped, V3C13"
 authors = ["tk523"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/49881/dear-spellbook" },
+]
+
+[[book]]
+title = "All the Dust that Falls"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/60292-all-the-dust-that-falls.jpg"
+quality = "Ok"
+reading = "Finished, V4"
+authors = ["zaifyr"]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/60292/all-the-dust-that-falls" },
 ]
