@@ -9,6 +9,10 @@ http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "ht
 
 al_git_repo = use_repo_rule("//bzl/rules/git:al_git_repo.bzl", "al_git_repo")
 
+git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
+local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "local_repository")
+
 al_git_repo(
     name = "git",
 )
@@ -34,8 +38,6 @@ http_archive(
     urls = ["https://download.qt.io/official_releases/qt/6.9/6.9.0/single/qt-everywhere-src-6.9.0.tar.xz"],
 )
 
-git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-
 git_repository(
     name = "com_github_infinitimeorg_infinitime",
     commit = "2105a7b63da8d4065ebfc62e0057f225358eedfc",  # 1.15.0
@@ -51,10 +53,9 @@ git_repository(
     shallow_since = "1733253068 +0100",
 )
 
-local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "local_repository")
-# Uncomment if you want to use a local infinitime repository
+# Uncomment to use the local infinitime repository
 # local_repository(
-#     name = "infinitime-src",
+#     name = "com_github_infinitimeorg_infinitime",
 #     path = "~/Git/github.com/infinitimeorg/infinitime",
 # )
 
@@ -64,8 +65,8 @@ al_repo_map.download(
     build_file_native_binary = {"src": "hugo"},
     repos = {
         "linux_amd64": [
-            "url=https://github.com/gohugoio/hugo/releases/download/v0.147.8/hugo_extended_0.147.8_linux-amd64.tar.gz",
-            "integrity=sha256-l3Atc7thGimVAJ383Ag+8XNGT8yk4ZHWMTwuRlpqMSE=",
+            "url=https://github.com/gohugoio/hugo/releases/download/v{version}/hugo_extended_{version}_linux-amd64.tar.gz".format(version = "0.151.2"),
+            "integrity=sha256-YrfVSXpqdjFaxchXDUY9o30UTtzERgF32j32C7yoXSo=",
         ],
     },
 )

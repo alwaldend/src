@@ -439,7 +439,7 @@
     "//bzl/rules/repo_map:al_repo_map.bzl%al_repo_map": {
       "general": {
         "bzlTransitiveDigest": "gnod4/3J1Gv900LSjO5X/yxUNyFE9/NQO/kYS5WfiWQ=",
-        "usagesDigest": "MQhdaUInUf+Pq8UXZJ5vmaxlf2d9Ltmn19++TYLJ0BE=",
+        "usagesDigest": "H4f5Fplt+kW2Hk1vA+vJVwvg32kvM/RWA+8F+Eiluu4=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -447,8 +447,8 @@
           "com_github_gohugoio_hugo_linux_amd64": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_archive",
             "attributes": {
-              "url": "https://github.com/gohugoio/hugo/releases/download/v0.147.8/hugo_extended_0.147.8_linux-amd64.tar.gz",
-              "integrity": "sha256-l3Atc7thGimVAJ383Ag+8XNGT8yk4ZHWMTwuRlpqMSE=",
+              "url": "https://github.com/gohugoio/hugo/releases/download/v0.151.2/hugo_extended_0.151.2_linux-amd64.tar.gz",
+              "integrity": "sha256-YrfVSXpqdjFaxchXDUY9o30UTtzERgF32j32C7yoXSo=",
               "build_file_content": "\nload(\"@bazel_skylib//rules:native_binary.bzl\", \"native_binary\")\nnative_binary(\n    name = \"bin\",\n    src = glob([\"**/hugo\"])[0],\n    visibility = [\"//visibility:public\"],\n)\n",
               "strip_prefix": ""
             }
