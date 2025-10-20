@@ -3,7 +3,7 @@ package com.alwaldend.src.kt.android.launcher.ui
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -47,7 +47,7 @@ private fun LauncherTopBar(label: String, goBack: () -> Unit) {
         navigationIcon = {
             IconButton(onClick = goBack) {
                 Icon(
-                    imageVector = Icons.Filled.ArrowBack,
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = "Arrow back"
                 )
             }
