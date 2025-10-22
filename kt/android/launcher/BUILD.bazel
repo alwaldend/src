@@ -1,7 +1,8 @@
 load("@rules_android//android:rules.bzl", "android_library")
+load("@rules_java//java:java_import.bzl", "java_import")
+load("@rules_java//java:java_single_jar.bzl", "java_single_jar")
 load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
 load("@rules_kotlin//kotlin:core.bzl", "kt_compiler_plugin")
-load("@rules_kotlin//kotlin:jvm.bzl", "kt_jvm_import")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 
@@ -34,6 +35,20 @@ kt_compiler_plugin(
 #     jar = "@com_google_protobuf_protobuf_kotlin_lite//jar",
 # )
 
+java_single_jar(
+    name = "proto_jar",
+    deps = [
+        "//proto/android_launcher:model_java_library",
+    ],
+)
+
+java_import(
+    name = "proto",
+    jars = [
+        ":proto_jar",
+    ],
+)
+
 kt_android_library(
     name = "launcher_library",
     srcs = glob(["main/java/**/*.kt"]),
@@ -43,7 +58,7 @@ kt_android_library(
     proguard_specs = [":proguard_rules.pro"],
     resource_files = glob(["main/res/**"]),
     deps = [
-        "//proto/android_launcher:model_java_library",
+        ":proto",
         "@com_alwaldend_src_maven_android//:androidx_activity_activity_compose",
         "@com_alwaldend_src_maven_android//:androidx_compose_foundation_foundation_layout",
         "@com_alwaldend_src_maven_android//:androidx_compose_material3_material3",
@@ -53,22 +68,20 @@ kt_android_library(
         "@com_alwaldend_src_maven_android//:androidx_datastore_datastore",
         "@com_alwaldend_src_maven_android//:androidx_lifecycle_lifecycle_viewmodel_compose",
         "@com_alwaldend_src_maven_android//:androidx_navigation_navigation_compose",
-        # "@protobuf//:protobuf_javalite",
+        "@protobuf//:protobuf_javalite",
     ],
 )
 
-# android_binary(
-#     name = "launcher_binary",
-#     manifest = ":manifest",
-#     manifest_values = {
-#         "minSdkVersion": "25",
-#         "versionCode": "0",
-#         "versionName": "0.0.0",
-#         "targetSdkVersion": "36",
-#         "applicationId": _PACKAGE,
-#     },
-#     deps = [":launcher_library"],
-# )
+android_binary(
+    name = "launcher_binary",
+    manifest = ":manifest",
+    manifest_values = {
+        "versionCode": "0",
+        "versionName": "0.0.0",
+        "applicationId": _PACKAGE,
+    },
+    deps = [":launcher_library"],
+)
 
 al_bzl_target_doc(
     name = "bazel_target_doc",

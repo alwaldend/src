@@ -1,4 +1,8 @@
 bazel_dep(name = "rules_android", version = "0.6.6")
+local_path_override(
+    module_name = "rules_android",
+    path = "../../github.com/bazelbuild/rules_android",
+)
 
 remote_android_extensions = use_extension(
     "@rules_android//bzlmod_extensions:android_extensions.bzl",

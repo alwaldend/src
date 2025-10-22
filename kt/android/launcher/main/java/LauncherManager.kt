@@ -24,7 +24,7 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-// import com.google.protobuf.ByteString
+import com.google.protobuf.ByteString
 import java.io.ByteArrayOutputStream
 
 
@@ -157,16 +157,16 @@ class LauncherManager(
             .setLabel(info.loadLabel(packageManager).toString())
             .setPackageName(info.packageName)
             .addAllShortcuts(getAppShortcuts(info.packageName))
-            // .setIcon(compressIcon(info.loadIcon(packageManager)))
+            .setIcon(compressIcon(info.loadIcon(packageManager)))
             .build()
     }
 
-    // private fun compressIcon(icon: Drawable): ByteString {
-    //     val stream = ByteArrayOutputStream()
-    //     icon.toBitmap(config = Bitmap.Config.ARGB_8888)
-    //         .compress(Bitmap.CompressFormat.PNG, 100, stream)
-    //     return ByteString.copyFrom(stream.toByteArray())
-    // }
+    private fun compressIcon(icon: Drawable): ByteString {
+        val stream = ByteArrayOutputStream()
+        icon.toBitmap(config = Bitmap.Config.ARGB_8888)
+            .compress(Bitmap.CompressFormat.PNG, 100, stream)
+        return ByteString.copyFrom(stream.toByteArray())
+    }
 
     fun fetchAllApps(): Model.Apps {
         val queryResults = queryPackageManager(
