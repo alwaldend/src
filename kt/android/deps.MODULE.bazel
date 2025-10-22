@@ -28,6 +28,8 @@ maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(
     name = "com_alwaldend_src_maven_android",
     artifacts = [
+        # Missing guava fix
+        "com.google.guava:guava:33.5.0-android",
         # Collection
         "androidx.collection:collection:1.4.2",
         "androidx.collection:collection-jvm:1.4.2",

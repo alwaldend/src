@@ -25,7 +25,7 @@
         android:appCategory="accessibility"
         tools:targetApi="36">
         <activity
-            android:name="com.alwaldend.src.launcher.MainActivity"
+            android:name="com.alwaldend.src.kt.android.launcher.MainActivity"
             android:clearTaskOnLaunch="true"
             android:excludeFromRecents="true"
             android:exported="true"

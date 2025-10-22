@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ATBL</string>
+    <string name="app_name">Alwaldend launcher</string>
 
     <string name="navigation_home">Home</string>
     <string name="navigation_settings">Settings</string>
@@ -38,7 +38,7 @@
     <string name="settings_group_app_card">App card</string>
 
     <string name="settings_backup_export">Export</string>
-    <string name="settings_backup_export_filename">atbl-settings.binpb</string>
+    <string name="settings_backup_export_filename">alwaldend_launcher_settings.binpb</string>
     <string name="settings_backup_export_label">
         Export launcher settings
     </string>

@@ -69,6 +69,7 @@ kt_android_library(
         "@com_alwaldend_src_maven_android//:androidx_datastore_datastore",
         "@com_alwaldend_src_maven_android//:androidx_lifecycle_lifecycle_viewmodel_compose",
         "@com_alwaldend_src_maven_android//:androidx_navigation_navigation_compose",
+        "@com_alwaldend_src_maven_android//:com_google_guava_guava",
         "@protobuf//:protobuf_javalite",
     ],
 )
