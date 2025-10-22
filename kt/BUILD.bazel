@@ -5,7 +5,7 @@ load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 define_kt_toolchain(
     name = "kotlin_toolchain",
     api_version = "1.9",
-    jvm_target = "1.8",
+    jvm_target = "21",
     language_version = "1.9",
 )
 

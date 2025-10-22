@@ -1,3 +1,4 @@
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_android//android:rules.bzl", "android_library")
 load("@rules_java//java:java_import.bzl", "java_import")
 load("@rules_java//java:java_single_jar.bzl", "java_single_jar")
@@ -81,6 +82,13 @@ android_binary(
         "applicationId": _PACKAGE,
     },
     deps = [":launcher_library"],
+)
+
+build_test(
+    name = "test_builds",
+    targets = [
+        ":launcher_binary",
+    ],
 )
 
 al_bzl_target_doc(

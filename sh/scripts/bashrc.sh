@@ -59,6 +59,7 @@ export HTTPS_PROXY="${all_proxy}"
 
 # android sdk
 export ANDROID_HOME="${HOME}/Android/Sdk"
+export ANDROID_NDK_HOME="${HOME}/Android/Ndk"
 ### path edits
 export GOPATH="${HOME}/.go"
 if [ -L "/usr/java/latest" ]; then

@@ -81,6 +81,9 @@ common --repo_env=CC=clang
 # enable the shell worker
 common --strategy=Shell=worker
 
+# android
+common --android_platforms=//bzl/configs:android_arm64
+
 ### aspects
 
 # common --config=al_print_deps
