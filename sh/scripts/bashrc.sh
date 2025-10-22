@@ -101,6 +101,7 @@ d_add_to_path_front \
     "${ANDROID_HOME}/tools/bin" \
     "${ANDROID_HOME}/cmdline-tools/latest/bin" \
     "${ANDROID_HOME}/platform-tools" \
+    "${ANDROID_HOME}/../platform-tools" \
     /usr/java/latest/bin \
     /usr/mvn/latest/bin \
     /opt/nvim-linux-x86_64/bin

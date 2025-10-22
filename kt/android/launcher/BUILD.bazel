@@ -51,12 +51,12 @@ java_import(
 
 kt_android_library(
     name = "launcher_library",
-    srcs = glob(["main/java/**/*.kt"]),
+    srcs = glob(["main/**/*.kt"]),
     custom_package = _PACKAGE,
     manifest = ":manifest",
     plugins = [":jetpack_compose_compiler_plugin"],
     proguard_specs = [":proguard_rules.pro"],
-    resource_files = glob(["main/res/**"]),
+    resource_files = glob(["res/**"]),
     deps = [
         ":proto",
         "@com_alwaldend_src_maven_android//:androidx_activity_activity_compose",
