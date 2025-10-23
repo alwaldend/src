@@ -32,6 +32,7 @@ al_git_changelog(
                 "---",
                 "title: Leetcode submissions",
                 "description: Leetcode submissions",
+                "tags: [generated]",
                 "---",
             ],
         ),

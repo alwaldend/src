@@ -11,9 +11,16 @@ def al_bzl_target_doc(name, visibility, subpackages = []):
         subpackages (list[str]): list of subpackages
         **kwargs: al_md_data kwargs
     """
-    if not subpackages:
-        subpackages = native.subpackages(include = ["*"], allow_empty = True)
     package_name = native.package_name()
+    if not subpackages:
+        exclude = []
+        if not package_name:
+            exclude.append("bazel-src")
+        subpackages = native.subpackages(
+            include = ["**"],
+            exclude = exclude,
+            allow_empty = True,
+        )
     srcs = native.existing_rules()
     if package_name:
         package_dir = package_name.split("/")[-1]
@@ -84,10 +91,10 @@ def al_bzl_target_doc(name, visibility, subpackages = []):
     pkg_files(
         name = "{}.docs".format(name),
         srcs = docs,
+        prefix = native.package_name(),
     )
     pkg_filegroup(
         name = name,
-        prefix = package_dir,
         srcs = [":{}.docs".format(name)] + [
             "{}{}:{}".format(package_name_prefix, dep, name)
             for dep in subpackages

@@ -13,19 +13,6 @@ load("//bzl/rules/md:al_md_data.bzl", "al_md_data")
 load("//bzl/rules/toml:al_toml_data.bzl", "al_toml_data")
 load("//bzl/rules/txt:al_txt_data.bzl", "al_txt_data")
 
-_EXCLUDE = [
-    "./.git/**/*",
-    "bazel-*",
-    "out",
-    ".venv",
-]
-
-_SUBPACKAGES = subpackages(
-    include = ["*"],
-    allow_empty = True,
-    exclude = _EXCLUDE,
-)
-
 exports_files(["LICENSE.txt"])
 
 npm_link_all_packages(
@@ -34,7 +21,6 @@ npm_link_all_packages(
 
 al_git_changelog(
     name = "changelog",
-    subpackages = _SUBPACKAGES,
     visibility = ["//:__subpackages__"],
 )
 
@@ -52,13 +38,11 @@ al_toml_data(
 
 buildifier(
     name = "buildifier",
-    exclude_patterns = _EXCLUDE,
 )
 
 buildifier_test(
     name = "buildifier_test",
     size = "small",
-    exclude_patterns = _EXCLUDE,
     no_sandbox = True,
     workspace = "//:BUILD.bazel",
 )
@@ -118,6 +102,5 @@ EOF
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    subpackages = _SUBPACKAGES,
     visibility = ["//:__subpackages__"],
 )

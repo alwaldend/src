@@ -1,8 +1,8 @@
 title = "Docs"
 theme = ["github.com/google/docsy"]
 baseURL = "http://127.0.0.1:1313/src"
-# defaultContentLanguage = "en"
-# defaultContentLanguageInSubdir = true
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = true
 
 enableRobotsTXT = true
 enableGitInfo = false
@@ -72,3 +72,7 @@ target = "content"
 [[module.mounts]]
 source = "content/.github"
 target = "content/github"
+
+[[module.mounts]]
+source = "content/hugo/sites/docs/content/misc"
+target = "content/misc"

@@ -3,6 +3,6 @@
   "strip_prefix": "openssl-3.5.0",
   "integrity": "sha256-NE0KefGpsIApsHROLMQBpD+ckKzRBE0JpTC0iFqOn8A=",
   "overlay": {
-    "BUILD.bazel": "sha256-h1DdGDPwH6VNlWZNrEFq9zBdGBihhzMaX6Cw4becVkM="
+    "BUILD.bazel": "sha256-VvOhvY8YN/ca2ydSiRGHPIec+2qi7iHJFMwZYKTKYPE="
   }
 }

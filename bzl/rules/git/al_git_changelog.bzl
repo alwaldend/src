@@ -30,9 +30,16 @@ def al_git_changelog(name, visibility, git_binary = "@git//:git", subpackages = 
         visibility: visibility
         subpackages: subpackages
     """
-    if not subpackages:
-        subpackages = native.subpackages(include = ["*"], allow_empty = True)
     package_name = native.package_name()
+    if not subpackages:
+        exclude = []
+        if not package_name:
+            exclude.append("bazel-src")
+        subpackages = native.subpackages(
+            include = ["**"],
+            exclude = exclude,
+            allow_empty = True,
+        )
     if package_name:
         package_dir = package_name.split("/")[-1]
         package_name_prefix = "//{}/".format(package_name)
@@ -86,6 +93,7 @@ def al_git_changelog(name, visibility, git_binary = "@git//:git", subpackages = 
     pkg_files(
         name = "{}.changelog_files".format(name),
         srcs = ["{}.changelog".format(name)],
+        prefix = native.package_name(),
     )
     pkg_filegroup(
         name = name,
@@ -94,5 +102,4 @@ def al_git_changelog(name, visibility, git_binary = "@git//:git", subpackages = 
             "{}{}:{}".format(package_name_prefix, dep, name)
             for dep in subpackages
         ],
-        prefix = package_dir,
     )

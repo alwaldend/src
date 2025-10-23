@@ -99,7 +99,7 @@ pkg_tar(
 pkg_filegroup(
     name = "docs_data",
     srcs = [":docs_data_files"],
-    prefix = package_name(),
+    prefix = "data/{}".format(package_name()),
 )
 
 pkg_files(

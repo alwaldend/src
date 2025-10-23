@@ -19,7 +19,7 @@ proto_library(
 
 go_proto_library(
     name = "leetcode_downloader_go_proto",
-    importpath = "git.alwaldend.com/src/proto/leetcode-downloader",
+    importpath = "git.alwaldend.com/src/proto/leetcode_downloader",
     proto = ":leetcode_downloader_proto",
     visibility = ["//:__subpackages__"],
 )
@@ -45,11 +45,4 @@ java_library(
 al_bzl_target_doc(
     name = "bazel_target_doc",
     visibility = ["//:__subpackages__"],
-)
-
-go_library(
-    name = "leetcode-downloader",
-    embed = [":leetcode_downloader_go_proto"],
-    importpath = "git.alwaldend.com/src/proto/leetcode-downloader",
-    visibility = ["//visibility:public"],
 )
