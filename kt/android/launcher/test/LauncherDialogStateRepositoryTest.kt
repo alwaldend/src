@@ -1,4 +1,4 @@
-package com.alwaldend.src.android.launcher
+package com.alwaldend.src.kt.android.launcher
 
 import androidx.datastore.core.DataStore
 import kotlinx.coroutines.flow.Flow
@@ -7,9 +7,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import java.io.ByteArrayInputStream
+import org.robolectric.RobolectricTestRunner
+import org.junit.Test
+import org.junit.Before
+import org.junit.runner.RunWith
 
 private class DataStoreMock(state: Model.State) : DataStore<Model.State> {
 
@@ -20,13 +22,15 @@ private class DataStoreMock(state: Model.State) : DataStore<Model.State> {
     }
 }
 
+
+@RunWith(RobolectricTestRunner::class)
 class LauncherDialogStateRepositoryTest {
 
     private lateinit var repoDefault: LauncherStateRepository
     private lateinit var repoEmpty: LauncherStateRepository
     private lateinit var repoWithApps: LauncherStateRepository
 
-    @BeforeEach
+    @Before
     fun setUp() {
         repoDefault = LauncherStateRepository(
             dataStore = DataStoreMock(Defaults.State)

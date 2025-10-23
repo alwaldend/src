@@ -1,9 +1,5 @@
-load("@bazel_skylib//rules:build_test.bzl", "build_test")
-load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
-
-_PACKAGE = "com.alwaldend.src.kt.android.launcher"
 
 filegroup(
     name = "manifest",
@@ -20,48 +16,6 @@ filegroup(
 al_git_changelog(
     name = "changelog",
     visibility = ["//:__subpackages__"],
-)
-
-kt_android_library(
-    name = "launcher_library",
-    srcs = ["//kt/android/launcher/main"],
-    custom_package = _PACKAGE,
-    manifest = ":manifest",
-    plugins = ["//kt/android:jetpack_compose_compiler_plugin"],
-    proguard_specs = [":proguard"],
-    resource_files = ["//kt/android/launcher/res"],
-    deps = [
-        "//proto/android_launcher:model_java_import",
-        "@com_alwaldend_src_maven_android//:androidx_activity_activity_compose",
-        "@com_alwaldend_src_maven_android//:androidx_compose_foundation_foundation_layout",
-        "@com_alwaldend_src_maven_android//:androidx_compose_material3_material3",
-        "@com_alwaldend_src_maven_android//:androidx_compose_runtime_runtime",
-        "@com_alwaldend_src_maven_android//:androidx_compose_ui_ui",
-        "@com_alwaldend_src_maven_android//:androidx_compose_ui_ui_tooling",
-        "@com_alwaldend_src_maven_android//:androidx_datastore_datastore",
-        "@com_alwaldend_src_maven_android//:androidx_lifecycle_lifecycle_viewmodel_compose",
-        "@com_alwaldend_src_maven_android//:androidx_navigation_navigation_compose",
-        "@com_alwaldend_src_maven_android//:com_google_guava_listenablefuture",
-        "@protobuf//:protobuf_javalite",
-    ],
-)
-
-android_binary(
-    name = "launcher_binary",
-    manifest = ":manifest",
-    manifest_values = {
-        "versionCode": "0",
-        "versionName": "0.0.0",
-        "applicationId": _PACKAGE,
-    },
-    deps = [":launcher_library"],
-)
-
-build_test(
-    name = "test_builds",
-    targets = [
-        ":launcher_binary",
-    ],
 )
 
 al_bzl_target_doc(

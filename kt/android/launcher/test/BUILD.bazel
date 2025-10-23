@@ -1,3 +1,4 @@
+load("@rules_kotlin//kotlin:android.bzl", "kt_android_local_test")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 
@@ -5,6 +6,23 @@ al_git_changelog(
     name = "changelog",
     visibility = ["//:__subpackages__"],
 )
+
+[
+    kt_android_local_test(
+        name = "{}_test".format(file.replace(".kt", "")),
+        size = "small",
+        srcs = [file],
+        manifest = "//kt/android/launcher:manifest",
+        test_class = "com.alwaldend.src.kt.android.launcher.{}".format(file.replace(".kt", "")),
+        deps = [
+            "//kt/android/launcher/main:launcher_library",
+            "@com_alwaldend_src_maven_android//:junit_junit",
+            "@com_alwaldend_src_maven_android//:org_robolectric_robolectric",
+            "@rules_robolectric//bazel:android-all",
+        ],
+    )
+    for file in glob(["**/*.kt"])
+]
 
 # load("@rules_android//android:rules.bzl", "android_instrumentation_test", "android_library")
 #
