@@ -11,20 +11,8 @@ def _impl(ctx):
         for info, _ in symlink[PackageFilegroupInfo].pkg_files:
             runfiles_symlinks.update(info.dest_src_map)
 
-    runfiles = ctx.runfiles(
-        files = runfiles_files,
-        transitive_files = depset(transitive = [
-            ansible[DefaultInfo].default_runfiles.files,
-            ansible[DefaultInfo].data_runfiles.files,
-        ]),
-        symlinks = runfiles_symlinks,
-    )
-
-    # this merge doesn't work for some reason
-    runfiles.merge_all([
-        ansible[DefaultInfo].default_runfiles,
-        ansible[DefaultInfo].data_runfiles,
-    ])
+    runfiles = ctx.runfiles(files = runfiles_files, symlinks = runfiles_symlinks)
+    runfiles = runfiles.merge_all([ansible[DefaultInfo].default_runfiles])
 
     args = []
     args.extend(ctx.attr.arguments)

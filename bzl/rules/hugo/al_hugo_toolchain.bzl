@@ -3,7 +3,7 @@ def _impl(ctx):
         "HUGO": ctx.executable.hugo.path,
     }
     runfiles = ctx.runfiles(files = ctx.files.hugo)
-    runfiles.merge(ctx.attr.hugo[DefaultInfo].default_runfiles)
+    runfiles = runfiles.merge(ctx.attr.hugo[DefaultInfo].default_runfiles)
     default_info = DefaultInfo(
         files = depset(ctx.files.hugo),
         runfiles = runfiles,

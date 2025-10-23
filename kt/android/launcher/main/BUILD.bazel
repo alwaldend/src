@@ -4,7 +4,7 @@ load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 filegroup(
     name = "main",
     srcs = glob(["**/*.kt"]),
-    visibility = ["//:__subpackages__"],
+    visibility = ["//kt/android/launcher:__subpackages__"],
 )
 
 al_git_changelog(

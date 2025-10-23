@@ -12,11 +12,7 @@ def _impl(ctx):
         chart = ctx.attr.chart[AlHelmChartInfo]
         runfiles_symlinks.update(chart.files_info.dest_src_map)
 
-    runfiles = ctx.runfiles(
-        files = runfiles_files,
-        transitive_files = helm.default_info.default_runfiles.files,
-        symlinks = runfiles_symlinks,
-    )
+    runfiles = ctx.runfiles(files = runfiles_files, symlinks = runfiles_symlinks)
 
     args = []
     args.extend(ctx.attr.arguments)
