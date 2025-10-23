@@ -27,7 +27,9 @@ class MainActivity : ComponentActivity() {
         app.manager.addCallback(
             onChanged = { packageName ->
                 lifecycleScope.launch {
-                    app.stateRepo.reloadApp(app.manager.getApp(packageName))
+                    app.manager.getApp(packageName)?.let {
+                        app.stateRepo.reloadApp(it)
+                    }
                 }
             },
             onRemoved = { packageName ->

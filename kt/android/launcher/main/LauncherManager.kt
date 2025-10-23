@@ -138,16 +138,14 @@ class LauncherManager(
         }
     }
 
-    fun getApp(packageName: String): Model.App {
+    fun getApp(packageName: String): Model.App? {
         val queryResults = queryPackageManager(
             Intent(ACTION_MAIN, null)
                 .addCategory(Intent.CATEGORY_LAUNCHER)
                 .setPackage(packageName)
         )
         if (queryResults.isEmpty()) {
-            throw IllegalArgumentException(
-                "could not fetch $packageName - empty queryResults"
-            )
+            return null
         }
         return infoToApp(queryResults[0].activityInfo)
     }

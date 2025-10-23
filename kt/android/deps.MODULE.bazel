@@ -41,7 +41,7 @@ maven.install(
     name = "com_alwaldend_src_maven_android",
     artifacts = [
         # Fix for listenablefuture being resolved to 9999.0-empty-to-avoid-conflict-with-guava
-        "com.google.guava:listenablefuture:1.0",
+        "com.google.guava:guava:33.5.0-android",
         # Collection
         "androidx.collection:collection:1.4.2",
         "androidx.collection:collection-jvm:1.4.2",
