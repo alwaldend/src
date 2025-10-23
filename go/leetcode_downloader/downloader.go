@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	proto "git.alwaldend.com/src/proto/leetcode-downloader"
+	proto "git.alwaldend.com/src/proto/leetcode_downloader"
 )
 
 const SUBMISSIONS_REQUEST_LIMIT = 20

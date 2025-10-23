@@ -1,5 +1,5 @@
 def _al_genrule_impl(ctx):
-    flagfile = ctx.actions.declare_file(ctx.label.name + "-flagfile")
+    flagfile = ctx.actions.declare_file("{}.flagfile.txt".format(ctx.label.name))
     cmd = ctx.expand_location(ctx.attr.cmd)
     runfiles = ctx.runfiles(files = ctx.files.data + ctx.files.tools)
     transitive_runfiles = []
@@ -52,7 +52,7 @@ _al_genrule_attrs = {
     "set_flags": attr.string_list(doc = "set flags", default = ["-eux"]),
     "shell": attr.string(doc = "shell to use", default = "/bin/sh"),
     "worker": attr.label(
-        default = Label("//go/bazel-shell-worker"),
+        default = "//go/bazel_shell_worker",
         executable = True,
         allow_single_file = True,
         cfg = "exec",

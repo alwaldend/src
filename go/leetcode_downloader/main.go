@@ -11,9 +11,9 @@ import (
 	"os/signal"
 	"strings"
 
-	proto "git.alwaldend.com/src/proto/leetcode-downloader"
+	proto "git.alwaldend.com/src/proto/leetcode_downloader"
 
-	"git.alwaldend.com/src/go/leetcode-downloader/model"
+	"git.alwaldend.com/src/go/leetcode_downloader/model"
 )
 
 func Run(

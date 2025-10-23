@@ -1,6 +1,7 @@
+load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
 load("@rules_go//go:def.bzl", "go_library")
 load("@rules_go//proto:def.bzl", "go_proto_library")
-load("@rules_java//java:defs.bzl", "java_library", "java_proto_library")
+load("@rules_java//java:defs.bzl", "java_library")
 load("@rules_java//java:java_import.bzl", "java_import")
 load("@rules_java//java:java_single_jar.bzl", "java_single_jar")
 load("@rules_proto//proto:defs.bzl", "proto_library")

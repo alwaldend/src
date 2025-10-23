@@ -1,6 +1,7 @@
+load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
 load("@rules_go//go:def.bzl", "go_library")
 load("@rules_go//proto:def.bzl", "go_proto_library")
-load("@rules_java//java:defs.bzl", "java_library", "java_proto_library")
+load("@rules_java//java:defs.bzl", "java_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
@@ -24,9 +25,9 @@ go_proto_library(
 )
 
 go_library(
-    name = "leetcode-downloader",
+    name = "leetcode_downloader",
     embed = [":leetcode_downloader_go_proto"],
-    importpath = "git.alwaldend.com/src/proto/leetcode-downloader",
+    importpath = "git.alwaldend.com/src/proto/leetcode_downloader",
     visibility = ["//:__subpackages__"],
 )
 
@@ -44,4 +45,11 @@ java_library(
 al_bzl_target_doc(
     name = "bazel_target_doc",
     visibility = ["//:__subpackages__"],
+)
+
+go_library(
+    name = "leetcode-downloader",
+    embed = [":leetcode_downloader_go_proto"],
+    importpath = "git.alwaldend.com/src/proto/leetcode-downloader",
+    visibility = ["//visibility:public"],
 )

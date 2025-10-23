@@ -11,9 +11,9 @@ go_library(
     name = "model",
     srcs = ["main.go"],
     embedsrcs = ["config.json"],
-    importpath = "git.alwaldend.com/src/go/leetcode-downloader/model",
+    importpath = "git.alwaldend.com/src/go/leetcode_downloader/model",
     visibility = ["//:__subpackages__"],
-    deps = ["//proto/leetcode-downloader"],
+    deps = ["//proto/leetcode_downloader"],
 )
 
 al_bzl_target_doc(

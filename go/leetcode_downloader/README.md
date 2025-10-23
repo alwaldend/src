@@ -10,7 +10,7 @@ description: CLI app to download leetcode submissions
 ### Generate submission from a submission file
 
 ```sh
-bazel run go/leetcode-downloader -- \
+bazel run go/leetcode_downloader -- \
     --submissions-file "${PWD}/out/submissions.json" \
     --root-dir "${PWD}" \
     generate

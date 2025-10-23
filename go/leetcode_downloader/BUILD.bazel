@@ -8,25 +8,26 @@ al_git_changelog(
 )
 
 go_library(
-    name = "bazel-shell-worker_lib",
+    name = "leetcode_downloader_lib",
     srcs = [
         "cmd.go",
+        "downloader.go",
+        "generator.go",
         "main.go",
-        "worker.go",
-        "worker_protocol.go",
+        "repo.go",
     ],
-    importpath = "git.alwaldend.com/src/go/bazel-shell-worker",
+    importpath = "git.alwaldend.com/src/go/leetcode_downloader",
     visibility = ["//visibility:private"],
     deps = [
-        "//proto/bazel-worker:worker_protocol",
-        "@com_github_spf13_cobra//:cobra",
-        "@org_golang_google_protobuf//encoding/protodelim",
+        "//go/leetcode_downloader/model",
+        "//proto/leetcode_downloader",
+        "@com_github_burntsushi_toml//:toml",
     ],
 )
 
 go_binary(
-    name = "bazel-shell-worker",
-    embed = [":bazel-shell-worker_lib"],
+    name = "leetcode_downloader",
+    embed = [":leetcode_downloader_lib"],
     visibility = ["//:__subpackages__"],
 )
 
