@@ -6,7 +6,7 @@ load("//bzl/rules/py:al_py_checkers.bzl", "al_py_checkers")
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 filegroup(
@@ -21,19 +21,19 @@ al_py_checkers(
 py_library(
     name = "library",
     srcs = ["bazel_python_shell.py"],
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 py_binary(
     name = "binary",
     srcs = [":library"],
     main = "bazel_python_shell.py",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 py_binary(

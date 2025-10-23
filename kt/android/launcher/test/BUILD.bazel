@@ -1,0 +1,20 @@
+load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
+
+al_git_changelog(
+    name = "changelog",
+    visibility = ["//:__subpackages__"],
+)
+
+# load("@rules_android//android:rules.bzl", "android_instrumentation_test", "android_library")
+#
+# android_instrumentation_test(
+#     name = "inst",
+#     target_device = "@android_test_support//tools/android/emulated_devices/generic_phone:android_36_x86",
+#     test_app = "//kt/android/launcher:launcher_binary",
+# )
+
+al_bzl_target_doc(
+    name = "bazel_target_doc",
+    visibility = ["//:__subpackages__"],
+)

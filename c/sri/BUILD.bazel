@@ -6,7 +6,7 @@ load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 cc_library(
@@ -19,7 +19,7 @@ cc_library(
 
 cc_binary(
     name = "bin",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
     deps = [":lib"],
 )
 
@@ -65,5 +65,5 @@ cc_library(
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

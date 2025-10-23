@@ -35,19 +35,19 @@ npm_link_all_packages(
 al_git_changelog(
     name = "changelog",
     subpackages = _SUBPACKAGES,
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 al_txt_data(
     name = "editorconfig",
     srcs = [".editorconfig"],
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 al_toml_data(
     name = "pyproject",
     srcs = ["pyproject.toml"],
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 buildifier(
@@ -83,7 +83,7 @@ gazelle_binary(
         "@contrib_rules_jvm//java/gazelle",
         "@rules_python_gazelle_plugin//python:python",
     ],
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 refresh_compile_commands(
@@ -119,5 +119,5 @@ EOF
 al_bzl_target_doc(
     name = "bazel_target_doc",
     subpackages = _SUBPACKAGES,
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

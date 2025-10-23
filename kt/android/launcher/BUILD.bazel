@@ -1,65 +1,37 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
-load("@rules_android//android:rules.bzl", "android_library")
-load("@rules_java//java:java_import.bzl", "java_import")
-load("@rules_java//java:java_single_jar.bzl", "java_single_jar")
 load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
-load("@rules_kotlin//kotlin:core.bzl", "kt_compiler_plugin")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 
 _PACKAGE = "com.alwaldend.src.kt.android.launcher"
 
-al_git_changelog(
-    name = "changelog",
-    visibility = ["//visibility:public"],
-)
-
 filegroup(
     name = "manifest",
     srcs = ["AndroidManifest.xml"],
+    visibility = [":__subpackages__"],
 )
 
-kt_compiler_plugin(
-    name = "jetpack_compose_compiler_plugin",
-    # data = [":stability_config.txt"],
-    id = "org.jetbrains.kotlin.android",
-    options = {
-        # "stabilityConfigurationPath": "$(execpath :stability_config.txt)",
-    },
-    target_embedded_compiler = True,
-    visibility = ["//visibility:public"],
-    deps = ["@com_alwaldend_src_maven_android//:org_jetbrains_kotlin_kotlin_compose_compiler_plugin_embeddable"],
-)
-#
-# kt_jvm_import(
-#     name = "protobuf",
-#     jar = "@com_google_protobuf_protobuf_kotlin_lite//jar",
-# )
-
-java_single_jar(
-    name = "proto_jar",
-    deps = [
-        "//proto/android_launcher:model_java_library",
-    ],
+filegroup(
+    name = "proguard",
+    srcs = ["proguard_rules.pro"],
+    visibility = [":__subpackages__"],
 )
 
-java_import(
-    name = "proto",
-    jars = [
-        ":proto_jar",
-    ],
+al_git_changelog(
+    name = "changelog",
+    visibility = ["//:__subpackages__"],
 )
 
 kt_android_library(
     name = "launcher_library",
-    srcs = glob(["main/**/*.kt"]),
+    srcs = ["//kt/android/launcher/main"],
     custom_package = _PACKAGE,
     manifest = ":manifest",
-    plugins = [":jetpack_compose_compiler_plugin"],
-    proguard_specs = [":proguard_rules.pro"],
-    resource_files = glob(["res/**"]),
+    plugins = ["//kt/android:jetpack_compose_compiler_plugin"],
+    proguard_specs = [":proguard"],
+    resource_files = ["//kt/android/launcher/res"],
     deps = [
-        ":proto",
+        "//proto/android_launcher:model_java_import",
         "@com_alwaldend_src_maven_android//:androidx_activity_activity_compose",
         "@com_alwaldend_src_maven_android//:androidx_compose_foundation_foundation_layout",
         "@com_alwaldend_src_maven_android//:androidx_compose_material3_material3",
@@ -69,7 +41,7 @@ kt_android_library(
         "@com_alwaldend_src_maven_android//:androidx_datastore_datastore",
         "@com_alwaldend_src_maven_android//:androidx_lifecycle_lifecycle_viewmodel_compose",
         "@com_alwaldend_src_maven_android//:androidx_navigation_navigation_compose",
-        "@com_alwaldend_src_maven_android//:com_google_guava_guava",
+        "@com_alwaldend_src_maven_android//:com_google_guava_listenablefuture",
         "@protobuf//:protobuf_javalite",
     ],
 )
@@ -94,5 +66,5 @@ build_test(
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

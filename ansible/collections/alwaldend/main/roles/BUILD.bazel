@@ -8,7 +8,7 @@ _ROLES = subpackages(
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 pkg_filegroup(
@@ -18,7 +18,7 @@ pkg_filegroup(
         role,
     ) for role in _ROLES],
     prefix = "roles",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 pkg_filegroup(
@@ -28,10 +28,10 @@ pkg_filegroup(
         role,
     ) for role in _ROLES],
     prefix = package_name(),
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

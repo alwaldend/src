@@ -35,7 +35,7 @@ config_setting(
     flag_values = {
         "@bazel_tools//tools/cpp:compiler": "msvc-cl",
     },
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 alias(
@@ -44,7 +44,7 @@ alias(
         ":msvc_compiler": "openssl_msvc",
         "//conditions:default": "openssl_default",
     }),
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 configure_make_variant(
@@ -126,12 +126,12 @@ filegroup(
     name = "gen_dir",
     srcs = [":openssl"],
     output_group = "gen_dir",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 runnable_binary(
     name = "openssl-bin",
     binary = "openssl",
     foreign_cc_target = "@org-openssl-openssl//:openssl",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

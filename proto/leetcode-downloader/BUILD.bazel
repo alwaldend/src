@@ -7,27 +7,27 @@ load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 proto_library(
     name = "leetcode_downloader_proto",
     srcs = ["types.proto"],
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 go_proto_library(
     name = "leetcode_downloader_go_proto",
     importpath = "git.alwaldend.com/src/proto/leetcode-downloader",
     proto = ":leetcode_downloader_proto",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 go_library(
     name = "leetcode-downloader",
     embed = [":leetcode_downloader_go_proto"],
     importpath = "git.alwaldend.com/src/proto/leetcode-downloader",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 java_proto_library(
@@ -43,5 +43,5 @@ java_library(
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

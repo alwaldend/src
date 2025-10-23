@@ -6,9 +6,16 @@ al_git_changelog(
     visibility = ["//:__subpackages__"],
 )
 
-package_group(
-    name = "docs",
-    packages = ["//hugo/sites/docs/..."],
+filegroup(
+    name = "res",
+    srcs = glob(
+        ["**"],
+        exclude = [
+            "BUILD.bazel",
+            "README.md",
+        ],
+    ),
+    visibility = ["//:__subpackages__"],
 )
 
 al_bzl_target_doc(

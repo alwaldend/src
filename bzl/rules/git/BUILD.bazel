@@ -5,7 +5,7 @@ load(":al_git_toolchain.bzl", "al_git_toolchain")
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 al_bzl_library_map(
@@ -34,25 +34,25 @@ al_bzl_library_map(
             "@bazel_skylib//lib:paths",
         ],
     },
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 filegroup(
     name = "git_log_config",
     srcs = ["git_log_config.yaml"],
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 toolchain_type(
     name = "toolchain_type",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 toolchain(
     name = "toolchain_local",
     toolchain = ":toolchain_local_impl",
     toolchain_type = ":toolchain_type",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 al_git_toolchain(
@@ -62,5 +62,5 @@ al_git_toolchain(
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

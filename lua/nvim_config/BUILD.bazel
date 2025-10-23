@@ -6,7 +6,7 @@ load("//bzl/rules/lua:al_lua_library.bzl", "al_lua_library")
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 al_lua_library(
@@ -22,7 +22,7 @@ al_lua_library(
 pkg_tar(
     name = "nvim_config_install",
     package_dir = ".config/nvim",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
     deps = [":lib"],
 )
 
@@ -35,5 +35,5 @@ al_install_file(
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

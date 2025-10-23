@@ -5,7 +5,7 @@ load(":al_drawio_toolchain.bzl", "al_drawio_toolchain")
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 al_bzl_library_map(
@@ -14,19 +14,19 @@ al_bzl_library_map(
         "al_drawio_run_binary": [],
         "al_drawio_toolchain": [],
     },
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 toolchain_type(
     name = "toolchain_type",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 toolchain(
     name = "toolchain_remote_linux_x86_64",
     toolchain = "toolchain_remote_linux_x86_64_impl",
     toolchain_type = ":toolchain_type",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 al_drawio_toolchain(
@@ -40,5 +40,5 @@ al_drawio_toolchain(
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

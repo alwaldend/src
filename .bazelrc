@@ -264,6 +264,9 @@ test --incompatible_exclusive_test_sandboxed
 # detching remote cache results
 test --experimental_fetch_all_coverage_outputs
 
+# Use local emulator for android tests: https://bazel.build/docs/android-instrumentation-test#testing-local-emulator
+# test --test_arg=--device_broker_type=LOCAL_ADB_SERVER
+
 ### test:debug
 
 # Stream stdout/stderr output from each test in real-time.

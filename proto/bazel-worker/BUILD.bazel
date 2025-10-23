@@ -7,27 +7,27 @@ load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 proto_library(
     name = "worker_protocol_proto",
     srcs = ["worker_protocol.proto"],
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 go_proto_library(
     name = "worker_protocol_go_proto",
     importpath = "git.alwaldend.com/src/proto/bazel-worker/worker_protocol",
     proto = ":worker_protocol_proto",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 go_library(
     name = "worker_protocol",
     embed = [":worker_protocol_go_proto"],
     importpath = "git.alwaldend.com/src/proto/bazel-worker/worker_protocol",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 java_proto_library(
@@ -43,5 +43,5 @@ java_library(
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

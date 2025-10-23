@@ -4,7 +4,7 @@ load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 pkg_filegroup(
@@ -19,7 +19,7 @@ pkg_filegroup(
         "//ansible/collections/alwaldend/main:collection",
     ],
     prefix = "collections/ansible_collections",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 pkg_files(
@@ -66,5 +66,5 @@ pkg_files(
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

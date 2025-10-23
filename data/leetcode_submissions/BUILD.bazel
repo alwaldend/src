@@ -15,7 +15,7 @@ _LANGS = [
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 [
@@ -51,10 +51,10 @@ pkg_files(
 pkg_filegroup(
     name = "leetcode_submissions",
     srcs = [":leetcode_submissions_docs"] + ["leetcode_submissions.{}".format(lang) for lang in _LANGS],
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

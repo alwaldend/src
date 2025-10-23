@@ -8,14 +8,14 @@ load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 exports_files(
     [
         "BUILD.openssl.bazel",
     ],
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 alias(
@@ -76,5 +76,5 @@ test_suite(
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

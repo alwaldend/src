@@ -6,7 +6,7 @@ load("//bzl/rules/toml:al_toml_data.bzl", "al_toml_data")
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 exports_files(["requirements.txt"])
@@ -14,7 +14,7 @@ exports_files(["requirements.txt"])
 al_toml_data(
     name = "pyproject",
     srcs = ["pyproject.toml"],
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 PACKAGES = {
@@ -30,7 +30,7 @@ PACKAGES = {
     py_console_script_binary(
         name = package,
         pkg = "@com_alwaldend_src_pip//{}:pkg".format(package.replace("-", "_")),
-        visibility = ["//visibility:public"],
+        visibility = ["//:__subpackages__"],
         deps = kwargs.get("deps", []),
     )
     for package, kwargs in PACKAGES.items()
@@ -46,5 +46,5 @@ compile_pip_requirements(
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

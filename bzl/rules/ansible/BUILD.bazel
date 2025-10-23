@@ -19,7 +19,7 @@ _SCRIPTS = [
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 al_bzl_library_map(
@@ -35,7 +35,7 @@ al_bzl_library_map(
             "@bazel_skylib//lib:paths",
         ],
     },
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 compile_pip_requirements(
@@ -49,12 +49,12 @@ compile_pip_requirements(
         name = script.replace("-", "_"),
         pkg = "@com_alwaldend_src_bzl_rules_ansible_pip//ansible_core:pkg",
         script = script,
-        visibility = ["//visibility:public"],
+        visibility = ["//:__subpackages__"],
     )
     for script in _SCRIPTS
 ]
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

@@ -5,7 +5,7 @@ load("//bzl/rules/sh:al_sh_library.bzl", "al_sh_library")
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 al_sh_library(
@@ -81,5 +81,5 @@ sh_binary(
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

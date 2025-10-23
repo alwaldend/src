@@ -10,7 +10,7 @@ load("//bzl/rules/toml:al_toml_data.bzl", "al_toml_data")
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 al_hugo_site(
@@ -80,7 +80,7 @@ al_http_server_binary(
 pkg_tar(
     name = "docs_archive",
     srcs = [":docs"],
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 pkg_tar(
@@ -123,5 +123,5 @@ al_toml_data(
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

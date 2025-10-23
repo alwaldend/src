@@ -1,5 +1,17 @@
 bazel_dep(name = "rules_android", version = "0.6.6")
 bazel_dep(name = "rules_android_ndk", version = "0.1.3")
+bazel_dep(name = "rules_robolectric", version = "4.16")
+
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+ATS_COMMIT = "7d0422556f915dccd6186d2fcf71f7407085a043"
+
+http_archive(
+    name = "android_test_support",
+    integrity = "sha256-bvdHuEkPyEdL78MtZQ290xV1kqinBEMnh3MLDlq7Q5c=",
+    strip_prefix = "android-test-{}".format(ATS_COMMIT),
+    urls = ["https://github.com/android/android-test/archive/{}.tar.gz".format(ATS_COMMIT)],
+)
 
 remote_android_extensions = use_extension(
     "@rules_android//bzlmod_extensions:android_extensions.bzl",
@@ -28,8 +40,8 @@ maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
 maven.install(
     name = "com_alwaldend_src_maven_android",
     artifacts = [
-        # Missing guava fix
-        "com.google.guava:guava:33.5.0-android",
+        # Fix for listenablefuture being resolved to 9999.0-empty-to-avoid-conflict-with-guava
+        "com.google.guava:listenablefuture:1.0",
         # Collection
         "androidx.collection:collection:1.4.2",
         "androidx.collection:collection-jvm:1.4.2",
@@ -64,8 +76,10 @@ maven.install(
         "androidx.lifecycle:lifecycle-service:2.6.2",
         "androidx.lifecycle:lifecycle-process:2.6.2",
         "androidx.lifecycle:lifecycle-reactivestreams-ktx:2.6.2",
-        # datastore
+        # Datastore
         "androidx.datastore:datastore:1.1.7",
+        # Robolectric
+        "org.robolectric:robolectric:4.16",
         # junit
         "androidx.test.ext:junit-ktx:1.3.0",
         "androidx.test.espresso:espresso-core:3.6.1",

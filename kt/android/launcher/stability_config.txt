@@ -1,1 +1,1 @@
-com.alwaldend.src.android.launcher.Model.*
+com.alwaldend.src.kt.android.launcher.Model.*

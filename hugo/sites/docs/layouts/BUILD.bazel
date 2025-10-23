@@ -6,7 +6,7 @@ pkg_filegroup(
     name = "layouts",
     srcs = [":layouts_files"],
     prefix = "layouts",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 pkg_files(
@@ -17,10 +17,10 @@ pkg_files(
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

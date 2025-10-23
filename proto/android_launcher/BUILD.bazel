@@ -1,33 +1,35 @@
 load("@rules_go//go:def.bzl", "go_library")
 load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_library", "java_proto_library")
+load("@rules_java//java:java_import.bzl", "java_import")
+load("@rules_java//java:java_single_jar.bzl", "java_single_jar")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 proto_library(
     name = "model_proto",
     srcs = ["model.proto"],
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 go_proto_library(
     name = "model_go_proto",
     importpath = "git.alwaldend.com/src/proto/android_launcher",
     proto = ":model_proto",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 go_library(
     name = "android_launcher",
     embed = [":model_go_proto"],
     importpath = "git.alwaldend.com/src/proto/android_launcher",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 java_proto_library(
@@ -41,7 +43,23 @@ java_library(
     exports = [":model_java_proto"],
 )
 
+java_single_jar(
+    name = "model_single_jar",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        ":model_java_library",
+    ],
+)
+
+java_import(
+    name = "model_java_import",
+    jars = [
+        ":model_single_jar",
+    ],
+    visibility = ["//:__subpackages__"],
+)
+
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

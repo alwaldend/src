@@ -9,12 +9,12 @@ license(
         "@rules_license//licenses/spdx:AGPL-3.0",
     ],
     license_text = "//:LICENSE.txt",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 config_setting(
@@ -51,5 +51,5 @@ bool_flag(
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

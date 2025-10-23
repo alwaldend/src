@@ -13,7 +13,7 @@ pkg_filegroup(
     name = "docs",
     srcs = ["{}.doc".format(diagram) for diagram, _ in _DIAGRAMS.items()],
     prefix = package_name(),
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 [
@@ -61,10 +61,10 @@ pkg_filegroup(
 
 al_git_changelog(
     name = "changelog",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 al_bzl_target_doc(
     name = "bazel_target_doc",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
