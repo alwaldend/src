@@ -36,3 +36,12 @@ use_repo(
     com_alwaldend_src_stackage_tools_exe = "stackage-exe",
     com_alwaldend_src_stackage_tools_unpinned = "stackage-unpinned",
 )
+
+## Perl
+
+cpan = use_extension("@rules_perl//perl/cpan:extensions.bzl", "cpan")
+cpan.install(
+    name = "com_alwaldend_src_cpan_tools",
+    lock = "//tools:cpanfile.snapshot.lock.json",
+)
+use_repo(cpan, "com_alwaldend_src_cpan_tools")

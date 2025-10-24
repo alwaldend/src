@@ -31,6 +31,11 @@ bazel_dep(name = "aspect_rules_js", version = "2.6.2")
 # Rust
 bazel_dep(name = "rules_rust", version = "0.66.0")
 
+# Java
+bazel_dep(name = "rules_java", version = "8.6.1")
+bazel_dep(name = "contrib_rules_jvm", version = "0.30.0")
+bazel_dep(name = "rules_jvm_external", version = "6.7")
+
 # C, C++
 bazel_dep(name = "rules_cc", version = "0.2.11")
 bazel_dep(name = "rules_foreign_cc", version = "0.15.1")
@@ -69,10 +74,9 @@ bazel_dep(name = "com_github_georgewfraser_java_language_server", version = "202
 include("//js:deps.MODULE.bazel")
 include("//tools:tools.MODULE.bazel")
 include("//py:deps.MODULE.bazel")
-include("//pl:deps.MODULE.bazel")
 include("//go:deps.MODULE.bazel")
 include("//bzl:deps.MODULE.bazel")
-include("//java:deps.MODULE.bazel")
+include("//projects/nsp:nsp.MODULE.bazel")
 include("//kt:deps.MODULE.bazel")
 include("//kt/android:deps.MODULE.bazel")
 include("//tools:deps.MODULE.bazel")
@@ -116,3 +120,24 @@ llvm.toolchain(
 use_repo(llvm, "llvm_toolchain")
 
 register_toolchains("@llvm_toolchain//:all")
+
+# Perl
+
+perl_repositories = use_extension("@rules_perl//perl:extensions.bzl", "perl_repositories")
+
+register_toolchains(
+    "@rules_perl//perl:perl_darwin_arm64_toolchain",
+    "@rules_perl//perl:perl_darwin_amd64_toolchain",
+    "@rules_perl//perl:perl_linux_amd64_toolchain",
+    "@rules_perl//perl:perl_linux_arm64_toolchain",
+    "@rules_perl//perl:perl_windows_x86_64_toolchain",
+)
+
+use_repo(
+    perl_repositories,
+    "perl_darwin_amd64",
+    "perl_darwin_arm64",
+    "perl_linux_amd64",
+    "perl_linux_arm64",
+    "perl_windows_x86_64",
+)

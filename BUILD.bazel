@@ -88,7 +88,7 @@ cat - >$(execpath :update_readme_bin) <<EOF
     replacement=\\$($(rootpath //go/readme-tree) parse -C "\\${dir}" -e "md/docs/src" -g -o markdown .)
     $(rootpath //py/replace-section) -i -s README_CONTENTS -r "\\${replacement}" "\\${dir}/README.md"
     exit
-    replacement=\\$($(rootpath //tools:cloc) --md $(git -C "\\${dir}" ls-files | sed "s,/.*,/," | uniq | xargs -I "{}" echo "\\${dir}/{}"))
+    replacement=\\$($(rootpath //tools/cloc) --md $(git -C "\\${dir}" ls-files | sed "s,/.*,/," | uniq | xargs -I "{}" echo "\\${dir}/{}"))
     $(rootpath //py/replace-section) -i -s CLOC -r "\\${replacement}" "\\${dir}/README.md"
 EOF
     """,
@@ -96,7 +96,7 @@ EOF
     tools = [
         "//go/readme-tree",
         "//py/replace-section",
-        "//tools:cloc",
+        "//tools/cloc",
     ],
 )
 

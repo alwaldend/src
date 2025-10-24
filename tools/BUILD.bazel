@@ -1,4 +1,5 @@
 load("@aspect_rules_lint//format:defs.bzl", "format_multirun")
+load("@rules_perl//perl/cpan:cpan_compiler.bzl", "cpan_compiler")
 load("//bzl/rules/bzl:al_alias_map.bzl", "al_alias_map")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
@@ -8,10 +9,15 @@ al_git_changelog(
     visibility = ["//:__subpackages__"],
 )
 
+cpan_compiler(
+    name = "cpan_lock",
+    cpanfile = ":cpanfile",
+    lockfile = ":cpanfile.snapshot.lock.json",
+)
+
 al_alias_map(
     {
         "pnpm": {"actual": "@com_alwaldend_src_pnpm//:pnpm"},
-        "cloc": {"actual": "//pl/tools:cloc"},
         "go": {"actual": "@rules_go//go"},
         "tomlv": {"actual": "@com_github_burntsushi_toml//cmd/tomlv:tomlv"},
         "prettier": {"actual": "//js/tools:prettier"},

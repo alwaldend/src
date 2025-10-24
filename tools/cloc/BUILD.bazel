@@ -1,9 +1,17 @@
+load("@rules_perl//perl:perl_binary.bzl", "perl_binary")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 
 al_git_changelog(
     name = "changelog",
     visibility = ["//:__subpackages__"],
+)
+
+perl_binary(
+    name = "cloc",
+    main = "bin/cloc",
+    visibility = ["//:__subpackages__"],
+    deps = ["@com_alwaldend_src_cpan_tools//:App-cloc"],
 )
 
 al_bzl_target_doc(
