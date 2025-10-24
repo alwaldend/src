@@ -72,7 +72,6 @@ include("//py:deps.MODULE.bazel")
 include("//pl:deps.MODULE.bazel")
 include("//go:deps.MODULE.bazel")
 include("//bzl:deps.MODULE.bazel")
-include("//cpp:deps.MODULE.bazel")
 include("//java:deps.MODULE.bazel")
 include("//kt:deps.MODULE.bazel")
 include("//kt/android:deps.MODULE.bazel")
@@ -86,6 +85,7 @@ include("//drawio:deps.MODULE.bazel")
 ## Toolchains
 
 # Hashell
+
 haskell_toolchains = use_extension(
     "@rules_haskell//extensions:haskell_toolchains.bzl",
     "haskell_toolchains",
@@ -106,3 +106,13 @@ use_repo(
 register_toolchains(
     "@all_bindist_toolchains//:all",
 )
+
+# CC
+
+llvm = use_extension("@toolchains_llvm//toolchain/extensions:llvm.bzl", "llvm")
+llvm.toolchain(
+    llvm_version = "21.1.0",
+)
+use_repo(llvm, "llvm_toolchain")
+
+register_toolchains("@llvm_toolchain//:all")

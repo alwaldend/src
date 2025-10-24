@@ -9,7 +9,7 @@ al_git_changelog(
 
 pkg_tar(
     name = "res",
-    srcs = ["//cpp/useless_qt_gui/main/res"],
+    srcs = ["//projects/useless_qt_gui/main/res"],
     package_dir = "img",
 )
 

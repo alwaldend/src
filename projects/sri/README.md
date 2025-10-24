@@ -1,6 +1,9 @@
 ---
-title: SRI
+title: Sri
 description: Cli app for subresource integrity calculation
+tags:
+  - c
+  - cli
 ---
 
 ## Links
@@ -14,7 +17,7 @@ Usage: sri [OPTION...]
 Generate sri of a file
 
 Example:
-    bazel run //c/sri:bin -- --digest sha256 --file ${PWD}/README.md
+    bazel run //projects/sri:bin -- --digest sha256 --file ${PWD}/README.md
 
   -d, --digest=String        Digest type (sha256, for example)
   -f, --file=Path            Path to the file to parse

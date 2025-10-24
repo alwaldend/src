@@ -13,9 +13,9 @@ pip.parse(
     requirements_lock = "//bzl/rules/ansible:requirements.txt",
 )
 pip.parse(
-    hub_name = "com_alwaldend_src_cpp_infinitime_pip",
+    hub_name = "com_alwaldend_src_pip_projects_infinitime",
     python_version = PYTHON_VERSION,
-    requirements_lock = "//cpp/infinitime:requirements.txt",
+    requirements_lock = "//projects/infinitime:requirements.txt",
 )
 pip.parse(
     hub_name = "com_alwaldend_src_pip",
@@ -30,7 +30,7 @@ pip.parse(
 use_repo(
     pip,
     "com_alwaldend_src_bzl_rules_ansible_pip",
-    "com_alwaldend_src_cpp_infinitime_pip",
     "com_alwaldend_src_pip",
+    "com_alwaldend_src_pip_projects_infinitime",
     "com_alwaldend_src_starlark_bazel_qt_requirements",
 )

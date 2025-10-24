@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "c/sri/errors.h"
-#include "c/sri/sri.h"
+#include "projects/sri/errors.h"
+#include "projects/sri/sri.h"
 
 static struct argp_option options[] = {
     {.name = "digest",
@@ -67,7 +67,7 @@ static struct argp argp = {
         "Generate sri of a file \n\
 \n\
 Example:\n\
-    bazel run //c/sri:bin -- --digest sha256 --file ${PWD}/README.md\n\
+    bazel run //projects/sri:bin -- --digest sha256 --file ${PWD}/README.md\n\
 ",
 };
 
