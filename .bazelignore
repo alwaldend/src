@@ -1,5 +1,5 @@
 node_modules
-js/tools/node_modules
+tools/node_modules
 out
 third_party/registry/modules
 .venv

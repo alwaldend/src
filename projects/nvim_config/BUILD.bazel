@@ -14,7 +14,7 @@ al_lua_library(
     srcs = glob(["**"]),
     check = glob(["*.lua"]),
     pkg_tar_kwargs = {
-        "deps": ["//lua/nvim_lib:lib"],
+        "deps": ["//projects/nvim_config/main/lua:lib"],
         "modes": {"lazy-lock.json": "0655"},
     },
 )

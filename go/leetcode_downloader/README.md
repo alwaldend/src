@@ -1,6 +1,9 @@
 ---
 title: Leetcode downloader
 description: CLI app to download leetcode submissions
+tags:
+  - go
+  - tampermonkey
 ---
 
 > :warning: Download doesn't work anymore because of Cloudflare

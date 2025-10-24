@@ -7,9 +7,15 @@ al_git_changelog(
     visibility = ["//:__subpackages__"],
 )
 
+al_toml_data(
+    name = "stylua_config",
+    srcs = [":stylua.toml"],
+    visibility = ["//:__subpackages__"],
+)
+
 alias(
     name = "stylua",
-    actual = "@com_alwaldend_src_cargo_tools//:stylua__stylua",
+    actual = "@com_alwaldend_src_tools_cargo//:stylua__stylua",
     visibility = ["//:__subpackages__"],
 )
 

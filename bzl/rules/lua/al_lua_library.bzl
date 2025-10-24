@@ -5,7 +5,7 @@ def al_lua_library(
         name,
         srcs,
         check = [],
-        stylua_config_label = "//lua:stylua-config",
+        stylua_config_label = "//tools/stylua:stylua_config",
         stylua_label = "//tools/stylua",
         pkg_tar_kwargs = {},
         visibility = ["//visibility:public"]):

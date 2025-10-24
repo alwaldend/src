@@ -12,14 +12,14 @@ local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl"
 
 crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
 crate.from_cargo(
-    name = "com_alwaldend_src_cargo_tools",
+    name = "com_alwaldend_src_tools_cargo",
     cargo_lockfile = "//tools:Cargo.lock",
     generate_binaries = True,
     manifests = [
         "//tools:Cargo.toml",
     ],
 )
-use_repo(crate, "com_alwaldend_src_cargo_tools")
+use_repo(crate, "com_alwaldend_src_tools_cargo")
 
 ## Haskell
 

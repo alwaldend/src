@@ -1,10 +1,13 @@
+load("@com_alwaldend_src_npm//tools:postcss-cli/package_json.bzl", postcss = "bin")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
-load("//bzl/rules/toml:al_toml_data.bzl", "al_toml_data")
 
-al_toml_data(
-    name = "stylua-config",
-    srcs = [":stylua.toml"],
+postcss.postcss_binary(
+    name = "postcss",
+    chdir = "tools",
+    data = [
+        "//tools:node_modules/autoprefixer",
+    ],
     visibility = ["//:__subpackages__"],
 )
 

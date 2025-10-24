@@ -72,7 +72,6 @@ bazel_dep(name = "com_github_georgewfraser_java_language_server", version = "202
 ## Includes
 
 include("//tools:deps.MODULE.bazel")
-include("//js:deps.MODULE.bazel")
 include("//py:deps.MODULE.bazel")
 include("//go:deps.MODULE.bazel")
 include("//bzl:deps.MODULE.bazel")
@@ -186,6 +185,56 @@ android_ndk_repository_extension.configure(
 use_repo(android_ndk_repository_extension, "androidndk")
 
 register_toolchains("@androidndk//:all")
+
+# Js
+node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node")
+node.toolchain(
+    name = "com_alwaldend_src_nodejs_toolchains",
+    node_version = "16.14.2",
+)
+use_repo(node, com_alwaldend_src_nodejs_toolchains = "nodejs_toolchains")
+
+pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
+pnpm.pnpm(
+    name = "com_alwaldend_src_pnpm",
+    pnpm_version = "10.18.1",
+)
+use_repo(pnpm, "com_alwaldend_src_pnpm")
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
+npm.npm_translate_lock(
+    name = "com_alwaldend_src_npm",
+    bins = {
+        "typescript": [
+            "tsc=./bin/tsc",
+            "tsserver=./bin/tsserver",
+        ],
+        "lv_font_conv": ["lv_font_conv=./lv_font_conv.js"],
+        "prettier": ["prettier=./bin/prettier.cjs"],
+        "postcss-cli": ["postcss=./index.js"],
+    },
+    data = [
+        "//:pnpm-workspace.yaml",
+    ],
+    pnpm_lock = "//:pnpm-lock.yaml",
+    # public_hoist_packages = {
+    #     "postcss": [
+    #         "js/tools",
+    #         "",
+    #     ],
+    #     "postcss-cli": [
+    #         "js/tools",
+    #         "",
+    #     ],
+    #     "autoprefixer": [
+    #         "js/tools",
+    #         "",
+    #     ],
+    # },
+    run_lifecycle_hooks = False,
+    verify_node_modules_ignored = "//:.bazelignore",
+)
+use_repo(npm, "com_alwaldend_src_npm")
 
 # Qt
 
