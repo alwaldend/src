@@ -12,12 +12,12 @@ al_git_changelog(
         name = "{}_test".format(file.replace(".kt", "")),
         size = "small",
         srcs = [file],
-        manifest = "//kt/android/launcher:manifest",
+        manifest = "//projects/android_launcher:manifest",
         test_class = "com.alwaldend.src.kt.android.launcher.{}".format(file.replace(".kt", "")),
         deps = [
-            "//kt/android/launcher/main:launcher_library",
-            "@com_alwaldend_src_maven_android//:junit_junit",
-            "@com_alwaldend_src_maven_android//:org_robolectric_robolectric",
+            "//projects/android_launcher/main:launcher_library",
+            "@com_alwaldend_src_projects_android_launcher_maven//:junit_junit",
+            "@com_alwaldend_src_projects_android_launcher_maven//:org_robolectric_robolectric",
             "@rules_robolectric//bazel:android-all",
         ],
     )

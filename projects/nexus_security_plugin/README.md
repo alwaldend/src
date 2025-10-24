@@ -1,5 +1,5 @@
 ---
-title: Nsp
+title: Nexus security plugin
 description: Sonatype Nexus security plugin
 tags:
   - java

@@ -1,7 +1,15 @@
 load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
+load("@rules_kotlin//kotlin:core.bzl", "define_kt_toolchain")
 load("@rules_license//rules:license.bzl", "license")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
+
+define_kt_toolchain(
+    name = "kotlin_toolchain",
+    api_version = "1.9",
+    jvm_target = "21",
+    language_version = "1.9",
+)
 
 license(
     name = "license",
