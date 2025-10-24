@@ -1,9 +1,0 @@
-{
-    "url": "https://mirror.bazel.build/www.nasm.us/pub/nasm/releasebuilds/2.15.05/win64/nasm-2.15.05-win64.zip",
-    "mirror_urls": ["https://www.nasm.us/pub/nasm/releasebuilds/2.15.05/win64/nasm-2.15.05-win64.zip"],
-    "strip_prefix": "nasm-2.15.05",
-    "integrity": "sha256-9ck8FG9StPFmT6POZXn5YakQ6GmrDa5DG9hxvdJYTvI=",
-    "overlay": {
-        "BUILD.bazel": "sha256-nUi6oj7igKBiw7RnNrT0OgX9K9WIfL+vxABZ1BTFXOQ="
-    }
-}

@@ -1,8 +1,5 @@
 PYTHON_VERSION = "3.12.11"
 
-bazel_dep(name = "rules_python", version = "1.6.3")
-bazel_dep(name = "rules_python_gazelle_plugin", version = "1.6.3")
-
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(
     is_default = True,

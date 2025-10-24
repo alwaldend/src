@@ -1,5 +1,3 @@
-bazel_dep(name = "rules_perl", version = "0.4.3")
-
 perl_repositories = use_extension("@rules_perl//perl:extensions.bzl", "perl_repositories")
 
 cpan = use_extension("@rules_perl//perl/cpan:extensions.bzl", "cpan")

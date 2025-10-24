@@ -5,14 +5,71 @@ module(
     compatibility_level = 0,
 )
 
+# Python
+bazel_dep(name = "rules_python", version = "1.6.3")
+bazel_dep(name = "rules_python_gazelle_plugin", version = "1.6.3")
+
+# Proto
+bazel_dep(name = "rules_proto", version = "7.1.0")
+bazel_dep(name = "protobuf", version = "31.1")
+
+# Shell
+bazel_dep(name = "rules_sh", version = "0.5.0")
+bazel_dep(name = "rules_shell", version = "0.6.1")
+
+# Golang
+bazel_dep(name = "rules_go", version = "0.57.0")
+bazel_dep(name = "gazelle", version = "0.45.0")
+
+# Perl
+bazel_dep(name = "rules_perl", version = "0.4.3")
+
+# Javascript
+bazel_dep(name = "rules_nodejs", version = "6.5.0")
+bazel_dep(name = "aspect_rules_js", version = "2.6.2")
+
+# Rust
+bazel_dep(name = "rules_rust", version = "0.66.0")
+
+# C, C++
+bazel_dep(name = "rules_cc", version = "0.2.11")
+bazel_dep(name = "rules_foreign_cc", version = "0.15.1")
+bazel_dep(name = "toolchains_llvm", version = "1.5.0")
+bazel_dep(name = "com_nordicsemi_developer_nrfsdk", version = "15.3.0")
+bazel_dep(name = "org_openssl_openssl", version = "3.5.0")
+bazel_dep(name = "us_nasm_nasm", version = "2.15.05")
+bazel_dep(name = "hedron_compile_commands", version = "abb61a688167623088f8768cc9264798df6a9d10")
+
+# Kotlin
+bazel_dep(name = "rules_kotlin", version = "2.1.9")
+
+# Andoird
+bazel_dep(name = "rules_android", version = "0.6.6")
+bazel_dep(name = "rules_android_ndk", version = "0.1.3")
+bazel_dep(name = "rules_robolectric", version = "4.16")
+
+# Oci
+bazel_dep(name = "rules_oci", version = "2.2.6")
+
+# Hashell
+bazel_dep(name = "rules_haskell", version = "7bb6b0790b0c44603173196e1b4d1cd6e5f28078")
+
+# Tools
+bazel_dep(name = "com_github_georgewfraser_java_language_server", version = "2025.520.0")
+
+## Overrides
+
+# local_path_override(
+#     module_name = "rules_haskell",
+#     path = "../fork_com_github_tweag_rules_haskell",
+# )
+
 include("//js:deps.MODULE.bazel")
 include("//rs:deps.MODULE.bazel")
 include("//py:deps.MODULE.bazel")
 include("//pl:deps.MODULE.bazel")
 include("//go:deps.MODULE.bazel")
-include("//sh:deps.MODULE.bazel")
 include("//bzl:deps.MODULE.bazel")
-include("//proto:deps.MODULE.bazel")
 include("//cpp:deps.MODULE.bazel")
 include("//java:deps.MODULE.bazel")
 include("//kt:deps.MODULE.bazel")
@@ -23,5 +80,4 @@ include("//bzl/rules/helm:deps.MODULE.bazel")
 include("//helm:deps.MODULE.bazel")
 include("//hugo:deps.MODULE.bazel")
 include("//hs:deps.MODULE.bazel")
-include("//oci:deps.MODULE.bazel")
 include("//drawio:deps.MODULE.bazel")

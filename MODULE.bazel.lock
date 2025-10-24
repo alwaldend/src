@@ -1573,7 +1573,7 @@
     "@@rules_haskell+//extensions:ghc_version.bzl%ghc_default_version": {
       "general": {
         "bzlTransitiveDigest": "Pcsih8RRkNXUIwl5ryRAQ58WtIBM1H2PYhT16OnEbRg=",
-        "usagesDigest": "DSTsM2TSqtJxHDcJB5YaAdsDBZcvRX29lk/rF4ZiydM=",
+        "usagesDigest": "K/1qG/kYES70sZI80RveUEAcIlG11pCSrU5fesjf0+s=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -1595,7 +1595,7 @@
     "@@rules_haskell+//extensions:haskell_toolchains.bzl%haskell_toolchains": {
       "general": {
         "bzlTransitiveDigest": "P2TIhTS481DuVFpL/+g9+urxgaU5uPrK9X9Ifx4l4D8=",
-        "usagesDigest": "RG9x2zcpMW7YXiPCvaIqZSNKaf1jRjq66zUVlK9hb2A=",
+        "usagesDigest": "t+x6Pz5UMdPkTvF+QPHt63Wzt7NBLAlnlhNHuoz3wIM=",
         "recordedFileInputs": {
           "@@rules_haskell+//haskell/private/ghc_bindist_generated.json": "1ac8dcb5599a481b24a4d8f3613a51d754ce1f55d64b54cec5f1b2b420432012"
         },
@@ -1791,7 +1791,7 @@
     "@@rules_haskell+//extensions:rules_haskell_dependencies.bzl%rules_haskell_dependencies": {
       "general": {
         "bzlTransitiveDigest": "uaqHcGlaqqYnz/QcEqPUhkzal3shA1uEuQ3UXVW5x2w=",
-        "usagesDigest": "02jLMD671Gs8Y5fpNM6/di/yZh84zI+xJLvYXflUDZ0=",
+        "usagesDigest": "M4wk49tlZHAomwDrLKAHt67lSXJrPsyPppdzlhHvzFk=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -1964,7 +1964,7 @@
     "@@rules_haskell+//extensions:stack_snapshot.bzl%stack_snapshot": {
       "general": {
         "bzlTransitiveDigest": "wvMZQvyuPxGX1aEA4FB+e2w4s32xLviswHcide+zIaE=",
-        "usagesDigest": "vIdks3DpcV7mJjKf4jACOzMYGRh6cpQ80V962JfANjM=",
+        "usagesDigest": "aQdSO+GdgNFbeYB5EVGLGvCvbHYq/xuDnsqnuyBM/co=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -2281,7 +2281,7 @@
     "@@rules_nodejs+//nodejs:extensions.bzl%node": {
       "general": {
         "bzlTransitiveDigest": "hdICB1K7PX7oWtO8oksVTBDNt6xxiNERpcO4Yxoa0Gc=",
-        "usagesDigest": "nsVEayNLwkAO2P9j/HTkCSGcfxN9cVZEiSRCDj8pMHk=",
+        "usagesDigest": "GCraqWoFCMlPRDJww1Z4GyJnYOuT8aIBf4c3P+WJom0=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},

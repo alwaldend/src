@@ -1,7 +1,3 @@
-bazel_dep(name = "rules_android", version = "0.6.6")
-bazel_dep(name = "rules_android_ndk", version = "0.1.3")
-bazel_dep(name = "rules_robolectric", version = "4.16")
-
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 ATS_COMMIT = "7d0422556f915dccd6186d2fcf71f7407085a043"

@@ -1,0 +1,4 @@
+module(
+    name = "com_github_georgewfraser_java_language_server",
+    version = "2025.520.0",
+)

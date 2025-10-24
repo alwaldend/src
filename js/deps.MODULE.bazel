@@ -2,9 +2,6 @@ NODE_VERSION = "16.14.2"
 
 PNPM_VERSION = "10.18.1"
 
-bazel_dep(name = "rules_nodejs", version = "6.5.0")
-bazel_dep(name = "aspect_rules_js", version = "2.6.2")
-
 node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node")
 
 npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")

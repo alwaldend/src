@@ -26,7 +26,7 @@ startup --windows_enable_symlinks
 
 ### common
 
-common --registry=file://%workspace%/bzl/registry
+common --registry=file://%workspace%/third_party/registry
 
 common --registry=https://bcr.bazel.build
 

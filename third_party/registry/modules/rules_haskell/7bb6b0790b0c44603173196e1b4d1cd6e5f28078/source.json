@@ -1,0 +1,9 @@
+{
+    "url": "https://github.com/tweag/rules_haskell/archive/7bb6b0790b0c44603173196e1b4d1cd6e5f28078.zip",
+    "strip_prefix": "rules_haskell-7bb6b0790b0c44603173196e1b4d1cd6e5f28078",
+    "integrity": "sha256-Sa3Rl+2VNXeURuPkwh+XBWEgZYM3rFYauGb90A2lMHg=",
+    "patch_strip": 1,
+    "patches": {
+        "001_fix_for_bazel8.patch": "sha256-skDx5zUfbXKUbRC9E1JUPJhYv3AIqgtWSIMmeu0lzKM="
+    }
+}

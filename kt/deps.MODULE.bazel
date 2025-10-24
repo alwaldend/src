@@ -1,5 +1,3 @@
-bazel_dep(name = "rules_kotlin", version = "2.1.9")
-
 rules_kotlin_extensions = use_extension("@rules_kotlin//src/main/starlark/core/repositories:bzlmod_setup.bzl", "rules_kotlin_extensions")
 rules_kotlin_extensions.kotlinc_version(
     sha256 = "1ba08a8b45da99339a0601134cc037b54cf85e9bc0edbe76dcbd27c2d684a977",

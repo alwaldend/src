@@ -44,7 +44,7 @@ cc_library(
     hdrs = ["sri.h"],
     deps = [
         ":errors",
-        "@org-openssl-openssl//:openssl",
+        "@org_openssl_openssl//:openssl",
     ],
 )
 

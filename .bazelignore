@@ -1,7 +1,7 @@
 node_modules
 js/tools/node_modules
 out
-bzl/registry/modules
+third_party/registry/modules
 .venv
 bazel-bin
 bazel-out
