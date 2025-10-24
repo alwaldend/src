@@ -8,15 +8,15 @@ al_git_changelog(
 )
 
 pkg_tar(
-    name = "img",
-    srcs = ["//img/useless_qt_gui"],
+    name = "res",
+    srcs = ["//cpp/useless_qt_gui/main/res"],
     package_dir = "img",
 )
 
 pkg_tar(
     name = "src",
-    srcs = glob(["**"]),
-    deps = [":img"],
+    srcs = glob(["main/cpp/**"]),
+    deps = [":res"],
 )
 
 genrule(
