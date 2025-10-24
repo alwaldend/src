@@ -6,7 +6,7 @@ def al_sh_library(
         name,
         shfmt_src = "@cc_mvdan_sh_v3//cmd/shfmt:shfmt",
         editorconfig_src = "//:editorconfig",
-        shellcheck_src = "//tools:shellcheck",
+        shellcheck_src = "//tools/shellcheck",
         run_args_src = "//sh/scripts:run-args.lib",
         visibility = ["//visibility:public"],
         **common_kwargs):

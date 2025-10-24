@@ -3,7 +3,7 @@ load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 
 alias(
     name = "shellcheck",
-    actual = "@stackage-exe//ShellCheck:shellcheck",
+    actual = "@com_alwaldend_src_stackage_tools_exe//ShellCheck:shellcheck",
     visibility = ["//:__subpackages__"],
 )
 

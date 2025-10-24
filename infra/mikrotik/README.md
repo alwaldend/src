@@ -1,9 +1,10 @@
 ---
-title: Rsc
-description: Mikrotik script tree
+title: Mikrotik
+description: Mikrotik tree
 cascade:
   - categories:
-      - rsc
+      - mikrotik
+      - infra
 ---
 
 ## Links

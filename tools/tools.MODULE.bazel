@@ -1,3 +1,5 @@
+## Rust
+
 crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
 crate.from_cargo(
     name = "com_alwaldend_src_cargo_tools",
@@ -8,3 +10,29 @@ crate.from_cargo(
     ],
 )
 use_repo(crate, "com_alwaldend_src_cargo_tools")
+
+## Haskell
+
+stack_snapshot = use_extension(
+    "@rules_haskell//extensions:stack_snapshot.bzl",
+    "stack_snapshot",
+)
+stack_snapshot.stack_snapshot_json(
+    label = "//tools:stackage_snapshot.json",
+)
+stack_snapshot.snapshot(
+    local_snapshot = "//tools:stackage_snapshot.yaml",
+)
+stack_snapshot.package(
+    name = "ShellCheck",
+    components = [
+        "lib",
+        "exe:shellcheck",
+    ],
+)
+use_repo(
+    stack_snapshot,
+    com_alwaldend_src_stackage_tools = "stackage",
+    com_alwaldend_src_stackage_tools_exe = "stackage-exe",
+    com_alwaldend_src_stackage_tools_unpinned = "stackage-unpinned",
+)

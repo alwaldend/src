@@ -1964,7 +1964,7 @@
     "@@rules_haskell+//extensions:stack_snapshot.bzl%stack_snapshot": {
       "general": {
         "bzlTransitiveDigest": "wvMZQvyuPxGX1aEA4FB+e2w4s32xLviswHcide+zIaE=",
-        "usagesDigest": "aQdSO+GdgNFbeYB5EVGLGvCvbHYq/xuDnsqnuyBM/co=",
+        "usagesDigest": "XMdYGsPVk2+vQ5Pxi86gX2eIDnyw8SOmLrPZ5Jv1H54=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -1987,8 +1987,8 @@
               "stack_update": "@@rules_haskell++stack_snapshot+rules_haskell_stack_update//:stack_update",
               "vendored_packages": {},
               "snapshot": "",
-              "local_snapshot": "@@//hs:stackage_snapshot.yaml",
-              "stack_snapshot_json": "@@//hs:stackage_snapshot.json",
+              "local_snapshot": "@@//tools:stackage_snapshot.yaml",
+              "stack_snapshot_json": "@@//tools:stackage_snapshot.json",
               "packages": [
                 "ShellCheck"
               ],
@@ -2007,8 +2007,8 @@
               "extra_deps": {},
               "vendored_packages": {},
               "snapshot": "",
-              "local_snapshot": "@@//hs:stackage_snapshot.yaml",
-              "stack_snapshot_json": "@@//hs:stackage_snapshot.json",
+              "local_snapshot": "@@//tools:stackage_snapshot.yaml",
+              "stack_snapshot_json": "@@//tools:stackage_snapshot.json",
               "packages": [
                 "ShellCheck"
               ],
@@ -2737,7 +2737,7 @@
         "bzlTransitiveDigest": "GkJkD8MaKEXm9wB4E7VzRQokbHmKxfP2fZn9LZlrnk0=",
         "usagesDigest": "hjsUEP4OUdkg3Z0De1d4aEK8zlIy++25NeXqv+1uNKk=",
         "recordedFileInputs": {
-          "@@//tools/Cargo.lock": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+          "@@//tools/Cargo.lock": "5705e885e4ce4d87514d494a373358d41c706de68f5070aa2e370c03e2daab85",
           "@@//tools/Cargo.toml": "03d9815969de7e16ba19466094c9432108738de065000b8e22ea1ee7bb5db494",
           "@@//tools/stylua/Cargo.toml": "3824c7b87e71bd72d31f03b7d631b901ebb378f4d4a7772e5b107d8fe1a959b3"
         },
