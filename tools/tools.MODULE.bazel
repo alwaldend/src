@@ -1,0 +1,10 @@
+crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
+crate.from_cargo(
+    name = "com_alwaldend_src_cargo_tools",
+    cargo_lockfile = "//tools:Cargo.lock",
+    generate_binaries = True,
+    manifests = [
+        "//tools:Cargo.toml",
+    ],
+)
+use_repo(crate, "com_alwaldend_src_cargo_tools")

@@ -64,8 +64,10 @@ bazel_dep(name = "com_github_georgewfraser_java_language_server", version = "202
 #     path = "../fork_com_github_tweag_rules_haskell",
 # )
 
+## Includes
+
 include("//js:deps.MODULE.bazel")
-include("//rs:deps.MODULE.bazel")
+include("//tools:tools.MODULE.bazel")
 include("//py:deps.MODULE.bazel")
 include("//pl:deps.MODULE.bazel")
 include("//go:deps.MODULE.bazel")

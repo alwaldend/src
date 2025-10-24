@@ -1,5 +1,5 @@
 [project]
-name = "com_alwandend_src_rs_tools"
+name = "com_alwandend_src_tools_stylua"
 
 [[bin]]
 name = "placeholder"
