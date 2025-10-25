@@ -6,7 +6,6 @@ defaultContentLanguageInSubdir = true
 ignoreFiles = [
     "content/docs",
     "content/data",
-    "content/cfg",
     "content/third_party",
     "content/proto",
 ]
