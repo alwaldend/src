@@ -1,10 +1,6 @@
 ---
 title: Src
 description: Source code
-cascade:
-  - type: docs
-    _target:
-      path: /**
 ---
 
 ## Links

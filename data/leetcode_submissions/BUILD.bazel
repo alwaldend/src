@@ -46,7 +46,7 @@ pkg_files(
 pkg_filegroup(
     name = "leetcode_submissions",
     srcs = [":leetcode_submissions_docs"] + ["leetcode_submissions.{}".format(lang) for lang in _LANGS],
-    visibility = ["//docs/alwaldend.com/content/misc/leetcode_submissions:__pkg__"],
+    visibility = ["//docs/alwaldend.com/content/docs/misc/leetcode_submissions:__pkg__"],
 )
 
 al_bzl_target_doc(

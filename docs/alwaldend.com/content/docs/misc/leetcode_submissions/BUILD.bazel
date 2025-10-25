@@ -2,18 +2,17 @@ load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 
 pkg_filegroup(
-    name = "misc",
+    name = "leetcode_submissions",
     srcs = [
-        ":misc_files",
-        "//docs/alwaldend.com/content/misc/leetcode_submissions",
-        "//docs/alwaldend.com/content/misc/old_diagrams",
+        ":leetcode_submissions_files",
+        "//data/leetcode_submissions",
     ],
-    prefix = "misc",
-    visibility = ["//docs/alwaldend.com/content:__pkg__"],
+    prefix = "leetcode_submissions",
+    visibility = ["//docs/alwaldend.com/content/docs/misc:__pkg__"],
 )
 
 pkg_files(
-    name = "misc_files",
+    name = "leetcode_submissions_files",
     srcs = glob(["*"]),
     renames = {"README.md": "_index.md"},
 )

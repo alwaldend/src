@@ -9,7 +9,7 @@ pkg_filegroup(
     name = "old_diagrams",
     srcs = [":old_diagrams_files"],
     prefix = "old_diagrams",
-    visibility = ["//docs/alwaldend.com/content/misc:__pkg__"],
+    visibility = ["//docs/alwaldend.com/content/docs/misc:__pkg__"],
 )
 
 pkg_files(

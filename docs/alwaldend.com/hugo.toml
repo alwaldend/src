@@ -29,7 +29,7 @@ generated_tags = ["Generated"]
 separate_page_tags = ["Bzl-Targets", "Changelog"]
 showLightDarkModeMenu = true
 sidebar_menu_compact = true
-sidebar_menu_foldable = false
+sidebar_menu_foldable = true
 
 [params.drawio]
 enable = true
