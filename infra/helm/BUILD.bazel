@@ -1,6 +1,6 @@
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
-load("//bzl/rules/helm:al_helm_binary.bzl", "al_helm_binary")
+load("//infra/helm/rules:al_helm_binary.bzl", "al_helm_binary")
 
 al_helm_binary(
     name = "helm",

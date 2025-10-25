@@ -1,6 +1,8 @@
 ---
 title: Registry
 description: Bazel registry
+tags:
+  - bzl
 ---
 
 ## Links

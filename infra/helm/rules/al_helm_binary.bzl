@@ -2,7 +2,7 @@ load("@bazel_skylib//lib:shell.bzl", "shell")
 load(":al_helm_chart_info.bzl", "AlHelmChartInfo")
 
 def _impl(ctx):
-    helm = ctx.toolchains["//bzl/rules/helm:toolchain_type"]
+    helm = ctx.toolchains["//infra/helm/rules:toolchain_type"]
     runfiles_files = [] + ctx.files.chart
     runfiles_symlinks = {}
     script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
@@ -44,7 +44,7 @@ al_helm_binary = rule(
     implementation = _impl,
     executable = True,
     doc = "Helm binary",
-    toolchains = ["//bzl/rules/helm:toolchain_type"],
+    toolchains = ["//infra/helm/rules:toolchain_type"],
     attrs = {
         "cd": attr.string(
             doc = "Cd to a directory before running bazel",

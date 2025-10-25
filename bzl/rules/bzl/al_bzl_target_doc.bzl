@@ -48,7 +48,7 @@ def al_bzl_target_doc(name, visibility, subpackages = []):
                 "{{ range .Data }}",
                 "---",
                 "title: Bazel targets",
-                "tags: [generated, bzl-targets, bzl]",
+                "tags: [generated, bzl_targets]",
                 "toc_hide: true",
                 "hide_summary: true",
                 "---",

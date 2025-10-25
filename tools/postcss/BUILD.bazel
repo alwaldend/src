@@ -4,9 +4,8 @@ load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 
 postcss.postcss_binary(
     name = "postcss",
-    chdir = "tools",
     data = [
-        "//tools:node_modules/autoprefixer",
+        "//:node_modules/autoprefixer",
     ],
     visibility = ["//:__subpackages__"],
 )

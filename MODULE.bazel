@@ -76,10 +76,9 @@ include("//py:deps.MODULE.bazel")
 include("//go:deps.MODULE.bazel")
 include("//bzl:deps.MODULE.bazel")
 include("//ansible:deps.MODULE.bazel")
-include("//bzl/rules/helm:deps.MODULE.bazel")
-include("//helm:deps.MODULE.bazel")
 include("//hugo:deps.MODULE.bazel")
 include("//drawio:deps.MODULE.bazel")
+include("//infra/helm:deps.MODULE.bazel")
 include("//projects/android_launcher:deps.MODULE.bazel")
 include("//projects/nexus_security_plugin:deps.MODULE.bazel")
 
@@ -217,20 +216,11 @@ npm.npm_translate_lock(
         "//:pnpm-workspace.yaml",
     ],
     pnpm_lock = "//:pnpm-lock.yaml",
-    # public_hoist_packages = {
-    #     "postcss": [
-    #         "js/tools",
-    #         "",
-    #     ],
-    #     "postcss-cli": [
-    #         "js/tools",
-    #         "",
-    #     ],
-    #     "autoprefixer": [
-    #         "js/tools",
-    #         "",
-    #     ],
-    # },
+    public_hoist_packages = {
+        "autoprefixer": [
+            "",
+        ],
+    },
     run_lifecycle_hooks = False,
     verify_node_modules_ignored = "//:.bazelignore",
 )

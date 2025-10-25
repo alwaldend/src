@@ -1,7 +1,7 @@
 load("//bzl/rules/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
-load("//bzl/rules/helm:al_helm_toolchain.bzl", "al_helm_toolchain")
+load("//infra/helm/rules:al_helm_toolchain.bzl", "al_helm_toolchain")
 
 al_git_changelog(
     name = "changelog",

@@ -56,5 +56,5 @@ def al_bzl_library_map(name, visibility, libs = {}, deps = [], **kwargs):
                     echo "---"
                     cat $(<)
                 }} >$(@)
-            """.format(title = lib_name, tags = "generated"),
+            """.format(title = lib_name, tags = "generated, bzl_stardoc"),
         )
