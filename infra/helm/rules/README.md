@@ -2,7 +2,7 @@
 title: Rules
 description: Bazel rules for helm
 tags:
-  - bzl
+  - bzl_rules
 ---
 
 ## Links

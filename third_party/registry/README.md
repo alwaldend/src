@@ -2,7 +2,7 @@
 title: Registry
 description: Bazel registry
 tags:
-  - bzl
+  - bzl_registry
 ---
 
 ## Links

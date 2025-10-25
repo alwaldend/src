@@ -10,4 +10,4 @@ cascade:
 ## Links
 
 - Website: https://helm.sh
-- Rules: [../rules]
+- Rules: [./rules]
