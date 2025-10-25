@@ -3,6 +3,13 @@ theme = ["github.com/google/docsy"]
 baseURL = "http://127.0.0.1:1313/src"
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = true
+ignoreFiles = [
+    "content/docs",
+    "content/data",
+    "content/cfg",
+    "content/third_party",
+    "content/proto",
+]
 
 enableRobotsTXT = true
 enableGitInfo = false
@@ -60,7 +67,3 @@ enableInlineShortcodes = true
 [module.hugoVersion]
 extended = true
 min = "0.146.0"
-
-[[module.imports]]
-path = "github.com/google/docsy"
-disable = false

@@ -2,7 +2,6 @@ load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//projects/leetcode_downloader:al_leetcode_submissions.bzl", "al_leetcode_submissions")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
-load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
 
 _LANGS = [
     "cpp",
@@ -12,11 +11,6 @@ _LANGS = [
     "sh",
     "sql",
 ]
-
-al_git_changelog(
-    name = "changelog",
-    visibility = ["//:__subpackages__"],
-)
 
 [
     [

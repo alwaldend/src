@@ -25,10 +25,14 @@ description: Repository-specific information
 - Build `compile_commands.json`: `bazel run :refresh_compile_commands`
 - Run builds: `bazel build //...`
 - Run tests: `bazel test //...`
-- Refactor rules:
+- Replace a rule with another one:
   ```sh
   find \
     "(" -name "*.bazel" -o -name "*.bzl" -o -name ".bazelrc" -o -name "*.md" ")" \
     -type f \
     -exec sed -i 's|//bzl/rules/txt|//tools/txt|g' "{}" ";"`
+  ```
+- Remove a rule:
+  ```sh
+  find -name "BUILD.bazel" -type f -exec sed -i '/al_readme(/,/)/d' "{}" ";"
   ```

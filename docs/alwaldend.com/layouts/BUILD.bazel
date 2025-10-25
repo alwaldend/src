@@ -1,6 +1,5 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
-load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
 
 pkg_filegroup(
     name = "layouts",
@@ -13,11 +12,6 @@ pkg_files(
     name = "layouts_files",
     srcs = glob(["*/**"]),
     strip_prefix = strip_prefix.from_pkg(),
-)
-
-al_git_changelog(
-    name = "changelog",
-    visibility = ["//:__subpackages__"],
 )
 
 al_bzl_target_doc(

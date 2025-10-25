@@ -1,11 +1,5 @@
 load("@rules_python//python:defs.bzl", "py_library")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
-load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
-
-al_git_changelog(
-    name = "changelog",
-    visibility = ["//:__subpackages__"],
-)
 
 py_library(
     name = "_internal",

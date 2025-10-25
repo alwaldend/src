@@ -4,12 +4,6 @@ load("@rules_perl//perl/cpan:cpan_compiler.bzl", "cpan_compiler")
 load("//tools/bzl:al_alias_map.bzl", "al_alias_map")
 load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
-load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
-
-al_git_changelog(
-    name = "changelog",
-    visibility = ["//:__subpackages__"],
-)
 
 npm_link_all_packages(
     name = "node_modules",

@@ -1,11 +1,5 @@
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
-load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
 load("//tools/lua:al_lua_library.bzl", "al_lua_library")
-
-al_git_changelog(
-    name = "changelog",
-    visibility = ["//:__subpackages__"],
-)
 
 al_bzl_target_doc(
     name = "bazel_target_doc",

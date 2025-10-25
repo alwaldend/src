@@ -10,7 +10,6 @@ load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
-load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
 load("//tools/git:al_git_library.bzl", "al_git_library")
 load("//tools/md:al_md_data.bzl", "al_md_data")
 load("//tools/shell_worker:al_genrule.bzl", "al_genrule")
@@ -42,11 +41,6 @@ compile_pip_requirements(
     srcs = [":pyproject"],
     extra_args = ["--no-strip-extras"],
     requirements_txt = ":requirements.txt",
-)
-
-al_git_changelog(
-    name = "changelog",
-    visibility = ["//:__subpackages__"],
 )
 
 al_txt_data(

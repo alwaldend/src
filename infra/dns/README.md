@@ -1,14 +1,12 @@
 ---
 title: DNSControl
 description: DNSControl tree
-cascade:
-  - categories:
-      - infra
-      - dnscontrol
+tags:
+  - dnscontrol
 ---
 
 ## Links
 
 - Website: https://dnscontrol.org
 - Docs: https://docs.dnscontrol.org
-- Rules: [./rules]
+- Rules: [../tools/dnscontrol]

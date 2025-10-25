@@ -1,16 +1,10 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
-load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
 
 pkg_files(
     name = "group_vars",
     srcs = glob(["**/*.yaml"]),
     prefix = "group_vars",
-    visibility = ["//:__subpackages__"],
-)
-
-al_git_changelog(
-    name = "changelog",
     visibility = ["//:__subpackages__"],
 )
 

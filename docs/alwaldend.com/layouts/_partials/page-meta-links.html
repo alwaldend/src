@@ -49,8 +49,10 @@ after 0.9.0 */ -}}
     {{ if not $isGen -}}
     <a href="{{ $viewURL }}" class="td-page-meta--view td-page-meta__view" target="_blank" rel="noopener"><i
             class="fa-solid fa-file-lines fa-fw"></i> {{ T "post_view_this" }}</a>
+    {{ if fileExists (printf "%s/%s" $.Page.File.Dir "changelog.doc") }}
     <a href="{{ urls.RelRef .Page "changelog.doc" }}" class="td-page-meta--view td-page-meta__view" target="_blank" rel="noopener"><i
             class="fa-solid fa-file-lines fa-fw"></i> {{ T "post_view_changelog" }}</a>
+    {{ end -}}
     {{ if not ($.Param "al_no_bazel_doc") -}}
     <a href="{{ urls.RelRef .Page "bazel_target_doc.doc" }}" class="td-page-meta--view td-page-meta__view" target="_blank" rel="noopener"><i
             class="fa-solid fa-file-lines fa-fw"></i> {{ T "post_view_bazel_targets" }}</a>

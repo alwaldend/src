@@ -1,10 +1,8 @@
 ---
 title: Mikrotik
 description: Mikrotik tree
-cascade:
-  - categories:
-      - mikrotik
-      - infra
+tags:
+  - mikrotik
 ---
 
 ## Links

@@ -1,12 +1,6 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
-load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
 load("//tools/vial:al_vial_configs.bzl", "al_vial_configs")
-
-al_git_changelog(
-    name = "changelog",
-    visibility = ["//:__subpackages__"],
-)
 
 al_vial_configs(
     name = "vial",

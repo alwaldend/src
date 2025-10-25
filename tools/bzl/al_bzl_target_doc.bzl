@@ -31,16 +31,24 @@ def al_bzl_target_doc(name, visibility, subpackages = []):
 
     docs = []
     if srcs:
-        native.genquery(
-            name = "{}.query.ndjson".format(name),
-            expression = " union ".join([
-                "//{}:{}".format(native.package_name(), src)
-                for src in srcs.keys()
-                if "node_modules" not in src
-            ]),
-            scope = srcs.keys(),
-            opts = ["--output", "streamed_jsonproto"],
-        )
+        expression = " union ".join([
+            "//{}:{}".format(native.package_name(), src)
+            for src in srcs.keys()
+            if "node_modules" not in src
+        ])
+        if expression:
+            native.genquery(
+                name = "{}.query.ndjson".format(name),
+                expression = expression,
+                scope = srcs.keys(),
+                opts = ["--output", "streamed_jsonproto"],
+            )
+        else:
+            write_file(
+                name = "{}.query.ndjson".format(name),
+                out = "{}.query.empty.ndjson".format(name),
+                content = [],
+            )
         write_file(
             name = "{}.template".format(name),
             out = "{}.template.md".format(name),

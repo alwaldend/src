@@ -1,7 +1,6 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/ansible:al_ansible_binary.bzl", "al_ansible_binary")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
-load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
 
 al_ansible_binary(
     name = "ansible_playbook",
@@ -14,11 +13,6 @@ al_ansible_binary(
         ":srcs",
         "//infra/ansible/collections",
     ],
-)
-
-al_git_changelog(
-    name = "changelog",
-    visibility = ["//:__subpackages__"],
 )
 
 pkg_filegroup(

@@ -2,19 +2,12 @@ load("@com_alwaldend_src//tools/pkg:al_pkg_extract_dir.bzl", "al_pkg_extract_dir
 load("@rules_pkg//pkg:mappings.bzl", "REMOVE_BASE_DIRECTORY", "pkg_filegroup", "pkg_files", "strip_prefix")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
-load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
-
-al_git_changelog(
-    name = "changelog",
-    visibility = ["//:__subpackages__"],
-)
 
 pkg_filegroup(
     name = "content",
     srcs = [
         ":git_source_files",
         "//:bazel_target_doc",
-        "//:changelog",
         "//docs/alwaldend.com/content/misc",
         "//infra/ansible/collections/alwaldend/main/roles:docs",
         "//tools:stardoc.stardoc",
@@ -35,14 +28,6 @@ al_pkg_extract_dir(
     arguments = [
         "--transform",
         "flags=r;s|README.md|_index.md|g",
-        "--exclude",
-        "docs/alwaldend.com/layouts",
-        "--exclude",
-        "docs/alwaldend.com/content",
-        "--exclude",
-        "data",
-        "--exclude",
-        "cfg",
     ],
 )
 

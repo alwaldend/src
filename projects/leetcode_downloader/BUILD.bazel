@@ -1,12 +1,6 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
 load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
-load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
-
-al_git_changelog(
-    name = "changelog",
-    visibility = ["//:__subpackages__"],
-)
 
 al_bzl_library_map(
     name = "libs",
