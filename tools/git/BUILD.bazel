@@ -8,6 +8,12 @@ al_git_changelog(
     visibility = ["//:__subpackages__"],
 )
 
+alias(
+    name = "git",
+    actual = "@git//:git",
+    visibility = ["//:__subpackages__"],
+)
+
 al_bzl_library_map(
     name = "libs",
     libs = {

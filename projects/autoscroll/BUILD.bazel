@@ -46,9 +46,9 @@ py_wheel(
     twine = "//py:twine",
     version = "0.0.0",
     deps = [
-        "//py/autoscroll/autoscroll",
-        "//py/autoscroll/autoscroll:autoscroll_data",
-        "//py/autoscroll/autoscroll/_internal",
+        "//projects/autoscroll/autoscroll",
+        "//projects/autoscroll/autoscroll:autoscroll_data",
+        "//projects/autoscroll/autoscroll/_internal",
     ],
 )
 

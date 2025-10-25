@@ -29,6 +29,14 @@ al_bzl_library_map(
                 "postcss",
                 "dnscontrol",
                 "cloc",
+                "black",
+                "isort",
+                "mypy",
+                "black",
+                "flake8",
+                "git_filter_repo",
+                "twine",
+                "replace_section",
             ],
         )
     ],
@@ -45,13 +53,6 @@ al_alias_map(
         "pnpm": {"actual": "@com_alwaldend_src_pnpm//:pnpm"},
         "go": {"actual": "@rules_go//go"},
         "tomlv": {"actual": "@com_github_burntsushi_toml//cmd/tomlv:tomlv"},
-        "git": {"actual": "@git//:git"},
-        "isort": {"actual": "//py/tools:isort"},
-        "mypy": {"actual": "//py/tools:mypy"},
-        "black": {"actual": "//py/tools:black"},
-        "flake8": {"actual": "//py/tools:flake8"},
-        "git_filter_repo": {"actual": "//py/tools:git-filter-repo"},
-        "twine": {"actual": "//py/tools:twine"},
     },
 )
 

@@ -1,10 +1,14 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@bazel_skylib//rules/directory:directory.bzl", "directory")
 load("@com_alwaldend_src_npm//:defs.bzl", "npm_link_all_packages")
+load("@com_alwaldend_src_pip//:requirements.bzl", "all_whl_requirements")
 load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "buildifier_test")
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
+load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
 load("//tools/git:al_git_library.bzl", "al_git_library")
@@ -17,6 +21,27 @@ exports_files(["LICENSE.txt"])
 
 npm_link_all_packages(
     name = "node_modules",
+)
+
+gazelle_python_manifest(
+    name = "gazelle_python_manifest",
+    modules_mapping = ":modules_map",
+    pip_repository_name = "com_alwaldend_src_pip",
+    requirements = "//:requirements.txt",
+)
+
+modules_mapping(
+    name = "modules_map",
+    include_stub_packages = True,
+    wheels = all_whl_requirements,
+)
+
+compile_pip_requirements(
+    name = "requirements",
+    timeout = "moderate",
+    srcs = [":pyproject"],
+    extra_args = ["--no-strip-extras"],
+    requirements_txt = ":requirements.txt",
 )
 
 al_git_changelog(
@@ -86,17 +111,17 @@ cat - >$(execpath :update_readme_bin) <<EOF
     set -euxo pipefail
     dir="\\${BUILD_WORKING_DIRECTORY}"
     replacement=\\$($(rootpath //go/readme-tree) parse -C "\\${dir}" -e "md/docs/src" -g -o markdown .)
-    $(rootpath //py/replace-section) -i -s README_CONTENTS -r "\\${replacement}" "\\${dir}/README.md"
+    $(rootpath //tools/replace_section) -i -s README_CONTENTS -r "\\${replacement}" "\\${dir}/README.md"
     exit
     replacement=\\$($(rootpath //tools/cloc) --md $(git -C "\\${dir}" ls-files | sed "s,/.*,/," | uniq | xargs -I "{}" echo "\\${dir}/{}"))
-    $(rootpath //py/replace-section) -i -s CLOC -r "\\${replacement}" "\\${dir}/README.md"
+    $(rootpath //tools/replace_section) -i -s CLOC -r "\\${replacement}" "\\${dir}/README.md"
 EOF
     """,
     executable = True,
     tools = [
         "//go/readme-tree",
-        "//py/replace-section",
         "//tools/cloc",
+        "//tools/replace_section",
     ],
 )
 

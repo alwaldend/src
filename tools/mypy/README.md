@@ -1,0 +1,4 @@
+---
+title: Mypy
+description: Mypy
+---

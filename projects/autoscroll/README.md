@@ -1,6 +1,8 @@
 ---
 title: Autoscroll
 description: CLI app for autoscroll
+tags:
+  - py
 ---
 
 ## About The Project

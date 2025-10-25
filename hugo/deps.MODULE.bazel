@@ -5,7 +5,7 @@ http_archive(
     build_file = "//tools/bzl/build_files:general.BUILD.bazel",
     integrity = "sha256-MbHVtG665pokxgGMhXVv1uGmn4wbBayceBRtLvA7rzw=",
     patch_args = ["-p1"],
-    patches = ["//patch/github.com/google/docsy:001_autoprefixer_require.patch"],
+    patches = ["//third_party/github.com/google/docsy:001_autoprefixer_require.patch"],
     strip_prefix = "docsy-2cb372501b6cc15b5178681ff0c44030052457de",
     urls = ["https://github.com/google/docsy/archive/2cb372501b6cc15b5178681ff0c44030052457de.zip"],
 )

@@ -1,7 +1,7 @@
 # GENERATED FILE - DO NOT EDIT!
 #
 # To update this file, run:
-#   bazel run //py:gazelle_python_manifest.update
+#   bazel run //:gazelle_python_manifest.update
 
 ---
 manifest:
@@ -169,4 +169,4 @@ manifest:
     yaml: pyyaml
   pip_repository:
     name: com_alwaldend_src_pip
-integrity: 8d06aa0f7b722f5e58a614579bd454ebbbe8c113e8fcc6980ceba37f0c84b5e1
+integrity: 7b4d9f6462a56fd9acdb846a3a86bc102319ff25398d59d9ec3ad1f200a1d735

@@ -19,8 +19,9 @@ al_py_checkers(
     srcs = [":src"],
 )
 
-al_bzl_target_doc(
-    name = "bazel_target_doc",
+py_library(
+    name = "replace_section_lib",
+    srcs = ["replace_section.py"],
     visibility = ["//:__subpackages__"],
 )
 
@@ -30,8 +31,7 @@ py_binary(
     visibility = ["//:__subpackages__"],
 )
 
-py_library(
-    name = "replace-section",
-    srcs = ["replace_section.py"],
+al_bzl_target_doc(
+    name = "bazel_target_doc",
     visibility = ["//:__subpackages__"],
 )
