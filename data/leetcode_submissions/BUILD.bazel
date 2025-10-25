@@ -23,15 +23,15 @@ al_git_changelog(
         al_leetcode_submissions(
             name = "leetcode_submissions.{}".format(lang),
             srcs = glob(["languages/{}/questions/*/submissions/*/submission.toml".format(lang)]),
-            package_dir = "{}/leetcode_submissions".format(lang),
+            package_dir = "leetcode_submissions/{}".format(lang),
         ),
         write_file(
             name = "leetcode_submissions.{}_index".format(lang),
             out = "leetcode_submissions.{}_index.md".format(lang),
             content = [
                 "---",
-                "title: Leetcode submissions",
-                "description: Leetcode submissions",
+                "title: {}".format(lang),
+                "description: Leetcode submissions ({})".format(lang),
                 "tags: [generated]",
                 "---",
             ],
@@ -44,7 +44,7 @@ pkg_files(
     name = "leetcode_submissions_docs",
     srcs = ["leetcode_submissions.{}_index".format(lang) for lang in _LANGS],
     renames = {
-        "leetcode_submissions.{}_index.md".format(lang): "{}/leetcode_submissions/_index.md".format(lang)
+        "leetcode_submissions.{}_index.md".format(lang): "leetcode_submissions/{}/_index.md".format(lang)
         for lang in _LANGS
     },
 )
@@ -52,7 +52,7 @@ pkg_files(
 pkg_filegroup(
     name = "leetcode_submissions",
     srcs = [":leetcode_submissions_docs"] + ["leetcode_submissions.{}".format(lang) for lang in _LANGS],
-    visibility = ["//:__subpackages__"],
+    visibility = ["//docs/alwaldend.com/content/misc/leetcode_submissions:__pkg__"],
 )
 
 al_bzl_target_doc(

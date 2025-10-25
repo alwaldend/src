@@ -15,8 +15,6 @@ pkg_filegroup(
         ":git_source_files",
         "//:bazel_target_doc",
         "//:changelog",
-        "//cfg/vial",
-        "//data/leetcode_submissions",
         "//docs/alwaldend.com/content/misc",
         "//infra/ansible/collections/alwaldend/main/roles:docs",
         "//tools:stardoc.stardoc",
@@ -38,7 +36,13 @@ al_pkg_extract_dir(
         "--transform",
         "flags=r;s|README.md|_index.md|g",
         "--exclude",
-        "hugo/sites/docs/layouts/**/*.html",
+        "docs/alwaldend.com/layouts",
+        "--exclude",
+        "docs/alwaldend.com/content",
+        "--exclude",
+        "data",
+        "--exclude",
+        "cfg",
     ],
 )
 

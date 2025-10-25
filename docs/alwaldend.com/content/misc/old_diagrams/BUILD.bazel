@@ -8,14 +8,15 @@ _DIAGRAMS = [diagram.replace(".drawio", "") for diagram in glob(["*.drawio"])]
 
 pkg_filegroup(
     name = "old_diagrams",
-    srcs = [":svgs"],
+    srcs = [":old_diagrams_files"],
     prefix = "old_diagrams",
     visibility = ["//docs/alwaldend.com/content/misc:__pkg__"],
 )
 
 pkg_files(
-    name = "svgs",
-    srcs = ["{}.svg".format(diagram) for diagram in _DIAGRAMS],
+    name = "old_diagrams_files",
+    srcs = glob(["*"]) + ["{}.svg".format(diagram) for diagram in _DIAGRAMS],
+    renames = {"README.md": "_index.md"},
 )
 
 [

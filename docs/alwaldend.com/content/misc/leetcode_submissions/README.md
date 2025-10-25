@@ -1,6 +1,6 @@
 ---
 title: Leetcode submissions
-description: Leetcode submission data
+description: Leetcode submissions
 tags:
   - leetcode
 ---
