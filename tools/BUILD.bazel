@@ -2,6 +2,7 @@ load("@aspect_rules_lint//format:defs.bzl", "format_multirun")
 load("@com_alwaldend_src_npm//:defs.bzl", "npm_link_all_packages")
 load("@rules_perl//perl/cpan:cpan_compiler.bzl", "cpan_compiler")
 load("//tools/bzl:al_alias_map.bzl", "al_alias_map")
+load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
 
@@ -12,6 +13,25 @@ al_git_changelog(
 
 npm_link_all_packages(
     name = "node_modules",
+)
+
+al_bzl_library_map(
+    name = "stardoc",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//tools/{}:{}".format(package, "libs")
+        for package in subpackages(
+            include = ["*"],
+            exclude = [
+                "stylua",
+                "shfmt",
+                "prettier",
+                "postcss",
+                "dnscontrol",
+                "cloc",
+            ],
+        )
+    ],
 )
 
 cpan_compiler(

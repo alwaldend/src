@@ -1,0 +1,51 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
+
+al_git_changelog(
+    name = "changelog",
+    visibility = ["//:__subpackages__"],
+)
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_leetcode_submissions": [
+            "//tools/template_files:al_template_files",
+            "@bazel_skylib//rules:write_file",
+            "@bazel_skylib//lib:paths",
+            "@rules_pkg//pkg:bzl_srcs",
+        ],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+go_library(
+    name = "leetcode_downloader_lib",
+    srcs = [
+        "cmd.go",
+        "downloader.go",
+        "generator.go",
+        "main.go",
+        "repo.go",
+    ],
+    importpath = "git.alwaldend.com/src/projects/leetcode_downloader",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//projects/leetcode_downloader/model",
+        "//proto/leetcode_downloader",
+        "@com_github_burntsushi_toml//:toml",
+    ],
+)
+
+go_binary(
+    name = "leetcode_downloader",
+    embed = [":leetcode_downloader_lib"],
+    visibility = ["//:__subpackages__"],
+)
+
+al_bzl_target_doc(
+    name = "bazel_target_doc",
+    visibility = ["//:__subpackages__"],
+)

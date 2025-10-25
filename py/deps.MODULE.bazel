@@ -25,7 +25,7 @@ pip.parse(
 pip.parse(
     hub_name = "com_alwaldend_src_starlark_bazel_qt_requirements",
     python_version = PYTHON_VERSION,
-    requirements_lock = "//bzl/rules/qt:requirements.txt",
+    requirements_lock = "//tools/qt:requirements.txt",
 )
 use_repo(
     pip,
