@@ -2,7 +2,7 @@ http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "ht
 
 http_archive(
     name = "com_github_google_docsy",
-    build_file = "//bzl/build_files:general.BUILD.bazel",
+    build_file = "//tools/bzl/build_files:general.BUILD.bazel",
     integrity = "sha256-MbHVtG665pokxgGMhXVv1uGmn4wbBayceBRtLvA7rzw=",
     patch_args = ["-p1"],
     patches = ["//patch/github.com/google/docsy:001_autoprefixer_require.patch"],
@@ -12,7 +12,7 @@ http_archive(
 
 http_archive(
     name = "com_github_fortawesome_font_awesome",
-    build_file = "//bzl/build_files:general.BUILD.bazel",
+    build_file = "//tools/bzl/build_files:general.BUILD.bazel",
     integrity = "sha256-/evfPxuGQaS2ZcYfH0jkgrFAqBfOYZETVZIBuKH83VE=",
     strip_prefix = "Font-Awesome-6.7.2",
     urls = ["https://github.com/FortAwesome/Font-Awesome/archive/refs/tags/6.7.2.tar.gz"],
@@ -20,7 +20,7 @@ http_archive(
 
 http_archive(
     name = "com_github_twbs_bootstrap",
-    build_file = "//bzl/build_files:general.BUILD.bazel",
+    build_file = "//tools/bzl/build_files:general.BUILD.bazel",
     integrity = "sha256-+aoFaJvJEWrg7DDmkNTGkbzr+r+76075kiI5+Xpqs9k=",
     strip_prefix = "bootstrap-5.3.7",
     urls = ["https://github.com/twbs/bootstrap/archive/refs/tags/v5.3.7.tar.gz"],

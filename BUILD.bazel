@@ -6,12 +6,12 @@ load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//bzl/rules/bazel_shell_worker:al_genrule.bzl", "al_genrule")
-load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/git:al_git_library.bzl", "al_git_library")
 load("//bzl/rules/md:al_md_data.bzl", "al_md_data")
 load("//bzl/rules/toml:al_toml_data.bzl", "al_toml_data")
 load("//bzl/rules/txt:al_txt_data.bzl", "al_txt_data")
+load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 
 exports_files(["LICENSE.txt"])
 
@@ -47,13 +47,13 @@ buildifier_test(
     workspace = "//:BUILD.bazel",
 )
 
-# gazelle:exclude **/leetcode-submissions/**
-# gazelle:java_maven_install_file java/maven_lock.json
+# gazelle:java_maven_install_file projects/nexus_security_plugin/maven_lock.json
 # gazelle:resolve java javax.annotation @com_alwaldend_src_maven//:org_apache_tomcat_annotations_api
 # gazelle:resolve java org.joda.time @com_alwaldend_src_maven//:joda_time_joda_time
 # gazelle:resolve java org.joda.time.format @com_alwandend_src_maven//:joda_time_joda_time
 # gazelle:resolve java org.sonatype.nexus.repository.view @com_alwandend_src_maven//:org_sonatype_nexus_nexus_repository
 # gazelle:resolve java org.sonatype.nexus.repository.storage @com_alwaldend_src_maven//:org_sonatype_nexus_nexus_repository
+# gazelle:exclude **/leetcode-submissions/**
 # gazelle:exclude **/mod_tidy_fix.go
 gazelle(
     name = "gazelle",

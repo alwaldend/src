@@ -1,7 +1,7 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
-load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
-load("//infra/ansible/rules:al_ansible_role.bzl", "al_ansible_role")
+load("//tools/ansible:al_ansible_role.bzl", "al_ansible_role")
+load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 
 al_git_changelog(
     name = "changelog",

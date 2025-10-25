@@ -1,12 +1,12 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
-load("//bzl/rules/http_server:al_http_server_binary.bzl", "al_http_server_binary")
 load("//bzl/rules/hugo:al_hugo_binary.bzl", "al_hugo_binary")
 load("//bzl/rules/hugo:al_hugo_run_binary.bzl", "al_hugo_run_binary")
 load("//bzl/rules/hugo:al_hugo_site.bzl", "al_hugo_site")
 load("//bzl/rules/toml:al_toml_data.bzl", "al_toml_data")
+load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//tools/http_server:al_http_server_binary.bzl", "al_http_server_binary")
 
 al_git_changelog(
     name = "changelog",
@@ -46,7 +46,7 @@ _BUILD_FLAGS = [
 al_hugo_run_binary(
     name = "docs",
     arguments = select({
-        "//bzl/configs:ci": _BUILD_FLAGS + [
+        "//tools/bzl/configs:ci": _BUILD_FLAGS + [
             "--baseURL",
             "https://alwaldend.github.io/src",
         ],

@@ -694,7 +694,7 @@
     "@@aspect_tools_telemetry+//:extension.bzl%telemetry": {
       "general": {
         "bzlTransitiveDigest": "gA7tPEdJXhskzPIEUxjX9IdDrM6+WjfbgXJ8Ez47umk=",
-        "usagesDigest": "+94AIeoDeHtgVxnkuh0ptro6T/etD9c6I1xe9jGvxtA=",
+        "usagesDigest": "17lA1g2cAf8lTEx56cZOEQiQQfsxVb/tquKMaCiHBZk=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -703,8 +703,8 @@
             "repoRuleId": "@@aspect_tools_telemetry+//:extension.bzl%tel_repository",
             "attributes": {
               "deps": {
-                "aspect_rules_js": "2.6.2",
                 "aspect_rules_lint": "1.10.2",
+                "aspect_rules_js": "2.6.2",
                 "aspect_tools_telemetry": "0.2.8"
               }
             }

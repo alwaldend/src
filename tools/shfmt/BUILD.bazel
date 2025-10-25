@@ -1,0 +1,18 @@
+load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
+load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+
+al_git_changelog(
+    name = "changelog",
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "shfmt",
+    actual = "@cc_mvdan_sh_v3//cmd/shfmt:shfmt",
+    visibility = ["//:__subpackages__"],
+)
+
+al_bzl_target_doc(
+    name = "bazel_target_doc",
+    visibility = ["//:__subpackages__"],
+)

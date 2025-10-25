@@ -8,6 +8,25 @@ git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "g
 
 local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "local_repository")
 
+## Go
+go_tool_deps = use_extension("@gazelle//:extensions.bzl", "go_deps", isolate = True)
+go_tool_deps.from_file(
+    go_mod = "//tools:go.mod",
+)
+
+# Some cgo deps are missing headers
+# go_tool_deps.gazelle_override(
+#     directives = ["gazelle:build_tags extended,withdeploy"],
+#     path = "github.com/gohugoio/hugo",
+# )
+
+use_repo(
+    go_tool_deps,
+    "cc_mvdan_sh_v3",
+    "com_github_bazelbuild_buildtools",
+    "com_github_stackexchange_dnscontrol_v4",
+)
+
 ## Rust
 
 crate = use_extension("@rules_rust//crate_universe:extensions.bzl", "crate")
@@ -73,6 +92,8 @@ use_repo(
     "com_github_jgraph_drawio_desktop_linux_x86_64",
 )
 
+register_toolchains("//tools/drawio:toolchain_remote_linux_x86_64")
+
 ## Hugo
 al_repo_map.download(
     name = "com_github_gohugoio_hugo",
@@ -93,7 +114,7 @@ use_repo(
 
 http_archive(
     name = "com_arm_developer_gcc_arm",
-    build_file = "//bzl/build_files:general.BUILD.bazel",
+    build_file = "//tools/bzl/build_files:general.BUILD.bazel",
     integrity = "sha256-l9u08BmtFlC3Mvr/zIgWic7cFOK37oY9OQ4KQe8WyaM=",
     strip_prefix = "gcc-arm-none-eabi-10.3-2021.10",
     url = "https://developer.arm.com/-/media/Files/downloads/gnu-rm/{version}/{name}-{version}-{platform}.tar.bz2".format(
@@ -107,7 +128,7 @@ http_archive(
 # Qt
 http_archive(
     name = "com_alwaldend_src_qt",
-    build_file = "//bzl/build_files:general.BUILD.bazel",
+    build_file = "//tools/bzl/build_files:general.BUILD.bazel",
     integrity = "sha256-T2HlBVHQAEpRP++9sKQQWV2UgSpIYAZG+3NB6g0X4cs=",
     strip_prefix = "qt-everywhere-src-6.9.0",
     urls = ["https://download.qt.io/official_releases/qt/6.9/6.9.0/single/qt-everywhere-src-6.9.0.tar.xz"],

@@ -1,9 +1,9 @@
 load("@rules_python//python:packaging.bzl", "py_package", "py_wheel")
 load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@rules_python//python:py_library.bzl", "py_library")
-load("//bzl/rules/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//bzl/rules/py:al_py_checkers.bzl", "al_py_checkers")
+load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 
 al_git_changelog(
     name = "changelog",

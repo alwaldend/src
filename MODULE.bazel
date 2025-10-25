@@ -5,6 +5,16 @@ module(
     compatibility_level = 0,
 )
 
+# Bzl
+bazel_dep(name = "stardoc", version = "0.8.0")
+bazel_dep(name = "bazel_skylib", version = "1.8.2")
+bazel_dep(name = "platforms", version = "1.0.0")
+bazel_dep(name = "rules_license", version = "1.0.0")
+bazel_dep(name = "rules_pkg", version = "1.1.0")
+bazel_dep(name = "aspect_bazel_lib", version = "2.21.2")
+bazel_dep(name = "aspect_rules_lint", version = "1.10.2")
+bazel_dep(name = "bazel_worker_java", version = "0.0.6")
+
 # Python
 bazel_dep(name = "rules_python", version = "1.6.3")
 bazel_dep(name = "rules_python_gazelle_plugin", version = "1.6.3")
@@ -73,8 +83,6 @@ bazel_dep(name = "com_github_georgewfraser_java_language_server", version = "202
 
 include("//tools:deps.MODULE.bazel")
 include("//py:deps.MODULE.bazel")
-include("//go:deps.MODULE.bazel")
-include("//bzl:deps.MODULE.bazel")
 include("//hugo:deps.MODULE.bazel")
 include("//drawio:deps.MODULE.bazel")
 include("//infra/helm:deps.MODULE.bazel")
@@ -159,7 +167,7 @@ use_repo(
     "kotlinx_serialization_json_jvm",
 )
 
-register_toolchains("//bzl/configs:kotlin_toolchain")
+register_toolchains("//tools/bzl/configs:kotlin_toolchain")
 
 # Android
 remote_android_extensions = use_extension(
@@ -184,6 +192,24 @@ android_ndk_repository_extension.configure(
 use_repo(android_ndk_repository_extension, "androidndk")
 
 register_toolchains("@androidndk//:all")
+
+# Go
+
+go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
+go_sdk.download(
+    version = "1.25.1",
+)
+go_sdk.from_file(go_mod = "//:go.mod")
+
+go_deps_mod = use_extension("@gazelle//:extensions.bzl", "go_deps")
+go_deps_mod.from_file(go_mod = "//:go.mod")
+use_repo(
+    go_deps_mod,
+    "com_github_burntsushi_toml",
+    "com_github_goccy_go_yaml",
+    "com_github_spf13_cobra",
+    "org_golang_google_protobuf",
+)
 
 # Js
 node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node")
@@ -241,4 +267,4 @@ register_toolchains("//bzl/rules/git:toolchain_local")
 
 # Shellcheck
 
-register_toolchains("//bzl/rules/shellcheck:toolchain_remote_linux_x86_64")
+register_toolchains("//tools/shellcheck:toolchain_remote_linux_x86_64")
