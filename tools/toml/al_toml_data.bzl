@@ -16,7 +16,7 @@ al_toml_data = rule(
             executable = True,
             doc = "Tomlv target to use for validation",
             cfg = "exec",
-            default = "//tools:tomlv",
+            default = "//tools/tomlv",
         ),
     },
 )

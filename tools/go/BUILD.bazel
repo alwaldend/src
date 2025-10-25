@@ -7,6 +7,12 @@ al_git_changelog(
     visibility = ["//:__subpackages__"],
 )
 
+alias(
+    name = "go",
+    actual = "@rules_go//go",
+    visibility = ["//:__subpackages__"],
+)
+
 al_bzl_library_map(
     name = "libs",
     libs = {

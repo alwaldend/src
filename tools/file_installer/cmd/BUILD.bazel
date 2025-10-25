@@ -10,10 +10,9 @@ al_git_changelog(
 go_library(
     name = "cmd",
     srcs = ["cmd.go"],
-    importpath = "git.alwaldend.com/src/go/file-installer/cmd",
+    importpath = "git.alwaldend.com/src/tools/file_installer/cmd",
     visibility = ["//:__subpackages__"],
     deps = [
-        "//go/utils",
         "@com_github_spf13_cobra//:cobra",
     ],
 )

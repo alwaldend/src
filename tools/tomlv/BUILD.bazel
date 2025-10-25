@@ -1,4 +1,3 @@
-load("@rules_go//go:def.bzl", "go_library")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
 
@@ -7,10 +6,9 @@ al_git_changelog(
     visibility = ["//:__subpackages__"],
 )
 
-go_library(
-    name = "utils",
-    srcs = ["utils.go"],
-    importpath = "git.alwaldend.com/src/go/utils",
+alias(
+    name = "tomlv",
+    actual = "@com_github_burntsushi_toml//cmd/tomlv:tomlv",
     visibility = ["//:__subpackages__"],
 )
 

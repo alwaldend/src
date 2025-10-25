@@ -8,16 +8,16 @@ al_git_changelog(
 )
 
 go_library(
-    name = "file-installer_lib",
+    name = "file_installer_lib",
     srcs = ["main.go"],
-    importpath = "git.alwaldend.com/src/go/file-installer",
+    importpath = "git.alwaldend.com/src/tools/file_installer",
     visibility = ["//visibility:private"],
-    deps = ["//go/file-installer/cmd"],
+    deps = ["//tools/file_installer/cmd"],
 )
 
 go_binary(
-    name = "file-installer",
-    embed = [":file-installer_lib"],
+    name = "file_installer",
+    embed = [":file_installer_lib"],
     visibility = ["//:__subpackages__"],
 )
 

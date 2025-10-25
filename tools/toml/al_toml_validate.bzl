@@ -4,7 +4,7 @@ def _impl(target, ctx):
     if ctx.label.repo_name or not hasattr(ctx.rule.attr, "srcs"):
         return []
 
-    script = ctx.actions.declare_file("{}-script".format(ctx.label.name))
+    script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
     ctx.actions.write(
         output = script,
         is_executable = True,
@@ -21,7 +21,7 @@ def _impl(target, ctx):
     tomlv = ctx.rule.executable.tomlv
     outputs = [script]
     for i, file in enumerate(ctx.rule.files.srcs):
-        output = ctx.actions.declare_file("{}-tomlv-mark-{}".format(ctx.label.name, i))
+        output = ctx.actions.declare_file("{}.tomlv_mark.{}".format(ctx.label.name, i))
         outputs.append(output)
         ctx.actions.run(
             executable = script,

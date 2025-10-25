@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"archive/tar"
+	"bytes"
 	"fmt"
 	"io"
 	"io/fs"
@@ -11,9 +12,27 @@ import (
 	"sync"
 
 	cobra "github.com/spf13/cobra"
-
-	"git.alwaldend.com/src/go/utils"
 )
+
+// convert io.Reader to []byte
+func streamToByte(stream io.Reader) ([]byte, error) {
+	buf := new(bytes.Buffer)
+	_, err := buf.ReadFrom(stream)
+	if err != nil {
+		return nil, err
+	}
+	return buf.Bytes(), nil
+}
+
+// convert io.Reader to string
+func streamToString(stream io.Reader) (string, error) {
+	buf := new(bytes.Buffer)
+	_, err := buf.ReadFrom(stream)
+	if err != nil {
+		return "", err
+	}
+	return buf.String(), nil
+}
 
 type configType struct {
 	install_files  []string
@@ -129,7 +148,7 @@ func installTarHeader(header *tar.Header, archive io.Reader, targetDirectory str
 		return nil
 	case tar.TypeReg:
 		targetPath := filepath.Join(targetDirectory, header.Name)
-		targetBytes, err := utils.StreamToByte(archive)
+		targetBytes, err := streamToByte(archive)
 		if err != nil {
 			return err
 		}
