@@ -1,0 +1,45 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
+
+al_git_changelog(
+    name = "changelog",
+    visibility = ["//:__subpackages__"],
+)
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_template_files": [],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+go_library(
+    name = "template_files_lib",
+    srcs = [
+        "cmd.go",
+        "main.go",
+        "templater.go",
+        "templater_func_map.go",
+    ],
+    importpath = "git.alwaldend.com/src/tools/template_files",
+    visibility = ["//visibility:private"],
+    deps = [
+        "@com_github_burntsushi_toml//:toml",
+        "@com_github_goccy_go_yaml//:go-yaml",
+        "@com_github_spf13_cobra//:cobra",
+    ],
+)
+
+go_binary(
+    name = "template_files",
+    embed = [":template_files_lib"],
+    visibility = ["//:__subpackages__"],
+)
+
+al_bzl_target_doc(
+    name = "bazel_target_doc",
+    visibility = ["//:__subpackages__"],
+)

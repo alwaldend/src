@@ -1,0 +1,66 @@
+load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
+load(":al_git_toolchain.bzl", "al_git_toolchain")
+
+al_git_changelog(
+    name = "changelog",
+    visibility = ["//:__subpackages__"],
+)
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_git_repo": [],
+        "al_git_library_info": [],
+        "al_git_library": [
+            ":al_git_library_info",
+            "@rules_pkg//pkg:bzl_srcs",
+        ],
+        "al_git_binary": [
+            ":al_git_library_info",
+            "@bazel_skylib//lib:shell",
+        ],
+        "al_git_run_binary": [],
+        "al_git_toolchain": [],
+        "al_git_resolved_toolchain": [
+            "//bzl/rules/resolved_toolchain:al_resolved_toolchain",
+        ],
+        "al_git_changelog": [
+            "//tools/template_files:al_template_files",
+            ":al_git_run_binary",
+            "@rules_pkg//pkg:bzl_srcs",
+            "@bazel_skylib//rules:write_file",
+            "@bazel_skylib//lib:paths",
+        ],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "git_log_config",
+    srcs = ["git_log_config.yaml"],
+    visibility = ["//:__subpackages__"],
+)
+
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//:__subpackages__"],
+)
+
+toolchain(
+    name = "toolchain_local",
+    toolchain = ":toolchain_local_impl",
+    toolchain_type = ":toolchain_type",
+    visibility = ["//:__subpackages__"],
+)
+
+al_git_toolchain(
+    name = "toolchain_local_impl",
+    local_bin = "git",
+)
+
+al_bzl_target_doc(
+    name = "bazel_target_doc",
+    visibility = ["//:__subpackages__"],
+)

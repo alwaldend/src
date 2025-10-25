@@ -1,8 +1,8 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
-load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//tools/drawio:al_drawio_run_binary.bzl", "al_drawio_run_binary")
+load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
 
 _DIAGRAMS = {
     "arch_idea_anki_chinese_flashcards_enricher": {},

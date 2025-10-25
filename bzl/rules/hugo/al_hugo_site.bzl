@@ -1,5 +1,5 @@
 load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo", "PackageFilesInfo")
-load("//bzl/rules/git:al_git_library_info.bzl", "AlGitLibraryInfo")
+load("//tools/git:al_git_library_info.bzl", "AlGitLibraryInfo")
 load(":al_hugo_site_info.bzl", "AlHugoSiteInfo")
 
 def _impl(ctx):

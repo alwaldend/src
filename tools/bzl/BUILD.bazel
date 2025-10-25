@@ -1,6 +1,6 @@
-load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
 
 al_git_changelog(
     name = "changelog",
@@ -18,12 +18,12 @@ al_bzl_library_map(
             "@bazel_skylib//rules:write_file",
         ],
         "al_genquery_write_to_source_file": [
-            "//bzl/rules/template_files:al_template_files",
+            "//tools/template_files:al_template_files",
             "@aspect_bazel_lib//lib:write_source_files",
             "@bazel_skylib//rules:write_file",
         ],
         "al_bzl_target_doc": [
-            "//bzl/rules/template_files:al_template_files",
+            "//tools/template_files:al_template_files",
             "@rules_pkg//pkg:bzl_srcs",
             "@bazel_skylib//lib:paths",
             "@bazel_skylib//rules:write_file",

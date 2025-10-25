@@ -1,5 +1,5 @@
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
-load("//bzl/rules/txt:al_combine_files.bzl", "al_combine_files")
+load("//tools/txt:al_combine_files.bzl", "al_combine_files")
 
 def al_compile_pip_requirements_combined(name, srcs, **kwargs):
     """

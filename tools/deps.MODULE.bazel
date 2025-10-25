@@ -1,6 +1,6 @@
 GCC_ARM_VERSION = "10.3-2021.10"
 
-al_repo_map = use_extension("//bzl/rules/repo_map:al_repo_map.bzl", "al_repo_map")
+al_repo_map = use_extension("//tools/repo_map:al_repo_map.bzl", "al_repo_map")
 
 http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 

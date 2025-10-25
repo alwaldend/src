@@ -257,13 +257,13 @@ use_repo(npm, "com_alwaldend_src_npm")
 register_toolchains("//bzl/rules/qt:toolchain_local_linux_gcc_64")
 
 # Git
-al_git_repo = use_repo_rule("//bzl/rules/git:al_git_repo.bzl", "al_git_repo")
+al_git_repo = use_repo_rule("//tools/git:al_git_repo.bzl", "al_git_repo")
 
 al_git_repo(
     name = "git",
 )
 
-register_toolchains("//bzl/rules/git:toolchain_local")
+register_toolchains("//tools/git:toolchain_local")
 
 # Shellcheck
 

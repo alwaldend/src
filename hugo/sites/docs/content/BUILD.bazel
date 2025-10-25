@@ -1,8 +1,8 @@
-load("@com_alwaldend_src//bzl/rules/pkg:al_pkg_extract_dir.bzl", "al_pkg_extract_dir")
+load("@com_alwaldend_src//tools/pkg:al_pkg_extract_dir.bzl", "al_pkg_extract_dir")
 load("@rules_pkg//pkg:mappings.bzl", "REMOVE_BASE_DIRECTORY", "pkg_filegroup", "pkg_files", "strip_prefix")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
 
 al_git_changelog(
     name = "changelog",

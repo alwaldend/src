@@ -442,10 +442,10 @@
   },
   "selectedYankedVersions": {},
   "moduleExtensions": {
-    "//bzl/rules/repo_map:al_repo_map.bzl%al_repo_map": {
+    "//tools/repo_map:al_repo_map.bzl%al_repo_map": {
       "general": {
         "bzlTransitiveDigest": "gnod4/3J1Gv900LSjO5X/yxUNyFE9/NQO/kYS5WfiWQ=",
-        "usagesDigest": "vffTxNsQ+q/UyPJiWA8YEyPQ1tEvUlwWsgvFgzQIHuM=",
+        "usagesDigest": "KHn0WaLxE2EuOV97YJFDPyKjBayCpg44Va+7R0BJ7MM=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},

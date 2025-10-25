@@ -1,0 +1,25 @@
+load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
+
+al_git_changelog(
+    name = "changelog",
+    visibility = ["//:__subpackages__"],
+)
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_repo_map": [
+            "@bazel_tools//tools/build_defs/repo:cache.bzl",
+            "@bazel_tools//tools/build_defs/repo:http.bzl",
+            "@bazel_tools//tools/build_defs/repo:utils.bzl",
+        ],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+al_bzl_target_doc(
+    name = "bazel_target_doc",
+    visibility = ["//:__subpackages__"],
+)

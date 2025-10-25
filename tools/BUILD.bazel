@@ -1,9 +1,9 @@
 load("@aspect_rules_lint//format:defs.bzl", "format_multirun")
 load("@com_alwaldend_src_npm//:defs.bzl", "npm_link_all_packages")
 load("@rules_perl//perl/cpan:cpan_compiler.bzl", "cpan_compiler")
-load("//bzl/rules/git:al_git_changelog.bzl", "al_git_changelog")
 load("//tools/bzl:al_alias_map.bzl", "al_alias_map")
 load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//tools/git:al_git_changelog.bzl", "al_git_changelog")
 
 al_git_changelog(
     name = "changelog",
