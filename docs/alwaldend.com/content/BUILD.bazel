@@ -17,12 +17,12 @@ pkg_filegroup(
         "//:changelog",
         "//cfg/vial",
         "//data/leetcode_submissions",
-        "//drawio/diagrams:docs",
+        "//docs/alwaldend.com/content/misc",
         "//infra/ansible/collections/alwaldend/main/roles:docs",
         "//tools:stardoc.stardoc",
     ],
     prefix = "content",
-    visibility = ["//:__subpackages__"],
+    visibility = ["//docs/alwaldend.com:__pkg__"],
 )
 
 pkg_files(

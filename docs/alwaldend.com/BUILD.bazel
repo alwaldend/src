@@ -37,7 +37,7 @@ _BUILD_FLAGS = [
     # "--printUnusedTemplates", /404.html is unused
     "--destination",
     "{}/k8-fastbuild/bin/{}/{}".format(
-        "/".join([".."] * 7),
+        "/".join([".."] * 6),
         package_name(),
         "docs.destination",
     ),
@@ -88,10 +88,10 @@ pkg_tar(
     srcs = [
         ":docs_config",
         ":docs_data",
-        "//hugo/sites/docs/content",
-        "//hugo/sites/docs/i18n",
-        "//hugo/sites/docs/layouts",
-        "//hugo/themes",
+        "//docs/alwaldend.com/content",
+        "//docs/alwaldend.com/i18n",
+        "//docs/alwaldend.com/layouts",
+        "//tools/hugo/themes",
     ],
     strip_prefix = ".",
 )

@@ -31,14 +31,14 @@ al_py_checkers(
 )
 
 py_library(
-    name = "lib",
+    name = "install_file_lib",
     srcs = ["install_file.py"],
     visibility = ["//:__subpackages__"],
 )
 
 py_binary(
     name = "install_file",
-    srcs = ["install_file.py"],
+    srcs = [":install_file_lib"],
     visibility = ["//:__subpackages__"],
 )
 

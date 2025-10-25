@@ -39,6 +39,9 @@ al_bzl_library_map(
                 "replace_section",
                 "file_installer",
                 "git_hooks",
+                "pnpm",
+                "tomlv",
+                "readme_tree",
             ],
         )
     ],

@@ -27,7 +27,7 @@ py_library(
 
 py_binary(
     name = "replace_section",
-    srcs = ["replace_section.py"],
+    srcs = [":replace_section_lib"],
     visibility = ["//:__subpackages__"],
 )
 

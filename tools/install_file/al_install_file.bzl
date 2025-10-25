@@ -3,7 +3,7 @@ load("@rules_python//python:py_binary.bzl", "py_binary")
 def al_install_file(
         name,
         args = [],
-        install_file_label = "//tools/install_file:lib",
+        install_file_label = "//tools/install_file:install_file_lib",
         visibility = ["//visibility:public"],
         **py_binary_kwargs):
     """
