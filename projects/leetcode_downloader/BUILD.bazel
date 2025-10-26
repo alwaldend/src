@@ -34,8 +34,8 @@ go_library(
     importpath = "git.alwaldend.com/src/projects/leetcode_downloader",
     visibility = ["//visibility:private"],
     deps = [
+        "//contracts/leetcode_downloader",
         "//projects/leetcode_downloader/model",
-        "//proto/leetcode_downloader",
         "@com_github_burntsushi_toml//:toml",
     ],
 )

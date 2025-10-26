@@ -16,7 +16,7 @@ syntax = "proto3";
 
 package blaze.worker;
 
-option go_package = "git.alwaldend.com/src/proto/bazel_worker/worker_protocol";
+option go_package = "git.alwaldend.com/src/contracts/bazel_worker/worker_protocol";
 option java_package = "com.google.devtools.build.lib.worker";
 
 // An input file.

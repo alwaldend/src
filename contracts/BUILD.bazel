@@ -1,0 +1,12 @@
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//:__pkg__"],
+    deps = ["//{}/{}:docs".format(
+        package_name(),
+        package,
+    ) for package in subpackages(include = ["*"])],
+)

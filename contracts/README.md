@@ -1,9 +1,9 @@
 ---
-title: Proto
-description: Protobuf tree
+title: Contracts
+description: Contract tree
 cascade:
   - categories:
-      - proto
+      - contract
 ---
 
 ## Links

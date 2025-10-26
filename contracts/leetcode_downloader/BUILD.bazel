@@ -3,6 +3,21 @@ load("@rules_go//go:def.bzl", "go_library")
 load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/proto:al_proto_docs.bzl", "al_proto_docs")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//contracts:__pkg__"],
+    deps = [":types_docs"],
+)
+
+al_proto_docs(
+    name = "types_docs",
+    src = "types.proto",
+)
 
 proto_library(
     name = "leetcode_downloader_proto",
@@ -12,7 +27,7 @@ proto_library(
 
 go_proto_library(
     name = "leetcode_downloader_go_proto",
-    importpath = "git.alwaldend.com/src/proto/leetcode_downloader",
+    importpath = "git.alwaldend.com/src/contracts/leetcode_downloader",
     proto = ":leetcode_downloader_proto",
     visibility = ["//:__subpackages__"],
 )
@@ -20,7 +35,7 @@ go_proto_library(
 go_library(
     name = "leetcode_downloader",
     embed = [":leetcode_downloader_go_proto"],
-    importpath = "git.alwaldend.com/src/proto/leetcode_downloader",
+    importpath = "git.alwaldend.com/src/contracts/leetcode_downloader",
     visibility = ["//:__subpackages__"],
 )
 

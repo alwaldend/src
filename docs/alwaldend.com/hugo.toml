@@ -26,15 +26,15 @@ sidebar_menu_foldable = true
 [params.drawio]
 enable = true
 
-[[params.links.developer]]
-name = "Github"
-url = "https://github.com/alwaldend/src"
-icon = "fa-brands fa-github"
-desc = "Github"
+# [[params.links.developer]]
+# name = "Github"
+# url = "https://github.com/alwaldend/src"
+# icon = "fa-brands fa-github"
+# desc = "Github"
 
 [markup.goldmark]
 renderer.unsafe = true
-
+parser.attribute.block = true
 
 [taxonomies]
 tag = "tags"

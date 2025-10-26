@@ -6,6 +6,7 @@ def _template_files_impl(ctx):
         args.add("--template", template.path)
     for output in ctx.outputs.outs:
         args.add("--output", output.path)
+    args.add_all(ctx.attr.args)
     ctx.actions.run(
         executable = ctx.executable.templater,
         arguments = ["template", args],
@@ -34,6 +35,10 @@ al_template_files = rule(
             mandatory = True,
             allow_empty = True,
             doc = "Data files",
+        ),
+        "args": attr.string_list(
+            doc = "Extra arguments",
+            default = [],
         ),
         "templater": attr.label(
             executable = True,

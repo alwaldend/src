@@ -36,10 +36,10 @@ func NewTemplater() *Templater {
 	return &Templater{}
 }
 
-func (self *Templater) TemplateFiles(dataPaths []string, templatePath string, outputPath string) error {
+func (self *Templater) TemplateFiles(dataPaths []string, templatePath string, outputPath string, extension string) error {
 	ctx := &TemplateContext{}
 	for _, path := range dataPaths {
-		data, err := self.loadData(path)
+		data, err := self.loadData(path, extension)
 		if err != nil {
 			return fmt.Errorf("could not load data %s: %w", path, err)
 		}
@@ -65,7 +65,7 @@ func (self *Templater) TemplateFiles(dataPaths []string, templatePath string, ou
 	return nil
 }
 
-func (self *Templater) loadData(path string) (*TemplateDataFile, error) {
+func (self *Templater) loadData(path string, extension string) (*TemplateDataFile, error) {
 	fileBytes, err := os.ReadFile(path)
 	if err != nil {
 		return nil, fmt.Errorf("could not read %s: %w", path, err)
@@ -81,7 +81,9 @@ func (self *Templater) loadData(path string) (*TemplateDataFile, error) {
 		fileLines = fileLines[:fileLinesCount-1]
 		fileLinesCount -= 1
 	}
-	extension := filepath.Ext(path)
+	if extension == "" {
+		extension = filepath.Ext(path)
+	}
 	var data any
 	switch extension {
 	case ".toml":

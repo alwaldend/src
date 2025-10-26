@@ -5,6 +5,21 @@ load("@rules_java//java:defs.bzl", "java_library")
 load("@rules_java//java:java_import.bzl", "java_import")
 load("@rules_java//java:java_single_jar.bzl", "java_single_jar")
 load("@rules_proto//proto:defs.bzl", "proto_library")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/proto:al_proto_docs.bzl", "al_proto_docs")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//contracts:__pkg__"],
+    deps = [":model_docs"],
+)
+
+al_proto_docs(
+    name = "model_docs",
+    src = "model.proto",
+)
 
 proto_library(
     name = "model_proto",
@@ -14,7 +29,7 @@ proto_library(
 
 go_proto_library(
     name = "model_go_proto",
-    importpath = "git.alwaldend.com/src/proto/android_launcher",
+    importpath = "git.alwaldend.com/src/contracts/android_launcher",
     proto = ":model_proto",
     visibility = ["//:__subpackages__"],
 )
@@ -22,7 +37,7 @@ go_proto_library(
 go_library(
     name = "android_launcher",
     embed = [":model_go_proto"],
-    importpath = "git.alwaldend.com/src/proto/android_launcher",
+    importpath = "git.alwaldend.com/src/contracts/android_launcher",
     visibility = ["//:__subpackages__"],
 )
 

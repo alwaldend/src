@@ -70,17 +70,19 @@ func newTemplateCommand() (*cobra.Command, error) {
 	var dataPaths []string
 	var templatePath string
 	var outputPath string
+	var extension string
 	cmd := &cobra.Command{
 		Use:   "template",
 		Short: "Load data files (-d), template the template (-t) and write it to the output (-o)",
 		Long:  "Load data files (-d), template the template (-t) and write it to the output (-o)",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return NewTemplater().TemplateFiles(dataPaths, templatePath, outputPath)
+			return NewTemplater().TemplateFiles(dataPaths, templatePath, outputPath, extension)
 		},
 	}
 	flags := cmd.PersistentFlags()
 	flags.StringSliceVarP(&dataPaths, "data", "d", []string{}, "Paths to data files")
 	flags.StringVarP(&outputPath, "output", "o", "", "Output path")
 	flags.StringVarP(&templatePath, "template", "t", "", "Template path")
+	flags.StringVarP(&extension, "extension", "e", "", "Override data extension")
 	return cmd, nil
 }

@@ -1,6 +1,8 @@
 ---
 title: Bazel worker
 description: Bazel worker protocol
+tags:
+  - proto
 ---
 
 ## Links

@@ -26,7 +26,7 @@ kt_android_library(
     resource_files = ["//projects/android_launcher/res"],
     visibility = ["//projects/android_launcher:__subpackages__"],
     deps = [
-        "//proto/android_launcher:model_java_import",
+        "//contracts/android_launcher:model_java_import",
         "@com_alwaldend_src_projects_android_launcher_maven//:androidx_activity_activity_compose",
         "@com_alwaldend_src_projects_android_launcher_maven//:androidx_compose_foundation_foundation_layout",
         "@com_alwaldend_src_projects_android_launcher_maven//:androidx_compose_material3_material3",

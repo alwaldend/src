@@ -3,10 +3,23 @@ title: Alwaldend.com
 description: Alwaldend.com
 ---
 
-{{% blocks/lead %}}
+{{% blocks/section type="row" %}}
 
-Docs: https://alwaldend.github.io/src/docs
+<div class="col"></div>
 
-Github: https://github.com/alwaldend/
+<table class="col">
+  <tbody>
+    <tr>
+      <td>Docs</td>
+      <td><a href="https://alwaldend.github.io/src/docs/">alwaldend.github.io/src/docs</a></td>
+    </tr>
+    <tr>
+      <td>Github</td>
+      <td><a href="https://github.com/alwaldend/">github.com/alwaldend</a></td>
+    </tr>
+  </tbody>
+</table>
 
-{{% /blocks/lead %}}
+<div class="col"></div>
+
+{{% /blocks/section %}}
