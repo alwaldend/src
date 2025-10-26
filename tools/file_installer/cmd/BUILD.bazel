@@ -1,5 +1,4 @@
 load("@rules_go//go:def.bzl", "go_library")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 
 go_library(
     name = "cmd",
@@ -9,9 +8,4 @@ go_library(
     deps = [
         "@com_github_spf13_cobra//:cobra",
     ],
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
 )

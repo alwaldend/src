@@ -1,24 +1,18 @@
-load("@rules_pkg//pkg:mappings.bzl", "REMOVE_BASE_DIRECTORY", "pkg_filegroup", "pkg_files", "strip_prefix")
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = "content",
+    visibility = ["//docs/alwaldend.com:__pkg__"],
+    deps = [":deps"],
+)
 
 pkg_filegroup(
-    name = "content",
+    name = "deps",
     srcs = [
-        ":content_files",
         "//docs/alwaldend.com/content/docs",
     ],
     prefix = "content",
-    visibility = ["//docs/alwaldend.com:__pkg__"],
-)
-
-pkg_files(
-    name = "content_files",
-    srcs = glob(["*.md"]),
-    renames = {"README.md": "_index.md"},
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
 )

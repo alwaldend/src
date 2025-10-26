@@ -1,7 +1,9 @@
 ---
 title: Template files
 description: Tool and rules to template files
-tags:
+languages:
+  - bzl
   - go
+tags:
   - bzl_rules
 ---

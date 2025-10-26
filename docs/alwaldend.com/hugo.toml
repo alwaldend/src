@@ -1,14 +1,6 @@
-title = "Docs"
+title = "Alwaldend"
 theme = ["github.com/google/docsy"]
-baseURL = "http://127.0.0.1:1313/src"
-defaultContentLanguage = "en"
-defaultContentLanguageInSubdir = true
-ignoreFiles = [
-    "content/docs",
-    "content/data",
-    "content/third_party",
-    "content/proto",
-]
+baseURL = "http://127.0.0.1:1313"
 
 enableRobotsTXT = true
 enableGitInfo = false
@@ -43,11 +35,16 @@ desc = "Github"
 [markup.goldmark]
 renderer.unsafe = true
 
-# [[menus.main]]
-# name = "Tags"
-# identifier = "tags"
-# weight = 100
-# url = "/tags/"
+
+[taxonomies]
+tag = "tags"
+category = "categories"
+language = "languages"
+
+[[menus.main]]
+name = "Docs"
+weight = 100
+url = "/docs/"
 
 [security]
 enableInlineShortcodes = true

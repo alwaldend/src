@@ -1,37 +1,19 @@
-load("@com_alwaldend_src//tools/pkg:al_pkg_extract_dir.bzl", "al_pkg_extract_dir")
-load("@rules_pkg//pkg:mappings.bzl", "REMOVE_BASE_DIRECTORY", "pkg_filegroup", "pkg_files", "strip_prefix")
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
-pkg_filegroup(
+al_docs_files(
     name = "docs",
-    srcs = [
-        ":git_source_files",
-        "//:bazel_target_doc",
-        "//docs/alwaldend.com/content/docs/misc",
-        "//infra/ansible/collections/alwaldend/main/roles:docs",
-        "//tools:stardoc.stardoc",
-    ],
+    srcs = glob(["*.md"]),
     prefix = "docs",
     visibility = ["//docs/alwaldend.com/content:__pkg__"],
+    deps = [":deps"],
 )
 
-pkg_files(
-    name = "git_source_files",
-    srcs = [":git_source_dir"],
-    renames = {":git_source_dir": REMOVE_BASE_DIRECTORY},
-)
-
-al_pkg_extract_dir(
-    name = "git_source_dir",
-    src = "@git//:git_source_archive",
-    arguments = [
-        "--transform",
-        "flags=r;s|README.md|_index.md|g",
+pkg_filegroup(
+    name = "deps",
+    srcs = [
+        "//:docs",
+        "//docs/alwaldend.com/content/docs/misc:docs",
     ],
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
+    prefix = "docs",
 )

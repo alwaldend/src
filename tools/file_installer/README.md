@@ -1,6 +1,9 @@
 ---
 title: File installer
 description: CLI tool to install files
-tags:
+languages:
   - go
+  - bzl
+tags:
+  - bzl_rules
 ---

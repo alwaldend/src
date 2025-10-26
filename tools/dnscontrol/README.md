@@ -1,6 +1,11 @@
 ---
 title: Dnscontrol
 description: Dnscontrol tool
+languages:
+  - bzl
+tags:
+  - dnscontrol
+  - dns
 ---
 
 ## Links

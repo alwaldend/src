@@ -3,7 +3,6 @@ load("@rules_go//go:def.bzl", "go_library")
 load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 
 proto_library(
     name = "worker_protocol_proto",
@@ -34,9 +33,4 @@ java_library(
     name = "worker_protocol_java_library",
     visibility = ["//:__subpackages__"],
     exports = [":worker_protocol_java_proto"],
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
 )

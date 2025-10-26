@@ -1,13 +1,7 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 
 pkg_files(
     name = "res",
     srcs = glob(["*.png"]),
-    visibility = ["//:__subpackages__"],
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
     visibility = ["//:__subpackages__"],
 )

@@ -1,10 +1,11 @@
 ---
 title: Android launcher
 description: Android launcher
+languages:
+  - kt
 tags:
- - kotlin
  - android
- - protobuf
+ - proto
 ---
 
 ## Features

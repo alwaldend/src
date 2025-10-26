@@ -2,6 +2,7 @@
 title: DNSControl
 description: DNSControl tree
 tags:
+  - dns
   - dnscontrol
 ---
 

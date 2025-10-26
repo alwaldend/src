@@ -9,12 +9,24 @@ load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 load("//tools/git:al_git_library.bzl", "al_git_library")
 load("//tools/md:al_md_data.bzl", "al_md_data")
 load("//tools/shell_worker:al_genrule.bzl", "al_genrule")
 load("//tools/toml:al_toml_data.bzl", "al_toml_data")
 load("//tools/txt:al_txt_data.bzl", "al_txt_data")
+
+al_docs_files(
+    name = "docs",
+    srcs = [":LICENSE.txt"],
+    renames = {},
+    visibility = ["//docs/alwaldend.com/content/docs:__pkg__"],
+    deps = [
+        "//infra:docs",
+        "//projects:docs",
+        "//tools:docs",
+    ],
+)
 
 exports_files(["LICENSE.txt"])
 
@@ -117,9 +129,4 @@ EOF
         "//tools/readme_tree",
         "//tools/replace_section",
     ],
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
 )

@@ -1,7 +1,14 @@
 load("@rules_cc//cc:cc_binary.bzl", "cc_binary")
 load("@rules_cc//cc:cc_library.bzl", "cc_library")
 load("@rules_cc//cc:cc_test.bzl", "cc_test")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//projects:__pkg__"],
+)
 
 cc_library(
     name = "lib",
@@ -55,9 +62,4 @@ cc_library(
     name = "errors",
     srcs = ["errors.c"],
     hdrs = ["errors.h"],
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
 )

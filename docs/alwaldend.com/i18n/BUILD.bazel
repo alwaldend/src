@@ -1,5 +1,4 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 
 pkg_filegroup(
     name = "i18n",
@@ -11,9 +10,4 @@ pkg_filegroup(
 pkg_files(
     name = "i18n_files",
     srcs = glob(["*.toml"]),
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
 )

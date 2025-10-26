@@ -1,6 +1,8 @@
 ---
 title: Qt
 description: Qt rules
+languages:
+  - bzl
 tags:
   - bzl_rules
 ---

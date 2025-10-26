@@ -1,7 +1,9 @@
 ---
 title: Py
 description: Python rules
-tags:
+languages:
   - py
+  - bzl
+tags:
   - bzl_rules
 ---

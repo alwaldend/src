@@ -1,8 +1,11 @@
 ---
 title: Autoscroll
 description: CLI app for autoscroll
-tags:
+languages:
   - py
+tags:
+  - cli
+  - qt
 ---
 
 ## About The Project

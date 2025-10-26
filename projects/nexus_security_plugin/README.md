@@ -1,8 +1,9 @@
 ---
 title: Nexus security plugin
 description: Sonatype Nexus security plugin
-tags:
+languages:
   - java
+tags:
   - plugin
   - sonatype_nexus
 ---

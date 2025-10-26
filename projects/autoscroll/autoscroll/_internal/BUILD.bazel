@@ -1,5 +1,4 @@
 load("@rules_python//python:defs.bzl", "py_library")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 
 py_library(
     name = "_internal",
@@ -17,9 +16,4 @@ py_library(
         "@com_alwaldend_src_pip//pynput",
         "@com_alwaldend_src_pip//pyside6_essentials",
     ],
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
 )

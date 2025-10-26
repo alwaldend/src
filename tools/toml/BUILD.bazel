@@ -1,5 +1,5 @@
 load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
 al_bzl_library_map(
     name = "libs",
@@ -15,7 +15,10 @@ al_bzl_library_map(
     visibility = ["//:__subpackages__"],
 )
 
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools:__pkg__"],
+    deps = [":libs.stardoc"],
 )

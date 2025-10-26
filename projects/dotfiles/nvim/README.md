@@ -1,7 +1,8 @@
 ---
 title: Nvim config
 description: Neovim config
-tags:
+languages:
   - lua
+tags:
   - nvim
 ---

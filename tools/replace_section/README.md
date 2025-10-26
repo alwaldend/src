@@ -1,6 +1,9 @@
 ---
 title: Replace section
 description: Replace sections of files
-tags:
+languages:
+  - bzl
   - py
+tags:
+  - bzl_rules
 ---

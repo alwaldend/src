@@ -39,7 +39,7 @@ def al_ansible_role(name, srcs, visibility):
         name = "{}.docs".format(name),
         srcs = [":{}.defaults".format(name)],
         renames = {"{}.defaults.md".format(name): "defaults/_index.md"},
-        prefix = role_name,
+        prefix = native.package_name(),
         visibility = visibility,
     )
     pkg_files(

@@ -1,5 +1,4 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 
 pkg_filegroup(
     name = "themes",
@@ -28,9 +27,4 @@ pkg_filegroup(
     name = "bootstrap",
     srcs = ["@com_github_twbs_bootstrap//:src_files"],
     prefix = "github.com/twbs/bootstrap",
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
 )

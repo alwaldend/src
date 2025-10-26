@@ -1,6 +1,5 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//tools/http_server:al_http_server_binary.bzl", "al_http_server_binary")
 load("//tools/hugo:al_hugo_binary.bzl", "al_hugo_binary")
 load("//tools/hugo:al_hugo_run_binary.bzl", "al_hugo_run_binary")
@@ -67,6 +66,8 @@ al_http_server_binary(
     arguments = [
         "--bind",
         "127.0.0.1",
+        "--directory",
+        "src",
         "1313",
     ],
 )
@@ -82,7 +83,7 @@ pkg_tar(
     srcs = [
         ":docs_config",
         ":docs_data",
-        "//docs/alwaldend.com/content",
+        "//docs/alwaldend.com/content:docs",
         "//docs/alwaldend.com/i18n",
         "//docs/alwaldend.com/layouts",
         "//tools/hugo/themes",
@@ -113,9 +114,4 @@ pkg_files(
 al_toml_data(
     name = "docs_config_src",
     srcs = ["hugo.toml"],
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
 )

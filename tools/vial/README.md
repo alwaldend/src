@@ -1,6 +1,8 @@
 ---
 title: Vial
 description: Bazel rules for Vial
+languages:
+  - bzl
 tags:
   - bzl_rules
 ---

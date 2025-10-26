@@ -1,8 +1,9 @@
 ---
 title: Useless QT GUI
 description: Desktop GUI written with C++, it doesn't do anything
-tags:
+languages:
   - cpp
+tags:
   - gui
   - desktop
   - qt

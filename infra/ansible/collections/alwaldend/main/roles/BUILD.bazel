@@ -1,8 +1,19 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
 _ROLES = subpackages(
     include = ["*"],
+)
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//infra/ansible/collections/alwaldend/main:__pkg__"],
+    deps = ["//{}/{}:docs".format(
+        package_name(),
+        role,
+    ) for role in _ROLES],
 )
 
 pkg_filegroup(
@@ -12,20 +23,5 @@ pkg_filegroup(
         role,
     ) for role in _ROLES],
     prefix = "roles",
-    visibility = ["//:__subpackages__"],
-)
-
-pkg_filegroup(
-    name = "docs",
-    srcs = ["//{}/{}:role.docs".format(
-        package_name(),
-        role,
-    ) for role in _ROLES],
-    prefix = package_name(),
-    visibility = ["//:__subpackages__"],
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
     visibility = ["//:__subpackages__"],
 )

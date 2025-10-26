@@ -1,6 +1,8 @@
 ---
 title: Mikrotik
 description: Mikrotik tree
+languages:
+  - rsc
 tags:
   - mikrotik
 ---

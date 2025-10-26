@@ -1,5 +1,4 @@
 load("@rules_kotlin//kotlin:android.bzl", "kt_android_local_test")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 
 [
     kt_android_local_test(
@@ -25,8 +24,3 @@ load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 #     target_device = "@android_test_support//tools/android/emulated_devices/generic_phone:android_36_x86",
 #     test_app = "//kt/android/launcher:launcher_binary",
 # )
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
-)

@@ -1,10 +1,10 @@
 ---
 title: Infinitime
 description: Fork of InfiniTimeOrg/InfiniTime
-tags:
+languages:
   - cpp
+tags:
   - embedded
-  - rtoc
   - fork
 ---
 

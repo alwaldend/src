@@ -1,6 +1,12 @@
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//:__pkg__"],
+    deps = ["//{}/{}:docs".format(
+        package_name(),
+        package,
+    ) for package in subpackages(include = ["*"])],
 )

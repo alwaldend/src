@@ -1,8 +1,6 @@
 ---
 title: Stylua
 description: Stylua wrapper
-tags:
-  - rs
 ---
 
 ## Links

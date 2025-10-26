@@ -1,5 +1,4 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//tools/install_file:al_install_file.bzl", "al_install_file")
 load("//tools/lua:al_lua_library.bzl", "al_lua_library")
 
@@ -25,9 +24,4 @@ al_install_file(
     args = ["$(rootpath :nvim_config_install)"],
     data = [":nvim_config_install"],
     tags = ["local"],
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
 )

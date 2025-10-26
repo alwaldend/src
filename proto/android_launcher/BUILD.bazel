@@ -5,7 +5,6 @@ load("@rules_java//java:defs.bzl", "java_library")
 load("@rules_java//java:java_import.bzl", "java_import")
 load("@rules_java//java:java_single_jar.bzl", "java_single_jar")
 load("@rules_proto//proto:defs.bzl", "proto_library")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 
 proto_library(
     name = "model_proto",
@@ -51,10 +50,5 @@ java_import(
     jars = [
         ":model_single_jar",
     ],
-    visibility = ["//:__subpackages__"],
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
     visibility = ["//:__subpackages__"],
 )

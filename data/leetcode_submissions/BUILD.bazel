@@ -1,7 +1,6 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//projects/leetcode_downloader:al_leetcode_submissions.bzl", "al_leetcode_submissions")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 
 _LANGS = [
     "cpp",
@@ -47,9 +46,4 @@ pkg_filegroup(
     name = "leetcode_submissions",
     srcs = [":leetcode_submissions_docs"] + ["leetcode_submissions.{}".format(lang) for lang in _LANGS],
     visibility = ["//docs/alwaldend.com/content/docs/misc/leetcode_submissions:__pkg__"],
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
 )

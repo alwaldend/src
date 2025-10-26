@@ -1,7 +1,14 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 load("//tools/helm:al_helm_binary.bzl", "al_helm_binary")
 load("//tools/helm:al_helm_chart.bzl", "al_helm_chart")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//infra/charts:__pkg__"],
+)
 
 al_helm_binary(
     name = "helm",
@@ -27,9 +34,4 @@ pkg_files(
 al_helm_chart(
     name = "rancher",
     package = "@com_rancher_releases_rancher//file",
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
 )

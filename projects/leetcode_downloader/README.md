@@ -1,8 +1,11 @@
 ---
 title: Leetcode downloader
 description: CLI app to download leetcode submissions
-tags:
+languages:
   - go
+  - js
+  - bzl
+tags:
   - tampermonkey
   - bzl_rules
 ---

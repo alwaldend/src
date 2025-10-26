@@ -1,5 +1,4 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//tools/sh:al_sh_library.bzl", "al_sh_library")
 
 al_sh_library(
@@ -71,9 +70,4 @@ genrule(
 sh_binary(
     name = "install",
     srcs = [":install-scripts.sh"],
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
 )

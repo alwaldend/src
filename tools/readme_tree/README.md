@@ -1,8 +1,11 @@
 ---
 title: Readme tree
 description: Tool to parse README.md files
-tags:
+languages:
   - go
+  - bzl
+tags:
+  - bzl_rules
 ---
 
 ## Example

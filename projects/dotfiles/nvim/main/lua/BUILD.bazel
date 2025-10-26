@@ -1,4 +1,3 @@
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
 load("//tools/lua:al_lua_library.bzl", "al_lua_library")
 
 al_lua_library(
@@ -8,9 +7,4 @@ al_lua_library(
         "package_dir": "lua",
         "strip_prefix": ".",
     },
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
 )

@@ -1,6 +1,14 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/ansible:al_ansible_binary.bzl", "al_ansible_binary")
-load("//tools/bzl:al_bzl_target_doc.bzl", "al_bzl_target_doc")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//infra:__pkg__"],
+    deps = ["//infra/ansible/collections:docs"],
+)
 
 al_ansible_binary(
     name = "ansible_playbook",
@@ -33,9 +41,4 @@ pkg_files(
 pkg_files(
     name = "config",
     srcs = ["ansible.cfg"],
-)
-
-al_bzl_target_doc(
-    name = "bazel_target_doc",
-    visibility = ["//:__subpackages__"],
 )
