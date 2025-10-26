@@ -57,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    if: false and github.ref_name == github.event.repository.default_branch
+    if: false && github.ref_name == github.event.repository.default_branch
     needs:
       - build
     steps:
