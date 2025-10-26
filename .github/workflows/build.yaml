@@ -11,7 +11,7 @@ env:
   DEV_TAG: dev
   ARTIFACTS_ARCHIVE: out/alwaldend_src.tar.gz
   ARTIFACTS_SHA256: out/sha256sums.txt
-  ARTIFACTS_PAGES: bazel-bin/hugo/sites/docs/docs.destination
+  ARTIFACTS_PAGES: bazel-bin/docs/alwaldend.com/docs.destination
 jobs:
   build:
     name: Build
@@ -33,17 +33,8 @@ jobs:
           set -eux
           cat /etc/os-release
           df -h
-          mkdir -p \
-            "$(dirname "${{ env.ARTIFACTS_ARCHIVE }}")" \
-            "$(dirname "${{ env.ARTIFACTS_SHA256 }}")"
-          bazel build --config=ci //hugo/sites/docs
-          # bazel test --config=ci //...
-          sudo find bazel-bin/ -name "*.runfiles" -exec rm -rf "{}" +
-          sudo find bazel-bin/ -name "*node_modules*" -exec rm -rf "{}" +
-          sudo rm -f bazel-bin/cpp/infinitime/firmware-deps.tar
-          sudo rm -rf bazel-bin/external/
-          tar -czf "${{ env.ARTIFACTS_ARCHIVE }}" -C bazel-bin/ .
-          sha256sum -b "${{ env.ARTIFACTS_ARCHIVE }}"  >"${{ env.ARTIFACTS_SHA256 }}"
+          # Not enough space for builds and tests
+          bazel build --config=ci //docs/alwaldend.com:docs
       - name: Upload pages artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
@@ -52,21 +43,21 @@ jobs:
           if-no-files-found: error
           path: |
             ${{ env.ARTIFACTS_PAGES }}
-      - name: Upload artifacts
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        with:
-          name: Build
-          retention-days: 5
-          if-no-files-found: error
-          path: |
-            ${{ env.ARTIFACTS_ARCHIVE }}
-            ${{ env.ARTIFACTS_SHA256 }}
+      # - name: Upload artifacts
+      #   uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      #   with:
+      #     name: Build
+      #     retention-days: 5
+      #     if-no-files-found: error
+      #     path: |
+      #       ${{ env.ARTIFACTS_ARCHIVE }}
+      #       ${{ env.ARTIFACTS_SHA256 }}
   release:
     name: Release
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    if: github.ref_name == github.event.repository.default_branch
+    if: false and github.ref_name == github.event.repository.default_branch
     needs:
       - build
     steps:
