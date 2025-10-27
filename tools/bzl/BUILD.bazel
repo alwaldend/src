@@ -4,12 +4,21 @@ load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 al_bzl_library_map(
     name = "libs",
     libs = {
-        "al_alias_map": [],
+        "al_alias_map": [
+            "@rules_pkg//pkg:bzl_srcs",
+            "@bazel_skylib//rules:write_file",
+        ],
         "al_bzl_library_map": [
             "@bazel_skylib//:bzl_library",
             "@rules_pkg//pkg:bzl_srcs",
             "@stardoc//stardoc:stardoc_lib",
             "@bazel_skylib//rules:write_file",
+        ],
+        "al_bzl_registry_docs": [
+            "@rules_pkg//pkg:bzl_srcs",
+            "@bazel_skylib//rules:write_file",
+            "//tools/template_files:al_template_files",
+            "@bazel_skylib//lib:paths",
         ],
         "al_genquery_write_to_source_file": [
             "//tools/template_files:al_template_files",

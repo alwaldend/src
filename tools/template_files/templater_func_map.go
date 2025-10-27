@@ -5,6 +5,7 @@ import (
 	"fmt"
 	html_template "html/template"
 	"maps"
+	"path/filepath"
 	"regexp"
 	"slices"
 	"strconv"
@@ -19,13 +20,16 @@ func TemplaterFuncMap() template.FuncMap {
 		"to_json":           toJson,
 		"to_json_indent":    toJsonIndent,
 		"to_html_table":     toHtmlTable,
-		"last":              last[string],
-		"set_map_key":       setMapKey[string],
-		"unset_map_key":     unsetMapKey[string],
+		"last":              last[interface{}],
+		"set_map_key":       setMapKey[interface{}],
+		"unset_map_key":     unsetMapKey[interface{}],
 		"split":             split,
 		"sliceString":       sliceString,
 		"indent":            indent,
 		"html_escape":       html_template.HTMLEscapeString,
+		"basename":          filepath.Base,
+		"dirname":           filepath.Dir,
+		"first":             first[interface{}],
 	}
 }
 
@@ -49,6 +53,13 @@ func split(val string, sep string) []string {
 func last[T any](val []T) *T {
 	if val != nil && len(val) != 0 {
 		return &val[len(val)-1]
+	}
+	return nil
+}
+
+func first[T any](val []T) *T {
+	if val != nil && len(val) != 0 {
+		return &val[0]
 	}
 	return nil
 }

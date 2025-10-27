@@ -1,6 +1,7 @@
 ---
 title: Contracts
 description: Contract tree
+weight: 4
 cascade:
   - categories:
       - contract

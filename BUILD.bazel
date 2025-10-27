@@ -25,6 +25,7 @@ al_docs_files(
         "//contracts:docs",
         "//infra:docs",
         "//projects:docs",
+        "//third_party:docs",
         "//tools:docs",
     ],
 )

@@ -3,7 +3,6 @@ tools/node_modules
 out
 .aspect
 .cache
-third_party/registry/modules
 .venv
 bazel-bin
 bazel-out

@@ -1,0 +1,18 @@
+load("//tools/bzl:al_bzl_registry_docs.bzl", "al_bzl_registry_docs")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//third_party:__pkg__"],
+    deps = [":registry_docs"],
+)
+
+al_bzl_registry_docs(
+    name = "registry_docs",
+    srcs = glob([
+        "modules/*/*/source.json",
+        "modules/*/metadata.json",
+    ]),
+)
