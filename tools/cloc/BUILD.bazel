@@ -1,11 +1,9 @@
-load("@rules_perl//perl:perl_binary.bzl", "perl_binary")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
-perl_binary(
+alias(
     name = "cloc",
-    main = "bin/cloc",
+    actual = "@com_alwaldend_src_tools_cpan//:App-cloc_bin_cloc",
     visibility = ["//:__subpackages__"],
-    deps = ["@com_alwaldend_src_cpan_tools//:App-cloc"],
 )
 
 al_docs_files(

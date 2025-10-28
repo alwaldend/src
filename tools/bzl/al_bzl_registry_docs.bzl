@@ -22,7 +22,7 @@ def al_bzl_registry_docs(name, srcs, visibility = None):
             "---",
             "title: {{ .Dirname | basename }}",
             "description: Version {{ .Dirname | basename }} of module {{ .Dirname | dirname | basename }}",
-            "tags: [generated, bzl_registry_module_source]",
+            "tags: [generated]",
             "---",
             "",
             "## Usage",

@@ -70,10 +70,12 @@ use_repo(
 
 cpan = use_extension("@rules_perl//perl/cpan:extensions.bzl", "cpan")
 cpan.install(
-    name = "com_alwaldend_src_cpan_tools",
+    name = "com_alwaldend_src_tools_cpan",
+    add_deps = {"App-cloc": ["Parallel-ForkManager"]},
+    bins = {"App-cloc": ["bin/cloc"]},
     lock = "//tools:cpanfile.snapshot.lock.json",
 )
-use_repo(cpan, "com_alwaldend_src_cpan_tools")
+use_repo(cpan, "com_alwaldend_src_tools_cpan")
 
 ## Drawio
 al_repo_map.download(

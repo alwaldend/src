@@ -1,1 +1,2 @@
 requires 'App::cloc';
+requires 'Parallel::ForkManager';

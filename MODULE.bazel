@@ -79,6 +79,17 @@ bazel_dep(name = "com_github_georgewfraser_java_language_server", version = "202
 #     path = "../fork_com_github_tweag_rules_haskell",
 # )
 
+# local_path_override(
+#     module_name = "rules_perl",
+#     path = "../fork_com_github_bazel_contrib_rules_perl",
+# )
+
+single_version_override(
+    module_name = "rules_perl",
+    patch_strip = 1,
+    patches = ["//third_party:com_github_bazel_contrib_rules_perl/patch.patch"],
+)
+
 ## Includes
 
 include("//tools:deps.MODULE.bazel")

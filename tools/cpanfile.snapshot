@@ -20,6 +20,19 @@ DISTRIBUTIONS
       Test::More 1.001009
       Test::Pod 1.48
       perl 5.008000
+  Class-Method-Modifiers-2.15
+    pathname: E/ET/ETHER/Class-Method-Modifiers-2.15.tar.gz
+    provides:
+      Class::Method::Modifiers 2.15
+    requirements:
+      B 0
+      Carp 0
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      base 0
+      perl 5.006
+      strict 0
+      warnings 0
   Module-Build-0.4234
     pathname: L/LE/LEONT/Module-Build-0.4234.tar.gz
     provides:
@@ -65,6 +78,51 @@ DISTRIBUTIONS
       Text::ParseWords 0
       perl 5.006001
       version 0.87
+  Moo-2.005005
+    pathname: H/HA/HAARG/Moo-2.005005.tar.gz
+    provides:
+      Method::Generate::Accessor undef
+      Method::Generate::BuildAll undef
+      Method::Generate::Constructor undef
+      Method::Generate::DemolishAll undef
+      Moo 2.005005
+      Moo::HandleMoose undef
+      Moo::HandleMoose::FakeConstructor undef
+      Moo::HandleMoose::FakeMetaClass undef
+      Moo::HandleMoose::_TypeMap undef
+      Moo::Object undef
+      Moo::Role 2.005005
+      Moo::_Utils undef
+      Moo::sification undef
+      oo undef
+    requirements:
+      Carp 0
+      Class::Method::Modifiers 1.10
+      Exporter 0
+      ExtUtils::MakeMaker 0
+      Role::Tiny 2.002003
+      Scalar::Util 1.00
+      Sub::Defer 2.006006
+      Sub::Quote 2.006006
+      perl 5.006
+  Parallel-ForkManager-2.04
+    pathname: Y/YA/YANICK/Parallel-ForkManager-2.04.tar.gz
+    provides:
+      Parallel::ForkManager 2.04
+      Parallel::ForkManager::Child 2.04
+    requirements:
+      Carp 0
+      ExtUtils::MakeMaker 0
+      File::Path 0
+      File::Spec 0
+      File::Temp 0
+      Moo 1.001000
+      Moo::Role 0
+      POSIX 0
+      Storable 0
+      perl 5.006
+      strict 0
+      warnings 0
   Regexp-Common-2024080801
     pathname: A/AB/ABIGAIL/Regexp-Common-2024080801.tar.gz
     provides:
@@ -109,6 +167,23 @@ DISTRIBUTIONS
       strict 0
       vars 0
       warnings 0
+  Role-Tiny-2.002004
+    pathname: H/HA/HAARG/Role-Tiny-2.002004.tar.gz
+    provides:
+      Role::Tiny 2.002004
+      Role::Tiny::With 2.002004
+    requirements:
+      Exporter 5.57
+      perl 5.006
+  Sub-Quote-2.006009
+    pathname: H/HA/HAARG/Sub-Quote-2.006009.tar.gz
+    provides:
+      Sub::Defer 2.006009
+      Sub::Quote 2.006009
+    requirements:
+      ExtUtils::MakeMaker 0
+      Scalar::Util 0
+      perl 5.006
   Test-Compile-v3.3.3
     pathname: E/EG/EGILES/Test-Compile-v3.3.3.tar.gz
     provides:

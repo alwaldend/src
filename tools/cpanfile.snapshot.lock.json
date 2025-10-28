@@ -16,17 +16,53 @@
       "strip_prefix" : "App-cloc-1.76",
       "url" : "https://cpan.metacpan.org/authors/id/F/FI/FIBO/App-cloc-1.76.tar.gz"
    },
+   "Class-Method-Modifiers" : {
+      "dependencies" : [],
+      "sha256" : "65cd85bfe475d066e9186f7a8cc636070985b30b0ebb1cde8681cf062c2e15fc",
+      "strip_prefix" : "Class-Method-Modifiers-2.15",
+      "url" : "https://cpan.metacpan.org/authors/id/E/ET/ETHER/Class-Method-Modifiers-2.15.tar.gz"
+   },
    "Module-Build" : {
       "dependencies" : [],
       "sha256" : "66aeac6127418be5e471ead3744648c766bd01482825c5b66652675f2bc86a8f",
       "strip_prefix" : "Module-Build-0.4234",
       "url" : "https://cpan.metacpan.org/authors/id/L/LE/LEONT/Module-Build-0.4234.tar.gz"
    },
+   "Moo" : {
+      "dependencies" : [
+         "Class-Method-Modifiers",
+         "Role-Tiny",
+         "Sub-Quote"
+      ],
+      "sha256" : "fb5a2952649faed07373f220b78004a9c6aba387739133740c1770e9b1f4b108",
+      "strip_prefix" : "Moo-2.005005",
+      "url" : "https://cpan.metacpan.org/authors/id/H/HA/HAARG/Moo-2.005005.tar.gz"
+   },
+   "Parallel-ForkManager" : {
+      "dependencies" : [
+         "Moo"
+      ],
+      "sha256" : "606894fc2e9f7cd13d9ec099aaac103a8f0943d1d80c2c486bae14730a39b7fc",
+      "strip_prefix" : "Parallel-ForkManager-2.04",
+      "url" : "https://cpan.metacpan.org/authors/id/Y/YA/YANICK/Parallel-ForkManager-2.04.tar.gz"
+   },
    "Regexp-Common" : {
       "dependencies" : [],
       "sha256" : "0677afaec8e1300cefe246b4d809e75cdf55e2cc0f77c486d13073b69ab4fbdd",
       "strip_prefix" : "Regexp-Common-2024080801",
       "url" : "https://cpan.metacpan.org/authors/id/A/AB/ABIGAIL/Regexp-Common-2024080801.tar.gz"
+   },
+   "Role-Tiny" : {
+      "dependencies" : [],
+      "sha256" : "d7bdee9e138a4f83aa52d0a981625644bda87ff16642dfa845dcb44d9a242b45",
+      "strip_prefix" : "Role-Tiny-2.002004",
+      "url" : "https://cpan.metacpan.org/authors/id/H/HA/HAARG/Role-Tiny-2.002004.tar.gz"
+   },
+   "Sub-Quote" : {
+      "dependencies" : [],
+      "sha256" : "967282d54d2d51b198c67935594f93e4dea3e54d1e5bced158c94e29be868a4b",
+      "strip_prefix" : "Sub-Quote-2.006009",
+      "url" : "https://cpan.metacpan.org/authors/id/H/HA/HAARG/Sub-Quote-2.006009.tar.gz"
    },
    "Test-Compile" : {
       "dependencies" : [
