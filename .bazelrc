@@ -36,6 +36,10 @@ common --java_runtime_version=remotejdk_21
 
 common --tool_java_runtime_version=remotejdk_21
 
+# Disable telemetry (https://github.com/aspect-build/tools_telemetry)
+common --repo_env=ASPECT_TOOLS_TELEMETRY=
+common --repo_env=DO_NOT_TRACK=1
+
 # rules_haskell fix
 common --noincompatible_disallow_ctx_resolve_tools
 
