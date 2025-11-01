@@ -1,0 +1,27 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+_ROLES = subpackages(
+    include = ["*"],
+)
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//projects/ansible_collection:__pkg__"],
+    deps = ["//{}/{}:docs".format(
+        package_name(),
+        role,
+    ) for role in _ROLES],
+)
+
+pkg_filegroup(
+    name = "roles",
+    srcs = ["//{}/{}:role".format(
+        package_name(),
+        role,
+    ) for role in _ROLES],
+    prefix = "roles",
+    visibility = ["//:__subpackages__"],
+)

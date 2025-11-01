@@ -7,11 +7,10 @@ al_docs_files(
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//infra:__pkg__"],
-    deps = ["//infra/ansible/collections:docs"],
 )
 
 al_ansible_binary(
-    name = "ansible_playbook",
+    name = "ansible",
     arguments = [
         "--inventory",
         "inventory.yaml",
@@ -19,7 +18,7 @@ al_ansible_binary(
     process_name = "ansible_playbook",
     symlinks = [
         ":srcs",
-        "//infra/ansible/collections",
+        "//projects/ansible_collection:collections",
     ],
 )
 

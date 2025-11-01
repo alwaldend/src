@@ -1,5 +1,6 @@
 load("@bazel_skylib//lib:shell.bzl", "shell")
 load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo")
+load(":al_ansible_scripts.bzl", "AL_ANSIBLE_SCRIPTS")
 
 def _impl(ctx):
     runfiles_files = []
@@ -59,18 +60,7 @@ al_ansible_binary = rule(
         "ansible": attr.string_keyed_label_dict(
             default = {
                 cli: "//tools/ansible:{}".format(cli)
-                for cli in [
-                    "ansible",
-                    "ansible_config",
-                    "ansible_console",
-                    "ansible_doc",
-                    "ansible_galaxy",
-                    "ansible_inventory",
-                    "ansible_playbook",
-                    "ansible_pull",
-                    "ansible_test",
-                    "ansible_vault",
-                ]
+                for cli in AL_ANSIBLE_SCRIPTS
             },
             doc = "Ansible executable",
             cfg = "exec",
