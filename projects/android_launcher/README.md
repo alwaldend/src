@@ -1,6 +1,8 @@
 ---
 title: Android launcher
 description: Android launcher
+statuses:
+  - maintenance
 languages:
   - kt
 tags:

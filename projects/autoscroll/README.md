@@ -1,6 +1,8 @@
 ---
 title: Autoscroll
 description: CLI app for autoscroll
+statuses:
+  - finished
 languages:
   - py
 tags:

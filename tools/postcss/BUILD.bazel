@@ -1,11 +1,8 @@
-load("@com_alwaldend_src_npm//tools:postcss-cli/package_json.bzl", postcss = "bin")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
-postcss.postcss_binary(
+alias(
     name = "postcss",
-    data = [
-        "//:node_modules/autoprefixer",
-    ],
+    actual = "//tools:postcss",
     visibility = ["//:__subpackages__"],
 )
 

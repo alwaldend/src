@@ -1,5 +1,6 @@
 load("@aspect_rules_lint//format:defs.bzl", "format_multirun")
 load("@com_alwaldend_src_npm//:defs.bzl", "npm_link_all_packages")
+load("@com_alwaldend_src_npm//tools:postcss-cli/package_json.bzl", postcss = "bin")
 load("@rules_perl//perl/cpan:cpan_compiler.bzl", "cpan_compiler")
 load("//tools/bzl:al_alias_map.bzl", "al_alias_map")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
@@ -14,6 +15,14 @@ al_docs_files(
 
 npm_link_all_packages(
     name = "node_modules",
+)
+
+postcss.postcss_binary(
+    name = "postcss",
+    data = [
+        "//:node_modules/autoprefixer",
+    ],
+    visibility = ["//tools/postcss:__pkg__"],
 )
 
 cpan_compiler(

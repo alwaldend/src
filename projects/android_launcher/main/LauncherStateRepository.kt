@@ -3,6 +3,7 @@ package com.alwaldend.src.kt.android.launcher
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
+import android.util.Log
 import com.alwaldend.src.kt.android.launcher.Model.Settings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -28,28 +29,11 @@ class LauncherStateRepository(private val dataStore: DataStore<Model.State>) {
         return observeState().first().getOrThrow()
     }
 
-    private suspend fun update(action: Model.State.Builder.() -> Unit): Model.State {
-        return dataStore.updateData { it.toBuilder().apply(action).build() }
-    }
-
     suspend fun updateSettings(action: Settings.Builder.() -> Unit): Settings {
         val newState = update {
             settings = settings.toBuilder().apply(action).build()
         }
         return newState.settings
-    }
-
-    private suspend fun updateApp(
-        packageName: String,
-        action: Model.App.Builder.() -> Unit
-    ) {
-        update {
-            val newApp = apps.getAppsOrThrow(packageName)
-                .toBuilder()
-                .apply(action)
-                .build()
-            setApps(apps.toBuilder().putApps(packageName, newApp))
-        }
     }
 
     suspend fun updateIsHomeApp(value: Boolean) {
@@ -73,6 +57,10 @@ class LauncherStateRepository(private val dataStore: DataStore<Model.State>) {
     }
 
     suspend fun reloadApp(app: Model.App) {
+        if (app.packageName.length == 0) {
+            Log.w(tag, "empty package name for some reason, refusing to update app: ${app}")
+            return
+        }
         updateApp(app.packageName) { mergeFrom(app) }
     }
 
@@ -93,6 +81,23 @@ class LauncherStateRepository(private val dataStore: DataStore<Model.State>) {
             clearApps()
             setApps(Model.Apps.newBuilder().putAllApps(updatedApps))
             this.isHomeApp = isHomeApp
+        }
+    }
+
+    private suspend fun update(action: Model.State.Builder.() -> Unit): Model.State {
+        return dataStore.updateData { it.toBuilder().apply(action).build() }
+    }
+
+    private suspend fun updateApp(
+        packageName: String,
+        action: Model.App.Builder.() -> Unit
+    ) {
+        update {
+            val newApp = apps.getAppsOrThrow(packageName)
+                .toBuilder()
+                .apply(action)
+                .build()
+            setApps(apps.toBuilder().putApps(packageName, newApp))
         }
     }
 }

@@ -37,9 +37,11 @@ renderer.unsafe = true
 parser.attribute.block = true
 
 [taxonomies]
-tag = "tags"
 category = "categories"
 language = "languages"
+site = "sites"
+status = "statuses"
+tag = "tags"
 
 [[menus.main]]
 name = "Docs"

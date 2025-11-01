@@ -1,6 +1,6 @@
 ---
 title: Projects
-description: Generic project tree
+description: Project tree
 weight: 1
 cascade:
   - categories:

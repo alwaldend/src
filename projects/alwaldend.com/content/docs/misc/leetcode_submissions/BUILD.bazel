@@ -5,7 +5,7 @@ al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]),
     prefix = "docs/misc/leetcode_submissions",
-    visibility = ["//docs/alwaldend.com/content/docs/misc:__pkg__"],
+    visibility = ["//projects/alwaldend.com/content/docs/misc:__pkg__"],
     deps = [":submissions"],
 )
 

@@ -1,6 +1,8 @@
 ---
 title: Sri
 description: Cli app for subresource integrity calculation
+statuses:
+  - finished
 languages:
   - c
 tags:

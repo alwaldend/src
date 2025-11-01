@@ -20,7 +20,7 @@ al_docs_files(
     name = "docs",
     srcs = [":LICENSE.txt"],
     renames = {},
-    visibility = ["//docs/alwaldend.com/content/docs:__pkg__"],
+    visibility = ["//projects/alwaldend.com/content/docs:__pkg__"],
     deps = [
         "//contracts:docs",
         "//infra:docs",
