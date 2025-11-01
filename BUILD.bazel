@@ -5,6 +5,7 @@ load("@com_alwaldend_src_pip//:requirements.bzl", "all_whl_requirements")
 load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "buildifier_test")
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
@@ -31,6 +32,12 @@ al_docs_files(
 )
 
 exports_files(["LICENSE.txt"])
+
+pkg_files(
+    name = "license_files",
+    srcs = ["LICENSE.txt"],
+    visibility = ["//:__subpackages__"],
+)
 
 npm_link_all_packages(
     name = "node_modules",

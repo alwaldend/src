@@ -3,7 +3,7 @@ load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
 al_docs_files(
     name = "docs",
-    srcs = glob(["*.md"]),
+    srcs = glob(["*.md"]) + [":galaxy"],
     prefix = package_name(),
     visibility = ["//projects:__pkg__"],
     deps = [
@@ -12,9 +12,16 @@ al_docs_files(
     ],
 )
 
+pkg_files(
+    name = "galaxy",
+    srcs = ["galaxy.yml"],
+)
+
 pkg_filegroup(
     name = "collection",
     srcs = [
+        ":galaxy",
+        "//:license_files",
         "//projects/ansible_collection/playbooks",
         "//projects/ansible_collection/roles",
     ],

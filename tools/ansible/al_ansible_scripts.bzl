@@ -10,3 +10,6 @@ AL_ANSIBLE_SCRIPTS = [
     "ansible_test",
     "ansible_vault",
 ]
+"""
+Ansible command names for the ansible binary
+"""

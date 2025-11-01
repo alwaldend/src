@@ -11,7 +11,7 @@ env:
   DEV_TAG: dev
   ARTIFACTS_ARCHIVE: out/alwaldend_src.tar.gz
   ARTIFACTS_SHA256: out/sha256sums.txt
-  ARTIFACTS_PAGES: bazel-bin/docs/alwaldend.com/docs.destination
+  ARTIFACTS_PAGES: bazel-bin/projects/alwaldend.com/site.destination
 jobs:
   build:
     name: Build
@@ -34,7 +34,7 @@ jobs:
           cat /etc/os-release
           df -h
           # Not enough space for builds and tests
-          bazel build --config=ci //docs/alwaldend.com:docs
+          bazel build --config=ci //projects/alwaldend.com:site
       - name: Upload pages artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:

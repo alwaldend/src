@@ -1,5 +1,6 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/ansible:al_ansible_binary.bzl", "al_ansible_binary")
+load("//tools/ansible:al_ansible_scripts.bzl", "AL_ANSIBLE_SCRIPTS")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
 al_docs_files(
@@ -9,18 +10,25 @@ al_docs_files(
     visibility = ["//infra:__pkg__"],
 )
 
-al_ansible_binary(
-    name = "ansible",
-    arguments = [
+_ARGS = {
+    "ansible_playbook": [
         "--inventory",
         "inventory.yaml",
     ],
-    process_name = "ansible_playbook",
-    symlinks = [
-        ":srcs",
-        "//projects/ansible_collection:collections",
-    ],
-)
+}
+
+[
+    al_ansible_binary(
+        name = script,
+        arguments = _ARGS.get(script, []),
+        process_name = script,
+        symlinks = [
+            ":srcs",
+            "//projects/ansible_collection:collections",
+        ],
+    )
+    for script in AL_ANSIBLE_SCRIPTS
+]
 
 pkg_filegroup(
     name = "srcs",

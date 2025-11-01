@@ -10,3 +10,7 @@ tags:
 ## Links
 
 - https://docs.ansible.com/ansible/latest/collections_guide/index.html
+
+## Galaxy
+
+{{< readfile file="galaxy.yml" code="true" lang="yaml" >}}

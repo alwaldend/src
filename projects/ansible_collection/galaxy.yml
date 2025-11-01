@@ -1,0 +1,23 @@
+namespace: alwaldend
+name: main
+version: 0.0.0
+readme: README.md
+authors:
+-  <example@domain.com>
+description: main alwaldend ansible collection
+license:
+  - AGPL-3.0-or-later
+license_file: LICENSE.txt
+tags: []
+dependencies:
+  ansible.posix: 1.5.4
+  community.crypto: 2.17.0
+  community.general: 8.2.0
+  devsec.hardening: 9.0.1
+  community.docker: 3.11.0
+repository: https://git.alwaldend.com/src
+documentation: https://collection-main.docs.alwaldend.com
+homepage: https://collection-main.docs.alwaldend.com
+issues: ""
+build_ignore: []
+
