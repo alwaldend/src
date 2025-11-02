@@ -1,0 +1,11 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "com_alwaldend_src_qt",
+    build_file = "//tools/bzl/build_files:general.BUILD.bazel",
+    integrity = "sha256-T2HlBVHQAEpRP++9sKQQWV2UgSpIYAZG+3NB6g0X4cs=",
+    strip_prefix = "qt-everywhere-src-6.9.0",
+    urls = ["https://download.qt.io/official_releases/qt/6.9/6.9.0/single/qt-everywhere-src-6.9.0.tar.xz"],
+)
+
+register_toolchains("//tools/qt:toolchain_local_linux_gcc_64")

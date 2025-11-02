@@ -1,0 +1,14 @@
+load("@rules_oci//oci:defs.bzl", "oci_image")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]) + [":image_index_json_cp"],
+    prefix = package_name(),
+    visibility = ["//infra/images:__pkg__"],
+)
+
+oci_image(
+    name = "image",
+    base = "@com_alwaldend_src_oci_alpine",
+)

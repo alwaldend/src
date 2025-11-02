@@ -449,11 +449,20 @@
     "//tools/repo_map:al_repo_map.bzl%al_repo_map": {
       "general": {
         "bzlTransitiveDigest": "gnod4/3J1Gv900LSjO5X/yxUNyFE9/NQO/kYS5WfiWQ=",
-        "usagesDigest": "KHn0WaLxE2EuOV97YJFDPyKjBayCpg44Va+7R0BJ7MM=",
+        "usagesDigest": "Pw505YHAZ0mMwc0lE3lZ8h+ToZLrNKwNLP1uLir+AwM=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
         "generatedRepoSpecs": {
+          "com_github_helm_helm_linux_amd64": {
+            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_archive",
+            "attributes": {
+              "url": "https://get.helm.sh/helm-v3.19.0-linux-amd64.tar.gz",
+              "integrity": "sha256-p/gc4IAHCRuG2L1pbrTYa40PLhufbHFL5i+C+WpZRJY=",
+              "build_file_content": "\nload(\"@bazel_skylib//rules:native_binary.bzl\", \"native_binary\")\nnative_binary(\n    name = \"bin\",\n    src = glob([\"**/helm\"])[0],\n    visibility = [\"//visibility:public\"],\n)\n",
+              "strip_prefix": ""
+            }
+          },
           "com_github_jgraph_drawio_desktop_linux_x86_64": {
             "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_file",
             "attributes": {
@@ -468,15 +477,6 @@
               "url": "https://github.com/gohugoio/hugo/releases/download/v0.151.2/hugo_extended_0.151.2_linux-amd64.tar.gz",
               "integrity": "sha256-YrfVSXpqdjFaxchXDUY9o30UTtzERgF32j32C7yoXSo=",
               "build_file_content": "\nload(\"@bazel_skylib//rules:native_binary.bzl\", \"native_binary\")\nnative_binary(\n    name = \"bin\",\n    src = glob([\"**/hugo\"])[0],\n    visibility = [\"//visibility:public\"],\n)\n",
-              "strip_prefix": ""
-            }
-          },
-          "com_github_helm_helm_linux_amd64": {
-            "repoRuleId": "@@bazel_tools//tools/build_defs/repo:http.bzl%http_archive",
-            "attributes": {
-              "url": "https://get.helm.sh/helm-v3.19.0-linux-amd64.tar.gz",
-              "integrity": "sha256-p/gc4IAHCRuG2L1pbrTYa40PLhufbHFL5i+C+WpZRJY=",
-              "build_file_content": "\nload(\"@bazel_skylib//rules:native_binary.bzl\", \"native_binary\")\nnative_binary(\n    name = \"bin\",\n    src = glob([\"**/helm\"])[0],\n    visibility = [\"//visibility:public\"],\n)\n",
               "strip_prefix": ""
             }
           }
@@ -2571,11 +2571,40 @@
     "@@rules_oci+//oci:extensions.bzl%oci": {
       "general": {
         "bzlTransitiveDigest": "UG6/u9Dl5qNozcG8E6ehAcOG2nhh8rw191ishRnBR24=",
-        "usagesDigest": "/O1PwnnkqSBmI9Oe08ZYYqjM4IS8JR+/9rjgzVTNDaQ=",
+        "usagesDigest": "3vUuWebJ7v/GKwJ2MSM75dZD9/jZ/Jma2vYxDprEyvQ=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
         "generatedRepoSpecs": {
+          "com_alwaldend_src_oci_alpine_linux_amd64": {
+            "repoRuleId": "@@rules_oci+//oci/private:pull.bzl%oci_pull",
+            "attributes": {
+              "www_authenticate_challenges": {},
+              "scheme": "https",
+              "registry": "index.docker.io",
+              "repository": "library/alpine",
+              "identifier": "sha256:4b7ce07002c69e8f3d704a9c5d6fd3053be500b7f1c69fc0d80990c2ad8dd412",
+              "platform": "linux/amd64",
+              "target_name": "com_alwaldend_src_oci_alpine_linux_amd64",
+              "bazel_tags": []
+            }
+          },
+          "com_alwaldend_src_oci_alpine": {
+            "repoRuleId": "@@rules_oci+//oci/private:pull.bzl%oci_alias",
+            "attributes": {
+              "target_name": "com_alwaldend_src_oci_alpine",
+              "www_authenticate_challenges": {},
+              "scheme": "https",
+              "registry": "index.docker.io",
+              "repository": "library/alpine",
+              "identifier": "sha256:4b7ce07002c69e8f3d704a9c5d6fd3053be500b7f1c69fc0d80990c2ad8dd412",
+              "platforms": {
+                "@@platforms//cpu:x86_64": "@com_alwaldend_src_oci_alpine_linux_amd64"
+              },
+              "bzlmod_repository": "com_alwaldend_src_oci_alpine",
+              "reproducible": true
+            }
+          },
           "oci_crane_darwin_amd64": {
             "repoRuleId": "@@rules_oci+//oci:repositories.bzl%crane_repositories",
             "attributes": {
@@ -2691,7 +2720,10 @@
           }
         },
         "moduleExtensionMetadata": {
-          "explicitRootModuleDirectDeps": [],
+          "explicitRootModuleDirectDeps": [
+            "com_alwaldend_src_oci_alpine",
+            "com_alwaldend_src_oci_alpine_linux_amd64"
+          ],
           "explicitRootModuleDirectDevDeps": [],
           "useAllRepos": "NO",
           "reproducible": false

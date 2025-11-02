@@ -1,0 +1,18 @@
+al_repo_map = use_extension("//tools/repo_map:al_repo_map.bzl", "al_repo_map")
+al_repo_map.download(
+    name = "com_github_jgraph_drawio_desktop",
+    download_type = "http_file",
+    executable = True,
+    repos = {
+        "linux_x86_64": [
+            "url=https://github.com/jgraph/drawio-desktop/releases/download/v27.0.9/drawio-x86_64-27.0.9.AppImage",
+            "integrity=sha256-m4fBtXU61p2dovR3pUVSalbJ+8jIsE8ko3IQdKFHtiY=",
+        ],
+    },
+)
+use_repo(
+    al_repo_map,
+    "com_github_jgraph_drawio_desktop_linux_x86_64",
+)
+
+register_toolchains("//tools/drawio:toolchain_remote_linux_x86_64")

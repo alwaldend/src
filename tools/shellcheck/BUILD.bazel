@@ -4,7 +4,7 @@ load(":al_shellcheck_toolchain.bzl", "al_shellcheck_toolchain")
 
 alias(
     name = "shellcheck",
-    actual = "@com_alwaldend_src_stackage_tools_exe//ShellCheck:shellcheck",
+    actual = "@com_alwaldend_src_tools_stackage_exe//ShellCheck:shellcheck",
     visibility = ["//:__subpackages__"],
 )
 

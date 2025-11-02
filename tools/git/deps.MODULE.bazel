@@ -1,0 +1,7 @@
+al_git_repo = use_repo_rule("//tools/git:al_git_repo.bzl", "al_git_repo")
+
+al_git_repo(
+    name = "git",
+)
+
+register_toolchains("//tools/git:toolchain_local")

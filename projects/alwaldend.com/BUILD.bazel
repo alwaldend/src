@@ -22,7 +22,7 @@ _BUILD_FLAGS = [
     "{}/k8-fastbuild/bin/{}/{}".format(
         "/".join([".."] * 6),
         package_name(),
-        "docs.destination",
+        "site.destination",
     ),
 ]
 
@@ -54,7 +54,7 @@ al_hugo_run_binary(
         "//conditions:default": _BUILD_FLAGS,
     }),
     hugo = ":site_hugo",
-    out_dirs = ["docs.destination"],
+    out_dirs = ["site.destination"],
 )
 
 pkg_filegroup(
