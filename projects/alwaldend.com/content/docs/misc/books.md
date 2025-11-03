@@ -15,8 +15,8 @@ title: Books
     </tr>
   </thead>
   <tbody>
-    {{ $authors := .Site.Data.hugo.sites.docs.authors.author -}}
-    {{ range .Site.Data.hugo.sites.docs.books.book -}}
+    {{ $authors := (index .Site.Data.projects "alwaldend.com").authors.author -}}
+    {{ range (index .Site.Data.projects "alwaldend.com").books.book -}}
     <tr>
       <td style="width: 30%;">
         <img

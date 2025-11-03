@@ -334,8 +334,8 @@ links = [
 [[book]]
 title = "Rise of the Living Forge"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/79094-rise-of-the-living-forge-stubbing-in-october.jpg"
-quality = "Ok, isekai slop"
-reading = "Dropped, finished volume 2"
+quality = "Ok"
+reading = "Reading, C508"
 authors = ["actus"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/79094/rise-of-the-living-forge-a-blacksmith-litrpg" },
@@ -902,4 +902,45 @@ reading = "Finished, V4"
 authors = ["zaifyr"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/60292/all-the-dust-that-falls" },
+]
+
+[[book]]
+title = "Nightmare Realm Summoner"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/89034-nightmare-realm-summoner-stubbing-in-1-week.jpg"
+quality = "Ok"
+reading = "Dropped, C278"
+authors = ["actus"]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/89034/nightmare-realm-summoner" },
+]
+
+[[book]]
+title = "For the Glory of Rome: Chronicles of an Isekai'd Legion"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/104561-for-the-glory-of-rome-chronicles-of-an.jpg?time=1739769239"
+quality = "Ok"
+reading = "Reading, V2C71"
+authors = ["zaifyr"]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/104561/for-the-glory-of-rome-chronicles-of-an-isekaid" },
+]
+
+[[book]]
+title = "Mage Tank"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/mage-tank-aacalggbnhq.jpg"
+quality = "Slop"
+reading = "Dropped, V1C50"
+authors = ["cornman"]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/76463/mage-tank" },
+]
+
+[[book]]
+title = "Shrouded Seascape"
+alt_titles = ["诡秘地海"]
+thumbnail = "https://cdn.novelupdates.com/images/2023/03/Mysteries-of-the-Earthsea.jpg"
+quality = "Good"
+reading = "Finished, C1149"
+authors = ["foxtail-quill"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/shrouded-seascape/" },
 ]
