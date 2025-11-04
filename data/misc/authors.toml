@@ -1,49 +1,49 @@
 [author.mao-ni]
 name = "Mao Ni"
-alts = ["猫腻"]
+alt_names = ["猫腻"]
 
 [author.gu-zhen-ren]
 name = "Gu Zhen Ren"
-alts = ["蛊真人"]
+alt_names = ["蛊真人"]
 
 [author.angry-squid]
 name = "Angry Squid"
-alts = ["愤怒的乌贼"]
+alt_names = ["愤怒的乌贼"]
 
 [author.angry-squirrel]
 name = "Angry Squirrel"
-alts = ["愤怒的松鼠"]
+alt_names = ["愤怒的松鼠"]
 
 [author.golden-jasmine]
 name = "Golden Jasmine"
-alts = ["金色茉莉花"]
+alt_names = ["金色茉莉花"]
 
 [author.cuttlefish-that-loves-diving]
 name = "Cuttlefish That Loves Diving"
-alts = ["爱潜水的乌贼"]
+alt_names = ["爱潜水的乌贼"]
 
 [author.er-gen]
 name = "Er Gen"
-alts = ["耳根"]
+alt_names = ["耳根"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/er-gen/" },
 ]
 
 [author.fang-xiang]
 name = "Fang Xiang"
-alts = ["方想"]
+alt_names = ["方想"]
 
 [author.chaos]
 name = "Chaos"
-alts = ["乱"]
+alt_names = ["乱"]
 
 [author.tang-jia-san-shao]
 name = "Tang Jia San Shao"
-alts = ["唐家三少"]
+alt_names = ["唐家三少"]
 
 [author.can-fix-air-conditioners]
 name = "Can Fix Air-Conditioners"
-alts = ["我会修空调"]
+alt_names = ["我会修空调"]
 
 [author.thefirstdefier]
 name = "TheFirstDefier"
@@ -89,7 +89,7 @@ name = "Actus"
 
 [author.clarke]
 name = "J.M. Clarke"
-alts = ["U Juggernaut"]
+alt_names = ["U Juggernaut"]
 
 [author.thundamoo]
 name = "Thundamoo"
@@ -141,22 +141,22 @@ name = "The Plagiarist"
 
 [author.chen-dong]
 name = "Chen Dong"
-alts = ["辰东"]
+alt_names = ["辰东"]
 
 [author.yu-ryeo-han]
 name = "Yu Ryeo Han"
-alts = ["유려한"]
+alt_names = ["유려한"]
 
 [author.the-enlightened-master-crouching-cow]
 name = "The Enlightened Master Crouching Cow"
-alts = ["卧牛真人"]
+alt_names = ["卧牛真人"]
 
 [author.mikage-eiji]
 name = "Mikage Eiji"
 
 [author.nocturnal-stranger]
 name = "Nocturnal Stranger"
-alts = ["厄夜怪客"]
+alt_names = ["厄夜怪客"]
 
 [author.ya-boy]
 name = "Ya Boy"
@@ -166,7 +166,7 @@ links = [
 
 [author.god-loves-the-world]
 name = "God Loves The World"
-alts = ["神仙爱凡尘"]
+alt_names = ["神仙爱凡尘"]
 
 [author.necariin]
 name = "Necariin"
@@ -179,23 +179,23 @@ name = "X-RHODEN-X"
 
 [author.fast-food-restaurant]
 name = "Fast Food Restaurant"
-alts = ["快餐店"]
+alt_names = ["快餐店"]
 
 [author.chugong]
 name = "Chugong"
-alts = ["추공"]
+alt_names = ["추공"]
 
 [author.xin-feng]
 name = "Xin Feng"
-alts = ["新丰"]
+alt_names = ["新丰"]
 
 [author.legend-of-the-paladin]
 name = "Legend of the Paladin"
-alts = ["圣骑士的传说"]
+alt_names = ["圣骑士的传说"]
 
 [author.foxtail-quill]
 name = "Foxtail Quill"
-alts = ["狐尾的笔"]
+alt_names = ["狐尾的笔"]
 
 [author.maxime-j-durand]
 name = "Maxime J. Durand"
@@ -205,7 +205,7 @@ links = [
 
 [author.jin-nai]
 name = "Jin Nai"
-alts = ["今奈"]
+alt_names = ["今奈"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/jin-nai/" },
 ]
@@ -224,7 +224,7 @@ links = [
 
 [author.quiet-support]
 name = "Quiet Support"
-alts = ["安静捧场"]
+alt_names = ["安静捧场"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/quiet-support/" },
 ]
@@ -243,7 +243,7 @@ links = [
 
 [author.pu-jie-tianxian]
 name = "Pū jiē tiānxiàn"
-alts = ["扑街天线"]
+alt_names = ["扑街天线"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/%e6%89%91%e8%a1%97%e5%a4%a9%e7%ba%bf/" },
 ]
@@ -256,7 +256,7 @@ links = [
 
 [author.exploding-small-latte]
 name = "Exploding Small Latte"
-alts = ["爆炸小拿铁"]
+alt_names = ["爆炸小拿铁"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/exploding-small-latte/" },
 ]
@@ -269,7 +269,7 @@ links = [
 
 [author.the-whitest-crow]
 name = "The Whitest Crow"
-alts = ["最白的乌鸦"]
+alt_names = ["最白的乌鸦"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/%e6%9c%80%e7%99%bd%e7%9a%84%e4%b9%8c%e9%b8%a6/" },
 ]
@@ -308,4 +308,10 @@ links = [
 name = "Cornman"
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/profile/394190" },
+]
+
+[author.the-one-who-was]
+name = "The_One_Who_Was"
+links = [
+    { title = "webnovel", url = "https://www.webnovel.com/profile/4324450853" },
 ]

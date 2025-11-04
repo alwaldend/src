@@ -7,23 +7,23 @@ git_cmd() {
 
 main() {
     repo_dir="/srv/git"
-    
+
     cp /var/configs/ssh-authorized-keys/* /home/git/.ssh/
     cp /var/secrets/ssh-keys/* /etc/ssh/
-    
-    chown -R "git:git" /home/git "${repo_dir}" 
+
+    chown -R "git:git" /home/git "${repo_dir}"
     chmod 600 /home/git/.ssh/*
-    
-    git_cmd "git config --global init.defaultBranch main" 
-    
+
+    git_cmd "git config --global init.defaultBranch main"
+
     for repo in ${GIT_REPOSITORIES}; do
        repo_path="${repo_dir}/${repo}"
        git_cmd "mkdir -p '${repo_path}.git'"
        git_cmd "ln -s '${repo_path}.git' ~/'${repo}.git'"
        git_cmd "git init --bare '${repo_path}'.git"
     done
-    
+
     exec /usr/sbin/sshd -D -e
 }
 
-main
+main "${@}"
