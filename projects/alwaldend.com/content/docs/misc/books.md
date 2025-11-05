@@ -19,16 +19,16 @@ tags:
       src="{{ .thumbnail }}"
       class="col-3"
       alt="Thumbnail of {{ .title }}">
-    <table class="td-initial table col text-left">
+    <table class="td-initial table col text-start">
       <tbody>
         <tr>
-          <td>Title</td>
-          <td>{{ .title }}</td>
+          <td colspan="1">Title</td>
+          <td colspan="2">{{ .title }}</td>
         </tr>
         {{ if .alt_titles -}}
         <tr>
-          <td>ALternative titles</td>
-          <td>
+          <td colspan="1">ALternative titles</td>
+          <td colspan="2">
             <ul>
               {{ range .alt_titles -}}
               <li>
@@ -41,8 +41,8 @@ tags:
         {{ end -}}
         {{ if .authors -}}
         <tr>
-          <td>Authors</td>
-          <td>
+          <td colspan="1">Authors</td>
+          <td colspan="2">
             <ul>
               {{ range .authors -}}
               {{ with index $authors . -}}
@@ -55,32 +55,32 @@ tags:
         {{ end -}}
         {{ if .completion -}}
         <tr>
-          <td>Completion status</td>
-          <td>{{ .completion }}</td>
+          <td colspan="1">Completion status</td>
+          <td colspan="2">{{ .completion }}</td>
         </tr>
         {{ end -}}
         {{ if .reading -}}
         <tr>
-          <td>Reading status</td>
-          <td>{{ .reading }}</td>
+          <td colspan="1">Reading status</td>
+          <td colspan="2">{{ .reading }}</td>
         </tr>
         {{ end -}}
         {{ if .quality -}}
         <tr>
-          <td>Quality</td>
-          <td>{{ .quality }}</td>
+          <td colspan="1">Quality</td>
+          <td colspan="2">{{ .quality }}</td>
         </tr>
         {{ end -}}
         {{ if .summary -}}
         <tr>
-          <td>Summary</td>
-          <td>{{ .summary }}</td>
+          <td colspan="1">Summary</td>
+          <td colspan="2">{{ .summary }}</td>
         </tr>
         {{ end -}}
         {{ if .links -}}
         <tr>
-          <td>Links</td>
-          <td>
+          <td colspan="1">Links</td>
+          <td colspan="2">
             <ul>
               {{ range .links -}}
               <li>

@@ -1,5 +1,5 @@
 ---
-title: Alwaldend.com
+title: Alwaldend
 description: Alwaldend.com
 ---
 
@@ -7,8 +7,8 @@ description: Alwaldend.com
 
 <div class="col"></div>
 
-<div class="table-responsive">
-  <table class="td-initial table col-1 text-left">
+<div class="table-responsive col-6">
+  <table class="td-initial table text-left">
     <tbody>
       <tr>
         <td>Docs</td>
