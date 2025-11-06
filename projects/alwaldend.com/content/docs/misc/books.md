@@ -1,29 +1,35 @@
 ---
 title: Books
-description: books
+description: Books
 tags:
   - books
 ---
 
 ## Books
 
-
 {{< docs_misc_books.inline >}}
 
 {{ $authors := (index .Site.Data.projects "alwaldend.com").authors.author -}}
-{{ range ((index .Site.Data.projects "alwaldend.com").books.book | collections.Reverse) -}}
 
 <div class="container">
   <div class="row table-responsive">
-    <img
-      src="{{ .thumbnail }}"
-      class="col-3"
-      alt="Thumbnail of {{ .title }}">
-    <table class="td-initial table col text-start">
+    <table class="td-initial table text-start">
       <tbody>
+        {{ range ((index .Site.Data.projects "alwaldend.com").books.book | collections.Reverse) -}}
+        {{ $rowspan := 0 }}
+        {{ range (collections.Slice .title .alt_titles .authors .completion .reading .quality .summary .links) }}
+        {{ if . }}{{ $rowspan = math.Add $rowspan 1 }}{{ end }}
+        {{ end }}
         <tr>
+          <td class="text-center" rowspan="{{ $rowspan }}">
+            <img
+              src="{{ .thumbnail }}"
+              style="width: 15rem;"
+              class="img-fluid"
+              alt="Thumbnail of {{ .title }}">
+          </td>
           <td colspan="1">Title</td>
-          <td colspan="2">{{ .title }}</td>
+          <td colspan="2">{{ printf "##### %s" .title | $.Page.RenderString }}</td>
         </tr>
         {{ if .alt_titles -}}
         <tr>
@@ -93,11 +99,11 @@ tags:
           </td>
         </tr>
         {{- end }}
+        {{ end -}}
       </tbody>
     </table>
   </div>
 </div>
 
-{{ end -}}
 
 {{< /docs_misc_books.inline >}}

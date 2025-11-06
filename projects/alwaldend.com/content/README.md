@@ -8,7 +8,7 @@ description: Alwaldend.com
 <div class="col"></div>
 
 <div class="table-responsive col-6">
-  <table class="td-initial table text-left">
+  <table class="td-initial table table-borderless text-left">
     <tbody>
       <tr>
         <td>Docs</td>

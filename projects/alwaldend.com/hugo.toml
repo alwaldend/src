@@ -32,9 +32,12 @@ enable = true
 # icon = "fa-brands fa-github"
 # desc = "Github"
 
-[markup.goldmark]
-renderer.unsafe = true
-parser.attribute.block = true
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup.goldmark.parser.attribute]
+block = true
+title = true
 
 [taxonomies]
 category = "categories"
