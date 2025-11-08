@@ -13,7 +13,7 @@
           {{ end -}}
 
           <tr>
-            <td colspan="1" style="width: 15rem;" class="text-center" rowspan="{{ $rowspan }}">
+            <td colspan="1" style="width: 10rem;" class="text-center" rowspan="{{ $rowspan }}">
               <img
                 src="{{ .thumbnail }}"
                 class="img-fluid mx-auto"
@@ -46,18 +46,18 @@
             <tr>
               <td colspan="1">Authors</td>
               <td colspan="4">
-                <ul>
-                  {{ range .authors -}}
-                    {{ with index $authors . -}}
-                      <li>
-                        {{ .name }}
-                        {{ range .alt_names }}
-                          ({{ . }})
-                        {{ end }}
-                      </li>
+                {{ $len := len .authors }}
+                {{ range $index, $author := .authors -}}
+                  {{ with index $authors $author -}}
+                    {{ .name }}
+                    {{ range .alt_names }}
+                      ({{ . }})
+                    {{ end }}
+                    {{- if not (eq $index (math.Sub $len 1)) }}
+                    ,
                     {{- end }}
                   {{- end }}
-                </ul>
+                {{- end }}
               </td>
             </tr>
           {{ end -}}
@@ -79,26 +79,35 @@
           <tr>
             <td colspan="1">Links</td>
             <td colspan="4">
-              <ul>
-                {{ range .links -}}
-                  <li>
-                    <a href="{{ .url }}">
-                      {{ .title }}
-                    </a>
-                  </li>
+              {{ $len := len .links }}
+              {{ range .authors }}
+                {{ with index $authors . -}}
+                  {{ with .links }}
+                    {{ $len = math.Add $len (len .) }}
+                  {{ end -}}
+                {{ end -}}
+              {{ end -}}
+              {{ range $index, $link := .links -}}
+                <a href="{{ $link.url }}">
+                  {{ $link.title }}
+                </a>
+                {{- if not (eq $index (math.Sub $len 1)) }}
+                ,
                 {{- end }}
-                {{ range .authors -}}
-                  {{ with index $authors . -}}
-                    {{ range .links }}
-                      <li>
-                        <a href="{{ .url }}">
-                          {{ .title }} (author)
-                        </a>
-                      </li>
+              {{- end }}
+              {{ $lenLinks := len .links }}
+              {{ range $index, $author := .authors -}}
+                {{ with index $authors $author -}}
+                  {{ range .links }}
+                    <a href="{{ .url }}">
+                      {{ .title }} (author)
+                    </a>
+                    {{- if not (eq $index (math.Sub $len $lenLinks 1)) }}
+                    ,
                     {{- end }}
                   {{- end }}
                 {{- end }}
-              </ul>
+              {{- end }}
             </td>
           </tr>
         {{ end -}}

@@ -748,7 +748,7 @@ quality = "Ok, mediocre"
 reading = "Dropped, finished volume 1"
 authors = ["flossindune"]
 links = [
-    { title = "royalorad", url = "https://www.royalroad.com/fiction/63331/dungeon-inspector-book-1-complete-book-2-starts" },
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/63331/dungeon-inspector-book-1-complete-book-2-starts" },
 ]
 
 [[book]]
@@ -780,7 +780,7 @@ quality = "Ok, boring protagonist"
 reading = "Dropped, C128 (volume 2)"
 authors = ["robert-blaise"]
 links = [
-    { title = "royaloroad", url = "https://www.royalroad.com/fiction/72301/1-lifesteal" },
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/72301/1-lifesteal" },
 ]
 
 [[book]]
