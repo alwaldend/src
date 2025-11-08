@@ -3,12 +3,14 @@ theme = ["github.com/google/docsy"]
 baseURL = "http://127.0.0.1:1313"
 
 enableRobotsTXT = true
-enableGitInfo = false
 
 [outputs]
 section = ["html", "rss", "print"]
 home = ["html"]
 page = ["html"]
+
+[frontmatter]
+lastmod = [":fileModTime"]
 
 [params]
 offlineSearch = true
@@ -50,9 +52,6 @@ tag = "tags"
 name = "Docs"
 weight = 100
 url = "/docs/"
-
-[security]
-enableInlineShortcodes = true
 
 [security.exec]
 # allow = [".*"]

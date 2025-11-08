@@ -8,8 +8,8 @@ description: Alwaldend.com
 
 |        |                                                                       |
 | :----- | :-------------------------------------------------------------------- |
-| Docs   | [alwaldend.github.io/src/docs](https://alwaldend.github.io/src/docs/) |
-| Github | [github.com/alwaldend](https://github.com/alwaldend/)                 |
-{.mx-auto .w-auto}
+| Docs   | https://alwaldend.github.io/src/docs/                                 |
+| Github | https://github.com/alwaldend/                                         |
+{.td-initial .table .mx-auto .w-auto}
 
 {{% /blocks/section %}}

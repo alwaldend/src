@@ -196,6 +196,9 @@ alt_names = ["圣骑士的传说"]
 [author.foxtail-quill]
 name = "Foxtail Quill"
 alt_names = ["狐尾的笔"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/foxtail-quill/" },
+]
 
 [author.maxime-j-durand]
 name = "Maxime J. Durand"
