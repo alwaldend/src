@@ -1,4 +1,5 @@
 load("//tools/dnscontrol:al_dnscontrol_binary.bzl", "al_dnscontrol_binary")
+load("//tools/dnscontrol:al_dnscontrol_test.bzl", "al_dnscontrol_test")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
 _ZONES = glob(["zones/**/*.zone"])
@@ -16,6 +17,18 @@ al_dnscontrol_binary(
     config = "dnsconfig.js",
     creds = "creds.json.tpl",
     zones = _ZONES,
+)
+
+al_dnscontrol_test(
+    name = "preview_test",
+    size = "small",
+    arguments = ["--expect-no-changes"],
+    binary = ":preview",
+    env_inherit = [
+        "DNSCONTROL_CLOUDFLAREAPI_ACCOUNT_ID",
+        "DNSCONTROL_CLOUDFLAREAPI_API_TOKEN",
+    ],
+    tags = ["requires-network"],
 )
 
 al_dnscontrol_binary(

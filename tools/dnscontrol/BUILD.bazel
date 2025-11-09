@@ -22,6 +22,9 @@ al_bzl_library_map(
         "al_dnscontrol_binary": [
             "@bazel_skylib//lib:shell",
         ],
+        "al_dnscontrol_test": [
+            "@bazel_skylib//lib:shell",
+        ],
         "al_dnscontrol_toolchain": [],
     },
     visibility = ["//:__subpackages__"],

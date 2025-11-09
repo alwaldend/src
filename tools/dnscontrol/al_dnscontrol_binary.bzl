@@ -20,7 +20,6 @@ def _impl(ctx):
     script_content = """\
         #!/usr/bin/env sh
         set -eu
-        cd "${{0}}.runfiles/{workspace_name}"
         creds="$(mktemp)"
         envsubst <'{creds}' >"${{creds}}"
         exec '{dnscontrol}' \
