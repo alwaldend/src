@@ -6,6 +6,7 @@ languages:
 tags:
   - dnscontrol
   - dns
+  - bzl_rules
 ---
 
 ## Links

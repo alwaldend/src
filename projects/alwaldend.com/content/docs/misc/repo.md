@@ -20,11 +20,30 @@ description: Repository-specific information
 - Install qt: `bazel run //tools/qt:install`
 - Install git hooks: `bazel run //tools/git_hooks:install`
 
+## .env file
+
+- `RANCHER_ALWALDEND_COM_K3S_TOKEN`: k3s token for `//infra/charts/rancher.dc1.alwaldend.com`
+- `DNSCONTROL_CLOUDFLAREAPI_ACCOUNT_ID`: Cloudflare account id for `//infra/dns`
+- `DNSCONTROL_CLOUDFLAREAPI_API_TOKEN`: Cloudflare token for `//infra/dns`
+
 ## Development
 
-- Build `compile_commands.json`: `bazel run :refresh_compile_commands`
-- Run builds: `bazel build //...`
-- Run tests: `bazel test //...`
+- Build `compile_commands.json`:
+  ```sh
+  bazel run :refresh_compile_commands
+  ```
+- Run builds:
+  ```sh
+  bazel build //...
+  ```
+- Run tests:
+  ```sh
+  bazel test //...
+  ```
+- Export .env:
+  ```sh
+  export $(cat .env | xargs)
+  ```
 - Replace a rule with another one:
   ```sh
   find \

@@ -1,6 +1,6 @@
 ---
-title: DNSControl
-description: DNSControl tree
+title: Dns
+description: Dns
 tags:
   - dns
   - dnscontrol
@@ -10,4 +10,10 @@ tags:
 
 - Website: https://dnscontrol.org
 - Docs: https://docs.dnscontrol.org
-- Rules: [../tools/dnscontrol]
+- Rules: [../../tools/dnscontrol](../../tools/dnscontrol)
+
+## Zones
+
+### Alwaldend.com
+
+{{< readfile file="zones/alwaldend.com.zone" code="true" lang="zone" >}}
