@@ -35,17 +35,6 @@ sidebar_menu_foldable = true
 [params.drawio]
 enable = true
 
-[[params.links.developer]]
-name = "Docs"
-url = "/docs/"
-icon = "fa fa-book"
-desc = "Docs"
-[[params.links.developer]]
-name = "GitHub"
-url = "https://github.com/alwaldend/src"
-icon = "fab fa-github"
-desc = "Development"
-
 [markup.goldmark.renderer]
 unsafe = true
 
