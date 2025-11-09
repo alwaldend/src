@@ -318,3 +318,22 @@ name = "The_One_Who_Was"
 links = [
     { title = "webnovel", url = "https://www.webnovel.com/profile/4324450853" },
 ]
+
+[author.lit-homunculus]
+name = "Lit Homunculus"
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/profile/56125" },
+]
+
+[author.macronomicon]
+name = "Macronomicon"
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/profile/100060" },
+]
+
+[author.crane-by-the-moonlit-pond]
+name = "Crane by the Moonlit Pond"
+alt_names = ["鹤守月满池"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/crane-by-the-moonlit-pond/" },
+]

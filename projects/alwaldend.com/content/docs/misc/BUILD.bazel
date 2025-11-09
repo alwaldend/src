@@ -6,6 +6,7 @@ al_docs_files(
     prefix = "docs/misc",
     visibility = ["//projects/alwaldend.com/content/docs:__pkg__"],
     deps = [
+        "//projects/alwaldend.com/content/docs/misc/books:docs",
         "//projects/alwaldend.com/content/docs/misc/leetcode_submissions:docs",
         "//projects/alwaldend.com/content/docs/misc/old_diagrams:docs",
     ],

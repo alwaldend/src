@@ -1,18 +1,6 @@
 load("//tools/toml:al_toml_data.bzl", "al_toml_data")
 
 al_toml_data(
-    name = "books",
-    srcs = ["books.toml"],
-    visibility = ["//:__subpackages__"],
-)
-
-al_toml_data(
-    name = "authors",
-    srcs = ["authors.toml"],
-    visibility = ["//:__subpackages__"],
-)
-
-al_toml_data(
     name = "countries",
     srcs = ["countries.toml"],
     visibility = ["//:__subpackages__"],

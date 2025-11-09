@@ -170,17 +170,6 @@ links = [
 ]
 
 [[book]]
-title = "Shadow Slave"
-thumbnail = "https://book-pic.webnovel.com/bookcover/22196546206090805?imageMogr2/thumbnail/600x&imageId=1705256017438"
-quality = "Good"
-reading = "Reading, chapter 2388"
-authors = ["guilty-three"]
-links = [
-    { title = "webnovel", url = "https://www.webnovel.com/book/shadow-slave_22196546206090805" },
-    { title = "novelbin", url = "https://novelbin.com/b/shadow-slave/chapter-2388-bait" },
-]
-
-[[book]]
 title = "The Years of Apocalypse"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/the-years-of-apocalypse-a-time-loop-progression.jpg"
 quality = "Decent"
@@ -188,16 +177,6 @@ reading = "Dropped, C225"
 authors = ["uraniumphoenix"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression" },
-]
-
-[[book]]
-title = "Book Of The Dead"
-thumbnail = "https://www.royalroadcdn.com/public/covers-full/47038-book-of-the-dead.jpg"
-quality = "Good"
-reading = "Reading, book 5 chapter 25"
-authors = ["rinoz"]
-links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/47038/book-of-the-dead" },
 ]
 
 [[book]]
@@ -258,16 +237,6 @@ reading = "Finished"
 authors = ["fang-xiang"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/world-of-cultivation/" },
-]
-
-[[book]]
-title = "Hell Difficulty Tutorial"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg"
-quality = "Decent"
-reading = "Reading, chapter 589"
-authors = ["cerim"]
-links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial" },
 ]
 
 [[book]]
@@ -721,27 +690,6 @@ links = [
 ]
 
 [[book]]
-title = "Diary of a Dead Wizard"
-alt_titles = ["死亡巫师日记"]
-thumbnail = "https://cdn.novelupdates.com/images/2025/02/Diary-of-a-Dead-Wizard.jpeg"
-quality = "Good"
-reading = "Finished, C1037"
-authors = ["jin-nai"]
-links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/diary-of-a-dead-wizard/" },
-]
-
-[[book]]
-title = "Sky Pride"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/107917-sky-pride.jpg"
-quality = "Good"
-reading = "Reading, B3C25"
-authors = ["warby-picus"]
-links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/107917/sky-pride" },
-]
-
-[[book]]
 title = "Dungeon Inspector"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/63331-dungeon-inspector-book-2-complete.jpg"
 quality = "Ok, mediocre"
@@ -925,8 +873,30 @@ links = [
 ]
 
 [[book]]
+title = "Shrouded Seascape"
+alt_titles = ["诡秘地海"]
+thumbnail = "./shrouded_seascape.jpg"
+quality = "Good"
+reading = "Finished, C1149"
+authors = ["foxtail-quill"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/shrouded-seascape/" },
+]
+
+[[book]]
+title = "Diary of a Dead Wizard"
+alt_titles = ["死亡巫师日记"]
+thumbnail = "./diary_of_a_dead_wizard.jpeg"
+quality = "Good"
+reading = "Finished, C1037"
+authors = ["jin-nai"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/diary-of-a-dead-wizard/" },
+]
+
+[[book]]
 title = "Young Master's PoV: Woke Up As A Villain In A Game One Day"
-thumbnail = "https://book-pic.webnovel.com/bookcover/30581672200350205?imageMogr2/thumbnail/600x&imageId=1739670729418"
+thumbnail = "./young_masters_pov_woke_up_as_a_villain_in_a_game_one_day.jpg"
 quality = "Ok"
 reading = "Reading, C279"
 authors = ["the-one-who-was"]
@@ -935,8 +905,8 @@ links = [
 ]
 
 [[book]]
-title = "For the Glory of Rome: Chronicles of an Isekai'd Legion"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/104561-for-the-glory-of-rome-chronicles-of-an.jpg?time=1739769239"
+title = "For the Glory of Rome"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/104561-for-the-glory-of-rome-chronicles-of-an.jpg"
 quality = "Ok"
 reading = "Reading, V2C71"
 authors = ["zaifyr"]
@@ -945,12 +915,87 @@ links = [
 ]
 
 [[book]]
-title = "Shrouded Seascape"
-alt_titles = ["诡秘地海"]
-thumbnail = "https://cdn.novelupdates.com/images/2023/03/Mysteries-of-the-Earthsea.jpg"
+title = "Struggling to Survive with Regression Power in the Primordial Saint Sect"
+alt_titles = [
+    "苟在初圣魔门当人材",
+    "Lying Low as the First Saint Demonic Sect’s ‘Top Talent’",
+]
+thumbnail = "./struggling_to_survive_with_regression_power_in_the_primordial_saint_sect.png"
+quality = "Decent"
+reading = "Reading, C248"
+authors = ["crane-by-the-moonlit-pond"]
+links = [
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/struggling-to-survive-with-regression-power-in-the-primordial-saint-sect/" },
+]
+
+[[book]]
+title = "The Legend of William Oh"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/the-legend-of-william-oh-aadavnw8qxu.jpg"
+quality = "Decent"
+reading = "Reading, C198"
+authors = ["macronomicon"]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/92144/the-legend-of-william-oh" },
+]
+
+[[book]]
+title = "The Tower of Infinite Evil"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/122142-the-tower-of-infinite-evil-a-litrpg-horror.jpg"
+quality = "Decent"
+reading = "Reading, C93"
+authors = ["lit-homunculus"]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/122142/the-tower-of-infinite-evil-a-litrpg-horror-comedy" },
+]
+
+[[book]]
+title = "Shadow Slave"
+thumbnail = "./shadow_slave.jpg"
+quality = "Decent"
+reading = "Reading, chapter 2388"
+authors = ["guilty-three"]
+links = [
+    { title = "webnovel", url = "https://www.webnovel.com/book/shadow-slave_22196546206090805" },
+    { title = "novelbin", url = "https://novelbin.com/b/shadow-slave/chapter-2388-bait" },
+]
+
+[[book]]
+title = "Book Of The Dead"
+thumbnail = "https://www.royalroadcdn.com/public/covers-full/47038-book-of-the-dead.jpg"
+quality = "Decent"
+reading = "Reading, book 5 chapter 25"
+authors = ["rinoz"]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/47038/book-of-the-dead" },
+]
+
+[[book]]
+title = "Hell Difficulty Tutorial"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg"
+quality = "Decent"
+reading = "Reading, chapter 589"
+authors = ["cerim"]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial" },
+]
+
+[[book]]
+title = "Grotesqueries of the Old Domain"
+alt_titles = ["旧域怪诞", "The Grotesque Old Domain"]
+thumbnail = "./grotesqueries_of_the_old_domain.jpg"
 quality = "Good"
-reading = "Finished, C1149"
+reading = "Reading, C65"
 authors = ["foxtail-quill"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/shrouded-seascape/" },
+    { title = "novelupdates", url = "https://www.novelupdates.com/series/grotesqueries-of-the-old-domain/" },
+]
+
+[[book]]
+title = "Sky Pride"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/107917-sky-pride.jpg"
+quality = "Good"
+reading = "Reading, B3C25"
+authors = ["warby-picus"]
+links = [
+    { title = "royalroad", url = "https://www.royalroad.com/fiction/107917/sky-pride" },
 ]

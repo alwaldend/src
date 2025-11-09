@@ -12,11 +12,18 @@ page = ["html"]
 [frontmatter]
 lastmod = [":fileModTime"]
 
+[sitemap]
+changefreq = "daily"
+priority = 0.5
+
 [params]
 offlineSearch = true
 github_project_repo = "https://github.com/alwaldend/src"
 github_repo = "https://github.com/alwaldend/src"
 github_branch = "master"
+
+# [params.copyright]
+# authors = ""
 
 [params.ui]
 generated_tags = ["Generated"]
@@ -28,11 +35,16 @@ sidebar_menu_foldable = true
 [params.drawio]
 enable = true
 
-# [[params.links.developer]]
-# name = "Github"
-# url = "https://github.com/alwaldend/src"
-# icon = "fa-brands fa-github"
-# desc = "Github"
+[[params.links.developer]]
+name = "Docs"
+url = "/docs/"
+icon = "fa fa-book"
+desc = "Docs"
+[[params.links.developer]]
+name = "GitHub"
+url = "https://github.com/alwaldend/src"
+icon = "fab fa-github"
+desc = "Development"
 
 [markup.goldmark.renderer]
 unsafe = true

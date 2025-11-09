@@ -90,7 +90,6 @@ pkg_tar(
     name = "site_source_archive",
     srcs = [
         ":site_config",
-        ":site_data",
         "//projects/alwaldend.com/content:docs",
         "//projects/alwaldend.com/i18n",
         "//projects/alwaldend.com/layouts",
@@ -98,20 +97,6 @@ pkg_tar(
     ],
     stamp = 1,
     strip_prefix = ".",
-)
-
-pkg_filegroup(
-    name = "site_data",
-    srcs = [":site_data_files"],
-    prefix = "data/{}".format(package_name()),
-)
-
-pkg_files(
-    name = "site_data_files",
-    srcs = [
-        "//data/misc:authors",
-        "//data/misc:books",
-    ],
 )
 
 pkg_files(

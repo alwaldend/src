@@ -1,10 +1,11 @@
-{{ $authors := (index .Site.Data.projects "alwaldend.com").authors.author -}}
+{{ $authors := (.Page.Resources.Get "authors.toml" | transform.Unmarshal).author -}}
+{{ $books := (.Page.Resources.Get "books.toml" | transform.Unmarshal).book -}}
 
 <div class="container">
   <div class="row table-responsive">
     <table class="td-initial table text-start">
       <tbody>
-        {{ range ((index .Site.Data.projects "alwaldend.com").books.book | collections.Reverse) -}}
+        {{ range ($books | collections.Reverse) -}}
           {{ $rowspan := 0 -}}
           {{ range (collections.Slice .title .authors .completion .reading .quality .summary .links) -}}
             {{ if . -}}
@@ -17,12 +18,13 @@
               <img
                 src="{{ .thumbnail }}"
                 class="img-fluid mx-auto"
-                alt="Thumbnail of {{ .title }}">
+                loading="lazy"
+                alt="Thumbnail">
             </td>
             <td colspan="1">Title</td>
             <td colspan="4">
               {{ printf "##### %s" .title | $.Page.RenderString }}
-              {{ range .alt_titles -}}
+              {{ range .alt_titles }}
                 ({{ . }})
               {{- end }}
             </td>

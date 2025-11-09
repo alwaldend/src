@@ -1,0 +1,23 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/toml:al_toml_data.bzl", "al_toml_data")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob([
+        "*.md",
+        "*.jpg",
+        "*.jpeg",
+        "*.png",
+    ]) + [":toml"],
+    prefix = "docs/misc/books",
+    visibility = ["//projects/alwaldend.com/content/docs/misc:__pkg__"],
+)
+
+al_toml_data(
+    name = "toml",
+    srcs = [
+        "authors.toml",
+        "books.toml",
+    ],
+)
