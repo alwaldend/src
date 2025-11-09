@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"strings"
 	"text/template"
 
 	"github.com/BurntSushi/toml"
@@ -20,6 +21,10 @@ type TemplateDataFile struct {
 	Path string
 	// Data file basename
 	Basename string
+	// Basename without the extension
+	BasenameWithoutExt string
+	// File extension (can be overriden using CLI)
+	Extension string
 	// Data file dirname
 	Dirname string
 	// Data file lines
@@ -117,10 +122,12 @@ func (self *Templater) loadData(path string, extension string) (*TemplateDataFil
 		return nil, fmt.Errorf("unsupported extension %s: %s", extension, path)
 	}
 	return &TemplateDataFile{
-		Path:     path,
-		Dirname:  filepath.Dir(path),
-		Basename: filepath.Base(path),
-		Data:     data,
-		Lines:    fileLines,
+		Path:               path,
+		Dirname:            filepath.Dir(path),
+		Basename:           filepath.Base(path),
+		Extension:          extension,
+		BasenameWithoutExt: strings.TrimRight(filepath.Base(path), filepath.Ext(path)),
+		Data:               data,
+		Lines:              fileLines,
 	}, nil
 }

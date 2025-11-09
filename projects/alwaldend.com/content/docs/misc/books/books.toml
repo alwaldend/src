@@ -100,8 +100,8 @@ links = [
 title = "The Sage Who Transcended Samsara"
 alt_titles = ["一世之尊"]
 thumbnail = "https://cdn.novelupdates.com/images/2019/05/17435126d0d51135aa4a70eb4c00f08bc818d0de901c670ce979f03a966bf10f.jpg"
-quality = "Good, dropped at the end"
-reading = "Finished"
+quality = "Good"
+reading = "Finished, dropped at the end"
 authors = ["cuttlefish-that-loves-diving"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/the-sage-who-transcended-samsara/" },
@@ -314,7 +314,7 @@ links = [
 title = "Vigor Mortis"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/40373-vigor-mortis.jpg"
 quality = "Ok"
-reading = "Dropped, volume 4, chapter 27"
+reading = "Dropped, V4C27"
 authors = ["thundamoo"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/40373/vigor-mortis" },
@@ -324,7 +324,7 @@ links = [
 title = "Ultimate Level 1"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/76259-ultimate-level-1-litrpg-book-8-stubs-531.jpg"
 quality = "Bad, litrpg slop"
-reading = "Dropped, volume 1, chapter 17"
+reading = "Dropped, V1C17"
 authors = ["dads-bedtime-stories"]
 links = [
     { title = "royalroad", url = "https://www.royalroad.com/fiction/76259/ultimate-level-1-litrpg" },
@@ -334,7 +334,7 @@ links = [
 title = "If It’s for My Daughter, I’d Even Defeat a Demon Lord"
 thumbnail = "https://cdn.novelupdates.com/images/2020/05/uchimusuLNv2.jpg"
 quality = "Bad, Japanese slice-of-life litrpg fantasy slop"
-reading = "Dropped, volume 4, chapter 2"
+reading = "Dropped, V4C2"
 authors = ["chirolu"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/series/if-its-for-my-daughter-id-even-defeat-a-demon-lord/" },

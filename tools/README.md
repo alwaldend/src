@@ -1,7 +1,7 @@
 ---
 title: Tools
 description: Tool tree
-weight: 3
+weight: 4
 cascade:
   - categories:
       - tool
