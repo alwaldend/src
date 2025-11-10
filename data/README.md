@@ -10,6 +10,6 @@ This tree contains data
 
 ## Features
 
-- SHOULD NOT be public
-- SHOULD NOT be published
+- MUST NOT be public
+- MUST NOT be published
 - MAY be used in builds

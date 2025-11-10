@@ -1,0 +1,20 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
+load("//tools/toml:al_toml_data.bzl", "al_toml_data")
+
+pkg_files(
+    name = "data",
+    srcs = glob([
+        "*.jpg",
+        "*.jpeg",
+        "*.png",
+    ]) + [":toml"],
+    visibility = ["//:__subpackages__"],
+)
+
+al_toml_data(
+    name = "toml",
+    srcs = [
+        "authors.toml",
+        "books.toml",
+    ],
+)

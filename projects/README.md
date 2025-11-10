@@ -13,5 +13,5 @@ This tree contains projects
 
 - MAY be public
 - MAY be published
-- SHOULD have sboms, hashes, and a changelog
-- SHOULD be used in only in `//projects/...` and `//infra/...`
+- MAY be used in builds
+- MUST have sboms, hashes, and a changelog
