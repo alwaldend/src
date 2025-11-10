@@ -1,0 +1,16 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = "docs/misc/rfc",
+    visibility = ["//projects/alwaldend.com/content/docs/misc:__pkg__"],
+    deps = [":rfcs"],
+)
+
+pkg_filegroup(
+    name = "rfcs",
+    srcs = ["@com_alwaldend_src_tools_rfc//:filegroup"],
+    prefix = "docs/misc/rfc",
+)

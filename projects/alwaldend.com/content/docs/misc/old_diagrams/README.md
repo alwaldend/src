@@ -7,8 +7,8 @@ tags:
 
 ## Interview diagram
 
-{{< svg_file file=arch_interview_yandex_sre.svg >}}
+{{< alwaldend/svg_file file=arch_interview_yandex_sre.svg >}}
 
 ## Abandoned project idea
 
-{{< svg_file file=arch_idea_anki_chinese_flashcards_enricher.svg >}}
+{{< alwaldend/svg_file file=arch_idea_anki_chinese_flashcards_enricher.svg >}}

@@ -1,0 +1,9 @@
+al_rfc_extension = use_extension("//tools/rfc:al_rfc_extension.bzl", "al_rfc_extension")
+al_rfc_extension.download(
+    name = "com_alwaldend_src_tools_rfc",
+    integrity = {
+        "2119/txt": "sha256-PCzre/yEzTRyD0pScTOKudgoDTS90eslDGQwYgLy7Ys=",
+    },
+    rfcs = ["2119"],
+)
+use_repo(al_rfc_extension, "com_alwaldend_src_tools_rfc")
