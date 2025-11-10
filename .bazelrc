@@ -84,7 +84,7 @@ common --heap_dump_on_oom
 common --strategy=Shell=worker
 
 # android
-common --android_platforms=//tools/bzl/configs:android_arm64
+common --android_platforms=//tools/bzl/platforms:android_arm64
 
 # go platforms
 # https://github.com/bazel-contrib/rules_go/blob/master/docs/go/core/cross_compilation.md

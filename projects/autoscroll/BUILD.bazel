@@ -1,3 +1,4 @@
+load("@rules_license//rules_gathering:generate_sbom.bzl", "generate_sbom")
 load("@rules_python//python:packaging.bzl", "py_package", "py_wheel")
 load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@rules_python//python:py_library.bzl", "py_library")
@@ -51,4 +52,10 @@ py_wheel(
         "//projects/autoscroll/autoscroll:autoscroll_data",
         "//projects/autoscroll/autoscroll/_internal",
     ],
+)
+
+generate_sbom(
+    name = "autoscroll_sbom",
+    out = "autoscroll_sbom.txt",
+    deps = [":autoscroll"],
 )

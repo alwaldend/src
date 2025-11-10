@@ -1,4 +1,4 @@
-def al_alias_map(aliases, visibility = ["//visibility:public"]):
+def al_alias_map(aliases, visibility = ["//:__subpackages__"]):
     """
     Generate aliases from an alias map
 

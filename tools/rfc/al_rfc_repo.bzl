@@ -71,6 +71,9 @@ def _impl(ctx):
         "BUILD.bazel",
         content = _ROOT_BUILD,
     )
+    return ctx.repo_metadata(
+        reproducible = True,
+    )
 
 al_rfc_repo = repository_rule(
     doc = "Rfc repository",

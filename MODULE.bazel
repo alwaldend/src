@@ -74,6 +74,15 @@ bazel_dep(name = "com_github_georgewfraser_java_language_server", version = "202
 
 ## Overrides
 
+archive_override(
+    module_name = "rules_license",
+    integrity = "sha256-zwdTogCzTqtlOlHkRo/GWgcDnCIQbDOjjdy//ulZSWY=",
+    patch_strip = 1,
+    patches = ["//third_party:com_github_bazelbuild_rules_license/001_fix_module.patch"],
+    strip_prefix = "rules_license-f27beb61ec306f5466941a1a993249281d05e4be",
+    url = "https://github.com/bazelbuild/rules_license/archive/f27beb61ec306f5466941a1a993249281d05e4be.zip",
+)
+
 # local_path_override(
 #     module_name = "rules_haskell",
 #     path = "../fork_com_github_tweag_rules_haskell",
