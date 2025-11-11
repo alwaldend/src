@@ -1,6 +1,6 @@
 AlMakeInstallInfo = provider(
-    fields = {
-        "filegroups": "List of AlMakeInstallFilegroupInfo",
-    },
     doc = "Make install information",
+    fields = {
+        "filegroups": "depset of AlMakeInstallFilegroupInfo",
+    },
 )

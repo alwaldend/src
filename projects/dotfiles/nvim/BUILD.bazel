@@ -1,8 +1,7 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 load("//tools/lua:al_lua_library.bzl", "al_lua_library")
-load("//tools/make_install:al_make_install.bzl", "al_make_install")
+load("//tools/make_install:al_make_install_filegroup.bzl", "al_make_install_filegroup")
 
 al_docs_files(
     name = "docs",
@@ -28,7 +27,7 @@ pkg_files(
 )
 
 pkg_filegroup(
-    name = "make_install_filegroup",
+    name = "filegroup",
     srcs = [
         ":lua",
         ":not_lua",
@@ -36,13 +35,8 @@ pkg_filegroup(
     prefix = ".config/nvim",
 )
 
-al_make_install(
-    name = "make_install",
-    srcs = [":make_install_filegroup"],
+al_make_install_filegroup(
+    name = "make_install_filegroup",
+    srcs = [":filegroup"],
     visibility = ["//projects/dotfiles:__pkg__"],
 )
-
-# pkg_tar(
-#     name = "make_install_tar",
-#     srcs = [":make_install"],
-# )

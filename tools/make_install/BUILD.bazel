@@ -4,7 +4,12 @@ load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 al_bzl_library_map(
     name = "libs",
     libs = {
-        "al_make_install": [
+        "al_make_install_makefile": [
+            "@rules_pkg//pkg:bzl_srcs",
+            "@bazel_skylib//lib:shell",
+            ":al_make_install_info",
+        ],
+        "al_make_install_filegroup": [
             ":al_make_install_info",
             ":al_make_install_filegroup_info",
             "@bazel_skylib//lib:shell",
