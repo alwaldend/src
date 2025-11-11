@@ -873,6 +873,16 @@ links = [
 ]
 
 [[book]]
+title = "Salvage System"
+thumbnail = "https://b2419162.smushcdn.com/2419162/wp-content/uploads/2025/09/81bMdsFQzCL._SL1500_-1.jpg?lossy=2&strip=1&webp=1"
+quality = "Slop"
+reading = "Dropped, V1C11"
+authors = ["nicholas_sansbury_smith"]
+links = [
+    { title = "aethonbooks", url = "https://aethonbooks.com/book/salvage-system/" },
+]
+
+[[book]]
 title = "Shrouded Seascape"
 alt_titles = ["诡秘地海"]
 thumbnail = "./shrouded_seascape.jpg"

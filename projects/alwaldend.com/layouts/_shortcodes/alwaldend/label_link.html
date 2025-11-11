@@ -1,0 +1,8 @@
+{{ $regex := `^(//)([^:]+)(:.+)?$` -}}
+{{ $label := strings.TrimSuffix "/..." (.Get 0) -}}
+{{ with strings.FindRESubmatch $regex $label -}}
+  {{- with (collections.Index . 0) -}}
+    {{- $url := printf "/docs/%s" (collections.Index . 2) -}}
+    <a href="{{ urls.RelRef $.Page $url }}">{{ collections.Index . 0 }}</a>
+  {{- end -}}
+{{- end -}}

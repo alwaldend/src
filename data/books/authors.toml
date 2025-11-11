@@ -337,3 +337,9 @@ alt_names = ["鹤守月满池"]
 links = [
     { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/crane-by-the-moonlit-pond/" },
 ]
+
+[author.nicholas_sansbury_smith]
+name = "Nicholas Sansbury Smith"
+links = [
+    { title = "aethonbooks", url = "https://aethonbooks.com/book-author/nicholas-sansbury-smith/" },
+]
