@@ -1,4 +1,12 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//projects/dotfiles:__pkg__"],
+)
 
 pkg_tar(
     name = "archive",

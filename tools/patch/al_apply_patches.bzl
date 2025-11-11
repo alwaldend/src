@@ -2,7 +2,7 @@ def al_apply_patches(
         name,
         src,
         patches,
-        visibility = ["//visibility:public"],
+        visibility = ["//:__subpackages__"],
         **kwargs):
     """
     Create a genrule applying patches

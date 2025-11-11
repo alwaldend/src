@@ -1,4 +1,4 @@
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("//tools/run_tool:al_run_tool.bzl", "al_run_tool")
 
 def al_lua_library(
@@ -7,8 +7,8 @@ def al_lua_library(
         check = [],
         stylua_config_label = "//tools/stylua:stylua_config",
         stylua_label = "//tools/stylua",
-        pkg_tar_kwargs = {},
-        visibility = ["//visibility:public"]):
+        pkg_kwargs = {},
+        visibility = ["//:__subpackages__"]):
     """
     Generate targets for a lua library
 
@@ -28,21 +28,21 @@ def al_lua_library(
         "--config-path=$(rootpath {})".format(stylua_config_label),
     ] + ["$(rootpaths {})".format(src) for src in (check or srcs)]
     data = (check or srcs) + [stylua_config_label]
-    pkg_tar(
+    pkg_files(
         name = name,
         srcs = srcs,
         visibility = visibility,
-        **pkg_tar_kwargs
+        **pkg_kwargs
     )
     al_run_tool(
-        name = "{}-stylua-fix".format(name),
+        name = "{}.stylua_fix".format(name),
         executable = True,
         tool = stylua_label,
         args = stylua_args,
         data = data,
     )
     al_run_tool(
-        name = "{}-stylua-test".format(name),
+        name = "{}.stylua_test".format(name),
         test = True,
         tool = stylua_label,
         args = [stylua_args[0], "--check"] + stylua_args[1:],

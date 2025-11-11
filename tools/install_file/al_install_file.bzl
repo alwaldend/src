@@ -4,7 +4,7 @@ def al_install_file(
         name,
         args = [],
         install_file_label = "//tools/install_file:install_file_lib",
-        visibility = ["//visibility:public"],
+        visibility = ["//:__subpackages__"],
         **py_binary_kwargs):
     """
     Create py_binary target to install file

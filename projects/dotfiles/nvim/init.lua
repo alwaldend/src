@@ -1,1 +1,1 @@
-require("alwaldend/nvim-lib/init").setup()
+require("alwaldend/nvim/init").setup()

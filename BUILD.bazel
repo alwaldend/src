@@ -37,7 +37,10 @@ current_module_package_info(
     visibility = ["//:__subpackages__"],
 )
 
-exports_files(["LICENSE.txt"])
+exports_files(
+    ["LICENSE.txt"],
+    visibility = ["//:__subpackages__"],
+)
 
 pkg_files(
     name = "license_files",
@@ -54,6 +57,7 @@ gazelle_python_manifest(
     modules_mapping = ":modules_map",
     pip_repository_name = "com_alwaldend_src_pip",
     requirements = "//:requirements.txt",
+    visibility = ["//:__subpackages__"],
 )
 
 modules_mapping(

@@ -2,6 +2,7 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive", "http_file"
 
 _NATIVE_BINARY = """
 load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
+
 native_binary(
     name = "{name}",
     src = glob(["**/{src}"])[0],

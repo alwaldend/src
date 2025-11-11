@@ -55,3 +55,7 @@ description: Repository-specific information
   ```sh
   find -name "BUILD.bazel" -type f -exec sed -i '/al_readme(/,/)/d' "{}" ";"
   ```
+- Find all public targets (ignores `default_visibility`):
+  ```sh
+  bazel query 'attr(visibility, "//visibility:public", //...)'
+  ```

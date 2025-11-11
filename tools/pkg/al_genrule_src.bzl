@@ -1,4 +1,4 @@
-def al_genrule_src(name, srcs = [], visibility = ["//visibility:public"]):
+def al_genrule_src(name, srcs = [], visibility = ["//:__subpackages"]):
     """
     Create a filegroup and a genrule generating a tar archive
 
@@ -6,7 +6,7 @@ def al_genrule_src(name, srcs = [], visibility = ["//visibility:public"]):
         name: genrule name
         srcs: source labels
     """
-    filegroup = "{}-filegroup".format(name)
+    filegroup = "{}.filegroup".format(name)
     native.filegroup(
         name = filegroup,
         srcs = srcs,

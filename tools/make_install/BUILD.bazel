@@ -4,11 +4,14 @@ load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 al_bzl_library_map(
     name = "libs",
     libs = {
-        "al_lua_library": [
-            "//tools/run_tool:al_run_tool",
+        "al_make_install": [
+            ":al_make_install_info",
+            ":al_make_install_filegroup_info",
+            "@bazel_skylib//lib:shell",
             "@rules_pkg//pkg:bzl_srcs",
-            "@bazel_skylib//lib:paths",
         ],
+        "al_make_install_filegroup_info": [],
+        "al_make_install_info": [],
     },
     visibility = ["//:__subpackages__"],
 )

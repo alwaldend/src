@@ -1,27 +1,48 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//tools/install_file:al_install_file.bzl", "al_install_file")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 load("//tools/lua:al_lua_library.bzl", "al_lua_library")
+load("//tools/make_install:al_make_install.bzl", "al_make_install")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//projects/dotfiles:__pkg__"],
+)
 
 al_lua_library(
-    name = "lib",
-    srcs = glob(["**"]),
-    check = glob(["*.lua"]),
-    pkg_tar_kwargs = {
-        "deps": ["//projects/dotfiles/nvim/main/lua:lib"],
-        "modes": {"lazy-lock.json": "0655"},
-    },
+    name = "lua",
+    srcs = glob(["**/*.lua"]),
+    check = glob(["**/*.lua"]),
+    pkg_kwargs = {"strip_prefix": strip_prefix.from_pkg()},
 )
 
-pkg_tar(
-    name = "nvim_config_install",
-    package_dir = ".config/nvim",
-    visibility = ["//:__subpackages__"],
-    deps = [":lib"],
+pkg_files(
+    name = "not_lua",
+    srcs = glob([
+        "**/*.json",
+        "**/*.snippets",
+    ]),
+    strip_prefix = strip_prefix.from_pkg(),
 )
 
-al_install_file(
-    name = "install",
-    args = ["$(rootpath :nvim_config_install)"],
-    data = [":nvim_config_install"],
-    tags = ["local"],
+pkg_filegroup(
+    name = "make_install_filegroup",
+    srcs = [
+        ":lua",
+        ":not_lua",
+    ],
+    prefix = ".config/nvim",
 )
+
+al_make_install(
+    name = "make_install",
+    srcs = [":make_install_filegroup"],
+    visibility = ["//projects/dotfiles:__pkg__"],
+)
+
+# pkg_tar(
+#     name = "make_install_tar",
+#     srcs = [":make_install"],
+# )

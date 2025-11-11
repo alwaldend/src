@@ -11,6 +11,8 @@ tags:
 - https://github.com/makeplane/plane
 - https://taiga.io/
 
+### Setup API docs for python, go, lua
+
 ### Codify build restrictions
 
 {{% alwaldend/label_link "//projects/..." %}} builds should not depend on
