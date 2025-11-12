@@ -4,10 +4,12 @@ load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 load("//tools/make_install:al_make_install_filegroup.bzl", "al_make_install_filegroup")
 load("//tools/sh:al_sh_library.bzl", "al_sh_library")
 
+_SCRIPTS = [script.removesuffix(".sh") for script in glob(["*.sh"])]
+
 al_make_install_filegroup(
     name = "make_install_filegroup",
     srcs = [":filegroup"],
-    pkg_prefix = "home",
+    pkg_prefix = "bin",
     visibility = ["//projects/dotfiles:__pkg__"],
 )
 
@@ -21,33 +23,22 @@ al_docs_files(
 pkg_filegroup(
     name = "filegroup",
     srcs = [":files"],
-    prefix = "home",
+    prefix = "bin",
 )
+
+[
+    al_sh_library(
+        name = script,
+        srcs = ["{}.sh".format(script)],
+    )
+    for script in _SCRIPTS
+]
 
 pkg_files(
     name = "files",
-    srcs = [
-        "gitconfig.conf",
-        "gitconfig_simeonwarren.conf",
-        "gpg_agent.conf",
-        "ssh.conf",
-        "terraform.hcl",
-        "tmux.conf",
-        "vscode_settings.json",
-        ":bashrc",
-    ],
+    srcs = _SCRIPTS,
     renames = {
-        "bashrc.sh": ".bashrc",
-        "ssh.conf": ".ssh/config",
-        "tmux.conf": ".tmux.conf",
-        "gitconfig.conf": ".config/git/config",
-        "gitconfig_simeonwarren.conf": ".config/git/gitconfig_simeonwarren.conf",
-        "gpg_agent.conf": ".gnupg/gpg-agent.conf",
-        "vscode_settings.json": ".config/Code/User/settings.json",
+        "{}.sh".format(script): script
+        for script in _SCRIPTS
     },
-)
-
-al_sh_library(
-    name = "bashrc",
-    srcs = ["bashrc.sh"],
 )

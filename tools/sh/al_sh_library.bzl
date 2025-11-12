@@ -7,41 +7,33 @@ def al_sh_library(
         shfmt_src = "//tools/shfmt",
         editorconfig_src = "//:editorconfig",
         shellcheck_src = "//tools/shellcheck",
-        run_args_src = "//tools/sh/scripts:run-args.lib",
+        run_args_src = "//tools/sh:run_args_lib",
         visibility = ["//:__subpackages__"],
-        **common_kwargs):
+        **sh_kwargs):
     """
     Create targets for a shell library
 
     Targets:
-    - ${name}-shfmt-fix: executable to run shfmt
-    - ${name}-shfmt-test: test whether the script is formatted
-    - ${name}-shellcheck-test: shellcheck test
+    - ${name}.shfmt_fix: executable to run shfmt
+    - ${name}.shfmt_test: test whether the script is formatted
+    - ${name}.shellcheck_test: shellcheck test
 
     Args:
         name: target name
-        **common_kwargs: kwargs for both targets
+        **sh_kwargs: kwargs for sh targets
     """
-    lib_name = "{}.lib".format(name)
     sh_library(
-        name = lib_name,
-        srcs = ["{}.sh".format(name)],
-        visibility = visibility,
-        **common_kwargs
-    )
-    sh_binary(
         name = name,
-        srcs = [":{}".format(lib_name)],
         visibility = visibility,
-        **common_kwargs
+        **sh_kwargs
     )
     shfmt_args = [
         "$(rootpath {})".format(shfmt_src),
-        "$(rootpath {})".format(lib_name),
+        "$(rootpath {})".format(name),
     ]
     shfmt_kwargs = {
         "srcs": [run_args_src],
-        "data": [lib_name, shfmt_src, editorconfig_src],
+        "data": [name, shfmt_src, editorconfig_src],
     }
     sh_binary(
         name = "{}.shfmt_fix".format(name),
@@ -56,8 +48,8 @@ def al_sh_library(
     )
     sh_test(
         name = "{}.shellcheck_test".format(name),
-        args = ["$(rootpath {})".format(shellcheck_src), "$(rootpath {})".format(lib_name)],
+        args = ["$(rootpath {})".format(shellcheck_src), "$(rootpath {})".format(name)],
         size = "small",
         srcs = [run_args_src],
-        data = [lib_name, shellcheck_src],
+        data = [name, shellcheck_src],
     )

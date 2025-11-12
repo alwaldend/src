@@ -1,6 +1,8 @@
 ---
 title: Repo
 description: Repository-specific information
+tags:
+  - repo
 ---
 
 ## Setup
@@ -19,6 +21,7 @@ description: Repository-specific information
 - Install android tools: `sdkmanager "platforms;android-36" "build-tools;36.0.0"`
 - Install qt: `bazel run //tools/qt:install`
 - Install git hooks: `bazel run //tools/git_hooks:install`
+- Run dev shell: `bazel run //tools/dev_shell`
 
 ## .env file
 

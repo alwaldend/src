@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+set -eu
+
 # See https://github.com/bazelbuild/rules_go/wiki/Editor-setup#3-editor-setup
 
 if which bazel >/dev/null 2>/dev/null; then

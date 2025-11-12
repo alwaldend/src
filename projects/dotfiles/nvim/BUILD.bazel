@@ -32,11 +32,12 @@ pkg_filegroup(
         ":lua",
         ":not_lua",
     ],
-    prefix = ".config/nvim",
+    prefix = "nvim/.config/nvim",
 )
 
 al_make_install_filegroup(
     name = "make_install_filegroup",
     srcs = [":filegroup"],
+    pkg_prefix = "nvim",
     visibility = ["//projects/dotfiles:__pkg__"],
 )

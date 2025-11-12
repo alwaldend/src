@@ -3,6 +3,18 @@
 # shellcheck disable=SC1090
 . "${DOTFILES_FUNCTIONS_PATH:-"${HOME}/.local/bin/functions"}"
 
+if [[ "398d0cb2d44247eca90e054f0d790759" == "$(cat /etc/machine-id)" ]]; then
+    export PATH="${PATH}:/opt/nvim-linux-x86_64/bin"
+    export http_proxy="http://127.0.0.1:10808"
+    export HTTP_PROXY="${http_proxy}"
+    export https_proxy="${http_proxy}"
+    export HTTPS_PROXY="${http_proxy}"
+    export all_proxy="${http_proxy}"
+    export ALL_PROXY="${http_proxy}"
+    export NO_PROXY="localhost, 127.0.0.0/8, ::1"
+    export no_proxy="${NO_PROXY}"
+fi
+
 export FZF_DEFAULT_COMMAND="fd --type f"
 export FZF_COMPLETION_TRIGGER="**"
 
