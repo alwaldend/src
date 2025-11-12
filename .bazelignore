@@ -1,4 +1,5 @@
 node_modules
+.bzlenv
 tools/node_modules
 out
 .aspect

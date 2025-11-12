@@ -1,3 +1,6 @@
+## //tools/bzlenv
+.bzlenv
+
 ## helm
 
 helm/*/**/charts

@@ -33,16 +33,17 @@ export XDG_STATE_HOME="${HOME}/.local/state"
 export NVM_DIR="${XDG_CONFIG_HOME}/nvm"
 ## the main prompt variable
 # https://stackoverflow.com/a/28938235
-export PS1='\[\e[35;1m\]\u\[\e[m\]@\[\e[35;1m\]\h\[\e[m\] \[\e[36;1m\]\w\[\e[m\] \[\e[1m\]$(__git_ps1 "%s")\[\e[m\]\n'
+export PS1='\[\e[35;1m\]\u\[\e[m\]@\[\e[35;1m\]\h\[\e[m\] \[\e[36;1m\]\w\[\e[m\] \[\e[1m\]$(__git_ps1 "%s")\[\e[m\] $ '
 export PS2=""
 export PROMPT_COMMAND="d_prompt_command"
 # git prompt variables
-export GIT_PS1_SHOWDIRTYSTATE="true"
+export GIT_PS1_SHOWDIRTYSTATE="1"
+export GIT_PS1_SHOWSTASHSTATE="1"
+export GIT_PS1_SHOWCOLORHINTS="1"
+export GIT_PS1_SHOWUNTRACKEDFILES="1"
+export GIT_PS1_SHOWCONFLICTSTATE="yes"
 export GIT_PS1_SHOWUPSTREAM="auto"
 export GIT_PS1_STATESEPARATOR=" "
-export GIT_PS1_SHOWCOLORHINTS="true"
-export GIT_PS1_SHOWCONFLICTSTATE="yes"
-export GIT_PS1_SHOWUNTRACKEDFILES="true"
 
 ## all locales are overwritten
 export LC_ALL="en_US.UTF-8"

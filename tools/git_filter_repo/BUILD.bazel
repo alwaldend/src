@@ -8,12 +8,6 @@ py_console_script_binary(
     visibility = ["//:__subpackages__"],
 )
 
-alias(
-    name = "dnscontrol",
-    actual = "@com_github_stackexchange_dnscontrol_v4//:v4",
-    visibility = ["//:__subpackages__"],
-)
-
 al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]),

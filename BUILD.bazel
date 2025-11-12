@@ -88,6 +88,7 @@ al_toml_data(
 
 buildifier(
     name = "buildifier",
+    visibility = ["//:__subpackages__"],
 )
 
 buildifier_test(
