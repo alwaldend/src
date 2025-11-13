@@ -9,10 +9,9 @@ al_docs_files(
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//projects:__pkg__"],
-    deps = ["//{}/{}:docs".format(
-        package_name(),
-        package,
-    ) for package in subpackages(include = ["*"])],
+    deps = [
+        "//projects/dotfiles/releases:docs",
+    ],
 )
 
 al_make_install(
@@ -34,6 +33,12 @@ al_make_install_binary(
     name = "diff",
     src = "make_install",
     args = ["diff"],
+)
+
+al_make_install_binary(
+    name = "help",
+    src = "make_install",
+    args = ["help"],
 )
 
 pkg_tar(

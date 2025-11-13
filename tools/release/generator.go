@@ -76,8 +76,13 @@ func (self *Generator) addManifest(release *contracts.Release, path string) erro
 
 // Add file item information in-place
 func (self *Generator) addFileItem(release *contracts.Release, path string) error {
+	stat, err := os.Stat(path)
+	if err != nil {
+		return fmt.Errorf("could not stat file %s: %w", path, err)
+	}
 	releaseFile := &contracts.ReleaseFile{
 		Name: filepath.Base(path),
+		Size: stat.Size(),
 	}
 	for _, hashType := range []crypto.Hash{crypto.SHA256, crypto.MD5} {
 		hashObj := hashType.New()

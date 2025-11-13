@@ -1,14 +1,6 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 load("//tools/lua:al_lua_library.bzl", "al_lua_library")
 load("//tools/make_install:al_make_install_filegroup.bzl", "al_make_install_filegroup")
-
-al_docs_files(
-    name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
-    visibility = ["//projects/dotfiles:__pkg__"],
-)
 
 al_lua_library(
     name = "lua",

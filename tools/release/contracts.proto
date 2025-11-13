@@ -11,6 +11,7 @@ message ReleaseFile {
   repeated ReleaseHash hashes = 1;
   string name = 2;
   string url = 3;
+  int64 size = 4;
 }
 
 message ReleaseItem {

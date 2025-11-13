@@ -1,1 +1,41 @@
+{{ $release := (.Page.Resources.Get "release.json" | transform.Unmarshal) -}}
 
+<div class="table-responsive">
+    <table class="td-initial table table-striped">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th colspan="2">Info</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{ range $release.items -}}
+            <!-- -->
+            {{- if .file }}
+            <tr>
+                <td rowspan="{{ math.Add 1 (len .file.hashes) }}">
+                    <a href="./{{ .file.name }}">{{ .file.name }}</a>
+                </td>
+                <td>Size</td>
+                <td>
+                    {{ $size := cast.ToFloat .file.size -}}
+                    <!-- -->
+                    {{- $size = math.Div $size 1024 1024 -}}
+                    <!-- -->
+                    {{ partial "alwaldend/round_float" (slice $size 2) }}MB
+                </td>
+            </tr>
+            {{ range .file.hashes -}}
+            <!-- -->
+            <tr>
+                <td>{{ .algo }}</td>
+                <td><code>{{ .content }}</code></td>
+            </tr>
+            {{- end }}
+            <!-- -->
+            {{ end -}}
+            <!-- -->
+            {{- end }}
+        </tbody>
+    </table>
+</div>

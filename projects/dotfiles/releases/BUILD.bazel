@@ -12,7 +12,11 @@ al_docs_files(
 
 al_release_files(
     name = "files",
-    srcs = ["//projects/dotfiles"],
+    srcs = [
+        "//projects/dotfiles",
+        "//projects/dotfiles/misc",
+        "//projects/dotfiles/vial",
+    ],
 )
 
 al_release(

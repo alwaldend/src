@@ -2,17 +2,21 @@
 title: Dotfiles
 description: Dotfiles
 statuses:
-  - maintenance
+    - maintenance
 languages:
-  - sh
+    - sh
+    - lua
 tags:
-  - dotfiles
-  - make
+    - vial
+    - dotfiles
+    - make
+    - udev
 ---
 
 ## Bazel usage
 
 ```sh
+bazel run //projects/dotfiles:help # Show help
 bazel run //projects/dotfiles:diff # Show diff
 bazel run //projects/dotfiles:install # Install files
 ```
@@ -22,6 +26,7 @@ bazel run //projects/dotfiles:install # Install files
 ```sh
 tar -xf dotfiles.tar
 cd dotfiles
+make help # Show help
 make diff # Check diff between system files and those from the archive
 make diff/nvim # Check diff for all nvim files
 make diff/nvim/.config/nvim/lazy-lock.json # Diff specific file
@@ -33,9 +38,14 @@ make install/nvim/.config/nvim/lazy-lock.json # Install a specific file
 ## Help
 
 ```
+help: Show help
 install: Install files from the archive
 diff: Show diff between archive files and system files
-help: Show help
+install/bin: Install bin files
+diff/bin: Diff bin files
+install/home: Install home files
+diff/home: Diff home files
 install/nvim: Install nvim files
 diff/nvim: Diff nvim files
+make: Nothing to be done for 'help'.
 ```

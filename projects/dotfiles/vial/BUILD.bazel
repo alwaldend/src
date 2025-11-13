@@ -1,14 +1,13 @@
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("//tools/vial:al_vial_configs.bzl", "al_vial_configs")
 
-al_docs_files(
-    name = "docs",
-    srcs = glob(["*.md"]) + [":vial"],
-    prefix = package_name(),
-    visibility = ["//projects/dotfiles:__pkg__"],
+pkg_files(
+    name = "vial",
+    srcs = glob(["*.json"]),
+    visibility = ["//projects/dotfiles/releases:__pkg__"],
 )
 
 al_vial_configs(
-    name = "vial",
+    name = "docs",
     srcs = glob(["*.json"]),
 )

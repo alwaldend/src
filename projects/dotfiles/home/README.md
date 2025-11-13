@@ -1,4 +1,4 @@
 ---
-title: Dotfiles
-description: Dotfile configs
+title: Home
+description: Home configs
 ---

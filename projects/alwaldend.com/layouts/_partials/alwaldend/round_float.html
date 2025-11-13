@@ -1,0 +1,9 @@
+{{ $num := cast.ToFloat (index . 0) -}}
+<!-- -->
+{{- $precision := default 2 (index . 1 ) -}}
+<!-- -->
+{{- $ratio := math.Pow 10 $precision }}
+<!-- -->
+{{- $product := math.Product $ratio $num -}}
+<!-- -->
+{{- math.Div (math.Round $product) $ratio -}}
