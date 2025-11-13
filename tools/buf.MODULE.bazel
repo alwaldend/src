@@ -1,0 +1,15 @@
+al_repo_map = use_extension("//tools/repo_map:al_repo_map.bzl", "al_repo_map")
+al_repo_map.download(
+    name = "com_github_bufbuild_buf",
+    build_file_native_binary = {"src": "buf/bin/buf"},
+    repos = {
+        "linux_amd64": [
+            "url=https://github.com/bufbuild/buf/releases/download/v{version}/buf-Linux-x86_64.tar.gz".format(version = "1.59.0"),
+            "integrity=sha256-gexK1n1mpPl1XnmNm/Byarw7Zb4IIltlVQIBhOs/F8I=",
+        ],
+    },
+)
+use_repo(
+    al_repo_map,
+    "com_github_bufbuild_buf_linux_amd64",
+)

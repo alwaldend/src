@@ -1,0 +1,14 @@
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+alias(
+    name = "taplo",
+    actual = "@com_github_tamasfe_taplo_linux_amd64//:bin",
+    visibility = ["//:__subpackages__"],
+)
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools:__pkg__"],
+)

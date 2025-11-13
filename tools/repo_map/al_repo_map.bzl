@@ -5,13 +5,14 @@ load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
 
 native_binary(
     name = "{name}",
-    src = glob(["**/{src}"])[0],
+    src = glob(["{src}"])[0],
     visibility = ["//visibility:public"],
 )
 """
 _NATIVE_BINARY_DEFAULTS = {"name": "bin"}
 
 def _impl(ctx):
+    root_module_direct_deps = []
     for mod in ctx.modules:
         for tag in mod.tags.download:
             for name, repo in tag.repos.items():
@@ -20,6 +21,7 @@ def _impl(ctx):
                 for line in repo:
                     key, value = line.split("=", 1)
                     kwargs[key] = value
+                root_module_direct_deps.append(repo_name)
                 if tag.download_type == "http_archive":
                     if tag.build_file_native_binary:
                         kwargs.setdefault(
@@ -41,6 +43,11 @@ def _impl(ctx):
                     )
                 else:
                     fail("invalid download type: {}".format(tag.download_type))
+    return ctx.extension_metadata(
+        root_module_direct_deps = root_module_direct_deps,
+        root_module_direct_dev_deps = [],
+        reproducible = True,
+    )
 
 al_repo_map = module_extension(
     implementation = _impl,

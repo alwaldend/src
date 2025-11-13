@@ -3,6 +3,7 @@ name = "com_alwaldend_src"
 version = "0.0.0"
 requires-python = ">=3.10, <4"
 dependencies = [
+    "pydantic",
     "black",
     "mypy",
     "isort",
@@ -10,8 +11,6 @@ dependencies = [
     "flake8",
     "flake8-pyproject",
     "git-filter-repo",
-    "pynput",
-    "pyside6",
     "twine",
 ]
 
@@ -30,7 +29,7 @@ group_by_package = true
 skip_gitignore = true
 
 [tool.mypy]
-exclude = [".venv", "docs", "out", "bazel-*"]
+exclude = [".venv", ".bzlenv", "docs", "out", "bazel-*"]
 namespace_packages = true
 python_version = "3.9"
 cache_dir = ".mypy_cache"

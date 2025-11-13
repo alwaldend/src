@@ -1,9 +1,18 @@
 load("@rules_license//rules_gathering:generate_sbom.bzl", "generate_sbom")
 load("@rules_python//python:packaging.bzl", "py_package", "py_wheel")
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@rules_python//python:py_library.bzl", "py_library")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 load("//tools/py:al_py_checkers.bzl", "al_py_checkers")
+
+compile_pip_requirements(
+    name = "requirements",
+    timeout = "moderate",
+    srcs = [":pyproject.toml"],
+    extra_args = ["--no-strip-extras"],
+    requirements_txt = ":requirements.txt",
+)
 
 al_docs_files(
     name = "docs",

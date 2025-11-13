@@ -13,12 +13,14 @@ py_library(
         "main.py",
     ],
     data = [":autoscroll_data"],
+    imports = [".."],
     visibility = ["//:__subpackages__"],
 )
 
 py_binary(
     name = "autoscroll_bin",
     srcs = ["__main__.py"],
+    imports = [".."],
     main = "__main__.py",
     visibility = ["//:__subpackages__"],
 )

@@ -29,5 +29,6 @@ use_repo(
     go_tool_deps,
     "cc_mvdan_sh_v3",
     "com_github_bazelbuild_buildtools",
+    "com_github_bufbuild_buf",
     "com_github_stackexchange_dnscontrol_v4",
 )

@@ -1,0 +1,9 @@
+al_gzip_extension = use_extension("//tools/gzip:al_gzip_extension.bzl", "al_gzip_extension")
+al_gzip_extension.download(
+    name = "com_github_tamasfe_taplo_linux_amd64",
+    url = "https://github.com/tamasfe/taplo/releases/download/{version}/taplo-linux-x86.gz".format(version = "0.10.0"),
+)
+use_repo(
+    al_gzip_extension,
+    "com_github_tamasfe_taplo_linux_amd64",
+)

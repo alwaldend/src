@@ -1,11 +1,15 @@
 root = true
 
-[*.sh]
-indent_style = space
-indent_size = 4
-
 [*]
 charset = utf-8
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
+max_line_length = 79
+
+[Makefile]
+indent_style = tab
+
+[*.{yaml,yml,json,json5,toml,sh,md,py,markdown,lua,js,txt}]
+indent_style = space
+indent_size = 4

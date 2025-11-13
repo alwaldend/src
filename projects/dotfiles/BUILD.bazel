@@ -4,6 +4,17 @@ load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 load("//tools/make_install:al_make_install.bzl", "al_make_install")
 load("//tools/make_install:al_make_install_binary.bzl", "al_make_install_binary")
 
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//projects:__pkg__"],
+    deps = ["//{}/{}:docs".format(
+        package_name(),
+        package,
+    ) for package in subpackages(include = ["*"])],
+)
+
 al_make_install(
     name = "make_install",
     srcs = [
@@ -29,15 +40,5 @@ pkg_tar(
     name = "dotfiles",
     srcs = [":make_install"],
     package_dir = "dotfiles",
-)
-
-al_docs_files(
-    name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
-    visibility = ["//projects:__pkg__"],
-    deps = ["//{}/{}:docs".format(
-        package_name(),
-        package,
-    ) for package in subpackages(include = ["*"])],
+    visibility = ["//projects/dotfiles/releases:__pkg__"],
 )

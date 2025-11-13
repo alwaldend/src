@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# shellcheck disable=SC1090
-. "${DOTFILES_FUNCTIONS_PATH:-"${HOME}/.local/bin/functions"}"
+# shellcheck disable=SC1091 source=../bin/d_functions.sh
+. "${HOME}/.local/bin/d_functions"
 
 if [[ "398d0cb2d44247eca90e054f0d790759" == "$(cat /etc/machine-id)" ]]; then
     export PATH="${PATH}:/opt/nvim-linux-x86_64/bin"

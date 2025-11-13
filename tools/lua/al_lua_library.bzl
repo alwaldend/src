@@ -12,11 +12,6 @@ def al_lua_library(
     """
     Generate targets for a lua library
 
-    Targets:
-    - ${name}: pkg_tar
-    - ${name}-stylua-fix: al_run_tool executable
-    - ${name}-stylua-test: al_run_tool test
-
     Args:
         name: library name
         srcs: library sources

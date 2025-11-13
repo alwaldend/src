@@ -13,7 +13,7 @@ py_library(
     ],
     visibility = ["//:__subpackages__"],
     deps = [
-        "@com_alwaldend_src_pip//pynput",
-        "@com_alwaldend_src_pip//pyside6_essentials",
+        "@com_alwaldend_src_projects_autoscroll_pip//pynput",
+        "@com_alwaldend_src_projects_autoscroll_pip//pyside6_essentials",
     ],
 )

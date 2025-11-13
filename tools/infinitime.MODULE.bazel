@@ -1,27 +1,4 @@
-GCC_ARM_VERSION = "10.3-2021.10"
-
-al_repo_map = use_extension("//tools/repo_map:al_repo_map.bzl", "al_repo_map")
-
-http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
 git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-
-local_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:local.bzl", "local_repository")
-
-http_archive(
-    name = "com_arm_developer_gcc_arm",
-    build_file = "//tools/bzl/build_files:general.BUILD.bazel",
-    integrity = "sha256-l9u08BmtFlC3Mvr/zIgWic7cFOK37oY9OQ4KQe8WyaM=",
-    strip_prefix = "gcc-arm-none-eabi-10.3-2021.10",
-    url = "https://developer.arm.com/-/media/Files/downloads/gnu-rm/{version}/{name}-{version}-{platform}.tar.bz2".format(
-        name = "gcc-arm-none-eabi",
-        machine = "arm64",
-        platform = "x86_64-linux",
-        version = GCC_ARM_VERSION,
-    ),
-)
-
-# Infinitime
 
 git_repository(
     name = "com_github_infinitimeorg_infinitime",

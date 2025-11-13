@@ -1,7 +1,7 @@
 al_repo_map = use_extension("//tools/repo_map:al_repo_map.bzl", "al_repo_map")
 al_repo_map.download(
     name = "com_github_gohugoio_hugo",
-    build_file_native_binary = {"src": "hugo"},
+    build_file_native_binary = {"src": "**/hugo"},
     repos = {
         "linux_amd64": [
             "url=https://github.com/gohugoio/hugo/releases/download/v{version}/hugo_extended_{version}_linux-amd64.tar.gz".format(version = "0.151.2"),

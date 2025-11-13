@@ -5,4 +5,18 @@ languages:
   - bzl
 tags:
   - bzl_rules
+  - docs
 ---
+
+## Usage
+
+```bzl
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//:__pkg__"],
+)
+```

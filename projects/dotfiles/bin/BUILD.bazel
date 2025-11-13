@@ -23,7 +23,7 @@ al_docs_files(
 pkg_filegroup(
     name = "filegroup",
     srcs = [":files"],
-    prefix = "bin",
+    prefix = ".local/bin",
 )
 
 [

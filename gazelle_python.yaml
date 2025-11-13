@@ -8,107 +8,7 @@ manifest:
   modules_mapping:
     30fcd23745efe32ce681__mypyc: black
     7ae574991b77ef47acad__mypyc: mypy
-    PySide6: pyside6_essentials
-    PySide6.Qt.lib.libavcodec: pyside6_addons
-    PySide6.Qt.lib.libavformat: pyside6_addons
-    PySide6.Qt.lib.libavutil: pyside6_addons
-    PySide6.Qt.lib.libswresample: pyside6_addons
-    PySide6.Qt.lib.libswscale: pyside6_addons
-    PySide6.Qt.plugins.assetimporters.libassimp: pyside6_addons
-    PySide6.Qt.plugins.canbus.libqtpassthrucanbus: pyside6_addons
-    PySide6.Qt.plugins.canbus.libqtpeakcanbus: pyside6_addons
-    PySide6.Qt.plugins.canbus.libqtsocketcanbus: pyside6_addons
-    PySide6.Qt.plugins.canbus.libqttinycanbus: pyside6_addons
-    PySide6.Qt.plugins.canbus.libqtvirtualcanbus: pyside6_addons
-    PySide6.Qt.plugins.geometryloaders.libdefaultgeometryloader: pyside6_addons
-    PySide6.Qt.plugins.geometryloaders.libgltfgeometryloader: pyside6_addons
-    PySide6.Qt.plugins.geoservices.libqtgeoservices_itemsoverlay: pyside6_addons
-    PySide6.Qt.plugins.geoservices.libqtgeoservices_osm: pyside6_addons
-    PySide6.Qt.plugins.multimedia.libffmpegmediaplugin: pyside6_addons
-    PySide6.Qt.plugins.position.libqtposition_geoclue2: pyside6_addons
-    PySide6.Qt.plugins.position.libqtposition_nmea: pyside6_addons
-    PySide6.Qt.plugins.position.libqtposition_positionpoll: pyside6_addons
-    PySide6.Qt.plugins.renderers.libopenglrenderer: pyside6_addons
-    PySide6.Qt.plugins.renderers.librhirenderer: pyside6_addons
-    PySide6.Qt.plugins.renderplugins.libscene2d: pyside6_addons
-    PySide6.Qt.plugins.sceneparsers.libassimpsceneimport: pyside6_addons
-    PySide6.Qt.plugins.sceneparsers.libgltfsceneexport: pyside6_addons
-    PySide6.Qt.plugins.sceneparsers.libgltfsceneimport: pyside6_addons
-    PySide6.Qt.plugins.scxmldatamodel.libqscxmlecmascriptdatamodel: pyside6_addons
-    PySide6.Qt.plugins.sensors.libqtsensors_generic: pyside6_addons
-    PySide6.Qt.plugins.sensors.libqtsensors_iio-sensor-proxy: pyside6_addons
-    PySide6.Qt.plugins.texttospeech.libqtexttospeech_mock: pyside6_addons
-    PySide6.Qt.plugins.texttospeech.libqtexttospeech_speechd: pyside6_addons
-    PySide6.Qt.plugins.webview.libqtwebview_webengine: pyside6_addons
-    PySide6.Qt.qml.Qt3D.Animation.libquick3danimationplugin: pyside6_addons
-    PySide6.Qt.qml.Qt3D.Core.libquick3dcoreplugin: pyside6_addons
-    PySide6.Qt.qml.Qt3D.Extras.libquick3dextrasplugin: pyside6_addons
-    PySide6.Qt.qml.Qt3D.Input.libquick3dinputplugin: pyside6_addons
-    PySide6.Qt.qml.Qt3D.Logic.libquick3dlogicplugin: pyside6_addons
-    PySide6.Qt.qml.Qt3D.Render.libquick3drenderplugin: pyside6_addons
-    PySide6.Qt.qml.Qt5Compat.GraphicalEffects.libqtgraphicaleffectsplugin: pyside6_addons
-    PySide6.Qt.qml.Qt5Compat.GraphicalEffects.private.libqtgraphicaleffectsprivateplugin: pyside6_addons
-    PySide6.Qt.qml.QtCharts.libqtchartsqml2plugin: pyside6_addons
-    PySide6.Qt.qml.QtDataVisualization.libdatavisualizationqmlplugin: pyside6_addons
-    PySide6.Qt.qml.QtGraphs.libgraphsplugin: pyside6_addons
-    PySide6.Qt.qml.QtLocation.libdeclarative_locationplugin: pyside6_addons
-    PySide6.Qt.qml.QtMultimedia.libquickmultimediaplugin: pyside6_addons
-    PySide6.Qt.qml.QtPositioning.libpositioningquickplugin: pyside6_addons
-    PySide6.Qt.qml.QtQuick3D.AssetUtils.libqtquick3dassetutilsplugin: pyside6_addons
-    PySide6.Qt.qml.QtQuick3D.Effects.libqtquick3deffectplugin: pyside6_addons
-    PySide6.Qt.qml.QtQuick3D.Helpers.impl.libqtquick3dhelpersimplplugin: pyside6_addons
-    PySide6.Qt.qml.QtQuick3D.Helpers.libqtquick3dhelpersplugin: pyside6_addons
-    PySide6.Qt.qml.QtQuick3D.ParticleEffects.libqtquick3dparticleeffectsplugin: pyside6_addons
-    PySide6.Qt.qml.QtQuick3D.Particles3D.libqtquick3dparticles3dplugin: pyside6_addons
-    PySide6.Qt.qml.QtQuick3D.SpatialAudio.libquick3dspatialaudioplugin: pyside6_addons
-    PySide6.Qt.qml.QtQuick3D.Xr.libquick3dxrplugin: pyside6_addons
-    PySide6.Qt.qml.QtQuick3D.libqquick3dplugin: pyside6_addons
-    PySide6.Qt.qml.QtRemoteObjects.libdeclarative_remoteobjectsplugin: pyside6_addons
-    PySide6.Qt.qml.QtScxml.libdeclarative_scxmlplugin: pyside6_addons
-    PySide6.Qt.qml.QtSensors.libsensorsquickplugin: pyside6_addons
-    PySide6.Qt.qml.QtTextToSpeech.libtexttospeechqmlplugin: pyside6_addons
-    PySide6.Qt.qml.QtWebChannel.libwebchannelquickplugin: pyside6_addons
-    PySide6.Qt.qml.QtWebEngine.ControlsDelegates.libqtwebenginequickdelegatesplugin: pyside6_addons
-    PySide6.Qt.qml.QtWebEngine.libqtwebenginequickplugin: pyside6_addons
-    PySide6.Qt.qml.QtWebSockets.libqmlwebsocketsplugin: pyside6_addons
-    PySide6.Qt.qml.QtWebView.libqtwebviewquickplugin: pyside6_addons
-    PySide6.Qt3DAnimation: pyside6_addons
-    PySide6.Qt3DCore: pyside6_addons
-    PySide6.Qt3DExtras: pyside6_addons
-    PySide6.Qt3DInput: pyside6_addons
-    PySide6.Qt3DLogic: pyside6_addons
-    PySide6.Qt3DRender: pyside6_addons
-    PySide6.QtAsyncio: pyside6_addons
-    PySide6.QtBluetooth: pyside6_addons
-    PySide6.QtCharts: pyside6_addons
-    PySide6.QtDataVisualization: pyside6_addons
-    PySide6.QtGraphs: pyside6_addons
-    PySide6.QtGraphsWidgets: pyside6_addons
-    PySide6.QtHttpServer: pyside6_addons
-    PySide6.QtLocation: pyside6_addons
-    PySide6.QtMultimedia: pyside6_addons
-    PySide6.QtMultimediaWidgets: pyside6_addons
-    PySide6.QtNetworkAuth: pyside6_addons
-    PySide6.QtNfc: pyside6_addons
-    PySide6.QtPdf: pyside6_addons
-    PySide6.QtPdfWidgets: pyside6_addons
-    PySide6.QtPositioning: pyside6_addons
-    PySide6.QtQuick3D: pyside6_addons
-    PySide6.QtRemoteObjects: pyside6_addons
-    PySide6.QtScxml: pyside6_addons
-    PySide6.QtSensors: pyside6_addons
-    PySide6.QtSerialBus: pyside6_addons
-    PySide6.QtSerialPort: pyside6_addons
-    PySide6.QtSpatialAudio: pyside6_addons
-    PySide6.QtStateMachine: pyside6_addons
-    PySide6.QtTextToSpeech: pyside6_addons
-    PySide6.QtWebChannel: pyside6_addons
-    PySide6.QtWebEngineCore: pyside6_addons
-    PySide6.QtWebEngineQuick: pyside6_addons
-    PySide6.QtWebEngineWidgets: pyside6_addons
-    PySide6.QtWebSockets: pyside6_addons
-    PySide6.QtWebView: pyside6_addons
-    Xlib: python_xlib
+    annotated_types: annotated_types
     black: black
     blackd: black
     blib2to3: black
@@ -120,7 +20,6 @@ manifest:
     cryptography: cryptography
     distlib: distlib
     docutils: docutils
-    evdev: evdev
     filelock: filelock
     flake8: flake8
     flake8p: flake8_pyproject
@@ -150,9 +49,10 @@ manifest:
     pre_commit: pre_commit
     pycodestyle: pycodestyle
     pycparser: pycparser
+    pydantic: pydantic
+    pydantic_core: pydantic_core
     pyflakes: pyflakes
     pygments: pygments
-    pynput: pynput
     pytokens: pytokens
     readme_renderer: readme_renderer
     requests: requests
@@ -160,13 +60,12 @@ manifest:
     rfc3986: rfc3986
     rich: rich
     secretstorage: secretstorage
-    shiboken6: shiboken6
-    six: six
     twine: twine
     typing_extensions: typing_extensions
+    typing_inspection: typing_inspection
     urllib3: urllib3
     virtualenv: virtualenv
     yaml: pyyaml
   pip_repository:
     name: com_alwaldend_src_pip
-integrity: 7b4d9f6462a56fd9acdb846a3a86bc102319ff25398d59d9ec3ad1f200a1d735
+integrity: 17c236f506743d087fee8c3b7f98f3592a456824d648d05f6c58cae0e15d1943

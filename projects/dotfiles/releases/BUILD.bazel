@@ -1,0 +1,14 @@
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/release:al_release_files.bzl", "al_release_files")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//projects/dotfiles:__pkg__"],
+)
+
+al_release_files(
+    name = "files",
+    srcs = ["//projects/dotfiles"],
+)

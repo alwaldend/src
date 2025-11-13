@@ -7,4 +7,5 @@ languages:
   - bzl
 tags:
   - bzl_rules
+  - bzl_extension
 ---

@@ -1,0 +1,7 @@
+[project]
+name = "autoscroll"
+version = "0.0.0"
+dependencies = [
+    "pynput",
+    "pyside6",
+]

@@ -68,7 +68,6 @@ modules_mapping(
 
 compile_pip_requirements(
     name = "requirements",
-    timeout = "moderate",
     srcs = [":pyproject"],
     extra_args = ["--no-strip-extras"],
     requirements_txt = ":requirements.txt",
@@ -98,6 +97,7 @@ buildifier_test(
     workspace = "//:BUILD.bazel",
 )
 
+# gazelle:python_generate_proto true
 # gazelle:java_maven_install_file projects/nexus_security_plugin/maven_lock.json
 # gazelle:resolve java javax.annotation @com_alwaldend_src_maven//:org_apache_tomcat_annotations_api
 # gazelle:resolve java org.joda.time @com_alwaldend_src_maven//:joda_time_joda_time
