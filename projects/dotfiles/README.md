@@ -2,16 +2,20 @@
 title: Dotfiles
 description: Dotfiles
 statuses:
-    - maintenance
+  - maintenance
 languages:
-    - sh
-    - lua
+  - sh
+  - lua
 tags:
-    - vial
-    - dotfiles
-    - make
-    - udev
+  - vial
+  - dotfiles
+  - make
+  - udev
 ---
+
+## Downloads
+
+See [./releases/head](./releases/head/)
 
 ## Bazel usage
 
@@ -24,6 +28,7 @@ bazel run //projects/dotfiles:install # Install files
 ## Archive usage
 
 ```sh
+wget https://alwaldend.com/docs/projects/dotfiles/releases/head/dotfiles.tar
 tar -xf dotfiles.tar
 cd dotfiles
 make help # Show help

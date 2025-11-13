@@ -1,0 +1,39 @@
+{{ $center := .Get "center" }}
+
+<div class="table-responsive">
+  <table
+    class="
+      td-initial
+      table
+      table-striped
+      fs-5
+      text-start
+      {{ if $center -}}
+      mx-auto w-auto
+      {{- end -}}
+    "
+  >
+    <tbody>
+      <tr>
+        <td>Docs</td>
+        <td>
+          <a href="https://alwaldend.github.io/src/docs/">
+            https://alwaldend.github.io/src/docs/
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td>Git</td>
+        <td>TBD</td>
+      </tr>
+      <tr>
+        <td>GitHub mirror</td>
+        <td>
+          <a href="https://github.com/alwaldend/">
+            https://github.com/alwaldend/
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

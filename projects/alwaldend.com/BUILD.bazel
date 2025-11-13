@@ -90,6 +90,7 @@ pkg_tar(
     name = "site_source_archive",
     srcs = [
         ":site_config",
+        "//projects/alwaldend.com/assets",
         "//projects/alwaldend.com/content:docs",
         "//projects/alwaldend.com/i18n",
         "//projects/alwaldend.com/layouts",

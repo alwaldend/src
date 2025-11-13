@@ -1,6 +1,9 @@
 [post_view_this]
 other = "View source"
 
+[post_view_rss]
+other = "View RSS"
+
 [post_view_changelog]
 other = "View changelog"
 

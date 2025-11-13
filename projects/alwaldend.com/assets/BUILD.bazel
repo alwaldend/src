@@ -1,0 +1,16 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+
+pkg_filegroup(
+    name = "assets",
+    srcs = [":assets_files"],
+    prefix = "assets",
+    visibility = ["//:__subpackages__"],
+)
+
+pkg_files(
+    name = "assets_files",
+    srcs = glob(
+        ["**"],
+        exclude = ["README.md"],
+    ),
+)

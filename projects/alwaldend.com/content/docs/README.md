@@ -5,4 +5,4 @@ description: Docs
 
 ## Links
 
-{{% alwaldend/links %}}
+{{< alwaldend/links >}}

@@ -5,6 +5,6 @@ description: Alwaldend.com
 
 {{% blocks/section type="row" %}}
 
-{{% alwaldend/links %}}
+{{< alwaldend/links center=1 >}}
 
 {{% /blocks/section %}}

@@ -8,7 +8,7 @@ enableRobotsTXT = true
 [outputs]
 section = ["html", "rss", "print"]
 home = ["html"]
-page = ["html"]
+page = ["html", "rss", "print"]
 
 [frontmatter]
 lastmod = [":fileModTime"]
@@ -27,6 +27,7 @@ github_branch = "master"
 # authors = ""
 
 [params.ui]
+navbar_logo = false
 generated_tags = ["Generated"]
 separate_page_tags = ["Bzl-Targets", "Changelog"]
 showLightDarkModeMenu = true

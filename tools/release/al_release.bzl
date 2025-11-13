@@ -5,12 +5,13 @@ _DOC_TEMPLATE = """\
 ---
 title: {release_name}
 description: Release {release_name}
+disableSidebar: true
 tags:
-  - generated
-  - release
+    - generated
+    - release
 ---
 
-## Files
+## Artifacts
 
 {{{{< alwaldend/release_files >}}}}
 """
@@ -18,14 +19,12 @@ tags:
 def _impl(ctx):
     doc = ctx.actions.declare_file("{}.index.md".format(ctx.label.name))
     dest_src_map = {"index.md": doc}
-    release_name = ""
+    release_name = ctx.attr.release_name
     transient = []
 
     if ctx.attr.manifest:
-        release_name = ctx.file.manifest.basename
         dest_src_map["release.json"] = ctx.file.manifest
     elif ctx.attr.srcs:
-        release_name = ctx.attr.release_name
         manifest = ctx.actions.declare_file("{}.release.json".format(ctx.label.name))
         transient = [dep[DefaultInfo].files for dep in ctx.attr.srcs]
         dest_src_map["release.json"] = manifest
