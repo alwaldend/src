@@ -1,4 +1,5 @@
 load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
+load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
 load("@rules_go//go:def.bzl", "go_library")
 load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_library")
@@ -66,4 +67,10 @@ java_import(
         ":model_single_jar",
     ],
     visibility = ["//:__subpackages__"],
+)
+
+py_proto_library(
+    name = "model_py_pb2",
+    visibility = ["//:__subpackages__"],
+    deps = [":model_proto"],
 )

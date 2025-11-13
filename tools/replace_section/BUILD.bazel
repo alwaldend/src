@@ -13,21 +13,21 @@ al_py_checkers(
     srcs = [":src"],
 )
 
-py_library(
-    name = "replace_section_lib",
-    srcs = ["replace_section.py"],
-    visibility = ["//:__subpackages__"],
-)
-
-py_binary(
-    name = "replace_section",
-    srcs = [":replace_section_lib"],
-    visibility = ["//:__subpackages__"],
-)
-
 al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//tools:__pkg__"],
+)
+
+py_binary(
+    name = "replace_section",
+    srcs = ["replace_section.py"],
+    visibility = ["//:__subpackages__"],
+)
+
+py_library(
+    name = "replace_section_lib",
+    srcs = ["replace_section.py"],
+    visibility = ["//:__subpackages__"],
 )

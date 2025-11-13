@@ -6,6 +6,9 @@ load("@rules_python//python:py_library.bzl", "py_library")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 load("//tools/py:al_py_checkers.bzl", "al_py_checkers")
 
+# gazelle:resolve py pynput @com_alwaldend_src_projects_autoscroll_pip//pynput
+# gazelle:resolve py PySide6 @com_alwaldend_src_projects_autoscroll_pip//pyside6_essentials
+
 compile_pip_requirements(
     name = "requirements",
     timeout = "moderate",

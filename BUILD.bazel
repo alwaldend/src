@@ -98,14 +98,19 @@ buildifier_test(
 )
 
 # gazelle:python_generate_proto true
+# gazelle:python_library_naming_convention $package_name$_lib
+# gazelle:python_binary_naming_convention $package_name$
+
 # gazelle:java_maven_install_file projects/nexus_security_plugin/maven_lock.json
 # gazelle:resolve java javax.annotation @com_alwaldend_src_maven//:org_apache_tomcat_annotations_api
 # gazelle:resolve java org.joda.time @com_alwaldend_src_maven//:joda_time_joda_time
 # gazelle:resolve java org.joda.time.format @com_alwandend_src_maven//:joda_time_joda_time
 # gazelle:resolve java org.sonatype.nexus.repository.view @com_alwandend_src_maven//:org_sonatype_nexus_nexus_repository
 # gazelle:resolve java org.sonatype.nexus.repository.storage @com_alwaldend_src_maven//:org_sonatype_nexus_nexus_repository
+
 # gazelle:exclude **/leetcode-submissions/**
 # gazelle:exclude **/mod_tidy_fix.go
+
 gazelle(
     name = "gazelle",
     command = "fix",

@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option go_package = "git.alwaldend.com/src/tools/release/contracts";
+
+message ReleaseHash {
+  string algo = 1;
+  string content = 2;
+}
+
+message ReleaseFile {
+  repeated ReleaseHash hashes = 1;
+  string name = 2;
+  string url = 3;
+}
+
+message ReleaseItem {
+  ReleaseFile file = 1;
+}
+
+message Release {
+  repeated ReleaseItem items = 1;
+  string title = 2;
+  repeated string tags = 3;
+}

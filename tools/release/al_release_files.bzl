@@ -1,10 +1,20 @@
 load("//tools/release:al_release_files_info.bzl", "AlReleaseFilesInfo")
 
 def _impl(ctx):
-    manifest = ctx.actions.declare_file("{}.manifest.json".format(ctx.label.name))
-    ctx.actions.write(
-        output = manifest,
-        content = "{}",
+    manifest = ctx.actions.declare_file("{}.release.json".format(ctx.label.name))
+    inputs = []
+    outputs = [manifest]
+    args = ctx.actions.args()
+    args.add("generate")
+    args.add_all(["--output", manifest.path])
+    for src in ctx.files.srcs:
+        args.add_all(["--item", "{}:{}".format("file", src.path)])
+        inputs.append(src)
+    ctx.actions.run(
+        executable = ctx.executable.release_tool,
+        arguments = [args],
+        inputs = inputs,
+        outputs = outputs,
     )
     return [
         DefaultInfo(
@@ -31,6 +41,12 @@ al_release_files = rule(
         "deps": attr.label_list(
             providers = [AlReleaseFilesInfo],
             doc = "Deps",
+        ),
+        "release_tool": attr.label(
+            executable = True,
+            cfg = "exec",
+            default = "//tools/release",
+            doc = "Release tool",
         ),
     },
 )

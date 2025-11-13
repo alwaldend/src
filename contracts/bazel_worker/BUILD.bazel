@@ -1,4 +1,5 @@
 load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
+load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
 load("@rules_go//go:def.bzl", "go_library")
 load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_library")
@@ -48,4 +49,10 @@ java_library(
     name = "worker_protocol_java_library",
     visibility = ["//:__subpackages__"],
     exports = [":worker_protocol_java_proto"],
+)
+
+py_proto_library(
+    name = "worker_protocol_py_pb2",
+    visibility = ["//:__subpackages__"],
+    deps = [":worker_protocol_proto"],
 )
