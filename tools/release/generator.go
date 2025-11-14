@@ -8,7 +8,6 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"git.alwaldend.com/src/tools/release/contracts"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -25,29 +24,20 @@ func NewGenerator() *Generator {
 
 // Generate a manifest file
 func (self *Generator) Generate(
-	release *contracts.Release,
 	items []string,
+	manifests []string,
 	output string,
 	marshalOptions *protojson.MarshalOptions,
 ) error {
-	release = proto.CloneOf(release)
+	release := &contracts.Release{}
 	for _, item := range items {
-		itemSplit := strings.SplitN(item, ":", 2)
-		if len(itemSplit) != 2 {
-			return fmt.Errorf("invalid item string %s: %s", itemSplit, item)
+		if err := self.addItem(release, item); err != nil {
+			return fmt.Errorf("could not add item %s to release: %w", item, err)
 		}
-		itemPath := itemSplit[1]
-		switch itemType := itemSplit[0]; itemType {
-		case "file":
-			if err := self.addFileItem(release, itemPath); err != nil {
-				return fmt.Errorf("could not add file %s to release: %w", item, err)
-			}
-		case "manifest":
-			if err := self.addManifest(release, itemPath); err != nil {
-				return fmt.Errorf("could not add manifest %s to release: %w", item, err)
-			}
-		default:
-			return fmt.Errorf("invalid item type %s: %s", itemType, item)
+	}
+	for _, manifest := range manifests {
+		if err := self.addManifest(release, manifest); err != nil {
+			return fmt.Errorf("could not add manifest %s to release: %w", manifest, err)
 		}
 	}
 	data, err := marshalOptions.Marshal(release)
@@ -74,16 +64,25 @@ func (self *Generator) addManifest(release *contracts.Release, path string) erro
 	return nil
 }
 
-// Add file item information in-place
-func (self *Generator) addFileItem(release *contracts.Release, path string) error {
-	stat, err := os.Stat(path)
+// Add item information in-place
+func (self *Generator) addItem(release *contracts.Release, path string) error {
+	content, err := os.ReadFile(path)
 	if err != nil {
-		return fmt.Errorf("could not stat file %s: %w", path, err)
+		return fmt.Errorf("could not read item manifest %s: %w", path, err)
 	}
-	releaseFile := &contracts.ReleaseFile{
-		Name: filepath.Base(path),
-		Size: stat.Size(),
+	item := &contracts.ReleaseItem{}
+	if err := protojson.Unmarshal(content, item); err != nil {
+		return fmt.Errorf("could not unmarshal item manifest %s: %w", path, err)
 	}
+	if item.File == nil || item.File.LocalPath == "" {
+		return fmt.Errorf("item manifest %s is missing file.local_path", path)
+	}
+	stat, err := os.Stat(item.File.LocalPath)
+	if err != nil {
+		return fmt.Errorf("could not stat local file %s: %w", path, err)
+	}
+	item.File.Name = filepath.Base(item.File.LocalPath)
+	item.File.Size = stat.Size()
 	for _, hashType := range []crypto.Hash{crypto.SHA256, crypto.MD5} {
 		hashObj := hashType.New()
 		file, err := os.Open(path)
@@ -94,11 +93,11 @@ func (self *Generator) addFileItem(release *contracts.Release, path string) erro
 		if _, err := io.Copy(hashObj, file); err != nil {
 			return fmt.Errorf("could not copy file %s to hash: %w", path, err)
 		}
-		releaseFile.Hashes = append(releaseFile.Hashes, &contracts.ReleaseHash{
+		item.File.Hashes = append(item.File.Hashes, &contracts.ReleaseHash{
 			Algo:    hashType.String(),
 			Content: fmt.Sprintf("%x", hashObj.Sum(nil)),
 		})
 	}
-	release.Items = append(release.Items, &contracts.ReleaseItem{File: releaseFile})
+	release.Items = append(release.Items, item)
 	return nil
 }

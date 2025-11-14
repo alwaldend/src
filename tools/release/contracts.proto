@@ -12,6 +12,7 @@ message ReleaseFile {
   string name = 2;
   string url = 3;
   int64 size = 4;
+  string local_path = 5;
 }
 
 message ReleaseItem {
@@ -20,6 +21,5 @@ message ReleaseItem {
 
 message Release {
   repeated ReleaseItem items = 1;
-  string title = 2;
-  repeated string tags = 3;
+  string name = 2;
 }

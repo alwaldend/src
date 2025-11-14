@@ -3,11 +3,23 @@ load("@rules_cc//cc:cc_library.bzl", "cc_library")
 load("@rules_cc//cc:cc_test.bzl", "cc_test")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
+test_suite(
+    name = "tests",
+    tests = [":sri_test"],
+)
+
 al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//projects:__pkg__"],
+    deps = ["//projects/sri/releases:docs"],
+)
+
+cc_binary(
+    name = "sri",
+    visibility = ["//projects/sri/releases:__pkg__"],
+    deps = [":lib"],
 )
 
 cc_library(
@@ -18,29 +30,18 @@ cc_library(
     ],
 )
 
-cc_binary(
-    name = "bin",
-    visibility = ["//:__subpackages__"],
-    deps = [":lib"],
-)
-
-test_suite(
-    name = "tests",
-    tests = [":sri-test"],
-)
-
 cc_library(
     name = "cmd",
     srcs = ["cmd.c"],
     hdrs = ["cmd.h"],
     deps = [
         ":errors",
-        ":sri",
+        ":sri_lib",
     ],
 )
 
 cc_library(
-    name = "sri",
+    name = "sri_lib",
     srcs = ["sri.c"],
     hdrs = ["sri.h"],
     deps = [
@@ -50,7 +51,7 @@ cc_library(
 )
 
 cc_test(
-    name = "sri-test",
+    name = "sri_test",
     size = "small",
     srcs = ["sri_test.c"],
     deps = [

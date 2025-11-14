@@ -31,6 +31,7 @@ al_docs_files(
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//projects:__pkg__"],
+    deps = ["//projects/alwaldend.com/releases:docs"],
 )
 
 al_hugo_site(
@@ -83,7 +84,6 @@ al_http_server_binary(
 pkg_tar(
     name = "site_archive",
     srcs = [":docs"],
-    visibility = ["//:__subpackages__"],
 )
 
 pkg_tar(

@@ -1,0 +1,5 @@
+{{- $releaseRes := .Page.Resources.Get "release.json" -}}
+<!-- -->
+{{- $release := transform.Unmarshal $releaseRes -}}
+<!-- -->
+{{- return (dict "Resource" $releaseRes "Data" $release) -}}

@@ -1,0 +1,25 @@
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/release:al_release.bzl", "al_release")
+load("//tools/release:al_release_files.bzl", "al_release_files")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//projects/sri:__pkg__"],
+    deps = [":head"],
+)
+
+al_release_files(
+    name = "files",
+    srcs = [
+        "//projects/sri",
+    ],
+)
+
+al_release(
+    name = "head",
+    srcs = [":files"],
+    prefix = package_name(),
+    release_name = "head",
+)

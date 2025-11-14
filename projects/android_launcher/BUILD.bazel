@@ -5,6 +5,7 @@ al_docs_files(
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//projects:__pkg__"],
+    deps = ["//projects/android_launcher/releases:docs"],
 )
 
 filegroup(

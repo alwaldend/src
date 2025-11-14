@@ -1,0 +1,27 @@
+{{ $show := compare.Conditional .standalone "show" "" }}
+<!-- -->
+<div class="accordion" id="release_files_{{ .Page.LinkTitle }}_accordion">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="release_files_{{ .Page.LinkTitle }}">
+      <button
+        class="accordion-button"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#release_files_{{ .Page.LinkTitle }}_collapse"
+        aria-expanded="true"
+        aria-controls="release_files_{{ .Page.LinkTitle }}_collapse"
+      >
+        Artifacts
+      </button>
+    </h2>
+    <div
+      id="release_files_{{ .Page.LinkTitle }}_collapse"
+      class="accordion-collapse collapse {{ $show }}"
+      aria-labelledby="release_files_{{ .Page.LinkTitle }}"
+    >
+      <div class="accordion-body">
+        {{ partial "alwaldend/release_files_table" . }}
+      </div>
+    </div>
+  </div>
+</div>

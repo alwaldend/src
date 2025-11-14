@@ -1,8 +1,6 @@
-{{ $release := (.Page.Resources.Get "release.json" | transform.Unmarshal) -}}
-
+{{ $page := .Page }}
 <div class="table-responsive">
   <table class="td-initial table table-striped">
-    <summary>Release items</summary>
     <thead>
       <tr>
         <th>#</th>
@@ -10,14 +8,23 @@
       </tr>
     </thead>
     <tbody>
-      {{ range $index, $item := $release.items -}}
+      <tr>
+        <td>0</td>
+        <td>Manifest</td>
+        <td>
+          <a href="{{ .Release.Resource.Permalink }}">release.json</a>
+        </td>
+      </tr>
+      {{ range $index, $item := .Release.Data.items -}}
       <!-- -->
       {{- with $item.file }}
       <tr>
-        <td rowspan="{{ math.Add 2 (len .hashes) }}">{{ $index }}</td>
+        <td rowspan="{{ math.Add 2 (len .hashes) }}">
+          {{ math.Add $index 1 }}
+        </td>
         <td>File</td>
         <td>
-          {{ $file := $.Page.Resources.Get .name -}}
+          {{ $file := $page.Resources.Get .name -}}
           <a href="{{ $file.Permalink }}">{{ .name }}</a>
         </td>
       </tr>

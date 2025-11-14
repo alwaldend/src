@@ -7,6 +7,7 @@ al_docs_files(
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//projects:__pkg__"],
+    deps = ["//projects/leetcode_downloader/releases:docs"],
 )
 
 al_bzl_library_map(

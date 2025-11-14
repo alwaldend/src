@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 
-	"git.alwaldend.com/src/tools/release/contracts"
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/encoding/protojson"
 )
@@ -53,23 +52,22 @@ func newRootCommand(
 
 func newGenCommand() (*cobra.Command, error) {
 	generator := NewGenerator()
-	release := &contracts.Release{}
 	var output string
 	var items []string
+	var manifests []string
 	marshalOptions := &protojson.MarshalOptions{}
 	cmd := &cobra.Command{
 		Use:   "generate",
 		Short: "Generate",
-		Long:  "Generate manifest files",
+		Long:  "Merge several manifests into one",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return generator.Generate(release, items, output, marshalOptions)
+			return generator.Generate(items, manifests, output, marshalOptions)
 		},
 	}
 	flags := cmd.PersistentFlags()
-	flags.StringArrayVar(&release.Tags, "tag", nil, "Release tags")
-	flags.StringArrayVar(&items, "item", nil, "Add an item to the manifest (<type>:<path>, for example file:file.txt)")
+	flags.StringArrayVar(&items, "item", nil, "Path to a file with ReleaseItem json")
+	flags.StringArrayVar(&manifests, "manifest", nil, "Path to a file with Release json")
 	flags.StringVar(&output, "output", "", "Output path")
-	flags.StringVar(&release.Title, "title", "", "Release title")
 	flags.StringVar(&marshalOptions.Indent, "indent", "    ", "Json indent")
 	cmd.MarkFlagsOneRequired("output")
 	return cmd, nil

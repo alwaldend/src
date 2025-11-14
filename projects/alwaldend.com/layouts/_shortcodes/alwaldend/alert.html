@@ -1,0 +1,3 @@
+{{ $alertType := (.Get "type") | default "primary" -}}
+<!-- -->
+<div class="alert alert-{{ $alertType }}" role="alert">{{ .Inner }}</div>

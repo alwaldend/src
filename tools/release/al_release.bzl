@@ -4,16 +4,15 @@ load("//tools/release:al_release_files_info.bzl", "AlReleaseFilesInfo")
 _DOC_TEMPLATE = """\
 ---
 title: {release_name}
-description: Release {release_name}
-disableSidebar: true
+description: "Release '{release_name}'"
+toc_hide: true
+hide_summary: true
 tags:
     - generated
     - release
 ---
 
-## Artifacts
-
-{{{{< alwaldend/release_files >}}}}
+{{{{< alwaldend/release standalone=true >}}}}
 """
 
 def _impl(ctx):
@@ -21,23 +20,28 @@ def _impl(ctx):
     dest_src_map = {"index.md": doc}
     release_name = ctx.attr.release_name
     transient = []
-
     if ctx.attr.manifest:
         dest_src_map["release.json"] = ctx.file.manifest
     elif ctx.attr.srcs:
         manifest = ctx.actions.declare_file("{}.release.json".format(ctx.label.name))
+        extra_manifest = ctx.actions.declare_file("{}.release_extra.json".format(ctx.label.name))
+        inputs = [extra_manifest]
         transient = [dep[DefaultInfo].files for dep in ctx.attr.srcs]
         dest_src_map["release.json"] = manifest
         for src in ctx.files.srcs:
             dest_src_map[src.basename] = src
         args = ctx.actions.args()
         args.add("generate")
-        inputs = []
         args.add_all(["--output", manifest.path])
         for src in ctx.attr.srcs:
-            merge_manifest = src[AlReleaseFilesInfo].manifest
-            inputs.append(merge_manifest)
-            args.add_all(["--item", "{}:{}".format("manifest", merge_manifest.path)])
+            src_manifest = src[AlReleaseFilesInfo].manifest
+            inputs.append(src_manifest)
+            args.add_all(["--manifest", src_manifest.path])
+        args.add_all(["--manifest", extra_manifest.path])
+        ctx.actions.write(
+            output = extra_manifest,
+            content = json.encode({"name": ctx.attr.release_name}),
+        )
         ctx.actions.run(
             executable = ctx.executable.release_tool,
             arguments = [args],

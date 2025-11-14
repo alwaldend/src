@@ -1,0 +1,5 @@
+{{ $release := partial "alwaldend/get_release" (dict "Page" .Page) -}}
+<!-- -->
+{{- $ctx := (dict "Page" .Page "standalone" .standalone "Release" $release) -}}
+<!-- -->
+{{ partial "alwaldend/release_files" $ctx }}

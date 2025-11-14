@@ -12,7 +12,9 @@ tags:
   - bzl_rules
 ---
 
-> :warning: Download doesn't work anymore because of Cloudflare
+{{< alwaldend/alert >}}
+Download doesn't work anymore because of Cloudflare
+{{< /alwaldend/alert >}}
 
 ## Usage
 

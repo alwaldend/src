@@ -15,5 +15,5 @@ indent_style = tab
 [Makefile]
 indent_style = tab
 
-[*.{yaml,yml,md,markdown,html}]
+[*.{yaml,yml,md,markdown,html,proto}]
 indent_size = 2

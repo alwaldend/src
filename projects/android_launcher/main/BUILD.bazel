@@ -49,6 +49,7 @@ android_binary(
         "versionName": "0.0.0",
         "applicationId": _PACKAGE,
     },
+    visibility = ["//projects/android_launcher/releases:__pkg__"],
     deps = [":launcher_library"],
 )
 

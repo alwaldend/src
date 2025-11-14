@@ -1,0 +1,19 @@
+{{ $rootPage := .Page }}
+<!-- -->
+{{ $paginator := .Page.Paginate .Page.Pages.ByTitle }}
+<!-- -->
+{{ range $paginator.Pages -}}
+<!-- -->
+{{- $headerFormat := "### [%s](./%s) {.card-title}" -}}
+<!-- -->
+<div class="card">
+  <div class="card-body">
+    {{ $rootPage.RenderString (printf $headerFormat .LinkTitle .LinkTitle) }}
+    <!-- -->
+    {{ partial "alwaldend/release" (dict "Page" .) }}
+  </div>
+</div>
+<!-- -->
+{{- end -}}
+<!-- -->
+{{ partial "pagination.html" .Page }}
