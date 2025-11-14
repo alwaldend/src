@@ -10,16 +10,16 @@ import (
 
 	"github.com/BurntSushi/toml"
 
-	proto "git.alwaldend.com/src/contracts/leetcode_downloader"
+	"git.alwaldend.com/src/projects/leetcode_downloader/main/proto/contracts"
 )
 
 type Generator struct {
-	config *proto.Config
+	config *contracts.Config
 	ctx    context.Context
 	logger *slog.Logger
 }
 
-func NewGenerator(config *proto.Config, ctx context.Context, logger *slog.Logger) (*Generator, error) {
+func NewGenerator(config *contracts.Config, ctx context.Context, logger *slog.Logger) (*Generator, error) {
 	generator := &Generator{
 		config: config,
 		ctx:    ctx,
@@ -28,7 +28,7 @@ func NewGenerator(config *proto.Config, ctx context.Context, logger *slog.Logger
 	return generator, nil
 }
 
-func (g *Generator) Generate(submissions []*proto.Submission) error {
+func (g *Generator) Generate(submissions []*contracts.Submission) error {
 	count := 0
 	for _, submission := range submissions {
 		if submission.StatusDisplay != "Accepted" {
@@ -43,7 +43,7 @@ func (g *Generator) Generate(submissions []*proto.Submission) error {
 	return nil
 }
 
-func (self *Generator) write(submission *proto.Submission) error {
+func (self *Generator) write(submission *contracts.Submission) error {
 	name, err := self.submissionName(submission)
 	if err != nil {
 		return err
@@ -53,7 +53,7 @@ func (self *Generator) write(submission *proto.Submission) error {
 		return err
 	}
 	codeContent := []byte(submission.Code)
-	storage := &proto.SubmissonsStorage{Submissions: []*proto.Submission{submission}}
+	storage := &contracts.SubmissonsStorage{Submissions: []*contracts.Submission{submission}}
 	dataContent, err := toml.Marshal(storage)
 	if err != nil {
 		return err
@@ -82,7 +82,7 @@ func (self *Generator) write(submission *proto.Submission) error {
 	return nil
 }
 
-func (self *Generator) submissionDir(submission *proto.Submission) (string, error) {
+func (self *Generator) submissionDir(submission *contracts.Submission) (string, error) {
 	config, err := self.submissionConfig(submission)
 	if err != nil {
 		return "", err
@@ -93,7 +93,7 @@ func (self *Generator) submissionDir(submission *proto.Submission) (string, erro
 	return res, nil
 }
 
-func (self *Generator) submissionConfig(submission *proto.Submission) (*proto.SubmissionConfig, error) {
+func (self *Generator) submissionConfig(submission *contracts.Submission) (*contracts.SubmissionConfig, error) {
 	for _, config := range self.config.Submissions {
 		if slices.Contains(config.Types, submission.Lang) {
 			return config, nil
@@ -102,7 +102,7 @@ func (self *Generator) submissionConfig(submission *proto.Submission) (*proto.Su
 	return nil, fmt.Errorf("could not find config for submission %v", submission)
 }
 
-func (self *Generator) submissionExtension(submission *proto.Submission) (string, error) {
+func (self *Generator) submissionExtension(submission *contracts.Submission) (string, error) {
 	config, err := self.submissionConfig(submission)
 	if err != nil {
 		return "", err
@@ -110,7 +110,7 @@ func (self *Generator) submissionExtension(submission *proto.Submission) (string
 	return config.Extension, nil
 }
 
-func (self *Generator) submissionName(submission *proto.Submission) (string, error) {
+func (self *Generator) submissionName(submission *contracts.Submission) (string, error) {
 	name := fmt.Sprintf("submission")
 	return name, nil
 }

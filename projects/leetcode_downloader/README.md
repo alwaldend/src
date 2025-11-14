@@ -10,11 +10,16 @@ languages:
 tags:
   - tampermonkey
   - bzl_rules
+  - proto
 ---
 
 {{< alwaldend/alert >}}
 Download doesn't work anymore because of Cloudflare
 {{< /alwaldend/alert >}}
+
+## Downloads
+
+See [./releases/head](./releases/head/)
 
 ## Usage
 

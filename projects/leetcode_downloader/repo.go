@@ -5,20 +5,20 @@ import (
 	"fmt"
 	"log/slog"
 
-	proto "git.alwaldend.com/src/contracts/leetcode_downloader"
+	"git.alwaldend.com/src/projects/leetcode_downloader/main/proto/contracts"
 )
 
 type Repo struct {
-	config *proto.Config
+	config *contracts.Config
 	ctx    context.Context
 	logger *slog.Logger
 }
 
-func NewRepo(config *proto.Config, ctx context.Context, logger *slog.Logger) *Repo {
+func NewRepo(config *contracts.Config, ctx context.Context, logger *slog.Logger) *Repo {
 	return &Repo{config: config, ctx: ctx, logger: logger}
 }
 
-func (r *Repo) Submissions() ([]*proto.Submission, error) {
+func (r *Repo) Submissions() ([]*contracts.Submission, error) {
 	submissions, err := r.readStorageFile()
 	if err != nil {
 		return nil, err
@@ -26,7 +26,7 @@ func (r *Repo) Submissions() ([]*proto.Submission, error) {
 	return submissions.Submissions, nil
 }
 
-func (r *Repo) AddSubmissions(submissions []*proto.Submission) error {
+func (r *Repo) AddSubmissions(submissions []*contracts.Submission) error {
 	curSubmissions, err := r.readStorageFile()
 	if err != nil {
 		return err
@@ -35,7 +35,7 @@ func (r *Repo) AddSubmissions(submissions []*proto.Submission) error {
 	return r.writeStorageFile(curSubmissions)
 }
 
-func (r *Repo) addSubmissions(curSubmissions *proto.SubmissonsStorage, newSubmissions []*proto.Submission) {
+func (r *Repo) addSubmissions(curSubmissions *contracts.SubmissonsStorage, newSubmissions []*contracts.Submission) {
 	ids := map[uint64]struct{}{}
 	for _, submission := range curSubmissions.Submissions {
 		ids[submission.Id] = struct{}{}
@@ -50,10 +50,10 @@ func (r *Repo) addSubmissions(curSubmissions *proto.SubmissonsStorage, newSubmis
 	r.logger.Info(fmt.Sprintf("added %d submissions", countNew))
 }
 
-func (r *Repo) readStorageFile() (*proto.SubmissonsStorage, error) {
+func (r *Repo) readStorageFile() (*contracts.SubmissonsStorage, error) {
 	return nil, fmt.Errorf("not implemented")
 }
 
-func (r *Repo) writeStorageFile(storage *proto.SubmissonsStorage) error {
+func (r *Repo) writeStorageFile(storage *contracts.SubmissonsStorage) error {
 	return fmt.Errorf("not implemented")
 }

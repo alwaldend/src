@@ -6,5 +6,5 @@ go_library(
     embedsrcs = ["config.json"],
     importpath = "git.alwaldend.com/src/projects/leetcode_downloader/model",
     visibility = ["//:__subpackages__"],
-    deps = ["//contracts/leetcode_downloader"],
+    deps = ["//projects/leetcode_downloader/main/proto:contracts"],
 )

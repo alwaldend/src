@@ -9,6 +9,13 @@ load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 al_bzl_library_map(
     name = "libs",
     libs = {
+        "al_release": [
+            ":al_release_files",
+            "@rules_pkg//pkg:bzl_srcs",
+            ":al_release_files_info",
+        ],
+        "al_release_deps": [":al_release_files"],
+        "al_release_files": [":al_release_files_info"],
         "al_release_files_info": [],
     },
     visibility = ["//:__subpackages__"],
@@ -25,21 +32,21 @@ al_docs_files(
 proto_library(
     name = "contracts_proto",
     srcs = ["contracts.proto"],
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 go_proto_library(
     name = "contracts_go_proto",
     importpath = "git.alwaldend.com/src/tools/release/contracts",
     proto = ":contracts_proto",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 go_library(
     name = "contracts",
     embed = [":contracts_go_proto"],
     importpath = "git.alwaldend.com/src/tools/release/contracts",
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )
 
 java_proto_library(
@@ -79,5 +86,5 @@ go_library(
 go_binary(
     name = "release",
     embed = [":release_lib"],
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

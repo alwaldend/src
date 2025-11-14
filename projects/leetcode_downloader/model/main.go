@@ -6,18 +6,18 @@ import (
 	"fmt"
 	"text/template"
 
-	proto "git.alwaldend.com/src/contracts/leetcode_downloader"
+	"git.alwaldend.com/src/projects/leetcode_downloader/main/proto/contracts"
 )
 
 //go:embed config.json
 var embedFS embed.FS
 
-func DefaultConfig() (*proto.Config, error) {
+func DefaultConfig() (*contracts.Config, error) {
 	content, err := embedFS.ReadFile("config.json")
 	if err != nil {
 		return nil, fmt.Errorf("could not open embedded config: %w", err)
 	}
-	config := &proto.Config{}
+	config := &contracts.Config{}
 	err = json.Unmarshal(content, config)
 	if err != nil {
 		return nil, fmt.Errorf("could not parse embedded config: %w", err)

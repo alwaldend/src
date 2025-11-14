@@ -22,6 +22,8 @@ offlineSearch = true
 github_project_repo = "https://github.com/alwaldend/src"
 github_repo = "https://github.com/alwaldend/src"
 github_branch = "master"
+version_menu = "Versions"
+version_menu_pagelinks = true
 
 # [params.copyright]
 # authors = ""

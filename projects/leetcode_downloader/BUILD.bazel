@@ -1,26 +1,16 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
-load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/go:al_go_cross_binary.bzl", "al_go_cross_binary")
 
 al_docs_files(
     name = "docs",
-    srcs = glob(["*.md"]),
+    srcs = glob(["*.md"]) + [
+        "//projects/leetcode_downloader/main/bzl:libs.stardoc",
+        "//projects/leetcode_downloader/main/proto:docs",
+    ],
     prefix = package_name(),
     visibility = ["//projects:__pkg__"],
     deps = ["//projects/leetcode_downloader/releases:docs"],
-)
-
-al_bzl_library_map(
-    name = "libs",
-    libs = {
-        "al_leetcode_submissions": [
-            "//tools/template_files:al_template_files",
-            "@bazel_skylib//rules:write_file",
-            "@bazel_skylib//lib:paths",
-            "@rules_pkg//pkg:bzl_srcs",
-        ],
-    },
-    visibility = ["//:__subpackages__"],
 )
 
 go_library(
@@ -35,7 +25,7 @@ go_library(
     importpath = "git.alwaldend.com/src/projects/leetcode_downloader",
     visibility = ["//visibility:private"],
     deps = [
-        "//contracts/leetcode_downloader",
+        "//projects/leetcode_downloader/main/proto:contracts",
         "//projects/leetcode_downloader/model",
         "@com_github_burntsushi_toml//:toml",
     ],
@@ -45,4 +35,10 @@ go_binary(
     name = "leetcode_downloader",
     embed = [":leetcode_downloader_lib"],
     visibility = ["//:__subpackages__"],
+)
+
+al_go_cross_binary(
+    name = "leetcode_downloader_crossbinary",
+    target = "leetcode_downloader",
+    visibility = ["//projects/leetcode_downloader/releases:__pkg__"],
 )

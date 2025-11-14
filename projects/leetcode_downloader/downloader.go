@@ -12,19 +12,19 @@ import (
 	"strings"
 	"time"
 
-	proto "git.alwaldend.com/src/contracts/leetcode_downloader"
+	"git.alwaldend.com/src/projects/leetcode_downloader/main/proto/contracts"
 )
 
 const SUBMISSIONS_REQUEST_LIMIT = 20
 
 type Downloader struct {
-	config *proto.Config
+	config *contracts.Config
 	client *http.Client
 	ctx    context.Context
 	logger *slog.Logger
 }
 
-func NewDownloader(config *proto.Config, ctx context.Context, logger *slog.Logger) (*Downloader, error) {
+func NewDownloader(config *contracts.Config, ctx context.Context, logger *slog.Logger) (*Downloader, error) {
 	jar, err := cookiejar.New(nil)
 	if err != nil {
 		return nil, err
@@ -38,8 +38,8 @@ func NewDownloader(config *proto.Config, ctx context.Context, logger *slog.Logge
 	return downloader, nil
 }
 
-func (d *Downloader) GetSubmissions(offset uint64, limit uint64) ([]*proto.Submission, error) {
-	res := []*proto.Submission{}
+func (d *Downloader) GetSubmissions(offset uint64, limit uint64) ([]*contracts.Submission, error) {
+	res := []*contracts.Submission{}
 	lastKey := ""
 	for limit > 0 {
 		count := min(limit, SUBMISSIONS_REQUEST_LIMIT)
@@ -61,7 +61,7 @@ func (d *Downloader) GetSubmissions(offset uint64, limit uint64) ([]*proto.Submi
 	return res, nil
 }
 
-func (d *Downloader) getSubmissions(offset uint64, limit uint64, lastKey string) (*proto.SubmissonsResponse, error) {
+func (d *Downloader) getSubmissions(offset uint64, limit uint64, lastKey string) (*contracts.SubmissonsResponse, error) {
 	reqUrl, err := url.Parse(strings.Join([]string{d.config.BaseUrl, "api", "submissions"}, "/"))
 	if err != nil {
 		return nil, fmt.Errorf("request '%s' failed: %w", reqUrl, err)
@@ -88,7 +88,7 @@ func (d *Downloader) getSubmissions(offset uint64, limit uint64, lastKey string)
 	if err != nil {
 		return nil, fmt.Errorf("request '%s' failed with '%d': %w", reqUrl, response.StatusCode, err)
 	}
-	bodyJson := &proto.SubmissonsResponse{}
+	bodyJson := &contracts.SubmissonsResponse{}
 	err = json.Unmarshal(body, bodyJson)
 	if err != nil {
 		return nil, fmt.Errorf("request '%s' failed with '%d' and response '%s': %w", reqUrl, response.StatusCode, string(body), err)

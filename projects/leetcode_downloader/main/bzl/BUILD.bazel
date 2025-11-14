@@ -1,0 +1,17 @@
+load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_leetcode_submissions": [
+            "//tools/template_files:al_template_files",
+            "@bazel_skylib//rules:write_file",
+            "@bazel_skylib//lib:paths",
+            "@rules_pkg//pkg:bzl_srcs",
+        ],
+    },
+    visibility = [
+        "//data/leetcode_submissions:__pkg__",
+        "//projects/leetcode_downloader:__pkg__",
+    ],
+)

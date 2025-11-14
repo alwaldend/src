@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "git.alwaldend.com/src/contracts/leetcode_downloader";
+option go_package = "git.alwaldend.com/src/projects/leetcode_downloader/main/proto/contracts";
 
 enum CliAction {
   DOWNLOAD = 0;

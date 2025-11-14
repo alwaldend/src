@@ -2,7 +2,7 @@ load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("//tools/template_files:al_template_files.bzl", "al_template_files")
 
-def al_proto_docs(name, src, visibility = None):
+def al_proto_docs(name, src, prefix = None, visibility = None):
     """
     Generate protobuf documentation
 
@@ -18,7 +18,7 @@ def al_proto_docs(name, src, visibility = None):
             "{{ range .Data }}",
             "---",
             "title: {{ .BasenameWithoutExt }}",
-            "description: Proto docs for {{ .BasenameWithoutExt }}",
+            "description: Proto docs for {{ .Basename }}",
             "tags: [generated, proto_doc]",
             "---",
             "",
@@ -70,7 +70,7 @@ def al_proto_docs(name, src, visibility = None):
     )
     pkg_files(
         name = name,
-        prefix = native.package_name(),
+        prefix = prefix or native.package_name(),
         srcs = ["{}.{}".format(name, src)],
         visibility = visibility,
     )

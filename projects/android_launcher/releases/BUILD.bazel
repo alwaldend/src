@@ -1,5 +1,6 @@
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 load("//tools/release:al_release.bzl", "al_release")
+load("//tools/release:al_release_deps.bzl", "al_release_deps")
 load("//tools/release:al_release_files.bzl", "al_release_files")
 
 al_docs_files(
@@ -18,9 +19,18 @@ al_release_files(
     ignore_suffixes = [".jar"],
 )
 
+al_release_deps(
+    name = "release_deps",
+    srcs = ["//projects/android_launcher/releases:files"],
+)
+
 al_release(
     name = "head",
-    srcs = [":files"],
+    srcs = [
+        # do not sort
+        ":release_deps",
+        ":files",
+    ],
     prefix = package_name(),
     release_name = "head",
 )

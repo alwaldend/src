@@ -10,6 +10,12 @@ alias(
 al_bzl_library_map(
     name = "libs",
     libs = {
+        "al_go_cross_binary": [
+            "@rules_go//go:all_rules",
+            "@rules_go//go:def",
+            "@rules_cc//cc:bzl_srcs",
+            "@rules_cc//cc:defs_bzl",
+        ],
         "al_go_repository": [
             "@gazelle//:deps",
             "@gazelle//:def",

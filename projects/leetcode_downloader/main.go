@@ -11,7 +11,7 @@ import (
 	"os/signal"
 	"strings"
 
-	proto "git.alwaldend.com/src/contracts/leetcode_downloader"
+	"git.alwaldend.com/src/projects/leetcode_downloader/main/proto/contracts"
 
 	"git.alwaldend.com/src/projects/leetcode_downloader/model"
 )
@@ -43,7 +43,7 @@ func Run(
 		return err
 	}
 	switch config.Action {
-	case proto.CliAction_DOWNLOAD:
+	case contracts.CliAction_DOWNLOAD:
 		submissions, err := downloader.GetSubmissions(config.Offset, config.Limit)
 		if err != nil {
 			return err
@@ -54,10 +54,10 @@ func Run(
 		}
 		text = append(text, '\n')
 		stdout.Write(text)
-	case proto.CliAction_UPDATE:
-		var submissions []*proto.Submission
+	case contracts.CliAction_UPDATE:
+		var submissions []*contracts.Submission
 		if len(config.ActionArgs) > 0 {
-			response := &proto.SubmissonsResponse{}
+			response := &contracts.SubmissonsResponse{}
 			if err = json.Unmarshal([]byte(config.ActionArgs[0]), response); err != nil {
 				return fmt.Errorf("could not parse submissions from stdin: %w", err)
 			}
@@ -69,7 +69,7 @@ func Run(
 			}
 		}
 		return repo.AddSubmissions(submissions)
-	case proto.CliAction_GENERATE:
+	case contracts.CliAction_GENERATE:
 		submissionsText, err := os.ReadFile(config.SubmissionsFile)
 		if err != nil {
 			return fmt.Errorf(
@@ -77,7 +77,7 @@ func Run(
 				config.SubmissionsFile, err,
 			)
 		}
-		var submissions *proto.SubmissonsResponse
+		var submissions *contracts.SubmissonsResponse
 		err = json.Unmarshal(submissionsText, &submissions)
 		if err != nil {
 			return fmt.Errorf(
@@ -98,7 +98,7 @@ func Run(
 	return nil
 }
 
-func parseArgs(args []string, getenv func(string) string) (*proto.Config, error) {
+func parseArgs(args []string, getenv func(string) string) (*contracts.Config, error) {
 	wd, err := os.Getwd()
 	if err != nil {
 		return nil, err
@@ -129,11 +129,11 @@ func parseArgs(args []string, getenv func(string) string) (*proto.Config, error)
 		return nil, fmt.Errorf("action is not specified")
 	}
 	actionName := action[0]
-	val, ok := proto.CliAction_value[strings.ToUpper(actionName)]
+	val, ok := contracts.CliAction_value[strings.ToUpper(actionName)]
 	if !ok {
 		return nil, fmt.Errorf("invalid action %s", actionName)
 	}
-	config.Action = proto.CliAction(val)
+	config.Action = contracts.CliAction(val)
 	if len(action) > 1 {
 		config.ActionArgs = action[1:]
 	}

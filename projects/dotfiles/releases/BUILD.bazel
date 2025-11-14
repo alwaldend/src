@@ -1,8 +1,7 @@
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 load("//tools/release:al_release.bzl", "al_release")
+load("//tools/release:al_release_deps.bzl", "al_release_deps")
 load("//tools/release:al_release_files.bzl", "al_release_files")
-
-_SRCS = []
 
 al_docs_files(
     name = "docs",
@@ -31,26 +30,16 @@ al_release_files(
     ],
 )
 
-genquery(
-    name = "deps.svg",
-    expression = "deps(//projects/dotfiles/releases:files)",
-    opts = [
-        "--output",
-        "graph",
-    ],
-    scope = ["//projects/dotfiles/releases:files"],
-)
-
-al_release_files(
-    name = "files_query",
-    srcs = [":deps.svg"],
+al_release_deps(
+    name = "release_deps",
+    srcs = ["//projects/dotfiles/releases:files"],
 )
 
 al_release(
     name = "head",
     srcs = [
         # do not sort
-        ":files_query",
+        ":release_deps",
         ":files",
     ],
     prefix = package_name(),
