@@ -6,4 +6,4 @@
 <!-- -->
 {{- $product := math.Product $ratio $num -}}
 <!-- -->
-{{- math.Div (math.Round $product) $ratio -}}
+{{- return math.Div (math.Round $product) $ratio -}}

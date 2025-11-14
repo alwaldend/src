@@ -1,0 +1,42 @@
+{{ define "alwaldend/release_item_dropdown" }}
+<li>
+  <span class="dropdown-item-text text-nowrap">
+    {{ index . 0 }}: <code>{{ index . 1 }}</code>
+  </span>
+</li>
+{{ end }}
+
+<div class="btn-group me-1">
+  <button
+    class="btn btn-outline-primary btn-sm dropdown-toggle"
+    type="button"
+    data-bs-toggle="dropdown"
+    data-bs-auto-close="outside"
+    aria-expanded="false"
+  >
+    Info
+  </button>
+  <ul class="dropdown-menu">
+    {{ template "alwaldend/release_item_dropdown" (slice "Type" .Type) }}
+    <!-- -->
+    {{ with .Item }}
+    <!-- -->
+    {{ with .file }}
+    <!-- -->
+    {{- $size := math.Div (cast.ToFloat .size) 1024 1024 -}}
+    <!-- -->
+    {{- $content := printf "%.2f MB" $size -}}
+    <!-- -->
+    {{ template "alwaldend/release_item_dropdown" (slice "Size" $content) }}
+    <!-- -->
+    {{ range .hashes -}}
+    <!-- -->
+    {{ template "alwaldend/release_item_dropdown" (slice .algo .content) }}
+    <!-- -->
+    {{- end }}
+    <!-- -->
+    {{ end }}
+    <!-- -->
+    {{ end }}
+  </ul>
+</div>

@@ -11,7 +11,12 @@
         aria-expanded="true"
         aria-controls="release_files_{{ .Page.LinkTitle }}_collapse"
       >
+        {{ $count := len (.Release.Data.items | default slice) }}
+        <!-- -->
         Artifacts
+        <span class="badge rounded-pill bg-secondary ms-1">
+          {{ math.Add 1 $count }}
+        </span>
       </button>
     </h2>
     <div

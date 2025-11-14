@@ -1,54 +1,21 @@
 {{ $page := .Page }}
-<div class="table-responsive">
-  <table class="td-initial table table-striped">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th colspan="2">Artifact</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>0</td>
-        <td>Manifest</td>
-        <td>
-          <a href="{{ .Release.Resource.Permalink }}">release.json</a>
-        </td>
-      </tr>
-      {{ range $index, $item := .Release.Data.items -}}
-      <!-- -->
-      {{- with $item.file }}
-      <tr>
-        <td rowspan="{{ math.Add 2 (len .hashes) }}">
-          {{ math.Add $index 1 }}
-        </td>
-        <td>File</td>
-        <td>
-          {{ $file := $page.Resources.Get .name -}}
-          <a href="{{ $file.Permalink }}">{{ .name }}</a>
-        </td>
-      </tr>
-      <tr>
-        <td>Size</td>
-        <td>
-          {{ $size := cast.ToFloat .size -}}
-          <!-- -->
-          {{- $size = math.Div $size 1024 1024 -}}
-          <!-- -->
-          {{ partial "alwaldend/round_float" (slice $size 2) }} MB
-        </td>
-      </tr>
-      {{ range .hashes -}}
-      <!-- -->
-      <tr>
-        <td>{{ .algo }}</td>
-        <td><code>{{ .content }}</code></td>
-      </tr>
-      {{- end }}
-      <!-- -->
-      {{ end -}}
-      <!-- -->
-      {{- end }}
-    </tbody>
-  </table>
-</div>
+<ul class="list-group">
+  <li class="list-group-item">
+    {{ partial "alwaldend/release_item_info" (dict "Type" "Manifest") }}
+    <a href="{{ .Release.Resource.Permalink }}">release.json</a>
+  </li>
+  {{ range $index, $item := .Release.Data.items -}}
+  <!-- -->
+  {{- with $item.file }}
+  <li class="list-group-item">
+    {{ $ctx := dict "Item" $item "Type" "File" }}
+    <!-- -->
+    {{ $file := $page.Resources.Get .name -}}
+    <!-- -->
+    {{ partial "alwaldend/release_item_info" $ctx }}
+    <a href="{{ $file.Permalink }}">{{ .name }}</a>
+  </li>
+  {{ end -}}
+  <!-- -->
+  {{- end }}
+</ul>
