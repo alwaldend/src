@@ -1,0 +1,5 @@
+{{- $extended := compare.Conditional hugo.IsExtended "+extended" "" -}}
+<!-- -->
+{{- $url := urls.RelURL "/hugo_env.txt" -}}
+<!-- -->
+Built with Hugo {{ .RenderString (printf "[%s](%s)" hugo.Version $url) -}}

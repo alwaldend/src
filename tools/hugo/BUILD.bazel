@@ -2,6 +2,12 @@ load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 load(":al_hugo_toolchain.bzl", "al_hugo_toolchain")
 
+alias(
+    name = "hugo",
+    actual = "@com_github_gohugoio_hugo_linux_amd64//:bin",
+    visibility = ["//:__subpackages__"],
+)
+
 al_bzl_library_map(
     name = "libs",
     libs = {

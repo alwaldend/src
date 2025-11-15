@@ -17,6 +17,7 @@ _ROOT_TOOLS = [
     "replace_section",
     "isort",
     "mypy",
+    "hugo",
     "twine",
     "file_installer",
     "pnpm",

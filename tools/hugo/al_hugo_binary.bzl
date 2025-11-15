@@ -9,10 +9,13 @@ def _impl(ctx):
     script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
 
     runfiles = ctx.runfiles(
-        transitive_files = depset(transitive = [
-            default_info.default_runfiles.files,
-            default_info.files,
-        ]),
+        files = [hugo.env_file],
+        transitive_files = depset(
+            transitive = [
+                default_info.default_runfiles.files,
+                default_info.files,
+            ],
+        ),
     )
     script_content = """\
         #!/usr/bin/env sh
@@ -25,11 +28,14 @@ def _impl(ctx):
         if [ -f '{git_archive}' ]; then
             tar -xf '{git_archive}'
         fi
+        mkdir -p static
+        mv '{env_file}' static/hugo_env.txt
         exec '{hugo}' \
             {arguments} \
             "${{@}}"
     """.format(
         hugo = hugo.hugo.short_path,
+        env_file = hugo.env_file.short_path,
         site_archive = info.site_archive.short_path,
         git_archive = info.git_archive.short_path if info.git_archive else None,
         workspace_name = ctx.workspace_name,
