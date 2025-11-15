@@ -1,0 +1,14 @@
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/sh:al_sh_library.bzl", "al_sh_library")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools:__pkg__"],
+)
+
+al_sh_library(
+    name = "workspace_status",
+    srcs = ["workspace_status.sh"],
+)
