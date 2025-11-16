@@ -1,33 +1,18 @@
 load("@rules_pkg//pkg:providers.bzl", "PackageFilesInfo")
 load("//tools/release:al_release_files_info.bzl", "AlReleaseFilesInfo")
 
-_DOC_TEMPLATE = """\
----
-title: {release_name}
-description: "Release '{release_name}'"
-toc_hide: true
-hide_summary: true
-tags:
-    - generated
-    - release
----
-
-{{{{< alwaldend/release standalone=true >}}}}
-"""
-
 def _impl(ctx):
-    doc = ctx.actions.declare_file("{}.index.md".format(ctx.label.name))
-    dest_src_map = {"index.md": doc}
+    dest_src_map = {}
     release_name = ctx.attr.release_name
-    transient = []
+    transitive = []
+    manifest = None
     if ctx.attr.manifest:
-        dest_src_map["release.json"] = ctx.file.manifest
+        manifest = ctx.file.manifest
     elif ctx.attr.srcs:
         manifest = ctx.actions.declare_file("{}.release.json".format(ctx.label.name))
         extra_manifest = ctx.actions.declare_file("{}.release_extra.json".format(ctx.label.name))
         inputs = [extra_manifest]
-        transient = [dep[DefaultInfo].files for dep in ctx.attr.srcs]
-        dest_src_map["release.json"] = manifest
+        transitive = [dep[DefaultInfo].files for dep in ctx.attr.srcs]
         for src in ctx.files.srcs:
             dest_src_map[src.basename] = src
         args = ctx.actions.args()
@@ -40,7 +25,14 @@ def _impl(ctx):
         args.add_all(["--manifest", extra_manifest.path])
         ctx.actions.write(
             output = extra_manifest,
-            content = json.encode({"name": ctx.attr.release_name}),
+            content = json.encode(
+                {
+                    "name": ctx.attr.release_name,
+                    "project": {
+                        "subdir": ctx.attr.project,
+                    },
+                },
+            ),
         )
         ctx.actions.run(
             executable = ctx.executable.release_tool,
@@ -54,24 +46,21 @@ def _impl(ctx):
     if not release_name:
         fail("missing release_name")
 
-    ctx.actions.write(
-        output = doc,
-        content = _DOC_TEMPLATE.format(release_name = release_name),
-    )
-
+    dest_src_map = {
+        "{}/{}/releases/{}/{}".format(ctx.attr.root_prefix, ctx.attr.project, release_name, name): file
+        for name, file in dest_src_map.items()
+    }
+    dest_src_map["assets/releases/{}/release.json".format(ctx.attr.project)] = manifest
     return [
         DefaultInfo(
             files = depset(
                 direct = dest_src_map.values(),
-                transitive = transient,
+                transitive = transitive,
             ),
         ),
         PackageFilesInfo(
             attributes = {},
-            dest_src_map = {
-                "{}/{}/{}".format(ctx.attr.prefix, release_name, name): file
-                for name, file in dest_src_map.items()
-            },
+            dest_src_map = dest_src_map,
         ),
     ]
 
@@ -88,9 +77,13 @@ al_release = rule(
             mandatory = True,
             doc = "Release name",
         ),
-        "prefix": attr.string(
+        "project": attr.string(
             mandatory = True,
-            doc = "Prefix to apply to all generated files",
+            doc = "Project package_name",
+        ),
+        "root_prefix": attr.string(
+            default = "content/docs",
+            doc = "Root prefix",
         ),
         "manifest": attr.label(
             doc = "Load manifest from a file instead of generating it from srcs",

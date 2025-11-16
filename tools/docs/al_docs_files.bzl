@@ -6,6 +6,7 @@ def al_docs_files(
         srcs = [],
         deps = [],
         prefix = None,
+        root_prefix = "content/docs",
         renames = {"README.md": "_index.md"}):
     """
     Macro that creates docs files
@@ -26,7 +27,7 @@ def al_docs_files(
     pkg_files(
         name = "{}.files".format(name),
         srcs = srcs,
-        prefix = prefix,
+        prefix = "{}/{}".format(root_prefix, prefix) if prefix else root_prefix,
         strip_prefix = strip_prefix.from_pkg(),
         renames = renames,
     )

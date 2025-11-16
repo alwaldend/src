@@ -24,7 +24,7 @@ go_library(
     importpath = "git.alwaldend.com/src/tools/shell_worker",
     visibility = ["//visibility:private"],
     deps = [
-        "//contracts/bazel_worker:worker_protocol",
+        "@com_alwaldend_src_tools_bazel_contracts//worker_protocol",
         "@com_github_spf13_cobra//:cobra",
         "@org_golang_google_protobuf//encoding/protodelim",
     ],

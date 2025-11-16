@@ -19,7 +19,12 @@ message ReleaseItem {
   ReleaseFile file = 1;
 }
 
+message Project {
+  string subdir = 1;
+}
+
 message Release {
   repeated ReleaseItem items = 1;
   string name = 2;
+  Project project = 3;
 }
