@@ -1,15 +1,10 @@
 load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo", "PackageFilesInfo")
-load("//tools/git:al_git_library_info.bzl", "AlGitLibraryInfo")
 load(":al_hugo_site_info.bzl", "AlHugoSiteInfo")
 
 def _impl(ctx):
     hugo = ctx.toolchains["//tools/hugo:toolchain_type"]
     files = ctx.files.site
     transitive_files = []
-    git_archive = None
-    if ctx.attr.git:
-        git_archive = ctx.attr.git[AlGitLibraryInfo].git_archive
-        transitive_files.append(depset([git_archive]))
     for tool in ctx.attr.tools:
         transitive_files.append(tool[DefaultInfo].default_runfiles.files)
         transitive_files.append(tool[DefaultInfo].files)
@@ -46,7 +41,6 @@ def _impl(ctx):
             site_archive = ctx.file.site,
             env = ctx.attr.env,
             env_script = env_script,
-            git_archive = git_archive,
         ),
     ]
 
@@ -62,10 +56,6 @@ al_hugo_site = rule(
             mandatory = True,
             allow_single_file = [".tar"],
             doc = "Hugo site archive",
-        ),
-        "git": attr.label(
-            providers = [AlGitLibraryInfo],
-            doc = "Git info",
         ),
         "postcss": attr.label(
             mandatory = True,

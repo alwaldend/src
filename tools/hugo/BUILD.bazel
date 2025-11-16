@@ -16,7 +16,6 @@ al_bzl_library_map(
         "al_hugo_site_info": [],
         "al_hugo_site": [
             ":al_hugo_site_info",
-            "//tools/git:al_git_library",
             "@rules_pkg//pkg:bzl_srcs",
         ],
         "al_hugo_binary": [

@@ -8,6 +8,8 @@ load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_library")
 load("@rules_proto//proto:defs.bzl", "proto_library")
 
+exports_files(["{contract_file}"])
+
 proto_library(
     name = "{contract_name}_proto",
     srcs = ["{contract_file}"],

@@ -25,9 +25,6 @@ def _impl(ctx):
             cd "${{0}}.runfiles/{workspace_name}"
         fi
         tar -xf '{site_archive}'
-        if [ -f '{git_archive}' ]; then
-            tar -xf '{git_archive}'
-        fi
         mkdir -p static
         mv '{env_file}' static/hugo_env.txt
         exec '{hugo}' \
@@ -37,7 +34,6 @@ def _impl(ctx):
         hugo = hugo.hugo.short_path,
         env_file = hugo.env_file.short_path,
         site_archive = info.site_archive.short_path,
-        git_archive = info.git_archive.short_path if info.git_archive else None,
         workspace_name = ctx.workspace_name,
         env_script = ctx.expand_make_variables(
             "env_script",

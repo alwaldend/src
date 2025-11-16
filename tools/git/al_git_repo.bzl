@@ -1,54 +1,51 @@
-_BUILD_FILE = """
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix", "REMOVE_BASE_DIRECTORY")
-load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("@com_alwaldend_src//tools/git:al_git_library.bzl", "al_git_library")
+_BUILD_FILE = """\
+load("@com_alwaldend_src//tools/git:al_git_toolchain.bzl", "al_git_toolchain")
 load("@com_alwaldend_src//tools/git:al_git_binary.bzl", "al_git_binary")
-load("@com_alwaldend_src//tools/git:al_git_run_binary.bzl", "al_git_run_binary")
+
+toolchain(
+    name = "git_toolchain",
+    toolchain = ":git_toolchain_impl",
+    toolchain_type = "@com_alwaldend_src//tools/git:toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+al_git_toolchain(
+    name = "git_toolchain_impl",
+    git_path = "{git_path}",
+    git_dir = "{git_dir}",
+    git_root = "{git_root}",
+    visibility = ["//visibility:public"],
+)
 
 al_git_binary(
     name = "git",
-    src = ":git_lib",
     visibility = ["//visibility:public"],
 )
 
-al_git_run_binary(
-    name = "git_source_archive",
-    git = ":git",
-    outs = ["git_source_archive.tar"],
-    arguments = [
-        "archive",
-        "--output",
-        "$(execpath :git_source_archive.tar)",
-        "HEAD",
-    ],
+genrule(
+    name = "current_rev",
+    outs = ["current_rev.txt"],
+    cmd = "$(execpath :git) rev-parse HEAD >$(@)",
+    tags = ["no-cache"],
     visibility = ["//visibility:public"],
-)
-
-pkg_tar(
-    name = "git_archive",
-    srcs = [":git_files"],
-    visibility = ["//visibility:public"],
-)
-
-pkg_files(
-    name = "git_files",
-    srcs = glob([".git/**/*"]),
-    visibility = ["//visibility:public"],
-    strip_prefix = strip_prefix.from_pkg(),
-)
-
-al_git_library(
-    name = "git_lib",
-    git_archive = ":git_archive",
-    visibility = ["//visibility:public"],
+    tools = [":git"],
 )
 """
 
-def _impl(rctx):
-    rctx.symlink(rctx.workspace_root.get_child(".git"), ".git")
-    rctx.file("BUILD.bazel", _BUILD_FILE)
+def _impl(ctx):
+    git_path = ctx.which("git")
+    git_dir = ctx.workspace_root.get_child(".git")
+    git_root = ctx.workspace_root
+    ctx.file(
+        "BUILD.bazel",
+        _BUILD_FILE.format(
+            git_path = git_path,
+            git_dir = git_dir,
+            git_root = git_root,
+        ),
+    )
 
 al_git_repo = repository_rule(
     implementation = _impl,
-    doc = "Repository rule that exports .git directory",
+    doc = "Git repo",
 )

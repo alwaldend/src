@@ -1,5 +1,11 @@
 {{- $releaseRes := .Page.Resources.Get "release.json" -}}
 <!-- -->
+{{- if not $releaseRes }}
+<!-- -->
+{{ fmt.Errorf "could not find release for page %s" .Page -}}
+<!-- -->
+{{ end }}
+<!-- -->
 {{- $release := transform.Unmarshal $releaseRes -}}
 <!-- -->
 {{- return (dict "Resource" $releaseRes "Data" $release) -}}

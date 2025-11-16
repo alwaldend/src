@@ -343,3 +343,9 @@ name = "Nicholas Sansbury Smith"
 links = [
     { title = "aethonbooks", url = "https://aethonbooks.com/book-author/nicholas-sansbury-smith/" },
 ]
+
+[author.scott_alexander]
+name = "Scott Alexander"
+links = [
+    { title = "goodreads", url = "https://www.goodreads.com/author/show/10866248.Scott_Alexander" }
+]

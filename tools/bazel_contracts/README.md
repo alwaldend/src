@@ -3,9 +3,8 @@ title: Bazel contracts
 description: Bazel contracts
 languages:
   - bzl
-contracts:
-  - proto
 tags:
+  - proto
   - bzl_rules
   - bzl_extension
 ---

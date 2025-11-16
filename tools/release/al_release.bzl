@@ -1,11 +1,29 @@
 load("@rules_pkg//pkg:providers.bzl", "PackageFilesInfo")
 load("//tools/release:al_release_files_info.bzl", "AlReleaseFilesInfo")
 
+_DOC_TEMPLATE = """\
+---
+title: {release_name}
+description: Release {release_name}
+toc_hide: true
+hide_summary: true
+tags:
+    - generated
+    - release
+---
+
+{{{{< alwaldend/release >}}}}
+"""
+
 def _impl(ctx):
-    dest_src_map = {}
+    doc = ctx.actions.declare_file("{}.index.md".format(ctx.label.name))
+    dest_src_map = {
+        "index.md": doc,
+    }
     release_name = ctx.attr.release_name
     transitive = []
     manifest = None
+
     if ctx.attr.manifest:
         manifest = ctx.file.manifest
     elif ctx.attr.srcs:
@@ -46,11 +64,16 @@ def _impl(ctx):
     if not release_name:
         fail("missing release_name")
 
+    ctx.actions.write(
+        output = doc,
+        content = _DOC_TEMPLATE.format(release_name = release_name),
+    )
+    dest_src_map["release.json"] = manifest
     dest_src_map = {
         "{}/{}/releases/{}/{}".format(ctx.attr.root_prefix, ctx.attr.project, release_name, name): file
         for name, file in dest_src_map.items()
     }
-    dest_src_map["assets/releases/{}/release.json".format(ctx.attr.project)] = manifest
+
     return [
         DefaultInfo(
             files = depset(

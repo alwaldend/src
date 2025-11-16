@@ -42,6 +42,6 @@ al_release(
         ":release_deps",
         ":files",
     ],
-    prefix = package_name(),
+    project = "projects/dotfiles",
     release_name = "head",
 )

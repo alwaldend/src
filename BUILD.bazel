@@ -12,7 +12,6 @@ load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-load("//tools/git:al_git_library.bzl", "al_git_library")
 load("//tools/md:al_md_data.bzl", "al_md_data")
 load("//tools/shell_worker:al_genrule.bzl", "al_genrule")
 load("//tools/toml:al_toml_data.bzl", "al_toml_data")
@@ -22,7 +21,7 @@ al_docs_files(
     name = "docs",
     srcs = [":LICENSE.txt"],
     renames = {},
-    visibility = ["//projects/alwaldend.com/content/docs:__pkg__"],
+    visibility = ["//projects/alwaldend.com:__pkg__"],
     deps = [
         "//contracts:docs",
         "//infra:docs",

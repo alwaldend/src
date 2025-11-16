@@ -18,6 +18,6 @@ al_release_files(
 al_release(
     name = "head",
     srcs = [":files"],
-    prefix = package_name(),
+    project = "projects/alwaldend.com",
     release_name = "head",
 )

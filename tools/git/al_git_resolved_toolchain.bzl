@@ -2,5 +2,5 @@ load("//tools/resolved_toolchain:al_resolved_toolchain.bzl", "al_resolved_toolch
 
 al_git_resolved_toolchain = al_resolved_toolchain(
     doc = "Resolved git toolchain",
-    toolchain_label = "//bzl/toolchain-types:git",
+    toolchain_label = "//tools/git:toolchain_type",
 )

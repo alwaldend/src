@@ -26,9 +26,6 @@ startup --windows_enable_symlinks
 
 ### common
 
-# Workspace status: https://bazel.build/docs/user-manual#workspace-status
-common --workspace_status_command=tools/workspace_status/workspace_status.sh
-
 common --registry=file://%workspace%/third_party/registry
 
 common --registry=https://bcr.bazel.build
@@ -245,7 +242,9 @@ build:ci --grpc_keepalive_time=30s
 ### build:release
 
 # stamping: https://github.com/bazel-contrib/bazel-lib/blob/main/docs/stamping.md
+# Workspace status: https://bazel.build/docs/user-manual#workspace-status
 build:release --stamp
+build:release --workspace_status_command=tools/workspace_status/workspace_status.sh
 
 ### test
 

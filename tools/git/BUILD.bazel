@@ -1,10 +1,10 @@
 load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-load(":al_git_toolchain.bzl", "al_git_toolchain")
+load("//tools/git:al_git_resolved_toolchain.bzl", "al_git_resolved_toolchain")
 
 alias(
     name = "git",
-    actual = "@git//:git",
+    actual = "@com_alwaldend_src_tools_git//:git",
     visibility = ["//:__subpackages__"],
 )
 
@@ -12,13 +12,8 @@ al_bzl_library_map(
     name = "libs",
     libs = {
         "al_git_repo": [],
-        "al_git_library_info": [],
-        "al_git_library": [
-            ":al_git_library_info",
-            "@rules_pkg//pkg:bzl_srcs",
-        ],
+        "al_git_extension": [":al_git_repo"],
         "al_git_binary": [
-            ":al_git_library_info",
             "@bazel_skylib//lib:shell",
         ],
         "al_git_run_binary": [],
@@ -45,19 +40,14 @@ filegroup(
 
 toolchain_type(
     name = "toolchain_type",
-    visibility = ["//:__subpackages__"],
+    visibility = [
+        "//:__subpackages__",
+        "@com_alwaldend_src_tools_git//:__pkg__",
+    ],
 )
 
-toolchain(
-    name = "toolchain_local",
-    toolchain = ":toolchain_local_impl",
-    toolchain_type = ":toolchain_type",
-    visibility = ["//:__subpackages__"],
-)
-
-al_git_toolchain(
-    name = "toolchain_local_impl",
-    local_bin = "git",
+al_git_resolved_toolchain(
+    name = "toolchain_resolved",
 )
 
 al_docs_files(

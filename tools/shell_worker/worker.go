@@ -10,7 +10,7 @@ import (
 	"strings"
 	"text/template"
 
-	"git.alwaldend.com/src/contracts/bazel_worker/worker_protocol"
+	"git.alwaldend.com/src/tools/bazel_contracts/worker_protocol"
 )
 
 // worker

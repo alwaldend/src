@@ -30,6 +30,6 @@ al_release(
         ":release_deps",
         ":files",
     ],
-    prefix = package_name(),
+    project = "projects/autoscroll",
     release_name = "head",
 )

@@ -31,6 +31,6 @@ al_release(
         ":release_deps",
         ":files",
     ],
-    prefix = package_name(),
+    project = "projects/android_launcher",
     release_name = "head",
 )

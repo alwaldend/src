@@ -905,6 +905,16 @@ links = [
 ]
 
 [[book]]
+title = "Unsong"
+thumbnail = "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1632785897i/28589297.jpg"
+quality = "Good"
+reading = "Finished"
+authors = ["scott_alexander"]
+links = [
+    {  title ="site", url = "https://unsongbook.com/" }
+]
+
+[[book]]
 title = "Young Master's PoV: Woke Up As A Villain In A Game One Day"
 thumbnail = "./young_masters_pov_woke_up_as_a_villain_in_a_game_one_day.jpg"
 quality = "Ok"

@@ -1,4 +1,4 @@
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive", "http_file")
+load("//tools/bazel_contracts:al_bazel_contracts_list.bzl", "AL_BAZEL_CONTRACTS_LIST")
 load("//tools/bazel_contracts:al_bazel_contracts_repo.bzl", "al_bazel_contracts_repo")
 
 def _impl(ctx):
@@ -41,7 +41,7 @@ al_bazel_contracts_extension = module_extension(
                 doc = "Prefix for the contracts inside the repo",
             ),
             "contracts": attr.string_list(
-                mandatory = True,
+                default = AL_BAZEL_CONTRACTS_LIST,
                 doc = "List of contract paths",
             ),
         }),

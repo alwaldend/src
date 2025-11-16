@@ -1,7 +1,10 @@
-al_git_repo = use_repo_rule("//tools/git:al_git_repo.bzl", "al_git_repo")
-
-al_git_repo(
-    name = "git",
+al_git_extension = use_extension("//tools/git:al_git_extension.bzl", "al_git_extension")
+al_git_extension.local_git(
+    name = "com_alwaldend_src_tools_git",
+)
+use_repo(
+    al_git_extension,
+    "com_alwaldend_src_tools_git",
 )
 
-register_toolchains("//tools/git:toolchain_local")
+register_toolchains("@com_alwaldend_src_tools_git//:git_toolchain")

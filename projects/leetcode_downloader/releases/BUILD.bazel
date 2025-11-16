@@ -34,6 +34,6 @@ al_release(
         ":release_deps",
         ":files",
     ],
-    prefix = package_name(),
+    project = "projects/leetcode_downloader",
     release_name = "head",
 )
