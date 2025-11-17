@@ -12,11 +12,12 @@ tags:
     - release
 ---
 
-{{{{< alwaldend/release >}}}}
+{{{{< alwaldend/release standalone=true >}}}}
 """
 
 def _impl(ctx):
     doc = ctx.actions.declare_file("{}.index.md".format(ctx.label.name))
+    git = ctx.toolchains["//tools/git/main/bzl:toolchain_type"]
     dest_src_map = {
         "index.md": doc,
     }
@@ -41,6 +42,7 @@ def _impl(ctx):
             inputs.append(src_manifest)
             args.add_all(["--manifest", src_manifest.path])
         args.add_all(["--manifest", extra_manifest.path])
+        args.add_all(["--git_root", git.git_root])
         ctx.actions.write(
             output = extra_manifest,
             content = json.encode(
@@ -48,6 +50,9 @@ def _impl(ctx):
                     "name": ctx.attr.release_name,
                     "project": {
                         "subdir": ctx.attr.project,
+                    },
+                    "git": {
+                        "revision": "HEAD",
                     },
                 },
             ),
@@ -91,6 +96,7 @@ al_release = rule(
     implementation = _impl,
     doc = "Rule describing a release",
     provides = [PackageFilesInfo],
+    toolchains = ["//tools/git/main/bzl:toolchain_type"],
     attrs = {
         "srcs": attr.label_list(
             providers = [AlReleaseFilesInfo],

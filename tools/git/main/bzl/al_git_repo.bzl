@@ -1,11 +1,11 @@
 _BUILD_FILE = """\
-load("@com_alwaldend_src//tools/git:al_git_toolchain.bzl", "al_git_toolchain")
-load("@com_alwaldend_src//tools/git:al_git_binary.bzl", "al_git_binary")
+load("@com_alwaldend_src//tools/git/main/bzl:al_git_toolchain.bzl", "al_git_toolchain")
+load("@com_alwaldend_src//tools/git/main/bzl:al_git_binary.bzl", "al_git_binary")
 
 toolchain(
     name = "git_toolchain",
     toolchain = ":git_toolchain_impl",
-    toolchain_type = "@com_alwaldend_src//tools/git:toolchain_type",
+    toolchain_type = "@com_alwaldend_src//tools/git/main/bzl:toolchain_type",
     visibility = ["//visibility:public"],
 )
 
@@ -22,10 +22,25 @@ al_git_binary(
     visibility = ["//visibility:public"],
 )
 
+filegroup(
+    name = "git_state",
+    srcs = [":git_current_rev", ":git_tags"],
+    visibility = ["//visibility:public"],
+)
+
 genrule(
-    name = "current_rev",
-    outs = ["current_rev.txt"],
+    name = "git_current_rev",
+    outs = ["git_current_rev.txt"],
     cmd = "$(execpath :git) rev-parse HEAD >$(@)",
+    tags = ["no-cache"],
+    visibility = ["//visibility:public"],
+    tools = [":git"],
+)
+
+genrule(
+    name = "git_tags",
+    outs = ["git_tags.txt"],
+    cmd = "$(execpath :git) tag --list >$(@)",
     tags = ["no-cache"],
     visibility = ["//visibility:public"],
     tools = [":git"],

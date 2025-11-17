@@ -8,8 +8,12 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"git.alwaldend.com/src/tools/release/contracts"
+	"github.com/go-git/go-git/v5"
+	"github.com/go-git/go-git/v5/plumbing"
+	"github.com/go-git/go-git/v5/plumbing/object"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
 )
@@ -27,6 +31,7 @@ func (self *Generator) Generate(
 	items []string,
 	manifests []string,
 	output string,
+	gitRoot string,
 	marshalOptions *protojson.MarshalOptions,
 ) error {
 	release := &contracts.Release{}
@@ -40,12 +45,73 @@ func (self *Generator) Generate(
 			return fmt.Errorf("could not add manifest %s to release: %w", manifest, err)
 		}
 	}
+	if release.Git != nil {
+		err := self.addGit(release, gitRoot)
+		if err != nil {
+			return fmt.Errorf("could not add git info to release: %w", err)
+		}
+	}
 	data, err := marshalOptions.Marshal(release)
 	if err != nil {
 		return fmt.Errorf("could not marshal release %v: %w", release, err)
 	}
 	if err := os.WriteFile(output, data, 0o444); err != nil {
 		return fmt.Errorf("could not write data to file %s: %w", output, err)
+	}
+	return nil
+}
+
+// Add git information in-place
+func (self *Generator) addGit(release *contracts.Release, gitRoot string) error {
+	if release.Git == nil {
+		return fmt.Errorf("release is missing git info: %v", release)
+	}
+	if release.Project == nil {
+		return fmt.Errorf("missing project info: %v", release)
+	}
+	repo, err := git.PlainOpenWithOptions(gitRoot, &git.PlainOpenOptions{})
+	if err != nil {
+		return fmt.Errorf("could not open repo %s: %w", gitRoot, err)
+	}
+	rev, err := repo.ResolveRevision(plumbing.Revision(release.Git.Revision))
+	if err != nil {
+		return fmt.Errorf("could not resolve revision %s: %w", release.Git.Revision, err)
+	}
+	release.Git.Revision = rev.String()
+	tagIter, err := repo.Tags()
+	if err != nil {
+		return fmt.Errorf("could not create tag iterator ref: %w", err)
+	}
+	hashesToTags := make(map[string][]string)
+	err = tagIter.ForEach(func(tag *plumbing.Reference) error {
+		idx := tag.Hash().String()
+		hashesToTags[idx] = append(hashesToTags[idx], tag.String())
+		return nil
+	})
+	revTags, ok := hashesToTags[rev.String()]
+	if ok {
+		copy(release.Git.Tags, revTags)
+	}
+	filter := func(path string) bool {
+		return strings.HasPrefix(path, release.Project.Subdir)
+	}
+	commitIter, err := repo.Log(&git.LogOptions{From: *rev, PathFilter: filter})
+	if err != nil {
+		return fmt.Errorf("could not create commit iterator: %w", err)
+	}
+	end := false
+	err = commitIter.ForEach(func(commit *object.Commit) error {
+		_, hasTags := hashesToTags[commit.Hash.String()]
+		if commit.Hash != *rev && hasTags {
+			end = true
+		}
+		if !end {
+			release.Git.Commits = append(release.Git.Commits, commit.Hash.String())
+		}
+		return nil
+	})
+	if err != nil {
+		return fmt.Errorf("could not iterate over commits: %w", err)
 	}
 	return nil
 }

@@ -1,0 +1,12 @@
+{{ $page := .Page -}}
+<!-- -->
+{{- $gitInfo := partial "alwaldend/git_info" (dict "Site" .Page.Site) -}}
+<ul class="list-group">
+  {{- range $index, $commitHash := .Release.Data.git.commits -}}
+  <!-- -->
+  {{- with (index $gitInfo.commits $commitHash) -}}
+  <li class="list-group-item">{{ $page.RenderString .message }}</li>
+  {{- end -}}
+  <!-- -->
+  {{- end -}}
+</ul>

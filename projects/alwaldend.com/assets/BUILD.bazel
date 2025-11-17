@@ -2,9 +2,11 @@ load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix
 
 pkg_filegroup(
     name = "assets",
-    srcs = [":assets_files"],
+    srcs = [
+        ":assets_files",
+    ],
     prefix = "assets",
-    visibility = ["//:__subpackages__"],
+    visibility = ["//projects/alwaldend.com:__pkg__"],
 )
 
 pkg_files(

@@ -1,4 +1,4 @@
-load("//tools/git:al_git_repo.bzl", "al_git_repo")
+load("//tools/git/main/bzl:al_git_repo.bzl", "al_git_repo")
 
 def _impl(ctx):
     root_module_direct_deps = []

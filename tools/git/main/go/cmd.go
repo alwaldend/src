@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"time"
 
 	"github.com/spf13/cobra"
-	"google.golang.org/protobuf/encoding/protojson"
 )
 
 func Execute(
@@ -16,7 +16,7 @@ func Execute(
 	stdin io.Reader,
 	stdout, stderr io.Writer,
 ) error {
-	root, err := newRootCommand(args, stdin, stdout, stderr)
+	root, err := newRootCommand(ctx, args, stdin, stdout, stderr)
 	if err != nil {
 		return fmt.Errorf("could not create commands: %w", err)
 	}
@@ -28,21 +28,22 @@ func Execute(
 }
 
 func newRootCommand(
+	ctx context.Context,
 	args []string,
 	stdin io.Reader,
 	stdout, stderr io.Writer,
 ) (*cobra.Command, error) {
 	cmd := &cobra.Command{
-		Use:           "release",
-		Short:         "Release tool",
-		Long:          "Release tool",
+		Use:           "git",
+		Short:         "Git tool",
+		Long:          "Git tool",
 		SilenceErrors: true,
 	}
 	cmd.SetOut(stdout)
 	cmd.SetErr(stderr)
 	cmd.SetIn(stdin)
 	cmd.SetArgs(args)
-	cmdGen, err := newGenCommand()
+	cmdGen, err := newGitInfoCmd(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -50,27 +51,29 @@ func newRootCommand(
 	return cmd, nil
 }
 
-func newGenCommand() (*cobra.Command, error) {
-	generator := NewGenerator()
+func newGitInfoCmd(ctx context.Context) (*cobra.Command, error) {
+	gitInfo := NewGitInfo()
 	var output string
-	var items []string
-	var manifests []string
 	var gitRoot string
-	marshalOptions := &protojson.MarshalOptions{}
+	var timeout int
 	cmd := &cobra.Command{
-		Use:   "generate",
-		Short: "Generate",
-		Long:  "Merge several manifests into one",
+		Use:   "git_info",
+		Short: "Generate GitInfo file",
+		Long:  "Generate GitInfo",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return generator.Generate(items, manifests, output, gitRoot, marshalOptions)
+			curCtx := ctx
+			if timeout != 0 {
+				var cancel context.CancelFunc
+				curCtx, cancel = context.WithTimeout(ctx, time.Duration(timeout)*time.Second)
+				defer cancel()
+			}
+			return gitInfo.Generate(curCtx, gitRoot, output)
 		},
 	}
 	flags := cmd.PersistentFlags()
-	flags.StringArrayVar(&items, "item", nil, "Path to a file with ReleaseItem json")
-	flags.StringArrayVar(&manifests, "manifest", nil, "Path to a file with Release json")
 	flags.StringVar(&output, "output", "", "Output path")
 	flags.StringVar(&gitRoot, "git_root", "", "Directory with .git")
-	flags.StringVar(&marshalOptions.Indent, "indent", "    ", "Json indent")
-	cmd.MarkFlagsOneRequired("output")
+	flags.IntVar(&timeout, "timeout", 0, "Timeout in seconds (default: not timeout)")
+	cmd.MarkFlagsOneRequired("output", "git_root")
 	return cmd, nil
 }

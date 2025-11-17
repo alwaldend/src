@@ -23,8 +23,15 @@ message Project {
   string subdir = 1;
 }
 
+message Git {
+  string revision = 1;
+  repeated string tags = 2;
+  repeated string commits = 3;
+}
+
 message Release {
   repeated ReleaseItem items = 1;
   string name = 2;
   Project project = 3;
+  Git git = 4;
 }

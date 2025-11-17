@@ -1,0 +1,8 @@
+{{ $content := partial "alwaldend/release_changelog_content" . }}
+<!-- -->
+{{- $title := "Changelog" -}}
+<!-- -->
+{{- $ctx := dict "Page" .Page "title" $title "show" true "content" $content
+"id" "changelog" -}}
+<!-- -->
+{{- partial "alwaldend/release_section" $ctx -}}

@@ -1,32 +1,12 @@
-{{ $show := compare.Conditional .standalone "show" "" }}
+{{ $content := partial "alwaldend/release_items_table" . }}
 <!-- -->
-<div class="accordion mt-3" id="release_files_{{ .Page.LinkTitle }}_accordion">
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="release_files_{{ .Page.LinkTitle }}">
-      <button
-        class="accordion-button"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#release_files_{{ .Page.LinkTitle }}_collapse"
-        aria-expanded="true"
-        aria-controls="release_files_{{ .Page.LinkTitle }}_collapse"
-      >
-        {{ $count := len (.Release.Data.items | default slice) }}
-        <!-- -->
-        Artifacts
-        <span class="badge rounded-pill bg-secondary ms-1">
-          {{ math.Add 1 $count }}
-        </span>
-      </button>
-    </h2>
-    <div
-      id="release_files_{{ .Page.LinkTitle }}_collapse"
-      class="accordion-collapse collapse {{ $show }}"
-      aria-labelledby="release_files_{{ .Page.LinkTitle }}"
-    >
-      <div class="accordion-body">
-        {{ partial "alwaldend/release_items_table" . }}
-      </div>
-    </div>
-  </div>
-</div>
+{{- $count := math.Add 1 (len (.Release.Data.items | default slice)) -}}
+<!-- -->
+{{- $badge := (partial "alwaldend/badge" (dict "value" $count)) -}}
+<!-- -->
+{{- $title := printf "Artifacts %s" $badge -}}
+<!-- -->
+{{- $ctx := dict "Page" .Page "title" $title "show" .standalone "content"
+$content "id" "artifacts" -}}
+<!-- -->
+{{- partial "alwaldend/release_section" $ctx -}}

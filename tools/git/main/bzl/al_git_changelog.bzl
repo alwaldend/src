@@ -1,6 +1,6 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
-load("//tools/git:al_git_run_binary.bzl", "al_git_run_binary")
+load("//tools/git/main/bzl:al_git_run_binary.bzl", "al_git_run_binary")
 load("//tools/template_files:al_template_files.bzl", "al_template_files")
 
 _GIT_LOG_FORMAT = """
@@ -70,7 +70,7 @@ def al_git_changelog(name, visibility, git_binary = "@git//:git", subpackages = 
     )
     al_git_run_binary(
         name = "{}.changelog_data".format(name),
-        srcs = ["//tools/git:git_log_config"],
+        srcs = ["//tools/git/main/bzl:git_log_config"],
         git = git_binary,
         outs = [
             "{}.changelog_data.yaml".format(name),

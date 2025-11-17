@@ -1,6 +1,13 @@
-load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-load("//tools/git:al_git_resolved_toolchain.bzl", "al_git_resolved_toolchain")
+load("//tools/git/main/bzl:al_git_info_file.bzl", "al_git_info_file")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools:__pkg__"],
+    deps = ["//tools/git/main/bzl:docs"],
+)
 
 alias(
     name = "git",
@@ -8,52 +15,7 @@ alias(
     visibility = ["//:__subpackages__"],
 )
 
-al_bzl_library_map(
-    name = "libs",
-    libs = {
-        "al_git_repo": [],
-        "al_git_extension": [":al_git_repo"],
-        "al_git_binary": [
-            "@bazel_skylib//lib:shell",
-        ],
-        "al_git_run_binary": [],
-        "al_git_toolchain": [],
-        "al_git_resolved_toolchain": [
-            "//tools/resolved_toolchain:al_resolved_toolchain",
-        ],
-        "al_git_changelog": [
-            "//tools/template_files:al_template_files",
-            ":al_git_run_binary",
-            "@rules_pkg//pkg:bzl_srcs",
-            "@bazel_skylib//rules:write_file",
-            "@bazel_skylib//lib:paths",
-        ],
-    },
+al_git_info_file(
+    name = "git_info",
     visibility = ["//:__subpackages__"],
-)
-
-filegroup(
-    name = "git_log_config",
-    srcs = ["git_log_config.yaml"],
-    visibility = ["//:__subpackages__"],
-)
-
-toolchain_type(
-    name = "toolchain_type",
-    visibility = [
-        "//:__subpackages__",
-        "@com_alwaldend_src_tools_git//:__pkg__",
-    ],
-)
-
-al_git_resolved_toolchain(
-    name = "toolchain_resolved",
-)
-
-al_docs_files(
-    name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
-    visibility = ["//tools:__pkg__"],
-    deps = [":libs.stardoc"],
 )

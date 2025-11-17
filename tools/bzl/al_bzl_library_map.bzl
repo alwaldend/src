@@ -3,7 +3,12 @@ load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("@stardoc//stardoc:stardoc.bzl", "stardoc")
 
-def al_bzl_library_map(name, visibility, libs = {}, deps = [], **kwargs):
+def al_bzl_library_map(
+        name,
+        visibility,
+        libs = {},
+        deps = [],
+        **kwargs):
     """
     Create bzl_library targets from a map
 
@@ -11,6 +16,7 @@ def al_bzl_library_map(name, visibility, libs = {}, deps = [], **kwargs):
         name (str): combined bzl_library target name
         libs (dict[str, list[str]]): bzl_library names
         deps (list[str]): other al_bzl_library_map targets
+        prefix: prefix for the filegroup
         visibiliy: visibiliy
         **kwargs: bzl_library kwargs
     """

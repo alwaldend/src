@@ -2,7 +2,7 @@ load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
 al_docs_files(
-    name = "docs",
+    name = "content",
     srcs = glob(["*.md"]),
     root_prefix = "content",
     visibility = ["//projects/alwaldend.com:__pkg__"],

@@ -1,0 +1,27 @@
+{{ $show := compare.Conditional .show "show" "" -}}
+<!-- -->
+{{- $id := printf "release_section_%s_%s" .Page.LinkTitle .id -}}
+<!-- -->
+<div class="accordion mt-3" id="{{ $id }}_accordion">
+  <div class="accordion-item">
+    <h3 class="accordion-header" id="{{ $id }}">
+      <button
+        class="accordion-button"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#{{ $id }}_collapse"
+        aria-expanded="true"
+        aria-controls="{{ $id }}_collapse"
+      >
+        {{ .title | safe.HTML }}
+      </button>
+    </h3>
+    <div
+      id="{{ $id }}_collapse"
+      class="accordion-collapse collapse {{ $show }}"
+      aria-labelledby="{{ $id }}"
+    >
+      <div class="accordion-body">{{ .content | safe.HTML }}</div>
+    </div>
+  </div>
+</div>
