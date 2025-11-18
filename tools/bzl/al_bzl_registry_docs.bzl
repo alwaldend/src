@@ -82,7 +82,7 @@ def al_bzl_registry_docs(name, srcs, visibility = None):
             name = cur_name,
             srcs = ["{}.gen_md".format(cur_name)],
             renames = {
-                ":{}.gen_md".format(cur_name): "{}/{}/_index.md".format(
+                ":{}.gen_md".format(cur_name): "content/docs/{}/{}/_index.md".format(
                     native.package_name(),
                     paths.dirname(src),
                 ),

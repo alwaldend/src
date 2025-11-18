@@ -6,7 +6,7 @@ _DIAGRAMS = [diagram.replace(".drawio", "") for diagram in glob(["*.drawio"])]
 al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]) + ["{}.svg".format(diagram) for diagram in _DIAGRAMS],
-    prefix = "docs/misc/old_diagrams",
+    prefix = "misc/old_diagrams",
     visibility = ["//projects/alwaldend.com/content/docs/misc:__pkg__"],
 )
 

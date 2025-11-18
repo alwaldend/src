@@ -4,7 +4,7 @@ load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]),
-    prefix = "docs/misc/books",
+    prefix = "misc/books",
     visibility = ["//projects/alwaldend.com/content/docs/misc:__pkg__"],
     deps = [":data"],
 )
@@ -12,5 +12,5 @@ al_docs_files(
 pkg_filegroup(
     name = "data",
     srcs = ["//data/books:data"],
-    prefix = "docs/misc/books",
+    prefix = "content/docs/misc/books",
 )

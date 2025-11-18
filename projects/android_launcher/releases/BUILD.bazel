@@ -14,7 +14,7 @@ al_docs_files(
 al_release_files(
     name = "files",
     srcs = [
-        "//projects/android_launcher/main:launcher_binary",
+        "//projects/android_launcher/main/java:launcher_binary",
     ],
     ignore_suffixes = [".jar"],
 )

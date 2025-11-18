@@ -7,7 +7,12 @@ import (
 	"strings"
 
 	"git.alwaldend.com/src/tools/git/main/proto/contracts"
+
 	"github.com/go-git/go-git/v5"
+
+	"github.com/go-git/go-git/v5/storage/memory"
+
+	"github.com/go-git/go-billy/v5/memfs"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -19,11 +24,17 @@ func NewGitInfo() *GitInfo {
 	return &GitInfo{}
 }
 
-func (self *GitInfo) Generate(ctx context.Context, gitRoot string, output string) error {
+type GitInfoGenerateOptions struct {
+	Output   string
+	GitRoot  string
+	InMemory bool
+}
+
+func (self *GitInfo) Generate(ctx context.Context, opts *GitInfoGenerateOptions) error {
 	res := &contracts.GitInfo{}
-	repo, err := git.PlainOpenWithOptions(gitRoot, &git.PlainOpenOptions{})
+	repo, err := self.openRepo(opts.GitRoot, opts.InMemory)
 	if err != nil {
-		return fmt.Errorf("could not open repo %s: %w", gitRoot, err)
+		return fmt.Errorf("could not open repo '%s': %w", opts.GitRoot, err)
 	}
 	remotes, err := repo.Remotes()
 	if err != nil {
@@ -61,7 +72,7 @@ func (self *GitInfo) Generate(ctx context.Context, gitRoot string, output string
 	if err != nil {
 		return fmt.Errorf("could not parse tags: %w", err)
 	}
-	commitIter, err := repo.Log(&git.LogOptions{})
+	commitIter, err := repo.CommitObjects()
 	if err != nil {
 		return fmt.Errorf("could not create commit iterator: %w", err)
 	}
@@ -89,8 +100,8 @@ func (self *GitInfo) Generate(ctx context.Context, gitRoot string, output string
 	if err != nil {
 		return fmt.Errorf("could not marshal git info %v: %w", res, err)
 	}
-	if err := os.WriteFile(output, data, 0o444); err != nil {
-		return fmt.Errorf("could not write data to file %s: %w", output, err)
+	if err := os.WriteFile(opts.Output, data, 0o444); err != nil {
+		return fmt.Errorf("could not write data to file %s: %w", opts.Output, err)
 	}
 	return nil
 }
@@ -119,6 +130,27 @@ func (self *GitInfo) parseTag(repo *git.Repository, tagRef *plumbing.Reference) 
 	return tag, nil
 }
 
+func (self *GitInfo) openRepo(gitRoot string, inMemory bool) (*git.Repository, error) {
+	var repo *git.Repository
+	var err error
+	if inMemory {
+		repo, err = git.Clone(
+			memory.NewStorage(),
+			memfs.New(),
+			&git.CloneOptions{URL: gitRoot},
+		)
+		if err != nil {
+			return nil, fmt.Errorf("could not create in-memory repo clone: %w", err)
+		}
+	} else {
+		repo, err = git.PlainOpen(gitRoot)
+		if err != nil {
+			return nil, fmt.Errorf("could not plain open: %w", err)
+		}
+	}
+	return repo, nil
+}
+
 func (self *GitInfo) parseCommit(ctx context.Context, commitRef *object.Commit, tags []string) (*contracts.GitCommit, error) {
 	commitHash := commitRef.Hash.String()
 	commit := &contracts.GitCommit{
@@ -138,43 +170,5 @@ func (self *GitInfo) parseCommit(ctx context.Context, commitRef *object.Commit, 
 		Message:      commitRef.Message,
 	}
 	commit.Tags = tags
-
-	// Too slow
-	// TODO: either remove it or fix it
-	// fromTree, err := commitRef.Tree()
-	// if err != nil {
-	// 	return nil, fmt.Errorf("could not get commit tree: %w", err)
-	// }
-	// toTree := &object.Tree{}
-	// if commitRef.NumParents() != 0 {
-	// 	firstParent, err := commitRef.Parents().Next()
-	// 	if err != nil {
-	// 		return nil, fmt.Errorf("could not get first parent: %w", err)
-	// 	}
-	// 	toTree, err = firstParent.Tree()
-	// 	if err != nil {
-	// 		return nil, fmt.Errorf("could not get first parent tree: %w", err)
-	// 	}
-	// }
-	// diffs, err := toTree.DiffContext(ctx, fromTree)
-	// if err != nil {
-	// 	return nil, fmt.Errorf("could not create diff: %w", err)
-	// }
-	// for _, diff := range diffs {
-	// 	diffPatch, err := diff.PatchContext(ctx)
-	// 	if err != nil {
-	// 		return nil, fmt.Errorf("could not create patch for diff %s: %w", diff, err)
-	// 	}
-	// 	for _, patch := range diffPatch.FilePatches() {
-	// 		from, to := patch.Files()
-	// 		if from != nil {
-	// 			commit.ChangedFiles = append(commit.ChangedFiles, from.Path())
-	// 		}
-	// 		if to != nil {
-	// 			commit.ChangedFiles = append(commit.ChangedFiles, to.Path())
-	// 		}
-	// 	}
-	// }
-
 	return commit, nil
 }

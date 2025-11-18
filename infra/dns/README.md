@@ -1,10 +1,27 @@
 ---
 title: Dns
-description: Dns
+description: Dns config
 tags:
   - dns
   - dnscontrol
 ---
+
+## Deployment
+
+- Setup environment variables from [creds.json.tpl](./creds.json.tpl)
+- Modify [dnsconfig.js](./dnsconfig.js)
+- Preview changes:
+  ```sh
+  bazel run //infra/dns:preview
+  ```
+- Push changes:
+  ```sh
+  bazel run //infra/dns:push
+  ```
+
+{{% alwaldend/alert %}}
+If BIND files differ after push, test `//infra/dns:preview_test` will fail
+{{% /alwaldend/alert %}}
 
 ## Links
 

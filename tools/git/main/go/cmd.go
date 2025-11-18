@@ -53,9 +53,8 @@ func newRootCommand(
 
 func newGitInfoCmd(ctx context.Context) (*cobra.Command, error) {
 	gitInfo := NewGitInfo()
-	var output string
-	var gitRoot string
 	var timeout int
+	opts := &GitInfoGenerateOptions{}
 	cmd := &cobra.Command{
 		Use:   "git_info",
 		Short: "Generate GitInfo file",
@@ -67,12 +66,12 @@ func newGitInfoCmd(ctx context.Context) (*cobra.Command, error) {
 				curCtx, cancel = context.WithTimeout(ctx, time.Duration(timeout)*time.Second)
 				defer cancel()
 			}
-			return gitInfo.Generate(curCtx, gitRoot, output)
+			return gitInfo.Generate(curCtx, opts)
 		},
 	}
 	flags := cmd.PersistentFlags()
-	flags.StringVar(&output, "output", "", "Output path")
-	flags.StringVar(&gitRoot, "git_root", "", "Directory with .git")
+	flags.StringVar(&opts.Output, "output", "", "Output path")
+	flags.StringVar(&opts.GitRoot, "git_root", "", "Directory with .git")
 	flags.IntVar(&timeout, "timeout", 0, "Timeout in seconds (default: not timeout)")
 	cmd.MarkFlagsOneRequired("output", "git_root")
 	return cmd, nil

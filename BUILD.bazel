@@ -23,7 +23,6 @@ al_docs_files(
     renames = {},
     visibility = ["//projects/alwaldend.com:__pkg__"],
     deps = [
-        "//contracts:docs",
         "//infra:docs",
         "//projects:docs",
         "//third_party:docs",

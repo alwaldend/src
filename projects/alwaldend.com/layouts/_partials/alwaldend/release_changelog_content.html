@@ -4,7 +4,15 @@
 <ul class="list-group">
   {{- range $index, $commitHash := .Release.Data.git.commits -}}
   <!-- -->
-  {{- with (index $gitInfo.commits $commitHash) -}}
+  {{- $commit := index $gitInfo.commits $commitHash -}}
+  <!-- -->
+  {{- if not $commit -}}
+  <!-- -->
+  {{- fmt.Errorf "missing commit '%s' in %v" $commitHash $gitInfo -}}
+  <!-- -->
+  {{- end -}}
+  <!-- -->
+  {{- with $commit -}}
   <li class="list-group-item">{{ $page.RenderString .message }}</li>
   {{- end -}}
   <!-- -->

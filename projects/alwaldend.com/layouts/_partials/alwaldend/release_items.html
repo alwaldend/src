@@ -2,11 +2,7 @@
 <!-- -->
 {{- $count := math.Add 1 (len (.Release.Data.items | default slice)) -}}
 <!-- -->
-{{- $badge := (partial "alwaldend/badge" (dict "value" $count)) -}}
-<!-- -->
-{{- $title := printf "Artifacts %s" $badge -}}
-<!-- -->
-{{- $ctx := dict "Page" .Page "title" $title "show" .standalone "content"
-$content "id" "artifacts" -}}
+{{- $ctx := dict "Page" .Page "title" "Artifacts" "badge" $count "show"
+.standalone "content" $content "id" "artifacts" -}}
 <!-- -->
 {{- partial "alwaldend/release_section" $ctx -}}

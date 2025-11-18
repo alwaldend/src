@@ -2,14 +2,13 @@ load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("//tools/template_files:al_template_files.bzl", "al_template_files")
 
-def al_leetcode_submissions(name, srcs, package_dir, visibility = None, **kwargs):
+def al_leetcode_submissions(name, srcs, visibility = None, **kwargs):
     """
     Generate leetcode submission targets
 
     Args:
         name (str): generated md archive name
         srcs (list[str]): leetcode submission configs
-        package_dir (str): package_dir to use
         visibility: visibility
         **kwargs: kwargs for al_template_files
     """
@@ -54,7 +53,6 @@ def al_leetcode_submissions(name, srcs, package_dir, visibility = None, **kwargs
         )
     pkg_files(
         name = name,
-        prefix = package_dir,
         srcs = src_names,
         visibility = visibility,
     )

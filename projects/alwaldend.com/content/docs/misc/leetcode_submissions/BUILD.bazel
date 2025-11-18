@@ -4,7 +4,7 @@ load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]),
-    prefix = "docs/misc/leetcode_submissions",
+    prefix = "misc/leetcode_submissions",
     visibility = ["//projects/alwaldend.com/content/docs/misc:__pkg__"],
     deps = [":submissions"],
 )
@@ -14,5 +14,5 @@ pkg_filegroup(
     srcs = [
         "//data/leetcode_submissions",
     ],
-    prefix = "docs/misc/leetcode_submissions",
+    prefix = "content/docs/misc/leetcode_submissions",
 )

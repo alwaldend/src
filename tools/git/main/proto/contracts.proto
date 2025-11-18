@@ -16,7 +16,7 @@ message GitCommit {
   string pgp_signature = 5;
   string message = 6;
   repeated string tags = 7;
-  // repeated string changed_files = 8;
+  repeated string changed_files = 8;
 }
 
 message GitTagAnnotated {

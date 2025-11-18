@@ -14,63 +14,63 @@ al_docs_files(
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//contracts:__pkg__"],
-    deps = [":model_docs"],
+    deps = [":contracts_docs"],
 )
 
 al_proto_docs(
-    name = "model_docs",
-    src = "model.proto",
+    name = "contracts_docs",
+    src = "contracts.proto",
 )
 
 proto_library(
-    name = "model_proto",
-    srcs = ["model.proto"],
+    name = "contracts_proto",
+    srcs = ["contracts.proto"],
     visibility = ["//:__subpackages__"],
 )
 
 go_proto_library(
-    name = "model_go_proto",
-    importpath = "git.alwaldend.com/src/contracts/android_launcher",
-    proto = ":model_proto",
+    name = "contracts_go_proto",
+    importpath = "git.alwaldend.com/src/projects/android_launcher/main/proto/contracts",
+    proto = ":contracts_proto",
     visibility = ["//:__subpackages__"],
 )
 
 go_library(
     name = "android_launcher",
-    embed = [":model_go_proto"],
-    importpath = "git.alwaldend.com/src/contracts/android_launcher",
+    embed = [":contracts_go_proto"],
+    importpath = "git.alwaldend.com/src/projects/android_launcher/main/proto/contracts",
     visibility = ["//:__subpackages__"],
 )
 
 java_proto_library(
-    name = "model_java_proto",
-    deps = [":model_proto"],
+    name = "contracts_java_proto",
+    deps = [":contracts_proto"],
 )
 
 java_library(
-    name = "model_java_library",
+    name = "contracts_java_library",
     visibility = ["//:__subpackages__"],
-    exports = [":model_java_proto"],
+    exports = [":contracts_java_proto"],
 )
 
 java_single_jar(
-    name = "model_single_jar",
+    name = "contracts_single_jar",
     visibility = ["//:__subpackages__"],
     deps = [
-        ":model_java_library",
+        ":contracts_java_library",
     ],
 )
 
 java_import(
-    name = "model_java_import",
+    name = "contracts_java_import",
     jars = [
-        ":model_single_jar",
+        ":contracts_single_jar",
     ],
     visibility = ["//:__subpackages__"],
 )
 
 py_proto_library(
-    name = "model_py_pb2",
+    name = "contracts_py_pb2",
     visibility = ["//:__subpackages__"],
-    deps = [":model_proto"],
+    deps = [":contracts_proto"],
 )

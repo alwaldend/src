@@ -1,49 +1,7 @@
-load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//projects/leetcode_downloader/main/bzl:al_leetcode_submissions.bzl", "al_leetcode_submissions")
 
-_LANGS = [
-    "cpp",
-    "go",
-    "java",
-    "py",
-    "sh",
-    "sql",
-]
-
-[
-    [
-        al_leetcode_submissions(
-            name = "leetcode_submissions.{}".format(lang),
-            srcs = glob(["languages/{}/questions/*/submissions/*/submission.toml".format(lang)]),
-            package_dir = "leetcode_submissions/{}".format(lang),
-        ),
-        write_file(
-            name = "leetcode_submissions.{}_index".format(lang),
-            out = "leetcode_submissions.{}_index.md".format(lang),
-            content = [
-                "---",
-                "title: {}".format(lang),
-                "description: Leetcode submissions ({})".format(lang),
-                "tags: [generated]",
-                "---",
-            ],
-        ),
-    ]
-    for lang in _LANGS
-]
-
-pkg_files(
-    name = "leetcode_submissions_docs",
-    srcs = ["leetcode_submissions.{}_index".format(lang) for lang in _LANGS],
-    renames = {
-        "leetcode_submissions.{}_index.md".format(lang): "leetcode_submissions/{}/_index.md".format(lang)
-        for lang in _LANGS
-    },
-)
-
-pkg_filegroup(
+al_leetcode_submissions(
     name = "leetcode_submissions",
-    srcs = [":leetcode_submissions_docs"] + ["leetcode_submissions.{}".format(lang) for lang in _LANGS],
+    srcs = glob(["languages/*/questions/*/submissions/*/submission.toml"]),
     visibility = ["//projects/alwaldend.com/content/docs/misc/leetcode_submissions:__pkg__"],
 )

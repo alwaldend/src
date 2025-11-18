@@ -6,8 +6,8 @@ statuses:
 languages:
   - kt
 tags:
- - android
- - proto
+  - android
+  - proto
 ---
 
 ## Features

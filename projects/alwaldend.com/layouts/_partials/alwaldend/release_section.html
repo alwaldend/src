@@ -2,6 +2,8 @@
 <!-- -->
 {{- $id := printf "release_section_%s_%s" .Page.LinkTitle .id -}}
 <!-- -->
+{{- $page := .Page -}}
+<!-- -->
 <div class="accordion mt-3" id="{{ $id }}_accordion">
   <div class="accordion-item">
     <h3 class="accordion-header" id="{{ $id }}">
@@ -13,7 +15,13 @@
         aria-expanded="true"
         aria-controls="{{ $id }}_collapse"
       >
-        {{ .title | safe.HTML }}
+        {{- .title -}}
+        <!-- -->
+        {{ if .badge }}
+        <!-- -->
+        {{- partial "alwaldend/badge" (dict "value" .badge) -}}
+        <!-- -->
+        {{- end -}}
       </button>
     </h3>
     <div
@@ -21,7 +29,13 @@
       class="accordion-collapse collapse {{ $show }}"
       aria-labelledby="{{ $id }}"
     >
-      <div class="accordion-body">{{ .content | safe.HTML }}</div>
+      <div class="accordion-body">
+        <ul class="list-group">
+          {{- range .listGroup -}}
+          <li class="list-group-item">{{- . | safe.HTML -}}</li>
+          {{- end -}}
+        </ul>
+      </div>
     </div>
   </div>
 </div>

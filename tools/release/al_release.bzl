@@ -30,7 +30,7 @@ def _impl(ctx):
     elif ctx.attr.srcs:
         manifest = ctx.actions.declare_file("{}.release.json".format(ctx.label.name))
         extra_manifest = ctx.actions.declare_file("{}.release_extra.json".format(ctx.label.name))
-        inputs = [extra_manifest]
+        inputs = ctx.files.git_state + [extra_manifest]
         transitive = [dep[DefaultInfo].files for dep in ctx.attr.srcs]
         for src in ctx.files.srcs:
             dest_src_map[src.basename] = src
@@ -122,6 +122,10 @@ al_release = rule(
             cfg = "exec",
             default = "//tools/release",
             doc = "Release tool",
+        ),
+        "git_state": attr.label(
+            default = "@com_alwaldend_src_tools_git//:git_state",
+            doc = "Files that should invalidate the cache on new commit",
         ),
     },
 )
