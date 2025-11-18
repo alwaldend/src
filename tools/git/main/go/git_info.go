@@ -2,9 +2,11 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"strings"
+	"sync"
 
 	"git.alwaldend.com/src/tools/git/main/proto/contracts"
 
@@ -16,6 +18,7 @@ import (
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
 	"google.golang.org/protobuf/encoding/protojson"
+	"google.golang.org/protobuf/proto"
 )
 
 type GitInfo struct{}
@@ -45,57 +48,16 @@ func (self *GitInfo) Generate(ctx context.Context, opts *GitInfoGenerateOptions)
 		remote := &contracts.GitRemote{Name: config.Name, Urls: config.URLs}
 		res.Remotes = append(res.Remotes, remote)
 	}
-	tagIter, err := repo.Tags()
-	if err != nil {
-		return fmt.Errorf("could not create tag iterator ref: %w", err)
-	}
-	res.Commits = make(map[string]*contracts.GitCommit)
-	res.Tags = make(map[string]*contracts.GitTag)
-	commitTags := make(map[string][]string)
-
-	err = tagIter.ForEach(func(tagRef *plumbing.Reference) error {
-		var err error
-		var tag *contracts.GitTag
-		select {
-		case <-ctx.Done():
-			err = ctx.Err()
-		default:
-			tag, err = self.parseTag(repo, tagRef)
-		}
-		if err != nil {
-			return fmt.Errorf("could not parse tag %s: %w", tagRef.Name(), err)
-		}
-		res.Tags[tag.Name] = tag
-		commitTags[tag.Target] = append(commitTags[tag.Target], tag.Name)
-		return nil
-	})
+	tagInfo, commitTags, err := self.parseTags(ctx, repo)
 	if err != nil {
 		return fmt.Errorf("could not parse tags: %w", err)
 	}
-	commitIter, err := repo.CommitObjects()
-	if err != nil {
-		return fmt.Errorf("could not create commit iterator: %w", err)
-	}
-	err = commitIter.ForEach(func(commitRef *object.Commit) error {
-		tags, _ := commitTags[commitRef.Hash.String()]
-		var err error
-		var commit *contracts.GitCommit
-		select {
-		case <-ctx.Done():
-			err = ctx.Err()
-		default:
-			commit, err = self.parseCommit(ctx, commitRef, tags)
-		}
-		if err != nil {
-			return fmt.Errorf("could not parse commit %s: %w", commitRef.Hash.String(), err)
-		}
-		res.CommitsOrder = append(res.CommitsOrder, commit.Hash)
-		res.Commits[commit.Hash] = commit
-		return nil
-	})
+	proto.Merge(res, tagInfo)
+	commitInfo, err := self.parseCommits(ctx, repo, commitTags)
 	if err != nil {
 		return fmt.Errorf("could not parse commits: %w", err)
 	}
+	proto.Merge(res, commitInfo)
 	data, err := protojson.MarshalOptions{}.Marshal(res)
 	if err != nil {
 		return fmt.Errorf("could not marshal git info %v: %w", res, err)
@@ -104,6 +66,56 @@ func (self *GitInfo) Generate(ctx context.Context, opts *GitInfoGenerateOptions)
 		return fmt.Errorf("could not write data to file %s: %w", opts.Output, err)
 	}
 	return nil
+}
+
+func (self *GitInfo) parseTags(
+	ctx context.Context,
+	repo *git.Repository,
+) (*contracts.GitInfo, map[string][]string, error) {
+	tagIter, err := repo.Tags()
+	if err != nil {
+		return nil, nil, fmt.Errorf("could not create tag iterator ref: %w", err)
+	}
+	res := &contracts.GitInfo{
+		Tags: make(map[string]*contracts.GitTag),
+	}
+	commitTags := make(map[string][]string)
+	tagsChannel := make(chan *contracts.GitTag)
+	tagsErrorChannel := make(chan error)
+	tagsCount := 0
+	err = tagIter.ForEach(func(tagRef *plumbing.Reference) error {
+		select {
+		case <-ctx.Done():
+			err = fmt.Errorf("could not parse tag %s: %w", tagRef.Name(), ctx.Err())
+		default:
+			tagsCount += 1
+			go func() {
+				tag, err := self.parseTag(repo, tagRef)
+				if err == nil {
+					tagsChannel <- tag
+				} else {
+					tagsErrorChannel <- err
+				}
+			}()
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, nil, fmt.Errorf("could not iterate over tags: %w", err)
+	}
+	for range tagsCount {
+		select {
+		case tag := <-tagsChannel:
+			res.Tags[tag.Name] = tag
+			commitTags[tag.Target] = append(commitTags[tag.Target], tag.Name)
+		case curErr := <-tagsErrorChannel:
+			err = errors.Join(err, curErr)
+		}
+	}
+	if err != nil {
+		return nil, nil, fmt.Errorf("could not parse tags: %w", err)
+	}
+	return res, commitTags, nil
 }
 
 func (self *GitInfo) parseTag(repo *git.Repository, tagRef *plumbing.Reference) (*contracts.GitTag, error) {
@@ -151,10 +163,64 @@ func (self *GitInfo) openRepo(gitRoot string, inMemory bool) (*git.Repository, e
 	return repo, nil
 }
 
-func (self *GitInfo) parseCommit(ctx context.Context, commitRef *object.Commit, tags []string) (*contracts.GitCommit, error) {
+func (self *GitInfo) parseCommits(ctx context.Context, repo *git.Repository, commitTags map[string][]string) (*contracts.GitInfo, error) {
+	res := &contracts.GitInfo{
+		Commits: make(map[string]*contracts.GitCommit),
+	}
+	commitIter, err := repo.CommitObjects()
+	if err != nil {
+		return nil, fmt.Errorf("could not create commit iterator: %w", err)
+	}
+	mutex := &sync.Mutex{}
+	commitsChannel := make(chan *contracts.GitCommit)
+	commitsErrorChannel := make(chan error)
+	commitCount := 0
+	err = commitIter.ForEach(func(commitRef *object.Commit) error {
+		select {
+		case <-ctx.Done():
+			return fmt.Errorf("could not parse commit %s: %w", commitRef.Hash.String(), ctx.Err())
+		default:
+			commitCount += 1
+			tags, _ := commitTags[commitRef.Hash.String()]
+			go func() {
+				commit, err := self.parseCommit(ctx, mutex, commitRef, tags)
+				if err == nil {
+					commitsChannel <- commit
+				} else {
+					commitsErrorChannel <- err
+				}
+			}()
+		}
+		return nil
+	})
+	if err != nil {
+		return nil, fmt.Errorf("could not iterate over commits: %w", err)
+	}
+	for range commitCount {
+		select {
+		case commit := <-commitsChannel:
+			res.CommitsOrder = append(res.CommitsOrder, commit.Hash)
+			res.Commits[commit.Hash] = commit
+		case curErr := <-commitsErrorChannel:
+			err = errors.Join(err, curErr)
+		}
+	}
+	if err != nil {
+		return nil, fmt.Errorf("could not parse commits: %w", err)
+	}
+	return res, nil
+}
+
+func (self *GitInfo) parseCommit(
+	ctx context.Context,
+	mutex *sync.Mutex,
+	commitRef *object.Commit,
+	tags []string,
+) (*contracts.GitCommit, error) {
 	commitHash := commitRef.Hash.String()
 	commit := &contracts.GitCommit{
-		Hash: commitHash,
+		Hash:         commitHash,
+		ChangedFiles: make(map[string]bool),
 		Author: &contracts.GitSignature{
 			Name:  commitRef.Author.Name,
 			Email: commitRef.Author.Email,
@@ -170,5 +236,38 @@ func (self *GitInfo) parseCommit(ctx context.Context, commitRef *object.Commit, 
 		Message:      commitRef.Message,
 	}
 	commit.Tags = tags
+	changes, err := self.commitChanges(ctx, mutex, commitRef)
+	if err != nil {
+		return nil, fmt.Errorf("could not get commit changes: %w", err)
+	}
+	for _, change := range changes {
+		commit.ChangedFiles[change.From.Name] = false
+		commit.ChangedFiles[change.To.Name] = false
+	}
 	return commit, nil
+}
+
+func (self *GitInfo) commitChanges(ctx context.Context, mutex *sync.Mutex, commitRef *object.Commit) (object.Changes, error) {
+	mutex.Lock()
+	defer mutex.Unlock()
+	fromTree, err := commitRef.Tree()
+	if err != nil {
+		return nil, fmt.Errorf("could not get commit tree: %w", err)
+	}
+	toTree := &object.Tree{}
+	if commitRef.NumParents() != 0 {
+		firstParent, err := commitRef.Parents().Next()
+		if err != nil {
+			return nil, fmt.Errorf("could not get first parent: %w", err)
+		}
+		toTree, err = firstParent.Tree()
+		if err != nil {
+			return nil, fmt.Errorf("could not get first parent tree: %w", err)
+		}
+	}
+	changes, err := object.DiffTreeWithOptions(ctx, toTree, fromTree, &object.DiffTreeOptions{})
+	if err != nil {
+		return nil, fmt.Errorf("could not get changes: %w", err)
+	}
+	return changes, nil
 }

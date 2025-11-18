@@ -29,13 +29,7 @@
       class="accordion-collapse collapse {{ $show }}"
       aria-labelledby="{{ $id }}"
     >
-      <div class="accordion-body">
-        <ul class="list-group">
-          {{- range .listGroup -}}
-          <li class="list-group-item">{{- . | safe.HTML -}}</li>
-          {{- end -}}
-        </ul>
-      </div>
+      <div class="accordion-body">{{- safe.HTML .content -}}</div>
     </div>
   </div>
 </div>
