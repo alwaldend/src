@@ -25,6 +25,14 @@ github_branch = "master"
 version_menu = "Versions"
 version_menu_pagelinks = true
 
+[[params.alwaldend.links]]
+name = "Docs"
+url = "https://alwaldend.github.io/src/docs/"
+
+[[params.alwaldend.links]]
+name = "GitHub"
+url = "https://github.com/alwaldend/"
+
 # [params.copyright]
 # authors = ""
 

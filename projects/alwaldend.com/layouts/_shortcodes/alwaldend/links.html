@@ -1,23 +1,19 @@
 {{ $center := .Get "center" }}
+<!-- -->
+{{ range .Page.Site.Params.alwaldend.links }}
 <ul
   class="
     list-group
+    list-group-horizontal
     fs-5
-    text-start
-    w-auto
-    {{ if $center -}}
-    mx-auto
-    {{- end -}}
+    {{ if $center -}}justify-content-center{{- end -}}
   "
 >
+  <li class="list-group-item">{{ .name }}</li>
   <li class="list-group-item">
-    Docs:
-    <a href="https://alwaldend.github.io/src/docs/">
-      alwaldend.github.io/src/docs
+    <a href="{{ .url }}">
+      {{- strings.TrimPrefix "https://" (strings.Trim .url "/") -}}
     </a>
   </li>
-  <li class="list-group-item">
-    GitHub mirror:
-    <a href="https://github.com/alwaldend/">github.com/alwaldend</a>
-  </li>
 </ul>
+{{- end -}}
