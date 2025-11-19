@@ -4,8 +4,8 @@ load("//tools/git/main/bzl:al_git_resolved_toolchain.bzl", "al_git_resolved_tool
 
 al_docs_files(
     name = "docs",
+    srcs = glob(["*.md"]),
     prefix = package_name(),
-    renames = None,
     visibility = ["//tools/git:__pkg__"],
     deps = [":libs.stardoc"],
 )

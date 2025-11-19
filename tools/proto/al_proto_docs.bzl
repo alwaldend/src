@@ -70,8 +70,10 @@ def al_proto_docs(name, src, prefix = None, visibility = None, renames = None):
     )
     pkg_files(
         name = name,
-        prefix = prefix or native.package_name(),
+        prefix = prefix,
         srcs = ["{}.{}".format(name, src)],
-        renames = renames,
+        renames = renames or {
+            ":{}.{}".format(name, src): "content/docs/{}/{}/index.md".format(native.package_name(), src),
+        },
         visibility = visibility,
     )

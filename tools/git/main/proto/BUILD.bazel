@@ -9,8 +9,8 @@ load("//tools/proto:al_proto_docs.bzl", "al_proto_docs")
 
 al_docs_files(
     name = "docs",
+    srcs = glob(["*.md"]),
     prefix = package_name(),
-    renames = None,
     visibility = ["//tools/git:__pkg__"],
     deps = [":contracts_docs"],
 )

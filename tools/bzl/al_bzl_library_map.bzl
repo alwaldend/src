@@ -28,7 +28,7 @@ def al_bzl_library_map(
     )
     pkg_filegroup(
         name = "{}.stardoc".format(name),
-        prefix = "content/docs/{}".format(native.package_name()),
+        prefix = "content/docs/{}/bzl".format(native.package_name()),
         visibility = visibility,
         srcs = ["{}.stardoc_src".format(name)] + ["{}.stardoc".format(dep) for dep in deps],
     )
