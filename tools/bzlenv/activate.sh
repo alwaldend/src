@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 bzlenv_deactivate() {
-    if [ -n "${_BZLENV_OLD_BAZEL_BINDIR}" ]; then
+    if [ -n "${_BZLENV_OLD_BAZEL_BINDIR:-}" ]; then
         export BAZEL_BINDIR="${_BZLENV_OLD_BAZEL_BINDIR}"
         unset _BZLENV_OLD_BAZEL_BINDIR
     fi

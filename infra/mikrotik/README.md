@@ -7,16 +7,16 @@ tags:
   - mikrotik
 ---
 
+## Deployment
+
+Manual export and import through [Winbox](https://help.mikrotik.com/docs/spaces/ROS/pages/328129/WinBox)
+
 ## Links
 
 - Website: https://mikrotik.com
 - Docs: https://help.mikrotik.com/docs/spaces/ROS/pages/328155/Configuration+Management
 
-## Deployment
-
-Manual export and import through Winbox
-
-## Routers
+## Exports
 
 ### Router1
 

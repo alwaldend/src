@@ -32,6 +32,7 @@ _ROOT_TOOLS = [
     "stylua",
     "dnscontrol",
     "buildifier",
+    "release",
 ]
 
 al_bzl_library_map(

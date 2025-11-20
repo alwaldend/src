@@ -1,4 +1,4 @@
-load("//tools/release:al_release_files.bzl", "al_release_files")
+load("//tools/release/main/bzl:al_release_files.bzl", "al_release_files")
 
 def al_release_deps(name, srcs, visibility = None):
     """

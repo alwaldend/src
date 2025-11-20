@@ -6,11 +6,13 @@ import (
 	_ "crypto/sha256"
 	"fmt"
 	"io"
+	"math"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 
-	"git.alwaldend.com/src/tools/release/contracts"
+	"git.alwaldend.com/src/tools/release/main/proto/contracts"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"
@@ -26,39 +28,127 @@ func NewGenerator() *Generator {
 	return &Generator{}
 }
 
+type GenerateOpts struct {
+	MergeItems        []string
+	MergeManifests    []string
+	OutputManifest    string
+	OutputReleasePage string
+	OutputFileMode    string
+	GitRoot           string
+	MarshalOptions    *protojson.MarshalOptions
+}
+
 // Generate a manifest file
-func (self *Generator) Generate(
-	items []string,
-	manifests []string,
-	output string,
-	gitRoot string,
-	marshalOptions *protojson.MarshalOptions,
-) error {
-	release := &contracts.Release{}
-	for _, item := range items {
-		if err := self.addItem(release, item); err != nil {
-			return fmt.Errorf("could not add item %s to release: %w", item, err)
+func (self *Generator) Generate(opts *GenerateOpts) error {
+	release, err := self.createRelease(opts)
+	if err != nil {
+		return fmt.Errorf("could not create release %v: %w", opts, err)
+	}
+	if opts.OutputManifest != "" {
+		err := self.writeMessage(opts, release, opts.OutputManifest)
+		if err != nil {
+			return fmt.Errorf("could not output release %v: %w", opts.OutputManifest, err)
 		}
 	}
-	for _, manifest := range manifests {
+	if opts.OutputReleasePage != "" {
+		releasePage, err := self.createReleasePage(opts, release)
+		if err != nil {
+			return fmt.Errorf("could not create release page %v: %w", opts, err)
+		}
+		err = self.writeMessage(opts, releasePage, opts.OutputReleasePage)
+		if err != nil {
+			return fmt.Errorf("could not output release page %v: %w", opts, err)
+		}
+	}
+	return nil
+}
+
+func (self *Generator) writeMessage(opts *GenerateOpts, message proto.Message, outputPath string) error {
+	data, err := opts.MarshalOptions.Marshal(message)
+	if err != nil {
+		return fmt.Errorf("could not marshal message: %w", opts, err)
+	}
+	fileMode, err := strconv.ParseUint(opts.OutputFileMode, 8, 32)
+	if err != nil {
+		return fmt.Errorf("could not create file mode for %s: %w", opts.OutputFileMode, err)
+	}
+	if err := os.WriteFile(outputPath, data, os.FileMode(fileMode)); err != nil {
+		return fmt.Errorf("could not write data to file %s: %w", outputPath, err)
+	}
+	return nil
+}
+
+func (self *Generator) createReleasePage(opts *GenerateOpts, release *contracts.Release) (*contracts.ReleasePage, error) {
+	page := &contracts.ReleasePage{}
+	artifactSection := &contracts.ReleasePageSection{Title: "Artifacts"}
+	changelogSection := &contracts.ReleasePageSection{Title: "Changelog"}
+	page.Sections = append(page.Sections, changelogSection)
+	page.Sections = append(page.Sections, artifactSection)
+	for _, commit := range release.Git.Commits {
+		sectionItem := &contracts.ReleasePageSectionItem{Content: commit}
+		changelogSection.Items = append(changelogSection.Items, sectionItem)
+		sectionItem.Attrs = append(
+			sectionItem.Attrs,
+			&contracts.ReleasePageSectionItemAttr{
+				Name:    "Hash",
+				Content: commit,
+			},
+		)
+	}
+	for _, item := range release.Items {
+		sectionItem := &contracts.ReleasePageSectionItem{}
+		if item.File != nil {
+			size := float64(item.File.Size) / 1024 / 1024
+			size = roundFloat(size, 2)
+			sectionItem.Content = item.File.Name
+			sectionItem.Attrs = append(
+				sectionItem.Attrs,
+				&contracts.ReleasePageSectionItemAttr{
+					Name:    "Type",
+					Content: "File",
+				},
+			)
+			sectionItem.Attrs = append(
+				sectionItem.Attrs,
+				&contracts.ReleasePageSectionItemAttr{
+					Name:    "Size",
+					Content: fmt.Sprintf("%f MB", size),
+				},
+			)
+			for _, hash := range item.File.Hashes {
+				sectionItem.Attrs = append(
+					sectionItem.Attrs,
+					&contracts.ReleasePageSectionItemAttr{
+						Name:    hash.Algo,
+						Content: hash.Content,
+					},
+				)
+			}
+		}
+		artifactSection.Items = append(artifactSection.Items, sectionItem)
+	}
+	return page, nil
+}
+
+func (self *Generator) createRelease(opts *GenerateOpts) (*contracts.Release, error) {
+	release := &contracts.Release{}
+	for _, item := range opts.MergeItems {
+		if err := self.addItem(release, item); err != nil {
+			return nil, fmt.Errorf("could not add item %s to release: %w", item, err)
+		}
+	}
+	for _, manifest := range opts.MergeManifests {
 		if err := self.addManifest(release, manifest); err != nil {
-			return fmt.Errorf("could not add manifest %s to release: %w", manifest, err)
+			return nil, fmt.Errorf("could not add manifest %s to release: %w", manifest, err)
 		}
 	}
 	if release.Git != nil {
-		err := self.addGit(release, gitRoot)
+		err := self.addGit(release, opts.GitRoot)
 		if err != nil {
-			return fmt.Errorf("could not add git info to release: %w", err)
+			return nil, fmt.Errorf("could not add git info to release: %w", err)
 		}
 	}
-	data, err := marshalOptions.Marshal(release)
-	if err != nil {
-		return fmt.Errorf("could not marshal release %v: %w", release, err)
-	}
-	if err := os.WriteFile(output, data, 0o444); err != nil {
-		return fmt.Errorf("could not write data to file %s: %w", output, err)
-	}
-	return nil
+	return release, nil
 }
 
 // Add git information in-place
@@ -165,4 +255,9 @@ func (self *Generator) addItem(release *contracts.Release, path string) error {
 	}
 	release.Items = append(release.Items, item)
 	return nil
+}
+
+func roundFloat(val float64, precision uint) float64 {
+	ratio := math.Pow(10, float64(precision))
+	return math.Round(val*ratio) / ratio
 }

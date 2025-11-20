@@ -1,6 +1,6 @@
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-load("//tools/release:al_release.bzl", "al_release")
-load("//tools/release:al_release_files.bzl", "al_release_files")
+load("//tools/release/main/bzl:al_release.bzl", "al_release")
+load("//tools/release/main/bzl:al_release_files.bzl", "al_release_files")
 
 al_docs_files(
     name = "docs",

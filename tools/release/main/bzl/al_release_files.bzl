@@ -1,4 +1,4 @@
-load("//tools/release:al_release_files_info.bzl", "AlReleaseFilesInfo")
+load("//tools/release/main/bzl:al_release_files_info.bzl", "AlReleaseFilesInfo")
 
 def _impl(ctx):
     manifest = ctx.actions.declare_file("{}.release.json".format(ctx.label.name))
@@ -6,7 +6,7 @@ def _impl(ctx):
     inputs = []
     args = ctx.actions.args()
     args.add("generate")
-    args.add_all(["--output", manifest.path])
+    args.add_all(["--output_manifest", manifest.path])
     srcs = []
     for i, src in enumerate(ctx.files.srcs):
         ignore = False
@@ -20,7 +20,7 @@ def _impl(ctx):
         item = ctx.actions.declare_file("{}.release_item.{}.json".format(ctx.label.name, i))
         inputs.extend([item, src])
         srcs.append(src)
-        args.add_all(["--item", item.path])
+        args.add_all(["--merge_item", item.path])
         ctx.actions.write(
             output = item,
             content = json.encode(
@@ -69,7 +69,7 @@ al_release_files = rule(
         "release_tool": attr.label(
             executable = True,
             cfg = "exec",
-            default = "//tools/release",
+            default = "//tools/release/main/go",
             doc = "Release tool",
         ),
     },

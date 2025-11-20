@@ -1,95 +1,18 @@
-load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
-load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
-load("@rules_go//go:def.bzl", "go_binary", "go_library")
-load("@rules_go//proto:def.bzl", "go_proto_library")
-load("@rules_java//java:defs.bzl", "java_library")
-load("@rules_proto//proto:defs.bzl", "proto_library")
-load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-
-al_bzl_library_map(
-    name = "libs",
-    libs = {
-        "al_release": [
-            ":al_release_files",
-            "@rules_pkg//pkg:bzl_srcs",
-            ":al_release_files_info",
-            "//tools/git/main/bzl:al_git_current_state",
-        ],
-        "al_release_deps": [":al_release_files"],
-        "al_release_files": [":al_release_files_info"],
-        "al_release_files_info": [],
-    },
-    visibility = ["//:__subpackages__"],
-)
 
 al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//tools:__pkg__"],
-    deps = [":libs.stardoc"],
-)
-
-proto_library(
-    name = "contracts_proto",
-    srcs = ["contracts.proto"],
-    visibility = ["//:__subpackages__"],
-)
-
-go_proto_library(
-    name = "contracts_go_proto",
-    importpath = "git.alwaldend.com/src/tools/release/contracts",
-    proto = ":contracts_proto",
-    visibility = ["//:__subpackages__"],
-)
-
-go_library(
-    name = "contracts",
-    embed = [":contracts_go_proto"],
-    importpath = "git.alwaldend.com/src/tools/release/contracts",
-    visibility = ["//:__subpackages__"],
-)
-
-java_proto_library(
-    name = "contracts_java_proto",
-    deps = [":contracts_proto"],
-)
-
-java_library(
-    name = "contracts_java_library",
-    visibility = ["//:__subpackages__"],
-    exports = [":contracts_java_proto"],
-)
-
-py_proto_library(
-    name = "contracts_py_pb2",
-    visibility = ["//:__subpackages__"],
-    deps = [":contracts_proto"],
-)
-
-go_library(
-    name = "release_lib",
-    srcs = [
-        "cmd.go",
-        "generator.go",
-        "main.go",
-    ],
-    importpath = "git.alwaldend.com/src/tools/release",
-    visibility = ["//visibility:private"],
     deps = [
-        ":contracts",
-        "@com_github_go_git_go_git_v5//:go_default_library",
-        "@com_github_go_git_go_git_v5//plumbing:go_default_library",
-        "@com_github_go_git_go_git_v5//plumbing/object:go_default_library",
-        "@com_github_spf13_cobra//:cobra",
-        "@org_golang_google_protobuf//encoding/protojson",
-        "@org_golang_google_protobuf//proto",
+        "//tools/release/main/bzl:docs",
+        "//tools/release/main/proto:docs",
     ],
 )
 
-go_binary(
+alias(
     name = "release",
-    embed = [":release_lib"],
+    actual = "//tools/release/main/go",
     visibility = ["//:__subpackages__"],
 )

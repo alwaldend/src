@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "git.alwaldend.com/src/tools/release/contracts";
+option go_package = "git.alwaldend.com/src/tools/release/main/proto/contracts";
 
 message ReleaseHash {
   string algo = 1;
@@ -27,6 +27,26 @@ message Git {
   string revision = 1;
   repeated string tags = 2;
   repeated string commits = 3;
+}
+
+message ReleasePageSectionItemAttr {
+  string name = 1;
+  string content = 2;
+}
+
+message ReleasePageSectionItem {
+  string content = 1;
+  string content_url = 2;
+  repeated ReleasePageSectionItemAttr attrs = 3;
+}
+
+message ReleasePageSection {
+  string title = 1;
+  repeated ReleasePageSectionItem items = 2;
+}
+
+message ReleasePage {
+  repeated ReleasePageSection sections = 1;
 }
 
 message Release {

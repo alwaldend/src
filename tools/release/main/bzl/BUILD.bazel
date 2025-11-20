@@ -1,0 +1,26 @@
+load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_release": [
+            ":al_release_files",
+            "@rules_pkg//pkg:bzl_srcs",
+            ":al_release_files_info",
+            "//tools/git/main/bzl:al_git_current_state",
+        ],
+        "al_release_deps": [":al_release_files"],
+        "al_release_files": [":al_release_files_info"],
+        "al_release_files_info": [],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools/release:__pkg__"],
+    deps = [":libs.stardoc"],
+)

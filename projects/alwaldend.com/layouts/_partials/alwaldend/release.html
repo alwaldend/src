@@ -1,7 +1,65 @@
 {{ $release := partial "alwaldend/get_release" (dict "Page" .Page) -}}
 <!-- -->
-{{- $ctx := (dict "Page" .Page "standalone" .standalone "Release" $release) -}}
+{{ $releasePageRef := .Page.Resources.Get "release_page.json" -}}
 <!-- -->
-{{/* partial "alwaldend/release_changelog" $ctx */}}
+{{ $releasePage := transform.Unmarshal $releasePageRef -}}
 <!-- -->
-{{ partial "alwaldend/release_items" $ctx }}
+{{- $show := compare.Conditional .standalone "show" "" -}}
+<!-- -->
+{{- $id := printf "release_%s" $release.name -}}
+<!-- -->
+<div class="accordion mt-3" id="{{ $id }}_accordion">
+  {{ range $releasePage.sections -}}
+  <!-- -->
+  {{- $id = printf "%s_%s" $id .title -}}
+  <div class="accordion-item">
+    <h3 class="accordion-header" id="{{ $id }}">
+      <button
+        class="accordion-button"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#{{ $id }}_collapse"
+        aria-expanded="true"
+        aria-controls="{{ $id }}_collapse"
+      >
+        {{- .title -}}
+        <!-- -->
+        {{- $count := len (.items | default slice) -}}
+        <!-- -->
+        {{- partial "alwaldend/badge" (dict "value" $count) -}}
+      </button>
+    </h3>
+    <div
+      id="{{ $id }}_collapse"
+      class="accordion-collapse collapse {{ $show }}"
+      aria-labelledby="{{ $id }}"
+    >
+      <div class="accordion-body">
+        {{- range .items -}}
+        <ul class="list-group">
+          <li class="list-group-item">{{ .content }}</li>
+          <li class="list-group-item">
+            {{- range .attrs -}}
+            <div class="btn-group me-1">
+              <button
+                class="btn btn-outline-primary btn-sm dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                data-bs-auto-close="outside"
+                aria-expanded="false"
+              >
+                {{ .name }}
+              </button>
+              <ul class="dropdown-menu">
+                <li><span class="dropdown-item-text">{{ .content }}</span></li>
+              </ul>
+            </div>
+            {{- end -}}
+          </li>
+        </ul>
+        {{- end -}}
+      </div>
+    </div>
+  </div>
+  {{- end }}
+</div>

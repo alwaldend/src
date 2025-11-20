@@ -1,6 +1,6 @@
 load("@rules_pkg//pkg:providers.bzl", "PackageFilesInfo")
 load("//tools/git/main/bzl:al_git_current_state.bzl", "AL_GIT_CURRENT_STATE")
-load("//tools/release:al_release_files_info.bzl", "AlReleaseFilesInfo")
+load("//tools/release/main/bzl:al_release_files_info.bzl", "AlReleaseFilesInfo")
 
 _DOC_TEMPLATE = """\
 ---
@@ -18,9 +18,11 @@ tags:
 
 def _impl(ctx):
     doc = ctx.actions.declare_file("{}.index.md".format(ctx.label.name))
+    release_page = ctx.actions.declare_file("{}.release_page.json".format(ctx.label.name))
     git = ctx.toolchains["//tools/git/main/bzl:toolchain_type"]
     dest_src_map = {
         "index.md": doc,
+        "release_page.json": release_page,
     }
     release_name = ctx.attr.release_name
     transitive = []
@@ -37,12 +39,13 @@ def _impl(ctx):
             dest_src_map[src.basename] = src
         args = ctx.actions.args()
         args.add("generate")
-        args.add_all(["--output", manifest.path])
+        args.add_all(["--output_manifest", manifest.path])
+        args.add_all(["--output_release_page", release_page.path])
         for src in ctx.attr.srcs:
             src_manifest = src[AlReleaseFilesInfo].manifest
             inputs.append(src_manifest)
-            args.add_all(["--manifest", src_manifest.path])
-        args.add_all(["--manifest", extra_manifest.path])
+            args.add_all(["--merge_manifest", src_manifest.path])
+        args.add_all(["--merge_manifest", extra_manifest.path])
         args.add_all(["--git_root", git.git_root])
         ctx.actions.write(
             output = extra_manifest,
@@ -62,7 +65,7 @@ def _impl(ctx):
             executable = ctx.executable.release_tool,
             arguments = [args],
             inputs = inputs,
-            outputs = [manifest],
+            outputs = [manifest, release_page],
         )
     else:
         fail("missing both manifest and srcs")
@@ -121,7 +124,7 @@ al_release = rule(
         "release_tool": attr.label(
             executable = True,
             cfg = "exec",
-            default = "//tools/release",
+            default = "//tools/release/main/go",
             doc = "Release tool",
         ),
         "git_state": attr.label_list(

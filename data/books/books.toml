@@ -1012,7 +1012,7 @@ links = [
 title = "Grotesqueries of the Old Domain"
 alt_titles = ["旧域怪诞", "The Grotesque Old Domain"]
 thumbnail = "./grotesqueries_of_the_old_domain.jpg"
-quality = "Good"
+quality = "Good?"
 reading = "Reading, C65"
 authors = ["foxtail-quill"]
 links = [
@@ -1022,7 +1022,7 @@ links = [
 [[book]]
 title = "Sky Pride"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/107917-sky-pride.jpg"
-quality = "Good"
+quality = "Good, edgy start"
 reading = "Reading, B3C25"
 authors = ["warby-picus"]
 links = [

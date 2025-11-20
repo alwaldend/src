@@ -52,25 +52,22 @@ func newRootCommand(
 
 func newGenCommand() (*cobra.Command, error) {
 	generator := NewGenerator()
-	var output string
-	var items []string
-	var manifests []string
-	var gitRoot string
-	marshalOptions := &protojson.MarshalOptions{}
+	opts := &GenerateOpts{MarshalOptions: &protojson.MarshalOptions{}}
 	cmd := &cobra.Command{
 		Use:   "generate",
 		Short: "Generate",
 		Long:  "Merge several manifests into one",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return generator.Generate(items, manifests, output, gitRoot, marshalOptions)
+			return generator.Generate(opts)
 		},
 	}
 	flags := cmd.PersistentFlags()
-	flags.StringArrayVar(&items, "item", nil, "Path to a file with ReleaseItem json")
-	flags.StringArrayVar(&manifests, "manifest", nil, "Path to a file with Release json")
-	flags.StringVar(&output, "output", "", "Output path")
-	flags.StringVar(&gitRoot, "git_root", "", "Directory with .git")
-	flags.StringVar(&marshalOptions.Indent, "indent", "    ", "Json indent")
-	cmd.MarkFlagsOneRequired("output")
+	flags.StringArrayVar(&opts.MergeItems, "merge_item", nil, "Path to a file with ReleaseItem json")
+	flags.StringArrayVar(&opts.MergeManifests, "merge_manifest", nil, "Path to a file with Release json")
+	flags.StringVar(&opts.OutputManifest, "output_manifest", "", "Write the combined manifest to this path")
+	flags.StringVar(&opts.OutputReleasePage, "output_release_page", "", "Write the release page to this path")
+	flags.StringVar(&opts.OutputFileMode, "output_file_mode", "0444", "Create output files with this file mode")
+	flags.StringVar(&opts.GitRoot, "git_root", "", "Directory with .git")
+	flags.StringVar(&opts.MarshalOptions.Indent, "indent", "    ", "Json indent")
 	return cmd, nil
 }

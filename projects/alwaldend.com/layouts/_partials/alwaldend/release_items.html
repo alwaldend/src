@@ -1,8 +1,0 @@
-{{ $content := partial "alwaldend/release_items_table" . }}
-<!-- -->
-{{- $count := math.Add 1 (len (.Release.Data.items | default slice)) -}}
-<!-- -->
-{{- $ctx := dict "Page" .Page "title" "Artifacts" "badge" $count "show"
-.standalone "content" $content "id" "artifacts" -}}
-<!-- -->
-{{- partial "alwaldend/release_section" $ctx -}}
