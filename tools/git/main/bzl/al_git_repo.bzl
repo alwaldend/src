@@ -22,12 +22,6 @@ al_git_binary(
     visibility = ["//visibility:public"],
 )
 
-filegroup(
-    name = "git_state",
-    srcs = [":git_current_rev", ":git_tags"],
-    visibility = ["//visibility:public"],
-)
-
 genrule(
     name = "git_current_rev",
     outs = ["git_current_rev.txt"],

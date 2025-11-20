@@ -1,3 +1,5 @@
+load("//tools/git/main/bzl:al_git_current_state.bzl", "AL_GIT_CURRENT_STATE")
+
 def _impl(ctx):
     git_info = ctx.actions.declare_file("{}.git_info.json".format(ctx.label.name))
     git_toolchain = ctx.toolchains["//tools/git/main/bzl:toolchain_type"]
@@ -24,8 +26,8 @@ al_git_info_file = rule(
     toolchains = ["//tools/git/main/bzl:toolchain_type"],
     implementation = _impl,
     attrs = {
-        "git_state": attr.label(
-            default = "@com_alwaldend_src_tools_git//:git_state",
+        "git_state": attr.label_list(
+            default = AL_GIT_CURRENT_STATE,
             doc = "Files that should invalidate the cache on new commit",
         ),
         "timeout": attr.int(

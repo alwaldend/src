@@ -1,4 +1,5 @@
 load("@rules_pkg//pkg:providers.bzl", "PackageFilesInfo")
+load("//tools/git/main/bzl:al_git_current_state.bzl", "AL_GIT_CURRENT_STATE")
 load("//tools/release:al_release_files_info.bzl", "AlReleaseFilesInfo")
 
 _DOC_TEMPLATE = """\
@@ -123,8 +124,8 @@ al_release = rule(
             default = "//tools/release",
             doc = "Release tool",
         ),
-        "git_state": attr.label(
-            default = "@com_alwaldend_src_tools_git//:git_state",
+        "git_state": attr.label_list(
+            default = AL_GIT_CURRENT_STATE,
             doc = "Files that should invalidate the cache on new commit",
         ),
     },

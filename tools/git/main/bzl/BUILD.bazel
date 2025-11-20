@@ -30,6 +30,8 @@ al_bzl_library_map(
         "al_git_binary": [
             "@bazel_skylib//lib:shell",
         ],
+        "al_git_info_file": [":al_git_current_state"],
+        "al_git_current_state": [],
         "al_git_run_binary": [],
         "al_git_toolchain": [],
         "al_git_resolved_toolchain": [

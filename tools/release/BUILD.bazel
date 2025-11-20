@@ -14,6 +14,7 @@ al_bzl_library_map(
             ":al_release_files",
             "@rules_pkg//pkg:bzl_srcs",
             ":al_release_files_info",
+            "//tools/git/main/bzl:al_git_current_state",
         ],
         "al_release_deps": [":al_release_files"],
         "al_release_files": [":al_release_files_info"],

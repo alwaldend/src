@@ -6,7 +6,7 @@ quality = "Peak"
 reading = "Finished available, C2334"
 authors = ["gu-zhen-ren"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/reverend-insanity/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/reverend-insanity/" },
 ]
 
 [[book]]
@@ -16,7 +16,7 @@ quality = "Peak"
 reading = "Hiatus, C2.22"
 authors = ["ya-boy"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/41330/virtuous-sons-a-greco-roman-xianxia" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/41330/virtuous-sons-a-greco-roman-xianxia" },
 ]
 
 [[book]]
@@ -26,8 +26,8 @@ quality = "Good"
 reading = "Dropped, C838"
 authors = ["angry-squid"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/my-longevity-simulation/" },
-    { title = "novelbin", url = "https://novelbin.com/b/my-longevity-simulation/chapter-724" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/my-longevity-simulation/" },
+  { title = "novelbin", url = "https://novelbin.com/b/my-longevity-simulation/chapter-724" },
 ]
 
 [[book]]
@@ -38,8 +38,8 @@ quality = "Good"
 reading = "Finished, C713"
 authors = ["golden-jasmine"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/the-unintentional-path-to-immortality/" },
-    { title = "novelfile", url = "https://novelfire.net/book/unintended-immortality/chapter-447" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/the-unintentional-path-to-immortality/" },
+  { title = "novelfile", url = "https://novelfire.net/book/unintended-immortality/chapter-447" },
 ]
 
 [[book]]
@@ -49,7 +49,7 @@ quality = "Good"
 reading = "Finished volume 2"
 authors = ["cuttlefish-that-loves-diving"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/lord-of-the-mysteries/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/lord-of-the-mysteries/" },
 ]
 
 [[book]]
@@ -60,7 +60,7 @@ quality = "Good"
 reading = "Finished"
 authors = ["mao-ni"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/ze-tian-ji/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/ze-tian-ji/" },
 ]
 
 [[book]]
@@ -71,7 +71,7 @@ quality = "Good"
 reading = "Finished available chapters"
 authors = ["mao-ni"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/the-path-toward-heaven/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/the-path-toward-heaven/" },
 ]
 
 [[book]]
@@ -82,7 +82,7 @@ quality = "Good"
 reading = "Finished"
 authors = ["mao-ni"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/nightfall/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/nightfall/" },
 ]
 
 [[book]]
@@ -93,7 +93,7 @@ quality = "Good"
 reading = "Finished volume 1"
 authors = ["angry-squirrel"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/the-experimental-log-of-the-crazy-lich/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/the-experimental-log-of-the-crazy-lich/" },
 ]
 
 [[book]]
@@ -104,7 +104,7 @@ quality = "Good"
 reading = "Finished, dropped at the end"
 authors = ["cuttlefish-that-loves-diving"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/the-sage-who-transcended-samsara/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/the-sage-who-transcended-samsara/" },
 ]
 
 [[book]]
@@ -115,7 +115,7 @@ quality = "Ok"
 reading = "Dropped, C1470"
 authors = ["er-gen"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/beyond-the-timescape/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/beyond-the-timescape/" },
 ]
 
 [[book]]
@@ -126,7 +126,7 @@ quality = "Decent"
 reading = "Finished translated chapters, chapter 528"
 authors = ["nocturnal-stranger"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/archfiend/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/archfiend/" },
 ]
 
 [[book]]
@@ -136,7 +136,7 @@ quality = "Good, a bit too dramatic"
 reading = "Dropped, C37-11"
 authors = ["ostensible-mammal"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/59663/godclads" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/59663/godclads" },
 ]
 
 [[book]]
@@ -146,7 +146,7 @@ quality = "Decent"
 reading = "Dropped, C1370"
 authors = ["thefirstdefier"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/24709/defiance-of-the-fall" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/24709/defiance-of-the-fall" },
 ]
 
 [[book]]
@@ -156,7 +156,7 @@ quality = "Good"
 reading = "Dropped, chapter 120"
 authors = ["kirill-klevanski"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/94398/matabar" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/94398/matabar" },
 ]
 
 [[book]]
@@ -166,7 +166,7 @@ quality = "Good"
 reading = "Finished"
 authors = ["er-gen"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/renegade-immortal/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/renegade-immortal/" },
 ]
 
 [[book]]
@@ -176,7 +176,7 @@ quality = "Decent"
 reading = "Dropped, C225"
 authors = ["uraniumphoenix"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression" },
 ]
 
 [[book]]
@@ -186,7 +186,7 @@ quality = "Decent"
 reading = "Finished volume 1"
 authors = ["seersucker"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/79173/downtown-druid-book-1-stubbed" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/79173/downtown-druid-book-1-stubbed" },
 ]
 
 [[book]]
@@ -196,7 +196,7 @@ quality = "Decent, slow upload"
 reading = "Dropped, C262"
 authors = ["azalea-ellis"]
 links = [
-    { title = "azaleaellis", url = "https://www.azaleaellis.com/a-practical-guide-to-sorcery/" },
+  { title = "azaleaellis", url = "https://www.azaleaellis.com/a-practical-guide-to-sorcery/" },
 ]
 
 [[book]]
@@ -206,7 +206,7 @@ quality = "Good"
 reading = "Finished available, B7"
 authors = ["doctorhepa"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/29358/dungeon-crawler-carl-book-6-the-ghosts-of-earth" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/29358/dungeon-crawler-carl-book-6-the-ghosts-of-earth" },
 ]
 
 [[book]]
@@ -216,7 +216,7 @@ quality = "Good"
 reading = "Dropped at some point"
 authors = ["casualfarmer"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/39408/beware-of-chicken" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/39408/beware-of-chicken" },
 ]
 
 [[book]]
@@ -226,7 +226,7 @@ quality = "Good"
 reading = "Finished"
 authors = ["er-gen"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/i-shall-seal-the-heavens/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/i-shall-seal-the-heavens/" },
 ]
 
 [[book]]
@@ -236,7 +236,7 @@ quality = "Good"
 reading = "Finished"
 authors = ["fang-xiang"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/world-of-cultivation/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/world-of-cultivation/" },
 ]
 
 [[book]]
@@ -246,7 +246,7 @@ quality = "Ok"
 reading = "Reading, B7C749"
 authors = ["actus"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/68679/return-of-the-runebound-professor-book-6-stubbed" },
 ]
 
 [[book]]
@@ -257,7 +257,7 @@ summary = "Nothing exceptional"
 reading = "Dropped, chapter 55"
 authors = ["clarke"]
 links = [
-    { title = "royalroard", url = "https://www.royalroad.com/fiction/109537/i-am-become-death-a-progression-fantasy-cultivation-based" },
+  { title = "royalroard", url = "https://www.royalroad.com/fiction/109537/i-am-become-death-a-progression-fantasy-cultivation-based" },
 ]
 
 [[book]]
@@ -267,7 +267,7 @@ quality = "Decent"
 reading = "Dropped, C54"
 authors = ["thundamoo"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/92549/are-you-even-human" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/92549/are-you-even-human" },
 ]
 
 [[book]]
@@ -277,17 +277,7 @@ quality = "Ok"
 reading = "Dropped, chapter 220"
 authors = ["strungbound"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released" },
-]
-
-[[book]]
-title = "Changeling"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg"
-quality = "Decent"
-reading = "Dropped, C83"
-authors = ["mecanimus"]
-links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/75345/changeling" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/56136/ghost-of-the-truthseeker-book-4-being-released" },
 ]
 
 [[book]]
@@ -297,7 +287,7 @@ quality = "Bad, isekai slop"
 reading = "Dropped, volume 1, chapter 13"
 authors = ["turtleme"]
 links = [
-    { title = "wikipedia", url = "https://en.wikipedia.org/wiki/The_Beginning_After_the_End" },
+  { title = "wikipedia", url = "https://en.wikipedia.org/wiki/The_Beginning_After_the_End" },
 ]
 
 [[book]]
@@ -307,7 +297,7 @@ quality = "Ok"
 reading = "Dropped, C509"
 authors = ["actus"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/79094/rise-of-the-living-forge-a-blacksmith-litrpg" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/79094/rise-of-the-living-forge-a-blacksmith-litrpg" },
 ]
 
 [[book]]
@@ -317,7 +307,7 @@ quality = "Ok"
 reading = "Dropped, V4C27"
 authors = ["thundamoo"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/40373/vigor-mortis" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/40373/vigor-mortis" },
 ]
 
 [[book]]
@@ -327,7 +317,7 @@ quality = "Bad, litrpg slop"
 reading = "Dropped, V1C17"
 authors = ["dads-bedtime-stories"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/76259/ultimate-level-1-litrpg" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/76259/ultimate-level-1-litrpg" },
 ]
 
 [[book]]
@@ -337,7 +327,7 @@ quality = "Bad, Japanese slice-of-life litrpg fantasy slop"
 reading = "Dropped, V4C2"
 authors = ["chirolu"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/if-its-for-my-daughter-id-even-defeat-a-demon-lord/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/if-its-for-my-daughter-id-even-defeat-a-demon-lord/" },
 ]
 
 [[book]]
@@ -347,7 +337,7 @@ quality = "Decent, not enough progression"
 reading = "Finished"
 authors = ["clarke"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/41618/mark-of-the-fool" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/41618/mark-of-the-fool" },
 ]
 
 [[book]]
@@ -357,7 +347,7 @@ quality = "Decent, a bit bland"
 reading = "Dropped, volume 4, chapter 8 (chapter 222)"
 authors = ["silverlinings"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/66643/die-respawn-repeat" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/66643/die-respawn-repeat" },
 ]
 
 [[book]]
@@ -367,7 +357,7 @@ quality = "Decent, MC is a bit immature"
 reading = "Dropped, volume 2, chapter 55"
 authors = ["ostensiblemammal"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/89249/system-breaker-xianxia-system-apocalypse-litrpg" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/89249/system-breaker-xianxia-system-apocalypse-litrpg" },
 ]
 
 [[book]]
@@ -377,7 +367,7 @@ quality = "Ok, mediocre"
 reading = "Dropped, volume 8, chapter 421"
 authors = ["xkarnation"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/62881/reborn-as-a-demonic-tree" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/62881/reborn-as-a-demonic-tree" },
 ]
 
 [[book]]
@@ -387,7 +377,7 @@ quality = "Bad, japanese slop"
 reading = "Dropped at some point"
 authors = ["kawahara-reki"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/accel-world/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/accel-world/" },
 ]
 
 [[book]]
@@ -397,7 +387,7 @@ quality = "Ok, basic and a bit edgy"
 reading = "Finished available chapters"
 authors = ["robert-blaise"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/62411/the-jester-of-apocalypse" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/62411/the-jester-of-apocalypse" },
 ]
 
 [[book]]
@@ -407,7 +397,7 @@ quality = "Decent, a bit mediocre"
 reading = "Dropped near the end when the main plot ended"
 authors = ["cuttlefish-that-loves-diving"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/throne-of-magical-arcana/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/throne-of-magical-arcana/" },
 ]
 
 [[book]]
@@ -417,7 +407,7 @@ quality = "Don't remember"
 reading = "Dropped, chapter 42"
 authors = ["chaos"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/the-charm-of-soul-pets/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/the-charm-of-soul-pets/" },
 ]
 
 [[book]]
@@ -427,7 +417,7 @@ quality = "Decent"
 reading = "Dropped at some point"
 authors = ["mark-arrows"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/42367/12-miles-below" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/42367/12-miles-below" },
 ]
 
 [[book]]
@@ -445,7 +435,7 @@ quality = "Ok, a bit basic"
 reading = "Finished, volume 3"
 authors = ["dakota-krout"]
 links = [
-    { title = "goodreads", url = "https://www.goodreads.com/series/298351-full-murderhobo" },
+  { title = "goodreads", url = "https://www.goodreads.com/series/298351-full-murderhobo" },
 ]
 
 [[book]]
@@ -455,7 +445,7 @@ quality = "Ok, a bit basic"
 reading = "Finished"
 authors = ["dakota-krout"]
 links = [
-    { title = "goodreads", url = "https://www.goodreads.com/series/192510-the-divine-dungeon" },
+  { title = "goodreads", url = "https://www.goodreads.com/series/192510-the-divine-dungeon" },
 ]
 
 [[book]]
@@ -465,7 +455,7 @@ quality = "Ok, too much emotional bullshit"
 reading = "Dropped at some point"
 authors = ["sinnoa"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/sss-class-suicide-hunter" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/sss-class-suicide-hunter" },
 ]
 
 [[book]]
@@ -475,7 +465,7 @@ quality = "Ok, feels basic"
 reading = "Dropped, volume 1, chapter 2"
 authors = ["randombluecat"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/75446/corpo-age" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/75446/corpo-age" },
 ]
 
 [[book]]
@@ -486,7 +476,7 @@ quality = "Bad, too bland"
 reading = "Dropped, chapter 101"
 authors = ["tang-jia-san-shao"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/shen-yin-wang-zuo/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/shen-yin-wang-zuo/" },
 ]
 
 [[book]]
@@ -496,7 +486,7 @@ quality = "Bad, edgy slop, too much 'AI chip, do the thing'"
 reading = "Dropped, chapter 58"
 authors = ["the-plagiarist"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/warlock-of-the-magus-world/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/warlock-of-the-magus-world/" },
 ]
 
 [[book]]
@@ -506,7 +496,7 @@ quality = "Don't remember, children are boring"
 reading = "Dropped, chapter 75"
 authors = ["chen-dong"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/perfect-world/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/perfect-world/" },
 ]
 
 [[book]]
@@ -517,7 +507,7 @@ summary = "Korean slop, the same stuff happens over and over again, endless savi
 reading = "Dropped, chapter 215"
 authors = ["yu-ryeo-han"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/trash-of-the-counts-family/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/trash-of-the-counts-family/" },
 ]
 
 [[book]]
@@ -529,7 +519,7 @@ summary = "Good worldbuilding, but too many empty exclamations and not enough su
 reading = "Dropped, chapter 2935"
 authors = ["the-enlightened-master-crouching-cow"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/forty-millenniums-of-cultivation/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/forty-millenniums-of-cultivation/" },
 ]
 
 [[book]]
@@ -541,7 +531,7 @@ summary = "Don't remember"
 reading = "Finished"
 authors = ["mikage-eiji"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/utsuro-no-hako-to-zero-no-maria/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/utsuro-no-hako-to-zero-no-maria/" },
 ]
 
 [[book]]
@@ -552,7 +542,7 @@ summary = "Shallow"
 reading = "Dropped, volume 2, chapter 12"
 authors = ["clarke"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/73095/rune-seeker-a-progression-fantasy-litrpg-book" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/73095/rune-seeker-a-progression-fantasy-litrpg-book" },
 ]
 
 [[book]]
@@ -562,7 +552,7 @@ quality = "Ok"
 reading = "Dropped, C1654"
 authors = ["rinoz"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/22518/chrysalis" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/22518/chrysalis" },
 ]
 
 [[book]]
@@ -574,7 +564,7 @@ summary = "Repetitive"
 reading = "Dropped at some point"
 authors = ["can-fix-air-conditioners"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/my-house-of-horrors/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/my-house-of-horrors/" },
 ]
 
 [[book]]
@@ -586,7 +576,7 @@ summary = "Shallow, bad translation"
 reading = "Dropped, chapter 8"
 authors = ["god-loves-the-world"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/the-spiritual-attainment-of-minghe/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/the-spiritual-attainment-of-minghe/" },
 ]
 
 [[book]]
@@ -597,7 +587,7 @@ summary = "Shallow"
 reading = "Dropped, finisehd volume 3"
 authors = ["necariin"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/30321/unbound" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/30321/unbound" },
 ]
 
 [[book]]
@@ -608,7 +598,7 @@ summary = "Shallow litrpg slop"
 reading = "Dropped, chapter 44"
 authors = ["x-rhoden-x"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/83294/the-stubborn-skill-grinder-in-a-time-loop" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/83294/the-stubborn-skill-grinder-in-a-time-loop" },
 ]
 
 [[book]]
@@ -620,7 +610,7 @@ summary = "Shallow"
 reading = "Dropped, chapter 241"
 authors = ["fast-food-restaurant"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/i-shall-be-everlasting-in-the-world-of-immortals/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/i-shall-be-everlasting-in-the-world-of-immortals/" },
 ]
 
 [[book]]
@@ -632,7 +622,7 @@ summary = "Shallow litrpg slop"
 reading = "Dropped, chapter 52"
 authors = ["chugong"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/solo-leveling/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/solo-leveling/" },
 ]
 
 [[book]]
@@ -644,7 +634,7 @@ summary = "Shallow"
 reading = "Dropped, chapter 113"
 authors = ["xin-feng"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/the-strongest-system/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/the-strongest-system/" },
 ]
 
 [[book]]
@@ -655,7 +645,7 @@ quality = "Decent"
 reading = "Finished"
 authors = ["legend-of-the-paladin"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/cultivation-chat-group/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/cultivation-chat-group/" },
 ]
 
 [[book]]
@@ -666,7 +656,7 @@ quality = "Decent"
 reading = "Finished"
 authors = ["foxtail-quill"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/dao-of-the-bizarre-immortal/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/dao-of-the-bizarre-immortal/" },
 ]
 
 [[book]]
@@ -676,7 +666,7 @@ quality = "Good"
 reading = "Finished"
 authors = ["maxime-j-durand"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/70234/blood-fur" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/70234/blood-fur" },
 ]
 
 [[book]]
@@ -686,7 +676,7 @@ quality = "Decent"
 reading = "Finished"
 authors = ["maxime-j-durand"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/36735/the-perfect-run" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/36735/the-perfect-run" },
 ]
 
 [[book]]
@@ -696,7 +686,7 @@ quality = "Ok, mediocre"
 reading = "Dropped, finished volume 1"
 authors = ["flossindune"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/63331/dungeon-inspector-book-1-complete-book-2-starts" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/63331/dungeon-inspector-book-1-complete-book-2-starts" },
 ]
 
 [[book]]
@@ -707,7 +697,7 @@ quality = "Slop, rushed ending"
 reading = "Finshed, chapter 258"
 authors = ["quiet-support"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/why-are-the-talismans-i-drawn-banned-again/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/why-are-the-talismans-i-drawn-banned-again/" },
 ]
 
 [[book]]
@@ -718,7 +708,7 @@ quality = "Slop"
 reading = "Dropped, chapter 8"
 authors = ["chaos"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/versatile-mage/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/versatile-mage/" },
 ]
 
 [[book]]
@@ -728,7 +718,7 @@ quality = "Ok, boring protagonist"
 reading = "Dropped, C128 (volume 2)"
 authors = ["robert-blaise"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/72301/1-lifesteal" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/72301/1-lifesteal" },
 ]
 
 [[book]]
@@ -738,7 +728,7 @@ quality = "Decent"
 reading = "Dropped, chapter 87"
 authors = ["cluelessrr"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/86874/saving-the-school-would-have-been-easier-as-a" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/86874/saving-the-school-would-have-been-easier-as-a" },
 ]
 
 [[book]]
@@ -748,7 +738,7 @@ quality = "Decent"
 reading = "Hiatus, B3C4"
 authors = ["arthur-wordsmith"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/64789/theos" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/64789/theos" },
 ]
 
 [[book]]
@@ -758,7 +748,7 @@ quality = "Slop"
 reading = "Dropped, C311"
 authors = ["pu-jie-tianxian"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/the-system-is-abstract-luckily-so-am-i/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/the-system-is-abstract-luckily-so-am-i/" },
 ]
 
 [[book]]
@@ -768,7 +758,7 @@ quality = "Decent"
 reading = "Finished, C992"
 authors = ["warmaisach"]
 links = [
-    { title = "webnovel", url = "https://m.webnovel.com/book/kill-the-sun_27467949206850305" },
+  { title = "webnovel", url = "https://m.webnovel.com/book/kill-the-sun_27467949206850305" },
 ]
 
 [[book]]
@@ -779,7 +769,7 @@ quality = "Slop"
 reading = "Dropped, C54"
 authors = ["exploding-small-latte"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/__trashed-43/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/__trashed-43/" },
 ]
 
 [[book]]
@@ -789,7 +779,7 @@ quality = "Ok"
 reading = "Dropped, C44"
 authors = ["arcanecadence"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/118891/new-life-as-a-max-level-archmage" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/118891/new-life-as-a-max-level-archmage" },
 ]
 
 [[book]]
@@ -799,7 +789,7 @@ quality = "Ok, bad translation"
 reading = "Dropped, C164"
 authors = ["the-whitest-crow"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/only-at-the-mahayana-stage-does-the-reversal-system-appear/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/only-at-the-mahayana-stage-does-the-reversal-system-appear/" },
 ]
 
 [[book]]
@@ -809,7 +799,7 @@ quality = "Ok"
 reading = "Dropped, finished V4"
 authors = ["emes"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/52083/etherious--a-litrpg-story" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/52083/etherious--a-litrpg-story" },
 ]
 
 [[book]]
@@ -819,7 +809,7 @@ quality = "Bad"
 reading = "Dropped, V1C9"
 authors = ["colin-j-d-crooks"]
 links = [
-    { title = "goodreads", url = "https://www.goodreads.com/book/show/56769296-arisen" },
+  { title = "goodreads", url = "https://www.goodreads.com/book/show/56769296-arisen" },
 ]
 
 [[book]]
@@ -829,7 +819,7 @@ quality = "Slop"
 reading = "Dropped, C37"
 authors = ["_172"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/i-became-the-necromancer-of-the-academy/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/i-became-the-necromancer-of-the-academy/" },
 ]
 
 [[book]]
@@ -839,7 +829,7 @@ quality = "Ok"
 reading = "Dropped, V3C13"
 authors = ["tk523"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/49881/dear-spellbook" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/49881/dear-spellbook" },
 ]
 
 [[book]]
@@ -849,7 +839,7 @@ quality = "Ok"
 reading = "Finished, V4"
 authors = ["zaifyr"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/60292/all-the-dust-that-falls" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/60292/all-the-dust-that-falls" },
 ]
 
 [[book]]
@@ -859,7 +849,7 @@ quality = "Ok"
 reading = "Dropped, C278"
 authors = ["actus"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/89034/nightmare-realm-summoner" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/89034/nightmare-realm-summoner" },
 ]
 
 [[book]]
@@ -869,7 +859,7 @@ quality = "Slop"
 reading = "Dropped, V1C50"
 authors = ["cornman"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/76463/mage-tank" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/76463/mage-tank" },
 ]
 
 [[book]]
@@ -879,7 +869,7 @@ quality = "Slop"
 reading = "Dropped, V1C11"
 authors = ["nicholas_sansbury_smith"]
 links = [
-    { title = "aethonbooks", url = "https://aethonbooks.com/book/salvage-system/" },
+  { title = "aethonbooks", url = "https://aethonbooks.com/book/salvage-system/" },
 ]
 
 [[book]]
@@ -890,7 +880,7 @@ quality = "Good"
 reading = "Finished, C1149"
 authors = ["foxtail-quill"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/shrouded-seascape/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/shrouded-seascape/" },
 ]
 
 [[book]]
@@ -901,7 +891,18 @@ quality = "Good"
 reading = "Finished, C1037"
 authors = ["jin-nai"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/diary-of-a-dead-wizard/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/diary-of-a-dead-wizard/" },
+]
+
+[[book]]
+title = "The Crazy Knight’s Age of the Universe"
+alt_titles = ["疯骑士的宇宙时代"]
+thumbnail = "https://img.wtr-lab.com/cdn/series/V59LQYUDTF-TfhZh1GsBO6WG1VvW3p6MTAOqKYwFyFA.jpeg"
+quality = "Ok, lost the vibe of the first book"
+reading = "Dropped, C167"
+authors = ["angry-squirrel"]
+links = [
+  { title = "wtr-lab", url = "https://wtr-lab.com/en/novel/21563/the-crazy-knights-age-of-the-universe/" },
 ]
 
 [[book]]
@@ -910,9 +911,7 @@ thumbnail = "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/
 quality = "Good"
 reading = "Finished"
 authors = ["scott_alexander"]
-links = [
-    {  title ="site", url = "https://unsongbook.com/" }
-]
+links = [{ title = "site", url = "https://unsongbook.com/" }]
 
 [[book]]
 title = "Young Master's PoV: Woke Up As A Villain In A Game One Day"
@@ -921,7 +920,7 @@ quality = "Ok"
 reading = "Reading, C279"
 authors = ["the-one-who-was"]
 links = [
-    { title = "webnovel", url = "https://www.webnovel.com/book/young-master's-pov-woke-up-as-a-villain-in-a-game-one-day_30581672200350205" },
+  { title = "webnovel", url = "https://www.webnovel.com/book/young-master's-pov-woke-up-as-a-villain-in-a-game-one-day_30581672200350205" },
 ]
 
 [[book]]
@@ -931,21 +930,31 @@ quality = "Ok"
 reading = "Reading, V2C71"
 authors = ["zaifyr"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/104561/for-the-glory-of-rome-chronicles-of-an-isekaid" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/104561/for-the-glory-of-rome-chronicles-of-an-isekaid" },
+]
+
+[[book]]
+title = "Changeling"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg"
+quality = "Decent"
+reading = "Reading, C83"
+authors = ["mecanimus"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/75345/changeling" },
 ]
 
 [[book]]
 title = "Struggling to Survive with Regression Power in the Primordial Saint Sect"
 alt_titles = [
-    "苟在初圣魔门当人材",
-    "Lying Low as the First Saint Demonic Sect’s ‘Top Talent’",
+  "苟在初圣魔门当人材",
+  "Lying Low as the First Saint Demonic Sect’s ‘Top Talent’",
 ]
 thumbnail = "./struggling_to_survive_with_regression_power_in_the_primordial_saint_sect.png"
 quality = "Decent"
 reading = "Reading, C248"
 authors = ["crane-by-the-moonlit-pond"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/struggling-to-survive-with-regression-power-in-the-primordial-saint-sect/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/struggling-to-survive-with-regression-power-in-the-primordial-saint-sect/" },
 ]
 
 [[book]]
@@ -955,7 +964,7 @@ quality = "Decent"
 reading = "Reading, C198"
 authors = ["macronomicon"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/92144/the-legend-of-william-oh" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/92144/the-legend-of-william-oh" },
 ]
 
 [[book]]
@@ -965,7 +974,7 @@ quality = "Decent"
 reading = "Reading, C93"
 authors = ["lit-homunculus"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/122142/the-tower-of-infinite-evil-a-litrpg-horror-comedy" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/122142/the-tower-of-infinite-evil-a-litrpg-horror-comedy" },
 ]
 
 [[book]]
@@ -975,8 +984,8 @@ quality = "Decent"
 reading = "Reading, chapter 2388"
 authors = ["guilty-three"]
 links = [
-    { title = "webnovel", url = "https://www.webnovel.com/book/shadow-slave_22196546206090805" },
-    { title = "novelbin", url = "https://novelbin.com/b/shadow-slave/chapter-2388-bait" },
+  { title = "webnovel", url = "https://www.webnovel.com/book/shadow-slave_22196546206090805" },
+  { title = "novelbin", url = "https://novelbin.com/b/shadow-slave/chapter-2388-bait" },
 ]
 
 [[book]]
@@ -986,7 +995,7 @@ quality = "Decent"
 reading = "Reading, book 5 chapter 25"
 authors = ["rinoz"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/47038/book-of-the-dead" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/47038/book-of-the-dead" },
 ]
 
 [[book]]
@@ -996,7 +1005,7 @@ quality = "Decent"
 reading = "Reading, chapter 589"
 authors = ["cerim"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial" },
 ]
 
 [[book]]
@@ -1007,7 +1016,7 @@ quality = "Good"
 reading = "Reading, C65"
 authors = ["foxtail-quill"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/series/grotesqueries-of-the-old-domain/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/grotesqueries-of-the-old-domain/" },
 ]
 
 [[book]]
@@ -1017,5 +1026,5 @@ quality = "Good"
 reading = "Reading, B3C25"
 authors = ["warby-picus"]
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/fiction/107917/sky-pride" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/107917/sky-pride" },
 ]

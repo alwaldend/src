@@ -25,7 +25,7 @@ function M.setup()
     vim.opt.rtp:prepend(lazypath)
 
     require("lazy").setup({
-        { import = "alwaldend/nvim-lib/lazy-plugins" },
+        { import = "alwaldend/nvim/lazy-plugins" },
     }, {})
 end
 

@@ -90,24 +90,23 @@ func (self *Generator) addGit(release *contracts.Release, gitRoot string) error 
 	})
 	revTags, ok := hashesToTags[rev.String()]
 	if ok {
-		copy(release.Git.Tags, revTags)
+		release.Git.Tags = append(release.Git.Tags, revTags...)
 	}
 	filter := func(path string) bool {
-		return strings.HasPrefix(path, release.Project.Subdir)
+		res := strings.HasPrefix(path, release.Project.Subdir)
+		return res
 	}
 	commitIter, err := repo.Log(&git.LogOptions{From: *rev, PathFilter: filter})
 	if err != nil {
 		return fmt.Errorf("could not create commit iterator: %w", err)
 	}
-	end := false
 	err = commitIter.ForEach(func(commit *object.Commit) error {
 		_, hasTags := hashesToTags[commit.Hash.String()]
 		if commit.Hash != *rev && hasTags {
-			end = true
+			commitIter.Close()
+			return nil
 		}
-		if !end {
-			release.Git.Commits = append(release.Git.Commits, commit.Hash.String())
-		}
+		release.Git.Commits = append(release.Git.Commits, commit.Hash.String())
 		return nil
 	})
 	if err != nil {

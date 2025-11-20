@@ -1,5 +1,7 @@
 {{ $page := .Page -}}
 <!-- -->
+{{ $release := .Release -}}
+<!-- -->
 {{- $gitInfo := partial "alwaldend/git_info" (dict "Site" .Page.Site) -}}
 <ul class="list-group">
   {{- range $index, $commitHash := .Release.Data.git.commits -}}
@@ -8,7 +10,8 @@
   <!-- -->
   {{- if not $commit -}}
   <!-- -->
-  {{- fmt.Errorf "missing commit '%s' in %v" $commitHash $gitInfo -}}
+  {{- fmt.Errorf "missing commit '%s' for release %s/%s" $commitHash
+  $release.Data.project.subdir $release.Data.name -}}
   <!-- -->
   {{- end -}}
   <!-- -->

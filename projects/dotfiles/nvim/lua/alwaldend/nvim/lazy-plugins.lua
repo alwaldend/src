@@ -77,7 +77,7 @@ return {
                 vue = { "prettierd", "prettier", stop_after_first = true },
                 css = { "prettierd", "prettier", stop_after_first = true },
                 scss = { "prettierd", "prettier", stop_after_first = true },
-                -- toml = { "taplo" },
+                toml = { "taplo" },
                 less = { "prettierd", "prettier", stop_after_first = true },
                 html = { "prettierd", "prettier", stop_after_first = true },
                 json = { "prettierd", "prettier", stop_after_first = true },
@@ -222,13 +222,13 @@ return {
             local mason_lspconfig = require("mason-lspconfig")
             local lspconfig = require("lspconfig")
             local neodev = require("neodev")
-            local keymaps = require("alwaldend/nvim-lib/keymaps")
+            local keymaps = require("alwaldend/nvim/keymaps")
 
             local capabilities = cmp_nvim_lsp.default_capabilities(
                 vim.lsp.protocol.make_client_capabilities()
             )
 
-            fidget.setup()
+            fidget.setup({})
             neodev.setup()
             mason.setup()
             mason_lspconfig.setup({
@@ -265,7 +265,7 @@ return {
         version = config["danymat/neogen"].version,
         config = function()
             require("neogen").setup({ snippet_engine = "luasnip" })
-            require("alwaldend/nvim-lib/keymaps").setup_neogen()
+            require("alwaldend/nvim/keymaps").setup_neogen()
         end,
     },
     {
@@ -319,7 +319,7 @@ return {
                         luasnip.lsp_expand(args.body)
                     end,
                 },
-                mapping = require("alwaldend/nvim-lib/keymaps").get_cmp(),
+                mapping = require("alwaldend/nvim/keymaps").get_cmp(),
                 sources = {
                     { name = "nvim_lsp" },
                     { name = "luasnip" },
@@ -356,7 +356,7 @@ return {
                 topdelete = { text = "‾" },
                 changedelete = { text = "~" },
             },
-            on_attach = require("alwaldend/nvim-lib/keymaps").setup_gitsigns,
+            on_attach = require("alwaldend/nvim/keymaps").setup_gitsigns,
         },
     },
     {
@@ -386,7 +386,7 @@ return {
         config = function(_, opts)
             pcall(require("telescope").load_extension, "fzf")
             require("telescope").setup(opts)
-            require("alwaldend/nvim-lib/keymaps").setup_telescope()
+            require("alwaldend/nvim/keymaps").setup_telescope()
         end,
         opts = {
             defaults = {
@@ -482,8 +482,7 @@ return {
             },
         },
         config = function(_, opts)
-            local keymaps =
-                require("alwaldend/nvim-lib/keymaps").config_treesitter
+            local keymaps = require("alwaldend/nvim/keymaps").config_treesitter
             opts["incremental_selection"] = keymaps.incremental_selection
             opts["textobjects"] = keymaps.textobjects
             require("nvim-treesitter.configs").setup(opts)
