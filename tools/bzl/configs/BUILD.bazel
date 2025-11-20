@@ -35,6 +35,7 @@ config_setting(
     flag_values = {
         ":ci_flag": "true",
     },
+    visibility = ["//:__subpackages__"],
 )
 
 bool_flag(

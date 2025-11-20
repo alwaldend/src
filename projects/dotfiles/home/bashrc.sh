@@ -44,6 +44,8 @@ export GIT_PS1_SHOWUNTRACKEDFILES="1"
 export GIT_PS1_SHOWCONFLICTSTATE="yes"
 export GIT_PS1_SHOWUPSTREAM="auto"
 export GIT_PS1_STATESEPARATOR=" "
+# do not track
+export DO_NOT_TRACK="1"
 
 ## all locales are overwritten
 export LC_ALL="en_US.UTF-8"
