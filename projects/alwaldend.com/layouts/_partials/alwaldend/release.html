@@ -1,17 +1,18 @@
 {{ $release := partial "alwaldend/get_release" (dict "Page" .Page) -}}
 <!-- -->
+{{- $page := .Page -}}
+<!-- -->
 {{ $releasePageRef := .Page.Resources.Get "release_page.json" -}}
 <!-- -->
 {{ $releasePage := transform.Unmarshal $releasePageRef -}}
 <!-- -->
 {{- $show := compare.Conditional .standalone "show" "" -}}
 <!-- -->
-{{- $id := printf "release_%s" $release.Data.name -}}
+{{ range $releasePage.sections -}}
 <!-- -->
-<div class="accordion mt-3" id="{{ $id }}_accordion">
-  {{ range $releasePage.sections -}}
-  <!-- -->
-  {{- $id := printf "%s_%s" $id .title -}}
+{{- $id := strings.ToLower (printf "release_%s_%s" $release.Data.name .title)
+-}}
+<div class="accordion mt-2" id="{{ $id }}_accordion">
   <div class="accordion-item">
     <h3 class="accordion-header" id="{{ $id }}">
       <button
@@ -33,11 +34,12 @@
       id="{{ $id }}_collapse"
       class="accordion-collapse collapse {{ $show }}"
       aria-labelledby="{{ $id }}"
+      data-bs-parent="#{{ $id }}"
     >
       <div class="accordion-body">
         {{- range .items -}}
         <ul class="list-group">
-          <li class="list-group-item">{{ .content }}</li>
+          <li class="list-group-item my-auto">{{ .content }}</li>
           <li class="list-group-item">
             {{- range .attrs -}}
             <div class="btn-group me-2">
@@ -53,7 +55,7 @@
               <ul class="dropdown-menu">
                 <li>
                   <span class="dropdown-item-text">
-                    <code>{{ .content }}</code>
+                    <pre class="my-auto">{{ .content }}</pre>
                   </span>
                 </li>
               </ul>
@@ -65,5 +67,5 @@
       </div>
     </div>
   </div>
-  {{- end }}
 </div>
+{{- end }}

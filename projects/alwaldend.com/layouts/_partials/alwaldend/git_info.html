@@ -1,9 +1,0 @@
-{{- $gitInfo := .Site.Data.git_info -}}
-<!-- -->
-{{- if not $gitInfo -}}
-<!-- -->
-{{- fmt.Errorf "could not get git info from %v" .Site.Data -}}
-<!-- -->
-{{- end -}}
-<!-- -->
-{{- return $gitInfo -}}

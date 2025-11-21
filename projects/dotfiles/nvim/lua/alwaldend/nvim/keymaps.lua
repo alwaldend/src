@@ -169,7 +169,12 @@ function M.setup_telescope()
         builtin.grep_string,
         { desc = "[S]earch current [W]ord" }
     )
-    k.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
+    k.set(
+        "n",
+        "<leader>sg",
+        builtin.live_grep,
+        { desc = "[S]earch by [G]rep" }
+    )
     k.set(
         "n",
         "<leader>sG",
