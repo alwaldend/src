@@ -18,8 +18,6 @@ common --noincompatible_disallow_ctx_resolve_tools
 common --experimental_isolated_extension_usages
 # Disable output limit
 common --experimental_ui_max_stdouterr_bytes=-1
-# Enable the shell worker
-common --strategy=Shell=worker
 # Android platforms
 common --android_platforms=//tools/bzl/platforms:android_arm64
 # Go platforms
@@ -38,7 +36,9 @@ common:ci --//tools/bzl/configs:ci_flag
 # Show extra C/C++ errors
 build --copt="-Wextra"
 # Sandbox workers
-build --worker_sandboxing
+common --worker_sandboxing
+# Enable the shell worker
+common --strategy=Shell=worker
 # Attempt to build & test every target whose prerequisites were successfully built.
 common --keep_going
 # Enable external runfiles for haskell/llvm

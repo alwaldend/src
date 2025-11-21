@@ -6,12 +6,12 @@
 <!-- -->
 {{- $show := compare.Conditional .standalone "show" "" -}}
 <!-- -->
-{{- $id := printf "release_%s" $release.name -}}
+{{- $id := printf "release_%s" $release.Data.name -}}
 <!-- -->
 <div class="accordion mt-3" id="{{ $id }}_accordion">
   {{ range $releasePage.sections -}}
   <!-- -->
-  {{- $id = printf "%s_%s" $id .title -}}
+  {{- $id := printf "%s_%s" $id .title -}}
   <div class="accordion-item">
     <h3 class="accordion-header" id="{{ $id }}">
       <button
@@ -40,7 +40,7 @@
           <li class="list-group-item">{{ .content }}</li>
           <li class="list-group-item">
             {{- range .attrs -}}
-            <div class="btn-group me-1">
+            <div class="btn-group me-2">
               <button
                 class="btn btn-outline-primary btn-sm dropdown-toggle"
                 type="button"
@@ -51,7 +51,11 @@
                 {{ .name }}
               </button>
               <ul class="dropdown-menu">
-                <li><span class="dropdown-item-text">{{ .content }}</span></li>
+                <li>
+                  <span class="dropdown-item-text">
+                    <code>{{ .content }}</code>
+                  </span>
+                </li>
               </ul>
             </div>
             {{- end -}}

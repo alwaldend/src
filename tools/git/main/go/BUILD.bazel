@@ -8,7 +8,7 @@ go_library(
         "main.go",
     ],
     importpath = "git.alwaldend.com/src/tools/git/main/go",
-    visibility = ["//visibility:private"],
+    visibility = ["//:__subpackages__"],
     deps = [
         "//tools/git/main/proto:contracts",
         "@com_github_go_git_go_billy_v5//memfs:go_default_library",
@@ -25,5 +25,5 @@ go_library(
 go_binary(
     name = "go",
     embed = [":go_lib"],
-    visibility = ["//visibility:public"],
+    visibility = ["//:__subpackages__"],
 )

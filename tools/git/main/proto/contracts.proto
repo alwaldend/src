@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+package git;
+
 option go_package = "git.alwaldend.com/src/tools/git/main/proto/contracts";
 
 message GitSignature {

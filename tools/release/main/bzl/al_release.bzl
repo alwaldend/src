@@ -56,7 +56,9 @@ def _impl(ctx):
                         "subdir": ctx.attr.project,
                     },
                     "git": {
-                        "revision": "HEAD",
+                        "revision": {
+                            "hash": "HEAD",
+                        },
                     },
                 },
             ),

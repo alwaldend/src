@@ -35,7 +35,7 @@ type GitInfoGenerateOptions struct {
 
 func (self *GitInfo) Generate(ctx context.Context, opts *GitInfoGenerateOptions) error {
 	res := &contracts.GitInfo{}
-	repo, err := self.openRepo(opts.GitRoot, opts.InMemory)
+	repo, err := self.OpenRepo(opts.GitRoot, opts.InMemory)
 	if err != nil {
 		return fmt.Errorf("could not open repo '%s': %w", opts.GitRoot, err)
 	}
@@ -48,12 +48,12 @@ func (self *GitInfo) Generate(ctx context.Context, opts *GitInfoGenerateOptions)
 		remote := &contracts.GitRemote{Name: config.Name, Urls: config.URLs}
 		res.Remotes = append(res.Remotes, remote)
 	}
-	tagInfo, commitTags, err := self.parseTags(ctx, repo)
+	tagInfo, commitTags, err := self.ParseTags(ctx, repo)
 	if err != nil {
 		return fmt.Errorf("could not parse tags: %w", err)
 	}
 	proto.Merge(res, tagInfo)
-	commitInfo, err := self.parseCommits(ctx, repo, commitTags)
+	commitInfo, err := self.ParseCommits(ctx, repo, commitTags)
 	if err != nil {
 		return fmt.Errorf("could not parse commits: %w", err)
 	}
@@ -68,7 +68,7 @@ func (self *GitInfo) Generate(ctx context.Context, opts *GitInfoGenerateOptions)
 	return nil
 }
 
-func (self *GitInfo) parseTags(
+func (self *GitInfo) ParseTags(
 	ctx context.Context,
 	repo *git.Repository,
 ) (*contracts.GitInfo, map[string][]string, error) {
@@ -90,7 +90,7 @@ func (self *GitInfo) parseTags(
 		default:
 			tagsCount += 1
 			go func() {
-				tag, err := self.parseTag(repo, tagRef)
+				tag, err := self.ParseTag(repo, tagRef)
 				if err == nil {
 					tagsChannel <- tag
 				} else {
@@ -118,7 +118,7 @@ func (self *GitInfo) parseTags(
 	return res, commitTags, nil
 }
 
-func (self *GitInfo) parseTag(repo *git.Repository, tagRef *plumbing.Reference) (*contracts.GitTag, error) {
+func (self *GitInfo) ParseTag(repo *git.Repository, tagRef *plumbing.Reference) (*contracts.GitTag, error) {
 	tag := &contracts.GitTag{
 		Name:   strings.TrimPrefix(tagRef.Name().String(), "refs/tags/"),
 		Target: tagRef.Hash().String(),
@@ -142,7 +142,7 @@ func (self *GitInfo) parseTag(repo *git.Repository, tagRef *plumbing.Reference) 
 	return tag, nil
 }
 
-func (self *GitInfo) openRepo(gitRoot string, inMemory bool) (*git.Repository, error) {
+func (self *GitInfo) OpenRepo(gitRoot string, inMemory bool) (*git.Repository, error) {
 	var repo *git.Repository
 	var err error
 	if inMemory {
@@ -163,7 +163,7 @@ func (self *GitInfo) openRepo(gitRoot string, inMemory bool) (*git.Repository, e
 	return repo, nil
 }
 
-func (self *GitInfo) parseCommits(ctx context.Context, repo *git.Repository, commitTags map[string][]string) (*contracts.GitInfo, error) {
+func (self *GitInfo) ParseCommits(ctx context.Context, repo *git.Repository, commitTags map[string][]string) (*contracts.GitInfo, error) {
 	res := &contracts.GitInfo{
 		Commits: make(map[string]*contracts.GitCommit),
 	}
@@ -183,7 +183,7 @@ func (self *GitInfo) parseCommits(ctx context.Context, repo *git.Repository, com
 			commitCount += 1
 			tags, _ := commitTags[commitRef.Hash.String()]
 			go func() {
-				commit, err := self.parseCommit(ctx, mutex, commitRef, tags)
+				commit, err := self.ParseCommit(ctx, mutex, commitRef, tags, false)
 				if err == nil {
 					commitsChannel <- commit
 				} else {
@@ -211,11 +211,12 @@ func (self *GitInfo) parseCommits(ctx context.Context, repo *git.Repository, com
 	return res, nil
 }
 
-func (self *GitInfo) parseCommit(
+func (self *GitInfo) ParseCommit(
 	ctx context.Context,
 	mutex *sync.Mutex,
 	commitRef *object.Commit,
 	tags []string,
+	addChangedFiles bool,
 ) (*contracts.GitCommit, error) {
 	commitHash := commitRef.Hash.String()
 	commit := &contracts.GitCommit{
@@ -236,13 +237,15 @@ func (self *GitInfo) parseCommit(
 		Message:      commitRef.Message,
 	}
 	commit.Tags = tags
-	changes, err := self.commitChanges(ctx, mutex, commitRef)
-	if err != nil {
-		return nil, fmt.Errorf("could not get commit changes: %w", err)
-	}
-	for _, change := range changes {
-		commit.ChangedFiles[change.From.Name] = false
-		commit.ChangedFiles[change.To.Name] = false
+	if addChangedFiles {
+		changes, err := self.commitChanges(ctx, mutex, commitRef)
+		if err != nil {
+			return nil, fmt.Errorf("could not get commit changes: %w", err)
+		}
+		for _, change := range changes {
+			commit.ChangedFiles[change.From.Name] = false
+			commit.ChangedFiles[change.To.Name] = false
+		}
 	}
 	return commit, nil
 }

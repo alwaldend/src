@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"crypto"
 	_ "crypto/md5"
 	_ "crypto/sha256"
@@ -11,7 +12,9 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+	"sync"
 
+	gitLib "git.alwaldend.com/src/tools/git/main/go"
 	"git.alwaldend.com/src/tools/release/main/proto/contracts"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
@@ -20,15 +23,18 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-type Generator struct{}
+type Generator struct {
+	gitInfo *gitLib.GitInfo
+}
 
 type GeneratorParams struct{}
 
-func NewGenerator() *Generator {
-	return &Generator{}
+func NewGenerator(gitInfo *gitLib.GitInfo) *Generator {
+	return &Generator{gitInfo: gitInfo}
 }
 
 type GenerateOpts struct {
+	Ctx               context.Context
 	MergeItems        []string
 	MergeManifests    []string
 	OutputManifest    string
@@ -78,6 +84,7 @@ func (self *Generator) writeMessage(opts *GenerateOpts, message proto.Message, o
 	return nil
 }
 
+// Create a release page config
 func (self *Generator) createReleasePage(opts *GenerateOpts, release *contracts.Release) (*contracts.ReleasePage, error) {
 	page := &contracts.ReleasePage{}
 	artifactSection := &contracts.ReleasePageSection{Title: "Artifacts"}
@@ -85,15 +92,36 @@ func (self *Generator) createReleasePage(opts *GenerateOpts, release *contracts.
 	page.Sections = append(page.Sections, changelogSection)
 	page.Sections = append(page.Sections, artifactSection)
 	for _, commit := range release.Git.Commits {
-		sectionItem := &contracts.ReleasePageSectionItem{Content: commit}
-		changelogSection.Items = append(changelogSection.Items, sectionItem)
-		sectionItem.Attrs = append(
-			sectionItem.Attrs,
-			&contracts.ReleasePageSectionItemAttr{
-				Name:    "Hash",
-				Content: commit,
+		sectionItem := &contracts.ReleasePageSectionItem{
+			Content: commit.Message,
+			Attrs: []*contracts.ReleasePageSectionItemAttr{
+				{
+					Name:    "Hash",
+					Content: commit.Hash,
+				},
+				{
+					Name:    "Author",
+					Content: fmt.Sprintf("%s <%s>", commit.Author.Name, commit.Author.Email),
+				},
+				{
+					Name:    "Committer",
+					Content: fmt.Sprintf("%s <%s>", commit.Committer.Name, commit.Committer.Email),
+				},
 			},
-		)
+		}
+		if len(commit.Tags) != 0 {
+			sectionItem.Attrs = append(sectionItem.Attrs, &contracts.ReleasePageSectionItemAttr{
+				Name:    "Tags",
+				Content: strings.Join(commit.Tags, ", "),
+			})
+		}
+		if commit.PgpSignature != "" {
+			sectionItem.Attrs = append(sectionItem.Attrs, &contracts.ReleasePageSectionItemAttr{
+				Name:    "PGP",
+				Content: commit.PgpSignature,
+			})
+		}
+		changelogSection.Items = append(changelogSection.Items, sectionItem)
 	}
 	for _, item := range release.Items {
 		sectionItem := &contracts.ReleasePageSectionItem{}
@@ -130,6 +158,7 @@ func (self *Generator) createReleasePage(opts *GenerateOpts, release *contracts.
 	return page, nil
 }
 
+// Create a release config
 func (self *Generator) createRelease(opts *GenerateOpts) (*contracts.Release, error) {
 	release := &contracts.Release{}
 	for _, item := range opts.MergeItems {
@@ -143,7 +172,7 @@ func (self *Generator) createRelease(opts *GenerateOpts) (*contracts.Release, er
 		}
 	}
 	if release.Git != nil {
-		err := self.addGit(release, opts.GitRoot)
+		err := self.addGit(opts.Ctx, release, opts.GitRoot)
 		if err != nil {
 			return nil, fmt.Errorf("could not add git info to release: %w", err)
 		}
@@ -152,7 +181,7 @@ func (self *Generator) createRelease(opts *GenerateOpts) (*contracts.Release, er
 }
 
 // Add git information in-place
-func (self *Generator) addGit(release *contracts.Release, gitRoot string) error {
+func (self *Generator) addGit(ctx context.Context, release *contracts.Release, gitRoot string) error {
 	if release.Git == nil {
 		return fmt.Errorf("release is missing git info: %v", release)
 	}
@@ -163,25 +192,25 @@ func (self *Generator) addGit(release *contracts.Release, gitRoot string) error 
 	if err != nil {
 		return fmt.Errorf("could not open repo %s: %w", gitRoot, err)
 	}
-	rev, err := repo.ResolveRevision(plumbing.Revision(release.Git.Revision))
+	rev, err := repo.ResolveRevision(plumbing.Revision(release.Git.Revision.Hash))
 	if err != nil {
 		return fmt.Errorf("could not resolve revision %s: %w", release.Git.Revision, err)
 	}
-	release.Git.Revision = rev.String()
-	tagIter, err := repo.Tags()
+	mutex := &sync.Mutex{}
+	_, commitTags, err := self.gitInfo.ParseTags(ctx, repo)
 	if err != nil {
-		return fmt.Errorf("could not create tag iterator ref: %w", err)
+		return fmt.Errorf("could not parse tags: %w", err)
 	}
-	hashesToTags := make(map[string][]string)
-	err = tagIter.ForEach(func(tag *plumbing.Reference) error {
-		idx := tag.Hash().String()
-		hashesToTags[idx] = append(hashesToTags[idx], tag.String())
-		return nil
-	})
-	revTags, ok := hashesToTags[rev.String()]
-	if ok {
-		release.Git.Tags = append(release.Git.Tags, revTags...)
+	headTags, _ := commitTags[rev.String()]
+	headRef, err := repo.Head()
+	if err != nil {
+		return fmt.Errorf("could not create head ref: %w", err)
 	}
+	headCommit, err := repo.CommitObject(headRef.Hash())
+	if err != nil {
+		return fmt.Errorf("could not create head commit: %w", err)
+	}
+	release.Git.Revision, err = self.gitInfo.ParseCommit(ctx, mutex, headCommit, headTags, false)
 	filter := func(path string) bool {
 		res := strings.HasPrefix(path, release.Project.Subdir)
 		return res
@@ -190,13 +219,17 @@ func (self *Generator) addGit(release *contracts.Release, gitRoot string) error 
 	if err != nil {
 		return fmt.Errorf("could not create commit iterator: %w", err)
 	}
-	err = commitIter.ForEach(func(commit *object.Commit) error {
-		_, hasTags := hashesToTags[commit.Hash.String()]
-		if commit.Hash != *rev && hasTags {
+	err = commitIter.ForEach(func(commitRef *object.Commit) error {
+		tags, hasTags := commitTags[commitRef.Hash.String()]
+		if commitRef.Hash != *rev && hasTags {
 			commitIter.Close()
 			return nil
 		}
-		release.Git.Commits = append(release.Git.Commits, commit.Hash.String())
+		commit, err := self.gitInfo.ParseCommit(ctx, mutex, commitRef, tags, false)
+		if err != nil {
+			return fmt.Errorf("could not parse commit %s: %w", commitRef.Hash, err)
+		}
+		release.Git.Commits = append(release.Git.Commits, commit)
 		return nil
 	})
 	if err != nil {
@@ -257,6 +290,7 @@ func (self *Generator) addItem(release *contracts.Release, path string) error {
 	return nil
 }
 
+// Round a float to a precision
 func roundFloat(val float64, precision uint) float64 {
 	ratio := math.Pow(10, float64(precision))
 	return math.Round(val*ratio) / ratio

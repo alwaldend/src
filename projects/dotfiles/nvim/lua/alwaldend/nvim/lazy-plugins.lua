@@ -14,13 +14,114 @@ local config = {
     ["stevearc/conform.nvim"] = { version = "*" },
     ["tpope/vim-fugitive"] = { version = "*" },
     ["tpope/vim-sleuth"] = { version = "*" },
-    ["mason-org/mason.nvim"] = { version = "^1.0.0" },
-    ["mason-org/mason-lspconfig.nvim"] = { version = "^1.0.0" },
+    ["mason-org/mason-lspconfig.nvim"] = { version = "*" },
 }
 
-local colors_bg = "#000000"
-local colors_bg_term = "0"
-local colors_fg = "#ffffff"
+local colors_bg = "#ffffff"
+local colors_fg = "#000000"
+local servers = {
+    ansiblels = {},
+    gopls = {
+        gopls = {
+            gofumpt = true,
+            workspaceFiles = {
+                "**/BUILD",
+                "**/WORKSPACE",
+                "**/*.{bzl,bazel}",
+            },
+            -- fix for generated golang files
+            -- https://github.com/bazelbuild/rules_go/wiki/Editor-setup
+            env = { GOPACKAGESDRIVER = "gopackagesdriver" },
+            directoryFilters = {
+                "-bazel-bin",
+                "-bazel-out",
+                "-bazel-src",
+                "-bazel-testlogs",
+            },
+        },
+    },
+    bashls = {},
+    clangd = {
+        filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "hpp" },
+    },
+    pyright = {},
+    dockerls = {},
+    docker_compose_language_service = {},
+    gradle_ls = {},
+    helm_ls = {},
+    kotlin_language_server = {},
+    bzl = {},
+    marksman = {},
+    protols = {},
+    taplo = {},
+    ts_ls = {},
+    jsonls = {},
+    tflint = {},
+    html = {},
+    yamlls = {
+        settings = {
+            yaml = {
+                format = {
+                    enable = true,
+                },
+                completion = true,
+                hover = true,
+                validate = true,
+                schemaStore = {
+                    enable = false,
+                },
+                customTags = {
+                    "!reference sequence",
+                },
+                schemas = {
+                    ["http://json.schemastore.org/github-workflow"] = {
+                        ".github/workflows/*",
+                    },
+                    ["http://json.schemastore.org/github-action"] = {
+                        ".github/action.{yml,yaml}",
+                    },
+                    ["http://json.schemastore.org/ansible-stable-2.9"] = {
+                        "roles/tasks/*.{yml,yaml}",
+                    },
+                    ["http://json.schemastore.org/prettierrc"] = {
+                        ".prettierrc.{yml,yaml}",
+                    },
+                    ["http://json.schemastore.org/kustomization"] = {
+                        "kustomization.{yml,yaml}",
+                    },
+                    ["http://json.schemastore.org/ansible-playbook"] = {
+                        "*play*.{yml,yaml}",
+                    },
+                    ["http://json.schemastore.org/chart"] = {
+                        "Chart.{yml,yaml}",
+                    },
+                    ["https://json.schemastore.org/dependabot-v2"] = {
+                        ".github/dependabot.{yml,yaml}",
+                    },
+                    ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = {
+                        "*.gitlab-ci.{yml,yaml}",
+                    },
+                    ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = {
+                        "*docker-compose*.{yml,yaml}",
+                    },
+                    ["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = {
+                        "*flow*.{yml,yaml}",
+                    },
+                },
+            },
+        },
+    },
+    lua_ls = {
+        Lua = {
+            workspace = { checkThirdParty = false },
+            telemetry = { enable = false },
+            diagnostics = {
+                globals = { "vim" },
+                disable = { "missing-fields" },
+            },
+        },
+    },
+}
 
 local lualine_colors = {
     a = { bg = colors_fg, fg = colors_bg },
@@ -102,161 +203,65 @@ return {
         "neovim/nvim-lspconfig",
         version = config["neovim/nvim-lspconfig"].version,
         dependencies = {
-            -- Automatically install LSPs to stdpath for neovim
-            { "mason-org/mason.nvim" },
+            { "mason-org/mason.nvim", opts = {} },
             { "mason-org/mason-lspconfig.nvim" },
-            -- Useful status updates for LSP
-            { "j-hui/fidget.nvim", version = "*" },
-            -- Additional lua configuration, makes nvim stuff amazing!
-            { "folke/neodev.nvim" },
+            { "j-hui/fidget.nvim", opts = {} },
+            { "saghen/blink.cmp" },
         },
         event = { "BufReadPre", "BufNewFile" },
         config = function()
-            local servers = {
-                ansiblels = {},
-                gopls = {
-                    gopls = {
-                        gofumpt = true,
-                        workspaceFiles = {
-                            "**/BUILD",
-                            "**/WORKSPACE",
-                            "**/*.{bzl,bazel}",
-                        },
-                        -- fix for generated golang files
-                        -- https://github.com/bazelbuild/rules_go/wiki/Editor-setup
-                        env = { GOPACKAGESDRIVER = "gopackagesdriver" },
-                        directoryFilters = {
-                            "-bazel-bin",
-                            "-bazel-out",
-                            "-bazel-src",
-                            "-bazel-testlogs",
-                        },
-                    },
-                },
-                bashls = {},
-                clangd = {
-                    filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "hpp" },
-                },
-                pyright = {},
-                dockerls = {},
-                docker_compose_language_service = {},
-                gradle_ls = {},
-                helm_ls = {},
-                kotlin_language_server = {},
-                bzl = {},
-                marksman = {},
-                protols = {},
-                taplo = {},
-                ts_ls = {},
-                jsonls = {},
-                tflint = {},
-                html = {},
-                yamlls = {
-                    settings = {
-                        yaml = {
-                            format = {
-                                enable = true,
-                            },
-                            completion = true,
-                            hover = true,
-                            validate = true,
-                            schemaStore = {
-                                enable = false,
-                            },
-                            customTags = {
-                                "!reference sequence",
-                            },
-                            schemas = {
-                                ["http://json.schemastore.org/github-workflow"] = {
-                                    ".github/workflows/*",
-                                },
-                                ["http://json.schemastore.org/github-action"] = {
-                                    ".github/action.{yml,yaml}",
-                                },
-                                ["http://json.schemastore.org/ansible-stable-2.9"] = {
-                                    "roles/tasks/*.{yml,yaml}",
-                                },
-                                ["http://json.schemastore.org/prettierrc"] = {
-                                    ".prettierrc.{yml,yaml}",
-                                },
-                                ["http://json.schemastore.org/kustomization"] = {
-                                    "kustomization.{yml,yaml}",
-                                },
-                                ["http://json.schemastore.org/ansible-playbook"] = {
-                                    "*play*.{yml,yaml}",
-                                },
-                                ["http://json.schemastore.org/chart"] = {
-                                    "Chart.{yml,yaml}",
-                                },
-                                ["https://json.schemastore.org/dependabot-v2"] = {
-                                    ".github/dependabot.{yml,yaml}",
-                                },
-                                ["https://gitlab.com/gitlab-org/gitlab/-/raw/master/app/assets/javascripts/editor/schema/ci.json"] = {
-                                    "*.gitlab-ci.{yml,yaml}",
-                                },
-                                ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = {
-                                    "*docker-compose*.{yml,yaml}",
-                                },
-                                ["https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json"] = {
-                                    "*flow*.{yml,yaml}",
-                                },
-                            },
-                        },
-                    },
-                },
-                lua_ls = {
-                    Lua = {
-                        workspace = { checkThirdParty = false },
-                        telemetry = { enable = false },
-                        diagnostics = {
-                            globals = { "vim" },
-                            disable = { "missing-fields" },
-                        },
-                    },
-                },
-            }
-
-            local cmp_nvim_lsp = require("cmp_nvim_lsp")
-            local fidget = require("fidget")
-            local mason = require("mason")
+            local capabilities = require("blink.cmp").get_lsp_capabilities()
             local mason_lspconfig = require("mason-lspconfig")
-            local lspconfig = require("lspconfig")
-            local neodev = require("neodev")
             local keymaps = require("alwaldend/nvim/keymaps")
 
-            local capabilities = cmp_nvim_lsp.default_capabilities(
-                vim.lsp.protocol.make_client_capabilities()
-            )
+            -- Diagnostic Config
+            -- See :help vim.diagnostic.Opts
+            vim.diagnostic.config({
+                severity_sort = true,
+                float = { border = "rounded", source = "if_many" },
+                underline = { severity = vim.diagnostic.severity.ERROR },
+                signs = vim.g.have_nerd_font
+                        and {
+                            text = {
+                                [vim.diagnostic.severity.ERROR] = "󰅚 ",
+                                [vim.diagnostic.severity.WARN] = "󰀪 ",
+                                [vim.diagnostic.severity.INFO] = "󰋽 ",
+                                [vim.diagnostic.severity.HINT] = "󰌶 ",
+                            },
+                        }
+                    or {},
+                virtual_text = {
+                    source = "if_many",
+                    spacing = 2,
+                    format = function(diagnostic)
+                        local diagnostic_message = {
+                            [vim.diagnostic.severity.ERROR] = diagnostic.message,
+                            [vim.diagnostic.severity.WARN] = diagnostic.message,
+                            [vim.diagnostic.severity.INFO] = diagnostic.message,
+                            [vim.diagnostic.severity.HINT] = diagnostic.message,
+                        }
+                        return diagnostic_message[diagnostic.severity]
+                    end,
+                },
+            })
 
-            fidget.setup({})
-            neodev.setup()
-            mason.setup()
             mason_lspconfig.setup({
                 ensure_installed = vim.tbl_keys(servers),
-                automatic_installation = false,
-            })
-            mason_lspconfig.setup_handlers({
-                ---@param server_name string
-                function(server_name)
-                    lspconfig[server_name].setup({
-                        capabilities = capabilities,
-                        on_attach = keymaps.setup_lsp,
-                        settings = servers[server_name],
-                        filetypes = (servers[server_name] or {}).filetypes,
-                    })
-                end,
+                automatic_installation = true,
+                handlers = {
+                    function(server_name)
+                        local server = servers[server_name] or {}
+                        server.capabilities = vim.tbl_deep_extend(
+                            "force",
+                            {},
+                            capabilities,
+                            server.capabilities or {}
+                        )
+                        require("lspconfig")[server_name].setup(server)
+                    end,
+                },
             })
         end,
-    },
-    {
-        --- lsps
-        "mason-org/mason.nvim",
-        version = config["mason-org/mason.nvim"].version,
-    },
-    {
-        --- lspconfig
-        "mason-org/mason-lspconfig.nvim",
-        version = config["mason-org/mason-lspconfig.nvim"].version,
     },
     {
         --- annotation generator
@@ -489,18 +494,14 @@ return {
         end,
     },
     {
-        --- theme
-        "sainnhe/sonokai",
-        version = config["sainnhe/sonokai"].version,
-        lazy = false,
+        "navarasu/onedark.nvim",
         priority = 1000,
-        enabled = true,
+        lazy = false,
         config = function()
-            vim.g.sonokai_style = "default"
-            vim.g.sonokai_colors_override = {
-                bg0 = { colors_bg, colors_bg_term },
-            }
-            vim.cmd.colorscheme("sonokai")
+            require("onedark").setup({
+                style = "light",
+            })
+            require("onedark").load()
         end,
     },
     {
@@ -511,7 +512,7 @@ return {
             require("lualine").setup({
                 options = {
                     globalstatus = true,
-                    theme = lualine_theme,
+                    theme = "onedark",
                     icons_enabled = false,
                     component_separators = "|",
                     section_separators = " ",

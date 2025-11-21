@@ -24,6 +24,7 @@ proto_library(
     name = "contracts_proto",
     srcs = ["contracts.proto"],
     visibility = ["//:__subpackages__"],
+    deps = ["//tools/git/main/proto:contracts_proto"],
 )
 
 go_proto_library(
@@ -31,6 +32,7 @@ go_proto_library(
     importpath = "git.alwaldend.com/src/tools/release/main/proto/contracts",
     proto = ":contracts_proto",
     visibility = ["//:__subpackages__"],
+    deps = ["//tools/git/main/proto:contracts"],
 )
 
 go_library(

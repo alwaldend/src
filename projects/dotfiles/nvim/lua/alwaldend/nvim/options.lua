@@ -62,7 +62,11 @@ function M.setup()
     vim.o.hlsearch = false
 
     -- Make line numbers default
-    vim.wo.number = true
+    vim.o.number = true
+    vim.o.relativenumber = true
+
+    -- Don't show the mode, since it's already in the status line
+    vim.o.showmode = false
 
     -- Enable mouse mode
     -- vim.o.mouse = "a"

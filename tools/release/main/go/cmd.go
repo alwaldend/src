@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 
+	gitLib "git.alwaldend.com/src/tools/git/main/go"
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/encoding/protojson"
 )
@@ -16,7 +17,7 @@ func Execute(
 	stdin io.Reader,
 	stdout, stderr io.Writer,
 ) error {
-	root, err := newRootCommand(args, stdin, stdout, stderr)
+	root, err := newRootCommand(ctx, args, stdin, stdout, stderr)
 	if err != nil {
 		return fmt.Errorf("could not create commands: %w", err)
 	}
@@ -28,6 +29,7 @@ func Execute(
 }
 
 func newRootCommand(
+	ctx context.Context,
 	args []string,
 	stdin io.Reader,
 	stdout, stderr io.Writer,
@@ -42,7 +44,7 @@ func newRootCommand(
 	cmd.SetErr(stderr)
 	cmd.SetIn(stdin)
 	cmd.SetArgs(args)
-	cmdGen, err := newGenCommand()
+	cmdGen, err := newGenCommand(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -50,9 +52,10 @@ func newRootCommand(
 	return cmd, nil
 }
 
-func newGenCommand() (*cobra.Command, error) {
-	generator := NewGenerator()
-	opts := &GenerateOpts{MarshalOptions: &protojson.MarshalOptions{}}
+func newGenCommand(ctx context.Context) (*cobra.Command, error) {
+	gitInfo := &gitLib.GitInfo{}
+	generator := NewGenerator(gitInfo)
+	opts := &GenerateOpts{MarshalOptions: &protojson.MarshalOptions{}, Ctx: ctx}
 	cmd := &cobra.Command{
 		Use:   "generate",
 		Short: "Generate",
