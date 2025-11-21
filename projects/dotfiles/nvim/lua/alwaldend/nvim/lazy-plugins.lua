@@ -17,8 +17,6 @@ local config = {
     ["mason-org/mason-lspconfig.nvim"] = { version = "*" },
 }
 
-local colors_bg = "#ffffff"
-local colors_fg = "#000000"
 local servers = {
     ansiblels = {},
     gopls = {
@@ -123,20 +121,6 @@ local servers = {
     },
 }
 
-local lualine_colors = {
-    a = { bg = colors_fg, fg = colors_bg },
-    b = { bg = colors_bg, fg = colors_fg },
-    c = { bg = colors_bg, fg = colors_fg },
-}
-local lualine_theme = {
-    normal = lualine_colors,
-    insert = lualine_colors,
-    visual = lualine_colors,
-    replace = lualine_colors,
-    command = lualine_colors,
-    inactive = lualine_colors,
-}
-
 return {
     {
         --- autoformatting
@@ -214,6 +198,14 @@ return {
             local mason_lspconfig = require("mason-lspconfig")
             local keymaps = require("alwaldend/nvim/keymaps")
 
+            vim.api.nvim_create_autocmd("LspAttach", {
+                group = vim.api.nvim_create_augroup(
+                    "alwaldend_lsp_attach",
+                    { clear = true }
+                ),
+                callback = keymaps.lsp_callback,
+            })
+
             -- Diagnostic Config
             -- See :help vim.diagnostic.Opts
             vim.diagnostic.config({
@@ -266,7 +258,9 @@ return {
     {
         --- annotation generator
         "danymat/neogen",
-        dependencies = "nvim-treesitter/nvim-treesitter",
+        dependencies = {
+            { "nvim-treesitter/nvim-treesitter" },
+        },
         version = config["danymat/neogen"].version,
         config = function()
             require("neogen").setup({ snippet_engine = "luasnip" })
@@ -450,6 +444,8 @@ return {
             "nvim-treesitter/nvim-treesitter-textobjects",
         },
         build = ":TSUpdate",
+        branch = "master",
+        lazy = false,
         opts = {
             ensure_installed = {
                 "c",
@@ -480,9 +476,12 @@ return {
             auto_install = true,
             highlight = {
                 enable = true,
-                additional_vim_regex_highlighting = false,
+                additional_vim_regex_highlighting = { "ruby" },
             },
             indent = {
+                enable = true,
+            },
+            incremental_selection = {
                 enable = true,
             },
         },

@@ -8,6 +8,7 @@ common --incompatible_auto_exec_groups=false
 # Setup java
 common --java_language_version=21
 common --java_runtime_version=remotejdk_21
+common --tool_java_language_version=21
 common --tool_java_runtime_version=remotejdk_21
 # Disable telemetry (https://github.com/aspect-build/tools_telemetry)
 common --repo_env=ASPECT_TOOLS_TELEMETRY=

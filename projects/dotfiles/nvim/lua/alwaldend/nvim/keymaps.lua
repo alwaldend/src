@@ -188,17 +188,21 @@ end
 
 --[[ LSP keymaps ]]
 --  This function gets run when an LSP connects to a particular buffer.
-function M.setup_lsp(_, bufnr)
-    local function nmap(keys, func, desc)
-        if desc then
-            desc = "LSP: " .. desc
-        end
-
-        vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+function M.lsp_callback(event)
+    local function nmap(keys, func, desc, mode)
+        mode = mode or "n"
+        vim.keymap.set(
+            mode,
+            keys,
+            func,
+            { buffer = event.buf, desc = "LSP: " .. desc }
+        )
     end
+
     local function list_workspace_folders()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end
+
     local builtin = require("telescope.builtin")
 
     nmap("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
@@ -228,9 +232,48 @@ function M.setup_lsp(_, bufnr)
     )
     nmap("<leader>wl", list_workspace_folders, "[W]orkspace [L]ist Folders")
 
-    vim.api.nvim_buf_create_user_command(bufnr, "Format", vim.lsp.buf.format, {
-        desc = "Format current buffer with LSP",
-    })
+    -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
+    ---@param client vim.lsp.Client
+    ---@param method vim.lsp.protocol.Method
+    ---@param bufnr? integer some lsp support methods only in specific files
+    ---@return boolean
+    local function client_supports_method(client, method, bufnr)
+        if vim.fn.has("nvim-0.11") == 1 then
+            return client:supports_method(method, bufnr)
+        else
+            return client.supports_method(method, { bufnr = bufnr })
+        end
+    end
+
+    vim.api.nvim_buf_create_user_command(
+        event.buf,
+        "LspFormat",
+        vim.lsp.buf.format,
+        {
+            desc = "Format current buffer with LSP",
+        }
+    )
+
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+    -- The following code creates a keymap to toggle inlay hints in your
+    -- code, if the language server you are using supports them
+    --
+    -- This may be unwanted, since they displace some of your code
+    if
+        client
+        and client_supports_method(
+            client,
+            vim.lsp.protocol.Methods.textDocument_inlayHint,
+            event.buf
+        )
+    then
+        nmap("<leader>th", function()
+            vim.lsp.inlay_hint.enable(
+                not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf })
+            )
+        end, "[T]oggle Inlay [H]ints")
+    end
 end
 
 --[[ CMP keymaps ]]

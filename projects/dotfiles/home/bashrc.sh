@@ -79,8 +79,8 @@ export ANDROID_NDK_HOME="${HOME}/Android/Ndk"
 export GOPATH="${HOME}/.go"
 if [ -L "/usr/java/latest" ]; then
     export JAVA_HOME="/usr/java/latest"
-elif [ -L "/usr/lib/jvm/java" ]; then
-    export JAVA_HOME="/usr/lib/jvm/java"
+elif [ -d "/usr/lib/jvm/java-latest-openjdk" ]; then
+    export JAVA_HOME="/usr/lib/jvm/java-latest-openjdk"
 fi
 
 # https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
