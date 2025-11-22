@@ -1,0 +1,19 @@
+genrule(
+    name = "update_relays",
+    outs = ["update_relays.sh"],
+    cmd = """
+cat - >$(@) <<EOF
+#!/usr/bin/env sh
+set -eu
+curl https://api.mullvad.net/app/v1/relays >"\\$${BUILD_WORKSPACE_DIRECTORY}/data/mullvad/relays.json"
+EOF
+chmod u+x $(@)
+    """,
+    executable = True,
+)
+
+filegroup(
+    name = "relays",
+    srcs = ["relays.json"],
+    visibility = ["//:__subpackages__"],
+)
