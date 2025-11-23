@@ -3,8 +3,8 @@ title: Alwaldend
 description: Alwaldend.com
 ---
 
-{{% blocks/section type="row" %}}
+{{< blocks/cover height="full" >}}
 
 {{< alwaldend/links center=1 >}}
 
-{{% /blocks/section %}}
+{{< /blocks/cover >}}

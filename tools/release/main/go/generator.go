@@ -140,7 +140,7 @@ func (self *Generator) createReleasePage(opts *GenerateOpts, release *contracts.
 				sectionItem.Attrs,
 				&contracts.ReleasePageSectionItemAttr{
 					Name:    "Size",
-					Content: fmt.Sprintf("%f MB", size),
+					Content: fmt.Sprintf("%.2f MB", size),
 				},
 			)
 			for _, hash := range item.File.Hashes {

@@ -3,8 +3,6 @@ title: Alwaldend.com
 description: Alwaldend.com site built with hugo
 statuses:
   - in_progress
-sites:
-  - alwaldend.com
 tags:
   - hugo
 ---

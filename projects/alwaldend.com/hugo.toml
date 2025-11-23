@@ -57,7 +57,6 @@ title = true
 [taxonomies]
 category = "categories"
 language = "languages"
-site = "sites"
 status = "statuses"
 tag = "tags"
 
