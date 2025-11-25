@@ -1,8 +1,0 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
-
-pkg_files(
-    name = "host_vars",
-    srcs = glob(["**/*.yaml"]),
-    prefix = "host_vars",
-    visibility = ["//:__subpackages__"],
-)

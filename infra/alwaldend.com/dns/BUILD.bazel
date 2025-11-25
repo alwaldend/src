@@ -8,7 +8,7 @@ al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]) + _ZONES,
     prefix = package_name(),
-    visibility = ["//infra:__pkg__"],
+    visibility = ["//infra/alwaldend.com:__pkg__"],
 )
 
 al_dnscontrol_binary(

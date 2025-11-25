@@ -6,7 +6,7 @@ al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]),
     prefix = package_name(),
-    visibility = ["//infra:__pkg__"],
+    visibility = ["//infra/alwaldend.com/dc1:__pkg__"],
 )
 
 _PLAYBOOKS = {
@@ -36,15 +36,13 @@ pkg_filegroup(
     name = "srcs",
     srcs = [
         ":srcs_files",
-        "//infra/ansible/group_vars",
-        "//infra/ansible/host_vars",
     ],
 )
 
 pkg_files(
     name = "srcs_files",
     srcs = [
-        "ansible.cfg",
         "inventory.yaml",
-    ],
+        "//projects/ansible_collection:ansible_cfg",
+    ] + glob(["group_vars/**/*.yaml"]),
 )

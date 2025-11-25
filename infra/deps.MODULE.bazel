@@ -34,8 +34,8 @@ use_repo(
 
 al_helm_deps = use_extension("//tools/helm:al_helm_deps.bzl", "al_helm_deps")
 al_helm_deps.from_lock(
-    chart_lock = "//infra/charts/rancher.dc1.alwaldend.com:Chart.lock",
-    helm_lock = "//infra/charts/rancher.dc1.alwaldend.com:helm_lock.json",
+    chart_lock = "//infra/alwaldend.com/dc1/cluster1/chart:Chart.lock",
+    helm_lock = "//infra/alwaldend.com/dc1/cluster1/chart:helm_lock.json",
 )
 use_repo(al_helm_deps, "com_rancher_releases_rancher")
 

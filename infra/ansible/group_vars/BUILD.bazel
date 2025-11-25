@@ -1,8 +1,0 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
-
-pkg_files(
-    name = "group_vars",
-    srcs = glob(["**/*.yaml"]),
-    prefix = "group_vars",
-    visibility = ["//:__subpackages__"],
-)

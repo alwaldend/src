@@ -14,9 +14,3 @@ This tree contains [IaC](https://en.wikipedia.org/wiki/Infrastructure_as_code)
 - MUST NOT be public
 - MUST NOT be published
 - MUST NOT be used in builds
-
-## Setup Rancher
-
-```sh
-bazel run //infra/ansible:rancher1
-```

@@ -1,6 +1,6 @@
 ---
 title: Mikrotik
-description: Mikrotik tree
+description: Mikrotik setup for dc1.alwaldend.com
 languages:
   - rsc
 tags:

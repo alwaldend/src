@@ -1,6 +1,6 @@
 ---
 title: Dns
-description: Dns config
+description: Dns setup for alwaldend.com
 tags:
   - dns
   - dnscontrol
@@ -12,22 +12,22 @@ tags:
 - Modify [dnsconfig.js](./dnsconfig.js)
 - Preview changes:
   ```sh
-  bazel run //infra/dns:preview
+  bazel run //infra/alwaldend.com/dns:preview
   ```
 - Push changes:
   ```sh
-  bazel run //infra/dns:push
+  bazel run //infra/alwaldend.com/dns:push
   ```
 
 {{% alwaldend/alert %}}
-If BIND files differ after push, test `//infra/dns:preview_test` will fail
+If BIND files differ after push, test `//infra/alwaldend.com/dns:preview_test` will fail
 {{% /alwaldend/alert %}}
 
 ## Links
 
 - Website: https://dnscontrol.org
 - Docs: https://docs.dnscontrol.org
-- Rules: [../../tools/dnscontrol](../../tools/dnscontrol)
+- Rules: [../../tools/dnscontrol](../../../tools/dnscontrol)
 
 ## Zones
 

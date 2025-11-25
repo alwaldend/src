@@ -1,0 +1,6 @@
+k3s_cluster:
+  children:
+    pies:
+pies:
+  hosts:
+    pi1.cluster1.dc1.alwaldend.com:

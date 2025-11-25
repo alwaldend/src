@@ -1,4 +1,11 @@
-users_admins: {}
 users_regular: {}
-users_ssh_keys: {}
 users_remove: {}
+users_admins:
+  ansible:
+    name: ansible
+    disable_passwd: true
+    sudo_no_passwd: true
+users_ssh_keys:
+  ansible:
+    user: ansible
+    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMQT6QEqCFlQDRNaU+RrZ0VYoULYttA6oxjJ5U5h75
