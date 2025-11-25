@@ -1,10 +1,15 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
-pkg_files(
+pkg_filegroup(
     name = "ansible_cfg",
-    srcs = ["ansible.cfg"],
+    srcs = [":ansible_cfg_file"],
     visibility = ["//:__subpackages__"],
+)
+
+pkg_files(
+    name = "ansible_cfg_file",
+    srcs = ["ansible.cfg"],
 )
 
 al_docs_files(

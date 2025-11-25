@@ -1,5 +1,3 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
-load("//tools/ansible:al_ansible_binary.bzl", "al_ansible_binary")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
 al_docs_files(
@@ -7,42 +5,4 @@ al_docs_files(
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//infra/alwaldend.com/dc1:__pkg__"],
-)
-
-_PLAYBOOKS = {
-    "rancher1": [
-        "--inventory",
-        "inventory.yaml",
-        "-l",
-        "rancher1",
-        "alwaldend.main.rancher1.yaml",
-    ],
-}
-
-[
-    al_ansible_binary(
-        name = name,
-        args = args,
-        process_name = "ansible_playbook",
-        symlinks = [
-            ":srcs",
-            "//projects/ansible_collection:collections",
-        ],
-    )
-    for name, args in _PLAYBOOKS.items()
-]
-
-pkg_filegroup(
-    name = "srcs",
-    srcs = [
-        ":srcs_files",
-    ],
-)
-
-pkg_files(
-    name = "srcs_files",
-    srcs = [
-        "inventory.yaml",
-        "//projects/ansible_collection:ansible_cfg",
-    ] + glob(["group_vars/**/*.yaml"]),
 )

@@ -1,5 +1,5 @@
-load("//tools/ansible:al_ansible_binary.bzl", "al_ansible_binary")
-load("//tools/ansible:al_ansible_scripts.bzl", "AL_ANSIBLE_SCRIPTS")
+load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
+load("//tools/ansible/main/bzl:al_ansible_scripts.bzl", "AL_ANSIBLE_SCRIPTS")
 
 def al_ansible_binaries(name, args = {}, visibility = None, **kwargs):
     """

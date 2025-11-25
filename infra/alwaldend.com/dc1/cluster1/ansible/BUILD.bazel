@@ -1,0 +1,30 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
+
+al_ansible_binary(
+    name = "deploy",
+    args = [
+        "--inventory",
+        "inventory.yaml",
+        "alwaldend.main.k3s_cluster",
+    ],
+    data = [
+        ":srcs",
+        "//projects/ansible_collection:ansible_cfg",
+        "//projects/ansible_collection:collections",
+    ],
+    process_name = "ansible_playbook",
+)
+
+pkg_filegroup(
+    name = "srcs",
+    srcs = [":srcs_files"],
+)
+
+pkg_files(
+    name = "srcs_files",
+    srcs = [
+        "inventory.yaml",
+    ] + glob(["group_vars/**/*.yaml"]),
+    strip_prefix = strip_prefix.from_pkg(),
+)

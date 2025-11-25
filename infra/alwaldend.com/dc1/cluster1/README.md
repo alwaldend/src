@@ -7,7 +7,7 @@ description: Infrastructure for cluster1.dc1.alwaldend.com
 
 - Setup the host:
   ```sh
-  bazel run //infra/alwaldend.com/dc1/cluster1:ansible
+  bazel run //infra/alwaldend.com/dc1/cluster1/ansible:deploy
   ```
 - Deploy the chart:
   ```sh

@@ -1,4 +1,4 @@
-load("//tools/ansible:al_ansible_role.bzl", "al_ansible_role")
+load("//tools/ansible/main/bzl:al_ansible_role.bzl", "al_ansible_role")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
 al_ansible_role(

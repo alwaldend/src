@@ -8,7 +8,7 @@ def _impl(ctx):
     script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
     ansible = ctx.attr.ansible[ctx.attr.process_name]
 
-    for symlink in ctx.attr.symlinks:
+    for symlink in ctx.attr.data:
         for info, _ in symlink[PackageFilegroupInfo].pkg_files:
             runfiles_symlinks.update(info.dest_src_map)
 
@@ -52,8 +52,8 @@ al_ansible_binary = rule(
             default = [],
             doc = "Ansible arguments",
         ),
-        "symlinks": attr.label_list(
-            doc = "Symlinks",
+        "data": attr.label_list(
+            doc = "Data",
             default = [],
             providers = [PackageFilegroupInfo],
         ),

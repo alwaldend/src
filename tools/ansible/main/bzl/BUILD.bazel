@@ -1,0 +1,32 @@
+load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools/ansible:__pkg__"],
+    deps = [":libs.stardoc"],
+)
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_ansible_binary": [
+            "@rules_pkg//pkg:bzl_srcs",
+            "@bazel_skylib//lib:shell",
+            ":al_ansible_scripts",
+        ],
+        "al_ansible_role": [
+            "@rules_pkg//pkg:bzl_srcs",
+            "@bazel_skylib//rules:write_file",
+            "@bazel_skylib//lib:paths",
+        ],
+        "al_ansible_binaries": [
+            ":al_ansible_scripts",
+            ":al_ansible_binary",
+        ],
+        "al_ansible_scripts": [],
+    },
+    visibility = ["//:__subpackages__"],
+)

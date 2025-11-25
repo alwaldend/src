@@ -1,5 +1,5 @@
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
-load("//tools/ansible:al_ansible_scripts.bzl", "AL_ANSIBLE_SCRIPTS")
+load("//tools/ansible/main/bzl:al_ansible_scripts.bzl", "AL_ANSIBLE_SCRIPTS")
 load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/bzlenv:al_bzlenv_binary.bzl", "al_bzlenv_binary")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
