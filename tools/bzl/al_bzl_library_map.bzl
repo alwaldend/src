@@ -5,7 +5,7 @@ load("@stardoc//stardoc:stardoc.bzl", "stardoc")
 
 def al_bzl_library_map(
         name,
-        visibility,
+        visibility = None,
         libs = {},
         deps = [],
         **kwargs):

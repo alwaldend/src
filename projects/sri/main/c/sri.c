@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "projects/sri/errors.h"
+#include "projects/sri/main/c/errors.h"
 
 /*
  * Calculate base64

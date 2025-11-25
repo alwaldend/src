@@ -4,13 +4,14 @@ load("//tools/go:al_go_cross_binary.bzl", "al_go_cross_binary")
 
 al_docs_files(
     name = "docs",
-    srcs = glob(["*.md"]) + [
-        "//projects/leetcode_downloader/main/bzl:libs.stardoc",
-        "//projects/leetcode_downloader/main/proto:docs",
-    ],
+    srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//projects:__pkg__"],
-    deps = ["//projects/leetcode_downloader/releases:docs"],
+    deps = [
+        "//projects/leetcode_downloader/main/bzl:docs",
+        "//projects/leetcode_downloader/main/proto:docs",
+        "//projects/leetcode_downloader/releases:docs",
+    ],
 )
 
 go_library(

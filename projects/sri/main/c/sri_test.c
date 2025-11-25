@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "projects/sri/cmd.h"
+#include "projects/sri/main/c/cmd.h"
 
 struct TestItem {
     char** argv;

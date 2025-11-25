@@ -1,12 +1,4 @@
-load("@rules_cc//cc:cc_binary.bzl", "cc_binary")
-load("@rules_cc//cc:cc_library.bzl", "cc_library")
-load("@rules_cc//cc:cc_test.bzl", "cc_test")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-
-test_suite(
-    name = "tests",
-    tests = [":sri_test"],
-)
 
 al_docs_files(
     name = "docs",
@@ -14,53 +6,4 @@ al_docs_files(
     prefix = package_name(),
     visibility = ["//projects:__pkg__"],
     deps = ["//projects/sri/releases:docs"],
-)
-
-cc_binary(
-    name = "sri",
-    visibility = ["//projects/sri/releases:__pkg__"],
-    deps = [":lib"],
-)
-
-cc_library(
-    name = "lib",
-    srcs = ["main.c"],
-    deps = [
-        ":cmd",
-    ],
-)
-
-cc_library(
-    name = "cmd",
-    srcs = ["cmd.c"],
-    hdrs = ["cmd.h"],
-    deps = [
-        ":errors",
-        ":sri_lib",
-    ],
-)
-
-cc_library(
-    name = "sri_lib",
-    srcs = ["sri.c"],
-    hdrs = ["sri.h"],
-    deps = [
-        ":errors",
-        "@org_openssl_openssl//:openssl",
-    ],
-)
-
-cc_test(
-    name = "sri_test",
-    size = "small",
-    srcs = ["sri_test.c"],
-    deps = [
-        ":cmd",
-    ],
-)
-
-cc_library(
-    name = "errors",
-    srcs = ["errors.c"],
-    hdrs = ["errors.h"],
 )

@@ -14,7 +14,7 @@ al_docs_files(
 al_release_files(
     name = "files",
     srcs = [
-        "//projects/sri",
+        "//projects/sri/main/c:sri",
     ],
 )
 

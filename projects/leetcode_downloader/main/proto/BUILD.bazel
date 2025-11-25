@@ -9,10 +9,10 @@ load("//tools/proto:al_proto_docs.bzl", "al_proto_docs")
 
 al_docs_files(
     name = "docs",
-    srcs = [":contracts_docs"],
-    prefix = "projects/leetcode_downloader",
-    renames = None,
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
     visibility = ["//projects/leetcode_downloader:__pkg__"],
+    deps = [":contracts_docs"],
 )
 
 al_proto_docs(

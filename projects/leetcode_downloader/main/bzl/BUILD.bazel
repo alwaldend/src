@@ -1,4 +1,13 @@
 load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//projects/leetcode_downloader:__pkg__"],
+    deps = [":libs.stardoc"],
+)
 
 al_bzl_library_map(
     name = "libs",
@@ -10,8 +19,4 @@ al_bzl_library_map(
             "@rules_pkg//pkg:bzl_srcs",
         ],
     },
-    visibility = [
-        "//data/leetcode_submissions:__pkg__",
-        "//projects/leetcode_downloader:__pkg__",
-    ],
 )

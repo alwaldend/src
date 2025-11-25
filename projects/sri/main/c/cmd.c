@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "projects/sri/errors.h"
-#include "projects/sri/sri.h"
+#include "projects/sri/main/c/errors.h"
+#include "projects/sri/main/c/sri.h"
 
 static struct argp_option options[] = {
     {.name = "digest",
