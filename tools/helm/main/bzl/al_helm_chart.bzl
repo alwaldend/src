@@ -3,9 +3,11 @@ load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo", "PackageFilesInfo"
 load(":al_helm_chart_info.bzl", "AlHelmChartInfo")
 
 def _impl(ctx):
-    if not ctx.attr.source and not ctx.attr.package:
-        fail("missing both `source` and `package`")
+    if not ctx.attr.source and not ctx.attr.package and not ctx.attr.deps:
+        fail("missing `source`, `package` or `deps`")
 
+    source = None
+    package = None
     files = []
     files_transitive = []
     files_info = PackageFilesInfo(
@@ -15,22 +17,25 @@ def _impl(ctx):
 
     if ctx.attr.source:
         source = ctx.attr.source[PackageFilegroupInfo]
-        package = None
         for info, _ in ctx.attr.source[PackageFilegroupInfo].pkg_files:
             files.extend(info.dest_src_map.values())
             files_info.dest_src_map.update(info.dest_src_map)
             files_info.attributes.update(info.attributes)
-        for dep in ctx.attr.deps:
-            package = dep[AlHelmChartInfo].package
-            files_transitive.append(package)
-            files_info.dest_src_map["{}/{}".format("charts", package.basename)] = package
-    else:
-        source = None
+    elif ctx.attr.package:
         package = ctx.file.package
         files.append(package)
 
+    for dep in ctx.attr.deps:
+        package = dep[AlHelmChartInfo].package
+        if package:
+            files_transitive.append(package)
+            files_info.dest_src_map["{}/{}".format("charts", package.basename)] = package
+
     default_info = DefaultInfo(
-        files = depset(files, transitive = [depset(files_transitive)]),
+        files = depset(
+            files,
+            transitive = [depset(files_transitive)],
+        ),
     )
     al_helm_chart_info = AlHelmChartInfo(
         source = source,

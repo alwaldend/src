@@ -32,14 +32,17 @@ use_repo(
     "com_github_helm_helm_linux_amd64",
 )
 
-al_helm_deps = use_extension("//tools/helm:al_helm_deps.bzl", "al_helm_deps")
-al_helm_deps.from_lock(
-    chart_lock = "//infra/alwaldend.com/dc1/cl1/chart:Chart.lock",
-    helm_lock = "//infra/alwaldend.com/dc1/cl1/chart:helm_lock.json",
+al_helm_deps = use_extension("//tools/helm/main/bzl:al_helm_deps.bzl", "al_helm_deps")
+al_helm_deps.from_locks(
+    name = "com_alwaldend_src_infra_alwaldend_com_dc1_cl1_helm",
+    integrity = {
+        "rancher-2.12.2": "sha256-v8ybwovsnXFjKa2rwKNsqY1pk+rywa3ByeghQOIA0YI=",
+    },
+    locks = ["//infra/alwaldend.com/dc1/cl1/helm:helm_lock.json"],
 )
-use_repo(al_helm_deps, "com_rancher_releases_rancher")
+use_repo(al_helm_deps, "com_alwaldend_src_infra_alwaldend_com_dc1_cl1_helm")
 
-register_toolchains("//tools/helm:toolchain_remote_linux_amd64")
+register_toolchains("//tools/helm/main/bzl:toolchain_remote_linux_amd64")
 
 ## Ansible
 

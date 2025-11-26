@@ -1,4 +1,4 @@
 ---
 title: Proto
-description: Proto
+description: Protobuf contracts
 ---

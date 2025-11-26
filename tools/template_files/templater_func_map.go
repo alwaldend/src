@@ -20,16 +20,16 @@ func TemplaterFuncMap() template.FuncMap {
 		"to_json":           toJson,
 		"to_json_indent":    toJsonIndent,
 		"to_html_table":     toHtmlTable,
-		"last":              last[interface{}],
-		"set_map_key":       setMapKey[interface{}],
-		"unset_map_key":     unsetMapKey[interface{}],
+		"last":              last[any],
+		"set_map_key":       setMapKey[any],
+		"unset_map_key":     unsetMapKey[any],
 		"split":             split,
 		"sliceString":       sliceString,
 		"indent":            indent,
 		"html_escape":       html_template.HTMLEscapeString,
 		"basename":          filepath.Base,
 		"dirname":           filepath.Dir,
-		"first":             first[interface{}],
+		"first":             first[any],
 	}
 }
 

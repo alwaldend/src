@@ -1,7 +1,8 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-load("//tools/helm:al_helm_binary.bzl", "al_helm_binary")
-load("//tools/helm:al_helm_chart.bzl", "al_helm_chart")
+load("//tools/helm/main/bzl:al_helm_binary.bzl", "al_helm_binary")
+load("//tools/helm/main/bzl:al_helm_chart.bzl", "al_helm_chart")
+load("//tools/helm/main/bzl:al_helm_chart_lock.bzl", "al_helm_chart_lock")
 
 al_docs_files(
     name = "docs",
@@ -18,7 +19,7 @@ al_helm_binary(
 al_helm_chart(
     name = "chart",
     source = ":chart_srcs",
-    deps = [":rancher"],
+    deps = ["@com_alwaldend_src_infra_alwaldend_com_dc1_cl1_helm//:charts"],
 )
 
 pkg_filegroup(
@@ -31,7 +32,8 @@ pkg_files(
     srcs = glob(["**/*"]),
 )
 
-al_helm_chart(
-    name = "rancher",
-    package = "@com_rancher_releases_rancher//file",
+al_helm_chart_lock(
+    name = "lock",
+    lock = "Chart.lock",
+    lock_out = "helm_lock.json",
 )

@@ -1,0 +1,11 @@
+{
+  "dependencies": [
+    {
+      "name": "rancher",
+      "repository": "https://releases.rancher.com/server-charts/stable",
+      "version": "2.12.2"
+    }
+  ],
+  "digest": "sha256:8a96752f43bcaecf50eb5032c4bd30b9f77110c255946faa6d56fd60441b8e65",
+  "generated": "2025-10-06T14:56:38.885973718+03:00"
+}

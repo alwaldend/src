@@ -11,5 +11,5 @@ description: Infrastructure for cl1.dc1.alwaldend.com
   ```
 - Deploy the chart:
   ```sh
-  bazel run //infra/alwaldend.com/dc1/cl1/chart:deploy
+  bazel run //infra/alwaldend.com/dc1/cl1/helm:deploy
   ```
