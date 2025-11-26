@@ -32,7 +32,7 @@ al_dnscontrol_test(
 )
 
 al_dnscontrol_binary(
-    name = "push",
+    name = "deploy",
     arguments = ["push"],
     config = "dnsconfig.js",
     creds = "creds.json.tpl",

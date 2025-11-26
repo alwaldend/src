@@ -47,3 +47,8 @@
         name: "{{ k3s_service_name }}"
         enabled: true
         state: started
+    - name: Fetch k8s configs
+      ansible.builtin.fetch:
+        src: /etc/rancher/k3s/k3s.yaml
+        dest: "~/.kube/{{ inventory_hostname }}/config.yaml"
+        flat: true

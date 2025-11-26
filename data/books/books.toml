@@ -908,7 +908,7 @@ links = [
 [[book]]
 title = "Unsong"
 thumbnail = "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1632785897i/28589297.jpg"
-quality = "Good"
+quality = "Good, disgusting ending"
 reading = "Finished"
 authors = ["scott_alexander"]
 links = [{ title = "site", url = "https://unsongbook.com/" }]

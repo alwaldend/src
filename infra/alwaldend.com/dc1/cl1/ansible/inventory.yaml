@@ -3,4 +3,4 @@ k3s_cluster:
     pies:
 pies:
   hosts:
-    pi1.cluster1.dc1.alwaldend.com:
+    pi1.cl1.dc1.alwaldend.com:

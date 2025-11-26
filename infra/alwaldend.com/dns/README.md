@@ -14,9 +14,9 @@ tags:
   ```sh
   bazel run //infra/alwaldend.com/dns:preview
   ```
-- Push changes:
+- Deploy changes:
   ```sh
-  bazel run //infra/alwaldend.com/dns:push
+  bazel run //infra/alwaldend.com/dns:deploy
   ```
 
 {{% alwaldend/alert %}}

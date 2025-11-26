@@ -56,7 +56,7 @@ D(
     ),
 
     // dc1
-    A("pi1.cluster1.dc1", "192.168.1.250"),
-    AAAA("pi1.cluster1.dc1", "fd2e:546d:5738:0:e65d:726e:80d9:fef1"),
+    A("pi1.cl1.dc1", "192.168.1.250"),
+    AAAA("pi1.cl1.dc1", "fd2e:546d:5738:0:e65d:726e:80d9:fef1"),
     AAAA("router1.dc1", "fd2e:546d:5738::1"),
 );
