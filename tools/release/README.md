@@ -2,9 +2,10 @@
 title: Release
 description: Release rules
 languages:
-    - bzl
-    - go
+  - bzl
+  - go
 tags:
-    - proto
-    - releases
+  - proto
+  - releases
+  - bzl_rules
 ---

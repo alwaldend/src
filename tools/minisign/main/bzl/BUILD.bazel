@@ -1,0 +1,28 @@
+load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools/minisign:__pkg__"],
+    deps = [":libs.stardoc"],
+)
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_minisign_repo": [],
+        "al_minisign_extension": [
+            ":al_minisign_repo",
+        ],
+        "al_minisign_toolchain": [],
+        "al_minisign_binary": [],
+    },
+    visibility = ["//:__subpackages__"],
+)

@@ -6,6 +6,7 @@ load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 load("//tools/sh:al_sh_library.bzl", "al_sh_library")
 
 _ROOT_TOOLS = [
+    "minisign",
     "taplo",
     "buf",
     "shellcheck",

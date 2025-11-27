@@ -1,0 +1,20 @@
+al_minisign_extension = use_extension("//tools/minisign/main/bzl:al_minisign_extension.bzl", "al_minisign_extension")
+al_minisign_extension.repo(
+    name = "com_alwaldend_src_tools_minisign",
+    integrity = {
+        "linux": "sha256-mlmbSLput7HoDxLza5TOynwAt6UXPJXD78iNmCKVfnM=",
+        "win64": "sha256-N7YANE4gwZMUsugoE9sr/cxAi3e4dvdyeInb1G1TlHk=",
+        "macos": "sha256-iQALGVNXZfnP/GWmXWSoIPQz7224AgZn91cOBr9qrGM=",
+    },
+    version = "0.12",
+)
+use_repo(
+    al_minisign_extension,
+    "com_alwaldend_src_tools_minisign",
+)
+
+register_toolchains(
+    "@com_alwaldend_src_tools_minisign//linux:toolchain",
+    "@com_alwaldend_src_tools_minisign//win64:toolchain",
+    "@com_alwaldend_src_tools_minisign//macos:toolchain",
+)

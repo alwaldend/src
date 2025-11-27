@@ -1,0 +1,17 @@
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/minisign/main/bzl:al_minisign_binary.bzl", "al_minisign_binary")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools:__pkg__"],
+    deps = [
+        "//tools/minisign/main/bzl:docs",
+    ],
+)
+
+al_minisign_binary(
+    name = "minisign",
+    visibility = ["//:__subpackages__"],
+)
