@@ -27,6 +27,14 @@ _CMDS = {
             ".",
         ],
     },
+    "template": {
+        "arguments": [
+            "--namespace",
+            "cattle-system",
+            "cl1",
+            ".",
+        ],
+    },
 }
 
 [

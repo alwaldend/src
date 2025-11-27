@@ -1,6 +1,6 @@
 $TTL 10800
-; generated with dnscontrol 2025-11-26T17:17:49+03:00
-@          300   IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2025112600 3600 600 604800 1440
+; generated with dnscontrol 2025-11-27T17:43:55+03:00
+@          300   IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2025112700 3600 600 604800 1440
            300   IN NS    malavika.ns.cloudflare.com.
            300   IN NS    terry.ns.cloudflare.com.
                  IN MX    0 mail.tutanota.de.
@@ -12,6 +12,7 @@ s2._domainkey    IN CNAME s2.domainkey.tutanota.de.
 _mta-sts         IN CNAME mta-sts.tutanota.de.
 pi1.cl1.dc1 300  IN A     192.168.1.250
            300   IN AAAA  fd2e:546d:5738:0:e65d:726e:80d9:fef1
+rancher.cl1.dc1  IN CNAME pi1.cl1.dc1.
 router1.dc1 300  IN AAAA  fd2e:546d:5738::1
 mta-sts          IN CNAME mta-sts.tutanota.de.
 simplelogin      IN MX    10 mx1.simplelogin.co.
