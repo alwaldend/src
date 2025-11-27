@@ -1,0 +1,31 @@
+AL_HELM_CMDS = [
+    "completion",
+    "create",
+    "dependency",
+    "env",
+    "get",
+    "help",
+    "history",
+    "install",
+    "lint",
+    "list",
+    "package",
+    "plugin",
+    "pull",
+    "push",
+    "registry",
+    "repo",
+    "rollback",
+    "search",
+    "show",
+    "status",
+    "template",
+    "test",
+    "uninstall",
+    "upgrade",
+    "verify",
+    "version",
+]
+"""
+List of helm commands
+"""

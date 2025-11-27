@@ -3,6 +3,7 @@ load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 load("//tools/helm/main/bzl:al_helm_binary.bzl", "al_helm_binary")
 load("//tools/helm/main/bzl:al_helm_chart.bzl", "al_helm_chart")
 load("//tools/helm/main/bzl:al_helm_chart_lock.bzl", "al_helm_chart_lock")
+load("//tools/helm/main/bzl:al_helm_cmds.bzl", "AL_HELM_CMDS")
 
 al_docs_files(
     name = "docs",
@@ -11,10 +12,35 @@ al_docs_files(
     visibility = ["//infra/alwaldend.com/dc1/cluster1:__pkg__"],
 )
 
-al_helm_binary(
-    name = "helm",
-    chart = ":chart",
-)
+_CMDS = {
+    "install": {
+        "name": "deploy",
+        "arguments": [
+            "--atomic",
+            "--wait",
+            "--values",
+            "values.yaml",
+            "--namespace",
+            "cattle-system",
+            "--create-namespace",
+            "cl1",
+            ".",
+        ],
+    },
+}
+
+[
+    al_helm_binary(
+        name = _CMDS.get(cmd, {}).get("name", cmd),
+        arguments = [
+            "--kubeconfig",
+            "${HOME}/.kube/pi1.cl1.dc1.alwaldend.com/config.yaml",
+            cmd,
+        ] + _CMDS.get(cmd, {}).get("arguments", []),
+        data = [":chart"],
+    )
+    for cmd in AL_HELM_CMDS
+]
 
 al_helm_chart(
     name = "chart",

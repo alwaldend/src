@@ -13,8 +13,10 @@ al_docs_files(
 al_bzl_library_map(
     name = "libs",
     libs = {
+        "al_helm_cmds": [],
         "al_helm_binary": [
             "@bazel_skylib//lib:shell",
+            "@rules_pkg//pkg:bzl_srcs",
             ":al_helm_chart_info",
         ],
         "al_helm_chart": [

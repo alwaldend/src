@@ -1,6 +1,6 @@
 apiVersion: v2
-name: rancher1.dc1.alwaldend.com
-description: Rancher chart
+name: cl1.dc1.alwaldend.com
+description: Chart for cl1.dc1.alwaldend.com
 type: application
 version: 0.1.0
 appVersion: 0.1.0
