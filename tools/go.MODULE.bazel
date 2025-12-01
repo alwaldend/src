@@ -9,9 +9,6 @@ go_deps_mod.from_file(go_mod = "//:go.mod")
 use_repo(
     go_deps_mod,
     "com_github_burntsushi_toml",
-    "com_github_goccy_go_yaml",
-    "com_github_spf13_cobra",
-    "org_golang_google_protobuf",
 )
 
 go_tool_deps = use_extension("@gazelle//:extensions.bzl", "go_deps", isolate = True)
@@ -29,8 +26,11 @@ use_repo(
     go_tool_deps,
     "cc_mvdan_sh_v3",
     "com_github_bazelbuild_buildtools",
+    # "com_github_burntsushi_toml",
     "com_github_go_git_go_billy_v5",
     "com_github_go_git_go_git_v5",
+    "com_github_goccy_go_yaml",
+    "com_github_spf13_cobra",
     "com_github_stackexchange_dnscontrol_v4",
     # "com_github_burntsushi_toml", "com_github_goccy_go_yaml", "com_github_spf13_cobra"
 )

@@ -1,61 +1,49 @@
+load("//tools/minisign/main/bzl:al_minisign_archives.bzl", "AL_MINISIGN_ARCHIVES")
+
 _BUILD = """\
 load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
 load("@com_alwaldend_src//tools/minisign/main/bzl:al_minisign_toolchain.bzl", "al_minisign_toolchain")
 
-toolchain(
-    name = "toolchain",
-    toolchain = "toolchain_impl",
-    toolchain_type = "@com_alwaldend_src//tools/minisign/main/bzl:toolchain_type",
-    visibility = ["//visibility:public"],
-)
+_TOOLCHAINS = {toolchains}
 
-al_minisign_toolchain(
-    name = "toolchain_impl",
-    minisign = ":minisign",
-    exec_compatible_with = {exec_compatible_with},
-    visibility = ["//visibility:public"],
-)
-
-native_binary(
-    name = "minisign",
-    src = glob(["**/x86_64/**/minisign", "**/x86_64/**/minisign.exe", "minisign"], allow_empty = True)[0],
-    exec_compatible_with = {exec_compatible_with},
-    visibility = ["//visibility:public"],
-)
+[
+    [
+        toolchain(
+            name = toolchain_config["name"],
+            toolchain = "{{}}_impl".format(toolchain_config["name"]),
+            toolchain_type = "@com_alwaldend_src//tools/minisign/main/bzl:toolchain_type",
+            exec_compatible_with = toolchain_config["exec_compatible_with"],
+            visibility = ["//visibility:public"],
+        ),
+        al_minisign_toolchain(
+            name = "{{}}_impl".format(toolchain_config["name"]),
+            minisign = ":{{}}_binary".format(toolchain_config["name"]),
+            exec_compatible_with = toolchain_config["exec_compatible_with"],
+            visibility = ["//visibility:public"],
+        ),
+        native_binary(
+            name = "{{}}_binary".format(toolchain_config["name"]),
+            src = toolchain_config["binary"],
+            exec_compatible_with = toolchain_config["exec_compatible_with"],
+            visibility = ["//visibility:public"],
+        ),
+    ]
+    for toolchain_config in _TOOLCHAINS
+]
 """
 
 def _impl(ctx):
     downloads = []
     integrity = {}
-    for platform, platform_compat in ctx.attr.platform_to_compat.items():
-        download = ctx.download_and_extract(
-            url = ctx.attr.url.format(
-                version = ctx.attr.version,
-                platform = platform,
-                extension = ctx.attr.platform_to_extension[platform],
-            ),
-            output = platform,
-            integrity = ctx.attr.integrity.get(platform, ""),
-        )
-        integrity[platform] = download.integrity
-        ctx.file(
-            "{}/BUILD.bazel".format(platform),
-            _BUILD.format(exec_compatible_with = json.encode(platform_compat)),
-        )
-    ctx.file("BUILD.bazel", "")
-
-    if integrity == ctx.attr.integrity:
-        return ctx.repo_metadata(reproducible = True)
-    return ctx.repo_metadata(
-        attrs_for_reproducibility = {
-            "name": ctx.name,
-            "version": ctx.attr.version,
-            "url": ctx.attr.url,
-            "integrity": integrity,
-            "platform_to_extension": ctx.attr.platform_to_extension,
-            "platform_to_compat": ctx.attr.platform_to_compat,
-        },
+    archive = AL_MINISIGN_ARCHIVES.get(ctx.attr.version, {}).get(ctx.attr.platform, {})
+    if not archive:
+        fail("missing platform '{}' for minisign version '{}'".format(ctx.attr.platform, ctx.attr.version))
+    download = ctx.download_and_extract(
+        url = archive["url"],
+        integrity = archive["integrity"],
     )
+    ctx.file("BUILD.bazel", _BUILD.format(toolchains = json.encode(archive["toolchains"])))
+    return ctx.repo_metadata(reproducible = True)
 
 al_minisign_repo = repository_rule(
     implementation = _impl,
@@ -65,20 +53,9 @@ al_minisign_repo = repository_rule(
             mandatory = True,
             doc = "Minisign version",
         ),
-        "url": attr.string(
+        "platform": attr.string(
             mandatory = True,
-            doc = "Release url template",
-        ),
-        "integrity": attr.string_dict(
-            doc = "Integrity, keys are files, values are integrities",
-        ),
-        "platform_to_extension": attr.string_dict(
-            mandatory = True,
-            doc = "Platform extensions, keys are platforms, values are extensions",
-        ),
-        "platform_to_compat": attr.string_list_dict(
-            mandatory = True,
-            doc = "Platorms, keys are minisign platforms, values are bazel platforms",
+            doc = "Minisign platform",
         ),
     },
 )
