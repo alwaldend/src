@@ -15,8 +15,8 @@ go_library(
     importpath = "git.alwaldend.com/src/tools/readme_tree",
     visibility = ["//visibility:private"],
     deps = [
-        "@com_github_goccy_go_yaml//:go-yaml",
-        "@com_github_spf13_cobra//:cobra",
+        "@com_github_goccy_go_yaml//:go_default_library",
+        "@com_github_spf13_cobra//:go_default_library",
     ],
 )
 

@@ -4,7 +4,7 @@ load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
 alias(
     name = "dnscontrol",
-    actual = "@com_github_stackexchange_dnscontrol_v4//:v4",
+    actual = "@tools_com_github_stackexchange_dnscontrol_v4//:v4",
     visibility = ["//:__subpackages__"],
 )
 

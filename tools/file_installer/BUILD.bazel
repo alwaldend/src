@@ -6,7 +6,9 @@ go_library(
     srcs = ["main.go"],
     importpath = "git.alwaldend.com/src/tools/file_installer",
     visibility = ["//visibility:private"],
-    deps = ["//tools/file_installer/cmd"],
+    deps = [
+        "//tools/file_installer/cmd",
+    ],
 )
 
 go_binary(

@@ -2,6 +2,8 @@ module git.alwaldend.com/src/tools
 
 go 1.25.1
 
+require google.golang.org/protobuf v1.36.10
+
 require (
 	github.com/BurntSushi/toml v1.5.0
 	github.com/StackExchange/dnscontrol/v4 v4.25.0
@@ -171,7 +173,6 @@ require (
 	google.golang.org/genproto/googleapis/api v0.0.0-20251007200510-49b9836ed3ff // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20251007200510-49b9836ed3ff // indirect
 	google.golang.org/grpc v1.75.1 // indirect
-	google.golang.org/protobuf v1.36.10
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/ns1/ns1-go.v2 v2.15.0 // indirect
 	gopkg.in/sourcemap.v1 v1.0.5 // indirect

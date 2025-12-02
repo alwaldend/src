@@ -6,6 +6,6 @@ go_library(
     importpath = "git.alwaldend.com/src/tools/file_installer/cmd",
     visibility = ["//:__subpackages__"],
     deps = [
-        "@com_github_spf13_cobra//:cobra",
+        "@com_github_spf13_cobra//:go_default_library",
     ],
 )

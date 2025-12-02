@@ -27,7 +27,7 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "@com_alwaldend_src_tools_bazel_contracts//worker_protocol",
-        "@com_github_spf13_cobra//:cobra",
+        "@com_github_spf13_cobra//:go_default_library",
         "@org_golang_google_protobuf//encoding/protodelim",
     ],
 )
