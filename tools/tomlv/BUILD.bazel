@@ -2,7 +2,7 @@ load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
 alias(
     name = "tomlv",
-    actual = "@tools_com_github_burntsushi_toml//cmd/tomlv:tomlv",
+    actual = "@com_github_burntsushi_toml//cmd/tomlv:tomlv",
     visibility = ["//:__subpackages__"],
 )
 
