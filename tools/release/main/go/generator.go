@@ -72,7 +72,7 @@ func (self *Generator) Generate(opts *GenerateOpts) error {
 func (self *Generator) writeMessage(opts *GenerateOpts, message proto.Message, outputPath string) error {
 	data, err := opts.MarshalOptions.Marshal(message)
 	if err != nil {
-		return fmt.Errorf("could not marshal message: %w", opts, err)
+		return fmt.Errorf("could not marshal message %v: %w", opts, err)
 	}
 	fileMode, err := strconv.ParseUint(opts.OutputFileMode, 8, 32)
 	if err != nil {

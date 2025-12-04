@@ -31,9 +31,6 @@ func Run(
 		return err
 	}
 	repo := NewRepo(config, ctx, logger)
-	if err != nil {
-		return err
-	}
 	downloader, err := NewDownloader(config, ctx, logger)
 	if err != nil {
 		return err

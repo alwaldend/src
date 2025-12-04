@@ -4,7 +4,6 @@ load("@com_alwaldend_src_npm//:defs.bzl", "npm_link_all_packages")
 load("@com_alwaldend_src_pip//:requirements.bzl", "all_whl_requirements")
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
-load("@rules_license//rules:current_module_package_info.bzl", "current_module_package_info")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
@@ -28,11 +27,6 @@ al_docs_files(
         "//third_party:docs",
         "//tools:docs",
     ],
-)
-
-current_module_package_info(
-    name = "package_info",
-    visibility = ["//:__subpackages__"],
 )
 
 exports_files(
