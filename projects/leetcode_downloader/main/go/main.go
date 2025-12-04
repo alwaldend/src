@@ -13,7 +13,7 @@ import (
 
 	"git.alwaldend.com/src/projects/leetcode_downloader/main/proto/contracts"
 
-	"git.alwaldend.com/src/projects/leetcode_downloader/model"
+	"git.alwaldend.com/src/projects/leetcode_downloader/main/go/model"
 )
 
 func Run(

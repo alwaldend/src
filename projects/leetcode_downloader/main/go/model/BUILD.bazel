@@ -4,7 +4,7 @@ go_library(
     name = "model",
     srcs = ["main.go"],
     embedsrcs = ["config.json"],
-    importpath = "git.alwaldend.com/src/projects/leetcode_downloader/model",
+    importpath = "git.alwaldend.com/src/projects/leetcode_downloader/main/go/model",
     visibility = ["//:__subpackages__"],
     deps = [
         "//projects/leetcode_downloader/main/proto:contracts",

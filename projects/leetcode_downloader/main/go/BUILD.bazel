@@ -1,0 +1,32 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//tools/go:al_go_cross_binary.bzl", "al_go_cross_binary")
+
+go_library(
+    name = "leetcode_downloader_lib",
+    srcs = [
+        "cmd.go",
+        "downloader.go",
+        "generator.go",
+        "main.go",
+        "repo.go",
+    ],
+    importpath = "git.alwaldend.com/src/projects/leetcode_downloader/main/go",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//projects/leetcode_downloader/main/go/model",
+        "//projects/leetcode_downloader/main/proto:contracts",
+        "@com_github_burntsushi_toml//:toml",
+    ],
+)
+
+go_binary(
+    name = "leetcode_downloader",
+    embed = [":leetcode_downloader_lib"],
+    visibility = ["//:__subpackages__"],
+)
+
+al_go_cross_binary(
+    name = "leetcode_downloader_crossbinary",
+    target = "leetcode_downloader",
+    visibility = ["//projects/leetcode_downloader/releases:__pkg__"],
+)

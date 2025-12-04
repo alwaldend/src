@@ -9,7 +9,7 @@ cascade:
 
 This tree contains [IaC](https://en.wikipedia.org/wiki/Infrastructure_as_code)
 
-## Features
+## Requirements
 
 - MUST NOT be public
 - MUST NOT be published
