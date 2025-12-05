@@ -12,7 +12,6 @@ load(
     "al_compile_pip_requirements_combined",
 )
 load("//tools/py:al_py_binary_shell.bzl", "al_py_binary_shell")
-load("//tools/shell_worker:al_genrule.bzl", "al_genrule")
 load(
     "//tools/txt:al_combine_files.bzl",
     "al_combine_files",
@@ -64,56 +63,20 @@ al_pkg_tar_combined(
     ],
 )
 
-# al_genrule(
-#     name = "firmware",
-#     srcs = [":firmware_deps"],
-#     outs = ["firmware.tar"],
-#     cmd = """
-#         set -eux pipefail
-# 	build_type="Release"
-# 	build_dir="build"
-# 	deps_dir="deps"
-# 	bin_dir="${PWD}/bin"
-# 	src_dir="${deps_dir}/src"
-#         gcc_dir="${deps_dir}/gcc"
-#         nrfsdk_dir="${deps_dir}/nrfsdk"
-#         export BAZEL_PYTHON_SHELL_TYPE=bash
-#         for dir in "${bin_dir}" "$(dirname '{{ .Ctx.Var.NODE_PATH }}')" "$(dirname '{{ .Ctx.Var.PYTHON3 }}')" "${gcc_dir}/bin" "${nrfsdk_dir}/bin"; do
-#             export PATH="${dir}:${PATH}"
-#         done
-#
-# 	mkdir -p "${bin_dir}" "${build_dir}" "${deps_dir}"
-#         ln -s "${PWD}/$(execpath //js/tools:node_modules/lv_font_conv/dir)/lv_font_conv.js" "${bin_dir}/lv_font_conv"
-#         ln -s "${PWD}/$(execpath :adafruit_nrfutil)" "${bin_dir}/adafruit-nrfutil"
-#         rm -rf "${deps_dir}"/*
-# 	tar -xf "$(find -name "*firmware_deps*" -print -quit)" -C "${deps_dir}"
-#         touch $(execpath :firmware.tar)
-#         exit
-# 	'$(rootpath :python-shell)' '{{ .Ctx.Var.CMAKE }}' \
-#             -G "Unix Makefiles" \
-#             -S "${src_dir}" \
-#             -B "${build_dir}" \
-#             -DCMAKE_BUILD_TYPE="${build_type}" \
-#             -DARM_NONE_EABI_TOOLCHAIN_PATH="${gcc_dir}" \
-#             -DNRF5_SDK_PATH="${nrfsdk_dir}" \
-#             -DBUILD_DFU=1 \
-#             -DBUILD_RESOURCES=1
-# 	'$(rootpath :python-shell)' '{{ .Ctx.Var.CMAKE }}' \
-#             --build "${build_dir}" \
-#             --config "${build_type}" \
-#             --target pinetime-mcuboot-app
-#         mkdir output
-#         find "${build_dir}" -name "*.zip" -exec cp "{}" "output/" ";"
-#         tar -cf "$(execpath :firmware.tar)" -C output .
-#     """,
-#     toolchains = [
-#         "@rules_foreign_cc//toolchains:current_cmake_toolchain",
-#         "@com_alwaldend_src_nodejs_toolchains//:resolved_toolchain",
-#         "@rules_python//python:current_py_toolchain",
-#     ],
-#     tools = [
-#         ":adafruit-nrfutil",
-#         ":python-shell",
-#         "//js/tools:node_modules/lv_font_conv/dir",
-#     ],
-# )
+genrule(
+    name = "firmware",
+    srcs = [":firmware_deps"],
+    outs = ["firmware.tar"],
+    cmd = """
+    """,
+    toolchains = [
+        "@rules_foreign_cc//toolchains:current_cmake_toolchain",
+        "@com_alwaldend_src_nodejs_toolchains//:resolved_toolchain",
+        "@rules_python//python:current_py_toolchain",
+    ],
+    tools = [
+        ":adafruit-nrfutil",
+        ":python-shell",
+        "//js/tools:node_modules/lv_font_conv/dir",
+    ],
+)

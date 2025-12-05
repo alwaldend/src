@@ -4,12 +4,6 @@ git_repository(
     name = "com_github_infinitimeorg_infinitime",
     commit = "2105a7b63da8d4065ebfc62e0057f225358eedfc",  # 1.15.0
     init_submodules = True,
-    patch_args = ["-p1"],
-    patches = [
-        "//third_party/com_github_infinitimeorg_infinitime:001-add-BUILD.bazel.patch",
-        "//third_party/com_github_infinitimeorg_infinitime:002-modify-30-minute-chimes-interval.patch",
-        "//third_party/com_github_infinitimeorg_infinitime:003-add-WatchFaceTerminalCustom.patch",
-    ],
     recursive_init_submodules = True,
     remote = "https://github.com/InfiniTimeOrg/InfiniTime.git",
     shallow_since = "1733253068 +0100",
