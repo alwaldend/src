@@ -3,15 +3,15 @@ name = "com_alwaldend_src"
 version = "0.0.0"
 requires-python = ">=3.10, <4"
 dependencies = [
-    "pydantic",
-    "black",
-    "mypy",
-    "isort",
-    "pre-commit",
-    "flake8",
-    "flake8-pyproject",
-    "git-filter-repo",
-    "twine",
+  "pydantic",
+  "black",
+  "mypy",
+  "isort",
+  "pre-commit",
+  "flake8",
+  "flake8-pyproject",
+  "git-filter-repo",
+  "twine",
 ]
 
 [tool.pyright]
