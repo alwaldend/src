@@ -896,6 +896,16 @@ links = [
 ]
 
 [[book]]
+title = "Are You Even Human"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg"
+quality = "Decent"
+reading = "Dropped, C54"
+authors = ["thundamoo"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/92549/are-you-even-human" },
+]
+
+[[book]]
 title = "Unsong"
 thumbnail = "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1632785897i/28589297.jpg"
 quality = "Good, disgusting ending"
@@ -921,16 +931,6 @@ reading = "Reading, V2C71"
 authors = ["zaifyr"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/104561/for-the-glory-of-rome-chronicles-of-an-isekaid" },
-]
-
-[[book]]
-title = "Are You Even Human"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/are-you-even-human-aabawaw0tbu.jpg"
-quality = "Decent"
-reading = "Reading, C54"
-authors = ["thundamoo"]
-links = [
-  { title = "royalroad", url = "https://www.royalroad.com/fiction/92549/are-you-even-human" },
 ]
 
 [[book]]
@@ -1006,6 +1006,16 @@ reading = "Reading, chapter 589"
 authors = ["cerim"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial" },
+]
+
+[[book]]
+title = "Pale Lights"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/65058-pale-lights.jpg?time=1745679158"
+quality = "Good"
+reading = "Reading, V3C35"
+authors = ["erraticerrata"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/65058/pale-lights" },
 ]
 
 [[book]]

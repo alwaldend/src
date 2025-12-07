@@ -1,16 +1,18 @@
 git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 git_repository(
-    name = "com_github_infinitimeorg_infinitime",
+    name = "com_alwaldend_com_github_infinitimeorg_infinitime",
     commit = "2105a7b63da8d4065ebfc62e0057f225358eedfc",  # 1.15.0
     init_submodules = True,
+    patch_strip = 1,
+    patches = [
+        "//projects/infinitime/main/patch:0001-Add-BUILD.bazel.patch",
+        "//projects/infinitime/main/patch:0002-Modify-30m-chimes-interval.patch",
+        "//projects/infinitime/main/patch:0003-Add-WatchFaceTerminalCustom.patch",
+        "//projects/infinitime/main/patch:0004-Add-MODULE.bazel.patch",
+        "//projects/infinitime/main/patch:0005-Add-a-proper-bazel-build.patch",
+    ],
     recursive_init_submodules = True,
     remote = "https://github.com/InfiniTimeOrg/InfiniTime.git",
     shallow_since = "1733253068 +0100",
 )
-
-# Uncomment to use the local infinitime repository
-# local_repository(
-#     name = "com_github_infinitimeorg_infinitime",
-#     path = "~/Git/github.com/infinitimeorg/infinitime",
-# )

@@ -1,6 +1,16 @@
+From f9cdf7c25a172b604b0cc36db3e14ddbe760b302 Mon Sep 17 00:00:00 2001
+From: simeonwarren <simeonwarren-git-pzewq@alwaldend.com>
+Date: Sun, 7 Dec 2025 13:21:05 +0300
+Subject: [PATCH 1/5] Add BUILD.bazel
+
+---
+ BUILD.bazel | 35 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
+ create mode 100644 BUILD.bazel
+
 diff --git a/BUILD.bazel b/BUILD.bazel
 new file mode 100644
-index 00000000..c6e40cb0
+index 00000000..a44506b7
 --- /dev/null
 +++ b/BUILD.bazel
 @@ -0,0 +1,35 @@
@@ -39,3 +49,6 @@ index 00000000..c6e40cb0
 +    imports = ["tools/mcuboot", "tools/mcuboot/imgtool"],
 +    visibility = ["//visibility:public"],
 +)
+-- 
+2.51.1
+

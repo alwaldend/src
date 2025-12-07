@@ -26,7 +26,7 @@ alt_names = ["爱潜水的乌贼"]
 name = "Er Gen"
 alt_names = ["耳根"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/er-gen/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/er-gen/" },
 ]
 
 [author.fang-xiang]
@@ -54,13 +54,13 @@ name = "Kirill Klevanski"
 [author.ostensible-mammal]
 name = "OstensibleMammal"
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/profile/293473" },
+  { title = "royalroad", url = "https://www.royalroad.com/profile/293473" },
 ]
 
 [author.rinoz]
 name = "RinoZ"
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/profile/97247" },
+  { title = "royalroad", url = "https://www.royalroad.com/profile/97247" },
 ]
 
 [author.guilty-three]
@@ -161,7 +161,7 @@ alt_names = ["厄夜怪客"]
 [author.ya-boy]
 name = "Ya Boy"
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/profile/202632" },
+  { title = "royalroad", url = "https://www.royalroad.com/profile/202632" },
 ]
 
 [author.god-loves-the-world]
@@ -171,7 +171,7 @@ alt_names = ["神仙爱凡尘"]
 [author.necariin]
 name = "Necariin"
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/profile/122394" },
+  { title = "royalroad", url = "https://www.royalroad.com/profile/122394" },
 ]
 
 [author.x-rhoden-x]
@@ -197,155 +197,161 @@ alt_names = ["圣骑士的传说"]
 name = "Foxtail Quill"
 alt_names = ["狐尾的笔"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/foxtail-quill/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/foxtail-quill/" },
 ]
 
 [author.maxime-j-durand]
 name = "Maxime J. Durand"
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/profile/107213" },
+  { title = "royalroad", url = "https://www.royalroad.com/profile/107213" },
 ]
 
 [author.jin-nai]
 name = "Jin Nai"
 alt_names = ["今奈"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/jin-nai/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/jin-nai/" },
 ]
 
 [author.warby-picus]
 name = "Warby Picus"
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/profile/261544" },
+  { title = "royalroad", url = "https://www.royalroad.com/profile/261544" },
 ]
 
 [author.flossindune]
 name = "Flossindune"
 links = [
-    { title = "royalorad", url = "https://www.royalroad.com/profile/299461" },
+  { title = "royalorad", url = "https://www.royalroad.com/profile/299461" },
 ]
 
 [author.quiet-support]
 name = "Quiet Support"
 alt_names = ["安静捧场"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/quiet-support/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/quiet-support/" },
 ]
 
 [author.cluelessrr]
 name = "CluelessRR"
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/profile/471901" },
+  { title = "royalroad", url = "https://www.royalroad.com/profile/471901" },
 ]
 
 [author.arthur-wordsmith]
 name = "Arthur Wordsmith"
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/profile/323423" },
+  { title = "royalroad", url = "https://www.royalroad.com/profile/323423" },
 ]
 
 [author.pu-jie-tianxian]
 name = "Pū jiē tiānxiàn"
 alt_names = ["扑街天线"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/%e6%89%91%e8%a1%97%e5%a4%a9%e7%ba%bf/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/%e6%89%91%e8%a1%97%e5%a4%a9%e7%ba%bf/" },
 ]
 
 [author.warmaisach]
 name = "Warmaisach"
 links = [
-    { title = "webnovel", url = "https://m.webnovel.com/profile/3286855836" },
+  { title = "webnovel", url = "https://m.webnovel.com/profile/3286855836" },
 ]
 
 [author.exploding-small-latte]
 name = "Exploding Small Latte"
 alt_names = ["爆炸小拿铁"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/exploding-small-latte/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/exploding-small-latte/" },
 ]
 
 [author.arcanecadence]
 name = "ArcaneCadence"
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/profile/729989" },
+  { title = "royalroad", url = "https://www.royalroad.com/profile/729989" },
 ]
 
 [author.the-whitest-crow]
 name = "The Whitest Crow"
 alt_names = ["最白的乌鸦"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/%e6%9c%80%e7%99%bd%e7%9a%84%e4%b9%8c%e9%b8%a6/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/%e6%9c%80%e7%99%bd%e7%9a%84%e4%b9%8c%e9%b8%a6/" },
 ]
 
 [author.emes]
 name = "EmEs"
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/profile/235726" },
+  { title = "royalroad", url = "https://www.royalroad.com/profile/235726" },
 ]
 
 [author.colin-j-d-crooks]
 name = "Colin J.D. Crooks"
 links = [
-    { title = "goodreads", url = "https://www.goodreads.com/author/show/21106941.Colin_J_D_Crooks" },
+  { title = "goodreads", url = "https://www.goodreads.com/author/show/21106941.Colin_J_D_Crooks" },
 ]
 
 [author._172]
 name = "_172"
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/_172/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/_172/" },
 ]
 
 [author.tk523]
 name = "TK523"
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/profile/112902" },
+  { title = "royalroad", url = "https://www.royalroad.com/profile/112902" },
 ]
 
 [author.zaifyr]
 name = "zaifyr"
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/profile/285838" },
+  { title = "royalroad", url = "https://www.royalroad.com/profile/285838" },
 ]
 
 [author.cornman]
 name = "Cornman"
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/profile/394190" },
+  { title = "royalroad", url = "https://www.royalroad.com/profile/394190" },
 ]
 
 [author.the-one-who-was]
 name = "The_One_Who_Was"
 links = [
-    { title = "webnovel", url = "https://www.webnovel.com/profile/4324450853" },
+  { title = "webnovel", url = "https://www.webnovel.com/profile/4324450853" },
 ]
 
 [author.lit-homunculus]
 name = "Lit Homunculus"
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/profile/56125" },
+  { title = "royalroad", url = "https://www.royalroad.com/profile/56125" },
 ]
 
 [author.macronomicon]
 name = "Macronomicon"
 links = [
-    { title = "royalroad", url = "https://www.royalroad.com/profile/100060" },
+  { title = "royalroad", url = "https://www.royalroad.com/profile/100060" },
 ]
 
 [author.crane-by-the-moonlit-pond]
 name = "Crane by the Moonlit Pond"
 alt_names = ["鹤守月满池"]
 links = [
-    { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/crane-by-the-moonlit-pond/" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/crane-by-the-moonlit-pond/" },
 ]
 
 [author.nicholas_sansbury_smith]
 name = "Nicholas Sansbury Smith"
 links = [
-    { title = "aethonbooks", url = "https://aethonbooks.com/book-author/nicholas-sansbury-smith/" },
+  { title = "aethonbooks", url = "https://aethonbooks.com/book-author/nicholas-sansbury-smith/" },
 ]
 
 [author.scott_alexander]
 name = "Scott Alexander"
 links = [
-    { title = "goodreads", url = "https://www.goodreads.com/author/show/10866248.Scott_Alexander" }
+  { title = "goodreads", url = "https://www.goodreads.com/author/show/10866248.Scott_Alexander" },
+]
+
+[author.erraticerrata]
+name = "ErraticErrata"
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/21586" },
 ]

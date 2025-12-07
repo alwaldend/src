@@ -1,3 +1,20 @@
+From 78f5efe245dcc32fe6a3ab362c94df5f9456b672 Mon Sep 17 00:00:00 2001
+From: simeonwarren <simeonwarren-git-pzewq@alwaldend.com>
+Date: Sun, 7 Dec 2025 13:23:05 +0300
+Subject: [PATCH 3/5] Add WatchFaceTerminalCustom
+
+---
+ src/CMakeLists.txt                            |   1 +
+ src/displayapp/UserApps.h                     |   1 +
+ src/displayapp/apps/Apps.h.in                 |   1 +
+ src/displayapp/apps/CMakeLists.txt            |   1 +
+ .../screens/WatchFaceTerminalCustom.cpp       | 147 ++++++++++++++++++
+ .../screens/WatchFaceTerminalCustom.h         |  95 +++++++++++
+ .../screens/settings/SettingWatchFace.h       |   1 +
+ 7 files changed, 247 insertions(+)
+ create mode 100644 src/displayapp/screens/WatchFaceTerminalCustom.cpp
+ create mode 100644 src/displayapp/screens/WatchFaceTerminalCustom.h
+
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
 index 0a97a015..475ebfd0 100644
 --- a/src/CMakeLists.txt
@@ -312,3 +329,6 @@ index 9edc1f7a..00f08661 100644
  
  namespace Pinetime {
  
+-- 
+2.51.1
+
