@@ -467,7 +467,7 @@
     "@@aspect_rules_js+//npm:extensions.bzl%pnpm": {
       "general": {
         "bzlTransitiveDigest": "HtbPLqEzzKRGYtVKrW+UzXaHTqwehozzMZorpr5W/0k=",
-        "usagesDigest": "btCdDpGlUGcQhZlsmxbvveLl0sK813MeH3yOo56LOec=",
+        "usagesDigest": "0eN+A1B0oKcW2Lgu7PBIu+//9jzPhOjpxMa3G9pTX/I=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -2271,133 +2271,11 @@
     "@@rules_nodejs+//nodejs:extensions.bzl%node": {
       "general": {
         "bzlTransitiveDigest": "71PwVsMlLx+RWdt1SI9nSqRHX7DX/NstWwr7/XBxEMs=",
-        "usagesDigest": "uIXjIlF4QHtMrCbU2vj2ghQnGLnfrKR15vB0s0WQaZU=",
+        "usagesDigest": "0sDTeh/TiBMP7WJLcRQLZS96TDgEmpeqJ9LvmRBTTYw=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
         "generatedRepoSpecs": {
-          "com_alwaldend_src_nodejs_toolchains_linux_amd64": {
-            "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
-            "attributes": {
-              "node_download_auth": {},
-              "node_repositories": {},
-              "node_urls": [
-                "https://nodejs.org/dist/v{version}/{filename}"
-              ],
-              "node_version": "16.14.2",
-              "include_headers": false,
-              "platform": "linux_amd64"
-            }
-          },
-          "com_alwaldend_src_nodejs_toolchains_linux_arm64": {
-            "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
-            "attributes": {
-              "node_download_auth": {},
-              "node_repositories": {},
-              "node_urls": [
-                "https://nodejs.org/dist/v{version}/{filename}"
-              ],
-              "node_version": "16.14.2",
-              "include_headers": false,
-              "platform": "linux_arm64"
-            }
-          },
-          "com_alwaldend_src_nodejs_toolchains_linux_s390x": {
-            "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
-            "attributes": {
-              "node_download_auth": {},
-              "node_repositories": {},
-              "node_urls": [
-                "https://nodejs.org/dist/v{version}/{filename}"
-              ],
-              "node_version": "16.14.2",
-              "include_headers": false,
-              "platform": "linux_s390x"
-            }
-          },
-          "com_alwaldend_src_nodejs_toolchains_linux_ppc64le": {
-            "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
-            "attributes": {
-              "node_download_auth": {},
-              "node_repositories": {},
-              "node_urls": [
-                "https://nodejs.org/dist/v{version}/{filename}"
-              ],
-              "node_version": "16.14.2",
-              "include_headers": false,
-              "platform": "linux_ppc64le"
-            }
-          },
-          "com_alwaldend_src_nodejs_toolchains_darwin_amd64": {
-            "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
-            "attributes": {
-              "node_download_auth": {},
-              "node_repositories": {},
-              "node_urls": [
-                "https://nodejs.org/dist/v{version}/{filename}"
-              ],
-              "node_version": "16.14.2",
-              "include_headers": false,
-              "platform": "darwin_amd64"
-            }
-          },
-          "com_alwaldend_src_nodejs_toolchains_darwin_arm64": {
-            "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
-            "attributes": {
-              "node_download_auth": {},
-              "node_repositories": {},
-              "node_urls": [
-                "https://nodejs.org/dist/v{version}/{filename}"
-              ],
-              "node_version": "16.14.2",
-              "include_headers": false,
-              "platform": "darwin_arm64"
-            }
-          },
-          "com_alwaldend_src_nodejs_toolchains_windows_amd64": {
-            "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
-            "attributes": {
-              "node_download_auth": {},
-              "node_repositories": {},
-              "node_urls": [
-                "https://nodejs.org/dist/v{version}/{filename}"
-              ],
-              "node_version": "16.14.2",
-              "include_headers": false,
-              "platform": "windows_amd64"
-            }
-          },
-          "com_alwaldend_src_nodejs_toolchains_windows_arm64": {
-            "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
-            "attributes": {
-              "node_download_auth": {},
-              "node_repositories": {},
-              "node_urls": [
-                "https://nodejs.org/dist/v{version}/{filename}"
-              ],
-              "node_version": "16.14.2",
-              "include_headers": false,
-              "platform": "windows_arm64"
-            }
-          },
-          "com_alwaldend_src_nodejs_toolchains": {
-            "repoRuleId": "@@rules_nodejs+//nodejs/private:nodejs_repo_host_os_alias.bzl%nodejs_repo_host_os_alias",
-            "attributes": {
-              "user_node_repository_name": "com_alwaldend_src_nodejs_toolchains"
-            }
-          },
-          "com_alwaldend_src_nodejs_toolchains_host": {
-            "repoRuleId": "@@rules_nodejs+//nodejs/private:nodejs_repo_host_os_alias.bzl%nodejs_repo_host_os_alias",
-            "attributes": {
-              "user_node_repository_name": "com_alwaldend_src_nodejs_toolchains"
-            }
-          },
-          "com_alwaldend_src_nodejs_toolchains_toolchains": {
-            "repoRuleId": "@@rules_nodejs+//nodejs/private:nodejs_toolchains_repo.bzl%nodejs_toolchains_repo",
-            "attributes": {
-              "user_node_repository_name": "com_alwaldend_src_nodejs_toolchains"
-            }
-          },
           "nodejs_linux_amd64": {
             "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
             "attributes": {
@@ -2406,7 +2284,7 @@
               "node_urls": [
                 "https://nodejs.org/dist/v{version}/{filename}"
               ],
-              "node_version": "20.19.5",
+              "node_version": "16.14.2",
               "include_headers": false,
               "platform": "linux_amd64"
             }
@@ -2419,7 +2297,7 @@
               "node_urls": [
                 "https://nodejs.org/dist/v{version}/{filename}"
               ],
-              "node_version": "20.19.5",
+              "node_version": "16.14.2",
               "include_headers": false,
               "platform": "linux_arm64"
             }
@@ -2432,7 +2310,7 @@
               "node_urls": [
                 "https://nodejs.org/dist/v{version}/{filename}"
               ],
-              "node_version": "20.19.5",
+              "node_version": "16.14.2",
               "include_headers": false,
               "platform": "linux_s390x"
             }
@@ -2445,7 +2323,7 @@
               "node_urls": [
                 "https://nodejs.org/dist/v{version}/{filename}"
               ],
-              "node_version": "20.19.5",
+              "node_version": "16.14.2",
               "include_headers": false,
               "platform": "linux_ppc64le"
             }
@@ -2458,7 +2336,7 @@
               "node_urls": [
                 "https://nodejs.org/dist/v{version}/{filename}"
               ],
-              "node_version": "20.19.5",
+              "node_version": "16.14.2",
               "include_headers": false,
               "platform": "darwin_amd64"
             }
@@ -2471,7 +2349,7 @@
               "node_urls": [
                 "https://nodejs.org/dist/v{version}/{filename}"
               ],
-              "node_version": "20.19.5",
+              "node_version": "16.14.2",
               "include_headers": false,
               "platform": "darwin_arm64"
             }
@@ -2484,7 +2362,7 @@
               "node_urls": [
                 "https://nodejs.org/dist/v{version}/{filename}"
               ],
-              "node_version": "20.19.5",
+              "node_version": "16.14.2",
               "include_headers": false,
               "platform": "windows_amd64"
             }
@@ -2497,7 +2375,7 @@
               "node_urls": [
                 "https://nodejs.org/dist/v{version}/{filename}"
               ],
-              "node_version": "20.19.5",
+              "node_version": "16.14.2",
               "include_headers": false,
               "platform": "windows_arm64"
             }

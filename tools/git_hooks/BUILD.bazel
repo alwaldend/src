@@ -1,20 +1,16 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
-genrule(
+write_file(
     name = "install",
-    srcs = [":precommit.sh"],
-    outs = ["install.sh"],
-    cmd = """
-cat - >$(@) <<EOF
-    #!/usr/bin/env sh
-    set -eux
-    for file in $(SRCS); do
-        cp "\\$${file}" "\\$$(git rev-parse --show-toplevel)/.git/hooks/"
-    done
-EOF
-    """,
-    executable = True,
+    out = "install.sh",
+    content = [
+        "#!/usr/bin/env sh",
+        "set -eux",
+        'cd "${BUILD_WORKSPACE_DIRECTORY}"',
+        'cp "tools/git_hooks/precommit.sh" ".git/hooks/pre-commit"',
+    ],
+    is_executable = True,
 )
 
 al_docs_files(

@@ -15,7 +15,7 @@ al_release_files(
     name = "files",
     srcs = [
         "//projects/infinitime/main/patch:patches",
-        "@com_alwaldend_com_github_infinitimeorg_infinitime//:build",
+        "@com_alwaldend_com_github_infinitimeorg_infinitime//:dfu",
     ],
 )
 

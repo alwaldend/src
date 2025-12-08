@@ -71,6 +71,7 @@ bazel_dep(name = "rules_haskell", version = "7bb6b0790b0c44603173196e1b4d1cd6e5f
 
 # Tools
 bazel_dep(name = "com_github_georgewfraser_java_language_server", version = "2025.520.0")
+bazel_dep(name = "com_alwaldend_com_github_infinitimeorg_infinitime")
 
 ## Overrides
 
@@ -81,6 +82,25 @@ archive_override(
     patches = ["//third_party:com_github_bazelbuild_rules_license/001_fix_module.patch"],
     strip_prefix = "rules_license-f27beb61ec306f5466941a1a993249281d05e4be",
     url = "https://github.com/bazelbuild/rules_license/archive/f27beb61ec306f5466941a1a993249281d05e4be.zip",
+)
+
+# local_path_override(
+#     module_name = "com_alwaldend_com_github_infinitimeorg_infinitime",
+#     path = "../com_github_infinitimeorg_infinitime",
+# )
+
+git_override(
+    module_name = "com_alwaldend_com_github_infinitimeorg_infinitime",
+    commit = "2105a7b63da8d4065ebfc62e0057f225358eedfc",  # 1.15.0
+    init_submodules = True,
+    patch_strip = 1,
+    patches = [
+        # git format-patch does not work for some reason
+        "//projects/infinitime/main/patch:patch.patch",
+    ],
+    recursive_init_submodules = True,
+    remote = "https://github.com/InfiniTimeOrg/InfiniTime.git",
+    shallow_since = "1733253068 +0100",
 )
 
 # local_path_override(
@@ -120,7 +140,6 @@ include("//tools:drawio.MODULE.bazel")
 include("//tools:hugo.MODULE.bazel")
 include("//tools:rfc.MODULE.bazel")
 include("//tools:buf.MODULE.bazel")
-include("//tools:infinitime.MODULE.bazel")
 include("//tools:taplo.MODULE.bazel")
 include("//tools:bazel_contracts.MODULE.bazel")
 include("//tools:minisign.MODULE.bazel")

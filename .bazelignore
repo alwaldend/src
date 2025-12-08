@@ -1,4 +1,5 @@
 node_modules
+compile_commands.json
 .bzlenv
 tools/node_modules
 out

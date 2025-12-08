@@ -40,7 +40,7 @@ def _impl(ctx):
     return [
         DefaultInfo(
             files = depset(
-                direct = srcs,
+                direct = [manifest],
                 transitive = [dep[DefaultInfo].files for dep in ctx.attr.deps],
             ),
         ),

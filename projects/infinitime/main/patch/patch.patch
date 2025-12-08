@@ -1,50 +1,16 @@
-From 9c586e0b91edbfbabd487a59cf91a81eb9400ad9 Mon Sep 17 00:00:00 2001
-From: simeonwarren <simeonwarren-git-pzewq@alwaldend.com>
-Date: Sun, 7 Dec 2025 18:56:11 +0300
-Subject: [PATCH 5/5] Add a proper bazel build
-
----
- .bazelignore        |   6 +
- .bazeliskrc         |   2 +
- .bazelrc            |  26 ++
- .gitignore          |   2 +
- BUILD.bazel         | 165 ++++++++--
- BUILD.general.bazel |  20 ++
- MODULE.bazel        |  90 ++++++
- MODULE.bazel.lock   | 744 ++++++++++++++++++++++++++++++++++++++++++++
- REPO.bazel          |   6 +
- package.json        |   9 +
- pnpm-lock.yaml      |  31 ++
- pnpm-workspace.yaml |   2 +
- preset.bazelrc      | 276 ++++++++++++++++
- requirements.in     |   8 +
- requirements.txt    | 273 ++++++++++++++++
- 15 files changed, 1638 insertions(+), 22 deletions(-)
- create mode 100644 .bazelignore
- create mode 100644 .bazeliskrc
- create mode 100644 .bazelrc
- create mode 100644 BUILD.general.bazel
- create mode 100644 MODULE.bazel.lock
- create mode 100644 REPO.bazel
- create mode 100644 package.json
- create mode 100644 pnpm-lock.yaml
- create mode 100644 pnpm-workspace.yaml
- create mode 100644 preset.bazelrc
- create mode 100644 requirements.in
- create mode 100644 requirements.txt
-
 diff --git a/.bazelignore b/.bazelignore
 new file mode 100644
-index 00000000..2330d486
+index 00000000..8be4f78d
 --- /dev/null
 +++ b/.bazelignore
-@@ -0,0 +1,6 @@
+@@ -0,0 +1,7 @@
 +node_modules
 +.git
 +external
 +bazel-bin
 +bazel-out
 +bazel-testlogs
++out
 diff --git a/.bazeliskrc b/.bazeliskrc
 new file mode 100644
 index 00000000..c6c58608
@@ -55,123 +21,90 @@ index 00000000..c6c58608
 +#BAZELISK_NOJDK=1
 diff --git a/.bazelrc b/.bazelrc
 new file mode 100644
-index 00000000..298d9195
+index 00000000..14906b61
 --- /dev/null
 +++ b/.bazelrc
-@@ -0,0 +1,26 @@
+@@ -0,0 +1,9 @@
 +# Import bazelrc presets
-+import %workspace%/preset.bazelrc
-+
++import %workspace%/bazel/bazelrc/preset.bazelrc
 +# Project-specific flags
-+common --registry=file://%workspace%/../src/third_party/registry
-+common --registry=https://bcr.bazel.build
-+# Fix refetch after shutdown caused by the preset, remove in 8.5.0: https://github.com/bazelbuild/bazel/issues/27787
-+common --incompatible_enforce_starlark_utf8=warning
-+# Fix autoload from the preset
-+common --incompatible_disable_native_repo_rules=false
-+# Disable auto_exec_groups from the preset
-+common --incompatible_auto_exec_groups=false
-+# Setup java
-+common --java_language_version=21
-+common --java_runtime_version=remotejdk_21
-+common --tool_java_language_version=21
-+common --tool_java_runtime_version=remotejdk_21
-+# Disable telemetry (https://github.com/aspect-build/tools_telemetry)
-+common --repo_env=ASPECT_TOOLS_TELEMETRY=
-+common --repo_env=DO_NOT_TRACK=1
-+
++import %workspace%/bazel/bazelrc/project.bazelrc
 +# User preferences
 +# Load any settings & overrides specific to the current user from `user.bazelrc`.
 +# This file should appear in `.gitignore` so that settings are not shared with team members.
 +# This should be last statement in this config so the user configuration overrides anything above.
 +try-import %workspace%/user.bazelrc
 diff --git a/.gitignore b/.gitignore
-index 81e49ae0..18612842 100644
+index 81e49ae0..0c5b0049 100644
 --- a/.gitignore
 +++ b/.gitignore
-@@ -1,3 +1,5 @@
+@@ -1,3 +1,7 @@
++compile_commands.json
 +bazel-*
++out
 +
  .idea/
  # Python virtual environment for DFU images
  .venv/
 diff --git a/BUILD.bazel b/BUILD.bazel
-index a44506b7..6b838a64 100644
---- a/BUILD.bazel
+new file mode 100644
+index 00000000..4371c637
+--- /dev/null
 +++ b/BUILD.bazel
-@@ -1,35 +1,156 @@
--load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
--load("@rules_python//python:py_library.bzl", "py_library")
--load("@bazel_skylib//rules/directory:directory.bzl", "directory")
-+load("@bazel_skylib//rules:run_binary.bzl", "run_binary")
-+load("@bazelrc-preset.bzl", "bazelrc_preset")
+@@ -0,0 +1,82 @@
++load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
++load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 +load("@com_alwaldend_com_github_infinitimeorg_infinitime_npm//:defs.bzl", "npm_link_all_packages")
 +load("@com_alwaldend_com_github_infinitimeorg_infinitime_npm//:lv_font_conv/package_json.bzl", lv_font_conv = "bin")
-+load("@rules_foreign_cc//foreign_cc:defs.bzl", "cmake")
-+load("@rules_license//rules:license.bzl", "license")
-+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
-+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
-+load("@rules_python//python/entry_points:py_console_script_binary.bzl", "py_console_script_binary")
-+load("//tools/build/bzl:build_binary.bzl", "build_binary")
- 
--directory(
--    name = "src_directory",
--    srcs = glob(["**"]),
-+run_binary(
++load("//bazel/bzl:build_binary.bzl", "build_binary")
++load("//bazel/bzl:build_run_binary.bzl", "build_run_binary")
++
++write_source_files(
++    name = "write",
++    files = {
++        "compile_commands.json": "//:compile_commands",
++    },
++)
++
++genrule(
++    name = "compile_commands",
++    srcs = [":build"],
++    outs = ["build_compile_commands.json"],
++    cmd = """
++        cp $(execpath :build)/compile_commands.json \
++            $(execpath build_compile_commands.json)
++    """,
++    visibility = ["//visibility:public"],
++)
++
++genrule(
++    name = "dfu",
++    srcs = [":build"],
++    outs = ["pinetime-mcuboot-app-dfu-1.15.0.zip"],
++    cmd = """
++        cp $(execpath :build)/src/pinetime-mcuboot-app-dfu-1.15.0.zip \
++            $(execpath pinetime-mcuboot-app-dfu-1.15.0.zip)
++    """,
++    visibility = ["//visibility:public"],
++)
++
++build_run_binary(
 +    name = "build",
-+    outs = ["build.dir"],
-+    args = [
-+        "--build_dir",
-+        "$(execpath build.dir)",
-+    ],
-+    tool = ":build_binary",
-     visibility = ["//visibility:public"],
- )
- 
--filegroup(
--    name = "src_filegroup",
++    binary = ":build_binary",
++)
++
 +build_binary(
 +    name = "build_binary",
 +    srcs = [
-+        ":gcc",
-+        ":nrfsdk",
++        "//bazel:gcc",
++        "//bazel:nrfsdk",
 +        ":srcs",
 +    ],
++    build_type = "Release",
 +    tools = [
-+        ":adafruit_nrfutil",
++        "//bazel:adafruit-nrfutil",
 +        ":lv_font_conv",
 +    ],
-+)
-+
-+cmake(
-+    name = "cmake",
-+    build_data = [
-+        ":adafruit_nrfutil",
-+        ":gcc_marker",
-+        ":gcc_srcs",
-+        ":lv_font_conv",
-+        ":nrfsdk_marker",
-+        ":nrfsdk_srcs",
-+    ],
-+    cache_entries = {
-+        "CMAKE_BUILD_TYPE": "Release",
-+        "ARM_NONE_EABI_TOOLCHAIN_PATH": "$(execpath :gcc_marker)",
-+        "NRF5_SDK_PATH": "$(execpath :nrfsdk_marker)",
-+        "BUILD_DFU": "1",
-+        "BUILD_RESOURCES": "1",
-+    },
-+    env = {
-+        "PATH": "$(execpath :adafruit_nrfutil)/../:$(execpath :lv_font_conv)/../",
-+    },
-+    exec_compatible_with = ["@platforms//os:linux"],
-+    generate_args = [
-+        "-G",
-+        "Unix Makefiles",
-+    ],
-+    lib_source = ":srcs_files",
-+    out_bin_dir = "build",
-+    tags = ["no-sandbox"],  # needs linux utils
-+    targets = ["pinetime-mcuboot-app"],
 +)
 +
 +pkg_filegroup(
@@ -185,58 +118,8 @@ index a44506b7..6b838a64 100644
 +
 +pkg_files(
 +    name = "srcs_files",
-     srcs = glob(["**"]),
--    visibility = ["//visibility:public"],
++    srcs = glob(["**"]),
 +    strip_prefix = strip_prefix.from_pkg(),
- )
- 
--pkg_tar(
--    name = "src_tar",
--    srcs = [":src_filegroup"],
--    strip_prefix = ".",
--    visibility = ["//visibility:public"],
-+alias(
-+    name = "gcc_srcs",
-+    actual = "@com_alwaldend_com_github_infinitimeorg_infinitime_com_arm_developer_gcc_arm//:srcs",
-+)
-+
-+alias(
-+    name = "gcc_marker",
-+    actual = "@com_alwaldend_com_github_infinitimeorg_infinitime_com_arm_developer_gcc_arm//:marker",
-+)
-+
-+alias(
-+    name = "nrfsdk_srcs",
-+    actual = "@com_alwaldend_com_github_infinitimeorg_infinitime_com_nordicsemi_developer_nrfsdk//:srcs",
-+)
-+
-+alias(
-+    name = "nrfsdk_marker",
-+    actual = "@com_alwaldend_com_github_infinitimeorg_infinitime_com_nordicsemi_developer_nrfsdk//:marker",
-+)
-+
-+pkg_filegroup(
-+    name = "nrfsdk",
-+    srcs = [":nrfsdk_srcs"],
-+    prefix = "nrfsdk",
- )
- 
--filegroup(
-+pkg_filegroup(
-+    name = "gcc",
-+    srcs = [":gcc_srcs"],
-+    prefix = "gcc",
-+)
-+
-+py_console_script_binary(
-+    name = "adafruit_nrfutil",
-+    pkg = "@com_alwaldend_com_github_infinitimeorg_infinitime_pip//adafruit_nrfutil",
-+    script = "adafruit-nrfutil",
-+)
-+
-+alias(
-+    name = "pnpm",
-+    actual = "@com_alwaldend_com_github_infinitimeorg_infinitime_pnpm//:pnpm",
 +)
 +
 +npm_link_all_packages(
@@ -247,37 +130,10 @@ index a44506b7..6b838a64 100644
 +    name = "lv_font_conv",
 +)
 +
-+compile_pip_requirements(
-     name = "requirements",
--    srcs = ["tools/mcuboot/requirements.txt"],
--    visibility = ["//visibility:public"],
-+    srcs = [":requirements.in"],
-+    requirements_txt = ":requirements.txt",
- )
- 
--py_library(
--    name = "imgtool",
--    srcs = glob(["tools/mcuboot/imgtool/**/*.py"]),
--    imports = ["tools/mcuboot", "tools/mcuboot/imgtool"],
--    visibility = ["//visibility:public"],
-+bazelrc_preset(
-+    name = "preset",
-+    strict = True,
-+)
-+
 +exports_files(
 +    ["LICENSE"],
-+    visibility = ["//:__subpackages__"],
++    visibility = ["//visibility:public"],
 +)
-+
-+license(
-+    name = "license",
-+    license_kinds = [
-+        "@rules_license//licenses/spdx:GPL-3.0",
-+    ],
-+    license_text = "//:LICENSE",
-+    visibility = ["//:__subpackages__"],
- )
 diff --git a/BUILD.general.bazel b/BUILD.general.bazel
 new file mode 100644
 index 00000000..f6b13451
@@ -305,10 +161,11 @@ index 00000000..f6b13451
 +    visibility = ["//visibility:public"],
 +)
 diff --git a/MODULE.bazel b/MODULE.bazel
-index e69de29b..ca14b5ff 100644
---- a/MODULE.bazel
+new file mode 100644
+index 00000000..048ff6c3
+--- /dev/null
 +++ b/MODULE.bazel
-@@ -0,0 +1,90 @@
+@@ -0,0 +1,86 @@
 +module(
 +    name = "com_alwaldend_com_github_infinitimeorg_infinitime",
 +    version = "0.0.0",
@@ -324,8 +181,8 @@ index e69de29b..ca14b5ff 100644
 +bazel_dep(name = "rules_nodejs", version = "6.6.0")
 +bazel_dep(name = "bazel_skylib", version = "1.8.2")
 +bazel_dep(name = "aspect_rules_js", version = "2.7.0")
-+
-+bazel_dep(name = "bazelrc-preset.bzl", version = "1.6.0", dev_dependency = True)
++bazel_dep(name = "bazelrc-preset.bzl", version = "1.6.0")
++bazel_dep(name = "aspect_bazel_lib", version = "2.21.2")
 +
 +PYTHON_VERSION = "3.12.11"
 +
@@ -339,7 +196,7 @@ index e69de29b..ca14b5ff 100644
 +pip.parse(
 +    hub_name = "com_alwaldend_com_github_infinitimeorg_infinitime_pip",
 +    python_version = PYTHON_VERSION,
-+    requirements_lock = "//:requirements.txt",
++    requirements_lock = "//bazel:requirements.txt",
 +)
 +use_repo(
 +    pip,
@@ -348,17 +205,13 @@ index e69de29b..ca14b5ff 100644
 +
 +node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node")
 +node.toolchain(
-+    name = "com_alwaldend_com_github_infinitimeorg_infinitime_nodejs_toolchains",
 +    node_version = "16.14.2",
 +)
-+use_repo(node, com_alwaldend_com_github_infinitimeorg_infinitime_nodejs_toolchains = "nodejs_toolchains")
 +
 +pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
 +pnpm.pnpm(
-+    name = "com_alwaldend_com_github_infinitimeorg_infinitime_pnpm",
 +    pnpm_version = "10.18.1",
 +)
-+use_repo(pnpm, "com_alwaldend_com_github_infinitimeorg_infinitime_pnpm")
 +
 +npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
 +npm.npm_translate_lock(
@@ -401,10 +254,10 @@ index e69de29b..ca14b5ff 100644
 +)
 diff --git a/MODULE.bazel.lock b/MODULE.bazel.lock
 new file mode 100644
-index 00000000..8707e627
+index 00000000..7fc8b1b9
 --- /dev/null
 +++ b/MODULE.bazel.lock
-@@ -0,0 +1,744 @@
+@@ -0,0 +1,687 @@
 +{
 +  "lockFileVersion": 18,
 +  "registryFileHashes": {
@@ -419,7 +272,9 @@ index 00000000..8707e627
 +    "https://bcr.bazel.build/modules/abseil-cpp/20240116.1/source.json": "9be551b8d4e3ef76875c0d744b5d6a504a27e3ae67bc6b28f46415fd2d2957da",
 +    "https://bcr.bazel.build/modules/aspect_bazel_lib/2.0.0/MODULE.bazel": "e118477db5c49419a88d78ebc7a2c2cea9d49600fe0f490c1903324a2c16ecd9",
 +    "https://bcr.bazel.build/modules/aspect_bazel_lib/2.14.0/MODULE.bazel": "2b31ffcc9bdc8295b2167e07a757dbbc9ac8906e7028e5170a3708cecaac119f",
-+    "https://bcr.bazel.build/modules/aspect_bazel_lib/2.14.0/source.json": "0cf1826853b0bef8b5cd19c0610d717500f5521aa2b38b72b2ec302ac5e7526c",
++    "https://bcr.bazel.build/modules/aspect_bazel_lib/2.19.3/MODULE.bazel": "253d739ba126f62a5767d832765b12b59e9f8d2bc88cc1572f4a73e46eb298ca",
++    "https://bcr.bazel.build/modules/aspect_bazel_lib/2.21.2/MODULE.bazel": "276347663a25b0d5bd6cad869252bea3e160c4d980e764b15f3bae7f80b30624",
++    "https://bcr.bazel.build/modules/aspect_bazel_lib/2.21.2/source.json": "f42051fa42629f0e59b7ac2adf0a55749144b11f1efcd8c697f0ee247181e526",
 +    "https://bcr.bazel.build/modules/aspect_bazel_lib/2.8.1/MODULE.bazel": "812d2dd42f65dca362152101fbec418029cc8fd34cbad1a2fde905383d705838",
 +    "https://bcr.bazel.build/modules/aspect_rules_js/2.7.0/MODULE.bazel": "ac879ee86f124c827e4e87942b3797ff4aaf90360eb9d7bff5321fc45d5ebefb",
 +    "https://bcr.bazel.build/modules/aspect_rules_js/2.7.0/source.json": "20c34042beca8ea1e5996989dc163a75cb04ec4e75dc64f78d936497aea78e4b",
@@ -459,16 +314,20 @@ index 00000000..8707e627
 +    "https://bcr.bazel.build/modules/bazelrc-preset.bzl/1.6.0/source.json": "ad6cee6b42b5def78f6b3082c0bd7041a330003cbace330aaf1d3f94a122c48b",
 +    "https://bcr.bazel.build/modules/buildozer/7.1.2/MODULE.bazel": "2e8dd40ede9c454042645fd8d8d0cd1527966aa5c919de86661e62953cd73d84",
 +    "https://bcr.bazel.build/modules/buildozer/7.1.2/source.json": "c9028a501d2db85793a6996205c8de120944f50a0d570438fcae0457a5f9d1f8",
++    "https://bcr.bazel.build/modules/gawk/5.3.2.bcr.1/MODULE.bazel": "cdf8cbe5ee750db04b78878c9633cc76e80dcf4416cbe982ac3a9222f80713c8",
++    "https://bcr.bazel.build/modules/gawk/5.3.2.bcr.1/source.json": "fa7b512dfcb5eafd90ce3959cf42a2a6fe96144ebbb4b3b3928054895f2afac2",
 +    "https://bcr.bazel.build/modules/google_benchmark/1.8.2/MODULE.bazel": "a70cf1bba851000ba93b58ae2f6d76490a9feb74192e57ab8e8ff13c34ec50cb",
 +    "https://bcr.bazel.build/modules/googletest/1.11.0/MODULE.bazel": "3a83f095183f66345ca86aa13c58b59f9f94a2f81999c093d4eeaa2d262d12f4",
 +    "https://bcr.bazel.build/modules/googletest/1.14.0.bcr.1/MODULE.bazel": "22c31a561553727960057361aa33bf20fb2e98584bc4fec007906e27053f80c6",
 +    "https://bcr.bazel.build/modules/googletest/1.14.0.bcr.1/source.json": "41e9e129f80d8c8bf103a7acc337b76e54fad1214ac0a7084bf24f4cd924b8b4",
 +    "https://bcr.bazel.build/modules/googletest/1.14.0/MODULE.bazel": "cfbcbf3e6eac06ef9d85900f64424708cc08687d1b527f0ef65aa7517af8118f",
 +    "https://bcr.bazel.build/modules/jq.bzl/0.1.0/MODULE.bazel": "2ce69b1af49952cd4121a9c3055faa679e748ce774c7f1fda9657f936cae902f",
++    "https://bcr.bazel.build/modules/jq.bzl/0.1.0/source.json": "746bf13cac0860f091df5e4911d0c593971cd8796b5ad4e809b2f8e133eee3d5",
 +    "https://bcr.bazel.build/modules/jsoncpp/1.9.5/MODULE.bazel": "31271aedc59e815656f5736f282bb7509a97c7ecb43e927ac1a37966e0578075",
 +    "https://bcr.bazel.build/modules/jsoncpp/1.9.5/source.json": "4108ee5085dd2885a341c7fab149429db457b3169b86eb081fa245eadf69169d",
 +    "https://bcr.bazel.build/modules/libpfm/4.11.0/MODULE.bazel": "45061ff025b301940f1e30d2c16bea596c25b176c8b6b3087e92615adbd52902",
 +    "https://bcr.bazel.build/modules/package_metadata/0.0.2/MODULE.bazel": "fb8d25550742674d63d7b250063d4580ca530499f045d70748b1b142081ebb92",
++    "https://bcr.bazel.build/modules/package_metadata/0.0.2/source.json": "e53a759a72488d2c0576f57491ef2da0cf4aab05ac0997314012495935531b73",
 +    "https://bcr.bazel.build/modules/platforms/0.0.10/MODULE.bazel": "8cb8efaf200bdeb2150d93e162c40f388529a25852b332cec879373771e48ed5",
 +    "https://bcr.bazel.build/modules/platforms/0.0.11/MODULE.bazel": "0daefc49732e227caa8bfa834d65dc52e8cc18a2faf80df25e8caea151a9413f",
 +    "https://bcr.bazel.build/modules/platforms/0.0.4/MODULE.bazel": "9b328e31ee156f53f3c416a64f8491f7eb731742655a47c9eec4703a71644aee",
@@ -574,7 +433,12 @@ index 00000000..8707e627
 +    "https://bcr.bazel.build/modules/stardoc/0.7.1/MODULE.bazel": "3548faea4ee5dda5580f9af150e79d0f6aea934fc60c1cc50f4efdd9420759e7",
 +    "https://bcr.bazel.build/modules/stardoc/0.7.2/MODULE.bazel": "fc152419aa2ea0f51c29583fab1e8c99ddefd5b3778421845606ee628629e0e5",
 +    "https://bcr.bazel.build/modules/stardoc/0.7.2/source.json": "58b029e5e901d6802967754adf0a9056747e8176f017cfe3607c0851f4d42216",
++    "https://bcr.bazel.build/modules/tar.bzl/0.2.1/MODULE.bazel": "52d1c00a80a8cc67acbd01649e83d8dd6a9dc426a6c0b754a04fe8c219c76468",
++    "https://bcr.bazel.build/modules/tar.bzl/0.5.1/MODULE.bazel": "7c2eb3dcfc53b0f3d6f9acdfd911ca803eaf92aadf54f8ca6e4c1f3aee288351",
++    "https://bcr.bazel.build/modules/tar.bzl/0.5.1/source.json": "deed3094f7cc779ed1d37a68403847b0e38d9dd9d931e03cb90825f3368b515f",
 +    "https://bcr.bazel.build/modules/upb/0.0.0-20220923-a547704/MODULE.bazel": "7298990c00040a0e2f121f6c32544bab27d4452f80d9ce51349b1a28f3005c43",
++    "https://bcr.bazel.build/modules/yq.bzl/0.1.1/MODULE.bazel": "9039681f9bcb8958ee2c87ffc74bdafba9f4369096a2b5634b88abc0eaefa072",
++    "https://bcr.bazel.build/modules/yq.bzl/0.1.1/source.json": "2d2bad780a9f2b9195a4a370314d2c17ae95eaa745cefc2e12fbc49759b15aa3",
 +    "https://bcr.bazel.build/modules/zlib/1.2.11/MODULE.bazel": "07b389abc85fdbca459b69e2ec656ae5622873af3f845e1c9d80fe179f3effa0",
 +    "https://bcr.bazel.build/modules/zlib/1.3.1.bcr.5/MODULE.bazel": "eec517b5bbe5492629466e11dae908d043364302283de25581e3eb944326c4ca",
 +    "https://bcr.bazel.build/modules/zlib/1.3.1.bcr.5/source.json": "22bc55c47af97246cfc093d0acf683a7869377de362b5d1c552c2c2e16b7a806",
@@ -853,133 +717,11 @@ index 00000000..8707e627
 +    "@@rules_nodejs+//nodejs:extensions.bzl%node": {
 +      "general": {
 +        "bzlTransitiveDigest": "71PwVsMlLx+RWdt1SI9nSqRHX7DX/NstWwr7/XBxEMs=",
-+        "usagesDigest": "Ux4r/0NBMyOxRwG3BsC0nGvXizz7+rnXO1c0MmedItQ=",
++        "usagesDigest": "HGPP+QEcdssoxrQywQY9jP2dF8vV0vZoVmmxPQrprHQ=",
 +        "recordedFileInputs": {},
 +        "recordedDirentsInputs": {},
 +        "envVariables": {},
 +        "generatedRepoSpecs": {
-+          "com_alwaldend_com_github_infinitimeorg_infinitime_nodejs_toolchains_linux_amd64": {
-+            "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
-+            "attributes": {
-+              "node_download_auth": {},
-+              "node_repositories": {},
-+              "node_urls": [
-+                "https://nodejs.org/dist/v{version}/{filename}"
-+              ],
-+              "node_version": "16.14.2",
-+              "include_headers": false,
-+              "platform": "linux_amd64"
-+            }
-+          },
-+          "com_alwaldend_com_github_infinitimeorg_infinitime_nodejs_toolchains_linux_arm64": {
-+            "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
-+            "attributes": {
-+              "node_download_auth": {},
-+              "node_repositories": {},
-+              "node_urls": [
-+                "https://nodejs.org/dist/v{version}/{filename}"
-+              ],
-+              "node_version": "16.14.2",
-+              "include_headers": false,
-+              "platform": "linux_arm64"
-+            }
-+          },
-+          "com_alwaldend_com_github_infinitimeorg_infinitime_nodejs_toolchains_linux_s390x": {
-+            "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
-+            "attributes": {
-+              "node_download_auth": {},
-+              "node_repositories": {},
-+              "node_urls": [
-+                "https://nodejs.org/dist/v{version}/{filename}"
-+              ],
-+              "node_version": "16.14.2",
-+              "include_headers": false,
-+              "platform": "linux_s390x"
-+            }
-+          },
-+          "com_alwaldend_com_github_infinitimeorg_infinitime_nodejs_toolchains_linux_ppc64le": {
-+            "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
-+            "attributes": {
-+              "node_download_auth": {},
-+              "node_repositories": {},
-+              "node_urls": [
-+                "https://nodejs.org/dist/v{version}/{filename}"
-+              ],
-+              "node_version": "16.14.2",
-+              "include_headers": false,
-+              "platform": "linux_ppc64le"
-+            }
-+          },
-+          "com_alwaldend_com_github_infinitimeorg_infinitime_nodejs_toolchains_darwin_amd64": {
-+            "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
-+            "attributes": {
-+              "node_download_auth": {},
-+              "node_repositories": {},
-+              "node_urls": [
-+                "https://nodejs.org/dist/v{version}/{filename}"
-+              ],
-+              "node_version": "16.14.2",
-+              "include_headers": false,
-+              "platform": "darwin_amd64"
-+            }
-+          },
-+          "com_alwaldend_com_github_infinitimeorg_infinitime_nodejs_toolchains_darwin_arm64": {
-+            "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
-+            "attributes": {
-+              "node_download_auth": {},
-+              "node_repositories": {},
-+              "node_urls": [
-+                "https://nodejs.org/dist/v{version}/{filename}"
-+              ],
-+              "node_version": "16.14.2",
-+              "include_headers": false,
-+              "platform": "darwin_arm64"
-+            }
-+          },
-+          "com_alwaldend_com_github_infinitimeorg_infinitime_nodejs_toolchains_windows_amd64": {
-+            "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
-+            "attributes": {
-+              "node_download_auth": {},
-+              "node_repositories": {},
-+              "node_urls": [
-+                "https://nodejs.org/dist/v{version}/{filename}"
-+              ],
-+              "node_version": "16.14.2",
-+              "include_headers": false,
-+              "platform": "windows_amd64"
-+            }
-+          },
-+          "com_alwaldend_com_github_infinitimeorg_infinitime_nodejs_toolchains_windows_arm64": {
-+            "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
-+            "attributes": {
-+              "node_download_auth": {},
-+              "node_repositories": {},
-+              "node_urls": [
-+                "https://nodejs.org/dist/v{version}/{filename}"
-+              ],
-+              "node_version": "16.14.2",
-+              "include_headers": false,
-+              "platform": "windows_arm64"
-+            }
-+          },
-+          "com_alwaldend_com_github_infinitimeorg_infinitime_nodejs_toolchains": {
-+            "repoRuleId": "@@rules_nodejs+//nodejs/private:nodejs_repo_host_os_alias.bzl%nodejs_repo_host_os_alias",
-+            "attributes": {
-+              "user_node_repository_name": "com_alwaldend_com_github_infinitimeorg_infinitime_nodejs_toolchains"
-+            }
-+          },
-+          "com_alwaldend_com_github_infinitimeorg_infinitime_nodejs_toolchains_host": {
-+            "repoRuleId": "@@rules_nodejs+//nodejs/private:nodejs_repo_host_os_alias.bzl%nodejs_repo_host_os_alias",
-+            "attributes": {
-+              "user_node_repository_name": "com_alwaldend_com_github_infinitimeorg_infinitime_nodejs_toolchains"
-+            }
-+          },
-+          "com_alwaldend_com_github_infinitimeorg_infinitime_nodejs_toolchains_toolchains": {
-+            "repoRuleId": "@@rules_nodejs+//nodejs/private:nodejs_toolchains_repo.bzl%nodejs_toolchains_repo",
-+            "attributes": {
-+              "user_node_repository_name": "com_alwaldend_com_github_infinitimeorg_infinitime_nodejs_toolchains"
-+            }
-+          },
 +          "nodejs_linux_amd64": {
 +            "repoRuleId": "@@rules_nodejs+//nodejs:repositories.bzl%_nodejs_repositories",
 +            "attributes": {
@@ -988,7 +730,7 @@ index 00000000..8707e627
 +              "node_urls": [
 +                "https://nodejs.org/dist/v{version}/{filename}"
 +              ],
-+              "node_version": "20.19.5",
++              "node_version": "16.14.2",
 +              "include_headers": false,
 +              "platform": "linux_amd64"
 +            }
@@ -1001,7 +743,7 @@ index 00000000..8707e627
 +              "node_urls": [
 +                "https://nodejs.org/dist/v{version}/{filename}"
 +              ],
-+              "node_version": "20.19.5",
++              "node_version": "16.14.2",
 +              "include_headers": false,
 +              "platform": "linux_arm64"
 +            }
@@ -1014,7 +756,7 @@ index 00000000..8707e627
 +              "node_urls": [
 +                "https://nodejs.org/dist/v{version}/{filename}"
 +              ],
-+              "node_version": "20.19.5",
++              "node_version": "16.14.2",
 +              "include_headers": false,
 +              "platform": "linux_s390x"
 +            }
@@ -1027,7 +769,7 @@ index 00000000..8707e627
 +              "node_urls": [
 +                "https://nodejs.org/dist/v{version}/{filename}"
 +              ],
-+              "node_version": "20.19.5",
++              "node_version": "16.14.2",
 +              "include_headers": false,
 +              "platform": "linux_ppc64le"
 +            }
@@ -1040,7 +782,7 @@ index 00000000..8707e627
 +              "node_urls": [
 +                "https://nodejs.org/dist/v{version}/{filename}"
 +              ],
-+              "node_version": "20.19.5",
++              "node_version": "16.14.2",
 +              "include_headers": false,
 +              "platform": "darwin_amd64"
 +            }
@@ -1053,7 +795,7 @@ index 00000000..8707e627
 +              "node_urls": [
 +                "https://nodejs.org/dist/v{version}/{filename}"
 +              ],
-+              "node_version": "20.19.5",
++              "node_version": "16.14.2",
 +              "include_headers": false,
 +              "platform": "darwin_arm64"
 +            }
@@ -1066,7 +808,7 @@ index 00000000..8707e627
 +              "node_urls": [
 +                "https://nodejs.org/dist/v{version}/{filename}"
 +              ],
-+              "node_version": "20.19.5",
++              "node_version": "16.14.2",
 +              "include_headers": false,
 +              "platform": "windows_amd64"
 +            }
@@ -1079,7 +821,7 @@ index 00000000..8707e627
 +              "node_urls": [
 +                "https://nodejs.org/dist/v{version}/{filename}"
 +              ],
-+              "node_version": "20.19.5",
++              "node_version": "16.14.2",
 +              "include_headers": false,
 +              "platform": "windows_arm64"
 +            }
@@ -1146,86 +888,174 @@ index 00000000..8707e627
 +          ]
 +        ]
 +      }
++    },
++    "@@tar.bzl+//tar:extensions.bzl%toolchains": {
++      "general": {
++        "bzlTransitiveDigest": "/2afh6fPjq/rcyE/jztQDK3ierehmFFngfvmqyRv72M=",
++        "usagesDigest": "maF8qsAIqeH1ey8pxP0gNZbvJt34kLZvTFeQ0ntrJVA=",
++        "recordedFileInputs": {},
++        "recordedDirentsInputs": {},
++        "envVariables": {},
++        "generatedRepoSpecs": {
++          "bsd_tar_toolchains": {
++            "repoRuleId": "@@tar.bzl+//tar/toolchain:toolchain.bzl%tar_toolchains_repo",
++            "attributes": {
++              "user_repository_name": "bsd_tar_toolchains"
++            }
++          },
++          "bsd_tar_toolchains_darwin_amd64": {
++            "repoRuleId": "@@tar.bzl+//tar/toolchain:platforms.bzl%bsdtar_binary_repo",
++            "attributes": {
++              "platform": "darwin_amd64"
++            }
++          },
++          "bsd_tar_toolchains_darwin_arm64": {
++            "repoRuleId": "@@tar.bzl+//tar/toolchain:platforms.bzl%bsdtar_binary_repo",
++            "attributes": {
++              "platform": "darwin_arm64"
++            }
++          },
++          "bsd_tar_toolchains_linux_amd64": {
++            "repoRuleId": "@@tar.bzl+//tar/toolchain:platforms.bzl%bsdtar_binary_repo",
++            "attributes": {
++              "platform": "linux_amd64"
++            }
++          },
++          "bsd_tar_toolchains_linux_arm64": {
++            "repoRuleId": "@@tar.bzl+//tar/toolchain:platforms.bzl%bsdtar_binary_repo",
++            "attributes": {
++              "platform": "linux_arm64"
++            }
++          },
++          "bsd_tar_toolchains_windows_amd64": {
++            "repoRuleId": "@@tar.bzl+//tar/toolchain:platforms.bzl%bsdtar_binary_repo",
++            "attributes": {
++              "platform": "windows_amd64"
++            }
++          },
++          "bsd_tar_toolchains_windows_arm64": {
++            "repoRuleId": "@@tar.bzl+//tar/toolchain:platforms.bzl%bsdtar_binary_repo",
++            "attributes": {
++              "platform": "windows_arm64"
++            }
++          }
++        },
++        "recordedRepoMappingEntries": []
++      }
 +    }
 +  }
 +}
 diff --git a/REPO.bazel b/REPO.bazel
 new file mode 100644
-index 00000000..9c9aeb5f
+index 00000000..a02bdafd
 --- /dev/null
 +++ b/REPO.bazel
 @@ -0,0 +1,6 @@
 +repo(
 +    default_package_metadata = [
-+        "//:license",
++        "//bazel/bzl:license",
 +    ],
 +    default_visibility = ["//visibility:private"],
 +)
-diff --git a/package.json b/package.json
+diff --git a/bazel/BUILD.bazel b/bazel/BUILD.bazel
 new file mode 100644
-index 00000000..62462177
+index 00000000..1c436668
 --- /dev/null
-+++ b/package.json
-@@ -0,0 +1,9 @@
-+{
-+  "name": "com_alwaldend_com_github_infinitimeorg_infinitime",
-+  "devDependencies": {
-+    "lv_font_conv": "^1.5.3"
-+  },
-+  "pnpm": {
-+    "onlyBuiltDependencies": []
-+  }
-+}
-diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
++++ b/bazel/BUILD.bazel
+@@ -0,0 +1,76 @@
++load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
++load("@rules_python//python/entry_points:py_console_script_binary.bzl", "py_console_script_binary")
++load("@rules_python//python:pip.bzl", "compile_pip_requirements")
++load("@bazel_skylib//rules:write_file.bzl", "write_file")
++
++write_file(
++    name = "patches",
++    out = "patches.sh",
++    content = [
++        "#!/usr/bin/env sh",
++        "set -eux",
++        'cd "${BUILD_WORKSPACE_DIRECTORY}"',
++        "git diff --check 1.15.0",
++        "git diff \
++            1.15.0 \
++            >../src/projects/infinitime/main/patch/patch.patch \
++        ",
++    ],
++    is_executable = True,
++)
++
++compile_pip_requirements(
++    name = "requirements",
++    srcs = [":requirements.in"],
++    requirements_txt = ":requirements.txt",
++)
++
++alias(
++    name = "gcc_srcs",
++    actual = "@com_alwaldend_com_github_infinitimeorg_infinitime_com_arm_developer_gcc_arm//:srcs",
++    visibility = ["//:__pkg__"],
++)
++
++alias(
++    name = "gcc_marker",
++    actual = "@com_alwaldend_com_github_infinitimeorg_infinitime_com_arm_developer_gcc_arm//:marker",
++    visibility = ["//:__pkg__"],
++)
++
++alias(
++    name = "nrfsdk_srcs",
++    actual = "@com_alwaldend_com_github_infinitimeorg_infinitime_com_nordicsemi_developer_nrfsdk//:srcs",
++    visibility = ["//:__pkg__"],
++)
++
++alias(
++    name = "nrfsdk_marker",
++    actual = "@com_alwaldend_com_github_infinitimeorg_infinitime_com_nordicsemi_developer_nrfsdk//:marker",
++    visibility = ["//:__pkg__"],
++)
++
++pkg_filegroup(
++    name = "nrfsdk",
++    srcs = [":nrfsdk_srcs"],
++    prefix = "nrfsdk",
++    visibility = ["//:__pkg__"],
++)
++
++pkg_filegroup(
++    name = "gcc",
++    srcs = [":gcc_srcs"],
++    prefix = "gcc",
++    visibility = ["//:__pkg__"],
++)
++
++py_console_script_binary(
++    name = "adafruit-nrfutil",
++    pkg = "@com_alwaldend_com_github_infinitimeorg_infinitime_pip//adafruit_nrfutil",
++    visibility = ["//:__pkg__"],
++)
++
++alias(
++    name = "pnpm",
++    actual = "@com_alwaldend_com_github_infinitimeorg_infinitime_pnpm//:pnpm",
++    visibility = ["//:__pkg__"],
++)
+diff --git a/bazel/bazelrc/BUILD.bazel b/bazel/bazelrc/BUILD.bazel
 new file mode 100644
-index 00000000..59c4ecdc
+index 00000000..187be234
 --- /dev/null
-+++ b/pnpm-lock.yaml
-@@ -0,0 +1,31 @@
-+lockfileVersion: '9.0'
++++ b/bazel/bazelrc/BUILD.bazel
+@@ -0,0 +1,6 @@
++load("@bazelrc-preset.bzl", "bazelrc_preset")
 +
-+settings:
-+  autoInstallPeers: true
-+  excludeLinksFromLockfile: false
-+
-+importers:
-+
-+  .:
-+    devDependencies:
-+      lv_font_conv:
-+        specifier: ^1.5.3
-+        version: 1.5.3
-+
-+packages:
-+
-+  lv_font_conv@1.5.3:
-+    resolution: {integrity: sha512-0xJQThBOw2iptFccSXrKDIUTQAwr/2zhKjCI1lATIRgZo8uvYRTmenKafW9yTw6G0y5AyW00tqGpUtYuTuBIbQ==}
-+    hasBin: true
-+    bundledDependencies:
-+      - argparse
-+      - bit-buffer
-+      - debug
-+      - make-error
-+      - mkdirp
-+      - opentype.js
-+      - pngjs
-+
-+snapshots:
-+
-+  lv_font_conv@1.5.3: {}
-diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
-new file mode 100644
-index 00000000..d05a7e7d
---- /dev/null
-+++ b/pnpm-workspace.yaml
-@@ -0,0 +1,2 @@
-+packages:
-+  - .
-diff --git a/preset.bazelrc b/preset.bazelrc
++bazelrc_preset(
++    name = "preset",
++    strict = True,
++)
+diff --git a/bazel/bazelrc/preset.bazelrc b/bazel/bazelrc/preset.bazelrc
 new file mode 100644
 index 00000000..db3de06e
 --- /dev/null
-+++ b/preset.bazelrc
++++ b/bazel/bazelrc/preset.bazelrc
 @@ -0,0 +1,276 @@
 +# Generated by bazelrc-preset.bzl
 +# To update this file, run:
@@ -1503,11 +1333,288 @@ index 00000000..db3de06e
 +# See https://github.com/bazelbuild/bazel/issues/26222
 +common --incompatible_repo_env_ignores_action_env
 +# Docs: https://registry.build/flag/bazel@8.4.2?filter=incompatible_repo_env_ignores_action_env
-diff --git a/requirements.in b/requirements.in
+diff --git a/bazel/bazelrc/project.bazelrc b/bazel/bazelrc/project.bazelrc
+new file mode 100644
+index 00000000..ada1ac9b
+--- /dev/null
++++ b/bazel/bazelrc/project.bazelrc
+@@ -0,0 +1,15 @@
++common --disk_cache=~/.cache/bazel/disk_cache
++# Fix refetch after shutdown caused by the preset, remove in 8.5.0: https://github.com/bazelbuild/bazel/issues/27787
++common --incompatible_enforce_starlark_utf8=warning
++# Fix autoload from the preset
++common --incompatible_disable_native_repo_rules=false
++# Disable auto_exec_groups from the preset
++common --incompatible_auto_exec_groups=false
++# Setup java
++common --java_language_version=21
++common --java_runtime_version=remotejdk_21
++common --tool_java_language_version=21
++common --tool_java_runtime_version=remotejdk_21
++# Disable telemetry (https://github.com/aspect-build/tools_telemetry)
++common --repo_env=ASPECT_TOOLS_TELEMETRY=
++common --repo_env=DO_NOT_TRACK=1
+diff --git a/bazel/bzl/BUILD.bazel b/bazel/bzl/BUILD.bazel
+new file mode 100644
+index 00000000..bb571dcd
+--- /dev/null
++++ b/bazel/bzl/BUILD.bazel
+@@ -0,0 +1,10 @@
++load("@rules_license//rules:license.bzl", "license")
++
++license(
++    name = "license",
++    license_kinds = [
++        "@rules_license//licenses/spdx:GPL-3.0",
++    ],
++    license_text = "//:LICENSE",
++    visibility = ["//:__subpackages__"],
++)
+diff --git a/bazel/bzl/build_binary.bzl b/bazel/bzl/build_binary.bzl
+new file mode 100644
+index 00000000..8d3b47e7
+--- /dev/null
++++ b/bazel/bzl/build_binary.bzl
+@@ -0,0 +1,95 @@
++load("@bazel_skylib//lib:paths.bzl", "paths")
++load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo")
++
++def _impl(ctx):
++    runfiles = ctx.runfiles()
++    exec = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
++    root = "${{0}}.runfiles/{}".format(ctx.workspace_name)
++
++    args = []
++    args.extend(["build"])
++    args.extend(["--src_dir", "{}/{}".format(root, "srcs")])
++    args.extend(["--gcc_dir", "{}/{}".format(root, "gcc")])
++    args.extend(["--nrfsdk_dir", "{}/{}".format(root, "nrfsdk")])
++    args.extend(["--build_dir", "{}/{}".format(root, "build")])
++    args.extend(["--build_type", ctx.attr.build_type])
++
++    cmake = ctx.toolchains["@rules_foreign_cc//toolchains:cmake_toolchain"].data
++    cmake_files = cmake.target[DefaultInfo].files.to_list()
++    args.extend(
++        [
++            "--cmake",
++            "{}/{}/{}".format(root, paths.dirname(cmake_files[0].short_path), cmake.path),
++        ],
++    )
++    runfiles = runfiles.merge(cmake.target[DefaultInfo].default_runfiles)
++    runfiles = runfiles.merge(ctx.runfiles(files = cmake_files))
++
++    for tool in ctx.attr.tools:
++        args.extend(
++            [
++                "--tool",
++                "{}/{}".format(root, tool[DefaultInfo].files_to_run.executable.short_path),
++            ],
++        )
++        runfiles = runfiles.merge(tool[DefaultInfo].default_runfiles)
++
++    src_symlinks = {}
++    for src in ctx.attr.srcs:
++        for files, _ in src[PackageFilegroupInfo].pkg_files:
++            src_symlinks.update(files.dest_src_map)
++    runfiles = runfiles.merge(ctx.runfiles(symlinks = src_symlinks))
++
++    runfiles = runfiles.merge(ctx.attr.build_tool[DefaultInfo].default_runfiles)
++    script_content = """\
++        #!/usr/bin/env sh
++        set -eu
++        exec "{root}/{build_tool}" {arguments} "${{@}}"
++    """.format(
++        root = root,
++        build_tool = ctx.executable.build_tool.short_path,
++        arguments = " ".join(['"{}"'.format(arg) for arg in args]),
++    )
++    ctx.actions.write(
++        output = exec,
++        is_executable = True,
++        content = script_content,
++    )
++
++    return [
++        DefaultInfo(
++            executable = exec,
++            runfiles = runfiles,
++        ),
++    ]
++
++build_binary = rule(
++    implementation = _impl,
++    executable = True,
++    doc = "Build binary",
++    toolchains = [
++        "@rules_foreign_cc//toolchains:cmake_toolchain",
++    ],
++    attrs = {
++        "build_tool": attr.label(
++            executable = True,
++            default = "//bazel/py",
++            doc = "Build tool",
++            cfg = "exec",
++        ),
++        "srcs": attr.label_list(
++            providers = [PackageFilegroupInfo],
++            mandatory = True,
++            doc = "Srcs",
++        ),
++        "tools": attr.label_list(
++            doc = "Binaries that should be on $PATH",
++            mandatory = True,
++            cfg = "exec",
++        ),
++        "build_type": attr.string(
++            mandatory = True,
++            doc = "Cmake build type",
++        ),
++    },
++)
+diff --git a/bazel/bzl/build_run_binary.bzl b/bazel/bzl/build_run_binary.bzl
+new file mode 100644
+index 00000000..d6fdd17d
+--- /dev/null
++++ b/bazel/bzl/build_run_binary.bzl
+@@ -0,0 +1,34 @@
++def _impl(ctx):
++    build_dir = ctx.actions.declare_directory("{}.build".format(ctx.label.name))
++    args = ctx.actions.args()
++    args.add_all(["--build_dir", build_dir.path])
++    args.add_all(ctx.attr.args)
++    ctx.actions.run(
++        executable = ctx.executable.binary,
++        arguments = [args],
++        outputs = [build_dir],
++        use_default_shell_env = True,
++    )
++
++    return [
++        DefaultInfo(
++            files = depset([build_dir]),
++        ),
++    ]
++
++build_run_binary = rule(
++    implementation = _impl,
++    doc = "Run build binary",
++    attrs = {
++        "args": attr.string_list(
++            default = [],
++            doc = "Args",
++        ),
++        "binary": attr.label(
++            mandatory = True,
++            executable = True,
++            cfg = "exec",
++            doc = "Binary to run",
++        ),
++    },
++)
+diff --git a/bazel/py/BUILD.bazel b/bazel/py/BUILD.bazel
+new file mode 100644
+index 00000000..8d20f2d5
+--- /dev/null
++++ b/bazel/py/BUILD.bazel
+@@ -0,0 +1,10 @@
++load("@com_alwaldend_com_github_infinitimeorg_infinitime_pip//:requirements.bzl", "all_requirements")
++load("@rules_python//python:py_binary.bzl", "py_binary")
++
++py_binary(
++    name = "py",
++    srcs = ["build.py"],
++    main = "build.py",
++    visibility = ["//:__subpackages__"],
++    deps = all_requirements + ["//tools/mcuboot:imgtool_lib"],
++)
+diff --git a/bazel/py/build.py b/bazel/py/build.py
+new file mode 100644
+index 00000000..49c243e2
+--- /dev/null
++++ b/bazel/py/build.py
+@@ -0,0 +1,77 @@
++import argparse
++import os
++import subprocess
++import sys
++import typing
++import os.path
++
++
++def cmd_build(ctx: argparse.Namespace) -> None:
++    env = os.environ.copy()
++    for tool in ctx.tool:
++        env["PATH"] = f"{env.get('PATH', '')}:{os.path.abspath(os.path.dirname(tool))}:"
++    src_dir = os.path.abspath(ctx.src_dir)
++    build_dir = os.path.abspath(ctx.build_dir)
++    gcc_dir = os.path.abspath(ctx.gcc_dir)
++    nrfsdk_dir = os.path.abspath(ctx.nrfsdk_dir)
++    executable = os.path.abspath(sys.executable)
++
++    subprocess.run(
++        (
++            ctx.cmake,
++            "-G",
++            "Unix Makefiles",
++            "-S",
++            src_dir,
++            "-B",
++            build_dir,
++            f"-DCMAKE_BUILD_TYPE={ctx.build_type}",
++            f"-DARM_NONE_EABI_TOOLCHAIN_PATH={gcc_dir}",
++            f"-DNRF5_SDK_PATH={nrfsdk_dir}",
++            f"-DPython3_EXECUTABLE={executable}",
++            "-DBUILD_DFU=1",
++            "-DBUILD_RESOURCES=1",
++        ),
++        env=env,
++        check=True,
++    )
++    subprocess.run(
++        (
++            ctx.cmake,
++            "--build",
++            build_dir,
++            "--config",
++            f"{ctx.build_type}",
++            "--target",
++            "pinetime-mcuboot-app",
++        ),
++        env=env,
++        check=True,
++    )
++
++
++def main(argv: typing.Sequence[str]) -> None:
++    parser = argparse.ArgumentParser()
++    parser.set_defaults(func=lambda _: parser.print_help)
++    subparsers = parser.add_subparsers()
++    build = subparsers.add_parser(name="build", help="Build")
++    build.add_argument("--cmake", required=True, help="Path to the cmake executable")
++    build.add_argument("--src_dir", required=True, help="Source directory")
++    build.add_argument("--gcc_dir", required=True, help="Gcc directory")
++    build.add_argument("--nrfsdk_dir", required=True, help="Nrfsdk directory")
++    build.add_argument("--build_dir", required=True, help="Build directory")
++    build.add_argument(
++        "--tool",
++        default=[],
++        action="append",
++        required=True,
++        help="Tools to add to $PATH",
++    )
++    build.add_argument("--build_type", required=True, help="Build type")
++    build.set_defaults(func=cmd_build)
++    args = parser.parse_args(argv[1:])
++    args.func(args)
++
++
++if __name__ == "__main__":
++    main(sys.argv)
+diff --git a/bazel/requirements.in b/bazel/requirements.in
 new file mode 100644
 index 00000000..6dcba587
 --- /dev/null
-+++ b/requirements.in
++++ b/bazel/requirements.in
 @@ -0,0 +1,8 @@
 +# adafruit
 +Pillow
@@ -1517,11 +1624,11 @@ index 00000000..6dcba587
 +intelhex
 +click
 +cbor>=1.0.0
-diff --git a/requirements.txt b/requirements.txt
+diff --git a/bazel/requirements.txt b/bazel/requirements.txt
 new file mode 100644
 index 00000000..76716abe
 --- /dev/null
-+++ b/requirements.txt
++++ b/bazel/requirements.txt
 @@ -0,0 +1,273 @@
 +#
 +# This file is autogenerated by pip-compile with Python 3.12
@@ -1796,6 +1903,474 @@ index 00000000..76716abe
 +    --hash=sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274 \
 +    --hash=sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81
 +    # via ecdsa
--- 
-2.51.1
-
+diff --git a/package.json b/package.json
+new file mode 100644
+index 00000000..62462177
+--- /dev/null
++++ b/package.json
+@@ -0,0 +1,9 @@
++{
++  "name": "com_alwaldend_com_github_infinitimeorg_infinitime",
++  "devDependencies": {
++    "lv_font_conv": "^1.5.3"
++  },
++  "pnpm": {
++    "onlyBuiltDependencies": []
++  }
++}
+diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
+new file mode 100644
+index 00000000..59c4ecdc
+--- /dev/null
++++ b/pnpm-lock.yaml
+@@ -0,0 +1,31 @@
++lockfileVersion: '9.0'
++
++settings:
++  autoInstallPeers: true
++  excludeLinksFromLockfile: false
++
++importers:
++
++  .:
++    devDependencies:
++      lv_font_conv:
++        specifier: ^1.5.3
++        version: 1.5.3
++
++packages:
++
++  lv_font_conv@1.5.3:
++    resolution: {integrity: sha512-0xJQThBOw2iptFccSXrKDIUTQAwr/2zhKjCI1lATIRgZo8uvYRTmenKafW9yTw6G0y5AyW00tqGpUtYuTuBIbQ==}
++    hasBin: true
++    bundledDependencies:
++      - argparse
++      - bit-buffer
++      - debug
++      - make-error
++      - mkdirp
++      - opentype.js
++      - pngjs
++
++snapshots:
++
++  lv_font_conv@1.5.3: {}
+diff --git a/pnpm-workspace.yaml b/pnpm-workspace.yaml
+new file mode 100644
+index 00000000..d05a7e7d
+--- /dev/null
++++ b/pnpm-workspace.yaml
+@@ -0,0 +1,2 @@
++packages:
++  - .
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 0a97a015..dc82aa60 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -424,6 +424,7 @@ list(APPEND SOURCE_FILES
+         displayapp/screens/WatchFaceDigital.cpp
+         displayapp/screens/WatchFaceInfineat.cpp
+         displayapp/screens/WatchFaceTerminal.cpp
++        displayapp/screens/WatchFaceTerminalCustom.cpp
+         displayapp/screens/WatchFacePineTimeStyle.cpp
+         displayapp/screens/WatchFaceCasioStyleG7710.cpp
+ 
+@@ -835,7 +836,7 @@ if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+   # add_definitions(-DCLOCK_CONFIG_LOG_LEVEL=4)
+   # add_definitions(-DRTC_CONFIG_LOG_ENABLED=1)
+   # add_definitions(-DRTC_CONFIG_LOG_LEVEL=4)
+-  
++
+   # Nimble Logging
+   add_definitions(-DMYNEWT_VAL_NEWT_FEATURE_LOGCFG=1)
+   # add_definitions(-DMYNEWT_VAL_LOG_LEVEL=0)
+@@ -962,8 +963,8 @@ add_custom_command(TARGET ${EXECUTABLE_MCUBOOT_NAME}
+         COMMAND ${CMAKE_SIZE_UTIL} ${EXECUTABLE_MCUBOOT_FILE_NAME}.out
+         COMMAND ${CMAKE_OBJCOPY} -O binary ${EXECUTABLE_MCUBOOT_FILE_NAME}.out "${EXECUTABLE_MCUBOOT_FILE_NAME}.bin"
+         COMMAND ${CMAKE_OBJCOPY} -O ihex ${EXECUTABLE_MCUBOOT_FILE_NAME}.out "${EXECUTABLE_MCUBOOT_FILE_NAME}.hex"
+-        COMMAND ${CMAKE_SOURCE_DIR}/tools/mcuboot/imgtool.py create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_MCUBOOT_FILE_NAME}.hex ${IMAGE_MCUBOOT_FILE_NAME_HEX}
+-        COMMAND ${CMAKE_SOURCE_DIR}/tools/mcuboot/imgtool.py create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_MCUBOOT_FILE_NAME}.bin ${IMAGE_MCUBOOT_FILE_NAME_BIN}
++        COMMAND "${Python3_EXECUTABLE}" ${CMAKE_SOURCE_DIR}/tools/mcuboot/imgtool.py create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_MCUBOOT_FILE_NAME}.hex ${IMAGE_MCUBOOT_FILE_NAME_HEX}
++        COMMAND "${Python3_EXECUTABLE}" ${CMAKE_SOURCE_DIR}/tools/mcuboot/imgtool.py create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_MCUBOOT_FILE_NAME}.bin ${IMAGE_MCUBOOT_FILE_NAME_BIN}
+         COMMENT "post build steps for ${EXECUTABLE_MCUBOOT_FILE_NAME}"
+         )
+ 
+@@ -1037,7 +1038,7 @@ add_custom_command(TARGET ${EXECUTABLE_RECOVERY_MCUBOOT_NAME}
+         COMMAND ${CMAKE_SIZE_UTIL} ${EXECUTABLE_RECOVERY_MCUBOOT_FILE_NAME}.out
+         COMMAND ${CMAKE_OBJCOPY} -O binary ${EXECUTABLE_RECOVERY_MCUBOOT_FILE_NAME}.out "${EXECUTABLE_RECOVERY_MCUBOOT_FILE_NAME}.bin"
+         COMMAND ${CMAKE_OBJCOPY} -O ihex ${EXECUTABLE_RECOVERY_MCUBOOT_FILE_NAME}.out "${EXECUTABLE_RECOVERY_MCUBOOT_FILE_NAME}.hex"
+-        COMMAND ${CMAKE_SOURCE_DIR}/tools/mcuboot/imgtool.py create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_RECOVERY_MCUBOOT_FILE_NAME}.hex ${IMAGE_RECOVERY_MCUBOOT_FILE_NAME_HEX}
++        COMMAND "${Python3_EXECUTABLE}" ${CMAKE_SOURCE_DIR}/tools/mcuboot/imgtool.py create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_RECOVERY_MCUBOOT_FILE_NAME}.hex ${IMAGE_RECOVERY_MCUBOOT_FILE_NAME_HEX}
+         COMMAND ${CMAKE_OBJCOPY} -I ihex -O binary ${IMAGE_RECOVERY_MCUBOOT_FILE_NAME_HEX} "${IMAGE_RECOVERY_MCUBOOT_FILE_NAME}.bin"
+         COMMAND python3 ${CMAKE_SOURCE_DIR}/tools/bin2c.py ${IMAGE_RECOVERY_MCUBOOT_FILE_NAME}.bin recoveryImage > recoveryImage.h
+         COMMENT "post build steps for ${EXECUTABLE_RECOVERY_MCUBOOT_FILE_NAME}"
+@@ -1115,7 +1116,7 @@ add_custom_command(TARGET ${EXECUTABLE_MCUBOOT_RECOVERYLOADER_NAME}
+         COMMAND ${CMAKE_SIZE_UTIL} ${EXECUTABLE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.out
+         COMMAND ${CMAKE_OBJCOPY} -O binary ${EXECUTABLE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.out "${EXECUTABLE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.bin"
+         COMMAND ${CMAKE_OBJCOPY} -O ihex ${EXECUTABLE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.out "${EXECUTABLE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.hex"
+-        COMMAND ${CMAKE_SOURCE_DIR}/tools/mcuboot/imgtool.py create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.hex ${IMAGE_MCUBOOT_RECOVERYLOADER_FILE_NAME_HEX}
++        COMMAND "${Python3_EXECUTABLE}" ${CMAKE_SOURCE_DIR}/tools/mcuboot/imgtool.py create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.hex ${IMAGE_MCUBOOT_RECOVERYLOADER_FILE_NAME_HEX}
+         COMMAND ${CMAKE_OBJCOPY} -I ihex -O binary ${IMAGE_MCUBOOT_RECOVERYLOADER_FILE_NAME_HEX} "${IMAGE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.bin"
+         COMMAND python3 ${CMAKE_SOURCE_DIR}/tools/bin2c.py ${IMAGE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.bin recoveryLoaderImage > recoveryLoaderImage.h
+         COMMENT "post build steps for ${EXECUTABLE_MCUBOOT_RECOVERYLOADER_FILE_NAME}"
+@@ -1132,4 +1133,3 @@ endif()
+ if(BUILD_RESOURCES)
+   add_subdirectory(resources)
+ endif()
+-
+diff --git a/src/components/datetime/DateTimeController.cpp b/src/components/datetime/DateTimeController.cpp
+index d439821b..19109533 100644
+--- a/src/components/datetime/DateTimeController.cpp
++++ b/src/components/datetime/DateTimeController.cpp
+@@ -117,12 +117,12 @@ void DateTime::UpdateTime(uint32_t systickCounter, bool forceUpdate) {
+     isHourAlreadyNotified = false;
+   }
+ 
+-  if ((minute == 0 || minute == 30) && !isHalfHourAlreadyNotified) {
++  if ((minute == 0 || minute == 20 || minute == 40) && !isHalfHourAlreadyNotified) {
+     isHalfHourAlreadyNotified = true;
+     if (systemTask != nullptr) {
+       systemTask->PushMessage(System::Messages::OnNewHalfHour);
+     }
+-  } else if (minute != 0 && minute != 30) {
++  } else if (minute != 0 && minute != 20 && minute != 40) {
+     isHalfHourAlreadyNotified = false;
+   }
+ 
+diff --git a/src/displayapp/UserApps.h b/src/displayapp/UserApps.h
+index 67bbfa7d..6a6636aa 100644
+--- a/src/displayapp/UserApps.h
++++ b/src/displayapp/UserApps.h
+@@ -14,6 +14,7 @@
+ #include "displayapp/screens/WatchFaceInfineat.h"
+ #include "displayapp/screens/WatchFacePineTimeStyle.h"
+ #include "displayapp/screens/WatchFaceTerminal.h"
++#include "displayapp/screens/WatchFaceTerminalCustom.h"
+ 
+ namespace Pinetime {
+   namespace Applications {
+diff --git a/src/displayapp/apps/Apps.h.in b/src/displayapp/apps/Apps.h.in
+index 2104a267..fd5ad21a 100644
+--- a/src/displayapp/apps/Apps.h.in
++++ b/src/displayapp/apps/Apps.h.in
+@@ -50,6 +50,7 @@ namespace Pinetime {
+       Analog,
+       PineTimeStyle,
+       Terminal,
++      TerminalCustom,
+       Infineat,
+       CasioStyleG7710,
+     };
+diff --git a/src/displayapp/apps/CMakeLists.txt b/src/displayapp/apps/CMakeLists.txt
+index d7858760..1f742825 100644
+--- a/src/displayapp/apps/CMakeLists.txt
++++ b/src/displayapp/apps/CMakeLists.txt
+@@ -27,6 +27,7 @@ else()
+     set(DEFAULT_WATCHFACE_TYPES "${DEFAULT_WATCHFACE_TYPES}, WatchFace::Terminal")
+     set(DEFAULT_WATCHFACE_TYPES "${DEFAULT_WATCHFACE_TYPES}, WatchFace::Infineat")
+     set(DEFAULT_WATCHFACE_TYPES "${DEFAULT_WATCHFACE_TYPES}, WatchFace::CasioStyleG7710")
++    set(DEFAULT_WATCHFACE_TYPES "${DEFAULT_WATCHFACE_TYPES}, WatchFace::TerminalCustom")
+     set(WATCHFACE_TYPES "${DEFAULT_WATCHFACE_TYPES}" CACHE STRING "List of watch faces to build into the firmware")
+ endif()
+ 
+diff --git a/src/displayapp/screens/WatchFaceTerminalCustom.cpp b/src/displayapp/screens/WatchFaceTerminalCustom.cpp
+new file mode 100644
+index 00000000..dff718ad
+--- /dev/null
++++ b/src/displayapp/screens/WatchFaceTerminalCustom.cpp
+@@ -0,0 +1,153 @@
++#include <lvgl/lvgl.h>
++#include "displayapp/screens/WatchFaceTerminalCustom.h"
++#include "displayapp/screens/BatteryIcon.h"
++#include "displayapp/screens/NotificationIcon.h"
++#include "displayapp/screens/Symbols.h"
++#include "components/battery/BatteryController.h"
++#include "components/ble/BleController.h"
++#include "components/ble/NotificationManager.h"
++#include "components/heartrate/HeartRateController.h"
++#include "components/motion/MotionController.h"
++#include "components/settings/Settings.h"
++
++using namespace Pinetime::Applications::Screens;
++
++WatchFaceTerminalCustom::WatchFaceTerminalCustom(Controllers::DateTime& dateTimeController,
++                                                 const Controllers::Battery& batteryController,
++                                                 const Controllers::Ble& bleController,
++                                                 Controllers::NotificationManager& notificationManager,
++                                                 Controllers::Settings& settingsController,
++                                                 Controllers::HeartRateController& heartRateController,
++                                                 Controllers::MotionController& motionController)
++  : currentDateTime {{}},
++    dateTimeController {dateTimeController},
++    batteryController {batteryController},
++    bleController {bleController},
++    notificationManager {notificationManager},
++    settingsController {settingsController},
++    heartRateController {heartRateController},
++    motionController {motionController} {
++  notificationIcon = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(notificationIcon, nullptr, LV_ALIGN_IN_LEFT_MID, 0, -100);
++
++  label_time = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(label_time, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, -80);
++
++  label_date = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(label_date, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, -60);
++
++  weekdayValue = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(weekdayValue, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, -40);
++
++  monthValue = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(monthValue, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, -20);
++
++  batteryValue = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(batteryValue, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, 0);
++
++  stepValue = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(stepValue, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, 20);
++
++  heartbeatValue = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(heartbeatValue, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, 40);
++
++  connectState = lv_label_create(lv_scr_act(), nullptr);
++  lv_obj_align(connectState, lv_scr_act(), LV_ALIGN_IN_LEFT_MID, 0, 60);
++
++  taskRefresh = lv_task_create(RefreshTaskCallback, LV_DISP_DEF_REFR_PERIOD, LV_TASK_PRIO_MID, this);
++  Refresh();
++}
++
++WatchFaceTerminalCustom::~WatchFaceTerminalCustom() {
++  lv_task_del(taskRefresh);
++  lv_obj_clean(lv_scr_act());
++}
++
++void WatchFaceTerminalCustom::Refresh() {
++  powerPresent = batteryController.IsPowerPresent();
++  batteryPercentRemaining = batteryController.PercentRemaining();
++  if (batteryPercentRemaining.IsUpdated() || powerPresent.IsUpdated()) {
++    lv_label_set_text_fmt(batteryValue, "charge: %d%%", batteryPercentRemaining.Get());
++    if (batteryController.IsPowerPresent()) {
++      lv_label_ins_text(batteryValue, LV_LABEL_POS_LAST, " charging");
++    }
++  }
++
++  bleState = bleController.IsConnected();
++  bleRadioEnabled = bleController.IsRadioEnabled();
++  if (bleState.IsUpdated() || bleRadioEnabled.IsUpdated()) {
++    if (!bleRadioEnabled.Get()) {
++      lv_label_set_text_static(connectState, "status: disabled");
++    } else {
++      if (bleState.Get()) {
++        lv_label_set_text_static(connectState, "status: connected");
++      } else {
++        lv_label_set_text_static(connectState, "status: disconnected");
++      }
++    }
++  }
++
++  notificationState = notificationManager.AreNewNotificationsAvailable();
++  if (notificationState.IsUpdated()) {
++    if (notificationState.Get()) {
++      lv_label_set_text_static(notificationIcon, "you have mail.");
++    } else {
++      lv_label_set_text_static(notificationIcon, "");
++    }
++  }
++
++  currentDateTime = std::chrono::time_point_cast<std::chrono::seconds>(dateTimeController.CurrentDateTime());
++  if (currentDateTime.IsUpdated()) {
++    uint8_t hour = dateTimeController.Hours();
++    uint8_t minute = dateTimeController.Minutes();
++    uint8_t second = dateTimeController.Seconds();
++
++    if (settingsController.GetClockType() == Controllers::Settings::ClockType::H12) {
++      char ampmChar[3] = "am";
++      if (hour == 0) {
++        hour = 12;
++      } else if (hour == 12) {
++        ampmChar[0] = 'p';
++      } else if (hour > 12) {
++        hour = hour - 12;
++        ampmChar[0] = 'p';
++      }
++      lv_label_set_text_fmt(label_time, "time: %s", hour, minute, second, ampmChar);
++    } else {
++      lv_label_set_text_fmt(label_time, "time: %02d:%02d:%02d", hour, minute, second);
++    }
++
++    currentDate = std::chrono::time_point_cast<days>(currentDateTime.Get());
++    if (currentDate.IsUpdated()) {
++      uint16_t year = dateTimeController.Year();
++      Controllers::DateTime::Months month = dateTimeController.Month();
++      uint8_t day = dateTimeController.Day();
++      lv_label_set_text_fmt(label_date, "date: %04d-%02d-%02d", short(year), char(month), char(day));
++    }
++  }
++
++  lv_label_set_text_fmt(weekdayValue,
++                        "weekdday: %s %d",
++                        dateTimeController.DayOfWeekShortToStringLow(dateTimeController.DayOfWeek()),
++                        dateTimeController.DayOfWeek());
++
++  lv_label_set_text_fmt(monthValue,
++                        "month: %s %d",
++                        dateTimeController.MonthShortToStringLow(dateTimeController.Month()),
++                        dateTimeController.Month());
++
++  heartbeat = heartRateController.HeartRate();
++  heartbeatRunning = heartRateController.State() != Controllers::HeartRateController::States::Stopped;
++  if (heartbeat.IsUpdated() || heartbeatRunning.IsUpdated()) {
++    if (heartbeatRunning.Get()) {
++      lv_label_set_text_fmt(heartbeatValue, "heartbeat: %d bpm", heartbeat.Get());
++    } else {
++      lv_label_set_text_static(heartbeatValue, "heartbeat: ---");
++    }
++  }
++
++  stepCount = motionController.NbSteps();
++  if (stepCount.IsUpdated()) {
++    lv_label_set_text_fmt(stepValue, "steps: %lu", stepCount.Get());
++  }
++}
+diff --git a/src/displayapp/screens/WatchFaceTerminalCustom.h b/src/displayapp/screens/WatchFaceTerminalCustom.h
+new file mode 100644
+index 00000000..a95be7f3
+--- /dev/null
++++ b/src/displayapp/screens/WatchFaceTerminalCustom.h
+@@ -0,0 +1,95 @@
++#pragma once
++
++#include <lvgl/src/lv_core/lv_obj.h>
++#include <chrono>
++#include <cstdint>
++#include <memory>
++#include <displayapp/Controllers.h>
++#include "displayapp/screens/Screen.h"
++#include "components/datetime/DateTimeController.h"
++#include "utility/DirtyValue.h"
++
++namespace Pinetime {
++  namespace Controllers {
++    class Settings;
++    class Battery;
++    class Ble;
++    class NotificationManager;
++    class HeartRateController;
++    class MotionController;
++  }
++
++  namespace Applications {
++    namespace Screens {
++
++      class WatchFaceTerminalCustom : public Screen {
++      public:
++        WatchFaceTerminalCustom(Controllers::DateTime& dateTimeController,
++                          const Controllers::Battery& batteryController,
++                          const Controllers::Ble& bleController,
++                          Controllers::NotificationManager& notificationManager,
++                          Controllers::Settings& settingsController,
++                          Controllers::HeartRateController& heartRateController,
++                          Controllers::MotionController& motionController);
++        ~WatchFaceTerminalCustom() override;
++
++        void Refresh() override;
++
++      private:
++        Utility::DirtyValue<int> batteryPercentRemaining {};
++        Utility::DirtyValue<bool> powerPresent {};
++        Utility::DirtyValue<bool> bleState {};
++        Utility::DirtyValue<bool> bleRadioEnabled {};
++        Utility::DirtyValue<std::chrono::time_point<std::chrono::system_clock, std::chrono::seconds>> currentDateTime {};
++        Utility::DirtyValue<uint32_t> stepCount {};
++        Utility::DirtyValue<uint8_t> heartbeat {};
++        Utility::DirtyValue<bool> heartbeatRunning {};
++        Utility::DirtyValue<bool> notificationState {};
++        using days = std::chrono::duration<int32_t, std::ratio<86400>>; // TODO: days is standard in c++20
++        Utility::DirtyValue<std::chrono::time_point<std::chrono::system_clock, days>> currentDate;
++
++        lv_obj_t* label_time;
++        lv_obj_t* label_date;
++        lv_obj_t* label_prompt_1;
++        lv_obj_t* label_prompt_2;
++        lv_obj_t* batteryValue;
++        lv_obj_t* weekdayValue;
++        lv_obj_t* monthValue;
++        lv_obj_t* heartbeatValue;
++        lv_obj_t* stepValue;
++        lv_obj_t* notificationIcon;
++        lv_obj_t* connectState;
++
++        Controllers::DateTime& dateTimeController;
++        const Controllers::Battery& batteryController;
++        const Controllers::Ble& bleController;
++        Controllers::NotificationManager& notificationManager;
++        Controllers::Settings& settingsController;
++        Controllers::HeartRateController& heartRateController;
++        Controllers::MotionController& motionController;
++
++        lv_task_t* taskRefresh;
++      };
++    }
++
++    template <>
++    struct WatchFaceTraits<WatchFace::TerminalCustom> {
++      static constexpr WatchFace watchFace = WatchFace::TerminalCustom;
++      static constexpr const char* name = "TerminalCustom";
++
++      static Screens::Screen* Create(AppControllers& controllers) {
++        return new Screens::WatchFaceTerminalCustom(controllers.dateTimeController,
++                                              controllers.batteryController,
++                                              controllers.bleController,
++                                              controllers.notificationManager,
++                                              controllers.settingsController,
++                                              controllers.heartRateController,
++                                              controllers.motionController);
++      };
++
++      static bool IsAvailable(Pinetime::Controllers::FS& /*filesystem*/) {
++        return true;
++      }
++    };
++  }
++}
+diff --git a/src/displayapp/screens/settings/SettingWatchFace.h b/src/displayapp/screens/settings/SettingWatchFace.h
+index 9edc1f7a..00f08661 100644
+--- a/src/displayapp/screens/settings/SettingWatchFace.h
++++ b/src/displayapp/screens/settings/SettingWatchFace.h
+@@ -11,6 +11,7 @@
+ #include "displayapp/screens/CheckboxList.h"
+ #include "displayapp/screens/WatchFaceInfineat.h"
+ #include "displayapp/screens/WatchFaceCasioStyleG7710.h"
++#include "displayapp/screens/WatchFaceTerminalCustom.h"
+ 
+ namespace Pinetime {
+ 
+diff --git a/tools/mcuboot/BUILD.bazel b/tools/mcuboot/BUILD.bazel
+new file mode 100644
+index 00000000..69c35f2c
+--- /dev/null
++++ b/tools/mcuboot/BUILD.bazel
+@@ -0,0 +1,23 @@
++load("@rules_pkg//pkg:mappings.bzl", "pkg_files", "strip_prefix")
++load("@rules_python//python:py_library.bzl", "py_library")
++
++py_library(
++    name = "imgtool_lib",
++    srcs = glob(
++        ["imgtool/**"],
++        exclude = ["BUILD.bazel"],
++    ),
++    imports = ["."],
++    visibility = ["//bazel/py:__pkg__"],
++)
++
++pkg_files(
++    name = "srcs",
++    srcs = glob(
++        ["**"],
++        exclude = ["imgtool/**"],
++    ),
++    prefix = package_name(),
++    strip_prefix = strip_prefix.from_pkg(),
++    visibility = ["//:__pkg__"],
++)
