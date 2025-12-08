@@ -1,5 +1,5 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 write_file(
     name = "install",
@@ -8,7 +8,7 @@ write_file(
         "#!/usr/bin/env sh",
         "set -eux",
         'cd "${BUILD_WORKSPACE_DIRECTORY}"',
-        'cp "tools/git_hooks/precommit.sh" ".git/hooks/pre-commit"',
+        'cp "tools/git_hooks/main/sh/precommit.sh" ".git/hooks/pre-commit"',
     ],
     is_executable = True,
 )

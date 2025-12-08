@@ -1,29 +1,8 @@
-load("@rules_python//python:defs.bzl", "py_binary", "py_library")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//projects:__pkg__"],
-)
-
-py_binary(
-    name = "_mullvad_converter",
-    srcs = ["_mullvad_converter.py"],
-    visibility = ["//:__subpackages__"],
-    deps = [
-        "@com_alwaldend_src_pip//requests",
-        "@com_alwaldend_src_pip//typing_extensions",
-    ],
-)
-
-py_library(
-    name = "xray_manager_lib",
-    srcs = ["_mullvad_converter.py"],
-    visibility = ["//:__subpackages__"],
-    deps = [
-        "@com_alwaldend_src_pip//requests",
-        "@com_alwaldend_src_pip//typing_extensions",
-    ],
 )

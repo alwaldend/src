@@ -1,4 +1,4 @@
-load("//tools/run_tool:al_run_tool.bzl", "al_run_tool")
+load("//tools/run_tool/main/bzl:al_run_tool.bzl", "al_run_tool")
 
 def al_py_checker(
         name = None,

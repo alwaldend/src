@@ -1,7 +1,7 @@
 load("@bazel_skylib//lib:paths.bzl", "paths")
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
-load("//tools/template_files:al_template_files.bzl", "al_template_files")
+load("//tools/template_files/main/bzl:al_template_files.bzl", "al_template_files")
 
 def al_bzl_registry_docs(name, srcs, visibility = None):
     """

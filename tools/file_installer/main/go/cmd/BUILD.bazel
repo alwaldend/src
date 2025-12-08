@@ -1,0 +1,11 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "cmd",
+    srcs = ["cmd.go"],
+    importpath = "git.alwaldend.com/src/tools/file_installer/main/go/cmd",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "@com_github_spf13_cobra//:go_default_library",
+    ],
+)

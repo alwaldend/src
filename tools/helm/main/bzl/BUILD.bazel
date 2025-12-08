@@ -1,5 +1,5 @@
 load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 load("//tools/helm/main/bzl:al_helm_toolchain.bzl", "al_helm_toolchain")
 
 al_docs_files(
@@ -27,7 +27,7 @@ al_bzl_library_map(
         "al_helm_chart_lock": [
             "@aspect_bazel_lib//lib:write_source_files",
             "@bazel_skylib//rules:write_file",
-            "//tools/template_files:al_template_files",
+            "//tools/template_files/main/bzl:al_template_files",
         ],
         "al_helm_chart_info": [],
         "al_helm_deps_repo": [],

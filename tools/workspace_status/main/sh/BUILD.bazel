@@ -1,0 +1,6 @@
+load("//tools/sh/main/bzl:al_sh_library.bzl", "al_sh_library")
+
+al_sh_library(
+    name = "workspace_status",
+    srcs = ["workspace_status.sh"],
+)

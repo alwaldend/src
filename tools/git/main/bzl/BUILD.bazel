@@ -1,5 +1,5 @@
 load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 load("//tools/git/main/bzl:al_git_resolved_toolchain.bzl", "al_git_resolved_toolchain")
 
 al_docs_files(
@@ -38,7 +38,7 @@ al_bzl_library_map(
             "//tools/resolved_toolchain/main/bzl:al_resolved_toolchain",
         ],
         "al_git_changelog": [
-            "//tools/template_files:al_template_files",
+            "//tools/template_files/main/bzl:al_template_files",
             ":al_git_run_binary",
             "@rules_pkg//pkg:bzl_srcs",
             "@bazel_skylib//rules:write_file",

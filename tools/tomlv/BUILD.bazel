@@ -1,4 +1,4 @@
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 alias(
     name = "tomlv",

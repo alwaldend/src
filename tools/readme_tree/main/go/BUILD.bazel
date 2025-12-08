@@ -1,0 +1,25 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "go_lib",
+    srcs = [
+        "cmd.go",
+        "main.go",
+        "model.go",
+        "outputter.go",
+        "parser.go",
+    ],
+    embedsrcs = ["template-markdown.txt"],
+    importpath = "git.alwaldend.com/src/tools/readme_tree/main/go",
+    visibility = ["//visibility:private"],
+    deps = [
+        "@com_github_goccy_go_yaml//:go_default_library",
+        "@com_github_spf13_cobra//:go_default_library",
+    ],
+)
+
+go_binary(
+    name = "go",
+    embed = [":go_lib"],
+    visibility = ["//:__subpackages__"],
+)

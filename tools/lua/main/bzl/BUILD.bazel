@@ -1,0 +1,22 @@
+load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_lua_library": [
+            "//tools/run_tool/main/bzl:al_run_tool",
+            "@rules_pkg//pkg:bzl_srcs",
+            "@bazel_skylib//lib:paths",
+        ],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools/lua:__pkg__"],
+    deps = [":libs.stardoc"],
+)

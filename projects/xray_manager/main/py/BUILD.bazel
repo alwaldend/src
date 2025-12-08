@@ -1,0 +1,21 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+
+py_binary(
+    name = "mullvad_converter",
+    srcs = ["mullvad_converter.py"],
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "@com_alwaldend_src_pip//requests",
+        "@com_alwaldend_src_pip//typing_extensions",
+    ],
+)
+
+py_library(
+    name = "mullvad_converter_lib",
+    srcs = ["mullvad_converter.py"],
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "@com_alwaldend_src_pip//requests",
+        "@com_alwaldend_src_pip//typing_extensions",
+    ],
+)

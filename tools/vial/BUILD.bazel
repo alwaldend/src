@@ -1,23 +1,11 @@
-load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-
-al_bzl_library_map(
-    name = "libs",
-    libs = {
-        "al_vial_configs": [
-            "//tools/template_files:al_template_files",
-            "@bazel_skylib//rules:write_file",
-            "@bazel_skylib//lib:paths",
-            "@rules_pkg//pkg:bzl_srcs",
-        ],
-    },
-    visibility = ["//:__subpackages__"],
-)
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//tools:__pkg__"],
-    deps = [":libs.stardoc"],
+    deps = [
+        "//tools/vial/main/bzl:docs",
+    ],
 )

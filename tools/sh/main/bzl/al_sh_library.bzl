@@ -9,6 +9,7 @@ def al_sh_library(
         shellcheck_src = "//tools/shellcheck",
         run_args_src = "//tools/sh/main/sh:run_args_lib",
         visibility = ["//:__subpackages__"],
+        test_data = [],
         **sh_kwargs):
     """
     Create targets for a shell library
@@ -33,7 +34,7 @@ def al_sh_library(
     ]
     shfmt_kwargs = {
         "srcs": [run_args_src],
-        "data": [name, shfmt_src, editorconfig_src],
+        "data": [name, shfmt_src, editorconfig_src] + test_data,
     }
     sh_binary(
         name = "{}.shfmt_fix".format(name),
@@ -48,8 +49,12 @@ def al_sh_library(
     )
     sh_test(
         name = "{}.shellcheck_test".format(name),
-        args = ["$(rootpath {})".format(shellcheck_src), "$(rootpath {})".format(name)],
+        args = [
+            "$(rootpath {})".format(shellcheck_src),
+            "-x",
+            "$(rootpath {})".format(name),
+        ],
         size = "small",
         srcs = [run_args_src],
-        data = [name, shellcheck_src],
+        data = [name, shellcheck_src] + test_data,
     )

@@ -1,35 +1,8 @@
-load("@rules_go//go:def.bzl", "go_binary", "go_library")
-load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
-al_bzl_library_map(
-    name = "libs",
-    libs = {
-        "al_template_files": [],
-    },
-    visibility = ["//:__subpackages__"],
-)
-
-go_library(
-    name = "template_files_lib",
-    srcs = [
-        "cmd.go",
-        "main.go",
-        "templater.go",
-        "templater_func_map.go",
-    ],
-    importpath = "git.alwaldend.com/src/tools/template_files",
-    visibility = ["//visibility:private"],
-    deps = [
-        "@com_github_burntsushi_toml//:toml",
-        "@com_github_goccy_go_yaml//:go_default_library",
-        "@com_github_spf13_cobra//:go_default_library",
-    ],
-)
-
-go_binary(
+alias(
     name = "template_files",
-    embed = [":template_files_lib"],
+    actual = "//tools/template_files/main/go",
     visibility = ["//:__subpackages__"],
 )
 
@@ -38,5 +11,5 @@ al_docs_files(
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//tools:__pkg__"],
-    deps = [":libs.stardoc"],
+    deps = ["//tools/template_files/main/bzl:docs"],
 )

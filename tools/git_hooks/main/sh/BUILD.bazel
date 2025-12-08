@@ -1,0 +1,8 @@
+load("//tools/sh/main/bzl:al_sh_library.bzl", "al_sh_library")
+
+al_sh_library(
+    name = "precommit",
+    srcs = ["precommit.sh"],
+    test_data = ["//tools/bzlenv/main/sh:activate"],
+    visibility = ["//:__subpackages__"],
+)

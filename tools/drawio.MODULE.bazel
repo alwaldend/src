@@ -1,4 +1,4 @@
-al_repo_map = use_extension("//tools/repo_map:al_repo_map.bzl", "al_repo_map")
+al_repo_map = use_extension("//tools/repo_map/main/bzl:al_repo_map.bzl", "al_repo_map")
 al_repo_map.download(
     name = "com_github_jgraph_drawio_desktop",
     download_type = "http_file",

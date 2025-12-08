@@ -1,0 +1,20 @@
+load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools/install_file:__pkg__"],
+    deps = [":libs.stardoc"],
+)
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_install_file": [
+            "@rules_python//python:py_binary_bzl",
+        ],
+    },
+    visibility = ["//:__subpackages__"],
+)

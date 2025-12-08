@@ -1,0 +1,26 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+# gazelle:resolve go git.alwaldend.com/src/tools/bazel_contracts/worker_protocol @com_alwaldend_src_tools_bazel_contracts//worker_protocol
+
+go_library(
+    name = "go_lib",
+    srcs = [
+        "cmd.go",
+        "main.go",
+        "worker.go",
+        "worker_protocol.go",
+    ],
+    importpath = "git.alwaldend.com/src/tools/shell_worker/main/go",
+    visibility = ["//visibility:private"],
+    deps = [
+        "@com_alwaldend_src_tools_bazel_contracts//worker_protocol",
+        "@com_github_spf13_cobra//:go_default_library",
+        "@org_golang_google_protobuf//encoding/protodelim",
+    ],
+)
+
+go_binary(
+    name = "go",
+    embed = [":go_lib"],
+    visibility = ["//:__subpackages__"],
+)

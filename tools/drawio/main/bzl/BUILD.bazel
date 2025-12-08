@@ -1,5 +1,5 @@
 load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 load(":al_drawio_toolchain.bzl", "al_drawio_toolchain")
 
 al_bzl_library_map(

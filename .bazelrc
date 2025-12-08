@@ -1,7 +1,7 @@
 # Import bazelrc presets
-import %workspace%/tools/bazelrc/preset.bazelrc
+import %workspace%/tools/bazelrc/main/bazelrc/preset.bazelrc
 # Project-specific flags
-import %workspace%/tools/bazelrc/project.bazelrc
+import %workspace%/tools/bazelrc/main/bazelrc/project.bazelrc
 # User preferences
 # Load any settings & overrides specific to the current user from `user.bazelrc`.
 # This file should appear in `.gitignore` so that settings are not shared with team members.

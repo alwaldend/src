@@ -1,22 +1,9 @@
-load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-
-al_bzl_library_map(
-    name = "libs",
-    libs = {
-        "al_repo_map": [
-            "@bazel_tools//tools/build_defs/repo:cache.bzl",
-            "@bazel_tools//tools/build_defs/repo:http.bzl",
-            "@bazel_tools//tools/build_defs/repo:utils.bzl",
-        ],
-    },
-    visibility = ["//:__subpackages__"],
-)
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//tools:__pkg__"],
-    deps = [":libs.stardoc"],
+    deps = ["//tools/repo_map/main/bzl:docs"],
 )

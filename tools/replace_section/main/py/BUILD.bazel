@@ -1,0 +1,21 @@
+load("@rules_python//python:py_binary.bzl", "py_binary")
+load("@rules_python//python:py_library.bzl", "py_library")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+load("//tools/py/main/bzl:al_py_checkers.bzl", "al_py_checkers")
+
+al_py_checkers(
+    name = "checkers",
+    srcs = ["replace_section.py"],
+)
+
+py_binary(
+    name = "replace_section",
+    srcs = ["replace_section.py"],
+    visibility = ["//:__subpackages__"],
+)
+
+py_library(
+    name = "replace_section_lib",
+    srcs = ["replace_section.py"],
+    visibility = ["//:__subpackages__"],
+)

@@ -1,7 +1,7 @@
 load("@bazel_skylib//lib:paths.bzl", "paths")
 load("//tools/bazel_contracts/main/bzl:al_bazel_contracts_list.bzl", "AL_BAZEL_CONTRACTS_LIST")
 load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 al_bzl_library_map(
     name = "libs",

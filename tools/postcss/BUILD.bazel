@@ -1,5 +1,5 @@
 load("@com_alwaldend_src_npm//:postcss-cli/package_json.bzl", postcss = "bin")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 postcss.postcss_binary(
     name = "postcss",

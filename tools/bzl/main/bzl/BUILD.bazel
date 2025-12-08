@@ -1,5 +1,5 @@
 load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 al_bzl_library_map(
     name = "libs",
@@ -15,12 +15,12 @@ al_bzl_library_map(
             "@bazel_skylib//rules:write_file",
         ],
         "al_genquery_write_to_source_file": [
-            "//tools/template_files:al_template_files",
+            "//tools/template_files/main/bzl:al_template_files",
             "@aspect_bazel_lib//lib:write_source_files",
             "@bazel_skylib//rules:write_file",
         ],
         "al_bzl_target_doc": [
-            "//tools/template_files:al_template_files",
+            "//tools/template_files/main/bzl:al_template_files",
             "@rules_pkg//pkg:bzl_srcs",
             "@bazel_skylib//lib:paths",
             "@bazel_skylib//rules:write_file",

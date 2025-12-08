@@ -1,6 +1,6 @@
 load("//tools/dnscontrol/main/bzl:al_dnscontrol_binary.bzl", "al_dnscontrol_binary")
 load("//tools/dnscontrol/main/bzl:al_dnscontrol_test.bzl", "al_dnscontrol_test")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 _ZONES = glob(["zones/**/*.zone"])
 

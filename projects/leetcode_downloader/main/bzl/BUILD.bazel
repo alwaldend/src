@@ -1,5 +1,5 @@
 load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 al_docs_files(
     name = "docs",
@@ -13,7 +13,7 @@ al_bzl_library_map(
     name = "libs",
     libs = {
         "al_leetcode_submissions": [
-            "//tools/template_files:al_template_files",
+            "//tools/template_files/main/bzl:al_template_files",
             "@bazel_skylib//rules:write_file",
             "@bazel_skylib//lib:paths",
             "@rules_pkg//pkg:bzl_srcs",

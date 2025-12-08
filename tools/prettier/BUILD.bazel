@@ -1,5 +1,5 @@
 load("@com_alwaldend_src_npm//tools:prettier/package_json.bzl", prettier = "bin")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 prettier.prettier_binary(
     name = "prettier",

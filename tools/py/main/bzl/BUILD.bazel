@@ -1,5 +1,5 @@
 load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 al_bzl_library_map(
     name = "libs",
@@ -13,7 +13,7 @@ al_bzl_library_map(
             "@rules_python//python:py_binary_bzl",
         ],
         "al_py_checker": [
-            "//tools/run_tool:al_run_tool",
+            "//tools/run_tool/main/bzl:al_run_tool",
         ],
         "al_py_checkers": [
             ":al_py_checker",

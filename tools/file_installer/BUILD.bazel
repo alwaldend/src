@@ -1,19 +1,8 @@
-load("@rules_go//go:def.bzl", "go_binary", "go_library")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
-go_library(
-    name = "file_installer_lib",
-    srcs = ["main.go"],
-    importpath = "git.alwaldend.com/src/tools/file_installer",
-    visibility = ["//visibility:private"],
-    deps = [
-        "//tools/file_installer/cmd",
-    ],
-)
-
-go_binary(
+alias(
     name = "file_installer",
-    embed = [":file_installer_lib"],
+    actual = "//tools/file_installer/main/go",
     visibility = ["//:__subpackages__"],
 )
 

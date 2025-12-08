@@ -1,0 +1,7 @@
+load("//tools/sh/main/bzl:al_sh_library.bzl", "al_sh_library")
+
+al_sh_library(
+    name = "activate",
+    srcs = ["activate.sh"],
+    visibility = ["//:__subpackages__"],
+)

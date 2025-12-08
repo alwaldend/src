@@ -1,0 +1,63 @@
+# Setup registries
+common --registry=file://%workspace%/projects/bazel_registry/main/registry
+common --registry=https://bcr.bazel.build
+# Disk cache
+common --disk_cache=~/.cache/bazel/disk_cache
+# Fix refetch after shutdown caused by the preset, remove in 8.5.0: https://github.com/bazelbuild/bazel/issues/27787
+common --incompatible_enforce_starlark_utf8=warning
+# Fix autoload from the preset
+common --incompatible_autoload_externally="+@rules_python,+java_common,+JavaInfo,+JavaPluginInfo,ProguardSpecProvider,java_binary,java_import,java_library,java_plugin,java_test,java_runtime,java_toolchain,java_package_configuration,@com_google_protobuf,@rules_shell,+@rules_android"
+# Disable auto_exec_groups from the preset
+common --incompatible_auto_exec_groups=false
+# Setup java
+common --java_language_version=21
+common --java_runtime_version=remotejdk_21
+common --tool_java_language_version=21
+common --tool_java_runtime_version=remotejdk_21
+# Disable telemetry (https://github.com/aspect-build/tools_telemetry)
+common --repo_env=ASPECT_TOOLS_TELEMETRY=
+common --repo_env=DO_NOT_TRACK=1
+# Fix for rules_haskell
+common --noincompatible_disallow_ctx_resolve_tools
+# Allow isolated extensions for golang: https://github.com/stefanpenner/rules_go/blob/master/docs/go/core/bzlmod.md#depending-on-tools
+common --experimental_isolated_extension_usages
+# Disable output limit
+common --experimental_ui_max_stdouterr_bytes=-1
+# Android platforms
+common --android_platforms=//tools/bzl/platforms:android_arm64
+# Go platforms
+# https://github.com/bazel-contrib/rules_go/blob/master/docs/go/core/cross_compilation.md
+common:amd64 --platforms=@rules_go//go/toolchain:linux_amd64_cgo
+common:arm --platforms=@rules_go//go/toolchain:linux_arm_cgo
+# Setup al_print_deps aspect
+common:al_print_deps --aspects tools/print_deps/main/bzl/al_print_deps.bzl%al_print_deps
+common:al_print_deps --config=al_print_deps
+# Setup al_toml_validate aspect
+common --config=al_toml_validate
+common:al_toml_validate --aspects tools/toml/main/bzl/al_toml_validate.bzl%al_toml_validate
+common:al_toml_validate --output_groups=+al_toml_validate
+# Set CI flag in CI
+common:ci --//tools/bzl/configs:ci_flag
+# Show extra C/C++ errors
+build --copt="-Wextra"
+# Sandbox workers
+common --worker_sandboxing
+# Enable the shell worker
+common --strategy=Shell=worker
+# Attempt to build & test every target whose prerequisites were successfully built.
+common --keep_going
+# Enable external runfiles for haskell/llvm
+build --legacy_external_runfiles
+# The terminal width in columns. Configure this to override the default value based on what your CI system renders.
+common:ci --terminal_columns=79
+# If a command fails, print out the full command line.
+build --verbose_failures
+# Only download remote outputs of top level targets to the local machine: https://bazel.build/reference/command-line-reference#flag--remote_download_toplevel
+build:ci --remote_download_toplevel
+# Setup release
+build:release --stamp
+build:release --workspace_status_command=tools/workspace_status/main/sh/workspace_status.sh
+# Warn if a test's timeout is significantly longer than the test's actual execution time.
+test --test_verbose_timeout_warnings
+# Allow exclusive tests to run in the sandbox. Fixes a bug where Bazel doesn't enable sandboxing for
+test --incompatible_exclusive_test_sandboxed

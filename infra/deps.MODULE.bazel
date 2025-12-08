@@ -16,7 +16,7 @@ use_repo(oci, "com_alwaldend_src_oci_alpine", "com_alwaldend_src_oci_alpine_linu
 
 ## Helm
 
-al_repo_map = use_extension("//tools/repo_map:al_repo_map.bzl", "al_repo_map")
+al_repo_map = use_extension("//tools/repo_map/main/bzl:al_repo_map.bzl", "al_repo_map")
 al_repo_map.download(
     name = "com_github_helm_helm",
     build_file_native_binary = {"src": "**/helm"},

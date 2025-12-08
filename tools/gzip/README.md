@@ -1,5 +1,5 @@
 ---
-title: Gzip rules
+title: Gzip
 description: Gzip rules
 languages:
   - bzl

@@ -1,5 +1,5 @@
 load("//projects/bazel_registry/main/bzl:al_bzl_registry_docs.bzl", "al_bzl_registry_docs")
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 al_docs_files(
     name = "docs",

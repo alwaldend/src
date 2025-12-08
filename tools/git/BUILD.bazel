@@ -1,4 +1,4 @@
-load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 load("//tools/git/main/bzl:al_git_info_file.bzl", "al_git_info_file")
 
 al_docs_files(

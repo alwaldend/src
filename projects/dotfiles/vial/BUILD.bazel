@@ -1,5 +1,5 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
-load("//tools/vial:al_vial_configs.bzl", "al_vial_configs")
+load("//tools/vial/main/bzl:al_vial_configs.bzl", "al_vial_configs")
 
 pkg_files(
     name = "vial",
