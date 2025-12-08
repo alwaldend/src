@@ -14,12 +14,6 @@ al_bzl_library_map(
             "@stardoc//stardoc:stardoc_lib",
             "@bazel_skylib//rules:write_file",
         ],
-        "al_bzl_registry_docs": [
-            "@rules_pkg//pkg:bzl_srcs",
-            "@bazel_skylib//rules:write_file",
-            "//tools/template_files:al_template_files",
-            "@bazel_skylib//lib:paths",
-        ],
         "al_genquery_write_to_source_file": [
             "//tools/template_files:al_template_files",
             "@aspect_bazel_lib//lib:write_source_files",

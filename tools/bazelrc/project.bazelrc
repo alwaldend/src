@@ -1,5 +1,5 @@
 # Setup registries
-common --registry=file://%workspace%/third_party/registry
+common --registry=file://%workspace%/projects/bazel_registry/main/registry
 common --registry=https://bcr.bazel.build
 # Disk cache
 common --disk_cache=~/.cache/bazel/disk_cache

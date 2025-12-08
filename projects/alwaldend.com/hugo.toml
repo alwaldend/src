@@ -59,6 +59,7 @@ category = "categories"
 language = "languages"
 status = "statuses"
 tag = "tags"
+site = "sites"
 
 [[menus.main]]
 name = "Docs"

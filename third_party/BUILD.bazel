@@ -5,5 +5,4 @@ al_docs_files(
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//:__pkg__"],
-    deps = ["//third_party/registry:docs"],
 )

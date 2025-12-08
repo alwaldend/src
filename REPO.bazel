@@ -8,6 +8,6 @@ repo(
 
 ignore_directories(
     [
-        "third_party/registry/modules/*/*/overlay",
+        "projects/bazel_registry/main/registry/modules/*/*/overlay",
     ],
 )
