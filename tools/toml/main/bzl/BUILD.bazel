@@ -1,0 +1,24 @@
+load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_toml_validate": [
+            ":al_toml_info",
+        ],
+        "al_toml_info": [],
+        "al_toml_data": [
+            ":al_toml_info",
+        ],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools/toml:__pkg__"],
+    deps = [":libs.stardoc"],
+)

@@ -1,41 +1,9 @@
-load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
-load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-load("//tools/sh:al_sh_library.bzl", "al_sh_library")
-
-_SCRIPTS = [script.removesuffix(".sh") for script in glob(["*.sh"])]
-
-al_bzl_library_map(
-    name = "libs",
-    libs = {
-        "al_write_script": [],
-        "al_sh_library": [
-            "@rules_shell//shell:rules_bzl",
-        ],
-    },
-    visibility = ["//:__subpackages__"],
-)
 
 al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//tools:__pkg__"],
-    deps = [":libs.stardoc"],
+    deps = ["//tools/sh/main/bzl:docs"],
 )
-
-[
-    [
-        al_sh_library(
-            name = "{}_lib".format(script),
-            srcs = ["{}.sh".format(script)],
-            visibility = ["//:__subpackages__"],
-        ),
-        sh_binary(
-            name = script,
-            srcs = [":{}.sh".format(script)],
-            visibility = ["//:__subpackages__"],
-        ),
-    ]
-    for script in _SCRIPTS
-]

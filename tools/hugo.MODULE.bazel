@@ -42,4 +42,4 @@ http_archive(
     urls = ["https://github.com/twbs/bootstrap/archive/refs/tags/v5.3.7.tar.gz"],
 )
 
-register_toolchains("//tools/hugo:toolchain_remote_linux_amd64")
+register_toolchains("//tools/hugo/main/bzl:toolchain_remote_linux_amd64")

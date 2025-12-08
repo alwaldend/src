@@ -8,4 +8,4 @@ http_archive(
     urls = ["https://download.qt.io/official_releases/qt/6.9/6.9.0/single/qt-everywhere-src-6.9.0.tar.xz"],
 )
 
-register_toolchains("//tools/qt:toolchain_local_linux_gcc_64")
+register_toolchains("//tools/qt/main/bzl:toolchain_local_linux_gcc_64")

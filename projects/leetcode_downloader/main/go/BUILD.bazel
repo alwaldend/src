@@ -1,5 +1,5 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
-load("//tools/go:al_go_cross_binary.bzl", "al_go_cross_binary")
+load("//tools/go/main/bzl:al_go_cross_binary.bzl", "al_go_cross_binary")
 
 go_library(
     name = "leetcode_downloader_lib",

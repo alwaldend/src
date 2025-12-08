@@ -1,41 +1,9 @@
-load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-load(":al_drawio_toolchain.bzl", "al_drawio_toolchain")
-
-al_bzl_library_map(
-    name = "libs",
-    libs = {
-        "al_drawio_run_binary": [],
-        "al_drawio_toolchain": [],
-    },
-    visibility = ["//:__subpackages__"],
-)
-
-toolchain_type(
-    name = "toolchain_type",
-    visibility = ["//:__subpackages__"],
-)
-
-toolchain(
-    name = "toolchain_remote_linux_x86_64",
-    toolchain = "toolchain_remote_linux_x86_64_impl",
-    toolchain_type = ":toolchain_type",
-    visibility = ["//:__subpackages__"],
-)
-
-al_drawio_toolchain(
-    name = "toolchain_remote_linux_x86_64_impl",
-    drawio = "@com_github_jgraph_drawio_desktop_linux_x86_64//file",
-    exec_compatible_with = [
-        "@platforms//os:linux",
-        "@platforms//cpu:x86_64",
-    ],
-)
 
 al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//tools:__pkg__"],
-    deps = [":libs.stardoc"],
+    deps = ["//tools/drawio/main/bzl:docs"],
 )

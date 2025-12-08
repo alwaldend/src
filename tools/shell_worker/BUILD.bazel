@@ -1,5 +1,5 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
-load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 
 # gazelle:resolve go git.alwaldend.com/src/tools/bazel_contracts/worker_protocol @com_alwaldend_src_tools_bazel_contracts//worker_protocol

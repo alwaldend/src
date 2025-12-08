@@ -1,4 +1,4 @@
-al_bazel_contracts_extension = use_extension("//tools/bazel_contracts:al_bazel_contracts_extension.bzl", "al_bazel_contracts_extension")
+al_bazel_contracts_extension = use_extension("//tools/bazel_contracts/main/bzl:al_bazel_contracts_extension.bzl", "al_bazel_contracts_extension")
 al_bazel_contracts_extension.download(
     name = "com_alwaldend_src_tools_bazel_contracts",
     base_url = "https://raw.githubusercontent.com/bazelbuild/bazel/7c096ba03fed206d9e6fe3afccbfe5c91a71ec46",

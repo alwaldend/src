@@ -1,9 +1,9 @@
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("//tools/ansible/main/bzl:al_ansible_scripts.bzl", "AL_ANSIBLE_SCRIPTS")
-load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/bzlenv:al_bzlenv_binary.bzl", "al_bzlenv_binary")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-load("//tools/sh:al_sh_library.bzl", "al_sh_library")
+load("//tools/sh/main/bzl:al_sh_library.bzl", "al_sh_library")
 
 _ROOT_TOOLS = [
     "minisign",
@@ -61,8 +61,8 @@ al_sh_library(
 al_bzlenv_binary(
     name = "bzlenv",
     tools = {
-        "gopackagesdriver": "//tools/sh:gopackagesdriver",
-        "bazel": "//tools/sh:bazel",
+        "gopackagesdriver": "//tools/sh/main/sh:gopackagesdriver",
+        "bazel": "//tools/sh/main/sh:bazel",
     } | {
         tool: "//tools/{}".format(tool)
         for tool in _ROOT_TOOLS

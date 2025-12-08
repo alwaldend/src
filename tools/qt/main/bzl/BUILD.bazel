@@ -1,0 +1,64 @@
+load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load(":al_qt_local_toolchain.bzl", "al_qt_local_toolchain")
+load(":al_qt_resolved_toolchain.bzl", "al_qt_resolved_toolchain")
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_qt_local_toolchain": [
+            "@bazel_skylib//lib:paths",
+        ],
+        "al_qt_resolved_toolchain": [
+            "//tools/resolved_toolchain/main/bzl:al_resolved_toolchain",
+        ],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//:__subpackages__"],
+)
+
+toolchain(
+    name = "toolchain_local_linux_gcc_64",
+    toolchain = "toolchain_local_linux_gcc_64_impl",
+    toolchain_type = ":toolchain_type",
+    visibility = ["//:__subpackages__"],
+)
+
+al_qt_local_toolchain(
+    name = "toolchain_local_linux_gcc_64_impl",
+    dir = "/opt/qt",
+    platform = "gcc_64",
+    version = "6.9.0",
+)
+
+al_qt_resolved_toolchain(
+    name = "toolchain_resolved",
+    visibility = ["//:__subpackages__"],
+)
+
+genrule(
+    name = "qt_install",
+    outs = ["qt_install.sh"],
+    cmd = """
+cat - >$(@) <<EOF
+    #!/usr/bin/env sh
+    set -eux
+    mkdir -p /opt/qt
+    $(rootpath //tools/qt:aqt) install-qt -O /opt/qt linux desktop 6.9.0
+EOF
+    """,
+    executable = True,
+    tools = ["//tools/qt:aqt"],
+)
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools/qt:__pkg__"],
+    deps = [":libs.stardoc"],
+)

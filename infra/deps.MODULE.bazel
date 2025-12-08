@@ -95,9 +95,3 @@ http_file(
     integrity = "sha256-CP/ZLEeohu3VbOl3NPPWfn9hFfByldzc3G336iwL7ho=",
     url = "https://raw.githubusercontent.com/k3s-io/k3s/ef6d6f4c363f30f2b7d296c94d50912663cb20ec/install.sh",
 )
-
-## dnscontrol
-
-register_toolchains(
-    "//tools/dnscontrol:toolchain_go_binary",
-)

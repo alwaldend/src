@@ -1,0 +1,21 @@
+load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_write_script": [],
+        "al_sh_library": [
+            "@rules_shell//shell:rules_bzl",
+        ],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools/sh:__pkg__"],
+    deps = [":libs.stardoc"],
+)

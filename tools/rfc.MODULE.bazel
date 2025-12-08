@@ -1,4 +1,4 @@
-al_rfc_extension = use_extension("//tools/rfc:al_rfc_extension.bzl", "al_rfc_extension")
+al_rfc_extension = use_extension("//tools/rfc/main/bzl:al_rfc_extension.bzl", "al_rfc_extension")
 al_rfc_extension.download(
     name = "com_alwaldend_src_tools_rfc",
     integrity = {

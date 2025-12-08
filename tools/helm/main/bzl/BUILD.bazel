@@ -1,4 +1,4 @@
-load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 load("//tools/helm/main/bzl:al_helm_toolchain.bzl", "al_helm_toolchain")
 

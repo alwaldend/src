@@ -1,5 +1,5 @@
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-load("//tools/drawio:al_drawio_run_binary.bzl", "al_drawio_run_binary")
+load("//tools/drawio/main/bzl:al_drawio_run_binary.bzl", "al_drawio_run_binary")
 
 _DIAGRAMS = [diagram.replace(".drawio", "") for diagram in glob(["*.drawio"])]
 

@@ -1,0 +1,21 @@
+load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_gzip_extension": [
+            ":al_gzip_repo",
+        ],
+        "al_gzip_repo": [],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools/gzip:__pkg__"],
+    deps = [":libs.stardoc"],
+)

@@ -31,6 +31,6 @@ genrule(
     """,
     toolchains = [
         "@rules_foreign_cc//toolchains:current_make_toolchain",
-        "//tools/qt:toolchain_resolved",
+        "//tools/qt/main/bzl:toolchain_resolved",
     ],
 )

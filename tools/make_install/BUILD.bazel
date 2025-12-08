@@ -1,32 +1,9 @@
-load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-
-al_bzl_library_map(
-    name = "libs",
-    libs = {
-        "al_make_install_binary": [
-            "@rules_pkg//pkg:bzl_srcs",
-            "@bazel_skylib//lib:shell",
-        ],
-        "al_make_install": [
-            "@rules_pkg//pkg:bzl_srcs",
-            "@bazel_skylib//lib:shell",
-            ":al_make_install_filegroup_info",
-        ],
-        "al_make_install_filegroup": [
-            ":al_make_install_filegroup_info",
-            "@bazel_skylib//lib:shell",
-            "@rules_pkg//pkg:bzl_srcs",
-        ],
-        "al_make_install_filegroup_info": [],
-    },
-    visibility = ["//:__subpackages__"],
-)
 
 al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//tools:__pkg__"],
-    deps = [":libs.stardoc"],
+    deps = ["//tools/make_install/main/bzl:docs"],
 )

@@ -34,7 +34,7 @@ common:al_print_deps --aspects tools/print_deps/al_print_deps.bzl%al_print_deps
 common:al_print_deps --config=al_print_deps
 # Setup al_toml_validate aspect
 common --config=al_toml_validate
-common:al_toml_validate --aspects tools/toml/al_toml_validate.bzl%al_toml_validate
+common:al_toml_validate --aspects tools/toml/main/bzl/al_toml_validate.bzl%al_toml_validate
 common:al_toml_validate --output_groups=+al_toml_validate
 # Set CI flag in CI
 common:ci --//tools/bzl/configs:ci_flag

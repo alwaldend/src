@@ -1,1 +1,1 @@
-register_toolchains("//tools/shellcheck:toolchain_remote_linux_x86_64")
+register_toolchains("//tools/shellcheck/main/bzl:toolchain_remote_linux_x86_64")

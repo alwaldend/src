@@ -1,0 +1,20 @@
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("//tools/sh/main/bzl:al_sh_library.bzl", "al_sh_library")
+
+_SCRIPTS = [script.removesuffix(".sh") for script in glob(["*.sh"])]
+
+[
+    [
+        al_sh_library(
+            name = "{}_lib".format(script),
+            srcs = ["{}.sh".format(script)],
+            visibility = ["//:__subpackages__"],
+        ),
+        sh_binary(
+            name = script,
+            srcs = [":{}.sh".format(script)],
+            visibility = ["//:__subpackages__"],
+        ),
+    ]
+    for script in _SCRIPTS
+]

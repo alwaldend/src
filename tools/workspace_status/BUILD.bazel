@@ -1,5 +1,5 @@
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-load("//tools/sh:al_sh_library.bzl", "al_sh_library")
+load("//tools/sh/main/bzl:al_sh_library.bzl", "al_sh_library")
 
 al_docs_files(
     name = "docs",

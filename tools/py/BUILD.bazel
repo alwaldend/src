@@ -1,51 +1,9 @@
-load("@rules_python//python:py_binary.bzl", "py_binary")
-load("@rules_python//python:py_library.bzl", "py_library")
-load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-load("//tools/py:al_py_checkers.bzl", "al_py_checkers")
-
-al_bzl_library_map(
-    name = "libs",
-    libs = {
-        "al_compile_pip_requirements_combined": [
-            "//tools/txt:al_combine_files",
-            "@rules_python//python:pip_bzl",
-        ],
-        "al_genrule_with_wheels": [],
-        "al_py_binary_shell": [
-            "@rules_python//python:py_binary_bzl",
-        ],
-        "al_py_checker": [
-            "//tools/run_tool:al_run_tool",
-        ],
-        "al_py_checkers": [
-            ":al_py_checker",
-        ],
-    },
-    visibility = ["//:__subpackages__"],
-)
-
-al_py_checkers(
-    name = "bazel_python_shell_checkers",
-    srcs = ["bazel_python_shell.py"],
-)
-
-py_library(
-    name = "bazel_python_shell_lib",
-    srcs = ["bazel_python_shell.py"],
-    visibility = ["//:__subpackages__"],
-)
-
-py_binary(
-    name = "bazel_python_shell",
-    srcs = ["bazel_python_shell.py"],
-    visibility = ["//:__subpackages__"],
-)
 
 al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//tools:__pkg__"],
-    deps = [":libs.stardoc"],
+    deps = ["//tools/py/main/bzl:docs"],
 )

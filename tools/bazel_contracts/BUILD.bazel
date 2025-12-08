@@ -1,22 +1,4 @@
-load("@bazel_skylib//lib:paths.bzl", "paths")
-load("//tools/bazel_contracts:al_bazel_contracts_list.bzl", "AL_BAZEL_CONTRACTS_LIST")
-load("//tools/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-
-al_bzl_library_map(
-    name = "libs",
-    libs = {
-        "al_bazel_contracts_extension": [
-            ":al_bazel_contracts_repo",
-            ":al_bazel_contracts_list",
-        ],
-        "al_bazel_contracts_repo": [
-            "@bazel_skylib//lib:paths",
-        ],
-        "al_bazel_contracts_list": [],
-    },
-    visibility = ["//:__subpackages__"],
-)
 
 al_docs_files(
     name = "docs",
@@ -24,7 +6,6 @@ al_docs_files(
     prefix = package_name(),
     visibility = ["//tools:__pkg__"],
     deps = [
-        ":libs.stardoc",
-        # "@com_alwaldend_src_tools_bazel_contracts//:docs",
+        "//tools/bazel_contracts/main/bzl:docs",
     ],
 )

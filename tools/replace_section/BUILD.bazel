@@ -1,7 +1,7 @@
 load("@rules_python//python:py_binary.bzl", "py_binary")
 load("@rules_python//python:py_library.bzl", "py_library")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
-load("//tools/py:al_py_checkers.bzl", "al_py_checkers")
+load("//tools/py/main/bzl:al_py_checkers.bzl", "al_py_checkers")
 
 filegroup(
     name = "src",

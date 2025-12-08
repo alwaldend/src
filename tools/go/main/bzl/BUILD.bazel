@@ -1,0 +1,31 @@
+load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_go_cross_binary": [
+            "@rules_go//go:all_rules",
+            "@rules_go//go:def",
+            "@rules_cc//cc:bzl_srcs",
+            "@rules_cc//cc:defs_bzl",
+        ],
+        "al_go_repository": [
+            "@gazelle//:deps",
+            "@gazelle//:def",
+            "@gazelle//:extensions",
+            "@bazel_tools//tools/build_defs/repo:cache.bzl",
+            "@bazel_tools//tools/build_defs/repo:http.bzl",
+            "@bazel_tools//tools/build_defs/repo:utils.bzl",
+        ],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools/go:__pkg__"],
+    deps = [":libs.stardoc"],
+)

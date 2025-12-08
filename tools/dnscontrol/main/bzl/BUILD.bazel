@@ -1,0 +1,42 @@
+load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/docs:al_docs_files.bzl", "al_docs_files")
+load(":al_dnscontrol_toolchain.bzl", "al_dnscontrol_toolchain")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools/dnscontrol:__pkg__"],
+    deps = [":libs.stardoc"],
+)
+
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//:__subpackages__"],
+)
+
+toolchain(
+    name = "toolchain_go_binary",
+    toolchain = "toolchain_go_binary_impl",
+    toolchain_type = ":toolchain_type",
+    visibility = ["//:__subpackages__"],
+)
+
+al_dnscontrol_toolchain(
+    name = "toolchain_go_binary_impl",
+    dnscontrol = "//tools/dnscontrol",
+)
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_dnscontrol_binary": [
+            "@bazel_skylib//lib:shell",
+        ],
+        "al_dnscontrol_test": [
+            "@bazel_skylib//lib:shell",
+        ],
+        "al_dnscontrol_toolchain": [],
+    },
+    visibility = ["//:__subpackages__"],
+)

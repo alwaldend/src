@@ -15,4 +15,4 @@ use_repo(
     "com_github_jgraph_drawio_desktop_linux_x86_64",
 )
 
-register_toolchains("//tools/drawio:toolchain_remote_linux_x86_64")
+register_toolchains("//tools/drawio/main/bzl:toolchain_remote_linux_x86_64")

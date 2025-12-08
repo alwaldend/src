@@ -2,10 +2,10 @@ load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//tools/docs:al_docs_files.bzl", "al_docs_files")
 load("//tools/http_server:al_http_server_binary.bzl", "al_http_server_binary")
-load("//tools/hugo:al_hugo_binary.bzl", "al_hugo_binary")
-load("//tools/hugo:al_hugo_run_binary.bzl", "al_hugo_run_binary")
-load("//tools/hugo:al_hugo_site.bzl", "al_hugo_site")
-load("//tools/toml:al_toml_data.bzl", "al_toml_data")
+load("//tools/hugo/main/bzl:al_hugo_binary.bzl", "al_hugo_binary")
+load("//tools/hugo/main/bzl:al_hugo_run_binary.bzl", "al_hugo_run_binary")
+load("//tools/hugo/main/bzl:al_hugo_site.bzl", "al_hugo_site")
+load("//tools/toml/main/bzl:al_toml_data.bzl", "al_toml_data")
 
 _BUILD_FLAGS = [
     "build",
