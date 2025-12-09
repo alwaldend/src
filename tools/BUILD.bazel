@@ -12,7 +12,9 @@ al_docs_files(
     deps = ["//{}/{}:docs".format(
         package_name(),
         package,
-    ) for package in subpackages(include = ["*"])],
+    ) for package in subpackages(
+        include = ["*"],
+    )],
 )
 
 npm_link_all_packages(
