@@ -21,7 +21,6 @@ al_docs_files(
     deps = [
         "//infra:docs",
         "//projects:docs",
-        "//third_party:docs",
         "//tools:docs",
     ],
 )

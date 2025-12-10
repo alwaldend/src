@@ -1,12 +1,6 @@
 load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
 load("@rules_kotlin//kotlin:core.bzl", "define_kt_toolchain")
-load("@rules_license//rules:current_module_package_info.bzl", "current_module_package_info")
 load("@rules_license//rules:license.bzl", "license")
-
-current_module_package_info(
-    name = "package_info",
-    visibility = ["//:__subpackages__"],
-)
 
 define_kt_toolchain(
     name = "kotlin_toolchain",
