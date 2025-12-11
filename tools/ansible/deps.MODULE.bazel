@@ -2,50 +2,6 @@ http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "ht
 
 http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
 
-## OCI
-
-oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
-oci.pull(
-    name = "com_alwaldend_src_oci_alpine",
-    digest = "sha256:4b7ce07002c69e8f3d704a9c5d6fd3053be500b7f1c69fc0d80990c2ad8dd412",
-    image = "docker.io/library/alpine",
-    platforms = ["linux/amd64"],
-    tag = "3.22.2",
-)
-use_repo(oci, "com_alwaldend_src_oci_alpine", "com_alwaldend_src_oci_alpine_linux_amd64")
-
-## Helm
-
-al_repo_map = use_extension("//tools/repo_map/main/bzl:al_repo_map.bzl", "al_repo_map")
-al_repo_map.download(
-    name = "com_github_helm_helm",
-    build_file_native_binary = {"src": "**/helm"},
-    repos = {
-        "linux_amd64": [
-            "url=https://get.helm.sh/helm-v3.19.0-linux-amd64.tar.gz",
-            "integrity=sha256-p/gc4IAHCRuG2L1pbrTYa40PLhufbHFL5i+C+WpZRJY=",
-        ],
-    },
-)
-use_repo(
-    al_repo_map,
-    "com_github_helm_helm_linux_amd64",
-)
-
-al_helm_deps = use_extension("//tools/helm/main/bzl:al_helm_deps.bzl", "al_helm_deps")
-al_helm_deps.from_locks(
-    name = "com_alwaldend_src_infra_alwaldend_com_dc1_cl1_helm",
-    integrity = {
-        "rancher-2.12.2": "sha256-v8ybwovsnXFjKa2rwKNsqY1pk+rywa3ByeghQOIA0YI=",
-    },
-    locks = ["//infra/alwaldend.com/dc1/cl1/helm:helm_lock.json"],
-)
-use_repo(al_helm_deps, "com_alwaldend_src_infra_alwaldend_com_dc1_cl1_helm")
-
-register_toolchains("//tools/helm/main/bzl:toolchain_remote_linux_amd64")
-
-## Ansible
-
 http_archive(
     name = "com_ansible_galaxy_ansible_posix_v2",
     build_file = "//tools/bzl/build_files:general.BUILD.bazel",

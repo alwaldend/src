@@ -53,7 +53,8 @@ bazel_dep(name = "rules_foreign_cc", version = "0.15.1")
 bazel_dep(name = "toolchains_llvm", version = "1.5.0")
 bazel_dep(name = "org_openssl_openssl", version = "3.5.0")
 bazel_dep(name = "us_nasm_nasm", version = "2.15.05")
-bazel_dep(name = "hedron_compile_commands", version = "abb61a688167623088f8768cc9264798df6a9d10")
+
+bazel_dep(name = "hedron_compile_commands", dev_dependency = True)
 
 # Kotlin
 bazel_dep(name = "rules_kotlin", version = "2.1.9")
@@ -90,6 +91,13 @@ git_override(
 )
 
 archive_override(
+    module_name = "hedron_compile_commands",
+    integrity = "sha256-7B5Bk1jrI9rqsN0CBt/JMDFrrJ3pQtlOuCAZ9AICKEc=",
+    strip_prefix = "bazel-compile-commands-extractor-abb61a688167623088f8768cc9264798df6a9d10",
+    urls = ["https://github.com/hedronvision/bazel-compile-commands-extractor/archive/abb61a688167623088f8768cc9264798df6a9d10.zip"],
+)
+
+archive_override(
     module_name = "rules_haskell",
     integrity = "sha256-wMZ9Afa+6CKIgHpt9BeVrbBQwsCEX8Wu3JJBzqEHFBY=",
     strip_prefix = "rules_haskell-07c52e1b62ae310e01ba7cba9574c6c3f706b7fc",
@@ -105,10 +113,12 @@ archive_override(
 
 ## Includes
 
-include("//infra:deps.MODULE.bazel")
 include("//projects/android_launcher:deps.MODULE.bazel")
 include("//projects/nexus_security_plugin:deps.MODULE.bazel")
 include("//tools/kt:deps.MODULE.bazel")
+include("//tools/ansible:deps.MODULE.bazel")
+include("//tools/oci:deps.MODULE.bazel")
+include("//tools/helm:deps.MODULE.bazel")
 include("//tools/hs:deps.MODULE.bazel")
 include("//tools/cc:deps.MODULE.bazel")
 include("//tools/pl:deps.MODULE.bazel")
