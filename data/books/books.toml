@@ -906,6 +906,16 @@ links = [
 ]
 
 [[book]]
+title = "A Gamer's Guide To Beating The Tutorial"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/73205-a-gamers-guide-to-beating-the-tutorial.jpg"
+quality = "Ok"
+reading = "Dropped, C352"
+authors = ["palt"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/73205/a-gamers-guide-to-beating-the-tutorial" },
+]
+
+[[book]]
 title = "Unsong"
 thumbnail = "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1632785897i/28589297.jpg"
 quality = "Good, disgusting ending"

@@ -355,3 +355,9 @@ name = "ErraticErrata"
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/profile/21586" },
 ]
+
+[authors.palt]
+name = "Palt"
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/35937" },
+]

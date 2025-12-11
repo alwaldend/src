@@ -33,7 +33,7 @@ bazel_dep(name = "rules_go", version = "0.58.2")
 bazel_dep(name = "gazelle", version = "0.46.0")
 
 # Perl
-bazel_dep(name = "rules_perl", version = "0.4.3.1")
+bazel_dep(name = "rules_perl")
 
 # Javascript
 bazel_dep(name = "rules_nodejs", version = "6.6.0")
@@ -67,18 +67,13 @@ bazel_dep(name = "rules_robolectric", version = "4.16")
 bazel_dep(name = "rules_oci", version = "2.2.6")
 
 # Hashell
-bazel_dep(name = "rules_haskell", version = "7bb6b0790b0c44603173196e1b4d1cd6e5f28078")
+bazel_dep(name = "rules_haskell")
 
 # Tools
 bazel_dep(name = "com_github_georgewfraser_java_language_server", version = "2025.520.0")
 bazel_dep(name = "com_alwaldend_com_github_infinitimeorg_infinitime")
 
 ## Overrides
-
-# local_path_override(
-#     module_name = "com_alwaldend_com_github_infinitimeorg_infinitime",
-#     path = "../com_github_infinitimeorg_infinitime",
-# )
 
 git_override(
     module_name = "com_alwaldend_com_github_infinitimeorg_infinitime",
@@ -94,21 +89,19 @@ git_override(
     shallow_since = "1733253068 +0100",
 )
 
-# local_path_override(
-#     module_name = "rules_haskell",
-#     path = "../fork_com_github_tweag_rules_haskell",
-# )
+archive_override(
+    module_name = "rules_haskell",
+    integrity = "sha256-wMZ9Afa+6CKIgHpt9BeVrbBQwsCEX8Wu3JJBzqEHFBY=",
+    strip_prefix = "rules_haskell-07c52e1b62ae310e01ba7cba9574c6c3f706b7fc",
+    urls = ["https://github.com/tweag/rules_haskell/archive/07c52e1b62ae310e01ba7cba9574c6c3f706b7fc.zip"],
+)
 
-# local_path_override(
-#     module_name = "rules_perl",
-#     path = "../fork_com_github_bazel_contrib_rules_perl",
-# )
-
-# single_version_override(
-#     module_name = "rules_perl",
-#     patch_strip = 1,
-#     patches = ["//third_party:com_github_bazel_contrib_rules_perl/patch.patch"],
-# )
+archive_override(
+    module_name = "rules_perl",
+    integrity = "sha256-vZhiPFoE8BDvvJf2FyRGMfRvbDFaEmItYqfe/40LH6s=",
+    strip_prefix = "com_github_bazel_contrib_rules_perl-4984491c69d8ce90f562d8a556c1b50d46ce9bfe",
+    urls = ["https://github.com/alwaldend/com_github_bazel_contrib_rules_perl/archive/4984491c69d8ce90f562d8a556c1b50d46ce9bfe.zip"],
+)
 
 ## Includes
 

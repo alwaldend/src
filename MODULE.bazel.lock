@@ -350,7 +350,6 @@
     "https://bcr.bazel.build/modules/rules_nodejs/6.6.0/source.json": "cbd156fa2db33707275de138110b78eb86a4cf510b979df7c4b6a8e7127484de",
     "https://bcr.bazel.build/modules/rules_oci/2.2.6/MODULE.bazel": "2ba6ddd679269e00aeffe9ca04faa2d0ca4129650982c9246d0d459fe2da47d9",
     "https://bcr.bazel.build/modules/rules_oci/2.2.6/source.json": "94e7decb8f95d9465b0bbea71c65064cd16083be1350c7468f131818641dc4a5",
-    "https://bcr.bazel.build/modules/rules_perl/0.4.1/MODULE.bazel": "4d09ad3a3cf71e606faab258a753ba9f0516b5d3c6aff9b813d06ea65c04702f",
     "https://bcr.bazel.build/modules/rules_pkg/0.7.0/MODULE.bazel": "df99f03fc7934a4737122518bb87e667e62d780b610910f0447665a7e2be62dc",
     "https://bcr.bazel.build/modules/rules_pkg/1.0.1/MODULE.bazel": "5b1df97dbc29623bccdf2b0dcd0f5cb08e2f2c9050aab1092fd39a41e82686ff",
     "https://bcr.bazel.build/modules/rules_pkg/1.1.0/MODULE.bazel": "9db8031e71b6ef32d1846106e10dd0ee2deac042bd9a2de22b4761b0c3036453",
@@ -398,7 +397,6 @@
     "https://bcr.bazel.build/modules/rules_shell/0.1.2/MODULE.bazel": "66e4ca3ce084b04af0b9ff05ff14cab4e5df7503973818bb91cbc6cda08d32fc",
     "https://bcr.bazel.build/modules/rules_shell/0.2.0/MODULE.bazel": "fda8a652ab3c7d8fee214de05e7a9916d8b28082234e8d2c0094505c5268ed3c",
     "https://bcr.bazel.build/modules/rules_shell/0.3.0/MODULE.bazel": "de4402cd12f4cc8fda2354fce179fdb068c0b9ca1ec2d2b17b3e21b24c1a937b",
-    "https://bcr.bazel.build/modules/rules_shell/0.4.0/MODULE.bazel": "0f8f11bb3cd11755f0b48c1de0bbcf62b4b34421023aa41a2fc74ef68d9584f0",
     "https://bcr.bazel.build/modules/rules_shell/0.4.1/MODULE.bazel": "00e501db01bbf4e3e1dd1595959092c2fadf2087b2852d3f553b5370f5633592",
     "https://bcr.bazel.build/modules/rules_shell/0.5.0/MODULE.bazel": "8c8447370594d45539f66858b602b0bb2cb2d3401a4ebb9ad25830c59c0f366d",
     "https://bcr.bazel.build/modules/rules_shell/0.6.1/MODULE.bazel": "72e76b0eea4e81611ef5452aa82b3da34caca0c8b7b5c0c9584338aa93bae26b",
@@ -1534,7 +1532,7 @@
     "@@rules_haskell+//extensions:ghc_version.bzl%ghc_default_version": {
       "general": {
         "bzlTransitiveDigest": "Pcsih8RRkNXUIwl5ryRAQ58WtIBM1H2PYhT16OnEbRg=",
-        "usagesDigest": "K/1qG/kYES70sZI80RveUEAcIlG11pCSrU5fesjf0+s=",
+        "usagesDigest": "DSTsM2TSqtJxHDcJB5YaAdsDBZcvRX29lk/rF4ZiydM=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -1555,8 +1553,8 @@
     },
     "@@rules_haskell+//extensions:haskell_toolchains.bzl%haskell_toolchains": {
       "general": {
-        "bzlTransitiveDigest": "sgQyO/2eVRFUzfIEbPWUevrl8vqpoxHBqGWhq/T3z+M=",
-        "usagesDigest": "t+x6Pz5UMdPkTvF+QPHt63Wzt7NBLAlnlhNHuoz3wIM=",
+        "bzlTransitiveDigest": "Pqr6rYs14xurxQQdkh/A/+z2hlllxiOvOwKxbvOHFIg=",
+        "usagesDigest": "RG9x2zcpMW7YXiPCvaIqZSNKaf1jRjq66zUVlK9hb2A=",
         "recordedFileInputs": {
           "@@rules_haskell+//haskell/private/ghc_bindist_generated.json": "1ac8dcb5599a481b24a4d8f3613a51d754ce1f55d64b54cec5f1b2b420432012"
         },
@@ -1761,8 +1759,8 @@
     },
     "@@rules_haskell+//extensions:rules_haskell_dependencies.bzl%rules_haskell_dependencies": {
       "general": {
-        "bzlTransitiveDigest": "Fhde3Kv2MF34xh873R4mIpVbGgN52GwC0njfeNHLp2c=",
-        "usagesDigest": "M4wk49tlZHAomwDrLKAHt67lSXJrPsyPppdzlhHvzFk=",
+        "bzlTransitiveDigest": "8xGO2k/2Uok2+8ei4jchZJxNNiEOD3wwQ48NFvfe5Y4=",
+        "usagesDigest": "02jLMD671Gs8Y5fpNM6/di/yZh84zI+xJLvYXflUDZ0=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -1854,6 +1852,7 @@
               "tools": [],
               "components": {},
               "components_dependencies": {},
+              "components_args": {},
               "verbose": false,
               "custom_toolchain_libraries": [],
               "enable_custom_toolchain_libraries": false
@@ -1944,8 +1943,8 @@
     },
     "@@rules_haskell+//extensions:stack_snapshot.bzl%stack_snapshot": {
       "general": {
-        "bzlTransitiveDigest": "VdF3H8tapZJSkl7CR6EDLcIN2/wNeNhSqPM9HC0R5ec=",
-        "usagesDigest": "XMdYGsPVk2+vQ5Pxi86gX2eIDnyw8SOmLrPZ5Jv1H54=",
+        "bzlTransitiveDigest": "cDB2FBu/r4/nCIKxRcyYr80XfFGZpvd7aZyWu7mqM8Y=",
+        "usagesDigest": "FfhAWriCs5S2yvdJtjichMlB5NMzu0lzjr9jX7YjoTY=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
@@ -2004,6 +2003,7 @@
                 ]
               },
               "components_dependencies": {},
+              "components_args": {},
               "verbose": false,
               "custom_toolchain_libraries": [],
               "enable_custom_toolchain_libraries": false
@@ -2272,7 +2272,7 @@
     "@@rules_nodejs+//nodejs:extensions.bzl%node": {
       "general": {
         "bzlTransitiveDigest": "71PwVsMlLx+RWdt1SI9nSqRHX7DX/NstWwr7/XBxEMs=",
-        "usagesDigest": "0sDTeh/TiBMP7WJLcRQLZS96TDgEmpeqJ9LvmRBTTYw=",
+        "usagesDigest": "dmMIOGPHhGaTlM93goBzAnkXX8ytkSewXdButqspInk=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},
