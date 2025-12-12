@@ -1,0 +1,19 @@
+al_hugo_extension = use_extension("//tools/hugo/main/bzl:al_hugo_extension.bzl", "al_hugo_extension")
+al_hugo_extension.toolchains(
+    name = "com_alwalded_src_hugo_toolchain",
+    version = "0.152.2",
+)
+al_hugo_extension.lock(
+    name = "com_alwaldend_src_hugo",
+    lock = "//projects/alwaldend.com:hugo_lock.json",
+)
+use_repo(
+    al_hugo_extension,
+    "com_alwalded_src_hugo_toolchain_os_linux_cpu_x86_64",
+    "com_alwaldend_src_hugo",
+    "com_alwaldend_src_hugo_github_com_fortawesome_font_awesome",
+    "com_alwaldend_src_hugo_github_com_google_docsy",
+    "com_alwaldend_src_hugo_github_com_twbs_bootstrap",
+)
+
+register_toolchains("@com_alwalded_src_hugo_toolchain_os_linux_cpu_x86_64")

@@ -96,7 +96,7 @@ pkg_tar(
         "//projects/alwaldend.com/data",
         "//projects/alwaldend.com/i18n",
         "//projects/alwaldend.com/layouts",
-        "//tools/hugo/themes",
+        "@com_alwaldend_src_hugo",
     ],
     strip_prefix = ".",
 )

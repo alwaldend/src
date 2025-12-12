@@ -1,8 +1,8 @@
 load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+load("//tools/hugo/main/bzl:al_hugo_binary.bzl", "al_hugo_binary")
 
-alias(
+al_hugo_binary(
     name = "hugo",
-    actual = "@com_github_gohugoio_hugo_linux_amd64//:bin",
     visibility = ["//:__subpackages__"],
 )
 

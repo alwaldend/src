@@ -1,0 +1,22 @@
+{
+    "remote_themes": [
+        {
+            "path": "github.com/google/docsy",
+            "url": "https://github.com/google/docsy/archive/2cb372501b6cc15b5178681ff0c44030052457de.zip",
+            "integrity": "sha256-MbHVtG665pokxgGMhXVv1uGmn4wbBayceBRtLvA7rzw=",
+            "strip_prefix": "docsy-2cb372501b6cc15b5178681ff0c44030052457de"
+        },
+        {
+            "path": "github.com/FortAwesome/Font-Awesome",
+            "url": "https://github.com/FortAwesome/Font-Awesome/archive/refs/tags/6.7.2.tar.gz",
+            "strip_prefix": "Font-Awesome-6.7.2",
+            "integrity": "sha256-/evfPxuGQaS2ZcYfH0jkgrFAqBfOYZETVZIBuKH83VE="
+        },
+        {
+            "path": "github.com/twbs/bootstrap",
+            "integrity": "sha256-+aoFaJvJEWrg7DDmkNTGkbzr+r+76075kiI5+Xpqs9k=",
+            "strip_prefix": "bootstrap-5.3.7",
+            "url": "https://github.com/twbs/bootstrap/archive/refs/tags/v5.3.7.tar.gz"
+        }
+    ]
+}

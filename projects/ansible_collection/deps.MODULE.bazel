@@ -2,12 +2,13 @@ al_ansible_extension = use_extension("//tools/ansible/main/bzl:al_ansible_extens
 
 http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
 
-al_ansible_extension.remote_collections(
+al_ansible_extension.lock(
     name = "com_ansible_galaxy",
-    lock = "//tools/ansible:ansible_lock.json",
+    lock = "//projects/ansible_collection:ansible_lock.json",
 )
 use_repo(
     al_ansible_extension,
+    "com_ansible_galaxy",
     "com_ansible_galaxy_ansible_posix",
     "com_ansible_galaxy_community_crypto",
     "com_ansible_galaxy_community_docker",

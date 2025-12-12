@@ -3,20 +3,19 @@ load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo", "PackageFilesInfo"
 load(":al_hugo_site_info.bzl", "AlHugoSiteInfo")
 
 def _impl(ctx):
-    info = ctx.attr.site[AlHugoSiteInfo]
-    default_info = ctx.attr.site[DefaultInfo]
     hugo = ctx.toolchains["//tools/hugo/main/bzl:toolchain_type"]
     script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
 
-    runfiles = ctx.runfiles(
-        files = [hugo.env_file],
-        transitive_files = depset(
-            transitive = [
-                default_info.default_runfiles.files,
-                default_info.files,
-            ],
-        ),
-    )
+    runfiles = ctx.runfiles(files = [hugo.env_file])
+    if ctx.attr.site:
+        site_info = ctx.attr.site[AlHugoSiteInfo]
+        site_archive = site_info.site_archive.short_path
+        env_script = site_info.env_script
+        runfiles = runfiles.merge(ctx.attr.site[DefaultInfo].default_runfiles)
+    else:
+        site_archive = ""
+        env_script = ""
+
     script_content = """\
         #!/usr/bin/env sh
         set -eu
@@ -24,7 +23,9 @@ def _impl(ctx):
         if [ ! -f '{site_archive}' ]; then
             cd "${{0}}.runfiles/{workspace_name}"
         fi
-        tar -xf '{site_archive}'
+        if [ -f '{site_archive}' ]; then
+            tar -xf '{site_archive}'
+        fi
         mkdir -p static
         mv '{env_file}' static/hugo_env.txt
         exec '{hugo}' \
@@ -33,11 +34,11 @@ def _impl(ctx):
     """.format(
         hugo = hugo.hugo.short_path,
         env_file = hugo.env_file.short_path,
-        site_archive = info.site_archive.short_path,
+        site_archive = site_archive,
         workspace_name = ctx.workspace_name,
         env_script = ctx.expand_make_variables(
             "env_script",
-            ctx.expand_location(info.env_script),
+            ctx.expand_location(env_script),
             {},
         ),
         arguments = " ".join([
@@ -71,7 +72,6 @@ al_hugo_binary = rule(
             doc = "Hugo arguments",
         ),
         "site": attr.label(
-            mandatory = True,
             providers = [AlHugoSiteInfo],
             doc = "Hugo site",
         ),

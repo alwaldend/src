@@ -41,16 +41,16 @@ pkg_filegroup(
 )
 
 pkg_filegroup(
+    name = "collection_prefix",
+    srcs = [":collection"],
+    prefix = "collections/ansible_collections",
+)
+
+pkg_filegroup(
     name = "collections",
     srcs = [
-        ":collection",
-        "@com_ansible_galaxy_ansible_posix",
-        "@com_ansible_galaxy_community_crypto",
-        "@com_ansible_galaxy_community_docker",
-        "@com_ansible_galaxy_community_general",
-        "@com_ansible_galaxy_community_library_inventory_filtering_v1",
-        "@com_ansible_galaxy_devsec_hardening",
+        ":collection_prefix",
+        "@com_ansible_galaxy",
     ],
-    prefix = "collections/ansible_collections",
     visibility = ["//:__subpackages__"],
 )
