@@ -9,7 +9,9 @@ al_bzl_library_map(
         "al_bazel_contracts_extension": [
             ":al_bazel_contracts_repo",
             ":al_bazel_contracts_list",
+            ":al_bazel_contracts_versions",
         ],
+        "al_bazel_contracts_versions": [],
         "al_bazel_contracts_repo": [
             "@bazel_skylib//lib:paths",
         ],

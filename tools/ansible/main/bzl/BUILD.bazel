@@ -22,6 +22,11 @@ al_bzl_library_map(
             "@bazel_skylib//rules:write_file",
             "@bazel_skylib//lib:paths",
         ],
+        "al_ansible_extension": [
+            "@bazel_tools//tools/build_defs/repo:cache.bzl",
+            "@bazel_tools//tools/build_defs/repo:http.bzl",
+            "@bazel_tools//tools/build_defs/repo:utils.bzl",
+        ],
         "al_ansible_binaries": [
             ":al_ansible_scripts",
             ":al_ansible_binary",

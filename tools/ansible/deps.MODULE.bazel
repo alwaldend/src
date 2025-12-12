@@ -1,47 +1,19 @@
-http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+al_ansible_extension = use_extension("//tools/ansible/main/bzl:al_ansible_extension.bzl", "al_ansible_extension")
 
 http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
 
-http_archive(
-    name = "com_ansible_galaxy_ansible_posix_v2",
-    build_file = "//tools/bzl/build_files:general.BUILD.bazel",
-    integrity = "sha256-X/Iyz2lJKpkfKgmQ27I+8lpgC36SCd5uMzd6b/CKiik=",
-    url = "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/ansible-posix-2.1.0.tar.gz",
+al_ansible_extension.remote_collections(
+    name = "com_ansible_galaxy",
+    lock = "//tools/ansible:ansible_lock.json",
 )
-
-http_archive(
-    name = "com_ansible_galaxy_community_general_v11",
-    build_file = "//tools/bzl/build_files:general.BUILD.bazel",
-    integrity = "sha256-0PTb0Hnwx9jYIMYYvF/IinsPZV9Wu+7xl6zTNjOQN0Y=",
-    url = "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-general-11.3.0.tar.gz",
-)
-
-http_archive(
-    name = "com_ansible_galaxy_community_crypto_v3",
-    build_file = "//tools/bzl/build_files:general.BUILD.bazel",
-    integrity = "sha256-Cbj+kPoHhmn9bHK2YeO1TKbUqYBTteA9PWawUpy+mZ4=",
-    url = "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-crypto-3.0.4.tar.gz",
-)
-
-http_archive(
-    name = "com_ansible_galaxy_community_docker_v4",
-    build_file = "//tools/bzl/build_files:general.BUILD.bazel",
-    integrity = "sha256-aW1lQhLLOCJLpKY4yJCwHLZ9WT5LSICx5BpVrepZtS4=",
-    url = "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-docker-4.8.0.tar.gz",
-)
-
-http_archive(
-    name = "com_ansible_galaxy_community_library_inventory_filtering_v1",
-    build_file = "//tools/bzl/build_files:general.BUILD.bazel",
-    integrity = "sha256-0DT0O89NQ7TPqHmBpiom8yi+dZjbO2z60bkKLVZmVRw=",
-    url = "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/community-library_inventory_filtering_v1-1.1.3.tar.gz",
-)
-
-http_archive(
-    name = "com_ansible_galaxy_devsec_hardening_v10",
-    build_file = "//tools/bzl/build_files:general.BUILD.bazel",
-    integrity = "sha256-sd44WSmHlZIA/g28CO/CbPkzrNfb8IA081y+ofk58+k=",
-    url = "https://galaxy.ansible.com/api/v3/plugin/ansible/content/published/collections/artifacts/devsec-hardening-10.3.1.tar.gz",
+use_repo(
+    al_ansible_extension,
+    "com_ansible_galaxy_ansible_posix",
+    "com_ansible_galaxy_community_crypto",
+    "com_ansible_galaxy_community_docker",
+    "com_ansible_galaxy_community_general",
+    "com_ansible_galaxy_community_library_inventory_filtering_v1",
+    "com_ansible_galaxy_devsec_hardening",
 )
 
 http_file(

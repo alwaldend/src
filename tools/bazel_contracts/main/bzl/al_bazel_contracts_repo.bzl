@@ -51,7 +51,7 @@ py_proto_library(
 def _impl(ctx):
     downloads = []
     for contract in ctx.attr.contracts:
-        url = "{}/{}/{}".format(ctx.attr.base_url, ctx.attr.prefix, contract)
+        url = "{}/{}".format(ctx.attr.base_url, contract)
         integrity = ctx.attr.integrity.get(contract, "")
         contract_file = paths.basename(contract)
         contract_path = contract.removesuffix(".proto")
@@ -99,10 +99,6 @@ al_bazel_contracts_repo = repository_rule(
         "contracts": attr.string_list(
             mandatory = True,
             doc = "Contract paths",
-        ),
-        "prefix": attr.string(
-            mandatory = True,
-            doc = "Prefix for the contracts inside the repo",
         ),
         "base_url": attr.string(
             mandatory = True,
