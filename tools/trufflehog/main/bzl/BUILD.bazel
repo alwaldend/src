@@ -1,0 +1,24 @@
+load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_trufflehog_archives": [],
+        # "al_trufflehog_extension": [":al_trufflehog_archives"],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools/trufflehog:__pkg__"],
+    deps = [":libs.stardoc"],
+)

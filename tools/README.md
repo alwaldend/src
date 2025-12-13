@@ -11,7 +11,7 @@ This tree contains tools that are used inside the repo
 
 ## Requirements
 
-- MUST NOT be public
+- MUST NOT be public (except toolchain types)
 - MUST NOT be published
 - MUST NOT be used in builds
 - MUST be available to the whole repo (`visibility = ["//:__subpackages__"]`)

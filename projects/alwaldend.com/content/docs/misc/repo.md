@@ -10,8 +10,8 @@ tags:
 - Install packages:
   ```sh
   sudo dnf install \
-    clang clang-format java-latest-openjdk-devel rust mesa-libGL-devel go \
-    Xvfb python3 gmp-devel patch podman
+    clang clang-format java-latest-openjdk-devel rust cargo mesa-libGL-devel \
+    go Xvfb python3 gmp-devel patch podman
   ```
 - Install bazel: https://bazel.build/install/bazelisk
 - Install nvm: https://github.com/nvm-sh/nvm
