@@ -1,8 +1,16 @@
 $TTL 10800
-; generated with dnscontrol 2025-11-27T17:43:55+03:00
-@          300   IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2025112700 3600 600 604800 1440
+; generated with dnscontrol 2025-12-14T16:56:39+03:00
+@          300   IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2025121400 3600 600 604800 1440
            300   IN NS    malavika.ns.cloudflare.com.
            300   IN NS    terry.ns.cloudflare.com.
+           300   IN A     185.199.108.153
+           300   IN A     185.199.109.153
+           300   IN A     185.199.110.153
+           300   IN A     185.199.111.153
+           300   IN AAAA  2606:50c0:8000::153
+           300   IN AAAA  2606:50c0:8001::153
+           300   IN AAAA  2606:50c0:8002::153
+           300   IN AAAA  2606:50c0:8003::153
                  IN MX    0 mail.tutanota.de.
                  IN TXT   "t-verify=518bd0ae347aa5e3bcca726766106ad3"
                  IN TXT   "v=spf1 include:spf.tutanota.de -all"

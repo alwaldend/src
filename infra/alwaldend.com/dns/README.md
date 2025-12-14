@@ -6,10 +6,15 @@ tags:
   - dnscontrol
 ---
 
+## Links
+
+- Docs: https://docs.dnscontrol.org
+- Rules: [tools/dnscontrol](../../../tools/dnscontrol)
+
 ## Deployment
 
-- Setup environment variables from [creds.json.tpl](./creds.json.tpl)
-- Modify [dnsconfig.js](./dnsconfig.js)
+- Setup environment variables from `creds.json.tpl`
+- Modify `dnsconfig.js`
 - Preview changes:
   ```sh
   bazel run //infra/alwaldend.com/dns:preview
@@ -20,17 +25,10 @@ tags:
   ```
 
 {{% alwaldend/alert %}}
-If BIND files differ after push, test `//infra/alwaldend.com/dns:preview_test` will fail
+Deploy modifies the bind file, which will cause
+//infra/alwaldend.com/dns:preview_test to fail
 {{% /alwaldend/alert %}}
 
-## Links
-
-- Website: https://dnscontrol.org
-- Docs: https://docs.dnscontrol.org
-- Rules: [../../tools/dnscontrol](../../../tools/dnscontrol)
-
-## Zones
-
-### Alwaldend.com
+## BIND file
 
 {{< readfile file="zones/alwaldend.com.zone" code="true" lang="zone" >}}

@@ -42,3 +42,16 @@ bool_flag(
     name = "ci_flag",
     build_setting_default = False,
 )
+
+config_setting(
+    name = "release",
+    flag_values = {
+        ":release_flag": "true",
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+bool_flag(
+    name = "release_flag",
+    build_setting_default = False,
+)

@@ -14,4 +14,3 @@ This tree contains projects
 - MAY be public
 - MAY be published
 - MAY be used in builds
-- MUST have sboms, hashes, and a changelog

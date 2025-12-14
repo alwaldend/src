@@ -1,4 +1,4 @@
 ---
 title: Docs
-description: Docs
+description: Documentation
 ---

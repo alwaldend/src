@@ -1,13 +1,33 @@
 ---
 title: Alwaldend.com
-description: Alwaldend.com site built with hugo
+description: Alwaldend.com site
 sites:
   - alwaldend.com
 statuses:
   - in_progress
 tags:
   - hugo
+  - github_pages
 ---
+
+## Links
+
+- Source code: https://github.com/alwaldend/src/tree/master/projects/alwaldend.com
+- Github Pages repo: https://github.com/alwaldend/alwaldend.github.io
+- Hugo rules: [tools/hugo](../../tools/hugo)
+
+## Features
+
+- [Hugo](https://gohugo.io) site
+- [Docsy](https://github.com/google/docsy), [Bootstrap](https://getbootstrap.com)
+
+## Deployment
+
+- Setup dns: [infra/alwaldend.com/dns](../../infra/alwaldend.com/dns]
+- Push to the Github Pages repo:
+  ```sh
+  bazel run --config=release //projects/alwaldend.com:deploy
+  ```
 
 ## Taxonomy
 
@@ -78,3 +98,7 @@ Usage:
 ```md
 {{</* alwaldend/docs_misc_books */>}}
 ```
+
+## TODO
+
+- Setup proper deployment

@@ -1,6 +1,6 @@
 ---
 title: Useless QT GUI
-description: Desktop GUI written with C++, it doesn't do anything
+description: Desktop GUI written with C++
 statuses:
   - finished
 languages:
@@ -10,6 +10,15 @@ tags:
   - desktop
   - qt
 ---
+
+## Links
+
+- Source code: https://github.com/alwaldend/src/tree/master/projects/useless_qt_gui
+
+## Features
+
+- Desktop GUI
+- C++, [Qt](https://www.qt.io/)
 
 ## TODO
 

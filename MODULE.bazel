@@ -78,17 +78,17 @@ bazel_dep(name = "com_alwaldend_com_github_infinitimeorg_infinitime")
 
 git_override(
     module_name = "com_alwaldend_com_github_infinitimeorg_infinitime",
-    commit = "2105a7b63da8d4065ebfc62e0057f225358eedfc",  # 1.15.0
+    commit = "6bcda271ff0851cf9d14aa6a3030638d38ba7833",
     init_submodules = True,
-    patch_strip = 1,
-    patches = [
-        # git format-patch does not work for some reason
-        "//projects/infinitime/main/patch:patch.patch",
-    ],
     recursive_init_submodules = True,
-    remote = "https://github.com/InfiniTimeOrg/InfiniTime.git",
+    remote = "https://github.com/alwaldend/com_github_infinitimeorg_infinitime.git",
     shallow_since = "1733253068 +0100",
 )
+
+# local_path_override(
+#     module_name = "com_alwaldend_com_github_infinitimeorg_infinitime",
+#     path = "../com_github_infinitimeorg_infinitime",
+# )
 
 archive_override(
     module_name = "hedron_compile_commands",

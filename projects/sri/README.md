@@ -1,6 +1,6 @@
 ---
 title: Sri
-description: Cli app for subresource integrity calculation
+description: Subresource Integrity calculator
 statuses:
   - finished
 languages:
@@ -9,13 +9,15 @@ tags:
   - cli
 ---
 
-## Downloads
-
-See [./releases/head](./releases/head)
-
 ## Links
 
-- https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity
+- Source code: https://github.com/alwaldend/src/tree/master/projects/sri
+- Docs: https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity
+
+## Features
+
+- Cli app that calculates SRI using [OpenSSL](https://www.openssl.org/)
+- C, OpenSSL
 
 ## Usage
 

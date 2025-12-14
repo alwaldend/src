@@ -1,19 +1,18 @@
-{{ $center := .Get "center" }}
-<!-- -->
-{{ range .Page.Site.Params.alwaldend.links }}
-<ul
-  class="
-    list-group
-    list-group-horizontal
-    fs-5
-    {{ if $center -}}justify-content-center{{- end -}}
-  "
->
-  <li class="list-group-item">{{ .name }}</li>
-  <li class="list-group-item">
-    <a href="{{ .url }}">
-      {{- strings.TrimPrefix "https://" (strings.Trim .url "/") -}}
-    </a>
-  </li>
-</ul>
-{{- end -}}
+<div class="vh-100">
+  <div class="row justify-content-center">
+    <div class="card w-auto">
+      <div class="card-body fs-5">
+        <ul class="list-group list-group-flush">
+          {{ range .Page.Site.Params.alwaldend.links }}
+          <li class="list-group-item">
+            {{ .name }}:
+            <a href="{{ .url }}">
+              {{- strings.TrimPrefix "https://" (strings.Trim .url "/") -}}
+            </a>
+          </li>
+          {{- end -}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

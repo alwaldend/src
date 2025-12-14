@@ -7,6 +7,7 @@ def _impl(ctx):
     script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
 
     runfiles = ctx.runfiles(files = [hugo.env_file])
+    runfiles = runfiles.merge(hugo.default_info.default_runfiles)
     if ctx.attr.site:
         site_info = ctx.attr.site[AlHugoSiteInfo]
         site_archive = site_info.site_archive.short_path

@@ -1,6 +1,8 @@
 ---
 title: Xray manager
 description: Xray manager
+statuses:
+  - in_progress
 languages:
   - go
 tags:

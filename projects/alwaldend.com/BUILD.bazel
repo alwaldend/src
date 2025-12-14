@@ -48,14 +48,49 @@ al_hugo_binary(
 al_hugo_run_binary(
     name = "site",
     arguments = select({
-        "//tools/bzl/configs:ci": _BUILD_FLAGS + [
+        "//tools/bzl/configs:release": _BUILD_FLAGS + [
             "--baseURL",
-            "https://alwaldend.github.io/src",
+            "https://alwaldend.com",
         ],
         "//conditions:default": _BUILD_FLAGS,
     }),
     hugo = ":site_hugo",
     out_dirs = ["site.destination"],
+)
+
+pkg_tar(
+    name = "site_archive",
+    srcs = [":site"],
+    stamp = 1,
+)
+
+genrule(
+    name = "deploy",
+    srcs = [":site_archive"],
+    outs = ["deploy.sh"],
+    cmd = """
+cat - >$(@) <<EOF
+#!/usr/bin/env sh
+set -eu
+
+archive="\\$${PWD}/$(execpath :site_archive)"
+temp=\\$$(mktemp -d)
+trap "rm -rf \\$${temp}" EXIT
+cd "\\$${temp}"
+git clone \
+    --depth 1 \
+    --single-branch \
+    --branch master \
+    git@github.com:alwaldend/alwaldend.github.io.git
+cd alwaldend.github.io
+git checkout -B pages
+tar -xf "\\$${archive}" --strip-components 1
+git add .
+git commit -m "Update the site"
+git push -f
+EOF
+    """,
+    executable = True,
 )
 
 pkg_filegroup(
@@ -82,11 +117,6 @@ al_http_server_binary(
 )
 
 pkg_tar(
-    name = "site_archive",
-    srcs = [":docs"],
-)
-
-pkg_tar(
     name = "site_source_archive",
     srcs = [
         ":site_config",
@@ -98,6 +128,7 @@ pkg_tar(
         "//projects/alwaldend.com/layouts",
         "@com_alwaldend_src_hugo",
     ],
+    stamp = 1,
     strip_prefix = ".",
 )
 

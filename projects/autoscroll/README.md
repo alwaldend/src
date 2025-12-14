@@ -10,16 +10,16 @@ tags:
   - qt
 ---
 
-## About The Project
+## Links
 
-This package implements platfrom-independent autoscroll
+- Source code: https://github.com/alwaldend/src/tree/master/projects/autoscroll
 
 ## Features
 
-- Pretty useless
-- Has a config file with hot-reload
-- Python3, PyQt6
+- Platfrom-independent autoscroll
+- Config file with hot-reload
 - Some argparse tinkering
+- Python3, PyQt6
 
 ## Usage
 

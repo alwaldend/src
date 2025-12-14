@@ -5,5 +5,14 @@ al_docs_files(
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//:__pkg__"],
-    deps = ["//projects/{}:docs".format(package) for package in subpackages(include = ["*"])],
+    deps = [
+        "//projects/{}:docs".format(package)
+        for package in subpackages(
+            include = ["*"],
+            exclude = [
+                "xray_manager",
+                "cgit",
+            ],
+        )
+    ],
 )

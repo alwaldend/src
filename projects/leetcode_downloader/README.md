@@ -13,13 +13,16 @@ tags:
   - proto
 ---
 
-{{< alwaldend/alert >}}
-Download doesn't work anymore because of Cloudflare
-{{< /alwaldend/alert >}}
+## Links
 
-## Downloads
+- Source code: https://github.com/alwaldend/src/tree/master/projects/leetcode_downloader
 
-See [./releases/head](./releases/head/)
+## Features
+
+- CLI and bzl code to generate submission docs
+- [Tampermonkey](https://www.tampermonkey.net/) script to download submissions
+  (Doesn't work because the API was removed)
+- CLI to download submissions (Doesn't work because of bot protection)
 
 ## Usage
 

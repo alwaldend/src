@@ -55,6 +55,7 @@ build --verbose_failures
 # Only download remote outputs of top level targets to the local machine: https://bazel.build/reference/command-line-reference#flag--remote_download_toplevel
 build:ci --remote_download_toplevel
 # Setup release
+common:release --//tools/bzl/configs:release_flag
 build:release --stamp
 build:release --workspace_status_command=tools/workspace_status/main/sh/workspace_status.sh
 # Warn if a test's timeout is significantly longer than the test's actual execution time.

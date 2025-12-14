@@ -13,9 +13,13 @@ tags:
   - udev
 ---
 
-## Downloads
+## Links
 
-See [./releases/head](./releases/head/)
+- Source code: https://github.com/alwaldend/src/tree/master/projects/dotfiles
+
+## Features
+
+- Archive with dotfiles that can be installed using make
 
 ## Bazel usage
 

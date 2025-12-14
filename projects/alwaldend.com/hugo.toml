@@ -19,7 +19,6 @@ priority = 0.5
 
 [params]
 offlineSearch = true
-github_project_repo = "https://github.com/alwaldend/src"
 github_repo = "https://github.com/alwaldend/src"
 github_branch = "master"
 version_menu = "Versions"
@@ -27,11 +26,15 @@ version_menu_pagelinks = true
 
 [[params.alwaldend.links]]
 name = "Docs"
-url = "https://alwaldend.github.io/src/docs/"
+url = "https://alwaldend.com/docs/"
 
 [[params.alwaldend.links]]
 name = "GitHub"
-url = "https://github.com/alwaldend/"
+url = "https://github.com/alwaldend/src/"
+
+[[params.alwaldend.links]]
+name = "LeetCode"
+url = "https://leetcode.com/u/itqgWtnNDLaBUrs/"
 
 # [params.copyright]
 # authors = ""
@@ -62,8 +65,13 @@ tag = "tags"
 site = "sites"
 
 [[menus.main]]
-name = "Docs"
+name = "Home"
 weight = 100
+url = "/"
+
+[[menus.main]]
+name = "Docs"
+weight = 200
 url = "/docs/"
 
 [security.exec]
