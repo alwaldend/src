@@ -56,8 +56,8 @@ build --verbose_failures
 build:ci --remote_download_toplevel
 # Setup release
 common:release --//tools/bzl/configs:release_flag
-build:release --stamp
-build:release --workspace_status_command=tools/workspace_status/main/sh/workspace_status.sh
+common:release --stamp
+common:release --workspace_status_command=tools/workspace_status/main/sh/workspace_status.sh
 # Warn if a test's timeout is significantly longer than the test's actual execution time.
 test --test_verbose_timeout_warnings
 # Allow exclusive tests to run in the sandbox. Fixes a bug where Bazel doesn't enable sandboxing for
