@@ -1,0 +1,2 @@
+third_party/registry/modules/rules_haskell/7bb6b0790b0c44603173196e1b4d1cd6e5f28078/MODULE.bazel
+bzl/registry/modules/rules_haskell/1.0-patched/MODULE.bazel

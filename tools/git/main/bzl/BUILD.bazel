@@ -20,6 +20,9 @@ toolchain_type(
 
 al_git_resolved_toolchain(
     name = "toolchain_resolved",
+    visibility = [
+        "//:__subpackages__",
+    ],
 )
 
 al_bzl_library_map(

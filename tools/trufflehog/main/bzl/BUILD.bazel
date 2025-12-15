@@ -5,7 +5,16 @@ al_bzl_library_map(
     name = "libs",
     libs = {
         "al_trufflehog_archives": [],
-        # "al_trufflehog_extension": [":al_trufflehog_archives"],
+        "al_trufflehog_binary": [],
+        "al_trufflehog_test": [],
+        "al_trufflehog_toolchain": [],
+        "al_trufflehog_extension": [
+            ":al_trufflehog_archives",
+            "//tools/bzl/main/bzl:al_bzl_generate_repository",
+            "@bazel_tools//tools/build_defs/repo:cache.bzl",
+            "@bazel_tools//tools/build_defs/repo:http.bzl",
+            "@bazel_tools//tools/build_defs/repo:utils.bzl",
+        ],
     },
     visibility = ["//:__subpackages__"],
 )

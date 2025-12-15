@@ -19,6 +19,7 @@ al_bzl_library_map(
             "@aspect_bazel_lib//lib:write_source_files",
             "@bazel_skylib//rules:write_file",
         ],
+        "al_bzl_generate_repository": [],
         "al_bzl_target_doc": [
             "//tools/template_files/main/bzl:al_template_files",
             "@rules_pkg//pkg:bzl_srcs",

@@ -361,3 +361,9 @@ name = "Palt"
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/profile/35937" },
 ]
+
+[author.phill_tucker]
+name = "Phill Tucker"
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/73941" },
+]

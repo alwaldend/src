@@ -1,0 +1,11 @@
+al_trufflehog_extension = use_extension("//tools/trufflehog/main/bzl:al_trufflehog_extension.bzl", "al_trufflehog_extension")
+al_trufflehog_extension.toolchains(
+    name = "com_alwalded_src_tools_trufflehog_toolchain",
+    version = "3.91.2",
+)
+use_repo(
+    al_trufflehog_extension,
+    "com_alwalded_src_tools_trufflehog_toolchain",
+)
+
+register_toolchains("@com_alwalded_src_tools_trufflehog_toolchain//:all")
