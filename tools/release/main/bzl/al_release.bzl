@@ -1,6 +1,7 @@
 load("@rules_pkg//pkg:providers.bzl", "PackageFilesInfo")
 load("//tools/git/main/bzl:al_git_current_state.bzl", "AL_GIT_CURRENT_STATE")
-load("//tools/release/main/bzl:al_release_files_info.bzl", "AlReleaseFilesInfo")
+load(":al_release_files_info.bzl", "AlReleaseFilesInfo")
+load(":al_release_info.bzl", "AlReleaseInfo")
 
 _DOC_TEMPLATE = """\
 ---
@@ -27,6 +28,7 @@ def _impl(ctx):
     release_name = ctx.attr.release_name
     transitive = []
     manifest = None
+    files = {}
 
     if ctx.attr.manifest:
         manifest = ctx.file.manifest
@@ -43,6 +45,7 @@ def _impl(ctx):
         args.add_all(["--output_release_page", release_page.path])
         for src in ctx.attr.srcs:
             src_manifest = src[AlReleaseFilesInfo].manifest
+            files.update(src[AlReleaseFilesInfo].files)
             inputs.append(src_manifest)
             args.add_all(["--merge_manifest", src_manifest.path])
         args.add_all(["--merge_manifest", extra_manifest.path])
@@ -92,6 +95,12 @@ def _impl(ctx):
                 transitive = transitive,
             ),
         ),
+        AlReleaseInfo(
+            files = files,
+            manifest = manifest,
+            project = ctx.attr.project,
+            release_name = ctx.attr.release_name,
+        ),
         PackageFilesInfo(
             attributes = {},
             dest_src_map = dest_src_map,
@@ -101,7 +110,7 @@ def _impl(ctx):
 al_release = rule(
     implementation = _impl,
     doc = "Rule describing a release",
-    provides = [PackageFilesInfo],
+    provides = [PackageFilesInfo, DefaultInfo, AlReleaseInfo],
     toolchains = ["//tools/git/main/bzl:toolchain_type"],
     attrs = {
         "srcs": attr.label_list(

@@ -16,12 +16,14 @@ al_release_files(
     srcs = [
         "//projects/android_launcher/main/java:launcher_binary",
     ],
+    deployments = ["//tools/release:deployment"],
     ignore_suffixes = [".jar"],
 )
 
 al_release_deps(
     name = "release_deps",
     srcs = ["//projects/android_launcher/releases:files"],
+    deployments = ["//tools/release:deployment"],
 )
 
 al_release(
@@ -33,4 +35,5 @@ al_release(
     ],
     project = "projects/android_launcher",
     release_name = "head",
+    visibility = ["//projects:__pkg__"],
 )

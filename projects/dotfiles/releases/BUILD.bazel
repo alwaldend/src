@@ -1,5 +1,6 @@
 load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 load("//tools/release/main/bzl:al_release.bzl", "al_release")
+load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
 load("//tools/release/main/bzl:al_release_deps.bzl", "al_release_deps")
 load("//tools/release/main/bzl:al_release_files.bzl", "al_release_files")
 
@@ -28,11 +29,13 @@ al_release_files(
         "//projects/dotfiles/misc",
         "//projects/dotfiles/vial",
     ],
+    deployments = ["//tools/release:deployment"],
 )
 
 al_release_deps(
     name = "release_deps",
     srcs = ["//projects/dotfiles/releases:files"],
+    deployments = ["//tools/release:deployment"],
 )
 
 al_release(
@@ -44,4 +47,10 @@ al_release(
     ],
     project = "projects/dotfiles",
     release_name = "head",
+    visibility = ["//projects:__pkg__"],
+)
+
+al_release_binary(
+    name = "head_deploy",
+    srcs = [":head"],
 )

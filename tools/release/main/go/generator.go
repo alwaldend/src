@@ -10,6 +10,7 @@ import (
 	"math"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"strings"
 	"sync"
@@ -34,36 +35,37 @@ func NewGenerator(gitInfo *gitLib.GitInfo) *Generator {
 }
 
 type GenerateOpts struct {
-	Ctx               context.Context
-	MergeItems        []string
-	MergeManifests    []string
-	OutputManifest    string
-	OutputReleasePage string
-	OutputFileMode    string
-	GitRoot           string
-	MarshalOptions    *protojson.MarshalOptions
+	Ctx                context.Context
+	AddFiles           []string
+	DeploymentInfo     []string
+	MergeManifests     []string
+	OutputManifests    []string
+	OutputReleasePages []string
+	OutputFileMode     string
+	GitRoot            string
+	MarshalOptions     *protojson.MarshalOptions
 }
 
 // Generate a manifest file
 func (self *Generator) Generate(opts *GenerateOpts) error {
-	release, err := self.createRelease(opts)
+	release, err := self.parseRelease(opts)
 	if err != nil {
 		return fmt.Errorf("could not create release %v: %w", opts, err)
 	}
-	if opts.OutputManifest != "" {
-		err := self.writeMessage(opts, release, opts.OutputManifest)
+	for _, manifest := range opts.OutputManifests {
+		err := self.writeMessage(opts, release, manifest)
 		if err != nil {
-			return fmt.Errorf("could not output release %v: %w", opts.OutputManifest, err)
+			return fmt.Errorf("could not output release %v: %w", manifest, err)
 		}
 	}
-	if opts.OutputReleasePage != "" {
-		releasePage, err := self.createReleasePage(opts, release)
+	for _, page := range opts.OutputReleasePages {
+		releasePage, err := self.createReleasePage(release)
 		if err != nil {
 			return fmt.Errorf("could not create release page %v: %w", opts, err)
 		}
-		err = self.writeMessage(opts, releasePage, opts.OutputReleasePage)
+		err = self.writeMessage(opts, releasePage, page)
 		if err != nil {
-			return fmt.Errorf("could not output release page %v: %w", opts, err)
+			return fmt.Errorf("could not write release page to %s %v: %w", page, opts, err)
 		}
 	}
 	return nil
@@ -85,12 +87,97 @@ func (self *Generator) writeMessage(opts *GenerateOpts, message proto.Message, o
 }
 
 // Create a release page config
-func (self *Generator) createReleasePage(opts *GenerateOpts, release *contracts.Release) (*contracts.ReleasePage, error) {
+func (self *Generator) createReleasePage(release *contracts.Release) (*contracts.ReleasePage, error) {
 	page := &contracts.ReleasePage{}
-	artifactSection := &contracts.ReleasePageSection{Title: "Artifacts"}
-	changelogSection := &contracts.ReleasePageSection{Title: "Changelog"}
+	changelogSection, err := self.changelogSection(release)
+	if err != nil {
+		return nil, fmt.Errorf("could not generate changelog section: %w", err)
+	}
+	artifactSection, err := self.artifactSection(release)
+	if err != nil {
+		return nil, fmt.Errorf("could not generate artifact section: %w", err)
+	}
 	page.Sections = append(page.Sections, changelogSection)
 	page.Sections = append(page.Sections, artifactSection)
+	return page, nil
+}
+
+func (self *Generator) artifactSection(release *contracts.Release) (*contracts.ReleasePageSection, error) {
+	artifactSection := &contracts.ReleasePageSection{Title: "Artifacts"}
+	for _, item := range release.Items {
+		sectionItem, err := self.artifactSectionItem(release, item)
+		if err != nil {
+			return nil, fmt.Errorf("could not generate section for item %v: %w", item, err)
+		}
+		artifactSection.Items = append(artifactSection.Items, sectionItem)
+	}
+	return artifactSection, nil
+}
+
+func (self *Generator) artifactSectionItem(release *contracts.Release, item *contracts.ReleaseItem) (*contracts.ReleasePageSectionItem, error) {
+	if item.File == nil {
+		return nil, fmt.Errorf("missing file data")
+	}
+	sectionItem := &contracts.ReleasePageSectionItem{}
+	size := float64(item.File.Size) / 1024 / 1024
+	size = roundFloat(size, 2)
+	sectionItem.Attrs = append(
+		sectionItem.Attrs,
+		&contracts.ReleasePageSectionItemAttr{
+			Name:    "Type",
+			Content: "File",
+		},
+	)
+	for _, deployment := range item.Deployments {
+		if deployment.Oci != nil {
+			for _, tag := range deployment.Oci.Tags {
+				sectionItem.Attrs = append(
+					sectionItem.Attrs,
+					&contracts.ReleasePageSectionItemAttr{
+						Name: "Pull",
+						Content: strings.Join(
+							[]string{"oras pull", "--output \"${PWD}\"", tag},
+							" ",
+						),
+					},
+				)
+				if sectionItem.Content == "" && strings.HasPrefix(deployment.Oci.Repository, "docker.io") {
+					path := strings.SplitN(deployment.Oci.Repository, "/", 2)
+					tagShort := strings.SplitN(tag, ":", 2)
+					sectionItem.Content = fmt.Sprintf(
+						"[%s](https://hub.docker.com/repository/docker/%s/tags/%s/)",
+						item.File.Name,
+						path[1],
+						tagShort[len(tagShort)-1],
+					)
+				}
+			}
+		}
+	}
+	if sectionItem.Content == "" {
+		sectionItem.Content = item.File.Name
+	}
+	sectionItem.Attrs = append(
+		sectionItem.Attrs,
+		&contracts.ReleasePageSectionItemAttr{
+			Name:    "Size",
+			Content: fmt.Sprintf("%.2f MB", size),
+		},
+	)
+	for _, hash := range item.File.Hashes {
+		sectionItem.Attrs = append(
+			sectionItem.Attrs,
+			&contracts.ReleasePageSectionItemAttr{
+				Name:    hash.Algo,
+				Content: hash.Content,
+			},
+		)
+	}
+	return sectionItem, nil
+}
+
+func (self *Generator) changelogSection(release *contracts.Release) (*contracts.ReleasePageSection, error) {
+	changelogSection := &contracts.ReleasePageSection{Title: "Changelog"}
 	for _, commit := range release.Git.Commits {
 		sectionItem := &contracts.ReleasePageSectionItem{
 			Content: commit.Message,
@@ -123,52 +210,50 @@ func (self *Generator) createReleasePage(opts *GenerateOpts, release *contracts.
 		}
 		changelogSection.Items = append(changelogSection.Items, sectionItem)
 	}
-	for _, item := range release.Items {
-		sectionItem := &contracts.ReleasePageSectionItem{}
-		if item.File != nil {
-			size := float64(item.File.Size) / 1024 / 1024
-			size = roundFloat(size, 2)
-			sectionItem.Content = item.File.Name
-			sectionItem.Attrs = append(
-				sectionItem.Attrs,
-				&contracts.ReleasePageSectionItemAttr{
-					Name:    "Type",
-					Content: "File",
-				},
-			)
-			sectionItem.Attrs = append(
-				sectionItem.Attrs,
-				&contracts.ReleasePageSectionItemAttr{
-					Name:    "Size",
-					Content: fmt.Sprintf("%.2f MB", size),
-				},
-			)
-			for _, hash := range item.File.Hashes {
-				sectionItem.Attrs = append(
-					sectionItem.Attrs,
-					&contracts.ReleasePageSectionItemAttr{
-						Name:    hash.Algo,
-						Content: hash.Content,
-					},
-				)
-			}
-		}
-		artifactSection.Items = append(artifactSection.Items, sectionItem)
-	}
-	return page, nil
+	return changelogSection, nil
 }
 
 // Create a release config
-func (self *Generator) createRelease(opts *GenerateOpts) (*contracts.Release, error) {
-	release := &contracts.Release{}
-	for _, item := range opts.MergeItems {
-		if err := self.addItem(release, item); err != nil {
-			return nil, fmt.Errorf("could not add item %s to release: %w", item, err)
-		}
+func (self *Generator) parseRelease(opts *GenerateOpts) (*contracts.Release, error) {
+	release := &contracts.Release{Project: &contracts.Project{}}
+	deployments, err := self.parseDeployments(opts.DeploymentInfo)
+	if err != nil {
+		return nil, fmt.Errorf("could not parse deployments: %w", err)
 	}
 	for _, manifest := range opts.MergeManifests {
 		if err := self.addManifest(release, manifest); err != nil {
 			return nil, fmt.Errorf("could not add manifest %s to release: %w", manifest, err)
+		}
+	}
+	if release.Project.Subdir != "" {
+		release.Project.SafeSubdir = safeString(release.Project.Subdir)
+	}
+	for _, file := range opts.AddFiles {
+		if err := self.addFile(release, deployments, file); err != nil {
+			return nil, fmt.Errorf("could not add file %s to release: %w", file, err)
+		}
+	}
+	encItems := map[string]*contracts.ReleaseItem{}
+	for _, item := range release.Items {
+		if item.File == nil {
+			continue
+		}
+		if encItem, ok := encItems[item.File.Name]; ok {
+			return nil, fmt.Errorf("filename collision: %v and %v", item, encItem)
+		} else {
+			encItems[item.File.Name] = item
+		}
+		for _, deployment := range item.Deployments {
+			if deployment.Oci != nil {
+				tag := fmt.Sprintf(
+					"%s:%s_%s_%s",
+					deployment.Oci.Repository,
+					release.Project.SafeSubdir,
+					item.File.SafeName,
+					release.Name,
+				)
+				deployment.Oci.Tags = []string{tag}
+			}
 		}
 	}
 	if release.Git != nil {
@@ -178,6 +263,22 @@ func (self *Generator) createRelease(opts *GenerateOpts) (*contracts.Release, er
 		}
 	}
 	return release, nil
+}
+
+func (self *Generator) parseDeployments(deployments []string) ([]*contracts.ReleaseDeployment, error) {
+	res := []*contracts.ReleaseDeployment{}
+	for _, path := range deployments {
+		deployment := &contracts.ReleaseDeployment{}
+		content, err := os.ReadFile(path)
+		if err != nil {
+			return nil, fmt.Errorf("could not open deployment file %s: %w", path, err)
+		}
+		if err := protojson.Unmarshal(content, deployment); err != nil {
+			return nil, fmt.Errorf("could not parse deployment file %s: %w", path, err)
+		}
+		res = append(res, deployment)
+	}
+	return res, nil
 }
 
 // Add git information in-place
@@ -252,24 +353,23 @@ func (self *Generator) addManifest(release *contracts.Release, path string) erro
 	return nil
 }
 
-// Add item information in-place
-func (self *Generator) addItem(release *contracts.Release, path string) error {
-	content, err := os.ReadFile(path)
+// Add file information in-place
+func (self *Generator) addFile(
+	release *contracts.Release,
+	deployments []*contracts.ReleaseDeployment,
+	path string,
+) error {
+	item := &contracts.ReleaseItem{
+		File:        &contracts.ReleaseFile{},
+		Deployments: deployments,
+	}
+	stat, err := os.Stat(path)
 	if err != nil {
-		return fmt.Errorf("could not read item manifest %s: %w", path, err)
+		return fmt.Errorf("could not stat file %s: %w", path, err)
 	}
-	item := &contracts.ReleaseItem{}
-	if err := protojson.Unmarshal(content, item); err != nil {
-		return fmt.Errorf("could not unmarshal item manifest %s: %w", path, err)
-	}
-	if item.File == nil || item.File.LocalPath == "" {
-		return fmt.Errorf("item manifest %s is missing file.local_path", path)
-	}
-	stat, err := os.Stat(item.File.LocalPath)
-	if err != nil {
-		return fmt.Errorf("could not stat local file %s: %w", path, err)
-	}
-	item.File.Name = filepath.Base(item.File.LocalPath)
+
+	item.File.Name = filepath.Base(path)
+	item.File.SafeName = safeString(item.File.Name)
 	item.File.Size = stat.Size()
 	for _, hashType := range []crypto.Hash{crypto.SHA256, crypto.MD5} {
 		hashObj := hashType.New()
@@ -286,8 +386,13 @@ func (self *Generator) addItem(release *contracts.Release, path string) error {
 			Content: fmt.Sprintf("%x", hashObj.Sum(nil)),
 		})
 	}
+
 	release.Items = append(release.Items, item)
 	return nil
+}
+
+func safeString(val string) string {
+	return regexp.MustCompile(`[^a-zA-Z0-9_]`).ReplaceAllString(val, "_")
 }
 
 // Round a float to a precision

@@ -1,4 +1,25 @@
 load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
+
+al_release_binary(
+    name = "deploy_heads",
+    srcs = [
+        "//projects/{}/releases:head".format(package)
+        for package in subpackages(
+            include = ["*"],
+            exclude = [
+                "xray_manager",
+                "cgit",
+                "alwaldend.com",
+                "ansible_collection",
+                "bazel_registry",
+                "ci_platform",
+                "nexus_security_plugin",
+                "useless_qt_gui",
+            ],
+        )
+    ],
+)
 
 al_docs_files(
     name = "docs",

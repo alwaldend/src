@@ -17,11 +17,13 @@ al_release_files(
         "//projects/infinitime/main/patch:patches",
         "@com_alwaldend_com_github_infinitimeorg_infinitime//:dfu",
     ],
+    deployments = ["//tools/release:deployment"],
 )
 
 al_release_deps(
     name = "release_deps",
     srcs = ["//projects/infinitime/releases:files"],
+    deployments = ["//tools/release:deployment"],
 )
 
 al_release(
@@ -33,4 +35,5 @@ al_release(
     ],
     project = "projects/infinitime",
     release_name = "head",
+    visibility = ["//projects:__pkg__"],
 )

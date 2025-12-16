@@ -15,9 +15,9 @@ al_bzl_library_map(
             "@bazel_skylib//rules:write_file",
         ],
         "al_genquery_write_to_source_file": [
-            "//tools/template_files/main/bzl:al_template_files",
-            "@aspect_bazel_lib//lib:write_source_files",
             "@bazel_skylib//rules:write_file",
+            "@aspect_bazel_lib//lib:write_source_files",
+            "//tools/template_files/main/bzl:al_template_files",
         ],
         "al_bzl_generate_repository": [],
         "al_bzl_target_doc": [

@@ -32,7 +32,8 @@ bazel run //projects/dotfiles:install # Install files
 ## Archive usage
 
 ```sh
-wget https://alwaldend.com/docs/projects/dotfiles/releases/head/dotfiles.tar
+oras pull --output "${PWD}" docker.io/alwaldend/src:projects_dotfiles_dotfiles_tar_head
+cd releases/projects/dotfiles/head/files
 tar -xf dotfiles.tar
 cd dotfiles
 make help # Show help

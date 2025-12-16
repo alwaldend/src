@@ -48,7 +48,7 @@ al_hugo_binary(
 al_hugo_run_binary(
     name = "site",
     arguments = select({
-        "//tools/bzl/configs:release": _BUILD_FLAGS + [
+        "//tools/bazel_configs:release": _BUILD_FLAGS + [
             "--baseURL",
             "https://alwaldend.com",
         ],

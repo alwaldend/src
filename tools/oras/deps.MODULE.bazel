@@ -1,0 +1,11 @@
+al_oras_extension = use_extension("//tools/oras/main/bzl:al_oras_extension.bzl", "al_oras_extension")
+al_oras_extension.toolchains(
+    name = "com_alwalded_src_tools_oras_toolchain",
+    version = "1.3.0",
+)
+use_repo(
+    al_oras_extension,
+    "com_alwalded_src_tools_oras_toolchain",
+)
+
+register_toolchains("@com_alwalded_src_tools_oras_toolchain//:all")

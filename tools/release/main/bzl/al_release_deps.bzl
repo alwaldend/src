@@ -1,6 +1,6 @@
 load("//tools/release/main/bzl:al_release_files.bzl", "al_release_files")
 
-def al_release_deps(name, srcs, visibility = None):
+def al_release_deps(name, srcs, visibility = None, **kwargs):
     """
     Generate a dependency diagram using genquery
 
@@ -8,6 +8,7 @@ def al_release_deps(name, srcs, visibility = None):
         name: name
         srcs: list of labels to generate deps for (should be full labels)
         visibility: visibility
+        **kwargs: kwargs for al_release_files
     """
     native.genquery(
         name = "{}.dot".format(name),
@@ -23,4 +24,5 @@ def al_release_deps(name, srcs, visibility = None):
         name = name,
         srcs = [":{}.dot".format(name)],
         visibility = visibility,
+        **kwargs
     )

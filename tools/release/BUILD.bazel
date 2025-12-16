@@ -1,4 +1,11 @@
 load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+load("//tools/release/main/bzl:al_release_deployment.bzl", "al_release_deployment")
+
+al_release_deployment(
+    name = "deployment",
+    oci_repository = "docker.io/alwaldend/src",
+    visibility = ["//:__subpackages__"],
+)
 
 al_docs_files(
     name = "docs",

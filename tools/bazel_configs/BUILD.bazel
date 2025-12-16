@@ -1,21 +1,11 @@
 load("@bazel_skylib//rules:common_settings.bzl", "bool_flag")
-load("@rules_kotlin//kotlin:core.bzl", "define_kt_toolchain")
-load("@rules_license//rules:license.bzl", "license")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
-define_kt_toolchain(
-    name = "kotlin_toolchain",
-    api_version = "1.9",
-    jvm_target = "21",
-    language_version = "1.9",
-)
-
-license(
-    name = "license",
-    license_kinds = [
-        "@rules_license//licenses/spdx:AGPL-3.0",
-    ],
-    license_text = "//:LICENSE.txt",
-    visibility = ["//:__subpackages__"],
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools:__pkg__"],
 )
 
 config_setting(

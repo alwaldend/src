@@ -1,8 +1,7 @@
 AlReleaseFilesInfo = provider(
     doc = "Release files",
     fields = {
-        "srcs": "Sources (depset of File)",
-        "deps": "Deps (Depset of AlReleaseFilesInfo)",
+        "files": "File dict, keys are filenames, values are Files",
         "manifest": "Release manifest for srcs",
     },
 )

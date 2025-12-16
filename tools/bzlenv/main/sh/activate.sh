@@ -40,7 +40,7 @@ export BAZEL_BINDIR="." # for js rules
 _BZLENV_OLD_RUNFILES_DIR="${RUNFILES_DIR:-}"
 export RUNFILES_DIR="${BZLENV_RUNFILES_DIR}" # for sh runfiles lib
 _BZLENV_OLD_PATH="${PATH:-}"
-export PATH="${PATH:-}:${BZLENV_BIN_DIR}"
+export PATH="${PATH:-}:${BZLENV_PATH}"
 _BZLENV_OLD_PS1="${PS1:-}"
 export PS1="(.bzlenv) ${PS1:-}"
 

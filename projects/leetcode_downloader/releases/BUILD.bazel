@@ -19,11 +19,13 @@ al_release_files(
         "//projects/leetcode_downloader/main/tampermonkey",
         "//projects/leetcode_downloader/main/go:leetcode_downloader_crossbinary",
     ],
+    deployments = ["//tools/release:deployment"],
 )
 
 al_release_deps(
     name = "release_deps",
     srcs = ["//projects/leetcode_downloader/releases:files"],
+    deployments = ["//tools/release:deployment"],
 )
 
 al_release(
@@ -35,4 +37,5 @@ al_release(
     ],
     project = "projects/leetcode_downloader",
     release_name = "head",
+    visibility = ["//projects:__pkg__"],
 )

@@ -18,4 +18,4 @@ use_repo(
     "kotlinx_serialization_json_jvm",
 )
 
-register_toolchains("//tools/bzl/configs:kotlin_toolchain")
+register_toolchains("//tools/kt:kotlin_toolchain")

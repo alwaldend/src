@@ -13,6 +13,7 @@ al_docs_files(
 al_release_files(
     name = "files",
     srcs = [],
+    deployments = ["//tools/release:deployment"],
 )
 
 al_release(
@@ -20,4 +21,5 @@ al_release(
     srcs = [":files"],
     project = "projects/alwaldend.com",
     release_name = "head",
+    visibility = ["//projects:__pkg__"],
 )

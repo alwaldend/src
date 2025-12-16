@@ -16,11 +16,13 @@ al_release_files(
     srcs = [
         "//projects/autoscroll",
     ],
+    deployments = ["//tools/release:deployment"],
 )
 
 al_release_deps(
     name = "release_deps",
     srcs = ["//projects/autoscroll/releases:files"],
+    deployments = ["//tools/release:deployment"],
 )
 
 al_release(
@@ -32,4 +34,5 @@ al_release(
     ],
     project = "projects/autoscroll",
     release_name = "head",
+    visibility = ["//projects:__pkg__"],
 )

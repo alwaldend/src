@@ -48,7 +48,29 @@ func newRootCommand(
 	if err != nil {
 		return nil, err
 	}
-	cmd.AddCommand(cmdGen)
+	cmdDeploy, err := newDeployCommand(ctx)
+	if err != nil {
+		return nil, err
+	}
+	cmd.AddCommand(cmdGen, cmdDeploy)
+	return cmd, nil
+}
+
+func newDeployCommand(ctx context.Context) (*cobra.Command, error) {
+	deployer := NewDeployer()
+	opts := &DeployerOpts{Ctx: ctx}
+	cmd := &cobra.Command{
+		Use:   "deploy",
+		Short: "deploy",
+		Long:  "Deploy releases",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			return deployer.Deploy(opts)
+		},
+	}
+	flags := cmd.PersistentFlags()
+	flags.StringVar(&opts.SorasPath, "soras_path", "", "Path to the soras binary")
+	flags.StringArrayVar(&opts.Releases, "release_dir", nil, "Path to a release directory")
+	cmd.MarkFlagRequired("soras_path")
 	return cmd, nil
 }
 
@@ -65,10 +87,11 @@ func newGenCommand(ctx context.Context) (*cobra.Command, error) {
 		},
 	}
 	flags := cmd.PersistentFlags()
-	flags.StringArrayVar(&opts.MergeItems, "merge_item", nil, "Path to a file with ReleaseItem json")
+	flags.StringArrayVar(&opts.AddFiles, "add_file", nil, "Path to a file that will be added to the manifest")
+	flags.StringArrayVar(&opts.DeploymentInfo, "deployment", nil, "Path to a deployment info file")
 	flags.StringArrayVar(&opts.MergeManifests, "merge_manifest", nil, "Path to a file with Release json")
-	flags.StringVar(&opts.OutputManifest, "output_manifest", "", "Write the combined manifest to this path")
-	flags.StringVar(&opts.OutputReleasePage, "output_release_page", "", "Write the release page to this path")
+	flags.StringArrayVar(&opts.OutputManifests, "output_manifest", nil, "Write the combined manifest to this path")
+	flags.StringArrayVar(&opts.OutputReleasePages, "output_release_page", nil, "Write the release page to this path")
 	flags.StringVar(&opts.OutputFileMode, "output_file_mode", "0444", "Create output files with this file mode")
 	flags.StringVar(&opts.GitRoot, "git_root", "", "Directory with .git")
 	flags.StringVar(&opts.MarshalOptions.Indent, "indent", "    ", "Json indent")

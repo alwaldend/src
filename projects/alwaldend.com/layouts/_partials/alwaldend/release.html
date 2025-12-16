@@ -39,7 +39,9 @@
       <div class="accordion-body">
         {{- range .items -}}
         <ul class="list-group">
-          <li class="list-group-item my-auto">{{ .content }}</li>
+          <li class="list-group-item my-auto">
+            {{ $page.RenderString .content }}
+          </li>
           <li class="list-group-item">
             {{- range .attrs -}}
             <div class="btn-group me-2">

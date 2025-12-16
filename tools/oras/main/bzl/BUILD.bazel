@@ -1,0 +1,32 @@
+load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_oras_archives": [],
+        "al_oras_binary": [],
+        "al_oras_toolchain": [],
+        "al_oras_extension": [
+            ":al_oras_archives",
+            "//tools/bzl/main/bzl:al_bzl_generate_repository",
+            "@bazel_tools//tools/build_defs/repo:cache.bzl",
+            "@bazel_tools//tools/build_defs/repo:http.bzl",
+            "@bazel_tools//tools/build_defs/repo:utils.bzl",
+        ],
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools/oras:__pkg__"],
+    deps = [":libs.stardoc"],
+)

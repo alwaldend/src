@@ -37,7 +37,7 @@ common --config=al_toml_validate
 common:al_toml_validate --aspects tools/toml/main/bzl/al_toml_validate.bzl%al_toml_validate
 common:al_toml_validate --output_groups=+al_toml_validate
 # Set CI flag in CI
-common:ci --//tools/bzl/configs:ci_flag
+common:ci --//tools/bazel_configs:ci_flag
 # Show extra C/C++ errors
 build --copt="-Wextra"
 # Sandbox workers
@@ -55,7 +55,7 @@ build --verbose_failures
 # Only download remote outputs of top level targets to the local machine: https://bazel.build/reference/command-line-reference#flag--remote_download_toplevel
 build:ci --remote_download_toplevel
 # Setup release
-common:release --//tools/bzl/configs:release_flag
+common:release --//tools/bazel_configs:release_flag
 common:release --stamp
 common:release --workspace_status_command=tools/workspace_status/main/sh/workspace_status.sh
 # Warn if a test's timeout is significantly longer than the test's actual execution time.

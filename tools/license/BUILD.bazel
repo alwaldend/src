@@ -1,0 +1,18 @@
+load("@rules_license//rules:license.bzl", "license")
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools:__pkg__"],
+)
+
+license(
+    name = "repo_license",
+    license_kinds = [
+        "@rules_license//licenses/spdx:AGPL-3.0",
+    ],
+    license_text = "//:LICENSE.txt",
+    visibility = ["//:__subpackages__"],
+)
