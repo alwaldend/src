@@ -9,7 +9,7 @@ tags:
 ## Links
 
 - Docs: https://docs.dnscontrol.org
-- Rules: [tools/dnscontrol](../../../tools/dnscontrol)
+- Rules: [../../../tools/dnscontrol](../../../tools/dnscontrol)
 
 ## Deployment
 

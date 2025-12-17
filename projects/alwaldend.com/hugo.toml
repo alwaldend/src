@@ -29,8 +29,12 @@ name = "Docs"
 url = "https://alwaldend.com/docs/"
 
 [[params.alwaldend.links]]
-name = "GitHub"
+name = "Github"
 url = "https://github.com/alwaldend/src/"
+
+[[params.alwaldend.links]]
+name = "Dockerhub"
+url = "https://hub.docker.com/repository/docker/alwaldend/src/"
 
 [[params.alwaldend.links]]
 name = "LeetCode"
@@ -65,13 +69,8 @@ tag = "tags"
 site = "sites"
 
 [[menus.main]]
-name = "Home"
-weight = 100
-url = "/"
-
-[[menus.main]]
 name = "Docs"
-weight = 200
+weight = 100
 url = "/docs/"
 
 [security.exec]

@@ -14,7 +14,7 @@ tags:
 
 - Source code: https://github.com/alwaldend/src/tree/master/projects/alwaldend.com
 - Github Pages repo: https://github.com/alwaldend/alwaldend.github.io
-- Hugo rules: [tools/hugo](../../tools/hugo)
+- Hugo rules: [../../tools/hugo](../../tools/hugo)
 
 ## Features
 
@@ -23,7 +23,7 @@ tags:
 
 ## Deployment
 
-- Setup dns: [infra/alwaldend.com/dns](../../infra/alwaldend.com/dns]
+- Setup dns: [infra/alwaldend.com/dns](../../infra/alwaldend.com/dns)
 - Push to the Github Pages repo:
   ```sh
   bazel run --config=release //projects/alwaldend.com:deploy

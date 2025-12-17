@@ -12,7 +12,11 @@ def al_resolved_toolchain(toolchain_label, **kwargs):
 
     def impl(ctx):
         toolchain = ctx.toolchains[toolchain_label]
-        return [
+        if hasattr(toolchain, "default_info"):
+            default_info = [toolchain.default_info]
+        else:
+            default_info = []
+        return default_info + [
             toolchain,
             platform_common.TemplateVariableInfo(toolchain.env),
         ]

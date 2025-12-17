@@ -68,4 +68,4 @@ manifest:
     yaml: pyyaml
   pip_repository:
     name: com_alwaldend_src_pip
-integrity: 88154e648768f332b0162ba158894041489338f0cc6df32a21b5dcec5f9d5bb4
+integrity: 1bce955a81729288d16c2f7d8c4a2ce96e3bfb794340e7e49c193699b30f8f83

@@ -2034,10 +2034,10 @@ index 0a97a015..a0b82ca2 100644
 -
 diff --git a/src/components/pomodoro/PomodoroController.cpp b/src/components/pomodoro/PomodoroController.cpp
 new file mode 100644
-index 00000000..97f9081b
+index 00000000..72efed8b
 --- /dev/null
 +++ b/src/components/pomodoro/PomodoroController.cpp
-@@ -0,0 +1,171 @@
+@@ -0,0 +1,175 @@
 +#include "components/pomodoro/PomodoroController.h"
 +#include "systemtask/SystemTask.h"
 +#include "task.h"
@@ -2048,21 +2048,29 @@ index 00000000..97f9081b
 +using namespace Pinetime::Controllers;
 +using namespace std::chrono_literals;
 +
-+PomodoroController::PomodoroController(Controllers::DateTime& dateTimeController, Controllers::FS& fs)
-+  : dateTimeController {dateTimeController}, fs {fs} {
++PomodoroController::PomodoroController(Controllers::DateTime& dateTimeController,
++                                       Controllers::FS& filesystem,
++                                       Controllers::MotorController& motorController)
++  : dateTimeController {dateTimeController}, fs {filesystem}, motorController {motorController} {
 +}
 +
 +namespace {
-+  void alarmTimerHandler(TimerHandle_t xTimer) {
++  void alarmTimerStartHandler(TimerHandle_t xTimer) {
 +    auto* controller = static_cast<PomodoroController*>(pvTimerGetTimerID(xTimer));
 +    controller->StartAlarm();
++  }
++
++  void alarmTimerStopHandler(TimerHandle_t xTimer) {
++    auto* controller = static_cast<PomodoroController*>(pvTimerGetTimerID(xTimer));
++    controller->StopAlarm();
 +  }
 +}
 +
 +void PomodoroController::Init(System::SystemTask* systemTask) {
 +  this->systemTask = systemTask;
 +  loadState();
-+  alarmTimer = xTimerCreate("Pomodoro", 1, pdFALSE, this, alarmTimerHandler);
++  alarmTimer = xTimerCreate("PomodoroAlarmStart", 1, pdFALSE, this, alarmTimerStartHandler);
++  alarmStopTimer = xTimerCreate("PomodoroAlarmStop", 1, pdFALSE, this, alarmTimerStopHandler);
 +  if (IsEnabled()) {
 +    NRF_LOG_INFO("[PomodoroController] Scheduling the alarm");
 +    ScheduleAlarm();
@@ -2075,23 +2083,12 @@ index 00000000..97f9081b
 +  }
 +}
 +
-+void PomodoroController::StartAlarm() {
-+  if (IsEnabled()) {
-+    isAlerting = true;
-+    systemTask->PushMessage(System::Messages::OnPomodoroAlarm);
-+  }
-+}
-+
 +uint32_t PomodoroController::SecondsLeft() {
 +  auto now = dateTimeController.CurrentDateTime();
 +  if (alarmTime >= now) {
 +    return std::chrono::duration_cast<std::chrono::seconds>(alarmTime - now).count();
 +  }
 +  return 0;
-+}
-+
-+PomodoroController::IntervalType PomodoroController::Interval() {
-+  return state.intervalType;
 +}
 +
 +void PomodoroController::ToggleInterval() {
@@ -2116,11 +2113,14 @@ index 00000000..97f9081b
 +  }
 +}
 +
-+void PomodoroController::UpdateDuration(uint8_t focusDuration, uint8_t breakDuration) {
++void PomodoroController::UpdateFocus(uint8_t focusDuration) {
 +  if (state.focusDuration != focusDuration) {
 +    stateChanged = true;
 +    state.focusDuration = focusDuration;
 +  }
++}
++
++void PomodoroController::UpdateBreak(uint8_t breakDuration) {
 +  if (state.breakDuration != breakDuration) {
 +    stateChanged = true;
 +    state.breakDuration = breakDuration;
@@ -2133,28 +2133,31 @@ index 00000000..97f9081b
 +  }
 +  stateChanged = true;
 +  state.isEnabled = isEnabled;
-+  xTimerStop(alarmTimer, 0);
++  if (isEnabled) {
++    ScheduleAlarm();
++  } else {
++    xTimerStop(alarmTimer, 0);
++  }
 +}
 +
-+bool PomodoroController::IsAlerting() {
-+  return isAlerting;
++void PomodoroController::StartAlarm() {
++  xTimerStop(alarmStopTimer, 0);
++  isAlerting = true;
++  systemTask->PushMessage(System::Messages::OnPomodoroAlarm);
++  motorController.StartRinging();
++  xTimerChangePeriod(alarmStopTimer, pdMS_TO_TICKS(60 * 1000), 0);
++  xTimerStart(alarmStopTimer, 0);
 +}
 +
 +void PomodoroController::StopAlarm() {
++  xTimerStop(alarmStopTimer, 0);
 +  isAlerting = false;
 +  systemTask->PushMessage(System::Messages::OnPomodoroAlarmStop);
-+}
-+
-+uint8_t PomodoroController::FocusDuration() {
-+  return state.focusDuration;
-+}
-+
-+uint8_t PomodoroController::BreakDuration() {
-+  return state.breakDuration;
-+}
-+
-+bool PomodoroController::IsEnabled() {
-+  return state.isEnabled;
++  motorController.StopRinging();
++  if (IsEnabled()) {
++    ToggleInterval();
++    ScheduleAlarm();
++  }
 +}
 +
 +void PomodoroController::ScheduleAlarm() {
@@ -2170,10 +2173,11 @@ index 00000000..97f9081b
 +      break;
 +  }
 +
-+  alarmTime = dateTimeController.CurrentDateTime() + std::chrono::minutes(duration);
-+  xTimerChangePeriod(alarmTimer, duration * 60 * configTICK_RATE_HZ, 0);
-+  xTimerStart(alarmTimer, 0);
-+  UpdateEnabled(true);
++  if (duration > 0) {
++    alarmTime = dateTimeController.CurrentDateTime() + std::chrono::minutes(duration);
++    xTimerChangePeriod(alarmTimer, duration * 60 * configTICK_RATE_HZ, 0);
++    xTimerStart(alarmTimer, 0);
++  }
 +}
 +
 +void PomodoroController::saveState() {
@@ -2211,16 +2215,17 @@ index 00000000..97f9081b
 +}
 diff --git a/src/components/pomodoro/PomodoroController.h b/src/components/pomodoro/PomodoroController.h
 new file mode 100644
-index 00000000..9624d4ed
+index 00000000..714a432c
 --- /dev/null
 +++ b/src/components/pomodoro/PomodoroController.h
-@@ -0,0 +1,57 @@
+@@ -0,0 +1,88 @@
 +#pragma once
 +
 +#include <FreeRTOS.h>
 +#include <timers.h>
 +#include <cstdint>
 +#include "components/datetime/DateTimeController.h"
++#include "displayapp/Controllers.h"
 +
 +namespace Pinetime {
 +  namespace System {
@@ -2230,17 +2235,43 @@ index 00000000..9624d4ed
 +  namespace Controllers {
 +    class PomodoroController {
 +    public:
-+      PomodoroController(Controllers::DateTime& dateTimeController, Controllers::FS& fs);
++      PomodoroController(Controllers::DateTime& dateTimeController,
++                         Controllers::FS& filesystem,
++                         Controllers::MotorController& motorController);
 +
 +      enum IntervalType { Focus, Break };
 +
-+      uint8_t FocusDuration();
-+      uint8_t BreakDuration();
-+      IntervalType Interval();
-+      bool IsEnabled();
-+      bool IsAlerting();
++      [[nodiscard]] IntervalType Interval() const {
++        return state.intervalType;
++      }
++
++      [[nodiscard]] uint8_t FocusDuration() const {
++        return state.focusDuration;
++      }
++
++      [[nodiscard]] uint8_t BreakDuration() const {
++        return state.breakDuration;
++      }
++
++      [[nodiscard]] bool IsEnabled() const {
++        return state.isEnabled;
++      }
++
++      [[nodiscard]] bool IsAlerting() const {
++        return isAlerting;
++      }
++
++      [[nodiscard]] bool IsShowingInfo() const {
++        return showInfo;
++      }
++
++      void UpdateShowInfo(bool val) {
++        showInfo = val;
++      }
++
 +      uint32_t SecondsLeft();
-+      void UpdateDuration(uint8_t focusDuration, uint8_t breakDuration);
++      void UpdateBreak(uint8_t breakDuration);
++      void UpdateFocus(uint8_t focusDuration);
 +      void UpdateEnabled(bool isEnabled);
 +      void UpdateInterval(IntervalType intervalType);
 +      void ToggleInterval();
@@ -2260,11 +2291,15 @@ index 00000000..9624d4ed
 +
 +      Controllers::DateTime& dateTimeController;
 +      Controllers::FS& fs;
++      Controllers::MotorController& motorController;
++
 +      System::SystemTask* systemTask = nullptr;
 +      bool isAlerting = false;
++      bool showInfo = false;
 +      bool stateChanged = false;
 +      PomodoroState state;
 +      TimerHandle_t alarmTimer;
++      TimerHandle_t alarmStopTimer;
 +      std::chrono::time_point<std::chrono::system_clock, std::chrono::nanoseconds> alarmTime;
 +
 +      void saveState();
@@ -2293,10 +2328,10 @@ index 9992426c..b10b55d5 100644
        Pinetime::Controllers::SimpleWeatherService* weatherController;
        Pinetime::Controllers::FS& filesystem;
 diff --git a/src/displayapp/DisplayApp.cpp b/src/displayapp/DisplayApp.cpp
-index b1594f19..3cf383e5 100644
+index b1594f19..89077fbe 100644
 --- a/src/displayapp/DisplayApp.cpp
 +++ b/src/displayapp/DisplayApp.cpp
-@@ -4,9 +4,11 @@
+@@ -4,9 +4,12 @@
  #include "displayapp/screens/Motion.h"
  #include "displayapp/screens/Timer.h"
  #include "displayapp/screens/Alarm.h"
@@ -2305,10 +2340,11 @@ index b1594f19..3cf383e5 100644
  #include "components/ble/BleController.h"
  #include "components/datetime/DateTimeController.h"
 +#include <components/pomodoro/PomodoroController.h>
++#include <lvgl/src/lv_misc/lv_anim.h>
  #include "components/ble/NotificationManager.h"
  #include "components/motion/MotionController.h"
  #include "components/motor/MotorController.h"
-@@ -72,6 +74,7 @@ DisplayApp::DisplayApp(Drivers::St7789& lcd,
+@@ -72,6 +75,7 @@ DisplayApp::DisplayApp(Drivers::St7789& lcd,
                         const Controllers::Battery& batteryController,
                         const Controllers::Ble& bleController,
                         Controllers::DateTime& dateTimeController,
@@ -2316,7 +2352,7 @@ index b1594f19..3cf383e5 100644
                         const Drivers::Watchdog& watchdog,
                         Pinetime::Controllers::NotificationManager& notificationManager,
                         Pinetime::Controllers::HeartRateController& heartRateController,
-@@ -88,6 +91,7 @@ DisplayApp::DisplayApp(Drivers::St7789& lcd,
+@@ -88,6 +92,7 @@ DisplayApp::DisplayApp(Drivers::St7789& lcd,
      batteryController {batteryController},
      bleController {bleController},
      dateTimeController {dateTimeController},
@@ -2324,7 +2360,7 @@ index b1594f19..3cf383e5 100644
      watchdog {watchdog},
      notificationManager {notificationManager},
      heartRateController {heartRateController},
-@@ -110,6 +114,7 @@ DisplayApp::DisplayApp(Drivers::St7789& lcd,
+@@ -110,6 +115,7 @@ DisplayApp::DisplayApp(Drivers::St7789& lcd,
                   motorController,
                   motionController,
                   alarmController,
@@ -2332,14 +2368,14 @@ index b1594f19..3cf383e5 100644
                   brightnessController,
                   nullptr,
                   filesystem,
-@@ -382,6 +387,17 @@ void DisplayApp::Refresh() {
+@@ -382,6 +388,17 @@ void DisplayApp::Refresh() {
            LoadNewScreen(Apps::Alarm, DisplayApp::FullRefreshDirections::None);
          }
          break;
 +      case Messages::OnPomodoroAlarmTriggered:
 +        if (currentApp == Apps::Pomodoro) {
 +          auto* pomodoro = static_cast<Screens::Pomodoro*>(currentScreen.get());
-+          pomodoro->OnPomodoroAlarmTriggered();
++          pomodoro->UpdateUI(LV_ANIM_OFF);
 +        } else {
 +          LoadNewScreen(Apps::Pomodoro, DisplayApp::FullRefreshDirections::None);
 +        }
@@ -2453,16 +2489,18 @@ index d7858760..3979dcba 100644
  
 diff --git a/src/displayapp/screens/Pomodoro.cpp b/src/displayapp/screens/Pomodoro.cpp
 new file mode 100644
-index 00000000..bbfc4eb4
+index 00000000..dd353e8d
 --- /dev/null
 +++ b/src/displayapp/screens/Pomodoro.cpp
-@@ -0,0 +1,215 @@
+@@ -0,0 +1,198 @@
 +#include "displayapp/screens/Pomodoro.h"
 +#include "displayapp/screens/Symbols.h"
 +#include "displayapp/InfiniTimeTheme.h"
 +#include "components/pomodoro/PomodoroController.h"
 +#include "components/motor/MotorController.h"
 +#include "systemtask/SystemTask.h"
++#include <lvgl/src/lv_core/lv_obj.h>
++#include <lvgl/src/lv_misc/lv_anim.h>
 +#include <lvgl/src/lv_widgets/lv_switch.h>
 +
 +using namespace Pinetime::Applications::Screens;
@@ -2478,18 +2516,9 @@ index 00000000..bbfc4eb4
 +    auto* screen = static_cast<Pomodoro*>(userData);
 +    screen->OnValueChanged();
 +  }
-+
-+  void stopAlarmTaskHandler(lv_task_t* task) {
-+    auto* screen = static_cast<Pomodoro*>(task->user_data);
-+    screen->StopAlarm();
-+  }
 +}
 +
-+Pomodoro::Pomodoro(Controllers::PomodoroController& pomodoroController,
-+                   System::SystemTask& systemTask,
-+                   Controllers::MotorController& motorController)
-+  : pomodoroController {pomodoroController}, wakeLock(systemTask), motorController {motorController} {
-+
++Pomodoro::Pomodoro(Controllers::PomodoroController& pomodoroController) : pomodoroController {pomodoroController} {
 +  focusCounter.Create();
 +  lv_obj_align(focusCounter.GetObject(), nullptr, LV_ALIGN_IN_TOP_LEFT, 0, 0);
 +  focusCounter.SetValue(pomodoroController.FocusDuration());
@@ -2537,124 +2566,8 @@ index 00000000..bbfc4eb4
 +  lv_obj_set_size(buttonInterval, 115, 50);
 +  lv_obj_align(buttonInterval, lv_scr_act(), LV_ALIGN_IN_BOTTOM_RIGHT, 0, 0);
 +  buttonIntervalLabel = lv_label_create(buttonInterval, nullptr);
-+  updateIntervalButton();
 +  lv_obj_set_style_local_bg_color(buttonInterval, LV_BTN_PART_MAIN, LV_STATE_DEFAULT, bgColor);
 +
-+  updateDuration();
-+
-+  if (pomodoroController.IsAlerting()) {
-+    OnPomodoroAlarmTriggered();
-+  } else {
-+    updateSwitch(LV_ANIM_OFF);
-+  }
-+}
-+
-+Pomodoro::~Pomodoro() {
-+  if (pomodoroController.IsAlerting()) {
-+    StopAlarm();
-+  }
-+  lv_obj_clean(lv_scr_act());
-+  pomodoroController.SaveState();
-+}
-+
-+bool Pomodoro::OnButtonPushed() {
-+  if (infoPopupButtonLabel != nullptr && buttonInfo != nullptr) {
-+    onInfoPopupButtonPress();
-+    return true;
-+  }
-+  if (pomodoroController.IsAlerting()) {
-+    StopAlarm();
-+    return true;
-+  }
-+  return false;
-+}
-+
-+void Pomodoro::OnButtonEvent(lv_obj_t* obj, lv_event_t event) {
-+  if (event != LV_EVENT_CLICKED) {
-+    return;
-+  }
-+  if (obj == buttonStop) {
-+    StopAlarm();
-+  } else if (obj == buttonInfo) {
-+    onInfoButtonPress();
-+  } else if (obj == infoPopupButton) {
-+    onInfoPopupButtonPress();
-+  } else if (obj == enableSwitch) {
-+    onEnableSwitchPress();
-+  } else if (obj == buttonInterval) {
-+    onIntervalButtonPress();
-+  }
-+}
-+
-+bool Pomodoro::OnTouchEvent(Pinetime::Applications::TouchEvents event) {
-+  // Don't allow closing the screen by swiping while the alarm is alerting
-+  return pomodoroController.IsAlerting() && event == TouchEvents::SwipeDown;
-+}
-+
-+void Pomodoro::OnValueChanged() {
-+  updateDuration();
-+}
-+
-+void Pomodoro::OnPomodoroAlarmTriggered() {
-+  lv_obj_set_hidden(enableSwitch, true);
-+  lv_obj_set_hidden(buttonStop, false);
-+  taskStopAlarm = lv_task_create(stopAlarmTaskHandler, pdMS_TO_TICKS(60 * 1000), LV_TASK_PRIO_MID, this);
-+  motorController.StartRinging();
-+  wakeLock.Lock();
-+}
-+
-+void Pomodoro::StopAlarm() {
-+  motorController.StopRinging();
-+  pomodoroController.ToggleInterval();
-+  pomodoroController.ScheduleAlarm();
-+  updateIntervalButton();
-+  updateSwitch(LV_ANIM_OFF);
-+  if (taskStopAlarm != nullptr) {
-+    lv_task_del(taskStopAlarm);
-+    taskStopAlarm = nullptr;
-+  }
-+  wakeLock.Release();
-+  lv_obj_set_hidden(enableSwitch, false);
-+  lv_obj_set_hidden(buttonStop, true);
-+  pomodoroController.StopAlarm();
-+}
-+
-+void Pomodoro::onIntervalButtonPress() {
-+  pomodoroController.ToggleInterval();
-+  updateIntervalButton();
-+}
-+
-+void Pomodoro::updateIntervalButton() {
-+  switch (pomodoroController.Interval()) {
-+    case Pinetime::Controllers::PomodoroController::IntervalType::Break:
-+      lv_label_set_text_static(buttonIntervalLabel, "BREAK");
-+      break;
-+    case Pinetime::Controllers::PomodoroController::IntervalType::Focus:
-+      lv_label_set_text_static(buttonIntervalLabel, "FOCUS");
-+      break;
-+  }
-+}
-+
-+void Pomodoro::onEnableSwitchPress() {
-+  pomodoroController.UpdateEnabled(lv_switch_get_state(enableSwitch));
-+}
-+
-+void Pomodoro::updateSwitch(lv_anim_enable_t anim) {
-+  if (pomodoroController.IsEnabled()) {
-+    lv_switch_on(enableSwitch, anim);
-+  } else {
-+    lv_switch_off(enableSwitch, anim);
-+  }
-+}
-+
-+void Pomodoro::updateDuration() {
-+  pomodoroController.UpdateDuration(focusCounter.GetValue(), breakCounter.GetValue());
-+}
-+
-+void Pomodoro::onInfoButtonPress() {
-+  if (infoPopupButton != nullptr) {
-+    return;
-+  }
 +  infoPopupButton = lv_btn_create(lv_scr_act(), nullptr);
 +  infoPopupButton->user_data = this;
 +  lv_obj_set_event_cb(infoPopupButton, buttonEventHandler);
@@ -2662,73 +2575,175 @@ index 00000000..bbfc4eb4
 +  lv_obj_set_width(infoPopupButton, 150);
 +  lv_obj_align(infoPopupButton, lv_scr_act(), LV_ALIGN_CENTER, 0, 0);
 +  lv_obj_set_style_local_bg_color(infoPopupButton, LV_BTN_PART_MAIN, LV_STATE_DEFAULT, LV_COLOR_NAVY);
++  lv_obj_set_hidden(infoPopupButton, true);
 +
 +  infoPopupButtonLabel = lv_label_create(infoPopupButton, nullptr);
 +  lv_label_set_text_fmt(infoPopupButtonLabel, "left: Focus\nright: Break");
++
++  UpdateUI(LV_ANIM_OFF);
 +}
 +
-+void Pomodoro::onInfoPopupButtonPress() {
-+  lv_obj_del(infoPopupButton);
-+  infoPopupButtonLabel = nullptr;
-+  infoPopupButton = nullptr;
++Pomodoro::~Pomodoro() {
++  if (pomodoroController.IsAlerting()) {
++    pomodoroController.StopAlarm();
++  }
++  lv_obj_clean(lv_scr_act());
++  pomodoroController.SaveState();
++}
++
++void Pomodoro::UpdateUI(lv_anim_enable_t animation) {
++  alerting = pomodoroController.IsAlerting();
++  if (alerting.IsUpdated()) {
++    if (alerting.Get()) {
++      lv_obj_set_hidden(enableSwitch, true);
++      lv_obj_set_hidden(buttonStop, false);
++      focusCounter.HideControls();
++      breakCounter.HideControls();
++    } else {
++      lv_obj_set_hidden(enableSwitch, false);
++      lv_obj_set_hidden(buttonStop, true);
++      focusCounter.ShowControls();
++      breakCounter.ShowControls();
++    }
++  }
++
++  showInfo = pomodoroController.IsShowingInfo();
++  if (showInfo.IsUpdated()) {
++    lv_obj_set_hidden(infoPopupButton, !showInfo.Get());
++  }
++
++  focusValue = pomodoroController.FocusDuration();
++  if (focusValue.IsUpdated()) {
++    focusCounter.SetValue(focusValue.Get());
++  }
++
++  breakValue = pomodoroController.BreakDuration();
++  if (breakValue.IsUpdated()) {
++    breakCounter.SetValue(breakValue.Get());
++  }
++
++  interval = pomodoroController.Interval();
++  if (interval.IsUpdated()) {
++    switch (interval.Get()) {
++      case Pinetime::Controllers::PomodoroController::IntervalType::Break:
++        lv_label_set_text_static(buttonIntervalLabel, "BREAK");
++        break;
++      case Pinetime::Controllers::PomodoroController::IntervalType::Focus:
++        lv_label_set_text_static(buttonIntervalLabel, "FOCUS");
++        break;
++    }
++  }
++
++  enabled = pomodoroController.IsEnabled();
++  if (enabled.IsUpdated()) {
++    if (enabled.Get()) {
++      lv_switch_on(enableSwitch, animation);
++    } else {
++      lv_switch_off(enableSwitch, animation);
++    }
++  }
++}
++
++bool Pomodoro::OnButtonPushed() {
++  auto res = false;
++  if (pomodoroController.IsShowingInfo()) {
++    res = true;
++    pomodoroController.UpdateShowInfo(false);
++  }
++  if (pomodoroController.IsAlerting()) {
++    pomodoroController.StopAlarm();
++    res = true;
++  }
++  if (res) {
++    UpdateUI(LV_ANIM_ON);
++    return true;
++  }
++  return false;
++}
++
++void Pomodoro::OnValueChanged() {
++  pomodoroController.UpdateFocus(focusCounter.GetValue());
++  pomodoroController.UpdateBreak(breakCounter.GetValue());
++  UpdateUI(LV_ANIM_ON);
++}
++
++void Pomodoro::OnButtonEvent(lv_obj_t* obj, lv_event_t event) {
++  if (event != LV_EVENT_CLICKED) {
++    return;
++  }
++  if (obj == buttonStop) {
++    pomodoroController.StopAlarm();
++  } else if (obj == buttonInfo) {
++    pomodoroController.UpdateShowInfo(true);
++  } else if (obj == infoPopupButton) {
++    pomodoroController.UpdateShowInfo(false);
++  } else if (obj == enableSwitch) {
++    pomodoroController.UpdateEnabled(lv_switch_get_state(enableSwitch));
++  } else if (obj == buttonInterval) {
++    pomodoroController.ToggleInterval();
++  } else {
++    return;
++  }
++  UpdateUI(LV_ANIM_ON);
++}
++
++bool Pomodoro::OnTouchEvent(Pinetime::Applications::TouchEvents event) {
++  // Don't allow closing the screen by swiping while the alarm is alerting
++  return pomodoroController.IsAlerting() && event == TouchEvents::SwipeDown;
 +}
 diff --git a/src/displayapp/screens/Pomodoro.h b/src/displayapp/screens/Pomodoro.h
 new file mode 100644
-index 00000000..356cfb7f
+index 00000000..51c3f3ed
 --- /dev/null
 +++ b/src/displayapp/screens/Pomodoro.h
-@@ -0,0 +1,64 @@
+@@ -0,0 +1,60 @@
 +#pragma once
 +
 +#include "displayapp/apps/Apps.h"
 +#include "displayapp/screens/Screen.h"
 +#include "displayapp/widgets/Counter.h"
 +#include "displayapp/Controllers.h"
-+#include "systemtask/WakeLock.h"
++#include "utility/DirtyValue.h"
 +#include "Symbols.h"
++#include <components/pomodoro/PomodoroController.h>
 +
 +namespace Pinetime::Applications {
 +  namespace Screens {
 +    class Pomodoro : public Screen {
 +    public:
-+      explicit Pomodoro(Controllers::PomodoroController& pomodoroController,
-+                        System::SystemTask& systemTask,
-+                        Controllers::MotorController& motorController);
++      explicit Pomodoro(Controllers::PomodoroController& pomodoroController);
 +      ~Pomodoro() override;
 +
 +      bool OnButtonPushed() override;
 +      bool OnTouchEvent(TouchEvents event) override;
++
 +      void OnValueChanged();
 +      void OnButtonEvent(lv_obj_t* obj, lv_event_t event);
-+      void OnPomodoroAlarmTriggered();
 +      void StopAlarm();
++      void UpdateUI(lv_anim_enable_t animation);
 +
 +    private:
 +      Controllers::PomodoroController& pomodoroController;
-+      System::WakeLock wakeLock;
-+      Controllers::MotorController& motorController;
 +
 +      lv_obj_t *buttonStop, *buttonStopLabel;
-+      lv_task_t* taskStopAlarm = nullptr;
++      Utility::DirtyValue<bool> alerting;
 +
 +      lv_obj_t *buttonInterval, *buttonIntervalLabel;
-+      void updateIntervalButton();
-+      void onIntervalButtonPress();
++      Utility::DirtyValue<Pinetime::Controllers::PomodoroController::IntervalType> interval;
 +
-+      Widgets::Counter focusCounter = Widgets::Counter(0, 59, jetbrains_mono_76);
-+      Widgets::Counter breakCounter = Widgets::Counter(0, 59, jetbrains_mono_76);
-+      void updateDuration();
++      Widgets::Counter focusCounter = Widgets::Counter(1, 59, jetbrains_mono_76);
++      Utility::DirtyValue<uint8_t> focusValue;
++      Widgets::Counter breakCounter = Widgets::Counter(1, 59, jetbrains_mono_76);
++      Utility::DirtyValue<uint8_t> breakValue;
 +
 +      lv_obj_t* enableSwitch;
-+      void onEnableSwitchPress();
-+      void updateSwitch(lv_anim_enable_t anim);
++      Utility::DirtyValue<bool> enabled;
 +
 +      lv_obj_t* buttonInfo;
-+      void onInfoButtonPress();
++      void updateInfoButtonUI();
 +
-+      lv_obj_t* infoPopupButton = nullptr;
-+      lv_obj_t* infoPopupButtonLabel = nullptr;
-+      void onInfoPopupButtonPress();
++      lv_obj_t *infoPopupButton, *infoPopupButtonLabel;
++      Utility::DirtyValue<bool> showInfo;
 +    };
 +  }
 +
@@ -2738,7 +2753,7 @@ index 00000000..356cfb7f
 +    static constexpr const char* icon = Screens::Symbols::clock;
 +
 +    static Screens::Screen* Create(AppControllers& controllers) {
-+      return new Screens::Pomodoro(controllers.pomodoroController, *controllers.systemTask, controllers.motorController);
++      return new Screens::Pomodoro(controllers.pomodoroController);
 +    };
 +  };
 +}
@@ -3053,7 +3068,7 @@ index 9edc1f7a..13cb4137 100644
  namespace Pinetime {
  
 diff --git a/src/main.cpp b/src/main.cpp
-index 24f13cad..04fdf1b3 100644
+index 24f13cad..3a223013 100644
 --- a/src/main.cpp
 +++ b/src/main.cpp
 @@ -1,4 +1,5 @@
@@ -3066,7 +3081,7 @@ index 24f13cad..04fdf1b3 100644
  Pinetime::Controllers::TouchHandler touchHandler;
  Pinetime::Controllers::ButtonHandler buttonHandler;
  Pinetime::Controllers::BrightnessController brightnessController {};
-+Pinetime::Controllers::PomodoroController pomodoroController {dateTimeController, fs};
++Pinetime::Controllers::PomodoroController pomodoroController {dateTimeController, fs, motorController};
  
  Pinetime::Applications::DisplayApp displayApp(lcd,
                                                touchPanel,
@@ -3105,7 +3120,7 @@ index fee94bb7..8f3ef649 100644
    }
  }
 diff --git a/src/systemtask/SystemTask.cpp b/src/systemtask/SystemTask.cpp
-index eb013d6d..518aa7c6 100644
+index eb013d6d..ba789819 100644
 --- a/src/systemtask/SystemTask.cpp
 +++ b/src/systemtask/SystemTask.cpp
 @@ -40,6 +40,7 @@ SystemTask::SystemTask(Drivers::SpiMaster& spi,
@@ -3132,15 +3147,17 @@ index eb013d6d..518aa7c6 100644
  
    // Reset the TWI device because the motion sensor chip most probably crashed it...
    twiMaster.Sleep();
-@@ -218,6 +221,13 @@ void SystemTask::Work() {
+@@ -218,6 +221,15 @@ void SystemTask::Work() {
            GoToRunning();
            displayApp.PushMessage(Pinetime::Applications::Display::Messages::AlarmTriggered);
            break;
 +        case Messages::OnPomodoroAlarm:
 +          GoToRunning();
++          wakeLocksHeld++;
 +          displayApp.PushMessage(Pinetime::Applications::Display::Messages::OnPomodoroAlarmTriggered);
 +          break;
 +        case Messages::OnPomodoroAlarmStop:
++          wakeLocksHeld--;
 +          displayApp.PushMessage(Pinetime::Applications::Display::Messages::OnPomodoroAlarmStop);
 +          break;
          case Messages::BleConnected:

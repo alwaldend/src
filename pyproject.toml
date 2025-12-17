@@ -12,6 +12,7 @@ dependencies = [
   "flake8-pyproject",
   "git-filter-repo",
   "twine",
+  "filelock",
 ]
 
 [tool.pyright]

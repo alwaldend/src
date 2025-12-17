@@ -1,7 +1,6 @@
 load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 load("//tools/release/main/bzl:al_release.bzl", "al_release")
 load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
-load("//tools/release/main/bzl:al_release_deps.bzl", "al_release_deps")
 load("//tools/release/main/bzl:al_release_files.bzl", "al_release_files")
 
 al_docs_files(
@@ -32,17 +31,9 @@ al_release_files(
     deployments = ["//tools/release:deployment"],
 )
 
-al_release_deps(
-    name = "release_deps",
-    srcs = ["//projects/dotfiles/releases:files"],
-    deployments = ["//tools/release:deployment"],
-)
-
 al_release(
     name = "head",
     srcs = [
-        # do not sort
-        ":release_deps",
         ":files",
     ],
     project = "projects/dotfiles",
