@@ -15,8 +15,8 @@ import (
 	"strings"
 	"sync"
 
-	gitLib "git.alwaldend.com/src/tools/git/main/go"
-	"git.alwaldend.com/src/tools/release/main/proto/contracts"
+	gitLib "git.alwaldend.com/alwaldend/src/tools/git/main/go"
+	"git.alwaldend.com/alwaldend/src/tools/release/main/proto/contracts"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/object"

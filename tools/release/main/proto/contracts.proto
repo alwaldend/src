@@ -4,7 +4,7 @@ package release;
 
 import "tools/git/main/proto/contracts.proto";
 
-option go_package = "git.alwaldend.com/src/tools/release/main/proto/contracts";
+option go_package = "git.alwaldend.com/alwaldend/src/tools/release/main/proto/contracts";
 
 message ReleaseHash {
   string algo = 1;

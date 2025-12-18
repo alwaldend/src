@@ -18,7 +18,7 @@ proto_library(
 
 go_proto_library(
     name = "{contract_name}_go_proto",
-    importpath = "git.alwaldend.com/src/tools/bazel_contracts/{contract_path}",
+    importpath = "git.alwaldend.com/alwaldend/src/tools/bazel_contracts/{contract_path}",
     proto = ":{contract_name}_proto",
     visibility = ["//visibility:public"],
 )
@@ -26,7 +26,7 @@ go_proto_library(
 go_library(
     name = "{contract_name}",
     embed = [":{contract_name}_go_proto"],
-    importpath = "git.alwaldend.com/src/tools/bazel_contracts/{contract_path}",
+    importpath = "git.alwaldend.com/alwaldend/src/tools/bazel_contracts/{contract_path}",
     visibility = ["//visibility:public"],
 )
 

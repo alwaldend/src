@@ -99,6 +99,7 @@ buildifier_test(
 
 # gazelle:exclude **/leetcode-submissions/**
 # gazelle:exclude **/mod_tidy_fix.go
+# gazelle:exclude **/go_mod_tidy_fix.go
 
 gazelle(
     name = "gazelle",

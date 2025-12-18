@@ -8,7 +8,7 @@ import (
 	"strings"
 	"sync"
 
-	"git.alwaldend.com/src/tools/git/main/proto/contracts"
+	"git.alwaldend.com/alwaldend/src/tools/git/main/proto/contracts"
 
 	"github.com/go-git/go-git/v5"
 

@@ -1,4 +1,4 @@
-module git.alwaldend.com/src
+module git.alwaldend.com/alwaldend/src
 
 go 1.25.5
 

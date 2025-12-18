@@ -1,4 +1,4 @@
-module git.alwaldend.com/src/tools/shfmt
+module git.alwaldend.com/alwaldend/src/tools/shfmt
 
 go 1.25.5
 

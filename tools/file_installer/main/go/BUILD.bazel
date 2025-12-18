@@ -3,7 +3,7 @@ load("@rules_go//go:def.bzl", "go_binary", "go_library")
 go_library(
     name = "go_lib",
     srcs = ["main.go"],
-    importpath = "git.alwaldend.com/src/tools/file_installer/main/go",
+    importpath = "git.alwaldend.com/alwaldend/src/tools/file_installer/main/go",
     visibility = ["//visibility:private"],
     deps = [
         "//tools/file_installer/main/go/cmd",

@@ -10,11 +10,11 @@ go_library(
         "parser.go",
     ],
     embedsrcs = ["template-markdown.txt"],
-    importpath = "git.alwaldend.com/src/tools/readme_tree/main/go",
+    importpath = "git.alwaldend.com/alwaldend/src/tools/readme_tree/main/go",
     visibility = ["//visibility:private"],
     deps = [
-        "@com_github_goccy_go_yaml//:go_default_library",
-        "@com_github_spf13_cobra//:go_default_library",
+        "@com_github_goccy_go_yaml//:go-yaml",
+        "@com_github_spf13_cobra//:cobra",
     ],
 )
 

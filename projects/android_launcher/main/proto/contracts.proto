@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "git.alwaldend.com/src/projects/android_launcher/main/proto/contracts";
+option go_package = "git.alwaldend.com/alwaldend/src/projects/android_launcher/main/proto/contracts";
 option java_outer_classname = "Model";
 option java_package = "com.alwaldend.src.kt.android.launcher";
 

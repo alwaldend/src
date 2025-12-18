@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"io"
 
-	gitLib "git.alwaldend.com/src/tools/git/main/go"
+	gitLib "git.alwaldend.com/alwaldend/src/tools/git/main/go"
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/encoding/protojson"
 )

@@ -1,4 +1,4 @@
-module git.alwaldend.com/src/tools/buildifier
+module git.alwaldend.com/alwaldend/src/tools/buildifier
 
 go 1.25.5
 

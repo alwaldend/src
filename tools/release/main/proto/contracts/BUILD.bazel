@@ -1,8 +1,0 @@
-load("@rules_go//go:def.bzl", "go_library")
-
-go_library(
-    name = "contracts",
-    srcs = ["go_mod_tidy_fix.go"],
-    importpath = "git.alwaldend.com/src/tools/release/main/proto/contracts",
-    visibility = ["//visibility:public"],
-)

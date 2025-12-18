@@ -1,0 +1,18 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "go_lib",
+    srcs = ["tools.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/buildifier/main/go",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@tools_com_github_bazelbuild_buildtools//buildifier/config:go_default_library",
+        "@tools_com_github_bazelbuild_buildtools_org_golang_x_tools//go/cfg:go_default_library",
+    ],
+)
+
+go_binary(
+    name = "go",
+    embed = [":go_lib"],
+    visibility = ["//visibility:public"],
+)

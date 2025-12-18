@@ -7,7 +7,7 @@ import (
 	"os/exec"
 	"path/filepath"
 
-	"git.alwaldend.com/src/tools/release/main/proto/contracts"
+	"git.alwaldend.com/alwaldend/src/tools/release/main/proto/contracts"
 	"google.golang.org/protobuf/encoding/protojson"
 )
 

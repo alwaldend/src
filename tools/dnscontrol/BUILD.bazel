@@ -1,5 +1,7 @@
 load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
+# gazelle:resolve go github.com/StackExchange/dnscontrol/v4/commands @tools_com_github_stackexchange_dnscontrol_v4//commands:go_default_library
+
 alias(
     name = "dnscontrol",
     actual = "@tools_com_github_stackexchange_dnscontrol_v4//:v4",

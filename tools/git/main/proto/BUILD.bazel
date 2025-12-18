@@ -28,7 +28,7 @@ proto_library(
 
 go_proto_library(
     name = "contracts_go_proto",
-    importpath = "git.alwaldend.com/src/tools/git/main/proto/contracts",
+    importpath = "git.alwaldend.com/alwaldend/src/tools/git/main/proto/contracts",
     proto = ":contracts_proto",
     visibility = ["//visibility:public"],
 )
@@ -36,7 +36,7 @@ go_proto_library(
 go_library(
     name = "contracts",
     embed = [":contracts_go_proto"],
-    importpath = "git.alwaldend.com/src/tools/git/main/proto/contracts",
+    importpath = "git.alwaldend.com/alwaldend/src/tools/git/main/proto/contracts",
     visibility = ["//visibility:public"],
 )
 

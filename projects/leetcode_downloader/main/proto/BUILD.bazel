@@ -33,7 +33,7 @@ proto_library(
 
 go_proto_library(
     name = "contracts_go_proto",
-    importpath = "git.alwaldend.com/src/projects/leetcode_downloader/main/proto/contracts",
+    importpath = "git.alwaldend.com/alwaldend/src/projects/leetcode_downloader/main/proto/contracts",
     proto = ":contracts_proto",
     visibility = ["//:__subpackages__"],
 )
@@ -41,7 +41,7 @@ go_proto_library(
 go_library(
     name = "contracts",
     embed = [":contracts_go_proto"],
-    importpath = "git.alwaldend.com/src/projects/leetcode_downloader/main/proto/contracts",
+    importpath = "git.alwaldend.com/alwaldend/src/projects/leetcode_downloader/main/proto/contracts",
     visibility = ["//:__subpackages__"],
 )
 

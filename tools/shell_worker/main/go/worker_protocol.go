@@ -7,7 +7,7 @@ import (
 
 	"google.golang.org/protobuf/encoding/protodelim"
 
-	"git.alwaldend.com/src/tools/bazel_contracts/worker_protocol"
+	"git.alwaldend.com/alwaldend/src/tools/bazel_contracts/worker_protocol"
 )
 
 type WorkerProtocol struct {

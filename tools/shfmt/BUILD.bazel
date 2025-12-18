@@ -1,8 +1,10 @@
 load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
+# gazelle:resolve go mvdan.cc/sh/v3/shell @tools_cc_mvdan_sh_v3//shell:go_default_library
+
 alias(
     name = "shfmt",
-    actual = "@tools_cc_mvdan_sh_v3//cmd/shfmt:shfmt",
+    actual = "@tools_cc_mvdan_sh_v3//cmd/shfmt",
     visibility = ["//:__subpackages__"],
 )
 

@@ -30,7 +30,7 @@ proto_library(
 
 go_proto_library(
     name = "contracts_go_proto",
-    importpath = "git.alwaldend.com/src/projects/android_launcher/main/proto/contracts",
+    importpath = "git.alwaldend.com/alwaldend/src/projects/android_launcher/main/proto/contracts",
     proto = ":contracts_proto",
     visibility = ["//:__subpackages__"],
 )
@@ -38,7 +38,7 @@ go_proto_library(
 go_library(
     name = "android_launcher",
     embed = [":contracts_go_proto"],
-    importpath = "git.alwaldend.com/src/projects/android_launcher/main/proto/contracts",
+    importpath = "git.alwaldend.com/alwaldend/src/projects/android_launcher/main/proto/contracts",
     visibility = ["//:__subpackages__"],
 )
 

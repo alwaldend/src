@@ -10,7 +10,7 @@ import (
 
 	"github.com/BurntSushi/toml"
 
-	"git.alwaldend.com/src/projects/leetcode_downloader/main/proto/contracts"
+	"git.alwaldend.com/alwaldend/src/projects/leetcode_downloader/main/proto/contracts"
 )
 
 type Generator struct {

@@ -1,0 +1,15 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "go_lib",
+    srcs = ["tools.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/shfmt/main/go",
+    visibility = ["//visibility:public"],
+    deps = ["@tools_cc_mvdan_sh_v3//shell:go_default_library"],
+)
+
+go_binary(
+    name = "go",
+    embed = [":go_lib"],
+    visibility = ["//visibility:public"],
+)

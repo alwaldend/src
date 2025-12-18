@@ -1,4 +1,4 @@
-module git.alwaldend.com/src/tools/dnscontrol
+module git.alwaldend.com/alwaldend/src/tools/dnscontrol
 
 go 1.25.5
 
