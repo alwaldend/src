@@ -367,3 +367,15 @@ name = "Phill Tucker"
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/profile/73941" },
 ]
+
+[author.slaughterbot]
+name = "SlaughterBot"
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/413099" },
+]
+
+[author.mikasane]
+name = "Mikasane"
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/244859" },
+]

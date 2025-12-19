@@ -31,8 +31,13 @@ al_dnscontrol_test(
     tags = ["requires-network"],
 )
 
-al_dnscontrol_binary(
+alias(
     name = "deploy",
+    actual = ":push",
+)
+
+al_dnscontrol_binary(
+    name = "push",
     arguments = ["push"],
     config = "dnsconfig.js",
     creds = "creds.json.tpl",

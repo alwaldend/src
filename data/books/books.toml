@@ -13,7 +13,7 @@ links = [
 title = "Virtuous Sons"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/41330-virtuous-sons-a-greco-roman-xianxia.jpg"
 quality = "Peak"
-reading = "Hiatus, C2.22"
+reading = "Finished available (hiatus), C2.22"
 authors = ["ya-boy"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/41330/virtuous-sons-a-greco-roman-xianxia" },
@@ -504,7 +504,7 @@ links = [
 title = "Forty Millenniums of Cultivation"
 alt_titles = ["Forty Thousand Years Of Cultivation", "修真四万年"]
 thumbnail = "https://cdn.novelupdates.com/images/2017/03/Forty-Millenniums-of-Cultivation.jpg"
-quality = "0.8"
+quality = "Ok"
 summary = "Good worldbuilding, but too many empty exclamations and not enough substance"
 reading = "Dropped, chapter 2935"
 authors = ["the-enlightened-master-crouching-cow"]
@@ -715,7 +715,7 @@ links = [
 title = "Saving the school would have been easier as a cafeteria worker"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/86874-saving-the-school-would-have-been-easier.jpg"
 quality = "Decent"
-reading = "Dropped, chapter 87"
+reading = "Finished available (hiatus), chapter 90"
 authors = ["cluelessrr"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/86874/saving-the-school-would-have-been-easier-as-a" },
@@ -968,6 +968,36 @@ links = [
 ]
 
 [[book]]
+title = "Magical Girl Gunslinger"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/48402-magical-girl-gunslinger.jpg?time=1693597835"
+quality = "Ok"
+reading = "Finished available (hiatus), C37"
+authors = ["mikasane"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/48402/magical-girl-gunslinger" },
+]
+
+[[book]]
+title = "Magical Girl Mechanical Heart"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/magical-girl-mechanical-heart-aadaukdlry.jpg"
+quality = "Ok"
+reading = "Reading, C51"
+authors = ["thundamoo"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/106438/magical-girl-mechanical-heart" },
+]
+
+[[book]]
+title = "Mask of Humanity"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/80031-mask-of-humanity-grimdark-cultivation-litrpg.jpg"
+quality = "Decent"
+reading = "Reading, C299"
+authors = ["slaughterbot"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/80031/mask-of-humanity" },
+]
+
+[[book]]
 title = "Changeling"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg"
 quality = "Decent"
@@ -1029,16 +1059,6 @@ links = [
 ]
 
 [[book]]
-title = "Pale Lights"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/65058-pale-lights.jpg?time=1745679158"
-quality = "Good"
-reading = "Reading, V3C35"
-authors = ["erraticerrata"]
-links = [
-  { title = "royalroad", url = "https://www.royalroad.com/fiction/65058/pale-lights" },
-]
-
-[[book]]
 title = "Grotesqueries of the Old Domain"
 alt_titles = ["旧域怪诞", "The Grotesque Old Domain"]
 thumbnail = "./grotesqueries_of_the_old_domain.jpg"
@@ -1050,9 +1070,19 @@ links = [
 ]
 
 [[book]]
+title = "Pale Lights"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/65058-pale-lights.jpg?time=1745679158"
+quality = "Good"
+reading = "Reading, V3C35"
+authors = ["erraticerrata"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/65058/pale-lights" },
+]
+
+[[book]]
 title = "Sky Pride"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/107917-sky-pride.jpg"
-quality = "Good, edgy start"
+quality = "Good"
 reading = "Reading, B3C25"
 authors = ["warby-picus"]
 links = [

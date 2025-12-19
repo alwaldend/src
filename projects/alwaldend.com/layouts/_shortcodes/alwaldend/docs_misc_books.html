@@ -1,117 +1,110 @@
-{{ $authors := (.Page.Resources.Get "authors.toml" | transform.Unmarshal).author -}}
-{{ $books := (.Page.Resources.Get "books.toml" | transform.Unmarshal).book -}}
+{{ $authors := (.Page.Resources.Get "authors.toml" |
+transform.Unmarshal).author -}} {{ $books := (.Page.Resources.Get "books.toml"
+| transform.Unmarshal).book -}}
 
 <div class="container">
   <div class="row table-responsive">
     <table class="td-initial table text-start">
       <tbody>
-        {{ range ($books | collections.Reverse) -}}
-          {{ $rowspan := 0 -}}
-          {{ range (collections.Slice .title .authors .completion .reading .quality .summary .links) -}}
-            {{ if . -}}
-              {{ $rowspan = math.Add $rowspan 1 -}}
-            {{ end -}}
-          {{ end -}}
+        {{ range ($books | collections.Reverse) -}} {{ $rowspan := 0 -}} {{
+        range (collections.Slice .title .authors .completion .reading .quality
+        .summary .links) -}} {{ if . -}} {{ $rowspan = math.Add $rowspan 1 -}}
+        {{ end -}} {{ end -}}
 
-          <tr>
-            <td colspan="1" style="width: 10rem;" class="text-center" rowspan="{{ $rowspan }}">
-              <img
-                src="{{ .thumbnail }}"
-                class="img-fluid mx-auto"
-                loading="lazy"
-                alt="Thumbnail">
-            </td>
-            <td colspan="1">Title</td>
-            <td colspan="4">
-              {{ printf "##### %s" .title | $.Page.RenderString }}
-              {{ range .alt_titles }}
-                ({{ . }})
-              {{- end }}
-            </td>
-          </tr>
+        <tr>
+          <td
+            colspan="1"
+            style="width: 10rem"
+            class="text-center"
+            rowspan="{{ $rowspan }}"
+          >
+            <img
+              src="{{ .thumbnail }}"
+              class="img-fluid mx-auto"
+              loading="lazy"
+              alt="Thumbnail"
+            />
+          </td>
+          <td colspan="1">Title</td>
+          <td colspan="4">
+            {{ printf "##### %s" .title | $.Page.RenderString }} {{ range
+            .alt_titles }} ({{ . }}) {{- end }}
+          </td>
+        </tr>
 
-          {{ if .quality -}}
-            <tr>
-              <td colspan="1">Quality</td>
-              <td colspan="4">{{ .quality }}</td>
-            </tr>
-          {{ end -}}
+        {{ if .quality -}}
+        <tr>
+          <td colspan="1">Quality</td>
+          {{- $qualityBg := "" -}}
+          <!-- -->
+          {{- if strings.FindRE `^Peak|Good` .quality -}}
+          <!-- -->
+          {{- $qualityBg = "bg-success" -}}
+          <!-- -->
+          {{- else if strings.FindRE `^Decent` .quality -}}
+          <!-- -->
+          {{- $qualityBg = "bg-info" -}}
+          <!-- -->
+          {{- else if strings.FindRE `^Ok|Don't remember` .quality -}}
+          <!-- -->
+          {{- $qualityBg = "bg-secondary" -}}
+          <!-- -->
+          {{- else if strings.FindRE `^Bad|Slop` .quality -}}
+          <!-- -->
+          {{- $qualityBg = "bg-danger" -}}
+          <!-- -->
+          {{- else -}}
+          <!-- -->
+          {{- fmt.Errorf "could not find badge for %s quality" .quality -}}
+          <!-- -->
+          {{- end -}}
+          <td colspan="4">
+            <span class="badge {{ $qualityBg }}">{{ .quality }}</span>
+          </td>
+        </tr>
+        {{ end -}} {{ if .summary -}}
+        <tr>
+          <td colspan="1">Summary</td>
+          <td colspan="4">{{ .summary }}</td>
+        </tr>
+        {{ end -}} {{ if .authors -}}
+        <tr>
+          <td colspan="1">Authors</td>
+          <td colspan="4">
+            {{ $len := len .authors }} {{ range $index, $author := .authors -}}
+            {{ with index $authors $author -}} {{ .name }} {{ range .alt_names
+            }} ({{ . }}) {{ end }} {{- if not (eq $index (math.Sub $len 1)) }}
+            , {{- end }} {{- end }} {{- end }}
+          </td>
+        </tr>
+        {{ end -}} {{ if .completion -}}
+        <tr>
+          <td colspan="1">Completion</td>
+          <td colspan="4">{{ .completion }}</td>
+        </tr>
+        {{ end -}} {{ if .reading -}}
+        <tr>
+          <td colspan="1">Reading</td>
+          <td colspan="4">{{ .reading }}</td>
+        </tr>
+        {{ end -}}
 
-          {{ if .summary -}}
-            <tr>
-              <td colspan="1">Summary</td>
-              <td colspan="4">{{ .summary }}</td>
-            </tr>
-          {{ end -}}
-
-          {{ if .authors -}}
-            <tr>
-              <td colspan="1">Authors</td>
-              <td colspan="4">
-                {{ $len := len .authors }}
-                {{ range $index, $author := .authors -}}
-                  {{ with index $authors $author -}}
-                    {{ .name }}
-                    {{ range .alt_names }}
-                      ({{ . }})
-                    {{ end }}
-                    {{- if not (eq $index (math.Sub $len 1)) }}
-                    ,
-                    {{- end }}
-                  {{- end }}
-                {{- end }}
-              </td>
-            </tr>
-          {{ end -}}
-
-          {{ if .completion -}}
-            <tr>
-              <td colspan="1">Completion</td>
-              <td colspan="4">{{ .completion }}</td>
-            </tr>
-          {{ end -}}
-
-          {{ if .reading -}}
-            <tr>
-              <td colspan="1">Reading</td>
-              <td colspan="4">{{ .reading }}</td>
-            </tr>
-          {{ end -}}
-
-          <tr>
-            <td colspan="1">Links</td>
-            <td colspan="4">
-              {{ $len := len .links }}
-              {{ range .authors }}
-                {{ with index $authors . -}}
-                  {{ with .links }}
-                    {{ $len = math.Add $len (len .) }}
-                  {{ end -}}
-                {{ end -}}
-              {{ end -}}
-              {{ range $index, $link := .links -}}
-                <a href="{{ $link.url }}">
-                  {{ $link.title }}
-                </a>
-                {{- if not (eq $index (math.Sub $len 1)) }}
-                ,
-                {{- end }}
-              {{- end }}
-              {{ $lenLinks := len .links }}
-              {{ range $index, $author := .authors -}}
-                {{ with index $authors $author -}}
-                  {{ range .links }}
-                    <a href="{{ .url }}">
-                      {{ .title }} (author)
-                    </a>
-                    {{- if not (eq $index (math.Sub $len $lenLinks 1)) }}
-                    ,
-                    {{- end }}
-                  {{- end }}
-                {{- end }}
-              {{- end }}
-            </td>
-          </tr>
+        <tr>
+          <td colspan="1">Links</td>
+          <td colspan="4">
+            {{ $len := len .links }} {{ range .authors }} {{ with index
+            $authors . -}} {{ with .links }} {{ $len = math.Add $len (len .) }}
+            {{ end -}} {{ end -}} {{ end -}} {{ range $index, $link := .links
+            -}}
+            <a href="{{ $link.url }}"> {{ $link.title }} </a>
+            {{- if not (eq $index (math.Sub $len 1)) }} , {{- end }} {{- end }}
+            {{ $lenLinks := len .links }} {{ range $index, $author := .authors
+            -}} {{ with index $authors $author -}} {{ range .links }}
+            <a href="{{ .url }}"> {{ .title }} (author) </a>
+            {{- if not (eq $index (math.Sub $len $lenLinks 1)) }} , {{- end }}
+            {{- end }} {{- end }} {{- end }}
+          </td>
+        </tr>
         {{ end -}}
       </tbody>
     </table>
