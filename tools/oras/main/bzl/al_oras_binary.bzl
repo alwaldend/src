@@ -16,6 +16,7 @@ def _impl(ctx):
     runfiles = ctx.runfiles(files = [oras.oras])
     ctx.actions.write(
         output = script,
+        is_executable = True,
         content = _SCRIPT.format(
             workspace_name = ctx.workspace_name,
             bin = oras.oras.short_path,

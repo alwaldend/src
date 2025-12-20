@@ -15,13 +15,33 @@ tags:
   ```
 - Install bazel: https://bazel.build/install/bazelisk
 - Install nvm: https://github.com/nvm-sh/nvm
-- Install node: `nvm install node`
+- Install node:
+  ```sh
+  nvm install node
+  ```
 - Install commandline tools to `${ANDROID_HOME}/cmdline-tools/latest`: https://developer.android.com/studio#command-tools
 - Install NDK to `${ANDROID_NDK_HOME}` (`~/Android/Ndk`): https://github.com/android/ndk/wiki
-- Install android tools: `sdkmanager "platforms;android-36" "build-tools;36.0.0"`
-- Install qt: `bazel run //tools/qt:install`
-- Install git hooks: `bazel run //tools/git_hooks:install`
-- Setup .bzlenv: `. "$(bazel run //tools/bzlenv)"`
+- Install android tools:
+  ```sh
+  sdkmanager "platforms;android-36" "build-tools;36.0.0"
+  ```
+- Install qt:
+  ```sh
+  bazel run //tools/qt:install
+  ```
+- Install git hooks:
+  ```sh
+  bazel run //tools/git_hooks:install
+  ```
+- Setup secrets:
+  ```sh
+  echo '{ "systemdCreds": { "name": "src_secrets" } }' >tools/secrets/secrets.json && \
+    bazel run //tools/secrets:systemd_creds_edit
+  ```
+- Setup .bzlenv:
+  ```sh
+  . "$(bazel run //tools/bzlenv)"
+  ```
 
 ## .env file
 

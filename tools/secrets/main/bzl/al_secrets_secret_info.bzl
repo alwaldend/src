@@ -1,6 +1,6 @@
 AlSecretsSecretInfo = provider(
     doc = "Secret information",
     fields = {
-        "secret": "Secret config file",
+        "secret": "Secret file",
     },
 )

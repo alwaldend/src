@@ -1,6 +1,12 @@
 load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 load("//tools/release/main/bzl:al_release_deployment.bzl", "al_release_deployment")
 
+alias(
+    name = "release",
+    actual = "//tools/release/main/go",
+    visibility = ["//:__subpackages__"],
+)
+
 al_release_deployment(
     name = "deployment",
     oci_repository = "docker.io/alwaldend/src",
@@ -16,10 +22,4 @@ al_docs_files(
         "//tools/release/main/bzl:docs",
         "//tools/release/main/proto:docs",
     ],
-)
-
-alias(
-    name = "release",
-    actual = "//tools/release/main/go",
-    visibility = ["//:__subpackages__"],
 )

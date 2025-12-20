@@ -1,5 +1,5 @@
 ## //tools/secrets
-.secrets.txt
+secrets.json
 
 ## //tools/bzlenv
 .bzlenv
