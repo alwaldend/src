@@ -42,15 +42,20 @@ func newRootCommand(
 	cmd.SetErr(stderr)
 	cmd.SetIn(stdin)
 	cmd.SetArgs(args)
-	cmdExport, err := newExportCommand(ctx)
+
+	backend := NewBackend(stdout, stderr)
+	builder := NewBuilder()
+	exporter := NewExporter(backend, stdout, stderr)
+
+	cmdExport, err := newExportCommand(ctx, exporter)
 	if err != nil {
 		return nil, fmt.Errorf("could not create exprot command: %w", err)
 	}
-	cmdBuild, err := newBuildCommand(ctx)
+	cmdBuild, err := newBuildCommand(ctx, builder)
 	if err != nil {
 		return nil, fmt.Errorf("could not create build command: %w", err)
 	}
-	cmdEdit, err := newEditCommand(ctx, stdout, stderr)
+	cmdEdit, err := newEditCommand(ctx, backend)
 	if err != nil {
 		return nil, fmt.Errorf("could not create edit command: %w", err)
 	}
@@ -58,14 +63,12 @@ func newRootCommand(
 	return cmd, nil
 }
 
-func newBuildCommand(ctx context.Context) (*cobra.Command, error) {
-	builder := NewBuilder()
+func newBuildCommand(ctx context.Context, builder *Builder) (*cobra.Command, error) {
 	build := &cobra.Command{
 		Use:   "build",
 		Short: "build",
 		Long:  "Build",
 	}
-
 	secretOpts := &BuilderSecretOpts{}
 	secret := &cobra.Command{
 		Use:   "secret",
@@ -85,34 +88,42 @@ func newBuildCommand(ctx context.Context) (*cobra.Command, error) {
 	return build, nil
 }
 
-func newExportCommand(ctx context.Context) (*cobra.Command, error) {
+func newExportCommand(ctx context.Context, exporter *Exporter) (*cobra.Command, error) {
+	opts := &ExporterOpts{}
 	cmd := &cobra.Command{
 		Use:   "export",
 		Short: "export",
 		Long:  "Export a secret",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return fmt.Errorf("not implemented")
+			return exporter.Export(opts)
 		},
 	}
+	flags := cmd.PersistentFlags()
+	flags.StringArrayVar(&opts.Secrets, "secret", nil, "Export a secret")
+	flags.StringArrayVar(&opts.Output, "output", nil, "Export path")
 	return cmd, nil
 }
 
 func newEditCommand(
 	ctx context.Context,
-	stdout, stderr io.Writer,
+	backend *Backend,
 ) (*cobra.Command, error) {
-	editor := NewEditor(stdout, stderr)
-	opts := &EditorOpts{}
+	var outputs []string
+	var backendPaths []string
 	cmd := &cobra.Command{
 		Use:   "edit",
 		Short: "edit",
 		Long:  "Edit",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return editor.Edit(opts)
+			data, err := backend.ReadFile(backendPaths...)
+			if err != nil {
+				return err
+			}
+			return backend.Edit(data)
 		},
 	}
 	secretFlags := cmd.PersistentFlags()
-	secretFlags.StringArrayVar(&opts.Backend, "backend", nil, "Edit a backend")
-	secretFlags.StringArrayVar(&opts.Output, "output", nil, "Output the result")
+	secretFlags.StringArrayVar(&backendPaths, "backend", nil, "Edit a backend")
+	secretFlags.StringArrayVar(&outputs, "output", nil, "Output the result")
 	return cmd, nil
 }
