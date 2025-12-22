@@ -32,9 +32,7 @@ al_bzl_library_map(
     libs = {
         "al_dnscontrol_binary": [
             "@bazel_skylib//lib:shell",
-        ],
-        "al_dnscontrol_test": [
-            "@bazel_skylib//lib:shell",
+            "//tools/secrets/main/bzl:al_secrets_binary_info",
         ],
         "al_dnscontrol_toolchain": [],
     },
