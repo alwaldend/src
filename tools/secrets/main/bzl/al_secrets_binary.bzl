@@ -22,7 +22,12 @@ for root in "" "${{0}}.runfiles/{workspace_name}/" "${{RUNFILES_DIR:-}}/{workspa
     if [ -x "${{root}}{bin}" ]; then
         temp="$(mktemp)"
         "${{root}}{bin}" --output "${{temp}}"
-        . "${{temp}}"
+        if . "${{temp}}"; then
+            rm "${{temp}}"
+        else
+            rm "${{temp}}"
+            exit 1
+        fi
     fi
 done
 """

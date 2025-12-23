@@ -13,10 +13,16 @@ for root in "" "${{0}}.runfiles/{workspace_name}/" "${{RUNFILES_DIR:-}}/{workspa
         done
         creds="$(mktemp)"
         envsubst <'{creds}' >"${{creds}}"
-        exec "${{root}}{dnscontrol}" \
+        if "${{root}}{dnscontrol}" \
             {arguments} \
             --creds "${{creds}}" \
-            "${{@}}"
+            "${{@}}"; then
+            rm "${{creds}}"
+            exit
+        else
+            rm "${{creds}}"
+            exit 1
+        fi
     fi
 done
 echo "Could not find the binary"
