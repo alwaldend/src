@@ -3,8 +3,6 @@ common --registry=file://%workspace%/projects/bazel_registry/main/registry
 common --registry=https://bcr.bazel.build
 # Disk cache
 common --disk_cache=~/.cache/bazel/disk_cache
-# Fix refetch after shutdown caused by the preset, remove in 8.5.0: https://github.com/bazelbuild/bazel/issues/27787
-common --incompatible_enforce_starlark_utf8=warning
 # Fix autoload from the preset
 common --incompatible_autoload_externally="+@rules_python,+java_common,+JavaInfo,+JavaPluginInfo,ProguardSpecProvider,java_binary,java_import,java_library,java_plugin,java_test,java_runtime,java_toolchain,java_package_configuration,@com_google_protobuf,@rules_shell,+@rules_android"
 # Disable auto_exec_groups from the preset
