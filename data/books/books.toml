@@ -954,20 +954,6 @@ links = [
 ]
 
 [[book]]
-title = "Struggling to Survive with Regression Power in the Primordial Saint Sect"
-alt_titles = [
-  "苟在初圣魔门当人材",
-  "Lying Low as the First Saint Demonic Sect’s ‘Top Talent’",
-]
-thumbnail = "./struggling_to_survive_with_regression_power_in_the_primordial_saint_sect.png"
-quality = "Decent"
-reading = "Dropped, C259"
-authors = ["crane-by-the-moonlit-pond"]
-links = [
-  { title = "novelupdates", url = "https://www.novelupdates.com/series/struggling-to-survive-with-regression-power-in-the-primordial-saint-sect/" },
-]
-
-[[book]]
 title = "Magical Girl Gunslinger"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/48402-magical-girl-gunslinger.jpg?time=1693597835"
 quality = "Ok"
@@ -985,6 +971,30 @@ reading = "Reading, C51"
 authors = ["thundamoo"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/106438/magical-girl-mechanical-heart" },
+]
+
+[[book]]
+title = "Path of the Deathless"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/122502-path-of-the-deathless-book-4-completed.jpg"
+quality = "Decent"
+reading = "Reading, C243"
+authors = ["ostensiblemammal"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/122502/path-of-the-deathless-book-4-completed" },
+]
+
+[[book]]
+title = "Struggling to Survive with Regression Power in the Primordial Saint Sect"
+alt_titles = [
+  "苟在初圣魔门当人材",
+  "Lying Low as the First Saint Demonic Sect’s ‘Top Talent’",
+]
+thumbnail = "./struggling_to_survive_with_regression_power_in_the_primordial_saint_sect.png"
+quality = "Decent"
+reading = "Reading, C259"
+authors = ["crane-by-the-moonlit-pond"]
+links = [
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/struggling-to-survive-with-regression-power-in-the-primordial-saint-sect/" },
 ]
 
 [[book]]

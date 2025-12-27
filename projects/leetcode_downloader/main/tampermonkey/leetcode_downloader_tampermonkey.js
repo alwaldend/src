@@ -189,6 +189,45 @@ class App {
     constructor() {
         /** Set to true when when the download is ongoing */
         this.downloading = false;
+        const btn = document.createElement("button");
+        btn.textContent = "Download submissions";
+        btn.style.position = "fixed";
+        btn.style.bottom = "0";
+        btn.style.right = "0";
+        btn.style.zIndex = "999999";
+        const text = "Download submissions";
+        btn.textContent = text;
+        this.textPrefix = text;
+        btn.style.padding = "0.5em 1.2em";
+        btn.style.fontSize = "1rem";
+        btn.style.backgroundColor = "black";
+        btn.addEventListener("click", () => this.onClick());
+        this.btn = btn;
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        const app = this;
+        fileInput.onchange = (event) => {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.readAsText(file, "UTF-8");
+            reader.onload = (readerEvent) => {
+                app.headers = app.parseHeadersFromHAR(
+                    JSON.parse(readerEvent.target.result),
+                );
+                const data = {
+                    questions: [],
+                    submissions: [],
+                };
+                this.fetchQuestions(data, 0, 20, "");
+            };
+        };
+        this.fileInput = fileInput;
+        this.headers = {};
+    }
+
+    /** Start the app */
+    run() {
+        document.body.appendChild(this.btn);
     }
 
     /**
@@ -202,9 +241,9 @@ class App {
     /**
      * Save submissions to Downloads
      * */
-    saveSubmissions(submissions, button, text) {
+    saveSubmissions(submissions) {
         this.saveData(JSON.stringify(submissions), "submissions.json");
-        button.textContent = `${text}: saved submissions`;
+        this.btn.textContent = `${this.textPrefix}: saved submissions`;
     }
 
     /**
@@ -213,13 +252,12 @@ class App {
      * @param {string} fileName - Filename to use
      * */
     saveData(data, fileName) {
-        var a = document.createElement("a");
-        document.body.appendChild(a);
+        const a = document.createElement("a");
         a.style = "display: none";
-        var blob = new Blob([data], {
+        const blob = new Blob([data], {
             type: "octet/stream",
         });
-        var url = window.URL.createObjectURL(blob);
+        const url = window.URL.createObjectURL(blob);
         a.href = url;
         a.download = fileName;
         a.click();
@@ -229,82 +267,76 @@ class App {
     /**
      * Recursive function fetchinhg questions and adding them to the submissions object
      * */
-    fetchQuestions(submissions, text, button, offset, limit) {
-        button.textContent = `${text}: Fetching questions ${offset}-${offset + limit}`;
+    fetchQuestions(submissions, offset, limit) {
+        const button = this.btn;
+        const prefix = this.textPrefix;
+        button.textContent = `${prefix}: Fetching questions ${offset}-${offset + limit}`;
         const app = this;
+        const requestData = {
+            ..._QUERY_QUESTION_LIST,
+            skip: offset,
+            limit: limit,
+        };
         GM_xmlhttpRequest({
             url: `https://leetcode.com/graphql/`,
             method: "POST",
-            data: {
-                ..._QUERY_QUESTION_LIST,
-                skip: offset,
-                limit: limit,
-            },
-            headers: {
-                "Content-Type": "application/json",
-                Referer: "https://leetcode.com/problemset/",
-            },
+            data: requestData,
+            headers: app.headers,
             onload: async function (response) {
                 if (response.status !== 200) {
-                    button.textContent = `${text}: failed to fetch ${offset}-${offset + limit}: ${response.statusText || response.responseText}`;
+                    button.textContent = `${prefix}: failed to fetch ${offset}-${offset + limit}`;
+                    const res = {
+                        response: response,
+                        responseText: response.responseText,
+                        requestHeaders: app.headers,
+                        requestData: requestData,
+                    };
+                    app.saveData(
+                        JSON.stringify(res, null, 4),
+                        "failed_response.json",
+                    );
                     return;
                 }
-                button.textContent = `${text}: finished ${offset}-${offset + limit}`;
+                button.textContent = `${prefix}: finished ${offset}-${offset + limit}`;
                 const json = JSON.parse(response.responseText);
                 const data = json.data.problemsetQuestionListV2;
                 submissions.questions = submissions.questions.concat(
                     data.questions,
                 );
                 if (!data.hasMore || !app.downloading) {
-                    app.saveSubmissions(submissions, button, text);
+                    app.saveSubmissions(submissions);
                     return;
                 }
                 await app.sleep(5 * 1000);
-                app.fetchQuestions(
-                    submissions,
-                    text,
-                    button,
-                    offset + limit,
-                    limit,
-                );
+                app.fetchQuestions(submissions, offset + limit, limit);
             },
         });
     }
 
     /** Button click event listener */
-    onClick(btn) {
+    onClick() {
         if (this.downloading) {
             this.downloading = false;
             return;
         }
         this.downloading = true;
-        const text = "Download submissions";
-        btn.textContent = text;
-        const data = {
-            questions: [],
-            submissions: [],
-        };
-        this.fetchQuestions(data, text, btn, 0, 20, "");
+        this.fileInput.click();
     }
 
-    /** Create the download button */
-    createButton() {
-        const btn = document.createElement("button");
-        btn.textContent = "Download submissions";
-        btn.style.position = "fixed";
-        btn.style.bottom = "0";
-        btn.style.right = "0";
-        btn.style.zIndex = "999999";
-        btn.style.padding = "0.5em 1.2em";
-        btn.style.fontSize = "1rem";
-        btn.style.backgroundColor = "black";
-        btn.addEventListener("click", () => this.onClick(btn));
-        return btn;
+    /** Parse headers from a HAR object */
+    parseHeadersFromHAR(har) {
+        const res = {};
+        for (const entry of har.log.entries) {
+            for (const header of entry.request.headers) {
+                res[header.name] = header.value;
+            }
+        }
+        return res;
     }
 }
 
 (function () {
     "use strict";
     const app = new App();
-    document.body.appendChild(app.createButton());
+    app.run();
 })();
