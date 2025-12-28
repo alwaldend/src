@@ -10,7 +10,7 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/tools/git/main/go",
     visibility = ["//:__subpackages__"],
     deps = [
-        "//tools/git/main/proto:contracts",
+        "//tools/git/main/proto/contracts",
         "@com_github_go_git_go_billy_v5//memfs",
         "@com_github_go_git_go_git_v5//:go-git",
         "@com_github_go_git_go_git_v5//plumbing",

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package release;
 
-import "tools/git/main/proto/contracts.proto";
+import "tools/git/main/proto/contracts/contracts.proto";
 
 option go_package = "git.alwaldend.com/alwaldend/src/tools/release/main/proto/contracts";
 

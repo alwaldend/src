@@ -1,0 +1,52 @@
+load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
+load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
+load("@rules_go//go:def.bzl", "go_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
+load("@rules_java//java:defs.bzl", "java_library")
+load("@rules_proto//proto:defs.bzl", "proto_library")
+load("//tools/proto/main/bzl:al_proto_docs.bzl", "al_proto_docs")
+
+al_proto_docs(
+    name = "contracts_docs",
+    src = "contracts.proto",
+    visibility = ["//tools/release/main/proto:__pkg__"],
+)
+
+proto_library(
+    name = "contracts_proto",
+    srcs = ["contracts.proto"],
+    visibility = ["//:__subpackages__"],
+    deps = ["//tools/git/main/proto/contracts:contracts_proto"],
+)
+
+go_proto_library(
+    name = "contracts_go_proto",
+    importpath = "git.alwaldend.com/alwaldend/src/tools/release/main/proto/contracts",
+    proto = ":contracts_proto",
+    visibility = ["//:__subpackages__"],
+    deps = ["//tools/git/main/proto/contracts"],
+)
+
+go_library(
+    name = "contracts",
+    embed = [":contracts_go_proto"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/release/main/proto/contracts",
+    visibility = ["//:__subpackages__"],
+)
+
+java_proto_library(
+    name = "contracts_java_proto",
+    deps = [":contracts_proto"],
+)
+
+java_library(
+    name = "contracts_java_library",
+    visibility = ["//:__subpackages__"],
+    exports = [":contracts_java_proto"],
+)
+
+py_proto_library(
+    name = "contracts_py_pb2",
+    visibility = ["//:__subpackages__"],
+    deps = [":contracts_proto"],
+)
