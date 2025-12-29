@@ -379,3 +379,9 @@ name = "Mikasane"
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/profile/244859" },
 ]
+
+[author.voravora]
+name = "VoraVora"
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/236517" },
+]

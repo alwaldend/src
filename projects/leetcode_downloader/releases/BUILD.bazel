@@ -14,7 +14,7 @@ al_release_files(
     name = "files",
     srcs = [
         # do not sort
-        "//projects/leetcode_downloader/main/proto:contracts.proto",
+        "//projects/leetcode_downloader/main/proto/contracts:contracts.proto",
         "//projects/leetcode_downloader/main/tampermonkey",
         "//projects/leetcode_downloader/main/go:leetcode_downloader_crossbinary",
     ],

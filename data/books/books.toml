@@ -964,23 +964,13 @@ links = [
 ]
 
 [[book]]
-title = "Magical Girl Mechanical Heart"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/magical-girl-mechanical-heart-aadaukdlry.jpg"
+title = "This Magical Girl is Mine"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/this-magical-girl-is-mine-aacauifwgrc.jpg"
 quality = "Ok"
-reading = "Reading, C51"
-authors = ["thundamoo"]
+reading = "Dropped, V5C1.2"
+authors = ["voravora"]
 links = [
-  { title = "royalroad", url = "https://www.royalroad.com/fiction/106438/magical-girl-mechanical-heart" },
-]
-
-[[book]]
-title = "Path of the Deathless"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/122502-path-of-the-deathless-book-4-completed.jpg"
-quality = "Decent"
-reading = "Reading, C243"
-authors = ["ostensiblemammal"]
-links = [
-  { title = "royalroad", url = "https://www.royalroad.com/fiction/122502/path-of-the-deathless-book-4-completed" },
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/118714/this-magical-girl-is-mine" },
 ]
 
 [[book]]
@@ -991,10 +981,41 @@ alt_titles = [
 ]
 thumbnail = "./struggling_to_survive_with_regression_power_in_the_primordial_saint_sect.png"
 quality = "Decent"
-reading = "Reading, C259"
+reading = "Dropped, translation hiatus, C259"
 authors = ["crane-by-the-moonlit-pond"]
 links = [
   { title = "novelupdates", url = "https://www.novelupdates.com/series/struggling-to-survive-with-regression-power-in-the-primordial-saint-sect/" },
+]
+
+[[book]]
+title = "Magical Girl Mechanical Heart"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/magical-girl-mechanical-heart-aadaukdlry.jpg"
+quality = "Ok"
+reading = "Dropped, C52"
+authors = ["thundamoo"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/106438/magical-girl-mechanical-heart" },
+]
+
+[[book]]
+title = "Grotesqueries of the Old Domain"
+alt_titles = ["旧域怪诞", "The Grotesque Old Domain"]
+thumbnail = "./grotesqueries_of_the_old_domain.jpg"
+quality = "Good?"
+reading = "Dropped, slow translation, C75"
+authors = ["foxtail-quill"]
+links = [
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/grotesqueries-of-the-old-domain/" },
+]
+
+[[book]]
+title = "Path of the Deathless"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/122502-path-of-the-deathless-book-4-completed.jpg"
+quality = "Decent"
+reading = "Reading, C243"
+authors = ["ostensiblemammal"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/122502/path-of-the-deathless-book-4-completed" },
 ]
 
 [[book]]
@@ -1066,17 +1087,6 @@ reading = "Reading, chapter 589"
 authors = ["cerim"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial" },
-]
-
-[[book]]
-title = "Grotesqueries of the Old Domain"
-alt_titles = ["旧域怪诞", "The Grotesque Old Domain"]
-thumbnail = "./grotesqueries_of_the_old_domain.jpg"
-quality = "Good?"
-reading = "Reading, C65"
-authors = ["foxtail-quill"]
-links = [
-  { title = "novelupdates", url = "https://www.novelupdates.com/series/grotesqueries-of-the-old-domain/" },
 ]
 
 [[book]]

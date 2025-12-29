@@ -78,7 +78,7 @@ bazel_dep(name = "com_alwaldend_com_github_infinitimeorg_infinitime")
 
 git_override(
     module_name = "com_alwaldend_com_github_infinitimeorg_infinitime",
-    commit = "b0efb90489b50e8f70c018c54cf2b2546bf8648c",
+    commit = "eac6d15dccafffeff8d05d08f2091feba67fcc6f",
     init_submodules = True,
     recursive_init_submodules = True,
     remote = "https://github.com/alwaldend/com_github_infinitimeorg_infinitime.git",
