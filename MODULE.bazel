@@ -106,9 +106,9 @@ archive_override(
 
 archive_override(
     module_name = "rules_perl",
-    integrity = "sha256-vZhiPFoE8BDvvJf2FyRGMfRvbDFaEmItYqfe/40LH6s=",
-    strip_prefix = "com_github_bazel_contrib_rules_perl-4984491c69d8ce90f562d8a556c1b50d46ce9bfe",
-    urls = ["https://github.com/alwaldend/com_github_bazel_contrib_rules_perl/archive/4984491c69d8ce90f562d8a556c1b50d46ce9bfe.zip"],
+    integrity = "sha256-OBsgaX5Gr5PhMUlqqggV0cWk/AB/NxJCMScMjFMnlmo=",
+    strip_prefix = "rules_perl-2144f43cf7e68fa3a95a0d5524c5124513493b39",
+    urls = ["https://github.com/bazel-contrib/rules_perl/archive/2144f43cf7e68fa3a95a0d5524c5124513493b39.zip"],
 )
 
 ## Includes
