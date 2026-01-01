@@ -47,10 +47,10 @@ index 81e49ae0..6184b92c 100644
  .venv/
 diff --git a/BUILD.bazel b/BUILD.bazel
 new file mode 100644
-index 00000000..3edbbda7
+index 00000000..87ab85cb
 --- /dev/null
 +++ b/BUILD.bazel
-@@ -0,0 +1,79 @@
+@@ -0,0 +1,80 @@
 +load("@bazel_skylib//rules:write_file.bzl", "write_file")
 +load("@com_alwaldend_com_github_infinitimeorg_infinitime_npm//:defs.bzl", "npm_link_all_packages")
 +load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
@@ -109,6 +109,7 @@ index 00000000..3edbbda7
 +    name = "srcs",
 +    srcs = [
 +        ":srcs_files",
++        "//src/resources:srcs",
 +        "//tools/mcuboot:srcs",
 +    ],
 +)
@@ -158,7 +159,7 @@ index 00000000..f6b13451
 +)
 diff --git a/MODULE.bazel b/MODULE.bazel
 new file mode 100644
-index 00000000..153168e0
+index 00000000..d4103e3d
 --- /dev/null
 +++ b/MODULE.bazel
 @@ -0,0 +1,86 @@
@@ -180,7 +181,7 @@ index 00000000..153168e0
 +bazel_dep(name = "bazelrc-preset.bzl", version = "1.8.0")
 +bazel_dep(name = "aspect_bazel_lib", version = "2.22.2")
 +
-+PYTHON_VERSION = "3.12.11"
++PYTHON_VERSION = "3.13.9"
 +
 +python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 +python.toolchain(
@@ -1601,17 +1602,30 @@ index 00000000..bb571dcd
 +)
 diff --git a/bazel/bzl/build_binary.bzl b/bazel/bzl/build_binary.bzl
 new file mode 100644
-index 00000000..4c03d436
+index 00000000..d602fcdd
 --- /dev/null
 +++ b/bazel/bzl/build_binary.bzl
-@@ -0,0 +1,116 @@
+@@ -0,0 +1,127 @@
 +load("@bazel_skylib//lib:paths.bzl", "paths")
 +load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo")
++
++_SCRIPT = """\
++#!/usr/bin/env sh
++set -eu
++for root in "" "${{0}}.runfiles/{workspace_name}/" "${{RUNFILES_DIR:-}}/{workspace_name}/"; do
++    if [ -x "${{root}}{bin}" ]; then
++        export BAZEL_BINDIR="."
++        exec "${{root}}{bin}" {arguments} "${{@}}"
++    fi
++done
++echo "Could not find the binary"
++exit 1
++"""
 +
 +def _impl(ctx):
 +    runfiles = ctx.runfiles()
 +    exec = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
-+    root = "${{0}}.runfiles/{}".format(ctx.workspace_name)
++    root = "${root}"
 +
 +    args = ["build"]
 +
@@ -1620,7 +1634,7 @@ index 00000000..4c03d436
 +        ("--gcc_dir", "gcc", ctx.attr.gcc),
 +        ("--nrfsdk_dir", "nrfsdk", ctx.attr.nrfsdk),
 +    ]:
-+        args.extend([flag, "{}/{}".format(root, dir)])
++        args.extend([flag, "{}{}".format(root, dir)])
 +        symlinks = {}
 +        for attr in attrs:
 +            for pkg_files, _ in attr[PackageFilegroupInfo].pkg_files:
@@ -1629,7 +1643,7 @@ index 00000000..4c03d436
 +        runfiles = runfiles.merge(ctx.runfiles(symlinks = symlinks))
 +
 +    runfiles = runfiles.merge(ctx.runfiles(symlinks = symlinks))
-+    args.extend(["--build_dir", "{}/{}".format(root, "build")])
++    args.extend(["--build_dir", "{}{}".format(root, "build")])
 +    args.extend(["--build_type", ctx.attr.build_type])
 +
 +    cmake = ctx.toolchains["@rules_foreign_cc//toolchains:cmake_toolchain"].data
@@ -1637,7 +1651,7 @@ index 00000000..4c03d436
 +    args.extend(
 +        [
 +            "--cmake",
-+            "{}/{}/{}".format(root, paths.dirname(cmake_files[0].short_path), cmake.path),
++            "{}{}/{}".format(root, paths.dirname(cmake_files[0].short_path), cmake.path),
 +        ],
 +    )
 +    runfiles = runfiles.merge(cmake.target[DefaultInfo].default_runfiles)
@@ -1647,20 +1661,16 @@ index 00000000..4c03d436
 +        args.extend(
 +            [
 +                "--tool",
-+                "{}/{}".format(root, tool[DefaultInfo].files_to_run.executable.short_path),
++                "{}{}".format(root, tool[DefaultInfo].files_to_run.executable.short_path),
 +            ],
 +        )
 +        runfiles = runfiles.merge(tool[DefaultInfo].default_runfiles)
 +
 +    runfiles = runfiles.merge(ctx.attr.build_tool[DefaultInfo].default_runfiles)
 +    args.extend(ctx.attr.arguments)
-+    script_content = """\
-+        #!/usr/bin/env sh
-+        set -eu
-+        exec "{root}/{build_tool}" {arguments} "${{@}}"
-+    """.format(
-+        root = root,
-+        build_tool = ctx.executable.build_tool.short_path,
++    script_content = _SCRIPT.format(
++        bin = ctx.executable.build_tool.short_path,
++        workspace_name = ctx.workspace_name,
 +        arguments = " ".join(['"{}"'.format(arg) for arg in args]),
 +    )
 +    ctx.actions.write(
@@ -1712,6 +1722,8 @@ index 00000000..4c03d436
 +            default = [
 +                "//bazel/js:lv_font_conv",
 +                "//bazel/py:adafruit-nrfutil",
++                "//src/resources:lv_img_conv",
++                "//tools/mcuboot:imgtool_bin",
 +            ],
 +            cfg = "exec",
 +        ),
@@ -1775,7 +1787,7 @@ index 00000000..32b7520f
 +)
 diff --git a/bazel/py/BUILD.bazel b/bazel/py/BUILD.bazel
 new file mode 100644
-index 00000000..db9519a0
+index 00000000..afff1575
 --- /dev/null
 +++ b/bazel/py/BUILD.bazel
 @@ -0,0 +1,24 @@
@@ -1801,14 +1813,14 @@ index 00000000..db9519a0
 +    srcs = ["build.py"],
 +    main = "build.py",
 +    visibility = ["//:__subpackages__"],
-+    deps = all_requirements + ["//tools/mcuboot:imgtool_lib"],
++    deps = all_requirements,
 +)
 diff --git a/bazel/py/build.py b/bazel/py/build.py
 new file mode 100644
-index 00000000..49c243e2
+index 00000000..0f687416
 --- /dev/null
 +++ b/bazel/py/build.py
-@@ -0,0 +1,77 @@
+@@ -0,0 +1,78 @@
 +import argparse
 +import os
 +import subprocess
@@ -1820,16 +1832,17 @@ index 00000000..49c243e2
 +def cmd_build(ctx: argparse.Namespace) -> None:
 +    env = os.environ.copy()
 +    for tool in ctx.tool:
-+        env["PATH"] = f"{env.get('PATH', '')}:{os.path.abspath(os.path.dirname(tool))}:"
++        env["PATH"] = ":".join((env.get("PATH", ""), os.path.abspath(os.path.dirname(tool))))
 +    src_dir = os.path.abspath(ctx.src_dir)
 +    build_dir = os.path.abspath(ctx.build_dir)
 +    gcc_dir = os.path.abspath(ctx.gcc_dir)
 +    nrfsdk_dir = os.path.abspath(ctx.nrfsdk_dir)
 +    executable = os.path.abspath(sys.executable)
++    cmake = os.path.abspath(ctx.cmake)
 +
 +    subprocess.run(
 +        (
-+            ctx.cmake,
++            cmake,
 +            "-G",
 +            "Unix Makefiles",
 +            "-S",
@@ -1848,7 +1861,7 @@ index 00000000..49c243e2
 +    )
 +    subprocess.run(
 +        (
-+            ctx.cmake,
++            cmake,
 +            "--build",
 +            build_dir,
 +            "--config",
@@ -2248,10 +2261,20 @@ index 00000000..d05a7e7d
 +packages:
 +  - .
 diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
-index 0a97a015..a0b82ca2 100644
+index 0a97a015..f12b151f 100644
 --- a/src/CMakeLists.txt
 +++ b/src/CMakeLists.txt
-@@ -395,6 +395,7 @@ list(APPEND SOURCE_FILES
+@@ -28,6 +28,9 @@ endif ()
+ set(CMAKE_OSX_SYSROOT "/")
+ set(CMAKE_OSX_DEPLOYMENT_TARGET "")
+ 
++find_program(IMGTOOL "imgtool_bin" NO_CACHE REQUIRED)
++message(STATUS "Using imgtool ${IMGTOOL}")
++
+ 
+ set(SDK_SOURCE_FILES
+         # Startup
+@@ -395,6 +398,7 @@ list(APPEND SOURCE_FILES
          displayapp/screens/PassKey.cpp
          displayapp/screens/Error.cpp
          displayapp/screens/Alarm.cpp
@@ -2259,7 +2282,7 @@ index 0a97a015..a0b82ca2 100644
          displayapp/screens/Styles.cpp
          displayapp/screens/WeatherSymbols.cpp
          displayapp/Colors.cpp
-@@ -424,6 +425,7 @@ list(APPEND SOURCE_FILES
+@@ -424,6 +428,7 @@ list(APPEND SOURCE_FILES
          displayapp/screens/WatchFaceDigital.cpp
          displayapp/screens/WatchFaceInfineat.cpp
          displayapp/screens/WatchFaceTerminal.cpp
@@ -2267,7 +2290,7 @@ index 0a97a015..a0b82ca2 100644
          displayapp/screens/WatchFacePineTimeStyle.cpp
          displayapp/screens/WatchFaceCasioStyleG7710.cpp
  
-@@ -467,6 +469,7 @@ list(APPEND SOURCE_FILES
+@@ -467,6 +472,7 @@ list(APPEND SOURCE_FILES
          components/settings/Settings.cpp
          components/timer/Timer.cpp
          components/alarm/AlarmController.cpp
@@ -2275,7 +2298,7 @@ index 0a97a015..a0b82ca2 100644
          components/fs/FS.cpp
          drivers/Cst816s.cpp
          FreeRTOS/port.c
-@@ -536,6 +539,7 @@ list(APPEND RECOVERY_SOURCE_FILES
+@@ -536,6 +542,7 @@ list(APPEND RECOVERY_SOURCE_FILES
          components/settings/Settings.cpp
          components/timer/Timer.cpp
          components/alarm/AlarmController.cpp
@@ -2283,7 +2306,7 @@ index 0a97a015..a0b82ca2 100644
          drivers/Cst816s.cpp
          FreeRTOS/port.c
          FreeRTOS/port_cmsis_systick.c
-@@ -613,6 +617,7 @@ set(INCLUDE_FILES
+@@ -613,6 +620,7 @@ set(INCLUDE_FILES
          displayapp/screens/Timer.h
          displayapp/screens/Dice.h
          displayapp/screens/Alarm.h
@@ -2291,7 +2314,7 @@ index 0a97a015..a0b82ca2 100644
          displayapp/Colors.h
          displayapp/widgets/Counter.h
          displayapp/widgets/PageIndicator.h
-@@ -655,6 +660,7 @@ set(INCLUDE_FILES
+@@ -655,6 +663,7 @@ set(INCLUDE_FILES
          components/settings/Settings.h
          components/timer/Timer.h
          components/alarm/AlarmController.h
@@ -2299,7 +2322,7 @@ index 0a97a015..a0b82ca2 100644
          drivers/Cst816s.h
          FreeRTOS/portmacro.h
          FreeRTOS/portmacro_cmsis.h
-@@ -835,7 +841,7 @@ if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+@@ -835,7 +844,7 @@ if (${CMAKE_BUILD_TYPE} STREQUAL "Debug")
    # add_definitions(-DCLOCK_CONFIG_LOG_LEVEL=4)
    # add_definitions(-DRTC_CONFIG_LOG_ENABLED=1)
    # add_definitions(-DRTC_CONFIG_LOG_LEVEL=4)
@@ -2308,36 +2331,36 @@ index 0a97a015..a0b82ca2 100644
    # Nimble Logging
    add_definitions(-DMYNEWT_VAL_NEWT_FEATURE_LOGCFG=1)
    # add_definitions(-DMYNEWT_VAL_LOG_LEVEL=0)
-@@ -962,8 +968,8 @@ add_custom_command(TARGET ${EXECUTABLE_MCUBOOT_NAME}
+@@ -962,8 +971,8 @@ add_custom_command(TARGET ${EXECUTABLE_MCUBOOT_NAME}
          COMMAND ${CMAKE_SIZE_UTIL} ${EXECUTABLE_MCUBOOT_FILE_NAME}.out
          COMMAND ${CMAKE_OBJCOPY} -O binary ${EXECUTABLE_MCUBOOT_FILE_NAME}.out "${EXECUTABLE_MCUBOOT_FILE_NAME}.bin"
          COMMAND ${CMAKE_OBJCOPY} -O ihex ${EXECUTABLE_MCUBOOT_FILE_NAME}.out "${EXECUTABLE_MCUBOOT_FILE_NAME}.hex"
 -        COMMAND ${CMAKE_SOURCE_DIR}/tools/mcuboot/imgtool.py create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_MCUBOOT_FILE_NAME}.hex ${IMAGE_MCUBOOT_FILE_NAME_HEX}
 -        COMMAND ${CMAKE_SOURCE_DIR}/tools/mcuboot/imgtool.py create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_MCUBOOT_FILE_NAME}.bin ${IMAGE_MCUBOOT_FILE_NAME_BIN}
-+        COMMAND "${Python3_EXECUTABLE}" ${CMAKE_SOURCE_DIR}/tools/mcuboot/imgtool.py create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_MCUBOOT_FILE_NAME}.hex ${IMAGE_MCUBOOT_FILE_NAME_HEX}
-+        COMMAND "${Python3_EXECUTABLE}" ${CMAKE_SOURCE_DIR}/tools/mcuboot/imgtool.py create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_MCUBOOT_FILE_NAME}.bin ${IMAGE_MCUBOOT_FILE_NAME_BIN}
++        COMMAND "${IMGTOOL}" create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_MCUBOOT_FILE_NAME}.hex ${IMAGE_MCUBOOT_FILE_NAME_HEX}
++        COMMAND "${IMGTOOL}" create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_MCUBOOT_FILE_NAME}.bin ${IMAGE_MCUBOOT_FILE_NAME_BIN}
          COMMENT "post build steps for ${EXECUTABLE_MCUBOOT_FILE_NAME}"
          )
  
-@@ -1037,7 +1043,7 @@ add_custom_command(TARGET ${EXECUTABLE_RECOVERY_MCUBOOT_NAME}
+@@ -1037,7 +1046,7 @@ add_custom_command(TARGET ${EXECUTABLE_RECOVERY_MCUBOOT_NAME}
          COMMAND ${CMAKE_SIZE_UTIL} ${EXECUTABLE_RECOVERY_MCUBOOT_FILE_NAME}.out
          COMMAND ${CMAKE_OBJCOPY} -O binary ${EXECUTABLE_RECOVERY_MCUBOOT_FILE_NAME}.out "${EXECUTABLE_RECOVERY_MCUBOOT_FILE_NAME}.bin"
          COMMAND ${CMAKE_OBJCOPY} -O ihex ${EXECUTABLE_RECOVERY_MCUBOOT_FILE_NAME}.out "${EXECUTABLE_RECOVERY_MCUBOOT_FILE_NAME}.hex"
 -        COMMAND ${CMAKE_SOURCE_DIR}/tools/mcuboot/imgtool.py create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_RECOVERY_MCUBOOT_FILE_NAME}.hex ${IMAGE_RECOVERY_MCUBOOT_FILE_NAME_HEX}
-+        COMMAND "${Python3_EXECUTABLE}" ${CMAKE_SOURCE_DIR}/tools/mcuboot/imgtool.py create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_RECOVERY_MCUBOOT_FILE_NAME}.hex ${IMAGE_RECOVERY_MCUBOOT_FILE_NAME_HEX}
++        COMMAND "${IMGTOOL}" create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_RECOVERY_MCUBOOT_FILE_NAME}.hex ${IMAGE_RECOVERY_MCUBOOT_FILE_NAME_HEX}
          COMMAND ${CMAKE_OBJCOPY} -I ihex -O binary ${IMAGE_RECOVERY_MCUBOOT_FILE_NAME_HEX} "${IMAGE_RECOVERY_MCUBOOT_FILE_NAME}.bin"
          COMMAND python3 ${CMAKE_SOURCE_DIR}/tools/bin2c.py ${IMAGE_RECOVERY_MCUBOOT_FILE_NAME}.bin recoveryImage > recoveryImage.h
          COMMENT "post build steps for ${EXECUTABLE_RECOVERY_MCUBOOT_FILE_NAME}"
-@@ -1115,7 +1121,7 @@ add_custom_command(TARGET ${EXECUTABLE_MCUBOOT_RECOVERYLOADER_NAME}
+@@ -1115,7 +1124,7 @@ add_custom_command(TARGET ${EXECUTABLE_MCUBOOT_RECOVERYLOADER_NAME}
          COMMAND ${CMAKE_SIZE_UTIL} ${EXECUTABLE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.out
          COMMAND ${CMAKE_OBJCOPY} -O binary ${EXECUTABLE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.out "${EXECUTABLE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.bin"
          COMMAND ${CMAKE_OBJCOPY} -O ihex ${EXECUTABLE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.out "${EXECUTABLE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.hex"
 -        COMMAND ${CMAKE_SOURCE_DIR}/tools/mcuboot/imgtool.py create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.hex ${IMAGE_MCUBOOT_RECOVERYLOADER_FILE_NAME_HEX}
-+        COMMAND "${Python3_EXECUTABLE}" ${CMAKE_SOURCE_DIR}/tools/mcuboot/imgtool.py create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.hex ${IMAGE_MCUBOOT_RECOVERYLOADER_FILE_NAME_HEX}
++        COMMAND "${IMGTOOL}" create --align 1 --version 1.0.0 --header-size 32 --slot-size 475136 --pad-header ${EXECUTABLE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.hex ${IMAGE_MCUBOOT_RECOVERYLOADER_FILE_NAME_HEX}
          COMMAND ${CMAKE_OBJCOPY} -I ihex -O binary ${IMAGE_MCUBOOT_RECOVERYLOADER_FILE_NAME_HEX} "${IMAGE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.bin"
          COMMAND python3 ${CMAKE_SOURCE_DIR}/tools/bin2c.py ${IMAGE_MCUBOOT_RECOVERYLOADER_FILE_NAME}.bin recoveryLoaderImage > recoveryLoaderImage.h
          COMMENT "post build steps for ${EXECUTABLE_MCUBOOT_RECOVERYLOADER_FILE_NAME}"
-@@ -1132,4 +1138,3 @@ endif()
+@@ -1132,4 +1141,3 @@ endif()
  if(BUILD_RESOURCES)
    add_subdirectory(resources)
  endif()
@@ -3425,6 +3448,51 @@ index 24f13cad..3a223013 100644
                                          watchdog,
                                          notificationManager,
                                          heartRateSensor,
+diff --git a/src/resources/BUILD.bazel b/src/resources/BUILD.bazel
+new file mode 100644
+index 00000000..6fd8edd1
+--- /dev/null
++++ b/src/resources/BUILD.bazel
+@@ -0,0 +1,21 @@
++load("@com_alwaldend_com_github_infinitimeorg_infinitime_pip//:requirements.bzl", "all_requirements")
++load("@rules_pkg//pkg:mappings.bzl", "pkg_files", "strip_prefix")
++load("@rules_python//python:py_binary.bzl", "py_binary")
++
++py_binary(
++    name = "lv_img_conv",
++    srcs = ["lv_img_conv.py"],
++    visibility = ["//:__pkg__"],
++    deps = all_requirements,
++)
++
++pkg_files(
++    name = "srcs",
++    srcs = glob(
++        ["**"],
++        exclude = ["**/BUILD.bazel"],
++    ),
++    prefix = package_name(),
++    strip_prefix = strip_prefix.from_pkg(),
++    visibility = ["//:__pkg__"],
++)
+diff --git a/src/resources/CMakeLists.txt b/src/resources/CMakeLists.txt
+index 9181d4a6..ba2e5048 100644
+--- a/src/resources/CMakeLists.txt
++++ b/src/resources/CMakeLists.txt
+@@ -3,7 +3,7 @@ find_program(LV_FONT_CONV "lv_font_conv" NO_CACHE REQUIRED
+     HINTS "${CMAKE_SOURCE_DIR}/node_modules/.bin")
+ message(STATUS "Using ${LV_FONT_CONV} to generate font files")
+ 
+-find_program(LV_IMG_CONV "lv_img_conv.py" NO_CACHE REQUIRED
++find_program(LV_IMG_CONV "lv_img_conv" NO_CACHE REQUIRED
+     HINTS "${CMAKE_CURRENT_SOURCE_DIR}")
+ message(STATUS "Using ${LV_IMG_CONV} to generate font files")
+ 
+@@ -27,4 +27,3 @@ add_custom_target(GenerateResources
+ 
+     COMMENT "Generate fonts and images for resource package"
+ )
+-
 diff --git a/src/systemtask/Messages.h b/src/systemtask/Messages.h
 index fee94bb7..8f3ef649 100644
 --- a/src/systemtask/Messages.h
@@ -3518,28 +3586,33 @@ index 0060e360..618f968d 100644
        Pinetime::Controllers::NotificationManager& notificationManager;
 diff --git a/tools/mcuboot/BUILD.bazel b/tools/mcuboot/BUILD.bazel
 new file mode 100644
-index 00000000..69c35f2c
+index 00000000..46a069a3
 --- /dev/null
 +++ b/tools/mcuboot/BUILD.bazel
-@@ -0,0 +1,23 @@
+@@ -0,0 +1,28 @@
++load("@com_alwaldend_com_github_infinitimeorg_infinitime_pip//:requirements.bzl", "all_requirements")
 +load("@rules_pkg//pkg:mappings.bzl", "pkg_files", "strip_prefix")
-+load("@rules_python//python:py_library.bzl", "py_library")
++load("@rules_python//python:py_binary.bzl", "py_binary")
 +
-+py_library(
-+    name = "imgtool_lib",
-+    srcs = glob(
-+        ["imgtool/**"],
-+        exclude = ["BUILD.bazel"],
-+    ),
++SRCS = glob([
++    "imgtool.py",
++    "imgtool/**",
++])
++
++py_binary(
++    name = "imgtool_bin",
++    srcs = SRCS,
 +    imports = ["."],
-+    visibility = ["//bazel/py:__pkg__"],
++    main = "imgtool.py",
++    visibility = ["//:__pkg__"],
++    deps = all_requirements,
 +)
 +
 +pkg_files(
 +    name = "srcs",
 +    srcs = glob(
 +        ["**"],
-+        exclude = ["imgtool/**"],
++        exclude = SRCS,
 +    ),
 +    prefix = package_name(),
 +    strip_prefix = strip_prefix.from_pkg(),

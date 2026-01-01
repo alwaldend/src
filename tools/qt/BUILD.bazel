@@ -10,6 +10,7 @@ py_console_script_binary(
 
 compile_pip_requirements(
     name = "requirements",
+    size = "medium",
     srcs = [":requirements.in"],
     requirements_txt = ":requirements.txt",
 )

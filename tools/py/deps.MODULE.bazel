@@ -1,4 +1,4 @@
-PYTHON_VERSION = "3.12.11"
+PYTHON_VERSION = "3.13.9"
 
 python = use_extension("@rules_python//python/extensions:python.bzl", "python")
 python.toolchain(
