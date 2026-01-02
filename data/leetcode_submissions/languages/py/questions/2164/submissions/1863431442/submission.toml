@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1863431442
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2164
+  TitleSlug = "two-best-non-overlapping-events"
+  Code = "class Solution:\n    def maxTwoEvents(self, events):\n        times = []\n        for e in events:\n            # 1 denotes start time.\n            times.append([e[0], 1, e[2]])\n            # 0 denotes end time.\n            times.append([e[1] + 1, 0, e[2]])\n\n        ans, max_value = 0, 0\n        times.sort()\n\n        for time_value in times:\n            # If current time is a start time, find maximum sum of maximum end\n            # time till now.\n            if time_value[1]:\n                ans = max(ans, time_value[2] + max_value)\n            else:\n                max_value = max(max_value, time_value[2])\n\n        return ans"
+  Title = "Two Best Non-Overlapping Events"
+  Url = "/submissions/detail/1863431442/"
+  LangName = "Python3"
+  Timestamp = 1766504369
+  Status = 10
+  Runtime = "355 ms"
+  IsPending = "Not Pending"
+  Memory = "69.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

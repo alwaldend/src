@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1864050509
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 275
+  TitleSlug = "h-index-ii"
+  Code = "class Solution:\n    def hIndex(self, citations: List[int]) -> int:\n        left, right = 0, len(citations) - 1\n        h = 0\n        while left <= right:\n            mid = left + (right - left) // 2\n            count = len(citations) - mid\n            val = citations[mid]\n            h = max(h, min(count, val))\n            if count >= val:\n                left = mid + 1\n            else:\n                right = mid - 1\n        return h"
+  Title = "H-Index II"
+  Url = "/submissions/detail/1864050509/"
+  LangName = "Python3"
+  Timestamp = 1766567903
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "22.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

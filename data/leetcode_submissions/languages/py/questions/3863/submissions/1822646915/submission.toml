@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1822646915
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3863
+  TitleSlug = "power-grid-maintenance"
+  Code = "class DSU:\n    def __init__(self, size):\n        self.parent = list(range(size))\n\n    def find(self, x):\n        if self.parent[x] != x:\n            self.parent[x] = self.find(self.parent[x])\n        return self.parent[x]\n\n    def join(self, u, v):\n        self.parent[self.find(v)] = self.find(u)\n\n\nclass Solution:\n    def processQueries(\n        self, c: int, connections: List[List[int]], queries: List[List[int]]\n    ) -> List[int]:\n        dsu = DSU(c + 1)\n        for p in connections:\n            dsu.join(p[0], p[1])\n\n        online = [True] * (c + 1)\n        offline_counts = [0] * (c + 1)\n        minimum_online_stations = {}\n\n        for q in queries:\n            op, x = q[0], q[1]\n            if op == 2:\n                online[x] = False\n                offline_counts[x] += 1\n\n        for i in range(1, c + 1):\n            root = dsu.find(i)\n            if root not in minimum_online_stations:\n                minimum_online_stations[root] = -1\n\n            station = minimum_online_stations[root]\n            if online[i]:\n                if station == -1 or station > i:\n                    minimum_online_stations[root] = i\n\n        ans = []\n        for i in range(len(queries) - 1, -1, -1):\n            op, x = queries[i][0], queries[i][1]\n            root = dsu.find(x)\n            station = minimum_online_stations[root]\n\n            if op == 1:\n                if online[x]:\n                    ans.append(x)\n                else:\n                    ans.append(station)\n\n            if op == 2:\n                if offline_counts[x] > 1:\n                    offline_counts[x] -= 1\n                else:\n                    online[x] = True\n                    if station == -1 or station > x:\n                        minimum_online_stations[root] = x\n\n        return ans[::-1]"
+  Title = "Power Grid Maintenance"
+  Url = "/submissions/detail/1822646915/"
+  LangName = "Python3"
+  Timestamp = 1762450785
+  Status = 10
+  Runtime = "408 ms"
+  IsPending = "Not Pending"
+  Memory = "106.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

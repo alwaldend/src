@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1837757502
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1388
+  TitleSlug = "greatest-sum-divisible-by-three"
+  Code = "class Solution:\n    def maxSumDivThree(self, nums: List[int]) -> int:\n        f = [0, -float(\"inf\"), -float(\"inf\")]\n        for num in nums:\n            g = f[:]\n            for i in range(3):\n                g[(i + num % 3) % 3] = max(g[(i + num % 3) % 3], f[i] + num)\n            f = g\n        return f[0]"
+  Title = "Greatest Sum Divisible by Three"
+  Url = "/submissions/detail/1837757502/"
+  LangName = "Python3"
+  Timestamp = 1763911229
+  Status = 10
+  Runtime = "115 ms"
+  IsPending = "Not Pending"
+  Memory = "21.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

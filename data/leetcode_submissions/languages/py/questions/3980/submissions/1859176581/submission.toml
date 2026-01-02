@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1859176581
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3980
+  TitleSlug = "best-time-to-buy-and-sell-stock-using-strategy"
+  Code = "class Solution:\n    def maxProfit(self, prices: List[int], strategy: List[int], k: int) -> int:\n        native_profit = 0\n        native_segment = 0\n        changed_segment = 0\n        max_changed_segment = 0\n        for i in range(len(prices)):\n            price = prices[i]\n            native_profit += price * strategy[i]\n            native_segment += price * strategy[i]\n            if i + 1 <= k // 2:\n                pass\n            elif i + 1 < k :\n                changed_segment += price\n            elif i  + 1 == k:\n                changed_segment += price\n                max_changed_segment = max(max_changed_segment, changed_segment - native_segment)\n            else:\n                changed_segment += price - prices[i - (k // 2)]\n                native_segment -= prices[i - k] * strategy[i - k]\n                max_changed_segment = max(max_changed_segment, changed_segment - native_segment)\n\n        return max(native_profit, native_profit + max_changed_segment)                "
+  Title = "Best Time to Buy and Sell Stock using Strategy"
+  Url = "/submissions/detail/1859176581/"
+  LangName = "Python3"
+  Timestamp = 1766081162
+  Status = 10
+  Runtime = "255 ms"
+  IsPending = "Not Pending"
+  Memory = "29.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

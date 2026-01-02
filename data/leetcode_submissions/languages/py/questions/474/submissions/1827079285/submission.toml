@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1827079285
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 474
+  TitleSlug = "ones-and-zeroes"
+  Code = "class Solution:\n    def findMaxForm(self, strs: List[str], m: int, n: int) -> int:\n        dp = {(0, 0): 0}\n\n        for s in strs:\n            ones = 0\n            zeroes = 0\n            for ch in s:\n                if ch == \"0\":\n                    zeroes += 1\n                else:\n                    ones += 1\n            newdp = {}\n\n            for k, v in dp.items():\n                prevzeroes, prevones = k\n                newzeroes, newones = prevzeroes + zeroes, prevones + ones\n                if newzeroes <= m and newones <= n:\n                    if (newzeroes, newones) not in dp:\n                        newdp[(newzeroes, newones)] = v + 1\n\n                    elif dp[(newzeroes, newones)] < v + 1:\n                        newdp[(newzeroes, newones)] = v + 1\n            dp.update(newdp)\n        return max(dp.values())"
+  Title = "Ones and Zeroes"
+  Url = "/submissions/detail/1827079285/"
+  LangName = "Python3"
+  Timestamp = 1762879406
+  Status = 10
+  Runtime = "395 ms"
+  IsPending = "Not Pending"
+  Memory = "18.3 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -2,7 +2,7 @@ load("@rules_go//go:def.bzl", "go_binary", "go_library")
 load("//tools/go/main/bzl:al_go_cross_binary.bzl", "al_go_cross_binary")
 
 go_library(
-    name = "leetcode_downloader_lib",
+    name = "go_lib",
     srcs = [
         "cmd.go",
         "downloader.go",
@@ -20,13 +20,13 @@ go_library(
 )
 
 go_binary(
-    name = "leetcode_downloader",
-    embed = [":leetcode_downloader_lib"],
+    name = "go",
+    embed = [":go_lib"],
     visibility = ["//:__subpackages__"],
 )
 
 al_go_cross_binary(
     name = "leetcode_downloader_crossbinary",
-    target = "leetcode_downloader",
+    target = ":go",
     visibility = ["//projects/leetcode_downloader/releases:__pkg__"],
 )

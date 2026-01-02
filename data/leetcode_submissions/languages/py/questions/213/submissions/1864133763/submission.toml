@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1864133763
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 213
+  TitleSlug = "house-robber-ii"
+  Code = "class Solution:\n    def rob(self, nums: List[int]) -> int:\n        n = len(nums)\n        if n == 1:\n            return nums[0]\n\n        def dp(i, j, memo: dict):\n            if i == j:\n                return 0\n            if i == j-1:\n                return nums[j-1]\n            if (i, j) not in memo:\n                rob = nums[i] + dp(i+2, j, memo)\n                skip = dp(i+1, j, memo)\n                memo[(i, j)] = max(rob, skip)\n            return memo[(i, j)]\n        return max(dp(0, n-1, {}), dp(1, n, {}))"
+  Title = "House Robber II"
+  Url = "/submissions/detail/1864133763/"
+  LangName = "Python3"
+  Timestamp = 1766575491
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "17.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

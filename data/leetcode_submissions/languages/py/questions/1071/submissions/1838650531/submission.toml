@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1838650531
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1071
+  TitleSlug = "binary-prefix-divisible-by-5"
+  Code = "class Solution:\n    def prefixesDivBy5(self, nums: List[int]) -> List[bool]:\n        cur = 0\n        for i in range(len(nums)):\n            cur <<= 1\n            cur |= nums[i]\n            nums[i] = cur % 5 == 0\n        return nums"
+  Title = "Binary Prefix Divisible By 5"
+  Url = "/submissions/detail/1838650531/"
+  LangName = "Python3"
+  Timestamp = 1763999892
+  Status = 10
+  Runtime = "91 ms"
+  IsPending = "Not Pending"
+  Memory = "18.8 MB"
+  CompareResult = "111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1839579611
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1064
+  TitleSlug = "smallest-integer-divisible-by-k"
+  Code = "class Solution:\n    def smallestRepunitDivByK(self, K: int) -> int:\n        remainder = 0\n        for length_N in range(1,K+1):\n            remainder = (remainder*10+1) % K\n            if remainder == 0:\n                return length_N\n        return -1"
+  Title = "Smallest Integer Divisible by K"
+  Url = "/submissions/detail/1839579611/"
+  LangName = "Python3"
+  Timestamp = 1764089344
+  Status = 10
+  Runtime = "11 ms"
+  IsPending = "Not Pending"
+  Memory = "17.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

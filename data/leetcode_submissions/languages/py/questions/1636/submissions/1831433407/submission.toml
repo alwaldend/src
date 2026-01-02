@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1831433407
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1636
+  TitleSlug = "number-of-substrings-with-only-1s"
+  Code = "class Solution:\n    def numSub(self, s: str) -> int:\n        total, consecutive = 0, 0\n        length = len(s)\n        for i in range(length):\n            if s[i] == \"0\":\n                total += consecutive * (consecutive + 1) // 2\n                consecutive = 0\n            else:\n                consecutive += 1\n\n        total += consecutive * (consecutive + 1) // 2\n        total %= 10**9 + 7\n        return total"
+  Title = "Number of Substrings With Only 1s"
+  Url = "/submissions/detail/1831433407/"
+  LangName = "Python3"
+  Timestamp = 1763305649
+  Status = 10
+  Runtime = "17 ms"
+  IsPending = "Not Pending"
+  Memory = "18.3 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

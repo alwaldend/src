@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1857286104
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3854
+  TitleSlug = "maximum-profit-from-trading-stocks-with-discounts"
+  Code = "class Solution:\n    def maxProfit(\n        self,\n        n: int,\n        present: List[int],\n        future: List[int],\n        hierarchy: List[List[int]],\n        budget: int,\n    ) -> int:\n        g = [[] for _ in range(n)]\n        for e in hierarchy:\n            g[e[0] - 1].append(e[1] - 1)\n\n        def dfs(u: int):\n            cost = present[u]\n            dCost = present[u] // 2\n\n            # dp[u][state][budget]\n            # state = 0: Do not purchase parent node, state = 1: Must purchase parent node\n            dp0 = [0] * (budget + 1)\n            dp1 = [0] * (budget + 1)\n\n            # subProfit[state][budget]\n            # state = 0: discount not available, state = 1: discount available\n            subProfit0 = [0] * (budget + 1)\n            subProfit1 = [0] * (budget + 1)\n            uSize = cost\n\n            for v in g[u]:\n                child_dp0, child_dp1, vSize = dfs(v)\n                uSize += vSize\n                for i in range(budget, -1, -1):\n                    for sub in range(min(vSize, i) + 1):\n                        if i - sub >= 0:\n                            subProfit0[i] = max(\n                                subProfit0[i],\n                                subProfit0[i - sub] + child_dp0[sub],\n                            )\n                            subProfit1[i] = max(\n                                subProfit1[i],\n                                subProfit1[i - sub] + child_dp1[sub],\n                            )\n\n            for i in range(budget + 1):\n                dp0[i] = subProfit0[i]\n                dp1[i] = subProfit0[i]\n                if i >= dCost:\n                    dp1[i] = max(\n                        subProfit0[i], subProfit1[i - dCost] + future[u] - dCost\n                    )\n                if i >= cost:\n                    dp0[i] = max(\n                        subProfit0[i], subProfit1[i - cost] + future[u] - cost\n                    )\n\n            return dp0, dp1, uSize\n\n        return dfs(0)[0][budget]"
+  Title = "Maximum Profit from Trading Stocks with Discounts"
+  Url = "/submissions/detail/1857286104/"
+  LangName = "Python3"
+  Timestamp = 1765900923
+  Status = 10
+  Runtime = "9518 ms"
+  IsPending = "Not Pending"
+  Memory = "18.8 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

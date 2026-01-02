@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1823473721
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2618
+  TitleSlug = "maximize-the-minimum-powered-city"
+  Code = "class Solution:\n    def maxPower(self, stations: List[int], r: int, k: int) -> int:\n        n = len(stations)\n        cnt = [0] * (n + 1)\n\n        for i in range(n):\n            left = max(0, i - r)\n            right = min(n, i + r + 1)\n            cnt[left] += stations[i]\n            cnt[right] -= stations[i]\n\n        def check(val: int) -> bool:\n            diff = cnt.copy()\n            total = 0\n            remaining = k\n\n            for i in range(n):\n                total += diff[i]\n                if total < val:\n                    add = val - total\n                    if remaining < add:\n                        return False\n                    remaining -= add\n                    end = min(n, i + 2 * r + 1)\n                    diff[end] -= add\n                    total += add\n            return True\n\n        lo, hi = min(stations), sum(stations) + k\n        res = 0\n        while lo <= hi:\n            mid = (lo + hi) // 2\n            if check(mid):\n                res = mid\n                lo = mid + 1\n            else:\n                hi = mid - 1\n        return res"
+  Title = "Maximize the Minimum Powered City"
+  Url = "/submissions/detail/1823473721/"
+  LangName = "Python3"
+  Timestamp = 1762536513
+  Status = 10
+  Runtime = "990 ms"
+  IsPending = "Not Pending"
+  Memory = "28.5 MB"
+  CompareResult = "111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

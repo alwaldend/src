@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1818793366
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2343
+  TitleSlug = "count-unguarded-cells-in-the-grid"
+  Code = "class Solution:\n    UNGUARDED = 0\n    GUARDED = 1\n    GUARD = 2\n    WALL = 3\n\n    # Depth-First Search to mark guarded cells\n    def _recurse(\n        self, row: int, col: int, grid: List[List[int]], direction: str\n    ) -> None:\n        if (\n            row < 0\n            or row >= len(grid)\n            or col < 0\n            or col >= len(grid[0])\n            or grid[row][col] == self.GUARD\n            or grid[row][col] == self.WALL\n        ):\n            return\n\n        grid[row][col] = self.GUARDED  # Mark cell as guarded\n        if direction == \"U\":\n            self._recurse(row - 1, col, grid, \"U\")  # Up\n        if direction == \"D\":\n            self._recurse(row + 1, col, grid, \"D\")  # Down\n        if direction == \"L\":\n            self._recurse(row, col - 1, grid, \"L\")  # Left\n        if direction == \"R\":\n            self._recurse(row, col + 1, grid, \"R\")  # Right\n\n    def countUnguarded(\n        self, m: int, n: int, guards: List[List[int]], walls: List[List[int]]\n    ) -> int:\n        grid = [[self.UNGUARDED] * n for _ in range(m)]\n\n        # Mark guards' positions\n        for guard in guards:\n            grid[guard[0]][guard[1]] = self.GUARD\n\n        # Mark walls' positions\n        for wall in walls:\n            grid[wall[0]][wall[1]] = self.WALL\n\n        # Mark cells as guarded by traversing from each guard\n        for guard in guards:\n            self._recurse(guard[0] - 1, guard[1], grid, \"U\")  # Up\n            self._recurse(guard[0] + 1, guard[1], grid, \"D\")  # Down\n            self._recurse(guard[0], guard[1] - 1, grid, \"L\")  # Left\n            self._recurse(guard[0], guard[1] + 1, grid, \"R\")  # Right\n\n        # Count unguarded cells\n        count = sum(row.count(self.UNGUARDED) for row in grid)\n        return count"
+  Title = "Count Unguarded Cells in the Grid"
+  Url = "/submissions/detail/1818793366/"
+  LangName = "Python3"
+  Timestamp = 1762101307
+  Status = 10
+  Runtime = "459 ms"
+  IsPending = "Not Pending"
+  Memory = "39.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

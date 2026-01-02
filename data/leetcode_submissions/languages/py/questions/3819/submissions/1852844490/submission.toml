@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1852844490
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3819
+  TitleSlug = "count-covered-buildings"
+  Code = "class Solution:\n    def countCoveredBuildings(self, n: int, buildings: List[List[int]]) -> int:\n        max_row = [0] * (n + 1)\n        min_row = [n + 1] * (n + 1)\n        max_col = [0] * (n + 1)\n        min_col = [n + 1] * (n + 1)\n\n        for p in buildings:\n            x, y = p[0], p[1]\n            max_row[y] = max(max_row[y], x)\n            min_row[y] = min(min_row[y], x)\n            max_col[x] = max(max_col[x], y)\n            min_col[x] = min(min_col[x], y)\n\n        res = 0\n        for p in buildings:\n            x, y = p[0], p[1]\n            if (\n                x > min_row[y]\n                and x < max_row[y]\n                and y > min_col[x]\n                and y < max_col[x]\n            ):\n                res += 1\n\n        return res"
+  Title = "Count Covered Buildings"
+  Url = "/submissions/detail/1852844490/"
+  LangName = "Python3"
+  Timestamp = 1765452050
+  Status = 10
+  Runtime = "436 ms"
+  IsPending = "Not Pending"
+  Memory = "55.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

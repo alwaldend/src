@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1843552525
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1694
+  TitleSlug = "make-sum-divisible-by-p"
+  Code = "class Solution:\n    def minSubarray(self, nums: List[int], p: int) -> int:\n        n = len(nums)\n        total_sum = 0\n\n        # Step 1: Calculate total sum and target remainder\n        for num in nums:\n            total_sum = (total_sum + num) % p\n\n        target = total_sum % p\n        if target == 0:\n            return 0  # The array is already divisible by p\n\n        # Step 2: Use a dict to track prefix sum mod p\n        mod_map = {\n            0: -1\n        }  # To handle the case where the whole prefix is the answer\n        current_sum = 0\n        min_len = n\n\n        # Step 3: Iterate over the array\n        for i in range(n):\n            current_sum = (current_sum + nums[i]) % p\n\n            # Calculate what we need to remove\n            needed = (current_sum - target + p) % p\n\n            # If we have seen the needed remainder, we can consider this subarray\n            if needed in mod_map:\n                min_len = min(min_len, i - mod_map[needed])\n\n            # Store the current remainder and index\n            mod_map[current_sum] = i\n\n        # Step 4: Return result\n        return -1 if min_len == n else min_len"
+  Title = "Make Sum Divisible by P"
+  Url = "/submissions/detail/1843552525/"
+  LangName = "Python3"
+  Timestamp = 1764525209
+  Status = 10
+  Runtime = "89 ms"
+  IsPending = "Not Pending"
+  Memory = "38.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

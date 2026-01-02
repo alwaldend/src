@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1862433703
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 4138
+  TitleSlug = "minimum-deletion-cost-to-make-all-characters-equal"
+  Code = "class Solution:\n    def minCost(self, s: str, cost: List[int]) -> int:\n        costs = [0] * 26\n        for i in range(len(s)):\n            char, cur_cost = s[i], cost[i]\n            char_val = ord(char) - ord(\"a\")\n            for j in range(26):\n                if j != char_val:\n                    costs[j] += cur_cost\n        res = float(\"inf\")\n        for cost in costs:\n            res = min(res, cost)\n        return res"
+  Title = "Minimum Deletion Cost to Make All Characters Equal"
+  Url = "/submissions/detail/1862433703/"
+  LangName = "Python3"
+  Timestamp = 1766410819
+  Status = 10
+  Runtime = "1153 ms"
+  IsPending = "Not Pending"
+  Memory = "30.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

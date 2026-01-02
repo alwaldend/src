@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1781399805
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 166
+  TitleSlug = "fraction-to-recurring-decimal"
+  Code = "class Solution:\n    def fractionToDecimal(self, numerator: int, denominator: int) -> str:\n        if numerator == 0:\n            return \"0\"\n        fraction = []\n        if (numerator < 0) ^ (denominator < 0):\n            fraction.append(\"-\")\n        dividend = abs(numerator)\n        divisor = abs(denominator)\n        fraction.append(str(dividend // divisor))\n        remainder = dividend % divisor\n        if remainder == 0:\n            return \"\".join(fraction)\n        fraction.append(\".\")\n        map_dict = {}\n        while remainder != 0:\n            if remainder in map_dict:\n                fraction.insert(map_dict[remainder], \"(\")\n                fraction.append(\")\")\n                break\n            map_dict[remainder] = len(fraction)\n            remainder *= 10\n            fraction.append(str(remainder // divisor))\n            remainder %= divisor\n\n        return \"\".join(fraction)"
+  Title = "Fraction to Recurring Decimal"
+  Url = "/submissions/detail/1781399805/"
+  LangName = "Python3"
+  Timestamp = 1758729061
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

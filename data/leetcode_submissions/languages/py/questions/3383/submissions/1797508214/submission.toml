@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1797508214
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3383
+  TitleSlug = "taking-maximum-energy-from-the-mystic-dungeon"
+  Code = "class Solution:\n    def maximumEnergy(self, energy: List[int], k: int) -> int:\n        n = len(energy)\n        ans = -inf\n\n        for i in range(n - k, n):\n            total = 0\n            j = i\n            while j >= 0:\n                total += energy[j]\n                ans = max(ans, total)\n                j -= k\n\n        return ans"
+  Title = "Taking Maximum Energy From the Mystic Dungeon"
+  Url = "/submissions/detail/1797508214/"
+  LangName = "Python3"
+  Timestamp = 1760113914
+  Status = 10
+  Runtime = "1147 ms"
+  IsPending = "Not Pending"
+  Memory = "31.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

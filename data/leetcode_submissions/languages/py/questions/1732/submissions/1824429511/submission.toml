@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1824429511
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1732
+  TitleSlug = "minimum-one-bit-operations-to-make-integers-zero"
+  Code = "class Solution:\n    def minimumOneBitOperations(self, n: int) -> int:\n        if n == 0:\n            return 0\n        \n        k = 0\n        curr = 1\n        while (curr * 2) <= n:\n            curr *= 2\n            k += 1\n\n        return 2 ** (k + 1) - 1 - self.minimumOneBitOperations(n ^ curr)"
+  Title = "Minimum One Bit Operations to Make Integers Zero"
+  Url = "/submissions/detail/1824429511/"
+  LangName = "Python3"
+  Timestamp = 1762628986
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

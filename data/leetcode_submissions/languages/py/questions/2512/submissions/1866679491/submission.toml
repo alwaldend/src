@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1866679491
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2512
+  TitleSlug = "longest-uploaded-prefix"
+  Code = "class LUPrefix:\n    def __init__(self, n: int):\n        self._start = {}\n        self._end = {}\n\n    def upload(self, video: int) -> None:\n        if video - 1 not in self._end and video + 1 not in self._start:\n            self._start[video] = video\n            self._end[video] = video\n        elif video - 1 in self._end and video + 1 in self._start:\n            end = self._start.pop(video + 1)\n            start = self._end.pop(video - 1)\n            self._start[start] = end\n            self._end[end] = start\n        elif video -1 in self._end:\n            start = self._end.pop(video - 1)\n            self._start[start] = video\n            self._end[video] = start\n        elif video + 1 in self._start:\n            end = self._start.pop(video + 1)\n            self._start[video] = end\n            self._end[end] = video\n\n    def longest(self) -> int:\n        return self._start.get(1, 0)\n\n# Your LUPrefix object will be instantiated and called as such:\n# obj = LUPrefix(n)\n# obj.upload(video)\n# param_2 = obj.longest()"
+  Title = "Longest Uploaded Prefix"
+  Url = "/submissions/detail/1866679491/"
+  LangName = "Python3"
+  Timestamp = 1766843110
+  Status = 10
+  Runtime = "151 ms"
+  IsPending = "Not Pending"
+  Memory = "75.4 MB"
+  CompareResult = "111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1780223003
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 165
+  TitleSlug = "compare-version-numbers"
+  Code = "class Solution:\n    def compareVersion(self, version1: str, version2: str) -> int:\n        digs1, digs2 = list(map(int, version1.split(\".\"))), list(map(int, version2.split(\".\")))\n        while digs1 and digs1[-1] == 0:\n            digs1.pop()\n        while digs2 and digs2[-1] == 0:\n            digs2.pop()\n        length1, length2 = len(digs1), len(digs2)\n        for i in range(max(length1, length2)):\n            if i == length1:\n                return -1\n            if i == length2:\n                return 1\n            dig1, dig2 = digs1[i], digs2[i]\n            if dig1 > dig2:\n                return 1\n            elif dig2 > dig1:\n                return -1\n        return 0"
+  Title = "Compare Version Numbers"
+  Url = "/submissions/detail/1780223003/"
+  LangName = "Python3"
+  Timestamp = 1758635731
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

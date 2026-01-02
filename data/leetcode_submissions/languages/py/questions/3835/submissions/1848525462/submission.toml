@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1848525462
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3835
+  TitleSlug = "count-partitions-with-max-min-difference-at-most-k"
+  Code = "class Solution:\n    def countPartitions(self, nums: List[int], k: int) -> int:\n        n = len(nums)\n        mod = 10**9 + 7\n        dp = [0] * (n + 1)\n        prefix = [0] * (n + 1)\n        min_q = deque()\n        max_q = deque()\n\n        dp[0] = 1\n        prefix[0] = 1\n        j = 0\n\n        for i in range(n):\n            # maintain the maximum value queue\n            while max_q and nums[max_q[-1]] <= nums[i]:\n                max_q.pop()\n            max_q.append(i)\n\n            # maintain the minimum value queue\n            while min_q and nums[min_q[-1]] >= nums[i]:\n                min_q.pop()\n            min_q.append(i)\n\n            # adjust window\n            while max_q and min_q and nums[max_q[0]] - nums[min_q[0]] > k:\n                if max_q[0] == j:\n                    max_q.popleft()\n                if min_q[0] == j:\n                    min_q.popleft()\n                j += 1\n\n            if j > 0:\n                dp[i + 1] = (prefix[i] - prefix[j - 1] + mod) % mod\n            else:\n                dp[i + 1] = prefix[i] % mod\n            prefix[i + 1] = (prefix[i] + dp[i + 1]) % mod\n\n        return dp[n]"
+  Title = "Count Partitions With Max-Min Difference at Most K"
+  Url = "/submissions/detail/1848525462/"
+  LangName = "Python3"
+  Timestamp = 1765037244
+  Status = 10
+  Runtime = "483 ms"
+  IsPending = "Not Pending"
+  Memory = "26.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

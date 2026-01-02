@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1821730526
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3592
+  TitleSlug = "find-x-sum-of-all-k-long-subarrays-ii"
+  Code = "class Helper:\n    def __init__(self, x):\n        self.x = x\n        self.result = 0\n        self.large = SortedList()\n        self.small = SortedList()\n        self.occ = defaultdict(int)\n\n    def insert(self, num):\n        if self.occ[num] > 0:\n            self.internal_remove((self.occ[num], num))\n        self.occ[num] += 1\n        self.internal_insert((self.occ[num], num))\n\n    def remove(self, num):\n        self.internal_remove((self.occ[num], num))\n        self.occ[num] -= 1\n        if self.occ[num] > 0:\n            self.internal_insert((self.occ[num], num))\n\n    def get(self):\n        return self.result\n\n    def internal_insert(self, p):\n        if len(self.large) < self.x or p > self.large[0]:\n            self.result += p[0] * p[1]\n            self.large.add(p)\n            if len(self.large) > self.x:\n                to_remove = self.large[0]\n                self.result -= to_remove[0] * to_remove[1]\n                self.large.remove(to_remove)\n                self.small.add(to_remove)\n        else:\n            self.small.add(p)\n\n    def internal_remove(self, p):\n        if p >= self.large[0]:\n            self.result -= p[0] * p[1]\n            self.large.remove(p)\n            if self.small:\n                to_add = self.small[-1]\n                self.result += to_add[0] * to_add[1]\n                self.small.remove(to_add)\n                self.large.add(to_add)\n        else:\n            self.small.remove(p)\n\n\nclass Solution:\n    def findXSum(self, nums, k, x):\n        helper = Helper(x)\n        ans = []\n\n        for i in range(len(nums)):\n            helper.insert(nums[i])\n            if i >= k:\n                helper.remove(nums[i - k])\n            if i >= k - 1:\n                ans.append(helper.get())\n\n        return ans"
+  Title = "Find X-Sum of All K-Long Subarrays II"
+  Url = "/submissions/detail/1821730526/"
+  LangName = "Python3"
+  Timestamp = 1762363883
+  Status = 10
+  Runtime = "2880 ms"
+  IsPending = "Not Pending"
+  Memory = "43.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

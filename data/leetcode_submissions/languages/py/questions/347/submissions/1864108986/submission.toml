@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1864108986
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 347
+  TitleSlug = "top-k-frequent-elements"
+  Code = "class Solution:\n    def topKFrequent(self, nums: List[int], k: int) -> List[int]:\n        heap = []\n        freqs = defaultdict(int)\n        for num in nums:\n            freqs[num] += 1\n            freq = freqs[num]\n            heapq.heappush(heap, (-freq, num))\n        res = set()\n        while k > 0:\n            _, num = heapq.heappop(heap)\n            if num not in res:\n                k -= 1\n                res.add(num)\n        return list(res)\n"
+  Title = "Top K Frequent Elements"
+  Url = "/submissions/detail/1864108986/"
+  LangName = "Python3"
+  Timestamp = 1766573047
+  Status = 10
+  Runtime = "25 ms"
+  IsPending = "Not Pending"
+  Memory = "23.7 MB"
+  CompareResult = "11111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1865742238
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2576
+  TitleSlug = "minimum-penalty-for-a-shop"
+  Code = "class Solution:\n    def bestClosingTime(self, customers: str) -> int:\n        j, min_pen = len(customers), customers.count(\"N\")\n        cur_pen = min_pen\n        for i in reversed(range(len(customers))):\n            if customers[i] == \"Y\":\n                cur_pen += 1\n            else:\n                cur_pen -= 1\n            if cur_pen <= min_pen:\n                j, min_pen = i, cur_pen\n        return j\n\n\n"
+  Title = "Minimum Penalty for a Shop"
+  Url = "/submissions/detail/1865742238/"
+  LangName = "Python3"
+  Timestamp = 1766746888
+  Status = 10
+  Runtime = "47 ms"
+  IsPending = "Not Pending"
+  Memory = "18.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

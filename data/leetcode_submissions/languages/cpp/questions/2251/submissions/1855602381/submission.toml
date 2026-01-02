@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1855602381
+  StatusDisplay = "Accepted"
+  Lang = "cpp"
+  QuestionId = 2251
+  TitleSlug = "number-of-ways-to-divide-a-long-corridor"
+  Code = "class Solution {\npublic:\n    // Store 1000000007 in a variable for convenience\n    const int MOD = 1e9 + 7;\n    \n    // Count the number of ways to divide from \"index\" to the last index\n    // with \"seats\" number of \"S\" in the current section\n    int count(int index, int seats, string& corridor, int cache[][3]) {\n        // If we have reached the end of the corridor, then\n        // the current section is valid only if \"seats\" is 2\n        if (index == corridor.length()) {\n            return seats == 2 ? 1 : 0;\n        }\n\n        // If we have already computed the result of this sub-problem,\n        // then return the cached result\n        if (cache[index][seats] != -1) {\n            return cache[index][seats];\n        }\n\n        // Result of the sub-problem\n        int result = 0;\n\n        // If the current section has exactly 2 \"S\"\n        if (seats == 2) {\n            // If the current element is \"S\", then we have to close the\n            // section and start a new section from this index. Next index\n            // will have one \"S\" in the current section\n            if (corridor[index] == 'S') {\n                result = count(index + 1, 1, corridor, cache);\n            } else {\n                // If the current element is \"P\", then we have two options\n                // 1. Close the section and start a new section from this index\n                // 2. Keep growing the section\n                result = (count(index + 1, 0, corridor, cache) + count(index + 1, 2, corridor, cache)) % MOD;  \n            }\n        } else {\n            // Keep growing the section. Increment \"seats\" if present\n            // element is \"S\"\n            if (corridor[index] == 'S') {\n                result = count(index + 1, seats + 1, corridor, cache);\n            } else {\n                result = count(index + 1, seats, corridor, cache);\n            }\n        }\n\n        // Memoize the result, and return it\n        cache[index][seats] = result;\n        return cache[index][seats];\n    }\n\n    int numberOfWays(string corridor) {\n        // Cache the result of each sub-problem\n        int cache[corridor.length()][3];\n        memset(cache, -1, sizeof(cache));\n\n        // Call the count function\n        return count(0, 0, corridor, cache);\n    }\n};"
+  Title = "Number of Ways to Divide a Long Corridor"
+  Url = "/submissions/detail/1855602381/"
+  LangName = "C++"
+  Timestamp = 1765734126
+  Status = 10
+  Runtime = "97 ms"
+  IsPending = "Not Pending"
+  Memory = "42.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

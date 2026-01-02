@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1861756187
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 992
+  TitleSlug = "delete-columns-to-make-sorted-ii"
+  Code = "class Solution(object):\n    def minDeletionSize(self, A):\n        cuts = [False] * (len(A) - 1)\n        ans = 0\n        for col in zip(*A):\n            if all(cuts[i] or col[i] <= col[i+1] for i in range(len(col) - 1)):\n                for i in range(len(col) - 1):\n                    if col[i] < col[i+1]:\n                        cuts[i] = True\n            else:\n                ans += 1\n        return ans"
+  Title = "Delete Columns to Make Sorted II"
+  Url = "/submissions/detail/1861756187/"
+  LangName = "Python3"
+  Timestamp = 1766338245
+  Status = 10
+  Runtime = "9 ms"
+  IsPending = "Not Pending"
+  Memory = "17.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

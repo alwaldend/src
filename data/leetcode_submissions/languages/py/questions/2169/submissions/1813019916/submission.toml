@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1813019916
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2169
+  TitleSlug = "simple-bank-system"
+  Code = "class Bank:\n    def __init__(self, balance: List[int]):\n        self.balance = balance\n\n    def transfer(self, account1: int, account2: int, money: int) -> bool:\n        if (\n            account1 > len(self.balance)\n            or account2 > len(self.balance)\n            or self.balance[account1 - 1] < money\n        ):\n            return False\n        self.balance[account1 - 1] -= money\n        self.balance[account2 - 1] += money\n        return True\n\n    def deposit(self, account: int, money: int) -> bool:\n        if account > len(self.balance):\n            return False\n        self.balance[account - 1] += money\n        return True\n\n    def withdraw(self, account: int, money: int) -> bool:\n        if account > len(self.balance) or self.balance[account - 1] < money:\n            return False\n        self.balance[account - 1] -= money\n        return True"
+  Title = "Simple Bank System"
+  Url = "/submissions/detail/1813019916/"
+  LangName = "Python3"
+  Timestamp = 1761558576
+  Status = 10
+  Runtime = "33 ms"
+  IsPending = "Not Pending"
+  Memory = "47.7 MB"
+  CompareResult = "11111111111111111111111"
+  HasNotes = false
+  FlagType = 1

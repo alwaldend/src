@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1841945390
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3058
+  TitleSlug = "maximum-number-of-k-divisible-components"
+  Code = "class Solution:\n    def maxKDivisibleComponents(\n        self, n: int, edges: List[List[int]], values: List[int], k: int\n    ) -> int:\n        if n < 2:\n            return 1\n        component_count = 0\n        graph = defaultdict(list)\n        in_degree = [0 for _ in range(n)]\n\n        # Build the graph and calculate in-degrees\n        for node1, node2 in edges:\n            graph[node1].append(node2)\n            graph[node2].append(node1)\n            in_degree[node1] += 1\n            in_degree[node2] += 1\n\n        # Initialize the queue with nodes having in-degree of 1 (leaf nodes)\n        queue = deque(node for node in range(n) if in_degree[node] == 1)\n\n        while queue:\n            current_node = queue.popleft()\n            in_degree[current_node] -= 1\n            add_value = 0\n\n            # Check if the current node's value is divisible by k\n            if values[current_node] % k == 0:\n                component_count += 1\n            else:\n                add_value = values[current_node]\n\n            # Propagate the value to the neighbor nodes\n            for neighbor_node in graph[current_node]:\n                if in_degree[neighbor_node] == 0:\n                    continue\n                in_degree[neighbor_node] -= 1\n                values[neighbor_node] += add_value\n\n                # If the neighbor node's in-degree becomes 1, add it to the queue\n                if in_degree[neighbor_node] == 1:\n                    queue.append(neighbor_node)\n\n        return component_count"
+  Title = "Maximum Number of K-Divisible Components"
+  Url = "/submissions/detail/1841945390/"
+  LangName = "Python3"
+  Timestamp = 1764352368
+  Status = 10
+  Runtime = "171 ms"
+  IsPending = "Not Pending"
+  Memory = "32.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

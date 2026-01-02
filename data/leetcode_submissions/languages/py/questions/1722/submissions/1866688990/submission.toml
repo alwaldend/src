@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1866688990
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1722
+  TitleSlug = "throne-inheritance"
+  Code = "class Node:\n    def __init__(self,  name: str, parent: Optional[\"Node\"] = None) -> None:\n        self.name: str = name\n        self.parent: Optional[\"Node\"] = parent\n        self.children: list[Node] = []\n        self.dead: bool = False\n\n    def __iter__(self) -> Generator[\"Node\", None, None]:\n        if not self.dead:\n            yield self\n        for child in self.children:\n            yield from child\n\nclass ThroneInheritance:\n\n    def __init__(self, kingName: str):\n        self._root: Node = Node(kingName)\n        self._nodes: dict[str, Node] = {\n            kingName: self._root\n        }\n\n    def birth(self, parentName: str, childName: str) -> None:\n        parent = self._nodes[parentName]\n        child = Node(childName, parent)\n        parent.children.append(child)\n        self._nodes[childName] = child\n\n    def death(self, name: str) -> None:\n        node = self._nodes.pop(name)\n        node.dead = True\n\n    def getInheritanceOrder(self) -> List[str]:\n        return list(node.name for node in self._root)\n\n\n# Your ThroneInheritance object will be instantiated and called as such:\n# obj = ThroneInheritance(kingName)\n# obj.birth(parentName,childName)\n# obj.death(name)\n# param_3 = obj.getInheritanceOrder()"
+  Title = "Throne Inheritance"
+  Url = "/submissions/detail/1866688990/"
+  LangName = "Python3"
+  Timestamp = 1766843875
+  Status = 10
+  Runtime = "207 ms"
+  IsPending = "Not Pending"
+  Memory = "70.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

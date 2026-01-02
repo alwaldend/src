@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1866062905
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1211
+  TitleSlug = "iterator-for-combination"
+  Code = "class CombinationIterator:\n\n    def __init__(self, characters: str, combinationLength: int):\n        self._length: int = combinationLength\n        self._chars: str = characters\n        self._cur: list[str] = []\n        self._gen = self._generator(0)\n        self._nxt: Optional[str] = next(self._gen, None)\n    \n    def _generator(self, i: int) -> Generator[str, None, None]:\n        if len(self._cur) == self._length:\n            yield \"\".join(self._cur)\n            return\n        if i >= len(self._chars):\n            return\n        char = self._chars[i]\n        self._cur.append(char)\n        yield from self._generator(i + 1)\n        self._cur.pop()\n        yield from self._generator(i + 1)\n\n    def next(self) -> str:\n        nxt = self._nxt\n        self._nxt = next(self._gen, None)\n        return nxt\n\n    def hasNext(self) -> bool:\n        return self._nxt is not  None\n\n\n# Your CombinationIterator object will be instantiated and called as such:\n# obj = CombinationIterator(characters, combinationLength)\n# param_1 = obj.next()\n# param_2 = obj.hasNext()"
+  Title = "Iterator for Combination"
+  Url = "/submissions/detail/1866062905/"
+  LangName = "Python3"
+  Timestamp = 1766772774
+  Status = 10
+  Runtime = "19 ms"
+  IsPending = "Not Pending"
+  Memory = "19.8 MB"
+  CompareResult = "111111111111111111"
+  HasNotes = false
+  FlagType = 1

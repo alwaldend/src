@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1870872404
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 66
+  TitleSlug = "plus-one"
+  Code = "class Solution:\n    def plusOne(self, digits: List[int]) -> List[int]:\n        for i in reversed(range(len(digits))):\n            dig = digits[i] + 1\n            if dig == 10:\n                digits[i] = 0\n                if i == 0:\n                    digits.insert(0, 1)\n            else:\n                digits[i] = dig\n                break\n        return digits"
+  Title = "Plus One"
+  Url = "/submissions/detail/1870872404/"
+  LangName = "Python3"
+  Timestamp = 1767259630
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "17.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

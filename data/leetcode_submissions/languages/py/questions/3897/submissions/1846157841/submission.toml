@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1846157841
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3897
+  TitleSlug = "count-number-of-trapezoids-ii"
+  Code = "class Solution:\n    def countTrapezoids(self, points: List[List[int]]) -> int:\n        n = len(points)\n        inf = 10**9 + 7\n        slope_to_intercept = defaultdict(list)\n        mid_to_slope = defaultdict(list)\n        ans = 0\n\n        for i in range(n):\n            x1, y1 = points[i]\n            for j in range(i + 1, n):\n                x2, y2 = points[j]\n                dx = x1 - x2\n                dy = y1 - y2\n\n                if x2 == x1:\n                    k = inf\n                    b = x1\n                else:\n                    k = (y2 - y1) / (x2 - x1)\n                    b = (y1 * dx - x1 * dy) / dx\n\n                mid = (x1 + x2) * 10000 + (y1 + y2)\n                slope_to_intercept[k].append(b)\n                mid_to_slope[mid].append(k)\n\n        for sti in slope_to_intercept.values():\n            if len(sti) == 1:\n                continue\n\n            cnt = defaultdict(int)\n            for b_val in sti:\n                cnt[b_val] += 1\n\n            total_sum = 0\n            for count in cnt.values():\n                ans += total_sum * count\n                total_sum += count\n\n        for mts in mid_to_slope.values():\n            if len(mts) == 1:\n                continue\n\n            cnt = defaultdict(int)\n            for k_val in mts:\n                cnt[k_val] += 1\n\n            total_sum = 0\n            for count in cnt.values():\n                ans -= total_sum * count\n                total_sum += count\n\n        return ans"
+  Title = "Count Number of Trapezoids II"
+  Url = "/submissions/detail/1846157841/"
+  LangName = "Python3"
+  Timestamp = 1764784872
+  Status = 10
+  Runtime = "915 ms"
+  IsPending = "Not Pending"
+  Memory = "68.6 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

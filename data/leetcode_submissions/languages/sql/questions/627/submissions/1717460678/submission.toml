@@ -3,9 +3,9 @@
   StatusDisplay = "Accepted"
   Lang = "postgresql"
   QuestionId = 627
-  TitleSlug = "swap-salary"
+  TitleSlug = "swap-sex-of-employees"
   Code = "UPDATE\n    Salary\nSET\n    sex = (\n        CASE\n            WHEN\n                sex = 'f'\n            THEN\n                'm'\n            ELSE\n                'f'\n        END\n    );"
-  Title = "Swap Salary"
+  Title = "Swap Sex of Employees"
   Url = "/submissions/detail/1717460678/"
   LangName = "PostgreSQL"
   Timestamp = 1753897964

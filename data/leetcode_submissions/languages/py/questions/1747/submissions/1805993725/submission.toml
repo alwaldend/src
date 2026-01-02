@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1805993725
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1747
+  TitleSlug = "lexicographically-smallest-string-after-applying-operations"
+  Code = "class Solution:\n    def findLexSmallestString(self, s: str, a: int, b: int) -> str:\n        n = len(s)\n        vis = [False] * n\n        res = s\n        # double the length of s for convenience in extracting the rotated string t\n        s = s + s\n        i = 0\n        while not vis[i]:\n            vis[i] = True\n            for j in range(10):\n                k_limit = 0 if b % 2 == 0 else 9\n                for k in range(k_limit + 1):\n                    # before each accumulation, re-truncate t\n                    t = list(s[i : i + n])\n                    for p in range(1, n, 2):\n                        t[p] = str((int(t[p]) + j * a) % 10)\n                    for p in range(0, n, 2):\n                        t[p] = str((int(t[p]) + k * a) % 10)\n                    t_str = \"\".join(t)\n                    if t_str < res:\n                        res = t_str\n            i = (i + b) % n\n        return res"
+  Title = "Lexicographically Smallest String After Applying Operations"
+  Url = "/submissions/detail/1805993725/"
+  LangName = "Python3"
+  Timestamp = 1760887100
+  Status = 10
+  Runtime = "1271 ms"
+  IsPending = "Not Pending"
+  Memory = "18 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

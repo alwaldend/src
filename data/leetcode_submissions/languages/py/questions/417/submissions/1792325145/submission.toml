@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1792325145
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 417
+  TitleSlug = "pacific-atlantic-water-flow"
+  Code = "class Solution:\n    def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:\n        def dfs(cell, visited):\n            if cell in visited:\n                return\n            visited.add(cell)\n            r, c = cell\n            for nr, nc in [(r-1, c), (r+1, c), (r, c-1), (r, c+1)]:\n                if 0 <= nr < rows and 0 <= nc < cols and heights[nr][nc] >= heights[r][c]:\n                    dfs((nr, nc), visited)\n\n        rows, cols = len(heights), len(heights[0])\n        pacific, atlantic = set(), set()\n\n        for r in range(rows):\n            dfs((r, 0), pacific)\n            dfs((r, cols - 1), atlantic)\n        for c in range(cols):\n            dfs((0, c), pacific)\n            dfs((rows - 1, c), atlantic)\n\n        return list(pacific & atlantic)"
+  Title = "Pacific Atlantic Water Flow"
+  Url = "/submissions/detail/1792325145/"
+  LangName = "Python3"
+  Timestamp = 1759680412
+  Status = 10
+  Runtime = "25 ms"
+  IsPending = "Not Pending"
+  Memory = "19.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

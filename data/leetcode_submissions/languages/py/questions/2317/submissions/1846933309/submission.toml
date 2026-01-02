@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1846933309
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2317
+  TitleSlug = "count-collisions-on-a-road"
+  Code = "class Solution:\n    def countCollisions(self, directions: str) -> int:\n        dirs = directions.lstrip(\"L\").rstrip(\"R\")\n        return len(dirs) - dirs.count(\"S\")"
+  Title = "Count Collisions on a Road"
+  Url = "/submissions/detail/1846933309/"
+  LangName = "Python3"
+  Timestamp = 1764865876
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

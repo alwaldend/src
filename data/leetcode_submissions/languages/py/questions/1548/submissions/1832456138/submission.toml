@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1832456138
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1548
+  TitleSlug = "check-if-all-1s-are-at-least-length-k-places-away"
+  Code = "class Solution:\n    def kLengthApart(self, nums: List[int], k: int) -> bool:\n        prev = -k - 1\n        for i, num in enumerate(nums):\n            if num == 0:\n                continue\n            if i - prev - 1 >= k:\n                prev = i\n            else:\n                return False\n        return True"
+  Title = "Check If All 1's Are at Least Length K Places Away"
+  Url = "/submissions/detail/1832456138/"
+  LangName = "Python3"
+  Timestamp = 1763395151
+  Status = 10
+  Runtime = "8 ms"
+  IsPending = "Not Pending"
+  Memory = "21.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

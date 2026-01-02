@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1862574056
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1000
+  TitleSlug = "delete-columns-to-make-sorted-iii"
+  Code = "class Solution(object):\n    def minDeletionSize(self, A):\n        W = len(A[0])\n        dp = [1] * W\n        for i in range(W-2, -1, -1):\n            for j in range(i+1, W):\n                if all(row[i] <= row[j] for row in A):\n                    dp[i] = max(dp[i], 1 + dp[j])\n\n        return W - max(dp)"
+  Title = "Delete Columns to Make Sorted III"
+  Url = "/submissions/detail/1862574056/"
+  LangName = "Python3"
+  Timestamp = 1766420866
+  Status = 10
+  Runtime = "123 ms"
+  IsPending = "Not Pending"
+  Memory = "17.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

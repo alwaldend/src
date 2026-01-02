@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1854696820
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3721
+  TitleSlug = "count-mentions-per-user"
+  Code = "class Solution:\n    def countMentions(\n        self, numberOfUsers: int, events: List[List[str]]\n    ) -> List[int]:\n        events.sort(key=lambda e: (int(e[1]), e[0] == \"MESSAGE\"))\n        count = [0] * numberOfUsers\n        next_online_time = [0] * numberOfUsers\n        for event in events:\n            cur_time = int(event[1])\n            if event[0] == \"MESSAGE\":\n                if event[2] == \"ALL\":\n                    for i in range(numberOfUsers):\n                        count[i] += 1\n                elif event[2] == \"HERE\":\n                    for i, t in enumerate(next_online_time):\n                        if t <= cur_time:\n                            count[i] += 1\n                else:\n                    for idx in event[2].split():\n                        count[int(idx[2:])] += 1\n            else:\n                next_online_time[int(event[2])] = cur_time + 60\n        return count"
+  Title = "Count Mentions Per User"
+  Url = "/submissions/detail/1854696820/"
+  LangName = "Python3"
+  Timestamp = 1765646409
+  Status = 10
+  Runtime = "39 ms"
+  IsPending = "Not Pending"
+  Memory = "18.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

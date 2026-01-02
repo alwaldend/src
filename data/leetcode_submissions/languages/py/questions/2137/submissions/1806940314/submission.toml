@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1806940314
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2137
+  TitleSlug = "final-value-of-variable-after-performing-operations"
+  Code = "class Solution:\n    def finalValueAfterOperations(self, operations: List[str]) -> int:\n        res = 0\n        for op in operations:\n            if op.startswith(\"++\") or op.endswith(\"++\"):\n                res += 1\n            else:\n                res -= 1\n        return res"
+  Title = "Final Value of Variable After Performing Operations"
+  Url = "/submissions/detail/1806940314/"
+  LangName = "Python3"
+  Timestamp = 1760983598
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "17.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

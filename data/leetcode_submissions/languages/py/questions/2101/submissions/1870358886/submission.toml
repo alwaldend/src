@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1870358886
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2101
+  TitleSlug = "last-day-where-you-can-still-cross"
+  Code = "class Solution:\n    def latestDayToCross(self, row: int, col: int, cells: list[list[int]]) -> int:\n        dsu = DSU(row * col + 2)\n        grid = [[0] * col for _ in range(row)]\n        dirs = [(0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1)]\n\n        for i in range(row * col):\n            r = cells[i][0] - 1\n            c = cells[i][1] - 1\n            grid[r][c] = 1\n\n            id1 = r * col + c + 1\n            for dr, dc in dirs:\n                nr, nc = r + dr, c + dc\n                if 0 <= nr < row and 0 <= nc < col and grid[nr][nc] == 1:\n                    id2 = nr * col + nc + 1\n                    dsu.union(id1, id2)\n\n            if c == 0:\n                dsu.union(0, id1)\n            if c == col - 1:\n                dsu.union(row * col + 1, id1)\n\n            if dsu.find(0) == dsu.find(row * col + 1):\n                return i\n        return -1\n\n\nclass DSU:\n    def __init__(self, n):\n        self.root = list(range(n))\n        self.size = [1] * n\n\n    def find(self, x):\n        if self.root[x] != x:\n            self.root[x] = self.find(self.root[x])\n        return self.root[x]\n\n    def union(self, x, y):\n        rx = self.find(x)\n        ry = self.find(y)\n        if rx == ry:\n            return\n        if self.size[rx] > self.size[ry]:\n            rx, ry = ry, rx\n        self.root[rx] = ry\n        self.size[ry] += self.size[rx]\n"
+  Title = "Last Day Where You Can Still Cross"
+  Url = "/submissions/detail/1870358886/"
+  LangName = "Python3"
+  Timestamp = 1767193628
+  Status = 10
+  Runtime = "145 ms"
+  IsPending = "Not Pending"
+  Memory = "24.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1864117473
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 113
+  TitleSlug = "path-sum-ii"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> List[List[int]]:\n        res, cur = [], []\n        \n        def dfs(node: Optional[TreeNode], cur_sum: int) -> None:\n            if node is None:\n                return\n            cur_sum += node.val\n            cur.append(node.val)\n            if node.right or node.left:\n                dfs(node.left, cur_sum)\n                dfs(node.right, cur_sum)\n            elif cur_sum == targetSum:\n                res.append(cur.copy())\n            cur.pop()\n\n        dfs(root, 0)\n        return res"
+  Title = "Path Sum II"
+  Url = "/submissions/detail/1864117473/"
+  LangName = "Python3"
+  Timestamp = 1766573881
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "18.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

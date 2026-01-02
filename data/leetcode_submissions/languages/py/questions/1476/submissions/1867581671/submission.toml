@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1867581671
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1476
+  TitleSlug = "count-negative-numbers-in-a-sorted-matrix"
+  Code = "class Solution:\n    def countNegatives(self, grid: List[List[int]]) -> int:\n        count = 0\n        for row in reversed(grid):\n            for col in reversed(row):\n                if col < 0:\n                    count += 1\n                else:\n                    break\n        return count\n                "
+  Title = "Count Negative Numbers in a Sorted Matrix"
+  Url = "/submissions/detail/1867581671/"
+  LangName = "Python3"
+  Timestamp = 1766929110
+  Status = 10
+  Runtime = "5 ms"
+  IsPending = "Not Pending"
+  Memory = "18.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

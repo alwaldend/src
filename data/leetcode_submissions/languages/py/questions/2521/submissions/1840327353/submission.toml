@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1840327353
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2521
+  TitleSlug = "paths-in-matrix-whose-sum-is-divisible-by-k"
+  Code = "class Solution:\n    def numberOfPaths(self, grid: List[List[int]], k: int) -> int:\n        MOD = 10**9 + 7\n        m, n = len(grid), len(grid[0])\n\n        dp = [[[0] * k for _ in range(n + 1)] for _ in range(m + 1)]\n\n        for i in range(1, m + 1):\n            for j in range(1, n + 1):\n                if i == 1 and j == 1:\n                    dp[i][j][grid[0][0] % k] = 1\n                    continue\n\n                value = grid[i - 1][j - 1] % k\n                for r in range(k):\n                    prev_mod = (r - value + k) % k\n                    dp[i][j][r] = (\n                        dp[i - 1][j][prev_mod] + dp[i][j - 1][prev_mod]\n                    ) % MOD\n\n        return dp[m][n][0]"
+  Title = "Paths in Matrix Whose Sum Is Divisible by K"
+  Url = "/submissions/detail/1840327353/"
+  LangName = "Python3"
+  Timestamp = 1764169560
+  Status = 10
+  Runtime = "1384 ms"
+  IsPending = "Not Pending"
+  Memory = "99.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

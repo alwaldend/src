@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1798611120
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3437
+  TitleSlug = "maximum-total-damage-with-spell-casting"
+  Code = "class Solution:\n    def maximumTotalDamage(self, power):\n        count = Counter(power)\n        vec = [(-(10**9), 0)]\n        for k in sorted(count.keys()):\n            vec.append((k, count[k]))\n        n = len(vec)\n        f = [0] * n\n        mx = 0\n        j = 1\n        for i in range(1, n):\n            while j < i and vec[j][0] < vec[i][0] - 2:\n                mx = max(mx, f[j])\n                j += 1\n            f[i] = mx + vec[i][0] * vec[i][1]\n        return max(f)"
+  Title = "Maximum Total Damage With Spell Casting"
+  Url = "/submissions/detail/1798611120/"
+  LangName = "Python3"
+  Timestamp = 1760206092
+  Status = 10
+  Runtime = "447 ms"
+  IsPending = "Not Pending"
+  Memory = "45.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

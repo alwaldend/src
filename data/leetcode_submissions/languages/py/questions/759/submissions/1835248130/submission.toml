@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1835248130
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 759
+  TitleSlug = "set-intersection-size-at-least-two"
+  Code = "class Solution(object):\n    def intersectionSizeTwo(self, intervals):\n        intervals.sort(key =lambda val: (val[0], -val[1]))\n        todo = [2] * len(intervals)\n        ans = 0\n        while intervals:\n            (s, e), t = intervals.pop(), todo.pop()\n            for p in range(s, s+t):\n                for i, (s0, e0) in enumerate(intervals):\n                    if todo[i] and p <= e0:\n                        todo[i] -= 1\n                ans += 1\n        return ans"
+  Title = "Set Intersection Size At Least Two"
+  Url = "/submissions/detail/1835248130/"
+  LangName = "Python3"
+  Timestamp = 1763652609
+  Status = 10
+  Runtime = "525 ms"
+  IsPending = "Not Pending"
+  Memory = "18.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

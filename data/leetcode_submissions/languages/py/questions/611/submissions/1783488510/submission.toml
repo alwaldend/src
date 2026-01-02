@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1783488510
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 611
+  TitleSlug = "valid-triangle-number"
+  Code = "class Solution:\n    def triangleNumber(self, nums: List[int]) -> int:\n        nums.sort()\n        n = len(nums)\n        count = 0\n\n        for i in range(n - 1, -1, -1):\n            left, right = 0, i - 1\n            while left < right:\n                if nums[left] + nums[right] > nums[i]:\n                    count += right - left\n                    right -= 1\n                else:\n                    left += 1\n        return count\n"
+  Title = "Valid Triangle Number"
+  Url = "/submissions/detail/1783488510/"
+  LangName = "Python3"
+  Timestamp = 1758905964
+  Status = 10
+  Runtime = "419 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

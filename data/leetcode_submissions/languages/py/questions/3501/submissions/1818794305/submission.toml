@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1818794305
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3501
+  TitleSlug = "delete-nodes-from-linked-list-present-in-array"
+  Code = "class Solution:\n    def modifiedList(\n        self, nums: List[int], head: Optional[ListNode]\n    ) -> Optional[ListNode]:\n        # Create a set for efficient lookup of values in nums\n        values_to_remove = set(nums)\n\n        # Handle the case where the head node needs to be removed\n        while head and head.val in values_to_remove:\n            head = head.next\n\n        # If the list is empty after removing head nodes, return None\n        if not head:\n            return None\n\n        # Iterate through the list, removing nodes with values in the set\n        current = head\n        while current.next:\n            if current.next.val in values_to_remove:\n                # Skip the next node by updating the pointer\n                current.next = current.next.next\n            else:\n                # Move to the next node\n                current = current.next\n\n        return head"
+  Title = "Delete Nodes From Linked List Present in Array"
+  Url = "/submissions/detail/1818794305/"
+  LangName = "Python3"
+  Timestamp = 1762101372
+  Status = 10
+  Runtime = "48 ms"
+  IsPending = "Not Pending"
+  Memory = "56.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

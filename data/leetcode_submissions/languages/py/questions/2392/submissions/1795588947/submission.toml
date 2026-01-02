@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1795588947
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2392
+  TitleSlug = "successful-pairs-of-spells-and-potions"
+  Code = "class Solution:\n    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:\n        freq=Counter(potions)\n        pMax=max(freq)\n        F=[0]*(1+pMax)\n        for p, f in freq.items():\n            F[p]=f\n        freq=list(accumulate(F))\n        n, m=len(spells), len(potions)\n        res=[0]*n\n        for i, x in enumerate(spells):\n            k=(success+x-1)//x\n            if k<=pMax:\n                res[i]=m-freq[k-1]\n        return res\n\n        "
+  Title = "Successful Pairs of Spells and Potions"
+  Url = "/submissions/detail/1795588947/"
+  LangName = "Python3"
+  Timestamp = 1759944500
+  Status = 10
+  Runtime = "111 ms"
+  IsPending = "Not Pending"
+  Memory = "46.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

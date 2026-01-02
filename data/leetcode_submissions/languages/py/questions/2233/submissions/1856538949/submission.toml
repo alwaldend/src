@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1856538949
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2233
+  TitleSlug = "number-of-smooth-descent-periods-of-a-stock"
+  Code = "class Solution:\n    def getDescentPeriods(self, prices: List[int]) -> int:\n        n = len(prices)\n        res = 1  # total number of smooth descending periods, initial value is dp[0]\n        prev = 1  # total number of smooth descending periods ending with the previous element, initial value is dp[0]\n        # traverse the array starting from 1, and update prev and the total res according to the recurrence relation\n        for i in range(1, n):\n            if prices[i] == prices[i - 1] - 1:\n                prev += 1\n            else:\n                prev = 1\n            res += prev\n        return res"
+  Title = "Number of Smooth Descent Periods of a Stock"
+  Url = "/submissions/detail/1856538949/"
+  LangName = "Python3"
+  Timestamp = 1765823609
+  Status = 10
+  Runtime = "60 ms"
+  IsPending = "Not Pending"
+  Memory = "29.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

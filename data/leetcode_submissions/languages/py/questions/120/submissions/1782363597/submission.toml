@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1782363597
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 120
+  TitleSlug = "triangle"
+  Code = "class Solution:\n    def minimumTotal(self, triangle: List[List[int]]) -> int:\n        cur, prev = [], triangle[0]\n        for row in range(1, len(triangle)):\n            for col in range(row + 1):\n                if col == 0:\n                    val = prev[col]\n                elif col == row:\n                    val = prev[col - 1]\n                else:\n                    val = min(prev[col - 1], prev[col])\n                cur.append(val + triangle[row][col])\n            prev.clear()\n            cur, prev = prev, cur\n        return min(prev)"
+  Title = "Triangle"
+  Url = "/submissions/detail/1782363597/"
+  LangName = "Python3"
+  Timestamp = 1758809732
+  Status = 10
+  Runtime = "4 ms"
+  IsPending = "Not Pending"
+  Memory = "18.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

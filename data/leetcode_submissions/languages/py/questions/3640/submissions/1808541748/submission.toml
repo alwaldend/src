@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1808541748
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3640
+  TitleSlug = "maximum-frequency-of-an-element-after-performing-operations-ii"
+  Code = "class Solution:\n    def maxFrequency(self, nums: List[int], k: int, numOperations: int) -> int:\n        nums.sort()\n        ans = 0\n        num_count = defaultdict(int)\n        modes = set()\n\n        def add_mode(value):\n            modes.add(value)\n            if value - k >= nums[0]:\n                modes.add(value - k)\n            if value + k <= nums[-1]:\n                modes.add(value + k)\n\n        last_num_index = 0\n        for i in range(len(nums)):\n            if nums[i] != nums[last_num_index]:\n                num_count[nums[last_num_index]] = i - last_num_index\n                ans = max(ans, i - last_num_index)\n                add_mode(nums[last_num_index])\n                last_num_index = i\n\n        num_count[nums[last_num_index]] = len(nums) - last_num_index\n        ans = max(ans, len(nums) - last_num_index)\n        add_mode(nums[last_num_index])\n\n        for mode in sorted(modes):\n            l = bisect.bisect_left(nums, mode - k)\n            r = bisect.bisect_right(nums, mode + k) - 1\n            if mode in num_count:\n                temp_ans = min(r - l + 1, num_count[mode] + numOperations)\n            else:\n                temp_ans = min(r - l + 1, numOperations)\n            ans = max(ans, temp_ans)\n\n        return ans"
+  Title = "Maximum Frequency of an Element After Performing Operations II"
+  Url = "/submissions/detail/1808541748/"
+  LangName = "Python3"
+  Timestamp = 1761140183
+  Status = 10
+  Runtime = "1164 ms"
+  IsPending = "Not Pending"
+  Memory = "49.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

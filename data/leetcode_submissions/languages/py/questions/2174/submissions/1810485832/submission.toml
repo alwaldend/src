@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1810485832
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2174
+  TitleSlug = "next-greater-numerically-balanced-number"
+  Code = "class Solution:\n    def nextBeautifulNumber(self, n: int) -> int:\n        for i in range(n + 1, 1224445):\n            count = Counter(str(i))\n            if all(count[d] == int(d) for d in count):\n                return i"
+  Title = "Next Greater Numerically Balanced Number"
+  Url = "/submissions/detail/1810485832/"
+  LangName = "Python3"
+  Timestamp = 1761321740
+  Status = 10
+  Runtime = "5210 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1845194058
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3886
+  TitleSlug = "count-number-of-trapezoids-i"
+  Code = "class Solution:\n    def countTrapezoids(self, points: List[List[int]]) -> int:\n        point_num = defaultdict(int)\n        mod = 10**9 + 7\n        ans, total_sum = 0, 0\n        for point in points:\n            point_num[point[1]] += 1\n        for p_num in point_num.values():\n            edge = p_num * (p_num - 1) // 2\n            ans = (ans + edge * total_sum) % mod\n            total_sum = (total_sum + edge) % mod\n        return ans"
+  Title = "Count Number of Trapezoids I"
+  Url = "/submissions/detail/1845194058/"
+  LangName = "Python3"
+  Timestamp = 1764693361
+  Status = 10
+  Runtime = "81 ms"
+  IsPending = "Not Pending"
+  Memory = "63.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

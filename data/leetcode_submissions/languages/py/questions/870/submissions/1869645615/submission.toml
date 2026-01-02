@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1869645615
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 870
+  TitleSlug = "magic-squares-in-grid"
+  Code = "class Solution:\n    def numMagicSquaresInside(self, grid: List[List[int]]) -> int:\n        ans = 0\n        m = len(grid)\n        n = len(grid[0])\n        for row in range(m - 2):\n            for col in range(n - 2):\n                if self._isMagicSquare(grid, row, col):\n                    ans += 1\n        return ans\n\n    def _isMagicSquare(self, grid, row, col):\n        # The sequences are each repeated twice to account for\n        # the different possible starting points of the sequence\n        # in the magic square\n        sequence = \"2943816729438167\"\n        sequenceReversed = \"7618349276183492\"\n\n        border = []\n        # Flattened indices for bordering elements of 3x3 grid\n        borderIndices = [0, 1, 2, 5, 8, 7, 6, 3]\n        for i in borderIndices:\n            num = grid[row + i // 3][col + (i % 3)]\n            border.append(str(num))\n\n        borderConverted = \"\".join(border)\n\n        # Make sure the sequence starts at one of the corners\n        return (\n            grid[row][col] % 2 == 0\n            and (\n                sequence.find(borderConverted) != -1\n                or sequenceReversed.find(borderConverted) != -1\n            )\n            and grid[row + 1][col + 1] == 5\n        )"
+  Title = "Magic Squares In Grid"
+  Url = "/submissions/detail/1869645615/"
+  LangName = "Python3"
+  Timestamp = 1767118063
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "17.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

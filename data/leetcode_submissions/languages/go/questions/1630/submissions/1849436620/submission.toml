@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1849436620
+  StatusDisplay = "Accepted"
+  Lang = "golang"
+  QuestionId = 1630
+  TitleSlug = "count-odd-numbers-in-an-interval-range"
+  Code = "\nfunc countOdds(low int, high int) int {\n\tlow_even, high_even, half := (low&1) == 0, (high&1) == 0, (high-low)/2\n\tif low_even && high_even  {\n\t\treturn half\n\t}\n\treturn half + 1\n}"
+  Title = "Count Odd Numbers in an Interval Range"
+  Url = "/submissions/detail/1849436620/"
+  LangName = "Go"
+  Timestamp = 1765124833
+  Status = 10
+  Runtime = "1 ms"
+  IsPending = "Not Pending"
+  Memory = "3.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

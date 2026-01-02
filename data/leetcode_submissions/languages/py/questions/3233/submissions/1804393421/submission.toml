@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1804393421
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3233
+  TitleSlug = "maximize-the-number-of-partitions-after-operations"
+  Code = "class Solution:\n    def maxPartitionsAfterOperations(self, s: str, k: int) -> int:\n        n = len(s)\n        left = [[0] * 3 for _ in range(n)]\n        right = [[0] * 3 for _ in range(n)]\n\n        num, mask, count = 0, 0, 0\n        for i in range(n - 1):\n            binary = 1 << (ord(s[i]) - ord(\"a\"))\n            if not (mask & binary):\n                count += 1\n                if count <= k:\n                    mask |= binary\n                else:\n                    num += 1\n                    mask = binary\n                    count = 1\n            left[i + 1][0] = num\n            left[i + 1][1] = mask\n            left[i + 1][2] = count\n\n        num, mask, count = 0, 0, 0\n        for i in range(n - 1, 0, -1):\n            binary = 1 << (ord(s[i]) - ord(\"a\"))\n            if not (mask & binary):\n                count += 1\n                if count <= k:\n                    mask |= binary\n                else:\n                    num += 1\n                    mask = binary\n                    count = 1\n            right[i - 1][0] = num\n            right[i - 1][1] = mask\n            right[i - 1][2] = count\n\n        max_val = 0\n        for i in range(n):\n            seg = left[i][0] + right[i][0] + 2\n            tot_mask = left[i][1] | right[i][1]\n            tot_count = bin(tot_mask).count(\"1\")\n            if left[i][2] == k and right[i][2] == k and tot_count < 26:\n                seg += 1\n            elif min(tot_count + 1, 26) <= k:\n                seg -= 1\n            max_val = max(max_val, seg)\n        return max_val"
+  Title = "Maximize the Number of Partitions After Operations"
+  Url = "/submissions/detail/1804393421/"
+  LangName = "Python3"
+  Timestamp = 1760720615
+  Status = 10
+  Runtime = "43 ms"
+  IsPending = "Not Pending"
+  Memory = "20.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1870895316
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 936
+  TitleSlug = "rle-iterator"
+  Code = "class RLEIterator:\n\n    def __init__(self, encoding: List[int]):\n        self.enc = encoding\n        self.enc.reverse()\n\n    def next(self, n: int) -> int:\n        while self.enc and n > 0:\n            count = self.enc[-1]\n            if count == 0:\n                self.enc.pop()\n                self.enc.pop()\n            elif count >= n:\n                self.enc[-1] -= n\n                return self.enc[-2]\n            else:\n                n -= count\n                self.enc.pop()\n                self.enc.pop()\n        return -1\n\n# Your RLEIterator object will be instantiated and called as such:\n# obj = RLEIterator(encoding)\n# param_1 = obj.next(n)"
+  Title = "RLE Iterator"
+  Url = "/submissions/detail/1870895316/"
+  LangName = "Python3"
+  Timestamp = 1767261915
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "11111111111"
+  HasNotes = false
+  FlagType = 1

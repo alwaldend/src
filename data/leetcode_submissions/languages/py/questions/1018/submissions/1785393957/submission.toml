@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1785393957
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1018
+  TitleSlug = "largest-perimeter-triangle"
+  Code = "class Solution:\n    def largestPerimeter(self, nums: List[int]) -> int:\n        nums.sort(reverse=True)\n        for i in range(len(nums) - 2):\n            if nums[i + 1] + nums[i + 2] > nums[i]:\n                return nums[i] + nums[i + 1] + nums[i + 2]\n        return 0"
+  Title = "Largest Perimeter Triangle"
+  Url = "/submissions/detail/1785393957/"
+  LangName = "Python3"
+  Timestamp = 1759069173
+  Status = 10
+  Runtime = "13 ms"
+  IsPending = "Not Pending"
+  Memory = "18.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

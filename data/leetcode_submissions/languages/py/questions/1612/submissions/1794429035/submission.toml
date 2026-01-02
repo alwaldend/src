@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1794429035
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1612
+  TitleSlug = "avoid-flood-in-the-city"
+  Code = "from sortedcontainers import SortedList\n\n\nclass Solution:\n    def avoidFlood(self, rains: List[int]) -> List[int]:\n        ans = [1] * len(rains)\n        st = SortedList()\n        mp = {}\n        for i, rain in enumerate(rains):\n            if rain == 0:\n                st.add(i)\n            else:\n                ans[i] = -1\n                if rain in mp:\n                    it = st.bisect(mp[rain])\n                    if it == len(st):\n                        return []\n                    ans[st[it]] = rain\n                    st.discard(st[it])\n                mp[rain] = i\n        return ans"
+  Title = "Avoid Flood in The City"
+  Url = "/submissions/detail/1794429035/"
+  LangName = "Python3"
+  Timestamp = 1759855714
+  Status = 10
+  Runtime = "175 ms"
+  IsPending = "Not Pending"
+  Memory = "34.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1829586361
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2625
+  TitleSlug = "increment-submatrices-by-one"
+  Code = "class Solution:\n    def rangeAddQueries(\n        self, n: int, queries: List[List[int]]\n    ) -> List[List[int]]:\n        diff = [[0] * (n + 1) for _ in range(n + 1)]\n        for row1, col1, row2, col2 in queries:\n            diff[row1][col1] += 1\n            diff[row2 + 1][col1] -= 1\n            diff[row1][col2 + 1] -= 1\n            diff[row2 + 1][col2 + 1] += 1\n\n        mat = [[0] * n for _ in range(n)]\n        for i in range(n):\n            for j in range(n):\n                x1 = 0 if i == 0 else mat[i - 1][j]\n                x2 = 0 if j == 0 else mat[i][j - 1]\n                x3 = 0 if i == 0 or j == 0 else mat[i - 1][j - 1]\n                mat[i][j] = diff[i][j] + x1 + x2 - x3\n        return mat"
+  Title = "Increment Submatrices by One"
+  Url = "/submissions/detail/1829586361/"
+  LangName = "Python3"
+  Timestamp = 1763123925
+  Status = 10
+  Runtime = "203 ms"
+  IsPending = "Not Pending"
+  Memory = "39.8 MB"
+  CompareResult = "1111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

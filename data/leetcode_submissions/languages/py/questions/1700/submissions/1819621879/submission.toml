@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1819621879
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1700
+  TitleSlug = "minimum-time-to-make-rope-colorful"
+  Code = "class Solution:\n    def minCost(self, colors: str, neededTime: list[int]) -> int:\n        total_time, curr_max_time = 0, 0\n\n        for i in range(len(colors)):\n            if i > 0 and colors[i] != colors[i - 1]:\n                curr_max_time = 0\n            total_time += min(curr_max_time, neededTime[i])\n            curr_max_time = max(curr_max_time, neededTime[i])\n\n        return total_time\n"
+  Title = "Minimum Time to Make Rope Colorful"
+  Url = "/submissions/detail/1819621879/"
+  LangName = "Python3"
+  Timestamp = 1762179981
+  Status = 10
+  Runtime = "179 ms"
+  IsPending = "Not Pending"
+  Memory = "26.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

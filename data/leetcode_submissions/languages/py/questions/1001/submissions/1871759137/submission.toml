@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1871759137
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1001
+  TitleSlug = "n-repeated-element-in-size-2n-array"
+  Code = "class Solution:\n    def repeatedNTimes(self, nums: List[int]) -> int:\n        enc = set()\n        for num in nums:\n            if num in enc:\n                return num\n            enc.add(num)\n        raise Exception"
+  Title = "N-Repeated Element in Size 2N Array"
+  Url = "/submissions/detail/1871759137/"
+  LangName = "Python3"
+  Timestamp = 1767338494
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "18.7 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

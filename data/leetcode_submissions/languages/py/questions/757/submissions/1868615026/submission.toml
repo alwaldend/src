@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1868615026
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 757
+  TitleSlug = "pyramid-transition-matrix"
+  Code = "\nfrom functools import cache\n\n\nclass Solution:\n    def pyramidTransition(self, bottom: str, allowed: List[str]) -> bool:\n        # build up potential values for next rows based on allowed values\n        tops = defaultdict(list)\n        for key in allowed:\n            tops[key[:2]].append(key[2])\n\n        def gen_next_rows(full_items, all_valid=set(), i=0, cur=''):\n            # handle when a base pair does not have a top option in allowed\n            if any([item == [] for item in full_items]):\n                return []\n\n            # generated a full new line, add to set of valid options\n            if i == len(full_items):\n                all_valid.add(cur)\n                return\n\n            # full line is not complete, for each top option of current base pair,\n            # use it and look at the options for the next base pair.\n            for item in full_items[i]:\n                gen_next_rows(full_items, all_valid, i + 1, cur + item)\n\n            # all row options generated, return the options\n            return all_valid\n\n        seen = set()\n\n        def find_next_row(last):\n            n = len(last)\n            # made it to the top with a valid top option for the row of length 2\n            if n == 1:\n                return True\n\n            # Generate all potential options for the next row and try them.\n            # For example 2: the list comprehension used in gen_next_rows would be\n            # [['B', 'C'], ['B', 'C'], ['B', 'C']] for the next row choices after bottom\n            options = gen_next_rows([tops[last[i:i + 2]] for i in range(n - 1)], set())\n\n            # cache is useful here because the same sequence may appear more than once\n            # as the pyramid builds up.\n            for option in options:\n                if option in seen:\n                    continue\n                if find_next_row(option):\n                    return True\n                seen.add(option)\n            return False\n        return find_next_row(bottom)\n"
+  Title = "Pyramid Transition Matrix"
+  Url = "/submissions/detail/1868615026/"
+  LangName = "Python3"
+  Timestamp = 1767026366
+  Status = 10
+  Runtime = "389 ms"
+  IsPending = "Not Pending"
+  Memory = "22.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

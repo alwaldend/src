@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1807832665
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3622
+  TitleSlug = "maximum-frequency-of-an-element-after-performing-operations-i"
+  Code = "class Solution:\n    def maxFrequency(self, nums: List[int], k: int, numOperations: int) -> int:\n        nums.sort()\n        ans = 0\n        num_count = {}\n        last_num_index = 0\n        for i in range(len(nums)):\n            if nums[i] != nums[last_num_index]:\n                num_count[nums[last_num_index]] = i - last_num_index\n                ans = max(ans, i - last_num_index)\n                last_num_index = i\n\n        num_count[nums[last_num_index]] = len(nums) - last_num_index\n        ans = max(ans, len(nums) - last_num_index)\n\n        for i in range(nums[0], nums[-1] + 1):\n            l = bisect.bisect_left(nums, i - k)\n            r = bisect.bisect_right(nums, i + k) - 1\n            if i in num_count:\n                temp_ans = min(r - l + 1, num_count[i] + numOperations)\n            else:\n                temp_ans = min(r - l + 1, numOperations)\n            ans = max(ans, temp_ans)\n\n        return ans"
+  Title = "Maximum Frequency of an Element After Performing Operations I"
+  Url = "/submissions/detail/1807832665/"
+  LangName = "Python3"
+  Timestamp = 1761069107
+  Status = 10
+  Runtime = "589 ms"
+  IsPending = "Not Pending"
+  Memory = "33.3 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

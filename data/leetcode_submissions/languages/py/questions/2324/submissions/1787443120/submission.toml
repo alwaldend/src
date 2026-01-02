@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1787443120
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2324
+  TitleSlug = "find-triangular-sum-of-an-array"
+  Code = "class Solution:\n    def triangularSum(self, nums: List[int]) -> int:\n        while len(nums) > 1:\n            new_nums = list()\n            for i in range(len(nums) - 1):\n                new_nums.append((nums[i] + nums[i + 1]) % 10)\n            nums = new_nums\n        return nums[0]"
+  Title = "Find Triangular Sum of an Array"
+  Url = "/submissions/detail/1787443120/"
+  LangName = "Python3"
+  Timestamp = 1759251065
+  Status = 10
+  Runtime = "1224 ms"
+  IsPending = "Not Pending"
+  Memory = "17.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

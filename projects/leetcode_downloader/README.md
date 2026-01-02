@@ -21,7 +21,6 @@ tags:
 
 - CLI and bzl code to generate submission docs
 - [Tampermonkey](https://www.tampermonkey.net/) script to download submissions
-  (Doesn't work because the API was removed)
 - CLI to download submissions (Doesn't work because of bot protection)
 
 ## Usage
@@ -29,7 +28,7 @@ tags:
 ### Generate submission from a submission file
 
 ```sh
-bazel run go/leetcode_downloader -- \
+bazel run //projects/leetcode_downloader -- \
     --submissions-file "${PWD}/out/submissions.json" \
     --root-dir "${PWD}" \
     generate
