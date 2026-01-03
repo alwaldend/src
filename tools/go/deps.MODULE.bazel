@@ -47,3 +47,18 @@ use_repo(
     tools_com_github_bazelbuild_buildtools = "com_github_bazelbuild_buildtools",
     tools_com_github_bazelbuild_buildtools_org_golang_x_tools = "org_golang_x_tools",
 )
+
+pkgsite = use_extension("@gazelle//:extensions.bzl", "go_deps", isolate = True)
+pkgsite.from_file(
+    go_mod = "//tools/pkgsite:go.mod",
+)
+use_repo(
+    pkgsite,
+    tools_com_github_google_licensecheck = "com_github_google_licensecheck",
+    tools_com_github_google_safehtml = "com_github_google_safehtml",
+    tools_io_rsc_markdown = "io_rsc_markdown",
+    tools_org_golang_x_mod = "org_golang_x_mod",
+    tools_org_golang_x_net = "org_golang_x_net",
+    tools_org_golang_x_pkgsite = "org_golang_x_pkgsite",
+    tools_org_golang_x_tools = "org_golang_x_tools",
+)

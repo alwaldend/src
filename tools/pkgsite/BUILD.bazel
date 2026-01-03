@@ -1,0 +1,22 @@
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+
+# gazelle:resolve go golang.org/x/pkgsite/static @tools_org_golang_x_pkgsite//static:go_default_library
+# gazelle:resolve go golang.org/x/mod/modfile @tools_org_golang_x_mod//modfile:go_default_library
+# gazelle:resolve go golang.org/x/net/context @tools_org_golang_x_net//context:go_default_library
+# gazelle:resolve go golang.org/x/tools/imports @tools_org_golang_x_tools//imports:go_default_library
+# gazelle:resolve go github.com/google/safehtml @tools_com_github_google_safehtml//:go_default_library
+# gazelle:resolve go github.com/google/licensecheck @tools_com_github_google_licensecheck//:go_default_library
+# gazelle:resolve go rsc.io/markdown @tools_io_rsc_markdown//:go_default_library
+
+alias(
+    name = "pkgsite",
+    actual = "@tools_org_golang_x_pkgsite//cmd/pkgsite",
+    visibility = ["//:__subpackages__"],
+)
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//tools:__pkg__"],
+)

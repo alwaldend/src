@@ -1,0 +1,23 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "go_lib",
+    srcs = ["tools.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/pkgsite/main/go",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "@tools_com_github_google_licensecheck//:go_default_library",
+        "@tools_com_github_google_safehtml//:go_default_library",
+        "@tools_io_rsc_markdown//:go_default_library",
+        "@tools_org_golang_x_mod//modfile:go_default_library",
+        "@tools_org_golang_x_net//context:go_default_library",
+        "@tools_org_golang_x_pkgsite//static:go_default_library",
+        "@tools_org_golang_x_tools//imports:go_default_library",
+    ],
+)
+
+go_binary(
+    name = "go",
+    embed = [":go_lib"],
+    visibility = ["//:__subpackages__"],
+)
