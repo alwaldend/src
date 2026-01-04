@@ -8,6 +8,9 @@ al_bzl_library_map(
         "al_pkg_tar_combined": [],
         "al_genrule_src": [],
         "al_pkg_extract_dir": [],
+        "al_pkg_basic_naming": [
+            "@rules_pkg//pkg:bzl_srcs",
+        ],
     },
     visibility = ["//:__subpackages__"],
 )
