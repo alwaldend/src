@@ -2,10 +2,10 @@
 # `udevadm control --reload-rules && udevadm trigger`
 
 # ergohaven K:02
-KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="e126", ATTRS{idProduct}=="9918", MODE="0660", GROUP="${USER}", TAG+="uaccess", TAG+="udev-acl"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", ATTRS{idVendor}=="e126", ATTRS{idProduct}=="9918", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
 # ergohaven K:03
-KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="e126", ATTRS{idProduct}=="0003", MODE="0660", GROUP="${USER}", TAG+="uaccess", TAG+="udev-acl"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", ATTRS{idVendor}=="e126", ATTRS{idProduct}=="0003", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
 # ergohaven High Plains Drifter
-KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="e126", ATTRS{idProduct}=="0050", MODE="0660", GROUP="${USER}", TAG+="uaccess", TAG+="udev-acl"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", ATTRS{idVendor}=="e126", ATTRS{idProduct}=="0050", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
 # ergohave K:03 v3
-KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="e126", ATTRS{idProduct}=="0070", MODE="0660", GROUP="${USER}", TAG+="uaccess", TAG+="udev-acl"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", ATTRS{idVendor}=="e126", ATTRS{idProduct}=="0070", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
