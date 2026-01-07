@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1876145768
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1116
+  TitleSlug = "maximum-level-sum-of-a-binary-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def maxLevelSum(self, root: Optional[TreeNode]) -> int:\n        cur, nxt = [root], []\n        level = 1\n        min_level, max_sum = 1, root.val\n        while cur or nxt:\n            cur_sum = 0\n            while cur:\n                node = cur.pop()\n                cur_sum += node.val\n                if node.left:\n                    nxt.append(node.left)\n                if node.right:\n                    nxt.append(node.right)\n            if cur_sum > max_sum:\n                min_level, max_sum = level, cur_sum\n            cur, nxt = nxt, cur\n            level += 1\n        return min_level"
+  Title = "Maximum Level Sum of a Binary Tree"
+  Url = "/submissions/detail/1876145768/"
+  LangName = "Python3"
+  Timestamp = 1767683137
+  Status = 10
+  Runtime = "8 ms"
+  IsPending = "Not Pending"
+  Memory = "22.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

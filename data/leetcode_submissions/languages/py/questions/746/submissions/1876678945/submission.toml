@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1876678945
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 746
+  TitleSlug = "prefix-and-suffix-search"
+  Code = "class WordFilter:\n\n    def __init__(self, words: List[str]):\n        self.prefix = {}\n        self.postfix = {}\n        for i, word in enumerate(words):\n            prefix = self.prefix\n            for char in word:\n                if char not in prefix:\n                    prefix[char] = {}\n                prefix = prefix[char]\n            prefix[\"\"] = i\n            postfix = self.postfix\n            for char in reversed(word):\n                if char not in postfix:\n                    postfix[char] = {}\n                postfix = postfix[char]\n            if \"\" not in postfix:\n                postfix[\"\"] = set()\n            postfix[\"\"] = i\n\n    def f(self, pref: str, suff: str) -> int:\n        prefixes, postfixes = set(), set()\n        postfix, prefix = self.postfix, self.prefix\n        for char in pref:\n            if char not in prefix:\n                return -1\n            prefix = prefix[char]\n        for char in reversed(suff):\n            if char not in postfix:\n                return -1\n            postfix = postfix[char]\n        postfix_queue = [postfix]\n        prefix_queue = [prefix]\n        while postfix_queue:\n            for key, value in postfix_queue.pop().items():\n                if key == \"\":\n                    postfixes.add(value)\n                else:\n                    postfix_queue.append(value)\n        while prefix_queue:\n            for key, value in prefix_queue.pop().items():\n                if key == \"\":\n                    prefixes.add(value)\n                else:\n                    prefix_queue.append(value)\n        res = prefixes & postfixes\n        if not res:\n            return -1\n        return max(res)\n\n# Your WordFilter object will be instantiated and called as such:\n# obj = WordFilter(words)\n# param_1 = obj.f(pref,suff)"
+  Title = "Prefix and Suffix Search"
+  Url = "/submissions/detail/1876678945/"
+  LangName = "Python3"
+  Timestamp = 1767717468
+  Status = 10
+  Runtime = "4507 ms"
+  IsPending = "Not Pending"
+  Memory = "42.3 MB"
+  CompareResult = "11111111111111111"
+  HasNotes = false
+  FlagType = 1

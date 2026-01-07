@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1872980033
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1527
+  TitleSlug = "number-of-ways-to-paint-n-3-grid"
+  Code = "class Solution:\n    def numOfWays(self, n: int) -> int:\n        MOD = 10**9 + 7\n        A = B = 6\n\n        for _ in range(2, n + 1):\n            A, B = (2*A + 2*B) % MOD, (2*A + 3*B) % MOD\n\n        return (A + B) % MOD\n"
+  Title = "Number of Ways to Paint N × 3 Grid"
+  Url = "/submissions/detail/1872980033/"
+  LangName = "Python3"
+  Timestamp = 1767437832
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "17.3 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

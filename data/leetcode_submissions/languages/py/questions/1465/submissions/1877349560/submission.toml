@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1877349560
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1465
+  TitleSlug = "maximum-product-of-splitted-binary-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def maxProduct(self, root: Optional[TreeNode]) -> int:\n        if root is None:\n            return 0\n        sums = {}\n        def dfs_sum(node: Optional[TreeNode]) -> int:\n            if node is None:\n                return 0\n            node_id = id(node)\n            if node_id in sums:\n                return sums[node_id]\n            res = node.val + dfs_sum(node.left) + dfs_sum(node.right)\n            sums[node_id] = res\n            return res\n        dfs_sum(root)\n        root_sum = sums[id(root)]\n        def dfs(node: Optional[TreeNode]) -> int:\n            if node is None:\n                return 0\n            tree1 = sums[id(node)]\n            tree2 = root_sum - tree1 \n            res = max(tree1 * tree2, dfs(node.left), dfs(node.right))\n            return res\n        return max(dfs(root.left), dfs(root.right)) % (10 ** 9 + 7)"
+  Title = "Maximum Product of Splitted Binary Tree"
+  Url = "/submissions/detail/1877349560/"
+  LangName = "Python3"
+  Timestamp = 1767773478
+  Status = 10
+  Runtime = "98 ms"
+  IsPending = "Not Pending"
+  Memory = "54.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

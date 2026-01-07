@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1877561429
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 51
+  TitleSlug = "n-queens"
+  Code = "class Solution:\n    def solveNQueens(self, n: int) -> List[List[str]]:\n        res = []\n        state = [[\".\"] * n for _ in range(n)]\n    \n        def backtrack(row: int, col: int, left: int) -> None:\n            if left == 0: \n                res.append(tuple(\"\".join(cur_row) for cur_row in state))\n                return\n            if row >= n or col >= n:\n                return\n\n            place = True\n            for i in range(row):\n                if state[i][col] == \"Q\":\n                    place = False\n                    break\n\n            if place:\n                cur_i, cur_j = row, col\n                while cur_i >= 0 and cur_j >= 0:\n                    if state[cur_i][cur_j] == \"Q\":\n                        place = False\n                        break\n                    cur_i -= 1\n                    cur_j -= 1\n            \n            if place:\n                cur_i, cur_j = row, col\n                while cur_i >= 0 and cur_j < n:\n                    if state[cur_i][cur_j] == \"Q\":\n                        place = False\n                        break\n                    cur_i -= 1\n                    cur_j += 1\n\n            if place:    \n                state[row][col] = \"Q\"\n                backtrack(row + 1, 0, left - 1)\n                state[row][col] = \".\"\n            \n            if col + 1 == n:\n                nxt_row, nxt_col = row + 1, 0\n            else:\n                nxt_row, nxt_col = row, col + 1\n            backtrack(nxt_row, nxt_col, left)\n\n        backtrack(0, 0, n)\n        \n        return res"
+  Title = "N-Queens"
+  Url = "/submissions/detail/1877561429/"
+  LangName = "Python3"
+  Timestamp = 1767788624
+  Status = 10
+  Runtime = "2589 ms"
+  IsPending = "Not Pending"
+  Memory = "19.8 MB"
+  CompareResult = "111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1877573714
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 60
+  TitleSlug = "permutation-sequence"
+  Code = "import itertools\n\nclass Solution:\n    def getPermutation(self, n: int, k: int) -> str:\n        for nums in itertools.permutations(range(1, n + 1), n):\n            if k == 1:\n                return \"\".join(map(str, nums))\n            k -= 1\n        raise Exception"
+  Title = "Permutation Sequence"
+  Url = "/submissions/detail/1877573714/"
+  LangName = "Python3"
+  Timestamp = 1767789557
+  Status = 10
+  Runtime = "388 ms"
+  IsPending = "Not Pending"
+  Memory = "19.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

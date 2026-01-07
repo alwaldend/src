@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1875471165
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1296
+  TitleSlug = "kth-ancestor-of-a-tree-node"
+  Code = "class TreeAncestor:\n\n    def __init__(self, n: int, parent: List[int]):\n        m = 1 + int(log2(n)) #at most 16 for this problem \n        self.dp = [[-1] * m for _ in range(n)] #ith node's 2^j parent\n        for j in range(m):\n            for i in range(n):\n                if j == 0: \n                    self.dp[i][0] = parent[i] \n                elif self.dp[i][j-1] != -1: \n                    self.dp[i][j] = self.dp[self.dp[i][j-1]][j-1]\n    \n    def getKthAncestor(self, node: int, k: int) -> int:\n        while k > 0 and node != -1: \n            i = int(log2(k))\n            node = self.dp[node][i]\n            k -= (1 << i)\n        return node "
+  Title = "Kth Ancestor of a Tree Node"
+  Url = "/submissions/detail/1875471165/"
+  LangName = "Python3"
+  Timestamp = 1767628711
+  Status = 10
+  Runtime = "318 ms"
+  IsPending = "Not Pending"
+  Memory = "49.8 MB"
+  CompareResult = "11111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1876256633
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 931
+  TitleSlug = "maximum-frequency-stack"
+  Code = "class FreqStack:\n\n    def __init__(self):\n        self.levels = [None]\n        self.last_level = 0\n        self.freqs = collections.defaultdict(int)\n\n    def push(self, val: int) -> None:\n        freq = self.freqs[val] + 1\n        if freq >= len(self.levels):\n            self.levels.append([])\n        self.levels[freq].append(val)\n        self.freqs[val] = freq\n\n    def pop(self) -> int:\n        for i in reversed(range(len(self.levels))):\n            level = self.levels[i]\n            if level:\n                val = level.pop()\n                self.freqs[val] -= 1\n                return val\n        raise Exception\n\n\n# Your FreqStack object will be instantiated and called as such:\n# obj = FreqStack()\n# obj.push(val)\n# param_2 = obj.pop()"
+  Title = "Maximum Frequency Stack"
+  Url = "/submissions/detail/1876256633/"
+  LangName = "Python3"
+  Timestamp = 1767690969
+  Status = 10
+  Runtime = "922 ms"
+  IsPending = "Not Pending"
+  Memory = "28 MB"
+  CompareResult = "11111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

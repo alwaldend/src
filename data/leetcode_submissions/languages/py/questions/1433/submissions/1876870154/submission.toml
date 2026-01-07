@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1876870154
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1433
+  TitleSlug = "encrypt-and-decrypt-strings"
+  Code = "class Encrypter:\n\n    def __init__(self, keys: List[str], values: List[str], dictionary: List[str]):\n        self.key_to_i = {}\n        self.keys = keys\n        self.values = values\n        self.value_to_i = collections.defaultdict(list)\n        for i, key in enumerate(keys):\n            self.key_to_i[key] = i\n        for i, value in enumerate(values):\n            self.value_to_i[value].append(i)\n        self.trie = {}\n        for word in dictionary:\n            trie = self.trie\n            for char in word:\n                if char not in trie:\n                    trie[char] = {}\n                trie = trie[char]\n            trie[\"\"] = True\n\n    def encrypt(self, word1: str) -> str:\n        res = []\n        for char in word1:\n            if char not in self.key_to_i:\n                return \"\"\n            res.append(self.values[self.key_to_i[char]])\n        return \"\".join(res)\n\n    def decrypt(self, word2: str) -> int:\n        def backtrack(i: int, trie: dict[str, dict]) -> int:\n            if i >= len(word2):\n                if trie.get(\"\"):\n                    return 1\n                return 0\n            res = 0\n            for idx in self.value_to_i[word2[i:i+ 2]]:\n                key = self.keys[idx]\n                if key in trie:\n                    res += backtrack(i + 2, trie[key])\n            return res\n\n        return backtrack(0, self.trie)\n\n# Your Encrypter object will be instantiated and called as such:\n# obj = Encrypter(keys, values, dictionary)\n# param_1 = obj.encrypt(word1)\n# param_2 = obj.decrypt(word2)"
+  Title = "Encrypt and Decrypt Strings"
+  Url = "/submissions/detail/1876870154/"
+  LangName = "Python3"
+  Timestamp = 1767727183
+  Status = 10
+  Runtime = "2928 ms"
+  IsPending = "Not Pending"
+  Memory = "29.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

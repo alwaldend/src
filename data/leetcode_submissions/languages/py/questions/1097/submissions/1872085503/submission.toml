@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1872085503
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1097
+  TitleSlug = "stream-of-characters"
+  Code = "class StreamChecker:\n\n    def __init__(self, words: List[str]):\n        self.trie = {}\n        self.lengths = set() \n        for word in words:\n            node = self.trie\n            self.lengths.add(len(word))\n            for char in word:\n                if char not in node:\n                    node[char] = {}\n                node = node[char]\n            node[\"is_word\"] = True \n        self.letters = []\n\n    def query(self, letter: str) -> bool:\n        self.letters.append(letter)\n        \n        for length in self.lengths:\n            if length > len(self.letters):\n                continue\n            node = self.trie\n            was_break = False\n            for letter in self.letters[-length:]:\n                if letter not in node:\n                    was_break = True\n                    break\n                node = node[letter]\n            if was_break:\n                continue\n            if node.get(\"is_word\", False):\n                return True\n\n        return False\n            \n\n\n\n# Your StreamChecker object will be instantiated and called as such:\n# obj = StreamChecker(words)\n# param_1 = obj.query(letter)"
+  Title = "Stream of Characters"
+  Url = "/submissions/detail/1872085503/"
+  LangName = "Python3"
+  Timestamp = 1767361742
+  Status = 10
+  Runtime = "3821 ms"
+  IsPending = "Not Pending"
+  Memory = "109.7 MB"
+  CompareResult = "11111111111111111111"
+  HasNotes = false
+  FlagType = 1

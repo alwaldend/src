@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1876801985
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2207
+  TitleSlug = "sequentially-ordinal-rank-tracker"
+  Code = "from sortedcontainers import SortedList\n\nclass SORTracker:\n\n    def __init__(self):\n        self.cnt = 0 \n        self.data = SortedList()\n\n    def add(self, location: str, score: int) -> None:\n        self.data.add((-score, location))\n\n    def get(self) -> str:\n        _, location = self.data[self.cnt]\n        self.cnt+= 1\n        return location"
+  Title = "Sequentially Ordinal Rank Tracker"
+  Url = "/submissions/detail/1876801985/"
+  LangName = "Python3"
+  Timestamp = 1767723032
+  Status = 10
+  Runtime = "221 ms"
+  IsPending = "Not Pending"
+  Memory = "41.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

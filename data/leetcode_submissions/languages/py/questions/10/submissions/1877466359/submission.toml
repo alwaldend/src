@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1877466359
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 10
+  TitleSlug = "regular-expression-matching"
+  Code = "class Solution:\n    def isMatch(self, s: str, p: str) -> bool:\n        length1, length2 = len(s), len(p)\n        cache = {}\n\n        def match(i: int, j: int) -> bool:\n            if (i, j) in cache:\n                return cache[(i, j)]\n            if i < length1:\n                char = s[i]\n            else:\n                char = None\n            if j < length2:\n                pat = p[j]\n            else:\n                pat = None\n            \n            if char is None and pat is None:\n                res = True\n            elif pat is None:\n                res = False\n            elif char is None:\n                res = (length2 - j) % 2 == 0\n                if res:\n                    for cur_j in range(j, length2, 2):\n                        if p[cur_j] == \"*\" or p[cur_j + 1] != \"*\":\n                            res = False\n                            break\n            else:\n                if j + 1 < length2:\n                    pat_nxt = p[j + 1]\n                else:\n                    pat_nxt = None\n                valid = pat == \".\" or char == pat\n                if pat_nxt and pat_nxt == \"*\":\n                    res = (valid and match(i + 1, j)) or match(i, j + 2)\n                else:\n                    res = valid and match(i + 1, j + 1)\n\n            cache[(i, j)] = res\n            return res\n\n        return match(0, 0)"
+  Title = "Regular Expression Matching"
+  Url = "/submissions/detail/1877466359/"
+  LangName = "Python3"
+  Timestamp = 1767781397
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "20.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1875212324
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2389
+  TitleSlug = "design-a-text-editor"
+  Code = "class Node:\n    def __init__(\n        self, \n        char: str, \n        prev: Optional[\"Node\"], \n        nxt: Optional[\"Node\"]\n    ) -> None:\n        self.char = char\n        self.prev = prev\n        self.nxt = nxt\n\nclass TextEditor:\n\n    def __init__(self):\n        self.length = 0\n        self.root = Node(\"\", None, None)\n        self.cursor = self.root\n\n    def addText(self, text: str) -> None:\n        node = self.cursor\n        self.length += len(text)\n        for char in text:\n            cur = Node(char, node, node.nxt)\n            nxt = node.nxt\n            node.nxt = cur\n            if nxt:\n                nxt.prev = cur\n            node = cur\n            self.cursor = cur\n\n    def deleteText(self, k: int) -> int:\n        res = 0\n        while self.cursor is not self.root and k > 0:\n            res += 1\n            k -= 1\n            if self.cursor.nxt:\n                self.cursor.nxt.prev = self.cursor.prev\n            self.cursor.prev.nxt = self.cursor.nxt\n            self.cursor = self.cursor.prev\n        return res\n\n    def last_ten(self) -> str:\n        res = []\n        node = self.cursor\n        while node is not self.root and len(res) < 10:\n            res.append(node.char)\n            node = node.prev\n        res.reverse()\n        return \"\".join(res)\n\n    def cursorLeft(self, k: int) -> str:\n        while self.cursor is not self.root and k > 0:\n            k -= 1\n            self.cursor = self.cursor.prev\n        res = self.last_ten()\n        return res\n\n    def cursorRight(self, k: int) -> str:\n        while self.cursor.nxt  and k > 0:\n            k -= 1\n            self.cursor = self.cursor.nxt\n        res = self.last_ten()\n        return res\n\n# Your TextEditor object will be instantiated and called as such:\n# obj = TextEditor()\n# obj.addText(text)\n# param_2 = obj.deleteText(k)\n# param_3 = obj.cursorLeft(k)\n# param_4 = obj.cursorRight(k)"
+  Title = "Design a Text Editor"
+  Url = "/submissions/detail/1875212324/"
+  LangName = "Python3"
+  Timestamp = 1767612289
+  Status = 10
+  Runtime = "1712 ms"
+  IsPending = "Not Pending"
+  Memory = "121.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

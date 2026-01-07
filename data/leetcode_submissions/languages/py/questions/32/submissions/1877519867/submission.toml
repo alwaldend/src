@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1877519867
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 32
+  TitleSlug = "longest-valid-parentheses"
+  Code = "class Solution:\n    def longestValidParentheses(self, s: str) -> int:\n        stack = []\n        lengths = [0] * len(s)\n        max_length = 0\n        for i, char in enumerate(s):\n            stack.append((i, char))\n            while len(stack) > 1 and stack[-2][1] == \"(\" and stack[-1][1] == \")\":\n                start, end = stack[-2][0], stack[-1][0]\n                length = end - start + 1\n                if start > 1:\n                    length += lengths[start - 1]\n                lengths[end] = length\n                max_length = max(max_length, length)\n                stack.pop()\n                stack.pop()\n\n        return max_length"
+  Title = "Longest Valid Parentheses"
+  Url = "/submissions/detail/1877519867/"
+  LangName = "Python3"
+  Timestamp = 1767785392
+  Status = 10
+  Runtime = "31 ms"
+  IsPending = "Not Pending"
+  Memory = "23.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

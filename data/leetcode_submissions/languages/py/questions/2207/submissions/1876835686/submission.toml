@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1876835686
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2207
+  TitleSlug = "sequentially-ordinal-rank-tracker"
+  Code = "class MaxString:\n    __slots__ = (\"s\")\n    def __init__(self, s):\n        self.s = s\n\n    def __lt__(self, other):\n        return self.s > other.s\n\n\nclass SORTracker:\n    def __init__(self):\n        self.right = []\n        self.left = []\n\n    def add(self, name: str, score: int) -> None:\n        _, name, score = heapq.heappushpop(\n            self.left, \n            ((score, MaxString(name)), name, score)\n        )\n        heapq.heappush(self.right, ((-score, name), name, score))\n\n    def get(self) -> str:\n        _, name, score = heapq.heappop(self.right)\n        heapq.heappush(self.left, ((score, MaxString(name)), name, score))\n        return name\n"
+  Title = "Sequentially Ordinal Rank Tracker"
+  Url = "/submissions/detail/1876835686/"
+  LangName = "Python3"
+  Timestamp = 1767724775
+  Status = 10
+  Runtime = "566 ms"
+  IsPending = "Not Pending"
+  Memory = "44.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

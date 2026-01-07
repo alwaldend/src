@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1875119318
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2089
+  TitleSlug = "maximum-matrix-sum"
+  Code = "class Solution:\n    def maxMatrixSum(self, matrix: List[List[int]]) -> int:\n        heap = []\n        min_pos = float(\"inf\")\n        res = 0\n        for row in matrix:\n            for col in row:\n                if col < 0:\n                    heapq.heappush(heap, col)\n                else:\n                    res += col\n                    min_pos = min(min_pos, col)\n        while len(heap) >= 2:\n            res += -(heapq.heappop(heap) + heapq.heappop(heap))\n        if not heap:\n            return res\n        last = heap.pop()\n        if min_pos == float(\"inf\"):\n            return res + last\n        return max(res + last, (res - min_pos) - (min_pos + last))\n         "
+  Title = "Maximum Matrix Sum"
+  Url = "/submissions/detail/1875119318/"
+  LangName = "Python3"
+  Timestamp = 1767605408
+  Status = 10
+  Runtime = "141 ms"
+  IsPending = "Not Pending"
+  Memory = "27 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

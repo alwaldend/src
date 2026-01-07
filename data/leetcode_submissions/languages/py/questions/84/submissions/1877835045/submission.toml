@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1877835045
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 84
+  TitleSlug = "largest-rectangle-in-histogram"
+  Code = "class Solution:\n    def largestRectangleArea(self, heights: List[int]) -> int:\n        stack = []\n        area = 0\n        length = len(heights)\n\n        for i in range(length):\n            while stack and heights[i] < heights[stack[-1]]:\n                bar = stack.pop()\n                if stack:\n                    pse = stack[-1]\n                else:\n                    pse =  -1\n                nse = i\n                area = max(area, heights[bar] * (nse - pse - 1))\n            stack.append(i)\n\n        while stack:\n            bar = stack.pop()\n            if stack:\n                pse = stack[-1] \n            else:\n                pse =  -1\n            nse = length\n            area = max(area, heights[bar] * (nse - pse - 1))\n\n        return area"
+  Title = "Largest Rectangle in Histogram"
+  Url = "/submissions/detail/1877835045/"
+  LangName = "Python3"
+  Timestamp = 1767804362
+  Status = 10
+  Runtime = "95 ms"
+  IsPending = "Not Pending"
+  Memory = "31.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
