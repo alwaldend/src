@@ -1,20 +1,20 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("//tools/bzl/main/bzl:al_bzl_generate_repository.bzl", "al_bzl_generate_repository")
-load(":al_trufflehog_archives.bzl", "AL_TRUFFLEHOG_ARCHIVES")
+load(":al_blender_archives.bzl", "AL_BLENDER_ARCHIVES")
 
 _BUILD_TOOLCHAIN = """
 load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
 
 native_binary(
-    name = "trufflehog_bin",
-    src = "trufflehog",
+    name = "blender",
+    src = glob(["*/blender"])[0],
     exec_compatible_with = {platforms},
     visibility = ["//visibility:public"],
 )
 """
 
 _BUILD_ROOT = """
-load("@com_alwaldend_src//tools/trufflehog/main/bzl:al_trufflehog_toolchain.bzl", "al_trufflehog_toolchain")
+load("@com_alwaldend_src//tools/blender/main/bzl:al_blender_toolchain.bzl", "al_blender_toolchain")
 CHILDREN = {children}
 
 [
@@ -22,14 +22,14 @@ CHILDREN = {children}
         toolchain(
             name = "toolchain_{{}}".format(child),
             toolchain = ":toolchain_{{}}_impl".format(child),
-            toolchain_type = "@com_alwaldend_src//tools/trufflehog/main/bzl:toolchain_type",
+            toolchain_type = "@com_alwaldend_src//tools/blender/main/bzl:toolchain_type",
             exec_compatible_with = platforms,
             visibility = ["//visibility:public"],
         ),
-        al_trufflehog_toolchain(
+        al_blender_toolchain(
             name = "toolchain_{{}}_impl".format(child),
             exec_compatible_with = platforms,
-            trufflehog = "@{{}}//:trufflehog_bin".format(child),
+            blender = "@{{}}//:blender".format(child),
         )
     ]
     for child, platforms in CHILDREN
@@ -41,13 +41,14 @@ def _impl(ctx):
     for mod in ctx.modules:
         for tag in mod.tags.toolchains:
             children = []
-            for archive in AL_TRUFFLEHOG_ARCHIVES.get(tag.version, []):
+            for archive in AL_BLENDER_ARCHIVES.get(tag.version, []):
                 name = "_".join([tag.name] + archive["platforms"]).replace(":", "_")
                 platforms = ["@platforms//{}".format(platform) for platform in archive["platforms"]]
                 children.append((name, platforms))
                 http_archive(
                     name = name,
-                    url = archive["url"],
+                    urls = archive.get("urls"),
+                    url = archive.get("url"),
                     strip_prefix = archive.get("strip_prefix"),
                     build_file_content = _BUILD_TOOLCHAIN.format(
                         name = name,
@@ -68,9 +69,9 @@ def _impl(ctx):
         reproducible = True,
     )
 
-al_trufflehog_extension = module_extension(
+al_blender_extension = module_extension(
     implementation = _impl,
-    doc = "Trufflehog extension",
+    doc = "blender extension",
     tag_classes = {
         "toolchains": tag_class(
             {

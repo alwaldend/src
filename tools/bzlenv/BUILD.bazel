@@ -3,6 +3,7 @@ load("//tools/bzlenv/main/bzl:al_bzlenv_binary.bzl", "al_bzlenv_binary")
 load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 _ROOT_TOOLS = [
+    "blender",
     "pkgsite",
     "secrets",
     "oras",

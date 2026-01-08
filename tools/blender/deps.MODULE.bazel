@@ -1,0 +1,11 @@
+al_blender_extension = use_extension("//tools/blender/main/bzl:al_blender_extension.bzl", "al_blender_extension")
+al_blender_extension.toolchains(
+    name = "com_alwalded_src_tools_blender_toolchain",
+    version = "5.0.1",
+)
+use_repo(
+    al_blender_extension,
+    "com_alwalded_src_tools_blender_toolchain",
+)
+
+register_toolchains("@com_alwalded_src_tools_blender_toolchain//:all")
