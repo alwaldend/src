@@ -13,6 +13,7 @@ tags:
     clang clang-format java-latest-openjdk-devel rust cargo mesa-libGL-devel \
     go Xvfb python3 gmp-devel patch podman
   ```
+- Install git lfs: https://git-lfs.com/
 - Install bazel: https://bazel.build/install/bazelisk
 - Install nvm: https://github.com/nvm-sh/nvm
 - Install node:
