@@ -1,11 +1,11 @@
 load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
+load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
 load("@rules_go//go:def.bzl", "go_library")
 load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_library")
 load("@rules_java//java:java_import.bzl", "java_import")
 load("@rules_java//java:java_single_jar.bzl", "java_single_jar")
-load("@rules_proto//proto:defs.bzl", "proto_library")
 load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 load("//tools/proto/main/bzl:al_proto_docs.bzl", "al_proto_docs")
 

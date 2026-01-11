@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1879745405
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 174
+  TitleSlug = "dungeon-game"
+  Code = "def solve(i: int, j: int, dungeon: list[list[int]], dp: list[list[int]]) -> int:\n    m, n = len(dungeon), len(dungeon[0])\n    if i == m - 1 and j == n - 1:\n        return max(1, 1 - dungeon[i][j])\n    if i >= m or j >= n:\n        return float(\"inf\")\n    if dp[i][j] != -1:\n        return dp[i][j]\n    right = solve(i, j + 1, dungeon, dp)\n    down = solve(i + 1, j, dungeon, dp)\n    min_health = min(right, down) - dungeon[i][j]\n    dp[i][j] = max(1, min_health)\n    return dp[i][j]\n\nclass Solution:\n\n    def calculateMinimumHP(self, dungeon):\n        m, n = len(dungeon), len(dungeon[0])\n        dp = [[-1] * n for _ in range(m)]\n        return solve(0, 0, dungeon, dp)\n"
+  Title = "Dungeon Game"
+  Url = "/submissions/detail/1879745405/"
+  LangName = "Python3"
+  Timestamp = 1767962078
+  Status = 10
+  Runtime = "11 ms"
+  IsPending = "Not Pending"
+  Memory = "20 MB"
+  CompareResult = "111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

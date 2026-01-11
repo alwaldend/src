@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1877980820
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 87
+  TitleSlug = "scramble-string"
+  Code = "class Solution:\n    def isScramble(self, s1: str, s2: str) -> bool:\n        cache = {}\n\n        def check(s1: str, s2: str) -> bool:\n            key = (s1, s2)\n            if key in cache:\n                return cache[key]\n            if s1 == s2:\n                cache[key] = True\n                return True\n            res = False\n            for middle in range(1, len(s1)):    \n                if (\n                    check(s1[:middle], s2[:middle]) \n                    and check(s1[middle:], s2[middle:])    \n                ) or (\n                    check(s1[:middle], s2[-middle:])\n                    and check(s1[middle:], s2[:len(s1) - middle])\n                ):\n                    res = True\n                    break\n            cache[key] = res\n            return res\n\n        return check(s1, s2)"
+  Title = "Scramble String"
+  Url = "/submissions/detail/1877980820/"
+  LangName = "Python3"
+  Timestamp = 1767811208
+  Status = 10
+  Runtime = "110 ms"
+  IsPending = "Not Pending"
+  Memory = "26.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

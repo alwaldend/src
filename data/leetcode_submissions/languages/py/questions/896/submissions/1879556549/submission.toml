@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1879556549
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 896
+  TitleSlug = "smallest-subtree-with-all-the-deepest-nodes"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def subtreeWithAllDeepest(self, root: Optional[TreeNode]) -> Optional[TreeNode]:\n        if root is None:\n            return None\n        neg_inf = float(\"-inf\")\n\n        def dfs(node: TreeNode, depth: int) -> tuple[TreeNode, int]:\n            if node.left is None and node.right is None:\n                return node, depth\n            if node.left is None:\n                return dfs(node.right, depth + 1)\n            if node.right is None:\n                return dfs(node.left, depth + 1)\n            left_node, left_depth = dfs(node.left, depth + 1)\n            right_node, right_depth = dfs(node.right, depth + 1)\n            if left_depth == right_depth:\n                return node, left_depth\n            if left_depth > right_depth:\n                return left_node, left_depth\n            return right_node, right_depth\n        \n        return dfs(root, 0)[0]"
+  Title = "Smallest Subtree with all the Deepest Nodes"
+  Url = "/submissions/detail/1879556549/"
+  LangName = "Python3"
+  Timestamp = 1767946558
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "19.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

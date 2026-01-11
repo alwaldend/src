@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1880644719
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 214
+  TitleSlug = "shortest-palindrome"
+  Code = "class Solution:\n    def shortestPalindrome(self, s: str) -> str:\n        reversed_string = s[::-1]\n        combined_string = \"#\".join((s, reversed_string))\n        prefix_table = self._kmp_table(combined_string)\n        palindrome_length = prefix_table[-1]\n        suffix = reversed_string[: len(s) - palindrome_length]\n        return suffix + s\n\n    def _kmp_table(self, s: str) -> list[int]:\n        prefix_table = [0] * len(s)\n        length = 0\n        for i in range(1, len(s)):\n            while length > 0 and s[i] != s[length]:\n                length = prefix_table[length - 1]\n            if s[i] == s[length]:\n                length += 1\n            prefix_table[i] = length\n        return prefix_table"
+  Title = "Shortest Palindrome"
+  Url = "/submissions/detail/1880644719/"
+  LangName = "Python3"
+  Timestamp = 1768044389
+  Status = 10
+  Runtime = "39 ms"
+  IsPending = "Not Pending"
+  Memory = "23.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

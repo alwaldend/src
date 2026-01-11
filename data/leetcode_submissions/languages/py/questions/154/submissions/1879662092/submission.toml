@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1879662092
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 154
+  TitleSlug = "find-minimum-in-rotated-sorted-array-ii"
+  Code = "import functools\n\nclass Solution:\n    def findMin(self, nums: List[int]) -> int:\n        length = len(nums)\n        if length < 3:\n            return min(nums)\n        inf = float(\"inf\")\n\n        @functools.cache\n        def check(i: int) -> int:\n            if i == 0:\n                prev, nxt = length - 1, 1\n            elif i == length - 1:\n                prev, nxt = length - 2, 0\n            else:\n                prev, nxt = i - 1, i + 1\n            num_prev, num_cur, num_nxt = nums[prev], nums[i], nums[nxt]\n            if num_cur < num_prev:\n                return num_cur\n            if num_nxt < num_cur:\n                return num_nxt\n            return -1\n\n        @functools.cache\n        def dp(left: int, right: int) -> int:\n            if left < 0 or right == length or left > right:\n                return  inf\n            mid = left + (right - left) // 2\n            num_left, num_mid, num_right = nums[left], nums[mid], nums[right]\n            for idx in (left, mid, right):\n                check_res = check(idx)\n                if check_res != -1:\n                    return check_res\n            if num_left == num_mid == num_right:\n                return min(num_left, dp(left + 1, mid - 1), dp(mid + 1, right - 1))\n            if num_mid < num_left:\n                return dp(left + 1, mid - 1)\n            return dp(mid + 1, right - 1)\n        \n        return dp(0, length - 1)\n            \n              "
+  Title = "Find Minimum in Rotated Sorted Array II"
+  Url = "/submissions/detail/1879662092/"
+  LangName = "Python3"
+  Timestamp = 1767954691
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "21.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

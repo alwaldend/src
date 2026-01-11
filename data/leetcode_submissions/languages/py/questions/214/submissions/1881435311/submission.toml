@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1881435311
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 214
+  TitleSlug = "shortest-palindrome"
+  Code = "class Solution:\n    def shortestPalindrome(self, s: str) -> str:\n        length = len(s)\n        reversed_string = s[::-1]  # Reverse the string\n        for i in range(length):\n            if s[: length - i] == reversed_string[i:]:\n                return reversed_string[:i] + s\n        return \"\""
+  Title = "Shortest Palindrome"
+  Url = "/submissions/detail/1881435311/"
+  LangName = "Python3"
+  Timestamp = 1768109147
+  Status = 10
+  Runtime = "107 ms"
+  IsPending = "Not Pending"
+  Memory = "19.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

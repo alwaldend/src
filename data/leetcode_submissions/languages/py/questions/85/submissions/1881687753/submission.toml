@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1881687753
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 85
+  TitleSlug = "maximal-rectangle"
+  Code = "class Solution:\n    def maximalRectangle(self, matrix: List[List[str]]) -> int:\n        m, n = len(matrix), len(matrix[0])\n        dp = [[0] * (n + 1)  for _ in range(m + 1)]\n        max_area = 0\n\n        for i in range(m):\n            for j in range(n):\n                if matrix[i][j] == \"0\":\n                    continue\n                dp_i, dp_j = i + 1, j + 1\n                width = dp[dp_i][dp_j - 1] + 1\n                dp[dp_i][dp_j] = width\n                max_area = max(max_area, width)\n                for cur_dp_i in reversed(range(1, dp_i)):\n                    height = dp_i - cur_dp_i + 1\n                    width = min(width, dp[cur_dp_i][dp_j])\n                    if width == 0:\n                        break\n                    max_area = max(max_area, height * width)\n        \n        return max_area"
+  Title = "Maximal Rectangle"
+  Url = "/submissions/detail/1881687753/"
+  LangName = "Python3"
+  Timestamp = 1768128724
+  Status = 10
+  Runtime = "471 ms"
+  IsPending = "Not Pending"
+  Memory = "24.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

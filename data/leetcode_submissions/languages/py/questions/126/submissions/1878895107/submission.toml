@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1878895107
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 126
+  TitleSlug = "word-ladder-ii"
+  Code = "class Solution:\n    def findLadders(self, beginWord: str, endWord: str, wordList: List[str]) -> int:\n        words, mp, ans = set(wordList), defaultdict(list), []\n        \n        def bfs(words: set[str]) -> None:\n            letters = [chr(97 + x) for x in range(26)]\n            ws, q, next_lev = len(beginWord), deque([beginWord]), set()\n            while q:\n                size = len(q)\n                for _ in range(size):\n                    w = q.popleft()\n                    for i in range(ws):\n                        pre, suf = w[:i], w[i+1:]\n                        for l in letters:\n                            nw = pre + l + suf\n                            if nw in words:\n                                mp[nw].append(w)\n                                next_lev.add(nw)\n                q.extend(next_lev)\n                words -= next_lev\n                next_lev.clear()\n\n        bfs(words)\n\n        def dfs(w: str, arr):\n            if w == beginWord:\n                ans.append(list(arr))\n                return\n            for nw in mp[w]:\n                arr.appendleft(nw)\n                dfs(nw,arr)\n                arr.popleft()\n\n        if endWord in mp:\n            dfs(endWord, deque([endWord]))\n\n        return ans\n"
+  Title = "Word Ladder II"
+  Url = "/submissions/detail/1878895107/"
+  LangName = "Python3"
+  Timestamp = 1767888353
+  Status = 10
+  Runtime = "28 ms"
+  IsPending = "Not Pending"
+  Memory = "20 MB"
+  CompareResult = "11111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

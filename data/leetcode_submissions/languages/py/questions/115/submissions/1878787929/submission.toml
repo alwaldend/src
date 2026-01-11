@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1878787929
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 115
+  TitleSlug = "distinct-subsequences"
+  Code = "class Solution:\n    def numDistinct(self, s: str, t: str) -> int:\n        cache = {}\n        length1, length2 = len(s), len(t)\n\n        def dp(i: int, j: int) -> int:\n            if j == length2:\n                return 1\n            if i == length1:\n                return 0\n            key = (i, j)\n            if key in cache:\n                return cache[key]\n            res = 0\n            if s[i] == t[j]:\n                res += dp(i + 1, j+ 1)\n            res += dp(i + 1, j)\n            cache[key] = res\n            return res\n\n        return dp(0, 0)"
+  Title = "Distinct Subsequences"
+  Url = "/submissions/detail/1878787929/"
+  LangName = "Python3"
+  Timestamp = 1767881852
+  Status = 10
+  Runtime = "817 ms"
+  IsPending = "Not Pending"
+  Memory = "233 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

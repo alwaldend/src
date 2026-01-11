@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1878701254
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1569
+  TitleSlug = "max-dot-product-of-two-subsequences"
+  Code = "class Solution:\n    def maxDotProduct(self, nums1: List[int], nums2: List[int]) -> int:\n        cache = {}\n\n        def dp(i: int, j: int):\n            if i == len(nums1) or j == len(nums2):\n                return float(\"-inf\")\n            if (i, j) in cache:\n                return cache[(i, j)]\n            take = nums1[i] * nums2[j]\n            res = max(take + dp(i+1, j+1), take, dp(i+1,j), dp(i,j+1))\n            cache[(i, j)] = res\n            return cache[(i, j)]\n\n        return dp(0,0)"
+  Title = "Max Dot Product of Two Subsequences"
+  Url = "/submissions/detail/1878701254/"
+  LangName = "Python3"
+  Timestamp = 1767876140
+  Status = 10
+  Runtime = "582 ms"
+  IsPending = "Not Pending"
+  Memory = "109.6 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

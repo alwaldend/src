@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1879110177
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 132
+  TitleSlug = "palindrome-partitioning-ii"
+  Code = "class Solution:\n    def minCut(self, s: str) -> int:\n        n = len(s)\n        cuts = [i for i in range(n)] \n\n        for center in range(n):\n            for left, right in ((center, center), (center, center + 1)):\n                while left >= 0 and right < n and s[left] == s[right]:\n                    if left == 0:\n                        cuts[right] = 0 \n                    else:\n                        cuts[right] = min(cuts[right], cuts[left - 1] + 1)\n                    left -= 1\n                    right += 1\n\n        return cuts[-1]\n"
+  Title = "Palindrome Partitioning II"
+  Url = "/submissions/detail/1879110177/"
+  LangName = "Python3"
+  Timestamp = 1767899492
+  Status = 10
+  Runtime = "288 ms"
+  IsPending = "Not Pending"
+  Memory = "19.5 MB"
+  CompareResult = "1111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
