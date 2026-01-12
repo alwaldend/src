@@ -19,7 +19,7 @@ bazel_dep(name = "rules_python", version = "1.7.0")
 bazel_dep(name = "rules_python_gazelle_plugin", version = "1.6.3")
 
 # Proto
-bazel_dep(name = "protobuf", version = "33.2")
+bazel_dep(name = "protobuf", version = "33.1")
 
 # Shell
 bazel_dep(name = "rules_sh", version = "0.5.0")
@@ -41,8 +41,8 @@ bazel_dep(name = "rules_rust", version = "0.68.1")
 
 # Java
 bazel_dep(name = "rules_java", version = "9.3.0")
-bazel_dep(name = "contrib_rules_jvm", version = "0.31.1")
 bazel_dep(name = "rules_jvm_external", version = "6.9")
+bazel_dep(name = "contrib_rules_jvm", version = "0.31.1")
 
 # C, C++
 bazel_dep(name = "rules_cc", version = "0.2.16")
@@ -86,6 +86,12 @@ git_override(
 #     module_name = "com_alwaldend_com_github_infinitimeorg_infinitime",
 #     path = "../com_github_infinitimeorg_infinitime",
 # )
+
+git_override(
+    module_name = "contrib_rules_jvm",
+    commit = "8d0ee5832f776c9b3b17df2c8440501d339c0ed3",
+    remote = "https://github.com/alwaldend/com_github_bazel_contrib_rules_jvm.git",
+)
 
 archive_override(
     module_name = "hedron_compile_commands",
