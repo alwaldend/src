@@ -1,7 +1,7 @@
 module(
     name = "com_alwaldend_src",
     version = "0.0.0",
-    bazel_compatibility = [">=8.0.0"],
+    bazel_compatibility = [">=8.5.1"],
     compatibility_level = 0,
 )
 
@@ -75,7 +75,7 @@ bazel_dep(name = "com_alwaldend_com_github_infinitimeorg_infinitime")
 
 git_override(
     module_name = "com_alwaldend_com_github_infinitimeorg_infinitime",
-    commit = "f4ecd3d87bc2446c4d431b9e004075695285f7ff",
+    commit = "91cd32e6690ab08c501fa07bcf338d97ff7f1248",
     init_submodules = True,
     recursive_init_submodules = True,
     remote = "https://github.com/alwaldend/com_github_infinitimeorg_infinitime.git",
@@ -89,8 +89,8 @@ git_override(
 
 git_override(
     module_name = "contrib_rules_jvm",
-    commit = "8d0ee5832f776c9b3b17df2c8440501d339c0ed3",
-    remote = "https://github.com/alwaldend/com_github_bazel_contrib_rules_jvm.git",
+    commit = "1a5301c33cb579042edafc1de6e98bf5ecc49840",
+    remote = "https://github.com/bazel-contrib/rules_jvm.git",
 )
 
 archive_override(
