@@ -1,6 +1,14 @@
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_python//python:packaging.bzl", "py_package", "py_wheel")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+
+build_test(
+    name = "autoscroll_test",
+    targets = [
+        ":autoscroll",
+    ],
+)
 
 # gazelle:resolve py pynput @com_alwaldend_src_projects_autoscroll_pip//pynput
 # gazelle:resolve py PySide6 @com_alwaldend_src_projects_autoscroll_pip//pyside6_essentials

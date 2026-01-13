@@ -1,3 +1,4 @@
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
@@ -6,6 +7,13 @@ load("//tools/hugo/main/bzl:al_hugo_binary.bzl", "al_hugo_binary")
 load("//tools/hugo/main/bzl:al_hugo_run_binary.bzl", "al_hugo_run_binary")
 load("//tools/hugo/main/bzl:al_hugo_site.bzl", "al_hugo_site")
 load("//tools/toml/main/bzl:al_toml_data.bzl", "al_toml_data")
+
+build_test(
+    name = "site_test",
+    targets = [
+        ":site",
+    ],
+)
 
 _BUILD_FLAGS = [
     "build",

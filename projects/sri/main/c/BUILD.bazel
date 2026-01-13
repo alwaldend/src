@@ -1,6 +1,14 @@
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_cc//cc:cc_binary.bzl", "cc_binary")
 load("@rules_cc//cc:cc_library.bzl", "cc_library")
 load("@rules_cc//cc:cc_test.bzl", "cc_test")
+
+build_test(
+    name = "build_test",
+    targets = [
+        ":sri",
+    ],
+)
 
 test_suite(
     name = "tests",
