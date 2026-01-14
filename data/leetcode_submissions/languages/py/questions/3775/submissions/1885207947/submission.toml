@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1885207947
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3775
+  TitleSlug = "separate-squares-ii"
+  Code = "from typing import List\nimport bisect\n\n\nclass SegmentTree:\n    def __init__(self, xs: List[int]):\n        self.xs = xs\n        self.n = len(xs) - 1\n        self.count = [0] * (4 * self.n)\n        self.covered = [0] * (4 * self.n)\n\n    def update(self, qleft, qright, qval, left, right, pos):\n        if self.xs[right + 1] <= qleft or self.xs[left] >= qright:\n            return\n        if qleft <= self.xs[left] and self.xs[right + 1] <= qright:\n            self.count[pos] += qval\n        else:\n            mid = (left + right) // 2\n            self.update(qleft, qright, qval, left, mid, pos * 2 + 1)\n            self.update(qleft, qright, qval, mid + 1, right, pos * 2 + 2)\n\n        if self.count[pos] > 0:\n            self.covered[pos] = self.xs[right + 1] - self.xs[left]\n        else:\n            if left == right:\n                self.covered[pos] = 0\n            else:\n                self.covered[pos] = (\n                    self.covered[pos * 2 + 1] + self.covered[pos * 2 + 2]\n                )\n\n    def query(self):\n        return self.covered[0]\n\n\nclass Solution:\n    def separateSquares(self, squares: List[List[int]]) -> float:\n        events = []\n        xs_set = set()\n        for x, y, l in squares:\n            events.append((y, 1, x, x + l))\n            events.append((y + l, -1, x, x + l))\n            xs_set.update([x, x + l])\n        xs = sorted(xs_set)\n\n        seg_tree = SegmentTree(xs)\n        events.sort()\n\n        psum = []\n        widths = []\n        total_area = 0.0\n        prev_y = events[0][0]\n\n        # scan: calculate total area and record intermediate states\n        for y, delta, xl, xr in events:\n            length = seg_tree.query()\n            total_area += length * (y - prev_y)\n            seg_tree.update(xl, xr, delta, 0, seg_tree.n - 1, 0)\n            # record prefix sums and widths\n            psum.append(total_area)\n            widths.append(seg_tree.query())\n            prev_y = y\n\n        # calculate the target area (half rounded up)\n        target = (total_area + 1) // 2\n        # find the first position greater than or equal to target using binary search\n        i = bisect.bisect_left(psum, target) - 1\n        # get the corresponding area, width, and height\n        area = psum[i]\n        width = widths[i]\n        height = events[i][0]\n\n        return height + (total_area - area * 2) / (width * 2.0)"
+  Title = "Separate Squares II"
+  Url = "/submissions/detail/1885207947/"
+  LangName = "Python3"
+  Timestamp = 1768420371
+  Status = 10
+  Runtime = "2866 ms"
+  IsPending = "Not Pending"
+  Memory = "67.9 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1882523997
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1395
+  TitleSlug = "minimum-time-visiting-all-points"
+  Code = "class Solution:\n    def minTimeToVisitAllPoints(self, points: List[List[int]]) -> int:\n        pos_x, pos_y = points[0]\n        res = 0\n        for x, y in points[1:]:\n            diff_x, diff_y = abs(pos_x - x), abs(pos_y - y)\n            diff_min, diff_max = min(diff_x, diff_y), max(diff_x, diff_y)\n            res += diff_min + (diff_max - diff_min)\n            pos_x, pos_y = x, y\n        return res"
+  Title = "Minimum Time Visiting All Points"
+  Url = "/submissions/detail/1882523997/"
+  LangName = "Python3"
+  Timestamp = 1768201919
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "19.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

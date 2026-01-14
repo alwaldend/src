@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1883978505
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3763
+  TitleSlug = "separate-squares-i"
+  Code = "class Solution:\n    def separateSquares(self, squares: List[List[int]]) -> float:\n        total_area = 0\n        events = []\n\n        for sq in squares:\n            y, l = sq[1], sq[2]\n            total_area += l * l\n            events.append((y, l, 1))\n            events.append((y + l, l, -1))\n\n        # sort by y-coordinate\n        events.sort(key=lambda x: x[0])\n\n        covered_width = (\n            0.0  # sum of all bottom edges under the current scanning line\n        )\n        curr_area = 0.0  # current cumulative area\n        prev_height = 0.0  # height of the previous scanning line\n\n        for y, l, delta in events:\n            diff = y - prev_height\n            # additional area between two scanning lines\n            area = covered_width * diff\n            # if this part of the area exceeds more than half of the total area\n            if 2 * (curr_area + area) >= total_area:\n                return prev_height + (total_area - 2 * curr_area) / (\n                    2 * covered_width\n                )\n            # update width: add width at the start event, subtract width at the end event\n            covered_width += delta * l\n            curr_area += area\n            prev_height = y\n\n        return 0.0"
+  Title = "Separate Squares I"
+  Url = "/submissions/detail/1883978505/"
+  LangName = "Python3"
+  Timestamp = 1768320195
+  Status = 10
+  Runtime = "393 ms"
+  IsPending = "Not Pending"
+  Memory = "55.1 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
