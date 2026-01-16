@@ -1,4 +1,7 @@
-# attributes of some classes
+---
+title: Model
+description: Attributes of some classes
+---
 
 ## `org.sonatype.nexus.repository.view.Response`
 

@@ -7,6 +7,10 @@ al_docs_files(
         "//projects/nexus_security_plugin/main/java:model/README.md",
     ],
     prefix = package_name(),
+    renames = {
+        "README.md": "_index.md",
+        "//projects/nexus_security_plugin/main/java:model/README.md": "model/_index.md",
+    },
     visibility = ["//projects:__pkg__"],
     deps = [
         "//projects/nexus_security_plugin/releases:docs",

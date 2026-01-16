@@ -24,6 +24,6 @@ This plugin allows you to perform a check every time an artifact is requested fr
 - [Sonatype Nexus 3](https://www.sonatype.com/products/sonatype-nexus-repository) plugin
 - Java
 
-## Arch
+## Flow
 
 ![diagram](./diagram.svg)
