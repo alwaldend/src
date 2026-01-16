@@ -1,0 +1,39 @@
+load("@rules_java//java:java_library.bzl", "java_library")
+
+# gazelle:exclude **/*
+
+exports_files(["model/README.md"])
+
+java_library(
+    name = "java_lib",
+    srcs = glob(["**/*.java"]),
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:com_fasterxml_jackson_core_jackson_annotations",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:com_fasterxml_jackson_core_jackson_databind",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:com_fasterxml_jackson_dataformat_jackson_dataformat_yaml",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:com_fasterxml_jackson_datatype_jackson_datatype_joda",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:com_fasterxml_jackson_jaxrs_jackson_jaxrs_json_provider",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:com_google_code_findbugs_jsr305",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:com_squareup_okhttp3_okhttp",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:com_squareup_retrofit2_converter_jackson",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:com_squareup_retrofit2_retrofit",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:commons_lang_commons_lang",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:joda_time_joda_time",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:org_apache_servicemix_bundles_org_apache_servicemix_bundles_javax_inject",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:org_apache_velocity_velocity_engine_core",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:org_slf4j_slf4j_api",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:org_sonatype_nexus_nexus_capability",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:org_sonatype_nexus_nexus_common",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:org_sonatype_nexus_nexus_core",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:org_sonatype_nexus_nexus_formfields",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:org_sonatype_nexus_nexus_plugin_api",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:org_sonatype_nexus_nexus_rapture",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:org_sonatype_nexus_nexus_repository",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:org_sonatype_nexus_nexus_repository_config",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:org_sonatype_nexus_nexus_repository_view",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:org_sonatype_nexus_nexus_scheduling",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:org_sonatype_nexus_nexus_security",
+        "@com_alwaldend_src_projects_nexus_security_plugin_maven//:org_yaml_snakeyaml",
+    ],
+)

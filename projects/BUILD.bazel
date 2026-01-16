@@ -14,7 +14,6 @@ al_release_binary(
                 "ansible_collection",
                 "bazel_registry",
                 "ci_platform",
-                "nexus_security_plugin",
                 "useless_qt_gui",
             ],
         )
