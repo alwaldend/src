@@ -65,6 +65,22 @@ D(
         TTL(10800),
     ),
 
+    // yandex
+    MX(
+        "yandex", 10, "mx.yandex.net.", TTL(21600)
+    ),
+    TXT(
+        "yandex", "yandex-verification: b83672f59b3dbe16", TTL(10800)
+    ),
+    TXT(
+        "yandex", "v=spf1 redirect=_spf.yandex.net", TTL(10800)
+    ),
+    TXT(
+        "mail._domainkey.yandex",
+        "v=DKIM1; k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcYzFVgkeDOhaIIkWM8gNQjxVsv0/aXfU+ax5urB5y6hA6lSjRnjRo6tm0bXbkOJf41GmiwMNgdXpwRtzgzAlX1i2aJbtEr4b9jzibEGLQ7Cvqs44bOYES9f/K3ueQpnvdTOJmFqlRReFL7ZrUyDFCoQ7f4+7h4i8s01cCcRrt5wIDAQAB",
+        TTL(10800),
+    ),
+
     // dc1
     AAAA("router1.dc1", "fd2e:546d:5738::1"),
     // cl1.dc1

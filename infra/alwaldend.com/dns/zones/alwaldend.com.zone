@@ -1,6 +1,6 @@
 $TTL 10800
-; generated with dnscontrol 2025-12-18T11:24:26+03:00
-@          300   IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2025121801 3600 600 604800 1440
+; generated with dnscontrol 2026-01-17T11:01:20+03:00
+@          300   IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026011703 3600 600 604800 1440
            300   IN NS    malavika.ns.cloudflare.com.
            300   IN NS    terry.ns.cloudflare.com.
            300   IN A     185.199.108.153
@@ -31,3 +31,7 @@ _dmarc.simplelogin IN TXT "v=DMARC1; p=quarantine; pct=100; adkim=s; aspf=s"
 dkim._domainkey.simplelogin IN CNAME dkim._domainkey.simplelogin.co.
 dkim02._domainkey.simplelogin IN CNAME dkim02._domainkey.simplelogin.co.
 dkim03._domainkey.simplelogin IN CNAME dkim03._domainkey.simplelogin.co.
+yandex     21600 IN MX    10 mx.yandex.net.
+                 IN TXT   "v=spf1 redirect=_spf.yandex.net"
+                 IN TXT   "yandex-verification: b83672f59b3dbe16"
+mail._domainkey.yandex IN TXT "v=DKIM1; k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcYzFVgkeDOhaIIkWM8gNQjxVsv0/aXfU+ax5urB5y6hA6lSjRnjRo6tm0bXbkOJf41GmiwMNgdXpwRtzgzAlX1i2aJbtEr4b9jzibEGLQ7Cvqs44bOYES9f/K3ueQpnvdTOJmFqlRReFL7ZrUyDFCoQ7f4+7h4i8s01cCcRrt5wIDAQAB"
