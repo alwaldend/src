@@ -1,0 +1,8 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "api",
+    srcs = ["doc_api.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/api",
+    visibility = ["//visibility:public"],
+)

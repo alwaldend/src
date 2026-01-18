@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "go_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go",
+    deps = ["//projects/ci_platform/main/go/cmd"],
+)
+
+go_binary(
+    name = "go",
+    embed = [":go_lib"],
+    visibility = ["//:__subpackages__"],
+)

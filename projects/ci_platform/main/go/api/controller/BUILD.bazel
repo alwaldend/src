@@ -1,0 +1,38 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "controller",
+    srcs = [
+        "app_controller.go",
+        "branch_controller.go",
+        "common_controller.go",
+        "doc_controller.go",
+        "error_controller.go",
+        "frontend_controller.go",
+        "jwt_controller.go",
+        "lifecycle_controller.go",
+        "pipelines_controller.go",
+        "project_controller.go",
+        "session_controller.go",
+        "user_controller.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/api/controller",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//projects/ci_platform/main/go/api/presenter",
+        "//projects/ci_platform/main/go/entity",
+        "//projects/ci_platform/main/go/pkg",
+        "//projects/ci_platform/main/go/pkg/error",
+        "//projects/ci_platform/main/go/usecase/branch",
+        "//projects/ci_platform/main/go/usecase/jwt",
+        "//projects/ci_platform/main/go/usecase/lifecycle",
+        "//projects/ci_platform/main/go/usecase/pipeline",
+        "//projects/ci_platform/main/go/usecase/project",
+        "//projects/ci_platform/main/go/usecase/session",
+        "//projects/ci_platform/main/go/usecase/user",
+        "@com_github_gofiber_fiber_v2//:fiber",
+        "@com_github_gofiber_fiber_v2//middleware/filesystem",
+        "@com_github_gofiber_jwt_v3//:jwt",
+        "@com_github_google_uuid//:uuid",
+    ],
+)

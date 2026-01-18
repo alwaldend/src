@@ -1,0 +1,9 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "jwt",
+    srcs = ["jwt_interface.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase/jwt",
+    visibility = ["//visibility:public"],
+    deps = ["//projects/ci_platform/main/go/entity"],
+)

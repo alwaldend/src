@@ -1,0 +1,8 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "access",
+    srcs = ["access_interface.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase/access",
+    visibility = ["//visibility:public"],
+)

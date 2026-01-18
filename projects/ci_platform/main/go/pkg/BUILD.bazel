@@ -1,0 +1,23 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "pkg",
+    srcs = [
+        "doc_pkg.go",
+        "password_pkg.go",
+        "validate_pkg.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/pkg",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@com_github_go_playground_validator_v10//:validator",
+        "@org_golang_x_crypto//argon2",
+    ],
+)
+
+go_test(
+    name = "pkg_test",
+    size = "small",
+    srcs = ["password_pkg_test.go"],
+    embed = [":pkg"],
+)

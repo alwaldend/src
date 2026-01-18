@@ -1,0 +1,33 @@
+server:
+    port: 8080
+    host: ci_platform_server
+    request_limit: 100
+    jwt:
+        secret: >-
+            @a]@,8{'D+;`8PPA2Cb}v@|?j#6<hvs6{Q}b1!zO*2P$Va?O<|dDPq'Y%%&;P4NNp{;[`x
+        expiration: 72
+
+database:
+    type: postgresql
+    connection:
+        host: ci_platform_postgres
+        port: 5432
+        user: admin
+        password: "spo,h-6'383<YN%P<abr[l5Xv!o*O=+}"
+        dbname: ci_platform
+        sslmode: disable
+
+redis:
+    host: ci_platform_redis
+    port: 6379
+    password: "spo,h-6'383<YN%P<abr[l5Xv!o*O=+}"
+    database: 0
+    reset: false
+
+# https://docs.gofiber.io/api/fiber#config
+# https://github.com/gofiber/fiber/blob/master/app.go#L128
+# all snake_case names should be written without '_'
+# (`json` annotations in nested structs are not handled properly by viper)
+fiber:
+    ServerHeader: ci_platform
+    AppName: ci_platform

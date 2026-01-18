@@ -3,6 +3,7 @@ compile_commands.json
 .bzlenv
 tools/node_modules
 out
+projects/ci_platform/main/js
 .aspect
 .cache
 .venv

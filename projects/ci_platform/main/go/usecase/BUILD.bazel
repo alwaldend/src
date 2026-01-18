@@ -1,0 +1,22 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "usecase",
+    srcs = [
+        "app_usecase.go",
+        "doc_usecase.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//projects/ci_platform/main/go/usecase/branch",
+        "//projects/ci_platform/main/go/usecase/job",
+        "//projects/ci_platform/main/go/usecase/jwt",
+        "//projects/ci_platform/main/go/usecase/lifecycle",
+        "//projects/ci_platform/main/go/usecase/pipeline",
+        "//projects/ci_platform/main/go/usecase/pool",
+        "//projects/ci_platform/main/go/usecase/project",
+        "//projects/ci_platform/main/go/usecase/session",
+        "//projects/ci_platform/main/go/usecase/user",
+    ],
+)

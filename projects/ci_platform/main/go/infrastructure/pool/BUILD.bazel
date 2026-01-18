@@ -1,0 +1,18 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "pool",
+    srcs = [
+        "context_infrastructure.go",
+        "pool_infrastructure.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/infrastructure/pool",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//projects/ci_platform/main/go/infrastructure/config",
+        "//projects/ci_platform/main/go/usecase/job",
+        "//projects/ci_platform/main/go/usecase/pool",
+        "@com_github_gocraft_work//:work",
+        "@com_github_gomodule_redigo//redis",
+    ],
+)

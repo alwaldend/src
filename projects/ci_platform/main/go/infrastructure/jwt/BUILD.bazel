@@ -1,0 +1,16 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "jwt",
+    srcs = ["jwt_infrastructure.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/infrastructure/jwt",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//projects/ci_platform/main/go/entity",
+        "//projects/ci_platform/main/go/infrastructure/config",
+        "//projects/ci_platform/main/go/pkg",
+        "//projects/ci_platform/main/go/usecase/jwt",
+        "@com_github_golang_jwt_jwt_v4//:jwt",
+        "@com_github_mitchellh_mapstructure//:mapstructure",
+    ],
+)

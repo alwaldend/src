@@ -1,0 +1,21 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "presenter",
+    srcs = [
+        "branch_presenter.go",
+        "common_presenter.go",
+        "error_presenter.go",
+        "lifecycle_presenter.go",
+        "pipeline_presenter.go",
+        "project_presenter.go",
+        "session_presenter.go",
+        "user_presenter.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/api/presenter",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//projects/ci_platform/main/go/pkg/error",
+        "@com_github_gofiber_fiber_v2//:fiber",
+    ],
+)

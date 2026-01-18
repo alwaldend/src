@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "pipeline",
+    srcs = ["pipeline_infrastructure.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/infrastructure/pipeline",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//projects/ci_platform/main/go/entity",
+        "//projects/ci_platform/main/go/usecase/pipeline",
+        "@com_github_google_uuid//:uuid",
+        "@io_gorm_gorm//:gorm",
+    ],
+)

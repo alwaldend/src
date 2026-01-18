@@ -13,7 +13,6 @@ al_release_binary(
                 "alwaldend.com",
                 "ansible_collection",
                 "bazel_registry",
-                "ci_platform",
                 "useless_qt_gui",
             ],
         )

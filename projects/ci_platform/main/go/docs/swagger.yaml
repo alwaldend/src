@@ -1,0 +1,475 @@
+definitions:
+  controller.ProjectRequestCreate:
+    properties:
+      default_branch:
+        type: string
+      name:
+        type: string
+      source:
+        type: string
+    required:
+    - name
+    - source
+    type: object
+  controller.RequestBranchCreate:
+    properties:
+      name:
+        maxLength: 64
+        minLength: 3
+        type: string
+    required:
+    - name
+    type: object
+  controller.ResponseBranch:
+    type: object
+  controller.ResponseBranches:
+    type: object
+  controller.ResponseProject:
+    type: object
+  controller.ResponseProjects:
+    type: object
+  controller.ResponseUser:
+    type: object
+  controller.ResponseUsers:
+    type: object
+  controller.UserRequestCreate:
+    properties:
+      email:
+        type: string
+      password:
+        maxLength: 64
+        minLength: 8
+        type: string
+      username:
+        maxLength: 64
+        minLength: 3
+        type: string
+    required:
+    - email
+    - password
+    - username
+    type: object
+  entity.Project:
+    properties:
+      created_at:
+        type: string
+      default_branch:
+        maxLength: 256
+        minLength: 1
+        type: string
+      deleted_at:
+        $ref: '#/definitions/sql.NullTime'
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        description: display name
+        maxLength: 256
+        minLength: 1
+        type: string
+      namespace_id:
+        description: foreign key for the parent namespace
+        type: string
+      path:
+        type: string
+      source:
+        type: string
+      updated_at:
+        type: string
+    required:
+    - default_branch
+    - name
+    - source
+    type: object
+  presenter.ResponseError:
+    properties:
+      error:
+        type: string
+    type: object
+  presenter.SuccessModel:
+    properties:
+      status:
+        example: success
+        type: string
+    type: object
+  sql.NullTime:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+info:
+  contact: {}
+paths:
+  /api/v1/database/migrate:
+    post:
+      description: migrate databases
+      operationId: database-migrate
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/presenter.SuccessModel'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/presenter.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: migrate databases
+      tags:
+      - database
+  /api/v1/projects:
+    get:
+      description: get projects
+      operationId: get-projects
+      parameters:
+      - description: search by path
+        in: query
+        name: path
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.ResponseProjects'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/presenter.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: get projects
+      tags:
+      - project
+    post:
+      description: create a project
+      operationId: create-project
+      parameters:
+      - description: Project body
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.ProjectRequestCreate'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.ResponseProject'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/presenter.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: create a project
+      tags:
+      - project
+  /api/v1/projects/{project_id}:
+    get:
+      description: get a project
+      operationId: get-project
+      parameters:
+      - description: project id
+        in: path
+        name: project_id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.ResponseProject'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/presenter.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: get a project
+      tags:
+      - project
+    put:
+      description: update a project
+      operationId: update-project
+      parameters:
+      - description: project id
+        in: path
+        name: project_id
+        required: true
+        type: string
+      - description: Project body
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/entity.Project'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.ResponseProject'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/presenter.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: update a project
+      tags:
+      - project
+  /api/v1/projects/{project_id}/branches:
+    get:
+      description: get all branches
+      operationId: get-branches
+      parameters:
+      - description: project id
+        in: path
+        name: project_id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.ResponseBranches'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/presenter.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: get all project branches
+      tags:
+      - branch
+    post:
+      description: create a branch
+      operationId: create-branch
+      parameters:
+      - description: project id
+        in: path
+        name: project_id
+        required: true
+        type: string
+      - description: creation request body
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.RequestBranchCreate'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.ResponseBranch'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/presenter.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: create a branch
+      tags:
+      - branch
+  /api/v1/projects/{project_id}/branches/{branch_name}:
+    get:
+      description: get a project branch
+      operationId: get-branch
+      parameters:
+      - description: project id
+        in: path
+        name: project_id
+        required: true
+        type: string
+      - description: branch name
+        in: path
+        name: branch_name
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.ResponseBranch'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/presenter.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: get a project branch
+      tags:
+      - branch
+    put:
+      description: update a branch
+      operationId: update-branch
+      parameters:
+      - description: project id
+        in: path
+        name: project_id
+        required: true
+        type: string
+      - description: branch name
+        in: path
+        name: branch_name
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.ResponseBranch'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/presenter.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: update a branch
+      tags:
+      - branch
+  /api/v1/projects/{project_id}/branches/{branch_name}/pipelines/{pipeline_name}:
+    post:
+      description: create a pipeline
+      operationId: create-pipeline
+      parameters:
+      - description: project id
+        in: path
+        name: project_id
+        required: true
+        type: string
+      - description: branch name
+        in: path
+        name: branch_name
+        required: true
+        type: string
+      - description: pipeline name
+        in: path
+        name: pipeline_name
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/presenter.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: create a pipeline
+      tags:
+      - pipeline
+  /api/v1/swagger/swagger.json:
+    put:
+      description: get the current OpenAPI schema
+      operationId: get-openapi
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/presenter.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: get the current OpenAPI schema
+      tags:
+      - openapi
+  /api/v1/users:
+    get:
+      description: get all users
+      operationId: get-users
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.ResponseUsers'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/presenter.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: get all users
+      tags:
+      - user
+    post:
+      description: create a user
+      operationId: create-user
+      parameters:
+      - description: User body
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/controller.UserRequestCreate'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.ResponseUser'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/presenter.ResponseError'
+      summary: create a user
+      tags:
+      - user
+  /api/v1/users/login:
+    get:
+      description: login
+      operationId: login-user
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.ResponseUser'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/presenter.ResponseError'
+      summary: login
+      tags:
+      - user
+  /api/v1/users/user/{user_id}:
+    get:
+      description: get a user
+      operationId: get-user
+      parameters:
+      - description: account id
+        in: path
+        name: user_id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.ResponseUser'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/presenter.ResponseError'
+      security:
+      - ApiKeyAuth: []
+      summary: get a user
+      tags:
+      - user
+securityDefinitions:
+  ApiKeyAuth:
+    description: '"Type ''Bearer TOKEN'' to correctly set the API Key"'
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

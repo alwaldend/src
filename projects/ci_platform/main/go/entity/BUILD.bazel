@@ -1,0 +1,16 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "entity",
+    srcs = [
+        "common_enitty.go",
+        "doc_entity.go",
+        "jwt_entity.go",
+        "pipeline_entity.go",
+        "project_entity.go",
+        "user_entity.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/entity",
+    visibility = ["//visibility:public"],
+    deps = ["@com_github_google_uuid//:uuid"],
+)

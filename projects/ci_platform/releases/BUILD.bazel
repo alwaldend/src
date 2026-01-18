@@ -1,0 +1,35 @@
+load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+load("//tools/release/main/bzl:al_release.bzl", "al_release")
+load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
+load("//tools/release/main/bzl:al_release_files.bzl", "al_release_files")
+
+al_docs_files(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = package_name(),
+    visibility = ["//projects/ci_platform:__pkg__"],
+    deps = [":head"],
+)
+
+al_release_files(
+    name = "files",
+    srcs = [
+        "//projects/ci_platform/main/go",
+    ],
+    deployments = ["//tools/release:deployment"],
+)
+
+al_release(
+    name = "head",
+    srcs = [
+        ":files",
+    ],
+    project = "projects/ci_platform",
+    release_name = "head",
+    visibility = ["//projects:__pkg__"],
+)
+
+al_release_binary(
+    name = "head_deploy",
+    srcs = [":head"],
+)

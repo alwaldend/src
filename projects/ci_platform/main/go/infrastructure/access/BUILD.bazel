@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "access",
+    srcs = ["access_infrastructure.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/infrastructure/access",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//projects/ci_platform/main/go/usecase/access",
+        "@com_github_casbin_casbin_v2//:casbin",
+        "@com_github_casbin_gorm_adapter_v3//:gorm-adapter",
+        "@io_gorm_gorm//:gorm",
+    ],
+)

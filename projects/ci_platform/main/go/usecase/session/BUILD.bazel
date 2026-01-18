@@ -1,0 +1,11 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "session",
+    srcs = [
+        "session_interactor.go",
+        "session_interface.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase/session",
+    visibility = ["//visibility:public"],
+)

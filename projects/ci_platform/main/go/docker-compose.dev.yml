@@ -1,0 +1,30 @@
+version: "3.1"
+
+services:
+  postgres:
+    container_name: ci_platform_postgres
+    image: postgres:14-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: ci_platform
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: "${CI_PLATFORM_POSTGRES_PASSWORD}"
+    volumes:
+      - ./infrastructure/lifecycle/database_extensions.sql:/docker-entrypoint-initdb.d/database_extensions.sql:ro
+    networks:
+      - ci_platform
+    ports:
+      - "5432:5432"
+
+  redis:
+    container_name: ci_platform_redis
+    image: redis:7-alpine
+    restart: always
+    networks:
+      - ci_platform
+    command: redis-server --requirepass "${CI_PLATFORM_POSTGRES_PASSWORD}"
+    ports:
+      - "6379:6379"
+
+networks:
+  ci_platform:

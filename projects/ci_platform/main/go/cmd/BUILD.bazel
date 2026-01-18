@@ -1,0 +1,17 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "cmd",
+    srcs = [
+        "database_cmd.go",
+        "root_cmd.go",
+        "server_cmd.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/cmd",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//projects/ci_platform/main/go/infrastructure",
+        "@com_github_spf13_cobra//:cobra",
+        "@com_github_spf13_viper//:viper",
+    ],
+)

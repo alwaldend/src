@@ -1,0 +1,19 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "branch",
+    srcs = ["branch_infrastructure.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/infrastructure/branch",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//projects/ci_platform/main/go/entity",
+        "//projects/ci_platform/main/go/usecase/branch",
+        "@com_github_go_git_go_billy_v5//memfs",
+        "@com_github_go_git_go_git_v5//:go-git",
+        "@com_github_go_git_go_git_v5//plumbing",
+        "@com_github_go_git_go_git_v5//storage/memory",
+        "@com_github_google_uuid//:uuid",
+        "@com_github_hashicorp_hcl_v2//hclsimple",
+        "@io_gorm_gorm//:gorm",
+    ],
+)

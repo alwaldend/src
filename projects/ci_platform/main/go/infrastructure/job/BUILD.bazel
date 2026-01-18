@@ -1,0 +1,14 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "job",
+    srcs = ["job_infrastructure.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/infrastructure/job",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//projects/ci_platform/main/go/entity",
+        "//projects/ci_platform/main/go/usecase/job",
+        "@com_github_google_uuid//:uuid",
+        "@io_gorm_gorm//:gorm",
+    ],
+)

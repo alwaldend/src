@@ -1,0 +1,15 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "middleware",
+    srcs = [
+        "common_middleware.go",
+        "cors_middleware.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/api/middleware",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@com_github_gofiber_fiber_v2//:fiber",
+        "@com_github_gofiber_fiber_v2//middleware/cors",
+    ],
+)

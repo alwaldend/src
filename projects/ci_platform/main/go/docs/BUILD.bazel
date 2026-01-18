@@ -1,0 +1,16 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "docs",
+    srcs = [
+        "dist.go",
+        "docs.go",
+    ],
+    embedsrcs = [
+        "swagger.json",
+        "swagger.yaml",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/docs",
+    visibility = ["//visibility:public"],
+    deps = ["@com_github_swaggo_swag//:swag"],
+)
