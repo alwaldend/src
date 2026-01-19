@@ -1,0 +1,7 @@
+go 1.25.5
+
+use ./
+use ./tools/dnscontrol
+use ./tools/shfmt
+use ./tools/buildifier
+use ./tools/pkgsite

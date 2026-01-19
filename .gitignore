@@ -110,8 +110,7 @@ out/
 # vendor/
 
 # Go workspace file
-go.work
-
+#go.work
 
 ## gitignore template for Bazel build system
 # website: https://bazel.build/

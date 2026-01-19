@@ -19,6 +19,17 @@ local config = {
 
 local servers = {
     ansiblels = {},
+    harper_ls = {
+        settings = {
+            ["harper-ls"] = {
+                linters = {
+                    -- https://writewithharper.com/docs/rules
+                    SentenceCapitalization = true,
+                    SpellCheck = true,
+                },
+            },
+        },
+    },
     gopls = {
         gopls = {
             gofumpt = true,
