@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1886990289
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3250
+  TitleSlug = "maximum-square-area-by-removing-fences-from-a-field"
+  Code = "class Solution:\n    def get_edges(self, fences: List[int], border: int) -> set:\n        points = sorted([1] + fences + [border])\n        return {\n            points[j] - points[i]\n            for i in range(len(points))\n            for j in range(i + 1, len(points))\n        }\n\n    def maximizeSquareArea(\n        self, m: int, n: int, hFences: List[int], vFences: List[int]\n    ) -> int:\n        MOD = 10**9 + 7\n        h_edges = self.get_edges(hFences, m)\n        v_edges = self.get_edges(vFences, n)\n\n        max_edge = max(h_edges & v_edges, default=0)\n        return (max_edge * max_edge) % MOD if max_edge else -1"
+  Title = "Maximum Square Area by Removing Fences From a Field"
+  Url = "/submissions/detail/1886990289/"
+  LangName = "Python3"
+  Timestamp = 1768581460
+  Status = 10
+  Runtime = "1268 ms"
+  IsPending = "Not Pending"
+  Memory = "54 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

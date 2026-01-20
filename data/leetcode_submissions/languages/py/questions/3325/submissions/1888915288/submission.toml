@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1888915288
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3325
+  TitleSlug = "find-the-largest-area-of-square-inside-two-rectangles"
+  Code = "class Solution:\n    def largestSquareArea(\n        self, bottomLeft: List[List[int]], topRight: List[List[int]]\n    ) -> int:\n        max_size = 0\n        for (bottom_left_i, top_right_i), (\n            bottom_left_j,\n            top_right_j,\n        ) in combinations(zip(bottomLeft, topRight), 2):\n            w = min(top_right_i[0], top_right_j[0]) - max(\n                bottom_left_i[0], bottom_left_j[0]\n            )\n            h = min(top_right_i[1], top_right_j[1]) - max(\n                bottom_left_i[1], bottom_left_j[1]\n            )\n\n            max_size = max(max_size, min(w, h))\n\n        return max_size * max_size"
+  Title = "Find the Largest Area of Square Inside Two Rectangles"
+  Url = "/submissions/detail/1888915288/"
+  LangName = "Python3"
+  Timestamp = 1768744125
+  Status = 10
+  Runtime = "2629 ms"
+  IsPending = "Not Pending"
+  Memory = "20.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
