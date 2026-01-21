@@ -981,7 +981,7 @@ alt_titles = [
 ]
 thumbnail = "./struggling_to_survive_with_regression_power_in_the_primordial_saint_sect.png"
 quality = "Decent"
-reading = "Dropped, translation hiatus, C259"
+reading = "Dropped, translation hiatus, C295"
 authors = ["crane-by-the-moonlit-pond"]
 links = [
   { title = "novelupdates", url = "https://www.novelupdates.com/series/struggling-to-survive-with-regression-power-in-the-primordial-saint-sect/" },
@@ -1006,6 +1006,16 @@ reading = "Dropped, slow translation, C75"
 authors = ["foxtail-quill"]
 links = [
   { title = "novelupdates", url = "https://www.novelupdates.com/series/grotesqueries-of-the-old-domain/" },
+]
+
+[[book]]
+title = "The Hundred Reigns"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/the-hundred-reigns-timeloop-litrpg-aabay6rm6bc.jpg"
+quality = "Decent"
+reading = "Dropped, C54"
+authors = ["maxime-j-durand"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/139212/the-hundred-reigns-timeloop-litrpg" },
 ]
 
 [[book]]

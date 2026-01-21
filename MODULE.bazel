@@ -19,7 +19,7 @@ bazel_dep(name = "rules_python", version = "1.7.0")
 bazel_dep(name = "rules_python_gazelle_plugin", version = "1.6.3")
 
 # Proto
-bazel_dep(name = "protobuf", version = "33.1")
+bazel_dep(name = "protobuf", version = "33.4")
 
 # Shell
 bazel_dep(name = "rules_sh", version = "0.5.0")
@@ -101,10 +101,17 @@ archive_override(
 )
 
 archive_override(
+    module_name = "toolchains_llvm",
+    strip_prefix = "toolchains_llvm-80a885d35da3cd037d1625414d5527dd40603885",
+    integrity = "sha256-OjRqrxfgbiQHfzKs0xBX8tEIi32EvhNd8msVJNT3V+w=",
+    urls = ["https://github.com/bazel-contrib/toolchains_llvm/archive/80a885d35da3cd037d1625414d5527dd40603885.zip"]
+)
+
+archive_override(
     module_name = "rules_haskell",
-    integrity = "sha256-wMZ9Afa+6CKIgHpt9BeVrbBQwsCEX8Wu3JJBzqEHFBY=",
-    strip_prefix = "rules_haskell-07c52e1b62ae310e01ba7cba9574c6c3f706b7fc",
-    urls = ["https://github.com/tweag/rules_haskell/archive/07c52e1b62ae310e01ba7cba9574c6c3f706b7fc.zip"],
+    integrity = "sha256-StuSCMm5Ai3hMxSQoSqQ+3ucEKnsFM67U7r0rXHKj2U=",
+    strip_prefix = "rules_haskell-727b417e11f5747b3c607e6e5c650a21217d7993",
+    urls = ["https://github.com/tweag/rules_haskell/archive/727b417e11f5747b3c607e6e5c650a21217d7993.zip"],
 )
 
 archive_override(
