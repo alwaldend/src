@@ -1,4 +1,12 @@
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+build_test(
+    name = "build_test",
+    targets = [
+        ":go",
+    ],
+)
 
 go_library(
     name = "go_lib",

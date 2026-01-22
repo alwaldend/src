@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1893387124
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3773
+  TitleSlug = "minimum-pair-removal-to-sort-array-i"
+  Code = "class Solution:\n    def minimumPairRemoval(self, nums: List[int]) -> int:\n        count = 0\n\n        while len(nums) > 1:\n            isAscending = True\n            minSum = float(\"inf\")\n            targetIndex = -1\n\n            for i in range(len(nums) - 1):\n                pair_sum = nums[i] + nums[i + 1]\n\n                if nums[i] > nums[i + 1]:\n                    isAscending = False\n\n                if pair_sum < minSum:\n                    minSum = pair_sum\n                    targetIndex = i\n\n            if isAscending:\n                break\n\n            count += 1\n            nums[targetIndex] = minSum\n            nums.pop(targetIndex + 1)\n\n        return count"
+  Title = "Minimum Pair Removal to Sort Array I"
+  Url = "/submissions/detail/1893387124/"
+  LangName = "Python3"
+  Timestamp = 1769094461
+  Status = 10
+  Runtime = "11 ms"
+  IsPending = "Not Pending"
+  Memory = "19.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

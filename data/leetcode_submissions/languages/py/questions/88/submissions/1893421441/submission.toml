@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1893421441
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 88
+  TitleSlug = "merge-sorted-array"
+  Code = "class Solution:\n    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:\n        \"\"\"\n        Do not return anything, modify nums1 in-place instead.\n        \"\"\"\n        if not nums2:\n            return nums1\n        for i in reversed(range(m)):\n            nums1[i + n] = nums1[i]\n        target, idx1, idx2 = 0, 0, 0\n        inf = float(\"inf\")\n        while target < m + n:\n            if idx1 < m:\n                num1 = nums1[idx1 + n]\n            else:\n                num1 = inf\n            if idx2 < n:\n                num2 = nums2[idx2]\n            else:\n                num2 = inf\n            if num1 < num2:\n                nums1[target] = num1\n                target += 1\n                idx1 += 1\n            else:\n                nums1[target] = num2\n                target += 1\n                idx2 += 1"
+  Title = "Merge Sorted Array"
+  Url = "/submissions/detail/1893421441/"
+  LangName = "Python3"
+  Timestamp = 1769096511
+  Status = 10
+  Runtime = "2 ms"
+  IsPending = "Not Pending"
+  Memory = "19.5 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
