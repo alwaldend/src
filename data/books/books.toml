@@ -981,7 +981,7 @@ alt_titles = [
 ]
 thumbnail = "./struggling_to_survive_with_regression_power_in_the_primordial_saint_sect.png"
 quality = "Decent"
-reading = "Dropped, translation hiatus, C295"
+reading = "Dropped, translation hiatus, C296"
 authors = ["crane-by-the-moonlit-pond"]
 links = [
   { title = "novelupdates", url = "https://www.novelupdates.com/series/struggling-to-survive-with-regression-power-in-the-primordial-saint-sect/" },
@@ -1011,7 +1011,7 @@ links = [
 [[book]]
 title = "The Hundred Reigns"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/the-hundred-reigns-timeloop-litrpg-aabay6rm6bc.jpg"
-quality = "Decent"
+quality = "Ok"
 reading = "Dropped, C54"
 authors = ["maxime-j-durand"]
 links = [
@@ -1019,10 +1019,20 @@ links = [
 ]
 
 [[book]]
+title = "Afterlife 2.0"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/111416-afterlife-20-litrpg-in-hell.jpg"
+quality = "Decent"
+reading = "Finished available (hiatus), C86"
+authors = ["quickduckling"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/111416/afterlife-20-litrpg-in-hell" },
+]
+
+[[book]]
 title = "Path of the Deathless"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/122502-path-of-the-deathless-book-4-completed.jpg"
 quality = "Decent"
-reading = "Reading, C243"
+reading = "Dropped, C270"
 authors = ["ostensiblemammal"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/122502/path-of-the-deathless-book-4-completed" },
@@ -1032,7 +1042,7 @@ links = [
 title = "Mask of Humanity"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/80031-mask-of-humanity-grimdark-cultivation-litrpg.jpg"
 quality = "Decent"
-reading = "Reading, C299"
+reading = "Dropped, C322"
 authors = ["slaughterbot"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/80031/mask-of-humanity" },
@@ -1042,10 +1052,20 @@ links = [
 title = "Changeling"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/75345-changeling.jpg"
 quality = "Decent"
-reading = "Reading, C83"
+reading = "Dropped, C103"
 authors = ["mecanimus"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/75345/changeling" },
+]
+
+[[book]]
+title = "Pale Lights"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/65058-pale-lights.jpg?time=1745679158"
+quality = "Good"
+reading = "Dropped, V3C37"
+authors = ["erraticerrata"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/65058/pale-lights" },
 ]
 
 [[book]]
@@ -1097,16 +1117,6 @@ reading = "Reading, chapter 589"
 authors = ["cerim"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial" },
-]
-
-[[book]]
-title = "Pale Lights"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/65058-pale-lights.jpg?time=1745679158"
-quality = "Good"
-reading = "Reading, V3C35"
-authors = ["erraticerrata"]
-links = [
-  { title = "royalroad", url = "https://www.royalroad.com/fiction/65058/pale-lights" },
 ]
 
 [[book]]

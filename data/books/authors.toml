@@ -385,3 +385,9 @@ name = "VoraVora"
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/profile/236517" },
 ]
+
+[author.quickduckling]
+name = "QuickDuckling"
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/472328" },
+]
