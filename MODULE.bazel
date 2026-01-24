@@ -75,7 +75,7 @@ bazel_dep(name = "com_alwaldend_com_github_infinitimeorg_infinitime")
 
 git_override(
     module_name = "com_alwaldend_com_github_infinitimeorg_infinitime",
-    commit = "91cd32e6690ab08c501fa07bcf338d97ff7f1248",
+    commit = "aa96f678cca82174c27b2451d32c3aef10571445",
     init_submodules = True,
     recursive_init_submodules = True,
     remote = "https://github.com/alwaldend/com_github_infinitimeorg_infinitime.git",
@@ -102,9 +102,9 @@ archive_override(
 
 archive_override(
     module_name = "toolchains_llvm",
-    strip_prefix = "toolchains_llvm-80a885d35da3cd037d1625414d5527dd40603885",
     integrity = "sha256-OjRqrxfgbiQHfzKs0xBX8tEIi32EvhNd8msVJNT3V+w=",
-    urls = ["https://github.com/bazel-contrib/toolchains_llvm/archive/80a885d35da3cd037d1625414d5527dd40603885.zip"]
+    strip_prefix = "toolchains_llvm-80a885d35da3cd037d1625414d5527dd40603885",
+    urls = ["https://github.com/bazel-contrib/toolchains_llvm/archive/80a885d35da3cd037d1625414d5527dd40603885.zip"],
 )
 
 archive_override(

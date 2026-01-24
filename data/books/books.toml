@@ -1059,6 +1059,16 @@ links = [
 ]
 
 [[book]]
+title = "The Tower of Infinite Evil"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/122142-the-tower-of-infinite-evil-a-litrpg-horror.jpg"
+quality = "Decent"
+reading = "Dropped, C118"
+authors = ["lit-homunculus"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/122142/the-tower-of-infinite-evil-a-litrpg-horror-comedy" },
+]
+
+[[book]]
 title = "Pale Lights"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/65058-pale-lights.jpg?time=1745679158"
 quality = "Good"
@@ -1069,6 +1079,16 @@ links = [
 ]
 
 [[book]]
+title = "Shadow Slave"
+thumbnail = "./shadow_slave.jpg"
+quality = "Decent"
+reading = "Dropped, chapter 2777"
+authors = ["guilty-three"]
+links = [
+  { title = "webnovel", url = "https://www.webnovel.com/book/shadow-slave_22196546206090805" },
+]
+
+[[book]]
 title = "The Legend of William Oh"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/the-legend-of-william-oh-aadavnw8qxu.jpg"
 quality = "Decent"
@@ -1076,27 +1096,6 @@ reading = "Reading, C198"
 authors = ["macronomicon"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/92144/the-legend-of-william-oh" },
-]
-
-[[book]]
-title = "The Tower of Infinite Evil"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/122142-the-tower-of-infinite-evil-a-litrpg-horror.jpg"
-quality = "Decent"
-reading = "Reading, C93"
-authors = ["lit-homunculus"]
-links = [
-  { title = "royalroad", url = "https://www.royalroad.com/fiction/122142/the-tower-of-infinite-evil-a-litrpg-horror-comedy" },
-]
-
-[[book]]
-title = "Shadow Slave"
-thumbnail = "./shadow_slave.jpg"
-quality = "Decent"
-reading = "Reading, chapter 2388"
-authors = ["guilty-three"]
-links = [
-  { title = "webnovel", url = "https://www.webnovel.com/book/shadow-slave_22196546206090805" },
-  { title = "novelbin", url = "https://novelbin.com/b/shadow-slave/chapter-2388-bait" },
 ]
 
 [[book]]
