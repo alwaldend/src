@@ -4,5 +4,4 @@ llvm.toolchain(
 )
 use_repo(llvm, "llvm_toolchain")
 
-# TODO: Enable the toolchain after //tools/shellcheck is fixed
-# register_toolchains("@llvm_toolchain//:all")
+register_toolchains("@llvm_toolchain//:all")

@@ -172,26 +172,6 @@
     "https://bcr.bazel.build/modules/rules_apple/3.16.0/MODULE.bazel": "0d1caf0b8375942ce98ea944be754a18874041e4e0459401d925577624d3a54a",
     "https://bcr.bazel.build/modules/rules_apple/4.1.0/MODULE.bazel": "76e10fd4a48038d3fc7c5dc6e63b7063bbf5304a2e3bd42edda6ec660eebea68",
     "https://bcr.bazel.build/modules/rules_apple/4.1.0/source.json": "8ee81e1708756f81b343a5eb2b2f0b953f1d25c4ab3d4a68dc02754872e80715",
-    "https://bcr.bazel.build/modules/rules_cc/0.0.1/MODULE.bazel": "cb2aa0747f84c6c3a78dad4e2049c154f08ab9d166b1273835a8174940365647",
-    "https://bcr.bazel.build/modules/rules_cc/0.0.10/MODULE.bazel": "ec1705118f7eaedd6e118508d3d26deba2a4e76476ada7e0e3965211be012002",
-    "https://bcr.bazel.build/modules/rules_cc/0.0.13/MODULE.bazel": "0e8529ed7b323dad0775ff924d2ae5af7640b23553dfcd4d34344c7e7a867191",
-    "https://bcr.bazel.build/modules/rules_cc/0.0.15/MODULE.bazel": "6704c35f7b4a72502ee81f61bf88706b54f06b3cbe5558ac17e2e14666cd5dcc",
-    "https://bcr.bazel.build/modules/rules_cc/0.0.16/MODULE.bazel": "7661303b8fc1b4d7f532e54e9d6565771fea666fbdf839e0a86affcd02defe87",
-    "https://bcr.bazel.build/modules/rules_cc/0.0.17/MODULE.bazel": "2ae1d8f4238ec67d7185d8861cb0a2cdf4bc608697c331b95bf990e69b62e64a",
-    "https://bcr.bazel.build/modules/rules_cc/0.0.2/MODULE.bazel": "6915987c90970493ab97393024c156ea8fb9f3bea953b2f3ec05c34f19b5695c",
-    "https://bcr.bazel.build/modules/rules_cc/0.0.6/MODULE.bazel": "abf360251023dfe3efcef65ab9d56beefa8394d4176dd29529750e1c57eaa33f",
-    "https://bcr.bazel.build/modules/rules_cc/0.0.8/MODULE.bazel": "964c85c82cfeb6f3855e6a07054fdb159aced38e99a5eecf7bce9d53990afa3e",
-    "https://bcr.bazel.build/modules/rules_cc/0.0.9/MODULE.bazel": "836e76439f354b89afe6a911a7adf59a6b2518fafb174483ad78a2a2fde7b1c5",
-    "https://bcr.bazel.build/modules/rules_cc/0.1.1/MODULE.bazel": "2f0222a6f229f0bf44cd711dc13c858dad98c62d52bd51d8fc3a764a83125513",
-    "https://bcr.bazel.build/modules/rules_cc/0.1.2/MODULE.bazel": "557ddc3a96858ec0d465a87c0a931054d7dcfd6583af2c7ed3baf494407fd8d0",
-    "https://bcr.bazel.build/modules/rules_cc/0.1.5/MODULE.bazel": "88dfc9361e8b5ae1008ac38f7cdfd45ad738e4fa676a3ad67d19204f045a1fd8",
-    "https://bcr.bazel.build/modules/rules_cc/0.2.0/MODULE.bazel": "b5c17f90458caae90d2ccd114c81970062946f49f355610ed89bebf954f5783c",
-    "https://bcr.bazel.build/modules/rules_cc/0.2.13/MODULE.bazel": "eecdd666eda6be16a8d9dc15e44b5c75133405e820f620a234acc4b1fdc5aa37",
-    "https://bcr.bazel.build/modules/rules_cc/0.2.14/MODULE.bazel": "353c99ed148887ee89c54a17d4100ae7e7e436593d104b668476019023b58df8",
-    "https://bcr.bazel.build/modules/rules_cc/0.2.16/MODULE.bazel": "9242fa89f950c6ef7702801ab53922e99c69b02310c39fb6e62b2bd30df2a1d4",
-    "https://bcr.bazel.build/modules/rules_cc/0.2.16/source.json": "d03d5cde49376d87e14ec14b666c56075e5e3926930327fd5d0484a1ff2ac1cc",
-    "https://bcr.bazel.build/modules/rules_cc/0.2.4/MODULE.bazel": "1ff1223dfd24f3ecf8f028446d4a27608aa43c3f41e346d22838a4223980b8cc",
-    "https://bcr.bazel.build/modules/rules_cc/0.2.8/MODULE.bazel": "f1df20f0bf22c28192a794f29b501ee2018fa37a3862a1a2132ae2940a23a642",
     "https://bcr.bazel.build/modules/rules_foreign_cc/0.14.0/MODULE.bazel": "56fb9a239503bab4183d06ba6cabb01cd73aae296ab499085b9193624a8a66e2",
     "https://bcr.bazel.build/modules/rules_foreign_cc/0.15.1/MODULE.bazel": "c2c60d26c79fda484acb95cdbec46e89d6b28b4845cb277160ce1e0c8622bb88",
     "https://bcr.bazel.build/modules/rules_foreign_cc/0.15.1/source.json": "a161811a63ba8a859086da3b7ff3ad04f2e9c255d7727b41087103fc0eb22f55",
@@ -554,8 +534,8 @@
     },
     "@@rules_haskell+//extensions:haskell_toolchains.bzl%haskell_toolchains": {
       "general": {
-        "bzlTransitiveDigest": "gpv8xqAjvFCIfh7szFyV0w8PtuyyUF/ODM9GH7N8WjI=",
-        "usagesDigest": "RG9x2zcpMW7YXiPCvaIqZSNKaf1jRjq66zUVlK9hb2A=",
+        "bzlTransitiveDigest": "wCqFB2cggVRpYqSHqgeccRbraB7WJfsRxFX38vjR7DQ=",
+        "usagesDigest": "l7y0w9mowQFE55y3vpkw1DrOam6OYtrHzMNH//PunFM=",
         "recordedInputs": [
           "REPO_MAPPING:rules_cc+,bazel_skylib bazel_skylib+",
           "REPO_MAPPING:rules_cc+,bazel_tools bazel_tools",
@@ -569,13 +549,13 @@
           "REPO_MAPPING:rules_haskell+,rules_haskell rules_haskell+",
           "REPO_MAPPING:rules_haskell+,rules_sh rules_sh+",
           "REPO_MAPPING:rules_sh+,bazel_skylib bazel_skylib+",
-          "FILE:@@rules_haskell+//haskell/private/ghc_bindist_generated.json 1ac8dcb5599a481b24a4d8f3613a51d754ce1f55d64b54cec5f1b2b420432012"
+          "FILE:@@rules_haskell+//haskell/private/ghc_bindist_generated.json bdaaed39e230596535acd81e011a9592c712e75cb1cfa213581c32ed147fcccb"
         ],
         "generatedRepoSpecs": {
           "rules_haskell_ghc_darwin_amd64": {
             "repoRuleId": "@@rules_haskell+//haskell:ghc_bindist.bzl%_ghc_bindist",
             "attributes": {
-              "version": "9.12.2",
+              "version": "9.14.1",
               "ghcopts": [],
               "haddock_flags": [],
               "repl_ghci_args": [],
@@ -598,7 +578,7 @@
           "rules_haskell_ghc_darwin_arm64": {
             "repoRuleId": "@@rules_haskell+//haskell:ghc_bindist.bzl%_ghc_bindist",
             "attributes": {
-              "version": "9.12.2",
+              "version": "9.14.1",
               "ghcopts": [],
               "haddock_flags": [],
               "repl_ghci_args": [],
@@ -621,7 +601,7 @@
           "rules_haskell_ghc_linux_amd64": {
             "repoRuleId": "@@rules_haskell+//haskell:ghc_bindist.bzl%_ghc_bindist",
             "attributes": {
-              "version": "9.12.2",
+              "version": "9.14.1",
               "ghcopts": [],
               "haddock_flags": [],
               "repl_ghci_args": [],
@@ -644,7 +624,7 @@
           "rules_haskell_ghc_linux_arm64": {
             "repoRuleId": "@@rules_haskell+//haskell:ghc_bindist.bzl%_ghc_bindist",
             "attributes": {
-              "version": "9.12.2",
+              "version": "9.14.1",
               "ghcopts": [],
               "haddock_flags": [],
               "repl_ghci_args": [],
@@ -667,7 +647,7 @@
           "rules_haskell_ghc_windows_amd64": {
             "repoRuleId": "@@rules_haskell+//haskell:ghc_bindist.bzl%_ghc_bindist",
             "attributes": {
-              "version": "9.12.2",
+              "version": "9.14.1",
               "ghcopts": [],
               "haddock_flags": [],
               "repl_ghci_args": [],
@@ -718,7 +698,7 @@
     },
     "@@rules_haskell+//extensions:rules_haskell_dependencies.bzl%rules_haskell_dependencies": {
       "general": {
-        "bzlTransitiveDigest": "gq6SodN+5h/Z4oiWXkqLVT3Za09uWJS+P95GoYReJc4=",
+        "bzlTransitiveDigest": "BgwgOAaC8rpsezneODfyOPBE/k2Q+OTftHZkQ9tDXXs=",
         "usagesDigest": "02jLMD671Gs8Y5fpNM6/di/yZh84zI+xJLvYXflUDZ0=",
         "recordedInputs": [
           "REPO_MAPPING:rules_cc+,bazel_skylib bazel_skylib+",
@@ -851,7 +831,7 @@
     },
     "@@rules_haskell+//extensions:stack_snapshot.bzl%stack_snapshot": {
       "general": {
-        "bzlTransitiveDigest": "cH8N0jSEH1BQpdiCnrRn7L7HOY7Dxy67leiwbEuIqak=",
+        "bzlTransitiveDigest": "1zEm5LS+RDfq5SmxHBt8n8wgTudGa8s9mrBuC37mTa8=",
         "usagesDigest": "FfhAWriCs5S2yvdJtjichMlB5NMzu0lzjr9jX7YjoTY=",
         "recordedInputs": [
           "REPO_MAPPING:rules_cc+,bazel_skylib bazel_skylib+",

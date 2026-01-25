@@ -108,10 +108,22 @@ archive_override(
 )
 
 archive_override(
+    module_name = "rules_cc",
+    integrity = "sha256-HDleSW48YJZBGkxkoh9Ox8gCW+TjCQPsfHVBwIbL0Yg=",
+    strip_prefix = "rules_cc-b1b5ca05c15c27c03946e7b11a9617cfd2a0fa0a",
+    urls = ["https://github.com/bazelbuild/rules_cc/archive/b1b5ca05c15c27c03946e7b11a9617cfd2a0fa0a.zip"],
+)
+
+# archive_override(
+#     module_name = "rules_haskell",
+#     integrity = "sha256-N2uozHYBpLezGfMonJSEmFdXD39wBEctM4f0HYJGZIA=",
+#     strip_prefix = "rules_haskell-d1d324d448824d90b7d45973658a05ed086f9217",
+#     urls = ["https://github.com/tweag/rules_haskell/archive/d1d324d448824d90b7d45973658a05ed086f9217.zip"],
+# )
+
+local_path_override(
     module_name = "rules_haskell",
-    integrity = "sha256-StuSCMm5Ai3hMxSQoSqQ+3ucEKnsFM67U7r0rXHKj2U=",
-    strip_prefix = "rules_haskell-727b417e11f5747b3c607e6e5c650a21217d7993",
-    urls = ["https://github.com/tweag/rules_haskell/archive/727b417e11f5747b3c607e6e5c650a21217d7993.zip"],
+    path = "../com_github_tweag_rules_haskell",
 )
 
 archive_override(
@@ -130,7 +142,7 @@ include("//projects/alwaldend.com:deps.MODULE.bazel")
 include("//tools/kt:deps.MODULE.bazel")
 include("//tools/oci:deps.MODULE.bazel")
 include("//tools/helm:deps.MODULE.bazel")
-include("//tools/hs:deps.MODULE.bazel")
+include("//tools/haskell:deps.MODULE.bazel")
 include("//tools/cc:deps.MODULE.bazel")
 include("//tools/pl:deps.MODULE.bazel")
 include("//tools/js:deps.MODULE.bazel")

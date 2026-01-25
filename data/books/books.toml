@@ -974,20 +974,6 @@ links = [
 ]
 
 [[book]]
-title = "Struggling to Survive with Regression Power in the Primordial Saint Sect"
-alt_titles = [
-  "苟在初圣魔门当人材",
-  "Lying Low as the First Saint Demonic Sect’s ‘Top Talent’",
-]
-thumbnail = "./struggling_to_survive_with_regression_power_in_the_primordial_saint_sect.png"
-quality = "Decent"
-reading = "Dropped, translation hiatus, C296"
-authors = ["crane-by-the-moonlit-pond"]
-links = [
-  { title = "novelupdates", url = "https://www.novelupdates.com/series/struggling-to-survive-with-regression-power-in-the-primordial-saint-sect/" },
-]
-
-[[book]]
 title = "Magical Girl Mechanical Heart"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/magical-girl-mechanical-heart-aadaukdlry.jpg"
 quality = "Ok"
@@ -1086,6 +1072,20 @@ reading = "Dropped, chapter 2777"
 authors = ["guilty-three"]
 links = [
   { title = "webnovel", url = "https://www.webnovel.com/book/shadow-slave_22196546206090805" },
+]
+
+[[book]]
+title = "Surviving as a Talent in the Primordial Saint Sect"
+alt_titles = [
+  "苟在初圣魔门当人材",
+  "Lying Low as the First Saint Demonic Sect’s ‘Top Talent’",
+]
+thumbnail = "./struggling_to_survive_with_regression_power_in_the_primordial_saint_sect.png"
+quality = "Decent"
+reading = "Reading, C296"
+authors = ["crane-by-the-moonlit-pond"]
+links = [
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/struggling-to-survive-with-regression-power-in-the-primordial-saint-sect/" },
 ]
 
 [[book]]
