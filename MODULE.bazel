@@ -7,6 +7,7 @@ module(
 
 # Bzl
 bazel_dep(name = "stardoc", version = "0.8.0")
+bazel_dep(name = "bazel_features", version = "1.39.0")
 bazel_dep(name = "bazel_skylib", version = "1.9.0")
 bazel_dep(name = "platforms", version = "1.0.0")
 bazel_dep(name = "rules_license", version = "1.0.0")
@@ -100,12 +101,12 @@ archive_override(
     urls = ["https://github.com/hedronvision/bazel-compile-commands-extractor/archive/abb61a688167623088f8768cc9264798df6a9d10.zip"],
 )
 
-archive_override(
-    module_name = "toolchains_llvm",
-    integrity = "sha256-OjRqrxfgbiQHfzKs0xBX8tEIi32EvhNd8msVJNT3V+w=",
-    strip_prefix = "toolchains_llvm-80a885d35da3cd037d1625414d5527dd40603885",
-    urls = ["https://github.com/bazel-contrib/toolchains_llvm/archive/80a885d35da3cd037d1625414d5527dd40603885.zip"],
-)
+# archive_override(
+#     module_name = "toolchains_llvm",
+#     integrity = "sha256-OjRqrxfgbiQHfzKs0xBX8tEIi32EvhNd8msVJNT3V+w=",
+#     strip_prefix = "toolchains_llvm-80a885d35da3cd037d1625414d5527dd40603885",
+#     urls = ["https://github.com/bazel-contrib/toolchains_llvm/archive/80a885d35da3cd037d1625414d5527dd40603885.zip"],
+# )
 
 archive_override(
     module_name = "rules_cc",
@@ -120,6 +121,11 @@ archive_override(
 #     strip_prefix = "rules_haskell-d1d324d448824d90b7d45973658a05ed086f9217",
 #     urls = ["https://github.com/tweag/rules_haskell/archive/d1d324d448824d90b7d45973658a05ed086f9217.zip"],
 # )
+
+local_path_override(
+    module_name = "toolchains_llvm",
+    path = "../com_github_bazel_contrib_toolchains_llvm",
+)
 
 local_path_override(
     module_name = "rules_haskell",

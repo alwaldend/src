@@ -50,6 +50,8 @@ build --legacy_external_runfiles
 common:ci --terminal_columns=79
 # If a command fails, print out the full command line.
 build --verbose_failures
+# Do not delete the sandbox
+build:debug --sandbox_debug
 # Only download remote outputs of top level targets to the local machine: https://bazel.build/reference/command-line-reference#flag--remote_download_toplevel
 build:ci --remote_download_toplevel
 # Setup release
