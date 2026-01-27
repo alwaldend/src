@@ -12,12 +12,12 @@ bazel_dep(name = "bazel_skylib", version = "1.9.0")
 bazel_dep(name = "platforms", version = "1.0.0")
 bazel_dep(name = "rules_license", version = "1.0.0")
 bazel_dep(name = "rules_pkg", version = "1.2.0")
-bazel_dep(name = "aspect_bazel_lib", version = "2.22.4")
-bazel_dep(name = "bazelrc-preset.bzl", version = "1.8.0")
+bazel_dep(name = "aspect_bazel_lib", version = "2.22.5")
+bazel_dep(name = "bazelrc-preset.bzl", version = "1.9.2")
 
 # Python
-bazel_dep(name = "rules_python", version = "1.7.0")
-bazel_dep(name = "rules_python_gazelle_plugin", version = "1.6.3")
+bazel_dep(name = "rules_python", version = "1.8.2")
+bazel_dep(name = "rules_python_gazelle_plugin", version = "1.8.2")
 
 # Proto
 bazel_dep(name = "protobuf", version = "33.4")
@@ -34,7 +34,7 @@ bazel_dep(name = "gazelle", version = "0.47.0")
 bazel_dep(name = "rules_perl")
 
 # Javascript
-bazel_dep(name = "rules_nodejs", version = "6.6.2")
+bazel_dep(name = "rules_nodejs", version = "6.7.3")
 bazel_dep(name = "aspect_rules_js", version = "2.8.3")
 
 # Rust
@@ -43,7 +43,7 @@ bazel_dep(name = "rules_rust", version = "0.68.1")
 # Java
 bazel_dep(name = "rules_java", version = "9.3.0")
 bazel_dep(name = "rules_jvm_external", version = "6.9")
-bazel_dep(name = "contrib_rules_jvm", version = "0.31.1")
+bazel_dep(name = "contrib_rules_jvm", version = "0.32.0")
 
 # C, C++
 bazel_dep(name = "rules_cc", version = "0.2.16")
@@ -58,9 +58,9 @@ bazel_dep(name = "hedron_compile_commands", dev_dependency = True)
 bazel_dep(name = "rules_kotlin", version = "2.2.2")
 
 # Andoird
-bazel_dep(name = "rules_android", version = "0.7.0")
+bazel_dep(name = "rules_android", version = "0.7.1")
 bazel_dep(name = "rules_android_ndk", version = "0.1.3")
-bazel_dep(name = "rules_robolectric", version = "4.16")
+bazel_dep(name = "rules_robolectric", version = "4.16.1")
 
 # Oci
 bazel_dep(name = "rules_oci", version = "2.2.7")
