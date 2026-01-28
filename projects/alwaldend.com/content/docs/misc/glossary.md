@@ -2,7 +2,18 @@
 title: Glossary
 ---
 
-### Subresource Integrity
+### Advanced Persistent Threat (APT)
+
+An advanced persistent threat (APT) refers to an attack that continues,
+secretively, using innovative hacking methods to access a system and stay inside
+for a long period of time. Typical attackers are cyber criminals, like the
+Iranian group APT34, the Russian organization APT28, and others.
+Although they can come from all over the world, some of the most notable
+attackers come from Iran, other areas of the Middle East, and North Korea.
+
+Docs: https://www.fortinet.com/resources/cyberglossary/advanced-persistent-threat
+
+### Subresource Integrity (SRI)
 
 Subresource Integrity (SRI) is a security feature that enables browsers to
 verify that resources they fetch (for example, from a CDN) are delivered without

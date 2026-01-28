@@ -1,0 +1,9 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "com_alwaldend_src_tools_word_lists",
+    build_file = "//tools/word_lists:word_lists.BUILD.bazel",
+    integrity = "",
+    strip_prefix = "wordlists-3d6e2ae883ca34403a3d4076db54371ff64ac851",
+    urls = ["https://github.com/kkrypt0nn/wordlists/archive/3d6e2ae883ca34403a3d4076db54371ff64ac851.zip"],
+)

@@ -1,6 +1,6 @@
 $TTL 10800
-; generated with dnscontrol 2026-01-17T11:01:20+03:00
-@          300   IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026011703 3600 600 604800 1440
+; generated with dnscontrol 2026-01-28T19:55:12+03:00
+@          300   IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026012800 3600 600 604800 1440
            300   IN NS    malavika.ns.cloudflare.com.
            300   IN NS    terry.ns.cloudflare.com.
            300   IN A     185.199.108.153
@@ -11,7 +11,8 @@ $TTL 10800
            300   IN AAAA  2606:50c0:8001::153
            300   IN AAAA  2606:50c0:8002::153
            300   IN AAAA  2606:50c0:8003::153
-                 IN MX    0 mail.tutanota.de.
+                 IN MX    1 mail.tutanota.de.
+                 IN TXT   "protonmail-verification=bdcd133d3f472fa17f66328950d02fbeae1bef75"
                  IN TXT   "t-verify=518bd0ae347aa5e3bcca726766106ad3"
                  IN TXT   "v=spf1 include:spf.tutanota.de -all"
 _dmarc           IN TXT   "v=DMARC1; p=quarantine; adkim=s"

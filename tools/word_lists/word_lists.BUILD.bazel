@@ -1,0 +1,8 @@
+[
+    filegroup(
+        name = file.replace("/", "_").replace(".txt", ""),
+        srcs = [file],
+        visibility = ["//visibility:public"],
+    )
+    for file in glob(["wordlists/**/*"])
+]

@@ -25,8 +25,11 @@ D(
     AAAA("@", "2606:50c0:8002::153"),
     AAAA("@", "2606:50c0:8003::153"),
 
+    // Protonmail
+    TXT("@", "protonmail-verification=bdcd133d3f472fa17f66328950d02fbeae1bef75", TTL(10800)),
+
     // tutanota
-    MX("@", 0, "mail.tutanota.de.", TTL(10800)),
+    MX("@", 1, "mail.tutanota.de.", TTL(10800)),
     TXT("@", "t-verify=518bd0ae347aa5e3bcca726766106ad3", TTL(10800)),
     TXT("@", "v=spf1 include:spf.tutanota.de -all", TTL(10800)),
     TXT("_dmarc", "v=DMARC1; p=quarantine; adkim=s", TTL(10800)),
