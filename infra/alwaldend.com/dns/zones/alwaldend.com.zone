@@ -1,37 +1,37 @@
-$TTL 10800
-; generated with dnscontrol 2026-01-28T19:55:12+03:00
-@          300   IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026012800 3600 600 604800 1440
-           300   IN NS    malavika.ns.cloudflare.com.
-           300   IN NS    terry.ns.cloudflare.com.
-           300   IN A     185.199.108.153
-           300   IN A     185.199.109.153
-           300   IN A     185.199.110.153
-           300   IN A     185.199.111.153
-           300   IN AAAA  2606:50c0:8000::153
-           300   IN AAAA  2606:50c0:8001::153
-           300   IN AAAA  2606:50c0:8002::153
-           300   IN AAAA  2606:50c0:8003::153
-                 IN MX    1 mail.tutanota.de.
-                 IN TXT   "protonmail-verification=bdcd133d3f472fa17f66328950d02fbeae1bef75"
-                 IN TXT   "t-verify=518bd0ae347aa5e3bcca726766106ad3"
-                 IN TXT   "v=spf1 include:spf.tutanota.de -all"
+$TTL 300
+; generated with dnscontrol 2026-01-29T11:17:57+03:00
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026012901 3600 600 604800 1440
+                 IN NS    malavika.ns.cloudflare.com.
+                 IN NS    terry.ns.cloudflare.com.
+                 IN A     185.199.108.153
+                 IN A     185.199.109.153
+                 IN A     185.199.110.153
+                 IN A     185.199.111.153
+                 IN AAAA  2606:50c0:8000::153
+                 IN AAAA  2606:50c0:8001::153
+                 IN AAAA  2606:50c0:8002::153
+                 IN AAAA  2606:50c0:8003::153
+                 IN MX    10 mail.protonmail.ch.
+                 IN MX    20 mailsec.protonmail.ch.
+                 IN TXT   "protonmail-verification=bdcd133d3f472fa17f66328950d02fbeae1bef75t-verify=518bd0ae347aa5e3bcca726766106ad3"
+                 IN TXT   "v=spf1 include:_spf.protonmail.ch ~all"
 _dmarc           IN TXT   "v=DMARC1; p=quarantine; adkim=s"
-s1._domainkey    IN CNAME s1.domainkey.tutanota.de.
-s2._domainkey    IN CNAME s2.domainkey.tutanota.de.
-_mta-sts         IN CNAME mta-sts.tutanota.de.
-pi1.cl1.dc1 300  IN A     192.168.1.250
-           300   IN AAAA  fd2e:546d:5738:0:e65d:726e:80d9:fef1
+protonmail._domainkey IN CNAME protonmail.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
+protonmail2._domainkey IN CNAME protonmail2.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
+protonmail3._domainkey IN CNAME protonmail3.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
+pi1.cl1.dc1      IN A     192.168.1.250
+                 IN AAAA  fd2e:546d:5738:0:e65d:726e:80d9:fef1
 rancher.cl1.dc1  IN CNAME pi1.cl1.dc1.
-router1.dc1 300  IN AAAA  fd2e:546d:5738::1
-mta-sts          IN CNAME mta-sts.tutanota.de.
-simplelogin      IN MX    10 mx1.simplelogin.co.
-                 IN MX    20 mx2.simplelogin.co.
-                 IN TXT   "sl-verification=bxfzzfjiggzsxyzxhhmkmjqkaskjgy"
-                 IN TXT   "v=spf1 include:simplelogin.co ~all"
-_dmarc.simplelogin IN TXT "v=DMARC1; p=quarantine; pct=100; adkim=s; aspf=s"
-dkim._domainkey.simplelogin IN CNAME dkim._domainkey.simplelogin.co.
-dkim02._domainkey.simplelogin IN CNAME dkim02._domainkey.simplelogin.co.
-dkim03._domainkey.simplelogin IN CNAME dkim03._domainkey.simplelogin.co.
+router1.dc1      IN AAAA  fd2e:546d:5738::1
+simplelogin 10800 IN MX   10 mx1.simplelogin.co.
+           10800 IN MX    20 mx2.simplelogin.co.
+           10800 IN TXT   "sl-verification=bxfzzfjiggzsxyzxhhmkmjqkaskjgy"
+           10800 IN TXT   "v=spf1 include:simplelogin.co ~all"
+_dmarc.simplelogin 10800 IN TXT "v=DMARC1; p=quarantine; pct=100; adkim=s; aspf=s"
+dkim._domainkey.simplelogin 10800 IN CNAME dkim._domainkey.simplelogin.co.
+dkim02._domainkey.simplelogin 10800 IN CNAME dkim02._domainkey.simplelogin.co.
+dkim03._domainkey.simplelogin 10800 IN CNAME dkim03._domainkey.simplelogin.co.
+www              IN CNAME alwaldend.com.
 yandex     21600 IN MX    10 mx.yandex.net.
                  IN TXT   "v=spf1 redirect=_spf.yandex.net"
                  IN TXT   "yandex-verification: b83672f59b3dbe16"
