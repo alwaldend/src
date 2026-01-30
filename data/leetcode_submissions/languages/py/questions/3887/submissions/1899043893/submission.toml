@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1899043893
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3887
+  TitleSlug = "minimum-cost-path-with-edge-reversals"
+  Code = "class Solution:\n    def dijkstra(self, n: int) -> int:\n        INF  = 10**9\n        vis  = [False] * n\n        dist = [INF] * n\n\n        pq: List[Tuple[int, int]] = [(0, 0)]\n        dist[0] = 0\n\n        while pq:\n            du, u = heapq.heappop(pq)\n            if vis[u]:\n                continue\n            vis[u] = True\n\n            for v, w in self.G[u]:\n                nd = du + w\n                if nd < dist[v]:\n                    dist[v] = nd\n                    heapq.heappush(pq, (nd, v))\n\n        return -1 if dist[n - 1] == INF else dist[n - 1]\n\n    def minCost(self, n: int, edges: List[List[int]]) -> int:\n        self.G = [[] for _ in range(n)]\n\n        for u, v, w in edges:\n            self.G[u].append((v, w))\n            self.G[v].append((u, 2 * w))\n\n        return self.dijkstra(n)"
+  Title = "Minimum Cost Path with Edge Reversals"
+  Url = "/submissions/detail/1899043893/"
+  LangName = "Python3"
+  Timestamp = 1769541098
+  Status = 10
+  Runtime = "756 ms"
+  IsPending = "Not Pending"
+  Memory = "68.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

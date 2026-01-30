@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1901330790
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3235
+  TitleSlug = "minimum-cost-to-convert-string-i"
+  Code = "class Solution:\n    def minimumCost(\n        self,\n        source: str,\n        target: str,\n        original: List[str],\n        changed: List[str],\n        cost: List[int],\n    ) -> int:\n        # Initialize result to store the total minimum cost\n        total_cost = 0\n\n        # Initialize a 2D list to store the minimum transformation cost\n        # between any two characters\n        min_cost = [[float(\"inf\")] * 26 for _ in range(26)]\n\n        # Fill the initial transformation costs from the given original,\n        # changed, and cost arrays\n        for orig, chg, cst in zip(original, changed, cost):\n            start_char = ord(orig) - ord(\"a\")\n            end_char = ord(chg) - ord(\"a\")\n            min_cost[start_char][end_char] = min(\n                min_cost[start_char][end_char], cst\n            )\n\n        # Use Floyd-Warshall algorithm to find the shortest path between any\n        # two characters\n        for k in range(26):\n            for i in range(26):\n                for j in range(26):\n                    min_cost[i][j] = min(\n                        min_cost[i][j], min_cost[i][k] + min_cost[k][j]\n                    )\n\n        # Calculate the total minimum cost to transform the source string to\n        # the target string\n        for src, tgt in zip(source, target):\n            if src == tgt:\n                continue\n            source_char = ord(src) - ord(\"a\")\n            target_char = ord(tgt) - ord(\"a\")\n\n            # If the transformation is not possible, return -1\n            if min_cost[source_char][target_char] == float(\"inf\"):\n                return -1\n            total_cost += min_cost[source_char][target_char]\n\n        return total_cost"
+  Title = "Minimum Cost to Convert String I"
+  Url = "/submissions/detail/1901330790/"
+  LangName = "Python3"
+  Timestamp = 1769714519
+  Status = 10
+  Runtime = "1131 ms"
+  IsPending = "Not Pending"
+  Memory = "20.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

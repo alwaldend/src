@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1895535484
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1988
+  TitleSlug = "minimize-maximum-pair-sum-in-array"
+  Code = "class Solution:\n    def minPairSum(self, nums: List[int]) -> int:\n        nums.sort()\n        res = float(\"-inf\")\n        for i in range((len(nums) // 2) + 1):\n            res = max(res, nums[i] + nums[-i - 1])\n        return res"
+  Title = "Minimize Maximum Pair Sum in Array"
+  Url = "/submissions/detail/1895535484/"
+  LangName = "Python3"
+  Timestamp = 1769273036
+  Status = 10
+  Runtime = "829 ms"
+  IsPending = "Not Pending"
+  Memory = "34.4 MB"
+  CompareResult = "1111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1897862803
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1306
+  TitleSlug = "minimum-absolute-difference"
+  Code = "class Solution:\n    def minimumAbsDifference(self, arr: List[int]) -> List[List[int]]:\n        arr.sort()\n        res = []\n        min_diff = float(\"inf\")\n        for i in range(len(arr) - 1):\n            cur, nxt = arr[i], arr[i + 1]\n            diff = nxt - cur\n            if diff < min_diff:\n                min_diff = diff\n                res.clear()\n            if diff == min_diff:\n                res.append((cur, nxt))\n        return res"
+  Title = "Minimum Absolute Difference"
+  Url = "/submissions/detail/1897862803/"
+  LangName = "Python3"
+  Timestamp = 1769446972
+  Status = 10
+  Runtime = "47 ms"
+  IsPending = "Not Pending"
+  Memory = "31.5 MB"
+  CompareResult = "11111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

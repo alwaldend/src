@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1900109970
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3889
+  TitleSlug = "minimum-cost-path-with-teleportations"
+  Code = "class Solution:\n    def minCost(self, grid: list[list[int]], k: int) -> int:\n        m, n = len(grid), len(grid[0])\n        points = [(i, j) for i in range(m) for j in range(n)]\n        points.sort(key=lambda p: grid[p[0]][p[1]])\n        costs = [[float(\"inf\")] * n for _ in range(m)]\n        for t in range(k + 1):\n            minCost = float(\"inf\")\n            j = 0\n            for i in range(len(points)):\n                minCost = min(minCost, costs[points[i][0]][points[i][1]])\n                if (\n                    i + 1 < len(points)\n                    and grid[points[i][0]][points[i][1]]\n                    == grid[points[i + 1][0]][points[i + 1][1]]\n                ):\n                    i += 1\n                    continue\n                for r in range(j, i + 1):\n                    costs[points[r][0]][points[r][1]] = minCost\n                j = i + 1\n            for i in range(m - 1, -1, -1):\n                for j in range(n - 1, -1, -1):\n                    if i == m - 1 and j == n - 1:\n                        costs[i][j] = 0\n                        continue\n                    if i != m - 1:\n                        costs[i][j] = min(\n                            costs[i][j], costs[i + 1][j] + grid[i + 1][j]\n                        )\n                    if j != n - 1:\n                        costs[i][j] = min(\n                            costs[i][j], costs[i][j + 1] + grid[i][j + 1]\n                        )\n        return costs[0][0]"
+  Title = "Minimum Cost Path with Teleportations"
+  Url = "/submissions/detail/1900109970/"
+  LangName = "Python3"
+  Timestamp = 1769622702
+  Status = 10
+  Runtime = "4949 ms"
+  IsPending = "Not Pending"
+  Memory = "21.2 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

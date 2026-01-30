@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1896793056
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2112
+  TitleSlug = "minimum-difference-between-highest-and-lowest-of-k-scores"
+  Code = "class Solution:\n    def minimumDifference(self, nums: List[int], k: int) -> int:\n        nums.sort()\n        return min(nums[i + k - 1] - nums[i] for i in range(len(nums) - k + 1))"
+  Title = "Minimum Difference Between Highest and Lowest of K Scores"
+  Url = "/submissions/detail/1896793056/"
+  LangName = "Python3"
+  Timestamp = 1769364614
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "19.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
