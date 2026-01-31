@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-01-29T11:17:57+03:00
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026012901 3600 600 604800 1440
+; generated with dnscontrol 2026-01-31T11:19:31+03:00
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026013102 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -13,7 +13,7 @@ $TTL 300
                  IN AAAA  2606:50c0:8003::153
                  IN MX    10 mail.protonmail.ch.
                  IN MX    20 mailsec.protonmail.ch.
-                 IN TXT   "protonmail-verification=bdcd133d3f472fa17f66328950d02fbeae1bef75t-verify=518bd0ae347aa5e3bcca726766106ad3"
+                 IN TXT   "protonmail-verification=bdcd133d3f472fa17f66328950d02fbeae1bef75"
                  IN TXT   "v=spf1 include:_spf.protonmail.ch ~all"
 _dmarc           IN TXT   "v=DMARC1; p=quarantine; adkim=s"
 protonmail._domainkey IN CNAME protonmail.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.

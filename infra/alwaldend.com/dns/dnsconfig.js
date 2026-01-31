@@ -27,16 +27,8 @@ D(
     CNAME("www", "@", TTL(300)),
 
     // Root txt
-    TXT(
-        "@",
-        [
-            "protonmail-verification=bdcd133d3f472fa17f66328950d02fbeae1bef75",
-            "t-verify=518bd0ae347aa5e3bcca726766106ad3",
-        ],
-        TTL(300)
-    ),
+    TXT("@", "protonmail-verification=bdcd133d3f472fa17f66328950d02fbeae1bef75", TTL(300)),
     TXT("@", "v=spf1 include:_spf.protonmail.ch ~all", TTL(300)),
-
 
     // Mail
     MX("@", 10, "mail.protonmail.ch.", TTL(300)),
