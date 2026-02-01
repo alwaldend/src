@@ -85,9 +85,9 @@ D(
     ),
 
     // dc1
-    AAAA("router1.dc1", "fd2e:546d:5738::1"),
+    AAAA("router1.residential.dc", "fd2e:546d:5738::1"),
     // cl1.dc1
-    A("pi1.cl1.dc1", "192.168.1.250"),
-    AAAA("pi1.cl1.dc1", "fd2e:546d:5738:0:e65d:726e:80d9:fef1"),
+    A("pi1.residential.dc", "192.168.1.250"),
+    AAAA("pi1.cl1.dc", "fd2e:546d:5738:0:e65d:726e:80d9:fef1"),
     CNAME("rancher.cl1.dc1", "pi1.cl1.dc1.", TTL(300)),
 );

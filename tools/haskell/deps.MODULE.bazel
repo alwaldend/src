@@ -30,7 +30,8 @@ haskell_toolchains.bindists(
     dist = {
         "linux_amd64": "deb12",
     },
-    version = "9.14.1",  # https://gitlab.haskell.org/ghc/ghc/-/wikis/GHC%20Status#all-released-ghc-versions
+    # https://gitlab.haskell.org/ghc/ghc/-/wikis/GHC%20Status#all-released-ghc-versions
+    version = "9.14.1",
 )
 use_repo(
     haskell_toolchains,
