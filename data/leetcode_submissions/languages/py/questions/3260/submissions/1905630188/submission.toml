@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1905630188
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3260
+  TitleSlug = "divide-an-array-into-subarrays-with-minimum-cost-ii"
+  Code = "class Container:\n    def __init__(self, k: int):\n        self.k = k\n        self.st1 = SortedList()\n        self.st2 = SortedList()\n        self.sm = 0\n\n    def adjust(self):\n        while len(self.st1) < self.k and len(self.st2) > 0:\n            x = self.st2[0]\n            self.st1.add(x)\n            self.st2.remove(x)\n            self.sm += x\n\n        while len(self.st1) > self.k:\n            x = self.st1[-1]\n            self.st2.add(x)\n            self.st1.remove(x)\n            self.sm -= x\n\n    # insert element x\n    def add(self, x: int):\n        if len(self.st2) > 0 and x >= self.st2[0]:\n            self.st2.add(x)\n        else:\n            self.st1.add(x)\n            self.sm += x\n        self.adjust()\n\n    # delete element x\n    def erase(self, x: int):\n        if x in self.st1:\n            self.st1.remove(x)\n            self.sm -= x\n        elif x in self.st2:\n            self.st2.remove(x)\n        self.adjust()\n\n    # sum of the first k smallest elements\n    def sum(self) -> int:\n        return self.sm\n\n\nclass Solution:\n    def minimumCost(self, nums: List[int], k: int, dist: int) -> int:\n        n = len(nums)\n        cnt = Container(k - 2)\n        for i in range(1, k - 1):\n            cnt.add(nums[i])\n\n        ans = cnt.sum() + nums[k - 1]\n        for i in range(k, n):\n            j = i - dist - 1\n            if j > 0:\n                cnt.erase(nums[j])\n            cnt.add(nums[i - 1])\n            ans = min(ans, cnt.sum() + nums[i])\n\n        return ans + nums[0]"
+  Title = "Divide an Array Into Subarrays With Minimum Cost II"
+  Url = "/submissions/detail/1905630188/"
+  LangName = "Python3"
+  Timestamp = 1770047536
+  Status = 10
+  Runtime = "1544 ms"
+  IsPending = "Not Pending"
+  Memory = "33.4 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1908094019
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3956
+  TitleSlug = "trionic-array-ii"
+  Code = "class Solution:\n    def maxSumTrionic(self, nums: List[int]) -> int:\n        n = len(nums)\n        ans = float(\"-inf\")\n        i = 0\n\n        while i < n:\n            j = i + 1\n            res = 0\n\n            # first segment: increasing segment\n            while j < n and nums[j - 1] < nums[j]:\n                j += 1\n            p = j - 1\n\n            if p == i:  # 没有有效的increasing segment\n                i += 1\n                continue\n\n            # second segment: decreasing segment\n            res += nums[p] + nums[p - 1]\n            while j < n and nums[j - 1] > nums[j]:\n                res += nums[j]\n                j += 1\n            q = j - 1\n\n            if q == p or q == n - 1 or (j < n and nums[j] <= nums[q]):\n                i = q\n                continue\n\n            # third segment: increasing segment\n            res += nums[q + 1]\n\n            # find the maximum sum of the third segment\n            max_sum = 0\n            curr_sum = 0\n            k = q + 2\n            while k < n and nums[k] > nums[k - 1]:\n                curr_sum += nums[k]\n                max_sum = max(max_sum, curr_sum)\n                k += 1\n            res += max_sum\n\n            # find the maximum sum of the first segment\n            max_sum = 0\n            curr_sum = 0\n            for k in range(p - 2, i - 1, -1):\n                curr_sum += nums[k]\n                max_sum = max(max_sum, curr_sum)\n            res += max_sum\n\n            # update answer\n            ans = max(ans, res)\n            i = q\n\n        return ans"
+  Title = "Trionic Array II"
+  Url = "/submissions/detail/1908094019/"
+  LangName = "Python3"
+  Timestamp = 1770219544
+  Status = 10
+  Runtime = "165 ms"
+  IsPending = "Not Pending"
+  Memory = "31.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

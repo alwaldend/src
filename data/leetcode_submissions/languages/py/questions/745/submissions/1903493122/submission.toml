@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1903493122
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 745
+  TitleSlug = "find-smallest-letter-greater-than-target"
+  Code = "class Solution:\n    def nextGreatestLetter(self, letters: List[str], target: str) -> str:\n        for ch in letters:\n            if ch > target:\n                return ch\n        return letters[0]"
+  Title = "Find Smallest Letter Greater Than Target"
+  Url = "/submissions/detail/1903493122/"
+  LangName = "Python3"
+  Timestamp = 1769883437
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "20.8 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
