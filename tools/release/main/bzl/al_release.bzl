@@ -70,6 +70,9 @@ def _impl(ctx):
             executable = ctx.executable.release_tool,
             arguments = [args],
             inputs = inputs,
+            execution_requirements = {
+                "no-cache": "1",
+            },
             outputs = [manifest, release_page],
         )
     else:

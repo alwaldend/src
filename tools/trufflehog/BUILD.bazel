@@ -18,7 +18,10 @@ al_trufflehog_test(
         "$(GIT_ROOT)/tools/trufflehog/exclude_paths.txt",
         "file://$(GIT_ROOT)",
     ],
-    tags = ["local"],
+    tags = [
+        "local",
+        "no-cache",
+    ],
     toolchains = ["//tools/git/main/bzl:toolchain_resolved"],
 )
 
