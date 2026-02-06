@@ -76,7 +76,7 @@ bazel_dep(name = "com_alwaldend_com_github_infinitimeorg_infinitime")
 
 git_override(
     module_name = "com_alwaldend_com_github_infinitimeorg_infinitime",
-    commit = "aa96f678cca82174c27b2451d32c3aef10571445",
+    commit = "0a89c99b2994d9f9b58a05e870557783a3f74bc7",
     init_submodules = True,
     recursive_init_submodules = True,
     remote = "https://github.com/alwaldend/com_github_infinitimeorg_infinitime.git",
@@ -101,35 +101,10 @@ archive_override(
     urls = ["https://github.com/hedronvision/bazel-compile-commands-extractor/archive/abb61a688167623088f8768cc9264798df6a9d10.zip"],
 )
 
-# archive_override(
-#     module_name = "toolchains_llvm",
-#     integrity = "sha256-OjRqrxfgbiQHfzKs0xBX8tEIi32EvhNd8msVJNT3V+w=",
-#     strip_prefix = "toolchains_llvm-80a885d35da3cd037d1625414d5527dd40603885",
-#     urls = ["https://github.com/bazel-contrib/toolchains_llvm/archive/80a885d35da3cd037d1625414d5527dd40603885.zip"],
-# )
-
-archive_override(
-    module_name = "rules_cc",
-    integrity = "sha256-HDleSW48YJZBGkxkoh9Ox8gCW+TjCQPsfHVBwIbL0Yg=",
-    strip_prefix = "rules_cc-b1b5ca05c15c27c03946e7b11a9617cfd2a0fa0a",
-    urls = ["https://github.com/bazelbuild/rules_cc/archive/b1b5ca05c15c27c03946e7b11a9617cfd2a0fa0a.zip"],
-)
-
-# archive_override(
-#     module_name = "rules_haskell",
-#     integrity = "sha256-N2uozHYBpLezGfMonJSEmFdXD39wBEctM4f0HYJGZIA=",
-#     strip_prefix = "rules_haskell-d1d324d448824d90b7d45973658a05ed086f9217",
-#     urls = ["https://github.com/tweag/rules_haskell/archive/d1d324d448824d90b7d45973658a05ed086f9217.zip"],
-# )
-
-local_path_override(
-    module_name = "toolchains_llvm",
-    path = "../com_github_bazel_contrib_toolchains_llvm",
-)
-
-local_path_override(
+git_override(
     module_name = "rules_haskell",
-    path = "../com_github_tweag_rules_haskell",
+    commit = "c5f9029d45cd30776f5d1ffcc13a5ef6316ff411",
+    remote = "https://github.com/tweag/rules_haskell.git",
 )
 
 archive_override(

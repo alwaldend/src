@@ -20,7 +20,7 @@ al_helm_deps.from_locks(
     integrity = {
         "rancher-2.12.2": "sha256-v8ybwovsnXFjKa2rwKNsqY1pk+rywa3ByeghQOIA0YI=",
     },
-    locks = ["//infra/alwaldend.com/dc1/cl1/helm:helm_lock.json"],
+    locks = ["//infra/alwaldend.com/dc/residential/cl1/helm:helm_lock.json"],
 )
 use_repo(al_helm_deps, "com_alwaldend_src_infra_alwaldend_com_dc1_cl1_helm")
 

@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-01-31T11:19:31+03:00
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026013102 3600 600 604800 1440
+; generated with dnscontrol 2026-02-06T22:55:09+03:00
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026020600 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -19,10 +19,10 @@ _dmarc           IN TXT   "v=DMARC1; p=quarantine; adkim=s"
 protonmail._domainkey IN CNAME protonmail.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
 protonmail2._domainkey IN CNAME protonmail2.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
 protonmail3._domainkey IN CNAME protonmail3.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
-pi1.cl1.dc1      IN A     192.168.1.250
-                 IN AAAA  fd2e:546d:5738:0:e65d:726e:80d9:fef1
+pi1.cl1.dc       IN AAAA  fd2e:546d:5738:0:e65d:726e:80d9:fef1
+pi1.residential.dc IN A   192.168.1.250
+router1.residential.dc IN AAAA fd2e:546d:5738::1
 rancher.cl1.dc1  IN CNAME pi1.cl1.dc1.
-router1.dc1      IN AAAA  fd2e:546d:5738::1
 simplelogin 10800 IN MX   10 mx1.simplelogin.co.
            10800 IN MX    20 mx2.simplelogin.co.
            10800 IN TXT   "sl-verification=bxfzzfjiggzsxyzxhhmkmjqkaskjgy"

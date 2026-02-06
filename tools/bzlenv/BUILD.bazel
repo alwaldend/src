@@ -11,7 +11,7 @@ _ROOT_TOOLS = [
     "minisign",
     "taplo",
     "buf",
-    # "shellcheck",
+    "shellcheck",
     "cloc",
     "shfmt",
     "helm",

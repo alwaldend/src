@@ -1075,6 +1075,28 @@ links = [
 ]
 
 [[book]]
+title = "I Cultivate Legally, Why Call Me a Demon?"
+alt_titles = ["我合法修仙，凭什么叫我魔头？"]
+thumbnail = "https://cdn.novelupdates.com/images/2025/09/I-Cultivate-Legally-Why-Call-Me-a-Demon.jpg"
+quality = "Slop"
+reading = "Dropped, C89"
+authors = ["一辈子小说家"]
+links = [
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/i-cultivate-legally-why-call-me-a-demon/" },
+]
+
+[[book]]
+title = "Shan He Ji"
+alt_titles = ["山河稷", "Mountains, Rivers, and the Grain God"]
+thumnail = "https://cdn.novelupdates.com/images/2025/07/Shan-He-Ji.jpg"
+quality = "Decent"
+reading = "Reading, C19"
+authors = ["姬叉"]
+links = [
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/shan-he-ji/" },
+]
+
+[[book]]
 title = "Surviving as a Talent in the Primordial Saint Sect"
 alt_titles = [
   "苟在初圣魔门当人材",

@@ -391,3 +391,15 @@ name = "QuickDuckling"
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/profile/472328" },
 ]
+
+[author."一辈子小说家"]
+name = "一辈子小说家"
+links = [
+  { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/%e4%b8%80%e8%be%88%e5%ad%90%e5%b0%8f%e8%af%b4%e5%ae%b6/" },
+]
+
+[author."姬叉"]
+name = "姬叉"
+links = [
+  { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/%e5%a7%ac%e5%8f%89/" },
+]
