@@ -24,6 +24,7 @@ def _impl(ctx):
     args.extend(ctx.attr.arguments)
     script_content = """\
         #!/usr/bin/env sh
+        set -eu
         helm="${{PWD}}"/'{helm}'
         cd "{cd}"
         exec "${{helm}}" \
@@ -54,6 +55,7 @@ al_helm_binary = rule(
     attrs = {
         "cd": attr.string(
             doc = "Cd to a directory before running bazel",
+            default = ".",
         ),
         "arguments": attr.string_list(
             default = [],

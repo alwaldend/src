@@ -5,12 +5,12 @@ description: Cluster 1
 
 ## Deployment
 
-- Setup the host:
+- Setup hosts:
   ```sh
   bazel run //infra/alwaldend.com/dc/residential/cl1/ansible:deploy
   ```
 - Deploy the chart:
   ```sh
-  ssh -NR 127.0.0.1:6443:127.0.0.1:6443 pi1.cl1.dc1.alwaldend.com &
+  ssh -NL 127.0.0.1:6443:127.0.0.1:6443 ansible@mini1.residential.dc.alwaldend.com &
   bazel run //infra/alwaldend.com/dc/residential/cl1/helm:deploy
   ```

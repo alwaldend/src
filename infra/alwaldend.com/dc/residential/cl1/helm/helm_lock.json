@@ -3,9 +3,9 @@
     {
       "name": "rancher",
       "repository": "https://releases.rancher.com/server-charts/stable",
-      "version": "2.12.2"
+      "version": "2.13.2"
     }
   ],
-  "digest": "sha256:8a96752f43bcaecf50eb5032c4bd30b9f77110c255946faa6d56fd60441b8e65",
-  "generated": "2025-10-06T14:56:38.885973718+03:00"
+  "digest": "sha256:3365d2025b22ade9ae1f420f87a48139a2c5d43be00e739cd02d59918903c64a",
+  "generated": "2026-02-07T17:59:19.87134953+03:00"
 }

@@ -1,6 +1,7 @@
 k3s_cluster:
   children:
-    pies:
-pies:
+    mini:
+mini:
   hosts:
-    pi1.cl1.dc1.alwaldend.com:
+    mini1.residential.dc.alwaldend.com:
+    # mini2.residential.dc.alwaldend.com:

@@ -6,6 +6,9 @@ users_admins:
     disable_passwd: true
     sudo_no_passwd: true
 users_ssh_keys:
-  ansible:
+  ansible_1:
     user: ansible
-    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMQT6QEqCFlQDRNaU+RrZ0VYoULYttA6oxjJ5U5h75
+    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINxrTffW9vZVi4j8IyJhx3OldTzcxObAdZUge/waMBrK
+  ansible_2:
+    user: ansible
+    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMQT6QEqCFlQDRNaU+RrZ0VYoULYttA6oxjJ5U5h751

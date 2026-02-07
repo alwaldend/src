@@ -1,3 +1,5 @@
+ansible_user: ansible
+
 ## hardening
 ssh_allow_tcp_forwarding: local
 sysctl_overwrite:
@@ -16,4 +18,8 @@ firewall_allow_port_from:
 ## k3s
 k3s_config:
   cluster-init: true
-  token: "{{ lookup('ansible.builtin.env', 'RANCHER_ALWALDEND_COM_K3S_TOKEN') | mandatory }}"
+  flannel-backend: wireguard-native
+  tls-san:
+    - "{{ inventory_hostname }}"
+    - "cl1.residential.dc.alwaldend.com"
+  token: "{{ lookup('ansible.builtin.env', 'COM_ALWALDEND_DC_RESIDENTIAL_CL1_K3S_TOKEN') | mandatory }}"

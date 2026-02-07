@@ -6,11 +6,11 @@
       ansible.builtin.package:
         name:
           - curl
-    - name: Install fuse packages
-      ansible.builtin.package:
-        name:
-          - fuse-overlayfs
-          - fuse2fs
+    # - name: Install fuse packages
+    #   ansible.builtin.package:
+    #     name:
+    #       - fuse-overlayfs
+    #       - fuse2fs
     - name: Copy install script
       ansible.builtin.copy:
         src: install

@@ -23,7 +23,7 @@ _CMDS = {
             "--namespace",
             "cattle-system",
             "--create-namespace",
-            "cl1",
+            "rancher",
             ".",
         ],
     },
@@ -31,7 +31,7 @@ _CMDS = {
         "arguments": [
             "--namespace",
             "cattle-system",
-            "cl1",
+            "rancher",
             ".",
         ],
     },
@@ -42,7 +42,7 @@ _CMDS = {
         name = _CMDS.get(cmd, {}).get("name", cmd),
         arguments = [
             "--kubeconfig",
-            "${HOME}/.kube/pi1.cl1.dc1.alwaldend.com/config.yaml",
+            "${HOME}/.kube/mini1.residential.dc.alwaldend.com/config.yaml",
             cmd,
         ] + _CMDS.get(cmd, {}).get("arguments", []),
         data = [":chart"],

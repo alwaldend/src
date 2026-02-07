@@ -6,5 +6,5 @@ version: 0.1.0
 appVersion: 0.1.0
 dependencies:
   - name: rancher
-    version: 2.12.2
+    version: 2.13.2
     repository: https://releases.rancher.com/server-charts/stable

@@ -27,15 +27,31 @@ D(
     CNAME("www", "@", TTL(300)),
 
     // Root txt
-    TXT("@", "protonmail-verification=bdcd133d3f472fa17f66328950d02fbeae1bef75", TTL(300)),
+    TXT(
+        "@",
+        "protonmail-verification=bdcd133d3f472fa17f66328950d02fbeae1bef75",
+        TTL(300),
+    ),
     TXT("@", "v=spf1 include:_spf.protonmail.ch ~all", TTL(300)),
 
     // Mail
     MX("@", 10, "mail.protonmail.ch.", TTL(300)),
     MX("@", 20, "mailsec.protonmail.ch.", TTL(300)),
-    CNAME("protonmail._domainkey", "protonmail.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.", TTL(300)),
-    CNAME("protonmail2._domainkey", "protonmail2.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.", TTL(300)),
-    CNAME("protonmail3._domainkey", "protonmail3.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.", TTL(300)),
+    CNAME(
+        "protonmail._domainkey",
+        "protonmail.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.",
+        TTL(300),
+    ),
+    CNAME(
+        "protonmail2._domainkey",
+        "protonmail2.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.",
+        TTL(300),
+    ),
+    CNAME(
+        "protonmail3._domainkey",
+        "protonmail3.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.",
+        TTL(300),
+    ),
     TXT("_dmarc", "v=DMARC1; p=quarantine; adkim=s", TTL(300)),
 
     // simplelogin
@@ -69,25 +85,18 @@ D(
     ),
 
     // yandex
-    MX(
-        "yandex", 10, "mx.yandex.net.", TTL(21600)
-    ),
-    TXT(
-        "yandex", "yandex-verification: b83672f59b3dbe16", TTL(300)
-    ),
-    TXT(
-        "yandex", "v=spf1 redirect=_spf.yandex.net", TTL(300)
-    ),
+    MX("yandex", 10, "mx.yandex.net.", TTL(21600)),
+    TXT("yandex", "yandex-verification: b83672f59b3dbe16", TTL(300)),
+    TXT("yandex", "v=spf1 redirect=_spf.yandex.net", TTL(300)),
     TXT(
         "mail._domainkey.yandex",
         "v=DKIM1; k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcYzFVgkeDOhaIIkWM8gNQjxVsv0/aXfU+ax5urB5y6hA6lSjRnjRo6tm0bXbkOJf41GmiwMNgdXpwRtzgzAlX1i2aJbtEr4b9jzibEGLQ7Cvqs44bOYES9f/K3ueQpnvdTOJmFqlRReFL7ZrUyDFCoQ7f4+7h4i8s01cCcRrt5wIDAQAB",
         TTL(300),
     ),
 
-    // dc1
+    // residential.dc
+    A("router1.residential.dc", "192.168.1.1"),
     AAAA("router1.residential.dc", "fd2e:546d:5738::1"),
-    // cl1.dc1
-    A("pi1.residential.dc", "192.168.1.250"),
-    AAAA("pi1.cl1.dc", "fd2e:546d:5738:0:e65d:726e:80d9:fef1"),
-    CNAME("rancher.cl1.dc1", "pi1.cl1.dc1.", TTL(300)),
+    A("mini1.residential.dc", "192.168.1.222"),
+    A("mini2.residential.dc", "192.168.1.223"),
 );
