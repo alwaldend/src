@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+
+resources:
+  - ha_install.yaml
+
+images:
+  - name: quay.io/argoproj/argocd
+    newName: ghcr.io/argoproj/argo-cd/argocd
+    newTag: 3.4.0-2b3eae62

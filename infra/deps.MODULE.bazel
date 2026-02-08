@@ -1,0 +1,8 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "com_github_argoproj_argo_cd_manifests_ha_install_yaml",
+    downloaded_file_path = "install.yaml",
+    integrity = "sha256-2qrc+ktuL89aXKgUU2ga7vBhMZIyJHDBOWlGXI6c0JI=",
+    url = "https://github.com/argoproj/argo-cd/blob/76162a93105a5cf01a10a3faa8203621b487a0c3/manifests/ha/install.yaml",
+)

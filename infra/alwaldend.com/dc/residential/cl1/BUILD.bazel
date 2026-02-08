@@ -5,5 +5,4 @@ al_docs_files(
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//infra/alwaldend.com/dc/residential:__pkg__"],
-    deps = ["//infra/alwaldend.com/dc/residential/cl1/helm:docs"],
 )

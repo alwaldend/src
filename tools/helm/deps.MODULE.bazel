@@ -15,13 +15,5 @@ use_repo(
 )
 
 al_helm_deps = use_extension("//tools/helm/main/bzl:al_helm_deps.bzl", "al_helm_deps")
-al_helm_deps.from_locks(
-    name = "com_alwaldend_src_infra_alwaldend_com_dc1_cl1_helm",
-    integrity = {
-        "rancher-2.12.2": "sha256-v8ybwovsnXFjKa2rwKNsqY1pk+rywa3ByeghQOIA0YI=",
-    },
-    locks = ["//infra/alwaldend.com/dc/residential/cl1/helm:helm_lock.json"],
-)
-use_repo(al_helm_deps, "com_alwaldend_src_infra_alwaldend_com_dc1_cl1_helm")
 
 register_toolchains("//tools/helm/main/bzl:toolchain_remote_linux_amd64")
