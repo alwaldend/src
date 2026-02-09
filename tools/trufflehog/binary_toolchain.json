@@ -1,0 +1,14 @@
+{
+    "version": "3.91.2",
+    "archives": {
+        "3.91.2": [
+            {
+                "name": "linux_x86_64",
+                "bin_path": "trufflehog",
+                "url": "https://github.com/trufflesecurity/trufflehog/releases/download/v3.91.2/trufflehog_3.91.2_linux_amd64.tar.gz",
+                "exec_compatible_with": ["os:linux", "cpu:x86_64"],
+                "integrity": "sha256-csHVtGWHiIcXjDMGPvKJO58VKeea9/JBaf7VKGiywFY="
+            }
+        ]
+    }
+}
