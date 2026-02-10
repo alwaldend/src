@@ -1,8 +1,8 @@
-al_binary_toolchain_extension = use_extension("//tools/binary_toolchain/main/bzl:al_binary_toolchain.bzl", "al_binary_toolchain_extension")
-al_binary_toolchain_extension.toolchain(
-    name = "com_alwalded_src_tools_trufflehog",
-    lock = "//tools/trufflehog:binary_toolchain.json",
-)
-use_repo(al_binary_toolchain_extension, "com_alwalded_src_tools_trufflehog")
-
-register_toolchains("@com_alwalded_src_tools_trufflehog//:all")
+# al_binary_toolchain_extension = use_extension("//tools/binary_toolchain/main/bzl:al_binary_toolchain.bzl", "al_binary_toolchain_extension")
+# al_binary_toolchain_extension.toolchain(
+#     name = "com_alwalded_src_tools_trufflehog",
+#     lock = "//tools/trufflehog:binary_toolchain.json",
+# )
+# use_repo(al_binary_toolchain_extension, "com_alwalded_src_tools_trufflehog")
+#
+# register_toolchains("@com_alwalded_src_tools_trufflehog//:all")
