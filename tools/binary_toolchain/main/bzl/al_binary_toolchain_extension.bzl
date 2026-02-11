@@ -43,26 +43,11 @@ def _impl(ctx):
                     version = version,
                     archive_name = archive_name,
                 )
-            children = []
-            for archive in AL_TRUFFLEHOG_ARCHIVES.get(tag.version, []):
-                name = "_".join([tag.name] + archive["platforms"]).replace(":", "_")
-                platforms = ["@platforms//{}".format(platform) for platform in archive["platforms"]]
-                children.append((name, platforms))
-                http_archive(
-                    name = name,
-                    url = archive["url"],
-                    strip_prefix = archive.get("strip_prefix"),
-                    build_file_content = _BUILD_TOOLCHAIN.format(
-                        name = name,
-                        platforms = platforms,
-                    ),
-                    integrity = archive.get("integrity", ""),
-                )
             root_module_direct_deps.append(tag.name)
             al_bzl_generate_repository(
                 name = tag.name,
                 files = {
-                    "BUILD.bazel": _BUILD_ROOT.format(children = children),
+                    "BUILD.bazel": _BUILD_ROOT.format(children = []),
                 },
             )
     return ctx.extension_metadata(

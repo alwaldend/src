@@ -6,8 +6,7 @@ module(
 )
 
 # Bzl
-bazel_dep(name = "stardoc", version = "0.8.0")
-bazel_dep(name = "bazel_features", version = "1.39.0")
+bazel_dep(name = "stardoc", version = "0.8.1")
 bazel_dep(name = "bazel_skylib", version = "1.9.0")
 bazel_dep(name = "platforms", version = "1.0.0")
 bazel_dep(name = "rules_license", version = "1.0.0")
@@ -16,8 +15,8 @@ bazel_dep(name = "aspect_bazel_lib", version = "2.22.5")
 bazel_dep(name = "bazelrc-preset.bzl", version = "1.9.2")
 
 # Python
-bazel_dep(name = "rules_python", version = "1.8.2")
-bazel_dep(name = "rules_python_gazelle_plugin", version = "1.8.2")
+bazel_dep(name = "rules_python", version = "1.8.4")
+bazel_dep(name = "rules_python_gazelle_plugin", version = "1.8.4")
 
 # Proto
 bazel_dep(name = "protobuf", version = "33.4")
@@ -27,7 +26,7 @@ bazel_dep(name = "rules_sh", version = "0.5.0")
 bazel_dep(name = "rules_shell", version = "0.6.1")
 
 # Golang
-bazel_dep(name = "rules_go", version = "0.59.0")
+bazel_dep(name = "rules_go", version = "0.60.0")
 bazel_dep(name = "gazelle", version = "0.47.0")
 
 # Perl
@@ -41,8 +40,8 @@ bazel_dep(name = "aspect_rules_js", version = "2.8.3")
 bazel_dep(name = "rules_rust", version = "0.68.1")
 
 # Java
-bazel_dep(name = "rules_java", version = "9.3.0")
-bazel_dep(name = "rules_jvm_external", version = "6.9")
+bazel_dep(name = "rules_java", version = "9.5.0")
+bazel_dep(name = "rules_jvm_external", version = "6.10")
 bazel_dep(name = "contrib_rules_jvm", version = "0.32.0")
 
 # C, C++
@@ -117,61 +116,32 @@ archive_override(
 ## Includes
 
 include("//projects/android_launcher:deps.MODULE.bazel")
-
 include("//projects/nexus_security_plugin:deps.MODULE.bazel")
-
 include("//projects/ansible_collection:deps.MODULE.bazel")
-
 include("//projects/alwaldend.com:deps.MODULE.bazel")
-
 include("//tools/kt:deps.MODULE.bazel")
-
 include("//tools/oci:deps.MODULE.bazel")
-
 include("//tools/helm:deps.MODULE.bazel")
-
 include("//tools/haskell:deps.MODULE.bazel")
-
 include("//tools/cc:deps.MODULE.bazel")
-
 include("//tools/pl:deps.MODULE.bazel")
-
 include("//tools/js:deps.MODULE.bazel")
-
 include("//tools/py:deps.MODULE.bazel")
-
 include("//tools/shellcheck:deps.MODULE.bazel")
-
 include("//tools/go:deps.MODULE.bazel")
-
 include("//tools/android:deps.MODULE.bazel")
-
 include("//tools/rs:deps.MODULE.bazel")
-
 include("//tools/git:deps.MODULE.bazel")
-
 include("//tools/qt:deps.MODULE.bazel")
-
 include("//tools/drawio:deps.MODULE.bazel")
-
 include("//tools/rfc:deps.MODULE.bazel")
-
 include("//tools/buf:deps.MODULE.bazel")
-
 include("//tools/taplo:deps.MODULE.bazel")
-
 include("//tools/bazel_contracts:deps.MODULE.bazel")
-
 include("//tools/minisign:deps.MODULE.bazel")
-
 include("//tools/dnscontrol:deps.MODULE.bazel")
-
 include("//tools/trufflehog:deps.MODULE.bazel")
-
 include("//tools/oras:deps.MODULE.bazel")
-
 include("//tools/blender:deps.MODULE.bazel")
-
 include("//tools/word_lists:deps.MODULE.bazel")
-
 include("//infra:deps.MODULE.bazel")

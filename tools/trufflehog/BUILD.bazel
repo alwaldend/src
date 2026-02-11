@@ -1,36 +1,38 @@
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
-load("//tools/trufflehog/main/bzl:al_trufflehog_binary.bzl", "al_trufflehog_binary")
-load("//tools/trufflehog/main/bzl:al_trufflehog_test.bzl", "al_trufflehog_test")
-
-al_trufflehog_binary(
-    name = "trufflehog",
-    visibility = ["//:__subpackages__"],
-)
-
-al_trufflehog_test(
-    name = "trufflehog_test",
-    size = "small",
-    arguments = [
-        "git",
-        "--fail",
-        "--fail-on-scan-errors",
-        "--exclude-paths",
-        "$(GIT_ROOT)/tools/trufflehog/exclude_paths.txt",
-        "file://$(GIT_ROOT)",
-    ],
-    tags = [
-        "local",
-        "no-cache",
-    ],
-    toolchains = ["//tools/git/main/bzl:toolchain_resolved"],
-)
-
-al_docs_files(
-    name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
-    visibility = ["//tools:__pkg__"],
-    deps = [
-        "//tools/trufflehog/main/bzl:docs",
-    ],
-)
+# load("@com_alwalded_src_tools_trufflehog//main/bzl:al_trufflehog_test.bzl", "al_trufflehog_test")
+# load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+# load("//tools/trufflehog/main/bzl:al_trufflehog_binary.bzl", "al_trufflehog_binary")
+# load("//tools/trufflehog/main/bzl:al_trufflehog_test.bzl", "al_trufflehog_test")
+#
+# alias(
+#     name = "trufflehog",
+#     actual = "@com_alwalded_src_tools_trufflehog//:binary",
+#     visibility = ["//:__subpackages__"],
+# )
+#
+# al_trufflehog_test(
+#     name = "trufflehog_test",
+#     size = "small",
+#     arguments = [
+#         "git",
+#         "--fail",
+#         "--fail-on-scan-errors",
+#         "--exclude-paths",
+#         "$(GIT_ROOT)/tools/trufflehog/exclude_paths.txt",
+#         "file://$(GIT_ROOT)",
+#     ],
+#     tags = [
+#         "local",
+#         "no-cache",
+#     ],
+#     toolchains = ["//tools/git/main/bzl:toolchain_resolved"],
+# )
+#
+# al_docs_files(
+#     name = "docs",
+#     srcs = glob(["*.md"]),
+#     prefix = package_name(),
+#     visibility = ["//tools:__pkg__"],
+#     deps = [
+#         "//tools/trufflehog/main/bzl:docs",
+#     ],
+# )

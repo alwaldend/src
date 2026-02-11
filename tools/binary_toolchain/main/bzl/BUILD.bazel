@@ -6,6 +6,10 @@ al_bzl_library_map(
     libs = {
         "al_binary_toolchain_extension": [
             ":al_binary_toolchain_repo",
+            "//tools/bzl/main/bzl:al_bzl_generate_repository",
+            "@bazel_tools//tools/build_defs/repo:cache.bzl",
+            "@bazel_tools//tools/build_defs/repo:http.bzl",
+            "@bazel_tools//tools/build_defs/repo:utils.bzl",
         ],
         "al_binary_toolchain_repo": [],
     },

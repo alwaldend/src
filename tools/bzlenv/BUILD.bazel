@@ -7,7 +7,7 @@ _ROOT_TOOLS = [
     "pkgsite",
     "secrets",
     "oras",
-    "trufflehog",
+    # "trufflehog",
     "minisign",
     "taplo",
     "buf",

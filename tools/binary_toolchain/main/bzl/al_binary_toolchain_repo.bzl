@@ -33,7 +33,7 @@ def _impl(ctx):
         ),
     )
     if download.integrity != archive["integrity"]:
-        fail("invalid integrity: expected '{}', got '{}'".format(archive["integrity"], result.integrity))
+        fail("invalid integrity: expected '{}', got '{}'".format(archive["integrity"], download.integrity))
     return ctx.repo_metadata(reproducible = True)
 
 al_binary_toolchain_repo = repository_rule(
