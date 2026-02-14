@@ -7,6 +7,19 @@ tags:
 
 ## Setup
 
+- Install bazelisk: https://bazel.build/install/bazelisk
+- Symlink bazel:
+  ```sh
+  ln -s ~/.local/bin/bazelisk ~/.local/bin/bazel
+  ```
+- Install git hooks:
+  ```sh
+  bazel run //tools/git_hooks:install
+  ```
+- Setup dotfiles (optional):
+  ```sh
+  bazel run //projects/dotfiles:install
+  ```
 - Install packages:
   ```sh
   sudo dnf install \
@@ -14,7 +27,6 @@ tags:
     go Xvfb python3 gmp-devel patch podman
   ```
 - Install git lfs: https://git-lfs.com/
-- Install bazel: https://bazel.build/install/bazelisk
 - Install nvm: https://github.com/nvm-sh/nvm
 - Install node:
   ```sh
@@ -30,10 +42,6 @@ tags:
   ```sh
   bazel run //tools/qt:install
   ```
-- Install git hooks:
-  ```sh
-  bazel run //tools/git_hooks:install
-  ```
 - Setup secrets:
   ```sh
   echo '{ "systemdCreds": { "name": "src_secrets" } }' >tools/secrets/secrets.json && \
@@ -43,12 +51,6 @@ tags:
   ```sh
   . "$(bazel run //tools/bzlenv)"
   ```
-
-## .env file
-
-- `RANCHER_ALWALDEND_COM_K3S_TOKEN`: k3s token for `//infra/charts/rancher.dc1.alwaldend.com`
-- `DNSCONTROL_CLOUDFLAREAPI_ACCOUNT_ID`: Cloudflare account id for `//infra/dns`
-- `DNSCONTROL_CLOUDFLAREAPI_API_TOKEN`: Cloudflare token for `//infra/dns`
 
 ## Setup .bzlenv
 
@@ -74,12 +76,6 @@ bazel build //...
 
 ```sh
 bazel test //...
-```
-
-## Export .env (bzlenv should export it automatically)
-
-```sh
-export $(cat .env | xargs)
 ```
 
 ## Replace a rule with another one
