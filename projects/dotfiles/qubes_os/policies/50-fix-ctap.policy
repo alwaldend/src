@@ -1,0 +1,4 @@
+ctap.ClientPin	*	browser_main	sys-usb	allow
+ctap.GetInfo	*	browser_main	sys-usb	allow
+ctap.ClientPin	*	keepassxc	sys-usb	allow
+ctap.GetInfo	*	keepassxc	sys-usb	allow
