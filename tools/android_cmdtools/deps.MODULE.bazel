@@ -1,0 +1,19 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "com_alwaldend_src_tools_android_cmdtools",
+    urls = ["https://dl.google.com/android/repository/commandlinetools-linux-14742923_latest.zip"],
+    build_file_content = """\
+load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
+[
+    native_binary(
+        name = bin.replace("bin/", ""),
+	src = bin,
+	visibility = ["//visibility:public"],
+    )
+    for bin in glob(["bin/*"])
+]
+    """,
+    strip_prefix = "cmdline-tools",
+    integrity = "sha256-BEUwZrVAQJ2XXGdteB2hR3R53eN2ExDxp+uSod+xWvc=",
+)
