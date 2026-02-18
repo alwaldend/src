@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1912312706
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 110
+  TitleSlug = "balanced-binary-tree"
+  Code = "# Definition for a binary tree node.\n# class TreeNode:\n#     def __init__(self, val=0, left=None, right=None):\n#         self.val = val\n#         self.left = left\n#         self.right = right\nclass Solution:\n    def isBalanced(self, root: Optional[TreeNode]) -> bool:\n        return self.dfs(root) != -1\n\n    def dfs(self, node: Optional[TreeNode]) -> int:\n        if node is None:\n            return 0\n        depth1, depth2 = self.dfs(node.left), self.dfs(node.right)\n        if depth1 == -1 or depth2 == -1 or abs(depth2 - depth1) > 1:\n            return -1\n        return 1 + max(depth1, depth2)\n"
+  Title = "Balanced Binary Tree"
+  Url = "/submissions/detail/1912312706/"
+  LangName = "Python3"
+  Timestamp = 1770546239
+  Status = 10
+  Runtime = "8 ms"
+  IsPending = "Not Pending"
+  Memory = "20.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

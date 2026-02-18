@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1911396287
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1756
+  TitleSlug = "minimum-deletions-to-make-string-balanced"
+  Code = "class Solution:\n    def minimumDeletions(self, s: str) -> int:\n        left_a, right_a = 0, s.count(\"a\")\n        left_b, right_b = 0, len(s) - right_a\n        res = min(right_a, right_b)\n        for char in s:\n            if char == \"a\":\n                left_a += 1\n                right_a -= 1\n            else:\n                left_b += 1\n                right_b -= 1\n            res = min(res, left_b + right_a)\n        return res"
+  Title = "Minimum Deletions to Make String Balanced"
+  Url = "/submissions/detail/1911396287/"
+  LangName = "Python3"
+  Timestamp = 1770477457
+  Status = 10
+  Runtime = "287 ms"
+  IsPending = "Not Pending"
+  Memory = "20.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

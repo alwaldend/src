@@ -1,5 +1,23 @@
 load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
+genrule(
+    name = "install",
+    outs = ["install.sh"],
+    cmd = """
+cat - >$(@) <<EOF
+#!/usr/bin/env sh
+set -eu
+$(execpath //tools/android_cmdtools:sdkmanager) \
+    --sdk_root="\\$${ANDROID_HOME}" \
+    "platforms;android-36" \
+    "build-tools;36.0.0" \
+    "ndk;29.0.14206865"
+EOF
+    """,
+    executable = True,
+    tools = ["//tools/android_cmdtools:sdkmanager"],
+)
+
 al_docs_files(
     name = "docs",
     srcs = glob(["*.md"]),

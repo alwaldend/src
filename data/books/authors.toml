@@ -403,3 +403,33 @@ name = "姬叉"
 links = [
   { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/%e5%a7%ac%e5%8f%89/" },
 ]
+
+[author."窗边的鸽子"]
+name = "窗边的鸽子"
+links = [
+  { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/%e7%aa%97%e8%be%b9%e7%9a%84%e9%b8%bd%e5%ad%90/" },
+]
+
+[author."熊狼狗"]
+name = "熊狼狗"
+links = [
+  { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/%e7%86%8a%e7%8b%bc%e7%8b%97/" },
+]
+
+[author.joroboros]
+name = "Joroboros"
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/115230" },
+]
+
+[author.silv3rtongue]
+name = "Silv3rtongue"
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/418109" },
+]
+
+[author."纯洁滴小龙"]
+name = "纯洁滴小龙"
+links = [
+  { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/%e7%ba%af%e6%b4%81%e6%bb%b4%e5%b0%8f%e9%be%99/" },
+]

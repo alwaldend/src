@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1913756507
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1285
+  TitleSlug = "balance-a-binary-search-tree"
+  Code = "class Solution:\n    def balanceBST(self, root: TreeNode) -> TreeNode:\n        if not root:\n            return None\n\n        # Step 1: Create the backbone (vine)\n        # Temporary dummy node\n        vine_head = TreeNode(0)\n        vine_head.right = root\n        current = vine_head\n        while current.right:\n            if current.right.left:\n                self.right_rotate(current, current.right)\n            else:\n                current = current.right\n\n        # Step 2: Count the nodes\n        node_count = 0\n        current = vine_head.right\n        while current:\n            node_count += 1\n            current = current.right\n\n        # Step 3: Create a balanced BST\n        m = 2 ** math.floor(math.log2(node_count + 1)) - 1\n        self.make_rotations(vine_head, node_count - m)\n        while m > 1:\n            m //= 2\n            self.make_rotations(vine_head, m)\n\n        balanced_root = vine_head.right\n        # Delete the temporary dummy node\n        vine_head = None\n        return balanced_root\n\n    # Function to perform a right rotation\n    def right_rotate(self, parent: TreeNode, node: TreeNode):\n        tmp = node.left\n        node.left = tmp.right\n        tmp.right = node\n        parent.right = tmp\n\n    # Function to perform a left rotation\n    def left_rotate(self, parent: TreeNode, node: TreeNode):\n        tmp = node.right\n        node.right = tmp.left\n        tmp.left = node\n        parent.right = tmp\n\n    # Function to perform a series of left rotations to balance the vine\n    def make_rotations(self, vine_head: TreeNode, count: int):\n        current = vine_head\n        for _ in range(count):\n            tmp = current.right\n            self.left_rotate(current, tmp)\n            current = current.right"
+  Title = "Balance a Binary Search Tree"
+  Url = "/submissions/detail/1913756507/"
+  LangName = "Python3"
+  Timestamp = 1770656957
+  Status = 10
+  Runtime = "6 ms"
+  IsPending = "Not Pending"
+  Memory = "23.1 MB"
+  CompareResult = "11111111111111111"
+  HasNotes = false
+  FlagType = 1

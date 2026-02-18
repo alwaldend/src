@@ -173,7 +173,7 @@ links = [
 title = "The Years of Apocalypse"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/the-years-of-apocalypse-a-time-loop-progression.jpg"
 quality = "Decent"
-reading = "Dropped, C225"
+reading = "Dropped, C226"
 authors = ["uraniumphoenix"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/81002/the-years-of-apocalypse-a-time-loop-progression" },
@@ -998,7 +998,7 @@ links = [
 title = "The Hundred Reigns"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/the-hundred-reigns-timeloop-litrpg-aabay6rm6bc.jpg"
 quality = "Ok"
-reading = "Dropped, C54"
+reading = "Dropped, C75"
 authors = ["maxime-j-durand"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/139212/the-hundred-reigns-timeloop-litrpg" },
@@ -1012,16 +1012,6 @@ reading = "Finished available (hiatus), C86"
 authors = ["quickduckling"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/111416/afterlife-20-litrpg-in-hell" },
-]
-
-[[book]]
-title = "Path of the Deathless"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/122502-path-of-the-deathless-book-4-completed.jpg"
-quality = "Decent"
-reading = "Dropped, C270"
-authors = ["ostensiblemammal"]
-links = [
-  { title = "royalroad", url = "https://www.royalroad.com/fiction/122502/path-of-the-deathless-book-4-completed" },
 ]
 
 [[book]]
@@ -1048,7 +1038,7 @@ links = [
 title = "The Tower of Infinite Evil"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/122142-the-tower-of-infinite-evil-a-litrpg-horror.jpg"
 quality = "Decent"
-reading = "Dropped, C118"
+reading = "Dropped, C127"
 authors = ["lit-homunculus"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/122142/the-tower-of-infinite-evil-a-litrpg-horror-comedy" },
@@ -1086,14 +1076,75 @@ links = [
 ]
 
 [[book]]
+title = "I Am a Demon Cultivator, Not a Conscientious Capitalist"
+alt_titles = ["我是魔修，不是良心资本家"]
+thumbnail = "https://cdn.novelupdates.com/images/2025/09/I-Am-a-Demon-Cultivator-Not-a-Conscientious-Capitalist.jpg"
+quality = "Slop"
+reading = "Dropped, C19"
+authors = ["窗边的鸽子"]
+links = [
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/i-am-a-demon-cultivator-not-a-conscientious-capitalist/" },
+]
+
+[[book]]
 title = "Shan He Ji"
 alt_titles = ["山河稷", "Mountains, Rivers, and the Grain God"]
-thumnail = "https://cdn.novelupdates.com/images/2025/07/Shan-He-Ji.jpg"
-quality = "Decent"
-reading = "Reading, C19"
+thumbnail = "https://cdn.novelupdates.com/images/2025/07/Shan-He-Ji.jpg"
+quality = "Ok"
+reading = "Dropped, C27"
 authors = ["姬叉"]
 links = [
   { title = "novelupdates", url = "https://www.novelupdates.com/series/shan-he-ji/" },
+]
+
+[[book]]
+title = "Path of the Deathless"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/122502-path-of-the-deathless-book-4-completed.jpg"
+quality = "Decent"
+reading = "Reading, C295"
+authors = ["ostensiblemammal"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/122502/path-of-the-deathless-book-4-completed" },
+]
+
+[[book]]
+title = "The Legend of William Oh"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/the-legend-of-william-oh-aadavnw8qxu.jpg"
+quality = "Decent"
+reading = "Reading, C238"
+authors = ["macronomicon"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/92144/the-legend-of-william-oh" },
+]
+
+[[book]]
+title = "Re:Cursed"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/104556-recursed.jpg?time=1763017950"
+quality = "Decent"
+reading = "Reading, C155"
+authors = ["joroboros"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/104556/recursed" },
+]
+
+[[book]]
+title = "Reforged from Ruin"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/78756-reforged-from-ruin-eldritch-xianxia-cultivation.jpg"
+quality = "Decent"
+reading = "Reading, C385"
+authors = ["silv3rtongue"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/78756/reforged-from-ruin-eldritch-xianxia-cultivation" },
+]
+
+[[book]]
+title = "Hell Difficulty Tutorial"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg"
+quality = "Decent"
+reading = "Reading, C753"
+authors = ["cerim"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial" },
 ]
 
 [[book]]
@@ -1111,40 +1162,42 @@ links = [
 ]
 
 [[book]]
-title = "The Legend of William Oh"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/the-legend-of-william-oh-aadavnw8qxu.jpg"
+title = "How Can You Cultivate Immortality Without Money?"
+alt_titles = ["没钱修什么仙？", "No Money to Cultivate Immortality?"]
+thumbnail = "https://cdn.novelupdates.com/images/2024/11/No-Money-to-Cultivate-Immortality.png"
 quality = "Decent"
-reading = "Reading, C198"
-authors = ["macronomicon"]
+reading = "Reading, C818"
+authors = ["熊狼狗"]
 links = [
-  { title = "royalroad", url = "https://www.royalroad.com/fiction/92144/the-legend-of-william-oh" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/no-money-to-cultivate-immortality/" },
 ]
 
 [[book]]
 title = "Book Of The Dead"
 thumbnail = "https://www.royalroadcdn.com/public/covers-full/47038-book-of-the-dead.jpg"
 quality = "Decent"
-reading = "Reading, book 5 chapter 25"
+reading = "Reading, B5C82"
 authors = ["rinoz"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/47038/book-of-the-dead" },
 ]
 
 [[book]]
-title = "Hell Difficulty Tutorial"
-thumbnail = "https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg"
-quality = "Decent"
-reading = "Reading, chapter 589"
-authors = ["cerim"]
+title = "Corpse Retriever"
+alt_titles = ["捞尸人"]
+thumbnail = "https://cdn.novelupdates.com/images/2025/04/Corpse-Retriever.jpg"
+quality = "Decent?"
+reading = "Reading, C20"
+authors = ["纯洁滴小龙"]
 links = [
-  { title = "royalroad", url = "https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial" },
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/corpse-retriever/" },
 ]
 
 [[book]]
 title = "Sky Pride"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/107917-sky-pride.jpg"
 quality = "Good"
-reading = "Reading, B3C25"
+reading = "Reading, B3C37"
 authors = ["warby-picus"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/107917/sky-pride" },

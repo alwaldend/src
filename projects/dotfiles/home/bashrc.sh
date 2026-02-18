@@ -3,18 +3,6 @@
 # shellcheck disable=SC1091 source=../bin/d_functions.sh
 . "${HOME}/.local/bin/d_functions"
 
-if [[ "398d0cb2d44247eca90e054f0d790759" == "$(cat /etc/machine-id)" ]]; then
-    export PATH="${PATH}:/opt/nvim-linux-x86_64/bin"
-    export http_proxy="http://127.0.0.1:10808"
-    export HTTP_PROXY="${http_proxy}"
-    export https_proxy="${http_proxy}"
-    export HTTPS_PROXY="${http_proxy}"
-    export all_proxy="${http_proxy}"
-    export ALL_PROXY="${http_proxy}"
-    export NO_PROXY="localhost, 127.0.0.0/8, ::1"
-    export no_proxy="${NO_PROXY}"
-fi
-
 export FZF_DEFAULT_COMMAND="fd --type f"
 export FZF_COMPLETION_TRIGGER="**"
 
@@ -64,17 +52,9 @@ export HISTFILESIZE=
 # bash history size (number of lines)
 export HISTSIZE=10000
 
-### proxy
-export all_proxy="http://127.0.0.1:10808"
-export ALL_PROXY="${all_proxy}"
-export http_proxy="${all_proxy}"
-export HTTP_PROXY="${all_proxy}"
-export https_proxy="${all_proxy}"
-export HTTPS_PROXY="${all_proxy}"
-
 # android sdk
 export ANDROID_HOME="${HOME}/Android/Sdk"
-export ANDROID_NDK_HOME="${HOME}/Android/Ndk"
+export ANDROID_NDK_HOME="${ANDROID_HOME}/ndk/29.0.14206865"
 ### path edits
 export GOPATH="${HOME}/.go"
 if [ -L "/usr/java/latest" ]; then

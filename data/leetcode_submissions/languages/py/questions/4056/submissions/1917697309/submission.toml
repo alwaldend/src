@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1917697309
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 4056
+  TitleSlug = "longest-balanced-substring-ii"
+  Code = "class Solution:\n    def longestBalanced(self, s: str) -> int:\n        n=len(s)\n        # Deal with 1-letter balance\n        ans, Len=1, 1\n        for c0, c1 in pairwise(s):\n            if c0==c1: Len+=1\n            else:\n                ans=max(ans, Len)\n                Len=1\n        ans=max(ans, Len)\n\n        ab, bc, ca, abc={},{},{},{}\n        abc[(0, 0)]=ab[(0, 0)]=bc[(0, 0)]=ca[(0, 0)]=-1\n\n        cnt=[0, 0, 0]\n        for i, c in enumerate(s):\n            cnt[ord(c)-97]+=1\n            A, B, C=cnt\n\n            # 3-letter balance: A=B=C\n            key=(B-A, C-A)\n            if  key in abc: ans=max(ans, i-abc[key])\n            else: abc[key]=i\n\n            # 2-letter balance:\n            key=(A-B, C)\n            if  key in ab: ans=max(ans, i-ab[key])\n            else: ab[key]=i\n\n            key=(B-C, A)\n            if  key in bc: ans=max(ans, i-bc[key])\n            else: bc[key]=i\n\n            key=(C-A, B)\n            if  key in ca: ans=max(ans, i-ca[key])\n            else: ca[key]=i\n        return ans    "
+  Title = "Longest Balanced Substring II"
+  Url = "/submissions/detail/1917697309/"
+  LangName = "Python3"
+  Timestamp = 1770963560
+  Status = 10
+  Runtime = "1172 ms"
+  IsPending = "Not Pending"
+  Memory = "90.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

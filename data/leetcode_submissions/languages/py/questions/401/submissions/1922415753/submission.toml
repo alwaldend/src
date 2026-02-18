@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1922415753
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 401
+  TitleSlug = "binary-watch"
+  Code = "class Solution:\n    def readBinaryWatch(self, turnedOn: int) -> List[str]:\n        ans = list()\n        for h in range(12):\n            for m in range(60):\n                if bin(h).count(\"1\") + bin(m).count(\"1\") == turnedOn:\n                    ans.append(f\"{h}:{m:02d}\")\n        return ans"
+  Title = "Binary Watch"
+  Url = "/submissions/detail/1922415753/"
+  LangName = "Python3"
+  Timestamp = 1771348713
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "19.5 MB"
+  CompareResult = "11111111111"
+  HasNotes = false
+  FlagType = 1

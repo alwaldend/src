@@ -7,6 +7,12 @@ tags:
 
 ## Setup
 
+- Install packages:
+  ```sh
+  sudo dnf install \
+    clang clang-format java-latest-openjdk-devel rust cargo mesa-libGL-devel \
+    go Xvfb python3 gmp-devel patch podman git git-lfs fuse
+  ```
 - Install bazelisk: https://bazel.build/install/bazelisk
 - Symlink bazel:
   ```sh
@@ -20,36 +26,22 @@ tags:
   ```sh
   bazel run //projects/dotfiles:install
   ```
-- Install packages:
+- Install android tools:
   ```sh
-  sudo dnf install \
-    clang clang-format java-latest-openjdk-devel rust cargo mesa-libGL-devel \
-    go Xvfb python3 gmp-devel patch podman
+  bazel run //tools/android:install
   ```
-- Install git lfs: https://git-lfs.com/
 - Install nvm: https://github.com/nvm-sh/nvm
 - Install node:
   ```sh
   nvm install node
   ```
-- Install commandline tools to `${ANDROID_HOME}/cmdline-tools/latest`: https://developer.android.com/studio#command-tools
-- Install NDK to `${ANDROID_NDK_HOME}` (`~/Android/Ndk`): https://github.com/android/ndk/wiki
-- Install android tools:
-  ```sh
-  sdkmanager "platforms;android-36" "build-tools;36.0.0"
-  ```
 - Install qt:
   ```sh
   bazel run //tools/qt:install
   ```
-- Setup secrets:
+- Set up secrets:
   ```sh
-  echo '{ "systemdCreds": { "name": "src_secrets" } }' >tools/secrets/secrets.json && \
-    bazel run //tools/secrets:systemd_creds_edit
-  ```
-- Setup .bzlenv:
-  ```sh
-  . "$(bazel run //tools/bzlenv)"
+  bazel run //tools/secrets:systemd_creds_edit
   ```
 
 ## Setup .bzlenv

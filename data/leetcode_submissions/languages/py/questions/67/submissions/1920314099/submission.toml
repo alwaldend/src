@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1920314099
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 67
+  TitleSlug = "add-binary"
+  Code = "class Solution:\n    def addBinary(self, a, b) -> str:\n        x, y = int(a, 2), int(b, 2)\n        while y:\n            x, y = x ^ y, (x & y) << 1\n        return bin(x)[2:]"
+  Title = "Add Binary"
+  Url = "/submissions/detail/1920314099/"
+  LangName = "Python3"
+  Timestamp = 1771178292
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "19.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

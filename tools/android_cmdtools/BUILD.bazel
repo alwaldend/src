@@ -3,21 +3,21 @@ load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 [
     alias(
         name = name,
-	actual = "@com_alwaldend_src_tools_android_cmdtools//:{}".format(name),
+        actual = "@com_alwaldend_src_tools_android_cmdtools//:{}".format(name),
         visibility = ["//:__subpackages__"],
     )
     for name in [
         "apkanalyzer",
-	"avdmanager",
-	"d8",
-	"lint",
-	"profgen",
-	"r8",
-	"resourceshrinker",
-	"retrace",
-	"screenshot2",
-	"sdkmanager"
-    ] 
+        "avdmanager",
+        "d8",
+        "lint",
+        "profgen",
+        "r8",
+        "resourceshrinker",
+        "retrace",
+        "screenshot2",
+        "sdkmanager",
+    ]
 ]
 
 al_docs_files(
