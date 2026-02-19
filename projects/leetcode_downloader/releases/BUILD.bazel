@@ -16,7 +16,7 @@ al_release_files(
         # do not sort
         "//projects/leetcode_downloader/main/proto/contracts:contracts.proto",
         "//projects/leetcode_downloader/main/tampermonkey",
-        "//projects/leetcode_downloader/main/go:leetcode_downloader_crossbinary",
+        "//projects/leetcode_downloader/main/go:go_crossbinary",
     ],
     deployments = ["//tools/release:deployment"],
 )

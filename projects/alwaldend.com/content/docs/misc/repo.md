@@ -60,6 +60,8 @@ bazel run :refresh_compile_commands
 
 ## Build everything
 
+> This requires around 90G
+
 ```sh
 bazel build //...
 ```
