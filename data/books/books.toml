@@ -1098,6 +1098,17 @@ links = [
 ]
 
 [[book]]
+title = "Staring directly at the ancient gods for a whole year"
+alt_titles = ["直视古神一整年"]
+thumbnail = "https://img.wtr-lab.com/dSO3hnkuy2rqyLSKcLj1gjd_4jLT-ZU_4KetR6Aj99Y/rs:fit:344:0:0/q:80/g:no/czM6Ly93dHJpbWcvc2VyaWVzLzFFdXZOQ0EyS2ZsT2NmUlczYVlQZUEud2VicA"
+quality = "Slop"
+reading = "Dropped, C100"
+authors = ["三藏的左轮"]
+links = [
+  { title = "wtrlab", url = "https://wtr-lab.com/en/novel/5006/staring-directly-at-the-ancient-gods-for-a-whole-year" },
+]
+
+[[book]]
 title = "Path of the Deathless"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/122502-path-of-the-deathless-book-4-completed.jpg"
 quality = "Decent"

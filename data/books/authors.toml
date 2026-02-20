@@ -433,3 +433,9 @@ name = "纯洁滴小龙"
 links = [
   { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/%e7%ba%af%e6%b4%81%e6%bb%b4%e5%b0%8f%e9%be%99/" },
 ]
+
+[author."三藏的左轮"]
+name = "三藏的左轮"
+links = [
+  { title = "wtrlab", url = "https://wtr-lab.com/en/author/%E4%B8%89%E8%97%8F%E7%9A%84%E5%B7%A6%E8%BD%AE" },
+]

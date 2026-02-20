@@ -45,7 +45,7 @@ bazel_dep(name = "rules_jvm_external", version = "6.10")
 bazel_dep(name = "contrib_rules_jvm", version = "0.32.0")
 
 # C, C++
-bazel_dep(name = "rules_cc", version = "0.2.16")
+bazel_dep(name = "rules_cc", version = "0.2.17")
 bazel_dep(name = "rules_foreign_cc", version = "0.15.1")
 bazel_dep(name = "toolchains_llvm", version = "1.6.0")
 bazel_dep(name = "org_openssl_openssl", version = "3.5.0")
