@@ -1,14 +1,14 @@
-package com.alwaldend.src.kt.android.launcher.ui
+package com.alwaldend.src.projects.android_launcher.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.alwaldend.src.kt.android.launcher.R
-import com.alwaldend.src.kt.android.launcher.data.HomeDialogState
-import com.alwaldend.src.kt.android.launcher.data.HomeDialogState.Button
-import com.alwaldend.src.kt.android.launcher.data.HomeDialogState.Buttons
-import com.alwaldend.src.kt.android.launcher.data.HomeDialogState.LauncherDialogAction.GoToSettings
-import com.alwaldend.src.kt.android.launcher.data.HomeDialogState.LauncherDialogAction.HideHiddenApps
-import com.alwaldend.src.kt.android.launcher.data.HomeDialogState.LauncherDialogAction.ShowHiddenApps
+import com.alwaldend.src.projects.android_launcher.R
+import com.alwaldend.src.projects.android_launcher.data.HomeDialogState
+import com.alwaldend.src.projects.android_launcher.data.HomeDialogState.Button
+import com.alwaldend.src.projects.android_launcher.data.HomeDialogState.Buttons
+import com.alwaldend.src.projects.android_launcher.data.HomeDialogState.LauncherDialogAction.GoToSettings
+import com.alwaldend.src.projects.android_launcher.data.HomeDialogState.LauncherDialogAction.HideHiddenApps
+import com.alwaldend.src.projects.android_launcher.data.HomeDialogState.LauncherDialogAction.ShowHiddenApps
 
 
 private val buttons = Buttons(

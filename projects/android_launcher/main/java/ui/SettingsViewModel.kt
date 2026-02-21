@@ -1,11 +1,11 @@
-package com.alwaldend.src.kt.android.launcher.ui
+package com.alwaldend.src.projects.android_launcher.ui
 
 
 import android.os.ParcelFileDescriptor
-import com.alwaldend.src.kt.android.launcher.LauncherNavigator
-import com.alwaldend.src.kt.android.launcher.LauncherStateRepository
-import com.alwaldend.src.kt.android.launcher.Model
-import com.alwaldend.src.kt.android.launcher.launcherViewModelFactory
+import com.alwaldend.src.projects.android_launcher.LauncherNavigator
+import com.alwaldend.src.projects.android_launcher.LauncherStateRepository
+import com.alwaldend.src.projects.android_launcher.Model
+import com.alwaldend.src.projects.android_launcher.launcherViewModelFactory
 import java.io.FileOutputStream
 import java.io.InputStream
 

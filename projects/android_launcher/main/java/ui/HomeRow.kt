@@ -1,4 +1,4 @@
-package com.alwaldend.src.kt.android.launcher.ui
+package com.alwaldend.src.projects.android_launcher.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
@@ -28,9 +28,9 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.alwaldend.src.kt.android.launcher.Defaults
-import com.alwaldend.src.kt.android.launcher.Model
-import com.alwaldend.src.kt.android.launcher.Model.Settings.HorizontalArrangement
+import com.alwaldend.src.projects.android_launcher.Defaults
+import com.alwaldend.src.projects.android_launcher.Model
+import com.alwaldend.src.projects.android_launcher.Model.Settings.HorizontalArrangement
 
 
 @OptIn(ExperimentalLayoutApi::class)

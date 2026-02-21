@@ -1,7 +1,7 @@
-package com.alwaldend.src.kt.android.launcher
+package com.alwaldend.src.projects.android_launcher
 
 import androidx.compose.runtime.Immutable
-import com.alwaldend.src.kt.android.launcher.ui.LauncherRoute
+import com.alwaldend.src.projects.android_launcher.ui.LauncherRoute
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

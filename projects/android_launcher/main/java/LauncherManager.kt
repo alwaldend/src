@@ -1,4 +1,4 @@
-package com.alwaldend.src.kt.android.launcher
+package com.alwaldend.src.projects.android_launcher
 
 import android.app.role.RoleManager
 import android.content.ComponentName

@@ -1,11 +1,11 @@
-package com.alwaldend.src.kt.android.launcher.ui
+package com.alwaldend.src.projects.android_launcher.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.alwaldend.src.kt.android.launcher.Defaults
-import com.alwaldend.src.kt.android.launcher.LauncherNavigator
-import com.alwaldend.src.kt.android.launcher.LauncherStateRepository
-import com.alwaldend.src.kt.android.launcher.data.UiState
+import com.alwaldend.src.projects.android_launcher.Defaults
+import com.alwaldend.src.projects.android_launcher.LauncherNavigator
+import com.alwaldend.src.projects.android_launcher.LauncherStateRepository
+import com.alwaldend.src.projects.android_launcher.data.UiState
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow

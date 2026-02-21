@@ -1,4 +1,4 @@
-package com.alwaldend.src.kt.android.launcher.data
+package com.alwaldend.src.projects.android_launcher.data
 
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Immutable

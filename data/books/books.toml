@@ -1109,6 +1109,16 @@ links = [
 ]
 
 [[book]]
+title = "Mysterious Revival"
+thumbnail = "https://book-pic.webnovel.com/bookcover/19115759305319405?imageMogr2/thumbnail/180x|imageMogr2/format/webp|imageMogr2/quality/70!&imageId=1721123894271"
+quality = "Ok"
+reading = "Dropped, C54"
+authors = ["offering-flowers-before-the-buddha"]
+links = [
+  { title = "webnovel", url = "https://m.webnovel.com/book/mysterious-revival_19115759305319405" },
+]
+
+[[book]]
 title = "Path of the Deathless"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/122502-path-of-the-deathless-book-4-completed.jpg"
 quality = "Decent"

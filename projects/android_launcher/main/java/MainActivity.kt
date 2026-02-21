@@ -1,10 +1,10 @@
-package com.alwaldend.src.kt.android.launcher
+package com.alwaldend.src.projects.android_launcher
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.lifecycleScope
-import com.alwaldend.src.kt.android.launcher.ui.LauncherUi
+import com.alwaldend.src.projects.android_launcher.ui.LauncherUi
 import kotlinx.coroutines.launch
 
 private val tag = MainActivity::class.simpleName

@@ -1,9 +1,9 @@
-package com.alwaldend.src.kt.android.launcher.ui
+package com.alwaldend.src.projects.android_launcher.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import com.alwaldend.src.kt.android.launcher.Model
-import com.alwaldend.src.kt.android.launcher.data.HomeDialogState
+import com.alwaldend.src.projects.android_launcher.Model
+import com.alwaldend.src.projects.android_launcher.data.HomeDialogState
 
 @Composable
 fun HomeDialogApp(

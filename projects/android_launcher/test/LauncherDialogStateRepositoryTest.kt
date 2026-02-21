@@ -1,4 +1,4 @@
-package com.alwaldend.src.kt.android.launcher
+package com.alwaldend.src.projects.android_launcher
 
 import androidx.datastore.core.DataStore
 import kotlinx.coroutines.flow.Flow

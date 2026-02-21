@@ -3,7 +3,7 @@ load("@rules_android//android:rules.bzl", "android_binary")
 load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
 load("@rules_kotlin//kotlin:core.bzl", "kt_compiler_plugin")
 
-_PACKAGE = "com.alwaldend.src.kt.android.launcher"
+_PACKAGE = "com.alwaldend.src.projects.android_launcher"
 
 filegroup(
     name = "main",

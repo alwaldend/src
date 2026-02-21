@@ -1,4 +1,4 @@
-package com.alwaldend.src.kt.android.launcher.ui
+package com.alwaldend.src.projects.android_launcher.ui
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column

@@ -1,10 +1,10 @@
-package com.alwaldend.src.kt.android.launcher
+package com.alwaldend.src.projects.android_launcher
 
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.Serializer
 import android.util.Log
-import com.alwaldend.src.kt.android.launcher.Model.Settings
+import com.alwaldend.src.projects.android_launcher.Model.Settings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first

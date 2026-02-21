@@ -1,14 +1,14 @@
-package com.alwaldend.src.kt.android.launcher.ui
+package com.alwaldend.src.projects.android_launcher.ui
 
 
-import com.alwaldend.src.kt.android.launcher.LauncherManager
-import com.alwaldend.src.kt.android.launcher.LauncherNavigator
-import com.alwaldend.src.kt.android.launcher.LauncherStateRepository
-import com.alwaldend.src.kt.android.launcher.Model
-import com.alwaldend.src.kt.android.launcher.Model.Settings.AppCard
-import com.alwaldend.src.kt.android.launcher.data.HomeDialogState.HeaderActions
-import com.alwaldend.src.kt.android.launcher.data.HomeDialogState.LauncherDialogAction
-import com.alwaldend.src.kt.android.launcher.launcherViewModelFactory
+import com.alwaldend.src.projects.android_launcher.LauncherManager
+import com.alwaldend.src.projects.android_launcher.LauncherNavigator
+import com.alwaldend.src.projects.android_launcher.LauncherStateRepository
+import com.alwaldend.src.projects.android_launcher.Model
+import com.alwaldend.src.projects.android_launcher.Model.Settings.AppCard
+import com.alwaldend.src.projects.android_launcher.data.HomeDialogState.HeaderActions
+import com.alwaldend.src.projects.android_launcher.data.HomeDialogState.LauncherDialogAction
+import com.alwaldend.src.projects.android_launcher.launcherViewModelFactory
 
 class HomeViewModel(
     private val stateRepo: LauncherStateRepository,

@@ -439,3 +439,7 @@ name = "三藏的左轮"
 links = [
   { title = "wtrlab", url = "https://wtr-lab.com/en/author/%E4%B8%89%E8%97%8F%E7%9A%84%E5%B7%A6%E8%BD%AE" },
 ]
+
+[author.offering-flowers-before-the-buddha]
+name = "Offering flowers before the Buddha"
+links = []

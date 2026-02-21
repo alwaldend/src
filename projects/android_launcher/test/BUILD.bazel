@@ -6,7 +6,7 @@ load("@rules_kotlin//kotlin:android.bzl", "kt_android_local_test")
         size = "small",
         srcs = [file],
         manifest = "//projects/android_launcher:manifest",
-        test_class = "com.alwaldend.src.kt.android.launcher.{}".format(file.replace(".kt", "")),
+        test_class = "com.alwaldend.src.projects.android_launcher.{}".format(file.replace(".kt", "")),
         deps = [
             "//projects/android_launcher/main/java:launcher_library",
             "@com_alwaldend_src_projects_android_launcher_maven//:junit_junit",

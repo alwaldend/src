@@ -1,4 +1,4 @@
-package com.alwaldend.src.kt.android.launcher.ui
+package com.alwaldend.src.projects.android_launcher.ui
 
 import android.net.Uri
 import android.os.ParcelFileDescriptor
@@ -18,9 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.alwaldend.src.kt.android.launcher.Model
-import com.alwaldend.src.kt.android.launcher.R
-import com.alwaldend.src.kt.android.launcher.data.UiState
+import com.alwaldend.src.projects.android_launcher.Model
+import com.alwaldend.src.projects.android_launcher.R
+import com.alwaldend.src.projects.android_launcher.data.UiState
 import java.io.InputStream
 
 private val layoutChoices = object {

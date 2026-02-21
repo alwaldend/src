@@ -1,4 +1,4 @@
-package com.alwaldend.src.kt.android.launcher.ui
+package com.alwaldend.src.projects.android_launcher.ui
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

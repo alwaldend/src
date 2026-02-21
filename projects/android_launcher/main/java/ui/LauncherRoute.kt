@@ -1,4 +1,4 @@
-package com.alwaldend.src.kt.android.launcher.ui
+package com.alwaldend.src.projects.android_launcher.ui
 
 import android.widget.Toast
 import androidx.annotation.StringRes
@@ -11,9 +11,9 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.alwaldend.src.kt.android.launcher.LauncherNavigationState
-import com.alwaldend.src.kt.android.launcher.Model
-import com.alwaldend.src.kt.android.launcher.data.UiState
+import com.alwaldend.src.projects.android_launcher.LauncherNavigationState
+import com.alwaldend.src.projects.android_launcher.Model
+import com.alwaldend.src.projects.android_launcher.data.UiState
 
 interface LauncherRoute<T : BaseViewModel> {
     val url: String

@@ -1,4 +1,4 @@
-package com.alwaldend.src.kt.android.launcher.ui
+package com.alwaldend.src.projects.android_launcher.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
@@ -31,12 +31,12 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.alwaldend.src.kt.android.launcher.Defaults
-import com.alwaldend.src.kt.android.launcher.Model
-import com.alwaldend.src.kt.android.launcher.R
-import com.alwaldend.src.kt.android.launcher.data.HomeDialogState
-import com.alwaldend.src.kt.android.launcher.data.HomeDialogState.HeaderActions
-import com.alwaldend.src.kt.android.launcher.data.UiState
+import com.alwaldend.src.projects.android_launcher.Defaults
+import com.alwaldend.src.projects.android_launcher.Model
+import com.alwaldend.src.projects.android_launcher.R
+import com.alwaldend.src.projects.android_launcher.data.HomeDialogState
+import com.alwaldend.src.projects.android_launcher.data.HomeDialogState.HeaderActions
+import com.alwaldend.src.projects.android_launcher.data.UiState
 
 object HomeRoute : LauncherRoute<HomeViewModel> {
     override val url = "home_screen"

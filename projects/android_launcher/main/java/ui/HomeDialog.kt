@@ -1,4 +1,4 @@
-package com.alwaldend.src.kt.android.launcher.ui
+package com.alwaldend.src.projects.android_launcher.ui
 
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
@@ -30,10 +30,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import com.alwaldend.src.kt.android.launcher.Model
-import com.alwaldend.src.kt.android.launcher.R
-import com.alwaldend.src.kt.android.launcher.data.HomeDialogState
-import com.alwaldend.src.kt.android.launcher.data.HomeDialogState.Button.Label
+import com.alwaldend.src.projects.android_launcher.Model
+import com.alwaldend.src.projects.android_launcher.R
+import com.alwaldend.src.projects.android_launcher.data.HomeDialogState
+import com.alwaldend.src.projects.android_launcher.data.HomeDialogState.Button.Label
 
 @Composable
 fun <T> HomeDialog(
