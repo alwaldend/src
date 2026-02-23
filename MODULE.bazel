@@ -63,6 +63,7 @@ bazel_dep(name = "rules_robolectric", version = "4.16.1")
 
 # Oci
 bazel_dep(name = "rules_oci", version = "2.2.7")
+bazel_dep(name = "rules_distroless", version = "0.6.2")
 
 # Hashell
 bazel_dep(name = "rules_haskell")
