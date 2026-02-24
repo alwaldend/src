@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1928638097
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1557
+  TitleSlug = "check-if-a-string-contains-all-binary-codes-of-size-k"
+  Code = "class Solution:\n    def hasAllCodes(self, s: str, k: int) -> bool:\n        req = 1 << k\n        seen = [False] * req\n        mask = req - 1\n        h = 0\n\n        for i, ch in enumerate(s):\n            h = ((h << 1) & mask) | (ord(ch) & 1)\n\n            if i >= k - 1 and not seen[h]:\n                seen[h] = True\n                req -= 1\n                if req == 0:\n                    return True\n\n        return False"
+  Title = "Check If a String Contains All Binary Codes of Size K"
+  Url = "/submissions/detail/1928638097/"
+  LangName = "Python3"
+  Timestamp = 1771859659
+  Status = 10
+  Runtime = "167 ms"
+  IsPending = "Not Pending"
+  Memory = "29 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

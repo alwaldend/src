@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1926478914
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 763
+  TitleSlug = "special-binary-string"
+  Code = "class Solution:\n    def makeLargestSpecial(self, s: str) -> str:\n        count = 0\n        i = 0\n        res = []\n        \n        for j in range(len(s)):\n            # Track balance: +1 for '1', -1 for '0'\n            count += 1 if s[j] == '1' else -1\n            \n            # Found a balanced chunk when count returns to 0\n            if count == 0:\n                # Recursively maximize inner part, wrap with 1...0\n                res.append('1' + self.makeLargestSpecial(s[i + 1:j]) + '0')\n                i = j + 1  # Move to next potential chunk\n        \n        # Sort chunks in descending order for largest arrangement\n        res.sort(reverse=True)\n        return ''.join(res)"
+  Title = "Special Binary String"
+  Url = "/submissions/detail/1926478914/"
+  LangName = "Python3"
+  Timestamp = 1771689340
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "19.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

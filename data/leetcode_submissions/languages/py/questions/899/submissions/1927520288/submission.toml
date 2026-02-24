@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1927520288
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 899
+  TitleSlug = "binary-gap"
+  Code = "class Solution(object):\n    def binaryGap(self, N):\n        last = None\n        ans = 0\n        for i in range(32):\n            if (N >> i) & 1:\n                if last is not None:\n                    ans = max(ans, i - last)\n                last = i\n        return ans"
+  Title = "Binary Gap"
+  Url = "/submissions/detail/1927520288/"
+  LangName = "Python3"
+  Timestamp = 1771771207
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "19.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1929890286
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1079
+  TitleSlug = "sum-of-root-to-leaf-binary-numbers"
+  Code = "class Solution:\n    def sumRootToLeaf(self, root: TreeNode) -> int:\n\n        def dfs(node: TreeNode, n = 0)-> None:\n            if not node: return\n\n            n = 2 * n + node.val\n            if not node.left and not node.right:\n                self.ans+= n\n                return\n                \n            dfs(node.left , n)\n            dfs(node.right, n)\n            return\n            \n\n        self.ans = 0\n        dfs(root)\n        return self.ans"
+  Title = "Sum of Root To Leaf Binary Numbers"
+  Url = "/submissions/detail/1929890286/"
+  LangName = "Python3"
+  Timestamp = 1771951886
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "19.7 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
