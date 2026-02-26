@@ -13,7 +13,7 @@ require (
 	github.com/go-playground/validator/v10 v10.18.0
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/gocraft/work v0.5.1
-	github.com/gofiber/fiber/v2 v2.52.11
+	github.com/gofiber/fiber/v2 v2.52.12
 	github.com/gofiber/jwt/v3 v3.3.10
 	github.com/gofiber/storage/redis v1.3.4
 	github.com/golang-jwt/jwt/v4 v4.5.2
