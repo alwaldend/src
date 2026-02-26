@@ -9,6 +9,7 @@ use_repo(
     "com_github_burntsushi_toml",
     "com_github_casbin_casbin_v2",
     "com_github_casbin_gorm_adapter_v3",
+    "com_github_cloudflare_circl",
     "com_github_go_git_go_billy_v5",
     "com_github_go_git_go_git_v5",
     "com_github_go_playground_validator_v10",
