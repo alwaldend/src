@@ -13,5 +13,8 @@ tags:
 
 ## Qt setup
 
-- Install qt: `aqt install-qt -O /opt/qt linux desktop 6.9.0`
+- Install qt:
+  ```sh
+  bazel run //tools/qt:install
+  ```
 - Register toolchain: `register_toolchains("//tools/qt:preinstalled_qt_toolchain")`
