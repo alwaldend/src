@@ -15,7 +15,10 @@ sysctl_overwrite:
 firewall_allow_port_from:
   - src: "any"
     port: 443
-    comment: Any 443
+    comment: Ingress
+  - src: "any"
+    port: 80
+    comment: Ingress
   - src: "any"
     port: 22
     comment: ssh
@@ -23,9 +26,21 @@ firewall_allow_port_from:
 ## k3s
 k3s_install_environment:
   INSTALL_K3S_VERSION: v1.35.1+k3s1
+k3s_manifests:
+  cloudflare-secret:
+    apiVersion: v1
+    kind: Secret
+    type: Opaque
+    metadata:
+      name: cert-manager-secret
+      namespace: cert-manager
+    data:
+      CLOUDFLAREAPI_ACCOUNT_ID: "{{ lookup('ansible.builtin.env', 'CLOUDFLAREAPI_ACCOUNT_ID', default=undef()) | b64encode }}"
+      CLOUDFLAREAPI_API_TOKEN: "{{ lookup('ansible.builtin.env', 'CLOUDFLAREAPI_API_TOKEN', default=undef()) | b64encode }}"
+      LETSENCRYPT_EMAIL: "{{ lookup('ansible.builtin.env', 'LETSENCRYPT_EMAIL', default=undef()) | b64encode }}"
 k3s_config:
   selinux: true
   tls-san:
     - "{{ inventory_hostname }}"
     - "cl1.residential.dc.alwaldend.com"
-  token: "{{ lookup('ansible.builtin.env', 'COM_ALWALDEND_DC_RESIDENTIAL_CL1_K3S_TOKEN') | mandatory }}"
+  token: "{{ lookup('ansible.builtin.env', 'COM_ALWALDEND_DC_RESIDENTIAL_CL1_K3S_TOKEN', default=undef()) }}"

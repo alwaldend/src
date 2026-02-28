@@ -7,6 +7,7 @@ k3s_log_dir: /var/lib/rancher/k3s/server/logs
 k3s_server_dir: /var/lib/rancher/k3s/server
 k3s_tls_dir: /var/lib/rancher/k3s/server/tls
 k3s_kustomize_dir: /var/lib/rancher/k3s/kustomize
+k3s_manifests: {}
 k3s_config: {}
 k3s_config_default:
   # hardening: https://docs.k3s.io/security/hardening-guide#configuration-for-kubernetes-components

@@ -4,13 +4,13 @@ metadata:
   name: letsencrypt-staging
 spec:
   acme:
-    email: user@example.com
+    email: 5e4789ef-3404-403a-9@simplelogin.alwaldend.com
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: example-issuer-account-key
+      name: letsencrypt-staging-private-key
     solvers:
       - dns01:
           cloudflare:
             apiTokenSecretRef:
-              name: cloudflare-api-token-secret
-              key: api-token
+              name: cert-manager-secret
+              key: CLOUDFLAREAPI_API_TOKEN

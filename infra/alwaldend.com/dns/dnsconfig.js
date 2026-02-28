@@ -99,4 +99,6 @@ D(
     AAAA("router1.residential.dc", "fd2e:546d:5738::1"),
     A("mini1.residential.dc", "192.168.1.222"),
     A("mini2.residential.dc", "192.168.1.223"),
+    CNAME("cl1.residential.dc", "mini2.residential.dc.alwaldend.com."),
+    CNAME("*.cl1.residential.dc", "cl1.residential.dc.alwaldend.com."),
 );

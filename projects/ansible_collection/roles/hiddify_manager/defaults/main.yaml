@@ -2,8 +2,8 @@ hiddify_manager_env:
   HIDDIFY_MANAGER_IMAGE: ghcr.io/hiddify/hiddify-manager:main@sha256:d5edef06d2133ffa26f0fcbb67e711f4356dba44c44a41a96570c4e03845a84c
   HIDDIFY_MANAGER_REDIS_IMAGE: redis:7.4.1@sha256:bb142a9c18ac18a16713c1491d779697b4e107c22a97266616099d288237ef47
   HIDDIFY_MANAGER_MARIADB_IMAGE: mariadb:11.6.2@sha256:a9547599cd87d7242435aea6fda22a9d83e2c06d16c658ef70d2868b3d3f6a80
-  HIDDIFY_MANAGER_REDIS_PASSWORD: "{{ lookup('ansible.builtin.env', 'HIDDIFY_MANAGER_REDIS_PASSWORD') | mandatory('HIDDIFY_MANAGER_REDIS_PASSWORD') }}"
-  HIDDIFY_MANAGER_MYSQL_PASSWORD: "{{ lookup('ansible.builtin.env', 'HIDDIFY_MANAGER_MYSQL_PASSWORD') | mandatory('HIDDIFY_MANAGER_MYSQL_PASSWORD') }}"
-  HIDDIFY_MANAGER_MARIADB_PASSWORD: "{{ lookup('ansible.builtin.env', 'HIDDIFY_MANAGER_MARIADB_PASSWORD') | mandatory('HIDDIFY_MANAGER_MARIADB_PASSWORD') }}"
+  HIDDIFY_MANAGER_REDIS_PASSWORD: "{{ lookup('ansible.builtin.env', 'HIDDIFY_MANAGER_REDIS_PASSWORD', default=undef()) }}"
+  HIDDIFY_MANAGER_MYSQL_PASSWORD: "{{ lookup('ansible.builtin.env', 'HIDDIFY_MANAGER_MYSQL_PASSWORD', default=undef()) }}"
+  HIDDIFY_MANAGER_MARIADB_PASSWORD: "{{ lookup('ansible.builtin.env', 'HIDDIFY_MANAGER_MARIADB_PASSWORD', default=undef()) }}"
 hiddify_manager_env_override: {}
 hiddify_manager_dir: /opt/hiddify_manager

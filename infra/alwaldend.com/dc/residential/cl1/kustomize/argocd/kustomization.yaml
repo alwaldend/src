@@ -4,3 +4,4 @@ namespace: argocd
 resources:
   - namespace.yaml
   - install.yaml
+  - ingress.yaml

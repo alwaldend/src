@@ -51,11 +51,19 @@
         mode: "0700"
     - name: Copy server manifests
       ansible.builtin.copy:
-        src: "{{ lookup('ansible.builtin.env', 'PWD') | mandatory }}/server"
+        src: "{{ lookup('ansible.builtin.env', 'PWD', default=undef()) }}/server"
         dest: "{{ k3s_server_dir | dirname }}"
         owner: root
         group: root
         mode: "0700"
+    - name: Write templated manifests
+      loop: "{{ k3s_manifests | dict2items }}"
+      ansible.builtin.copy:
+        dest: "{{ k3s_server_dir }}/manifests/{{ item.key }}.yaml"
+        content: "{{ item.value | to_nice_yaml(indent=2) }}"
+        owner: root
+        group: root
+        mode: "0600"
 
     - name: Create the tls dir
       ansible.builtin.file:
@@ -99,7 +107,7 @@
             mode: "0700"
         - name: Copy kustomize files
           ansible.builtin.copy:
-            src: "{{ lookup('ansible.builtin.env', 'PWD') | mandatory }}/kustomize"
+            src: "{{ lookup('ansible.builtin.env', 'PWD', default=undef()) }}/kustomize"
             dest: "{{ k3s_kustomize_dir | dirname }}"
             owner: root
             group: root

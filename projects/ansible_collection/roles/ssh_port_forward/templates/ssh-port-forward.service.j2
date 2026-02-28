@@ -5,10 +5,10 @@ After=gnome-keyring.service
 
 [Service]
 EnvironmentFile=/etc/default/ssh-port-forward-%i
-User={{ lookup('ansible.builtin.env', 'USER') }}
-Group={{ lookup('ansible.builtin.env', 'USER') }}
-Environment=SSH_AUTH_SOCK={{ lookup('ansible.builtin.env', 'SSH_AUTH_SOCK') }} 
-WorkingDirectory=/home/{{ lookup('ansible.builtin.env', 'USER') }}
+User={{ lookup('ansible.builtin.env', 'USER', default=undef()) }}
+Group={{ lookup('ansible.builtin.env', 'USER', default=undef()) }}
+Environment=SSH_AUTH_SOCK={{ lookup('ansible.builtin.env', 'SSH_AUTH_SOCK', default=undef()) }}
+WorkingDirectory=/home/{{ lookup('ansible.builtin.env', 'USER', default=undef()) }}
 ExecStart={{ ssh_port_forward_script_path }}
 RestartSec=5
 Restart=always
