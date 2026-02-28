@@ -1,4 +1,14 @@
-filegroup(
-    name = "install",
-    srcs = ["@com_github_argoproj_argo_cd_manifests_ha_install_yaml//file"],
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+
+pkg_filegroup(
+    name = "kustomize",
+    srcs = [":files"],
+    prefix = "kustomize",
+    visibility = ["//infra/alwaldend.com/dc/residential/cl1/ansible:__pkg__"],
+)
+
+pkg_files(
+    name = "files",
+    srcs = glob(["**/*.yaml"]),
+    strip_prefix = strip_prefix.from_pkg(),
 )

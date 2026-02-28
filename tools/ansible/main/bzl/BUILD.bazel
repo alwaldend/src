@@ -15,6 +15,7 @@ al_bzl_library_map(
         "al_ansible_binary": [
             "@rules_pkg//pkg:bzl_srcs",
             "@bazel_skylib//lib:shell",
+            "//tools/secrets/main/bzl:al_secrets_binary",
             ":al_ansible_scripts",
         ],
         "al_ansible_role": [

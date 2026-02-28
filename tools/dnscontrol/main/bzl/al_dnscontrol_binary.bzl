@@ -4,16 +4,16 @@ load("//tools/secrets/main/bzl:al_secrets_binary_info.bzl", "AlSecretsBinaryInfo
 _SCRIPT = """\
 #!/usr/bin/env sh
 set -eu
-echo "Running dnscontrol script {dnscontrol}" >&2
 export RUNFILES_DIR="${{RUNFILES_DIR:-$(dirname "${{PWD}}")}}"
 for root in "" "${{0}}.runfiles/{workspace_name}/" "${{RUNFILES_DIR:-}}/{workspace_name}/"; do
-    if [ -x "${{root}}{dnscontrol}" ]; then
+    if [ -x "${{root}}{bin}" ]; then
         for source_script in {source_scripts}; do
             . "${{root}}${{source_script}}"
+            rm "${{root}}${{source_script}}"
         done
         creds="$(mktemp)"
         envsubst <'{creds}' >"${{creds}}"
-        if "${{root}}{dnscontrol}" \
+        if "${{root}}{bin}" \
             {arguments} \
             --creds "${{creds}}" \
             "${{@}}"; then
@@ -56,7 +56,7 @@ def _impl(ctx):
         output = script,
         is_executable = True,
         content = _SCRIPT.format(
-            dnscontrol = dnscontrol.dnscontrol.short_path,
+            bin = dnscontrol.dnscontrol.short_path,
             workspace_name = ctx.workspace_name,
             creds = ctx.file.creds.short_path if ctx.file.creds else "",
             arguments = " ".join([shell.quote(arg) for arg in args]),

@@ -1,7 +1,3 @@
 k3s_cluster:
-  children:
-    mini:
-mini:
   hosts:
-    mini1.residential.dc.alwaldend.com:
-    # mini2.residential.dc.alwaldend.com:
+    mini2.residential.dc.alwaldend.com:

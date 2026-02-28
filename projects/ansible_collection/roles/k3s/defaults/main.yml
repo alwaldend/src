@@ -2,5 +2,29 @@ k3s_install_environment: {}
 k3s_manifests_dir: /var/lib/rancher/k3s/server/manifests
 k3s_install_script_path: /usr/local/bin/k3s_install.sh
 k3s_config_path: /etc/rancher/k3s/config.yaml
-k3s_config: {}
 k3s_service_name: k3s
+k3s_log_dir: /var/lib/rancher/k3s/server/logs
+k3s_server_dir: /var/lib/rancher/k3s/server
+k3s_tls_dir: /var/lib/rancher/k3s/server/tls
+k3s_kustomize_dir: /var/lib/rancher/k3s/kustomize
+k3s_config: {}
+k3s_config_default:
+  # hardening: https://docs.k3s.io/security/hardening-guide#configuration-for-kubernetes-components
+  protect-kernel-defaults: true
+  secrets-encryption: true
+  kube-apiserver-arg:
+    - "request-timeout=300s"
+    - "enable-admission-plugins=NodeRestriction,EventRateLimit,AlwaysPullImages"
+    - "admission-control-config-file=/var/lib/rancher/k3s/server/psa.yaml"
+    - "audit-log-path=/var/lib/rancher/k3s/server/logs/audit.log"
+    - "audit-policy-file=/var/lib/rancher/k3s/server/audit.yaml"
+    - "audit-log-maxage=30"
+    - "audit-log-maxbackup=10"
+    - "audit-log-maxsize=100"
+    - "service-account-extend-token-expiration=false"
+  kube-controller-manager-arg:
+    - "terminated-pod-gc-threshold=100"
+  kubelet-arg:
+    - "pod-max-pids=1000"
+    - "streaming-connection-idle-timeout=5m"
+    - "tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305"

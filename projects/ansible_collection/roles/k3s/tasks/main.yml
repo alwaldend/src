@@ -11,13 +11,21 @@
     #     name:
     #       - fuse-overlayfs
     #       - fuse2fs
-    - name: Copy install script
-      ansible.builtin.copy:
-        src: install
-        dest: "{{ k3s_install_script_path }}"
+    #
+
+    - name: Check token presense
+      when: not k3s_config.token
+      ansible.builtin.fail:
+        msg: Missing k3s_config.token
+
+    - name: Create the logs dir
+      ansible.builtin.file:
+        path: "{{ k3s_log_dir }}"
+        state: directory
         owner: root
         group: root
         mode: "0700"
+
     - name: Create the directory for the k3s config
       ansible.builtin.file:
         path: "{{ k3s_config_path | dirname }}"
@@ -29,10 +37,41 @@
       register: k3s_config_info
       ansible.builtin.copy:
         dest: "{{ k3s_config_path }}"
-        content: "{{ k3s_config | to_nice_yaml(indent=2) }}"
+        content: "{{ k3s_config_default | combine(k3s_config) | to_nice_yaml(indent=2) }}"
         owner: root
         group: root
         mode: "0600"
+
+    - name: Create the server directory
+      ansible.builtin.file:
+        path: "{{ k3s_server_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0700"
+    - name: Copy server manifests
+      ansible.builtin.copy:
+        src: "{{ lookup('ansible.builtin.env', 'PWD') | mandatory }}/server"
+        dest: "{{ k3s_server_dir | dirname }}"
+        owner: root
+        group: root
+        mode: "0700"
+
+    - name: Create the tls dir
+      ansible.builtin.file:
+        path: "{{ k3s_tls_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0700"
+
+    - name: Copy install script
+      ansible.builtin.copy:
+        src: install
+        dest: "{{ k3s_install_script_path }}"
+        owner: root
+        group: root
+        mode: "0700"
     - name: Run install script
       environment: "{{ k3s_install_environment }}"
       ansible.builtin.command:
@@ -47,6 +86,33 @@
         name: "{{ k3s_service_name }}"
         enabled: true
         state: started
+
+    - tags:
+        - k3s_kustomize
+      block:
+        - name: Create the kustomize directory
+          ansible.builtin.file:
+            path: "{{ k3s_kustomize_dir }}"
+            state: directory
+            owner: root
+            group: root
+            mode: "0700"
+        - name: Copy kustomize files
+          ansible.builtin.copy:
+            src: "{{ lookup('ansible.builtin.env', 'PWD') | mandatory }}/kustomize"
+            dest: "{{ k3s_kustomize_dir | dirname }}"
+            owner: root
+            group: root
+            mode: "0700"
+        - name: Apply kustomize
+          ansible.builtin.command:
+            argv:
+              - kubectl
+              - apply
+              - --server-side
+              - --force-conflicts
+              - -k
+              - "{{ k3s_kustomize_dir }}"
     - name: Fetch k8s configs
       ansible.builtin.fetch:
         src: /etc/rancher/k3s/k3s.yaml

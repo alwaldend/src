@@ -14,17 +14,24 @@ al_ansible_binary(
         "//projects/ansible_collection:collections",
     ],
     process_name = "ansible_playbook",
+    secrets = ["//tools/secrets:k3s"],
 )
 
 pkg_filegroup(
     name = "srcs",
-    srcs = [":srcs_files"],
+    srcs = [
+        ":srcs_files",
+        "//infra/alwaldend.com/dc/residential/cl1/kustomize",
+    ],
 )
 
 pkg_files(
     name = "srcs_files",
     srcs = [
         "inventory.yaml",
-    ] + glob(["group_vars/**/*.yaml"]),
+    ] + glob([
+        "group_vars/**/*.yaml",
+        "server/**",
+    ]),
     strip_prefix = strip_prefix.from_pkg(),
 )

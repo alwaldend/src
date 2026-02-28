@@ -1,0 +1,11 @@
+# https://docs.k3s.io/security/self-assessment-1.10?_highlight=eventratelimit#129-ensure-that-the-admission-control-plugin-eventratelimit-is-set-manual
+apiVersion: eventratelimit.admission.k8s.io/v1alpha1
+kind: Configuration
+limits:
+  - type: Namespace
+    qps: 50
+    burst: 100
+    cacheSize: 2000
+  - type: User
+    qps: 10
+    burst: 50

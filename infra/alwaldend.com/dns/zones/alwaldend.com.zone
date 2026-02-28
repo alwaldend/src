@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-02-13T22:05:23+03:00
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026021300 3600 600 604800 1440
+; generated with dnscontrol 2026-02-28T08:49:17Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026022800 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -19,7 +19,8 @@ _dmarc           IN TXT   "v=DMARC1; p=quarantine; adkim=s"
 protonmail._domainkey IN CNAME protonmail.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
 protonmail2._domainkey IN CNAME protonmail2.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
 protonmail3._domainkey IN CNAME protonmail3.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
-mini1.residential.dc IN A 192.168.1.223
+mini1.residential.dc IN A 192.168.1.222
+mini2.residential.dc IN A 192.168.1.223
 router1.residential.dc IN A 192.168.1.1
                  IN AAAA  fd2e:546d:5738::1
 simplelogin 10800 IN MX   10 mx1.simplelogin.co.

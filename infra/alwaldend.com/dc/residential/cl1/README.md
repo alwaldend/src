@@ -5,17 +5,26 @@ description: cl1.residential.dc.alwaldend.com
 
 ## Links
 
-- Argocd install source: https://github.com/argoproj/argo-cd/blob/76162a93105a5cf01a10a3faa8203621b487a0c3/manifests/ha/namespace-install.yaml
-- Argocd kustomization example: https://github.com/argoproj/argoproj-deployments/blob/master/argocd/kustomization.yaml
+- Argocd install (v3.3.2): https://github.com/argoproj/argo-cd/blob/master/manifests/install.yaml
+- Cert-manager install: https://github.com/cert-manager/cert-manager/releases/download/v1.19.4/cert-manager.yaml
+- Longhorn: https://github.com/longhorn/longhorn/releases/download/v1.11.0/longhorn.yaml
 
 ## Deployment
 
-- Setup hosts:
-  ```sh
-  bazel run //infra/alwaldend.com/dc/residential/cl1/ansible:deploy
-  ```
-- Deploy the chart:
-  ```sh
-  ssh -NL 127.0.0.1:6443:127.0.0.1:6443 ansible@mini1.residential.dc.alwaldend.com &
-  bazel run //infra/alwaldend.com/dc/residential/cl1/helm:deploy
-  ```
+### Full deployment
+
+```sh
+bazel run //infra/alwaldend.com/dc/residential/cl1/ansible:deploy
+```
+
+### Only k3s
+
+```sh
+bazel run //infra/alwaldend.com/dc/residential/cl1/ansible:deploy -- --tags k3s
+```
+
+### Only kustomization
+
+```sh
+bazel run //infra/alwaldend.com/dc/residential/cl1/ansible:deploy -- --tags k3s_kustomize
+```

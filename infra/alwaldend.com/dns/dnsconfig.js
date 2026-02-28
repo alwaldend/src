@@ -97,5 +97,6 @@ D(
     // residential.dc
     A("router1.residential.dc", "192.168.1.1"),
     AAAA("router1.residential.dc", "fd2e:546d:5738::1"),
-    A("mini1.residential.dc", "192.168.1.223"),
+    A("mini1.residential.dc", "192.168.1.222"),
+    A("mini2.residential.dc", "192.168.1.223"),
 );

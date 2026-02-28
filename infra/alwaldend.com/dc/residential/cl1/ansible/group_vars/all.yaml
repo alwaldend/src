@@ -5,6 +5,11 @@ ssh_allow_tcp_forwarding: local
 sysctl_overwrite:
   net.ipv4.ip_forward: 1
   net.ipv6.conf.all.forwarding: 1
+  # k3s hardening: https://docs.k3s.io/security/hardening-guide#host-level-requirements
+  vm.panic_on_oom: 0
+  vm.overcommit_memory: 1
+  kernel.panic: 10
+  kernel.panic_on_oops: 1
 
 ## firewall
 firewall_allow_port_from:
@@ -16,9 +21,10 @@ firewall_allow_port_from:
     comment: ssh
 
 ## k3s
+k3s_install_environment:
+  INSTALL_K3S_VERSION: v1.35.1+k3s1
 k3s_config:
-  cluster-init: true
-  flannel-backend: wireguard-native
+  selinux: true
   tls-san:
     - "{{ inventory_hostname }}"
     - "cl1.residential.dc.alwaldend.com"
