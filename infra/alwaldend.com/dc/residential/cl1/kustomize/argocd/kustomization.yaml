@@ -3,5 +3,9 @@ kind: Kustomization
 namespace: argocd
 resources:
   - namespace.yaml
+  - network-policy.yaml
   - install.yaml
   - ingress.yaml
+images:
+- name: public.ecr.aws/docker/library/redis
+  newName: docker.io/library/redis

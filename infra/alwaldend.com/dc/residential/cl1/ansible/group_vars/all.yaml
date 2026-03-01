@@ -44,3 +44,6 @@ k3s_config:
     - "{{ inventory_hostname }}"
     - "cl1.residential.dc.alwaldend.com"
   token: "{{ lookup('ansible.builtin.env', 'COM_ALWALDEND_DC_RESIDENTIAL_CL1_K3S_TOKEN', default=undef()) }}"
+  cluster-cidr: "10.42.0.0/16"
+  service-cidr: "10.43.0.0/16"
+  cluster-dns: 10.43.0.10

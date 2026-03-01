@@ -43,8 +43,11 @@
         mode: "0600"
 
     - name: Create the server directory
+      loop:
+        - "{{ k3s_server_dir }}"
+        - "{{ k3s_server_dir }}/manifests"
       ansible.builtin.file:
-        path: "{{ k3s_server_dir }}"
+        path: "{{ item }}"
         state: directory
         owner: root
         group: root
@@ -113,6 +116,7 @@
             group: root
             mode: "0700"
         - name: Apply kustomize
+          retries: 2
           ansible.builtin.command:
             argv:
               - kubectl

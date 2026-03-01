@@ -1,7 +1,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: argocd-server
+  name: argocd-ingress
 spec:
   entryPoints:
     - websecure
@@ -20,4 +20,17 @@ spec:
           port: 80
           scheme: h2c
   tls:
-    certResolver: default
+    secretName: argocd-ingress-certificate
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd-ingress-certificate
+spec:
+  secretName: argocd-ingress-certificate
+  dnsNames:
+    - argocd.cl1.residential.dc.alwaldend.com
+  issuerRef:
+    name: acme
+    kind: ClusterIssuer
+---

@@ -4,7 +4,6 @@ kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
   name: intra-namespace
-  namespace: kube-system
 spec:
   podSelector: {}
   ingress:
@@ -17,40 +16,58 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-all-metrics-server
-  namespace: kube-system
 spec:
   podSelector:
     matchLabels:
       k8s-app: metrics-server
   ingress:
-  - {}
+    - {}
   policyTypes:
-  - Ingress
+    - Ingress
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-all-svclbtraefik-ingress
-  namespace: kube-system
 spec:
   podSelector:
     matchLabels:
       svccontroller.k3s.cattle.io/svcname: traefik
   ingress:
-  - {}
+    - {}
   policyTypes:
-  - Ingress
+    - Ingress
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-all-traefik-v121-ingress
-  namespace: kube-system
 spec:
   podSelector:
     matchLabels:
       app.kubernetes.io/name: traefik
   ingress:
-  - {}
+    - {}
   policyTypes:
-  - Ingress
+    - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns
+spec:
+  policyTypes:
+    - Ingress
+  podSelector:
+    matchLabels:
+      k8s-app: kube-dns
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: cert-manager
+      ports:
+        - port: 53
+          protocol: TCP
+        - port: 53
+          protocol: UDP

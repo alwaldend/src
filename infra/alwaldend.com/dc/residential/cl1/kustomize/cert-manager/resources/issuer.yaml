@@ -1,15 +1,18 @@
 apiVersion: cert-manager.io/v1
-kind: Issuer
+kind: ClusterIssuer
 metadata:
-  name: letsencrypt-staging
+  name: acme
 spec:
   acme:
     email: 5e4789ef-3404-403a-9@simplelogin.alwaldend.com
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: letsencrypt-staging-private-key
+      name: acme-private-key
     solvers:
-      - dns01:
+      - selector:
+          dnsZones:
+            - alwaldend.com
+        dns01:
           cloudflare:
             apiTokenSecretRef:
               name: cert-manager-secret
