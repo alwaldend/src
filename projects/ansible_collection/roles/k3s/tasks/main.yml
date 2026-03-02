@@ -67,6 +67,32 @@
         owner: root
         group: root
         mode: "0600"
+    - tags:
+        - k3s_kustomize
+      block:
+        - name: Create the kustomize directory
+          ansible.builtin.file:
+            path: "{{ k3s_kustomize_dir }}"
+            state: directory
+            owner: root
+            group: root
+            mode: "0700"
+        - name: Copy kustomize files
+          ansible.builtin.copy:
+            src: "{{ lookup('ansible.builtin.env', 'PWD', default=undef()) }}/kustomize"
+            dest: "{{ k3s_kustomize_dir | dirname }}"
+            owner: root
+            group: root
+            mode: "0700"
+        - name: Template kustomize
+          retries: 2
+          ansible.builtin.command:
+            argv:
+              - kubectl
+              - kustomize
+              - --output
+              - "{{ k3s_server_dir }}/manifests/kustomize.yaml"
+              - "{{ k3s_kustomize_dir }}"
 
     - name: Create the tls dir
       ansible.builtin.file:
@@ -87,6 +113,7 @@
       environment: "{{ k3s_install_environment }}"
       ansible.builtin.command:
         cmd: "{{ k3s_install_script_path }}"
+
     - name: Ensure k3s service is restarted
       when: k3s_config_info.changed
       ansible.builtin.systemd_service:
@@ -98,33 +125,6 @@
         enabled: true
         state: started
 
-    - tags:
-        - k3s_kustomize
-      block:
-        - name: Create the kustomize directory
-          ansible.builtin.file:
-            path: "{{ k3s_kustomize_dir }}"
-            state: directory
-            owner: root
-            group: root
-            mode: "0700"
-        - name: Copy kustomize files
-          ansible.builtin.copy:
-            src: "{{ lookup('ansible.builtin.env', 'PWD', default=undef()) }}/kustomize"
-            dest: "{{ k3s_kustomize_dir | dirname }}"
-            owner: root
-            group: root
-            mode: "0700"
-        - name: Apply kustomize
-          retries: 2
-          ansible.builtin.command:
-            argv:
-              - kubectl
-              - apply
-              - --server-side
-              - --force-conflicts
-              - -k
-              - "{{ k3s_kustomize_dir }}"
     - name: Fetch k8s configs
       ansible.builtin.fetch:
         src: /etc/rancher/k3s/k3s.yaml
