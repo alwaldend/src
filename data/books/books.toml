@@ -1122,7 +1122,7 @@ links = [
 title = "Path of the Deathless"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/122502-path-of-the-deathless-book-4-completed.jpg"
 quality = "Decent"
-reading = "Reading, C295"
+reading = "Reading, C302"
 authors = ["ostensiblemammal"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/122502/path-of-the-deathless-book-4-completed" },
@@ -1132,7 +1132,7 @@ links = [
 title = "The Legend of William Oh"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/the-legend-of-william-oh-aadavnw8qxu.jpg"
 quality = "Decent"
-reading = "Reading, C238"
+reading = "Reading, C243"
 authors = ["macronomicon"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/92144/the-legend-of-william-oh" },
@@ -1142,7 +1142,7 @@ links = [
 title = "Re:Cursed"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/104556-recursed.jpg?time=1763017950"
 quality = "Decent"
-reading = "Reading, C155"
+reading = "Reading, C157"
 authors = ["joroboros"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/104556/recursed" },
@@ -1152,7 +1152,7 @@ links = [
 title = "Reforged from Ruin"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/78756-reforged-from-ruin-eldritch-xianxia-cultivation.jpg"
 quality = "Decent"
-reading = "Reading, C385"
+reading = "Reading, C390"
 authors = ["silv3rtongue"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/78756/reforged-from-ruin-eldritch-xianxia-cultivation" },
@@ -1162,10 +1162,53 @@ links = [
 title = "Hell Difficulty Tutorial"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg"
 quality = "Decent"
-reading = "Reading, C753"
+reading = "Reading, C761"
 authors = ["cerim"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial" },
+]
+
+[[book]]
+title = "Book Of The Dead"
+thumbnail = "https://www.royalroadcdn.com/public/covers-full/47038-book-of-the-dead.jpg"
+quality = "Decent"
+reading = "Reading, B5C85"
+authors = ["rinoz"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/47038/book-of-the-dead" },
+]
+
+[[book]]
+title = "The Mirror Legacy"
+thumbnail = "https://cdn.novelupdates.com/images/2024/06/The-Mirror-Legacy.jpg"
+alt_titles = ["玄鉴仙族"]
+quality = "Decent?"
+reading = "Reading, C10"
+authors = ["季越人"]
+links = [
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/the-mirror-legacy/" },
+]
+
+[[book]]
+title = "Corpse Retriever"
+alt_titles = ["捞尸人"]
+thumbnail = "https://cdn.novelupdates.com/images/2025/04/Corpse-Retriever.jpg"
+quality = "Decent?"
+reading = "Reading, C26"
+authors = ["纯洁滴小龙"]
+links = [
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/corpse-retriever/" },
+]
+
+[[book]]
+title = "How Can You Cultivate Immortality Without Money?"
+alt_titles = ["没钱修什么仙？", "No Money to Cultivate Immortality?"]
+thumbnail = "https://cdn.novelupdates.com/images/2024/11/No-Money-to-Cultivate-Immortality.png"
+quality = "Decent"
+reading = "Reading, C827 (C815)"
+authors = ["熊狼狗"]
+links = [
+  { title = "novelupdates", url = "https://www.novelupdates.com/series/no-money-to-cultivate-immortality/" },
 ]
 
 [[book]]
@@ -1176,49 +1219,17 @@ alt_titles = [
 ]
 thumbnail = "./struggling_to_survive_with_regression_power_in_the_primordial_saint_sect.png"
 quality = "Decent"
-reading = "Reading, C298"
+reading = "Reading, C1308 (C1226)"
 authors = ["crane-by-the-moonlit-pond"]
 links = [
   { title = "novelupdates", url = "https://www.novelupdates.com/series/struggling-to-survive-with-regression-power-in-the-primordial-saint-sect/" },
 ]
 
 [[book]]
-title = "How Can You Cultivate Immortality Without Money?"
-alt_titles = ["没钱修什么仙？", "No Money to Cultivate Immortality?"]
-thumbnail = "https://cdn.novelupdates.com/images/2024/11/No-Money-to-Cultivate-Immortality.png"
-quality = "Decent"
-reading = "Reading, C818"
-authors = ["熊狼狗"]
-links = [
-  { title = "novelupdates", url = "https://www.novelupdates.com/series/no-money-to-cultivate-immortality/" },
-]
-
-[[book]]
-title = "Book Of The Dead"
-thumbnail = "https://www.royalroadcdn.com/public/covers-full/47038-book-of-the-dead.jpg"
-quality = "Decent"
-reading = "Reading, B5C82"
-authors = ["rinoz"]
-links = [
-  { title = "royalroad", url = "https://www.royalroad.com/fiction/47038/book-of-the-dead" },
-]
-
-[[book]]
-title = "Corpse Retriever"
-alt_titles = ["捞尸人"]
-thumbnail = "https://cdn.novelupdates.com/images/2025/04/Corpse-Retriever.jpg"
-quality = "Decent?"
-reading = "Reading, C20"
-authors = ["纯洁滴小龙"]
-links = [
-  { title = "novelupdates", url = "https://www.novelupdates.com/series/corpse-retriever/" },
-]
-
-[[book]]
 title = "Sky Pride"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/107917-sky-pride.jpg"
 quality = "Good"
-reading = "Reading, B3C37"
+reading = "Reading, B3C45"
 authors = ["warby-picus"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/107917/sky-pride" },

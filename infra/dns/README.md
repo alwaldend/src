@@ -9,19 +9,18 @@ tags:
 ## Links
 
 - Docs: https://docs.dnscontrol.org
-- Rules: [../../../tools/dnscontrol](../../../tools/dnscontrol)
+- Rules: [../../tools/dnscontrol](../../tools/dnscontrol)
 
 ## Deployment
 
-- Setup environment variables from `creds.json.tpl`
 - Modify `dnsconfig.js`
 - Preview changes:
   ```sh
-  bazel run //infra/alwaldend.com/dns:preview
+  bazel run //infra/dns:preview
   ```
 - Deploy changes:
   ```sh
-  bazel run //infra/alwaldend.com/dns:deploy
+  bazel run //infra/dns:deploy
   ```
 
 {{% alwaldend/alert %}}

@@ -21,7 +21,7 @@ pkg_filegroup(
     name = "srcs",
     srcs = [
         ":srcs_files",
-        "//infra/alwaldend.com/dc/residential/cl1/kustomize",
+        "//infra/dc1/cl1/kustomize",
     ],
 )
 

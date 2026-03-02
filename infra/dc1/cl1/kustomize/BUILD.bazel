@@ -4,7 +4,7 @@ pkg_filegroup(
     name = "kustomize",
     srcs = [":files"],
     prefix = "kustomize",
-    visibility = ["//infra/alwaldend.com/dc/residential/cl1/ansible:__pkg__"],
+    visibility = ["//infra/dc1/cl1/ansible:__pkg__"],
 )
 
 pkg_files(

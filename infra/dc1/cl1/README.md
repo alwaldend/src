@@ -1,6 +1,6 @@
 ---
 title: Cl1
-description: cl1.residential.dc.alwaldend.com
+description: Cluster 1 - cl1.dc1.alwaldend.com
 ---
 
 ## Links
@@ -14,17 +14,17 @@ description: cl1.residential.dc.alwaldend.com
 ### Full deployment
 
 ```sh
-bazel run //infra/alwaldend.com/dc/residential/cl1/ansible:deploy
+bazel run //infra/dc1/cl1/ansible:deploy
 ```
 
 ### Only k3s
 
 ```sh
-bazel run //infra/alwaldend.com/dc/residential/cl1/ansible:deploy -- --tags k3s
+bazel run //infra/dc1/cl1/ansible:deploy -- --tags k3s
 ```
 
 ### Only kustomization
 
 ```sh
-bazel run //infra/alwaldend.com/dc/residential/cl1/ansible:deploy -- --tags k3s_kustomize
+bazel run //infra/dc1/cl1/ansible:deploy -- --tags k3s_kustomize
 ```

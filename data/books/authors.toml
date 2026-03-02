@@ -443,3 +443,9 @@ links = [
 [author.offering-flowers-before-the-buddha]
 name = "Offering flowers before the Buddha"
 links = []
+
+[author."季越人"]
+name = "季越人"
+links = [
+  { title = "novelupdates", url = "https://www.novelupdates.com/nauthor/%e5%ad%a3%e8%b6%8a%e4%ba%ba/" },
+]
