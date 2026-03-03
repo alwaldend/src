@@ -33,6 +33,7 @@ D(
         TTL(300),
     ),
     TXT("@", "v=spf1 include:_spf.protonmail.ch ~all", TTL(300)),
+    TXT("@", "_globalsign-domain-verification=0QBJgVV_uwcFLTi1Rot3bb1LyJ5uW1WD0ygvIS4OM5", TTL(300)),
 
     // Mail
     MX("@", 10, "mail.protonmail.ch.", TTL(300)),
@@ -94,11 +95,11 @@ D(
         TTL(300),
     ),
 
-    // residential.dc
-    A("router1.residential.dc", "192.168.1.1"),
-    AAAA("router1.residential.dc", "fd2e:546d:5738::1"),
-    A("mini1.residential.dc", "192.168.1.222"),
-    A("mini2.residential.dc", "192.168.1.223"),
-    CNAME("cl1.residential.dc", "mini2.residential.dc.alwaldend.com."),
-    CNAME("*.cl1.residential.dc", "cl1.residential.dc.alwaldend.com."),
+    // dc1
+    A("router1.dc1", "192.168.1.1"),
+    AAAA("router1.dc1", "fd2e:546d:5738::1"),
+    A("mini1.dc1", "192.168.1.222"),
+    A("mini2.dc1", "192.168.1.223"),
+    CNAME("cl1.dc1", "mini2.dc1.alwaldend.com."),
+    CNAME("*.cl1.dc1", "cl1.dc1.alwaldend.com."),
 );

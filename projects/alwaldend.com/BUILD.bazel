@@ -95,7 +95,7 @@ cat - >$(@) <<EOF
 #!/usr/bin/env sh
 set -eu
 
-archive="\\$${PWD}/$(execpath :site_archive)"
+archive="\\$$(dirname \\$${0})/site_archive.tar"
 temp=\\$$(mktemp -d)
 trap "rm -rf \\$${temp}" EXIT
 cd "\\$${temp}"

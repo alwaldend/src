@@ -7,13 +7,13 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`argocd.cl1.residential.dc.alwaldend.com`)
+      match: Host(`argocd.cl1.dc1.alwaldend.com`)
       priority: 10
       services:
         - name: argocd-server
           port: 80
     - kind: Rule
-      match: Host(`argocd.cl1.residential.dc.alwaldend.com`) && Header(`Content-Type`, `application/grpc`)
+      match: Host(`argocd.cl1.dc1.alwaldend.com`) && Header(`Content-Type`, `application/grpc`)
       priority: 11
       services:
         - name: argocd-server
@@ -29,7 +29,7 @@ metadata:
 spec:
   secretName: argocd-ingress-certificate
   dnsNames:
-    - argocd.cl1.residential.dc.alwaldend.com
+    - argocd.cl1.dc1.alwaldend.com
   issuerRef:
     name: acme
     kind: ClusterIssuer
