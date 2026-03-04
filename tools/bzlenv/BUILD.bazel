@@ -16,7 +16,6 @@ _ROOT_TOOLS = [
     "shfmt",
     "helm",
     "install_file",
-    "template_files",
     "replace_section",
     "isort",
     "mypy",

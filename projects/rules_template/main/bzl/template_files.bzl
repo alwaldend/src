@@ -15,7 +15,7 @@ def _template_files_impl(ctx):
         progress_message = "Templating %{label} to %{output}",
     )
 
-al_template_files = rule(
+template_files = rule(
     implementation = _template_files_impl,
     doc = "Load data files, then template the template and write the output",
     attrs = {
@@ -42,7 +42,7 @@ al_template_files = rule(
         ),
         "templater": attr.label(
             executable = True,
-            default = "//tools/template_files",
+            default = "@rules_template//main/go",
             doc = "Templater to use",
             cfg = "exec",
         ),

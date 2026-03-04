@@ -14,9 +14,10 @@ al_release_binary(
                 "ansible_collection",
                 "bazel_registry",
                 "useless_qt_gui",
+                "rules_template",
             ],
         )
-    ],
+    ] + [],
 )
 
 al_docs_files(
@@ -33,5 +34,5 @@ al_docs_files(
                 "cgit",
             ],
         )
-    ],
+    ] + ["@rules_template//:docs"],
 )

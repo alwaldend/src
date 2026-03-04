@@ -2,7 +2,6 @@ module(
     name = "com_alwaldend_src",
     version = "0.0.0",
     bazel_compatibility = [">=8.5.1"],
-    compatibility_level = 0,
 )
 
 # Bzl
@@ -71,6 +70,14 @@ bazel_dep(name = "rules_haskell")
 # Tools
 bazel_dep(name = "com_github_georgewfraser_java_language_server", version = "2025.520.0")
 bazel_dep(name = "com_alwaldend_com_github_infinitimeorg_infinitime")
+
+# Local
+
+bazel_dep(name = "rules_template")
+local_path_override(
+    module_name = "rules_template",
+    path = "projects/rules_template",
+)
 
 ## Overrides
 

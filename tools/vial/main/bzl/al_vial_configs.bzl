@@ -1,6 +1,6 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
-load("//tools/template_files/main/bzl:al_template_files.bzl", "al_template_files")
+load("@rules_template//main/bzl:template_files.bzl", "template_files")
 
 def al_vial_configs(name, srcs, visibility = None, **kwargs):
     """
@@ -10,7 +10,7 @@ def al_vial_configs(name, srcs, visibility = None, **kwargs):
         name (str): generated docs archive name
         srcs (list[str]): vial config
         visibility: visibility
-        **kwargs: kwargs for al_template_files
+        **kwargs: kwargs for template_files
     """
     write_file(
         name = "{}.template".format(name),
@@ -33,7 +33,7 @@ def al_vial_configs(name, srcs, visibility = None, **kwargs):
         ],
     )
     for src in srcs:
-        al_template_files(
+        template_files(
             name = "{}.{}".format(name, src),
             srcs = ["{}.template".format(name)],
             data = [src],

@@ -1,6 +1,6 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
-load("//tools/template_files/main/bzl:al_template_files.bzl", "al_template_files")
+load("@rules_template//main/bzl:template_files.bzl", "template_files")
 
 def al_proto_docs(name, src, prefix = None, visibility = None, renames = None):
     """
@@ -61,7 +61,7 @@ def al_proto_docs(name, src, prefix = None, visibility = None, renames = None):
             "{{ end }}",
         ],
     )
-    al_template_files(
+    template_files(
         name = "{}.{}".format(name, src),
         srcs = ["{}.template".format(name)],
         data = [src],

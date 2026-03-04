@@ -1,6 +1,6 @@
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file")
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("//tools/template_files/main/bzl:al_template_files.bzl", "al_template_files")
+load("@rules_template//main/bzl:template_files.bzl", "template_files")
 
 def al_genquery_write_to_source_file(
         name,
@@ -63,7 +63,7 @@ def al_genquery_write_to_source_file(
         ],
     )
 
-    al_template_files(
+    template_files(
         name = "{}-templated".format(name),
         srcs = [":{}-template".format(name)],
         outs = ["{}-gen.bzl".format(name)],

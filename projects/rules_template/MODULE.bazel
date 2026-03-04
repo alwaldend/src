@@ -1,0 +1,13 @@
+module(
+    name = "rules_template",
+    version = "0.0.0",
+    bazel_compatibility = [">=8.0.0"],
+)
+
+bazel_dep(name = "rules_go", version = "0.60.0")
+
+bazel_dep(name = "com_alwaldend_src", dev_dependency = True)
+local_path_override(
+    module_name = "com_alwaldend_src",
+    path = "../../"
+)
