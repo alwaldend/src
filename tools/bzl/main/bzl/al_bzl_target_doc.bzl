@@ -1,6 +1,6 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
-load("@rules_template//main/bzl:template_files.bzl", "template_files")
+load("@rules_template//main/bzl:template_run_binary.bzl", "template_run_binary")
 
 def al_bzl_target_doc(name, visibility, subpackages = []):
     """
@@ -89,7 +89,7 @@ def al_bzl_target_doc(name, visibility, subpackages = []):
             ],
         )
         docs.append("{}.doc".format(name))
-        template_files(
+        template_run_binary(
             name = "{}.doc".format(name),
             srcs = ["{}.template".format(name)],
             data = ["{}.query.ndjson".format(name)],

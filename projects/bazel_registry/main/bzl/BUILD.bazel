@@ -7,7 +7,7 @@ al_bzl_library_map(
         "al_bzl_registry_docs": [
             "@rules_pkg//pkg:bzl_srcs",
             "@bazel_skylib//rules:write_file",
-            "@rules_template//main/bzl:template_files",
+            "@rules_template//main/bzl:template_run_binary",
             "@bazel_skylib//lib:paths",
         ],
     },

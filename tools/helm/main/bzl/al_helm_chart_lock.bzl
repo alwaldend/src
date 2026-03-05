@@ -1,6 +1,6 @@
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file")
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("@rules_template//main/bzl:template_files.bzl", "template_files")
+load("@rules_template//main/bzl:template_run_binary.bzl", "template_run_binary")
 
 def al_helm_chart_lock(name, lock, lock_out):
     """
@@ -20,7 +20,7 @@ def al_helm_chart_lock(name, lock, lock_out):
             "{{- end -}}",
         ],
     )
-    template_files(
+    template_run_binary(
         name = name,
         srcs = ["{}.lock_template".format(name)],
         data = [lock],

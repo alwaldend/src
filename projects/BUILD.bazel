@@ -32,7 +32,8 @@ al_docs_files(
             exclude = [
                 "xray_manager",
                 "cgit",
+                "rules_template",
             ],
         )
-    ] + ["@rules_template//:docs"],
+    ],  #+ ["@rules_template//:docs"],
 )

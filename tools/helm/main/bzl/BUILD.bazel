@@ -27,7 +27,7 @@ al_bzl_library_map(
         "al_helm_chart_lock": [
             "@aspect_bazel_lib//lib:write_source_files",
             "@bazel_skylib//rules:write_file",
-            "@rules_template//main/bzl:template_files",
+            "@rules_template//main/bzl:template_run_binary",
         ],
         "al_helm_chart_info": [],
         "al_helm_deps_repo": [],

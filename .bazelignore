@@ -1,16 +1,4 @@
 projects/ci_platform/main/js
 projects/rules_template
 node_modules
-compile_commands.json
-.bzlenv
 tools/node_modules
-out
-.aspect
-.cache
-.venv
-bazel-bin
-bazel-out
-bazel-src
-bazel-testlogs
-.git
-external

@@ -1,18 +1,32 @@
-load("@com_alwaldend_src//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
-load("@com_alwaldend_src//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load(":template_toolchain.bzl", "template_toolchain")
 
-al_bzl_library_map(
-    name = "libs",
-    libs = {
-        "template_files": [],
-    },
-    visibility = ["//:__subpackages__"],
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//visibility:public"],
 )
 
-al_docs_files(
-    name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
-    visibility = ["//projects/rules_template:__pkg__"],
-    deps = [":libs.stardoc"],
+toolchain(
+    name = "toolchain",
+    toolchain = ":toolchain_impl",
+    toolchain_type = ":toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+bzl_library(
+    name = "template_run_binary",
+    srcs = ["template_run_binary.bzl"],
+    visibility = ["//visibility:public"],
+)
+
+bzl_library(
+    name = "template_toolchain",
+    srcs = ["template_toolchain.bzl"],
+    visibility = ["//visibility:public"],
+)
+
+template_toolchain(
+    name = "toolchain_impl",
+    templater = "//main/go",
+    visibility = ["//visibility:public"],
 )

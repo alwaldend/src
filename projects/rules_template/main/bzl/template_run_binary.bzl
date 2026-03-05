@@ -1,4 +1,5 @@
 def _template_files_impl(ctx):
+    toolchain = ctx.toolchains["//main/bzl:toolchain_type"]
     args = ctx.actions.args()
     for data in ctx.files.data:
         args.add("--data", data.path)
@@ -8,16 +9,17 @@ def _template_files_impl(ctx):
         args.add("--output", output.path)
     args.add_all(ctx.attr.args)
     ctx.actions.run(
-        executable = ctx.executable.templater,
+        executable = toolchain.templater,
         arguments = ["template", args],
         outputs = ctx.outputs.outs,
         inputs = ctx.files.srcs + ctx.files.data,
         progress_message = "Templating %{label} to %{output}",
     )
 
-template_files = rule(
+template_run_binary = rule(
     implementation = _template_files_impl,
-    doc = "Load data files, then template the template and write the output",
+    doc = "Rule to template files",
+    toolchains = ["//main/bzl:toolchain_type"],
     attrs = {
         "srcs": attr.label_list(
             allow_files = True,
@@ -39,12 +41,6 @@ template_files = rule(
         "args": attr.string_list(
             doc = "Extra arguments",
             default = [],
-        ),
-        "templater": attr.label(
-            executable = True,
-            default = "@rules_template//main/go",
-            doc = "Templater to use",
-            cfg = "exec",
         ),
     },
 )

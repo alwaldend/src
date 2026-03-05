@@ -1,7 +1,7 @@
 load("@bazel_skylib//lib:paths.bzl", "paths")
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
-load("@rules_template//main/bzl:template_files.bzl", "template_files")
+load("@rules_template//main/bzl:template_run_binary.bzl", "template_run_binary")
 
 def al_bzl_registry_docs(name, srcs, visibility = None):
     """
@@ -72,7 +72,7 @@ def al_bzl_registry_docs(name, srcs, visibility = None):
         else:
             continue
         cur_name = "{}.doc.{}".format(name, i)
-        template_files(
+        template_run_binary(
             name = "{}.gen_md".format(cur_name),
             srcs = [template],
             data = [src],

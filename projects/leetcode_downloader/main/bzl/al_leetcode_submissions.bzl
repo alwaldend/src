@@ -1,6 +1,6 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
-load("@rules_template//main/bzl:template_files.bzl", "template_files")
+load("@rules_template//main/bzl:template_run_binary.bzl", "template_run_binary")
 
 def al_leetcode_submissions(name, srcs, visibility = None, **kwargs):
     """
@@ -45,7 +45,7 @@ def al_leetcode_submissions(name, srcs, visibility = None, **kwargs):
     for i, src in enumerate(srcs):
         src_name = "{}.template_{}".format(name, i)
         src_names.append(src_name)
-        template_files(
+        template_run_binary(
             name = src_name,
             srcs = ["{}.template".format(name)],
             data = [src],

@@ -1,9 +1,36 @@
-load("@com_alwaldend_src//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
 
-al_docs_files(
-    name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
-    visibility = ["@com_alwaldend_src//projects:__pkg__"],
-    deps = ["//main/bzl:docs"],
+build_test(
+    name = "build_test",
+    targets = [
+        "//main/go",
+    ],
 )
+# load("@com_alwaldend_src//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+# load("@com_alwaldend_src//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+# load("@com_alwaldend_src//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+# load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
+#
+# al_bzl_library_map(
+#     name = "libs",
+#     libs = {
+#         "template_files": [],
+#     },
+#     visibility = ["//:__subpackages__"],
+# )
+#
+# al_docs_files(
+#     name = "docs",
+#     srcs = glob(["*.md"]),
+#     prefix = package_name(),
+#     visibility = ["//projects/rules_template:__pkg__"],
+#     deps = [":libs.stardoc"],
+# )
+#
+# al_docs_files(
+#     name = "docs",
+#     srcs = glob(["*.md"]),
+#     prefix = package_name(),
+#     visibility = ["@com_alwaldend_src//projects:__pkg__"],
+#     deps = ["//main/bzl:docs"],
+# )

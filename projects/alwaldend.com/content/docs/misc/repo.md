@@ -101,3 +101,13 @@ find -name "BUILD.bazel" -type f -exec sed -i '/al_readme(/,/)/d' "{}" ";"
 ```sh
 bazel query 'attr(visibility, "//visibility:public", //...)'
 ```
+
+## Adding a bazel module
+
+```sh
+mkdir projects/project_name
+cd projects/project_name
+ln -s ../../.bazelignore
+ln -s ../../.bazeliskrc
+ln -s ../../tools/bazelrc/main/bazelrc/bzl_project.bazelrc .bazelrc
+```

@@ -1,6 +1,6 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
-load("@rules_template//main/bzl:template_files.bzl", "template_files")
+load("@rules_template//main/bzl:template_run_binary.bzl", "template_run_binary")
 
 def al_vial_configs(name, srcs, visibility = None, **kwargs):
     """
@@ -33,7 +33,7 @@ def al_vial_configs(name, srcs, visibility = None, **kwargs):
         ],
     )
     for src in srcs:
-        template_files(
+        template_run_binary(
             name = "{}.{}".format(name, src),
             srcs = ["{}.template".format(name)],
             data = [src],

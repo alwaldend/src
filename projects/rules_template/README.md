@@ -13,6 +13,7 @@ tags:
 `MODULE.bazel`:
 ```py
 bazel_dep(name = "rules_template", version = "<VERSION>")
+register_toolchains("@rules_template//main/bzl:all")
 ```
 
 `BUILD.bazel`:

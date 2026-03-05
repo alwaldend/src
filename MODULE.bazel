@@ -79,6 +79,8 @@ local_path_override(
     path = "projects/rules_template",
 )
 
+register_toolchains("@rules_template//main/bzl:all")
+
 ## Overrides
 
 git_override(
