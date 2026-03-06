@@ -38,7 +38,7 @@ type TemplateDataFile struct {
 }
 
 type TemplateContext struct {
-	Data []*TemplateDataFile
+	DataFiles []*TemplateDataFile
 }
 
 func NewTemplater() *Templater {
@@ -46,13 +46,15 @@ func NewTemplater() *Templater {
 }
 
 func (self *Templater) TemplateFiles(dataPaths []string, templatePath string, outputPath string, extension string) error {
-	ctx := &TemplateContext{}
+	ctx := &TemplateContext{
+		DataFiles: []*TemplateDataFile{},
+	}
 	for _, path := range dataPaths {
 		data, err := self.loadData(path, extension)
 		if err != nil {
 			return fmt.Errorf("could not load data %s: %w", path, err)
 		}
-		ctx.Data = append(ctx.Data, data)
+		ctx.DataFiles = append(ctx.DataFiles, data)
 	}
 	templateBytes, err := os.ReadFile(templatePath)
 	if err != nil {

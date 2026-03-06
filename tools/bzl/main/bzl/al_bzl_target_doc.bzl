@@ -53,7 +53,7 @@ def al_bzl_target_doc(name, visibility, subpackages = []):
             name = "{}.template".format(name),
             out = "{}.template.md".format(name),
             content = [
-                "{{ range .Data }}",
+                "{{ range .DataFiles }}",
                 "---",
                 "title: Bazel targets",
                 "tags: [generated, bzl_targets]",

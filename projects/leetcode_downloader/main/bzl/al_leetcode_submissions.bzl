@@ -16,7 +16,7 @@ def al_leetcode_submissions(name, srcs, visibility = None, **kwargs):
         name = "{}.template".format(name),
         out = "{}.template.md".format(name),
         content = [
-            "{{ range .Data }}",
+            "{{ range .DataFiles }}",
             "{{ range .Data.Submissions }}",
             "---",
             "title: {{ .Timestamp | timestamp_to_date }}",

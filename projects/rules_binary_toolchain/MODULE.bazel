@@ -1,0 +1,18 @@
+module(
+    name = "rules_binary_toolchain",
+    version = "0.0.0",
+    bazel_compatibility = [">=8.0.0"],
+)
+
+bazel_dep(name = "bazel_skylib", version = "1.9.0")
+
+binary_toolchain_extension = use_extension(
+    "//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+    dev_dependency = True,
+)
+binary_toolchain_extension.toolchain(
+    name = "trufflehog",
+    lock = "//:binary_toolchain.trufflehog.json",
+)
+use_repo(binary_toolchain_extension, "trufflehog")

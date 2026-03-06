@@ -18,7 +18,7 @@ def al_bzl_registry_docs(name, srcs, visibility = None):
         name = "{}.source_template".format(name),
         out = "{}.source_template.md".format(name),
         content = [
-            "{{ range .Data }}",
+            "{{ range .DataFiles }}",
             "---",
             "title: {{ .Dirname | basename }}",
             "description: Version {{ .Dirname | basename }} of module {{ .Dirname | dirname | basename }}",
@@ -42,7 +42,7 @@ def al_bzl_registry_docs(name, srcs, visibility = None):
         name = "{}.metadata_template".format(name),
         out = "{}.metadata_template.md".format(name),
         content = [
-            "{{ range .Data }}",
+            "{{ range .DataFiles }}",
             "---",
             "title: {{ .Dirname | basename }}",
             "description: Module {{ .Dirname | basename }}",

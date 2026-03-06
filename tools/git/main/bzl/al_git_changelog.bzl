@@ -57,7 +57,7 @@ def al_git_changelog(name, visibility, git_binary = "@git//:git", subpackages = 
             "hide_summary: true",
             "---",
             "",
-            "{{ range .Data -}}",
+            "{{ range .DataFiles -}}",
             "{{ range .Data -}}",
             "- {{ .subject | html_escape }} ([{{ sliceString .hash 0 6 | html_escape }}](https://github.com/alwaldend/src/commit/{{ .hash | html_escape }}))",
             "{{- if not (eq .subject .message) }}",

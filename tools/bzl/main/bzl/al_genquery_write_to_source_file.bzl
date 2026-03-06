@@ -54,7 +54,7 @@ def al_genquery_write_to_source_file(
         out = "{}-template.txt.tpl".format(name),
         content = [
             "{} = [".format(var_name),
-            "{{ range .Data -}}",
+            "{{ range .DataFiles -}}",
             '{{- range .Lines }}    "{{ . }}",',
             "{{ end }}",
             "{{- end -}}",

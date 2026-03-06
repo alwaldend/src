@@ -15,7 +15,7 @@ def al_proto_docs(name, src, prefix = None, visibility = None, renames = None):
         name = "{}.template".format(name),
         out = "{}.md".format(name),
         content = [
-            "{{ range .Data }}",
+            "{{ range .DataFiles }}",
             "---",
             "title: {{ .BasenameWithoutExt }}",
             "description: Proto docs for {{ .Basename }}",

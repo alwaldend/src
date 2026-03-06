@@ -16,7 +16,7 @@ def al_vial_configs(name, srcs, visibility = None, **kwargs):
         name = "{}.template".format(name),
         out = "{}.template.md".format(name),
         content = [
-            "{{ range .Data }}",
+            "{{ range .DataFiles }}",
             "---",
             "title: {{ .Basename }}",
             "description: Vial config {{ .Data.Basename }}",
