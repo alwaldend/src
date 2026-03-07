@@ -78,8 +78,13 @@ local_path_override(
     module_name = "rules_template",
     path = "projects/rules_template",
 )
-
 register_toolchains("@rules_template//main/bzl:all")
+
+bazel_dep(name = "rules_binary_toolchain")
+local_path_override(
+    module_name = "rules_binary_toolchain",
+    path = "projects/rules_binary_toolchain",
+)
 
 ## Overrides
 

@@ -1,5 +1,10 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 
+alias(
+    name = "trufflehog",
+    actual = "@trufflehog//:binary",
+)
+
 build_test(
     name = "build_test",
     targets = [

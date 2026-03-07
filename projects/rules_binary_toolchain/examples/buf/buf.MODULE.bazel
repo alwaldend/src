@@ -1,0 +1,11 @@
+binary_toolchain_extension = use_extension(
+    "//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+    dev_dependency = True,
+)
+binary_toolchain_extension.toolchain(
+    name = "buf",
+    lock = "//examples/buf:binary_toolchain.json",
+)
+register_toolchains("@buf//:all", dev_dependency = True)
+use_repo(binary_toolchain_extension, "buf")

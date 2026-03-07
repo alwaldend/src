@@ -1,0 +1,38 @@
+load("@buf//:defs.bzl", "buf_binary", "buf_run_binary", "buf_test")
+
+# generated repos already have a binary target
+alias(
+    name = "buf_alias",
+    actual = "@buf//:binary"
+)
+
+# manual binary target
+buf_binary(
+    name = "buf",
+)
+
+# embed arguments
+buf_binary(
+    name = "buf_help",
+    arguments = ["--help"],
+)
+
+# build action
+buf_run_binary(
+    name = "buf_export",
+    srcs = ["empty.proto"],
+    out_dirs = ["buf_export_dir"],
+    arguments = [
+        "export",
+        "--output",
+        "$(rlocation buf_export_dir)",
+        "$(execpath empty.proto)",
+    ],
+)
+
+# test
+buf_test(
+    name = "buf_test",
+    data = [":empty.proto"],
+    arguments = ["lint", "$(execpath :empty.proto)"]
+)

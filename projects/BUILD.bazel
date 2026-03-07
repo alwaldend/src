@@ -15,6 +15,7 @@ al_release_binary(
                 "bazel_registry",
                 "useless_qt_gui",
                 "rules_template",
+                "rules_binary_toolchain"
             ],
         )
     ] + [],
@@ -33,6 +34,7 @@ al_docs_files(
                 "xray_manager",
                 "cgit",
                 "rules_template",
+                "rules_binary_toolchain",
             ],
         )
     ],  #+ ["@rules_template//:docs"],

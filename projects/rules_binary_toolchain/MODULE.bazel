@@ -5,6 +5,8 @@ module(
 )
 
 bazel_dep(name = "bazel_skylib", version = "1.9.0")
+bazel_dep(name = "platforms", version = "1.0.0")
+bazel_dep(name = "rules_shell", version = "0.6.1")
 
 binary_toolchain_extension = use_extension(
     "//main/bzl:binary_toolchain_extension.bzl",
@@ -15,4 +17,6 @@ binary_toolchain_extension.toolchain(
     name = "trufflehog",
     lock = "//:binary_toolchain.trufflehog.json",
 )
+register_toolchains("@trufflehog//:all", dev_dependency = True)
 use_repo(binary_toolchain_extension, "trufflehog")
+include("//examples/buf:buf.MODULE.bazel")
