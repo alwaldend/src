@@ -1,4 +1,4 @@
-load("//tools/dnscontrol/main/bzl:al_dnscontrol_binary.bzl", "al_dnscontrol_binary", "al_dnscontrol_binary_test")
+load("@com_alwaldend_src_tools_dnscontrol//:defs.bzl", "dnscontrol_binary", "dnscontrol_test")
 load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 _ZONES = glob(["zones/**/*.zone"])
@@ -12,42 +12,42 @@ al_docs_files(
     visibility = ["//infra:__pkg__"],
 )
 
-al_dnscontrol_binary(
+dnscontrol_binary(
     name = "preview",
     arguments = ["preview"],
-    config = "dnsconfig.js",
-    creds = "creds.json.tpl",
-    secrets = _SECRETS,
-    zones = _ZONES,
+    # config = "dnsconfig.js",
+    # creds = "creds.json.tpl",
+    # secrets = _SECRETS,
+    # zones = _ZONES,
 )
 
-al_dnscontrol_binary_test(
-    name = "preview_test",
-    size = "small",
-    arguments = [
-        "preview",
-        "--expect-no-changes",
-    ],
-    config = "dnsconfig.js",
-    creds = "creds.json.tpl",
-    env_inherit = ["HOME"],
-    secrets = _SECRETS,
-    tags = [
-        "requires-network",
-    ],
-    zones = _ZONES,
-)
+# dnscontrol_test(
+#     name = "preview_test",
+#     size = "small",
+#     arguments = [
+#         "preview",
+#         "--expect-no-changes",
+#     ],
+#     # config = "dnsconfig.js",
+#     # creds = "creds.json.tpl",
+#     # env_inherit = ["HOME"],
+#     # secrets = _SECRETS,
+#     tags = [
+#         "requires-network",
+#     ],
+#     # zones = _ZONES,
+# )
 
 alias(
     name = "deploy",
     actual = ":push",
 )
 
-al_dnscontrol_binary(
+dnscontrol_binary(
     name = "push",
     arguments = ["push"],
-    config = "dnsconfig.js",
-    creds = "creds.json.tpl",
-    secrets = _SECRETS,
-    zones = _ZONES,
+    # config = "dnsconfig.js",
+    # creds = "creds.json.tpl",
+    # secrets = _SECRETS,
+    # zones = _ZONES,
 )

@@ -1,5 +1,4 @@
 load("@com_alwaldend_src_npm//:defs.bzl", "npm_link_all_packages")
-load("@rules_perl//perl/cpan:cpan_compiler.bzl", "cpan_compiler")
 load("//tools/bzl/main/bzl:al_alias_map.bzl", "al_alias_map")
 load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
@@ -25,10 +24,4 @@ al_docs_files(
 
 npm_link_all_packages(
     name = "node_modules",
-)
-
-cpan_compiler(
-    name = "cpan_lock",
-    cpanfile = ":cpanfile",
-    lockfile = ":cpanfile.snapshot.lock.json",
 )

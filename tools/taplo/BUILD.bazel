@@ -2,7 +2,7 @@ load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 alias(
     name = "taplo",
-    actual = "@com_github_tamasfe_taplo_linux_amd64//:bin",
+    actual = "@com_alwaldend_src_tools_taplo//:taplo_binary",
     visibility = ["//:__subpackages__"],
 )
 

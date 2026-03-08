@@ -1,3 +1,0 @@
-register_toolchains(
-    "//tools/dnscontrol/main/bzl:toolchain_go_binary",
-)

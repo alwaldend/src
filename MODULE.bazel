@@ -28,15 +28,9 @@ bazel_dep(name = "rules_shell", version = "0.6.1")
 bazel_dep(name = "rules_go", version = "0.60.0")
 bazel_dep(name = "gazelle", version = "0.47.0")
 
-# Perl
-bazel_dep(name = "rules_perl")
-
 # Javascript
 bazel_dep(name = "rules_nodejs", version = "6.7.3")
 bazel_dep(name = "aspect_rules_js", version = "2.8.3")
-
-# Rust
-bazel_dep(name = "rules_rust", version = "0.68.1")
 
 # Java
 bazel_dep(name = "rules_java", version = "9.5.0")
@@ -63,9 +57,6 @@ bazel_dep(name = "rules_robolectric", version = "4.16.1")
 # Oci
 bazel_dep(name = "rules_oci", version = "2.2.7")
 bazel_dep(name = "rules_distroless", version = "0.6.2")
-
-# Hashell
-bazel_dep(name = "rules_haskell")
 
 # Tools
 bazel_dep(name = "com_github_georgewfraser_java_language_server", version = "2025.520.0")
@@ -116,19 +107,6 @@ archive_override(
     urls = ["https://github.com/hedronvision/bazel-compile-commands-extractor/archive/abb61a688167623088f8768cc9264798df6a9d10.zip"],
 )
 
-git_override(
-    module_name = "rules_haskell",
-    commit = "c5f9029d45cd30776f5d1ffcc13a5ef6316ff411",
-    remote = "https://github.com/tweag/rules_haskell.git",
-)
-
-archive_override(
-    module_name = "rules_perl",
-    integrity = "sha256-OBsgaX5Gr5PhMUlqqggV0cWk/AB/NxJCMScMjFMnlmo=",
-    strip_prefix = "rules_perl-2144f43cf7e68fa3a95a0d5524c5124513493b39",
-    urls = ["https://github.com/bazel-contrib/rules_perl/archive/2144f43cf7e68fa3a95a0d5524c5124513493b39.zip"],
-)
-
 ## Includes
 
 include("//projects/android_launcher:deps.MODULE.bazel")
@@ -139,20 +117,14 @@ include("//tools:deps.MODULE.bazel")
 include("//tools/kt:deps.MODULE.bazel")
 include("//tools/oci:deps.MODULE.bazel")
 include("//tools/helm:deps.MODULE.bazel")
-include("//tools/haskell:deps.MODULE.bazel")
 include("//tools/cc:deps.MODULE.bazel")
-include("//tools/pl:deps.MODULE.bazel")
 include("//tools/js:deps.MODULE.bazel")
 include("//tools/py:deps.MODULE.bazel")
-include("//tools/shellcheck:deps.MODULE.bazel")
 include("//tools/go:deps.MODULE.bazel")
 include("//tools/android:deps.MODULE.bazel")
-include("//tools/rs:deps.MODULE.bazel")
 include("//tools/git:deps.MODULE.bazel")
 include("//tools/qt:deps.MODULE.bazel")
 include("//tools/drawio:deps.MODULE.bazel")
 include("//tools/rfc:deps.MODULE.bazel")
-include("//tools/taplo:deps.MODULE.bazel")
 include("//tools/bazel_contracts:deps.MODULE.bazel")
-include("//tools/dnscontrol:deps.MODULE.bazel")
 include("//tools/word_lists:deps.MODULE.bazel")

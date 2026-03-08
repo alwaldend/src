@@ -22,16 +22,21 @@ def _impl(ctx):
         download = ctx.download_and_extract(**archive.download_and_extract)
         integrity = archive.download_and_extract.get("integrity", "")
         if download.integrity != integrity:
-            fail("invalid integrity: wanted '{}', got '{}'".format(download.integrity, integrity))
+            fail("invalid integrity: wanted '{}', got '{}'".format(integrity, download.integrity))
     elif archive.download:
         download = ctx.download(**archive.download)
         integrity = archive.download.get("integrity", "")
         if download.integrity != integrity:
-            fail("invalid integrity: wanted '{}', got '{}'".format(download.integrity, integrity))
+            fail("invalid integrity: wanted '{}', got '{}'".format(integrity, download.integrity))
     else:
         fail("missing both download and download_and_extract")
     if archive.extract:
         ctx.extract(**archive.extract)
+    if archive.execute:
+        for execute in archive.execute:
+            execute = {} | execute
+            arguments = execute.pop("arguments", [])
+            ctx.execute(arguments, **execute)
     ctx.file(
         "BUILD.bazel",
         _BUILD.format(

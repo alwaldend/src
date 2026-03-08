@@ -1,12 +1,9 @@
 ---
 title: Dnscontrol
 description: Dnscontrol tool
-languages:
-  - bzl
 tags:
   - dnscontrol
   - dns
-  - bzl_rules
 ---
 
 ## Links

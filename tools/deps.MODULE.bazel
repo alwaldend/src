@@ -11,6 +11,11 @@ binary_toolchain_extension.toolchains(
         "minisign": "com_alwaldend_src_tools_minisign",
         "blender": "com_alwaldend_src_tools_blender",
         "android_cmdtools": "com_alwaldend_src_tools_android_cmdtools",
+        "dnscontrol": "com_alwaldend_src_tools_dnscontrol",
+        "shellcheck": "com_alwaldend_src_tools_shellcheck",
+        "cloc": "com_alwaldend_src_tools_cloc",
+        "stylua": "com_alwaldend_src_tools_stylua",
+        "taplo": "com_alwaldend_src_tools_taplo",
     },
 )
 
@@ -21,6 +26,11 @@ register_toolchains(
     "@com_alwaldend_src_tools_minisign//:all",
     "@com_alwaldend_src_tools_blender//:all",
     "@com_alwaldend_src_tools_android_cmdtools//:all",
+    "@com_alwaldend_src_tools_dnscontrol//:all",
+    "@com_alwaldend_src_tools_shellcheck//:all",
+    "@com_alwaldend_src_tools_cloc//:all",
+    "@com_alwaldend_src_tools_stylua//:all",
+    "@com_alwaldend_src_tools_taplo//:all",
 )
 
 use_repo(
@@ -28,7 +38,12 @@ use_repo(
     "com_alwaldend_src_tools_android_cmdtools",
     "com_alwaldend_src_tools_blender",
     "com_alwaldend_src_tools_buf",
+    "com_alwaldend_src_tools_cloc",
+    "com_alwaldend_src_tools_dnscontrol",
     "com_alwaldend_src_tools_minisign",
     "com_alwaldend_src_tools_oras",
+    "com_alwaldend_src_tools_shellcheck",
+    "com_alwaldend_src_tools_stylua",
+    "com_alwaldend_src_tools_taplo",
     "com_alwaldend_src_tools_trufflehog",
 )

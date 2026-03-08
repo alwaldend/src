@@ -1,9 +1,19 @@
+load("@com_alwaldend_src_tools_cloc//:defs.bzl", "cloc_binary")
 load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 alias(
     name = "cloc",
-    actual = "@com_alwaldend_src_tools_cpan//:App-cloc_bin_cloc",
+    actual = "@com_alwaldend_src_tools_cloc//:cloc_binary",
     visibility = ["//:__subpackages__"],
+)
+
+cloc_binary(
+    name = "cloc_check",
+    arguments = [
+        "--git",
+        "$(GIT_ROOT)",
+    ],
+    toolchains = ["//tools/git/main/bzl:toolchain_resolved"],
 )
 
 al_docs_files(

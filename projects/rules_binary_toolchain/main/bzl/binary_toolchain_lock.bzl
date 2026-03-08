@@ -14,6 +14,7 @@ BinaryToolchainLockArchive = provider(
         "archive_name": "Archive name",
         "download": "Kwargs for repository_ctx.download",
         "download_and_extract": "Kwargs for repository_ctx.download_and_extract",
+        "execute": "List of kwargs for repository_ctx.execute",
         "extract": "Kwargs for repository_ctx.extract",
         "toolchain": "Kwargs for toolchain rules",
         "binaries": "List of BinaryToolchainArchiveBinary",
@@ -105,6 +106,7 @@ def binary_toolchain_lock_parse_archive(archive):
     download_and_extract = archive.get("download_and_extract", {})
     if not download and not download_and_extract:
         fail("archive missing download options")
+    execute = archive.get("execute", [])
     binaries = []
     for bin in archive.get("binaries", []):
         if type(bin) != "dict":
@@ -129,6 +131,7 @@ def binary_toolchain_lock_parse_archive(archive):
         archive_name = archive_name,
         download = download,
         download_and_extract = download_and_extract,
+        execute = execute,
         extract = extract,
         toolchain = toolchain,
         binaries = binaries,
