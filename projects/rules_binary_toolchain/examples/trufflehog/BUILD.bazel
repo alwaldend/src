@@ -1,0 +1,4 @@
+alias(
+    name = "trufflehog",
+    actual = "@trufflehog//:trufflehog_binary",
+)

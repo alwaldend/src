@@ -2,7 +2,7 @@ load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 alias(
     name = "buf",
-    actual = "@com_alwaldend_src_tools_buf//:binary",
+    actual = "@com_alwaldend_src_tools_buf//:buf_binary",
     visibility = ["//:__subpackages__"],
 )
 

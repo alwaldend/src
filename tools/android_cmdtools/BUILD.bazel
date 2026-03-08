@@ -3,7 +3,7 @@ load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 [
     alias(
         name = name,
-        actual = "@com_alwaldend_src_tools_android_cmdtools//:{}".format(name),
+        actual = "@com_alwaldend_src_tools_android_cmdtools//:{}_binary".format(name),
         visibility = ["//:__subpackages__"],
     )
     for name in [

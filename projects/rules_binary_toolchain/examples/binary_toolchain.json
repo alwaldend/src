@@ -1,0 +1,199 @@
+{
+    "toolchains": [
+        {
+            "name": "buf",
+            "version": "1.59.0"
+        },
+        {
+            "name": "trufflehog",
+            "version": "3.91.2"
+        },
+        {
+            "name": "oras",
+            "version": "1.3.0"
+        },
+        {
+            "name": "minisign",
+            "version": "0.12"
+        },
+        {
+            "name": "blender",
+            "version": "5.0.1"
+        },
+        {
+            "name": "android_cmdtools",
+            "version": "14742923"
+        }
+    ],
+    "archives": [
+        {
+            "toolchain_name": "blender",
+            "toolchain_version": "5.0.1",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "blender",
+                    "path": "out/blender-5.0.1-linux-x64/blender"
+                }
+            ],
+            "download_and_extract": {
+                "url": "https://ftp.halifax.rwth-aachen.de/blender/release/Blender5.0/blender-5.0.1-linux-x64.tar.xz",
+                "output": "out",
+                "integrity": "sha256-gBlYDuG3Ji5QX0GWoAI3zPdDyI0gWzjTQgFRBnbmCwk="
+            },
+            "toolchain": {
+                "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
+            }
+        },
+        {
+            "toolchain_name": "minisign",
+            "toolchain_version": "0.12",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "minisign",
+                    "path": "out/minisign-linux/x86_64/minisign"
+                }
+            ],
+            "download_and_extract": {
+                "url": "https://github.com/jedisct1/minisign/releases/download/0.12/minisign-0.12-linux.tar.gz",
+                "output": "out",
+                "integrity": "sha256-mlmbSLput7HoDxLza5TOynwAt6UXPJXD78iNmCKVfnM="
+            },
+            "toolchain": {
+                "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
+            }
+        },
+        {
+            "toolchain_name": "minisign",
+            "toolchain_version": "0.12",
+            "archive_name": "linux_aarch64",
+            "binaries": [
+                {
+                    "name": "minisign",
+                    "path": "out/minisign-linux/aarch64/minisign"
+                }
+            ],
+            "download_and_extract": {
+                "url": "https://github.com/jedisct1/minisign/releases/download/0.12/minisign-0.12-linux.tar.gz",
+                "output": "out",
+                "integrity": "sha256-mlmbSLput7HoDxLza5TOynwAt6UXPJXD78iNmCKVfnM="
+            },
+            "toolchain": {
+                "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:aarch64"]
+            }
+        },
+        {
+            "toolchain_name": "oras",
+            "toolchain_version": "1.3.0",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "oras",
+                    "path": "out/oras"
+                }
+            ],
+            "download_and_extract": {
+                "url": "https://github.com/oras-project/oras/releases/download/v1.3.0/oras_1.3.0_linux_amd64.tar.gz",
+                "output": "out",
+                "integrity": "sha256-bNxpL5KRAP6wiqjeWE0C97zDDsfYi8KtwgVNeC21fGQ="
+            },
+            "toolchain": {
+                "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
+            }
+        },
+        {
+            "toolchain_name": "trufflehog",
+            "toolchain_version": "3.91.2",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "trufflehog",
+                    "path": "out/trufflehog"
+                }
+            ],
+            "download_and_extract": {
+                "url": "https://github.com/trufflesecurity/trufflehog/releases/download/v3.91.2/trufflehog_3.91.2_linux_amd64.tar.gz",
+                "output": "out",
+                "integrity": "sha256-csHVtGWHiIcXjDMGPvKJO58VKeea9/JBaf7VKGiywFY="
+            },
+            "toolchain": {
+                "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
+            }
+        },
+        {
+            "toolchain_name": "buf",
+            "toolchain_version": "1.59.0",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "buf",
+                    "path": "out/buf/bin/buf"
+                }
+            ],
+            "download_and_extract": {
+                "url": "https://github.com/bufbuild/buf/releases/download/v1.59.0/buf-Linux-x86_64.tar.gz",
+                "output": "out",
+                "integrity": "sha256-gexK1n1mpPl1XnmNm/Byarw7Zb4IIltlVQIBhOs/F8I="
+            },
+            "toolchain": {
+                "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
+            }
+        },
+        {
+            "toolchain_name": "android_cmdtools",
+            "toolchain_version": "14742923",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "apkanalyzer",
+                    "path": "out/cmdline-tools/bin/apkanalyzer"
+                },
+                {
+                    "name": "avdmanager",
+                    "path": "out/cmdline-tools/bin/avdmanager"
+                },
+                {
+                    "name": "d8",
+                    "path": "out/cmdline-tools/bin/d8"
+                },
+                {
+                    "name": "lint",
+                    "path": "out/cmdline-tools/bin/lint"
+                },
+                {
+                    "name": "profgen",
+                    "path": "out/cmdline-tools/bin/profgen"
+                },
+                {
+                    "name": "r8",
+                    "path": "out/cmdline-tools/bin/r8"
+                },
+                {
+                    "name": "resourceshrinker",
+                    "path": "out/cmdline-tools/bin/resourceshrinker"
+                },
+                {
+                    "name": "retrace",
+                    "path": "out/cmdline-tools/bin/retrace"
+                },
+                {
+                    "name": "screenshot2",
+                    "path": "out/cmdline-tools/bin/screenshot2"
+                },
+                {
+                    "name": "sdkmanager",
+                    "path": "out/cmdline-tools/bin/sdkmanager"
+                }
+            ],
+            "download_and_extract": {
+                "url": "https://dl.google.com/android/repository/commandlinetools-linux-14742923_latest.zip",
+                "output": "out",
+                "integrity": "sha256-BEUwZrVAQJ2XXGdteB2hR3R53eN2ExDxp+uSod+xWvc="
+            },
+            "toolchain": {
+                "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
+            }
+        }
+    ]
+}

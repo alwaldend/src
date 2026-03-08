@@ -1,24 +1,141 @@
+BinaryToolchainLockArchiveBinary = provider(
+    doc = "Binary config",
+    fields = {
+        "name": "Binary name",
+        "path": "Binary path",
+    },
+)
+
 BinaryToolchainLockArchive = provider(
     doc = "Binary toolchain archive",
     fields = {
+        "toolchain_name": "Toolchain name",
+        "toolchain_version": "Toolchain version",
+        "archive_name": "Archive name",
         "download": "Kwargs for repository_ctx.download",
         "download_and_extract": "Kwargs for repository_ctx.download_and_extract",
-        "extract":  "Kwargs for repository_ctx.extract",
+        "extract": "Kwargs for repository_ctx.extract",
         "toolchain": "Kwargs for toolchain rules",
-        "bin_path": "Path to the binary",
-    }
+        "binaries": "List of BinaryToolchainArchiveBinary",
+    },
+)
+
+BinaryToolchainLockToolchain = provider(
+    doc = "Toolchain config",
+    fields = {
+        "name": "Toolchain name",
+        "version": "Toolchain version",
+    },
 )
 
 BinaryToolchainLock = provider(
-    doc = "Lock for a binary toolchain",
+    doc = "Binary toolchain lock",
     fields = {
-        "version": "Version to use",
-        "version_archives": "Map of version archives",
-        "archives": "Map of archive versions where values are maps of per-platorm archives",
-    }
+        "toolchains": "List of BinaryToolchainLockToolchain",
+        "archives": "List of BinaryToolchainLockArchive",
+    },
 )
 
-def binary_toolchain_parse_lock(lock):
+def binary_toolchain_lock_find_archives(lock, toolchain_name):
+    """
+    Args:
+        lock: BinaryToolchainLock
+        toolchain_name: toolchain name
+
+    Returns:
+        list[BinaryToolchainLockArchive]
+    """
+    toolchain = None
+    for cur_toolchain in lock.toolchains:
+        if cur_toolchain.name == toolchain_name:
+            toolchain = cur_toolchain
+            break
+    if not toolchain:
+        fail("could not find toolchain with name '{}'".format(toolchain_name))
+    res = []
+    for archive in lock.archives:
+        if archive.toolchain_name == toolchain.name and archive.toolchain_version == toolchain.version:
+            res.append(archive)
+    return res
+
+def binary_toolchain_lock_parse_toolchain(toolchain):
+    """
+    Args:
+        toolchain: toolchain dict
+
+    Returns:
+         BinaryToolchainLockToolchain
+    """
+    if type(toolchain) != "dict":
+        fail("toolchain is not a dict")
+    name = toolchain.get("name")
+    if not name:
+        fail("toolchain is missing name")
+    version = toolchain.get("version")
+    if not version:
+        fail("toolchain is missing version")
+    res = BinaryToolchainLockToolchain(
+        name = name,
+        version = version,
+    )
+    return res
+
+def binary_toolchain_lock_parse_archive(archive):
+    """
+    Args:
+        archive: archive dict
+
+    Returns:
+        BinaryToolchainLockArchive
+    """
+    if type(archive) != "dict":
+        fail("archive is not a dict")
+    if not archive:
+        fail("empty archive")
+    toolchain_name = archive.get("toolchain_name")
+    if not toolchain_name:
+        fail("archive is missing toolchain_name")
+    toolchain_version = archive.get("toolchain_version")
+    if not toolchain_version:
+        fail("archive is missing toolchain_version")
+    archive_name = archive.get("archive_name")
+    if not archive_name:
+        fail("archive is missing archive_name")
+    download = archive.get("download", {})
+    download_and_extract = archive.get("download_and_extract", {})
+    if not download and not download_and_extract:
+        fail("archive missing download options")
+    binaries = []
+    for bin in archive.get("binaries", []):
+        if type(bin) != "dict":
+            fail("invalid binary type: {}".format(bin))
+        name = bin.get("name")
+        if not name:
+            fail("binary is missing name: {}".format(bin))
+        path = bin.get("path")
+        if not path:
+            fail("binary is missing path: {}".format(bin))
+        binaries.append(
+            BinaryToolchainLockArchiveBinary(
+                name = name,
+                path = path,
+            ),
+        )
+    extract = archive.get("extract", {})
+    toolchain = archive.get("toolchain", {})
+    res = BinaryToolchainLockArchive(
+        toolchain_name = toolchain_name,
+        toolchain_version = toolchain_version,
+        archive_name = archive_name,
+        download = download,
+        download_and_extract = download_and_extract,
+        extract = extract,
+        toolchain = toolchain,
+        binaries = binaries,
+    )
+    return res
+
+def binary_toolchain_lock_parse(lock):
     """
     Args:
         lock: lock dict
@@ -30,50 +147,14 @@ def binary_toolchain_parse_lock(lock):
         fail("lock is empty")
     if type(lock) != "dict":
         fail("lock is not a dict: {}".format(type(lock)))
-    version = lock.get("version")
-    if not version:
-        fail("lock is missing version")
-    archives = lock.get("archives", {})
-    if version not in archives:
-        fail("missing archives for version {}, have {}".format(version, archives.keys()))
-    res_archives = {}
-    res_version_archives = None
-    for cur_version, cur_archives in archives.items():
-        res_archives[cur_version] = {}
-        if cur_version == version:
-            res_version_archives = res_archives[cur_version]
-        for archive_name, archive in cur_archives.items():
-            download = archive.get("download", {})
-            download_and_extract = archive.get("download_and_extract", {})
-            if not download and not download_and_extract:
-                fail("archive {}/{} is missing download options".format(cur_version, archive_name))
-            bin_path = archive.get("bin_path")
-            if not bin_path:
-                fail("archive {}/{} is missing bin_path".format(cur_version, archive_name))
-            extract = archive.get("extract", {})
-            toolchain = archive.get("toolchain", {})
-            res_archives[cur_version][archive_name] = BinaryToolchainLockArchive(
-                bin_path = bin_path,
-                download = download,
-                download_and_extract = download_and_extract,
-                extract = extract,
-                toolchain = toolchain,
-            )
-
+    toolchains = []
+    archives = []
+    for toolchain in lock.get("toolchains", []):
+        toolchains.append(binary_toolchain_lock_parse_toolchain(toolchain))
+    for archive in lock.get("archives", []):
+        archives.append(binary_toolchain_lock_parse_archive(archive))
     res = BinaryToolchainLock(
-        version = version,
-        archives = res_archives,
-        version_archives = res_version_archives,
+        archives = archives,
+        toolchains = toolchains,
     )
     return res
-
-def binary_toolchain_parse_lock_attr(ctx, attr_name = "lock"):
-    """
-    Args:
-        ctx: repository ctx
-        attr_name: attributes containing the lock label
-
-    Returns:
-        BinaryToolchainLock
-    """
-    return binary_toolchain_parse_lock(json.decode(ctx.read(getattr(ctx.attr, attr_name))))

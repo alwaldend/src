@@ -15,16 +15,17 @@ def _impl(ctx):
     )
     runfiles = ctx.runfiles().merge_all(
         [
-            ctx.runfiles(files = ctx.files.data)
+            ctx.runfiles(files = ctx.files.data),
         ] + [
-            data[DefaultInfo].default_runfiles for data in ctx.attr.data
-        ]
+            data[DefaultInfo].default_runfiles
+            for data in ctx.attr.data
+        ],
     )
     return [
         DefaultInfo(
             files = depset(ctx.outputs.outs),
             runfiles = runfiles,
-        )
+        ),
     ]
 
 def binary_toolchain_run_binary(toolchain_type, kwargs = {}, attrs = {}):

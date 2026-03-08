@@ -7,5 +7,10 @@ binary_toolchain_extension.toolchain(
     name = "buf",
     lock = "//examples/buf:binary_toolchain.json",
 )
-register_toolchains("@buf//:all", dev_dependency = True)
+
+register_toolchains(
+    "@buf//:all",
+    dev_dependency = True,
+)
+
 use_repo(binary_toolchain_extension, "buf")

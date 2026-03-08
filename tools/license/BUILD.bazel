@@ -11,7 +11,7 @@ al_docs_files(
 license(
     name = "repo_license",
     license_kinds = [
-        "@rules_license//licenses/spdx:AGPL-3.0",
+        "@rules_license//licenses/spdx:MIT",
     ],
     license_text = "//:LICENSE.txt",
     visibility = ["//:__subpackages__"],

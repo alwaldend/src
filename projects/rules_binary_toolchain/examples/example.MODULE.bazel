@@ -1,0 +1,24 @@
+binary_toolchain_extension = use_extension(
+    "//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+    dev_dependency = True,
+)
+binary_toolchain_extension.toolchains(
+    lock = "//examples:binary_toolchain.json",
+    toolchains = ["trufflehog"],
+    toolchains_map = {
+        "buf": "buf_with_custom_name",
+    },
+)
+
+register_toolchains(
+    "@trufflehog//:all",
+    "@buf_with_custom_name//:all",
+    dev_dependency = True,
+)
+
+use_repo(
+    binary_toolchain_extension,
+    "buf_with_custom_name",
+    "trufflehog",
+)

@@ -2,19 +2,23 @@ load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 
 bzl_library(
     name = "bzl_library",
-    deps = [":binary_toolchain_extension", ":binary_toolchain_repo", ":binary_toolchain_lock"],
     visibility = ["//visibility:public"],
+    deps = [
+        ":binary_toolchain_extension",
+        ":binary_toolchain_lock",
+        ":binary_toolchain_repo",
+    ],
 )
 
 bzl_library(
     name = "binary_toolchain_extension",
     srcs = ["binary_toolchain_extension.bzl"],
+    visibility = ["//visibility:public"],
     deps = [
         "@bazel_tools//tools/build_defs/repo:cache.bzl",
         "@bazel_tools//tools/build_defs/repo:http.bzl",
         "@bazel_tools//tools/build_defs/repo:utils.bzl",
     ],
-    visibility = ["//visibility:public"],
 )
 
 bzl_library(

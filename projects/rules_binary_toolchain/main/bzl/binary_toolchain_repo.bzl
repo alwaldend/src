@@ -1,23 +1,23 @@
-load(":binary_toolchain_lock.bzl", "binary_toolchain_parse_lock_attr")
+load(":binary_toolchain_lock.bzl", "binary_toolchain_lock_parse_archive")
 
 _BUILD = """\
 load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
 
-TOOLCHAIN = {toolchain}
+ARCHIVE = {archive}
 
-native_binary(
-    name = "binary",
-    src = "{bin_path}",
-    exec_compatible_with = TOOLCHAIN.get("exec_compatible_with"),
-    visibility = TOOLCHAIN.get("visibility", ["//visibility:public"]),
-)
+[
+    native_binary(
+        name = "{{}}_binary".format(binary["name"]),
+        src = binary["path"],
+        exec_compatible_with = ARCHIVE["toolchain"].get("exec_compatible_with"),
+        visibility = ARCHIVE["toolchain"].get("visibility", ["//visibility:public"]),
+    )
+    for binary in ARCHIVE["binaries"]
+]
 """
 
 def _impl(ctx):
-    lock = binary_toolchain_parse_lock_attr(ctx)
-    archive = lock.version_archives.get(ctx.attr.archive_name)
-    if not archive:
-        fail("missing archive {} for version {}".format(ctx.attr.archive_name, lock.version))
+    archive = binary_toolchain_lock_parse_archive(json.decode(ctx.read(ctx.attr.archive_lock)))
     if archive.download_and_extract:
         download = ctx.download_and_extract(**archive.download_and_extract)
         integrity = archive.download_and_extract.get("integrity", "")
@@ -35,8 +35,7 @@ def _impl(ctx):
     ctx.file(
         "BUILD.bazel",
         _BUILD.format(
-            bin_path = archive.bin_path,
-            toolchain = json.encode_indent(archive.toolchain),
+            archive = json.encode_indent(archive, indent = "    "),
         ),
     )
     return ctx.repo_metadata(reproducible = True)
@@ -45,13 +44,9 @@ binary_toolchain_repo = repository_rule(
     implementation = _impl,
     doc = "Binary toolchain repo",
     attrs = {
-        "lock": attr.label(
+        "archive_lock": attr.label(
             mandatory = True,
-            doc = "Lock file label",
-        ),
-        "archive_name": attr.string(
-            mandatory = True,
-            doc = "Archive name",
+            doc = "Archive lock",
         ),
     },
 )

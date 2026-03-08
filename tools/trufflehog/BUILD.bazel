@@ -1,13 +1,13 @@
+load("@com_alwaldend_src_tools_trufflehog//:defs.bzl", "trufflehog_test")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
-load("@com_alwaldend_src_tools_trufflehog//:defs.bzl", "com_alwaldend_src_tools_trufflehog_test")
 
 alias(
     name = "trufflehog",
-    actual = "@com_alwaldend_src_tools_trufflehog//:binary",
+    actual = "@com_alwaldend_src_tools_trufflehog//:trufflehog_binary",
     visibility = ["//:__subpackages__"],
 )
 
-com_alwaldend_src_tools_trufflehog_test(
+trufflehog_test(
     name = "repo_test",
     size = "small",
     arguments = [

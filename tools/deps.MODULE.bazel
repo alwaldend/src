@@ -1,0 +1,34 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    lock = "@rules_binary_toolchain//examples:binary_toolchain.json",
+    toolchains_map = {
+        "trufflehog": "com_alwaldend_src_tools_trufflehog",
+        "buf": "com_alwaldend_src_tools_buf",
+        "oras": "com_alwaldend_src_tools_oras",
+        "minisign": "com_alwaldend_src_tools_minisign",
+        "blender": "com_alwaldend_src_tools_blender",
+        "android_cmdtools": "com_alwaldend_src_tools_android_cmdtools",
+    },
+)
+
+register_toolchains(
+    "@com_alwaldend_src_tools_trufflehog//:all",
+    "@com_alwaldend_src_tools_buf//:all",
+    "@com_alwaldend_src_tools_oras//:all",
+    "@com_alwaldend_src_tools_minisign//:all",
+    "@com_alwaldend_src_tools_blender//:all",
+    "@com_alwaldend_src_tools_android_cmdtools//:all",
+)
+
+use_repo(
+    binary_toolchain_extension,
+    "com_alwaldend_src_tools_android_cmdtools",
+    "com_alwaldend_src_tools_blender",
+    "com_alwaldend_src_tools_buf",
+    "com_alwaldend_src_tools_minisign",
+    "com_alwaldend_src_tools_oras",
+    "com_alwaldend_src_tools_trufflehog",
+)

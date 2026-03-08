@@ -30,8 +30,9 @@ def _impl(ctx):
             ctx.attr.shell_runfiles[DefaultInfo].default_runfiles,
             ctx.runfiles(files = ctx.files.data),
         ] + [
-            data[DefaultInfo].default_runfiles for data in ctx.attr.data
-        ]
+            data[DefaultInfo].default_runfiles
+            for data in ctx.attr.data
+        ],
     )
     ctx.actions.write(
         output = script,
@@ -39,7 +40,7 @@ def _impl(ctx):
             bin = toolchain.binary.short_path,
             arguments = " ".join([
                 '"{}"'.format(
-                    ctx.expand_make_variables(str(ctx.label), ctx.expand_location(arg), {})
+                    ctx.expand_make_variables(str(ctx.label), ctx.expand_location(arg), {}),
                 )
                 for arg in ctx.attr.arguments
             ]),
@@ -80,7 +81,7 @@ def binary_toolchain_binary(toolchain_type, kwargs = {}, attrs = {}):
         ),
         "data": attr.label_list(
             allow_files = True,
-            doc = "Data that is added runfiles"
+            doc = "Data that is added runfiles",
         ),
         "arguments": attr.string_list(
             doc = "Arguments (make variables and locations are expanded)",
@@ -90,7 +91,7 @@ def binary_toolchain_binary(toolchain_type, kwargs = {}, attrs = {}):
         ),
         "shell_runfiles": attr.label(
             doc = "Shell runfiles",
-            default = "@rules_shell//shell/runfiles"
+            default = "@rules_shell//shell/runfiles",
         ),
     }
     kwargs = default_kwargs | kwargs

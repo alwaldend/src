@@ -1,18 +1,8 @@
 load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
-load("//tools/oras/main/bzl:al_oras_binary.bzl", "al_oras_binary")
 
-al_oras_binary(
+alias(
     name = "oras",
-    visibility = ["//:__subpackages__"],
-)
-
-al_oras_binary(
-    name = "login",
-    arguments = [
-        "login",
-        "--config",
-        "$${XDG_RUNTIME_DIR}",
-    ],
+    actual = "@com_alwaldend_src_tools_oras//:oras_binary",
     visibility = ["//:__subpackages__"],
 )
 
@@ -21,7 +11,4 @@ al_docs_files(
     srcs = glob(["*.md"]),
     prefix = package_name(),
     visibility = ["//tools:__pkg__"],
-    deps = [
-        "//tools/oras/main/bzl:docs",
-    ],
 )

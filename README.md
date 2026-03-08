@@ -5,8 +5,10 @@ description: Source code
 
 ## Links
 
-- Site: https://alwaldend.com/
+- Homepage: https://alwaldend.com/
+- Docs: https://alwaldend.com/docs/
+- Repo setup: https://alwaldend.com/docs/misc/repo/
 
-## Licence
+## License
 
-AGPLv3, see [LICENSE](./LICENSE.txt)
+[MIT](https://spdx.org/licenses/MIT.html), see [LICENSE](./LICENSE.txt)
