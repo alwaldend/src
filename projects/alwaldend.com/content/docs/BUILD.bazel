@@ -1,10 +1,16 @@
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = glob([
-        "*.md",
-    ]),
+    srcs = [
+        ":docs_files",
+        "//projects/alwaldend.com/content/docs/misc:docs",
+    ],
     visibility = ["//projects/alwaldend.com/content:__pkg__"],
-    deps = ["//projects/alwaldend.com/content/docs/misc:docs"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs",
 )

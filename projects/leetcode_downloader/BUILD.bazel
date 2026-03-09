@@ -1,18 +1,23 @@
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 
 alias(
     name = "leetcode_downloader",
     actual = "//projects/leetcode_downloader/main/go",
 )
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
-    visibility = ["//projects:__pkg__"],
-    deps = [
+    srcs = [
+        ":docs_files",
         "//projects/leetcode_downloader/main/bzl:docs",
         "//projects/leetcode_downloader/main/proto:docs",
         "//projects/leetcode_downloader/releases:docs",
     ],
+    visibility = ["//projects:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
 )

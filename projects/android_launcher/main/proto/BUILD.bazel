@@ -6,15 +6,22 @@ load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_library")
 load("@rules_java//java:java_import.bzl", "java_import")
 load("@rules_java//java:java_single_jar.bzl", "java_single_jar")
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/proto/main/bzl:al_proto_docs.bzl", "al_proto_docs")
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
+    srcs = [
+        ":contracts_docs",
+        ":docs_files",
+    ],
     visibility = ["//contracts:__pkg__"],
-    deps = [":contracts_docs"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
 )
 
 al_proto_docs(

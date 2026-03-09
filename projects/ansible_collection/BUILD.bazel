@@ -1,5 +1,4 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 pkg_filegroup(
     name = "ansible_cfg",
@@ -12,20 +11,25 @@ pkg_files(
     srcs = ["ansible.cfg"],
 )
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]) + [":galaxy"],
-    prefix = package_name(),
-    visibility = ["//projects:__pkg__"],
-    deps = [
+    srcs = [
+        ":docs_files",
         "//projects/ansible_collection/playbooks:docs",
         "//projects/ansible_collection/roles:docs",
     ],
+    visibility = ["//projects:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]) + [":galaxy.yml"],
+    prefix = "content/docs/{}".format(package_name()),
 )
 
 pkg_files(
     name = "galaxy",
-    srcs = ["galaxy.yml"],
+    srcs = [":galaxy.yml"],
 )
 
 pkg_filegroup(

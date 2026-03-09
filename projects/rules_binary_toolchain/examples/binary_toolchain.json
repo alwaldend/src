@@ -43,9 +43,36 @@
         {
             "name": "taplo",
             "version": "0.10.0"
+        },
+        {
+            "name": "shfmt",
+            "version": "3.12.0"
+        },
+        {
+            "name": "hugo",
+            "version": "0.157.0"
         }
     ],
     "archives": [
+        {
+            "toolchain_name": "hugo",
+            "toolchain_version": "0.157.0",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "hugo",
+                    "path": "out/hugo"
+                }
+            ],
+            "download_and_extract": {
+                "url": "https://github.com/gohugoio/hugo/releases/download/v0.157.0/hugo_extended_0.157.0_linux-amd64.tar.gz",
+                "output": "out",
+                "integrity": "sha256-Wy/f5GRqSO6YEHA1Ak/WZAKZv/McRIbCWe7rn0yCJJI="
+            },
+            "toolchain": {
+                "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
+            }
+        },
         {
             "toolchain_name": "stylua",
             "toolchain_version": "2.4.0",
@@ -99,6 +126,34 @@
                 "output": "out",
                 "integrity": "sha256-jDvhKwXVwXegTCnjx4zomshvFZVoHKsUm2W5fE4icZg="
             },
+            "toolchain": {
+                "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
+            }
+        },
+        {
+            "toolchain_name": "shfmt",
+            "toolchain_version": "3.12.0",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "shfmt",
+                    "path": "out/shfmt"
+                }
+            ],
+            "download": {
+                "url": "https://github.com/mvdan/sh/releases/download/v3.12.0/shfmt_v3.12.0_linux_amd64",
+                "output": "out/shfmt",
+                "integrity": "sha256-2fuyqcM9E/R+dhjPNiqRTQKdAqbfEkBk//BP1oinReo="
+            },
+            "execute": [
+                {
+                    "arguments": [
+                        "chmod",
+                        "u+x",
+                        "out/shfmt"
+                    ]
+                }
+            ],
             "toolchain": {
                 "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
             }

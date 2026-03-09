@@ -1,11 +1,11 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 load("//tools/http_server/main/bzl:al_http_server_binary.bzl", "al_http_server_binary")
 load("//tools/hugo/main/bzl:al_hugo_binary.bzl", "al_hugo_binary")
 load("//tools/hugo/main/bzl:al_hugo_run_binary.bzl", "al_hugo_run_binary")
 load("//tools/hugo/main/bzl:al_hugo_site.bzl", "al_hugo_site")
+load("//tools/pkg/main/bzl:al_pkg_rename_files.bzl", "al_pkg_rename_files")
 load("//tools/toml/main/bzl:al_toml_data.bzl", "al_toml_data")
 
 build_test(
@@ -34,12 +34,19 @@ _BUILD_FLAGS = [
     ),
 ]
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
+    srcs = [
+        ":docs_files",
+        "//projects/alwaldend.com/releases:docs",
+    ],
     visibility = ["//projects:__pkg__"],
-    deps = ["//projects/alwaldend.com/releases:docs"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
 )
 
 al_hugo_site(
@@ -73,17 +80,30 @@ pkg_tar(
 
 pkg_tar(
     name = "site_source_archive",
+    srcs = [":site_source_filegroup_renamed"],
+    strip_prefix = ".",
+)
+
+al_pkg_rename_files(
+    name = "site_source_filegroup_renamed",
+    src = ":site_source_filegroup",
+    basenames = {
+        "README.md": "_index.md",
+    },
+)
+
+pkg_filegroup(
+    name = "site_source_filegroup",
     srcs = [
         ":site_config",
         "//:docs",
         "//projects/alwaldend.com/assets",
-        "//projects/alwaldend.com/content",
+        "//projects/alwaldend.com/content:docs",
         "//projects/alwaldend.com/data",
         "//projects/alwaldend.com/i18n",
         "//projects/alwaldend.com/layouts",
         "@com_alwaldend_src_hugo",
     ],
-    strip_prefix = ".",
 )
 
 genrule(

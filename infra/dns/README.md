@@ -30,4 +30,4 @@ Deploy modifies the bind file, which will cause
 
 ## BIND file
 
-{{< readfile file="zones/alwaldend.com.zone" code="true" lang="zone" >}}
+{{/*< readfile file="zones/alwaldend.com.zone" code="true" lang="zone" >*/}}

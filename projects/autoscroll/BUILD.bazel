@@ -1,7 +1,7 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("@rules_python//python:packaging.bzl", "py_package", "py_wheel")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 build_test(
     name = "autoscroll_test",
@@ -21,12 +21,19 @@ compile_pip_requirements(
     requirements_txt = ":requirements.txt",
 )
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
+    srcs = [
+        ":docs_files",
+        "//projects/autoscroll/releases:docs",
+    ],
     visibility = ["//projects:__pkg__"],
-    deps = ["//projects/autoscroll/releases:docs"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
 )
 
 # al_py_checkers(

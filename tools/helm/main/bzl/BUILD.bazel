@@ -1,13 +1,20 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 load("//tools/helm/main/bzl:al_helm_toolchain.bzl", "al_helm_toolchain")
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
+    srcs = [
+        ":docs_files",
+        ":libs.stardoc",
+    ],
     visibility = ["//tools/helm:__pkg__"],
-    deps = [":libs.stardoc"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
 )
 
 al_bzl_library_map(

@@ -1,25 +1,26 @@
 load("@com_alwaldend_src_npm//:defs.bzl", "npm_link_all_packages")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/bzl/main/bzl:al_alias_map.bzl", "al_alias_map")
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
-    visibility = ["//:__pkg__"],
-    deps = [
+    srcs = [":docs_files"] + [
         "//{}/{}:docs".format(
             package_name(),
             package,
         )
         for package in subpackages(
             include = ["*"],
-            exclude = [
-                "trufflehog",
-                "binary_toolchain",
-            ],
+            exclude = [],
         )
     ],
+    visibility = ["//:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
 )
 
 npm_link_all_packages(

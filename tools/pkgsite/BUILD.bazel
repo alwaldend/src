@@ -1,5 +1,4 @@
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
-
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 # gazelle:resolve go golang.org/x/pkgsite/static @tools_org_golang_x_pkgsite//static:go_default_library
 # gazelle:resolve go golang.org/x/mod/modfile @tools_org_golang_x_mod//modfile:go_default_library
 # gazelle:resolve go golang.org/x/net/context @tools_org_golang_x_net//context:go_default_library
@@ -14,9 +13,14 @@ alias(
     visibility = ["//:__subpackages__"],
 )
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
+    srcs = [":docs_files"],
     visibility = ["//tools:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
 )

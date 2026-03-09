@@ -3,26 +3,30 @@ load("@com_alwaldend_src_npm//:defs.bzl", "npm_link_all_packages")
 load("@com_alwaldend_src_pip//:requirements.bzl", "all_whl_requirements")
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
-load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 load("@tools_com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "buildifier_test")
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 load("//tools/md/main/bzl:al_md_data.bzl", "al_md_data")
 load("//tools/toml/main/bzl:al_toml_data.bzl", "al_toml_data")
 load("//tools/txt/main/bzl:al_txt_data.bzl", "al_txt_data")
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = [":LICENSE.txt"],
-    renames = {},
-    visibility = ["//projects/alwaldend.com:__pkg__"],
-    deps = [
+    srcs = [
+        ":docs_files",
         "//infra:docs",
         "//projects:docs",
         "//tools:docs",
     ],
+    visibility = ["//projects/alwaldend.com:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = [":LICENSE.txt"],
+    prefix = "content/docs",
 )
 
 exports_files(

@@ -1,15 +1,20 @@
 load("@com_alwaldend_src_tools_dnscontrol//:defs.bzl", "dnscontrol_binary", "dnscontrol_test")
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 
 _ZONES = glob(["zones/**/*.zone"])
 
 _SECRETS = ["//tools/secrets:dns"]
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]) + _ZONES,
-    prefix = package_name(),
+    srcs = [":docs_files"],
     visibility = ["//infra:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]) + _ZONES,
+    prefix = "content/docs/{}".format(package_name()),
 )
 
 dnscontrol_binary(

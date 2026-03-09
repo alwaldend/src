@@ -1,16 +1,19 @@
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
-
-# gazelle:resolve go mvdan.cc/sh/v3/shell @tools_cc_mvdan_sh_v3//shell:go_default_library
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 
 alias(
     name = "shfmt",
-    actual = "@tools_cc_mvdan_sh_v3//cmd/shfmt",
+    actual = "@com_alwaldend_src_tools_shfmt//:shfmt_binary",
     visibility = ["//:__subpackages__"],
 )
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
+    srcs = [":docs_files"],
     visibility = ["//tools:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
 )

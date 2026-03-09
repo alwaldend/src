@@ -1,4 +1,5 @@
 load("@com_alwaldend_src_tools_trufflehog//:defs.bzl", "trufflehog_test")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
 
 alias(
@@ -25,12 +26,16 @@ trufflehog_test(
     toolchains = ["//tools/git/main/bzl:toolchain_resolved"],
 )
 
-# al_docs_files(
-#     name = "docs",
-#     srcs = glob(["*.md"]),
-#     prefix = package_name(),
-#     visibility = ["//tools:__pkg__"],
-#     deps = [
-#         "//tools/trufflehog/main/bzl:docs",
-#     ],
-# )
+pkg_filegroup(
+    name = "docs",
+    srcs = [
+        ":docs_files",
+    ],
+    visibility = ["//tools:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
+)

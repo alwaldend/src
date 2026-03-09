@@ -1,18 +1,23 @@
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
+    srcs = [
+        ":docs_files",
+        "//projects/nexus_security_plugin/releases:docs",
+    ],
+    visibility = ["//projects:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
     srcs = glob(["*.md"]) + [
         "diagram.svg",
         "//projects/nexus_security_plugin/main/java:model/README.md",
     ],
-    prefix = package_name(),
+    prefix = "content/docs/{}".format(package_name()),
     renames = {
         "README.md": "_index.md",
         "//projects/nexus_security_plugin/main/java:model/README.md": "model/_index.md",
     },
-    visibility = ["//projects:__pkg__"],
-    deps = [
-        "//projects/nexus_security_plugin/releases:docs",
-    ],
 )

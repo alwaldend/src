@@ -1,5 +1,5 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 al_bzl_library_map(
     name = "libs",
@@ -9,10 +9,17 @@ al_bzl_library_map(
     visibility = ["//:__subpackages__"],
 )
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
+    srcs = [
+        ":docs_files",
+        ":libs.stardoc",
+    ],
     visibility = ["//tools/patch:__pkg__"],
-    deps = [":libs.stardoc"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
 )

@@ -3,7 +3,7 @@ load("@buf_with_custom_name//:defs.bzl", "buf_binary", "buf_run_binary", "buf_te
 # generated repos already have a binary target
 alias(
     name = "buf_alias",
-    actual = "@buf_with_custom_name//:binary",
+    actual = "@buf_with_custom_name//:buf_binary",
 )
 
 # manual binary target

@@ -1,4 +1,18 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+
+pkg_filegroup(
+    name = "docs",
+    srcs = [":docs_files"],
+    visibility = ["//visibility:public"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/projects/rules_binary_toolchain",
+    strip_prefix = strip_prefix.from_pkg(),
+)
 
 build_test(
     name = "build_test",

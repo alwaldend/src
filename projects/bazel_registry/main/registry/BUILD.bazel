@@ -1,12 +1,19 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//projects/bazel_registry/main/bzl:al_bzl_registry_docs.bzl", "al_bzl_registry_docs")
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
+    srcs = [
+        ":docs_files",
+        ":registry_docs",
+    ],
     visibility = ["//projects/bazel_registry:__pkg__"],
-    deps = [":registry_docs"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
 )
 
 al_bzl_registry_docs(

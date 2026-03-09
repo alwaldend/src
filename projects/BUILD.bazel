@@ -1,4 +1,4 @@
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
 
 al_release_binary(
@@ -21,12 +21,9 @@ al_release_binary(
     ] + [],
 )
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
-    visibility = ["//:__pkg__"],
-    deps = [
+    srcs = [":docs_files"] + [
         "//projects/{}:docs".format(package)
         for package in subpackages(
             include = ["*"],
@@ -37,5 +34,15 @@ al_docs_files(
                 "rules_binary_toolchain",
             ],
         )
-    ],  #+ ["@rules_template//:docs"],
+    ] + [
+        "@rules_binary_toolchain//:docs",
+        "@rules_template//:docs",
+    ],
+    visibility = ["//:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
 )

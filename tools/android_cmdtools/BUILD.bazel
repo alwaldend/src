@@ -1,4 +1,4 @@
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 
 [
     alias(
@@ -20,10 +20,14 @@ load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
     ]
 ]
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
+    srcs = [":docs_files"],
     visibility = ["//tools:__pkg__"],
-    deps = [],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
 )

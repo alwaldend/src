@@ -1,12 +1,18 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup")
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = "misc/leetcode_submissions",
+    srcs = [
+        ":docs_files",
+        ":submissions",
+    ],
     visibility = ["//projects/alwaldend.com/content/docs/misc:__pkg__"],
-    deps = [":submissions"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/misc/leetcode_submissions",
 )
 
 pkg_filegroup(

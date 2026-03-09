@@ -16,6 +16,8 @@ binary_toolchain_extension.toolchains(
         "cloc": "com_alwaldend_src_tools_cloc",
         "stylua": "com_alwaldend_src_tools_stylua",
         "taplo": "com_alwaldend_src_tools_taplo",
+        "shfmt": "com_alwaldend_src_tools_shfmt",
+        "hugo": "com_alwaldend_src_tools_hugo",
     },
 )
 
@@ -31,6 +33,8 @@ register_toolchains(
     "@com_alwaldend_src_tools_cloc//:all",
     "@com_alwaldend_src_tools_stylua//:all",
     "@com_alwaldend_src_tools_taplo//:all",
+    "@com_alwaldend_src_tools_shfmt//:all",
+    "@com_alwaldend_src_tools_hugo//:all",
 )
 
 use_repo(
@@ -40,9 +44,11 @@ use_repo(
     "com_alwaldend_src_tools_buf",
     "com_alwaldend_src_tools_cloc",
     "com_alwaldend_src_tools_dnscontrol",
+    "com_alwaldend_src_tools_hugo",
     "com_alwaldend_src_tools_minisign",
     "com_alwaldend_src_tools_oras",
     "com_alwaldend_src_tools_shellcheck",
+    "com_alwaldend_src_tools_shfmt",
     "com_alwaldend_src_tools_stylua",
     "com_alwaldend_src_tools_taplo",
     "com_alwaldend_src_tools_trufflehog",

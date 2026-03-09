@@ -1,7 +1,7 @@
 load("@bazel_skylib//lib:paths.bzl", "paths")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/bazel_contracts/main/bzl:al_bazel_contracts_list.bzl", "AL_BAZEL_CONTRACTS_LIST")
 load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
-load("//tools/docs/main/bzl:al_docs_files.bzl", "al_docs_files")
 
 al_bzl_library_map(
     name = "libs",
@@ -20,13 +20,18 @@ al_bzl_library_map(
     visibility = ["//:__subpackages__"],
 )
 
-al_docs_files(
+pkg_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
-    prefix = package_name(),
-    visibility = ["//tools/bazel_contracts:__pkg__"],
-    deps = [
+    srcs = [
+        ":docs_files",
         ":libs.stardoc",
         # "@com_alwaldend_src_tools_bazel_contracts//:docs",
     ],
+    visibility = ["//tools/bazel_contracts:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
 )
