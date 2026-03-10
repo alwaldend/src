@@ -55,21 +55,25 @@
     ],
     "archives": [
         {
+            "archive_name": "linux_x86_64",
             "toolchain_name": "hugo",
             "toolchain_version": "0.157.0",
-            "archive_name": "linux_x86_64",
             "binaries": [
                 {
                     "name": "hugo",
                     "path": "out/hugo"
                 }
             ],
-            "download_and_extract": {
-                "url": "https://github.com/gohugoio/hugo/releases/download/v0.157.0/hugo_extended_0.157.0_linux-amd64.tar.gz",
-                "output": "out",
-                "integrity": "sha256-Wy/f5GRqSO6YEHA1Ak/WZAKZv/McRIbCWe7rn0yCJJI="
-            },
-            "toolchain": {
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/gohugoio/hugo/releases/download/v0.157.0/hugo_extended_0.157.0_linux-amd64.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-Wy/f5GRqSO6YEHA1Ak/WZAKZv/McRIbCWe7rn0yCJJI="
+                    }
+                }
+            ],
+            "rules": {
                 "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
             }
         },
@@ -83,11 +87,15 @@
                     "path": "out/stylua"
                 }
             ],
-            "download_and_extract": {
-                "url": "https://github.com/JohnnyMorganz/StyLua/releases/download/v2.4.0/stylua-linux-x86_64.zip",
-                "output": "out",
-                "integrity": "sha256-+chMIQcSBhywOrg1SjSl1PX88fNp0s6Ra+o6ufet2sg="
-            },
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/JohnnyMorganz/StyLua/releases/download/v2.4.0/stylua-linux-x86_64.zip",
+                        "output": "out",
+                        "integrity": "sha256-+chMIQcSBhywOrg1SjSl1PX88fNp0s6Ra+o6ufet2sg="
+                    }
+                }
+            ],
             "toolchain": {
                 "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
             }
@@ -102,11 +110,15 @@
                     "path": "out/cloc-2.08/cloc"
                 }
             ],
-            "download_and_extract": {
-                "url": "https://github.com/AlDanial/cloc/releases/download/v2.08/cloc-2.08.tar.gz",
-                "output": "out",
-                "integrity": "sha256-zjyG0e20SHKCeAee/22ZaHR3s8H+hLLxpNwUz7L4Edw="
-            },
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/AlDanial/cloc/releases/download/v2.08/cloc-2.08.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-zjyG0e20SHKCeAee/22ZaHR3s8H+hLLxpNwUz7L4Edw="
+                    }
+                }
+            ],
             "toolchain": {
                 "exec_compatible_with": ["@platforms//os:linux"]
             }
@@ -121,11 +133,15 @@
                     "path": "out/shellcheck-v0.11.0/shellcheck"
                 }
             ],
-            "download_and_extract": {
-                "url": "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.linux.x86_64.tar.xz",
-                "output": "out",
-                "integrity": "sha256-jDvhKwXVwXegTCnjx4zomshvFZVoHKsUm2W5fE4icZg="
-            },
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/koalaman/shellcheck/releases/download/v0.11.0/shellcheck-v0.11.0.linux.x86_64.tar.xz",
+                        "output": "out",
+                        "integrity": "sha256-jDvhKwXVwXegTCnjx4zomshvFZVoHKsUm2W5fE4icZg="
+                    }
+                }
+            ],
             "toolchain": {
                 "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
             }
@@ -140,18 +156,23 @@
                     "path": "out/shfmt"
                 }
             ],
-            "download": {
-                "url": "https://github.com/mvdan/sh/releases/download/v3.12.0/shfmt_v3.12.0_linux_amd64",
-                "output": "out/shfmt",
-                "integrity": "sha256-2fuyqcM9E/R+dhjPNiqRTQKdAqbfEkBk//BP1oinReo="
-            },
-            "execute": [
+            "actions": [
                 {
-                    "arguments": [
-                        "chmod",
-                        "u+x",
-                        "out/shfmt"
-                    ]
+                    "download": {
+                        "url": "https://github.com/mvdan/sh/releases/download/v3.12.0/shfmt_v3.12.0_linux_amd64",
+                        "output": "out/shfmt",
+                        "integrity": "sha256-2fuyqcM9E/R+dhjPNiqRTQKdAqbfEkBk//BP1oinReo="
+                    }
+                },
+
+                {
+                    "execute": {
+                        "arguments": [
+                            "chmod",
+                            "u+x",
+                            "out/shfmt"
+                        ]
+                    }
                 }
             ],
             "toolchain": {
@@ -168,25 +189,32 @@
                     "path": "out/taplo"
                 }
             ],
-            "download": {
-                "url": "https://github.com/tamasfe/taplo/releases/download/0.10.0/taplo-linux-x86_64.gz",
-                "output": "out/taplo.gz",
-                "integrity": "sha256-j+GWuJTM+QcvmNThAToYAwbhfSRIMLA5hu5ejqvrYVY="
-            },
-            "execute": [
+            "actions": [
                 {
-                    "arguments": [
-                        "gzip",
-                        "--decompress",
-                        "out/taplo.gz"
-                    ]
+                    "download": {
+                        "url": "https://github.com/tamasfe/taplo/releases/download/0.10.0/taplo-linux-x86_64.gz",
+                        "output": "out/taplo.gz",
+                        "integrity": "sha256-j+GWuJTM+QcvmNThAToYAwbhfSRIMLA5hu5ejqvrYVY="
+                    }
                 },
                 {
-                    "arguments": [
-                        "chmod",
-                        "u+x",
-                        "out/taplo"
-                    ]
+                    "execute": {
+                        "arguments": [
+                            "gzip",
+                            "--decompress",
+                            "out/taplo.gz"
+                        ]
+                    }
+                },
+                {
+                    "execute": {
+                        "arguments": [
+                            "chmod",
+                            "u+x",
+                            "out/taplo"
+
+                        ]
+                    }
                 }
             ],
             "toolchain": {
@@ -203,11 +231,15 @@
                     "path": "out/dnscontrol"
                 }
             ],
-            "download_and_extract": {
-                "url": "https://github.com/StackExchange/dnscontrol/releases/download/v4.36.1/dnscontrol_4.36.1_linux_amd64.tar.gz",
-                "output": "out",
-                "integrity": "sha256-gqdZznAnROBYgnb4AqAAuHigwpbucNozO9Q5K+10BSM="
-            },
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/StackExchange/dnscontrol/releases/download/v4.36.1/dnscontrol_4.36.1_linux_amd64.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-gqdZznAnROBYgnb4AqAAuHigwpbucNozO9Q5K+10BSM="
+                    }
+                }
+            ],
             "toolchain": {
                 "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
             }
@@ -222,11 +254,15 @@
                     "path": "out/blender-5.0.1-linux-x64/blender"
                 }
             ],
-            "download_and_extract": {
-                "url": "https://ftp.halifax.rwth-aachen.de/blender/release/Blender5.0/blender-5.0.1-linux-x64.tar.xz",
-                "output": "out",
-                "integrity": "sha256-gBlYDuG3Ji5QX0GWoAI3zPdDyI0gWzjTQgFRBnbmCwk="
-            },
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://ftp.halifax.rwth-aachen.de/blender/release/Blender5.0/blender-5.0.1-linux-x64.tar.xz",
+                        "output": "out",
+                        "integrity": "sha256-gBlYDuG3Ji5QX0GWoAI3zPdDyI0gWzjTQgFRBnbmCwk="
+                    }
+                }
+            ],
             "toolchain": {
                 "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
             }
@@ -241,11 +277,15 @@
                     "path": "out/minisign-linux/x86_64/minisign"
                 }
             ],
-            "download_and_extract": {
-                "url": "https://github.com/jedisct1/minisign/releases/download/0.12/minisign-0.12-linux.tar.gz",
-                "output": "out",
-                "integrity": "sha256-mlmbSLput7HoDxLza5TOynwAt6UXPJXD78iNmCKVfnM="
-            },
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/jedisct1/minisign/releases/download/0.12/minisign-0.12-linux.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-mlmbSLput7HoDxLza5TOynwAt6UXPJXD78iNmCKVfnM="
+                    }
+                }
+            ],
             "toolchain": {
                 "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
             }
@@ -260,11 +300,15 @@
                     "path": "out/minisign-linux/aarch64/minisign"
                 }
             ],
-            "download_and_extract": {
-                "url": "https://github.com/jedisct1/minisign/releases/download/0.12/minisign-0.12-linux.tar.gz",
-                "output": "out",
-                "integrity": "sha256-mlmbSLput7HoDxLza5TOynwAt6UXPJXD78iNmCKVfnM="
-            },
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/jedisct1/minisign/releases/download/0.12/minisign-0.12-linux.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-mlmbSLput7HoDxLza5TOynwAt6UXPJXD78iNmCKVfnM="
+                    }
+                }
+            ],
             "toolchain": {
                 "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:aarch64"]
             }
@@ -279,11 +323,15 @@
                     "path": "out/oras"
                 }
             ],
-            "download_and_extract": {
-                "url": "https://github.com/oras-project/oras/releases/download/v1.3.0/oras_1.3.0_linux_amd64.tar.gz",
-                "output": "out",
-                "integrity": "sha256-bNxpL5KRAP6wiqjeWE0C97zDDsfYi8KtwgVNeC21fGQ="
-            },
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/oras-project/oras/releases/download/v1.3.0/oras_1.3.0_linux_amd64.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-bNxpL5KRAP6wiqjeWE0C97zDDsfYi8KtwgVNeC21fGQ="
+                    }
+                }
+            ],
             "toolchain": {
                 "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
             }
@@ -298,11 +346,15 @@
                     "path": "out/trufflehog"
                 }
             ],
-            "download_and_extract": {
-                "url": "https://github.com/trufflesecurity/trufflehog/releases/download/v3.91.2/trufflehog_3.91.2_linux_amd64.tar.gz",
-                "output": "out",
-                "integrity": "sha256-csHVtGWHiIcXjDMGPvKJO58VKeea9/JBaf7VKGiywFY="
-            },
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/trufflesecurity/trufflehog/releases/download/v3.91.2/trufflehog_3.91.2_linux_amd64.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-csHVtGWHiIcXjDMGPvKJO58VKeea9/JBaf7VKGiywFY="
+                    }
+                }
+            ],
             "toolchain": {
                 "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
             }
@@ -317,11 +369,15 @@
                     "path": "out/buf/bin/buf"
                 }
             ],
-            "download_and_extract": {
-                "url": "https://github.com/bufbuild/buf/releases/download/v1.59.0/buf-Linux-x86_64.tar.gz",
-                "output": "out",
-                "integrity": "sha256-gexK1n1mpPl1XnmNm/Byarw7Zb4IIltlVQIBhOs/F8I="
-            },
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/bufbuild/buf/releases/download/v1.59.0/buf-Linux-x86_64.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-gexK1n1mpPl1XnmNm/Byarw7Zb4IIltlVQIBhOs/F8I="
+                    }
+                }
+            ],
             "toolchain": {
                 "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
             }
@@ -372,11 +428,15 @@
                     "path": "out/cmdline-tools/bin/sdkmanager"
                 }
             ],
-            "download_and_extract": {
-                "url": "https://dl.google.com/android/repository/commandlinetools-linux-14742923_latest.zip",
-                "output": "out",
-                "integrity": "sha256-BEUwZrVAQJ2XXGdteB2hR3R53eN2ExDxp+uSod+xWvc="
-            },
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://dl.google.com/android/repository/commandlinetools-linux-14742923_latest.zip",
+                        "output": "out",
+                        "integrity": "sha256-BEUwZrVAQJ2XXGdteB2hR3R53eN2ExDxp+uSod+xWvc="
+                    }
+                }
+            ],
             "toolchain": {
                 "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
             }

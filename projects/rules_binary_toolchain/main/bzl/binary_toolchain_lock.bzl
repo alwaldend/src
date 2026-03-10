@@ -6,18 +6,25 @@ BinaryToolchainLockArchiveBinary = provider(
     },
 )
 
+BinaryToolchainLockArchiveAction = provider(
+    doc = "Archive action",
+    fields = {
+        "download": "Kwargs for repository_ctx.download",
+        "download_and_extract": "Kwargs for repository_ctx.download_and_extract",
+        "execute": "List of kwargs for repository_ctx.execute",
+        "extract": "Kwargs for repository_ctx.extract",
+    },
+)
+
 BinaryToolchainLockArchive = provider(
     doc = "Binary toolchain archive",
     fields = {
         "toolchain_name": "Toolchain name",
         "toolchain_version": "Toolchain version",
         "archive_name": "Archive name",
-        "download": "Kwargs for repository_ctx.download",
-        "download_and_extract": "Kwargs for repository_ctx.download_and_extract",
-        "execute": "List of kwargs for repository_ctx.execute",
-        "extract": "Kwargs for repository_ctx.extract",
+        "actions": "List of BinaryToolchainLockArchiveAction",
         "toolchain": "Kwargs for toolchain rules",
-        "binaries": "List of BinaryToolchainArchiveBinary",
+        "binaries": "List of BinaryToolchainLockArchiveBinary",
     },
 )
 
@@ -102,11 +109,22 @@ def binary_toolchain_lock_parse_archive(archive):
     archive_name = archive.get("archive_name")
     if not archive_name:
         fail("archive is missing archive_name")
-    download = archive.get("download", {})
-    download_and_extract = archive.get("download_and_extract", {})
-    if not download and not download_and_extract:
-        fail("archive missing download options")
-    execute = archive.get("execute", [])
+    actions = []
+    for action in archive.get("actions", []):
+        if type(action) != "dict":
+            fail("invalid action type: {}".format(action))
+        download = action.get("download", {})
+        download_and_extract = action.get("download_and_extract", {})
+        execute = action.get("execute", {})
+        extract = action.get("extract", {})
+        actions.append(
+            BinaryToolchainLockArchiveAction(
+                download = download,
+                download_and_extract = download_and_extract,
+                execute = execute,
+                extract = extract,
+            ),
+        )
     binaries = []
     for bin in archive.get("binaries", []):
         if type(bin) != "dict":
@@ -123,17 +141,13 @@ def binary_toolchain_lock_parse_archive(archive):
                 path = path,
             ),
         )
-    extract = archive.get("extract", {})
     toolchain = archive.get("toolchain", {})
     res = BinaryToolchainLockArchive(
         toolchain_name = toolchain_name,
         toolchain_version = toolchain_version,
         archive_name = archive_name,
-        download = download,
-        download_and_extract = download_and_extract,
-        execute = execute,
-        extract = extract,
         toolchain = toolchain,
+        actions = actions,
         binaries = binaries,
     )
     return res
