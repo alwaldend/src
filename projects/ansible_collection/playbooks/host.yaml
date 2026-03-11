@@ -1,0 +1,6 @@
+- name: Setup hosts
+  hosts: hosts
+  force_handlers: true
+  become: true
+  roles:
+    - role: alwaldend.main.host

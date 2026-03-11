@@ -1,0 +1,24 @@
+ansible_user: ansible
+
+## hardening
+ssh_allow_tcp_forwarding: local
+sysctl_overwrite:
+  net.ipv4.ip_forward: 1
+  net.ipv6.conf.all.forwarding: 1
+  # k3s hardening: https://docs.k3s.io/security/hardening-guide#host-level-requirements
+  vm.panic_on_oom: 0
+  vm.overcommit_memory: 1
+  kernel.panic: 10
+  kernel.panic_on_oops: 1
+
+## firewall
+firewall_allow_port_from:
+  - src: "any"
+    port: 443
+    comment: Web
+  - src: "any"
+    port: 80
+    comment: Web
+  - src: "any"
+    port: 22
+    comment: ssh
