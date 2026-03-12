@@ -13,7 +13,7 @@ for root in "" "${{0}}.runfiles/{workspace_name}/" "${{RUNFILES_DIR:-}}/{workspa
             . "${{root}}${{source_script}}"
             rm "${{root}}${{source_script}}"
         done
-        exec "${{root}}/{bin}" {arguments} "${{@}}"
+        exec "${{root}}{bin}" {arguments} "${{@}}"
     fi
 done
 echo "Could not find the binary"

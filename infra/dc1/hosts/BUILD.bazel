@@ -4,7 +4,7 @@ load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
 pkg_filegroup(
     name = "docs",
     srcs = [":docs_files"],
-    visibility = ["//infra:__pkg__"],
+    visibility = ["//infra/dc1:__pkg__"],
 )
 
 pkg_files(
