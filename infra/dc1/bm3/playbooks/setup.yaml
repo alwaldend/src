@@ -1,0 +1,9 @@
+- name: Setup
+  hosts: bm3
+  force_handlers: true
+  become: true
+  roles:
+    - role: alwaldend.main.host
+    - role: alwaldend.main.traefik
+    - role: alwaldend.main.vault
+    - role: alwaldend.main.gitea
