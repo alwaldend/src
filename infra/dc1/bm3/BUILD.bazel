@@ -40,9 +40,13 @@ pkg_files(
     name = "srcs_files",
     srcs = [
         "inventory.yaml",
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
     ] + glob([
         "group_vars/**/*.yaml",
         "playbooks/*.yaml",
     ]),
+    renames = {
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "files/vault",
+    },
     strip_prefix = strip_prefix.from_pkg(),
 )

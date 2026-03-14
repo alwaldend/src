@@ -3,6 +3,9 @@ binary_toolchain_extension = use_extension(
     "binary_toolchain_extension",
 )
 binary_toolchain_extension.toolchains(
+    archives = {
+        "vault": ["linux_x86_64"],
+    },
     lock = "@rules_binary_toolchain//examples:binary_toolchain.json",
     toolchains_map = {
         "trufflehog": "com_alwaldend_src_tools_trufflehog",
@@ -18,6 +21,7 @@ binary_toolchain_extension.toolchains(
         "taplo": "com_alwaldend_src_tools_taplo",
         "shfmt": "com_alwaldend_src_tools_shfmt",
         "hugo": "com_alwaldend_src_tools_hugo",
+        "vault": "com_alwaldend_src_tools_vault",
     },
 )
 
@@ -35,6 +39,7 @@ register_toolchains(
     "@com_alwaldend_src_tools_taplo//:all",
     "@com_alwaldend_src_tools_shfmt//:all",
     "@com_alwaldend_src_tools_hugo//:all",
+    "@com_alwaldend_src_tools_vault//:all",
 )
 
 use_repo(
@@ -52,4 +57,6 @@ use_repo(
     "com_alwaldend_src_tools_stylua",
     "com_alwaldend_src_tools_taplo",
     "com_alwaldend_src_tools_trufflehog",
+    "com_alwaldend_src_tools_vault",
+    "com_alwaldend_src_tools_vault_linux_x86_64",
 )

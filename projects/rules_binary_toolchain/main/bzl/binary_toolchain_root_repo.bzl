@@ -52,7 +52,7 @@ toolchain_type(
             ),
             {name}_toolchain(
                 name = "{name}_toolchain_{{}}_impl".format(archive["archive_name"]),
-                binary = "@{{}}_{{}}//:{name}_binary".format("{original_name}", archive["archive_name"]),
+                binary = "@{{}}_{{}}//:{name}_native_binary".format("{original_name}", archive["archive_name"]),
                 exec_compatible_with = archive["toolchain"].get("exec_compatible_with"),
                 visibility = archive["toolchain"].get("visibility", ["//visibility:public"]),
             )

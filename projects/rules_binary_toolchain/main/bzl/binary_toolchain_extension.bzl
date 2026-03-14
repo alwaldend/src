@@ -8,6 +8,10 @@ def _impl(ctx):
     for mod in ctx.modules:
         for tag in mod.tags.toolchains:
             lock = binary_toolchain_lock_parse(json.decode(ctx.read(tag.lock)))
+            if ctx.is_dev_dependency(tag):
+                dep_archive = root_module_direct_dev_deps
+            else:
+                dep_archive = root_module_direct_deps
             toolchains = {}
             for toolchain in tag.toolchains:
                 toolchains[toolchain] = toolchain
@@ -18,12 +22,11 @@ def _impl(ctx):
                     toolchain_name = toolchain_name,
                     lock = tag.lock,
                 )
-                if ctx.is_dev_dependency(tag):
-                    root_module_direct_dev_deps.append(bazel_name)
-                else:
-                    root_module_direct_deps.append(bazel_name)
+                dep_archive.append(bazel_name)
                 for archive in binary_toolchain_lock_find_archives(lock, toolchain_name):
                     name = "{}_{}".format(bazel_name, archive.archive_name)
+                    if archive.archive_name in tag.archives.get(toolchain_name, []):
+                        dep_archive.append(name)
                     binary_toolchain_repo(
                         name = name,
                         archive_lock = "@{}//:toolchain_{}_archive_lock.json".format(bazel_name, archive.archive_name),
@@ -45,10 +48,13 @@ binary_toolchain_extension = module_extension(
                     doc = "Toolchain lock",
                 ),
                 "toolchains": attr.string_list(
-                    doc = "List of toolchains names that will be loaded",
+                    doc = "List of toolchains names that will be exposed",
                 ),
                 "toolchains_map": attr.string_dict(
-                    doc = "Map of toolchains that will be loaded, keys are toolchain names, values are bazel names that will be used instead of original names",
+                    doc = "Map of toolchains that will be exposed with different names, keys are toolchain names, values are new names",
+                ),
+                "archives": attr.string_list_dict(
+                    doc = "Map of archives that will be exposed, keys are toolchain names, values are list of archive names",
                 ),
             },
         ),

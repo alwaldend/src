@@ -4,6 +4,4 @@
   become: true
   roles:
     - role: alwaldend.main.host
-    - role: alwaldend.main.traefik
-    - role: alwaldend.main.vault
-    - role: alwaldend.main.gitea
+    # - role: alwaldend.main.vault
