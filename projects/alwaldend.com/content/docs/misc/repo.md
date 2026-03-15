@@ -111,3 +111,8 @@ ln -s ../../.bazelignore
 ln -s ../../.bazeliskrc
 ln -s ../../tools/bazelrc/main/bazelrc/bzl_project.bazelrc .bazelrc
 ```
+
+## Remote timeout
+
+If some repo rules are timing out (java ones, for example), you can add
+`--remote_timeout 1000000`

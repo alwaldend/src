@@ -4,19 +4,22 @@
   block:
     - name: Setup facts
       ansible.builtin.import_role:
-        name: facts
+        name: alwaldend.main.facts
     - name: Setup firewall
       ansible.builtin.import_role:
-        name: firewall
+        name: alwaldend.main.firewall
     - name: Setup users
       ansible.builtin.import_role:
-        name: users
+        name: alwaldend.main.users
+    - name: Setup LVM volumes
+      ansible.builtin.import_role:
+        name: alwaldend.main.lvol
     - name: Setup ssh
       ansible.builtin.import_role:
-        name: ssh
+        name: alwaldend.main.ssh
     - name: Setup os
       ansible.builtin.import_role:
-        name: os
+        name: alwaldend.main.os
     - name: Update all packages
       ansible.builtin.import_role:
-        name: update_all_packages
+        name: alwaldend.main.update_all_packages

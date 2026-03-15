@@ -1,5 +1,13 @@
 ansible_user: ansible
 
+lvol_volumes:
+  - vg: fedora
+    lv: vault
+    size: "{{ 100 * 1024 }}"
+  - vg: fedora
+    lv: gitea
+    size: "{{ 100 * 1024 }}"
+
 ## hardening
 ssh_allow_tcp_forwarding: local
 sysctl_overwrite:

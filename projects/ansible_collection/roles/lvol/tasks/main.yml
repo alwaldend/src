@@ -1,0 +1,11 @@
+- name: Gather facts
+  tags:
+    - lvol
+  block:
+    - name: Setup lvol
+      loop: "{{ lvol_volumes }}"
+      community.general.lvol:
+        vg: "{{ item.vg }}"
+        lv: "{{ item.lv }}"
+        size: "{{ item.size }}"
+        resizefs: "{{ item.resizefs | default(true) }}"
