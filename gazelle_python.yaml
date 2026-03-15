@@ -20,6 +20,7 @@ manifest:
     cryptography: cryptography
     distlib: distlib
     docutils: docutils
+    fd7dcdb10166ebd4db98__mypyc: pytokens
     filelock: filelock
     flake8: flake8
     flake8p: flake8_pyproject
@@ -68,4 +69,4 @@ manifest:
     yaml: pyyaml
   pip_repository:
     name: com_alwaldend_src_pip
-integrity: 4cb82ca490245412b2528e5897e12ab10a2ab18525b37882a8fcd14d48be072b
+integrity: 1e0ca413a108f74f32c0082e6de8c9f0812c64424a5ad017817ade8444e4ea33
