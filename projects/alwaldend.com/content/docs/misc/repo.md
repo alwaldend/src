@@ -20,7 +20,7 @@ tags:
   ```
 - Install git hooks:
   ```sh
-  bazel run //tools/git_hooks:install
+  bazel run //:write_git_hooks
   ```
 - Setup dotfiles (optional):
   ```sh

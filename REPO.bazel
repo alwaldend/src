@@ -13,7 +13,6 @@ ignore_directories(
         "**/node_modules",
         "**/compile_commands.json",
         "**/out",
-        "**/.git",
         "**/.bzlenv",
         "**/.aspect",
         "**/.cache",

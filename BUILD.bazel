@@ -1,3 +1,4 @@
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file", "write_source_files")
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@com_alwaldend_src_npm//:defs.bzl", "npm_link_all_packages")
 load("@com_alwaldend_src_pip//:requirements.bzl", "all_whl_requirements")
@@ -11,6 +12,20 @@ load("@tools_com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier"
 load("//tools/md/main/bzl:al_md_data.bzl", "al_md_data")
 load("//tools/toml/main/bzl:al_toml_data.bzl", "al_toml_data")
 load("//tools/txt/main/bzl:al_txt_data.bzl", "al_txt_data")
+
+write_source_file(
+    name = "write_git_hooks_precommit",
+    executable = True,
+    in_file = "//tools/git_hooks/main/sh:precommit",
+    out_file = ".git/hooks/pre-commit",
+)
+
+write_source_files(
+    name = "write_git_hooks",
+    additional_update_targets = [
+        ":write_git_hooks_precommit",
+    ],
+)
 
 pkg_filegroup(
     name = "docs",

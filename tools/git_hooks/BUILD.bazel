@@ -1,17 +1,4 @@
-load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
-
-write_file(
-    name = "install",
-    out = "install.sh",
-    content = [
-        "#!/usr/bin/env sh",
-        "set -eux",
-        'cd "${BUILD_WORKSPACE_DIRECTORY}"',
-        'cp "tools/git_hooks/main/sh/precommit.sh" ".git/hooks/pre-commit"',
-    ],
-    is_executable = True,
-)
 
 pkg_filegroup(
     name = "docs",
