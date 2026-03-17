@@ -1,5 +1,6 @@
 vault_user: vault
 vault_user_uid: 3123
-vault_data_dir: /opt/vault/data
-vault_config_dir: /opt/vault/configs
+vault_dir: "/opt/vault"
+vault_data_dir: "{{ vault_dir }}/data"
+vault_config_dir: "{{ vault_dir }}/configs"
 vault_bin_path: /usr/bin/vault

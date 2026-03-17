@@ -7,6 +7,24 @@ lvol_volumes:
   - vg: fedora
     lv: gitea
     size: "{{ 100 * 1024 }}"
+filesystem_setup:
+  - dev: /dev/fedora/vault
+    resizefs: true
+    fstype: ext4
+  - dev: /dev/fedora/gitea
+    resizefs: true
+    fstype: ext4
+mount_points:
+  - path: /opt/vault
+    src: /dev/fedora/vault
+    fstype: ext4
+    state: mounted
+  - path: /opt/gitea
+    src: /dev/fedora/gitea
+    fstype: ext4
+    state: mounted
+
+vault_dir: "/opt/vault"
 
 ## hardening
 ssh_allow_tcp_forwarding: local

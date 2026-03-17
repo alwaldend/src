@@ -1,0 +1,11 @@
+- name: Mount
+  tags:
+    - mount
+  block:
+    - name: Gather facts
+      loop: "{{ mount_points }}"
+      ansible.posix.mount:
+        path: "{{ item.path }}"
+        src: "{{ item.src }}"
+        state: "{{ item.state }}"
+        fstype: "{{ item.fstype }}"

@@ -14,6 +14,12 @@
     - name: Setup LVM volumes
       ansible.builtin.import_role:
         name: alwaldend.main.lvol
+    - name: Setup filesystems
+      ansible.builtin.import_role:
+        name: alwaldend.main.filesystem
+    - name: Setup mount points
+      ansible.builtin.import_role:
+        name: alwaldend.main.mount
     - name: Setup ssh
       ansible.builtin.import_role:
         name: alwaldend.main.ssh

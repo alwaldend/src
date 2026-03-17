@@ -1,0 +1,10 @@
+- name: Setup filesystems
+  tags:
+    - filesystem
+  block:
+    - name: Gather facts
+      loop: "{{ filesystem_setup }}"
+      ansible.builtin.filesystem:
+        dev: "{{ item.dev }}"
+        fstype: "{{ item.fstype }}"
+        resizefs: "{{ item.resizefs }}"
