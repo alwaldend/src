@@ -4,7 +4,7 @@ binary_toolchain_extension = use_extension(
 )
 binary_toolchain_extension.toolchains(
     archives = {
-        "vault": ["linux_x86_64"],
+        "openbao": ["linux_x86_64"],
     },
     lock = "@rules_binary_toolchain//examples:binary_toolchain.json",
     toolchains_map = {
@@ -21,7 +21,7 @@ binary_toolchain_extension.toolchains(
         "taplo": "com_alwaldend_src_tools_taplo",
         "shfmt": "com_alwaldend_src_tools_shfmt",
         "hugo": "com_alwaldend_src_tools_hugo",
-        "vault": "com_alwaldend_src_tools_vault",
+        "openbao": "com_alwaldend_src_tools_openbao",
     },
 )
 
@@ -39,7 +39,7 @@ register_toolchains(
     "@com_alwaldend_src_tools_taplo//:all",
     "@com_alwaldend_src_tools_shfmt//:all",
     "@com_alwaldend_src_tools_hugo//:all",
-    "@com_alwaldend_src_tools_vault//:all",
+    "@com_alwaldend_src_tools_openbao//:all",
 )
 
 use_repo(
@@ -51,12 +51,12 @@ use_repo(
     "com_alwaldend_src_tools_dnscontrol",
     "com_alwaldend_src_tools_hugo",
     "com_alwaldend_src_tools_minisign",
+    "com_alwaldend_src_tools_openbao",
+    "com_alwaldend_src_tools_openbao_linux_x86_64",
     "com_alwaldend_src_tools_oras",
     "com_alwaldend_src_tools_shellcheck",
     "com_alwaldend_src_tools_shfmt",
     "com_alwaldend_src_tools_stylua",
     "com_alwaldend_src_tools_taplo",
     "com_alwaldend_src_tools_trufflehog",
-    "com_alwaldend_src_tools_vault",
-    "com_alwaldend_src_tools_vault_linux_x86_64",
 )

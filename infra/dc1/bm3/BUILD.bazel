@@ -40,13 +40,13 @@ pkg_files(
     name = "srcs_files",
     srcs = [
         "inventory.yaml",
-        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
+        "@com_alwaldend_src_tools_openbao_linux_x86_64//:bao_filegroup",
     ] + glob([
         "group_vars/**/*.yaml",
         "playbooks/*.yaml",
     ]),
     renames = {
-        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "files/vault",
+        "@com_alwaldend_src_tools_openbao_linux_x86_64//:bao_filegroup": "files/bao",
     },
     strip_prefix = strip_prefix.from_pkg(),
 )

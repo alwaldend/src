@@ -1,34 +1,24 @@
 - tags:
     - vault
   block:
-    - name: Create vault user
-      ansible.builtin.user:
-        name: "{{ vault_user }}"
-        uid: "{{ vault_user_uid }}"
-        shell: /sbin/nologin
-        home: "{{ vault_data_dir }}"
-        system: true
-    - name: Create vault directory
+    - name: Create vault dirs
+      loop:
+        - "{{ vault_dir }}"
+        - "{{ vault_data_dir }}"
+        - "{{ vault_config_dir }}"
       ansible.builtin.file:
         state: directory
         owner: "{{ vault_user }}"
         group: "{{ vault_user }}"
         mode: "0750"
-        path: "{{ vault_data_dir }}"
-    - name: Create dynamic configs directory
-      ansible.builtin.file:
-        state: directory
-        owner: "{{ vault_user }}"
-        group: "{{ vault_user }}"
-        mode: "0700"
-        path: "{{ vault_dir }}"
-    - name: Write docker-compose file
-      ansible.builtin.template:
-        owner: "{{ vault_user }}"
-        group: "{{ vault_user }}"
-        mode: "0600"
-        src: docker-compose.yaml
-        dest: "{{ vault_dir }}/docker-compose.yaml"
+        path: "{{ item }}"
+    - name: Create vault user
+      ansible.builtin.user:
+        name: "{{ vault_user }}"
+        uid: "{{ vault_user_uid }}"
+        shell: /sbin/nologin
+        home: "{{ vault_dir }}/home"
+        system: true
     - name: Write configs
       loop:
         - name: bao.hcl

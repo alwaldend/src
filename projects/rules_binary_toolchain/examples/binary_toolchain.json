@@ -53,27 +53,27 @@
             "version": "0.157.0"
         },
         {
-            "name": "vault",
-            "version": "1.21.4"
+            "name": "openbao",
+            "version": "2.5.1"
         }
     ],
     "archives": [
         {
             "archive_name": "linux_x86_64",
-            "toolchain_name": "vault",
-            "toolchain_version": "1.21.4",
+            "toolchain_name": "openbao",
+            "toolchain_version": "2.5.1",
             "binaries": [
                 {
-                    "name": "vault",
-                    "path": "out/vault"
+                    "name": "bao",
+                    "path": "out/bao"
                 }
             ],
             "actions": [
                 {
                     "download_and_extract": {
-                        "url": "https://releases.hashicorp.com/vault/1.21.4/vault_1.21.4_linux_amd64.zip",
+                        "url": "https://github.com/openbao/openbao/releases/download/v2.5.1/bao_2.5.1_Linux_x86_64.tar.gz",
                         "output": "out",
-                        "integrity": "sha256-iJtoGZD+IhuIS3ky+pyd0O6YEbk0lVTxqih6tjyfPa4="
+                        "integrity": "sha256-uQce5HxKyAq31RCmslfqYI3ZcHhgpgQlwuzDsBzl7xc="
                     }
                 }
             ],
