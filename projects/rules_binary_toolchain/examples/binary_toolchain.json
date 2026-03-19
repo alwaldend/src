@@ -55,9 +55,45 @@
         {
             "name": "openbao",
             "version": "2.5.1"
+        },
+        {
+            "name": "kubectl",
+            "version": "1.35.3"
         }
     ],
     "archives": [
+        {
+            "archive_name": "linux_x86_64",
+            "toolchain_name": "kubectl",
+            "toolchain_version": "1.35.3",
+            "binaries": [
+                {
+                    "name": "kubectl",
+                    "path": "out/kubectl"
+                }
+            ],
+            "actions": [
+                {
+                    "download": {
+                        "url": "https://dl.k8s.io/release/v1.35.3/bin/linux/amd64/kubectl",
+                        "output": "out/kubectl",
+                        "integrity": "sha256-/THH1xKSYOYI9vr5LVmEwyZ60LXq07ztL+ElaG4oatY="
+                    }
+                },
+                {
+                    "execute": {
+                        "arguments": [
+                            "chmod",
+                            "u+x",
+                            "out/kubectl"
+                        ]
+                    }
+                }
+            ],
+            "rules": {
+                "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
+            }
+        },
         {
             "archive_name": "linux_x86_64",
             "toolchain_name": "openbao",
@@ -71,9 +107,9 @@
             "actions": [
                 {
                     "download_and_extract": {
-                        "url": "https://github.com/openbao/openbao/releases/download/v2.5.1/bao_2.5.1_Linux_x86_64.tar.gz",
+                        "url": "https://github.com/openbao/openbao/releases/download/v2.5.1/bao-hsm_2.5.1_Linux_x86_64.tar.gz",
                         "output": "out",
-                        "integrity": "sha256-uQce5HxKyAq31RCmslfqYI3ZcHhgpgQlwuzDsBzl7xc="
+                        "integrity": "sha256-4GiNJxKm+LgogatzQgsJiZHoGqb4wg8/ueVoIrYc6Vg="
                     }
                 }
             ],

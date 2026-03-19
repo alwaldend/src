@@ -22,6 +22,7 @@ binary_toolchain_extension.toolchains(
         "shfmt": "com_alwaldend_src_tools_shfmt",
         "hugo": "com_alwaldend_src_tools_hugo",
         "openbao": "com_alwaldend_src_tools_openbao",
+        "kubectl": "com_alwaldend_src_tools_kubectl",
     },
 )
 
@@ -40,6 +41,7 @@ register_toolchains(
     "@com_alwaldend_src_tools_shfmt//:all",
     "@com_alwaldend_src_tools_hugo//:all",
     "@com_alwaldend_src_tools_openbao//:all",
+    "@com_alwaldend_src_tools_kubectl//:all",
 )
 
 use_repo(
@@ -50,6 +52,7 @@ use_repo(
     "com_alwaldend_src_tools_cloc",
     "com_alwaldend_src_tools_dnscontrol",
     "com_alwaldend_src_tools_hugo",
+    "com_alwaldend_src_tools_kubectl",
     "com_alwaldend_src_tools_minisign",
     "com_alwaldend_src_tools_openbao",
     "com_alwaldend_src_tools_openbao_linux_x86_64",
