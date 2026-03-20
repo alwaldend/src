@@ -59,9 +59,46 @@
         {
             "name": "kubectl",
             "version": "1.35.3"
+        },
+        {
+            "name": "flux",
+            "version": "2.8.3"
         }
     ],
     "archives": [
+        {
+            "archive_name": "linux_x86_64",
+            "toolchain_name": "flux",
+            "toolchain_version": "2.8.3",
+            "binaries": [
+                {
+                    "name": "flux",
+                    "path": "out/flux"
+                }
+            ],
+            "actions": [
+                {
+                    "download": {
+                        "url": "https://github.com/fluxcd/flux2/releases/download/v2.8.3/flux_2.8.3_linux_amd64.tar.gz",
+                        "output": "out/flux",
+                        "integrity": "sha256-6LP4euc/N2Vq8IfOwb2CzpA0hgwqXUJwQtLukTX8yLw="
+
+                    }
+                },
+                {
+                    "execute": {
+                        "arguments": [
+                            "chmod",
+                            "u+x",
+                            "out/flux"
+                        ]
+                    }
+                }
+            ],
+            "rules": {
+                "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
+            }
+        },
         {
             "archive_name": "linux_x86_64",
             "toolchain_name": "kubectl",
