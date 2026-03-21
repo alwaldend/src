@@ -31,6 +31,7 @@ pkg_filegroup(
     name = "docs",
     srcs = [
         ":docs_files",
+        "//data:docs",
         "//infra:docs",
         "//projects:docs",
         "//tools:docs",

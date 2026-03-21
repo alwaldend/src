@@ -8,12 +8,12 @@ pkg_filegroup(
 
 pkg_files(
     name = "docs_files",
-    srcs = glob(["*.md"]),
+    srcs = glob(["*.md"]) + [":openbao"],
     prefix = "content/docs/{}".format(package_name()),
 )
 
 filegroup(
-    name = "scenes",
-    srcs = ["scenes.blend"],
+    name = "openbao",
+    srcs = ["openbao@lists.lfedge.org-pub-20240618.asc"],
     visibility = ["//:__subpackages__"],
 )

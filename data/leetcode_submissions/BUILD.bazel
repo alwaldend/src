@@ -1,4 +1,17 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//projects/leetcode_downloader/main/bzl:al_leetcode_submissions.bzl", "al_leetcode_submissions")
+
+pkg_filegroup(
+    name = "docs",
+    srcs = [":docs_files"],
+    visibility = ["//data:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
+)
 
 al_leetcode_submissions(
     name = "leetcode_submissions",

@@ -1,3 +1,17 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+
+pkg_filegroup(
+    name = "docs",
+    srcs = [":docs_files"],
+    visibility = ["//data:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]) + [":relays"],
+    prefix = "content/docs/{}".format(package_name()),
+)
+
 genrule(
     name = "update_relays",
     outs = ["update_relays.sh"],

@@ -2,21 +2,15 @@ load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 
 pkg_filegroup(
     name = "docs",
-    srcs = [
-        ":data",
-        ":docs_files",
-    ],
+    srcs = [":docs_files"],
     visibility = ["//projects/alwaldend.com/content/docs/misc:__pkg__"],
 )
 
 pkg_files(
     name = "docs_files",
-    srcs = glob(["*.md"]),
-    prefix = "content/docs/misc/books",
-)
-
-pkg_filegroup(
-    name = "data",
-    srcs = ["//data/books:data"],
+    srcs = glob(["*.md"]) + [
+        "//data/books",
+        "//data/books:authors",
+    ],
     prefix = "content/docs/misc/books",
 )

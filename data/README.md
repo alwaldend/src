@@ -1,6 +1,7 @@
 ---
 title: Data
 description: Data tree
+weight: 6
 cascade:
   - categories:
       - data
