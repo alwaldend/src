@@ -63,6 +63,13 @@ elif [ -d "/usr/lib/jvm/java-latest-openjdk" ]; then
     export JAVA_HOME="/usr/lib/jvm/java-latest-openjdk"
 fi
 
+# gpg with ssh support
+unset SSH_AGENT_PID
+if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne "${$}" ]; then
+    SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+    export SSH_AUTH_SOCK
+fi
+
 # https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 # vim mode for the terminal
 set -o vi
