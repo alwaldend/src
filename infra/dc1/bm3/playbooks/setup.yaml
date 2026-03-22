@@ -4,4 +4,4 @@
   become: true
   roles:
     - role: alwaldend.main.host
-    # - role: alwaldend.main.vault
+    - role: alwaldend.main.vault

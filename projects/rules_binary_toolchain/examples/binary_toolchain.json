@@ -63,9 +63,36 @@
         {
             "name": "flux",
             "version": "2.8.3"
+        },
+        {
+            "name": "vault",
+            "version": "1.21.4"
         }
     ],
     "archives": [
+        {
+            "archive_name": "linux_x86_64",
+            "toolchain_name": "vault",
+            "toolchain_version": "1.21.4",
+            "binaries": [
+                {
+                    "name": "vault",
+                    "path": "out/vault"
+                }
+            ],
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://releases.hashicorp.com/vault/1.21.4/vault_1.21.4_linux_amd64.zip",
+                        "output": "out",
+                        "integrity": "sha256-iJtoGZD+IhuIS3ky+pyd0O6YEbk0lVTxqih6tjyfPa4="
+                    }
+                }
+            ],
+            "rules": {
+                "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
+            }
+        },
         {
             "archive_name": "linux_x86_64",
             "toolchain_name": "flux",

@@ -40,13 +40,15 @@ pkg_files(
     name = "srcs_files",
     srcs = [
         "inventory.yaml",
-        "@com_alwaldend_src_tools_openbao_linux_x86_64//:bao_filegroup",
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
     ] + glob([
         "group_vars/**/*.yaml",
         "playbooks/*.yaml",
+        "files/vault.hcl",
     ]),
     renames = {
-        "@com_alwaldend_src_tools_openbao_linux_x86_64//:bao_filegroup": "files/bao",
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "playbooks/files/vault",
+        "files/vault.hcl": "playbooks/files/vault.hcl",
     },
     strip_prefix = strip_prefix.from_pkg(),
 )

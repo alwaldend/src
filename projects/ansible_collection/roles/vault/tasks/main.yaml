@@ -1,17 +1,13 @@
 - tags:
     - vault
   block:
-    - name: Create vault dirs
-      loop:
-        - "{{ vault_dir }}"
-        - "{{ vault_data_dir }}"
-        - "{{ vault_config_dir }}"
-      ansible.builtin.file:
-        state: directory
-        owner: "{{ vault_user }}"
-        group: "{{ vault_user }}"
-        mode: "0750"
-        path: "{{ item }}"
+    - name: Install packages
+      ansible.builtin.package:
+        name:
+          - gnupg2
+          - cryptsetup
+          - gnupg2-scdaemon
+          - pcsc-lite
     - name: Create vault user
       ansible.builtin.user:
         name: "{{ vault_user }}"
@@ -19,35 +15,46 @@
         shell: /sbin/nologin
         home: "{{ vault_dir }}/home"
         system: true
-    - name: Write configs
+    - name: Create vault dirs
       loop:
-        - name: bao.hcl
-          value: "{{ vault_openbao_config | to_nice_json(indent=2) }}"
-        - name: traefik_static.yaml
-          value: "{{ vault_traefik_static_config | to_nice_yaml(indent=2) }}"
-        - name: traefik_dynamic.yaml
-          value: "{{ vault_traefik_dynamic_config | to_nice_yaml(indent=2) }}"
-        - name: .env
-          no_log: true
-          value: |
-            {% for key, value in vault_env.items() %}
-            {{ key }}={{ value }}
-            {% endfor %}
-      no_log: "{{ item.no_log | default(false) }}"
-      ansible.builtin.copy:
+        - "{{ vault_dir }}"
+        - "{{ vault_data_dir }}"
+        - "{{ vault_config_dir }}"
+        - "{{ vault_log_dir }}"
+      ansible.builtin.file:
+        state: directory
         owner: "{{ vault_user }}"
         group: "{{ vault_user }}"
-        mode: "0600"
-        content: "{{ item.value }}"
-        dest: "{{ vault_dir }}/{{ item.name }}"
-    - name: Start docker compose
-      become: true
-      become_user: "{{ vault_user }}"
-      ansible.builtin.command:
-        chdir: "{{ vault_dir }}"
-        argv:
-          - docker
-          - compose
-          - up
-          - -d
-          - --wait
+        mode: "0750"
+        path: "{{ item }}"
+    - name: Copy the vault binary
+      ansible.builtin.copy:
+        src: "{{ vault_bin_local_path }}"
+        dest: "{{ vault_bin_path }}"
+        owner: "root"
+        group: "{{ vault_user }}"
+        mode: "0755"
+    - name: Copy the config
+      ansible.builtin.copy:
+        src: "{{ vault_config_local_path }}"
+        dest: "{{ vault_config_path }}"
+        owner: "root"
+        group: "{{ vault_user }}"
+        mode: "0650"
+    - name: Write the service
+      register: vault_service_file
+      ansible.builtin.template:
+        src: systemd_service.conf
+        dest: "{{ vault_service_path }}"
+        owner: root
+        group: root
+        mode: 644
+    - name: Ensure the daemon is reloaded
+      when: vault_service_file.changed
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+    - name: Start the service and enable
+      ansible.builtin.systemd_service:
+        name: "{{ vault_service_path | basename }}"
+        enabled: true
+        state: started
