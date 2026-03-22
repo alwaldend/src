@@ -30,7 +30,7 @@ al_make_install_filegroup = rule(
             doc = "Sources to install",
         ),
         "install_args": attr.string_list(
-            default = ["--compare", "-D", "--backup=numbered"],
+            default = ["--compare", "-D"],
             doc = "Install args",
         ),
         "diff_args": attr.string_list(
