@@ -8,12 +8,21 @@ pkg_filegroup(
 
 pkg_files(
     name = "docs_files",
-    srcs = glob(["*.md"]) + [":openbao"],
+    srcs = glob(["*.md"]) + [
+        ":openbao",
+        ":simeonwarren",
+    ],
     prefix = "content/docs/{}".format(package_name()),
 )
 
 filegroup(
     name = "openbao",
     srcs = ["openbao@lists.lfedge.org-pub-20240618.asc"],
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "simeonwarren",
+    srcs = ["simeonwarren@alwaldend.com-09F4242FEC30C3D1-2026-03-22-pub.asc"],
     visibility = ["//:__subpackages__"],
 )

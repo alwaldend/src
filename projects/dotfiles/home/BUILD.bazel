@@ -21,6 +21,7 @@ pkg_files(
     srcs = [
         "gitconfig.conf",
         "gitconfig_simeonwarren.conf",
+        "gpg.conf",
         "gpg_agent.conf",
         "ssh.conf",
         "terraform.hcl",
@@ -35,6 +36,7 @@ pkg_files(
         "gitconfig.conf": ".config/git/config",
         "gitconfig_simeonwarren.conf": ".config/git/gitconfig_simeonwarren.conf",
         "gpg_agent.conf": ".gnupg/gpg-agent.conf",
+        "gpg.conf": ".gnupg/gpg.conf",
         "vscode_settings.json": ".config/Code/User/settings.json",
     },
 )
