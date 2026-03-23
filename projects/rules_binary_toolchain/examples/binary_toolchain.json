@@ -67,9 +67,36 @@
         {
             "name": "vault",
             "version": "1.21.4"
+        },
+        {
+            "name": "terraform",
+            "version": "1.14.7"
         }
     ],
     "archives": [
+        {
+            "archive_name": "linux_x86_64",
+            "toolchain_name": "terraform",
+            "toolchain_version": "1.14.7",
+            "binaries": [
+                {
+                    "name": "terraform",
+                    "path": "out/terraform"
+                }
+            ],
+            "rules": {
+                "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
+            },
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://releases.hashicorp.com/terraform/1.14.7/terraform_1.14.7_linux_amd64.zip",
+                        "output": "out",
+                        "integrity": "sha256-6LvO/qgBUVbgTioyXN43oLL7dhcovaVI4v47itfBjJY="
+                    }
+                }
+            ]
+        },
         {
             "archive_name": "linux_x86_64",
             "toolchain_name": "vault",

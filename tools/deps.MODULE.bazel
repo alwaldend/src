@@ -25,6 +25,7 @@ binary_toolchain_extension.toolchains(
         "kubectl": "com_alwaldend_src_tools_kubectl",
         "flux": "com_alwaldend_src_tools_flux",
         "vault": "com_alwaldend_src_tools_vault",
+        "terraform": "com_alwaldend_src_tools_terraform",
     },
 )
 
@@ -46,6 +47,7 @@ register_toolchains(
     "@com_alwaldend_src_tools_kubectl//:all",
     "@com_alwaldend_src_tools_flux//:all",
     "@com_alwaldend_src_tools_vault//:all",
+    "@com_alwaldend_src_tools_terraform//:all",
 )
 
 use_repo(
@@ -65,6 +67,7 @@ use_repo(
     "com_alwaldend_src_tools_shfmt",
     "com_alwaldend_src_tools_stylua",
     "com_alwaldend_src_tools_taplo",
+    "com_alwaldend_src_tools_terraform",
     "com_alwaldend_src_tools_trufflehog",
     "com_alwaldend_src_tools_vault",
     "com_alwaldend_src_tools_vault_linux_x86_64",

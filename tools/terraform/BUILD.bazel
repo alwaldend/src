@@ -1,0 +1,19 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+
+alias(
+    name = "terraform",
+    actual = "@com_alwaldend_src_tools_terraform//:terraform_binary",
+    visibility = ["//:__subpackages__"],
+)
+
+pkg_filegroup(
+    name = "docs",
+    srcs = [":docs_files"],
+    visibility = ["//tools:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
+)

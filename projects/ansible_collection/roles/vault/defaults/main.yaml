@@ -6,6 +6,7 @@ vault_config_dir: "{{ vault_dir }}/configs"
 vault_config_path: "{{ vault_config_dir }}/vault.hcl"
 vault_config_local_path: "files/vault.hcl"
 vault_log_dir: "{{ vault_dir }}/logs"
+vault_tls_dir: "{{ vault_dir }}/tls"
 vault_service_path: "/lib/systemd/system/vault.service"
 vault_bin_local_path: "files/vault"
 vault_bin_path: /usr/bin/vault

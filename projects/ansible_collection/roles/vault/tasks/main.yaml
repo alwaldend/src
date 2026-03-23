@@ -21,13 +21,15 @@
         - "{{ vault_data_dir }}"
         - "{{ vault_config_dir }}"
         - "{{ vault_log_dir }}"
+        - "{{ vault_tls_dir }}"
       ansible.builtin.file:
         state: directory
         owner: "{{ vault_user }}"
         group: "{{ vault_user }}"
-        mode: "0750"
+        mode: "0700"
         path: "{{ item }}"
     - name: Copy the vault binary
+      register: vault_bin_var
       ansible.builtin.copy:
         src: "{{ vault_bin_local_path }}"
         dest: "{{ vault_bin_path }}"
@@ -35,6 +37,7 @@
         group: "{{ vault_user }}"
         mode: "0755"
     - name: Copy the config
+      register: vault_config_var
       ansible.builtin.copy:
         src: "{{ vault_config_local_path }}"
         dest: "{{ vault_config_path }}"
@@ -42,7 +45,7 @@
         group: "{{ vault_user }}"
         mode: "0650"
     - name: Write the service
-      register: vault_service_file
+      register: vault_service_var
       ansible.builtin.template:
         src: systemd_service.conf
         dest: "{{ vault_service_path }}"
@@ -50,9 +53,14 @@
         group: root
         mode: 644
     - name: Ensure the daemon is reloaded
-      when: vault_service_file.changed
+      when: vault_service_var.changed
       ansible.builtin.systemd_service:
         daemon_reload: true
+    - name: Restart the service
+      when: vault_service_var.changed or vault_config_var.changed or vault_bin_var.changed
+      ansible.builtin.systemd_service:
+        name: "{{ vault_service_path | basename }}"
+        state: restarted
     - name: Start the service and enable
       ansible.builtin.systemd_service:
         name: "{{ vault_service_path | basename }}"

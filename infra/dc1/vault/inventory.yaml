@@ -1,0 +1,3 @@
+vault:
+  hosts:
+    vault.dc1.alwaldend.com:

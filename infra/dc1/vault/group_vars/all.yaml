@@ -3,15 +3,10 @@ ansible_user: ansible
 lvol_volumes:
   - vg: fedora
     lv: vault
-    size: "{{ 100 * 1024 }}"
-  - vg: fedora
-    lv: gitea
+    opts: --mirrors 1
     size: "{{ 100 * 1024 }}"
 filesystem_setup:
   - dev: /dev/fedora/vault
-    resizefs: true
-    fstype: ext4
-  - dev: /dev/fedora/gitea
     resizefs: true
     fstype: ext4
 mount_points:
@@ -19,18 +14,11 @@ mount_points:
     src: /dev/fedora/vault
     fstype: ext4
     state: mounted
-  - path: /opt/gitea
-    src: /dev/fedora/gitea
-    fstype: ext4
-    state: mounted
 
 vault_dir: "/opt/vault"
 
 ## hardening
-ssh_allow_tcp_forwarding: local
 sysctl_overwrite:
-  net.ipv4.ip_forward: 1
-  net.ipv6.conf.all.forwarding: 1
   # k3s hardening: https://docs.k3s.io/security/hardening-guide#host-level-requirements
   vm.panic_on_oom: 0
   vm.overcommit_memory: 1
@@ -40,11 +28,8 @@ sysctl_overwrite:
 ## firewall
 firewall_allow_port_from:
   - src: "any"
-    port: 443
-    comment: Web
-  - src: "any"
-    port: 80
-    comment: Web
+    port: 8200
+    comment: Vault traffic
   - src: "any"
     port: 22
     comment: ssh
