@@ -1,5 +1,5 @@
 - name: Setup
-  hosts: bm3
+  hosts: vault
   force_handlers: true
   become: true
   roles:
