@@ -1,0 +1,19 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+
+pkg_filegroup(
+    name = "docs",
+    srcs = [":docs_files"],
+    visibility = ["//data:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]) + [":alwaldend.com_root_ca"],
+    prefix = "content/docs/{}".format(package_name()),
+)
+
+filegroup(
+    name = "alwaldend.com_root_ca",
+    srcs = ["alwaldend.com_root_ca.crt"],
+    visibility = ["//:__subpackages__"],
+)
