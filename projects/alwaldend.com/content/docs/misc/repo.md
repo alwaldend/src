@@ -116,3 +116,11 @@ ln -s ../../tools/bazelrc/main/bazelrc/bzl_project.bazelrc .bazelrc
 
 If some repo rules are timing out (java ones, for example), you can add
 `--remote_timeout 1000000`
+
+## Update pnpm lock
+
+```sh
+bazel run //tools/pnpm -- --dir "${PWD}" install
+```
+
+Documentation: https://github.com/aspect-build/rules_js/blob/main/docs/pnpm.md#update_pnpm_lock

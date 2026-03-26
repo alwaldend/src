@@ -1,12 +1,12 @@
 node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node")
 node.toolchain(
-    node_version = "16.14.2",
+    node_version = "24.13.0",
 )
 
 pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
 pnpm.pnpm(
     name = "com_alwaldend_src_pnpm",
-    pnpm_version = "10.18.1",
+    pnpm_version = "10.22.0",
 )
 use_repo(pnpm, "com_alwaldend_src_pnpm")
 
