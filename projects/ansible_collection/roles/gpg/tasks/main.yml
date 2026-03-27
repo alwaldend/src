@@ -1,0 +1,18 @@
+- tags:
+    - gpg
+  block:
+    - name: Install gpg packages
+      ansible.builtin.package:
+        name:
+          - gnupg2
+          - cryptsetup
+          - gnupg2-scdaemon
+          - pcsc-lite
+    - name: Loop over users
+      loop: "{{ gpg_users + [ansible_user] }}"
+      loop_control:
+        loop_var: gpg_user
+      vars:
+        gpg_dir: "/home/{{ gpg_user }}/.gnupg"
+      ansible.builtin.include_tasks:
+        file: setup_user.yaml

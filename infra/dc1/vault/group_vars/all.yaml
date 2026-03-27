@@ -1,5 +1,8 @@
 ansible_user: ansible
 
+gpg_users:
+  - vault
+
 lvol_volumes:
   - vg: fedora
     lv: vault

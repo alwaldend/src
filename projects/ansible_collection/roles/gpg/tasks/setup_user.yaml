@@ -1,0 +1,20 @@
+- name: Setup gpg for a user
+  block:
+    - name: Create gpg directory
+      ansible.builtin.file:
+        path: "{{ gpg_dir }}"
+        state: directory
+        group: "{{ gpg_user }}"
+        owner: "{{ gpg_user }}"
+        mode: "0700"
+    - name: Install templates
+      loop:
+        - gpg.conf
+        - gpg-agent.conf
+      ansible.builtin.template:
+        src: "{{ item }}"
+        dest: "{{ gpg_dir }}/{{ item }}"
+        group: "{{ gpg_user }}"
+        owner: "{{ gpg_user }}"
+        mode: "0600"
+

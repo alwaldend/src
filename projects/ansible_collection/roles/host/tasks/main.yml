@@ -11,6 +11,9 @@
     - name: Setup users
       ansible.builtin.import_role:
         name: alwaldend.main.users
+    - name: Setup gpg
+      ansible.builtin.import_role:
+        name: alwaldend.main.gpg
     - name: Setup LVM volumes
       ansible.builtin.import_role:
         name: alwaldend.main.lvol
