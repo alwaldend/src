@@ -8,12 +8,21 @@ pkg_filegroup(
 
 pkg_files(
     name = "docs_files",
-    srcs = glob(["*.md"]) + [":alwaldend.com_root_ca"],
+    srcs = glob(["*.md"]) + [
+        ":alwaldend.com_root_ca_crt",
+        ":alwaldend.com_root_ca_pem",
+    ],
     prefix = "content/docs/{}".format(package_name()),
 )
 
 filegroup(
-    name = "alwaldend.com_root_ca",
+    name = "alwaldend.com_root_ca_crt",
     srcs = ["alwaldend.com_root_ca.crt"],
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "alwaldend.com_root_ca_pem",
+    srcs = ["alwaldend.com_root_ca.pem"],
     visibility = ["//:__subpackages__"],
 )

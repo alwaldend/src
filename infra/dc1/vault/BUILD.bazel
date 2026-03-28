@@ -40,6 +40,7 @@ pkg_files(
     name = "srcs_files",
     srcs = [
         "inventory.yaml",
+        "//data/ssl:alwaldend.com_root_ca_pem",
         "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
     ] + glob([
         "group_vars/**/*.yaml",
@@ -49,6 +50,7 @@ pkg_files(
     renames = {
         "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "playbooks/files/vault",
         "files/vault.hcl": "playbooks/files/vault.hcl",
+        "//data/ssl:alwaldend.com_root_ca_pem": "playbooks/files/tls_client_ca_file.pem",
     },
     strip_prefix = strip_prefix.from_pkg(),
 )

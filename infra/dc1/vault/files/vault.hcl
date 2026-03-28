@@ -5,10 +5,9 @@ log_file = "/opt/vault/logs/vault.log"
 
 listener "tcp" {
   address            = "[::]:8200"
-  tls_disable = true
-  # tls_cert_file      = "/opt/vault/tls/vault_cert.pem"
-  # tls_key_file       = "/opt/vault/tls/vault_key.pem"
-  # tls_client_ca_file = "/opt/vault/tls/vault_ca.pem"
+  tls_cert_file      = "/opt/vault/tls/tls_cert_file.pem"
+  tls_key_file       = "/opt/vault/tls/tls_key_file.pem"
+  tls_client_ca_file = "/opt/vault/tls/tls_client_ca_file.pem"
 }
 
 user_lockout "all" {

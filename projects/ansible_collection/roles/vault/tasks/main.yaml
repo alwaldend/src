@@ -44,6 +44,14 @@
         owner: "root"
         group: "{{ vault_user }}"
         mode: "0650"
+    - name: Copy client ca file
+      register: vault_tls_client_ca_file_path_var
+      ansible.builtin.copy:
+        src: "{{ vault_tls_client_ca_file_local_path }}"
+        dest: "{{ vault_tls_client_ca_file_path }}"
+        owner: "root"
+        group: "{{ vault_user }}"
+        mode: "0650"
     - name: Write the service
       register: vault_service_var
       ansible.builtin.template:
@@ -57,7 +65,10 @@
       ansible.builtin.systemd_service:
         daemon_reload: true
     - name: Restart the service
-      when: vault_service_var.changed or vault_config_var.changed or vault_bin_var.changed
+      when: >-
+        vault_service_var.changed
+        or vault_config_var.changed or vault_bin_var.changed
+        or vault_tls_client_ca_file_path_var.changed
       ansible.builtin.systemd_service:
         name: "{{ vault_service_path | basename }}"
         state: restarted

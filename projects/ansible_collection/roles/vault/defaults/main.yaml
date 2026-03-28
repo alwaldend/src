@@ -9,4 +9,6 @@ vault_log_dir: "{{ vault_dir }}/logs"
 vault_tls_dir: "{{ vault_dir }}/tls"
 vault_service_path: "/lib/systemd/system/vault.service"
 vault_bin_local_path: "files/vault"
+vault_tls_client_ca_file_local_path: files/tls_client_ca_file.pem
+vault_tls_client_ca_file_path: "{{ vault_tls_dir }}/tls_client_ca_file.pem"
 vault_bin_path: /usr/bin/vault
