@@ -39,24 +39,6 @@ use_repo(
 #     path = "github.com/gohugoio/hugo",
 # )
 
-dnscontrol = use_extension("@gazelle//:extensions.bzl", "go_deps", isolate = True)
-dnscontrol.from_file(
-    go_mod = "//tools/dnscontrol:go.mod",
-)
-use_repo(
-    dnscontrol,
-    tools_com_github_stackexchange_dnscontrol_v4 = "com_github_stackexchange_dnscontrol_v4",
-)
-
-shfmt = use_extension("@gazelle//:extensions.bzl", "go_deps", isolate = True)
-shfmt.from_file(
-    go_mod = "//tools/shfmt:go.mod",
-)
-use_repo(
-    shfmt,
-    tools_cc_mvdan_sh_v3 = "cc_mvdan_sh_v3",
-)
-
 buildifier = use_extension("@gazelle//:extensions.bzl", "go_deps", isolate = True)
 buildifier.from_file(
     go_mod = "//tools/buildifier:go.mod",
