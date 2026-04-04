@@ -23,7 +23,10 @@ def _impl(ctx):
                     lock = tag.lock,
                 )
                 dep_archive.append(bazel_name)
-                for archive in binary_toolchain_lock_find_archives(lock, toolchain_name):
+                archives = binary_toolchain_lock_find_archives(lock, toolchain_name)
+                if not archives:
+                    fail("Could not find archives for {} toolchain".format(toolchain_name))
+                for archive in archives:
                     name = "{}_{}".format(bazel_name, archive.archive_name)
                     if archive.archive_name in tag.archives.get(toolchain_name, []):
                         dep_archive.append(name)
