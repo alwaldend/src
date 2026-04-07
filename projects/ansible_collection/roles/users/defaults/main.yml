@@ -8,4 +8,4 @@ users_admins:
 users_ssh_keys:
   ansible_1:
     user: ansible
-    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH/cuGf5OCGPYCoGwHwlPBf4ErPU4WrgYUXbRT6QBZNl
+    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINe+6zNbs5HKrdZnHgeik/y7v5QYQr1cLYqfdCQ49GbM openpgp:0x485AEA03
