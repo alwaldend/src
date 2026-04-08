@@ -70,14 +70,14 @@
         },
         {
             "name": "terraform",
-            "version": "1.14.7"
+            "version": "1.14.8"
         }
     ],
     "archives": [
         {
             "archive_name": "linux_x86_64",
             "toolchain_name": "terraform",
-            "toolchain_version": "1.14.7",
+            "toolchain_version": "1.14.8",
             "binaries": [
                 {
                     "name": "terraform",
@@ -90,9 +90,9 @@
             "actions": [
                 {
                     "download_and_extract": {
-                        "url": "https://releases.hashicorp.com/terraform/1.14.7/terraform_1.14.7_linux_amd64.zip",
+                        "url": "https://releases.hashicorp.com/terraform/1.14.8/terraform_1.14.8_linux_amd64.zip",
                         "output": "out",
-                        "integrity": "sha256-6LvO/qgBUVbgTioyXN43oLL7dhcovaVI4v47itfBjJY="
+                        "integrity": "sha256-VqXRL0fLwca+249UJq59XfmE0ZKVcsJLVvTILp+b9wk="
                     }
                 }
             ]
