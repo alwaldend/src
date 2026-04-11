@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1968835670
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2197
+  TitleSlug = "decode-the-slanted-ciphertext"
+  Code = "class Solution:\n    def decodeCiphertext(self, encodedText: str, rows: int) -> str:\n        if rows == 1:\n            return encodedText\n\n        n = len(encodedText)\n        cols = n // rows\n        res = []\n\n        for c in range(cols):\n            r, j = 0, c\n            while r < rows and j < cols:\n                res.append(encodedText[r * cols + j])\n                r += 1\n                j += 1\n\n        return \"\".join(res).rstrip()"
+  Title = "Decode the Slanted Ciphertext"
+  Url = "/submissions/detail/1968835670/"
+  LangName = "Python3"
+  Timestamp = 1775324516
+  Status = 10
+  Runtime = "117 ms"
+  IsPending = "Not Pending"
+  Memory = "29.5 MB"
+  CompareResult = "1111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

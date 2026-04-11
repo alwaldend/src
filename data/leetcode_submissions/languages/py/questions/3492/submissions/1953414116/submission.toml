@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1953414116
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3492
+  TitleSlug = "count-submatrices-with-equal-frequency-of-x-and-y"
+  Code = "class Solution:\n    def numberOfSubmatrices(self, grid: List[List[str]]) -> int:\n        n, m = len(grid), len(grid[0])\n        ans = 0\n        sum = [[[0, 0] for _ in range(m + 1)] for _ in range(n + 1)]\n\n        for i in range(n):\n            for j in range(m):\n                if grid[i][j] == \"X\":\n                    sum[i + 1][j + 1][0] = (\n                        sum[i + 1][j][0] + sum[i][j + 1][0] - sum[i][j][0] + 1\n                    )\n                    sum[i + 1][j + 1][1] = 1\n                elif grid[i][j] == \"Y\":\n                    sum[i + 1][j + 1][0] = (\n                        sum[i + 1][j][0] + sum[i][j + 1][0] - sum[i][j][0] - 1\n                    )\n                    sum[i + 1][j + 1][1] = sum[i + 1][j][1] | sum[i][j + 1][1]\n                else:\n                    sum[i + 1][j + 1][0] = (\n                        sum[i + 1][j][0] + sum[i][j + 1][0] - sum[i][j][0]\n                    )\n                    sum[i + 1][j + 1][1] = sum[i + 1][j][1] | sum[i][j + 1][1]\n                if sum[i + 1][j + 1][0] == 0 and sum[i + 1][j + 1][1] == 1:\n                    ans += 1\n\n        return ans"
+  Title = "Count Submatrices With Equal Frequency of X and Y"
+  Url = "/submissions/detail/1953414116/"
+  LangName = "Python3"
+  Timestamp = 1773952594
+  Status = 10
+  Runtime = "1065 ms"
+  IsPending = "Not Pending"
+  Memory = "185.3 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1951427088
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1845
+  TitleSlug = "largest-submatrix-with-rearrangements"
+  Code = "class Solution:\n    def largestSubmatrix(self, matrix: List[List[int]]) -> int:\n        m = len(matrix)\n        n = len(matrix[0])\n        prev_heights = []\n        ans = 0\n\n        for row in range(m):\n            heights = []\n            seen = [False] * n\n            \n            for height, col in prev_heights:\n                if matrix[row][col] == 1:\n                    heights.append((height + 1, col))\n                    seen[col] = True\n\n            for col in range(n):\n                if seen[col] == False and matrix[row][col] == 1:\n                    heights.append((1, col))\n            \n            for i in range(len(heights)):\n                ans = max(ans, heights[i][0] * (i + 1))\n                \n            prev_heights = heights\n\n        return ans"
+  Title = "Largest Submatrix With Rearrangements"
+  Url = "/submissions/detail/1951427088/"
+  LangName = "Python3"
+  Timestamp = 1773771736
+  Status = 10
+  Runtime = "159 ms"
+  IsPending = "Not Pending"
+  Memory = "34 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

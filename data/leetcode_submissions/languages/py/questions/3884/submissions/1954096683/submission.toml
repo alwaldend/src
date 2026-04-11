@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1954096683
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3884
+  TitleSlug = "minimum-absolute-difference-in-sliding-submatrix"
+  Code = "class Solution:\n    def minAbsDiff(self, grid: List[List[int]], k: int) -> List[List[int]]:\n        m, n = len(grid), len(grid[0])\n        res = [[0] * (n - k + 1) for _ in range(m - k + 1)]\n        for i in range(m - k + 1):\n            for j in range(n - k + 1):\n                kgrid = []\n                for x in range(i, i + k):\n                    for y in range(j, j + k):\n                        kgrid.append(grid[x][y])\n                kmin = float(\"inf\")\n                kgrid.sort()\n                for t in range(1, len(kgrid)):\n                    if kgrid[t] == kgrid[t - 1]:\n                        continue\n                    kmin = min(kmin, kgrid[t] - kgrid[t - 1])\n                if kmin != float(\"inf\"):\n                    res[i][j] = kmin\n        return res"
+  Title = "Minimum Absolute Difference in Sliding Submatrix"
+  Url = "/submissions/detail/1954096683/"
+  LangName = "Python3"
+  Timestamp = 1774024570
+  Status = 10
+  Runtime = "39 ms"
+  IsPending = "Not Pending"
+  Memory = "19.5 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

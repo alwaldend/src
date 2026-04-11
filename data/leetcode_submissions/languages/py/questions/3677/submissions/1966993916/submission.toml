@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1966993916
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3677
+  TitleSlug = "maximum-amount-of-money-robot-can-earn"
+  Code = "class Solution:\n    def maximumAmount(self, coins: List[List[int]]) -> int:\n        n = len(coins[0])\n        dp = [[-inf] * 3 for _ in range(n + 1)]\n\n        dp[1] = [0] * 3\n        for row in coins:\n            for j, x in enumerate(row):\n                dp[j + 1][2] = max(\n                    dp[j][2] + x, dp[j + 1][2] + x, dp[j][1], dp[j + 1][1]\n                )\n                dp[j + 1][1] = max(\n                    dp[j][1] + x, dp[j + 1][1] + x, dp[j][0], dp[j + 1][0]\n                )\n                dp[j + 1][0] = max(dp[j][0], dp[j + 1][0]) + x\n\n        return dp[n][2]"
+  Title = "Maximum Amount of Money Robot Can Earn"
+  Url = "/submissions/detail/1966993916/"
+  LangName = "Python3"
+  Timestamp = 1775148417
+  Status = 10
+  Runtime = "897 ms"
+  IsPending = "Not Pending"
+  Memory = "45.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

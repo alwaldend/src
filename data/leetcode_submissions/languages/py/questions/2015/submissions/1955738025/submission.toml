@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1955738025
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2015
+  TitleSlug = "determine-whether-matrix-can-be-obtained-by-rotation"
+  Code = "class Solution:\n    def findRotation(\n        self, mat: List[List[int]], target: List[List[int]]\n    ) -> bool:\n        n = len(mat)\n        # at most 4 rotations\n        for k in range(4):\n            # rotation operation\n            for i in range(n // 2):\n                for j in range((n + 1) // 2):\n                    (\n                        mat[i][j],\n                        mat[n - 1 - j][i],\n                        mat[n - 1 - i][n - 1 - j],\n                        mat[j][n - 1 - i],\n                    ) = (\n                        mat[n - 1 - j][i],\n                        mat[n - 1 - i][n - 1 - j],\n                        mat[j][n - 1 - i],\n                        mat[i][j],\n                    )\n\n            if mat == target:\n                return True\n        return False"
+  Title = "Determine Whether Matrix Can Be Obtained By Rotation"
+  Url = "/submissions/detail/1955738025/"
+  LangName = "Python3"
+  Timestamp = 1774183006
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "19.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

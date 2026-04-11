@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1936959730
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1667
+  TitleSlug = "find-kth-bit-in-nth-binary-string"
+  Code = "class Solution:\n    def findKthBit(self, n: int, k: int) -> str:\n        # Find the position of the rightmost set bit in k\n        # This helps determine which \"section\" of the string we're in\n        position_in_section = k & -k\n\n        # Determine if k is in the inverted part of the string\n        # This checks if the bit to the left of the rightmost set bit is 1\n        is_in_inverted_part = ((k // position_in_section) >> 1 & 1) == 1\n\n        # Determine if the original bit (before any inversion) would be 1\n        # This is true if k is even (i.e., its least significant bit is 0)\n        original_bit_is_one = (k & 1) == 0\n\n        if is_in_inverted_part:\n            # If we're in the inverted part, we need to flip the bit\n            return \"0\" if original_bit_is_one else \"1\"\n        else:\n            # If we're not in the inverted part, return the original bit\n            return \"1\" if original_bit_is_one else \"0\""
+  Title = "Find Kth Bit in Nth Binary String"
+  Url = "/submissions/detail/1936959730/"
+  LangName = "Python3"
+  Timestamp = 1772558165
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "19.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

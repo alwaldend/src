@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1973910232
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3975
+  TitleSlug = "xor-after-range-multiplication-queries-ii"
+  Code = "class Solution:\n    def xorAfterQueries(self, nums: List[int], queries: List[List[int]]) -> int:\n        mod = 10**9 + 7\n        n = len(nums)\n        T = int(n**0.5)\n\n        groups = [[] for _ in range(T)]\n        for l, r, k, v in queries:\n            if k < T:\n                groups[k].append((l, r, v))\n            else:\n                for i in range(l, r + 1, k):\n                    nums[i] = nums[i] * v % mod\n\n        dif = [1] * (n + T)\n        for k in range(1, T):\n            if not groups[k]:\n                continue\n            dif[:] = [1] * len(dif)\n            for l, r, v in groups[k]:\n                dif[l] = dif[l] * v % mod\n                R = ((r - l) // k + 1) * k + l\n                dif[R] = dif[R] * pow(v, mod - 2, mod) % mod\n\n            for i in range(k, n):\n                dif[i] = dif[i] * dif[i - k] % mod\n            for i in range(n):\n                nums[i] = nums[i] * dif[i] % mod\n\n        res = 0\n        for x in nums:\n            res ^= x\n        return res"
+  Title = "XOR After Range Multiplication Queries II"
+  Url = "/submissions/detail/1973910232/"
+  LangName = "Python3"
+  Timestamp = 1775763100
+  Status = 10
+  Runtime = "6408 ms"
+  IsPending = "Not Pending"
+  Memory = "69 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1932077468
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1520
+  TitleSlug = "number-of-steps-to-reduce-a-number-in-binary-representation-to-one"
+  Code = "class Solution:\n    def numSteps(self, s: str) -> int:\n        N = len(s)\n\n        operations = 0\n        carry = 0\n        for i in range(N - 1, 0, -1):\n            digit = int(s[i]) + carry\n            if digit % 2 == 1:\n                operations += 2\n                carry = 1\n            else:\n                operations += 1\n\n        return operations + carry"
+  Title = "Number of Steps to Reduce a Number in Binary Representation to One"
+  Url = "/submissions/detail/1932077468/"
+  LangName = "Python3"
+  Timestamp = 1772127893
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "19.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

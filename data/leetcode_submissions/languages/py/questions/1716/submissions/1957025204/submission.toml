@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1957025204
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1716
+  TitleSlug = "maximum-non-negative-product-in-a-matrix"
+  Code = "class Solution:\n    def maxProductPath(self, grid: List[List[int]]) -> int:\n        mod = 10**9 + 7\n        m, n = len(grid), len(grid[0])\n        maxgt = [[0] * n for _ in range(m)]\n        minlt = [[0] * n for _ in range(m)]\n\n        maxgt[0][0] = minlt[0][0] = grid[0][0]\n        for i in range(1, n):\n            maxgt[0][i] = minlt[0][i] = maxgt[0][i - 1] * grid[0][i]\n        for i in range(1, m):\n            maxgt[i][0] = minlt[i][0] = maxgt[i - 1][0] * grid[i][0]\n\n        for i in range(1, m):\n            for j in range(1, n):\n                if grid[i][j] >= 0:\n                    maxgt[i][j] = (\n                        max(maxgt[i][j - 1], maxgt[i - 1][j]) * grid[i][j]\n                    )\n                    minlt[i][j] = (\n                        min(minlt[i][j - 1], minlt[i - 1][j]) * grid[i][j]\n                    )\n                else:\n                    maxgt[i][j] = (\n                        min(minlt[i][j - 1], minlt[i - 1][j]) * grid[i][j]\n                    )\n                    minlt[i][j] = (\n                        max(maxgt[i][j - 1], maxgt[i - 1][j]) * grid[i][j]\n                    )\n\n        if maxgt[m - 1][n - 1] < 0:\n            return -1\n        return maxgt[m - 1][n - 1] % mod"
+  Title = "Maximum Non Negative Product in a Matrix"
+  Url = "/submissions/detail/1957025204/"
+  LangName = "Python3"
+  Timestamp = 1774289349
+  Status = 10
+  Runtime = "3 ms"
+  IsPending = "Not Pending"
+  Memory = "19.3 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

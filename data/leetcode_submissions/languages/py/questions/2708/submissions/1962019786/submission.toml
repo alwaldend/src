@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1962019786
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2708
+  TitleSlug = "find-the-string-with-lcp"
+  Code = "class Solution:\n    def findTheString(self, lcp: List[List[int]]) -> str:\n        n = len(lcp)\n        word = [\"\"] * n\n        current = ord(\"a\")\n\n        # construct the string starting from 'a' to 'z' sequentially\n        for i in range(n):\n            if not word[i]:\n                if current > ord(\"z\"):\n                    return \"\"\n                word[i] = chr(current)\n                for j in range(i + 1, n):\n                    if lcp[i][j]:\n                        word[j] = word[i]\n                current += 1\n\n        # verify if the constructed string meets the LCP matrix requirements\n        for i in range(n - 1, -1, -1):\n            for j in range(n - 1, -1, -1):\n                if word[i] != word[j]:\n                    if lcp[i][j]:\n                        return \"\"\n                else:\n                    if i == n - 1 or j == n - 1:\n                        if lcp[i][j] != 1:\n                            return \"\"\n                    else:\n                        if lcp[i][j] != lcp[i + 1][j + 1] + 1:\n                            return \"\"\n\n        return \"\".join(word)"
+  Title = "Find the String with LCP"
+  Url = "/submissions/detail/1962019786/"
+  LangName = "Python3"
+  Timestamp = 1774716557
+  Status = 10
+  Runtime = "135 ms"
+  IsPending = "Not Pending"
+  Memory = "73 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

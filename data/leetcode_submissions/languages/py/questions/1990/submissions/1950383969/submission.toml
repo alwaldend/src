@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1950383969
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1990
+  TitleSlug = "get-biggest-three-rhombus-sums-in-a-grid"
+  Code = "class Answer:\n    def __init__(self):\n        self.ans = [0, 0, 0]\n\n    def put(self, x: int):\n        _ans = self.ans\n\n        if x > _ans[0]:\n            _ans[0], _ans[1], _ans[2] = x, _ans[0], _ans[1]\n        elif x != _ans[0] and x > _ans[1]:\n            _ans[1], _ans[2] = x, _ans[1]\n        elif x != _ans[0] and x != _ans[1] and x > _ans[2]:\n            _ans[2] = x\n\n    def get(self) -> List[int]:\n        _ans = self.ans\n\n        return [num for num in _ans if num != 0]\n\n\nclass Solution:\n    def getBiggestThree(self, grid: List[List[int]]) -> List[int]:\n        m, n = len(grid), len(grid[0])\n        sum1 = [[0] * (n + 2) for _ in range(m + 1)]\n        sum2 = [[0] * (n + 2) for _ in range(m + 1)]\n\n        for i in range(1, m + 1):\n            for j in range(1, n + 1):\n                sum1[i][j] = sum1[i - 1][j - 1] + grid[i - 1][j - 1]\n                sum2[i][j] = sum2[i - 1][j + 1] + grid[i - 1][j - 1]\n\n        ans = Answer()\n        for i in range(m):\n            for j in range(n):\n                # a single cell is also a rhombus\n                ans.put(grid[i][j])\n                for k in range(i + 2, m, 2):\n                    ux, uy = i, j\n                    dx, dy = k, j\n                    lx, ly = (i + k) // 2, j - (k - i) // 2\n                    rx, ry = (i + k) // 2, j + (k - i) // 2\n\n                    if ly < 0 or ry >= n:\n                        break\n\n                    ans.put(\n                        (sum2[lx + 1][ly + 1] - sum2[ux][uy + 2])\n                        + (sum1[rx + 1][ry + 1] - sum1[ux][uy])\n                        + (sum1[dx + 1][dy + 1] - sum1[lx][ly])\n                        + (sum2[dx + 1][dy + 1] - sum2[rx][ry + 2])\n                        - (\n                            grid[ux][uy]\n                            + grid[dx][dy]\n                            + grid[lx][ly]\n                            + grid[rx][ry]\n                        )\n                    )\n\n        return ans.get()"
+  Title = "Get Biggest Three Rhombus Sums in a Grid"
+  Url = "/submissions/detail/1950383969/"
+  LangName = "Python3"
+  Timestamp = 1773684799
+  Status = 10
+  Runtime = "305 ms"
+  IsPending = "Not Pending"
+  Memory = "19.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1948316982
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1516
+  TitleSlug = "the-k-th-lexicographical-string-of-all-happy-strings-of-length-n"
+  Code = "class Solution:\n    def getHappyString(self, n: int, k: int) -> str:\n        # Calculate the total number of happy strings of length n\n        total = 3 * (1 << (n - 1))\n\n        # If k is greater than the total number of happy strings, return an empty string\n        if k > total:\n            return \"\"\n\n        result = [\"a\"] * n  # Initialize result with 'a' characters\n\n        # Define mappings for the next smallest and greatest valid characters\n        next_smallest = {\"a\": \"b\", \"b\": \"a\", \"c\": \"a\"}\n        next_greatest = {\"a\": \"c\", \"b\": \"c\", \"c\": \"b\"}\n\n        # Calculate the starting indices for strings beginning with 'a', 'b', and 'c'\n        start_a = 1\n        start_b = start_a + (1 << (n - 1))\n        start_c = start_b + (1 << (n - 1))\n\n        # Determine the first character based on the value of k\n        if k < start_b:\n            result[0] = \"a\"\n            k -= start_a\n        elif k < start_c:\n            result[0] = \"b\"\n            k -= start_b\n        else:\n            result[0] = \"c\"\n            k -= start_c\n\n        # Iterate through the remaining positions in the result string\n        for char_index in range(1, n):\n            # Calculate the midpoint of the group for the current character position\n            midpoint = 1 << (n - char_index - 1)\n\n            # Determine the next character based on the value of k\n            if k < midpoint:\n                result[char_index] = next_smallest[result[char_index - 1]]\n            else:\n                result[char_index] = next_greatest[result[char_index - 1]]\n                k -= midpoint\n\n        return \"\".join(result)"
+  Title = "The k-th Lexicographical String of All Happy Strings of Length n"
+  Url = "/submissions/detail/1948316982/"
+  LangName = "Python3"
+  Timestamp = 1773513451
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "19.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

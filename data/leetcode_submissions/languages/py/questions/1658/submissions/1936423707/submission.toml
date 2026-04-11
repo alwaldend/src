@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1936423707
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1658
+  TitleSlug = "minimum-swaps-to-arrange-a-binary-grid"
+  Code = "class Solution:\n    def minSwaps(self, grid: List[List[int]]) -> int:\n        n = len(grid)\n        pos = [-1] * n\n        for i in range(n):\n            for j in range(n - 1, -1, -1):\n                if grid[i][j] == 1:\n                    pos[i] = j\n                    break\n\n        ans = 0\n        for i in range(n):\n            k = -1\n            for j in range(i, n):\n                if pos[j] <= i:\n                    ans += j - i\n                    k = j\n                    break\n\n            if k != -1:\n                for j in range(k, i, -1):\n                    pos[j], pos[j - 1] = pos[j - 1], pos[j]\n            else:\n                return -1\n\n        return ans"
+  Title = "Minimum Swaps to Arrange a Binary Grid"
+  Url = "/submissions/detail/1936423707/"
+  LangName = "Python3"
+  Timestamp = 1772520559
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "20.9 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

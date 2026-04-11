@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1970800154
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 657
+  TitleSlug = "robot-return-to-origin"
+  Code = "class Solution(object):\n    def judgeCircle(self, moves):\n        x = y = 0\n        for move in moves:\n            if move == 'U': y -= 1\n            elif move == 'D': y += 1\n            elif move == 'L': x -= 1\n            elif move == 'R': x += 1\n\n        return x == y == 0"
+  Title = "Robot Return to Origin"
+  Url = "/submissions/detail/1970800154/"
+  LangName = "Python3"
+  Timestamp = 1775495695
+  Status = 10
+  Runtime = "15 ms"
+  IsPending = "Not Pending"
+  Memory = "19.4 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1947264598
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3496
+  TitleSlug = "minimum-number-of-seconds-to-make-mountain-height-zero"
+  Code = "class Solution:\n    def minNumberOfSeconds(\n        self, mountainHeight: int, workerTimes: List[int]\n    ) -> int:\n        maxWorkerTimes = max(workerTimes)\n        l, r, ans = (\n            1,\n            maxWorkerTimes * mountainHeight * (mountainHeight + 1) // 2,\n            0,\n        )\n        eps = 1e-7\n\n        while l <= r:\n            mid = (l + r) // 2\n            cnt = 0\n            for t in workerTimes:\n                work = mid // t\n                # find the largest k such that 1+2+...+k <= work\n                k = int((-1 + ((1 + work * 8) ** 0.5)) / 2 + eps)\n                cnt += k\n            if cnt >= mountainHeight:\n                ans = mid\n                r = mid - 1\n            else:\n                l = mid + 1\n\n        return ans"
+  Title = "Minimum Number of Seconds to Make Mountain Height Zero"
+  Url = "/submissions/detail/1947264598/"
+  LangName = "Python3"
+  Timestamp = 1773423972
+  Status = 10
+  Runtime = "525 ms"
+  IsPending = "Not Pending"
+  Memory = "20.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

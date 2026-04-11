@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1945361668
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1054
+  TitleSlug = "complement-of-base-10-integer"
+  Code = "class Solution:\n    def bitwiseComplement(self, n: int) -> int:\n        if n == 0: return 1\n        mask = n\n        for i in (1, 2, 4, 8, 16):\n            mask |= mask >> i\n        return ~n & mask"
+  Title = "Complement of Base 10 Integer"
+  Url = "/submissions/detail/1945361668/"
+  LangName = "Python3"
+  Timestamp = 1773254909
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "19.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

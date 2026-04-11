@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1968063305
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3982
+  TitleSlug = "maximum-walls-destroyed-by-robots"
+  Code = "class Solution:\n    def maxWalls(\n        self, robots: List[int], distance: List[int], walls: List[int]\n    ) -> int:\n        n = len(robots)\n        robot_dist = list(zip(robots, distance))\n        robot_dist.sort(key=lambda x: x[0])\n        walls.sort()\n\n        m = len(walls)\n        right_ptr = left_ptr = cur_ptr = robot_ptr = 0\n\n        prev_left = prev_right = prev_num = 0\n        sub_left = sub_right = 0\n\n        for i in range(n):\n            robot_pos, robot_dist_val = robot_dist[i]\n\n            while right_ptr < m and walls[right_ptr] <= robot_pos:\n                right_ptr += 1\n            pos1 = right_ptr\n\n            while cur_ptr < m and walls[cur_ptr] < robot_pos:\n                cur_ptr += 1\n            pos2 = cur_ptr\n\n            if i >= 1:\n                left_bound = max(\n                    robot_pos - robot_dist_val, robot_dist[i - 1][0] + 1\n                )\n            else:\n                left_bound = robot_pos - robot_dist_val\n\n            while left_ptr < m and walls[left_ptr] < left_bound:\n                left_ptr += 1\n            left_pos = left_ptr\n            current_left = pos1 - left_pos\n\n            if i < n - 1:\n                right_bound = min(\n                    robot_pos + robot_dist_val, robot_dist[i + 1][0] - 1\n                )\n            else:\n                right_bound = robot_pos + robot_dist_val\n\n            while right_ptr < m and walls[right_ptr] <= right_bound:\n                right_ptr += 1\n            right_pos = right_ptr\n            current_right = right_pos - pos2\n\n            current_num = 0\n            if i > 0:\n                while robot_ptr < m and walls[robot_ptr] < robot_dist[i - 1][0]:\n                    robot_ptr += 1\n                pos3 = robot_ptr\n                current_num = pos1 - pos3\n\n            if i == 0:\n                sub_left = current_left\n                sub_right = current_right\n            else:\n                new_sub_left = max(\n                    sub_left + current_left,\n                    sub_right\n                    - prev_right\n                    + min(current_left + prev_right, current_num),\n                )\n                new_sub_right = max(\n                    sub_left + current_right, sub_right + current_right\n                )\n                sub_left = new_sub_left\n                sub_right = new_sub_right\n\n            prev_left = current_left\n            prev_right = current_right\n            prev_num = current_num\n\n        return max(sub_left, sub_right)"
+  Title = "Maximum Walls Destroyed by Robots"
+  Url = "/submissions/detail/1968063305/"
+  LangName = "Python3"
+  Timestamp = 1775245725
+  Status = 10
+  Runtime = "522 ms"
+  IsPending = "Not Pending"
+  Memory = "49.4 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1970800742
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 906
+  TitleSlug = "walking-robot-simulation"
+  Code = "class Solution:\n    def __init__(self):\n        self.HASH_MULTIPLIER = (\n            60013  # Slightly larger than 2 * max coordinate value\n        )\n\n    def robotSim(self, commands: List[int], obstacles: List[List[int]]) -> int:\n        # Store obstacles in an set for efficient lookup\n        obstacle_set = {self._hash_coordinates(x, y) for x, y in obstacles}\n\n        # Define direction vectors: North, East, South, West\n        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]\n\n        x, y = 0, 0\n        max_distance_squared = 0\n        current_direction = 0  # 0: North, 1: East, 2: South, 3: West\n\n        for command in commands:\n            if command == -1:  # Turn right\n                current_direction = (current_direction + 1) % 4\n                continue\n\n            if command == -2:  # Turn left\n                current_direction = (current_direction + 3) % 4\n                continue\n\n            # Move forward\n            dx, dy = directions[current_direction]\n            for _ in range(command):\n                next_x, next_y = x + dx, y + dy\n                if self._hash_coordinates(next_x, next_y) in obstacle_set:\n                    break\n                x, y = next_x, next_y\n\n            max_distance_squared = max(max_distance_squared, x * x + y * y)\n\n        return max_distance_squared\n\n    # Hash function to convert (x, y) coordinates to a unique integer value\n    def _hash_coordinates(self, x: int, y: int) -> int:\n        return x + self.HASH_MULTIPLIER * y"
+  Title = "Walking Robot Simulation"
+  Url = "/submissions/detail/1970800742/"
+  LangName = "Python3"
+  Timestamp = 1775495721
+  Status = 10
+  Runtime = "26 ms"
+  IsPending = "Not Pending"
+  Memory = "23.8 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

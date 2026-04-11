@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1933425956
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1800
+  TitleSlug = "concatenation-of-consecutive-binary-numbers"
+  Code = "class Solution:\n    def concatenatedBinary(self, n: int) -> int:\n        cur = 0\n        mod = (10 ** 9) + 7\n        for i in range(1, n + 1):\n            cur_i = i\n            while cur_i > 0:\n                cur = (cur << 1)\n                cur_i //= 2\n            cur = (cur + i) % mod\n        return cur"
+  Title = "Concatenation of Consecutive Binary Numbers"
+  Url = "/submissions/detail/1933425956/"
+  LangName = "Python3"
+  Timestamp = 1772265294
+  Status = 10
+  Runtime = "4972 ms"
+  IsPending = "Not Pending"
+  Memory = "19.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

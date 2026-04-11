@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1949136821
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1728
+  TitleSlug = "fancy-sequence"
+  Code = "class Fancy:\n\n    def __init__(self):\n        self.mod = 10**9 + 7\n        self.v = list()\n        self.a = 1\n        self.b = 0\n\n    # fast exponentiation\n    def quickmul(self, x: int, y: int) -> int:\n        return pow(x, y, self.mod)\n\n    # multiplicative inverse\n    def inv(self, x: int) -> int:\n        return self.quickmul(x, self.mod - 2)\n\n    def append(self, val: int) -> None:\n        self.v.append((val - self.b) * self.inv(self.a) % self.mod)\n\n    def addAll(self, inc: int) -> None:\n        self.b = (self.b + inc) % self.mod\n\n    def multAll(self, m: int) -> None:\n        self.a = self.a * m % self.mod\n        self.b = self.b * m % self.mod\n\n    def getIndex(self, idx: int) -> int:\n        if idx >= len(self.v):\n            return -1\n        return (self.a * self.v[idx] + self.b) % self.mod"
+  Title = "Fancy Sequence"
+  Url = "/submissions/detail/1949136821/"
+  LangName = "Python3"
+  Timestamp = 1773582822
+  Status = 10
+  Runtime = "255 ms"
+  IsPending = "Not Pending"
+  Memory = "56.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1965283856
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3770
+  TitleSlug = "lexicographically-smallest-generated-string"
+  Code = "class Solution:\n    def generateString(self, str1: str, str2: str) -> str:\n        n, m = len(str1), len(str2)\n        s = [\"a\"] * (n + m - 1)\n        fixed = [False] * (n + m - 1)\n\n        # process the case of 'T'\n        for i, ch in enumerate(str1):\n            if ch == \"T\":\n                for j, c in enumerate(str2, i):\n                    if fixed[j] and s[j] != c:\n                        return \"\"\n                    s[j], fixed[j] = c, True\n\n        # process the case of 'F'\n        for i, ch in enumerate(str1):\n            if ch == \"F\":\n                # check if there are already different characters\n                if any(str2[j - i] != s[j] for j in range(i, i + m)):\n                    continue\n\n                # find the first modifiable position\n                for j in range(i + m - 1, i - 1, -1):\n                    if not fixed[j]:\n                        s[j] = \"b\"\n                        break\n                else:\n                    return \"\"\n\n        return \"\".join(s)"
+  Title = "Lexicographically Smallest Generated String"
+  Url = "/submissions/detail/1965283856/"
+  LangName = "Python3"
+  Timestamp = 1774989811
+  Status = 10
+  Runtime = "295 ms"
+  IsPending = "Not Pending"
+  Memory = "19.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

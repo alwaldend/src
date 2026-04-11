@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1942088735
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2107
+  TitleSlug = "find-unique-binary-string"
+  Code = "class Solution:\n    def findDifferentBinaryString(self, nums: List[str]) -> str:\n        ans = []\n        for i in range(len(nums)):\n            curr = nums[i][i]\n            ans.append(\"1\" if curr == \"0\" else \"0\")\n        \n        return \"\".join(ans)"
+  Title = "Find Unique Binary String"
+  Url = "/submissions/detail/1942088735/"
+  LangName = "Python3"
+  Timestamp = 1772986367
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "19.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

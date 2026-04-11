@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1971854111
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 2178
+  TitleSlug = "walking-robot-simulation-ii"
+  Code = "class Robot:\n\n    TO_DIR = {\n        0: \"East\",\n        1: \"North\",\n        2: \"West\",\n        3: \"South\",\n    }\n\n    def __init__(self, width: int, height: int):\n        self.moved = False\n        self.idx = 0\n        self.pos = list()\n        self.dirs = list()\n\n        pos_, dirs_ = self.pos, self.dirs\n\n        for i in range(width):\n            pos_.append((i, 0))\n            dirs_.append(0)\n        for i in range(1, height):\n            pos_.append((width - 1, i))\n            dirs_.append(1)\n        for i in range(width - 2, -1, -1):\n            pos_.append((i, height - 1))\n            dirs_.append(2)\n        for i in range(height - 2, 0, -1):\n            pos_.append((0, i))\n            dirs_.append(3)\n\n        dirs_[0] = 3\n\n    def step(self, num: int) -> None:\n        self.moved = True\n        self.idx = (self.idx + num) % len(self.pos)\n\n    def getPos(self) -> List[int]:\n        return list(self.pos[self.idx])\n\n    def getDir(self) -> str:\n        if not self.moved:\n            return \"East\"\n        return Robot.TO_DIR[self.dirs[self.idx]]"
+  Title = "Walking Robot Simulation II"
+  Url = "/submissions/detail/1971854111/"
+  LangName = "Python3"
+  Timestamp = 1775583830
+  Status = 10
+  Runtime = "63 ms"
+  IsPending = "Not Pending"
+  Memory = "24.3 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1934844569
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1807
+  TitleSlug = "partitioning-into-minimum-number-of-deci-binary-numbers"
+  Code = "class Solution:\n    def minPartitions(self, n: str) -> int:\n        res = 0\n        for num in n:\n            res = max(res, int(num))\n        return res"
+  Title = "Partitioning Into Minimum Number Of Deci-Binary Numbers"
+  Url = "/submissions/detail/1934844569/"
+  LangName = "Python3"
+  Timestamp = 1772378402
+  Status = 10
+  Runtime = "87 ms"
+  IsPending = "Not Pending"
+  Memory = "20.1 MB"
+  CompareResult = "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1931063716
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1458
+  TitleSlug = "sort-integers-by-the-number-of-1-bits"
+  Code = "class Solution:\n    def sortByBits(self, arr: List[int]) -> List[int]:\n        def find_weight(num):\n            weight = 0\n            \n            while num:\n                weight += 1\n                num &= (num - 1)\n            \n            return weight\n        \n        arr.sort(key = lambda num: (find_weight(num), num))\n        return arr"
+  Title = "Sort Integers by The Number of 1 Bits"
+  Url = "/submissions/detail/1931063716/"
+  LangName = "Python3"
+  Timestamp = 1772042752
+  Status = 10
+  Runtime = "8 ms"
+  IsPending = "Not Pending"
+  Memory = "19.6 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

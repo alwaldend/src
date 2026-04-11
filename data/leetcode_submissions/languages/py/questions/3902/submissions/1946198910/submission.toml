@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1946198910
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3902
+  TitleSlug = "maximize-spanning-tree-stability-with-upgrades"
+  Code = "class DSU:\n    def __init__(self, parent):\n        self.parent = parent\n\n    def find(self, x):\n        if self.parent[x] == x:\n            return x\n        self.parent[x] = self.find(self.parent[x])\n        return self.parent[x]\n\n    def join(self, x, y):\n        px = self.find(x)\n        py = self.find(y)\n        self.parent[px] = py\n\n\nMAX_STABILITY = 200000\n\n\nclass Solution:\n    def maxStability(self, n: int, edges: List[List[int]], k: int) -> int:\n        ans = -1\n\n        if len(edges) < n - 1:\n            return -1\n\n        mustEdges = [e for e in edges if e[3] == 1]\n        optionalEdges = [e for e in edges if e[3] != 1]\n\n        if len(mustEdges) > n - 1:\n            return -1\n\n        optionalEdges.sort(key=lambda x: x[2], reverse=True)\n\n        selectedInit = 0\n        mustMinStability = MAX_STABILITY\n        dsuInit = DSU(list(range(n)))\n\n        for u, v, s, must in mustEdges:\n            if dsuInit.find(u) == dsuInit.find(v) or selectedInit == n - 1:\n                return -1\n            dsuInit.join(u, v)\n            selectedInit += 1\n            mustMinStability = min(mustMinStability, s)\n\n        l = 0\n        r = mustMinStability\n\n        while l < r:\n            mid = l + ((r - l + 1) >> 1)\n            dsu = DSU(dsuInit.parent[:])\n            selected = selectedInit\n            doubledCount = 0\n\n            for u, v, s, must in optionalEdges:\n                if dsu.find(u) == dsu.find(v):\n                    continue\n\n                if s >= mid:\n                    dsu.join(u, v)\n                    selected += 1\n                elif doubledCount < k and s * 2 >= mid:\n                    doubledCount += 1\n                    dsu.join(u, v)\n                    selected += 1\n                else:\n                    break\n\n                if selected == n - 1:\n                    break\n\n            if selected != n - 1:\n                r = mid - 1\n            else:\n                ans = l = mid\n\n        return ans"
+  Title = "Maximize Spanning Tree Stability with Upgrades"
+  Url = "/submissions/detail/1946198910/"
+  LangName = "Python3"
+  Timestamp = 1773331906
+  Status = 10
+  Runtime = "931 ms"
+  IsPending = "Not Pending"
+  Memory = "73.9 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

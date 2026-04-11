@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1937943026
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1704
+  TitleSlug = "special-positions-in-a-binary-matrix"
+  Code = "class Solution:\n    def numSpecial(self, mat: List[List[int]]) -> int:\n        m = len(mat)\n        n = len(mat[0])\n        row_count = [0] * m\n        col_count = [0] * n\n        ones = []\n        for row in range(m):\n            for col in range(n):\n                if mat[row][col] == 1:\n                    row_count[row] += 1\n                    col_count[col] += 1\n                    ones.append((row, col))\n        res = 0\n        while ones:\n            row, col = ones.pop()\n            if row_count[row] == 1 and col_count[col] == 1:\n                res += 1\n        return res"
+  Title = "Special Positions in a Binary Matrix"
+  Url = "/submissions/detail/1937943026/"
+  LangName = "Python3"
+  Timestamp = 1772644210
+  Status = 10
+  Runtime = "7 ms"
+  IsPending = "Not Pending"
+  Memory = "20.1 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

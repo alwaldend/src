@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1960218371
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3850
+  TitleSlug = "equal-sum-grid-partition-ii"
+  Code = "class Solution:\n    def canPartitionGrid(self, grid: List[List[int]]) -> bool:\n        total = 0\n        m = len(grid)\n        n = len(grid[0])\n        for i in range(m):\n            for j in range(n):\n                total += grid[i][j]\n        for _ in range(4):\n            exist = set()\n            exist.add(0)\n            sum_val = 0\n            m = len(grid)\n            n = len(grid[0])\n            if m < 2:\n                grid = self.rotation(grid)\n                continue\n            if n == 1:\n                for i in range(m - 1):\n                    sum_val += grid[i][0]\n                    tag = sum_val * 2 - total\n                    if tag == 0 or tag == grid[0][0] or tag == grid[i][0]:\n                        return True\n                grid = self.rotation(grid)\n                continue\n            for i in range(m - 1):\n                for j in range(n):\n                    exist.add(grid[i][j])\n                    sum_val += grid[i][j]\n                tag = sum_val * 2 - total\n                if i == 0:\n                    if tag == 0 or tag == grid[0][0] or tag == grid[0][n - 1]:\n                        return True\n                    continue\n                if tag in exist:\n                    return True\n            grid = self.rotation(grid)\n        return False\n\n    def rotation(self, grid: List[List[int]]) -> List[List[int]]:\n        m = len(grid)\n        n = len(grid[0])\n        tmp = [[0] * m for _ in range(n)]\n        for i in range(m):\n            for j in range(n):\n                tmp[j][m - 1 - i] = grid[i][j]\n        return tmp"
+  Title = "Equal Sum Grid Partition II"
+  Url = "/submissions/detail/1960218371/"
+  LangName = "Python3"
+  Timestamp = 1774548059
+  Status = 10
+  Runtime = "982 ms"
+  IsPending = "Not Pending"
+  Memory = "46.2 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

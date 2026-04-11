@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1944251337
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 3407
+  TitleSlug = "find-all-possible-stable-binary-arrays-ii"
+  Code = "class Solution:\n    def numberOfStableArrays(self, zero: int, one: int, limit: int) -> int:\n        mod = 10**9 + 7\n\n        dp = [[[0, 0] for _ in range(one + 1)] for _ in range(zero + 1)]\n        for i in range(zero + 1):\n            for j in range(one + 1):\n                for lastBit in range(2):\n                    if i == 0:\n                        if lastBit == 0 or j > limit:\n                            dp[i][j][lastBit] = 0\n                        else:\n                            dp[i][j][lastBit] = 1\n                    elif j == 0:\n                        if lastBit == 1 or i > limit:\n                            dp[i][j][lastBit] = 0\n                        else:\n                            dp[i][j][lastBit] = 1\n                    elif lastBit == 0:\n                        dp[i][j][lastBit] = dp[i - 1][j][0] + dp[i - 1][j][1]\n                        if i > limit:\n                            dp[i][j][lastBit] -= dp[i - limit - 1][j][1]\n                    else:\n                        dp[i][j][lastBit] = dp[i][j - 1][0] + dp[i][j - 1][1]\n                        if j > limit:\n                            dp[i][j][lastBit] -= dp[i][j - limit - 1][0]\n                    dp[i][j][lastBit] %= mod\n        return (dp[-1][-1][0] + dp[-1][-1][1]) % mod"
+  Title = "Find All Possible Stable Binary Arrays II"
+  Url = "/submissions/detail/1944251337/"
+  LangName = "Python3"
+  Timestamp = 1773166505
+  Status = 10
+  Runtime = "4614 ms"
+  IsPending = "Not Pending"
+  Memory = "169 MB"
+  CompareResult = "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1

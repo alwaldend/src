@@ -1,0 +1,18 @@
+[[Submissions]]
+  Id = 1940042855
+  StatusDisplay = "Accepted"
+  Lang = "python3"
+  QuestionId = 1910
+  TitleSlug = "check-if-binary-string-has-at-most-one-segment-of-ones"
+  Code = "class Solution:\n    def checkOnesSegment(self, s: str) -> bool:\n        found_1, cur_1 = False, False\n        for char in s:\n            if char == \"1\":\n                if found_1 and not cur_1:\n                    return False\n                elif not found_1:\n                    found_1 = True\n                    cur_1 = True\n            elif cur_1:\n                cur_1 = False\n        return True"
+  Title = "Check if Binary String Has at Most One Segment of Ones"
+  Url = "/submissions/detail/1940042855/"
+  LangName = "Python3"
+  Timestamp = 1772815653
+  Status = 10
+  Runtime = "0 ms"
+  IsPending = "Not Pending"
+  Memory = "19.2 MB"
+  CompareResult = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+  HasNotes = false
+  FlagType = 1
