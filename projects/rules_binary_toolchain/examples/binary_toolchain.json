@@ -135,16 +135,8 @@
                     "download": {
                         "url": "https://github.com/fluxcd/flux2/releases/download/v2.8.5/flux_2.8.5_linux_amd64.tar.gz",
                         "output": "out/flux",
+                        "executable": true,
                         "integrity": "sha256-Y8F4upOKVEMmWyzgJpHABaz072GI1Nu5udhzM1WJSMQ="
-                    }
-                },
-                {
-                    "execute": {
-                        "arguments": [
-                            "chmod",
-                            "u+x",
-                            "out/flux"
-                        ]
                     }
                 }
             ],
@@ -167,16 +159,8 @@
                     "download": {
                         "url": "https://dl.k8s.io/release/v1.35.3/bin/linux/amd64/kubectl",
                         "output": "out/kubectl",
+                        "executable": true,
                         "integrity": "sha256-/THH1xKSYOYI9vr5LVmEwyZ60LXq07ztL+ElaG4oatY="
-                    }
-                },
-                {
-                    "execute": {
-                        "arguments": [
-                            "chmod",
-                            "u+x",
-                            "out/kubectl"
-                        ]
                     }
                 }
             ],
@@ -314,17 +298,8 @@
                     "download": {
                         "url": "https://github.com/mvdan/sh/releases/download/v3.12.0/shfmt_v3.12.0_linux_amd64",
                         "output": "out/shfmt",
+                        "executable": true,
                         "integrity": "sha256-2fuyqcM9E/R+dhjPNiqRTQKdAqbfEkBk//BP1oinReo="
-                    }
-                },
-
-                {
-                    "execute": {
-                        "arguments": [
-                            "chmod",
-                            "u+x",
-                            "out/shfmt"
-                        ]
                     }
                 }
             ],

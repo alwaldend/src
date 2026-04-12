@@ -3,7 +3,7 @@ load(":binary_toolchain_lock.bzl", "binary_toolchain_lock_parse_archive")
 _BUILD = """\
 load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
 
-ARCHIVE = {archive}
+ARCHIVE = json.decode({archive})
 
 [
     [
@@ -45,7 +45,7 @@ def _impl(ctx):
     ctx.file(
         "BUILD.bazel",
         _BUILD.format(
-            archive = json.encode_indent(archive, indent = "    "),
+            archive = json.encode(json.encode_indent(archive, indent = "    ")),
         ),
     )
     return ctx.repo_metadata(reproducible = True)

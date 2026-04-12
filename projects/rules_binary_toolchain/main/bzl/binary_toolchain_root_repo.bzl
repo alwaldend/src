@@ -19,7 +19,7 @@ _DEFS_BODY = """\
 """
 
 _BUILD_HEADER = """\
-ARCHIVES = {archives}
+ARCHIVES = json.decode({archives})
 """
 
 _BUILD_BIN = """\
@@ -83,7 +83,7 @@ def _impl(ctx):
     for bin in all_bins.keys():
         defs.append(_DEFS_BODY.format(name = bin))
     ctx.file("defs.bzl", "\n".join(defs))
-    build = [_BUILD_HEADER.format(archives = json.encode_indent(archives, indent = "    "))]
+    build = [_BUILD_HEADER.format(archives = json.encode(json.encode_indent(archives, indent = "    ")))]
     for bin in all_bins.keys():
         build.append(
             _BUILD_BIN.format(
