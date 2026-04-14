@@ -9,7 +9,10 @@ tags:
 
 ## Deployment
 
-Manual export and import through [Winbox](https://help.mikrotik.com/docs/spaces/ROS/pages/328129/WinBox)
+- Open [Winbox](https://help.mikrotik.com/docs/spaces/ROS/pages/328129/WinBox)
+- Open new terminal
+- Run `/export`
+- Copy output
 
 ## Links
 
