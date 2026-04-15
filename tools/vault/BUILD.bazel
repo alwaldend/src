@@ -1,8 +1,13 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("@com_alwaldend_src_tools_vault//:defs.bzl", "vault_binary")
 
-alias(
+vault_binary(
     name = "vault",
-    actual = "@com_alwaldend_src_tools_vault//:vault_binary",
+    env = {
+        "VAULT_CACERT": "data/ssl/alwaldend.com_root_ca.crt",
+        "VAULT_ADDR": "https://vault.dc1.alwaldend.com:8200"
+    },
+    data = ["//data/ssl:alwaldend.com_root_ca_crt"],
     visibility = ["//:__subpackages__"],
 )
 
