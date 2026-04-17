@@ -1,17 +1,20 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 load("@com_alwaldend_src_tools_terraform//:defs.bzl", "terraform_binary")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 
 terraform_binary(
     name = "tf",
+    arguments = [
+        "-chdir=\"$${BUILD_WORKING_DIRECTORY}\"",
+    ],
+    data = [
+        ":srcs",
+        "//data/ssl:alwaldend.com_root_ca_crt",
+    ],
     env = {
         "VAULT_CACERT": "../../../../data/ssl/alwaldend.com_root_ca.crt",
         "VAULT_ADDR": "https://vault.dc1.alwaldend.com:8200",
         "VAULT_TOKEN_NAME": package_name(),
     },
-    arguments = [
-        "-chdir=\"$${BUILD_WORKING_DIRECTORY}\"",
-    ],
-    data = ["//data/ssl:alwaldend.com_root_ca_crt", ":srcs"],
     visibility = ["//:__subpackages__"],
 )
 
