@@ -5,7 +5,8 @@ terraform_binary(
     name = "tf",
     env = {
         "VAULT_CACERT": "../../../../data/ssl/alwaldend.com_root_ca.crt",
-        "VAULT_ADDR": "https://vault.dc1.alwaldend.com:8200"
+        "VAULT_ADDR": "https://vault.dc1.alwaldend.com:8200",
+        "VAULT_TOKEN_NAME": package_name(),
     },
     arguments = [
         "-chdir=\"$${BUILD_WORKING_DIRECTORY}\"",
