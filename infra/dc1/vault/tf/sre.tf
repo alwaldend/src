@@ -7,6 +7,17 @@ resource "vault_mount" "sre" {
   }
 }
 
+resource "vault_identity_group" "sre_infra_dc1_vault" {
+  name     = "sre_infra_dc1_vault"
+  type     = "internal"
+  policies = [vault_policy.sre_infra_dc1_vault.name]
+  member_entity_ids = [vault_identity_entity.simeonwarren.id]
+
+  metadata = {
+    version = "2"
+  }
+}
+
 resource "vault_policy" "sre_infra_dc1_vault" {
   name = "sre_infra_dc1_vault"
 
