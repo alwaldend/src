@@ -1,9 +1,16 @@
 load("@com_alwaldend_src_tools_dnscontrol//:defs.bzl", "dnscontrol_binary", "dnscontrol_test")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 
 _ZONES = glob(["zones/**/*.zone"])
 
-_SECRETS = ["//tools/secrets:dns"]
+sh_binary(
+    name = "run",
+    srcs = [":run.sh"],
+    data = ["//tools/dnscontrol", "//tools/vault", ":creds.json.tpl"] + _ZONES,
+    deps = ["@rules_shell//shell/runfiles"]
+)
+
 
 pkg_filegroup(
     name = "docs",
@@ -42,17 +49,3 @@ dnscontrol_binary(
 #     ],
 #     # zones = _ZONES,
 # )
-
-alias(
-    name = "deploy",
-    actual = ":push",
-)
-
-dnscontrol_binary(
-    name = "push",
-    arguments = ["push"],
-    # config = "dnsconfig.js",
-    # creds = "creds.json.tpl",
-    # secrets = _SECRETS,
-    # zones = _ZONES,
-)
