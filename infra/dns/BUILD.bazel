@@ -1,16 +1,70 @@
-load("@com_alwaldend_src_tools_dnscontrol//:defs.bzl", "dnscontrol_binary", "dnscontrol_test")
+load("@com_alwaldend_src_tools_dnscontrol//:defs.bzl", "dnscontrol_binary")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
+load("//tools/vault:defs.bzl", "vault")
 
 _ZONES = glob(["zones/**/*.zone"])
 
-sh_binary(
+sh_library(
     name = "run",
     srcs = [":run.sh"],
-    data = ["//tools/dnscontrol", "//tools/vault", ":creds.json.tpl"] + _ZONES,
-    deps = ["@rules_shell//shell/runfiles"]
+    data = [
+        "creds.json.tpl",
+        "dnsconfig.js",
+        "//tools/dnscontrol",
+        "//tools/vault",
+    ] + _ZONES,
 )
 
+sh_binary(
+    name = "preview",
+    srcs = [":run.sh"],
+    args = [
+        "preview",
+        "--config",
+        "infra/dns/dnsconfig.js",
+        "--creds",
+        "infra/dns/creds.json",
+    ],
+    env = vault.env,
+    use_bash_launcher = True,
+    deps = [":run"],
+)
+
+sh_test(
+    name = "preview_test",
+    size = "small",
+    srcs = [":run.sh"],
+    args = [
+        "preview",
+        "--expect-no-changes",
+        "--config",
+        "infra/dns/dnsconfig.js",
+        "--creds",
+        "infra/dns/creds.json",
+    ],
+    env = vault.env,
+    env_inherit = ["VAULT_TOKEN"],
+    tags = ["requires-network"],
+    use_bash_launcher = True,
+    deps = [":run"],
+)
+
+sh_binary(
+    name = "deploy",
+    srcs = [":run.sh"],
+    args = [
+        "push",
+        "--config",
+        "infra/dns/dnsconfig.js",
+        "--creds",
+        "infra/dns/creds.json",
+    ],
+    env = vault.env,
+    use_bash_launcher = True,
+    deps = [":run"],
+)
 
 pkg_filegroup(
     name = "docs",
@@ -23,29 +77,3 @@ pkg_files(
     srcs = glob(["*.md"]) + _ZONES,
     prefix = "content/docs/{}".format(package_name()),
 )
-
-dnscontrol_binary(
-    name = "preview",
-    arguments = ["preview"],
-    # config = "dnsconfig.js",
-    # creds = "creds.json.tpl",
-    # secrets = _SECRETS,
-    # zones = _ZONES,
-)
-
-# dnscontrol_test(
-#     name = "preview_test",
-#     size = "small",
-#     arguments = [
-#         "preview",
-#         "--expect-no-changes",
-#     ],
-#     # config = "dnsconfig.js",
-#     # creds = "creds.json.tpl",
-#     # env_inherit = ["HOME"],
-#     # secrets = _SECRETS,
-#     tags = [
-#         "requires-network",
-#     ],
-#     # zones = _ZONES,
-# )

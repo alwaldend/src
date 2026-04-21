@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-03-03T06:43:25Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026030300 3600 600 604800 1440
+; generated with dnscontrol 2026-04-21T17:24:43Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026042100 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -20,12 +20,15 @@ _dmarc           IN TXT   "v=DMARC1; p=quarantine; adkim=s"
 protonmail._domainkey IN CNAME protonmail.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
 protonmail2._domainkey IN CNAME protonmail2.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
 protonmail3._domainkey IN CNAME protonmail3.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
-cl1.dc1 IN CNAME mini2.dc1.alwaldend.com.
-*.cl1.dc1 IN CNAME cl1.dc1.alwaldend.com.
-mini1.dc1 IN A 192.168.1.222
-mini2.dc1 IN A 192.168.1.223
-router1.dc1 IN A 192.168.1.1
+bm1.dc1          IN A     192.168.1.222
+bm2.dc1          IN A     192.168.1.223
+bm3.dc1          IN A     192.168.1.218
+cl1.dc1          IN CNAME bm2.dc1.alwaldend.com.
+*.cl1.dc1        IN CNAME cl1.dc1.alwaldend.com.
+gitea.dc1        IN CNAME bm3.dc1.alwaldend.com.
+router1.dc1      IN A     192.168.1.1
                  IN AAAA  fd2e:546d:5738::1
+vault.dc1        IN CNAME bm3.dc1.alwaldend.com.
 simplelogin 10800 IN MX   10 mx1.simplelogin.co.
            10800 IN MX    20 mx2.simplelogin.co.
            10800 IN TXT   "sl-verification=bxfzzfjiggzsxyzxhhmkmjqkaskjgy"

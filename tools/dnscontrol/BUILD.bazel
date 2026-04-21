@@ -1,5 +1,5 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("@com_alwaldend_src_tools_dnscontrol//:defs.bzl", "dnscontrol_binary")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 
 dnscontrol_binary(
     name = "dnscontrol",

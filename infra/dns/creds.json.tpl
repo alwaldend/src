@@ -5,6 +5,7 @@
     "apitoken": "${CLOUDFLAREAPI_API_TOKEN}"
   },
   "bind": {
-    "TYPE": "BIND"
+    "TYPE": "BIND",
+    "directory": "infra/dns/zones"
   }
 }
