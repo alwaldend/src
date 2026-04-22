@@ -22,13 +22,17 @@ tags:
   ```sh
   bazel run //:write_git_hooks
   ```
-- Setup dotfiles (optional):
+- Install Vault token helper:
   ```sh
-  bazel run //projects/dotfiles:install
+  bazel run //tools/vault/token_helper:install
   ```
 - Install android tools:
   ```sh
   bazel run //tools/android:install
+  ```
+- Setup dotfiles (optional):
+  ```sh
+  bazel run //projects/dotfiles:install
   ```
 - Install nvm: https://github.com/nvm-sh/nvm
 - Install node:
@@ -38,10 +42,6 @@ tags:
 - Install qt:
   ```sh
   bazel run //tools/qt:install
-  ```
-- Set up secrets:
-  ```sh
-  bazel run //tools/secrets:systemd_creds_edit
   ```
 
 ## Setup .bzlenv
