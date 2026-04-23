@@ -9,6 +9,7 @@ main() {
     action="${1}"
     case "${action}" in
         get)
+            echo "Looking up token" >&2
             secret-tool lookup "${key}" "${value}"
             ;;
         store)

@@ -1,0 +1,15 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "run_lib",
+    srcs = ["main.go"],
+    deps = ["@rules_go//go/runfiles"],
+    importpath = "git.alwaldend.com/alwaldend/src/infra/dns/run",
+    visibility = ["//infra/dns:__pkg__"],
+)
+
+go_binary(
+    name = "run",
+    embed = [":run_lib"],
+    visibility = ["//infra/dns:__pkg__"],
+)

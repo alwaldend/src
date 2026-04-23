@@ -1,69 +1,58 @@
 load("@com_alwaldend_src_tools_dnscontrol//:defs.bzl", "dnscontrol_binary")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
-load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
-load("@rules_shell//shell:sh_test.bzl", "sh_test")
 load("//tools/vault:defs.bzl", "vault")
+load("@rules_go//go:def.bzl", "go_binary", "go_test")
+load("@bazel_skylib//rules:native_binary.bzl", "native_test")
 
 _ZONES = glob(["zones/**/*.zone"])
 
-sh_library(
+_DATA = [
+    "creds.json.tpl",
+    "dnsconfig.js",
+    "//tools/dnscontrol",
+    "//tools/vault",
+    "@rules_shell//shell/runfiles",
+] + _ZONES
+
+go_binary(
     name = "run",
-    srcs = [":run.sh"],
-    data = [
-        "creds.json.tpl",
-        "dnsconfig.js",
-        "//tools/dnscontrol",
-        "//tools/vault",
-    ] + _ZONES,
-)
-
-sh_binary(
-    name = "preview",
-    srcs = [":run.sh"],
-    args = [
-        "preview",
-        "--config",
-        "infra/dns/dnsconfig.js",
-        "--creds",
-        "infra/dns/creds.json",
-    ],
+    embed = ["//infra/dns/run:run_lib"],
+    data = _DATA,
+    args = ["preview"],
     env = vault.env,
-    use_bash_launcher = True,
-    deps = [":run"],
 )
 
-sh_test(
+go_binary(
+    name = "preview",
+    embed = ["//infra/dns/run:run_lib"],
+    data = _DATA,
+    args = ["preview"],
+    env = vault.env,
+)
+
+go_binary(
+    name = "deploy",
+    embed = ["//infra/dns/run:run_lib"],
+    data = _DATA,
+    args = ["push"],
+    env = vault.env,
+)
+
+go_binary(
+    name = "preview_test_binary",
+    embed = ["//infra/dns/run:run_lib"],
+    data = _DATA,
+    args = ["preview", "--expect-no-changes"],
+    env = vault.env,
+)
+
+native_test(
     name = "preview_test",
     size = "small",
-    srcs = [":run.sh"],
-    args = [
-        "preview",
-        "--expect-no-changes",
-        "--config",
-        "infra/dns/dnsconfig.js",
-        "--creds",
-        "infra/dns/creds.json",
-    ],
+    src = ":preview_test_binary",
+    data = _DATA,
     env = vault.env,
-    env_inherit = ["VAULT_TOKEN"],
     tags = ["requires-network"],
-    use_bash_launcher = True,
-    deps = [":run"],
-)
-
-sh_binary(
-    name = "deploy",
-    srcs = [":run.sh"],
-    args = [
-        "push",
-        "--config",
-        "infra/dns/dnsconfig.js",
-        "--creds",
-        "infra/dns/creds.json",
-    ],
-    env = vault.env,
-    use_bash_launcher = True,
-    deps = [":run"],
 )
 
 pkg_filegroup(
