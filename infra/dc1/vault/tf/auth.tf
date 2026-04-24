@@ -1,16 +1,16 @@
-resource "vault_auth_backend" "cert" {
-    path = "cert"
-    type = "cert"
-}
+resource "vault_auth_backend" "userpass" {
+  path = "userpass"
+  type = "userpass"
+  description = "Userpass auth"
 
-/*
-resource "vault_cert_auth_backend_role" "cert" {
-    name           = "foo"
-    certificate    = file("/path/to/certs/ca-cert.pem")
-    backend        = vault_auth_backend.cert.path
-    allowed_names  = ["foo.example.org", "baz.example.org"]
-    token_ttl      = 300
-    token_max_ttl  = 600
-    token_policies = ["foo"]
+  tune {
+    default_lease_ttl = "24h"
+    max_lease_ttl      = "24h"
+    listing_visibility = "unauth"
+  }
 }
-*/
+resource "vault_auth_backend" "approle" {
+  path = "approle"
+  type = "approle"
+  description = "Approle auth"
+}

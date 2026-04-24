@@ -1,8 +1,8 @@
+load("@bazel_skylib//rules:native_binary.bzl", "native_test")
 load("@com_alwaldend_src_tools_dnscontrol//:defs.bzl", "dnscontrol_binary")
+load("@rules_go//go:def.bzl", "go_binary", "go_test")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/vault:defs.bzl", "vault")
-load("@rules_go//go:def.bzl", "go_binary", "go_test")
-load("@bazel_skylib//rules:native_binary.bzl", "native_test")
 
 _ZONES = glob(["zones/**/*.zone"])
 
@@ -16,33 +16,36 @@ _DATA = [
 
 go_binary(
     name = "run",
-    embed = ["//infra/dns/run:run_lib"],
-    data = _DATA,
     args = ["preview"],
+    data = _DATA,
+    embed = ["//infra/dns/run:run_lib"],
     env = vault.env,
 )
 
 go_binary(
     name = "preview",
-    embed = ["//infra/dns/run:run_lib"],
-    data = _DATA,
     args = ["preview"],
+    data = _DATA,
+    embed = ["//infra/dns/run:run_lib"],
     env = vault.env,
 )
 
 go_binary(
     name = "deploy",
-    embed = ["//infra/dns/run:run_lib"],
-    data = _DATA,
     args = ["push"],
+    data = _DATA,
+    embed = ["//infra/dns/run:run_lib"],
     env = vault.env,
 )
 
 go_binary(
     name = "preview_test_binary",
-    embed = ["//infra/dns/run:run_lib"],
+    args = [
+        "preview",
+        "--expect-no-changes",
+    ],
     data = _DATA,
-    args = ["preview", "--expect-no-changes"],
+    embed = ["//infra/dns/run:run_lib"],
     env = vault.env,
 )
 
