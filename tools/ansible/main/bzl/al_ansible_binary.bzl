@@ -1,6 +1,5 @@
 load("@bazel_skylib//lib:shell.bzl", "shell")
 load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo")
-load("//tools/secrets/main/bzl:al_secrets_binary_info.bzl", "AlSecretsBinaryInfo")
 load(":al_ansible_scripts.bzl", "AL_ANSIBLE_SCRIPTS")
 
 _SCRIPT = """\
@@ -33,11 +32,6 @@ def _impl(ctx):
 
     runfiles = ctx.runfiles(files = runfiles_files, symlinks = runfiles_symlinks)
     runfiles = runfiles.merge_all([ansible[DefaultInfo].default_runfiles])
-
-    for attr in ctx.attr.secrets:
-        info = attr[AlSecretsBinaryInfo]
-        runfiles = runfiles.merge(info.default_info.default_runfiles)
-        source_scripts.append(info.source_script.short_path)
 
     args = []
     args.extend(ctx.attr.arguments)
@@ -77,11 +71,6 @@ al_ansible_binary = rule(
             doc = "Data",
             default = [],
             providers = [PackageFilegroupInfo],
-        ),
-        "secrets": attr.label_list(
-            cfg = "exec",
-            providers = [AlSecretsBinaryInfo],
-            doc = "Secrets",
         ),
         "ansible": attr.string_keyed_label_dict(
             default = {

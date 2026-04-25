@@ -26,7 +26,6 @@ al_ansible_binary(
         "//projects/ansible_collection:collections",
     ],
     process_name = "ansible_playbook",
-    secrets = [],
 )
 
 pkg_filegroup(
