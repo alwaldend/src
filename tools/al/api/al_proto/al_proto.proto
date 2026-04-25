@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package com.alwaldend.src.tools.al.api.al_proto;
+
+option go_package = "git.alwaldend.com/alwaldend/src/tools/al/api/al_proto";
+
+// api.Config https://pkg.go.dev/github.com/hashicorp/vault/api#Config
+message VaultConfig {
+  string address = 1;
+}
+
+// api.ConfigureTLS https://pkg.go.dev/github.com/hashicorp/vault/api#Config.ConfigureTLS
+message VaultTLS {
+  string ca_cert = 1;
+}
+
+message Vault {
+  // Vault name
+  string name = 1;
+  // Vault config
+  VaultConfig config = 2;
+  // Vault tls config
+  VaultTLS tls = 3;
+}
+
+message VaultSecretKv {
+  // Secret path
+  string path = 1;
+  // Secret mount
+  string mount = 2;
+}
+
+message VaultSecret {
+  // Secret name
+  string name = 1;
+  // Vault name
+  string vault = 2;
+  // Auth name
+  string auth = 3;
+  // KV secret config
+  VaultSecretKv kv = 4;
+}
+
+// Approle auth
+message VaultAuthApprole {
+  // Approle name
+  string name = 1;
+}
+
+// Vault authentication config
+message VaultAuth {
+  // Authentication name
+  string name = 1;
+  VaultAuthApprole approle = 2;
+}
+
+message Config {
+  // List of Vault configs
+  repeated Vault vaults = 1;
+  // List of Vault authentication configs
+  repeated VaultAuth auth = 2;
+  // List of secret configs
+  repeated VaultSecret secrets = 3;
+}

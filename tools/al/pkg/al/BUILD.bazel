@@ -1,0 +1,23 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "al",
+    srcs = [
+        "check.go",
+        "command.go",
+        "config.go",
+        "vault.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/al/pkg/al",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//tools/al/api/al_proto",
+        "@com_github_hashicorp_vault_api//:api",
+        "@com_github_hashicorp_vault_api//tokenhelper",
+        "@com_github_hashicorp_vault_api_auth_approle//:approle",
+        "@io_k8s_sigs_yaml//:yaml",
+        "@org_golang_google_protobuf//encoding/protojson",
+        "@org_golang_google_protobuf//proto",
+        "@rules_go//go/runfiles",
+    ],
+)

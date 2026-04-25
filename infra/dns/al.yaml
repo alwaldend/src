@@ -1,0 +1,9 @@
+auth:
+  - name: default
+    approle:
+      name: src_infra_dns
+secrets:
+  - name: dns_token
+    kv:
+      path: cloudflare.com/dns_token
+      mount: secrets

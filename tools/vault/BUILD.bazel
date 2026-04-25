@@ -11,10 +11,7 @@ vault_binary(
 
 pkg_filegroup(
     name = "docs",
-    srcs = [
-        ":docs_files",
-        "//tools/vault/token_helper:docs",
-    ],
+    srcs = [":docs_files"],
     visibility = ["//tools:__pkg__"],
 )
 

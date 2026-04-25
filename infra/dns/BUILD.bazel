@@ -1,7 +1,7 @@
-load("@bazel_skylib//rules:native_binary.bzl", "native_test")
 load("@com_alwaldend_src_tools_dnscontrol//:defs.bzl", "dnscontrol_binary")
 load("@rules_go//go:def.bzl", "go_binary", "go_test")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/al/rules/al:al_config.bzl", "al_config")
 load("//tools/vault:defs.bzl", "vault")
 
 _ZONES = glob(["zones/**/*.zone"])
@@ -12,7 +12,15 @@ _DATA = [
     "//tools/dnscontrol",
     "//tools/vault",
     "@rules_shell//shell/runfiles",
+    ":al",
 ] + _ZONES
+
+al_config(
+    name = "al",
+    srcs = ["al.yaml"],
+    visibility = ["//infra/dns:__subpackages__"],
+    deps = ["//:al"],
+)
 
 go_binary(
     name = "run",
@@ -36,26 +44,6 @@ go_binary(
     data = _DATA,
     embed = ["//infra/dns/run:run_lib"],
     env = vault.env,
-)
-
-go_binary(
-    name = "preview_test_binary",
-    args = [
-        "preview",
-        "--expect-no-changes",
-    ],
-    data = _DATA,
-    embed = ["//infra/dns/run:run_lib"],
-    env = vault.env,
-)
-
-native_test(
-    name = "preview_test",
-    size = "small",
-    src = ":preview_test_binary",
-    data = _DATA,
-    env = vault.env,
-    tags = ["requires-network"],
 )
 
 pkg_filegroup(

@@ -1,0 +1,22 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+
+pkg_filegroup(
+    name = "docs",
+    srcs = [
+        ":docs_files",
+        "//tools/al/rules:docs",
+    ],
+    visibility = ["//tools:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
+)
+
+alias(
+    name = "al",
+    actual = "//tools/al/cmd/al",
+    visibility = ["//:__subpackages__"],
+)

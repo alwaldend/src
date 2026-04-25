@@ -1,3 +1,5 @@
+register_toolchains("//tools/al/rules/al:toolchain")
+
 binary_toolchain_extension = use_extension(
     "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
     "binary_toolchain_extension",

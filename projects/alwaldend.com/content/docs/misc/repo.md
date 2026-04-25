@@ -22,10 +22,6 @@ tags:
   ```sh
   bazel run //:write_git_hooks
   ```
-- Install Vault token helper:
-  ```sh
-  bazel run //tools/vault/token_helper:install
-  ```
 - Install android tools:
   ```sh
   bazel run //tools/android:install
@@ -43,6 +39,12 @@ tags:
   ```sh
   bazel run //tools/qt:install
   ```
+
+## Vault login
+
+```sh
+bazel run //tools/vault -- login --method=userpass username="${USER}"
+```
 
 ## Setup .bzlenv
 

@@ -3,6 +3,7 @@ load("//tools/ansible/main/bzl:al_ansible_scripts.bzl", "AL_ANSIBLE_SCRIPTS")
 load("//tools/bzlenv/main/bzl:al_bzlenv_binary.bzl", "al_bzlenv_binary")
 
 _ROOT_TOOLS = [
+    "al",
     "blender",
     "pkgsite",
     "oras",

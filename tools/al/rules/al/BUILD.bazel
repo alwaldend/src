@@ -1,0 +1,54 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/al/rules/al:al_toolchain.bzl", "al_toolchain")
+load("//tools/al/rules/al:al_toolchain_resolved.bzl", "al_toolchain_resolved")
+load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+
+pkg_filegroup(
+    name = "docs",
+    srcs = [
+        ":docs_files",
+        ":libs.stardoc",
+    ],
+    visibility = ["//tools/al/rules:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
+)
+
+toolchain_type(
+    name = "toolchain_type",
+    visibility = ["//:__subpackages__"],
+)
+
+al_toolchain(
+    name = "toolchain_impl",
+    al = "//tools/al/cmd/al",
+    visibility = ["//:__subpackages__"],
+)
+
+toolchain(
+    name = "toolchain",
+    toolchain = ":toolchain_impl",
+    toolchain_type = ":toolchain_type",
+    visibility = ["//:__subpackages__"],
+)
+
+al_toolchain_resolved(
+    name = "toolchain_resolved",
+    visibility = ["//:__subpackages__"],
+)
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "al_config": [],
+        "al_toolchain": [],
+        "al_toolchain_resolved": [
+            "//tools/resolved_toolchain/main/bzl:al_resolved_toolchain",
+        ],
+    },
+    visibility = ["//:__subpackages__"],
+)

@@ -5,7 +5,7 @@ go_library(
     srcs = ["main.go"],
     importpath = "git.alwaldend.com/alwaldend/src/infra/dns/run",
     visibility = ["//infra/dns:__pkg__"],
-    deps = ["@rules_go//go/runfiles"],
+    deps = ["//tools/al/pkg/al"],
 )
 
 go_binary(

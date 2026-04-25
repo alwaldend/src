@@ -2,7 +2,7 @@ resource "vault_identity_group" "src_infra_dns" {
   name     = "src_infra_dns"
   type     = "internal"
   policies = [vault_policy.src_infra_dns_approle.name]
-  member_entity_ids = [vault_identity_entity.simeonwarren.id]
+  member_entity_ids = [data.vault_identity_entity.simeonwarren.id]
 
   metadata = {
     version = "2"
@@ -22,7 +22,7 @@ resource "vault_policy" "src_infra_dns_approle" {
   name = "src_infra_dns_approle"
   policy = <<EOT
     path "auth/${vault_auth_backend.approle.path}/role/${vault_approle_auth_backend_role.src_infra_dns.role_name}/secret-id" {
-        capabilities = ["create"]
+        capabilities = ["update", "read"]
     }
 EOT
 }

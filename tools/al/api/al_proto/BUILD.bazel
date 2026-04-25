@@ -1,0 +1,65 @@
+load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
+load("@protobuf//bazel:proto_library.bzl", "proto_library")
+load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
+load("@rules_go//go:def.bzl", "go_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
+load("@rules_java//java:defs.bzl", "java_library")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/proto/main/bzl:al_proto_docs.bzl", "al_proto_docs")
+
+pkg_filegroup(
+    name = "docs",
+    srcs = [
+        ":al_proto_docs",
+        ":docs_files",
+    ],
+    visibility = ["//tools/al:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
+)
+
+al_proto_docs(
+    name = "al_proto_docs",
+    src = "al_proto.proto",
+)
+
+proto_library(
+    name = "al_proto_proto",
+    srcs = ["al_proto.proto"],
+    visibility = ["//:__subpackages__"],
+)
+
+go_proto_library(
+    name = "al_proto_go_proto",
+    importpath = "git.alwaldend.com/alwaldend/src/tools/al/api/al_proto",
+    proto = ":al_proto_proto",
+    visibility = ["//:__subpackages__"],
+)
+
+go_library(
+    name = "al_proto",
+    embed = [":al_proto_go_proto"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/al/api/al_proto",
+    visibility = ["//:__subpackages__"],
+)
+
+java_proto_library(
+    name = "al_proto_java_proto",
+    deps = [":al_proto_proto"],
+)
+
+java_library(
+    name = "al_proto_java_library",
+    visibility = ["//:__subpackages__"],
+    exports = [":al_proto_java_proto"],
+)
+
+py_proto_library(
+    name = "al_proto_py_pb2",
+    visibility = ["//:__subpackages__"],
+    deps = [":al_proto_proto"],
+)
