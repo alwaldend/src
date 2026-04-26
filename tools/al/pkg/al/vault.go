@@ -3,6 +3,7 @@ package al
 import (
 	"context"
 	"fmt"
+	"path/filepath"
 
 	"git.alwaldend.com/alwaldend/src/tools/al/api/al_proto"
 	"github.com/hashicorp/vault/api"
@@ -10,7 +11,9 @@ import (
 	"github.com/hashicorp/vault/api/tokenhelper"
 )
 
-func FetchSecrets(ctx context.Context, config *al_proto.Config) (map[string]map[string]any, error) {
+const VAULT_DEFAULT_NAME = "default"
+
+func VaultFetchSecrets(ctx context.Context, config *al_proto.Config) (map[string]map[string]any, error) {
 	var err error
 	clients := make(map[string]*api.Client)
 	tokenHelper, err := tokenhelper.NewInternalTokenHelper()
@@ -76,6 +79,81 @@ func FetchSecrets(ctx context.Context, config *al_proto.Config) (map[string]map[
 		res[secret.Name] = data.Data
 	}
 	return res, nil
+}
+
+func VaultDefaultEnv(config *al_proto.Config, client *api.Client) ([]string, error) {
+	res, err := VaultEnv(config, client, VAULT_DEFAULT_NAME)
+	return res, err
+}
+
+func VaultEnv(config *al_proto.Config, client *api.Client, vaultName string) ([]string, error) {
+	vault, err := VaultByName(config, vaultName)
+	if err != nil {
+		return nil, fmt.Errorf("missing vault: %w", err)
+	}
+	cacert, err := filepath.Abs( vault.Tls.CaCert)
+	if err != nil {
+		return nil, fmt.Errorf("could not create absolute path: %w", err)
+	}
+	res := []string{
+		fmt.Sprintf("VAULT_TOKEN=%s", client.Token()),
+		fmt.Sprintf("VAULT_ADDR=%s", client.Address()),
+		fmt.Sprintf("VAULT_CACERT=%s", cacert),
+	}
+	return res, nil
+}
+
+func VaultByName(config *al_proto.Config, name string) (*al_proto.Vault, error) {
+	var vault *al_proto.Vault
+	for _, curVault := range config.Vaults {
+		if curVault.Name == name {
+			vault = curVault
+			break
+		}
+	}
+	if vault == nil {
+		return nil, fmt.Errorf("missing vault with name %s", name)
+	}
+	return vault, nil
+}
+
+func VaultAuthByName(config *al_proto.Config, name string) (*al_proto.VaultAuth, error) {
+	var auth *al_proto.VaultAuth
+	for _, curAuth := range config.Auth {
+		if curAuth.Name == name {
+			auth = curAuth
+			break
+		}
+	}
+	if auth == nil {
+		return nil, fmt.Errorf("missing vault auth with name %s", name)
+	}
+	return auth, nil
+}
+
+func VaultAuthDefault(ctx context.Context, config *al_proto.Config) (*api.Client, error) {
+	res, err := VaultAuth(ctx, config, VAULT_DEFAULT_NAME, VAULT_DEFAULT_NAME)
+	return res, err
+}
+
+func VaultAuth(ctx context.Context, config *al_proto.Config, vaultName string, authName string) (*api.Client, error) {
+	vault, err := VaultByName(config, vaultName)
+	if err != nil {
+		return nil, fmt.Errorf("missing vault: %w", err)
+	}
+	auth, err := VaultAuthByName(config, authName)
+	if err != nil {
+		return nil, fmt.Errorf("missing auth: %w", err)
+	}
+	tokenHelper, err := tokenhelper.NewInternalTokenHelper()
+	if err != nil {
+		return nil, fmt.Errorf("could not create token helper: %w", err)
+	}
+	client, err := NewVaultClient(ctx, tokenHelper, vault, auth)
+	if err != nil {
+		return nil, fmt.Errorf("could not create vault client: %w", err)
+	}
+	return client, nil
 }
 
 func NewVaultClient(ctx context.Context, tokenHelper tokenhelper.TokenHelper, vault *al_proto.Vault, auth *al_proto.VaultAuth) (*api.Client, error) {

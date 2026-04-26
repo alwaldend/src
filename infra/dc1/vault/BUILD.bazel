@@ -1,5 +1,13 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+load("//tools/al/rules/al:al_config.bzl", "al_config")
 load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
+
+al_config(
+    name = "al",
+    srcs = ["al.yaml"],
+    visibility = ["//infra/dc1/vault:__subpackages__"],
+    deps = ["//:al"],
+)
 
 pkg_filegroup(
     name = "docs",

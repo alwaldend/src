@@ -1,6 +1,8 @@
 package al
 
-import "errors"
+import (
+	"errors"
+)
 
 // Panic on errors
 func Check(errs... error) {
@@ -8,4 +10,9 @@ func Check(errs... error) {
     if err != nil {
         panic(err)
     }
+}
+
+func Must[T any](val T, err error) T {
+	Check(err)
+	return val
 }

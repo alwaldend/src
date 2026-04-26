@@ -62,5 +62,17 @@ resource "vault_policy" "src_infra_dc1_vault" {
     path "sys/auth" {
       capabilities = [ "read" ]
     }
+    # Manage entities
+    path "identity/*" {
+       capabilities = ["create", "read", "update", "delete", "list"]
+    }
+    # Manage auth
+    path "auth/*" {
+       capabilities = ["create", "read", "update", "delete", "list"]
+    }
+    # Vault TF provider requires ability to create a child token
+    path "auth/token/create" {
+      capabilities = ["create", "update", "sudo"]
+    }
 EOT
 }

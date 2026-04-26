@@ -1,5 +1,5 @@
 load("@com_alwaldend_src_tools_dnscontrol//:defs.bzl", "dnscontrol_binary")
-load("@rules_go//go:def.bzl", "go_binary", "go_test")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/al/rules/al:al_config.bzl", "al_config")
 load("//tools/vault:defs.bzl", "vault")
@@ -22,19 +22,24 @@ al_config(
     deps = ["//:al"],
 )
 
+go_library(
+    name = "run_lib",
+    srcs = ["run.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/infra/dns",
+    deps = ["//tools/al/pkg/al"],
+)
+
 go_binary(
     name = "run",
-    args = ["preview"],
-    data = _DATA,
-    embed = ["//infra/dns/run:run_lib"],
-    env = vault.env,
+    embed = [":run_lib"],
+    visibility = ["//infra/dns:__pkg__"],
 )
 
 go_binary(
     name = "preview",
     args = ["preview"],
     data = _DATA,
-    embed = ["//infra/dns/run:run_lib"],
+    embed = [":run_lib"],
     env = vault.env,
 )
 
@@ -42,7 +47,7 @@ go_binary(
     name = "deploy",
     args = ["push"],
     data = _DATA,
-    embed = ["//infra/dns/run:run_lib"],
+    embed = [":run_lib"],
     env = vault.env,
 )
 
