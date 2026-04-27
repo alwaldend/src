@@ -6,6 +6,7 @@ _TF_DATA = [
     "//data/ssl:alwaldend.com_root_ca_crt",
     "//tools/terraform",
     "//infra/dc1/vault:al",
+    "//projects/tf_modules/vault_approle",
 ] + glob([
     "*.tf",
     "*tfstate*",

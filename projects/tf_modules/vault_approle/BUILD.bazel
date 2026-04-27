@@ -1,0 +1,5 @@
+filegroup(
+    name = "vault_approle",
+    srcs = ["main.tf"],
+    visibility = ["//:__subpackages__"],
+)

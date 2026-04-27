@@ -1,0 +1,36 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/release/main/bzl:al_release.bzl", "al_release")
+load("//tools/release/main/bzl:al_release_files.bzl", "al_release_files")
+
+pkg_filegroup(
+    name = "docs",
+    srcs = [
+        ":docs_files",
+        ":head",
+    ],
+    visibility = ["//projects/tf_modules:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
+)
+
+al_release_files(
+    name = "files",
+    srcs = [
+        # "//projects/sri/main/c:sri",
+    ],
+    deployments = ["//tools/release:deployment"],
+)
+
+al_release(
+    name = "head",
+    srcs = [
+        ":files",
+    ],
+    project = "projects/tf_modules",
+    release_name = "head",
+    visibility = ["//projects:__pkg__"],
+)
