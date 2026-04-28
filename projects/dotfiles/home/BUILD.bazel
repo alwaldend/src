@@ -38,6 +38,7 @@ pkg_files(
         "gpg_agent.conf": ".gnupg/gpg-agent.conf",
         "gpg.conf": ".gnupg/gpg.conf",
         "vscode_settings.json": ".config/Code/User/settings.json",
+        "terraform.hcl": ".terraformrc",
     },
 )
 

@@ -1,0 +1,4 @@
+auth:
+  - name: default
+    approle:
+      name: src_infra_yandex_cloud_org1

@@ -1,3 +1,6 @@
+plugin_cache_dir   = "${HOME}/.terraform.d/plugin-cache"
+disable_checkpoint = true
+
 provider_installation {
   network_mirror {
     url = "https://terraform-mirror.yandexcloud.net/"

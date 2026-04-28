@@ -1,0 +1,24 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/al/rules/al:al_config.bzl", "al_config")
+
+al_config(
+    name = "al",
+    srcs = ["al.yaml"],
+    visibility = ["//infra/yandex.cloud/org1:__subpackages__"],
+    deps = ["//:al"],
+)
+
+pkg_filegroup(
+    name = "docs",
+    srcs = [":docs_files"] + ["//{}/{}:docs".format(
+        package_name(),
+        package,
+    ) for package in subpackages(include = ["*"])],
+    visibility = ["//infra/yandex.cloud:__pkg__"],
+)
+
+pkg_files(
+    name = "docs_files",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/{}".format(package_name()),
+)
