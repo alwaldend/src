@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/exec"
 
+	"git.alwaldend.com/alwaldend/src/tools/al/api/al_proto"
 	"github.com/bazelbuild/rules_go/go/runfiles"
 )
 
@@ -18,6 +19,18 @@ func SetRunfilesEnv(cmd *exec.Cmd) error {
 	cmd.Env = append(cmd.Env, os.Environ()...)
 	return err
 }
+
+type RunCommandArgs struct {
+	config *al_proto.Config
+	name string
+	args []string
+	env []string
+}
+
+// func RunCommand(args RunCommandArgs) (*exec.Cmd, error) {
+// 	cmd, err := Command(args.name, args.args...)
+// 	for
+// }
 
 func Command(name string, args ...string) (*exec.Cmd, error) {
 	cmd := exec.Command(name, args...)

@@ -4,7 +4,7 @@ load("//tools/al/rules/al:al_config.bzl", "al_config")
 al_config(
     name = "al",
     srcs = ["al.yaml"],
-    visibility = ["//infra/yandex.cloud/org1:__subpackages__"],
+    visibility = ["//infra/yandex_cloud/org1:__subpackages__"],
     deps = ["//:al"],
 )
 
@@ -14,7 +14,7 @@ pkg_filegroup(
         package_name(),
         package,
     ) for package in subpackages(include = ["*"])],
-    visibility = ["//infra/yandex.cloud:__pkg__"],
+    visibility = ["//infra/yandex_cloud:__pkg__"],
 )
 
 pkg_files(

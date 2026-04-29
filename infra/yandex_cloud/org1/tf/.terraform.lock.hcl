@@ -20,3 +20,11 @@ provider "registry.terraform.io/hashicorp/vault" {
     "zh:f8d97c753305077ddcbd9e60780c5b06b173de2127943b9590d7e8decda4bd7a",
   ]
 }
+
+provider "registry.terraform.io/yandex-cloud/yandex" {
+  version     = "0.201.0"
+  constraints = "0.201.0"
+  hashes = [
+    "h1:safB+s77I4wpuvIbwfS4utDeIksPAwIIE8jyBERMFlI=",
+  ]
+}

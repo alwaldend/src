@@ -1,4 +1,3 @@
-load("@com_alwaldend_src_tools_terraform//:defs.bzl", "terraform_binary")
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/vault:defs.bzl", "vault")
@@ -12,7 +11,7 @@ pkg_filegroup(
         include = ["*"],
         allow_empty = True,
     )],
-    visibility = ["//infra/yandex.cloud/org1:__pkg__"],
+    visibility = ["//infra/yandex_cloud/org1:__pkg__"],
 )
 
 pkg_files(
@@ -24,26 +23,34 @@ pkg_files(
 _TF_DATA = [
     "//data/ssl:alwaldend.com_root_ca_crt",
     "//tools/terraform",
-    "//infra/yandex.cloud/org1:al",
+    "//tools/vault",
+    "//infra/yandex_cloud/org1:al",
     "//projects/tf_modules/vault_approle",
 ] + glob([
     "*.tf",
-    # "*tfstate*",
+    "*tfstate*",
     ".*.hcl",
 ])
 
-_TF_ARGS = ["-chdir=infra/dc1/vault/tf"]
+_TF_ARGS = ["-chdir=infra/yandex_cloud/org1/tf"]
 
-terraform_binary(
-    name = "tf",
-    args = [],
+go_binary(
+    name = "vault",
+    args = ["--run_vault"],
     data = _TF_DATA,
-    env = vault.env | {"VAULT_CACERT": "../../../../data/ssl/alwaldend.com_root_ca.crt"},
+    embed = [":run_lib"],
 )
 
 go_binary(
     name = "plan",
     args = _TF_ARGS + ["plan"],
+    data = _TF_DATA,
+    embed = [":run_lib"],
+)
+
+go_binary(
+    name = "import",
+    args = _TF_ARGS + ["import"],
     data = _TF_DATA,
     embed = [":run_lib"],
 )

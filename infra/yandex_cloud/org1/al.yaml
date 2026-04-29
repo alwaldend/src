@@ -1,0 +1,9 @@
+auth:
+  - name: default
+    approle:
+      name: src_infra_yandex_cloud_org1
+secrets:
+  - name: tf_auth
+    kv:
+      path: yandex.cloud/org1/service_accounts/src-infra-yandex-cloud-org1
+      mount: secrets
