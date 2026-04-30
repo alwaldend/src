@@ -1,8 +1,8 @@
 {
   "cloudflare": {
     "TYPE": "CLOUDFLAREAPI",
-    "accountid": "{{ .Secrets.dns_token.cloudflare_account_id }}",
-    "apitoken": "{{ .Secrets.dns_token.cloudflare_api_token }}"
+    "accountid": "{{ env "CLOUDFLARE_ACCOUNT_ID" }}",
+    "apitoken": "{{ env "CLOUDFLARE_API_TOKEN" }}"
   },
   "bind": {
     "TYPE": "BIND",

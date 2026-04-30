@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"flag"
 	"os"
 	"os/exec"
@@ -10,21 +9,17 @@ import (
 	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al"
 )
 
-var dnscontrolFlag = flag.String("dnscontrol", "tools/dnscontrol/dnscontrol.script.sh", "Dnscontrol binary")
-var configFlag = flag.String("config", "infra/dns/dnsconfig.js", "Config file")
-var alConfigFlag = flag.String("al_config", "infra/dns/al_/al.json", "Al config")
-var credsTemplateFlag = flag.String("creds_template", "infra/dns/creds.json.tpl", "Creds template file")
+var dnscontrolFlag = flag.String("dnscontrol", "", "Dnscontrol binary")
+var configFlag = flag.String("config", "", "Config file")
+var credsTemplateFlag = flag.String("creds_template", "", "Creds template file")
 
 func main() {
-	ctx := context.Background()
 	flag.Parse()
-	config := al.Must(al.LoadConfigs(ctx, *alConfigFlag))
-	secrets := al.Must(al.VaultFetchSecrets(ctx, config))
 	tmplText := al.Must(os.ReadFile(*credsTemplateFlag))
-	tmpl := al.Must(template.New("creds").Parse(string(tmplText)))
+	tmpl := al.Must(template.New("creds").Funcs(template.FuncMap{"env": os.Getenv}).Parse(string(tmplText)))
 	creds := al.Must(os.CreateTemp("", "creds.json"))
 	defer os.Remove(creds.Name())
-	al.Check(tmpl.Execute(creds, map[string]any{"Secrets": secrets}))
+	al.Check(tmpl.Execute(creds, nil))
 	cmd := exec.Command(*dnscontrolFlag, append(flag.Args(), "--config", *configFlag, "--creds", creds.Name())...)
 	cmd.Stdout = os.Stdout
 	cmd.Stdin = os.Stdin

@@ -30,6 +30,11 @@ message VaultSecretKv {
   string mount = 2;
 }
 
+message VaultSecretEnv {
+  string name = 1;
+  string value = 2;
+}
+
 message VaultSecret {
   // Secret name
   string name = 1;
@@ -39,6 +44,8 @@ message VaultSecret {
   string auth = 3;
   // KV secret config
   VaultSecretKv kv = 4;
+  // Secret env
+  repeated VaultSecretEnv env = 5;
 }
 
 // Approle auth

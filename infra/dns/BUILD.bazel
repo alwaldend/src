@@ -6,12 +6,29 @@ load("//tools/vault:defs.bzl", "vault")
 
 _ZONES = glob(["zones/**/*.zone"])
 
+_ARGS = [
+    "run",
+    "--config",
+    "$(rootpath :al)",
+    "--secret_env",
+    "dns_token",
+    "$(rootpath :run)",
+    "--",
+    "--dnscontrol",
+    "$(rootpath //tools/dnscontrol)",
+    "--config",
+    "$(rootpath dnsconfig.js)",
+    "--creds_template",
+    "$(rootpath creds.json.tpl)",
+]
+
 _DATA = [
     "creds.json.tpl",
     "dnsconfig.js",
     "//tools/dnscontrol",
     "//tools/vault",
     "@rules_shell//shell/runfiles",
+    ":run",
     ":al",
 ] + _ZONES
 
@@ -37,18 +54,16 @@ go_binary(
 
 go_binary(
     name = "preview",
-    args = ["preview"],
+    args = _ARGS + ["preview"],
     data = _DATA,
-    embed = [":run_lib"],
-    env = vault.env,
+    embed = ["//tools/al/cmd/al:al_lib"],
 )
 
 go_binary(
     name = "deploy",
-    args = ["push"],
+    args = _ARGS + ["push"],
     data = _DATA,
-    embed = [":run_lib"],
-    env = vault.env,
+    embed = ["//tools/al/cmd/al:al_lib"],
 )
 
 pkg_filegroup(

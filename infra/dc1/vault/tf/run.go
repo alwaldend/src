@@ -17,7 +17,7 @@ func main() {
 	flag.Parse()
 	config := al.Must(al.LoadConfigs(ctx, *alConfigFlag))
 	client := al.Must(al.VaultAuthDefault(ctx, config))
-    vaultEnv := al.Must(al.VaultDefaultEnv(config, client))
+	vaultEnv := al.Must(al.VaultDefaultEnv(config, client))
 	cmdInit := al.Must(al.Command(*terraformFlag, append([]string{fmt.Sprintf("-chdir=%s", *chDirFlag)}, "init")...))
 	cmdInit.Env = append(cmdInit.Env, vaultEnv...)
 	al.Check(cmdInit.Run())

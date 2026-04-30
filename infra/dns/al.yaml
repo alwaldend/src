@@ -4,6 +4,11 @@ auth:
       name: src_infra_dns
 secrets:
   - name: dns_token
+    env:
+      - name: CLOUDFLARE_ACCOUNT_ID
+        value: "{{ .Secret.cloudflare_account_id }}"
+      - name: CLOUDFLARE_API_TOKEN
+        value: "{{ .Secret.cloudflare_api_token }}"
     kv:
       path: cloudflare.com/dns_token
       mount: secrets

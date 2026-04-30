@@ -23,7 +23,7 @@ exec "$(rlocation "${{root}}/{bin}")" {arguments} "${{@}}"
 
 def _impl(ctx):
     toolchain = ctx.toolchains[ctx.attr.toolchain_type]
-    script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
+    script = ctx.actions.declare_file("{}_/{}".format(ctx.label.name, toolchain.binary.basename))
     runfiles = ctx.runfiles().merge_all(
         [
             toolchain.default_info.default_runfiles,

@@ -49,7 +49,7 @@ func DumpConfigs(ctx context.Context, out string, paths ...string) error {
 	if out == "" {
 		file = os.Stdout
 	} else {
-		file, err = os.OpenFile(out, os.O_CREATE | os.O_WRONLY, 0o444)
+		file, err = os.OpenFile(out, os.O_CREATE|os.O_WRONLY, 0o444)
 		if err != nil {
 			return fmt.Errorf("could not open out file %s: %w", out, err)
 		}

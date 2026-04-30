@@ -21,8 +21,8 @@ func main() {
 	flag.Parse()
 	config := al.Must(al.LoadConfigs(ctx, *alConfigFlag))
 	client := al.Must(al.VaultAuthDefault(ctx, config))
-    vaultEnv := al.Must(al.VaultDefaultEnv(config, client))
-	if (*isVaultFlag) {
+	vaultEnv := al.Must(al.VaultDefaultEnv(config, client))
+	if *isVaultFlag {
 		cmdVault := al.Must(al.Command(*vaultFlag, flag.Args()...))
 		cmdVault.Env = append(cmdVault.Env, vaultEnv...)
 		al.Check(cmdVault.Run())
@@ -36,7 +36,7 @@ func main() {
 			fmt.Sprintf("YC_FOLDER_ID=%s", secrets["tf_auth"]["folder_id"]),
 			fmt.Sprintf("YC_SERVICE_ACCOUNT_KEY_FILE=%s", serviceAccountFile.Name()),
 		}
-		if (!*isTfFlag) {
+		if !*isTfFlag {
 			cmdInit := al.Must(al.Command(*terraformFlag, append([]string{fmt.Sprintf("-chdir=%s", *chDirFlag)}, "init")...))
 			cmdInit.Env = append(cmdInit.Env, vaultEnv...)
 			cmdInit.Env = append(cmdInit.Env, ycEnv...)

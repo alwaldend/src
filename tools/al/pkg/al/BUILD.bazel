@@ -2,12 +2,7 @@ load("@rules_go//go:def.bzl", "go_binary", "go_library")
 
 go_library(
     name = "al",
-    srcs = [
-        "check.go",
-        "command.go",
-        "config.go",
-        "vault.go",
-    ],
+    srcs = glob(["*.go"]),
     importpath = "git.alwaldend.com/alwaldend/src/tools/al/pkg/al",
     visibility = ["//:__subpackages__"],
     deps = [

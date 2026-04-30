@@ -1,99 +1,103 @@
 package al
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"path/filepath"
+	"text/template"
 
 	"git.alwaldend.com/alwaldend/src/tools/al/api/al_proto"
 	"github.com/hashicorp/vault/api"
 	"github.com/hashicorp/vault/api/auth/approle"
 	"github.com/hashicorp/vault/api/tokenhelper"
+	"google.golang.org/protobuf/proto"
 )
 
 const VAULT_DEFAULT_NAME = "default"
 
-func VaultFetchSecrets(ctx context.Context, config *al_proto.Config) (map[string]map[string]any, error) {
-	var err error
-	clients := make(map[string]*api.Client)
-	tokenHelper, err := tokenhelper.NewInternalTokenHelper()
+type Vault struct {
+	helper  tokenhelper.TokenHelper
+	clients map[string]*api.Client
+	config  *al_proto.Config
+}
+
+func NewVault(config *al_proto.Config) (*Vault, error) {
+	helper, err := tokenhelper.NewInternalTokenHelper()
 	if err != nil {
-		return nil, fmt.Errorf("could not create token helper: %w", err)
+		return nil, fmt.Errorf("could not create the internal token helper")
 	}
-	res := make(map[string]map[string]any)
-	for i, secret := range config.Secrets {
-		if secret.Name == "" {
-			return nil, fmt.Errorf("secret %d is missing name", i)
-		}
-		kv := secret.Kv
-		if kv == nil {
-			return nil, fmt.Errorf("secret %s is missing kv config", secret.Name)
-		}
-		if kv.Path == "" {
-			return nil, fmt.Errorf("secret %s is missing path", secret.Name)
-		}
-		auth := secret.Auth
-		if auth == "" {
-			auth = "default"
-		}
-		vault := secret.Vault
-		if vault == "" {
-			vault = "default"
-		}
-		mount := kv.Mount
-		if mount == "" {
-			mount = "secrets"
-		}
-		path := fmt.Sprintf("%s/%s", vault, auth)
-		client, ok := clients[path]
-		if !ok {
-			var vaultCfg *al_proto.Vault
-			var vaultAuthCfg *al_proto.VaultAuth
-			for _, cfg := range config.Vaults {
-				if cfg.Name == vault {
-					vaultCfg = cfg
-					break
-				}
-			}
-			if vaultCfg == nil {
-				return nil, fmt.Errorf("missing config for vault %s", vault)
-			}
-			for _, cfg := range config.Auth {
-				if cfg.Name == auth {
-					vaultAuthCfg = cfg
-					break
-				}
-			}
-			if vaultAuthCfg == nil {
-				return nil, fmt.Errorf("missing auth config with name %s", auth)
-			}
-			client, err = NewVaultClient(ctx, tokenHelper, vaultCfg, vaultAuthCfg)
-			if err != nil {
-				return nil, fmt.Errorf("could not create vault client %s: %w", path, err)
-			}
-		}
-		data, err := client.KVv2(mount).Get(ctx, kv.Path)
-		if err != nil {
-			return nil, fmt.Errorf("could not fetch secret %s: %w", secret.Name, err)
-		}
-		res[secret.Name] = data.Data
+	res := &Vault{
+		helper:  helper,
+		clients: map[string]*api.Client{},
+		config:  config,
 	}
 	return res, nil
 }
 
-func VaultDefaultEnv(config *al_proto.Config, client *api.Client) ([]string, error) {
-	res, err := VaultEnv(config, client, VAULT_DEFAULT_NAME)
+func (self *Vault) FetchSecret(ctx context.Context, name string) (map[string]any, error) {
+	secret, err := vaultSecretByName(self.config, name)
+	if err != nil {
+		return nil, fmt.Errorf("could not find secret %s: %w", name, err)
+	}
+	secret, err = self.normalizeSecret(secret)
+	if err != nil {
+		return nil, fmt.Errorf("could not normalize secret %s: %w", name, err)
+	}
+	client, err := self.clientForSecret(ctx, secret)
+	if err != nil {
+		return nil, fmt.Errorf("could not get a client for the secret %s: %w", secret.Name, err)
+	}
+	data, err := client.KVv2(secret.Kv.Mount).Get(ctx, secret.Kv.Path)
+	if err != nil {
+		return nil, fmt.Errorf("could not fetch secret %s: %w", secret.Name, err)
+	}
+	return data.Data, nil
+}
+
+func (self *Vault) SecretEnv(ctx context.Context, name string) ([]string, error) {
+	secret, err := vaultSecretByName(self.config, name)
+	if err != nil {
+		return nil, fmt.Errorf("could not find secret %s: %w", name, err)
+	}
+	secretData, err := self.FetchSecret(ctx, name)
+	if err != nil {
+		return nil, fmt.Errorf("could not fetch secret: %w", err)
+	}
+	templateCtx := map[string]any{"Config": self.config, "Secret": secretData}
+	res := []string{}
+	for i, env := range secret.Env {
+		tmpl, err := template.New(fmt.Sprintf("env_%d", i)).Parse(env.Value)
+		if err != nil {
+			return nil, fmt.Errorf("could not template env %d: %w", i, err)
+		}
+		var buff bytes.Buffer
+		err = tmpl.Execute(&buff, templateCtx)
+		if err != nil {
+			return nil, fmt.Errorf("could not template secret %d: %w", i, err)
+		}
+		res = append(res, fmt.Sprintf("%s=%s", env.Name, buff.String()))
+	}
+	return res, nil
+}
+
+func (self *Vault) DefaultEnv(ctx context.Context) ([]string, error) {
+	res, err := self.Env(ctx, VAULT_DEFAULT_NAME, VAULT_DEFAULT_NAME)
 	return res, err
 }
 
-func VaultEnv(config *al_proto.Config, client *api.Client, vaultName string) ([]string, error) {
-	vault, err := VaultByName(config, vaultName)
+func (self *Vault) Env(ctx context.Context, vaultName string, authName string) ([]string, error) {
+	vault, err := vaultByName(self.config, vaultName)
 	if err != nil {
 		return nil, fmt.Errorf("missing vault: %w", err)
 	}
-	cacert, err := filepath.Abs( vault.Tls.CaCert)
+	cacert, err := filepath.Abs(vault.Tls.CaCert)
 	if err != nil {
 		return nil, fmt.Errorf("could not create absolute path: %w", err)
+	}
+	client, err := self.client(ctx, vaultName, authName)
+	if err != nil {
+		return nil, fmt.Errorf("could not find create client: %w", err)
 	}
 	res := []string{
 		fmt.Sprintf("VAULT_TOKEN=%s", client.Token()),
@@ -103,45 +107,115 @@ func VaultEnv(config *al_proto.Config, client *api.Client, vaultName string) ([]
 	return res, nil
 }
 
-func VaultByName(config *al_proto.Config, name string) (*al_proto.Vault, error) {
-	var vault *al_proto.Vault
+func (self *Vault) normalizeSecret(secret *al_proto.VaultSecret) (*al_proto.VaultSecret, error) {
+	secret = proto.CloneOf(secret)
+	if secret.Name == "" {
+		return nil, fmt.Errorf("secret is missing a name")
+	}
+	kv := secret.Kv
+	if kv == nil {
+		return nil, fmt.Errorf("secret %s is missing kv config", secret.Name)
+	}
+	if kv.Path == "" {
+		return nil, fmt.Errorf("secret %s is missing path", secret.Name)
+	}
+	if secret.Auth == "" {
+		secret.Auth = VAULT_DEFAULT_NAME
+	}
+	if secret.Vault == "" {
+		secret.Vault = VAULT_DEFAULT_NAME
+	}
+	if kv.Mount == "" {
+		kv.Mount = "secrets"
+	}
+	return secret, nil
+}
+
+func (self *Vault) connectionConfig(name string) (*al_proto.Vault, error) {
+	for _, cfg := range self.config.Vaults {
+		if cfg.Name == name {
+			return cfg, nil
+		}
+	}
+	return nil, fmt.Errorf("missing vault config with name %s", name)
+}
+
+func (self *Vault) authConfig(name string) (*al_proto.VaultAuth, error) {
+	for _, cfg := range self.config.Auth {
+		if cfg.Name == name {
+			return cfg, nil
+		}
+	}
+	return nil, fmt.Errorf("missing auth config with name %s", name)
+}
+
+func (self *Vault) client(ctx context.Context, vaultName string, authName string) (*api.Client, error) {
+	path := fmt.Sprintf("%s/%s", vaultName, authName)
+	client, ok := self.clients[path]
+	if ok {
+		return client, nil
+	}
+	auth, err := self.authConfig(authName)
+	if err != nil {
+		return nil, fmt.Errorf("could not get auth config: %w", err)
+	}
+	vault, err := self.connectionConfig(vaultName)
+	if err != nil {
+		return nil, fmt.Errorf("could not get vault config: %w", err)
+	}
+	client, err = newVaultClient(ctx, self.helper, vault, auth)
+	if err != nil {
+		return nil, fmt.Errorf("could not create vault client %s: %w", path, err)
+	}
+	self.clients[path] = client
+	return client, nil
+}
+func (self *Vault) clientForSecret(ctx context.Context, secret *al_proto.VaultSecret) (*api.Client, error) {
+	client, err := self.client(ctx, secret.Vault, secret.Auth)
+	if err != nil {
+		return nil, fmt.Errorf("could not create a client for secret %s: %w", secret.Name, err)
+	}
+	return client, nil
+}
+
+func vaultByName(config *al_proto.Config, name string) (*al_proto.Vault, error) {
 	for _, curVault := range config.Vaults {
 		if curVault.Name == name {
-			vault = curVault
-			break
+			return curVault, nil
 		}
 	}
-	if vault == nil {
-		return nil, fmt.Errorf("missing vault with name %s", name)
-	}
-	return vault, nil
+	return nil, fmt.Errorf("missing vault with name %s", name)
 }
 
-func VaultAuthByName(config *al_proto.Config, name string) (*al_proto.VaultAuth, error) {
-	var auth *al_proto.VaultAuth
+func vaultAuthByName(config *al_proto.Config, name string) (*al_proto.VaultAuth, error) {
 	for _, curAuth := range config.Auth {
 		if curAuth.Name == name {
-			auth = curAuth
-			break
+			return curAuth, nil
 		}
 	}
-	if auth == nil {
-		return nil, fmt.Errorf("missing vault auth with name %s", name)
-	}
-	return auth, nil
+	return nil, fmt.Errorf("missing vault auth with name %s", name)
 }
 
-func VaultAuthDefault(ctx context.Context, config *al_proto.Config) (*api.Client, error) {
-	res, err := VaultAuth(ctx, config, VAULT_DEFAULT_NAME, VAULT_DEFAULT_NAME)
+func vaultSecretByName(config *al_proto.Config, name string) (*al_proto.VaultSecret, error) {
+	for _, curSecret := range config.Secrets {
+		if curSecret.Name == name {
+			return curSecret, nil
+		}
+	}
+	return nil, fmt.Errorf("missing secret with name %s", name)
+}
+
+func vaultAuthDefault(ctx context.Context, config *al_proto.Config) (*api.Client, error) {
+	res, err := vaultAuth(ctx, config, VAULT_DEFAULT_NAME, VAULT_DEFAULT_NAME)
 	return res, err
 }
 
-func VaultAuth(ctx context.Context, config *al_proto.Config, vaultName string, authName string) (*api.Client, error) {
-	vault, err := VaultByName(config, vaultName)
+func vaultAuth(ctx context.Context, config *al_proto.Config, vaultName string, authName string) (*api.Client, error) {
+	vault, err := vaultByName(config, vaultName)
 	if err != nil {
 		return nil, fmt.Errorf("missing vault: %w", err)
 	}
-	auth, err := VaultAuthByName(config, authName)
+	auth, err := vaultAuthByName(config, authName)
 	if err != nil {
 		return nil, fmt.Errorf("missing auth: %w", err)
 	}
@@ -149,14 +223,14 @@ func VaultAuth(ctx context.Context, config *al_proto.Config, vaultName string, a
 	if err != nil {
 		return nil, fmt.Errorf("could not create token helper: %w", err)
 	}
-	client, err := NewVaultClient(ctx, tokenHelper, vault, auth)
+	client, err := newVaultClient(ctx, tokenHelper, vault, auth)
 	if err != nil {
 		return nil, fmt.Errorf("could not create vault client: %w", err)
 	}
 	return client, nil
 }
 
-func NewVaultClient(ctx context.Context, tokenHelper tokenhelper.TokenHelper, vault *al_proto.Vault, auth *al_proto.VaultAuth) (*api.Client, error) {
+func newVaultClient(ctx context.Context, tokenHelper tokenhelper.TokenHelper, vault *al_proto.Vault, auth *al_proto.VaultAuth) (*api.Client, error) {
 	vaultConfig := api.DefaultConfig()
 	vaultConfig.Address = vault.Config.Address
 	err := vaultConfig.ConfigureTLS(&api.TLSConfig{CACert: vault.Tls.CaCert})

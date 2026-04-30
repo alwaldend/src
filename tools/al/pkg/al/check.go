@@ -5,11 +5,11 @@ import (
 )
 
 // Panic on errors
-func Check(errs... error) {
-    err := errors.Join(errs...)
-    if err != nil {
-        panic(err)
-    }
+func Check(errs ...error) {
+	err := errors.Join(errs...)
+	if err != nil {
+		panic(err)
+	}
 }
 
 func Must[T any](val T, err error) T {
