@@ -35,6 +35,11 @@ message VaultSecretEnv {
   string value = 2;
 }
 
+message VaultSecretFile {
+  string name = 1;
+  string value = 2;
+}
+
 message VaultSecret {
   // Secret name
   string name = 1;
@@ -46,6 +51,8 @@ message VaultSecret {
   VaultSecretKv kv = 4;
   // Secret env
   repeated VaultSecretEnv env = 5;
+  // Secret files
+  repeated VaultSecretFile files = 6;
 }
 
 // Approle auth
@@ -54,11 +61,16 @@ message VaultAuthApprole {
   string name = 1;
 }
 
+message VaultAuthTokenHelper {}
+
 // Vault authentication config
 message VaultAuth {
   // Authentication name
   string name = 1;
+  // Authentification with approle
   VaultAuthApprole approle = 2;
+  // Authentification using the token helper
+  VaultAuthTokenHelper token_helper = 3;
 }
 
 message Config {

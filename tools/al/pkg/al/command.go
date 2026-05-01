@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+	"strings"
 
-	"git.alwaldend.com/alwaldend/src/tools/al/api/al_proto"
 	"github.com/bazelbuild/rules_go/go/runfiles"
 )
 
@@ -23,13 +23,12 @@ func SetRunfilesEnv(cmd *exec.Cmd) error {
 
 type CommandArgs struct {
 	Ctx                context.Context
-	Config             *al_proto.Config
 	Name               string
 	Args               []string
-	SecretEnv          []string
-	Vault              *Vault
-	SetVaultEnv        bool
 	DisableRunfilesEnv bool
+	SecretEnv          []string
+	VaultEnv        []string
+	Vault              *Vault
 }
 
 func Command(args CommandArgs) (*exec.Cmd, error) {
@@ -44,13 +43,20 @@ func Command(args CommandArgs) (*exec.Cmd, error) {
 			return nil, fmt.Errorf("could not set runfiles env: %w", err)
 		}
 	}
-	if args.SetVaultEnv {
-		vaultEnv, err := args.Vault.DefaultEnv(args.Ctx)
-		if err != nil {
-			return nil, fmt.Errorf("could not create vault env: %w", err)
-		}
-		cmd.Env = append(cmd.Env, vaultEnv...)
-	}
+    if args.Vault == nil && (len(args.VaultEnv) + len(args.SecretEnv)) != 0 {
+        return nil, fmt.Errorf("cannot apply vault options: missing vault")
+    }
+    for _, vaultEnv := range args.VaultEnv {
+        vaultEnvSplit := strings.SplitN(vaultEnv, ":", 2)
+        if len(vaultEnvSplit) != 2 {
+            return nil, fmt.Errorf("invalid vault env: %s", vaultEnv)
+        }
+        vaultEnvVars, err := args.Vault.Env(args.Ctx, vaultEnvSplit[0], vaultEnvSplit[1])
+        if err != nil {
+            return nil, fmt.Errorf("could not create vault env: %w", err)
+        }
+        cmd.Env = append(cmd.Env, vaultEnvVars...)
+    }
 	for _, secretName := range args.SecretEnv {
 		env, err := args.Vault.SecretEnv(args.Ctx, secretName)
 		if err != nil {

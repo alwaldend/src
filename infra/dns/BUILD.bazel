@@ -2,7 +2,12 @@ load("@com_alwaldend_src_tools_dnscontrol//:defs.bzl", "dnscontrol_binary")
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/al/rules/al:al_config.bzl", "al_config")
-load("//tools/vault:defs.bzl", "vault")
+load("//tools/vault:defs.bzl", "vault_runners")
+
+vault_runners(
+    name = "vault",
+    config = ":al",
+)
 
 _ZONES = glob(["zones/**/*.zone"])
 
@@ -26,10 +31,7 @@ _DATA = [
     "creds.json.tpl",
     "dnsconfig.js",
     "//tools/dnscontrol",
-    "//tools/vault",
-    "@rules_shell//shell/runfiles",
     ":run",
-    ":al",
 ] + _ZONES
 
 al_config(

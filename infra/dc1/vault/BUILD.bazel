@@ -1,6 +1,12 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 load("//tools/al/rules/al:al_config.bzl", "al_config")
 load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
+load("//tools/vault:defs.bzl", "vault_runners")
+
+vault_runners(
+    name = "vault",
+    config = ":al",
+)
 
 al_config(
     name = "al",

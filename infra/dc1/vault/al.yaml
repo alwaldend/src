@@ -2,3 +2,19 @@ auth:
   - name: default
     approle:
       name: src_infra_dc1_vault
+secrets:
+  - name: tf_backend
+    kv:
+      path: yandex.cloud/org1/shared/read/approle/src_infra_dc1_vault/bucket
+      mount: secrets
+    files:
+      - name: backend_config
+        value: |
+          bucket = "{{ .Secret.name }}"
+    env:
+      - name: AWS_ACCESS_KEY_ID
+        value: "{{ .Secret.access_key }}"
+      - name: AWS_SECRET_ACCESS_KEY
+        value: "{{ .Secret.secret_key }}"
+      - name: AL_TF_BACKEND_CONFIG_1
+        value: "{{ .Files.backend_config }}"

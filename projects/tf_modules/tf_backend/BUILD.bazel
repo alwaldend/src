@@ -1,0 +1,5 @@
+filegroup(
+    name = "tf_backend",
+    srcs = ["main.tf"],
+    visibility = ["//:__subpackages__"],
+)

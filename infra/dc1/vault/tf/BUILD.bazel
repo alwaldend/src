@@ -1,49 +1,16 @@
-load("@com_alwaldend_src_tools_terraform//:defs.bzl", "terraform_binary")
-load("@rules_go//go:def.bzl", "go_binary", "go_library")
-load("//tools/vault:defs.bzl", "vault")
+load("//tools/terraform:defs.bzl", "terraform_runners")
 
-_TF_DATA = [
-    "//data/ssl:alwaldend.com_root_ca_crt",
-    "//tools/terraform",
-    "//infra/dc1/vault:al",
-    "//projects/tf_modules/vault_approle",
-] + glob([
-    "*.tf",
-    "*tfstate*",
-    ".*.hcl",
-])
-
-_TF_ARGS = ["-chdir=infra/dc1/vault/tf"]
-
-terraform_binary(
+terraform_runners(
     name = "tf",
-    args = [],
-    data = _TF_DATA,
-    env = vault.env | {"VAULT_CACERT": "../../../../data/ssl/alwaldend.com_root_ca.crt"},
-)
-
-go_binary(
-    name = "plan",
-    args = _TF_ARGS + ["plan"],
-    data = _TF_DATA,
-    embed = [":run_lib"],
-)
-
-go_binary(
-    name = "deploy",
-    args = _TF_ARGS + ["apply"],
-    data = _TF_DATA,
-    embed = [":run_lib"],
-)
-
-go_library(
-    name = "run_lib",
-    srcs = ["run.go"],
-    importpath = "git.alwaldend.com/alwaldend/src/infra/dc1/vault/tf",
-    deps = ["//tools/al/pkg/al"],
-)
-
-go_binary(
-    name = "run",
-    embed = [":run_lib"],
+    config = "//infra/dc1/vault:al",
+    data = glob([
+        "*.tf",
+        ".*.hcl",
+    ]) + ["//projects/tf_modules/vault_approle"],
+    run_args = [
+        "--vault_env",
+        "default:default",
+        "--secret_env",
+        "tf_backend",
+    ],
 )

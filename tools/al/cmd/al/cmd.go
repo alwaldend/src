@@ -76,7 +76,7 @@ func newConfigCmd(ctx context.Context) *cobra.Command {
 func newRunCmd(ctx context.Context) *cobra.Command {
 	var configs []string
 	var secretEnv []string
-	var setVaultEnv bool
+	var vaultEnv []string
 	var disableRunfilesEnv bool
 	cmd := &cobra.Command{
 		Use:   "run",
@@ -94,15 +94,15 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("could not create Vault: %w", err)
 			}
+            defer vault.Clean()
 			runCmd, err := al.Command(
 				al.CommandArgs{
 					Ctx:                ctx,
-					Config:             cfg,
 					Name:               args[0],
 					Args:               args[1:],
 					SecretEnv:          secretEnv,
 					Vault:              vault,
-					SetVaultEnv:        setVaultEnv,
+					VaultEnv:        vaultEnv,
 					DisableRunfilesEnv: disableRunfilesEnv,
 				},
 			)
@@ -116,7 +116,7 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 	flags := cmd.PersistentFlags()
 	flags.StringArrayVar(&configs, "config", nil, "Config path")
 	flags.StringArrayVar(&secretEnv, "secret_env", nil, "Env variables to add (supports templating)")
-	flags.BoolVar(&setVaultEnv, "set_vault_env", false, "If set, set Vault environment variables from the config")
+	flags.StringArrayVar(&vaultEnv, "vault_env", nil, "If set, set Vault environment variables from the config")
 	flags.BoolVar(&disableRunfilesEnv, "disable_runfiles_env", false, "If set, do not set bazel runfiles variables")
 	return cmd
 }

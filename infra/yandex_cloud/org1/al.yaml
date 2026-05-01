@@ -3,7 +3,34 @@ auth:
     approle:
       name: src_infra_yandex_cloud_org1
 secrets:
+  - name: tf_backend
+    kv:
+      path: yandex.cloud/org1/tf_backend/bucket
+      mount: secrets
+    files:
+      - name: backend_config
+        value: |
+          bucket = "{{ .Secret.name }}"
+    env:
+      - name: AWS_ACCESS_KEY_ID
+        value: "{{ .Secret.access_key }}"
+      - name: AWS_SECRET_ACCESS_KEY
+        value: "{{ .Secret.secret_key }}"
+      - name: AL_TF_BACKEND_CONFIG_1
+        value: "{{ .Files.backend_config }}"
   - name: tf_auth
     kv:
       path: yandex.cloud/org1/service_accounts/src-infra-yandex-cloud-org1
       mount: secrets
+    files:
+      - name: service_account_key
+        value: "{{ .Secret.service_account_key }}"
+    env:
+      - name: YC_CLOUD_ID
+        value: "{{ .Secret.cloud_id }}"
+      - name: YC_FOLDER_ID
+        value: "{{ .Secret.folder_id }}"
+      - name: TF_VAR_folder_id
+        value: "{{ .Secret.folder_id }}"
+      - name: YC_SERVICE_ACCOUNT_KEY_FILE
+        value: "{{ .Files.service_account_key }}"

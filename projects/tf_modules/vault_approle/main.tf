@@ -17,9 +17,20 @@ variable "member_entity_ids" {
   description = "Entity ids for the entity group"
 }
 
+variable "policies" {
+  type = list(string)
+  default = []
+  description = "Extra policies for the approle"
+}
+
 variable "backend" {
   type = string
-  description = "Backnd for the approle"
+  description = "Backend for the approle"
+}
+
+variable "secrets" {
+  type = string
+  description = "Secrets backend"
 }
 
 variable "policy" {
@@ -32,13 +43,26 @@ resource "vault_policy" "policy" {
   policy = var.policy
 }
 
+# Allow to read secrets on shared paths
+resource "vault_policy" "shared" {
+  name = "${var.name}_shared"
+  policy = <<EOT
+    path "${var.secrets}/data/+/+/shared/read/approle/${var.name}/*" {
+        capabilities = ["read"]
+    }
+    path "${var.secrets}/metadata/+/+/shared/read/approle/${var.name}/*" {
+      capabilities = ["list"]
+    }
+EOT
+}
+
 resource "vault_approle_auth_backend_role" "role" {
   backend        = var.backend
   role_name      = var.name
   role_id        =  var.name
   secret_id_num_uses = 1
   secret_id_ttl = 3600
-  token_policies = [vault_policy.policy.name]
+  token_policies = concat([vault_policy.policy.name, vault_policy.shared.name], var.policies)
 }
 
 resource "vault_policy" "policy_approle" {

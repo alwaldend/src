@@ -1,75 +1,18 @@
-load("@rules_go//go:def.bzl", "go_binary", "go_library")
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
-load("//tools/vault:defs.bzl", "vault")
+load("//tools/terraform:defs.bzl", "terraform_runners")
 
-pkg_filegroup(
-    name = "docs",
-    srcs = [":docs_files"] + ["//{}/{}:docs".format(
-        package_name(),
-        package,
-    ) for package in subpackages(
-        include = ["*"],
-        allow_empty = True,
-    )],
-    visibility = ["//infra/yandex_cloud/org1:__pkg__"],
-)
-
-pkg_files(
-    name = "docs_files",
-    srcs = glob(["*.md"]),
-    prefix = "content/docs/{}".format(package_name()),
-)
-
-_TF_DATA = [
-    "//data/ssl:alwaldend.com_root_ca_crt",
-    "//tools/terraform",
-    "//tools/vault",
-    "//infra/yandex_cloud/org1:al",
-    "//projects/tf_modules/vault_approle",
-] + glob([
-    "*.tf",
-    "*tfstate*",
-    ".*.hcl",
-])
-
-_TF_ARGS = ["-chdir=infra/yandex_cloud/org1/tf"]
-
-go_binary(
-    name = "vault",
-    args = ["--run_vault"],
-    data = _TF_DATA,
-    embed = [":run_lib"],
-)
-
-go_binary(
-    name = "plan",
-    args = _TF_ARGS + ["plan"],
-    data = _TF_DATA,
-    embed = [":run_lib"],
-)
-
-go_binary(
-    name = "import",
-    args = _TF_ARGS + ["import"],
-    data = _TF_DATA,
-    embed = [":run_lib"],
-)
-
-go_binary(
-    name = "deploy",
-    args = _TF_ARGS + ["apply"],
-    data = _TF_DATA,
-    embed = [":run_lib"],
-)
-
-go_library(
-    name = "run_lib",
-    srcs = ["run.go"],
-    importpath = "git.alwaldend.com/alwaldend/src/infra/yandex_cloud/org1/tf",
-    deps = ["//tools/al/pkg/al"],
-)
-
-go_binary(
-    name = "run",
-    embed = [":run_lib"],
+terraform_runners(
+    name = "tf",
+    config = "//infra/yandex_cloud/org1:al",
+    data = glob([
+        "*.tf",
+        ".*.hcl",
+    ]) + ["//projects/tf_modules/tf_backend"],
+    run_args = [
+        "--secret_env",
+        "tf_auth",
+        "--secret_env",
+        "tf_backend",
+        "--vault_env",
+        "default:default",
+    ],
 )

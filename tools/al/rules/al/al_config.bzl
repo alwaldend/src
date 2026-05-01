@@ -8,10 +8,14 @@ AlConfigInfo = provider(
 def _impl(ctx):
     out = ctx.actions.declare_file("{}_/al.json".format(ctx.label.name))
     toolchain = ctx.toolchains["//tools/al/rules/al:toolchain_type"]
+    runfiles = ctx.runfiles(files = ctx.files.data)
+    for data in ctx.attr.data:
+        runfiles = runfiles.merge(data[DefaultInfo].default_runfiles)
     args = ctx.actions.args()
     args.add_all(["config", "dump", "--out", out.path])
     for dep in ctx.attr.deps:
         args.add_all(["--config", dep[AlConfigInfo].config.path])
+        runfiles = runfiles.merge(dep[DefaultInfo].default_runfiles)
     for src in ctx.files.srcs:
         args.add_all(["--config", src.path])
     ctx.actions.run(
@@ -23,6 +27,7 @@ def _impl(ctx):
     return [
         DefaultInfo(
             files = depset([out]),
+            runfiles = runfiles,
         ),
         AlConfigInfo(
             config = out,
@@ -36,8 +41,12 @@ al_config = rule(
     implementation = _impl,
     attrs = {
         "srcs": attr.label_list(
-            allow_files = True,
+            allow_files = ["yaml", "json"],
             doc = "Al configs (source files)",
+        ),
+        "data": attr.label_list(
+            allow_files = True,
+            doc = "Data",
         ),
         "deps": attr.label_list(
             providers = [AlConfigInfo],

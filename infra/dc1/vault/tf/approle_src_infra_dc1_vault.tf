@@ -2,6 +2,8 @@ module "src_infra_dc1_vault_approle" {
     source = "../../../../projects/tf_modules/vault_approle"
     name = "src_infra_dc1_vault"
     member_entity_ids = [data.vault_identity_entity.simeonwarren.id]
+    secrets =  vault_mount.secrets.path
+    policies = [vault_policy.tf_token.name]
     backend = vault_auth_backend.approle.path
     policy = <<EOT
         # Manage namespaces at root namespace level
@@ -43,10 +45,6 @@ module "src_infra_dc1_vault_approle" {
         # Manage auth
         path "auth/*" {
            capabilities = ["create", "read", "update", "delete", "list"]
-        }
-        # Vault TF provider requires ability to create a child token
-        path "auth/token/create" {
-          capabilities = ["create", "update", "sudo"]
         }
 EOT
 }
