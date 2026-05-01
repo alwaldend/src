@@ -1,7 +1,18 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 load("//tools/al/rules/al:al_config.bzl", "al_config")
 load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_runners")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//infra/dc1:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
 
 vault_runners(
     name = "vault",
@@ -13,18 +24,6 @@ al_config(
     srcs = ["al.yaml"],
     visibility = ["//infra/dc1/vault:__subpackages__"],
     deps = ["//:al"],
-)
-
-pkg_filegroup(
-    name = "docs",
-    srcs = [":docs_files"],
-    visibility = ["//infra/dc1:__pkg__"],
-)
-
-pkg_files(
-    name = "docs_files",
-    srcs = glob(["*.md"]),
-    prefix = "content/docs/{}".format(package_name()),
 )
 
 al_ansible_binary(

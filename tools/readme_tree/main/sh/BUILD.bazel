@@ -1,4 +1,15 @@
+load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/sh/main/bzl:al_sh_library.bzl", "al_sh_library")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/readme_tree:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
 
 al_sh_library(
     name = "readme_tree",

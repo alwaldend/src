@@ -1,19 +1,17 @@
 load("@com_alwaldend_src_tools_vault//:defs.bzl", "vault_binary")
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
 
 vault_binary(
     name = "vault",
     visibility = ["//:__subpackages__"],
-)
-
-pkg_filegroup(
-    name = "docs",
-    srcs = [":docs_files"],
-    visibility = ["//tools:__pkg__"],
-)
-
-pkg_files(
-    name = "docs_files",
-    srcs = glob(["*.md"]),
-    prefix = "content/docs/{}".format(package_name()),
 )

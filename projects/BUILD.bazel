@@ -1,5 +1,19 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+        exclude = ["rules_*"],
+    ) + [
+        "@rules_binary_toolchain//:docs",
+        "@rules_template//:docs",
+    ],
+)
 
 al_release_binary(
     name = "deploy_heads",
@@ -19,30 +33,4 @@ al_release_binary(
             ],
         )
     ] + [],
-)
-
-pkg_filegroup(
-    name = "docs",
-    srcs = [":docs_files"] + [
-        "//projects/{}:docs".format(package)
-        for package in subpackages(
-            include = ["*"],
-            exclude = [
-                "xray_manager",
-                "cgit",
-                "rules_template",
-                "rules_binary_toolchain",
-            ],
-        )
-    ] + [
-        "@rules_binary_toolchain//:docs",
-        "@rules_template//:docs",
-    ],
-    visibility = ["//:__pkg__"],
-)
-
-pkg_files(
-    name = "docs_files",
-    srcs = glob(["*.md"]),
-    prefix = "content/docs/{}".format(package_name()),
 )

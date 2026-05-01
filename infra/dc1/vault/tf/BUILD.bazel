@@ -1,4 +1,15 @@
+load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/terraform:defs.bzl", "terraform_runners")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//infra/dc1/vault:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
 
 terraform_runners(
     name = "tf",

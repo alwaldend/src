@@ -4,8 +4,4 @@ docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
     visibility = ["//tools:__pkg__"],
-    deps = subpackages(
-        include = ["*"],
-        allow_empty = True,
-    ),
 )

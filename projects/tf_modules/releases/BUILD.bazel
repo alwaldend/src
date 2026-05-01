@@ -1,20 +1,15 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/release/main/bzl:al_release.bzl", "al_release")
 load("//tools/release/main/bzl:al_release_files.bzl", "al_release_files")
 
-pkg_filegroup(
+docs_filegroup(
     name = "docs",
-    srcs = [
-        ":docs_files",
-        ":head",
-    ],
+    srcs = glob(["*.md"]) + [":head"],
     visibility = ["//projects/tf_modules:__pkg__"],
-)
-
-pkg_files(
-    name = "docs_files",
-    srcs = glob(["*.md"]),
-    prefix = "content/docs/{}".format(package_name()),
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
 )
 
 al_release_files(

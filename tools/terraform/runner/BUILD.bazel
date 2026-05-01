@@ -1,4 +1,15 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/terraform:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
 
 go_library(
     name = "runner_lib",

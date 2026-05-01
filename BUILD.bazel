@@ -10,6 +10,7 @@ load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 load("@tools_com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "buildifier_test")
 load("//tools/al/rules/al:al_config.bzl", "al_config")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/md/main/bzl:al_md_data.bzl", "al_md_data")
 load("//tools/terraform:defs.bzl", "terraform_runners")
 load("//tools/toml/main/bzl:al_toml_data.bzl", "al_toml_data")
@@ -47,22 +48,14 @@ write_source_files(
     ],
 )
 
-pkg_filegroup(
+docs_filegroup(
     name = "docs",
-    srcs = [
-        ":docs_files",
-        "//data:docs",
-        "//infra:docs",
-        "//projects:docs",
-        "//tools:docs",
-    ],
+    srcs = ["LICENSE.txt"],
     visibility = ["//projects/alwaldend.com:__pkg__"],
-)
-
-pkg_files(
-    name = "docs_files",
-    srcs = [":LICENSE.txt"],
-    prefix = "content/docs",
+    deps = subpackages(
+        include = ["*"],
+        exclude = ["bazel-*"],
+    ),
 )
 
 exports_files(

@@ -1,16 +1,11 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 
-pkg_filegroup(
+docs_filegroup(
     name = "docs",
-    srcs = [":docs_files"] + ["//{}/{}:docs".format(
-        package_name(),
-        package,
-    ) for package in subpackages(include = ["*"])],
-    visibility = ["//:__pkg__"],
-)
-
-pkg_files(
-    name = "docs_files",
     srcs = glob(["*.md"]),
-    prefix = "content/docs/{}".format(package_name()),
+    visibility = ["//:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
 )
