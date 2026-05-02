@@ -30,6 +30,15 @@ Run terraform directly:
 bazel run //infra/dc1/vault/tf -- -chdir="${PWD}" plan
 ```
 
-## Certificates
+## Unseal
+
+- Get the encrypted unseal key
+- Decrypt it:
+  ```sh
+  cat unseal.txt  | base64 --decode | gpg --decrypt; rm -f unseal.txt
+  ```
+- Run `vault operator unseal`
+
+## Vault certificates
 
 Vault certificates (`tls_cert_file`, `tls_key_file`) should be updated manually

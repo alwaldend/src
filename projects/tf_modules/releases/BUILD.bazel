@@ -4,27 +4,23 @@ load("//tools/release/main/bzl:al_release_files.bzl", "al_release_files")
 
 docs_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]) + [":head"],
+    srcs = glob(["*.md"]),
     visibility = ["//projects/tf_modules:__pkg__"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
-    ),
+    ) + [":head"],
 )
 
 al_release_files(
     name = "files",
-    srcs = [
-        # "//projects/sri/main/c:sri",
-    ],
+    srcs = [],
     deployments = ["//tools/release:deployment"],
 )
 
 al_release(
     name = "head",
-    srcs = [
-        ":files",
-    ],
+    srcs = [":files"],
     project = "projects/tf_modules",
     release_name = "head",
     visibility = ["//projects:__pkg__"],

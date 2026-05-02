@@ -33,6 +33,7 @@ _DATA = [
     "dnsconfig.js",
     "//tools/dnscontrol",
     ":run",
+    ":al",
 ] + _ZONES
 
 al_config(

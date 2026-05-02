@@ -6,6 +6,10 @@ module "src_infra_dc1_vault_approle" {
     policies = [vault_policy.tf_token.name]
     backend = vault_auth_backend.approle.path
     policy = <<EOT
+        # Manage storage
+        path "sys/storage/*" {
+           capabilities = ["create", "read", "update", "delete", "list"]
+        }
         # Manage namespaces at root namespace level
         path "sys/namespaces/*" {
            capabilities = ["create", "read", "update", "delete", "list", "sudo"]

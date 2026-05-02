@@ -1,0 +1,12 @@
+- name: Setup postgresql
+  tags:
+    - users
+  block:
+    - name: Install packages
+      ansible.builtin.package:
+        name: "{{ postgresql_packages }}"
+    - name: Start the service and enable
+      ansible.builtin.systemd_service:
+        name: "{{ postgresql }}"
+        enabled: true
+        state: started

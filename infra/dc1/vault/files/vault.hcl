@@ -2,6 +2,8 @@ ui = true
 disable_mlock = false
 log_level = "info"
 log_file = "/opt/vault/logs/vault.log"
+api_addr = "https://127.0.0.1:8200"
+cluster_addr = "https://127.0.0.1:8201"
 
 listener "tcp" {
   address            = "[::]:8200"
@@ -16,6 +18,7 @@ user_lockout "all" {
   lockout_counter_reset = "10m"
 }
 
-storage "file" {
-  path = "/opt/vault/data"
+storage "raft" {
+  path = "/opt/vault/raft"
+  node_id = "vault.dc1.alwaldend.com"
 }
