@@ -28,6 +28,8 @@ secrets:
     env:
       - name: YC_CLOUD_ID
         value: "{{ .Secret.cloud_id }}"
+      - name: TF_VAR_cloud_id
+        value: "{{ .Secret.cloud_id }}"
       - name: YC_FOLDER_ID
         value: "{{ .Secret.folder_id }}"
       - name: TF_VAR_folder_id

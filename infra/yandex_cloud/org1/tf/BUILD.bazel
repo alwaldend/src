@@ -17,7 +17,10 @@ terraform_runners(
     data = glob([
         "*.tf",
         ".*.hcl",
-    ]) + ["//projects/tf_modules/tf_backend"],
+    ]) + [
+        "//projects/tf_modules/tf_backend",
+        "//projects/tf_modules/yc_folder",
+    ],
     run_args = [
         "--secret_env",
         "tf_auth",
