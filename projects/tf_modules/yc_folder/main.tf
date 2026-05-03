@@ -35,7 +35,6 @@ variable "secret_mount" {
 locals {
     labels = {
         "name": var.name,
-        "secret": replace(replace(replace(var.secret_name, "/", "_"), "-", "_"), ".", "_"),
         "managed_by": "terraform",
         "module": "projects_tf_modules_yc_folder"
     }

@@ -46,25 +46,25 @@ locals {
     labels = {
         "name": var.name,
         "managed_by": "terraform",
-        "module": "projects_tf_modules_tf_backend"
+        "module": "projects_tf_modules_backup_bucket"
     }
 }
 
 resource "yandex_kms_symmetric_key" "key" {
   name              = var.name
   folder_id = var.folder_id
-  description       = "Key for ${var.name}"
   labels = local.labels
+  description       = "Key for ${var.name}"
   default_algorithm = "AES_128"
   rotation_period   = "8760h" // equal to 1 year
 }
 
 resource "yandex_storage_bucket" "bucket" {
-  bucket = "${var.bucket_prefix}-${var.name}-state"
+  bucket = "${var.bucket_prefix}-${var.name}"
   folder_id = var.folder_id
   tags = local.labels
-  max_size = 1024 * 1024 * 1024
-  default_storage_class = "COLD"
+  max_size = 1024 * 1024 * 1024 * 1000
+  default_storage_class = "ICE"
   versioning {
     enabled = true
   }

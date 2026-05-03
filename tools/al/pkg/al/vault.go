@@ -19,10 +19,10 @@ import (
 const VAULT_DEFAULT_NAME = "default"
 
 type Vault struct {
-	helper  tokenhelper.TokenHelper
-	clients map[string]*api.Client
-    secretFiles map[string]map[string]string
-	config  *al_proto.Config
+	helper      tokenhelper.TokenHelper
+	clients     map[string]*api.Client
+	secretFiles map[string]map[string]string
+	config      *al_proto.Config
 }
 
 func NewVault(config *al_proto.Config) (*Vault, error) {
@@ -31,22 +31,22 @@ func NewVault(config *al_proto.Config) (*Vault, error) {
 		return nil, fmt.Errorf("could not create the internal token helper")
 	}
 	res := &Vault{
-		helper:  helper,
-		clients: map[string]*api.Client{},
-        secretFiles: map[string]map[string]string{},
-		config:  config,
+		helper:      helper,
+		clients:     map[string]*api.Client{},
+		secretFiles: map[string]map[string]string{},
+		config:      config,
 	}
 	return res, nil
 }
 
 func (self *Vault) Clean() error {
-    var res error
-    for _, files := range self.secretFiles {
-        for _, file := range files {
-            res = errors.Join(res, os.Remove(file))
-        }
-    }
-    return res
+	var res error
+	for _, files := range self.secretFiles {
+		for _, file := range files {
+			res = errors.Join(res, os.Remove(file))
+		}
+	}
+	return res
 }
 
 func (self *Vault) FetchSecret(ctx context.Context, name string) (map[string]any, error) {
@@ -70,12 +70,12 @@ func (self *Vault) FetchSecret(ctx context.Context, name string) (map[string]any
 }
 
 func (self *Vault) SecretFiles(ctx context.Context, name string) (map[string]string, error) {
-    res, ok := self.secretFiles[name]
-    if ok {
-        return res, nil
-    }
-    res = make(map[string]string)
-    self.secretFiles[name] = res
+	res, ok := self.secretFiles[name]
+	if ok {
+		return res, nil
+	}
+	res = make(map[string]string)
+	self.secretFiles[name] = res
 	secret, err := vaultSecretByName(self.config, name)
 	if err != nil {
 		return nil, fmt.Errorf("could not find secret %s: %w", name, err)
@@ -85,25 +85,25 @@ func (self *Vault) SecretFiles(ctx context.Context, name string) (map[string]str
 		return nil, fmt.Errorf("could not fetch secret: %w", err)
 	}
 	templateCtx := map[string]any{"Config": self.config, "Secret": secretData}
-    for i, file := range secret.Files {
-        if file.Name == "" {
-            return nil, fmt.Errorf("secret file %d is missing a name", i)
-        }
+	for i, file := range secret.Files {
+		if file.Name == "" {
+			return nil, fmt.Errorf("secret file %d is missing a name", i)
+		}
 		tmpl, err := template.New(fmt.Sprintf("secret_file_%s", file.Name)).Parse(file.Value)
 		if err != nil {
 			return nil, fmt.Errorf("could not template secret file %s: %w", file.Name, err)
 		}
-        tmp, err := os.CreateTemp("", fmt.Sprintf("secret_file_%s_%s_*.txt", secret.Name, file.Name))
-        if err != nil {
-            return nil, fmt.Errorf("could not create temporary file: %w", err)
-        }
-        defer tmp.Close()
-        res[file.Name] = tmp.Name()
+		tmp, err := os.CreateTemp("", fmt.Sprintf("secret_file_%s_%s_*.txt", secret.Name, file.Name))
+		if err != nil {
+			return nil, fmt.Errorf("could not create temporary file: %w", err)
+		}
+		defer tmp.Close()
+		res[file.Name] = tmp.Name()
 		err = tmpl.Execute(tmp, templateCtx)
 		if err != nil {
 			return nil, fmt.Errorf("could not template secret %d: %w", i, err)
 		}
-    }
+	}
 	return res, nil
 }
 
@@ -116,11 +116,11 @@ func (self *Vault) SecretEnv(ctx context.Context, name string) ([]string, error)
 	if err != nil {
 		return nil, fmt.Errorf("could not fetch secret: %w", err)
 	}
-    files, err := self.SecretFiles(ctx, name)
-    if err != nil {
-        return nil, fmt.Errorf("could not create secret files: %w", err)
-    }
-    templateCtx := map[string]any{"Config": self.config, "Secret": secretData, "Files": files}
+	files, err := self.SecretFiles(ctx, name)
+	if err != nil {
+		return nil, fmt.Errorf("could not create secret files: %w", err)
+	}
+	templateCtx := map[string]any{"Config": self.config, "Secret": secretData, "Files": files}
 	res := []string{}
 	for i, env := range secret.Env {
 		tmpl, err := template.New(fmt.Sprintf("env_%d", i)).Parse(env.Value)
@@ -143,12 +143,12 @@ func (self *Vault) DefaultEnv(ctx context.Context) ([]string, error) {
 }
 
 func (self *Vault) Env(ctx context.Context, vaultName string, authName string) ([]string, error) {
-    if vaultName == "" {
-        vaultName = VAULT_DEFAULT_NAME
-    }
-    if authName == "" {
-        authName = VAULT_DEFAULT_NAME
-    }
+	if vaultName == "" {
+		vaultName = VAULT_DEFAULT_NAME
+	}
+	if authName == "" {
+		authName = VAULT_DEFAULT_NAME
+	}
 	vault, err := vaultByName(self.config, vaultName)
 	if err != nil {
 		return nil, fmt.Errorf("missing vault: %w", err)
@@ -224,7 +224,7 @@ func (self *Vault) clientForSecret(ctx context.Context, secret *al_proto.VaultSe
 
 func vaultByName(config *al_proto.Config, name string) (*al_proto.Vault, error) {
 	for i := range config.Vaults {
-        curVault := config.Vaults[len(config.Vaults)-1-i]
+		curVault := config.Vaults[len(config.Vaults)-1-i]
 		if curVault.Name == name {
 			return curVault, nil
 		}
@@ -234,7 +234,7 @@ func vaultByName(config *al_proto.Config, name string) (*al_proto.Vault, error) 
 
 func vaultAuthByName(config *al_proto.Config, name string) (*al_proto.VaultAuth, error) {
 	for i := range config.Auth {
-        curAuth := config.Auth[len(config.Auth)-1-i]
+		curAuth := config.Auth[len(config.Auth)-1-i]
 		if curAuth.Name == name {
 			return curAuth, nil
 		}
@@ -244,7 +244,7 @@ func vaultAuthByName(config *al_proto.Config, name string) (*al_proto.VaultAuth,
 
 func vaultSecretByName(config *al_proto.Config, name string) (*al_proto.VaultSecret, error) {
 	for i := range config.Secrets {
-        curSecret := config.Secrets[len(config.Secrets)-1-i]
+		curSecret := config.Secrets[len(config.Secrets)-1-i]
 		if curSecret.Name == name {
 			return curSecret, nil
 		}
@@ -293,26 +293,26 @@ func newVaultClient(ctx context.Context, tokenHelper tokenhelper.TokenHelper, va
 		return nil, fmt.Errorf("could not get token from the token helper: %w", err)
 	}
 	client.SetToken(token)
-    if auth.Approle != nil {
-        approleData, err := client.Logical().WriteWithContext(ctx, fmt.Sprintf("auth/approle/role/%s/secret-id", auth.Approle.Name), nil)
-        if err != nil {
-            return nil, fmt.Errorf("could not create secret id for the approle: %w", err)
-        }
-        secretId, ok := approleData.Data["secret_id"].(string)
-        if !ok {
-            return nil, fmt.Errorf("missing secret_id for some reason")
-        }
-        appRoleAuth, err := approle.NewAppRoleAuth(
-            auth.Approle.Name,
-            &approle.SecretID{FromString: secretId},
-        )
-        if err != nil {
-            return nil, fmt.Errorf("could not create approle auth: %w", err)
-        }
-        _, err = client.Auth().Login(ctx, appRoleAuth)
-        if err != nil {
-            return nil, fmt.Errorf("could not auth using the approle: %w", err)
-        }
-    }
+	if auth.Approle != nil {
+		approleData, err := client.Logical().WriteWithContext(ctx, fmt.Sprintf("auth/approle/role/%s/secret-id", auth.Approle.Name), nil)
+		if err != nil {
+			return nil, fmt.Errorf("could not create secret id for the approle: %w", err)
+		}
+		secretId, ok := approleData.Data["secret_id"].(string)
+		if !ok {
+			return nil, fmt.Errorf("missing secret_id for some reason")
+		}
+		appRoleAuth, err := approle.NewAppRoleAuth(
+			auth.Approle.Name,
+			&approle.SecretID{FromString: secretId},
+		)
+		if err != nil {
+			return nil, fmt.Errorf("could not create approle auth: %w", err)
+		}
+		_, err = client.Auth().Login(ctx, appRoleAuth)
+		if err != nil {
+			return nil, fmt.Errorf("could not auth using the approle: %w", err)
+		}
+	}
 	return client, nil
 }

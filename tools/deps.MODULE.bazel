@@ -28,6 +28,7 @@ binary_toolchain_extension.toolchains(
         "flux": "com_alwaldend_src_tools_flux",
         "vault": "com_alwaldend_src_tools_vault",
         "terraform": "com_alwaldend_src_tools_terraform",
+        "rclone": "com_alwaldend_src_tools_rclone",
     },
 )
 
@@ -50,6 +51,7 @@ register_toolchains(
     "@com_alwaldend_src_tools_flux//:all",
     "@com_alwaldend_src_tools_vault//:all",
     "@com_alwaldend_src_tools_terraform//:all",
+    "@com_alwaldend_src_tools_rclone//:all",
 )
 
 use_repo(
@@ -65,6 +67,7 @@ use_repo(
     "com_alwaldend_src_tools_minisign",
     "com_alwaldend_src_tools_openbao",
     "com_alwaldend_src_tools_oras",
+    "com_alwaldend_src_tools_rclone",
     "com_alwaldend_src_tools_shellcheck",
     "com_alwaldend_src_tools_shfmt",
     "com_alwaldend_src_tools_stylua",

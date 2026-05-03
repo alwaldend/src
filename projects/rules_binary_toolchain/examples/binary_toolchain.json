@@ -71,9 +71,37 @@
         {
             "name": "terraform",
             "version": "1.14.8"
+        },
+        {
+            "name": "rclone",
+            "version": "1.74.0"
         }
     ],
     "archives": [
+        {
+            "archive_name": "linux_x86_64",
+            "toolchain_name": "rclone",
+            "toolchain_version": "1.74.0",
+            "binaries": [
+                {
+                    "name": "rclone",
+                    "path": "out/rclone"
+                }
+            ],
+            "rules": {
+                "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
+            },
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://downloads.rclone.org/v1.74.0/rclone-v1.74.0-linux-amd64.zip",
+                        "output": "out",
+                        "strip_prefix": "rclone-v1.74.0-linux-amd64",
+                        "integrity": "sha256-Yd4KeNh3b+PggPg4Xr6W2Bfy7mpgA/42stnztJ0+Nuo="
+                    }
+                }
+            ]
+        },
         {
             "archive_name": "linux_x86_64",
             "toolchain_name": "terraform",

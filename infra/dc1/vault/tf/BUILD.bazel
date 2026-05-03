@@ -16,6 +16,7 @@ terraform_runners(
     config = "//infra/dc1/vault:al",
     data = glob(["*.tf"]) + [
         ".terraform.lock.hcl",
+        "//projects/tf_modules/backup_bucket",
         "//projects/tf_modules/tf_backend",
         "//projects/tf_modules/vault_approle",
     ],

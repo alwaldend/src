@@ -48,3 +48,21 @@ secrets:
     env:
       - name: TF_VAR_service_account_id
         value: "{{ .Secret.service_account_id }}"
+  - name: rclone_config
+    kv:
+      path: alwaldend.com/vault1/approles/src_infra_dc1_vault/backup_bucket
+      mount: secrets
+    files:
+      - name: rclone_config
+        value: |
+          [remote]
+          type = s3
+          provider = AWS
+          env_auth = true
+          region = ru-central1
+          endpoint = storage.yandexcloud.net
+    env:
+      - name: RCLONE_CONFIG
+        value: "{{ .Files.rclone_config }}"
+      - name: AL_VAULT_BACKUP_BUCKET
+        value: "{{ .Secret.bucket }}"

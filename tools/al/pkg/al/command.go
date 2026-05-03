@@ -3,6 +3,7 @@ package al
 import (
 	"context"
 	"fmt"
+	"io"
 	"os"
 	"os/exec"
 	"strings"
@@ -22,20 +23,47 @@ func SetRunfilesEnv(cmd *exec.Cmd) error {
 }
 
 type CommandArgs struct {
-	Ctx                context.Context
 	Name               string
 	Args               []string
+	Ctx                context.Context
+	Stdout             io.Writer
+	Stderr             io.Writer
+	Stdin              io.Reader
 	DisableRunfilesEnv bool
 	SecretEnv          []string
-	VaultEnv        []string
+	VaultEnv           []string
 	Vault              *Vault
+}
+
+func RunCommand(args CommandArgs) error {
+	cmd, err := Command(args)
+	if err != nil {
+		return fmt.Errorf("could not create command: %w", err)
+	}
+	err = cmd.Run()
+	if err != nil {
+		return fmt.Errorf("could not run command: %w", err)
+	}
+	return nil
 }
 
 func Command(args CommandArgs) (*exec.Cmd, error) {
 	cmd := exec.Command(args.Name, args.Args...)
-	cmd.Stdout = os.Stdout
-	cmd.Stdin = os.Stdin
-	cmd.Stderr = os.Stderr
+	if args.Stdout == nil {
+		cmd.Stdout = os.Stdout
+	} else {
+		cmd.Stdout = args.Stdout
+	}
+	if args.Stderr == nil {
+		cmd.Stderr = os.Stderr
+	} else {
+		cmd.Stderr = args.Stderr
+	}
+	if args.Stdin == nil {
+		cmd.Stdin = os.Stdin
+	} else {
+		cmd.Stdin = args.Stdin
+	}
 	cmd.Env = append(cmd.Env, os.Environ()...)
 	if !args.DisableRunfilesEnv {
 		err := SetRunfilesEnv(cmd)
@@ -43,20 +71,20 @@ func Command(args CommandArgs) (*exec.Cmd, error) {
 			return nil, fmt.Errorf("could not set runfiles env: %w", err)
 		}
 	}
-    if args.Vault == nil && (len(args.VaultEnv) + len(args.SecretEnv)) != 0 {
-        return nil, fmt.Errorf("cannot apply vault options: missing vault")
-    }
-    for _, vaultEnv := range args.VaultEnv {
-        vaultEnvSplit := strings.SplitN(vaultEnv, ":", 2)
-        if len(vaultEnvSplit) != 2 {
-            return nil, fmt.Errorf("invalid vault env: %s", vaultEnv)
-        }
-        vaultEnvVars, err := args.Vault.Env(args.Ctx, vaultEnvSplit[0], vaultEnvSplit[1])
-        if err != nil {
-            return nil, fmt.Errorf("could not create vault env: %w", err)
-        }
-        cmd.Env = append(cmd.Env, vaultEnvVars...)
-    }
+	if args.Vault == nil && (len(args.VaultEnv)+len(args.SecretEnv)) != 0 {
+		return nil, fmt.Errorf("cannot apply vault options: missing vault")
+	}
+	for _, vaultEnv := range args.VaultEnv {
+		vaultEnvSplit := strings.SplitN(vaultEnv, ":", 2)
+		if len(vaultEnvSplit) != 2 {
+			return nil, fmt.Errorf("invalid vault env: %s", vaultEnv)
+		}
+		vaultEnvVars, err := args.Vault.Env(args.Ctx, vaultEnvSplit[0], vaultEnvSplit[1])
+		if err != nil {
+			return nil, fmt.Errorf("could not create vault env: %w", err)
+		}
+		cmd.Env = append(cmd.Env, vaultEnvVars...)
+	}
 	for _, secretName := range args.SecretEnv {
 		env, err := args.Vault.SecretEnv(args.Ctx, secretName)
 		if err != nil {

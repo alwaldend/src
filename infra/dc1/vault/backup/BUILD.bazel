@@ -1,0 +1,58 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+_ARGS = [
+    "run",
+    "--config",
+    "$(rootpath //infra/dc1/vault:al)",
+    "--vault_env",
+    "default:default",
+    "--secret_env",
+    "rclone_config",
+    "--secret_env",
+    "yc_bucket_auth",
+    "$(rootpath :backup_bin)",
+    "--",
+    "--rclone",
+    "$(rootpath //tools/rclone)",
+    "--vault",
+    "$(rootpath //tools/vault)",
+]
+
+_DATA = [
+    ":backup_bin",
+    "//tools/rclone",
+    "//tools/vault",
+    "//infra/dc1/vault:al",
+]
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//infra/dc1/vault:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+go_library(
+    name = "backup_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/infra/dc1/vault/backup",
+    visibility = ["//:__subpackages__"],
+    deps = ["//tools/al/pkg/al"],
+)
+
+go_binary(
+    name = "backup_bin",
+    embed = [":backup_lib"],
+    visibility = ["//:__subpackages__"],
+)
+
+go_binary(
+    name = "backup",
+    args = _ARGS,
+    data = _DATA,
+    embed = ["//tools/al/cmd/al:al_lib"],
+)

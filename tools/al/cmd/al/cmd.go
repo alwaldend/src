@@ -94,7 +94,7 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("could not create Vault: %w", err)
 			}
-            defer vault.Clean()
+			defer vault.Clean()
 			runCmd, err := al.Command(
 				al.CommandArgs{
 					Ctx:                ctx,
@@ -102,7 +102,7 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 					Args:               args[1:],
 					SecretEnv:          secretEnv,
 					Vault:              vault,
-					VaultEnv:        vaultEnv,
+					VaultEnv:           vaultEnv,
 					DisableRunfilesEnv: disableRunfilesEnv,
 				},
 			)

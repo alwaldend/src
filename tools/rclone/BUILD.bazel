@@ -1,0 +1,17 @@
+load("@com_alwaldend_src_tools_rclone//:defs.bzl", "rclone_binary")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+rclone_binary(
+    name = "rclone",
+    visibility = ["//:__subpackages__"],
+)
