@@ -10,6 +10,7 @@ go_library(
         "@com_github_hashicorp_vault_api//:api",
         "@com_github_hashicorp_vault_api//tokenhelper",
         "@com_github_hashicorp_vault_api_auth_approle//:approle",
+        "@com_github_yuin_gopher_lua//:gopher-lua",
         "@io_k8s_sigs_yaml//:yaml",
         "@org_golang_google_protobuf//encoding/protojson",
         "@org_golang_google_protobuf//proto",

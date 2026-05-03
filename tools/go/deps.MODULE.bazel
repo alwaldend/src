@@ -28,6 +28,7 @@ use_repo(
     "com_github_spf13_cobra",
     "com_github_spf13_viper",
     "com_github_swaggo_swag",
+    "com_github_yuin_gopher_lua",
     "io_gorm_driver_postgres",
     "io_gorm_gorm",
     "io_k8s_sigs_yaml",

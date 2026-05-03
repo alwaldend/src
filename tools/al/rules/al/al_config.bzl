@@ -41,7 +41,7 @@ al_config = rule(
     implementation = _impl,
     attrs = {
         "srcs": attr.label_list(
-            allow_files = ["yaml", "json"],
+            allow_files = ["yaml", "json", "lua"],
             doc = "Al configs (source files)",
         ),
         "data": attr.label_list(
