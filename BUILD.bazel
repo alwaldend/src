@@ -29,7 +29,7 @@ vault_runners(
 
 al_config(
     name = "al",
-    srcs = ["al.yaml"],
+    srcs = ["al.lua"],
     data = ["//data/ssl:alwaldend.com_root_ca_crt"],
     visibility = ["//:__subpackages__"],
 )
