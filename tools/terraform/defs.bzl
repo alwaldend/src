@@ -34,7 +34,7 @@ def terraform_runner(
     )
 
 DEFAULT_TERRAFORM_RUNNERS = {
-    "": [],
+    "": ["--direct"],
     "init": ["--direct", "init"],
     "migrate": ["--direct", "init", "--migrate-state"],
     "fmt": ["--direct", "fmt", "--write", "--recursive"],

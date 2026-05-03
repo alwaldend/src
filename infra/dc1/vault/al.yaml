@@ -5,16 +5,46 @@ auth:
 secrets:
   - name: tf_backend
     kv:
-      path: yandex.cloud/org1/shared/read/approle/src_infra_dc1_vault/bucket
+      path: alwaldend.com/vault1/approles/src_infra_dc1_vault/bucket
       mount: secrets
     files:
       - name: backend_config
         value: |
-          bucket = "{{ .Secret.name }}"
+          bucket = "{{ .Secret.bucket }}"
+    env:
+      - name: AL_TF_BACKEND_CONFIG_1
+        value: "{{ .Files.backend_config }}"
+  - name: yc_auth
+    kv:
+      path: yandex.cloud/org1/folders/src-infra-dc1-vault/account_iam_key
+      mount: secrets
+    files:
+      - name: service_account_key
+        value: "{{ .Secret.service_account_key }}"
+    env:
+      - name: YC_CLOUD_ID
+        value: "{{ .Secret.cloud_id }}"
+      - name: TF_VAR_cloud_id
+        value: "{{ .Secret.cloud_id }}"
+      - name: YC_FOLDER_ID
+        value: "{{ .Secret.folder_id }}"
+      - name: TF_VAR_folder_id
+        value: "{{ .Secret.folder_id }}"
+      - name: YC_SERVICE_ACCOUNT_KEY_FILE
+        value: "{{ .Files.service_account_key }}"
+  - name: yc_bucket_auth
+    kv:
+      path: yandex.cloud/org1/folders/src-infra-dc1-vault/account_static_key
+      mount: secrets
     env:
       - name: AWS_ACCESS_KEY_ID
         value: "{{ .Secret.access_key }}"
       - name: AWS_SECRET_ACCESS_KEY
         value: "{{ .Secret.secret_key }}"
-      - name: AL_TF_BACKEND_CONFIG_1
-        value: "{{ .Files.backend_config }}"
+  - name: yc_account
+    kv:
+      path: yandex.cloud/org1/folders/src-infra-dc1-vault/account
+      mount: secrets
+    env:
+      - name: TF_VAR_service_account_id
+        value: "{{ .Secret.service_account_id }}"

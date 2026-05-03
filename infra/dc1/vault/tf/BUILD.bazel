@@ -14,14 +14,21 @@ docs_filegroup(
 terraform_runners(
     name = "tf",
     config = "//infra/dc1/vault:al",
-    data = glob([
-        "*.tf",
-        ".*.hcl",
-    ]) + ["//projects/tf_modules/vault_approle"],
+    data = glob(["*.tf"]) + [
+        ".terraform.lock.hcl",
+        "//projects/tf_modules/tf_backend",
+        "//projects/tf_modules/vault_approle",
+    ],
     run_args = [
         "--vault_env",
         "default:default",
         "--secret_env",
         "tf_backend",
+        "--secret_env",
+        "yc_auth",
+        "--secret_env",
+        "yc_account",
+        "--secret_env",
+        "yc_bucket_auth",
     ],
 )

@@ -5,11 +5,12 @@ module "src_infra_yandex_cloud_org1_approle" {
     secrets =  vault_mount.secrets.path
     policies = [vault_policy.tf_token.name]
     backend = vault_auth_backend.approle.path
+    disable_yc_folder_policy = true
     policy = <<EOT
-        path "secrets/data/yandex.cloud/org1/*" {
+        path "${vault_mount.secrets.path}/data/yandex.cloud/org1/*" {
             capabilities = ["create", "update", "patch", "read", "delete"]
         }
-        path "secrets/metadata/yandex.cloud/org1/*" {
+        path "${vault_mount.secrets.path}/metadata/yandex.cloud/org1/*" {
             capabilities = ["list", "read", "update"]
         }
 EOT

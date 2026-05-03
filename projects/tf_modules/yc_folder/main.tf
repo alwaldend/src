@@ -32,20 +32,31 @@ variable "secret_mount" {
   description = "Mount for secrets"
 }
 
+locals {
+    labels = {
+        "name": var.name,
+        "secret": replace(replace(replace(var.secret_name, "/", "_"), "-", "_"), ".", "_"),
+        "managed_by": "terraform",
+        "module": "projects_tf_modules_yc_folder"
+    }
+}
+
 resource "yandex_resourcemanager_folder" "folder" {
     name = var.name
     cloud_id = var.cloud_id
+    labels = local.labels
     description = "Folder for ${var.name} (Managed by terraform)"
 }
 
 resource "yandex_iam_service_account" "account" {
   name        = var.name
+  labels = local.labels
   folder_id = yandex_resourcemanager_folder.folder.id
-  description = "Editor account for the folder ${var.name}"
+  description = "Admin account for the folder ${var.name}"
 }
 
 resource "yandex_resourcemanager_folder_iam_member" "member" {
-  role      = "editor"
+  role      = "admin"
   folder_id = yandex_resourcemanager_folder.folder.id
   member    = "serviceAccount:${yandex_iam_service_account.account.id}"
 }

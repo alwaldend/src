@@ -16,6 +16,11 @@ variable "name" {
   description = "Name used for resources"
 }
 
+variable "service_accounts" {
+    type = list(string)
+    description = "List of service account ids to grant access to"
+}
+
 variable "folder_id" {
   type = string
   description = "Folder id"
@@ -46,7 +51,7 @@ resource "yandex_kms_symmetric_key" "key" {
 }
 
 resource "yandex_storage_bucket" "bucket" {
-  bucket = "${var.bucket_prefix}-${var.name}"
+  bucket = "${var.bucket_prefix}-${var.name}-state"
   folder_id = var.folder_id
   max_size = 1024 * 1024 * 1024
   default_storage_class = "COLD"
@@ -63,29 +68,15 @@ resource "yandex_storage_bucket" "bucket" {
   }
 }
 
-resource "yandex_iam_service_account" "account" {
-  name        = var.name
-  folder_id = var.folder_id
-  description = "Terraform backend for ${var.name}"
-}
-
-resource "yandex_resourcemanager_folder_iam_member" "member" {
-  role      = "editor"
-  folder_id = var.folder_id
-  member    = "serviceAccount:${yandex_iam_service_account.account.id}"
-}
-
-resource "yandex_iam_service_account_static_access_key" "key" {
-  service_account_id = yandex_iam_service_account.account.id
-  description        = "Static key for ${var.name}"
-}
-
 resource "yandex_storage_bucket_grant" "grant" {
   bucket = yandex_storage_bucket.bucket.bucket
-  grant {
-    id =  yandex_iam_service_account.account.id
-    permissions = ["READ", "WRITE"]
-    type        = "CanonicalUser"
+  dynamic "grant" {
+    for_each = {for id in var.service_accounts : id => id}
+    content {
+        id = grant.value
+        permissions = ["READ", "WRITE"]
+        type        = "CanonicalUser"
+    }
  }
 }
 
@@ -94,12 +85,9 @@ resource "vault_kv_secret_v2" "secret" {
   name                = var.secret_name
   data_json = jsonencode(
     {
-        name  = yandex_storage_bucket.bucket.bucket
         id = yandex_storage_bucket.bucket.id
-        tags = yandex_storage_bucket.bucket.tags
-        access_key = yandex_iam_service_account_static_access_key.key.access_key
-        secret_key = yandex_iam_service_account_static_access_key.key.secret_key
-
+        folder_id = var.folder_id
+        bucket  = yandex_storage_bucket.bucket.bucket
     }
   )
 }

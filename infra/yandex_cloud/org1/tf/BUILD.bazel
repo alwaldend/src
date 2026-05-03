@@ -16,17 +16,21 @@ terraform_runners(
     config = "//infra/yandex_cloud/org1:al",
     data = glob([
         "*.tf",
-        ".*.hcl",
     ]) + [
+        ".terraform.lock.hcl",
         "//projects/tf_modules/tf_backend",
         "//projects/tf_modules/yc_folder",
     ],
     run_args = [
-        "--secret_env",
-        "tf_auth",
-        "--secret_env",
-        "tf_backend",
         "--vault_env",
         "default:default",
+        "--secret_env",
+        "tf_backend",
+        "--secret_env",
+        "yc_auth",
+        "--secret_env",
+        "yc_account",
+        "--secret_env",
+        "yc_bucket_auth",
     ],
 )
