@@ -48,21 +48,9 @@ func loadConfig(ctx context.Context, path string) (*al_proto.Config, error) {
 		state := lua.NewState()
 		defer state.Close()
 		state.SetGlobal("config", state.NewFunction(func(l *lua.LState) int {
-			config := &al_proto.Config{}
-			parseTableArg(state, config)
-			proto.Merge(res, config)
-			return 0
-		}))
-		state.SetGlobal("vault", state.NewFunction(func(l *lua.LState) int {
-			vault := &al_proto.Vault{}
-			parseTableArg(state, vault)
-			res.Vaults = append(res.Vaults, vault)
-			return 0
-		}))
-		state.SetGlobal("auth", state.NewFunction(func(l *lua.LState) int {
-			auth := &al_proto.VaultAuth{}
-			parseTableArg(state, auth)
-			res.Auth = append(res.Auth, auth)
+			val := &al_proto.Config{}
+			parseTableArg(state, val)
+			proto.Merge(res, val)
 			return 0
 		}))
 		err := state.DoString(string(configContent))

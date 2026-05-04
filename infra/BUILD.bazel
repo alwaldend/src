@@ -1,4 +1,12 @@
+load("//tools/al/rules/al:al_config.bzl", "al_config")
 load("//tools/docs:defs.bzl", "docs_filegroup")
+
+al_config(
+    name = "al",
+    data = ["al_lib.lua"],
+    visibility = ["//:__subpackages__"],
+    deps = ["//:al"],
+)
 
 docs_filegroup(
     name = "docs",

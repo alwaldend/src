@@ -9,9 +9,9 @@ def _impl(ctx):
     out = ctx.actions.declare_file("{}_/al.json".format(ctx.label.name))
     toolchain = ctx.toolchains["//tools/al/rules/al:toolchain_type"]
     runfiles = ctx.runfiles(files = ctx.files.data)
+    args = ctx.actions.args()
     for data in ctx.attr.data:
         runfiles = runfiles.merge(data[DefaultInfo].default_runfiles)
-    args = ctx.actions.args()
     args.add_all(["config", "dump", "--out", out.path])
     for dep in ctx.attr.deps:
         args.add_all(["--config", dep[AlConfigInfo].config.path])
@@ -21,7 +21,7 @@ def _impl(ctx):
     ctx.actions.run(
         executable = toolchain.executable,
         arguments = [args],
-        inputs = ctx.files.srcs + ctx.files.deps,
+        inputs = runfiles.merge(ctx.runfiles(files = ctx.files.srcs + ctx.files.deps)).files,
         outputs = [out],
     )
     return [

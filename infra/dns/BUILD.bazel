@@ -38,9 +38,9 @@ _DATA = [
 
 al_config(
     name = "al",
-    srcs = ["al.yaml"],
+    srcs = ["al.lua"],
     visibility = ["//infra/dns:__subpackages__"],
-    deps = ["//:al"],
+    deps = ["//infra:al"],
 )
 
 go_library(

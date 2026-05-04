@@ -1,4 +1,6 @@
-vault({
+local lib = require("al_lib")
+
+lib.vault({
     name = "default",
     config = {
         address = "https://vault.dc1.alwaldend.com:8200"
@@ -8,7 +10,7 @@ vault({
     }
 })
 
-auth({
+lib.auth({
     name = "default",
     token_helper = nil
 })

@@ -30,14 +30,20 @@ message VaultSecretKv {
   string mount = 2;
 }
 
-message VaultSecretEnv {
+message File {
   string name = 1;
   string value = 2;
+  repeated string secrets = 3;
+  repeated string files = 4;
+  map<string, string> labels = 5;
 }
 
-message VaultSecretFile {
+message Env {
   string name = 1;
   string value = 2;
+  repeated string secrets = 3;
+  repeated string files = 4;
+  map<string, string> labels = 5;
 }
 
 message VaultSecret {
@@ -49,10 +55,7 @@ message VaultSecret {
   string auth = 3;
   // KV secret config
   VaultSecretKv kv = 4;
-  // Secret env
-  repeated VaultSecretEnv env = 5;
-  // Secret files
-  repeated VaultSecretFile files = 6;
+  map<string, string> labels = 5;
 }
 
 // Approle auth
@@ -80,4 +83,8 @@ message Config {
   repeated VaultAuth auth = 2;
   // List of secret configs
   repeated VaultSecret secrets = 3;
+  // Files to create
+  repeated File files = 4;
+  // Env to set
+  repeated Env env = 5;
 }

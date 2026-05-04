@@ -19,7 +19,7 @@ vault_runners(
 
 al_config(
     name = "al",
-    srcs = ["al.yaml"],
+    srcs = ["al.lua"],
     visibility = ["//infra/yandex_cloud/org1:__subpackages__"],
-    deps = ["//:al"],
+    deps = ["//infra:al"],
 )

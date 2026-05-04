@@ -21,9 +21,9 @@ vault_runners(
 
 al_config(
     name = "al",
-    srcs = ["al.yaml"],
+    srcs = ["al.lua"],
     visibility = ["//infra/dc1/vault:__subpackages__"],
-    deps = ["//:al"],
+    deps = ["//infra:al"],
 )
 
 al_ansible_binary(

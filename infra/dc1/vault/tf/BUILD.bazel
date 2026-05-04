@@ -23,13 +23,7 @@ terraform_runners(
     run_args = [
         "--vault_env",
         "default:default",
-        "--secret_env",
-        "tf_backend",
-        "--secret_env",
-        "yc_auth",
-        "--secret_env",
-        "yc_account",
-        "--secret_env",
-        "yc_bucket_auth",
+        "--env_labels",
+        "tf=1",
     ],
 )

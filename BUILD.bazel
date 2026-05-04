@@ -30,7 +30,10 @@ vault_runners(
 al_config(
     name = "al",
     srcs = ["al.lua"],
-    data = ["//data/ssl:alwaldend.com_root_ca_crt"],
+    data = [
+        "al_lib.lua",
+        "//data/ssl:alwaldend.com_root_ca_crt",
+    ],
     visibility = ["//:__subpackages__"],
 )
 
