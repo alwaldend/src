@@ -175,3 +175,69 @@ func (self *LuaParser) Parse(val lua.LValue) (any, error) {
 		return nil, fmt.Errorf("invalid type: %s", val.Type())
 	}
 }
+
+func EnvByLabel(config *al_proto.Config, name string, value string) ([]*al_proto.Env, error) {
+	if name == "" {
+		return nil, fmt.Errorf("missing label name")
+	}
+	res := []*al_proto.Env{}
+	for i := range config.Env {
+		curEnv := config.Env[len(config.Env)-1-i]
+		actualVal, ok := curEnv.Labels[name]
+		if ok && (value == "" || value == actualVal) {
+			res = append(res, curEnv)
+		}
+	}
+	return res, nil
+
+}
+
+func EnvByName(config *al_proto.Config, name string) (*al_proto.Env, error) {
+	for i := range config.Env {
+		curEnv := config.Env[len(config.Env)-1-i]
+		if curEnv.Name == name {
+			return curEnv, nil
+		}
+	}
+	return nil, fmt.Errorf("missing env with name %s", name)
+}
+
+func FileByName(config *al_proto.Config, name string) (*al_proto.File, error) {
+	for i := range config.Files {
+		curFile := config.Files[len(config.Files)-1-i]
+		if curFile.Name == name {
+			return curFile, nil
+		}
+	}
+	return nil, fmt.Errorf("missing file with name %s", name)
+}
+
+func VaultByName(config *al_proto.Config, name string) (*al_proto.Vault, error) {
+	for i := range config.Vaults {
+		curVault := config.Vaults[len(config.Vaults)-1-i]
+		if curVault.Name == name {
+			return curVault, nil
+		}
+	}
+	return nil, fmt.Errorf("missing vault with name %s", name)
+}
+
+func VaultAuthByName(config *al_proto.Config, name string) (*al_proto.VaultAuth, error) {
+	for i := range config.Auth {
+		curAuth := config.Auth[len(config.Auth)-1-i]
+		if curAuth.Name == name {
+			return curAuth, nil
+		}
+	}
+	return nil, fmt.Errorf("missing vault auth with name %s", name)
+}
+
+func VaultSecretByName(config *al_proto.Config, name string) (*al_proto.VaultSecret, error) {
+	for i := range config.Secrets {
+		curSecret := config.Secrets[len(config.Secrets)-1-i]
+		if curSecret.Name == name {
+			return curSecret, nil
+		}
+	}
+	return nil, fmt.Errorf("missing secret with name %s", name)
+}

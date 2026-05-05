@@ -75,9 +75,8 @@ func newConfigCmd(ctx context.Context) *cobra.Command {
 
 func newRunCmd(ctx context.Context) *cobra.Command {
 	var configs []string
-	var secretEnv []string
-	var vaultEnv []string
 	var disableRunfilesEnv bool
+	prepareCommandArgs := &al.PrepareCommandArgs{}
 	cmd := &cobra.Command{
 		Use:   "run",
 		Short: "Run a command",
@@ -94,19 +93,21 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("could not create Vault: %w", err)
 			}
+			resourceHandler := al.NewResourceHandler(ctx, cfg, vault)
 			runCmd, err := al.Command(
 				al.CommandArgs{
 					Ctx:                ctx,
 					Name:               args[0],
 					Args:               args[1:],
-					SecretEnv:          secretEnv,
-					Vault:              vault,
-					VaultEnv:           vaultEnv,
 					DisableRunfilesEnv: disableRunfilesEnv,
 				},
 			)
 			if err != nil {
 				return fmt.Errorf("could not create command: %w", err)
+			}
+			err = resourceHandler.PrepareCommand(ctx, runCmd, prepareCommandArgs)
+			if err != nil {
+				return fmt.Errorf("could not prepare command: %w", err)
 			}
 			err = runCmd.Run()
 			return err
@@ -114,8 +115,10 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 	}
 	flags := cmd.PersistentFlags()
 	flags.StringArrayVar(&configs, "config", nil, "Config path")
-	flags.StringArrayVar(&secretEnv, "secret_env", nil, "Env variables to add (supports templating)")
-	flags.StringArrayVar(&vaultEnv, "vault_env", nil, "If set, set Vault environment variables from the config")
+	flags.StringArrayVar(&prepareCommandArgs.Env, "env", nil, "Add environment variables by name")
+	flags.StringArrayVar(&prepareCommandArgs.EnvVault, "env_vault", nil, "Add vault environment variables (vault_name:auth_name)")
+	flags.StringArrayVar(&prepareCommandArgs.EnvLabels, "env_labels", nil, "Add environment variables with labels (name=value)")
+	flags.StringArrayVar(&prepareCommandArgs.Files, "files", nil, "Add files by name")
 	flags.BoolVar(&disableRunfilesEnv, "disable_runfiles_env", false, "If set, do not set bazel runfiles variables")
 	return cmd
 }

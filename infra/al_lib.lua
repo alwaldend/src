@@ -22,7 +22,7 @@ function M.tf_backend(t)
         name = "AL_TF_BACKEND_CONFIG_1",
         labels = labels,
         files = {"backend_config"},
-        value = "{{ .File.backend_config }}"
+        value = "{{ .File.Path }}"
     })
 end
 
@@ -84,12 +84,6 @@ function M.yc_bucket_auth(t)
             mount = "secrets",
         },
     })
-    lib.file({
-        name = "backend_config",
-        labels = labels,
-        secrets = {name},
-        value = 'bucket = "{{ .Secret.bucket }}"'
-    })
     lib.env({
         name = "AWS_ACCESS_KEY_ID",
         labels = labels,
@@ -114,23 +108,11 @@ function M.yc_account(t)
             mount = "secrets",
         },
     })
-    lib.file({
-        name = "backend_config",
-        labels = labels,
-        secrets = {name},
-        value = 'bucket = "{{ .Secret.bucket }}"'
-    })
     lib.env({
         name = "TF_VAR_service_account_id",
         labels = labels,
         secrets = {name},
         value = "{{ .Secret.service_account_id }}",
-    })
-    lib.env({
-        name = "AWS_SECRET_ACCESS_KEY",
-        labels = labels,
-        secrets = {name},
-        value = "{{ .Secret.secret_key }}"
     })
 end
 
@@ -161,7 +143,7 @@ function M.rclone_config(t)
         name = "RCLONE_CONFIG",
         labels = labels,
         files = {name},
-        value = "{{ .File.rclone_config }}",
+        value = "{{ .File.Path }}",
     })
     lib.env({
         name = "RCLONE_S3_BUCKET",

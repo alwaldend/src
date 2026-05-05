@@ -21,9 +21,9 @@ terraform_runners(
         "//projects/tf_modules/vault_approle",
     ],
     run_args = [
-        "--vault_env",
+        "--env_vault",
         "default:default",
         "--env_labels",
-        "tf=1",
+        "tf",
     ],
 )

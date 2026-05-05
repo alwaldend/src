@@ -138,46 +138,6 @@ func (self *Vault) clientForSecret(ctx context.Context, secret *al_proto.VaultSe
 	return client, nil
 }
 
-func FileByName(config *al_proto.Config, name string) (*al_proto.File, error) {
-	for i := range config.Files {
-		curFile := config.Files[len(config.Files)-1-i]
-		if curFile.Name == name {
-			return curFile, nil
-		}
-	}
-	return nil, fmt.Errorf("missing file with name %s", name)
-}
-
-func VaultByName(config *al_proto.Config, name string) (*al_proto.Vault, error) {
-	for i := range config.Vaults {
-		curVault := config.Vaults[len(config.Vaults)-1-i]
-		if curVault.Name == name {
-			return curVault, nil
-		}
-	}
-	return nil, fmt.Errorf("missing vault with name %s", name)
-}
-
-func VaultAuthByName(config *al_proto.Config, name string) (*al_proto.VaultAuth, error) {
-	for i := range config.Auth {
-		curAuth := config.Auth[len(config.Auth)-1-i]
-		if curAuth.Name == name {
-			return curAuth, nil
-		}
-	}
-	return nil, fmt.Errorf("missing vault auth with name %s", name)
-}
-
-func VaultSecretByName(config *al_proto.Config, name string) (*al_proto.VaultSecret, error) {
-	for i := range config.Secrets {
-		curSecret := config.Secrets[len(config.Secrets)-1-i]
-		if curSecret.Name == name {
-			return curSecret, nil
-		}
-	}
-	return nil, fmt.Errorf("missing secret with name %s", name)
-}
-
 func vaultAuthDefault(ctx context.Context, config *al_proto.Config) (*api.Client, error) {
 	res, err := vaultAuth(ctx, config, VAULT_DEFAULT_NAME, VAULT_DEFAULT_NAME)
 	return res, err

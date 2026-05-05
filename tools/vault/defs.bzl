@@ -18,7 +18,7 @@ def vault_runner(
         "run",
         "--config",
         "$(rootpath {})".format(config),
-        "--vault_env",
+        "--env_vault",
         vault_env,
     ] + run_args + [
         "--",
