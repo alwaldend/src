@@ -1,34 +1,21 @@
 load("@rules_go//go:def.bzl", "go_binary")
+load("//tools/al/rules/al:al_binary.bzl", "al_binary_run")
 
 def vault_runner(
-        name,
-        config,
         args = [],
         run_args = [],
-        vault_env = "default:default",
-        secrets = [],
         data = [],
+        vault_env = "default:default",
         vault = "//tools/vault",
-        al_lib = "//tools/al/cmd/al:al_lib"):
+        **kwargs):
     """
     Create a vault runner
     """
-    data = data + [config, vault]
-    args = [
-        "run",
-        "--config",
-        "$(rootpath {})".format(config),
-        "--env_vault",
-        vault_env,
-    ] + run_args + [
-        "--",
-        "$(rootpath {})".format(vault),
-    ] + args
-    go_binary(
-        name = name,
-        args = args,
-        data = data,
-        embed = [al_lib],
+    al_binary_run(
+        run_args = ["--env_vault", vault_env] + run_args,
+        args = ["$(rootpath {})".format(vault)] + args,
+        data = data + [vault],
+        **kwargs
     )
 
 DEFAULT_VAULT_RUNNERS = {

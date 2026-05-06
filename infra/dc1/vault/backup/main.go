@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"log"
 	"os"
 	"path/filepath"
 	"time"
@@ -21,9 +20,9 @@ func main() {
 	defer os.RemoveAll(tmpDir)
 	vaultName := fmt.Sprintf("vault-backup-%s.snap", now.Format(time.RFC3339))
 	vaultPath := filepath.Join(tmpDir, vaultName)
-	bucket := os.Getenv("AL_VAULT_BACKUP_BUCKET")
+	bucket := os.Getenv("RCLONE_S3_BUCKET")
 	if bucket == "" {
-		log.Fatalln("missing bucket name")
+		os.Stderr.WriteString("missing bucket name\n")
 	}
 	al.Check(al.RunCommand(al.CommandArgs{Name: *rcloneFlag, Args: []string{"config", "dump"}}))
 	al.Check(al.RunCommand(al.CommandArgs{Name: *vaultFlag, Args: []string{"operator", "raft", "snapshot", "save", vaultPath}}))

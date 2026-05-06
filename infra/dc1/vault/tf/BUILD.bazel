@@ -13,7 +13,7 @@ docs_filegroup(
 
 terraform_runners(
     name = "tf",
-    config = "//infra/dc1/vault:al",
+    configs = ["//infra/dc1/vault:al"],
     data = glob(["*.tf"]) + [
         ".terraform.lock.hcl",
         "//projects/tf_modules/backup_bucket",

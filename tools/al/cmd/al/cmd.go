@@ -94,6 +94,7 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 				return fmt.Errorf("could not create Vault: %w", err)
 			}
 			resourceHandler := al.NewResourceHandler(ctx, cfg, vault)
+			defer resourceHandler.Clean()
 			runCmd, err := al.Command(
 				al.CommandArgs{
 					Ctx:                ctx,

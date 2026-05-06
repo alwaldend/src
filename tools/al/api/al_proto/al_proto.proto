@@ -33,6 +33,7 @@ message VaultSecretKv {
 message File {
   string name = 1;
   string value = 2;
+  string from_file = 6;
   repeated string secrets = 3;
   repeated string files = 4;
   map<string, string> labels = 5;

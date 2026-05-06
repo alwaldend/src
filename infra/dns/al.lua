@@ -7,15 +7,14 @@ lib.secret({
     name = "dns_token",
     kv = { path = "cloudflare.com/dns_token", mount = "secrets" }
 })
-lib.env({
-    name = "CLOUDFLARE_ACCOUNT_ID",
+lib.file({
+    name = "creds",
     secrets = {"dns_token"},
-    labels = { dns = "1" },
-    value = "{{ .Secret.cloudflare_account_id }}"
+    from_file = "infra/dns/creds.json.tpl",
 })
 lib.env({
-    name = "CLOUDFLARE_API_TOKEN",
-    secrets = {"dns_token"},
-    labels = { dns = "1" } ,
-    value = "{{ .Secret.cloudflare_api_token }}"
+    name = "DNSCONTROL_CREDS",
+    files = {"creds"},
+    labels = { dns = "1" },
+    value = "{{ .File.Path }}"
 })

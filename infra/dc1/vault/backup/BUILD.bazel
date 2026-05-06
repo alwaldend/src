@@ -1,30 +1,6 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//tools/al/rules/al:al_binary.bzl", "al_binary_run")
 load("//tools/docs:defs.bzl", "docs_filegroup")
-
-_ARGS = [
-    "run",
-    "--config",
-    "$(rootpath //infra/dc1/vault:al)",
-    "--env_vault",
-    "default:default",
-    "--env_labels",
-    "rclone",
-    "--env_labels",
-    "tf",
-    "$(rootpath :backup_bin)",
-    "--",
-    "--rclone",
-    "$(rootpath //tools/rclone)",
-    "--vault",
-    "$(rootpath //tools/vault)",
-]
-
-_DATA = [
-    ":backup_bin",
-    "//tools/rclone",
-    "//tools/vault",
-    "//infra/dc1/vault:al",
-]
 
 docs_filegroup(
     name = "docs",
@@ -50,9 +26,27 @@ go_binary(
     visibility = ["//:__subpackages__"],
 )
 
-go_binary(
+al_binary_run(
     name = "backup",
-    args = _ARGS,
-    data = _DATA,
-    embed = ["//tools/al/cmd/al:al_lib"],
+    args = [
+        "$(rootpath :backup_bin)",
+        "--rclone",
+        "$(rootpath //tools/rclone)",
+        "--vault",
+        "$(rootpath //tools/vault)",
+    ],
+    configs = ["//infra/dc1/vault:al"],
+    data = [
+        ":backup_bin",
+        "//tools/rclone",
+        "//tools/vault",
+    ],
+    run_args = [
+        "--env_vault",
+        "default:default",
+        "--env_labels",
+        "rclone",
+        "--env_labels",
+        "tf",
+    ],
 )

@@ -1,40 +1,26 @@
 load("@com_alwaldend_src_tools_dnscontrol//:defs.bzl", "dnscontrol_binary")
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/al/rules/al:al_binary.bzl", "al_binary_run_map")
 load("//tools/al/rules/al:al_config.bzl", "al_config")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_runners")
 
 vault_runners(
     name = "vault",
-    config = ":al",
+    configs = [":al"],
 )
 
 _ZONES = glob(["zones/**/*.zone"])
 
+_BIN = "$(rootpath //tools/dnscontrol)"
+
 _ARGS = [
-    "run",
-    "--config",
-    "$(rootpath :al)",
-    "--secret_env",
-    "dns_token",
-    "$(rootpath :run)",
-    "--",
-    "--dnscontrol",
-    "$(rootpath //tools/dnscontrol)",
     "--config",
     "$(rootpath dnsconfig.js)",
-    "--creds_template",
-    "$(rootpath creds.json.tpl)",
+    "--creds",
+    '"!sh -c \'cat $${DNSCONTROL_CREDS}\'"',
 ]
-
-_DATA = [
-    "creds.json.tpl",
-    "dnsconfig.js",
-    "//tools/dnscontrol",
-    ":run",
-    ":al",
-] + _ZONES
 
 al_config(
     name = "al",
@@ -43,31 +29,29 @@ al_config(
     deps = ["//infra:al"],
 )
 
-go_library(
-    name = "run_lib",
-    srcs = ["run.go"],
-    importpath = "git.alwaldend.com/alwaldend/src/infra/dns",
-    deps = ["//tools/al/pkg/al"],
-)
-
-go_binary(
-    name = "run",
-    embed = [":run_lib"],
-    visibility = ["//infra/dns:__pkg__"],
-)
-
-go_binary(
-    name = "preview",
-    args = _ARGS + ["preview"],
-    data = _DATA,
-    embed = ["//tools/al/cmd/al:al_lib"],
-)
-
-go_binary(
-    name = "deploy",
-    args = _ARGS + ["push"],
-    data = _DATA,
-    embed = ["//tools/al/cmd/al:al_lib"],
+al_binary_run_map(
+    name = "dns",
+    args = {
+        "": [_BIN],
+        "deploy": [
+            _BIN,
+            "push",
+        ] + _ARGS,
+        "preview": [
+            _BIN,
+            "preview",
+        ] + _ARGS,
+    },
+    configs = [":al"],
+    data = [
+        "creds.json.tpl",
+        "dnsconfig.js",
+        "//tools/dnscontrol",
+    ] + _ZONES,
+    run_args = [
+        "--env_labels",
+        "dns",
+    ],
 )
 
 docs_filegroup(

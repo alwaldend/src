@@ -14,7 +14,7 @@ docs_filegroup(
 
 vault_runners(
     name = "vault",
-    config = ":al",
+    configs = [":al"],
 )
 
 al_config(

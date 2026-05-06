@@ -169,7 +169,20 @@ func (self *ResourceHandler) getFile(ctx context.Context, name string) (*Resourc
 	if err != nil {
 		return nil, fmt.Errorf("could not find file config: %w", err)
 	}
-	content, err := self.template(ctx, fileConfig.Value, fileConfig.Files, fileConfig.Secrets)
+	value := ""
+	if fileConfig.Value != "" {
+		value = fileConfig.Value
+	} else if fileConfig.FromFile != "" {
+		valueBytes, err := os.ReadFile(fileConfig.FromFile)
+		if err != nil {
+			return nil, fmt.Errorf("could not read from_file %s: %w", fileConfig.FromFile, err)
+		}
+		value = string(valueBytes)
+	}
+	if value == "" {
+		return nil, fmt.Errorf("missing file contents")
+	}
+	content, err := self.template(ctx, value, fileConfig.Files, fileConfig.Secrets)
 	if err != nil {
 		return nil, fmt.Errorf("could not template file %s: %w", name, err)
 	}

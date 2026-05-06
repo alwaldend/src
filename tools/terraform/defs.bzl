@@ -1,36 +1,25 @@
 load("@rules_go//go:def.bzl", "go_binary")
+load("//tools/al/rules/al:al_binary.bzl", "al_binary_run")
 
 def terraform_runner(
-        name,
-        config,
         args = [],
-        run_args = [],
-        secrets = [],
         data = [],
         terraform = "//tools/terraform",
         terraform_runner = "//tools/terraform/runner",
-        al_lib = "//tools/al/cmd/al:al_lib"):
+        **kwargs):
     """
-    Create binaries for terraform commands
+    Create a binary for terraform commands
     """
-    data = data + [config, terraform, terraform_runner]
-    args = [
-        "run",
-        "--config",
-        "$(rootpath {})".format(config),
-    ] + run_args + [
-        "--",
-        "$(rootpath {})".format(terraform_runner),
-        "--terraform",
-        "$(rootpath {})".format(terraform),
-        "--chdir",
-        native.package_name() or ".",
-    ] + args
-    go_binary(
-        name = name,
-        args = args,
-        data = data,
-        embed = [al_lib],
+    al_binary_run(
+        args = [
+            "$(rootpath {})".format(terraform_runner),
+            "--terraform",
+            "$(rootpath {})".format(terraform),
+            "--chdir",
+            native.package_name() or ".",
+        ] + args,
+        data = data + [terraform, terraform_runner],
+        **kwargs
     )
 
 DEFAULT_TERRAFORM_RUNNERS = {

@@ -13,7 +13,7 @@ docs_filegroup(
 
 terraform_runners(
     name = "tf",
-    config = "//infra/yandex_cloud/org1:al",
+    configs = ["//infra/yandex_cloud/org1:al"],
     data = glob([
         "*.tf",
     ]) + [
@@ -22,15 +22,9 @@ terraform_runners(
         "//projects/tf_modules/yc_folder",
     ],
     run_args = [
-        "--vault_env",
+        "--env_vault",
         "default:default",
-        "--secret_env",
-        "tf_backend",
-        "--secret_env",
-        "yc_auth",
-        "--secret_env",
-        "yc_account",
-        "--secret_env",
-        "yc_bucket_auth",
+        "--env_labels",
+        "tf",
     ],
 )

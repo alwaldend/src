@@ -16,7 +16,19 @@ function M.tf_backend(t)
         name = "backend_config",
         labels = labels,
         secrets = {name},
-        value = 'bucket = "{{ .Secret.bucket }}"'
+        value = [[
+            bucket = "{{ .Secret.bucket }}"
+            endpoints = {
+              s3 = "https://storage.yandexcloud.net"
+            }
+            region = "ru-central1"
+            key    = "main.tfstate"
+            use_lockfile = true
+            skip_region_validation      = true
+            skip_credentials_validation = true
+            skip_requesting_account_id  = true
+            skip_s3_checksum            = true
+        ]]
     })
     lib.env({
         name = "AL_TF_BACKEND_CONFIG_1",

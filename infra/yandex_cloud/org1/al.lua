@@ -16,6 +16,11 @@ infra.yc_auth({
     labels = { tf = "1" },
 })
 
+infra.yc_account({
+    path = "yandex.cloud/org1/folders/src-infra-yandex-cloud-org1/account",
+    labels = { tf = "1" },
+})
+
 infra.yc_bucket_auth({
     path = "yandex.cloud/org1/folders/src-infra-yandex-cloud-org1/account_static_key",
     labels = { tf = "1" },
