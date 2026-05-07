@@ -1,0 +1,4 @@
+locals {
+  year_in_seconds = 31536000
+  hour_in_seconds = 3600
+}

@@ -1,11 +1,11 @@
 module "src_infra_dc1_vault_approle" {
-    source = "../../../../projects/tf_modules/vault_approle"
-    name = "src_infra_dc1_vault"
-    member_entity_ids = [data.vault_identity_entity.simeonwarren.id]
-    secrets =  vault_mount.secrets.path
-    policies = [vault_policy.tf_token.name]
-    backend = vault_auth_backend.approle.path
-    policy = <<EOT
+  source            = "../../../../projects/tf_modules/vault_approle"
+  name              = "src_infra_dc1_vault"
+  member_entity_ids = [data.vault_identity_entity.simeonwarren.id]
+  secrets           = vault_mount.secrets.path
+  policies          = [vault_policy.tf_token.name]
+  backend           = vault_auth_backend.approle.path
+  policy            = <<EOT
         # Manage storage
         path "sys/storage/*" {
            capabilities = ["create", "read", "update", "delete", "list"]
@@ -41,6 +41,10 @@ module "src_infra_dc1_vault_approle" {
         # List available auth methods at root namespace level
         path "sys/auth" {
           capabilities = [ "read" ]
+        }
+        # Manage pki
+        path "${vault_mount.pki.path}/*" {
+           capabilities = ["create", "read", "update", "delete", "list"]
         }
         # Manage entities
         path "identity/*" {

@@ -23,15 +23,18 @@ def terraform_runner(
     )
 
 DEFAULT_TERRAFORM_RUNNERS = {
-    "": ["--direct"],
+    "": [],
+    "direct": ["--direct"],
     "init": ["--direct", "init"],
     "migrate": ["--direct", "init", "--migrate-state"],
     "fmt": ["--direct", "fmt", "--write", "--recursive"],
     "fmt_check": ["--direct", "fmt", "--check", "--recursive"],
     "plan": ["plan"],
+    "output": ["output"],
     "import": ["import"],
     "destroy": ["destroy"],
     "apply": ["apply"],
+    "show": ["show"],
     "deploy": ["apply"],
     "deploy_y": ["apply", "-y"],
 }

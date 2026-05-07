@@ -17,6 +17,6 @@ resource "vault_mount" "pki" {
   path                      = "pki"
   type                      = "pki"
   description               = "Pki mount: https://developer.hashicorp.com/vault/docs/secrets/pki"
-  default_lease_ttl_seconds = 3600
-  max_lease_ttl_seconds     = 86400
+  default_lease_ttl_seconds = local.hour_in_seconds
+  max_lease_ttl_seconds     = local.year_in_seconds * 3
 }
