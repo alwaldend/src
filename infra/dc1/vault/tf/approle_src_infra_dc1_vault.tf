@@ -27,6 +27,9 @@ module "src_infra_dc1_vault_approle" {
           capabilities = ["list"]
         }
         # Enable and manage secrets engines at root namespace level
+        path "sys/remount" {
+           capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+        }
         path "sys/mounts/*" {
            capabilities = ["create", "read", "update", "delete", "list"]
         }
@@ -43,8 +46,12 @@ module "src_infra_dc1_vault_approle" {
           capabilities = [ "read" ]
         }
         # Manage pki
-        path "${vault_mount.pki.path}/*" {
-           capabilities = ["create", "read", "update", "delete", "list"]
+        path "${vault_mount.ica1.path}/*" {
+           capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+        }
+        # Manage pki
+        path "${vault_mount.ica2.path}/*" {
+           capabilities = ["create", "read", "update", "delete", "list", "sudo"]
         }
         # Manage entities
         path "identity/*" {

@@ -14,7 +14,7 @@ docs_filegroup(
 terraform_runners(
     name = "tf",
     configs = ["//infra/dc1/vault:al"],
-    data = glob(["*.tf"]) + [
+    data = glob(["*.tf", "cacerts/*.crt"]) + [
         ".terraform.lock.hcl",
         "//projects/tf_modules/backup_bucket",
         "//projects/tf_modules/tf_backend",
