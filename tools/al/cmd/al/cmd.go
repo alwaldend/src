@@ -117,6 +117,7 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 	flags := cmd.PersistentFlags()
 	flags.StringArrayVar(&configs, "config", nil, "Config path")
 	flags.StringArrayVar(&prepareCommandArgs.Env, "env", nil, "Add environment variables by name")
+	flags.BoolVar(&prepareCommandArgs.EnvDisabled, "env_disabled", false, "If set, disable env injection")
 	flags.StringArrayVar(&prepareCommandArgs.EnvVault, "env_vault", nil, "Add vault environment variables (vault_name:auth_name)")
 	flags.StringArrayVar(&prepareCommandArgs.EnvLabels, "env_labels", nil, "Add environment variables with labels (name=value)")
 	flags.StringArrayVar(&prepareCommandArgs.Files, "files", nil, "Add files by name")

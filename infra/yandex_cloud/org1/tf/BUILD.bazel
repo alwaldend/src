@@ -1,5 +1,5 @@
 load("//tools/docs:defs.bzl", "docs_filegroup")
-load("//tools/terraform:defs.bzl", "terraform_runners")
+load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
 
 docs_filegroup(
     name = "docs",
@@ -11,20 +11,29 @@ docs_filegroup(
     ),
 )
 
-terraform_runners(
-    name = "tf",
-    configs = ["//infra/yandex_cloud/org1:al"],
-    data = glob([
+_CONFIGS = ["//infra/yandex_cloud/org1:al"]
+_DATA = glob([
         "*.tf",
     ]) + [
         ".terraform.lock.hcl",
         "//projects/tf_modules/tf_backend",
         "//projects/tf_modules/yc_folder",
-    ],
+    ]
+
+terraform_binary_map(
+    name = "tf",
+    configs = _CONFIGS,
+    data = _DATA,
     run_args = [
         "--env_vault",
         "default:default",
         "--env_labels",
         "tf",
     ],
+)
+
+terraform_test_map(
+    name = "tf",
+    configs = _CONFIGS,
+    data = _DATA,
 )

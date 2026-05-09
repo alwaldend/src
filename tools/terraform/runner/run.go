@@ -30,6 +30,7 @@ func main() {
 	}
 	if !*directFlag {
 		cmdInit := al.Must(al.Command(al.CommandArgs{Name: *terraformFlag, Args: slices.Concat(commonArgs, []string{"init"}, backendArgs)}))
+		cmdInit.Stdout = os.Stderr
 		al.Check(cmdInit.Run())
 	}
 	if len(args) == 0 || args[0] != "init" {

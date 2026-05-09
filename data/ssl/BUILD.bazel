@@ -9,10 +9,17 @@ pkg_filegroup(
 pkg_files(
     name = "docs_files",
     srcs = glob(["*.md"]) + [
+        ":alwaldend.com_ica1",
         ":alwaldend.com_root_ca_crt",
         ":alwaldend.com_root_ca_pem",
     ],
     prefix = "content/docs/{}".format(package_name()),
+)
+
+filegroup(
+    name = "alwaldend.com_ica1",
+    srcs = ["alwaldend.com_ica1.crt"],
+    visibility = ["//:__subpackages__"],
 )
 
 filegroup(

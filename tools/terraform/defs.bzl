@@ -1,16 +1,21 @@
-load("@rules_go//go:def.bzl", "go_binary")
-load("//tools/al/rules/al:al_binary.bzl", "al_binary_run")
+load("@bazel_skylib//rules:native_binary.bzl", "native_test")
+load("@rules_go//go:def.bzl", "go_binary", "go_test")
+load("//tools/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_test")
 
-def terraform_runner(
+def terraform_binary(
         args = [],
         data = [],
         terraform = "//tools/terraform",
         terraform_runner = "//tools/terraform/runner",
+        is_test = False,
         **kwargs):
     """
     Create a binary for terraform commands
     """
-    al_binary_run(
+    rule = al_binary_run
+    if is_test:
+        rule = al_binary_run_test
+    rule(
         args = [
             "$(rootpath {})".format(terraform_runner),
             "--terraform",
@@ -22,7 +27,7 @@ def terraform_runner(
         **kwargs
     )
 
-DEFAULT_TERRAFORM_RUNNERS = {
+DEFAULT_TERRAFORM_BINARIES = {
     "": [],
     "direct": ["--direct"],
     "init": ["--direct", "init"],
@@ -39,20 +44,43 @@ DEFAULT_TERRAFORM_RUNNERS = {
     "deploy_y": ["apply", "-y"],
 }
 
-def terraform_runners(
+def terraform_binary_map(
         name,
-        args = DEFAULT_TERRAFORM_RUNNERS,
+        args = DEFAULT_TERRAFORM_BINARIES,
         **kwargs):
     """
-    Create several terraform runners
+    Create several terraform binaries
     """
     for args_name, args_value in args.items():
         if args_name:
             cur_name = "{}.{}".format(name, args_name)
         else:
             cur_name = name
-        terraform_runner(
+        terraform_binary(
             name = cur_name,
             args = args_value,
+            **kwargs
+        )
+
+DEFAULT_TERRAFORM_TESTS = {
+    "fmt": ["--direct", "fmt", "--check", "--recursive"],
+}
+
+def terraform_test_map(
+        name,
+        args = DEFAULT_TERRAFORM_TESTS,
+        size = "small",
+        **kwargs):
+    """
+    Create several terraform tests
+    """
+    for args_name, args_value in args.items():
+        if not args_name:
+            fail("empty test name")
+        terraform_binary(
+            name = "{}.{}_test".format(name, args_name),
+            size = size,
+            args = args_value,
+            is_test = True,
             **kwargs
         )

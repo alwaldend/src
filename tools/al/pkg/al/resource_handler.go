@@ -54,10 +54,27 @@ type PrepareCommandArgs struct {
 	Env       []string
 	EnvVault  []string
 	EnvLabels []string
+	EnvDisabled bool
 	Files     []string
 }
 
 func (self *ResourceHandler) PrepareCommand(ctx context.Context, cmd *exec.Cmd, args *PrepareCommandArgs) error {
+	for _, file := range args.Files {
+		_, err := self.getFile(ctx, file)
+		if err != nil {
+			return fmt.Errorf("could not prepare file %s: %w", file, err)
+		}
+	}
+	if !args.EnvDisabled {
+		err := self.prepareEnv(ctx, cmd, args)
+		if err != nil {
+			return fmt.Errorf("could not prepare env: %w", err)
+		}
+	}
+	return nil
+}
+
+func (self *ResourceHandler) prepareEnv(ctx context.Context, cmd*exec.Cmd, args *PrepareCommandArgs) error {
 	for _, envVault := range args.EnvVault {
 		split := strings.SplitN(envVault, ":", 2)
 		vaultName, authName := "", ""
@@ -71,12 +88,6 @@ func (self *ResourceHandler) PrepareCommand(ctx context.Context, cmd *exec.Cmd, 
 			return fmt.Errorf("could not prepare vault env %s: %w", envVault, err)
 		}
 		cmd.Env = append(cmd.Env, env...)
-	}
-	for _, file := range args.Files {
-		_, err := self.getFile(ctx, file)
-		if err != nil {
-			return fmt.Errorf("could not prepare file %s: %w", file, err)
-		}
 	}
 	for _, envLabel := range args.EnvLabels {
 		labelName, labelVal := "", ""

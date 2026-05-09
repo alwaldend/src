@@ -1,5 +1,5 @@
 load("//tools/docs:defs.bzl", "docs_filegroup")
-load("//tools/terraform:defs.bzl", "terraform_runners")
+load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
 
 docs_filegroup(
     name = "docs",
@@ -11,19 +11,29 @@ docs_filegroup(
     ),
 )
 
-terraform_runners(
+_CONFIGS = ["//infra/dc1/vault:al"]
+_DATA = glob(["*.tf"]) + [
+    ".terraform.lock.hcl",
+    "//data/ssl:alwaldend.com_ica1",
+    "//projects/tf_modules/backup_bucket",
+    "//projects/tf_modules/tf_backend",
+    "//projects/tf_modules/vault_approle",
+]
+
+terraform_binary_map(
     name = "tf",
-    configs = ["//infra/dc1/vault:al"],
-    data = glob(["*.tf", "cacerts/*.crt"]) + [
-        ".terraform.lock.hcl",
-        "//projects/tf_modules/backup_bucket",
-        "//projects/tf_modules/tf_backend",
-        "//projects/tf_modules/vault_approle",
-    ],
+    configs = _CONFIGS,
+    data = _DATA,
     run_args = [
         "--env_vault",
         "default:default",
         "--env_labels",
         "tf",
     ],
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    configs = _CONFIGS,
+    data = _DATA,
 )

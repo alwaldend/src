@@ -8,6 +8,15 @@ lib.auth({
     },
 })
 
+lib.secret({
+    name = "vault_certs",
+    kv = {
+        path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/vault_certs",
+        mount = "secrets",
+    },
+    labels = { ansible = "1" }
+})
+
 infra.tf_backend({
     path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/bucket",
     labels = { tf = "1" },
