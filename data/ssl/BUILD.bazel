@@ -8,12 +8,25 @@ pkg_filegroup(
 
 pkg_files(
     name = "docs_files",
-    srcs = glob(["*.md"]) + [
+    srcs = glob(["*.md"]) + [":ssl"],
+    prefix = "content/docs/{}".format(package_name()),
+)
+
+filegroup(
+    name = "ssl",
+    srcs = [
         ":alwaldend.com_ica1",
         ":alwaldend.com_root_ca_crt",
         ":alwaldend.com_root_ca_pem",
+        ":simeonwarren",
     ],
-    prefix = "content/docs/{}".format(package_name()),
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "simeonwarren",
+    srcs = ["simeonwarren.crt"],
+    visibility = ["//:__subpackages__"],
 )
 
 filegroup(

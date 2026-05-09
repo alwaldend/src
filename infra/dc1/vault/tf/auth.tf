@@ -9,8 +9,15 @@ resource "vault_auth_backend" "userpass" {
     listing_visibility = "unauth"
   }
 }
+
 resource "vault_auth_backend" "approle" {
   path        = "approle"
   type        = "approle"
   description = "Approle auth"
+}
+
+resource "vault_auth_backend" "cert" {
+  path        = "cert"
+  type        = "cert"
+  description = "Certificate auth"
 }

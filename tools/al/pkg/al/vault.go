@@ -69,18 +69,25 @@ func (self *Vault) Env(ctx context.Context, vaultName string, authName string) (
 	if err != nil {
 		return nil, fmt.Errorf("missing vault: %w", err)
 	}
+	auth, err := VaultAuthByName(self.config, authName)
+	if err != nil {
+		return nil, fmt.Errorf("missing auth: %w", err)
+	}
 	cacert, err := filepath.Abs(vault.Tls.CaCert)
 	if err != nil {
 		return nil, fmt.Errorf("could not create absolute path: %w", err)
 	}
-	client, err := self.client(ctx, vaultName, authName)
-	if err != nil {
-		return nil, fmt.Errorf("could not create client for %s/%s: %w", vaultName, authName, err)
-	}
+
 	res := []string{
-		fmt.Sprintf("VAULT_TOKEN=%s", client.Token()),
-		fmt.Sprintf("VAULT_ADDR=%s", client.Address()),
+		fmt.Sprintf("VAULT_ADDR=%s", vault.Config.Address),
 		fmt.Sprintf("VAULT_CACERT=%s", cacert),
+	}
+	if !auth.NoAuth {
+		client, err := self.client(ctx, vaultName, authName)
+		if err != nil {
+			return nil, fmt.Errorf("could not create client for %s/%s: %w", vaultName, authName, err)
+		}
+		res = append(res, fmt.Sprintf("VAULT_TOKEN=%s", client.Token()))
 	}
 	return res, nil
 }

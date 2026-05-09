@@ -1,0 +1,29 @@
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("//tools/al/rules/al:al_binary.bzl", "al_binary_run")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/vault:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+sh_binary(
+    name = "login_bin",
+    srcs = ["login.sh"],
+)
+
+al_binary_run(
+    name = "login",
+    args = ["$(rootpath :login_bin)"],
+    configs = ["//:al"],
+    data = [":login_bin"],
+    run_args = [
+        "--env_vault",
+        "default:no_auth",
+    ],
+)

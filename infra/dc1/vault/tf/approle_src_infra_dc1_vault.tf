@@ -39,7 +39,7 @@ module "src_infra_dc1_vault_approle" {
         }
         # Enable and manage auth methods at root namespace level
         path "sys/auth/*" {
-           capabilities = ["create", "read", "update", "delete", "list"]
+           capabilities = ["create", "read", "update", "delete", "list", "sudo"]
         }
         # List available auth methods at root namespace level
         path "sys/auth" {

@@ -14,3 +14,8 @@ lib.auth({
     name = "default",
     token_helper = nil
 })
+
+lib.auth({
+    name = "no_auth",
+    no_auth = true
+})

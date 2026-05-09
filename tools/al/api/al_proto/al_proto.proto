@@ -75,6 +75,7 @@ message VaultAuth {
   VaultAuthApprole approle = 2;
   // Authentification using the token helper
   VaultAuthTokenHelper token_helper = 3;
+  bool no_auth = 4;
 }
 
 message Config {
