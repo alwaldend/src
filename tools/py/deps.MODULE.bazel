@@ -13,6 +13,11 @@ pip.parse(
     requirements_lock = "//tools/ansible:requirements.txt",
 )
 pip.parse(
+    hub_name = "com_alwaldend_src_tools_ykman_pip",
+    python_version = PYTHON_VERSION,
+    requirements_lock = "//tools/ykman:requirements.txt",
+)
+pip.parse(
     hub_name = "com_alwaldend_src_projects_autoscroll_pip",
     python_version = PYTHON_VERSION,
     requirements_lock = "//projects/autoscroll:requirements.txt",
@@ -33,4 +38,5 @@ use_repo(
     "com_alwaldend_src_pip",
     "com_alwaldend_src_projects_autoscroll_pip",
     "com_alwaldend_src_starlark_bazel_qt_requirements",
+    "com_alwaldend_src_tools_ykman_pip",
 )

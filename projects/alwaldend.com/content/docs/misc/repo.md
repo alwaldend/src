@@ -11,7 +11,7 @@ tags:
   ```sh
   sudo dnf install \
     clang clang-format java-latest-openjdk-devel rust cargo mesa-libGL-devel \
-    go Xvfb python3 gmp-devel patch podman git git-lfs fuse
+    go Xvfb python3 gmp-devel patch podman git git-lfs fuse pcsc-lite pcsc-lite-devel
   ```
 - Install bazelisk: https://bazel.build/install/bazelisk
 - Symlink bazel:

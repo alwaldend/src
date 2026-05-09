@@ -28,7 +28,7 @@ def al_binary_run(
     go_binary(
         name = name,
         embed = al,
-        **kwargs,
+        **kwargs
     )
 
 def al_binary_run_test(name, **kwargs):
@@ -63,5 +63,5 @@ def al_binary_run_map(
         al_binary_run(
             name = cur_name,
             args = args_value,
-            **kwargs,
+            **kwargs
         )
