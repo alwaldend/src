@@ -51,11 +51,11 @@ func (self *ResourceHandler) Clean() error {
 }
 
 type PrepareCommandArgs struct {
-	Env       []string
-	EnvVault  []string
-	EnvLabels []string
+	Env         []string
+	EnvVault    []string
+	EnvLabels   []string
 	EnvDisabled bool
-	Files     []string
+	Files       []string
 }
 
 func (self *ResourceHandler) PrepareCommand(ctx context.Context, cmd *exec.Cmd, args *PrepareCommandArgs) error {
@@ -74,7 +74,7 @@ func (self *ResourceHandler) PrepareCommand(ctx context.Context, cmd *exec.Cmd, 
 	return nil
 }
 
-func (self *ResourceHandler) prepareEnv(ctx context.Context, cmd*exec.Cmd, args *PrepareCommandArgs) error {
+func (self *ResourceHandler) prepareEnv(ctx context.Context, cmd *exec.Cmd, args *PrepareCommandArgs) error {
 	for _, envVault := range args.EnvVault {
 		split := strings.SplitN(envVault, ":", 2)
 		vaultName, authName := "", ""

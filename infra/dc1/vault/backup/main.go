@@ -24,7 +24,23 @@ func main() {
 	if bucket == "" {
 		os.Stderr.WriteString("missing bucket name\n")
 	}
-	al.Check(al.RunCommand(al.CommandArgs{Name: *rcloneFlag, Args: []string{"config", "dump"}}))
-	al.Check(al.RunCommand(al.CommandArgs{Name: *vaultFlag, Args: []string{"operator", "raft", "snapshot", "save", vaultPath}}))
-	al.Check(al.RunCommand(al.CommandArgs{Name: *rcloneFlag, Args: []string{"copyto", "-v", "--check-first", "--s3-no-check-bucket", vaultPath, fmt.Sprintf("remote:%s/vault/%s", bucket, vaultName)}}))
+	al.Check(al.RunCommand(al.CommandArgs{
+		Name: *rcloneFlag,
+		Args: []string{"config", "dump"},
+	}))
+	al.Check(al.RunCommand(al.CommandArgs{
+		Name: *vaultFlag,
+		Args: []string{"operator", "raft", "snapshot", "save", vaultPath},
+	}))
+	al.Check(al.RunCommand(al.CommandArgs{
+		Name: *rcloneFlag,
+		Args: []string{
+			"copyto",
+			"-v",
+			"--check-first",
+			"--s3-no-check-bucket",
+			vaultPath,
+			fmt.Sprintf("remote:%s/vault/%s", bucket, vaultName),
+		},
+	}))
 }

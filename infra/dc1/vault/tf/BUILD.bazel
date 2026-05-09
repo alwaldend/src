@@ -12,12 +12,14 @@ docs_filegroup(
 )
 
 _CONFIGS = ["//infra/dc1/vault:al"]
+
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
     "//data/ssl:alwaldend.com_ica1",
     "//projects/tf_modules/backup_bucket",
     "//projects/tf_modules/tf_backend",
     "//projects/tf_modules/vault_approle",
+    "//projects/tf_modules/vault_pki_ica",
 ]
 
 terraform_binary_map(

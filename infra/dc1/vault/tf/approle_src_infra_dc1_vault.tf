@@ -46,11 +46,7 @@ module "src_infra_dc1_vault_approle" {
           capabilities = [ "read" ]
         }
         # Manage pki
-        path "${vault_mount.ica1.path}/*" {
-           capabilities = ["create", "read", "update", "delete", "list", "sudo"]
-        }
-        # Manage pki
-        path "${vault_mount.ica2.path}/*" {
+        path "pki/*" {
            capabilities = ["create", "read", "update", "delete", "list", "sudo"]
         }
         # Manage entities
