@@ -1,5 +1,5 @@
 load("//tools/docs:defs.bzl", "docs_filegroup")
-load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+load("//tools/terraform:defs.bzl", "terraform_binary", "terraform_binary_map", "terraform_test_map")
 
 docs_filegroup(
     name = "docs",
@@ -13,9 +13,16 @@ docs_filegroup(
 
 _CONFIGS = ["//infra/dc1/vault:al"]
 
+_RUN_ARGS = [
+    "--env_vault",
+    "default:default",
+    "--env_labels",
+    "tf",
+]
+
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
-    "//data/ssl",
+    "//data/ssl/alwaldend.com",
     "//projects/tf_modules/backup_bucket",
     "//projects/tf_modules/tf_backend",
     "//projects/tf_modules/vault_approle",
@@ -26,11 +33,21 @@ terraform_binary_map(
     name = "tf",
     configs = _CONFIGS,
     data = _DATA,
-    run_args = [
-        "--env_vault",
-        "default:default",
-        "--env_labels",
-        "tf",
+    run_args = _RUN_ARGS,
+)
+
+terraform_binary(
+    name = "update_ica_clients",
+    args = [
+        "output",
+        "-raw",
+        "ica_clients_certificate",
+    ],
+    configs = _CONFIGS,
+    data = _DATA + ["//data/ssl/alwaldend.com:ica_clients"],
+    run_args = _RUN_ARGS + [
+        "--stdout",
+        "$(rootpath //data/ssl/alwaldend.com:ica_clients)",
     ],
 )
 

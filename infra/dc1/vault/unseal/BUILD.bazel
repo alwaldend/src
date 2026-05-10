@@ -1,0 +1,49 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//tools/al/rules/al:al_binary.bzl", "al_binary_run")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//infra/dc1/vault:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+go_library(
+    name = "unseal_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/infra/dc1/vault/unseal",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//tools/al/pkg/al",
+        "@org_golang_x_term//:term",
+    ],
+)
+
+go_binary(
+    name = "unseal_bin",
+    embed = [":unseal_lib"],
+    visibility = ["//:__subpackages__"],
+)
+
+al_binary_run(
+    name = "unseal",
+    args = [
+        "$(rootpath :unseal_bin)",
+        "--vault",
+        "$(rootpath //tools/vault)",
+    ],
+    configs = ["//infra/dc1/vault:al"],
+    data = [
+        ":unseal_bin",
+        "//tools/vault",
+        "//tools/ykman",
+    ],
+    run_args = [
+        "--env_vault",
+        "default:no_auth",
+    ],
+)

@@ -26,6 +26,7 @@ DEFAULT_VAULT_RUNNERS = {
     "kv_delete": ["kv", "delete", "-mount", "secrets"],
     "login": ["login", "--method=userpass"],
     "token_lookup": ["token", "lookup"],
+    "status": ["status"],
 }
 
 def vault_runners(

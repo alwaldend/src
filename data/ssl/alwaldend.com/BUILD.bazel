@@ -1,0 +1,46 @@
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]) + [":alwaldend.com"],
+    visibility = ["//data/ssl:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+filegroup(
+    name = "alwaldend.com",
+    srcs = [
+        ":ica1",
+        ":ica_clients",
+        ":root_ca",
+        ":simeonwarren",
+    ],
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "ica_clients",
+    srcs = ["ica_clients.crt"],
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "simeonwarren",
+    srcs = ["simeonwarren.crt"],
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "ica1",
+    srcs = ["ica1.crt"],
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "root_ca",
+    srcs = ["root_ca.crt"],
+    visibility = ["//:__subpackages__"],
+)

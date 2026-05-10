@@ -13,8 +13,20 @@ tags:
 ## Deployment
 
 ```sh
-bazel run //infra/dc1/vault/ansible:deploy
-bazel run //infra/dc1/vault/tf:deploy
+bazel run //infra/dc1/vault:deploy # host setup
+bazel run //infra/dc1/vault/tf:deploy # vault config
+```
+
+## Backup
+
+```sh
+bazel run //infra/dc1/vault/backup
+```
+
+## Unseal
+
+```sh
+bazel run //infra/dc1/vault/unseal
 ```
 
 ## Tf
@@ -34,19 +46,25 @@ Run terraform directly:
 bazel run //infra/dc1/vault/tf:tf.direct -- -chdir="${PWD}" plan
 ```
 
-## Backup
-
-```sh
-bazel run //infra/dc1/vault/backup
-```
-
-## Generate and import a client certificate
+## Generate and import a user cilent certificate
 
 ```sh
 username="username"
-bazel run //infra/dc1/vault/gen_client_cert -- --username "${username}" --output_dir "${PWD}"
+bazel run //infra/dc1/vault/gen_client_cert -- --user "${username}" --output_dir "${PWD}"
 bazel run //tools/ykman -- piv certificates import 9A "${PWD}/${username}.pfx"
 bazel run //tools/ykman -- piv keys import 9A "${PWD}/${username}.pfx"
+```
+
+## Generate a host cilent certificate
+
+```sh
+bazel run //infra/dc1/vault/gen_client_cert -- --host some-host --output_dir "${HOME}/.al/client_cert"
+```
+
+## Generate a user device cilent certificate
+
+```sh
+bazel run //infra/dc1/vault/gen_client_cert -- --hostsome-host --user username --output_dir "${HOME}/.al/client_cert"
 ```
 
 ## Unseal

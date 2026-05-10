@@ -17,7 +17,7 @@ resource "vault_pki_secret_backend_intermediate_cert_request" "ca1" {
 resource "vault_pki_secret_backend_intermediate_set_signed" "ca1" {
   depends_on  = [vault_pki_secret_backend_intermediate_cert_request.ca1]
   backend     = vault_mount.ica1.path
-  certificate = file("${path.module}/../../../../data/ssl/alwaldend.com_ica1.crt")
+  certificate = file("${path.module}/../../../../data/ssl/alwaldend.com/ica1.crt")
 }
 
 resource "vault_pki_secret_backend_config_issuers" "ca1_issuer" {

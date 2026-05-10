@@ -1,48 +1,17 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 
-pkg_filegroup(
+docs_filegroup(
     name = "docs",
-    srcs = [":docs_files"],
+    srcs = glob(["*.md"]),
     visibility = ["//data:__pkg__"],
-)
-
-pkg_files(
-    name = "docs_files",
-    srcs = glob(["*.md"]) + [":ssl"],
-    prefix = "content/docs/{}".format(package_name()),
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
 )
 
 filegroup(
     name = "ssl",
-    srcs = [
-        ":alwaldend.com_ica1",
-        ":alwaldend.com_root_ca_crt",
-        ":alwaldend.com_root_ca_pem",
-        ":simeonwarren",
-    ],
-    visibility = ["//:__subpackages__"],
-)
-
-filegroup(
-    name = "simeonwarren",
-    srcs = ["simeonwarren.crt"],
-    visibility = ["//:__subpackages__"],
-)
-
-filegroup(
-    name = "alwaldend.com_ica1",
-    srcs = ["alwaldend.com_ica1.crt"],
-    visibility = ["//:__subpackages__"],
-)
-
-filegroup(
-    name = "alwaldend.com_root_ca_crt",
-    srcs = ["alwaldend.com_root_ca.crt"],
-    visibility = ["//:__subpackages__"],
-)
-
-filegroup(
-    name = "alwaldend.com_root_ca_pem",
-    srcs = ["alwaldend.com_root_ca.pem"],
+    srcs = ["//data/ssl/alwaldend.com"],
     visibility = ["//:__subpackages__"],
 )

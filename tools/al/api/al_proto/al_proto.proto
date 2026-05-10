@@ -12,6 +12,8 @@ message VaultConfig {
 // api.ConfigureTLS https://pkg.go.dev/github.com/hashicorp/vault/api#Config.ConfigureTLS
 message VaultTLS {
   string ca_cert = 1;
+  string client_cert = 2;
+  string client_key = 3;
 }
 
 message Vault {

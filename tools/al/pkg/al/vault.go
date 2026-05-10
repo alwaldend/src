@@ -3,6 +3,7 @@ package al
 import (
 	"context"
 	"fmt"
+	"os"
 	"path/filepath"
 
 	"git.alwaldend.com/alwaldend/src/tools/al/api/al_proto"
@@ -58,6 +59,8 @@ func (self *Vault) DefaultEnv(ctx context.Context) ([]string, error) {
 	return res, err
 }
 
+// Create vault environment variables
+// https://developer.hashicorp.com/vault/docs/commands#configure-environment-variables
 func (self *Vault) Env(ctx context.Context, vaultName string, authName string) ([]string, error) {
 	if vaultName == "" {
 		vaultName = VAULT_DEFAULT_NAME
@@ -73,14 +76,21 @@ func (self *Vault) Env(ctx context.Context, vaultName string, authName string) (
 	if err != nil {
 		return nil, fmt.Errorf("missing auth: %w", err)
 	}
-	cacert, err := filepath.Abs(vault.Tls.CaCert)
+	tlsConfig, err := tlsConfig(vault)
 	if err != nil {
-		return nil, fmt.Errorf("could not create absolute path: %w", err)
+		return nil, fmt.Errorf("could not create tls config: %w", err)
 	}
-
 	res := []string{
 		fmt.Sprintf("VAULT_ADDR=%s", vault.Config.Address),
-		fmt.Sprintf("VAULT_CACERT=%s", cacert),
+	}
+	if tlsConfig.CACert != "" {
+		res = append(res, fmt.Sprintf("VAULT_CACERT=%s", tlsConfig.CACert))
+	}
+	if tlsConfig.ClientKey != "" {
+		res = append(res, fmt.Sprintf("VAULT_CLIENT_KEY=%s", tlsConfig.ClientKey))
+	}
+	if tlsConfig.ClientCert != "" {
+		res = append(res, fmt.Sprintf("VAULT_CLIENT_CERT=%s", tlsConfig.ClientCert))
 	}
 	if !auth.NoAuth {
 		client, err := self.client(ctx, vaultName, authName)
@@ -170,10 +180,40 @@ func vaultAuth(ctx context.Context, config *al_proto.Config, vaultName string, a
 	return client, nil
 }
 
+func tlsConfig(vault *al_proto.Vault) (*api.TLSConfig, error) {
+	res := &api.TLSConfig{}
+	if vault.Tls.CaCert != "" {
+		cacert, err := filepath.Abs(os.ExpandEnv(vault.Tls.CaCert))
+		if err != nil {
+			return nil, fmt.Errorf("could not expand cacert: %w", err)
+		}
+		res.CACert = cacert
+	}
+	if vault.Tls.ClientCert != "" {
+		clientCert, err := filepath.Abs(os.ExpandEnv(vault.Tls.ClientCert))
+		if err != nil {
+			return nil, fmt.Errorf("could not expand client cert: %w", err)
+		}
+		res.ClientCert = clientCert
+	}
+	if vault.Tls.ClientKey != "" {
+		clientKey, err := filepath.Abs(os.ExpandEnv(vault.Tls.ClientKey))
+		if err != nil {
+			return nil, fmt.Errorf("could not expand client key: %w", err)
+		}
+		res.ClientKey = clientKey
+	}
+	return res, nil
+}
+
 func newVaultClient(ctx context.Context, tokenHelper tokenhelper.TokenHelper, vault *al_proto.Vault, auth *al_proto.VaultAuth) (*api.Client, error) {
 	vaultConfig := api.DefaultConfig()
 	vaultConfig.Address = vault.Config.Address
-	err := vaultConfig.ConfigureTLS(&api.TLSConfig{CACert: vault.Tls.CaCert})
+	tlsConfig, err := tlsConfig(vault)
+	if err != nil {
+		return nil, fmt.Errorf("could not create tls config: %w", err)
+	}
+	err = vaultConfig.ConfigureTLS(tlsConfig)
 	if err != nil {
 		return nil, fmt.Errorf("could not configure tls: %w", err)
 	}

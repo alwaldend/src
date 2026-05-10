@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"os"
 
 	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al"
 	"github.com/spf13/cobra"
@@ -76,6 +77,9 @@ func newConfigCmd(ctx context.Context) *cobra.Command {
 func newRunCmd(ctx context.Context) *cobra.Command {
 	var configs []string
 	var disableRunfilesEnv bool
+	var stdout string
+	var stdin string
+	var stderr string
 	prepareCommandArgs := &al.PrepareCommandArgs{}
 	cmd := &cobra.Command{
 		Use:   "run",
@@ -95,14 +99,37 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 			}
 			resourceHandler := al.NewResourceHandler(ctx, cfg, vault)
 			defer resourceHandler.Clean()
-			runCmd, err := al.Command(
-				al.CommandArgs{
-					Ctx:                ctx,
-					Name:               args[0],
-					Args:               args[1:],
-					DisableRunfilesEnv: disableRunfilesEnv,
-				},
-			)
+			cmdArgs := al.CommandArgs{
+				Ctx:                ctx,
+				Name:               args[0],
+				Args:               args[1:],
+				DisableRunfilesEnv: disableRunfilesEnv,
+			}
+			if stdout != "" {
+				stdoutFile, err := os.OpenFile(stdout, os.O_WRONLY, 0600)
+				if err != nil {
+					return fmt.Errorf("could not open stdout %s: %w", stdout, err)
+				}
+				defer stdoutFile.Close()
+				cmdArgs.Stdout = stdoutFile
+			}
+			if stderr != "" {
+				stderrFile, err := os.OpenFile(stderr, os.O_WRONLY, 0600)
+				if err != nil {
+					return fmt.Errorf("could not open stderr %s: %w", stderr, err)
+				}
+				defer stderrFile.Close()
+				cmdArgs.Stderr = stderrFile
+			}
+			if stdin != "" {
+				stdinFile, err := os.OpenFile(stdin, os.O_RDONLY, 0600)
+				if err != nil {
+					return fmt.Errorf("could not open stdin %s: %w", stdin, err)
+				}
+				defer stdinFile.Close()
+				cmdArgs.Stdin = stdinFile
+			}
+			runCmd, err := al.Command(cmdArgs)
 			if err != nil {
 				return fmt.Errorf("could not create command: %w", err)
 			}
@@ -116,6 +143,9 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 	}
 	flags := cmd.PersistentFlags()
 	flags.StringArrayVar(&configs, "config", nil, "Config path")
+	flags.StringVar(&stdout, "stdout", "", "Override stdout")
+	flags.StringVar(&stderr, "stderr", "", "Override stderr")
+	flags.StringVar(&stdin, "stdin", "", "Override stdin")
 	flags.StringArrayVar(&prepareCommandArgs.Env, "env", nil, "Add environment variables by name")
 	flags.BoolVar(&prepareCommandArgs.EnvDisabled, "env_disabled", false, "If set, disable env injection")
 	flags.StringArrayVar(&prepareCommandArgs.EnvVault, "env_vault", nil, "Add vault environment variables (vault_name:auth_name)")

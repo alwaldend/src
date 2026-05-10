@@ -15,21 +15,33 @@ var vaultFlag = flag.String("vault", "", "Vault binary")
 var mountFlag = flag.String("path", "pki/ica_clients", "Mount path")
 var roleFlag = flag.String("role", "pki_ica_clients_users", "Role name")
 var outputDirFlag = flag.String("output_dir", "", "Output directory")
-var usernameFlag = flag.String("username", "", "Username (mandatory)")
+var usernameFlag = flag.String("user", "", "Username")
+var hostFlag = flag.String("host", "", "Hostname")
 var noCreateFlag = flag.Bool("no_create", false, "If set, do not create a new cert")
 var ttlFlag = flag.String("ttl", "28927206", "TTL")
 
 func main() {
 	flag.Parse()
-	if *usernameFlag == "" || *mountFlag == "" || *roleFlag == "" || *outputDirFlag == "" || *ttlFlag == "" {
+	if (*usernameFlag == "" && *hostFlag == "") || *mountFlag == "" || *roleFlag == "" || *outputDirFlag == "" || *ttlFlag == "" {
 		os.Stderr.WriteString("missing required flags\n")
 	}
-    jsonPath := filepath.Join(*outputDirFlag, fmt.Sprintf("%s.json", *usernameFlag))
-    pubPath := filepath.Join(*outputDirFlag, fmt.Sprintf("%s.pub", *usernameFlag))
-    chainPath := filepath.Join(*outputDirFlag, fmt.Sprintf("%s_chain.pub", *usernameFlag))
-    keyPath := filepath.Join(*outputDirFlag, fmt.Sprintf("%s.key", *usernameFlag))
-    combinedPath := filepath.Join(*outputDirFlag, fmt.Sprintf("%s.pem", *usernameFlag))
-    pkcs12Path := filepath.Join(*outputDirFlag, fmt.Sprintf("%s.pfx", *usernameFlag))
+	target := *usernameFlag
+	commonName := fmt.Sprintf("%s.users.alwaldend.com", *usernameFlag)
+	if *hostFlag != "" {
+		target = *hostFlag
+		if *usernameFlag != "" {
+			commonName = fmt.Sprintf("%s.%s", *hostFlag, commonName)
+		} else {
+			commonName = fmt.Sprintf("%s.infra.alwaldend.com", *hostFlag)
+		}
+	}
+    jsonPath := filepath.Join(*outputDirFlag, fmt.Sprintf("%s.json", target))
+    pubPath := filepath.Join(*outputDirFlag, fmt.Sprintf("%s.pub", target))
+    chainPath := filepath.Join(*outputDirFlag, fmt.Sprintf("%s_chain.pub", target))
+    keyPath := filepath.Join(*outputDirFlag, fmt.Sprintf("%s.key", target))
+    combinedPath := filepath.Join(*outputDirFlag, fmt.Sprintf("%s.pem", target))
+    pkcs12Path := filepath.Join(*outputDirFlag, fmt.Sprintf("%s.pfx", target))
+	al.Check(os.MkdirAll(*outputDirFlag, 0700))
     if !*noCreateFlag {
         output := al.Must(os.OpenFile(jsonPath, os.O_WRONLY | os.O_CREATE, 0600))
         defer output.Close()
@@ -40,7 +52,7 @@ func main() {
                     "write",
                     "-format=json",
                     fmt.Sprintf("%s/issue/%s", *mountFlag, *roleFlag),
-                    fmt.Sprintf("common_name=%s.users.alwaldend.com", *usernameFlag),
+                    fmt.Sprintf("common_name=%s", commonName),
                     fmt.Sprintf("ttl=%s", *ttlFlag),
                 },
                 flag.Args()...,
