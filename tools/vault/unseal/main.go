@@ -21,21 +21,21 @@ func main() {
 	unsealDecoded := al.Must(base64.StdEncoding.DecodeString(unsealEncrypted))
 	unsealDecodedBuf := bytes.NewBuffer(unsealDecoded)
 	var unsealDecrypted bytes.Buffer
-    al.Check(al.RunCommand(al.CommandArgs{
-        Name: "gpg",
-        Args: []string{
-            "--decrypt",
-        },
-		Stdin: unsealDecodedBuf,
+	al.Check(al.RunCommand(al.CommandArgs{
+		Name: "gpg",
+		Args: []string{
+			"--decrypt",
+		},
+		Stdin:  unsealDecodedBuf,
 		Stdout: &unsealDecrypted,
-    }))
-    al.Check(al.RunCommand(al.CommandArgs{
-        Name: *vaultFlag,
-        Args: []string{
-            "write",
+	}))
+	al.Check(al.RunCommand(al.CommandArgs{
+		Name: *vaultFlag,
+		Args: []string{
+			"write",
 			"sys/unseal",
 			"key=-",
-        },
+		},
 		Stdin: &unsealDecrypted,
-    }))
+	}))
 }

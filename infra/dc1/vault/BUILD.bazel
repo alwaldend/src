@@ -1,4 +1,5 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+load("//tools/al/rules/al:al_binary.bzl", "al_binary_run")
 load("//tools/al/rules/al:al_config.bzl", "al_config")
 load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
 load("//tools/docs:defs.bzl", "docs_filegroup")
@@ -24,6 +25,69 @@ al_config(
     srcs = ["al.lua"],
     visibility = ["//infra/dc1/vault:__subpackages__"],
     deps = ["//infra:al"],
+)
+
+al_binary_run(
+    name = "gen_client_cert",
+    args = [
+        "$(rootpath //tools/vault/gen_client_cert)",
+        "--vault",
+        "$(rootpath //tools/vault)",
+    ],
+    configs = ["//infra/dc1/vault:al"],
+    data = [
+        "//tools/vault",
+        "//tools/vault/gen_client_cert",
+        "//tools/ykman",
+    ],
+    run_args = [
+        "--env_vault",
+        "default:default",
+    ],
+)
+
+al_binary_run(
+    name = "unseal",
+    args = [
+        "$(rootpath //tools/vault/unseal)",
+        "--vault",
+        "$(rootpath //tools/vault)",
+    ],
+    configs = ["//infra/dc1/vault:al"],
+    data = [
+        "//tools/vault",
+        "//tools/vault/unseal",
+        "//tools/ykman",
+    ],
+    run_args = [
+        "--env_vault",
+        "default:no_auth",
+    ],
+)
+
+al_binary_run(
+    name = "backup",
+    args = [
+        "$(rootpath //tools/vault/backup)",
+        "--rclone",
+        "$(rootpath //tools/rclone)",
+        "--vault",
+        "$(rootpath //tools/vault)",
+    ],
+    configs = ["//infra/dc1/vault:al"],
+    data = [
+        "//tools/rclone",
+        "//tools/vault",
+        "//tools/vault/backup",
+    ],
+    run_args = [
+        "--env_vault",
+        "default:default",
+        "--env_labels",
+        "rclone",
+        "--env_labels",
+        "tf",
+    ],
 )
 
 al_ansible_binary(

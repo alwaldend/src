@@ -1,4 +1,4 @@
-load("@bazel_skylib//rules:native_binary.bzl", "native_test")
+load("@bazel_skylib//rules:native_binary.bzl", "native_binary", "native_test")
 load("@rules_go//go:def.bzl", "go_binary")
 
 def _patch_kwargs(kwargs):
@@ -17,17 +17,13 @@ def _patch_kwargs(kwargs):
     kwargs["data"] = data
     return kwargs
 
-def al_binary_run(
-        name,
-        al = ["//tools/al/cmd/al:al_lib"],
-        **kwargs):
+def al_binary_run(src = "//tools/al/cmd/al", **kwargs):
     """
     Create a binary for `al run`
     """
     kwargs = _patch_kwargs(kwargs)
-    go_binary(
-        name = name,
-        embed = al,
+    native_binary(
+        src = src,
         **kwargs
     )
 

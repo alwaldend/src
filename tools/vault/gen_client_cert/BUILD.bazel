@@ -1,0 +1,26 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/vault:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+go_library(
+    name = "gen_client_cert_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/vault/gen_client_cert",
+    visibility = ["//:__subpackages__"],
+    deps = ["//tools/al/pkg/al"],
+)
+
+go_binary(
+    name = "gen_client_cert",
+    embed = [":gen_client_cert_lib"],
+    visibility = ["//:__subpackages__"],
+)

@@ -48,6 +48,11 @@ output "backend" {
   value       = vault_mount.mount.path
 }
 
+output "certificate" {
+  description = "CA certificate"
+  value       = vault_pki_secret_backend_intermediate_set_signed.signed.certificate
+}
+
 resource "vault_mount" "mount" {
   path                      = var.mount_path
   type                      = "pki"
