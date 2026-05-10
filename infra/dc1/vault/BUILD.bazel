@@ -38,11 +38,28 @@ al_binary_run(
     data = [
         "//tools/vault",
         "//tools/vault/gen_client_cert",
-        "//tools/ykman",
     ],
     run_args = [
         "--env_vault",
         "default:default",
+    ],
+)
+
+al_binary_run(
+    name = "gen_root_token",
+    args = [
+        "$(rootpath //tools/vault/gen_root_token)",
+        "--vault",
+        "$(rootpath //tools/vault)",
+    ],
+    configs = ["//infra/dc1/vault:al"],
+    data = [
+        "//tools/vault",
+        "//tools/vault/gen_root_token",
+    ],
+    run_args = [
+        "--env_vault",
+        "default:no_auth",
     ],
 )
 

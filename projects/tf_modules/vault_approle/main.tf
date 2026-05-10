@@ -33,11 +33,6 @@ variable "secrets" {
   description = "Secrets backend"
 }
 
-variable "policy" {
-  type        = string
-  description = "Policy for the approle"
-}
-
 variable "disable_yc_folder_policy" {
   type        = bool
   default     = false
@@ -57,11 +52,6 @@ output "secret_path" {
 output "secret_mount" {
   description = "Secret mount"
   value       = var.secrets
-}
-
-resource "vault_policy" "policy" {
-  name   = var.name
-  policy = var.policy
 }
 
 resource "vault_policy" "yc_folder" {
@@ -110,7 +100,6 @@ resource "vault_approle_auth_backend_role" "role" {
     [
       vault_policy.shared.name,
       vault_policy.approle_secrets.name,
-      vault_policy.policy.name,
     ],
     var.policies,
     var.disable_yc_folder_policy ? [] : [vault_policy.yc_folder.name],

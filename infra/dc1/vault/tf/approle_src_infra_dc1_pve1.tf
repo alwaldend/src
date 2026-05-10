@@ -3,8 +3,6 @@ module "src_infra_dc1_pve1_approle" {
   name              = "src_infra_dc1_pve1"
   member_entity_ids = [data.vault_identity_entity.simeonwarren.id]
   secrets           = vault_mount.secrets.path
-  policies          = []
+  policies          = [vault_policy.tf_token.name]
   backend           = vault_auth_backend.approle.path
-  policy            = <<EOT
-EOT
 }

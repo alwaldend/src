@@ -115,6 +115,18 @@ ln -s ../../.bazeliskrc
 ln -s ../../tools/bazelrc/main/bazelrc/bzl_project.bazelrc .bazelrc
 ```
 
+## Ssh key using Yubikey's pgp doesn't work
+
+Agent restart helps:
+```sh
+gpg-connect-agent updatestartuptty /bye
+```
+
+Check the key:
+```sh
+bazel run //tools/ykman -- info
+```
+
 ## Remote timeout
 
 If some repo rules are timing out (java ones, for example), you can add

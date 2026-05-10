@@ -75,6 +75,20 @@ bazel run //infra/dc1/vault:gen_client_cert -- --hostsome-host --user username -
   bazel run //infra/dc1/vault:unseal
   ```
 
+## Root token
+
+- Prepare encrypted unseal token
+- Run and input the encrypted token:
+  ```sh
+  bazel run //infra/dc1/vault:gen_root_token -- --pgp_key path_to_public_gpg_key_in_base64
+  ```
+
+## Revoke all tokens
+
+```sh
+bazel run //infra/dc1/vault -- token revoke -mode=path auth
+```
+
 ## Vault certificates
 
 Vault certificates (`tls_cert_file`, `tls_key_file`) should be updated manually

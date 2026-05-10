@@ -1,13 +1,21 @@
 module "src_infra_dns_approle" {
-  source            = "../../../../projects/tf_modules/vault_approle"
-  name              = "src_infra_dns"
-  member_entity_ids = [data.vault_identity_entity.simeonwarren.id]
-  secrets           = vault_mount.secrets.path
-  policies          = []
-  backend           = vault_auth_backend.approle.path
-  policy            = <<EOT
-        path "${vault_mount.secrets.path}/data/cloudflare.com/dns_token" {
-            capabilities = ["read"]
-        }
+  source = "../../../../projects/tf_modules/vault_approle"
+  name   = "src_infra_dns"
+  member_entity_ids = [
+    data.vault_identity_entity.simeonwarren.id,
+  ]
+  secrets = vault_mount.secrets.path
+  policies = [
+    vault_policy.src_infra_dns.name,
+  ]
+  backend = vault_auth_backend.approle.path
+}
+
+resource "vault_policy" "src_infra_dns" {
+  name   = "src_infra_dns"
+  policy = <<EOT
+    path "${vault_mount.secrets.path}/data/cloudflare.com/dns_token" {
+        capabilities = ["read"]
+    }
 EOT
 }

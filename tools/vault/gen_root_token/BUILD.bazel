@@ -1,0 +1,29 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/vault:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+go_library(
+    name = "gen_root_token_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/vault/gen_root_token",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//tools/al/pkg/al",
+        "@org_golang_x_term//:term",
+    ],
+)
+
+go_binary(
+    name = "gen_root_token",
+    embed = [":gen_root_token_lib"],
+    visibility = ["//:__subpackages__"],
+)
