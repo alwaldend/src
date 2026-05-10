@@ -67,6 +67,8 @@ add address=192.168.2.1/24 comment=bridge2 interface=bridge2 network=192.168.2.0
 add comment=defconf interface=ether1 name=ether1 use-peer-dns=no
 /ip dhcp-server lease
 add address=192.168.1.250 client-id=1:2c:cf:67:67:b5:13 mac-address=2C:CF:67:67:B5:13 server=bridge1
+add address=192.168.1.218 client-id=1:e0:be:3:2b:9a:1a mac-address=E0:BE:03:2B:9A:1A server=bridge1
+add address=192.168.1.216 client-id=ff:60:8:6d:aa:0:1:0:1:31:93:31:1a:34:5a:60:8:6d:aa mac-address=34:5A:60:08:6D:AA server=bridge1
 /ip dhcp-server network
 add address=192.168.1.0/24 comment=defconf dns-server=192.168.1.1 gateway=192.168.1.1
 add address=192.168.2.0/24 dns-server=192.168.2.1 gateway=192.168.2.1
