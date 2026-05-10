@@ -8,44 +8,44 @@ terraform {
 }
 
 variable "name" {
-  type = string
+  type        = string
   description = "Common name"
 }
 
 variable "backend" {
-    type = string
-    description = "Signing backend"
+  type        = string
+  description = "Signing backend"
 }
 
 variable "backend_cert" {
-    type = string
-    description = "Backend certificate"
+  type        = string
+  description = "Backend certificate"
 }
 
 variable "mount_path" {
-  type = string
+  type        = string
   description = "mount path"
 }
 
 variable "default_lease" {
-    type = number
-    default = 3600 # Hour
+  type    = number
+  default = 3600 # Hour
 }
 
 variable "max_lease" {
-    type = number
-    default = 86400 # Day
+  type    = number
+  default = 86400 # Day
 }
 
 variable "ca_ttl" {
-    type = number
-    description = "TTL for the ca certificate"
-    default = 31536000 # Year
+  type        = number
+  description = "TTL for the ca certificate"
+  default     = 31536000 # Year
 }
 
 output "backend" {
-    description = "Generated backend path"
-    value = vault_mount.mount.path
+  description = "Generated backend path"
+  value       = vault_mount.mount.path
 }
 
 resource "vault_mount" "mount" {
@@ -76,8 +76,8 @@ resource "vault_pki_secret_backend_root_sign_intermediate" "sign" {
 }
 
 resource "vault_pki_secret_backend_intermediate_set_signed" "signed" {
-  depends_on  = [vault_pki_secret_backend_root_sign_intermediate.sign]
-  backend     = vault_mount.mount.path
+  depends_on = [vault_pki_secret_backend_root_sign_intermediate.sign]
+  backend    = vault_mount.mount.path
   certificate = format(
     "%s\n%s",
     vault_pki_secret_backend_root_sign_intermediate.sign.certificate,

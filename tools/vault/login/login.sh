@@ -22,4 +22,6 @@ data=$(\
         --data "{ \"name\": \"${name}\" }" \
         "${VAULT_ADDR}/v1/auth/cert/login"
 )
+echo "${data}" | jq .
 token=$(echo "${data}" | jq -r .auth.client_token)
+echo "${token}" >~/.vault-token
