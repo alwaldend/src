@@ -43,6 +43,18 @@ variable "ca_ttl" {
   default     = 31536000 # Year
 }
 
+variable "allowed_response_headers" {
+  type        = list(string)
+  description = "Allowed response headers"
+  default     = null
+}
+
+variable "passthrough_request_headers" {
+  type        = list(string)
+  description = "Passthrough request headers"
+  default     = null
+}
+
 output "backend" {
   description = "Generated backend path"
   value       = vault_mount.mount.path
@@ -54,11 +66,13 @@ output "certificate" {
 }
 
 resource "vault_mount" "mount" {
-  path                      = var.mount_path
-  type                      = "pki"
-  description               = "${var.name}, signed internally"
-  default_lease_ttl_seconds = var.default_lease
-  max_lease_ttl_seconds     = var.max_lease
+  path                        = var.mount_path
+  type                        = "pki"
+  description                 = "${var.name}, signed internally"
+  default_lease_ttl_seconds   = var.default_lease
+  max_lease_ttl_seconds       = var.max_lease
+  allowed_response_headers    = var.allowed_response_headers
+  passthrough_request_headers = var.passthrough_request_headers
 }
 
 resource "vault_pki_secret_backend_intermediate_cert_request" "request" {

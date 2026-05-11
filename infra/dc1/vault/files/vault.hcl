@@ -7,9 +7,6 @@ cluster_addr = "https://127.0.0.1:8201"
 
 listener "tcp" {
   address = "[::]:8200"
-  tls_disable = false
-  tls_disable_client_certs = false
-  tls_require_and_verify_client_cert = true
   tls_cert_file = "/opt/vault/tls/tls_cert_file.pem"
   tls_key_file = "/opt/vault/tls/tls_key_file.pem"
   tls_client_ca_file = "/opt/vault/tls/tls_client_ca_file.pem"

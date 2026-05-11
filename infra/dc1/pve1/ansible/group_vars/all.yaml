@@ -17,5 +17,8 @@ firewall_allow_port_from:
     port: 8006
     comment: Web traffic
   - src: "any"
+    port: 80
+    comment: ACME
+  - src: "any"
     port: 22
     comment: ssh

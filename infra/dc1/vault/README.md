@@ -9,6 +9,7 @@ tags:
 ## Links
 
 - Intermediate CA: https://developer.hashicorp.com/vault/tutorials/pki/pki-engine-external-ca
+- ACME: https://developer.hashicorp.com/vault/docs/secrets/pki/acme
 
 ## Deployment
 

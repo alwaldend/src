@@ -71,7 +71,7 @@
         or vault_tls_client_ca_file_path_var.changed
       ansible.builtin.systemd_service:
         name: "{{ vault_service_path | basename }}"
-        state: restarted
+        state: reloaded
     - name: Start the service and enable
       ansible.builtin.systemd_service:
         name: "{{ vault_service_path | basename }}"
