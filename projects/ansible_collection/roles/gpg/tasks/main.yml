@@ -1,7 +1,16 @@
 - tags:
     - gpg
   block:
-    - name: Install gpg packages
+    - name: Install gpg packages (Debian)
+      when: ansible_facts.os_family == "Debian"
+      ansible.builtin.package:
+        name:
+          - gnupg2
+          - cryptsetup
+          - scdaemon
+          - pcscd
+    - name: Install gpg packages (RedHat)
+      when: ansible_facts.os_family == "RedHat"
       ansible.builtin.package:
         name:
           - gnupg2

@@ -1,0 +1,60 @@
+- name: Setup PVE host
+  tags:
+    - pve
+  block:
+    - name: Download the gpg key
+      register: pve_repo_keyring_result
+      ansible.builtin.get_url:
+        url: "{{ pve_repo_keyring_url }}"
+        checksum: "{{ pve_repo_keyring_checksum }}"
+        dest: "{{ pve_repo_keyring_path }}"
+        mode: "644"
+        owner: root
+        group: root
+    - name: Install PVE repo
+      register: pve_repo_result
+      ansible.builtin.copy:
+        dest: "{{ pve_repo_path }}"
+        content: "{{ pve_repo_content }}"
+        mode: "600"
+        owner: root
+        group: root
+    - name: Run full-upgrade if the repo changed
+      when: pve_repo_result.changed or pve_repo_keyring_result.changed
+      ansible.builtin.apt:
+        update_cache: true
+        upgrade: full
+    - name: Gather the package facts
+      ansible.builtin.package_facts:
+        manager: apt
+    - name: Install the kernel
+      when: "'proxmox-default-kernel' not in ansible_facts.packages"
+      ansible.builtin.apt:
+        name: proxmox-default-kernel
+    - name: Reboot
+      when: "'proxmox-default-kernel' not in ansible_facts.packages"
+      ansible.builtin.reboot:
+    - name: Install PVE packages
+      ansible.builtin.apt:
+        name:
+          - proxmox-ve
+          - postfix
+          - open-iscsi
+          - chrony
+    - name: Remove debian kernels
+      register: pve_kernels_result
+      ansible.builtin.apt:
+        name:
+          - linux-image-amd64
+          - linux-image-6.12*
+        state: absent
+    - name: Update grub
+      when: pve_kernels_result.changed
+      ansible.builtin.command:
+        argv:
+          - update-grub
+    - name: Remove os-prober
+      ansible.builtin.apt:
+        name:
+          - os-prober
+        state: absent

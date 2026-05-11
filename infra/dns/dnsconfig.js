@@ -99,10 +99,9 @@ D(
     A("router1.dc1", "192.168.1.1"),
     AAAA("router1.dc1", "fd2e:546d:5738::1"),
     A("bm1.dc1", "192.168.1.222"),
-    A("bm2.dc1", "192.168.1.223"),
+    A("bm2.dc1", "192.168.1.216"),
     A("bm3.dc1", "192.168.1.218"),
     CNAME("vault.dc1", "bm3.dc1.alwaldend.com."),
-    CNAME("gitea.dc1", "bm3.dc1.alwaldend.com."),
-    CNAME("cl1.dc1", "bm2.dc1.alwaldend.com."),
-    CNAME("*.cl1.dc1", "cl1.dc1.alwaldend.com."),
+    CNAME("pve1.dc1", "bm2.dc1.alwaldend.com."),
+    CNAME("host1.pve1.dc1", "bm2.dc1.alwaldend.com."),
 );

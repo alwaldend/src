@@ -1,0 +1,21 @@
+ansible_user: ansible
+
+install_ca:
+  - path: root_ca.crt
+
+## hardening
+sysctl_overwrite:
+  # k3s hardening: https://docs.k3s.io/security/hardening-guide#host-level-requirements
+  vm.panic_on_oom: 0
+  vm.overcommit_memory: 1
+  kernel.panic: 10
+  kernel.panic_on_oops: 1
+
+## firewall
+firewall_allow_port_from:
+  - src: "any"
+    port: 8006
+    comment: Web traffic
+  - src: "any"
+    port: 22
+    comment: ssh

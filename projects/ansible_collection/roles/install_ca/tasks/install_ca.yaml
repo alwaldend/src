@@ -1,0 +1,49 @@
+- name: Check that the root certificate exists
+  become: false
+  local_action: ansible.builtin.stat
+  args:
+    path: "{{ install_ca_config.path }}"
+  register: install_ca_config_stat
+- name: Fail
+  become: false
+  when: not install_ca_config_stat.stat.exists
+  ansible.builtin.fail:
+    msg: "missing CA file: {{ install_ca_config.path }}: {{ install_ca_config_stat }}"
+
+- name: Install CA on Debian
+  when: ansible_facts.os_family == "Debian"
+  block:
+    - name: Make sure the folder exists (Debian, Ubuntu)
+      file:
+        path: /usr/local/share/ca-certificates
+        state: directory
+    # Note that the .crt is actually a .pem renamed
+    - name: Copy the certificate (Debian, Ubuntu)
+      copy:
+        src: "{{ install_ca_config.path }}"
+        dest: "/usr/local/share/ca-certificates/{{ install_ca_config.path | basename }}.crt"
+      register: result
+    - name: Update CA Trust (Debian, Ubuntu)
+      command: update-ca-certificates
+      when: result is changed
+
+- name: Install CA on RedHat
+  when: ansible_facts.os_family == "RedHat"
+  block:
+    - name: Make sure the folder exists (Red Hat)
+      file:
+        path: /etc/pki/ca-trust/source/anchors
+        state: directory
+    - name: Copy PEM into folder (Red Hat)
+      copy:
+        src: "{{ install_ca_config.path }}"
+        dest: "/etc/pki/ca-trust/source/anchors/{{ install_ca_config.path | basename }}"
+      register: result
+    - name: Update CA Trust (Red Hat)
+      command: update-ca-trust
+      when: result is changed
+    - name: Update CA Trust (Red Hat < 7)
+      command: update-ca-trust enable
+      when:
+        - result is changed
+        - ansible_distribution_version|int < 7

@@ -11,6 +11,9 @@
     - name: Setup users
       ansible.builtin.import_role:
         name: alwaldend.main.users
+    - name: Setup CA
+      ansible.builtin.import_role:
+        name: alwaldend.main.install_ca
     - name: Setup gpg
       ansible.builtin.import_role:
         name: alwaldend.main.gpg

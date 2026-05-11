@@ -1,0 +1,9 @@
+- name: Install CA
+  tags:
+    - install_ca
+  block:
+    - name: Loop over ca configs
+      loop: "{{ install_ca }}"
+      loop_control:
+        loop_var: install_ca_config
+      ansible.builtin.include_tasks: install_ca.yaml

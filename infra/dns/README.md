@@ -16,11 +16,11 @@ tags:
 - Modify `dnsconfig.js`
 - Preview changes:
   ```sh
-  bazel run //infra/dns:preview
+  bazel run //infra/dns:dns.preview
   ```
 - Deploy changes:
   ```sh
-  bazel run //infra/dns:deploy
+  bazel run //infra/dns:dns.deploy
   ```
 
 {{% alwaldend/alert %}}
