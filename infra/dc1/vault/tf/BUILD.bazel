@@ -27,6 +27,7 @@ _DATA = glob(["*.tf"]) + [
     "//projects/tf_modules/tf_backend",
     "//projects/tf_modules/vault_approle",
     "//projects/tf_modules/vault_pki_ica",
+    "//projects/tf_modules/vault_oidc_provider",
 ]
 
 terraform_binary_map(

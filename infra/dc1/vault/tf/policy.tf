@@ -1,4 +1,13 @@
-# Vault TF provider requires ability to create a child token
+resource "vault_policy" "auth_token_lookup_self" {
+  name   = "auth_token_lookup_self"
+  policy = <<EOT
+    path "auth/token/lookup-self" {
+      capabilities = ["read"]
+    }
+EOT
+}
+
+// Vault TF provider requires ability to create a child token
 resource "vault_policy" "tf_token" {
   name   = "tf_token"
   policy = <<EOT
@@ -13,12 +22,12 @@ EOT
 resource "vault_policy" "sys_leases_admin" {
   name   = "sys_leases_admin"
   policy = <<EOT
-        path "sys/leases/*" {
-           capabilities = ["create", "read", "update", "delete", "list", "sudo"]
-        }
-        path "sys/leases" {
-          capabilities = [ "read" ]
-        }
+    path "sys/leases/*" {
+      capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+    }
+    path "sys/leases" {
+      capabilities = [ "read" ]
+    }
 EOT
 }
 
@@ -27,12 +36,12 @@ EOT
 resource "vault_policy" "sys_storage_admin" {
   name   = "sys_storage_admin"
   policy = <<EOT
-        path "sys/storage/*" {
-           capabilities = ["create", "read", "update", "delete", "list"]
-        }
-        path "sys/storage" {
-          capabilities = [ "read" ]
-        }
+    path "sys/storage/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+    path "sys/storage" {
+      capabilities = [ "read" ]
+    }
 EOT
 }
 
@@ -42,15 +51,15 @@ EOT
 resource "vault_policy" "sys_mount_admin" {
   name   = "sys_mount_admin"
   policy = <<EOT
-        path "sys/remount" {
-           capabilities = ["create", "read", "update", "delete", "list", "sudo"]
-        }
-        path "sys/mounts/*" {
-           capabilities = ["create", "read", "update", "delete", "list"]
-        }
-        path "sys/mounts" {
-          capabilities = [ "read" ]
-        }
+    path "sys/remount" {
+      capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+    }
+    path "sys/mounts/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+    path "sys/mounts" {
+      capabilities = [ "read" ]
+    }
 EOT
 }
 
@@ -59,9 +68,9 @@ EOT
 resource "vault_policy" "pki_admin" {
   name   = "pki_admin"
   policy = <<EOT
-        path "pki/*" {
-           capabilities = ["create", "read", "update", "delete", "list", "sudo"]
-        }
+    path "pki/*" {
+      capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+    }
 EOT
 }
 
@@ -71,15 +80,15 @@ EOT
 resource "vault_policy" "auth_admin" {
   name   = "auth_admin"
   policy = <<EOT
-        path "auth/*" {
-           capabilities = ["create", "read", "update", "delete", "list"]
-        }
-        path "sys/auth/*" {
-           capabilities = ["create", "read", "update", "delete", "list", "sudo"]
-        }
-        path "sys/auth" {
-          capabilities = [ "read" ]
-        }
+    path "auth/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+    path "sys/auth/*" {
+      capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+    }
+    path "sys/auth" {
+      capabilities = [ "read" ]
+    }
 EOT
 }
 
@@ -88,12 +97,12 @@ EOT
 resource "vault_policy" "sys_policies_acl_admin" {
   name   = "sys_policies_acl_admin"
   policy = <<EOT
-        path "sys/policies/acl/*" {
-           capabilities = ["create", "read", "update", "delete", "list", "sudo"]
-        }
-        path "sys/policies/acl" {
-          capabilities = ["list"]
-        }
+    path "sys/policies/acl/*" {
+      capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+    }
+    path "sys/policies/acl" {
+      capabilities = ["list"]
+    }
 EOT
 }
 
@@ -102,8 +111,18 @@ EOT
 resource "vault_policy" "identity_admin" {
   name   = "identity_admin"
   policy = <<EOT
-        path "identity/*" {
-           capabilities = ["create", "read", "update", "delete", "list"]
-        }
+    path "identity/*" {
+      capabilities = ["create", "read", "update", "delete", "list"]
+    }
+EOT
+}
+
+// Allow OIDC auth: https://developer.hashicorp.com/vault/tutorials/auth-methods/oidc-identity-provider#configure-vault-authentication
+resource "vault_policy" "identity_oidc_allow_auth" {
+  name   = "identity_oidc_allow_auth"
+  policy = <<EOT
+    path "identity/oidc/provider/main/authorize" {
+      capabilities = [ "read" ]
+    }
 EOT
 }

@@ -20,4 +20,8 @@ resource "vault_auth_backend" "cert" {
   path        = "cert"
   type        = "cert"
   description = "Certificate auth"
+  tune {
+    default_lease_ttl = "24h"
+    max_lease_ttl     = "24h"
+  }
 }

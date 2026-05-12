@@ -9,6 +9,18 @@ variable "vault_url" {
   default     = "https://vault.dc1.alwaldend.com:8200"
 }
 
+variable "pve1_url" {
+  type        = string
+  description = "Pve url"
+  default     = "https://host1.pve1.dc1.alwaldend.com:8006"
+}
+
+variable "vault_host" {
+  type        = string
+  description = "Vault host"
+  default     = "vault.dc1.alwaldend.com:8200"
+}
+
 variable "service_account_id" {
   type        = string
   description = "Yandex Cloud service_account_id"

@@ -36,8 +36,9 @@ resource "vault_pki_secret_backend_config_acme" "pki_ica_servers" {
 resource "vault_pki_secret_backend_role" "ica_servers_dc1_pve1" {
   backend            = module.pki_ica_servers.backend
   name               = "ica_servers_dc1_pve1"
+  ttl                = local.day_in_seconds * 7
   max_ttl            = local.month_in_seconds
-  allow_ip_sans      = false
+  allow_ip_sans      = true
   key_type           = "rsa"
   key_bits           = 4096
   allow_any_name     = false
