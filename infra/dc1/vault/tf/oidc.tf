@@ -19,23 +19,21 @@ module "src_infra_dc1_pve1_provider" {
 }
 
 resource "vault_identity_oidc_scope" "user" {
-  name = "user"
-  template = base64encode(<<EOT
-      {
-        "username": {{ identity.entity.name }}
-      }
+  name        = "user"
+  template    = <<EOT
+{
+  "username": {{ identity.entity.name }}
+}
 EOT
-  )
   description = "The user scope provides claims using Vault identity entity metadata"
 }
 
 resource "vault_identity_oidc_scope" "groups" {
-  name = "groups"
-  template = base64encode(<<EOT
-    {
-      "groups": {{ identity.entity.groups.names }}
-    }
+  name        = "groups"
+  template    = <<EOT
+{
+  "groups": {{ identity.entity.groups.names }}
+}
 EOT
-  )
   description = "The groups scope provides the groups claim using Vault group membership"
 }

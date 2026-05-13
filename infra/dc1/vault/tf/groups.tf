@@ -10,7 +10,6 @@ resource "vault_identity_group" "dev" {
     data.vault_identity_entity.simeonwarren.id,
   ]
   metadata = {
-    version = "2"
   }
 }
 
@@ -21,7 +20,6 @@ resource "vault_identity_group" "src_infra_dc1_pve1_users" {
     vault_identity_group.dev.id,
   ]
   metadata = {
-    version = "2"
   }
 }
 
@@ -32,6 +30,5 @@ resource "vault_identity_group" "src_infra_dc1_pve1_admins" {
     data.vault_identity_entity.simeonwarren.id,
   ]
   metadata = {
-    version = "2"
   }
 }

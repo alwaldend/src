@@ -6,9 +6,3 @@ resource "vault_mount" "secrets" {
     version = "2"
   }
 }
-
-resource "vault_mount" "ssh" {
-  path        = "ssh/ssh1"
-  type        = "ssh"
-  description = "Ssh secrets: https://developer.hashicorp.com/vault/docs/secrets/ssh/signed-ssh-certificates"
-}

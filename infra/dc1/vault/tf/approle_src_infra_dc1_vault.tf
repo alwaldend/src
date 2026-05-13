@@ -14,6 +14,7 @@ module "src_infra_dc1_vault_approle" {
     vault_policy.sys_storage_admin.name,
     vault_policy.sys_mount_admin.name,
     vault_policy.sys_policies_acl_admin.name,
+    vault_policy.ssh_admin.name,
   ]
   backend = vault_auth_backend.approle.path
 }

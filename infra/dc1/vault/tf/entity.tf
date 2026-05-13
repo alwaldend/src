@@ -9,10 +9,10 @@ resource "vault_identity_entity_alias" "cert_simeonwarren" {
 }
 
 resource "vault_cert_auth_backend_role" "cert_simeonwarren" {
-  name          = "simeonwarren"
-  certificate   = file("${path.module}/../../../../data/ssl/alwaldend.com/simeonwarren.crt")
-  backend       = vault_auth_backend.cert.path
-  allowed_names = ["simeonwarren.users.alwaldend.com"]
-  token_ttl     = local.day_in_seconds
-  token_max_ttl = local.day_in_seconds
+  name                 = "simeonwarren"
+  certificate          = file("${path.module}/../../../../data/ssl/alwaldend.com/simeonwarren.crt")
+  backend              = vault_auth_backend.cert.path
+  allowed_common_names = ["simeonwarren.users.alwaldend.com"]
+  token_ttl            = local.day_in_seconds
+  token_max_ttl        = local.day_in_seconds
 }
