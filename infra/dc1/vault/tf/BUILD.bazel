@@ -52,6 +52,36 @@ terraform_binary(
     ],
 )
 
+terraform_binary(
+    name = "update_ssh_ca_clients",
+    args = [
+        "output",
+        "-raw",
+        "ssh_ca_clients_certificate",
+    ],
+    configs = _CONFIGS,
+    data = _DATA + ["//data/ssh:ca_clients"],
+    run_args = _RUN_ARGS + [
+        "--stdout",
+        "$(rootpath //data/ssh:ca_clients)",
+    ],
+)
+
+terraform_binary(
+    name = "update_ssh_ca_servers",
+    args = [
+        "output",
+        "-raw",
+        "ssh_ca_servers_certificate",
+    ],
+    configs = _CONFIGS,
+    data = _DATA + ["//data/ssh:ca_servers"],
+    run_args = _RUN_ARGS + [
+        "--stdout",
+        "$(rootpath //data/ssh:ca_servers)",
+    ],
+)
+
 terraform_test_map(
     name = "tf_tests",
     configs = _CONFIGS,

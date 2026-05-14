@@ -1,15 +1,34 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 
-pkg_filegroup(
+docs_filegroup(
     name = "docs",
-    srcs = [":docs_files"],
+    srcs = glob(["*.md"]) + [":ssh"],
     visibility = ["//data:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
 )
 
-pkg_files(
-    name = "docs_files",
-    srcs = glob(["*.md"]) + [":simeonwarren"],
-    prefix = "content/docs/{}".format(package_name()),
+filegroup(
+    name = "ssh",
+    srcs = [
+        ":ca_clients",
+        ":ca_servers",
+        ":simeonwarren",
+    ],
+)
+
+filegroup(
+    name = "ca_clients",
+    srcs = ["ca_clients.pub"],
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "ca_servers",
+    srcs = ["ca_servers.pub"],
+    visibility = ["//:__subpackages__"],
 )
 
 filegroup(

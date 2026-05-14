@@ -8,7 +8,8 @@ module "src_infra_dns_approle" {
   policies = [
     vault_policy.src_infra_dns.name,
   ]
-  backend = vault_auth_backend.approle.path
+  backend          = vault_auth_backend.approle.path
+  backend_accessor = vault_auth_backend.approle.accessor
 }
 
 resource "vault_policy" "src_infra_dns" {

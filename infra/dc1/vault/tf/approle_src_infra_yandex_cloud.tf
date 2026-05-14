@@ -10,6 +10,7 @@ module "src_infra_yandex_cloud_org1_approle" {
     vault_policy.src_infra_yandex_cloud_org1.name,
   ]
   backend                  = vault_auth_backend.approle.path
+  backend_accessor         = vault_auth_backend.approle.accessor
   disable_yc_folder_policy = true
 }
 
