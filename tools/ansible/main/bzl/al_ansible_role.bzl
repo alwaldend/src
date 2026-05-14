@@ -1,7 +1,7 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 
-def al_ansible_role(name, srcs, visibility):
+def al_ansible_role(name, srcs, visibility, renames = {}):
     """
     Create targets for an ansible role
 
@@ -46,6 +46,7 @@ def al_ansible_role(name, srcs, visibility):
         name = name,
         srcs = srcs,
         strip_prefix = strip_prefix.from_pkg(),
+        renames = renames,
         prefix = role_name,
         visibility = visibility,
     )

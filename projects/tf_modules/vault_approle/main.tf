@@ -28,6 +28,11 @@ variable "backend" {
   description = "Backend for the approle"
 }
 
+variable "backend_accessor" {
+  type        = string
+  description = "Backend accessor for the approle"
+}
+
 variable "secrets" {
   type        = string
   description = "Secrets backend"
@@ -91,6 +96,7 @@ EOT
 }
 
 resource "vault_approle_auth_backend_role" "role" {
+  depends_on         = [vault_identity_entity_alias.alias]
   backend            = var.backend
   role_name          = var.name
   role_id            = var.name
@@ -115,13 +121,33 @@ resource "vault_policy" "policy_approle" {
 EOT
 }
 
-resource "vault_identity_group" "group" {
-  name              = var.name
-  type              = "internal"
-  policies          = [vault_policy.policy_approle.name]
-  member_entity_ids = var.member_entity_ids
-
+resource "vault_identity_entity" "entity" {
+  name     = var.name
+  policies = []
   metadata = {
-    version = "2"
+    username = var.name
+    email    = "${var.name}@alwaldend.com"
+  }
+}
+
+resource "vault_identity_entity_alias" "alias" {
+  name           = var.name
+  mount_accessor = var.backend_accessor
+  canonical_id   = vault_identity_entity.entity.id
+}
+
+resource "vault_identity_group" "group" {
+  name = var.name
+  type = "internal"
+  policies = [
+    vault_policy.policy_approle.name,
+  ]
+  member_entity_ids = concat(
+    var.member_entity_ids,
+    [
+      vault_identity_entity.entity.id,
+    ]
+  )
+  metadata = {
   }
 }

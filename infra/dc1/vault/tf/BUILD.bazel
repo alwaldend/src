@@ -23,6 +23,7 @@ _RUN_ARGS = [
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
     "//data/ssl/alwaldend.com",
+    "//data/ssh:simeonwarren",
     "//projects/tf_modules/backup_bucket",
     "//projects/tf_modules/tf_backend",
     "//projects/tf_modules/vault_approle",

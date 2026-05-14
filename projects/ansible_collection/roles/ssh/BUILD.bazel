@@ -18,6 +18,9 @@ pkg_files(
 
 al_ansible_role(
     name = "role",
-    srcs = glob(["**"]),
+    srcs = glob(["**"]) + ["//data/ssh:ca_clients"],
+    renames = {
+        "//data/ssh:ca_clients": "files/ssh_ca_clients.pub",
+    },
     visibility = ["//:__subpackages__"],
 )

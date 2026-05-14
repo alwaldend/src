@@ -65,6 +65,17 @@ output "certificate" {
   value       = vault_pki_secret_backend_intermediate_set_signed.signed.certificate
 }
 
+output "private_key" {
+  description = "Private key for the CA"
+  sensitive   = true
+  value       = vault_pki_secret_backend_intermediate_cert_request.request.private_key
+}
+
+output "key_type" {
+  description = "CA key type"
+  value       = vault_pki_secret_backend_intermediate_cert_request.request.key_type
+}
+
 resource "vault_mount" "mount" {
   path                        = var.mount_path
   type                        = "pki"
