@@ -11,3 +11,12 @@ resource "vault_ssh_secret_backend_ca" "servers" {
   generate_signing_key = true
   key_type             = "ed25519"
 }
+
+resource "vault_ssh_secret_backend_role" "servers" {
+  backend                 = vault_mount.ssh_servers.path
+  name                    = "servers"
+  key_type                = "ca"
+  allow_host_certificates = true
+  allow_subdomains        = true
+  allowed_domains         = ""
+}

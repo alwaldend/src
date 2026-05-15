@@ -84,6 +84,18 @@ bazel run //infra/dc1/vault:gen_client_cert -- --hostsome-host --user username -
   bazel run //infra/dc1/vault:gen_root_token -- --pgp_key path_to_public_gpg_key_in_base64
   ```
 
+## Generate an EAB for ACME
+
+```sh
+bazel run //infra/dc1/vault -- write -f pki/ica_servers/roles/ica_servers_dc1_pve1/acme/new-eab
+```
+
+## Sign a client ssh key
+
+```sh
+bazel run //:vault -- write ssh/clients/sign/admins ttl=30000000  public_key=@"${HOME}/.ssh/key"
+```
+
 ## Revoke all tokens
 
 ```sh

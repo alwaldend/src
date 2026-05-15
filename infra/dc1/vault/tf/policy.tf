@@ -138,3 +138,21 @@ resource "vault_policy" "ssh_admin" {
     }
 EOT
 }
+
+resource "vault_policy" "ssh_clients_sign_admins" {
+  name   = "ssh_clients_sign_admins"
+  policy = <<EOT
+    path "${vault_mount.ssh_clients.path}/sign/${vault_ssh_secret_backend_role.admins.name}" {
+      capabilities = ["update"]
+    }
+EOT
+}
+
+resource "vault_policy" "ssh_clients_sign_clients" {
+  name   = "ssh_clients_sign_clients"
+  policy = <<EOT
+    path "${vault_mount.ssh_clients.path}/sign/${vault_ssh_secret_backend_role.clients.name}" {
+      capabilities = ["update"]
+    }
+EOT
+}

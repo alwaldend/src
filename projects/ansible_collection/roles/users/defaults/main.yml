@@ -5,7 +5,4 @@ users_admins:
     name: ansible
     disable_passwd: true
     sudo_no_passwd: true
-users_ssh_keys:
-  ansible_1:
-    user: ansible
-    key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINe+6zNbs5HKrdZnHgeik/y7v5QYQr1cLYqfdCQ49GbM openpgp:0x485AEA03
+users_ssh_keys: {}

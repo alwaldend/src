@@ -50,3 +50,21 @@ resource "vault_pki_secret_backend_role" "ica_servers_dc1_pve1" {
   client_flag        = false
   no_store           = false
 }
+
+resource "vault_pki_secret_backend_role" "ica_servers_dc1_router1" {
+  backend            = module.pki_ica_servers.backend
+  name               = "ica_servers_router1"
+  ttl                = local.day_in_seconds * 7
+  max_ttl            = local.month_in_seconds
+  allow_ip_sans      = true
+  key_type           = "rsa"
+  key_bits           = 4096
+  allow_any_name     = false
+  allow_localhost    = false
+  allowed_domains    = ["router1.dc1.alwaldend.com"]
+  allow_bare_domains = false
+  allow_subdomains   = true
+  server_flag        = true
+  client_flag        = false
+  no_store           = false
+}
