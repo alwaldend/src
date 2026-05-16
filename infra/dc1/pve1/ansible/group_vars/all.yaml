@@ -4,6 +4,10 @@ ssh_vault_role: dc1_pve1
 install_ca:
   - path: root_ca.crt
 
+pve_snippets:
+  - src: cloud_init.yaml
+
+
 ## hardening
 sysctl_overwrite:
   # k3s hardening: https://docs.k3s.io/security/hardening-guide#host-level-requirements

@@ -9,3 +9,4 @@
         lv: "{{ item.lv }}"
         size: "{{ item.size }}"
         resizefs: "{{ item.resizefs | default(true) }}"
+        force: "{{ item.force | default(false) }}"

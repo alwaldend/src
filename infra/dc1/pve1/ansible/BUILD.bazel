@@ -58,6 +58,7 @@ pkg_files(
         "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
     ] + glob([
         "group_vars/**/*.yaml",
+        "files/**",
         "playbook_*.yaml",
     ]),
     renames = {

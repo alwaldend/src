@@ -58,3 +58,13 @@
         name:
           - os-prober
         state: absent
+    - name: Install snippets
+      loop: "{{ pve_snippets }}"
+      tags:
+        - pve_snippets
+      ansible.builtin.copy:
+        src: "{{ item.src }}"
+        dest: "{{ pve_snippets_dir }}/{{ item.src | basename }}"
+        owner: root
+        group: root
+        mode: "0644"

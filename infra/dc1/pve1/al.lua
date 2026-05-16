@@ -8,12 +8,9 @@ lib.auth({
     },
 })
 
-lib.secret({
-    name = "pve_token",
-    kv = {
-        mount = "secrets",
-        path = "alwaldend.com/vault1/approles/src_infra_dc1_pve1/pve_token"
-    },
+infra.pve_auth({
+    name = "pve_auth",
+    path = "alwaldend.com/vault1/approles/src_infra_dc1_pve1/pve_token",
     labels = { tf = "1" }
 })
 

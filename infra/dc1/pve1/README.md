@@ -16,6 +16,12 @@ tags:
 bazel run //infra/dc1/pve1/ansible # host setup
 ```
 
+## Cloud-init snippet update
+
+```sh
+bazel run //infra/dc1/pve1/ansible -- --tags pve_snippets
+```
+
 ## Pve token
 
 - Create a token with Privilege Separation
