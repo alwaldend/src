@@ -1,12 +1,12 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
-load("//tools/al/rules/al:al_binary.bzl", "al_binary_run")
 load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
-load("//tools/docs:defs.bzl", "docs_filegroup")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 load("//tools/al/rules/al:al_binary.bzl", "al_binary_run_map")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//infra/dc1/pve1:__pkg__"],
+    visibility = ["//infra/dc1/vault:__pkg__"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
@@ -20,10 +20,10 @@ al_binary_run_map(
             "$(rootpath :ansible_bin)",
             "--inventory",
             "inventory.yaml",
-            "playbook_deploy.yaml",
+            "playbook_setup.yaml",
         ],
     },
-    configs = ["//infra/dc1/pve1:al"],
+    configs = ["//infra/dc1/vault:al"],
     data = [
         ":ansible_bin"
     ],
@@ -55,14 +55,16 @@ pkg_files(
     name = "srcs_files",
     srcs = [
         "inventory.yaml",
-        "//data/ssl/alwaldend.com:root_ca",
+        "//data/ssl/alwaldend.com:ica_clients",
         "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
     ] + glob([
         "group_vars/**/*.yaml",
         "playbook_*.yaml",
+        "files/vault.hcl",
     ]),
     renames = {
         "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "files/vault",
+        "//data/ssl/alwaldend.com:ica_clients": "files/tls_client_ca_file.pem",
     },
     strip_prefix = strip_prefix.from_pkg(),
 )

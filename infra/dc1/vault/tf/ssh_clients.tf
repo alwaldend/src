@@ -12,10 +12,12 @@ resource "vault_ssh_secret_backend_ca" "clients" {
   key_type             = "ed25519"
 }
 
-resource "vault_ssh_secret_backend_role" "admins" {
+resource "vault_ssh_secret_backend_role" "clients_admins" {
   backend                 = vault_mount.ssh_clients.path
   name                    = "admins"
   key_type                = "ca"
+  max_ttl                 = local.month_in_seconds * 3
+  ttl                     = local.month_in_seconds
   allow_user_certificates = true
   allowed_users_template  = true
   allowed_users           = "ansible,{{ identity.entity.metadata.username }}"
@@ -28,10 +30,21 @@ resource "vault_ssh_secret_backend_role" "admins" {
   }
 }
 
-resource "vault_ssh_secret_backend_role" "clients" {
+resource "vault_policy" "ssh_clients_sign_admins" {
+  name   = "ssh_clients_sign_admins"
+  policy = <<EOT
+    path "${vault_mount.ssh_clients.path}/sign/${vault_ssh_secret_backend_role.clients_admins.name}" {
+      capabilities = ["update"]
+    }
+EOT
+}
+
+resource "vault_ssh_secret_backend_role" "clients_clients" {
   backend                 = vault_mount.ssh_clients.path
   name                    = "clients"
   key_type                = "ca"
+  max_ttl                 = local.month_in_seconds * 3
+  ttl                     = local.month_in_seconds
   allow_user_certificates = true
   allowed_users_template  = true
   allowed_users           = "{{ identity.entity.metadata.username }}"
@@ -41,4 +54,13 @@ resource "vault_ssh_secret_backend_role" "clients" {
     permit-pty              = ""
     permit-agent-forwarding = ""
   }
+}
+
+resource "vault_policy" "ssh_clients_sign_clients" {
+  name   = "ssh_clients_sign_clients"
+  policy = <<EOT
+    path "${vault_mount.ssh_clients.path}/sign/${vault_ssh_secret_backend_role.clients_clients.name}" {
+      capabilities = ["update"]
+    }
+EOT
 }

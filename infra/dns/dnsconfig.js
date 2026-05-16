@@ -102,6 +102,5 @@ D(
     A("bm2.dc1", "192.168.1.216"),
     A("bm3.dc1", "192.168.1.218"),
     CNAME("vault.dc1", "bm3.dc1.alwaldend.com."),
-    CNAME("pve1.dc1", "bm2.dc1.alwaldend.com."),
     CNAME("host1.pve1.dc1", "bm2.dc1.alwaldend.com."),
 );

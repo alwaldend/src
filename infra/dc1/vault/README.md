@@ -14,7 +14,7 @@ tags:
 ## Deployment
 
 ```sh
-bazel run //infra/dc1/vault:deploy # host setup
+bazel run //infra/dc1/vault/ansible:deploy # host setup
 bazel run //infra/dc1/vault/tf:deploy # vault config
 ```
 

@@ -1,4 +1,5 @@
 ansible_user: ansible
+ssh_vault_role: dc1_pve1
 
 install_ca:
   - path: root_ca.crt

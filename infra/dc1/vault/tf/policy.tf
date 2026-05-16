@@ -136,23 +136,8 @@ resource "vault_policy" "ssh_admin" {
     path "ssh/*" {
       capabilities = ["create", "read", "update", "delete", "list"]
     }
-EOT
-}
-
-resource "vault_policy" "ssh_clients_sign_admins" {
-  name   = "ssh_clients_sign_admins"
-  policy = <<EOT
-    path "${vault_mount.ssh_clients.path}/sign/${vault_ssh_secret_backend_role.admins.name}" {
-      capabilities = ["update"]
-    }
-EOT
-}
-
-resource "vault_policy" "ssh_clients_sign_clients" {
-  name   = "ssh_clients_sign_clients"
-  policy = <<EOT
-    path "${vault_mount.ssh_clients.path}/sign/${vault_ssh_secret_backend_role.clients.name}" {
-      capabilities = ["update"]
+    path "ssh/+/sign" {
+      capabilities = ["read"]
     }
 EOT
 }

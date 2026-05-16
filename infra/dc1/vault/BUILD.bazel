@@ -1,7 +1,5 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 load("//tools/al/rules/al:al_binary.bzl", "al_binary_run")
 load("//tools/al/rules/al:al_config.bzl", "al_config")
-load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_runners")
 
@@ -105,45 +103,4 @@ al_binary_run(
         "--env_labels",
         "tf",
     ],
-)
-
-al_ansible_binary(
-    name = "deploy",
-    args = [
-        "--inventory",
-        "inventory.yaml",
-        "playbooks/setup.yaml",
-    ],
-    data = [
-        ":srcs",
-        "//projects/ansible_collection:ansible_cfg",
-        "//projects/ansible_collection:collections",
-    ],
-    process_name = "ansible_playbook",
-)
-
-pkg_filegroup(
-    name = "srcs",
-    srcs = [
-        ":srcs_files",
-    ],
-)
-
-pkg_files(
-    name = "srcs_files",
-    srcs = [
-        "inventory.yaml",
-        "//data/ssl/alwaldend.com:ica_clients",
-        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
-    ] + glob([
-        "group_vars/**/*.yaml",
-        "playbooks/*.yaml",
-        "files/vault.hcl",
-    ]),
-    renames = {
-        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "playbooks/files/vault",
-        "files/vault.hcl": "playbooks/files/vault.hcl",
-        "//data/ssl/alwaldend.com:ica_clients": "playbooks/files/tls_client_ca_file.pem",
-    },
-    strip_prefix = strip_prefix.from_pkg(),
 )

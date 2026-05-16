@@ -17,6 +17,19 @@
         mode: "0640"
         owner: root
         group: root
+    - name: Find public keys
+      register: ssh_host_find_public_keys_result
+      ansible.builtin.find:
+        depth: 1
+        paths:
+          - /etc/ssh
+        patterns:
+          - ssh_host_*.pub
+    - name: Sign public keys
+      loop: "{{ ssh_host_find_public_keys_result.files }}"
+      loop_control:
+        loop_var: ssh_public_key
+      ansible.builtin.include_tasks: sign_key.yaml
     - name: Harden ssh
       tags:
         - ssh_hardening
@@ -25,3 +38,4 @@
         name: devsec.hardening.ssh_hardening
       vars:
         ssh_trusted_user_ca_keys_file: /etc/ssh/ca_clients.pem
+        ssh_host_certificates: "{{ ssh_host_find_public_keys_result.files | ansible.builtin.map(attribute='path') | ansible.builtin.map('ansible.builtin.regex_replace', '^(.*)$', '\\1.signed') }}"
