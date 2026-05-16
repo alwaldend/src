@@ -1,11 +1,17 @@
 load("//tools/al/rules/al:al_config.bzl", "al_config")
 load("//tools/docs:defs.bzl", "docs_filegroup")
+load("//tools/vault:defs.bzl", "vault_binary_map")
 
 al_config(
     name = "al",
     srcs = ["al.lua"],
     visibility = ["//infra/dc1/pve1:__subpackages__"],
     deps = ["//infra:al"],
+)
+
+vault_binary_map(
+    name = "vault",
+    configs = [":al"],
 )
 
 docs_filegroup(

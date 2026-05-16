@@ -15,14 +15,14 @@ load("//tools/md/main/bzl:al_md_data.bzl", "al_md_data")
 load("//tools/terraform:defs.bzl", "terraform_binary_map")
 load("//tools/toml/main/bzl:al_toml_data.bzl", "al_toml_data")
 load("//tools/txt/main/bzl:al_txt_data.bzl", "al_txt_data")
-load("//tools/vault:defs.bzl", "vault_runners")
+load("//tools/vault:defs.bzl", "vault_binary_map")
 
 terraform_binary_map(
     name = "tf",
     configs = [":al"],
 )
 
-vault_runners(
+vault_binary_map(
     name = "vault",
     configs = [":al"],
 )

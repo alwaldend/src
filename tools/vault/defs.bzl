@@ -1,7 +1,7 @@
 load("@rules_go//go:def.bzl", "go_binary")
 load("//tools/al/rules/al:al_binary.bzl", "al_binary_run")
 
-def vault_runner(
+def vault_binary(
         args = [],
         run_args = [],
         data = [],
@@ -18,7 +18,7 @@ def vault_runner(
         **kwargs
     )
 
-DEFAULT_VAULT_RUNNERS = {
+DEFAULT_VAULT_BINARY_MAP_ARGS = {
     "": [],
     "kv_get": ["kv", "get", "-mount", "secrets"],
     "kv_put": ["kv", "put", "-mount", "secrets"],
@@ -29,9 +29,9 @@ DEFAULT_VAULT_RUNNERS = {
     "status": ["status"],
 }
 
-def vault_runners(
+def vault_binary_map(
         name,
-        args = DEFAULT_VAULT_RUNNERS,
+        args = DEFAULT_VAULT_BINARY_MAP_ARGS,
         **kwargs):
     """
     Create several vault runners
@@ -41,7 +41,7 @@ def vault_runners(
             cur_name = "{}.{}".format(name, args_name)
         else:
             cur_name = name
-        vault_runner(
+        vault_binary(
             name = cur_name,
             args = args_value,
             **kwargs

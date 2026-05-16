@@ -11,3 +11,10 @@ module "src_infra_dc1_vault_folder" {
   secret_name = "yandex.cloud/org1/folders/src-infra-dc1-vault"
   cloud_id    = var.cloud_id
 }
+
+module "src_infra_dc1_pve1_folder" {
+  source      = "../../../../projects/tf_modules/yc_folder"
+  name        = "src-infra-dc1-pve1"
+  secret_name = "yandex.cloud/org1/folders/src-infra-dc1-pve1"
+  cloud_id    = var.cloud_id
+}

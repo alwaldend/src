@@ -1,6 +1,6 @@
 load("//tools/al/rules/al:al_config.bzl", "al_config")
 load("//tools/docs:defs.bzl", "docs_filegroup")
-load("//tools/vault:defs.bzl", "vault_runners")
+load("//tools/vault:defs.bzl", "vault_binary_map")
 
 docs_filegroup(
     name = "docs",
@@ -12,7 +12,7 @@ docs_filegroup(
     ),
 )
 
-vault_runners(
+vault_binary_map(
     name = "vault",
     configs = [":al"],
 )

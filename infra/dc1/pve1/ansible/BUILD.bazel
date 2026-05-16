@@ -1,8 +1,8 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
-load("//tools/al/rules/al:al_binary.bzl", "al_binary_run")
+load("//tools/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_map")
 load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
 load("//tools/docs:defs.bzl", "docs_filegroup")
-load("//tools/al/rules/al:al_binary.bzl", "al_binary_run_map")
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
@@ -25,14 +25,13 @@ al_binary_run_map(
     },
     configs = ["//infra/dc1/pve1:al"],
     data = [
-        ":ansible_bin"
+        ":ansible_bin",
     ],
     run_args = [
         "--env_vault",
         "default:default",
     ],
 )
-
 
 al_ansible_binary(
     name = "ansible_bin",

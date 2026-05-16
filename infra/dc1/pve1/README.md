@@ -13,5 +13,20 @@ tags:
 ## Deployment
 
 ```sh
-bazel run //infra/dc1/pve1/ansible:deploy # host setup
+bazel run //infra/dc1/pve1/ansible # host setup
 ```
+
+## Pve token
+
+- Create a token with Privilege Separation
+- Create json:
+  ```json
+  {
+    "token_id": "",
+    "token_secret": ""
+  }
+  ```
+- Write the token:
+  ```sh
+  bazel run //infra/dc1/pve1:vault.kv_put alwaldend.com/vault1/approles/src_infra_dc1_pve1/pve_token @"${PWD}/data.json"
+  ```
