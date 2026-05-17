@@ -75,9 +75,36 @@
         {
             "name": "rclone",
             "version": "1.74.0"
+        },
+        {
+            "name": "consul",
+            "version": "1.22.7"
         }
     ],
     "archives": [
+        {
+            "archive_name": "linux_x86_64",
+            "toolchain_name": "consul",
+            "toolchain_version": "1.22.7",
+            "binaries": [
+                {
+                    "name": "consul",
+                    "path": "out/consul"
+                }
+            ],
+            "rules": {
+                "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
+            },
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://releases.hashicorp.com/consul/1.22.7/consul_1.22.7_linux_amd64.zip",
+                        "output": "out",
+                        "integrity": "sha256-/iXOzY3TVSqOWwlBzeHXm7YATqw4SqRWed0TmPlHIB0="
+                    }
+                }
+            ]
+        },
         {
             "archive_name": "linux_x86_64",
             "toolchain_name": "rclone",

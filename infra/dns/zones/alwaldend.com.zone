@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-05-17T09:31:36Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026051700 3600 600 604800 1440
+; generated with dnscontrol 2026-05-17T12:58:24Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026051701 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -23,6 +23,8 @@ protonmail3._domainkey IN CNAME protonmail3.domainkey.djgwfzcu5fgjtpoijqqomgifmq
 bm1.dc1          IN A     192.168.1.222
 bm2.dc1          IN A     192.168.1.216
 bm3.dc1          IN A     192.168.1.218
+consul1.dc1      IN CNAME host1.consul1.dc1.alwaldend.com.
+host1.consul1.dc1 IN A    192.168.10.20
 host1.pve1.dc1   IN CNAME bm2.dc1.alwaldend.com.
 cloudinit-test.vm.pve1.dc1 IN A 192.168.10.10
 router1.dc1      IN A     192.168.1.1

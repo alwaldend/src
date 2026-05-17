@@ -5,14 +5,9 @@ ssh_pwauth: false
 disable_root: true
 ssh_deletekeys: true
 ssh_quiet_keygen: true
+allow_public_ssh_keys: true
 package_update: false
 package_upgrade: false
-packages:
-  - qemu-guest-agent
-  - openssh-server
-runcmd:
-  - systemctl enable --now qemu-guest-agent
-  - systemctl enable --now sshd
 users:
   - name: ansible
     gecos: Ansible User

@@ -7,6 +7,7 @@ binary_toolchain_extension = use_extension(
 binary_toolchain_extension.toolchains(
     archives = {
         "vault": ["linux_x86_64"],
+        "consul": ["linux_x86_64"],
     },
     lock = "@rules_binary_toolchain//examples:binary_toolchain.json",
     toolchains_map = {
@@ -29,6 +30,7 @@ binary_toolchain_extension.toolchains(
         "vault": "com_alwaldend_src_tools_vault",
         "terraform": "com_alwaldend_src_tools_terraform",
         "rclone": "com_alwaldend_src_tools_rclone",
+        "consul": "com_alwaldend_src_tools_consul",
     },
 )
 
@@ -52,6 +54,7 @@ register_toolchains(
     "@com_alwaldend_src_tools_vault//:all",
     "@com_alwaldend_src_tools_terraform//:all",
     "@com_alwaldend_src_tools_rclone//:all",
+    "@com_alwaldend_src_tools_consul//:all",
 )
 
 use_repo(
@@ -60,6 +63,8 @@ use_repo(
     "com_alwaldend_src_tools_blender",
     "com_alwaldend_src_tools_buf",
     "com_alwaldend_src_tools_cloc",
+    "com_alwaldend_src_tools_consul",
+    "com_alwaldend_src_tools_consul_linux_x86_64",
     "com_alwaldend_src_tools_dnscontrol",
     "com_alwaldend_src_tools_flux",
     "com_alwaldend_src_tools_hugo",

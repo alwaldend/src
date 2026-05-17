@@ -29,4 +29,12 @@
         proto: "{{ item.proto | default('any') }}"
         port: "{{ item.port | mandatory }}"
         src: "{{ item.src | mandatory }}"
-        comment: "Ansible | {{ item.port | mandatory }}: {{ item.comment | mandatory }}"
+        comment: "{{ item.comment | mandatory }} # Ansible"
+    - name: Allow forward
+      loop: "{{ firewall_allow_forward | list }}"
+      community.general.ufw:
+        rule: allow
+        route: true
+        src: "{{ item.src | default('any') }}"
+        dest: "{{ item.dest | default('any') }}"
+        comment: "{{ item.comment | mandatory }} # Ansible"

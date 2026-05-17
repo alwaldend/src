@@ -7,30 +7,22 @@ module "src_infra_dc1_pve1_approle" {
   secrets = vault_mount.secrets.path
   policies = [
     vault_policy.tf_token.name,
-    vault_policy.ssh_servers_sign_dc1_pve1.name,
+    module.src_infra_dc1_pve1_ssh.policy,
   ]
   backend          = vault_auth_backend.approle.path
   backend_accessor = vault_auth_backend.approle.accessor
 }
 
-resource "vault_ssh_secret_backend_role" "servers_dc1_pve1" {
-  backend                 = vault_mount.ssh_servers.path
-  name                    = "dc1_pve1"
-  max_ttl                 = local.year_in_seconds
-  ttl                     = local.year_in_seconds
-  key_type                = "ca"
-  allow_host_certificates = true
-  allow_subdomains        = true
-  allow_bare_domains      = true
-  allowed_domains         = "pve1.dc1.alwaldend.com"
+module "src_infra_dc1_pve1_ssh" {
+  source          = "../../../../projects/tf_modules/vault_ssh_server_role"
+  backend         = vault_mount.ssh_servers.path
+  name            = "src_infra_dc1_pve1_ssh"
+  allowed_domains = "pve1.dc1.alwaldend.com"
 }
 
-resource "vault_policy" "ssh_servers_sign_dc1_pve1" {
-  name   = "ssh_servers_sign_dc1_pve1"
-  policy = <<EOT
-    path
-    "${vault_mount.ssh_servers.path}/sign/${vault_ssh_secret_backend_role.servers_dc1_pve1.name}" {
-      capabilities = ["update"]
-    }
-EOT
+module "src_infra_dc1_pve1_pki_server" {
+  source          = "../../../../projects/tf_modules/vault_pki_server"
+  backend         = module.pki_ica_servers.backend
+  name            = "src_infra_dc1_pve1_pki_server"
+  allowed_domains = ["pve1.dc1.alwaldend.com"]
 }

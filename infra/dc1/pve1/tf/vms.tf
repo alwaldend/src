@@ -13,7 +13,7 @@ resource "proxmox_vm_qemu" "cloudinti_test" {
   vm_state         = "running"
   automatic_reboot = true
   cicustom         = "user=local:snippets/cloud_init.yaml"
-  ipconfig0        = "ip=192.168.10.10/24,gw=192.168.1.1"
+  ipconfig0        = "ip=192.168.10.10/24,gw=192.168.10.2"
   disks {
     scsi {
       scsi0 {

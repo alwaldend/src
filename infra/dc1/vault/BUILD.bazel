@@ -13,6 +13,12 @@ docs_filegroup(
     ),
 )
 
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.js"],
+    visibility = ["//infra/dc1:__subpackages__"],
+)
+
 vault_binary_map(
     name = "vault",
     configs = [":al"],

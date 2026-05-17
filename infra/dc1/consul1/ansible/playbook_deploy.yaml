@@ -1,0 +1,6 @@
+- name: Deploy
+  hosts: consul1
+  force_handlers: true
+  become: true
+  roles:
+    - role: alwaldend.main.host

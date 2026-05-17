@@ -1,5 +1,16 @@
 load("//tools/docs:defs.bzl", "docs_filegroup")
 
+filegroup(
+    name = "dnsconfig",
+    srcs = [
+        "dnsconfig.js",
+        "//infra/dc1/consul1:dnsconfig",
+        "//infra/dc1/pve1:dnsconfig",
+        "//infra/dc1/vault:dnsconfig",
+    ],
+    visibility = ["//infra/dns:__pkg__"],
+)
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),

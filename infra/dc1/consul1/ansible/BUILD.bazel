@@ -1,0 +1,70 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+load("//tools/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_map")
+load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//infra/dc1/consul1:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+al_binary_run_map(
+    name = "ansible",
+    args = {
+        "": [
+            "$(rootpath :ansible_bin)",
+            "--inventory",
+            "inventory.yaml",
+            "playbook_deploy.yaml",
+        ],
+    },
+    configs = ["//infra/dc1/consul1:al"],
+    data = [
+        ":ansible_bin",
+    ],
+    run_args = [
+        "--env_vault",
+        "default:default",
+    ],
+)
+
+al_ansible_binary(
+    name = "ansible_bin",
+    data = [
+        ":srcs",
+        "//projects/ansible_collection:ansible_cfg",
+        "//projects/ansible_collection:collections",
+    ],
+    process_name = "ansible_playbook",
+)
+
+pkg_filegroup(
+    name = "srcs",
+    srcs = [
+        ":srcs_files",
+    ],
+)
+
+pkg_files(
+    name = "srcs_files",
+    srcs = [
+        "inventory.yaml",
+        "//data/ssl/alwaldend.com:root_ca",
+        "@com_alwaldend_src_tools_consul_linux_x86_64//:consul_filegroup",
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
+    ] + glob([
+        "group_vars/**/*.yaml",
+        "files/**",
+        "playbook_*.yaml",
+    ]),
+    renames = {
+        "@com_alwaldend_src_tools_consul_linux_x86_64//:consul_filegroup": "files/consul",
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "files/vault",
+    },
+    strip_prefix = strip_prefix.from_pkg(),
+)

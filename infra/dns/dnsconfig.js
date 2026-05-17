@@ -5,6 +5,8 @@ var REG_NONE = NewRegistrar("none");
 var DSP_CLOUDFLARE = NewDnsProvider("cloudflare");
 var BIND = NewDnsProvider("bind");
 
+require("../dc1/dnsconfig.js");
+
 DEFAULTS(
     CF_PROXY_DEFAULT_OFF, // turn proxy off when not specified otherwise
 );
@@ -95,13 +97,5 @@ D(
         TTL(300),
     ),
 
-    // dc1
-    A("router1.dc1", "192.168.1.1"),
-    AAAA("router1.dc1", "fd2e:546d:5738::1"),
-    A("bm1.dc1", "192.168.1.222"),
-    A("bm2.dc1", "192.168.1.216"),
-    A("bm3.dc1", "192.168.1.218"),
-    CNAME("vault.dc1", "bm3.dc1.alwaldend.com."),
-    CNAME("host1.pve1.dc1", "bm2.dc1.alwaldend.com."),
-    A("cloudinit-test.vm.pve1.dc1", "192.168.10.10"),
+    IncludeDc1(),
 );

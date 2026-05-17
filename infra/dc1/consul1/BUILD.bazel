@@ -1,0 +1,31 @@
+load("//tools/al/rules/al:al_config.bzl", "al_config")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+load("//tools/vault:defs.bzl", "vault_binary_map")
+
+al_config(
+    name = "al",
+    srcs = ["al.lua"],
+    visibility = ["//infra/dc1/consul1:__subpackages__"],
+    deps = ["//infra:al"],
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.js"],
+    visibility = ["//infra/dc1:__subpackages__"],
+)
+
+vault_binary_map(
+    name = "vault",
+    configs = [":al"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//infra/dc1:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)

@@ -47,9 +47,9 @@ resource "vault_ssh_secret_backend_role" "clients_clients" {
   ttl                     = local.month_in_seconds
   allow_user_certificates = true
   allowed_users_template  = true
-  allowed_users           = "{{ identity.entity.metadata.username }}"
+  allowed_users           = "user_{{ identity.entity.metadata.username }}"
   default_user_template   = true
-  default_user            = "{{ identity.entity.metadata.username }}"
+  default_user            = "user_{{ identity.entity.metadata.username }}"
   default_extensions = {
     permit-pty              = ""
     permit-agent-forwarding = ""

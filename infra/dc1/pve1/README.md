@@ -14,6 +14,7 @@ tags:
 
 ```sh
 bazel run //infra/dc1/pve1/ansible # host setup
+bazel run //infra/dc1/pve1/tf/tf.apply # tf setup
 ```
 
 ## Recreate the test VM
@@ -27,6 +28,19 @@ bazel run //infra/dc1/pve1/tf:tf.apply -- --replace proxmox_vm_qemu.cloudinti_te
 ```sh
 bazel run //infra/dc1/pve1/ansible -- --tags pve_snippets
 ```
+
+## Update ACME account
+
+- Create an EAB:
+  ```sh
+  bazel run //infra/dc1/vault -- write -f pki/ica_servers/roles/src_infra_dc1_pve1_pki_server/acme/new-eab
+  ```
+- Login as `root@pam`
+- Go to Datacenter -> ACME
+- Create a new account with the EAB and a directory:
+  ```
+  https://vault.dc1.alwaldend.com:8200/v1/pki/ica_servers/roles/src_infra_dc1_pve1_pki_server/acme/directory
+  ```
 
 ## Pve token
 

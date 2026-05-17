@@ -1,0 +1,3 @@
+consul1:
+  hosts:
+    host1.consul1.dc1.alwaldend.com:

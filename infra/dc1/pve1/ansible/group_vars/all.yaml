@@ -1,5 +1,5 @@
 ansible_user: ansible
-ssh_vault_role: dc1_pve1
+ssh_vault_role: src_infra_dc1_pve1_ssh
 
 install_ca:
   - path: root_ca.crt
@@ -16,6 +16,11 @@ sysctl_overwrite:
   net.ipv6.conf.all.forwarding: 1
 
 ## firewall
+firewall_allow_forward:
+  - dest: 192.168.10.0/24
+    comment: Forwarding to VMs
+  - src: 192.168.10.0/24
+    comment: Forwarding from VMs
 firewall_allow_port_from:
   - src: "any"
     port: 8006

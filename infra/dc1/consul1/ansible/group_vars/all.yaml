@@ -1,0 +1,12 @@
+ansible_user: ansible
+ssh_vault_role: src_infra_dc1_consul1_ssh
+
+install_ca:
+  - path: root_ca.crt
+
+## firewall
+## https://developer.hashicorp.com/consul/docs/reference/architecture/ports
+firewall_allow_port_from:
+  - src: "any"
+    port: 22
+    comment: ssh

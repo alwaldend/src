@@ -1,5 +1,5 @@
 ansible_user: ansible
-ssh_vault_role: dc1_vault1
+ssh_vault_role: src_infra_dc1_vault_ssh
 
 gpg_users:
   - vault
@@ -20,14 +20,6 @@ mount_points:
     state: mounted
 
 vault_dir: "/opt/vault"
-
-## hardening
-sysctl_overwrite:
-  # k3s hardening: https://docs.k3s.io/security/hardening-guide#host-level-requirements
-  vm.panic_on_oom: 0
-  vm.overcommit_memory: 1
-  kernel.panic: 10
-  kernel.panic_on_oops: 1
 
 ## firewall
 firewall_allow_port_from:

@@ -1,6 +1,6 @@
 ---
 title: Consul
-description: Setup consul
+description: Consul
 tags:
   - ansible_role
 ---

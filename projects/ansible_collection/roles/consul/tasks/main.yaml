@@ -1,118 +1,79 @@
 - tags:
     - consul
   block:
-    - name: Install required packages
+    - name: Install packages
       ansible.builtin.package:
         name:
-          - unzip
+          - gnupg2
+          - cryptsetup
+          - gnupg2-scdaemon
+          - pcsc-lite
     - name: Create consul user
       ansible.builtin.user:
-        name: "{{ consul_user_name }}"
-        uid: "{{ consul_user_uid | default(omit) }}"
+        name: "{{ consul_user }}"
+        uid: "{{ consul_user_uid }}"
         shell: /sbin/nologin
-    - name: Create directories
+        home: "{{ consul_dir }}/home"
+        system: true
+    - name: Create consul dirs
       loop:
         - "{{ consul_dir }}"
         - "{{ consul_data_dir }}"
-        - "{{ consul_configs_dir }}"
         - "{{ consul_config_dir }}"
-        - "{{ consul_releases_dir }}"
-        - "{{ consul_release_dir }}"
-        - "{{ consul_config_data_dir }}"
-        - "{{ consul_config_config_dir }}"
+        - "{{ consul_log_dir }}"
+        - "{{ consul_tls_dir }}"
       ansible.builtin.file:
-        path: "{{ item }}"
         state: directory
-        owner: "{{ consul_user_name }}"
-        group: "{{ consul_user_name }}"
+        owner: "{{ consul_user }}"
+        group: "{{ consul_user }}"
         mode: "0700"
-    - name: Download the archive
-      delegate_to: localhost
-      become: false
-      ansible.builtin.get_url:
-        url: "{{ consul_release_url }}"
-        checksum: "{{ consul_release_checksum }}" 
-        dest: "{{ consul_release_dir }}/{{ consul_release_archive_fullname }}"
-        #owner: "{{ consul_user_name }}"
-        #group: "{{ consul_user_name }}"
-        #mode: "0600"
-    - name: Unpack the archive
-      ansible.builtin.unarchive:
-         src: "{{ consul_release_dir }}/{{ consul_release_archive_fullname }}"
-         creates: "{{ consul_release_bin_path }}"
-         dest: "{{ consul_release_dir }}"
-         owner: "{{ consul_user_name }}"
-         group: "{{ consul_user_name }}"
-         mode: "0700"
-    - name: Write configs
-      loop: "{{ consul_configs | mandatory | list }}"
+        path: "{{ item }}"
+    - name: Copy the consul binary
+      register: consul_bin_var
       ansible.builtin.copy:
-        content: "{{ 
-          item.value | 
-            combine(
-              {'bootstrap_expect': (item.value.bootstrap_expect | int )} 
-              if item.value.bootstrap_expect is defined 
-              else {}) | 
-            to_nice_json(indent=2) 
-        }}"
-        dest: "{{ consul_config_config_dir }}/{{ item.name }}.json"
-        owner: "{{ consul_user_name }}"
-        group: "{{ consul_user_name }}"
-        mode: "0600" 
-    - name: Write certs
-      when: item.write
-      loop:
-        - content: "{{ consul_agent_ca_cert }}"
-          path: "{{ consul_agent_ca_cert_path }}"
-          write: true
-        - content: "{{ consul_server_cert if consul_is_server else '' }}"
-          path: "{{ consul_server_cert_path }}"
-          write: "{{ consul_is_server }}"
-        - content: "{{ consul_server_key if consul_is_server else '' }}"
-          path: "{{ consul_server_key_path }}"
-          write: "{{ consul_is_server }}"
-      ansible.builtin.copy:
-        content: "{{ item.content }}"
-        dest: "{{ item.path }}"
-        owner: "{{ consul_user_name }}"
-        group: "{{ consul_user_name }}"
-        mode: "0600" 
-    - name: Write the env file
-      ansible.builtin.copy:
-        content: |
-          {% for key, value in consul_env.items() %}
-          {{ key }}={{ value }}
-          {% endfor %}
-        dest: "{{ consul_env_path }}"
-        owner: "{{ consul_user_name }}"
-        group: "{{ consul_user_name }}"
-        mode: "0600" 
-    - name: Create the symlink for the release
-      ansible.builtin.file:
-        src: "./{{ consul_release_dir_name }}"
-        path: "{{ consul_release_symlink_path }}"
-        state: link
-        owner: "{{ consul_user_name }}"
-        group: "{{ consul_user_name }}"
-        mode: "0700"
-    - name: Create configs symlink
-      ansible.builtin.file:
-        src: "./{{ consul_config_dir_name }}"
-        path: "{{ consul_config_symlink_dir }}"
-        state: link
-        owner: "{{ consul_user_name }}"
-        group: "{{ consul_user_name }}"
-        mode: "0700"
-    - name: Create systemd service
-      ansible.builtin.template:
-        src: consul.service.j2
-        dest: "/etc/systemd/system/consul.service"
+        src: "{{ consul_bin_local_path }}"
+        dest: "{{ consul_bin_path }}"
         owner: "root"
-        group: "root"
-        mode: "0600"
-    - name: Enable the systemd service
+        group: "{{ consul_user }}"
+        mode: "0755"
+    - name: Copy the config
+      register: consul_config_var
+      ansible.builtin.copy:
+        src: "{{ consul_config_local_path }}"
+        dest: "{{ consul_config_path }}"
+        owner: "root"
+        group: "{{ consul_user }}"
+        mode: "0650"
+    - name: Copy client ca file
+      register: consul_tls_client_ca_file_path_var
+      ansible.builtin.copy:
+        src: "{{ consul_tls_client_ca_file_local_path }}"
+        dest: "{{ consul_tls_client_ca_file_path }}"
+        owner: "root"
+        group: "{{ consul_user }}"
+        mode: "0650"
+    - name: Write the service
+      register: consul_service_var
+      ansible.builtin.template:
+        src: systemd_service.conf
+        dest: "{{ consul_service_path }}"
+        owner: root
+        group: root
+        mode: 644
+    - name: Ensure the daemon is reloaded
+      when: consul_service_var.changed
       ansible.builtin.systemd_service:
-        name: consul.service
-        enabled: true
-        state: restarted
         daemon_reload: true
+    - name: Restart the service
+      when: >-
+        consul_service_var.changed
+        or consul_config_var.changed or consul_bin_var.changed
+        or consul_tls_client_ca_file_path_var.changed
+      ansible.builtin.systemd_service:
+        name: "{{ consul_service_path | basename }}"
+        state: reloaded
+    - name: Start the service and enable
+      ansible.builtin.systemd_service:
+        name: "{{ consul_service_path | basename }}"
+        enabled: true
+        state: started
