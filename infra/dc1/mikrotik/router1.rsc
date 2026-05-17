@@ -23,6 +23,7 @@ add name=accept-input-winbox
 add name=accept-input-web-ui
 add name=accept-input-mikrotik-neighbor-discovery
 add name=accept-forward-LAN
+add name=accept-output-LAN
 /ip pool
 add comment=bridge1 name=bridge1 ranges=192.168.1.10-192.168.1.254
 add comment=bridge2 name=bridge2 ranges=192.168.2.10-192.168.2.254
@@ -58,11 +59,13 @@ add interface=bridge1 list=accept-input-winbox
 add interface=bridge1 list=accept-input-web-ui
 add interface=bridge1 list=accept-input-mikrotik-neighbor-discovery
 add interface=bridge1 list=accept-forward-LAN
+add interface=bridge1 list=accept-output-LAN
 /interface ovpn-server server
 add mac-address=FE:B3:B4:C4:A4:48 name=ovpn-server1
 /ip address
-add address=192.168.1.1/24 comment=bridge1 interface=bridge1 network=192.168.1.0
-add address=192.168.2.1/24 comment=bridge2 interface=bridge2 network=192.168.2.0
+add address=192.168.1.1/24 comment="bridge1 (LAN)" interface=bridge1 network=192.168.1.0
+add address=192.168.2.1/24 comment="bridge2 (Wireless)" interface=bridge2 network=192.168.2.0
+add address=192.168.10.1/24 comment=pve1.dc1.alwaldend.com interface=bridge1 network=192.168.10.0
 /ip dhcp-client
 add comment=defconf interface=ether1 name=ether1 use-peer-dns=no
 /ip dhcp-server lease
@@ -100,6 +103,7 @@ add action=accept chain=input comment="accept input web ui" dst-port=80,443 in-i
 add action=accept chain=input comment="accept input mikrotik neighbor discovery" dst-port=5678 in-interface-list=accept-input-mikrotik-neighbor-discovery protocol=udp
 add action=drop chain=forward comment="drop forward" log=yes log-prefix=drop-forward
 add action=drop chain=input comment="drop input" log=yes log-prefix=drop-input
+add action=accept chain=output comment=accept-output-LAN out-interface-list=LAN
 /ip firewall nat
 add action=masquerade chain=srcnat comment="defconf: masquerade" ipsec-policy=out,none out-interface-list=WAN
 /ip ipsec profile
@@ -153,6 +157,7 @@ add action=accept chain=input comment="accept input web ui" dst-port=80,443 in-i
 add action=accept chain=input comment="accept input mikrotik neighbor discovery" dst-port=5678 in-interface-list=accept-input-mikrotik-neighbor-discovery protocol=udp
 add action=drop chain=forward comment="drop forward" log=yes log-prefix=drop-forward-ipv6
 add action=drop chain=input comment="drop input" log=yes log-prefix=drop-input-ipv6
+add action=accept chain=output comment=accept-output-LAN out-interface-list=LAN
 /ipv6 nd
 set [ find default=yes ] advertise-dns=yes interface=bridge1
 add advertise-dns=yes interface=bridge2
@@ -161,6 +166,7 @@ set time-zone-name=Europe/Moscow
 /system identity
 set name=router1.dc1.alwaldend.com
 /system routerboard settings
+# Firmware upgraded successfully, please reboot for changes to take effect!
 set auto-upgrade=yes
 /tool mac-server
 set allowed-interface-list=LAN

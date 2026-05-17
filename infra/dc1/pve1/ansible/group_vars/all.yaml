@@ -6,15 +6,14 @@ install_ca:
 
 pve_snippets:
   - src: cloud_init.yaml
+  - src: cloud_init_min.yaml
 
 
-## hardening
+## devsec.hardening.os_hardening
 sysctl_overwrite:
-  # k3s hardening: https://docs.k3s.io/security/hardening-guide#host-level-requirements
-  vm.panic_on_oom: 0
-  vm.overcommit_memory: 1
-  kernel.panic: 10
-  kernel.panic_on_oops: 1
+  net.ipv4.ip_forward: 1
+  net.ipv4.conf.enp2s0.proxy_arp: 1
+  net.ipv6.conf.all.forwarding: 1
 
 ## firewall
 firewall_allow_port_from:

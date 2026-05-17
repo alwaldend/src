@@ -16,6 +16,12 @@ tags:
 bazel run //infra/dc1/pve1/ansible # host setup
 ```
 
+## Recreate the test VM
+
+```sh
+bazel run //infra/dc1/pve1/tf:tf.apply -- --replace proxmox_vm_qemu.cloudinti_test
+```
+
 ## Cloud-init snippet update
 
 ```sh
@@ -25,6 +31,7 @@ bazel run //infra/dc1/pve1/ansible -- --tags pve_snippets
 ## Pve token
 
 - Create a token with Privilege Separation
+- Grant it required roles
 - Create json:
   ```json
   {
@@ -32,7 +39,7 @@ bazel run //infra/dc1/pve1/ansible -- --tags pve_snippets
     "token_secret": ""
   }
   ```
-- Write the token:
+- Write the data:
   ```sh
   bazel run //infra/dc1/pve1:vault.kv_put alwaldend.com/vault1/approles/src_infra_dc1_pve1/pve_token @"${PWD}/data.json"
   ```

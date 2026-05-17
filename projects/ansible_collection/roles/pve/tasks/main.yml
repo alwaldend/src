@@ -16,7 +16,7 @@
       ansible.builtin.copy:
         dest: "{{ pve_repo_path }}"
         content: "{{ pve_repo_content }}"
-        mode: "600"
+        mode: "644"
         owner: root
         group: root
     - name: Run full-upgrade if the repo changed

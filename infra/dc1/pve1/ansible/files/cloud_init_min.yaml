@@ -1,0 +1,19 @@
+#cloud-config
+package_update: false
+package_upgrade: false
+packages:
+  - qemu-guest-agent
+  - openssh-server
+runcmd:
+  - systemctl enable --now qemu-guest-agent
+  - systemctl enable --now sshd
+users:
+  - name: ansible
+    gecos: Ansible User
+    groups: users,admin,wheel
+    sudo: "ALL=(ALL) NOPASSWD:ALL"
+    shell: /bin/bash
+    lock_passwd: true
+    ssh_authorized_keys:
+      - >-
+        cert-authority,principals="ansible" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK4qsPeUBEwrrXaRRGXBQYAvGBw7QQ06elFIGnGOzWky

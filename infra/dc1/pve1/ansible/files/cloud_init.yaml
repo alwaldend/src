@@ -2,12 +2,17 @@
 package_reboot_if_required: true
 manage_etc_hosts: true
 ssh_pwauth: false
+disable_root: true
+ssh_deletekeys: true
+ssh_quiet_keygen: true
 package_update: false
 package_upgrade: false
 packages:
-- qemu-guest-agent
+  - qemu-guest-agent
+  - openssh-server
 runcmd:
   - systemctl enable --now qemu-guest-agent
+  - systemctl enable --now sshd
 users:
   - name: ansible
     gecos: Ansible User
@@ -15,11 +20,9 @@ users:
     sudo: "ALL=(ALL) NOPASSWD:ALL"
     shell: /bin/bash
     lock_passwd: true
-write_files:
-  - content: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK4qsPeUBEwrrXaRRGXBQYAvGBw7QQ06elFIGnGOzWky
-    owner: root:root
-    path: /etc/ssh/ca_clients.pem
-    permissions: "0644"
+    ssh_authorized_keys:
+      - >-
+        cert-authority,principals="ansible" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK4qsPeUBEwrrXaRRGXBQYAvGBw7QQ06elFIGnGOzWky
 ca_certs:
   trusted:
     - |

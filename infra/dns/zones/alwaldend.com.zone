@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-05-16T07:58:44Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026051600 3600 600 604800 1440
+; generated with dnscontrol 2026-05-17T09:31:36Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026051700 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -24,6 +24,7 @@ bm1.dc1          IN A     192.168.1.222
 bm2.dc1          IN A     192.168.1.216
 bm3.dc1          IN A     192.168.1.218
 host1.pve1.dc1   IN CNAME bm2.dc1.alwaldend.com.
+cloudinit-test.vm.pve1.dc1 IN A 192.168.10.10
 router1.dc1      IN A     192.168.1.1
                  IN AAAA  fd2e:546d:5738::1
 vault.dc1        IN CNAME bm3.dc1.alwaldend.com.

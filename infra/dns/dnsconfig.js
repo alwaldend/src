@@ -103,4 +103,5 @@ D(
     A("bm3.dc1", "192.168.1.218"),
     CNAME("vault.dc1", "bm3.dc1.alwaldend.com."),
     CNAME("host1.pve1.dc1", "bm2.dc1.alwaldend.com."),
+    A("cloudinit-test.vm.pve1.dc1", "192.168.10.10"),
 );
