@@ -1,6 +1,10 @@
+locals {
+  dns = jsondecode(file("${path.module}/../dnsconfig.json"))
+}
+
 resource "proxmox_vm_qemu" "host1" {
   vmid        = 200
-  name        = "host1.consul1.dc1.alwaldend.com"
+  name        = "${local.dns.domains.default.records.host1_a.A.name}.alwaldend.com"
   target_node = "host1"
   cpu {
     cores = 2
@@ -13,7 +17,7 @@ resource "proxmox_vm_qemu" "host1" {
   vm_state         = "running"
   automatic_reboot = true
   cicustom         = "user=local:snippets/cloud_init.yaml"
-  ipconfig0        = "ip=192.168.10.20/24,gw=192.168.10.2"
+  ipconfig0        = "ip=${local.dns.domains.default.records.host1_a.A.address}/24,gw=192.168.10.2"
   disks {
     scsi {
       scsi0 {

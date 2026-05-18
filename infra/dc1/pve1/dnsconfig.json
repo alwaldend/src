@@ -1,0 +1,26 @@
+{
+    "domains": {
+        "default": {
+            "records": {
+                "bm_a": {
+                    "A": {
+                        "name": "bm2.dc1",
+                        "address": "192.168.1.216"
+                    }
+                },
+                "host1_cname": {
+                    "CNAME": {
+                        "name": "host1.pve1.dc1",
+                        "target": "bm2.dc1.alwaldend.com."
+                    }
+                },
+                "cloudinit_test_a": {
+                    "A": {
+                        "name": "cloudinit-test.vm.pve1.dc1",
+                        "address": "192.168.10.10"
+                    }
+                }
+            }
+        }
+    }
+}

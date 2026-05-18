@@ -1,0 +1,21 @@
+
+{
+    "domains": {
+        "default": {
+            "records": {
+                "bm_a": {
+                    "A": {
+                        "name": "bm3.dc1",
+                        "address": "192.168.1.218"
+                    }
+                },
+                "cname": {
+                    "CNAME": {
+                        "name":  "vault.dc1",
+                        "target": "bm3.dc1.alwaldend.com."
+                    }
+                }
+            }
+        }
+    }
+}

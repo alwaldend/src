@@ -11,7 +11,7 @@ al_config(
 
 filegroup(
     name = "dnsconfig",
-    srcs = ["dnsconfig.js"],
+    srcs = ["dnsconfig.json"],
     visibility = ["//infra/dc1:__subpackages__"],
 )
 

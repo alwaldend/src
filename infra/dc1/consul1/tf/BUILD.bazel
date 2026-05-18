@@ -23,6 +23,7 @@ _RUN_ARGS = [
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
     "//projects/tf_modules/tf_backend",
+    "//infra/dc1/consul1:dnsconfig",
 ]
 
 terraform_binary_map(

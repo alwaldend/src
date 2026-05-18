@@ -1,0 +1,20 @@
+{
+    "domains": {
+        "default": {
+            "records": {
+                "host1_a": {
+                    "A": {
+                        "name": "host1.consul1.dc1",
+                        "address": "192.168.10.20"
+                    }
+                },
+                "cname": {
+                    "CNAME": {
+                        "name":  "consul1.dc1",
+                        "target": "host1.consul1.dc1.alwaldend.com."
+                    }
+                }
+            }
+        }
+    }
+}

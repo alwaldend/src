@@ -3,7 +3,7 @@ load("//tools/docs:defs.bzl", "docs_filegroup")
 filegroup(
     name = "dnsconfig",
     srcs = [
-        "dnsconfig.js",
+        "dnsconfig.json",
         "//infra/dc1/consul1:dnsconfig",
         "//infra/dc1/pve1:dnsconfig",
         "//infra/dc1/vault:dnsconfig",
