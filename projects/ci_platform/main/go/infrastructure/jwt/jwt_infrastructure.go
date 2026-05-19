@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/golang-jwt/jwt/v4"
-	"github.com/mitchellh/mapstructure"
 	"git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/entity"
 	"git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/pkg"
+	"github.com/golang-jwt/jwt/v4"
+	"github.com/mitchellh/mapstructure"
 
 	infraConfig "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/infrastructure/config"
 	useJWT "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase/jwt"

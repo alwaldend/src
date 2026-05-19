@@ -3,11 +3,11 @@ package infraPool
 import (
 	"fmt"
 
-	"github.com/gocraft/work"
-	"github.com/gomodule/redigo/redis"
 	infraConfig "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/infrastructure/config"
 	useJob "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase/job"
 	usePool "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase/pool"
+	"github.com/gocraft/work"
+	"github.com/gomodule/redigo/redis"
 )
 
 type pool struct {

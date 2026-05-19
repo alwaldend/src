@@ -3,8 +3,8 @@ package infraSchedule
 import (
 	"context"
 
-	"github.com/go-redis/redis/v8"
 	useSchedule "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase/schedule"
+	"github.com/go-redis/redis/v8"
 )
 
 type jobTypes map[string]useSchedule.Job

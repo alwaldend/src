@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
+	pkgError "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/pkg/error"
 	"github.com/gofiber/fiber/v2"
 	jwtware "github.com/gofiber/jwt/v3"
-	pkgError "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/pkg/error"
 )
 
 type JWT interface {

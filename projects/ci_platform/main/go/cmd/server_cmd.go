@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
 	infra "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/infrastructure"
+	"github.com/spf13/cobra"
 )
 
 var serverCmd = &cobra.Command{

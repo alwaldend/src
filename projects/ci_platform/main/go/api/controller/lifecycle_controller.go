@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"github.com/gofiber/fiber/v2"
 	"git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/api/presenter"
 	useLifecycle "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase/lifecycle"
+	"github.com/gofiber/fiber/v2"
 )
 
 type Lifecycle interface {

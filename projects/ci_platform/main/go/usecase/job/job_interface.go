@@ -1,8 +1,8 @@
 package useJob
 
 import (
-	"github.com/google/uuid"
 	"git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/entity"
+	"github.com/google/uuid"
 )
 
 type Interactor interface {

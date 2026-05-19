@@ -1,16 +1,16 @@
 package infraLifecycle
 
 import (
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/compress"
-	"github.com/gofiber/fiber/v2/middleware/etag"
-	"github.com/gofiber/fiber/v2/middleware/logger"
-	"github.com/gofiber/fiber/v2/middleware/recover"
 	"git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/api/controller"
 	"git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/api/middleware"
 	"git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/api/presenter"
 	_ "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/docs"
 	infraConfig "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/infrastructure/config"
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/compress"
+	"github.com/gofiber/fiber/v2/middleware/etag"
+	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/recover"
 )
 
 func newRouter(config *fiber.Config) *fiber.App {

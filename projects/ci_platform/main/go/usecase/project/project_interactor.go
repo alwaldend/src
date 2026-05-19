@@ -4,10 +4,10 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/google/uuid"
 	"git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/entity"
 	"git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/pkg"
 	usecaseBranch "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase/branch"
+	"github.com/google/uuid"
 )
 
 type interactor struct {

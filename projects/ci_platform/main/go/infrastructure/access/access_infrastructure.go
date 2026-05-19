@@ -3,9 +3,9 @@ package infra
 import (
 	"log"
 
+	useAccess "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase/access"
 	"github.com/casbin/casbin/v2"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
-	useAccess "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase/access"
 	"gorm.io/gorm"
 )
 

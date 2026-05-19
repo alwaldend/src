@@ -1,10 +1,10 @@
 package controller
 
 import (
-	"github.com/gofiber/fiber/v2"
 	"git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/api/presenter"
 	useJWT "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase/jwt"
 	useSession "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase/session"
+	"github.com/gofiber/fiber/v2"
 )
 
 var UnauthorizedRoutes = map[string]bool{

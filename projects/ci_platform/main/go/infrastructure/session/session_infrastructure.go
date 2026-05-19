@@ -4,10 +4,10 @@ package infraSession
 import (
 	"fmt"
 
+	useSession "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase/session"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/gofiber/storage/redis"
-	useSession "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase/session"
 )
 
 type repository struct {

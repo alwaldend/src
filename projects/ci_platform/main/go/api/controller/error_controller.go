@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gofiber/fiber/v2"
 	"git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/api/presenter"
 	pkgError "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/pkg/error"
+	"github.com/gofiber/fiber/v2"
 )
 
 // global fiber error handler

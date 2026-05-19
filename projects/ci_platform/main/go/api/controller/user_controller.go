@@ -1,11 +1,11 @@
 package controller
 
 import (
-	"github.com/gofiber/fiber/v2"
 	"git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/api/presenter"
 	"git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/entity"
 	useSession "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase/session"
 	useUser "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/usecase/user"
+	"github.com/gofiber/fiber/v2"
 )
 
 type User interface {

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/gofiber/fiber/v2"
 	pkgError "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go/pkg/error"
+	"github.com/gofiber/fiber/v2"
 )
 
 type Response[Template any] struct {
