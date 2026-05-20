@@ -8,6 +8,12 @@
                         "address": "192.168.1.216"
                     }
                 },
+                "bm_aaaa": {
+                    "AAAA": {
+                        "name": "bm2.dc1",
+                        "address": "fd2e:546d:5738:0:365a:60ff:fe08:6daa"
+                    }
+                },
                 "host1_cname": {
                     "CNAME": {
                         "name": "host1.pve1.dc1",

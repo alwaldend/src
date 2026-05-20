@@ -7,9 +7,14 @@ lib.vault({
     },
     tls = {
         ca_cert = "data/ssl/alwaldend.com/root_ca.crt",
-        client_cert = "${HOME}/.al/client_cert/host.crt",
-        client_key = "${HOME}/.al/client_cert/host.key",
+        -- client_cert = "${HOME}/.al/client_cert/host.crt",
+        -- client_key = "${HOME}/.al/client_cert/host.key",
     }
+})
+
+lib.env({
+    name = "VAULT_SKIP_VERIFY",
+    value = "1",
 })
 
 lib.auth({

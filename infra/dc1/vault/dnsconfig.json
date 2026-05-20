@@ -9,6 +9,12 @@
                         "address": "192.168.1.218"
                     }
                 },
+                "bm_aaaa": {
+                    "AAAA": {
+                        "name": "bm3.dc1",
+                        "address": "fd2e:546d:5738:0:e2be:3ff:fe2b:9a1a"
+                    }
+                },
                 "cname": {
                     "CNAME": {
                         "name":  "vault.dc1",

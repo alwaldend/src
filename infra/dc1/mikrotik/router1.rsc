@@ -166,7 +166,6 @@ set time-zone-name=Europe/Moscow
 /system identity
 set name=router1.dc1.alwaldend.com
 /system routerboard settings
-# Firmware upgraded successfully, please reboot for changes to take effect!
 set auto-upgrade=yes
 /tool mac-server
 set allowed-interface-list=LAN
