@@ -24,6 +24,7 @@ add name=accept-input-web-ui
 add name=accept-input-mikrotik-neighbor-discovery
 add name=accept-forward-LAN
 add name=accept-output-LAN
+add name=accept-input-NTP
 /ip pool
 add comment=bridge1 name=bridge1 ranges=192.168.1.10-192.168.1.254
 add comment=bridge2 name=bridge2 ranges=192.168.2.10-192.168.2.254
@@ -60,6 +61,7 @@ add interface=bridge1 list=accept-input-web-ui
 add interface=bridge1 list=accept-input-mikrotik-neighbor-discovery
 add interface=bridge1 list=accept-forward-LAN
 add interface=bridge1 list=accept-output-LAN
+add interface=bridge1 list=accept-input-NTP
 /interface ovpn-server server
 add mac-address=FE:B3:B4:C4:A4:48 name=ovpn-server1
 /ip address
@@ -77,8 +79,6 @@ add address=192.168.1.0/24 comment=defconf dns-server=192.168.1.1 gateway=192.16
 add address=192.168.2.0/24 dns-server=192.168.2.1 gateway=192.168.2.1
 /ip dns
 set allow-remote-requests=yes servers=1.1.1.2,1.0.0.2 use-doh-server=https://odoh.cloudflare-dns.com/dns-query verify-doh-cert=yes
-/ip dns static
-add address=192.168.88.1 comment=defconf name=router.lan type=A
 /ip firewall filter
 add action=accept chain=input comment="defconf: accept established,related,untracked" connection-state=established,related,untracked
 add action=drop chain=input comment="defconf: drop invalid" connection-state=invalid log-prefix=drop-invalid
@@ -96,6 +96,7 @@ add action=accept chain=forward comment="accept forward WAN" in-interface-list=a
 add action=accept chain=forward comment="accept forward LAN" in-interface-list=accept-forward-LAN out-interface-list=LAN
 add action=accept chain=input comment="accept input DNS (udp)" dst-port=53 in-interface-list=accept-input-DNS protocol=udp
 add action=accept chain=input comment="accept input DNS (tcp)" dst-port=53 in-interface-list=accept-input-DNS protocol=tcp
+add action=accept chain=input comment=accept-input-NTP dst-port=123 in-interface-list=accept-input-NTP protocol=udp
 add action=accept chain=input comment="accept input DHCP-server" dst-port=67 in-interface-list=accept-input-DHCP-server log-prefix=accept-DHCP protocol=udp
 add action=accept chain=input comment="accept input winbox (tcp)" dst-port=8291 in-interface-list=accept-input-winbox protocol=tcp
 add action=accept chain=input comment="accept input winbox (udp)" dst-port=20561 in-interface-list=accept-input-winbox protocol=udp
@@ -151,6 +152,7 @@ add action=accept chain=forward comment="accept forward WAN" in-interface-list=a
 add action=accept chain=forward comment="accept forward LAN" in-interface-list=accept-forward-LAN out-interface-list=LAN
 add action=accept chain=input comment="accept input DNS (udp)" dst-port=53 in-interface-list=accept-input-DNS protocol=udp
 add action=accept chain=input comment="accept input DNS (tcp)" dst-port=53 in-interface-list=accept-input-DNS protocol=tcp
+add action=accept chain=input comment=accept-input-NTP dst-port=123 in-interface-list=accept-input-NTP protocol=udp
 add action=accept chain=input comment="accept input winbox (tcp)" dst-port=8291 in-interface-list=accept-input-winbox protocol=tcp
 add action=accept chain=input comment="accept input winbox (udp)" dst-port=20561 in-interface-list=accept-input-winbox protocol=udp
 add action=accept chain=input comment="accept input web ui" dst-port=80,443 in-interface-list=accept-input-web-ui protocol=tcp
@@ -165,6 +167,8 @@ add advertise-dns=yes interface=bridge2
 set time-zone-name=Europe/Moscow
 /system identity
 set name=router1.dc1.alwaldend.com
+/system ntp server
+set enabled=yes
 /system routerboard settings
 set auto-upgrade=yes
 /tool mac-server

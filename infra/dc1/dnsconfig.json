@@ -14,6 +14,12 @@
                         "address": "fd2e:546d:5738::1"
                     }
                 },
+                "switch1_a": {
+                    "A": {
+                        "name": "switch1.dc1",
+                        "address": "192.168.1.254"
+                    }
+                },
                 "bm_a": {
                     "A": {
                         "name":  "bm1.dc1",
