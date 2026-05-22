@@ -108,11 +108,11 @@ for (var json_i in jsons) {
         for (var record_key in domain.records) {
             var record = domain.records[record_key]
             if ("A" in record) {
-                cur.push(A(record.A.name, record.A.address));
+                cur.push(A(record.A.name, record.A.address), TTL(600));
             } else if ("AAAA" in record) {
-                cur.push(AAAA(record.AAAA.name, record.AAAA.address));
+                cur.push(AAAA(record.AAAA.name, record.AAAA.address, TTL(600)));
             } else if ("CNAME" in record) {
-                cur.push(CNAME(record.CNAME.name, record.CNAME.target));
+                cur.push(CNAME(record.CNAME.name, record.CNAME.target, TTL(600)));
             }
         }
     }

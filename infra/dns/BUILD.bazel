@@ -50,7 +50,7 @@ al_binary_run_map(
         "//tools/dnscontrol",
     ] + _ZONES,
     run_args = [
-        "--env_labels",
+        "--env_label",
         "dns",
     ],
 )

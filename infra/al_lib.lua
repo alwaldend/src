@@ -2,35 +2,6 @@ local lib = require("al_lib")
 
 local M = {}
 
-function M.pve_auth(t)
-    local path, labels, name = t.path, t.labels, t.name or "pve_auth"
-    lib.secret({
-        name = name,
-        kv = {
-            mount = "secrets",
-            path = path
-        },
-        labels = labels,
-    })
-    lib.env({
-        name = "PM_API_TOKEN_ID",
-        labels = labels,
-        secrets = { name },
-        value = "{{ .Secret.token_id }}"
-    })
-    lib.env({
-        name = "PM_API_TOKEN_SECRET",
-        labels = labels,
-        secrets = { name },
-        value = "{{ .Secret.token_secret }}"
-    })
-    lib.env({
-        name = "PM_API_URL",
-        labels = labels,
-        value = "https://host1.pve1.dc1.alwaldend.com:8006/api2/json"
-    })
-end
-
 function M.tf_backend(t)
     local path, labels, name = t.path, t.labels, t.name or "tf_backend"
     lib.secret({

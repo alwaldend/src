@@ -8,12 +8,6 @@ lib.auth({
     },
 })
 
-infra.pve_auth({
-    name = "pve_auth",
-    path = "alwaldend.com/vault1/approles/src_infra_dc1_pve1/pve_token",
-    labels = { tf = "1" }
-})
-
 infra.tf_backend({
     path = "alwaldend.com/vault1/approles/src_infra_dc1_pve1/bucket",
     labels = { tf = "1" },

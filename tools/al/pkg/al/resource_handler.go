@@ -54,6 +54,7 @@ type PrepareCommandArgs struct {
 	Env         []string
 	EnvVault    []string
 	EnvLabels   []string
+	EnvBin      []string
 	EnvDisabled bool
 	Files       []string
 }
@@ -117,7 +118,27 @@ func (self *ResourceHandler) prepareEnv(ctx context.Context, cmd *exec.Cmd, args
 		}
 		cmd.Env = append(cmd.Env, env)
 	}
+	for _, envBin := range args.EnvBin {
+		env, err := self.getEnvBin(ctx, cmd, envBin)
+		if err != nil {
+			return fmt.Errorf("could not prepare env bin %s: %w", envBin, err)
+		}
+		cmd.Env = append(cmd.Env, env...)
+	}
 	return nil
+}
+
+func (self *ResourceHandler) getEnvBin(ctx context.Context, cmd *exec.Cmd, bin string) ([]string, error) {
+	binCmd := exec.Command(bin)
+	binCmd.Env = cmd.Env
+	binCmd.Stdin = cmd.Stdin
+	binCmd.Stderr = cmd.Stderr
+	output, err := binCmd.Output()
+	if err != nil {
+		return nil, fmt.Errorf("could not run cmd: %w", err)
+	}
+	res := strings.Split(string(output), "\n")
+	return res, nil
 }
 
 func (self *ResourceHandler) getSecret(ctx context.Context, name string) (map[string]any, error) {

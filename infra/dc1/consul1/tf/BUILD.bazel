@@ -16,7 +16,9 @@ _CONFIGS = ["//infra/dc1/consul1:al"]
 _RUN_ARGS = [
     "--env_vault",
     "default:default",
-    "--env_labels",
+    "--env_bin",
+    "$(rootpath //tools/vault/pve_login)",
+    "--env_label",
     "tf",
 ]
 
@@ -24,6 +26,7 @@ _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
     "//projects/tf_modules/tf_backend",
     "//infra/dc1/consul1:dnsconfig",
+    "//tools/vault/pve_login",
 ]
 
 terraform_binary_map(

@@ -28,7 +28,7 @@ terraform_binary_map(
     run_args = [
         "--env_vault",
         "default:default",
-        "--env_labels",
+        "--env_label",
         "tf",
     ],
 )

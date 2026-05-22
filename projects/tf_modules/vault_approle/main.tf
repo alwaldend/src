@@ -59,6 +59,11 @@ output "secret_mount" {
   value       = var.secrets
 }
 
+output "group_id" {
+  description = "Group id"
+  value       = vault_identity_group.group.id
+}
+
 resource "vault_policy" "yc_folder" {
   name   = "${var.name}_yc_folder"
   policy = <<EOT

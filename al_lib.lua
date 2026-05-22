@@ -1,5 +1,9 @@
 local M = {}
 
+function M.oidc(t)
+    config({ oidc = {t} })
+end
+
 function M.env(t)
     config({ env = {t}})
 end

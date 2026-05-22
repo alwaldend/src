@@ -104,9 +104,9 @@ al_binary_run(
     run_args = [
         "--env_vault",
         "default:default",
-        "--env_labels",
+        "--env_label",
         "rclone",
-        "--env_labels",
+        "--env_label",
         "tf",
     ],
 )
