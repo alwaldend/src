@@ -1,3 +1,11 @@
-vault:
+vm:
   hosts:
-    vault.dc1.alwaldend.com:
+    host2.vault.dc1.alwaldend.com:
+    host3.vault.dc1.alwaldend.com:
+bm:
+  hosts:
+    host1.vault.dc1.alwaldend.com:
+vault:
+  children:
+    vm:
+    bm:

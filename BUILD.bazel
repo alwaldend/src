@@ -32,7 +32,7 @@ al_config(
     srcs = ["al.lua"],
     data = [
         "al_lib.lua",
-        "//data/ssl/alwaldend.com:root_ca",
+        "//data/ssl/alwaldend.com:ica_servers",
     ],
     visibility = ["//:__subpackages__"],
 )

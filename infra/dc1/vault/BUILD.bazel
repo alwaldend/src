@@ -73,6 +73,9 @@ al_binary_run(
         "$(rootpath //tools/vault/unseal)",
         "--vault",
         "$(rootpath //tools/vault)",
+        "https://host1.vault.dc1.alwaldend.com:8200",
+        "https://host2.vault.dc1.alwaldend.com:8200",
+        "https://host3.vault.dc1.alwaldend.com:8200",
     ],
     configs = ["//infra/dc1/vault:al"],
     data = [

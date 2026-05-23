@@ -1,7 +1,7 @@
 local M = {}
 
-function M.oidc(t)
-    config({ oidc = {t} })
+function M.vault_op(t)
+    config({ vault_ops = {t} })
 end
 
 function M.env(t)

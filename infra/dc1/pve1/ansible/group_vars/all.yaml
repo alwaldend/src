@@ -2,7 +2,8 @@ ansible_user: ansible
 ssh_vault_role: src_infra_dc1_pve1_ssh
 
 install_ca:
-  - path: root_ca.crt
+  - path: files/pki_ca_root.crt
+  - path: files/pki_ca_servers.crt
 
 pve_snippets:
   - src: cloud_init.yaml
@@ -12,8 +13,7 @@ pve_snippets:
 ## devsec.hardening.os_hardening
 sysctl_overwrite:
   net.ipv4.ip_forward: 1
-  net.ipv4.conf.enp2s0.proxy_arp: 1
-  net.ipv6.conf.all.forwarding: 1
+  net.ipv4.conf.all.proxy_arp: 1
 
 ## firewall
 firewall_allow_forward:

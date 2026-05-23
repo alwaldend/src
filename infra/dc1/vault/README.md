@@ -15,7 +15,9 @@ tags:
 
 ```sh
 bazel run //infra/dc1/vault/tf_setup:tf.apply # Set up VMs (requires an active Vault host)
-bazel run //infra/dc1/vault/ansible:deploy # Set up hosts (BM and VMs)
+bazel run //infra/dc1/vault/ansible # Set up hosts (BM and VMs)
+bazel run //infra/dc1/vault/ansible:ansible.vm # Set up only VMs
+bazel run //infra/dc1/vault/ansible:ansible.bm # Set up only bare metal
 bazel run //infra/dc1/vault/tf:tf.apply # Configure vault
 ```
 
@@ -46,6 +48,12 @@ bazel run //infra/dc1/vault/tf:tf.apply
 Run terraform directly:
 ```sh
 bazel run //infra/dc1/vault/tf:tf.direct -- -chdir="${PWD}" plan
+```
+
+## Replace VMs
+
+```sh
+bazel run //infra/dc1/vault/tf:tf.apply -- -replace 'module.vm_ha["host2"].proxmox_vm_qemu.vm' -replace 'module.vm_ha["host3"].proxmox_vm_qemu.vm
 ```
 
 ## Generate and import a user cilent certificate

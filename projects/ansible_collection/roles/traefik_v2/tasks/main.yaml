@@ -1,0 +1,63 @@
+- tags:
+    - traefik
+  block:
+    - name: Create traefik user
+      ansible.builtin.user:
+        name: "{{ traefik_user }}"
+        uid: "{{ traefik_user_uid }}"
+        shell: /sbin/nologin
+        home: "{{ traefik_dir }}/home"
+        system: true
+    - name: Create traefik dirs
+      loop:
+        - "{{ traefik_dir }}"
+        - "{{ traefik_data_dir }}"
+        - "{{ traefik_config_dir }}"
+        - "{{ traefik_log_dir }}"
+      ansible.builtin.file:
+        state: directory
+        owner: "{{ traefik_user }}"
+        group: "{{ traefik_user }}"
+        mode: "0700"
+        path: "{{ item }}"
+    - name: Copy the traefik binary
+      register: traefik_bin_var
+      ansible.builtin.copy:
+        src: "{{ traefik_bin_local_path }}"
+        dest: "{{ traefik_bin_path }}"
+        owner: "root"
+        group: "{{ traefik_user }}"
+        mode: "0755"
+    - name: Copy the config
+      register: traefik_config_var
+      ansible.builtin.template:
+        src: "{{ traefik_config_local_path }}"
+        dest: "{{ traefik_config_path }}"
+        owner: "root"
+        group: "{{ traefik_user }}"
+        mode: "0650"
+    - name: Write the service
+      register: traefik_service_var
+      ansible.builtin.template:
+        src: systemd_service.conf
+        dest: "{{ traefik_service_path }}"
+        owner: root
+        group: root
+        mode: 644
+    - name: Ensure the daemon is reloaded
+      when: traefik_service_var.changed
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+    - name: Restart the service
+      when: >-
+        traefik_service_var.changed
+        or traefik_config_var.changed or traefik_bin_var.changed
+        or traefik_tls_client_ca_file_path_var.changed
+      ansible.builtin.systemd_service:
+        name: "{{ traefik_service_path | basename }}"
+        state: reloaded
+    - name: Start the service and enable
+      ansible.builtin.systemd_service:
+        name: "{{ traefik_service_path | basename }}"
+        enabled: true
+        state: started

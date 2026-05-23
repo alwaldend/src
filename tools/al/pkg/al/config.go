@@ -192,6 +192,16 @@ func EnvByLabel(config *al_proto.Config, name string, value string) ([]*al_proto
 
 }
 
+func VaultOpByName(config *al_proto.Config, name string) (*al_proto.VaultOp, error) {
+	for i := range config.VaultOps {
+		curOp := config.VaultOps[len(config.VaultOps)-1-i]
+		if curOp.Name == name {
+			return curOp, nil
+		}
+	}
+	return nil, fmt.Errorf("missing vault op with name %s", name)
+}
+
 func EnvByName(config *al_proto.Config, name string) (*al_proto.Env, error) {
 	for i := range config.Env {
 		curEnv := config.Env[len(config.Env)-1-i]

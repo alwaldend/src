@@ -3,10 +3,10 @@ local lib = require("al_lib")
 lib.vault({
     name = "default",
     config = {
-        address = "https://vault.dc1.alwaldend.com:8200"
+        address = "https://host1.vault.dc1.alwaldend.com:8200"
     },
     tls = {
-        ca_cert = "data/ssl/alwaldend.com/root_ca.crt",
+        ca_cert = "infra/dc1/vault/tf/output/pki_ca_servers.crt",
         -- client_cert = "${HOME}/.al/client_cert/host.crt",
         -- client_key = "${HOME}/.al/client_cert/host.key",
     }
@@ -15,6 +15,7 @@ lib.vault({
 lib.env({
     name = "VAULT_SKIP_VERIFY",
     value = "1",
+    labels = { insecure = "1" }
 })
 
 lib.auth({

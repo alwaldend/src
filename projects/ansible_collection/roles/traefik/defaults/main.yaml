@@ -15,7 +15,7 @@ traefik_static_config_path: "{{ traefik_configs_symlink }}/traefik.yaml"
 traefik_releases_dir: /opt/traefik/releases
 traefik_static_config:
 traefik_dynamic_configs: []
-traefik_release_version: v3.3.1 
+traefik_release_version: v3.3.1
 traefik_release_dir_name: "{{ traefik_release_version }}"
 traefik_release_dir: "{{ traefik_releases_dir }}/{{ traefik_release_dir_name }}"
 traefik_release_symlink: "{{ traefik_releases_dir }}/current"

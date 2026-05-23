@@ -7,6 +7,8 @@ cluster_addr = "https://127.0.0.1:8201"
 
 listener "tcp" {
   address = "[::]:8200"
+  cluster_address = "[::]:8201"
+  tls_min_version = "tls13"
   tls_cert_file = "/opt/vault/tls/tls_cert_file.pem"
   tls_key_file = "/opt/vault/tls/tls_key_file.pem"
   tls_client_ca_file = "/opt/vault/tls/tls_client_ca_file.pem"
@@ -20,5 +22,10 @@ user_lockout "all" {
 
 storage "raft" {
   path = "/opt/vault/raft"
-  node_id = "vault.dc1.alwaldend.com"
+  node_id = "{{ inventory_hostname }}"
+  {% for host in groups["vault"] %}
+  retry_join {
+    leader_api_addr = "https://{{ host }}:8200"
+  }
+  {% endfor %}
 }

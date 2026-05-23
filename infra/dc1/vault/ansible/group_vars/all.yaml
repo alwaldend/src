@@ -1,31 +1,21 @@
 ansible_user: ansible
 ssh_vault_role: src_infra_dc1_vault_ssh
-
-gpg_users:
-  - vault
-
-lvol_volumes:
-  - vg: fedora
-    lv: vault
-    opts: --mirrors 1
-    size: "{{ 100 * 1024 }}"
-filesystem_setup:
-  - dev: /dev/fedora/vault
-    resizefs: true
-    fstype: ext4
-mount_points:
-  - path: /opt/vault
-    src: /dev/fedora/vault
-    fstype: ext4
-    state: mounted
-
 vault_dir: "/opt/vault"
-
-## firewall
+vault_tls_issue_path: pki/ica_servers/issue/src_infra_dc1_vault_pki_server
+vault_tls_alt_names: vault.dc1.alwaldend.com
+install_ca:
+  - path: files/pki_ca_root.crt
+  - path: files/pki_ca_servers.crt
+sysctl_overwrite:
+  # Switch does not support ipv6
+  net.ipv6.conf.all.disable_ipv6: 1
 firewall_allow_port_from:
   - src: "any"
     port: 8200
     comment: Vault traffic
+  - src: "any"
+    port: 8201
+    comment: Cluster traffic
   - src: "any"
     port: 22
     comment: ssh

@@ -79,9 +79,36 @@
         {
             "name": "consul",
             "version": "1.22.7"
+        },
+        {
+            "name": "traefik",
+            "version": "3.7.1"
         }
     ],
     "archives": [
+        {
+            "archive_name": "linux_x86_64",
+            "toolchain_name": "traefik",
+            "toolchain_version": "3.7.1",
+            "binaries": [
+                {
+                    "name": "traefik",
+                    "path": "out/traefik"
+                }
+            ],
+            "rules": {
+                "exec_compatible_with": ["@platforms//os:linux", "@platforms//cpu:x86_64"]
+            },
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/traefik/traefik/releases/download/v3.7.1/traefik_v3.7.1_linux_amd64.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-6SvPsD+h5qcMTnrU608WBJZ+b6PCHY52BaylQHpAFiw="
+                    }
+                }
+            ]
+        },
         {
             "archive_name": "linux_x86_64",
             "toolchain_name": "consul",

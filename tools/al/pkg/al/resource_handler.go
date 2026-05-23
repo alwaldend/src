@@ -14,11 +14,12 @@ import (
 )
 
 type ResourceHandler struct {
-	ctx     context.Context
-	secrets map[string]map[string]any
-	files   map[string]*ResourceContextFile
-	vault   *Vault
-	config  *al_proto.Config
+	ctx      context.Context
+	secrets  map[string]map[string]any
+	vaultOps map[string]map[string]any
+	files    map[string]*ResourceContextFile
+	vault    *Vault
+	config   *al_proto.Config
 }
 
 type ResourceContextFile struct {
@@ -26,26 +27,29 @@ type ResourceContextFile struct {
 }
 
 type ResourceContext struct {
-	Files   map[string]*ResourceContextFile
-	File    *ResourceContextFile
-	Secrets map[string]map[string]any
-	Secret  map[string]any
+	Files    map[string]*ResourceContextFile
+	File     *ResourceContextFile
+	VaultOps map[string]map[string]any
+	VaultOp  map[string]any
+	Secrets  map[string]map[string]any
+	Secret   map[string]any
 }
 
 func NewResourceHandler(ctx context.Context, config *al_proto.Config, vault *Vault) *ResourceHandler {
 	return &ResourceHandler{
-		ctx:     ctx,
-		config:  config,
-		secrets: make(map[string]map[string]any),
-		files:   make(map[string]*ResourceContextFile),
-		vault:   vault,
+		ctx:      ctx,
+		config:   config,
+		secrets:  make(map[string]map[string]any),
+		vaultOps: make(map[string]map[string]any),
+		files:    make(map[string]*ResourceContextFile),
+		vault:    vault,
 	}
 }
 
 func (self *ResourceHandler) Clean() error {
 	var res error
 	for _, file := range self.files {
-		res = errors.Join(res, os.Remove(file.Path))
+		res = errors.Join(res, os.RemoveAll(file.Path))
 	}
 	return res
 }
@@ -141,6 +145,23 @@ func (self *ResourceHandler) getEnvBin(ctx context.Context, cmd *exec.Cmd, bin s
 	return res, nil
 }
 
+func (self *ResourceHandler) getVaultOp(ctx context.Context, name string) (map[string]any, error) {
+	res, ok := self.vaultOps[name]
+	if ok {
+		return res, nil
+	}
+	op, err := VaultOpByName(self.config, name)
+	if err != nil {
+		return nil, fmt.Errorf("could not find by name: %w", err)
+	}
+	res, err = self.vault.VaultOp(ctx, op)
+	if err != nil {
+		return nil, fmt.Errorf("could not execute vault op: %w", err)
+	}
+	self.secrets[name] = res
+	return res, nil
+}
+
 func (self *ResourceHandler) getSecret(ctx context.Context, name string) (map[string]any, error) {
 	res, ok := self.secrets[name]
 	if ok {
@@ -154,7 +175,7 @@ func (self *ResourceHandler) getSecret(ctx context.Context, name string) (map[st
 	return res, nil
 }
 
-func (self *ResourceHandler) getSecrets(ctx context.Context, templateCtx *ResourceContext, names []string) error {
+func (self *ResourceHandler) addSecrets(ctx context.Context, templateCtx *ResourceContext, names []string) error {
 	templateCtx.Secrets = map[string]map[string]any{}
 	for _, secretName := range names {
 		secret, err := self.getSecret(ctx, secretName)
@@ -167,7 +188,7 @@ func (self *ResourceHandler) getSecrets(ctx context.Context, templateCtx *Resour
 	return nil
 }
 
-func (self *ResourceHandler) getFiles(ctx context.Context, templateCtx *ResourceContext, names []string) error {
+func (self *ResourceHandler) addFiles(ctx context.Context, templateCtx *ResourceContext, names []string) error {
 	templateCtx.Files = map[string]*ResourceContextFile{}
 	for _, fileName := range names {
 		file, err := self.getFile(ctx, fileName)
@@ -180,12 +201,25 @@ func (self *ResourceHandler) getFiles(ctx context.Context, templateCtx *Resource
 	return nil
 }
 
+func (self *ResourceHandler) addVaultOps(ctx context.Context, templateCtx *ResourceContext, names []string) error {
+	templateCtx.VaultOps = make(map[string]map[string]any)
+	for _, opName := range names {
+		op, err := self.getVaultOp(ctx, opName)
+		if err != nil {
+			return fmt.Errorf("could not prepare vault op %s: %w", opName, err)
+		}
+		templateCtx.VaultOps[opName] = op
+		templateCtx.VaultOp = op
+	}
+	return nil
+}
+
 func (self *ResourceHandler) getEnv(ctx context.Context, name string) (string, error) {
 	env, err := EnvByName(self.config, name)
 	if err != nil {
 		return "", fmt.Errorf("could not find env %s: %w", name, err)
 	}
-	content, err := self.template(ctx, env.Value, env.Files, env.Secrets)
+	content, err := self.template(ctx, env.Value, env.Files, env.Secrets, env.VaultOps)
 	if err != nil {
 		return "", fmt.Errorf("could not template env %s: %w", name, err)
 	}
@@ -214,7 +248,7 @@ func (self *ResourceHandler) getFile(ctx context.Context, name string) (*Resourc
 	if value == "" {
 		return nil, fmt.Errorf("missing file contents")
 	}
-	content, err := self.template(ctx, value, fileConfig.Files, fileConfig.Secrets)
+	content, err := self.template(ctx, value, fileConfig.Files, fileConfig.Secrets, fileConfig.VaultOps)
 	if err != nil {
 		return nil, fmt.Errorf("could not template file %s: %w", name, err)
 	}
@@ -224,23 +258,27 @@ func (self *ResourceHandler) getFile(ctx context.Context, name string) (*Resourc
 	}
 	defer tmp.Close()
 	res = &ResourceContextFile{Path: tmp.Name()}
+	self.files[name] = res
 	_, err = tmp.WriteString(content)
 	if err != nil {
 		return nil, fmt.Errorf("could not write to the temp file: %w", err)
 	}
-	self.files[name] = res
 	return res, nil
 }
 
-func (self *ResourceHandler) template(ctx context.Context, value string, files []string, secrets []string) (string, error) {
+func (self *ResourceHandler) template(ctx context.Context, value string, files []string, secrets []string, vaultOps []string) (string, error) {
 	templateCtx := &ResourceContext{}
-	err := self.getSecrets(ctx, templateCtx, secrets)
+	err := self.addSecrets(ctx, templateCtx, secrets)
 	if err != nil {
 		return "", fmt.Errorf("could not prepare secrets: %w", err)
 	}
-	err = self.getFiles(ctx, templateCtx, files)
+	err = self.addFiles(ctx, templateCtx, files)
 	if err != nil {
 		return "", fmt.Errorf("could not prepare files: %w", err)
+	}
+	err = self.addVaultOps(ctx, templateCtx, vaultOps)
+	if err != nil {
+		return "", fmt.Errorf("could not prepare vault ops: %w", err)
 	}
 	tmpl, err := template.New("resource_handler.template").Option("missingkey=error").Parse(value)
 	if err != nil {

@@ -1,0 +1,7 @@
+- name: Setup BM
+  hosts: bm
+  force_handlers: true
+  become: true
+  roles:
+    - role: alwaldend.main.host
+    - role: alwaldend.main.vault

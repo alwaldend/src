@@ -2,6 +2,7 @@ vault_user: vault
 vault_user_uid: 3123
 vault_dir: "/opt/vault"
 vault_data_dir: "{{ vault_dir }}/data"
+vault_raft_dir: "{{ vault_dir }}/raft"
 vault_config_dir: "{{ vault_dir }}/configs"
 vault_config_path: "{{ vault_config_dir }}/vault.hcl"
 vault_config_local_path: "files/vault.hcl"
@@ -11,4 +12,8 @@ vault_service_path: "/lib/systemd/system/vault.service"
 vault_bin_local_path: "files/vault"
 vault_tls_client_ca_file_local_path: files/tls_client_ca_file.pem
 vault_tls_client_ca_file_path: "{{ vault_tls_dir }}/tls_client_ca_file.pem"
+vault_tls_cert_file_path: "{{ vault_tls_dir }}/tls_cert_file.pem"
+vault_tls_key_file_path: "{{ vault_tls_dir }}/tls_key_file.pem"
+vault_tls_issue_path:
+vault_tls_alt_names: ""
 vault_bin_path: /usr/bin/vault

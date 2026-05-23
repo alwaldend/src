@@ -16,10 +16,10 @@ _CONFIGS = ["//infra/dc1/vault:al"]
 _RUN_ARGS = [
     "--env_vault",
     "default:default",
-    "--env_bin",
-    "$(rootpath //tools/vault/pve_login)",
     "--env_label",
     "tf",
+    "--env_bin",
+    "$(rootpath //tools/vault/pve_login)",
 ]
 
 _DATA = glob(["*.tf"]) + [

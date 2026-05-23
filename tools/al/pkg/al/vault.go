@@ -43,7 +43,7 @@ func (self *Vault) FetchSecret(ctx context.Context, name string) (map[string]any
 	if err != nil {
 		return nil, fmt.Errorf("could not normalize secret %s: %w", name, err)
 	}
-	client, err := self.clientForSecret(ctx, secret)
+	client, err := self.client(ctx, secret.Vault, secret.Auth)
 	if err != nil {
 		return nil, fmt.Errorf("could not get a client for the secret %s: %w", secret.Name, err)
 	}
@@ -127,6 +127,12 @@ func (self *Vault) normalizeSecret(secret *al_proto.VaultSecret) (*al_proto.Vaul
 }
 
 func (self *Vault) client(ctx context.Context, vaultName string, authName string) (*api.Client, error) {
+	if vaultName == "" {
+		vaultName = VAULT_DEFAULT_NAME
+	}
+	if authName == "" {
+		authName = VAULT_DEFAULT_NAME
+	}
 	path := fmt.Sprintf("%s/%s", vaultName, authName)
 	client, ok := self.clients[path]
 	if ok {
@@ -147,12 +153,25 @@ func (self *Vault) client(ctx context.Context, vaultName string, authName string
 	self.clients[path] = client
 	return client, nil
 }
-func (self *Vault) clientForSecret(ctx context.Context, secret *al_proto.VaultSecret) (*api.Client, error) {
-	client, err := self.client(ctx, secret.Vault, secret.Auth)
+
+func (self *Vault) VaultOp(ctx context.Context, op *al_proto.VaultOp) (map[string]any, error) {
+	client, err := self.client(ctx, op.Vault, op.Auth)
 	if err != nil {
-		return nil, fmt.Errorf("could not create a client for secret %s: %w", secret.Name, err)
+		return nil, fmt.Errorf("could not create client for vault op: %w", err)
 	}
-	return client, nil
+	if op.Method == "" || op.Method == "write" {
+		data := map[string]any{}
+		for key, value := range op.Data {
+			data[key] = value
+		}
+		res, err := client.Logical().Write(op.Path, data)
+		if err != nil {
+			return nil, fmt.Errorf("write error: %w", err)
+		}
+		return res.Data, nil
+	} else {
+		return nil, fmt.Errorf("invalid method %s", op.Method)
+	}
 }
 
 func vaultAuthDefault(ctx context.Context, config *al_proto.Config) (*api.Client, error) {

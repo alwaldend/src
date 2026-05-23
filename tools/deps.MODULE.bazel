@@ -8,6 +8,7 @@ binary_toolchain_extension.toolchains(
     archives = {
         "vault": ["linux_x86_64"],
         "consul": ["linux_x86_64"],
+        "traefik": ["linux_x86_64"],
     },
     lock = "@rules_binary_toolchain//examples:binary_toolchain.json",
     toolchains_map = {
@@ -31,6 +32,7 @@ binary_toolchain_extension.toolchains(
         "terraform": "com_alwaldend_src_tools_terraform",
         "rclone": "com_alwaldend_src_tools_rclone",
         "consul": "com_alwaldend_src_tools_consul",
+        "traefik": "com_alwaldend_src_tools_traefik",
     },
 )
 
@@ -55,6 +57,7 @@ register_toolchains(
     "@com_alwaldend_src_tools_terraform//:all",
     "@com_alwaldend_src_tools_rclone//:all",
     "@com_alwaldend_src_tools_consul//:all",
+    "@com_alwaldend_src_tools_traefik//:all",
 )
 
 use_repo(
@@ -78,6 +81,8 @@ use_repo(
     "com_alwaldend_src_tools_stylua",
     "com_alwaldend_src_tools_taplo",
     "com_alwaldend_src_tools_terraform",
+    "com_alwaldend_src_tools_traefik",
+    "com_alwaldend_src_tools_traefik_linux_x86_64",
     "com_alwaldend_src_tools_trufflehog",
     "com_alwaldend_src_tools_vault",
     "com_alwaldend_src_tools_vault_linux_x86_64",

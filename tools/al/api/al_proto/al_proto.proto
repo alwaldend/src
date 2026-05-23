@@ -38,6 +38,7 @@ message File {
   string from_file = 6;
   repeated string secrets = 3;
   repeated string files = 4;
+  repeated string vault_ops = 7;
   map<string, string> labels = 5;
 }
 
@@ -46,6 +47,7 @@ message Env {
   string value = 2;
   repeated string secrets = 3;
   repeated string files = 4;
+  repeated string vault_ops = 6;
   map<string, string> labels = 5;
 }
 
@@ -80,6 +82,16 @@ message VaultAuth {
   bool no_auth = 4;
 }
 
+message VaultOp {
+  string name = 1;
+  string method = 2;
+  string vault = 5;
+  string auth = 6;
+  string path = 3;
+  map<string, string> data = 7;
+  map<string, string> labels = 4;
+}
+
 message Config {
   // List of Vault configs
   repeated Vault vaults = 1;
@@ -87,6 +99,8 @@ message Config {
   repeated VaultAuth auth = 2;
   // List of secret configs
   repeated VaultSecret secrets = 3;
+  // Vault operations
+  repeated VaultOp vault_ops = 6;
   // Files to create
   repeated File files = 4;
   // Env to set

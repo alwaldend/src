@@ -19,6 +19,7 @@
       loop:
         - "{{ vault_dir }}"
         - "{{ vault_data_dir }}"
+        - "{{ vault_raft_dir }}"
         - "{{ vault_config_dir }}"
         - "{{ vault_log_dir }}"
         - "{{ vault_tls_dir }}"
@@ -38,7 +39,7 @@
         mode: "0755"
     - name: Copy the config
       register: vault_config_var
-      ansible.builtin.copy:
+      ansible.builtin.template:
         src: "{{ vault_config_local_path }}"
         dest: "{{ vault_config_path }}"
         owner: "root"
@@ -52,6 +53,45 @@
         owner: "root"
         group: "{{ vault_user }}"
         mode: "0650"
+    - name: Write certs
+      ignore_errors: true
+      block:
+        - name: Generate a cert
+          connection: local
+          register: vault_cert
+          environment:
+            VAULT_ADDR: "{{ lookup('ansible.builtin.env', 'VAULT_ADDR') }}"
+            VAULT_CACERT: "{{ lookup('ansible.builtin.env', 'VAULT_CACERT') }}"
+            VAULT_CLIENT_KEY: "{{ lookup('ansible.builtin.env', 'VAULT_CLIENT_KEY') }}"
+            VAULT_CLIENT_CERT: "{{ lookup('ansible.builtin.env', 'VAULT_CLIENT_CERT') }}"
+            VAULT_TOKEN: "{{ lookup('ansible.builtin.env', 'VAULT_TOKEN') }}"
+            VAULT_SKIP_VERIFY: "{{ lookup('ansible.builtin.env', 'VAULT_SKIP_VERIFY') }}"
+          ansible.builtin.command:
+            argv:
+              - "{{ vault_bin_local_path }}"
+              - write
+              - -format=json
+              - "{{ vault_tls_issue_path }}"
+              - common_name={{ inventory_hostname }}
+              - alt_names={{ vault_tls_alt_names }}
+        - name: Write public key
+          ansible.builtin.copy:
+            content: |
+              {{ (vault_cert.stdout | from_json).data.certificate }}
+              {% for cert in (vault_cert.stdout | from_json).data.ca_chain %}
+              {{ cert }}
+              {% endfor %}
+            dest: "{{ vault_tls_cert_file_path }}"
+            owner: "root"
+            group: "{{ vault_user }}"
+            mode: "0650"
+        - name: Write private key
+          ansible.builtin.copy:
+            content: "{{ (vault_cert.stdout | from_json).data.private_key }}"
+            dest: "{{ vault_tls_key_file_path }}"
+            owner: "root"
+            group: "{{ vault_user }}"
+            mode: "0650"
     - name: Write the service
       register: vault_service_var
       ansible.builtin.template:
