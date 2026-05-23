@@ -13,12 +13,11 @@ docs_filegroup(
 
 _CONFIGS = ["//infra/yandex_cloud/org1:al"]
 
-_DATA = glob([
-    "*.tf",
-]) + [
+_DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
     "//projects/tf_modules/tf_backend",
     "//projects/tf_modules/yc_folder",
+    "//infra/dc1/vault/tf/output:approles",
 ]
 
 terraform_binary_map(

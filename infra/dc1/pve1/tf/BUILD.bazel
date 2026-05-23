@@ -26,6 +26,7 @@ _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
     "//projects/tf_modules/tf_backend",
     "//tools/vault/pve_login",
+    "//infra/dc1/vault/tf/output:approles",
 ]
 
 terraform_binary_map(

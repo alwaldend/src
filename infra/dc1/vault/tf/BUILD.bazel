@@ -22,8 +22,8 @@ _RUN_ARGS = [
 
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
-    "//data/ssl/alwaldend.com",
-    "//data/ssh:simeonwarren",
+    "//data/ssl/alwaldend.com:ica1",
+    "//data/ssl/alwaldend.com:simeonwarren",
     "//projects/tf_modules/backup_bucket",
     "//projects/tf_modules/tf_backend",
     "//projects/tf_modules/vault_approle",
@@ -31,6 +31,7 @@ _DATA = glob(["*.tf"]) + [
     "//projects/tf_modules/vault_pki_server",
     "//projects/tf_modules/vault_oidc_provider",
     "//projects/tf_modules/vault_ssh_server_role",
+    "//infra/dc1/vault/tf/output",
 ]
 
 terraform_binary_map(
@@ -38,36 +39,6 @@ terraform_binary_map(
     configs = _CONFIGS,
     data = _DATA,
     run_args = _RUN_ARGS,
-)
-
-terraform_binary(
-    name = "update_ica_clients",
-    args = [
-        "output",
-        "-raw",
-        "ica_clients_certificate",
-    ],
-    configs = _CONFIGS,
-    data = _DATA + ["//data/ssl/alwaldend.com:ica_clients"],
-    run_args = _RUN_ARGS + [
-        "--stdout",
-        "$(rootpath //data/ssl/alwaldend.com:ica_clients)",
-    ],
-)
-
-terraform_binary(
-    name = "update_ssh_ca_clients",
-    args = [
-        "output",
-        "-raw",
-        "ssh_ca_clients_certificate",
-    ],
-    configs = _CONFIGS,
-    data = _DATA + ["//data/ssh:ca_clients"],
-    run_args = _RUN_ARGS + [
-        "--stdout",
-        "$(rootpath //data/ssh:ca_clients)",
-    ],
 )
 
 terraform_binary(

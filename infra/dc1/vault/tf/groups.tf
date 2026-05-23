@@ -25,23 +25,3 @@ resource "vault_identity_group" "sre" {
     vault_identity_entity.simeonwarren.id,
   ]
 }
-
-resource "vault_identity_group" "src_infra_dc1_pve1_users" {
-  name = "src_infra_dc1_pve1_users"
-  type = "internal"
-  member_group_ids = [
-    vault_identity_group.dev.id,
-    module.src_infra_dc1_pve1_approle.group_id,
-  ]
-}
-
-resource "vault_identity_group" "src_infra_dc1_pve1_admins" {
-  name = "src_infra_dc1_pve1_admins"
-  type = "internal"
-  member_entity_ids = [
-    vault_identity_entity.simeonwarren.id,
-  ]
-  member_group_ids = [
-    module.src_infra_dc1_pve1_approle.group_id,
-  ]
-}

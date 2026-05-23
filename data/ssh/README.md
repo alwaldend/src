@@ -12,27 +12,20 @@ description: Ssh keys
 
 CA for SSH clients
 
-Update:
-```sh
-bazel run //infra/dc1/vault/tf:update_ssh_ca_clients
-```
+Source: [../../infra/dc1/vault/tf/output](../../infra/dc1/vault/tf/output/README.md)
 
-{{< readfile file="ca_clients.pub" code="true" >}}
+Update: automatically
 
 ## ca_servers
 
 CA for SSH servers
 
-Update:
-```sh
-bazel run //infra/dc1/vault/tf:update_ssh_ca_servers
-```
+Source: [../../infra/dc1/vault/tf/output](../../infra/dc1/vault/tf/output/README.md)
 
-{{< readfile file="ca_clients.pub" code="true" >}}
+Update: automatically
 
 ## simeonwarren
 
+Source [./simeonwarren@alwaldend.com-2026-03-22-openpgp.pub](./simeonwarren@alwaldend.com-2026-03-22-openpgp.pub)
+
 Update: manual export from the yubikey
-
-{{< readfile file="simeonwarren@alwaldend.com-2026-03-22-openpgp.pub" code="true" >}}
-

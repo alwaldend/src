@@ -19,15 +19,15 @@ filegroup(
     ],
 )
 
-filegroup(
+alias(
     name = "ca_clients",
-    srcs = ["ca_clients.pub"],
+    actual = "//infra/dc1/vault/tf/output:ca_clients",
     visibility = ["//:__subpackages__"],
 )
 
-filegroup(
+alias(
     name = "ca_servers",
-    srcs = ["ca_servers.pub"],
+    actual = "//infra/dc1/vault/tf/output:ca_servers",
     visibility = ["//:__subpackages__"],
 )
 

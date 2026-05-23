@@ -12,21 +12,24 @@ tags:
 
 ## Root CA
 
-Update: manually
+Source: [./root_ca.crt](./root_ca.crt)
 
-{{< readfile file="root_ca.crt" code="true" >}}
+Update: manually
 
 ## Intermediate CA1
 
-Update: manually
+Source: [./ica1.crt](./ica1.crt)
 
-{{< readfile file="ica1.crt" code="true" >}}
+Update: manually
 
 ## Client certificate CA
 
-Update:
-```sh
-bazel run //infra/dc1/vault/tf:tf.update_ica_clients
-```
+Source: [../../../infra/dc1/vault/tf/output](../../../infra/dc1/vault/tf/output/README.md)
 
-{{< readfile file="ica_clients.crt" code="true" >}}
+Update: automatically
+
+## Server certificate CA
+
+Source: [../../../infra/dc1/vault/tf/output](../../../infra/dc1/vault/tf/output/README.md)
+
+Update: automatically

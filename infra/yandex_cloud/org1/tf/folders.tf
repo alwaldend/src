@@ -1,27 +1,7 @@
-module "src_infra_yandex_cloud_org1_folder" {
+module "approle_folders" {
+  for_each    = local.approles
   source      = "../../../../projects/tf_modules/yc_folder"
-  name        = "src-infra-yandex-cloud-org1"
-  secret_name = "yandex.cloud/org1/folders/src-infra-yandex-cloud-org1"
-  cloud_id    = var.cloud_id
-}
-
-module "src_infra_dc1_vault_folder" {
-  source      = "../../../../projects/tf_modules/yc_folder"
-  name        = "src-infra-dc1-vault"
-  secret_name = "yandex.cloud/org1/folders/src-infra-dc1-vault"
-  cloud_id    = var.cloud_id
-}
-
-module "src_infra_dc1_pve1_folder" {
-  source      = "../../../../projects/tf_modules/yc_folder"
-  name        = "src-infra-dc1-pve1"
-  secret_name = "yandex.cloud/org1/folders/src-infra-dc1-pve1"
-  cloud_id    = var.cloud_id
-}
-
-module "src_infra_dc1_consul1_folder" {
-  source      = "../../../../projects/tf_modules/yc_folder"
-  name        = "src-infra-dc1-consul1"
-  secret_name = "yandex.cloud/org1/folders/src-infra-dc1-consul1"
+  name        = replace(each.value.name, "_", "-")
+  secret_name = format("yandex.cloud/org1/folders/%s", replace(each.value.name, "_", "-"))
   cloud_id    = var.cloud_id
 }

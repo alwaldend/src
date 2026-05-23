@@ -49,6 +49,11 @@ locals {
   yc_folder   = "yandex.cloud/org1/folders/${replace(var.name, "_", "-")}"
 }
 
+output "name" {
+  description = "Name"
+  value       = var.name
+}
+
 output "secret_path" {
   description = "Secret path for this approle"
   value       = local.secret_path
