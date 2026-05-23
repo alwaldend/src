@@ -20,7 +20,7 @@ bazel run //infra/dc1/pve1/tf/tf.apply # tf setup
 ## Recreate the test VM
 
 ```sh
-bazel run //infra/dc1/pve1/tf:tf.apply -- --replace proxmox_vm_qemu.cloudinti_test
+bazel run //infra/dc1/pve1/tf:tf.apply -- --replace module.vm_cloudinit_test.proxmox_vm_qemu.vm
 ```
 
 ## Cloud-init snippet update

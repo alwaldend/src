@@ -10,6 +10,9 @@ resource "vault_identity_group" "dev" {
   member_entity_ids = [
     vault_identity_entity.simeonwarren.id,
   ]
+  metadata = {
+    comment = "Generic developer group"
+  }
 }
 
 resource "vault_identity_group" "sre" {
@@ -24,4 +27,17 @@ resource "vault_identity_group" "sre" {
   member_entity_ids = [
     vault_identity_entity.simeonwarren.id,
   ]
+  metadata = {
+    comment = "Generic admin group"
+  }
+}
+
+resource "vault_identity_group" "approles" {
+  name             = "approles"
+  type             = "internal"
+  policies         = []
+  member_group_ids = [for _, approle in local.approles : approle.group_id]
+  metadata = {
+    comment = "All approles"
+  }
 }

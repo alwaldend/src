@@ -27,13 +27,33 @@ module "src_infra_dc1_pve1_pki_server" {
   allowed_domains = ["pve1.dc1.alwaldend.com"]
 }
 
+module "src_infra_dc1_pve1_provider" {
+  source      = "../../../../projects/tf_modules/vault_oidc_provider"
+  name        = "src_infra_dc1_pve1_provider"
+  issuer_host = var.vault_host
+  scopes_supported = [
+    vault_identity_oidc_scope.user.name,
+    vault_identity_oidc_scope.groups.name,
+  ]
+  group_ids = [
+    vault_identity_group.src_infra_dc1_pve1_users.id,
+  ]
+  redirect_urls = [
+    var.pve1_url,
+  ]
+}
+
 resource "vault_identity_group" "src_infra_dc1_pve1_users" {
   name = "src_infra_dc1_pve1_users"
   type = "internal"
   member_group_ids = [
     vault_identity_group.dev.id,
-    module.src_infra_dc1_pve1_approle.group_id,
+    vault_identity_group.approles.id,
+    vault_identity_group.src_infra_dc1_pve1_admins.id,
   ]
+  metadata = {
+    comment = "Users, allowed to login with OIDC to PVE and clone templates"
+  }
 }
 
 resource "vault_identity_group" "src_infra_dc1_pve1_admins" {
@@ -45,4 +65,7 @@ resource "vault_identity_group" "src_infra_dc1_pve1_admins" {
   member_group_ids = [
     module.src_infra_dc1_pve1_approle.group_id,
   ]
+  metadata = {
+    comment = "Has global PVE Administrator role"
+  }
 }

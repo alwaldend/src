@@ -25,8 +25,10 @@ _RUN_ARGS = [
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
     "//projects/tf_modules/tf_backend",
-    "//tools/vault/pve_login",
+    "//projects/tf_modules/pve_vm_qemu",
     "//infra/dc1/vault/tf/output:approles",
+    "//infra/dc1/pve1:dnsconfig",
+    "//tools/vault/pve_login",
 ]
 
 terraform_binary_map(

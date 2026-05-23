@@ -15,10 +15,40 @@
                         "address": "fd2e:546d:5738:0:e2be:3ff:fe2b:9a1a"
                     }
                 },
-                "cname": {
+                "host1": {
                     "CNAME": {
-                        "name":  "vault.dc1",
+                        "name":  "host1.vault.dc1",
                         "target": "bm3.dc1.alwaldend.com."
+                    }
+                },
+                "ha1": {
+                    "A": {
+                        "name":  "vault.dc1",
+                        "address": "192.168.1.218"
+                    }
+                },
+                "host2": {
+                    "A": {
+                        "name": "host2.vault.dc1",
+                        "address": "192.168.10.30"
+                    }
+                },
+                "ha2": {
+                    "A": {
+                        "name":  "vault.dc1",
+                        "address": "192.168.10.30"
+                    }
+                },
+                "host3": {
+                    "A": {
+                        "name": "host3.vault.dc1",
+                        "address": "192.168.10.31"
+                    }
+                },
+                "ha3": {
+                    "A": {
+                        "name":  "vault.dc1",
+                        "address": "192.168.10.31"
                     }
                 }
             }

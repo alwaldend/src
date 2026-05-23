@@ -14,13 +14,13 @@
                         "address": "fd2e:546d:5738:0:365a:60ff:fe08:6daa"
                     }
                 },
-                "host1_cname": {
+                "host1": {
                     "CNAME": {
                         "name": "host1.pve1.dc1",
                         "target": "bm2.dc1.alwaldend.com."
                     }
                 },
-                "cloudinit_test_a": {
+                "cloudinit_test": {
                     "A": {
                         "name": "cloudinit-test.vm.pve1.dc1",
                         "address": "192.168.10.10"

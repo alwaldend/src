@@ -52,3 +52,21 @@ resource "vault_pki_secret_backend_role" "role" {
   client_flag        = false
   no_store           = false
 }
+
+resource "vault_pki_secret_backend_role" "rsa_2048" {
+  backend            = var.backend
+  name               = "${var.name}_rsa_2048"
+  ttl                = var.ttl
+  max_ttl            = var.max_ttl
+  allow_ip_sans      = false
+  key_type           = "rsa"
+  key_bits           = 2048
+  allow_any_name     = false
+  allow_localhost    = false
+  allowed_domains    = var.allowed_domains
+  allow_bare_domains = true
+  allow_subdomains   = true
+  server_flag        = true
+  client_flag        = false
+  no_store           = false
+}

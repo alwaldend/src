@@ -14,8 +14,9 @@ tags:
 ## Deployment
 
 ```sh
-bazel run //infra/dc1/vault/ansible:deploy # host setup
-bazel run //infra/dc1/vault/tf:deploy # vault config
+bazel run //infra/dc1/vault/tf_setup:tf.apply # Set up VMs (requires an active Vault host)
+bazel run //infra/dc1/vault/ansible:deploy # Set up hosts (BM and VMs)
+bazel run //infra/dc1/vault/tf:tf.apply # Configure vault
 ```
 
 ## Backup

@@ -24,17 +24,9 @@ _RUN_ARGS = [
 
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
-    "//data/ssl/alwaldend.com:ica1",
-    "//data/ssl/alwaldend.com:simeonwarren",
     "//tools/vault/pve_login",
-    "//projects/tf_modules/backup_bucket",
-    "//projects/tf_modules/tf_backend",
-    "//projects/tf_modules/vault_approle",
-    "//projects/tf_modules/vault_pki_ica",
-    "//projects/tf_modules/vault_pki_server",
-    "//projects/tf_modules/vault_oidc_provider",
-    "//projects/tf_modules/vault_ssh_server_role",
-    "//infra/dc1/vault/tf/output",
+    "//projects/tf_modules/pve_vm_qemu",
+    "//infra/dc1/vault:dnsconfig",
 ]
 
 terraform_binary_map(
