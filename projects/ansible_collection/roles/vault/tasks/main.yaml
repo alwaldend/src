@@ -74,6 +74,7 @@
               - "{{ vault_tls_issue_path }}"
               - common_name={{ inventory_hostname }}
               - alt_names={{ vault_tls_alt_names }}
+              - ttl=2629746 # month
         - name: Write public key
           ansible.builtin.copy:
             content: |

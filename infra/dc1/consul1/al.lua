@@ -8,6 +8,21 @@ lib.auth({
     },
 })
 
+lib.secret({
+    name = "gossip_key",
+    kv = {
+        path = "alwaldend.com/vault1/approles/src_infra_dc1_consul1/gossip",
+        mount = "secrets",
+    },
+})
+
+lib.env({
+    name = "AL_CONSUL_GOSSIP_KEY",
+    secrets = { "gossip_key" },
+    value = "{{ .Secret.key }}",
+    labels = { ansible = "1" }
+})
+
 infra.tf_backend({
     path = "alwaldend.com/vault1/approles/src_infra_dc1_consul1/bucket",
     labels = { tf = "1" },

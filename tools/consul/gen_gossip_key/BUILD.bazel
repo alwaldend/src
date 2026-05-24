@@ -1,0 +1,29 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/vault:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+go_library(
+    name = "gen_gossip_key_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/vault/gen_gossip_key",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//tools/al/pkg/al",
+        "@com_github_google_uuid//:uuid",
+    ],
+)
+
+go_binary(
+    name = "gen_gossip_key",
+    embed = [":gen_gossip_key_lib"],
+    visibility = ["//:__subpackages__"],
+)

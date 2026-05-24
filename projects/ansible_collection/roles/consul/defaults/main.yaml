@@ -9,6 +9,8 @@ consul_log_dir: "{{ consul_dir }}/logs"
 consul_tls_dir: "{{ consul_dir }}/tls"
 consul_service_path: "/lib/systemd/system/consul.service"
 consul_bin_local_path: "files/consul"
-consul_tls_client_ca_file_local_path: files/tls_client_ca_file.pem
-consul_tls_client_ca_file_path: "{{ consul_tls_dir }}/tls_client_ca_file.pem"
+consul_tls_ca_file_local_path: files/tls_client_ca_file.pem
+consul_tls_ca_file_path: "{{ consul_tls_dir }}/tls_ca_file.crt"
+consul_tls_cert_file_path: "{{ consul_tls_dir }}/cert_file.crt"
+consul_tls_key_file_path: "{{ consul_tls_dir }}/key_file.crt"
 consul_bin_path: /usr/bin/consul

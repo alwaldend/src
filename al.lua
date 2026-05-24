@@ -3,7 +3,7 @@ local lib = require("al_lib")
 lib.vault({
     name = "default",
     config = {
-        address = "https://host1.vault.dc1.alwaldend.com:8200"
+        address = "https://vault.dc1.alwaldend.com:8200"
     },
     tls = {
         ca_cert = "infra/dc1/vault/tf/output/pki_ca_servers.crt",

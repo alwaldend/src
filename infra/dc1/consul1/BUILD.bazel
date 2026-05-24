@@ -1,3 +1,4 @@
+load("//tools/al/rules/al:al_binary.bzl", "al_binary_run")
 load("//tools/al/rules/al:al_config.bzl", "al_config")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary_map")
@@ -18,6 +19,31 @@ filegroup(
 vault_binary_map(
     name = "vault",
     configs = [":al"],
+)
+
+al_binary_run(
+    name = "gen_gossip_key",
+    args = [
+        "$(rootpath //tools/consul/gen_gossip_key)",
+        "--vault",
+        "$(rootpath //tools/vault)",
+        "--consul",
+        "$(rootpath //tools/consul)",
+        "--secret",
+        "alwaldend.com/vault1/approles/src_infra_dc1_consul1/gossip",
+        "--secret_mount",
+        "secrets",
+    ],
+    configs = [":al"],
+    data = [
+        "//tools/consul",
+        "//tools/consul/gen_gossip_key",
+        "//tools/vault",
+    ],
+    run_args = [
+        "--env_vault",
+        "default:default",
+    ],
 )
 
 docs_filegroup(

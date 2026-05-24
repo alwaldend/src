@@ -2,16 +2,40 @@
     "domains": {
         "default": {
             "records": {
-                "host1_a": {
+                "host1": {
                     "A": {
                         "name": "host1.consul1.dc1",
                         "address": "192.168.10.20"
                     }
                 },
-                "cname": {
-                    "CNAME": {
+                "ha1": {
+                    "A": {
                         "name":  "consul1.dc1",
-                        "target": "host1.consul1.dc1.alwaldend.com."
+                        "address": "192.168.10.20"
+                    }
+                },
+                "host2": {
+                    "A": {
+                        "name": "host2.consul1.dc1",
+                        "address": "192.168.10.21"
+                    }
+                },
+                "ha2": {
+                    "A": {
+                        "name":  "consul1.dc1",
+                        "address": "192.168.10.21"
+                    }
+                },
+                "host3": {
+                    "A": {
+                        "name": "host3.consul1.dc1",
+                        "address": "192.168.10.22"
+                    }
+                },
+                "ha3": {
+                    "A": {
+                        "name":  "consul1.dc1",
+                        "address": "192.168.10.22"
                     }
                 }
             }

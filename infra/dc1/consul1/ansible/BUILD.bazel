@@ -24,9 +24,7 @@ al_binary_run_map(
         ],
     },
     configs = ["//infra/dc1/consul1:al"],
-    data = [
-        ":ansible_bin",
-    ],
+    data = [":ansible_bin"],
     run_args = [
         "--env_vault",
         "default:default",
@@ -54,6 +52,7 @@ pkg_files(
     name = "srcs_files",
     srcs = [
         "inventory.yaml",
+        "//data/ssl/alwaldend.com:ica_servers",
         "//data/ssl/alwaldend.com:root_ca",
         "@com_alwaldend_src_tools_consul_linux_x86_64//:consul_filegroup",
         "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
@@ -65,6 +64,8 @@ pkg_files(
     renames = {
         "@com_alwaldend_src_tools_consul_linux_x86_64//:consul_filegroup": "files/consul",
         "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "files/vault",
+        "//data/ssl/alwaldend.com:root_ca": "files/pki_ca_root.crt",
+        "//data/ssl/alwaldend.com:ica_servers": "files/pki_ca_servers.crt",
     },
     strip_prefix = strip_prefix.from_pkg(),
 )
