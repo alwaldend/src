@@ -1,0 +1,62 @@
+{
+    "toolchains": [
+        {
+            "name": "minisign",
+            "version": "0.12"
+        }
+    ],
+    "archives": [
+        {
+            "toolchain_name": "minisign",
+            "toolchain_version": "0.12",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "minisign",
+                    "path": "out/minisign-linux/x86_64/minisign"
+                }
+            ],
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/jedisct1/minisign/releases/download/0.12/minisign-0.12-linux.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-mlmbSLput7HoDxLza5TOynwAt6UXPJXD78iNmCKVfnM="
+                    }
+                }
+            ],
+            "toolchain": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        },
+        {
+            "toolchain_name": "minisign",
+            "toolchain_version": "0.12",
+            "archive_name": "linux_aarch64",
+            "binaries": [
+                {
+                    "name": "minisign",
+                    "path": "out/minisign-linux/aarch64/minisign"
+                }
+            ],
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/jedisct1/minisign/releases/download/0.12/minisign-0.12-linux.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-mlmbSLput7HoDxLza5TOynwAt6UXPJXD78iNmCKVfnM="
+                    }
+                }
+            ],
+            "toolchain": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:aarch64"
+                ]
+            }
+        }
+    ]
+}

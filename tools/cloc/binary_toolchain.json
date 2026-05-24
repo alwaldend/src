@@ -1,0 +1,33 @@
+{
+    "toolchains": [
+        {
+            "name": "cloc",
+            "version": "2.08"
+        }
+    ],
+    "archives": [
+        {
+            "toolchain_name": "cloc",
+            "toolchain_version": "2.08",
+            "archive_name": "linux",
+            "binaries": [
+                {
+                    "name": "cloc",
+                    "path": "out/cloc-2.08/cloc"
+                }
+            ],
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/AlDanial/cloc/releases/download/v2.08/cloc-2.08.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-zjyG0e20SHKCeAee/22ZaHR3s8H+hLLxpNwUz7L4Edw="
+                    }
+                }
+            ],
+            "toolchain": {
+                "exec_compatible_with": ["@platforms//os:linux"]
+            }
+        }
+    ]
+}

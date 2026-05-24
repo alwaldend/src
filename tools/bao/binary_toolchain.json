@@ -1,31 +1,31 @@
 {
     "toolchains": [
         {
-            "name": "trufflehog",
-            "version": "3.94.2"
+            "name": "openbao",
+            "version": "2.5.1"
         }
     ],
     "archives": [
         {
-            "toolchain_name": "trufflehog",
-            "toolchain_version": "3.94.2",
             "archive_name": "linux_x86_64",
+            "toolchain_name": "openbao",
+            "toolchain_version": "2.5.1",
             "binaries": [
                 {
-                    "name": "trufflehog",
-                    "path": "out/trufflehog"
+                    "name": "bao",
+                    "path": "out/bao"
                 }
             ],
             "actions": [
                 {
                     "download_and_extract": {
-                        "url": "https://github.com/trufflesecurity/trufflehog/releases/download/v3.94.2/trufflehog_3.94.2_linux_amd64.tar.gz",
+                        "url": "https://github.com/openbao/openbao/releases/download/v2.5.1/bao-hsm_2.5.1_Linux_x86_64.tar.gz",
                         "output": "out",
-                        "integrity": "sha256-b/aFT39mPCCMI6PZvjfSMz0VhXwoy+fwCKf8kQqIdo0="
+                        "integrity": "sha256-4GiNJxKm+LgogatzQgsJiZHoGqb4wg8/ueVoIrYc6Vg="
                     }
                 }
             ],
-            "toolchain": {
+            "rules": {
                 "exec_compatible_with": [
                     "@platforms//os:linux",
                     "@platforms//cpu:x86_64"

@@ -1,27 +1,27 @@
 {
     "toolchains": [
         {
-            "name": "trufflehog",
-            "version": "3.94.2"
+            "name": "blender",
+            "version": "5.0.1"
         }
     ],
     "archives": [
         {
-            "toolchain_name": "trufflehog",
-            "toolchain_version": "3.94.2",
+            "toolchain_name": "blender",
+            "toolchain_version": "5.0.1",
             "archive_name": "linux_x86_64",
             "binaries": [
                 {
-                    "name": "trufflehog",
-                    "path": "out/trufflehog"
+                    "name": "blender",
+                    "path": "out/blender-5.0.1-linux-x64/blender"
                 }
             ],
             "actions": [
                 {
                     "download_and_extract": {
-                        "url": "https://github.com/trufflesecurity/trufflehog/releases/download/v3.94.2/trufflehog_3.94.2_linux_amd64.tar.gz",
+                        "url": "https://ftp.halifax.rwth-aachen.de/blender/release/Blender5.0/blender-5.0.1-linux-x64.tar.xz",
                         "output": "out",
-                        "integrity": "sha256-b/aFT39mPCCMI6PZvjfSMz0VhXwoy+fwCKf8kQqIdo0="
+                        "integrity": "sha256-gBlYDuG3Ji5QX0GWoAI3zPdDyI0gWzjTQgFRBnbmCwk="
                     }
                 }
             ],

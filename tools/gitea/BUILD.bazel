@@ -1,0 +1,17 @@
+load("@com_alwaldend_src_tools_gitea//:defs.bzl", "gitea_binary")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+gitea_binary(
+    name = "gitea",
+    visibility = ["//:__subpackages__"],
+)

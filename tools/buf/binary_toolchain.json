@@ -1,27 +1,27 @@
 {
     "toolchains": [
         {
-            "name": "trufflehog",
-            "version": "3.94.2"
+            "name": "buf",
+            "version": "1.67.0"
         }
     ],
     "archives": [
         {
-            "toolchain_name": "trufflehog",
-            "toolchain_version": "3.94.2",
+            "toolchain_name": "buf",
+            "toolchain_version": "1.67.0",
             "archive_name": "linux_x86_64",
             "binaries": [
                 {
-                    "name": "trufflehog",
-                    "path": "out/trufflehog"
+                    "name": "buf",
+                    "path": "out/buf/bin/buf"
                 }
             ],
             "actions": [
                 {
                     "download_and_extract": {
-                        "url": "https://github.com/trufflesecurity/trufflehog/releases/download/v3.94.2/trufflehog_3.94.2_linux_amd64.tar.gz",
+                        "url": "https://github.com/bufbuild/buf/releases/download/v1.67.0/buf-Linux-x86_64.tar.gz",
                         "output": "out",
-                        "integrity": "sha256-b/aFT39mPCCMI6PZvjfSMz0VhXwoy+fwCKf8kQqIdo0="
+                        "integrity": "sha256-uGgsLqbzd88UQeT7xU7R7My7ny2IdWDEMgz3gH8BVRk="
                     }
                 }
             ],

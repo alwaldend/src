@@ -1,27 +1,27 @@
 {
     "toolchains": [
         {
-            "name": "trufflehog",
-            "version": "3.94.2"
+            "name": "dnscontrol",
+            "version": "4.36.1"
         }
     ],
     "archives": [
         {
-            "toolchain_name": "trufflehog",
-            "toolchain_version": "3.94.2",
+            "toolchain_name": "dnscontrol",
+            "toolchain_version": "4.36.1",
             "archive_name": "linux_x86_64",
             "binaries": [
                 {
-                    "name": "trufflehog",
-                    "path": "out/trufflehog"
+                    "name": "dnscontrol",
+                    "path": "out/dnscontrol"
                 }
             ],
             "actions": [
                 {
                     "download_and_extract": {
-                        "url": "https://github.com/trufflesecurity/trufflehog/releases/download/v3.94.2/trufflehog_3.94.2_linux_amd64.tar.gz",
+                        "url": "https://github.com/StackExchange/dnscontrol/releases/download/v4.36.1/dnscontrol_4.36.1_linux_amd64.tar.gz",
                         "output": "out",
-                        "integrity": "sha256-b/aFT39mPCCMI6PZvjfSMz0VhXwoy+fwCKf8kQqIdo0="
+                        "integrity": "sha256-gqdZznAnROBYgnb4AqAAuHigwpbucNozO9Q5K+10BSM="
                     }
                 }
             ],

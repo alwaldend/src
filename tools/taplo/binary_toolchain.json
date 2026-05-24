@@ -1,0 +1,46 @@
+{
+    "toolchains": [
+        {
+            "name": "taplo",
+            "version": "0.10.0"
+        }
+    ],
+    "archives": [
+        {
+            "toolchain_name": "taplo",
+            "toolchain_version": "0.10.0",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "taplo",
+                    "path": "out/taplo"
+                }
+            ],
+            "actions": [
+                {
+                    "download": {
+                        "url": "https://github.com/tamasfe/taplo/releases/download/0.10.0/taplo-linux-x86_64.gz",
+                        "output": "out/taplo.gz",
+                        "integrity": "sha256-j+GWuJTM+QcvmNThAToYAwbhfSRIMLA5hu5ejqvrYVY="
+                    }
+                },
+                {
+                    "execute": {
+                        "arguments": ["gzip", "--decompress", "out/taplo.gz"]
+                    }
+                },
+                {
+                    "execute": {
+                        "arguments": ["chmod", "u+x", "out/taplo"]
+                    }
+                }
+            ],
+            "toolchain": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}

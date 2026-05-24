@@ -1,27 +1,27 @@
 {
     "toolchains": [
         {
-            "name": "trufflehog",
-            "version": "3.94.2"
+            "name": "oras",
+            "version": "1.3.0"
         }
     ],
     "archives": [
         {
-            "toolchain_name": "trufflehog",
-            "toolchain_version": "3.94.2",
+            "toolchain_name": "oras",
+            "toolchain_version": "1.3.0",
             "archive_name": "linux_x86_64",
             "binaries": [
                 {
-                    "name": "trufflehog",
-                    "path": "out/trufflehog"
+                    "name": "oras",
+                    "path": "out/oras"
                 }
             ],
             "actions": [
                 {
                     "download_and_extract": {
-                        "url": "https://github.com/trufflesecurity/trufflehog/releases/download/v3.94.2/trufflehog_3.94.2_linux_amd64.tar.gz",
+                        "url": "https://github.com/oras-project/oras/releases/download/v1.3.0/oras_1.3.0_linux_amd64.tar.gz",
                         "output": "out",
-                        "integrity": "sha256-b/aFT39mPCCMI6PZvjfSMz0VhXwoy+fwCKf8kQqIdo0="
+                        "integrity": "sha256-bNxpL5KRAP6wiqjeWE0C97zDDsfYi8KtwgVNeC21fGQ="
                     }
                 }
             ],

@@ -1,8 +1,8 @@
+load("@com_alwaldend_src_tools_flux//:defs.bzl", "flux_binary")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 
-alias(
+flux_binary(
     name = "flux",
-    actual = "@com_alwaldend_src_tools_flux//:flux_binary",
     visibility = ["//:__subpackages__"],
 )
 

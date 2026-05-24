@@ -1,0 +1,72 @@
+{
+    "toolchains": [
+        {
+            "name": "android_cmdtools",
+            "version": "14742923"
+        }
+    ],
+    "archives": [
+        {
+            "toolchain_name": "android_cmdtools",
+            "toolchain_version": "14742923",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "apkanalyzer",
+                    "path": "out/cmdline-tools/bin/apkanalyzer"
+                },
+                {
+                    "name": "avdmanager",
+                    "path": "out/cmdline-tools/bin/avdmanager"
+                },
+                {
+                    "name": "d8",
+                    "path": "out/cmdline-tools/bin/d8"
+                },
+                {
+                    "name": "lint",
+                    "path": "out/cmdline-tools/bin/lint"
+                },
+                {
+                    "name": "profgen",
+                    "path": "out/cmdline-tools/bin/profgen"
+                },
+                {
+                    "name": "r8",
+                    "path": "out/cmdline-tools/bin/r8"
+                },
+                {
+                    "name": "resourceshrinker",
+                    "path": "out/cmdline-tools/bin/resourceshrinker"
+                },
+                {
+                    "name": "retrace",
+                    "path": "out/cmdline-tools/bin/retrace"
+                },
+                {
+                    "name": "screenshot2",
+                    "path": "out/cmdline-tools/bin/screenshot2"
+                },
+                {
+                    "name": "sdkmanager",
+                    "path": "out/cmdline-tools/bin/sdkmanager"
+                }
+            ],
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://dl.google.com/android/repository/commandlinetools-linux-14742923_latest.zip",
+                        "output": "out",
+                        "integrity": "sha256-BEUwZrVAQJ2XXGdteB2hR3R53eN2ExDxp+uSod+xWvc="
+                    }
+                }
+            ],
+            "toolchain": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}

@@ -7,13 +7,17 @@ binary_toolchain_extension = use_extension(
 binary_toolchain_extension.toolchains(
     archives = {
     },
-    lock = "@rules_binary_toolchain//examples:binary_toolchain.json",
+    lock = "//tools/shfmt:binary_toolchain.json",
     toolchains_map = {
+        "shfmt": "com_alwaldend_src_tools_shfmt",
     },
 )
 
-register_toolchains()
+register_toolchains(
+    "@com_alwaldend_src_tools_shfmt//:all",
+)
 
 use_repo(
     binary_toolchain_extension,
+    "com_alwaldend_src_tools_shfmt",
 )

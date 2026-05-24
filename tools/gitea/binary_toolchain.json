@@ -1,0 +1,37 @@
+{
+    "toolchains": [
+        {
+            "name": "gitea",
+            "version": "1.26.2"
+        }
+    ],
+    "archives": [
+        {
+            "archive_name": "linux_x86_64",
+            "toolchain_name": "gitea",
+            "toolchain_version": "1.26.2",
+            "binaries": [
+                {
+                    "name": "gitea",
+                    "path": "out/gitea"
+                }
+            ],
+            "rules": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            },
+            "actions": [
+                {
+                    "download": {
+                        "url": "https://dl.gitea.com/gitea/1.26.2/gitea-1.26.2-linux-amd64",
+                        "output": "out/gitea",
+                        "executable": true,
+                        "integrity": "sha256-WzeTe2Jd5pGWdI9yk+7hpzY/hjeubj2jw1m7OAvWGmo="
+                    }
+                }
+            ]
+        }
+    ]
+}

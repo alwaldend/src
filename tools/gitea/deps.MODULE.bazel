@@ -6,14 +6,20 @@ binary_toolchain_extension = use_extension(
 )
 binary_toolchain_extension.toolchains(
     archives = {
+        "gitea": ["linux_x86_64"],
     },
-    lock = "@rules_binary_toolchain//examples:binary_toolchain.json",
+    lock = "//tools/gitea:binary_toolchain.json",
     toolchains_map = {
+        "gitea": "com_alwaldend_src_tools_gitea",
     },
 )
 
-register_toolchains()
+register_toolchains(
+    "@com_alwaldend_src_tools_gitea//:all",
+)
 
 use_repo(
     binary_toolchain_extension,
+    "com_alwaldend_src_tools_gitea",
+    "com_alwaldend_src_tools_gitea_linux_x86_64",
 )
