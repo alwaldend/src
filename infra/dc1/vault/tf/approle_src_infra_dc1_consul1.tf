@@ -23,6 +23,6 @@ module "src_infra_dc1_consul1_ssh" {
 module "src_infra_dc1_consul_pki_server" {
   source          = "../../../../projects/tf_modules/vault_pki_server"
   backend         = module.pki_ica_servers.backend
-  name            = "src_infra_dc1_consul_pki_server"
+  name            = "src_infra_dc1_consul1_pki_server"
   allowed_domains = ["consul1.dc1.alwaldend.com"]
 }

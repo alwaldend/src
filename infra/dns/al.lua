@@ -4,12 +4,16 @@ lib.auth({
     approle = { name = "src_infra_dns" }
 })
 lib.secret({
-    name = "dns_token",
+    name = "cloudflare",
     kv = { path = "cloudflare.com/dns_token", mount = "secrets" }
+})
+lib.secret({
+    name = "mikrotik",
+    kv = { path = "alwaldend.com/vault1/approles/src_infra_dns/mikrotik", mount = "secrets" }
 })
 lib.file({
     name = "creds",
-    secrets = {"dns_token"},
+    secrets = { "cloudflare", "mikrotik" },
     from_file = "infra/dns/creds.json.tpl",
 })
 lib.env({

@@ -3,7 +3,8 @@
 
 var REG_NONE = NewRegistrar("none");
 var DSP_CLOUDFLARE = NewDnsProvider("cloudflare");
-var BIND = NewDnsProvider("bind");
+var DSP_MIKROTIK = NewDnsProvider("mikrotik");
+var DSP_BIND = NewDnsProvider("bind");
 var jsons = [
     require("../dc1/dnsconfig.json"),
     require("../dc1/pve1/dnsconfig.json"),
@@ -123,6 +124,7 @@ D(
     "alwaldend.com",
     REG_NONE,
     DnsProvider(DSP_CLOUDFLARE),
-    DnsProvider(BIND),
+    DnsProvider(DSP_MIKROTIK),
+    DnsProvider(DSP_BIND),
     modifiers["default"],
-)
+);
