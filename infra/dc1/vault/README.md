@@ -14,10 +14,8 @@ tags:
 ## Deployment
 
 ```sh
-bazel run //infra/dc1/vault/tf_setup:tf.apply # Set up VMs (requires an active Vault host)
+bazel run //infra/dc1/vault/tf_setup:tf.apply # Create VMs (requires an active Vault host)
 bazel run //infra/dc1/vault/ansible # Set up hosts (BM and VMs)
-bazel run //infra/dc1/vault/ansible:ansible.vm # Set up only VMs
-bazel run //infra/dc1/vault/ansible:ansible.bm # Set up only bare metal
 bazel run //infra/dc1/vault/tf:tf.apply # Configure vault
 ```
 
@@ -31,6 +29,24 @@ bazel run //infra/dc1/vault:backup
 
 ```sh
 bazel run //infra/dc1/vault:unseal
+```
+
+## Fix quorum
+
+```sh
+bazel run //infra/dc1/vault/ansible:fix_quorum
+```
+
+## Set up only VMs
+
+```sh
+bazel run //infra/dc1/vault/ansible:ansible.vm # Set up only VMs
+```
+
+## Set up only bare metal
+
+```sh
+bazel run //infra/dc1/vault/ansible:ansible.bm # Set up only bare metal
 ```
 
 ## Tf

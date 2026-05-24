@@ -36,15 +36,27 @@ al_binary_run_map(
         ],
     },
     configs = ["//infra/dc1/vault:al"],
-    data = [
-        ":ansible_bin",
-    ],
+    data = [":ansible_bin"],
     run_args = [
         "--env_vault",
         "default:default",
         "--env_label",
         "ansible",
     ],
+)
+
+al_binary_run_map(
+    name = "fix_quorum",
+    args = {
+        "": [
+            "$(rootpath :ansible_bin)",
+            "--inventory",
+            "inventory.yaml",
+            "playbook_fix_quorum.yaml",
+        ],
+    },
+    configs = ["//infra/dc1/vault:al"],
+    data = [":ansible_bin"],
 )
 
 al_ansible_binary(
@@ -75,7 +87,7 @@ pkg_files(
     ] + glob([
         "group_vars/**/*.yaml",
         "playbook_*.yaml",
-        "files/vault.hcl",
+        "files/**",
     ]),
     renames = {
         "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "files/vault",

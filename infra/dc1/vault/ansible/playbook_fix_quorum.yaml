@@ -1,0 +1,9 @@
+- name: Fix quorum
+  hosts: vault
+  force_handlers: true
+  become: true
+  roles:
+    - role: alwaldend.main.vault
+      vars:
+        vault_peers_write: true
+        vault_peers_local_path: files/peers.json.j2

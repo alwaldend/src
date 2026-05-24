@@ -92,6 +92,15 @@
             owner: "root"
             group: "{{ vault_user }}"
             mode: "0650"
+    - name: Write peers
+      when: vault_peers_write
+      register: vaulte_peers_write_result
+      ansible.builtin.template:
+        src: "{{ vault_peers_local_path }}"
+        dest: "{{ vault_peers_remote_path }}"
+        owner: "{{ vault_user }}"
+        group: "{{ vault_user }}"
+        mode: "0644"
     - name: Write the service
       register: vault_service_var
       ansible.builtin.template:
@@ -99,19 +108,24 @@
         dest: "{{ vault_service_path }}"
         owner: root
         group: root
-        mode: 644
+        mode: "0644"
     - name: Ensure the daemon is reloaded
       when: vault_service_var.changed
       ansible.builtin.systemd_service:
         daemon_reload: true
-    - name: Restart the service
-      when: >-
-        vault_service_var.changed
-        or vault_config_var.changed or vault_bin_var.changed
-        or vault_tls_client_ca_file_path_var.changed
+    - name: Reload the service
       ansible.builtin.systemd_service:
         name: "{{ vault_service_path | basename }}"
         state: reloaded
+    - name: Restart the service
+      when: >-
+        False
+        or vault_service_var.changed
+        or vault_bin_var.changed
+        or vault_peers_write
+      ansible.builtin.systemd_service:
+        name: "{{ vault_service_path | basename }}"
+        state: restarted
     - name: Start the service and enable
       ansible.builtin.systemd_service:
         name: "{{ vault_service_path | basename }}"

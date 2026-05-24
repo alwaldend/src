@@ -17,3 +17,6 @@ vault_tls_key_file_path: "{{ vault_tls_dir }}/tls_key_file.pem"
 vault_tls_issue_path:
 vault_tls_alt_names: ""
 vault_bin_path: /usr/bin/vault
+vault_peers_write: false
+vault_peers_local_path:
+vault_peers_remote_path: "{{ vault_raft_dir }}/raft/peers.json"

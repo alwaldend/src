@@ -3,7 +3,7 @@ load("//tools/docs:defs.bzl", "docs_filegroup")
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//infra/dc1/vault:__pkg__"],
+    visibility = ["//infra/dc1/vault/tf:__pkg__"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,

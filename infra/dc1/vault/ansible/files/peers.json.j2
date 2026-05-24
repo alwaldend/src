@@ -1,0 +1,9 @@
+[
+  {% for host in groups["vault"] %}
+  {
+    "id": "{{ host }}",
+    "address": "{{ host }}:8201",
+    "non_voter": false
+  }{% if not loop.last %},{% endif %}
+  {% endfor %}
+]
