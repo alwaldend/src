@@ -6,7 +6,6 @@ module "src_infra_yandex_cloud_org1_approle" {
   ]
   secrets = vault_mount.secrets.path
   policies = [
-    vault_policy.tf_token.name,
     vault_policy.src_infra_yandex_cloud_org1.name,
   ]
   backend                  = vault_auth_backend.approle.path

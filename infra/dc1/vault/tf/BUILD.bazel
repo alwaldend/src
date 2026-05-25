@@ -16,8 +16,6 @@ _CONFIGS = ["//infra/dc1/vault:al"]
 _RUN_ARGS = [
     "--env_vault",
     "default:default",
-    "--env_bin",
-    "$(rootpath //tools/vault/pve_login)",
     "--env_label",
     "tf",
 ]
@@ -26,7 +24,6 @@ _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
     "//data/ssl/alwaldend.com:ica1",
     "//data/ssl/alwaldend.com:simeonwarren",
-    "//tools/vault/pve_login",
     "//projects/tf_modules/backup_bucket",
     "//projects/tf_modules/tf_backend",
     "//projects/tf_modules/vault_approle",

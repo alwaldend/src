@@ -3,9 +3,6 @@ ssh_vault_role: src_infra_dc1_vault_ssh
 vault_dir: "/opt/vault"
 vault_tls_issue_path: pki/ica_servers/issue/src_infra_dc1_vault_pki_server
 vault_tls_alt_names: vault.dc1.alwaldend.com
-install_ca:
-  - path: files/pki_ca_root.crt
-  - path: files/pki_ca_servers.crt
 sysctl_overwrite:
   # Switch does not support ipv6
   net.ipv6.conf.all.disable_ipv6: 1

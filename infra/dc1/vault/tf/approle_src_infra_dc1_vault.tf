@@ -6,7 +6,6 @@ module "src_infra_dc1_vault_approle" {
   ]
   secrets = vault_mount.secrets.path
   policies = [
-    vault_policy.tf_token.name,
     vault_policy.pki_admin.name,
     vault_policy.auth_admin.name,
     vault_policy.identity_admin.name,
@@ -14,6 +13,7 @@ module "src_infra_dc1_vault_approle" {
     vault_policy.sys_storage_admin.name,
     vault_policy.sys_mount_admin.name,
     vault_policy.sys_policies_acl_admin.name,
+    vault_policy.pki_server_admin.name,
     vault_policy.ssh_admin.name,
     module.src_infra_dc1_vault_ssh.policy,
   ]

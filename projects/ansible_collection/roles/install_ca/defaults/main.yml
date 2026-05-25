@@ -1,1 +1,3 @@
-install_ca: []
+install_ca:
+  - path: "{{ role_path }}/files/pki_ca_root.crt"
+  - path: "{{ role_path }}/files/pki_ca_servers.crt"

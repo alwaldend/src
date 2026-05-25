@@ -22,6 +22,16 @@ variable "allowed_domains" {
   description = "Allowed domains"
 }
 
+variable "server_flag" {
+  type    = bool
+  default = true
+}
+
+variable "client_flag" {
+  type    = bool
+  default = false
+}
+
 variable "ttl" {
   type        = number
   description = "Role ttl"
@@ -33,7 +43,6 @@ variable "max_ttl" {
   description = "Role max ttl"
   default     = 2629746 # Month
 }
-
 
 resource "vault_pki_secret_backend_role" "role" {
   backend            = var.backend
@@ -48,8 +57,8 @@ resource "vault_pki_secret_backend_role" "role" {
   allowed_domains    = var.allowed_domains
   allow_bare_domains = true
   allow_subdomains   = true
-  server_flag        = true
-  client_flag        = false
+  server_flag        = var.server_flag
+  client_flag        = var.client_flag
   no_store           = false
 }
 
@@ -66,7 +75,7 @@ resource "vault_pki_secret_backend_role" "rsa_2048" {
   allowed_domains    = var.allowed_domains
   allow_bare_domains = true
   allow_subdomains   = true
-  server_flag        = true
-  client_flag        = false
+  server_flag        = var.server_flag
+  client_flag        = var.client_flag
   no_store           = false
 }

@@ -13,6 +13,15 @@ docs_filegroup(
 
 al_ansible_role(
     name = "role",
-    srcs = glob(["**"]),
+    srcs = glob(["**"]) + [
+        "//data/ssl/alwaldend.com:ica_servers",
+        "@com_alwaldend_src_tools_consul_linux_x86_64//:consul_filegroup",
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
+    ],
+    renames = {
+        "@com_alwaldend_src_tools_consul_linux_x86_64//:consul_filegroup": "files/consul",
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "files/vault",
+        "//data/ssl/alwaldend.com:ica_servers": "files/pki_ca_servers.crt",
+    },
     visibility = ["//:__subpackages__"],
 )

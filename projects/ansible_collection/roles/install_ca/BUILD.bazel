@@ -18,6 +18,13 @@ pkg_files(
 
 al_ansible_role(
     name = "role",
-    srcs = glob(["**"]),
+    srcs = glob(["**"]) + [
+        "//data/ssl/alwaldend.com:ica_servers",
+        "//data/ssl/alwaldend.com:root_ca",
+    ],
+    renames = {
+        "//data/ssl/alwaldend.com:root_ca": "files/pki_ca_root.crt",
+        "//data/ssl/alwaldend.com:ica_servers": "files/pki_ca_servers.crt",
+    },
     visibility = ["//:__subpackages__"],
 )

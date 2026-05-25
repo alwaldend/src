@@ -74,6 +74,24 @@ resource "vault_policy" "pki_admin" {
 EOT
 }
 
+resource "vault_policy" "pki_server" {
+  name   = "pki_server"
+  policy = <<EOT
+    path "${module.pki_ica_servers.backend}/issue/{{ identity.entity.name }}_pki_server" {
+      capabilities = ["update"]
+    }
+EOT
+}
+
+resource "vault_policy" "pki_server_admin" {
+  name   = "pki_server_admin"
+  policy = <<EOT
+    path "${module.pki_ica_servers.backend}/issue/{{ identity.entity.name }}_pki_server" {
+      capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+    }
+EOT
+}
+
 // Manage auth
 // https://developer.hashicorp.com/vault/api-docs/system/auth
 // https://developer.hashicorp.com/vault/api-docs/auth

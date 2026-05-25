@@ -21,7 +21,7 @@
         VAULT_TOKEN: "{{ lookup('ansible.builtin.env', 'VAULT_TOKEN') }}"
       ansible.builtin.command:
         argv:
-          - ./files/vault
+          - "{{ role_path }}/files/vault"
           - write
           - -format=json
           - "{{ ssh_vault_mount }}/sign/{{ ssh_vault_role }}"

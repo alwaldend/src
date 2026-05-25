@@ -8,7 +8,6 @@ consul_config_local_path: "files/consul.hcl"
 consul_log_dir: "{{ consul_dir }}/logs"
 consul_tls_dir: "{{ consul_dir }}/tls"
 consul_service_path: "/lib/systemd/system/consul.service"
-consul_bin_local_path: "files/consul"
 consul_tls_ca_file_local_path: files/tls_client_ca_file.pem
 consul_tls_ca_file_path: "{{ consul_tls_dir }}/tls_ca_file.crt"
 consul_tls_cert_file_path: "{{ consul_tls_dir }}/cert_file.crt"
@@ -16,5 +15,6 @@ consul_tls_key_file_path: "{{ consul_tls_dir }}/key_file.crt"
 consul_tls_common_name: "{{ inventory_hostname }}"
 consul_tls_ttl: "2629746" # month
 consul_tls_alt_names: ""
-consul_vault_local_path: files/vault
+consul_vault_local_path: "{{ role_path }}/files/vault"
+consul_bin_local_path: "{{ role_path }}/files/consul"
 consul_bin_path: /usr/bin/consul

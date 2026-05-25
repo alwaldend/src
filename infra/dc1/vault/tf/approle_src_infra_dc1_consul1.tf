@@ -6,7 +6,6 @@ module "src_infra_dc1_consul1_approle" {
   ]
   secrets = vault_mount.secrets.path
   policies = [
-    vault_policy.tf_token.name,
     module.src_infra_dc1_consul1_ssh.policy,
   ]
   backend          = vault_auth_backend.approle.path
@@ -24,5 +23,6 @@ module "src_infra_dc1_consul_pki_server" {
   source          = "../../../../projects/tf_modules/vault_pki_server"
   backend         = module.pki_ica_servers.backend
   name            = "src_infra_dc1_consul1_pki_server"
-  allowed_domains = ["consul1.dc1.alwaldend.com"]
+  allowed_domains = ["consul1.dc1.alwaldend.com", "server.dc1.consul"]
+  client_flag     = true
 }

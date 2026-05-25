@@ -4,9 +4,9 @@ terraform {
       source  = "hashicorp/vault"
       version = "5.8.0"
     }
-    proxmox = {
-      source  = "Telmate/proxmox"
-      version = "3.0.2-rc07"
+    consul = {
+      source  = "hashicorp/consul"
+      version = "2.23.0"
     }
   }
   backend "s3" {
@@ -17,6 +17,8 @@ terraform {
 provider "vault" {
 }
 
-provider "proxmox" {
-  pm_minimum_permission_check = false
+provider "consul" {
+  address    = "https://host1.consul1.dc1.alwaldend.com:8501"
+  ca_path    = "../../vault/tf/output/pki_ca_servers.crt"
+  datacenter = "dc1"
 }

@@ -16,6 +16,21 @@ lib.secret({
     },
 })
 
+lib.secret({
+    name = "bootstrap",
+    kv = {
+        path = "alwaldend.com/vault1/approles/src_infra_dc1_consul1/bootstrap",
+        mount = "secrets",
+    },
+})
+
+lib.env({
+    name = "CONSUL_HTTP_TOKEN",
+    secrets = { "bootstrap" },
+    value = "{{ .Secret.SecretID }}",
+    labels = { tf = "1" }
+})
+
 lib.env({
     name = "AL_CONSUL_GOSSIP_KEY",
     secrets = { "gossip_key" },

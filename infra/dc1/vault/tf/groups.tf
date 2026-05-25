@@ -33,9 +33,12 @@ resource "vault_identity_group" "sre" {
 }
 
 resource "vault_identity_group" "approles" {
-  name             = "approles"
-  type             = "internal"
-  policies         = []
+  name = "approles"
+  type = "internal"
+  policies = [
+    vault_policy.tf_token.name,
+    vault_policy.pki_server.name,
+  ]
   member_group_ids = [for _, approle in local.approles : approle.group_id]
   metadata = {
     comment = "All approles"

@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"flag"
+	"strings"
 
 	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al"
 )
@@ -20,9 +21,10 @@ func main() {
 		Args:   []string{"keygen"},
 		Stdout: &keyBuffer,
 	}))
+	key := strings.Trim(keyBuffer.String(), "\n")
 	al.Check(al.RunCommand(al.CommandArgs{
 		Name:  *vault,
 		Args:  []string{"kv", "put", "-mount", *secretMount, *secret, "key=-"},
-		Stdin: &keyBuffer,
+		Stdin: strings.NewReader(key),
 	}))
 }

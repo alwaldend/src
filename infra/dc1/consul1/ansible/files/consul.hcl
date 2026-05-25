@@ -1,14 +1,33 @@
 datacenter = "dc1"
 data_dir = "{{ consul_data_dir }}"
-node_name = "{{ inventory_hostname }}"
-encrypt = "{{ lookup('env', 'AL_CONSUL_GOSSIP_KEY') }}"
+node_name = "{{ inventory_hostname | replace('.', '-') }}"
+encrypt = "{{ lookup('env', 'AL_CONSUL_GOSSIP_KEY') | trim }}"
 log_level = "INFO"
 domain = "consul"
 server = true
-bootstrap_expect = 1
+client_addr = "0.0.0.0"
+
+retry_join = [
+  {% for host in groups["consul1"] %}
+  "{{ host }}",
+  {% endfor %}
+]
 
 ui_config {
   enabled = true
+}
+
+acl {
+  enabled = true
+  default_policy = "deny"
+  enable_token_persistence = true
+}
+
+ports {
+  http = -1
+  https = 8501
+  grpc = -1
+  grpc_tls = 8502
 }
 
 tls {

@@ -6,7 +6,6 @@ module "src_infra_dc1_pve1_approle" {
   ]
   secrets = vault_mount.secrets.path
   policies = [
-    vault_policy.tf_token.name,
     module.src_infra_dc1_pve1_ssh.policy,
   ]
   backend          = vault_auth_backend.approle.path

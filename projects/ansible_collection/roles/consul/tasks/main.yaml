@@ -31,7 +31,7 @@
         mode: "0755"
     - name: Copy the config
       register: consul_config_var
-      ansible.builtin.copy:
+      ansible.builtin.template:
         src: "{{ consul_config_local_path }}"
         dest: "{{ consul_config_path }}"
         owner: "root"

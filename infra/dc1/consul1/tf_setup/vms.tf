@@ -1,8 +1,8 @@
 module "vm_ha" {
   for_each = {
     host1 = { vmid = 500 },
-    # host2 = { vmid = 501 },
-    # host3 = { vmid = 502 }
+    host2 = { vmid = 501 },
+    host3 = { vmid = 502 }
   }
   source       = ".././../../../projects/tf_modules/pve_vm_qemu"
   name         = local.dns.domains.default.records[each.key].A.name
