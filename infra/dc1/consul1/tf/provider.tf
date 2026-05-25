@@ -19,6 +19,5 @@ provider "vault" {
 
 provider "consul" {
   address    = "https://host1.consul1.dc1.alwaldend.com:8501"
-  ca_path    = "../../vault/tf/output/pki_ca_servers.crt"
   datacenter = "dc1"
 }

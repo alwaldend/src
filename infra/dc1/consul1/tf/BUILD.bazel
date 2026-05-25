@@ -24,7 +24,6 @@ _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
     "//projects/tf_modules/tf_backend",
     "//infra/dc1/consul1:dnsconfig",
-    "//infra/dc1/vault/tf/output:pki_ca_servers",
 ]
 
 terraform_binary_map(

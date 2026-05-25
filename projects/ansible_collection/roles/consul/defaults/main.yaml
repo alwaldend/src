@@ -8,7 +8,7 @@ consul_config_local_path: "files/consul.hcl"
 consul_log_dir: "{{ consul_dir }}/logs"
 consul_tls_dir: "{{ consul_dir }}/tls"
 consul_service_path: "/lib/systemd/system/consul.service"
-consul_tls_ca_file_local_path: files/tls_client_ca_file.pem
+consul_tls_ca_file_local_path: files/pki_ca_servers.crt
 consul_tls_ca_file_path: "{{ consul_tls_dir }}/tls_ca_file.crt"
 consul_tls_cert_file_path: "{{ consul_tls_dir }}/cert_file.crt"
 consul_tls_key_file_path: "{{ consul_tls_dir }}/key_file.crt"

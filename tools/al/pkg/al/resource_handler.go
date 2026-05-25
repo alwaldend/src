@@ -280,7 +280,17 @@ func (self *ResourceHandler) template(ctx context.Context, value string, files [
 	if err != nil {
 		return "", fmt.Errorf("could not prepare vault ops: %w", err)
 	}
-	tmpl, err := template.New("resource_handler.template").Option("missingkey=error").Parse(value)
+	tmpl, err := template.New("resource_handler.template").Funcs(
+		template.FuncMap{
+			"join": func(elems []any, sep string) string {
+				elemsString := make([]string, len(elems))
+				for _, elem := range elems {
+					elemsString = append(elemsString, elem.(string))
+				}
+				return strings.Join(elemsString, sep)
+			},
+		},
+	).Option("missingkey=error").Parse(value)
 	if err != nil {
 		return "", fmt.Errorf("could not parse template '%s': %w", value, err)
 	}
