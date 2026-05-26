@@ -1,4 +1,4 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 
 alias(

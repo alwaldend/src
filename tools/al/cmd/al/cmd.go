@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"os/signal"
+	"syscall"
 
 	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al"
 	"github.com/spf13/cobra"
@@ -18,6 +20,7 @@ func Execute(
 	stdout io.Writer,
 	stderr io.Writer,
 ) error {
+	ctx, _ = signal.NotifyContext(ctx, syscall.SIGINT, syscall.SIGTERM)
 	root, err := newRootCommand(ctx, args, stdin, stdout, stderr)
 	if err != nil {
 		return fmt.Errorf("could not create commands: %w", err)
@@ -80,6 +83,7 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 	var stdout string
 	var stdin string
 	var stderr string
+	var plugins []string
 	prepareCommandArgs := &al.PrepareCommandArgs{}
 	cmd := &cobra.Command{
 		Use:   "run",
@@ -97,8 +101,6 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("could not create Vault: %w", err)
 			}
-			resourceHandler := al.NewResourceHandler(ctx, cfg, vault)
-			defer resourceHandler.Clean()
 			cmdArgs := al.CommandArgs{
 				Ctx:                ctx,
 				Name:               args[0],
@@ -133,6 +135,18 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("could not create command: %w", err)
 			}
+			resourceHandler := al.NewResourceHandler(ctx, cfg, vault, cmdArgs.Stderr)
+			defer resourceHandler.Clean()
+			pluginManager := al.NewPluginManager(cmdArgs.Stderr)
+			pluginResponses, err := pluginManager.StartPlugins(ctx, plugins)
+			if err != nil {
+				return fmt.Errorf("could not prepare plugins: %w", err)
+			}
+			for _, response := range pluginResponses {
+				for key, value := range response.Env {
+					runCmd.Env = append(runCmd.Env, fmt.Sprintf("%s=%s", key, value))
+				}
+			}
 			err = resourceHandler.PrepareCommand(ctx, runCmd, prepareCommandArgs)
 			if err != nil {
 				return fmt.Errorf("could not prepare command: %w", err)
@@ -150,8 +164,8 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 	flags.BoolVar(&prepareCommandArgs.EnvDisabled, "env_disabled", false, "If set, disable env injection")
 	flags.StringArrayVar(&prepareCommandArgs.EnvVault, "env_vault", nil, "Add vault environment variables (vault_name:auth_name)")
 	flags.StringArrayVar(&prepareCommandArgs.EnvLabels, "env_label", nil, "Add environment variables with labels (name=value)")
-	flags.StringArrayVar(&prepareCommandArgs.EnvBin, "env_bin", nil, "Run a binary and load environment variables from stdout")
 	flags.StringArrayVar(&prepareCommandArgs.Files, "files", nil, "Add files by name")
+	flags.StringArrayVar(&plugins, "plugin", nil, "Plugin variables in format service_name.key=value")
 	flags.BoolVar(&disableRunfilesEnv, "disable_runfiles_env", false, "If set, do not set bazel runfiles variables")
 	return cmd
 }

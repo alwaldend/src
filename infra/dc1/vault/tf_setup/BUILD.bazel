@@ -18,8 +18,8 @@ _RUN_ARGS = [
     "default:default",
     "--env_label",
     "tf",
-    "--env_bin",
-    "$(rootpath //tools/vault/pve_login)",
+    "--plugin",
+    "pve_login.bin=$(rootpath //tools/vault/pve_login)",
 ]
 
 _DATA = glob(["*.tf"]) + [

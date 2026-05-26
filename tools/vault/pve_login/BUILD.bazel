@@ -17,8 +17,10 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/pve_login",
     visibility = ["//:__subpackages__"],
     deps = [
+        "//tools/al/api/al_proto",
         "//tools/al/pkg/al",
         "@com_github_google_uuid//:uuid",
+        "@org_golang_google_grpc//:go_default_library",
     ],
 )
 

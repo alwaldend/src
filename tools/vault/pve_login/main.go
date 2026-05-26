@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -14,17 +15,20 @@ import (
 	"strings"
 	"time"
 
+	"git.alwaldend.com/alwaldend/src/tools/al/api/al_proto"
 	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al"
 	"github.com/google/uuid"
+	"google.golang.org/grpc"
 )
 
 var pveBaseUrl = flag.String("pve_base_url", "https://host1.pve1.dc1.alwaldend.com:8006", "Base url")
 var pveRedirectUrl = flag.String("pve_redirect_url", "https://host1.pve1.dc1.alwaldend.com:8006", "Proxmox redirect url")
 var pveRealm = flag.String("pve_realm", "src_infra_dc1_vault", "Proxmox realm")
 
-func main() {
-	flag.Parse()
+type Plugin struct {
+}
 
+func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
 	req1 := al.Must(
 		http.NewRequest(
 			http.MethodPost,
@@ -131,11 +135,19 @@ func main() {
 	if resp4.StatusCode != 200 {
 		panic(fmt.Sprintf("invalid status code: %d", resp4.StatusCode))
 	}
+	return &al_proto.PluginStartResponse{
+		Env: map[string]string{
+			"PM_API_TOKEN_ID":     data4.Data.TokenId,
+			"PM_API_TOKEN_SECRET": data4.Data.TokenSecret,
+			"PM_API_URL":          fmt.Sprintf("%s/api2/json", *pveBaseUrl),
+		},
+	}, nil
+}
 
-	os.Stdout.WriteString(fmt.Sprintf("PM_API_TOKEN_ID=%s", data4.Data.TokenId))
-	os.Stdout.WriteString("\n")
-	os.Stdout.WriteString(fmt.Sprintf("PM_API_TOKEN_SECRET=%s", data4.Data.TokenSecret))
-	os.Stdout.WriteString("\n")
-	os.Stdout.WriteString(fmt.Sprintf("PM_API_URL=%s/api2/json", *pveBaseUrl))
-	os.Stdout.WriteString("\n")
+func main() {
+	flag.Parse()
+	server := grpc.NewServer()
+	al_proto.RegisterPluginServiceServer(server, Plugin{})
+	listener := al.Must(al.NewIOListener(os.Stdin, os.Stdout))
+	al.Check(server.Serve(listener))
 }

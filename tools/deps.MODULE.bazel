@@ -13,7 +13,3 @@ binary_toolchain_extension.toolchains(
 )
 
 register_toolchains()
-
-use_repo(
-    binary_toolchain_extension,
-)

@@ -35,7 +35,7 @@ lib.vault_op({
     name = "consul_cert",
     method = "write",
     data = {
-        common_name = "src-infra-dc1-consul1.tf.consul1.dc1.alwaldend.com",
+        common_name = "src-infra-dc1-consul1-tf.consul1.dc1.alwaldend.com",
         ttl = "3600",
     },
     path = "pki/ica_servers/issue/src_infra_dc1_consul1_pki_server",
@@ -44,7 +44,7 @@ lib.vault_op({
 lib.file({
     name = "consul_cert_cert",
     vault_ops = { "consul_cert" },
-    value = "{{ .VaultOp.certificate }}",
+    value = "{{ .VaultOp.certificate }}{{ join .VaultOp.ca_chain \"\\n\" }}",
 })
 
 lib.env({

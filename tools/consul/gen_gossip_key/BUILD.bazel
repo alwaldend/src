@@ -14,12 +14,9 @@ docs_filegroup(
 go_library(
     name = "gen_gossip_key_lib",
     srcs = ["main.go"],
-    importpath = "git.alwaldend.com/alwaldend/src/tools/vault/gen_gossip_key",
+    importpath = "git.alwaldend.com/alwaldend/src/tools/consul/gen_gossip_key",
     visibility = ["//:__subpackages__"],
-    deps = [
-        "//tools/al/pkg/al",
-        "@com_github_google_uuid//:uuid",
-    ],
+    deps = ["//tools/al/pkg/al"],
 )
 
 go_binary(

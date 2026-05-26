@@ -106,3 +106,17 @@ message Config {
   // Env to set
   repeated Env env = 5;
 }
+
+message PluginConfig {}
+
+message PluginStartRequest {
+  Config config = 1;
+  PluginConfig service = 2;
+}
+message PluginStartResponse {
+  map<string, string> env = 1;
+}
+
+service PluginService {
+  rpc PluginStart(PluginStartRequest) returns (PluginStartResponse) {}
+}
