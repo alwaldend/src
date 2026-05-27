@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -24,128 +25,236 @@ import (
 var pveBaseUrl = flag.String("pve_base_url", "https://host1.pve1.dc1.alwaldend.com:8006", "Base url")
 var pveRedirectUrl = flag.String("pve_redirect_url", "https://host1.pve1.dc1.alwaldend.com:8006", "Proxmox redirect url")
 var pveRealm = flag.String("pve_realm", "src_infra_dc1_vault", "Proxmox realm")
+var logger = log.New(os.Stderr, "tools.vault.pve_login ", log.Flags())
 
 type Plugin struct {
 }
 
-func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
-	req1 := al.Must(
-		http.NewRequest(
-			http.MethodPost,
-			fmt.Sprintf("%s/api2/json/access/openid/auth-url?realm=%s&redirect-url=%s", *pveBaseUrl, *pveRealm, *pveRedirectUrl),
-			strings.NewReader("{}"),
-		),
+func oidcData() (string, error) {
+	req, err := http.NewRequest(
+		http.MethodPost,
+		fmt.Sprintf("%s/api2/json/access/openid/auth-url?realm=%s&redirect-url=%s", *pveBaseUrl, *pveRealm, *pveRedirectUrl),
+		strings.NewReader("{}"),
 	)
-	req1.Header.Add("Content-Type", "application/json")
-	resp1 := al.Must(http.DefaultClient.Do(req1))
-	defer resp1.Body.Close()
-	body1 := al.Must(io.ReadAll(resp1.Body))
-	log.Println("Created OIDC url", string(body1))
-	data1 := struct {
+	if err != nil {
+		return "", fmt.Errorf("could not create request: %w", err)
+	}
+	req.Header.Add("Content-Type", "application/json")
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return "", fmt.Errorf("could not execute request: %w", err)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		return "", fmt.Errorf("invalid status code: %s", resp.Status)
+	}
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("could not read response body")
+	}
+	data := struct {
 		Data string `json:"data"`
 	}{}
-	al.Check(json.Unmarshal(body1, &data1))
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		return "", fmt.Errorf("could not unmarshal response: %w", err)
+	}
+	return data.Data, nil
+}
 
-	regex := regexp.MustCompile("^https://([^/]+)/ui/vault/identity/oidc/provider/([^/]+)/authorize?(.+)$")
-	req2Parts := regex.FindAllStringSubmatch(data1.Data, -1)
-	req2BodyData := map[string]string{}
-	for key, valueSlice := range al.Must(url.Parse(data1.Data)).Query() {
+func oidcLogin(oidcUrl string) (string, string, error) {
+	regex, err := regexp.Compile("^https://([^/]+)/ui/vault/identity/oidc/provider/([^/]+)/authorize?(.+)$")
+	if err != nil {
+		return "", "", fmt.Errorf("could not compile regex: %w", err)
+	}
+	parts := regex.FindAllStringSubmatch(oidcUrl, -1)
+	urlParsed, err := url.Parse(oidcUrl)
+	if err != nil {
+		return "", "", fmt.Errorf("could not parse url: %w", err)
+	}
+	reqData := map[string]string{}
+	for key, valueSlice := range urlParsed.Query() {
 		for _, value := range valueSlice {
-			req2BodyData[key] = value
+			reqData[key] = value
 		}
 	}
-	req2Body := al.Must(json.Marshal(req2BodyData))
-	req2 := al.Must(
-		http.NewRequest(
-			http.MethodPost,
-			fmt.Sprintf("https://%s/v1/identity/oidc/provider/%s/authorize", req2Parts[0][1], req2Parts[0][2]),
-			bytes.NewBuffer(req2Body),
-		),
+	reqBody, err := json.Marshal(reqData)
+	if err != nil {
+		return "", "", fmt.Errorf("could not marshal data: %w", err)
+	}
+	req, err := http.NewRequest(
+		http.MethodPost,
+		fmt.Sprintf("https://%s/v1/identity/oidc/provider/%s/authorize", parts[0][1], parts[0][2]),
+		bytes.NewBuffer(reqBody),
 	)
-	req2.Header.Add("Content-Type", "application/json")
-	req2.Header.Add("Authorization", fmt.Sprintf("Bearer %s", os.Getenv("VAULT_TOKEN")))
-	resp2 := al.Must(http.DefaultClient.Do(req2))
-	defer resp2.Body.Close()
-	body2 := al.Must(io.ReadAll(resp2.Body))
-	log.Println("Authorized using the OIDC url", string(body2))
-	data2 := struct {
+	if err != nil {
+		return "", "", fmt.Errorf("could not create request: %w", err)
+	}
+	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", os.Getenv("VAULT_TOKEN")))
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return "", "", fmt.Errorf("could not execute the request: %w", err)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		return "", "", fmt.Errorf("invalid response code: %s", resp.Status)
+	}
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", "", fmt.Errorf("could not read the body: %w", err)
+	}
+	respData := struct {
 		Code  string `json:"code"`
 		State string `json:"state"`
 	}{}
-	al.Check(json.Unmarshal(body2, &data2))
+	err = json.Unmarshal(body, &respData)
+	if err != nil {
+		return "", "", fmt.Errorf("could not unmarshal response body: %w", err)
+	}
+	return respData.Code, respData.State, nil
+}
 
-	req3 := al.Must(
-		http.NewRequest(
-			http.MethodPost,
-			fmt.Sprintf("%s/api2/json/access/openid/login", *pveBaseUrl),
-			strings.NewReader("{}"),
-		),
+func createTicket(code string, state string) (string, string, string, error) {
+	req, err := http.NewRequest(
+		http.MethodPost,
+		fmt.Sprintf("%s/api2/json/access/openid/login", *pveBaseUrl),
+		strings.NewReader("{}"),
 	)
-	req3Query := req3.URL.Query()
-	req3Query.Add("state", data2.State)
-	req3Query.Add("code", data2.Code)
-	req3Query.Add("redirect-url", *pveRedirectUrl)
-	req3.URL.RawQuery = req3Query.Encode()
-	req3.Header.Add("Content-Type", "application/json")
-	resp3 := al.Must(http.DefaultClient.Do(req3))
-	defer resp3.Body.Close()
-	body3 := al.Must(io.ReadAll(resp3.Body))
-	log.Println("Exchanged OIDC token for a ticket", string(body3))
-	data3 := struct {
+	if err != nil {
+		return "", "", "", fmt.Errorf("could not create request: %w", err)
+	}
+	query := req.URL.Query()
+	query.Add("state", state)
+	query.Add("code", code)
+	query.Add("redirect-url", *pveRedirectUrl)
+	req.URL.RawQuery = query.Encode()
+	req.Header.Add("Content-Type", "application/json")
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return "", "", "", fmt.Errorf("could not execute the request: %w", err)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		return "", "", "", fmt.Errorf("invalid response code: %s", resp.Status)
+	}
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", "", "", fmt.Errorf("could not read response body: %w", err)
+	}
+	data := struct {
 		Data struct {
 			CSRFPreventionToken string
 			Username            string `json:"username"`
 			Ticket              string `json:"ticket"`
 		} `json:"data"`
 	}{}
-	al.Check(json.Unmarshal(body3, &data3))
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		return "", "", "", fmt.Errorf("could not unmarshel response body: %w", err)
+	}
+	return data.Data.Username, data.Data.Ticket, data.Data.CSRFPreventionToken, nil
+}
 
-	req4 := al.Must(
-		http.NewRequest(
-			http.MethodPost,
-			fmt.Sprintf(
-				"%s/api2/json/access/users/%s/token/%s",
-				*pveBaseUrl,
-				data3.Data.Username,
-				fmt.Sprintf("tools-vault-pve-login-%s", uuid.New().String()),
-			),
-			strings.NewReader("{}"),
+func createToken(username string, ticket string, csrfToken string) (string, string, error) {
+	req, err := http.NewRequest(
+		http.MethodPost,
+		fmt.Sprintf(
+			"%s/api2/json/access/users/%s/token/%s",
+			*pveBaseUrl,
+			username,
+			fmt.Sprintf("tools-vault-pve-login-%s", uuid.New().String()),
 		),
+		strings.NewReader("{}"),
 	)
-	req4Query := req4.URL.Query()
-	req4Query.Add("comment", "Automatically created by //tools/vault/pve_login")
-	req4Query.Add("expire", fmt.Sprintf("%d", time.Now().Add(time.Hour).Unix()))
-	req4Query.Add("privsep", "0")
-	req4.URL.RawQuery = req4Query.Encode()
-	req4.Header.Add("Content-Type", "application/json")
-	req4.Header.Add("Content-Type", "application/json")
-	req4.Header.Add("CSRFPreventionToken", data3.Data.CSRFPreventionToken)
-	req4.AddCookie(&http.Cookie{Name: "PVEAuthCookie", Value: data3.Data.Ticket})
-	resp4 := al.Must(http.DefaultClient.Do(req4))
-	defer resp4.Body.Close()
-	body4 := al.Must(io.ReadAll(resp4.Body))
-	log.Println("Created a token", string(body4))
-	data4 := struct {
+	if err != nil {
+		return "", "", fmt.Errorf("could not create request: %w", err)
+	}
+	query := req.URL.Query()
+	query.Add("comment", "Automatically created by //tools/vault/pve_login")
+	query.Add("expire", fmt.Sprintf("%d", time.Now().Add(time.Hour).Unix()))
+	query.Add("privsep", "0")
+	req.URL.RawQuery = query.Encode()
+	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("CSRFPreventionToken", csrfToken)
+	req.AddCookie(&http.Cookie{Name: "PVEAuthCookie", Value: ticket})
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return "", "", fmt.Errorf("could not execute the request: %w", err)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		return "", "", fmt.Errorf("invalid response code: %s", resp.Status)
+	}
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", "", fmt.Errorf("could not read response body: %w", err)
+	}
+	data := struct {
 		Data struct {
 			TokenId     string `json:"full-tokenid"`
 			TokenSecret string `json:"value"`
 		} `json:"data"`
 	}{}
-	al.Check(json.Unmarshal(body4, &data4))
-	if resp4.StatusCode != 200 {
-		panic(fmt.Sprintf("invalid status code: %d", resp4.StatusCode))
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		return "", "", fmt.Errorf("could not unmarshal response body: %w", err)
 	}
-	return &al_proto.PluginStartResponse{
+	return data.Data.TokenId, data.Data.TokenSecret, nil
+}
+
+func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (res *al_proto.PluginStartResponse, err error) {
+	defer func() {
+		if recoverVal := recover(); recoverVal != nil {
+			switch recoverValTyped := recoverVal.(type) {
+			case string:
+				err = errors.New(recoverValTyped)
+			case error:
+				err = recoverValTyped
+			default:
+				err = errors.New("Unknown panic")
+			}
+		}
+	}()
+	logger.Println("Requesting OIDC url")
+	oidcUrl, err := oidcData()
+	if err != nil {
+		return nil, fmt.Errorf("could not create oidc url: %w", err)
+	}
+	logger.Println("Got OIDC url")
+	logger.Println("Authenticating to the OIDC url")
+	code, state, err := oidcLogin(oidcUrl)
+	if err != nil {
+		return nil, fmt.Errorf("could not authenticate to the oidc url: %w", err)
+	}
+	logger.Println("Authenticated to the OIDC url")
+	logger.Println("Creating a ticket")
+	username, ticket, csrfToken, err := createTicket(code, state)
+	if err != nil {
+		return nil, fmt.Errorf("could not create Proxmox ticket: %w", err)
+	}
+	logger.Println("Created a ticket")
+	logger.Println("Creating a token")
+	tokenId, tokenSecret, err := createToken(username, ticket, csrfToken)
+	if err != nil {
+		return nil, fmt.Errorf("could not create token: %w", err)
+	}
+	logger.Println("Created a token")
+
+	res = &al_proto.PluginStartResponse{
 		Env: map[string]string{
-			"PM_API_TOKEN_ID":     data4.Data.TokenId,
-			"PM_API_TOKEN_SECRET": data4.Data.TokenSecret,
+			"PM_API_TOKEN_ID":     tokenId,
+			"PM_API_TOKEN_SECRET": tokenSecret,
 			"PM_API_URL":          fmt.Sprintf("%s/api2/json", *pveBaseUrl),
 		},
-	}, nil
+	}
+	return res, nil
 }
 
 func main() {
 	flag.Parse()
+	logger.Println("Starting gprc server")
 	server := grpc.NewServer()
 	al_proto.RegisterPluginServiceServer(server, Plugin{})
 	listener := al.Must(al.NewIOListener(os.Stdin, os.Stdout))

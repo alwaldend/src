@@ -137,8 +137,12 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 			}
 			resourceHandler := al.NewResourceHandler(ctx, cfg, vault, cmdArgs.Stderr)
 			defer resourceHandler.Clean()
+			err = resourceHandler.PrepareCommand(ctx, runCmd, prepareCommandArgs)
+			if err != nil {
+				return fmt.Errorf("could not prepare command: %w", err)
+			}
 			pluginManager := al.NewPluginManager(cmdArgs.Stderr)
-			pluginResponses, err := pluginManager.StartPlugins(ctx, plugins)
+			pluginResponses, err := pluginManager.StartPlugins(ctx, plugins, runCmd.Environ())
 			if err != nil {
 				return fmt.Errorf("could not prepare plugins: %w", err)
 			}
@@ -146,10 +150,6 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 				for key, value := range response.Env {
 					runCmd.Env = append(runCmd.Env, fmt.Sprintf("%s=%s", key, value))
 				}
-			}
-			err = resourceHandler.PrepareCommand(ctx, runCmd, prepareCommandArgs)
-			if err != nil {
-				return fmt.Errorf("could not prepare command: %w", err)
 			}
 			err = runCmd.Run()
 			return err

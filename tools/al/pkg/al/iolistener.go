@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"sync"
 	"time"
 )
 
@@ -43,6 +44,7 @@ type IOConn struct {
 	reader io.Reader
 	writer io.Writer
 	addr   *IOAddr
+	closed bool
 }
 
 var _ net.Conn = (*IOConn)(nil)
@@ -52,6 +54,7 @@ func NewIOConn(reader io.Reader, writer io.Writer, addr *IOAddr) (*IOConn, error
 		reader: reader,
 		writer: writer,
 		addr:   addr,
+		closed: false,
 	}, nil
 }
 
@@ -59,6 +62,9 @@ func NewIOConn(reader io.Reader, writer io.Writer, addr *IOAddr) (*IOConn, error
 // Read can be made to time out and return an error after a fixed
 // time limit; see SetDeadline and SetReadDeadline.
 func (self *IOConn) Read(b []byte) (n int, err error) {
+	if self.closed {
+		return 0, fmt.Errorf("closed")
+	}
 	return self.reader.Read(b)
 }
 
@@ -66,6 +72,9 @@ func (self *IOConn) Read(b []byte) (n int, err error) {
 // Write can be made to time out and return an error after a fixed
 // time limit; see SetDeadline and SetWriteDeadline.
 func (self *IOConn) Write(b []byte) (n int, err error) {
+	if self.closed {
+		return 0, fmt.Errorf("closed")
+	}
 	return self.writer.Write(b)
 }
 
@@ -74,6 +83,7 @@ func (self *IOConn) Write(b []byte) (n int, err error) {
 // Close may or may not block until any buffered data is sent;
 // for TCP connections see [*TCPConn.SetLinger].
 func (self *IOConn) Close() error {
+	self.closed = true
 	return nil
 }
 
@@ -136,6 +146,9 @@ type IOListener struct {
 	reader io.Reader
 	writer io.Writer
 	addr   *IOAddr
+	conn   *IOConn
+	closed chan any
+	lock   sync.Mutex
 }
 
 var _ net.Listener = (*IOListener)(nil)
@@ -145,19 +158,34 @@ func NewIOListener(reader io.Reader, writer io.Writer) (*IOListener, error) {
 		reader: reader,
 		writer: writer,
 		addr:   &IOAddr{reader: reader, writer: writer},
+		conn:   nil,
+		closed: make(chan any, 1),
 	}, nil
 }
 
 // Accept waits for and returns the next connection to the listener.
 func (self *IOListener) Accept() (net.Conn, error) {
-	conn, err := NewIOConn(self.reader, self.writer, self.addr)
-	return conn, err
+	self.lock.Lock()
+	defer self.lock.Unlock()
+	if self.conn == nil {
+		conn, err := NewIOConn(self.reader, self.writer, self.addr)
+		if err != nil {
+			return nil, fmt.Errorf("could not create an io connection: %w", err)
+		}
+		self.conn = conn
+		return conn, nil
+	}
+	for range self.closed {
+	}
+	return nil, fmt.Errorf("closed")
 }
 
 // Close closes the listener.
 // Any blocked Accept operations will be unblocked and return errors.
 func (self *IOListener) Close() error {
-	return nil
+	err := self.conn.Close()
+	close(self.closed)
+	return err
 }
 
 // Addr returns the listener's network address.

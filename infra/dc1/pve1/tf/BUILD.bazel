@@ -16,8 +16,8 @@ _CONFIGS = ["//infra/dc1/pve1:al"]
 _RUN_ARGS = [
     "--env_vault",
     "default:default",
-    "--env_bin",
-    "$(rootpath //tools/vault/pve_login)",
+    "--plugin",
+    "pve_login.bin=$(rootpath //tools/vault/pve_login)",
     "--env_label",
     "tf",
 ]

@@ -18,7 +18,7 @@ _RUN_ARGS = [
     "default:default",
     "--env_label",
     "tf",
-    "--service",
+    "--plugin",
     "pve_login.bin=$(rootpath //tools/vault/pve_login)",
 ]
 

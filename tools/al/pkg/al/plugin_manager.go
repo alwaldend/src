@@ -8,6 +8,7 @@ import (
 	"net"
 	"os"
 	"os/exec"
+	"slices"
 	"strings"
 
 	"git.alwaldend.com/alwaldend/src/tools/al/api/al_proto"
@@ -34,9 +35,10 @@ type PluginManagerStart struct {
 	name string
 	bin  string
 	args []string
+	env  []string
 }
 
-func (self *PluginManager) StartPlugins(ctx context.Context, args []string) ([]*al_proto.PluginStartResponse, error) {
+func (self *PluginManager) StartPlugins(ctx context.Context, args []string, env []string) ([]*al_proto.PluginStartResponse, error) {
 	plugins := make(map[string]*PluginManagerStart)
 	res := []*al_proto.PluginStartResponse{}
 	for i, arg := range args {
@@ -46,7 +48,9 @@ func (self *PluginManager) StartPlugins(ctx context.Context, args []string) ([]*
 		parts := strings.SplitN(arg, ".", 2)
 		plugin, ok := plugins[parts[0]]
 		if !ok {
-			plugin = &PluginManagerStart{}
+			plugin = &PluginManagerStart{
+				env: slices.Clone(env),
+			}
 			plugins[parts[0]] = plugin
 		}
 		if len(parts) < 2 {
@@ -71,8 +75,10 @@ func (self *PluginManager) StartPlugins(ctx context.Context, args []string) ([]*
 }
 
 func (self *PluginManager) StartPlugin(ctx context.Context, plugin *PluginManagerStart) (*al_proto.PluginStartResponse, error) {
-	self.logger.Output(0, fmt.Sprintf("Starting plugin: %s", plugin))
+	self.logger.Output(0, fmt.Sprintf("Starting plugin: %s", plugin.name))
 	cmd := exec.Command(plugin.bin, plugin.args...)
+	cmd.Stderr = os.Stderr
+	cmd.Env = plugin.env
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		return nil, fmt.Errorf("could not create stdout pipe: %w", err)
@@ -85,8 +91,16 @@ func (self *PluginManager) StartPlugin(ctx context.Context, plugin *PluginManage
 	if err != nil {
 		return nil, fmt.Errorf("could not start plugin: %w", err)
 	}
+	go func() {
+		err := cmd.Wait()
+		if err != nil {
+			self.logger.Output(0, fmt.Errorf("plugin %s finished with an error: %w", plugin.name, err).Error())
+		} else {
+			self.logger.Output(0, fmt.Sprintf("plugin %s finished", plugin.name))
+		}
+	}()
 	conn, err := grpc.NewClient(
-		"io",
+		fmt.Sprintf("passthrough://%s", plugin.name),
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
 		grpc.WithContextDialer(func(ctx context.Context, s string) (net.Conn, error) {
 			conn, err := NewIOConn(stdout, stdin, NewIOAddr(stdout, stdin))

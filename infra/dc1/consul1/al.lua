@@ -51,7 +51,7 @@ lib.env({
     name = "CONSUL_CLIENT_CERT",
     files = { "consul_cert_cert" },
     value = "{{ .File.Path }}",
-    labels = { tf = "1" }
+    -- labels = { tf = "1" }
 })
 
 lib.file({
@@ -64,7 +64,7 @@ lib.env({
     name = "CONSUL_CLIENT_KEY",
     files = { "consul_cert_key" },
     value = "{{ .File.Path }}",
-    labels = { tf = "1" }
+    -- labels = { tf = "1" }
 })
 
 lib.env({
