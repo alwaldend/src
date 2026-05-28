@@ -12,20 +12,21 @@ docs_filegroup(
 )
 
 go_library(
-    name = "pve_login_lib",
+    name = "tf_backend_lib",
     srcs = ["main.go"],
-    importpath = "git.alwaldend.com/alwaldend/src/tools/vault/pve_login",
+    importpath = "git.alwaldend.com/alwaldend/src/tools/vault/tf_backend",
     visibility = ["//:__subpackages__"],
     deps = [
         "//tools/al/api/al_proto",
         "//tools/al/pkg/al",
         "//tools/al/pkg/al_plugin",
         "@com_github_google_uuid//:uuid",
+        "@com_github_hashicorp_vault_api//:api",
     ],
 )
 
 go_binary(
-    name = "pve_login",
-    embed = [":pve_login_lib"],
+    name = "tf_backend",
+    embed = [":tf_backend_lib"],
     visibility = ["//:__subpackages__"],
 )

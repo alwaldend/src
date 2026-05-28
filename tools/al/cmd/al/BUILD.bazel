@@ -10,6 +10,7 @@ go_library(
     visibility = ["//:__subpackages__"],
     deps = [
         "//tools/al/pkg/al",
+        "//tools/al/pkg/al_plugin",
         "@com_github_spf13_cobra//:cobra",
     ],
 )

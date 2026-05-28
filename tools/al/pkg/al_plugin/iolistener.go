@@ -1,4 +1,4 @@
-package al
+package al_plugin
 
 import (
 	"fmt"

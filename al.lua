@@ -12,6 +12,28 @@ lib.vault({
     }
 })
 
+lib.plugin({
+    name = "pve_login",
+    bin = "com_alwaldend_src/tools/vault/pve_login/pve_login_/pve_login",
+    args = {
+        "--pve_base_url",
+        "https://host1.pve1.dc1.alwaldend.com:8006",
+        "--pve_redirect_url",
+        "https://host1.pve1.dc1.alwaldend.com:8006",
+        "--pve_realm",
+        "src_infra_dc1_vault",
+    }
+})
+
+lib.plugin({
+    name = "vault_tf_backend",
+    bin = "com_alwaldend_src/tools/vault/tf_backend/tf_backend_/tf_backend",
+    args = {
+        "--vault_secret_mount",
+        "secrets",
+    }
+})
+
 lib.env({
     name = "VAULT_SKIP_VERIFY",
     value = "1",

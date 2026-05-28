@@ -4,7 +4,7 @@ load("//tools/docs:defs.bzl", "docs_filegroup")
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//tools/vault:__pkg__"],
+    visibility = ["//tools/consul:__pkg__"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,

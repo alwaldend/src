@@ -5,10 +5,9 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"os/signal"
-	"syscall"
 
 	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al_plugin"
 	"github.com/spf13/cobra"
 )
 
@@ -20,7 +19,6 @@ func Execute(
 	stdout io.Writer,
 	stderr io.Writer,
 ) error {
-	ctx, _ = signal.NotifyContext(ctx, syscall.SIGINT, syscall.SIGTERM)
 	root, err := newRootCommand(ctx, args, stdin, stdout, stderr)
 	if err != nil {
 		return fmt.Errorf("could not create commands: %w", err)
@@ -141,7 +139,10 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("could not prepare command: %w", err)
 			}
-			pluginManager := al.NewPluginManager(cmdArgs.Stderr)
+			pluginManager, err := al_plugin.NewManager(cfg, cmdArgs.Stderr)
+			if err != nil {
+				return fmt.Errorf("could not create plugin manager: %w", err)
+			}
 			pluginResponses, err := pluginManager.StartPlugins(ctx, plugins, runCmd.Environ())
 			if err != nil {
 				return fmt.Errorf("could not prepare plugins: %w", err)

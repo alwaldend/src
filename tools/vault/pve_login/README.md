@@ -5,4 +5,5 @@ languages:
   - go
 tags:
   - proxmox
+  - vault
 ---

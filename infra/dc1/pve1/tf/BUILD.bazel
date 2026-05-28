@@ -17,7 +17,9 @@ _RUN_ARGS = [
     "--env_vault",
     "default:default",
     "--plugin",
-    "pve_login.bin=$(rootpath //tools/vault/pve_login)",
+    "vault_tf_backend.arg=--vault_secret=alwaldend.com/vault1/approles/src_infra_dc1_pve1/tf_backend",
+    "--plugin",
+    "pve_login",
     "--env_label",
     "tf",
 ]
@@ -29,6 +31,7 @@ _DATA = glob(["*.tf"]) + [
     "//infra/dc1/vault/tf/output:approles",
     "//infra/dc1/pve1:dnsconfig",
     "//tools/vault/pve_login",
+    "//tools/vault/tf_backend",
 ]
 
 terraform_binary_map(

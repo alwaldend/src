@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -18,17 +17,16 @@ import (
 
 	"git.alwaldend.com/alwaldend/src/tools/al/api/al_proto"
 	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al_plugin"
 	"github.com/google/uuid"
-	"google.golang.org/grpc"
 )
 
-var pveBaseUrl = flag.String("pve_base_url", "https://host1.pve1.dc1.alwaldend.com:8006", "Base url")
-var pveRedirectUrl = flag.String("pve_redirect_url", "https://host1.pve1.dc1.alwaldend.com:8006", "Proxmox redirect url")
-var pveRealm = flag.String("pve_realm", "src_infra_dc1_vault", "Proxmox realm")
-var logger = log.New(os.Stderr, "tools.vault.pve_login ", log.Flags())
-
-type Plugin struct {
-}
+var pveBaseUrl = flag.String("pve_base_url", "", "Base url")
+var pveRedirectUrl = flag.String("pve_redirect_url", "", "Proxmox redirect url")
+var pveRealm = flag.String("pve_realm", "", "Proxmox realm")
+var vaultConn = flag.String("vault_conn", "", "Vault connection")
+var vaultAuth = flag.String("vault_auth", "", "Vault auth")
+var logger = log.New(os.Stderr, "com.alwaldend.src.tools.vault.pve_login ", log.Flags())
 
 func oidcData() (string, error) {
 	req, err := http.NewRequest(
@@ -62,7 +60,7 @@ func oidcData() (string, error) {
 	return data.Data, nil
 }
 
-func oidcLogin(oidcUrl string) (string, string, error) {
+func oidcLogin(oidcUrl string, vaultToken string) (string, string, error) {
 	regex, err := regexp.Compile("^https://([^/]+)/ui/vault/identity/oidc/provider/([^/]+)/authorize?(.+)$")
 	if err != nil {
 		return "", "", fmt.Errorf("could not compile regex: %w", err)
@@ -91,7 +89,7 @@ func oidcLogin(oidcUrl string) (string, string, error) {
 		return "", "", fmt.Errorf("could not create request: %w", err)
 	}
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", os.Getenv("VAULT_TOKEN")))
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", vaultToken))
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return "", "", fmt.Errorf("could not execute the request: %w", err)
@@ -204,27 +202,28 @@ func createToken(username string, ticket string, csrfToken string) (string, stri
 	return data.Data.TokenId, data.Data.TokenSecret, nil
 }
 
+type Plugin struct {
+}
+
 func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (res *al_proto.PluginStartResponse, err error) {
-	defer func() {
-		if recoverVal := recover(); recoverVal != nil {
-			switch recoverValTyped := recoverVal.(type) {
-			case string:
-				err = errors.New(recoverValTyped)
-			case error:
-				err = recoverValTyped
-			default:
-				err = errors.New("Unknown panic")
-			}
-		}
-	}()
+	logger.Println("Creating a vault token")
+	vault, err := al.NewVault(req.Config)
+	if err != nil {
+		return nil, fmt.Errorf("could not create vault client: %w", err)
+	}
+	vault_client, err := vault.Client(ctx, *vaultConn, *vaultAuth)
+	if err != nil {
+		return nil, fmt.Errorf("could not authorize vault client: %w", err)
+	}
+	logger.Println("Created a vault token")
 	logger.Println("Requesting OIDC url")
 	oidcUrl, err := oidcData()
 	if err != nil {
 		return nil, fmt.Errorf("could not create oidc url: %w", err)
 	}
 	logger.Println("Got OIDC url")
-	logger.Println("Authenticating to the OIDC url")
-	code, state, err := oidcLogin(oidcUrl)
+	logger.Println("Authenticating to the OIDC provider")
+	code, state, err := oidcLogin(oidcUrl, vault_client.Token())
 	if err != nil {
 		return nil, fmt.Errorf("could not authenticate to the oidc url: %w", err)
 	}
@@ -254,9 +253,9 @@ func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartReq
 
 func main() {
 	flag.Parse()
-	logger.Println("Starting gprc server")
-	server := grpc.NewServer()
-	al_proto.RegisterPluginServiceServer(server, Plugin{})
-	listener := al.Must(al.NewIOListener(os.Stdin, os.Stdout))
-	al.Check(server.Serve(listener))
+	err := al_plugin.Serve(context.Background(), os.Stdin, os.Stdout, Plugin{})
+	if err != nil {
+		logger.Printf("failed to run plugin: %s", err.Error())
+		os.Exit(1)
+	}
 }

@@ -8,10 +8,10 @@ lib.auth({
     },
 })
 
-infra.tf_backend({
-    path = "alwaldend.com/vault1/approles/src_infra_dc1_pve1/bucket",
-    labels = { tf = "1" },
-})
+-- infra.tf_backend({
+--     path = "alwaldend.com/vault1/approles/src_infra_dc1_pve1/bucket",
+--     labels = { tf = "1" },
+-- })
 
 infra.yc_auth({
     path = "yandex.cloud/org1/folders/src-infra-dc1-pve1/account_iam_key",

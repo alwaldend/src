@@ -43,7 +43,7 @@ func (self *Vault) FetchSecret(ctx context.Context, name string) (map[string]any
 	if err != nil {
 		return nil, fmt.Errorf("could not normalize secret %s: %w", name, err)
 	}
-	client, err := self.client(ctx, secret.Vault, secret.Auth)
+	client, err := self.Client(ctx, secret.Vault, secret.Auth)
 	if err != nil {
 		return nil, fmt.Errorf("could not get a client for the secret %s: %w", secret.Name, err)
 	}
@@ -93,7 +93,7 @@ func (self *Vault) Env(ctx context.Context, vaultName string, authName string) (
 		res = append(res, fmt.Sprintf("VAULT_CLIENT_CERT=%s", tlsConfig.ClientCert))
 	}
 	if !auth.NoAuth {
-		client, err := self.client(ctx, vaultName, authName)
+		client, err := self.Client(ctx, vaultName, authName)
 		if err != nil {
 			return nil, fmt.Errorf("could not create client for %s/%s: %w", vaultName, authName, err)
 		}
@@ -126,7 +126,7 @@ func (self *Vault) normalizeSecret(secret *al_proto.VaultSecret) (*al_proto.Vaul
 	return secret, nil
 }
 
-func (self *Vault) client(ctx context.Context, vaultName string, authName string) (*api.Client, error) {
+func (self *Vault) Client(ctx context.Context, vaultName string, authName string) (*api.Client, error) {
 	if vaultName == "" {
 		vaultName = VAULT_DEFAULT_NAME
 	}
@@ -155,7 +155,7 @@ func (self *Vault) client(ctx context.Context, vaultName string, authName string
 }
 
 func (self *Vault) VaultOp(ctx context.Context, op *al_proto.VaultOp) (map[string]any, error) {
-	client, err := self.client(ctx, op.Vault, op.Auth)
+	client, err := self.Client(ctx, op.Vault, op.Auth)
 	if err != nil {
 		return nil, fmt.Errorf("could not create client for vault op: %w", err)
 	}

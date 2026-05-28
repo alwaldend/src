@@ -49,14 +49,14 @@ func NewResourceHandler(ctx context.Context, config *al_proto.Config, vault *Vau
 		vaultOps: make(map[string]map[string]any),
 		files:    make(map[string]*ResourceContextFile),
 		vault:    vault,
-		logger:   log.New(stderr, "al.pkg.al.ResourceHandler ", log.Flags()),
+		logger:   log.New(stderr, "com.alwaldend.src.tools.al.pkg.al.ResourceHandler ", log.Flags()),
 	}
 }
 
 func (self *ResourceHandler) Clean() error {
 	var res error
 	for _, file := range self.files {
-		self.logger.Output(0, fmt.Sprintf("removing file: %s", file.Path))
+		self.logger.Printf("removing file: %s", file.Path)
 		res = errors.Join(res, os.RemoveAll(file.Path))
 	}
 	return res
@@ -132,22 +132,8 @@ func (self *ResourceHandler) prepareEnv(ctx context.Context, cmd *exec.Cmd, args
 	return nil
 }
 
-func (self *ResourceHandler) getEnvBin(ctx context.Context, cmd *exec.Cmd, bin string) ([]string, error) {
-	self.logger.Output(0, fmt.Sprintf("setting an environment variable from a binary: %s", bin))
-	binCmd := exec.Command(bin)
-	binCmd.Env = cmd.Env
-	binCmd.Stdin = cmd.Stdin
-	binCmd.Stderr = cmd.Stderr
-	output, err := binCmd.Output()
-	if err != nil {
-		return nil, fmt.Errorf("could not run cmd: %w", err)
-	}
-	res := strings.Split(string(output), "\n")
-	return res, nil
-}
-
 func (self *ResourceHandler) getVaultOp(ctx context.Context, name string) (map[string]any, error) {
-	self.logger.Output(0, fmt.Sprintf("executing a vault operation: %s", name))
+	self.logger.Printf("executing a vault operation: %s", name)
 	res, ok := self.vaultOps[name]
 	if ok {
 		return res, nil
@@ -165,7 +151,7 @@ func (self *ResourceHandler) getVaultOp(ctx context.Context, name string) (map[s
 }
 
 func (self *ResourceHandler) getSecret(ctx context.Context, name string) (map[string]any, error) {
-	self.logger.Output(0, fmt.Sprintf("fetching a vault secret: %s", name))
+	self.logger.Printf("fetching a vault secret: %s", name)
 	res, ok := self.secrets[name]
 	if ok {
 		return res, nil
@@ -218,7 +204,7 @@ func (self *ResourceHandler) addVaultOps(ctx context.Context, templateCtx *Resou
 }
 
 func (self *ResourceHandler) getEnv(ctx context.Context, name string) (string, error) {
-	self.logger.Output(0, fmt.Sprintf("setting an env variable: %s", name))
+	self.logger.Printf("setting an env variable: %s", name)
 	env, err := EnvByName(self.config, name)
 	if err != nil {
 		return "", fmt.Errorf("could not find env %s: %w", name, err)
@@ -231,7 +217,7 @@ func (self *ResourceHandler) getEnv(ctx context.Context, name string) (string, e
 }
 
 func (self *ResourceHandler) getFile(ctx context.Context, name string) (*ResourceContextFile, error) {
-	self.logger.Output(0, fmt.Sprintf("creating a file: %s", name))
+	self.logger.Printf("creating a file: %s", name)
 	res, ok := self.files[name]
 	if ok {
 		return res, nil

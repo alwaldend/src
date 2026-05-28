@@ -105,13 +105,20 @@ message Config {
   repeated File files = 4;
   // Env to set
   repeated Env env = 5;
+  // Plugin configs
+  repeated PluginConfig plugins = 7;
 }
 
-message PluginConfig {}
+message PluginConfig {
+  string name = 1;
+  string bin = 2;
+  repeated string args = 3;
+  map<string, string> env = 4;
+}
 
 message PluginStartRequest {
   Config config = 1;
-  PluginConfig service = 2;
+  PluginConfig plugin = 2;
 }
 message PluginStartResponse {
   map<string, string> env = 1;
