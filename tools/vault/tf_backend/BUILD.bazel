@@ -20,6 +20,7 @@ go_library(
         "//tools/al/api/al_proto",
         "//tools/al/pkg/al",
         "//tools/al/pkg/al_plugin",
+        "//tools/al/pkg/fp",
         "@com_github_google_uuid//:uuid",
         "@com_github_hashicorp_vault_api//:api",
     ],

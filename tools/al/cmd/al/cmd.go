@@ -143,7 +143,7 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("could not create plugin manager: %w", err)
 			}
-			pluginResponses, err := pluginManager.StartPlugins(ctx, plugins, runCmd.Environ())
+			pluginResponses, err := pluginManager.StartPlugins(ctx, plugins)
 			if err != nil {
 				return fmt.Errorf("could not prepare plugins: %w", err)
 			}

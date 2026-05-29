@@ -85,7 +85,7 @@ resource "vault_policy" "approle_secrets" {
   name   = "${var.name}_approle_secrets"
   policy = <<EOT
     path "${var.secrets}/data/${local.secret_path}/*" {
-       capabilities = ["create", "read", "update", "delete", "list"]
+       capabilities = ["create", "read", "update", "delete", "list", "patch"]
     }
     path "${var.secrets}/metadata/${local.secret_path}/*" {
       capabilities = ["list", "read", "update"]

@@ -2,13 +2,18 @@ package al_plugin
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"log"
+	"maps"
 	"net"
 	"os"
 	"os/exec"
+	"runtime/debug"
+	"slices"
 	"strings"
+	"sync"
 
 	"git.alwaldend.com/alwaldend/src/tools/al/api/al_proto"
 	"github.com/bazelbuild/rules_go/go/runfiles"
@@ -53,42 +58,91 @@ func NewManager(config *al_proto.Config, stderr io.Writer) (*Manager, error) {
 	}, nil
 }
 
-func (self *Manager) StartPlugins(ctx context.Context, args []string, env []string) ([]*al_proto.PluginStartResponse, error) {
-	plugins := []*al_proto.PluginConfig{}
-	res := []*al_proto.PluginStartResponse{}
-	for i, arg := range args {
+func (self *Manager) StartPlugins(ctx context.Context, args []string) ([]*al_proto.PluginStartResponse, error) {
+	plugins := map[string]*al_proto.PluginConfig{}
+	for _, arg := range args {
 		if arg == "" {
-			return nil, fmt.Errorf("empty argument %d", i)
-		}
-		parts := strings.SplitN(arg, ".", 2)
-		plugin_config, ok := self.plugins[parts[0]]
-		if !ok {
-			return nil, fmt.Errorf("missing config for plugin %s", parts[0])
-		}
-		plugin := &al_proto.PluginConfig{}
-		proto.Merge(plugin, plugin_config)
-		plugins = append(plugins, plugin_config)
-		if len(parts) < 2 {
 			continue
 		}
-		valueParts := strings.SplitN(parts[1], "=", 2)
-		if valueParts[0] == "bin" && len(valueParts) > 1 {
-			plugin_config.Bin = valueParts[1]
-		} else if valueParts[0] == "arg" && len(valueParts) > 1 {
-			plugin_config.Args = append(plugin_config.Args, valueParts[1])
+		parts := strings.SplitN(arg, ".", 2)
+		plugin, ok := plugins[parts[0]]
+		if !ok {
+			plugin_config, ok := self.plugins[parts[0]]
+			if !ok {
+				return nil, fmt.Errorf("missing config for plugin %s", parts[0])
+			}
+			plugin = &al_proto.PluginConfig{}
+			proto.Merge(plugin, plugin_config)
+			plugins[parts[0]] = plugin
+		}
+		if len(parts) > 1 {
+			valueParts := strings.SplitN(parts[1], "=", 2)
+			if valueParts[0] == "bin" && len(valueParts) > 1 {
+				plugin.Bin = valueParts[1]
+			} else if valueParts[0] == "arg" && len(valueParts) > 1 {
+				plugin.Args = append(plugin.Args, valueParts[1])
+			}
 		}
 	}
-	for i, plugin := range plugins {
-		resp, err := self.StartPlugin(ctx, plugin)
-		if err != nil {
-			return nil, fmt.Errorf("could not start plugin %d (%s): %w", i, plugin.Name, err)
-		}
-		res = append(res, resp)
+	res, err := self.startPlugins(ctx, slices.Collect(maps.Values(plugins)))
+	if err != nil {
+		return nil, fmt.Errorf("could not start plugins: %w", err)
 	}
 	return res, nil
 }
 
-func (self *Manager) StartPlugin(ctx context.Context, plugin *al_proto.PluginConfig) (*al_proto.PluginStartResponse, error) {
+func (self *Manager) startPlugins(ctx context.Context, plugins []*al_proto.PluginConfig) ([]*al_proto.PluginStartResponse, error) {
+	var wg sync.WaitGroup
+	errsWorker := make(chan error, len(plugins))
+	responsesWorker := make(chan *al_proto.PluginStartResponse, len(plugins))
+	errsConsumer := make(chan error, len(plugins))
+	responsesConsumer := make(chan *al_proto.PluginStartResponse, len(plugins))
+	for _, plugin := range plugins {
+		wg.Go(func() {
+			defer func() {
+				if r := recover(); r != nil {
+					errsWorker <- fmt.Errorf("panicked: %s\n%s", r, debug.Stack())
+				}
+			}()
+			resp, err := self.startPlugin(ctx, plugin)
+			if err == nil {
+				responsesWorker <- resp
+			} else {
+				errsWorker <- fmt.Errorf("could not start plugin %s: %w", plugin.Name, err)
+			}
+		})
+	}
+	go func() {
+		for err := range errsWorker {
+			errsConsumer <- err
+		}
+		close(errsConsumer)
+	}()
+	go func() {
+		for resp := range responsesWorker {
+			responsesConsumer <- resp
+		}
+		close(responsesConsumer)
+	}()
+	wg.Wait()
+	close(errsWorker)
+	close(responsesWorker)
+	var err error
+	res := []*al_proto.PluginStartResponse{}
+	for curErr := range errsConsumer {
+		err = errors.Join(err, curErr)
+	}
+	for resp := range responsesConsumer {
+		res = append(res, resp)
+	}
+	if err != nil {
+		return nil, fmt.Errorf("could not start plugins: %w", err)
+	}
+	return res, nil
+
+}
+
+func (self *Manager) startPlugin(ctx context.Context, plugin *al_proto.PluginConfig) (*al_proto.PluginStartResponse, error) {
 	pluginJson, err := protojson.Marshal(plugin)
 	if err != nil {
 		return nil, fmt.Errorf("could not marshal plugin: %w", err)
@@ -98,7 +152,7 @@ func (self *Manager) StartPlugin(ctx context.Context, plugin *al_proto.PluginCon
 	if err != nil {
 		return nil, fmt.Errorf("could not get rlocation of %s: %w", plugin.Bin, err)
 	}
-	cmd := exec.Command(bin, plugin.Args...)
+	cmd := exec.CommandContext(ctx, bin, plugin.Args...)
 	cmd.Stderr = os.Stderr
 	cmd.Env = os.Environ()
 	cmd.Env = append(cmd.Env, self.run.Env()...)
@@ -120,9 +174,9 @@ func (self *Manager) StartPlugin(ctx context.Context, plugin *al_proto.PluginCon
 	go func() {
 		err := cmd.Wait()
 		if err != nil {
-			self.logger.Printf("plugin %s finished with an error: %s", plugin.Name, err.Error())
+			self.logger.Printf("Plugin %s finished with an error: %s", plugin.Name, err.Error())
 		} else {
-			self.logger.Printf("plugin %s finished", plugin.Name)
+			self.logger.Printf("Plugin %s finished", plugin.Name)
 		}
 	}()
 	conn, err := grpc.NewClient(
@@ -148,5 +202,6 @@ func (self *Manager) StartPlugin(ctx context.Context, plugin *al_proto.PluginCon
 	if err != nil {
 		return nil, fmt.Errorf("could not execute plugin start request: %w", err)
 	}
+	self.logger.Printf("Finished starting plugin %s", plugin.Name)
 	return response, nil
 }
