@@ -1,5 +1,12 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
 load("//tools/docs:defs.bzl", "docs_filegroup")
+load("@grpc-java//:java_grpc_library.bzl", "java_grpc_library")
+load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
+load("@protobuf//bazel:proto_library.bzl", "proto_library")
+load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
+load("@rules_java//java:defs.bzl", "java_library")
+load("//tools/proto/main/bzl:al_proto_docs.bzl", "al_proto_docs")
 
 docs_filegroup(
     name = "docs",
@@ -8,7 +15,7 @@ docs_filegroup(
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
-    ),
+    ) + [":al_proto_docs"],
 )
 
 go_library(
@@ -21,6 +28,7 @@ go_library(
         "//projects/al/pkg/al",
         "//projects/al/pkg/al_plugin",
         "//projects/al/pkg/fp",
+        ":tf_backend_proto",
         "@com_github_google_uuid//:uuid",
         "@com_github_hashicorp_vault_api//:api",
     ],
@@ -30,4 +38,60 @@ go_binary(
     name = "tf_backend",
     embed = [":tf_backend_lib"],
     visibility = ["//:__subpackages__"],
+)
+
+al_proto_docs(
+    name = "tf_backend_proto_docs",
+    src = "tf_backend_proto.proto",
+)
+
+proto_library(
+    name = "tf_backend_proto_proto",
+    srcs = ["api.proto"],
+    deps = ["@protobuf//:any_proto"],
+    visibility = ["//visibility:public"],
+)
+
+go_proto_library(
+    name = "tf_backend_proto_go_proto",
+    compilers = [
+        "@rules_go//proto:go_grpc_v2",
+        "@rules_go//proto:go_proto",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/vault/tf_backend/tf_backend_proto",
+    proto = ":tf_backend_proto_proto",
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "tf_backend_proto",
+    embed = [":tf_backend_proto_go_proto"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/vault/tf_backend/tf_backend_proto",
+    visibility = ["//visibility:public"],
+)
+
+java_proto_library(
+    name = "tf_backend_proto_java_proto",
+    deps = [":tf_backend_proto_proto"],
+)
+
+java_grpc_library(
+    name = "tf_backend_proto_java_grpc",
+    srcs = [":tf_backend_proto_proto"],
+    deps = [":tf_backend_proto_java_proto"],
+)
+
+java_library(
+    name = "tf_backend_proto_java_library",
+    visibility = ["//:__subpackages__"],
+    exports = [
+        ":tf_backend_proto_java_grpc",
+        ":tf_backend_proto_java_proto",
+    ],
+)
+
+py_proto_library(
+    name = "tf_backend_proto_py_pb2",
+    visibility = ["//:__subpackages__"],
+    deps = [":tf_backend_proto_proto"],
 )

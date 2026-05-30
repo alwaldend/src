@@ -109,11 +109,29 @@ message Config {
   repeated PluginConfig plugins = 7;
 }
 
+message PluginConfigItem {
+  message ValueMap {
+    map<string, PluginConfigItem> items = 1;
+  }
+  message ValueList {
+    repeated PluginConfigItem items = 1;
+  }
+
+  oneof value {
+    string value_string = 2;
+    bool value_bool = 3;
+    ValueMap value_map = 4;
+    ValueList value_list = 5;
+  }
+}
+
 message PluginConfig {
   string name = 1;
   string bin = 2;
   repeated string args = 3;
+  repeated string extends = 6;
   map<string, string> env = 4;
+  map<string, PluginConfigItem> config = 5;
 }
 
 message PluginStartRequest {

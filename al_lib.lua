@@ -1,7 +1,7 @@
 local M = {}
 
 function M.plugin(t)
-    config({ plugins = { t } })
+    config({ plugins = { t }})
 end
 
 function M.vault_op(t)

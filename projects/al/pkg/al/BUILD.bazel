@@ -13,6 +13,7 @@ go_library(
     visibility = ["//:__subpackages__"],
     deps = [
         "//projects/al/api/al_proto",
+        "//projects/al/pkg/fp",
         "@com_github_hashicorp_vault_api//:api",
         "@com_github_hashicorp_vault_api//tokenhelper",
         "@com_github_hashicorp_vault_api_auth_approle//:approle",

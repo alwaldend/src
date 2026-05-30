@@ -17,7 +17,7 @@ _RUN_ARGS = [
     "--env_vault",
     "default:default",
     "--plugin",
-    "vault_tf_backend.arg=--vault_secret=alwaldend.com/vault1/approles/src_infra_dc1_pve1/tf_backend",
+    "vault_tf_backend_local",
     "--plugin",
     "pve_login",
     "--env_label",

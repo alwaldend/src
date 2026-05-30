@@ -84,6 +84,15 @@ func (self *Manager) StartPlugins(ctx context.Context, args []string) ([]*al_pro
 			}
 		}
 	}
+	for _, plugin := range plugins {
+		for _, extendKey := range plugin.Extends {
+			extend, ok := self.plugins[extendKey]
+			if !ok {
+				return nil, fmt.Errorf("extends contains missing plugin %s", extendKey)
+			}
+			proto.Merge(plugin, extend)
+		}
+	}
 	res, err := self.startPlugins(ctx, slices.Collect(maps.Values(plugins)))
 	if err != nil {
 		return nil, fmt.Errorf("could not start plugins: %w", err)

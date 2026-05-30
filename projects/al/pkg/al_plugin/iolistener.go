@@ -175,8 +175,7 @@ func (self *IOListener) Accept() (net.Conn, error) {
 		self.conn = conn
 		return conn, nil
 	}
-	for range self.closed {
-	}
+	<-self.closed
 	return nil, fmt.Errorf("closed")
 }
 

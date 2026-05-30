@@ -38,13 +38,14 @@ func loadConfig(ctx context.Context, path string) (*al_proto.Config, error) {
 	if err != nil {
 		return nil, fmt.Errorf("could not open config file %s: %w", path, err)
 	}
-	if extension == ".yaml" || extension == ".json" {
+	switch extension {
+	case ".yaml", ".json":
 		configContentJson, err := yaml.YAMLToJSON(configContent)
 		err = protojson.Unmarshal(configContentJson, res)
 		if err != nil {
 			return nil, fmt.Errorf("could not unmarshal config file %s: %w", path, err)
 		}
-	} else if extension == ".lua" {
+	case ".lua":
 		state := lua.NewState()
 		defer state.Close()
 		state.SetGlobal("config", state.NewFunction(func(l *lua.LState) int {
@@ -57,7 +58,7 @@ func loadConfig(ctx context.Context, path string) (*al_proto.Config, error) {
 		if err != nil {
 			return nil, fmt.Errorf("could not run lua: %w", err)
 		}
-	} else {
+	default:
 		return nil, fmt.Errorf("invalid extension: %s", extension)
 	}
 	return res, nil

@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 	"github.com/hashicorp/vault/api"
 	"github.com/hashicorp/vault/api/auth/approle"
 	"github.com/hashicorp/vault/api/tokenhelper"
@@ -21,17 +22,17 @@ type Vault struct {
 	config  *al_proto.Config
 }
 
-func NewVault(config *al_proto.Config) (*Vault, error) {
+func NewVault(config *al_proto.Config) fp.Monad[*Vault] {
 	helper, err := tokenhelper.NewInternalTokenHelper()
 	if err != nil {
-		return nil, fmt.Errorf("could not create the internal token helper")
+		return fp.Left[*Vault](fmt.Errorf("could not create the internal token helper"))
 	}
 	res := &Vault{
 		helper:  helper,
 		clients: map[string]*api.Client{},
 		config:  config,
 	}
-	return res, nil
+	return fp.Right(res)
 }
 
 func (self *Vault) FetchSecret(ctx context.Context, name string) (map[string]any, error) {
@@ -43,7 +44,7 @@ func (self *Vault) FetchSecret(ctx context.Context, name string) (map[string]any
 	if err != nil {
 		return nil, fmt.Errorf("could not normalize secret %s: %w", name, err)
 	}
-	client, err := self.Client(ctx, secret.Vault, secret.Auth)
+	client, err := fp.Get(self.Client(ctx, secret.Vault, secret.Auth))
 	if err != nil {
 		return nil, fmt.Errorf("could not get a client for the secret %s: %w", secret.Name, err)
 	}
@@ -93,7 +94,7 @@ func (self *Vault) Env(ctx context.Context, vaultName string, authName string) (
 		res = append(res, fmt.Sprintf("VAULT_CLIENT_CERT=%s", tlsConfig.ClientCert))
 	}
 	if !auth.NoAuth {
-		client, err := self.Client(ctx, vaultName, authName)
+		client, err := fp.Get(self.Client(ctx, vaultName, authName))
 		if err != nil {
 			return nil, fmt.Errorf("could not create client for %s/%s: %w", vaultName, authName, err)
 		}
@@ -126,7 +127,7 @@ func (self *Vault) normalizeSecret(secret *al_proto.VaultSecret) (*al_proto.Vaul
 	return secret, nil
 }
 
-func (self *Vault) Client(ctx context.Context, vaultName string, authName string) (*api.Client, error) {
+func (self *Vault) Client(ctx context.Context, vaultName string, authName string) fp.Monad[*api.Client] {
 	if vaultName == "" {
 		vaultName = VAULT_DEFAULT_NAME
 	}
@@ -136,26 +137,26 @@ func (self *Vault) Client(ctx context.Context, vaultName string, authName string
 	path := fmt.Sprintf("%s/%s", vaultName, authName)
 	client, ok := self.clients[path]
 	if ok {
-		return client, nil
+		return fp.Right(client)
 	}
 	auth, err := VaultAuthByName(self.config, authName)
 	if err != nil {
-		return nil, fmt.Errorf("could not get auth config: %w", err)
+		return fp.Left[*api.Client](fmt.Errorf("could not get auth config: %w", err))
 	}
 	vault, err := VaultByName(self.config, vaultName)
 	if err != nil {
-		return nil, fmt.Errorf("could not get vault config: %w", err)
+		return fp.Left[*api.Client](fmt.Errorf("could not get vault config: %w", err))
 	}
 	client, err = newVaultClient(ctx, self.helper, vault, auth)
 	if err != nil {
-		return nil, fmt.Errorf("could not create vault client %s: %w", path, err)
+		return fp.Left[*api.Client](fmt.Errorf("could not create vault client %s: %w", path, err))
 	}
 	self.clients[path] = client
-	return client, nil
+	return fp.Right(client)
 }
 
 func (self *Vault) VaultOp(ctx context.Context, op *al_proto.VaultOp) (map[string]any, error) {
-	client, err := self.Client(ctx, op.Vault, op.Auth)
+	client, err := fp.Get(self.Client(ctx, op.Vault, op.Auth))
 	if err != nil {
 		return nil, fmt.Errorf("could not create client for vault op: %w", err)
 	}

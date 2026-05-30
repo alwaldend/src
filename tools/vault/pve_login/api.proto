@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package com.alwaldend.src.tools.vault.pve_login.pve_login_proto;
+
+option go_package = "git.alwaldend.com/alwaldend/src/tools/vault/pve_login/pve_login_proto";
+
+message Config {
+    string pve_base_url = 1;
+    string pve_redirect_url = 2;
+    string pve_realm = 3;
+    string vault_conn = 4;
+    string vault_auth = 5;
+}

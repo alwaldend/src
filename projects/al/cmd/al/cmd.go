@@ -8,6 +8,7 @@ import (
 
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 	"github.com/spf13/cobra"
 )
 
@@ -95,7 +96,7 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("could not load configs: %w", err)
 			}
-			vault, err := al.NewVault(cfg)
+			vault, err := fp.Get(al.NewVault(cfg))
 			if err != nil {
 				return fmt.Errorf("could not create Vault: %w", err)
 			}
