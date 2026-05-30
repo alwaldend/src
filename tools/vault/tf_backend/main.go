@@ -16,10 +16,10 @@ import (
 	"syscall"
 	"time"
 
-	"git.alwaldend.com/alwaldend/src/tools/al/api/al_proto"
-	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al"
-	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al_plugin"
-	"git.alwaldend.com/alwaldend/src/tools/al/pkg/fp"
+	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 	"github.com/google/uuid"
 	"github.com/hashicorp/vault/api"
 )
@@ -65,12 +65,12 @@ type reqState struct {
 	respBody   []byte
 }
 
-func (self *reqState) left(err error) fp.Either[error, *reqState] {
-	return fp.Left[error, *reqState](err)
+func (self *reqState) left(err error) fp.Either[*reqState] {
+	return fp.Left[*reqState](err)
 }
 
-func (self *reqState) right() fp.Either[error, *reqState] {
-	return fp.Right[error](self)
+func (self *reqState) right() fp.Either[*reqState] {
+	return fp.Right(self)
 }
 
 type requestMonad = fp.Monad[*reqState]
@@ -270,7 +270,7 @@ func rootHandler(vault *api.Client, username string, password string) http.Handl
 				logger.Printf("panic: %s\n%s", r, string(debug.Stack()))
 			}
 		}()
-		resChain := fp.Right[error](&reqState{
+		res, err := fp.Get(fp.Right(&reqState{
 			w:          w,
 			r:          r,
 			ctx:        r.Context(),
@@ -300,16 +300,7 @@ func rootHandler(vault *api.Client, username string, password string) http.Handl
 				default:
 					return rs.left(fmt.Errorf("invalid request type"))
 				}
-			})
-		resTyped := resChain.(fp.Either[error, *reqState])
-		var res *reqState
-		var err error
-		if resTyped.Left != nil {
-			err = *resTyped.Left
-		}
-		if resTyped.Right != nil {
-			res = *resTyped.Right
-		}
+			}))
 		if err == nil {
 			w.WriteHeader(http.StatusOK)
 			w.Write(res.respBody)

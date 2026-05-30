@@ -1,5 +1,5 @@
 load("@rules_go//go:def.bzl", "go_binary")
-load("//tools/al/rules/al:al_binary.bzl", "al_binary_run")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
 
 def vault_binary(
         args = [],

@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 )
 
 var vaultFlag = flag.String("vault", "", "Vault binary")

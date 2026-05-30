@@ -1,0 +1,19 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "fp",
+    srcs = [
+        "box.go",
+        "functor.go",
+        "monad.go",
+        "maybe.go",
+        "either.go",
+        "io.go",
+        "result.go",
+        "pipe.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/al/pkg/fp",
+    visibility = ["//:__subpackages__"],
+    deps = [
+    ],
+)

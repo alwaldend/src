@@ -9,7 +9,7 @@ import (
 	"strings"
 	"syscall"
 
-	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"golang.org/x/term"
 )
 

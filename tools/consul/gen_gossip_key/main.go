@@ -5,7 +5,7 @@ import (
 	"flag"
 	"strings"
 
-	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 )
 
 var vault = flag.String("vault", "", "Vault path")

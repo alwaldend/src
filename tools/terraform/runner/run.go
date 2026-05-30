@@ -7,7 +7,7 @@ import (
 	"slices"
 	"strings"
 
-	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 )
 
 var terraformFlag = flag.String("terraform", "", "Terraform binary")

@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 )
 
 var rcloneFlag = flag.String("rclone", "", "Rclone binary")

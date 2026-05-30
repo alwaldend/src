@@ -1,0 +1,20 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "al_plugin",
+    srcs = [
+        "iolistener.go",
+        "manager.go",
+        "plugin.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//projects/al/api/al_proto",
+        "@org_golang_google_grpc//:go_default_library",
+        "@org_golang_google_grpc//credentials/insecure:go_default_library",
+        "@org_golang_google_protobuf//encoding/protojson",
+        "@org_golang_google_protobuf//proto",
+        "@rules_go//go/runfiles",
+    ],
+)

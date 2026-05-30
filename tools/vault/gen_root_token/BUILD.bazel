@@ -17,7 +17,7 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/gen_root_token",
     visibility = ["//:__subpackages__"],
     deps = [
-        "//tools/al/pkg/al",
+        "//projects/al/pkg/al",
         "@org_golang_x_term//:term",
     ],
 )

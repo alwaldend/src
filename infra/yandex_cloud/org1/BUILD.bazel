@@ -1,4 +1,4 @@
-load("//tools/al/rules/al:al_config.bzl", "al_config")
+load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 

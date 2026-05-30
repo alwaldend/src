@@ -15,9 +15,9 @@ import (
 	"strings"
 	"time"
 
-	"git.alwaldend.com/alwaldend/src/tools/al/api/al_proto"
-	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al"
-	"git.alwaldend.com/alwaldend/src/tools/al/pkg/al_plugin"
+	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin"
 	"github.com/google/uuid"
 )
 

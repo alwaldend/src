@@ -1,6 +1,6 @@
 load("@bazel_skylib//rules:native_binary.bzl", "native_test")
 load("@rules_go//go:def.bzl", "go_binary", "go_test")
-load("//tools/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_test")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_test")
 
 def terraform_binary(
         args = [],
