@@ -4,10 +4,10 @@ type Box[T any] struct {
 	value T
 }
 
-var _ Functor[int] = (*Box[int])(nil)
+var _ Functor[Box[int], int] = (*Box[int])(nil)
 var _ Result[int] = (*Either[int])(nil)
 
-func (self Box[T]) Map(f func(T) T) Functor[T] {
+func (self Box[T]) Map(f func(T) T) Box[T] {
 	return Box[T]{f(self.value)}
 }
 

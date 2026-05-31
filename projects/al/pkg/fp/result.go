@@ -2,6 +2,7 @@ package fp
 
 import (
 	"fmt"
+	"io"
 	"os"
 )
 
@@ -9,27 +10,35 @@ type Result[T any] interface {
 	Get() (T, error)
 }
 
-func Get[T any](val Functor[T]) (res T, err error) {
-	valTyped, ok := val.(Result[T])
-	if !ok {
-		return res, fmt.Errorf("could not convert %T to ResultContainer", val)
-	}
-	return valTyped.Get()
+type ResultFunc[R any] = func(r Result[R]) (R, error)
+type ResultFuncSuccess[R any] = func(r R) (R, error)
+type ResultFuncFail[R any] = func(r R, err error) (R, error)
+
+func Get[R any](r Result[R]) (R, error) {
+	return r.Get()
 }
 
-func GetOrExit[T any](val Functor[T], code int) T {
-	res, err := Get(val)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "%s\n", err)
-		os.Exit(code)
+func Fold[R any](f1 ResultFuncSuccess[R], f2 ResultFuncFail[R]) ResultFunc[R] {
+	return func(r Result[R]) (R, error) {
+		val, err := Get(r)
+		if err != nil {
+			return f2(val, err)
+		}
+		return f1(val)
 	}
-	return res
 }
 
-func GetOrPanic[T any](val Functor[T]) T {
-	res, err := Get(val)
-	if err != nil {
-		panic(err)
-	}
-	return res
+func GetOrExit[R any](out io.Writer, code int) ResultFunc[R] {
+	return Fold(
+		ReturnE,
+		func(r R, err error) (R, error) {
+			fmt.Fprintf(out, "%s\n", err)
+			os.Exit(code)
+			return r, fmt.Errorf("did not exit for some reason: %w", err)
+		},
+	)
+}
+
+func GetOrPanic[R any](r Result[R]) {
+	Fold(ReturnE, func(r R, err error) (R, error) { panic(err) })(r)
 }
