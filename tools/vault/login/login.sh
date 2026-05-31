@@ -20,7 +20,8 @@ data=$(\
         --cacert "${VAULT_CACERT}" \
         --cert "${url}" \
         --data "{ \"name\": \"${name}\" }" \
-        "${VAULT_ADDR}/v1/auth/cert/login"
+        "${VAULT_ADDR}/v1/auth/cert/login" \
+        "${@}"
 )
 token=$(echo "${data}" | jq -r .auth.client_token)
 echo "${token}" >~/.vault-token

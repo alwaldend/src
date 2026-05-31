@@ -23,40 +23,58 @@ func RecoverError(rec any) error {
 	return fmt.Errorf("panic: %s\n%s", rec, string(debug.Stack()))
 }
 
-func parseConfigItem(itemRaw *al_proto.PluginConfigItem) fp.Monad[any] {
+func parseConfigItem(itemRaw *al_proto.PluginConfigItem) fp.Result[any] {
 	switch item := itemRaw.GetValue().(type) {
 	case *al_proto.PluginConfigItem_ValueString:
 		return fp.Right[any](item.ValueString)
 	case *al_proto.PluginConfigItem_ValueBool:
 		return fp.Right[any](item.ValueBool)
 	case *al_proto.PluginConfigItem_ValueList_:
-		return fp.Pipe3(
-			fp.Just(item.ValueList.Items),
-			fp.CollectSlice(parseConfigItem),
-			fp.ToAny,
-		)
+		res := []any{}
+		for _, v := range item.ValueList.Items {
+			v2, err := fp.Get(parseConfigItem(v))
+			if err != nil {
+				return fp.Left[any](err)
+			}
+			res = append(res, v2)
+		}
+		return fp.Right[any](res)
 	case *al_proto.PluginConfigItem_ValueMap_:
-		return fp.Pipe3(
-			fp.Just(item.ValueMap.Items),
-			fp.CollectMap(func(k string, v *al_proto.PluginConfigItem) fp.Monad[any] { return parseConfigItem(v) }),
-			fp.ToAny,
-		)
+		res := map[string]any{}
+		for k, v := range item.ValueMap.Items {
+			v2, err := fp.Get(parseConfigItem(v))
+			if err != nil {
+				return fp.Left[any](err)
+			}
+			res[k] = v2
+		}
+		return fp.Right[any](res)
 	default:
 		return fp.Left[any](fmt.Errorf("invalid item %T: %s", item, itemRaw))
 	}
 }
 
-func ParseConfig(config *al_proto.PluginConfig, target proto.Message) fp.EmptyMonad {
-	return fp.Pipe5(
-		fp.Just(config.Config),
-		fp.CollectMapV[string](parseConfigItem),
-		fp.ToAny,
-		fp.EitherFunc2(json.Marshal),
-		fp.EitherFunc(func(b []byte) error { return protojson.Unmarshal(b, target) }),
-	)
+func ParseConfig(config *al_proto.PluginConfig, target proto.Message) fp.EmptyEither {
+	res := map[string]any{}
+	for k, v := range config.Config {
+		v2, err := fp.Get(parseConfigItem(v))
+		if err != nil {
+			return fp.EmptyLeft(err)
+		}
+		res[k] = v2
+	}
+	body, err := json.Marshal(res)
+	if err != nil {
+		return fp.EmptyLeft(fmt.Errorf("could not marshal plugin config: %w", err))
+	}
+	err = protojson.Unmarshal(body, target)
+	if err != nil {
+		return fp.EmptyLeft(fmt.Errorf("could not unmarshal plugin config: %w", err))
+	}
+	return fp.EmptyRight()
 }
 
-func Serve(ctx context.Context, stdin io.Reader, stdout io.Writer, plugin al_proto.PluginServiceServer) fp.EmptyMonad {
+func Serve(ctx context.Context, stdin io.Reader, stdout io.Writer, plugin al_proto.PluginServiceServer) fp.EmptyEither {
 	ctx, cancel := signal.NotifyContext(ctx, syscall.SIGINT, syscall.SIGTERM)
 	defer cancel()
 	server := grpc.NewServer(
@@ -94,5 +112,5 @@ func Serve(ctx context.Context, stdin io.Reader, stdout io.Writer, plugin al_pro
 	if err != nil {
 		return fp.EmptyLeft(fmt.Errorf("could not serve: %w", err))
 	}
-	return nil
+	return fp.EmptyRight()
 }

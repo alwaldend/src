@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"iter"
 	"runtime/debug"
+	"slices"
 	"sync"
 )
 
@@ -17,6 +18,45 @@ func ForEach[T any](f func(T) Result[any]) func(iter.Seq[T]) EmptyEither {
 		}
 		return EmptyRight()
 	}
+}
+
+func CollectEach[T1, T2 any](f func(T1) Result[T2]) func(iter.Seq[T1]) Either[[]T2] {
+	return func(s iter.Seq[T1]) Either[[]T2] {
+		res := []T2{}
+		for v := range s {
+			v2, err := Get(f(v))
+			if err != nil {
+				return Left[[]T2](err)
+			}
+			res = append(res, v2)
+		}
+		return Right(res)
+	}
+}
+
+func CollectEachS[T1, T2 any](f func(T1) Result[T2]) func([]T1) Either[[]T2] {
+	return func(s []T1) Either[[]T2] {
+		it := IgnoreIter1[[]T1](slices.All)(s)
+		return CollectEach(f)(it)
+	}
+}
+
+func CollectEachM[M ~map[T1]T2, T1 comparable, T2, T3 any](f func(T1, T2) Result[T3]) func(M) Either[map[T1]T3] {
+	return func(m M) Either[map[T1]T3] {
+		res := map[T1]T3{}
+		for k, v := range m {
+			v2, err := Get(f(k, v))
+			if err != nil {
+				return Left[map[T1]T3](err)
+			}
+			res[k] = v2
+		}
+		return Right(res)
+	}
+}
+
+func CollectEachMV[M ~map[T1]T2, T1 comparable, T2, T3 any](f func(T2) Result[T3]) func(M) Either[map[T1]T3] {
+	return CollectEachM[M](IgnoreA1[T1](f))
 }
 
 func ForEachP[T any](f func(v T) Result[any]) func(iter.Seq[T]) EmptyEither {

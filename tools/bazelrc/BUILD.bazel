@@ -1,13 +1,17 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("@bazelrc-preset.bzl", "bazelrc_preset")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 
-pkg_filegroup(
-    name = "docs",
-    srcs = [":docs_files"],
-    visibility = ["//tools:__pkg__"],
+bazelrc_preset(
+    name = "preset",
+    strict = True,
 )
 
-pkg_files(
-    name = "docs_files",
+docs_filegroup(
+    name = "docs",
     srcs = glob(["*.md"]),
-    prefix = "content/docs/{}".format(package_name()),
+    visibility = ["//tools:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
 )

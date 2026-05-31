@@ -61,20 +61,19 @@ func (self *state) right() fp.Either[*state] {
 	return fp.Right(self)
 }
 
-type stateMonad = fp.Monad[*state]
+type stateMonad = fp.Either[*state]
 
 func createVaultToken(s *state) stateMonad {
-	return fp.Pipe4(
-		fp.Right(s.req.Config),
+	return fp.Pipe3(
 		al.NewVault,
-		func(v *al.Vault) fp.Monad[*api.Client] {
+		func(v *al.Vault) fp.Either[*api.Client] {
 			return v.Client(s.ctx, s.config.VaultConn, s.config.VaultAuth)
 		},
 		func(v *api.Client) stateMonad {
 			s.vaultToken = v.Token()
 			return fp.Right(s)
 		},
-	)
+	)(s.req.Config)
 }
 
 func createOIDCRequest(s *state) stateMonad {
@@ -232,14 +231,14 @@ func createProxmoxToken(s *state) stateMonad {
 }
 
 func parseConfig(s *state) stateMonad {
-	return fp.Pipe3(
-		fp.Right(s),
-		func(s *state) fp.Monad[struct{}] { return al_plugin.ParseConfig(s.req.Plugin, s.config) },
-		fp.Return[struct{}](s),
-	)
+	_, err := fp.Get(al_plugin.ParseConfig(s.req.Plugin, s.config))
+	if err != nil {
+		return s.left(fmt.Errorf("could not parse plugin config: %w", err))
+	}
+	return s.right()
 }
 
-func createResponse(s *state) fp.Monad[*al_proto.PluginStartResponse] {
+func createResponse(s *state) fp.Either[*al_proto.PluginStartResponse] {
 	resp := &al_proto.PluginStartResponse{
 		Env: map[string]string{
 			"PM_API_TOKEN_ID":     s.pveToken.Data.TokenId,
@@ -254,24 +253,21 @@ type Plugin struct {
 }
 
 func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
-	return fp.Get(fp.Pipe2(
-		fp.Pipe(
-			fp.Right(&state{
-				ctx:    ctx,
-				req:    req,
-				config: &pve_login_proto.Config{},
-			}),
-			parseConfig,
-			createVaultToken,
-			createOIDCRequest,
-			loginToOIDCProvider,
-			createProxmoxTicket,
-			createProxmoxToken,
-		),
+	return fp.Get(fp.Pipe7(
+		parseConfig,
+		createVaultToken,
+		createOIDCRequest,
+		loginToOIDCProvider,
+		createProxmoxTicket,
+		createProxmoxToken,
 		createResponse,
-	))
+	)(&state{
+		ctx:    ctx,
+		req:    req,
+		config: &pve_login_proto.Config{},
+	}))
 }
 
 func main() {
-	fp.GetOrExit(al_plugin.Serve(context.Background(), os.Stdin, os.Stdout, Plugin{}), 1)
+	fp.GetOrExit[struct{}](os.Stderr, 1)(al_plugin.Serve(context.Background(), os.Stdin, os.Stdout, Plugin{}))
 }

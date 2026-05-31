@@ -1,1 +1,1 @@
-import %workspace%/tools/bazelrc/main/bazelrc/root.bazelrc
+import %workspace%/tools/bazelrc/root.bazelrc

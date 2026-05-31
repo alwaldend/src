@@ -62,3 +62,5 @@ common:release --workspace_status_command=tools/workspace_status/main/sh/workspa
 test --test_verbose_timeout_warnings
 # Allow exclusive tests to run in the sandbox. Fixes a bug where Bazel doesn't enable sandboxing for
 test --incompatible_exclusive_test_sandboxed
+# Fix go 1.26 not compiling
+common --copt=-Wno-error=unused-parameter

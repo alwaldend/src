@@ -15,6 +15,7 @@ go_library(
         "return.go",
         "each.go",
         "tuple.go",
+        "ignore.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/pkg/fp",
     visibility = ["//:__subpackages__"],

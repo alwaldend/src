@@ -13,6 +13,7 @@ import (
 	"text/template"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 )
 
 type ResourceHandler struct {
@@ -95,7 +96,7 @@ func (self *ResourceHandler) prepareEnv(ctx context.Context, cmd *exec.Cmd, args
 		} else if len(split) == 2 {
 			vaultName, authName = split[0], split[1]
 		}
-		env, err := self.vault.Env(ctx, vaultName, authName)
+		env, err := fp.Get(self.vault.Env(ctx, vaultName, authName))
 		if err != nil {
 			return fmt.Errorf("could not prepare vault env %s: %w", envVault, err)
 		}
@@ -142,7 +143,7 @@ func (self *ResourceHandler) getVaultOp(ctx context.Context, name string) (map[s
 	if err != nil {
 		return nil, fmt.Errorf("could not find by name: %w", err)
 	}
-	res, err = self.vault.VaultOp(ctx, op)
+	res, err = fp.Get(self.vault.VaultOp(ctx, op))
 	if err != nil {
 		return nil, fmt.Errorf("could not execute vault op: %w", err)
 	}
@@ -156,7 +157,7 @@ func (self *ResourceHandler) getSecret(ctx context.Context, name string) (map[st
 	if ok {
 		return res, nil
 	}
-	res, err := self.vault.FetchSecret(ctx, name)
+	res, err := fp.Get(self.vault.FetchSecret(ctx, name))
 	if err != nil {
 		return nil, fmt.Errorf("could not fetch secret %s: %w", name, err)
 	}

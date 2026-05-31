@@ -65,7 +65,7 @@ func (self *pluginState) right() fp.Either[*pluginState] {
 	return fp.Right(self)
 }
 
-type pluginMonad = fp.Monad[*pluginState]
+type pluginMonad = fp.Either[*pluginState]
 
 type reqState struct {
 	w       http.ResponseWriter
@@ -86,8 +86,8 @@ func (self *reqState) right() fp.Either[*reqState] {
 	return fp.Right(self)
 }
 
-type requestMonad = fp.Monad[*reqState]
-type requestFunc = func(*reqState) fp.Monad[*reqState]
+type requestMonad = fp.Either[*reqState]
+type requestFunc = func(*reqState) fp.Either[*reqState]
 
 func setType(rs *reqState) requestMonad {
 	path := rs.r.URL.Path
@@ -297,41 +297,41 @@ func rootHandler(ps *pluginState) http.HandlerFunc {
 }
 
 func handleRequest(ps *pluginState, w http.ResponseWriter, r *http.Request) requestMonad {
-	return fp.Pipe7(
-		fp.Just(&reqState{w: w, r: r, ctx: r.Context(), ps: ps}),
+	return fp.Pipe6(
 		checkAuth,
 		setType,
 		readBody,
 		fetchSecret(secretTypeLock),
 		checkLock,
 		doAction,
-	)
+	)(&reqState{
+		w:   w,
+		r:   r,
+		ctx: r.Context(),
+		ps:  ps,
+	})
 }
 
 func doAction(rs *reqState) requestMonad {
 	switch rs.reqType {
 	case reqTypeGet:
-		return fp.Pipe(
-			rs.right(),
+		return fp.Pipe2(
 			fetchSecret(secretTypeState),
 			writeState,
-		)
+		)(rs)
 	case reqTypeUpdate:
-		return fp.Pipe(
-			rs.right(),
+		return fp.Pipe2(
 			fetchSecret(secretTypeState),
 			updateState,
-		)
+		)(rs)
 	case reqTypeUnlock:
 		return fp.Pipe(
-			rs.right(),
 			unlockState,
-		)
+		)(rs)
 	case reqTypeLock:
 		return fp.Pipe(
-			rs.right(),
 			lockState,
-		)
+		)(rs)
 	default:
 		return rs.left(fmt.Errorf("invalid request type"))
 	}
@@ -350,17 +350,16 @@ func parseConfig(ps *pluginState) pluginMonad {
 }
 
 func createVault(ps *pluginState) pluginMonad {
-	return fp.Pipe4(
-		fp.Right(ps.req.Config),
+	return fp.Pipe3(
 		al.NewVault,
-		func(v *al.Vault) fp.Monad[*api.Client] {
+		func(v *al.Vault) fp.Either[*api.Client] {
 			return v.Client(ps.ctx, ps.cfg.VaultConn, ps.cfg.VaultAuth)
 		},
 		func(v *api.Client) pluginMonad {
 			ps.vault = v
 			return fp.Right(ps)
 		},
-	)
+	)(ps.req.Config)
 }
 
 func startServer(ps *pluginState) pluginMonad {
@@ -392,7 +391,7 @@ func startServer(ps *pluginState) pluginMonad {
 	return ps.right()
 }
 
-func createResponse(ps *pluginState) fp.Monad[*al_proto.PluginStartResponse] {
+func createResponse(ps *pluginState) fp.Either[*al_proto.PluginStartResponse] {
 	return fp.Right(&al_proto.PluginStartResponse{
 		Env: map[string]string{
 			"TF_HTTP_USERNAME":       ps.username,
@@ -408,21 +407,20 @@ func createResponse(ps *pluginState) fp.Monad[*al_proto.PluginStartResponse] {
 }
 
 func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
-	return fp.Get(fp.Pipe5(
-		fp.Just(&pluginState{
-			ctx:      ctx,
-			cfg:      &tf_backend_proto.Config{},
-			req:      req,
-			username: uuid.New().String(),
-			password: uuid.New().String(),
-		}),
+	return fp.Get(fp.Pipe4(
 		parseConfig,
 		createVault,
 		startServer,
 		createResponse,
-	))
+	)(&pluginState{
+		ctx:      ctx,
+		cfg:      &tf_backend_proto.Config{},
+		req:      req,
+		username: uuid.New().String(),
+		password: uuid.New().String(),
+	}))
 }
 
 func main() {
-	fp.GetOrExit(al_plugin.Serve(context.Background(), os.Stdin, os.Stdout, Plugin{}), 1)
+	fp.GetOrExit[struct{}](os.Stderr, 1)(al_plugin.Serve(context.Background(), os.Stdin, os.Stdout, Plugin{}))
 }
