@@ -18,6 +18,11 @@ pkg_files(
 
 al_ansible_role(
     name = "role",
-    srcs = glob(["**"]),
+    srcs = glob(["**"]) + [
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
+    ],
+    renames = {
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "files/vault",
+    },
     visibility = ["//:__subpackages__"],
 )

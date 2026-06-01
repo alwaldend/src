@@ -64,7 +64,7 @@ func (self *state) right() fp.Either[*state] {
 type stateMonad = fp.Either[*state]
 
 func createVaultToken(s *state) stateMonad {
-	return fp.Pipe3(
+	return fp.Pipe3E(
 		al.NewVault,
 		func(v *al.Vault) fp.Either[*api.Client] {
 			return v.Client(s.ctx, s.config.VaultConn, s.config.VaultAuth)
@@ -73,6 +73,7 @@ func createVaultToken(s *state) stateMonad {
 			s.vaultToken = v.Token()
 			return fp.Right(s)
 		},
+        fp.Errorf("could not create vault token: %w"),
 	)(s.req.Config)
 }
 
@@ -231,29 +232,27 @@ func createProxmoxToken(s *state) stateMonad {
 }
 
 func parseConfig(s *state) stateMonad {
-	_, err := fp.Get(al_plugin.ParseConfig(s.req.Plugin, s.config))
-	if err != nil {
-		return s.left(fmt.Errorf("could not parse plugin config: %w", err))
-	}
-	return s.right()
+	return fp.PipeE(
+		fp.Compute1(func(s *state) fp.EmptyEither { return al_plugin.ParseConfig(s.req.Plugin, s.config) }),
+        fp.Errorf("could not parse config: %w"),
+	)(s)
 }
 
 func createResponse(s *state) fp.Either[*al_proto.PluginStartResponse] {
-	resp := &al_proto.PluginStartResponse{
+	return fp.Right(&al_proto.PluginStartResponse{
 		Env: map[string]string{
 			"PM_API_TOKEN_ID":     s.pveToken.Data.TokenId,
 			"PM_API_TOKEN_SECRET": s.pveToken.Data.TokenSecret,
 			"PM_API_URL":          fmt.Sprintf("%s/api2/json", s.config.PveBaseUrl),
 		},
-	}
-	return fp.Right(resp)
+	})
 }
 
 type Plugin struct {
 }
 
 func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
-	return fp.Get(fp.Pipe7(
+	return fp.Get(fp.Pipe7E(
 		parseConfig,
 		createVaultToken,
 		createOIDCRequest,
@@ -261,6 +260,7 @@ func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartReq
 		createProxmoxTicket,
 		createProxmoxToken,
 		createResponse,
+		fp.Errorf("could process the start request: %w"),
 	)(&state{
 		ctx:    ctx,
 		req:    req,

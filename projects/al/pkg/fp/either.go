@@ -21,6 +21,13 @@ func (self Either[R]) Map(f func(R) R) Either[R] {
 	return Right(f(*self.right))
 }
 
+func (self Either[R]) MapLeft(f func(err error) error) Either[R] {
+	if self.left == nil {
+		return self
+	}
+	return Left[R](f(self.left))
+}
+
 func (self Either[R]) FlatMap(f func(R) Either[R]) Either[R] {
 	if self.right == nil {
 		return self

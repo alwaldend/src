@@ -18,6 +18,13 @@ func Get[R any](r Result[R]) (R, error) {
 	return r.Get()
 }
 
+func Errorf(s string, a ...any) func(error) error {
+	return func(err error) error {
+		a = append(a, err)
+		return fmt.Errorf(s, a...)
+	}
+}
+
 func Fold[R any](f1 ResultFuncSuccess[R], f2 ResultFuncFail[R]) ResultFunc[R] {
 	return func(r Result[R]) (R, error) {
 		val, err := Get(r)

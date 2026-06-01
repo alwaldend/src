@@ -19,6 +19,7 @@
         VAULT_CLIENT_KEY: "{{ lookup('ansible.builtin.env', 'VAULT_CLIENT_KEY') }}"
         VAULT_CLIENT_CERT: "{{ lookup('ansible.builtin.env', 'VAULT_CLIENT_CERT') }}"
         VAULT_TOKEN: "{{ lookup('ansible.builtin.env', 'VAULT_TOKEN') }}"
+        VAULT_SKIP_VERIFY: "{{ lookup('ansible.builtin.env', 'VAULT_SKIP_VERIFY') }}"
       ansible.builtin.command:
         argv:
           - "{{ role_path }}/files/vault"

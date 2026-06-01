@@ -11,7 +11,6 @@ import (
 	"os"
 	"os/signal"
 	"path/filepath"
-	"runtime/debug"
 	"syscall"
 	"time"
 
@@ -280,77 +279,68 @@ func lockState(rs *reqState) requestMonad {
 
 func rootHandler(ps *pluginState) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		defer func() {
-			if r := recover(); r != nil {
+		fp.Pipe6EP(
+			checkAuth,
+			setType,
+			readBody,
+			fetchSecret(secretTypeLock),
+			checkLock,
+			func(rs *reqState) requestMonad {
+				switch rs.reqType {
+				case reqTypeGet:
+					return fp.Pipe2(
+						fetchSecret(secretTypeState),
+						writeState,
+					)(rs)
+				case reqTypeUpdate:
+					return fp.Pipe2(
+						fetchSecret(secretTypeState),
+						updateState,
+					)(rs)
+				case reqTypeUnlock:
+					return fp.Pipe(
+						unlockState,
+					)(rs)
+				case reqTypeLock:
+					return fp.Pipe(
+						lockState,
+					)(rs)
+				default:
+					return rs.left(fmt.Errorf("invalid request type"))
+				}
+			},
+			func(err error) error {
 				w.WriteHeader(http.StatusInternalServerError)
-				fmt.Fprintf(w, "panic: %s", r)
-				logger.Printf("panic: %s\n%s", r, string(debug.Stack()))
-			}
-		}()
-		_, err := fp.Get(handleRequest(ps, w, r))
-		if err != nil {
-			w.WriteHeader(http.StatusInternalServerError)
-			fmt.Fprintf(w, "error: %s", err)
-			logger.Printf("error: %s", err)
-		}
-	}
-}
-
-func handleRequest(ps *pluginState, w http.ResponseWriter, r *http.Request) requestMonad {
-	return fp.Pipe6(
-		checkAuth,
-		setType,
-		readBody,
-		fetchSecret(secretTypeLock),
-		checkLock,
-		doAction,
-	)(&reqState{
-		w:   w,
-		r:   r,
-		ctx: r.Context(),
-		ps:  ps,
-	})
-}
-
-func doAction(rs *reqState) requestMonad {
-	switch rs.reqType {
-	case reqTypeGet:
-		return fp.Pipe2(
-			fetchSecret(secretTypeState),
-			writeState,
-		)(rs)
-	case reqTypeUpdate:
-		return fp.Pipe2(
-			fetchSecret(secretTypeState),
-			updateState,
-		)(rs)
-	case reqTypeUnlock:
-		return fp.Pipe(
-			unlockState,
-		)(rs)
-	case reqTypeLock:
-		return fp.Pipe(
-			lockState,
-		)(rs)
-	default:
-		return rs.left(fmt.Errorf("invalid request type"))
+				fmt.Fprintf(w, "error: %s", err)
+				logger.Printf("error: %s", err)
+				return nil
+			},
+		)(&reqState{
+			w:   w,
+			r:   r,
+			ctx: r.Context(),
+			ps:  ps,
+		})
 	}
 }
 
 func parseConfig(ps *pluginState) pluginMonad {
-	_, err := fp.Get(al_plugin.ParseConfig(ps.req.Plugin, ps.cfg))
-	if err != nil {
-		return ps.left(fmt.Errorf("could not parse plugin config: %w", err))
-	}
-	ps.statePath = fmt.Sprintf("%s/state", ps.cfg.VaultSecret)
-	ps.stateMount = ps.cfg.VaultSecretMount
-	ps.lockPath = fmt.Sprintf("%s/lock", ps.cfg.VaultSecret)
-	ps.lockMount = ps.cfg.VaultSecretMount
-	return ps.right()
+	return fp.Pipe2E(
+		fp.Compute1(func(ps *pluginState) fp.EmptyEither {
+			return al_plugin.ParseConfig(ps.req.Plugin, ps.cfg)
+		}),
+		fp.Compute0(func(ps *pluginState) {
+			ps.statePath = fmt.Sprintf("%s/state", ps.cfg.VaultSecret)
+			ps.stateMount = ps.cfg.VaultSecretMount
+			ps.lockPath = fmt.Sprintf("%s/lock", ps.cfg.VaultSecret)
+			ps.lockMount = ps.cfg.VaultSecretMount
+		}),
+		fp.Errorf("could not parse config: %w"),
+	)(ps)
 }
 
 func createVault(ps *pluginState) pluginMonad {
-	return fp.Pipe3(
+	return fp.Pipe3E(
 		al.NewVault,
 		func(v *al.Vault) fp.Either[*api.Client] {
 			return v.Client(ps.ctx, ps.cfg.VaultConn, ps.cfg.VaultAuth)
@@ -359,6 +349,7 @@ func createVault(ps *pluginState) pluginMonad {
 			ps.vault = v
 			return fp.Right(ps)
 		},
+		fp.Errorf("could not create vault client: %w"),
 	)(ps.req.Config)
 }
 
@@ -391,8 +382,8 @@ func startServer(ps *pluginState) pluginMonad {
 	return ps.right()
 }
 
-func createResponse(ps *pluginState) fp.Either[*al_proto.PluginStartResponse] {
-	return fp.Right(&al_proto.PluginStartResponse{
+func createResponse(ps *pluginState) fp.Box[*al_proto.PluginStartResponse] {
+	return fp.BoxOf(&al_proto.PluginStartResponse{
 		Env: map[string]string{
 			"TF_HTTP_USERNAME":       ps.username,
 			"TF_HTTP_PASSWORD":       ps.password,
@@ -407,11 +398,12 @@ func createResponse(ps *pluginState) fp.Either[*al_proto.PluginStartResponse] {
 }
 
 func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
-	return fp.Get(fp.Pipe4(
+	return fp.Get(fp.Pipe4E(
 		parseConfig,
 		createVault,
 		startServer,
 		createResponse,
+		fp.Errorf("could not process plugin start request: %w"),
 	)(&pluginState{
 		ctx:      ctx,
 		cfg:      &tf_backend_proto.Config{},
