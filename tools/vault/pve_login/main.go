@@ -73,7 +73,7 @@ func createVaultToken(s *state) stateMonad {
 			s.vaultToken = v.Token()
 			return fp.Right(s)
 		},
-        fp.Errorf("could not create vault token: %w"),
+		fp.Errorf("could not create vault token: %w"),
 	)(s.req.Config)
 }
 
@@ -234,7 +234,7 @@ func createProxmoxToken(s *state) stateMonad {
 func parseConfig(s *state) stateMonad {
 	return fp.PipeE(
 		fp.Compute1(func(s *state) fp.EmptyEither { return al_plugin.ParseConfig(s.req.Plugin, s.config) }),
-        fp.Errorf("could not parse config: %w"),
+		fp.Errorf("could not parse config: %w"),
 	)(s)
 }
 
@@ -269,5 +269,8 @@ func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartReq
 }
 
 func main() {
-	fp.GetOrExit[struct{}](os.Stderr, 1)(al_plugin.Serve(context.Background(), os.Stdin, os.Stdout, Plugin{}))
+	fp.PipeE(
+		al_plugin.ServeDefault,
+		func(err error) error { logger.Printf("could not serve the plugin: %s", err); os.Exit(1); return nil },
+	)(Plugin{})
 }

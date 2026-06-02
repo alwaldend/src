@@ -1,0 +1,98 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+load("@grpc-java//:java_grpc_library.bzl", "java_grpc_library")
+load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
+load("@protobuf//bazel:proto_library.bzl", "proto_library")
+load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
+load("@rules_java//java:defs.bzl", "java_library")
+load("//tools/proto/main/bzl:al_proto_docs.bzl", "al_proto_docs")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/vault:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ) + [":al_proto_docs"],
+)
+
+go_library(
+    name = "injector_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/vault/injector",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//projects/al/api/al_proto",
+        "//projects/al/pkg/al",
+        "//projects/al/pkg/fp",
+        "@com_github_hashicorp_vault_api//:api",
+        "//projects/al/pkg/al_plugin",
+        ":injector_proto",
+        "@com_github_google_uuid//:uuid",
+    ],
+)
+
+go_binary(
+    name = "injector",
+    embed = [":injector_lib"],
+    visibility = ["//:__subpackages__"],
+)
+
+
+al_proto_docs(
+    name = "injector_proto_docs",
+    src = "injector_proto.proto",
+)
+
+proto_library(
+    name = "injector_proto_proto",
+    srcs = ["api.proto"],
+    deps = ["@protobuf//:any_proto"],
+    visibility = ["//visibility:public"],
+)
+
+go_proto_library(
+    name = "injector_proto_go_proto",
+    compilers = [
+        "@rules_go//proto:go_grpc_v2",
+        "@rules_go//proto:go_proto",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/vault/injector/injector_proto",
+    proto = ":injector_proto_proto",
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "injector_proto",
+    embed = [":injector_proto_go_proto"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/vault/injector/injector_proto",
+    visibility = ["//visibility:public"],
+)
+
+java_proto_library(
+    name = "injector_proto_java_proto",
+    deps = [":injector_proto_proto"],
+)
+
+java_grpc_library(
+    name = "injector_proto_java_grpc",
+    srcs = [":injector_proto_proto"],
+    deps = [":injector_proto_java_proto"],
+)
+
+java_library(
+    name = "injector_proto_java_library",
+    visibility = ["//:__subpackages__"],
+    exports = [
+        ":injector_proto_java_grpc",
+        ":injector_proto_java_proto",
+    ],
+)
+
+py_proto_library(
+    name = "injector_proto_py_pb2",
+    visibility = ["//:__subpackages__"],
+    deps = [":injector_proto_proto"],
+)

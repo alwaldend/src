@@ -1,27 +1,12 @@
 local M = {}
 
 function M.plugin(t)
-    config({ plugins = { t }})
-end
-
-function M.vault_op(t)
-    config({ vault_ops = {t} })
-end
-
-function M.env(t)
-    config({ env = {t}})
+    local name = t.name
+    config({ plugins = {  [name] = t }})
 end
 
 function M.auth(t)
     config({ auth = {t}})
-end
-
-function M.secret(t)
-    config({ secrets = {t}})
-end
-
-function M.file(t)
-    config({ files = {t}})
 end
 
 function M.vault(t)

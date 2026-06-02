@@ -6,36 +6,43 @@ function M.server_cert(t)
     local name, role, labels, data = t.name, t.role, t.labels, t.data
     local cert_name = "AL_SERVER_CERT_" .. name .. "_CERT"
     local key_name = "AL_SERVER_CERT_" .. name .. "_KEY"
-    lib.vault_op({
+    lib.plugin({
         name = name,
-        method = "write",
         labels = labels,
-        data = data,
-        path = "pki/ica_servers/issue/" .. role
-    })
-    lib.file({
-        name = cert_name,
-        labels = labels,
-        vault_ops = { name },
-        value = "{{ .VaultOp.certificate }}"
-    })
-    lib.env({
-        name = cert_name,
-        labels = labels,
-        files = { cert_name },
-        value = "{{ .File.Path }}"
-    })
-    lib.file({
-        name = key_name,
-        labels = labels,
-        vault_ops = { name },
-        value = "{{ .VaultOp.private_key }}"
-    })
-    lib.env({
-        name = key_name,
-        labels = labels,
-        files = { key_name },
-        value = "{{ .File.Path }}"
+        config = {
+            ops = {
+                {
+                    name = name,
+                    method = "write",
+                    data = data,
+                    path = "pki/ica_servers/issue/" .. role
+                },
+            },
+            files = {
+                {
+                    name = cert_name,
+                    vault_ops = { name },
+                    value = "{{ .VaultOp.certificate }}"
+                },
+                {
+                    name = key_name,
+                    vault_ops = { name },
+                    value = "{{ .VaultOp.private_key }}"
+                },
+            },
+            env = {
+                {
+                    name = cert_name,
+                    files = { cert_name },
+                    value = "{{ .File.Path }}"
+                },
+                {
+                    name = key_name,
+                    files = { key_name },
+                    value = "{{ .File.Path }}"
+                },
+            }
+        }
     })
 end
 
@@ -101,91 +108,113 @@ end
 
 function M.yc_auth(t)
     local path, labels, name, filename = t.path, t.labels, t.name or "yc_auth", t.filename or "service_account_key"
-    lib.secret({
+    lib.plugin({
         name = name,
         labels = labels,
-        kv = {
-            path = path,
-            mount = "secrets",
-        },
-    })
-    lib.file({
-        name = filename,
-        labels = labels,
-        secrets = {name},
-        value = "{{ .Secret.service_account_key }}"
-    })
-    lib.env({
-        name = "YC_CLOUD_ID",
-        labels = labels,
-        secrets = {name},
-        value = "{{ .Secret.cloud_id }}",
-    })
-    lib.env({
-        name = "TF_VAR_cloud_id",
-        labels = labels,
-        secrets = {name},
-        value = "{{ .Secret.cloud_id }}",
-    })
-    lib.env({
-        name = "YC_FOLDER_ID",
-        labels = labels,
-        secrets = {name},
-        value = "{{ .Secret.folder_id }}",
-    })
-    lib.env({
-        name = "TF_VAR_folder_id",
-        labels = labels,
-        secrets = {name},
-        value = "{{ .Secret.folder_id }}",
-    })
-    lib.env({
-        name = "YC_SERVICE_ACCOUNT_KEY_FILE",
-        labels = labels,
-        files = {filename},
-        value = "{{ .File.Path }}",
+        config = {
+            secrets = {
+                {
+                    name = name,
+                    kv = {
+                        path = path,
+                        mount = "secrets",
+                    },
+                },
+            },
+            files = {
+                {
+                    name = filename,
+                    secrets = {name},
+                    value = "{{ .Secret.service_account_key }}"
+                },
+            },
+            env = {
+                {
+                    name = "YC_CLOUD_ID",
+                    secrets = {name},
+                    value = "{{ .Secret.cloud_id }}",
+                },
+                {
+                    name = "TF_VAR_cloud_id",
+                    secrets = {name},
+                    value = "{{ .Secret.cloud_id }}",
+                },
+                {
+                    name = "YC_FOLDER_ID",
+                    secrets = {name},
+                    value = "{{ .Secret.folder_id }}",
+                },
+                {
+                    name = "TF_VAR_folder_id",
+                    secrets = {name},
+                    value = "{{ .Secret.folder_id }}",
+                },
+                {
+                    name = "YC_SERVICE_ACCOUNT_KEY_FILE",
+                    files = {filename},
+                    value = "{{ .File.Path }}",
+                },
+            }
+        }
     })
 end
 
 function M.yc_bucket_auth(t)
     local path, labels, name = t.path, t.labels, t.name or "yc_bucket_auth"
-    lib.secret({
+    lib.plugin({
         name = name,
         labels = labels,
-        kv = {
-            path = path,
-            mount = "secrets",
-        },
-    })
-    lib.env({
-        name = "AWS_ACCESS_KEY_ID",
-        labels = labels,
-        secrets = {name},
-        value = "{{ .Secret.access_key }}",
-    })
-    lib.env({
-        name = "AWS_SECRET_ACCESS_KEY",
-        labels = labels,
-        secrets = {name},
-        value = "{{ .Secret.secret_key }}"
+        config = {
+            secrets = {
+                {
+                    name = name,
+                    kv = {
+                        path = path,
+                        mount = "secrets",
+                    },
+                },
+            },
+            env = {
+                {
+                    name = "AWS_ACCESS_KEY_ID",
+                    secrets = {name},
+                    value = "{{ .Secret.access_key }}",
+                },
+                {
+                    name = "AWS_SECRET_ACCESS_KEY",
+                    secrets = {name},
+                    value = "{{ .Secret.secret_key }}"
+                },
+            }
+        }
     })
 end
 
 function M.yc_account(t)
     local path, labels, name = t.path, t.labels, t.name or "yc_account"
-    lib.secret({
+    lib.plugin({
         name = name,
         labels = labels,
-        kv = {
-            path = path,
-            mount = "secrets",
-        },
-    })
-    lib.env({
-        name = "TF_VAR_service_account_id",
-        labels = labels,
-        secrets = {name},
-        value = "{{ .Secret.service_account_id }}",
+        config = {
+            secrets = {
+                {
+                    name = name,
+                    labels = labels,
+                    kv = {
+                        path = path,
+                        mount = "secrets",
+                    },
+                },
+            },
+            env = {
+                {
+                    name = "TF_VAR_service_account_id",
+                    labels = labels,
+                    secrets = {name},
+                    value = "{{ .Secret.service_account_id }}",
+                },
+            }
+        }
     })
 end
 

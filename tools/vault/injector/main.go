@@ -1,10 +1,12 @@
-package al
+package main
 
 import (
 	"bytes"
 	"context"
 	"errors"
 	"fmt"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin"
 	"io"
 	"log"
 	"os"
@@ -16,12 +18,28 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 )
 
+var logger = log.New(os.Stderr, "com.alwaldend.src.tools.vault.injector ", log.Flags())
+
+type Plugin struct {
+}
+
+func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
+	return nil, fmt.Errorf("not implemented")
+}
+
+func main() {
+	fp.PipeE(
+		al_plugin.ServeDefault,
+		func(err error) error { logger.Printf("could not serve the plugin: %s", err); os.Exit(1); return nil },
+	)(Plugin{})
+}
+
 type ResourceHandler struct {
 	ctx      context.Context
 	secrets  map[string]map[string]any
 	vaultOps map[string]map[string]any
 	files    map[string]*ResourceContextFile
-	vault    *Vault
+	vault    *al.Vault
 	config   *al_proto.Config
 	logger   *log.Logger
 }
@@ -39,7 +57,7 @@ type ResourceContext struct {
 	Secret   map[string]any
 }
 
-func NewResourceHandler(ctx context.Context, config *al_proto.Config, vault *Vault, stderr io.Writer) *ResourceHandler {
+func NewResourceHandler(ctx context.Context, config *al_proto.Config, vault *al.Vault, stderr io.Writer) *ResourceHandler {
 	if stderr == nil {
 		stderr = os.Stderr
 	}
@@ -111,7 +129,7 @@ func (self *ResourceHandler) prepareEnv(ctx context.Context, cmd *exec.Cmd, args
 		if len(split) > 1 {
 			labelVal = split[1]
 		}
-		envs, err := EnvByLabel(self.config, labelName, labelVal)
+		envs, err := al.EnvByLabel(self.config, labelName, labelVal)
 		if err != nil {
 			return fmt.Errorf("could not get env for label %s: %w", envLabel, err)
 		}
@@ -139,7 +157,7 @@ func (self *ResourceHandler) getVaultOp(ctx context.Context, name string) (map[s
 	if ok {
 		return res, nil
 	}
-	op, err := VaultOpByName(self.config, name)
+	op, err := al.VaultOpByName(self.config, name)
 	if err != nil {
 		return nil, fmt.Errorf("could not find by name: %w", err)
 	}
@@ -206,7 +224,7 @@ func (self *ResourceHandler) addVaultOps(ctx context.Context, templateCtx *Resou
 
 func (self *ResourceHandler) getEnv(ctx context.Context, name string) (string, error) {
 	self.logger.Printf("setting an env variable: %s", name)
-	env, err := EnvByName(self.config, name)
+	env, err := al.EnvByName(self.config, name)
 	if err != nil {
 		return "", fmt.Errorf("could not find env %s: %w", name, err)
 	}
@@ -223,7 +241,7 @@ func (self *ResourceHandler) getFile(ctx context.Context, name string) (*Resourc
 	if ok {
 		return res, nil
 	}
-	fileConfig, err := FileByName(self.config, name)
+	fileConfig, err := al.FileByName(self.config, name)
 	if err != nil {
 		return nil, fmt.Errorf("could not find file config: %w", err)
 	}

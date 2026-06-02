@@ -6,7 +6,6 @@ go_library(
         "check.go",
         "command.go",
         "config.go",
-        "resource_handler.go",
         "vault.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/pkg/al",

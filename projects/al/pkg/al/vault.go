@@ -174,30 +174,6 @@ func (self *Vault) VaultOp(ctx context.Context, op *al_proto.VaultOp) fp.Either[
 	}
 }
 
-func vaultAuthDefault(ctx context.Context, config *al_proto.Config) fp.Either[*api.Client] {
-	return vaultAuth(ctx, config, VAULT_DEFAULT_NAME, VAULT_DEFAULT_NAME)
-}
-
-func vaultAuth(ctx context.Context, config *al_proto.Config, vaultName string, authName string) fp.Either[*api.Client] {
-	vault, err := VaultByName(config, vaultName)
-	if err != nil {
-		return fp.Left[*api.Client](fmt.Errorf("missing vault: %w", err))
-	}
-	auth, err := VaultAuthByName(config, authName)
-	if err != nil {
-		return fp.Left[*api.Client](fmt.Errorf("missing auth: %w", err))
-	}
-	tokenHelper, err := tokenhelper.NewInternalTokenHelper()
-	if err != nil {
-		return fp.Left[*api.Client](fmt.Errorf("could not create token helper: %w", err))
-	}
-	client, err := fp.Get(newVaultClient(ctx, tokenHelper, vault, auth))
-	if err != nil {
-		return fp.Left[*api.Client](fmt.Errorf("could not create vault client: %w", err))
-	}
-	return fp.Right(client)
-}
-
 func tlsConfig(vault *al_proto.Vault) fp.Either[*api.TLSConfig] {
 	res := &api.TLSConfig{}
 	if vault.Tls.CaCert != "" {

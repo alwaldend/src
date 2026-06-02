@@ -64,7 +64,7 @@ func (self *pluginState) right() fp.Either[*pluginState] {
 	return fp.Right(self)
 }
 
-type pluginMonad = fp.Either[*pluginState]
+type pluginE = fp.Either[*pluginState]
 
 type reqState struct {
 	w       http.ResponseWriter
@@ -85,10 +85,10 @@ func (self *reqState) right() fp.Either[*reqState] {
 	return fp.Right(self)
 }
 
-type requestMonad = fp.Either[*reqState]
+type requestE = fp.Either[*reqState]
 type requestFunc = func(*reqState) fp.Either[*reqState]
 
-func setType(rs *reqState) requestMonad {
+func setType(rs *reqState) requestE {
 	path := rs.r.URL.Path
 	method := rs.r.Method
 	if path == "/lock" && method == http.MethodPost {
@@ -105,7 +105,7 @@ func setType(rs *reqState) requestMonad {
 	return rs.right()
 }
 
-func checkAuth(rs *reqState) requestMonad {
+func checkAuth(rs *reqState) requestE {
 	username, password, ok := rs.r.BasicAuth()
 	if !ok {
 		return rs.left(fmt.Errorf("missng basic auth"))
@@ -116,7 +116,7 @@ func checkAuth(rs *reqState) requestMonad {
 	return rs.right()
 }
 
-func readBody(rs *reqState) requestMonad {
+func readBody(rs *reqState) requestE {
 	bodyRaw, err := io.ReadAll(rs.r.Body)
 	if err != nil {
 		return rs.left(fmt.Errorf("could not read request body: %w", err))
@@ -133,7 +133,7 @@ func readBody(rs *reqState) requestMonad {
 }
 
 func fetchSecret(st secretType) requestFunc {
-	return func(rs *reqState) requestMonad {
+	return func(rs *reqState) requestE {
 		var mount, path string
 		switch st {
 		case secretTypeLock:
@@ -190,7 +190,7 @@ func fetchSecret(st secretType) requestFunc {
 	}
 }
 
-func checkLock(rs *reqState) requestMonad {
+func checkLock(rs *reqState) requestE {
 	lock, ok := rs.lock.Data[lockKey]
 	curId := rs.r.URL.Query().Get("ID")
 	if rs.reqType == reqTypeUpdate {
@@ -216,7 +216,7 @@ func checkLock(rs *reqState) requestMonad {
 	return rs.right()
 }
 
-func updateState(rs *reqState) requestMonad {
+func updateState(rs *reqState) requestE {
 	logger.Printf("Updating state %s", rs.ps.statePath)
 	_, err := rs.ps.vault.KVv2(rs.ps.stateMount).Put(
 		rs.ctx,
@@ -230,7 +230,7 @@ func updateState(rs *reqState) requestMonad {
 	return rs.right()
 }
 
-func writeState(rs *reqState) requestMonad {
+func writeState(rs *reqState) requestE {
 	logger.Printf("Returning state %s", rs.ps.statePath)
 	state, ok := rs.state.Data[stateKey]
 	if !ok {
@@ -245,7 +245,7 @@ func writeState(rs *reqState) requestMonad {
 	return rs.right()
 }
 
-func unlockState(rs *reqState) requestMonad {
+func unlockState(rs *reqState) requestE {
 	logger.Printf("Unlocking state %s using lock %s", rs.ps.statePath, rs.ps.lockPath)
 	_, ok := rs.lock.Data[lockKey]
 	if !ok {
@@ -263,7 +263,7 @@ func unlockState(rs *reqState) requestMonad {
 	return rs.right()
 }
 
-func lockState(rs *reqState) requestMonad {
+func lockState(rs *reqState) requestE {
 	logger.Printf("Locking state %s using lock %s", rs.ps.statePath, rs.ps.lockPath)
 	_, err := rs.ps.vault.KVv2(rs.ps.lockMount).Put(
 		rs.ctx,
@@ -285,7 +285,7 @@ func rootHandler(ps *pluginState) http.HandlerFunc {
 			readBody,
 			fetchSecret(secretTypeLock),
 			checkLock,
-			func(rs *reqState) requestMonad {
+			func(rs *reqState) requestE {
 				switch rs.reqType {
 				case reqTypeGet:
 					return fp.Pipe2(
@@ -324,7 +324,7 @@ func rootHandler(ps *pluginState) http.HandlerFunc {
 	}
 }
 
-func parseConfig(ps *pluginState) pluginMonad {
+func parseConfig(ps *pluginState) pluginE {
 	return fp.Pipe2E(
 		fp.Compute1(func(ps *pluginState) fp.EmptyEither {
 			return al_plugin.ParseConfig(ps.req.Plugin, ps.cfg)
@@ -339,13 +339,13 @@ func parseConfig(ps *pluginState) pluginMonad {
 	)(ps)
 }
 
-func createVault(ps *pluginState) pluginMonad {
+func createVault(ps *pluginState) pluginE {
 	return fp.Pipe3E(
 		al.NewVault,
 		func(v *al.Vault) fp.Either[*api.Client] {
 			return v.Client(ps.ctx, ps.cfg.VaultConn, ps.cfg.VaultAuth)
 		},
-		func(v *api.Client) pluginMonad {
+		func(v *api.Client) pluginE {
 			ps.vault = v
 			return fp.Right(ps)
 		},
@@ -353,7 +353,7 @@ func createVault(ps *pluginState) pluginMonad {
 	)(ps.req.Config)
 }
 
-func startServer(ps *pluginState) pluginMonad {
+func startServer(ps *pluginState) pluginE {
 	listener, err := net.Listen("tcp", "127.0.0.1:0")
 	if err != nil {
 		return ps.left(fmt.Errorf("could not listen on a port: %w", err))
@@ -414,5 +414,8 @@ func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartReq
 }
 
 func main() {
-	fp.GetOrExit[struct{}](os.Stderr, 1)(al_plugin.Serve(context.Background(), os.Stdin, os.Stdout, Plugin{}))
+	fp.PipeE(
+		al_plugin.ServeDefault,
+		func(err error) error { logger.Printf("could not serve the plugin: %s", err); os.Exit(1); return nil },
+	)(Plugin{})
 }

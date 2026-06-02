@@ -11,9 +11,10 @@ lib.auth({
 lib.plugin({
     name = "vault_tf_backend_local",
     extends = { "vault_tf_backend" },
+    labels = { tf = "1" },
     config = {
-        vault_secret = { value_string = "alwaldend.com/vault1/approles/src_infra_dc1_pve1/tf_backend" }
-    }
+        vault_secret = "alwaldend.com/vault1/approles/src_infra_dc1_pve1/tf_backend"
+    },
 })
 
 infra.yc_auth({

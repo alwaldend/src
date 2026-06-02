@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"os"
 	"os/signal"
 	"runtime/debug"
 	"syscall"
@@ -72,6 +73,10 @@ func ParseConfig(config *al_proto.PluginConfig, target proto.Message) fp.EmptyEi
 		return fp.EmptyLeft(fmt.Errorf("could not unmarshal plugin config: %w", err))
 	}
 	return fp.EmptyRight()
+}
+
+func ServeDefault(plugin al_proto.PluginServiceServer) fp.EmptyEither {
+	return Serve(context.Background(), os.Stdin, os.Stdout, plugin)
 }
 
 func Serve(ctx context.Context, stdin io.Reader, stdout io.Writer, plugin al_proto.PluginServiceServer) fp.EmptyEither {
