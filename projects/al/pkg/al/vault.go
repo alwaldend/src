@@ -12,30 +12,32 @@ import (
 	"github.com/hashicorp/vault/api/auth/approle"
 	"github.com/hashicorp/vault/api/tokenhelper"
 	"google.golang.org/protobuf/proto"
+	"sync"
 )
 
 const VAULT_DEFAULT_NAME = "default"
 
-type Vault struct {
-	helper  tokenhelper.TokenHelper
-	clients map[string]*api.Client
+type VaultStoreItem struct {
+	helper tokenhelper.TokenHelper
+	client *api.Client
+}
+
+type VaultStore struct {
+	clients map[string]*VaultStoreItem
 	config  *al_proto.Config
+	mx      *sync.RWMutex
 }
 
-func NewVault(config *al_proto.Config) fp.Either[*Vault] {
-	helper, err := tokenhelper.NewInternalTokenHelper()
-	if err != nil {
-		return fp.Left[*Vault](fmt.Errorf("could not create the internal token helper"))
-	}
-	res := &Vault{
-		helper:  helper,
-		clients: map[string]*api.Client{},
+func NewVault(config *al_proto.Config) *VaultStore {
+	return &VaultStore{
+		clients: map[string]*VaultStoreItem{},
 		config:  config,
+		mx:      &sync.RWMutex{},
 	}
-	return fp.Right(res)
+
 }
 
-func (self *Vault) FetchSecret(ctx context.Context, name string) fp.Either[fp.MapA] {
+func (self *VaultStore) FetchSecret(ctx context.Context, name string) fp.Either[fp.MapA] {
 	secret, err := VaultSecretByName(self.config, name)
 	if err != nil {
 		return fp.Left[fp.MapA](fmt.Errorf("could not find secret %s: %w", name, err))
@@ -55,13 +57,13 @@ func (self *Vault) FetchSecret(ctx context.Context, name string) fp.Either[fp.Ma
 	return fp.Right(data.Data)
 }
 
-func (self *Vault) DefaultEnv(ctx context.Context) fp.Either[[]string] {
+func (self *VaultStore) DefaultEnv(ctx context.Context) fp.Either[[]string] {
 	return self.Env(ctx, VAULT_DEFAULT_NAME, VAULT_DEFAULT_NAME)
 }
 
 // Create vault environment variables
 // https://developer.hashicorp.com/vault/docs/commands#configure-environment-variables
-func (self *Vault) Env(ctx context.Context, vaultName string, authName string) fp.Either[[]string] {
+func (self *VaultStore) Env(ctx context.Context, vaultName string, authName string) fp.Either[[]string] {
 	if vaultName == "" {
 		vaultName = VAULT_DEFAULT_NAME
 	}
@@ -102,7 +104,7 @@ func (self *Vault) Env(ctx context.Context, vaultName string, authName string) f
 	return fp.Right(res)
 }
 
-func (self *Vault) normalizeSecret(secret *al_proto.VaultSecret) fp.Either[*al_proto.VaultSecret] {
+func (self *VaultStore) normalizeSecret(secret *al_proto.VaultSecret) fp.Either[*al_proto.VaultSecret] {
 	secret = proto.CloneOf(secret)
 	if secret.Name == "" {
 		return fp.Left[*al_proto.VaultSecret](fmt.Errorf("secret is missing a name"))
@@ -126,52 +128,42 @@ func (self *Vault) normalizeSecret(secret *al_proto.VaultSecret) fp.Either[*al_p
 	return fp.Right(secret)
 }
 
-func (self *Vault) Client(ctx context.Context, vaultName string, authName string) fp.Either[*api.Client] {
-	if vaultName == "" {
-		vaultName = VAULT_DEFAULT_NAME
+func (self *VaultStore) clientCache(path string) (*VaultStoreItem, bool) {
+	self.mx.RLock()
+	defer self.mx.RUnlock()
+	client, ok := self.clients[path]
+	if ok {
+		return client, true
+	}
+	return nil, false
+}
+
+func (self *VaultStore) Client(ctx context.Context, conn string, authName string) fp.Either[*VaultStoreItem] {
+	if conn == "" {
+		conn = VAULT_DEFAULT_NAME
 	}
 	if authName == "" {
 		authName = VAULT_DEFAULT_NAME
 	}
-	path := fmt.Sprintf("%s/%s", vaultName, authName)
-	client, ok := self.clients[path]
+	path := fmt.Sprintf("%s/%s", conn, authName)
+	c, ok := self.clientCache(path)
 	if ok {
-		return fp.Right(client)
+		return fp.Right(c)
 	}
 	auth, err := VaultAuthByName(self.config, authName)
 	if err != nil {
-		return fp.Left[*api.Client](fmt.Errorf("could not get auth config: %w", err))
+		return fp.Left[*VaultStoreItem](fmt.Errorf("could not get auth config: %w", err))
 	}
-	vault, err := VaultByName(self.config, vaultName)
+	vault, err := VaultByName(self.config, conn)
 	if err != nil {
-		return fp.Left[*api.Client](fmt.Errorf("could not get vault config: %w", err))
+		return fp.Left[*VaultStoreItem](fmt.Errorf("could not get vault config: %w", err))
 	}
-	client, err = fp.Get(newVaultClient(ctx, self.helper, vault, auth))
+	client, err := newVaultClient(ctx, vault, auth).Get()
 	if err != nil {
-		return fp.Left[*api.Client](fmt.Errorf("could not create vault client %s: %w", path, err))
+		return fp.Left[*VaultStoreItem](fmt.Errorf("could not create vault client %s: %w", path, err))
 	}
 	self.clients[path] = client
 	return fp.Right(client)
-}
-
-func (self *Vault) VaultOp(ctx context.Context, op *al_proto.VaultOp) fp.Either[fp.MapA] {
-	client, err := fp.Get(self.Client(ctx, op.Vault, op.Auth))
-	if err != nil {
-		return fp.Left[fp.MapA](fmt.Errorf("could not create client for vault op: %w", err))
-	}
-	if op.Method == "" || op.Method == "write" {
-		data := map[string]any{}
-		for key, value := range op.Data {
-			data[key] = value
-		}
-		res, err := client.Logical().Write(op.Path, data)
-		if err != nil {
-			return fp.Left[fp.MapA](fmt.Errorf("write error: %w", err))
-		}
-		return fp.Right(res.Data)
-	} else {
-		return fp.Left[fp.MapA](fmt.Errorf("invalid method %s", op.Method))
-	}
 }
 
 func tlsConfig(vault *al_proto.Vault) fp.Either[*api.TLSConfig] {
@@ -200,46 +192,53 @@ func tlsConfig(vault *al_proto.Vault) fp.Either[*api.TLSConfig] {
 	return fp.Right(res)
 }
 
-func newVaultClient(ctx context.Context, tokenHelper tokenhelper.TokenHelper, vault *al_proto.Vault, auth *al_proto.VaultAuth) fp.Either[*api.Client] {
+func newVaultClient(ctx context.Context, vault *al_proto.Vault, auth *al_proto.VaultAuth) fp.Either[*VaultStoreItem] {
 	vaultConfig := api.DefaultConfig()
 	vaultConfig.Address = vault.Config.Address
-	tlsConfig, err := fp.Get(tlsConfig(vault))
+	tlsConfig, err := tlsConfig(vault).Get()
 	if err != nil {
-		return fp.Left[*api.Client](fmt.Errorf("could not create tls config: %w", err))
+		return fp.Left[*VaultStoreItem](fmt.Errorf("could not create tls config: %w", err))
 	}
 	err = vaultConfig.ConfigureTLS(tlsConfig)
 	if err != nil {
-		return fp.Left[*api.Client](fmt.Errorf("could not configure tls: %w", err))
+		return fp.Left[*VaultStoreItem](fmt.Errorf("could not configure tls: %w", err))
 	}
 	client, err := api.NewClient(vaultConfig)
 	if err != nil {
-		return fp.Left[*api.Client](fmt.Errorf("could not create vault client: %w", err))
+		return fp.Left[*VaultStoreItem](fmt.Errorf("could not create vault client: %w", err))
 	}
-	token, err := tokenHelper.Get()
+	helper, err := tokenhelper.NewInternalTokenHelper()
 	if err != nil {
-		return fp.Left[*api.Client](fmt.Errorf("could not get token from the token helper: %w", err))
+		return fp.Left[*VaultStoreItem](fmt.Errorf("could not create the token helper: %w", err))
+	}
+	token, err := helper.Get()
+	if err != nil {
+		return fp.Left[*VaultStoreItem](fmt.Errorf("could not get token from the token helper: %w", err))
 	}
 	client.SetToken(token)
 	if auth.Approle != nil {
 		approleData, err := client.Logical().WriteWithContext(ctx, fmt.Sprintf("auth/approle/role/%s/secret-id", auth.Approle.Name), nil)
 		if err != nil {
-			return fp.Left[*api.Client](fmt.Errorf("could not create secret id for the approle: %w", err))
+			return fp.Left[*VaultStoreItem](fmt.Errorf("could not create secret id for the approle: %w", err))
 		}
 		secretId, ok := approleData.Data["secret_id"].(string)
 		if !ok {
-			return fp.Left[*api.Client](fmt.Errorf("missing secret_id for some reason"))
+			return fp.Left[*VaultStoreItem](fmt.Errorf("missing secret_id for some reason"))
 		}
 		appRoleAuth, err := approle.NewAppRoleAuth(
 			auth.Approle.Name,
 			&approle.SecretID{FromString: secretId},
 		)
 		if err != nil {
-			return fp.Left[*api.Client](fmt.Errorf("could not create approle auth: %w", err))
+			return fp.Left[*VaultStoreItem](fmt.Errorf("could not create approle auth: %w", err))
 		}
 		_, err = client.Auth().Login(ctx, appRoleAuth)
 		if err != nil {
-			return fp.Left[*api.Client](fmt.Errorf("could not auth using the approle: %w", err))
+			return fp.Left[*VaultStoreItem](fmt.Errorf("could not auth using the approle: %w", err))
 		}
 	}
-	return fp.Right(client)
+	return fp.Right(&VaultStoreItem{
+		client: client,
+		helper: helper,
+	})
 }

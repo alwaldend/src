@@ -3,35 +3,74 @@ package main
 import (
 	"bytes"
 	"context"
-	"errors"
 	"fmt"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin"
 	"io"
 	"log"
 	"os"
 	"os/exec"
+	"os/signal"
 	"strings"
+	"syscall"
 	"text/template"
+
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin"
+	"github.com/hashicorp/vault/api"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
+	"git.alwaldend.com/alwaldend/src/tools/vault/injector/injector_proto"
 )
 
 var logger = log.New(os.Stderr, "com.alwaldend.src.tools.vault.injector ", log.Flags())
 
-type Plugin struct {
+type plugin struct {
+	cleanConsume chan string
+	cleanFiles   []string
+	cleanStart   chan struct{}
+	ctx          context.Context
+	v            *al.VaultStore
 }
 
-func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
+func (self plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
 	return nil, fmt.Errorf("not implemented")
 }
 
+func clean(p *plugin) {
+	<-p.cleanStart
+	for _, c := range p.cleanFiles {
+		logger.Printf("removing path %s", c)
+		err := os.RemoveAll(c)
+		if err != nil {
+			logger.Printf("could not clean: could not remove path %s: %s", c, err)
+		}
+	}
+}
+
+func consume(p *plugin) {
+	select {
+	case c := <-p.cleanConsume:
+		p.cleanFiles = append(p.cleanFiles, c)
+	case <-p.ctx.Done():
+		close(p.cleanConsume)
+		close(p.cleanStart)
+	}
+}
+
+func setup(p *plugin) {
+	p.cleanConsume = make(chan string)
+	p.cleanStart = make(chan struct{}, 1)
+	p.ctx, _ = signal.NotifyContext(p.ctx, syscall.SIGINT, syscall.SIGTERM)
+}
+
 func main() {
-	fp.PipeE(
+	fp.Pipe4E(
+		fp.Compute0(setup),
+		fp.Compute0G(clean),
+		fp.Compute0G(consume),
 		al_plugin.ServeDefault,
 		func(err error) error { logger.Printf("could not serve the plugin: %s", err); os.Exit(1); return nil },
-	)(Plugin{})
+	)(&plugin{})
 }
 
 type ResourceHandler struct {
@@ -39,7 +78,7 @@ type ResourceHandler struct {
 	secrets  map[string]map[string]any
 	vaultOps map[string]map[string]any
 	files    map[string]*ResourceContextFile
-	vault    *al.Vault
+	vault    *al.VaultStore
 	config   *al_proto.Config
 	logger   *log.Logger
 }
@@ -57,7 +96,7 @@ type ResourceContext struct {
 	Secret   map[string]any
 }
 
-func NewResourceHandler(ctx context.Context, config *al_proto.Config, vault *al.Vault, stderr io.Writer) *ResourceHandler {
+func NewResourceHandler(ctx context.Context, config *al_proto.Config, vault *al.VaultStore, stderr io.Writer) *ResourceHandler {
 	if stderr == nil {
 		stderr = os.Stderr
 	}
@@ -70,15 +109,6 @@ func NewResourceHandler(ctx context.Context, config *al_proto.Config, vault *al.
 		vault:    vault,
 		logger:   log.New(stderr, "com.alwaldend.src.projects.al.pkg.al.ResourceHandler ", log.Flags()),
 	}
-}
-
-func (self *ResourceHandler) Clean() error {
-	var res error
-	for _, file := range self.files {
-		self.logger.Printf("removing file: %s", file.Path)
-		res = errors.Join(res, os.RemoveAll(file.Path))
-	}
-	return res
 }
 
 type PrepareCommandArgs struct {
@@ -149,6 +179,22 @@ func (self *ResourceHandler) prepareEnv(ctx context.Context, cmd *exec.Cmd, args
 		cmd.Env = append(cmd.Env, env)
 	}
 	return nil
+}
+
+func vaultOp(ctx context.Context, client *api.Client, op *injector_proto.Op) fp.Either[fp.MapA] {
+	if op.Method == "" || op.Method == "write" {
+		data := map[string]any{}
+		for key, value := range op.Data {
+			data[key] = value
+		}
+		res, err := client.Logical().Write(op.Path, data)
+		if err != nil {
+			return fp.Left[fp.MapA](fmt.Errorf("write error: %w", err))
+		}
+		return fp.Right(res.Data)
+	} else {
+		return fp.Left[fp.MapA](fmt.Errorf("invalid method %s", op.Method))
+	}
 }
 
 func (self *ResourceHandler) getVaultOp(ctx context.Context, name string) (map[string]any, error) {

@@ -66,7 +66,7 @@ type stateMonad = fp.Either[*state]
 func createVaultToken(s *state) stateMonad {
 	return fp.Pipe3E(
 		al.NewVault,
-		func(v *al.Vault) fp.Either[*api.Client] {
+		func(v *al.VaultStore) fp.Either[*api.Client] {
 			return v.Client(s.ctx, s.config.VaultConn, s.config.VaultAuth)
 		},
 		func(v *api.Client) stateMonad {

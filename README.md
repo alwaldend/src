@@ -11,4 +11,4 @@ description: Source code
 
 ## License
 
-[MIT](https://spdx.org/licenses/MIT.html), see [LICENSE](./LICENSE.txt)
+[AGPL-3.0](https://spdx.org/licenses/AGPL-3.0-or-later.html), see [LICENSE](./LICENSE.txt)

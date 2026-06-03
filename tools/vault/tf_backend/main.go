@@ -342,7 +342,7 @@ func parseConfig(ps *pluginState) pluginE {
 func createVault(ps *pluginState) pluginE {
 	return fp.Pipe3E(
 		al.NewVault,
-		func(v *al.Vault) fp.Either[*api.Client] {
+		func(v *al.VaultStore) fp.Either[*api.Client] {
 			return v.Client(ps.ctx, ps.cfg.VaultConn, ps.cfg.VaultAuth)
 		},
 		func(v *api.Client) pluginE {

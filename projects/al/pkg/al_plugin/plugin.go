@@ -75,11 +75,11 @@ func ParseConfig(config *al_proto.PluginConfig, target proto.Message) fp.EmptyEi
 	return fp.EmptyRight()
 }
 
-func ServeDefault(plugin al_proto.PluginServiceServer) fp.EmptyEither {
+func ServeDefault[T al_proto.PluginServiceServer](plugin T) fp.EmptyEither {
 	return Serve(context.Background(), os.Stdin, os.Stdout, plugin)
 }
 
-func Serve(ctx context.Context, stdin io.Reader, stdout io.Writer, plugin al_proto.PluginServiceServer) fp.EmptyEither {
+func Serve[T al_proto.PluginServiceServer](ctx context.Context, stdin io.Reader, stdout io.Writer, plugin T) fp.EmptyEither {
 	ctx, cancel := signal.NotifyContext(ctx, syscall.SIGINT, syscall.SIGTERM)
 	defer cancel()
 	server := grpc.NewServer(

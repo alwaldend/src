@@ -20,7 +20,9 @@ docs_filegroup(
 
 go_library(
     name = "injector_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "main.go",
+    ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/injector",
     visibility = ["//:__subpackages__"],
     deps = [
