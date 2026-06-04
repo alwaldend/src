@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"context"
 	"fmt"
 	"io"
@@ -11,11 +10,9 @@ import (
 	"os/signal"
 	"strings"
 	"syscall"
-	"text/template"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin"
-	"github.com/hashicorp/vault/api"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
@@ -23,6 +20,8 @@ import (
 )
 
 var logger = log.New(os.Stderr, "com.alwaldend.src.tools.vault.injector ", log.Flags())
+
+type mapa = map[string]any
 
 type plugin struct {
 	cleanConsume chan string
@@ -73,45 +72,46 @@ func main() {
 	)(&plugin{})
 }
 
-type ResourceHandler struct {
+type resourceHandler struct {
 	ctx      context.Context
 	secrets  map[string]map[string]any
 	vaultOps map[string]map[string]any
-	files    map[string]*ResourceContextFile
+	files    map[string]*resourceContextFile
 	vault    *al.VaultStore
 	config   *al_proto.Config
+	plugin   *injector_proto.Config
 	logger   *log.Logger
 }
 
-type ResourceContextFile struct {
+type resourceContextFile struct {
 	Path string
 }
 
-type ResourceContext struct {
-	Files    map[string]*ResourceContextFile
-	File     *ResourceContextFile
+type resourceContext struct {
+	Files    map[string]*resourceContextFile
+	File     *resourceContextFile
 	VaultOps map[string]map[string]any
 	VaultOp  map[string]any
 	Secrets  map[string]map[string]any
 	Secret   map[string]any
 }
 
-func NewResourceHandler(ctx context.Context, config *al_proto.Config, vault *al.VaultStore, stderr io.Writer) *ResourceHandler {
+func newResourceHandler(ctx context.Context, config *al_proto.Config, vault *al.VaultStore, stderr io.Writer) *resourceHandler {
 	if stderr == nil {
 		stderr = os.Stderr
 	}
-	return &ResourceHandler{
+	return &resourceHandler{
 		ctx:      ctx,
 		config:   config,
 		secrets:  make(map[string]map[string]any),
 		vaultOps: make(map[string]map[string]any),
-		files:    make(map[string]*ResourceContextFile),
+		files:    make(map[string]*resourceContextFile),
 		vault:    vault,
 		logger:   log.New(stderr, "com.alwaldend.src.projects.al.pkg.al.ResourceHandler ", log.Flags()),
 	}
 }
 
-type PrepareCommandArgs struct {
+type prepareCommandArgs struct {
 	Env         []string
 	EnvVault    []string
 	EnvLabels   []string
@@ -119,7 +119,7 @@ type PrepareCommandArgs struct {
 	Files       []string
 }
 
-func (self *ResourceHandler) PrepareCommand(ctx context.Context, cmd *exec.Cmd, args *PrepareCommandArgs) error {
+func (self *resourceHandler) PrepareCommand(ctx context.Context, cmd *exec.Cmd, args *prepareCommandArgs) error {
 	for _, file := range args.Files {
 		_, err := self.getFile(ctx, file)
 		if err != nil {
@@ -135,7 +135,7 @@ func (self *ResourceHandler) PrepareCommand(ctx context.Context, cmd *exec.Cmd, 
 	return nil
 }
 
-func (self *ResourceHandler) prepareEnv(ctx context.Context, cmd *exec.Cmd, args *PrepareCommandArgs) error {
+func (self *resourceHandler) prepareEnv(ctx context.Context, cmd *exec.Cmd, args *prepareCommandArgs) error {
 	for _, envVault := range args.EnvVault {
 		split := strings.SplitN(envVault, ":", 2)
 		vaultName, authName := "", ""
@@ -159,7 +159,7 @@ func (self *ResourceHandler) prepareEnv(ctx context.Context, cmd *exec.Cmd, args
 		if len(split) > 1 {
 			labelVal = split[1]
 		}
-		envs, err := al.EnvByLabel(self.config, labelName, labelVal)
+		envs, err := EnvByLabel(self.plugin, labelName, labelVal)
 		if err != nil {
 			return fmt.Errorf("could not get env for label %s: %w", envLabel, err)
 		}
@@ -181,47 +181,13 @@ func (self *ResourceHandler) prepareEnv(ctx context.Context, cmd *exec.Cmd, args
 	return nil
 }
 
-func vaultOp(ctx context.Context, client *api.Client, op *injector_proto.Op) fp.Either[fp.MapA] {
-	if op.Method == "" || op.Method == "write" {
-		data := map[string]any{}
-		for key, value := range op.Data {
-			data[key] = value
-		}
-		res, err := client.Logical().Write(op.Path, data)
-		if err != nil {
-			return fp.Left[fp.MapA](fmt.Errorf("write error: %w", err))
-		}
-		return fp.Right(res.Data)
-	} else {
-		return fp.Left[fp.MapA](fmt.Errorf("invalid method %s", op.Method))
-	}
-}
-
-func (self *ResourceHandler) getVaultOp(ctx context.Context, name string) (map[string]any, error) {
-	self.logger.Printf("executing a vault operation: %s", name)
-	res, ok := self.vaultOps[name]
-	if ok {
-		return res, nil
-	}
-	op, err := al.VaultOpByName(self.config, name)
-	if err != nil {
-		return nil, fmt.Errorf("could not find by name: %w", err)
-	}
-	res, err = fp.Get(self.vault.VaultOp(ctx, op))
-	if err != nil {
-		return nil, fmt.Errorf("could not execute vault op: %w", err)
-	}
-	self.secrets[name] = res
-	return res, nil
-}
-
-func (self *ResourceHandler) getSecret(ctx context.Context, name string) (map[string]any, error) {
+func (self *resourceHandler) getSecret(ctx context.Context, name string) (map[string]any, error) {
 	self.logger.Printf("fetching a vault secret: %s", name)
 	res, ok := self.secrets[name]
 	if ok {
 		return res, nil
 	}
-	res, err := fp.Get(self.vault.FetchSecret(ctx, name))
+	res, err := self.fetchSecret(ctx, name).Get()
 	if err != nil {
 		return nil, fmt.Errorf("could not fetch secret %s: %w", name, err)
 	}
@@ -229,7 +195,7 @@ func (self *ResourceHandler) getSecret(ctx context.Context, name string) (map[st
 	return res, nil
 }
 
-func (self *ResourceHandler) addSecrets(ctx context.Context, templateCtx *ResourceContext, names []string) error {
+func (self *resourceHandler) addSecrets(ctx context.Context, templateCtx *resourceContext, names []string) error {
 	templateCtx.Secrets = map[string]map[string]any{}
 	for _, secretName := range names {
 		secret, err := self.getSecret(ctx, secretName)
@@ -242,8 +208,8 @@ func (self *ResourceHandler) addSecrets(ctx context.Context, templateCtx *Resour
 	return nil
 }
 
-func (self *ResourceHandler) addFiles(ctx context.Context, templateCtx *ResourceContext, names []string) error {
-	templateCtx.Files = map[string]*ResourceContextFile{}
+func (self *resourceHandler) addFiles(ctx context.Context, templateCtx *resourceContext, names []string) error {
+	templateCtx.Files = map[string]*resourceContextFile{}
 	for _, fileName := range names {
 		file, err := self.getFile(ctx, fileName)
 		if err != nil {
@@ -255,10 +221,10 @@ func (self *ResourceHandler) addFiles(ctx context.Context, templateCtx *Resource
 	return nil
 }
 
-func (self *ResourceHandler) addVaultOps(ctx context.Context, templateCtx *ResourceContext, names []string) error {
+func (self *resourceHandler) addVaultOps(ctx context.Context, templateCtx *resourceContext, names []string) error {
 	templateCtx.VaultOps = make(map[string]map[string]any)
 	for _, opName := range names {
-		op, err := self.getVaultOp(ctx, opName)
+		op, err := self.getVaultOp(ctx, opName).Get()
 		if err != nil {
 			return fmt.Errorf("could not prepare vault op %s: %w", opName, err)
 		}
@@ -268,9 +234,9 @@ func (self *ResourceHandler) addVaultOps(ctx context.Context, templateCtx *Resou
 	return nil
 }
 
-func (self *ResourceHandler) getEnv(ctx context.Context, name string) (string, error) {
+func (self *resourceHandler) getEnv(ctx context.Context, name string) (string, error) {
 	self.logger.Printf("setting an env variable: %s", name)
-	env, err := al.EnvByName(self.config, name)
+	env, err := EnvByName(self.plugin, name)
 	if err != nil {
 		return "", fmt.Errorf("could not find env %s: %w", name, err)
 	}
@@ -281,79 +247,28 @@ func (self *ResourceHandler) getEnv(ctx context.Context, name string) (string, e
 	return fmt.Sprintf("%s=%s", name, content), nil
 }
 
-func (self *ResourceHandler) getFile(ctx context.Context, name string) (*ResourceContextFile, error) {
-	self.logger.Printf("creating a file: %s", name)
-	res, ok := self.files[name]
-	if ok {
-		return res, nil
+func EnvByLabel(config *injector_proto.Config, name string, value string) ([]*injector_proto.Env, error) {
+	if name == "" {
+		return nil, fmt.Errorf("missing label name")
 	}
-	fileConfig, err := al.FileByName(self.config, name)
-	if err != nil {
-		return nil, fmt.Errorf("could not find file config: %w", err)
-	}
-	value := ""
-	if fileConfig.Value != "" {
-		value = fileConfig.Value
-	} else if fileConfig.FromFile != "" {
-		valueBytes, err := os.ReadFile(fileConfig.FromFile)
-		if err != nil {
-			return nil, fmt.Errorf("could not read from_file %s: %w", fileConfig.FromFile, err)
+	res := []*injector_proto.Env{}
+	for i := range config.Env {
+		curEnv := config.Env[len(config.Env)-1-i]
+		actualVal, ok := curEnv.Labels[name]
+		if ok && (value == "" || value == actualVal) {
+			res = append(res, curEnv)
 		}
-		value = string(valueBytes)
-	}
-	if value == "" {
-		return nil, fmt.Errorf("missing file contents")
-	}
-	content, err := self.template(ctx, value, fileConfig.Files, fileConfig.Secrets, fileConfig.VaultOps)
-	if err != nil {
-		return nil, fmt.Errorf("could not template file %s: %w", name, err)
-	}
-	tmp, err := os.CreateTemp("", fmt.Sprintf("al_file_%s_*.txt", name))
-	if err != nil {
-		return nil, fmt.Errorf("could not create temporary file: %w", err)
-	}
-	defer tmp.Close()
-	res = &ResourceContextFile{Path: tmp.Name()}
-	self.files[name] = res
-	_, err = tmp.WriteString(content)
-	if err != nil {
-		return nil, fmt.Errorf("could not write to the temp file: %w", err)
 	}
 	return res, nil
+
 }
 
-func (self *ResourceHandler) template(ctx context.Context, value string, files []string, secrets []string, vaultOps []string) (string, error) {
-	templateCtx := &ResourceContext{}
-	err := self.addSecrets(ctx, templateCtx, secrets)
-	if err != nil {
-		return "", fmt.Errorf("could not prepare secrets: %w", err)
+func EnvByName(config *injector_proto.Config, name string) (*injector_proto.Env, error) {
+	for i := range config.Env {
+		curEnv := config.Env[len(config.Env)-1-i]
+		if curEnv.Name == name {
+			return curEnv, nil
+		}
 	}
-	err = self.addFiles(ctx, templateCtx, files)
-	if err != nil {
-		return "", fmt.Errorf("could not prepare files: %w", err)
-	}
-	err = self.addVaultOps(ctx, templateCtx, vaultOps)
-	if err != nil {
-		return "", fmt.Errorf("could not prepare vault ops: %w", err)
-	}
-	tmpl, err := template.New("resource_handler.template").Funcs(
-		template.FuncMap{
-			"join": func(elems []any, sep string) string {
-				elemsString := make([]string, len(elems))
-				for _, elem := range elems {
-					elemsString = append(elemsString, elem.(string))
-				}
-				return strings.Join(elemsString, sep)
-			},
-		},
-	).Option("missingkey=error").Parse(value)
-	if err != nil {
-		return "", fmt.Errorf("could not parse template '%s': %w", value, err)
-	}
-	var buff bytes.Buffer
-	err = tmpl.Execute(&buff, templateCtx)
-	if err != nil {
-		return "", fmt.Errorf("could not execute template '%s': %w", value, err)
-	}
-	return buff.String(), nil
+	return nil, fmt.Errorf("missing env with name %s", name)
 }

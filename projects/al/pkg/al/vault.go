@@ -11,15 +11,14 @@ import (
 	"github.com/hashicorp/vault/api"
 	"github.com/hashicorp/vault/api/auth/approle"
 	"github.com/hashicorp/vault/api/tokenhelper"
-	"google.golang.org/protobuf/proto"
 	"sync"
 )
 
 const VAULT_DEFAULT_NAME = "default"
 
 type VaultStoreItem struct {
-	helper tokenhelper.TokenHelper
-	client *api.Client
+	Helper tokenhelper.TokenHelper
+	Client *api.Client
 }
 
 type VaultStore struct {
@@ -35,26 +34,6 @@ func NewVault(config *al_proto.Config) *VaultStore {
 		mx:      &sync.RWMutex{},
 	}
 
-}
-
-func (self *VaultStore) FetchSecret(ctx context.Context, name string) fp.Either[fp.MapA] {
-	secret, err := VaultSecretByName(self.config, name)
-	if err != nil {
-		return fp.Left[fp.MapA](fmt.Errorf("could not find secret %s: %w", name, err))
-	}
-	secret, err = fp.Get(self.normalizeSecret(secret))
-	if err != nil {
-		return fp.Left[fp.MapA](fmt.Errorf("could not normalize secret %s: %w", name, err))
-	}
-	client, err := fp.Get(self.Client(ctx, secret.Vault, secret.Auth))
-	if err != nil {
-		return fp.Left[fp.MapA](fmt.Errorf("could not get a client for the secret %s: %w", secret.Name, err))
-	}
-	data, err := client.KVv2(secret.Kv.Mount).Get(ctx, secret.Kv.Path)
-	if err != nil {
-		return fp.Left[fp.MapA](fmt.Errorf("could not fetch secret %s: %w", secret.Name, err))
-	}
-	return fp.Right(data.Data)
 }
 
 func (self *VaultStore) DefaultEnv(ctx context.Context) fp.Either[[]string] {
@@ -102,30 +81,6 @@ func (self *VaultStore) Env(ctx context.Context, vaultName string, authName stri
 		res = append(res, fmt.Sprintf("VAULT_TOKEN=%s", client.Token()))
 	}
 	return fp.Right(res)
-}
-
-func (self *VaultStore) normalizeSecret(secret *al_proto.VaultSecret) fp.Either[*al_proto.VaultSecret] {
-	secret = proto.CloneOf(secret)
-	if secret.Name == "" {
-		return fp.Left[*al_proto.VaultSecret](fmt.Errorf("secret is missing a name"))
-	}
-	kv := secret.Kv
-	if kv == nil {
-		return fp.Left[*al_proto.VaultSecret](fmt.Errorf("secret %s is missing kv config", secret.Name))
-	}
-	if kv.Path == "" {
-		return fp.Left[*al_proto.VaultSecret](fmt.Errorf("secret %s is missing path", secret.Name))
-	}
-	if secret.Auth == "" {
-		secret.Auth = VAULT_DEFAULT_NAME
-	}
-	if secret.Vault == "" {
-		secret.Vault = VAULT_DEFAULT_NAME
-	}
-	if kv.Mount == "" {
-		kv.Mount = "secrets"
-	}
-	return fp.Right(secret)
 }
 
 func (self *VaultStore) clientCache(path string) (*VaultStoreItem, bool) {
@@ -238,7 +193,7 @@ func newVaultClient(ctx context.Context, vault *al_proto.Vault, auth *al_proto.V
 		}
 	}
 	return fp.Right(&VaultStoreItem{
-		client: client,
-		helper: helper,
+		Client: client,
+		Helper: helper,
 	})
 }

@@ -56,9 +56,9 @@ message Op {
 
 message Config {
   // List of secret configs
-  repeated VaultSecret secrets = 3;
+  repeated Secret secrets = 3;
   // Vault operations
-  repeated VaultOp ops = 6;
+  repeated Op ops = 6;
   // Files to create
   repeated File files = 4;
   // Env to set
