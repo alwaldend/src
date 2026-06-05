@@ -19,6 +19,7 @@ go_library(
         "switch.go",
         "curry.go",
         "compute.go",
+        "recover.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/pkg/fp",
     visibility = ["//:__subpackages__"],

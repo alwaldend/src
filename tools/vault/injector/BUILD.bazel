@@ -27,6 +27,7 @@ go_library(
         "op.go",
         "file.go",
         "templater.go",
+        "env.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/injector",
     visibility = ["//:__subpackages__"],

@@ -8,7 +8,6 @@ import (
 
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 	"github.com/spf13/cobra"
 )
 
@@ -83,7 +82,6 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 	var stdin string
 	var stderr string
 	var plugins []string
-	prepareCommandArgs := &al.PrepareCommandArgs{}
 	cmd := &cobra.Command{
 		Use:   "run",
 		Short: "Run a command",
@@ -95,10 +93,6 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 			cfg, err := al.LoadConfigs(ctx, configs...)
 			if err != nil {
 				return fmt.Errorf("could not load configs: %w", err)
-			}
-			vault, err := fp.Get(al.NewVault(cfg))
-			if err != nil {
-				return fmt.Errorf("could not create Vault: %w", err)
 			}
 			cmdArgs := al.CommandArgs{
 				Ctx:                ctx,
@@ -134,12 +128,6 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("could not create command: %w", err)
 			}
-			resourceHandler := al.NewResourceHandler(ctx, cfg, vault, cmdArgs.Stderr)
-			defer resourceHandler.Clean()
-			err = resourceHandler.PrepareCommand(ctx, runCmd, prepareCommandArgs)
-			if err != nil {
-				return fmt.Errorf("could not prepare command: %w", err)
-			}
 			pluginManager, err := al_plugin.NewManager(cfg, cmdArgs.Stderr)
 			if err != nil {
 				return fmt.Errorf("could not create plugin manager: %w", err)
@@ -162,11 +150,6 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 	flags.StringVar(&stdout, "stdout", "", "Override stdout")
 	flags.StringVar(&stderr, "stderr", "", "Override stderr")
 	flags.StringVar(&stdin, "stdin", "", "Override stdin")
-	flags.StringArrayVar(&prepareCommandArgs.Env, "env", nil, "Add environment variables by name")
-	flags.BoolVar(&prepareCommandArgs.EnvDisabled, "env_disabled", false, "If set, disable env injection")
-	flags.StringArrayVar(&prepareCommandArgs.EnvVault, "env_vault", nil, "Add vault environment variables (vault_name:auth_name)")
-	flags.StringArrayVar(&prepareCommandArgs.EnvLabels, "env_label", nil, "Add environment variables with labels (name=value)")
-	flags.StringArrayVar(&prepareCommandArgs.Files, "files", nil, "Add files by name")
 	flags.StringArrayVar(&plugins, "plugin", nil, "Plugin variables in format service_name.key=value")
 	flags.BoolVar(&disableRunfilesEnv, "disable_runfiles_env", false, "If set, do not set bazel runfiles variables")
 	return cmd

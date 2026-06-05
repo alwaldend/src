@@ -1,16 +1,16 @@
 local M = {}
 
 function M.plugin(t)
-    local name = t.name
-    config({ plugins = {  [name] = t }})
+    t.config = to_json(t.config)
+    config({ plugins = { t }})
 end
 
-function M.auth(t)
-    config({ auth = {t}})
+function M.vault_auth(t)
+    config({ vault_auth = {t}})
 end
 
-function M.vault(t)
-    config({ vaults = {t}})
+function M.vault_conn(t)
+    config({ vault_conn = {t}})
 end
 
 return M

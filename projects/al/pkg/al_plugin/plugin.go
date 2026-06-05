@@ -2,13 +2,9 @@ package al_plugin
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"io"
-	"os"
-	"os/signal"
 	"runtime/debug"
-	"syscall"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
@@ -56,32 +52,10 @@ func parseConfigItem(itemRaw *al_proto.PluginConfigItem) fp.Result[any] {
 }
 
 func ParseConfig(config *al_proto.PluginConfig, target proto.Message) fp.EmptyEither {
-	res := map[string]any{}
-	for k, v := range config.Config {
-		v2, err := fp.Get(parseConfigItem(v))
-		if err != nil {
-			return fp.EmptyLeft(err)
-		}
-		res[k] = v2
-	}
-	body, err := json.Marshal(res)
-	if err != nil {
-		return fp.EmptyLeft(fmt.Errorf("could not marshal plugin config: %w", err))
-	}
-	err = protojson.Unmarshal(body, target)
-	if err != nil {
-		return fp.EmptyLeft(fmt.Errorf("could not unmarshal plugin config: %w", err))
-	}
-	return fp.EmptyRight()
-}
-
-func ServeDefault[T al_proto.PluginServiceServer](plugin T) fp.EmptyEither {
-	return Serve(context.Background(), os.Stdin, os.Stdout, plugin)
+	return fp.EmptyEitherOf(protojson.Unmarshal([]byte(config.Config), target))
 }
 
 func Serve[T al_proto.PluginServiceServer](ctx context.Context, stdin io.Reader, stdout io.Writer, plugin T) fp.EmptyEither {
-	ctx, cancel := signal.NotifyContext(ctx, syscall.SIGINT, syscall.SIGTERM)
-	defer cancel()
 	server := grpc.NewServer(
 		grpc.StreamInterceptor(
 			func(srv any, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) (err error) {
@@ -104,10 +78,6 @@ func Serve[T al_proto.PluginServiceServer](ctx context.Context, stdin io.Reader,
 			},
 		),
 	)
-	go func() {
-		<-ctx.Done()
-		server.GracefulStop()
-	}()
 	al_proto.RegisterPluginServiceServer(server, plugin)
 	listener, err := NewIOListener(stdin, stdout)
 	if err != nil {
@@ -117,5 +87,9 @@ func Serve[T al_proto.PluginServiceServer](ctx context.Context, stdin io.Reader,
 	if err != nil {
 		return fp.EmptyLeft(fmt.Errorf("could not serve: %w", err))
 	}
+	go func() {
+		<-ctx.Done()
+		server.GracefulStop()
+	}()
 	return fp.EmptyRight()
 }

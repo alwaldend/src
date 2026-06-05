@@ -50,9 +50,20 @@ func loadConfig(ctx context.Context, path string) (*al_proto.Config, error) {
 		defer state.Close()
 		state.SetGlobal("config", state.NewFunction(func(l *lua.LState) int {
 			val := &al_proto.Config{}
-			parseTableArg(state, val)
-			proto.Merge(res, val)
+			if err := parseTableArg(state, val); err != nil {
+				state.ArgError(1, fmt.Sprintf("could not parse config: %s", err))
+			} else {
+				proto.Merge(res, val)
+			}
 			return 0
+		}))
+		state.SetGlobal("to_json", state.NewFunction(func(l *lua.LState) int {
+			if res, err := toJson(l); err != nil {
+				state.ArgError(1, fmt.Sprintf("could not convert to json: %s", err))
+			} else {
+				state.Push(lua.LString(res))
+			}
+			return 1
 		}))
 		err := state.DoString(string(configContent))
 		if err != nil {
@@ -64,23 +75,29 @@ func loadConfig(ctx context.Context, path string) (*al_proto.Config, error) {
 	return res, nil
 }
 
-func parseTableArg(state *lua.LState, target proto.Message) {
+func toJson(state *lua.LState) ([]byte, error) {
 	parser := NewLuaParser()
 	data, err := parser.Parse(state.ToTable(1))
 	if err != nil {
-		state.ArgError(1, fmt.Sprintf("could not parse the table: %s", err))
+		return nil, fmt.Errorf("could not parse the table: %w", err)
 	}
-	if data == nil {
-		state.ArgError(1, "missing table argument")
-	}
-	dataJson, err := json.Marshal(data)
+	res, err := json.Marshal(data)
 	if err != nil {
-		state.ArgError(1, fmt.Sprintf("could not marshal the table: %s", err))
+		return nil, fmt.Errorf("could not marshal the data: %w", err)
 	}
-	err = protojson.Unmarshal(dataJson, target)
+	return res, nil
+}
+
+func parseTableArg(state *lua.LState, target proto.Message) error {
+	data, err := toJson(state)
 	if err != nil {
-		state.ArgError(1, fmt.Sprintf("could not convert table to proto: %s", err))
+		return fmt.Errorf("could not convert to json: %w", err)
 	}
+	err = protojson.Unmarshal(data, target)
+	if err != nil {
+		return fmt.Errorf("could not unmarshal as proto: %w", err)
+	}
+	return nil
 }
 
 func DumpConfigs(ctx context.Context, out string, paths ...string) error {
@@ -177,9 +194,9 @@ func (self *LuaParser) Parse(val lua.LValue) (any, error) {
 	}
 }
 
-func VaultByName(config *al_proto.Config, name string) (*al_proto.Vault, error) {
-	for i := range config.Vaults {
-		curVault := config.Vaults[len(config.Vaults)-1-i]
+func VaultByName(config *al_proto.Config, name string) (*al_proto.VaultConn, error) {
+	for i := range config.VaultConn {
+		curVault := config.VaultConn[len(config.VaultConn)-1-i]
 		if curVault.Name == name {
 			return curVault, nil
 		}
@@ -188,8 +205,8 @@ func VaultByName(config *al_proto.Config, name string) (*al_proto.Vault, error) 
 }
 
 func VaultAuthByName(config *al_proto.Config, name string) (*al_proto.VaultAuth, error) {
-	for i := range config.Auth {
-		curAuth := config.Auth[len(config.Auth)-1-i]
+	for i := range config.VaultAuth {
+		curAuth := config.VaultAuth[len(config.VaultAuth)-1-i]
 		if curAuth.Name == name {
 			return curAuth, nil
 		}

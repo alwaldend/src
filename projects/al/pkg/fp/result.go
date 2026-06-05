@@ -18,6 +18,19 @@ func Get[R any](r Result[R]) (R, error) {
 	return r.Get()
 }
 
+func OnError[T1, T2 any, R Result[T2]](f func(T1) R, fe func(err error) error) func(T1) Either[T2] {
+	return func(v T1) Either[T2] {
+		res, err := Get(f(v))
+		if err != nil {
+			err = fe(err)
+			if err != nil {
+				return Left[T2](err)
+			}
+		}
+		return Right(res)
+	}
+}
+
 func Errorf(s string, a ...any) func(error) error {
 	return func(err error) error {
 		a = append(a, err)

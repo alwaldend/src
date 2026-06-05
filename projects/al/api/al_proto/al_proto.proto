@@ -16,7 +16,7 @@ message VaultTLS {
   string client_key = 3;
 }
 
-message Vault {
+message VaultConn {
   // Vault name
   string name = 1;
   // Vault config
@@ -46,9 +46,9 @@ message VaultAuth {
 
 message Config {
   // List of Vault configs
-  repeated Vault vaults = 1;
+  repeated VaultConn vault_conn = 1;
   // List of Vault authentication configs
-  repeated VaultAuth auth = 2;
+  repeated VaultAuth vault_auth = 2;
   // Plugin configs
   repeated PluginConfig plugins = 7;
 }
@@ -75,7 +75,7 @@ message PluginConfig {
   repeated string args = 3;
   repeated string extends = 6;
   map<string, string> env = 4;
-  map<string, PluginConfigItem> config = 5;
+  string config = 5;
   map<string, string> labels = 7;
 }
 

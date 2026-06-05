@@ -96,14 +96,14 @@ func ForEachP[T any](f func(v T) Result[any]) func(iter.Seq[T]) EmptyEither {
 	}
 }
 
-func ForEach2[T1, T2 any](f func(v Tuple[T1, T2]) Result[any]) func(iter.Seq2[T1, T2]) EmptyEither {
+func ForEach2[T1, T2 any](f func(v Tuple2[T1, T2]) Result[any]) func(iter.Seq2[T1, T2]) EmptyEither {
 	return func(s iter.Seq2[T1, T2]) EmptyEither {
-		return ForEach(f)(TupleIter(s))
+		return ForEach(f)(Tuple2Iter(s))
 	}
 }
 
-func ForEach2P[T1, T2 any](f func(v Tuple[T1, T2]) Result[any]) func(iter.Seq2[T1, T2]) EmptyEither {
+func ForEach2P[T1, T2 any](f func(v Tuple2[T1, T2]) Result[any]) func(iter.Seq2[T1, T2]) EmptyEither {
 	return func(s iter.Seq2[T1, T2]) EmptyEither {
-		return ForEachP(f)(TupleIter(s))
+		return ForEachP(f)(Tuple2Iter(s))
 	}
 }
