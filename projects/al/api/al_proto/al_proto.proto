@@ -53,19 +53,21 @@ message Config {
   repeated PluginConfig plugins = 7;
 }
 
-message PluginConfigItem {
-  message ValueMap {
-    map<string, PluginConfigItem> items = 1;
-  }
-  message ValueList {
-    repeated PluginConfigItem items = 1;
-  }
+message JsonMap {
+  map<string, Json> val = 1;
+}
 
-  oneof value {
-    string value_string = 2;
-    bool value_bool = 3;
-    ValueMap value_map = 4;
-    ValueList value_list = 5;
+message JsonList {
+  repeated Json val = 1;
+}
+
+message Json {
+  oneof val {
+    string val_string = 2;
+    bool val_bool = 3;
+    int64 val_int64 = 4;
+    JsonMap val_map = 5;
+    JsonList val_list = 6;
   }
 }
 
@@ -73,20 +75,30 @@ message PluginConfig {
   string name = 1;
   string bin = 2;
   repeated string args = 3;
-  repeated string extends = 6;
   map<string, string> env = 4;
-  string config = 5;
-  map<string, string> labels = 7;
+  Json data = 5;
+  map<string, string> labels = 6;
+}
+
+message PluginRequest {
+  // Request name
+  string name = 1;
+  // Plugin name
+  string plugin = 2;
+  // Plugin data
+  Json data = 3;
+  map<string, string> labels = 4;
+}
+
+service PluginService {
+  rpc PluginStart(PluginStartRequest) returns (PluginStartResponse) {}
 }
 
 message PluginStartRequest {
   Config config = 1;
   PluginConfig plugin = 2;
+  repeated PluginRequest requests = 3;
 }
 message PluginStartResponse {
   map<string, string> env = 1;
-}
-
-service PluginService {
-  rpc PluginStart(PluginStartRequest) returns (PluginStartResponse) {}
 }

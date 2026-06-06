@@ -1,7 +1,7 @@
 local M = {}
 
 function M.plugin(t)
-    t.config = to_json(t.config)
+    t.data = to_pb_json(t.data)
     config({ plugins = { t }})
 end
 

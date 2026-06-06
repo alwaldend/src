@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 	"github.com/yuin/gopher-lua"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
@@ -65,6 +66,14 @@ func loadConfig(ctx context.Context, path string) (*al_proto.Config, error) {
 			}
 			return 1
 		}))
+		state.SetGlobal("to_pb_json", state.NewFunction(func(l *lua.LState) int {
+			if res, err := toPbJson(l); err != nil {
+				state.ArgError(1, fmt.Sprintf("could not convert to protobuf json: %s", err))
+			} else {
+				state.Push(res)
+			}
+			return 1
+		}))
 		err := state.DoString(string(configContent))
 		if err != nil {
 			return nil, fmt.Errorf("could not run lua: %w", err)
@@ -75,9 +84,32 @@ func loadConfig(ctx context.Context, path string) (*al_proto.Config, error) {
 	return res, nil
 }
 
+func toPbJson(state *lua.LState) (lua.LValue, error) {
+	data, err := parseLua(state.ToTable(1), nil)
+	if err != nil {
+		return nil, fmt.Errorf("could not parse the table: %w", err)
+	}
+    data_pb, err := ToPbJson(data).Get()
+    if err != nil {
+        return nil, fmt.Errorf("could not covert data to protobuf json: %w", err)
+    }
+    data_pb_json, err := protojson.Marshal(data_pb)
+    if err != nil {
+        return nil, fmt.Errorf("could not marshal converted protobuf json: %w", err)
+    }
+    var data_parsed any
+    if err := json.Unmarshal(data_pb_json, &data_parsed); err != nil {
+        return nil, fmt.Errorf("could not parse converted protobuf as json: %w", err)
+    }
+    res, err := dumpLua(state, data_parsed)
+    if err != nil {
+        return nil, fmt.Errorf("could not dump json as lua: %w", err)
+    }
+    return res, nil
+}
+
 func toJson(state *lua.LState) ([]byte, error) {
-	parser := NewLuaParser()
-	data, err := parser.Parse(state.ToTable(1))
+	data, err := parseLua(state.ToTable(1), nil)
 	if err != nil {
 		return nil, fmt.Errorf("could not parse the table: %w", err)
 	}
@@ -126,15 +158,47 @@ func DumpConfigs(ctx context.Context, out string, paths ...string) error {
 	return nil
 }
 
-type LuaParser struct {
-	enc map[*lua.LTable]bool
+func dumpLua(state *lua.LState, val any) (lua.LValue, error) {
+	switch converted := val.(type) {
+	case bool:
+		return lua.LBool(converted), nil
+	case float64:
+		return lua.LNumber(converted), nil
+	case string:
+		return lua.LString(converted), nil
+	case json.Number:
+		return lua.LString(converted), nil
+	case []any:
+		arr := state.CreateTable(len(converted), 0)
+		for _, item := range converted {
+            item_l, err := dumpLua(state, item)
+            if err != nil {
+                return nil, fmt.Errorf("could not convert item to lua: %w", err)
+            }
+			arr.Append(item_l)
+		}
+		return arr, nil
+	case map[string]any:
+		tbl := state.CreateTable(0, len(converted))
+		for key, item := range converted {
+            item_l, err := dumpLua(state, item)
+            if err != nil {
+                return nil, fmt.Errorf("could not covert item to lua: %w", err)
+            }
+			tbl.RawSetH(lua.LString(key), item_l)
+		}
+		return tbl, nil
+	case nil:
+		return lua.LNil, nil
+    default:
+        return nil, fmt.Errorf("unsupported type: %T: %v", val, val)
+	}
 }
 
-func NewLuaParser() *LuaParser {
-	return &LuaParser{enc: make(map[*lua.LTable]bool)}
-}
-
-func (self *LuaParser) Parse(val lua.LValue) (any, error) {
+func parseLua(val lua.LValue, enc map[*lua.LTable]bool) (any, error) {
+	if enc == nil {
+		enc = map[*lua.LTable]bool{}
+	}
 	switch converted := val.(type) {
 	case lua.LBool:
 		return bool(converted), nil
@@ -145,10 +209,10 @@ func (self *LuaParser) Parse(val lua.LValue) (any, error) {
 	case lua.LString:
 		return string(converted), nil
 	case *lua.LTable:
-		if self.enc[converted] {
+		if enc[converted] {
 			return nil, fmt.Errorf("nested table: %s", val)
 		}
-		self.enc[converted] = true
+		enc[converted] = true
 		key, value := converted.Next(lua.LNil)
 		switch key.Type() {
 		case lua.LTNil: // empty table
@@ -163,7 +227,7 @@ func (self *LuaParser) Parse(val lua.LValue) (any, error) {
 				if expectedKey != key {
 					return nil, fmt.Errorf("sparse array: expected %s, got %s", expectedKey, key)
 				}
-				valueParsed, err := self.Parse(value)
+				valueParsed, err := parseLua(value, enc)
 				if err != nil {
 					return nil, fmt.Errorf("could not parse table value: %w", err)
 				}
@@ -178,7 +242,7 @@ func (self *LuaParser) Parse(val lua.LValue) (any, error) {
 				if key.Type() != lua.LTString {
 					return nil, fmt.Errorf("invalid key: %s", key)
 				}
-				valueParsed, err := self.Parse(value)
+				valueParsed, err := parseLua(value, enc)
 				if err != nil {
 					return nil, fmt.Errorf("could not parse table value: %w", err)
 				}
@@ -212,4 +276,71 @@ func VaultAuthByName(config *al_proto.Config, name string) (*al_proto.VaultAuth,
 		}
 	}
 	return nil, fmt.Errorf("missing vault auth with name %s", name)
+}
+
+// Convert a value to a Protobuf json
+func ToPbJson(val any) fp.Either[*al_proto.Json] {
+	if val == nil {
+		return fp.Right(&al_proto.Json{})
+	}
+	switch valTyped := val.(type) {
+	case string:
+		return fp.Right(&al_proto.Json{Val: &al_proto.Json_ValString{ValString: valTyped}})
+	case bool:
+		return fp.Right(&al_proto.Json{Val: &al_proto.Json_ValBool{ValBool: valTyped}})
+	case int64:
+		return fp.Right(&al_proto.Json{Val: &al_proto.Json_ValInt64{ValInt64: valTyped}})
+	case []any:
+		res := []*al_proto.Json{}
+		for _, v := range valTyped {
+			v2, err := ToPbJson(v).Get()
+			if err != nil {
+				return fp.Left[*al_proto.Json](err)
+			}
+			res = append(res, v2)
+		}
+		return fp.Right(&al_proto.Json{Val: &al_proto.Json_ValList{ValList: &al_proto.JsonList{Val: res}}})
+	case map[string]any:
+		res := map[string]*al_proto.Json{}
+		for k, v := range valTyped {
+			v2, err := ToPbJson(v).Get()
+			if err != nil {
+				return fp.Left[*al_proto.Json](err)
+			}
+			res[k] = v2
+		}
+		return fp.Right(&al_proto.Json{Val: &al_proto.Json_ValMap{ValMap: &al_proto.JsonMap{Val: res}}})
+	default:
+		return fp.Left[*al_proto.Json](fmt.Errorf("unsupported type %T: %s", val, val))
+	}
+}
+
+// Parse Protobuf json into a normal type
+func FromPbJson(val *al_proto.Json) fp.Result[any] {
+	switch valTyped := val.Val.(type) {
+	case *al_proto.Json_ValString, *al_proto.Json_ValBool, *al_proto.Json_ValInt64:
+		return fp.Right[any](valTyped)
+	case *al_proto.Json_ValList:
+		res := []any{}
+		for _, v := range valTyped.ValList.Val {
+			v2, err := fp.Get(FromPbJson(v))
+			if err != nil {
+				return fp.Left[any](err)
+			}
+			res = append(res, v2)
+		}
+		return fp.Right[any](res)
+	case *al_proto.Json_ValMap:
+		res := map[string]any{}
+		for k, v := range valTyped.ValMap.Val {
+			v2, err := fp.Get(FromPbJson(v))
+			if err != nil {
+				return fp.Left[any](err)
+			}
+			res[k] = v2
+		}
+		return fp.Right[any](res)
+	default:
+		return fp.Left[any](fmt.Errorf("invalid item %T: %s", valTyped, val.Val))
+	}
 }
