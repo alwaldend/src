@@ -6,43 +6,49 @@ function M.server_cert(t)
     local name, role, labels, data = t.name, t.role, t.labels, t.data
     local cert_name = "AL_SERVER_CERT_" .. name .. "_CERT"
     local key_name = "AL_SERVER_CERT_" .. name .. "_KEY"
-    lib.plugin({
-        name = name,
-        labels = labels,
-        config = {
-            ops = {
-                {
-                    name = name,
-                    method = "write",
-                    data = data,
-                    path = "pki/ica_servers/issue/" .. role
-                },
-            },
-            files = {
-                {
-                    name = cert_name,
-                    vault_ops = { name },
-                    value = "{{ .VaultOp.certificate }}"
-                },
-                {
-                    name = key_name,
-                    vault_ops = { name },
-                    value = "{{ .VaultOp.private_key }}"
-                },
-            },
-            env = {
-                {
-                    name = cert_name,
-                    files = { cert_name },
-                    value = "{{ .File.Path }}"
-                },
-                {
-                    name = key_name,
-                    files = { key_name },
-                    value = "{{ .File.Path }}"
-                },
+    local res = {
+        {
+            name = name,
+            op = {
+                method = "write",
+                data = data,
+                path = "pki/ica_servers/issue/" .. role
             }
-        }
+        },
+        {
+            name = cert_name,
+            deps = { name },
+            file = {
+                value = "{{ .VaultOp.certificate }}"
+            },
+        },
+        {
+            name = key_name,
+            deps = { name },
+            file = {
+                value = "{{ .Last.Data.private_key }}"
+            },
+        },
+        {
+            name = cert_name,
+            deps = { cert_name },
+            env = {
+                value = "{{ .Last.Data.Files[0] }}"
+            },
+        },
+        {
+            name = key_name,
+            deps = { key_name },
+            env = {
+                value = "{{ .Last.Data.Files[0] }}"
+            }
+        },
+    }
+    lib.plugin_call({
+        name = name,
+        plugin = "injector",
+        labels = labels,
+        data = { res = res }
     })
 end
 
@@ -50,208 +56,247 @@ function M.acme_eab(t)
     local name, role, labels = t.name, t.role, t.labels
     local id_name = "AL_ACME_EAB_" .. name .. "_ID"
     local key_name = "AL_ACME_EAB_" .. name .. "_KEY"
-    lib.vault_op({
+    local res = {
+        {
+            name = name,
+            op = {
+                method = "write",
+                path = "pki/ica_servers/roles/" .. role .. "/acme/new-eab"
+            }
+        },
+        {
+            name = id_name,
+            deps = { name },
+            env = {
+                value = "{{ .VaultOp.id }}"
+            }
+        },
+        {
+            name = key_name,
+            deps = {name},
+            env = {
+                value = "{{ .VaultOp.key }}"
+            }
+        }
+    }
+    lib.plugin_call({
         name = name,
-        method = "write",
+        plugin = "injector",
         labels = labels,
-        path = "pki/ica_servers/roles/" .. role .. "/acme/new-eab"
-    })
-    lib.env({
-        name = id_name,
-        labels = labels,
-        vault_ops = { name },
-        value = "{{ .VaultOp.id }}"
-    })
-    lib.env({
-        name = key_name,
-        labels = labels,
-        vault_ops = { name },
-        value = "{{ .VaultOp.key }}"
+        data = { res = res }
     })
 end
 
 
 function M.tf_backend(t)
     local path, labels, name = t.path, t.labels, t.name or "tf_backend"
-    lib.secret({
-        name = name,
-        labels = labels,
-        kv = {
-            path = path,
-            mount = "secrets",
+    local conf_name = name .. "_backend_config"
+    local res = {
+        {
+            name = name,
+            kv = {
+                path = path,
+                mount = "secrets",
+            },
         },
-    })
-    lib.file({
-        name = "backend_config",
-        labels = labels,
-        secrets = {name},
-        value = [[
-            bucket = "{{ .Secret.bucket }}"
-            endpoints = {
-              s3 = "https://storage.yandexcloud.net"
+        {
+            name = conf_name,
+            deps = {name},
+            file = {
+                value = [[
+                    bucket = "{{ .Secret.bucket }}"
+                    endpoints = {
+                      s3 = "https://storage.yandexcloud.net"
+                    }
+                    region = "ru-central1"
+                    use_lockfile = true
+                    skip_region_validation      = true
+                    skip_credentials_validation = true
+                    skip_requesting_account_id  = true
+                    skip_s3_checksum            = true
+                ]]
             }
-            region = "ru-central1"
-            use_lockfile = true
-            skip_region_validation      = true
-            skip_credentials_validation = true
-            skip_requesting_account_id  = true
-            skip_s3_checksum            = true
-        ]]
-    })
-    lib.env({
-        name = "AL_TF_BACKEND_CONFIG_1",
+        },
+        {
+            name = "AL_TF_BACKEND_CONFIG_1",
+            deps = {conf_name},
+            env  = {
+                value = "{{ .File.Path }}"
+            }
+        }
+    }
+    lib.plugin_call({
+        name = name,
+        plugin = "injector",
         labels = labels,
-        files = {"backend_config"},
-        value = "{{ .File.Path }}"
+        data = { res = res }
     })
 end
 
 function M.yc_auth(t)
     local path, labels, name, filename = t.path, t.labels, t.name or "yc_auth", t.filename or "service_account_key"
-    lib.plugin({
-        name = name,
-        labels = labels,
-        config = {
-            secrets = {
-                {
-                    name = name,
-                    kv = {
-                        path = path,
-                        mount = "secrets",
-                    },
-                },
+    local res = {
+        {
+            name = name,
+            kv = {
+                path = path,
+                mount = "secrets",
             },
-            files = {
-                {
-                    name = filename,
-                    secrets = {name},
-                    value = "{{ .Secret.service_account_key }}"
-                },
-            },
-            env = {
-                {
-                    name = "YC_CLOUD_ID",
-                    secrets = {name},
-                    value = "{{ .Secret.cloud_id }}",
-                },
-                {
-                    name = "TF_VAR_cloud_id",
-                    secrets = {name},
-                    value = "{{ .Secret.cloud_id }}",
-                },
-                {
-                    name = "YC_FOLDER_ID",
-                    secrets = {name},
-                    value = "{{ .Secret.folder_id }}",
-                },
-                {
-                    name = "TF_VAR_folder_id",
-                    secrets = {name},
-                    value = "{{ .Secret.folder_id }}",
-                },
-                {
-                    name = "YC_SERVICE_ACCOUNT_KEY_FILE",
-                    files = {filename},
-                    value = "{{ .File.Path }}",
-                },
+        },
+        {
+            name = filename,
+            deps = {name},
+            file = {
+                value = "{{ .Last.Data.service_account_key }}"
             }
-        }
+        },
+        {
+            name = "YC_CLOUD_ID",
+            deps = {name},
+            env = {
+                value = "{{ .Last.Data.cloud_id }}",
+            }
+        },
+        {
+            name = "TF_VAR_cloud_id",
+            deps = {name},
+            env = {
+                value = "{{ .Last.Data.cloud_id }}",
+            }
+        },
+        {
+            name = "YC_FOLDER_ID",
+            deps = {name},
+            env = {
+                value = "{{ .Last.Data.folder_id }}",
+            }
+        },
+        {
+            name = "TF_VAR_folder_id",
+            deps = {name},
+            env = {
+                value = "{{ .Last.Data.folder_id }}",
+            }
+        },
+        {
+            name = "YC_SERVICE_ACCOUNT_KEY_FILE",
+            deps = {filename},
+            env = {
+                value = "{{ index .Last.Files 0 }}",
+            }
+        },
+    }
+    lib.plugin_call({
+        name = name,
+        plugin = "injector",
+        labels = labels,
+        data = { res = res }
     })
 end
 
 function M.yc_bucket_auth(t)
     local path, labels, name = t.path, t.labels, t.name or "yc_bucket_auth"
-    lib.plugin({
+    local res = {
+        {
+            name = name,
+            kv = {
+                path = path,
+                mount = "secrets",
+            },
+        },
+        {
+            name = "AWS_ACCESS_KEY_ID",
+            deps = {name},
+            env = {
+                value = "{{ .Last.Data.access_key }}",
+            }
+        },
+        {
+            name = "AWS_SECRET_ACCESS_KEY",
+            deps = {name},
+            env = {
+                value = "{{ .Last.Data.secret_key }}"
+            }
+        },
+    }
+    lib.plugin_call({
         name = name,
         labels = labels,
-        config = {
-            secrets = {
-                {
-                    name = name,
-                    kv = {
-                        path = path,
-                        mount = "secrets",
-                    },
-                },
-            },
-            env = {
-                {
-                    name = "AWS_ACCESS_KEY_ID",
-                    secrets = {name},
-                    value = "{{ .Secret.access_key }}",
-                },
-                {
-                    name = "AWS_SECRET_ACCESS_KEY",
-                    secrets = {name},
-                    value = "{{ .Secret.secret_key }}"
-                },
-            }
-        }
+        plugin = "injector",
+        data = { res = res }
     })
 end
 
 function M.yc_account(t)
     local path, labels, name = t.path, t.labels, t.name or "yc_account"
-    lib.plugin({
-        name = name,
-        labels = labels,
-        config = {
-            secrets = {
-                {
-                    name = name,
-                    labels = labels,
-                    kv = {
-                        path = path,
-                        mount = "secrets",
-                    },
-                },
+    local res = {
+        {
+            name = name,
+            kv = {
+                path = path,
+                mount = "secrets",
             },
+        },
+        {
+            name = "TF_VAR_service_account_id",
+            deps = {name},
             env = {
-                {
-                    name = "TF_VAR_service_account_id",
-                    labels = labels,
-                    secrets = {name},
-                    value = "{{ .Secret.service_account_id }}",
-                },
+                value = "{{ .Last.Data.service_account_id }}",
             }
-        }
+        },
+    }
+    lib.plugin_call({
+        name = name,
+        plugin = "injector",
+        labels = labels,
+        data = { res = res }
     })
 end
 
 
 function M.rclone_config(t)
     local name, labels, path = t.name or "rclone_config", t.labels, t.path
-    lib.file({
-        name = name,
-        labels = labels,
-        value = [[
-            [remote]
-            type = s3
-            provider = AWS
-            env_auth = true
-            region = ru-central1
-            endpoint = storage.yandexcloud.net
-        ]]
-    })
-    lib.secret({
-        name = "rclone_bucket",
-        labels = labels,
-        kv = {
-            path = path,
-            mount = "secrets",
+    local res = {
+        {
+            name = name,
+            file = {
+                value = [[
+                    [remote]
+                    type = s3
+                    provider = AWS
+                    env_auth = true
+                    region = ru-central1
+                    endpoint = storage.yandexcloud.net
+                ]]
+            },
+        },
+        {
+            name = "rclone_bucket",
+            kv = {
+                path = path,
+                mount = "secrets",
+            },
+        },
+        {
+            name = "RCLONE_CONFIG",
+            deps = {name},
+            env = {
+                value = "{{ index .Last.Files 0 }}",
+            }
+        },
+        {
+            name = "RCLONE_S3_BUCKET",
+            deps = {"rclone_bucket"},
+            env = {
+                value = "{{ .Last.Data.bucket }}"
+            }
         }
-    })
-    lib.env({
-        name = "RCLONE_CONFIG",
+    }
+    lib.plugin_call({
+        name = name,
+        plugin = "injector",
         labels = labels,
-        files = {name},
-        value = "{{ .File.Path }}",
-    })
-    lib.env({
-        name = "RCLONE_S3_BUCKET",
-        labels = labels,
-        secrets = {"rclone_bucket"},
-        value = "{{ .Secret.bucket }}"
+        data = { res = res }
     })
 end
 

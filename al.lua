@@ -27,9 +27,51 @@ lib.vault_conn({
     }
 })
 
+lib.plugin_call({
+    name = "env_default_no_auth",
+    plugin = "injector",
+    labels = { vault_env = "default_no_auth" },
+    data = {
+        res = {
+            {
+                name = "env_default_no_auth",
+                vault_env = {
+                    conn = "default",
+                    auth = "no_auth",
+                },
+            },
+        }
+    },
+})
+
+lib.plugin_call({
+    name = "env_default_default",
+    plugin = "injector",
+    labels = { vault_env = "default_default" },
+    data = {
+        res = {
+            {
+                name = "env_default_default",
+                vault_env = {
+                    conn = "default",
+                    auth = "default",
+                },
+            },
+        }
+    },
+})
+
+lib.plugin({
+    name = "injector",
+    bin = "com_alwaldend_src/tools/vault/injector/injector_/injector",
+})
+
 lib.plugin({
     name = "pve_login",
     bin = "com_alwaldend_src/tools/vault/pve_login/pve_login_/pve_login",
+    labels = {
+        pve_login = "1"
+    },
     data = {
         pve_base_url = "https://host1.pve1.dc1.alwaldend.com:8006",
         pve_redirect_url = "https://host1.pve1.dc1.alwaldend.com:8006",
@@ -38,9 +80,6 @@ lib.plugin({
 })
 
 lib.plugin({
-    name = "vault_tf_backend",
+    name = "tf_backend",
     bin = "com_alwaldend_src/tools/vault/tf_backend/tf_backend_/tf_backend",
-    data = {
-        vault_secret_mount = "secrets"
-    }
 })

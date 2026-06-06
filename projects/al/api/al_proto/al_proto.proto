@@ -51,6 +51,8 @@ message Config {
   repeated VaultAuth vault_auth = 2;
   // Plugin configs
   repeated PluginConfig plugins = 7;
+  // Plugin call configs
+  repeated PluginCall plugin_calls = 8;
 }
 
 message JsonMap {
@@ -71,16 +73,7 @@ message Json {
   }
 }
 
-message PluginConfig {
-  string name = 1;
-  string bin = 2;
-  repeated string args = 3;
-  map<string, string> env = 4;
-  Json data = 5;
-  map<string, string> labels = 6;
-}
-
-message PluginRequest {
+message PluginCall {
   // Request name
   string name = 1;
   // Plugin name
@@ -90,15 +83,29 @@ message PluginRequest {
   map<string, string> labels = 4;
 }
 
+message PluginConfig {
+  string name = 1;
+  string bin = 2;
+  repeated string args = 3;
+  map<string, string> env = 4;
+  Json data = 5;
+  map<string, string> labels = 6;
+  repeated PluginCall calls = 7;
+}
+
 service PluginService {
   rpc PluginStart(PluginStartRequest) returns (PluginStartResponse) {}
 }
 
 message PluginStartRequest {
+  // Whole config
   Config config = 1;
+  // Plugin config
   PluginConfig plugin = 2;
-  repeated PluginRequest requests = 3;
+  // Plugin requests
+  repeated PluginCall calls = 3;
 }
 message PluginStartResponse {
+  // Environment variables
   map<string, string> env = 1;
 }

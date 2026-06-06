@@ -9,14 +9,19 @@ import (
 	"os"
 )
 
-type file struct {
+type FileFetcher struct {
 	vault     *al.VaultStore
-	templater *templater
+	templater *Templater
+	cleaner   *Cleaner
 }
 
-var _ ResourceFetcher = (*file)(nil)
+var _ ResourceFetcher = (*FileFetcher)(nil)
 
-func (self *file) Get(ctx context.Context, r *injector_proto.Resource, d []*ResourceResult) fp.Either[*ResourceResult] {
+func (self *FileFetcher) String() string {
+	return "com.alwaldend.src.tools.vault.injector.FileFetcher"
+}
+
+func (self *FileFetcher) Get(ctx context.Context, r *injector_proto.Resource, d []*ResourceResult) fp.Either[*ResourceResult] {
 	value := ""
 	f := r.GetFile()
 	if r.GetFile() == nil {
@@ -48,5 +53,6 @@ func (self *file) Get(ctx context.Context, r *injector_proto.Resource, d []*Reso
 		defer os.RemoveAll(tmp.Name())
 		return fp.Left[*ResourceResult](fmt.Errorf("could not write to the temp file: %w", err))
 	}
+	self.cleaner.Add(tmp.Name())
 	return fp.Right(res)
 }

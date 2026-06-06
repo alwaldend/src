@@ -26,6 +26,13 @@ message Op {
   map<string, string> data = 5;
 }
 
+message VaultEnv {
+  // Vault connection
+  string conn = 1;
+  // Vault auth
+  string auth = 2;
+}
+
 message Resource {
   // Resource name
   string name = 1;
@@ -45,6 +52,8 @@ message Resource {
     Env env = 6;
     // File
     File file = 7;
+    // Vault environment variables
+    VaultEnv vault_env = 9;
   }
 }
 

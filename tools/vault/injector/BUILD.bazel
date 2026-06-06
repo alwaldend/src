@@ -28,6 +28,8 @@ go_library(
         "file.go",
         "templater.go",
         "env.go",
+        "cleaner.go",
+        "vault_env.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/injector",
     visibility = ["//:__subpackages__"],

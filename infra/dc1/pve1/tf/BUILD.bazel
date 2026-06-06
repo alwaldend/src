@@ -14,8 +14,12 @@ docs_filegroup(
 _CONFIGS = ["//infra/dc1/pve1:al"]
 
 _RUN_ARGS = [
-    "--plugin_labels",
+    "--plugin_label",
     "tf",
+    "--plugin_label",
+    "pve_login",
+    "--plugin_label",
+    "vault_env=default_default",
 ]
 
 _DATA = glob(["*.tf"]) + [
@@ -26,6 +30,7 @@ _DATA = glob(["*.tf"]) + [
     "//infra/dc1/pve1:dnsconfig",
     "//tools/vault/pve_login",
     "//tools/vault/tf_backend",
+    "//tools/vault/injector",
 ]
 
 terraform_binary_map(

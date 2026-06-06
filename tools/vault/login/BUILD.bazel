@@ -21,9 +21,12 @@ al_binary_run(
     name = "login",
     args = ["$(rootpath :login_bin)"],
     configs = ["//:al"],
-    data = [":login_bin"],
+    data = [
+        ":login_bin",
+        "//tools/vault/injector",
+    ],
     run_args = [
-        "--env_vault",
-        "default:no_auth",
+        "--plugin_label",
+        "vault_env=default_no_auth",
     ],
 )

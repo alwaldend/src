@@ -89,23 +89,23 @@ func toPbJson(state *lua.LState) (lua.LValue, error) {
 	if err != nil {
 		return nil, fmt.Errorf("could not parse the table: %w", err)
 	}
-    data_pb, err := ToPbJson(data).Get()
-    if err != nil {
-        return nil, fmt.Errorf("could not covert data to protobuf json: %w", err)
-    }
-    data_pb_json, err := protojson.Marshal(data_pb)
-    if err != nil {
-        return nil, fmt.Errorf("could not marshal converted protobuf json: %w", err)
-    }
-    var data_parsed any
-    if err := json.Unmarshal(data_pb_json, &data_parsed); err != nil {
-        return nil, fmt.Errorf("could not parse converted protobuf as json: %w", err)
-    }
-    res, err := dumpLua(state, data_parsed)
-    if err != nil {
-        return nil, fmt.Errorf("could not dump json as lua: %w", err)
-    }
-    return res, nil
+	data_pb, err := ToPbJson(data).Get()
+	if err != nil {
+		return nil, fmt.Errorf("could not covert data to protobuf json: %w", err)
+	}
+	data_pb_json, err := protojson.Marshal(data_pb)
+	if err != nil {
+		return nil, fmt.Errorf("could not marshal converted protobuf json: %w", err)
+	}
+	var data_parsed any
+	if err := json.Unmarshal(data_pb_json, &data_parsed); err != nil {
+		return nil, fmt.Errorf("could not parse converted protobuf as json: %w", err)
+	}
+	res, err := dumpLua(state, data_parsed)
+	if err != nil {
+		return nil, fmt.Errorf("could not dump json as lua: %w", err)
+	}
+	return res, nil
 }
 
 func toJson(state *lua.LState) ([]byte, error) {
@@ -171,27 +171,27 @@ func dumpLua(state *lua.LState, val any) (lua.LValue, error) {
 	case []any:
 		arr := state.CreateTable(len(converted), 0)
 		for _, item := range converted {
-            item_l, err := dumpLua(state, item)
-            if err != nil {
-                return nil, fmt.Errorf("could not convert item to lua: %w", err)
-            }
+			item_l, err := dumpLua(state, item)
+			if err != nil {
+				return nil, fmt.Errorf("could not convert item to lua: %w", err)
+			}
 			arr.Append(item_l)
 		}
 		return arr, nil
 	case map[string]any:
 		tbl := state.CreateTable(0, len(converted))
 		for key, item := range converted {
-            item_l, err := dumpLua(state, item)
-            if err != nil {
-                return nil, fmt.Errorf("could not covert item to lua: %w", err)
-            }
+			item_l, err := dumpLua(state, item)
+			if err != nil {
+				return nil, fmt.Errorf("could not covert item to lua: %w", err)
+			}
 			tbl.RawSetH(lua.LString(key), item_l)
 		}
 		return tbl, nil
 	case nil:
 		return lua.LNil, nil
-    default:
-        return nil, fmt.Errorf("unsupported type: %T: %v", val, val)
+	default:
+		return nil, fmt.Errorf("unsupported type: %T: %v", val, val)
 	}
 }
 
@@ -317,9 +317,16 @@ func ToPbJson(val any) fp.Either[*al_proto.Json] {
 
 // Parse Protobuf json into a normal type
 func FromPbJson(val *al_proto.Json) fp.Result[any] {
+	if val == nil {
+		return fp.Right[any](nil)
+	}
 	switch valTyped := val.Val.(type) {
-	case *al_proto.Json_ValString, *al_proto.Json_ValBool, *al_proto.Json_ValInt64:
-		return fp.Right[any](valTyped)
+	case *al_proto.Json_ValString:
+		return fp.Right[any](valTyped.ValString)
+	case *al_proto.Json_ValBool:
+		return fp.Right[any](valTyped.ValBool)
+	case *al_proto.Json_ValInt64:
+		return fp.Right[any](valTyped.ValInt64)
 	case *al_proto.Json_ValList:
 		res := []any{}
 		for _, v := range valTyped.ValList.Val {
@@ -343,4 +350,23 @@ func FromPbJson(val *al_proto.Json) fp.Result[any] {
 	default:
 		return fp.Left[any](fmt.Errorf("invalid item %T: %s", valTyped, val.Val))
 	}
+}
+
+// Parse a protobuf json into a proper protobuf message
+func FromPbJsonToPb(val *al_proto.Json, target proto.Message) fp.EmptyEither {
+	data, err := FromPbJson(val).Get()
+	if err != nil {
+		return fp.EmptyLeft(fmt.Errorf("could not convert pb json to data: %w", err))
+	}
+	if data == nil {
+		return fp.EmptyRight()
+	}
+	dataJson, err := json.MarshalIndent(data, "", "    ")
+	if err != nil {
+		return fp.EmptyLeft(fmt.Errorf("could not convert data to json: %w", err))
+	}
+	if err := protojson.Unmarshal(dataJson, target); err != nil {
+		return fp.EmptyLeft(fmt.Errorf("could not unmarshal protobuf from json: %w", err))
+	}
+	return fp.EmptyRight()
 }

@@ -6,12 +6,13 @@ import (
 	"os"
 	"path/filepath"
 
+	"sync"
+
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 	"github.com/hashicorp/vault/api"
 	"github.com/hashicorp/vault/api/auth/approle"
 	"github.com/hashicorp/vault/api/tokenhelper"
-	"sync"
 )
 
 const VAULT_DEFAULT_NAME = "default"
@@ -34,53 +35,6 @@ func NewVault(config *al_proto.Config) *VaultStore {
 		mx:      &sync.RWMutex{},
 	}
 
-}
-
-func (self *VaultStore) DefaultEnv(ctx context.Context) fp.Either[[]string] {
-	return self.Env(ctx, VAULT_DEFAULT_NAME, VAULT_DEFAULT_NAME)
-}
-
-// Create vault environment variables
-// https://developer.hashicorp.com/vault/docs/commands#configure-environment-variables
-func (self *VaultStore) Env(ctx context.Context, vaultName string, authName string) fp.Either[[]string] {
-	if vaultName == "" {
-		vaultName = VAULT_DEFAULT_NAME
-	}
-	if authName == "" {
-		authName = VAULT_DEFAULT_NAME
-	}
-	vault, err := VaultByName(self.config, vaultName)
-	if err != nil {
-		return fp.Left[[]string](fmt.Errorf("missing vault: %w", err))
-	}
-	auth, err := VaultAuthByName(self.config, authName)
-	if err != nil {
-		return fp.Left[[]string](fmt.Errorf("missing auth: %w", err))
-	}
-	tlsConfig, err := fp.Get(tlsConfig(vault))
-	if err != nil {
-		return fp.Left[[]string](fmt.Errorf("could not create tls config: %w", err))
-	}
-	res := []string{
-		fmt.Sprintf("VAULT_ADDR=%s", vault.Config.Address),
-	}
-	if tlsConfig.CACert != "" {
-		res = append(res, fmt.Sprintf("VAULT_CACERT=%s", tlsConfig.CACert))
-	}
-	if tlsConfig.ClientKey != "" {
-		res = append(res, fmt.Sprintf("VAULT_CLIENT_KEY=%s", tlsConfig.ClientKey))
-	}
-	if tlsConfig.ClientCert != "" {
-		res = append(res, fmt.Sprintf("VAULT_CLIENT_CERT=%s", tlsConfig.ClientCert))
-	}
-	if !auth.NoAuth {
-		client, err := fp.Get(self.Client(ctx, vaultName, authName))
-		if err != nil {
-			return fp.Left[[]string](fmt.Errorf("could not create client for %s/%s: %w", vaultName, authName, err))
-		}
-		res = append(res, fmt.Sprintf("VAULT_TOKEN=%s", client.Client.Token()))
-	}
-	return fp.Right(res)
 }
 
 func (self *VaultStore) clientCache(path string) (*VaultStoreItem, bool) {
@@ -121,7 +75,7 @@ func (self *VaultStore) Client(ctx context.Context, conn string, authName string
 	return fp.Right(client)
 }
 
-func tlsConfig(vault *al_proto.VaultConn) fp.Either[*api.TLSConfig] {
+func VaultTlsConfig(vault *al_proto.VaultConn) fp.Either[*api.TLSConfig] {
 	res := &api.TLSConfig{}
 	if vault.Tls.CaCert != "" {
 		cacert, err := filepath.Abs(os.ExpandEnv(vault.Tls.CaCert))
@@ -150,7 +104,7 @@ func tlsConfig(vault *al_proto.VaultConn) fp.Either[*api.TLSConfig] {
 func newVaultClient(ctx context.Context, vault *al_proto.VaultConn, auth *al_proto.VaultAuth) fp.Either[*VaultStoreItem] {
 	vaultConfig := api.DefaultConfig()
 	vaultConfig.Address = vault.Config.Address
-	tlsConfig, err := tlsConfig(vault).Get()
+	tlsConfig, err := VaultTlsConfig(vault).Get()
 	if err != nil {
 		return fp.Left[*VaultStoreItem](fmt.Errorf("could not create tls config: %w", err))
 	}

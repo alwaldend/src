@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin"
@@ -81,7 +82,7 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 	var stdout string
 	var stdin string
 	var stderr string
-	var plugins []string
+	var pluginLabels []string
 	cmd := &cobra.Command{
 		Use:   "run",
 		Short: "Run a command",
@@ -90,6 +91,8 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 			if len(args) == 0 {
 				return fmt.Errorf("Need at least one argument")
 			}
+			ctx, cancel := context.WithCancel(ctx)
+			defer cancel()
 			cfg, err := al.LoadConfigs(ctx, configs...)
 			if err != nil {
 				return fmt.Errorf("could not load configs: %w", err)
@@ -132,15 +135,18 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("could not create plugin manager: %w", err)
 			}
-			pluginResponses, err := pluginManager.StartPlugins(ctx, plugins)
+			pluginStartResponses, err := pluginManager.StartPlugins(ctx, pluginLabels).Get()
 			if err != nil {
 				return fmt.Errorf("could not prepare plugins: %w", err)
 			}
-			for _, response := range pluginResponses {
+			envs := []string{}
+			for _, response := range pluginStartResponses {
 				for key, value := range response.Env {
+					envs = append(envs, key)
 					runCmd.Env = append(runCmd.Env, fmt.Sprintf("%s=%s", key, value))
 				}
 			}
+			fmt.Fprintf(os.Stderr, "Setting envs %s\n", strings.Join(envs, ", "))
 			err = runCmd.Run()
 			return err
 		},
@@ -150,7 +156,7 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 	flags.StringVar(&stdout, "stdout", "", "Override stdout")
 	flags.StringVar(&stderr, "stderr", "", "Override stderr")
 	flags.StringVar(&stdin, "stdin", "", "Override stdin")
-	flags.StringArrayVar(&plugins, "plugin", nil, "Plugin variables in format service_name.key=value")
+	flags.StringArrayVar(&pluginLabels, "plugin_label", nil, "Plugin labels to run")
 	flags.BoolVar(&disableRunfilesEnv, "disable_runfiles_env", false, "If set, do not set bazel runfiles variables")
 	return cmd
 }

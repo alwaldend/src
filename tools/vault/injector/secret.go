@@ -8,13 +8,17 @@ import (
 	"git.alwaldend.com/alwaldend/src/tools/vault/injector/injector_proto"
 )
 
-type secret struct {
+type SecretFetcher struct {
 	vault *al.VaultStore
 }
 
-var _ ResourceFetcher = (*secret)(nil)
+var _ ResourceFetcher = (*SecretFetcher)(nil)
 
-func (self *secret) Get(ctx context.Context, r *injector_proto.Resource, d []*ResourceResult) fp.Either[*ResourceResult] {
+func (self *SecretFetcher) String() string {
+	return "com.alwaldend.src.tools.vault.injector.SecretFetcher"
+}
+
+func (self *SecretFetcher) Get(ctx context.Context, r *injector_proto.Resource, d []*ResourceResult) fp.Either[*ResourceResult] {
 	secret := r.GetKv()
 	if secret == nil {
 		return fp.Left[*ResourceResult](fmt.Errorf("missing kv config"))

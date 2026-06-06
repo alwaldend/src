@@ -2,17 +2,13 @@ package al_plugin
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"io"
 	"runtime/debug"
 
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 	"google.golang.org/grpc"
-	"google.golang.org/protobuf/encoding/protojson"
-	"google.golang.org/protobuf/proto"
 )
 
 func RecoverError(rec any) error {
@@ -20,21 +16,6 @@ func RecoverError(rec any) error {
 		return nil
 	}
 	return fmt.Errorf("panic: %s\n%s", rec, string(debug.Stack()))
-}
-
-func ParseConfig(config *al_proto.PluginConfig, target proto.Message) fp.EmptyEither {
-    data, err := al.FromPbJson(config.Data).Get()
-    if err != nil {
-        return fp.EmptyLeft(fmt.Errorf("could not convert pb json to data: %w", err))
-    }
-    data_json, err := json.Marshal(data)
-    if err != nil {
-        return fp.EmptyLeft( fmt.Errorf("could not convert data to json: %w", err))
-    }
-    if err := protojson.Unmarshal(data_json, target); err != nil {
-        return fp.EmptyLeft(fmt.Errorf("could not unmarshal protobuf from json: %w", err))
-    }
-    return fp.EmptyRight()
 }
 
 func Serve[T al_proto.PluginServiceServer](ctx context.Context, stdin io.Reader, stdout io.Writer, plugin T) fp.EmptyEither {

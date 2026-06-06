@@ -9,19 +9,21 @@ import (
 	"text/template"
 )
 
-type templater struct {
+type Templater struct {
 }
 
 type templateCtx struct {
-	Res map[string]*ResourceResult
+	Res  map[string]*ResourceResult
+	Last *ResourceResult
 }
 
-func (self *templater) Template(ctx context.Context, tpl string, data []*ResourceResult) fp.Either[string] {
+func (self *Templater) Template(ctx context.Context, tpl string, data []*ResourceResult) fp.Either[string] {
 	tmplCtx := &templateCtx{Res: map[string]*ResourceResult{}}
 	for _, r := range data {
 		tmplCtx.Res[r.Name] = r
+		tmplCtx.Last = r
 	}
-	tmpl, err := template.New("com.alwaldend.src.tools.vault.injector.templater").Funcs(
+	tmpl, err := template.New("com.alwaldend.src.tools.vault.injector.Templater.Template").Funcs(
 		template.FuncMap{
 			"join": func(elems []any, sep string) string {
 				elemsString := make([]string, len(elems))

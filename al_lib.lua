@@ -1,8 +1,17 @@
 local M = {}
 
 function M.plugin(t)
-    t.data = to_pb_json(t.data)
+    if t.data then
+        t.data = to_pb_json(t.data)
+    end
     config({ plugins = { t }})
+end
+
+function M.plugin_call(t)
+    if t.data then
+        t.data = to_pb_json(t.data)
+    end
+    config({ plugin_calls = { t }})
 end
 
 function M.vault_auth(t)

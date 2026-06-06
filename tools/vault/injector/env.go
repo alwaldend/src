@@ -7,13 +7,17 @@ import (
 	"git.alwaldend.com/alwaldend/src/tools/vault/injector/injector_proto"
 )
 
-type env struct {
-	templater *templater
+type EnvFetcher struct {
+	templater *Templater
 }
 
-var _ ResourceFetcher = (*env)(nil)
+var _ ResourceFetcher = (*EnvFetcher)(nil)
 
-func (self *env) Get(ctx context.Context, r *injector_proto.Resource, d []*ResourceResult) fp.Either[*ResourceResult] {
+func (self *EnvFetcher) String() string {
+	return "com.alwaldend.src.tools.vault.injector.EnvFetcher"
+}
+
+func (self *EnvFetcher) Get(ctx context.Context, r *injector_proto.Resource, d []*ResourceResult) fp.Either[*ResourceResult] {
 	if r.GetEnv() == nil {
 		return fp.Left[*ResourceResult](fmt.Errorf("missing env config"))
 	}

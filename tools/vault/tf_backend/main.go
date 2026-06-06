@@ -279,36 +279,38 @@ func lockState(rs *reqState) requestE {
 
 func rootHandler(ps *pluginState) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		fp.Pipe6EP(
-			checkAuth,
-			setType,
-			readBody,
-			fetchSecret(secretTypeLock),
-			checkLock,
-			func(rs *reqState) requestE {
-				switch rs.reqType {
-				case reqTypeGet:
-					return fp.Pipe2(
-						fetchSecret(secretTypeState),
-						writeState,
-					)(rs)
-				case reqTypeUpdate:
-					return fp.Pipe2(
-						fetchSecret(secretTypeState),
-						updateState,
-					)(rs)
-				case reqTypeUnlock:
-					return fp.Pipe(
-						unlockState,
-					)(rs)
-				case reqTypeLock:
-					return fp.Pipe(
-						lockState,
-					)(rs)
-				default:
-					return rs.left(fmt.Errorf("invalid request type"))
-				}
-			},
+		fp.OnError(
+			fp.Pipe6(
+				checkAuth,
+				setType,
+				readBody,
+				fetchSecret(secretTypeLock),
+				checkLock,
+				func(rs *reqState) requestE {
+					switch rs.reqType {
+					case reqTypeGet:
+						return fp.Pipe2(
+							fetchSecret(secretTypeState),
+							writeState,
+						)(rs)
+					case reqTypeUpdate:
+						return fp.Pipe2(
+							fetchSecret(secretTypeState),
+							updateState,
+						)(rs)
+					case reqTypeUnlock:
+						return fp.Pipe(
+							unlockState,
+						)(rs)
+					case reqTypeLock:
+						return fp.Pipe(
+							lockState,
+						)(rs)
+					default:
+						return rs.left(fmt.Errorf("invalid request type"))
+					}
+				},
+			),
 			func(err error) error {
 				w.WriteHeader(http.StatusInternalServerError)
 				fmt.Fprintf(w, "error: %s", err)
@@ -325,32 +327,27 @@ func rootHandler(ps *pluginState) http.HandlerFunc {
 }
 
 func parseConfig(ps *pluginState) pluginE {
-	return fp.Pipe2E(
-		fp.Compute1(func(ps *pluginState) fp.EmptyEither {
-			return al_plugin.ParseConfig(ps.req.Plugin, ps.cfg)
-		}),
-		fp.Compute0(func(ps *pluginState) {
-			ps.statePath = fmt.Sprintf("%s/state", ps.cfg.VaultSecret)
-			ps.stateMount = ps.cfg.VaultSecretMount
-			ps.lockPath = fmt.Sprintf("%s/lock", ps.cfg.VaultSecret)
-			ps.lockMount = ps.cfg.VaultSecretMount
-		}),
-		fp.Errorf("could not parse config: %w"),
-	)(ps)
-}
-
-func createVault(ps *pluginState) pluginE {
-	return fp.Pipe3E(
-		al.NewVault,
-		func(v *al.VaultStore) fp.Either[*api.Client] {
-			return v.Client(ps.ctx, ps.cfg.VaultConn, ps.cfg.VaultAuth)
-		},
-		func(v *api.Client) pluginE {
-			ps.vault = v
-			return fp.Right(ps)
-		},
-		fp.Errorf("could not create vault client: %w"),
-	)(ps.req.Config)
+	for _, call := range ps.req.Plugin.Calls {
+		if _, err := al.FromPbJsonToPb(call.Data, ps.cfg).Get(); err != nil {
+			return ps.left(fmt.Errorf("could not parse plugin data: %w", err))
+		}
+	}
+	if ps.cfg.VaultSecret == "" || ps.cfg.VaultSecretMount == "" {
+		return ps.left(fmt.Errorf("missing secret config"))
+	}
+	ps.statePath = fmt.Sprintf("%s/state", ps.cfg.VaultSecret)
+	ps.stateMount = ps.cfg.VaultSecretMount
+	ps.lockPath = fmt.Sprintf("%s/lock", ps.cfg.VaultSecret)
+	ps.lockMount = ps.cfg.VaultSecretMount
+	logger.Printf("State secret path: %s:%s", ps.stateMount, ps.statePath)
+	logger.Printf("Lock secret path: %s:%s", ps.lockMount, ps.lockPath)
+	vault := al.NewVault(ps.req.Config)
+	client, err := vault.Client(ps.ctx, ps.cfg.VaultConn, ps.cfg.VaultAuth).Get()
+	if err != nil {
+		return ps.left(fmt.Errorf("could not create vault client: %w", err))
+	}
+	ps.vault = client.Client
+	return ps.right()
 }
 
 func startServer(ps *pluginState) pluginE {
@@ -398,13 +395,11 @@ func createResponse(ps *pluginState) fp.Box[*al_proto.PluginStartResponse] {
 }
 
 func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
-	return fp.Get(fp.Pipe4E(
+	return fp.Get(fp.OnError(fp.Pipe3(
 		parseConfig,
-		createVault,
 		startServer,
 		createResponse,
-		fp.Errorf("could not process plugin start request: %w"),
-	)(&pluginState{
+	), fp.Errorf("could not process plugin start request: %w"))(&pluginState{
 		ctx:      ctx,
 		cfg:      &tf_backend_proto.Config{},
 		req:      req,
@@ -414,8 +409,8 @@ func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartReq
 }
 
 func main() {
-	fp.PipeE(
-		al_plugin.ServeDefault,
-		func(err error) error { logger.Printf("could not serve the plugin: %s", err); os.Exit(1); return nil },
-	)(Plugin{})
+	if _, err := al_plugin.Serve(context.Background(), os.Stdin, os.Stdout, Plugin{}).Get(); err != nil {
+		logger.Printf("could not serve the plugin: %s", err)
+		os.Exit(1)
+	}
 }

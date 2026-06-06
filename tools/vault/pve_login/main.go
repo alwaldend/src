@@ -20,7 +20,6 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 	"git.alwaldend.com/alwaldend/src/tools/vault/pve_login/pve_login_proto"
 	"github.com/google/uuid"
-	"github.com/hashicorp/vault/api"
 )
 
 var logger = log.New(os.Stderr, "com.alwaldend.src.tools.vault.pve_login ", log.Flags())
@@ -61,23 +60,19 @@ func (self *state) right() fp.Either[*state] {
 	return fp.Right(self)
 }
 
-type stateMonad = fp.Either[*state]
+type stateEither = fp.Either[*state]
 
-func createVaultToken(s *state) stateMonad {
-	return fp.Pipe3E(
-		al.NewVault,
-		func(v *al.VaultStore) fp.Either[*api.Client] {
-			return v.Client(s.ctx, s.config.VaultConn, s.config.VaultAuth)
-		},
-		func(v *api.Client) stateMonad {
-			s.vaultToken = v.Token()
-			return fp.Right(s)
-		},
-		fp.Errorf("could not create vault token: %w"),
-	)(s.req.Config)
+func createVaultToken(s *state) stateEither {
+	vault := al.NewVault(s.req.Config)
+	client, err := vault.Client(s.ctx, s.config.VaultConn, s.config.VaultAuth).Get()
+	if err != nil {
+		return s.left(fmt.Errorf("could not create a vault client: %w", err))
+	}
+	s.vaultToken = client.Client.Token()
+	return s.right()
 }
 
-func createOIDCRequest(s *state) stateMonad {
+func createOIDCRequest(s *state) stateEither {
 	req, err := http.NewRequest(
 		http.MethodPost,
 		fmt.Sprintf("%s/api2/json/access/openid/auth-url?realm=%s&redirect-url=%s", s.config.PveBaseUrl, s.config.PveRealm, s.config.PveRedirectUrl),
@@ -106,7 +101,7 @@ func createOIDCRequest(s *state) stateMonad {
 	return s.right()
 }
 
-func loginToOIDCProvider(s *state) stateMonad {
+func loginToOIDCProvider(s *state) stateEither {
 	regex, err := regexp.Compile("^https://([^/]+)/ui/vault/identity/oidc/provider/([^/]+)/authorize?(.+)$")
 	if err != nil {
 		return s.left(fmt.Errorf("could not compile regex: %w", err))
@@ -155,7 +150,7 @@ func loginToOIDCProvider(s *state) stateMonad {
 	return s.right()
 }
 
-func createProxmoxTicket(s *state) stateMonad {
+func createProxmoxTicket(s *state) stateEither {
 	req, err := http.NewRequest(
 		http.MethodPost,
 		fmt.Sprintf("%s/api2/json/access/openid/login", s.config.PveBaseUrl),
@@ -189,7 +184,7 @@ func createProxmoxTicket(s *state) stateMonad {
 	return s.right()
 }
 
-func createProxmoxToken(s *state) stateMonad {
+func createProxmoxToken(s *state) stateEither {
 	req, err := http.NewRequest(
 		http.MethodPost,
 		fmt.Sprintf(
@@ -231,11 +226,11 @@ func createProxmoxToken(s *state) stateMonad {
 	return s.right()
 }
 
-func parseConfig(s *state) stateMonad {
-	return fp.PipeE(
-		fp.Compute1(func(s *state) fp.EmptyEither { return al_plugin.ParseConfig(s.req.Plugin, s.config) }),
-		fp.Errorf("could not parse config: %w"),
-	)(s)
+func parseConfig(s *state) stateEither {
+	if _, err := al.FromPbJsonToPb(s.req.Plugin.Data, s.config).Get(); err != nil {
+		return s.left(fmt.Errorf("could not parse plugin data: %w", err))
+	}
+	return s.right()
 }
 
 func createResponse(s *state) fp.Either[*al_proto.PluginStartResponse] {
@@ -252,7 +247,7 @@ type Plugin struct {
 }
 
 func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
-	return fp.Get(fp.Pipe7E(
+	return fp.Get(fp.OnError(fp.Pipe7(
 		parseConfig,
 		createVaultToken,
 		createOIDCRequest,
@@ -260,8 +255,7 @@ func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartReq
 		createProxmoxTicket,
 		createProxmoxToken,
 		createResponse,
-		fp.Errorf("could process the start request: %w"),
-	)(&state{
+	), fp.Errorf("could process the start request: %w"))(&state{
 		ctx:    ctx,
 		req:    req,
 		config: &pve_login_proto.Config{},
@@ -269,8 +263,8 @@ func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartReq
 }
 
 func main() {
-	fp.PipeE(
-		al_plugin.ServeDefault,
-		func(err error) error { logger.Printf("could not serve the plugin: %s", err); os.Exit(1); return nil },
-	)(Plugin{})
+	if _, err := al_plugin.Serve(context.Background(), os.Stdin, os.Stdout, Plugin{}).Get(); err != nil {
+		logger.Printf("could not serve the plugin: %s", err)
+		os.Exit(1)
+	}
 }

@@ -1,5 +1,5 @@
 local lib = require("al_lib")
-lib.auth({
+lib.vault_auth({
     name = "default",
     approle = { name = "src_infra_dns" }
 })

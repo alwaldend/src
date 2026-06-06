@@ -1,7 +1,7 @@
 local infra = require("infra.al_lib")
 local lib = require("al_lib")
 
-lib.auth({
+lib.vault_auth({
     name = "default",
     approle = { name = "src_infra_yandex_cloud_org1" },
 })

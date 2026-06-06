@@ -8,13 +8,17 @@ import (
 	"git.alwaldend.com/alwaldend/src/tools/vault/injector/injector_proto"
 )
 
-type vaultOp struct {
+type OpFetcher struct {
 	vault *al.VaultStore
 }
 
-var _ ResourceFetcher = (*vaultOp)(nil)
+var _ ResourceFetcher = (*OpFetcher)(nil)
 
-func (self *vaultOp) Get(ctx context.Context, r *injector_proto.Resource, d []*ResourceResult) fp.Either[*ResourceResult] {
+func (self *OpFetcher) String() string {
+	return "com.alwaldend.src.tools.vault.injector.OpFetcher"
+}
+
+func (self *OpFetcher) Get(ctx context.Context, r *injector_proto.Resource, d []*ResourceResult) fp.Either[*ResourceResult] {
 	op := r.GetOp()
 	if op == nil {
 		return fp.Left[*ResourceResult](fmt.Errorf("missing op config"))
