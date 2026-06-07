@@ -48,9 +48,10 @@ al_binary_run_map(
         "dnsconfig.js",
         "//infra/dc1:dnsconfig",
         "//tools/dnscontrol",
+        "//tools/vault/injector",
     ] + _ZONES,
     run_args = [
-        "--env_label",
+        "--plugin_label",
         "dns",
     ],
 )

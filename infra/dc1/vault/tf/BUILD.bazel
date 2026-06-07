@@ -14,10 +14,10 @@ docs_filegroup(
 _CONFIGS = ["//infra/dc1/vault:al"]
 
 _RUN_ARGS = [
-    "--env_vault",
-    "default:default",
-    "--env_label",
-    "tf",
+    "--plugin_label",
+    "tf=main",
+    "--plugin_label",
+    "vault_env=default_default",
 ]
 
 _DATA = glob(["*.tf"]) + [
@@ -32,6 +32,8 @@ _DATA = glob(["*.tf"]) + [
     "//projects/tf_modules/vault_oidc_provider",
     "//projects/tf_modules/vault_ssh_server_role",
     "//infra/dc1/vault/tf/output",
+    "//tools/vault/tf_backend",
+    "//tools/vault/injector",
 ]
 
 terraform_binary_map(

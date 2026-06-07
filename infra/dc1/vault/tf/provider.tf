@@ -9,8 +9,7 @@ terraform {
       version = "2.9.0"
     }
   }
-  backend "s3" {
-    key = "main.tfstate"
+  backend "http" {
   }
 }
 

@@ -104,7 +104,7 @@ function M.tf_backend(t)
             deps = {name},
             file = {
                 value = [[
-                    bucket = "{{ .Secret.bucket }}"
+                    bucket = "{{ .Last.Data.bucket }}"
                     endpoints = {
                       s3 = "https://storage.yandexcloud.net"
                     }
@@ -121,7 +121,7 @@ function M.tf_backend(t)
             name = "AL_TF_BACKEND_CONFIG_1",
             deps = {conf_name},
             env  = {
-                value = "{{ .File.Path }}"
+                value = "{{ index .Last.Files 0 }}"
             }
         }
     }

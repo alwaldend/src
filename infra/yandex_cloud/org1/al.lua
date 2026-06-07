@@ -6,9 +6,14 @@ lib.vault_auth({
     approle = { name = "src_infra_yandex_cloud_org1" },
 })
 
-infra.tf_backend({
-    path = "alwaldend.com/vault1/approles/src_infra_yandex_cloud_org1/bucket",
+lib.plugin_call({
+    name = "tf_backend",
+    plugin = "tf_backend",
     labels = { tf = "1" },
+    data = {
+        vault_secret = "alwaldend.com/vault1/approles/src_infra_yandex_cloud_org1/tf_backend/main",
+        vault_secret_mount = "secrets"
+    },
 })
 
 infra.yc_auth({

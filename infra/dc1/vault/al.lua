@@ -8,27 +8,42 @@ lib.vault_auth({
     },
 })
 
-infra.tf_backend({
-    path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/bucket",
-    labels = { tf = "1" },
+lib.plugin_call({
+    name = "tf_backend",
+    plugin = "tf_backend",
+    labels = { tf = "setup" },
+    data = {
+        vault_secret = "alwaldend.com/vault1/approles/src_infra_dc1_vault/tf_backend/tf_setup",
+        vault_secret_mount = "secrets"
+    },
+})
+
+lib.plugin_call({
+    name = "tf_backend",
+    plugin = "tf_backend",
+    labels = { tf = "main" },
+    data = {
+        vault_secret = "alwaldend.com/vault1/approles/src_infra_dc1_vault/tf_backend/main",
+        vault_secret_mount = "secrets"
+    },
 })
 
 infra.yc_auth({
     path = "yandex.cloud/org1/folders/src-infra-dc1-vault/account_iam_key",
-    labels = { tf = "1" },
+    labels = { tf = "main" },
 })
 
 infra.yc_bucket_auth({
     path = "yandex.cloud/org1/folders/src-infra-dc1-vault/account_static_key",
-    labels = { tf = "1", rclone = "1" },
+    labels = { tf = "main" },
 })
 
 infra.yc_account({
     path = "yandex.cloud/org1/folders/src-infra-dc1-vault/account",
-    labels = { tf = "1" },
+    labels = { tf = "main" },
 })
 
 infra.rclone_config({
     path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/backup_bucket",
-    labels = { rclone = "1" },
+    labels = { backup = "1" },
 })

@@ -1,8 +1,8 @@
 {
   "cloudflare": {
     "TYPE": "CLOUDFLAREAPI",
-    "accountid": "{{ .Secrets.cloudflare.cloudflare_account_id }}",
-    "apitoken": "{{ .Secrets.cloudflare.cloudflare_api_token }}"
+    "accountid": "{{ .Res.cloudflare.Data.cloudflare_account_id }}",
+    "apitoken": "{{ .Res.cloudflare.Data.cloudflare_api_token }}"
   },
   "bind": {
     "TYPE": "BIND",
@@ -11,7 +11,7 @@
   "mikrotik": {
     "TYPE": "MIKROTIK",
     "host": "https://router1.dc1.alwaldend.com",
-    "username": "{{ .Secrets.mikrotik.username }}",
-    "password": "{{ .Secrets.mikrotik.password }}",
+    "username": "{{ .Res.mikrotik.Data.username }}",
+    "password": "{{ .Res.mikrotik.Data.password }}",
   }
 }

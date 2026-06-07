@@ -21,10 +21,10 @@ provider "registry.terraform.io/hashicorp/vault" {
   ]
 }
 
-provider "registry.terraform.io/yandex-cloud/yandex" {
-  version     = "0.201.0"
-  constraints = ">= 0.201.0"
+provider "registry.terraform.io/telmate/proxmox" {
+  version     = "3.0.2-rc07"
+  constraints = ">= 3.0.0, 3.0.2-rc07"
   hashes = [
-    "h1:safB+s77I4wpuvIbwfS4utDeIksPAwIIE8jyBERMFlI=",
+    "h1:zp5hpQJQ4t4zROSLqdltVpBO+Riy9VugtfFbpyTw1aM=",
   ]
 }

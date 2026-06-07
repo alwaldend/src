@@ -14,19 +14,19 @@ docs_filegroup(
 _CONFIGS = ["//infra/dc1/vault:al"]
 
 _RUN_ARGS = [
-    "--env_vault",
-    "default:default",
-    "--env_label",
-    "tf",
-    "--plugin",
-    "pve_login.bin=$(rootpath //tools/vault/pve_login)",
+    "--plugin_label",
+    "tf=setup",
+    "--plugin_label",
+    "pve_login",
 ]
 
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
-    "//tools/vault/pve_login",
     "//projects/tf_modules/pve_vm_qemu",
     "//infra/dc1/vault:dnsconfig",
+    "//tools/vault/pve_login",
+    "//tools/vault/tf_backend",
+    "//tools/vault/injector",
 ]
 
 terraform_binary_map(

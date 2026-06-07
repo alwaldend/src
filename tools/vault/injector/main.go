@@ -43,7 +43,7 @@ func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartReq
 	for _, call := range req.Plugin.Calls {
 		curConfig := &injector_proto.Config{}
 		if _, err := al.FromPbJsonToPb(call.Data, curConfig).Get(); err != nil {
-			return nil, fmt.Errorf("could not parse plugin call data: %w", err)
+			return nil, fmt.Errorf("could not parse plugin call data of %s: %w", call.Name, err)
 		}
 		config.Res = append(config.Res, curConfig.Res...)
 	}

@@ -146,7 +146,9 @@ func newRunCmd(ctx context.Context) *cobra.Command {
 					runCmd.Env = append(runCmd.Env, fmt.Sprintf("%s=%s", key, value))
 				}
 			}
-			fmt.Fprintf(os.Stderr, "Setting envs %s\n", strings.Join(envs, ", "))
+			if len(envs) > 0 {
+				fmt.Fprintf(os.Stderr, "Setting envs: %s\n", strings.Join(envs, ", "))
+			}
 			err = runCmd.Run()
 			return err
 		},

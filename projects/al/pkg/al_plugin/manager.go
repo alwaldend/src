@@ -136,7 +136,7 @@ func (self *Manager) startPlugin(ctx context.Context, plugin *al_proto.PluginCon
 	left := func(err error) fp.Either[*al_proto.PluginStartResponse] {
 		return fp.Left[*al_proto.PluginStartResponse](err)
 	}
-	pluginJson, err := protojson.Marshal(plugin)
+	pluginJson, err := protojson.MarshalOptions{}.Marshal(plugin)
 	if err != nil {
 		return left(fmt.Errorf("could not marshal plugin: %w", err))
 	}

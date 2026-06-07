@@ -14,16 +14,18 @@ docs_filegroup(
 _CONFIGS = ["//infra/dc1/consul1:al"]
 
 _RUN_ARGS = [
-    "--env_vault",
-    "default:default",
-    "--env_label",
-    "tf",
+    "--plugin_label",
+    "tf_main",
+    "--plugin_label",
+    "vault_env=default_default",
 ]
 
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
     "//projects/tf_modules/tf_backend",
     "//infra/dc1/consul1:dnsconfig",
+    "//tools/vault/tf_backend",
+    "//tools/vault/injector",
 ]
 
 terraform_binary_map(

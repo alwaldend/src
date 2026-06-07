@@ -28,8 +28,10 @@ al_binary_run_map(
         ":ansible_bin",
     ],
     run_args = [
-        "--env_vault",
-        "default:default",
+        "--plugin_label",
+        "vault_env=default_default",
+        "--plugin_label",
+        "ansible",
     ],
 )
 

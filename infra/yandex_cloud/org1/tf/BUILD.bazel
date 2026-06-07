@@ -18,6 +18,8 @@ _DATA = glob(["*.tf"]) + [
     "//projects/tf_modules/tf_backend",
     "//projects/tf_modules/yc_folder",
     "//infra/dc1/vault/tf/output:approles",
+    "//tools/vault/tf_backend",
+    "//tools/vault/injector",
 ]
 
 terraform_binary_map(
@@ -25,10 +27,10 @@ terraform_binary_map(
     configs = _CONFIGS,
     data = _DATA,
     run_args = [
-        "--env_vault",
-        "default:default",
-        "--env_label",
+        "--plugin_label",
         "tf",
+        "--plugin_label",
+        "vault_env=default_default",
     ],
 )
 
