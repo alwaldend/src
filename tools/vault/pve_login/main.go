@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"log"
@@ -11,7 +12,10 @@ import (
 	"net/url"
 	"os"
 	"regexp"
+	"signal"
 	"strings"
+	"sync"
+	"syscall"
 	"time"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
@@ -244,9 +248,30 @@ func createResponse(s *state) fp.Either[*al_proto.PluginStartResponse] {
 }
 
 type Plugin struct {
+	ctx   context.Context
+	err   error
+	errMx *sync.Mutex
+	wg    *sync.WaitGroup
 }
 
-func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
+func (self *Plugin) Run() int {
+	self.wg.Go(func() {
+		if _, err := al_plugin.Serve(self.ctx, os.Stdin, os.Stdout, self).Get(); err != nil {
+			self.errMx.Lock()
+			defer self.errMx.Unlock()
+			self.err = errors.Join(self.err, fmt.Errorf("could not serve: %w", err))
+			logger.Printf("could not serve: %s", err)
+		}
+	})
+	self.wg.Wait()
+	if self.err != nil {
+		logger.Printf("finished with an error: %s", self.err)
+		return 1
+	}
+	return 0
+}
+
+func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
 	return fp.Get(fp.OnError(fp.Pipe7(
 		parseConfig,
 		createVaultToken,
@@ -263,8 +288,11 @@ func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartReq
 }
 
 func main() {
-	if _, err := al_plugin.Serve(context.Background(), os.Stdin, os.Stdout, Plugin{}).Get(); err != nil {
-		logger.Printf("could not serve the plugin: %s", err)
-		os.Exit(1)
+	ctx, _ := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+	p := &Plugin{
+		ctx:   ctx,
+		errMx: &sync.Mutex{},
+		wg:    &sync.WaitGroup{},
 	}
+	os.Exit(p.Run())
 }

@@ -53,23 +53,12 @@ write_source_files(
 
 docs_filegroup(
     name = "docs",
-    srcs = ["LICENSE.txt"],
+    srcs = [],
     visibility = ["//projects/alwaldend.com:__pkg__"],
     deps = subpackages(
         include = ["*"],
         exclude = ["bazel-*"],
     ),
-)
-
-exports_files(
-    ["LICENSE.txt"],
-    visibility = ["//:__subpackages__"],
-)
-
-pkg_files(
-    name = "license_files",
-    srcs = ["LICENSE.txt"],
-    visibility = ["//:__subpackages__"],
 )
 
 npm_link_all_packages(

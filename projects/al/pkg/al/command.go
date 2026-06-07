@@ -10,6 +10,15 @@ import (
 	"github.com/bazelbuild/rules_go/go/runfiles"
 )
 
+type CmdCtx struct {
+	Ctx    context.Context
+	Args   []string
+	Getenv func(string) string
+	Stdin  io.Reader
+	Stdout io.Writer
+	Stderr io.Writer
+}
+
 // Set runfiles info for a command
 func SetRunfilesEnv(cmd *exec.Cmd) error {
 	runfilesEnv, err := runfiles.Env()

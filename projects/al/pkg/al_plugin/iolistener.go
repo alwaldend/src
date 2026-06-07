@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"os"
 	"sync"
 	"time"
 )
@@ -63,9 +64,11 @@ func NewIOConn(reader io.Reader, writer io.Writer, addr *IOAddr) (*IOConn, error
 // time limit; see SetDeadline and SetReadDeadline.
 func (self *IOConn) Read(b []byte) (n int, err error) {
 	if self.closed {
-		return 0, fmt.Errorf("closed")
+		n, err = 0, fmt.Errorf("closed")
+	} else {
+		n, err = self.reader.Read(b)
 	}
-	return self.reader.Read(b)
+	return
 }
 
 // Write writes data to the connection.
@@ -73,9 +76,11 @@ func (self *IOConn) Read(b []byte) (n int, err error) {
 // time limit; see SetDeadline and SetWriteDeadline.
 func (self *IOConn) Write(b []byte) (n int, err error) {
 	if self.closed {
-		return 0, fmt.Errorf("closed")
+		n, err = 0, fmt.Errorf("closed")
+	} else {
+		n, err = self.writer.Write(b)
 	}
-	return self.writer.Write(b)
+	return
 }
 
 // Close closes the connection.
@@ -143,12 +148,12 @@ func (self *IOConn) SetWriteDeadline(t time.Time) error {
 // Multiple goroutines may invoke methods on a Listener simultaneously.
 // https://pkg.go.dev/net#Listener
 type IOListener struct {
-	reader io.Reader
-	writer io.Writer
-	addr   *IOAddr
-	conn   *IOConn
-	closed chan any
-	lock   sync.Mutex
+	reader   io.Reader
+	writer   io.Writer
+	addr     *IOAddr
+	accepted bool
+	closed   chan any
+	mx       sync.Mutex
 }
 
 var _ net.Listener = (*IOListener)(nil)
@@ -158,33 +163,35 @@ func NewIOListener(reader io.Reader, writer io.Writer) (*IOListener, error) {
 		reader: reader,
 		writer: writer,
 		addr:   &IOAddr{reader: reader, writer: writer},
-		conn:   nil,
 		closed: make(chan any, 1),
 	}, nil
 }
 
 // Accept waits for and returns the next connection to the listener.
 func (self *IOListener) Accept() (net.Conn, error) {
-	self.lock.Lock()
-	defer self.lock.Unlock()
-	if self.conn == nil {
-		conn, err := NewIOConn(self.reader, self.writer, self.addr)
-		if err != nil {
-			return nil, fmt.Errorf("could not create an io connection: %w", err)
-		}
-		self.conn = conn
-		return conn, nil
+	self.mx.Lock()
+	defer self.mx.Unlock()
+	if self.accepted {
+		fmt.Fprintf(os.Stderr, "ACCEPTED, WAITING\n")
+		<-self.closed
+		fmt.Fprintf(os.Stderr, "ACCEPTED, FINISHED\n")
+		return nil, fmt.Errorf("closed")
 	}
-	<-self.closed
-	return nil, fmt.Errorf("closed")
+	conn, err := NewIOConn(self.reader, self.writer, self.addr)
+	if err != nil {
+		return nil, fmt.Errorf("could not create an io connection: %w", err)
+	}
+	self.accepted = true
+	return conn, nil
 }
 
 // Close closes the listener.
 // Any blocked Accept operations will be unblocked and return errors.
 func (self *IOListener) Close() error {
-	err := self.conn.Close()
+	fmt.Fprintf(os.Stderr, "CLOSING\n")
 	close(self.closed)
-	return err
+	fmt.Fprintf(os.Stderr, "CLOSED\n")
+	return nil
 }
 
 // Addr returns the listener's network address.

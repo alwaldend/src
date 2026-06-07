@@ -36,7 +36,6 @@ pkg_filegroup(
     name = "collection",
     srcs = [
         ":galaxy",
-        "//:license_files",
         "//projects/ansible_collection/playbooks",
         "//projects/ansible_collection/roles",
     ],

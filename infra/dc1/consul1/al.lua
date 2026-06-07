@@ -35,7 +35,7 @@ lib.plugin_call({
 })
 
 lib.plugin_call({
-    name = "consul",
+    name = "consul_gossip",
     plugin = "injector",
     labels = { ansible = "1" },
     data = {
@@ -61,9 +61,15 @@ lib.plugin_call({
 lib.plugin_call({
     name = "consul",
     plugin = "injector",
-    labels = { tf_main = "1" },
+    labels = { tf_main = "1", consul = "1" },
     data = {
         res = {
+            {
+                name = "CONSUL_HTTP_ADDR",
+                env = {
+                    value = "https://host1.consul1.dc1.alwaldend.com:8501"
+                }
+            },
             {
                 name = "consul_bootstrap",
                 kv = {

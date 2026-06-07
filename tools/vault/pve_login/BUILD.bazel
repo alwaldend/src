@@ -15,7 +15,7 @@ docs_filegroup(
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
-    ) + [":al_proto_docs"],
+    ) + [":pve_login_proto_docs"],
 )
 
 go_library(

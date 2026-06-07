@@ -22,6 +22,22 @@ vault_binary_map(
 )
 
 al_binary_run(
+    name = "consul1",
+    args = [
+        "$(rootpath //tools/consul)",
+    ],
+    configs = [":al"],
+    data = [
+        "//tools/consul",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "consul",
+    ],
+)
+
+al_binary_run(
     name = "gen_gossip_key",
     args = [
         "$(rootpath //tools/consul/gen_gossip_key)",
@@ -41,8 +57,8 @@ al_binary_run(
         "//tools/vault",
     ],
     run_args = [
-        "--env_vault",
-        "default:default",
+        "--plugin_label",
+        "vault_env=default_default",
     ],
 )
 

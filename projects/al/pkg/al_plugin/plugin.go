@@ -46,13 +46,13 @@ func Serve[T al_proto.PluginServiceServer](ctx context.Context, stdin io.Reader,
 	if err != nil {
 		return fp.EmptyLeft(fmt.Errorf("could not create a listener: %w", err))
 	}
-	err = server.Serve(listener)
-	if err != nil {
-		return fp.EmptyLeft(fmt.Errorf("could not serve: %w", err))
-	}
 	go func() {
 		<-ctx.Done()
 		server.GracefulStop()
 	}()
+	err = server.Serve(listener)
+	if err != nil {
+		return fp.EmptyLeft(fmt.Errorf("could not serve: %w", err))
+	}
 	return fp.EmptyRight()
 }

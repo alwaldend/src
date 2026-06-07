@@ -15,12 +15,17 @@ docs_filegroup(
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
-    ) + [":al_proto_docs"],
+    ) + [":tf_backend_proto_docs"],
 )
 
 go_library(
     name = "tf_backend_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "main.go",
+        "plugin.go",
+        "server.go",
+        "tf_backend.go",
+    ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/tf_backend",
     visibility = ["//:__subpackages__"],
     deps = [

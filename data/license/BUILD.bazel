@@ -1,0 +1,26 @@
+load("//tools/docs:defs.bzl", "docs_filegroup")
+load("@rules_license//rules:license.bzl", "license")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]) + ["LICENSE.txt"],
+    visibility = ["//data:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+filegroup(
+    name = "license",
+    srcs = ["LICENSE.txt"]
+)
+
+license(
+    name = "default",
+    license_kinds = [
+        "@rules_license//licenses/spdx:AGPL-3.0",
+    ],
+    license_text = "//data/license:LICENSE.txt",
+    visibility = ["//:__subpackages__"],
+)

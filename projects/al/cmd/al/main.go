@@ -2,18 +2,20 @@ package main
 
 import (
 	"context"
-	"fmt"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"os"
 	"os/signal"
 	"syscall"
 )
 
 func main() {
-	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
-	defer cancel()
-	err := Execute(ctx, os.Args[1:], os.Getenv, os.Stdin, os.Stdout, os.Stderr)
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
-	}
+	ctx, _ := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+	os.Exit(Execute(&al.CmdCtx{
+		Ctx:    ctx,
+		Args:   os.Args,
+		Getenv: os.Getenv,
+		Stdin:  os.Stdin,
+		Stdout: os.Stdout,
+		Stderr: os.Stderr,
+	}))
 }

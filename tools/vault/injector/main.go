@@ -58,7 +58,6 @@ func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartReq
 }
 
 func (self *Plugin) Run() int {
-	self.logger.Printf("Starting plugin")
 	self.wg.Go(func() {
 		self.cleaner.Run(self.ctx)
 	})
@@ -74,13 +73,19 @@ func (self *Plugin) Run() int {
 }
 
 func main() {
+	ctx, _ := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM, syscall.SIGKILL)
 	p := &Plugin{
 		wg:      &sync.WaitGroup{},
 		logger:  log.New(os.Stderr, "com.alwaldend.src.tools.vault.injector.plugin ", log.Flags()),
 		cleaner: NewCleaner(os.Stderr),
+		ctx:     ctx,
 	}
-	var cancel context.CancelFunc
-	p.ctx, cancel = signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
-	defer cancel()
-	os.Exit(p.Run())
+	go func() {
+		<-ctx.Done()
+		p.logger.Printf("Got a cancel signal")
+	}()
+	p.logger.Printf("Starting plugin")
+	code := p.Run()
+	p.logger.Printf("Stopped plugin, code: %d", code)
+	os.Exit(code)
 }

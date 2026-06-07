@@ -56,7 +56,7 @@ al_bzlenv_binary(
     tools = {
         "gopackagesdriver": "//tools/sh/main/sh:gopackagesdriver",
         "bazel": "//tools/sh/main/sh:bazel",
-        "al": "//tools/al",
+        "al": "//projects/al/cmd/al",
     } | {
         tool: "//tools/{}".format(tool)
         for tool in _ROOT_TOOLS

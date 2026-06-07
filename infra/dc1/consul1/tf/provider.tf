@@ -17,6 +17,5 @@ provider "vault" {
 }
 
 provider "consul" {
-  address    = "https://host1.consul1.dc1.alwaldend.com:8501"
   datacenter = "dc1"
 }
