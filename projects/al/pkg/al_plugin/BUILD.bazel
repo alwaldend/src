@@ -5,7 +5,8 @@ go_library(
     srcs = [
         "iolistener.go",
         "manager.go",
-        "plugin.go",
+        "plugin_server.go",
+        "plugin_client.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin",
     visibility = ["//:__subpackages__"],
