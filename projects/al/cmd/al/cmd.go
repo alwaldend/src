@@ -146,7 +146,7 @@ func newRunCmd(ctx *al.CmdCtx) *cobra.Command {
 			shutdownCtx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 			defer cancel()
 			if errShutdown := pluginManager.Shutdown(shutdownCtx); errShutdown != nil {
-				err = errors.Join(err, fmt.Errorf("could not shutdown plugins: %w", errShutdown))
+				err = errors.Join(err, fmt.Errorf("could not shut down plugins: %w", errShutdown))
 			}
 			return err
 		},

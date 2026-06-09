@@ -2,7 +2,6 @@ package al_plugin
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"log"
 	"net"
@@ -13,6 +12,7 @@ import (
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 	"github.com/bazelbuild/rules_go/go/runfiles"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -89,31 +89,23 @@ func NewPluginClient(ctx *al.CmdCtx, run *runfiles.Runfiles, config *al_proto.Co
 }
 
 func (self *PluginClient) Shutdown(ctx context.Context) error {
-	errsCh := make(chan error, 2)
-	errs := []error{}
-	go func() {
-		err := syscall.Kill(self.cmd.Process.Pid, syscall.SIGTERM)
-		if err != nil {
-			err = fmt.Errorf("could not kill process %d: %w", self.cmd.Process.Pid, err)
+	var wg fp.WaitGroupE
+	wg.Go(func() error {
+		if err := syscall.Kill(self.cmd.Process.Pid, syscall.SIGTERM); err != nil {
+			return fmt.Errorf("could not kill process %d: %w", self.cmd.Process.Pid, err)
 		}
-		errsCh <- err
-	}()
-	go func() {
-		err := self.conn.Close()
-		if err != nil {
-			err = fmt.Errorf("could not close the grpc client connection: %w", err)
+		return nil
+	})
+	wg.Go(func() error {
+		if err := self.conn.Close(); err != nil {
+			return fmt.Errorf("could not close the grpc client connection: %w", err)
 		}
-		errsCh <- err
-	}()
-	for range len(errsCh) {
-		select {
-		case curErr := <-errsCh:
-			errs = append(errs, curErr)
-		case <-ctx.Done():
-			return fmt.Errorf("shutdown timed out")
-		}
+		return nil
+	})
+	if err := wg.WaitCtx(ctx); err != nil {
+		return fmt.Errorf("shut down with an error: %w", err)
 	}
-	return errors.Join(errs...)
+	return nil
 }
 
 func (self *PluginClient) Start(ctx context.Context) (*al_proto.PluginStartResponse, error) {

@@ -8,6 +8,7 @@ import (
 	"runtime/debug"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 	"google.golang.org/grpc"
 )
 
@@ -66,17 +67,15 @@ func NewPluginServer(stdin io.Reader, stdout io.Writer, stderr io.Writer, plugin
 
 func (self *PluginServer) Shutdown(ctx context.Context) error {
 	self.logger.Printf("Shutting down the plugin server")
-	var err error
-	go self.server.GracefulStop()
-	select {
-	case err = <-self.res:
-		if err != nil {
-			err = fmt.Errorf("shut down with an error: %w", err)
-		}
-	case <-ctx.Done():
-		err = fmt.Errorf("shutdown timed out: %w", err)
+	var wg fp.WaitGroupE
+	wg.Go(func() error {
+		self.server.GracefulStop()
+		return nil
+	})
+	if err := wg.WaitCtx(ctx); err != nil {
+		return fmt.Errorf("shut down with an error: %w", err)
 	}
-	return err
+	return nil
 }
 
 func (self *PluginServer) Start() error {

@@ -2,12 +2,12 @@ package main
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"log"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 )
 
 type App struct {
@@ -39,29 +39,21 @@ func (self *App) Start(ctx context.Context) error {
 }
 
 func (self *App) Shutdown(ctx context.Context) error {
-	errsCh := make(chan error, 2)
-	errs := []error{}
-	go func() {
-		err := self.server.Shutdown(ctx)
-		if err != nil {
-			err = fmt.Errorf("the plugin server shut down with an error: %w", err)
+	var wg fp.WaitGroupE
+	wg.Go(func() error {
+		if err := self.server.Shutdown(ctx); err != nil {
+			return fmt.Errorf("the plugin server shut down with an error: %w", err)
 		}
-		errsCh <- err
-	}()
-	go func() {
-		err := self.cleaner.Shutdown(ctx)
-		if err != nil {
+		return nil
+	})
+	wg.Go(func() error {
+		if err := self.cleaner.Shutdown(ctx); err != nil {
 			err = fmt.Errorf("cleaner shut down with an error: %w", err)
 		}
-		errsCh <- err
-	}()
-	for range len(errsCh) {
-		select {
-		case err := <-errsCh:
-			errs = append(errs, err)
-		case <-ctx.Done():
-			return fmt.Errorf("shutdown timed out")
-		}
+		return nil
+	})
+	if err := wg.WaitCtx(ctx); err != nil {
+		return fmt.Errorf("shut down with an error: %w", err)
 	}
-	return errors.Join(errs...)
+	return nil
 }

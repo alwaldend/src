@@ -2,12 +2,12 @@ package main
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"log"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 )
 
 type App struct {
@@ -32,15 +32,24 @@ func NewApp(ctx *al.CmdCtx) (*App, error) {
 }
 
 func (self *App) Shutdown(ctx context.Context) error {
+	var wg fp.WaitGroupE
 	self.logger.Printf("Shutting down the app")
-	errs := []error{}
-	if err := self.server.Shutdown(ctx); err != nil {
-		errs = append(errs, fmt.Errorf("could not shut down the plugin server: %w", err))
+	wg.Go(func() error {
+		if err := self.server.Shutdown(ctx); err != nil {
+			return fmt.Errorf("plugin server error: %w", err)
+		}
+		return nil
+	})
+	wg.Go(func() error {
+		if err := self.plugin.Shutdown(ctx); err != nil {
+			return fmt.Errorf("plugin error: %w", err)
+		}
+		return nil
+	})
+	if err := wg.WaitCtx(ctx); err != nil {
+		return fmt.Errorf("shut down with an error: %w", err)
 	}
-	if err := self.plugin.Shutdown(ctx); err != nil {
-		errs = append(errs, fmt.Errorf("could not shut down the plugin: %w", err))
-	}
-	return errors.Join(errs...)
+	return nil
 }
 
 func (self *App) Start(ctx context.Context) error {

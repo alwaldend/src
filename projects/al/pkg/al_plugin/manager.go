@@ -49,22 +49,19 @@ func NewManager(ctx *al.CmdCtx, config *al_proto.Config) (*Manager, error) {
 }
 
 func (self *Manager) Shutdown(ctx context.Context) error {
-	errsCh := make(chan error, len(self.plugins))
-	errs := []error{}
+	var wg fp.WaitGroupE
 	for _, plugin := range self.plugins {
-		go func() {
-			errsCh <- plugin.Shutdown(ctx)
-		}()
+		wg.Go(func() error {
+			if err := plugin.Shutdown(ctx); err != nil {
+				return fmt.Errorf("plugin %s shut down with an error: %w", plugin.req.Plugin.Name, err)
+			}
+			return nil
+		})
 	}
-	for range len(self.plugins) {
-		select {
-		case err := <-errsCh:
-			errs = append(errs, err)
-		case <-ctx.Done():
-			return fmt.Errorf("shutdown timed out")
-		}
+	if err := wg.WaitCtx(ctx); err != nil {
+		return fmt.Errorf("shut down with an error: %w", err)
 	}
-	return errors.Join(errs...)
+	return nil
 }
 
 func (self *Manager) Start(ctx context.Context, labelArgs []string) ([]*al_proto.PluginStartResponse, error) {

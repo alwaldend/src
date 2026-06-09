@@ -2,12 +2,12 @@ package main
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"net"
 	"net/http"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 )
 
 type Server struct {
@@ -26,15 +26,23 @@ func (self *Server) Shutdown(ctx context.Context) error {
 	if self.server == nil {
 		return fmt.Errorf("missing server")
 	}
-	err := self.server.Shutdown(ctx)
-	if err != nil {
-		err = fmt.Errorf("shutdown error: %w", err)
+	var wg fp.WaitGroupE
+	wg.Go(func() error {
+		if err := self.server.Shutdown(ctx); err != nil {
+			return fmt.Errorf("server shutdown error: %w", err)
+		}
+		return nil
+	})
+	wg.Go(func() error {
+		if err := <-self.serveErr; err != nil {
+			return fmt.Errorf("serving error: %w", err)
+		}
+		return nil
+	})
+	if err := wg.WaitCtx(ctx); err != nil {
+		return fmt.Errorf("shut down with an error: %w", err)
 	}
-	serveErr := <-self.serveErr
-	if serveErr != nil {
-		err = errors.Join(err, fmt.Errorf("serving error: %w", serveErr))
-	}
-	return err
+	return nil
 }
 
 func (self *Server) Start() error {

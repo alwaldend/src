@@ -74,7 +74,10 @@ func (self *TfBackend) Start(ctx context.Context) error {
 }
 
 func (self *TfBackend) Shutdown(ctx context.Context) error {
-	return self.server.Shutdown(ctx)
+	if err := self.server.Shutdown(ctx); err != nil {
+		return fmt.Errorf("server shutdown error: %w", err)
+	}
+	return nil
 }
 
 func (self *TfBackend) Env() (map[string]string, error) {

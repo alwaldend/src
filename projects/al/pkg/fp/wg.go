@@ -1,6 +1,7 @@
 package fp
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"runtime/debug"
@@ -38,4 +39,17 @@ func (self *WaitGroupE) Go(fs ...func() error) {
 func (self *WaitGroupE) Wait() error {
 	self.wg.Wait()
 	return self.err
+}
+
+func (self *WaitGroupE) WaitCtx(ctx context.Context) error {
+	errCh := make(chan error, 1)
+	go func() {
+		errCh <- self.Wait()
+	}()
+	select {
+	case err := <-errCh:
+		return err
+	case <-ctx.Done():
+		return fmt.Errorf("timed out")
+	}
 }

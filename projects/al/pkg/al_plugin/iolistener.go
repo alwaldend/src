@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io"
 	"net"
-	"os"
 	"sync"
 	"time"
 )
@@ -172,9 +171,7 @@ func (self *IOListener) Accept() (net.Conn, error) {
 	self.mx.Lock()
 	defer self.mx.Unlock()
 	if self.accepted {
-		fmt.Fprintf(os.Stderr, "ACCEPTED, WAITING\n")
 		<-self.closed
-		fmt.Fprintf(os.Stderr, "ACCEPTED, FINISHED\n")
 		return nil, fmt.Errorf("closed")
 	}
 	conn, err := NewIOConn(self.reader, self.writer, self.addr)
@@ -188,9 +185,7 @@ func (self *IOListener) Accept() (net.Conn, error) {
 // Close closes the listener.
 // Any blocked Accept operations will be unblocked and return errors.
 func (self *IOListener) Close() error {
-	fmt.Fprintf(os.Stderr, "CLOSING\n")
 	close(self.closed)
-	fmt.Fprintf(os.Stderr, "CLOSED\n")
 	return nil
 }
 

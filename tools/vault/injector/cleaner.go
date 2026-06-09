@@ -2,13 +2,13 @@ package main
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"log"
 	"os"
 	"sync"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 )
 
 type Cleaner struct {
@@ -42,31 +42,24 @@ func (self *Cleaner) Add(paths ...string) error {
 }
 
 func (self *Cleaner) Shutdown(ctx context.Context) error {
+	var wg fp.WaitGroupE
 	self.mx.Lock()
 	defer self.mx.Unlock()
 	close(self.consume)
 	self.closed = true
-	errsCh := make(chan error, len(self.toClean))
-	errs := []error{}
 	for _, path := range self.toClean {
-		go func() {
+		wg.Go(func() error {
 			self.logger.Printf("Cleaning path %s", path)
-			err := os.RemoveAll(path)
-			if err != nil {
-				err = fmt.Errorf("could not clean path %s: %w", path, err)
+			if err := os.RemoveAll(path); err != nil {
+				return fmt.Errorf("could not clean path %s: %w", path, err)
 			}
-			errsCh <- err
-		}()
+			return nil
+		})
 	}
-	for range len(errsCh) {
-		select {
-		case err := <-errsCh:
-			errs = append(errs, err)
-		case <-ctx.Done():
-			return fmt.Errorf("shutdown timed out")
-		}
+	if err := wg.WaitCtx(ctx); err != nil {
+		return fmt.Errorf("shut down with an error: %w", err)
 	}
-	return errors.Join(errs...)
+	return nil
 }
 
 func (self *Cleaner) Start() {
