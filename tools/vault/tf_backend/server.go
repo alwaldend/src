@@ -2,22 +2,39 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 	"net"
 	"net/http"
-	"time"
+
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 )
 
 type Server struct {
 	listener net.Listener
-	wg       *fp.WaitGroupE
-	ctx      context.Context
+	ctx      *al.CmdCtx
 	handler  http.HandlerFunc
+	server   *http.Server
+	serveErr chan error
 }
 
-func NewServer(ctx context.Context, handler http.HandlerFunc, wg *fp.WaitGroupE) *Server {
-	return &Server{ctx: ctx, handler: handler, wg: wg}
+func NewServer(ctx *al.CmdCtx, handler http.HandlerFunc) *Server {
+	return &Server{ctx: ctx, handler: handler, serveErr: make(chan error, 1)}
+}
+
+func (self *Server) Shutdown(ctx context.Context) error {
+	if self.server == nil {
+		return fmt.Errorf("missing server")
+	}
+	err := self.server.Shutdown(ctx)
+	if err != nil {
+		err = fmt.Errorf("shutdown error: %w", err)
+	}
+	serveErr := <-self.serveErr
+	if serveErr != nil {
+		err = errors.Join(err, fmt.Errorf("serving error: %w", serveErr))
+	}
+	return err
 }
 
 func (self *Server) Start() error {
@@ -28,26 +45,10 @@ func (self *Server) Start() error {
 	self.listener = listener
 	handler := http.NewServeMux()
 	handler.HandleFunc("/", self.handler)
-	server := &http.Server{Handler: handler}
-	self.wg.Go(func() error {
-		<-self.ctx.Done()
-		logger.Printf("Shutting down server %s", listener.Addr().String())
-		shutdownCtx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Second*30))
-		defer cancel()
-		err := server.Shutdown(shutdownCtx)
-		if err != nil {
-			err = fmt.Errorf("could not shutdown: %w", err)
-		}
-		return err
-	})
-	self.wg.Go(func() error {
-		err := server.Serve(listener)
-		if err != nil {
-			err = fmt.Errorf("could not serve: %w", err)
-		}
-		logger.Printf("Finished serving %s", listener.Addr().String())
-		return err
-	})
+	self.server = &http.Server{Handler: handler}
+	go func() {
+		self.serveErr <- self.server.Serve(listener)
+	}()
 	return nil
 }
 

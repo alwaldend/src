@@ -22,8 +22,10 @@ go_library(
     name = "injector_lib",
     srcs = [
         "main.go",
+        "app.go",
         "resource.go",
         "secret.go",
+        "plugin.go",
         "op.go",
         "file.go",
         "templater.go",

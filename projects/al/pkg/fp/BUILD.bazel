@@ -4,6 +4,7 @@ go_library(
     name = "fp",
     srcs = [
         "box.go",
+        "run.go",
         "functor.go",
         "monad.go",
         "maybe.go",

@@ -2,8 +2,8 @@ package al_plugin
 
 import (
 	"context"
+	"errors"
 	"fmt"
-	"io"
 	"log"
 	"net"
 	"os"
@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"github.com/bazelbuild/rules_go/go/runfiles"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -24,14 +25,14 @@ type PluginClient struct {
 	bin        string
 	logger     *log.Logger
 	client     al_proto.PluginServiceClient
+	conn       *grpc.ClientConn
+	ioConn     *IOConn
 	req        *al_proto.PluginStartRequest
-	ctx        context.Context
-	cancel     context.CancelFunc
+	ctx        *al.CmdCtx
 	res        chan error
 }
 
-func NewPluginClient(stderr io.Writer, run *runfiles.Runfiles, config *al_proto.Config, plugin *al_proto.PluginConfig) (*PluginClient, error) {
-	ctx, cancel := context.WithCancel(context.Background())
+func NewPluginClient(ctx *al.CmdCtx, run *runfiles.Runfiles, config *al_proto.Config, plugin *al_proto.PluginConfig) (*PluginClient, error) {
 	configJson, err := protojson.MarshalOptions{}.Marshal(plugin)
 	if err != nil {
 		return nil, fmt.Errorf("could not marshal plugin config: %w", err)
@@ -40,11 +41,8 @@ func NewPluginClient(stderr io.Writer, run *runfiles.Runfiles, config *al_proto.
 	if err != nil {
 		return nil, fmt.Errorf("could not find location of %s: %w", plugin.Bin, err)
 	}
-	cmd := exec.CommandContext(ctx, bin, plugin.Args...)
+	cmd := exec.Command(bin, plugin.Args...)
 	cmd.WaitDelay = time.Second * 10
-	cmd.Cancel = func() error {
-		return syscall.Kill(cmd.Process.Pid, syscall.SIGTERM)
-	}
 	cmd.Stderr = os.Stderr
 	cmd.Env = os.Environ()
 	cmd.Env = append(cmd.Env, run.Env()...)
@@ -73,10 +71,6 @@ func NewPluginClient(stderr io.Writer, run *runfiles.Runfiles, config *al_proto.
 	if err != nil {
 		return nil, fmt.Errorf("could not create grpc client: %w", err)
 	}
-	go func() {
-		<-ctx.Done()
-		conn.Close()
-	}()
 	client := al_proto.NewPluginServiceClient(conn)
 	request := &al_proto.PluginStartRequest{
 		Config: config,
@@ -85,27 +79,41 @@ func NewPluginClient(stderr io.Writer, run *runfiles.Runfiles, config *al_proto.
 	return &PluginClient{
 		req:        request,
 		configJson: configJson,
-		logger:     log.New(stderr, "com.alwaldend.src.projects.al.pkg.al_plugin.PluginClient ", log.Flags()),
+		logger:     log.New(ctx.Stderr, "com.alwaldend.src.projects.al.pkg.al_plugin.PluginClient ", ctx.LogFlags),
 		cmd:        cmd,
 		client:     client,
+		conn:       conn,
 		ctx:        ctx,
-		cancel:     cancel,
 		res:        make(chan error, 1),
 	}, nil
 }
 
 func (self *PluginClient) Shutdown(ctx context.Context) error {
-	var err error
-	self.cancel()
-	select {
-	case err = <-self.res:
+	errsCh := make(chan error, 2)
+	errs := []error{}
+	go func() {
+		err := syscall.Kill(self.cmd.Process.Pid, syscall.SIGTERM)
 		if err != nil {
-			err = fmt.Errorf("plugin %s shut down with an error: %w", self.req.Plugin.Name, err)
+			err = fmt.Errorf("could not kill process %d: %w", self.cmd.Process.Pid, err)
 		}
-	case <-ctx.Done():
-		err = fmt.Errorf("shutdown timed out")
+		errsCh <- err
+	}()
+	go func() {
+		err := self.conn.Close()
+		if err != nil {
+			err = fmt.Errorf("could not close the grpc client connection: %w", err)
+		}
+		errsCh <- err
+	}()
+	for range len(errsCh) {
+		select {
+		case curErr := <-errsCh:
+			errs = append(errs, curErr)
+		case <-ctx.Done():
+			return fmt.Errorf("shutdown timed out")
+		}
 	}
-	return err
+	return errors.Join(errs...)
 }
 
 func (self *PluginClient) Start(ctx context.Context) (*al_proto.PluginStartResponse, error) {
@@ -113,22 +121,8 @@ func (self *PluginClient) Start(ctx context.Context) (*al_proto.PluginStartRespo
 	if err := self.cmd.Start(); err != nil {
 		return nil, fmt.Errorf("could not start the plugin binary: %w", err)
 	}
-	func() {
-		var err error
-		defer func() {
-			self.cancel()
-			self.res <- err
-		}()
-		err = self.cmd.Wait()
-		if err != nil {
-			self.logger.Printf("Plugin %s shut down with an error: %s", self.req.Plugin.Name, err)
-		} else {
-			self.logger.Printf("Plugin %s shut down", self.req.Plugin.Name)
-		}
-	}()
 	response, err := self.client.PluginStart(ctx, self.req)
 	if err != nil {
-		self.cancel()
 		return nil, fmt.Errorf("could not execute plugin start request: %w", err)
 	}
 	self.logger.Printf("Finished starting plugin %s", self.req.Plugin.Name)

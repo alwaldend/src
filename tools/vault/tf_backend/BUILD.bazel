@@ -22,6 +22,7 @@ go_library(
     name = "tf_backend_lib",
     srcs = [
         "main.go",
+        "app.go",
         "plugin.go",
         "server.go",
         "tf_backend.go",

@@ -2,25 +2,30 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"sync"
+
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 )
 
 type Cleaner struct {
 	consume chan string
 	mx      *sync.RWMutex
 	logger  *log.Logger
+	ctx     *al.CmdCtx
 	closed  bool
+	toClean []string
 }
 
-func NewCleaner(stderr io.Writer) *Cleaner {
+func NewCleaner(ctx *al.CmdCtx) *Cleaner {
 	return &Cleaner{
 		consume: make(chan string),
 		mx:      &sync.RWMutex{},
-		logger:  log.New(stderr, "com.alwaldend.src.tools.vault.injector.cleaner ", log.Flags()),
+		ctx:     ctx,
+		logger:  log.New(ctx.Stderr, "com.alwaldend.src.tools.vault.injector.cleaner ", ctx.LogFlags),
 	}
 }
 
@@ -36,33 +41,42 @@ func (self *Cleaner) Add(paths ...string) error {
 	return nil
 }
 
-func (self *Cleaner) Run(ctx context.Context) {
-	var wg sync.WaitGroup
-	wg.Go(func() {
-		<-ctx.Done()
-		self.mx.Lock()
-		defer self.mx.Unlock()
-		close(self.consume)
-		self.closed = true
-	})
-	wg.Go(func() {
-		toClean := []string{}
+func (self *Cleaner) Shutdown(ctx context.Context) error {
+	self.mx.Lock()
+	defer self.mx.Unlock()
+	close(self.consume)
+	self.closed = true
+	errsCh := make(chan error, len(self.toClean))
+	errs := []error{}
+	for _, path := range self.toClean {
+		go func() {
+			self.logger.Printf("Cleaning path %s", path)
+			err := os.RemoveAll(path)
+			if err != nil {
+				err = fmt.Errorf("could not clean path %s: %w", path, err)
+			}
+			errsCh <- err
+		}()
+	}
+	for range len(errsCh) {
+		select {
+		case err := <-errsCh:
+			errs = append(errs, err)
+		case <-ctx.Done():
+			return fmt.Errorf("shutdown timed out")
+		}
+	}
+	return errors.Join(errs...)
+}
+
+func (self *Cleaner) Start() {
+	go func() {
 		for {
 			path, ok := <-self.consume
 			if !ok {
-				break
+				return
 			}
-			toClean = append(toClean, path)
+			self.toClean = append(self.toClean, path)
 		}
-		self.logger.Printf("Starting cleanup")
-		for _, c := range toClean {
-			wg.Go(func() {
-				if err := os.RemoveAll(c); err != nil {
-					self.logger.Printf("could not clean path %s: could not remove: %s", c, err)
-				}
-			})
-		}
-		self.logger.Printf("Finished cleanup")
-	})
-	wg.Wait()
+	}()
 }

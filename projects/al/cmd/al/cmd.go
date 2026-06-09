@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin"
@@ -120,16 +121,16 @@ func newRunCmd(ctx *al.CmdCtx) *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("could not create command: %w", err)
 			}
-			pluginManager, err := al_plugin.NewManager(cfg, cmdArgs.Stderr)
+			pluginManager, err := al_plugin.NewManager(ctx, cfg)
 			if err != nil {
 				return fmt.Errorf("could not create plugin manager: %w", err)
 			}
-			pluginStartResponses, err := pluginManager.StartPlugins(cmdCtx, pluginLabels)
+			pluginStart, err := pluginManager.Start(cmdCtx, pluginLabels)
 			if err != nil {
 				return fmt.Errorf("could not prepare plugins: %w", err)
 			}
 			envs := []string{}
-			for _, response := range pluginStartResponses {
+			for _, response := range pluginStart {
 				for key, value := range response.Env {
 					envs = append(envs, key)
 					runCmd.Env = append(runCmd.Env, fmt.Sprintf("%s=%s", key, value))
@@ -138,15 +139,16 @@ func newRunCmd(ctx *al.CmdCtx) *cobra.Command {
 			if len(envs) > 0 {
 				fmt.Fprintf(ctx.Stderr, "Setting envs: %s\n", strings.Join(envs, ", "))
 			}
-			var res error
-			if err := runCmd.Run(); err != nil {
-				res = fmt.Errorf("could not run the command: %w", err)
+			err = runCmd.Run()
+			if err != nil {
+				err = fmt.Errorf("could not run the command: %w", err)
 			}
-			cancel()
-			if err := pluginManager.Shutdown(); err != nil {
-				res = errors.Join(res, fmt.Errorf("could not shutdown plugins: %w", err))
+			shutdownCtx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+			defer cancel()
+			if errShutdown := pluginManager.Shutdown(shutdownCtx); errShutdown != nil {
+				err = errors.Join(err, fmt.Errorf("could not shutdown plugins: %w", errShutdown))
 			}
-			return res
+			return err
 		},
 	}
 	flags := cmd.PersistentFlags()

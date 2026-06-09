@@ -7,12 +7,12 @@ import (
 	"io"
 	"log"
 	"maps"
-	"os"
 	"slices"
 	"strings"
 	"sync"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 	"github.com/bazelbuild/rules_go/go/runfiles"
 )
@@ -23,13 +23,11 @@ type Manager struct {
 	run     *runfiles.Runfiles
 	plugins []*PluginClient
 	stderr  io.Writer
-	ctx     context.Context
+	ctx     *al.CmdCtx
+	mx      sync.Mutex
 }
 
-func NewManager(config *al_proto.Config, stderr io.Writer) (*Manager, error) {
-	if stderr == nil {
-		stderr = os.Stderr
-	}
+func NewManager(ctx *al.CmdCtx, config *al_proto.Config) (*Manager, error) {
 	run, err := runfiles.New()
 	if err != nil {
 		return nil, fmt.Errorf("could not create runfiles: %w", err)
@@ -45,44 +43,44 @@ func NewManager(config *al_proto.Config, stderr io.Writer) (*Manager, error) {
 	return &Manager{
 		config: config,
 		run:    run,
-		logger: log.New(stderr, "com.alwaldend.src.projects.al.pkg.al_plugin.Manager ", log.Flags()),
-		stderr: stderr,
+		logger: log.New(ctx.Stderr, "com.alwaldend.src.projects.al.pkg.al_plugin.Manager ", ctx.LogFlags),
+		ctx:    ctx,
 	}, nil
 }
 
 func (self *Manager) Shutdown(ctx context.Context) error {
-	err := make(chan error, len(self.plugins))
-	done := make(chan struct{})
-	select {
-	case <-ctx.Done():
-		return fmt.Errorf("shutdown timed out: %w", err)
+	errsCh := make(chan error, len(self.plugins))
+	errs := []error{}
+	for _, plugin := range self.plugins {
+		go func() {
+			errsCh <- plugin.Shutdown(ctx)
+		}()
 	}
-	return nil
+	for range len(self.plugins) {
+		select {
+		case err := <-errsCh:
+			errs = append(errs, err)
+		case <-ctx.Done():
+			return fmt.Errorf("shutdown timed out")
+		}
+	}
+	return errors.Join(errs...)
 }
 
-func (self *Manager) StartPlugins(ctx context.Context, labels []string) ([]*al_proto.PluginStartResponse, error) {
+func (self *Manager) Start(ctx context.Context, labelArgs []string) ([]*al_proto.PluginStartResponse, error) {
 	plugins := map[string]*al_proto.PluginConfig{}
-	labelsMap := map[string]string{}
-	for _, labelFull := range labels {
-		labelSplit := strings.SplitN(labelFull, "=", 2)
-		labelKey, labelVal := labelSplit[0], ""
-		if len(labelSplit) > 1 {
-			labelVal = labelSplit[1]
-		}
-		labelsMap[labelKey] = labelVal
-	}
+	labels := labelsMap(labelArgs)
 	for _, plugin := range self.config.Plugins {
-		if !labelsMatch(plugin.Labels, labelsMap) {
+		if !labelsMatch(plugin.Labels, labels) {
 			continue
 		}
-		_, ok := plugins[plugin.Name]
-		if ok {
+		if _, ok := plugins[plugin.Name]; ok {
 			return nil, fmt.Errorf("duplicate plugin: %s", plugin.Name)
 		}
 		plugins[plugin.Name] = plugin
 	}
 	for _, call := range self.config.PluginCalls {
-		if !labelsMatch(call.Labels, labelsMap) {
+		if !labelsMatch(call.Labels, labels) {
 			continue
 		}
 		if call.Plugin == "" {
@@ -108,38 +106,38 @@ func (self *Manager) StartPlugins(ctx context.Context, labels []string) ([]*al_p
 	return res, nil
 }
 
+func (self *Manager) startPlugin(ctx context.Context, plugin *al_proto.PluginConfig) (*al_proto.PluginStartResponse, error) {
+	client, err := NewPluginClient(self.ctx, self.run, self.config, plugin)
+	if err != nil {
+		return nil, fmt.Errorf("could not create client: %w", err)
+	}
+	resp, err := client.Start(ctx)
+	if err != nil {
+		err = fmt.Errorf("could not start: %w", err)
+	}
+	self.mx.Lock()
+	defer self.mx.Unlock()
+	self.plugins = append(self.plugins, client)
+	return resp, nil
+}
+
 func (self *Manager) startPlugins(ctx context.Context, plugins []*al_proto.PluginConfig) ([]*al_proto.PluginStartResponse, error) {
 	ctx, cancel := context.WithCancel(ctx)
-	mx := sync.Mutex{}
-	res := []fp.Either[*al_proto.PluginStartResponse]{}
+	defer cancel()
+	res := make(chan fp.Either[*al_proto.PluginStartResponse], len(plugins))
 	for _, plugin := range plugins {
 		func() {
-			var err error
-			var client *PluginClient
-			var resp *al_proto.PluginStartResponse
-			client, err = NewPluginClient(self.stderr, self.run, self.config, plugin)
+			resp, err := self.startPlugin(ctx, plugin)
 			if err != nil {
-				err = fmt.Errorf("could not create plugin client for %s: %w", plugin.Name, err)
-			}
-			if err == nil {
-				resp, err = client.Start(ctx)
-				if err != nil {
-					err = fmt.Errorf("could not start plugin %s: %w", err)
-				}
-			}
-			mx.Lock()
-			defer mx.Unlock()
-			if err == nil {
-				self.plugins = append(self.plugins, client)
-			} else {
+				err = fmt.Errorf("could not start plugin %s: %w", plugin.Name, err)
 				cancel()
 			}
-			res = append(res, fp.EitherOf(resp, err))
+			res <- fp.EitherOf(resp, err)
 		}()
 	}
 	var err error
 	resp := []*al_proto.PluginStartResponse{}
-	for _, curRes := range res {
+	for curRes := range res {
 		val, curErr := curRes.Get()
 		if curErr != nil {
 			err = errors.Join(err, curErr)
@@ -163,4 +161,17 @@ func labelsMatch(have map[string]string, want map[string]string) bool {
 		}
 	}
 	return false
+}
+
+func labelsMap(labels []string) map[string]string {
+	res := map[string]string{}
+	for _, labelFull := range labels {
+		labelSplit := strings.SplitN(labelFull, "=", 2)
+		labelKey, labelVal := labelSplit[0], ""
+		if len(labelSplit) > 1 {
+			labelVal = labelSplit[1]
+		}
+		res[labelKey] = labelVal
+	}
+	return res
 }

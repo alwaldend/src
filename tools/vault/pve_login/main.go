@@ -254,8 +254,10 @@ type Plugin struct {
 	wg    *sync.WaitGroup
 }
 
-func (self *Plugin) Run() int {
+func (self *Plugin) Run() error {
+
 	self.wg.Go(func() {
+
 		if _, err := al_plugin.Serve(self.ctx, os.Stdin, os.Stdout, self).Get(); err != nil {
 			self.errMx.Lock()
 			defer self.errMx.Unlock()

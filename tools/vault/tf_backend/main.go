@@ -6,20 +6,24 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
+
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 )
 
-var logger = log.New(os.Stderr, "com.alwaldend.src.tools.vault.tf_backend ", log.Flags())
-
 func main() {
-	logger.Printf("Starting plugin")
-	ctx, _ := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
-	plugin := NewPlugin(ctx)
-	go func() {
-		<-ctx.Done()
-		logger.Printf("Got a cancel signal")
-	}()
-	if err := plugin.Run(os.Stdin, os.Stdout); err != nil {
-		logger.Printf("error: %s", err)
+	shutdownCtx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+	defer cancel()
+	ctx := al.NewCmdCtx(shutdownCtx)
+	logger := log.New(ctx.Stderr, "com.alwaldend.src.tools.vault.tf_backend.main ", ctx.LogFlags)
+	app, err := NewApp(ctx)
+	if err != nil {
+		logger.Printf("Could not create the app: %s", err)
+		os.Exit(1)
+	}
+	if err := fp.Run(shutdownCtx, app.Start, app.Shutdown, time.Second*10); err != nil {
+		logger.Printf("Finished with an error: %s", err)
 		os.Exit(1)
 	}
 }

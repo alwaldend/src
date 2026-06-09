@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"os/exec"
 
@@ -11,12 +12,25 @@ import (
 )
 
 type CmdCtx struct {
-	Ctx    context.Context
-	Args   []string
-	Getenv func(string) string
-	Stdin  io.Reader
-	Stdout io.Writer
-	Stderr io.Writer
+	Ctx      context.Context
+	Args     []string
+	Getenv   func(string) string
+	Stdin    io.Reader
+	Stdout   io.Writer
+	Stderr   io.Writer
+	LogFlags int
+}
+
+func NewCmdCtx(ctx context.Context) *CmdCtx {
+	return &CmdCtx{
+		Ctx:      ctx,
+		Args:     os.Args,
+		Getenv:   os.Getenv,
+		Stdin:    os.Stdin,
+		Stdout:   os.Stdout,
+		Stderr:   os.Stderr,
+		LogFlags: log.Flags(),
+	}
 }
 
 // Set runfiles info for a command
