@@ -40,8 +40,36 @@ func SetRunfilesEnv(cmd *exec.Cmd) error {
 		return fmt.Errorf("could not create runfiles env: %w", err)
 	}
 	cmd.Env = append(cmd.Env, runfilesEnv...)
-	cmd.Env = append(cmd.Env, os.Environ()...)
 	return err
+}
+
+func OverrideStd(cmd *exec.Cmd, stdout string, stderr string, stdin string) ([]*os.File, error) {
+	res := []*os.File{}
+	if stdout != "" {
+		stdoutFile, err := os.OpenFile(cmdStdout, os.O_WRONLY, 0600)
+		if err != nil {
+			return fmt.Errorf("could not open stdout %s: %w", cmdStdout, err)
+		}
+		defer stdoutFile.Close()
+		runCmd.Stdout = stdoutFile
+	}
+	if stderr != "" {
+		stderrFile, err := os.OpenFile(cmdStderr, os.O_WRONLY, 0600)
+		if err != nil {
+			return fmt.Errorf("could not open stderr %s: %w", cmdStderr, err)
+		}
+		defer stderrFile.Close()
+		runCmd.Stderr = stderrFile
+	}
+	if stdin != "" {
+		stdinFile, err := os.OpenFile(stdin, os.O_RDONLY, 0600)
+		if err != nil {
+			return fmt.Errorf("could not open stdin %s: %w", stdin, err)
+		}
+		defer stdinFile.Close()
+		runCmd.Stdin = stdinFile
+	}
+	return
 }
 
 type CommandArgs struct {
