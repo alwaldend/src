@@ -6,70 +6,127 @@ import (
 	"fmt"
 	"runtime/debug"
 	"sync"
+	"time"
 )
 
 type Startable interface {
 	Start(ctx context.Context) error
 }
 
+type StartableFunc func(context.Context) error
+
+func (self StartableFunc) Start(ctx context.Context) error {
+	return self(ctx)
+}
+
+func (self StartableFunc) Stop(_ context.Context) error {
+	return nil
+}
+
+func StartableFunc0(f func() error) StartableFunc {
+	return StartableFunc(func(_ context.Context) error {
+		return f()
+	})
+}
+
 type Stoppable interface {
 	Stop(ctx context.Context) error
+}
+
+type StoppableFunc func(context.Context) error
+
+func (self StoppableFunc) Start(_ context.Context) error {
+	return nil
+}
+
+func (self StoppableFunc) Stop(ctx context.Context) error {
+	return self(ctx)
+}
+
+func StoppableFunc0(f func() error) StoppableFunc {
+	return StoppableFunc(func(_ context.Context) error {
+		return f()
+	})
+}
+
+type Manageable interface {
+	Startable
+	Stoppable
 }
 
 type State int
 
 const (
 	StateInit State = iota
-	StateStarted
-	StateStopped
+	StateStart
+	StateStop
+	StateError
 )
 
 var StateName = map[State]string{
-	StateInit:    "init",
-	StateStarted: "started",
-	StateStopped: "stopped",
+	StateInit:  "init",
+	StateStart: "start",
+	StateStop:  "stop",
+	StateError: "error",
 }
 
-type Handler struct {
-	startMx sync.RWMutex
-	start   []Startable
-	stopMx  sync.RWMutex
-	stop    []Stoppable
-	state   State
+type Manager struct {
+	mx           sync.RWMutex
+	managed      []Manageable
+	managedState []State
+	managedErrs  []error
+	state        State
 }
 
-func (self *Handler) Add(vals ...any) error {
-	for _, val := range vals {
-		valStart, okStart := val.(Startable)
-		if okStart {
-			if err := self.AddStart(valStart); err != nil {
-				return fmt.Errorf("could not add startable: %w", err)
-			}
-		}
-		valStop, okStop := val.(Stoppable)
-		if okStop {
-			if err := self.AddStop(valStop); err != nil {
-				return fmt.Errorf("could not add stoppable: %w", err)
-			}
-		}
-		if !okStart && !okStop {
-			return fmt.Errorf("value is neither Startable, nor Stoppable: %T", val)
-		}
+var _ Manageable = (*Manager)(nil)
+
+func (self *Manager) Add(vals ...Manageable) {
+	self.mx.Lock()
+	defer self.mx.Unlock()
+	self.managed = append(self.managed, vals...)
+}
+
+func (self *Manager) Run(ctx context.Context, stopTimeout time.Duration) error {
+	if self.state != StateInit {
+		return fmt.Errorf("cannot start from %s", StateName[self.state])
+	}
+	if err := self.Start(ctx); err != nil {
+		return fmt.Errorf("could not start: %w", err)
+	}
+	<-ctx.Done()
+	if err := self.StopTimeout(stopTimeout); err != nil {
+		return fmt.Errorf("stop error: %w", err)
 	}
 	return nil
 }
 
-func (self *Handler) Start(ctx context.Context) error {
-	self.startMx.Lock()
-	defer self.startMx.Unlock()
-	if len(self.start) == 0 {
-		return nil
+func (self *Manager) StopTimeout(timeout time.Duration) error {
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+	if err := self.Stop(ctx); err != nil {
+		return fmt.Errorf("stop error: %w", err)
 	}
+	return nil
+}
+
+func (self *Manager) Start(ctx context.Context) error {
+	self.mx.Lock()
+	defer self.mx.Unlock()
 	if self.state != StateInit {
-		return fmt.Errorf("cannot start state %s", StateName[self.state])
+		return fmt.Errorf("cannot start from %s", StateName[self.state])
 	}
-	res := make(chan error, len(self.start))
-	for _, start := range self.start {
+	if len(self.managed) != 0 {
+		if err := self.start(ctx, self.managed); err != nil {
+			return fmt.Errorf("could not start: %w", err)
+		}
+	}
+	self.state = StateStart
+	return nil
+}
+
+func (self *Manager) start(ctx context.Context, vals []Manageable) error {
+	res := make(chan error, len(vals))
+	for _, start := range vals {
 		go lifecycleFunc(start.Start)(ctx, res)
 	}
 	var err error
@@ -82,27 +139,24 @@ func (self *Handler) Start(ctx context.Context) error {
 	return nil
 }
 
-func (self *Handler) AddStart(vals ...Startable) error {
-	self.startMx.Lock()
-	defer self.startMx.Unlock()
-	if self.state != StateInit {
-		return fmt.Errorf("cannot add Startable while in state %s", StateName[self.state])
+func (self *Manager) Stop(ctx context.Context) error {
+	self.mx.Lock()
+	defer self.mx.Unlock()
+	if self.state != StateStart {
+		return fmt.Errorf("cannot stop in state %s", StateName[self.state])
 	}
-	self.start = append(self.start, vals...)
+	if len(self.managed) != 0 {
+		if err := self.stop(ctx); err != nil {
+			return err
+		}
+	}
+	self.state = StateStop
 	return nil
 }
 
-func (self *Handler) Stop(ctx context.Context) error {
-	self.stopMx.Lock()
-	defer self.stopMx.Unlock()
-	if len(self.stop) == 0 {
-		return nil
-	}
-	if self.state != StateStarted {
-		return fmt.Errorf("cannot stop state %s", StateName[self.state])
-	}
-	res := make(chan error, len(self.stop))
-	for _, stop := range self.stop {
+func (self *Manager) stop(ctx context.Context) error {
+	res := make(chan error, len(self.managed))
+	for i, stop := range self.managed {
 		go lifecycleFunc(stop.Stop)(ctx, res)
 	}
 	var err error
@@ -112,16 +166,6 @@ func (self *Handler) Stop(ctx context.Context) error {
 	if err != nil {
 		return fmt.Errorf("stop failed: %w", err)
 	}
-	return nil
-}
-
-func (self *Handler) AddStop(vals ...Stoppable) error {
-	self.stopMx.Lock()
-	defer self.stopMx.Unlock()
-	if self.state == StateStopped {
-		return fmt.Errorf("cannot add Stoppable while in state %s", StateName[self.state])
-	}
-	self.stop = append(self.stop, vals...)
 	return nil
 }
 
