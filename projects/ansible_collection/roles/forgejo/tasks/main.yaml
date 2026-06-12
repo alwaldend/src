@@ -1,0 +1,107 @@
+- tags:
+    - consul
+  block:
+    - name: Create consul user
+      ansible.builtin.user:
+        name: "{{ consul_user }}"
+        uid: "{{ consul_user_uid }}"
+        shell: /sbin/nologin
+        home: "{{ consul_dir }}/home"
+        system: true
+    - name: Create consul dirs
+      loop:
+        - "{{ consul_dir }}"
+        - "{{ consul_data_dir }}"
+        - "{{ consul_config_dir }}"
+        - "{{ consul_log_dir }}"
+        - "{{ consul_tls_dir }}"
+      ansible.builtin.file:
+        state: directory
+        owner: "{{ consul_user }}"
+        group: "{{ consul_user }}"
+        mode: "0700"
+        path: "{{ item }}"
+    - name: Copy the consul binary
+      register: consul_bin_var
+      ansible.builtin.copy:
+        src: "{{ consul_bin_local_path }}"
+        dest: "{{ consul_bin_path }}"
+        owner: "root"
+        group: "{{ consul_user }}"
+        mode: "0755"
+    - name: Copy the config
+      register: consul_config_var
+      ansible.builtin.template:
+        src: "{{ consul_config_local_path }}"
+        dest: "{{ consul_config_path }}"
+        owner: "root"
+        group: "{{ consul_user }}"
+        mode: "0650"
+    - name: Copy CA file
+      register: consul_tls_ca_file_result
+      ansible.builtin.copy:
+        src: "{{ consul_tls_ca_file_local_path }}"
+        dest: "{{ consul_tls_ca_file_path }}"
+        owner: "root"
+        group: "{{ consul_user }}"
+        mode: "0650"
+    - name: Write certs
+      block:
+        - name: Generate a cert
+          connection: local
+          register: consul_tls_cert_result
+          environment:
+            VAULT_ADDR: "{{ lookup('ansible.builtin.env', 'VAULT_ADDR') }}"
+            VAULT_CACERT: "{{ lookup('ansible.builtin.env', 'VAULT_CACERT') }}"
+            VAULT_CLIENT_KEY: "{{ lookup('ansible.builtin.env', 'VAULT_CLIENT_KEY') }}"
+            VAULT_CLIENT_CERT: "{{ lookup('ansible.builtin.env', 'VAULT_CLIENT_CERT') }}"
+            VAULT_TOKEN: "{{ lookup('ansible.builtin.env', 'VAULT_TOKEN') }}"
+            VAULT_SKIP_VERIFY: "{{ lookup('ansible.builtin.env', 'VAULT_SKIP_VERIFY') }}"
+          ansible.builtin.command:
+            argv:
+              - "{{ consul_vault_local_path }}"
+              - write
+              - -format=json
+              - "{{ consul_tls_issue_path }}"
+              - common_name={{ consul_tls_common_name }}
+              - alt_names={{ consul_tls_alt_names }}
+              - ttl={{ consul_tls_ttl }}
+        - name: Write public key
+          ansible.builtin.copy:
+            content: |
+              {{ (consul_tls_cert_result.stdout | from_json).data.certificate }}
+              {% for cert in (consul_tls_cert_result.stdout | from_json).data.ca_chain %}
+              {{ cert }}
+              {% endfor %}
+            dest: "{{ consul_tls_cert_file_path }}"
+            owner: "root"
+            group: "{{ consul_user }}"
+            mode: "0650"
+        - name: Write private key
+          ansible.builtin.copy:
+            content: "{{ (consul_tls_cert_result.stdout | from_json).data.private_key }}"
+            dest: "{{ consul_tls_key_file_path }}"
+            owner: "root"
+            group: "{{ consul_user }}"
+            mode: "0650"
+    - name: Write the service
+      register: consul_service_var
+      ansible.builtin.template:
+        src: systemd_service.conf
+        dest: "{{ consul_service_path }}"
+        owner: root
+        group: root
+        mode: 644
+    - name: Ensure the daemon is reloaded
+      when: consul_service_var.changed
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+    - name: Reload the service
+      ansible.builtin.systemd_service:
+        name: "{{ consul_service_path | basename }}"
+        state: reloaded
+    - name: Start the service and enable
+      ansible.builtin.systemd_service:
+        name: "{{ consul_service_path | basename }}"
+        enabled: true
+        state: started

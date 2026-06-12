@@ -1,0 +1,23 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    archives = {
+        "forgejo": ["linux_x86_64"],
+    },
+    lock = "//tools/forgejo:binary_toolchain.json",
+    toolchains_map = {
+        "forgejo": "com_alwaldend_src_tools_forgejo",
+    },
+)
+
+register_toolchains(
+    "@com_alwaldend_src_tools_forgejo//:all",
+)
+
+use_repo(
+    binary_toolchain_extension,
+    "com_alwaldend_src_tools_forgejo",
+    "com_alwaldend_src_tools_forgejo_linux_x86_64",
+)

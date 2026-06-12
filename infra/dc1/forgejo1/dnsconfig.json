@@ -1,0 +1,20 @@
+{
+    "domains": {
+        "default": {
+            "records": {
+                "host1": {
+                    "A": {
+                        "name": "host1.forgejo1.dc1",
+                        "address": "192.168.10.40"
+                    }
+                },
+                "ha1": {
+                    "A": {
+                        "name":  "forgejo1.dc1",
+                        "address": "192.168.10.40"
+                    }
+                }
+            }
+        }
+    }
+}

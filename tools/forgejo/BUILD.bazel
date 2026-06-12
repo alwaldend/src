@@ -1,0 +1,17 @@
+load("@com_alwaldend_src_tools_forgejo//:defs.bzl", "forgejo_binary")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+forgejo_binary(
+    name = "forgejo",
+    visibility = ["//:__subpackages__"],
+)

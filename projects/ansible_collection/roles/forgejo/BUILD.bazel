@@ -1,0 +1,27 @@
+load("//tools/ansible/main/bzl:al_ansible_role.bzl", "al_ansible_role")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/ansible_collection/roles:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ) + [":role.docs"],
+)
+
+al_ansible_role(
+    name = "role",
+    srcs = glob(["**"]) + [
+        "//data/ssl/alwaldend.com:ica_servers",
+        "@com_alwaldend_src_tools_forgejo_linux_x86_64//:forgejo_filegroup",
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
+    ],
+    renames = {
+        "@com_alwaldend_src_tools_forgejo_linux_x86_64//:forgejo_filegroup": "files/forgejo",
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "files/vault",
+        "//data/ssl/alwaldend.com:ica_servers": "files/pki_ca_servers.crt",
+    },
+    visibility = ["//:__subpackages__"],
+)

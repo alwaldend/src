@@ -1,0 +1,8 @@
+- name: Deploy
+  hosts: forgejo1
+  force_handlers: true
+  become: true
+  roles:
+    - role: alwaldend.main.host
+    - role: alwaldend.main.traefik
+    # - role: alwaldend.main.forgejo

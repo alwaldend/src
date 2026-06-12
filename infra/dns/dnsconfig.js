@@ -10,6 +10,7 @@ var jsons = [
     require("../dc1/pve1/dnsconfig.json"),
     require("../dc1/vault/dnsconfig.json"),
     require("../dc1/consul1/dnsconfig.json"),
+    require("../dc1/forgejo1/dnsconfig.json"),
 ];
 
 
@@ -124,7 +125,7 @@ D(
     "alwaldend.com",
     REG_NONE,
     DnsProvider(DSP_CLOUDFLARE),
-    DnsProvider(DSP_MIKROTIK),
+    // DnsProvider(DSP_MIKROTIK),
     DnsProvider(DSP_BIND),
     modifiers["default"],
 );
