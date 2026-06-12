@@ -24,11 +24,14 @@ al_binary_run_map(
         ],
     },
     configs = ["//infra/dc1/consul1:al"],
-    data = [":ansible_bin"],
+    data = [
+        ":ansible_bin",
+        "//tools/vault/injector",
+    ],
     run_args = [
-        "--env_vault",
-        "default:default",
-        "--env_label",
+        "--plugin_label",
+        "vault_env=default_default",
+        "--plugin_label",
         "ansible",
     ],
 )

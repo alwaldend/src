@@ -22,7 +22,6 @@ go_library(
     name = "injector_lib",
     srcs = [
         "main.go",
-        "app.go",
         "resource.go",
         "secret.go",
         "plugin.go",
@@ -39,6 +38,7 @@ go_library(
         "//projects/al/api/al_proto",
         "//projects/al/pkg/al",
         "//projects/al/pkg/fp",
+        "//projects/al/pkg/lifecycle",
         "@com_github_hashicorp_vault_api//:api",
         "@org_golang_google_protobuf//proto",
         "//projects/al/pkg/al_plugin",

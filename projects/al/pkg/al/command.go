@@ -12,24 +12,24 @@ import (
 )
 
 type CmdCtx struct {
-	Ctx      context.Context
-	Args     []string
-	Getenv   func(string) string
-	Stdin    io.Reader
-	Stdout   io.Writer
-	Stderr   io.Writer
-	LogFlags int
+	Ctx    context.Context
+	Args   []string
+	Getenv func(string) string
+	Stdin  io.Reader
+	Stdout io.Writer
+	Stderr io.Writer
+	Logger *log.Logger
 }
 
-func NewCmdCtx(ctx context.Context) *CmdCtx {
+func NewCmdCtx(ctx context.Context, prefix string) *CmdCtx {
 	return &CmdCtx{
-		Ctx:      ctx,
-		Args:     os.Args,
-		Getenv:   os.Getenv,
-		Stdin:    os.Stdin,
-		Stdout:   os.Stdout,
-		Stderr:   os.Stderr,
-		LogFlags: log.Flags(),
+		Ctx:    ctx,
+		Args:   os.Args,
+		Getenv: os.Getenv,
+		Stdin:  os.Stdin,
+		Stdout: os.Stdout,
+		Stderr: os.Stderr,
+		Logger: log.New(os.Stderr, prefix, log.Flags()),
 	}
 }
 

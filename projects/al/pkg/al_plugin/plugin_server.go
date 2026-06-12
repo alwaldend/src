@@ -3,12 +3,10 @@ package al_plugin
 import (
 	"context"
 	"fmt"
-	"io"
-	"log"
 	"runtime/debug"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"google.golang.org/grpc"
 )
 
@@ -24,62 +22,55 @@ func grpcRecover(rec any) error {
 }
 
 type PluginServer struct {
-	logger *log.Logger
 	server *grpc.Server
-	stdin  io.Reader
-	stdout io.Writer
 	res    chan error
+	ctx    *al.CmdCtx
 }
 
-func NewPluginServer(stdin io.Reader, stdout io.Writer, stderr io.Writer, plugin al_proto.PluginServiceServer) (*PluginServer, error) {
+func streamInterceptor(srv any, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) (err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = grpcRecover(r)
+		}
+	}()
+	return handler(srv, ss)
+}
+
+func unaryInterceptor(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp any, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = grpcRecover(r)
+		}
+	}()
+	return handler(ctx, req)
+}
+
+func NewPluginServer(ctx *al.CmdCtx, plugin al_proto.PluginServiceServer) *PluginServer {
 	server := grpc.NewServer(
-		grpc.StreamInterceptor(
-			func(srv any, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) (err error) {
-				defer func() {
-					if r := recover(); r != nil {
-						err = grpcRecover(r)
-					}
-				}()
-				return handler(srv, ss)
-			},
-		),
-		grpc.UnaryInterceptor(
-			func(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp any, err error) {
-				defer func() {
-					if r := recover(); r != nil {
-						err = grpcRecover(r)
-					}
-				}()
-				return handler(ctx, req)
-			},
-		),
+		grpc.StreamInterceptor(streamInterceptor),
+		grpc.UnaryInterceptor(unaryInterceptor),
 	)
 	al_proto.RegisterPluginServiceServer(server, plugin)
-
-	return &PluginServer{
-		logger: log.New(stderr, "com.alwaldend.src.projects.al.pkg.al_plugin.PluginServer ", log.Flags()),
+	res := &PluginServer{
 		server: server,
-		stdin:  stdin,
-		stdout: stdout,
 		res:    make(chan error, 1),
-	}, nil
+		ctx:    ctx,
+	}
+	return res
 }
 
-func (self *PluginServer) Shutdown(ctx context.Context) error {
-	self.logger.Printf("Shutting down the plugin server")
-	var wg fp.WaitGroupE
-	wg.Go(func() error {
-		self.server.GracefulStop()
-		return nil
-	})
-	if err := wg.WaitCtx(ctx); err != nil {
-		return fmt.Errorf("shut down with an error: %w", err)
+func (self *PluginServer) Stop(ctx context.Context) error {
+	self.ctx.Logger.Printf("stopping plugin server")
+	self.server.GracefulStop()
+	if err := <-self.res; err != nil {
+		return fmt.Errorf("serving error error: %w", err)
 	}
 	return nil
 }
 
-func (self *PluginServer) Start() error {
-	listener, err := NewIOListener(self.stdin, self.stdout)
+func (self *PluginServer) Start(_ context.Context) error {
+	self.ctx.Logger.Printf("starting plugin server")
+	listener, err := NewIOListener(self.ctx.Stdin, self.ctx.Stdout)
 	if err != nil {
 		return fmt.Errorf("could not create a listener: %w", err)
 	}

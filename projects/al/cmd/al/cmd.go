@@ -1,10 +1,8 @@
 package main
 
 import (
-	"context"
 	"errors"
 	"fmt"
-	"log"
 	"os"
 	"os/exec"
 	"time"
@@ -18,11 +16,11 @@ import (
 func Execute(ctx *al.CmdCtx) int {
 	root, err := newRootCommand(ctx)
 	if err != nil {
-		fmt.Fprintf(ctx.Stderr, "could not create commands: %s\n", err)
+		ctx.Logger.Printf("could not create commands: %s", err)
 		return 2
 	}
 	if err := root.Execute(); err != nil {
-		fmt.Fprintf(ctx.Stderr, "could not execute: %s\n", err)
+		ctx.Logger.Printf("could not execute: %s", err)
 		return 1
 	}
 	return 0
@@ -70,12 +68,10 @@ func newConfigCmd(ctx *al.CmdCtx) *cobra.Command {
 
 func newRunCmd(ctx *al.CmdCtx) *cobra.Command {
 	var configs []string
-	var disableRunfilesEnv bool
 	var cmdStdout string
 	var cmdStdin string
 	var cmdStderr string
 	var pluginLabels []string
-	logger := log.New(ctx.Stderr, "com.alwaldend.projects.al.cmd.al.run ", ctx.LogFlags)
 	cmd := &cobra.Command{
 		Use:   "run",
 		Short: "Run a command",
@@ -84,13 +80,9 @@ func newRunCmd(ctx *al.CmdCtx) *cobra.Command {
 			if len(args) == 0 {
 				return fmt.Errorf("Need at least one argument")
 			}
-			lc := lifecycle.Manager{}
-			start := false
+			var lc lifecycle.Manager
 			defer func() {
-				if !start {
-					return
-				}
-				if curErr := lc.StopTimeout(time.Second * 10); err != nil {
+				if curErr := lc.StopTimeout(time.Second * 10); curErr != nil {
 					err = errors.Join(err, fmt.Errorf("shut down with an error: %w", curErr))
 				}
 			}()
@@ -99,29 +91,29 @@ func newRunCmd(ctx *al.CmdCtx) *cobra.Command {
 				return fmt.Errorf("could not load configs: %w", err)
 			}
 			runCmd := exec.CommandContext(ctx.Ctx, args[0], args[1:]...)
+			runCmd.Env = os.Environ()
 			if err := al.SetRunfilesEnv(runCmd); err != nil {
 				return fmt.Errorf("could not add runfiles env: %w", err)
+			}
+			if err := overrideStd(&lc, runCmd, cmdStdout, cmdStderr, cmdStdin); err != nil {
+				return fmt.Errorf("could not override std: %w", err)
 			}
 			pluginManager, err := al_plugin.NewManager(ctx, cfg)
 			if err != nil {
 				return fmt.Errorf("could not create plugin manager: %w", err)
 			}
-			lc.AddRunnable(pluginManager)
-			pluginStart, err := pluginManager.Start(ctx.Ctx, pluginLabels)
-			if err != nil {
-				return fmt.Errorf("could not prepare plugins: %w", err)
+			if err := pluginManager.AddLabels(pluginLabels); err != nil {
+				return fmt.Errorf("could not add plugin labels: %w", err)
 			}
-			envs := []string{}
-			for _, response := range pluginStart {
-				for key, value := range response.Env {
-					envs = append(envs, key)
-					runCmd.Env = append(runCmd.Env, fmt.Sprintf("%s=%s", key, value))
-				}
+			lc.Add(pluginManager.Lifecycle())
+			if err := lc.Start(ctx.Ctx); err != nil {
+				return fmt.Errorf("could not start the lifecycle: %w", err)
 			}
-			if errShutdown := pluginManager.Shutdown(shutdownCtx); errShutdown != nil {
-				err = errors.Join(err, fmt.Errorf("could not shut down plugins: %w", errShutdown))
+			runCmd.Env = append(runCmd.Env, pluginManager.Env()...)
+			if err := runCmd.Run(); err != nil {
+				return fmt.Errorf("could not run the command: %w", err)
 			}
-			return err
+			return nil
 		},
 	}
 	flags := cmd.PersistentFlags()
@@ -130,42 +122,41 @@ func newRunCmd(ctx *al.CmdCtx) *cobra.Command {
 	flags.StringVar(&cmdStderr, "stderr", "", "Override stderr")
 	flags.StringVar(&cmdStdin, "stdin", "", "Override stdin")
 	flags.StringArrayVar(&pluginLabels, "plugin_label", nil, "Plugin labels to run")
-	flags.BoolVar(&disableRunfilesEnv, "disable_runfiles_env", false, "If set, do not set bazel runfiles variables")
 	return cmd
 }
 
 func overrideStd(lc *lifecycle.Manager, cmd *exec.Cmd, stdout string, stderr string, stdin string) error {
 	var err error
 	var stdoutFile, stderrFile, stdinFile *os.File
-	if stdout != "" {
+	if stdout == "" {
+		stdoutFile = os.Stdout
+	} else {
 		stdoutFile, err = os.OpenFile(stdout, os.O_WRONLY, 0600)
 		if err != nil {
 			return fmt.Errorf("could not open stdout %s: %w", stdout, err)
 		}
-		lc.AddStop(lifecycle.StoppableFunc0(stdoutFile.Close))
+		lc.Add(lifecycle.StoppableFunc0(stdoutFile.Close))
 	}
-	if stderr != "" {
+	if stderr == "" {
+		stderrFile = os.Stderr
+	} else {
 		stderrFile, err = os.OpenFile(stderr, os.O_WRONLY, 0600)
 		if err != nil {
 			return fmt.Errorf("could not open stderr %s: %w", stderr, err)
 		}
-		lc.AddStop(lifecycle.StoppableFunc0(stderrFile.Close))
+		lc.Add(lifecycle.StoppableFunc0(stderrFile.Close))
 	}
-	if stdin != "" {
+	if stdin == "" {
+		stdinFile = os.Stdin
+	} else {
 		stdinFile, err = os.OpenFile(stdin, os.O_RDONLY, 0600)
 		if err != nil {
 			return fmt.Errorf("could not open stdin %s: %w", stdin, err)
 		}
-		lc.AddStop(lifecycle.StoppableFunc0(stdinFile.Close))
+		lc.Add(lifecycle.StoppableFunc0(stdinFile.Close))
 	}
-	if stdoutFile != nil {
-		cmd.Stdout = stdoutFile
-	}
-	if stderrFile != nil {
-		cmd.Stderr = stderrFile
-	}
-	if stdinFile != nil {
-		cmd.Stdin = stdinFile
-	}
+	cmd.Stdout = stdoutFile
+	cmd.Stderr = stderrFile
+	cmd.Stdin = stdinFile
 	return nil
 }

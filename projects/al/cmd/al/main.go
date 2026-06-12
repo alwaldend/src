@@ -9,13 +9,7 @@ import (
 )
 
 func main() {
-	ctx, _ := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
-	os.Exit(Execute(&al.CmdCtx{
-		Ctx:    ctx,
-		Args:   os.Args,
-		Getenv: os.Getenv,
-		Stdin:  os.Stdin,
-		Stdout: os.Stdout,
-		Stderr: os.Stderr,
-	}))
+	ctx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+	defer cancel()
+	os.Exit(Execute(al.NewCmdCtx(ctx, "com.alwaldend.src.projects.al.cmd.al ")))
 }

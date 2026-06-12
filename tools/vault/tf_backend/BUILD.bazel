@@ -22,7 +22,6 @@ go_library(
     name = "tf_backend_lib",
     srcs = [
         "main.go",
-        "app.go",
         "plugin.go",
         "server.go",
         "tf_backend.go",
@@ -33,6 +32,7 @@ go_library(
         "//projects/al/api/al_proto",
         "//projects/al/pkg/al",
         "//projects/al/pkg/al_plugin",
+        "//projects/al/pkg/lifecycle",
         "//projects/al/pkg/fp",
         ":tf_backend_proto",
         "@com_github_google_uuid//:uuid",

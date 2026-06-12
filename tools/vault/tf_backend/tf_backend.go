@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"path/filepath"
 
@@ -41,7 +40,6 @@ type TfBackend struct {
 	lockMount  string
 	vault      *api.Client
 	ctx        *al.CmdCtx
-	logger     *log.Logger
 }
 
 func NewTfBackend(ctx *al.CmdCtx, config *al_proto.Config, backend *tf_backend_proto.Config) (*TfBackend, error) {
@@ -53,7 +51,6 @@ func NewTfBackend(ctx *al.CmdCtx, config *al_proto.Config, backend *tf_backend_p
 		password: uuid.NewString(),
 		config:   backend,
 		ctx:      ctx,
-		logger:   log.New(ctx.Stderr, "com.alwaldend.src.tools.vault.tf_backend.TfBackend ", ctx.LogFlags),
 	}
 	res.statePath = fmt.Sprintf("%s/state", backend.VaultSecret)
 	res.stateMount = backend.VaultSecretMount
@@ -70,14 +67,11 @@ func NewTfBackend(ctx *al.CmdCtx, config *al_proto.Config, backend *tf_backend_p
 }
 
 func (self *TfBackend) Start(ctx context.Context) error {
-	return self.server.Start()
+	return self.server.Start(ctx)
 }
 
-func (self *TfBackend) Shutdown(ctx context.Context) error {
-	if err := self.server.Shutdown(ctx); err != nil {
-		return fmt.Errorf("server shutdown error: %w", err)
-	}
-	return nil
+func (self *TfBackend) Stop(ctx context.Context) error {
+	return self.server.Stop(ctx)
 }
 
 func (self *TfBackend) Env() (map[string]string, error) {
@@ -98,12 +92,10 @@ func (self *TfBackend) Env() (map[string]string, error) {
 }
 
 func (self *TfBackend) reqHandler(w http.ResponseWriter, r *http.Request) {
-	self.logger.Printf("Handling a request, state secret path - %s:%s, lock secret path - %s:%s",
-		self.stateMount, self.statePath, self.lockMount, self.lockPath)
 	if err := self.handleRequest(w, r); err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		fmt.Fprintf(w, "error: %s", err)
-		self.logger.Printf("error: %s", err)
+		self.ctx.Logger.Printf("error: %s", err)
 	}
 }
 
@@ -263,7 +255,7 @@ func (self *TfBackend) checkLock(r *http.Request, reqType requestType, lockObj *
 }
 
 func (self *TfBackend) updateState(r *http.Request, state *api.KVSecret, body map[string]any) error {
-	self.logger.Printf("Updating state %s", self.statePath)
+	self.ctx.Logger.Printf("updating state %s", self.statePath)
 	if _, err := self.vault.KVv2(self.stateMount).Put(
 		r.Context(),
 		self.statePath,
@@ -275,8 +267,8 @@ func (self *TfBackend) updateState(r *http.Request, state *api.KVSecret, body ma
 	return nil
 }
 
-func (self *TfBackend) writeState(r *http.Request, w http.ResponseWriter, stateObj *api.KVSecret) error {
-	self.logger.Printf("Returning state %s", self.statePath)
+func (self *TfBackend) writeState(_ *http.Request, w http.ResponseWriter, stateObj *api.KVSecret) error {
+	self.ctx.Logger.Printf("returning state %s", self.statePath)
 	state, ok := stateObj.Data[stateKey]
 	if !ok {
 		return nil
@@ -291,7 +283,7 @@ func (self *TfBackend) writeState(r *http.Request, w http.ResponseWriter, stateO
 }
 
 func (self *TfBackend) unlockState(r *http.Request, lock *api.KVSecret) error {
-	self.logger.Printf("Unlocking state %s using lock %s", self.statePath, self.lockPath)
+	self.ctx.Logger.Printf("unlocking state %s using lock %s", self.statePath, self.lockPath)
 	_, ok := lock.Data[lockKey]
 	if !ok {
 		return fmt.Errorf("missing lock info")
@@ -308,7 +300,7 @@ func (self *TfBackend) unlockState(r *http.Request, lock *api.KVSecret) error {
 }
 
 func (self *TfBackend) lockState(r *http.Request, lock *api.KVSecret, body map[string]any) error {
-	self.logger.Printf("Locking state %s using lock %s", self.statePath, self.lockPath)
+	self.ctx.Logger.Printf("locking state %s using lock %s", self.statePath, self.lockPath)
 	if _, err := self.vault.KVv2(self.lockMount).Put(
 		r.Context(),
 		self.lockPath,

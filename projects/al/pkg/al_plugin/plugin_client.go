@@ -3,10 +3,11 @@ package al_plugin
 import (
 	"context"
 	"fmt"
-	"log"
+	"maps"
 	"net"
 	"os"
 	"os/exec"
+	"slices"
 	"syscall"
 	"time"
 
@@ -23,7 +24,6 @@ type PluginClient struct {
 	configJson []byte
 	cmd        *exec.Cmd
 	bin        string
-	logger     *log.Logger
 	client     al_proto.PluginServiceClient
 	conn       *grpc.ClientConn
 	ioConn     *IOConn
@@ -80,7 +80,6 @@ func NewPluginClient(ctx *al.CmdCtx, run *runfiles.Runfiles, config *al_proto.Co
 	return &PluginClient{
 		req:        request,
 		configJson: configJson,
-		logger:     log.New(ctx.Stderr, "com.alwaldend.src.projects.al.pkg.al_plugin.PluginClient ", ctx.LogFlags),
 		cmd:        cmd,
 		client:     client,
 		conn:       conn,
@@ -117,7 +116,7 @@ func (self *PluginClient) StartResponse() (*al_proto.PluginStartResponse, bool) 
 }
 
 func (self *PluginClient) Start(ctx context.Context) error {
-	self.logger.Printf("Starting plugin %s: %s", self.req.Plugin.Name, string(self.configJson))
+	self.ctx.Logger.Printf("starting plugin %s: %s", self.req.Plugin.Name, string(self.configJson))
 	if err := self.cmd.Start(); err != nil {
 		return fmt.Errorf("could not start the plugin binary: %w", err)
 	}
@@ -125,7 +124,7 @@ func (self *PluginClient) Start(ctx context.Context) error {
 	if err != nil {
 		return fmt.Errorf("could not execute plugin start request: %w", err)
 	}
-	self.logger.Printf("Finished starting plugin %s", self.req.Plugin.Name)
+	self.ctx.Logger.Printf("finished starting plugin %s, env: %s", self.req.Plugin.Name, slices.Collect(maps.Keys(resp.Env)))
 	self.resp = resp
 	return nil
 }

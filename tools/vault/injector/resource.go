@@ -6,6 +6,7 @@ import (
 	"maps"
 	"slices"
 
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 	"git.alwaldend.com/alwaldend/src/tools/vault/injector/injector_proto"
 )
@@ -30,12 +31,32 @@ type ResourceManager struct {
 	op       *OpFetcher
 	secret   *SecretFetcher
 	vaultEnv *VaultEnvFetcher
+	ctx      *al.CmdCtx
+}
+
+func NewResourceManager(
+	ctx *al.CmdCtx,
+	env *EnvFetcher,
+	file *FileFetcher,
+	op *OpFetcher,
+	secret *SecretFetcher,
+	vaultEnv *VaultEnvFetcher,
+) *ResourceManager {
+	return &ResourceManager{
+		ctx:      ctx,
+		env:      env,
+		file:     file,
+		op:       op,
+		secret:   secret,
+		vaultEnv: vaultEnv,
+	}
 }
 
 func (self *ResourceManager) get(ctx context.Context, config *injector_proto.Config, resConfig *injector_proto.Resource, cache map[string]*ResourceResult) fp.Either[*ResourceResult] {
 	if res, ok := cache[resConfig.Name]; ok {
 		return fp.Right(res)
 	}
+	self.ctx.Logger.Printf("fetching resource %s", resConfig.Name)
 	deps := []*ResourceResult{}
 	for _, curR := range config.Res {
 		if curR.Name == resConfig.Name || !slices.Contains(resConfig.Deps, curR.Name) {
@@ -70,15 +91,15 @@ func (self *ResourceManager) get(ctx context.Context, config *injector_proto.Con
 	return fp.Right(res)
 }
 
-func (self *ResourceManager) Get(ctx context.Context, config *injector_proto.Config) fp.Either[*ResourceResult] {
+func (self *ResourceManager) Get(ctx context.Context, config *injector_proto.Config) (*ResourceResult, error) {
 	resRes := &ResourceResult{Env: map[string]string{}}
 	cache := map[string]*ResourceResult{}
 	for _, resConfig := range config.Res {
 		res, err := self.get(ctx, config, resConfig, cache).Get()
 		if err != nil {
-			return fp.Left[*ResourceResult](fmt.Errorf("could not process resource %s: %w", resConfig.Name, err))
+			return nil, fmt.Errorf("could not process resource %s: %w", resConfig.Name, err)
 		}
 		maps.Copy(resRes.Env, res.Env)
 	}
-	return fp.Right(resRes)
+	return resRes, nil
 }

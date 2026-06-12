@@ -2,12 +2,12 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net"
 	"net/http"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 )
 
 type Server struct {
@@ -22,30 +22,21 @@ func NewServer(ctx *al.CmdCtx, handler http.HandlerFunc) *Server {
 	return &Server{ctx: ctx, handler: handler, serveErr: make(chan error, 1)}
 }
 
-func (self *Server) Shutdown(ctx context.Context) error {
+func (self *Server) Stop(ctx context.Context) error {
 	if self.server == nil {
 		return fmt.Errorf("missing server")
 	}
-	var wg fp.WaitGroupE
-	wg.Go(func() error {
-		if err := self.server.Shutdown(ctx); err != nil {
-			return fmt.Errorf("server shutdown error: %w", err)
-		}
-		return nil
-	})
-	wg.Go(func() error {
-		if err := <-self.serveErr; err != nil {
-			return fmt.Errorf("serving error: %w", err)
-		}
-		return nil
-	})
-	if err := wg.WaitCtx(ctx); err != nil {
-		return fmt.Errorf("shut down with an error: %w", err)
+	var resErr error
+	if err := self.server.Shutdown(ctx); err != nil {
+		resErr = fmt.Errorf("server shutdown error: %w", err)
 	}
-	return nil
+	if err := <-self.serveErr; err != nil {
+		resErr = errors.Join(resErr, fmt.Errorf("serve error: %w", err))
+	}
+	return resErr
 }
 
-func (self *Server) Start() error {
+func (self *Server) Start(_ context.Context) error {
 	listener, err := net.Listen("tcp", "127.0.0.1:0")
 	if err != nil {
 		return fmt.Errorf("could not listen on a port: %w", err)

@@ -4,17 +4,14 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"net/url"
 	"os"
+	"os/signal"
 	"regexp"
-	"signal"
 	"strings"
-	"sync"
 	"syscall"
 	"time"
 
@@ -22,11 +19,10 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/lifecycle"
 	"git.alwaldend.com/alwaldend/src/tools/vault/pve_login/pve_login_proto"
 	"github.com/google/uuid"
 )
-
-var logger = log.New(os.Stderr, "com.alwaldend.src.tools.vault.pve_login ", log.Flags())
 
 type state struct {
 	ctx     context.Context
@@ -248,29 +244,11 @@ func createResponse(s *state) fp.Either[*al_proto.PluginStartResponse] {
 }
 
 type Plugin struct {
-	ctx   context.Context
-	err   error
-	errMx *sync.Mutex
-	wg    *sync.WaitGroup
+	ctx *al.CmdCtx
 }
 
-func (self *Plugin) Run() error {
-
-	self.wg.Go(func() {
-
-		if _, err := al_plugin.Serve(self.ctx, os.Stdin, os.Stdout, self).Get(); err != nil {
-			self.errMx.Lock()
-			defer self.errMx.Unlock()
-			self.err = errors.Join(self.err, fmt.Errorf("could not serve: %w", err))
-			logger.Printf("could not serve: %s", err)
-		}
-	})
-	self.wg.Wait()
-	if self.err != nil {
-		logger.Printf("finished with an error: %s", self.err)
-		return 1
-	}
-	return 0
+func NewPlugin(ctx *al.CmdCtx) *Plugin {
+	return &Plugin{ctx: ctx}
 }
 
 func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
@@ -289,12 +267,23 @@ func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRe
 	}))
 }
 
-func main() {
-	ctx, _ := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
-	p := &Plugin{
-		ctx:   ctx,
-		errMx: &sync.Mutex{},
-		wg:    &sync.WaitGroup{},
+func run(ctx *al.CmdCtx) error {
+	var lc lifecycle.Manager
+	plugin := NewPlugin(ctx)
+	server := al_plugin.NewPluginServer(ctx, plugin)
+	lc.Add(server)
+	if err := lc.Run(ctx.Ctx, time.Second*10); err != nil {
+		return fmt.Errorf("could not run: %w", err)
 	}
-	os.Exit(p.Run())
+	return nil
+}
+
+func main() {
+	shutdownCtx, cancel := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
+	defer cancel()
+	ctx := al.NewCmdCtx(shutdownCtx, "com.alwaldend.src.tools.vault.pve_login ")
+	if err := run(ctx); err != nil {
+		ctx.Logger.Printf("failed: %s", err)
+		os.Exit(1)
+	}
 }

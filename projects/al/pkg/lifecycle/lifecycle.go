@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"reflect"
 	"runtime/debug"
 	"sync"
 	"time"
@@ -57,17 +58,17 @@ type Manageable interface {
 type State int
 
 const (
-	StateInit State = iota
-	StateStart
-	StateStop
-	StateError
+	StateInit    State = 0
+	StateStarted State = 0x1
+	StateStopped State = 0x10
+	StateError   State = 0x100
 )
 
 var StateName = map[State]string{
-	StateInit:  "init",
-	StateStart: "start",
-	StateStop:  "stop",
-	StateError: "error",
+	StateInit:    "init",
+	StateStarted: "started",
+	StateStopped: "stopped",
+	StateError:   "error",
 }
 
 type Manager struct {
@@ -75,23 +76,27 @@ type Manager struct {
 	managed      []Manageable
 	managedState []State
 	managedErrs  []error
-	state        State
 }
 
 var _ Manageable = (*Manager)(nil)
 
-func (self *Manager) Add(vals ...Manageable) {
+func (self *Manager) AddState(state State, vals ...Manageable) {
 	self.mx.Lock()
 	defer self.mx.Unlock()
-	self.managed = append(self.managed, vals...)
+	for _, val := range vals {
+		self.managed = append(self.managed, val)
+		self.managedState = append(self.managedState, state)
+		self.managedErrs = append(self.managedErrs, nil)
+	}
+}
+
+func (self *Manager) Add(vals ...Manageable) {
+	self.AddState(StateInit, vals...)
 }
 
 func (self *Manager) Run(ctx context.Context, stopTimeout time.Duration) error {
-	if self.state != StateInit {
-		return fmt.Errorf("cannot start from %s", StateName[self.state])
-	}
 	if err := self.Start(ctx); err != nil {
-		return fmt.Errorf("could not start: %w", err)
+		return fmt.Errorf("start error: %w", err)
 	}
 	<-ctx.Done()
 	if err := self.StopTimeout(stopTimeout); err != nil {
@@ -104,93 +109,88 @@ func (self *Manager) StopTimeout(timeout time.Duration) error {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 	if err := self.Stop(ctx); err != nil {
-		return fmt.Errorf("stop error: %w", err)
+		return fmt.Errorf("could not stop with timeout: %w", err)
 	}
 	return nil
 }
 
 func (self *Manager) Start(ctx context.Context) error {
-	self.mx.Lock()
-	defer self.mx.Unlock()
-	if self.state != StateInit {
-		return fmt.Errorf("cannot start from %s", StateName[self.state])
-	}
-	if len(self.managed) != 0 {
-		if err := self.start(ctx, self.managed); err != nil {
-			return fmt.Errorf("could not start: %w", err)
-		}
-	}
-	self.state = StateStart
-	return nil
-}
-
-func (self *Manager) start(ctx context.Context, vals []Manageable) error {
-	res := make(chan error, len(vals))
-	for _, start := range vals {
-		go lifecycleFunc(start.Start)(ctx, res)
-	}
-	var err error
-	for curErr := range res {
-		err = errors.Join(err, curErr)
-	}
-	if err != nil {
-		return fmt.Errorf("start failed: %w", err)
+	if err := self.transition(ctx, StateInit, StateStarted, func(m Manageable) lifecycleFunc { return m.Start }); err != nil {
+		return fmt.Errorf("could not start: %w", err)
 	}
 	return nil
 }
 
 func (self *Manager) Stop(ctx context.Context) error {
+	if err := self.transition(ctx, StateStarted, StateStopped, func(m Manageable) lifecycleFunc { return m.Stop }); err != nil {
+		return fmt.Errorf("could not stop: %w", err)
+	}
+	return nil
+}
+
+func (self *Manager) transition(ctx context.Context, fromState State, targetState State, selector selectorFunc) error {
 	self.mx.Lock()
 	defer self.mx.Unlock()
-	if self.state != StateStart {
-		return fmt.Errorf("cannot stop in state %s", StateName[self.state])
-	}
-	if len(self.managed) != 0 {
-		if err := self.stop(ctx); err != nil {
-			return err
+	var wg sync.WaitGroup
+	res := make([]error, len(self.managed))
+	for i, managed := range self.managed {
+		if self.managedState[i] != fromState {
+			continue
 		}
-	}
-	self.state = StateStop
-	return nil
-}
-
-func (self *Manager) stop(ctx context.Context) error {
-	res := make(chan error, len(self.managed))
-	for i, stop := range self.managed {
-		go lifecycleFunc(stop.Stop)(ctx, res)
-	}
-	var err error
-	for curErr := range res {
-		err = errors.Join(err, curErr)
-	}
-	if err != nil {
-		return fmt.Errorf("stop failed: %w", err)
-	}
-	return nil
-}
-
-func lifecycleFunc(f func(context.Context) error) func(context.Context, chan error) {
-	run := func(ctx context.Context, res chan error) {
-		defer func() {
-			if r := recover(); r != nil {
-				switch rTyped := r.(type) {
-				case error:
-					res <- fmt.Errorf("lifecycle function paniced: %s\n%s: %w", rTyped, string(debug.Stack()), rTyped)
-				default:
-					res <- fmt.Errorf("lifecycle function paniced: %s\n%s", r, string(debug.Stack()))
-				}
+		name := objName(managed)
+		if err := self.managedErrs[i]; err != nil {
+			res[i] = fmt.Errorf("could not transition %s: already failed: %w", name, self.managedErrs[i])
+			continue
+		}
+		wg.Go(func() {
+			if err := rescueLifecycleFunc(selector(managed))(ctx); err != nil {
+				self.managedErrs[i] = err
+				self.managedState[i] = StateError
+				res[i] = fmt.Errorf("could not transition %s: %w", name, err)
+			} else {
+				self.managedState[i] = targetState
 			}
-		}()
-		res <- f(ctx)
+		})
 	}
-	return func(ctx context.Context, res chan error) {
+	wg.Wait()
+	if err := errors.Join(res...); err != nil {
+		return fmt.Errorf("could not transition from %s to %s: %w", StateName[fromState], StateName[targetState], err)
+	}
+	return nil
+}
+
+type lifecycleFunc = func(context.Context) error
+type selectorFunc = func(Manageable) lifecycleFunc
+
+func rescueLifecycleFunc(f func(context.Context) error) func(context.Context) error {
+	return func(ctx context.Context) error {
 		local := make(chan error, 1)
-		go run(ctx, local)
+		go func() {
+			defer func() {
+				if r := recover(); r != nil {
+					switch rTyped := r.(type) {
+					case error:
+						local <- fmt.Errorf("lifecycle panic: %s\n%s: %w", rTyped, string(debug.Stack()), rTyped)
+					default:
+						local <- fmt.Errorf("lifecycle panic: %s\n%s", r, string(debug.Stack()))
+					}
+				}
+			}()
+			local <- f(ctx)
+		}()
 		select {
 		case err := <-local:
-			res <- err
+			return err
 		case <-ctx.Done():
-			res <- fmt.Errorf("timed out")
+			return fmt.Errorf("timed out")
 		}
+	}
+}
+
+func objName(v any) string {
+	if t := reflect.TypeOf(v); t.Kind() == reflect.Pointer {
+		return "*" + t.Elem().Name()
+	} else {
+		return t.Name()
 	}
 }

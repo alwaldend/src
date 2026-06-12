@@ -1,13 +1,8 @@
 package al_plugin
 
 import (
-	"context"
-	"errors"
 	"fmt"
 	"io"
-	"log"
-	"maps"
-	"slices"
 	"strings"
 	"sync"
 
@@ -16,6 +11,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/lifecycle"
 	"github.com/bazelbuild/rules_go/go/runfiles"
+	"google.golang.org/protobuf/proto"
 )
 
 type pluginState struct {
@@ -26,7 +22,6 @@ type pluginState struct {
 }
 
 type Manager struct {
-	logger    *log.Logger
 	config    *al_proto.Config
 	run       *runfiles.Runfiles
 	plugins   map[string]*pluginState
@@ -52,24 +47,26 @@ func NewManager(ctx *al.CmdCtx, config *al_proto.Config) (*Manager, error) {
 	return &Manager{
 		config:  config,
 		run:     run,
-		logger:  log.New(ctx.Stderr, "com.alwaldend.src.projects.al.pkg.al_plugin.Manager ", ctx.LogFlags),
 		ctx:     ctx,
 		plugins: map[string]*pluginState{},
 	}, nil
 }
 
-func (self *Manager) Stop(ctx context.Context) error {
-	if err := self.lc.Stop(ctx); err != nil {
-		return fmt.Errorf("stop error: %w", err)
-	}
-	return nil
+func (self *Manager) Lifecycle() *lifecycle.Manager {
+	return &self.lc
 }
 
-func (self *Manager) Start(ctx context.Context) error {
-	if err := self.lc.Start(ctx); err != nil {
-		return fmt.Errorf("stop error: %w", err)
+func (self *Manager) Env() []string {
+	res := []string{}
+	for _, plugin := range self.plugins {
+		if resp, ok := plugin.client.StartResponse(); ok {
+			for k, v := range resp.Env {
+				res = append(res, fmt.Sprintf("%s=%s", k, v))
+			}
+		}
+
 	}
-	return nil
+	return res
 }
 
 func (self *Manager) AddLabels(labelArgs []string) error {
@@ -88,7 +85,7 @@ func (self *Manager) AddLabels(labelArgs []string) error {
 			return fmt.Errorf("could not create plugin %s: %w", plugin.Name, err)
 		}
 		self.plugins[plugin.Name] = state
-		self.lc.AddRunnable(state.client)
+		self.lc.Add(state.client)
 	}
 	for i, call := range self.config.PluginCalls {
 		if !labelsMatch(call.Labels, labels) {
@@ -108,28 +105,23 @@ func (self *Manager) AddLabels(labelArgs []string) error {
 			if err != nil {
 				return fmt.Errorf("could not find plugin %s: %w", call.Plugin, err)
 			}
-			plugin = &pluginState{
-				config: pluginConfig,
-				calls:  map[string]*al_proto.PluginCall{},
+			plugin, err = self.newPlugin(pluginConfig)
+			if err != nil {
+				return fmt.Errorf("could not create plugin for call %s: %w", call.Name, err)
 			}
 			self.plugins[pluginConfig.Name] = plugin
+			self.lc.Add(plugin.client)
 		}
 		if _, ok := plugin.calls[call.Name]; !ok {
 			plugin.calls[call.Name] = call
+			plugin.config.Calls = append(plugin.config.Calls, call)
 		}
 	}
 	return nil
 }
 
-func (self *Manager) Start(ctx context.Context) error {
-	res, err := self.startPlugins(ctx, slices.Collect(maps.Values(plugins)))
-	if err != nil {
-		return fmt.Errorf("could not start plugins: %w", err)
-	}
-	return res
-}
-
 func (self *Manager) newPlugin(config *al_proto.PluginConfig) (*pluginState, error) {
+	config = proto.CloneOf(config)
 	client, err := NewPluginClient(self.ctx, self.run, self.config, config)
 	if err != nil {
 		return nil, fmt.Errorf("could not create client: %w", err)
