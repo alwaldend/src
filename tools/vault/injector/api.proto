@@ -26,6 +26,11 @@ message Op {
   map<string, string> data = 5;
 }
 
+message VaultSsh {
+  string backend = 1;
+  int64 ttl = 2;
+}
+
 message VaultEnv {
   // Vault connection
   string conn = 1;
@@ -54,6 +59,8 @@ message Resource {
     File file = 7;
     // Vault environment variables
     VaultEnv vault_env = 9;
+    // Ssh key signed by Vautl
+    VaultSsh vault_ssh = 10;
   }
 }
 

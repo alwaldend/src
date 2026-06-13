@@ -4,12 +4,15 @@ import (
 	"context"
 	"fmt"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 	"git.alwaldend.com/alwaldend/src/tools/vault/injector/injector_proto"
 )
 
 type OpFetcher struct {
 	vault *al.VaultStore
+}
+
+func NewOpFetcher(vault *al.VaultStore) *OpFetcher {
+	return &OpFetcher{vault}
 }
 
 var _ ResourceFetcher = (*OpFetcher)(nil)
@@ -18,14 +21,14 @@ func (self *OpFetcher) String() string {
 	return "com.alwaldend.src.tools.vault.injector.OpFetcher"
 }
 
-func (self *OpFetcher) Get(ctx context.Context, r *injector_proto.Resource, d []*ResourceResult) fp.Either[*ResourceResult] {
+func (self *OpFetcher) Get(ctx context.Context, r *injector_proto.Resource, d []*ResourceResult) (*ResourceResult, error) {
 	op := r.GetOp()
 	if op == nil {
-		return fp.Left[*ResourceResult](fmt.Errorf("missing op config"))
+		return nil, fmt.Errorf("missing op config")
 	}
 	client, err := self.vault.Client(ctx, r.VaultConn, r.VaultAuth).Get()
 	if err != nil {
-		return fp.Left[*ResourceResult](fmt.Errorf("could not create vault client for op %s: %w", r.Name, err))
+		return nil, fmt.Errorf("could not create vault client for op %s: %w", r.Name, err)
 	}
 	if op.Method == "" || op.Method == "write" {
 		data := map[string]any{}
@@ -34,11 +37,11 @@ func (self *OpFetcher) Get(ctx context.Context, r *injector_proto.Resource, d []
 		}
 		resp, err := client.Client.Logical().Write(op.Path, data)
 		if err != nil {
-			return fp.Left[*ResourceResult](fmt.Errorf("write error: %w", err))
+			return nil, fmt.Errorf("write error: %w", err)
 		}
 		res := &ResourceResult{Name: r.Name, Data: resp.Data}
-		return fp.Right(res)
+		return res, nil
 	} else {
-		return fp.Left[*ResourceResult](fmt.Errorf("invalid method %s", op.Method))
+		return nil, fmt.Errorf("invalid method %s", op.Method)
 	}
 }

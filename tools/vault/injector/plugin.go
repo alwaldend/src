@@ -25,14 +25,13 @@ func NewPlugin(ctx *al.CmdCtx, cleaner *Cleaner) *Plugin {
 func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
 	vault := al.NewVault(req.Config)
 	templater := &Templater{}
-	manager := NewResourceManager(
-		self.ctx,
-		&EnvFetcher{templater: templater},
-		&FileFetcher{vault: vault, templater: templater, cleaner: self.cleaner},
-		&OpFetcher{vault: vault},
-		&SecretFetcher{vault: vault},
-		&VaultEnvFetcher{templater: templater, config: req.Config, vault: vault},
-	)
+	opFetcher := NewOpFetcher(vault)
+	envFetcher := NewEnvFetcher(templater)
+	fileFetcher := NewFileFetcher(vault, templater, self.cleaner)
+	secretFetcher := NewSecretFetcher(vault)
+	sshFetcher := NewVaultSshFetcher(self.ctx, req.Config, vault, opFetcher, self.cleaner)
+	vaultEnvFetcher := NewVaultEnvFetcher(templater, req.Config, vault)
+	manager := NewResourceManager(self.ctx, envFetcher, fileFetcher, opFetcher, secretFetcher, vaultEnvFetcher, sshFetcher)
 	config := &injector_proto.Config{}
 	if _, err := al.FromPbJsonToPb(req.Plugin.Data, config).Get(); err != nil {
 		return nil, fmt.Errorf("could not parse plugin data: %w", err)

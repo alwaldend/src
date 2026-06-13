@@ -290,6 +290,8 @@ func ToPbJson(val any) fp.Either[*al_proto.Json] {
 		return fp.Right(&al_proto.Json{Val: &al_proto.Json_ValBool{ValBool: valTyped}})
 	case int64:
 		return fp.Right(&al_proto.Json{Val: &al_proto.Json_ValInt64{ValInt64: valTyped}})
+	case float64:
+		return fp.Right(&al_proto.Json{Val: &al_proto.Json_ValFloat{ValFloat: valTyped}})
 	case []any:
 		res := []*al_proto.Json{}
 		for _, v := range valTyped {
@@ -327,6 +329,8 @@ func FromPbJson(val *al_proto.Json) fp.Result[any] {
 		return fp.Right[any](valTyped.ValBool)
 	case *al_proto.Json_ValInt64:
 		return fp.Right[any](valTyped.ValInt64)
+	case *al_proto.Json_ValFloat:
+		return fp.Right[any](valTyped.ValFloat)
 	case *al_proto.Json_ValList:
 		res := []any{}
 		for _, v := range valTyped.ValList.Val {

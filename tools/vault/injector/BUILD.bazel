@@ -31,6 +31,7 @@ go_library(
         "env.go",
         "cleaner.go",
         "vault_env.go",
+        "vault_ssh.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/injector",
     visibility = ["//:__subpackages__"],

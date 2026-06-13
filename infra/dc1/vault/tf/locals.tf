@@ -5,7 +5,7 @@ locals {
   month_in_seconds = 2629746
   approles = {
     src_infra_dc1_consul1       = module.src_infra_dc1_consul1_approle
-    src_infra_dc1_forgejo1       = module.src_infra_dc1_forgejo1_approle
+    src_infra_dc1_forgejo1      = module.src_infra_dc1_forgejo1_approle
     src_infra_dc1_pve1          = module.src_infra_dc1_pve1_approle
     src_infra_dc1_router1       = module.src_infra_dc1_router1_approle
     src_infra_dc1_vault         = module.src_infra_dc1_vault_approle

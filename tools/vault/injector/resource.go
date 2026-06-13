@@ -21,7 +21,7 @@ type ResourceResult struct {
 }
 
 type ResourceFetcher interface {
-	Get(ctx context.Context, r *injector_proto.Resource, d []*ResourceResult) fp.Either[*ResourceResult]
+	Get(ctx context.Context, r *injector_proto.Resource, d []*ResourceResult) (*ResourceResult, error)
 	String() string
 }
 
@@ -31,6 +31,7 @@ type ResourceManager struct {
 	op       *OpFetcher
 	secret   *SecretFetcher
 	vaultEnv *VaultEnvFetcher
+	vaultSsh *VaultSshFetcher
 	ctx      *al.CmdCtx
 }
 
@@ -41,6 +42,7 @@ func NewResourceManager(
 	op *OpFetcher,
 	secret *SecretFetcher,
 	vaultEnv *VaultEnvFetcher,
+	vaultSsh *VaultSshFetcher,
 ) *ResourceManager {
 	return &ResourceManager{
 		ctx:      ctx,
@@ -49,6 +51,7 @@ func NewResourceManager(
 		op:       op,
 		secret:   secret,
 		vaultEnv: vaultEnv,
+		vaultSsh: vaultSsh,
 	}
 }
 
@@ -56,7 +59,6 @@ func (self *ResourceManager) get(ctx context.Context, config *injector_proto.Con
 	if res, ok := cache[resConfig.Name]; ok {
 		return fp.Right(res)
 	}
-	self.ctx.Logger.Printf("fetching resource %s", resConfig.Name)
 	deps := []*ResourceResult{}
 	for _, curR := range config.Res {
 		if curR.Name == resConfig.Name || !slices.Contains(resConfig.Deps, curR.Name) {
@@ -80,10 +82,13 @@ func (self *ResourceManager) get(ctx context.Context, config *injector_proto.Con
 		fetcher = self.secret
 	case *injector_proto.Resource_VaultEnv:
 		fetcher = self.vaultEnv
+	case *injector_proto.Resource_VaultSsh:
+		fetcher = self.vaultSsh
 	default:
 		return fp.Left[*ResourceResult](fmt.Errorf("resource %s is missing config", resConfig.Name))
 	}
-	res, err := fetcher.Get(ctx, resConfig, deps).Get()
+	self.ctx.Logger.Printf("fetching resource %s using %s", resConfig.Name, fetcher)
+	res, err := fetcher.Get(ctx, resConfig, deps)
 	if err != nil {
 		return fp.Left[*ResourceResult](fmt.Errorf("could not execute %s: %w", fetcher, err))
 	}

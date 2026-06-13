@@ -53,6 +53,7 @@ func (self *Cleaner) Start(_ context.Context) error {
 		if !ok {
 			return true
 		}
+		self.ctx.Logger.Printf("scheduling for cleaning: %s", paths)
 		for _, path := range paths {
 			self.lc.AddState(lifecycle.StateStarted, lifecycle.StoppableFunc(func(_ context.Context) error {
 				self.ctx.Logger.Printf("cleaning path %s", path)

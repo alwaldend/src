@@ -2,6 +2,37 @@ local lib = require("al_lib")
 
 local M = {}
 
+
+function M.ansible_keys(t)
+    local name, vault_ssh, labels = t.name or "ansible_keys", t.vault_ssh, t.labels
+    local res = {
+        {
+            name = name,
+            vault_ssh = vault_ssh,
+        },
+        {
+            name = "ANSIBLE_PRIVATE_KEY_FILE",
+            deps = { name },
+            env = {
+                value = "{{ .Last.Data.private_key }}",
+            }
+        },
+        {
+            name = "SSH_AUTH_SOCK",
+            deps = { name },
+            env = {
+                value = ""
+            }
+        }
+    }
+    lib.plugin_call({
+        name = name,
+        plugin = "injector",
+        labels = labels,
+        data = { res = res }
+    })
+end
+
 function M.server_cert(t)
     local name, role, labels, data = t.name, t.role, t.labels, t.data
     local cert_name = "AL_SERVER_CERT_" .. name .. "_CERT"

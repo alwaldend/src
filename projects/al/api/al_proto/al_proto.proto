@@ -68,6 +68,7 @@ message Json {
     string val_string = 2;
     bool val_bool = 3;
     int64 val_int64 = 4;
+    double val_float = 7;
     JsonMap val_map = 5;
     JsonList val_list = 6;
   }

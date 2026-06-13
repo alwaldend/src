@@ -1,10 +1,20 @@
 local lib = require("al_lib")
+local infra = require("infra.al_lib")
 
 lib.vault_auth({
     name = "default",
     approle = {
         name = "src_infra_dc1_forgejo1",
     },
+})
+
+infra.ansible_keys({
+    name = "ansible_keys",
+    labels = { ansible = "1" },
+    vault_ssh = {
+        backend = "ssh/clients/sign/admins",
+        ttl = 60 * 60 * 2
+    }
 })
 
 lib.plugin_call({
