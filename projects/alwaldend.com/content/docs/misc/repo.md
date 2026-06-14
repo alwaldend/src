@@ -139,3 +139,13 @@ bazel run //tools/pnpm -- --dir "${PWD}" install
 ```
 
 Documentation: https://github.com/aspect-build/rules_js/blob/main/docs/pnpm.md#update_pnpm_lock
+
+## Ssh config
+
+Proxmox VMs have Kerberos enabled, which slows SSH down, you need to disable it
+locally
+
+`~/.ssh/config.d/config`:
+```
+GSSAPIAuthentication no
+```

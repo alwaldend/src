@@ -101,17 +101,6 @@ func (self *VaultSshFetcher) Get(ctx context.Context, r *injector_proto.Resource
 	if err := os.WriteFile(publicKeySigned, []byte(publicKeySignedContent), 0o600); err != nil {
 		return nil, fmt.Errorf("could not write signed public key to file: %w", err)
 	}
-	// cmdSock := exec.Command(
-	// 	"sh",
-	//        "-c",
-	// 	`out=$(ssh-agent -s); eval "${out}"; echo "${SSH_AUTH_SOCK}"`,
-	// )
-	// cmd.Stderr = self.ctx.Stderr
-	//    cmd.Stdin = self.ctx.Stdin
-	//    sock, err := cmdSock.Output()
-	// if err != nil {
-	// 	return nil, fmt.Errorf("could not run the ssh-agent: %w", err)
-	// }
 	res := &ResourceResult{
 		Name: r.Name,
 		Data: map[string]string{
@@ -120,7 +109,6 @@ func (self *VaultSshFetcher) Get(ctx context.Context, r *injector_proto.Resource
 			"private_key":       privateKey,
 			"public_key":        publicKey,
 			"public_key_signed": publicKeySigned,
-			// "ssh_auth_sock": string(sock),
 		},
 	}
 	return res, nil
