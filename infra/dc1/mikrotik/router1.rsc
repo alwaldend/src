@@ -11,7 +11,7 @@ set [ find default-name=ether3 ] comment=ether3
 set [ find default-name=ether4 ] comment=ether4
 set [ find default-name=ether5 ] comment=ether5
 /interface ethernet switch
-set 0 cpu-flow-control=yes
+set switch1 cpu-flow-control=yes
 /interface list
 add comment=defconf name=WAN
 add comment=defconf name=LAN
@@ -25,6 +25,7 @@ add name=accept-input-mikrotik-neighbor-discovery
 add name=accept-forward-LAN
 add name=accept-output-LAN
 add name=accept-input-NTP
+add name=accept-input-API
 /ip pool
 add comment=bridge1 name=bridge1 ranges=192.168.1.10-192.168.1.254
 add comment=bridge2 name=bridge2 ranges=192.168.2.10-192.168.2.254
@@ -33,6 +34,8 @@ add address-pool=bridge1 comment=bridge1 interface=bridge1 lease-time=10m name=b
 add address-pool=bridge2 interface=bridge2 name=bridge2
 /ipv6 pool
 add name=dc01 prefix=fd2e:546d:5738::/48 prefix-length=64
+/user group
+add comment=src_infra_dns name=src_infra_dns policy=read,write,api,rest-api,!local,!telnet,!ssh,!ftp,!reboot,!policy,!test,!winbox,!password,!web,!sniff,!sensitive,!romon
 /interface bridge port
 add bridge=bridge1 comment=bridge1-ether2 interface=ether2
 add bridge=bridge1 comment=bridge1-ether3 interface=ether3
@@ -62,12 +65,13 @@ add interface=bridge1 list=accept-input-mikrotik-neighbor-discovery
 add interface=bridge1 list=accept-forward-LAN
 add interface=bridge1 list=accept-output-LAN
 add interface=bridge1 list=accept-input-NTP
+add interface=bridge1 list=accept-input-API
 /interface ovpn-server server
 add mac-address=FE:B3:B4:C4:A4:48 name=ovpn-server1
 /ip address
 add address=192.168.1.1/24 comment="bridge1 (LAN)" interface=bridge1 network=192.168.1.0
 add address=192.168.2.1/24 comment="bridge2 (Wireless)" interface=bridge2 network=192.168.2.0
-add address=192.168.10.1/24 comment=pve1.dc1.alwaldend.com interface=bridge1 network=192.168.10.0
+add address=192.168.10.1/24 comment=host1.pve1.dc1.alwaldend.com interface=bridge1 network=192.168.10.0
 /ip dhcp-client
 add comment=defconf interface=ether1 name=ether1 use-peer-dns=no
 /ip dhcp-server lease
@@ -79,6 +83,61 @@ add address=192.168.1.0/24 comment=defconf dns-server=192.168.1.1 gateway=192.16
 add address=192.168.2.0/24 dns-server=192.168.2.1 gateway=192.168.2.1
 /ip dns
 set allow-remote-requests=yes servers=1.1.1.2,1.0.0.2 use-doh-server=https://odoh.cloudflare-dns.com/dns-query verify-doh-cert=yes
+/ip dns static
+add name=alwaldend.com ns=malavika.ns.cloudflare.com ttl=5m type=NS
+add name=alwaldend.com ns=terry.ns.cloudflare.com ttl=5m type=NS
+add address=185.199.108.153 name=alwaldend.com ttl=5m type=A
+add address=185.199.109.153 name=alwaldend.com ttl=5m type=A
+add address=185.199.110.153 name=alwaldend.com ttl=5m type=A
+add address=185.199.111.153 name=alwaldend.com ttl=5m type=A
+add address=2606:50c0:8000::153 name=alwaldend.com ttl=5m type=AAAA
+add address=2606:50c0:8001::153 name=alwaldend.com ttl=5m type=AAAA
+add address=2606:50c0:8002::153 name=alwaldend.com ttl=5m type=AAAA
+add address=2606:50c0:8003::153 name=alwaldend.com ttl=5m type=AAAA
+add mx-exchange=mail.protonmail.ch mx-preference=10 name=alwaldend.com ttl=5m type=MX
+add mx-exchange=mailsec.protonmail.ch mx-preference=20 name=alwaldend.com ttl=5m type=MX
+add name=alwaldend.com text="_globalsign-domain-verification=0QBJgVV_uwcFLTi1Rot3bb1LyJ5uW1WD0ygvIS4OM5" ttl=5m type=TXT
+add name=alwaldend.com text="protonmail-verification=bdcd133d3f472fa17f66328950d02fbeae1bef75" ttl=5m type=TXT
+add name=alwaldend.com text="v=spf1 include:_spf.protonmail.ch ~all" ttl=5m type=TXT
+add name=_dmarc.alwaldend.com text="v=DMARC1; p=quarantine; adkim=s" ttl=5m type=TXT
+add cname=protonmail.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch name=protonmail._domainkey.alwaldend.com ttl=5m type=CNAME
+add cname=protonmail2.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch name=protonmail2._domainkey.alwaldend.com ttl=5m type=CNAME
+add cname=protonmail3.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch name=protonmail3._domainkey.alwaldend.com ttl=5m type=CNAME
+add address=192.168.1.222 name=bm1.dc1.alwaldend.com ttl=5m type=A
+add address=192.168.1.216 name=bm2.dc1.alwaldend.com ttl=5m type=A
+add address=fd2e:546d:5738:0:365a:60ff:fe08:6daa name=bm2.dc1.alwaldend.com ttl=10m type=AAAA
+add address=192.168.1.218 name=bm3.dc1.alwaldend.com ttl=5m type=A
+add address=fd2e:546d:5738:0:e2be:3ff:fe2b:9a1a name=bm3.dc1.alwaldend.com ttl=10m type=AAAA
+add address=192.168.10.20 name=consul1.dc1.alwaldend.com ttl=5m type=A
+add address=192.168.10.21 name=consul1.dc1.alwaldend.com ttl=5m type=A
+add address=192.168.10.22 name=consul1.dc1.alwaldend.com ttl=5m type=A
+add address=192.168.10.20 name=host1.consul1.dc1.alwaldend.com ttl=5m type=A
+add address=192.168.10.21 name=host2.consul1.dc1.alwaldend.com ttl=5m type=A
+add address=192.168.10.22 name=host3.consul1.dc1.alwaldend.com ttl=5m type=A
+add cname=bm2.dc1.alwaldend.com name=host1.pve1.dc1.alwaldend.com ttl=10m type=CNAME
+add address=192.168.10.10 name=cloudinit-test.vm.pve1.dc1.alwaldend.com ttl=5m type=A
+add address=192.168.1.1 name=router1.dc1.alwaldend.com ttl=5m type=A
+add address=fd2e:546d:5738::1 name=router1.dc1.alwaldend.com ttl=10m type=AAAA
+add address=192.168.1.254 name=switch1.dc1.alwaldend.com ttl=5m type=A
+add address=192.168.1.218 name=vault.dc1.alwaldend.com ttl=5m type=A
+add address=192.168.10.30 name=vault.dc1.alwaldend.com ttl=5m type=A
+add address=192.168.10.31 name=vault.dc1.alwaldend.com ttl=5m type=A
+add cname=bm3.dc1.alwaldend.com name=host1.vault.dc1.alwaldend.com ttl=10m type=CNAME
+add address=192.168.10.30 name=host2.vault.dc1.alwaldend.com ttl=5m type=A
+add address=192.168.10.31 name=host3.vault.dc1.alwaldend.com ttl=5m type=A
+add mx-exchange=mx1.simplelogin.co mx-preference=10 name=simplelogin.alwaldend.com ttl=3h type=MX
+add mx-exchange=mx2.simplelogin.co mx-preference=20 name=simplelogin.alwaldend.com ttl=3h type=MX
+add name=simplelogin.alwaldend.com text="sl-verification=bxfzzfjiggzsxyzxhhmkmjqkaskjgy" ttl=3h type=TXT
+add name=simplelogin.alwaldend.com text="v=spf1 include:simplelogin.co ~all" ttl=3h type=TXT
+add name=_dmarc.simplelogin.alwaldend.com text="v=DMARC1; p=quarantine; pct=100; adkim=s; aspf=s" ttl=3h type=TXT
+add cname=dkim._domainkey.simplelogin.co name=dkim._domainkey.simplelogin.alwaldend.com ttl=3h type=CNAME
+add cname=dkim02._domainkey.simplelogin.co name=dkim02._domainkey.simplelogin.alwaldend.com ttl=3h type=CNAME
+add cname=dkim03._domainkey.simplelogin.co name=dkim03._domainkey.simplelogin.alwaldend.com ttl=3h type=CNAME
+add cname=alwaldend.com name=www.alwaldend.com ttl=5m type=CNAME
+add mx-exchange=mx.yandex.net mx-preference=10 name=yandex.alwaldend.com ttl=6h type=MX
+add name=yandex.alwaldend.com text="v=spf1 redirect=_spf.yandex.net" ttl=5m type=TXT
+add name=yandex.alwaldend.com text="yandex-verification: b83672f59b3dbe16" ttl=5m type=TXT
+add name=mail._domainkey.yandex.alwaldend.com text="v=DKIM1; k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcYzFVgkeDOhaIIkWM8gNQjxVsv0/aXfU+ax5urB5y6hA6lSjRnjRo6tm0bXbkOJf41GmiwMNgdXpwRtzgzAlX1i2aJbtEr4b9jzibEGLQ7Cvqs44bOYES9f/K3ueQpnvdTOJmFqlRReFL7ZrUyDFCoQ7f4+7h4i8s01cCcRrt5wIDAQAB" ttl=5m type=TXT
 /ip firewall filter
 add action=accept chain=input comment="defconf: accept established,related,untracked" connection-state=established,related,untracked
 add action=drop chain=input comment="defconf: drop invalid" connection-state=invalid log-prefix=drop-invalid
@@ -110,8 +169,9 @@ add action=masquerade chain=srcnat comment="defconf: masquerade" ipsec-policy=ou
 /ip ipsec profile
 set [ find default=yes ] dpd-interval=2m dpd-maximum-failures=5
 /ip service
-set www disabled=yes
-set www-ssl certificate=ssl-web-management disabled=no
+set www-ssl certificate=alwaldend.com_acme disabled=no
+set reverse-proxy certificate=alwaldend.com_acme
+set api-ssl certificate=alwaldend.com_acme
 /ipv6 address
 add address=::1 from-pool=dc01 interface=bridge1
 add address=::1:0:0:0:1 from-pool=dc01 interface=bridge2
