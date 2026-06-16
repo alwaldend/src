@@ -5,16 +5,16 @@ go_library(
     srcs = [
         "iolistener.go",
         "manager.go",
-        "plugin_server.go",
         "plugin_client.go",
+        "plugin_server.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/pkg/al_plugin",
     visibility = ["//:__subpackages__"],
     deps = [
         "//projects/al/api/al_proto",
         "//projects/al/pkg/al",
-        "//projects/al/pkg/lifecycle",
         "//projects/al/pkg/fp",
+        "//projects/al/pkg/lifecycle",
         "@org_golang_google_grpc//:go_default_library",
         "@org_golang_google_grpc//credentials/insecure:go_default_library",
         "@org_golang_google_protobuf//encoding/protojson",

@@ -1,5 +1,5 @@
-load("//tools/docs:defs.bzl", "docs_filegroup")
 load("@rules_license//rules:license.bzl", "license")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
     name = "docs",
@@ -13,7 +13,7 @@ docs_filegroup(
 
 filegroup(
     name = "license",
-    srcs = ["LICENSE.txt"]
+    srcs = ["LICENSE.txt"],
 )
 
 license(

@@ -5,9 +5,9 @@ filegroup(
     srcs = [
         "dnsconfig.json",
         "//infra/dc1/consul1:dnsconfig",
+        "//infra/dc1/forgejo1:dnsconfig",
         "//infra/dc1/pve1:dnsconfig",
         "//infra/dc1/vault:dnsconfig",
-        "//infra/dc1/forgejo1:dnsconfig",
     ],
     visibility = ["//infra/dns:__pkg__"],
 )

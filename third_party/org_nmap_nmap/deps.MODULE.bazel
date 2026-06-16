@@ -1,0 +1,9 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "org_nmap_nmap",
+    build_file = "tools/bzl/build_files/general.BUILD.bazel",
+    integrity = "sha256-31Ekkv/RCOU6J6BvJthjW76J4OVpRV3I/+8FjANdUbI=",
+    strip_prefix = "nmap-7.99",
+    urls = ["https://nmap.org/dist/nmap-7.99.tar.bz2"],
+)

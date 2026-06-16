@@ -1,0 +1,17 @@
+load("@rules_foreign_cc//foreign_cc:configure.bzl", "configure_make")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//third_party:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+configure_make(
+    name = "org_nmap_nmap",
+    lib_source = "@org_nmap_nmap//:src_filegroup",
+)

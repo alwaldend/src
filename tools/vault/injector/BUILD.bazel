@@ -1,11 +1,11 @@
-load("@rules_go//go:def.bzl", "go_binary", "go_library")
-load("@rules_go//proto:def.bzl", "go_proto_library")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 load("@grpc-java//:java_grpc_library.bzl", "java_grpc_library")
 load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_library")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/proto/main/bzl:al_proto_docs.bzl", "al_proto_docs")
 
 docs_filegroup(
@@ -21,30 +21,30 @@ docs_filegroup(
 go_library(
     name = "injector_lib",
     srcs = [
+        "cleaner.go",
+        "env.go",
+        "file.go",
         "main.go",
+        "op.go",
+        "plugin.go",
         "resource.go",
         "secret.go",
-        "plugin.go",
-        "op.go",
-        "file.go",
         "templater.go",
-        "env.go",
-        "cleaner.go",
         "vault_env.go",
         "vault_ssh.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/injector",
     visibility = ["//:__subpackages__"],
     deps = [
+        ":injector_proto",
         "//projects/al/api/al_proto",
         "//projects/al/pkg/al",
+        "//projects/al/pkg/al_plugin",
         "//projects/al/pkg/fp",
         "//projects/al/pkg/lifecycle",
+        "@com_github_google_uuid//:uuid",
         "@com_github_hashicorp_vault_api//:api",
         "@org_golang_google_protobuf//proto",
-        "//projects/al/pkg/al_plugin",
-        ":injector_proto",
-        "@com_github_google_uuid//:uuid",
     ],
 )
 
@@ -54,7 +54,6 @@ go_binary(
     visibility = ["//:__subpackages__"],
 )
 
-
 al_proto_docs(
     name = "injector_proto_docs",
     src = "injector_proto.proto",
@@ -63,8 +62,8 @@ al_proto_docs(
 proto_library(
     name = "injector_proto_proto",
     srcs = ["api.proto"],
-    deps = ["@protobuf//:any_proto"],
     visibility = ["//visibility:public"],
+    deps = ["@protobuf//:any_proto"],
 )
 
 go_proto_library(

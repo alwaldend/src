@@ -9,9 +9,9 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/cmd/al",
     visibility = ["//:__subpackages__"],
     deps = [
-        "//projects/al/pkg/fp",
         "//projects/al/pkg/al",
         "//projects/al/pkg/al_plugin",
+        "//projects/al/pkg/fp",
         "//projects/al/pkg/lifecycle",
         "@com_github_spf13_cobra//:cobra",
     ],

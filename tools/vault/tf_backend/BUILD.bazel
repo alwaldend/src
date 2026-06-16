@@ -1,11 +1,11 @@
-load("@rules_go//go:def.bzl", "go_binary", "go_library")
-load("@rules_go//proto:def.bzl", "go_proto_library")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 load("@grpc-java//:java_grpc_library.bzl", "java_grpc_library")
 load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_library")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/proto/main/bzl:al_proto_docs.bzl", "al_proto_docs")
 
 docs_filegroup(
@@ -29,12 +29,12 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/tf_backend",
     visibility = ["//:__subpackages__"],
     deps = [
+        ":tf_backend_proto",
         "//projects/al/api/al_proto",
         "//projects/al/pkg/al",
         "//projects/al/pkg/al_plugin",
-        "//projects/al/pkg/lifecycle",
         "//projects/al/pkg/fp",
-        ":tf_backend_proto",
+        "//projects/al/pkg/lifecycle",
         "@com_github_google_uuid//:uuid",
         "@com_github_hashicorp_vault_api//:api",
     ],
@@ -54,8 +54,8 @@ al_proto_docs(
 proto_library(
     name = "tf_backend_proto_proto",
     srcs = ["api.proto"],
-    deps = ["@protobuf//:any_proto"],
     visibility = ["//visibility:public"],
+    deps = ["@protobuf//:any_proto"],
 )
 
 go_proto_library(

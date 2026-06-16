@@ -1,11 +1,11 @@
-load("@rules_go//go:def.bzl", "go_binary", "go_library")
-load("@rules_go//proto:def.bzl", "go_proto_library")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 load("@grpc-java//:java_grpc_library.bzl", "java_grpc_library")
 load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_library")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/proto/main/bzl:al_proto_docs.bzl", "al_proto_docs")
 
 docs_filegroup(
@@ -24,14 +24,14 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/tools/vault/pve_login",
     visibility = ["//:__subpackages__"],
     deps = [
+        ":pve_login_proto",
         "//projects/al/api/al_proto",
         "//projects/al/pkg/al",
+        "//projects/al/pkg/al_plugin",
         "//projects/al/pkg/fp",
         "//projects/al/pkg/lifecycle",
-        "@com_github_hashicorp_vault_api//:api",
-        "//projects/al/pkg/al_plugin",
-        ":pve_login_proto",
         "@com_github_google_uuid//:uuid",
+        "@com_github_hashicorp_vault_api//:api",
     ],
 )
 
@@ -41,7 +41,6 @@ go_binary(
     visibility = ["//:__subpackages__"],
 )
 
-
 al_proto_docs(
     name = "pve_login_proto_docs",
     src = "pve_login_proto.proto",
@@ -50,8 +49,8 @@ al_proto_docs(
 proto_library(
     name = "pve_login_proto_proto",
     srcs = ["api.proto"],
-    deps = ["@protobuf//:any_proto"],
     visibility = ["//visibility:public"],
+    deps = ["@protobuf//:any_proto"],
 )
 
 go_proto_library(

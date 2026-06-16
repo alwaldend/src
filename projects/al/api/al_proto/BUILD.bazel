@@ -26,8 +26,8 @@ al_proto_docs(
 proto_library(
     name = "al_proto_proto",
     srcs = ["al_proto.proto"],
-    deps = ["@protobuf//:any_proto"],
     visibility = ["//visibility:public"],
+    deps = ["@protobuf//:any_proto"],
 )
 
 go_proto_library(
