@@ -13,5 +13,5 @@ docs_filegroup(
 
 configure_make(
     name = "org_nmap_nmap",
-    lib_source = "@org_nmap_nmap//:src_filegroup",
+    lib_source = "@org_nmap_nmap",
 )

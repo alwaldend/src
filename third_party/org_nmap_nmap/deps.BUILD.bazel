@@ -1,0 +1,5 @@
+filegroup(
+    name = "org_nmap_nmap",
+    srcs = glob(["**"]),
+    visibility = ["//visibility:public"],
+)
