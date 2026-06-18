@@ -1,0 +1,9 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "org_kernel_headers",
+    build_file = "//third_party/org_kernel_headers:kernel.BUILD.bazel",
+    integrity = "sha256-V+3JpB78HKa3l6+o9KWHow2ir2vKc1brVuHhpK2iZdo=",
+    strip_prefix = "linux-7.0.12",
+    urls = ["https://cdn.kernel.org/pub/linux/kernel/v7.x/linux-7.0.12.tar.xz"],
+)

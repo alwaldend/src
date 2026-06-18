@@ -29,18 +29,6 @@ llvm.toolchain(
     },
     llvm_versions = VERSIONS,
 )
-llvm.toolchain_root(
-    name = "llvm_toolchain_with_sysroot",
-    label = "@llvm_toolchain//:BUILD",
-)
-llvm.target_toolchain_root(
-    name = "llvm_toolchain_with_sysroot",
-    label = "@llvm_toolchain//:BUILD",
-    targets = [
-        "linux-x86_64",
-        "linux-aarch64",
-    ],
-)
 llvm.sysroot(
     name = "llvm_toolchain_with_sysroot",
     label = "@org_chromium_sysroot_linux_x64//sysroot",
@@ -53,4 +41,4 @@ llvm.sysroot(
 )
 use_repo(llvm, "llvm_toolchain", "llvm_toolchain_with_sysroot")
 
-register_toolchains("@llvm_toolchain//:all", "@llvm_toolchain_with_sysroot//:all")
+register_toolchains("@llvm_toolchain_with_sysroot//:all")

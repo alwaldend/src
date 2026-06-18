@@ -456,3 +456,9 @@ alt_names = ["つくみず"]
 links = [
   { title = "wikipedia", url = "https://en.wikipedia.org/wiki/Tsukumizu" },
 ]
+
+[author.wizardly_dude]
+name = "Wizardly Dude"
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/559659" },
+]

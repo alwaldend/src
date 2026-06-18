@@ -1119,6 +1119,16 @@ links = [
 ]
 
 [[book]]
+title = "Explorer of Edregon"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/100744-explorer-of-edregon.jpg?time=1763178307"
+quality = "Ok, bland"
+reading = "Dropped, C20"
+authors = ["wizardly_dude"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/100744/explorer-of-edregon-book-5-complete" },
+]
+
+[[book]]
 title = "Path of the Deathless"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/122502-path-of-the-deathless-book-4-completed.jpg"
 quality = "Decent"

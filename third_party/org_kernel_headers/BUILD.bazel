@@ -1,0 +1,38 @@
+load("@rules_cc//cc:cc_test.bzl", "cc_test")
+load("@rules_foreign_cc//foreign_cc:defs.bzl", "make")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//third_party:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+filegroup(
+    name = "config",
+    srcs = ["config.txt"],
+)
+
+cc_test(
+    name = "include_test",
+    size = "small",
+    srcs = ["include_test.c"],
+    deps = [":org_kernel_headers"],
+)
+
+make(
+    name = "org_kernel_headers",
+    args = ["INSTALL_HDR_PATH=$$INSTALLDIR"],
+    build_data = [":config"],
+    env = {
+        "KCONFIG_CONFIG": "$(execpath :config)",
+    },
+    lib_source = "@org_kernel_headers",
+    out_headers_only = True,
+    targets = ["headers_install"],
+    visibility = ["//:__subpackages__"],
+)
