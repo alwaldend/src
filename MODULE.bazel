@@ -42,10 +42,11 @@ bazel_dep(name = "contrib_rules_jvm", version = "0.32.0")
 bazel_dep(name = "rules_cc", version = "0.2.17")
 bazel_dep(name = "rules_foreign_cc", version = "0.15.1")
 bazel_dep(name = "toolchains_llvm", version = "1.8.0")
-bazel_dep(name = "org_openssl_openssl", version = "3.5.0")
-bazel_dep(name = "us_nasm_nasm", version = "2.15.05")
 
 bazel_dep(name = "hedron_compile_commands", dev_dependency = True)
+
+# Perl
+bazel_dep(name = "rules_perl", version = "1.1.1")
 
 # Kotlin
 bazel_dep(name = "rules_kotlin", version = "2.3.20")
@@ -60,7 +61,6 @@ bazel_dep(name = "rules_oci", version = "2.3.0")
 bazel_dep(name = "rules_distroless", version = "0.6.2")
 
 # Tools
-bazel_dep(name = "com_github_georgewfraser_java_language_server", version = "2025.520.0")
 bazel_dep(name = "com_alwaldend_com_github_infinitimeorg_infinitime")
 
 # Local
@@ -148,10 +148,13 @@ include("//tools/stylua:include.MODULE.bazel")
 include("//tools/taplo:include.MODULE.bazel")
 include("//tools/hugo:include.MODULE.bazel")
 include("//tools/bao:include.MODULE.bazel")
-include("//tools/kubectl:include.MODULE.bazel")
 include("//tools/flux:include.MODULE.bazel")
 include("//tools/shfmt:include.MODULE.bazel")
 include("//tools/forgejo:include.MODULE.bazel")
 include("//third_party/org_nmap_nmap:include.MODULE.bazel")
 include("//third_party/org_kernel_headers:include.MODULE.bazel")
 include("//third_party/com_github_bazelbuild_bazel_protobuf:include.MODULE.bazel")
+include("//third_party/us_nasm_nasm:include.MODULE.bazel")
+include("//third_party/com_github_georgewfraser_java_language_server:include.MODULE.bazel")
+include("//third_party/org_openssl_openssl:include.MODULE.bazel")
+include("//third_party/io_kubernetes_kubectl:include.MODULE.bazel")

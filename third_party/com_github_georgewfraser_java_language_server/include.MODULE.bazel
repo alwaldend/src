@@ -1,0 +1,9 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "com_github_georgewfraser_java_language_server",
+    build_file = "//third_party/com_github_georgewfraser_java_language_server:server.BUILD.bazel",
+    integrity = "sha256-Jdsud6bH3REoFNPH37slFkoR35hCt9M5r70t2yiplc8=",
+    strip_prefix = "java-language-server-0f4eda83443a34f92f3ad4b7cf7384fe69fbbbff",
+    urls = ["https://github.com/georgewfraser/java-language-server/archive/0f4eda83443a34f92f3ad4b7cf7384fe69fbbbff.zip"],
+)

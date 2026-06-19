@@ -1,0 +1,5 @@
+filegroup(
+    name = "us_nasm_nasm",
+    srcs = glob(["**"]),
+    visibility = ["//visibility:public"],
+)

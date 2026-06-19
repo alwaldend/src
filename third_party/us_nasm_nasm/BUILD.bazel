@@ -3,7 +3,7 @@ load("//tools/docs:defs.bzl", "docs_filegroup")
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//tools:__pkg__"],
+    visibility = ["//third_party:__pkg__"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
@@ -11,7 +11,7 @@ docs_filegroup(
 )
 
 alias(
-    name = "kubectl",
-    actual = "//third_party/io_kubernetes_kubectl",
+    name = "us_nasm_nasm",
+    actual = "@us_nasm_nasm",
     visibility = ["//:__subpackages__"],
 )

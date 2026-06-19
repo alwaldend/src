@@ -1,0 +1,9 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "org_openssl_openssl",
+    build_file = "//third_party/org_openssl_openssl:openssl.BUILD.bazel",
+    integrity = "sha256-NE0KefGpsIApsHROLMQBpD+ckKzRBE0JpTC0iFqOn8A=",
+    strip_prefix = "openssl-3.5.0",
+    urls = ["https://github.com/openssl/openssl/releases/download/openssl-3.5.0/openssl-3.5.0.tar.gz"],
+)
