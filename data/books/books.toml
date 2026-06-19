@@ -1129,6 +1129,16 @@ links = [
 ]
 
 [[book]]
+title = "No More Heroes"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/89019-no-more-heroes-superhero-litrpg.jpg?time=1721951587"
+quality = "Ok, boring"
+reading = "Dropped, C22"
+authors = ["lokithequick"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/89019/no-more-heroes-superhero-litrpg" },
+]
+
+[[book]]
 title = "Path of the Deathless"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/122502-path-of-the-deathless-book-4-completed.jpg"
 quality = "Decent"

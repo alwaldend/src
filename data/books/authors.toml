@@ -462,3 +462,9 @@ name = "Wizardly Dude"
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/profile/559659" },
 ]
+
+[author.lokithequick]
+name = "LokiTheQuick"
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/456668" },
+]

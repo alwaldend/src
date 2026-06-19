@@ -1,0 +1,6 @@
+contracts_extension = use_extension("//third_party/com_github_bazelbuild_bazel_protobuf:defs.bzl", "contracts_extension")
+contracts_extension.download(
+    name = "com_github_bazelbuild_bazel_protobuf",
+    version = "7c096ba03fed206d9e6fe3afccbfe5c91a71ec46",
+)
+use_repo(contracts_extension, "com_github_bazelbuild_bazel_protobuf")
