@@ -8,6 +8,15 @@ lib.vault_auth({
     },
 })
 
+infra.ansible_keys({
+    name = "ansible_keys",
+    labels = { ansible = "1" },
+    vault_ssh = {
+        backend = "ssh/clients/sign/admins",
+        ttl = 60 * 60 * 2
+    }
+})
+
 lib.plugin_call({
     name = "tf_backend",
     plugin = "tf_backend",
@@ -46,4 +55,28 @@ infra.yc_account({
 infra.rclone_config({
     path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/backup_bucket",
     labels = { backup = "1" },
+})
+
+lib.plugin_call({
+    name = "unseal",
+    plugin = "injector",
+    labels = { unseal = "1" },
+    data = {
+        res = {
+            {
+                name = "unseal",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/unseal",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "UNSEAL_KEY",
+                deps = { "unseal" },
+                env = {
+                    value = "{{ .Last.Data.encrypted_key }}",
+                }
+            },
+        }
+    }
 })

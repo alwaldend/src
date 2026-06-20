@@ -27,8 +27,14 @@ bazel run //infra/dc1/vault:backup
 
 ## Unseal
 
+With a working Vault:
 ```sh
 bazel run //infra/dc1/vault:unseal
+```
+
+Without a working Vault:
+```sh
+bazel run //infra/dc1/vault:unseal_standalone
 ```
 
 ## Fix quorum

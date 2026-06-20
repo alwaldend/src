@@ -36,12 +36,12 @@ al_binary_run_map(
         ],
     },
     configs = ["//infra/dc1/vault:al"],
-    data = [":ansible_bin"],
+    data = [":ansible_bin", "//tools/vault/injector"],
     run_args = [
-        "--plugin_label",
-        "vault_env=default_default",
-        "--plugin_label",
-        "ansible",
+        # "--plugin_label",
+        # "vault_env=default_default",
+        # "--plugin_label",
+        # "ansible",
     ],
 )
 
@@ -63,7 +63,7 @@ al_ansible_binary(
     name = "ansible_bin",
     data = [
         ":srcs",
-        "//projects/ansible_collection:ansible_cfg",
+        "//infra:ansible_cfg",
         "//projects/ansible_collection:collections",
     ],
     process_name = "ansible_playbook",

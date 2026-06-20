@@ -1,5 +1,6 @@
 - tags:
     - ssh_sign_key
+  ignore_errors: "{{ ssh_sign_ignore_errors }}"
   block:
     - name: Create temporary file
       register: ssh_public_key_tempfile

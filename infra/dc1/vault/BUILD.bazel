@@ -81,6 +81,32 @@ al_binary_run(
     data = [
         "//tools/vault",
         "//tools/vault/unseal",
+        "//tools/vault/injector",
+        "//tools/ykman",
+    ],
+    run_args = [
+        "--plugin_label",
+        "vault_env=default_no_auth",
+        "--plugin_label",
+        "unseal",
+    ],
+)
+
+al_binary_run(
+    name = "unseal_standalone",
+    args = [
+        "$(rootpath //tools/vault/unseal)",
+        "--vault",
+        "$(rootpath //tools/vault)",
+        "https://host1.vault.dc1.alwaldend.com:8200",
+        "https://host2.vault.dc1.alwaldend.com:8200",
+        "https://host3.vault.dc1.alwaldend.com:8200",
+    ],
+    configs = ["//infra/dc1/vault:al"],
+    data = [
+        "//tools/vault",
+        "//tools/vault/unseal",
+        "//tools/vault/injector",
         "//tools/ykman",
     ],
     run_args = [

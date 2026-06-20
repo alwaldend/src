@@ -22,7 +22,7 @@ resource "vault_ssh_secret_backend_role" "clients_admins" {
   allowed_users_template  = true
   allowed_users           = "ansible,{{ identity.entity.metadata.username }}"
   default_user_template   = true
-  default_user            = "ansible,{{ identity.entity.metadata.username }}"
+  default_user            = "ansible"
   default_extensions = {
     permit-pty              = ""
     permit-agent-forwarding = ""

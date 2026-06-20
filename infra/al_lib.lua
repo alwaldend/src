@@ -17,6 +17,13 @@ function M.ansible_keys(t)
                 value = "{{ .Last.Data.private_key }}",
             }
         },
+        {
+            name = "SSH_AUTH_SOCK",
+            deps = { name },
+            env = {
+                value = "",
+            }
+        },
     }
     lib.plugin_call({
         name = name,

@@ -17,9 +17,17 @@
         }
       },
       "models": {
-        "qwen3": {
-          "id": "gpt://b1gahn49lo4e9idlho3g/qwen3-235b-a22b-fp8/latest",
+        "qwen3_235B": {
+          "id": "gpt://{env:OPENCODE_YANDEX_CLOUD_FOLDER}/qwen3-235b-a22b-fp8/latest",
           "name": "Qwen3 235B A22B Instruct 2507 FP8"
+        },
+        "qwen3_35B": {
+          "id": "gpt://{env:OPENCODE_YANDEX_CLOUD_FOLDER}/qwen3.6-35b-a3b/latest",
+          "name": "Qwen3.6-35B"
+        },
+        "deepseek4": {
+          "id": "gpt://{env:OPENCODE_YANDEX_CLOUD_FOLDER}/deepseek-v4-flash/latest",
+          "name": "DeepSeek 4 Flash"
         }
       }
     }
