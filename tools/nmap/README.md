@@ -1,5 +1,5 @@
 ---
-title: org_nmap_nmap
+title: Nmap
 description: Nmap
 tags:
   - nmap
@@ -8,4 +8,3 @@ tags:
 ## Links
 
 - Site: https://nmap.org/
-- Build: https://nmap.org/book/inst-source.html

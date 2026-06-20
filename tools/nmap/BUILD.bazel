@@ -1,0 +1,24 @@
+load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+native_binary(
+    name = "nmap",
+    src = ":binary",
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "binary",
+    srcs = ["//third_party/org_nmap_nmap"],
+    output_group = "nmap",
+)
