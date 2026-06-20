@@ -5,11 +5,12 @@ binary_toolchain_extension = use_extension(
 binary_toolchain_extension.toolchains(
     archives = {
     },
-    lock = "//third_party/io_kubernetes_kubectl:binary_toolchain.json",
+    lock = "//third_party/ai_opencode_opencode:binary_toolchain.json",
     toolchains_map = {
-        "kubectl": "io_kubernetes_kubectl",
+        "opencode": "ai_opencode_opencode",
     },
 )
-use_repo(binary_toolchain_extension, "io_kubernetes_kubectl")
 
-register_toolchains("@io_kubernetes_kubectl//:all")
+use_repo(binary_toolchain_extension, "ai_opencode_opencode")
+
+register_toolchains("@ai_opencode_opencode//:all")

@@ -1,8 +1,10 @@
 local lib = require("al_lib")
+
 lib.vault_auth({
     name = "default",
     approle = { name = "src_infra_dns" }
 })
+
 lib.plugin_call({
     name = "dns",
     plugin = "injector",

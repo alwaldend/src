@@ -1,23 +1,20 @@
 load("//tools/docs:defs.bzl", "docs_filegroup")
-load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+load("//tools/terraform:defs.bzl", "terraform_binary_map")
 
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//infra/yandex_cloud/org1:__pkg__"],
+    visibility = ["//infra/users/simeonwarren:__pkg__"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
     ),
 )
 
-_CONFIGS = ["//infra/yandex_cloud/org1:al"]
+_CONFIGS = ["//infra/users/simeonwarren:al"]
 
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
-    "//projects/tf_modules/yc_folder",
-    "//projects/tf_modules/tf_backend",
-    "//infra/dc1/vault/tf/output:approles",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",
 ]
@@ -32,10 +29,4 @@ terraform_binary_map(
         "--plugin_label",
         "vault_env=default_default",
     ],
-)
-
-terraform_test_map(
-    name = "tf_test",
-    configs = _CONFIGS,
-    data = _DATA,
 )

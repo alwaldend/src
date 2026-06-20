@@ -1,0 +1,23 @@
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+filegroup(
+    name = "config",
+    srcs = ["opencode.json"],
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "opencode",
+    actual = "//third_party/ai_opencode_opencode",
+    visibility = ["//:__subpackages__"],
+)

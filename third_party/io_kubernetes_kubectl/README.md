@@ -1,6 +1,8 @@
 ---
 title: kubectl
 description: Kubectl
+tags:
+  - binary_toolchain
 ---
 
 ## Links

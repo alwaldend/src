@@ -1,0 +1,27 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "server": {
+    "port": 4096,
+    "hostname": "127.0.0.1",
+    "cors": ["http://127.0.0.1:4096"]
+  },
+  "provider": {
+    "yandex": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Yandex",
+      "options": {
+        "baseURL": "https://ai.api.cloud.yandex.net/v1",
+        "apiKey": "{env:OPENCODE_YANDEX_CLOUD_TOKEN}",
+        "headers": {
+          "OpenAI-Project": "{env:OPENCODE_YANDEX_CLOUD_FOLDER}"
+        }
+      },
+      "models": {
+        "qwen3": {
+          "id": "gpt://b1gahn49lo4e9idlho3g/qwen3-235b-a22b-fp8/latest",
+          "name": "Qwen3 235B A22B Instruct 2507 FP8"
+        }
+      }
+    }
+  }
+}
