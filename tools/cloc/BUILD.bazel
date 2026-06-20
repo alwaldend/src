@@ -7,13 +7,21 @@ alias(
     visibility = ["//:__subpackages__"],
 )
 
-cloc_binary(
-    name = "cloc_check",
-    arguments = [
-        "--git",
-        "$(GIT_ROOT)",
-    ],
-    toolchains = ["//tools/git/main/bzl:toolchain_resolved"],
+genrule(
+    name = "list",
+    outs = ["list.sh"],
+    srcs = [":cloc"],
+    executable = True,
+    cmd = """
+cat - >$(execpath :list.sh) <<EOF
+#!/usr/bin/env sh
+set -eu
+root="\\$${BUILD_WORKSPACE_DIRECTORY}"
+git --git-dir "\\$${root}/.git" ls-files | xargs "-I{}" echo "\\$${root}/{}" >files.txt
+$(execpath :cloc) --list-file files.txt
+EOF
+chmod u+x $(execpath :list.sh)
+"""
 )
 
 pkg_filegroup(
