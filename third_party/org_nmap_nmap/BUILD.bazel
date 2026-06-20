@@ -15,9 +15,15 @@ configure_make(
     name = "org_nmap_nmap",
     configure_in_place = True,
     lib_source = "@org_nmap_nmap",
-    visibility = ["//visibility:public"],
+    out_binaries = [
+        "ncat",
+        "nmap",
+        "nping",
+    ],
+    visibility = ["//:__subpackages__"],
     deps = [
-        "//third_party/org_kernel_headers",
+        "//third_party/net_zlib_zlib",
         "//third_party/org_openssl_openssl",
+        "//third_party/org_pcre_pcre2",
     ],
 )

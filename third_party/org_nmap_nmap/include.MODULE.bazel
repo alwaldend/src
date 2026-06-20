@@ -4,6 +4,7 @@ http_archive(
     name = "org_nmap_nmap",
     build_file = "//third_party/org_nmap_nmap:deps.BUILD.bazel",
     integrity = "sha256-31Ekkv/RCOU6J6BvJthjW76J4OVpRV3I/+8FjANdUbI=",
+    patches = ["//third_party/org_nmap_nmap:libdnet_stripped.patch"],
     strip_prefix = "nmap-7.99",
     urls = ["https://nmap.org/dist/nmap-7.99.tar.bz2"],
 )

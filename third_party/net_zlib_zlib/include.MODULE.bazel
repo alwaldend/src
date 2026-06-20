@@ -1,0 +1,12 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "net_zlib_zlib",
+    build_file = "//third_party/net_zlib_zlib:zlib.BUILD.bazel",
+    integrity = "sha256-uzKaCizQJ00FUZ1hxmfAYuBpkNcuEl7i36jeZPARnRY=",
+    strip_prefix = "zlib-1.3.2",
+    urls = [
+        "https://github.com/madler/zlib/releases/download/v1.3.2/zlib-1.3.2.tar.gz",
+        "https://zlib.net/zlib-1.3.2.tar.gz",
+    ],
+)

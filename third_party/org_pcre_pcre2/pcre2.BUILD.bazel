@@ -1,0 +1,5 @@
+filegroup(
+    name = "org_pcre_pcre2",
+    srcs = glob(["**"]),
+    visibility = ["//visibility:public"],
+)

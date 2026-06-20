@@ -1,0 +1,39 @@
+load("@rules_foreign_cc//foreign_cc:configure.bzl", "configure_make")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//third_party:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+configure_make(
+    name = "org_pcre_pcre2",
+    configure_options = [
+        "--enable-pcre2-16",
+        "--enable-pcre2-32",
+    ],
+    lib_source = "@org_pcre_pcre2",
+    out_binaries = [
+        "pcre2-config",
+        "pcre2grep",
+        "pcre2test",
+    ],
+    out_shared_libs = [
+        "libpcre2-16.so",
+        "libpcre2-32.so",
+        "libpcre2-8.so",
+        "libpcre2-posix.so",
+    ],
+    out_static_libs = [
+        "libpcre2-8.a",
+        "libpcre2-16.a",
+        "libpcre2-32.a",
+        "libpcre2-posix.a",
+    ],
+    visibility = ["//:__subpackages__"],
+)
