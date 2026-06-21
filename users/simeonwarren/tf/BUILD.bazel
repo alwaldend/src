@@ -4,14 +4,14 @@ load("//tools/terraform:defs.bzl", "terraform_binary_map")
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//infra/users/simeonwarren:__pkg__"],
+    visibility = ["//users/simeonwarren:__pkg__"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
     ),
 )
 
-_CONFIGS = ["//infra/users/simeonwarren:al"]
+_CONFIGS = ["//users/simeonwarren:al"]
 
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",

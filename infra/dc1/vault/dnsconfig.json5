@@ -26,31 +26,32 @@
                         "name":  "vault.dc1",
                         "address": "192.168.1.218"
                     }
-                },
-                "host2": {
-                    "A": {
-                        "name": "host2.vault.dc1",
-                        "address": "192.168.10.30"
-                    }
-                },
-                "ha2": {
-                    "A": {
-                        "name":  "vault.dc1",
-                        "address": "192.168.10.30"
-                    }
-                },
-                "host3": {
-                    "A": {
-                        "name": "host3.vault.dc1",
-                        "address": "192.168.10.31"
-                    }
-                },
-                "ha3": {
-                    "A": {
-                        "name":  "vault.dc1",
-                        "address": "192.168.10.31"
-                    }
                 }
+                //,
+                // "host2": {
+                //     "A": {
+                //         "name": "host2.vault.dc1",
+                //         "address": "192.168.10.30"
+                //     }
+                // },
+                // "ha2": {
+                //     "A": {
+                //         "name":  "vault.dc1",
+                //         "address": "192.168.10.30"
+                //     }
+                // },
+                // "host3": {
+                //     "A": {
+                //         "name": "host3.vault.dc1",
+                //         "address": "192.168.10.31"
+                //     }
+                // },
+                // "ha3": {
+                //     "A": {
+                //         "name":  "vault.dc1",
+                //         "address": "192.168.10.31"
+                //     }
+                // }
             }
         }
     }

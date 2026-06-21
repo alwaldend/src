@@ -9,9 +9,8 @@ alias(
 
 genrule(
     name = "list",
-    outs = ["list.sh"],
     srcs = [":cloc"],
-    executable = True,
+    outs = ["list.sh"],
     cmd = """
 cat - >$(execpath :list.sh) <<EOF
 #!/usr/bin/env sh
@@ -21,7 +20,8 @@ git --git-dir "\\$${root}/.git" ls-files | xargs "-I{}" echo "\\$${root}/{}" >fi
 $(execpath :cloc) --list-file files.txt
 EOF
 chmod u+x $(execpath :list.sh)
-"""
+""",
+    executable = True,
 )
 
 pkg_filegroup(

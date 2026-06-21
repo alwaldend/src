@@ -15,7 +15,7 @@ docs_filegroup(
 
 filegroup(
     name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
+    srcs = ["dnsconfig.json5"],
     visibility = ["//infra/dc1:__subpackages__"],
 )
 
@@ -74,14 +74,12 @@ al_binary_run(
         "--vault",
         "$(rootpath //tools/vault)",
         "https://host1.vault.dc1.alwaldend.com:8200",
-        "https://host2.vault.dc1.alwaldend.com:8200",
-        "https://host3.vault.dc1.alwaldend.com:8200",
     ],
     configs = ["//infra/dc1/vault:al"],
     data = [
         "//tools/vault",
-        "//tools/vault/unseal",
         "//tools/vault/injector",
+        "//tools/vault/unseal",
         "//tools/ykman",
     ],
     run_args = [
@@ -99,14 +97,12 @@ al_binary_run(
         "--vault",
         "$(rootpath //tools/vault)",
         "https://host1.vault.dc1.alwaldend.com:8200",
-        "https://host2.vault.dc1.alwaldend.com:8200",
-        "https://host3.vault.dc1.alwaldend.com:8200",
     ],
     configs = ["//infra/dc1/vault:al"],
     data = [
         "//tools/vault",
-        "//tools/vault/unseal",
         "//tools/vault/injector",
+        "//tools/vault/unseal",
         "//tools/ykman",
     ],
     run_args = [
@@ -128,9 +124,9 @@ al_binary_run(
     data = [
         "//tools/rclone",
         "//tools/vault",
+        "//tools/vault/backup",
         "//tools/vault/injector",
         "//tools/vault/tf_backend",
-        "//tools/vault/backup",
     ],
     run_args = [
         "--plugin_label",

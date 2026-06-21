@@ -36,7 +36,10 @@ al_binary_run_map(
         ],
     },
     configs = ["//infra/dc1/vault:al"],
-    data = [":ansible_bin", "//tools/vault/injector"],
+    data = [
+        ":ansible_bin",
+        "//tools/vault/injector",
+    ],
     run_args = [
         # "--plugin_label",
         # "vault_env=default_default",
