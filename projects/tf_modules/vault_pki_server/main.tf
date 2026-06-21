@@ -38,10 +38,37 @@ variable "ttl" {
   default     = 86400 * 7 # 7 days
 }
 
+variable "eab_new_member_group_ids" {
+  type = list(string)
+  description = "Groups allowed to create EABs"
+  default = []
+}
+
 variable "max_ttl" {
   type        = number
   description = "Role max ttl"
   default     = 2629746 # Month
+}
+
+resource "vault_policy" "eab_new" {
+  name   = "${var.backend}/${var.name}/eab_new"
+  policy = <<EOT
+    path "${var.backend}/roles/${var.name}/acme/new-eab" {
+      capabilities = ["update"]
+    }
+EOT
+}
+
+resource "vault_identity_group" "eab_new" {
+  name = "${var.backend}/${var.name}/eab_new"
+  type = "internal"
+  policies = [
+    vault_policy.eab_new.name,
+  ]
+  member_group_ids = var.eab_new_member_group_ids
+  metadata = {
+    comment = "Group allowed to create EABs for ${var.backend}/roles/${var.name}"
+  }
 }
 
 resource "vault_pki_secret_backend_role" "role" {

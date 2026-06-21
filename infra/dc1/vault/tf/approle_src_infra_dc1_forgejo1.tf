@@ -24,5 +24,6 @@ module "src_infra_dc1_forgejo_pki_server" {
   backend         = module.pki_ica_servers.backend
   name            = "src_infra_dc1_forgejo1_pki_server"
   allowed_domains = ["forgejo1.dc1.alwaldend.com"]
+  eab_new_member_group_ids = [module.src_infra_dc1_forgejo1_approle.group_id]
   client_flag     = true
 }

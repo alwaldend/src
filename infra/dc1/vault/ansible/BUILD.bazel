@@ -41,10 +41,10 @@ al_binary_run_map(
         "//tools/vault/injector",
     ],
     run_args = [
-        # "--plugin_label",
-        # "vault_env=default_default",
-        # "--plugin_label",
-        # "ansible",
+        "--plugin_label",
+        "vault_env=default_default",
+        "--plugin_label",
+        "ansible",
     ],
 )
 

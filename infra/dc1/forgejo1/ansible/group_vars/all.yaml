@@ -1,5 +1,8 @@
 ansible_user: ansible
 ssh_vault_role: src_infra_dc1_forgejo1_ssh
+traefik_acme_path: pki/ica_servers/roles/src_infra_dc1_forgejo1_pki_server/acme
+traefik_acme_url: "https://vault.dc1.alwaldend.com/v1/{{ traefik_acme_path }}"
+traefik_alt_names: forgejo1.dc1.alwaldend.com
 
 ## firewall
 ## https://developer.hashicorp.com/forgejo/docs/reference/architecture/ports

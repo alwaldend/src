@@ -1,0 +1,85 @@
+- tags:
+    - traefik
+  block:
+    - name: Create traefik user
+      ansible.builtin.user:
+        name: "{{ traefik_user }}"
+        group: "{{ traefik_user }}"
+        uid: "{{ traefik_user_uid | default(omit) }}"
+        shell: /sbin/nologin
+    - name: Create directories
+      loop:
+        - "{{ traefik_certificates_dir }}"
+        - "{{ traefik_configs_dir }}"
+        - "{{ traefik_releases_dir }}"
+        - "{{ traefik_release_dir }}"
+        - "{{ traefik_configs_cur_dir }}"
+        - "{{ traefik_configs_dynamic_dir }}"
+        - "{{ traefik_log_dir }}"
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ traefik_user }}"
+        group: "{{ traefik_user }}"
+        mode: "0700"
+    - name: Download traefik binary
+      ansible.builtin.get_url:
+        url: "{{ traefik_release_download_url }}"
+        checksum: "{{ traefik_release_download_checksum }}"
+        dest: "{{ traefik_release_dir }}/{{ traefik_release_archive_full }}"
+        owner: "{{ traefik_user }}"
+        group: "{{ traefik_user }}"
+        mode: "0600"
+    - name: Unpack the archive
+      ansible.builtin.unarchive:
+         src: "{{ traefik_release_dir }}/{{ traefik_release_archive_full }}"
+         creates: "{{ traefik_release_bin_path }}"
+         dest: "{{ traefik_release_dir }}"
+         remote_src: true
+         owner: "{{ traefik_user }}"
+         group: "{{ traefik_user }}"
+         mode: "0700"
+    - name: Create the symlink for the release
+      ansible.builtin.file:
+        src: "./{{ traefik_release_dir_name }}"
+        path: "{{ traefik_release_symlink }}"
+        state: link
+        owner: "{{ traefik_user }}"
+        group: "{{ traefik_user }}"
+        mode: "0700"
+    - name: Write the static config
+      ansible.builtin.copy:
+        owner: "{{ traefik_user }}"
+        group: "{{ traefik_user }}"
+        mode: "0600" 
+        content: "{{ traefik_static_config | to_nice_yaml(indent=2) }}"
+        dest: "{{ traefik_static_config_path }}"
+    - name: Write dynamic configs
+      loop: "{{ traefik_dynamic_configs | mandatory | list }}" 
+      ansible.builtin.copy:
+        owner: "{{ traefik_user }}"
+        group: "{{ traefik_user }}"
+        mode: "0600" 
+        content: "{{ item.value | to_nice_yaml(indent=2) }}"
+        dest: "{{ traefik_configs_dynamic_dir }}/{{ item.name }}.yaml"
+    - name: Create configs symlink
+      ansible.builtin.file:
+        src: "./{{ traefik_configs_cur_dir_name }}"
+        path: "{{ traefik_configs_symlink }}"
+        state: link
+        owner: "{{ traefik_user }}"
+        group: "{{ traefik_user }}"
+        mode: "0700"
+    - name: Create systemd service
+      ansible.builtin.template:
+        src: traefik.service.j2
+        dest: "/etc/systemd/system/traefik.service"
+        owner: "root"
+        group: "root"
+        mode: "0600"
+    - name: Enable the systemd service
+      ansible.builtin.systemd_service:
+        name: traefik.service
+        enabled: true
+        state: restarted
+        daemon_reload: true

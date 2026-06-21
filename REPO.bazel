@@ -7,7 +7,6 @@ repo(
 
 ignore_directories(
     [
-        "projects/bazel_registry/main/registry/modules/*/*/overlay",
         "**/bazel-*",
         "**/external",
         "**/node_modules",

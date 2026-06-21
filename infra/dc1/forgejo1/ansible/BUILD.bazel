@@ -40,7 +40,7 @@ al_ansible_binary(
     name = "ansible_bin",
     data = [
         ":srcs",
-        "//projects/ansible_collection:ansible_cfg",
+        "//infra:ansible_cfg",
         "//projects/ansible_collection:collections",
     ],
     process_name = "ansible_playbook",

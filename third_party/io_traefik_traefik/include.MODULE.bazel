@@ -6,18 +6,16 @@ binary_toolchain_extension.toolchains(
     archives = {
         "traefik": ["linux_x86_64"],
     },
-    lock = "//tools/traefik:binary_toolchain.json",
+    lock = "//third_party/io_traefik_traefik:binary_toolchain.json",
     toolchains_map = {
-        "traefik": "com_alwaldend_src_tools_traefik",
+        "traefik": "io_traefik_traefik",
     },
 )
 
-register_toolchains(
-    "@com_alwaldend_src_tools_traefik//:all",
-)
+register_toolchains("@io_traefik_traefik//:all")
 
 use_repo(
     binary_toolchain_extension,
-    "com_alwaldend_src_tools_traefik",
-    "com_alwaldend_src_tools_traefik_linux_x86_64",
+    "io_traefik_traefik",
+    "io_traefik_traefik_linux_x86_64",
 )

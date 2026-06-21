@@ -1,23 +1,26 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/ansible/main/bzl:al_ansible_role.bzl", "al_ansible_role")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 
-pkg_filegroup(
+docs_filegroup(
     name = "docs",
-    srcs = [
-        ":docs_files",
-        ":role.docs",
-    ],
-    visibility = ["//projects/ansible_collection/roles:__pkg__"],
-)
-
-pkg_files(
-    name = "docs_files",
     srcs = glob(["*.md"]),
-    prefix = "content/docs/{}".format(package_name()),
+    visibility = ["//projects/ansible_collection/roles:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ) + [":role.docs"],
 )
 
 al_ansible_role(
     name = "role",
-    srcs = glob(["**"]),
+    srcs = glob(["**"]) + [
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
+        "@io_traefik_traefik_linux_x86_64//:traefik_filegroup",
+    ],
+    renames = {
+        "@io_traefik_traefik_linux_x86_64//:traefik_filegroup": "files/traefik",
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "files/vault",
+    },
     visibility = ["//:__subpackages__"],
 )

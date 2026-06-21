@@ -1,6 +1,6 @@
 ---
 title: Traefik
-description: Setup traefik
+description: Traefik
 tags:
   - ansible_role
 ---
