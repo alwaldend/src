@@ -3,18 +3,11 @@ forgejo_user_uid: 5157
 forgejo_dir: "/opt/forgejo"
 forgejo_data_dir: "{{ forgejo_dir }}/data"
 forgejo_config_dir: "{{ forgejo_dir }}/configs"
-forgejo_config_path: "{{ forgejo_config_dir }}/forgejo.hcl"
-forgejo_config_local_path: "files/forgejo.hcl"
+forgejo_work_dir: "{{ forgejo_dir }}/work"
+forgejo_config_path: "{{ forgejo_config_dir }}/forgejo.ini"
+forgejo_config_local_path: "files/forgejo.ini"
 forgejo_log_dir: "{{ forgejo_dir }}/logs"
-forgejo_tls_dir: "{{ forgejo_dir }}/tls"
 forgejo_service_path: "/lib/systemd/system/forgejo.service"
-forgejo_tls_ca_file_local_path: files/pki_ca_servers.crt
-forgejo_tls_ca_file_path: "{{ forgejo_tls_dir }}/tls_ca_file.crt"
-forgejo_tls_cert_file_path: "{{ forgejo_tls_dir }}/cert_file.crt"
-forgejo_tls_key_file_path: "{{ forgejo_tls_dir }}/key_file.crt"
-forgejo_tls_common_name: "{{ inventory_hostname }}"
-forgejo_tls_ttl: "2629746" # month
-forgejo_tls_alt_names: ""
 forgejo_vault_local_path: "{{ role_path }}/files/vault"
 forgejo_bin_local_path: "{{ role_path }}/files/forgejo"
 forgejo_bin_path: /usr/bin/forgejo

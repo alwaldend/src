@@ -2,9 +2,12 @@
 checkNewVersion = false
 sendAnonymousUsage = false
 
+[providers.file]
+filename = "{{ traefik_dynamic_config_path }}"
+
 [log]
-level = "INFO"
-filePath = "{{ traefik_log_dir }}/traefik.log"
+level = "DEBUG"
+# filePath = "{{ traefik_log_dir }}/traefik.log"
 
 [entryPoints]
 [entryPoints.web]
@@ -12,6 +15,9 @@ address = ":80"
 
 [entryPoints.websecure]
 address = ":443"
+asDefault = true
+[entryPoints.websecure.http.tls]
+certResolver = "vault"
 
 # [api]
 # dashboard = true
@@ -20,7 +26,7 @@ address = ":443"
 [certificatesResolvers.vault.acme]
 email = "src_infra_dc1_forgejo1@alwaldend.com"
 storage = "{{ traefik_data_dir }}/acme_vault.json"
-caServer = "{{ traefik_acme_url }}/dir"
+caServer = "{{ traefik_acme_url }}"
 
 [certificatesResolvers.vault.acme.httpChallenge]
 entryPoint = "web"
@@ -29,20 +35,9 @@ entryPoint = "web"
 kid = "{{ traefik_acme_kid }}"
 hmacEncoded = "{{ traefik_acme_hmac_encoded }}"
 
-[http.middlewares.redirect_https.redirectScheme]
-scheme = "https"
-
-[http.routers.forgejo_web]
-rule = "Host(`{{ inventory_hostname }}`)"
-entryPoints = ["web"]
-middlewares = ["redirect_https"]
-
-[http.routers.forgejo_websecure]
-rule = "Host(`{{ inventory_hostname }}`)"
-entryPoints = ["websecure"]
-service = "forgejo"
-tls = { certResolver = "vault" }
-
-[http.services.forgejo.loadBalancer]
-[[http.services.forgejo.loadBalancer.servers]]
-url = "http://127.0.0.1:3000"
+[tls.stores]
+[tls.stores.default.acme]
+resolver = "vault"
+[tls.stores.default.acme.domain]
+main = "forgejo1.dc1.alwaldend.com"
+sans = ["{{ inventory_hostname }}"]

@@ -39,9 +39,9 @@ variable "ttl" {
 }
 
 variable "eab_new_member_group_ids" {
-  type = list(string)
+  type        = list(string)
   description = "Groups allowed to create EABs"
-  default = []
+  default     = []
 }
 
 variable "max_ttl" {

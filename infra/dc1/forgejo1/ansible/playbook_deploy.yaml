@@ -5,4 +5,4 @@
   roles:
     - role: alwaldend.main.host
     - role: alwaldend.main.traefik
-    # - role: alwaldend.main.forgejo
+    - role: alwaldend.main.forgejo

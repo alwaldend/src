@@ -7,6 +7,8 @@ traefik_acme_path: "{{ undefined }}"
 traefik_config_dir: "{{ traefik_dir }}/configs"
 traefik_config_path: "{{ traefik_config_dir }}/traefik.toml"
 traefik_config_local_path: "files/traefik.toml"
+traefik_dynamic_config_path: "{{ traefik_config_dir }}/traefik_dynamic.toml"
+traefik_dynamic_config_local_path: "files/traefik_dynamic.toml"
 traefik_service_path: "/lib/systemd/system/traefik.service"
 traefik_bin_local_path: "{{ role_path }}/files/traefik"
 traefik_bin_path: /usr/bin/traefik

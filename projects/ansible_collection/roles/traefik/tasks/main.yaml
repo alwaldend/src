@@ -58,6 +58,13 @@
         owner: "root"
         group: "{{ traefik_user }}"
         mode: "0650"
+    - name: Write the dynamic config
+      ansible.builtin.template:
+        src: "{{ traefik_dynamic_config_local_path }}"
+        dest: "{{ traefik_dynamic_config_path }}"
+        owner: "root"
+        group: "{{ traefik_user }}"
+        mode: "0650"
     - name: Write the service
       register: traefik_service_var
       ansible.builtin.template:

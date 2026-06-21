@@ -15,6 +15,12 @@ variable "pve1_url" {
   default     = "https://host1.pve1.dc1.alwaldend.com:8006"
 }
 
+variable "forgejo_url" {
+  type        = string
+  description = "Forgejo url"
+  default     = "https://forgejo1.dc1.alwaldend.com"
+}
+
 variable "vault_host" {
   type        = string
   description = "Vault host"

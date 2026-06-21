@@ -42,3 +42,41 @@ lib.plugin_call({
     plugin = "pve_login",
     labels = { tf_setup = "1" },
 })
+
+lib.plugin_call({
+    name = "config",
+    plugin = "injector",
+    labels = { ansible = "1" },
+    data = {
+        res = {
+            {
+                name = "config",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/src_infra_dc1_forgejo1/config",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "LFS_JWT_SECRET",
+                deps = { "config" },
+                env = {
+                    value = "{{ .Last.Data.lfs_jwt_secret }}",
+                }
+            },
+            {
+                name = "SECURITY_INTERNAL_TOKEN",
+                deps = { "config" },
+                env = {
+                    value = "{{ .Last.Data.security_internal_token }}",
+                }
+            },
+            {
+                name = "OAUTH2_JWT_SECRET",
+                deps = { "config" },
+                env = {
+                    value = "{{ .Last.Data.oauth2_jwt_secret }}",
+                }
+            },
+        }
+    }
+})

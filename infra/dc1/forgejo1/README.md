@@ -10,6 +10,7 @@ tags:
 ## Links
 
 - Docs: https://forgejo.org/docs/latest/admin/installation/binary/
+- Config reference: https://forgejo.org/docs/latest/admin/config-cheat-sheet/
 
 ## Deployment
 
@@ -18,3 +19,9 @@ bazel run //infra/dc1/pve1/tf_setup:tf.apply # Create hosts
 bazel run //infra/dc1/pve1/ansible # Configure hosts
 bazel run //infra/dc1/pve1/tf:tf.apply # Configure forgejo
 ```
+
+## OIDC login
+
+- Select OIDC
+- Input url: `https://vault.dc1.alwaldend.com:8200/v1/identity/oidc/provider/src_infra_dc1_forgejo1_provider`
+- Login to vault
