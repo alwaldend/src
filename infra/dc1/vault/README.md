@@ -137,3 +137,9 @@ bazel run //infra/dc1/vault -- token revoke -mode=path auth
 
 Vault certificates (`tls_cert_file`, `tls_key_file`) should be updated manually
 
+
+## Read OIDC client info
+
+```sh
+bazel run //infra/dc1/vault -- read identity/oidc/client/src_infra_dc1_forgejo1_provider
+```

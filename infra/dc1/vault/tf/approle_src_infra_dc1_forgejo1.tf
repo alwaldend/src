@@ -35,12 +35,14 @@ module "src_infra_dc1_forgejo1_provider" {
   scopes_supported = [
     vault_identity_oidc_scope.user.name,
     vault_identity_oidc_scope.groups.name,
+    vault_identity_oidc_scope.ssh.name,
+    vault_identity_oidc_scope.email.name,
   ]
   group_ids = [
     vault_identity_group.src_infra_dc1_forgejo1_users.id,
   ]
   redirect_urls = [
-    var.forgejo_url,
+    "${var.forgejo_url}/user/oauth2/vault/callback",
   ]
 }
 
@@ -54,6 +56,16 @@ resource "vault_identity_group" "src_infra_dc1_forgejo1_users" {
   ]
   metadata = {
     comment = "Users. Allowed to login with OIDC to Forgejo"
+  }
+}
+
+resource "vault_identity_group" "src_infra_dc1_forgejo1_restricted" {
+  name              = "src_infra_dc1_forgejo1_restricted"
+  type              = "internal"
+  member_entity_ids = []
+  member_group_ids  = []
+  metadata = {
+    comment = "Restricted forgejo users"
   }
 }
 

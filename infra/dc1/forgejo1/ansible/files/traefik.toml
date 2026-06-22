@@ -6,12 +6,14 @@ sendAnonymousUsage = false
 filename = "{{ traefik_dynamic_config_path }}"
 
 [log]
-level = "DEBUG"
+level = "INFO"
 # filePath = "{{ traefik_log_dir }}/traefik.log"
 
 [entryPoints]
 [entryPoints.web]
 address = ":80"
+[entryPoints.web.http.redirections.entryPoint]
+to = "websecure"
 
 [entryPoints.websecure]
 address = ":443"
@@ -33,7 +35,7 @@ entryPoint = "web"
 
 [certificatesResolvers.vault.acme.eab]
 kid = "{{ traefik_acme_kid }}"
-hmacEncoded = "{{ traefik_acme_hmac_encoded }}"
+hmacEncoded = "{{ traefik_acme_hmac }}"
 
 [tls.stores]
 [tls.stores.default.acme]

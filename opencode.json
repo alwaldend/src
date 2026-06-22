@@ -28,6 +28,10 @@
         "deepseek4": {
           "id": "gpt://{env:OPENCODE_YANDEX_CLOUD_FOLDER}/deepseek-v4-flash/latest",
           "name": "DeepSeek 4 Flash"
+        },
+        "alice_flash": {
+          "id": "gpt://{env:OPENCODE_YANDEX_CLOUD_FOLDER}/aliceai-llm-flash/latest",
+          "name": "Alice AI LLM Flash",
         }
       }
     }

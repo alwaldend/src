@@ -6,10 +6,31 @@ resource "vault_identity_oidc_scope" "user" {
   name        = "user"
   template    = <<EOT
 {
-  "username": {{ identity.entity.name }}
+  "username": {{ identity.entity.metadata.username }},
+  "nickname": {{ identity.entity.metadata.username }}
 }
 EOT
-  description = "The user scope provides claims using Vault identity entity metadata"
+  description = "Username"
+}
+
+resource "vault_identity_oidc_scope" "email" {
+  name        = "email"
+  template    = <<EOT
+{
+  "email": {{ identity.entity.metadata.email }}
+}
+EOT
+  description = "Email"
+}
+
+resource "vault_identity_oidc_scope" "ssh" {
+  name        = "ssh"
+  template    = <<EOT
+{
+  "sshpubkey": {{ identity.entity.metadata.sshpubkey }}
+}
+EOT
+  description = "Public ssh key"
 }
 
 resource "vault_identity_oidc_scope" "groups" {
@@ -19,5 +40,5 @@ resource "vault_identity_oidc_scope" "groups" {
   "groups": {{ identity.entity.groups.names }}
 }
 EOT
-  description = "The groups scope provides the groups claim using Vault group membership"
+  description = "Groups"
 }
