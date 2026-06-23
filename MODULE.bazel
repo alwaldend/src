@@ -17,6 +17,8 @@ include("//third_party/net_zlib_zlib:include.MODULE.bazel")
 include("//third_party/org_pcre_pcre2:include.MODULE.bazel")
 include("//third_party/ai_opencode_opencode:include.MODULE.bazel")
 include("//third_party/io_traefik_traefik:include.MODULE.bazel")
+include("//third_party/org_codeberg_forgejo:include.MODULE.bazel")
+include("//third_party/org_codeberg_forgejo_bin:include.MODULE.bazel")
 
 # Tools
 include("//tools:include.MODULE.bazel")
@@ -53,7 +55,6 @@ include("//tools/hugo:include.MODULE.bazel")
 include("//tools/bao:include.MODULE.bazel")
 include("//tools/flux:include.MODULE.bazel")
 include("//tools/shfmt:include.MODULE.bazel")
-include("//tools/forgejo:include.MODULE.bazel")
 
 # Projects
 include("//projects/android_launcher:include.MODULE.bazel")

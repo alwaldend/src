@@ -3,7 +3,7 @@ load("//tools/docs:defs.bzl", "docs_filegroup")
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//tools:__pkg__"],
+    visibility = ["//third_party:__pkg__"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
@@ -11,7 +11,6 @@ docs_filegroup(
 )
 
 alias(
-    name = "forgejo",
-    actual = "//third_party/org_codeberg_forgejo_bin",
-    visibility = ["//:__subpackages__"],
+    name = "org_codeberg_forgejo",
+    actual = "@org_codeberg_forgejo",
 )

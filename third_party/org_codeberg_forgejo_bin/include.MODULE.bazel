@@ -6,18 +6,18 @@ binary_toolchain_extension.toolchains(
     archives = {
         "forgejo": ["linux_x86_64"],
     },
-    lock = "//tools/forgejo:binary_toolchain.json",
+    lock = "//third_party/org_codeberg_forgejo_bin:binary_toolchain.json",
     toolchains_map = {
-        "forgejo": "com_alwaldend_src_tools_forgejo",
+        "forgejo": "org_codeberg_forgejo_bin",
     },
 )
 
 register_toolchains(
-    "@com_alwaldend_src_tools_forgejo//:all",
+    "@org_codeberg_forgejo_bin//:all",
 )
 
 use_repo(
     binary_toolchain_extension,
-    "com_alwaldend_src_tools_forgejo",
-    "com_alwaldend_src_tools_forgejo_linux_x86_64",
+    "org_codeberg_forgejo_bin",
+    "org_codeberg_forgejo_bin_linux_x86_64",
 )

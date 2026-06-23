@@ -67,6 +67,17 @@ lib.plugin({
 })
 
 lib.plugin({
+    name = "forgejo_login",
+    bin = "com_alwaldend_src/tools/vault/forgejo_login/forgejo_login_/forgejo_login",
+    labels = {
+        forgejo_login = "1"
+    },
+    data = {
+        forgejo_url = "https://forgejo1.dc1.alwaldend.com",
+    },
+})
+
+lib.plugin({
     name = "pve_login",
     bin = "com_alwaldend_src/tools/vault/pve_login/pve_login_/pve_login",
     labels = {

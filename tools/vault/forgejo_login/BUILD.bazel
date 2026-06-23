@@ -1,0 +1,98 @@
+load("@grpc-java//:java_grpc_library.bzl", "java_grpc_library")
+load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
+load("@protobuf//bazel:proto_library.bzl", "proto_library")
+load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("@rules_go//proto:def.bzl", "go_proto_library")
+load("@rules_java//java:defs.bzl", "java_library")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+load("//tools/proto/main/bzl:al_proto_docs.bzl", "al_proto_docs")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/vault:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ) + [":forgejo_login_proto_docs"],
+)
+
+go_library(
+    name = "forgejo_login_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/vault/forgejo_login",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        ":forgejo_login_proto",
+        "//projects/al/api/al_proto",
+        "//projects/al/pkg/al",
+        "//projects/al/pkg/al_plugin",
+        "//projects/al/pkg/fp",
+        "//projects/al/pkg/lifecycle",
+        "@com_github_google_uuid//:uuid",
+        "@com_github_hashicorp_vault_api//:api",
+    ],
+)
+
+go_binary(
+    name = "forgejo_login",
+    embed = [":forgejo_login_lib"],
+    visibility = ["//:__subpackages__"],
+)
+
+al_proto_docs(
+    name = "forgejo_login_proto_docs",
+    src = "forgejo_login_proto.proto",
+)
+
+proto_library(
+    name = "forgejo_login_proto_proto",
+    srcs = ["api.proto"],
+    visibility = ["//visibility:public"],
+    deps = ["@protobuf//:any_proto"],
+)
+
+go_proto_library(
+    name = "forgejo_login_proto_go_proto",
+    compilers = [
+        "@rules_go//proto:go_grpc_v2",
+        "@rules_go//proto:go_proto",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/vault/forgejo_login/forgejo_login_proto",
+    proto = ":forgejo_login_proto_proto",
+    visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "forgejo_login_proto",
+    embed = [":forgejo_login_proto_go_proto"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/vault/forgejo_login/forgejo_login_proto",
+    visibility = ["//visibility:public"],
+)
+
+java_proto_library(
+    name = "forgejo_login_proto_java_proto",
+    deps = [":forgejo_login_proto_proto"],
+)
+
+java_grpc_library(
+    name = "forgejo_login_proto_java_grpc",
+    srcs = [":forgejo_login_proto_proto"],
+    deps = [":forgejo_login_proto_java_proto"],
+)
+
+java_library(
+    name = "forgejo_login_proto_java_library",
+    visibility = ["//:__subpackages__"],
+    exports = [
+        ":forgejo_login_proto_java_grpc",
+        ":forgejo_login_proto_java_proto",
+    ],
+)
+
+py_proto_library(
+    name = "forgejo_login_proto_py_pb2",
+    visibility = ["//:__subpackages__"],
+    deps = [":forgejo_login_proto_proto"],
+)

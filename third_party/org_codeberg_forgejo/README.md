@@ -1,5 +1,5 @@
 ---
-title: Forgejo
+title: org_codeberg_forgejo
 description: Forgejo
 tags:
   - forgejo

@@ -1,6 +1,6 @@
 ---
-title: Forgejo
-description: Forgejo
+title: org_codeberg_forgejo_bin
+description: Forgejo binary
 tags:
   - forgejo
 ---

@@ -15,14 +15,13 @@ _CONFIGS = ["//infra/dc1/forgejo1:al"]
 
 _RUN_ARGS = [
     "--plugin_label",
-    "tf=setup",
+    "tf=main",
+    "--plugin_label",
+    "vault_env=default_default",
 ]
 
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
-    "//projects/tf_modules/pve_vm_qemu",
-    "//infra/dc1/forgejo1:dnsconfig",
-    "//tools/vault/pve_login",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",
 ]

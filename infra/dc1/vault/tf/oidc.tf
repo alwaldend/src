@@ -27,7 +27,7 @@ resource "vault_identity_oidc_scope" "ssh" {
   name        = "ssh"
   template    = <<EOT
 {
-  "sshpubkey": {{ identity.entity.metadata.sshpubkey }}
+  "sshpubkey": [{{ identity.entity.metadata.sshpubkey }}]
 }
 EOT
   description = "Public ssh key"

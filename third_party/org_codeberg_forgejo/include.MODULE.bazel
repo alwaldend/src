@@ -1,0 +1,11 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "org_codeberg_forgejo",
+    build_file = "//third_party/org_codeberg_forgejo:forgejo.BUILD.bazel",
+    integrity = "sha256-pzuzbK6/FZJcANRqvOKtvTi4EKhmEKAgKpKMCnRuV0I=",
+    strip_prefix = "forgejo",
+    urls = [
+        "https://codeberg.org/forgejo/forgejo/archive/v15.0.3.tar.gz",
+    ],
+)
