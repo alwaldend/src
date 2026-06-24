@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -10,7 +9,6 @@ import (
 	"net/url"
 	"os"
 	"os/signal"
-	"regexp"
 	"strings"
 	"syscall"
 	"time"
@@ -25,11 +23,6 @@ import (
 
 type oidcUrl struct {
 	Data string `json:"data"`
-}
-
-type vaultOidc struct {
-	Code  string `json:"code"`
-	State string `json:"state"`
 }
 
 type pveTicket struct {
@@ -47,7 +40,7 @@ type pveToken struct {
 	} `json:"data"`
 }
 
-func createOIDCRequest(config *pve_login_proto.Config) (*oidcUrl, error) {
+func createOIDCRequest(config *pve_login_proto.Config) (*url.URL, error) {
 	req, err := http.NewRequest(
 		http.MethodPost,
 		fmt.Sprintf("%s/api2/json/access/openid/auth-url?realm=%s&redirect-url=%s", config.PveBaseUrl, config.PveRealm, config.PveRedirectUrl),
@@ -67,66 +60,21 @@ func createOIDCRequest(config *pve_login_proto.Config) (*oidcUrl, error) {
 	}
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, fmt.Errorf("could not read response body")
+		return nil, fmt.Errorf("could not read response body: %w", err)
 	}
-	res := &oidcUrl{}
-	err = json.Unmarshal(body, res)
+	data := &oidcUrl{}
+	err = json.Unmarshal(body, data)
 	if err != nil {
 		return nil, fmt.Errorf("could not unmarshal response: %w", err)
 	}
-	return res, nil
-}
-
-func loginToOIDCProvider(oidcUrl *oidcUrl, vaultToken string) (*vaultOidc, error) {
-	regex, err := regexp.Compile("^https://([^/]+)/ui/vault/identity/oidc/provider/([^/]+)/authorize?(.+)$")
+	res, err := url.Parse(data.Data)
 	if err != nil {
-		return nil, fmt.Errorf("could not compile regex: %w", err)
-	}
-	parts := regex.FindAllStringSubmatch(oidcUrl.Data, -1)
-	urlParsed, err := url.Parse(oidcUrl.Data)
-	if err != nil {
-		return nil, fmt.Errorf("could not parse url: %w", err)
-	}
-	reqData := map[string]string{}
-	for key, valueSlice := range urlParsed.Query() {
-		for _, value := range valueSlice {
-			reqData[key] = value
-		}
-	}
-	reqBody, err := json.Marshal(reqData)
-	if err != nil {
-		return nil, fmt.Errorf("could not marshal data: %w", err)
-	}
-	req, err := http.NewRequest(
-		http.MethodPost,
-		fmt.Sprintf("https://%s/v1/identity/oidc/provider/%s/authorize", parts[0][1], parts[0][2]),
-		bytes.NewBuffer(reqBody),
-	)
-	if err != nil {
-		return nil, fmt.Errorf("could not create request: %w", err)
-	}
-	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", vaultToken))
-	resp, err := http.DefaultClient.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("could not execute the request: %w", err)
-	}
-	defer resp.Body.Close()
-	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("invalid response code: %s", resp.Status)
-	}
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("could not read the body: %w", err)
-	}
-	res := &vaultOidc{}
-	if err = json.Unmarshal(body, res); err != nil {
-		return nil, fmt.Errorf("could not unmarshal response body: %w", err)
+		return nil, fmt.Errorf("could not parse the url: %w", err)
 	}
 	return res, nil
 }
 
-func createProxmoxTicket(config *pve_login_proto.Config, oidc *vaultOidc) (*pveTicket, error) {
+func createProxmoxTicket(config *pve_login_proto.Config, oidc *al.VaultOidc) (*pveTicket, error) {
 	req, err := http.NewRequest(
 		http.MethodPost,
 		fmt.Sprintf("%s/api2/json/access/openid/login", config.PveBaseUrl),
@@ -219,7 +167,7 @@ func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRe
 	if err != nil {
 		return nil, fmt.Errorf("could not create OIDC request: %w", err)
 	}
-	vaultOidc, err := loginToOIDCProvider(oidcUrl, client.Client.Token())
+	vaultOidc, err := vault.OidcLogin(client.Client, oidcUrl)
 	if err != nil {
 		return nil, fmt.Errorf("could not login to OIDC provider: %w", err)
 	}

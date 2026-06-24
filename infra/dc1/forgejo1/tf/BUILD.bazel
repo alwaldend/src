@@ -24,6 +24,7 @@ _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",
+    "//tools/vault/forgejo_login",
 ]
 
 terraform_binary_map(

@@ -1,17 +1,15 @@
 package main
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
+	"net/http/cookiejar"
 	"net/url"
 	"os"
 	"os/signal"
-	"regexp"
 	"strings"
 	"syscall"
 	"time"
@@ -24,166 +22,212 @@ import (
 	"github.com/google/uuid"
 )
 
-type vaultOidc struct {
-	Code  string `json:"code"`
-	State string `json:"state"`
+type login struct {
+	ctx      *al.CmdCtx
+	config   *forgejo_login_proto.Config
+	client   *http.Client
+	redirect *url.URL
+	cookies  []*http.Cookie
 }
 
-func createOIDCRequest(config *forgejo_login_proto.Config) (*url.URL, error) {
-	redirectErr := errors.New("redirect")
+func newLogin(ctx *al.CmdCtx, config *forgejo_login_proto.Config) (*login, error) {
+	jar, err := cookiejar.New(&cookiejar.Options{})
+	if err != nil {
+		return nil, fmt.Errorf("could not create cookiejar: %w", err)
+	}
+	res := &login{
+		ctx:    ctx,
+		config: config,
+	}
 	client := &http.Client{
+		Jar: jar,
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
-			return redirectErr
+			loc, err := req.Response.Location()
+			if err != nil {
+				return fmt.Errorf("response is missing the location for some reason: %w", err)
+			}
+			res.redirect = loc
+			res.cookies = append(res.cookies, req.Response.Cookies()...)
+			return nil
 		},
 	}
+	res.client = client
+	return res, nil
+}
+
+func (self *login) createOIDCRequest() (*url.URL, error) {
 	req, err := http.NewRequest(
-		http.MethodPost,
-		fmt.Sprintf("%s/user/oauth2/vault", config.ForgejoUrl),
+		http.MethodGet,
+		fmt.Sprintf("%s/user/oauth2/vault", self.config.ForgejoUrl),
 		nil,
 	)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %w", err)
 	}
-	resp, err := client.Do(req)
-	if err != nil && !errors.Is(err, redirectErr) {
-		return nil, fmt.Errorf("could not execute the request: %w", err)
-	}
-	defer resp.Body.Close()
-	if err == nil {
-		return nil, fmt.Errorf("did not hit a redirect for some reason, status: %s", resp.Status)
-	}
-	res, err := resp.Location()
-	if err != nil {
-		return nil, fmt.Errorf("could not extract location: %w", err)
-	}
-	return res, nil
-}
-
-func loginToOIDCProvider(oidcUrl *url.URL, vaultToken string) (*vaultOidc, error) {
-	regex, err := regexp.Compile("^https://([^/]+)/ui/vault/identity/oidc/provider/([^/]+)/authorize?(.+)$")
-	if err != nil {
-		return nil, fmt.Errorf("could not compile regex: %w", err)
-	}
-	parts := regex.FindAllStringSubmatch(oidcUrl.String(), -1)
-	reqData := map[string]string{}
-	for key, valueSlice := range oidcUrl.Query() {
-		for _, value := range valueSlice {
-			reqData[key] = value
-		}
-	}
-	reqBody, err := json.Marshal(reqData)
-	if err != nil {
-		return nil, fmt.Errorf("could not marshal data: %w", err)
-	}
-	req, err := http.NewRequest(
-		http.MethodPost,
-		fmt.Sprintf("https://%s/v1/identity/oidc/provider/%s/authorize", parts[0][1], parts[0][2]),
-		bytes.NewBuffer(reqBody),
-	)
-	if err != nil {
-		return nil, fmt.Errorf("could not create request: %w", err)
-	}
-	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", vaultToken))
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := self.client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("could not execute the request: %w", err)
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("invalid response code: %s", resp.Status)
-	}
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("could not read the body: %w", err)
-	}
-	res := &vaultOidc{}
-	if err = json.Unmarshal(body, res); err != nil {
-		return nil, fmt.Errorf("could not unmarshal response body: %w", err)
-	}
-	return res, nil
+	return self.redirect, nil
 }
 
-func createProxmoxTicket(config *forgejo_login_proto.Config, oidc *vaultOidc) (*pveTicket, error) {
+func (self *login) authorizeSession(oidc *al.VaultOidc) error {
 	req, err := http.NewRequest(
-		http.MethodPost,
-		fmt.Sprintf("%s/api2/json/access/openid/login", config.PveBaseUrl),
-		strings.NewReader("{}"),
+		http.MethodGet,
+		fmt.Sprintf("%s/user/oauth2/%s/callback", self.config.ForgejoUrl, self.config.ForgejoOauthName),
+		nil,
 	)
 	if err != nil {
-		return nil, fmt.Errorf("could not create request: %w", err)
+		return fmt.Errorf("could not create request: %w", err)
 	}
 	query := req.URL.Query()
 	query.Add("state", oidc.State)
 	query.Add("code", oidc.Code)
-	query.Add("redirect-url", config.PveRedirectUrl)
 	req.URL.RawQuery = query.Encode()
-	req.Header.Add("Content-Type", "application/json")
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := self.client.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("could not execute the request: %w", err)
+		return fmt.Errorf("could not execute the request: %w", err)
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("invalid response code: %s", resp.Status)
+		return fmt.Errorf("invalid response code: %s", resp.Status)
 	}
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("could not read response body: %w", err)
-	}
-	res := &pveTicket{}
-	if err := json.Unmarshal(body, res); err != nil {
-		return nil, fmt.Errorf("could not unmarshel response body: %w", err)
-	}
-	return res, nil
+	return nil
 }
 
-func createForgejoToken(config *forgejo_login_proto.Config, pveTicket *pveTicket) (*pveToken, error) {
+func (self *login) createForgejoToken() (string, string, error) {
+	name := fmt.Sprintf("src_tools_vault_forgejo_login_%s", uuid.New().String())
+	data := url.Values{
+		"name":        []string{name},
+		"resource":    []string{"all"},
+		"repo_search": []string{""},
+		"page":        []string{"1"},
+		"scope": []string{
+			"write:activitypub",
+			"write:admin",
+			"write:issue",
+			"write:misc",
+			"write:notification",
+			"write:organization",
+			"write:package",
+			"write:repository",
+			"write:user",
+		},
+	}
 	req, err := http.NewRequest(
 		http.MethodPost,
-		fmt.Sprintf(
-			"%s/api2/json/access/users/%s/token/%s",
-			config.PveBaseUrl,
-			pveTicket.Data.Username,
-			fmt.Sprintf("tools-vault-pve-login-%s", uuid.New().String()),
-		),
-		strings.NewReader("{}"),
+		fmt.Sprintf("%s/user/settings/applications/tokens/new/", self.config.ForgejoUrl),
+		strings.NewReader(data.Encode()),
 	)
 	if err != nil {
-		return nil, fmt.Errorf("could not create request: %w", err)
+		return "", "", fmt.Errorf("could not create request: %w", err)
 	}
-	query := req.URL.Query()
-	query.Add("comment", "Automatically created by //tools/vault/forgejo_login")
-	query.Add("expire", fmt.Sprintf("%d", time.Now().Add(time.Hour).Unix()))
-	query.Add("privsep", "0")
-	req.URL.RawQuery = query.Encode()
-	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("CSRFPreventionToken", pveTicket.Data.CSRFPreventionToken)
-	req.AddCookie(&http.Cookie{Name: "PVEAuthCookie", Value: pveTicket.Data.Ticket})
-	resp, err := http.DefaultClient.Do(req)
+	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+	resp, err := self.client.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("could not execute the request: %w", err)
+		return "", "", fmt.Errorf("could not execute the request: %w", err)
+	}
+	defer resp.Body.Close()
+	for _, cookie := range self.cookies {
+		if cookie.Name == "flash" {
+			queryVal, err := url.QueryUnescape(cookie.Value)
+			if err != nil {
+				return "", "", fmt.Errorf("could not unescape the flash cookie: %w", err)
+			}
+			query, err := url.ParseQuery(queryVal)
+			if err != nil {
+				return "", "", fmt.Errorf("could not parse the query from the token cookie: %w", err)
+			}
+			token, ok := query["info"]
+			if !ok {
+				return "", "", fmt.Errorf("token cookie is missing info: %w", err)
+			}
+			if len(token) == 0 {
+				return "", "", fmt.Errorf("field info of the token cookie is empty: %w", err)
+			}
+			return name, token[len(token)-1], nil
+		}
+	}
+	return "", "", fmt.Errorf("missing flash cookie")
+}
+
+func (self *login) getUser(ctx context.Context, token string) (string, error) {
+	req, err := http.NewRequestWithContext(
+		ctx,
+		http.MethodGet,
+		fmt.Sprintf("%s/api/v1/user", self.config.ForgejoUrl),
+		nil,
+	)
+	if err != nil {
+		return "", fmt.Errorf("could not create request: %w", err)
+	}
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
+	req.Header.Add("Content-Type", "application/json")
+	resp, err := self.client.Do(req)
+	if err != nil {
+		return "", fmt.Errorf("could not execute request: %w", err)
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("invalid response code: %s", resp.Status)
+		return "", fmt.Errorf("invalid status code: %s", resp.Status)
 	}
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, fmt.Errorf("could not read response body: %w", err)
+		return "", fmt.Errorf("could not read response body: %w", err)
 	}
-	res := &pveToken{}
-	if err := json.Unmarshal(body, res); err != nil {
-		return nil, fmt.Errorf("could not unmarshal response body: %w", err)
+	data := &struct {
+		Login string `json:"login"`
+	}{}
+	if err = json.Unmarshal(body, data); err != nil {
+		return "", fmt.Errorf("could not unmarshal response: %w", err)
 	}
-	return res, nil
+	return data.Login, nil
+}
+
+func (self *login) deleteForgejoToken(ctx context.Context, tokenName string, token string) error {
+	user, err := self.getUser(ctx, token)
+	if err != nil {
+		return fmt.Errorf("could not get user info: %w", err)
+	}
+	req, err := http.NewRequestWithContext(
+		ctx,
+		http.MethodDelete,
+		fmt.Sprintf("%s/api/v1/users/%s/tokens/%s", self.config.ForgejoUrl, user, tokenName),
+		nil,
+	)
+	if err != nil {
+		return fmt.Errorf("could not create request: %w", err)
+	}
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
+	req.Header.Add("Content-Type", "application/json")
+	resp, err := self.client.Do(req)
+	if err != nil {
+		return fmt.Errorf("could not execute request: %w", err)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		return fmt.Errorf("invalid status code: %s", resp.Status)
+	}
+	return nil
+
 }
 
 type Plugin struct {
+	ctx *al.CmdCtx
+	lc  lifecycle.Manager
+}
+
+func (self *Plugin) Start(ctx context.Context) error {
+	return self.lc.Start(ctx)
+}
+
+func (self *Plugin) Stop(ctx context.Context) error {
+	return self.lc.Stop(ctx)
 }
 
 func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
+	self.ctx.Logger.Printf("init")
 	config := &forgejo_login_proto.Config{}
 	if _, err := al.FromPbJsonToPb(req.Plugin.Data, config).Get(); err != nil {
 		return nil, fmt.Errorf("could not parse plugin data: %w", err)
@@ -193,25 +237,39 @@ func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRe
 	if err != nil {
 		return nil, fmt.Errorf("could not create the vault client: %w", err)
 	}
-	oidcUrl, err := createOIDCRequest(config)
+	self.ctx.Logger.Printf("creating OIDC request")
+	login, err := newLogin(self.ctx, config)
+	if err != nil {
+		return nil, fmt.Errorf("could not create login: %w", err)
+	}
+	oidcUrl, err := login.createOIDCRequest()
 	if err != nil {
 		return nil, fmt.Errorf("could not create OIDC request: %w", err)
 	}
-	vaultOidc, err := loginToOIDCProvider(oidcUrl, client.Client.Token())
+	self.ctx.Logger.Printf("authorizing the OIDC request")
+	vaultOidc, err := vault.OidcLogin(client.Client, oidcUrl)
 	if err != nil {
 		return nil, fmt.Errorf("could not login to OIDC provider: %w", err)
 	}
-	pveTicket, err := createProxmoxTicket(config, vaultOidc)
-	if err != nil {
-		return nil, fmt.Errorf("could not create PVE ticket: %w", err)
+	self.ctx.Logger.Printf("authorizing the session")
+	if err := login.authorizeSession(vaultOidc); err != nil {
+		return nil, fmt.Errorf("could not authorize the session using OIDC code: %w", err)
 	}
-	pveToken, err := createForgejoToken(config, pveTicket)
+	self.ctx.Logger.Printf("creating the token")
+	tokenName, token, err := login.createForgejoToken()
 	if err != nil {
-		return nil, fmt.Errorf("could not create proxmox token: %w", err)
+		return nil, fmt.Errorf("could not create forgejo token: %w", err)
 	}
+	self.lc.Add(lifecycle.StoppableFunc(func(ctx context.Context) error {
+		self.ctx.Logger.Printf("deleting token %s", tokenName)
+		if err := login.deleteForgejoToken(ctx, tokenName, token); err != nil {
+			return fmt.Errorf("could not delete forgejo token %s: %w", tokenName, err)
+		}
+		return nil
+	}))
 	res := &al_proto.PluginStartResponse{
 		Env: map[string]string{
-			"FORGEJO_API_TOKEN": pveToken,
+			"FORGEJO_API_TOKEN": token,
 			"FORGEJO_HOST":      config.ForgejoUrl,
 		},
 	}
@@ -220,8 +278,9 @@ func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRe
 
 func run(ctx *al.CmdCtx) error {
 	var lc lifecycle.Manager
-	server := al_plugin.NewPluginServer(ctx, &Plugin{})
-	lc.Add(server)
+	plugin := &Plugin{ctx: ctx}
+	server := al_plugin.NewPluginServer(ctx, plugin)
+	lc.Add(server, plugin)
 	if err := lc.Run(ctx.Ctx, time.Second*10); err != nil {
 		return fmt.Errorf("could not run: %w", err)
 	}

@@ -46,7 +46,7 @@ lib.plugin_call({
 lib.plugin_call({
     name = "forgejo_login",
     plugin = "forgejo_login",
-    labels = { tf_main = "1" },
+    labels = { tf = "main" },
 })
 
 lib.plugin_call({

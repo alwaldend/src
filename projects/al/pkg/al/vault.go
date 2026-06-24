@@ -1,8 +1,13 @@
 package al
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 
@@ -13,6 +18,7 @@ import (
 	"github.com/hashicorp/vault/api"
 	"github.com/hashicorp/vault/api/auth/approle"
 	"github.com/hashicorp/vault/api/tokenhelper"
+	"regexp"
 )
 
 const VAULT_DEFAULT_NAME = "default"
@@ -26,6 +32,11 @@ type VaultStore struct {
 	clients map[string]*VaultStoreItem
 	config  *al_proto.Config
 	mx      *sync.RWMutex
+}
+
+type VaultOidc struct {
+	Code  string `json:"code"`
+	State string `json:"state"`
 }
 
 func NewVault(config *al_proto.Config) *VaultStore {
@@ -45,6 +56,51 @@ func (self *VaultStore) clientCache(path string) (*VaultStoreItem, bool) {
 		return client, true
 	}
 	return nil, false
+}
+
+func (self *VaultStore) OidcLogin(client *api.Client, oidcUrl *url.URL) (*VaultOidc, error) {
+	regex, err := regexp.Compile("^https://([^/]+)/ui/vault/identity/oidc/provider/([^/]+)/authorize?(.+)$")
+	if err != nil {
+		return nil, fmt.Errorf("could not compile regex: %w", err)
+	}
+	parts := regex.FindAllStringSubmatch(oidcUrl.String(), -1)
+	reqData := map[string]string{}
+	for key, valueSlice := range oidcUrl.Query() {
+		for _, value := range valueSlice {
+			reqData[key] = value
+		}
+	}
+	reqBody, err := json.Marshal(reqData)
+	if err != nil {
+		return nil, fmt.Errorf("could not marshal data: %w", err)
+	}
+	req, err := http.NewRequest(
+		http.MethodPost,
+		fmt.Sprintf("https://%s/v1/identity/oidc/provider/%s/authorize", parts[0][1], parts[0][2]),
+		bytes.NewBuffer(reqBody),
+	)
+	if err != nil {
+		return nil, fmt.Errorf("could not create request: %w", err)
+	}
+	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", client.Token()))
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("could not execute the request: %w", err)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("invalid response code: %s", resp.Status)
+	}
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("could not read the body: %w", err)
+	}
+	res := &VaultOidc{}
+	if err = json.Unmarshal(body, res); err != nil {
+		return nil, fmt.Errorf("could not unmarshal response body: %w", err)
+	}
+	return res, nil
 }
 
 func (self *VaultStore) Client(ctx context.Context, conn string, authName string) fp.Either[*VaultStoreItem] {
