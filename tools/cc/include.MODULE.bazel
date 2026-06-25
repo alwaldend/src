@@ -41,4 +41,4 @@ llvm.sysroot(
 )
 use_repo(llvm, "llvm_toolchain", "llvm_toolchain_with_sysroot")
 
-register_toolchains("@llvm_toolchain_with_sysroot//:all")
+register_toolchains("@llvm_toolchain//:all")

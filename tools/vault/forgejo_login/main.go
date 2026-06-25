@@ -7,9 +7,10 @@ import (
 	"io"
 	"net/http"
 	"net/http/cookiejar"
-	"net/url"
+	reqUrl "net/url"
 	"os"
 	"os/signal"
+	"strconv"
 	"strings"
 	"syscall"
 	"time"
@@ -26,7 +27,7 @@ type login struct {
 	ctx      *al.CmdCtx
 	config   *forgejo_login_proto.Config
 	client   *http.Client
-	redirect *url.URL
+	redirect *reqUrl.URL
 	cookies  []*http.Cookie
 }
 
@@ -55,7 +56,7 @@ func newLogin(ctx *al.CmdCtx, config *forgejo_login_proto.Config) (*login, error
 	return res, nil
 }
 
-func (self *login) createOIDCRequest() (*url.URL, error) {
+func (self *login) createOIDCRequest() (*reqUrl.URL, error) {
 	req, err := http.NewRequest(
 		http.MethodGet,
 		fmt.Sprintf("%s/user/oauth2/vault", self.config.ForgejoUrl),
@@ -98,7 +99,7 @@ func (self *login) authorizeSession(oidc *al.VaultOidc) error {
 
 func (self *login) createForgejoToken() (string, string, error) {
 	name := fmt.Sprintf("src_tools_vault_forgejo_login_%s", uuid.New().String())
-	data := url.Values{
+	data := reqUrl.Values{
 		"name":        []string{name},
 		"resource":    []string{"all"},
 		"repo_search": []string{""},
@@ -131,11 +132,11 @@ func (self *login) createForgejoToken() (string, string, error) {
 	defer resp.Body.Close()
 	for _, cookie := range self.cookies {
 		if cookie.Name == "flash" {
-			queryVal, err := url.QueryUnescape(cookie.Value)
+			queryVal, err := reqUrl.QueryUnescape(cookie.Value)
 			if err != nil {
 				return "", "", fmt.Errorf("could not unescape the flash cookie: %w", err)
 			}
-			query, err := url.ParseQuery(queryVal)
+			query, err := reqUrl.ParseQuery(queryVal)
 			if err != nil {
 				return "", "", fmt.Errorf("could not parse the query from the token cookie: %w", err)
 			}
@@ -164,7 +165,7 @@ func (self *login) getUser(ctx context.Context, token string) (string, error) {
 	}
 	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
 	req.Header.Add("Content-Type", "application/json")
-	resp, err := self.client.Do(req)
+	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return "", fmt.Errorf("could not execute request: %w", err)
 	}
@@ -176,13 +177,52 @@ func (self *login) getUser(ctx context.Context, token string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("could not read response body: %w", err)
 	}
-	data := &struct {
+	data := struct {
 		Login string `json:"login"`
 	}{}
-	if err = json.Unmarshal(body, data); err != nil {
+	if err = json.Unmarshal(body, &data); err != nil {
 		return "", fmt.Errorf("could not unmarshal response: %w", err)
 	}
 	return data.Login, nil
+}
+
+func (self *login) getTokenId(ctx context.Context, user string, tokenName string, token string) (string, error) {
+	req, err := http.NewRequestWithContext(
+		ctx,
+		http.MethodGet,
+		fmt.Sprintf("%s/api/v1/users/%s/tokens", self.config.ForgejoUrl, user),
+		nil,
+	)
+	if err != nil {
+		return "", fmt.Errorf("could not create request: %w", err)
+	}
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
+	req.Header.Add("Content-Type", "application/json")
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return "", fmt.Errorf("could not execute request: %w", err)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		return "", fmt.Errorf("invalid status code: %s", resp.Status)
+	}
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return "", fmt.Errorf("could not read response body: %w", err)
+	}
+	data := []struct {
+		Name string `json:"name"`
+		Id   int    `json:"id"`
+	}{}
+	if err = json.Unmarshal(body, &data); err != nil {
+		return "", fmt.Errorf("could not unmarshal response: %w", err)
+	}
+	for _, tokenData := range data {
+		if tokenData.Name == tokenName {
+			return strconv.Itoa(tokenData.Id), nil
+		}
+	}
+	return "", fmt.Errorf("could not find token %s in %v", tokenName, data)
 }
 
 func (self *login) deleteForgejoToken(ctx context.Context, tokenName string, token string) error {
@@ -190,24 +230,38 @@ func (self *login) deleteForgejoToken(ctx context.Context, tokenName string, tok
 	if err != nil {
 		return fmt.Errorf("could not get user info: %w", err)
 	}
+	tokenId, err := self.getTokenId(ctx, user, tokenName, token)
+	if err != nil {
+		return fmt.Errorf("could not find token id: %w", err)
+	}
+	reqBody := fmt.Sprintf(`
+------geckoformboundary4d997fff18b0a002bfca28644f1b05d9
+Content-Disposition: form-data; name="id"
+
+%s
+------geckoformboundary4d997fff18b0a002bfca28644f1b05d9--
+`, tokenId)
+	reqUrl := fmt.Sprintf("%s/user/settings/applications/tokens/delete", self.config.ForgejoUrl)
 	req, err := http.NewRequestWithContext(
 		ctx,
-		http.MethodDelete,
-		fmt.Sprintf("%s/api/v1/users/%s/tokens/%s", self.config.ForgejoUrl, user, tokenName),
-		nil,
+		http.MethodPost,
+		reqUrl,
+		strings.NewReader(reqBody),
 	)
 	if err != nil {
 		return fmt.Errorf("could not create request: %w", err)
 	}
-	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
-	req.Header.Add("Content-Type", "application/json")
 	resp, err := self.client.Do(req)
 	if err != nil {
 		return fmt.Errorf("could not execute request: %w", err)
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return fmt.Errorf("invalid status code: %s", resp.Status)
+		body, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return fmt.Errorf("could not read response body: %w", err)
+		}
+		return fmt.Errorf("invalid status code %s: %s", resp.Status, string(body))
 	}
 	return nil
 
@@ -260,7 +314,7 @@ func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRe
 	if err != nil {
 		return nil, fmt.Errorf("could not create forgejo token: %w", err)
 	}
-	self.lc.Add(lifecycle.StoppableFunc(func(ctx context.Context) error {
+	self.lc.AddState(lifecycle.StateStarted, lifecycle.StoppableFunc(func(ctx context.Context) error {
 		self.ctx.Logger.Printf("deleting token %s", tokenName)
 		if err := login.deleteForgejoToken(ctx, tokenName, token); err != nil {
 			return fmt.Errorf("could not delete forgejo token %s: %w", tokenName, err)
