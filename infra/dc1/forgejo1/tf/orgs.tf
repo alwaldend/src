@@ -1,3 +1,4 @@
 resource "forgejo_organization" "alwaldend" {
-  name = "alwaldend"
+  name       = "alwaldend"
+  visibility = "public"
 }

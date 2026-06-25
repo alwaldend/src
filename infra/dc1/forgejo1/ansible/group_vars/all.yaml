@@ -16,3 +16,6 @@ firewall_allow_port_from:
   - src: "any"
     port: 80
     comment: HTTP
+  - src: "any"
+    port: 3005
+    comment: Forgejo ssh

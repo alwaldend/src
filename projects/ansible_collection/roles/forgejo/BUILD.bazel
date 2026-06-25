@@ -15,11 +15,11 @@ al_ansible_role(
     name = "role",
     srcs = glob(["**"]) + [
         "//data/ssl/alwaldend.com:ica_servers",
-        "@com_alwaldend_src_tools_forgejo_linux_x86_64//:forgejo_filegroup",
         "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
+        "@org_codeberg_forgejo_bin_linux_x86_64//:forgejo_filegroup",
     ],
     renames = {
-        "@com_alwaldend_src_tools_forgejo_linux_x86_64//:forgejo_filegroup": "files/forgejo",
+        "@org_codeberg_forgejo_bin_linux_x86_64//:forgejo_filegroup": "files/forgejo",
         "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "files/vault",
         "//data/ssl/alwaldend.com:ica_servers": "files/pki_ca_servers.crt",
     },
