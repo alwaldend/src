@@ -19,6 +19,7 @@ include("//third_party/ai_opencode_opencode:include.MODULE.bazel")
 include("//third_party/io_traefik_traefik:include.MODULE.bazel")
 include("//third_party/org_codeberg_forgejo:include.MODULE.bazel")
 include("//third_party/org_codeberg_forgejo_bin:include.MODULE.bazel")
+include("//third_party/org_codeberg_forgejo_contrib_forgejo_cli_bin:include.MODULE.bazel")
 
 # Tools
 include("//tools:include.MODULE.bazel")

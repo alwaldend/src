@@ -234,13 +234,8 @@ func (self *login) deleteForgejoToken(ctx context.Context, tokenName string, tok
 	if err != nil {
 		return fmt.Errorf("could not find token id: %w", err)
 	}
-	reqBody := fmt.Sprintf(`
-------geckoformboundary4d997fff18b0a002bfca28644f1b05d9
-Content-Disposition: form-data; name="id"
 
-%s
-------geckoformboundary4d997fff18b0a002bfca28644f1b05d9--
-`, tokenId)
+	reqBody := fmt.Sprintf("------geckoformboundaryad6eabc90788565a21e5bcb6a2ff4fb5\r\nContent-Disposition: form-data; name=\"id\"\r\n\r\n%s\r\n------geckoformboundaryad6eabc90788565a21e5bcb6a2ff4fb5--\r\n", tokenId)
 	reqUrl := fmt.Sprintf("%s/user/settings/applications/tokens/delete", self.config.ForgejoUrl)
 	req, err := http.NewRequestWithContext(
 		ctx,
@@ -251,6 +246,7 @@ Content-Disposition: form-data; name="id"
 	if err != nil {
 		return fmt.Errorf("could not create request: %w", err)
 	}
+	req.Header.Add("Content-Type", "multipart/form-data; boundary=----geckoformboundaryad6eabc90788565a21e5bcb6a2ff4fb5")
 	resp, err := self.client.Do(req)
 	if err != nil {
 		return fmt.Errorf("could not execute request: %w", err)

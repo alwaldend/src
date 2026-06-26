@@ -1,16 +1,16 @@
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 
-_BIN = "$(rootpath //third_party/org_codeberg_forgejo_bin)"
+_BIN = "$(rootpath //third_party/org_codeberg_forgejo_contrib_forgejo_cli_bin)"
 
 al_binary_run_map(
-    name = "forgejo",
+    name = "fj",
     args = {
         "": [_BIN],
     },
     configs = ["//:al"],
     data = [
-        "//third_party/org_codeberg_forgejo_bin",
+        "//third_party/org_codeberg_forgejo_contrib_forgejo_cli_bin",
         "//tools/vault/forgejo_login",
         "//tools/vault/injector",
     ],
