@@ -1,0 +1,13 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    lock = "//third_party/io_goharbor_harbor_cli:binary_toolchain.json",
+    toolchains_map = {
+        "harbor": "io_goharbor_harbor_cli",
+    },
+)
+use_repo(binary_toolchain_extension, "io_goharbor_harbor_cli")
+
+register_toolchains("@io_goharbor_harbor_cli//:all")

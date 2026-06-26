@@ -1,0 +1,48 @@
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
+load("//projects/al/rules/al:al_config.bzl", "al_config")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+load("//tools/vault:defs.bzl", "vault_binary_map")
+
+al_config(
+    name = "al",
+    srcs = ["al.lua"],
+    visibility = ["//infra/dc1/harbor1:__subpackages__"],
+    deps = ["//infra:al"],
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = ["//infra/dc1:__subpackages__"],
+)
+
+vault_binary_map(
+    name = "vault",
+    configs = [":al"],
+)
+
+al_binary_run(
+    name = "harbor1",
+    args = [
+        "$(rootpath //tools/harbor)",
+    ],
+    configs = [":al"],
+    data = [
+        "//tools/harbor",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "harbor",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//infra/dc1:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)

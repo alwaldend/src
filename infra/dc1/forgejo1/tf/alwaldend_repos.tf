@@ -7,13 +7,15 @@ resource "forgejo_repository" "alwaldend_src" {
   clone_addr     = "https://github.com/alwaldend/src.git"
 }
 
-locals {
-  long_lived_branches = ["master", "releases/*"]
+resource "forgejo_branch_protection" "alwaldend_src_master" {
+  branch_name            = "master"
+  repository_id          = forgejo_repository.alwaldend_src.id
+  enable_push            = true
+  require_signed_commits = true
 }
 
-resource "forgejo_branch_protection" "alwaldend_src_long_lived" {
-  for_each               = { for branch in local.long_lived_branches : branch => "" }
-  branch_name            = each.key
+resource "forgejo_branch_protection" "alwaldend_src_releases" {
+  branch_name            = "master"
   repository_id          = forgejo_repository.alwaldend_src.id
   enable_push            = false
   require_signed_commits = true

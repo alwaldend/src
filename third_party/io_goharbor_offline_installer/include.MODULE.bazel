@@ -1,0 +1,11 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "io_goharbor_offline_installer",
+    build_file = "//third_party/io_goharbor_offline_installer:installer.BUILD.bazel",
+    integrity = "sha256-RrO7W0XI/mMq3m2F+QzdhJNe84hazlZKaFHpjlfjkos=",
+    strip_prefix = "harbor",
+    urls = [
+        "https://github.com/goharbor/harbor/releases/download/v2.14.4/harbor-offline-installer-v2.14.4.tgz",
+    ],
+)
