@@ -4,14 +4,14 @@ load("//tools/terraform:defs.bzl", "terraform_binary", "terraform_binary_map", "
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//infra/forgejo:__pkg__"],
+    visibility = ["//infra/harbor:__pkg__"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
     ),
 )
 
-_CONFIGS = ["//infra/forgejo:al"]
+_CONFIGS = ["//infra/harbor:al"]
 
 _RUN_ARGS = [
     "--plugin_label",
@@ -21,7 +21,7 @@ _RUN_ARGS = [
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
     "//projects/tf_modules/pve_vm_qemu",
-    "//infra/forgejo:dnsconfig",
+    "//infra/harbor:dnsconfig",
     "//tools/vault/pve_login",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",

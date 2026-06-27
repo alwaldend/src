@@ -1,14 +1,18 @@
-module "vm_ha" {
+locals {
+  dns = jsondecode(file("${path.module}/../dnsconfig.json"))
+}
+
+module "vms" {
   for_each = {
-    host1 = { vmid = 600 },
+    host1 = { vmid = 700 },
   }
   source       = ".././../../projects/tf_modules/pve_vm_qemu"
   name         = local.dns.domains.default.records[each.key].A.name
   vmid         = each.value.vmid
-  pool         = "src_infra_dc1_forgejo1"
+  pool         = "src_infra_harbor"
   cores        = 2
   memory       = 4096
   storage_size = "100G"
   ipconfig0    = "ip=${local.dns.domains.default.records[each.key].A.address}/24,gw=192.168.10.2"
-  tags         = ["forgejo"]
+  tags         = ["harbor"]
 }

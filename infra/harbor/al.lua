@@ -4,7 +4,7 @@ local infra = require("infra.al_lib")
 lib.vault_auth({
     name = "default",
     approle = {
-        name = "src_infra_dc1_harbor1",
+        name = "src_infra_harbor",
     },
 })
 
@@ -22,7 +22,7 @@ lib.plugin_call({
     plugin = "tf_backend",
     labels = { tf = "setup" },
     data = {
-        vault_secret = "alwaldend.com/vault1/approles/src_infra_dc1_harbor1/tf_backend/tf_setup",
+        vault_secret = "alwaldend.com/vault1/approles/src_infra_harbor/tf_backend/tf_setup",
         vault_secret_mount = "secrets"
     },
 })
@@ -32,7 +32,7 @@ lib.plugin_call({
     plugin = "tf_backend",
     labels = { tf = "main" },
     data = {
-        vault_secret = "alwaldend.com/vault1/approles/src_infra_dc1_harbor1/tf_backend/tf",
+        vault_secret = "alwaldend.com/vault1/approles/src_infra_harbor/tf_backend/tf",
         vault_secret_mount = "secrets"
     },
 })

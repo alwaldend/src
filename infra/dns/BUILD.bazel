@@ -32,15 +32,9 @@ al_config(
 al_binary_run_map(
     name = "dns",
     args = {
-        "": [_BIN],
-        "deploy": [
-            _BIN,
-            "push",
-        ] + _ARGS,
-        "preview": [
-            _BIN,
-            "preview",
-        ] + _ARGS,
+        "": [_BIN, "push", "-i"] + _ARGS,
+        "deploy": [_BIN, "push"] + _ARGS,
+        "preview": [_BIN, "preview"] + _ARGS,
     },
     configs = [":al"],
     data = [

@@ -1,0 +1,60 @@
+<mxfile host="Electron">
+  <diagram name="Harbor" id="-YIFcF5NFIgLEo9HBhwD">
+    <mxGraphModel dx="1798" dy="1073" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="U2TRrjayyH0se131Tg96-2" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=60;" value="Proxmox&lt;br&gt;pve.alwaldend.com" vertex="1">
+          <mxGeometry height="470" width="410" x="220" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-3" parent="U2TRrjayyH0se131Tg96-2" style="swimlane;whiteSpace=wrap;html=1;startSize=70;" value="Harbor&lt;br&gt;harbor.alwaldend.com" vertex="1">
+          <mxGeometry height="310" width="265" x="73" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-6" edge="1" parent="U2TRrjayyH0se131Tg96-3" source="U2TRrjayyH0se131Tg96-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="U2TRrjayyH0se131Tg96-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-1" parent="U2TRrjayyH0se131Tg96-3" style="rounded=1;whiteSpace=wrap;html=1;" value="Traefik" vertex="1">
+          <mxGeometry height="60" width="150" x="57.5" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-4" parent="U2TRrjayyH0se131Tg96-3" style="rounded=1;whiteSpace=wrap;html=1;" value="Harbor" vertex="1">
+          <mxGeometry height="60" width="152.5" x="56" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-10" edge="1" parent="1" source="U2TRrjayyH0se131Tg96-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="U2TRrjayyH0se131Tg96-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-11" edge="1" parent="1" source="U2TRrjayyH0se131Tg96-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="U2TRrjayyH0se131Tg96-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="95" y="750" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-12" connectable="0" parent="U2TRrjayyH0se131Tg96-11" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="OIDC" vertex="1">
+          <mxGeometry relative="1" x="-0.4708" as="geometry">
+            <mxPoint x="25" y="125" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-5" parent="1" style="shape=umlActor;verticalLabelPosition=middle;verticalAlign=middle;html=1;outlineConnect=0;labelPosition=left;align=right;" value="Actor" vertex="1">
+          <mxGeometry height="60" width="30" x="80" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-7" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Vault&lt;br&gt;vault.alwaldend.com" vertex="1">
+          <mxGeometry height="60" width="145" x="353" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-8" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="External&lt;br&gt;registries" vertex="1">
+          <mxGeometry height="60" width="120" x="690" y="510" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-9" edge="1" parent="1" source="U2TRrjayyH0se131Tg96-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="U2TRrjayyH0se131Tg96-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-13" edge="1" parent="1" source="U2TRrjayyH0se131Tg96-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="U2TRrjayyH0se131Tg96-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-14" connectable="0" parent="U2TRrjayyH0se131Tg96-13" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="OIDC" vertex="1">
+          <mxGeometry relative="1" x="-0.0886" y="-1" as="geometry">
+            <mxPoint x="26" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

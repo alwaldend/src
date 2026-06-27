@@ -28,7 +28,7 @@ def terraform_binary(
     )
 
 DEFAULT_TERRAFORM_BINARIES = {
-    "": [],
+    "": ["apply"],
     "direct": ["--direct"],
     "init": ["--direct", "init"],
     "migrate": ["--direct", "init", "--migrate-state"],

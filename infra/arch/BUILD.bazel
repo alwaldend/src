@@ -1,0 +1,23 @@
+load("//tools/docs:defs.bzl", "docs_filegroup")
+load("@com_drawio_desktop_bin//:defs.bzl", "drawio_binary")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//infra:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+drawio_binary(
+    name = "arch",
+    args = ["$(rootpath :diagram)"],
+    data = [":diagram"],
+)
+
+filegroup(
+    name = "diagram",
+    srcs = ["arch.drawio"],
+)

@@ -1,0 +1,13 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    lock = "//third_party/com_drawio_desktop_bin:binary_toolchain.json",
+    toolchains_map = {
+        "drawio": "com_drawio_desktop_bin",
+    },
+)
+use_repo(binary_toolchain_extension, "com_drawio_desktop_bin")
+
+register_toolchains("@com_drawio_desktop_bin//:all")

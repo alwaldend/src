@@ -21,6 +21,12 @@ variable "forgejo_url" {
   default     = "https://forgejo.alwaldend.com"
 }
 
+variable "harbor_url" {
+  type        = string
+  description = "Harbor url"
+  default     = "https://harbor.alwaldend.com"
+}
+
 variable "vault_host" {
   type        = string
   description = "Vault host"

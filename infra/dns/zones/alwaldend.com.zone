@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-06-27T10:34:23Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026062700 3600 600 604800 1440
+; generated with dnscontrol 2026-06-27T13:16:40Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026062701 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -40,6 +40,8 @@ vault.dc1        IN A     192.168.1.218
 host1.vault.dc1 600 IN CNAME bm3.dc1.alwaldend.com.
 forgejo          IN A     192.168.10.40
 host1.forgejo    IN A     192.168.10.40
+harbor           IN A     192.168.10.50
+host1.harbor     IN A     192.168.10.50
 simplelogin 10800 IN MX   10 mx1.simplelogin.co.
            10800 IN MX    20 mx2.simplelogin.co.
            10800 IN TXT   "sl-verification=bxfzzfjiggzsxyzxhhmkmjqkaskjgy"

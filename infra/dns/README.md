@@ -13,15 +13,18 @@ tags:
 
 ## Deployment
 
-- Modify `dnsconfig.js`
-- Preview changes:
-  ```sh
-  bazel run //infra/dns:dns.preview
-  ```
-- Deploy changes:
-  ```sh
-  bazel run //infra/dns:dns.deploy
-  ```
+Interative:
+```sh
+bazel run //infra/dns
+```
+Just preview:
+```sh
+bazel run //infra/dns:dns.preview
+```
+Just deploy:
+```sh
+bazel run //infra/dns:dns.deploy
+```
 
 {{% alwaldend/alert %}}
 Deploy modifies the bind file, which will cause

@@ -3,15 +3,15 @@ load("//tools/docs:defs.bzl", "docs_filegroup")
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//tools:__pkg__"],
+    visibility = ["//third_party:__pkg__"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
-    ) + ["//tools/drawio/main/bzl:docs"],
+    ),
 )
 
 alias(
-    name = "drawio",
-    actual = "//third_party/com_drawio_desktop_bin",
+    name = "com_drawio_desktop_bin",
+    actual = "@com_drawio_desktop_bin//:drawio_binary",
     visibility = ["//:__subpackages__"],
 )

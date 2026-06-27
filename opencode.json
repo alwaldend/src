@@ -5,6 +5,42 @@
     "hostname": "127.0.0.1",
     "cors": ["http://127.0.0.1:4096"]
   },
+  "permission": {
+    "*": "ask",
+    "read": {
+      "*": "allow"
+    },
+    "edit": {
+      "*": "ask",
+    },
+    "glob": {
+      "*": "allow"
+    },
+    "grep": {
+      "*": "allow"
+    },
+    "bash": {
+      "*": "ask",
+      "git *": "allow",
+      "grep *": "allow"
+    },
+    "task": {
+      "*": "allow"
+    },
+    "skill": {
+      "*": "allow"
+    },
+    "lsp": {
+      "*": "allow"
+    },
+    "question": "allow",
+    "webfetch": "ask",
+    "websearch": "ask",
+    "external_directory": {
+      "*": "deny"
+    },
+    "doom_loop": "allow"
+  },
   "provider": {
     "yandex": {
       "npm": "@ai-sdk/openai-compatible",

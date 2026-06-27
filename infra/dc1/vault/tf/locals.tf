@@ -14,6 +14,7 @@ locals {
     src_infra_dc1_vault         = module.src_infra_dc1_vault_approle
     src_infra_dc1_dns           = module.src_infra_dns_approle
     src_infra_yandex_cloud_org1 = module.src_infra_yandex_cloud_org1_approle
+    src_infra_harbor            = module.src_infra_harbor_approle
     users_simeonwarren          = module.users_approle["simeonwarren"]
   }
 }

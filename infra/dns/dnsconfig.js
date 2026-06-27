@@ -11,6 +11,7 @@ var jsons = [
     require("../dc1/vault/dnsconfig.json5"),
     require("../dc1/consul1/dnsconfig.json"),
     require("../forgejo/dnsconfig.json"),
+    require("../harbor/dnsconfig.json"),
 ];
 
 

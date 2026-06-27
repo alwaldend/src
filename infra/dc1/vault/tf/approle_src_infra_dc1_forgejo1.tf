@@ -16,7 +16,7 @@ module "src_infra_dc1_forgejo1_ssh" {
   source          = "../../../../projects/tf_modules/vault_ssh_server_role"
   backend         = vault_mount.ssh_servers.path
   name            = "src_infra_dc1_forgejo1_ssh"
-  allowed_domains = "forgejo1.dc1.alwaldend.com"
+  allowed_domains = "forgejo.alwaldend.com"
 }
 
 module "src_infra_dc1_forgejo_pki_server" {

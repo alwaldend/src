@@ -15,7 +15,7 @@ tags:
 ## Deployment
 
 ```sh
-bazel run //infra/forgejo/tf_setup:tf.apply # Create hosts
+bazel run //infra/forgejo/tf_setup # Create hosts
 bazel run //infra/forgejo/ansible # Configure hosts
-bazel run //infra/forgejo/tf:tf.apply # Configure forgejo
+bazel run //infra/forgejo/tf # Configure forgejo
 ```

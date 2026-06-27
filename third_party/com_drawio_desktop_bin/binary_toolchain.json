@@ -1,0 +1,37 @@
+{
+    "toolchains": [
+        {
+            "name": "drawio",
+            "version": "30.2.6"
+        }
+    ],
+    "archives": [
+        {
+            "archive_name": "linux_x86_64",
+            "toolchain_name": "drawio",
+            "toolchain_version": "30.2.6",
+            "binaries": [
+                {
+                    "name": "drawio",
+                    "path": "out/drawio"
+                }
+            ],
+            "actions": [
+                {
+                    "download": {
+                        "url": "https://github.com/jgraph/drawio-desktop/releases/download/v30.2.6/drawio-x86_64-30.2.6.AppImage",
+                        "output": "out/drawio",
+                        "executable": true,
+                        "integrity": "sha256-aP2gZxkEhMYhkNUIH0Lk0LXHzHZqbSq8tJ/oTzQd7Vw="
+                    }
+                }
+            ],
+            "rules": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}
