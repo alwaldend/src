@@ -1,0 +1,76 @@
+- tags:
+    - harbor
+  block:
+    - name: Add docker repo
+      ansible.builtin.yum_repository:
+        name: docker-ce-stable
+        description: Docker CE Stable - $basearch
+        baseurl: https://download.docker.com/linux/fedora/$releasever/$basearch/stable
+        gpgcheck: "1"
+        gpgkey:
+          - https://download.docker.com/linux/fedora/gpg
+    - name: Install docker packages
+      ansible.builtin.package:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+          - docker-buildx-plugin
+          - docker-compose-plugin
+    - name: Start the docker service
+      ansible.builtin.systemd_service:
+        name: "docker"
+        enabled: true
+        state: started
+    - name: Create harbor user
+      ansible.builtin.user:
+        name: "{{ harbor_user }}"
+        uid: "{{ harbor_user_uid }}"
+        shell: /sbin/nologin
+        home: "{{ harbor_dir }}/home"
+        system: true
+    - name: Create harbor dirs
+      loop:
+        - "{{ harbor_dir }}"
+        - "{{ harbor_dir }}/home"
+        - "{{ harbor_installer_dir }}"
+        - "{{ harbor_logs_dir }}"
+      ansible.builtin.file:
+        state: directory
+        owner: "{{ harbor_user }}"
+        group: "{{ harbor_user }}"
+        mode: "0700"
+        path: "{{ item }}"
+    - name: Create docker cert dir
+      ansible.builtin.file:
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+        path: "{{ harbor_ca_path | dirname }}"
+    - name: Copy docker CA
+      ansible.builtin.copy:
+        src: "{{ harbor_ca_local_path }}"
+        dest: "{{ harbor_ca_path }}/"
+        owner: "root"
+        group: "root"
+        mode: "0644"
+    - name: Copy the installer
+      ansible.builtin.copy:
+        src: "{{ harbor_installer_local_dir }}/"
+        dest: "{{ harbor_installer_dir }}/"
+        owner: "{{ harbor_user }}"
+        group: "{{ harbor_user }}"
+        mode: "0700"
+    - name: Template the config
+      ansible.builtin.template:
+        src: "{{ harbor_config_local_path }}"
+        dest: "{{ harbor_config_path }}"
+        owner: "{{ harbor_user }}"
+        group: "{{ harbor_user }}"
+        mode: "0600"
+    - name: Run the installer
+      ansible.builtin.command:
+        argv:
+          - "{{ harbor_installer_dir }}/install.sh"
+          - --with-trivy

@@ -1,7 +1,7 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 
-def al_ansible_role(name, srcs, visibility, renames = {}):
+def al_ansible_role(name, srcs, visibility, renames = {}, deps = [], **kwargs):
     """
     Create targets for an ansible role
 
@@ -9,6 +9,7 @@ def al_ansible_role(name, srcs, visibility, renames = {}):
         name (str): name prefix
         srcs (list[str]): role sources
         visibility (list[str]): resulting archive visibility
+        **kwargs: kwargs for pkg_files
     """
     role_name = native.package_name().rsplit("/", 1)[-1]
     if "defaults/main.yaml" in srcs:
@@ -43,10 +44,15 @@ def al_ansible_role(name, srcs, visibility, renames = {}):
         visibility = visibility,
     )
     pkg_files(
-        name = name,
+        name = "{}.files".format(name),
         srcs = srcs,
         strip_prefix = strip_prefix.from_pkg(),
         renames = renames,
         prefix = role_name,
+        **kwargs,
+    )
+    pkg_filegroup(
+        name = name,
+        srcs = ["{}.files".format(name)] + deps,
         visibility = visibility,
     )

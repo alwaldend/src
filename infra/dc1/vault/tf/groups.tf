@@ -39,6 +39,7 @@ resource "vault_identity_group" "ansible" {
   ]
   member_group_ids = [
     module.src_infra_dc1_forgejo1_approle.group_id,
+    module.src_infra_harbor_approle.group_id,
   ]
   metadata = {
     comment = "Group with access to ansible"

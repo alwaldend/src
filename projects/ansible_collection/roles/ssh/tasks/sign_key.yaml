@@ -29,7 +29,7 @@
           - "{{ ssh_vault_mount }}/sign/{{ ssh_vault_role }}"
           - public_key=@{{ ssh_public_key_tempfile.path }}/{{ inventory_hostname }}/{{ ssh_public_key.path }}
           - cert_type=host
-          - valid_principals={{ inventory_hostname }}
+          - valid_principals={{ inventory_hostname }},{{ ssh_valid_principals | join(',') }}
     - name: Copy signed public keys to the host
       ansible.builtin.copy:
         content: "{{ (ssh_sign_keys_cmd_result.stdout | from_json).data.signed_key }}\n"

@@ -1,0 +1,11 @@
+harbor_user: harbor
+harbor_user_uid: 7049
+harbor_dir: "/opt/harbor"
+harbor_installer_dir: "{{ harbor_dir }}/installer"
+harbor_logs_dir: "{{ harbor_dir }}/logs"
+harbor_installer_local_dir: "{{ role_path }}/files/harbor_installer"
+harbor_config_path: "{{ harbor_installer_dir }}/harbor.yml"
+harbor_config_local_path: "files/harbor.yaml"
+harbor_domain: "{{ undefined() }}"
+harbor_ca_local_path: "{{ role_path }}/files/pki_ca_servers.crt"
+harbor_ca_path: /etc/docker/certs.d/{{ harbor_domain }}/ca.crt

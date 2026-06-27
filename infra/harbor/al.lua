@@ -42,3 +42,34 @@ lib.plugin_call({
     plugin = "pve_login",
     labels = { tf = "setup" },
 })
+
+lib.plugin_call({
+    name = "config",
+    plugin = "injector",
+    labels = { ansible = "1" },
+    data = {
+        res = {
+            {
+                name = "config",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/src_infra_harbor/config",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "HARBOR_ADMIN_PASSWORD",
+                deps = { "config" },
+                env = {
+                    value = "{{ .Last.Data.admin_password }}",
+                }
+            },
+            {
+                name = "HARBOR_DB_PASSWORD",
+                deps = { "config" },
+                env = {
+                    value = "{{ .Last.Data.db_password }}",
+                }
+            },
+        }
+    }
+})

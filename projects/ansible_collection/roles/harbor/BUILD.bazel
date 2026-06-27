@@ -1,0 +1,43 @@
+load("//tools/ansible/main/bzl:al_ansible_role.bzl", "al_ansible_role")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/ansible_collection/roles:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ) + [":role.docs"],
+)
+
+al_ansible_role(
+    name = "role",
+    srcs = glob(["**"]) + [
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
+        "//data/ssl/alwaldend.com:ica_servers",
+    ],
+    deps = [
+        ":installer",
+    ],
+    renames = {
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "files/vault",
+        "//data/ssl/alwaldend.com:ica_servers": "files/pki_ca_servers.crt",
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+pkg_filegroup(
+    name = "installer",
+    srcs = [":installer_files"],
+)
+
+pkg_files(
+    name = "installer_files",
+    srcs = [
+        "//third_party/io_goharbor_offline_installer",
+    ],
+    prefix = "harbor/files/harbor_installer",
+    strip_prefix = strip_prefix.from_pkg(),
+)

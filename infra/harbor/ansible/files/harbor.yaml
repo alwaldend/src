@@ -1,86 +1,41 @@
-_version: 2.14.0 # This attribute is for migrator to detect the version of the .cfg file, DO NOT MODIFY!
+hostname: "{{ harbor_domain }}"
 http:
   port: 7049
-external_url: https://harbor.alwaldend.com
-harbor_admin_password: Harbor12345
+external_url: https://{{ harbor_domain }}
+harbor_admin_password: "{{ lookup('ansible.builtin.env', 'HARBOR_ADMIN_PASSWORD', default=undefined()) }}"
+database:
+  password: "{{ lookup('ansible.builtin.env', 'HARBOR_DB_PASSWORD', default=undefined()) }}"
+  max_idle_conns: 100
+  max_open_conns: 900
+  conn_max_lifetime: 5m
+  conn_max_idle_time: 0
 data_volume: /data
 trivy:
-  # ignoreUnfixed The flag to display only fixed vulnerabilities
   ignore_unfixed: false
-  # skipUpdate The flag to enable or disable Trivy DB downloads from GitHub
-  #
-  # You might want to enable this flag in test or CI/CD environments to avoid GitHub rate limiting issues.
-  # If the flag is enabled you have to download the `trivy-offline.tar.gz` archive manually, extract `trivy.db` and
-  # `metadata.json` files and mount them in the `/home/scanner/.cache/trivy/db` path.
   skip_update: false
-  #
-  # skipJavaDBUpdate If the flag is enabled you have to manually download the `trivy-java.db` file and mount it in the
-  # `/home/scanner/.cache/trivy/java-db/trivy-java.db` path
   skip_java_db_update: false
-  #
-  # The offline_scan option prevents Trivy from sending API requests to identify dependencies.
-  # Scanning JAR files and pom.xml may require Internet access for better detection, but this option tries to avoid it.
-  # For example, the offline mode will not try to resolve transitive dependencies in pom.xml when the dependency doesn't
-  # exist in the local repositories. It means a number of detected vulnerabilities might be fewer in offline mode.
-  # It would work if all the dependencies are in local.
-  # This option doesn't affect DB download. You need to specify "skip-update" as well as "offline-scan" in an air-gapped environment.
   offline_scan: false
-  #
-  # Comma-separated list of what security issues to detect. Possible values are `vuln`, `config` and `secret`. Defaults to `vuln`.
-  security_check: vuln
-  #
-  # insecure The flag to skip verifying registry certificate
+  security_check: vuln,config,secret
   insecure: false
-  #
-  # timeout The duration to wait for scan completion.
-  # There is upper bound of 30 minutes defined in scan job. So if this `timeout` is larger than 30m0s, it will also timeout at 30m0s.
   timeout: 5m0s
-  #
-  # github_token The GitHub access token to download Trivy DB
-  #
-  # Anonymous downloads from GitHub are subject to the limit of 60 requests per hour. Normally such rate limit is enough
-  # for production operations. If, for any reason, it's not enough, you could increase the rate limit to 5000
-  # requests per hour by specifying the GitHub access token. For more details on GitHub rate limiting please consult
-  # https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting
-  #
-  # You can create a GitHub token by following the instructions in
-  # https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line
-  #
-  # github_token: xxx
-
 jobservice:
-  # Maximum number of job workers in job service
   max_job_workers: 10
-  # Maximum hours of task duration in job service, default 24
   max_job_duration_hours: 24
-  # The jobLoggers backend name, only support "STD_OUTPUT", "FILE" and/or "DB"
   job_loggers:
     - STD_OUTPUT
     - FILE
-    # - DB
-  # The jobLogger sweeper duration (ignored if `jobLogger` is `stdout`)
+     - DB
   logger_sweeper_duration: 1 #days
-
 notification:
-  # Maximum retry count for webhook job
   webhook_job_max_retry: 3
-  # HTTP client timeout for webhook job
   webhook_job_http_client_timeout: 3 #seconds
-
-# Log configurations
 log:
-  # options are debug, info, warning, error, fatal
   level: info
-  # configs for logs in local storage
   local:
-    # Log files are rotated log_rotate_count times before being removed. If count is 0, old versions are removed rather than rotated.
     rotate_count: 50
-    # Log files are rotated only if they grow bigger than log_rotate_size bytes. If size is followed by k, the size is assumed to be in kilobytes.
-    # If the M is used, the size is in megabytes, and if G is used, the size is in gigabytes. So size 100, size 100k, size 100M and size 100G
-    # are all valid.
     rotate_size: 200M
-    # The directory on your host that store log
-    location: ""
+    location: "{{ harbor_logs_dir }}"
+_version: 2.14.0 # This attribute is for migrator to detect the version of the .cfg file, DO NOT MODIFY!
 proxy:
   http_proxy:
   https_proxy:
@@ -91,8 +46,9 @@ proxy:
     - trivy
 upload_purging:
   enabled: true
-  # remove files in _upload directories which exist for a period of time, default is one week.
   age: 168h
-  # the interval of the purge operations
   interval: 24h
   dryrun: false
+cache:
+  enabled: false
+  expire_hours: 24
