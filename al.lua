@@ -73,7 +73,7 @@ lib.plugin({
         forgejo_login = "1"
     },
     data = {
-        forgejo_url = "https://forgejo1.dc1.alwaldend.com",
+        forgejo_url = "https://forgejo.alwaldend.com",
         forgejo_oauth_name = "vault"
     },
 })

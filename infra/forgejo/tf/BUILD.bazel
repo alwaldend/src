@@ -4,14 +4,14 @@ load("//tools/terraform:defs.bzl", "terraform_binary", "terraform_binary_map", "
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//infra/dc1/forgejo1:__pkg__"],
+    visibility = ["//infra/forgejo:__pkg__"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
     ),
 )
 
-_CONFIGS = ["//infra/dc1/forgejo1:al"]
+_CONFIGS = ["//infra/forgejo:al"]
 
 _RUN_ARGS = [
     "--plugin_label",

@@ -2,6 +2,15 @@ load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 
+filegroup(
+    name = "dnsconfig",
+    srcs = [
+        "//infra/dc1:dnsconfig",
+        "//infra/forgejo:dnsconfig",
+    ],
+    visibility = ["//infra:__subpackages__"],
+)
+
 pkg_filegroup(
     name = "ansible_cfg",
     srcs = [":ansible_cfg_file"],

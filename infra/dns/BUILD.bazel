@@ -46,7 +46,7 @@ al_binary_run_map(
     data = [
         "creds.json.tpl",
         "dnsconfig.js",
-        "//infra/dc1:dnsconfig",
+        "//infra:dnsconfig",
         "//tools/dnscontrol",
         "//tools/vault/injector",
     ] + _ZONES,

@@ -1,5 +1,5 @@
 [http.routers.forgejo_websecure]
-rule = "Host(`forgejo1.dc1.alwaldend.com`) || Host(`{{ inventory_hostname }}`)"
+rule = "Host(`{{ forgejo_domain }}`) || Host(`{{ inventory_hostname }}`)"
 service = "forgejo"
 tls = { certResolver = "vault" }
 

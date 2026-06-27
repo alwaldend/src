@@ -15,7 +15,7 @@ resource "forgejo_branch_protection" "alwaldend_src_master" {
 }
 
 resource "forgejo_branch_protection" "alwaldend_src_releases" {
-  branch_name            = "master"
+  branch_name            = "releases/*"
   repository_id          = forgejo_repository.alwaldend_src.id
   enable_push            = false
   require_signed_commits = true

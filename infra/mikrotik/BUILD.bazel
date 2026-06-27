@@ -3,7 +3,7 @@ load("//tools/docs:defs.bzl", "docs_filegroup")
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]) + glob(["*.rsc"]),
-    visibility = ["//infra/dc1:__pkg__"],
+    visibility = ["//infra:__pkg__"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,

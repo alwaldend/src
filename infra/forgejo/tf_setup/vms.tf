@@ -2,7 +2,7 @@ module "vm_ha" {
   for_each = {
     host1 = { vmid = 600 },
   }
-  source       = ".././../../../projects/tf_modules/pve_vm_qemu"
+  source       = ".././../../projects/tf_modules/pve_vm_qemu"
   name         = local.dns.domains.default.records[each.key].A.name
   vmid         = each.value.vmid
   pool         = "src_infra_dc1_forgejo1"

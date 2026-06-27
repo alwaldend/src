@@ -1,5 +1,5 @@
 - name: Deploy
-  hosts: forgejo1
+  hosts: forgejo
   force_handlers: true
   become: true
   roles:

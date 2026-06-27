@@ -10,7 +10,7 @@ var jsons = [
     require("../dc1/pve1/dnsconfig.json"),
     require("../dc1/vault/dnsconfig.json5"),
     require("../dc1/consul1/dnsconfig.json"),
-    require("../dc1/forgejo1/dnsconfig.json"),
+    require("../forgejo/dnsconfig.json"),
 ];
 
 
