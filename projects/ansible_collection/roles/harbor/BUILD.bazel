@@ -1,5 +1,5 @@
-load("//tools/ansible/main/bzl:al_ansible_role.bzl", "al_ansible_role")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+load("//tools/ansible/main/bzl:al_ansible_role.bzl", "al_ansible_role")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
@@ -15,17 +15,19 @@ docs_filegroup(
 al_ansible_role(
     name = "role",
     srcs = glob(["**"]) + [
-        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
         "//data/ssl/alwaldend.com:ica_servers",
-    ],
-    deps = [
-        ":installer",
+        "//data/ssl/alwaldend.com:root_ca",
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
     ],
     renames = {
         "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "files/vault",
         "//data/ssl/alwaldend.com:ica_servers": "files/pki_ca_servers.crt",
+        "//data/ssl/alwaldend.com:root_ca": "files/pki_ca_root.crt",
     },
     visibility = ["//:__subpackages__"],
+    deps = [
+        ":installer",
+    ],
 )
 
 pkg_filegroup(

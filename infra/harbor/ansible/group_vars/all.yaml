@@ -3,6 +3,7 @@ ssh_vault_role: src_infra_harbor_ssh
 traefik_acme_path: pki/ica_servers/roles/src_infra_harbor_pki_server/acme
 traefik_acme_url: "https://vault.dc1.alwaldend.com:8200/v1/{{ traefik_acme_path }}/directory"
 harbor_domain: harbor.alwaldend.com
+harbor_ca_path: /etc/docker/certs.d/{{ harbor_domain }}:7049
 
 ## firewall
 firewall_allow_port_from:

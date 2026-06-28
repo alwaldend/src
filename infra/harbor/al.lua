@@ -44,6 +44,12 @@ lib.plugin_call({
 })
 
 lib.plugin_call({
+    name = "harbor_login",
+    plugin = "harbor_login",
+    labels = { tf = "main" },
+})
+
+lib.plugin_call({
     name = "config",
     plugin = "injector",
     labels = { ansible = "1" },

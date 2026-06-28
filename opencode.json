@@ -34,8 +34,8 @@
       "*": "allow"
     },
     "question": "allow",
-    "webfetch": "ask",
-    "websearch": "ask",
+    "webfetch": "allow",
+    "websearch": "allow",
     "external_directory": {
       "*": "deny"
     },

@@ -79,6 +79,17 @@ lib.plugin({
 })
 
 lib.plugin({
+    name = "harbor_login",
+    bin = "com_alwaldend_src/tools/vault/harbor_login/harbor_login_/harbor_login",
+    labels = {
+        harbor_login = "1"
+    },
+    data = {
+        harbor_url = "https://harbor.alwaldend.com",
+    },
+})
+
+lib.plugin({
     name = "pve_login",
     bin = "com_alwaldend_src/tools/vault/pve_login/pve_login_/pve_login",
     labels = {

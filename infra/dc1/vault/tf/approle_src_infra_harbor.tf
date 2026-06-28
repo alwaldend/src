@@ -40,6 +40,9 @@ module "src_infra_harbor_provider" {
   group_ids = [
     vault_identity_group.src_infra_harbor_users.id,
   ]
+  allowed_read_clients_group_ids = [
+    vault_identity_group.src_infra_harbor_admins.id,
+  ]
   redirect_urls = [
     "${var.harbor_url}/c/oidc/callback",
   ]

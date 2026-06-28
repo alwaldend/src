@@ -32,6 +32,7 @@
     - name: Create harbor dirs
       loop:
         - "{{ harbor_dir }}"
+        - "{{ harbor_data_dir }}"
         - "{{ harbor_dir }}/home"
         - "{{ harbor_installer_dir }}"
         - "{{ harbor_logs_dir }}"
@@ -50,8 +51,10 @@
         path: "{{ harbor_ca_path | dirname }}"
     - name: Copy docker CA
       ansible.builtin.copy:
-        src: "{{ harbor_ca_local_path }}"
-        dest: "{{ harbor_ca_path }}/"
+        content: |
+          {{ lookup('file', harbor_ca_local_path) }}
+          {{ lookup('file', harbor_root_ca_local_path) }}
+        dest: "{{ harbor_ca_path }}"
         owner: "root"
         group: "root"
         mode: "0644"

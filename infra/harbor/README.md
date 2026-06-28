@@ -11,3 +11,11 @@ tags:
 
 - Site: https://goharbor.io/
 - Releases: https://github.com/goharbor/harbor/releases
+
+## CE Login
+
+- Go to User Profile, copy CLI secret
+- Run:
+  ```sh
+  podman login harbor.alwaldend.com
+  ```

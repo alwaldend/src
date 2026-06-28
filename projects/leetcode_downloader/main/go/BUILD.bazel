@@ -52,7 +52,7 @@ pkg_tar(
 
 oci_image(
     name = "go_oci",
-    base = "@com_alwaldend_src_oci_alpine",
+    base = "//third_party/io_docker_library_alpine",
     tars = [":go_tar"],
     visibility = ["//:__subpackages__"],
 )

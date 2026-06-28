@@ -29,6 +29,12 @@ variable "group_ids" {
   default     = null
 }
 
+variable "allowed_read_clients_group_ids" {
+  type        = list(string)
+  description = "Group ids allowed to read the client"
+  default     = null
+}
+
 variable "redirect_urls" {
   type        = list(string)
   description = "Redirect urls for the client"
@@ -72,6 +78,26 @@ resource "vault_identity_oidc_client" "client" {
   access_token_ttl = vault_identity_oidc_key.key.verification_ttl
 }
 
+resource "vault_policy" "allowed_read_client" {
+  name   = "${var.name}_allowed_read_client"
+  policy = <<EOT
+    path "identity/oidc/client/${vault_identity_oidc_client.client.name}" {
+      capabilities = [ "read" ]
+    }
+EOT
+}
+
+resource "vault_identity_group" "allowed_read_client" {
+  name = "${var.name}_allowed_read_client"
+  type = "internal"
+  policies = [
+    vault_policy.allowed_read_client.name,
+  ]
+  member_group_ids = var.allowed_read_clients_group_ids
+  metadata = {
+    comment = "Allowed to read client info of ${vault_identity_oidc_client.client.name}"
+  }
+}
 
 resource "vault_identity_oidc_provider" "provider" {
   name          = var.name

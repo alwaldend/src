@@ -9,7 +9,7 @@ database:
   max_open_conns: 900
   conn_max_lifetime: 5m
   conn_max_idle_time: 0
-data_volume: /data
+data_volume: {{ harbor_data_dir }}
 trivy:
   ignore_unfixed: false
   skip_update: false

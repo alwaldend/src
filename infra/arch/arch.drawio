@@ -54,9 +54,9 @@
         <mxCell id="U2TRrjayyH0se131Tg96-13" edge="1" parent="1" source="U2TRrjayyH0se131Tg96-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;jumpStyle=sharp;jumpSize=10;" target="U2TRrjayyH0se131Tg96-7">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="U2TRrjayyH0se131Tg96-14" connectable="0" parent="U2TRrjayyH0se131Tg96-13" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rounded=0;" value="OIDC" vertex="1">
+        <mxCell id="U2TRrjayyH0se131Tg96-14" connectable="0" parent="U2TRrjayyH0se131Tg96-13" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rounded=0;" value="OIDC &lt;br&gt;(insecure, CA issues)" vertex="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="26" y="45" as="offset" />
+            <mxPoint x="65" y="45" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="U2TRrjayyH0se131Tg96-15" edge="1" parent="1" source="U2TRrjayyH0se131Tg96-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;horizontal=1;jumpStyle=sharp;jumpSize=10;" target="U2TRrjayyH0se131Tg96-7">
@@ -71,6 +71,48 @@
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="30" y="100" as="offset" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-18" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="API auth with OIDC" vertex="1">
+          <mxGeometry height="320" width="680" x="90" y="860" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-19" parent="U2TRrjayyH0se131Tg96-18" style="points=[[0.145,0.145,0],[0.5,0,0],[0.855,0.145,0],[1,0.5,0],[0.855,0.855,0],[0.5,1,0],[0.145,0.855,0],[0,0.5,0]];shape=mxgraph.bpmn.event;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;perimeter=ellipsePerimeter;outlineConnect=0;aspect=fixed;outline=standard;symbol=general;" value="Start" vertex="1">
+          <mxGeometry height="50" width="50" x="30" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-20" parent="U2TRrjayyH0se131Tg96-18" style="points=[[0.145,0.145,0],[0.5,0,0],[0.855,0.145,0],[1,0.5,0],[0.855,0.855,0],[0.5,1,0],[0.145,0.855,0],[0,0.5,0]];shape=mxgraph.bpmn.event;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;perimeter=ellipsePerimeter;outlineConnect=0;aspect=fixed;outline=end;symbol=terminate2;" value="End" vertex="1">
+          <mxGeometry height="50" width="50" x="610" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-21" parent="U2TRrjayyH0se131Tg96-18" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task2;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;taskMarker=abstract;" value="Hit OIDC login endpoint" vertex="1">
+          <mxGeometry height="80" width="120" x="120" y="65" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-22" edge="1" parent="U2TRrjayyH0se131Tg96-18" source="U2TRrjayyH0se131Tg96-19" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="U2TRrjayyH0se131Tg96-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-23" parent="U2TRrjayyH0se131Tg96-18" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task2;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;taskMarker=abstract;" value="Parse redirect" vertex="1">
+          <mxGeometry height="80" width="120" x="120" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-24" edge="1" parent="U2TRrjayyH0se131Tg96-18" source="U2TRrjayyH0se131Tg96-21" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="U2TRrjayyH0se131Tg96-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-25" parent="U2TRrjayyH0se131Tg96-18" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task2;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;taskMarker=abstract;" value="Authenticate with the OIDC provider" vertex="1">
+          <mxGeometry height="80" width="120" x="280" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-26" edge="1" parent="U2TRrjayyH0se131Tg96-18" source="U2TRrjayyH0se131Tg96-23" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="U2TRrjayyH0se131Tg96-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-27" parent="U2TRrjayyH0se131Tg96-18" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task2;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;taskMarker=abstract;" value="Hit the OIDC callback endpoint" vertex="1">
+          <mxGeometry height="80" width="120" x="450" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-28" edge="1" parent="U2TRrjayyH0se131Tg96-18" source="U2TRrjayyH0se131Tg96-25" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="U2TRrjayyH0se131Tg96-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-29" parent="U2TRrjayyH0se131Tg96-18" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task2;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;taskMarker=abstract;" value="Parse the session cookie" vertex="1">
+          <mxGeometry height="80" width="120" x="450" y="65" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-30" edge="1" parent="U2TRrjayyH0se131Tg96-18" source="U2TRrjayyH0se131Tg96-27" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" target="U2TRrjayyH0se131Tg96-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="U2TRrjayyH0se131Tg96-31" edge="1" parent="U2TRrjayyH0se131Tg96-18" source="U2TRrjayyH0se131Tg96-29" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="U2TRrjayyH0se131Tg96-20">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

@@ -49,7 +49,7 @@ def al_ansible_role(name, srcs, visibility, renames = {}, deps = [], **kwargs):
         strip_prefix = strip_prefix.from_pkg(),
         renames = renames,
         prefix = role_name,
-        **kwargs,
+        **kwargs
     )
     pkg_filegroup(
         name = name,

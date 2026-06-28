@@ -70,6 +70,9 @@ func (self *login) createOIDCRequest() (*reqUrl.URL, error) {
 		return nil, fmt.Errorf("could not execute the request: %w", err)
 	}
 	defer resp.Body.Close()
+	if self.redirect == nil {
+		return nil, fmt.Errorf("did not hit redirect for some reason: %w", err)
+	}
 	return self.redirect, nil
 }
 

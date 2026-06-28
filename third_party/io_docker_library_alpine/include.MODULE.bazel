@@ -1,0 +1,9 @@
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+oci.pull(
+    name = "io_docker_library_alpine",
+    digest = "sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b",
+    image = "harbor.alwaldend.com/dockerhub/library/alpine",
+    platforms = ["linux/amd64"],
+    tag = "3.24.1",
+)
+use_repo(oci, "io_docker_library_alpine", "io_docker_library_alpine_linux_amd64")

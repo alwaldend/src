@@ -1,5 +1,5 @@
-load("//tools/docs:defs.bzl", "docs_filegroup")
 load("@com_drawio_desktop_bin//:defs.bzl", "drawio_binary")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
     name = "docs",

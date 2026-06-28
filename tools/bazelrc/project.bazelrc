@@ -1,3 +1,5 @@
+# Force bazel to load system certificates, required for custom CA to work
+startup --host_jvm_args=-Djavax.net.ssl.trustStore=/usr/lib/jvm/java-latest-openjdk/lib/security/cacerts
 # Setup registries
 common --registry=https://bcr.bazel.build
 # Disk cache
