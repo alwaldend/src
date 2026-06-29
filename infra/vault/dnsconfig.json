@@ -1,0 +1,39 @@
+
+{
+    "domains": {
+        "default": {
+            "records": {
+                "bm_a": {
+                    "A": {
+                        "name": "bm3.dc1",
+                        "address": "192.168.1.218"
+                    }
+                },
+                "bm_aaaa": {
+                    "AAAA": {
+                        "name": "bm3.dc1",
+                        "address": "fd2e:546d:5738:0:e2be:3ff:fe2b:9a1a"
+                    }
+                },
+                "host1": {
+                    "A": {
+                        "name": "host1.vault.dc1",
+                        "address": "192.168.1.218"
+                    }
+                },
+                "ha1": {
+                    "A": {
+                        "name":  "vault.dc1",
+                        "address": "192.168.1.218"
+                    }
+                },
+                "ha1_2": {
+                    "A": {
+                        "name":  "vault",
+                        "address": "192.168.1.218"
+                    }
+                }
+            }
+        }
+    }
+}

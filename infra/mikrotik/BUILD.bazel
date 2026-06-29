@@ -1,5 +1,13 @@
 load("//tools/docs:defs.bzl", "docs_filegroup")
 
+filegroup(
+    name = "dnsconfig",
+    srcs = [
+        "dnsconfig.json",
+    ],
+    visibility = ["//infra:__subpackages__"],
+)
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]) + glob(["*.rsc"]),

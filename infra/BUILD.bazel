@@ -6,8 +6,11 @@ filegroup(
     name = "dnsconfig",
     srcs = [
         "//infra/dc1:dnsconfig",
+        "//infra/mikrotik:dnsconfig",
         "//infra/forgejo:dnsconfig",
         "//infra/harbor:dnsconfig",
+        "//infra/vault:dnsconfig",
+        "//infra/flux:dnsconfig",
     ],
     visibility = ["//infra:__subpackages__"],
 )

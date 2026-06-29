@@ -17,7 +17,7 @@ _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
     "//projects/tf_modules/yc_folder",
     "//projects/tf_modules/tf_backend",
-    "//infra/dc1/vault/tf/output:approles",
+    "//infra/vault/tf/output:approles",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",
 ]

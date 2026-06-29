@@ -1,4 +1,4 @@
 locals {
-  approles = jsondecode(file("${path.module}/../../vault/tf/output/approles.json")).approles
+  approles = jsondecode(file("${path.module}/../../../vault/tf/output/approles.json")).approles
   dns      = jsondecode(file("${path.module}/../dnsconfig.json"))
 }

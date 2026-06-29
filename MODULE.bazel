@@ -24,6 +24,7 @@ include("//third_party/io_goharbor_offline_installer:include.MODULE.bazel")
 include("//third_party/io_goharbor_harbor_cli:include.MODULE.bazel")
 include("//third_party/com_drawio_desktop_bin:include.MODULE.bazel")
 include("//third_party/io_docker_library_alpine:include.MODULE.bazel")
+# include("//third_party/city_ops_bin:include.MODULE.bazel")
 
 # Tools
 include("//tools:include.MODULE.bazel")

@@ -1139,6 +1139,26 @@ links = [
 ]
 
 [[book]]
+title = "DIE TRYING"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/124235-die-trying-a-roguelite-extraction-litrpg.jpg?time=1759079259"
+quality = "Ok, bland"
+reading = "Dropped, C47"
+authors = ["markarrows"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/124235/die-trying-a-roguelite-extraction-litrpg" },
+]
+
+[[book]]
+title = "Shadow Clone Sorcery"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/117529-shadow-clone-sorcery.jpg?time=1748092724"
+quality = "Ok, bland"
+reading = "Dropped, C110"
+authors = ["jpwrites"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/117529/shadow-clone-sorcery-book-1-complete" },
+]
+
+[[book]]
 title = "Path of the Deathless"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/122502-path-of-the-deathless-book-4-completed.jpg"
 quality = "Decent"

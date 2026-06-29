@@ -18,10 +18,10 @@ lib.vault_auth({
 lib.vault_conn({
     name = "default",
     config = {
-        address = "https://vault.dc1.alwaldend.com:8200"
+        address = "https://vault.alwaldend.com:8200"
     },
     tls = {
-        ca_cert = "infra/dc1/vault/tf/output/pki_ca_servers.crt",
+        ca_cert = "infra/vault/tf/output/pki_ca_servers.crt",
         -- client_cert = "${HOME}/.al/client_cert/host.crt",
         -- client_key = "${HOME}/.al/client_cert/host.key",
     }

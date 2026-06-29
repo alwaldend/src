@@ -1,5 +1,5 @@
 ---
-title: harbor1
+title: harbor
 description: Harbor deployment
 tags:
   - harbor

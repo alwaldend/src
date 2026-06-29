@@ -468,3 +468,15 @@ name = "LokiTheQuick"
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/profile/456668" },
 ]
+
+[author.markarrows]
+name = "Mark Arrows"
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/150899" },
+]
+
+[author.jpwrites]
+name = "JPwrites "
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/9705" },
+]

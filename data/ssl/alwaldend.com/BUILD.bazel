@@ -24,13 +24,13 @@ filegroup(
 
 filegroup(
     name = "ica_clients",
-    srcs = ["//infra/dc1/vault/tf/output:pki_ca_clients"],
+    srcs = ["//infra/vault/tf/output:pki_ca_clients"],
     visibility = ["//:__subpackages__"],
 )
 
 filegroup(
     name = "ica_servers",
-    srcs = ["//infra/dc1/vault/tf/output:pki_ca_servers"],
+    srcs = ["//infra/vault/tf/output:pki_ca_servers"],
     visibility = ["//:__subpackages__"],
 )
 

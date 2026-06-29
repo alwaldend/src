@@ -4,38 +4,40 @@ load("//tools/terraform:defs.bzl", "terraform_binary", "terraform_binary_map", "
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//infra/dc1/pve1:__pkg__"],
+    visibility = ["//infra/vault:__pkg__"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
     ),
 )
 
-_CONFIGS = ["//infra/dc1/pve1:al"]
+_CONFIGS = ["//infra/vault:al"]
 
 _RUN_ARGS = [
     "--plugin_label",
-    "tf",
+    "tf=setup",
     "--plugin_label",
     "pve_login",
-    "--plugin_label",
-    "vault_env=default_default",
 ]
 
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
-    "//projects/tf_modules/tf_backend",
     "//projects/tf_modules/pve_vm_qemu",
-    "//infra/vault/tf/output:approles",
-    "//infra/dc1/pve1:dnsconfig",
+    "//infra/vault:dnsconfig",
     "//tools/vault/pve_login",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",
 ]
 
 terraform_binary_map(
-    name = "tf",
+    name = "tf_setup",
     configs = _CONFIGS,
     data = _DATA,
     run_args = _RUN_ARGS,
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    configs = _CONFIGS,
+    data = _DATA,
 )

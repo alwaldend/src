@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-06-27T13:16:40Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026062701 3600 600 604800 1440
+; generated with dnscontrol 2026-06-29T17:46:50Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026062901 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -37,7 +37,9 @@ router1.dc1      IN A     192.168.1.1
            600   IN AAAA  fd2e:546d:5738::1
 switch1.dc1      IN A     192.168.1.254
 vault.dc1        IN A     192.168.1.218
-host1.vault.dc1 600 IN CNAME bm3.dc1.alwaldend.com.
+host1.vault.dc1  IN A     192.168.1.218
+flux             IN A     192.168.10.60
+host1.flux       IN A     192.168.10.60
 forgejo          IN A     192.168.10.40
 host1.forgejo    IN A     192.168.10.40
 harbor           IN A     192.168.10.50
@@ -50,6 +52,7 @@ _dmarc.simplelogin 10800 IN TXT "v=DMARC1; p=quarantine; pct=100; adkim=s; aspf=
 dkim._domainkey.simplelogin 10800 IN CNAME dkim._domainkey.simplelogin.co.
 dkim02._domainkey.simplelogin 10800 IN CNAME dkim02._domainkey.simplelogin.co.
 dkim03._domainkey.simplelogin 10800 IN CNAME dkim03._domainkey.simplelogin.co.
+vault            IN A     192.168.1.218
 www              IN CNAME alwaldend.com.
 yandex     21600 IN MX    10 mx.yandex.net.
                  IN TXT   "v=spf1 redirect=_spf.yandex.net"

@@ -21,13 +21,13 @@ filegroup(
 
 alias(
     name = "ca_clients",
-    actual = "//infra/dc1/vault/tf/output:ssh_ca_clients",
+    actual = "//infra/vault/tf/output:ssh_ca_clients",
     visibility = ["//:__subpackages__"],
 )
 
 alias(
     name = "ca_servers",
-    actual = "//infra/dc1/vault/tf/output:ssh_ca_servers",
+    actual = "//infra/vault/tf/output:ssh_ca_servers",
     visibility = ["//:__subpackages__"],
 )
 

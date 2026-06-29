@@ -1,0 +1,36 @@
+{
+    "toolchains": [
+        {
+            "name": "ops",
+            "version": "0.1.54"
+        }
+    ],
+    "archives": [
+        {
+            "archive_name": "linux_x86_64",
+            "toolchain_name": "ops",
+            "toolchain_version": "0.1.54",
+            "binaries": [
+                {
+                    "name": "ops",
+                    "path": "out/ops"
+                }
+            ],
+            "actions": [
+                {
+                    "download_extract": {
+                        "url": "https://storage.googleapis.com/download/storage/v1/b/nanos/o/release%2F0.1.54%2Fnanos-release-linux-0.1.54.tar.gz?generation=1749133968097601&alt=media",
+                        "output": "out",
+                        "integrity": ""
+                    }
+                }
+            ],
+            "rules": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}
