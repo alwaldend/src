@@ -23,7 +23,7 @@ module "src_infra_dc1_pve1_pki_server" {
   source          = "../../../projects/tf_modules/vault_pki_server"
   backend         = module.pki_ica_servers.backend
   name            = "src_infra_dc1_pve1_pki_server"
-  allowed_domains = ["pve1.dc1.alwaldend.com"]
+  allowed_domains = ["pve1.dc1.alwaldend.com", "pve.alwaldend.com"]
 }
 
 module "src_infra_dc1_pve1_provider" {

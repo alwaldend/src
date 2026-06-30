@@ -1,5 +1,5 @@
 module "tf_backend" {
-  source           = "../../../../projects/tf_modules/tf_backend"
+  source           = "../../../projects/tf_modules/tf_backend"
   name             = "src-infra-dc1-pve1-tf-backend"
   bucket_prefix    = "com-alwaldend"
   service_accounts = [var.service_account_id]

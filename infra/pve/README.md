@@ -1,6 +1,6 @@
 ---
-title: Pve1
-description: Proxmox cluster pve1.dc1.alwaldend.com
+title: Pve
+description: Proxmox cluster pve.alwaldend.com
 tags:
   - ansible
   - pve
@@ -13,20 +13,20 @@ tags:
 ## Deployment
 
 ```sh
-bazel run //infra/dc1/pve1/ansible # host setup
-bazel run //infra/dc1/pve1/tf/tf.apply # tf setup
+bazel run //infra/pve/ansible # host setup
+bazel run //infra/pve/tf/tf.apply # tf setup
 ```
 
 ## Recreate the test VM
 
 ```sh
-bazel run //infra/dc1/pve1/tf:tf.apply -- --replace module.vm_cloudinit_test.proxmox_vm_qemu.vm
+bazel run //infra/pve/tf:tf.apply -- --replace module.vm_cloudinit_test.proxmox_vm_qemu.vm
 ```
 
 ## Cloud-init snippet update
 
 ```sh
-bazel run //infra/dc1/pve1/ansible -- --tags pve_snippets
+bazel run //infra/pve/ansible -- --tags pve_snippets
 ```
 
 ## Update ACME account
@@ -55,5 +55,5 @@ bazel run //infra/dc1/pve1/ansible -- --tags pve_snippets
   ```
 - Write the data:
   ```sh
-  bazel run //infra/dc1/pve1:vault.kv_put alwaldend.com/vault1/approles/src_infra_dc1_pve1/pve_token @"${PWD}/data.json"
+  bazel run //infra/pve:vault.kv_put alwaldend.com/vault1/approles/src_infra_dc1_pve1/pve_token @"${PWD}/data.json"
   ```

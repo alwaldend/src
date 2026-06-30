@@ -87,7 +87,7 @@ variable "network_bridge" {
 }
 
 variable "balloon" {
-  type = number
+  type    = number
   default = 1024
 }
 
@@ -106,7 +106,7 @@ resource "proxmox_vm_qemu" "vm" {
   }
   agent            = 1
   memory           = var.memory
-  balloon = var.balloon
+  balloon          = var.balloon
   tags             = join(",", concat(var.tags, ["src_projects_tf_modules_pve_vm_qemu"]))
   clone            = var.clone
   scsihw           = var.scsihw

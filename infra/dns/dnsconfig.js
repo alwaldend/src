@@ -7,7 +7,6 @@ var DSP_MIKROTIK = NewDnsProvider("mikrotik");
 var DSP_BIND = NewDnsProvider("bind");
 var jsons = [
     require("../dc1/pve1/dnsconfig.json"),
-    require("../dc1/consul1/dnsconfig.json"),
     require("../vault/dnsconfig.json"),
     require("../mikrotik/dnsconfig.json"),
     require("../forgejo/dnsconfig.json"),

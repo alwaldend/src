@@ -311,7 +311,7 @@
         </mxCell>
         <mxCell id="eAt7qqWLvviiQUgGaGoB-3" connectable="0" parent="eAt7qqWLvviiQUgGaGoB-2" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="OIDC" vertex="1">
           <mxGeometry relative="1" x="0.6533" y="-1" as="geometry">
-            <mxPoint x="26" as="offset" />
+            <mxPoint x="36" y="-4" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="eAt7qqWLvviiQUgGaGoB-5" edge="1" parent="1" source="eAt7qqWLvviiQUgGaGoB-4" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;rounded=0;curved=0;" target="6pn7HWKX5QYpmmWIelX7-4">
@@ -335,7 +335,19 @@
             <mxPoint x="-24" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="eAt7qqWLvviiQUgGaGoB-4" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Actor" vertex="1">
+        <mxCell id="VAttqAdNALEXy3Qk__xA-1" edge="1" parent="1" source="eAt7qqWLvviiQUgGaGoB-4" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;rounded=0;curved=0;" target="eAt7qqWLvviiQUgGaGoB-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="75" y="800" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="VAttqAdNALEXy3Qk__xA-2" connectable="0" parent="VAttqAdNALEXy3Qk__xA-1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="OIDC" vertex="1">
+          <mxGeometry relative="1" x="0.2283" y="3" as="geometry">
+            <mxPoint x="-32" y="-27" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eAt7qqWLvviiQUgGaGoB-4" parent="1" style="shape=umlActor;verticalLabelPosition=middle;verticalAlign=middle;html=1;outlineConnect=0;labelPosition=left;align=right;" value="Actor" vertex="1">
           <mxGeometry height="60" width="30" x="60" y="450" as="geometry" />
         </mxCell>
         <mxCell id="eAt7qqWLvviiQUgGaGoB-9" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Github&lt;div&gt;github.com&lt;/div&gt;" vertex="1">
