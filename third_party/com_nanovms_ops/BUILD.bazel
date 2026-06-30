@@ -11,7 +11,7 @@ docs_filegroup(
 )
 
 alias(
-    name = "city_ops_bin",
-    actual = "@city_ops_bin//:ops_binary",
+    name = "com_nanovms_ops",
+    actual = "@com_nanovms_ops//:ops",
     visibility = ["//:__subpackages__"],
 )
