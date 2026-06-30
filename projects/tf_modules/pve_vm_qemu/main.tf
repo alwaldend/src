@@ -86,6 +86,11 @@ variable "network_bridge" {
   default = "vmbr0"
 }
 
+variable "balloon" {
+  type = number
+  default = 1024
+}
+
 variable "network_model" {
   type    = string
   default = "virtio"
@@ -101,6 +106,7 @@ resource "proxmox_vm_qemu" "vm" {
   }
   agent            = 1
   memory           = var.memory
+  balloon = var.balloon
   tags             = join(",", concat(var.tags, ["src_projects_tf_modules_pve_vm_qemu"]))
   clone            = var.clone
   scsihw           = var.scsihw

@@ -189,14 +189,14 @@
         <mxCell id="1" parent="0" />
         <UserObject label="Proxmox&lt;br&gt;pve.alwaldend.com" link="data:page/id,jpAb-ANtociu9MZH3nmR" id="rWErj7W7k0z_Ls7SVV5w-1">
           <mxCell parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" vertex="1">
-            <mxGeometry height="180" width="270" x="290" y="230" as="geometry" />
+            <mxGeometry height="180" width="270" x="250" y="230" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="rWErj7W7k0z_Ls7SVV5w-3" parent="rWErj7W7k0z_Ls7SVV5w-1" style="rounded=0;whiteSpace=wrap;html=1;" value="Flux cluster&lt;br&gt;flux-cluster.alwaldend.com" vertex="1">
           <mxGeometry height="60" width="200" x="35" y="80" as="geometry" />
         </mxCell>
         <mxCell id="rWErj7W7k0z_Ls7SVV5w-2" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=60;" value="Flux cluster&lt;br&gt;flux-cluster.alwaldend.com" vertex="1">
-          <mxGeometry height="230" width="380" x="235" y="600" as="geometry" />
+          <mxGeometry height="230" width="380" x="195" y="600" as="geometry" />
         </mxCell>
         <mxCell id="PdK-lDVd46g7X2lImqYQ-7" parent="rWErj7W7k0z_Ls7SVV5w-2" style="rounded=0;whiteSpace=wrap;html=1;" value="Flux&lt;br&gt;flux.alwaldend.com" vertex="1">
           <mxGeometry height="60" width="125" x="35" y="110" as="geometry" />
@@ -205,13 +205,13 @@
           <mxGeometry height="60" width="160" x="180" y="110" as="geometry" />
         </mxCell>
         <mxCell id="xRZ0r2KxsMySJ9ErRcJ1-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Vault&lt;br&gt;vault.alwaldend.com" vertex="1">
-          <mxGeometry height="60" width="140" x="355" y="460" as="geometry" />
+          <mxGeometry height="60" width="140" x="315" y="460" as="geometry" />
         </mxCell>
         <mxCell id="xRZ0r2KxsMySJ9ErRcJ1-3" edge="1" parent="1" source="xRZ0r2KxsMySJ9ErRcJ1-2" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;rounded=0;curved=0;" target="xRZ0r2KxsMySJ9ErRcJ1-1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="240" y="340" />
-              <mxPoint x="240" y="490" />
+              <mxPoint x="200" y="340" />
+              <mxPoint x="200" y="490" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -229,7 +229,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="xRZ0r2KxsMySJ9ErRcJ1-2" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Actor" vertex="1">
-          <mxGeometry height="60" width="30" x="120" y="310" as="geometry" />
+          <mxGeometry height="60" width="30" x="80" y="310" as="geometry" />
         </mxCell>
         <mxCell id="xRZ0r2KxsMySJ9ErRcJ1-5" edge="1" parent="1" source="rWErj7W7k0z_Ls7SVV5w-3" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="xRZ0r2KxsMySJ9ErRcJ1-1">
           <mxGeometry relative="1" as="geometry" />
@@ -241,7 +241,7 @@
         </mxCell>
         <UserObject label="Forgejo&lt;br&gt;forgejo.alwaldend.com" link="data:page/id,v621yh1Cx_BHb7xvUzgj" id="xRZ0r2KxsMySJ9ErRcJ1-7">
           <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1">
-            <mxGeometry height="60" width="150" x="680" y="240" as="geometry" />
+            <mxGeometry height="60" width="150" x="640" y="240" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="xRZ0r2KxsMySJ9ErRcJ1-8" edge="1" parent="1" source="rWErj7W7k0z_Ls7SVV5w-3" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;rounded=0;curved=0;" target="xRZ0r2KxsMySJ9ErRcJ1-7">
@@ -254,7 +254,7 @@
         </mxCell>
         <UserObject label="Harbor&lt;br&gt;harbor.alwaldend.com" link="data:page/id,-YIFcF5NFIgLEo9HBhwD" id="PdK-lDVd46g7X2lImqYQ-1">
           <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1">
-            <mxGeometry height="60" width="155" x="677.5" y="350" as="geometry" />
+            <mxGeometry height="60" width="155" x="637.5" y="350" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="PdK-lDVd46g7X2lImqYQ-2" edge="1" parent="1" source="rWErj7W7k0z_Ls7SVV5w-3" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;rounded=0;curved=0;" target="PdK-lDVd46g7X2lImqYQ-1">
@@ -266,7 +266,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="PdK-lDVd46g7X2lImqYQ-12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Other clusters" vertex="1">
-          <mxGeometry height="60" width="152.5" x="677.5" y="460" as="geometry" />
+          <mxGeometry height="60" width="152.5" x="637.5" y="460" as="geometry" />
         </mxCell>
         <mxCell id="PdK-lDVd46g7X2lImqYQ-13" edge="1" parent="1" source="rWErj7W7k0z_Ls7SVV5w-3" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;rounded=0;curved=0;" target="PdK-lDVd46g7X2lImqYQ-12">
           <mxGeometry relative="1" as="geometry" />

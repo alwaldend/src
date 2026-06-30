@@ -1,5 +1,0 @@
-consul1:
-  hosts:
-    host1.consul1.dc1.alwaldend.com:
-    host2.consul1.dc1.alwaldend.com:
-    host3.consul1.dc1.alwaldend.com:
