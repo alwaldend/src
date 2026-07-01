@@ -13,6 +13,6 @@ module "vms" {
   cores        = 2
   memory       = 4096
   storage_size = "50G"
-  ipconfig0    = "ip=${local.dns.domains.default.records[each.key].A.address}/24,gw=192.168.10.2"
+  ip           = "${local.dns.domains.default.records[each.key].A.address}/24"
   tags         = ["flux"]
 }

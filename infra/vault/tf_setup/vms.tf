@@ -14,6 +14,6 @@ module "vm_ha" {
   cores        = 1
   memory       = 2560
   storage_size = "30G"
-  ipconfig0    = "ip=${local.dns.domains.default.records[each.key].A.address}/24,gw=192.168.10.2"
+  ip           = "${local.dns.domains.default.records[each.key].A.address}/24"
   tags         = ["vault"]
 }

@@ -22,6 +22,7 @@ _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
     "//projects/tf_modules/pve_vm_qemu",
     "//infra/forgejo:dnsconfig",
+    "//infra/mikrotik:dnsconfig",
     "//tools/vault/pve_login",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",

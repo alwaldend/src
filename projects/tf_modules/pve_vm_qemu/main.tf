@@ -17,8 +17,20 @@ variable "vmid" {
   description = "VM id"
 }
 
+variable "ip" {
+  type        = string
+  description = "IP"
+}
+
+variable "gw" {
+  type        = string
+  description = "Gateway"
+  default     = "192.168.10.2"
+}
+
 variable "ipconfig0" {
-  type = string
+  type    = string
+  default = ""
 }
 
 variable "cores" {
@@ -112,8 +124,9 @@ resource "proxmox_vm_qemu" "vm" {
   scsihw           = var.scsihw
   vm_state         = var.vm_state
   automatic_reboot = true
+  start_at_node_boot = true
   cicustom         = var.cicustom
-  ipconfig0        = var.ipconfig0
+  ipconfig0        = var.ipconfig0 == "" ? "ip=${var.ip},gw=${var.gw}" : var.ipconfig0
   startup_shutdown {
     order            = -1
     shutdown_timeout = -1

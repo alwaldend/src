@@ -12,7 +12,7 @@ al_config(
 filegroup(
     name = "dnsconfig",
     srcs = ["dnsconfig.json"],
-    visibility = ["//infra/pve:__subpackages__"],
+    visibility = ["//:__subpackages__"],
 )
 
 vault_binary_map(
