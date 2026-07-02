@@ -116,17 +116,17 @@ resource "proxmox_vm_qemu" "vm" {
   cpu {
     cores = var.cores
   }
-  agent            = 1
-  memory           = var.memory
-  balloon          = var.balloon
-  tags             = join(",", concat(var.tags, ["src_projects_tf_modules_pve_vm_qemu"]))
-  clone            = var.clone
-  scsihw           = var.scsihw
-  vm_state         = var.vm_state
-  automatic_reboot = true
+  agent              = 1
+  memory             = var.memory
+  balloon            = var.balloon
+  tags               = join(",", concat(var.tags, ["src_projects_tf_modules_pve_vm_qemu"]))
+  clone              = var.clone
+  scsihw             = var.scsihw
+  vm_state           = var.vm_state
+  automatic_reboot   = true
   start_at_node_boot = true
-  cicustom         = var.cicustom
-  ipconfig0        = var.ipconfig0 == "" ? "ip=${var.ip},gw=${var.gw}" : var.ipconfig0
+  cicustom           = var.cicustom
+  ipconfig0          = var.ipconfig0 == "" ? "ip=${var.ip},gw=${var.gw}" : var.ipconfig0
   startup_shutdown {
     order            = -1
     shutdown_timeout = -1

@@ -38,3 +38,13 @@
         src: "{{ item.src | default('any') }}"
         dest: "{{ item.dest | default('any') }}"
         comment: "{{ item.comment | mandatory }} # Ansible"
+    - name: Check if firewalld exists
+      register: firewall_firewalld_stat
+      ansible.builtin.stat:
+        path: "/lib/systemd/system/firewalld.service"
+    - name: Disable firewalld
+      when: firewall_firewalld_stat.stat.exists
+      ansible.builtin.systemd_service:
+        name: "firewalld"
+        enabled: false
+        state: stopped
