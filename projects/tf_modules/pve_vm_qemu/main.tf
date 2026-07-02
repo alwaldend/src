@@ -90,7 +90,19 @@ variable "storage" {
 
 variable "storage_size" {
   type    = string
-  default = "5G"
+  default = "10G"
+}
+
+variable "scsi1" {
+  type = object({
+    size       = string
+    storage    = optional(string, "ceph-repl")
+    asyncio    = optional(string, "native")
+    iothread   = optional(bool, true)
+    emulatessd = optional(bool, true)
+    discard    = optional(bool, true)
+  })
+  default = null
 }
 
 variable "network_bridge" {
@@ -136,8 +148,25 @@ resource "proxmox_vm_qemu" "vm" {
     scsi {
       scsi0 {
         disk {
-          storage = var.storage
-          size    = var.storage_size
+          storage    = var.storage
+          asyncio    = "native"
+          iothread   = true
+          emulatessd = true
+          discard    = true
+          size       = var.storage_size
+        }
+      }
+      dynamic "scsi1" {
+        for_each = var.scsi1 != null ? { disk = var.scsi1 } : {}
+        content {
+          disk {
+            storage    = scsi1.value.storage
+            asyncio    = scsi1.value.asyncio
+            iothread   = scsi1.value.iothread
+            emulatessd = scsi1.value.emulatessd
+            discard    = scsi1.value.discard
+            size       = scsi1.value.size
+          }
         }
       }
     }

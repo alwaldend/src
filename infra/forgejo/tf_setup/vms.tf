@@ -13,6 +13,9 @@ module "vm_ha" {
   cores        = 4
   memory       = 8192
   storage_size = "60G"
-  ip           = "${local.dns[each.key].A.address}/24"
-  tags         = ["forgejo"]
+  scsi1 = {
+    size = "40G"
+  }
+  ip   = "${local.dns[each.key].A.address}/24"
+  tags = ["forgejo"]
 }
