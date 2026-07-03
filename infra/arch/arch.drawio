@@ -32,11 +32,55 @@
         <mxCell id="1" parent="0" />
         <UserObject label="dc1.alwaldend.com" link="data:page/id,FMLIyAlL3O6QxIsCN0ab" id="BWBCHGVtwRmv4aCJtJCp-1">
           <mxCell parent="1" style="swimlane;whiteSpace=wrap;html=1;" vertex="1">
-            <mxGeometry height="200" width="270" x="300" y="280" as="geometry" />
+            <mxGeometry height="580" width="680" x="300" y="280" as="geometry" />
           </mxCell>
         </UserObject>
-        <mxCell id="BWBCHGVtwRmv4aCJtJCp-2" parent="BWBCHGVtwRmv4aCJtJCp-1" style="rounded=0;whiteSpace=wrap;html=1;" value="PVE BM&lt;br&gt;pve.alwaldend.com&lt;br&gt;host1.pve.alwaldend.com" vertex="1">
-          <mxGeometry height="60" width="195" x="37.5" y="80" as="geometry" />
+        <mxCell id="DKaiastQg7baPMQZq6dH-1" parent="BWBCHGVtwRmv4aCJtJCp-1" style="swimlane;whiteSpace=wrap;html=1;startSize=70;" value="&lt;span style=&quot;font-weight: 400;&quot;&gt;PVE BM&lt;/span&gt;&lt;br style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;pve.alwaldend.com&lt;/span&gt;" vertex="1">
+          <mxGeometry height="410" width="490" x="90" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="DKaiastQg7baPMQZq6dH-14" edge="1" parent="DKaiastQg7baPMQZq6dH-1" source="DKaiastQg7baPMQZq6dH-2" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;rounded=0;curved=0;startArrow=classic;startFill=1;" target="DKaiastQg7baPMQZq6dH-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DKaiastQg7baPMQZq6dH-2" parent="DKaiastQg7baPMQZq6dH-1" style="rounded=0;whiteSpace=wrap;html=1;" value="Proxmox" vertex="1">
+          <mxGeometry height="60" width="120" x="35" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="DKaiastQg7baPMQZq6dH-5" edge="1" parent="DKaiastQg7baPMQZq6dH-1" source="DKaiastQg7baPMQZq6dH-3" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;rounded=0;curved=0;endArrow=none;endFill=0;" target="DKaiastQg7baPMQZq6dH-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DKaiastQg7baPMQZq6dH-9" connectable="0" parent="DKaiastQg7baPMQZq6dH-5" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="SATA" vertex="1">
+          <mxGeometry relative="1" x="0.7412" y="1" as="geometry">
+            <mxPoint x="19" y="-8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DKaiastQg7baPMQZq6dH-3" parent="DKaiastQg7baPMQZq6dH-1" style="rounded=0;whiteSpace=wrap;html=1;" value="Ceph" vertex="1">
+          <mxGeometry height="60" width="120" x="260" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="DKaiastQg7baPMQZq6dH-4" parent="DKaiastQg7baPMQZq6dH-1" style="rounded=0;whiteSpace=wrap;html=1;" value="SSD (DB, WAL) x2" vertex="1">
+          <mxGeometry height="60" width="120" x="180" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="DKaiastQg7baPMQZq6dH-6" edge="1" parent="DKaiastQg7baPMQZq6dH-1" source="DKaiastQg7baPMQZq6dH-3" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;rounded=0;curved=0;endArrow=none;endFill=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="DKaiastQg7baPMQZq6dH-7">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="480" y="180" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DKaiastQg7baPMQZq6dH-8" connectable="0" parent="DKaiastQg7baPMQZq6dH-6" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="USB" vertex="1">
+          <mxGeometry relative="1" x="-0.2118" y="-2" as="geometry">
+            <mxPoint x="38" y="13" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="DKaiastQg7baPMQZq6dH-7" parent="DKaiastQg7baPMQZq6dH-1" style="rounded=0;whiteSpace=wrap;html=1;" value="HDD (Data) x5" vertex="1">
+          <mxGeometry height="60" width="120" x="340" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="DKaiastQg7baPMQZq6dH-11" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Vault&lt;br&gt;vault.alwaldend.com" vertex="1">
+          <mxGeometry height="60" width="135" x="575" y="920" as="geometry" />
+        </mxCell>
+        <mxCell id="DKaiastQg7baPMQZq6dH-12" edge="1" parent="1" source="DKaiastQg7baPMQZq6dH-2" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;rounded=0;curved=0;" target="DKaiastQg7baPMQZq6dH-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DKaiastQg7baPMQZq6dH-13" connectable="0" parent="DKaiastQg7baPMQZq6dH-12" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="ACME" vertex="1">
+          <mxGeometry relative="1" x="-0.3118" y="-2" as="geometry">
+            <mxPoint x="-28" y="175" as="offset" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>

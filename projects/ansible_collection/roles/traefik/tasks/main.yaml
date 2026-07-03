@@ -8,6 +8,18 @@
         shell: /sbin/nologin
         home: "{{ traefik_dir }}/home"
         system: true
+    - name: Create filesystem on the traefik disk
+      when: traefik_disk is truthy
+      community.general.filesystem:
+        fstype: ext4
+        dev: "{{ traefik_disk }}"
+    - name: Mount traefik disk
+      when: traefik_disk is truthy
+      ansible.posix.mount:
+        path: "{{ traefik_dir }}"
+        src: "{{ traefik_disk }}"
+        fstype: ext4
+        state: mounted
     - name: Create traefik dirs
       loop:
         - "{{ traefik_dir }}"

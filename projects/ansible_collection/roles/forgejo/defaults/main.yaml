@@ -6,6 +6,7 @@ forgejo_config_dir: "{{ forgejo_dir }}/configs"
 forgejo_work_dir: "{{ forgejo_dir }}/work"
 forgejo_config_path: "{{ forgejo_config_dir }}/forgejo.ini"
 forgejo_config_local_path: "files/forgejo.ini"
+forgejo_disk:
 forgejo_log_dir: "{{ forgejo_dir }}/logs"
 forgejo_service_path: "/lib/systemd/system/forgejo.service"
 forgejo_vault_local_path: "{{ role_path }}/files/vault"

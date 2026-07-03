@@ -13,6 +13,18 @@
         shell: /sbin/nologin
         home: "{{ forgejo_dir }}/home"
         system: true
+    - name: Create filesystem on the forgejo disk
+      when: forgejo_disk is truthy
+      community.general.filesystem:
+        fstype: ext4
+        dev: "{{ forgejo_disk }}"
+    - name: Mount forgejo disk
+      when: forgejo_disk is truthy
+      ansible.posix.mount:
+        path: "{{ forgejo_dir }}"
+        src: "{{ forgejo_disk }}"
+        fstype: ext4
+        state: mounted
     - name: Create forgejo dirs
       loop:
         - "{{ forgejo_dir }}"

@@ -3,6 +3,7 @@ traefik_user_uid: 3578
 traefik_dir: "/opt/traefik"
 traefik_log_dir: "{{ traefik_dir }}/logs"
 traefik_data_dir: "{{ traefik_dir }}/data"
+traefik_disk:
 traefik_acme_path: "{{ undefined }}"
 traefik_config_dir: "{{ traefik_dir }}/configs"
 traefik_config_path: "{{ traefik_config_dir }}/traefik.toml"

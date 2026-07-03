@@ -83,14 +83,16 @@ variable "cicustom" {
   default = "user=local:snippets/cloud_init.yaml"
 }
 
-variable "storage" {
-  type    = string
-  default = "local-lvm"
-}
-
-variable "storage_size" {
-  type    = string
-  default = "10G"
+variable "scsi0" {
+  type = object({
+    size       = string
+    storage    = optional(string, "local-lvm")
+    asyncio    = optional(string, "native")
+    iothread   = optional(bool, true)
+    emulatessd = optional(bool, true)
+    discard    = optional(bool, true)
+  })
+  default = null
 }
 
 variable "scsi1" {
@@ -103,6 +105,23 @@ variable "scsi1" {
     discard    = optional(bool, true)
   })
   default = null
+}
+
+variable "scsi2" {
+  type = object({
+    size       = string
+    storage    = optional(string, "ceph-repl")
+    asyncio    = optional(string, "native")
+    iothread   = optional(bool, true)
+    emulatessd = optional(bool, true)
+    discard    = optional(bool, true)
+  })
+  default = null
+}
+
+variable "cloud_init_storage" {
+  type    = string
+  default = "local-lvm"
 }
 
 variable "network_bridge" {
@@ -146,14 +165,17 @@ resource "proxmox_vm_qemu" "vm" {
   }
   disks {
     scsi {
-      scsi0 {
-        disk {
-          storage    = var.storage
-          asyncio    = "native"
-          iothread   = true
-          emulatessd = true
-          discard    = true
-          size       = var.storage_size
+      dynamic "scsi0" {
+        for_each = var.scsi0 != null ? { disk = var.scsi0 } : {}
+        content {
+          disk {
+            storage    = scsi0.value.storage
+            asyncio    = scsi0.value.asyncio
+            iothread   = scsi0.value.iothread
+            emulatessd = scsi0.value.emulatessd
+            discard    = scsi0.value.discard
+            size       = scsi0.value.size
+          }
         }
       }
       dynamic "scsi1" {
@@ -169,11 +191,24 @@ resource "proxmox_vm_qemu" "vm" {
           }
         }
       }
+      dynamic "scsi2" {
+        for_each = var.scsi2 != null ? { disk = var.scsi2 } : {}
+        content {
+          disk {
+            storage    = scsi2.value.storage
+            asyncio    = scsi2.value.asyncio
+            iothread   = scsi2.value.iothread
+            emulatessd = scsi2.value.emulatessd
+            discard    = scsi2.value.discard
+            size       = scsi2.value.size
+          }
+        }
+      }
     }
     ide {
       ide1 {
         cloudinit {
-          storage = var.storage
+          storage = var.cloud_init_storage
         }
       }
     }

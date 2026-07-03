@@ -3,6 +3,10 @@ ssh_vault_role: src_infra_dc1_forgejo1_ssh
 traefik_acme_path: pki/ica_servers/roles/src_infra_dc1_forgejo1_pki_server/acme
 traefik_acme_url: "https://vault.dc1.alwaldend.com:8200/v1/{{ traefik_acme_path }}/directory"
 forgejo_domain: forgejo.alwaldend.com
+forgejo_disk: /dev/sdb
+traefik_disk: /dev/sdc
+ssh_valid_principals:
+  - forgejo.alwaldend.com
 
 ## firewall
 ## https://developer.hashicorp.com/forgejo/docs/reference/architecture/ports
