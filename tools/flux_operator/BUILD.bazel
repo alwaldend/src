@@ -11,7 +11,7 @@ docs_filegroup(
 )
 
 alias(
-    name = "flux",
-    actual = "//third_party/io_fluxcd_flux",
+    name = "flux_operator",
+    actual = "//third_party/io_controlplane_flux_operator",
     visibility = ["//:__subpackages__"],
 )

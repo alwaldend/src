@@ -1,0 +1,36 @@
+{
+    "toolchains": [
+        {
+            "name": "flux_operator",
+            "version": "0.53.0"
+        }
+    ],
+    "archives": [
+        {
+            "archive_name": "linux_x86_64",
+            "toolchain_name": "flux_operator",
+            "toolchain_version": "0.53.0",
+            "binaries": [
+                {
+                    "name": "flux_operator",
+                    "path": "out/flux-operator"
+                }
+            ],
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/controlplaneio-fluxcd/flux-operator/releases/download/v0.53.0/flux-operator_0.53.0_linux_amd64.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-niZkspjeUsaXOUvRMZqQZXo2nkRVAAoeZBICPci4YeQ="
+                    }
+                }
+            ],
+            "rules": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}

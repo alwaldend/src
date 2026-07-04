@@ -1,0 +1,13 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    lock = "//third_party/io_controlplane_flux_operator:binary_toolchain.json",
+    toolchains_map = {
+        "flux_operator": "io_controlplane_flux_operator",
+    },
+)
+use_repo(binary_toolchain_extension, "io_controlplane_flux_operator")
+
+register_toolchains("@io_controlplane_flux_operator//:all")

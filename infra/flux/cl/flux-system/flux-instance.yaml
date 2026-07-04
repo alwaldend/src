@@ -1,0 +1,31 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: FluxInstance
+metadata:
+  name: flux
+  namespace: flux-system
+spec:
+  distribution:
+    version: 2.9.0
+    registry: ghcr.io/fluxcd
+  components:
+    - source-controller
+    - kustomize-controller
+    - helm-controller
+    - notification-controller
+    - image-reflector-controller
+    - image-automation-controller
+    - source-watcher
+  cluster:
+    type: kubernetes
+    multitenant: false
+    networkPolicy: true
+    domain: cluster.local
+  storage:
+    class: standard
+    size: 5Gi
+  sync:
+    kind: GitRepository
+    url: ssh://forgejo@forgejo.alwaldend.com:3005/alwaldend/src.git
+    ref: refs/heads/master
+    path: infra/flux/cl
+    pullSecret: flux-system

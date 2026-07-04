@@ -26,6 +26,8 @@ include("//third_party/com_drawio_desktop_bin:include.MODULE.bazel")
 include("//third_party/io_docker_library_alpine:include.MODULE.bazel")
 include("//third_party/com_nanovms_ops:include.MODULE.bazel")
 include("//third_party/io_k3s_k3s:include.MODULE.bazel")
+include("//third_party/io_controlplane_flux_operator:include.MODULE.bazel")
+include("//third_party/io_fluxcd_flux:include.MODULE.bazel")
 
 # Tools
 include("//tools:include.MODULE.bazel")
@@ -59,7 +61,6 @@ include("//tools/stylua:include.MODULE.bazel")
 include("//tools/taplo:include.MODULE.bazel")
 include("//tools/hugo:include.MODULE.bazel")
 include("//tools/bao:include.MODULE.bazel")
-include("//tools/flux:include.MODULE.bazel")
 include("//tools/shfmt:include.MODULE.bazel")
 
 # Projects

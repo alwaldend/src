@@ -245,8 +245,8 @@
         <mxCell id="PdK-lDVd46g7X2lImqYQ-7" parent="rWErj7W7k0z_Ls7SVV5w-2" style="rounded=0;whiteSpace=wrap;html=1;" value="Flux&lt;br&gt;flux.alwaldend.com" vertex="1">
           <mxGeometry height="60" width="125" x="35" y="110" as="geometry" />
         </mxCell>
-        <mxCell id="PdK-lDVd46g7X2lImqYQ-8" parent="rWErj7W7k0z_Ls7SVV5w-2" style="rounded=0;whiteSpace=wrap;html=1;" value="Capacitor&lt;br&gt;capacitor.alwaldend.com" vertex="1">
-          <mxGeometry height="60" width="160" x="180" y="110" as="geometry" />
+        <mxCell id="PdK-lDVd46g7X2lImqYQ-8" parent="rWErj7W7k0z_Ls7SVV5w-2" style="rounded=0;whiteSpace=wrap;html=1;" value="Flux operator&lt;br&gt;flux-operator.alwaldend.com" vertex="1">
+          <mxGeometry height="60" width="170" x="180" y="110" as="geometry" />
         </mxCell>
         <mxCell id="xRZ0r2KxsMySJ9ErRcJ1-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Vault&lt;br&gt;vault.alwaldend.com" vertex="1">
           <mxGeometry height="60" width="140" x="315" y="460" as="geometry" />
@@ -280,7 +280,7 @@
         </mxCell>
         <mxCell id="xRZ0r2KxsMySJ9ErRcJ1-6" connectable="0" parent="xRZ0r2KxsMySJ9ErRcJ1-5" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="OIDC, ACME, secrets" vertex="1">
           <mxGeometry relative="1" x="0.1333" y="4" as="geometry">
-            <mxPoint x="66" y="9" as="offset" />
+            <mxPoint x="66" y="19" as="offset" />
           </mxGeometry>
         </mxCell>
         <UserObject label="Forgejo&lt;br&gt;forgejo.alwaldend.com" link="data:page/id,v621yh1Cx_BHb7xvUzgj" id="xRZ0r2KxsMySJ9ErRcJ1-7">
@@ -296,28 +296,15 @@
             <mxPoint x="15" y="-23" as="offset" />
           </mxGeometry>
         </mxCell>
-        <UserObject label="Harbor&lt;br&gt;harbor.alwaldend.com" link="data:page/id,-YIFcF5NFIgLEo9HBhwD" id="PdK-lDVd46g7X2lImqYQ-1">
-          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1">
-            <mxGeometry height="60" width="155" x="637.5" y="350" as="geometry" />
-          </mxCell>
-        </UserObject>
-        <mxCell id="PdK-lDVd46g7X2lImqYQ-2" edge="1" parent="1" source="rWErj7W7k0z_Ls7SVV5w-3" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;rounded=0;curved=0;" target="PdK-lDVd46g7X2lImqYQ-1">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="PdK-lDVd46g7X2lImqYQ-3" connectable="0" parent="PdK-lDVd46g7X2lImqYQ-2" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="OCI" vertex="1">
-          <mxGeometry relative="1" x="0.3835" as="geometry">
-            <mxPoint x="18" y="-20" as="offset" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="PdK-lDVd46g7X2lImqYQ-12" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Other clusters" vertex="1">
-          <mxGeometry height="60" width="152.5" x="637.5" y="460" as="geometry" />
+          <mxGeometry height="60" width="152.5" x="637.5" y="380" as="geometry" />
         </mxCell>
         <mxCell id="PdK-lDVd46g7X2lImqYQ-13" edge="1" parent="1" source="rWErj7W7k0z_Ls7SVV5w-3" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;rounded=0;curved=0;" target="PdK-lDVd46g7X2lImqYQ-12">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="PdK-lDVd46g7X2lImqYQ-14" connectable="0" parent="PdK-lDVd46g7X2lImqYQ-13" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="GitOps" vertex="1">
           <mxGeometry relative="1" x="0.6" as="geometry">
-            <mxPoint x="13" y="-20" as="offset" />
+            <mxPoint x="-3" y="-20" as="offset" />
           </mxGeometry>
         </mxCell>
       </root>

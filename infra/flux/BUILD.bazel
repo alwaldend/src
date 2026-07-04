@@ -23,6 +23,46 @@ vault_binary_map(
 
 _FLUX = "$(rootpath //tools/flux)"
 
+_OPERATOR = "$(rootpath //tools/flux_operator)"
+
+_KUBECTL = "$(rootpath //tools/kubectl)"
+
+al_binary_run_map(
+    name = "kubectl",
+    args = {
+        "": [
+            _KUBECTL,
+        ],
+    },
+    configs = [":al"],
+    data = [
+        "//tools/kubectl",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "k8s",
+    ],
+)
+
+al_binary_run_map(
+    name = "op",
+    args = {
+        "": [
+            _OPERATOR,
+        ],
+    },
+    configs = [":al"],
+    data = [
+        "//tools/flux_operator",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "k8s",
+    ],
+)
+
 al_binary_run_map(
     name = "flux",
     args = {
