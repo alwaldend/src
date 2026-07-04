@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/lifecycle"
 	"git.alwaldend.com/alwaldend/src/tools/vault/injector/injector_proto"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
@@ -13,6 +14,7 @@ import (
 type Plugin struct {
 	ctx     *al.CmdCtx
 	cleaner *Cleaner
+	lc      lifecycle.Manager
 }
 
 func NewPlugin(ctx *al.CmdCtx, cleaner *Cleaner) *Plugin {
@@ -22,7 +24,15 @@ func NewPlugin(ctx *al.CmdCtx, cleaner *Cleaner) *Plugin {
 	}
 }
 
-func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
+func (self *Plugin) Start(ctx context.Context) error {
+	return self.lc.Start(ctx)
+}
+
+func (self *Plugin) Stop(ctx context.Context) error {
+	return self.lc.Stop(ctx)
+}
+
+func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
 	vault := al.NewVault(req.Config)
 	templater := &Templater{}
 	opFetcher := NewOpFetcher(vault)
@@ -31,7 +41,8 @@ func (self Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartReq
 	secretFetcher := NewSecretFetcher(vault)
 	sshFetcher := NewVaultSshFetcher(self.ctx, req.Config, vault, opFetcher, self.cleaner)
 	vaultEnvFetcher := NewVaultEnvFetcher(templater, req.Config, vault)
-	manager := NewResourceManager(self.ctx, envFetcher, fileFetcher, opFetcher, secretFetcher, vaultEnvFetcher, sshFetcher)
+	processFetcher := NewProcessFetcher(self.ctx, req.Config, &self.lc)
+	manager := NewResourceManager(self.ctx, envFetcher, fileFetcher, opFetcher, secretFetcher, vaultEnvFetcher, sshFetcher, processFetcher)
 	config := &injector_proto.Config{}
 	if _, err := al.FromPbJsonToPb(req.Plugin.Data, config).Get(); err != nil {
 		return nil, fmt.Errorf("could not parse plugin data: %w", err)

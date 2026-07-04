@@ -4,3 +4,5 @@
   become: true
   roles:
     - role: alwaldend.main.host
+    - role: alwaldend.main.k3s
+    - role: alwaldend.main.k3s_kubeconfig

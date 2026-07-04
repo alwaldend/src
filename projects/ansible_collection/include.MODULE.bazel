@@ -1,7 +1,4 @@
 al_ansible_extension = use_extension("//tools/ansible/main/bzl:al_ansible_extension.bzl", "al_ansible_extension")
-
-http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
-
 al_ansible_extension.lock(
     name = "com_ansible_galaxy",
     lock = "//projects/ansible_collection:ansible_lock.json",
@@ -15,12 +12,4 @@ use_repo(
     "com_ansible_galaxy_community_general",
     "com_ansible_galaxy_community_library_inventory_filtering_v1",
     "com_ansible_galaxy_devsec_hardening",
-)
-
-http_file(
-    name = "com_github_k3s_io_k3s_install_script",
-    downloaded_file_path = "install",
-    executable = True,
-    integrity = "sha256-CP/ZLEeohu3VbOl3NPPWfn9hFfByldzc3G336iwL7ho=",
-    url = "https://raw.githubusercontent.com/k3s-io/k3s/ef6d6f4c363f30f2b7d296c94d50912663cb20ec/install.sh",
 )

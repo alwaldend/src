@@ -4,15 +4,17 @@ locals {
 
 module "vms" {
   for_each = {
-    host1 = { vmid = 700 },
+    # host1 = { vmid = 700 },
   }
-  source       = ".././../../projects/tf_modules/pve_vm_qemu"
-  name         = local.dns.domains.default.records[each.key].A.name
-  vmid         = each.value.vmid
-  pool         = "src_infra_harbor"
-  cores        = 2
-  memory       = 4096
-  storage_size = "100G"
-  ip           = "${local.dns.domains.default.records[each.key].A.address}/24"
-  tags         = ["harbor"]
+  source = ".././../../projects/tf_modules/pve_vm_qemu"
+  name   = "${local.dns.domains.default.records[each.key].A.name}.alwaldend.com"
+  vmid   = each.value.vmid
+  pool   = "src_infra_harbor"
+  cores  = 2
+  memory = 4096
+  scsi0 = {
+    size = "20G" # Boot
+  }
+  ip   = "${local.dns.domains.default.records[each.key].A.address}/24"
+  tags = ["harbor"]
 }

@@ -1,8 +1,12 @@
 ansible_user: ansible
 ssh_vault_role: src_infra_flux_ssh
+k3s_kubeconfig_secret_path: "alwaldend.com/vault1/approles/src_infra_flux/kubeconfig"
+ssh_allow_tcp_forwarding: local
+k3s_kubeconfig_secret_mount: secrets
 flux_domain: flux.alwaldend.com
+ssh_valid_principals:
+  - flux.alwaldend.com
 
-## firewall
 firewall_allow_port_from:
   - src: "any"
     port: 22

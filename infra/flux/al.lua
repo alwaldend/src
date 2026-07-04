@@ -42,3 +42,58 @@ lib.plugin_call({
     plugin = "pve_login",
     labels = { tf = "setup" },
 })
+
+lib.plugin_call({
+    name = "config",
+    plugin = "injector",
+    labels = { ansible = "1" },
+    data = {
+        res = {
+            {
+                name = "config",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/src_infra_flux/config",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "K3S_TOKEN",
+                deps = { "config" },
+                env = {
+                    value = "{{ .Last.Data.k3s_token }}",
+                }
+            },
+        }
+    }
+})
+
+lib.plugin_call({
+    name = "kubernetes",
+    plugin = "injector",
+    labels = { k8s = "1" },
+    data = {
+        res = {
+            {
+                name = "kubeconfig",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/src_infra_flux/kubeconfig",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "kubeconfig_file",
+                deps = { "kubeconfig" },
+                file = {
+                    value = "{{ .Last.Data.kubeconfig | b64decode }}",
+                }
+            },
+            {
+                name = "KUBECONFIG",
+                deps = { "kubeconfig_file" },
+                env = {
+                    value = "{{ index .Last.Files 0 }}",
+                }
+            },
+        }
+    }
+})

@@ -7,6 +7,12 @@ resource "forgejo_repository" "alwaldend_src" {
   clone_addr     = "https://github.com/alwaldend/src.git"
 }
 
+resource "forgejo_collaborator" "alwaldend_src_flux" {
+  repository_id = forgejo_repository.alwaldend_src.id
+  user          = "src_infra_flux_git"
+  permission    = "write"
+}
+
 resource "forgejo_branch_protection" "alwaldend_src_master" {
   branch_name            = "master"
   repository_id          = forgejo_repository.alwaldend_src.id

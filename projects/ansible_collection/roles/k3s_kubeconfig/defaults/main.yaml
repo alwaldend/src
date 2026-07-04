@@ -1,0 +1,4 @@
+k3s_kubeconfig_secret_path: "{{ undefined() }}"
+k3s_kubeconfig_secret_mount: "{{ undefined() }}"
+k3s_kubeconfig_path: /etc/rancher/k3s/k3s.yaml
+k3s_kubeconfig_vault_bin_local_path: "{{ role_path }}/files/vault"

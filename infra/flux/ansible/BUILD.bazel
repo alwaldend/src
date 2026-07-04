@@ -59,7 +59,7 @@ pkg_files(
         "inventory.yaml",
     ] + glob([
         "group_vars/**/*.yaml",
-        # "files/**",
+        "files/**",
         "playbook_*.yaml",
     ]),
     renames = {

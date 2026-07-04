@@ -1,0 +1,21 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "io_k3s_k3s_bin",
+    integrity = "sha256-ZaVexWwk6rRDgwhhZuxiCkkZUrfiOUGkndym6KTEtN4=",
+    urls = [
+        "https://github.com/k3s-io/k3s/releases/download/v1.36.2%2Bk3s1/k3s",
+    ],
+)
+
+http_archive(
+    name = "io_k3s_k3s",
+    build_file = "//third_party/io_k3s_k3s:k3s.BUILD.bazel",
+    integrity = "sha256-FwMlZ/8K7kfk82Gfz+dHZOUiOw2NMo2IiAewZil4XRY=",
+    strip_prefix = "k3s-1.36.2-k3s1",
+    urls = [
+        "https://github.com/k3s-io/k3s/archive/refs/tags/v1.36.2+k3s1.tar.gz",
+    ],
+)

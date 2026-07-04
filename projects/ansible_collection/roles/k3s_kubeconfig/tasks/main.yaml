@@ -1,0 +1,27 @@
+- tags:
+    - k3s_kubeconfig
+  block:
+    - name: Read kubeconfig
+      register: k3s_kubeconfig_result
+      slurp:
+        src: "{{ k3s_kubeconfig_path }}"
+    - name: Write kubeconfig secret
+      tags:
+        - k3s_kubeconfig
+      connection: local
+      environment:
+        VAULT_ADDR: "{{ lookup('ansible.builtin.env', 'VAULT_ADDR') }}"
+        VAULT_CACERT: "{{ lookup('ansible.builtin.env', 'VAULT_CACERT') }}"
+        VAULT_CLIENT_KEY: "{{ lookup('ansible.builtin.env', 'VAULT_CLIENT_KEY') }}"
+        VAULT_CLIENT_CERT: "{{ lookup('ansible.builtin.env', 'VAULT_CLIENT_CERT') }}"
+        VAULT_TOKEN: "{{ lookup('ansible.builtin.env', 'VAULT_TOKEN') }}"
+        VAULT_SKIP_VERIFY: "{{ lookup('ansible.builtin.env', 'VAULT_SKIP_VERIFY') }}"
+      ansible.builtin.command:
+        argv:
+          - "{{ k3s_kubeconfig_vault_bin_local_path }}"
+          - kv
+          - put
+          - -mount
+          - "{{ k3s_kubeconfig_secret_mount }}"
+          - "{{ k3s_kubeconfig_secret_path }}"
+          - "kubeconfig={{ k3s_kubeconfig_result.content }}"

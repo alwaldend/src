@@ -1,0 +1,11 @@
+filegroup(
+    name = "io_k3s_k3s",
+    srcs = glob(["**"]),
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "install",
+    srcs = ["install.sh"],
+    visibility = ["//visibility:public"],
+)

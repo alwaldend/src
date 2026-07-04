@@ -141,7 +141,7 @@ variable "network_model" {
 
 resource "proxmox_vm_qemu" "vm" {
   vmid         = var.vmid
-  name         = "${var.name}.alwaldend.com"
+  name         = join(".", reverse(split(".", var.name)))
   target_nodes = var.target_nodes
   pool         = var.pool
   cpu {

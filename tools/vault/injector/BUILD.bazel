@@ -27,6 +27,7 @@ go_library(
         "main.go",
         "op.go",
         "plugin.go",
+        "process.go",
         "resource.go",
         "secret.go",
         "templater.go",

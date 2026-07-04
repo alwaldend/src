@@ -38,6 +38,12 @@ variable "secrets" {
   description = "Secrets backend"
 }
 
+variable "sshpubkey" {
+  type        = string
+  default     = null
+  description = "Public key"
+}
+
 variable "disable_yc_folder_policy" {
   type        = bool
   default     = false
@@ -135,8 +141,9 @@ resource "vault_identity_entity" "entity" {
   name     = var.name
   policies = []
   metadata = {
-    username = var.name
-    email    = "${var.name}@alwaldend.com"
+    username  = var.name
+    email     = "${var.name}@alwaldend.com"
+    sshpubkey = var.sshpubkey
   }
 }
 

@@ -1,4 +1,4 @@
-load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_map")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary_map")
@@ -21,11 +21,32 @@ vault_binary_map(
     configs = [":al"],
 )
 
-al_binary_run(
+_FLUX = "$(rootpath //tools/flux)"
+
+al_binary_run_map(
     name = "flux",
-    args = [
-        "$(rootpath //tools/flux)",
-    ],
+    args = {
+        "": [
+            _FLUX,
+        ],
+        "bootstrap": [
+            _FLUX,
+            "bootstrap",
+            "git",
+            "--url",
+            "ssh://forgejo@forgejo.alwaldend.com:3005/alwaldend/src.git",
+            "--branch",
+            "master",
+            "--author-email",
+            "src_infra_flux_git",
+            "--author-name",
+            "src_infra_flux_git@alwaldend.com",
+            "--path",
+            "infra/flux/cl",
+            "--components-extra",
+            "image-reflector-controller,image-automation-controller,source-watcher",
+        ],
+    },
     configs = [":al"],
     data = [
         "//tools/flux",
@@ -33,7 +54,7 @@ al_binary_run(
     ],
     run_args = [
         "--plugin_label",
-        "flux",
+        "k8s",
     ],
 )
 

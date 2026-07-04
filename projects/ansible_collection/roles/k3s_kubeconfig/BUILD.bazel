@@ -19,12 +19,10 @@ pkg_files(
 al_ansible_role(
     name = "role",
     srcs = [
-        "//third_party/io_k3s_k3s:bin",
-        "//third_party/io_k3s_k3s:install",
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
     ] + glob(["**"]),
     renames = {
-        "//third_party/io_k3s_k3s:bin": "files/k3s",
-        "//third_party/io_k3s_k3s:install": "files/k3s_install",
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "files/vault",
     },
     visibility = ["//:__subpackages__"],
 )

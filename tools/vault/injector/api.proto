@@ -31,6 +31,11 @@ message VaultSsh {
   int64 ttl = 2;
 }
 
+message Process {
+  string name = 1;
+  repeated string args = 2;
+}
+
 message VaultEnv {
   // Vault connection
   string conn = 1;
@@ -61,6 +66,8 @@ message Resource {
     VaultEnv vault_env = 9;
     // Ssh key signed by Vautl
     VaultSsh vault_ssh = 10;
+    // Run a cmd
+    Process process = 11;
   }
 }
 

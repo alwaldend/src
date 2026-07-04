@@ -3,10 +3,12 @@ package main
 import (
 	"bytes"
 	"context"
+	"encoding/base64"
 	"fmt"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 	"strings"
 	"text/template"
+
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 )
 
 type Templater struct {
@@ -25,6 +27,13 @@ func (self *Templater) Template(ctx context.Context, tpl string, data []*Resourc
 	}
 	tmpl, err := template.New("com.alwaldend.src.tools.vault.injector.Templater.Template").Funcs(
 		template.FuncMap{
+			"b64decode": func(val string) (string, error) {
+				res, err := base64.StdEncoding.DecodeString(val)
+				if err != nil {
+					return "", fmt.Errorf("could not decode base64 string: %w", err)
+				}
+				return string(res), nil
+			},
 			"join": func(elems []any, sep string) string {
 				elemsString := make([]string, len(elems))
 				for _, elem := range elems {

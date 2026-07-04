@@ -1,0 +1,11 @@
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//infra/flux:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)

@@ -1,0 +1,29 @@
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//third_party:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+alias(
+    name = "io_k3s_k3s",
+    actual = "@io_k3s_k3s",
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "bin",
+    actual = "@io_k3s_k3s_bin//file",
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "install",
+    actual = "@io_k3s_k3s//:install",
+    visibility = ["//:__subpackages__"],
+)
