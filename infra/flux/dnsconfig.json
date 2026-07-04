@@ -13,6 +13,12 @@
                         "name":  "flux",
                         "address": "192.168.10.60"
                     }
+                },
+                "operator": {
+                    "CNAME": {
+                        "name": "flux-operator",
+                        "target": "flux.alwaldend.com."
+                    }
                 }
             }
         }
