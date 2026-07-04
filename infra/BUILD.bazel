@@ -5,9 +5,9 @@ load("//tools/docs:defs.bzl", "docs_filegroup")
 filegroup(
     name = "dnsconfig",
     srcs = [
-        "//infra/dc1:dnsconfig",
         "//infra/flux:dnsconfig",
         "//infra/forgejo:dnsconfig",
+        "//infra/pve:dnsconfig",
         "//infra/harbor:dnsconfig",
         "//infra/mikrotik:dnsconfig",
         "//infra/vault:dnsconfig",

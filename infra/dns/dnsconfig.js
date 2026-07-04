@@ -6,7 +6,7 @@ var DSP_CLOUDFLARE = NewDnsProvider("cloudflare");
 var DSP_MIKROTIK = NewDnsProvider("mikrotik");
 var DSP_BIND = NewDnsProvider("bind");
 var jsons = [
-    require("../dc1/pve1/dnsconfig.json"),
+    require("../pve/dnsconfig.json"),
     require("../vault/dnsconfig.json"),
     require("../mikrotik/dnsconfig.json"),
     require("../forgejo/dnsconfig.json"),
