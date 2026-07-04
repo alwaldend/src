@@ -21,7 +21,7 @@ spec:
     networkPolicy: true
     domain: cluster.local
   storage:
-    class: standard
+    class: local-path
     size: 5Gi
   sync:
     kind: GitRepository
