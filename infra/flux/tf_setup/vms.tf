@@ -12,7 +12,12 @@ module "vms" {
   pool         = "src_infra_flux"
   cores        = 2
   memory       = 4096
-  storage_size = "50G"
+  scsi0 = {
+    size = "20G" # Boot
+  }
+  scsi1 = {
+    size = "20G" # Local data
+  }
   ip           = "${local.dns.domains.default.records[each.key].A.address}/24"
   tags         = ["flux"]
 }

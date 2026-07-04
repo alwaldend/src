@@ -460,7 +460,7 @@
   "moduleExtensions": {
     "@@aspect_rules_js+//npm:extensions.bzl%pnpm": {
       "general": {
-        "bzlTransitiveDigest": "eitn6q6Hoan5nnYrvs7dyl1KuarZisw94AxidUVSnv4=",
+        "bzlTransitiveDigest": "2aGHzk+FuD8YqVfZ5IWqypA4Fpv1xCkcY/66lfIpGXQ=",
         "usagesDigest": "QVWlj7RX/q6cFK6Ce7WT/A++atMNbYDwMCA4TchFP4Q=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -697,7 +697,7 @@
     },
     "@@rules_android+//bzlmod_extensions:com_android_dex.bzl%com_android_dex_extension": {
       "general": {
-        "bzlTransitiveDigest": "rvWbJQc8jInfIAaXIMhSOqUlwM9HVeLey6q0ISvg08Y=",
+        "bzlTransitiveDigest": "BbM3I4LvjudqQ6/IwaP/LaJXdj2EPfqPleTjiFG4Lg0=",
         "usagesDigest": "c1Y/KGGjUYCyd8zNIVTUh1bynVXRFz6xGKaSCBpQANM=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
@@ -936,7 +936,7 @@
     },
     "@@rules_sh+//bzlmod:extensions.bzl%sh_configure": {
       "general": {
-        "bzlTransitiveDigest": "wiOLn/jAXZoB524k4Jnv5akBmPbd67ZTm17aIU9AYJQ=",
+        "bzlTransitiveDigest": "upXsTsAkd6+Mar5bVooCGrbo4Kwa9Fsj8gT3jahJN+k=",
         "usagesDigest": "K4VzMyECTvv/wslagUSDktEIf/botSZDr9s+bPMfIts=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
