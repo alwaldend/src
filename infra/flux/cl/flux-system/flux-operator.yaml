@@ -28,20 +28,20 @@ spec:
   values:
     fullnameOverride: flux-web
     installCRDs: false
+    extraEnvs:
+      - name: SSL_CERT_FILE
+        value: /etc/flux-operator/certs/ca.crt
+    extraVolumeMounts:
+      - name: vault-ca
+        mountPath: /etc/flux-operator/certs/ca.crt
+        subPath: ca.crt
+        readOnly: true
+    extraVolumes:
+      - name: vault-ca
+        secret:
+          secretName: vault-ca
     web:
       serverOnly: true
-      extraEnvs:
-        - name: SSL_CERT_FILE
-          value: /etc/flux-operator/certs/ca.crt
-      extraVolumeMounts:
-        - name: vault-ca
-          mountPath: /etc/flux-operator/certs/ca.crt
-          subPath: ca.crt
-          readOnly: true
-      extraVolumes:
-        - name: vault-ca
-          secret:
-            secretName: vault-ca
       config:
         baseURL: https://operator.flux.alwaldend.com
         authentication:
