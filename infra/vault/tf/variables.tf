@@ -6,13 +6,13 @@ variable "folder_id" {
 variable "vault_url" {
   type        = string
   description = "Vault url"
-  default     = "https://vault.dc1.alwaldend.com:8200"
+  default     = "https://vault.alwaldend.com:8200"
 }
 
 variable "pve1_url" {
   type        = string
   description = "Pve url"
-  default     = "https://host1.pve1.dc1.alwaldend.com:8006"
+  default     = "https://pve.alwaldend.com:8006"
 }
 
 variable "forgejo_url" {
@@ -36,7 +36,7 @@ variable "flux_url" {
 variable "vault_host" {
   type        = string
   description = "Vault host"
-  default     = "vault.dc1.alwaldend.com:8200"
+  default     = "vault.alwaldend.com:8200"
 }
 
 variable "service_account_id" {
