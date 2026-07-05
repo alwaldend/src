@@ -110,7 +110,7 @@ resource "vault_policy" "src_infra_flux_cluster" {
   name   = "src_infra_flux_cluster"
   policy = <<EOT
     path "${module.src_infra_flux_pki_server.backend}/issuer/default/sign/${module.src_infra_flux_pki_server.name}" {
-      capabilities = ["create"]
+      capabilities = ["update"]
     }
 EOT
 }

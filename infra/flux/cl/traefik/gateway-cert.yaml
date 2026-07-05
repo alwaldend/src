@@ -8,6 +8,7 @@ spec:
     name: vault
     kind: ClusterIssuer
     group: cert-manager.io
+  commonName: flux.alwaldend.com
   dnsNames:
     - flux.alwaldend.com
     - "*.flux.alwaldend.com"
