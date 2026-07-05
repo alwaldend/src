@@ -40,5 +40,7 @@ spec:
   driftDetection:
     mode: enabled
   values:
+    config:
+      enableGatewayAPI: true
     crds:
       enabled: true

@@ -16,7 +16,7 @@
                 },
                 "operator": {
                     "CNAME": {
-                        "name": "flux-operator",
+                        "name": "operator.flux",
                         "target": "flux.alwaldend.com."
                     }
                 }

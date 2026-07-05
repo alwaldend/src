@@ -50,6 +50,14 @@ variable "max_ttl" {
   default     = 2629746 # Month
 }
 
+output "name" {
+  value = vault_pki_secret_backend_role.role.name
+}
+
+output "backend" {
+  value = vault_pki_secret_backend_role.role.backend
+}
+
 resource "vault_policy" "eab_new" {
   name   = "${var.backend}/${var.name}/eab_new"
   policy = <<EOT

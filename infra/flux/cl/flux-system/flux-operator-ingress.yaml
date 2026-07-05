@@ -10,7 +10,7 @@ spec:
       name: internet-gateway
       namespace: gateway-namespace
   hostnames:
-    - flux-operator.alwaldend.com
+    - operator.flux.alwaldend.com
   rules:
     - matches:
         - path:

@@ -75,6 +75,11 @@ output "group_id" {
   value       = vault_identity_group.group.id
 }
 
+output "entity_id" {
+  description = "Entity id"
+  value = vault_identity_entity.entity.id
+}
+
 resource "vault_policy" "yc_folder" {
   name   = "${var.name}_yc_folder"
   policy = <<EOT

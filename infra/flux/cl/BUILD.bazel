@@ -1,4 +1,101 @@
 load("//tools/docs:defs.bzl", "docs_filegroup")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_map")
+load("//tools/vault:defs.bzl", "vault_binary")
+
+_FLUX = "$(rootpath //tools/flux)"
+_OPERATOR = "$(rootpath //tools/flux_operator)"
+_KUBECTL = "$(rootpath //tools/kubectl)"
+_CONFIG = "//infra/flux:al"
+
+al_binary_run_map(
+    name = "kubectl",
+    args = {
+        "": [
+            _KUBECTL,
+        ],
+    },
+    configs = [
+        _CONFIG,
+    ],
+    data = [
+        "//tools/kubectl",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "k8s",
+    ],
+)
+
+al_binary_run_map(
+    name = "op",
+    args = {
+        "": [
+            _OPERATOR,
+        ],
+    },
+    configs = [
+        _CONFIG,
+    ],
+    data = [
+        "//tools/flux_operator",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "k8s",
+    ],
+)
+
+al_binary_run_map(
+    name = "flux",
+    args = {
+        "": [
+            _FLUX,
+        ],
+        "bootstrap": [
+            _FLUX,
+            "bootstrap",
+            "git",
+            "--url",
+            "ssh://forgejo@forgejo.alwaldend.com:3005/alwaldend/src.git",
+            "--branch",
+            "master",
+            "--author-email",
+            "src_infra_flux_git",
+            "--author-name",
+            "src_infra_flux_git@alwaldend.com",
+            "--path",
+            "infra/flux/cl",
+            "--components-extra",
+            "image-reflector-controller,image-automation-controller,source-watcher",
+        ],
+    },
+    configs = [
+        _CONFIG,
+    ],
+    data = [
+        "//tools/flux",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "k8s",
+    ],
+)
+
+vault_binary(
+    name = "secret_id",
+    configs = [
+        _CONFIG,
+    ],
+    args = [
+        "write",
+        "-format=json",
+        "-f",
+        "auth/approle/role/src_infra_flux_cluster/secret-id"
+    ],
+)
 
 docs_filegroup(
     name = "docs",

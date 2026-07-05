@@ -12,18 +12,6 @@ module "src_infra_flux_approle" {
   backend_accessor = vault_auth_backend.approle.accessor
 }
 
-module "src_infra_flux_git_approle" {
-  source = "../../../projects/tf_modules/vault_approle"
-  name   = "src_infra_flux_git"
-  member_entity_ids = [
-    vault_identity_entity.simeonwarren.id,
-  ]
-  secrets          = vault_mount.secrets.path
-  sshpubkey        = "ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBEpel7RvP2ELEdIJzcJlzK62FWCdHZHahL9G/+k8IdsD6OHcrw+m28xR4jnraqgMdC7ASWmWhFUX5lAjAyVNllfi4WUrtoJUUJDiZE3Ndclyyf8IwfgaeO75Xt0MW0fK7g=="
-  backend          = vault_auth_backend.approle.path
-  backend_accessor = vault_auth_backend.approle.accessor
-}
-
 module "src_infra_flux_ssh" {
   source          = "../../../projects/tf_modules/vault_ssh_server_role"
   backend         = vault_mount.ssh_servers.path
@@ -36,7 +24,9 @@ module "src_infra_flux_pki_server" {
   backend                  = module.pki_ica_servers.backend
   name                     = "src_infra_flux_pki_server"
   allowed_domains          = ["flux.alwaldend.com"]
-  eab_new_member_group_ids = [module.src_infra_flux_approle.group_id]
+  eab_new_member_group_ids = [
+    module.src_infra_flux_approle.group_id,
+  ]
   client_flag              = true
 }
 
@@ -86,4 +76,39 @@ resource "vault_identity_group" "src_infra_flux_admins" {
   metadata = {
     comment = "flux admins"
   }
+}
+
+module "src_infra_flux_git_approle" {
+  source = "../../../projects/tf_modules/vault_approle"
+  name   = "src_infra_flux_git"
+  member_entity_ids = [
+    module.src_infra_flux_approle.entity_id,
+  ]
+  secrets          = vault_mount.secrets.path
+  sshpubkey        = "ecdsa-sha2-nistp384 AAAAE2VjZHNhLXNoYTItbmlzdHAzODQAAAAIbmlzdHAzODQAAABhBEpel7RvP2ELEdIJzcJlzK62FWCdHZHahL9G/+k8IdsD6OHcrw+m28xR4jnraqgMdC7ASWmWhFUX5lAjAyVNllfi4WUrtoJUUJDiZE3Ndclyyf8IwfgaeO75Xt0MW0fK7g=="
+  backend          = vault_auth_backend.approle.path
+  backend_accessor = vault_auth_backend.approle.accessor
+}
+
+module "src_infra_flux_cluster_approle" {
+  source = "../../../projects/tf_modules/vault_approle"
+  name   = "src_infra_flux_cluster"
+  member_entity_ids = [
+    module.src_infra_flux_approle.entity_id,
+  ]
+  policies = [
+    vault_policy.src_infra_flux_cluster.name,
+  ]
+  secrets          = vault_mount.secrets.path
+  backend          = vault_auth_backend.approle.path
+  backend_accessor = vault_auth_backend.approle.accessor
+}
+
+resource "vault_policy" "src_infra_flux_cluster" {
+  name   = "src_infra_flux_cluster"
+  policy = <<EOT
+    path "${module.src_infra_flux_pki_server.backend}/issuer/default/sign/${module.src_infra_flux_pki_server.name}" {
+      capabilities = ["create"]
+    }
+EOT
 }
