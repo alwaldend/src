@@ -24,6 +24,12 @@ ssh -L 6443:127.0.0.1:6443 -N flux.alwaldend.com
 bazel run //infra/flux/cl:flux
 ```
 
+## Show flux status
+
+```sh
+bazel run infra/flux/cl:flux -- get all -A
+```
+
 ## Run bootstrap
 
 ```sh

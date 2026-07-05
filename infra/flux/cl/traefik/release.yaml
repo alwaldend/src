@@ -44,11 +44,19 @@ spec:
     # https://doc.traefik.io/traefik/setup/kubernetes/
     ports:
       web:
-        port: :80
+        port: 80
+        nodePort: 30000
+        http:
+          redirections:
+            entryPoint:
+              to: websecure
+              scheme: https
+              permanent: true
       websecure:
-        port: :443
-        tls:
-          enabled: true
+        port: 443
+        nodePort: 30001
+    ingressClass:
+      enabled: false
     providers:
       kubernetesIngress:
         enabled: false
@@ -59,6 +67,9 @@ spec:
       level: INFO
     accessLog:
       enabled: true
+    metrics:
+      prometheus:
+        enabled: true
     gateway:
       listeners:
         web:
@@ -71,8 +82,9 @@ spec:
           protocol: HTTPS
           namespacePolicy:
             from: All
-          tls:
-            mode: Terminate
-            certificateRefs:
-              - name: traefik-gateway-websecure-tls
+          mode: Terminate
+          certificateRefs:
+            - name: traefik-gateway-websecure-tls
+              kind: Secret
+              group: ""
 ---
