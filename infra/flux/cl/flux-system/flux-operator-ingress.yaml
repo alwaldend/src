@@ -19,6 +19,6 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: flux-operator
+        - name: flux-web
           namespace: flux-system
           port: 9080
