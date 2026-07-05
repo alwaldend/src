@@ -42,6 +42,12 @@ bazel run //infra/flux/cl:flux.bootstrap
 bazel run //infra/flux/cl:op
 ```
 
+## Renew certificate
+
+```sh
+bazel run //infra/flux/cl:cmctl -- renew traefik-gateway-websecure-tls -n traefik
+```
+
 ## Update cert-manager's approle
 
 - Generate secret id:

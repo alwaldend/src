@@ -1,0 +1,17 @@
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+alias(
+    name = "cmctl",
+    actual = "//third_party/io_cert_manager_cmctl",
+    visibility = ["//:__subpackages__"],
+)

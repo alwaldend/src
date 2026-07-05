@@ -10,6 +10,28 @@ _KUBECTL = "$(rootpath //tools/kubectl)"
 
 _CONFIG = "//infra/flux:al"
 
+_CMCTL = "$(rootpath //tools/cmctl)"
+
+al_binary_run_map(
+    name = "cmctl",
+    args = {
+        "": [
+            _CMCTL,
+        ],
+    },
+    configs = [
+        _CONFIG,
+    ],
+    data = [
+        "//tools/cmctl",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "k8s",
+    ],
+)
+
 al_binary_run_map(
     name = "kubectl",
     args = {

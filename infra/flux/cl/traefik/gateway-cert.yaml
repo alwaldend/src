@@ -11,4 +11,7 @@ spec:
   dnsNames:
     - flux.alwaldend.com
     - "*.flux.alwaldend.com"
+  privateKey:
+    algorithm: RSA
+    size: 4096
   secretName: traefik-gateway-websecure-tls

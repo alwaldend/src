@@ -1,0 +1,37 @@
+{
+    "toolchains": [
+        {
+            "name": "cmctl",
+            "version": "2.5.0"
+        }
+    ],
+    "archives": [
+        {
+            "archive_name": "linux_x86_64",
+            "toolchain_name": "cmctl",
+            "toolchain_version": "2.5.0",
+            "binaries": [
+                {
+                    "name": "cmctl",
+                    "path": "out/cmctl"
+                }
+            ],
+            "actions": [
+                {
+                    "download": {
+                        "url": "https://github.com/cert-manager/cmctl/releases/download/v2.5.0/cmctl_linux_amd64",
+                        "output": "out/cmctl",
+                        "executable": true,
+                        "integrity": "sha256-YOgLoj0Y81AyJn+4OrLm9LUi7c44iJrWEpK0Wi6UNt8="
+                    }
+                }
+            ],
+            "rules": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}

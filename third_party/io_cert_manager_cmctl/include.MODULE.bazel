@@ -1,0 +1,13 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    lock = "//third_party/io_cert_manager_cmctl:binary_toolchain.json",
+    toolchains_map = {
+        "cmctl": "io_cert_manager_cmctl",
+    },
+)
+use_repo(binary_toolchain_extension, "io_cert_manager_cmctl")
+
+register_toolchains("@io_cert_manager_cmctl//:all")
