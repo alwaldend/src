@@ -50,6 +50,16 @@ variable "disable_yc_folder_policy" {
   description = "If set, do not create a policy for Yandex Cloud"
 }
 
+variable "secret_id_num_uses" {
+  type    = number
+  default = 1
+}
+
+variable "secret_id_ttl" {
+  type    = number
+  default = 3600
+}
+
 locals {
   secret_path = "alwaldend.com/vault1/approles/${var.name}"
   yc_folder   = "yandex.cloud/org1/folders/${replace(var.name, "_", "-")}"
@@ -77,7 +87,7 @@ output "group_id" {
 
 output "entity_id" {
   description = "Entity id"
-  value = vault_identity_entity.entity.id
+  value       = vault_identity_entity.entity.id
 }
 
 resource "vault_policy" "yc_folder" {
@@ -121,8 +131,8 @@ resource "vault_approle_auth_backend_role" "role" {
   backend            = var.backend
   role_name          = var.name
   role_id            = var.name
-  secret_id_num_uses = 1
-  secret_id_ttl      = 3600
+  secret_id_num_uses = var.secret_id_num_uses
+  secret_id_ttl      = var.secret_id_ttl
   token_policies = concat(
     [
       vault_policy.shared.name,

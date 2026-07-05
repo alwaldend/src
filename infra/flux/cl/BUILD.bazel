@@ -1,10 +1,13 @@
-load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_map")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary")
 
 _FLUX = "$(rootpath //tools/flux)"
+
 _OPERATOR = "$(rootpath //tools/flux_operator)"
+
 _KUBECTL = "$(rootpath //tools/kubectl)"
+
 _CONFIG = "//infra/flux:al"
 
 al_binary_run_map(
@@ -86,14 +89,14 @@ al_binary_run_map(
 
 vault_binary(
     name = "secret_id",
-    configs = [
-        _CONFIG,
-    ],
     args = [
         "write",
         "-format=json",
-        "-f",
-        "auth/approle/role/src_infra_flux_cluster/secret-id"
+        "auth/approle/role/src_infra_flux_cluster/secret-id",
+        "ttl=2629745",  # Month
+    ],
+    configs = [
+        _CONFIG,
     ],
 )
 

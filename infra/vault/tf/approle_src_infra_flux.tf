@@ -20,14 +20,14 @@ module "src_infra_flux_ssh" {
 }
 
 module "src_infra_flux_pki_server" {
-  source                   = "../../../projects/tf_modules/vault_pki_server"
-  backend                  = module.pki_ica_servers.backend
-  name                     = "src_infra_flux_pki_server"
-  allowed_domains          = ["flux.alwaldend.com"]
+  source          = "../../../projects/tf_modules/vault_pki_server"
+  backend         = module.pki_ica_servers.backend
+  name            = "src_infra_flux_pki_server"
+  allowed_domains = ["flux.alwaldend.com"]
   eab_new_member_group_ids = [
     module.src_infra_flux_approle.group_id,
   ]
-  client_flag              = true
+  client_flag = true
 }
 
 module "src_infra_flux_provider" {
@@ -91,8 +91,10 @@ module "src_infra_flux_git_approle" {
 }
 
 module "src_infra_flux_cluster_approle" {
-  source = "../../../projects/tf_modules/vault_approle"
-  name   = "src_infra_flux_cluster"
+  source             = "../../../projects/tf_modules/vault_approle"
+  name               = "src_infra_flux_cluster"
+  secret_id_num_uses = 0
+  secret_id_ttl      = local.year_in_seconds
   member_entity_ids = [
     module.src_infra_flux_approle.entity_id,
   ]

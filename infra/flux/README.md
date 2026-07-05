@@ -36,8 +36,13 @@ bazel run //infra/flux/cl:flux.bootstrap
 bazel run //infra/flux/cl:op
 ```
 
-## Generate secret id for the cluster
+## Update cert-manager's approle
 
-```sh
-bazel run //infra/flux/cl:secret_id
-```
+- Generate secret id:
+  ```sh
+  bazel run //infra/flux/cl:secret_id
+  ```
+- Patch the secret:
+  ```sh
+  bazel run infra/flux/cl:kubectl -- edit secret cert-manager-vault-approle -n cert-manager
+  ```

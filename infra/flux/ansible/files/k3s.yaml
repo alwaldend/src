@@ -1,5 +1,7 @@
 token: "{{ lookup('ansible.builtin.env', 'K3S_TOKEN', default=undefined()) }}"
 node-name: "{{ inventory_hostname }}"
+disable:
+  - traefik
 tls-san:
   - "{{ inventory_hostname }}"
 data-dir: "{{ k3s_data_dir }}"

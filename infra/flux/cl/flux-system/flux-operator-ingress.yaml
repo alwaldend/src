@@ -3,6 +3,8 @@ kind: HTTPRoute
 metadata:
   name: flux-web
   namespace: flux-system
+  annotations:
+    cert-manager.io/issuer: vault
 spec:
   parentRefs:
     - group: gateway.networking.k8s.io
