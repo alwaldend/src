@@ -46,7 +46,7 @@ module "src_infra_flux_provider" {
     vault_identity_group.src_infra_flux_admins.id,
   ]
   redirect_urls = [
-    "${var.flux_url}/c/oidc/callback",
+    "${var.flux_url}/oauth2/callback",
   ]
 }
 
@@ -58,6 +58,7 @@ resource "vault_identity_group" "src_infra_flux_users" {
     vault_identity_group.approles.id,
     vault_identity_group.src_infra_flux_admins.id,
     module.src_infra_flux_git_approle.group_id,
+    module.src_infra_flux_cluster_approle.group_id,
   ]
   metadata = {
     comment = "Users. Allowed to login with OIDC to flux"

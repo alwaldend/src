@@ -30,7 +30,7 @@ variable "harbor_url" {
 variable "flux_url" {
   type        = string
   description = "Flux url"
-  default     = "https://flux.alwaldend.com"
+  default     = "https://operator.flux.alwaldend.com"
 }
 
 variable "vault_host" {

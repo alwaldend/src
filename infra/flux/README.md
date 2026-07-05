@@ -42,6 +42,12 @@ bazel run //infra/flux/cl:flux.bootstrap
 bazel run //infra/flux/cl:op
 ```
 
+## Show oidc info
+
+```sh
+bazel run //infra/flux/cl:oidc
+```
+
 ## Renew certificate
 
 ```sh

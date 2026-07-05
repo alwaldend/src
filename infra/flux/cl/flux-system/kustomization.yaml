@@ -5,3 +5,10 @@ resources:
   - flux-instance.yaml
   - flux-operator-ingress.yaml
   - gotk-sync.yaml
+secretGenerator:
+  - name: vault-ca
+    namespace: flux-system
+    options:
+      disableNameSuffixHash: true
+    files:
+      - ca.crt=../../../vault/tf/output/pki_ca_servers.crt

@@ -110,6 +110,18 @@ al_binary_run_map(
 )
 
 vault_binary(
+    name = "oidc",
+    args = [
+        "read",
+        "-format=json",
+        "identity/oidc/client/src_infra_flux_provider",
+    ],
+    configs = [
+        _CONFIG,
+    ],
+)
+
+vault_binary(
     name = "secret_id",
     args = [
         "write",

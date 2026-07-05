@@ -30,6 +30,34 @@ spec:
     installCRDs: false
     web:
       serverOnly: true
+      extraEnvs:
+        - name: SSL_CERT_FILE
+          value: /etc/flux-operator/certs/ca.crt
+      extraVolumeMounts:
+        - name: vault-ca
+          mountPath: /etc/flux-operator/certs/ca.crt
+          subPath: ca.crt
+          readOnly: true
+      extraVolumes:
+        - name: vault-ca
+          secret:
+            secretName: vault-ca
+      config:
+        baseURL: https://operator.flux.alwaldend.com
+        authentication:
+          type: OAuth2
+          oauth2:
+            provider: OIDC
+            issuerURL: https://vault.alwaldend.com:8200/v1/identity/oidc/provider/src_infra_flux_provider
+  valuesFrom:
+    - kind: Secret
+      name: oidc
+      valuesKey: clientID
+      targetPath: values.web.config.authentication.oauth2.clientID
+    - kind: Secret
+      name: oidc
+      valuesKey: clientSecret
+      targetPath: values.web.config.authentication.oauth2.clientSecret
 ---
 apiVersion: fluxcd.controlplane.io/v1
 kind: ResourceSet
