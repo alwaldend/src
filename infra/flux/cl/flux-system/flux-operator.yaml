@@ -53,11 +53,11 @@ spec:
     - kind: Secret
       name: oidc
       valuesKey: clientID
-      targetPath: values.web.config.authentication.oauth2.clientID
+      targetPath: web.config.authentication.oauth2.clientID
     - kind: Secret
       name: oidc
       valuesKey: clientSecret
-      targetPath: values.web.config.authentication.oauth2.clientSecret
+      targetPath: web.config.authentication.oauth2.clientSecret
 ---
 apiVersion: fluxcd.controlplane.io/v1
 kind: ResourceSet
