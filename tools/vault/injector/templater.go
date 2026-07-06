@@ -15,12 +15,13 @@ type Templater struct {
 }
 
 type templateCtx struct {
-	Res  map[string]*ResourceResult
-	Last *ResourceResult
+	Res   map[string]*ResourceResult
+	Last  *ResourceResult
+	Extra map[string]any
 }
 
-func (self *Templater) Template(ctx context.Context, tpl string, data []*ResourceResult) fp.Either[string] {
-	tmplCtx := &templateCtx{Res: map[string]*ResourceResult{}}
+func (self *Templater) Template(ctx context.Context, tpl string, data []*ResourceResult, extra map[string]any) fp.Either[string] {
+	tmplCtx := &templateCtx{Res: map[string]*ResourceResult{}, Extra: extra}
 	for _, r := range data {
 		tmplCtx.Res[r.Name] = r
 		tmplCtx.Last = r

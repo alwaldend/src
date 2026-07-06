@@ -33,6 +33,7 @@ type ResourceManager struct {
 	vaultEnv *VaultEnvFetcher
 	process  *ProcessFetcher
 	vaultSsh *VaultSshFetcher
+	oidc     *OidcFetcher
 	ctx      *al.CmdCtx
 }
 
@@ -45,6 +46,7 @@ func NewResourceManager(
 	vaultEnv *VaultEnvFetcher,
 	vaultSsh *VaultSshFetcher,
 	process *ProcessFetcher,
+	oidc *OidcFetcher,
 ) *ResourceManager {
 	return &ResourceManager{
 		ctx:      ctx,
@@ -55,6 +57,7 @@ func NewResourceManager(
 		vaultEnv: vaultEnv,
 		vaultSsh: vaultSsh,
 		process:  process,
+		oidc:     oidc,
 	}
 }
 
@@ -89,6 +92,8 @@ func (self *ResourceManager) get(ctx context.Context, config *injector_proto.Con
 		fetcher = self.vaultSsh
 	case *injector_proto.Resource_Process:
 		fetcher = self.process
+	case *injector_proto.Resource_Oidc:
+		fetcher = self.oidc
 	default:
 		return fp.Left[*ResourceResult](fmt.Errorf("resource %s is missing config", resConfig.Name))
 	}

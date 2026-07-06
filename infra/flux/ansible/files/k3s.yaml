@@ -4,6 +4,13 @@ disable:
   - traefik
 tls-san:
   - "{{ inventory_hostname }}"
+kube-apiserver-arg:
+  - --oidc-issuer-url=https://vault.alwaldend.com:8200/v1/identity/oidc/provider/src_infra_flux_cluster_provider
+  - --oidc-client-id=51Bw8vtyWuoZIm45O7ug83SghbLCxwPE
+  - --oidc-username-claim=username
+  - --oidc-username-prefix=src_infra_vault_
+  - --oidc-groups-claim=groups
+  - --oidc-groups-prefix=src_infra_vault_
 data-dir: "{{ k3s_data_dir }}"
 secrets-encryption: true
 default-local-storage-path: "{{ k3s_storage_dir }}"

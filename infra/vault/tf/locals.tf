@@ -17,6 +17,7 @@ locals {
     src_infra_harbor            = module.src_infra_harbor_approle
     src_infra_flux              = module.src_infra_flux_approle
     src_infra_flux_git          = module.src_infra_flux_git_approle
+    src_infra_flux_cluster      = module.src_infra_flux_cluster_approle
     users_simeonwarren          = module.users_approle["simeonwarren"]
   }
 }

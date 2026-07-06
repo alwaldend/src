@@ -24,7 +24,7 @@ func (self *EnvFetcher) Get(ctx context.Context, r *injector_proto.Resource, d [
 	if r.GetEnv() == nil {
 		return nil, fmt.Errorf("missing env config")
 	}
-	content, err := self.templater.Template(ctx, r.GetEnv().Value, d).Get()
+	content, err := self.templater.Template(ctx, r.GetEnv().Value, d, nil).Get()
 	if err != nil {
 		return nil, fmt.Errorf("could not template: %w", err)
 	}

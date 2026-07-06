@@ -25,6 +25,7 @@ go_library(
         "env.go",
         "file.go",
         "main.go",
+        "oidc.go",
         "op.go",
         "plugin.go",
         "process.go",

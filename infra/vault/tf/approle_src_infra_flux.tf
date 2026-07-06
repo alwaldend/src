@@ -57,8 +57,6 @@ resource "vault_identity_group" "src_infra_flux_users" {
     vault_identity_group.dev.id,
     vault_identity_group.approles.id,
     vault_identity_group.src_infra_flux_admins.id,
-    module.src_infra_flux_git_approle.group_id,
-    module.src_infra_flux_cluster_approle.group_id,
   ]
   metadata = {
     comment = "Users. Allowed to login with OIDC to flux"
@@ -69,7 +67,6 @@ resource "vault_identity_group" "src_infra_flux_admins" {
   name = "src_infra_flux_admins"
   type = "internal"
   member_entity_ids = [
-    vault_identity_entity.simeonwarren.id,
   ]
   member_group_ids = [
     module.src_infra_flux_approle.group_id,
@@ -114,4 +111,24 @@ resource "vault_policy" "src_infra_flux_cluster" {
       capabilities = ["update"]
     }
 EOT
+}
+
+module "src_infra_flux_cluster_provider" {
+  source      = "../../../projects/tf_modules/vault_oidc_provider"
+  name        = "src_infra_flux_cluster_provider"
+  issuer_host = var.vault_host
+  scopes_supported = [
+    vault_identity_oidc_scope.user.name,
+    vault_identity_oidc_scope.groups.name,
+    vault_identity_oidc_scope.email.name,
+  ]
+  group_ids = [
+    vault_identity_group.src_infra_flux_users.id,
+  ]
+  allowed_read_clients_group_ids = [
+    vault_identity_group.src_infra_flux_admins.id,
+  ]
+  redirect_urls = [
+    "https://unused",
+  ]
 }

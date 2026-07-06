@@ -42,7 +42,11 @@ func (self *FileFetcher) Get(ctx context.Context, r *injector_proto.Resource, d 
 	if value == "" {
 		return nil, fmt.Errorf("missing file contents")
 	}
-	content, err := self.templater.Template(ctx, value, d).Get()
+	extra := map[string]any{}
+	for key, value := range f.Extra {
+		extra[key] = value
+	}
+	content, err := self.templater.Template(ctx, value, d, extra).Get()
 	if err != nil {
 		return nil, fmt.Errorf("could not template: %w", err)
 	}

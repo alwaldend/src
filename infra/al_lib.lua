@@ -2,6 +2,57 @@ local lib = require("al_lib")
 
 local M = {}
 
+function M.kubernetes_login(t)
+    local name, oidc, labels = t.name or "kubernetes_login", t.oidc, t.labels
+    local cluster_ca = t.cluster_ca
+    local res = {
+        {
+            name = name,
+            oidc = oidc,
+        },
+        {
+            name = name .. "_file",
+            deps = { name },
+            file = {
+                extra = {
+                    cluster_ca = cluster_ca
+                },
+                value = [[
+apiVersion: v1
+clusters:
+  - cluster:
+      certificate-authority-data: "{{ .Extra.cluster_ca }}"
+      server: https://127.0.0.1:6443
+    name: default
+contexts:
+  - context:
+      cluster: default
+      user: default
+    name: default
+current-context: default
+kind: Config
+users:
+  - name: default
+    user:
+      token: "{{ .Last.Data.id_token }}"
+]]
+            },
+        },
+        {
+            name = "KUBECONFIG",
+            deps = { name .. "_file" },
+            env = {
+                value = "{{ index .Last.Files 0 }}",
+            }
+        },
+    }
+    lib.plugin_call({
+        name = name,
+        plugin = "injector",
+        labels = labels,
+        data = { res = res }
+    })
+end
 
 function M.ansible_keys(t)
     local name, vault_ssh, labels = t.name or "ansible_keys", t.vault_ssh, t.labels

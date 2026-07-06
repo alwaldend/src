@@ -41,8 +41,9 @@ func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRe
 	secretFetcher := NewSecretFetcher(vault)
 	sshFetcher := NewVaultSshFetcher(self.ctx, req.Config, vault, opFetcher, self.cleaner)
 	vaultEnvFetcher := NewVaultEnvFetcher(templater, req.Config, vault)
+	oidcFetcher := NewOidcFetcher(vault)
 	processFetcher := NewProcessFetcher(self.ctx, req.Config, &self.lc)
-	manager := NewResourceManager(self.ctx, envFetcher, fileFetcher, opFetcher, secretFetcher, vaultEnvFetcher, sshFetcher, processFetcher)
+	manager := NewResourceManager(self.ctx, envFetcher, fileFetcher, opFetcher, secretFetcher, vaultEnvFetcher, sshFetcher, processFetcher, oidcFetcher)
 	config := &injector_proto.Config{}
 	if _, err := al.FromPbJsonToPb(req.Plugin.Data, config).Get(); err != nil {
 		return nil, fmt.Errorf("could not parse plugin data: %w", err)
