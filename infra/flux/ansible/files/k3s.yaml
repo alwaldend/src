@@ -11,6 +11,7 @@ kube-apiserver-arg:
   - --oidc-username-prefix=src_infra_vault_
   - --oidc-groups-claim=groups
   - --oidc-groups-prefix=src_infra_vault_
+  - --oidc-signing-algs=RS512
 data-dir: "{{ k3s_data_dir }}"
 secrets-encryption: true
 default-local-storage-path: "{{ k3s_storage_dir }}"
