@@ -1,11 +1,10 @@
 ansible_user: ansible
 ssh_vault_role: src_infra_harbor_ssh
-traefik_acme_path: pki/ica_servers/roles/src_infra_harbor_pki_server/acme
-traefik_acme_url: "https://vault.alwaldend.com:8200/v1/{{ traefik_acme_path }}/directory"
+ssh_allow_tcp_forwarding: local
+k3s_kubeconfig_secret_mount: secrets
 harbor_domain: harbor.alwaldend.com
-harbor_ca_path: /etc/docker/certs.d/{{ harbor_domain }}:7049
-
-## firewall
+ssh_valid_principals:
+  - harbor.alwaldend.com
 firewall_allow_port_from:
   - src: "any"
     port: 22
@@ -13,6 +12,6 @@ firewall_allow_port_from:
   - src: "any"
     port: 443
     comment: HTTPS
-  - src: "any"
-    port: 80
-    comment: HTTP
+  - src: 192.168.10.60
+    port: 6443
+    comment: Kubeapi access for Fluxcd

@@ -1,8 +1,0 @@
-[http.routers.harbor_websecure]
-rule = "Host(`{{ harbor_domain }}`) || Host(`{{ inventory_hostname }}`)"
-service = "harbor"
-tls = { certResolver = "vault" }
-
-[http.services.harbor.loadBalancer]
-[[http.services.harbor.loadBalancer.servers]]
-url = "http://127.0.0.1:7049"

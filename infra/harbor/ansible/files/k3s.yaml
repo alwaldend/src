@@ -1,0 +1,17 @@
+token: "{{ lookup('ansible.builtin.env', 'K3S_TOKEN', default=undefined()) }}"
+node-name: "{{ inventory_hostname }}"
+disable:
+  - traefik
+tls-san:
+  - "{{ inventory_hostname }}"
+kube-apiserver-arg:
+  - --oidc-issuer-url=https://vault.alwaldend.com:8200/v1/identity/oidc/provider/src_infra_harbor_cluster_provider
+  - --oidc-client-id=d8LmH5d7CHKwOQ925CGllVDkytJ1mYgn
+  - --oidc-username-claim=username
+  - --oidc-username-prefix=src_infra_vault_
+  - --oidc-groups-claim=groups
+  - --oidc-groups-prefix=src_infra_vault_
+  - --oidc-signing-algs=RS512
+data-dir: "{{ k3s_data_dir }}"
+secrets-encryption: true
+default-local-storage-path: "{{ k3s_storage_dir }}"

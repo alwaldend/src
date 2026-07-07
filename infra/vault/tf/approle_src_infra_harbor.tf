@@ -74,3 +74,38 @@ resource "vault_identity_group" "src_infra_harbor_admins" {
     comment = "Harbor admins"
   }
 }
+
+module "src_infra_harbor_cluster_approle" {
+  source             = "../../../projects/tf_modules/vault_approle"
+  name               = "src_infra_harbor_cluster"
+  secret_id_num_uses = 0
+  secret_id_ttl      = local.year_in_seconds
+  member_entity_ids = [
+    module.src_infra_harbor_approle.entity_id,
+  ]
+  policies = [
+  ]
+  secrets          = vault_mount.secrets.path
+  backend          = vault_auth_backend.approle.path
+  backend_accessor = vault_auth_backend.approle.accessor
+}
+
+module "src_infra_harbor_cluster_provider" {
+  source      = "../../../projects/tf_modules/vault_oidc_provider"
+  name        = "src_infra_harbor_cluster_provider"
+  issuer_host = var.vault_host
+  scopes_supported = [
+    vault_identity_oidc_scope.user.name,
+    vault_identity_oidc_scope.groups.name,
+    vault_identity_oidc_scope.email.name,
+  ]
+  group_ids = [
+    vault_identity_group.src_infra_harbor_users.id,
+  ]
+  allowed_read_clients_group_ids = [
+    vault_identity_group.src_infra_harbor_admins.id,
+  ]
+  redirect_urls = [
+    "https://unused",
+  ]
+}

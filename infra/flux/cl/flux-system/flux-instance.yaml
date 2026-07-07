@@ -23,9 +23,3 @@ spec:
   storage:
     class: local-path
     size: 5Gi
-  sync:
-    kind: GitRepository
-    url: ssh://forgejo@forgejo.alwaldend.com:3005/alwaldend/src.git
-    ref: refs/heads/master
-    path: infra/flux/cl
-    pullSecret: flux-system

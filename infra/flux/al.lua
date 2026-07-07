@@ -78,34 +78,3 @@ lib.plugin_call({
         }
     }
 })
-
--- lib.plugin_call({
---     name = "kubernetes",
---     plugin = "injector",
---     labels = { k8s = "1" },
---     data = {
---         res = {
---             {
---                 name = "kubeconfig",
---                 kv = {
---                     path = "alwaldend.com/vault1/approles/src_infra_flux/kubeconfig",
---                     mount = "secrets"
---                 }
---             },
---             {
---                 name = "kubeconfig_file",
---                 deps = { "kubeconfig" },
---                 file = {
---                     value = "{{ .Last.Data.kubeconfig | b64decode }}",
---                 }
---             },
---             {
---                 name = "KUBECONFIG",
---                 deps = { "kubeconfig_file" },
---                 env = {
---                     value = "{{ index .Last.Files 0 }}",
---                 }
---             },
---         }
---     }
--- })

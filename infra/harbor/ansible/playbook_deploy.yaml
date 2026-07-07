@@ -4,5 +4,4 @@
   become: true
   roles:
     - role: alwaldend.main.host
-    - role: alwaldend.main.traefik
-    - role: alwaldend.main.harbor
+    - role: alwaldend.main.k3s
