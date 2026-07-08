@@ -4,6 +4,8 @@ k3s_data_disk: /dev/sdb
 k3s_storage_dir: /srv/k3s_storage
 k3s_storage_disk: /dev/sdc
 k3s_config_path: "/etc/rancher/k3s/config.yaml"
+k3s_auth_config_path: "{{ [(k3s_config_path | dirname), 'k3s_auth.yaml'] | path_join }}"
+k3s_auth_config_local_path: "files/k3s_auth.yaml"
 k3s_config_local_path: "files/k3s.yaml"
 k3s_bin_local_path: "{{ role_path }}/files/k3s"
 k3s_bin_path: /usr/local/bin/k3s

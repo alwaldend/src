@@ -19,7 +19,7 @@ module "vms" {
     size = "20G" # K3s data
   }
   scsi2 = {
-    size = "20G" # K3s storage
+    size = "40G" # K3s storage
   }
   ip   = "${local.dns.domains.default.records[each.key].A.address}/24"
   tags = ["harbor"]

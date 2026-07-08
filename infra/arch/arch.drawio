@@ -92,7 +92,7 @@
         <mxCell id="1" parent="0" />
         <UserObject label="Proxmox&lt;br&gt;pve.alwaldend.com" link="data:page/id,jpAb-ANtociu9MZH3nmR" id="U2TRrjayyH0se131Tg96-2">
           <mxCell parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=60;rounded=0;" vertex="1">
-            <mxGeometry height="280" width="270" x="240" y="190" as="geometry" />
+            <mxGeometry height="280" width="270" x="240" y="100" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="U2TRrjayyH0se131Tg96-1" parent="U2TRrjayyH0se131Tg96-2" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-weight: 700;&quot;&gt;Harbor cluster&lt;/span&gt;&lt;br style=&quot;font-weight: 700;&quot;&gt;&lt;span style=&quot;font-weight: 700;&quot;&gt;harbor.alwaldend.com&lt;/span&gt;" vertex="1">
@@ -109,7 +109,7 @@
         <mxCell id="U2TRrjayyH0se131Tg96-11" edge="1" parent="1" source="U2TRrjayyH0se131Tg96-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;jumpStyle=sharp;jumpSize=10;" target="U2TRrjayyH0se131Tg96-7">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="95" y="570" />
+              <mxPoint x="95" y="480" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -119,19 +119,19 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="U2TRrjayyH0se131Tg96-5" parent="1" style="shape=umlActor;verticalLabelPosition=middle;verticalAlign=middle;html=1;outlineConnect=0;labelPosition=left;align=right;rounded=0;" value="Actor" vertex="1">
-          <mxGeometry height="60" width="30" x="80" y="320" as="geometry" />
+          <mxGeometry height="60" width="30" x="80" y="230" as="geometry" />
         </mxCell>
         <UserObject label="Vault&lt;br&gt;vault.alwaldend.com" link="data:page/id,P-BKPCMzRP7xIEDT19jZ" id="U2TRrjayyH0se131Tg96-7">
           <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1">
-            <mxGeometry height="60" width="150" x="300" y="540" as="geometry" />
+            <mxGeometry height="60" width="150" x="300" y="450" as="geometry" />
           </mxCell>
         </UserObject>
         <mxCell id="U2TRrjayyH0se131Tg96-8" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="External&lt;br&gt;registries" vertex="1">
-          <mxGeometry height="60" width="120" x="690" y="270" as="geometry" />
+          <mxGeometry height="60" width="120" x="690" y="180" as="geometry" />
         </mxCell>
         <mxCell id="U2TRrjayyH0se131Tg96-9" edge="1" parent="1" source="U2TRrjayyH0se131Tg96-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;jumpStyle=sharp;jumpSize=10;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" target="U2TRrjayyH0se131Tg96-8">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="500" y="540" as="sourcePoint" />
+            <mxPoint x="500" y="450" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="8fG66KnuKIQd2swYRgT9-1" connectable="0" parent="U2TRrjayyH0se131Tg96-9" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="OCI" vertex="1">
@@ -141,7 +141,7 @@
         </mxCell>
         <mxCell id="U2TRrjayyH0se131Tg96-13" edge="1" parent="1" source="U2TRrjayyH0se131Tg96-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;jumpStyle=sharp;jumpSize=10;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="U2TRrjayyH0se131Tg96-7">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="425" y="570" as="sourcePoint" />
+            <mxPoint x="425" y="480" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="U2TRrjayyH0se131Tg96-14" connectable="0" parent="U2TRrjayyH0se131Tg96-13" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rounded=0;" value="OIDC, Secrets" vertex="1">
@@ -150,7 +150,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="U2TRrjayyH0se131Tg96-18" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="API auth with OIDC" vertex="1">
-          <mxGeometry height="320" width="680" x="90" y="700" as="geometry" />
+          <mxGeometry height="320" width="680" x="90" y="610" as="geometry" />
         </mxCell>
         <mxCell id="U2TRrjayyH0se131Tg96-19" parent="U2TRrjayyH0se131Tg96-18" style="points=[[0.145,0.145,0],[0.5,0,0],[0.855,0.145,0],[1,0.5,0],[0.855,0.855,0],[0.5,1,0],[0.145,0.855,0],[0,0.5,0]];shape=mxgraph.bpmn.event;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;perimeter=ellipsePerimeter;outlineConnect=0;aspect=fixed;outline=standard;symbol=general;" value="Start" vertex="1">
           <mxGeometry height="50" width="50" x="30" y="80" as="geometry" />
@@ -201,7 +201,7 @@
         </mxCell>
         <UserObject label="Fluxcd&lt;br&gt;flux.alwaldend.com" link="data:page/id,j3dbkfpbMWbFP4AUFDms" id="8fG66KnuKIQd2swYRgT9-2">
           <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1">
-            <mxGeometry height="60" width="120" x="690" y="390" as="geometry" />
+            <mxGeometry height="60" width="120" x="690" y="300" as="geometry" />
           </mxCell>
         </UserObject>
       </root>

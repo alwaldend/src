@@ -15,13 +15,13 @@ variable "name" {
 variable "member_entity_ids" {
   type        = list(string)
   description = "Entity ids for the entity group"
-  default = []
+  default     = []
 }
 
 variable "member_group_ids" {
   type        = list(string)
   description = "Member group ids for the entity group"
-  default = []
+  default     = []
 }
 
 variable "policies" {

@@ -1,0 +1,19 @@
+---
+apiVersion: apiserver.config.k8s.io/v1
+kind: AuthenticationConfiguration
+# https://kubernetes.io/docs/reference/access-authn-authz/authentication/#configuring-the-api-server
+anonymous:
+  enabled: false
+jwt:
+  - issuer:
+      url: https://vault.alwaldend.com:8200/v1/identity/oidc/provider/src_infra_harbor_cluster_provider
+      audiences:
+        - d8LmH5d7CHKwOQ925CGllVDkytJ1mYgn
+      audienceMatchPolicy: MatchAny
+    claimMappings:
+      username:
+        claim: username
+        prefix: src_infra_vault_
+      groups:
+        claim: groups
+        prefix: src_infra_vault_
