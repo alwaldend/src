@@ -5,7 +5,7 @@ metadata:
   namespace: kube-system
 subjects:
   - kind: Group
-    name: src_infra_vault_src_infra_flux_admins
+    name: src_infra_vault_src_infra_flux_cluster_admins
 roleRef:
   kind: ClusterRole
   name: cluster-admin

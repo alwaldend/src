@@ -94,7 +94,9 @@ module "src_infra_flux_cluster_approle" {
   secret_id_num_uses = 0
   secret_id_ttl      = local.year_in_seconds
   member_entity_ids = [
-    module.src_infra_flux_approle.entity_id,
+  ]
+  member_group_ids = [
+    module.src_infra_flux_approle.group_id,
   ]
   policies = [
     vault_policy.src_infra_flux_cluster.name,
@@ -102,6 +104,19 @@ module "src_infra_flux_cluster_approle" {
   secrets          = vault_mount.secrets.path
   backend          = vault_auth_backend.approle.path
   backend_accessor = vault_auth_backend.approle.accessor
+}
+
+resource "vault_identity_group" "src_infra_flux_cluster_admins" {
+  name = "src_infra_flux_cluster_admins"
+  type = "internal"
+  member_entity_ids = [
+  ]
+  member_group_ids = [
+    module.src_infra_flux_cluster_approle.group_id,
+  ]
+  metadata = {
+    comment = "flux cluster admins"
+  }
 }
 
 resource "vault_policy" "src_infra_flux_cluster" {

@@ -15,6 +15,13 @@ variable "name" {
 variable "member_entity_ids" {
   type        = list(string)
   description = "Entity ids for the entity group"
+  default = []
+}
+
+variable "member_group_ids" {
+  type        = list(string)
+  description = "Member group ids for the entity group"
+  default = []
 }
 
 variable "policies" {
@@ -174,6 +181,7 @@ resource "vault_identity_group" "group" {
   policies = [
     vault_policy.policy_approle.name,
   ]
+  member_group_ids = var.member_group_ids
   member_entity_ids = concat(
     var.member_entity_ids,
     [
