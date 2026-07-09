@@ -1,7 +1,7 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  name: flux-web
+  name: flux-operator
   namespace: flux-system
   annotations:
     cert-manager.io/issuer: vault
@@ -19,6 +19,6 @@ spec:
             type: PathPrefix
             value: /
       backendRefs:
-        - name: flux-web
+        - name: flux-operator
           namespace: flux-system
           port: 9080
