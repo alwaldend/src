@@ -4,15 +4,15 @@ metadata:
     name: cert-manager-vault-approle
     namespace: cert-manager
 stringData:
-    secretId: ENC[AES256_GCM,data:gLouJepamSNhNjKcCdM39TTdMW6dRHVkzMzzxMV5sQKYu4wB,iv:A81KksWPpGhsZOpwKrof5YRN5+rOC5iA/dktdXanrzk=,tag:w40Q5to6smF40feFN2K1iQ==,type:str]
+    secretId: ENC[AES256_GCM,data:4ED6/Xij8FOwWL8E5FvnPth9rK+JOuMd5PhynBwiYqhqio1v,iv:vu2WVN0njh74jc69/Rnxsar8S6t5s+So5tJRECusE7g=,tag:fYOkwkOjpuHV8zIlWlTNrQ==,type:str]
 sops:
     encrypted_regex: ^(data|stringData)$
     hc_vault:
-        - created_at: "2026-07-09T18:00:02Z"
-          enc: vault:v1:fleM5T8OdLDtpXV1byteN5R0SSy+TpKJvbcDQUeXeiQ8WNRZpti1bwj7yl3ADJSytdeQowVLZmvu1tam
+        - created_at: "2026-07-09T19:31:31Z"
+          enc: vault:v1:nQicj4RTJoLgetEjdivTl11RJ4uSlLWi+iaKihfTfLNNs5+UCFmHM/5x+LyrUfNhLYLB8CCtCEI0xMKX
           engine_path: transit/default
           key_name: src_infra_flux_cluster_sops
           vault_address: https://vault.alwaldend.com:8200
-    lastmodified: "2026-07-09T18:00:02Z"
-    mac: ENC[AES256_GCM,data:JrvY3vkG3vMFkqPwQtPwHCm+nhQpNa3alG8z9RzInEmYBVI0VZLOSPEYVNJhZVpyFcHP0FfUnSw5uHJ360NmPpstvpORd5T6CkagiHv+3nKsUSEPBAywi+5jIQYbEQdR4A6Y5+ltqbXUFHaQrZE1krFIB5LP2qj4Xrg0NxuI7hM=,iv:880wmIEk9UgZci+BEQjCcBp37Y+tmXr2drmsH6lNZTc=,tag:LRWAFaTU3nIkFWeVRiyaog==,type:str]
+    lastmodified: "2026-07-09T19:31:31Z"
+    mac: ENC[AES256_GCM,data:Q7cUKs04mHbaoK4yJdci3GkV3GfjYwlXvKMJVIwwNOYZIvOSrO/TZ6yPwsFelHeEE57aj0TOUZt4IKYvB/VDgO69sSB44/NYUs0H++BOAYTv3e/JvnX6F7i0m5CjAjxuIXSupft3RToJij0t6W3JwYvmG/tnuYypMFscqPqPt5U=,iv:yhcPgKYF/YWtPpg16lVhqSTTwhcbGjZUauCQTY5J0QE=,tag:seuqButcjzILsxzuqhozwA==,type:str]
     version: 3.13.2

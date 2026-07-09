@@ -67,6 +67,16 @@ variable "secret_id_ttl" {
   default = 3600
 }
 
+variable "token_ttl" {
+  type    = number
+  default = 600
+}
+
+variable "token_max_ttl" {
+  type    = number
+  default = 600
+}
+
 locals {
   secret_path = "alwaldend.com/vault1/approles/${var.name}"
   yc_folder   = "yandex.cloud/org1/folders/${replace(var.name, "_", "-")}"
@@ -140,6 +150,8 @@ resource "vault_approle_auth_backend_role" "role" {
   role_id            = var.name
   secret_id_num_uses = var.secret_id_num_uses
   secret_id_ttl      = var.secret_id_ttl
+  token_ttl          = var.token_ttl
+  token_max_ttl      = var.token_max_ttl
   token_policies = concat(
     [
       vault_policy.shared.name,
