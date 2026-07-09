@@ -31,15 +31,20 @@ spec:
           name: source-controller
         patch: |
           - op: add
-            path: /spec/template/spec/containers/0/volumeMounts
+            path: /spec/template/spec/containers/0/env/-
             value:
-              - name: vault-ca
-                mountPath: /etc/ssl/certs/vault-ca.crt
-                subPath: ca.crt
-                readOnly: true
+              name: SSL_CERT_FILE
+              value: /etc/ssl/certs/vault-ca.crt
           - op: add
-            path: /spec/template/spec/volumes
+            path: /spec/template/spec/containers/0/volumeMounts/-
             value:
-              - name: vault-ca
-                secret:
-                  secretName: vault-ca
+              name: vault-ca
+              mountPath: /etc/ssl/certs/vault-ca.crt
+              subPath: ca.crt
+              readOnly: true
+          - op: add
+            path: /spec/template/spec/volumes/-
+            value:
+              name: vault-ca
+              secret:
+                secretName: vault-ca
