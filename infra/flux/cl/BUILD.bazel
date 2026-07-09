@@ -111,6 +111,12 @@ al_binary_run_map(
         "": [
             _FLUX,
         ],
+        "all": [
+            _FLUX,
+            "get",
+            "all",
+            "-A",
+        ],
         "bootstrap": [
             _FLUX,
             "bootstrap",
