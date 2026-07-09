@@ -54,13 +54,18 @@ bazel run //infra/flux/cl:oidc
 bazel run //infra/flux/cl:cmctl -- renew traefik-gateway-websecure-tls -n traefik
 ```
 
-## Update cert-manager's approle
+## Update secrets
 
-- Generate secret id:
+- Generate secret id and the token:
   ```sh
-  bazel run //infra/flux/cl:secret_id
+  SECRET_ID=$(bazel run //infra/flux/cl:vault.secret_id | jq -r .data.secret_id)
+  TOKEN=$(echo "${SECRET_ID}" | bazel run //infra/flux/cl:vault.ops_token | jq -r .auth.client_token)
+  echo "Secret id: ${SECRET_ID}, Token: ${TOKEN}"
   ```
-- Patch the secret:
+- Patch secret-id in [./cl/cert-manager/issuer-approle.yaml](./cl/cert-manager/issuer-approle.yaml)
+- Patch token in [./cl/flux-system/flux-sops-secret.yaml](./cl/flux-system/flux-sops-secret.yaml)
+- Encrypt:
   ```sh
-  bazel run infra/flux/cl:kubectl -- edit secret cert-manager-vault-approle -n cert-manager
+  bazel run //infra/flux/cl:sops.encrypt infra/flux/cl/cert-manager/issuer-approle.yaml
+  bazel run //infra/flux/cl:sops.encrypt infra/flux/cl/flux-system/flux-sops-secret.yaml
   ```

@@ -31,6 +31,7 @@ _DATA = glob(["*.tf"]) + [
     "//projects/tf_modules/vault_pki_server",
     "//projects/tf_modules/vault_oidc_provider",
     "//projects/tf_modules/vault_ssh_server_role",
+    "//projects/tf_modules/vault_transit_key",
     "//infra/vault/tf/output",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",

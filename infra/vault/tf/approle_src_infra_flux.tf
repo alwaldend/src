@@ -147,3 +147,16 @@ module "src_infra_flux_cluster_provider" {
     "https://unused",
   ]
 }
+
+module "src_infra_flux_cluster_sops" {
+  source  = "../../../projects/tf_modules/vault_transit_key"
+  backend = vault_mount.transit_default.path
+  name    = "src_infra_flux_cluster_sops"
+  users_member_group_ids = [
+    resource.vault_identity_group.dev.id,
+    resource.vault_identity_group.approles.id,
+  ]
+  decryptors_member_group_ids = [
+    module.src_infra_flux_cluster_approle.group_id,
+  ]
+}

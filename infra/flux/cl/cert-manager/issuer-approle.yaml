@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: cert-manager-vault-approle
+    namespace: cert-manager
+stringData:
+    secretId: ENC[AES256_GCM,data:gLouJepamSNhNjKcCdM39TTdMW6dRHVkzMzzxMV5sQKYu4wB,iv:A81KksWPpGhsZOpwKrof5YRN5+rOC5iA/dktdXanrzk=,tag:w40Q5to6smF40feFN2K1iQ==,type:str]
+sops:
+    encrypted_regex: ^(data|stringData)$
+    hc_vault:
+        - created_at: "2026-07-09T18:00:02Z"
+          enc: vault:v1:fleM5T8OdLDtpXV1byteN5R0SSy+TpKJvbcDQUeXeiQ8WNRZpti1bwj7yl3ADJSytdeQowVLZmvu1tam
+          engine_path: transit/default
+          key_name: src_infra_flux_cluster_sops
+          vault_address: https://vault.alwaldend.com:8200
+    lastmodified: "2026-07-09T18:00:02Z"
+    mac: ENC[AES256_GCM,data:JrvY3vkG3vMFkqPwQtPwHCm+nhQpNa3alG8z9RzInEmYBVI0VZLOSPEYVNJhZVpyFcHP0FfUnSw5uHJ360NmPpstvpORd5T6CkagiHv+3nKsUSEPBAywi+5jIQYbEQdR4A6Y5+ltqbXUFHaQrZE1krFIB5LP2qj4Xrg0NxuI7hM=,iv:880wmIEk9UgZci+BEQjCcBp37Y+tmXr2drmsH6lNZTc=,tag:LRWAFaTU3nIkFWeVRiyaog==,type:str]
+    version: 3.13.2

@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: flux-web
+  name: flux
   namespace: flux-system
 spec:
   interval: 30m
@@ -16,18 +16,17 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-   name: flux-web
+   name: flux
    namespace: flux-system
 spec:
   interval: 30m
-  releaseName: flux-web
+  releaseName: flux
   serviceAccountName: flux-operator
   chartRef:
     kind: OCIRepository
-    name: flux-web
+    name: flux
   values:
-    fullnameOverride: flux-web
-    installCRDs: false
+    fullnameOverride: flux
     extraEnvs:
       - name: SSL_CERT_FILE
         value: /etc/flux-operator/certs/ca.crt

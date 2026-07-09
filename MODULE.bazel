@@ -29,6 +29,7 @@ include("//third_party/io_k3s_k3s:include.MODULE.bazel")
 include("//third_party/io_controlplane_flux_operator:include.MODULE.bazel")
 include("//third_party/io_fluxcd_flux:include.MODULE.bazel")
 include("//third_party/io_cert_manager_cmctl:include.MODULE.bazel")
+include("//third_party/io_getsops_sops:include.MODULE.bazel")
 
 # Tools
 include("//tools:include.MODULE.bazel")

@@ -1,0 +1,37 @@
+{
+    "toolchains": [
+        {
+            "name": "sops",
+            "version": "3.13.2"
+        }
+    ],
+    "archives": [
+        {
+            "archive_name": "linux_x86_64",
+            "toolchain_name": "sops",
+            "toolchain_version": "3.13.2",
+            "binaries": [
+                {
+                    "name": "sops",
+                    "path": "out/sops"
+                }
+            ],
+            "actions": [
+                {
+                    "download": {
+                        "url": "https://github.com/getsops/sops/releases/download/v3.13.2/sops-v3.13.2.linux.amd64",
+                        "output": "out/sops",
+                        "executable": true,
+                        "integrity": "sha256-FU3+TNcFVL3YK5jkzUrPGR1D0B6tbwCnNHeqRMSsQu8="
+                    }
+                }
+            ],
+            "rules": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}
