@@ -23,3 +23,23 @@ spec:
   storage:
     class: local-path
     size: 5Gi
+  kustomize:
+    patches:
+      # CA fix: https://github.com/fluxcd/flux2/discussions/2921
+      - target:
+          kind: Deployment
+          name: source-controller
+        patch: |
+          - op: add
+            path: /spec/template/spec/containers/0/volumeMounts
+            value:
+              - name: vault-ca
+                mountPath: /etc/ssl/certs/vault-ca.crt
+                subPath: ca.crt
+                readOnly: true
+          - op: add
+            path: /spec/template/spec/volumes
+            value:
+              - name: vault-ca
+                secret:
+                  secretName: vault-ca
