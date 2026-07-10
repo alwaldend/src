@@ -1,0 +1,59 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: harbor
+  namespace: harbor
+spec:
+  interval: 10m0s
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  # https://github.com/goharbor/harbor-helm/releases
+  url: oci://helm.goharbor.io
+  ref:
+    tag: 1.19.1
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: harbor
+  namespace: harbor
+spec:
+  interval: 15m
+  timeout: 5m
+  targetNamespace: harbor
+  chartRef:
+    kind: OCIRepository
+    name: harbor
+  releaseName: harbor
+  install:
+    strategy:
+      name: RetryOnFailure
+      retryInterval: 5m
+  upgrade:
+    crds: CreateReplace
+    strategy:
+      name: RetryOnFailure
+      retryInterval: 5m
+  test:
+    enable: true
+  driftDetection:
+    mode: enabled
+  values:
+    # https://github.com/goharbor/harbor-helm#configuration
+    # https://goharbor.io/docs/2.15.0/install-config/harbor-ha-helm/
+    externalURL: https://harbor.alwaldend.com
+    persistence:
+      persistentVolumeClaim:
+        registry:
+          storageClass: local-path
+        jobservice:
+          storageClass: local-path
+        database:
+          storageClass: local-path
+        redis:
+          storageClass: local-path
+        trivy:
+          storageClass: local-path
+    caBundleSecretName: alwaldend-ca
