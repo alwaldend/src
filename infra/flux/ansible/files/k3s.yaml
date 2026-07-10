@@ -4,6 +4,7 @@ disable:
   - traefik
 tls-san:
   - "{{ inventory_hostname }}"
+  - "{{ flux_domain }}"
 kube-apiserver-arg:
   - --authentication-config={{ k3s_auth_config_path }}
   - --service-account-issuer=https://flux.alwaldend.com:6443

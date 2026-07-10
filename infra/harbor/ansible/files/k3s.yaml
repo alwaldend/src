@@ -4,6 +4,7 @@ disable:
   - traefik
 tls-san:
   - "{{ inventory_hostname }}"
+  - "{{ harbor_domain }}"
 kube-apiserver-arg:
   - --authentication-config={{ k3s_auth_config_path }}
 data-dir: "{{ k3s_data_dir }}"
