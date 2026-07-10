@@ -33,6 +33,7 @@
         - "{{ k3s_data_dir }}"
         - "{{ k3s_storage_dir }}"
         - "{{ k3s_config_path | dirname }}"
+        - "{{ k3s_manifests_path | dirname }}"
       ansible.builtin.file:
         state: directory
         owner: "root"
@@ -40,15 +41,20 @@
         mode: "0700"
         path: "{{ item }}"
     - name: Write k3s config
-      register: k3s_config_info
       ansible.builtin.template:
         src: "{{ k3s_config_local_path }}"
         dest: "{{ k3s_config_path }}"
         owner: root
         group: root
         mode: "0600"
+    - name: Write k3s manifests
+      ansible.builtin.template:
+        src: "{{ k3s_manifests_local_path }}"
+        dest: "{{ k3s_manifests_path }}"
+        owner: root
+        group: root
+        mode: "0600"
     - name: Write k3s auth config
-      register: k3s_config_info
       ansible.builtin.template:
         src: "{{ k3s_auth_config_local_path }}"
         dest: "{{ k3s_auth_config_path }}"

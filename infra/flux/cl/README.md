@@ -3,6 +3,7 @@ title: cl
 description: Cluster manifests
 tags:
   - flux
+  - k8s
 ---
 
 ## Links

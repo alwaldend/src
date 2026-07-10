@@ -93,7 +93,7 @@ module "src_infra_flux_cluster_approle" {
   name               = "src_infra_flux_cluster"
   secret_id_num_uses = 0
   secret_id_ttl      = local.month_in_seconds * 3
-  token_ttl      = local.month_in_seconds * 3
+  token_ttl          = local.month_in_seconds * 3
   token_max_ttl      = local.month_in_seconds * 3
   member_entity_ids = [
   ]

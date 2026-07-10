@@ -1,0 +1,38 @@
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_map")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+_DATA = glob(["**"])
+
+_KUBECTL = "$(rootpath //tools/kubectl)"
+
+_CONFIG = "//infra/harbor:al"
+
+al_binary_run_map(
+    name = "kubectl",
+    args = {
+        "": [
+            _KUBECTL,
+        ],
+    },
+    configs = [
+        _CONFIG,
+    ],
+    data = [
+        "//tools/kubectl",
+        "//tools/vault/injector",
+    ] + _DATA,
+    run_args = [
+        "--plugin_label",
+        "k8s",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//infra/harbor:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)

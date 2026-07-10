@@ -1,0 +1,17 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: src
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  ref:
+    branch: master
+  secretRef:
+    name: flux-system
+  url: ssh://forgejo@forgejo.alwaldend.com:3005/alwaldend/src.git
+  ignore: |
+    /*
+    !/infra
+---

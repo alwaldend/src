@@ -55,26 +55,8 @@ lib.plugin_call({
     labels = { tf = "setup" },
 })
 
-lib.plugin_call({
-    name = "config",
-    plugin = "injector",
+infra.k3s_token({
+    name = "k3s_token",
+    path = "alwaldend.com/vault1/approles/src_infra_flux/config",
     labels = { ansible = "1" },
-    data = {
-        res = {
-            {
-                name = "config",
-                kv = {
-                    path = "alwaldend.com/vault1/approles/src_infra_flux/config",
-                    mount = "secrets"
-                }
-            },
-            {
-                name = "K3S_TOKEN",
-                deps = { "config" },
-                env = {
-                    value = "{{ .Last.Data.k3s_token }}",
-                }
-            },
-        }
-    }
 })

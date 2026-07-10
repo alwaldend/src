@@ -2,6 +2,33 @@ local lib = require("al_lib")
 
 local M = {}
 
+function M.k3s_token(t)
+    local name, labels, path, mount = t.name or "k3s_token", t.labels, t.path, t.mount or "secrets"
+    lib.plugin_call({
+        name =  name,
+        plugin = "injector",
+        labels = labels,
+        data = {
+            res = {
+                {
+                    name = name,
+                    kv = {
+                        path = path,
+                        mount = mount
+                    }
+                },
+                {
+                    name = "K3S_TOKEN",
+                    deps = { name },
+                    env = {
+                        value = "{{ .Last.Data.k3s_token }}",
+                    }
+                },
+            }
+        }
+    })
+end
+
 function M.kubernetes_login(t)
     local name, oidc, labels = t.name or "kubernetes_login", t.oidc, t.labels
     local cluster_ca = t.cluster_ca

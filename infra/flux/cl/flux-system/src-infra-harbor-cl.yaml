@@ -1,0 +1,24 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: src-infra-harbor-cl
+  namespace: flux-system
+spec:
+  path: ./infra/harbor/cl
+  sourceRef:
+    kind: GitRepository
+    name: src
+  kubeConfig:
+    address: https://harbor.alwaldend.com:6443
+  decryption:
+    provider: sops
+    secretRef:
+      name: flux-sops-secret
+  interval: 60m0s
+  wait: true
+  timeout: 3m0s
+  retryInterval: 2m0s
+  prune: true
+  force: false
+---
