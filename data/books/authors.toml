@@ -480,3 +480,9 @@ name = "JPwrites "
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/profile/9705" },
 ]
+
+[author.cashen]
+name = "Jman8763 C. Ashen"
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/210709" },
+]

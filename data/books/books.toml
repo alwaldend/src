@@ -1159,6 +1159,16 @@ links = [
 ]
 
 [[book]]
+title = "To Walk The Red Path "
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/to-walk-the-red-path-a-story-of-dungeon-crawling.jpg?time=1741212789"
+quality = "Ok, bland"
+reading = "Dropped, F6P2C10"
+authors = ["cashen"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/107964/to-walk-the-red-path-a-story-of-dungeon-crawling" },
+]
+
+[[book]]
 title = "Path of the Deathless"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/122502-path-of-the-deathless-book-4-completed.jpg"
 quality = "Decent"

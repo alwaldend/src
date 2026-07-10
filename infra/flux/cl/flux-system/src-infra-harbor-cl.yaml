@@ -5,6 +5,7 @@ metadata:
   name: src-infra-harbor-cl-kubeconfig
   namespace: flux-system
 data:
+  provider: generic
   address: https://harbor.alwaldend.com:6443
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
