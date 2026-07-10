@@ -4,6 +4,8 @@ kind: ConfigMap
 metadata:
   name: src-infra-harbor-cl-kubeconfig
   namespace: flux-system
+  labels:
+    reconcile.fluxcd.io/watch: Enabled
 data:
   provider: generic
   address: https://harbor.alwaldend.com:6443
