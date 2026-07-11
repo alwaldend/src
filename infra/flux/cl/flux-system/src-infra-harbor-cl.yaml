@@ -9,8 +9,7 @@ metadata:
 data:
   provider: generic
   address: https://harbor.alwaldend.com:6443
-  audiences:
-    - WQ8TMsm9Q5ai87x1l902M8-gFxfIJ3O51nB3f-Du4Uk
+  audiences: WQ8TMsm9Q5ai87x1l902M8-gFxfIJ3O51nB3f-Du4Uk
   ca.crt: |
     -----BEGIN CERTIFICATE-----
     MIIBdjCCAR2gAwIBAgIBADAKBggqhkjOPQQDAjAjMSEwHwYDVQQDDBhrM3Mtc2Vy
