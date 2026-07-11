@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-07-05T08:58:37Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026070500 3600 600 604800 1440
+; generated with dnscontrol 2026-07-11T07:07:15Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026071100 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -34,6 +34,7 @@ vault.dc1        IN A     192.168.1.218
 host1.vault.dc1  IN A     192.168.1.218
 flux             IN A     192.168.10.60
 host1.flux       IN A     192.168.10.60
+openid.flux 600  IN CNAME flux.alwaldend.com.
 operator.flux 600 IN CNAME flux.alwaldend.com.
 forgejo          IN A     192.168.10.40
 host1.forgejo    IN A     192.168.10.40

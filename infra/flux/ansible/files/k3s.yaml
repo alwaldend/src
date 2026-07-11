@@ -7,9 +7,9 @@ tls-san:
   - "{{ flux_domain }}"
 kube-apiserver-arg:
   - --authentication-config={{ k3s_auth_config_path }}
+  - --service-account-issuer=https://openid.flux.alwaldend.com
   - --service-account-issuer=https://flux.alwaldend.com:6443
   - --service-account-issuer=https://kubernetes.default.svc.cluster.local
-  - --service-account-jwks-uri=https://flux.alwaldend.com:6443/openid/v1/jwks
 data-dir: "{{ k3s_data_dir }}"
 secrets-encryption: true
 default-local-storage-path: "{{ k3s_storage_dir }}"

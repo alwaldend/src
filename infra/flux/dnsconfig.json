@@ -19,6 +19,12 @@
                         "name": "operator.flux",
                         "target": "flux.alwaldend.com."
                     }
+                },
+                "openid": {
+                    "CNAME": {
+                        "name": "openid.flux",
+                        "target": "flux.alwaldend.com."
+                    }
                 }
             }
         }
