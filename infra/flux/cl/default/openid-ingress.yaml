@@ -27,3 +27,19 @@ spec:
           namespace: default
           port: 443
 ---
+apiVersion: gateway.networking.k8s.io/v1alpha3
+kind: BackendTLSPolicy
+metadata:
+  name: openid
+  namespace: default
+spec:
+  targetRefs:
+    - kind: Service
+      name: kubernetes
+      namespace: default
+  validation:
+    caCertificateRefs:
+      - kind: ConfigMap
+        name: flux-ca
+        hostname: flux.alwaldend.com
+---
