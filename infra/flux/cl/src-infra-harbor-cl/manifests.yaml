@@ -32,7 +32,7 @@ kind: Kustomization
 metadata:
   name: src-infra-harbor-cl
 spec:
-  path: ./infra/harbor/cl
+  path: ./infra/harbor/cl/flux
   sourceRef:
     kind: GitRepository
     name: flux-git-src
