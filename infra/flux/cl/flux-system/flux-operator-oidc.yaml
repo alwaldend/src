@@ -3,16 +3,16 @@ kind: Secret
 metadata:
     name: flux-operator-oidc
 stringData:
-    clientID: ENC[AES256_GCM,data:iLR1CvqZqPG+Cp3ebutAxfO1To0QRTWXiRmCGW5N7Jk=,iv:4RUA0QwDUEXjGjwgrmzN/2aY8aLxRf6eFHOLu1oQcKQ=,tag:HeiNKH6JCv2fIUIE/3XSZQ==,type:str]
-    clientSecret: ENC[AES256_GCM,data:hdzVLUiKZ8OF3Y11pKf7in1BY1n6Q3t9yA7A3qeoqkN0k99Hp3C2aI0zrNgxECRwOxiVQCpNC0a/UDLr7F5N5tPubVzWq4Kub2kF,iv:fjQ9YbrWOKpjhJ3FJDk8m7blxcX11LbJEhHpPsRTwj0=,tag:xiJRuZXuRzTG9uXkifJscg==,type:str]
+    clientID: ENC[AES256_GCM,data:ldBQRKR/AmMDQwiowlkg7UJ8FepKO2exyVmuCGyvsjE=,iv:jb4gvbS98ZaZ4GQeaQ+DIvdmSdgbUIjqqOR1h8XbhS8=,tag:ECuwzdEThx0e/NZciStLaQ==,type:str]
+    clientSecret: ENC[AES256_GCM,data:K8tILx8SCvmUqmgD38FexbCLZKG9w+ztZgxTRrWqV9ntuwCXT7aAlKsO+PbSF72yuoghimeQvBYj3ujGLoTff/KrYp9p8nEm4R9U,iv:ad0Vbb0iOhi5huy4WBedhyqWqkYglKtoUNv+zx/kwjs=,tag:ujUH65Daxk4QgMMpoWdBSw==,type:str]
 sops:
     encrypted_regex: ^(data|stringData)$
     hc_vault:
-        - created_at: "2026-07-11T14:46:07Z"
-          enc: vault:v1:1iwELZA7+FISwld5MiHfT0BxZsGmwbwPeyhCzXI3j4283BIp3qmQEwVH7NxnWrA9X43R+zFeqXZMVF8I
+        - created_at: "2026-07-11T15:05:03Z"
+          enc: vault:v1:FNnYIZnKTzSVuuPv0vTSusqPPZSJixWT96k/7ri6aRdp3NNLG/9ZpdZvKotBwNZLsmoHsrJMTNrO3llf
           engine_path: transit/default
           key_name: src_infra_flux_cluster_sops
           vault_address: https://vault.alwaldend.com:8200
-    lastmodified: "2026-07-11T14:46:07Z"
-    mac: ENC[AES256_GCM,data:AW8zEmb4BV7z51sM9gg5m/NDO1J553tWOgvqvb1927acirce+4ybWw405v4tYYfZGzmq6h3qgv2RC3Cwi0lp/GtaycjC2AYr3FRMduNgaOiFjKsRg6XJTVWAyeKfrj5xhbM5H/P7zbibyjBij1XX6wSI4zq3GWmnPHyghYSMnWE=,iv:RJtzurujD7DlOtW0SOlwqx2iiDy4+12MDA0w/ok0rkI=,tag:Ls1AAFJjMWCQR2byb3eK1Q==,type:str]
+    lastmodified: "2026-07-11T15:05:03Z"
+    mac: ENC[AES256_GCM,data:kZKaSIfaZC7MssC36dVY3JmmTJFa/MDPKBqhuTeK+7ATqPX+eCFKxokmnvNmBCGbWj6LtNeZoB730UmdbuR13+OZV9mT7i/MK+cuVbNgmhv8xpToq/ZASyHkFoy4WD7XYrcK0m58nTi6EQLM5z77x+1S4FaSfMLgTsNs1ut8ShI=,iv:qBZAeAf8DgWnCzaMjBEVN7lYJQ6QfKLnC+AEitdavb0=,tag:5Rt9W8jaXfg+//1rFVtZog==,type:str]
     version: 3.13.2
