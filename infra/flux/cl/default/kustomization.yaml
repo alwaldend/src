@@ -6,4 +6,4 @@ configMapGenerator:
   - name: flux-ca
     namespace: default
     files:
-      - ca.crt=../../ca.crt
+      - ca.crt=../ca.crt
