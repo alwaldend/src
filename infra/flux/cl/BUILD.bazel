@@ -6,6 +6,8 @@ _DATA = glob(["**"])
 
 _FLUX = "$(rootpath //tools/flux)"
 
+_HELM = "$(rootpath //tools/helm)"
+
 _OPERATOR = "$(rootpath //tools/flux_operator)"
 
 _KUBECTL = "$(rootpath //tools/kubectl)"
@@ -15,6 +17,26 @@ _CONFIG = "//infra/flux:al"
 _CMCTL = "$(rootpath //tools/cmctl)"
 
 _SOPS = "$(rootpath //tools/sops)"
+
+al_binary_run_map(
+    name = "helm",
+    args = {
+        "": [
+            _HELM,
+        ],
+    },
+    configs = [
+        _CONFIG,
+    ],
+    data = [
+        "//tools/helm",
+        "//tools/vault/injector",
+    ] + _DATA,
+    run_args = [
+        "--plugin_label",
+        "k8s",
+    ],
+)
 
 al_binary_run_map(
     name = "sops",

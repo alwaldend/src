@@ -5,6 +5,7 @@ resources:
   - namespace.yaml
   - flux-operator.yaml
   - flux-instance.yaml
+  - flux-operator-oidc.yaml
   - flux-operator-ingress.yaml
   - flux-rbac.yaml
 secretGenerator:

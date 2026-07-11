@@ -24,7 +24,6 @@ spec:
     kind: OCIRepository
     name: flux-operator
   values:
-    fullnameOverride: flux-operator
     extraEnvs:
       - name: SSL_CERT_FILE
         value: /etc/flux-operator/certs/ca.crt
@@ -47,10 +46,10 @@ spec:
             issuerURL: https://vault.alwaldend.com:8200/v1/identity/oidc/provider/src_infra_flux_provider
   valuesFrom:
     - kind: Secret
-      name: oidc
+      name: flux-operator-oidc
       valuesKey: clientID
       targetPath: web.config.authentication.oauth2.clientID
     - kind: Secret
-      name: oidc
+      name: flux-operator-oidc
       valuesKey: clientSecret
       targetPath: web.config.authentication.oauth2.clientSecret

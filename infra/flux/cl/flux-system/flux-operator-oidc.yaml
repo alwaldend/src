@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Secret
+metadata:
+    name: flux-operator-oidc
+stringData:
+    clientID: ENC[AES256_GCM,data:9iVjzki/YzURXPm5M7SKrjU3zPyUhpvoc7tNqve6tbM=,iv:/laTmNd+nSXRMD3GYsI0bhaH3KDPPI3ZuHoVkgWzX08=,tag:tewXCdV8yeTYpUD+hlyNSw==,type:str]
+    clientSecret: ENC[AES256_GCM,data:MTi+jzakfr3TboJKpUYbJ5NlDPEI4yGBHPun28WjIpB2bcW4rp77OCtZaqnBrtFY+/6HsB5ahkj6/FNQj7U4Y0yxp4ZB/k6p1YNz,iv:Kcp9R71h4rg+n4RjYJahBCTalvWqh3LI0781xAAwbIg=,tag:invzesRB06HND6muJuupZg==,type:str]
+sops:
+    encrypted_regex: ^(data|stringData)$
+    hc_vault:
+        - created_at: "2026-07-11T14:41:20Z"
+          enc: vault:v1:NjLDdKPj6Q4SIOZVLTVML4vVBQNAgtPEj+bFmYUgpUKyRCAWGPL5XsM1ceXtMm8F5T7xsvMyd18GtftD
+          engine_path: transit/default
+          key_name: src_infra_flux_cluster_sops
+          vault_address: https://vault.alwaldend.com:8200
+    lastmodified: "2026-07-11T14:41:20Z"
+    mac: ENC[AES256_GCM,data:VmErIo4o6dhZZQY4bZKd1aYaG2hLesBMen/M7OOnTvM/9QpCZ8WegDaWd9MYhpFU4wQb26oRQ23FJp6lGaddsQOyCjwU7P9bMRSWuzgzLZFcHel/cT/xqRokYMX/ks8iawoPeIuUlZYjpn7LNKYOmpTctW/F/seF4PHHZ3xGn3s=,iv:UasPGfvlodIMC1IVg923kBTr580YIInMQ3ihaxSRRDg=,tag:VNGTKiLjfylY13z4Z1pLoQ==,type:str]
+    version: 3.13.2

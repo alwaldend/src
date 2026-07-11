@@ -1,5 +1,4 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
-load("//tools/helm/main/bzl:al_helm_binary.bzl", "al_helm_binary")
 
 pkg_filegroup(
     name = "docs",
@@ -16,8 +15,8 @@ pkg_files(
     prefix = "content/docs/{}".format(package_name()),
 )
 
-al_helm_binary(
+alias(
     name = "helm",
-    cd = "${BUILD_WORKING_DIRECTORY}",
+    actual = "//third_party/sh_helm_helm",
     visibility = ["//:__subpackages__"],
 )
