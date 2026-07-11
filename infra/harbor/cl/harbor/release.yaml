@@ -1,18 +1,12 @@
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: OCIRepository
+kind: HelmRepository
 metadata:
   name: harbor
   namespace: harbor
 spec:
   interval: 10m0s
-  layerSelector:
-    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
-    operation: copy
-  # https://github.com/goharbor/harbor-helm/releases
-  url: oci://helm.goharbor.io
-  ref:
-    tag: 1.19.1
+  url: https://helm.goharbor.io
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
@@ -23,9 +17,15 @@ spec:
   interval: 15m
   timeout: 5m
   targetNamespace: harbor
-  chartRef:
-    kind: OCIRepository
-    name: harbor
+  chart:
+    spec:
+      chart: harbor
+      # https://github.com/goharbor/harbor-helm/releases
+      version: "1.19.1"
+      sourceRef:
+        kind: HelmRepository
+        name: harbor
+      interval: 10m
   releaseName: harbor
   install:
     strategy:
