@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Secret
 metadata:
     name: flux-operator-oidc
+    labels:
+      reconcile.fluxcd.io/watch: Enabled
 stringData:
     clientID: ENC[AES256_GCM,data:ldBQRKR/AmMDQwiowlkg7UJ8FepKO2exyVmuCGyvsjE=,iv:jb4gvbS98ZaZ4GQeaQ+DIvdmSdgbUIjqqOR1h8XbhS8=,tag:ECuwzdEThx0e/NZciStLaQ==,type:str]
     clientSecret: ENC[AES256_GCM,data:K8tILx8SCvmUqmgD38FexbCLZKG9w+ztZgxTRrWqV9ntuwCXT7aAlKsO+PbSF72yuoghimeQvBYj3ujGLoTff/KrYp9p8nEm4R9U,iv:ad0Vbb0iOhi5huy4WBedhyqWqkYglKtoUNv+zx/kwjs=,tag:ujUH65Daxk4QgMMpoWdBSw==,type:str]
