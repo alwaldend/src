@@ -4,7 +4,8 @@ kind: HelmRepository
 metadata:
   name: harbor
 spec:
-  interval: 10m0s
+  interval: 1h
+  timeout: 360s
   url: https://helm.goharbor.io
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
