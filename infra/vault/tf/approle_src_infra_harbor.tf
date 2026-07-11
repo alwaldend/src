@@ -64,9 +64,6 @@ resource "vault_identity_group" "src_infra_harbor_users" {
 resource "vault_identity_group" "src_infra_harbor_admins" {
   name = "src_infra_harbor_admins"
   type = "internal"
-  member_entity_ids = [
-    vault_identity_entity.simeonwarren.id,
-  ]
   member_group_ids = [
     module.src_infra_harbor_approle.group_id,
   ]
@@ -80,10 +77,8 @@ module "src_infra_harbor_cluster_approle" {
   name               = "src_infra_harbor_cluster"
   secret_id_num_uses = 0
   secret_id_ttl      = local.year_in_seconds
-  member_entity_ids = [
-    module.src_infra_harbor_approle.entity_id,
-  ]
-  policies = [
+  member_group_ids = [
+    vault_identity_group.src_infra_harbor_admins.id,
   ]
   secrets          = vault_mount.secrets.path
   backend          = vault_auth_backend.approle.path
@@ -108,4 +103,15 @@ module "src_infra_harbor_cluster_provider" {
   redirect_urls = [
     "https://unused",
   ]
+}
+
+resource "vault_identity_group" "src_infra_harbor_cluster_admins" {
+  name = "src_infra_harbor_cluster_admins"
+  type = "internal"
+  member_group_ids = [
+    module.src_infra_harbor_cluster_approle.group_id,
+  ]
+  metadata = {
+    comment = "Harbor cluster admins"
+  }
 }

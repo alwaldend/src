@@ -8,7 +8,7 @@ k3s_config_local_path: "files/k3s.yaml"
 k3s_auth_config_path: "{{ [(k3s_config_path | dirname), 'k3s_auth.yaml'] | path_join }}"
 k3s_auth_config_local_path: "files/k3s_auth.yaml"
 k3s_manifests_local_path: "files/k3s_manifests.yaml"
-k3s_manifests_path: /var/lib/rancher/k3s/server/manifests/k3s-manifests.yaml
+k3s_manifests_path: "{{ k3s_data_dir }}/server/manifests/k3s-manifests.yaml"
 k3s_bin_local_path: "{{ role_path }}/files/k3s"
 k3s_bin_path: /usr/local/bin/k3s
 k3s_install_script_local_path: "{{ role_path }}/files/k3s_install"

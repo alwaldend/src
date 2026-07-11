@@ -117,7 +117,7 @@ resource "vault_identity_group" "src_infra_flux_cluster_admins" {
     module.src_infra_flux_cluster_approle.group_id,
   ]
   metadata = {
-    comment = "flux cluster admins"
+    comment = "Flux cluster admins"
   }
 }
 
