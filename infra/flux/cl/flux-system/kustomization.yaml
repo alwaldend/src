@@ -7,7 +7,6 @@ resources:
   - flux-operator-ingress.yaml
   - src.yaml
   - src-infra-flux-cl.yaml
-  - src-infra-harbor-cl.yaml
 secretGenerator:
   - name: vault-ca
     namespace: flux-system

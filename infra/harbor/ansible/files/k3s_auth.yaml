@@ -22,7 +22,7 @@ jwt:
       audienceMatchPolicy: MatchAny
     claimMappings:
       username:
-        claim: username
+        claim: sub
         prefix: src_infra_flux_
       groups:
         claim: groups

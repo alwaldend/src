@@ -1,0 +1,121 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: src-infra-flux-cl
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: src-infra-flux-cl
+  namespace: src-infra-flux-cl
+spec:
+  path: ./infra/flux/cl
+  sourceRef:
+    kind: GitRepository
+    name: src
+    namespace: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: flux-sops-secret
+      namespace: flux-system
+  interval: 60m0s
+  wait: true
+  timeout: 3m0s
+  retryInterval: 2m0s
+  prune: true
+  force: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: src-infra-flux-cl-flux-system
+  namespace: src-infra-flux-cl
+spec:
+  path: ./infra/flux/cl/flux-system
+  sourceRef:
+    kind: GitRepository
+    name: src
+    namespace: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: flux-sops-secret
+      namespace: flux-system
+  interval: 60m0s
+  wait: true
+  timeout: 3m0s
+  retryInterval: 2m0s
+  prune: true
+  force: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: src-infra-flux-cl-default
+  namespace: src-infra-flux-cl
+spec:
+  path: ./infra/flux/cl/default
+  sourceRef:
+    kind: GitRepository
+    name: src
+    namespace: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: flux-sops-secret
+      namespace: flux-system
+  interval: 60m0s
+  wait: true
+  timeout: 3m0s
+  retryInterval: 2m0s
+  prune: true
+  force: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: src-infra-flux-cl-kube-system
+  namespace: src-infra-flux-cl
+spec:
+  path: ./infra/flux/cl/kube-system
+  sourceRef:
+    kind: GitRepository
+    name: src
+    namespace: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: flux-sops-secret
+      namespace: flux-system
+  interval: 60m0s
+  wait: true
+  timeout: 3m0s
+  retryInterval: 2m0s
+  prune: true
+  force: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: src-infra-flux-cl-traefik
+  namespace: src-infra-flux-cl
+spec:
+  path: ./infra/flux/cl/traefik
+  sourceRef:
+    kind: GitRepository
+    name: src
+    namespace: flux-system
+  decryption:
+    provider: sops
+    secretRef:
+      name: flux-sops-secret
+      namespace: flux-system
+  interval: 60m0s
+  wait: true
+  timeout: 3m0s
+  retryInterval: 2m0s
+  prune: true
+  force: false
+---

@@ -5,9 +5,9 @@ metadata:
   name: k3s-admins
   namespace: kube-system
 subjects:
-  - kind: ServiceAccount
-    name: kustomize-controller
-    namespace: flux-system
+  - kind: User
+    name: "src_infra_flux_system:serviceaccount:flux-system:kustomize-controller"
+    apiGroup: rbac.authorization.k8s.io
   - kind: Group
     name: src_infra_vault_src_infra_harbor_cluster_admins
 roleRef:
