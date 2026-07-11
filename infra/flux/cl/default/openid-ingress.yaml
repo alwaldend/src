@@ -38,7 +38,7 @@ spec:
       name: kubernetes
       group: ""
   validation:
-    hostname: flux.alwaldend.com
+    hostname: kubernetes.default.svc.cluster.local
     caCertificateRefs:
       - kind: ConfigMap
         name: flux-ca
