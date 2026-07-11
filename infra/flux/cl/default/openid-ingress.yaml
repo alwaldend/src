@@ -37,9 +37,11 @@ spec:
     - kind: Service
       name: kubernetes
       namespace: default
+      group: ""
   validation:
+    hostname: flux.alwaldend.com
     caCertificateRefs:
       - kind: ConfigMap
         name: flux-ca
-        hostname: flux.alwaldend.com
+        group: ""
 ---
