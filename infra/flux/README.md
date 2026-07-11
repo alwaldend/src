@@ -67,5 +67,5 @@ bazel run //infra/flux/cl:cmctl -- renew traefik-gateway-websecure-tls -n traefi
 - Encrypt:
   ```sh
   bazel run //infra/flux/cl:sops.encrypt infra/flux/cl/cert-manager/issuer-approle.yaml
-  bazel run //infra/flux/cl:sops.encrypt infra/flux/cl/flux-system/flux-sops-secret.yaml
+  bazel run //infra/flux/cl:sops.encrypt infra/flux/cl/sops/flux-sops-secret.yaml
   ```

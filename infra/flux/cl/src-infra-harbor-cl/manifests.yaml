@@ -8,7 +8,6 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: src-infra-harbor-cl-kubeconfig
-  namespace: src-infra-harbor-cl
   labels:
     reconcile.fluxcd.io/watch: Enabled
 data:
@@ -32,7 +31,6 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: src-infra-harbor-cl
-  namespace: src-infra-harbor-cl
 spec:
   path: ./infra/harbor/cl
   sourceRef:
@@ -44,7 +42,6 @@ spec:
     provider: sops
     secretRef:
       name: flux-sops-secret
-      namespace: flux-system
   interval: 60m0s
   wait: true
   timeout: 3m0s
