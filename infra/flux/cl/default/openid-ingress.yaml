@@ -42,5 +42,6 @@ spec:
     caCertificateRefs:
       - kind: ConfigMap
         name: flux-ca
+        namespace: default
         group: ""
 ---

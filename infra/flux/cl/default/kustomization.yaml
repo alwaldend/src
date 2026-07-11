@@ -5,5 +5,7 @@ resources:
 configMapGenerator:
   - name: flux-ca
     namespace: default
+    options:
+      disableNameSuffixHash: true
     files:
       - ca.crt=../ca.crt
