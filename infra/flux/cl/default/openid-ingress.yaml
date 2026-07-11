@@ -36,7 +36,6 @@ spec:
   targetRefs:
     - kind: Service
       name: kubernetes
-      namespace: default
       group: ""
   validation:
     hostname: flux.alwaldend.com
