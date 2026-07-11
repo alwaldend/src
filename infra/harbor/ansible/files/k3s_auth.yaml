@@ -16,7 +16,7 @@ jwt:
         claim: groups
         prefix: src_infra_vault_
   - issuer:
-      url: https://flux.alwaldend.com:6443
+      url: https://openid.flux.alwaldend.com
       audiences:
         - WQ8TMsm9Q5ai87x1l902M8-gFxfIJ3O51nB3f-Du4Uk
       audienceMatchPolicy: MatchAny
