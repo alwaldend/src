@@ -24,8 +24,6 @@ kind: HelmRelease
 metadata:
   name: harbor-chart
 spec:
-  dependsOn:
-    - name: harbor
   interval: 15m
   timeout: 10m
   targetNamespace: harbor
