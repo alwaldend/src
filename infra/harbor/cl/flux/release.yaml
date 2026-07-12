@@ -1,13 +1,4 @@
 ---
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: harbor
-spec:
-  interval: 1h
-  timeout: 600s
-  url: https://helm.goharbor.io
----
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -23,7 +14,7 @@ spec:
       version: "1.19.1"
       sourceRef:
         kind: HelmRepository
-        name: harbor
+        name: flux-helm-alwaldend
       interval: 10m
   releaseName: harbor
   install:

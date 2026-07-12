@@ -1,4 +1,14 @@
 load("//tools/docs:defs.bzl", "docs_filegroup")
+load("//projects/al/rules/al:al_config.bzl", "al_config")
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
+
+al_config(
+    name = "al",
+    srcs = ["al.lua"],
+    visibility = ["//third_party:__subpackages__"],
+    deps = ["//:al"],
+)
 
 docs_filegroup(
     name = "docs",
@@ -8,4 +18,39 @@ docs_filegroup(
         include = ["*"],
         allow_empty = True,
     ),
+)
+
+write_file(
+    name = "publish_helm_script",
+    out = "publish_helm_script.sh",
+    is_executable = True,
+    content = [
+        "#!/usr/bin/env sh",
+        "set -eu",
+        'echo "Uploading ${1}" >&2',
+        'curl -H "Authorization: Bearer ${FORGEJO_API_TOKEN}" --fail -X POST --upload-file "${1}" "${FORGEJO_HOST}/api/packages/alwaldend/helm/api/charts"'
+    ]
+)
+
+al_binary_run_map(
+    name = "publish_helm",
+    args = {
+        "io_goharbor_helm_harbor": [
+            "$(rootpath publish_helm_script)",
+            "$(rootpath //third_party/io_goharbor_helm_harbor)",
+        ],
+    },
+    configs = [
+        ":al",
+    ],
+    data = [
+        ":publish_helm_script",
+        "//third_party/io_goharbor_helm_harbor",
+        "//tools/vault/injector",
+        "//tools/vault/forgejo_login",
+    ] ,
+    run_args = [
+        "--plugin_label",
+        "forgejo",
+    ],
 )

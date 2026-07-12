@@ -1,0 +1,17 @@
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//third_party:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+alias(
+    name = "io_goharbor_helm_harbor",
+    actual = "@io_goharbor_helm_harbor//file",
+    visibility = ["//:__subpackages__"],
+)

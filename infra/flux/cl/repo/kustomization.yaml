@@ -4,3 +4,4 @@ resources:
   - flux-git-src.yaml
   - flux-git-src-secret.yaml
   - flux-sops-secret.yaml
+  - flux-helm-alwaldend.yaml

@@ -1,0 +1,9 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "io_goharbor_helm_harbor",
+    integrity = "sha256-WT9H4f9s21i9VxcIU1zO9Db0TM+ELF95Jc17A+gn7cE=",
+    urls = [
+        "https://helm.goharbor.io/harbor-1.19.1.tgz",
+    ],
+)
