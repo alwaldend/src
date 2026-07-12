@@ -11,6 +11,13 @@ spec:
   retryInterval: 2m0s
   prune: true
   force: false
+  sourceRef:
+    kind: GitRepository
+    name: flux-git-src
+  decryption:
+    provider: sops
+    secretRef:
+      name: flux-sops-secret
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease

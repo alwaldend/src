@@ -36,6 +36,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-git-src
+  targetNamespace: src-infra-harbor-cl
   decryption:
     provider: sops
     secretRef:
@@ -55,17 +56,3 @@ spec:
           value:
             configMapRef:
               name: src-infra-harbor-cl-kubeconfig
-    - target:
-        kind: "(Kustomization)"
-      patch: |
-        - op: add
-          path: /spec/sourceRef
-          value:
-            kind: GitRepository
-            name: flux-git-src
-        - op: add
-          path: /spec/decryption
-          value:
-            provider: sops
-            secretRef:
-              name: flux-sops-secret
