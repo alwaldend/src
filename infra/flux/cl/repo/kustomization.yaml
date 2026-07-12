@@ -5,3 +5,9 @@ resources:
   - flux-git-src-secret.yaml
   - flux-sops-secret.yaml
   - flux-helm-alwaldend.yaml
+secretGenerator:
+  - name: flux-helm-alwaldend-ca
+    options:
+      disableNameSuffixHash: true
+    files:
+      - ca.crt=../../../vault/tf/output/pki_ca_servers.crt
