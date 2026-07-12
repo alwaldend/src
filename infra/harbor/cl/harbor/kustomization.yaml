@@ -4,6 +4,7 @@ resources:
   - namespace.yaml
 secretGenerator:
   - name: alwaldend-ca
+    namespace: harbor
     options:
       disableNameSuffixHash: true
     files:
