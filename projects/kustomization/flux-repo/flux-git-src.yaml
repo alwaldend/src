@@ -13,4 +13,5 @@ spec:
   ignore: |
     /*
     !/infra
+    !/projects/kustomization
 ---
