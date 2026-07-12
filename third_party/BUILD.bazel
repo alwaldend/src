@@ -27,8 +27,10 @@ write_file(
     content = [
         "#!/usr/bin/env sh",
         "set -eu",
-        'echo "Uploading ${1}" >&2',
-        'curl -H "Authorization: Bearer ${FORGEJO_API_TOKEN}" --fail -X POST --upload-file "${1}" "${FORGEJO_HOST}/api/packages/alwaldend/helm/api/charts"'
+        'for chart in "${@}"; do',
+        'echo "Uploading ${chart}" >&2',
+        'curl -H "Authorization: Bearer ${FORGEJO_API_TOKEN}" --fail -X POST --upload-file "${1}" "${FORGEJO_HOST}/api/packages/alwaldend/helm/api/charts"',
+        'done',
     ]
 )
 
