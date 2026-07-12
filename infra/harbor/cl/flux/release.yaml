@@ -25,7 +25,7 @@ metadata:
   name: harbor-chart
 spec:
   interval: 15m
-  timeout: 10m
+  timeout: 20m
   targetNamespace: harbor
   chart:
     spec:

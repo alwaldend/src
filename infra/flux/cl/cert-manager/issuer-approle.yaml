@@ -2,7 +2,6 @@ apiVersion: v1
 kind: Secret
 metadata:
     name: cert-manager-vault-approle
-    namespace: cert-manager
 stringData:
     secretId: ENC[AES256_GCM,data:4ED6/Xij8FOwWL8E5FvnPth9rK+JOuMd5PhynBwiYqhqio1v,iv:vu2WVN0njh74jc69/Rnxsar8S6t5s+So5tJRECusE7g=,tag:fYOkwkOjpuHV8zIlWlTNrQ==,type:str]
 sops:
