@@ -47,12 +47,25 @@ spec:
   prune: true
   force: false
   patches:
-  - target:
-      kind: "(HelmRelease|Kustomization)"
-    patch: |
-      - op: add
-        path: /spec/kubeConfig
-        value:
-          configMapRef:
-            name: src-infra-harbor-cl-kubeconfig
----
+    - target:
+        kind: "(HelmRelease|Kustomization)"
+      patch: |
+        - op: add
+          path: /spec/kubeConfig
+          value:
+            configMapRef:
+              name: src-infra-harbor-cl-kubeconfig
+    - target:
+        kind: "(Kustomization)"
+      patch: |
+        - op: add
+          path: /spec/sourceRef
+          value:
+            kind: GitRepository
+            name: flux-git-src
+        - op: add
+          path: /spec/decryption
+          value:
+            provider: sops
+            secretRef:
+              name: flux-sops-secret
