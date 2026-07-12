@@ -4,3 +4,8 @@ kind: Namespace
 metadata:
   name: src-infra-harbor-cl
 ---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: harbor
+---
