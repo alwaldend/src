@@ -47,12 +47,3 @@ spec:
   retryInterval: 2m0s
   prune: true
   force: false
-  patches:
-    - target:
-        kind: "(HelmRelease|Kustomization)"
-      patch: |
-        - op: add
-          path: /spec/kubeConfig
-          value:
-            configMapRef:
-              name: src-infra-harbor-cl-kubeconfig

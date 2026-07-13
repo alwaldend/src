@@ -11,6 +11,9 @@ spec:
   retryInterval: 2m0s
   prune: true
   force: false
+  kubeConfig:
+    configMapRef:
+      name: src-infra-harbor-cl-kubeconfig
   sourceRef:
     kind: GitRepository
     name: flux-git-src
@@ -27,6 +30,9 @@ spec:
   interval: 15m
   timeout: 10m
   targetNamespace: harbor
+  kubeConfig:
+    configMapRef:
+      name: src-infra-harbor-cl-kubeconfig
   chart:
     spec:
       chart: harbor

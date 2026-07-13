@@ -1,0 +1,68 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: src-infra-harbor-cl-traefik-remote
+spec:
+  path: ./projects/kustomization/traefik/remote
+  targetNamespace: traefik
+  kubeConfig:
+    configMapRef:
+      name: src-infra-harbor-cl-kubeconfig
+  sourceRef:
+    kind: GitRepository
+    name: flux-git-src
+  decryption:
+    provider: sops
+    secretRef:
+      name: flux-sops-secret
+  interval: 60m0s
+  wait: true
+  timeout: 3m0s
+  retryInterval: 2m0s
+  prune: true
+  force: false
+  patches:
+    - target:
+        kind: "Certificate"
+        group: cert-manager.io
+        name: traefik-gateway-websecure-tls
+      patch: |
+        - op: replace
+          path: /spec/commonName
+          value: harbor.alwaldend.com
+        - op: replace
+          path: /spec/dnsNames
+          value:
+            - harbor.alwaldend.com
+            - "*.harbor.alwaldend.com"
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: src-infra-harbor-cl-traefik-flux
+spec:
+  path: ./projects/kustomization/traefik/flux
+  sourceRef:
+    kind: GitRepository
+    name: flux-git-src
+  decryption:
+    provider: sops
+    secretRef:
+      name: flux-sops-secret
+  interval: 60m0s
+  wait: true
+  timeout: 3m0s
+  retryInterval: 2m0s
+  prune: true
+  force: false
+  patches:
+    - target:
+        kind: "(HelmRelease|Kustomization)"
+      patch: |
+        - op: add
+          path: /spec/kubeConfig
+          value:
+            configMapRef:
+              name: src-infra-harbor-cl-kubeconfig
+---

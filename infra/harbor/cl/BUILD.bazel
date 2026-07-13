@@ -1,11 +1,42 @@
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_map")
 load("//tools/docs:defs.bzl", "docs_filegroup")
+load("//tools/vault:defs.bzl", "vault_binary_map")
 
 _DATA = glob(["**"])
 
 _KUBECTL = "$(rootpath //tools/kubectl)"
+_SOPS = "$(rootpath //tools/sops)"
 
 _CONFIG = "//infra/harbor:al"
+
+al_binary_run_map(
+    name = "sops",
+    args = {
+        "": [
+            _SOPS,
+        ],
+        "encrypt": [
+            _SOPS,
+            "--hc-vault-transit",
+            "https://vault.alwaldend.com:8200/v1/transit/default/keys/src_infra_flux_cluster_sops",
+            "--encrypt",
+            "--encrypted-regex",
+            "^(data|stringData)$$",
+            "--in-place",
+        ],
+    },
+    configs = [
+        _CONFIG,
+    ],
+    data = [
+        "//tools/sops",
+        "//tools/vault/injector",
+    ] + _DATA,
+    run_args = [
+        "--plugin_label",
+        "vault_env=env_default_default",
+    ],
+)
 
 al_binary_run_map(
     name = "kubectl",
@@ -35,4 +66,20 @@ docs_filegroup(
         include = ["*"],
         allow_empty = True,
     ),
+)
+
+vault_binary_map(
+    name = "vault",
+    args = {
+        "": [],
+        "secret_id": [
+            "write",
+            "-format=json",
+            "auth/approle/role/src_infra_harbor_cluster/secret-id",
+            "ttl=7889235",  # 3 Months
+        ],
+    },
+    configs = [
+        _CONFIG,
+    ],
 )
