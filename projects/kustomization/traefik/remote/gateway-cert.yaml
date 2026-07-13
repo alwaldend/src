@@ -8,10 +8,9 @@ spec:
     name: vault
     kind: ClusterIssuer
     group: cert-manager.io
-  commonName: flux.alwaldend.com
+  commonName: CHANGE_ME
   dnsNames:
-    - flux.alwaldend.com
-    - "*.flux.alwaldend.com"
+    - CHANGE_ME
   privateKey:
     algorithm: RSA
     size: 4096
