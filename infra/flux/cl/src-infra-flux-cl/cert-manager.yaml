@@ -5,6 +5,7 @@ metadata:
   name: src-infra-flux-cl-cert-manager
 spec:
   path: ./infra/flux/cl/cert-manager
+  targetNamespace: cert-manager
   sourceRef:
     kind: GitRepository
     name: flux-git-src
@@ -25,6 +26,7 @@ metadata:
   name: src-infra-flux-cl-cert-manager-flux
 spec:
   path: ./projects/kustomization/cert-manager/flux
+  targetNamespace: src-infra-flux-cl
   sourceRef:
     kind: GitRepository
     name: flux-git-src
