@@ -8,4 +8,4 @@ secretGenerator:
     options:
       disableNameSuffixHash: true
     files:
-      - ca.crt=../../../infra/vault/tf/output/pki_ca_servers.crt
+      - ca.crt=../../../../infra/vault/tf/output/pki_ca_servers.crt
