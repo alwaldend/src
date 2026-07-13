@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - issuer.yaml
+secretGenerator:
+  - name: cert-manager-vault-ca
+    options:
+      disableNameSuffixHash: true
+    files:
+      - ca.crt=../../../infra/vault/tf/output/pki_ca_servers.crt

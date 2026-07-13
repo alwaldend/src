@@ -4,3 +4,4 @@ namespace: src-infra-flux-cl
 resources:
   - ../../../../projects/kustomization/flux-repo
   - manifests.yaml
+  - cert-manager.yaml

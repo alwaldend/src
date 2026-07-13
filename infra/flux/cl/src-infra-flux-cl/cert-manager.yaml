@@ -1,0 +1,41 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: src-infra-flux-cl-cert-manager
+spec:
+  path: ./infra/flux/cl/cert-manager
+  sourceRef:
+    kind: GitRepository
+    name: flux-git-src
+  decryption:
+    provider: sops
+    secretRef:
+      name: flux-sops-secret
+  interval: 60m0s
+  wait: true
+  timeout: 3m0s
+  retryInterval: 2m0s
+  prune: true
+  force: false
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: src-infra-flux-cl-cert-manager-flux
+spec:
+  path: ./projects/kustomization/cert-manager/flux
+  sourceRef:
+    kind: GitRepository
+    name: flux-git-src
+  decryption:
+    provider: sops
+    secretRef:
+      name: flux-sops-secret
+  interval: 60m0s
+  wait: true
+  timeout: 3m0s
+  retryInterval: 2m0s
+  prune: true
+  force: false
+---

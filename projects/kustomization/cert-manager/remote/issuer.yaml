@@ -5,15 +5,15 @@ metadata:
   name: vault
 spec:
   vault:
-    path: pki/ica_servers/issuer/default/sign/src_infra_flux_pki_server
+    path: pki/ica_servers/issuer/default/sign/ROLE_NAME
     server: https://vault.alwaldend.com:8200
     caBundleSecretRef:
       key: ca.crt
-      name: vault-ca
+      name: cert-manager-vault-ca
     auth:
       appRole:
         path: approle
-        roleId: src_infra_flux_cluster
+        roleId: ROLE_NAME
         secretRef:
           name: cert-manager-vault-approle
           key: secretId

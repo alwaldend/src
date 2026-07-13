@@ -16,13 +16,14 @@ spec:
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: cert-manager
+  name: cert-manager-chart
 spec:
   interval: 15m
   timeout: 5m
   chartRef:
     kind: OCIRepository
     name: cert-manager
+  targetNamespace: cert-manager
   releaseName: cert-manager
   install:
     strategy:
