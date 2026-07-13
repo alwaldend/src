@@ -38,6 +38,12 @@ variable "ttl" {
   default     = 86400 * 7 # 7 days
 }
 
+variable "signer_member_group_ids" {
+  type        = list(string)
+  description = "Groups allowed to use the default signer to sign"
+  default     = []
+}
+
 variable "eab_new_member_group_ids" {
   type        = list(string)
   description = "Groups allowed to create EABs"
@@ -78,6 +84,31 @@ resource "vault_identity_group" "eab_new" {
     comment = "Group allowed to create EABs for ${var.backend}/roles/${var.name}"
   }
 }
+
+resource "vault_identity_group" "signer" {
+  name = "${var.backend}/${var.name}/signer"
+  type = "internal"
+  policies = [
+    vault_policy.signer.name,
+  ]
+  member_group_ids = var.signer_member_group_ids
+  metadata = {
+    comment = "Group allowed to use the default issuer to sign"
+  }
+}
+
+resource "vault_policy" "signer" {
+  name   = "${var.backend}/${var.name}/signer"
+  policy = <<EOT
+    path "${var.backend}/issuer/default/sign/${vault_pki_secret_backend_role.role.name}" {
+      capabilities = ["update"]
+    }
+    path "${var.backend}/issuer/default/sign/${vault_pki_secret_backend_role.rsa_2048.name}" {
+      capabilities = ["update"]
+    }
+EOT
+}
+
 
 resource "vault_pki_secret_backend_role" "role" {
   backend            = var.backend

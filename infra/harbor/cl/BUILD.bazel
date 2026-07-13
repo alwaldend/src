@@ -5,6 +5,7 @@ load("//tools/vault:defs.bzl", "vault_binary_map")
 _DATA = glob(["**"])
 
 _KUBECTL = "$(rootpath //tools/kubectl)"
+
 _SOPS = "$(rootpath //tools/sops)"
 
 _CONFIG = "//infra/harbor:al"

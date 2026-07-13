@@ -26,6 +26,9 @@ module "src_infra_harbor_pki_server" {
   allowed_domains          = ["harbor.alwaldend.com"]
   eab_new_member_group_ids = [module.src_infra_harbor_approle.group_id]
   client_flag              = true
+  signer_member_group_ids = [
+    module.src_infra_flux_cluster_approle.group_id,
+  ]
 }
 
 module "src_infra_harbor_provider" {

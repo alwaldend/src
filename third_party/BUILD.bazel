@@ -1,7 +1,7 @@
-load("//tools/docs:defs.bzl", "docs_filegroup")
-load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
+load("//projects/al/rules/al:al_config.bzl", "al_config")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 
 al_config(
     name = "al",
@@ -23,15 +23,15 @@ docs_filegroup(
 write_file(
     name = "publish_helm_script",
     out = "publish_helm_script.sh",
-    is_executable = True,
     content = [
         "#!/usr/bin/env sh",
         "set -eu",
         'for chart in "${@}"; do',
         'echo "Uploading ${chart}" >&2',
         'curl -H "Authorization: Bearer ${FORGEJO_API_TOKEN}" --fail -X POST --upload-file "${1}" "${FORGEJO_HOST}/api/packages/alwaldend/helm/api/charts"',
-        'done',
-    ]
+        "done",
+    ],
+    is_executable = True,
 )
 
 al_binary_run_map(
@@ -48,9 +48,9 @@ al_binary_run_map(
     data = [
         ":publish_helm_script",
         "//third_party/io_goharbor_helm_harbor",
-        "//tools/vault/injector",
         "//tools/vault/forgejo_login",
-    ] ,
+        "//tools/vault/injector",
+    ],
     run_args = [
         "--plugin_label",
         "forgejo",

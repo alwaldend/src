@@ -17,7 +17,7 @@ resource "forgejo_team" "alwaldend_admins" {
 }
 
 locals {
-  alwaldend_admins = ["simeonwarren", "src_infra_dc1_forgejo1"]
+  alwaldend_admins          = ["simeonwarren", "src_infra_dc1_forgejo1"]
   alwaldend_package_writers = ["src_third_party"]
 }
 
@@ -30,9 +30,9 @@ resource "forgejo_team_member" "alwaldend_admins" {
 resource "forgejo_team" "alwaldend_package_writers" {
   organization_id = forgejo_organization.alwaldend.id
   name            = "alwaldend_package_writers"
-  permission = "write"
+  permission      = "write"
   units_map = {
-    "repo.packages"   = "write"
+    "repo.packages" = "write"
   }
 }
 

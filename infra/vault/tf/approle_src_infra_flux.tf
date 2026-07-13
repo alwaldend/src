@@ -27,6 +27,9 @@ module "src_infra_flux_pki_server" {
   eab_new_member_group_ids = [
     module.src_infra_flux_approle.group_id,
   ]
+  signer_member_group_ids = [
+    module.src_infra_flux_cluster_approle.group_id,
+  ]
   client_flag = true
 }
 
@@ -100,9 +103,6 @@ module "src_infra_flux_cluster_approle" {
   member_group_ids = [
     module.src_infra_flux_approle.group_id,
   ]
-  policies = [
-    vault_policy.src_infra_flux_cluster.name,
-  ]
   secrets          = vault_mount.secrets.path
   backend          = vault_auth_backend.approle.path
   backend_accessor = vault_auth_backend.approle.accessor
@@ -119,15 +119,6 @@ resource "vault_identity_group" "src_infra_flux_cluster_admins" {
   metadata = {
     comment = "Flux cluster admins"
   }
-}
-
-resource "vault_policy" "src_infra_flux_cluster" {
-  name   = "src_infra_flux_cluster"
-  policy = <<EOT
-    path "${module.src_infra_flux_pki_server.backend}/issuer/default/sign/${module.src_infra_flux_pki_server.name}" {
-      capabilities = ["update"]
-    }
-EOT
 }
 
 module "src_infra_flux_cluster_provider" {
