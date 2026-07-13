@@ -6,6 +6,7 @@ tls-san:
   - "{{ inventory_hostname }}"
   - "{{ flux_domain }}"
 kube-apiserver-arg:
+  - --admission-control-config-file={{ k3s_admission_config_path }}
   - --authentication-config={{ k3s_auth_config_path }}
   - --service-account-issuer=https://openid.flux.alwaldend.com
   - --service-account-issuer=https://flux.alwaldend.com:6443

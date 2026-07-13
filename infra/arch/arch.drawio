@@ -111,7 +111,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="8fG66KnuKIQd2swYRgT9-10" parent="8fG66KnuKIQd2swYRgT9-8" style="rounded=0;whiteSpace=wrap;html=1;" value="harbor&lt;br&gt;harbor.alwaldend.com" vertex="1">
-          <mxGeometry height="60" width="135" x="32.5" y="230" as="geometry" />
+          <mxGeometry height="60" width="135" x="32.5" y="200" as="geometry" />
         </mxCell>
         <mxCell id="8fG66KnuKIQd2swYRgT9-12" parent="8fG66KnuKIQd2swYRgT9-8" style="rounded=0;whiteSpace=wrap;html=1;" value="Redis" vertex="1">
           <mxGeometry height="60" width="120" x="220" y="155" as="geometry" />
@@ -218,9 +218,11 @@
         <mxCell id="U2TRrjayyH0se131Tg96-31" edge="1" parent="U2TRrjayyH0se131Tg96-18" source="U2TRrjayyH0se131Tg96-29" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="U2TRrjayyH0se131Tg96-20">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="8fG66KnuKIQd2swYRgT9-3" edge="1" parent="1" source="8fG66KnuKIQd2swYRgT9-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="8fG66KnuKIQd2swYRgT9-16">
+        <mxCell id="8fG66KnuKIQd2swYRgT9-3" edge="1" parent="1" source="8fG66KnuKIQd2swYRgT9-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="8fG66KnuKIQd2swYRgT9-16">
           <mxGeometry relative="1" as="geometry">
-            <Array as="points" />
+            <Array as="points">
+              <mxPoint x="810" y="295" />
+            </Array>
             <mxPoint x="450" y="275" as="targetPoint" />
           </mxGeometry>
         </mxCell>
@@ -229,9 +231,30 @@
             <mxPoint x="-9" y="-23" as="offset" />
           </mxGeometry>
         </mxCell>
+        <mxCell id="iG3XYxs7Ib4I1LmnUpsO-1" edge="1" parent="1" source="8fG66KnuKIQd2swYRgT9-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="8-zOiZ8iWMVSHl_oMTC2-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iG3XYxs7Ib4I1LmnUpsO-2" connectable="0" parent="iG3XYxs7Ib4I1LmnUpsO-1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Vendored Harbor chart" vertex="1">
+          <mxGeometry relative="1" x="0.5" y="-4" as="geometry">
+            <mxPoint x="66" y="25" as="offset" />
+          </mxGeometry>
+        </mxCell>
         <UserObject label="Fluxcd&lt;br&gt;flux.alwaldend.com" link="data:page/id,j3dbkfpbMWbFP4AUFDms" id="8fG66KnuKIQd2swYRgT9-2">
           <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1">
             <mxGeometry height="60" width="120" x="810" y="280" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="8-zOiZ8iWMVSHl_oMTC2-1" edge="1" parent="1" source="8fG66KnuKIQd2swYRgT9-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" target="8fG66KnuKIQd2swYRgT9-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="8-zOiZ8iWMVSHl_oMTC2-2" connectable="0" parent="8-zOiZ8iWMVSHl_oMTC2-1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="OIDC" vertex="1">
+          <mxGeometry relative="1" x="0.6108" y="-1" as="geometry">
+            <mxPoint x="-14" y="14" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <UserObject label="Forgejo&lt;br&gt;forgejo.alwaldend.com" link="data:page/id,v621yh1Cx_BHb7xvUzgj" id="8-zOiZ8iWMVSHl_oMTC2-3">
+          <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1">
+            <mxGeometry height="60" width="160" x="790" y="120" as="geometry" />
           </mxCell>
         </UserObject>
       </root>
