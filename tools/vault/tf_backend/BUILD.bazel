@@ -48,7 +48,7 @@ go_binary(
 
 al_proto_docs(
     name = "tf_backend_proto_docs",
-    src = "tf_backend_proto.proto",
+    src = "api.proto",
 )
 
 proto_library(

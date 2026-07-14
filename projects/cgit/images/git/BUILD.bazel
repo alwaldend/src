@@ -15,5 +15,5 @@ pkg_files(
 
 oci_image(
     name = "image",
-    base = "@com_alwaldend_src_oci_alpine",
+    base = "@io_docker_library_alpine",
 )

@@ -58,7 +58,7 @@ go_binary(
 
 al_proto_docs(
     name = "injector_proto_docs",
-    src = "injector_proto.proto",
+    src = "api.proto",
 )
 
 proto_library(

@@ -1,0 +1,28 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+go_library(
+    name = "server_lib",
+    srcs = [
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/alwaldend.com/cmd/server",
+    visibility = ["//:__subpackages__"],
+    deps = ["//projects/alwaldend.com:site_lib"],
+)
+
+go_binary(
+    name = "server",
+    embed = [":server_lib"],
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/alwaldend.com/cmd:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)

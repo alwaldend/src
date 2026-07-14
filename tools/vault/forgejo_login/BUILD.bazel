@@ -43,7 +43,7 @@ go_binary(
 
 al_proto_docs(
     name = "forgejo_login_proto_docs",
-    src = "forgejo_login_proto.proto",
+    src = "api.proto",
 )
 
 proto_library(

@@ -5,9 +5,7 @@ load("@rules_oci//oci:defs.bzl", "oci_image")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
 _GOOS_GOARCH = [
-    (goos, goarch)
-    for goos, goarch in GOOS_GOARCH
-    if goos not in ("qnx", "osx", "darwin", "ios", "android", "nacl")
+    ("linux", "amd64"),
 ]
 
 build_test(

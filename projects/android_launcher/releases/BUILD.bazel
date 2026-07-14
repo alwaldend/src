@@ -20,7 +20,6 @@ pkg_files(
 al_release_files(
     name = "files",
     srcs = [
-        "//projects/android_launcher/main/java:launcher_binary",
     ],
     deployments = ["//tools/release:deployment"],
     ignore_suffixes = [".jar"],
