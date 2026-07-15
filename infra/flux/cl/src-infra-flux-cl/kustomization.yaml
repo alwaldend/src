@@ -9,3 +9,4 @@ resources:
   - ../../../../projects/kustomization/cert-manager/flux
   - cert-manager.yaml
   - kube-system.yaml
+  - manifests.yaml
