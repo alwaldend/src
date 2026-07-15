@@ -8,6 +8,20 @@ load("//tools/hugo/main/bzl:al_hugo_run_binary.bzl", "al_hugo_run_binary")
 load("//tools/hugo/main/bzl:al_hugo_site.bzl", "al_hugo_site")
 load("//tools/pkg/main/bzl:al_pkg_rename_files.bzl", "al_pkg_rename_files")
 load("//tools/toml/main/bzl:al_toml_data.bzl", "al_toml_data")
+load("//projects/al/rules/al:al_config.bzl", "al_config")
+load("//tools/vault:defs.bzl", "vault_binary_map")
+
+vault_binary_map(
+    name = "vault",
+    configs = [":al"],
+)
+
+al_config(
+    name = "al",
+    srcs = ["al.lua"],
+    visibility = ["//projects/alwaldend.com:__subpackages__"],
+    deps = ["//:al"],
+)
 
 go_library(
     name = "site_lib",
@@ -51,6 +65,7 @@ pkg_filegroup(
     name = "docs",
     srcs = [
         ":docs_files",
+        "//projects/alwaldend.com/tf:docs",
         "//projects/alwaldend.com/releases:docs",
     ],
     visibility = ["//projects:__pkg__"],

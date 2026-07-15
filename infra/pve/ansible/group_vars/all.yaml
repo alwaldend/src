@@ -1,5 +1,7 @@
 ansible_user: ansible
 ssh_vault_role: src_infra_dc1_pve1_ssh
+ssh_valid_principals:
+  - pve.alwaldend.com
 
 install_ca:
   - path: files/pki_ca_root.crt

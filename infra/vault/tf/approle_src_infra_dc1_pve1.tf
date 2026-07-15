@@ -16,7 +16,7 @@ module "src_infra_dc1_pve1_ssh" {
   source          = "../../../projects/tf_modules/vault_ssh_server_role"
   backend         = vault_mount.ssh_servers.path
   name            = "src_infra_dc1_pve1_ssh"
-  allowed_domains = "pve1.dc1.alwaldend.com"
+  allowed_domains = "pve1.dc1.alwaldend.com,pve.alwaldend.com"
 }
 
 module "src_infra_dc1_pve1_pki_server" {

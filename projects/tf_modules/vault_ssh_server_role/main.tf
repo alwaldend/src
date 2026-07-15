@@ -17,6 +17,12 @@ variable "backend" {
   description = "Role backend"
 }
 
+variable "allow_subdomains" {
+  type = bool
+  description = "If set, allow subdomains"
+  default = true
+}
+
 variable "allowed_domains" {
   type        = string
   description = "Allowed domains"
@@ -40,7 +46,7 @@ resource "vault_ssh_secret_backend_role" "role" {
   ttl                     = var.ttl
   key_type                = "ca"
   allow_host_certificates = true
-  allow_subdomains        = true
+  allow_subdomains        = var.allow_subdomains
   allow_bare_domains      = true
   allowed_domains         = var.allowed_domains
 }

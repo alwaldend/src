@@ -4,9 +4,11 @@ load("//tools/docs:defs.bzl", "docs_filegroup")
 genrule(
     name = "ops",
     tools = ["//tools/ops", ":server"],
-    outs = ["ops.iso"],
+    outs = ["server.iso"],
+    visibility = ["//projects/alwaldend.com:__subpackages__"],
     cmd = """
 export OPS_HOME="$${PWD}/home"
+mkdir build volumes home
 cat - >config.json <<EOF
 {
   "BuildDir": "$${PWD}/build",
@@ -33,9 +35,22 @@ cat - >config.json <<EOF
     "Protection": "0"
   },
   "RunConfig": {
+    "Imagename": "alwaldend-com-server",
     "Ports": [
       "80",
       "8080"
+    ],
+    "IPAddress": "192.168.10.70",
+    "NetMask": "255.255.255.0",
+    "Gateway": "192.168.10.2",
+    "Nics": [
+      {
+        "BridgeName": "vmbr0",
+        "IPAddress": "192.168.10.70",
+        "IPv6Address": "",
+        "Netmask": "255.255.255.0",
+        "Gateway": "192.168.10.2"
+      }
     ],
     "ShowErrors": true,
     "ShowWarnings": true
@@ -46,16 +61,16 @@ cat - >config.json <<EOF
 }
 EOF
 $(execpath //tools/ops) build --config "$${PWD}/config.json" "$(execpath :server)"
-ls -la build
-ls -la home
+mv ./home/.ops/images/alwaldend-com-server $(@)
     """,
-    tags = ["network"],
+    tags = ["no-sandbox"],
 )
 
 go_library(
     name = "server_lib",
     srcs = [
         "main.go",
+        "fs.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/alwaldend.com/cmd/server",
     visibility = ["//:__subpackages__"],

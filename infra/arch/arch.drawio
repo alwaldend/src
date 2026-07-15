@@ -1,4 +1,4 @@
-<mxfile host="Electron" pages="6">
+<mxfile host="Electron" pages="7">
   <diagram id="FMLIyAlL3O6QxIsCN0ab" name="DC1">
     <mxGraphModel dx="1798" dy="1073" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -506,6 +506,81 @@
           <mxGeometry relative="1" x="-0.2" y="1" as="geometry">
             <mxPoint x="86" y="-29" as="offset" />
           </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="YgM0QNppcSkpNDkFmMI1" name="www">
+    <mxGraphModel dx="1798" dy="1073" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cpmrbwhv5QLxCjqJxkrp-1" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" value="Proxmox&lt;br&gt;pve.alwaldend.com" vertex="1">
+          <mxGeometry height="230" width="280" x="280" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="cpmrbwhv5QLxCjqJxkrp-2" parent="cpmrbwhv5QLxCjqJxkrp-1" style="rounded=0;whiteSpace=wrap;html=1;" value="Unikernel go fileserver VM&lt;div&gt;&lt;div&gt;&lt;div&gt;host1.pve.www.alwaldend.com&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="70" width="200" x="40" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="cpmrbwhv5QLxCjqJxkrp-4" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="161" y="385" as="sourcePoint" />
+            <mxPoint x="321" y="385" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cpmrbwhv5QLxCjqJxkrp-5" connectable="0" parent="cpmrbwhv5QLxCjqJxkrp-4" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="HTTP" vertex="1">
+          <mxGeometry relative="1" x="-0.3375" y="-5" as="geometry">
+            <mxPoint y="-20" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cpmrbwhv5QLxCjqJxkrp-3" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Actor" vertex="1">
+          <mxGeometry height="60" width="30" x="130" y="355" as="geometry" />
+        </mxCell>
+        <mxCell id="cpmrbwhv5QLxCjqJxkrp-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Vault&lt;br&gt;vault.alwaldend.com" vertex="1">
+          <mxGeometry height="60" width="140" x="350" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="cpmrbwhv5QLxCjqJxkrp-7" edge="1" parent="1" source="cpmrbwhv5QLxCjqJxkrp-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="cpmrbwhv5QLxCjqJxkrp-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cpmrbwhv5QLxCjqJxkrp-8" connectable="0" parent="cpmrbwhv5QLxCjqJxkrp-7" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="ACME" vertex="1">
+          <mxGeometry relative="1" x="-0.2667" y="1" as="geometry">
+            <mxPoint x="29" y="46" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5Hjebko-lc2rZrbu15SY-1" parent="1" style="swimlane;whiteSpace=wrap;html=1;" value="Deploy" vertex="1">
+          <mxGeometry height="320" width="645" x="85" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="5Hjebko-lc2rZrbu15SY-2" parent="5Hjebko-lc2rZrbu15SY-1" style="points=[[0.145,0.145,0],[0.5,0,0],[0.855,0.145,0],[1,0.5,0],[0.855,0.855,0],[0.5,1,0],[0.145,0.855,0],[0,0.5,0]];shape=mxgraph.bpmn.event;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;perimeter=ellipsePerimeter;outlineConnect=0;aspect=fixed;outline=standard;symbol=general;" value="Start" vertex="1">
+          <mxGeometry height="50" width="50" x="30" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="5Hjebko-lc2rZrbu15SY-4" parent="5Hjebko-lc2rZrbu15SY-1" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task2;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;taskMarker=abstract;" value="Go binary&lt;br&gt;Bazel build" vertex="1">
+          <mxGeometry height="80" width="120" x="120" y="65" as="geometry" />
+        </mxCell>
+        <mxCell id="5Hjebko-lc2rZrbu15SY-5" edge="1" parent="5Hjebko-lc2rZrbu15SY-1" source="5Hjebko-lc2rZrbu15SY-2" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="5Hjebko-lc2rZrbu15SY-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5Hjebko-lc2rZrbu15SY-6" parent="5Hjebko-lc2rZrbu15SY-1" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task2;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;taskMarker=abstract;" value="ISO image&lt;br&gt;ops build" vertex="1">
+          <mxGeometry height="80" width="120" x="120" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="5Hjebko-lc2rZrbu15SY-8" parent="5Hjebko-lc2rZrbu15SY-1" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task2;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;taskMarker=abstract;" value="Copy ISO to Proxmox" vertex="1">
+          <mxGeometry height="80" width="120" x="315" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="5Hjebko-lc2rZrbu15SY-9" edge="1" parent="5Hjebko-lc2rZrbu15SY-1" source="5Hjebko-lc2rZrbu15SY-6" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="5Hjebko-lc2rZrbu15SY-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5Hjebko-lc2rZrbu15SY-10" parent="5Hjebko-lc2rZrbu15SY-1" style="points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];shape=mxgraph.bpmn.task2;whiteSpace=wrap;rectStyle=rounded;size=10;html=1;container=1;expand=0;collapsible=0;taskMarker=abstract;" value="Import ISO as a VM disk" vertex="1">
+          <mxGeometry height="80" width="135" x="307.5" y="65" as="geometry" />
+        </mxCell>
+        <mxCell id="5Hjebko-lc2rZrbu15SY-11" edge="1" parent="5Hjebko-lc2rZrbu15SY-1" source="5Hjebko-lc2rZrbu15SY-8" style="edgeStyle=orthogonalEdgeStyle;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" target="5Hjebko-lc2rZrbu15SY-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5Hjebko-lc2rZrbu15SY-15" edge="1" parent="5Hjebko-lc2rZrbu15SY-1" source="5Hjebko-lc2rZrbu15SY-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="5Hjebko-lc2rZrbu15SY-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5Hjebko-lc2rZrbu15SY-3" parent="5Hjebko-lc2rZrbu15SY-1" style="points=[[0.145,0.145,0],[0.5,0,0],[0.855,0.145,0],[1,0.5,0],[0.855,0.855,0],[0.5,1,0],[0.145,0.855,0],[0,0.5,0]];shape=mxgraph.bpmn.event;html=1;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;align=center;perimeter=ellipsePerimeter;outlineConnect=0;aspect=fixed;outline=end;symbol=terminate2;" value="End" vertex="1">
+          <mxGeometry height="50" width="50" x="535" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="5Hjebko-lc2rZrbu15SY-16" edge="1" parent="5Hjebko-lc2rZrbu15SY-1" source="5Hjebko-lc2rZrbu15SY-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" target="5Hjebko-lc2rZrbu15SY-3">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

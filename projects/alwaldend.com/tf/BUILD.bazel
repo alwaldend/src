@@ -1,0 +1,66 @@
+load("//tools/docs:defs.bzl", "docs_filegroup")
+load("//tools/terraform:defs.bzl", "terraform_binary", "terraform_binary_map", "terraform_test_map")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/alwaldend.com:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+genrule(
+    name = "update_pve_disk",
+    srcs = ["//projects/alwaldend.com/cmd/server:ops"],
+    executable = True,
+    outs = ["update_pve_disk.sh"],
+    cmd = """
+target=/var/lib/vz/template/iso/alwaldend.com-server.iso
+src=$(execpath //projects/alwaldend.com/cmd/server:ops)
+pve=host1.pve1.dc1.alwaldend.com
+cat - >$(@) <<EOF
+#!/usr/bin/env sh
+set -eu
+scp "$${src}" "$${pve}:$${target}"
+ssh "$${pve}" chmod 600 "$${target}"
+for vmid in 900; do
+    ssh "$${pve}" -- "
+        sudo qm stop '\\$${vmid}'
+        sudo qm set '\\$${vmid}' --scsi0 'local-lvm:0,import-from=$${target}'
+        sudo qm start '\\$${vmid}'
+    "
+done
+EOF
+chmod u+x $(@)
+"""
+)
+
+
+_CONFIGS = ["//projects/alwaldend.com:al"]
+
+_RUN_ARGS = [
+    "--plugin_label",
+    "tf=main",
+]
+
+_DATA = glob(["*.tf"]) + [
+    ".terraform.lock.hcl",
+    "//tools/vault/pve_login",
+    "//tools/vault/tf_backend",
+    "//tools/vault/injector",
+]
+
+terraform_binary_map(
+    name = "tf",
+    configs = _CONFIGS,
+    data = _DATA,
+    run_args = _RUN_ARGS,
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    configs = _CONFIGS,
+    data = _DATA,
+)

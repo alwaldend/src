@@ -29,6 +29,13 @@ tags:
   bazel run --config=release //projects/alwaldend.com:deploy
   ```
 
+## Update PVE VMs
+
+```sh
+bazel run //projects/alwaldend.com/tf # Apply tf
+bazel run //projects/alwaldend.com/tf:update_pve_disk # Update the disk
+```
+
 ## Taxonomy
 
 | Taxonomy   | Meaning              |
