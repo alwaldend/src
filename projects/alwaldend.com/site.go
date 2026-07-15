@@ -5,6 +5,6 @@ import (
 )
 
 var (
-	//go:embed site.destination
+	//go:embed site_archive.tar
 	Site embed.FS
 )

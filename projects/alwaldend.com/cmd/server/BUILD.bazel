@@ -1,6 +1,57 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 
+genrule(
+    name = "ops",
+    tools = ["//tools/ops", ":server"],
+    outs = ["ops.iso"],
+    cmd = """
+export OPS_HOME="$${PWD}/home"
+cat - >config.json <<EOF
+{
+  "BuildDir": "$${PWD}/build",
+  "VolumesDir": "$${PWD}/volumes",
+  "Mounts": {
+    "%1": "/data"
+  },
+  "NameServers": [
+    "1.1.1.1",
+    "1.0.0.1"
+  ],
+  "RebootOnExit": true,
+  "TargetConfig": {
+    "isoStorageName": "local",
+    "Arch": "x86_64",
+    "Machine": "q35",
+    "Sockets": "1",
+    "Cores": "1",
+    "Numa": "0",
+    "Memory": "512M",
+    "StorageName": "local-lvm",
+    "BridgePrefix": "vmbr",
+    "Onboot": "0",
+    "Protection": "0"
+  },
+  "RunConfig": {
+    "Ports": [
+      "80",
+      "8080"
+    ],
+    "ShowErrors": true,
+    "ShowWarnings": true
+  },
+  "ManifestPassthrough": {
+    "log_level": "info"
+  }
+}
+EOF
+$(execpath //tools/ops) build --config "$${PWD}/config.json" "$(execpath :server)"
+ls -la build
+ls -la home
+    """,
+    tags = ["network"],
+)
+
 go_library(
     name = "server_lib",
     srcs = [

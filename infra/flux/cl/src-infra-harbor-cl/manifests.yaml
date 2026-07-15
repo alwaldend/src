@@ -26,24 +26,3 @@ data:
     kljIHqQwCgYIKoZIzj0EAwIDRwAwRAIgc0wEhmVdUyU51IaN4T4IMLCll2gmQxym
     iM1INJpEdRICIAIn/qg7h5n3MAKGsFFmmIrwRudYY+NdKweFKXnuy7h4
     -----END CERTIFICATE-----
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: src-infra-harbor-cl
-spec:
-  path: ./infra/harbor/cl/flux
-  sourceRef:
-    kind: GitRepository
-    name: flux-git-src
-  targetNamespace: src-infra-harbor-cl
-  decryption:
-    provider: sops
-    secretRef:
-      name: flux-sops-secret
-  interval: 60m0s
-  wait: true
-  timeout: 3m0s
-  retryInterval: 2m0s
-  prune: true
-  force: false

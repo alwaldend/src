@@ -15,7 +15,7 @@ go_library(
         "site.go",
     ],
     embedsrcs = [
-        ":site",
+        ":site_archive",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/alwaldend.com",
     visibility = ["//:__subpackages__"],

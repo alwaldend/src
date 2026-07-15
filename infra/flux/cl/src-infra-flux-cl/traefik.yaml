@@ -4,43 +4,8 @@ kind: Kustomization
 metadata:
   name: src-infra-flux-cl-traefik
 spec:
-  path: ./projects/kustomization/traefik/remote
+  path: ./infra/flux/cl/traefik
   targetNamespace: traefik
-  sourceRef:
-    kind: GitRepository
-    name: flux-git-src
-  decryption:
-    provider: sops
-    secretRef:
-      name: flux-sops-secret
-  interval: 60m0s
-  wait: true
-  timeout: 3m0s
-  retryInterval: 2m0s
-  prune: true
-  force: false
-  patches:
-    - target:
-        kind: "Certificate"
-        group: cert-manager.io
-        name: traefik-gateway-websecure-tls
-      patch: |
-        - op: replace
-          path: /spec/commonName
-          value: flux.alwaldend.com
-        - op: replace
-          path: /spec/dnsNames
-          value:
-            - flux.alwaldend.com
-            - "*.flux.alwaldend.com"
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: src-infra-flux-cl-traefik-flux
-spec:
-  path: ./projects/kustomization/traefik/flux
-  targetNamespace: src-infra-flux-cl
   sourceRef:
     kind: GitRepository
     name: flux-git-src

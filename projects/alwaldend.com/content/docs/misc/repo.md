@@ -12,7 +12,7 @@ tags:
   sudo dnf install \
     clang clang-format java-latest-openjdk-devel rust cargo mesa-libGL-devel \
     go Xvfb python3 gmp-devel patch podman git git-lfs fuse fuse-libs pcsc-lite pcsc-lite-devel \
-    openssl gnutls-utils opensc openssl-pkcs11 libdnet
+    openssl gnutls-utils opensc openssl-pkcs11 libdnet qemu-kvm qemu-img
   ```
 - Install bazelisk: https://bazel.build/install/bazelisk
 - Symlink bazel:

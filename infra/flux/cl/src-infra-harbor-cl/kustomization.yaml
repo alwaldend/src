@@ -3,4 +3,5 @@ kind: Kustomization
 namespace: src-infra-harbor-cl
 resources:
   - ../../../../projects/kustomization/flux-repo
+  - ../../../../infra/harbor/cl/flux
   - manifests.yaml

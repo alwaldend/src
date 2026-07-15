@@ -31,7 +31,7 @@ end
 
 function M.kubernetes_login(t)
     local name, oidc, labels = t.name or "kubernetes_login", t.oidc, t.labels
-    local cluster_ca = t.cluster_ca
+    local cluster_ca, domain = t.cluster_ca, t.domain
     local res = {
         {
             name = name,

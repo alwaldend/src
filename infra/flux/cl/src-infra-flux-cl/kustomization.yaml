@@ -4,6 +4,8 @@ namespace: src-infra-flux-cl
 resources:
   - namespace.yaml
   - ../../../../projects/kustomization/flux-repo
-  - manifests.yaml
-  - cert-manager.yaml
+  - ../../../../projects/kustomization/traefik/flux
   - traefik.yaml
+  - ../../../../projects/kustomization/cert-manager/flux
+  - cert-manager.yaml
+  - kube-system.yaml
