@@ -1,3 +1,7 @@
+locals {
+  dns = jsondecode(file("${path.module}/../dnsconfig.json"))
+}
+
 module "vm_cloudinit_test" {
   source = ".././../../projects/tf_modules/pve_vm_qemu"
   name   = "${local.dns.domains.default.records.cloudinit_test.A.name}.alwaldend.com"

@@ -13,7 +13,6 @@ docs_filegroup(
 filegroup(
     name = "output",
     srcs = [
-        ":approles",
         ":pki_ca_clients",
         ":pki_ca_servers",
         ":ssh_ca_clients",
@@ -43,11 +42,5 @@ filegroup(
 filegroup(
     name = "ssh_ca_servers",
     srcs = ["ssh_ca_servers.crt"],
-    visibility = ["//:__subpackages__"],
-)
-
-filegroup(
-    name = "approles",
-    srcs = ["approles.json"],
     visibility = ["//:__subpackages__"],
 )
