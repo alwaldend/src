@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-07-11T07:07:15Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026071100 3600 600 604800 1440
+; generated with dnscontrol 2026-07-16T19:30:09Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026071600 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -49,6 +49,8 @@ _dmarc.simplelogin 10800 IN TXT "v=DMARC1; p=quarantine; pct=100; adkim=s; aspf=
 dkim._domainkey.simplelogin 10800 IN CNAME dkim._domainkey.simplelogin.co.
 dkim02._domainkey.simplelogin 10800 IN CNAME dkim02._domainkey.simplelogin.co.
 dkim03._domainkey.simplelogin 10800 IN CNAME dkim03._domainkey.simplelogin.co.
+threexui         IN A     192.168.10.80
+host1.threexui   IN A     192.168.10.80
 vault            IN A     192.168.1.218
 www              IN CNAME alwaldend.com.
 yandex     21600 IN MX    10 mx.yandex.net.
