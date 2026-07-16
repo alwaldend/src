@@ -1,0 +1,37 @@
+{
+    "toolchains": [
+        {
+            "name": "x_ui",
+            "version": "3.5.0"
+        }
+    ],
+    "archives": [
+        {
+            "archive_name": "linux_x86_64",
+            "toolchain_name": "x_ui",
+            "toolchain_version": "3.5.0",
+            "binaries": [
+                {
+                    "name": "x_ui",
+                    "path": "out/x-ui"
+                }
+            ],
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/MHSanaei/3x-ui/releases/download/v3.5.0/x-ui-linux-amd64.tar.gz",
+                        "output": "out",
+                        "strip_prefix": "x-ui",
+                        "integrity": "sha256-aEzeWZYJjck4SHj6qZrBOzQYg+x5uBlIsZAOKVEe5Jg="
+                    }
+                }
+            ],
+            "rules": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}

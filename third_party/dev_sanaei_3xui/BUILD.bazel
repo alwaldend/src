@@ -1,0 +1,17 @@
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//third_party:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+alias(
+    name = "dev_sanaei_3xui",
+    actual = "@dev_sanaei_3xui//:x_ui_binary",
+    visibility = ["//:__subpackages__"],
+)
