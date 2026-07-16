@@ -20,3 +20,9 @@ This tree contains third party code
 ```sh
 bazel run //third_party:publish_helm.io_goharbor_helm_harbor
 ```
+
+## Deploy ISO to Proxmox
+
+```sh
+bazel run //third_party:deploy_iso.org_fedora_cloud
+```

@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"io/fs"
+	"log"
 	"net/http"
 	"os"
 
@@ -15,10 +15,10 @@ func run() error {
 	if err != nil {
 		return fmt.Errorf("could not create fs: %w", err)
 	}
-    siteFsSub, err := fs.Sub(siteFs, "site.destination")
-    if err != nil {
-        return fmt.Errorf("could not get site fs subtree: %w", err)
-    }
+	siteFsSub, err := fs.Sub(siteFs, "site.destination")
+	if err != nil {
+		return fmt.Errorf("could not get site fs subtree: %w", err)
+	}
 	fileServer := http.FileServer(http.FS(siteFsSub))
 	http.Handle("/", fileServer)
 	log.Println("Listening on 8080")

@@ -46,7 +46,6 @@ func New(data []byte) (*FS, error) {
 	return NewFromReader(bytes.NewReader(data))
 }
 
-
 // NewFromReader builds an FS by reading a raw (uncompressed) tar stream from r.
 // For compressed archives, wrap r with the appropriate decompressor before calling.
 func NewFromReader(r io.Reader) (*FS, error) {

@@ -18,9 +18,9 @@ variable "backend" {
 }
 
 variable "allow_subdomains" {
-  type = bool
+  type        = bool
   description = "If set, allow subdomains"
-  default = true
+  default     = true
 }
 
 variable "allowed_domains" {

@@ -56,3 +56,37 @@ al_binary_run_map(
         "forgejo",
     ],
 )
+
+write_file(
+    name = "deploy_iso_script",
+    out = "deploy_iso_script.sh",
+    content = [
+        "#!/usr/bin/env sh",
+        "set -eu",
+        'for iso in "${@}"; do',
+        "target=pve.alwaldend.com:/var/lib/vz/template/iso/",
+        'echo "Deploying ${iso} to ${target}" >&2',
+        'scp "${iso}" "${target}"',
+        "done",
+    ],
+    is_executable = True,
+)
+
+al_binary_run_map(
+    name = "deploy_iso",
+    args = {
+        "org_fedora_cloud": [
+            "$(rootpath :deploy_iso_script)",
+            "$(rootpath //third_party/org_fedora_cloud)",
+        ],
+    },
+    configs = [
+        ":al",
+    ],
+    data = [
+        ":deploy_iso_script",
+        "//third_party/org_fedora_cloud",
+    ],
+    run_args = [
+    ],
+)

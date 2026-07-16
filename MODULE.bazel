@@ -32,6 +32,7 @@ include("//third_party/io_cert_manager_cmctl:include.MODULE.bazel")
 include("//third_party/io_getsops_sops:include.MODULE.bazel")
 include("//third_party/sh_helm_helm:include.MODULE.bazel")
 include("//third_party/io_goharbor_helm_harbor:include.MODULE.bazel")
+include("//third_party/org_fedora_cloud:include.MODULE.bazel")
 
 # Tools
 include("//tools:include.MODULE.bazel")

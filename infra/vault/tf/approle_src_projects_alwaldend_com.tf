@@ -32,7 +32,7 @@ resource "vault_identity_group" "src_projects_alwaldend_com_users" {
   name              = "src_projects_alwaldend_com_users"
   type              = "internal"
   member_entity_ids = []
-  member_group_ids  = [
+  member_group_ids = [
     vault_identity_group.src_projects_alwaldend_com_admins.id,
   ]
   metadata = {

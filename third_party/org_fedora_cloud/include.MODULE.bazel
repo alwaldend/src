@@ -1,0 +1,12 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+_NAME = "Fedora-Cloud-Base-Generic-44-1.7.x86_64.qcow2"
+
+http_file(
+    name = "org_fedora_cloud",
+    downloaded_file_path = "{}.iso".format(_NAME),
+    integrity = "sha256-KGgP5bNxpaguv0OjGSbghqFo5ZlJ0DlpxQk+cHH5C38=",
+    urls = [
+        "https://download.fedoraproject.org/pub/fedora/linux/releases/44/Cloud/x86_64/images/{}".format(_NAME),
+    ],
+)

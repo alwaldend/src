@@ -182,11 +182,11 @@ func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRe
 	res := &al_proto.PluginStartResponse{
 		Env: map[string]string{
 			"PM_API_TOKEN_ID":     pveToken.Data.TokenId,
-			"TOKEN_ID":     pveToken.Data.TokenId,
+			"TOKEN_ID":            pveToken.Data.TokenId,
 			"PM_API_TOKEN_SECRET": pveToken.Data.TokenSecret,
-			"SECRET": pveToken.Data.TokenSecret,
+			"SECRET":              pveToken.Data.TokenSecret,
 			"PM_API_URL":          fmt.Sprintf("%s/api2/json", config.PveBaseUrl),
-			"API_URL":          fmt.Sprintf("%s/api2/json", config.PveBaseUrl),
+			"API_URL":             fmt.Sprintf("%s/api2/json", config.PveBaseUrl),
 		},
 	}
 	return res, nil

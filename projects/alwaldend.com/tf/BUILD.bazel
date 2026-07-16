@@ -14,7 +14,6 @@ docs_filegroup(
 genrule(
     name = "update_pve_disk",
     srcs = ["//projects/alwaldend.com/cmd/server:ops"],
-    executable = True,
     outs = ["update_pve_disk.sh"],
     cmd = """
 target=/var/lib/vz/template/iso/alwaldend.com-server.iso
@@ -34,9 +33,9 @@ for vmid in 900; do
 done
 EOF
 chmod u+x $(@)
-"""
+""",
+    executable = True,
 )
-
 
 _CONFIGS = ["//projects/alwaldend.com:al"]
 
