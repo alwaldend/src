@@ -33,9 +33,11 @@ caServer = "{{ traefik_acme_url }}"
 [certificatesResolvers.vault.acme.httpChallenge]
 entryPoint = "web"
 
+{% if not traefik_disable_eab %}
 [certificatesResolvers.vault.acme.eab]
 kid = "{{ traefik_acme_kid }}"
 hmacEncoded = "{{ traefik_acme_hmac }}"
+{% endif %}
 
 [tls.stores]
 [tls.stores.default.acme]

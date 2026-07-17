@@ -43,6 +43,13 @@
         owner: "root"
         group: "{{ threexui_user }}"
         mode: "0700"
+    - name: Copy x-ui binary
+      ansible.builtin.copy:
+        src: "{{ threexui_bin_local_dir }}/x-ui"
+        dest: "/usr/bin/x-ui"
+        owner: "root"
+        group: "root"
+        mode: "0755"
     - name: Set ownership
       ansible.builtin.file:
         path: "{{ threexui_bin_dir }}"
@@ -52,7 +59,7 @@
     - name: Copy the env file
       ansible.builtin.copy:
         content: |
-          {% for key, value in threexui_env.items() %}
+          {% for key, value in (threexui_env | combine(threexui_env_override)).items() %}
           {{ key }}={{ value }}
           {% endfor %}
         dest: "{{ threexui_env_path }}"
@@ -77,6 +84,20 @@
         name: "{{ threexui_service_path | basename }}"
         enabled: true
         state: started
+    - name: Write settings
+      environment: "{{ threexui_env | combine(threexui_env_override) }}"
+      ansible.builtin.command:
+        argv:
+          - "{{ threexui_bin_dir }}/x-ui"
+          - setting
+          - -username
+          - "{{ threexui_username }}"
+          - -password
+          - "{{ threexui_password }}"
+          - -port
+          - "{{ threexui_port }}"
+          - -webBasePath
+          - "{{ threexui_base_path }}"
     - name: Reload the service
       when: not threexui_service_started_result.changed
       ansible.builtin.systemd_service:

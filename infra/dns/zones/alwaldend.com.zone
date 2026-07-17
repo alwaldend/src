@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-07-16T19:30:09Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026071600 3600 600 604800 1440
+; generated with dnscontrol 2026-07-17T13:45:43Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026071703 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -51,6 +51,9 @@ dkim02._domainkey.simplelogin 10800 IN CNAME dkim02._domainkey.simplelogin.co.
 dkim03._domainkey.simplelogin 10800 IN CNAME dkim03._domainkey.simplelogin.co.
 threexui         IN A     192.168.10.80
 host1.threexui   IN A     192.168.10.80
+njalla1.nodes.threexui IN A 45.142.141.133
+           600   IN AAAA  2a0a:3840:8078:141:0:2d8e:8d85:1337
+sub.njalla1.nodes.threexui 600 IN CNAME njalla1.nodes.threexui.alwaldend.com.
 vault            IN A     192.168.1.218
 www              IN CNAME alwaldend.com.
 yandex     21600 IN MX    10 mx.yandex.net.

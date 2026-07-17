@@ -5,6 +5,8 @@ traefik_acme_url: "https://vault.alwaldend.com:8200/v1/{{ traefik_acme_path }}/d
 threexui_domain: threexui.alwaldend.com
 threexui_disk: /dev/sdb
 traefik_disk: /dev/sdc
+threexui_username: "{{ lookup('ansible.builtin.env', 'XUI_USERNAME', default=undefined()) }}"
+threexui_password: "{{ lookup('ansible.builtin.env', 'XUI_PASSWORD', default=undefined()) }}"
 ssh_valid_principals:
   - threexui.alwaldend.com
 

@@ -42,3 +42,121 @@ lib.plugin_call({
     plugin = "pve_login",
     labels = { tf = "setup" },
 })
+
+lib.plugin_call({
+    name = "control_plane",
+    plugin = "injector",
+    labels = { ansible = "1", tf = "main" },
+    data = {
+        res = {
+            {
+                name = "control_plane",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/src_infra_threexui/control_panel",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "XUI_USERNAME",
+                deps = { "control_plane" },
+                env = {
+                    value = "{{ .Last.Data.xui_username }}",
+                }
+            },
+            {
+                name = "XUI_PASSWORD",
+                deps = { "control_plane" },
+                env = {
+                    value = "{{ .Last.Data.xui_password }}",
+                }
+            },
+            {
+                name = "TF_VAR_xui_url",
+                deps = { "control_plane" },
+                env = {
+                    value = "{{ .Last.Data.xui_url }}",
+                }
+            },
+            {
+                name = "TF_VAR_xui_username",
+                deps = { "control_plane" },
+                env = {
+                    value = "{{ .Last.Data.xui_username }}",
+                }
+            },
+            {
+                name = "TF_VAR_xui_password",
+                deps = { "control_plane" },
+                env = {
+                    value = "{{ .Last.Data.xui_password }}",
+                }
+            },
+            {
+                name = "TF_VAR_xui_token",
+                deps = { "njalla_node" },
+                env = {
+                    value = "{{ .Last.Data.xui_token }}",
+                }
+            },
+        }
+    }
+})
+
+lib.plugin_call({
+    name = "njalla_node",
+    plugin = "injector",
+    labels = { ansible = "1", tf = "main" },
+    data = {
+        res = {
+            {
+                name = "njalla_node",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/src_infra_threexui/node_njalla",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "NJALLA_XUI_USERNAME",
+                deps = { "njalla_node" },
+                env = {
+                    value = "{{ .Last.Data.xui_username }}",
+                }
+            },
+            {
+                name = "NJALLA_XUI_PASSWORD",
+                deps = { "njalla_node" },
+                env = {
+                    value = "{{ .Last.Data.xui_password }}",
+                }
+            },
+            {
+                name = "TF_VAR_njalla_xui_url",
+                deps = { "njalla_node" },
+                env = {
+                    value = "{{ .Last.Data.xui_url }}",
+                }
+            },
+            {
+                name = "TF_VAR_njalla_xui_username",
+                deps = { "njalla_node" },
+                env = {
+                    value = "{{ .Last.Data.xui_username }}",
+                }
+            },
+            {
+                name = "TF_VAR_njalla_xui_password",
+                deps = { "njalla_node" },
+                env = {
+                    value = "{{ .Last.Data.xui_password }}",
+                }
+            },
+            {
+                name = "TF_VAR_njalla_xui_token",
+                deps = { "njalla_node" },
+                env = {
+                    value = "{{ .Last.Data.xui_token }}",
+                }
+            },
+        }
+    }
+})

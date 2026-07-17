@@ -9,3 +9,15 @@
         name: alwaldend.main.traefik
     - ansible.builtin.import_role:
         name: alwaldend.main.threexui
+
+- name: Data plane
+  hosts: threexui_data_plane
+  force_handlers: true
+  become: true
+  tasks:
+    - ansible.builtin.import_role:
+        name: alwaldend.main.host
+    - ansible.builtin.import_role:
+        name: alwaldend.main.traefik
+    - ansible.builtin.import_role:
+        name: alwaldend.main.threexui

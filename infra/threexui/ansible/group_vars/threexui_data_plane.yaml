@@ -1,0 +1,11 @@
+traefik_acme_url: https://acme-v02.api.letsencrypt.org/directory
+traefik_disable_eab: true
+threexui_domain: "{{ inventory_hostname }}"
+ssh_valid_principals:
+  - nodes.threexui.alwaldend.com
+  - "*.nodes.threexui.alwaldend.com"
+threexui_username: "{{ lookup('ansible.builtin.env', 'NJALLA_XUI_USERNAME', default=undefined()) }}"
+threexui_password: "{{ lookup('ansible.builtin.env', 'NJALLA_XUI_PASSWORD', default=undefined()) }}"
+threexui_base_path: "{{ lookup('ansible.builtin.env', 'NJALLA_XUI_BASE_PATH', default=undefined()) }}"
+threexui_disk:
+traefik_disk:

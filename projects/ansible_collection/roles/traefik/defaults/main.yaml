@@ -7,6 +7,7 @@ traefik_disk:
 traefik_acme_path: "{{ undefined }}"
 traefik_config_dir: "{{ traefik_dir }}/configs"
 traefik_config_path: "{{ traefik_config_dir }}/traefik.toml"
+traefik_disable_eab: false
 traefik_config_local_path: "files/traefik.toml"
 traefik_dynamic_config_path: "{{ traefik_config_dir }}/traefik_dynamic.toml"
 traefik_dynamic_config_local_path: "files/traefik_dynamic.toml"

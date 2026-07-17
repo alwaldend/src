@@ -42,6 +42,7 @@
         mode: "0755"
     - name: Generate the eab
       connection: local
+      when: not traefik_disable_eab
       register: traefik_eab_result
       environment:
         VAULT_ADDR: "{{ lookup('ansible.builtin.env', 'VAULT_ADDR') }}"
@@ -57,13 +58,15 @@
           - -format=json
           - --force
           - "{{ traefik_acme_path }}/new-eab"
-    - name: Write the config
-      register: traefik_config_var
-      vars:
+    - name: Parse eab
+      when: not traefik_disable_eab
+      ansible.builtin.set_fact:
         traefik_acme_data: "{{ (traefik_eab_result.stdout | from_json).data }}"
         traefik_acme_kid: "{{ traefik_acme_data.id }}"
         traefik_acme_hmac: "{{ traefik_acme_data.key }}"
         traefik_acme_hmac_encoded: "{{ traefik_acme_data.key | b64encode }}"
+    - name: Write the config
+      register: traefik_config_var
       ansible.builtin.template:
         src: "{{ traefik_config_local_path }}"
         dest: "{{ traefik_config_path }}"
@@ -89,11 +92,7 @@
       when: traefik_service_var.changed
       ansible.builtin.systemd_service:
         daemon_reload: true
-    - name: Restart the service
-      when: >-
-        traefik_service_var.changed
-        or traefik_config_var.changed or traefik_bin_var.changed
-        or traefik_tls_client_ca_file_path_var.changed
+    - name: Reload the service
       ansible.builtin.systemd_service:
         name: "{{ traefik_service_path | basename }}"
         state: reloaded

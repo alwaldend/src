@@ -13,6 +13,22 @@
                         "name":  "threexui",
                         "address": "192.168.10.80"
                     }
+                },
+                "njalla1": {
+                    "A": {
+                        "name":  "njalla1.nodes.threexui",
+                        "address": "45.142.141.133"
+                    },
+                    "AAAA": {
+                        "name":  "njalla1.nodes.threexui",
+                        "address": "2a0a:3840:8078:141::2d8e:8d85:1337"
+                    }
+                },
+                "njalla1sub": {
+                    "CNAME": {
+                        "name":  "sub.njalla1.nodes.threexui",
+                        "target": "njalla1.nodes.threexui.alwaldend.com."
+                    }
                 }
             }
         }
