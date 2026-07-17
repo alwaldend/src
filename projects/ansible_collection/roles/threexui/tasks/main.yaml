@@ -1,0 +1,84 @@
+- tags:
+    - threexui
+  block:
+    - name: Create threexui user
+      ansible.builtin.user:
+        name: "{{ threexui_user }}"
+        uid: "{{ threexui_user_uid }}"
+        shell: /sbin/nologin
+        home: "{{ threexui_dir }}/home"
+        system: true
+    - name: Create filesystem on the threexui disk
+      when: threexui_disk is truthy
+      community.general.filesystem:
+        fstype: ext4
+        dev: "{{ threexui_disk }}"
+    - name: Mount threexui disk
+      when: threexui_disk is truthy
+      ansible.posix.mount:
+        path: "{{ threexui_dir }}"
+        src: "{{ threexui_disk }}"
+        fstype: ext4
+        state: mounted
+    - name: Create threexui dirs
+      loop:
+        - "{{ threexui_dir }}"
+        - "{{ threexui_data_dir }}"
+        - "{{ threexui_config_dir }}"
+        - "{{ threexui_work_dir }}"
+        - "{{ threexui_log_dir }}"
+        - "{{ threexui_bin_dir }}"
+        - "{{ threexui_env_path | dirname }}"
+      ansible.builtin.file:
+        state: directory
+        owner: "{{ threexui_user }}"
+        group: "{{ threexui_user }}"
+        mode: "0700"
+        path: "{{ item }}"
+    - name: Copy binaries
+      register: threexui_bin_var
+      ansible.builtin.copy:
+        src: "{{ threexui_bin_local_dir }}/"
+        dest: "{{ threexui_bin_dir }}/"
+        owner: "root"
+        group: "{{ threexui_user }}"
+        mode: "0700"
+    - name: Set ownership
+      ansible.builtin.file:
+        path: "{{ threexui_bin_dir }}"
+        owner: "{{ threexui_user }}"
+        group: "{{ threexui_user }}"
+        recurse: true
+    - name: Copy the env file
+      ansible.builtin.copy:
+        content: |
+          {% for key, value in threexui_env.items() %}
+          {{ key }}={{ value }}
+          {% endfor %}
+        dest: "{{ threexui_env_path }}"
+        owner: "{{ threexui_user }}"
+        group: "{{ threexui_user }}"
+        mode: "0600"
+    - name: Write the service
+      register: threexui_service_result
+      ansible.builtin.template:
+        src: systemd_service.conf
+        dest: "{{ threexui_service_path }}"
+        owner: root
+        group: root
+        mode: 644
+    - name: Ensure the daemon is reloaded
+      when: threexui_service_result.changed
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+    - name: Start the service and enable
+      register: threexui_service_started_result
+      ansible.builtin.systemd_service:
+        name: "{{ threexui_service_path | basename }}"
+        enabled: true
+        state: started
+    - name: Reload the service
+      when: not threexui_service_started_result.changed
+      ansible.builtin.systemd_service:
+        name: "{{ threexui_service_path | basename }}"
+        state: reloaded

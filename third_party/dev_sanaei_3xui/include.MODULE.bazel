@@ -1,13 +1,11 @@
-binary_toolchain_extension = use_extension(
-    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
-    "binary_toolchain_extension",
-)
-binary_toolchain_extension.toolchains(
-    lock = "//third_party/dev_sanaei_3xui:binary_toolchain.json",
-    toolchains_map = {
-        "x_ui": "dev_sanaei_3xui",
-    },
-)
-use_repo(binary_toolchain_extension, "dev_sanaei_3xui")
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-register_toolchains("@dev_sanaei_3xui//:all")
+http_archive(
+    name = "dev_sanaei_3xui",
+    build_file = "//third_party/dev_sanaei_3xui:3xui.BUILD.bazel",
+    integrity = "sha256-aEzeWZYJjck4SHj6qZrBOzQYg+x5uBlIsZAOKVEe5Jg=",
+    strip_prefix = "x-ui",
+    urls = [
+        "https://github.com/MHSanaei/3x-ui/releases/download/v3.5.0/x-ui-linux-amd64.tar.gz",
+    ],
+)

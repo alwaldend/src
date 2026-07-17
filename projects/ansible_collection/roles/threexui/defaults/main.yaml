@@ -1,0 +1,26 @@
+threexui_user: threexui
+threexui_user_uid: 6468
+threexui_dir: "/opt/threexui"
+threexui_data_dir: "{{ threexui_dir }}/data"
+threexui_work_dir: "{{ threexui_dir }}/work"
+threexui_disk:
+threexui_log_dir: "{{ threexui_dir }}/logs"
+threexui_service_path: "/lib/systemd/system/threexui.service"
+threexui_vault_local_path: "{{ role_path }}/files/vault"
+threexui_bin_dir: "{{ threexui_dir }}/bin"
+threexui_bin_local_dir: "{{ role_path }}/files/threexui_bin"
+threexui_config_dir: "{{ threexui_dir }}/configs"
+threexui_env_path: "{{ threexui_config_dir }}/threexui.env"
+threexui_env:
+  # https://docs.sanaei.dev/docs/reference/env-vars/
+  XUI_DB_TYPE: sqlite
+  XUI_DB_FOLDER: "{{ threexui_data_dir }}"
+  XUI_PORT: "2053"
+  XUI_INIT_WEB_BASE_PATH: /
+  XUI_ENABLE_FAIL2BAN: "true"
+  XUI_SKIP_HSTS: "true"
+  XUI_LOG_LEVEL: info
+  XUI_DEBUG: "false"
+  XUI_LOG_FOLDER: "{{ threexui_log_dir }}"
+  XUI_BIN_FOLDER: "{{ threexui_bin_dir }}/bin"
+  XRAY_VMESS_AEAD_FORCED: "false"

@@ -1,0 +1,8 @@
+[http.routers.forgejo_websecure]
+rule = "Host(`{{ threexui_domain }}`) || Host(`{{ inventory_hostname }}`)"
+service = "threexui"
+tls = { certResolver = "vault" }
+
+[http.services.threexui.loadBalancer]
+[[http.services.threexui.loadBalancer.servers]]
+url = "http://127.0.0.1:2053"

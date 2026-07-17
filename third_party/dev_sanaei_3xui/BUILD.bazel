@@ -12,6 +12,6 @@ docs_filegroup(
 
 alias(
     name = "dev_sanaei_3xui",
-    actual = "@dev_sanaei_3xui//:x_ui_binary",
+    actual = "@dev_sanaei_3xui",
     visibility = ["//:__subpackages__"],
 )

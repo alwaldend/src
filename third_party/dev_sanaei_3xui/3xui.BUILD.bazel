@@ -1,0 +1,5 @@
+filegroup(
+    name = "dev_sanaei_3xui",
+    srcs = glob(["**"]),
+    visibility = ["//visibility:public"],
+)
