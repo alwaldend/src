@@ -20,7 +20,10 @@ _RUN_ARGS = [
     "vault_env=default_default",
 ]
 
-_DATA = glob(["*.tf"]) + [
+_DATA = glob([
+    "*.tf",
+    "node/*.tf",
+]) + [
     ".terraform.lock.hcl",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",

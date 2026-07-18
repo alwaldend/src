@@ -130,6 +130,13 @@ lib.plugin_call({
                 }
             },
             {
+                name = "NJALLA_XUI_BASE_PATH",
+                deps = { "njalla_node" },
+                env = {
+                    value = "{{ .Last.Data.xui_base_path }}",
+                }
+            },
+            {
                 name = "TF_VAR_njalla_xui_url",
                 deps = { "njalla_node" },
                 env = {

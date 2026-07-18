@@ -29,6 +29,12 @@
                         "name":  "sub.njalla1.nodes.threexui",
                         "target": "njalla1.nodes.threexui.alwaldend.com."
                     }
+                },
+                "njalla1inbound": {
+                    "CNAME": {
+                        "name":  "inbound.njalla1.nodes.threexui",
+                        "target": "njalla1.nodes.threexui.alwaldend.com."
+                    }
                 }
             }
         }

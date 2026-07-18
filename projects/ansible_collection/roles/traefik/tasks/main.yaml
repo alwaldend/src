@@ -60,8 +60,9 @@
           - "{{ traefik_acme_path }}/new-eab"
     - name: Parse eab
       when: not traefik_disable_eab
-      ansible.builtin.set_fact:
+      vars:
         traefik_acme_data: "{{ (traefik_eab_result.stdout | from_json).data }}"
+      ansible.builtin.set_fact:
         traefik_acme_kid: "{{ traefik_acme_data.id }}"
         traefik_acme_hmac: "{{ traefik_acme_data.key }}"
         traefik_acme_hmac_encoded: "{{ traefik_acme_data.key | b64encode }}"

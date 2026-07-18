@@ -1,17 +1,26 @@
 [http.routers.threexui]
-rule = "Host(`{{ threexui_domain }}`) || Host(`{{ inventory_hostname }}`)"
+rule = "PathPrefix(`{{ threexui_base_path }}`)"
 service = "threexui"
 tls = { certResolver = "vault" }
 
-[http.routers.threexuisub]
-rule = "Host(`sub.{{ threexui_domain }}`) || Host(`sub.{{ inventory_hostname }}`)"
-service = "threexuisub"
-tls = { certResolver = "vault" }
-
-[http.services.threexui.loadBalancer]
 [[http.services.threexui.loadBalancer.servers]]
 url = "http://127.0.0.1:2053"
 
-[http.services.threexuisub.loadBalancer]
+[http.routers.threexuisub]
+rule = "PathPrefix(`{{ threexui_base_path }}/sub`)"
+service = "threexuisub"
+tls = { certResolver = "vault" }
+
 [[http.services.threexuisub.loadBalancer.servers]]
 url = "http://127.0.0.1:2096"
+
+{% for port in range(40000, 40300) %}
+[http.routers.inbound_{{ port }}]
+rule = "PathPrefix(`/inbound_{{ threexui_base_path | trim("/") }}_{{ port }}`)"
+service = "inbound_{{ port }}"
+tls = { certResolver = "vault" }
+entrypoints = ["inbound_{{ port }}_ipv4","inbound_{{ port }}_ipv6"]
+[[http.services.inbound_{{ port }}.loadBalancer.servers]]
+url = "http://127.0.0.1:{{ port }}"
+
+{% endfor %}

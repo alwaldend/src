@@ -42,6 +42,9 @@ resource "vault_identity_group" "src_infra_threexui_users" {
 resource "vault_identity_group" "src_infra_threexui_admins" {
   name = "src_infra_threexui_admins"
   type = "internal"
+  member_entity_ids = [
+    vault_identity_entity.simeonwarren.id,
+  ]
   member_group_ids = [
     module.src_infra_threexui_approle.group_id,
   ]

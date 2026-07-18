@@ -641,9 +641,9 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="ByAm9mtcqF1L_fWd3jSB-23" connectable="0" parent="ByAm9mtcqF1L_fWd3jSB-22" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Reality" vertex="1">
+        <mxCell id="ByAm9mtcqF1L_fWd3jSB-23" connectable="0" parent="ByAm9mtcqF1L_fWd3jSB-22" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="VLESS/Grpc proxy&lt;br&gt;Subscription over HTTPS" vertex="1">
           <mxGeometry relative="1" x="-0.1698" y="3" as="geometry">
-            <mxPoint x="-70" y="-12" as="offset" />
+            <mxPoint x="-55" y="-12" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="ByAm9mtcqF1L_fWd3jSB-10" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="User" vertex="1">

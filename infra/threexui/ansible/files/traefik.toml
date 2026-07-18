@@ -45,3 +45,14 @@ resolver = "vault"
 [tls.stores.default.acme.domain]
 main = "{{ threexui_domain }}"
 sans = ["{{ inventory_hostname }}"]
+
+{% if traefik_disable_eab %}
+{% for port in range(40000, 40300) %}
+[entryPoints.inbound_{{ port }}_ipv4]
+address = "{{ ansible_default_ipv4.address }}:{{ port }}"
+http = { tls = { certResolver = "vault" }  }
+[entryPoints.inbound_{{ port }}_ipv6]
+address = "[{{ ansible_default_ipv6.address }}]:{{ port }}"
+http = { tls = { certResolver = "vault" }  }
+{% endfor %}
+{% endif %}

@@ -20,3 +20,7 @@ firewall_allow_port_from:
   - src: "any"
     port: 80
     comment: HTTP
+  - src: "any"
+    port: "40000:40300"
+    proto: tcp
+    comment: Inbounds (Traefik does not support sockets)

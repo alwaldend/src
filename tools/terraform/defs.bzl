@@ -42,6 +42,8 @@ DEFAULT_TERRAFORM_BINARIES = {
     "show": ["show"],
     "deploy": ["apply"],
     "deploy_y": ["apply", "-y"],
+    "state": ["state"],
+    "force_unlock": ["force-unlock"],
 }
 
 def terraform_binary_map(

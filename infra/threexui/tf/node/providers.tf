@@ -9,15 +9,4 @@ terraform {
       version = "5.8.0"
     }
   }
-  backend "http" {
-  }
-}
-
-provider "threexui" {
-  endpoint = var.xui_url
-  username = var.xui_username
-  password = var.xui_password
-}
-
-provider "vault" {
 }
