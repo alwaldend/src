@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/base64"
+	"encoding/json"
 	"fmt"
 	"strings"
 	"text/template"
@@ -28,6 +29,13 @@ func (self *Templater) Template(ctx context.Context, tpl string, data []*Resourc
 	}
 	tmpl, err := template.New("com.alwaldend.src.tools.vault.injector.Templater.Template").Funcs(
 		template.FuncMap{
+			"to_json_indent": func(val any, prefix string, indent string) (string, error) {
+				res, err := json.MarshalIndent(val, prefix, indent)
+				if err != nil {
+					return "", fmt.Errorf("could not marshal json: %w", err)
+				}
+				return string(res), nil
+			},
 			"b64decode": func(val string) (string, error) {
 				res, err := base64.StdEncoding.DecodeString(val)
 				if err != nil {

@@ -27,6 +27,7 @@ _DATA = glob([
     ".terraform.lock.hcl",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",
+    "//data/mullvad:relays",
 ]
 
 terraform_binary_map(

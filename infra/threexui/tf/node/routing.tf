@@ -16,4 +16,12 @@ resource "threexui_xray_routing" "config" {
     inbound_tag  = [threexui_inbound.freedom.tag]
     outbound_tag = "direct"
   }
+
+  dynamic "rule" {
+    for_each = threexui_inbound.mullvad_min
+    content {
+      inbound_tag  = [rule.value.tag]
+      outbound_tag = "out-mullvad-min-${rule.key}"
+    }
+  }
 }

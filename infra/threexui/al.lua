@@ -44,6 +44,30 @@ lib.plugin_call({
 })
 
 lib.plugin_call({
+    name = "mullvad_keys",
+    plugin = "injector",
+    labels = { tf = "main" },
+    data = {
+        res = {
+            {
+                name = "mullvad_keys",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/src_infra_threexui/mullvad_keys",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "TF_VAR_mullvad_keys",
+                deps = { "mullvad_keys" },
+                env = {
+                    value = '{{ to_json_indent .Last.Data.keys "" "    " }}',
+                }
+            },
+        },
+    },
+})
+
+lib.plugin_call({
     name = "control_plane",
     plugin = "injector",
     labels = { ansible = "1", tf = "main" },

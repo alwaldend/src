@@ -7,6 +7,7 @@ locals {
       xui_username = var.njalla_xui_username
       xui_password = var.njalla_xui_password
       xui_url      = var.njalla_xui_url
+      mullvad_key  = var.mullvad_keys["njalla1"]
     }
   }
 }
@@ -28,6 +29,7 @@ module "node_njalla1" {
   xui_url       = local.nodes["njalla1"].xui_url
   xui_username  = local.nodes["njalla1"].xui_username
   xui_password  = local.nodes["njalla1"].xui_password
+  mullvad_key   = local.nodes["njalla1"].mullvad_key
 }
 
 resource "threexui_node" "nodes" {

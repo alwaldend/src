@@ -25,6 +25,11 @@ certResolver = "vault"
 # dashboard = true
 # insecure = true
 
+# [accessLog]
+# format = "json"
+# [accessLog.filters]
+# statusCodes = ["200", "400-404", "500-503"]
+
 [certificatesResolvers.vault.acme]
 email = "src_infra_threexui@alwaldend.com"
 storage = "{{ traefik_data_dir }}/acme_vault.json"

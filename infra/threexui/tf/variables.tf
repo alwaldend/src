@@ -14,6 +14,13 @@ variable "xui_token" {
   type = string
 }
 
+variable "mullvad_keys" {
+  type = map(object({
+    private_key = string
+    address     = string
+  }))
+}
+
 variable "njalla_xui_url" {
   type = string
 }
