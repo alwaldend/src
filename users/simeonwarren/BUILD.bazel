@@ -3,6 +3,15 @@ load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = [
+        "//users:__pkg__",
+        "//users/simeonwarren:__subpackages__",
+    ],
+)
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),

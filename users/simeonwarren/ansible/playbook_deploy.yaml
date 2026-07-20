@@ -1,0 +1,11 @@
+- name: Deploy
+  hosts: forgejo
+  force_handlers: true
+  become: true
+  tasks:
+    - ansible.builtin.import_role:
+        name: alwaldend.main.host
+    - ansible.builtin.import_role:
+        name: alwaldend.main.traefik
+    - ansible.builtin.import_role:
+        name: alwaldend.main.forgejo

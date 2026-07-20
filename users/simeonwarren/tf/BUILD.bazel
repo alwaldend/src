@@ -15,7 +15,10 @@ _CONFIGS = ["//users/simeonwarren:al"]
 
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
+    "//projects/tf_modules/pve_vm_qemu",
+    "//users/simeonwarren:dnsconfig",
     "//tools/vault/tf_backend",
+    "//tools/vault/pve_login",
     "//tools/vault/injector",
 ]
 

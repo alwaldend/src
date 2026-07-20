@@ -13,6 +13,7 @@ var jsons = [
     require("../harbor/dnsconfig.json"),
     require("../flux/dnsconfig.json"),
     require("../threexui/dnsconfig.json"),
+    require("../../users/simeonwarren/dnsconfig.json"),
 ];
 
 

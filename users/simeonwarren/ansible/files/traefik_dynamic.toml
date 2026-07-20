@@ -1,0 +1,8 @@
+[http.routers.forgejo_websecure]
+rule = "Host(`{{ forgejo_domain }}`) || Host(`{{ inventory_hostname }}`)"
+service = "forgejo"
+tls = { certResolver = "vault" }
+
+[http.services.forgejo.loadBalancer]
+[[http.services.forgejo.loadBalancer.servers]]
+url = "http://127.0.0.1:3000"

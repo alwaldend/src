@@ -21,6 +21,12 @@ infra.yc_auth({
     labels = { tf = "1" },
 })
 
+lib.plugin_call({
+    name = "pve_login",
+    plugin = "pve_login",
+    labels = { tf = "1" },
+})
+
 infra.yc_account({
     path = "yandex.cloud/org1/folders/user-simeonwarren/account",
     labels = { tf = "1" },
