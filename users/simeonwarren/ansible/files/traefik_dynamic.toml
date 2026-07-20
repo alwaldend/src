@@ -1,8 +1,8 @@
-[http.routers.forgejo_websecure]
-rule = "Host(`{{ forgejo_domain }}`) || Host(`{{ inventory_hostname }}`)"
-service = "forgejo"
+[http.routers.opencode_websecure]
+rule = "Host(`{{ opencode_domain }}`) || Host(`{{ inventory_hostname }}`)"
+service = "opencode"
 tls = { certResolver = "vault" }
 
-[http.services.forgejo.loadBalancer]
-[[http.services.forgejo.loadBalancer.servers]]
-url = "http://127.0.0.1:3000"
+[http.services.opencode.loadBalancer]
+[[http.services.opencode.loadBalancer.servers]]
+url = "http://127.0.0.1:4096"

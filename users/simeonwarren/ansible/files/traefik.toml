@@ -26,7 +26,7 @@ certResolver = "vault"
 # insecure = true
 
 [certificatesResolvers.vault.acme]
-email = "src_infra_dc1_forgejo1@alwaldend.com"
+email = "users_simeonwarren@alwaldend.com"
 storage = "{{ traefik_data_dir }}/acme_vault.json"
 caServer = "{{ traefik_acme_url }}"
 
@@ -37,9 +37,13 @@ entryPoint = "web"
 kid = "{{ traefik_acme_kid }}"
 hmacEncoded = "{{ traefik_acme_hmac }}"
 
-[tls.stores]
 [tls.stores.default.acme]
 resolver = "vault"
 [tls.stores.default.acme.domain]
-main = "{{ forgejo_domain }}"
+main = "{{ opencode_domain }}"
 sans = ["{{ inventory_hostname }}"]
+
+[authSources.vault.oidc]
+issuer = "https://vault.dc1.alwaldend.com:8200/v1/identity/oidc/provider/users_simeonwarren_provider"
+clientID = "{{ lookup('ansible.builtin.env', 'OIDC_CLIENT_ID', default=undefined()) }}"
+clientSecret = "{{ lookup('ansible.builtin.env', 'OIDC_CLIENT_SECRET', default=undefined()) }}"

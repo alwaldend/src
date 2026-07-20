@@ -4,13 +4,13 @@
             "records": {
                 "host1": {
                     "A": {
-                        "name": "host1.opencode.users.simeonwarren",
+                        "name": "host1.opencode.simeonwarren.users",
                         "address": "192.168.10.90"
                     }
                 },
                 "root": {
                     "A": {
-                        "name": "opencode.users.simeonwarren",
+                        "name": "opencode.simeonwarren.users",
                         "address": "192.168.10.90"
                     }
                 }

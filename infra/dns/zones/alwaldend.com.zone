@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-07-20T15:30:22Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026072000 3600 600 604800 1440
+; generated with dnscontrol 2026-07-20T16:45:17Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026072002 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -41,7 +41,6 @@ host1.forgejo    IN A     192.168.10.40
 harbor           IN A     192.168.10.50
 host1.harbor     IN A     192.168.10.50
 pve              IN A     192.168.1.216
-opencode.users.simeonwarren IN A 192.168.10.90
 simplelogin 10800 IN MX   10 mx1.simplelogin.co.
            10800 IN MX    20 mx2.simplelogin.co.
            10800 IN TXT   "sl-verification=bxfzzfjiggzsxyzxhhmkmjqkaskjgy"
@@ -56,6 +55,8 @@ njalla1.nodes.threexui IN A 45.142.141.133
            600   IN AAAA  2a0a:3840:8078:141:0:2d8e:8d85:1337
 inbound.njalla1.nodes.threexui 600 IN CNAME njalla1.nodes.threexui.alwaldend.com.
 sub.njalla1.nodes.threexui 600 IN CNAME njalla1.nodes.threexui.alwaldend.com.
+opencode.simeonwarren.users IN A 192.168.10.90
+host1.opencode.simeonwarren.users IN A 192.168.10.90
 vault            IN A     192.168.1.218
 www              IN CNAME alwaldend.com.
 yandex     21600 IN MX    10 mx.yandex.net.

@@ -6,6 +6,15 @@ lib.vault_auth({
     approle = { name = "user_simeonwarren" },
 })
 
+infra.ansible_keys({
+    name = "ansible_keys",
+    labels = { ansible = "1" },
+    vault_ssh = {
+        backend = "ssh/clients/sign/admins",
+        ttl = 60 * 60 * 2
+    }
+})
+
 lib.plugin_call({
     name = "tf_backend",
     plugin = "tf_backend",
@@ -19,6 +28,37 @@ lib.plugin_call({
 infra.yc_auth({
     path = "yandex.cloud/org1/folders/user-simeonwarren/account_iam_key",
     labels = { tf = "1" },
+})
+
+lib.plugin_call({
+    name = "oidc_client",
+    plugin = "injector",
+    labels = { ansible = "1" },
+    data = {
+        res =  {
+            {
+                name = "oidc_client",
+                op = {
+                    method = "read",
+                    path = "identity/oidc/client/users_simeonwarren_provider"
+                }
+            },
+            {
+                name = "OIDC_CLIENT_ID",
+                deps = { "oidc_client" },
+                env = {
+                    value = "{{ .Last.Data.client_id }}",
+                }
+            },
+            {
+                name = "OIDC_CLIENT_SECRET",
+                deps = { "oidc_client" },
+                env = {
+                    value = "{{ .Last.Data.client_secret }}",
+                }
+            },
+        }
+    }
 })
 
 lib.plugin_call({

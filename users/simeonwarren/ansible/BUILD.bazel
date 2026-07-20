@@ -6,7 +6,7 @@ load("//tools/docs:defs.bzl", "docs_filegroup")
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//infra/forgejo:__pkg__"],
+    visibility = ["//users/simeonwarren:__pkg__"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
@@ -23,7 +23,7 @@ al_binary_run_map(
             "playbook_deploy.yaml",
         ],
     },
-    configs = ["//infra/forgejo:al"],
+    configs = ["//users/simeonwarren:al"],
     data = [
         ":ansible_bin",
         "//tools/vault/injector",

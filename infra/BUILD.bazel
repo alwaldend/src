@@ -20,7 +20,7 @@ filegroup(
 pkg_filegroup(
     name = "ansible_cfg",
     srcs = [":ansible_cfg_file"],
-    visibility = ["//infra:__subpackages__"],
+    visibility = ["//:__subpackages__"],
 )
 
 pkg_files(

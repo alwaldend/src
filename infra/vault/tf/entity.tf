@@ -10,6 +10,9 @@ resource "vault_identity_entity" "simeonwarren" {
 module "users_simeonwarren_approle" {
   source = "../../../projects/tf_modules/vault_approle"
   name   = "user_${vault_identity_entity.simeonwarren.name}"
+  policies = [
+    module.users_simeonwarren_ssh.policy,
+  ]
   member_entity_ids = [
     vault_identity_entity.simeonwarren.id,
   ]
@@ -40,10 +43,10 @@ module "users_simeonwarren_ssh" {
   allowed_domains = "simeonwarren.users.alwaldend.com"
 }
 
-module "users_simeonwarren_server" {
+module "users_simeonwarren_pki_server" {
   source                   = "../../../projects/tf_modules/vault_pki_server"
   backend                  = module.pki_ica_servers.backend
-  name                     = "users_simeonwarren_server"
+  name                     = "users_simeonwarren_pki_server"
   allowed_domains          = ["simeonwarren.users.alwaldend.com"]
   eab_new_member_group_ids = [module.users_simeonwarren_approle.group_id]
   client_flag              = true
@@ -60,6 +63,9 @@ module "users_simeonwarren_provider" {
     vault_identity_oidc_scope.email.name,
   ]
   group_ids = [
+    module.users_simeonwarren_approle.group_id,
+  ]
+  allowed_read_clients_group_ids = [
     module.users_simeonwarren_approle.group_id,
   ]
   redirect_urls = [

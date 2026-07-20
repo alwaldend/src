@@ -3,8 +3,10 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"git.alwaldend.com/alwaldend/src/tools/vault/injector/injector_proto"
+	"github.com/hashicorp/vault/api"
 )
 
 type OpFetcher struct {
@@ -30,18 +32,26 @@ func (self *OpFetcher) Get(ctx context.Context, r *injector_proto.Resource, d []
 	if err != nil {
 		return nil, fmt.Errorf("could not create vault client for op %s: %w", r.Name, err)
 	}
-	if op.Method == "" || op.Method == "write" {
-		data := map[string]any{}
-		for key, value := range op.Data {
-			data[key] = value
+	data := map[string]any{}
+	for key, value := range op.Data {
+		data[key] = value
+	}
+	var resp *api.Secret
+	logical := client.Client.Logical()
+	switch op.Method {
+	case "", "read":
+		resp, err = logical.Read(op.Path)
+		if err != nil {
+			return nil, fmt.Errorf("read error: %w", err)
 		}
-		resp, err := client.Client.Logical().Write(op.Path, data)
+	case "write":
+		resp, err = logical.Write(op.Path, data)
 		if err != nil {
 			return nil, fmt.Errorf("write error: %w", err)
 		}
-		res := &ResourceResult{Name: r.Name, Data: resp.Data}
-		return res, nil
-	} else {
+	default:
 		return nil, fmt.Errorf("invalid method %s", op.Method)
 	}
+	res := &ResourceResult{Name: r.Name, Data: resp.Data}
+	return res, nil
 }

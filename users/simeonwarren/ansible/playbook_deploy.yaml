@@ -1,5 +1,5 @@
 - name: Deploy
-  hosts: forgejo
+  hosts: opencode
   force_handlers: true
   become: true
   tasks:
@@ -7,5 +7,5 @@
         name: alwaldend.main.host
     - ansible.builtin.import_role:
         name: alwaldend.main.traefik
-    - ansible.builtin.import_role:
-        name: alwaldend.main.forgejo
+    # - ansible.builtin.import_role:
+    #     name: alwaldend.main.opencode
