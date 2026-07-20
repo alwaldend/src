@@ -32,3 +32,37 @@ resource "vault_cert_auth_backend_role" "cert_simeonwarren" {
   token_ttl            = local.day_in_seconds
   token_max_ttl        = local.day_in_seconds
 }
+
+module "users_simeonwarren_ssh" {
+  source          = "../../../projects/tf_modules/vault_ssh_server_role"
+  backend         = vault_mount.ssh_servers.path
+  name            = "users_simeonwarren_ssh"
+  allowed_domains = "simeonwarren.users.alwaldend.com"
+}
+
+module "users_simeonwarren_server" {
+  source                   = "../../../projects/tf_modules/vault_pki_server"
+  backend                  = module.pki_ica_servers.backend
+  name                     = "users_simeonwarren_server"
+  allowed_domains          = ["simeonwarren.users.alwaldend.com"]
+  eab_new_member_group_ids = [module.users_simeonwarren_approle.group_id]
+  client_flag              = true
+}
+
+module "users_simeonwarren_provider" {
+  source      = "../../../projects/tf_modules/vault_oidc_provider"
+  name        = "users_simeonwarren_provider"
+  issuer_host = var.vault_host
+  scopes_supported = [
+    vault_identity_oidc_scope.user.name,
+    vault_identity_oidc_scope.groups.name,
+    vault_identity_oidc_scope.ssh.name,
+    vault_identity_oidc_scope.email.name,
+  ]
+  group_ids = [
+    module.users_simeonwarren_approle.group_id,
+  ]
+  redirect_urls = [
+    "https://opencode.simeonwarren.users.alwaldend.com/traefik/oidc/callback",
+  ]
+}
