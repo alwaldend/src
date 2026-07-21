@@ -7,5 +7,51 @@
         name: alwaldend.main.host
     - ansible.builtin.import_role:
         name: alwaldend.main.traefik
-    # - ansible.builtin.import_role:
-    #     name: alwaldend.main.opencode
+    - ansible.builtin.import_role:
+        name: alwaldend.main.opencode
+    - name: Add the Yandex mirror
+      tags:
+        - install_packages
+      ansible.builtin.yum_repository:
+        name: fedora-yandex
+        description: Fedora $releasever - $basearch (Yandex)
+        baseurl: https://mirror.yandex.ru/fedora/linux/releases/$releasever/Everything/x86_64/os
+        gpgcheck: "1"
+        gpgkey:
+          - file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
+    - name: Disable the cisco repo
+      tags:
+        - install_packages
+      ansible.builtin.yum_repository:
+        name: fedora-cisco-openh264
+        state: absent
+    - name: Install packages
+      tags:
+        - install_packages
+      ansible.builtin.package:
+        name:
+          - clang
+          - clang-tools-extra
+          - java-latest-openjdk-devel
+          - rust
+          - cargo
+          - mesa-libGL-devel
+          - go
+          - Xvfb
+          - python3
+          - gmp-devel
+          - patch
+          - podman
+          - git
+          - git-lfs
+          - fuse
+          - fuse-libs
+          - pcsc-lite
+          - pcsc-lite-devel
+          - openssl
+          - gnutls-utils
+          - opensc
+          - openssl-pkcs11
+          - libdnet
+          - qemu-kvm
+          - qemu-img

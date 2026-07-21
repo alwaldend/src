@@ -13,10 +13,11 @@ module "vms" {
   cores  = 4
   memory = 1024 * 8
   scsi0 = {
-    size = "20G" # Boot
+    size = "50G" # Boot
   }
   scsi1 = {
-    size = "100G" # Opencode
+    size    = "300G" # Opencode
+    storage = "ceph-ec"
   }
   scsi2 = {
     size = "5G" # Traefik

@@ -27,6 +27,7 @@ al_binary_run_map(
     data = [
         ":ansible_bin",
         "//tools/vault/injector",
+    "//tools/vault/forgejo_login",
     ],
     run_args = [
         "--plugin_label",

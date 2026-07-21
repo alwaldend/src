@@ -4,12 +4,13 @@ binary_toolchain_extension = use_extension(
 )
 binary_toolchain_extension.toolchains(
     archives = {
+        "opencode": ["linux_x86_64"],
     },
     lock = "//third_party/ai_opencode_opencode:binary_toolchain.json",
     toolchains_map = {
         "opencode": "ai_opencode_opencode",
     },
 )
-use_repo(binary_toolchain_extension, "ai_opencode_opencode")
+use_repo(binary_toolchain_extension, "ai_opencode_opencode", "ai_opencode_opencode_linux_x86_64")
 
 register_toolchains("@ai_opencode_opencode//:all")

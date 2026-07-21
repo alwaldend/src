@@ -1,0 +1,74 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "server": {
+    "port": 4096,
+    "hostname": "127.0.0.1",
+    "cors": ["http://127.0.0.1:4096"]
+  },
+  "permission": {
+    "*": "ask",
+    "read": {
+      "*": "allow"
+    },
+    "edit": {
+      "*": "allow",
+    },
+    "glob": {
+      "*": "allow"
+    },
+    "grep": {
+      "*": "allow"
+    },
+    "bash": {
+      "*": "allow",
+    },
+    "task": {
+      "*": "allow"
+    },
+    "skill": {
+      "*": "allow"
+    },
+    "lsp": {
+      "*": "allow"
+    },
+    "question": "allow",
+    "webfetch": "allow",
+    "websearch": "allow",
+    "external_directory": {
+      "*": "allow"
+    },
+    "doom_loop": "allow"
+  },
+  "provider": {
+    "yandex": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Yandex",
+      "options": {
+        "baseURL": "https://ai.api.cloud.yandex.net/v1",
+        "apiKey": "{{ lookup('ansible.builtin.env', 'OPENCODE_YANDEX_CLOUD_TOKEN') }}",
+        "headers": {
+          "OpenAI-Project": "{{ lookup('ansible.builtin.env', 'OPENCODE_YANDEX_CLOUD_FOLDER') }}"
+        }
+      },
+      "models": {
+        "qwen3_235B": {
+          "id": "gpt://{{ lookup('ansible.builtin.env', 'OPENCODE_YANDEX_CLOUD_FOLDER') }}/qwen3-235b-a22b-fp8/latest",
+          "name": "Qwen3 235B A22B Instruct 2507 FP8"
+        },
+        "qwen3_35B": {
+          "id": "gpt://{{ lookup('ansible.builtin.env', 'OPENCODE_YANDEX_CLOUD_FOLDER') }}/qwen3.6-35b-a3b/latest",
+          "name": "Qwen3.6-35B"
+        },
+        "deepseek4": {
+          "id": "gpt://{{ lookup('ansible.builtin.env', 'OPENCODE_YANDEX_CLOUD_FOLDER') }}/deepseek-v4-flash/latest",
+          "name": "DeepSeek 4 Flash"
+        },
+        "alice_flash": {
+          "id": "gpt://{{ lookup('ansible.builtin.env', 'OPENCODE_YANDEX_CLOUD_FOLDER') }}/aliceai-llm-flash/latest",
+          "name": "Alice AI LLM Flash",
+        }
+      }
+    }
+  }
+}
+

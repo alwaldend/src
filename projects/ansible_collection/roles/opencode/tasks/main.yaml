@@ -1,0 +1,95 @@
+- tags:
+    - opencode
+  block:
+    - name: Create opencode user
+      ansible.builtin.user:
+        name: "{{ opencode_user }}"
+        uid: "{{ opencode_user_uid }}"
+        shell: /sbin/nologin
+        home: "{{ opencode_home_dir }}"
+        system: true
+    - name: Create filesystem on the opencode disk
+      when: opencode_disk is truthy
+      community.general.filesystem:
+        fstype: ext4
+        dev: "{{ opencode_disk }}"
+    - name: Mount opencode disk
+      when: opencode_disk is truthy
+      ansible.posix.mount:
+        path: "{{ opencode_dir }}"
+        src: "{{ opencode_disk }}"
+        fstype: ext4
+        state: mounted
+    - name: Create opencode dirs
+      loop:
+        - "{{ opencode_dir }}"
+        - "{{ opencode_log_dir }}"
+        - "{{ opencode_config_dir }}"
+        - "{{ opencode_env_path | dirname }}"
+        - "{{ opencode_work_dir }}"
+        - "{{ opencode_home_dir }}"
+        - "{{ opencode_home_dir }}/.ssh"
+      ansible.builtin.file:
+        state: directory
+        owner: "{{ opencode_user }}"
+        group: "{{ opencode_user }}"
+        mode: "0700"
+        path: "{{ item }}"
+    - name: Copy the opencode binary
+      ansible.builtin.copy:
+        src: "{{ opencode_bin_local_path }}"
+        dest: "{{ opencode_bin_path }}"
+        owner: "root"
+        group: "{{ opencode_user }}"
+        mode: "0755"
+    - name: Write the config
+      register: opencode_config_var
+      ansible.builtin.template:
+        src: "{{ opencode_config_local_path }}"
+        dest: "{{ opencode_config_path }}"
+        owner: "root"
+        group: "{{ opencode_user }}"
+        mode: "0640"
+    - name: Write the env file
+      ansible.builtin.copy:
+        content: |
+          {% for key, value in (opencode_env | combine(opencode_env_override)).items() %}
+          {{ key }}={{ value }}
+          {% endfor %}
+        dest: "{{ opencode_env_path }}"
+        owner: "root"
+        group: "{{ opencode_user }}"
+        mode: "0640"
+    - name: Write the private key
+      ansible.builtin.copy:
+        content: "{{ opencode_ssh_private_key }}"
+        dest: "{{ opencode_home_dir }}/.ssh/id_ed25519"
+        owner: "{{ opencode_user }}"
+        group: "{{ opencode_user }}"
+        mode: "0600"
+    - name: Write the public key
+      ansible.builtin.copy:
+        content: "{{ opencode_ssh_public_key }}"
+        dest: "{{ opencode_home_dir }}/.ssh/id_ed25519.pub"
+        owner: "{{ opencode_user }}"
+        group: "{{ opencode_user }}"
+        mode: "0600"
+    - name: Write the service
+      ansible.builtin.template:
+        src: systemd_service.conf
+        dest: "{{ opencode_service_path }}"
+        owner: root
+        group: root
+        mode: 644
+    - name: Ensure the daemon is reloaded
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+    - name: Reload the service
+      ansible.builtin.systemd_service:
+        name: "{{ opencode_service_path | basename }}"
+        state: reloaded
+    - name: Start the service and enable
+      ansible.builtin.systemd_service:
+        name: "{{ opencode_service_path | basename }}"
+        enabled: true
+        state: started

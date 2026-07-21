@@ -3,6 +3,8 @@ load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 
+_OPENCODE = "$(rootpath //tools/opencode)"
+
 filegroup(
     name = "dnsconfig",
     srcs = ["dnsconfig.json"],
@@ -30,7 +32,14 @@ vault_binary_map(
 al_binary_run_map(
     name = "opencode",
     args = {
-        "": ["$(rootpath //tools/opencode)"],
+        "": [
+            _OPENCODE,
+            "attach",
+            "https://opencode.simeonwarren.users.alwaldend.com"
+        ],
+        "local": [
+            _OPENCODE,
+        ],
     },
     configs = [":al"],
     data = [

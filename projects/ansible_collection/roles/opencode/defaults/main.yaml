@@ -1,0 +1,24 @@
+opencode_user: opencode
+opencode_user_uid: 8149
+opencode_dir: "/opt/opencode"
+opencode_port: 4096
+opencode_domain: "{{ undefined() }}"
+opencode_log_dir: "{{ opencode_dir }}/logs"
+opencode_work_dir: "{{ opencode_dir }}/work"
+opencode_home_dir: "{{ opencode_dir }}/home"
+opencode_config_dir: "{{ opencode_home_dir }}/.config/opencode"
+opencode_config_path: "{{ opencode_config_dir }}/opencode.json"
+opencode_config_local_path: "files/opencode.json"
+opencode_disk:
+opencode_service_path: "/lib/systemd/system/opencode.service"
+opencode_bin_local_path: "{{ role_path }}/files/opencode"
+opencode_bin_path: /usr/bin/opencode
+opencode_env_path: "{{ opencode_config_dir }}/opencode.env"
+opencode_env_override: {}
+opencode_ssh_public_key: "{{ undefined() }}"
+opencode_ssh_private_key: "{{ undefined() }}"
+opencode_server_username: "{{ undefined() }}"
+opencode_server_password: "{{ undefined() }}"
+opencode_env:
+  OPENCODE_SERVER_USERNAME: "{{ opencode_server_username }}"
+  OPENCODE_SERVER_PASSWORD: "{{ opencode_server_password }}"

@@ -42,8 +42,3 @@ resolver = "vault"
 [tls.stores.default.acme.domain]
 main = "{{ opencode_domain }}"
 sans = ["{{ inventory_hostname }}"]
-
-[authSources.vault.oidc]
-issuer = "https://vault.dc1.alwaldend.com:8200/v1/identity/oidc/provider/users_simeonwarren_provider"
-clientID = "{{ lookup('ansible.builtin.env', 'OIDC_CLIENT_ID', default=undefined()) }}"
-clientSecret = "{{ lookup('ansible.builtin.env', 'OIDC_CLIENT_SECRET', default=undefined()) }}"

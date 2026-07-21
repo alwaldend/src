@@ -3,6 +3,10 @@ ssh_vault_role: users_simeonwarren_ssh
 traefik_acme_path: pki/ica_servers/roles/users_simeonwarren_pki_server/acme
 traefik_acme_url: "https://vault.alwaldend.com:8200/v1/{{ traefik_acme_path }}/directory"
 opencode_domain: opencode.simeonwarren.users.alwaldend.com
+opencode_server_username: "{{ lookup('ansible.builtin.env', 'OPENCODE_SERVER_USERNAME', default=undefined()) }}"
+opencode_server_password: "{{ lookup('ansible.builtin.env', 'OPENCODE_SERVER_PASSWORD', default=undefined()) }}"
+opencode_ssh_public_key: "{{ lookup('ansible.builtin.env', 'OPENCODE_SSH_PUBLIC_KEY', default=undefined()) }}"
+opencode_ssh_private_key: "{{ lookup('ansible.builtin.env', 'OPENCODE_SSH_PRIVATE_KEY', default=undefined()) }}"
 opencode_disk: /dev/sdb
 traefik_disk: /dev/sdc
 ssh_valid_principals:

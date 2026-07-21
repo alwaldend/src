@@ -3,7 +3,7 @@ local lib = require("al_lib")
 
 lib.vault_auth({
     name = "default",
-    approle = { name = "user_simeonwarren" },
+    approle = { name = "user_simeonwarrenbot" },
 })
 
 infra.ansible_keys({
@@ -13,6 +13,12 @@ infra.ansible_keys({
         backend = "ssh/clients/sign/admins",
         ttl = 60 * 60 * 2
     }
+})
+
+lib.plugin_call({
+    name = "forgejo_login",
+    plugin = "forgejo_login",
+    labels = { ansible = "1" },
 })
 
 lib.plugin_call({
@@ -78,9 +84,40 @@ infra.yc_bucket_auth({
 })
 
 lib.plugin_call({
+    name = "opencode_ssh",
+    plugin = "injector",
+    labels = { ansible = "1" },
+    data = {
+        res = {
+            {
+                name = "opencode_ssh",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/user_simeonwarren/opencode_ssh",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "OPENCODE_SSH_PRIVATE_KEY",
+                deps = { "opencode_ssh" },
+                env = {
+                    value = "{{ .Last.Data.ssh_private_key }}",
+                }
+            },
+            {
+                name = "OPENCODE_SSH_PUBLIC_KEY",
+                deps = { "opencode_ssh" },
+                env = {
+                    value = "{{ .Last.Data.ssh_public_key }}",
+                }
+            },
+        },
+    }
+})
+
+lib.plugin_call({
     name = "opencode",
     plugin = "injector",
-    labels = { opencode = "1" },
+    labels = { opencode = "1", ansible = "1" },
     data = {
         res = {
             {
@@ -91,17 +128,31 @@ lib.plugin_call({
                 }
             },
             {
+                name = "OPENCODE_SERVER_USERNAME",
+                deps = { "opencode" },
+                env = {
+                    value = "{{ .Last.Data.opencode_server_username }}",
+                }
+            },
+            {
+                name = "OPENCODE_SERVER_PASSWORD",
+                deps = { "opencode" },
+                env = {
+                    value = "{{ .Last.Data.opencode_server_password }}",
+                }
+            },
+            {
                 name = "OPENCODE_YANDEX_CLOUD_TOKEN",
                 deps = { "opencode" },
                 env = {
-                    value = "{{ .Last.Data.secret_key }}",
+                    value = "{{ .Last.Data.yc_secret_key }}",
                 }
             },
             {
                 name = "OPENCODE_YANDEX_CLOUD_FOLDER",
                 deps = { "opencode" },
                 env = {
-                    value = "{{ .Last.Data.folder_id }}",
+                    value = "{{ .Last.Data.yc_folder_id }}",
                 }
             },
         }

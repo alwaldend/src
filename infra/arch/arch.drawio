@@ -719,22 +719,22 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="0cmNzuwrtpt8mSrAorlg-5" parent="0cmNzuwrtpt8mSrAorlg-4" style="rounded=0;whiteSpace=wrap;html=1;" value="Traefik" vertex="1">
-          <mxGeometry height="60" width="120" x="112.5" y="110" as="geometry" />
+          <mxGeometry height="60" width="120" x="112.5" y="100" as="geometry" />
         </mxCell>
         <mxCell id="0cmNzuwrtpt8mSrAorlg-6" parent="0cmNzuwrtpt8mSrAorlg-4" style="rounded=0;whiteSpace=wrap;html=1;" value="Opencode" vertex="1">
           <mxGeometry height="60" width="120" x="112.5" y="230" as="geometry" />
         </mxCell>
-        <mxCell id="0cmNzuwrtpt8mSrAorlg-8" edge="1" parent="1" source="0cmNzuwrtpt8mSrAorlg-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" target="0cmNzuwrtpt8mSrAorlg-5">
+        <mxCell id="0cmNzuwrtpt8mSrAorlg-8" edge="1" parent="1" source="0cmNzuwrtpt8mSrAorlg-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="0cmNzuwrtpt8mSrAorlg-5">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="210" y="415" />
-              <mxPoint x="210" y="415" />
+              <mxPoint x="280" y="420" />
+              <mxPoint x="280" y="420" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="0cmNzuwrtpt8mSrAorlg-16" connectable="0" parent="0cmNzuwrtpt8mSrAorlg-8" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="HTTPS" vertex="1">
+        <mxCell id="0cmNzuwrtpt8mSrAorlg-16" connectable="0" parent="0cmNzuwrtpt8mSrAorlg-8" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="HTTPS&lt;br&gt;(Basic Auth)" vertex="1">
           <mxGeometry relative="1" x="-0.7309" y="3" as="geometry">
-            <mxPoint y="-12" as="offset" />
+            <mxPoint x="23" y="-12" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="0cmNzuwrtpt8mSrAorlg-13" edge="1" parent="1" source="0cmNzuwrtpt8mSrAorlg-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;" target="0cmNzuwrtpt8mSrAorlg-9">
@@ -750,26 +750,13 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="0cmNzuwrtpt8mSrAorlg-2" parent="1" style="shape=umlActor;verticalLabelPosition=middle;verticalAlign=middle;html=1;outlineConnect=0;labelPosition=left;align=right;" value="Actor" vertex="1">
-          <mxGeometry height="60" width="30" x="110" y="380" as="geometry" />
+          <mxGeometry height="60" width="30" x="110" y="390" as="geometry" />
         </mxCell>
         <UserObject label="Vault&lt;br&gt;vault.alwaldend.com" link="data:page/id,P-BKPCMzRP7xIEDT19jZ" id="0cmNzuwrtpt8mSrAorlg-9">
           <mxCell parent="1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1">
             <mxGeometry height="60" width="140" x="290" y="710" as="geometry" />
           </mxCell>
         </UserObject>
-        <mxCell id="0cmNzuwrtpt8mSrAorlg-10" edge="1" parent="1" source="0cmNzuwrtpt8mSrAorlg-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;exitX=0;exitY=0.75;exitDx=0;exitDy=0;" target="0cmNzuwrtpt8mSrAorlg-9">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="220" y="445" />
-              <mxPoint x="220" y="725" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="0cmNzuwrtpt8mSrAorlg-11" connectable="0" parent="0cmNzuwrtpt8mSrAorlg-10" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="OIDC Middleware" vertex="1">
-          <mxGeometry relative="1" x="-0.5784" y="-1" as="geometry">
-            <mxPoint x="35" y="26" as="offset" />
-          </mxGeometry>
-        </mxCell>
         <mxCell id="0cmNzuwrtpt8mSrAorlg-17" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Forgejo&lt;br&gt;forgejo.alwaldend.com" vertex="1">
           <mxGeometry height="60" width="160" x="790" y="390" as="geometry" />
         </mxCell>
