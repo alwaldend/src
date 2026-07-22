@@ -35,10 +35,11 @@ al_binary_run_map(
         "": [
             _OPENCODE,
             "attach",
-            "https://opencode.simeonwarren.users.alwaldend.com"
+            "https://opencode.simeonwarren.users.alwaldend.com",
         ],
         "local": [
             _OPENCODE,
+            "$(GIT_ROOT)",
         ],
     },
     configs = [":al"],
@@ -50,6 +51,7 @@ al_binary_run_map(
         "--plugin_label",
         "opencode",
     ],
+    toolchains = ["//tools/git/main/bzl:toolchain_resolved"],
 )
 
 al_config(

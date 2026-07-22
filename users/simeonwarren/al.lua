@@ -3,7 +3,7 @@ local lib = require("al_lib")
 
 lib.vault_auth({
     name = "default",
-    approle = { name = "user_simeonwarrenbot" },
+    approle = { name = "user_simeonwarren" },
 })
 
 infra.ansible_keys({
