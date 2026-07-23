@@ -70,11 +70,9 @@ resource "vault_identity_group" "src_infra_dc1_forgejo1_restricted" {
 }
 
 resource "vault_identity_group" "src_infra_dc1_forgejo1_admins" {
-  name = "src_infra_dc1_forgejo1_admins"
-  type = "internal"
-  member_entity_ids = [
-    vault_identity_entity.simeonwarren.id,
-  ]
+  name              = "src_infra_dc1_forgejo1_admins"
+  type              = "internal"
+  member_entity_ids = []
   member_group_ids = [
     module.src_infra_dc1_forgejo1_approle.group_id,
   ]

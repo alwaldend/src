@@ -143,3 +143,9 @@ Vault certificates (`tls_cert_file`, `tls_key_file`) should be updated manually
 ```sh
 bazel run //infra/dc1/vault -- read identity/oidc/client/src_infra_dc1_forgejo1_provider
 ```
+
+## Read all entity aliases
+
+```sh
+ bazel run //infra/vault -- list -format json identity/entity-alias/id | jq ".[]" | xargs "-I{}" bazel run //infra/vault -- read "identity/entity-alias/id/{}"
+```
