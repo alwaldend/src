@@ -53,7 +53,6 @@ variable "rotation_period" {
   default     = 3600 # Hour
 }
 
-
 resource "vault_identity_oidc_assignment" "assignment" {
   name      = var.name
   group_ids = var.group_ids

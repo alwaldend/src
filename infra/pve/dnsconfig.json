@@ -1,38 +1,39 @@
 {
-    "domains": {
-        "default": {
-            "records": {
-                "bm_a": {
-                    "A": {
-                        "name": "bm2.dc1",
-                        "address": "192.168.1.216"
-                    }
-                },
-                "bm_aaaa": {
-                    "AAAA": {
-                        "name": "bm2.dc1",
-                        "address": "fd2e:546d:5738:0:365a:60ff:fe08:6daa"
-                    }
-                },
-                "host1": {
-                    "CNAME": {
-                        "name": "host1.pve1.dc1",
-                        "target": "bm2.dc1.alwaldend.com."
-                    }
-                },
-                "ha1": {
-                    "A": {
-                        "name": "pve",
-                        "address": "192.168.1.216"
-                    }
-                },
-                "cloudinit_test": {
-                    "A": {
-                        "name": "cloudinit-test.vm.pve1.dc1",
-                        "address": "192.168.10.10"
-                    }
-                }
-            }
+    "records": {
+        "bm_a": {
+            "A": {
+                "name": "bm2.dc1",
+                "address": "192.168.1.216"
+            },
+            "dsp": ["dc1"]
+        },
+        "bm_aaaa": {
+            "AAAA": {
+                "name": "bm2.dc1",
+                "address": "fd2e:546d:5738:0:365a:60ff:fe08:6daa"
+            },
+            "dsp": ["dc1"]
+        },
+        "host1": {
+            "CNAME": {
+                "name": "host1.pve1.dc1",
+                "target": "bm2.dc1.alwaldend.com."
+            },
+            "dsp": ["dc1"]
+        },
+        "ha1": {
+            "A": {
+                "name": "pve",
+                "address": "192.168.1.216"
+            },
+            "dsp": ["dc1"]
+        },
+        "cloudinit_test": {
+            "A": {
+                "name": "cloudinit-test.vm.pve1.dc1",
+                "address": "192.168.10.10"
+            },
+            "dsp": ["dc1"]
         }
     }
 }

@@ -13,7 +13,7 @@ tags:
 
 ## Deployment
 
-Interative:
+Interactive:
 ```sh
 bazel run //infra/dns
 ```
@@ -31,6 +31,10 @@ Deploy modifies the bind file, which will cause
 //infra/alwaldend.com/dns:preview_test to fail
 {{% /alwaldend/alert %}}
 
-## BIND file
+## dc1 BIND
 
-{{/*< readfile file="zones/alwaldend.com.zone" code="true" lang="zone" >*/}}
+{{/*< readfile file="zones/dc1/alwaldend.com.zone" code="true" lang="zone" >*/}}
+
+## global BIND
+
+{{/*< readfile file="zones/global/alwaldend.com.zone" code="true" lang="zone" >*/}}

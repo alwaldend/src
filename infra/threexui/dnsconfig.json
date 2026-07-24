@@ -1,42 +1,43 @@
 {
-    "domains": {
-        "default": {
-            "records": {
-                "host1": {
-                    "A": {
-                        "name": "host1.threexui",
-                        "address": "192.168.10.80"
-                    }
-                },
-                "ha1": {
-                    "A": {
-                        "name":  "threexui",
-                        "address": "192.168.10.80"
-                    }
-                },
-                "njalla1": {
-                    "A": {
-                        "name":  "njalla1.nodes.threexui",
-                        "address": "45.142.141.133"
-                    },
-                    "AAAA": {
-                        "name":  "njalla1.nodes.threexui",
-                        "address": "2a0a:3840:8078:141::2d8e:8d85:1337"
-                    }
-                },
-                "njalla1sub": {
-                    "CNAME": {
-                        "name":  "sub.njalla1.nodes.threexui",
-                        "target": "njalla1.nodes.threexui.alwaldend.com."
-                    }
-                },
-                "njalla1inbound": {
-                    "CNAME": {
-                        "name":  "inbound.njalla1.nodes.threexui",
-                        "target": "njalla1.nodes.threexui.alwaldend.com."
-                    }
-                }
-            }
+    "records": {
+        "host1": {
+            "A": {
+                "name": "host1.threexui",
+                "address": "192.168.10.80"
+            },
+            "dsp": ["dc1"]
+        },
+        "ha1": {
+            "A": {
+                "name": "threexui",
+                "address": "192.168.10.80"
+            },
+            "dsp": ["dc1"]
+        },
+        "njalla1": {
+            "A": {
+                "name": "njalla1.nodes.threexui",
+                "address": "45.142.141.133"
+            },
+            "AAAA": {
+                "name": "njalla1.nodes.threexui",
+                "address": "2a0a:3840:8078:141::2d8e:8d85:1337"
+            },
+            "dsp": ["all"]
+        },
+        "njalla1sub": {
+            "CNAME": {
+                "name": "sub.njalla1.nodes.threexui",
+                "target": "njalla1.nodes.threexui.alwaldend.com."
+            },
+            "dsp": ["all"]
+        },
+        "njalla1inbound": {
+            "CNAME": {
+                "name": "inbound.njalla1.nodes.threexui",
+                "target": "njalla1.nodes.threexui.alwaldend.com."
+            },
+            "dsp": ["all"]
         }
     }
 }

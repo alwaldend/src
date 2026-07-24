@@ -1,20 +1,18 @@
 {
-    "domains": {
-        "default": {
-            "records": {
-                "host1": {
-                    "A": {
-                        "name": "host1.opencode.simeonwarren.users",
-                        "address": "192.168.10.90"
-                    }
-                },
-                "root": {
-                    "A": {
-                        "name": "opencode.simeonwarren.users",
-                        "address": "192.168.10.90"
-                    }
-                }
-            }
+    "records": {
+        "host1": {
+            "A": {
+                "name": "host1.opencode.simeonwarren.users",
+                "address": "192.168.10.90"
+            },
+            "dsp": ["dc1"]
+        },
+        "root": {
+            "A": {
+                "name": "opencode.simeonwarren.users",
+                "address": "192.168.10.90"
+            },
+            "dsp": ["dc1"]
         }
     }
 }

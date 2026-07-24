@@ -1,32 +1,32 @@
 {
-    "domains": {
-        "default": {
-            "records": {
-                "host1": {
-                    "A": {
-                        "name": "host1.flux",
-                        "address": "192.168.10.60"
-                    }
-                },
-                "ha1": {
-                    "A": {
-                        "name":  "flux",
-                        "address": "192.168.10.60"
-                    }
-                },
-                "operator": {
-                    "CNAME": {
-                        "name": "operator.flux",
-                        "target": "flux.alwaldend.com."
-                    }
-                },
-                "openid": {
-                    "CNAME": {
-                        "name": "openid.flux",
-                        "target": "flux.alwaldend.com."
-                    }
-                }
-            }
+    "records": {
+        "host1": {
+            "A": {
+                "name": "host1.flux",
+                "address": "192.168.10.60"
+            },
+            "dsp": ["dc1"]
+        },
+        "ha1": {
+            "A": {
+                "name": "flux",
+                "address": "192.168.10.60"
+            },
+            "dsp": ["dc1"]
+        },
+        "operator": {
+            "CNAME": {
+                "name": "operator.flux",
+                "target": "flux.alwaldend.com."
+            },
+            "dsp": ["dc1"]
+        },
+        "openid": {
+            "CNAME": {
+                "name": "openid.flux",
+                "target": "flux.alwaldend.com."
+            },
+            "dsp": ["dc1"]
         }
     }
 }

@@ -1,20 +1,18 @@
 {
-    "domains": {
-        "default": {
-            "records": {
-                "host1": {
-                    "A": {
-                        "name": "host1.harbor",
-                        "address": "192.168.10.50"
-                    }
-                },
-                "ha1": {
-                    "A": {
-                        "name":  "harbor",
-                        "address": "192.168.10.50"
-                    }
-                }
-            }
+    "records": {
+        "host1": {
+            "A": {
+                "name": "host1.harbor",
+                "address": "192.168.10.50"
+            },
+            "dsp": ["dc1"]
+        },
+        "root": {
+            "A": {
+                "name": "harbor",
+                "address": "192.168.10.50"
+            },
+            "dsp": ["dc1"]
         }
     }
 }

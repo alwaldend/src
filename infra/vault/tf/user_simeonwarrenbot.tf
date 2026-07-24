@@ -12,14 +12,3 @@ resource "vault_identity_entity_alias" "userpass_simeonwarrenbot" {
   mount_accessor = vault_auth_backend.userpass.accessor
   canonical_id   = vault_identity_entity.simeonwarrenbot.id
 }
-
-module "users_simeonwarrenbot_approle" {
-  source = "../../../projects/tf_modules/vault_approle"
-  name   = "user_${vault_identity_entity.simeonwarrenbot.name}"
-  member_group_ids = [
-    module.users_simeonwarren_approle.group_id,
-  ]
-  secrets          = vault_mount.secrets.path
-  backend          = vault_auth_backend.approle.path
-  backend_accessor = vault_auth_backend.approle.accessor
-}

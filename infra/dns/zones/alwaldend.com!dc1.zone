@@ -1,8 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-07-20T16:45:17Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026072002 3600 600 604800 1440
-                 IN NS    malavika.ns.cloudflare.com.
-                 IN NS    terry.ns.cloudflare.com.
+; generated with dnscontrol 2026-07-24T18:36:42Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026072400 3600 600 604800 1440
                  IN A     185.199.108.153
                  IN A     185.199.109.153
                  IN A     185.199.110.153

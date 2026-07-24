@@ -21,7 +21,6 @@ resource "vault_identity_group" "approles" {
     module.src_third_party_approle.entity_id,
     module.src_projects_alwaldend_com_approle.entity_id,
     module.users_simeonwarren_approle.entity_id,
-    module.users_simeonwarrenbot_approle.entity_id,
   ]
   metadata = {
     comment = "All approles"

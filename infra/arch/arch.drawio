@@ -1,4 +1,4 @@
-<mxfile host="Electron" pages="9">
+<mxfile host="Electron" pages="10">
   <diagram id="FMLIyAlL3O6QxIsCN0ab" name="DC1">
     <mxGraphModel dx="1798" dy="1073" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -790,6 +790,64 @@
         <mxCell id="0cmNzuwrtpt8mSrAorlg-27" connectable="0" parent="0cmNzuwrtpt8mSrAorlg-26" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="LLMs" vertex="1">
           <mxGeometry relative="1" x="0.408" y="1" as="geometry">
             <mxPoint x="24" y="-19" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="xs6_-vru1NvcbUcsFudz" name="DNS">
+    <mxGraphModel dx="1798" dy="1073" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vUXyYon38m6MB75VYfU--1" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" value="Local infra&lt;br&gt;dc1.alwaldend.com" vertex="1">
+          <mxGeometry height="260" width="419" x="120" y="320" as="geometry" />
+        </mxCell>
+        <mxCell id="vUXyYon38m6MB75VYfU--9" edge="1" parent="vUXyYon38m6MB75VYfU--1" source="vUXyYon38m6MB75VYfU--2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="vUXyYon38m6MB75VYfU--3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vUXyYon38m6MB75VYfU--10" connectable="0" parent="vUXyYon38m6MB75VYfU--9" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="DNS" vertex="1">
+          <mxGeometry relative="1" x="0.0419" y="-1" as="geometry">
+            <mxPoint x="-2" y="-21" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vUXyYon38m6MB75VYfU--2" parent="vUXyYon38m6MB75VYfU--1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Actor" vertex="1">
+          <mxGeometry height="60" width="30" x="40" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="vUXyYon38m6MB75VYfU--3" parent="vUXyYon38m6MB75VYfU--1" style="rounded=0;whiteSpace=wrap;html=1;" value="Router (Mikrotik)&lt;br&gt;router1.dc1.alwaldend.com" vertex="1">
+          <mxGeometry height="60" width="200" x="170" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="vUXyYon38m6MB75VYfU--17" edge="1" parent="1" source="vUXyYon38m6MB75VYfU--15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="vUXyYon38m6MB75VYfU--16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vUXyYon38m6MB75VYfU--18" connectable="0" parent="vUXyYon38m6MB75VYfU--17" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="DNS" vertex="1">
+          <mxGeometry relative="1" x="0.0783" as="geometry">
+            <mxPoint x="-2" y="-20" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vUXyYon38m6MB75VYfU--15" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Actor" vertex="1">
+          <mxGeometry height="60" width="30" x="160" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="vUXyYon38m6MB75VYfU--16" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Cloudflare&lt;br&gt;cloudflare.com" vertex="1">
+          <mxGeometry height="60" width="120" x="330" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="vUXyYon38m6MB75VYfU--20" edge="1" parent="1" source="vUXyYon38m6MB75VYfU--3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="vUXyYon38m6MB75VYfU--16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vUXyYon38m6MB75VYfU--25" connectable="0" parent="vUXyYon38m6MB75VYfU--20" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="DNS" vertex="1">
+          <mxGeometry relative="1" x="-0.025" as="geometry">
+            <mxPoint x="20" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vUXyYon38m6MB75VYfU--21" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Other DNS servers" vertex="1">
+          <mxGeometry height="60" width="120" x="620" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="vUXyYon38m6MB75VYfU--22" edge="1" parent="1" source="vUXyYon38m6MB75VYfU--3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="vUXyYon38m6MB75VYfU--21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vUXyYon38m6MB75VYfU--23" connectable="0" parent="vUXyYon38m6MB75VYfU--22" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="DNS" vertex="1">
+          <mxGeometry relative="1" x="0.4667" y="-5" as="geometry">
+            <mxPoint x="-8" y="-25" as="offset" />
           </mxGeometry>
         </mxCell>
       </root>

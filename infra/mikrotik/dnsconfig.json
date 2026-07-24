@@ -1,32 +1,32 @@
 {
-    "domains": {
-        "default": {
-            "records": {
-                "router_a": {
-                    "A": {
-                        "name": "router1.dc1",
-                        "address": "192.168.1.1"
-                    }
-                },
-                "router_aaaa": {
-                    "AAAA": {
-                        "name": "router1.dc1",
-                        "address": "fd2e:546d:5738::1"
-                    }
-                },
-                "switch1_a": {
-                    "A": {
-                        "name": "switch1.dc1",
-                        "address": "192.168.1.254"
-                    }
-                },
-                "bm_a": {
-                    "A": {
-                        "name":  "bm1.dc1",
-                        "address": "192.168.1.222"
-                    }
-                }
-            }
+    "records": {
+        "router_a": {
+            "A": {
+                "name": "router1.dc1",
+                "address": "192.168.1.1"
+            },
+            "dsp": ["dc1"]
+        },
+        "router_aaaa": {
+            "AAAA": {
+                "name": "router1.dc1",
+                "address": "fd2e:546d:5738::1"
+            },
+            "dsp": ["dc1"]
+        },
+        "switch1_a": {
+            "A": {
+                "name": "switch1.dc1",
+                "address": "192.168.1.254"
+            },
+            "dsp": ["dc1"]
+        },
+        "bm_a": {
+            "A": {
+                "name": "bm1.dc1",
+                "address": "192.168.1.222"
+            },
+            "dsp": ["dc1"]
         }
     }
 }

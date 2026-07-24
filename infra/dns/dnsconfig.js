@@ -2,9 +2,10 @@
 /// <reference path="types-dnscontrol.d.ts" />
 
 var REG_NONE = NewRegistrar("none");
-var DSP_CLOUDFLARE = NewDnsProvider("cloudflare");
-var DSP_MIKROTIK = NewDnsProvider("mikrotik");
-var DSP_BIND = NewDnsProvider("bind");
+var DSP_GLOBAL = NewDnsProvider("global");
+var DSP_GLOBAL_BIND = NewDnsProvider("global_bind");
+var DSP_DC1 = NewDnsProvider("dc1");
+var DSP_DC1_BIND = NewDnsProvider("dc1_bind");
 var jsons = [
     require("../pve/dnsconfig.json"),
     require("../vault/dnsconfig.json"),
@@ -16,13 +17,14 @@ var jsons = [
     require("../../users/simeonwarren/dnsconfig.json"),
 ];
 
-
 DEFAULTS(
     CF_PROXY_DEFAULT_OFF, // turn proxy off when not specified otherwise
 );
 
 var modifiers = {
-    default: [
+    dc1: [],
+    global: [],
+    all: [
         // github pages
         A("@", "185.199.108.153"),
         A("@", "185.199.109.153"),
@@ -41,7 +43,11 @@ var modifiers = {
             TTL(300),
         ),
         TXT("@", "v=spf1 include:_spf.protonmail.ch ~all", TTL(300)),
-        TXT("@", "_globalsign-domain-verification=0QBJgVV_uwcFLTi1Rot3bb1LyJ5uW1WD0ygvIS4OM5", TTL(300)),
+        TXT(
+            "@",
+            "_globalsign-domain-verification=0QBJgVV_uwcFLTi1Rot3bb1LyJ5uW1WD0ygvIS4OM5",
+            TTL(300),
+        ),
 
         // Mail
         MX("@", 10, "mail.protonmail.ch.", TTL(300)),
@@ -102,35 +108,48 @@ var modifiers = {
             "v=DKIM1; k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcYzFVgkeDOhaIIkWM8gNQjxVsv0/aXfU+ax5urB5y6hA6lSjRnjRo6tm0bXbkOJf41GmiwMNgdXpwRtzgzAlX1i2aJbtEr4b9jzibEGLQ7Cvqs44bOYES9f/K3ueQpnvdTOJmFqlRReFL7ZrUyDFCoQ7f4+7h4i8s01cCcRrt5wIDAQAB",
             TTL(300),
         ),
-    ]
+    ],
 };
 
 for (var json_i in jsons) {
     var json = jsons[json_i];
-    for (var domain_key in json.domains) {
-        var domain = json.domains[domain_key];
-        var cur = modifiers[domain_key];
-        for (var record_key in domain.records) {
-            var record = domain.records[record_key]
+    for (var record_key in json.records) {
+        var record = json.records[record_key];
+        for (var dsp in record.dsp) {
+            var mods = modifiers[record.dsp[dsp]];
+            if (!mods) {
+                PANIC("invalid dsp: " + record.dsp[dsp]);
+            }
             if ("A" in record) {
-                cur.push(A(record.A.name, record.A.address), TTL(600));
+                mods.push(A(record.A.name, record.A.address), TTL(600));
             }
             if ("AAAA" in record) {
-                cur.push(AAAA(record.AAAA.name, record.AAAA.address, TTL(600)));
+                mods.push(
+                    AAAA(record.AAAA.name, record.AAAA.address, TTL(600)),
+                );
             }
             if ("CNAME" in record) {
-                cur.push(CNAME(record.CNAME.name, record.CNAME.target, TTL(600)));
+                mods.push(
+                    CNAME(record.CNAME.name, record.CNAME.target, TTL(600)),
+                );
             }
         }
     }
 }
 
-
 D(
-    "alwaldend.com",
+    "alwaldend.com!global",
     REG_NONE,
-    DnsProvider(DSP_CLOUDFLARE),
-    // DnsProvider(DSP_MIKROTIK),
-    DnsProvider(DSP_BIND),
-    modifiers["default"],
+    DnsProvider(DSP_GLOBAL),
+    DnsProvider(DSP_GLOBAL_BIND),
+    modifiers.all,
+    modifiers.global,
+);
+D(
+    "alwaldend.com!dc1",
+    REG_NONE,
+    DnsProvider(DSP_DC1),
+    DnsProvider(DSP_DC1_BIND),
+    modifiers.all,
+    modifiers.dc1,
 );
