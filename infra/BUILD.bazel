@@ -8,6 +8,7 @@ filegroup(
         "//infra/flux:dnsconfig",
         "//infra/forgejo:dnsconfig",
         "//infra/harbor:dnsconfig",
+        "//infra/ingress:dnsconfig",
         "//infra/mikrotik:dnsconfig",
         "//infra/pve:dnsconfig",
         "//infra/threexui:dnsconfig",

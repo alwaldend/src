@@ -1,0 +1,31 @@
+load("//tools/docs:defs.bzl", "docs_filegroup")
+load("//tools/terraform:defs.bzl", "terraform_binary_map")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//infra/ingress:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+_CONFIGS = ["//infra/ingress:al"]
+
+_DATA = glob(["*.tf"]) + [
+    ".terraform.lock.hcl",
+    "//infra/ingress:dnsconfig",
+    "//tools/vault/tf_backend",
+    "//tools/vault/injector",
+]
+
+terraform_binary_map(
+    name = "tf",
+    configs = _CONFIGS,
+    data = _DATA,
+    run_args = [
+        "--plugin_label",
+        "tf",
+    ],
+)

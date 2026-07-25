@@ -1,0 +1,32 @@
+{
+    "records": {
+        "host1": {
+            "A": {
+                "name": "host1.ingress",
+                "address": "158.160.221.131"
+            },
+            "dsp": ["all"]
+        },
+        "root_host1": {
+            "A": {
+                "name": "ingress",
+                "address": "158.160.221.131"
+            },
+            "dsp": ["all"]
+        },
+        "host2": {
+            "A": {
+                "name": "host2.ingress",
+                "address": "46.243.210.145"
+            },
+            "dsp": ["all"]
+        },
+        "root_host2": {
+            "A": {
+                "name": "ingress",
+                "address": "46.243.210.145"
+            },
+            "dsp": ["all"]
+        }
+    }
+}

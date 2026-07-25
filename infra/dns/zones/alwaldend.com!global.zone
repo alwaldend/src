@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-07-24T18:36:42Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026072400 3600 600 604800 1440
+; generated with dnscontrol 2026-07-25T16:39:47Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026072500 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -20,6 +20,10 @@ _dmarc           IN TXT   "v=DMARC1; p=quarantine; adkim=s"
 protonmail._domainkey IN CNAME protonmail.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
 protonmail2._domainkey IN CNAME protonmail2.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
 protonmail3._domainkey IN CNAME protonmail3.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
+ingress          IN A     46.243.210.145
+                 IN A     158.160.221.131
+host1.ingress    IN A     158.160.221.131
+host2.ingress    IN A     46.243.210.145
 simplelogin 10800 IN MX   10 mx1.simplelogin.co.
            10800 IN MX    20 mx2.simplelogin.co.
            10800 IN TXT   "sl-verification=bxfzzfjiggzsxyzxhhmkmjqkaskjgy"
