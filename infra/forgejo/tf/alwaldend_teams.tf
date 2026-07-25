@@ -1,7 +1,10 @@
 resource "forgejo_team" "alwaldend_admins" {
-  organization_id = forgejo_organization.alwaldend.id
-  name            = "alwaldend_admins"
-  permission      = "admin"
+  organization_id           = forgejo_organization.alwaldend.id
+  name                      = "alwaldend_admins"
+  permission                = "admin"
+  can_create_org_repo       = true
+  description               = "Admins"
+  includes_all_repositories = true
   units_map = {
     "repo.code"       = "admin"
     "repo.actions"    = "admin"
@@ -17,9 +20,12 @@ resource "forgejo_team" "alwaldend_admins" {
 }
 
 resource "forgejo_team" "alwaldend_devs" {
-  organization_id = forgejo_organization.alwaldend.id
-  name            = "alwaldend_devs"
-  permission      = "read"
+  organization_id           = forgejo_organization.alwaldend.id
+  name                      = "alwaldend_devs"
+  permission                = "write"
+  description               = "Developers"
+  can_create_org_repo       = false
+  includes_all_repositories = false
   units_map = {
     "repo.code"     = "write"
     "repo.issues"   = "write"
@@ -41,9 +47,11 @@ resource "forgejo_team_member" "alwaldend_admins" {
 }
 
 resource "forgejo_team" "alwaldend_package_writers" {
-  organization_id = forgejo_organization.alwaldend.id
-  name            = "alwaldend_package_writers"
-  permission      = "write"
+  organization_id           = forgejo_organization.alwaldend.id
+  name                      = "alwaldend_package_writers"
+  permission                = "write"
+  can_create_org_repo       = false
+  includes_all_repositories = false
   units_map = {
     "repo.packages" = "write"
   }

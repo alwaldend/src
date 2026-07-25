@@ -988,7 +988,7 @@ title = "Grotesqueries of the Old Domain"
 alt_titles = ["旧域怪诞", "The Grotesque Old Domain"]
 thumbnail = "./grotesqueries_of_the_old_domain.jpg"
 quality = "Good?"
-reading = "Dropped, slow translation, C75"
+reading = "Dropped, C268"
 authors = ["foxtail-quill"]
 links = [
   { title = "novelupdates", url = "https://www.novelupdates.com/series/grotesqueries-of-the-old-domain/" },
@@ -1018,7 +1018,7 @@ links = [
 title = "Mask of Humanity"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/80031-mask-of-humanity-grimdark-cultivation-litrpg.jpg"
 quality = "Decent"
-reading = "Dropped, C322"
+reading = "Dropped, C366"
 authors = ["slaughterbot"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/80031/mask-of-humanity" },
@@ -1166,6 +1166,16 @@ reading = "Dropped, F6P2C10"
 authors = ["cashen"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/107964/to-walk-the-red-path-a-story-of-dungeon-crawling" },
+]
+
+[[book]]
+title = "[Grave Robber]"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/178197-grave-robber.jpg?time=1783922076"
+quality = "Ok, mediorce"
+reading = "Dropped, C6"
+authors = ["disheveledvagabond"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/178197/grave-robber" },
 ]
 
 [[book]]
