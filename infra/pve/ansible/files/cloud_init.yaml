@@ -18,6 +18,8 @@ users:
     ssh_authorized_keys:
       - >-
         cert-authority,principals="ansible" ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK4qsPeUBEwrrXaRRGXBQYAvGBw7QQ06elFIGnGOzWky
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINe+6zNbs5HKrdZnHgeik/y7v5QYQr1cLYqfdCQ49GbM openpgp:0x485AEA03 simeonwarren@alwaldend.com
+      - sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIO5e7xegYkulZY19kyRAG3xAZB6UYsvR9ra4jtKKyQd7AAAABHNzaDo= simeonwarren@alwaldend.com
 ca_certs:
   trusted:
     - |

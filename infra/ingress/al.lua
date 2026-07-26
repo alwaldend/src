@@ -36,3 +36,27 @@ infra.yc_account({
     path = "yandex.cloud/org1/folders/src-infra-ingress/account",
     labels = { tf = "main" },
 })
+
+lib.plugin_call({
+    name = "image",
+    plugin = "injector",
+    labels = { tf = "main" },
+    data = {
+        res =  {
+            {
+                name = "image",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/src_infra_ingress/image",
+                    mount = "secrets",
+                }
+            },
+            {
+                name = "TF_VAR_image_signed_url",
+                deps = { "image" },
+                env = {
+                    value = "{{ .Last.Data.image_signed_url }}",
+                }
+            },
+        }
+    }
+})
