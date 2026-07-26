@@ -492,3 +492,9 @@ name = "DisheveledVagabond "
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/profile/192594" },
 ]
+
+[author.cognosticon]
+name = "Cognosticon"
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/270595" },
+]

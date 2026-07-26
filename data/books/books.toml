@@ -212,8 +212,8 @@ links = [
 [[book]]
 title = "Beware Of Chicken"
 thumbnail = "https://www.royalroadcdn.com/public/covers-full/beware-of-chicken-aacav1xoeg8.jpg"
-quality = "Good"
-reading = "Dropped at some point"
+quality = "Decent"
+reading = "Dropped, V4(V6)C68"
 authors = ["casualfarmer"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/39408/beware-of-chicken" },
@@ -1176,6 +1176,16 @@ reading = "Dropped, C6"
 authors = ["disheveledvagabond"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/178197/grave-robber" },
+]
+
+[[book]]
+title = "Throne of Time"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/throne-of-time-aabavht89hg.jpg?time=1780498434"
+quality = "Ok, bland"
+reading = "Dropped, C23"
+authors = ["cognosticon"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/172653/throne-of-time-magical-academy-time-loop-mystery" },
 ]
 
 [[book]]

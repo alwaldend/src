@@ -1,0 +1,91 @@
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//third_party:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+write_file(
+    name = "deploy_proxmox_script",
+    out = "deploy_proxmox_script.sh",
+    content = [
+        "#!/usr/bin/env sh",
+        "set -eu",
+        'for iso in "${@}"; do',
+        "target=pve.alwaldend.com:/var/lib/vz/template/iso/",
+        'echo "Deploying ${iso} to ${target}" >&2',
+        'rsync -a "${iso}" "${target}"',
+        "done",
+    ],
+    is_executable = True,
+)
+
+al_binary_run_map(
+    name = "deploy_proxmox",
+    args = {
+        "": [
+            "$(rootpath :deploy_proxmox_script)",
+            "$(rootpath //third_party/org_fedora_cloud)",
+        ],
+    },
+    configs = [
+        "//third_party:al",
+    ],
+    data = [
+        ":deploy_proxmox_script",
+        "//third_party/org_fedora_cloud",
+    ],
+    run_args = [
+    ],
+)
+
+write_file(
+    name = "deploy_yc_script",
+    out = "deploy_yc_script.sh",
+    content = [
+        "#!/usr/bin/env sh",
+        "set -eu",
+        'rclone="${1}"',
+        'rclone_config="${2}"',
+        "shift 2",
+        'for iso in "${@}"; do',
+        'target="remote:com-alwaldend-src-third-party-images/images/$(basename "${iso}")"',
+        'echo "Deploying ${iso} to ${target}" >&2',
+        '"${rclone}" copyto --config "${rclone_config}" -v --check-first --s3-no-check-bucket "$(realpath ${iso})" "${target}"',
+        "done",
+    ],
+    is_executable = True,
+)
+
+al_binary_run_map(
+    name = "deploy_yc",
+    args = {
+        "": [
+            "$(rootpath :deploy_yc_script)",
+            "$(rootpath //tools/rclone)",
+            "$(rootpath :rclone.conf)",
+            "$(rootpath //third_party/org_fedora_cloud)",
+        ],
+    },
+    configs = [
+        "//third_party:al",
+    ],
+    data = [
+        "rclone.conf",
+        ":deploy_yc_script",
+        "//third_party/org_fedora_cloud",
+        "//tools/rclone",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "rclone",
+    ],
+)

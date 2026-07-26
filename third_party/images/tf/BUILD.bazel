@@ -1,24 +1,23 @@
 load("//tools/docs:defs.bzl", "docs_filegroup")
-load("//tools/terraform:defs.bzl", "terraform_binary_map")
+load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
 
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//infra/ingress:__pkg__"],
+    visibility = ["//third_party/images:__pkg__"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
     ),
 )
 
-_CONFIGS = ["//infra/ingress:al"]
+_CONFIGS = ["//third_party:al"]
 
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
-    "//infra/ingress:dnsconfig",
+    "//projects/tf_modules/tf_backend",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",
-    "//infra/pve/ansible:cloud_init",
 ]
 
 terraform_binary_map(
@@ -29,4 +28,10 @@ terraform_binary_map(
         "--plugin_label",
         "tf",
     ],
+)
+
+terraform_test_map(
+    name = "tf_test",
+    configs = _CONFIGS,
+    data = _DATA,
 )
