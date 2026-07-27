@@ -1,0 +1,9 @@
+- name: Ingress
+  hosts: ingress
+  force_handlers: true
+  become: true
+  tasks:
+    - ansible.builtin.import_role:
+        name: alwaldend.main.host
+    # - ansible.builtin.import_role:
+    #     name: alwaldend.main.traefik

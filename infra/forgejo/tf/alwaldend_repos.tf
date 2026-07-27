@@ -32,7 +32,7 @@ resource "forgejo_branch_protection" "alwaldend_src_master" {
   approvals_whitelist_teams = [
     forgejo_team.alwaldend_admins.name,
   ]
-  require_signed_commits    = true
+  require_signed_commits    = false
   block_on_rejected_reviews = true
   required_approvals        = 1
 }
@@ -53,7 +53,7 @@ resource "forgejo_branch_protection" "alwaldend_src_releases" {
   approvals_whitelist_teams = [
     forgejo_team.alwaldend_admins.name,
   ]
-  require_signed_commits    = true
+  require_signed_commits    = false
   block_on_rejected_reviews = true
   required_approvals        = 1
 }

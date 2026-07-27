@@ -1,0 +1,7 @@
+[http.routers.ingress]
+rule = "Host(`{{ ingress_domain }}`)"
+service = "ingress"
+tls = { certResolver = "default" }
+
+[[http.services.ingress.loadBalancer.servers]]
+url = "https://int.opencode.simeonwarren.users.alwaldend.com"

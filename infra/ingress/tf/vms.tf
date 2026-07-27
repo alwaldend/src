@@ -77,7 +77,7 @@ resource "yandex_compute_instance" "vpc" {
     nat_ip_address = yandex_vpc_address.vpc[each.key].external_ipv4_address[0].address
   }
   metadata = {
-    user-data = local.cloud_init_str
+    user-data          = local.cloud_init_str
     serial-port-enable = "1"
     # ssh-keys = "${local.cloud_init.users[0].name}:${local.cloud_init.users[0].ssh_authorized_keys[0]}}"
   }
