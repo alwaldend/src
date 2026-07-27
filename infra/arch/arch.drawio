@@ -831,23 +831,26 @@
         <mxCell id="vUXyYon38m6MB75VYfU--16" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Cloudflare&lt;br&gt;cloudflare.com" vertex="1">
           <mxGeometry height="60" width="120" x="330" y="640" as="geometry" />
         </mxCell>
-        <mxCell id="vUXyYon38m6MB75VYfU--20" edge="1" parent="1" source="vUXyYon38m6MB75VYfU--3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="vUXyYon38m6MB75VYfU--16">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="vUXyYon38m6MB75VYfU--25" connectable="0" parent="vUXyYon38m6MB75VYfU--20" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="DNS" vertex="1">
-          <mxGeometry relative="1" x="-0.025" as="geometry">
-            <mxPoint x="20" as="offset" />
+        <mxCell id="vUXyYon38m6MB75VYfU--20" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="391" y="480" as="sourcePoint" />
+            <mxPoint x="391" y="640" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="vUXyYon38m6MB75VYfU--21" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Other DNS servers" vertex="1">
-          <mxGeometry height="60" width="120" x="620" y="420" as="geometry" />
+        <mxCell id="vUXyYon38m6MB75VYfU--25" connectable="0" parent="vUXyYon38m6MB75VYfU--20" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="DNS over HTTPS" vertex="1">
+          <mxGeometry relative="1" x="-0.025" as="geometry">
+            <mxPoint x="59" y="52" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vUXyYon38m6MB75VYfU--21" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="ISP DNS server" vertex="1">
+          <mxGeometry height="60" width="120" x="670" y="420" as="geometry" />
         </mxCell>
         <mxCell id="vUXyYon38m6MB75VYfU--22" edge="1" parent="1" source="vUXyYon38m6MB75VYfU--3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="vUXyYon38m6MB75VYfU--21">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="vUXyYon38m6MB75VYfU--23" connectable="0" parent="vUXyYon38m6MB75VYfU--22" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="DNS" vertex="1">
+        <mxCell id="vUXyYon38m6MB75VYfU--23" connectable="0" parent="vUXyYon38m6MB75VYfU--22" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="DNS&lt;br&gt;(for DNS over HTTPS)" vertex="1">
           <mxGeometry relative="1" x="0.4667" y="-5" as="geometry">
-            <mxPoint x="-8" y="-25" as="offset" />
+            <mxPoint x="-22" y="-25" as="offset" />
           </mxGeometry>
         </mxCell>
       </root>

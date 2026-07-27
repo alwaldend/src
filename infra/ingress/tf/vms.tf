@@ -20,11 +20,9 @@ resource "yandex_vpc_address" "vpc" {
 }
 
 resource "yandex_compute_image" "vpc" {
-  name       = "vpc"
-  source_url = var.image_signed_url
-  hardware_generation {
-    generation2_features {}
-  }
+  name = "vpc"
+  # source_url = var.image_signed_url
+  source_image = "fd8iku26nnkveh8s4di1" # https://yandex.cloud/en/marketplace/products/yc/fedora-43
 }
 
 resource "yandex_vpc_network" "vpc" {
@@ -56,7 +54,7 @@ resource "yandex_compute_disk" "vpc" {
   type       = "network-ssd"
   zone       = each.value.zone
   kms_key_id = yandex_kms_symmetric_key.vpc.id
-  size       = 10
+  size       = 20
   image_id   = yandex_compute_image.vpc.id
 }
 
@@ -80,6 +78,7 @@ resource "yandex_compute_instance" "vpc" {
   }
   metadata = {
     user-data = local.cloud_init_str
+    serial-port-enable = "1"
     # ssh-keys = "${local.cloud_init.users[0].name}:${local.cloud_init.users[0].ssh_authorized_keys[0]}}"
   }
 }

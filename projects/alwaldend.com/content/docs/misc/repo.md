@@ -118,11 +118,13 @@ ln -s ../../tools/bazelrc/main/bazelrc/bzl_project.bazelrc .bazelrc
 ## Ssh key using Yubikey's pgp doesn't work
 
 Agent restart helps:
+
 ```sh
 gpg-connect-agent updatestartuptty /bye
 ```
 
 Check the key:
+
 ```sh
 bazel run //tools/ykman -- info
 ```
@@ -146,6 +148,7 @@ Proxmox VMs have Kerberos enabled, which slows SSH down, you need to disable it
 locally
 
 `~/.ssh/config.d/config`:
+
 ```
 GSSAPIAuthentication no
 ```
@@ -155,4 +158,10 @@ GSSAPIAuthentication no
 ```sh
 sudo cp infra/vault/tf/output/pki_ca_servers.crt /etc/pki/ca-trust/source/anchors/
 sudo update-ca-trust
+```
+
+## Run go mod tidy
+
+```sh
+find -name "go.mod" -exec sh -c 'cd "$(dirname "{}")" && bazel run @rules_go//go -- mod tidy' ";"
 ```
