@@ -1,6 +1,6 @@
 module git.alwaldend.com/alwaldend/src/tools/buildifier
 
-go 1.25.5
+go 1.26.5
 
 require github.com/bazelbuild/buildtools v0.0.0-20250930140053-2eb4fccefb52
 
