@@ -39,7 +39,7 @@ resource "threexui_inbound" "freedom" {
 locals {
   mullvad_min_names = [
     "nl-ams-wg-008",
-    "nl-ams-wg-203",
+    "us-sjc-wg-003",
     "de-fra-wg-009",
     "de-dus-wg-003",
     "fr-mrs-wg-002",
