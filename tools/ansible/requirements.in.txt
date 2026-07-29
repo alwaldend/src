@@ -1,2 +1,4 @@
 ansible>=13.0.0
+ansible-core>=2.20.7rc1
+cryptography>=48.0.1
 proxmoxer
