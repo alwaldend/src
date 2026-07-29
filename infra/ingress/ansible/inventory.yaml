@@ -1,3 +1,4 @@
 ingress:
   hosts:
     host1.ingress.alwaldend.com:
+    host2.ingress.alwaldend.com:

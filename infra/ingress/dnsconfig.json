@@ -17,14 +17,14 @@
         "host2": {
             "A": {
                 "name": "host2.ingress",
-                "address": "46.243.210.145"
+                "address": "84.201.176.14"
             },
             "dsp": ["all"]
         },
         "root_host2": {
             "A": {
                 "name": "ingress",
-                "address": "46.243.210.145"
+                "address": "84.201.176.14"
             },
             "dsp": ["all"]
         }

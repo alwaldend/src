@@ -1,3 +1,2 @@
-wireguard_enabled: false
-wireguard_configs: []
 wireguard_dir: "/etc/wireguard"
+wireguard_local_config_paths: []

@@ -15,3 +15,6 @@ firewall_allow_port_from:
   - src: "any"
     port: 80
     comment: HTTP
+  - src: "any"
+    port: 51820
+    comment: Wireguard

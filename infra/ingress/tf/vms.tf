@@ -5,9 +5,9 @@ locals {
     host1 = {
       zone = "ru-central1-d"
     }
-    # host2 = {
-    #   zone = "ru-central1-b"
-    # }
+    host2 = {
+      zone = "ru-central1-b"
+    }
   }
 }
 
@@ -79,7 +79,6 @@ resource "yandex_compute_instance" "vpc" {
   metadata = {
     user-data          = local.cloud_init_str
     serial-port-enable = "1"
-    # ssh-keys = "${local.cloud_init.users[0].name}:${local.cloud_init.users[0].ssh_authorized_keys[0]}}"
   }
 }
 

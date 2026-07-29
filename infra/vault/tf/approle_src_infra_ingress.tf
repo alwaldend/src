@@ -4,6 +4,9 @@ module "src_infra_ingress_approle" {
   member_group_ids = [
     vault_identity_group.global_admins.id,
   ]
+  policies = [
+    module.src_infra_ingress_ssh.policy,
+  ]
   secrets          = vault_mount.secrets.path
   backend          = vault_auth_backend.approle.path
   backend_accessor = vault_auth_backend.approle.accessor
