@@ -1,0 +1,11 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "com_nousresearch_hermes_agent",
+    downloaded_file_path = "install.sh",
+    executable = True,
+    integrity = "sha256-xbp+iWJ1d/q5FFFHNuz7M1m2aVbKABmb/vYWyjWVPLk=",
+    urls = [
+        "https://raw.githubusercontent.com/NousResearch/hermes-agent/v2026.7.20/scripts/install.sh",
+    ],
+)
