@@ -28,10 +28,21 @@ bazel run //infra/ingress/tf
 
 - Regenerate private and public keys:
   ```sh
-  wg genkey | tee privatekey | wg pubkey >publickey
+  wg genkey | tee host1.privatekey.txt | wg pubkey >host1.publickey.txt
+  wg genkey | tee host2.privatekey.txt | wg pubkey >host2.publickey.txt
+  wg genkey | tee router.privatekey.txt | wg pubkey >router.publickey.txt
+  cat - >data.json <<EOF
+  {
+    "wg_public_keys": {
+
+    }
+    "wg_node_private_key": "$(cat node.privatekey.txt)",
+    "wg_node_public_key": "$(cat node.publickey.txt)",
+    "wg_preshared_key": "$(openssl rand 32 | base64 >preshared_key)",
+    "wg_router_private_key": "$(cat router.privatekey.txt)",
+    "wg_router_public_key": "$(cat router.publickey.txt)"
+  }
+  EOF
+  bazel run infra/ingress:vault.kv_put -- -format json alwaldend.com/vault1/approles/src_infra_ingress/wireguard "@${PWD}/data.json"
+  rm data.json *.privatekey.txt *.publickey.txt
   ```
-- Regenerate preshared key:
-  ```sh
-  openssl rand 32 | base64 >preshared_key
-  ```
-- Update the secret

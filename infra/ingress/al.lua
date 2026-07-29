@@ -60,3 +60,69 @@ lib.plugin_call({
         }
     }
 })
+
+lib.plugin_call({
+    name = "mikrotik",
+    plugin = "injector",
+    labels = { tf = "main" },
+    data = {
+        res = {
+            {
+                name = "mikrotik",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/src_infra_ingress/mikrotik",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "MIKROTIK_HOST",
+                deps = { "mikrotik" },
+                env = {
+                    value = "https://router1.dc1.alwaldend.com",
+                }
+            },
+            {
+                name = "MIKROTIK_USER",
+                deps = { "mikrotik" },
+                env = {
+                    value = "{{ .Last.Data.mikrotik_username }}",
+                }
+            },
+            {
+                name = "MIKROTIK_PASSWORD",
+                deps = { "mikrotik" },
+                env = {
+                    value = "{{ .Last.Data.mikrotik_password }}",
+                }
+            },
+            {
+                name = "wireguard",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/src_infra_ingress/wireguard",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "TF_VAR_wg_public_key",
+                deps = { "wireguard" },
+                env = {
+                    value = "{{ .Last.Data.wg_node_public_key }}",
+                }
+            },
+            {
+                name = "TF_VAR_wg_preshared_key",
+                deps = { "wireguard" },
+                env = {
+                    value = "{{ .Last.Data.wg_preshared_key }}",
+                }
+            },
+            {
+                name = "TF_VAR_wg_interface_private_key",
+                deps = { "wireguard" },
+                env = {
+                    value = "{{ .Last.Data.wg_router_private_key }}",
+                }
+            },
+        }
+    }
+})

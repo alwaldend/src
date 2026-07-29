@@ -43,6 +43,9 @@ func (self *Templater) Template(ctx context.Context, tpl string, data []*Resourc
 				}
 				return string(res), nil
 			},
+			"b64encode": func(val string) (string, error) {
+				return base64.StdEncoding.EncodeToString([]byte(val)), nil
+			},
 			"join": func(elems []any, sep string) string {
 				elemsString := make([]string, len(elems))
 				for _, elem := range elems {
