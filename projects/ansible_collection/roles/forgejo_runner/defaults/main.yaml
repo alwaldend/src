@@ -1,0 +1,13 @@
+forgejo_runner_version: 11.0.0
+forgejo_runner_checksum: sha256:476e4d2a4adb9c3e05faa2b982d94d4c340cd17a5a67a0750a8706c7302ae37a
+forgejo_runner_download_url: "https://code.forgejo.org/forgejo/runner/releases/download/v{{ forgejo_runner_version }}/forgejo-runner-{{ forgejo_runner_version }}-linux-amd64"
+forgejo_runner_user: forgejo-runner
+forgejo_runner_user_uid: 5160
+forgejo_runner_dir: /opt/forgejo-runner
+forgejo_runner_bin_path: /usr/local/bin/forgejo-runner
+forgejo_runner_service_path: /etc/systemd/system/forgejo-runner.service
+forgejo_runner_instance: "{{ undefined() }}"
+forgejo_runner_token: "{{ undefined() }}"
+forgejo_runner_name: "{{ inventory_hostname }}"
+forgejo_runner_labels:
+  - "docker:docker://node:20-bookworm"

@@ -1,0 +1,74 @@
+- tags:
+    - forgejo_runner
+  block:
+    - name: Install Docker
+      ansible.builtin.apt:
+        name: docker.io
+        state: present
+        update_cache: true
+
+    - name: Create Forgejo runner user
+      ansible.builtin.user:
+        name: "{{ forgejo_runner_user }}"
+        uid: "{{ forgejo_runner_user_uid }}"
+        home: "{{ forgejo_runner_dir }}"
+        groups:
+          - docker
+        append: true
+        system: true
+
+    - name: Create Forgejo runner directory
+      ansible.builtin.file:
+        path: "{{ forgejo_runner_dir }}"
+        state: directory
+        owner: "{{ forgejo_runner_user }}"
+        group: "{{ forgejo_runner_user }}"
+        mode: "0750"
+
+    - name: Download Forgejo runner
+      notify: Restart Forgejo runner
+      ansible.builtin.get_url:
+        url: "{{ forgejo_runner_download_url }}"
+        dest: "{{ forgejo_runner_bin_path }}"
+        checksum: "{{ forgejo_runner_checksum }}"
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Register Forgejo runner
+      no_log: true
+      become_user: "{{ forgejo_runner_user }}"
+      environment:
+        FORGEJO_RUNNER_TOKEN: "{{ forgejo_runner_token }}"
+      args:
+        chdir: "{{ forgejo_runner_dir }}"
+        creates: "{{ forgejo_runner_dir }}/.runner"
+      ansible.builtin.command:
+        argv:
+          - "{{ forgejo_runner_bin_path }}"
+          - register
+          - --no-interactive
+          - --instance
+          - "{{ forgejo_runner_instance }}"
+          - --token
+          - "{{ forgejo_runner_token }}"
+          - --name
+          - "{{ forgejo_runner_name }}"
+          - --labels
+          - "{{ forgejo_runner_labels | join(',') }}"
+
+    - name: Install Forgejo runner systemd service
+      notify: Restart Forgejo runner
+      ansible.builtin.template:
+        src: forgejo-runner.service
+        dest: "{{ forgejo_runner_service_path }}"
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Enable and start Forgejo runner
+      ansible.builtin.systemd_service:
+        name: forgejo-runner
+        daemon_reload: true
+        enabled: true
+        state: started
