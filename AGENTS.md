@@ -2,130 +2,138 @@
 title: Agents
 ---
 
-# AGENTS.md
+# Repository guide for agents
 
-This file contains high-signal, repository-specific guidance for AI agents working in this repository. It focuses on executable truths and non-obvious workflows that would otherwise be difficult to infer.
+Use this file as the repository-wide default. If a more deeply nested
+`AGENTS.md` is added, its instructions take precedence for that subtree.
 
-## Architecture Overview
+## Start here
 
-The repository follows a monorepo structure with the following major directories:
+1. Run `git status --short` before editing. The worktree may contain unrelated
+   changes; do not discard, stage, format, or otherwise modify them.
+2. Read the nearest `README.md`, `BUILD.bazel`, and `include.MODULE.bazel`
+   (when present) for the area being changed.
+3. Prefer a small, target-specific change. This is a large monorepo, so query,
+   build, and test the affected Bazel package before considering `//...`.
+4. Review `git diff --check` and `git diff -- <paths>` before committing.
 
-- `infra/`: Infrastructure as Code (IaC) for data centers and services. Contains Terraform configurations and Ansible playbooks.
-- `projects/`: Project-specific code and modules, including Terraform modules for various services.
-- `tools/`: Bazel toolchain definitions and utilities used across the repository.
-- `data/`: Static data files used across the repository, including SSL certificates, PGP keys, and documentation assets.
-- `third_party/`: External dependencies and vendored code that are managed locally.
+Do not use recursive `grep` or `ls`. Use `rg`, `rg --files`, `find` with a
+bounded depth, or `bazel query` instead.
 
-## Key Configuration Files
+## Repository map and boundaries
 
-- `pyproject.toml`: Python dependency and linting configuration (black, mypy, isort, flake8)
-- `.editorconfig`: Editor configuration with specific indentation rules
-- `.bazelrc`: Bazel configuration with project-specific and CI settings
-- `.gitignore`: Comprehensive ignore patterns including Bazel, Terraform, and IDE files
+- `projects/`: product and reusable project code. It may be public, published,
+  and used in build actions.
+- `infra/`: private infrastructure definitions (Terraform, Ansible, Flux,
+  DNS, and host/service configuration). It must not be published or consumed
+  by build actions.
+- `tools/`: repo-wide build rules and toolchains. Except for toolchain types,
+  these are private and not for production build actions; tools may be used by
+  tests. Tool targets intended across the repo normally use
+  `visibility = ["//:__subpackages__"]`.
+- `data/`: private checked-in data and documentation assets. It may be used in
+  builds, but must not be public or published.
+- `third_party/`: private vendored or externally sourced code. It may be used
+  in builds, but must not be public or published.
+- `users/`: private user-specific code and infrastructure. It must not be
+  published or consumed by builds.
 
-## Bazel Build System
+The authoritative policy for each tree is its top-level `README.md`. Preserve
+these visibility and publication boundaries when adding dependencies.
 
-The repository uses Bazel as the primary build system with custom toolchains and configurations.
+## Bazel and dependency management
 
-### Bazel Configuration
+- Bazel is the primary entry point. `.bazeliskrc` pins the supported version;
+  use `bazel`, not a separately installed unpinned binary.
+- `MODULE.bazel` is the Bzlmod root. Most dependency families are split into
+  `include.MODULE.bazel` files under `tools/`, `third_party/`, and `projects/`.
+  Keep a dependency declaration with the owning subsystem rather than adding
+  everything to the root module.
+- `.bazelrc` imports `tools/bazelrc/root.bazelrc`, which in turn loads the
+  generated preset, project flags, and optional ignored `user.bazelrc`.
+  Do not put machine-local settings into checked-in rc files.
+- Do not hand-edit files that identify themselves as generated. Run the update
+  command in their header. Common update targets use a `.update` suffix (for
+  example, `bazel run //tools/ansible:requirements.update`).
+- When changing BUILD or `.bzl` files, use existing macros and naming patterns
+  in the same package. Run the root Buildifier test as well as package tests.
+- Run `bazel run //:gazelle` only when a source/dependency change requires
+  generated BUILD updates, then review every generated change.
 
-The Bazel configuration is split across multiple files:
-- `.bazelrc`: Main configuration file
-- `tools/bazelrc/root.bazelrc`: Imports presets and project configurations
-- `tools/bazelrc/preset.bazelrc`: Standard Bazel best practices
-- `tools/bazelrc/project.bazelrc`: Project-specific overrides
+Useful discovery commands:
 
-## Infrastructure Workflow
+```sh
+bazel query //path/to/package:all
+bazel query 'tests(//path/to/package:all)'
+bazel query 'rdeps(//..., //path/to/package:target)'
+```
 
-### Data Center Structure
+`bazel query` can be expensive at repository scope. Substitute the narrowest
+reasonable package pattern for `//...` whenever possible.
 
-The infrastructure is organized by data center (`dc1`) with multiple services:
-- `vault/`: HashiCorp Vault setup and configuration
-- `pve1/`: Proxmox Virtual Environment cluster
-- `consul1/`: Consul service mesh
-- `forgejo1/`: Forgejo (Gitea fork) code hosting
-- `cl1/`: Kubernetes cluster (k3s)
+## Infrastructure safety
 
-### Cloud Infrastructure
+- Treat all files under `infra/`, `users/`, and secret-bearing `data/`
+  subtrees as sensitive. Never paste credentials, private keys, state, plan
+  output, inventories, or decrypted configuration into logs or commits.
+- `al.lua` files use the repository's custom configuration DSL and often wire
+  Vault AppRole authentication into generated commands. Follow a nearby
+  service's `al.lua` and Bazel target rather than invoking tools directly.
+- Terraform is wrapped by `terraform_binary_map`. Typical targets are
+  `:tf.fmt_check`, `:tf.plan`, and `:tf.apply`; the first two are validation,
+  while `apply`, `deploy`, `destroy`, `import`, `migrate`, `state`, and
+  `force_unlock` can change remote state.
+- Do not run any state-changing infrastructure target unless the user
+  explicitly requests that exact operation and scope. For ordinary code
+  changes, limit verification to formatting, validation, queries, builds, and
+  tests that do not contact or mutate live systems.
+- Do not commit `.terraform/`, state files, plans, environment files, or
+  machine-local credentials. Existing `.gitignore` rules are a backstop, not
+  permission to create or inspect secret material unnecessarily.
 
-The repository also manages cloud infrastructure through:
-- `yandex_cloud/`: Configuration for Yandex Cloud resources and services
+## Style
 
-### DNS Configuration
+Follow `.editorconfig` and the closest existing files:
 
-DNS is managed through:
-- `dns/`: DNS configuration and zone files using dnscontrol
-- `infra/dc1/pve1/ansible/roles/dns/`: Ansible role for DNS server configuration
+- UTF-8, LF endings, a final newline, no trailing whitespace, and a preferred
+  maximum line length of 79.
+- Four spaces by default (including JSON); tabs only for Go and Makefiles; two
+  spaces for YAML, Markdown, HTML, Proto, and TOML.
+- Python formatting and analysis settings live in `pyproject.toml`. Note that
+  the project metadata supports Python 3.10+, while some tool configurations
+  deliberately target Python 3.9 compatibility; do not casually synchronize
+  those values.
+- Never add broad formatting churn to a focused change.
 
-## Authentication and Secrets
+## Verification
 
-The repository uses HashiCorp Vault for secrets management with AppRole authentication. Configuration is managed through Lua files (`al.lua`) in each infrastructure directory.
+Choose checks that match the files changed, in this order:
 
-## Lua Configuration
+```sh
+git diff --check
+bazel test //path/to/affected/package:all
+bazel build //path/to/affected/package:all
+bazel test //:buildifier_test                 # BUILD/.bzl changes
+black --check path/to/changed/python          # Python changes
+mypy path/to/changed/python                   # Python changes
+bazel test //...                              # only when justified/feasible
+```
 
-Infrastructure configuration is defined in Lua files named `al.lua` that use a custom DSL to configure services and authentication. These files are located in:
-- `/infra/dc1/vault/al.lua`
-- `/infra/dc1/pve1/al.lua`
-- `/infra/dc1/consul1/al.lua`
-- `/infra/dc1/forgejo1/al.lua`
-- `/infra/dns/al.lua`
-- `/infra/yandex_cloud/org1/al.lua`
-- `/infra/users/simeonwarren/al.lua`
+Not every package exposes all of these targets. Use `bazel query` first rather
+than guessing. Report commands exactly, distinguish failures from environment
+limitations, and do not claim a repository-wide check when only a package was
+tested.
 
-## Terraform Usage
+The checked-in pre-commit configuration supplies repository hygiene checks.
+The hook itself is generated with `bazel run //:write_git_hooks`; installation
+is optional, and agents should still run the relevant checks explicitly.
 
-Terraform configurations are managed through Bazel using the `terraform_binary_map` rule. Each infrastructure component has its own Terraform configuration in a `tf/` subdirectory.
+## Change and commit hygiene
 
-### Terraform Directory Structure
-
-- `infra/dc1/vault/tf/`: Vault Terraform configuration
-- `infra/dc1/pve1/tf/`: Proxmox Terraform configuration
-- `infra/dc1/consul1/tf/`: Consul Terraform configuration
-- `infra/dc1/consul1/tf_setup/`: Consul setup Terraform configuration
-- `infra/yandex_cloud/org1/tf/`: Yandex Cloud Terraform configuration
-- `infra/users/simeonwarren/tf/`: User-specific Terraform configuration
-
-## Development Environment
-
-### Python Environment
-
-Python dependencies are managed through `pyproject.toml` with the following tools:
-- black: Code formatting
-- mypy: Type checking
-- isort: Import sorting
-- flake8: Linting
-
-### Editor Configuration
-
-The repository uses `.editorconfig` with the following settings:
-- Python, Go, and Makefile: tabs for indentation
-- YAML, JSON, Markdown, HTML, proto, TOML: 2 spaces for indentation
-- All other files: 4 spaces for indentation
-- Maximum line length: 79 characters
-
-## Testing and Verification
-
-### Key Verification Commands
-
-- `bazel test //...` - Run all tests in the repository
-- `bazel build //...` - Build all targets
-- `black --check .` - Verify Python code formatting
-- `mypy .` - Run Python type checking
-
-## Special Considerations
-
-### Git Hooks
-
-The repository configures git hooks through Bazel:
-- Pre-commit hook is configured in `BUILD.bazel` using `write_source_file`
-
-### Remote Execution
-
-The Bazel configuration is optimized for remote execution and caching, with settings in `preset.bazelrc` that:
-- Enable remote caching and execution
-- Set appropriate timeouts for CI
-- Configure output downloading strategies
-
-### Platform-Specific Configuration
-
-Bazel automatically enables platform-specific configuration (`--enable_platform_specific_config`), so platform-specific flags can be used in `.bazelrc` files with `:linux`, `:macos`, `:windows` suffixes.
+- Keep generated dependency/lockfile changes only when they are a necessary,
+  reviewed consequence of the requested change.
+- Do not amend, rebase, force-push, or rewrite existing history unless asked.
+- Stage only the requested files. Re-run `git status --short` after staging to
+  make sure unrelated worktree changes remain unstaged.
+- In the final report, name the affected files and list each verification
+  command with its actual result.
