@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repository Secrets"
+  short_description: "Handle Vault-backed secrets without exposing credentials"
+  default_prompt: "Use the repository secret-handling conventions to make this change safely."

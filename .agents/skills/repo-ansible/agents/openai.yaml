@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repository Ansible"
+  short_description: "Change Bazel-packaged Ansible automation safely"
+  default_prompt: "Use the repository Ansible workflow to implement and validate this automation change."
