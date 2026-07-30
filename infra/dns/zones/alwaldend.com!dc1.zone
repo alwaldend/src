@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-07-29T18:53:58Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026072900 3600 600 604800 1440
+; generated with dnscontrol 2026-07-30T18:56:26Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026073000 3600 600 604800 1440
                  IN A     185.199.108.153
                  IN A     185.199.109.153
                  IN A     185.199.110.153
@@ -38,10 +38,10 @@ forgejo          IN A     192.168.10.40
 host1.forgejo    IN A     192.168.10.40
 harbor           IN A     192.168.10.50
 host1.harbor     IN A     192.168.10.50
-ingress          IN A     84.201.176.14
-                 IN A     158.160.221.131
-host1.ingress    IN A     158.160.221.131
-host2.ingress    IN A     84.201.176.14
+ingress          IN A     103.76.53.6
+                 IN A     158.160.196.128
+host1.ingress    IN A     158.160.196.128
+host2.ingress    IN A     103.76.53.6
 pve              IN A     192.168.1.216
 simplelogin 10800 IN MX   10 mx1.simplelogin.co.
            10800 IN MX    20 mx2.simplelogin.co.

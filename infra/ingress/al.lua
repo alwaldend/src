@@ -103,24 +103,24 @@ lib.plugin_call({
                 }
             },
             {
-                name = "TF_VAR_wg_public_key",
+                name = "TF_VAR_wg_public_keys",
                 deps = { "wireguard" },
                 env = {
-                    value = "{{ .Last.Data.wg_node_public_key }}",
+                    value = "{{ .Last.Data.wg_public_keys | to_json }}",
                 }
             },
             {
-                name = "TF_VAR_wg_preshared_key",
+                name = "TF_VAR_wg_private_keys",
                 deps = { "wireguard" },
                 env = {
-                    value = "{{ .Last.Data.wg_preshared_key }}",
+                    value = "{{ .Last.Data.wg_public_keys | to_json }}",
                 }
             },
             {
-                name = "TF_VAR_wg_interface_private_key",
+                name = "TF_VAR_wg_preshared_keys",
                 deps = { "wireguard" },
                 env = {
-                    value = "{{ .Last.Data.wg_router_private_key }}",
+                    value = "{{ .Last.Data.wg_preshared_keys | to_json }}",
                 }
             },
         }

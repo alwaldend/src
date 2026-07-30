@@ -34,13 +34,19 @@ bazel run //infra/ingress/tf
   cat - >data.json <<EOF
   {
     "wg_public_keys": {
-
+      "host1": "$(cat host1.publickey.txt)",
+      "host2": "$(cat host2.publickey.txt)",
+      "router": "$(cat router.publickey.txt)"
+    },
+    "wg_private_keys": {
+      "host1": "$(cat host1.privatekey.txt)",
+      "host2": "$(cat host2.privatekey.txt)",
+      "router": "$(cat router.privatekey.txt)"
+    },
+    "wg_preshared_keys": {
+      "host1": "$(openssl rand 32 | base64)",
+      "host2": "$(openssl rand 32 | base64)"
     }
-    "wg_node_private_key": "$(cat node.privatekey.txt)",
-    "wg_node_public_key": "$(cat node.publickey.txt)",
-    "wg_preshared_key": "$(openssl rand 32 | base64 >preshared_key)",
-    "wg_router_private_key": "$(cat router.privatekey.txt)",
-    "wg_router_public_key": "$(cat router.publickey.txt)"
   }
   EOF
   bazel run infra/ingress:vault.kv_put -- -format json alwaldend.com/vault1/approles/src_infra_ingress/wireguard "@${PWD}/data.json"

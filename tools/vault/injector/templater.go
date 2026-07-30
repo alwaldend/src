@@ -36,6 +36,13 @@ func (self *Templater) Template(ctx context.Context, tpl string, data []*Resourc
 				}
 				return string(res), nil
 			},
+			"to_json": func(val any) (string, error) {
+				res, err := json.Marshal(val)
+				if err != nil {
+					return "", fmt.Errorf("could not marshal json: %w", err)
+				}
+				return string(res), nil
+			},
 			"b64decode": func(val string) (string, error) {
 				res, err := base64.StdEncoding.DecodeString(val)
 				if err != nil {

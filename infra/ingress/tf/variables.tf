@@ -3,19 +3,19 @@ variable "image_signed_url" {
   description = "Signed url for the image"
 }
 
-variable "wg_public_key" {
-  type        = string
-  description = "Wireguard public key"
+variable "wg_public_keys" {
+  type        = map(string)
+  description = "Wireguard public keys"
 }
 
-variable "wg_preshared_key" {
-  type        = string
-  description = "Wireguard preshared key"
+variable "wg_preshared_keys" {
+  type        = map(string)
+  description = "Wireguard preshared keys"
 }
 
-variable "wg_interface_private_key" {
-  type        = string
-  description = "Wireguard interface private key"
+variable "wg_private_keys" {
+  type        = map(string)
+  description = "Wireguard interface private keys"
 }
 
 variable "folder_id" {
