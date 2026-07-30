@@ -1,0 +1,17 @@
+hermes_user: hermes
+hermes_user_uid: 8150
+hermes_dir: /opt/hermes
+hermes_home_dir: "{{ hermes_dir }}/home"
+hermes_install_dir: "{{ hermes_dir }}/hermes-agent"
+hermes_disk:
+hermes_port: 8642
+hermes_service_path: /lib/systemd/system/hermes.service
+hermes_installer_local_path: "{{ role_path }}/files/install.sh"
+hermes_installer_path: "{{ hermes_dir }}/install.sh"
+hermes_env_path: "{{ hermes_dir }}/hermes.env"
+hermes_env_override: {}
+hermes_env:
+  API_SERVER_ENABLED: "true"
+  API_SERVER_HOST: 127.0.0.1
+  API_SERVER_PORT: "{{ hermes_port }}"
+  HERMES_HOME: "{{ hermes_home_dir }}/.hermes"
