@@ -13,6 +13,17 @@
                 "address": "192.168.10.40"
             },
             "dsp": ["dc1"]
+        },
+        "external": {
+            "A": {
+                "name": "int.forgejo",
+                "address": "192.168.10.40"
+            },
+            "CNAME": {
+                "name": "forgejo",
+                "target": "ingress.alwaldend.com."
+            },
+            "dsp": ["global"]
         }
     }
 }

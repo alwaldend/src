@@ -6,6 +6,12 @@ ingress_domain: ingress.alwaldend.com
 wg_public_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_public_keys', default=undefined()) | from_json }}"
 wg_private_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_private_keys', default=undefined()) | from_json }}"
 wg_preshared_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_preshared_keys', default=undefined()) | from_json }}"
+traefik_services:
+  forgejo:
+    hostname: forgejo.alwaldend.com
+  vault:
+    hostname: vault.alwaldend.com
+    entrypoint: vault
 wireguard_local_config_paths:
   - files/wireguard/router1.conf
 ssh_valid_principals:
@@ -17,6 +23,9 @@ firewall_allow_port_from:
   - src: "any"
     port: 443
     comment: HTTPS
+  - src: "any"
+    port: 8200
+    comment: HTTPS (Vault proxy)
   - src: "any"
     port: 80
     comment: HTTP

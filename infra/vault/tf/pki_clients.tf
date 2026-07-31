@@ -17,11 +17,35 @@ resource "vault_pki_secret_backend_role" "pki_ica_clients_users" {
   key_usage                = ["DigitalSignature"]
   allow_any_name           = false
   allow_localhost          = false
-  allowed_domains          = ["{{ identity.entity.name }}.users.alwaldend.com"]
+  allowed_domains          = ["{{ identity.entity.metadata.username }}.users.alwaldend.com"]
   allowed_domains_template = true
-  allow_bare_domains       = false
+  allow_bare_domains       = true
   allow_subdomains         = true
   server_flag              = false
   client_flag              = true
   no_store                 = false
+}
+
+resource "vault_policy" "pki_ica_clients_users_generator" {
+  name   = "pki_ica_clients_users_generator"
+  policy = <<EOT
+    path "${vault_pki_secret_backend_role.pki_ica_clients_users.backend}/issue/${vault_pki_secret_backend_role.pki_ica_clients_users.name}" {
+      capabilities = ["update"]
+    }
+EOT
+}
+
+
+resource "vault_identity_group" "pki_ica_clients_users_generator" {
+  name = "pki_ica_clients_users_generate"
+  type = "internal"
+  policies = [
+    vault_policy.pki_ica_clients_users_generator.name,
+  ]
+  member_group_ids = [
+    vault_identity_group.users.id,
+  ]
+  metadata = {
+    comment = "Group allowed to generate client certificates for themselves"
+  }
 }

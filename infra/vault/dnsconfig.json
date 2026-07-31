@@ -34,6 +34,17 @@
                 "address": "192.168.1.218"
             },
             "dsp": ["dc1"]
+        },
+        "external": {
+            "A": {
+                "name": "int.vault",
+                "address": "192.168.1.218"
+            },
+            "CNAME": {
+                "name": "vault",
+                "target": "ingress.alwaldend.com."
+            },
+            "dsp": ["global"]
         }
     }
 }

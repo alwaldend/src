@@ -1,9 +1,30 @@
-load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_map")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary_map")
 
 _OPENCODE = "$(rootpath //tools/opencode)"
+
+al_binary_run(
+    name = "gen_client_cert",
+    args = [
+        "$(rootpath //tools/vault/gen_client_cert)",
+        "--vault",
+        "$(rootpath //tools/vault)",
+        "--user",
+        "simeonwarren",
+    ],
+    configs = ["//users/simeonwarren:al"],
+    data = [
+        "//tools/vault",
+        "//tools/vault/gen_client_cert",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "vault_env=default_no_auth",
+    ],
+)
 
 filegroup(
     name = "dnsconfig",

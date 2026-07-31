@@ -3,7 +3,10 @@ traefik_user_uid: 3578
 traefik_dir: "/opt/traefik"
 traefik_log_dir: "{{ traefik_dir }}/logs"
 traefik_data_dir: "{{ traefik_dir }}/data"
+traefik_tls_dir: "{{ traefik_dir }}/tls"
 traefik_disk:
+traefik_mtls_ca_local_path: "{{ role_path }}/files/traefik_mtls_ca.crt"
+traefik_mtls_ca_path: "{{ traefik_tls_dir }}/mtls_ca.crt"
 traefik_acme_path: "{{ undefined }}"
 traefik_config_dir: "{{ traefik_dir }}/configs"
 traefik_config_path: "{{ traefik_config_dir }}/traefik.toml"

@@ -1,7 +1,20 @@
-[http.routers.ingress]
-rule = "Host(`{{ ingress_domain }}`)"
-service = "ingress"
-tls = { certResolver = "default" }
+[tls.options.default.clientAuth]
+caFiles = ["{{ traefik_mtls_ca_path }}"]
+clientAuthType = "RequireAndVerifyClientCert"
 
-[[http.services.ingress.loadBalancer.servers]]
-url = "https://int.opencode.simeonwarren.users.alwaldend.com"
+{% for service_name, service in traefik_services.items() %}
+[http.serversTransports.{{ service_name }}]
+serverName = "{{ service.hostname }}"
+
+[http.routers.{{ service_name }}]
+rule = "Host(`{{ service.hostname }}`)"
+service = "{{ service_name }}"
+tls = { certResolver = "default" }
+entrypoints = ["{{ service.entrypoint | default('websecure') }}"]
+
+[http.services.{{ service_name }}.loadBalancer]
+serversTransport = "{{ service_name }}"
+
+[[http.services.{{ service_name }}.loadBalancer.servers]]
+url = "https://int.{{ service.hostname }}"
+{% endfor %}

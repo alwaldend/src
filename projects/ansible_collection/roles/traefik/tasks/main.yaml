@@ -23,6 +23,7 @@
     - name: Create traefik dirs
       loop:
         - "{{ traefik_dir }}"
+        - "{{ traefik_tls_dir }}"
         - "{{ traefik_data_dir }}"
         - "{{ traefik_config_dir }}"
         - "{{ traefik_log_dir }}"
@@ -81,6 +82,13 @@
         owner: "root"
         group: "{{ traefik_user }}"
         mode: "0650"
+    - name: Write the mtls cert
+      ansible.builtin.copy:
+        src: "{{ traefik_mtls_ca_local_path }}"
+        dest: "{{ traefik_mtls_ca_path }}"
+        owner: "root"
+        group: "{{ traefik_user }}"
+        mode: "0740"
     - name: Write the service
       register: traefik_service_var
       ansible.builtin.template:
@@ -93,12 +101,18 @@
       when: traefik_service_var.changed
       ansible.builtin.systemd_service:
         daemon_reload: true
-    - name: Reload the service
-      ansible.builtin.systemd_service:
-        name: "{{ traefik_service_path | basename }}"
-        state: reloaded
     - name: Start the service and enable
       ansible.builtin.systemd_service:
         name: "{{ traefik_service_path | basename }}"
         enabled: true
         state: started
+    - name: Restart the service
+      when: traefik_config_var.changed
+      ansible.builtin.systemd_service:
+        name: "{{ traefik_service_path | basename }}"
+        state: restarted
+    - name: Reload the service
+      when: not traefik_config_var.changed
+      ansible.builtin.systemd_service:
+        name: "{{ traefik_service_path | basename }}"
+        state: reloaded
