@@ -24,6 +24,12 @@ bazel run //infra/ingress/tf
 - Create a signed url: https://yandex.cloud/ru/docs/storage/operations/objects/link-for-download
 - Update the secret: `alwaldend.com/vault1/approles/src_infra_ingress/image`
 
+## Recreate VMs
+
+```sh
+bazel run infra/ingress/tf -- -replace 'yandex_compute_disk.vpc["*"]'
+```
+
 ## Regenerate wireguard keys
 
 - Regenerate private and public keys:

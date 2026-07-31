@@ -1,8 +1,7 @@
 - name: Set up wireguard
   tags:
     - wireguard
-  when: wireguard_enabled
-- block:
+  block:
     - name: Install wireguard
       ansible.builtin.package:
         name:
@@ -18,7 +17,7 @@
     - name: Generate wireguard config
       loop: "{{ wireguard_local_config_paths }}"
       ansible.builtin.template:
-        dest: "{{ wireguard_dir }}/{{ item | basename }}.conf"
+        dest: "{{ wireguard_dir }}/{{ item | basename }}"
         src: "{{ item }}"
         owner: "root"
         group: "root"
@@ -26,9 +25,9 @@
     - name: Start wireguard and enable on boot
       loop: "{{ wireguard_local_config_paths }}"
       ansible.builtin.systemd:
-        name: "wg-quick@{{ item | basename }}"
+        name: "wg-quick@{{ item | basename | trim('.conf') }}"
         enabled: true
-        state: restarted
+        state: reloaded
         daemon_reload: true
   always:
     - name: Show service status
@@ -37,4 +36,4 @@
         argv:
           - systemctl
           - status
-          - "wg-quick@{{ item | basename }}"
+          - "wg-quick@{{ item | basename | trim('.conf') }}"

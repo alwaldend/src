@@ -62,6 +62,44 @@ lib.plugin_call({
 })
 
 lib.plugin_call({
+    name = "wireguard",
+    plugin = "injector",
+    labels = { tf = "main", ansible = "1" },
+    data = {
+        res = {
+            {
+                name = "wireguard",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/src_infra_ingress/wireguard",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "TF_VAR_wg_public_keys",
+                deps = { "wireguard" },
+                env = {
+                    value = "{{ .Last.Data.wg_public_keys | to_json }}",
+                }
+            },
+            {
+                name = "TF_VAR_wg_private_keys",
+                deps = { "wireguard" },
+                env = {
+                    value = "{{ .Last.Data.wg_private_keys | to_json }}",
+                }
+            },
+            {
+                name = "TF_VAR_wg_preshared_keys",
+                deps = { "wireguard" },
+                env = {
+                    value = "{{ .Last.Data.wg_preshared_keys | to_json }}",
+                }
+            },
+        },
+    },
+})
+
+lib.plugin_call({
     name = "mikrotik",
     plugin = "injector",
     labels = { tf = "main" },
@@ -93,34 +131,6 @@ lib.plugin_call({
                 deps = { "mikrotik" },
                 env = {
                     value = "{{ .Last.Data.mikrotik_password }}",
-                }
-            },
-            {
-                name = "wireguard",
-                kv = {
-                    path = "alwaldend.com/vault1/approles/src_infra_ingress/wireguard",
-                    mount = "secrets"
-                }
-            },
-            {
-                name = "TF_VAR_wg_public_keys",
-                deps = { "wireguard" },
-                env = {
-                    value = "{{ .Last.Data.wg_public_keys | to_json }}",
-                }
-            },
-            {
-                name = "TF_VAR_wg_private_keys",
-                deps = { "wireguard" },
-                env = {
-                    value = "{{ .Last.Data.wg_public_keys | to_json }}",
-                }
-            },
-            {
-                name = "TF_VAR_wg_preshared_keys",
-                deps = { "wireguard" },
-                env = {
-                    value = "{{ .Last.Data.wg_preshared_keys | to_json }}",
                 }
             },
         }

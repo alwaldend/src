@@ -16,6 +16,7 @@ _CONFIGS = ["//infra/ingress:al"]
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
     "//infra/ingress:dnsconfig",
+    "//infra/ingress/ansible:inventory",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",
     "//infra/pve/ansible:cloud_init",

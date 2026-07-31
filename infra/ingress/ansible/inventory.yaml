@@ -1,4 +1,12 @@
 ingress:
   hosts:
     host1.ingress.alwaldend.com:
+      wg_ip: 10.10.0.1/24
+      wg_public_key: "{{ wg_public_keys.host1 }}"
+      wg_private_key: "{{ wg_private_keys.host1 }}"
+      wg_preshared_key: "{{ wg_preshared_keys.host1 }}"
     host2.ingress.alwaldend.com:
+      wg_ip: 10.10.0.2/24
+      wg_public_key: "{{ wg_public_keys.host2 }}"
+      wg_private_key: "{{ wg_private_keys.host2 }}"
+      wg_preshared_key: "{{ wg_preshared_keys.host2 }}"

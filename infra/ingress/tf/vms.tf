@@ -46,13 +46,17 @@ resource "yandex_kms_symmetric_key" "vpc" {
   description       = "Key for disks"
   default_algorithm = "AES_128"
   rotation_period   = "8760h" // equal to 1 year
+  labels            = {}
 }
 
 resource "yandex_compute_disk" "vpc" {
-  for_each   = local.vpc
-  name       = "vpc-${each.key}"
-  type       = "network-ssd"
-  zone       = each.value.zone
+  for_each = local.vpc
+  name     = "vpc-${each.key}"
+  type     = "network-ssd"
+  zone     = each.value.zone
+  labels = {
+    vpc = each.key
+  }
   kms_key_id = yandex_kms_symmetric_key.vpc.id
   size       = 20
   image_id   = yandex_compute_image.vpc.id
