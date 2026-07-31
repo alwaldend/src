@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repository Bazel"
+  short_description: "Build, test, and maintain this monorepo with Bazel"
+  default_prompt: "Use the repository Bazel conventions to implement and validate this change."
