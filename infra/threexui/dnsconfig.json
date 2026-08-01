@@ -1,5 +1,19 @@
 {
     "records": {
+        "yc_ns_1": {
+            "NS": {
+                "name": "yc.threexui",
+                "address": "ns1.yandexcloud.net."
+            },
+            "dsp": ["all"]
+        },
+        "yc_ns_2": {
+            "NS": {
+                "name": "yc.threexui",
+                "address": "ns2.yandexcloud.net."
+            },
+            "dsp": ["all"]
+        },
         "host1": {
             "A": {
                 "name": "host1.threexui",

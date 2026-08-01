@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-07-30T18:56:26Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026073000 3600 600 604800 1440
+; generated with dnscontrol 2026-08-01T10:17:44Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026080100 3600 600 604800 1440
                  IN A     185.199.108.153
                  IN A     185.199.109.153
                  IN A     185.199.110.153
@@ -57,6 +57,8 @@ njalla1.nodes.threexui IN A 45.142.141.133
            600   IN AAAA  2a0a:3840:8078:141:0:2d8e:8d85:1337
 inbound.njalla1.nodes.threexui 600 IN CNAME njalla1.nodes.threexui.alwaldend.com.
 sub.njalla1.nodes.threexui 600 IN CNAME njalla1.nodes.threexui.alwaldend.com.
+yc.threexui      IN NS    ns1.yandexcloud.net.
+                 IN NS    ns2.yandexcloud.net.
 opencode.simeonwarren.users IN A 192.168.10.90
 host1.opencode.simeonwarren.users IN A 192.168.10.90
 vault            IN A     192.168.1.218

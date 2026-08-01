@@ -46,8 +46,4 @@ entryPoint = "web"
 resolver = "default"
 [tls.stores.default.acme.domain]
 main = "{{ ingress_domain }}"
-sans = [
-  "{{ inventory_hostname }}",
-  "forgejo.alwaldend.com",
-  "vault.alwaldend.com",
-]
+sans = ["{{ inventory_hostname }}", "*.alwaldend.com"]

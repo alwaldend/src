@@ -2,6 +2,7 @@
 /// <reference path="types-dnscontrol.d.ts" />
 
 var REG_NONE = NewRegistrar("none");
+var REG_GLOBAL = NewRegistrar("global");
 var DSP_GLOBAL = NewDnsProvider("global");
 var DSP_GLOBAL_BIND = NewDnsProvider("global_bind");
 var DSP_DC1 = NewDnsProvider("dc1");
@@ -120,6 +121,9 @@ for (var json_i in jsons) {
             var mods = modifiers[record.dsp[dsp]];
             if (!mods) {
                 PANIC("invalid dsp: " + record.dsp[dsp]);
+            }
+            if ("NS" in record) {
+                mods.push(NS(record.NS.name, record.NS.address));
             }
             if ("A" in record) {
                 mods.push(A(record.A.name, record.A.address), TTL(600));
