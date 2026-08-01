@@ -5,3 +5,4 @@ threexui_control_plane:
 threexui_data_plane:
   hosts:
     njalla1.nodes.threexui.alwaldend.com:
+    yc1.nodes.threexui.alwaldend.com:

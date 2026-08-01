@@ -9,9 +9,10 @@ provider "registry.terraform.io/batonogov/threexui" {
   ]
 }
 
-provider "registry.terraform.io/telmate/proxmox" {
-  version = "2.9.14"
+provider "registry.terraform.io/hashicorp/vault" {
+  version     = "5.8.0"
+  constraints = "5.8.0"
   hashes = [
-    "h1:H/f+LbVyPOLslHLAYnGuMMRqWFZ65K6E3V+MCYgfAyk=",
+    "h1:eSJgYoJoVMce2xjJJCeAZnJELsC4RoqaotD0fgfn6dw=",
   ]
 }

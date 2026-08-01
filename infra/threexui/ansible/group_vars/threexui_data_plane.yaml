@@ -4,8 +4,8 @@ threexui_domain: "{{ inventory_hostname }}"
 ssh_valid_principals:
   - nodes.threexui.alwaldend.com
   - "*.nodes.threexui.alwaldend.com"
-threexui_username: "{{ lookup('ansible.builtin.env', 'NJALLA_XUI_USERNAME', default=undefined()) }}"
-threexui_password: "{{ lookup('ansible.builtin.env', 'NJALLA_XUI_PASSWORD', default=undefined()) }}"
-threexui_base_path: "{{ lookup('ansible.builtin.env', 'NJALLA_XUI_BASE_PATH', default=undefined()) }}"
+threexui_username: "{{ lookup('ansible.builtin.env', 'NODE_XUI_USERNAME', default=undefined()) }}"
+threexui_password: "{{ lookup('ansible.builtin.env', 'NODE_XUI_PASSWORD', default=undefined()) }}"
+threexui_base_path: "{{ lookup('ansible.builtin.env', 'NODE_XUI_BASE_PATH', default=undefined()) }}"
 threexui_disk:
 traefik_disk:

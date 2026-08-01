@@ -1,7 +1,7 @@
 [http.routers.threexui]
-rule = "PathPrefix(`{{ threexui_base_path }}`)"
+rule = "(Host(`{{ inventory_hostname }}`) || Host(`{{ threexui_domain }}`)) && PathPrefix(`{{ threexui_base_path }}`)"
 service = "threexui"
-tls = { certResolver = "vault" }
+tls = { certResolver = "default" }
 
 [[http.services.threexui.loadBalancer.servers]]
 url = "http://127.0.0.1:2053"
@@ -9,17 +9,24 @@ url = "http://127.0.0.1:2053"
 [http.routers.threexuisub]
 rule = "PathPrefix(`{{ threexui_base_path }}/sub`)"
 service = "threexuisub"
-tls = { certResolver = "vault" }
+tls = { certResolver = "default" }
 
 [[http.services.threexuisub.loadBalancer.servers]]
 url = "http://127.0.0.1:2096"
 
 {% for port in range(40000, 40300) %}
 [http.routers.inbound_{{ port }}]
-rule = "PathPrefix(`/inbound_{{ threexui_base_path | trim("/") }}_{{ port }}`)"
+rule = "(Host(`{{ inventory_hostname }}`) || Host(`{{ threexui_domain }}`)) && PathPrefix(`/inbound_{{ threexui_base_path | trim("/") }}_{{ port }}`)"
 service = "inbound_{{ port }}"
-tls = { certResolver = "vault" }
-entrypoints = ["inbound_{{ port }}_ipv4","inbound_{{ port }}_ipv6"]
+tls = { certResolver = "default" }
+entrypoints = [
+{% if ansible_facts.default_ipv4 %}
+  "inbound_{{ port }}_ipv4",
+{% endif %}
+{% if ansible_facts.default_ipv6 %}
+  "inbound_{{ port }}_ipv6",
+{% endif %}
+]
 [[http.services.inbound_{{ port }}.loadBalancer.servers]]
 url = "http://127.0.0.1:{{ port }}"
 

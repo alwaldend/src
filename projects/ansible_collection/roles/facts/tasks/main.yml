@@ -3,4 +3,9 @@
     - facts
   block:
     - name: Gather facts
+      register: facts
       ansible.builtin.setup:
+    - name: Show facts
+      when: facts_debug
+      ansible.builtin.debug:
+        var: facts

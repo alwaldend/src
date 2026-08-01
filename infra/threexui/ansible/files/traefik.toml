@@ -19,7 +19,7 @@ to = "websecure"
 address = ":443"
 asDefault = true
 [entryPoints.websecure.http.tls]
-certResolver = "vault"
+certResolver = "default"
 
 # [api]
 # dashboard = true
@@ -30,34 +30,38 @@ certResolver = "vault"
 # [accessLog.filters]
 # statusCodes = ["200", "400-404", "500-503"]
 
-[certificatesResolvers.vault.acme]
+[certificatesResolvers.default.acme]
 email = "src_infra_threexui@alwaldend.com"
-storage = "{{ traefik_data_dir }}/acme_vault.json"
+storage = "{{ traefik_data_dir }}/acme_default.json"
 caServer = "{{ traefik_acme_url }}"
 
-[certificatesResolvers.vault.acme.httpChallenge]
+[certificatesResolvers.default.acme.httpChallenge]
 entryPoint = "web"
 
 {% if not traefik_disable_eab %}
-[certificatesResolvers.vault.acme.eab]
+[certificatesResolvers.default.acme.eab]
 kid = "{{ traefik_acme_kid }}"
 hmacEncoded = "{{ traefik_acme_hmac }}"
 {% endif %}
 
 [tls.stores]
 [tls.stores.default.acme]
-resolver = "vault"
+resolver = "default"
 [tls.stores.default.acme.domain]
 main = "{{ threexui_domain }}"
 sans = ["{{ inventory_hostname }}"]
 
 {% if traefik_disable_eab %}
 {% for port in range(40000, 40300) %}
+{% if ansible_facts.default_ipv4 %}
 [entryPoints.inbound_{{ port }}_ipv4]
-address = "{{ ansible_default_ipv4.address }}:{{ port }}"
-http = { tls = { certResolver = "vault" }  }
+address = "{{ ansible_facts.default_ipv4.address }}:{{ port }}"
+http = { tls = { certResolver = "default" }  }
+{% endif %}
+{% if ansible_facts.default_ipv6 %}
 [entryPoints.inbound_{{ port }}_ipv6]
-address = "[{{ ansible_default_ipv6.address }}]:{{ port }}"
-http = { tls = { certResolver = "vault" }  }
+address = "[{{ ansible_facts.default_ipv6.address }}]:{{ port }}"
+http = { tls = { certResolver = "default" }  }
+{% endif %}
 {% endfor %}
 {% endif %}

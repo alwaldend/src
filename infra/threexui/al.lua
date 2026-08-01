@@ -125,77 +125,70 @@ lib.plugin_call({
                     value = "{{ .Last.Data.xui_password }}",
                 }
             },
-            {
-                name = "TF_VAR_xui_token",
-                deps = { "njalla_node" },
-                env = {
-                    value = "{{ .Last.Data.xui_token }}",
-                }
-            },
         }
     }
 })
 
 lib.plugin_call({
-    name = "njalla_node",
+    name = "nodes",
     plugin = "injector",
-    labels = { ansible = "1", tf = "main" },
+    labels = { ansible = "1", tf = "main", sub = "1" },
     data = {
         res = {
             {
-                name = "njalla_node",
+                name = "nodes",
                 kv = {
-                    path = "alwaldend.com/vault1/approles/src_infra_threexui/node_njalla",
+                    path = "alwaldend.com/vault1/approles/src_infra_threexui/nodes",
                     mount = "secrets"
                 }
             },
             {
-                name = "NJALLA_XUI_USERNAME",
-                deps = { "njalla_node" },
+                name = "NODE_XUI_USERNAME",
+                deps = { "nodes" },
                 env = {
                     value = "{{ .Last.Data.xui_username }}",
                 }
             },
             {
-                name = "NJALLA_XUI_PASSWORD",
-                deps = { "njalla_node" },
+                name = "TF_VAR_node_xui_username",
+                deps = { "nodes" },
+                env = {
+                    value = "{{ .Last.Data.xui_username }}",
+                }
+            },
+            {
+                name = "NODE_XUI_PASSWORD",
+                deps = { "nodes" },
                 env = {
                     value = "{{ .Last.Data.xui_password }}",
                 }
             },
             {
-                name = "NJALLA_XUI_BASE_PATH",
-                deps = { "njalla_node" },
+                name = "TF_VAR_node_xui_password",
+                deps = { "nodes" },
+                env = {
+                    value = "{{ .Last.Data.xui_password }}",
+                }
+            },
+            {
+                name = "NODE_XUI_BASE_PATH",
+                deps = { "nodes" },
                 env = {
                     value = "{{ .Last.Data.xui_base_path }}",
                 }
             },
             {
-                name = "TF_VAR_njalla_xui_url",
-                deps = { "njalla_node" },
+                name = "TF_VAR_node_xui_base_path",
+                deps = { "nodes" },
                 env = {
-                    value = "{{ .Last.Data.xui_url }}",
+                    value = "{{ .Last.Data.xui_base_path }}",
                 }
             },
             {
-                name = "TF_VAR_njalla_xui_username",
-                deps = { "njalla_node" },
+                name = "TF_VAR_node_xui_tokens",
+                deps = { "nodes" },
                 env = {
-                    value = "{{ .Last.Data.xui_username }}",
-                }
-            },
-            {
-                name = "TF_VAR_njalla_xui_password",
-                deps = { "njalla_node" },
-                env = {
-                    value = "{{ .Last.Data.xui_password }}",
-                }
-            },
-            {
-                name = "TF_VAR_njalla_xui_token",
-                deps = { "njalla_node" },
-                env = {
-                    value = "{{ .Last.Data.xui_token }}",
+                    value = "{{ .Last.Data.xui_tokens | to_json }}",
                 }
             },
         }

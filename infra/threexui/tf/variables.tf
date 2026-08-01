@@ -10,10 +10,6 @@ variable "xui_password" {
   type = string
 }
 
-variable "xui_token" {
-  type = string
-}
-
 variable "mullvad_keys" {
   type = map(object({
     private_key = string
@@ -21,18 +17,18 @@ variable "mullvad_keys" {
   }))
 }
 
-variable "njalla_xui_url" {
+variable "node_xui_username" {
   type = string
 }
 
-variable "njalla_xui_username" {
+variable "node_xui_base_path" {
   type = string
 }
 
-variable "njalla_xui_password" {
+variable "node_xui_password" {
   type = string
 }
 
-variable "njalla_xui_token" {
-  type = string
+variable "node_xui_tokens" {
+  type = map(string)
 }

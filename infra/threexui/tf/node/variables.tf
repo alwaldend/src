@@ -21,6 +21,11 @@ variable "mullvad_key" {
   })
 }
 
+variable "mullvad_min" {
+  type        = list(string)
+  description = "List of name of wireguard servers"
+}
+
 variable "xui_address" {
   type = string
 }

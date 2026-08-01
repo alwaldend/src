@@ -1,4 +1,4 @@
-load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary_map")
@@ -14,6 +14,24 @@ filegroup(
     name = "dnsconfig",
     srcs = ["dnsconfig.json"],
     visibility = ["//infra:__subpackages__"],
+)
+
+al_binary_run_map(
+    name = "fix_subs",
+    args = {
+        "": [
+            "$(rootpath //infra/threexui/sub)",
+        ],
+    },
+    configs = [":al"],
+    data = [
+        "//infra/threexui/sub",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "sub",
+    ],
 )
 
 vault_binary_map(

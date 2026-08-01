@@ -27,7 +27,7 @@ resource "threexui_inbound" "freedom" {
     network  = "xhttp"
     security = "none"
     xhttp_settings {
-      path = "/inbound_${var.xui_base_path}_40000"
+      path = "/inbound_${local.base_path_trimmed}_40000"
     }
   }
   sniffing {
@@ -37,15 +37,8 @@ resource "threexui_inbound" "freedom" {
 }
 
 locals {
-  mullvad_min_names = [
-    "nl-ams-wg-008",
-    "us-sjc-wg-003",
-    "de-fra-wg-009",
-    "de-dus-wg-003",
-    "fr-mrs-wg-002",
-  ]
   mullvad_min = {
-    for idx, name in local.mullvad_min_names : name => {
+    for idx, name in var.mullvad_min : name => {
       wg   = local.mullvad_wireguard[name]
       port = 40010 + idx
       name = name
@@ -74,7 +67,7 @@ resource "threexui_inbound" "mullvad_min" {
   listen              = "127.0.0.1"
   protocol            = "vless"
   enable              = true
-  remark              = "Mullvad Min ${each.key}"
+  remark              = "mullvad_min | wg | ${each.key}"
   share_addr_strategy = "node"
   vless_settings {
     decryption = "none"
@@ -83,7 +76,30 @@ resource "threexui_inbound" "mullvad_min" {
     network  = "xhttp"
     security = "none"
     xhttp_settings {
-      path = "/inbound_${var.xui_base_path}_${each.value.port}"
+      path = "/inbound_${local.base_path_trimmed}_${each.value.port}"
+    }
+  }
+  sniffing {
+    enabled       = true
+    dest_override = ["http", "tls", "quic", "fakedns"]
+  }
+}
+
+resource "threexui_inbound" "mullvad_min_lb" {
+  port                = 40050
+  listen              = "127.0.0.1"
+  protocol            = "vless"
+  enable              = true
+  remark              = "mullvad_min | lb"
+  share_addr_strategy = "node"
+  vless_settings {
+    decryption = "none"
+  }
+  stream_settings {
+    network  = "xhttp"
+    security = "none"
+    xhttp_settings {
+      path = "/inbound_${local.base_path_trimmed}_40050"
     }
   }
   sniffing {

@@ -616,11 +616,11 @@
         <mxCell id="ByAm9mtcqF1L_fWd3jSB-5" parent="ByAm9mtcqF1L_fWd3jSB-3" style="rounded=0;whiteSpace=wrap;html=1;" value="Threexui &lt;br&gt;Control panel" vertex="1">
           <mxGeometry height="60" width="120" x="75" y="180" as="geometry" />
         </mxCell>
-        <mxCell id="ByAm9mtcqF1L_fWd3jSB-9" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" value="Njalla&lt;div&gt;njal.la&lt;/div&gt;" vertex="1">
-          <mxGeometry height="430" width="370" x="270" y="830" as="geometry" />
+        <mxCell id="ByAm9mtcqF1L_fWd3jSB-9" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" value="Clouds&lt;br&gt;&lt;div&gt;njal.la, yandex.cloud&lt;/div&gt;" vertex="1">
+          <mxGeometry height="430" width="370" x="270" y="810" as="geometry" />
         </mxCell>
-        <UserObject label="VM&lt;br&gt;njalla1.nodes.threexui.alwaldend.com" id="ByAm9mtcqF1L_fWd3jSB-17">
-          <mxCell parent="ByAm9mtcqF1L_fWd3jSB-9" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" vertex="1">
+        <UserObject label="VMs&lt;br&gt;njalla1.nodes.threexui.alwaldend.com&lt;br&gt;yc1.nodes.threexui.alwaldend.com" id="ByAm9mtcqF1L_fWd3jSB-17">
+          <mxCell parent="ByAm9mtcqF1L_fWd3jSB-9" style="swimlane;whiteSpace=wrap;html=1;startSize=60;" vertex="1">
             <mxGeometry height="310" width="270" x="50" y="70" as="geometry" />
           </mxCell>
         </UserObject>
@@ -628,7 +628,7 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="ByAm9mtcqF1L_fWd3jSB-18" parent="ByAm9mtcqF1L_fWd3jSB-17" style="rounded=0;whiteSpace=wrap;html=1;" value="Traefik" vertex="1">
-          <mxGeometry height="60" width="120" x="75" y="70" as="geometry" />
+          <mxGeometry height="60" width="120" x="75" y="90" as="geometry" />
         </mxCell>
         <mxCell id="ByAm9mtcqF1L_fWd3jSB-25" parent="ByAm9mtcqF1L_fWd3jSB-17" style="rounded=0;whiteSpace=wrap;html=1;" value="Threexui&lt;br&gt;Node" vertex="1">
           <mxGeometry height="60" width="120" x="75" y="190" as="geometry" />
@@ -641,7 +641,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="ByAm9mtcqF1L_fWd3jSB-23" connectable="0" parent="ByAm9mtcqF1L_fWd3jSB-22" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="VLESS/Grpc proxy&lt;br&gt;Subscription over HTTPS" vertex="1">
+        <mxCell id="ByAm9mtcqF1L_fWd3jSB-23" connectable="0" parent="ByAm9mtcqF1L_fWd3jSB-22" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="VLESS over XHTTP" vertex="1">
           <mxGeometry relative="1" x="-0.1698" y="3" as="geometry">
             <mxPoint x="-55" y="-12" as="offset" />
           </mxGeometry>
@@ -694,7 +694,7 @@
             <mxPoint x="365" y="1000" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ByAm9mtcqF1L_fWd3jSB-35" connectable="0" parent="ByAm9mtcqF1L_fWd3jSB-30" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Node control" vertex="1">
+        <mxCell id="ByAm9mtcqF1L_fWd3jSB-35" connectable="0" parent="ByAm9mtcqF1L_fWd3jSB-30" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Node control&lt;br&gt;HTTPS + mTLS" vertex="1">
           <mxGeometry relative="1" x="-0.2208" as="geometry">
             <mxPoint x="10" y="-125" as="offset" />
           </mxGeometry>
