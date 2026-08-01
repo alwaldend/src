@@ -1,7 +1,7 @@
 locals {
   yc_cloud_init = file("${path.module}/../../pve/ansible/files/cloud_init.yaml")
   yc_vms = {
-    yc1 = {
+    host1 = {
       zone = "ru-central1-d"
     }
   }
@@ -12,12 +12,11 @@ locals {
   }
 }
 
-resource "yandex_vpc_address" "threexui" {
-  for_each = local.yc_vms
-  name     = each.key
-  external_ipv4_address {
-    zone_id = each.value.zone
-  }
+resource "yandex_dns_zone" "threexui" {
+  name        = "threexui"
+  description = "tf[infra/threexui]"
+  zone        = "yc.threexui.alwaldend.com."
+  public      = true
 }
 
 resource "yandex_compute_image" "threexui" {
@@ -70,9 +69,12 @@ resource "yandex_compute_instance" "threexui" {
     disk_id = yandex_compute_disk.threexui[each.key].id
   }
   network_interface {
-    subnet_id      = yandex_vpc_subnet.threexui[each.value.zone].id
-    nat            = true
-    nat_ip_address = yandex_vpc_address.threexui[each.key].external_ipv4_address[0].address
+    subnet_id = yandex_vpc_subnet.threexui[each.value.zone].id
+    nat       = true
+    nat_dns_record {
+      dns_zone_id = yandex_dns_zone.threexui.id
+      fqdn        = "${each.key}.nodes.${yandex_dns_zone.threexui.zone}"
+    }
   }
   metadata = {
     user-data          = local.yc_cloud_init
@@ -83,7 +85,8 @@ resource "yandex_compute_instance" "threexui" {
 output "yc_vms" {
   value = {
     for key, value in local.yc_vms : key => {
-      ipv4 = yandex_vpc_address.threexui[key].external_ipv4_address[0].address
+      fqdn = yandex_compute_instance.threexui[key].network_interface[0].nat_dns_record[0].fqdn
+      ipv4 = yandex_compute_instance.threexui[key].network_interface[0].nat_ip_address
     }
   }
 }

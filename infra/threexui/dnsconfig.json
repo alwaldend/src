@@ -39,17 +39,10 @@
             },
             "dsp": ["all"]
         },
-        "njalla1sub": {
+        "yc1": {
             "CNAME": {
-                "name": "sub.njalla1.nodes.threexui",
-                "target": "njalla1.nodes.threexui.alwaldend.com."
-            },
-            "dsp": ["all"]
-        },
-        "njalla1inbound": {
-            "CNAME": {
-                "name": "inbound.njalla1.nodes.threexui",
-                "target": "njalla1.nodes.threexui.alwaldend.com."
+                "name": "yc1.nodes.threexui",
+                "target": "host1.nodes.yc.threexui.alwaldend.com."
             },
             "dsp": ["all"]
         }

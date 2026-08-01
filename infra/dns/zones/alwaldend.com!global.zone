@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-08-01T10:17:45Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026080100 3600 600 604800 1440
+; generated with dnscontrol 2026-08-01T10:35:10Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026080101 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -36,8 +36,7 @@ dkim02._domainkey.simplelogin 10800 IN CNAME dkim02._domainkey.simplelogin.co.
 dkim03._domainkey.simplelogin 10800 IN CNAME dkim03._domainkey.simplelogin.co.
 njalla1.nodes.threexui IN A 45.142.141.133
            600   IN AAAA  2a0a:3840:8078:141:0:2d8e:8d85:1337
-inbound.njalla1.nodes.threexui 600 IN CNAME njalla1.nodes.threexui.alwaldend.com.
-sub.njalla1.nodes.threexui 600 IN CNAME njalla1.nodes.threexui.alwaldend.com.
+yc1.nodes.threexui 600 IN CNAME host1.nodes.yc.threexui.alwaldend.com.
 yc.threexui      IN NS    ns1.yandexcloud.net.
                  IN NS    ns2.yandexcloud.net.
 vault      600   IN CNAME ingress.alwaldend.com.
