@@ -28,6 +28,22 @@ lib.plugin_call({
 })
 
 lib.plugin_call({
+    name = "pve_login",
+    plugin = "pve_login",
+    labels = { tf = "setup" },
+})
+
+infra.yc_auth({
+    path = "yandex.cloud/org1/folders/src-infra-threexui/account_iam_key",
+    labels = { tf = "setup" },
+})
+
+infra.yc_account({
+    path = "yandex.cloud/org1/folders/src-infra-threexui/account",
+    labels = { tf = "setup" },
+})
+
+lib.plugin_call({
     name = "tf_backend_tf",
     plugin = "tf_backend",
     labels = { tf = "main" },
@@ -35,12 +51,6 @@ lib.plugin_call({
         vault_secret = "alwaldend.com/vault1/approles/src_infra_threexui/tf_backend/tf",
         vault_secret_mount = "secrets"
     },
-})
-
-lib.plugin_call({
-    name = "pve_login",
-    plugin = "pve_login",
-    labels = { tf = "setup" },
 })
 
 lib.plugin_call({

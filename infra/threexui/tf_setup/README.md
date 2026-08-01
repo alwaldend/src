@@ -4,4 +4,5 @@ description: Terraform setup
 tags:
   - terraform
   - pve
+  - yandex_cloud
 ---

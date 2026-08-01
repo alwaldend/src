@@ -1,5 +1,5 @@
 locals {
-  dns = jsondecode(file("${path.module}/../dnsconfig.json")).domains.default.records
+  dns = jsondecode(file("${path.module}/../dnsconfig.json")).records
 }
 
 module "vms" {
