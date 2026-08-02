@@ -1,0 +1,23 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    archives = {
+        "forgejo_runner": ["linux_x86_64"],
+    },
+    lock = "//third_party/org_codeberg_forgejo_runner_bin:binary_toolchain.json",
+    toolchains_map = {
+        "forgejo_runner": "org_codeberg_forgejo_runner_bin",
+    },
+)
+
+register_toolchains(
+    "@org_codeberg_forgejo_runner_bin//:all",
+)
+
+use_repo(
+    binary_toolchain_extension,
+    "org_codeberg_forgejo_runner_bin",
+    "org_codeberg_forgejo_runner_bin_linux_x86_64",
+)

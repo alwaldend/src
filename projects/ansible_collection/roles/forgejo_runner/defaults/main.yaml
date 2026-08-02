@@ -1,0 +1,11 @@
+forgejo_runner_user: forgejo-runner
+forgejo_runner_user_uid: 5721
+forgejo_runner_dir: /opt/forgejo-runner
+forgejo_runner_bin_local_path: "{{ role_path }}/files/forgejo-runner"
+forgejo_runner_bin_path: /usr/bin/forgejo-runner
+forgejo_runner_service_path: /lib/systemd/system/forgejo-runner.service
+forgejo_runner_instance: "{{ undefined() }}"
+forgejo_runner_token: "{{ undefined() }}"
+forgejo_runner_name: "{{ inventory_hostname }}"
+forgejo_runner_labels:
+  - "self-hosted:host"

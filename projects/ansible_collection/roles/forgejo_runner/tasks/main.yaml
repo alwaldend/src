@@ -1,0 +1,71 @@
+- tags:
+    - forgejo_runner
+  block:
+    - name: Create Forgejo runner user
+      ansible.builtin.user:
+        name: "{{ forgejo_runner_user }}"
+        uid: "{{ forgejo_runner_user_uid }}"
+        shell: /sbin/nologin
+        home: "{{ forgejo_runner_dir }}"
+        system: true
+
+    - name: Create Forgejo runner directory
+      ansible.builtin.file:
+        path: "{{ forgejo_runner_dir }}"
+        state: directory
+        owner: "{{ forgejo_runner_user }}"
+        group: "{{ forgejo_runner_user }}"
+        mode: "0700"
+
+    - name: Copy the Forgejo runner binary
+      register: forgejo_runner_bin_result
+      ansible.builtin.copy:
+        src: "{{ forgejo_runner_bin_local_path }}"
+        dest: "{{ forgejo_runner_bin_path }}"
+        owner: root
+        group: "{{ forgejo_runner_user }}"
+        mode: "0750"
+
+    - name: Register Forgejo runner
+      become_user: "{{ forgejo_runner_user }}"
+      args:
+        chdir: "{{ forgejo_runner_dir }}"
+        creates: "{{ forgejo_runner_dir }}/.runner"
+        stdin: |-
+          {{ forgejo_runner_instance }}
+          {{ forgejo_runner_token }}
+          {{ forgejo_runner_name }}
+          {{ forgejo_runner_labels | join(',') }}
+      ansible.builtin.command:
+        argv:
+          - "{{ forgejo_runner_bin_path }}"
+          - register
+
+    - name: Write the Forgejo runner service
+      register: forgejo_runner_service_result
+      ansible.builtin.template:
+        src: forgejo-runner.service
+        dest: "{{ forgejo_runner_service_path }}"
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Ensure the daemon is reloaded
+      when: forgejo_runner_service_result.changed
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+
+    - name: Start the Forgejo runner service and enable it
+      register: forgejo_runner_service_started_result
+      ansible.builtin.systemd_service:
+        name: "{{ forgejo_runner_service_path | basename }}"
+        enabled: true
+        state: started
+
+    - name: Restart the Forgejo runner service
+      when:
+        - not forgejo_runner_service_started_result.changed
+        - forgejo_runner_bin_result.changed or forgejo_runner_service_result.changed
+      ansible.builtin.systemd_service:
+        name: "{{ forgejo_runner_service_path | basename }}"
+        state: restarted

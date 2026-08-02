@@ -1,0 +1,37 @@
+{
+    "toolchains": [
+        {
+            "name": "forgejo_runner",
+            "version": "11.0.0"
+        }
+    ],
+    "archives": [
+        {
+            "archive_name": "linux_x86_64",
+            "toolchain_name": "forgejo_runner",
+            "toolchain_version": "11.0.0",
+            "binaries": [
+                {
+                    "name": "forgejo-runner",
+                    "path": "out/forgejo-runner"
+                }
+            ],
+            "rules": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            },
+            "actions": [
+                {
+                    "download": {
+                        "url": "https://code.forgejo.org/forgejo/runner/releases/download/v11.0.0/forgejo-runner-11.0.0-linux-amd64",
+                        "output": "out/forgejo-runner",
+                        "executable": true,
+                        "integrity": "sha256-R25NKkrbnD4F+qK5gtlNTDQM0XpaZ6B1CocGxzAq43o="
+                    }
+                }
+            ]
+        }
+    ]
+}
