@@ -1,0 +1,13 @@
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//third_party:__pkg__"],
+)
+
+alias(
+    name = "org_codeberg_forgejo_runner_bin",
+    actual = "@org_codeberg_forgejo_runner_bin//:forgejo_runner_binary",
+    visibility = ["//:__subpackages__"],
+)
