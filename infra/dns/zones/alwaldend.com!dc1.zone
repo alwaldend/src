@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-08-01T10:35:09Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026080101 3600 600 604800 1440
+; generated with dnscontrol 2026-08-02T13:43:32Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026080200 3600 600 604800 1440
                  IN A     185.199.108.153
                  IN A     185.199.109.153
                  IN A     185.199.110.153
@@ -36,6 +36,7 @@ openid.flux 600  IN CNAME flux.alwaldend.com.
 operator.flux 600 IN CNAME flux.alwaldend.com.
 forgejo          IN A     192.168.10.40
 host1.forgejo    IN A     192.168.10.40
+runner1.forgejo-runner IN A 192.168.10.100
 harbor           IN A     192.168.10.50
 host1.harbor     IN A     192.168.10.50
 ingress          IN A     103.76.53.6

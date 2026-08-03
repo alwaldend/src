@@ -1,17 +1,27 @@
 locals {
-  dns = jsondecode(file("${path.module}/../dnsconfig.json")).domains.default.records
+  dns = jsondecode(file("${path.module}/../dnsconfig.json"))
+  vms = {
+    runner1 = {
+      vmid = 1200
+    }
+  }
 }
 
 module "vm" {
-  source = "../../../projects/tf_modules/pve_vm_qemu"
-  name   = "${local.dns.host1.A.name}.alwaldend.com"
-  vmid   = 900
-  pool   = "src_infra_forgejo_runner"
-  cores  = 4
-  memory = 8192
+  for_each = local.vms
+  source   = "../../../projects/tf_modules/pve_vm_qemu"
+  name     = "${local.dns.records[each.key].A.name}.alwaldend.com"
+  vmid     = each.value.vmid
+  pool     = "src_infra_forgejo_runner"
+  cores    = 8
+  memory   = 1024 * 16
   scsi0 = {
-    size = "40G"
+    size = "20G" # Boot
   }
-  ip   = "${local.dns.host1.A.address}/24"
+  scsi1 = {
+    size    = "300G" # Runner
+    storage = "ceph-ec"
+  }
+  ip   = "${local.dns.records[each.key].A.address}/24"
   tags = ["forgejo-runner"]
 }

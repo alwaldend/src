@@ -4,4 +4,4 @@
   become: true
   roles:
     - role: alwaldend.main.host
-    - role: alwaldend.main.forgejo_runner
+    # - role: alwaldend.main.forgejo_runner

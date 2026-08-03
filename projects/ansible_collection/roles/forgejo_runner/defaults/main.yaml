@@ -1,6 +1,9 @@
 forgejo_runner_user: forgejo-runner
 forgejo_runner_user_uid: 5721
 forgejo_runner_dir: /opt/forgejo-runner
+forgejo_runner_disk:
+forgejo_runner_home_dir: /opt/forgejo-runner/home
+forgejo_runner_work_dir: /opt/forgejo-runner/work
 forgejo_runner_bin_local_path: "{{ role_path }}/files/forgejo-runner"
 forgejo_runner_bin_path: /usr/bin/forgejo-runner
 forgejo_runner_service_path: /lib/systemd/system/forgejo-runner.service

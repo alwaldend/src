@@ -1,22 +1,28 @@
 - tags:
     - forgejo_runner
   block:
+    - name: Install packages
+      ansible.builtin.package:
+        name:
+          - podman
     - name: Create Forgejo runner user
       ansible.builtin.user:
         name: "{{ forgejo_runner_user }}"
         uid: "{{ forgejo_runner_user_uid }}"
         shell: /sbin/nologin
-        home: "{{ forgejo_runner_dir }}"
+        home: "{{ forgejo_runner_home_dir }}"
         system: true
-
-    - name: Create Forgejo runner directory
+    - name: Create runner dirs
+      loop:
+        - "{{ forgejo_runner_dir }}"
+        - "{{ forgejo_runner_home_dir }}"
+        - "{{ forgejo_runner_work_dir }}"
       ansible.builtin.file:
-        path: "{{ forgejo_runner_dir }}"
         state: directory
         owner: "{{ forgejo_runner_user }}"
         group: "{{ forgejo_runner_user }}"
         mode: "0700"
-
+        path: "{{ item }}"
     - name: Copy the Forgejo runner binary
       register: forgejo_runner_bin_result
       ansible.builtin.copy:
@@ -25,12 +31,11 @@
         owner: root
         group: "{{ forgejo_runner_user }}"
         mode: "0750"
-
     - name: Register Forgejo runner
       become_user: "{{ forgejo_runner_user }}"
       args:
-        chdir: "{{ forgejo_runner_dir }}"
-        creates: "{{ forgejo_runner_dir }}/.runner"
+        chdir: "{{ forgejo_runner_work_dir }}"
+        creates: "{{ forgejo_runner_work_dir }}/.runner"
         stdin: |-
           {{ forgejo_runner_instance }}
           {{ forgejo_runner_token }}
@@ -40,7 +45,6 @@
         argv:
           - "{{ forgejo_runner_bin_path }}"
           - register
-
     - name: Write the Forgejo runner service
       register: forgejo_runner_service_result
       ansible.builtin.template:
@@ -49,19 +53,16 @@
         owner: root
         group: root
         mode: "0644"
-
     - name: Ensure the daemon is reloaded
       when: forgejo_runner_service_result.changed
       ansible.builtin.systemd_service:
         daemon_reload: true
-
     - name: Start the Forgejo runner service and enable it
       register: forgejo_runner_service_started_result
       ansible.builtin.systemd_service:
         name: "{{ forgejo_runner_service_path | basename }}"
         enabled: true
         state: started
-
     - name: Restart the Forgejo runner service
       when:
         - not forgejo_runner_service_started_result.changed

@@ -1,6 +1,11 @@
 ansible_user: ansible
 ssh_vault_role: src_infra_forgejo_runner_ssh
 ssh_valid_principals:
-  - host1.forgejo-runner.alwaldend.com
+  - forgejo-runner.alwaldend.com
 forgejo_runner_instance: https://forgejo.alwaldend.com
 forgejo_runner_token: "{{ lookup('ansible.builtin.env', 'FORGEJO_RUNNER_TOKEN') }}"
+forgejo_runner_disk: /dev/sdb
+firewall_allow_port_from:
+  - src: "any"
+    port: 22
+    comment: ssh

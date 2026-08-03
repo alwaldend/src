@@ -12,6 +12,7 @@ var jsons = [
     require("../vault/dnsconfig.json"),
     require("../mikrotik/dnsconfig.json"),
     require("../forgejo/dnsconfig.json"),
+    require("../forgejo_runner/dnsconfig.json"),
     require("../harbor/dnsconfig.json"),
     require("../flux/dnsconfig.json"),
     require("../threexui/dnsconfig.json"),

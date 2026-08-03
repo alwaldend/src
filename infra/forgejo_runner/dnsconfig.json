@@ -1,11 +1,11 @@
 {
-  "records": {
-    "host1": {
-      "A": {
-        "name": "host1.forgejo-runner",
-        "address": "192.168.10.70"
-      },
-      "dsp": ["dc1"]
+    "records": {
+        "runner1": {
+            "A": {
+                "name": "runner1.forgejo-runner",
+                "address": "192.168.10.100"
+            },
+            "dsp": ["dc1"]
+        }
     }
-  }
 }
