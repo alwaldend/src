@@ -22,7 +22,7 @@ Permitted forms: infinitive, imperative, simple present, simple past, simple fut
 No present perfect, past perfect, or other compound/auxiliary constructions ("we have received" is not allowed; "we received" is).
 "-ing" forms are permitted only as a technical noun or as part of a technical noun, not as a verb form.
 
-## Voice
+### Voice
 
 Active voice is required for procedures and instructions.
 Passive voice is allowed only in descriptive text, and only when the actor performing the action is genuinely unknown or irrelevant to the reader.
@@ -168,14 +168,13 @@ is optional, and agents should still run the relevant checks explicitly.
 ## Change and commit hygiene
 
 - Do all work on a feature branch. Do not work directly on the default branch.
-- Commit and push to at least one remote after each chunk of changes, and do
-  not continue further if you cannot push.
+- Commit and push to at least one remote after each chunk of
+  changes, and do not continue further if you cannot push.
+- Do not ask whether you should commit or push to a feature branch: the answer
+  is always yes.
 - Commit all changes each time. Do not leave requested changes uncommitted.
 - Do not commit binaries. Add binary paths to `.gitignore` instead.
-- Keep generated dependency/lockfile changes only when they are a necessary,
-  reviewed consequence of the requested change.
-- Do not amend, rebase, force-push, or rewrite existing history unless asked.
-- Stage only the requested files. Re-run `git status --short` after staging to
-  make sure unrelated worktree changes remain unstaged.
+- Do not amend, rebase, force-push, or rewrite existing history unless it's
+  feature branch.
 - In the final report, name the affected files and list each verification
   command with its actual result.
