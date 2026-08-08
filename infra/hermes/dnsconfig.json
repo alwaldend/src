@@ -1,0 +1,18 @@
+{
+  "records": {
+    "host1": {
+      "A": {
+        "name": "host1.hermes",
+        "address": "192.168.10.50"
+      },
+      "dsp": ["dc1"]
+    },
+    "ha1": {
+      "A": {
+        "name": "hermes",
+        "address": "192.168.10.50"
+      },
+      "dsp": ["dc1"]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+[http.routers.hermes_websecure]
+rule = "Host(`{{ hermes_domain }}`) || Host(`{{ inventory_hostname }}`)"
+service = "hermes"
+tls = { certResolver = "vault" }
+
+[http.services.hermes.loadBalancer]
+[[http.services.hermes.loadBalancer.servers]]
+url = "http://127.0.0.1:{{ hermes_port }}"

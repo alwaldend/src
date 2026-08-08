@@ -1,0 +1,86 @@
+- tags:
+    - hermes
+  block:
+    - name: Install Hermes dependencies
+      ansible.builtin.package:
+        name:
+          - curl
+          - git
+          - python3
+    - name: Create Hermes user
+      ansible.builtin.user:
+        name: "{{ hermes_user }}"
+        uid: "{{ hermes_user_uid }}"
+        shell: /bin/bash
+        home: "{{ hermes_home_dir }}"
+        system: true
+    - name: Create filesystem on the Hermes disk
+      when: hermes_disk is truthy
+      community.general.filesystem:
+        fstype: ext4
+        dev: "{{ hermes_disk }}"
+    - name: Mount Hermes disk
+      when: hermes_disk is truthy
+      ansible.posix.mount:
+        path: "{{ hermes_dir }}"
+        src: "{{ hermes_disk }}"
+        fstype: ext4
+        state: mounted
+    - name: Create Hermes directories
+      loop:
+        - "{{ hermes_dir }}"
+        - "{{ hermes_home_dir }}"
+      ansible.builtin.file:
+        state: directory
+        owner: "{{ hermes_user }}"
+        group: "{{ hermes_user }}"
+        mode: "0700"
+        path: "{{ item }}"
+    - name: Copy the Hermes installer
+      register: hermes_installer_result
+      ansible.builtin.copy:
+        src: "{{ hermes_installer_local_path }}"
+        dest: "{{ hermes_installer_path }}"
+        owner: root
+        group: "{{ hermes_user }}"
+        mode: "0750"
+    - name: Install Hermes Agent
+      become_user: "{{ hermes_user }}"
+      ansible.builtin.command:
+        argv:
+          - "{{ hermes_installer_path }}"
+          - --dir
+          - "{{ hermes_install_dir }}"
+          - --hermes-home
+          - "{{ hermes_home_dir }}/.hermes"
+          - --skip-setup
+          - --non-interactive
+        creates: "{{ hermes_install_dir }}/venv/bin/hermes"
+    - name: Write the Hermes environment
+      register: hermes_env_result
+      ansible.builtin.copy:
+        content: |
+          {% for key, value in (hermes_env | combine(hermes_env_override)).items() %}
+          {{ key }}={{ value }}
+          {% endfor %}
+        dest: "{{ hermes_env_path }}"
+        owner: root
+        group: "{{ hermes_user }}"
+        mode: "0640"
+    - name: Write the Hermes service
+      register: hermes_service_result
+      ansible.builtin.template:
+        src: systemd_service.conf
+        dest: "{{ hermes_service_path }}"
+        owner: root
+        group: root
+        mode: "0644"
+    - name: Reload systemd for Hermes
+      when: hermes_service_result.changed
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+    - name: Enable and start Hermes
+      ansible.builtin.systemd_service:
+        name: "{{ hermes_service_path | basename }}"
+        enabled: true
+        state: "{{ 'restarted' if hermes_env_result.changed or hermes_service_result.changed else 'started' }}"
