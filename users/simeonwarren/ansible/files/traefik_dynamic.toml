@@ -1,8 +1,17 @@
-[http.routers.opencode_websecure]
-rule = "Host(`{{ opencode_domain }}`) || Host(`{{ inventory_hostname }}`)"
-service = "opencode"
+[tls.options.default.clientAuth]
+caFiles = ["{{ traefik_mtls_ca_path }}"]
+clientAuthType = "RequireAndVerifyClientCert"
+
+[http.serversTransports.hermes]
+serverName = "{{ hermes_domain }}"
+
+[http.routers.hermes_websecure]
+rule = "Host(`{{ hermes_domain }}`) || Host(`{{ inventory_hostname }}`)"
+service = "hermes"
 tls = { certResolver = "vault" }
 
-[http.services.opencode.loadBalancer]
-[[http.services.opencode.loadBalancer.servers]]
-url = "http://127.0.0.1:4096"
+[http.services.hermes.loadBalancer]
+serversTransport = "hermes"
+
+[[http.services.hermes.loadBalancer.servers]]
+url = "http://127.0.0.1:{{ hermes_port }}"

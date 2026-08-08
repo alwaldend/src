@@ -1,0 +1,32 @@
+{
+    "records": {
+        "yc_ns_1": {
+            "NS": {
+                "name": "yc.hermes.simeonwarren.users",
+                "address": "ns1.yandexcloud.net."
+            },
+            "dsp": ["all"]
+        },
+        "yc_ns_2": {
+            "NS": {
+                "name": "yc.hermes.simeonwarren.users",
+                "address": "ns2.yandexcloud.net."
+            },
+            "dsp": ["all"]
+        },
+        "host1": {
+            "CNAME": {
+                "name": "host1.hermes.simeonwarren.users",
+                "target": "host1.yc.hermes.simeonwarren.users.alwaldend.com."
+            },
+            "dsp": ["all"]
+        },
+        "root": {
+            "CNAME": {
+                "name": "hermes.simeonwarren.users",
+                "target": "host1.yc.hermes.simeonwarren.users.alwaldend.com."
+            },
+            "dsp": ["all"]
+        }
+    }
+}

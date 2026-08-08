@@ -2,12 +2,10 @@ ansible_user: ansible
 ssh_vault_role: users_simeonwarren_ssh
 traefik_acme_url: https://acme-v02.api.letsencrypt.org/directory
 traefik_disable_eab: true
-hermes_domain: hermes.simeonwarren.users.alwaldend.com
+hermes_domain: "{{ inventory_hostname }}"
 hermes_disk:
-traefik_disk:
-ssh_valid_principals:
-  - hermes.simeonwarren.users.alwaldend.com
-
+hermes_env_override: "{{ lookup('ansible.builtin.env', 'HERMES_ENV') | from_json }}"
+traefik_disk: /dev/sdc
 firewall_allow_port_from:
   - src: "any"
     port: 22

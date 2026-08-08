@@ -1,7 +1,7 @@
 [http.routers.hermes_websecure]
 rule = "Host(`{{ hermes_domain }}`) || Host(`{{ inventory_hostname }}`)"
 service = "hermes"
-tls = { certResolver = "vault" }
+tls = { certResolver = "default" }
 
 [http.services.hermes.loadBalancer]
 [[http.services.hermes.loadBalancer.servers]]

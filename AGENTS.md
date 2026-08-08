@@ -2,10 +2,47 @@
 title: Agents
 ---
 
-# Repository guide for agents
+## Repository guide for agents
 
 Use this file as the repository-wide default. If a more deeply nested
 `AGENTS.md` is added, its instructions take precedence for that subtree.
+
+## Writing style
+
+Use ASD-STE100 (Simplified Technical English) for all writing.
+
+### Word choice
+
+Each word maps to exactly one meaning — don't rely on context to disambiguate a word that has several dictionary senses.
+Prefer the plainer, shorter, more common word over a formal or rare synonym.
+
+### Verb forms
+
+Permitted forms: infinitive, imperative, simple present, simple past, simple future, and past participle used only as an adjective.
+No present perfect, past perfect, or other compound/auxiliary constructions ("we have received" is not allowed; "we received" is).
+"-ing" forms are permitted only as a technical noun or as part of a technical noun, not as a verb form.
+
+## Voice
+
+Active voice is required for procedures and instructions.
+Passive voice is allowed only in descriptive text, and only when the actor performing the action is genuinely unknown or irrelevant to the reader.
+
+### Sentence structure
+
+One instruction per sentence.
+Maximum ~20 words per sentence for procedures/instructions; maximum ~25 words for descriptive text.
+Do not omit sentence parts (verb, subject, article) just to shorten the sentence — the standard explicitly warns that this creates ambiguity rather than clarity.
+Noun clusters (strings of nouns stacked as a modifier) are capped at 3 words.
+
+### Paragraph and document structure
+
+One topic per paragraph.
+Maximum ~6 sentences per paragraph.
+Use vertical (numbered or bulleted) lists for sequences, conditions, or complex enumerations instead of burying them in prose.
+
+### Safety instructions
+
+Safety-critical instructions must open with a clear command or condition, not be buried mid-sentence.
 
 ## Start here
 
@@ -130,6 +167,11 @@ is optional, and agents should still run the relevant checks explicitly.
 
 ## Change and commit hygiene
 
+- Do all work on a feature branch. Do not work directly on the default branch.
+- Commit and push to at least one remote after each chunk of changes, and do
+  not continue further if you cannot push.
+- Commit all changes each time. Do not leave requested changes uncommitted.
+- Do not commit binaries. Add binary paths to `.gitignore` instead.
 - Keep generated dependency/lockfile changes only when they are a necessary,
   reviewed consequence of the requested change.
 - Do not amend, rebase, force-push, or rewrite existing history unless asked.

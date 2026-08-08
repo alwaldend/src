@@ -6,7 +6,11 @@ load("//tools/docs:defs.bzl", "docs_filegroup")
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//infra/forgejo_runner:__pkg__"],
+    visibility = ["//users/simeonwarren/hermes:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
 )
 
 al_binary_run_map(
@@ -17,7 +21,7 @@ al_binary_run_map(
         "inventory.yaml",
         "playbook_deploy.yaml",
     ]},
-    configs = ["//infra/forgejo_runner:al"],
+    configs = ["//users/simeonwarren/hermes:al"],
     data = [
         ":ansible_bin",
         "//tools/vault/injector",
@@ -49,6 +53,7 @@ pkg_files(
     name = "srcs_files",
     srcs = ["inventory.yaml"] + glob([
         "group_vars/**/*.yaml",
+        "files/**",
         "playbook_*.yaml",
     ]),
     strip_prefix = strip_prefix.from_pkg(),

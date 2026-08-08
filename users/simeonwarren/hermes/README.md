@@ -14,6 +14,6 @@ loopback-only Hermes API server.
 ## Deployment
 
 ```sh
-bazel run //infra/hermes/tf_setup
-bazel run //infra/hermes/ansible
+bazel run //users/simeonwarren/hermes/tf_setup
+bazel run //users/simeonwarren/hermes/ansible
 ```

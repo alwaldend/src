@@ -3,7 +3,7 @@ local infra = require("infra.al_lib")
 
 lib.vault_auth({
     name = "default",
-    approle = { name = "src_infra_hermes" },
+    approle = { name = "user_simeonwarren" },
 })
 
 infra.ansible_keys({
@@ -20,14 +20,18 @@ lib.plugin_call({
     plugin = "tf_backend",
     labels = { tf = "setup" },
     data = {
-        vault_secret = "alwaldend.com/vault1/approles/src_infra_hermes/tf_backend/tf_setup",
+        vault_secret = "alwaldend.com/vault1/approles/user_simeonwarren/tf_backend/hermes_tf_setup",
         vault_secret_mount = "secrets"
     },
 })
 
-lib.plugin_call({
-    name = "pve_login",
-    plugin = "pve_login",
+infra.yc_auth({
+    path = "yandex.cloud/org1/folders/user-simeonwarren/account_iam_key",
+    labels = { tf = "setup" },
+})
+
+infra.yc_account({
+    path = "yandex.cloud/org1/folders/user-simeonwarren/account",
     labels = { tf = "setup" },
 })
 
@@ -40,7 +44,7 @@ lib.plugin_call({
             {
                 name = "config",
                 kv = {
-                    path = "alwaldend.com/vault1/approles/src_infra_hermes/config",
+                    path = "alwaldend.com/vault1/approles/user_simeonwarren/hermes_config",
                     mount = "secrets"
                 }
             },

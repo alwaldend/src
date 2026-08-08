@@ -7,6 +7,15 @@
           - curl
           - git
           - python3
+          - nodejs
+          - npm
+    - name: Install Chromium dependencies using npx playwright
+      ansible.builtin.command:
+        argv:
+          - npx
+          - playwright
+          - install-deps
+          - chromium
     - name: Create Hermes user
       ansible.builtin.user:
         name: "{{ hermes_user }}"
@@ -14,6 +23,12 @@
         shell: /bin/bash
         home: "{{ hermes_home_dir }}"
         system: true
+    - name: Enable lingering for hermes user
+      ansible.builtin.command:
+        argv:
+          - loginctl
+          - enable-linger
+          - "{{ hermes_user }}"
     - name: Create filesystem on the Hermes disk
       when: hermes_disk is truthy
       community.general.filesystem:
@@ -55,7 +70,43 @@
           - "{{ hermes_home_dir }}/.hermes"
           - --skip-setup
           - --non-interactive
+          - --skip-browser
         creates: "{{ hermes_install_dir }}/venv/bin/hermes"
+    - name: Install Hermes gateway
+      become_user: "{{ hermes_user }}"
+      ansible.builtin.command:
+        argv:
+          - hermes
+          - gateway
+          - install
+    - name: Start Hermes gateway
+      become_user: "{{ hermes_user }}"
+      ansible.builtin.command:
+        argv:
+          - hermes
+          - gateway
+          - start
+    - name: Check Hermes status with doctor
+      become_user: "{{ hermes_user }}"
+      ansible.builtin.command:
+        argv:
+          - hermes
+          - doctor
+      register: doctor_result
+    - name: Display doctor results
+      ansible.builtin.debug:
+        msg: "Doctor check result: {{ doctor_result.stdout }}"
+    - name: Check Hermes gateway status
+      become_user: "{{ hermes_user }}"
+      ansible.builtin.command:
+        argv:
+          - hermes
+          - gateway
+          - status
+      register: gateway_status_result
+    - name: Display gateway status
+      ansible.builtin.debug:
+        msg: "Gateway status: {{ gateway_status_result.stdout }}"
     - name: Write the Hermes environment
       register: hermes_env_result
       ansible.builtin.copy:

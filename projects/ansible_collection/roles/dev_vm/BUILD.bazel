@@ -1,4 +1,3 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/ansible/main/bzl:al_ansible_role.bzl", "al_ansible_role")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 
@@ -14,9 +13,6 @@ docs_filegroup(
 
 al_ansible_role(
     name = "role",
-    srcs = glob(["**"]) + ["//third_party/com_nousresearch_hermes_agent"],
-    renames = {
-        "//third_party/com_nousresearch_hermes_agent": "files/install.sh",
-    },
+    srcs = glob(["**"]),
     visibility = ["//:__subpackages__"],
 )

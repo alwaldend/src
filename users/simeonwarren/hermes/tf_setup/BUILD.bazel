@@ -4,10 +4,14 @@ load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//infra/forgejo_runner:__pkg__"],
+    visibility = ["//users/simeonwarren/hermes:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
 )
 
-_CONFIGS = ["//infra/forgejo_runner:al"]
+_CONFIGS = ["//users/simeonwarren/hermes:al"]
 
 _RUN_ARGS = [
     "--plugin_label",
@@ -16,10 +20,8 @@ _RUN_ARGS = [
 
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
-    "//projects/tf_modules/pve_vm_qemu",
-    "//infra/forgejo_runner:dnsconfig",
-    "//infra/mikrotik:dnsconfig",
-    "//tools/vault/pve_login",
+    "//users/simeonwarren/hermes:dnsconfig",
+    "//infra/pve/ansible:cloud_init",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",
 ]
