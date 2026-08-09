@@ -5,6 +5,7 @@ hermes_home_dir: "{{ hermes_dir }}/home"
 hermes_install_dir: "{{ hermes_dir }}/hermes-agent"
 hermes_disk:
 hermes_port: 8642
+hermes_commit: "{{ undefined() }}"
 hermes_installer_local_path: "{{ role_path }}/files/install.sh"
 hermes_installer_path: "{{ hermes_dir }}/install.sh"
 hermes_config_local_path: "files/hermes.yaml"

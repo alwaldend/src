@@ -90,6 +90,8 @@
           - "{{ hermes_bin_path }}"
           - gateway
           - install
+          - --commit
+          - "{{ hermes_commit }}"
     - name: Start Hermes gateway
       become_user: "{{ hermes_user }}"
       ansible.builtin.command:

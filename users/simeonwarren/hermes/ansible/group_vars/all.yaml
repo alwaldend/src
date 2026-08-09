@@ -3,6 +3,7 @@ ssh_vault_role: users_simeonwarren_ssh
 traefik_acme_url: https://acme-v02.api.letsencrypt.org/directory
 traefik_disable_eab: true
 hermes_domain: "{{ inventory_hostname }}"
+hermes_commit: "3c27eb6234bf91b8ceee9e9071591b31e9b148cb" # v2026.8.3 # https://github.com/NousResearch/hermes-agent/releases
 hermes_port: 8642
 hermes_env:
   OPENROUTER_API_KEY: "{{ lookup('ansible.builtin.env', 'OPENROUTER_API_KEY') }}"
