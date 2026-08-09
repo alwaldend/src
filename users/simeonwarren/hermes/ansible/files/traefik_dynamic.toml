@@ -1,7 +1,11 @@
+[tls.options.default.clientAuth]
+caFiles = ["{{ traefik_mtls_ca_path }}"]
+clientAuthType = "RequireAndVerifyClientCert"
+
 [http.routers.hermes_websecure]
 rule = "Host(`{{ hermes_domain }}`) || Host(`{{ inventory_hostname }}`)"
 service = "hermes"
-tls = { certResolver = "default" }
+tls = { certResolver = "default", options = "default" }
 
 [http.services.hermes.loadBalancer]
 [[http.services.hermes.loadBalancer.servers]]
