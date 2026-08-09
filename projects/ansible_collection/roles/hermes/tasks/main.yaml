@@ -45,13 +45,6 @@
         group: "{{ hermes_user }}"
         mode: "0700"
         path: "{{ item }}"
-    - name: Add hermes host to /etc/hosts
-      ansible.builtin.lineinfile:
-        path: /etc/hosts
-        line: "127.0.0.1 {{ hermes_domain }} {{ inventory_hostname }}"
-        owner: root
-        group: root
-        mode: "0644"
     - name: Copy the Hermes installer
       register: hermes_installer_result
       ansible.builtin.copy:
