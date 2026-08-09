@@ -45,6 +45,13 @@
         group: "{{ hermes_user }}"
         mode: "0700"
         path: "{{ item }}"
+    - name: Add hermes host to /etc/hosts
+      ansible.builtin.lineinfile:
+        path: /etc/hosts
+        line: "{{ ansible_facts.default_ipv4.address }} {{ hermes_domain }} {{ inventory_hostname }}"
+        owner: root
+        group: root
+        mode: "0644"
     - name: Copy the Hermes installer
       register: hermes_installer_result
       ansible.builtin.copy:
@@ -93,13 +100,8 @@
           - gateway
           - install
           - --force
-    - name: Start Hermes gateway
-      become_user: "{{ hermes_user }}"
-      ansible.builtin.command:
-        argv:
-          - "{{ hermes_bin_path }}"
-          - gateway
-          - start
+          - --start-now
+          - --start-on-login
     - name: Check Hermes status with doctor
       become_user: "{{ hermes_user }}"
       ansible.builtin.command:
@@ -137,4 +139,4 @@
       ansible.builtin.systemd_service:
         name: "{{ hermes_dashboard_service_path | basename }}"
         enabled: true
-        state: started
+        state: restarted

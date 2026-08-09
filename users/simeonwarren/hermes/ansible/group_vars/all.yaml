@@ -2,7 +2,8 @@ ansible_user: ansible
 ssh_vault_role: users_simeonwarren_ssh
 traefik_acme_url: https://acme-v02.api.letsencrypt.org/directory
 traefik_disable_eab: true
-hermes_domain: "{{ inventory_hostname }}"
+traefik_ip: "{{ ansible_facts.default_ipv4.address }}"
+hermes_domain: "hermes.simeonwarren.users.alwaldend.com"
 hermes_commit: "3c27eb6234bf91b8ceee9e9071591b31e9b148cb" # v2026.8.3 # https://github.com/NousResearch/hermes-agent/releases
 hermes_port: 8642
 hermes_env:
