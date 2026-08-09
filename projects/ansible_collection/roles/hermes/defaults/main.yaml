@@ -11,4 +11,5 @@ hermes_config_local_path: "files/hermes.yaml"
 hermes_config_path: "{{ hermes_home_dir }}/.hermes/config.yaml"
 hermes_env_path: "{{ hermes_home_dir }}/.hermes/.env"
 hermes_env: {}
+hermes_bin_path: "{{ hermes_home_dir }}/.local/bin/hermes"
 hermes_dashboard_service_path: /lib/systemd/system/hermes-dashboard.service

@@ -87,21 +87,21 @@
       become_user: "{{ hermes_user }}"
       ansible.builtin.command:
         argv:
-          - hermes
+          - "{{ hermes_bin_path }}"
           - gateway
           - install
     - name: Start Hermes gateway
       become_user: "{{ hermes_user }}"
       ansible.builtin.command:
         argv:
-          - hermes
+          - "{{ hermes_bin_path }}"
           - gateway
           - start
     - name: Check Hermes status with doctor
       become_user: "{{ hermes_user }}"
       ansible.builtin.command:
         argv:
-          - hermes
+          - "{{ hermes_bin_path }}"
           - doctor
       register: doctor_result
     - name: Display doctor results
@@ -111,7 +111,7 @@
       become_user: "{{ hermes_user }}"
       ansible.builtin.command:
         argv:
-          - hermes
+          - "{{ hermes_bin_path }}"
           - gateway
           - status
       register: gateway_status_result
