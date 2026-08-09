@@ -3,8 +3,8 @@ caFiles = ["{{ traefik_mtls_ca_path }}"]
 clientAuthType = "RequireAndVerifyClientCert"
 
 [http.middlewares.hermes_origin.headers.customRequestHeaders]
-Origin = "http://127.0.0.1:{{ hermes_port }}"
-Host = "127.0.0.1:{{ hermes_port }}"
+Origin = "http://{{ hermes_domain }}:{{ hermes_port }}"
+Host = "{{ hermes_domain }}:{{ hermes_port }}"
 
 [http.routers.hermes_websecure]
 rule = "Host(`{{ hermes_domain }}`) || Host(`{{ inventory_hostname }}`)"
