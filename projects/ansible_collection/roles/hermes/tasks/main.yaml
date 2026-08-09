@@ -9,13 +9,6 @@
           - python3
           - nodejs
           - npm
-    - name: Install Chromium dependencies using npx playwright
-      ansible.builtin.command:
-        argv:
-          - npx
-          - playwright
-          - install-deps
-          - chromium
     - name: Create Hermes user
       ansible.builtin.user:
         name: "{{ hermes_user }}"
