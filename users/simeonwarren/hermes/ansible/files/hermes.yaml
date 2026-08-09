@@ -1,5 +1,17 @@
-api_server:
-  enabled: true
-  host: 127.0.0.1
-  port: "{{ hermes_port }}"
-hermes_home: "{{ hermes_home_dir }}/.hermes"
+# https://hermes-agent.nousresearch.com/docs/user-guide/configuration/
+dashboard:
+  show_token_analytics: true
+  basic_auth:
+    username: "simeonwarren"
+    password_hash: "{{ lookup('ansible.builtin.env', 'HERMES_DASHBOARD_PASSWORD_HASH') }}"
+skills:
+  guard_agent_created: true
+  write_approval: true
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  write_approval: true
+updates:
+  pre_update_backup: full
+  backup_keep: 5
+  non_interactive_local_changes: stash

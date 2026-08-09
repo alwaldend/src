@@ -34,3 +34,27 @@ infra.yc_account({
     path = "yandex.cloud/org1/folders/user-simeonwarren/account",
     labels = { tf = "setup" },
 })
+
+lib.plugin_call({
+    name = "hermes_password",
+    plugin = "injector",
+    labels = { ansible = "1" },
+    data = {
+        res = {
+            {
+                name = "password",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/user_simeonwarren/hermes_password",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "HERMES_DASHBOARD_PASSWORD_HASH",
+                deps = { "password" },
+                env = {
+                    value = "{{ .Last.Data.hermes_dashboard_password_hash }}",
+                }
+            },
+        }
+    }
+})
