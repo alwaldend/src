@@ -4,6 +4,8 @@ dashboard:
   basic_auth:
     username: "simeonwarren"
     password_hash: "{{ lookup('ansible.builtin.env', 'HERMES_DASHBOARD_PASSWORD_HASH') }}"
+gateway:
+  systemd_watchdog_seconds: 120
 skills:
   guard_agent_created: true
   write_approval: true
