@@ -60,6 +60,30 @@ lib.plugin_call({
 })
 
 lib.plugin_call({
+    name = "hermes_openrouter",
+    plugin = "injector",
+    labels = { ansible = "1" },
+    data = {
+        res = {
+            {
+                name = "openrouter",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/user_simeonwarren/hermes/openrouter",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "OPENROUTER_API_KEY",
+                deps = { "openrouter" },
+                env = {
+                    value = "{{ .Last.Data.openrouter_api_token }}",
+                }
+            },
+        }
+    }
+})
+
+lib.plugin_call({
     name = "wireguard",
     plugin = "injector",
     labels = { tf = "setup", ansible = "1" },

@@ -114,6 +114,16 @@
         owner: root
         group: "{{ hermes_user }}"
         mode: "0640"
+    - name: Write the Hermes environment
+      ansible.builtin.copy:
+        content: |
+          {% for key, value in hermes_env.items() %}
+          {{ key }}={{ value }}
+          {% endfor %}
+        dest: "{{ hermes_env_path }}"
+        owner: "{{ hermes_user }}"
+        group: "{{ hermes_user }}"
+        mode: "0600"
     - name: Write the Hermes dashboard service
       register: hermes_dashboard_service_result
       ansible.builtin.template:

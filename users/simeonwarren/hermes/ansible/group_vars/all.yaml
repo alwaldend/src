@@ -4,6 +4,8 @@ traefik_acme_url: https://acme-v02.api.letsencrypt.org/directory
 traefik_disable_eab: true
 hermes_domain: "{{ inventory_hostname }}"
 hermes_port: 8642
+hermes_env:
+  OPENROUTER_API_KEY: "{{ lookup('ansible.builtin.env', 'OPENROUTER_API_KEY') }}"
 wg_public_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_public_keys', default=undefined()) | from_json }}"
 wg_private_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_private_keys', default=undefined()) | from_json }}"
 wg_preshared_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_preshared_keys', default=undefined()) | from_json }}"
