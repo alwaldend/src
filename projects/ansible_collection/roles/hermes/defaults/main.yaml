@@ -10,3 +10,4 @@ hermes_installer_path: "{{ hermes_dir }}/install.sh"
 hermes_config_local_path: "files/hermes.yaml"
 hermes_config_path: "{{ hermes_home_dir }}/.hermes/config.yaml"
 hermes_dashboard_service_path: /lib/systemd/system/hermes-dashboard.service
+hermes_dashboard_port: 9119
