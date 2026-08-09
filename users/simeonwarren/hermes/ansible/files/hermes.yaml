@@ -1,5 +1,5 @@
 api_server:
   enabled: true
   host: 127.0.0.1
-  port: {{ hermes_port }}
-hermes_home: {{ hermes_home_dir }}/.hermes
+  port: "{{ hermes_port }}"
+hermes_home: "{{ hermes_home_dir }}/.hermes"
