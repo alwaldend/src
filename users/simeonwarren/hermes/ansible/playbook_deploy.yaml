@@ -9,5 +9,5 @@
         name: alwaldend.main.wireguard
     - ansible.builtin.import_role:
         name: alwaldend.main.traefik
-    # - ansible.builtin.import_role:
-    #     name: alwaldend.main.hermes
+    - ansible.builtin.import_role:
+        name: alwaldend.main.hermes

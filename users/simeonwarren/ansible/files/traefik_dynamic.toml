@@ -2,16 +2,18 @@
 caFiles = ["{{ traefik_mtls_ca_path }}"]
 clientAuthType = "RequireAndVerifyClientCert"
 
-[http.serversTransports.hermes]
-serverName = "{{ hermes_domain }}"
+[tls.options.no_mtls]
 
 [http.routers.hermes_websecure]
 rule = "Host(`{{ hermes_domain }}`) || Host(`{{ inventory_hostname }}`)"
 service = "hermes"
-tls = { certResolver = "vault" }
+tls = { certResolver = "default" }
 
-[http.services.hermes.loadBalancer]
-serversTransport = "hermes"
+[http.routers.hermes_wireguard]
+rule = "Host(`{{ hermes_domain }}`) || Host(`{{ inventory_hostname }}`)"
+service = "hermes"
+entrypoints = ["websecure_wireguard"]
+tls = { certResolver = "default", options = "no_mtls" }
 
 [[http.services.hermes.loadBalancer.servers]]
 url = "http://127.0.0.1:{{ hermes_port }}"
