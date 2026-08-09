@@ -1,7 +1,7 @@
 resource "routeros_interface_wireguard" "hermes" {
   name        = "hermes-vpc"
   comment     = "tf[users/simeonwarren/hermes/tf_setup]"
-  listen_port = "13231"
+  listen_port = "13232"
   mtu         = "1420"
   private_key = var.wg_private_keys.router
 }
