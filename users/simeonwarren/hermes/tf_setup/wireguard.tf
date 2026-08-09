@@ -36,5 +36,6 @@ resource "routeros_interface_wireguard_peer" "hermes" {
   persistent_keepalive = "5s"
   allowed_address = [
     local.inventory.hermes.hosts["${each.key}.hermes.simeonwarren.users.alwaldend.com"].wg_ip,
+    "192.168.1.0/24",
   ]
 }
