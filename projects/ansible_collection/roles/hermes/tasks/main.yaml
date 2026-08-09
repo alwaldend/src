@@ -48,7 +48,7 @@
     - name: Add hermes host to /etc/hosts
       ansible.builtin.lineinfile:
         path: /etc/hosts
-        line: "{{ ansible_facts.default_ipv4.address }} {{ hermes_domain }} {{ inventory_hostname }}"
+        line: "127.0.0.1 {{ hermes_domain }} {{ inventory_hostname }}"
         owner: root
         group: root
         mode: "0644"
