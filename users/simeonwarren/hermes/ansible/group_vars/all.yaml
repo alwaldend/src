@@ -4,7 +4,6 @@ traefik_acme_url: https://acme-v02.api.letsencrypt.org/directory
 traefik_disable_eab: true
 hermes_domain: "{{ inventory_hostname }}"
 hermes_disk:
-hermes_env_override: "{{ lookup('ansible.builtin.env', 'HERMES_ENV') | from_json }}"
 traefik_disk: /dev/sdc
 firewall_allow_port_from:
   - src: "any"

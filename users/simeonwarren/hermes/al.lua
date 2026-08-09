@@ -34,27 +34,3 @@ infra.yc_account({
     path = "yandex.cloud/org1/folders/user-simeonwarren/account",
     labels = { tf = "setup" },
 })
-
-lib.plugin_call({
-    name = "hermes_config",
-    plugin = "injector",
-    labels = { ansible = "1" },
-    data = {
-        res = {
-            {
-                name = "config",
-                kv = {
-                    path = "alwaldend.com/vault1/approles/user_simeonwarren/hermes_config",
-                    mount = "secrets"
-                }
-            },
-            {
-                name = "HERMES_ENV",
-                deps = { "config" },
-                env = {
-                    value = '{{ to_json_indent .Last.Data.env "" "  " }}',
-                }
-            },
-        }
-    }
-})

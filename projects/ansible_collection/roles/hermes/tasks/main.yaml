@@ -107,31 +107,10 @@
     - name: Display gateway status
       ansible.builtin.debug:
         msg: "Gateway status: {{ gateway_status_result.stdout }}"
-    - name: Write the Hermes environment
-      register: hermes_env_result
-      ansible.builtin.copy:
-        content: |
-          {% for key, value in (hermes_env | combine(hermes_env_override)).items() %}
-          {{ key }}={{ value }}
-          {% endfor %}
-        dest: "{{ hermes_env_path }}"
+    - name: Write the Hermes config
+      ansible.builtin.template:
+        src: "{{ hermes_config_local_path }}"
+        dest: "{{ hermes_config_path }}"
         owner: root
         group: "{{ hermes_user }}"
         mode: "0640"
-    - name: Write the Hermes service
-      register: hermes_service_result
-      ansible.builtin.template:
-        src: systemd_service.conf
-        dest: "{{ hermes_service_path }}"
-        owner: root
-        group: root
-        mode: "0644"
-    - name: Reload systemd for Hermes
-      when: hermes_service_result.changed
-      ansible.builtin.systemd_service:
-        daemon_reload: true
-    - name: Enable and start Hermes
-      ansible.builtin.systemd_service:
-        name: "{{ hermes_service_path | basename }}"
-        enabled: true
-        state: "{{ 'restarted' if hermes_env_result.changed or hermes_service_result.changed else 'started' }}"
