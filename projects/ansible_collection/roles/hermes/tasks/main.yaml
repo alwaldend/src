@@ -72,6 +72,23 @@
           - --non-interactive
           - --skip-browser
         creates: "{{ hermes_install_dir }}/venv/bin/hermes"
+    - name: Write the Hermes config
+      ansible.builtin.template:
+        src: "{{ hermes_config_local_path }}"
+        dest: "{{ hermes_config_path }}"
+        owner: root
+        group: "{{ hermes_user }}"
+        mode: "0640"
+    - name: Write the Hermes environment
+      ansible.builtin.copy:
+        content: |
+          {% for key, value in hermes_env.items() %}
+          {{ key }}={{ value }}
+          {% endfor %}
+        dest: "{{ hermes_env_path }}"
+        owner: "{{ hermes_user }}"
+        group: "{{ hermes_user }}"
+        mode: "0600"
     - name: Install Hermes gateway
       become_user: "{{ hermes_user }}"
       ansible.builtin.command:
@@ -107,23 +124,6 @@
     - name: Display gateway status
       ansible.builtin.debug:
         msg: "Gateway status: {{ gateway_status_result.stdout }}"
-    - name: Write the Hermes config
-      ansible.builtin.template:
-        src: "{{ hermes_config_local_path }}"
-        dest: "{{ hermes_config_path }}"
-        owner: root
-        group: "{{ hermes_user }}"
-        mode: "0640"
-    - name: Write the Hermes environment
-      ansible.builtin.copy:
-        content: |
-          {% for key, value in hermes_env.items() %}
-          {{ key }}={{ value }}
-          {% endfor %}
-        dest: "{{ hermes_env_path }}"
-        owner: "{{ hermes_user }}"
-        group: "{{ hermes_user }}"
-        mode: "0600"
     - name: Write the Hermes dashboard service
       register: hermes_dashboard_service_result
       ansible.builtin.template:
