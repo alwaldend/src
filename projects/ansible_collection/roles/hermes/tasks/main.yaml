@@ -114,3 +114,20 @@
         owner: root
         group: "{{ hermes_user }}"
         mode: "0640"
+    - name: Write the Hermes dashboard service
+      register: hermes_dashboard_service_result
+      ansible.builtin.template:
+        src: systemd_dashboard.conf
+        dest: "{{ hermes_dashboard_service_path }}"
+        owner: root
+        group: root
+        mode: "0644"
+    - name: Reload systemd for the Hermes dashboard
+      when: hermes_dashboard_service_result.changed
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+    - name: Enable and start the Hermes dashboard
+      ansible.builtin.systemd_service:
+        name: "{{ hermes_dashboard_service_path | basename }}"
+        enabled: true
+        state: started
