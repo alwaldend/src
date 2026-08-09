@@ -24,10 +24,14 @@
             "*": "ask",
             "git *": "allow",
             "grep *": "allow",
+            "cat *": "allow",
             "diff *": "allow",
+            "echo *": "allow",
             "mkdir *": "allow",
             "find *": "allow",
-            "ls *": "allow"
+            "ls *": "allow",
+            "tail *": "allow",
+            "head *": "allow"
         },
         "task": {
             "*": "allow"

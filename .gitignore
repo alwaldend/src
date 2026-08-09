@@ -1,3 +1,6 @@
+## Sometimes used for secrets
+data.json
+
 ## //tools/bzlenv
 .bzlenv
 

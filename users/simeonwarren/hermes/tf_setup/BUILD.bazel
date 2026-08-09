@@ -21,6 +21,7 @@ _RUN_ARGS = [
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
     "//users/simeonwarren/hermes:dnsconfig",
+    "//users/simeonwarren/hermes/ansible:inventory",
     "//infra/pve/ansible:cloud_init",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",

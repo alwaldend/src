@@ -58,3 +58,47 @@ lib.plugin_call({
         }
     }
 })
+
+lib.plugin_call({
+    name = "wireguard",
+    plugin = "injector",
+    labels = { tf = "setup", ansible = "1" },
+    data = {
+        res = {
+            {
+                name = "wireguard",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/user_simeonwarren/wireguard",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "TF_VAR_wg_public_keys",
+                deps = { "wireguard" },
+                env = {
+                    value = "{{ .Last.Data.wg_public_keys | to_json }}",
+                }
+            },
+            {
+                name = "TF_VAR_wg_private_keys",
+                deps = { "wireguard" },
+                env = {
+                    value = "{{ .Last.Data.wg_private_keys | to_json }}",
+                }
+            },
+            {
+                name = "TF_VAR_wg_preshared_keys",
+                deps = { "wireguard" },
+                env = {
+                    value = "{{ .Last.Data.wg_preshared_keys | to_json }}",
+                }
+            },
+        },
+    },
+})
+
+infra.mikrotik({
+    path = "alwaldend.com/vault1/approles/user_simeonwarren/mikrotik",
+    host = "https://router1.dc1.alwaldend.com",
+    labels = { tf = "setup" },
+})

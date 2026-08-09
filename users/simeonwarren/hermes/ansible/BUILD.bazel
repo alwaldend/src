@@ -13,6 +13,12 @@ docs_filegroup(
     ),
 )
 
+filegroup(
+    name = "inventory",
+    srcs = ["inventory.yaml"],
+    visibility = ["//users/simeonwarren/hermes:__subpackages__"],
+)
+
 al_binary_run_map(
     name = "ansible",
     args = {"": [
