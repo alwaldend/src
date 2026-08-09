@@ -26,6 +26,7 @@
             "grep *": "allow",
             "diff *": "allow",
             "mkdir *": "allow",
+            "find *": "allow",
             "ls *": "allow"
         },
         "task": {
