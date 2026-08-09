@@ -1,3 +1,7 @@
 hermes:
   hosts:
     host1.hermes.simeonwarren.users.alwaldend.com:
+      wg_ip: 10.20.0.1/24
+      wg_public_key: "{{ wg_public_keys.host1 }}"
+      wg_private_key: "{{ wg_private_keys.host1 }}"
+      wg_preshared_key: "{{ wg_preshared_keys.host1 }}"
