@@ -20,7 +20,7 @@ asDefault = true
 certResolver = "default"
 
 [entryPoints.websecure_wireguard]
-address = "{{ wg_ip }}:443"
+address = "{{ wg_ip.split('/')[0] }}:443"
 [entryPoints.websecure_wireguard.http.tls]
 certResolver = "default"
 
