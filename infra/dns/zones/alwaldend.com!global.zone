@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-08-08T19:06:40Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026080802 3600 600 604800 1440
+; generated with dnscontrol 2026-08-10T16:58:49Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026081000 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -38,10 +38,6 @@ njalla1.nodes.threexui IN A 45.142.141.133
            600   IN AAAA  2a0a:3840:8078:141:0:2d8e:8d85:1337
 yc1.nodes.threexui 600 IN CNAME host1.nodes.yc.threexui.alwaldend.com.
 yc.threexui      IN NS    ns1.yandexcloud.net.
-                 IN NS    ns2.yandexcloud.net.
-hermes.simeonwarren.users 600 IN CNAME host1.yc.hermes.simeonwarren.users.alwaldend.com.
-host1.hermes.simeonwarren.users 600 IN CNAME host1.yc.hermes.simeonwarren.users.alwaldend.com.
-yc.hermes.simeonwarren.users IN NS ns1.yandexcloud.net.
                  IN NS    ns2.yandexcloud.net.
 vault      600   IN CNAME ingress.alwaldend.com.
 int.vault        IN A     192.168.1.218

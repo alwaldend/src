@@ -17,7 +17,6 @@ var jsons = [
     require("../flux/dnsconfig.json"),
     require("../threexui/dnsconfig.json"),
     require("../ingress/dnsconfig.json"),
-    require("../../users/simeonwarren/hermes/dnsconfig.json"),
     require("../../users/simeonwarren/dnsconfig.json"),
 ];
 

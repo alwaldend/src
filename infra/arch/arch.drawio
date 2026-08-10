@@ -845,7 +845,7 @@
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="4Y0Z9jDWjrwJss_xCv1R" name="Opencode">
+  <diagram id="4Y0Z9jDWjrwJss_xCv1R" name="Archive/Opencode">
     <mxGraphModel dx="1798" dy="1073" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
@@ -935,13 +935,10 @@
             <mxPoint x="24" y="-19" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="CmfpZ5V9g03vVyBgVN5E-1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="ARCHIVED" vertex="1">
-          <mxGeometry height="30" width="60" x="120" y="80" as="geometry" />
-        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
-  <diagram id="Ud0KS95m0hhIRAUcdEcy" name="Hermes">
+  <diagram id="Ud0KS95m0hhIRAUcdEcy" name="Archive/Hermes">
     <mxGraphModel dx="1798" dy="1073" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />

@@ -15,7 +15,6 @@ filegroup(
         "//infra/threexui:dnsconfig",
         "//infra/vault:dnsconfig",
         "//users:dnsconfig",
-        "//users/simeonwarren/hermes:dnsconfig",
     ],
     visibility = ["//infra:__subpackages__"],
 )
