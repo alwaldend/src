@@ -49,6 +49,7 @@ module "node_njalla1" {
   xui_password  = var.node_xui_password
   mullvad_key   = var.mullvad_keys["njalla1"]
   mullvad_min   = local.nodes.njalla1.mullvad_min
+  http_proxies  = var.http_proxies
 }
 
 module "node_yc11" {
@@ -63,6 +64,7 @@ module "node_yc11" {
   xui_password  = var.node_xui_password
   mullvad_key   = var.mullvad_keys["yc1"]
   mullvad_min   = local.nodes.yc1.mullvad_min
+  http_proxies  = var.http_proxies
 }
 
 resource "threexui_node" "nodes" {

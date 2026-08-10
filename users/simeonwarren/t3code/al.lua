@@ -44,7 +44,7 @@ lib.plugin_call({
             {
                 name = "wireguard",
                 kv = {
-                    path = "alwaldend.com/vault1/approles/user_simeonwarren/wireguard",
+                    path = "alwaldend.com/vault1/approles/user_simeonwarren/t3code/wireguard",
                     mount = "secrets"
                 }
             },
@@ -77,4 +77,28 @@ infra.mikrotik({
     path = "alwaldend.com/vault1/approles/user_simeonwarren/mikrotik",
     host = "https://router1.dc1.alwaldend.com",
     labels = { tf = "setup" },
+})
+
+lib.plugin_call({
+    name = "http_proxies",
+    plugin = "injector",
+    labels = { ansible = "1" },
+    data = {
+        res = {
+            {
+                name = "http_proxies",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/src_infra_threexui/http_proxies",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "HTTP_PROXIES",
+                deps = { "http_proxies" },
+                env = {
+                    value = "{{ .Last.Data.http_proxies | to_json }}",
+                }
+            },
+        },
+    },
 })

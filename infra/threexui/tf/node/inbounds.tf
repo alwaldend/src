@@ -44,6 +44,15 @@ locals {
       name = name
     }
   }
+  http_proxy_accounts = keys(var.http_proxies)
+  http_proxy = {
+    for idx, name in var.mullvad_min : name => {
+      port = 40080 + idx
+      name = name
+      user = local.http_proxy_accounts[idx % length(local.http_proxy_accounts)]
+      pass = var.http_proxies[local.http_proxy_accounts[idx % length(local.http_proxy_accounts)]]
+    }
+  }
 }
 
 # resource "threexui_inbound_client" "mullvad_min" {
@@ -78,6 +87,32 @@ resource "threexui_inbound" "mullvad_min" {
     xhttp_settings {
       path = "/inbound_${local.base_path_trimmed}_${each.value.port}"
     }
+  }
+  sniffing {
+    enabled       = true
+    dest_override = ["http", "tls", "quic", "fakedns"]
+  }
+}
+
+resource "threexui_inbound" "http_proxy" {
+  for_each            = local.http_proxy
+  port                = each.value.port
+  listen              = "127.0.0.1"
+  protocol            = "http"
+  enable              = true
+  remark              = "http_proxy | ${each.key}"
+  share_addr_strategy = "node"
+  http_settings {
+    auth              = "password"
+    allow_transparent = false
+    account {
+      user = each.value.user
+      pass = each.value.pass
+    }
+  }
+  stream_settings {
+    network  = "tcp"
+    security = "none"
   }
   sniffing {
     enabled       = true
