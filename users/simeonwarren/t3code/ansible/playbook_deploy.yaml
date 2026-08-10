@@ -1,0 +1,13 @@
+- name: Deploy T3 Code
+  hosts: t3code
+  force_handlers: true
+  become: true
+  tasks:
+    - ansible.builtin.import_role:
+        name: alwaldend.main.host
+    - ansible.builtin.import_role:
+        name: alwaldend.main.wireguard
+    - ansible.builtin.import_role:
+        name: alwaldend.main.traefik
+    - ansible.builtin.import_role:
+        name: alwaldend.main.t3code

@@ -1,0 +1,19 @@
+# https://hermes-agent.nousresearch.com/docs/user-guide/configuration/
+dashboard:
+  show_token_analytics: true
+  basic_auth:
+    username: "simeonwarren"
+    password_hash: "{{ lookup('ansible.builtin.env', 'HERMES_DASHBOARD_PASSWORD_HASH') }}"
+gateway:
+  systemd_watchdog_seconds: 120
+skills:
+  guard_agent_created: true
+  write_approval: true
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  write_approval: true
+updates:
+  pre_update_backup: full
+  backup_keep: 5
+  non_interactive_local_changes: stash

@@ -1,0 +1,27 @@
+ansible_user: ansible
+ssh_vault_role: users_simeonwarren_ssh
+traefik_acme_url: https://acme-v02.api.letsencrypt.org/directory
+traefik_disable_eab: true
+traefik_ip: "{{ ansible_facts.default_ipv4.address }}"
+t3code_domain: "t3code.simeonwarren.users.alwaldend.com"
+t3code_port: 5120
+t3code_env:
+  OPENROUTER_API_KEY: "{{ lookup('ansible.builtin.env', 'OPENROUTER_API_KEY') }}"
+wg_public_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_public_keys', default=undefined()) | from_json }}"
+wg_private_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_private_keys', default=undefined()) | from_json }}"
+wg_preshared_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_preshared_keys', default=undefined()) | from_json }}"
+wireguard_local_config_paths:
+  - files/wireguard/t3code.conf
+firewall_allow_port_from:
+  - src: "any"
+    port: 22
+    comment: ssh
+  - src: "any"
+    port: 443
+    comment: HTTPS
+  - src: "any"
+    port: 80
+    comment: HTTP
+  - src: "any"
+    port: 51820
+    comment: Wireguard

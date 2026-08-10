@@ -1,0 +1,13 @@
+- name: Deploy Hermes Agent
+  hosts: hermes
+  force_handlers: true
+  become: true
+  tasks:
+    - ansible.builtin.import_role:
+        name: alwaldend.main.host
+    - ansible.builtin.import_role:
+        name: alwaldend.main.wireguard
+    - ansible.builtin.import_role:
+        name: alwaldend.main.traefik
+    - ansible.builtin.import_role:
+        name: alwaldend.main.hermes
