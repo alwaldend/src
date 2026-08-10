@@ -20,6 +20,7 @@ _DATA = glob(["*.tf"]) + [
     "//tools/vault/tf_backend",
     "//tools/vault/pve_login",
     "//tools/vault/injector",
+    "//infra/pve/ansible:cloud_init",
 ]
 
 terraform_binary_map(

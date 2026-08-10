@@ -1,0 +1,17 @@
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+alias(
+    name = "hermes_install",
+    actual = "//third_party/com_nousresearch_hermes_agent",
+    visibility = ["//:__subpackages__"],
+)

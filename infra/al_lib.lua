@@ -409,4 +409,44 @@ function M.rclone_config(t)
     })
 end
 
+function M.mikrotik(t)
+    local name, labels, path, host, mount = t.name or "mikrotik", t.labels, t.path, t.host, t.mount or "secrets"
+    local res = {
+        {
+            name = name,
+            kv = {
+                path = path,
+                mount = mount,
+            },
+        },
+        {
+            name = "MIKROTIK_HOST",
+            deps = {name},
+            env = {
+                value = host,
+            }
+        },
+        {
+            name = "MIKROTIK_USER",
+            deps = {name},
+            env = {
+                value = "{{ .Last.Data.mikrotik_username }}",
+            }
+        },
+        {
+            name = "MIKROTIK_PASSWORD",
+            deps = {name},
+            env = {
+                value = "{{ .Last.Data.mikrotik_password }}",
+            }
+        },
+    }
+    lib.plugin_call({
+        name = name,
+        plugin = "injector",
+        labels = labels,
+        data = { res = res }
+    })
+end
+
 return M

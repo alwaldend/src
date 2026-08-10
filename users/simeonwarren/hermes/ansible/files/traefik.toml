@@ -14,25 +14,21 @@ address = ":80"
 to = "websecure"
 
 [entryPoints.websecure]
-address = ":443"
+address = "{{ traefik_ip }}:443"
 asDefault = true
 [entryPoints.websecure.http.tls]
-certResolver = "vault"
+certResolver = "default"
 
-[certificatesResolvers.vault.acme]
-email = "src_infra_hermes@alwaldend.com"
-storage = "{{ traefik_data_dir }}/acme_vault.json"
+[certificatesResolvers.default.acme]
+email = "users_simeonwarren@alwaldend.com"
+storage = "{{ traefik_data_dir }}/acme.json"
 caServer = "{{ traefik_acme_url }}"
 
-[certificatesResolvers.vault.acme.httpChallenge]
+[certificatesResolvers.default.acme.httpChallenge]
 entryPoint = "web"
 
-[certificatesResolvers.vault.acme.eab]
-kid = "{{ traefik_acme_kid }}"
-hmacEncoded = "{{ traefik_acme_hmac }}"
-
 [tls.stores.default.acme]
-resolver = "vault"
+resolver = "default"
 [tls.stores.default.acme.domain]
 main = "{{ hermes_domain }}"
 sans = ["{{ inventory_hostname }}"]

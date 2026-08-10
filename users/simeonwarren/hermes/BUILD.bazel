@@ -5,21 +5,30 @@ load("//tools/vault:defs.bzl", "vault_binary_map")
 al_config(
     name = "al",
     srcs = ["al.lua"],
-    visibility = ["//infra/hermes:__subpackages__"],
+    visibility = ["//users/simeonwarren/hermes:__subpackages__"],
     deps = ["//infra:al"],
 )
 
 filegroup(
     name = "dnsconfig",
     srcs = ["dnsconfig.json"],
-    visibility = ["//infra:__subpackages__"],
+    visibility = [
+        "//infra:__pkg__",
+        "//users/simeonwarren/hermes:__subpackages__",
+    ],
 )
 
-vault_binary_map(name = "vault", configs = [":al"])
+vault_binary_map(
+    name = "vault",
+    configs = [":al"],
+)
 
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//infra:__pkg__"],
-    deps = subpackages(include = ["*"], allow_empty = True),
+    visibility = ["//users/simeonwarren:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
 )

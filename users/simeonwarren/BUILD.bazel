@@ -55,12 +55,15 @@ al_binary_run_map(
     args = {
         "": [
             _OPENCODE,
+            "$(GIT_ROOT)",
+        ],
+        "direct": [
+            _OPENCODE,
+        ],
+        "remote": [
+            _OPENCODE,
             "attach",
             "https://opencode.simeonwarren.users.alwaldend.com",
-        ],
-        "local": [
-            _OPENCODE,
-            "$(GIT_ROOT)",
         ],
     },
     configs = [":al"],

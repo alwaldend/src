@@ -1,10 +1,10 @@
 locals {
-  dns = jsondecode(file("${path.module}/../dnsconfig.json")).domains.default.records
+  dns = jsondecode(file("${path.module}/../dnsconfig.json")).records
 }
 
 module "vms" {
   for_each = {
-    host1 = { vmid = 1100 },
+    # host1 = { vmid = 1100 },
   }
   source = ".././../../projects/tf_modules/pve_vm_qemu"
   name   = "${local.dns[each.key].A.name}.alwaldend.com"

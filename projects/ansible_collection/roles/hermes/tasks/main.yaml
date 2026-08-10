@@ -7,13 +7,22 @@
           - curl
           - git
           - python3
+          - nodejs
+          - npm
+          - acl
     - name: Create Hermes user
       ansible.builtin.user:
         name: "{{ hermes_user }}"
         uid: "{{ hermes_user_uid }}"
         shell: /bin/bash
         home: "{{ hermes_home_dir }}"
-        system: true
+        system: false
+    - name: Enable lingering for hermes user
+      ansible.builtin.command:
+        argv:
+          - loginctl
+          - enable-linger
+          - "{{ hermes_user }}"
     - name: Create filesystem on the Hermes disk
       when: hermes_disk is truthy
       community.general.filesystem:
@@ -55,32 +64,72 @@
           - "{{ hermes_home_dir }}/.hermes"
           - --skip-setup
           - --non-interactive
+          - --skip-browser
+          - --commit
+          - "{{ hermes_commit }}"
         creates: "{{ hermes_install_dir }}/venv/bin/hermes"
-    - name: Write the Hermes environment
-      register: hermes_env_result
-      ansible.builtin.copy:
-        content: |
-          {% for key, value in (hermes_env | combine(hermes_env_override)).items() %}
-          {{ key }}={{ value }}
-          {% endfor %}
-        dest: "{{ hermes_env_path }}"
+    - name: Write the Hermes config
+      ansible.builtin.template:
+        src: "{{ hermes_config_local_path }}"
+        dest: "{{ hermes_config_path }}"
         owner: root
         group: "{{ hermes_user }}"
         mode: "0640"
-    - name: Write the Hermes service
-      register: hermes_service_result
+    - name: Write the Hermes environment
+      ansible.builtin.copy:
+        content: |
+          {% for key, value in hermes_env.items() %}
+          {{ key }}={{ value }}
+          {% endfor %}
+        dest: "{{ hermes_env_path }}"
+        owner: "{{ hermes_user }}"
+        group: "{{ hermes_user }}"
+        mode: "0600"
+    - name: Install Hermes gateway
+      become_user: "{{ hermes_user }}"
+      ansible.builtin.command:
+        argv:
+          - "{{ hermes_bin_path }}"
+          - gateway
+          - install
+          - --force
+          - --start-now
+          - --start-on-login
+    - name: Check Hermes status with doctor
+      become_user: "{{ hermes_user }}"
+      ansible.builtin.command:
+        argv:
+          - "{{ hermes_bin_path }}"
+          - doctor
+      register: doctor_result
+    - name: Display doctor results
+      ansible.builtin.debug:
+        msg: "Doctor check result: {{ doctor_result.stdout }}"
+    - name: Check Hermes gateway status
+      become_user: "{{ hermes_user }}"
+      ansible.builtin.command:
+        argv:
+          - "{{ hermes_bin_path }}"
+          - gateway
+          - status
+      register: gateway_status_result
+    - name: Display gateway status
+      ansible.builtin.debug:
+        msg: "Gateway status: {{ gateway_status_result.stdout }}"
+    - name: Write the Hermes dashboard service
+      register: hermes_dashboard_service_result
       ansible.builtin.template:
-        src: systemd_service.conf
-        dest: "{{ hermes_service_path }}"
+        src: systemd_dashboard.conf
+        dest: "{{ hermes_dashboard_service_path }}"
         owner: root
         group: root
         mode: "0644"
-    - name: Reload systemd for Hermes
-      when: hermes_service_result.changed
+    - name: Reload systemd for the Hermes dashboard
+      when: hermes_dashboard_service_result.changed
       ansible.builtin.systemd_service:
         daemon_reload: true
-    - name: Enable and start Hermes
+    - name: Enable and start the Hermes dashboard
       ansible.builtin.systemd_service:
-        name: "{{ hermes_service_path | basename }}"
+        name: "{{ hermes_dashboard_service_path | basename }}"
         enabled: true
-        state: "{{ 'restarted' if hermes_env_result.changed or hermes_service_result.changed else 'started' }}"
+        state: restarted

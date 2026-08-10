@@ -11,6 +11,7 @@ set [ find default-name=ether3 ] comment=ether3
 set [ find default-name=ether4 ] comment=ether4
 set [ find default-name=ether5 ] comment=ether5
 /interface wireguard
+add comment="tf[users/simeonwarren/hermes/tf_setup]" disabled=yes listen-port=13232 mtu=1420 name=hermes-vpc
 add comment="tf[infra/ingress/tf]" listen-port=13231 mtu=1420 name=ingress-vpc
 /interface ethernet switch
 set switch1 cpu-flow-control=yes
@@ -39,6 +40,7 @@ add name=dc01 prefix=fd2e:546d:5738::/48 prefix-length=64
 /user group
 add comment=src_infra_dns name=src_infra_dns policy=read,write,api,rest-api,!local,!telnet,!ssh,!ftp,!reboot,!policy,!test,!winbox,!password,!web,!sniff,!sensitive,!romon
 add comment=src_infra_ingress name=src_infra_ingress policy=read,write,api,rest-api,!local,!telnet,!ssh,!ftp,!reboot,!policy,!test,!winbox,!password,!web,!sniff,!sensitive,!romon
+add comment=users_simeonwarren name=users_simeonwarren policy=read,write,api,rest-api,!local,!telnet,!ssh,!ftp,!reboot,!policy,!test,!winbox,!password,!web,!sniff,!sensitive,!romon
 /interface bridge port
 add bridge=bridge1 comment=bridge1-ether2 interface=ether2
 add bridge=bridge1 comment=bridge1-ether3 interface=ether3
@@ -72,16 +74,21 @@ add interface=bridge1 list=accept-input-API
 add comment="tf[infra/ingress/tf]" interface=ingress-vpc list=accept-input-ICMP
 add comment="tf[infra/ingress/tf]" interface=ingress-vpc list=LAN
 add comment="tf[infra/ingress/tf]" interface=ingress-vpc list=accept-forward-LAN
+add comment="tf[users/simeonwarren/hermes/tf_setup]" interface=hermes-vpc list=accept-forward-LAN
+add comment="tf[users/simeonwarren/hermes/tf_setup]" interface=hermes-vpc list=accept-input-ICMP
+add comment="tf[users/simeonwarren/hermes/tf_setup]" interface=hermes-vpc list=LAN
 /interface ovpn-server server
 add mac-address=FE:B3:B4:C4:A4:48 name=ovpn-server1
 /interface wireguard peers
 add allowed-address=10.10.0.2/24 comment=host2 endpoint-address=103.76.53.6 endpoint-port=51820 interface=ingress-vpc name=ingress-vpc-host2 persistent-keepalive=5s public-key="Z2JamOjZYOGaf4tPZzchyHjLw/XlOtUtQObyROEQ9DM="
 add allowed-address=10.10.0.1/24 comment=host1 endpoint-address=158.160.196.128 endpoint-port=51820 interface=ingress-vpc name=ingress-vpc-host1 persistent-keepalive=5s public-key="xmyl+frvngmzRB9z5yEURxQj4vTw47tKQV7EZrTAREw="
+add allowed-address=10.20.0.1/24 comment=host1 endpoint-address=158.160.220.223 endpoint-port=51820 interface=hermes-vpc name=hermes-vpc-host1 persistent-keepalive=5s public-key="oA4ZpsmrclIOIWh3ECsb4ZFKH1hQMDtuW3xNXat3IyQ="
 /ip address
 add address=192.168.1.1/24 comment="bridge1 (LAN)" interface=bridge1 network=192.168.1.0
 add address=192.168.2.1/24 comment="bridge2 (Wireless)" interface=bridge2 network=192.168.2.0
 add address=192.168.10.1/24 comment=host1.pve1.dc1.alwaldend.com interface=bridge1 network=192.168.10.0
 add address=10.10.0.0/24 comment="tf[infra/ingress/tf]" interface=ingress-vpc network=10.10.0.0
+add address=10.20.0.0/24 comment="tf[users/simeonwarren/hermes/tf_setup]" interface=hermes-vpc network=10.20.0.0
 /ip dhcp-client
 add comment=defconf interface=ether1 name=ether1 use-peer-dns=no
 /ip dhcp-server lease
@@ -149,8 +156,6 @@ add address=192.168.10.80 name=threexui.alwaldend.com ttl=5m type=A
 add address=192.168.10.80 name=host1.threexui.alwaldend.com ttl=5m type=A
 add address=45.142.141.133 name=njalla1.nodes.threexui.alwaldend.com ttl=5m type=A
 add address=2a0a:3840:8078:141:0:2d8e:8d85:1337 name=njalla1.nodes.threexui.alwaldend.com ttl=10m type=AAAA
-add address=192.168.10.90 name=opencode.simeonwarren.users.alwaldend.com ttl=5m type=A
-add address=192.168.10.90 name=host1.opencode.simeonwarren.users.alwaldend.com ttl=5m type=A
 add address=192.168.1.218 name=vault.alwaldend.com ttl=5m type=A
 add address=103.76.53.6 name=ingress.alwaldend.com ttl=5m type=A
 add address=158.160.196.128 name=ingress.alwaldend.com ttl=5m type=A
@@ -160,6 +165,10 @@ add name=yc.threexui.alwaldend.com ns=ns1.yandexcloud.net ttl=5m type=NS
 add name=yc.threexui.alwaldend.com ns=ns2.yandexcloud.net ttl=5m type=NS
 add cname=host1.nodes.yc.threexui.alwaldend.com name=yc1.nodes.threexui.alwaldend.com ttl=10m type=CNAME
 add address=192.168.10.100 name=runner1.forgejo-runner.alwaldend.com ttl=5m type=A
+add cname=host1.yc.hermes.simeonwarren.users.alwaldend.com name=hermes.simeonwarren.users.alwaldend.com ttl=10m type=CNAME
+add cname=host1.yc.hermes.simeonwarren.users.alwaldend.com name=host1.hermes.simeonwarren.users.alwaldend.com ttl=10m type=CNAME
+add name=yc.hermes.simeonwarren.users.alwaldend.com ns=ns1.yandexcloud.net ttl=5m type=NS
+add name=yc.hermes.simeonwarren.users.alwaldend.com ns=ns2.yandexcloud.net ttl=5m type=NS
 /ip firewall filter
 add action=accept chain=input comment="defconf: accept established,related,untracked" connection-state=established,related,untracked
 add action=drop chain=input comment="defconf: drop invalid" connection-state=invalid log-prefix=drop-invalid

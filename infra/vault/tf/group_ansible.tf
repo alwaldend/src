@@ -10,7 +10,6 @@ resource "vault_identity_group" "ansible" {
     module.src_infra_flux_approle.group_id,
     module.src_infra_threexui_approle.group_id,
     module.src_infra_ingress_approle.group_id,
-    module.src_infra_hermes_approle.group_id,
     module.users_simeonwarren_approle.group_id,
   ]
   metadata = {

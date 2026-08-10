@@ -9,7 +9,6 @@ filename = "{{ traefik_dynamic_config_path }}"
 level = "INFO"
 # filePath = "{{ traefik_log_dir }}/traefik.log"
 
-[entryPoints]
 [entryPoints.web]
 address = ":80"
 [entryPoints.web.http.redirections.entryPoint]
@@ -19,26 +18,21 @@ to = "websecure"
 address = ":443"
 asDefault = true
 [entryPoints.websecure.http.tls]
-certResolver = "vault"
+certResolver = "default"
 
 # [api]
 # dashboard = true
 # insecure = true
 
-[certificatesResolvers.vault.acme]
+[certificatesResolvers.default.acme]
 email = "users_simeonwarren@alwaldend.com"
-storage = "{{ traefik_data_dir }}/acme_vault.json"
-caServer = "{{ traefik_acme_url }}"
+storage = "{{ traefik_data_dir }}/acme.json"
 
-[certificatesResolvers.vault.acme.httpChallenge]
+[certificatesResolvers.default.acme.httpChallenge]
 entryPoint = "web"
 
-[certificatesResolvers.vault.acme.eab]
-kid = "{{ traefik_acme_kid }}"
-hmacEncoded = "{{ traefik_acme_hmac }}"
-
 [tls.stores.default.acme]
-resolver = "vault"
+resolver = "default"
 [tls.stores.default.acme.domain]
-main = "{{ opencode_domain }}"
+main = "{{ hermes_domain }}"
 sans = ["{{ inventory_hostname }}"]

@@ -56,7 +56,7 @@ pkg_filegroup(
 filegroup(
     name = "cloud_init",
     srcs = ["files/cloud_init.yaml"],
-    visibility = ["//infra:__subpackages__"],
+    visibility = ["//:__subpackages__"],
 )
 
 pkg_files(

@@ -5,7 +5,7 @@ locals {
       mullvad_min = [
         "nl-ams-wg-008",
         "us-sjc-wg-003",
-        "il-tlv-wg-101",
+        "sg-sin-wg-003",
         "de-dus-wg-003",
         "fr-mrs-wg-002",
       ]
