@@ -1,13 +1,7 @@
-[http.middlewares.t3code_origin.headers.customRequestHeaders]
-Origin = "http://{{ t3code_domain }}:{{ t3code_port }}"
-Host = "{{ t3code_domain }}:{{ t3code_port }}"
-
 [http.routers.t3code_websecure]
 rule = "Host(`{{ t3code_domain }}`) || Host(`{{ inventory_hostname }}`)"
 service = "t3code"
-middlewares = ["t3code_origin"]
-tls = { certResolver = "default" }
+tls = {}
 
-[http.services.t3code.loadBalancer]
 [[http.services.t3code.loadBalancer.servers]]
 url = "http://127.0.0.1:{{ t3code_port }}"

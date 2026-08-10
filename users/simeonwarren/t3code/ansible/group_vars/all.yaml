@@ -7,10 +7,8 @@ t3code_domain: "t3code.simeonwarren.users.alwaldend.com"
 t3code_port: 5120
 t3code_auth_token: "{{ lookup('ansible.builtin.env', 'T3CODE_AUTH_TOKEN') }}"
 http_proxies: "{{ lookup('ansible.builtin.env', 'HTTP_PROXIES', default=undefined()) | from_json }}"
-t3code_env:
-  OPENROUTER_API_KEY: "{{ lookup('ansible.builtin.env', 'OPENROUTER_API_KEY') }}"
-  HTTP_PROXY: "https://{{ http_proxies | dict2items | first.key }}:{{ http_proxies | dict2items | first.value }}@yc1.nodes.threexui.alwaldend.com:40080"
-  HTTPS_PROXY: "https://{{ http_proxies | dict2items | first.key }}:{{ http_proxies | dict2items | first.value }}@yc1.nodes.threexui.alwaldend.com:40080"
+t3code_env: {}
+t3code_version: 0.0.33
 wg_public_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_public_keys', default=undefined()) | from_json }}"
 wg_private_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_private_keys', default=undefined()) | from_json }}"
 wg_preshared_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_preshared_keys', default=undefined()) | from_json }}"

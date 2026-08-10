@@ -14,13 +14,13 @@ address = ":80"
 to = "websecure"
 
 [entryPoints.websecure]
-address = "{{ traefik_ip }}:443"
+address = ":443"
 asDefault = true
 [entryPoints.websecure.http.tls]
 certResolver = "default"
 
 [certificatesResolvers.default.acme]
-email = "[EMAIL]"
+email = "user_simeonwarren_t3code@alwaldend.com"
 storage = "{{ traefik_data_dir }}/acme.json"
 caServer = "{{ traefik_acme_url }}"
 

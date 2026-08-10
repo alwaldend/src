@@ -88,7 +88,7 @@ lib.plugin_call({
             {
                 name = "http_proxies",
                 kv = {
-                    path = "alwaldend.com/vault1/approles/src_infra_threexui/http_proxies",
+                    path = "alwaldend.com/vault1/approles/user_simeonwarren/t3code/http_proxies",
                     mount = "secrets"
                 }
             },
