@@ -6,6 +6,7 @@ t3code_disk:
 t3code_port: 5120
 t3code_version: 0.0.33
 t3code_state_dir: "{{ t3code_dir }}/state"
+t3code_auth_token: "{{ undefined() }}"
 t3code_service_path: /lib/systemd/system/t3code.service
-t3code_env_path: "{{ t3code_home_dir }}/.t3code/.env"
+t3code_env_path: "{{ t3code_dir }}/.env"
 t3code_env: {}

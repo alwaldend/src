@@ -50,8 +50,8 @@
           {{ key }}={{ value }}
           {% endfor %}
         dest: "{{ t3code_env_path }}"
-        owner: "{{ t3code_user }}"
-        group: "{{ t3code_user }}"
+        owner: root
+        group: root
         mode: "0600"
     - name: Write the T3 Code service
       register: t3code_service_result

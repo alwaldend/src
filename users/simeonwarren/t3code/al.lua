@@ -102,3 +102,27 @@ lib.plugin_call({
         },
     },
 })
+
+lib.plugin_call({
+    name = "t3code_auth_token",
+    plugin = "injector",
+    labels = { ansible = "1" },
+    data = {
+        res = {
+            {
+                name = "auth_token",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/user_simeonwarren/t3code/auth_token",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "T3CODE_AUTH_TOKEN",
+                deps = { "auth_token" },
+                env = {
+                    value = "{{ .Last.Data.auth_token }}",
+                }
+            },
+        },
+    },
+})
