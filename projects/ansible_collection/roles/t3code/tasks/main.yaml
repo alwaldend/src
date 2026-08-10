@@ -36,6 +36,7 @@
       loop:
         - "{{ t3code_dir }}"
         - "{{ t3code_home_dir }}"
+        - "{{ t3code_state_dir }}"
       ansible.builtin.file:
         state: directory
         owner: "{{ t3code_user }}"
