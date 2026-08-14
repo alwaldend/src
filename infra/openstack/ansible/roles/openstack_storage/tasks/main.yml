@@ -1,0 +1,330 @@
+---
+- name: Install storage tooling
+  ansible.builtin.dnf:
+    name:
+      - lvm2
+      - mdadm
+      - xfsprogs
+    state: present
+
+- name: Validate destructive storage inputs
+  ansible.builtin.assert:
+    that:
+      - openstack_storage_wipe | bool
+      - openstack_fast_devices | length == 2
+      - openstack_bulk_devices | length == 4
+      - >-
+        (openstack_fast_devices + openstack_bulk_devices)
+        | select('match', '^/dev/disk/by-id/')
+        | list
+        | length == 6
+      - >-
+        (openstack_fast_devices + openstack_bulk_devices)
+        | select('search', 'CHANGE_ME')
+        | list
+        | length == 0
+      - >-
+        (openstack_fast_devices + openstack_bulk_devices)
+        | unique
+        | list
+        | length == 6
+    fail_msg: >-
+      Storage provisioning is destructive. It requires two unique SATA SSD
+      by-id paths, four unique DAS HDD by-id paths, and
+      openstack_storage_wipe=true.
+  when: openstack_manage_storage | bool
+
+- name: Inspect configured Cinder devices
+  ansible.builtin.stat:
+    path: "{{ item }}"
+    follow: true
+  loop: "{{ openstack_fast_devices + openstack_bulk_devices }}"
+  loop_control:
+    label: "{{ item }}"
+  register: openstack_storage_device_stats
+  when: openstack_manage_storage | bool
+
+- name: Require every configured Cinder device to exist
+  ansible.builtin.assert:
+    that:
+      - item.stat.exists
+      - item.stat.isblk
+    fail_msg: "Configured Cinder device {{ item.item }} is not a block device."
+  loop: "{{ openstack_storage_device_stats.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+  when: openstack_manage_storage | bool
+
+- name: Inspect fast RAID device
+  ansible.builtin.stat:
+    path: "{{ openstack_fast_raid_device }}"
+    follow: true
+  register: openstack_fast_raid_stat
+
+- name: Inspect bulk RAID device
+  ansible.builtin.stat:
+    path: "{{ openstack_bulk_raid_device }}"
+    follow: true
+  register: openstack_bulk_raid_stat
+
+- name: Inspect signatures on fast-tier SSDs
+  ansible.builtin.command:
+    argv:
+      - wipefs
+      - --noheadings
+      - --output
+      - TYPE
+      - "{{ item }}"
+  loop: "{{ openstack_fast_devices }}"
+  loop_control:
+    label: "{{ item }}"
+  register: openstack_fast_signatures
+  changed_when: false
+  when:
+    - openstack_manage_storage | bool
+    - not openstack_fast_raid_stat.stat.exists
+
+- name: Refuse to overwrite an unassembled fast RAID
+  ansible.builtin.assert:
+    that:
+      - "'linux_raid_member' not in item.stdout_lines"
+    fail_msg: >-
+      {{ item.item }} contains an md RAID superblock while
+      {{ openstack_fast_raid_device }} is absent. Assemble or recover the
+      existing array instead of wiping its members.
+  loop: "{{ openstack_fast_signatures.results | default([]) }}"
+  loop_control:
+    label: "{{ item.item }}"
+  when:
+    - openstack_manage_storage | bool
+    - not openstack_fast_raid_stat.stat.exists
+
+- name: Remove signatures from fast-tier SSDs
+  ansible.builtin.command:
+    argv:
+      - wipefs
+      - --all
+      - "{{ item }}"
+  loop: "{{ openstack_fast_devices }}"
+  loop_control:
+    label: "{{ item }}"
+  changed_when: true
+  when:
+    - openstack_manage_storage | bool
+    - openstack_storage_wipe | bool
+    - not openstack_fast_raid_stat.stat.exists
+
+- name: Create fast-tier RAID1
+  ansible.builtin.command:
+    argv:
+      - mdadm
+      - --create
+      - "{{ openstack_fast_raid_device }}"
+      - --metadata=1.2
+      - --name=cinder-fast
+      - --level=1
+      - --raid-devices=2
+      - --run
+      - "{{ openstack_fast_devices[0] }}"
+      - "{{ openstack_fast_devices[1] }}"
+  changed_when: true
+  when:
+    - openstack_manage_storage | bool
+    - not openstack_fast_raid_stat.stat.exists
+
+- name: Inspect signatures on bulk-tier HDDs
+  ansible.builtin.command:
+    argv:
+      - wipefs
+      - --noheadings
+      - --output
+      - TYPE
+      - "{{ item }}"
+  loop: "{{ openstack_bulk_devices }}"
+  loop_control:
+    label: "{{ item }}"
+  register: openstack_bulk_signatures
+  changed_when: false
+  when:
+    - openstack_manage_storage | bool
+    - not openstack_bulk_raid_stat.stat.exists
+
+- name: Refuse to overwrite an unassembled bulk RAID
+  ansible.builtin.assert:
+    that:
+      - "'linux_raid_member' not in item.stdout_lines"
+    fail_msg: >-
+      {{ item.item }} contains an md RAID superblock while
+      {{ openstack_bulk_raid_device }} is absent. Assemble or recover the
+      existing array instead of wiping its members.
+  loop: "{{ openstack_bulk_signatures.results | default([]) }}"
+  loop_control:
+    label: "{{ item.item }}"
+  when:
+    - openstack_manage_storage | bool
+    - not openstack_bulk_raid_stat.stat.exists
+
+- name: Remove signatures from bulk-tier HDDs
+  ansible.builtin.command:
+    argv:
+      - wipefs
+      - --all
+      - "{{ item }}"
+  loop: "{{ openstack_bulk_devices }}"
+  loop_control:
+    label: "{{ item }}"
+  changed_when: true
+  when:
+    - openstack_manage_storage | bool
+    - openstack_storage_wipe | bool
+    - not openstack_bulk_raid_stat.stat.exists
+
+- name: Create bulk-tier RAID10
+  ansible.builtin.command:
+    argv:
+      - mdadm
+      - --create
+      - "{{ openstack_bulk_raid_device }}"
+      - --metadata=1.2
+      - --name=cinder-bulk
+      - --level=10
+      - --raid-devices=4
+      - --run
+      - "{{ openstack_bulk_devices[0] }}"
+      - "{{ openstack_bulk_devices[1] }}"
+      - "{{ openstack_bulk_devices[2] }}"
+      - "{{ openstack_bulk_devices[3] }}"
+  changed_when: true
+  when:
+    - openstack_manage_storage | bool
+    - not openstack_bulk_raid_stat.stat.exists
+
+- name: Wait for Cinder RAID devices
+  ansible.builtin.wait_for:
+    path: "{{ item }}"
+    timeout: 30
+  loop:
+    - "{{ openstack_fast_raid_device }}"
+    - "{{ openstack_bulk_raid_device }}"
+  when: openstack_manage_storage | bool
+
+- name: Reinspect Cinder RAID devices
+  ansible.builtin.stat:
+    path: "{{ item }}"
+    follow: true
+  loop:
+    - "{{ openstack_fast_raid_device }}"
+    - "{{ openstack_bulk_raid_device }}"
+  loop_control:
+    label: "{{ item }}"
+  register: openstack_cinder_raid_stats
+
+- name: Require both Cinder RAID devices
+  ansible.builtin.assert:
+    that:
+      - item.stat.exists
+      - item.stat.isblk
+    fail_msg: "Required Cinder RAID device {{ item.item }} is missing."
+  loop: "{{ openstack_cinder_raid_stats.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+
+- name: Check Cinder RAID health
+  ansible.builtin.command:
+    argv:
+      - mdadm
+      - --detail
+      - --test
+      - "{{ item }}"
+  loop:
+    - "{{ openstack_fast_raid_device }}"
+    - "{{ openstack_bulk_raid_device }}"
+  loop_control:
+    label: "{{ item }}"
+  register: openstack_cinder_raid_health
+  changed_when: false
+  failed_when: false
+
+- name: Require healthy Cinder RAID arrays
+  ansible.builtin.assert:
+    that:
+      - item.rc == 0
+    fail_msg: >-
+      RAID array {{ item.item }} is missing or degraded. Repair it before
+      exposing Cinder volumes.
+  loop: "{{ openstack_cinder_raid_health.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+
+- name: Read mdadm array definitions
+  ansible.builtin.command:
+    argv:
+      - mdadm
+      - --detail
+      - --scan
+  register: openstack_mdadm_scan
+  changed_when: false
+  when: openstack_manage_storage | bool
+
+- name: Persist mdadm array definitions
+  ansible.builtin.copy:
+    dest: /etc/mdadm.conf
+    content: |
+      # Managed by infra/openstack.
+      {{ openstack_mdadm_scan.stdout }}
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Rebuild initramfs
+  when: openstack_manage_storage | bool
+
+- name: Create fast Cinder volume group
+  community.general.lvg:
+    vg: "{{ openstack_fast_vg }}"
+    pvs: "{{ openstack_fast_raid_device }}"
+    state: present
+  when: openstack_manage_storage | bool
+
+- name: Create bulk Cinder volume group
+  community.general.lvg:
+    vg: "{{ openstack_bulk_vg }}"
+    pvs: "{{ openstack_bulk_raid_device }}"
+    state: present
+  when: openstack_manage_storage | bool
+
+- name: Inspect required Cinder volume groups
+  ansible.builtin.command:
+    argv:
+      - vgs
+      - --noheadings
+      - --options
+      - vg_name
+      - "{{ item }}"
+  loop:
+    - "{{ openstack_fast_vg }}"
+    - "{{ openstack_bulk_vg }}"
+  loop_control:
+    label: "{{ item }}"
+  register: openstack_cinder_vgs
+  changed_when: false
+  failed_when: false
+
+- name: Require both Cinder volume groups
+  ansible.builtin.assert:
+    that:
+      - item.rc == 0
+      - item.stdout | trim == item.item
+    fail_msg: >-
+      Required volume group {{ item.item }} is missing. Create it manually or
+      enable the explicitly destructive storage-management flags.
+  loop: "{{ openstack_cinder_vgs.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+
+- name: Create Glance image data directory
+  ansible.builtin.file:
+    path: "{{ openstack_glance_data_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
