@@ -31,6 +31,15 @@ variable "http_proxies" {
   description = "HTTP proxy accounts (username -> password)"
 }
 
+variable "mikrotik_parent_proxy" {
+  type = object({
+    port     = number
+    outbound = string
+  })
+  default     = null
+  description = "Optional unauthenticated HTTP parent proxy for MikroTik"
+}
+
 variable "xui_address" {
   type = string
 }

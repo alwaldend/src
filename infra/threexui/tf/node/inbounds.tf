@@ -53,6 +53,9 @@ locals {
       pass = var.http_proxies[local.http_proxy_accounts[idx % length(local.http_proxy_accounts)]]
     }
   }
+  mikrotik_parent_proxy = var.mikrotik_parent_proxy == null ? {} : {
+    (var.mikrotik_parent_proxy.outbound) = var.mikrotik_parent_proxy
+  }
 }
 
 # resource "threexui_inbound_client" "mullvad_min" {
@@ -102,21 +105,37 @@ resource "threexui_inbound" "http_proxy" {
   enable              = true
   remark              = "http_proxy | ${each.key}"
   share_addr_strategy = "node"
+
+  # Xray enables authentication when accounts are present. The HTTP inbound
+  # schema has no separate auth field.
   http_settings {
-    auth              = "password"
     allow_transparent = false
     account {
       user = each.value.user
       pass = each.value.pass
     }
   }
-  stream_settings {
-    network  = "tcp"
-    security = "none"
+}
+
+resource "threexui_inbound" "mikrotik_parent_proxy" {
+  for_each            = local.mikrotik_parent_proxy
+  port                = each.value.port
+  listen              = "0.0.0.0"
+  protocol            = "http"
+  enable              = true
+  remark              = "http_proxy | mikrotik parent | ${each.key}"
+  share_addr_strategy = "node"
+
+  # No accounts means that the proxy is intentionally unauthenticated.
+  http_settings {
+    allow_transparent = false
   }
-  sniffing {
-    enabled       = true
-    dest_override = ["http", "tls", "quic", "fakedns"]
+
+  lifecycle {
+    precondition {
+      condition     = contains(var.mullvad_min, each.key)
+      error_message = "The MikroTik parent proxy outbound must be present in mullvad_min."
+    }
   }
 }
 

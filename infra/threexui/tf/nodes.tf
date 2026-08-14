@@ -19,6 +19,10 @@ locals {
         "jp-osa-wg-102",
         "nz-akl-wg-302",
       ]
+      mikrotik_parent_proxy = {
+        port     = 40090
+        outbound = "us-sjc-wg-001"
+      }
     }
   }
 }
@@ -57,14 +61,15 @@ module "node_yc11" {
   providers = {
     threexui = threexui.yc1
   }
-  xui_base_path = var.node_xui_base_path
-  xui_address   = local.nodes.yc1.address
-  xui_url       = "https://${local.nodes.yc1.address}${var.node_xui_base_path}"
-  xui_username  = var.node_xui_username
-  xui_password  = var.node_xui_password
-  mullvad_key   = var.mullvad_keys["yc1"]
-  mullvad_min   = local.nodes.yc1.mullvad_min
-  http_proxies  = var.http_proxies
+  xui_base_path         = var.node_xui_base_path
+  xui_address           = local.nodes.yc1.address
+  xui_url               = "https://${local.nodes.yc1.address}${var.node_xui_base_path}"
+  xui_username          = var.node_xui_username
+  xui_password          = var.node_xui_password
+  mullvad_key           = var.mullvad_keys["yc1"]
+  mullvad_min           = local.nodes.yc1.mullvad_min
+  http_proxies          = var.http_proxies
+  mikrotik_parent_proxy = local.nodes.yc1.mikrotik_parent_proxy
 }
 
 resource "threexui_node" "nodes" {
