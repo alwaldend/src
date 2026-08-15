@@ -33,6 +33,7 @@ url = "http://127.0.0.1:{{ port }}"
 {% endfor %}
 
 {% for port in range(40080, 40100) %}
+{% if threexui_mikrotik_parent_proxy_port is not defined or port != threexui_mikrotik_parent_proxy_port %}
 [http.routers.inbound_{{ port }}]
 rule = "(Host(`{{ inventory_hostname }}`) || Host(`{{ threexui_domain }}`))"
 service = "inbound_{{ port }}"
@@ -48,4 +49,22 @@ entrypoints = [
 [[http.services.inbound_{{ port }}.loadBalancer.servers]]
 url = "http://127.0.0.1:{{ port }}"
 
+{% endif %}
 {% endfor %}
+
+{% if threexui_mikrotik_parent_proxy_port is defined %}
+[tcp.routers.mikrotik_parent_proxy]
+rule = "HostSNI(`*`)"
+service = "mikrotik_parent_proxy"
+entrypoints = [
+{% if ansible_facts.default_ipv4 %}
+  "inbound_{{ threexui_mikrotik_parent_proxy_port }}_ipv4",
+{% endif %}
+{% if ansible_facts.default_ipv6 %}
+  "inbound_{{ threexui_mikrotik_parent_proxy_port }}_ipv6",
+{% endif %}
+]
+
+[[tcp.services.mikrotik_parent_proxy.loadBalancer.servers]]
+address = "127.0.0.1:{{ threexui_mikrotik_parent_proxy_port }}"
+{% endif %}

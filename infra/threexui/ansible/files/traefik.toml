@@ -56,12 +56,16 @@ sans = ["{{ inventory_hostname }}"]
 {% if ansible_facts.default_ipv4 %}
 [entryPoints.inbound_{{ port }}_ipv4]
 address = "{{ ansible_facts.default_ipv4.address }}:{{ port }}"
+{% if threexui_mikrotik_parent_proxy_port is not defined or port != threexui_mikrotik_parent_proxy_port %}
 http = { tls = { certResolver = "default" }  }
+{% endif %}
 {% endif %}
 {% if ansible_facts.default_ipv6 %}
 [entryPoints.inbound_{{ port }}_ipv6]
 address = "[{{ ansible_facts.default_ipv6.address }}]:{{ port }}"
+{% if threexui_mikrotik_parent_proxy_port is not defined or port != threexui_mikrotik_parent_proxy_port %}
 http = { tls = { certResolver = "default" }  }
+{% endif %}
 {% endif %}
 {% endfor %}
 {% endif %}

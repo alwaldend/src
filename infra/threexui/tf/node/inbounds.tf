@@ -47,12 +47,14 @@ locals {
   http_proxy_accounts = keys(var.http_proxies)
   http_proxy = {
     for idx, name in var.mullvad_min : name => {
-      port            = 40080 + idx
-      name            = name
-      user            = local.http_proxy_accounts[idx % length(local.http_proxy_accounts)]
-      pass            = var.http_proxies[local.http_proxy_accounts[idx % length(local.http_proxy_accounts)]]
-      unauthenticated = name == var.unauthenticated_http_proxy_outbound
+      port = 40080 + idx
+      name = name
+      user = local.http_proxy_accounts[idx % length(local.http_proxy_accounts)]
+      pass = var.http_proxies[local.http_proxy_accounts[idx % length(local.http_proxy_accounts)]]
     }
+  }
+  mikrotik_parent_proxy = var.mikrotik_parent_proxy == null ? {} : {
+    (var.mikrotik_parent_proxy.outbound) = var.mikrotik_parent_proxy
   }
 }
 
@@ -96,10 +98,9 @@ resource "threexui_inbound" "mullvad_min" {
 }
 
 resource "threexui_inbound" "http_proxy" {
-  for_each = local.http_proxy
-
+  for_each            = local.http_proxy
   port                = each.value.port
-  listen              = each.value.unauthenticated ? "0.0.0.0" : "127.0.0.1"
+  listen              = "127.0.0.1"
   protocol            = "http"
   enable              = true
   remark              = "http_proxy | ${each.key}"
@@ -109,23 +110,32 @@ resource "threexui_inbound" "http_proxy" {
   # schema has no separate auth field.
   http_settings {
     allow_transparent = false
-
-    dynamic "account" {
-      for_each = each.value.unauthenticated ? [] : [each.value]
-      content {
-        user = account.value.user
-        pass = account.value.pass
-      }
+    account {
+      user = each.value.user
+      pass = each.value.pass
     }
+  }
+}
+
+resource "threexui_inbound" "mikrotik_parent_proxy" {
+  for_each            = local.mikrotik_parent_proxy
+  port                = each.value.port
+  listen              = "127.0.0.1"
+  protocol            = "http"
+  enable              = true
+  remark              = "http_proxy | mikrotik parent | ${each.key}"
+  share_addr_strategy = "node"
+
+  # RouterOS parent proxies do not support upstream proxy authentication.
+  # This dedicated listener is the only unauthenticated HTTP inbound.
+  http_settings {
+    allow_transparent = false
   }
 
   lifecycle {
     precondition {
-      condition = var.unauthenticated_http_proxy_outbound == null ? true : contains(
-        var.mullvad_min,
-        var.unauthenticated_http_proxy_outbound,
-      )
-      error_message = "The unauthenticated HTTP proxy outbound must be present in mullvad_min."
+      condition     = contains(var.mullvad_min, each.key)
+      error_message = "The MikroTik parent proxy outbound must be present in mullvad_min."
     }
   }
 }
