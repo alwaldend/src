@@ -6,6 +6,7 @@
   any_errors_fatal: true
   roles:
     - role: openstack_preflight
+    - role: openstack_preflight_hardening
 
 - name: Prepare master storage
   hosts: openstack_master
@@ -13,6 +14,7 @@
   gather_facts: true
   any_errors_fatal: true
   roles:
+    - role: openstack_storage_guard
     - role: openstack_storage
 
 - name: Prepare compute-local instance storage

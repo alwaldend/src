@@ -124,7 +124,7 @@
       - "{{ openstack_kolla_venv }}/bin/kolla-ansible"
       - install-deps
   environment: "{{ openstack_kolla_environment }}"
-  changed_when: false
+  changed_when: true
 
 - name: Locate the release-matched Kolla inventory
   ansible.builtin.command:

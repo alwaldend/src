@@ -56,7 +56,7 @@
   loop_control:
     label: "{{ item }}"
   environment: "{{ openstack_client_environment }}"
-  changed_when: false
+  changed_when: true
 
 - name: Read reconciled Cinder volume types
   ansible.builtin.command:
