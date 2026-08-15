@@ -1,4 +1,9 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+load(
+    "@rules_pkg//pkg:mappings.bzl",
+    "pkg_filegroup",
+    "pkg_files",
+    "strip_prefix",
+)
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
 load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
 
@@ -39,6 +44,12 @@ filegroup(
     visibility = ["//infra/openstack:__subpackages__"],
 )
 
+filegroup(
+    name = "group_vars",
+    srcs = glob(["group_vars/*.yaml"]),
+    visibility = ["//infra/openstack:__subpackages__"],
+)
+
 pkg_filegroup(
     name = "srcs",
     srcs = [":srcs_files"],
@@ -49,6 +60,6 @@ pkg_files(
     srcs = [
         "inventory.yaml",
         "playbook.yaml",
-    ],
+    ] + glob(["group_vars/*.yaml"]),
     strip_prefix = strip_prefix.from_pkg(),
 )

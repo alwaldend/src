@@ -1,0 +1,20 @@
+---
+ansible_host: 192.168.1.2
+openstack_mac_address: CHANGE_ME
+
+network_interface: CHANGE_ME
+api_interface: CHANGE_ME
+tunnel_interface: CHANGE_ME
+migration_interface: CHANGE_ME
+neutron_external_interface: CHANGE_ME
+
+openstack_fast_devices:
+  - /dev/disk/by-id/CHANGE_ME_SATA_SSD_1
+  - /dev/disk/by-id/CHANGE_ME_SATA_SSD_2
+
+openstack_bulk_devices:
+  - /dev/disk/by-id/CHANGE_ME_DAS_HDD_1
+  - /dev/disk/by-id/CHANGE_ME_DAS_HDD_2
+  - /dev/disk/by-id/CHANGE_ME_DAS_HDD_3
+  - /dev/disk/by-id/CHANGE_ME_DAS_HDD_4
+  - /dev/disk/by-id/CHANGE_ME_DAS_HDD_5

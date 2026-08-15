@@ -2,6 +2,12 @@ locals {
   inventory = yamldecode(
     file("${path.module}/../ansible/inventory.yaml")
   )
+  master_vars = yamldecode(
+    file("${path.module}/../ansible/group_vars/openstack_master.yaml")
+  )
+  compute_vars = yamldecode(
+    file("${path.module}/../ansible/group_vars/openstack_compute.yaml")
+  )
 
   master_hosts  = local.inventory.all.children.openstack_master.hosts
   compute_hosts = local.inventory.all.children.openstack_compute.hosts
@@ -9,19 +15,16 @@ locals {
   master_hostname  = keys(local.master_hosts)[0]
   compute_hostname = keys(local.compute_hosts)[0]
 
-  master  = local.master_hosts[local.master_hostname]
-  compute = local.compute_hosts[local.compute_hostname]
-
   leases = {
     master = {
       hostname    = local.master_hostname
-      address     = local.master.ansible_host
-      mac_address = local.master.openstack_mac_address
+      address     = local.master_vars.ansible_host
+      mac_address = local.master_vars.openstack_mac_address
     }
     compute = {
       hostname    = local.compute_hostname
-      address     = local.compute.ansible_host
-      mac_address = local.compute.openstack_mac_address
+      address     = local.compute_vars.ansible_host
+      mac_address = local.compute_vars.openstack_mac_address
     }
   }
 }
