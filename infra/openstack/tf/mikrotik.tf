@@ -2,9 +2,6 @@ locals {
   inventory = yamldecode(
     file("${path.module}/../ansible/inventory.yaml")
   )
-  globals = yamldecode(
-    file("${path.module}/../kolla/globals.yml")
-  )
 
   master_hosts  = local.inventory.all.children.openstack_master.hosts
   compute_hosts = local.inventory.all.children.openstack_compute.hosts
@@ -27,12 +24,6 @@ locals {
       mac_address = local.compute.openstack_mac_address
     }
   }
-
-  dns_records = {
-    (local.master_hostname)   = local.master.ansible_host
-    (local.compute_hostname)  = local.compute.ansible_host
-    "openstack.alwaldend.com" = local.globals.kolla_internal_vip_address
-  }
 }
 
 resource "routeros_ip_dhcp_server_lease" "openstack" {
@@ -43,14 +34,4 @@ resource "routeros_ip_dhcp_server_lease" "openstack" {
   server      = "bridge1"
   lease_time  = "0s"
   comment     = "tf[infra/openstack/tf] ${each.value.hostname}"
-}
-
-resource "routeros_ip_dns_record" "openstack" {
-  for_each = local.dns_records
-
-  name    = each.key
-  address = each.value
-  type    = "A"
-  ttl     = "5m"
-  comment = "tf[infra/openstack/tf]"
 }
