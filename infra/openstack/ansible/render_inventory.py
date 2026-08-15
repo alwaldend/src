@@ -3,11 +3,8 @@
 
 from __future__ import annotations
 
-import argparse
-import json
 import re
-from collections.abc import Iterable, Mapping, Sequence
-from pathlib import Path
+from collections.abc import Mapping, Sequence
 
 SECTION_RE = re.compile(r"^\[([^]]+)]\s*$")
 REQUIRED_SECTIONS = frozenset(
@@ -98,33 +95,3 @@ def render(source: str, replacements: Mapping[str, list[str]]) -> str:
             output.append(line)
 
     return "\n".join(output).rstrip() + "\n"
-
-
-def parse_args(argv: Iterable[str] | None = None) -> argparse.Namespace:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--source", type=Path, required=True)
-    parser.add_argument("--sections", type=Path, required=True)
-    parser.add_argument("--output", type=Path, required=True)
-    return parser.parse_args(argv)
-
-
-def main() -> None:
-    args = parse_args()
-    replacements = json.loads(args.sections.read_text(encoding="utf-8"))
-    rendered = render(
-        args.source.read_text(encoding="utf-8"),
-        replacements,
-    )
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    if (
-        args.output.exists()
-        and args.output.read_text(encoding="utf-8") == rendered
-    ):
-        print("unchanged")
-        return
-    args.output.write_text(rendered, encoding="utf-8")
-    print("changed")
-
-
-if __name__ == "__main__":
-    main()

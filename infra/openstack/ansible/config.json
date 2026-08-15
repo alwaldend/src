@@ -1,0 +1,30 @@
+{
+  "openstack_release": "2026.1",
+  "openstack_kolla_revision": "fe4f6adaf01e93af39cd28d3ad57d45b1db11884",
+  "openstack_requirements_revision": "06cd4e8523cbade25fb93efc4f8ea77d6d97064f",
+  "openstack_kolla_base_distro": "rocky",
+  "openstack_kolla_container_engine": "docker",
+  "openstack_kolla_python": "/usr/bin/python3",
+  "openstack_kolla_internal_vip_address": "CHANGE_ME",
+  "openstack_kolla_keepalived_virtual_router_id": 53,
+  "openstack_manage_storage": false,
+  "openstack_storage_wipe": false,
+  "openstack_fast_raid_device": "/dev/md/cinder-fast",
+  "openstack_bulk_raid_device": "/dev/md/cinder-bulk",
+  "openstack_fast_vg": "cinder-fast",
+  "openstack_bulk_vg": "cinder-bulk",
+  "openstack_glance_data_dir": "/var/lib/openstack/glance",
+  "openstack_manage_compute_storage": false,
+  "openstack_compute_storage_wipe": false,
+  "openstack_nova_datadir": "/var/lib/nova",
+  "openstack_compute_filesystem": "xfs",
+  "openstack_compute_mount_options": "defaults,noatime",
+  "openstack_compute_minimum_bytes": 1800000000000,
+  "openstack_nova_reserved_host_disk_mb": 51200,
+  "openstack_supported_actions": [
+    "deploy",
+    "post-deploy",
+    "prechecks",
+    "reconfigure"
+  ]
+}
