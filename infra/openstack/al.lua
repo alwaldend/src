@@ -17,9 +17,14 @@ infra.ansible_keys({
     },
 })
 
-infra.tf_backend({
-    path = "alwaldend.com/vault1/approles/src_infra_openstack/tf_backend/tf",
+lib.plugin_call({
+    name = "tf_backend_tf",
+    plugin = "tf_backend",
     labels = { tf = "main" },
+    data = {
+        vault_secret = "alwaldend.com/vault1/approles/src_infra_openstack/tf_backend/tf",
+        vault_secret_mount = "secrets",
+    },
 })
 
 infra.mikrotik({
