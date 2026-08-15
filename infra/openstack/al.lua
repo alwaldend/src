@@ -17,6 +17,17 @@ infra.ansible_keys({
     },
 })
 
+infra.tf_backend({
+    path = "alwaldend.com/vault1/approles/src_infra_openstack/tf_backend/tf",
+    labels = { tf = "main" },
+})
+
+infra.mikrotik({
+    path = "alwaldend.com/vault1/approles/src_infra_openstack/mikrotik",
+    host = "https://router1.dc1.alwaldend.com",
+    labels = { tf = "main" },
+})
+
 lib.plugin_call({
     name = "kolla_passwords",
     plugin = "injector",

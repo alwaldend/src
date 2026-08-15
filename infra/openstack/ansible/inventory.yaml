@@ -3,12 +3,11 @@ all:
     ansible_user: ansible
     ansible_become: true
     ansible_python_interpreter: /usr/bin/python3
-    openstack_manage_storage: false
+    ssh_vault_role: src_infra_openstack_ssh
     openstack_fast_raid_device: /dev/md/cinder-fast
     openstack_bulk_raid_device: /dev/md/cinder-bulk
     openstack_fast_vg: cinder-fast
     openstack_bulk_vg: cinder-bulk
-    openstack_manage_compute_storage: false
     openstack_nova_datadir: /var/lib/nova
     openstack_compute_filesystem: xfs
     openstack_compute_mount_options: defaults,noatime
@@ -16,7 +15,9 @@ all:
   children:
     openstack_master:
       hosts:
-        master1.openstack1.alwaldend.com:
+        master1.openstack.alwaldend.com:
+          ansible_host: 192.168.1.2
+          openstack_mac_address: CHANGE_ME
           network_interface: CHANGE_ME
           api_interface: CHANGE_ME
           tunnel_interface: CHANGE_ME
@@ -32,7 +33,9 @@ all:
             - /dev/disk/by-id/CHANGE_ME_DAS_HDD_4
     openstack_compute:
       hosts:
-        compute1.openstack1.alwaldend.com:
+        compute1.openstack.alwaldend.com:
+          ansible_host: 192.168.1.3
+          openstack_mac_address: CHANGE_ME
           network_interface: CHANGE_ME
           api_interface: CHANGE_ME
           tunnel_interface: CHANGE_ME
