@@ -13,7 +13,6 @@ terraform_binary_map(
     data = glob(["*.tf"]) + [
         ".terraform.lock.hcl",
         "//infra/openstack/ansible:inventory",
-        "//infra/openstack/kolla:globals",
         "//tools/vault/tf_backend",
         "//tools/vault/injector",
     ],

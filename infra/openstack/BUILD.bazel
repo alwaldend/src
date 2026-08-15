@@ -10,6 +10,12 @@ al_config(
 )
 
 filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
     name = "kolla_passwords_template",
     srcs = ["kolla/passwords.yml.tpl"],
     visibility = ["//infra/openstack:__subpackages__"],
