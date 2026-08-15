@@ -1,6 +1,6 @@
-module "src_infra_dc1_openstack1_approle" {
+module "src_infra_openstack_approle" {
   source = "../../../projects/tf_modules/vault_approle"
-  name   = "src_infra_dc1_openstack1"
+  name   = "src_infra_openstack"
   member_entity_ids = [
     vault_identity_entity.simeonwarren.id,
   ]

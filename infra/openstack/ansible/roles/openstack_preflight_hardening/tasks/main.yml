@@ -1,4 +1,14 @@
 ---
+- name: Require service hostnames to match operating-system hostnames
+  ansible.builtin.assert:
+    that:
+      - openstack_service_hostname is defined
+      - openstack_service_hostname | length > 0
+      - openstack_service_hostname == ansible_facts.hostname
+    fail_msg: >-
+      Set openstack_service_hostname to the short operating-system hostname on
+      {{ inventory_hostname }}.
+
 - name: Require distinct operating-system hostnames
   ansible.builtin.assert:
     that:
@@ -10,6 +20,9 @@
   run_once: true
 
 - name: Validate management address and MTU symmetry
+  vars:
+    openstack_master_host: "{{ groups['openstack_master'][0] }}"
+    openstack_compute_host: "{{ groups['openstack_compute'][0] }}"
   ansible.builtin.command:
     argv:
       - /usr/bin/python3
@@ -34,9 +47,9 @@
         assert addresses[0] != addresses[1], "management addresses must differ"
         assert mtus[0] == mtus[1], "management MTUs must match"
       - >-
-        {{ hostvars[groups['openstack_master'][0]].openstack_management_addresses.stdout }}
+        {{ hostvars[openstack_master_host].openstack_management_addresses.stdout }}
       - >-
-        {{ hostvars[groups['openstack_compute'][0]].openstack_management_addresses.stdout }}
+        {{ hostvars[openstack_compute_host].openstack_management_addresses.stdout }}
   changed_when: false
   run_once: true
 

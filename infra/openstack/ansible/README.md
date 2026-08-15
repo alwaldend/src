@@ -1,13 +1,12 @@
 ---
 title: OpenStack Ansible
-description: Host preparation and Kolla-Ansible orchestration
-tags:
-  - ansible
-  - openstack
+description: Host preparation for the two-node OpenStack deployment
 ---
 
-The playbook validates both bare-metal hosts, prepares local storage, renders a
-Kolla multinode inventory, and invokes the pinned Kolla-Ansible revision.
+This package contains only host validation and storage preparation.
 
-See the parent [OpenStack deployment documentation](../README.md) before you
-run a target. The normal targets can change hosts and cloud services.
+The Bazel launcher invokes this playbook as one normal Ansible process. It then
+invokes Kolla-Ansible directly. An Ansible task never starts another Ansible
+process.
+
+See the parent [OpenStack deployment documentation](../README.md).

@@ -4,7 +4,7 @@ local lib = require("al_lib")
 lib.vault_auth({
     name = "default",
     approle = {
-        name = "src_infra_dc1_openstack1",
+        name = "src_infra_openstack",
     },
 })
 
@@ -26,7 +26,7 @@ lib.plugin_call({
             {
                 name = "kolla",
                 kv = {
-                    path = "alwaldend.com/vault1/approles/src_infra_dc1_openstack1/kolla",
+                    path = "alwaldend.com/vault1/approles/src_infra_openstack/kolla",
                     mount = "secrets",
                 },
             },

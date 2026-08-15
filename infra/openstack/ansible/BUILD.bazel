@@ -1,62 +1,84 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
-load("@rules_python//python:defs.bzl", "py_test")
-load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
+load("@rules_python//python:defs.bzl", "py_binary", "py_test")
 load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 
-_ANSIBLE_ARGS = [
-    "$(rootpath :ansible_bin)",
-    "--inventory",
-    "inventory.yaml",
-    "playbook_deploy.yaml",
-]
 
-al_binary_run_map(
-    name = "ansible",
-    args = {
-        "": _ANSIBLE_ARGS + [
+def _prepare_binary(name, action):
+    al_ansible_binary(
+        name = name,
+        arguments = [
+            "--inventory",
+            "inventory.json",
             "--extra-vars",
-            "openstack_action=deploy",
-        ],
-        "deploy": _ANSIBLE_ARGS + [
+            "@config.json",
             "--extra-vars",
-            "openstack_action=deploy",
+            "openstack_action={}".format(action),
+            "playbook_prepare.yaml",
         ],
-        "post_deploy": _ANSIBLE_ARGS + [
-            "--extra-vars",
-            "openstack_action=post-deploy",
+        data = [
+            ":srcs",
+            "//infra:ansible_cfg",
+            "//projects/ansible_collection:collections",
         ],
-        "prechecks": _ANSIBLE_ARGS + [
-            "--extra-vars",
-            "openstack_action=prechecks",
-        ],
-        "reconfigure": _ANSIBLE_ARGS + [
-            "--extra-vars",
-            "openstack_action=reconfigure",
-        ],
-    },
-    configs = ["//infra/openstack:al"],
-    data = [
-        ":ansible_bin",
-        "//infra/openstack:kolla_passwords_template",
-        "//tools/vault/injector",
-    ],
-    run_args = [
-        "--plugin_label",
-        "vault_env=default_default",
-        "--plugin_label",
-        "ansible",
-    ],
+        process_name = "ansible_playbook",
+        visibility = ["//infra/openstack:__pkg__"],
+    )
+
+
+_prepare_binary(
+    name = "prepare_deploy",
+    action = "deploy",
 )
 
-al_ansible_binary(
-    name = "ansible_bin",
-    data = [
-        ":srcs",
-        "//infra:ansible_cfg",
-        "//projects/ansible_collection:collections",
+_prepare_binary(
+    name = "prepare_prechecks",
+    action = "prechecks",
+)
+
+_prepare_binary(
+    name = "prepare_reconfigure",
+    action = "reconfigure",
+)
+
+py_binary(
+    name = "launcher",
+    srcs = [
+        "launcher.py",
+        "render_inventory.py",
     ],
-    process_name = "ansible_playbook",
+    visibility = ["//infra/openstack:__pkg__"],
+)
+
+py_test(
+    name = "launcher_test",
+    srcs = [
+        "launcher.py",
+        "launcher_test.py",
+        "render_inventory.py",
+    ],
+    main = "launcher_test.py",
+)
+
+py_test(
+    name = "render_inventory_test",
+    srcs = [
+        "render_inventory.py",
+        "render_inventory_test.py",
+    ],
+    main = "render_inventory_test.py",
+)
+
+filegroup(
+    name = "config",
+    srcs = ["config.json"],
+    visibility = ["//infra/openstack:__pkg__"],
+)
+
+filegroup(
+    name = "inventory",
+    srcs = ["inventory.json"],
+    visibility = ["//infra/openstack:__pkg__"],
 )
 
 pkg_filegroup(
@@ -66,21 +88,15 @@ pkg_filegroup(
 
 pkg_files(
     name = "srcs_files",
-    srcs = ["inventory.yaml"] + glob([
-        "group_vars/**/*.yaml",
-        "playbook_*.yaml",
+    srcs = [
+        "config.json",
+        "inventory.json",
+        "openstack_prepare_root.marker",
+        "playbook_prepare.yaml",
+    ] + glob([
         "roles/**",
     ]),
     strip_prefix = strip_prefix.from_pkg(),
-)
-
-py_test(
-    name = "render_inventory_test",
-    srcs = [
-        "roles/openstack_kolla/files/render_inventory.py",
-        "roles/openstack_kolla/files/render_inventory_test.py",
-    ],
-    main = "roles/openstack_kolla/files/render_inventory_test.py",
 )
 
 docs_filegroup(
