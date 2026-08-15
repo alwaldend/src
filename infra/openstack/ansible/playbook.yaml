@@ -35,12 +35,13 @@
           - --metadata=1.2
           - --name=cinder-bulk
           - --level=10
-          - --raid-devices=4
+          - --raid-devices=5
           - --run
           - "{{ openstack_bulk_devices[0] }}"
           - "{{ openstack_bulk_devices[1] }}"
           - "{{ openstack_bulk_devices[2] }}"
           - "{{ openstack_bulk_devices[3] }}"
+          - "{{ openstack_bulk_devices[4] }}"
         creates: "{{ openstack_bulk_raid_device }}"
 
     - name: Create fast Cinder volume group

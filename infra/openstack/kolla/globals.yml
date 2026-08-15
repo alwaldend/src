@@ -34,5 +34,5 @@ glance_file_datadir_volume: /var/lib/openstack/glance
 openstack_logging_debug: "False"
 enable_central_logging: "no"
 enable_fluentd: "no"
-enable_grafana: "no"
-enable_prometheus: "no"
+enable_grafana: "yes"
+enable_prometheus: "yes"

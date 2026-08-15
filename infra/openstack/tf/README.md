@@ -3,20 +3,22 @@ title: OpenStack MikroTik Terraform
 description: Static LAN addresses for the OpenStack hosts
 ---
 
-This Terraform package reads the host addresses and MAC addresses from
-`../ansible/inventory.yaml`.
+This Terraform package creates permanent MikroTik DHCP leases for the two
+OpenStack hosts.
 
-It creates permanent `bridge1` DHCP leases for:
+It reads:
 
-- `master1.openstack.alwaldend.com` at `192.168.1.2`.
-- `compute1.openstack.alwaldend.com` at `192.168.1.3`.
+- Hostnames from `../ansible/inventory.yaml`.
+- Addresses and MAC addresses from
+  `../ansible/group_vars/openstack_master.yaml` and
+  `../ansible/group_vars/openstack_compute.yaml`.
 
-Set each host's `openstack_mac_address` before applying:
+DNS is managed separately by DNSControl through
+`../dnsconfig.json`.
+
+Set each host's `openstack_mac_address` before applying.
 
 ```sh
 bazel run //infra/openstack/tf:tf.plan
 bazel run //infra/openstack/tf:tf.apply
 ```
-
-DNS is managed by the repository DNSControl deployment, not by this Terraform
-state.

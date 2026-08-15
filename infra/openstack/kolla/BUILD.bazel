@@ -72,6 +72,7 @@ al_binary_run_map(
         ":kolla_bin",
         ":nova_compute_conf",
         "//infra/openstack:kolla_passwords_template",
+        "//infra/openstack/ansible:group_vars",
         "//infra/openstack/ansible:inventory",
         "//tools/vault/injector",
     ],
