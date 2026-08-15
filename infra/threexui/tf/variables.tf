@@ -32,3 +32,8 @@ variable "node_xui_password" {
 variable "node_xui_tokens" {
   type = map(string)
 }
+
+variable "http_proxies" {
+  type        = map(string)
+  description = "HTTP proxy accounts (username -> password)"
+}

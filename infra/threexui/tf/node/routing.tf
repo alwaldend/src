@@ -26,6 +26,14 @@ resource "threexui_xray_routing" "config" {
     }
   }
 
+  dynamic "rule" {
+    for_each = threexui_inbound.http_proxy
+    content {
+      inbound_tag  = [rule.value.tag]
+      outbound_tag = "out-mullvad-min-${rule.key}"
+    }
+  }
+
   rule {
     inbound_tag  = [threexui_inbound.mullvad_min_lb.tag]
     balancer_tag = "out-mullvad-min-lb"

@@ -26,6 +26,11 @@ variable "mullvad_min" {
   description = "List of name of wireguard servers"
 }
 
+variable "http_proxies" {
+  type        = map(string)
+  description = "HTTP proxy accounts (username -> password)"
+}
+
 variable "xui_address" {
   type = string
 }

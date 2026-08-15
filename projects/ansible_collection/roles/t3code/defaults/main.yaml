@@ -1,0 +1,13 @@
+t3code_user: t3code
+t3code_user_uid: 8151
+t3code_dir: /opt/t3code
+t3code_home_dir: "{{ t3code_dir }}/home"
+t3code_work_dir: "{{ t3code_dir }}/work"
+t3code_disk:
+t3code_port: 5120
+t3code_version: "{{ undefined() }}"
+t3code_state_dir: "{{ t3code_dir }}/state"
+t3code_auth_token: "{{ undefined() }}"
+t3code_service_path: /lib/systemd/system/t3code.service
+t3code_env_path: "{{ t3code_dir }}/.env"
+t3code_env: {}

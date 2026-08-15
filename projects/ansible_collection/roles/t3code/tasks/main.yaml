@@ -1,0 +1,77 @@
+- tags:
+    - t3code
+  block:
+    - name: Install T3 Code dependencies
+      ansible.builtin.package:
+        name:
+          - nodejs
+          - npm
+          - acl
+          - make
+          - gcc-c++
+    - name: Create T3 Code user
+      ansible.builtin.user:
+        name: "{{ t3code_user }}"
+        uid: "{{ t3code_user_uid }}"
+        shell: /bin/bash
+        home: "{{ t3code_home_dir }}"
+        system: false
+    - name: Create filesystem on the T3 Code disk
+      when: t3code_disk is truthy
+      community.general.filesystem:
+        fstype: ext4
+        dev: "{{ t3code_disk }}"
+    - name: Mount T3 Code disk
+      when: t3code_disk is truthy
+      ansible.posix.mount:
+        path: "{{ t3code_dir }}"
+        src: "{{ t3code_disk }}"
+        fstype: ext4
+        state: mounted
+    - name: Create T3 Code directories
+      loop:
+        - "{{ t3code_dir }}"
+        - "{{ t3code_home_dir }}"
+        - "{{ t3code_state_dir }}"
+        - "{{ t3code_work_dir }}"
+      ansible.builtin.file:
+        state: directory
+        owner: "{{ t3code_user }}"
+        group: "{{ t3code_user }}"
+        mode: "0700"
+        path: "{{ item }}"
+    - name: Write the T3 Code environment
+      ansible.builtin.copy:
+        content: |
+          T3CODE_AUTH_TOKEN={{ t3code_auth_token }}
+          {% for key, value in t3code_env.items() %}
+          {{ key }}={{ value }}
+          {% endfor %}
+        dest: "{{ t3code_env_path }}"
+        owner: root
+        group: root
+        mode: "0600"
+    - name: Install the package
+      ansible.builtin.command:
+        argv:
+          - npm
+          - install
+          - -g
+          - t3@{{ t3code_version }}
+    - name: Write the T3 Code service
+      register: t3code_service_result
+      ansible.builtin.template:
+        src: systemd_service.conf
+        dest: "{{ t3code_service_path }}"
+        owner: root
+        group: root
+        mode: "0644"
+    - name: Reload systemd for T3 Code
+      when: t3code_service_result.changed
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+    - name: Enable and start T3 Code
+      ansible.builtin.systemd_service:
+        name: "{{ t3code_service_path | basename }}"
+        enabled: true
+        state: restarted

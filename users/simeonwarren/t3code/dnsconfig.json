@@ -1,0 +1,32 @@
+{
+    "records": {
+        "yc_ns_1": {
+            "NS": {
+                "name": "yc.t3code.simeonwarren.users",
+                "address": "ns1.yandexcloud.net."
+            },
+            "dsp": ["all"]
+        },
+        "yc_ns_2": {
+            "NS": {
+                "name": "yc.t3code.simeonwarren.users",
+                "address": "ns2.yandexcloud.net."
+            },
+            "dsp": ["all"]
+        },
+        "host1": {
+            "CNAME": {
+                "name": "host1.t3code.simeonwarren.users",
+                "target": "host1.yc.t3code.simeonwarren.users.alwaldend.com."
+            },
+            "dsp": ["all"]
+        },
+        "root": {
+            "CNAME": {
+                "name": "t3code.simeonwarren.users",
+                "target": "host1.yc.t3code.simeonwarren.users.alwaldend.com."
+            },
+            "dsp": ["all"]
+        }
+    }
+}

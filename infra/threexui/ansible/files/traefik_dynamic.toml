@@ -14,9 +14,27 @@ tls = { certResolver = "default" }
 [[http.services.threexuisub.loadBalancer.servers]]
 url = "http://127.0.0.1:2096"
 
-{% for port in range(40000, 40300) %}
+{% for port in range(40000, 40080) %}
 [http.routers.inbound_{{ port }}]
 rule = "(Host(`{{ inventory_hostname }}`) || Host(`{{ threexui_domain }}`)) && PathPrefix(`/inbound_{{ threexui_base_path | trim("/") }}_{{ port }}`)"
+service = "inbound_{{ port }}"
+tls = { certResolver = "default" }
+entrypoints = [
+{% if ansible_facts.default_ipv4 %}
+  "inbound_{{ port }}_ipv4",
+{% endif %}
+{% if ansible_facts.default_ipv6 %}
+  "inbound_{{ port }}_ipv6",
+{% endif %}
+]
+[[http.services.inbound_{{ port }}.loadBalancer.servers]]
+url = "http://127.0.0.1:{{ port }}"
+
+{% endfor %}
+
+{% for port in range(40080, 40100) %}
+[http.routers.inbound_{{ port }}]
+rule = "(Host(`{{ inventory_hostname }}`) || Host(`{{ threexui_domain }}`))"
 service = "inbound_{{ port }}"
 tls = { certResolver = "default" }
 entrypoints = [

@@ -78,6 +78,30 @@ lib.plugin_call({
 })
 
 lib.plugin_call({
+    name = "http_proxies",
+    plugin = "injector",
+    labels = { tf = "main" },
+    data = {
+        res = {
+            {
+                name = "http_proxies",
+                kv = {
+                    path = "alwaldend.com/vault1/approles/src_infra_threexui/http_proxies",
+                    mount = "secrets"
+                }
+            },
+            {
+                name = "TF_VAR_http_proxies",
+                deps = { "http_proxies" },
+                env = {
+                    value = "{{ .Last.Data.http_proxies | to_json }}",
+                }
+            },
+        },
+    },
+})
+
+lib.plugin_call({
     name = "control_plane",
     plugin = "injector",
     labels = { ansible = "1", tf = "main" },

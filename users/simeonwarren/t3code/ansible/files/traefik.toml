@@ -1,0 +1,39 @@
+[global]
+checkNewVersion = false
+sendAnonymousUsage = false
+
+[providers.file]
+filename = "{{ traefik_dynamic_config_path }}"
+
+[log]
+level = "INFO"
+
+[entryPoints.web]
+address = ":80"
+[entryPoints.web.http.redirections.entryPoint]
+to = "websecure"
+
+[entryPoints.websecure]
+address = "{{ ansible_facts.default_ipv4.address }}:443"
+asDefault = true
+[entryPoints.websecure.http.tls]
+certResolver = "default"
+
+[entryPoints.websecure_wireguard]
+address = "{{ wg_ip | split('/') | first }}:443"
+[entryPoints.websecure_wireguard.http.tls]
+certResolver = "default"
+
+[certificatesResolvers.default.acme]
+email = "user_simeonwarren_t3code@alwaldend.com"
+storage = "{{ traefik_data_dir }}/acme.json"
+caServer = "{{ traefik_acme_url }}"
+
+[certificatesResolvers.default.acme.httpChallenge]
+entryPoint = "web"
+
+[tls.stores.default.acme]
+resolver = "default"
+[tls.stores.default.acme.domain]
+main = "{{ t3code_domain }}"
+sans = ["{{ inventory_hostname }}"]
