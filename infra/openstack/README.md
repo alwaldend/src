@@ -84,6 +84,10 @@ Replace each `CHANGE_ME` value in these files:
 - [`ansible/inventory.yaml`](./ansible/inventory.yaml)
 - [`ansible/group_vars/all.yaml`](./ansible/group_vars/all.yaml)
 
+Configure DNS for both inventory names. You can instead set `ansible_host` on
+each inventory host. Ensure that both hosts use different OS hostnames and IP
+addresses.
+
 Use stable `/dev/disk/by-id/...` paths. Do not use `/dev/sdX` or `/dev/nvmeXnY`
 paths for a destructive storage operation.
 
@@ -154,7 +158,9 @@ secrets/alwaldend.com/vault1/approles/src_infra_dc1_openstack1/kolla
 One initialization procedure follows:
 
 ```sh
+set -eu
 workdir="$(mktemp -d)"
+trap 'rm -rf "${workdir}"' EXIT
 python3 -m venv "${workdir}/venv"
 "${workdir}/venv/bin/pip" install \
   'git+https://opendev.org/openstack/kolla-ansible.git@fe4f6adaf01e93af39cd28d3ad57d45b1db11884'
@@ -172,7 +178,6 @@ jq -Rs '{passwords_yml: .}' "${workdir}/passwords.yml" \
 bazel run //infra/openstack:vault.kv_put \
   alwaldend.com/vault1/approles/src_infra_dc1_openstack1/kolla \
   @"${workdir}/passwords.json"
-rm -rf "${workdir}"
 ```
 
 The injector writes the password file with private permissions. The playbook

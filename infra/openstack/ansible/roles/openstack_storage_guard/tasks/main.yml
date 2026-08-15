@@ -1,0 +1,188 @@
+---
+- name: Install storage guard tools
+  ansible.builtin.dnf:
+    name:
+      - lvm2
+      - mdadm
+      - util-linux
+    state: present
+
+- name: Require explicit permission for managed storage changes
+  ansible.builtin.assert:
+    that:
+      - openstack_storage_wipe | bool
+    fail_msg: >-
+      Set openstack_storage_wipe=true before managed storage can create arrays,
+      remove signatures, or initialize Cinder volume groups.
+  when: openstack_manage_storage | bool
+
+- name: Inspect guarded Cinder RAID devices
+  ansible.builtin.stat:
+    path: "{{ item }}"
+    follow: true
+  loop:
+    - "{{ openstack_fast_raid_device }}"
+    - "{{ openstack_bulk_raid_device }}"
+  loop_control:
+    label: "{{ item }}"
+  register: openstack_guard_raid_stats
+
+- name: Refuse a partial Cinder array set
+  ansible.builtin.assert:
+    that:
+      - >-
+        openstack_guard_raid_stats.results[0].stat.exists
+        == openstack_guard_raid_stats.results[1].stat.exists
+    fail_msg: >-
+      Exactly one Cinder array exists. Assemble or recover the missing array, or
+      remove both arrays only after you confirm that they contain no required data.
+
+- name: Read existing Cinder physical volume mappings
+  ansible.builtin.command:
+    argv:
+      - pvs
+      - --reportformat
+      - json
+      - --options
+      - pv_name,vg_name
+  register: openstack_guard_pvs
+  changed_when: false
+
+- name: Reject target volume groups when both arrays are absent
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/python3
+      - -c
+      - >-
+        import json, sys;
+        rows = json.loads(sys.argv[1])['report'][0]['pv'];
+        names = {sys.argv[2], sys.argv[3]};
+        used = {row.get('vg_name', '').strip() for row in rows};
+        assert names.isdisjoint(used), 'target Cinder VG exists without its array'
+      - "{{ openstack_guard_pvs.stdout }}"
+      - "{{ openstack_fast_vg }}"
+      - "{{ openstack_bulk_vg }}"
+  changed_when: false
+  when: not openstack_guard_raid_stats.results[0].stat.exists
+
+- name: Resolve guarded Cinder RAID devices
+  ansible.builtin.command:
+    argv:
+      - readlink
+      - --canonicalize-existing
+      - "{{ item }}"
+  loop:
+    - "{{ openstack_fast_raid_device }}"
+    - "{{ openstack_bulk_raid_device }}"
+  loop_control:
+    label: "{{ item }}"
+  register: openstack_guard_raid_realpaths
+  changed_when: false
+  when: openstack_guard_raid_stats.results[0].stat.exists
+
+- name: Validate existing Cinder volume group ownership
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/python3
+      - -c
+      - |
+        import json
+        import os
+        import sys
+
+        rows = json.loads(sys.argv[1])["report"][0]["pv"]
+        expected = {
+            sys.argv[2]: os.path.realpath(sys.argv[3]),
+            sys.argv[4]: os.path.realpath(sys.argv[5]),
+        }
+        manage = sys.argv[6].lower() == "true"
+        normalized = [
+            {
+                "pv": os.path.realpath(row["pv_name"].strip()),
+                "vg": row.get("vg_name", "").strip(),
+            }
+            for row in rows
+        ]
+        for vg, device in expected.items():
+            target = [row["pv"] for row in normalized if row["vg"] == vg]
+            if target:
+                assert target == [device], f"{vg} uses unexpected physical volumes"
+            else:
+                assert manage, f"required volume group {vg} is missing"
+            owners = [
+                row["vg"] for row in normalized
+                if row["pv"] == device and row["vg"]
+            ]
+            assert not owners or owners == [vg], (
+                f"{device} belongs to another volume group"
+            )
+      - "{{ openstack_guard_pvs.stdout }}"
+      - "{{ openstack_fast_vg }}"
+      - "{{ openstack_guard_raid_realpaths.results[0].stdout | trim }}"
+      - "{{ openstack_bulk_vg }}"
+      - "{{ openstack_guard_raid_realpaths.results[1].stdout | trim }}"
+      - "{{ openstack_manage_storage | bool | string }}"
+  changed_when: false
+  when: openstack_guard_raid_stats.results[0].stat.exists
+
+- name: Inspect signatures on guarded Cinder arrays
+  ansible.builtin.command:
+    argv:
+      - wipefs
+      - --noheadings
+      - --output
+      - TYPE
+      - "{{ item }}"
+  loop:
+    - "{{ openstack_fast_raid_device }}"
+    - "{{ openstack_bulk_raid_device }}"
+  loop_control:
+    label: "{{ item }}"
+  register: openstack_guard_raid_signatures
+  changed_when: false
+  when:
+    - openstack_manage_storage | bool
+    - openstack_guard_raid_stats.results[0].stat.exists
+
+- name: Inspect guarded arrays before signature removal
+  ansible.builtin.command:
+    argv:
+      - lsblk
+      - --json
+      - --paths
+      - --output
+      - NAME,TYPE,MOUNTPOINTS
+      - "{{ item.item }}"
+  loop: "{{ openstack_guard_raid_signatures.results | default([]) }}"
+  loop_control:
+    label: "{{ item.item }}"
+  register: openstack_guard_raid_topology
+  changed_when: false
+  when:
+    - item.skipped is not defined
+    - >-
+      item.stdout_lines
+      | reject('equalto', '')
+      | reject('equalto', 'LVM2_member')
+      | list
+      | length > 0
+
+- name: Refuse to wipe mounted or partitioned Cinder arrays
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/python3
+      - -c
+      - >-
+        import json, sys;
+        roots = json.loads(sys.argv[1]).get('blockdevices', []);
+        assert len(roots) == 1;
+        root = roots[0];
+        mounts = [value for value in (root.get('mountpoints') or []) if value];
+        assert not mounts, 'array is mounted';
+        assert not (root.get('children') or []), 'array has active child devices'
+      - "{{ item.stdout }}"
+  loop: "{{ openstack_guard_raid_topology.results | default([]) }}"
+  loop_control:
+    label: "{{ item.item.item }}"
+  changed_when: false
+  when: item.skipped is not defined
