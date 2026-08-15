@@ -195,15 +195,15 @@ state_home="${XDG_STATE_HOME:-${HOME}/.local/state}"
 config_dir="${KOLLA_CONFIG_DIR:-${state_home}/alwaldend/openstack/kolla}"
 export OS_CLIENT_CONFIG_FILE="${config_dir}/clouds.yaml"
 
-openstack --os-cloud admin volume type show fast >/dev/null 2>&1 ||
-  openstack --os-cloud admin volume type create fast
-openstack --os-cloud admin volume type set \
+openstack --os-cloud kolla-admin volume type show fast >/dev/null 2>&1 ||
+  openstack --os-cloud kolla-admin volume type create fast
+openstack --os-cloud kolla-admin volume type set \
   --property volume_backend_name=fast \
   fast
 
-openstack --os-cloud admin volume type show bulk >/dev/null 2>&1 ||
-  openstack --os-cloud admin volume type create bulk
-openstack --os-cloud admin volume type set \
+openstack --os-cloud kolla-admin volume type show bulk >/dev/null 2>&1 ||
+  openstack --os-cloud kolla-admin volume type create bulk
+openstack --os-cloud kolla-admin volume type set \
   --property volume_backend_name=bulk \
   bulk
 ```
