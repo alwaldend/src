@@ -20,7 +20,7 @@ infra.ansible_keys({
 lib.plugin_call({
     name = "kolla_passwords",
     plugin = "injector",
-    labels = { ansible = "1" },
+    labels = { kolla = "1" },
     data = {
         res = {
             {

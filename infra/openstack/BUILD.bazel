@@ -1,19 +1,6 @@
-load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/vault:defs.bzl", "vault_binary_map")
-
-_LAUNCHER = "$(rootpath //infra/openstack/ansible:launcher)"
-_CONFIG = "$(rootpath //infra/openstack/ansible:config)"
-_INVENTORY = "$(rootpath //infra/openstack/ansible:inventory)"
-
-_COMMON_ARGS = [
-    _LAUNCHER,
-    "--config",
-    _CONFIG,
-    "--inventory",
-    _INVENTORY,
-]
 
 al_config(
     name = "al",
@@ -26,57 +13,6 @@ filegroup(
     name = "kolla_passwords_template",
     srcs = ["kolla/passwords.yml.tpl"],
     visibility = ["//infra/openstack:__subpackages__"],
-)
-
-al_binary_run_map(
-    name = "openstack",
-    args = {
-        "": _COMMON_ARGS + [
-            "--action",
-            "deploy",
-            "--prepare-bin",
-            "$(rootpath //infra/openstack/ansible:prepare_deploy)",
-        ],
-        "deploy": _COMMON_ARGS + [
-            "--action",
-            "deploy",
-            "--prepare-bin",
-            "$(rootpath //infra/openstack/ansible:prepare_deploy)",
-        ],
-        "post_deploy": _COMMON_ARGS + [
-            "--action",
-            "post-deploy",
-        ],
-        "prechecks": _COMMON_ARGS + [
-            "--action",
-            "prechecks",
-            "--prepare-bin",
-            "$(rootpath //infra/openstack/ansible:prepare_prechecks)",
-        ],
-        "reconfigure": _COMMON_ARGS + [
-            "--action",
-            "reconfigure",
-            "--prepare-bin",
-            "$(rootpath //infra/openstack/ansible:prepare_reconfigure)",
-        ],
-    },
-    configs = [":al"],
-    data = [
-        ":kolla_passwords_template",
-        "//infra/openstack/ansible:config",
-        "//infra/openstack/ansible:inventory",
-        "//infra/openstack/ansible:launcher",
-        "//infra/openstack/ansible:prepare_deploy",
-        "//infra/openstack/ansible:prepare_prechecks",
-        "//infra/openstack/ansible:prepare_reconfigure",
-        "//tools/vault/injector",
-    ],
-    run_args = [
-        "--plugin_label",
-        "vault_env=default_default",
-        "--plugin_label",
-        "ansible",
-    ],
 )
 
 vault_binary_map(

@@ -1,0 +1,98 @@
+---
+- name: Prepare OpenStack master storage
+  hosts: openstack_master
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Install master storage packages
+      ansible.builtin.dnf:
+        name:
+          - lvm2
+          - mdadm
+        state: present
+
+    - name: Create fast RAID1
+      ansible.builtin.command:
+        argv:
+          - mdadm
+          - --create
+          - "{{ openstack_fast_raid_device }}"
+          - --metadata=1.2
+          - --name=cinder-fast
+          - --level=1
+          - --raid-devices=2
+          - --run
+          - "{{ openstack_fast_devices[0] }}"
+          - "{{ openstack_fast_devices[1] }}"
+        creates: "{{ openstack_fast_raid_device }}"
+      when: openstack_manage_storage | bool
+
+    - name: Create bulk RAID10
+      ansible.builtin.command:
+        argv:
+          - mdadm
+          - --create
+          - "{{ openstack_bulk_raid_device }}"
+          - --metadata=1.2
+          - --name=cinder-bulk
+          - --level=10
+          - --raid-devices=4
+          - --run
+          - "{{ openstack_bulk_devices[0] }}"
+          - "{{ openstack_bulk_devices[1] }}"
+          - "{{ openstack_bulk_devices[2] }}"
+          - "{{ openstack_bulk_devices[3] }}"
+        creates: "{{ openstack_bulk_raid_device }}"
+      when: openstack_manage_storage | bool
+
+    - name: Create fast Cinder volume group
+      community.general.lvg:
+        vg: "{{ openstack_fast_vg }}"
+        pvs: "{{ openstack_fast_raid_device }}"
+      when: openstack_manage_storage | bool
+
+    - name: Create bulk Cinder volume group
+      community.general.lvg:
+        vg: "{{ openstack_bulk_vg }}"
+        pvs: "{{ openstack_bulk_raid_device }}"
+      when: openstack_manage_storage | bool
+
+    - name: Create Glance data directory
+      ansible.builtin.file:
+        path: "{{ openstack_glance_data_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+- name: Prepare OpenStack compute storage
+  hosts: openstack_compute
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Install compute storage packages
+      ansible.builtin.dnf:
+        name: xfsprogs
+        state: present
+
+    - name: Create Nova data directory
+      ansible.builtin.file:
+        path: "{{ openstack_nova_datadir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Create compute filesystem
+      community.general.filesystem:
+        dev: "{{ openstack_compute_ephemeral_device }}"
+        fstype: "{{ openstack_compute_filesystem }}"
+      when: openstack_manage_compute_storage | bool
+
+    - name: Mount compute storage
+      ansible.posix.mount:
+        path: "{{ openstack_nova_datadir }}"
+        src: "{{ openstack_compute_ephemeral_device }}"
+        fstype: "{{ openstack_compute_filesystem }}"
+        opts: "{{ openstack_compute_mount_options }}"
+        state: mounted

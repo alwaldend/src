@@ -7,141 +7,102 @@ tags:
   - openstack
 ---
 
-This deployment runs OpenStack on two CentOS Stream 10 bare-metal hosts.
-Kolla-Ansible runs the OpenStack services in containers. The deployment does
-not use service VMs or Ceph.
-
-## Architecture
+This deployment uses two CentOS Stream 10 hosts.
 
 ```text
-master1.openstack1.dc1.alwaldend.com
-  control plane, API, database, message bus, OVN gateway, Glance, and Cinder
-  better boot NVMe: host OS, container state, databases, logs, and Glance
-  2 x SATA SSD: Linux RAID1 -> LVM VG cinder-fast
-  4 x DAS HDD: Linux RAID10 -> LVM VG cinder-bulk
+master1.openstack1.alwaldend.com
+  OpenStack control plane
+  OVN gateway
+  Glance
+  Cinder
+  SATA RAID1 -> cinder-fast
+  DAS RAID10 -> cinder-bulk
 
-compute1.openstack1.dc1.alwaldend.com
-  Nova compute, libvirt, OVN controller, and agent instances
-  boot NVMe: host OS, container images, and logs
-  dedicated 2 TB NVMe: XFS mounted at /var/lib/nova
+compute1.openstack1.alwaldend.com
+  Nova compute
+  libvirt
+  OVN controller
+  2 TB NVMe mounted at /var/lib/nova
 ```
 
-Nova stores local instance data below `/var/lib/nova/instances`. The dedicated
-2 TB NVMe holds VM root disks, ephemeral disks, image caches, and agent
-workspaces. The compute boot drive does not hold normal VM disks.
+The master should use the better boot drive. The compute host stores normal VM
+root disks and ephemeral data on its second NVMe under
+`/var/lib/nova/instances`.
 
-The master should use the better boot drive. Its boot drive holds persistent
-control-plane data and Glance images. The compute host sends most workload I/O
-to its second NVMe.
+## Execution model
 
-The `fast` Cinder type uses the mirrored SATA SSDs. The `bulk` Cinder type uses
-the four-disk RAID10 array. Use Cinder only for data that must remain after
-instance replacement.
+The repository Ansible playbook and Kolla-Ansible are separate Bazel targets.
+Nothing invokes Ansible from inside another Ansible playbook.
 
-The master is one failure domain. RAID protects data from some disk failures.
-RAID is not a backup, and it does not make the control plane highly available.
+Run the repository playbook first:
 
-## Launcher design
+```sh
+bazel run //infra/openstack/ansible
+```
 
-The Bazel target owns the complete deployment sequence. It starts these tools
-as separate child processes:
+Then run Kolla-Ansible explicitly:
 
-1. One repository Ansible playbook validates the hosts and prepares storage.
-2. The launcher installs the pinned Kolla-Ansible package in a cached virtual
-   environment.
-3. The launcher installs Kolla's Ansible Galaxy dependencies.
-4. The launcher renders the Kolla inventory and configuration.
-5. The launcher invokes `kolla-ansible` directly.
-6. The launcher invokes the OpenStack client for post-deploy reconciliation.
+```sh
+bazel run //infra/openstack/kolla:kolla.install_deps
+bazel run //infra/openstack/kolla:kolla.bootstrap_servers
+bazel run //infra/openstack/kolla:kolla.prechecks
+bazel run //infra/openstack/kolla:kolla.deploy
+bazel run //infra/openstack/kolla:kolla.post_deploy
+```
 
-An Ansible task never starts Kolla-Ansible or another Ansible process. This
-removes the former nested Ansible execution model.
+Apply later configuration changes with:
 
-The launcher keeps Kolla state below this directory pattern:
+```sh
+bazel run //infra/openstack/kolla:kolla.reconfigure
+```
+
+Arguments after `--` are passed to Kolla-Ansible.
+
+The deployment machine must already have a compatible `kolla-ansible`
+installation in `PATH`. The `install_deps` target installs Kolla's Ansible
+Galaxy dependencies; it does not install Kolla-Ansible itself.
+
+## Inventory
+
+Both Ansible targets use:
 
 ```text
-~/.local/state/alwaldend/openstack/2026.1-<revision>
+infra/openstack/ansible/inventory.yaml
 ```
 
-It keeps the revision-specific virtual environment below:
+Replace every `CHANGE_ME` value. The inventory contains the repository host
+groups and the standard Kolla service-group hierarchy.
+
+The hostnames are:
 
 ```text
-~/.cache/alwaldend/openstack/kolla-ansible-<revision>
+master1.openstack1.alwaldend.com
+compute1.openstack1.alwaldend.com
 ```
 
-## Network
-
-The two hosts use the same switch and a 1 GbE link. The link carries API,
-overlay, image, migration, and Cinder traffic. It limits remote block storage
-to approximately one gigabit per second.
-
-The deployment uses OVN. The master provides centralized north-south routing.
-The compute node does not need an external-network interface.
-
-The master needs two logical interfaces:
-
-- A management interface with one IPv4 address.
-- A separate unnumbered external interface for `br-ex`.
-
-A VLAN trunk can provide both interfaces through one physical NIC. Never set
-the external interface to the addressed management interface. OVN can remove
-management connectivity when it attaches that interface to `br-ex`.
-
-Use MTU 1500 unless the complete path supports a larger MTU. Configure the same
-MTU on both management interfaces and on every switch port in the path.
-
-## Host preparation
-
-Install CentOS Stream 10 on both hosts. Kolla uses Rocky Linux 10 container
-images because the selected release does not publish CentOS Stream 10 images.
-
-Create the `ansible` user on both hosts. Grant that user passwordless sudo.
-Install the repository Vault SSH client CA as a trusted user certificate CA.
-Record both host keys in the deployment account's `known_hosts` file.
-
-Set each `openstack_service_hostname` value to the host's short operating-system
-hostname. The host validation rejects a mismatch.
-
-Enable CPU virtualization and load KVM on the compute node. Configure working
-time synchronization on both hosts.
-
-The DAS must expose all four HDDs as separate Linux block devices. Do not use a
-DAS mode that combines the drives behind an opaque RAID volume.
-
-## Configure the deployment
-
-Replace each `CHANGE_ME` value in these files:
-
-- [`ansible/inventory.json`](./ansible/inventory.json)
-- [`ansible/config.json`](./ansible/config.json)
-
-Configure DNS for both inventory names. You can instead add `ansible_host` to
-each inventory host. Ensure that both hosts use different OS hostnames and IP
-addresses.
-
-Use stable `/dev/disk/by-id/...` paths. Do not use `/dev/sdX` or `/dev/nvmeXnY`
-paths for a destructive storage operation.
-
-Reserve one unused address on the management subnet for
-`openstack_kolla_internal_vip_address`. Both hosts must have the VIP on-link.
-Do not assign the address to another device.
-
-The storage roles enforce this layout:
+Set these interface variables on each host:
 
 ```text
-fast members: 2 whole non-rotating disks
-bulk members: 4 whole rotating disks
-compute member: 1 whole NVMe disk, at least 1.8 TB
+network_interface
+api_interface
+tunnel_interface
+migration_interface
 ```
 
-The roles reject duplicate paths, partitions, mounted member disks, unexpected
-RAID members, degraded arrays, wrong volume-group backing devices, and a Nova
-mount from the wrong disk.
+Set `neutron_external_interface` only on the master. It must be a separate,
+unnumbered interface that OVN can attach to `br-ex`.
 
-## Storage management
+## Storage preparation
 
-Storage creation is disabled by default. In this mode, create and mount the
-storage before you run the launcher:
+Storage creation is disabled by default:
+
+```yaml
+openstack_manage_storage: false
+openstack_manage_compute_storage: false
+```
+
+With those values, prepare the arrays, volume groups, filesystem, and mount
+manually before running Kolla:
 
 ```text
 /dev/md/cinder-fast -> RAID1 -> VG cinder-fast
@@ -149,140 +110,72 @@ storage before you run the launcher:
 2 TB NVMe -> XFS -> /var/lib/nova
 ```
 
-The host playbook still validates every array, volume group, member disk,
-mount, and fstab entry.
+To let the repository playbook create the RAID arrays, Cinder volume groups,
+and compute filesystem, set both management variables to `true` in
+`inventory.yaml`.
 
-To let Ansible create the arrays and compute filesystem, set all four flags in
-`ansible/config.json`:
+The playbook does not erase existing signatures. Disks must be blank before it
+creates arrays or a filesystem.
 
-```json
-{
-  "openstack_manage_storage": true,
-  "openstack_storage_wipe": true,
-  "openstack_manage_compute_storage": true,
-  "openstack_compute_storage_wipe": true
-}
+## Kolla configuration
+
+Edit:
+
+```text
+infra/openstack/kolla/globals.yml
 ```
 
-**Verify every by-id path before you set these flags.** These settings permit
-`wipefs`, filesystem creation, md array creation, and LVM initialization.
+Set `kolla_internal_vip_address` to an unused address on the management subnet.
+The static Kolla overrides configure:
 
-## Vault resources
-
-The change adds the `src_infra_openstack` AppRole to the Vault Terraform
-configuration. It also grants the AppRole access to the Ansible SSH signing
-role.
-
-Review the Vault plan before you apply it:
-
-```sh
-bazel run //infra/vault/tf:tf.plan
+```text
+fast -> cinder-fast
+bulk -> cinder-bulk
+Nova instances -> /var/lib/nova/instances
+Glance data -> /var/lib/openstack/glance
 ```
 
-Apply the Vault change through the normal repository process. Do not run the
-OpenStack launcher before the AppRole exists.
+The Kolla wrapper copies the checked-in configuration to:
 
-Kolla needs one complete generated `passwords.yml` document. Store it as the
-`passwords_yml` field at this Vault path:
+```text
+${XDG_STATE_HOME:-~/.local/state}/alwaldend/openstack/kolla
+```
+
+Set `KOLLA_CONFIG_DIR` to use another persistent directory.
+
+## Vault
+
+Apply the Vault Terraform change that creates:
+
+```text
+src_infra_openstack
+```
+
+Add one KV secret at:
 
 ```text
 secrets/alwaldend.com/vault1/approles/src_infra_openstack/kolla
 ```
 
-One initialization procedure follows:
-
-```sh
-set -eu
-workdir="$(mktemp -d)"
-trap 'rm -rf "${workdir}"' EXIT
-python3 -m venv "${workdir}/venv"
-kolla_revision="fe4f6adaf01e93af39cd28d3ad57d45b1db11884"
-"${workdir}/venv/bin/pip" install \
-  "git+https://opendev.org/openstack/kolla-ansible.git@${kolla_revision}"
-passwords_template="$("${workdir}/venv/bin/python" - <<'PY'
-from kolla_ansible import utils
-
-print(utils.get_data_files_path("etc_examples", "kolla", "passwords.yml"))
-PY
-)"
-cp "${passwords_template}" "${workdir}/passwords.yml"
-"${workdir}/venv/bin/kolla-genpwd" \
-  --passwords "${workdir}/passwords.yml"
-jq -Rs '{passwords_yml: .}' "${workdir}/passwords.yml" \
-  >"${workdir}/passwords.json"
-bazel run //infra/openstack:vault.kv_put \
-  alwaldend.com/vault1/approles/src_infra_openstack/kolla \
-  @"${workdir}/passwords.json"
-```
-
-The injector creates a private temporary password file. The launcher validates
-it, stages it only while Kolla runs, and removes the staged copy in a `finally`
-block.
-
-## Run the launcher
-
-Run host preparation and Kolla prechecks:
-
-```sh
-bazel run //infra/openstack:openstack.prechecks
-```
-
-Deploy the cloud and create the client configuration:
-
-```sh
-bazel run //infra/openstack:openstack.deploy
-```
-
-The default target also runs the deploy action:
-
-```sh
-bazel run //infra/openstack:openstack
-```
-
-Apply service configuration changes:
-
-```sh
-bazel run //infra/openstack:openstack.reconfigure
-```
-
-Regenerate client configuration and reconcile Cinder volume types:
-
-```sh
-bazel run //infra/openstack:openstack.post_deploy
-```
-
-The post-deploy checks require these active services:
+The secret requires one field:
 
 ```text
-master1@fast   cinder-volume enabled/up
-master1@bulk   cinder-volume enabled/up
-compute1       nova-compute  enabled/up
+passwords_yml
 ```
 
-The checks also require `fast` and `bulk` volume types with matching backend
-properties. Cinder uses `fast` as its default volume type.
+Its value is the complete Kolla `passwords.yml` document generated by
+`kolla-genpwd`.
 
-## Operations
+The Bazel wrapper obtains a Vault-signed SSH key separately. The Kolla password
+file is copied into the Kolla configuration directory only for the duration of
+the command and then removed.
 
-Keep agent root disks and workspaces on local Nova storage. Attach Cinder
-volumes only for persistent state. Large Cinder transfers can saturate the
-1 GbE link and affect API or overlay traffic.
+## Network constraint
 
-Back up important Cinder data to a separate failure domain. A disk mirror does
-not protect against deletion, controller failure, host failure, or corruption.
+The two hosts share a 1 GbE switch connection. Keep Nova instance disks on the
+compute NVMe. Use Cinder for persistent data rather than normal agent
+workspaces, because remote block I/O shares the same 1 GbE link as OpenStack
+control and overlay traffic.
 
-Monitor these items:
-
-- SMART health for all SSDs and HDDs.
-- md array state and resync progress.
-- Free space in both Cinder volume groups.
-- Free space below `/var/lib/nova`.
-- Master boot-drive health and free space.
-- Packet loss and link saturation between both hosts.
-
-## References
-
-- https://docs.openstack.org/kolla-ansible/2026.1/
-- https://docs.openstack.org/kolla-ansible/2026.1/user/quickstart.html
-- https://docs.openstack.org/kolla-ansible/2026.1/reference/storage/cinder-guide.html
-- https://docs.openstack.org/kolla-ansible/2026.1/reference/networking/neutron.html
+RAID protects against some disk failures. It is not a backup and does not make
+the master highly available.

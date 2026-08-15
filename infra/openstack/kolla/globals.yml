@@ -1,0 +1,36 @@
+---
+workaround_ansible_issue_8743: true
+
+config_strategy: COPY_ALWAYS
+kolla_base_distro: rocky
+openstack_release: "2026.1"
+kolla_container_engine: docker
+
+kolla_internal_vip_address: CHANGE_ME
+keepalived_virtual_router_id: 53
+disable_firewall: "yes"
+
+neutron_plugin_agent: ovn
+neutron_ovn_distributed_fip: "no"
+enable_neutron_provider_networks: "no"
+
+enable_openstack_core: "yes"
+enable_heat: "no"
+enable_horizon: "yes"
+enable_cinder: "yes"
+enable_cinder_backup: "no"
+enable_cinder_backend_lvm: "yes"
+enable_cinder_backend_iscsi: "yes"
+cinder_backend_lvm_name: fast
+cinder_volume_group: cinder-fast
+cinder_target_helper: lioadm
+
+nova_compute_virt_type: kvm
+nova_instance_datadir_volume: /var/lib/nova
+glance_file_datadir_volume: /var/lib/openstack/glance
+
+openstack_logging_debug: "False"
+enable_central_logging: "no"
+enable_fluentd: "no"
+enable_grafana: "no"
+enable_prometheus: "no"

@@ -1,0 +1,85 @@
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
+
+_KOLLA_BIN = "$(rootpath :kolla_bin)"
+_KOLLA_INPUTS = [
+    "$(rootpath //infra/openstack/ansible:inventory)",
+    "$(rootpath :globals)",
+    "$(rootpath :cinder_conf)",
+    "$(rootpath :cinder_volume_conf)",
+    "$(rootpath :nova_compute_conf)",
+]
+
+sh_binary(
+    name = "kolla_bin",
+    srcs = ["kolla.sh"],
+)
+
+filegroup(
+    name = "globals",
+    srcs = ["globals.yml"],
+)
+
+filegroup(
+    name = "cinder_conf",
+    srcs = ["config/cinder.conf"],
+)
+
+filegroup(
+    name = "cinder_volume_conf",
+    srcs = ["config/cinder/cinder-volume.conf"],
+)
+
+filegroup(
+    name = "nova_compute_conf",
+    srcs = ["config/nova/nova-compute.conf"],
+)
+
+al_binary_run_map(
+    name = "kolla",
+    args = {
+        "bootstrap_servers": [
+            _KOLLA_BIN,
+            "bootstrap-servers",
+        ] + _KOLLA_INPUTS,
+        "deploy": [
+            _KOLLA_BIN,
+            "deploy",
+        ] + _KOLLA_INPUTS,
+        "install_deps": [
+            _KOLLA_BIN,
+            "install-deps",
+        ] + _KOLLA_INPUTS,
+        "post_deploy": [
+            _KOLLA_BIN,
+            "post-deploy",
+        ] + _KOLLA_INPUTS,
+        "prechecks": [
+            _KOLLA_BIN,
+            "prechecks",
+        ] + _KOLLA_INPUTS,
+        "reconfigure": [
+            _KOLLA_BIN,
+            "reconfigure",
+        ] + _KOLLA_INPUTS,
+    },
+    configs = ["//infra/openstack:al"],
+    data = [
+        ":cinder_conf",
+        ":cinder_volume_conf",
+        ":globals",
+        ":kolla_bin",
+        ":nova_compute_conf",
+        "//infra/openstack:kolla_passwords_template",
+        "//infra/openstack/ansible:inventory",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "vault_env=default_default",
+        "--plugin_label",
+        "ansible",
+        "--plugin_label",
+        "kolla",
+    ],
+)
