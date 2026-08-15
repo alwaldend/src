@@ -4,32 +4,61 @@
     that:
       - groups['openstack_master'] | length == 1
       - groups['openstack_compute'] | length == 1
+      - groups['openstack_master'][0] != groups['openstack_compute'][0]
       - openstack_action in openstack_supported_actions
     fail_msg: >-
-      This deployment requires exactly one openstack_master, exactly one
-      openstack_compute, and a supported openstack_action.
+      This deployment requires one master, one distinct compute host, and a
+      supported openstack_action.
   run_once: true
 
-- name: Validate the Kolla internal VIP
+- name: Validate global Kolla network settings
   ansible.builtin.assert:
     that:
       - openstack_kolla_internal_vip_address | length > 0
       - openstack_kolla_internal_vip_address != 'CHANGE_ME'
-      - openstack_kolla_internal_vip_address is match('^[0-9]{1,3}(\.[0-9]{1,3}){3}$')
+      - >-
+        openstack_kolla_internal_vip_address
+        is match('^[0-9]{1,3}(\.[0-9]{1,3}){3}$')
+      - openstack_kolla_keepalived_virtual_router_id | int >= 1
+      - openstack_kolla_keepalived_virtual_router_id | int <= 255
     fail_msg: >-
-      Set openstack_kolla_internal_vip_address to an unused IPv4 address on the
-      management subnet.
+      Set a valid unused IPv4 VIP and a keepalived router ID from 1 through 255.
   run_once: true
 
-- name: Validate supported host operating system
+- name: Require the repository SSH principal
   ansible.builtin.assert:
     that:
-      - ansible_facts.os_family == 'RedHat'
-      - ansible_facts.distribution in ['CentOS', 'Rocky']
-      - ansible_facts.distribution_major_version | int == 10
+      - ansible_user == 'ansible'
+      - ansible_become | bool
     fail_msg: >-
-      Kolla-Ansible {{ openstack_release }} is configured here for CentOS
-      Stream 10 or Rocky Linux 10 hosts.
+      The Vault SSH client role signs the ansible principal. Use ansible with
+      passwordless privilege escalation on both hosts.
+
+- name: Validate the host operating system
+  ansible.builtin.assert:
+    that:
+      - ansible_facts.distribution == 'CentOS'
+      - ansible_facts.distribution_major_version | int == 10
+      - ansible_facts.architecture == 'x86_64'
+    fail_msg: >-
+      Install CentOS Stream 10 for x86-64 on both OpenStack hosts.
+
+- name: Inspect host clock synchronization
+  ansible.builtin.command:
+    argv:
+      - timedatectl
+      - show
+      - --property=NTPSynchronized
+      - --value
+  register: openstack_ntp_synchronized
+  changed_when: false
+
+- name: Require synchronized host clocks
+  ansible.builtin.assert:
+    that:
+      - openstack_ntp_synchronized.stdout | trim == 'yes'
+    fail_msg: >-
+      Configure working time synchronization before OpenStack deployment.
 
 - name: Validate management interface setting
   ansible.builtin.assert:
@@ -39,11 +68,10 @@
       - openstack_management_interface != 'CHANGE_ME'
       - openstack_management_interface in ansible_facts.interfaces
     fail_msg: >-
-      Set openstack_management_interface to an existing, addressed management
-      interface on {{ inventory_hostname }}.
+      Set openstack_management_interface to an existing interface on
+      {{ inventory_hostname }}.
 
-
-- name: Inspect management interface addresses
+- name: Read management interface addresses
   ansible.builtin.command:
     argv:
       - ip
@@ -55,19 +83,61 @@
   register: openstack_management_addresses
   changed_when: false
 
-- name: Require an IPv4 address on the management interface
+- name: Read management interface state
+  ansible.builtin.command:
+    argv:
+      - cat
+      - "/sys/class/net/{{ openstack_management_interface }}/operstate"
+  register: openstack_management_operstate
+  changed_when: false
+
+- name: Read management interface carrier
+  ansible.builtin.command:
+    argv:
+      - cat
+      - "/sys/class/net/{{ openstack_management_interface }}/carrier"
+  register: openstack_management_carrier
+  changed_when: false
+
+- name: Validate management address and VIP subnet
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/python3
+      - -c
+      - >-
+        import ipaddress, json, sys;
+        links = json.loads(sys.argv[1]);
+        assert len(links) == 1;
+        addresses = [item for item in links[0].get('addr_info', [])
+                     if item.get('family') == 'inet'];
+        assert len(addresses) == 1;
+        address = addresses[0];
+        interface = ipaddress.ip_interface(
+            f"{address['local']}/{address['prefixlen']}");
+        vip = ipaddress.ip_address(sys.argv[2]);
+        assert vip in interface.network;
+        assert vip not in {
+            interface.ip,
+            interface.network.network_address,
+            interface.network.broadcast_address,
+        }
+      - "{{ openstack_management_addresses.stdout }}"
+      - "{{ openstack_kolla_internal_vip_address }}"
+  changed_when: false
+
+- name: Require a usable management link
   ansible.builtin.assert:
     that:
+      - openstack_management_operstate.stdout | trim == 'up'
+      - openstack_management_carrier.stdout | trim == '1'
       - >-
-        (openstack_management_addresses.stdout | from_json | first).addr_info
-        | selectattr('family', 'equalto', 'inet')
-        | list
-        | length > 0
+        (openstack_management_addresses.stdout | from_json | first).mtu
+        | int >= 1500
     fail_msg: >-
-      {{ openstack_management_interface }} must have an IPv4 address on
-      {{ inventory_hostname }}.
+      The management interface must be up, have carrier, and use MTU 1500 or
+      greater on {{ inventory_hostname }}.
 
-- name: Validate master's external network interface
+- name: Validate the master's external interface setting
   ansible.builtin.assert:
     that:
       - openstack_external_interface is defined
@@ -76,12 +146,11 @@
       - openstack_external_interface in ansible_facts.interfaces
       - openstack_external_interface != openstack_management_interface
     fail_msg: >-
-      The master needs a separate, unnumbered external interface. A VLAN
+      Configure a separate unnumbered external interface on the master. A VLAN
       subinterface on the same physical NIC is acceptable.
   when: inventory_hostname in groups['openstack_master']
 
-
-- name: Inspect master's external interface addresses
+- name: Read master's external interface addresses
   ansible.builtin.command:
     argv:
       - ip
@@ -94,31 +163,106 @@
   changed_when: false
   when: inventory_hostname in groups['openstack_master']
 
-- name: Require an unnumbered external interface
+- name: Read master's external interface state
+  ansible.builtin.command:
+    argv:
+      - cat
+      - "/sys/class/net/{{ openstack_external_interface }}/operstate"
+  register: openstack_external_operstate
+  changed_when: false
+  when: inventory_hostname in groups['openstack_master']
+
+- name: Read master's external interface carrier
+  ansible.builtin.command:
+    argv:
+      - cat
+      - "/sys/class/net/{{ openstack_external_interface }}/carrier"
+  register: openstack_external_carrier
+  changed_when: false
+  when: inventory_hostname in groups['openstack_master']
+
+- name: Require a usable unnumbered external interface
   ansible.builtin.assert:
     that:
+      - openstack_external_operstate.stdout | trim == 'up'
+      - openstack_external_carrier.stdout | trim == '1'
       - >-
         (openstack_external_addresses.stdout | from_json | first).addr_info
-        | selectattr('family', 'equalto', 'inet')
+        | selectattr('scope', 'equalto', 'global')
         | list
         | length == 0
     fail_msg: >-
-      Remove IPv4 addresses from {{ openstack_external_interface }} before
-      allowing OVN to attach it to br-ex.
+      The master's external interface must be up and must have no global IP
+      address before OVN attaches it to br-ex.
   when: inventory_hostname in groups['openstack_master']
 
-- name: Inspect KVM device on compute node
+- name: Find an existing Kolla internal VIP
+  ansible.builtin.command:
+    argv:
+      - ip
+      - -j
+      - address
+      - show
+      - to
+      - "{{ openstack_kolla_internal_vip_address }}/32"
+  register: openstack_existing_vip
+  changed_when: false
+
+- name: Keep the VIP off the compute node
+  ansible.builtin.assert:
+    that:
+      - openstack_existing_vip.stdout | from_json | length == 0
+    fail_msg: >-
+      The Kolla internal VIP must never be assigned to the compute node.
+  when: inventory_hostname in groups['openstack_compute']
+
+- name: Inspect Kolla keepalived for an existing master VIP
+  ansible.builtin.command:
+    argv:
+      - docker
+      - ps
+      - --quiet
+      - --filter
+      - name=keepalived
+      - --filter
+      - status=running
+  register: openstack_keepalived_container
+  changed_when: false
+  failed_when: false
+  when:
+    - inventory_hostname in groups['openstack_master']
+    - openstack_existing_vip.stdout | from_json | length > 0
+
+- name: Validate an existing master VIP
+  ansible.builtin.assert:
+    that:
+      - >-
+        openstack_existing_vip.stdout
+        | from_json
+        | map(attribute='ifname')
+        | unique
+        | list
+        == [openstack_management_interface]
+      - openstack_keepalived_container.rc == 0
+      - openstack_keepalived_container.stdout | trim | length > 0
+    fail_msg: >-
+      An existing VIP must be on the management interface and owned by a
+      running Kolla keepalived container.
+  when:
+    - inventory_hostname in groups['openstack_master']
+    - openstack_existing_vip.stdout | from_json | length > 0
+
+- name: Inspect KVM device on the compute node
   ansible.builtin.stat:
     path: /dev/kvm
   register: openstack_kvm_device
   when: inventory_hostname in groups['openstack_compute']
 
-- name: Require hardware virtualization on compute node
+- name: Require hardware virtualization on the compute node
   ansible.builtin.assert:
     that:
       - openstack_kvm_device.stat.exists
       - openstack_kvm_device.stat.ischr
     fail_msg: >-
-      /dev/kvm is unavailable on {{ inventory_hostname }}. Enable CPU
-      virtualization in firmware and load the KVM kernel modules.
+      Enable CPU virtualization and load the KVM modules on the compute node.
   when: inventory_hostname in groups['openstack_compute']

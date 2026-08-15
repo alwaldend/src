@@ -6,24 +6,82 @@ from __future__ import annotations
 import argparse
 import json
 import re
+from collections.abc import Iterable, Mapping, Sequence
 from pathlib import Path
-from typing import Dict, Iterable, List
 
-SECTION_RE = re.compile(r"^\[([^]]+)]\s*$", re.MULTILINE)
+SECTION_RE = re.compile(r"^\[([^]]+)]\s*$")
+REQUIRED_SECTIONS = frozenset(
+    {
+        "compute",
+        "control",
+        "deployment",
+        "monitoring",
+        "network",
+        "storage",
+    }
+)
 
 
-def render(source: str, replacements: Dict[str, List[str]]) -> str:
-    source_sections = {match.group(1) for match in SECTION_RE.finditer(source)}
-    missing_sections = set(replacements).difference(source_sections)
-    if missing_sections:
+def source_sections(source: str) -> list[str]:
+    """Return inventory section names and reject duplicate sections."""
+    sections = [
+        match.group(1)
+        for line in source.splitlines()
+        if (match := SECTION_RE.match(line))
+    ]
+    duplicates = sorted(
+        section for section in set(sections) if sections.count(section) > 1
+    )
+    if duplicates:
         raise ValueError(
-            "source inventory is missing sections: "
-            + ", ".join(sorted(missing_sections))
+            "source inventory contains duplicate sections: "
+            + ", ".join(duplicates)
+        )
+    return sections
+
+
+def validate(replacements: Mapping[str, Sequence[str]]) -> None:
+    """Validate the exact set and shape of replacement sections."""
+    missing = REQUIRED_SECTIONS.difference(replacements)
+    if missing:
+        raise ValueError(
+            "missing replacement sections: " + ", ".join(sorted(missing))
         )
 
-    output: List[str] = []
-    skip_section_body = False
+    extra = set(replacements).difference(REQUIRED_SECTIONS)
+    if extra:
+        raise ValueError(
+            "unexpected replacement sections: " + ", ".join(sorted(extra))
+        )
 
+    for section, lines in replacements.items():
+        if not isinstance(lines, list):
+            raise TypeError(f"section {section!r} must contain a list")
+        if not all(isinstance(line, str) for line in lines):
+            raise TypeError(
+                f"section {section!r} must contain only strings"
+            )
+        if any(not line.strip() for line in lines):
+            raise ValueError(f"section {section!r} contains an empty host entry")
+        if any("\n" in line or "\r" in line for line in lines):
+            raise ValueError(
+                f"section {section!r} contains a multiline host entry"
+            )
+
+
+def render(source: str, replacements: Mapping[str, list[str]]) -> str:
+    """Render a Kolla inventory with replaced host-bearing sections."""
+    validate(replacements)
+    sections = set(source_sections(source))
+    missing = REQUIRED_SECTIONS.difference(sections)
+    if missing:
+        raise ValueError(
+            "source inventory is missing sections: "
+            + ", ".join(sorted(missing))
+        )
+
+    output: list[str] = []
+    skip_section_body = False
     for line in source.splitlines():
         match = SECTION_RE.match(line)
         if match:
@@ -36,24 +94,10 @@ def render(source: str, replacements: Dict[str, List[str]]) -> str:
             else:
                 skip_section_body = False
             continue
-
         if not skip_section_body:
             output.append(line)
 
     return "\n".join(output).rstrip() + "\n"
-
-
-def validate(replacements: Dict[str, List[str]]) -> None:
-    required = {"control", "network", "compute", "monitoring", "storage", "deployment"}
-    missing = required.difference(replacements)
-    if missing:
-        raise ValueError(f"missing replacement sections: {', '.join(sorted(missing))}")
-
-    for section, lines in replacements.items():
-        if not isinstance(lines, list) or not all(isinstance(line, str) for line in lines):
-            raise TypeError(f"section {section!r} must contain a list of strings")
-        if any("\n" in line or "\r" in line for line in lines):
-            raise ValueError(f"section {section!r} contains a multiline host entry")
 
 
 def parse_args(argv: Iterable[str] | None = None) -> argparse.Namespace:
@@ -67,10 +111,15 @@ def parse_args(argv: Iterable[str] | None = None) -> argparse.Namespace:
 def main() -> None:
     args = parse_args()
     replacements = json.loads(args.sections.read_text(encoding="utf-8"))
-    validate(replacements)
-    rendered = render(args.source.read_text(encoding="utf-8"), replacements)
+    rendered = render(
+        args.source.read_text(encoding="utf-8"),
+        replacements,
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    if args.output.exists() and args.output.read_text(encoding="utf-8") == rendered:
+    if (
+        args.output.exists()
+        and args.output.read_text(encoding="utf-8") == rendered
+    ):
         print("unchanged")
         return
     args.output.write_text(rendered, encoding="utf-8")

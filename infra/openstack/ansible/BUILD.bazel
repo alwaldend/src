@@ -1,4 +1,5 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+load("@rules_python//python:defs.bzl", "py_test")
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
 load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
 load("//tools/docs:defs.bzl", "docs_filegroup")
@@ -71,6 +72,15 @@ pkg_files(
         "roles/**",
     ]),
     strip_prefix = strip_prefix.from_pkg(),
+)
+
+py_test(
+    name = "render_inventory_test",
+    srcs = [
+        "roles/openstack_kolla/files/render_inventory.py",
+        "roles/openstack_kolla/files/render_inventory_test.py",
+    ],
+    main = "roles/openstack_kolla/files/render_inventory_test.py",
 )
 
 docs_filegroup(

@@ -3,7 +3,7 @@
   hosts: openstack
   become: true
   gather_facts: true
-  force_handlers: true
+  any_errors_fatal: true
   roles:
     - role: openstack_preflight
 
@@ -11,7 +11,7 @@
   hosts: openstack_master
   become: true
   gather_facts: true
-  force_handlers: true
+  any_errors_fatal: true
   roles:
     - role: openstack_storage
 
@@ -19,13 +19,14 @@
   hosts: openstack_compute
   become: true
   gather_facts: true
-  force_handlers: true
+  any_errors_fatal: true
   roles:
     - role: openstack_compute_storage
 
 - name: Deploy OpenStack with Kolla-Ansible
   hosts: localhost
   connection: local
+  become: false
   gather_facts: true
   roles:
     - role: openstack_kolla

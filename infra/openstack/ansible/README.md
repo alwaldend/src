@@ -6,9 +6,8 @@ tags:
   - openstack
 ---
 
-The playbook prepares the two bare-metal hosts, validates the storage and
-network layout, renders a Kolla multinode inventory, and invokes the pinned
-Kolla-Ansible release from a local virtual environment.
+The playbook validates both bare-metal hosts, prepares local storage, renders a
+Kolla multinode inventory, and invokes the pinned Kolla-Ansible revision.
 
-See the parent [OpenStack deployment documentation](../README.md) before
-running a target.
+See the parent [OpenStack deployment documentation](../README.md) before you
+run a target. The normal targets can change hosts and cloud services.

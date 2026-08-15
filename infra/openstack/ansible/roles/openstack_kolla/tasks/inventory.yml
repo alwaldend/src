@@ -1,0 +1,103 @@
+---
+- name: Define OpenStack inventory hosts
+  ansible.builtin.set_fact:
+    openstack_kolla_master_host: "{{ groups['openstack_master'][0] }}"
+    openstack_kolla_compute_host: "{{ groups['openstack_compute'][0] }}"
+
+- name: Build Kolla inventory host lines
+  ansible.builtin.set_fact:
+    openstack_kolla_master_line: >-
+      {{ openstack_kolla_master_host }}
+      ansible_host={{
+        hostvars[openstack_kolla_master_host].ansible_host
+        | default(openstack_kolla_master_host)
+      }}
+      ansible_user={{ hostvars[openstack_kolla_master_host].ansible_user }}
+      ansible_port={{ hostvars[openstack_kolla_master_host].ansible_port | default(22) }}
+      ansible_become=true
+      ansible_python_interpreter={{
+        hostvars[openstack_kolla_master_host].ansible_python_interpreter
+        | default('/usr/bin/python3')
+      }}
+      network_interface={{ hostvars[openstack_kolla_master_host].openstack_management_interface }}
+      api_interface={{ hostvars[openstack_kolla_master_host].openstack_management_interface }}
+      tunnel_interface={{ hostvars[openstack_kolla_master_host].openstack_management_interface }}
+      migration_interface={{ hostvars[openstack_kolla_master_host].openstack_management_interface }}
+      neutron_external_interface={{
+        hostvars[openstack_kolla_master_host].openstack_external_interface
+      }}
+    openstack_kolla_compute_line: >-
+      {{ openstack_kolla_compute_host }}
+      ansible_host={{
+        hostvars[openstack_kolla_compute_host].ansible_host
+        | default(openstack_kolla_compute_host)
+      }}
+      ansible_user={{ hostvars[openstack_kolla_compute_host].ansible_user }}
+      ansible_port={{ hostvars[openstack_kolla_compute_host].ansible_port | default(22) }}
+      ansible_become=true
+      ansible_python_interpreter={{
+        hostvars[openstack_kolla_compute_host].ansible_python_interpreter
+        | default('/usr/bin/python3')
+      }}
+      network_interface={{ hostvars[openstack_kolla_compute_host].openstack_management_interface }}
+      api_interface={{ hostvars[openstack_kolla_compute_host].openstack_management_interface }}
+      tunnel_interface={{ hostvars[openstack_kolla_compute_host].openstack_management_interface }}
+      migration_interface={{
+        hostvars[openstack_kolla_compute_host].openstack_management_interface
+      }}
+
+- name: Write Kolla inventory section replacements
+  ansible.builtin.copy:
+    dest: "{{ openstack_kolla_inventory_sections }}"
+    mode: "0600"
+    content: >-
+      {{
+        {
+          'control': [openstack_kolla_master_line],
+          'network': [openstack_kolla_master_line],
+          'compute': [openstack_kolla_compute_line],
+          'monitoring': [],
+          'storage': [openstack_kolla_master_line],
+          'deployment': ['localhost ansible_connection=local']
+        } | to_nice_json
+      }}
+
+- name: Render the release-matched Kolla inventory
+  ansible.builtin.command:
+    argv:
+      - "{{ openstack_kolla_venv }}/bin/python"
+      - "{{ role_path }}/files/render_inventory.py"
+      - --source
+      - "{{ openstack_kolla_stock_inventory.stdout | trim }}"
+      - --sections
+      - "{{ openstack_kolla_inventory_sections }}"
+      - --output
+      - "{{ openstack_kolla_inventory }}"
+  register: openstack_kolla_inventory_render
+  changed_when: openstack_kolla_inventory_render.stdout | trim == 'changed'
+
+- name: Render Kolla global configuration
+  ansible.builtin.template:
+    src: globals.yml.j2
+    dest: "{{ openstack_kolla_config_dir }}/globals.yml"
+    mode: "0600"
+
+- name: Render Cinder global configuration
+  ansible.builtin.template:
+    src: cinder.conf.j2
+    dest: "{{ openstack_kolla_config_dir }}/config/cinder.conf"
+    mode: "0600"
+
+- name: Render Cinder volume configuration
+  ansible.builtin.template:
+    src: cinder-volume.conf.j2
+    dest: >-
+      {{ openstack_kolla_config_dir }}/config/cinder/cinder-volume.conf
+    mode: "0600"
+
+- name: Render Nova compute configuration
+  ansible.builtin.template:
+    src: nova-compute.conf.j2
+    dest: >-
+      {{ openstack_kolla_config_dir }}/config/nova/nova-compute.conf
+    mode: "0600"

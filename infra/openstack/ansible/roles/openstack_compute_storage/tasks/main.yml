@@ -1,40 +1,41 @@
 ---
-- name: Install compute storage tooling
+- name: Install compute storage tools
   ansible.builtin.dnf:
     name:
+      - util-linux
       - xfsprogs
     state: present
 
-- name: Validate destructive compute-storage inputs
+- name: Validate the compute storage device setting
   ansible.builtin.assert:
     that:
-      - openstack_compute_storage_wipe | bool
       - openstack_compute_ephemeral_device is defined
-      - openstack_compute_ephemeral_device is match('^/dev/disk/by-id/')
+      - >-
+        openstack_compute_ephemeral_device
+        is match('^/dev/disk/by-id/[^/]+$')
       - openstack_compute_ephemeral_device is not search('CHANGE_ME')
+      - openstack_nova_datadir == '/var/lib/nova'
+      - openstack_compute_filesystem == 'xfs'
     fail_msg: >-
-      Compute storage provisioning is destructive. Set a stable NVMe by-id path
-      and openstack_compute_storage_wipe=true before enabling it.
-  when: openstack_manage_compute_storage | bool
+      Set one whole-disk NVMe by-id path. Nova data must use /var/lib/nova on
+      XFS.
 
-- name: Inspect compute ephemeral NVMe
+- name: Inspect the configured compute device
   ansible.builtin.stat:
     path: "{{ openstack_compute_ephemeral_device }}"
     follow: true
   register: openstack_compute_device_stat
-  when: openstack_manage_compute_storage | bool
 
-- name: Require compute ephemeral NVMe to exist
+- name: Require the configured compute device
   ansible.builtin.assert:
     that:
       - openstack_compute_device_stat.stat.exists
       - openstack_compute_device_stat.stat.isblk
     fail_msg: >-
-      Configured compute device {{ openstack_compute_ephemeral_device }} is not
-      a block device.
-  when: openstack_manage_compute_storage | bool
+      {{ openstack_compute_ephemeral_device }} does not resolve to a block
+      device.
 
-- name: Resolve compute ephemeral NVMe path
+- name: Resolve the configured compute device
   ansible.builtin.command:
     argv:
       - readlink
@@ -42,78 +43,173 @@
       - "{{ openstack_compute_ephemeral_device }}"
   register: openstack_compute_device_realpath
   changed_when: false
-  when: openstack_manage_compute_storage | bool
 
-- name: Inspect mounts using compute ephemeral NVMe
+- name: Inspect the compute device topology
   ansible.builtin.command:
     argv:
-      - findmnt
+      - lsblk
       - --json
-      - --evaluate
-      - --source
-      - "{{ openstack_compute_device_realpath.stdout | trim }}"
+      - --bytes
+      - --paths
       - --output
-      - TARGET
-  register: openstack_compute_device_mounts
+      - NAME,TYPE,TRAN,ROTA,SIZE,MOUNTPOINTS
+      - "{{ openstack_compute_device_realpath.stdout | trim }}"
+  register: openstack_compute_lsblk
   changed_when: false
-  failed_when: false
-  when: openstack_manage_compute_storage | bool
 
-- name: Refuse to repurpose an NVMe mounted elsewhere
-  ansible.builtin.assert:
-    that:
+- name: Validate the dedicated compute NVMe
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/python3
+      - -c
       - >-
-        (openstack_compute_device_mounts.stdout | from_json).filesystems
-        | map(attribute='target')
-        | reject('equalto', openstack_nova_instances_dir)
-        | list
-        | length == 0
-    fail_msg: >-
-      {{ openstack_compute_ephemeral_device }} is mounted somewhere other than
-      {{ openstack_nova_instances_dir }}. Refusing to wipe or remount it.
-  when:
-    - openstack_manage_compute_storage | bool
-    - openstack_compute_device_mounts.rc == 0
+        import json, os, sys;
+        data = json.loads(sys.argv[1]);
+        devices = data.get('blockdevices', []);
+        assert len(devices) == 1, 'expected one block device';
+        root = devices[0];
+        assert os.path.realpath(root['name']) == os.path.realpath(sys.argv[2]);
+        assert root.get('type') == 'disk', 'device is not a whole disk';
+        assert root.get('tran') == 'nvme', 'device transport is not NVMe';
+        assert int(root.get('rota', 1)) == 0, 'device is rotational';
+        assert int(root.get('size', 0)) >= int(sys.argv[3]), 'device is too small';
+        children = root.get('children') or [];
+        assert not children, 'device has partitions or active child devices';
+        mounts = [value for value in (root.get('mountpoints') or []) if value];
+        assert set(mounts).issubset({sys.argv[4]}), 'device is mounted elsewhere'
+      - "{{ openstack_compute_lsblk.stdout }}"
+      - "{{ openstack_compute_device_realpath.stdout | trim }}"
+      - "{{ openstack_compute_minimum_bytes | string }}"
+      - "{{ openstack_nova_datadir }}"
+  changed_when: false
 
-- name: Inspect Nova instance mount
+- name: Create the Nova data directory
+  ansible.builtin.file:
+    path: "{{ openstack_nova_datadir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Inspect the Nova data mount
   ansible.builtin.command:
     argv:
       - findmnt
       - --json
       - --evaluate
       - --mountpoint
-      - "{{ openstack_nova_instances_dir }}"
+      - "{{ openstack_nova_datadir }}"
       - --output
-      - SOURCE,FSTYPE
+      - SOURCE,FSTYPE,OPTIONS
   register: openstack_nova_mount_before
   changed_when: false
   failed_when: false
 
-- name: Validate an existing Nova instance mount
+- name: Inspect the Nova data fstab entry
+  ansible.builtin.command:
+    argv:
+      - findmnt
+      - --fstab
+      - --json
+      - --evaluate
+      - --mountpoint
+      - "{{ openstack_nova_datadir }}"
+      - --output
+      - SOURCE,FSTYPE,OPTIONS
+  register: openstack_nova_fstab_before
+  changed_when: false
+  failed_when: false
+
+- name: Validate an existing Nova data mount
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/python3
+      - -c
+      - |
+        import json
+        import os
+        import sys
+
+        filesystems = json.loads(sys.argv[1]).get("filesystems", [])
+        assert len(filesystems) == 1, "Nova data is not a separate mount"
+        entry = filesystems[0]
+        assert os.path.realpath(entry["source"]) == os.path.realpath(sys.argv[2])
+        assert entry.get("fstype") == sys.argv[3]
+        options = set((entry.get("options") or "").split(","))
+        assert "noatime" in options
+      - "{{ openstack_nova_mount_before.stdout }}"
+      - "{{ openstack_compute_device_realpath.stdout | trim }}"
+      - "{{ openstack_compute_filesystem }}"
+  changed_when: false
+  when: openstack_nova_mount_before.rc == 0
+
+- name: Validate an existing Nova data fstab entry
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/python3
+      - -c
+      - |
+        import json
+        import os
+        import sys
+
+        filesystems = json.loads(sys.argv[1]).get("filesystems", [])
+        assert len(filesystems) == 1, "Nova data has no unique fstab entry"
+        entry = filesystems[0]
+        assert os.path.realpath(entry["source"]) == os.path.realpath(sys.argv[2])
+        assert entry.get("fstype") == sys.argv[3]
+        options = set((entry.get("options") or "").split(","))
+        assert "noatime" in options
+      - "{{ openstack_nova_fstab_before.stdout }}"
+      - "{{ openstack_compute_device_realpath.stdout | trim }}"
+      - "{{ openstack_compute_filesystem }}"
+  changed_when: false
+  when: openstack_nova_fstab_before.rc == 0
+
+- name: Require explicit permission for compute storage creation
   ansible.builtin.assert:
     that:
-      - >-
-        (openstack_nova_mount_before.stdout | from_json).filesystems[0].source
-        == (openstack_compute_device_realpath.stdout | trim)
-      - >-
-        (openstack_nova_mount_before.stdout | from_json).filesystems[0].fstype
-        == openstack_compute_filesystem
+      - openstack_compute_storage_wipe | bool
     fail_msg: >-
-      {{ openstack_nova_instances_dir }} is mounted from an unexpected source
-      or uses an unexpected filesystem.
+      Set openstack_compute_storage_wipe=true before the role creates or
+      replaces the compute filesystem.
   when:
     - openstack_manage_compute_storage | bool
-    - openstack_nova_mount_before.rc == 0
+    - openstack_nova_mount_before.rc != 0
 
-- name: Create Nova instance mount point
-  ansible.builtin.file:
-    path: "{{ openstack_nova_instances_dir }}"
-    state: directory
-    owner: root
-    group: root
-    mode: "0755"
+- name: Require an existing mount when storage management is disabled
+  ansible.builtin.assert:
+    that:
+      - openstack_nova_mount_before.rc == 0
+      - openstack_nova_fstab_before.rc == 0
+    fail_msg: >-
+      Mount {{ openstack_compute_ephemeral_device }} at
+      {{ openstack_nova_datadir }}, or enable both compute storage flags.
+  when: not (openstack_manage_compute_storage | bool)
 
-- name: Inspect compute ephemeral filesystem
+- name: Inspect files below an unmounted Nova data directory
+  ansible.builtin.find:
+    paths: "{{ openstack_nova_datadir }}"
+    file_type: any
+    hidden: true
+    recurse: false
+  register: openstack_nova_datadir_entries
+  when:
+    - openstack_manage_compute_storage | bool
+    - openstack_nova_mount_before.rc != 0
+
+- name: Refuse to hide existing Nova data
+  ansible.builtin.assert:
+    that:
+      - openstack_nova_datadir_entries.matched == 0
+    fail_msg: >-
+      {{ openstack_nova_datadir }} contains data on the boot filesystem.
+      Move or remove it before the NVMe mount is created.
+  when:
+    - openstack_manage_compute_storage | bool
+    - openstack_nova_mount_before.rc != 0
+
+- name: Inspect the compute device filesystem
   ansible.builtin.command:
     argv:
       - blkid
@@ -122,7 +218,7 @@
       - value
       - --match-tag
       - TYPE
-      - "{{ openstack_compute_ephemeral_device }}"
+      - "{{ openstack_compute_device_realpath.stdout | trim }}"
   register: openstack_compute_filesystem_before
   changed_when: false
   failed_when: openstack_compute_filesystem_before.rc not in [0, 2]
@@ -130,81 +226,99 @@
     - openstack_manage_compute_storage | bool
     - openstack_nova_mount_before.rc != 0
 
-- name: Remove signatures from compute ephemeral NVMe
+- name: Remove old signatures from the compute NVMe
   ansible.builtin.command:
     argv:
       - wipefs
       - --all
-      - "{{ openstack_compute_ephemeral_device }}"
+      - "{{ openstack_compute_device_realpath.stdout | trim }}"
   changed_when: true
   when:
     - openstack_manage_compute_storage | bool
     - openstack_compute_storage_wipe | bool
     - openstack_nova_mount_before.rc != 0
-    - (openstack_compute_filesystem_before.stdout | default('') | trim) != openstack_compute_filesystem
+    - >-
+      openstack_compute_filesystem_before.stdout | default('') | trim
+      != openstack_compute_filesystem
 
-- name: Create compute ephemeral filesystem
+- name: Create the compute filesystem
   community.general.filesystem:
-    dev: "{{ openstack_compute_ephemeral_device }}"
+    dev: "{{ openstack_compute_device_realpath.stdout | trim }}"
     fstype: "{{ openstack_compute_filesystem }}"
     force: false
   when:
     - openstack_manage_compute_storage | bool
     - openstack_nova_mount_before.rc != 0
-    - (openstack_compute_filesystem_before.stdout | default('') | trim) != openstack_compute_filesystem
+    - >-
+      openstack_compute_filesystem_before.stdout | default('') | trim
+      != openstack_compute_filesystem
 
-- name: Mount compute ephemeral filesystem
+- name: Mount the compute NVMe for Nova
   ansible.posix.mount:
-    path: "{{ openstack_nova_instances_dir }}"
+    path: "{{ openstack_nova_datadir }}"
     src: "{{ openstack_compute_ephemeral_device }}"
     fstype: "{{ openstack_compute_filesystem }}"
     opts: "{{ openstack_compute_mount_options }}"
     state: mounted
   when: openstack_manage_compute_storage | bool
 
-- name: Verify Nova instance mount
+- name: Inspect the final Nova data mount
   ansible.builtin.command:
     argv:
       - findmnt
       - --json
       - --evaluate
       - --mountpoint
-      - "{{ openstack_nova_instances_dir }}"
+      - "{{ openstack_nova_datadir }}"
       - --output
-      - SOURCE,FSTYPE
+      - SOURCE,FSTYPE,OPTIONS
   register: openstack_nova_mount_after
   changed_when: false
-  failed_when: false
 
-- name: Require a Nova instance mount
-  ansible.builtin.assert:
-    that:
-      - openstack_nova_mount_after.rc == 0
-    fail_msg: >-
-      {{ openstack_nova_instances_dir }} is not a mount point. Mount the 2 TB
-      NVMe there manually or enable the explicitly destructive compute-storage
-      flags.
+- name: Inspect the final Nova data fstab entry
+  ansible.builtin.command:
+    argv:
+      - findmnt
+      - --fstab
+      - --json
+      - --evaluate
+      - --mountpoint
+      - "{{ openstack_nova_datadir }}"
+      - --output
+      - SOURCE,FSTYPE,OPTIONS
+  register: openstack_nova_fstab_after
+  changed_when: false
 
-- name: Require the configured Nova instance filesystem
-  ansible.builtin.assert:
-    that:
-      - >-
-        (openstack_nova_mount_after.stdout | from_json).filesystems[0].fstype
-        == openstack_compute_filesystem
-    fail_msg: >-
-      {{ openstack_nova_instances_dir }} must use
-      {{ openstack_compute_filesystem }}.
-  when: openstack_nova_mount_after.rc == 0
+- name: Validate the final Nova data layout
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/python3
+      - -c
+      - |
+        import json
+        import os
+        import sys
 
-- name: Require managed Nova storage to use the configured NVMe
-  ansible.builtin.assert:
-    that:
-      - >-
-        (openstack_nova_mount_after.stdout | from_json).filesystems[0].source
-        == (openstack_compute_device_realpath.stdout | trim)
-    fail_msg: >-
-      {{ openstack_nova_instances_dir }} is not mounted from
-      {{ openstack_compute_ephemeral_device }}.
-  when:
-    - openstack_manage_compute_storage | bool
-    - openstack_nova_mount_after.rc == 0
+        mounted = json.loads(sys.argv[1]).get("filesystems", [])
+        fstab = json.loads(sys.argv[2]).get("filesystems", [])
+        assert len(mounted) == 1
+        assert len(fstab) == 1
+        expected = os.path.realpath(sys.argv[3])
+        for entry in (mounted[0], fstab[0]):
+            assert os.path.realpath(entry["source"]) == expected
+            assert entry.get("fstype") == sys.argv[4]
+            options = set((entry.get("options") or "").split(","))
+            assert "noatime" in options
+      - "{{ openstack_nova_mount_after.stdout }}"
+      - "{{ openstack_nova_fstab_after.stdout }}"
+      - "{{ openstack_compute_device_realpath.stdout | trim }}"
+      - "{{ openstack_compute_filesystem }}"
+  changed_when: false
+
+- name: Create the Nova instance directory
+  ansible.builtin.file:
+    path: "{{ openstack_nova_datadir }}/instances"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
