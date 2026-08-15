@@ -1,0 +1,75 @@
+---
+- name: Select the Kolla action sequence
+  ansible.builtin.set_fact:
+    openstack_kolla_commands: >-
+      {{
+        {
+          'prechecks': ['bootstrap-servers', 'prechecks'],
+          'deploy': ['bootstrap-servers', 'prechecks', 'deploy', 'post-deploy'],
+          'reconfigure': ['prechecks', 'reconfigure', 'post-deploy'],
+          'post-deploy': ['post-deploy']
+        }[openstack_action]
+      }}
+
+- name: Run Kolla with a temporary password file
+  block:
+    - name: Stage the Vault-rendered Kolla password file
+      ansible.builtin.copy:
+        src: "{{ openstack_kolla_passwords_source }}"
+        dest: "{{ openstack_kolla_config_dir }}/passwords.yml"
+        remote_src: true
+        mode: "0600"
+      no_log: true
+
+    - name: Run the Kolla action sequence
+      ansible.builtin.command:
+        argv:
+          - "{{ openstack_kolla_venv }}/bin/kolla-ansible"
+          - "{{ item }}"
+          - --configdir
+          - "{{ openstack_kolla_config_dir }}"
+          - --inventory
+          - "{{ openstack_kolla_inventory }}"
+          - --become
+      loop: "{{ openstack_kolla_commands }}"
+      loop_control:
+        label: "{{ item }}"
+      environment: "{{ openstack_kolla_environment }}"
+      changed_when: item != 'prechecks'
+  always:
+    - name: Remove the staged Kolla password file
+      ansible.builtin.file:
+        path: "{{ openstack_kolla_config_dir }}/passwords.yml"
+        state: absent
+      no_log: true
+
+- name: Inspect generated OpenStack client configuration
+  ansible.builtin.stat:
+    path: "{{ openstack_kolla_config_dir }}/clouds.yaml"
+  register: openstack_clouds_yaml
+  when: openstack_action in ['deploy', 'reconfigure', 'post-deploy']
+
+- name: Require private OpenStack client configuration
+  ansible.builtin.assert:
+    that:
+      - openstack_clouds_yaml.stat.exists
+      - openstack_clouds_yaml.stat.isreg
+      - openstack_clouds_yaml.stat.mode in ['0400', '0600']
+    fail_msg: >-
+      Kolla post-deploy did not create a private clouds.yaml file.
+  when: openstack_action in ['deploy', 'reconfigure', 'post-deploy']
+
+- name: Define the OpenStack client environment
+  ansible.builtin.set_fact:
+    openstack_client_environment: >-
+      {{
+        openstack_kolla_environment
+        | combine(
+            {
+              'OS_CLIENT_CONFIG_FILE':
+                openstack_kolla_config_dir + '/clouds.yaml'
+            }
+          )
+      }}
+  no_log: true
+  when: openstack_action in ['deploy', 'reconfigure', 'post-deploy']

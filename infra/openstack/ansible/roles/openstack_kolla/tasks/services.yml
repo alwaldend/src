@@ -1,0 +1,72 @@
+---
+- name: Read Cinder volume services
+  ansible.builtin.command:
+    argv:
+      - "{{ openstack_kolla_venv }}/bin/openstack"
+      - --os-cloud
+      - admin
+      - volume
+      - service
+      - list
+      - --service
+      - cinder-volume
+      - --format
+      - json
+  environment: "{{ openstack_client_environment }}"
+  register: openstack_cinder_services
+  changed_when: false
+
+- name: Validate Cinder backend services
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/python3
+      - -c
+      - >-
+        import json, sys;
+        rows = json.loads(sys.argv[1]);
+        expected = {f'{sys.argv[2]}@fast', f'{sys.argv[2]}@bulk'};
+        active = {row['Host'] for row in rows
+                  if row.get('Binary') == 'cinder-volume'
+                  and row.get('Status') == 'enabled'
+                  and row.get('State') == 'up'};
+        assert active == expected, f'unexpected Cinder services: {active}'
+      - "{{ openstack_cinder_services.stdout }}"
+      - >-
+        {{ hostvars[openstack_kolla_master_host].ansible_facts.hostname }}
+  changed_when: false
+
+- name: Read Nova compute services
+  ansible.builtin.command:
+    argv:
+      - "{{ openstack_kolla_venv }}/bin/openstack"
+      - --os-cloud
+      - admin
+      - compute
+      - service
+      - list
+      - --service
+      - nova-compute
+      - --format
+      - json
+  environment: "{{ openstack_client_environment }}"
+  register: openstack_nova_services
+  changed_when: false
+
+- name: Validate the Nova compute service
+  ansible.builtin.command:
+    argv:
+      - /usr/bin/python3
+      - -c
+      - >-
+        import json, sys;
+        rows = json.loads(sys.argv[1]);
+        active = [row for row in rows
+                  if row.get('Binary') == 'nova-compute'
+                  and row.get('Status') == 'enabled'
+                  and row.get('State') == 'up'];
+        assert len(active) == 1, f'unexpected Nova services: {active}';
+        assert active[0].get('Host') == sys.argv[2]
+      - "{{ openstack_nova_services.stdout }}"
+      - >-
+        {{ hostvars[openstack_kolla_compute_host].ansible_facts.hostname }}
+  changed_when: false
