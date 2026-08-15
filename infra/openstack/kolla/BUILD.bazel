@@ -18,6 +18,7 @@ sh_binary(
 filegroup(
     name = "globals",
     srcs = ["globals.yml"],
+    visibility = ["//infra/openstack:__subpackages__"],
 )
 
 filegroup(
