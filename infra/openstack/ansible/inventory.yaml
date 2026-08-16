@@ -1,0 +1,245 @@
+all:
+  children:
+    openstack_master:
+      hosts:
+        master1.openstack.alwaldend.com:
+          network_interface: enp2s0
+          api_interface: enp2s0
+          tunnel_interface: enp2s0
+          migration_interface: enp2s0
+          openstack_glance_data_dir: /var/lib/openstack/glance
+          neutron_external_interface: enp2s0
+          openstack_fast_raid_device: /dev/md/cinder-fast
+          openstack_bulk_raid_device: /dev/md/cinder-bulk
+          openstack_fast_vg: cinder-fast
+          openstack_bulk_vg: cinder-bulk
+          openstack_fast_devices:
+            - /dev/disk/by-id/ata-GIGABYTE_GP-GSTFS31100TNTD_SN252308902405
+            - /dev/disk/by-id/ata-GIGABYTE_GP-GSTFS31100TNTD_SN252308902396
+          openstack_bulk_devices:
+            - /dev/disk/by-id/ata-WDC_WD10SPZX-08Z10_WD-WX21A693JD3X
+            - /dev/disk/by-id/ata-WDC_WD10SPZX-08Z10_WD-WX21A69342R5
+            - /dev/disk/by-id/ata-ST4000VX013-2XG104_Z0IPOVQY
+            - /dev/disk/by-id/ata-ST4000VX013-2XG104_Z0IPOVQF
+            - /dev/disk/by-id/ata-ST4000VX013-2XG104_Z0IM3TTS
+    openstack_compute:
+      hosts:
+        compute1.openstack.alwaldend.com:
+          network_interface: enp3s0
+          api_interface: enp3s0
+          tunnel_interface: enp3s0
+          migration_interface: enp3s0
+          openstack_compute_ephemeral_device: /dev/disk/by-id/SBSSD2T0STP16PM2P4_AA000000000000000010
+          openstack_nova_datadir: /var/lib/nova
+          openstack_compute_filesystem: xfs
+          openstack_compute_mount_options: defaults,noatime
+    deployment:
+      hosts:
+        localhost: {}
+    openstack: { children: { openstack_master: {}, openstack_compute: {} } }
+    control: { children: { openstack_master: {} } }
+    network: { children: { openstack_master: {} } }
+    compute: { children: { openstack_compute: {} } }
+    monitoring: { children: { openstack_master: {} } }
+    storage: { children: { openstack_master: {} } }
+    baremetal:
+      children:
+        control: {}
+        network: {}
+        compute: {}
+        storage: {}
+        monitoring: {}
+    tls-backend: { children: { control: {}, network: {} } }
+    common:
+      children:
+        control: {}
+        network: {}
+        compute: {}
+        storage: {}
+        monitoring: {}
+    collectd: { children: { compute: {} } }
+    grafana: { children: { monitoring: {} } }
+    etcd: { children: { control: {} } }
+    prometheus: { children: { monitoring: {} } }
+    hacluster: { children: { control: {} } }
+    hacluster-remote: { children: { compute: {} } }
+    loadbalancer: { children: { network: {} } }
+    mariadb: { children: { control: {} } }
+    rabbitmq: { children: { control: {} } }
+    keystone: { children: { control: {} } }
+    glance: { children: { control: {} } }
+    nova: { children: { control: {} } }
+    neutron: { children: { network: {} } }
+    openvswitch: { children: { network: {}, compute: {}, manila-share: {} } }
+    cinder: { children: { control: {} } }
+    cloudkitty: { children: { control: {} } }
+    memcached: { children: { control: {} } }
+    horizon: { children: { control: {} } }
+    barbican: { children: { control: {} } }
+    heat: { children: { control: {} } }
+    ironic: { children: { control: {} } }
+    magnum: { children: { control: {} } }
+    mistral: { children: { control: {} } }
+    manila: { children: { control: {} } }
+    ceilometer: { children: { control: {} } }
+    aodh: { children: { control: {} } }
+    cyborg: { children: { control: {} } }
+    gnocchi: { children: { control: {} } }
+    tacker: { children: { control: {} } }
+    trove: { children: { control: {} } }
+    watcher: { children: { control: {} } }
+    octavia: { children: { control: {} } }
+    designate: { children: { control: {} } }
+    placement: { children: { control: {} } }
+    bifrost: { children: { deployment: {} } }
+    skyline: { children: { control: {} } }
+    redis: { children: { control: {} } }
+    valkey: { children: { control: {} } }
+    blazar: { children: { control: {} } }
+    letsencrypt: { children: { loadbalancer: {} } }
+    cron: { children: { common: {} } }
+    fluentd: { children: { common: {} } }
+    kolla_logs: { children: { common: {} } }
+    kolla_toolbox: { children: { common: {} } }
+    opensearch: { children: { control: {} } }
+    opensearch-dashboards: { children: { opensearch: {} } }
+    glance-api: { children: { glance: {} } }
+    nova-api: { children: { nova: {} } }
+    nova-conductor: { children: { nova: {} } }
+    nova-metadata: { children: { nova: {} } }
+    nova-super-conductor: { children: { nova: {} } }
+    nova-novncproxy: { children: { nova: {} } }
+    nova-scheduler: { children: { nova: {} } }
+    nova-spicehtml5proxy: { children: { nova: {} } }
+    nova-compute-ironic: { children: { nova: {} } }
+    nova-serialproxy: { children: { nova: {} } }
+    ironic-neutron-agent: { children: { neutron: {} } }
+    neutron-bgp-dragent: { children: { neutron: {} } }
+    neutron-dhcp-agent: { children: { neutron: {} } }
+    neutron-infoblox-ipam-agent: { children: { neutron: {} } }
+    neutron-l3-agent: { children: { neutron: {} } }
+    neutron-metadata-agent: { children: { neutron: {} } }
+    neutron-metering-agent: { children: { neutron: {} } }
+    neutron-periodic-worker: { children: { control: {} } }
+    neutron-rpc-server: { children: { control: {} } }
+    neutron-server: { children: { control: {} } }
+    neutron-ovn-agent: { children: { compute: {}, network: {} } }
+    neutron-ovn-maintenance-worker: { children: { control: {} } }
+    neutron-ovn-metadata-agent: { children: { compute: {}, network: {} } }
+    neutron-ovn-vpn-agent: { children: { neutron: {} } }
+    cinder-api: { children: { cinder: {} } }
+    cinder-backup: { children: { cinder: {} } }
+    cinder-backup-lvm: { children: { storage: {} } }
+    cinder-backup-multiple: { children: { cinder: {}, storage: {} } }
+    cinder-scheduler: { children: { cinder: {} } }
+    cinder-volume: { children: { cinder: {} } }
+    cinder-volume-lvm: { children: { storage: {} } }
+    cinder-volume-multiple: { children: { cinder: {}, storage: {} } }
+    cloudkitty-api: { children: { cloudkitty: {} } }
+    cloudkitty-processor: { children: { cloudkitty: {} } }
+    iscsid: { children: { compute: {}, storage: {}, ironic: {} } }
+    tgtd: { children: { storage: {} } }
+    manila-api: { children: { manila: {} } }
+    manila-scheduler: { children: { manila: {} } }
+    manila-share: { children: { network: {} } }
+    manila-data: { children: { manila: {} } }
+    barbican-api: { children: { barbican: {} } }
+    barbican-keystone-listener: { children: { barbican: {} } }
+    barbican-worker: { children: { barbican: {} } }
+    heat-api: { children: { heat: {} } }
+    heat-api-cfn: { children: { heat: {} } }
+    heat-engine: { children: { heat: {} } }
+    ironic-api: { children: { ironic: {} } }
+    ironic-conductor: { children: { ironic: {} } }
+    ironic-dnsmasq: { children: { ironic: {} } }
+    ironic-tftp: { children: { ironic: {} } }
+    ironic-http: { children: { ironic: {} } }
+    magnum-api: { children: { magnum: {} } }
+    magnum-conductor: { children: { magnum: {} } }
+    mistral-api: { children: { mistral: {} } }
+    mistral-executor: { children: { mistral: {} } }
+    mistral-engine: { children: { mistral: {} } }
+    mistral-event-engine: { children: { mistral: {} } }
+    ceilometer-central: { children: { ceilometer: {} } }
+    ceilometer-notification: { children: { ceilometer: {} } }
+    ceilometer-compute: { children: { compute: {} } }
+    ceilometer-ipmi: { children: { compute: {} } }
+    aodh-api: { children: { aodh: {} } }
+    aodh-evaluator: { children: { aodh: {} } }
+    aodh-listener: { children: { aodh: {} } }
+    aodh-notifier: { children: { aodh: {} } }
+    cyborg-api: { children: { cyborg: {} } }
+    cyborg-agent: { children: { compute: {} } }
+    cyborg-conductor: { children: { cyborg: {} } }
+    gnocchi-api: { children: { gnocchi: {} } }
+    gnocchi-statsd: { children: { gnocchi: {} } }
+    gnocchi-metricd: { children: { gnocchi: {} } }
+    trove-api: { children: { trove: {} } }
+    trove-conductor: { children: { trove: {} } }
+    trove-taskmanager: { children: { trove: {} } }
+    multipathd: { children: { compute: {}, storage: {} } }
+    watcher-api: { children: { watcher: {} } }
+    watcher-engine: { children: { watcher: {} } }
+    watcher-applier: { children: { watcher: {} } }
+    octavia-api: { children: { octavia: {} } }
+    octavia-driver-agent: { children: { octavia: {} } }
+    octavia-health-manager: { children: { octavia: {} } }
+    octavia-housekeeping: { children: { octavia: {} } }
+    octavia-worker: { children: { octavia: {} } }
+    designate-api: { children: { designate: {} } }
+    designate-central: { children: { designate: {} } }
+    designate-producer: { children: { designate: {} } }
+    designate-mdns: { children: { network: {} } }
+    designate-worker: { children: { designate: {} } }
+    designate-sink: { children: { designate: {} } }
+    designate-backend-bind9: { children: { designate: {} } }
+    placement-api: { children: { placement: {} } }
+    skyline-apiserver: { children: { skyline: {} } }
+    skyline-console: { children: { skyline: {} } }
+    tacker-server: { children: { tacker: {} } }
+    tacker-conductor: { children: { tacker: {} } }
+    blazar-api: { children: { blazar: {} } }
+    blazar-manager: { children: { blazar: {} } }
+    prometheus-node-exporter:
+      children:
+        monitoring: {}
+        control: {}
+        compute: {}
+        network: {}
+        storage: {}
+    prometheus-mysqld-exporter: { children: { mariadb: {} } }
+    prometheus-memcached-exporter: { children: { memcached: {} } }
+    prometheus-cadvisor:
+      children:
+        monitoring: {}
+        control: {}
+        compute: {}
+        network: {}
+        storage: {}
+    prometheus-alertmanager: { children: { monitoring: {} } }
+    prometheus-openstack-exporter: { children: { monitoring: {} } }
+    prometheus-elasticsearch-exporter: { children: { opensearch: {} } }
+    prometheus-blackbox-exporter: { children: { monitoring: {} } }
+    prometheus-libvirt-exporter: { children: { compute: {} } }
+    prometheus-openstack-network-exporter:
+      children:
+        compute: {}
+        network: {}
+    prometheus-valkey-exporter: { children: { valkey: {} } }
+    masakari-api: { children: { control: {} } }
+    masakari-engine: { children: { control: {} } }
+    masakari-hostmonitor: { children: { control: {} } }
+    masakari-instancemonitor: { children: { compute: {} } }
+    ovn-controller:
+      children:
+        ovn-controller-compute: {}
+        ovn-controller-network: {}
+    ovn-controller-compute: { children: { compute: {} } }
+    ovn-controller-network: { children: { network: {} } }
+    ovn-database: { children: { control: {} } }
+    ovn-northd: { children: { ovn-database: {} } }
+    ovn-nb-db: { children: { ovn-database: {} } }
+    ovn-sb-db: { children: { ovn-database: {} } }
+    ovn-sb-db-relay: { children: { ovn-database: {} } }
+    letsencrypt-webserver: { children: { letsencrypt: {} } }
+    letsencrypt-lego: { children: { letsencrypt: {} } }

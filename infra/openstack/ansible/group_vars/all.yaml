@@ -1,0 +1,3 @@
+---
+ansible_user: ansible
+ssh_vault_role: src_infra_openstack_ssh

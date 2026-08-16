@@ -11,7 +11,7 @@ locals {
 }
 
 resource "routeros_ip_address" "t3code" {
-  address   = "10.30.0.0/24"
+  address   = "10.30.1.0/24"
   interface = routeros_interface_wireguard.t3code.name
   comment   = "tf[users/simeonwarren/t3code/tf_setup]"
 }

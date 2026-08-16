@@ -1,0 +1,25 @@
+{
+    "records": {
+        "master": {
+            "A": {
+                "name": "master1.openstack",
+                "address": "192.168.1.215"
+            },
+            "dsp": ["dc1"]
+        },
+        "compute": {
+            "A": {
+                "name": "compute1.openstack",
+                "address": "192.168.1.213"
+            },
+            "dsp": ["dc1"]
+        },
+        "api": {
+            "A": {
+                "name": "openstack",
+                "address": "192.168.1.215"
+            },
+            "dsp": ["dc1"]
+        }
+    }
+}
