@@ -57,6 +57,11 @@ al_binary_run_map(
             _OPENCODE,
             "$(GIT_ROOT)",
         ],
+        "serve": [
+            _OPENCODE,
+            "serve",
+            "$(GIT_ROOT)",
+        ],
         "direct": [
             _OPENCODE,
         ],

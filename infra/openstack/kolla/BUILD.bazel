@@ -10,6 +10,11 @@ _KOLLA_INPUTS = [
     "$(rootpath :nova_compute_conf)",
 ]
 
+filegroup(
+    name = "kolla_passwords_template",
+    srcs = ["passwords.yml.tpl"],
+)
+
 sh_binary(
     name = "kolla_bin",
     srcs = ["kolla.sh"],
@@ -71,7 +76,7 @@ al_binary_run_map(
         ":globals",
         ":kolla_bin",
         ":nova_compute_conf",
-        "//infra/openstack:kolla_passwords_template",
+        "//infra/openstack/kolla:kolla_passwords_template",
         "//infra/openstack/ansible:group_vars",
         "//infra/openstack/ansible:inventory",
         "//tools/vault/injector",

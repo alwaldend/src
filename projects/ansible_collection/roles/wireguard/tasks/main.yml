@@ -27,7 +27,7 @@
       ansible.builtin.systemd:
         name: "wg-quick@{{ item | basename | trim('.conf') }}"
         enabled: true
-        state: reloaded
+        state: restarted
         daemon_reload: true
   always:
     - name: Show service status

@@ -10,9 +10,9 @@
           - lvm2
           - mdadm
         state: present
-
     - name: Create fast RAID1
       ansible.builtin.command:
+        creates: "{{ openstack_fast_raid_device }}"
         argv:
           - mdadm
           - --create
@@ -24,10 +24,9 @@
           - --run
           - "{{ openstack_fast_devices[0] }}"
           - "{{ openstack_fast_devices[1] }}"
-        creates: "{{ openstack_fast_raid_device }}"
-
     - name: Create bulk RAID10
       ansible.builtin.command:
+        creates: "{{ openstack_bulk_raid_device }}"
         argv:
           - mdadm
           - --create
@@ -42,18 +41,14 @@
           - "{{ openstack_bulk_devices[2] }}"
           - "{{ openstack_bulk_devices[3] }}"
           - "{{ openstack_bulk_devices[4] }}"
-        creates: "{{ openstack_bulk_raid_device }}"
-
     - name: Create fast Cinder volume group
       community.general.lvg:
         vg: "{{ openstack_fast_vg }}"
         pvs: "{{ openstack_fast_raid_device }}"
-
     - name: Create bulk Cinder volume group
       community.general.lvg:
         vg: "{{ openstack_bulk_vg }}"
         pvs: "{{ openstack_bulk_raid_device }}"
-
     - name: Create Glance data directory
       ansible.builtin.file:
         path: "{{ openstack_glance_data_dir }}"
@@ -71,7 +66,6 @@
       ansible.builtin.dnf:
         name: xfsprogs
         state: present
-
     - name: Create Nova data directory
       ansible.builtin.file:
         path: "{{ openstack_nova_datadir }}"
@@ -79,12 +73,10 @@
         owner: root
         group: root
         mode: "0755"
-
     - name: Create compute filesystem
       community.general.filesystem:
         dev: "{{ openstack_compute_ephemeral_device }}"
         fstype: "{{ openstack_compute_filesystem }}"
-
     - name: Mount compute storage
       ansible.posix.mount:
         path: "{{ openstack_nova_datadir }}"

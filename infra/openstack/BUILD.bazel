@@ -15,12 +15,6 @@ filegroup(
     visibility = ["//:__subpackages__"],
 )
 
-filegroup(
-    name = "kolla_passwords_template",
-    srcs = ["kolla/passwords.yml.tpl"],
-    visibility = ["//infra/openstack:__subpackages__"],
-)
-
 vault_binary_map(
     name = "vault",
     configs = [":al"],

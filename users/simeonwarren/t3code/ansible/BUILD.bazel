@@ -57,10 +57,16 @@ pkg_filegroup(
 
 pkg_files(
     name = "srcs_files",
-    srcs = ["inventory.yaml"] + glob([
+    srcs = [
+        "inventory.yaml",
+        "@ai_opencode_opencode_linux_x86_64//:opencode_filegroup",
+    ] + glob([
         "group_vars/**/*.yaml",
         "files/**",
         "playbook_*.yaml",
     ]),
+    renames = {
+        "@ai_opencode_opencode_linux_x86_64//:opencode_filegroup": "files/opencode",
+    },
     strip_prefix = strip_prefix.from_pkg(),
 )
