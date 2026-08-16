@@ -12,7 +12,8 @@ t3code_env:
   HTTPS_PROXY: "{{ http_proxy }}"
   http_proxy: "{{ http_proxy }}"
   https_proxy: "{{ http_proxy }}"
-  NO_PROXY: "localhost,127.0.0.1"
+  NO_PROXY: "localhost,127.0.0.1,github.com"
+  no_proxy: "localhost,127.0.0.1,github.com"
 t3code_version: 0.0.33
 wg_public_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_public_keys', default=undefined()) | from_json }}"
 wg_private_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_private_keys', default=undefined()) | from_json }}"
