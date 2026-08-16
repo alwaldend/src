@@ -46,12 +46,12 @@ locals {
   }
   http_proxy_accounts = keys(var.http_proxies)
   http_proxy = {
-    # for idx, name in var.mullvad_min : name => {
-    #   port = 40080 + idx
-    #   name = name
-    #   user = local.http_proxy_accounts[idx % length(local.http_proxy_accounts)]
-    #   pass = var.http_proxies[local.http_proxy_accounts[idx % length(local.http_proxy_accounts)]]
-    # }
+    for idx, name in var.mullvad_min : name => {
+      port = 40200 + idx
+      name = name
+      user = local.http_proxy_accounts[idx % length(local.http_proxy_accounts)]
+      pass = var.http_proxies[local.http_proxy_accounts[idx % length(local.http_proxy_accounts)]]
+    }
   }
 }
 
@@ -103,7 +103,6 @@ resource "threexui_inbound" "http_proxy" {
   remark              = "http_proxy | ${each.key}"
   share_addr_strategy = "node"
   http_settings {
-    auth              = "password"
     allow_transparent = false
     account {
       user = each.value.user

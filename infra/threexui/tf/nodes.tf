@@ -52,7 +52,7 @@ module "node_njalla1" {
   http_proxies  = var.http_proxies
 }
 
-module "node_yc11" {
+module "node_yc1" {
   source = "./node"
   providers = {
     threexui = threexui.yc1

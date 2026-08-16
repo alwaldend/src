@@ -14,7 +14,7 @@ tls = { certResolver = "default" }
 [[http.services.threexuisub.loadBalancer.servers]]
 url = "http://127.0.0.1:2096"
 
-{% for port in range(40000, 40080) %}
+{% for port in range(40000, 40150) %}
 [http.routers.inbound_{{ port }}]
 rule = "(Host(`{{ inventory_hostname }}`) || Host(`{{ threexui_domain }}`)) && PathPrefix(`/inbound_{{ threexui_base_path | trim("/") }}_{{ port }}`)"
 service = "inbound_{{ port }}"
@@ -32,9 +32,9 @@ url = "http://127.0.0.1:{{ port }}"
 
 {% endfor %}
 
-{% for port in range(40080, 40100) %}
-[http.routers.inbound_{{ port }}]
-rule = "(Host(`{{ inventory_hostname }}`) || Host(`{{ threexui_domain }}`))"
+{% for port in range(40150, 40300) %}
+[tcp.routers.inbound_{{ port }}]
+rule = "(HostSNI(`{{ inventory_hostname }}`) || HostSNI(`{{ threexui_domain }}`))"
 service = "inbound_{{ port }}"
 tls = { certResolver = "default" }
 entrypoints = [
@@ -45,7 +45,7 @@ entrypoints = [
   "inbound_{{ port }}_ipv6",
 {% endif %}
 ]
-[[http.services.inbound_{{ port }}.loadBalancer.servers]]
-url = "http://127.0.0.1:{{ port }}"
+[[tcp.services.inbound_{{ port }}.loadBalancer.servers]]
+address = "127.0.0.1:{{ port }}"
 
 {% endfor %}

@@ -34,10 +34,10 @@ resource "threexui_xray_routing" "config" {
     }
   }
 
-  rule {
-    inbound_tag  = [threexui_inbound.mullvad_min_lb.tag]
-    balancer_tag = "out-mullvad-min-lb"
-  }
+  # rule {
+  #   inbound_tag  = [threexui_inbound.mullvad_min_lb.tag]
+  #   balancer_tag = "out-mullvad-min-lb"
+  # }
 
   # rule {
   #   port = 53

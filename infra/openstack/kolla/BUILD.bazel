@@ -2,6 +2,7 @@ load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
 
 _KOLLA_BIN = "$(rootpath :kolla_bin)"
+
 _KOLLA_INPUTS = [
     "$(rootpath //infra/openstack/ansible:inventory)",
     "$(rootpath :globals)",
@@ -76,9 +77,9 @@ al_binary_run_map(
         ":globals",
         ":kolla_bin",
         ":nova_compute_conf",
-        "//infra/openstack/kolla:kolla_passwords_template",
         "//infra/openstack/ansible:group_vars",
         "//infra/openstack/ansible:inventory",
+        "//infra/openstack/kolla:kolla_passwords_template",
         "//tools/vault/injector",
     ],
     run_args = [
