@@ -50,6 +50,12 @@ filegroup(
     visibility = ["//infra/openstack:__subpackages__"],
 )
 
+filegroup(
+    name = "host_vars",
+    srcs = glob(["host_vars/*.yaml"]),
+    visibility = ["//infra/openstack:__subpackages__"],
+)
+
 pkg_filegroup(
     name = "srcs",
     srcs = [":srcs_files"],
@@ -59,7 +65,12 @@ pkg_files(
     name = "srcs_files",
     srcs = [
         "inventory.yaml",
+        "network.sh",
         "playbook.yaml",
-    ] + glob(["group_vars/*.yaml"]),
+        "storage_validate.sh",
+    ] + glob([
+        "group_vars/*.yaml",
+        "host_vars/*.yaml",
+    ]),
     strip_prefix = strip_prefix.from_pkg(),
 )

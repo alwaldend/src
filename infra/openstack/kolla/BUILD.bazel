@@ -53,9 +53,17 @@ al_binary_run_map(
             _KOLLA_BIN,
             "deploy",
         ] + _KOLLA_INPUTS,
+        "genconfig": [
+            _KOLLA_BIN,
+            "genconfig",
+        ] + _KOLLA_INPUTS,
         "install_deps": [
             _KOLLA_BIN,
             "install-deps",
+        ] + _KOLLA_INPUTS,
+        "init_cloud": [
+            _KOLLA_BIN,
+            "init-cloud",
         ] + _KOLLA_INPUTS,
         "post_deploy": [
             _KOLLA_BIN,
@@ -69,6 +77,10 @@ al_binary_run_map(
             _KOLLA_BIN,
             "reconfigure",
         ] + _KOLLA_INPUTS,
+        "validate_config": [
+            _KOLLA_BIN,
+            "validate-config",
+        ] + _KOLLA_INPUTS,
     },
     configs = ["//infra/openstack:al"],
     data = [
@@ -78,6 +90,7 @@ al_binary_run_map(
         ":kolla_bin",
         ":nova_compute_conf",
         "//infra/openstack/ansible:group_vars",
+        "//infra/openstack/ansible:host_vars",
         "//infra/openstack/ansible:inventory",
         "//infra/openstack/kolla:kolla_passwords_template",
         "//tools/vault/injector",

@@ -18,5 +18,3 @@ android_ndk_repository_extension.configure(
     api_level = 29,
 )
 use_repo(android_ndk_repository_extension, "androidndk")
-
-register_toolchains("@androidndk//:all")

@@ -2,37 +2,10 @@ all:
   children:
     openstack_master:
       hosts:
-        master1.openstack.alwaldend.com:
-          network_interface: enp2s0
-          api_interface: enp2s0
-          tunnel_interface: enp2s0
-          migration_interface: enp2s0
-          openstack_glance_data_dir: /var/lib/openstack/glance
-          neutron_external_interface: enp2s0
-          openstack_fast_raid_device: /dev/md/cinder-fast
-          openstack_bulk_raid_device: /dev/md/cinder-bulk
-          openstack_fast_vg: cinder-fast
-          openstack_bulk_vg: cinder-bulk
-          openstack_fast_devices:
-            - /dev/disk/by-id/ata-GIGABYTE_GP-GSTFS31100TNTD_SN252308902405
-            - /dev/disk/by-id/ata-GIGABYTE_GP-GSTFS31100TNTD_SN252308902396
-          openstack_bulk_devices:
-            - /dev/disk/by-id/ata-WDC_WD10SPZX-08Z10_WD-WX21A693JD3X
-            - /dev/disk/by-id/ata-WDC_WD10SPZX-08Z10_WD-WX21A69342R5
-            - /dev/disk/by-id/ata-ST4000VX013-2XG104_Z0IPOVQY
-            - /dev/disk/by-id/ata-ST4000VX013-2XG104_Z0IPOVQF
-            - /dev/disk/by-id/ata-ST4000VX013-2XG104_Z0IM3TTS
+        master1.openstack.alwaldend.com: {}
     openstack_compute:
       hosts:
-        compute1.openstack.alwaldend.com:
-          network_interface: enp3s0
-          api_interface: enp3s0
-          tunnel_interface: enp3s0
-          migration_interface: enp3s0
-          openstack_compute_ephemeral_device: /dev/disk/by-id/SBSSD2T0STP16PM2P4_AA000000000000000010
-          openstack_nova_datadir: /var/lib/nova
-          openstack_compute_filesystem: xfs
-          openstack_compute_mount_options: defaults,noatime
+        compute1.openstack.alwaldend.com: {}
     deployment:
       hosts:
         localhost: {}
