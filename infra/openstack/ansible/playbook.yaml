@@ -1,4 +1,55 @@
 ---
+- name: Configure OpenStack master networking
+  hosts: openstack_master
+  become: true
+  gather_facts: true
+  tasks:
+    - name: Verify the current management network
+      ansible.builtin.assert:
+        that:
+          - >-
+            ansible_facts.default_ipv4.address ==
+            openstack_management_cidr.split('/')[0]
+          - >-
+            ansible_facts.default_ipv4.gateway ==
+            openstack_management_gateway
+          - >-
+            ansible_facts.default_ipv4.interface in
+            [openstack_uplink_interface, openstack_uplink_bridge]
+        fail_msg: >-
+          The active address, gateway, or interface does not match host_vars.
+          Correct host_vars before changing the remote network.
+    - name: Install NetworkManager
+      ansible.builtin.dnf:
+        name: NetworkManager
+        state: present
+    - name: Install the single-NIC network configurator
+      ansible.builtin.copy:
+        src: network.sh
+        dest: /usr/local/libexec/openstack-network
+        owner: root
+        group: root
+        mode: "0755"
+    - name: Configure the management bridge and provider veth
+      ansible.builtin.shell:
+        cmd: >-
+          printf 'yes\n' |
+          nmcli device checkpoint --timeout 120 --
+          /usr/local/libexec/openstack-network
+          {{ openstack_uplink_interface | quote }}
+          {{ openstack_uplink_bridge | quote }}
+          {{ openstack_provider_interface | quote }}
+          {{ openstack_provider_peer_interface | quote }}
+          {{ openstack_management_cidr | quote }}
+          {{ openstack_management_gateway | quote }}
+          {{ openstack_management_dns | map('quote') | join(' ') }}
+        executable: /bin/bash
+      environment:
+        LANG: C
+      register: openstack_network_result
+      changed_when: >-
+        'changed' in openstack_network_result.stdout_lines
+
 - name: Prepare OpenStack master storage
   hosts: openstack_master
   become: true
@@ -9,46 +60,114 @@
         name:
           - lvm2
           - mdadm
+          - util-linux
         state: present
-    - name: Create fast RAID1
+    - name: Install the storage validator
+      ansible.builtin.copy:
+        src: storage_validate.sh
+        dest: /usr/local/libexec/openstack-storage-validate
+        owner: root
+        group: root
+        mode: "0755"
+    - name: Verify array declarations are unambiguous
+      ansible.builtin.assert:
+        that:
+          - >-
+            openstack_raid_arrays | map(attribute='device') | unique |
+            length == openstack_raid_arrays | length
+          - >-
+            openstack_raid_arrays | map(attribute='devices') | flatten |
+            unique | length ==
+            openstack_raid_arrays | map(attribute='devices') | flatten |
+            length
+        fail_msg: RAID array devices and component devices must be unique.
+    - name: Check RAID component devices
+      ansible.builtin.stat:
+        path: "{{ item }}"
+        follow: true
+      loop: >-
+        {{ openstack_raid_arrays | map(attribute='devices') | flatten }}
+      register: openstack_raid_component_stats
+    - name: Verify RAID component devices
+      ansible.builtin.assert:
+        that:
+          - item.stat.exists
+          - item.stat.isblk
+        fail_msg: "{{ item.item }} is not a block device"
+      loop: "{{ openstack_raid_component_stats.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+    - name: Check RAID arrays
+      ansible.builtin.stat:
+        path: "{{ item.device }}"
+        follow: true
+      loop: "{{ openstack_raid_arrays }}"
+      loop_control:
+        label: "{{ item.device }}"
+      register: openstack_raid_array_stats
+    - name: Refuse signatures on devices for missing arrays
       ansible.builtin.command:
-        creates: "{{ openstack_fast_raid_device }}"
         argv:
-          - mdadm
-          - --create
-          - "{{ openstack_fast_raid_device }}"
-          - --metadata=1.2
-          - --name=cinder-fast
-          - --level=1
-          - --raid-devices=2
-          - --run
-          - "{{ openstack_fast_devices[0] }}"
-          - "{{ openstack_fast_devices[1] }}"
-    - name: Create bulk RAID10
+          - wipefs
+          - --noheadings
+          - --output
+          - TYPE
+          - "{{ item.1 }}"
+      loop: >-
+        {{ query('subelements', openstack_raid_array_stats.results,
+                 'item.devices') }}
+      loop_control:
+        label: "{{ item.1 }}"
+      when: not item.0.stat.exists
+      register: openstack_raid_signatures
+      changed_when: false
+      failed_when: >-
+        openstack_raid_signatures.rc != 0 or
+        openstack_raid_signatures.stdout | trim | length > 0
+    - name: Create missing RAID arrays
       ansible.builtin.command:
-        creates: "{{ openstack_bulk_raid_device }}"
-        argv:
-          - mdadm
-          - --create
-          - "{{ openstack_bulk_raid_device }}"
-          - --metadata=1.2
-          - --name=cinder-bulk
-          - --level=10
-          - --raid-devices=5
-          - --run
-          - "{{ openstack_bulk_devices[0] }}"
-          - "{{ openstack_bulk_devices[1] }}"
-          - "{{ openstack_bulk_devices[2] }}"
-          - "{{ openstack_bulk_devices[3] }}"
-          - "{{ openstack_bulk_devices[4] }}"
-    - name: Create fast Cinder volume group
+        argv: >-
+          {{
+            ['mdadm', '--create', item.item.device, '--metadata=1.2',
+             '--name=' + item.item.name,
+             '--level=' + item.item.level,
+             '--raid-devices=' + (item.item.devices | length | string),
+             '--run'] + item.item.devices
+          }}
+      loop: "{{ openstack_raid_array_stats.results }}"
+      loop_control:
+        label: "{{ item.item.device }}"
+      when: not item.stat.exists
+      changed_when: true
+    - name: Validate RAID layouts
+      ansible.builtin.command:
+        argv: >-
+          {{
+            ['/usr/local/libexec/openstack-storage-validate',
+             item.device, item.level, '-'] + item.devices
+          }}
+      loop: "{{ openstack_raid_arrays }}"
+      loop_control:
+        label: "{{ item.device }}"
+      changed_when: false
+    - name: Create Cinder volume groups
       community.general.lvg:
-        vg: "{{ openstack_fast_vg }}"
-        pvs: "{{ openstack_fast_raid_device }}"
-    - name: Create bulk Cinder volume group
-      community.general.lvg:
-        vg: "{{ openstack_bulk_vg }}"
-        pvs: "{{ openstack_bulk_raid_device }}"
+        vg: "{{ item.vg }}"
+        pvs: "{{ item.device }}"
+      loop: "{{ openstack_raid_arrays }}"
+      loop_control:
+        label: "{{ item.vg }}"
+    - name: Validate Cinder volume groups
+      ansible.builtin.command:
+        argv: >-
+          {{
+            ['/usr/local/libexec/openstack-storage-validate',
+             item.device, item.level, item.vg] + item.devices
+          }}
+      loop: "{{ openstack_raid_arrays }}"
+      loop_control:
+        label: "{{ item.vg }}"
+      changed_when: false
     - name: Create Glance data directory
       ansible.builtin.file:
         path: "{{ openstack_glance_data_dir }}"
@@ -66,6 +185,18 @@
       ansible.builtin.dnf:
         name: xfsprogs
         state: present
+    - name: Check the compute storage device
+      ansible.builtin.stat:
+        path: "{{ openstack_compute_ephemeral_device }}"
+        follow: true
+      register: openstack_compute_device
+    - name: Verify the compute storage device
+      ansible.builtin.assert:
+        that:
+          - openstack_compute_device.stat.exists
+          - openstack_compute_device.stat.isblk
+        fail_msg: >-
+          {{ openstack_compute_ephemeral_device }} is not a block device
     - name: Create Nova data directory
       ansible.builtin.file:
         path: "{{ openstack_nova_datadir }}"
@@ -84,3 +215,4 @@
         fstype: "{{ openstack_compute_filesystem }}"
         opts: "{{ openstack_compute_mount_options }}"
         state: mounted
+

@@ -1,0 +1,31 @@
+---
+ansible_host: 192.168.1.215
+network_interface: br-uplink
+neutron_external_interface: veth-provider
+openstack_uplink_interface: enp2s0
+openstack_uplink_bridge: br-uplink
+openstack_provider_interface: veth-provider
+openstack_provider_peer_interface: veth-uplink
+openstack_management_cidr: 192.168.1.215/24
+openstack_management_gateway: 192.168.1.1
+openstack_management_dns:
+  - 192.168.1.1
+openstack_glance_data_dir: /var/lib/openstack/glance
+openstack_raid_arrays:
+  - name: cinder-fast
+    device: /dev/md/cinder-fast
+    level: raid1
+    vg: cinder-fast
+    devices:
+      - /dev/disk/by-id/ata-GIGABYTE_GP-GSTFS31100TNTD_SN252308902405
+      - /dev/disk/by-id/ata-GIGABYTE_GP-GSTFS31100TNTD_SN252308902396
+  - name: cinder-bulk
+    device: /dev/md/cinder-bulk
+    level: raid10
+    vg: cinder-bulk
+    devices:
+      - /dev/disk/by-id/ata-WDC_WD10SPZX-08Z10_WD-WX21A693JD3X
+      - /dev/disk/by-id/ata-WDC_WD10SPZX-08Z10_WD-WX21A69342R5
+      - /dev/disk/by-id/ata-ST4000VX013-2XG104_Z0IPOVQY
+      - /dev/disk/by-id/ata-ST4000VX013-2XG104_Z0IPOVQF
+      - /dev/disk/by-id/ata-ST4000VX013-2XG104_Z0IM3TTS
