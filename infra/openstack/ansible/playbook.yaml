@@ -215,4 +215,3 @@
         fstype: "{{ openstack_compute_filesystem }}"
         opts: "{{ openstack_compute_mount_options }}"
         state: mounted
-

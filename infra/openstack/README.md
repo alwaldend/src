@@ -4,156 +4,135 @@ description: Two-node OpenStack deployment for the agent farm
 tags:
   - ansible
   - dnscontrol
-  - grafana
   - kolla
   - openstack
-  - prometheus
-  - terraform
 ---
 
 This deployment runs OpenStack on two CentOS Stream 10 bare-metal hosts.
 
 ```text
-master1.openstack.alwaldend.com  192.168.1.2
-  OpenStack control plane, OVN gateway, Glance, Cinder, Grafana, and Prometheus
-  SATA RAID1 -> cinder-fast
-  five-disk DAS RAID10 -> cinder-bulk
+master1.openstack.alwaldend.com  192.168.1.215
+  controller, OVN gateway, Glance, and Cinder
+  two SATA SSDs -> RAID1 -> cinder-fast
+  five DAS HDDs -> RAID10 -> cinder-bulk
 
-compute1.openstack.alwaldend.com 192.168.1.3
+compute1.openstack.alwaldend.com 192.168.1.213
   Nova compute, libvirt, OVN controller, and agent instances
   dedicated 2 TB NVMe mounted at /var/lib/nova
 
-openstack.alwaldend.com          192.168.1.4
-  Kolla internal and external API VIP
+openstack.alwaldend.com          192.168.1.215
+  OpenStack API address
 ```
 
-The MikroTik DHCP pool starts at `192.168.1.10`, so the host addresses and API
-VIP are outside the dynamic pool. All three names are internal-only records in
-the DNSControl `dc1` view. They are not published to Cloudflare.
+This is a small, non-HA deployment. The controller's existing address is also
+the API address, so HAProxy and Keepalived are disabled. A controller failure
+makes the control plane unavailable until that host recovers.
+
+## Single-NIC networking
+
+Each machine has one physical network interface. The compute host continues to
+use its static address directly on `enp3s0`.
+
+On the controller, Ansible moves `192.168.1.215/24` from `enp2s0` to the
+`br-uplink` Linux bridge. The physical interface becomes a bridge port. A
+veth pair connects the same bridge to OVN:
+
+- `veth-uplink` is a port on `br-uplink`.
+- `veth-provider` has no host address and is given to Kolla as
+  `neutron_external_interface`.
+- Kolla attaches `veth-provider` to the external OVS bridge.
+
+Kolla uses `br-uplink` for management, API, tunnel, and migration traffic.
+External instance traffic shares the same 1 GbE link through the veth pair.
+
+The first Ansible run changes the active controller connection and may briefly
+interrupt SSH. It runs the change inside a 120-second NetworkManager
+checkpoint. The new profiles do not autoconnect until the gateway responds.
+A failed check or expired checkpoint restores the old active connection.
+
+The declared controller network is:
+
+```text
+address: 192.168.1.215/24
+gateway: 192.168.1.1
+DNS:     192.168.1.1
+```
+
+Confirm those values in the controller host variable file:
+
+`ansible/host_vars/master1.openstack.alwaldend.com.yaml`
+
+The playbook refuses to change the network unless the current address,
+gateway, and interface match the declaration.
 
 ## Configuration
 
-[`ansible/inventory.yaml`](./ansible/inventory.yaml) contains only hosts and
-Kolla-Ansible group topology. Deployment variables live under
-[`ansible/group_vars`](./ansible/group_vars):
+Host-specific variables live under
+[`ansible/host_vars`](./ansible/host_vars). The inventory contains only host
+membership and Kolla-Ansible group topology.
 
-- `all.yaml` contains common Ansible and storage settings.
-- `openstack_master.yaml` contains the master address, MAC address, interface
-  names, two SATA SSD paths, and five bulk HDD paths.
-- `openstack_compute.yaml` contains the compute address, MAC address, interface
-  names, and the dedicated NVMe path.
-- `deployment.yaml` configures the local Kolla deployment group.
+The two hosts must already:
 
-Before the first run, replace every `CHANGE_ME` value in the master and compute
-group-variable files.
-
-The two physical hosts must already:
-
-- Run CentOS Stream 10 with the management interface using DHCP, or use the
-  configured addresses statically.
+- Use the static addresses `192.168.1.215` and `192.168.1.213`.
 - Have an `ansible` user with passwordless sudo.
 - Trust the Vault SSH client CA used by `ssh/clients/sign/admins`.
 - Have Python 3 installed and be reachable from the deployment machine.
+- Use NetworkManager for the controller's network connection.
 
-The repository Ansible target prepares storage only; it does not bootstrap the
-operating system, users, or initial SSH trust. Record the host keys in the
-deployment user's `known_hosts` before running Ansible or Kolla-Ansible.
+The repository Ansible target configures the controller network and prepares
+storage. It does not bootstrap the operating system, user accounts, or initial
+SSH trust. Record the host keys in the deployment user's `known_hosts` before
+running Ansible or Kolla-Ansible.
 
-The deployment machine must have a Kolla-Ansible version from the
-`stable/2026.1` series in `PATH`. Install `python-openstackclient` in the same
-environment for the post-deploy administration commands below.
+The deployment machine must have Kolla-Ansible from the `stable/2026.1`
+series in `PATH`. Install `python-openstackclient` in the same environment
+for cloud initialization.
 
 ## Vault
 
-Apply the Vault Terraform change first:
+Apply the repository's corresponding Vault configuration first:
 
 ```sh
 bazel run //infra/vault/tf:tf.plan
 bazel run //infra/vault/tf:tf.apply
 ```
 
-It creates:
-
-```text
-AppRole:  src_infra_openstack
-SSH role: src_infra_openstack_ssh
-Domain:   openstack.alwaldend.com and its subdomains
-```
-
-Add these KV secrets below the `secrets` mount:
-
-```text
-alwaldend.com/vault1/approles/src_infra_openstack/kolla
-  passwords_yml
-
-alwaldend.com/vault1/approles/src_infra_openstack/mikrotik
-  mikrotik_username
-  mikrotik_password
-```
-
-`passwords_yml` must contain the complete Kolla `passwords.yml` document
-generated by `kolla-genpwd`. The generated document also supplies the Grafana
-and Prometheus credentials used by Kolla-Ansible.
-
-The Terraform HTTP backend creates and maintains its own state and lock entries
-below:
-
-```text
-alwaldend.com/vault1/approles/src_infra_openstack/tf_backend/tf
-```
-
-No backend KV value needs to be seeded manually.
-
-## Reserve the host addresses
-
-The OpenStack MikroTik Terraform package manages only the two DHCP leases. It
-reads the hostnames from the inventory and the addresses and MAC addresses from
-the master and compute group-variable files.
-
-```sh
-bazel run //infra/openstack/tf:tf.plan
-bazel run //infra/openstack/tf:tf.apply
-```
-
-After applying, boot or renew DHCP on both hosts and verify that they receive
-`192.168.1.2` and `192.168.1.3`.
+The OpenStack Vault injector configured by [`al.lua`](./al.lua) must provide
+`passwords_yml`. Its value is the complete Kolla `passwords.yml` document
+generated by `kolla-genpwd`. Keep the KV location and credentials out of this
+documentation.
 
 ## Deploy internal DNS
 
-[`dnsconfig.json`](./dnsconfig.json) defines the following records in the
-DNSControl `dc1` view:
+[`dnsconfig.json`](./dnsconfig.json) defines these records in the DNSControl
+`dc1` view:
 
 ```text
-master1.openstack.alwaldend.com  -> 192.168.1.2
-compute1.openstack.alwaldend.com -> 192.168.1.3
-openstack.alwaldend.com          -> 192.168.1.4
+master1.openstack.alwaldend.com  -> 192.168.1.215
+compute1.openstack.alwaldend.com -> 192.168.1.213
+openstack.alwaldend.com          -> 192.168.1.215
 ```
 
-The `dc1` deployment writes the records to both RouterOS DNS and the checked-in
-internal BIND zone. It uses the existing `src_infra_dns` Vault configuration;
-no additional OpenStack DNS secret is required.
-
-Preview and deploy the repository DNS configuration:
+They are internal-only records and are not published to Cloudflare. Preview
+and deploy the repository DNS configuration:
 
 ```sh
 bazel run //infra/dns:dns.preview
 bazel run //infra/dns:dns.deploy
 ```
 
-The deploy target also rewrites the checked-in internal BIND zone. Review and
-commit that generated change. Verify that all three names resolve to the
-expected private addresses from the deployment machine before continuing.
+Review and commit any generated internal BIND zone change. Verify that all
+three names resolve from the deployment machine before continuing.
 
-## Prepare host storage
+## Configure networking and storage
 
-The repository Ansible target always manages storage. There are no storage
-feature toggles.
+Run the repository Ansible target:
 
 ```sh
 bazel run //infra/openstack/ansible
 ```
 
-It creates, when absent:
+It configures the controller bridge and prepares:
 
 ```text
 master:
@@ -164,13 +143,23 @@ compute:
   dedicated NVMe -> XFS -> /var/lib/nova
 ```
 
-The bulk array is Linux MD RAID10 with five active devices. The playbook
-creates it only when `/dev/md/cinder-bulk` does not exist; it does not reshape
-an existing four-device array.
+Storage preparation is deliberately fail-safe:
 
-The target can write RAID metadata and create a filesystem. Verify every
-`/dev/disk/by-id/...` path and ensure the selected disks contain no required
-data before running it.
+- Every declared component path must exist and resolve to a block device.
+- Array and component declarations must be unique.
+- A missing array is created only when every component has no disk signature.
+- An existing array must have the declared RAID level and exact members.
+- Each Cinder volume group must contain only its declared MD array.
+
+The playbook never wipes a disk. If it finds a signature on a component for a
+missing array, it stops for manual inspection.
+
+The bulk array remains five-device Linux MD RAID10. With two 1 TB and three
+4 TB members, its initial usable capacity is about 2.5 TB because RAID10 uses
+the smallest member size.
+
+Verify every `/dev/disk/by-id/...` path and ensure the disks contain no
+required data before running the target.
 
 ## Deploy OpenStack
 
@@ -180,9 +169,15 @@ Run Kolla's stages as separate Bazel targets:
 bazel run //infra/openstack/kolla:kolla.install_deps
 bazel run //infra/openstack/kolla:kolla.bootstrap_servers
 bazel run //infra/openstack/kolla:kolla.prechecks
+bazel run //infra/openstack/kolla:kolla.genconfig
+bazel run //infra/openstack/kolla:kolla.validate_config
 bazel run //infra/openstack/kolla:kolla.deploy
 bazel run //infra/openstack/kolla:kolla.post_deploy
+bazel run //infra/openstack/kolla:kolla.init_cloud
 ```
+
+`kolla.init_cloud` idempotently creates the `fast` and `bulk` Cinder
+volume types and maps them to their backends.
 
 Apply later configuration changes with:
 
@@ -190,62 +185,54 @@ Apply later configuration changes with:
 bazel run //infra/openstack/kolla:kolla.reconfigure
 ```
 
-The Kolla targets use the YAML inventory and its adjacent `group_vars`
-directory. They stage configuration under `KOLLA_CONFIG_DIR`. Without that
-environment variable, the default is:
+The Kolla targets stage generated configuration under `KOLLA_CONFIG_DIR`.
+Without that environment variable, the default is:
 
 ```text
 ~/.local/state/alwaldend/openstack/kolla
 ```
 
-`XDG_STATE_HOME` replaces `~/.local/state` when it is set. `post-deploy` writes
-`clouds.yaml` and the admin OpenRC files to that directory.
+`XDG_STATE_HOME` replaces `~/.local/state` when set. Staging removes stale
+files only from the generated `config` subtree before copying the declared
+overrides. The temporary `passwords.yml` is removed when each command exits.
+`post-deploy` writes `clouds.yaml` and the admin OpenRC files to this
+directory.
 
-## Monitoring
+Grafana and Prometheus are disabled to keep the controller footprint small.
+They can be enabled later in `kolla/globals.yml` if monitoring justifies the
+extra memory, storage, and container load.
 
-Kolla-Ansible installs Grafana and Prometheus because `enable_grafana` and
-`enable_prometheus` are enabled in
-[`kolla/globals.yml`](./kolla/globals.yml). The inventory assigns the
-`monitoring` group to the master, so the Grafana server, Prometheus server,
-Alertmanager, and monitoring-side exporters run there. Node and service
-exporters run on the relevant control and compute groups.
+Kolla's host firewall management remains disabled. This assumes both machines
+are on a trusted private LAN protected at the network boundary.
 
-Prometheus is configured as Grafana's metrics source by Kolla-Ansible. The
-monitoring containers use local container volumes on the master; they do not
-store their databases in Cinder.
+## Replacing the 1 TB bulk drives
 
-## Create the Cinder volume types
+The two 1 TB members can be replaced later without changing the RAID layout.
+Replace only one member at a time, update its `/dev/disk/by-id` path in
+`host_vars`, and wait for the MD rebuild to finish before replacing the next
+one.
 
-Configuring the `fast` and `bulk` Cinder backends does not create the
-corresponding volume types. Create them once after `post-deploy`:
+The array stays at about 2.5 TB until every member is at least 4 TB. After both
+1 TB drives have been replaced and the final rebuild is complete, grow the MD
+component size and the LVM physical volume:
 
 ```sh
-state_home="${XDG_STATE_HOME:-${HOME}/.local/state}"
-config_dir="${KOLLA_CONFIG_DIR:-${state_home}/alwaldend/openstack/kolla}"
-export OS_CLIENT_CONFIG_FILE="${config_dir}/clouds.yaml"
-
-openstack --os-cloud kolla-admin volume type show fast >/dev/null 2>&1 ||
-  openstack --os-cloud kolla-admin volume type create fast
-openstack --os-cloud kolla-admin volume type set \
-  --property volume_backend_name=fast \
-  fast
-
-openstack --os-cloud kolla-admin volume type show bulk >/dev/null 2>&1 ||
-  openstack --os-cloud kolla-admin volume type create bulk
-openstack --os-cloud kolla-admin volume type set \
-  --property volume_backend_name=bulk \
-  bulk
+mdadm --grow /dev/md/cinder-bulk --size=max
+pvresize /dev/md/cinder-bulk
 ```
 
-The Cinder configuration uses `fast` as the default volume type.
+Those commands change live storage and must be run manually after checking
+`/proc/mdstat`, the replacement device identities, and backups. Cinder can
+use the added free space for new volumes after `pvresize`; existing logical
+volumes are not expanded automatically.
 
 ## Storage use
 
 Nova stores VM roots, ephemeral disks, image caches, and agent workspaces below
 `/var/lib/nova/instances` on the compute NVMe.
 
-Use the `fast` Cinder volume type for persistent latency-sensitive data and the
-`bulk` type for larger persistent data. The 1 GbE link is the limit for remote
-Cinder I/O.
+Use the `fast` Cinder volume type for latency-sensitive persistent data and
+the `bulk` type for larger persistent data. The shared 1 GbE link limits
+remote Cinder and external network throughput.
 
 RAID protects against some disk failures. It is not a backup.

@@ -53,6 +53,10 @@ al_binary_run_map(
             _KOLLA_BIN,
             "deploy",
         ] + _KOLLA_INPUTS,
+        "genconfig": [
+            _KOLLA_BIN,
+            "genconfig",
+        ] + _KOLLA_INPUTS,
         "install_deps": [
             _KOLLA_BIN,
             "install-deps",
