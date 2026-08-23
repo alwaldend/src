@@ -9,6 +9,7 @@ filegroup(
         "//infra/forgejo:dnsconfig",
         "//infra/forgejo_runner:dnsconfig",
         "//infra/harbor:dnsconfig",
+        "//infra/harvester:dnsconfig",
         "//infra/ingress:dnsconfig",
         "//infra/mikrotik:dnsconfig",
         "//infra/pve:dnsconfig",
