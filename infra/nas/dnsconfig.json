@@ -1,0 +1,18 @@
+{
+    "records": {
+        "host1": {
+            "A": {
+                "name": "host1.nas",
+                "address": "192.168.1.216"
+            },
+            "dsp": ["dc1"]
+        },
+        "host1_root": {
+            "A": {
+                "name": "nas",
+                "address": "192.168.1.216"
+            },
+            "dsp": ["dc1"]
+        }
+    }
+}
