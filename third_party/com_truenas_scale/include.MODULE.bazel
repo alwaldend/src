@@ -1,0 +1,12 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+_FILE = "TrueNAS-SCALE-25.10.6.iso"
+
+http_file(
+    name = "com_truenas_scale",
+    downloaded_file_path = _FILE,
+    integrity = "sha256-ogS8kvKAyyADISWYHLvdfxJqq1M7L65LTje8F3AZzzs=",
+    urls = [
+        "https://download.sys.truenas.net/TrueNAS-SCALE-Goldeye/25.10.6/{}".format(_FILE),
+    ],
+)
