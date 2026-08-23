@@ -6,7 +6,6 @@ resource "vault_identity_group" "ansible" {
   ]
   member_group_ids = [
     module.src_infra_dc1_forgejo1_approle.group_id,
-    module.src_infra_openstack_approle.group_id,
     module.src_infra_harbor_approle.group_id,
     module.src_infra_flux_approle.group_id,
     module.src_infra_threexui_approle.group_id,

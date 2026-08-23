@@ -11,7 +11,6 @@ var jsons = [
     require("../pve/dnsconfig.json"),
     require("../vault/dnsconfig.json"),
     require("../mikrotik/dnsconfig.json"),
-    require("../openstack/dnsconfig.json"),
     require("../forgejo/dnsconfig.json"),
     require("../forgejo_runner/dnsconfig.json"),
     require("../harbor/dnsconfig.json"),

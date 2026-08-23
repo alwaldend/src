@@ -11,7 +11,6 @@ filegroup(
         "//infra/harbor:dnsconfig",
         "//infra/ingress:dnsconfig",
         "//infra/mikrotik:dnsconfig",
-        "//infra/openstack:dnsconfig",
         "//infra/pve:dnsconfig",
         "//infra/threexui:dnsconfig",
         "//infra/vault:dnsconfig",

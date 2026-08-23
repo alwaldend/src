@@ -1,8 +1,0 @@
----
-ansible_host: 192.168.1.213
-network_interface: enp3s0
-openstack_compute_ephemeral_device: >-
-  /dev/disk/by-id/SBSSD2T0STP16PM2P4_AA000000000000000010
-openstack_nova_datadir: /var/lib/nova
-openstack_compute_filesystem: xfs
-openstack_compute_mount_options: defaults,noatime
