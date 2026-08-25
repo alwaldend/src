@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-08-10T18:41:12Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026081001 3600 600 604800 1440
+; generated with dnscontrol 2026-08-25T18:45:54Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026082502 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -20,10 +20,11 @@ _dmarc           IN TXT   "v=DMARC1; p=quarantine; adkim=s"
 protonmail._domainkey IN CNAME protonmail.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
 protonmail2._domainkey IN CNAME protonmail2.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
 protonmail3._domainkey IN CNAME protonmail3.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
+cloud      600   IN CNAME ingress.alwaldend.com.
+dc1.cloud        IN A     192.168.1.209
 forgejo    600   IN CNAME ingress.alwaldend.com.
 int.forgejo      IN A     192.168.10.40
-ingress          IN A     103.76.53.6
-                 IN A     158.160.196.128
+ingress          IN A     158.160.196.128
 host1.ingress    IN A     158.160.196.128
 host2.ingress    IN A     103.76.53.6
 simplelogin 10800 IN MX   10 mx1.simplelogin.co.

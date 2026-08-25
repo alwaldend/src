@@ -761,19 +761,24 @@
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="n3PXBV0iZSgGQGZ2fiHV-2" parent="1" style="swimlane;whiteSpace=wrap;html=1;startSize=30;" value="Local infra&lt;div&gt;dc1.alwaldend.com&lt;/div&gt;" vertex="1">
-          <mxGeometry height="330" width="280" x="230" y="300" as="geometry" />
+          <mxGeometry height="330" width="430" x="80" y="300" as="geometry" />
         </mxCell>
-        <mxCell id="n3PXBV0iZSgGQGZ2fiHV-11" parent="n3PXBV0iZSgGQGZ2fiHV-2" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-weight: 700;&quot;&gt;TrueNAS BM&lt;/span&gt;&lt;div style=&quot;font-weight: 700;&quot;&gt;nas.alwaldend.com&lt;/div&gt;" vertex="1">
-          <mxGeometry height="130" width="200" x="40" y="100" as="geometry" />
+        <mxCell id="n3PXBV0iZSgGQGZ2fiHV-19" parent="n3PXBV0iZSgGQGZ2fiHV-2" style="swimlane;whiteSpace=wrap;html=1;startSize=50;" value="&lt;div&gt;TrueNAS&lt;/div&gt;&lt;div&gt;nas.alwaldend.com&lt;/div&gt;" vertex="1">
+          <mxGeometry height="200" width="200" x="180" y="80" as="geometry" />
         </mxCell>
-        <mxCell id="n3PXBV0iZSgGQGZ2fiHV-12" parent="n3PXBV0iZSgGQGZ2fiHV-11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Pool 1: RAIDZ2, DAS HDD x5" vertex="1">
-          <mxGeometry height="30" width="200" y="40" as="geometry" />
+        <mxCell id="n3PXBV0iZSgGQGZ2fiHV-20" parent="n3PXBV0iZSgGQGZ2fiHV-19" style="rounded=0;whiteSpace=wrap;html=1;" value="Nextcloud&lt;div&gt;cloud.alwaldend.com&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="140" x="30" y="90" as="geometry" />
         </mxCell>
-        <mxCell id="n3PXBV0iZSgGQGZ2fiHV-13" parent="n3PXBV0iZSgGQGZ2fiHV-11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="Pool 2:&amp;nbsp; SATA SSD x2" vertex="1">
-          <mxGeometry height="30" width="200" y="70" as="geometry" />
+        <mxCell id="n3PXBV0iZSgGQGZ2fiHV-22" edge="1" parent="n3PXBV0iZSgGQGZ2fiHV-2" source="n3PXBV0iZSgGQGZ2fiHV-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="n3PXBV0iZSgGQGZ2fiHV-19">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="n3PXBV0iZSgGQGZ2fiHV-14" parent="n3PXBV0iZSgGQGZ2fiHV-11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="RAM: 64 DDR4" vertex="1">
-          <mxGeometry height="30" width="200" y="100" as="geometry" />
+        <mxCell id="n3PXBV0iZSgGQGZ2fiHV-23" connectable="0" parent="n3PXBV0iZSgGQGZ2fiHV-22" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="HTTPS" vertex="1">
+          <mxGeometry relative="1" x="0.3913" as="geometry">
+            <mxPoint x="-25" y="-15" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n3PXBV0iZSgGQGZ2fiHV-21" parent="n3PXBV0iZSgGQGZ2fiHV-2" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Actor" vertex="1">
+          <mxGeometry height="60" width="30" x="50" y="150" as="geometry" />
         </mxCell>
         <mxCell id="n3PXBV0iZSgGQGZ2fiHV-16" edge="1" parent="1" source="n3PXBV0iZSgGQGZ2fiHV-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="n3PXBV0iZSgGQGZ2fiHV-15">
           <mxGeometry relative="1" as="geometry" />
@@ -784,9 +789,9 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="n3PXBV0iZSgGQGZ2fiHV-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Let&#39;sEncrypt&lt;br&gt;letsencrypt.org" vertex="1">
-          <mxGeometry height="60" width="140" x="610" y="435" as="geometry" />
+          <mxGeometry height="60" width="140" x="610" y="450" as="geometry" />
         </mxCell>
-        <mxCell id="n3PXBV0iZSgGQGZ2fiHV-7" edge="1" parent="1" source="n3PXBV0iZSgGQGZ2fiHV-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="n3PXBV0iZSgGQGZ2fiHV-5">
+        <mxCell id="n3PXBV0iZSgGQGZ2fiHV-7" edge="1" parent="1" source="n3PXBV0iZSgGQGZ2fiHV-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="n3PXBV0iZSgGQGZ2fiHV-5">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="470" y="480" as="sourcePoint" />
           </mxGeometry>
@@ -798,6 +803,34 @@
         </mxCell>
         <mxCell id="n3PXBV0iZSgGQGZ2fiHV-15" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Cloudflare&lt;div&gt;cloudflare.com&lt;/div&gt;" vertex="1">
           <mxGeometry height="60" width="120" x="620" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="n3PXBV0iZSgGQGZ2fiHV-28" edge="1" parent="1" source="n3PXBV0iZSgGQGZ2fiHV-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.25;entryDx=0;entryDy=0;" target="n3PXBV0iZSgGQGZ2fiHV-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="365" y="270" />
+              <mxPoint x="50" y="270" />
+              <mxPoint x="50" y="430" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n3PXBV0iZSgGQGZ2fiHV-29" connectable="0" parent="n3PXBV0iZSgGQGZ2fiHV-28" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="HTTPS over Wireguard" vertex="1">
+          <mxGeometry relative="1" x="-0.6026" y="-4" as="geometry">
+            <mxPoint x="-65" y="-16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n3PXBV0iZSgGQGZ2fiHV-24" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Ingress&lt;div&gt;ingress.alwaldend.com&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="150" x="290" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="n3PXBV0iZSgGQGZ2fiHV-26" edge="1" parent="1" source="n3PXBV0iZSgGQGZ2fiHV-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="n3PXBV0iZSgGQGZ2fiHV-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="n3PXBV0iZSgGQGZ2fiHV-27" connectable="0" parent="n3PXBV0iZSgGQGZ2fiHV-26" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="HTTPS + mTLS" vertex="1">
+          <mxGeometry relative="1" x="0.2923" y="-1" as="geometry">
+            <mxPoint x="-24" y="-21" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="n3PXBV0iZSgGQGZ2fiHV-25" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Actor" vertex="1">
+          <mxGeometry height="60" width="30" x="130" y="140" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

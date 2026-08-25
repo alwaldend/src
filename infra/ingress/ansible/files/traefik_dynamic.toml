@@ -10,11 +10,13 @@ serverName = "{{ service.hostname }}"
 rule = "Host(`{{ service.hostname }}`)"
 service = "{{ service_name }}"
 tls = { certResolver = "default" }
-entrypoints = ["{{ service.entrypoint | default('websecure') }}"]
+{% if "port" in service %}
+entrypoints = ["{{ service_name }}"]
+{% endif %}
 
 [http.services.{{ service_name }}.loadBalancer]
 serversTransport = "{{ service_name }}"
 
 [[http.services.{{ service_name }}.loadBalancer.servers]]
-url = "https://int.{{ service.hostname }}"
+url = "https://{{ service.target }}"
 {% endfor %}

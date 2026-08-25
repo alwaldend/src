@@ -20,10 +20,14 @@ asDefault = true
 [entryPoints.websecure.http.tls]
 certResolver = "default"
 
-[entryPoints.vault]
-address = ":8200"
+{% for service_name, service in traefik_services.items() %}
+{% if "port" in service %}
+[entryPoints.{{ service_name }}]
+address = ":{{ service.port }}"
 [entryPoints.vault.http.tls]
 certResolver = "default"
+{% endif %}
+{% endfor %}
 
 # [api]
 # dashboard = true
@@ -46,4 +50,7 @@ entryPoint = "web"
 resolver = "default"
 [tls.stores.default.acme.domain]
 main = "{{ ingress_domain }}"
-sans = ["{{ inventory_hostname }}", "*.alwaldend.com"]
+sans = [
+  "{{ inventory_hostname }}",
+  "*.alwaldend.com",
+]

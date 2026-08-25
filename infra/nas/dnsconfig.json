@@ -7,12 +7,40 @@
             },
             "dsp": ["dc1"]
         },
-        "host1_root": {
+        "root": {
             "A": {
                 "name": "nas",
                 "address": "192.168.1.209"
             },
             "dsp": ["dc1"]
+        },
+        "cloud_dc1": {
+            "A": {
+                "name": "dc1.cloud",
+                "address": "192.168.1.209"
+            },
+            "dsp": ["all"]
+        },
+        "cloud_host1": {
+            "CNAME": {
+                "name": "host1.cloud",
+                "target": "host1.nas.alwaldend.com."
+            },
+            "dsp": ["dc1"]
+        },
+        "cloud_root_dc1": {
+            "CNAME": {
+                "name": "cloud",
+                "target": "nas.alwaldend.com."
+            },
+            "dsp": ["dc1"]
+        },
+        "cloud_root_global": {
+            "CNAME": {
+                "name": "cloud",
+                "target": "ingress.alwaldend.com."
+            },
+            "dsp": ["global"]
         }
     }
 }

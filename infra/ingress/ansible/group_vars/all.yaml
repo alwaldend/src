@@ -9,9 +9,14 @@ wg_preshared_keys: "{{ lookup('ansible.builtin.env', 'TF_VAR_wg_preshared_keys',
 traefik_services:
   forgejo:
     hostname: forgejo.alwaldend.com
+    target: "int.forgejo.alwaldend.com"
+  cloud:
+    hostname: cloud.alwaldend.com
+    target: "dc1.cloud.alwaldend.com:30027"
   vault:
     hostname: vault.alwaldend.com
-    entrypoint: vault
+    port: 8200
+    target: "int.vault.alwaldend.com:8200"
 wireguard_local_config_paths:
   - files/wireguard/router1.conf
 ssh_valid_principals:

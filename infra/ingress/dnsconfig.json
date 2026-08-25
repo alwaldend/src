@@ -20,13 +20,6 @@
                 "address": "103.76.53.6"
             },
             "dsp": ["all"]
-        },
-        "root_host2": {
-            "A": {
-                "name": "ingress",
-                "address": "103.76.53.6"
-            },
-            "dsp": ["all"]
         }
     }
 }
