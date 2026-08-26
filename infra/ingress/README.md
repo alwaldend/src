@@ -13,6 +13,11 @@ tags:
 bazel run //infra/ingress/ansible
 ```
 
+Services in `traefik_services` must use a backend `target` that resolves from
+the ingress hosts without resolving back to ingress. Define a dedicated
+site-local address, conventionally prefixed with `dc1.`, in the owning
+service's DNS configuration and use that address as the target.
+
 ## Apply terraform
 
 ```sh
