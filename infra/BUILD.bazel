@@ -17,7 +17,6 @@ filegroup(
         "//infra/vault:dnsconfig",
         "//users:dnsconfig",
         "//users/simeonwarren/host_bot:dnsconfig",
-        "//users/simeonwarren/t3code:dnsconfig",
     ],
     visibility = ["//infra:__subpackages__"],
 )
