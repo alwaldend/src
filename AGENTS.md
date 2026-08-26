@@ -11,6 +11,8 @@ Use this file as the repository-wide default. If a more deeply nested
 
 - Read the nearest `README.md`, `BUILD.bazel`, and `include.MODULE.bazel`
   (when present) for the area being changed.
+- Name projects using only ASCII letters, digits, and underscores
+  (`[a-zA-Z0-9_]+`).
 - Prefer a small, target-specific change. This is a large monorepo, so query,
   build, and test the affected Bazel package before considering `//...`.
 - Review `git diff --check` and `git diff -- <paths>` before committing.

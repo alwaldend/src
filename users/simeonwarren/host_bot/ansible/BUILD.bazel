@@ -6,7 +6,7 @@ load("//tools/docs:defs.bzl", "docs_filegroup")
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//users/simeonwarren/host-bot:__pkg__"],
+    visibility = ["//users/simeonwarren/host_bot:__pkg__"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
@@ -21,7 +21,7 @@ al_binary_run_map(
         "inventory.yaml",
         "playbook_deploy.yaml",
     ]},
-    configs = ["//users/simeonwarren/host-bot:al"],
+    configs = ["//users/simeonwarren/host_bot:al"],
     data = [
         ":ansible_bin",
         "//tools/vault/injector",

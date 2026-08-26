@@ -4,7 +4,7 @@ load("//tools/docs:defs.bzl", "docs_filegroup")
 al_config(
     name = "al",
     srcs = ["al.lua"],
-    visibility = ["//users/simeonwarren/host-bot:__subpackages__"],
+    visibility = ["//users/simeonwarren/host_bot:__subpackages__"],
     deps = ["//infra:al"],
 )
 
