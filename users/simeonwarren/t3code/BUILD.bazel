@@ -9,6 +9,15 @@ al_config(
     deps = ["//infra:al"],
 )
 
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = [
+        "//infra:__pkg__",
+        "//users/simeonwarren/t3code:__subpackages__",
+    ],
+)
+
 vault_binary_map(
     name = "vault",
     configs = [":al"],
