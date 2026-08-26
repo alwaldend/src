@@ -21,6 +21,20 @@
             },
             "dsp": ["all"]
         },
+        "host_bot_dc1": {
+            "A": {
+                "name": "host-bot.t3code.simeonwarren.users",
+                "address": "192.168.1.210"
+            },
+            "dsp": ["dc1"]
+        },
+        "host_bot_global": {
+            "CNAME": {
+                "name": "host-bot.t3code.simeonwarren.users",
+                "target": "ingress.alwaldend.com."
+            },
+            "dsp": ["global"]
+        },
         "root": {
             "CNAME": {
                 "name": "t3code.simeonwarren.users",
