@@ -15,7 +15,7 @@ traefik_services:
     target: "dc1.cloud.alwaldend.com:30027"
   t3code-host-bot:
     hostname: t3code.host-bot.simeonwarren.users.alwaldend.com
-    target: "dc1.host-bot.simeonwarren.users.alwaldend.com:3773"
+    target: "dc1.t3code.host-bot.simeonwarren.users.alwaldend.com"
   vault:
     hostname: vault.alwaldend.com
     port: 8200
