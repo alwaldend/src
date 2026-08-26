@@ -18,6 +18,7 @@ var jsons = [
     require("../threexui/dnsconfig.json"),
     require("../ingress/dnsconfig.json"),
     require("../nas/dnsconfig.json"),
+    require("../../users/simeonwarren/host_bot/dnsconfig.json"),
     require("../../users/simeonwarren/t3code/dnsconfig.json"),
     require("../../users/simeonwarren/dnsconfig.json"),
 ];

@@ -1,0 +1,7 @@
+- name: Deploy Host Bot proxy
+  hosts: host_bot
+  force_handlers: true
+  become: true
+  tasks:
+    - ansible.builtin.import_role:
+        name: alwaldend.main.traefik

@@ -1,0 +1,7 @@
+[http.routers.t3code]
+rule = "Host(`{{ t3code_domain }}`)"
+service = "t3code"
+tls = { certResolver = "vault" }
+
+[[http.services.t3code.loadBalancer.servers]]
+url = "http://127.0.0.1:{{ t3code_port }}"
