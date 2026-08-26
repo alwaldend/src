@@ -1,5 +1,5 @@
 [http.routers.t3code]
-rule = "Host(`{{ host_bot_domain }}`)"
+rule = "Host(`{{ t3code_domain }}`)"
 service = "t3code"
 tls = { certResolver = "vault" }
 

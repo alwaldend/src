@@ -2,21 +2,28 @@
     "records": {
         "host_bot_dc1": {
             "A": {
-                "name": "host-bot.t3code.simeonwarren.users",
+                "name": "host-bot.simeonwarren.users",
                 "address": "192.168.1.210"
             },
             "dsp": ["dc1"]
         },
         "host_bot_dc1_target": {
             "A": {
-                "name": "dc1.host-bot.t3code.simeonwarren.users",
+                "name": "dc1.host-bot.simeonwarren.users",
                 "address": "192.168.1.210"
             },
             "dsp": ["all"]
         },
-        "host_bot_global": {
+        "t3code_dc1": {
+            "A": {
+                "name": "t3code.host-bot.simeonwarren.users",
+                "address": "192.168.1.210"
+            },
+            "dsp": ["dc1"]
+        },
+        "t3code_global": {
             "CNAME": {
-                "name": "host-bot.t3code.simeonwarren.users",
+                "name": "t3code.host-bot.simeonwarren.users",
                 "target": "ingress.alwaldend.com."
             },
             "dsp": ["global"]

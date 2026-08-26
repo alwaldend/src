@@ -34,4 +34,4 @@ hmacEncoded = "{{ traefik_acme_hmac }}"
 [tls.stores.default.acme]
 resolver = "vault"
 [tls.stores.default.acme.domain]
-main = "{{ host_bot_domain }}"
+main = "{{ t3code_domain }}"

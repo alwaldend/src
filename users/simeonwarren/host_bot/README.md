@@ -1,6 +1,6 @@
 ---
 title: Host Bot
-description: host-bot.t3code.simeonwarren.users.alwaldend.com
+description: host-bot.simeonwarren.users.alwaldend.com
 tags:
   - ansible
   - t3code
