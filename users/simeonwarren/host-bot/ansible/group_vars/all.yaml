@@ -1,0 +1,6 @@
+ansible_user: simeonwarren
+ssh_vault_role: users_simeonwarren_ssh
+traefik_acme_path: pki/ica_servers/roles/users_simeonwarren_pki_server/acme
+traefik_acme_url: "https://vault.alwaldend.com:8200/v1/{{ traefik_acme_path }}/directory"
+host_bot_domain: host-bot.t3code.simeonwarren.users.alwaldend.com
+t3code_port: 3773

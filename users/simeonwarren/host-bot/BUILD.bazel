@@ -1,0 +1,25 @@
+load("//projects/al/rules/al:al_config.bzl", "al_config")
+load("//tools/docs:defs.bzl", "docs_filegroup")
+
+al_config(
+    name = "al",
+    srcs = ["al.lua"],
+    visibility = ["//users/simeonwarren/host-bot:__subpackages__"],
+    deps = ["//infra:al"],
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = ["//infra:__pkg__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//users/simeonwarren:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
