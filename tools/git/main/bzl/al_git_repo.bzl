@@ -10,23 +10,8 @@ toolchain(
 )
 
 filegroup(
-    name = "git_objects",
-    srcs = glob([".git/objects/**"]),
-)
-
-filegroup(
-    name = "git_refs",
-    srcs = glob([".git/refs/**"]),
-)
-
-filegroup(
-    name = "git_head",
-    srcs = [".git/HEAD"],
-)
-
-filegroup(
     name = "git_invalidation",
-    srcs = [":git_objects", ":git_refs", ":git_head"] + glob([".git/**"]),
+    srcs = [".git"],
     visibility = ["//visibility:public"],
 )
 

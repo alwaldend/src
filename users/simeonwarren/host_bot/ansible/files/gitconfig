@@ -1,0 +1,14 @@
+[credential "https://github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/usr/bin/gh auth git-credential
+[user]
+	name = simeonwarrenbot
+	email = simeonwarrenbot@alwaldend.com
+	signingkey = ~/.ssh/id_ed25519
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true

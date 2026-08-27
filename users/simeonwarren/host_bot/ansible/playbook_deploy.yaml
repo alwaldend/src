@@ -3,6 +3,28 @@
   force_handlers: true
   become: true
   tasks:
+    - name: Open firewall ports
+      loop:
+        - 22/tcp
+        - 80/tcp
+        - 443/tcp
+      ansible.posix.firewalld:
+        port: "{{ item }}"
+        permanent: true
+        immediate: true
+        offline: true
+        state: enabled
+    - name: Enable firewalld
+      ansible.builtin.systemd_service:
+        name: firewalld
+        enabled: true
+        state: started
+    - name: Configure Git
+      become: false
+      ansible.builtin.copy:
+        src: gitconfig
+        dest: "~/.gitconfig"
+        mode: "0600"
     - name: Setup CA
       ansible.builtin.import_role:
         name: alwaldend.main.install_ca
