@@ -3,5 +3,9 @@
   force_handlers: true
   become: true
   tasks:
-    - ansible.builtin.import_role:
+    - name: Setup CA
+      ansible.builtin.import_role:
+        name: alwaldend.main.install_ca
+    - name: Setup Traefik
+      ansible.builtin.import_role:
         name: alwaldend.main.traefik

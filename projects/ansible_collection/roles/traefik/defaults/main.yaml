@@ -1,4 +1,6 @@
 traefik_user: traefik
+traefik_no_user: false
+traefik_owner: root
 traefik_user_uid: 3578
 traefik_dir: "/opt/traefik"
 traefik_log_dir: "{{ traefik_dir }}/logs"
@@ -15,6 +17,7 @@ traefik_config_local_path: "files/traefik.toml"
 traefik_dynamic_config_path: "{{ traefik_config_dir }}/traefik_dynamic.toml"
 traefik_dynamic_config_local_path: "files/traefik_dynamic.toml"
 traefik_service_path: "/lib/systemd/system/traefik.service"
+traefik_service_scope: system
 traefik_bin_local_path: "{{ role_path }}/files/traefik"
 traefik_bin_path: /usr/bin/traefik
 traefik_vault_bin_local_path: "{{ role_path }}/files/vault"
