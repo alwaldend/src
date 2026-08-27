@@ -4,6 +4,8 @@ trust_level = "trusted"
 [mcp_servers.blender]
 command = "uvx"
 args = [
+  "--with",
+  "mcp<2",
   "--from",
   "git+https://projects.blender.org/lab/blender_mcp.git#subdirectory=mcp",
   "blender-mcp",
