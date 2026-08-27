@@ -3,10 +3,6 @@
   force_handlers: true
   become: true
   tasks:
-    - name: Install firewalld
-      ansible.builtin.package:
-        name: firewalld
-        state: present
     - name: Open firewall ports
       loop:
         - 22/tcp
