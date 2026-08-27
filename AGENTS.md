@@ -32,6 +32,8 @@ be stated to the user, never absorbed.
 - Do all work on a feature branch. Do not work directly on the default branch.
 - Commit and push to at least one remote after each chunk of
   changes, and do not continue further if you cannot push.
+- After pushing, update the feature branch's pull request. If it does not
+  exist, create it.
 - Do not ask whether you should commit or push to a feature branch: the answer
   is always yes.
 - Commit all changes each time. Do not leave requested changes uncommitted.
