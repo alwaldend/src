@@ -24,11 +24,10 @@
         enabled: true
         state: started
     - name: Configure Git
+      become: false
       ansible.builtin.copy:
         src: gitconfig
-        dest: "/home/{{ ansible_user }}/.gitconfig"
-        owner: "{{ ansible_user }}"
-        group: "{{ ansible_user }}"
+        dest: "~/.gitconfig"
         mode: "0600"
     - name: Setup CA
       ansible.builtin.import_role:
