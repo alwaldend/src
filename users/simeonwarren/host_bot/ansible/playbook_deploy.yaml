@@ -7,11 +7,6 @@
       ansible.builtin.package:
         name: firewalld
         state: present
-    - name: Enable firewalld
-      ansible.builtin.systemd_service:
-        name: firewalld
-        enabled: true
-        state: started
     - name: Open firewall ports
       loop:
         - 22/tcp
@@ -21,7 +16,13 @@
         port: "{{ item }}"
         permanent: true
         immediate: true
+        offline: true
         state: enabled
+    - name: Enable firewalld
+      ansible.builtin.systemd_service:
+        name: firewalld
+        enabled: true
+        state: started
     - name: Setup CA
       ansible.builtin.import_role:
         name: alwaldend.main.install_ca
