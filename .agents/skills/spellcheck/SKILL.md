@@ -14,6 +14,9 @@ supplied, ask for text to spellcheck and stop.
 
 Return exactly these sections, with no preamble or closing remarks:
 
+For every fenced code block you output, use an outer fence longer than any
+backtick run in its contents.
+
 ## Spellchecked
 
 Correct misspellings and unmistakable typographical, capitalization,
@@ -25,8 +28,7 @@ they contain an obvious typo. If the input is already correct, reproduce it
 unchanged.
 
 Put the complete, minimally corrected input in one fenced code block labeled
-`markdown`. If the input contains a backtick fence, use an outer fence longer
-than any backtick run in the input.
+`markdown`.
 
 ## Suggestions
 
