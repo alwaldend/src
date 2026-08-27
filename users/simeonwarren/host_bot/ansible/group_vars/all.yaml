@@ -1,5 +1,15 @@
 ansible_user: simeonwarrenbot
 ssh_vault_role: users_simeonwarren_ssh
+firewall_allow_port_from:
+  - src: "any"
+    port: 22
+    comment: SSH
+  - src: "any"
+    port: 80
+    comment: HTTP
+  - src: "any"
+    port: 443
+    comment: HTTPS
 traefik_acme_path: pki/ica_servers/roles/users_simeonwarren_pki_server/acme
 traefik_acme_url: "https://vault.alwaldend.com:8200/v1/{{ traefik_acme_path }}/directory"
 traefik_bin_path: "{{ traefik_dir }}/traefik"

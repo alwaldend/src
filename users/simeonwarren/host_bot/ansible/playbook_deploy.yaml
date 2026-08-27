@@ -3,6 +3,9 @@
   force_handlers: true
   become: true
   tasks:
+    - name: Setup firewall
+      ansible.builtin.import_role:
+        name: alwaldend.main.firewall
     - name: Setup CA
       ansible.builtin.import_role:
         name: alwaldend.main.install_ca
