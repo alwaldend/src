@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-08-26T20:26:20Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026082602 3600 600 604800 1440
+; generated with dnscontrol 2026-08-27T16:10:10Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026082700 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -43,10 +43,6 @@ yc.threexui      IN NS    ns1.yandexcloud.net.
 dc1.host-bot.simeonwarren.users IN A 192.168.1.210
 t3code.host-bot.simeonwarren.users 600 IN CNAME ingress.alwaldend.com.
 dc1.t3code.host-bot.simeonwarren.users IN A 192.168.1.210
-t3code.simeonwarren.users 600 IN CNAME host1.yc.t3code.simeonwarren.users.alwaldend.com.
-host1.t3code.simeonwarren.users 600 IN CNAME host1.yc.t3code.simeonwarren.users.alwaldend.com.
-yc.t3code.simeonwarren.users IN NS ns1.yandexcloud.net.
-                 IN NS    ns2.yandexcloud.net.
 vault      600   IN CNAME ingress.alwaldend.com.
 int.vault        IN A     192.168.1.218
 www              IN CNAME alwaldend.com.

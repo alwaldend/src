@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-08-26T20:26:20Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026082602 3600 600 604800 1440
+; generated with dnscontrol 2026-08-27T16:10:10Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026082700 3600 600 604800 1440
                  IN A     185.199.108.153
                  IN A     185.199.109.153
                  IN A     185.199.110.153
@@ -67,10 +67,6 @@ host-bot.simeonwarren.users IN A 192.168.1.210
 dc1.host-bot.simeonwarren.users IN A 192.168.1.210
 t3code.host-bot.simeonwarren.users IN A 192.168.1.210
 dc1.t3code.host-bot.simeonwarren.users IN A 192.168.1.210
-t3code.simeonwarren.users IN A 10.30.1.1
-host1.t3code.simeonwarren.users 600 IN CNAME host1.yc.t3code.simeonwarren.users.alwaldend.com.
-yc.t3code.simeonwarren.users IN NS ns1.yandexcloud.net.
-                 IN NS    ns2.yandexcloud.net.
 vault            IN A     192.168.1.218
 www              IN CNAME alwaldend.com.
 yandex     21600 IN MX    10 mx.yandex.net.
