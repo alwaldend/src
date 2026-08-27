@@ -23,6 +23,13 @@
         name: firewalld
         enabled: true
         state: started
+    - name: Configure Git
+      ansible.builtin.copy:
+        src: gitconfig
+        dest: "/home/{{ ansible_user }}/.gitconfig"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0600"
     - name: Setup CA
       ansible.builtin.import_role:
         name: alwaldend.main.install_ca
