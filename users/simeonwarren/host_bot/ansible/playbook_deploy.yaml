@@ -3,9 +3,25 @@
   force_handlers: true
   become: true
   tasks:
-    - name: Setup firewall
-      ansible.builtin.import_role:
-        name: alwaldend.main.firewall
+    - name: Install firewalld
+      ansible.builtin.package:
+        name: firewalld
+        state: present
+    - name: Enable firewalld
+      ansible.builtin.systemd_service:
+        name: firewalld
+        enabled: true
+        state: started
+    - name: Open firewall ports
+      loop:
+        - 22/tcp
+        - 80/tcp
+        - 443/tcp
+      ansible.posix.firewalld:
+        port: "{{ item }}"
+        permanent: true
+        immediate: true
+        state: enabled
     - name: Setup CA
       ansible.builtin.import_role:
         name: alwaldend.main.install_ca
