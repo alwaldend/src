@@ -25,6 +25,18 @@
         src: gitconfig
         dest: "~/.gitconfig"
         mode: "0600"
+    - name: Create the Codex configuration directory
+      become: false
+      ansible.builtin.file:
+        path: "~/.codex"
+        state: directory
+        mode: "0700"
+    - name: Configure Codex
+      become: false
+      ansible.builtin.copy:
+        src: codex_config.toml
+        dest: "~/.codex/config.toml"
+        mode: "0600"
     - name: Setup CA
       ansible.builtin.import_role:
         name: alwaldend.main.install_ca
