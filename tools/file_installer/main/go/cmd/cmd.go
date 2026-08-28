@@ -70,11 +70,11 @@ func installArgs(files []string, default_target string, directoryFileMode os.Fil
 	results := make(chan *resultType, len(files))
 	for i, file := range files {
 		waitGroup.Add(1)
-		go func(file string) {
+		go func(i int, file string) {
 			defer waitGroup.Done()
 			err := installArg(file, default_target, directoryFileMode)
 			results <- &resultType{i, file, err}
-		}(file)
+		}(i, file)
 	}
 	waitGroup.Wait()
 
