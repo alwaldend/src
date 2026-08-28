@@ -1,6 +1,6 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/make_install/main/bzl:al_make_install.bzl", "al_make_install")
 load("//tools/make_install/main/bzl:al_make_install_binary.bzl", "al_make_install_binary")
 
@@ -11,19 +11,13 @@ build_test(
     ],
 )
 
-pkg_filegroup(
+docs_filegroup(
     name = "docs",
-    srcs = [
-        ":docs_files",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects:__pkg__"],
+    deps = [
         "//projects/dotfiles/releases:docs",
     ],
-    visibility = ["//projects:__pkg__"],
-)
-
-pkg_files(
-    name = "docs_files",
-    srcs = glob(["*.md"]),
-    prefix = "content/docs/{}".format(package_name()),
 )
 
 al_make_install(

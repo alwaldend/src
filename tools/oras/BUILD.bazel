@@ -1,4 +1,4 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 
 alias(
     name = "oras",
@@ -6,14 +6,8 @@ alias(
     visibility = ["//:__subpackages__"],
 )
 
-pkg_filegroup(
+docs_filegroup(
     name = "docs",
-    srcs = [":docs_files"],
-    visibility = ["//tools:__pkg__"],
-)
-
-pkg_files(
-    name = "docs_files",
     srcs = glob(["*.md"]),
-    prefix = "content/docs/{}".format(package_name()),
+    visibility = ["//tools:__pkg__"],
 )

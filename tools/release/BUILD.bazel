@@ -1,4 +1,4 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/release/main/bzl:al_release_deployment.bzl", "al_release_deployment")
 
 alias(
@@ -13,18 +13,12 @@ al_release_deployment(
     visibility = ["//:__subpackages__"],
 )
 
-pkg_filegroup(
+docs_filegroup(
     name = "docs",
-    srcs = [
-        ":docs_files",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools:__pkg__"],
+    deps = [
         "//tools/release/main/bzl:docs",
         "//tools/release/main/proto:docs",
     ],
-    visibility = ["//tools:__pkg__"],
-)
-
-pkg_files(
-    name = "docs_files",
-    srcs = glob(["*.md"]),
-    prefix = "content/docs/{}".format(package_name()),
 )
