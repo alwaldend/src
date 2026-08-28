@@ -112,7 +112,7 @@ mkdir projects/project_name
 cd projects/project_name
 ln -s ../../.bazelignore
 ln -s ../../.bazeliskrc
-ln -s ../../tools/bazelrc/main/bazelrc/bzl_project.bazelrc .bazelrc
+ln -s ../../tools/bazelrc/bzl_project.bazelrc .bazelrc
 ```
 
 ## Ssh key using Yubikey's pgp doesn't work
