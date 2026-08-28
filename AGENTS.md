@@ -59,6 +59,11 @@ these visibility and publication boundaries when adding dependencies.
 
 - Bazel is the primary entry point. `.bazeliskrc` pins the supported version;
   use `bazel`, not a separately installed unpinned binary.
+- Agents must run repository Bazel commands from the applicable workspace root
+  with `--config=agent`. Set `umask 077` first because the generated
+  `bazel-agent-build-events.json` includes the client environment. Parse only
+  the fields needed for the task, never publish the complete file, and delete
+  it after reporting.
 - `MODULE.bazel` is the Bzlmod root. Most dependency families are split into
   `include.MODULE.bazel` files under `tools/`, `third_party/`, and `projects/`.
   Keep a dependency declaration with the owning subsystem rather than adding
