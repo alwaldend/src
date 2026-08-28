@@ -1,0 +1,6 @@
+interface:
+  display_name: "Host Bot Diagnostics"
+  short_description: "Audit Codex and T3 host drift safely"
+  default_prompt: >-
+    Use $host-bot-diagnostics to audit the host_bot Codex and T3 setup without
+    changing state.

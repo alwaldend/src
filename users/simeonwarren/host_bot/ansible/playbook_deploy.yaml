@@ -2,23 +2,39 @@
   hosts: host_bot
   force_handlers: true
   become: true
+  handlers:
+    - name: Validate firewalld configuration
+      ansible.builtin.command:
+        argv:
+          - firewall-cmd
+          - --check-config
+      changed_when: false
+      listen: Reload firewalld
+    - name: Reload firewalld
+      ansible.builtin.command:
+        argv:
+          - firewall-cmd
+          - --reload
+      changed_when: true
+      listen: Reload firewalld
   tasks:
-    - name: Open firewall ports
-      loop:
-        - 22/tcp
-        - 80/tcp
-        - 443/tcp
-      ansible.posix.firewalld:
-        port: "{{ item }}"
-        permanent: true
-        immediate: true
-        offline: true
-        state: enabled
     - name: Enable firewalld
       ansible.builtin.systemd_service:
         name: firewalld
         enabled: true
         state: started
+      tags:
+        - firewall
+    - name: Configure firewall allowlist
+      ansible.builtin.copy:
+        src: firewalld_zone.xml
+        dest: /etc/firewalld/zones/FedoraWorkstation.xml
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Reload firewalld
+      tags:
+        - firewall
     - name: Configure Git
       become: false
       ansible.builtin.copy:
@@ -31,12 +47,34 @@
         path: "~/.codex"
         state: directory
         mode: "0700"
+      tags:
+        - codex
     - name: Configure Codex
       become: false
       ansible.builtin.copy:
         src: codex_config.toml
         dest: "~/.codex/config.toml"
         mode: "0600"
+      tags:
+        - codex
+    - name: Create the system Codex configuration directory
+      ansible.builtin.file:
+        path: /etc/codex
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+      tags:
+        - codex
+    - name: Enforce Codex approval requirements
+      ansible.builtin.copy:
+        src: codex_requirements.toml
+        dest: /etc/codex/requirements.toml
+        owner: root
+        group: root
+        mode: "0644"
+      tags:
+        - codex
     - name: Setup CA
       ansible.builtin.import_role:
         name: alwaldend.main.install_ca
