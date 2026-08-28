@@ -59,8 +59,8 @@ func TestExecuteContinuesAndWritesPrivateArtifacts(t *testing.T) {
 	if got := execute(getenv, newCommand, &stdout, &stderr); got != 1 {
 		t.Fatalf("execute() = %d, want 1", got)
 	}
-	if commands != 10 {
-		t.Errorf("commands executed = %d, want 10", commands)
+	if commands != 12 {
+		t.Errorf("commands executed = %d, want 12", commands)
 	}
 	if stderr.Len() != 0 {
 		t.Errorf("stderr = %q, want empty", stderr.String())
@@ -100,8 +100,8 @@ func TestExecuteContinuesAndWritesPrivateArtifacts(t *testing.T) {
 	if err != nil {
 		t.Fatalf("os.ReadDir(logs) error = %v", err)
 	}
-	if len(logs) != 10 {
-		t.Fatalf("log count = %d, want 10", len(logs))
+	if len(logs) != 12 {
+		t.Fatalf("log count = %d, want 12", len(logs))
 	}
 	firstLog := filepath.Join(runDirectory, "logs", "root.build.log")
 	assertPermissions(t, firstLog, 0o600)
