@@ -14,8 +14,16 @@ build_test(
         ":go_crossbinary",
         ":go_tar",
         ":go",
-        ":go_oci",
     ],
+)
+
+build_test(
+    name = "build_test_harbor",
+    target_compatible_with = select({
+        "//tools/bazel_configs:harbor": [],
+        "//conditions:default": ["@platforms//:incompatible"],
+    }),
+    targets = [":go_oci"],
 )
 
 go_library(
@@ -51,6 +59,10 @@ pkg_tar(
 oci_image(
     name = "go_oci",
     base = "//third_party/io_docker_library_alpine",
+    target_compatible_with = select({
+        "//tools/bazel_configs:harbor": [],
+        "//conditions:default": ["@platforms//:incompatible"],
+    }),
     tars = [":go_tar"],
     visibility = ["//:__subpackages__"],
 )

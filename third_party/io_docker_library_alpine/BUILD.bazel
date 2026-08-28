@@ -13,5 +13,9 @@ docs_filegroup(
 alias(
     name = "io_docker_library_alpine",
     actual = "@io_docker_library_alpine",
+    target_compatible_with = select({
+        "//tools/bazel_configs:harbor": [],
+        "//conditions:default": ["@platforms//:incompatible"],
+    }),
     visibility = ["//:__subpackages__"],
 )
