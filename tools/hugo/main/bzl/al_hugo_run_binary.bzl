@@ -20,6 +20,17 @@ def _impl(ctx):
             set -eu
             {env_script}
             tar -xf {site_archive}
+            mkdir -p node_modules/.bin
+            postcss="$PWD"/{postcss}
+            postcss_bindir="$PWD"/{postcss_bindir}
+            cat >node_modules/.bin/postcss <<EOF
+#!/usr/bin/env sh
+set -eu
+export BAZEL_BINDIR="$postcss_bindir"
+export NODE_PATH="$postcss_bindir/node_modules"
+exec "$postcss" "\\$@"
+EOF
+            chmod +x node_modules/.bin/postcss
             mkdir -p static
             cp {env_file} static/hugo_env.txt
             exec {hugo} "$@"
@@ -27,11 +38,14 @@ def _impl(ctx):
             env_file = shell.quote(hugo.env_file.path),
             env_script = env_script,
             hugo = shell.quote(hugo.hugo.path),
+            postcss = shell.quote(site_info.postcss.path),
+            postcss_bindir = shell.quote(site_info.postcss.root.path),
             site_archive = shell.quote(site_info.site_archive.path),
         ),
         inputs = depset(
             direct = [
                 hugo.env_file,
+                site_info.postcss,
                 site_info.site_archive,
             ],
             transitive = [
@@ -41,7 +55,10 @@ def _impl(ctx):
         outputs = [out_dir] + ctx.outputs.outs,
         arguments = [args],
         progress_message = "Running hugo action: %{label}",
-        tools = [hugo.hugo_target[DefaultInfo].files_to_run],
+        tools = [
+            hugo.hugo_target[DefaultInfo].files_to_run,
+            site_info.postcss_files_to_run,
+        ],
     )
     return [
         DefaultInfo(

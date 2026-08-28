@@ -16,6 +16,7 @@ docs_filegroup(
 
 compile_pip_requirements(
     name = "requirements",
+    timeout = "long",
     srcs = [":requirements.in.txt"],
     requirements_txt = ":requirements.txt",
 )

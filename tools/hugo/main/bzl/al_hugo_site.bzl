@@ -22,7 +22,9 @@ def _impl(ctx):
     env = {}
     env.update(ctx.attr.env)
     env["PATH"] = path
-    env["BAZEL_BINDIR"] = "$${PWD}/$(BINDIR)"
+    env["BAZEL_BINDIR"] = "$${{PWD}}/{}".format(
+        ctx.executable.postcss.root.path,
+    )
     env_script = " && ".join([
         cmd
         for name, value in env.items()
@@ -36,6 +38,8 @@ def _impl(ctx):
         ),
         AlHugoSiteInfo(
             site_archive = ctx.file.site,
+            postcss = ctx.executable.postcss,
+            postcss_files_to_run = ctx.attr.postcss[DefaultInfo].files_to_run,
             env = ctx.attr.env,
             env_script = env_script,
         ),

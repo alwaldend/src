@@ -72,6 +72,7 @@ modules_mapping(
 compile_pip_requirements(
     name = "requirements",
     size = "large",
+    timeout = "long",
     srcs = [":pyproject"],
     extra_args = ["--no-strip-extras"],
     requirements_txt = ":requirements.txt",

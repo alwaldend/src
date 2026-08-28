@@ -16,6 +16,11 @@ def _hugo_site_action_test_impl(ctx):
         for file in inputs
         if file.basename == "site_archive.tar"
     ]
+    postcss_executables = [
+        file
+        for file in inputs
+        if file.path.endswith("/tools/postcss/postcss_/postcss")
+    ]
 
     asserts.equals(env, 1, len(site_archives))
     asserts.true(
@@ -25,10 +30,22 @@ def _hugo_site_action_test_impl(ctx):
         ),
         "site archive must stay in the target configuration",
     )
+    asserts.equals(env, 1, len(postcss_executables))
+    command = " ".join(actions[0].argv)
     asserts.true(
         env,
-        _has_input_suffix(inputs, "/tools/postcss/postcss_/postcss"),
-        "PostCSS runfiles must be declared as action inputs",
+        postcss_executables[0].path in command,
+        "the action must reference the declared PostCSS executable",
+    )
+    asserts.true(
+        env,
+        "node_modules/.bin/postcss" in command,
+        "the action must create the project-local PostCSS shim Hugo prefers",
+    )
+    asserts.true(
+        env,
+        "NODE_PATH" in command,
+        "the PostCSS shim must expose its declared Node modules",
     )
     asserts.true(
         env,
