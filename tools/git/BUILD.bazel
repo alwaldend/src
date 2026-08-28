@@ -1,20 +1,14 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/git/main/bzl:al_git_info_file.bzl", "al_git_info_file")
 
-pkg_filegroup(
+docs_filegroup(
     name = "docs",
-    srcs = [
-        ":docs_files",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools:__pkg__"],
+    deps = [
         "//tools/git/main/bzl:docs",
         "//tools/git/main/proto:docs",
     ],
-    visibility = ["//tools:__pkg__"],
-)
-
-pkg_files(
-    name = "docs_files",
-    srcs = glob(["*.md"]),
-    prefix = "content/docs/{}".format(package_name()),
 )
 
 alias(

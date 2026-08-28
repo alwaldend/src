@@ -5,7 +5,10 @@ def docs_filegroup(
         srcs,
         visibility,
         deps = [],
-        prefix_root = "content/docs/"):
+        prefix_root = "content/docs/",
+        prefix = None,
+        renames = None,
+        strip_prefix = None):
     """
     Create a documentation filegroup
     """
@@ -14,9 +17,17 @@ def docs_filegroup(
         package_name = "{}/".format(package_name)
     deps_normalized = []
     for dep in deps:
-        if not ":" in dep:
+        is_relative = not dep.startswith("//") and not dep.startswith("@")
+        if is_relative and not ":" in dep:
             dep = "//{}{}:docs".format(package_name, dep)
         deps_normalized.append(dep)
+    pkg_files_kwargs = {}
+    if renames != None:
+        pkg_files_kwargs["renames"] = renames
+    if strip_prefix != None:
+        pkg_files_kwargs["strip_prefix"] = strip_prefix
+    if prefix == None:
+        prefix = "{}{}".format(prefix_root, native.package_name())
     pkg_filegroup(
         name = name,
         srcs = [":{}.files".format(name)] + deps_normalized,
@@ -26,5 +37,6 @@ def docs_filegroup(
     pkg_files(
         name = "{}.files".format(name),
         srcs = srcs,
-        prefix = "{}{}".format(prefix_root, native.package_name()),
+        prefix = prefix,
+        **pkg_files_kwargs
     )

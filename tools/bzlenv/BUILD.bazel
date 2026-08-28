@@ -1,6 +1,6 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("//tools/ansible/main/bzl:al_ansible_scripts.bzl", "AL_ANSIBLE_SCRIPTS")
 load("//tools/bzlenv/main/bzl:al_bzlenv_binary.bzl", "al_bzlenv_binary")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 
 _ROOT_TOOLS = [
     "blender",
@@ -36,19 +36,13 @@ _ROOT_TOOLS = [
     "release",
 ]
 
-pkg_filegroup(
+docs_filegroup(
     name = "docs",
-    srcs = [
-        ":docs_files",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools:__pkg__"],
+    deps = [
         "//tools/bzlenv/main/bzl:docs",
     ],
-    visibility = ["//tools:__pkg__"],
-)
-
-pkg_files(
-    name = "docs_files",
-    srcs = glob(["*.md"]),
-    prefix = "content/docs/{}".format(package_name()),
 )
 
 al_bzlenv_binary(
