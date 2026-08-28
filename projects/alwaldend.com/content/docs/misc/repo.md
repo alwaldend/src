@@ -25,8 +25,16 @@ tags:
   ```
 - Install android tools:
   ```sh
-  bazel run //tools/android:install
+  ANDROID_HOME="${HOME}/Android/Sdk" \
+    bazel run --config=agent \
+      --repo_env=ANDROID_HOME= \
+      //tools/android:install
   ```
+  The empty repository environment is required for the first installation so
+  Bazel does not try to load the SDK before `sdkmanager` installs it.
+  Afterwards, export `ANDROID_HOME` and `ANDROID_NDK_HOME`, or set both with
+  `--repo_env` in the ignored `user.bazelrc`. The repository dotfiles export
+  the expected paths.
 - Setup dotfiles (optional):
   ```sh
   bazel run //projects/dotfiles:install
@@ -36,10 +44,7 @@ tags:
   ```sh
   nvm install node
   ```
-- Install qt:
-  ```sh
-  bazel run //tools/qt:install
-  ```
+- Qt is downloaded by Bazel; no host installation is required.
 
 ## Vault login
 
