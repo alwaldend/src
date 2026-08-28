@@ -10,12 +10,6 @@ docs_filegroup(
     ),
 )
 
-filegroup(
-    name = "config",
-    srcs = ["opencode.json"],
-    visibility = ["//:__subpackages__"],
-)
-
 alias(
     name = "opencode",
     actual = "//third_party/ai_opencode_opencode",
