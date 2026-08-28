@@ -38,6 +38,14 @@ Documentation, code, binaries, and conversational responses do not need one.
 6. Find the pull request for the exact head branch. Update only task-owned
    summary and verification information while preserving unrelated human
    content, or create the pull request when none exists.
+
+   Put routine implementation details and rationale in commit messages, and
+   keep the aggregate summary and current verification results in the pull
+   request body. Do not post top-level progress or completion comments merely
+   to announce a push or repeat information from commits or the pull request
+   body. Use pull request comments only to respond to a participant or review
+   thread, or for an exceptional blocker or coordination issue that requires a
+   notification.
 7. Inspect unresolved review threads and relevant pull request comments. Check
    each comment against the requested behavior, repository evidence, and the
    current diff:
