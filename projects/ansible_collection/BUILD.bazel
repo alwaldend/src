@@ -3,7 +3,7 @@ load("//tools/docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]) + [":galaxy.yml"],
+    srcs = glob(["*.md"]) + ["galaxy.yml"],
     visibility = ["//projects:__pkg__"],
     deps = [
         "//projects/ansible_collection/playbooks:docs",

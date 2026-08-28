@@ -1,5 +1,4 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
-load("@rules_pkg//pkg:mappings.bzl", "strip_prefix")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 
 build_test(
@@ -21,6 +20,5 @@ docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
     prefix = "content/docs/projects/rules_template",
-    strip_prefix = strip_prefix.from_pkg(),
     visibility = ["//visibility:public"],
 )

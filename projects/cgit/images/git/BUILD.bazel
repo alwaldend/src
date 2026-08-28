@@ -1,13 +1,21 @@
 load("@rules_oci//oci:defs.bzl", "oci_image")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]) + select({
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/cgit/images:__pkg__"],
+    deps = [":docs_image_index"],
+)
+
+pkg_files(
+    name = "docs_image_index",
+    srcs = select({
         "//tools/bazel_configs:harbor": [":image_index_json_cp"],
         "//conditions:default": [],
     }),
-    visibility = ["//projects/cgit/images:__pkg__"],
+    prefix = "content/docs/projects/cgit/images/git",
 )
 
 oci_image(
