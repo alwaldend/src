@@ -1,0 +1,4 @@
+interface:
+  display_name: "Full Repository Check"
+  short_description: "Run every Bazel build and test and report failures"
+  default_prompt: "Use $full-repo-check to run every Bazel build and test and report all issues as a table."

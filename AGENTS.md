@@ -24,6 +24,9 @@ choices need not be narrated.
   (`[a-zA-Z0-9_]+`).
 - Prefer a small, target-specific change. This is a large monorepo, so query,
   build, and test the affected Bazel package before considering `//...`.
+- Prefer Go for repository automation and scripts. Expose them as Bazel
+  `go_binary` targets and invoke them with `bazel run --config=agent`; use
+  another language only when Go or Bazel would materially complicate the task.
 - Use the `repo-delivery` skill to finalize implementation work. It owns
   staging, feature-branch commits and pushes, pull request maintenance, review
   comment handling, and the final delivery report.

@@ -1,12 +1,12 @@
 # Import bazelrc presets
-import %workspace%/tools/bazelrc/preset.bazelrc
+import %workspace%/../../tools/bazelrc/preset.bazelrc
 # Project-specific flags
-import %workspace%/tools/bazelrc/project.bazelrc
+import %workspace%/../../tools/bazelrc/project.bazelrc
 # Validate skill_library targets whenever they are built.
-build --aspects @rules_skill//skill:defs.bzl%skill_validation_aspect
+build --aspects //skill:defs.bzl%skill_validation_aspect
 build --output_groups=+skill_validation
 # User preferences
 # Load any settings & overrides specific to the current user from `user.bazelrc`.
 # This file should appear in `.gitignore` so that settings are not shared with team members.
 # This should be last statement in this config so the user configuration overrides anything above.
-try-import %workspace%/user.bazelrc
+try-import %workspace%/../../user.bazelrc

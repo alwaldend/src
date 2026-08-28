@@ -32,20 +32,21 @@ description: Build, test, query, and maintain targets in this Bazel monorepo. Us
 Run the cheapest relevant commands first:
 
 ```sh
-bazel query //path/to/package:all
-bazel test //path/to/package:all
-bazel build //path/to/package:all
-bazel test //:buildifier_test
+bazel query --config=agent //path/to/package:all
+bazel test --config=agent //path/to/package:all
+bazel build --config=agent //path/to/package:all
+bazel test --config=agent //:buildifier_test
 ```
 
-Use `bazel test //...` or `bazel build //...` only when the scope and available
-time justify a repository-wide check. Report remote-cache, credential, network,
-or platform failures separately from failures caused by the patch.
+Use `bazel test --config=agent //...` or
+`bazel build --config=agent //...` only when the scope and available time
+justify a repository-wide check. Report remote-cache, credential, network, or
+platform failures separately from failures caused by the patch.
 
 For generated targets, inspect available labels before guessing:
 
 ```sh
-bazel query '//path/to/package:*'
+bazel query --config=agent '//path/to/package:*'
 ```
 
 Never run deploy, apply, or other mutating `bazel run` targets merely as a

@@ -1,0 +1,10 @@
+load("//skill:defs.bzl", "skill_library")
+
+skill_library(
+    name = "skill",
+    srcs = glob(
+        ["**"],
+        exclude = ["BUILD.bazel"],
+    ),
+    visibility = ["//visibility:public"],
+)

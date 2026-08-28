@@ -1,0 +1,4 @@
+interface:
+  display_name: "Example Skill"
+  short_description: "Demonstrate a valid skill library target"
+  default_prompt: "Use $example-skill to demonstrate skill validation."

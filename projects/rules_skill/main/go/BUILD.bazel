@@ -1,0 +1,25 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "go_lib",
+    srcs = [
+        "main.go",
+        "validate.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/rules_skill/main/go",
+    visibility = ["//visibility:private"],
+    deps = ["@com_github_goccy_go_yaml//:go-yaml"],
+)
+
+go_binary(
+    name = "skill_validator",
+    embed = [":go_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "go_test",
+    size = "small",
+    srcs = ["validate_test.go"],
+    embed = [":go_lib"],
+)

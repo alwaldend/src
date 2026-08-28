@@ -1,0 +1,17 @@
+load("//skill:defs.bzl", "skill_library")
+load("//tests/analysis:fixtures.bzl", "fixture_files")
+
+fixture_files(
+    name = "nested_skill",
+    testonly = True,
+    outs = ["nested/SKILL.md"],
+    tags = ["manual"],
+)
+
+skill_library(
+    name = "library",
+    testonly = True,
+    srcs = [":nested_skill"],
+    tags = ["manual"],
+    visibility = ["//tests/analysis:__pkg__"],
+)

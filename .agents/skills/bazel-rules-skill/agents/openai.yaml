@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bazel Rules Skill"
+  short_description: "Add repository skills with rules_skill"
+  default_prompt: "Use $bazel-rules-skill to add and validate a repository skill."
