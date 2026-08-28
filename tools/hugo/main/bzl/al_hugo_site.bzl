@@ -1,15 +1,12 @@
-load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo", "PackageFilesInfo")
 load(":al_hugo_site_info.bzl", "AlHugoSiteInfo")
 
 def _impl(ctx):
-    hugo = ctx.toolchains["//tools/hugo/main/bzl:toolchain_type"]
     files = ctx.files.site
     transitive_files = []
     for tool in ctx.attr.tools:
         transitive_files.append(tool[DefaultInfo].default_runfiles.files)
         transitive_files.append(tool[DefaultInfo].files)
     transitive_files.append(ctx.attr.postcss[DefaultInfo].default_runfiles.files)
-    transitive_files.append(hugo.default_info.default_runfiles.files)
     runfiles = ctx.runfiles(
         files = files,
         transitive_files = depset(transitive = transitive_files),
@@ -47,9 +44,6 @@ def _impl(ctx):
 al_hugo_site = rule(
     implementation = _impl,
     doc = "Define a hugo site",
-    toolchains = [
-        "//tools/hugo/main/bzl:toolchain_type",
-    ],
     provides = [AlHugoSiteInfo],
     attrs = {
         "site": attr.label(

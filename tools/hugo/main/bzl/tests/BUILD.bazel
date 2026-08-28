@@ -1,0 +1,32 @@
+load("//tools/hugo/main/bzl:al_hugo_run_binary.bzl", "al_hugo_run_binary")
+load("//tools/hugo/main/bzl:al_hugo_site.bzl", "al_hugo_site")
+load(":analysis_test.bzl", "hugo_site_action_test")
+
+genrule(
+    name = "site_archive",
+    testonly = True,
+    outs = ["site_archive.tar"],
+    cmd = ": >$@",
+    tags = ["manual"],
+)
+
+al_hugo_site(
+    name = "site_definition",
+    testonly = True,
+    postcss = "//tools/postcss",
+    site = ":site_archive",
+    tags = ["manual"],
+)
+
+al_hugo_run_binary(
+    name = "site",
+    testonly = True,
+    out_dir = "destination",
+    site = ":site_definition",
+    tags = ["manual"],
+)
+
+hugo_site_action_test(
+    name = "hugo_site_action_test",
+    target_under_test = ":site",
+)
