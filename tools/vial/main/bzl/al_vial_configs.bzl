@@ -1,6 +1,6 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
-load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("@rules_template//main/bzl:template_run_binary.bzl", "template_run_binary")
+load("//tools/docs:defs.bzl", "docs_filegroup")
 
 def al_vial_configs(name, srcs, visibility = None, **kwargs):
     """
@@ -39,9 +39,8 @@ def al_vial_configs(name, srcs, visibility = None, **kwargs):
             data = [src],
             outs = ["{}.{}.md".format(name, src)],
         )
-    pkg_files(
+    docs_filegroup(
         name = name,
-        prefix = native.package_name(),
         srcs = ["{}.{}".format(name, src) for src in srcs],
         visibility = visibility,
     )

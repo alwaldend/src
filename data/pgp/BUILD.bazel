@@ -1,20 +1,12 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
-    visibility = ["//data:__pkg__"],
-    deps = [":docs_keys"],
-)
-
-pkg_files(
-    name = "docs_keys",
-    srcs = [
+    srcs = glob(["*.md"]) + [
         ":openbao",
         ":simeonwarren",
     ],
-    prefix = "content/docs/{}".format(package_name()),
+    visibility = ["//data:__pkg__"],
 )
 
 filegroup(
