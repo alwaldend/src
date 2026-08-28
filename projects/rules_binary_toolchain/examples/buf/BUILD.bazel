@@ -20,12 +20,13 @@ buf_binary(
 # build action
 buf_run_binary(
     name = "buf_export",
-    srcs = ["empty.proto"],
+    srcs = ["example/v1/empty.proto"],
+    data = ["buf.yaml"],
     arguments = [
         "export",
         "--output",
-        "$(rlocation buf_export_dir)",
-        "$(execpath empty.proto)",
+        "$(buf_export_dir)",
+        "$(execpath example/v1/empty.proto)",
     ],
     out_dirs = ["buf_export_dir"],
 )
@@ -33,7 +34,7 @@ buf_run_binary(
 # test
 filegroup(
     name = "empty",
-    srcs = ["empty.proty"],
+    srcs = ["example/v1/empty.proto"],
 )
 
 buf_test(
@@ -42,5 +43,8 @@ buf_test(
         "lint",
         "$(execpath :empty)",
     ],
-    data = [":empty"],
+    data = [
+        ":empty",
+        "buf.yaml",
+    ],
 )
