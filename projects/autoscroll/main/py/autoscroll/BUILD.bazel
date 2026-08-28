@@ -1,3 +1,4 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_python//python:defs.bzl", "py_binary", "py_library")
 
 filegroup(
@@ -20,7 +21,14 @@ py_library(
 py_binary(
     name = "autoscroll",
     srcs = ["__main__.py"],
+    # keep
     imports = [".."],
     main = "__main__.py",
     visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/autoscroll:__pkg__"],
 )

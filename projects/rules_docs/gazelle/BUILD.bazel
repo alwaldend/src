@@ -1,0 +1,32 @@
+load("@gazelle//:def.bzl", "gazelle_binary")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "gazelle",
+    srcs = ["gazelle.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/rules_docs/gazelle",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@gazelle//language",
+        "@gazelle//rule",
+    ],
+)
+
+go_test(
+    name = "gazelle_test",
+    size = "small",
+    srcs = ["gazelle_test.go"],
+    embed = [":gazelle"],
+    deps = [
+        "@gazelle//config",
+        "@gazelle//language",
+        "@gazelle//merger",
+        "@gazelle//rule",
+    ],
+)
+
+gazelle_binary(
+    name = "gazelle_docs",
+    languages = [":gazelle"],
+    visibility = ["//visibility:public"],
+)

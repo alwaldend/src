@@ -1,5 +1,6 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_android//android:rules.bzl", "android_binary")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
 load("@rules_kotlin//kotlin:core.bzl", "kt_compiler_plugin")
 
@@ -59,4 +60,10 @@ build_test(
     targets = [
         ":launcher_binary",
     ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/android_launcher:__pkg__"],
 )

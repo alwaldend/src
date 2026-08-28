@@ -1,3 +1,4 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_library")
 
 go_library(
@@ -8,4 +9,10 @@ go_library(
     deps = [
         "@com_github_spf13_cobra//:cobra",
     ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/file_installer/main/go:__pkg__"],
 )

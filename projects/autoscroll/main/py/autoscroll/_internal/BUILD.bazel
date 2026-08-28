@@ -1,3 +1,4 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_python//python:defs.bzl", "py_library")
 
 py_library(
@@ -16,4 +17,10 @@ py_library(
         "@com_alwaldend_src_projects_autoscroll_pip//pynput",
         "@com_alwaldend_src_projects_autoscroll_pip//pyside6_essentials",
     ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/autoscroll/main/py/autoscroll:__pkg__"],
 )

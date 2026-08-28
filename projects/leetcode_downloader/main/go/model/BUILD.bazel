@@ -1,3 +1,4 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_library")
 
 go_library(
@@ -7,4 +8,10 @@ go_library(
     importpath = "git.alwaldend.com/alwaldend/src/projects/leetcode_downloader/main/go/model",
     visibility = ["//:__subpackages__"],
     deps = ["//projects/leetcode_downloader/main/proto/contracts"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/leetcode_downloader/main/go:__pkg__"],
 )

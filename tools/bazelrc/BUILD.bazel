@@ -1,5 +1,5 @@
 load("@bazelrc-preset.bzl", "bazelrc_preset")
-load("//tools/docs:defs.bzl", "docs_filegroup")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
 bazelrc_preset(
     name = "preset",

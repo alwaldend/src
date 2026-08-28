@@ -1,6 +1,6 @@
 load("@com_alwaldend_src_tools_trufflehog//:defs.bzl", "trufflehog_test")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 
 alias(
     name = "trufflehog",

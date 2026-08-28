@@ -1,7 +1,15 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
 platform(
     name = "android_arm64",
     constraint_values = [
         "@platforms//os:android",
         "@platforms//cpu:arm64",
     ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/bzl:__pkg__"],
 )

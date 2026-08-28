@@ -1,7 +1,7 @@
 load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 
 al_config(
     name = "al",

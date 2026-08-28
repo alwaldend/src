@@ -1,7 +1,7 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
 load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
     name = "docs",

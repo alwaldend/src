@@ -1,3 +1,5 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
 filegroup(
     name = "res",
     srcs = glob(
@@ -8,4 +10,10 @@ filegroup(
         ],
     ),
     visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/android_launcher:__pkg__"],
 )

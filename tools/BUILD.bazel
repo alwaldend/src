@@ -1,7 +1,7 @@
 load("@com_alwaldend_src_npm//:defs.bzl", "npm_link_all_packages")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup")
 load("//tools/bzl/main/bzl:al_alias_map.bzl", "al_alias_map")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
     name = "docs",

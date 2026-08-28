@@ -1,5 +1,5 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 
 sh_binary(
     name = "install",

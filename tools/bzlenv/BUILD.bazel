@@ -1,6 +1,6 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/ansible/main/bzl:al_ansible_scripts.bzl", "AL_ANSIBLE_SCRIPTS")
 load("//tools/bzlenv/main/bzl:al_bzlenv_binary.bzl", "al_bzlenv_binary")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 
 _ROOT_TOOLS = [
     "blender",

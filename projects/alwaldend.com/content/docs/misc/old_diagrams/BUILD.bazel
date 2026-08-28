@@ -1,4 +1,4 @@
-load("//tools/docs:defs.bzl", "docs_filegroup")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/drawio/main/bzl:al_drawio_run_binary.bzl", "al_drawio_run_binary")
 
 _DIAGRAMS = [diagram.replace(".drawio", "") for diagram in glob(["*.drawio"])]

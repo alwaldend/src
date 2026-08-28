@@ -1,4 +1,4 @@
-load("//tools/docs:defs.bzl", "docs_filegroup")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/sh/main/bzl:al_sh_library.bzl", "al_sh_library")
 
 docs_filegroup(

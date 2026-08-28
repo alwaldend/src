@@ -1,6 +1,6 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/make_install/main/bzl:al_make_install.bzl", "al_make_install")
 load("//tools/make_install/main/bzl:al_make_install_binary.bzl", "al_make_install_binary")
 
