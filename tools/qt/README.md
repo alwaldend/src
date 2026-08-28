@@ -11,10 +11,8 @@ tags:
 
 - https://bazel.build/extending/toolchains
 
-## Qt setup
+## Hermetic Qt
 
-- Install qt:
-  ```sh
-  bazel run //tools/qt:install
-  ```
-- Register toolchain: `register_toolchains("//tools/qt:preinstalled_qt_toolchain")`
+The module configuration downloads SHA-256-pinned Qt 6.8.3 distributions via
+`rules_qt` and registers its build tools. Bazel builds do not require Qt under
+`/opt` or another host installation.

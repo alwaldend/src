@@ -1,11 +1,44 @@
-http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+bazel_dep(name = "rules_qt", version = "0.0.7")
 
-http_archive(
-    name = "com_alwaldend_src_qt",
-    build_file = "//tools/bzl/build_files:general.BUILD.bazel",
-    integrity = "sha256-T2HlBVHQAEpRP++9sKQQWV2UgSpIYAZG+3NB6g0X4cs=",
-    strip_prefix = "qt-everywhere-src-6.9.0",
-    urls = ["https://download.qt.io/official_releases/qt/6.9/6.9.0/single/qt-everywhere-src-6.9.0.tar.xz"],
+qt = use_extension("@rules_qt//extension:qt.bzl", "fetch")
+qt.install(
+    name = "qt_linux_x86_64",
+    build_file = "@rules_qt//extension:qt/6.8.3/linux_x86_64.BUILD",
+    os = "linux_x86_64",
+    version = "6.8.3",
+)
+qt.install(
+    name = "qt_linux_aarch64",
+    build_file = "@rules_qt//extension:qt/6.8.3/linux_aarch64.BUILD",
+    os = "linux_aarch64",
+    version = "6.8.3",
+)
+qt.install(
+    name = "qt_windows_x86_64",
+    build_file = "@rules_qt//extension:qt/6.8.3/windows_x86_64.BUILD",
+    os = "windows",
+    version = "6.8.3",
+    windows_architecture = "win64_msvc2022",
+)
+qt.install(
+    name = "qt_mac_aarch64",
+    build_file = "@rules_qt//extension:qt/6.8.3/mac_aarch64.BUILD",
+    os = "macos",
+    version = "6.8.3",
+)
+qt.install(
+    name = "qt_mac_x86_64",
+    build_file = "@rules_qt//extension:qt/6.8.3/mac_aarch64.BUILD",
+    os = "macos",
+    version = "6.8.3",
+)
+use_repo(
+    qt,
+    "qt_linux_aarch64",
+    "qt_linux_x86_64",
+    "qt_mac_aarch64",
+    "qt_mac_x86_64",
+    "qt_windows_x86_64",
 )
 
-register_toolchains("//tools/qt/main/bzl:toolchain_local_linux_gcc_64")
+register_toolchains("@rules_qt//tools:all")
