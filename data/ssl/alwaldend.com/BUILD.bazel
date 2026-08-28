@@ -1,13 +1,20 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]) + [":alwaldend.com"],
+    srcs = glob(["*.md"]),
     visibility = ["//data/ssl:__pkg__"],
-    deps = subpackages(
+    deps = [":docs_certificates"] + subpackages(
         include = ["*"],
         allow_empty = True,
     ),
+)
+
+pkg_files(
+    name = "docs_certificates",
+    srcs = [":alwaldend.com"],
+    prefix = "content/docs/{}".format(package_name()),
 )
 
 filegroup(

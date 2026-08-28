@@ -1,13 +1,20 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]) + [":ssh"],
+    srcs = glob(["*.md"]),
     visibility = ["//data:__pkg__"],
-    deps = subpackages(
+    deps = [":docs_keys"] + subpackages(
         include = ["*"],
         allow_empty = True,
     ),
+)
+
+pkg_files(
+    name = "docs_keys",
+    srcs = [":ssh"],
+    prefix = "content/docs/{}".format(package_name()),
 )
 
 filegroup(
