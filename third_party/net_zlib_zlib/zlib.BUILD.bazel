@@ -31,7 +31,7 @@ _ZLIB_HEADERS = [
 ]
 
 # In order to limit the damage from the `includes` propagation
-# via `:zlib`, copy the public headers to a subdirectory and
+# via `:z`, copy the public headers to a subdirectory and
 # expose those.
 [
     copy_file(
@@ -44,7 +44,7 @@ _ZLIB_HEADERS = [
 ]
 
 cc_library(
-    name = "lib",
+    name = "z",
     srcs = [
         "adler32.c",
         "compress.c",
@@ -95,6 +95,6 @@ cc_library(
 
 alias(
     name = "net_zlib_zlib",
-    actual = ":lib",
+    actual = ":z",
     visibility = ["//visibility:public"],
 )
