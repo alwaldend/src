@@ -12,6 +12,7 @@ docs_filegroup(
     ) + [
         "@rules_binary_toolchain//:docs",
         "@rules_docs//:docs",
+        "@rules_docs_gazelle//:docs",
         "@rules_skill//:docs",
         "@rules_template//:docs",
     ],
@@ -33,6 +34,7 @@ al_release_binary(
                 "rules_template",
                 "rules_binary_toolchain",
                 "rules_docs",
+                "rules_docs_gazelle",
                 "rules_skill",
             ],
         )

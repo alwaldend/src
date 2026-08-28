@@ -29,10 +29,13 @@ Follow the root `AGENTS.md` and the `repo-bazel` skill. Inspect all existing
 3. Declare only dependencies the module needs. For repository documentation,
    depend on `rules_docs` and load `@rules_docs//docs:defs.bzl`; `rules_docs`
    itself uses the canonical `//docs:defs.bzl` label instead of depending on
-   itself. Never copy a fallback documentation macro into the nested
-   workspace. A sibling `local_path_override` may make an unpublished module
-   usable in this checkout, but remove or replace that override when preparing
-   a registry release.
+   itself. This dependency must remain regular because published BUILD files
+   load it. Declare `rules_docs_gazelle` as a development dependency when the
+   workspace runs the documentation Gazelle extension. Never copy a fallback
+   documentation macro into the nested workspace. A sibling
+   `local_path_override` may make an unpublished module usable in this
+   checkout, but remove or replace that override when preparing a registry
+   release.
 4. Give the README the repository's documentation frontmatter. Expose a
    public root `docs_filegroup` with the explicit
    `content/docs/projects/<module_name>` prefix so the parent documentation
@@ -59,7 +62,9 @@ Follow the root `AGENTS.md` and the `repo-bazel` skill. Inspect all existing
 - Register any Gazelle language library in the root `gazelle_binary`. Remember
   that root Gazelle ignores nested workspaces; run the plugin against the
   nested repository root as well when it should generate that module's BUILD
-  files.
+  files. Keep development-only Gazelle tooling such as `rules_docs_gazelle`
+  out of downstream module graphs with `dev_dependency = True`; do not mark a
+  module as development-only when published BUILD files load from it.
 
 ## Generate and verify
 

@@ -21,7 +21,7 @@ description: >-
    ```
 
    The runner executes `bazel build --config=agent //...` and
-   `bazel test --config=agent //...` in the root workspace and four nested
+   `bazel test --config=agent //...` in the root workspace and five nested
    workspaces. It continues after failures so one run covers the whole
    repository.
 3. Note the printed run directory. Read its `report.md` for the command matrix.
@@ -60,7 +60,7 @@ Return a Markdown table with these columns:
 
 Use one row per distinct root cause. If every command passes, include one row
 whose affected target and root cause are `None`. After the issue table, include
-the ten-command result matrix from `report.md`, with exact commands, exit
+the twelve-command result matrix from `report.md`, with exact commands, exit
 statuses, durations, and the run-directory path.
 
 This check covers Bazel's normal `//...` expansion with the repository's

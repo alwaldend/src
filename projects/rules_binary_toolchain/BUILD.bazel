@@ -6,6 +6,11 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     prefix = "content/docs/projects/rules_binary_toolchain",
     visibility = ["//visibility:public"],
+    deps = subpackages(
+        include = ["**"],
+        allow_empty = True,
+        exclude = ["bazel-*"],
+    ),
 )
 
 build_test(

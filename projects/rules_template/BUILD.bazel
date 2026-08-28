@@ -21,4 +21,12 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     prefix = "content/docs/projects/rules_template",
     visibility = ["//visibility:public"],
+    deps = subpackages(
+        include = ["**"],
+        allow_empty = True,
+        exclude = [
+            "bazel-*",
+            "main/go",
+        ],
+    ),
 )

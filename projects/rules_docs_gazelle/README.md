@@ -1,45 +1,20 @@
 ---
-title: Rules docs
-description: Bazel documentation packaging rules
+title: Rules docs Gazelle
+description: Gazelle extension for Bazel documentation packaging rules
 languages:
-  - bzl
+  - go
 tags:
   - bzl_rules
 ---
 
-`rules_docs` packages Markdown documentation under a common archive prefix.
+`rules_docs_gazelle` adds a `docs_filegroup` to existing Bazel packages that
+contain a `README.md`. The generated rule loads its macro from `rules_docs`.
 
-## Documentation rule
-
-Add the module dependency:
+Add `rules_docs` as a normal dependency and this generator as a development
+dependency:
 
 ```starlark
 bazel_dep(name = "rules_docs", version = "<VERSION>")
-```
-
-Then declare the package documentation. `srcs` defaults to
-`glob(["*.md"])`; `visibility` is optional.
-
-```starlark
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-
-docs_filegroup(
-    name = "docs",
-    deps = ["child"],
-)
-```
-
-Relative dependency names without a colon are normalized to the child
-package's `docs` target. `prefix` defaults to the current package beneath
-`content/docs/`.
-
-## Gazelle extension
-
-Generation support is packaged separately so consumers of the documentation
-rule do not inherit Gazelle and Go dependencies. Add it as a development-only
-module dependency:
-
-```starlark
 bazel_dep(
     name = "rules_docs_gazelle",
     version = "<VERSION>",

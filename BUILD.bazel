@@ -127,7 +127,7 @@ gazelle_binary(
     name = "gazelle_bin",
     languages = DEFAULT_LANGUAGES + [
         "@contrib_rules_jvm//java/gazelle",
-        "@rules_docs//gazelle",
+        "@rules_docs_gazelle//gazelle",
         "@rules_python_gazelle_plugin//python:python",
     ],
     visibility = ["//:__subpackages__"],
