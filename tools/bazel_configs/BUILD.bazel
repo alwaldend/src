@@ -44,3 +44,17 @@ bool_flag(
     name = "release_flag",
     build_setting_default = False,
 )
+
+config_setting(
+    name = "harbor",
+    flag_values = {
+        ":harbor_flag": "true",
+    },
+    visibility = ["//:__subpackages__"],
+)
+
+bool_flag(
+    name = "harbor_flag",
+    build_setting_default = False,
+    visibility = ["//:__subpackages__"],
+)

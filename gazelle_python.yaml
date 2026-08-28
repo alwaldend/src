@@ -30,7 +30,7 @@ manifest:
     idna: idna
     isort: isort
     jaraco.classes: jaraco.classes
-    jaraco.context: jaraco.context
+    jaraco.context: jaraco_context
     jaraco.functools: jaraco_functools
     jeepney: jeepney
     keyring: keyring
@@ -69,4 +69,4 @@ manifest:
     yaml: pyyaml
   pip_repository:
     name: com_alwaldend_src_pip
-integrity: 2cad1b5f57d4012993466f5b6b78951238561915b634328e7d7e974c27363e59
+integrity: 4ce71e790dde1be8db8eda9aa6ccccbb867f5a2a675980f60b316b86ebf595c4

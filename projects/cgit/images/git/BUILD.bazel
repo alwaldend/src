@@ -3,11 +3,18 @@ load("//tools/docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]) + [":image_index_json_cp"],
+    srcs = glob(["*.md"]) + select({
+        "//tools/bazel_configs:harbor": [":image_index_json_cp"],
+        "//conditions:default": [],
+    }),
     visibility = ["//projects/cgit/images:__pkg__"],
 )
 
 oci_image(
     name = "image",
     base = "@io_docker_library_alpine",
+    target_compatible_with = select({
+        "//tools/bazel_configs:harbor": [],
+        "//conditions:default": ["@platforms//:incompatible"],
+    }),
 )
