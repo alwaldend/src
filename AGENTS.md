@@ -142,5 +142,6 @@ Not every package exposes all of these targets. Use `bazel query` first rather
 than guessing.
 
 The checked-in pre-commit configuration supplies repository hygiene checks.
-The hook itself is generated with `bazel run //:write_git_hooks`; installation
-is optional, and agents should still run the relevant checks explicitly.
+Install the hook with `bazel run --config=agent //:write_git_hooks`, and verify
+it with `bazel run --config=agent //:write_git_hooks -- test`. Installation is
+optional, and agents should still run the relevant checks explicitly.
