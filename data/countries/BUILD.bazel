@@ -1,18 +1,10 @@
-load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/toml/main/bzl:al_toml_data.bzl", "al_toml_data")
 
 docs_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
+    srcs = glob(["*.md"]) + [":countries"],
     visibility = ["//data:__pkg__"],
-    deps = [":docs_data"],
-)
-
-pkg_files(
-    name = "docs_data",
-    srcs = [":countries"],
-    prefix = "content/docs/{}".format(package_name()),
 )
 
 al_toml_data(
