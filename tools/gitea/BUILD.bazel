@@ -1,5 +1,5 @@
 load("@com_alwaldend_src_tools_gitea//:defs.bzl", "gitea_binary")
-load("//tools/docs:defs.bzl", "docs_filegroup")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
     name = "docs",

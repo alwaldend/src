@@ -1,5 +1,5 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 
 _ROLES = subpackages(
     include = ["*"],

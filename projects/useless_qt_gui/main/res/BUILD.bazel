@@ -1,3 +1,4 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 
 filegroup(
@@ -10,4 +11,10 @@ pkg_files(
     name = "res",
     srcs = glob(["*.png"]),
     visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/useless_qt_gui:__pkg__"],
 )

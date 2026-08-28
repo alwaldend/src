@@ -1,4 +1,4 @@
-load("//tools/docs:defs.bzl", "docs_filegroup")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/release/main/bzl:al_release.bzl", "al_release")
 load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
 load("//tools/release/main/bzl:al_release_files.bzl", "al_release_files")

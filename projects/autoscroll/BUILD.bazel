@@ -1,7 +1,9 @@
+# gazelle:java_extension disabled
+
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_python//python:packaging.bzl", "py_package", "py_wheel")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 
 build_test(
     name = "autoscroll_test",

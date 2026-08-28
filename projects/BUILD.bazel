@@ -1,4 +1,4 @@
-load("//tools/docs:defs.bzl", "docs_filegroup")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
 
 docs_filegroup(
@@ -11,6 +11,7 @@ docs_filegroup(
         exclude = ["rules_*"],
     ) + [
         "@rules_binary_toolchain//:docs",
+        "@rules_docs//:docs",
         "@rules_skill//:docs",
         "@rules_template//:docs",
     ],
@@ -31,6 +32,7 @@ al_release_binary(
                 "useless_qt_gui",
                 "rules_template",
                 "rules_binary_toolchain",
+                "rules_docs",
                 "rules_skill",
             ],
         )

@@ -1,7 +1,14 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 
 pkg_files(
     name = "misc",
     srcs = glob(["*.json"]),
     visibility = ["//projects/dotfiles/releases:__pkg__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/dotfiles:__pkg__"],
 )

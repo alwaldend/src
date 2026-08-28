@@ -22,6 +22,7 @@ var repositoryWorkspaces = []workspace{
 		name: "projects/rules_binary_toolchain",
 		path: "projects/rules_binary_toolchain",
 	},
+	{name: "projects/rules_docs", path: "projects/rules_docs"},
 	{name: "projects/rules_skill", path: "projects/rules_skill"},
 	{name: "projects/rules_template", path: "projects/rules_template"},
 }

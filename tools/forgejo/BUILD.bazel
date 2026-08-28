@@ -1,5 +1,5 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 
 _BIN = "$(rootpath //third_party/org_codeberg_forgejo_bin)"
 

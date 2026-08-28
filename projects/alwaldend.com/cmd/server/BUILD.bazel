@@ -1,5 +1,5 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 load(":analysis_test.bzl", "ops_action_test")
 
 genrule(

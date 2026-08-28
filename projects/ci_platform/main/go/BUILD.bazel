@@ -12,6 +12,7 @@ go_library(
     name = "go_lib",
     srcs = ["main.go"],
     importpath = "git.alwaldend.com/alwaldend/src/projects/ci_platform/main/go",
+    visibility = ["//visibility:private"],
     deps = ["//projects/ci_platform/main/go/cmd"],
 )
 

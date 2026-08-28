@@ -1,4 +1,4 @@
-load("//tools/docs:defs.bzl", "docs_filegroup")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 # gazelle:resolve go golang.org/x/tools/go/cfg @tools_com_github_bazelbuild_buildtools_org_golang_x_tools//go/cfg:go_default_library
 # gazelle:resolve go github.com/bazelbuild/buildtools/buildifier/config @tools_com_github_bazelbuild_buildtools//buildifier/config:go_default_library
 

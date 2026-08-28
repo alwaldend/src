@@ -1,5 +1,5 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 
 al_bzl_library_map(
     name = "libs",
@@ -8,7 +8,7 @@ al_bzl_library_map(
             "@rules_template//main/bzl:template_run_binary",
             "@bazel_skylib//rules:write_file",
             "@bazel_skylib//lib:paths",
-            "//tools/docs:defs",
+            "@rules_docs//docs:defs",
         ],
     },
     visibility = ["//:__subpackages__"],

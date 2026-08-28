@@ -26,6 +26,4 @@ go_library(
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/pkg/fp",
     visibility = ["//:__subpackages__"],
-    deps = [
-    ],
 )

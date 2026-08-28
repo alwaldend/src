@@ -1,5 +1,5 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
     name = "docs",
@@ -16,10 +16,6 @@ go_library(
     srcs = ["main.go"],
     importpath = "git.alwaldend.com/alwaldend/src/infra/threexui/sub",
     visibility = ["//:__subpackages__"],
-    deps = [
-        # "//projects/al/pkg/al",
-        "@org_golang_x_term//:term",
-    ],
 )
 
 go_binary(

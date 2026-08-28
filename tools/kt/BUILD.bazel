@@ -1,5 +1,5 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_kotlin//kotlin:core.bzl", "define_kt_toolchain")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 
 define_kt_toolchain(
     name = "kotlin_toolchain",

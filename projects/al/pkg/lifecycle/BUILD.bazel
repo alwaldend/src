@@ -2,10 +2,7 @@ load("@rules_go//go:def.bzl", "go_library")
 
 go_library(
     name = "lifecycle",
-    srcs = [
-        "lifecycle.go",
-    ],
+    srcs = ["lifecycle.go"],
     importpath = "git.alwaldend.com/alwaldend/src/projects/al/pkg/lifecycle",
     visibility = ["//:__subpackages__"],
-    deps = [],
 )

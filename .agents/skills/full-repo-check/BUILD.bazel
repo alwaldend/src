@@ -1,3 +1,5 @@
+# gazelle:exclude scripts
+
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 load("@rules_skill//skill:defs.bzl", "skill_library")
 
@@ -11,6 +13,7 @@ go_library(
     visibility = ["//visibility:private"],
 )
 
+# keep
 go_binary(
     name = "run_full_repo_check",
     embed = [":run_full_repo_check_lib"],

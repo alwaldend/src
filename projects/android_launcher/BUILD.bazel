@@ -1,4 +1,6 @@
-load("//tools/docs:defs.bzl", "docs_filegroup")
+# gazelle:java_extension disabled
+
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
     name = "docs",

@@ -1,5 +1,5 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
-load("//tools/docs:defs.bzl", "docs_filegroup")
 load("//tools/git/main/bzl:al_git_resolved_toolchain.bzl", "al_git_resolved_toolchain")
 
 docs_filegroup(

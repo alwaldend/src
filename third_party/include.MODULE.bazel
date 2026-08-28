@@ -89,6 +89,12 @@ local_path_override(
     path = "projects/rules_binary_toolchain",
 )
 
+bazel_dep(name = "rules_docs")
+local_path_override(
+    module_name = "rules_docs",
+    path = "projects/rules_docs",
+)
+
 bazel_dep(name = "rules_skill")
 local_path_override(
     module_name = "rules_skill",

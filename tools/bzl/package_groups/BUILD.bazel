@@ -1,4 +1,12 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
 package_group(
     name = "tools",
     packages = ["//tools/..."],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/bzl:__pkg__"],
 )
