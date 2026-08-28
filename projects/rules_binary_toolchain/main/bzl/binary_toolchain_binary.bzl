@@ -40,7 +40,11 @@ def _impl(ctx):
             bin = toolchain.binary.short_path,
             arguments = " ".join([
                 '"{}"'.format(
-                    ctx.expand_make_variables(str(ctx.label), ctx.expand_location(arg), {}),
+                    ctx.expand_make_variables(
+                        str(ctx.label),
+                        ctx.expand_location(arg, ctx.attr.data),
+                        {},
+                    ),
                 )
                 for arg in ctx.attr.arguments
             ]),

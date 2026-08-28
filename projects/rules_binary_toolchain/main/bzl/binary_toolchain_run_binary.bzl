@@ -1,15 +1,21 @@
 def _impl(ctx):
     toolchain = ctx.toolchains[ctx.attr.toolchain_type]
     outputs = [] + ctx.outputs.outs
+    output_make_variables = {}
     for out_dir in ctx.attr.out_dirs:
         dir = ctx.actions.declare_directory(out_dir)
         outputs.append(dir)
+        output_make_variables[out_dir] = dir.path
     ctx.actions.run(
         executable = toolchain.binary,
         inputs = ctx.files.srcs + ctx.files.data,
         outputs = outputs,
         arguments = [
-            ctx.expand_make_variables(str(ctx.label), ctx.expand_location(arg), {})
+            ctx.expand_make_variables(
+                str(ctx.label),
+                ctx.expand_location(arg, ctx.attr.srcs + ctx.attr.data),
+                output_make_variables,
+            )
             for arg in ctx.attr.arguments
         ],
     )
@@ -23,7 +29,7 @@ def _impl(ctx):
     )
     return [
         DefaultInfo(
-            files = depset(ctx.outputs.outs),
+            files = depset(outputs),
             runfiles = runfiles,
         ),
     ]
@@ -58,7 +64,7 @@ def binary_toolchain_run_binary(toolchain_type, kwargs = {}, attrs = {}):
             doc = "Outputs",
         ),
         "out_dirs": attr.string_list(
-            doc = "Directory outputs",
+            doc = "Directory outputs, available to arguments as $(name)",
         ),
         "toolchain_type": attr.string(
             doc = "Toolchain type",
