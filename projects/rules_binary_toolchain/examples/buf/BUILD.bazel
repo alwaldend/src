@@ -21,13 +21,13 @@ buf_binary(
 buf_run_binary(
     name = "buf_export",
     srcs = ["example/v1/empty.proto"],
-    data = ["buf.yaml"],
     arguments = [
         "export",
         "--output",
         "$(buf_export_dir)",
         "$(execpath example/v1/empty.proto)",
     ],
+    data = ["buf.yaml"],
     out_dirs = ["buf_export_dir"],
 )
 
@@ -44,7 +44,7 @@ buf_test(
         "$(execpath :empty)",
     ],
     data = [
-        ":empty",
         "buf.yaml",
+        ":empty",
     ],
 )
