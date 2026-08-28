@@ -11,6 +11,7 @@ docs_filegroup(
         exclude = ["rules_*"],
     ) + [
         "@rules_binary_toolchain//:docs",
+        "@rules_skill//:docs",
         "@rules_template//:docs",
     ],
 )
@@ -30,6 +31,7 @@ al_release_binary(
                 "useless_qt_gui",
                 "rules_template",
                 "rules_binary_toolchain",
+                "rules_skill",
             ],
         )
     ] + [],

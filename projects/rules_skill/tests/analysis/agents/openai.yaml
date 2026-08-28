@@ -1,0 +1,4 @@
+interface:
+  display_name: "Analysis Fixture"
+  short_description: "Exercise rules_skill analysis test coverage"
+  default_prompt: "Use $analysis to exercise rules_skill analysis tests."

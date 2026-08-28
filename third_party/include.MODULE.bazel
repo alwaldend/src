@@ -89,6 +89,12 @@ local_path_override(
     path = "projects/rules_binary_toolchain",
 )
 
+bazel_dep(name = "rules_skill")
+local_path_override(
+    module_name = "rules_skill",
+    path = "projects/rules_skill",
+)
+
 ## Overrides
 
 git_override(

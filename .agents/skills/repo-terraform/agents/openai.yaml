@@ -1,4 +1,4 @@
 interface:
   display_name: "Repository Terraform"
   short_description: "Change and validate Bazel-managed Terraform safely"
-  default_prompt: "Use the repository Terraform workflow to implement and validate this infrastructure change."
+  default_prompt: "Use $repo-terraform to implement and validate this Terraform change."

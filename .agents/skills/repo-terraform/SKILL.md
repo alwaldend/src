@@ -11,8 +11,9 @@ description: Implement, review, format, plan, and validate Terraform managed thr
    the closest similar component or module.
 2. Determine whether the change belongs in `tf_setup` (bootstrap/VM setup), `tf`
    (service configuration), or a reusable module under `projects/tf_modules`.
-3. Inspect the package targets with `bazel query '//path:*'`; generated names
-   and label maps vary by package.
+3. Inspect the package targets with
+   `bazel query --config=agent '//path:*'`; generated names and label maps vary
+   by package.
 
 Terraform packages normally declare `.tf` files and `.terraform.lock.hcl` in
 `data`, pass one or more `al_config` labels, and expose commands with
@@ -37,9 +38,9 @@ that flow with committed credentials.
 Prefer repository-provided targets over invoking a host Terraform binary:
 
 ```sh
-bazel query '//path/to/tf:*'
-bazel test //path/to/tf:tf_tests.fmt_test
-bazel run //path/to/tf:tf.plan
+bazel query --config=agent '//path/to/tf:*'
+bazel test --config=agent //path/to/tf:tf_tests.fmt_test
+bazel run --config=agent //path/to/tf:tf.plan
 ```
 
 Target names may be mapped variants; use query output and the package

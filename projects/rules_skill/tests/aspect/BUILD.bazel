@@ -1,0 +1,6 @@
+load(":validation_test.bzl", "skill_validation_test")
+
+skill_validation_test(
+    name = "aspect_test",
+    target = "//examples/example-skill:skill",
+)
