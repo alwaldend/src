@@ -101,6 +101,8 @@ git_override(
     module_name = "com_alwaldend_com_github_infinitimeorg_infinitime",
     commit = "0a89c99b2994d9f9b58a05e870557783a3f74bc7",
     init_submodules = True,
+    patch_strip = 1,
+    patches = ["//projects/infinitime/main/patch:cmake_toolchain.patch"],
     recursive_init_submodules = True,
     remote = "https://github.com/alwaldend/com_github_infinitimeorg_infinitime.git",
     shallow_since = "1733253068 +0100",

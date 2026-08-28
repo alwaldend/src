@@ -28,7 +28,7 @@ def _impl(ctx):
             tar -xf '{site_archive}'
         fi
         mkdir -p static
-        mv '{env_file}' static/hugo_env.txt
+        cp '{env_file}' static/hugo_env.txt
         exec '{hugo}' \
             {arguments} \
             "${{@}}"

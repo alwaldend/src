@@ -42,7 +42,7 @@ type GenerateOpts struct {
 	OutputManifests    []string
 	OutputReleasePages []string
 	OutputFileMode     string
-	GitRoot            string
+	GitBundle          string
 	MarshalOptions     *protojson.MarshalOptions
 }
 
@@ -257,7 +257,7 @@ func (self *Generator) parseRelease(opts *GenerateOpts) (*contracts.Release, err
 		}
 	}
 	if release.Git != nil {
-		err := self.addGit(opts.Ctx, release, opts.GitRoot)
+		err := self.addGit(opts.Ctx, release, opts.GitBundle)
 		if err != nil {
 			return nil, fmt.Errorf("could not add git info to release: %w", err)
 		}
@@ -282,16 +282,16 @@ func (self *Generator) parseDeployments(deployments []string) ([]*contracts.Rele
 }
 
 // Add git information in-place
-func (self *Generator) addGit(ctx context.Context, release *contracts.Release, gitRoot string) error {
+func (self *Generator) addGit(ctx context.Context, release *contracts.Release, gitBundle string) error {
 	if release.Git == nil {
 		return fmt.Errorf("release is missing git info: %v", release)
 	}
 	if release.Project == nil {
 		return fmt.Errorf("missing project info: %v", release)
 	}
-	repo, err := git.PlainOpenWithOptions(gitRoot, &git.PlainOpenOptions{})
+	repo, err := openGitBundle(gitBundle)
 	if err != nil {
-		return fmt.Errorf("could not open repo %s: %w", gitRoot, err)
+		return fmt.Errorf("could not open Git bundle %s: %w", gitBundle, err)
 	}
 	rev, err := repo.ResolveRevision(plumbing.Revision(release.Git.Revision.Hash))
 	if err != nil {

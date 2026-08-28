@@ -1,5 +1,10 @@
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 
+exports_files(
+    ["cmake_toolchain.patch"],
+    visibility = ["//:__pkg__"],
+)
+
 pkg_tar(
     name = "patches",
     srcs = glob(["*.patch"]),
