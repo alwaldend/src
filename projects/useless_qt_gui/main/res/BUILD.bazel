@@ -1,5 +1,11 @@
 load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 
+filegroup(
+    name = "images",
+    srcs = glob(["*.png"]),
+    visibility = ["//projects/useless_qt_gui:__pkg__"],
+)
+
 pkg_files(
     name = "res",
     srcs = glob(["*.png"]),

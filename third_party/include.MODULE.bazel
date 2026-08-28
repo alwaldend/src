@@ -12,7 +12,8 @@ bazel_dep(name = "rules_python", version = "1.9.0")
 bazel_dep(name = "rules_python_gazelle_plugin", version = "1.9.0")
 
 # Proto
-bazel_dep(name = "protobuf", version = "35.0")
+# Keep this aligned with rules_android's embedded protobuf Java runtime.
+bazel_dep(name = "protobuf", version = "33.4")
 
 # Shell
 bazel_dep(name = "rules_sh", version = "0.5.0")
@@ -31,6 +32,21 @@ bazel_dep(name = "rules_java", version = "9.5.0")
 bazel_dep(name = "rules_jvm_external", version = "6.10")
 bazel_dep(name = "grpc-java", version = "1.78.0")
 bazel_dep(name = "contrib_rules_jvm", version = "0.32.0")
+
+# Own the default Maven repository so the protobuf and grpc-java dependency
+# contributions are resolved and pinned together.
+# Update maven_install.json with:
+# REPIN=1 bazel run --config=agent @maven//:pin
+maven = use_extension("@rules_jvm_external//:extensions.bzl", "maven")
+maven.install(
+    name = "maven",
+    known_contributing_modules = [
+        "grpc-java",
+        "protobuf",
+    ],
+    lock_file = "//:maven_install.json",
+)
+use_repo(maven, "maven")
 
 # C, C++
 bazel_dep(name = "rules_cc", version = "0.2.17")
