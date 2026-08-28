@@ -22,8 +22,6 @@ common --experimental_isolated_extension_usages
 common --experimental_ui_max_stdouterr_bytes=-1
 # Android platforms
 common --android_platforms=//tools/bzl/platforms:android_arm64
-# Enable local Android NDK toolchains only for builds that need them.
-build:android_ndk --extra_toolchains=@androidndk//:all
 # Go platforms
 # https://github.com/bazel-contrib/rules_go/blob/master/docs/go/core/cross_compilation.md
 common:amd64 --platforms=@rules_go//go/toolchain:linux_amd64_cgo
