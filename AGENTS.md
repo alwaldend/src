@@ -16,6 +16,10 @@ expert would judge correct, never for what satisfies the stated constraints
 most cheaply. State material trade-offs to the user; routine implementation
 choices need not be narrated.
 
+A question is not a call to action. Answer questions directly; do not change
+files or external state unless the user explicitly asks for implementation or
+another action.
+
 ## Making changes
 
 - Read the nearest `README.md`, `BUILD.bazel`, and `include.MODULE.bazel`
