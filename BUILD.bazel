@@ -1,4 +1,3 @@
-load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file", "write_source_files")
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@com_alwaldend_src_npm//:defs.bzl", "npm_link_all_packages")
 load("@com_alwaldend_src_pip//:requirements.bzl", "all_whl_requirements")
@@ -37,18 +36,9 @@ al_config(
     visibility = ["//:__subpackages__"],
 )
 
-write_source_file(
-    name = "write_git_hooks_precommit",
-    executable = True,
-    in_file = "//tools/git_hooks/main/sh:precommit",
-    out_file = ".git/hooks/pre-commit",
-)
-
-write_source_files(
+alias(
     name = "write_git_hooks",
-    additional_update_targets = [
-        ":write_git_hooks_precommit",
-    ],
+    actual = "//tools/git_hooks/main/go",
 )
 
 docs_filegroup(
