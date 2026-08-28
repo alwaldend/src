@@ -37,8 +37,7 @@ common:arm --platforms=@rules_go//go/toolchain:linux_arm_cgo
 # common:al_toml_validate --output_groups=+al_toml_validate
 # Set CI flag in CI
 common:ci --//tools/bazel_configs:ci_flag
-# Keep agent output quiet and provide a structured Build Event Protocol log.
-common:agent --build_event_json_file=bazel-agent-build-events.json
+# Keep agent output quiet and non-interactive.
 common:agent --color=no
 common:agent --curses=no
 common:agent --lockfile_mode=error
