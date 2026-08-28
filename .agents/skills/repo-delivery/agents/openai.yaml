@@ -1,0 +1,5 @@
+interface:
+  display_name: "Repository Delivery"
+  short_description: "Commit, push, and maintain the matching pull request"
+  default_prompt: >-
+    Use $repo-delivery to verify and deliver the task-owned changes.

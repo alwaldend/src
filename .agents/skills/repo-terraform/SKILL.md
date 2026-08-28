@@ -38,7 +38,7 @@ Prefer repository-provided targets over invoking a host Terraform binary:
 
 ```sh
 bazel query '//path/to/tf:*'
-bazel test //path/to/tf:tf_tests
+bazel test //path/to/tf:tf_tests.fmt_test
 bazel run //path/to/tf:tf.plan
 ```
 

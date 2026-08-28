@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<zone>
+  <short>Host Bot</short>
+  <description>Allow only SSH, HTTP, and HTTPS.</description>
+  <port port="22" protocol="tcp"/>
+  <port port="80" protocol="tcp"/>
+  <port port="443" protocol="tcp"/>
+</zone>

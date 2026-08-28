@@ -9,11 +9,12 @@ Use this file as the repository-wide default. If a more deeply nested
 
 ## Decision-making
 
-For every decision, ask what the best expert in that field would do and why
-they would reject your current choice; if you can name that reason, don't make
-the choice. Optimize for what that expert would judge correct, never for what
-satisfies the stated constraints most cheaply. Every trade-off you take must
-be stated to the user, never absorbed.
+For material design, security, and operational decisions, ask what the best
+expert in that field would do and why they would reject your current choice;
+if you can name that reason, don't make the choice. Optimize for what that
+expert would judge correct, never for what satisfies the stated constraints
+most cheaply. State material trade-offs to the user; routine implementation
+choices need not be narrated.
 
 ## Making changes
 
@@ -36,7 +37,8 @@ be stated to the user, never absorbed.
   exist, create it.
 - Do not ask whether you should commit or push to a feature branch: the answer
   is always yes.
-- Commit all changes each time. Do not leave requested changes uncommitted.
+- Commit all task-owned changes each time. Do not include unrelated or
+  pre-existing changes, and do not leave requested changes uncommitted.
 - Do not commit binaries. Add binary paths to `.gitignore` instead.
 - Do not amend, rebase, force-push, or rewrite existing history unless you are
   on a feature branch and you have a valid reason to do so.
