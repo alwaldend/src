@@ -1,8 +1,10 @@
 load("@rules_go//go:def.bzl", "go_binary", "go_library")
 load("//tools/docs:defs.bzl", "docs_filegroup")
+load(":analysis_test.bzl", "ops_action_test")
 
 genrule(
     name = "ops",
+    srcs = [":server"],
     outs = ["server.iso"],
     cmd = """
 export OPS_HOME="$${PWD}/home"
@@ -42,10 +44,7 @@ $(execpath //tools/ops) build --config "$${PWD}/config.json" "$(execpath :server
 mv ./home/.ops/images/alwaldend-com-server $(@)
     """,
     tags = ["no-sandbox"],
-    tools = [
-        ":server",
-        "//tools/ops",
-    ],
+    tools = ["//tools/ops"],
     visibility = ["//projects/alwaldend.com:__subpackages__"],
 )
 
@@ -64,6 +63,11 @@ go_binary(
     name = "server",
     embed = [":server_lib"],
     visibility = ["//:__subpackages__"],
+)
+
+ops_action_test(
+    name = "ops_action_test",
+    target_under_test = ":ops",
 )
 
 docs_filegroup(
