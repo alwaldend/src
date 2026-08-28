@@ -15,6 +15,12 @@ filegroup(
     visibility = ["//visibility:public"],
 )
 
+filegroup(
+    name = "release_git_state",
+    srcs = ["release_git_repository"],
+    visibility = ["//visibility:public"],
+)
+
 al_git_toolchain(
     name = "git_toolchain_impl",
     git_path = "{git_path}",
@@ -30,8 +36,49 @@ al_git_binary(
 )
 """
 
+def _execute(ctx, arguments, description):
+    result = ctx.execute(arguments, quiet = True)
+    if result.return_code:
+        fail("{} failed:\n{}\n{}".format(description, result.stdout, result.stderr))
+
 def _impl(ctx):
     git_path = ctx.which("git")
+    if not git_path:
+        fail("Could not find git")
+
+    release_git_repository = ctx.path("release_git_repository")
+    ctx.delete(release_git_repository)
+    _execute(
+        ctx,
+        [git_path, "init", "--bare", "--quiet", release_git_repository],
+        "Initializing release Git repository",
+    )
+    _execute(
+        ctx,
+        [
+            git_path,
+            "--git-dir={}".format(release_git_repository),
+            "fetch",
+            "--force",
+            "--no-recurse-submodules",
+            "--no-write-fetch-head",
+            "--quiet",
+            ctx.workspace_root,
+            "+HEAD:refs/heads/release",
+        ],
+        "Fetching release Git state",
+    )
+    _execute(
+        ctx,
+        [
+            git_path,
+            "--git-dir={}".format(release_git_repository),
+            "symbolic-ref",
+            "HEAD",
+            "refs/heads/release",
+        ],
+        "Setting release Git revision",
+    )
     git_dir = ctx.workspace_root.get_child(".git")
     ctx.symlink(git_dir, ".git")
     git_root = ctx.workspace_root
@@ -47,4 +94,5 @@ def _impl(ctx):
 al_git_repo = repository_rule(
     implementation = _impl,
     doc = "Git repo",
+    local = True,
 )

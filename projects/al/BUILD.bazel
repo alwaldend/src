@@ -5,6 +5,7 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = ["//projects:__pkg__"],
     deps = [
+        "//projects/al/releases:docs",
         "//projects/al/rules:docs",
     ],
 )
