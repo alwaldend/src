@@ -15,7 +15,7 @@ build_test(
 
 compile_pip_requirements(
     name = "requirements",
-    timeout = "moderate",
+    timeout = "long",
     srcs = [":pyproject.toml"],
     extra_args = ["--no-strip-extras"],
     requirements_txt = ":requirements.txt",

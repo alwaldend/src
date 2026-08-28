@@ -3,8 +3,11 @@ load("//tools/docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]) + select({
-        "//tools/bazel_configs:harbor": [":image_index_json_cp"],
+    srcs = select({
+        "//tools/bazel_configs:harbor": [
+            "README.md",
+            ":image_index_json_cp",
+        ],
         "//conditions:default": [],
     }),
     visibility = ["//projects/cgit/images:__pkg__"],
