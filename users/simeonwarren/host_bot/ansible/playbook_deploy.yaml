@@ -57,22 +57,10 @@
         mode: "0600"
       tags:
         - codex
-    - name: Create the system Codex configuration directory
+    - name: Remove Codex requirements incompatible with T3 Code
       ansible.builtin.file:
-        path: /etc/codex
-        state: directory
-        owner: root
-        group: root
-        mode: "0755"
-      tags:
-        - codex
-    - name: Enforce Codex approval requirements
-      ansible.builtin.copy:
-        src: codex_requirements.toml
-        dest: /etc/codex/requirements.toml
-        owner: root
-        group: root
-        mode: "0644"
+        path: /etc/codex/requirements.toml
+        state: absent
       tags:
         - codex
     - name: Setup CA
