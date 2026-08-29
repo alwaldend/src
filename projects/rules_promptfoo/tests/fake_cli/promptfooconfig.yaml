@@ -1,0 +1,8 @@
+description: Fake Promptfoo configuration used by launcher tests
+prompts:
+  - "{{ question }}"
+providers:
+  - echo
+tests:
+  - vars:
+      question: test

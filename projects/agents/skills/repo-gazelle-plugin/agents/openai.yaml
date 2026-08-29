@@ -1,0 +1,6 @@
+interface:
+  display_name: "Repository Gazelle Plugin"
+  short_description: "Create and integrate monorepo Gazelle plugins"
+  default_prompt: >-
+    Use $repo-gazelle-plugin to add or update a standalone Gazelle plugin in
+    this repository.

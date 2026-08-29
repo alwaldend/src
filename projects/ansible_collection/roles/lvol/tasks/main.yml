@@ -1,8 +1,8 @@
-- name: Gather facts
+- name: Setup LVM logical volumes
   tags:
     - lvol
   block:
-    - name: Setup lvol
+    - name: Create or resize logical volume
       loop: "{{ lvol_volumes }}"
       community.general.lvol:
         vg: "{{ item.vg }}"
@@ -10,3 +10,6 @@
         size: "{{ item.size }}"
         resizefs: "{{ item.resizefs | default(true) }}"
         force: "{{ item.force | default(false) }}"
+        opts: "{{ item.opts | default(omit) }}"
+        pvs: "{{ item.pvs | default(omit) }}"
+        shrink: "{{ item.shrink | default(true) }}"

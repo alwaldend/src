@@ -1,0 +1,24 @@
+load("@rules_promptfoo//promptfoo:defs.bzl", "promptfoo_validate_test")
+load("@rules_skill//skill:defs.bzl", "skill_library")
+
+skill_library(
+    name = "skill",
+    srcs = glob(
+        ["**"],
+        exclude = [
+            "BUILD",
+            "BUILD.bazel",
+            "evals/**",
+        ],
+    ),
+)
+
+promptfoo_validate_test(
+    name = "eval_config_test",
+    config = "evals/promptfooconfig.yaml",
+    data = [
+        "evals/README.md",
+        "evals/cases.yaml",
+    ],
+    skills = [":skill"],
+)

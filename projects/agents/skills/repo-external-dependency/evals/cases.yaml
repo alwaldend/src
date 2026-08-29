@@ -1,0 +1,20 @@
+- description: Adds a reproducibly pinned release tool
+  vars:
+    request: >-
+      Upgrade a shared command-line tool to its newest release. Upstream ships
+      platform-specific archives, and several Bazel packages consume the tool.
+      Make the repository change and verify it.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response first inspects the owning repository pattern
+        and consumers; chooses the established shared binary-toolchain
+        mechanism; resolves "newest" to a concrete immutable release; uses
+        primary HTTPS artifacts with independently verified SRI integrity;
+        includes only consumed platforms with execution constraints in the
+        toolchain entry; updates generated locks through their owning
+        workflow; does not commit archives, caches, or credentials; reviews
+        generated diffs for unrelated churn; and queries, builds, and tests
+        the dependency and narrow consumers through bazel_agent, including
+        Buildifier coverage. Otherwise fail.

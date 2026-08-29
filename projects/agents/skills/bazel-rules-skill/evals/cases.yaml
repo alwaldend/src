@@ -1,0 +1,16 @@
+- description: Creates a packaged and evaluated repository skill
+  vars:
+    request: >-
+      Add a repository skill named database-backup with Codex metadata and a
+      behavioral evaluation. Explain where each file belongs and verify it.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses skill-creator; places the canonical
+        skill under projects/agents/skills/database-backup rather than editing
+        the .agents discovery symlink; packages runtime files with
+        skill_library while excluding BUILD.bazel and evals; adds agents
+        metadata whose default prompt names the skill; adds required offline
+        Promptfoo configuration validation; and proposes targeted skill,
+        Promptfoo, and Buildifier checks through bazel_agent. Otherwise fail.

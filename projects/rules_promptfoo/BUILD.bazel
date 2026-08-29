@@ -1,0 +1,40 @@
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_promptfoo_npm//:defs.bzl", "npm_link_all_packages")
+load(
+    "@rules_promptfoo_npm//:promptfoo/package_json.bzl",
+    promptfoo_bin = "bin",
+)
+
+npm_link_all_packages(name = "node_modules")
+
+promptfoo_bin.promptfoo_binary(
+    name = "promptfoo",
+    data = [
+        ":node_modules/@libsql/client",
+        ":node_modules/@libsql/linux-x64-gnu",
+        ":node_modules/@openai/codex",
+        ":node_modules/@openai/codex-linux-x64",
+        ":node_modules/@openai/codex-sdk",
+        ":node_modules/ajv",
+    ],
+    target_compatible_with = [
+        # The selected Codex and libSQL binaries require glibc. This repository
+        # has no shared libc constraint to express that requirement in Bazel.
+        "@platforms//cpu:x86_64",
+        "@platforms//os:linux",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+build_test(
+    name = "build_test",
+    targets = ["//promptfoo:defs"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/projects/rules_promptfoo",
+    visibility = ["//visibility:public"],
+)

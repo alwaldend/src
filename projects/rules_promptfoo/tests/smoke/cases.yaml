@@ -1,0 +1,5 @@
+- vars:
+    question: Does this configuration parse?
+  assert:
+    - type: contains
+      value: configuration

@@ -1,0 +1,92 @@
+diff --git a/dist/src/evaluator-BxDpurGf.js b/dist/src/evaluator-BxDpurGf.js
+--- a/dist/src/evaluator-BxDpurGf.js
++++ b/dist/src/evaluator-BxDpurGf.js
+@@ -6431,7 +6431,7 @@ var ProviderCallQueue = class {
+ };
+ //#endregion
+ //#region src/suggestions.ts
+-const SUGGESTIONS_CONCURRENCY = 4;
++const SUGGESTIONS_CONCURRENCY = Number(process.env.PROMPTFOO_SUGGESTIONS_MAX_CONCURRENCY) || 4;
+ async function generatePrompts(prompt, num) {
+ 	if (!Number.isInteger(num) || num < 1 || num > 50) return {
+ 		error: `generatePrompts: num must be an integer between 1 and 50 (got ${num})`,
+diff --git a/dist/src/index.cjs b/dist/src/index.cjs
+--- a/dist/src/index.cjs
++++ b/dist/src/index.cjs
+@@ -6596,7 +6596,7 @@ var ProviderCallQueue = class {
+ };
+ //#endregion
+ //#region src/suggestions.ts
+-const SUGGESTIONS_CONCURRENCY = 4;
++const SUGGESTIONS_CONCURRENCY = Number(process.env.PROMPTFOO_SUGGESTIONS_MAX_CONCURRENCY) || 4;
+ async function generatePrompts(prompt, num) {
+ 	if (!Number.isInteger(num) || num < 1 || num > 50) return {
+ 		error: `generatePrompts: num must be an integer between 1 and 50 (got ${num})`,
+diff --git a/dist/src/index.js b/dist/src/index.js
+--- a/dist/src/index.js
++++ b/dist/src/index.js
+@@ -6574,7 +6574,7 @@ var ProviderCallQueue = class {
+ };
+ //#endregion
+ //#region src/suggestions.ts
+-const SUGGESTIONS_CONCURRENCY = 4;
++const SUGGESTIONS_CONCURRENCY = Number(process.env.PROMPTFOO_SUGGESTIONS_MAX_CONCURRENCY) || 4;
+ async function generatePrompts(prompt, num) {
+ 	if (!Number.isInteger(num) || num < 1 || num > 50) return {
+ 		error: `generatePrompts: num must be an integer between 1 and 50 (got ${num})`,
+diff --git a/dist/src/server/index.js b/dist/src/server/index.js
+--- a/dist/src/server/index.js
++++ b/dist/src/server/index.js
+@@ -10178,7 +10178,7 @@ var ProviderCallQueue = class {
+ };
+ //#endregion
+ //#region src/suggestions.ts
+-const SUGGESTIONS_CONCURRENCY = 4;
++const SUGGESTIONS_CONCURRENCY = Number(process.env.PROMPTFOO_SUGGESTIONS_MAX_CONCURRENCY) || 4;
+ async function generatePrompts(prompt, num) {
+ 	if (!Number.isInteger(num) || num < 1 || num > 50) return {
+ 		error: `generatePrompts: num must be an integer between 1 and 50 (got ${num})`,
+diff --git a/dist/src/telemetry-BD4xF9d_.js b/dist/src/telemetry-BD4xF9d_.js
+--- a/dist/src/telemetry-BD4xF9d_.js
++++ b/dist/src/telemetry-BD4xF9d_.js
+@@ -111,6 +111,7 @@ var Telemetry = class {
+ 		else this.sendEvent(eventName, properties);
+ 	}
+ 	sendEvent(eventName, properties) {
++		if (this.disabled || getEnvBool("IS_TESTING")) return;
+ 		const ciFlag = isCI();
+ 		const personProperties = this.getPersonProperties(ciFlag);
+ 		const propertiesWithMetadata = {
+diff --git a/dist/src/telemetry-BQZTDom3.js b/dist/src/telemetry-BQZTDom3.js
+--- a/dist/src/telemetry-BQZTDom3.js
++++ b/dist/src/telemetry-BQZTDom3.js
+@@ -115,6 +115,7 @@ var Telemetry = class {
+ 		else this.sendEvent(eventName, properties);
+ 	}
+ 	sendEvent(eventName, properties) {
++		if (this.disabled || getEnvBool("IS_TESTING")) return;
+ 		const ciFlag = isCI();
+ 		const personProperties = this.getPersonProperties(ciFlag);
+ 		const propertiesWithMetadata = {
+diff --git a/dist/src/telemetry-CJdYAcRk.js b/dist/src/telemetry-CJdYAcRk.js
+--- a/dist/src/telemetry-CJdYAcRk.js
++++ b/dist/src/telemetry-CJdYAcRk.js
+@@ -115,6 +115,7 @@ var Telemetry = class {
+ 		else this.sendEvent(eventName, properties);
+ 	}
+ 	sendEvent(eventName, properties) {
++		if (this.disabled || getEnvBool("IS_TESTING")) return;
+ 		const ciFlag = isCI();
+ 		const personProperties = this.getPersonProperties(ciFlag);
+ 		const propertiesWithMetadata = {
+diff --git a/dist/src/telemetry-cZi2RTrN.cjs b/dist/src/telemetry-cZi2RTrN.cjs
+--- a/dist/src/telemetry-cZi2RTrN.cjs
++++ b/dist/src/telemetry-cZi2RTrN.cjs
+@@ -114,6 +114,7 @@ var Telemetry = class {
+ 		else this.sendEvent(eventName, properties);
+ 	}
+ 	sendEvent(eventName, properties) {
++		if (this.disabled || require_logger.getEnvBool("IS_TESTING")) return;
+ 		const ciFlag = require_logger.isCI();
+ 		const personProperties = this.getPersonProperties(ciFlag);
+ 		const propertiesWithMetadata = {

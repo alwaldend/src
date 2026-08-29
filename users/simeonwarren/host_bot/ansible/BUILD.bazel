@@ -53,16 +53,10 @@ pkg_files(
     name = "srcs_files",
     srcs = [
         "inventory.yaml",
-        "//projects/bazel_agent",
-        "@com_github_bazelbuild_bazelisk_linux_x86_64//:bazelisk_filegroup",
     ] + glob([
         "group_vars/**/*.yaml",
         "files/**",
         "playbook_*.yaml",
     ]),
-    renames = {
-        "@com_github_bazelbuild_bazelisk_linux_x86_64//:bazelisk_filegroup": "files/bazelisk",
-        "//projects/bazel_agent": "files/bazel_agent",
-    },
     strip_prefix = strip_prefix.from_pkg(),
 )

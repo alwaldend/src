@@ -19,13 +19,26 @@ def _skill_library_files_test_impl(ctx):
         "tests/analysis/reference.txt",
     ]
 
+    asserts.equals(env, "analysis", skill.name)
+    asserts.equals(env, "tests/analysis", skill.root)
+    asserts.equals(
+        env,
+        ["SKILL.md", "agents/openai.yaml", "reference.txt"],
+        sorted(skill.files_by_path.keys()),
+    )
     asserts.equals(env, expected, _package_paths(skill.files))
     asserts.equals(env, expected, _package_paths(target[DefaultInfo].files))
     asserts.equals(env, "tests/analysis/SKILL.md", _package_path(skill.skill))
+    asserts.equals(env, skill.skill, skill.files_by_path["SKILL.md"])
     asserts.equals(
         env,
         "tests/analysis/agents/openai.yaml",
         _package_path(skill.openai_yaml),
+    )
+    asserts.equals(
+        env,
+        skill.openai_yaml,
+        skill.files_by_path["agents/openai.yaml"],
     )
     return analysistest.end(env)
 
@@ -39,6 +52,11 @@ def _skill_library_without_openai_test_impl(ctx):
     skill = target[SkillInfo]
 
     asserts.equals(env, None, skill.openai_yaml)
+    asserts.equals(
+        env,
+        ["SKILL.md", "reference.txt"],
+        sorted(skill.files_by_path.keys()),
+    )
     asserts.equals(
         env,
         [
@@ -58,6 +76,19 @@ def _skill_library_generated_files_test_impl(ctx):
     target = analysistest.target_under_test(env)
     skill = target[SkillInfo]
 
+    asserts.equals(env, "generated", skill.name)
+    asserts.equals(env, "tests/analysis/generated", skill.root)
+    asserts.equals(
+        env,
+        ["SKILL.md", "agents/openai.yaml", "reference.txt"],
+        sorted(skill.files_by_path.keys()),
+    )
+    asserts.equals(env, skill.skill, skill.files_by_path["SKILL.md"])
+    asserts.equals(
+        env,
+        skill.openai_yaml,
+        skill.files_by_path["agents/openai.yaml"],
+    )
     asserts.equals(env, 3, len(skill.files.to_list()))
     asserts.equals(env, "SKILL.md", skill.skill.basename)
     asserts.true(

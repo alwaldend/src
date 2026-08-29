@@ -41,47 +41,49 @@
         src: gitconfig
         dest: "~/.gitconfig"
         mode: "0600"
-    - name: Configure Bazel
-      become: false
-      ansible.builtin.copy:
-        src: bazelrc
-        dest: "~/.bazelrc"
-        mode: "0600"
+    - name: Configure development packages
+      ansible.builtin.import_role:
+        name: alwaldend.main.dev_vm
+        tasks_from: packages
+    - name: Setup Bazel cache volume group
+      ansible.builtin.import_role:
+        name: alwaldend.main.lvg
       tags:
         - bazel
-    - name: Create the local binary directory
-      become: false
+        - storage
+    - name: Setup Bazel cache logical volume
+      ansible.builtin.import_role:
+        name: alwaldend.main.lvol
+      tags:
+        - bazel
+        - storage
+    - name: Setup Bazel cache filesystem
+      ansible.builtin.import_role:
+        name: alwaldend.main.filesystem
+      tags:
+        - bazel
+        - storage
+    - name: Mount Bazel cache filesystem
+      ansible.builtin.import_role:
+        name: alwaldend.main.mount
+      tags:
+        - bazel
+        - storage
+    - name: Create the Bazel cache directories
+      loop: "{{ bazel_cache_directories }}"
       ansible.builtin.file:
-        path: "~/.local/bin"
+        path: "{{ item.path }}"
         state: directory
-        mode: "0755"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "{{ item.mode }}"
       tags:
         - bazel
-    - name: Install Bazelisk
-      become: false
-      ansible.builtin.copy:
-        src: bazelisk
-        dest: "~/.local/bin/bazelisk"
-        mode: "0755"
-      tags:
-        - bazel
-    - name: Link Bazelisk as Bazel
-      become: false
-      ansible.builtin.file:
-        src: bazelisk
-        dest: "~/.local/bin/bazel"
-        state: link
-        force: true
-      tags:
-        - bazel
-    - name: Install Bazel agent runner
-      become: false
-      ansible.builtin.copy:
-        src: bazel_agent
-        dest: "~/.local/bin/bazel_agent"
-        mode: "0755"
-      tags:
-        - bazel
+        - storage
+    - name: Configure Bazel developer tools
+      ansible.builtin.import_role:
+        name: alwaldend.main.dev_vm
+        tasks_from: bazel
     - name: Create the Codex configuration directory
       become: false
       ansible.builtin.file:

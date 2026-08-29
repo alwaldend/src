@@ -34,6 +34,22 @@ skill_library(
     tags = ["manual"],
 )
 
+filegroup(
+    name = "skill_alias",
+    srcs = ["SKILL.md"],
+    tags = ["manual"],
+)
+
+skill_library(
+    name = "duplicate_path",
+    testonly = True,
+    srcs = [
+        "SKILL.md",
+        ":skill_alias",
+    ],
+    tags = ["manual"],
+)
+
 skill_library_files_test(
     name = "skill_library_files_test",
     target_under_test = ":library",
@@ -50,6 +66,12 @@ skill_library_generated_files_test(
 )
 
 skill_library_failure_test(
+    name = "duplicate_path_test",
+    expected_message = "skill_library has duplicate logical path SKILL.md",
+    target_under_test = ":duplicate_path",
+)
+
+skill_library_failure_test(
     name = "missing_skill_test",
     expected_message = "skill_library requires exactly one SKILL.md in srcs",
     target_under_test = ":missing_skill",
@@ -61,6 +83,15 @@ skill_library_failure_test(
     target_under_test = "//tests/analysis/nested-skill:library",
 )
 
+skill_library_failure_test(
+    name = "root_package_test",
+    expected_message = (
+        "skill_library cannot be declared in a repository root package; " +
+        "move the skill to a named subpackage"
+    ),
+    target_under_test = "//:root_skill_fixture",
+)
+
 skill_library_aspect_test(
     name = "skill_library_aspect_test",
     target_under_test = ":library",
@@ -69,8 +100,10 @@ skill_library_aspect_test(
 test_suite(
     name = "tests",
     tests = [
+        ":duplicate_path_test",
         ":missing_skill_test",
         ":nested_skill_test",
+        ":root_package_test",
         ":skill_library_aspect_test",
         ":skill_library_files_test",
         ":skill_library_generated_files_test",

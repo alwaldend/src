@@ -16,5 +16,6 @@ go_binary(
 go_test(
     name = "bazel_agent_test",
     srcs = ["main_test.go"],
+    # keep
     embed = [":go_lib"],
 )

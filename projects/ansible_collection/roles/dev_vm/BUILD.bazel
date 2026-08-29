@@ -13,6 +13,13 @@ docs_filegroup(
 
 al_ansible_role(
     name = "role",
-    srcs = glob(["**"]),
+    srcs = glob(["**"]) + [
+        "//projects/bazel_agent",
+        "@com_github_bazelbuild_bazelisk_linux_x86_64//:bazelisk_filegroup",
+    ],
+    renames = {
+        "//projects/bazel_agent": "files/bazel_agent",
+        "@com_github_bazelbuild_bazelisk_linux_x86_64//:bazelisk_filegroup": "files/bazelisk",
+    },
     visibility = ["//:__subpackages__"],
 )
