@@ -16,14 +16,13 @@ description: >-
 2. From the repository root, run:
 
    ```sh
-   bazel run --config=agent \
+   bazel_agent run \
      //.agents/skills/full-repo-check:run_full_repo_check
    ```
 
-   The runner executes `bazel build --config=agent //...` and
-   `bazel test --config=agent //...` in the root workspace and five nested
-   workspaces. It continues after failures so one run covers the whole
-   repository.
+   The runner executes `bazel_agent build //...` and
+   `bazel_agent test //...` in the root workspace and five nested workspaces.
+   It continues after failures so one run covers the whole repository.
 3. Note the printed run directory. Read its `report.md` for the command matrix.
    Raw stdout and stderr are combined in its `logs/` directory with mode 0600.
 4. Inspect each failed command's log with targeted searches and the narrowest
@@ -63,8 +62,7 @@ whose affected target and root cause are `None`. After the issue table, include
 the twelve-command result matrix from `report.md`, with exact commands, exit
 statuses, durations, and the run-directory path.
 
-This check covers Bazel's normal `//...` expansion with the repository's
-default configuration plus `--config=agent`. Bazel excludes targets tagged
-`manual`, skips incompatible targets, and does not expand optional
-configuration matrices such as `--config=harbor`; disclose those limits in the
-report rather than describing them as checked.
+This check covers Bazel's normal `//...` expansion through `bazel_agent`.
+Bazel excludes targets tagged `manual`, skips incompatible targets, and does
+not expand optional configuration matrices such as `--config=harbor`;
+disclose those limits in the report rather than describing them as checked.

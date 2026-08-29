@@ -1,0 +1,37 @@
+{
+    "toolchains": [
+        {
+            "name": "bazelisk",
+            "version": "1.29.0"
+        }
+    ],
+    "archives": [
+        {
+            "archive_name": "linux_x86_64",
+            "toolchain_name": "bazelisk",
+            "toolchain_version": "1.29.0",
+            "binaries": [
+                {
+                    "name": "bazelisk",
+                    "path": "out/bazelisk"
+                }
+            ],
+            "actions": [
+                {
+                    "download": {
+                        "url": "https://github.com/bazelbuild/bazelisk/releases/download/v1.29.0/bazelisk-linux-amd64",
+                        "output": "out/bazelisk",
+                        "executable": true,
+                        "integrity": "sha256-WkCHFekywCUNKL2EVV8S7b9wEX3kL5GBaRxzbqzEqZI="
+                    }
+                }
+            ],
+            "toolchain": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}

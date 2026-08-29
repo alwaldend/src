@@ -1,0 +1,23 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    archives = {
+        "bazelisk": ["linux_x86_64"],
+    },
+    lock = "//third_party/com_github_bazelbuild_bazelisk:binary_toolchain.json",
+    toolchains_map = {
+        "bazelisk": "com_github_bazelbuild_bazelisk",
+    },
+)
+
+register_toolchains(
+    "@com_github_bazelbuild_bazelisk//:all",
+)
+
+use_repo(
+    binary_toolchain_extension,
+    "com_github_bazelbuild_bazelisk",
+    "com_github_bazelbuild_bazelisk_linux_x86_64",
+)

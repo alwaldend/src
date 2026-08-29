@@ -8,6 +8,7 @@ module(
 include("//third_party:include.MODULE.bazel")
 include("//third_party/org_nmap_nmap:include.MODULE.bazel")
 include("//third_party/org_kernel_headers:include.MODULE.bazel")
+include("//third_party/com_github_bazelbuild_bazelisk:include.MODULE.bazel")
 include("//third_party/com_github_bazelbuild_bazel_protobuf:include.MODULE.bazel")
 include("//third_party/us_nasm_nasm:include.MODULE.bazel")
 include("//third_party/com_github_georgewfraser_java_language_server:include.MODULE.bazel")

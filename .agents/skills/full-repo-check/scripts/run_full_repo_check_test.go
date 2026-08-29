@@ -37,6 +37,14 @@ func TestExecuteContinuesAndWritesPrivateArtifacts(t *testing.T) {
 	commands := 0
 	newCommand := func(name string, args ...string) *exec.Cmd {
 		commands++
+		wantArgs := []string{"build", "//..."}
+		if commands%2 == 0 {
+			wantArgs[0] = "test"
+		}
+		if name != "bazel_agent" ||
+			strings.Join(args, " ") != strings.Join(wantArgs, " ") {
+			t.Fatalf("command = %q %q, want bazel_agent %q", name, args, wantArgs)
+		}
 		exitCode := 0
 		if commands == 1 {
 			exitCode = 9
@@ -86,7 +94,7 @@ func TestExecuteContinuesAndWritesPrivateArtifacts(t *testing.T) {
 		t.Fatalf("os.ReadFile(report) error = %v", err)
 	}
 	for _, want := range []string{
-		"| root | build | `bazel build --config=agent //...` | FAIL (exit 9)",
+		"| root | build | `bazel_agent build //...` | FAIL (exit 9)",
 		"| projects/rules_template | test |",
 		"## Failed commands",
 		"| root | build | 9 |",

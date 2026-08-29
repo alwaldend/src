@@ -45,7 +45,7 @@ func repositoryRoot(getenv func(string) string) (string, error) {
 	root := getenv("BUILD_WORKSPACE_DIRECTORY")
 	if root == "" {
 		return "", errors.New(
-			"BUILD_WORKSPACE_DIRECTORY is unset; run with bazel run",
+			"BUILD_WORKSPACE_DIRECTORY is unset; run with bazel_agent run",
 		)
 	}
 	absolute, err := filepath.Abs(root)
@@ -107,7 +107,7 @@ func runCheck(
 	newCommand commandFactory,
 	progress io.Writer,
 ) checkResult {
-	command := []string{"bazel", phase, "--config=agent", "//..."}
+	command := []string{"bazel_agent", phase, "//..."}
 	safeWorkspace := strings.ReplaceAll(candidate.name, "/", "__")
 	logPath := filepath.Join(
 		runDirectory,
@@ -149,7 +149,7 @@ func runCheck(
 			if errors.As(err, &exitError) {
 				result.exitCode = exitError.ExitCode()
 			} else {
-				fmt.Fprintf(logFile, "could not execute bazel: %v\n", err)
+				fmt.Fprintf(logFile, "could not execute bazel_agent: %v\n", err)
 			}
 		}
 		if closeError := logFile.Close(); closeError != nil && err == nil {
@@ -224,13 +224,16 @@ func writeReport(
 	)
 	fmt.Fprintln(
 		&report,
-		"Scope: normal `//...` expansion under the default configuration and",
+		"Scope: normal `//...` expansion through `bazel_agent`. The runner",
 	)
 	fmt.Fprintln(
 		&report,
-		"`--config=agent`. This excludes `manual` targets, incompatible targets,",
+		"enables batch mode and the agent configuration. This excludes `manual`",
 	)
-	fmt.Fprintln(&report, "and optional configuration matrices.")
+	fmt.Fprintln(
+		&report,
+		"targets, incompatible targets, and optional configuration matrices.",
+	)
 	fmt.Fprintln(&report)
 	fmt.Fprintln(
 		&report,

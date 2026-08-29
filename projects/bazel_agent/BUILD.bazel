@@ -1,0 +1,21 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+
+alias(
+    name = "bazel_agent",
+    actual = "//projects/bazel_agent/cmd/bazel_agent",
+    visibility = ["//:__subpackages__"],
+)
+
+sh_binary(
+    name = "install",
+    srcs = ["install.sh"],
+    args = ["$(rootpath //projects/bazel_agent/cmd/bazel_agent)"],
+    data = ["//projects/bazel_agent/cmd/bazel_agent"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects:__pkg__"],
+)

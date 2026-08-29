@@ -7,6 +7,17 @@ title: Agents
 Use this file as the repository-wide default. If a more deeply nested
 `AGENTS.md` is added, its instructions take precedence for that subtree.
 
+## Scratch files (mandatory)
+
+- Put every task-owned download, generated report, log, extracted archive,
+  tool cache, and temporary file under an ignored, task-specific
+  `out/<task>/` directory in the applicable workspace.
+- Point configurable tool scratch directories at `out/<task>/` as well. Do
+  not use `/tmp` for task-owned files merely because they are temporary.
+- Use operating-system temporary storage only when a tool cannot be directed
+  elsewhere. Remove any task-owned residue there before handoff; never delete
+  unrelated files or broad temporary directories.
+
 ## Decision-making
 
 For material design, security, and operational decisions, ask what the best
@@ -16,9 +27,15 @@ expert would judge correct, never for what satisfies the stated constraints
 most cheaply. State material trade-offs to the user; routine implementation
 choices need not be narrated.
 
-A question is not a call to action. Answer questions directly; do not change
-files or external state unless the user explicitly asks for implementation or
-another action.
+## Questions
+
+Use the `answer-question` skill whenever the user's message contains a
+substantive question, including when it also requests action. A question,
+including “can we,” “should we,” “why,” or “do we need,” is a request for
+information and not authorization to modify files, settings, pull requests,
+deployments, or other external state. Read-only investigation is allowed when
+it supports a truthful answer. If a message combines a question with an
+explicit request for action, act only within that stated scope.
 
 ## Making changes
 
@@ -29,7 +46,7 @@ another action.
 - Prefer a small, target-specific change. This is a large monorepo, so query,
   build, and test the affected Bazel package before considering `//...`.
 - Prefer Go for repository automation and scripts. Expose them as Bazel
-  `go_binary` targets and invoke them with `bazel run --config=agent`; use
+  `go_binary` targets and invoke them with `bazel_agent run`; use
   another language only when Go or Bazel would materially complicate the task.
 - Use the `repo-delivery` skill to finalize implementation work. It owns
   staging, feature-branch commits and pushes, pull request maintenance, review
@@ -39,7 +56,7 @@ another action.
 ## Searching
 
 Do not use recursive `grep` or `ls`. Use `rg`, `rg --files`, `find` with a
-bounded depth, or `bazel query` instead.
+bounded depth, or `bazel_agent query` instead.
 
 ## Repository map and boundaries
 
@@ -64,13 +81,14 @@ these visibility and publication boundaries when adding dependencies.
 
 ## Bazel and dependency management
 
-- Bazel is the primary entry point. `.bazeliskrc` pins the supported version;
-  use `bazel`, not a separately installed unpinned binary.
-- Agents must run repository Bazel commands from the applicable workspace root
-  with `--config=agent`. Use Bazel's filtered stdout and stderr plus targeted
-  test logs for diagnostics. Do not write Build Event Protocol output unless
-  the task requires it: raw BEP includes the client environment and can contain
-  secrets.
+- Bazel is the primary entry point. Agents must invoke it through
+  `bazel_agent` from the applicable workspace root. The runner delegates to the
+  Bazelisk-managed `bazel`, enables batch mode, and selects the agent
+  configuration. The repository `.bazeliskrc` pins both the Bazel version and
+  archive hash. Do not bypass it with a separately installed Bazel binary.
+- Use Bazel's filtered stdout and stderr plus targeted test logs for
+  diagnostics. Do not write Build Event Protocol output unless the task
+  requires it: raw BEP includes the client environment and can contain secrets.
 - `MODULE.bazel` is the Bzlmod root. Most dependency families are split into
   `include.MODULE.bazel` files under `tools/`, `third_party/`, and `projects/`.
   Keep a dependency declaration with the owning subsystem rather than adding
@@ -80,22 +98,22 @@ these visibility and publication boundaries when adding dependencies.
   Do not put machine-local settings into checked-in rc files.
 - Do not hand-edit files that identify themselves as generated. Run the update
   command in their header. Common update targets use a `.update` suffix (for
-  example, `bazel run //tools/ansible:requirements.update`).
+  example, `bazel_agent run //tools/ansible:requirements.update`).
 - When changing BUILD or `.bzl` files, use existing macros and naming patterns
   in the same package. Run the root Buildifier test as well as package tests.
-- Run `bazel run //:gazelle` only when a source/dependency change requires
+- Run `bazel_agent run //:gazelle` only when a source/dependency change requires
   generated BUILD updates, then review every generated change.
 
 Useful discovery commands:
 
 ```sh
-bazel query //path/to/package:all
-bazel query 'tests(//path/to/package:all)'
-bazel query 'rdeps(//..., //path/to/package:target)'
+bazel_agent query //path/to/package:all
+bazel_agent query 'tests(//path/to/package:all)'
+bazel_agent query 'rdeps(//..., //path/to/package:target)'
 ```
 
-`bazel query` can be expensive at repository scope. Substitute the narrowest
-reasonable package pattern for `//...` whenever possible.
+`bazel_agent query` can be expensive at repository scope. Substitute the
+narrowest reasonable package pattern for `//...` whenever possible.
 
 ## Infrastructure safety
 
@@ -137,18 +155,18 @@ Choose checks that match the files changed, in this order:
 
 ```sh
 git diff --check
-bazel test //path/to/affected/package:all
-bazel build //path/to/affected/package:all
-bazel test //:buildifier_test                 # BUILD/.bzl changes
+bazel_agent test //path/to/affected/package:all
+bazel_agent build //path/to/affected/package:all
+bazel_agent test //:buildifier_test           # BUILD/.bzl changes
 black --check path/to/changed/python          # Python changes
 mypy path/to/changed/python                   # Python changes
-bazel test //...                              # only when justified/feasible
+bazel_agent test //...                        # only when justified/feasible
 ```
 
-Not every package exposes all of these targets. Use `bazel query` first rather
-than guessing.
+Not every package exposes all of these targets. Use `bazel_agent query` first
+rather than guessing.
 
 The checked-in pre-commit configuration supplies repository hygiene checks.
-Install the hook with `bazel run --config=agent //:write_git_hooks`, and verify
-it with `bazel run --config=agent //:write_git_hooks -- test`. Installation is
-optional, and agents should still run the relevant checks explicitly.
+Install the hook with `bazel_agent run //:write_git_hooks`, and verify it with
+`bazel_agent run //:write_git_hooks -- test`. Installation is optional, and
+agents should still run the relevant checks explicitly.

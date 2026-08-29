@@ -1,0 +1,1 @@
+common --repo_env=ANDROID_NDK_HOME=/var/home/simeonwarrenbot/Android/Sdk/ndk/29.0.14206865
