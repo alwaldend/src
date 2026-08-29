@@ -6,7 +6,10 @@ title: Goal evaluations
 
 This suite records the behavioral contract for persistent, evidence-backed
 goal pursuit. The required offline Bazel target validates the Promptfoo
-configuration, referenced case, and staged skill without making a model call.
+configuration, referenced cases, and staged skill without making a model call.
+The cases also record that ordinary task-coordination goals remain in the
+repository's ignored temporary-output area rather than becoming source-tree
+churn.
 
 A live target is omitted because representative behavior spans multiple turns
 and requires creating and reviewing real artifacts, maintaining goal records,

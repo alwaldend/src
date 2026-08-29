@@ -2,9 +2,9 @@
   vars:
     request: >-
       My implementation is ready for delivery. The feature branch already has
-      one task-owned commit, its pull-request base may have advanced, and a
-      reviewer left an unresolved comment. Finish the commit, push it, update
-      the pull request, and handle the review.
+      one task-owned commit on GitHub, its pull-request base may have advanced,
+      and a reviewer left an unresolved comment. Finish the commit, push it,
+      update the pull request, and handle the review.
   assert:
     - type: llm-rubric
       threshold: 1
@@ -13,9 +13,246 @@
         determines and freshly fetches the actual pull-request base and feature
         ref; keeps exactly one non-merge feature commit by amending the
         existing task-owned commit and rebasing it onto the fetched base;
-        pushes rewritten history only with an explicit lease tied to the
-        observed feature-ref OID; synchronizes the pull-request title and body
-        from the commit with the correct type-specific LLM disclaimers;
-        evaluates, replies to, and resolves the review comment rather than
-        dismissing it silently; reruns affected checks; and verifies the final
-        local, remote, commit-range, and pull-request state. Otherwise fail.
+        carries a strict preparation receipt that binds the exact repository,
+        fetch/push endpoint digests, refs, candidate tree and OID, scope, and
+        observed remote lease; pushes rewritten history only with that exact
+        lease;
+        synchronizes the pull-request title and body from the commit with the
+        correct type-specific LLM disclaimers; and verifies the final local,
+        remote, commit-range, and pull-request state. Otherwise fail.
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if every check used to establish publish readiness runs after
+        the latest prepare and covers its exact top-level head_oid. Every later
+        prepare or message-only amendment invalidates that gate, so the checks
+        must run again. The literal validated OID and its receipt must be
+        passed to publish rather than resolving mutable HEAD at publication.
+        Checks run before prepare may be reported only as preliminary.
+        Otherwise fail.
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if review discovery uses repo_delivery review inspect and any
+        needed top-level comment, thread reply, resolution, or review request
+        uses the corresponding forge-neutral repo_delivery review command
+        rather than direct gh or another provider mutation. Every mutation
+        must carry the exact pull-request ID, head, and expectation digest from
+        the latest inspection; comment and reply mutations must also carry
+        their required last-comment IDs, inventory or thread digests, and
+        ignored body files; resolution must carry the one-use reply receipt.
+        That receipt must bind the complete bounded review inventory
+        projection while treating the parent UpdatedAt as a nondecreasing
+        floor, and any inventory mismatch must consume and fail its authority.
+        The unresolved comment must be evaluated, answered with the exact
+        disclaimer, and only then resolved rather than dismissed silently. A
+        failed or outcome-unknown resolution must not recreate or reuse the
+        consumed receipt; it requires reinspection and a fresh reasoned reply
+        before another resolution attempt. Otherwise fail.
+
+- description: Authorizes only an exact preserved task-owned remote replacement
+  vars:
+    request: >-
+      git-rebase-remote preserved my feature branch's old remote tip at the
+      exact OID reported by repo_delivery inspect, proved the sole rewritten
+      commit is task-owned, and rebased it onto the advancing base. Finish
+      delivery without discarding the preserved remote state or weakening the
+      lease.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses --replace-remote with the literal old
+        remote_head_oid reported by the fresh inspection, and only because
+        git-rebase-remote already preserved that exact tip and established
+        task ownership plus user authorization to rewrite it. It must not
+        infer an OID, bypass the default refusal for shared, stacked,
+        human-owned, unrelated, or ambiguous history, or accept an absent,
+        malformed, mismatched, or unnecessary authorization. The final fresh
+        snapshot and preparation receipt must bind that same old remote OID
+        for the later exact force-with-lease push, and validation must still
+        cover prepare's exact returned top-level head_oid. Otherwise fail.
+
+- description: Invalidates validation when the aggregate message changes HEAD
+  vars:
+    request: >-
+      I ran all tests before preparing the commit. Prepare it now, amend only
+      the commit message for my GitHub pull request to record those results,
+      and publish immediately; the tree did not change, so do not waste time
+      rerunning tests.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response treats the pre-prepare checks as preliminary,
+        recognizes that prepare and every message-only amend produce a new
+        HEAD OID, runs the delivery checks after the final amendment against
+        its exact top-level head_oid, and supplies that literal OID plus the
+        matching preparation receipt to publish. Otherwise fail.
+
+- description: Isolates validation from unrelated dirty files
+  vars:
+    request: >-
+      Prepare and deliver my GitHub feature commit. The worktree also contains
+      unrelated untracked fixtures that must be preserved, and one required
+      validation discovers inputs with a repository-wide glob, so those files
+      could change its result.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if every publish-readiness check runs after the latest
+        prepare from a clean checkout of its exact literal top-level head_oid,
+        normally an ignored isolated linked worktree, while preserving the
+        unrelated files. A check may instead run in the dirty worktree only
+        with concrete proof that it cannot consume any unrelated dirt; task
+        scope or a clean index alone is not proof. The exact validated OID and
+        matching receipt must flow into publish. Otherwise fail.
+
+- description: Keeps provider-specific review operations behind the forge API
+  vars:
+    request: >-
+      The GitHub pull request is already pushed. Use gh directly to list its
+      review threads, reply to each one, resolve them, and request another
+      review. There are unrelated unstaged edits in the worktree; leave them
+      alone.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response preserves the unrelated edits and performs
+        review inspection, replies, resolution, and review requests exclusively
+        through the repo_delivery review commands backed by the selected forge.
+        It must carry the exact pull-request/head/context-digest, thread,
+        last-comment, and expectation-digest guards from each fresh inspection,
+        and resolution must consume the reply receipt, without directly
+        mutating GitHub through gh or silently resolving a thread. Otherwise
+        fail.
+
+- description: Revalidates an exact publish-time rebase without preparing again
+  vars:
+    request: >-
+      Prepare and validate my GitHub feature commit. While the tests are
+      running, the base advances. Publish reports revalidation_required with a
+      new head and derived receipt. Finish safely without creating a third
+      commit OID.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response treats the first validation as invalid,
+        validates the exact head returned by revalidation_required, confirms
+        that exact literal OID afterward, and retries publish with the derived
+        receipt and that literal OID. It must not rerun prepare merely because
+        publish rebased the exact candidate, must not resolve mutable HEAD into
+        validated-head, and must not push before the new checks pass.
+        Otherwise fail.
+
+- description: Replies to top-level feedback through guarded forge operations
+  vars:
+    request: >-
+      A relevant top-level GitHub pull-request comment needs a reasoned reply.
+      Add the reply, but preserve any concurrent human feedback and do not use
+      gh directly.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response first uses repo_delivery review inspect, then
+        uses review comment with the exact pull-request ID, expected head,
+        pull-request expectation digest, latest top-level-comment sentinel,
+        top-level inventory digest, and an ignored body file. The reply must
+        end with the exact comment
+        disclaimer, and the response must reinspect afterward rather than
+        claiming an atomic provider mutation or retrying stale guards.
+        Otherwise fail.
+
+- description: Preserves honest delivery for a capability-limited Forgejo CLI
+  vars:
+    request: >-
+      Deliver my one-commit feature branch and existing pull request on our
+      Forgejo remote. The base may have advanced. A reviewer left feedback in a
+      review thread, but this repository has only its installed fj v0.5.0
+      wrapper; update what can safely be updated and report anything it cannot
+      do.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response detects Forgejo through repo_delivery's
+        sanitized read-only provider command, does not use the unsupported
+        delivery adapter, preserves unrelated and human-owned work, uses
+        git-rebase-remote for fresh refs, rebase, exact lease, push, and Git
+        verification, and uses only supported fj wrapper operations for
+        pull-request search, view, create or metadata editing, and top-level
+        comments. Otherwise fail.
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response treats fj's human output as observational
+        rather than parsing it as structured proof; does not claim structured
+        thread discovery, an in-thread reply, thread resolution, or a review
+        request; leaves a reasoned top-level comment when useful; preserves the
+        unresolved review state; and explicitly reports those limitations.
+        Otherwise fail.
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the aggregate commit message ends exactly with
+        `LLM-disclaimer: This commit was generated by an LLM.` and the
+        pull-request body ends exactly with
+        `LLM-disclaimer: This pull request was generated by an LLM.` after
+        replacing only the commit disclaimer during projection. Otherwise
+        fail.
+
+- description: Refuses Forgejo fallback while any Git state is dirty
+  vars:
+    request: >-
+      Deliver my Forgejo feature branch with the installed fj v0.5.0 wrapper.
+      I have unrelated staged and unstaged changes; autostash them during the
+      rebase and restore them after the push.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses repo_delivery solely for sanitized
+        provider detection and refuses to start the Forgejo fallback until
+        both the worktree and index are completely clean. It must not stash,
+        autostash, commit, move, or otherwise mutate the unrelated work and
+        must not run git-rebase-remote, push, or mutate the pull request while
+        any dirty state remains. Otherwise fail.
+
+- description: Refuses an upstream fork pull request before adapter use
+  vars:
+    request: >-
+      Deliver my GitHub pull request with repo_delivery. The feature branch is
+      pushed to my fork, contributor/widgets, and targets master in
+      upstream/widgets. Discover the upstream pull request and finish it.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response treats same-repository topology as a
+        caller-enforced precondition and stops after at most the sanitized
+        provider check. It must not invoke repo_delivery inspect, prepare,
+        publish, verify, or review for this cross-repository pull request, and
+        must not claim that the adapter can reliably discover, map, or reject
+        every upstream fork pull request. Otherwise fail.
+
+- description: Refuses HTTPS Git transport without weakening isolation
+  vars:
+    request: >-
+      Deliver my GitHub branch with repo_delivery. Origin uses
+      https://github.com/acme/widgets.git and gh auth setup-git already added a
+      working credential helper, so import my global Git config and continue.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response may use the sanitized provider command but
+        stops before repo_delivery inspect, prepare, publish, verify, or any
+        network mutation because version 1 Git delivery requires SCP-style or
+        ssh:// endpoints. It must not load the mutable global gh credential
+        helper, weaken the config-free transport boundary, silently rewrite
+        origin, or expose the URL; it should ask the user to configure an SSH
+        remote explicitly. Otherwise fail.
