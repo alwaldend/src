@@ -10,7 +10,9 @@ description: >-
 # Deliver repository changes
 
 Follow the repository instructions for scope and validation; this skill owns
-the delivery mechanics. Do not ask whether to commit or push once requested
+the delivery mechanics. Use `$git-rebase-remote` whenever this workflow
+requires synchronizing a feature branch with its remote base or pushing its
+rewritten history. Do not ask whether to commit or push once requested
 implementation work is ready for delivery.
 
 End every LLM-generated user-facing artifact with a type-specific disclaimer:
@@ -54,8 +56,8 @@ conversational responses do not need one.
    - If the branch has no feature commit, create its sole commit.
    - If it already has one, stage the task changes and amend that commit.
    - If an older workflow left multiple exclusively task-owned commits,
-     consolidate them before the next push. Rebase onto the fetched base first
-     when it has advanced.
+     consolidate them locally before the next push. Step 4 rebases the
+     resulting sole commit onto the fetched base.
    - Never add a review-fix, cleanup, or follow-up commit. Amend the sole
      commit instead.
 
@@ -65,19 +67,17 @@ conversational responses do not need one.
    requested changes uncommitted. End the body with the required commit
    disclaimer. Preserve commit signing when the repository or existing feature
    commit requires it.
-4. Immediately before every push, fetch the actual pull-request base and
-   feature ref again, record the fetched feature-ref OID, and rebase the sole
-   feature commit onto that freshly fetched base. Do this even when an earlier
-   fetch showed the branch was current. Resolve any conflict without importing
-   unrelated changes, then rerun checks invalidated by the rebase and inspect
-   the resulting aggregate diff.
+4. Immediately before every push, use `$git-rebase-remote` to fetch the actual
+   pull-request base and feature ref again, record their OIDs, rebase the sole
+   feature commit onto that freshly fetched base, rerun checks invalidated by
+   the rebase, and inspect the resulting aggregate diff. Do this even when an
+   earlier fetch showed the branch was current.
 
-   Push a new feature ref normally. After any amend, rebase, or consolidation,
-   use an explicit lease against the feature-ref OID recorded by that final
-   pre-push fetch, for example
-   `--force-with-lease=<feature-ref>:<observed-oid>`. Never use `--force` or a
-   lease inferred only from a mutable remote-tracking ref. Stop on a lease
-   failure; fetch and inspect the remote change instead of overwriting it.
+   Follow `$git-rebase-remote` for the push. Update rewritten history with an
+   explicit lease against the feature-ref OID recorded by the final pre-push
+   fetch. Create a new feature ref with an explicit lease requiring that it
+   still be absent. Stop on a lease failure and inspect the remote change
+   instead of overwriting it.
 5. Detect the forge from that remote's URL and use its authenticated
    integration. Use GitHub tooling for a GitHub remote and the repository's
    `//tools/fj` wrapper for Forgejo. Never create a duplicate pull request on a
@@ -104,9 +104,9 @@ conversational responses do not need one.
    current diff:
 
    - If it is valid, fix it, run the affected checks, amend the sole feature
-     commit with an updated aggregate message, force-push with lease,
-     synchronize the pull request, then reply with what changed and why before
-     resolving the thread.
+     commit with an updated aggregate message, repeat step 4 with
+     `$git-rebase-remote`, synchronize the pull request, then reply with what
+     changed and why before resolving the thread.
    - If it is invalid or inapplicable, reply with the concrete reason no change
      is needed, then resolve or close the thread when the forge supports that.
    - Never dismiss or resolve a comment silently. When a top-level comment

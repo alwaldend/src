@@ -1,0 +1,5 @@
+interface:
+  display_name: "Git Rebase Remote"
+  short_description: "Sync a feature branch by rebasing remote refs"
+  default_prompt: >-
+    Use $git-rebase-remote to synchronize this feature branch with its remote.
