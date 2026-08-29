@@ -9,8 +9,9 @@ description: >-
 
 # Goal
 
-Keep the objective, decisions, evidence, and failures in the repository so a
-long-running task does not lose direction between iterations.
+Keep the objective, decisions, evidence, and failures in an inspectable
+workspace record so a long-running task does not lose direction between
+iterations. Commit that record only when it is a durable project artifact.
 
 ## Leave an artifact every turn
 
@@ -55,15 +56,29 @@ failure that changes the next plan.
 
 ## Start the goal record
 
-Before implementation, identify the narrowest subproject root that owns the
-intended result. Create a goal directory at
-`<subproject-root>/goals/<goal-name>/`, following repository naming rules for
-`<goal-name>`. The required entrypoint is `README.md`; do not place a monolithic
-`GOAL.md` beside the deliverable.
+Before implementation, classify the goal record as throwaway or durable.
+
+- A **throwaway goal** coordinates the current task, delivery, investigation,
+  or experiment and has no value as maintained project documentation after
+  handoff. Put it under the repository's designated ignored temporary-output
+  directory, normally `<repo-root>/out/<task-name>/goal/`. Do not add it to a
+  source tree or commit it.
+- A **durable goal** is an explicitly requested or established project record
+  that future work is expected to resume and maintain. Identify the narrowest
+  subproject root that owns the intended result and create it at
+  `<subproject-root>/goals/<goal-name>/`.
+
+Default to a throwaway goal when permanence is uncertain. A task becoming
+long-running does not by itself make its coordination records durable. Follow
+the repository's own temporary-output convention when it differs from
+`out/<task-name>/`.
+
+Use only names allowed by the repository. The required entrypoint is
+`README.md`; do not place a monolithic `GOAL.md` beside the deliverable.
 
 Keep `README.md` short enough to serve as the live control plane. It must hold
 the objective, status, current state, current plan, and a map of every
-supporting record. Split durable detail into purpose-specific Markdown files
+supporting record. Split supporting detail into purpose-specific Markdown files
 inside the goal directory, such as requirements, references and criteria,
 failure ledger, artifact log, evidence manifest, current-attempt audit, and
 numbered attempt history. Use an `attempts/` subdirectory when the history is

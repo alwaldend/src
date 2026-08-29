@@ -1,0 +1,40 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "go_lib",
+    srcs = [
+        "command.go",
+        "delivery.go",
+        "forge.go",
+        "git.go",
+        "github.go",
+        "main.go",
+        "receipt.go",
+        "review.go",
+        "runner.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/repo_delivery/main/go",
+    visibility = ["//visibility:private"],
+    deps = ["@com_github_spf13_cobra//:cobra"],
+)
+
+go_binary(
+    name = "go",
+    embed = [":go_lib"],
+    visibility = ["//:__subpackages__"],
+)
+
+go_test(
+    name = "go_test",
+    size = "small",
+    srcs = [
+        "delivery_integration_test.go",
+        "delivery_test.go",
+        "git_integration_test.go",
+        "github_test.go",
+        "receipt_test.go",
+        "review_test.go",
+        "runner_test.go",
+    ],
+    embed = [":go_lib"],
+)
