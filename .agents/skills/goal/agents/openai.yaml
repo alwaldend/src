@@ -1,0 +1,4 @@
+interface:
+  display_name: "Goal Loop"
+  short_description: "Persist goals, attempts, evidence, and honest evaluations"
+  default_prompt: "Use $goal to define this goal, execute an evidence-backed plan, and iterate until the acceptance criteria are genuinely met."

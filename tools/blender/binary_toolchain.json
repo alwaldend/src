@@ -2,26 +2,26 @@
     "toolchains": [
         {
             "name": "blender",
-            "version": "5.0.1"
+            "version": "5.2.1"
         }
     ],
     "archives": [
         {
             "toolchain_name": "blender",
-            "toolchain_version": "5.0.1",
+            "toolchain_version": "5.2.1",
             "archive_name": "linux_x86_64",
             "binaries": [
                 {
                     "name": "blender",
-                    "path": "out/blender-5.0.1-linux-x64/blender"
+                    "path": "out/blender-5.2.1-linux-x64/blender"
                 }
             ],
             "actions": [
                 {
                     "download_and_extract": {
-                        "url": "https://ftp.halifax.rwth-aachen.de/blender/release/Blender5.0/blender-5.0.1-linux-x64.tar.xz",
+                        "url": "https://ftp.halifax.rwth-aachen.de/blender/release/Blender5.2/blender-5.2.1-linux-x64.tar.xz",
                         "output": "out",
-                        "integrity": "sha256-gBlYDuG3Ji5QX0GWoAI3zPdDyI0gWzjTQgFRBnbmCwk="
+                        "integrity": "sha256-ox9ST6maUn09Urf1qqaMNOGhnVoclHP3nFzGEP1bEOk="
                     }
                 }
             ],
