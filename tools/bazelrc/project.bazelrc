@@ -35,13 +35,15 @@ common:arm --platforms=@rules_go//go/toolchain:linux_arm_cgo
 # common:al_toml_validate --output_groups=+al_toml_validate
 # Set CI flag in CI
 common:ci --//tools/bazel_configs:ci_flag
-# Keep agent output quiet and non-interactive.
+# Keep agent output bounded, non-interactive, and useful for monitoring.
 common:agent --color=no
 common:agent --curses=no
 common:agent --lockfile_mode=error
-common:agent --noshow_progress
-common:agent --show_result=0
-common:agent --ui_event_filters=-info
+build:agent --experimental_ui_max_stdouterr_bytes=1048576
+build:agent --show_progress
+build:agent --show_progress_rate_limit=5
+build:agent --show_timestamps
+test:agent --max_test_output_bytes=1048576
 test:agent --nocache_test_results
 test:agent --test_summary=terse
 # Show extra C/C++ errors

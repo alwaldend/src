@@ -51,7 +51,10 @@ explicit request for action, act only within that stated scope.
 - Use the `repo-delivery` skill to finalize implementation work. It owns
   staging, feature-branch commits and pushes, pull request maintenance, review
   comment handling, and the final delivery report.
-- Do not commit binaries. Add binary paths to `.gitignore` instead.
+- Place temporary files in the repository-root `out/` directory. Do not commit
+  temporary files.
+- Commit binaries only when they are required, are not temporary files, and
+  are tracked by Git LFS. Do not commit binaries otherwise.
 
 ## Searching
 

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Blender Reference Fidelity"
+  short_description: "Match Blender models rigorously to image references"
+  default_prompt: >-
+    Use $blender-reference-fidelity to build and verify a Blender model against
+    supplied multi-view references.
