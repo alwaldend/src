@@ -41,8 +41,8 @@ Inspect generated labels, then build the packaged binary and use any existing
 non-mutating test or syntax target:
 
 ```sh
-bazel query --config=agent '//path/to/ansible:*'
-bazel build --config=agent //path/to/ansible:ansible_bin
+bazel_agent query '//path/to/ansible:*'
+bazel_agent build //path/to/ansible:ansible_bin
 ```
 
 Do not run the normal `:ansible` or named playbook targets as a syntax check:

@@ -41,6 +41,47 @@
         src: gitconfig
         dest: "~/.gitconfig"
         mode: "0600"
+    - name: Configure Bazel
+      become: false
+      ansible.builtin.copy:
+        src: bazelrc
+        dest: "~/.bazelrc"
+        mode: "0600"
+      tags:
+        - bazel
+    - name: Create the local binary directory
+      become: false
+      ansible.builtin.file:
+        path: "~/.local/bin"
+        state: directory
+        mode: "0755"
+      tags:
+        - bazel
+    - name: Install Bazelisk
+      become: false
+      ansible.builtin.copy:
+        src: bazelisk
+        dest: "~/.local/bin/bazelisk"
+        mode: "0755"
+      tags:
+        - bazel
+    - name: Link Bazelisk as Bazel
+      become: false
+      ansible.builtin.file:
+        src: bazelisk
+        dest: "~/.local/bin/bazel"
+        state: link
+        force: true
+      tags:
+        - bazel
+    - name: Install Bazel agent runner
+      become: false
+      ansible.builtin.copy:
+        src: bazel_agent
+        dest: "~/.local/bin/bazel_agent"
+        mode: "0755"
+      tags:
+        - bazel
     - name: Create the Codex configuration directory
       become: false
       ansible.builtin.file:
@@ -57,10 +98,22 @@
         mode: "0600"
       tags:
         - codex
-    - name: Remove Codex requirements incompatible with T3 Code
+    - name: Create the managed Codex configuration directory
       ansible.builtin.file:
-        path: /etc/codex/requirements.toml
-        state: absent
+        path: /etc/codex
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+      tags:
+        - codex
+    - name: Configure managed Codex requirements
+      ansible.builtin.copy:
+        src: codex_requirements.toml
+        dest: /etc/codex/requirements.toml
+        owner: root
+        group: root
+        mode: "0644"
       tags:
         - codex
     - name: Setup CA

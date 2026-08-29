@@ -44,8 +44,8 @@ The root Bazel configuration registers `skill_validation_aspect` and requests
 its `skill_validation` output group. Build the library to execute validation:
 
 ```sh
-bazel build --config=agent //.agents/skills/lowercase-hyphen-name:skill
-bazel test --config=agent //:buildifier_test
+bazel_agent build //.agents/skills/lowercase-hyphen-name:skill
+bazel_agent test //:buildifier_test
 ```
 
 The aspect validates the `SKILL.md` frontmatter and body, checks that the name

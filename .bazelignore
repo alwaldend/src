@@ -5,4 +5,5 @@ projects/rules_docs
 projects/rules_docs_gazelle
 projects/rules_skill
 node_modules
+out
 tools/node_modules
