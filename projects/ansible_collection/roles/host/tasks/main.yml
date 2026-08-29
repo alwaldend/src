@@ -23,6 +23,9 @@
     - name: Setup gpg
       ansible.builtin.import_role:
         name: alwaldend.main.gpg
+    - name: Setup LVM volume groups
+      ansible.builtin.import_role:
+        name: alwaldend.main.lvg
     - name: Setup LVM volumes
       ansible.builtin.import_role:
         name: alwaldend.main.lvol

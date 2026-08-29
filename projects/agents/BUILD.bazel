@@ -1,0 +1,7 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects:__pkg__"],
+)

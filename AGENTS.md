@@ -7,6 +7,18 @@ title: Agents
 Use this file as the repository-wide default. If a more deeply nested
 `AGENTS.md` is added, its instructions take precedence for that subtree.
 
+## Repository visibility
+
+This is a public repository. Treat checked-in source, documentation, and test
+fixtures as public information. When a task explicitly calls for an external
+service, that checked-in public content may be sent to the service without a
+separate confidentiality approval. Eval output derived only from checked-in
+public fixtures and an isolated public workspace has the same classification.
+This does not make credentials, decrypted configuration, other local or
+generated artifacts, untracked files, private infrastructure values, or
+secret-bearing data safe to disclose; continue to follow the repository's
+secret and infrastructure handling rules.
+
 ## Scratch files (mandatory)
 
 - Put every task-owned download, generated report, log, extracted archive,

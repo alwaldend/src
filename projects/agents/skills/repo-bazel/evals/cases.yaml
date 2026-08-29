@@ -1,0 +1,18 @@
+- description: Makes and verifies a narrowly scoped Bazel target change
+  vars:
+    request: >-
+      Fix a service target so its new runtime configuration is available when
+      executed, then run the smallest useful checks and report any failures.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response follows bazel-agent for every Bazel command;
+        reads the nearest AGENTS.md and BUILD files and inspects Bazel rc
+        imports and nearby repository macros before editing; queries labels or
+        dependencies when uncertain; places the runtime configuration in data
+        rather than relying on srcs; preserves visibility and package-relative
+        labels; does not hand-edit generated files or dependency locks; runs a
+        focused query, tests, build, and the root Buildifier test before any
+        justified broad check; and never runs deploy, apply, or another
+        mutating target as validation. Otherwise fail.

@@ -1,0 +1,7 @@
+load("//promptfoo:defs.bzl", "promptfoo_validate_test")
+
+promptfoo_validate_test(
+    name = "validate_test",
+    config = "promptfooconfig.yaml",
+    data = ["cases.yaml"],
+)

@@ -1,0 +1,46 @@
+load(
+    "@rules_promptfoo//promptfoo:defs.bzl",
+    "promptfoo_test",
+    "promptfoo_validate_test",
+)
+load("@rules_skill//skill:defs.bzl", "skill_library")
+
+skill_library(
+    name = "skill",
+    srcs = glob(
+        ["**"],
+        exclude = [
+            "BUILD",
+            "BUILD.bazel",
+            "evals/**",
+        ],
+    ),
+)
+
+promptfoo_test(
+    name = "eval",
+    size = "enormous",
+    timeout = "eternal",
+    config = "evals/promptfooconfig.yaml",
+    data = ["evals/cases.yaml"],
+    env_inherit = [
+        "ALL_PROXY",
+        "CODEX_HOME",
+        "CODEX_PATH_OVERRIDE",
+        "HTTPS_PROXY",
+        "HTTP_PROXY",
+        "NO_PROXY",
+    ],
+    reuse_codex_login = True,
+    skills = [":skill"],
+)
+
+promptfoo_validate_test(
+    name = "eval_config_test",
+    config = "evals/promptfooconfig.yaml",
+    data = [
+        "evals/README.md",
+        "evals/cases.yaml",
+    ],
+    skills = [":skill"],
+)

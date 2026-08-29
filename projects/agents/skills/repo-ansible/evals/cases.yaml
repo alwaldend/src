@@ -1,0 +1,20 @@
+- description: Adds and validates packaged idempotent Ansible automation
+  vars:
+    request: >-
+      Add an idempotent task that installs a service configuration and restarts
+      the service only when the file changes. Wire it into this repository's
+      Ansible packaging and validate it without deploying to inventory hosts.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response inspects the component BUILD file, al.lua,
+        inventory, group variables, and a sibling deployment; includes the new
+        runtime file in pkg_files or pkg_filegroup; keeps al_ansible_binary,
+        ansible_cfg, collection, Vault injector, SSH plugin, Bazel data, and
+        run_args aligned; uses an idempotent module or an explicit changed_when
+        or creates condition; notifies a handler only when configuration
+        changes; receives secrets through Vault-backed injection and uses
+        no_log where needed; validates labels, packaging, and a non-mutating
+        syntax target through bazel_agent; and does not run an ansible or
+        playbook target or claim --check is inherently safe. Otherwise fail.

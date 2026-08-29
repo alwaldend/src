@@ -1,9 +1,13 @@
+.agents/skills
 projects/ci_platform/main/js
 projects/rules_template
 projects/rules_binary_toolchain
 projects/rules_docs
 projects/rules_docs_gazelle
+projects/rules_promptfoo
+projects/rules_promptfoo_gazelle
 projects/rules_skill
+projects/rules_skill_gazelle
 node_modules
 out
 tools/node_modules

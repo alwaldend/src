@@ -1,0 +1,46 @@
+---
+- name: Configure Bazel developer tools
+  tags:
+    - bazel
+    - dev_vm
+  block:
+    - name: Configure Bazel
+      ansible.builtin.copy:
+        src: "{{ dev_vm_bazelrc_src }}"
+        dest: "{{ dev_vm_bazel_home }}/.bazelrc"
+        owner: "{{ dev_vm_bazel_user }}"
+        group: "{{ dev_vm_bazel_group }}"
+        mode: "0600"
+
+    - name: Create the local binary directory
+      ansible.builtin.file:
+        path: "{{ dev_vm_bazel_home }}/.local/bin"
+        state: directory
+        owner: "{{ dev_vm_bazel_user }}"
+        group: "{{ dev_vm_bazel_group }}"
+        mode: "0755"
+
+    - name: Install Bazelisk
+      ansible.builtin.copy:
+        src: "{{ dev_vm_bazelisk_src }}"
+        dest: "{{ dev_vm_bazel_home }}/.local/bin/bazelisk"
+        owner: "{{ dev_vm_bazel_user }}"
+        group: "{{ dev_vm_bazel_group }}"
+        mode: "0755"
+
+    - name: Link Bazelisk as Bazel
+      ansible.builtin.file:
+        src: bazelisk
+        dest: "{{ dev_vm_bazel_home }}/.local/bin/bazel"
+        state: link
+        owner: "{{ dev_vm_bazel_user }}"
+        group: "{{ dev_vm_bazel_group }}"
+        force: true
+
+    - name: Install Bazel agent runner
+      ansible.builtin.copy:
+        src: "{{ dev_vm_bazel_agent_src }}"
+        dest: "{{ dev_vm_bazel_home }}/.local/bin/bazel_agent"
+        owner: "{{ dev_vm_bazel_user }}"
+        group: "{{ dev_vm_bazel_group }}"
+        mode: "0755"

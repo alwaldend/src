@@ -10,7 +10,7 @@ alias(
 
 trufflehog_test(
     name = "repo_test",
-    size = "small",
+    size = "medium",
     arguments = [
         "git",
         "--fail",

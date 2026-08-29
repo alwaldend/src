@@ -1,0 +1,101 @@
+---
+- name: Configure development packages
+  when: dev_vm_install_packages | bool
+  tags:
+    - dev_vm
+    - install_packages
+  block:
+    - name: Validate the package backend
+      ansible.builtin.assert:
+        that:
+          - dev_vm_package_backend in ['auto', 'package', 'rpm_ostree']
+        fail_msg: >-
+          dev_vm_package_backend must be auto, package, or rpm_ostree
+
+    - name: Detect an OSTree-booted host
+      when: dev_vm_package_backend == 'auto'
+      register: dev_vm_ostree_boot_marker
+      ansible.builtin.stat:
+        path: /run/ostree-booted
+
+    - name: Select the package backend
+      ansible.builtin.set_fact:
+        dev_vm_package_backend_effective: >-
+          {{
+            (
+              'rpm_ostree'
+              if dev_vm_ostree_boot_marker.stat.exists | default(false)
+              else 'package'
+            )
+            if dev_vm_package_backend == 'auto'
+            else dev_vm_package_backend
+          }}
+
+    - name: Add the Yandex mirror
+      ansible.builtin.yum_repository:
+        name: fedora-yandex
+        description: Fedora $releasever - $basearch (Yandex)
+        baseurl: >-
+          https://mirror.yandex.ru/fedora/linux/releases/$releasever/Everything/x86_64/os
+        gpgcheck: "1"
+        gpgkey:
+          - >-
+            file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
+
+    - name: Disable the Cisco repository
+      ansible.builtin.yum_repository:
+        name: fedora-cisco-openh264
+        state: absent
+
+    - name: Install packages on a mutable host
+      when: dev_vm_package_backend_effective == 'package'
+      ansible.builtin.package:
+        name: "{{ dev_vm_packages }}"
+        state: present
+
+    - name: Check for installed providers on an OSTree host
+      when: dev_vm_package_backend_effective == 'rpm_ostree'
+      loop: "{{ dev_vm_packages }}"
+      loop_control:
+        label: "{{ item }}"
+      register: dev_vm_rpm_provider_result
+      check_mode: false
+      changed_when: false
+      failed_when: dev_vm_rpm_provider_result.rc not in [0, 1]
+      ansible.builtin.command:
+        argv:
+          - rpm
+          - --query
+          - --whatprovides
+          - "{{ item }}"
+
+    - name: Select packages missing from the booted deployment
+      when: dev_vm_package_backend_effective == 'rpm_ostree'
+      ansible.builtin.set_fact:
+        dev_vm_rpm_ostree_packages: >-
+          {{
+            dev_vm_rpm_provider_result.results
+            | selectattr('rc', 'equalto', 1)
+            | map(attribute='item')
+            | list
+          }}
+
+    - name: Install packages on an OSTree host
+      when:
+        - dev_vm_package_backend_effective == 'rpm_ostree'
+        - dev_vm_rpm_ostree_packages | length > 0
+      register: dev_vm_rpm_ostree_result
+      until: dev_vm_rpm_ostree_result is not failed
+      retries: 10
+      delay: 30
+      community.general.rpm_ostree_pkg:
+        name: "{{ dev_vm_rpm_ostree_packages }}"
+        state: present
+        apply_live: "{{ dev_vm_rpm_ostree_apply_live }}"
+
+    - name: Report a pending OSTree deployment
+      when: dev_vm_rpm_ostree_result.needs_reboot | default(false)
+      ansible.builtin.debug:
+        msg: >-
+          Development packages were staged in a new OSTree deployment;
+          reboot the host to use them.

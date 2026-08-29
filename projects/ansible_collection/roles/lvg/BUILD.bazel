@@ -1,0 +1,17 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/ansible/main/bzl:al_ansible_role.bzl", "al_ansible_role")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/ansible_collection/roles:__pkg__"],
+    deps = [
+        ":role.docs",
+    ],
+)
+
+al_ansible_role(
+    name = "role",
+    srcs = glob(["**"]),
+    visibility = ["//:__subpackages__"],
+)

@@ -1,0 +1,40 @@
+load("//promptfoo/private:workspace.bzl", "promptfoo_workspace")
+load(
+    ":analysis_test.bzl",
+    "workspace_failure_test",
+    "workspace_test",
+)
+
+promptfoo_workspace(
+    name = "workspace",
+    testonly = True,
+    skills = ["//tests/analysis/fixture_skill:skill"],
+)
+
+promptfoo_workspace(
+    name = "duplicate_workspace",
+    testonly = True,
+    skills = [
+        "//tests/analysis/fixture_skill:skill",
+        "//tests/analysis/other/fixture_skill:skill",
+    ],
+    tags = ["manual"],
+)
+
+workspace_test(
+    name = "workspace_test",
+    target_under_test = ":workspace",
+)
+
+workspace_failure_test(
+    name = "workspace_failure_test",
+    target_under_test = ":duplicate_workspace",
+)
+
+test_suite(
+    name = "tests",
+    tests = [
+        ":workspace_failure_test",
+        ":workspace_test",
+    ],
+)

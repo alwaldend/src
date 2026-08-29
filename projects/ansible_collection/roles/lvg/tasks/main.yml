@@ -1,0 +1,16 @@
+- name: Setup LVM volume groups
+  tags:
+    - lvg
+  block:
+    - name: Create or resize volume group
+      loop: "{{ lvg_volume_groups }}"
+      community.general.lvg:
+        vg: "{{ item.vg }}"
+        pvs: "{{ item.pvs | default(omit) }}"
+        state: "{{ item.state | default('present') }}"
+        force: "{{ item.force | default(false) }}"
+        pesize: "{{ item.pesize | default(omit) }}"
+        pv_options: "{{ item.pv_options | default(omit) }}"
+        pvresize: "{{ item.pvresize | default(false) }}"
+        remove_extra_pvs: "{{ item.remove_extra_pvs | default(false) }}"
+        vg_options: "{{ item.vg_options | default(omit) }}"

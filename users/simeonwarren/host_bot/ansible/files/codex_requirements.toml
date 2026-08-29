@@ -13,7 +13,8 @@ description = "Workspace access with public network and Bazel caches."
 extends = ":workspace"
 
 [permissions.host-bot.filesystem]
-"~/.cache/bazel" = "write"
+"/var/cache/bazel/disk_cache" = "write"
+"/var/cache/bazel/output_user_root" = "write"
 "~/.cache/bazelisk" = "write"
 
 [permissions.host-bot.network]

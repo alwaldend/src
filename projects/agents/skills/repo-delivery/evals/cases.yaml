@@ -1,0 +1,21 @@
+- description: Delivers one review-ready feature commit without losing work
+  vars:
+    request: >-
+      My implementation is ready for delivery. The feature branch already has
+      one task-owned commit, its pull-request base may have advanced, and a
+      reviewer left an unresolved comment. Finish the commit, push it, update
+      the pull request, and handle the review.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response preserves unrelated and human-owned work;
+        determines and freshly fetches the actual pull-request base and feature
+        ref; keeps exactly one non-merge feature commit by amending the
+        existing task-owned commit and rebasing it onto the fetched base;
+        pushes rewritten history only with an explicit lease tied to the
+        observed feature-ref OID; synchronizes the pull-request title and body
+        from the commit with the correct type-specific LLM disclaimers;
+        evaluates, replies to, and resolves the review comment rather than
+        dismissing it silently; reruns affected checks; and verifies the final
+        local, remote, commit-range, and pull-request state. Otherwise fail.

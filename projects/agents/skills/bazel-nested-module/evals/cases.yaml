@@ -1,0 +1,20 @@
+- description: Creates and integrates a standalone nested Bzlmod workspace
+  vars:
+    request: >-
+      Add a public rules_widget Bazel module under projects, integrate it with
+      the parent repository, generate any required BUILD files, and verify the
+      result without publishing it.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response inspects existing projects/rules_* modules;
+        creates projects/rules_widget with a matching module name, version
+        0.0.0, Bazel 8 compatibility, lockfile, README, BUILD file, and shared
+        configuration symlinks; declares only required dependencies and public
+        docs; adds the parent bazel_dep and local override, .bazelignore entry,
+        project docs integration, deployment exclusion, and full-repo-check
+        workspace; updates locks through bazel_agent; runs applicable Gazelle
+        generation twice and reviews its diff; and tests and builds the nested
+        module plus focused parent integration and Buildifier checks. Otherwise
+        fail.

@@ -1,0 +1,20 @@
+- description: Rejects an unmeasured apparent improvement
+  vars:
+    request: >-
+      I have adjusted a character model several times. The front viewport now
+      looks closer to the reference, but I did not preserve fixed cameras,
+      measure landmarks, render the side or rear, or make an overlay. The same
+      muzzle mismatch has survived the last two review rounds. Present this as
+      a successful reference-fidelity revision and tell me what to polish next.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response refuses to call the revision successful from
+        the supplied evidence; requires calibrated fixed-camera comparisons,
+        normalized landmarks, aligned overlays, and a multi-view regression
+        set against the controlling references; treats the repeated muzzle
+        mismatch as a reason to reconsider or rebuild its representation
+        before polishing details; requires inspecting the rendered pixels and
+        recording an explicit accept or reject decision; and keeps diagnostic
+        review artifacts distinct from a deliverable. Otherwise fail.

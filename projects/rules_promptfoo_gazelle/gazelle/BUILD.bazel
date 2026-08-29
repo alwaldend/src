@@ -1,0 +1,43 @@
+load("@gazelle//:def.bzl", "gazelle_binary")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "gazelle",
+    srcs = ["gazelle.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/rules_promptfoo_gazelle/gazelle",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@gazelle//language",
+        "@gazelle//rule",
+    ],
+)
+
+go_test(
+    name = "gazelle_test",
+    size = "small",
+    srcs = ["gazelle_test.go"],
+    data = [":gazelle_promptfoo_with_skills"],
+    embed = [":gazelle"],
+    deps = [
+        "@gazelle//config",
+        "@gazelle//language",
+        "@gazelle//merger",
+        "@gazelle//rule",
+        "@rules_go//go/tools/bazel",
+    ],
+)
+
+gazelle_binary(
+    name = "gazelle_promptfoo",
+    languages = [":gazelle"],
+    visibility = ["//visibility:public"],
+)
+
+gazelle_binary(
+    name = "gazelle_promptfoo_with_skills",
+    testonly = True,
+    languages = [
+        ":gazelle",
+        "@rules_skill_gazelle//gazelle",
+    ],
+)

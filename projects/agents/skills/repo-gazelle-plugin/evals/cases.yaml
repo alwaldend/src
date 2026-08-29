@@ -1,0 +1,18 @@
+- description: Adds a conservative standalone Gazelle extension
+  vars:
+    request: >-
+      Add a Gazelle plugin that generates targets for a new public Bazel rule
+      family and integrate it into this monorepo.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses projects/rules_docs_gazelle as the
+        reference; keeps the plugin in a separate standalone nested module;
+        implements module-aware apparent loads with a canonical fallback;
+        generates from explicit package-local evidence; preserves manual
+        attributes and avoids deletion; adds focused generation, merge, and
+        idempotence tests plus a standalone binary; wires the language into
+        root Gazelle and the full-repository checker; updates locks through
+        bazel_agent; and runs root Gazelle twice while reviewing the diff.
+        Otherwise fail.

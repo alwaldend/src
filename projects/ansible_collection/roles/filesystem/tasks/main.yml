@@ -2,9 +2,10 @@
   tags:
     - filesystem
   block:
-    - name: Gather facts
+    - name: Create or resize filesystem
       loop: "{{ filesystem_setup }}"
-      ansible.builtin.filesystem:
+      community.general.filesystem:
         dev: "{{ item.dev }}"
         fstype: "{{ item.fstype }}"
+        opts: "{{ item.opts | default(omit) }}"
         resizefs: "{{ item.resizefs }}"

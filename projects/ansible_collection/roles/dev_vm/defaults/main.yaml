@@ -1,1 +1,36 @@
 ---
+dev_vm_install_packages: true
+dev_vm_package_backend: auto
+dev_vm_rpm_ostree_apply_live: false
+dev_vm_packages:
+  - clang
+  - clang-tools-extra
+  - java-latest-openjdk-devel
+  - rust
+  - cargo
+  - mesa-libGL-devel
+  - go
+  - Xvfb
+  - python3
+  - gmp-devel
+  - patch
+  - podman
+  - git
+  - git-lfs
+  - fuse
+  - fuse-libs
+  - pcsc-lite
+  - pcsc-lite-devel
+  - openssl
+  - gnutls-utils
+  - opensc
+  - openssl-pkcs11
+  - libdnet
+  - qemu-kvm
+  - qemu-img
+dev_vm_bazel_user: "{{ undefined() }}"
+dev_vm_bazel_group: "{{ dev_vm_bazel_user }}"
+dev_vm_bazel_home: "{{ undefined() }}"
+dev_vm_bazelrc_src: bazelrc
+dev_vm_bazelisk_src: bazelisk
+dev_vm_bazel_agent_src: bazel_agent

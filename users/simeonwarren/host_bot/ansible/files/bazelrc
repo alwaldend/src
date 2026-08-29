@@ -1,1 +1,5 @@
+startup --output_user_root=/var/cache/bazel/output_user_root
+common --repo_env=ANDROID_HOME=/var/home/simeonwarrenbot/Android/Sdk
 common --repo_env=ANDROID_NDK_HOME=/var/home/simeonwarrenbot/Android/Sdk/ndk/29.0.14206865
+common --disk_cache=/var/cache/bazel/disk_cache
+common --experimental_disk_cache_gc_max_size=700G

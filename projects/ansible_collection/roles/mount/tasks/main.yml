@@ -1,11 +1,14 @@
-- name: Mount
+- name: Setup mount points
   tags:
     - mount
   block:
-    - name: Gather facts
+    - name: Configure mount point
       loop: "{{ mount_points }}"
       ansible.posix.mount:
         path: "{{ item.path }}"
         src: "{{ item.src }}"
         state: "{{ item.state }}"
         fstype: "{{ item.fstype }}"
+        opts: "{{ item.opts | default(omit) }}"
+        dump: "{{ item.dump | default(omit) }}"
+        passno: "{{ item.passno | default(omit) }}"

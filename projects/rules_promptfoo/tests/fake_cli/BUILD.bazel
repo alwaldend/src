@@ -1,0 +1,65 @@
+load("//promptfoo:defs.bzl", "promptfoo_validate_test")
+load(
+    "//promptfoo/private:promptfoo_test.bzl",
+    "promptfoo_runner_test",
+)
+load("//promptfoo/private:workspace.bzl", "promptfoo_workspace")
+
+sh_binary(
+    name = "fake_promptfoo",
+    srcs = ["fake_promptfoo.sh"],
+)
+
+sh_test(
+    name = "cleanup_test",
+    srcs = ["cleanup_test.sh"],
+    data = [
+        ":external_codex_login_launcher",
+        ":launcher_test",
+        "@bazel_tools//tools/bash/runfiles",
+    ],
+)
+
+promptfoo_validate_test(
+    name = "launcher_test",
+    config = "promptfooconfig.yaml",
+    promptfoo = ":fake_promptfoo",
+    skills = ["//tests/analysis/fixture_skill:skill"],
+)
+
+promptfoo_workspace(
+    name = "eval_workspace",
+    testonly = True,
+    skills = ["//tests/analysis/fixture_skill:skill"],
+)
+
+promptfoo_runner_test(
+    name = "external_codex_login_launcher",
+    command = "eval",
+    config = "promptfooconfig.yaml",
+    promptfoo = ":fake_promptfoo",
+    reuse_codex_login = True,
+    tags = ["manual"],
+    workspace = ":eval_workspace",
+)
+
+promptfoo_runner_test(
+    name = "eval_launcher_test",
+    command = "eval",
+    config = "promptfooconfig.yaml",
+    promptfoo = ":fake_promptfoo",
+    workspace = ":eval_workspace",
+)
+
+promptfoo_runner_test(
+    name = "reused_codex_login_launcher_test",
+    codex_auth_fixture = "fake_codex_home/auth.json",
+    command = "eval",
+    config = "promptfooconfig.yaml",
+    env = {
+        "EXPECT_REUSED_CODEX_LOGIN": "1",
+    },
+    promptfoo = ":fake_promptfoo",
+    reuse_codex_login = True,
+    workspace = ":eval_workspace",
+)

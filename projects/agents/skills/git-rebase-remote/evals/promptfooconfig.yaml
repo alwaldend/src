@@ -1,0 +1,26 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+description: Behavioral contract for remote rebasing
+
+prompts:
+  - "{{request}}"
+
+providers:
+  - id: openai:codex-sdk
+    config:
+      model: gpt-5.6-sol
+      model_reasoning_effort: high
+      working_dir: "{{ env.PROMPTFOO_SKILL_WORKSPACE }}"
+      skip_git_repo_check: true
+      sandbox_mode: read-only
+      approval_policy: on-request
+      persist_threads: false
+
+tests: file://cases.yaml
+
+sharing: false
+writeLatestResults: false
+evaluateOptions:
+  maxConcurrency: 1
+  cache: false
+  showProgressBar: false
+  timeoutMs: 300000

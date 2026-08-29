@@ -1,0 +1,6 @@
+description: Offline configuration validation smoke test
+prompts:
+  - "{{ question }}"
+providers:
+  - echo
+tests: file://cases.yaml

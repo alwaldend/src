@@ -1,4 +1,44 @@
 ansible_user: simeonwarrenbot
+dev_vm_bazel_user: "{{ ansible_user }}"
+dev_vm_bazel_group: "{{ ansible_user }}"
+dev_vm_bazel_home: /var/home/simeonwarrenbot
+dev_vm_install_packages: true
+dev_vm_package_backend: rpm_ostree
+bazel_cache_directories:
+  - path: /var/cache/bazel/disk_cache
+    mode: "0700"
+  - path: /var/cache/bazel/output_user_root
+    # Bazel normalizes its output-user-root to 0755 on every startup.
+    mode: "0755"
+bazel_cache_device: /dev/sata_ssd/bazel_cache
+bazel_cache_mount: /var/cache/bazel
+bazel_cache_pvs:
+  - /dev/disk/by-id/ata-GIGABYTE_GP-GSTFS31100TNTD_SN252308902396
+  - /dev/disk/by-id/ata-GIGABYTE_GP-GSTFS31100TNTD_SN252308902405
+filesystem_setup:
+  - dev: "{{ bazel_cache_device }}"
+    fstype: ext4
+    opts: "-m 1"
+    resizefs: true
+lvg_volume_groups:
+  - vg: sata_ssd
+    pvs: "{{ bazel_cache_pvs }}"
+lvol_volumes:
+  - vg: sata_ssd
+    lv: bazel_cache
+    size: 1T
+    resizefs: false
+    shrink: false
+    pvs: "{{ bazel_cache_pvs }}"
+    opts: --type striped --stripes 2
+mount_points:
+  - path: "{{ bazel_cache_mount }}"
+    src: "{{ bazel_cache_device }}"
+    state: mounted
+    fstype: ext4
+    opts: defaults,noatime,nodev,nosuid,nofail,x-systemd.device-timeout=10s
+    dump: "0"
+    passno: "2"
 ssh_vault_role: users_simeonwarren_ssh
 traefik_acme_path: pki/ica_servers/roles/users_simeonwarren_pki_server/acme
 traefik_acme_url: "https://vault.alwaldend.com:8200/v1/{{ traefik_acme_path }}/directory"

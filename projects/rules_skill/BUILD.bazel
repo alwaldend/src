@@ -1,5 +1,14 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//skill:defs.bzl", "skill_library")
+
+skill_library(
+    name = "root_skill_fixture",
+    testonly = True,
+    srcs = ["README.md"],
+    tags = ["manual"],
+    visibility = ["//tests/analysis:__pkg__"],
+)
 
 build_test(
     name = "build_test",
