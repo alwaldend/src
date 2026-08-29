@@ -78,10 +78,13 @@ separate under `## Suggestions`, with at most three concise and actionable
 items. Omit either section when it adds no value or conflicts with the user's
 requested format.
 
-Provide alternative rewrites only when requested or when an example materially
-clarifies a suggestion. Use at most two, label their focus, and preserve the
-same facts and protected spans. Do not create variants merely to satisfy a
-quota.
+Unless the user requests corrected text only, add `## Alternatives` for prose
+that is more than a short, simple sentence. Give one or two complete,
+meaning-preserving rewrites focused on clarity, concision, or tone. Do not omit
+them merely because the corrected version is already clear. Omit alternatives
+for code-heavy or very long input. Label each alternative by its focus, and
+preserve the same facts and protected spans. Do not create superficial variants
+merely to satisfy a quota.
 
 In proofreading mode, reproduce already-correct text unchanged without
 inventing corrections or suggestions. For long input, omit optional commentary
