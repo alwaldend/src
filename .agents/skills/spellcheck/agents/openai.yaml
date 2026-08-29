@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spellcheck"
+  short_description: "Proofread prose while preserving voice and formatting"
+  default_prompt: "Use $spellcheck to minimally proofread this text."
