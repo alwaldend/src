@@ -56,6 +56,34 @@ existing interactive connection read-only, verify its Blender identity and
 open-file identity, and reuse it only when it matches the task. Starting a GUI
 still follows the environment's GUI and host-execution approval boundary.
 
+An unavailable MCP listener is a launch condition, not a reason to abandon a
+required Blender operation. When live interaction is actually required and
+the probe fails, start exactly one appropriate foreground host: use the
+already-installed Flatpak only when the user explicitly selected that live
+host and follow its exception contract; otherwise start the repository-pinned
+foreground Blender through `bazel_agent`. Reprobe the listener and verify the
+version, foreground state, file or append boundary, and task workspace before
+editing. When the operation does not require a live UI, skip MCP and launch
+the repository-pinned background Blender instead. Do not leave both fallback
+hosts running or treat a failed first probe as proof that Blender is
+unavailable.
+
+## Choose the authoring method to fit the form
+
+Use analytical or procedural generation when the result is genuinely defined
+by equations, repeated structure, exact constraints, deterministic variation,
+or a stable parameterized interface. It is a tool, not the default way to make
+every Blender asset.
+
+Prefer the simplest direct edit, modeling operation, or interactive workflow
+that satisfies the requirements. Organic, sculptural, cloth-like, or
+reference-driven forms often need continuous visual judgment and direct
+control; do not replace that feedback with a larger generator merely because
+Python can create geometry. If analytical variants repeatedly preserve the
+same qualitative defect, change authoring modality before adding more formulas
+or parameters. Keep reproducible verification around the resulting artifact
+regardless of how it was authored.
+
 ## Protect inputs and contain outputs
 
 Put one-off scripts, copied candidates, Blender configuration, temporary

@@ -1,0 +1,131 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: imported-unversioned
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-08-30T17:32:20.561951975Z"
+spec:
+  goalRef:
+    name: fumo-concrete-drop
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:cb4a2b7d3368d05894f2e985cdea41c18599156b6d6049347b829e6a70097171
+  goalStateDigest: sha256:516464cc0ea0cfb532ddca5a808bd275fb3c2a59d4c199e5a3105e7cfd328115
+  workType: investigation
+status:
+  state: closed
+  closedAt: "2026-08-30T17:32:20.561951975Z"
+  artifacts:
+    planDigest: sha256:680f64bd4af407482ce99503ab014884719d6f93923b505520b9c6f64a96c708
+    resultDigest: sha256:3086117aafdf76b09939f75f747d80a8f3903fbc46847ad11c22dc740047d7b7
+    evidence:
+    - path: evidence/MIGRATION_LAYOUT.md
+      digest: sha256:8967fccdb337ddc6b2a28488d77ee58a91d7689c9fffbfdea7ae690dc7392aaf
+    - path: evidence/artifacts.md
+      digest: sha256:7171e2933774d2041c95ce16a309f87b54f8f433fc1d5713af5faa8c3d261ee2
+    - path: evidence/current_attempt.md
+      digest: sha256:ae730163129afc0b82de83536197ac95fc6c6eb7ada244a095362e664c67cf7f
+    - path: evidence/evidence.md
+      digest: sha256:6afe5ea436ad000c325cc45f67e9747e53034c855ef621d5a5a7e41082d39be2
+    - path: evidence/failures.md
+      digest: sha256:6b136bc7e1199ae6f51a40811c2f6abd5f9d9be408873b4be33bf1626604fe12
+    - path: evidence/legacy_attempt_01.md
+      digest: sha256:c182d395c1a14a30f5a27b598aad48794676460251fbd4dcb39917eac661b2af
+    - path: evidence/legacy_attempt_02.md
+      digest: sha256:a5acbb573f205c58e743e721f63d202486e4202c9416fce8fa8341eba123471f
+    - path: evidence/requirements.md
+      digest: sha256:563c9970666c637806e6db93fdce70dd973c5389452affa12d04673cf3163519
+  review:
+    decision: refine
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-009
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-010
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-011
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-012
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-013
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-014
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-015
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-016
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-017
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-018
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-019
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-020
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-021
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-022
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-08-30T17:32:20.561951975Z"

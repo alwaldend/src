@@ -1,0 +1,82 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a75-face-cushion
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-08-31T07:07:19.671733892Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:69d29116e14d282349e6ad5c073453839be4872922c886d9c74a7b5161fbae35
+  workType: candidate
+status:
+  state: closed
+  closedAt: "2026-08-31T07:19:48.889825908Z"
+  artifacts:
+    planDigest: sha256:ca643b32a8ceb826d047cbcb179f0c47d50860a9429f98cf6237c396d3cfcb96
+    resultDigest: sha256:bd6f3ee08d4d34223708d0bd97389fde5a503e5223ff528d969186dd51abbacc
+    evidence:
+    - path: evidence/BLIND_REVIEW.md
+      digest: sha256:c34d7a765aa12e154a535774488f0aa2f3915f0f493c78866a40b74d7c538c9c
+    - path: evidence/SELF_REVIEW.md
+      digest: sha256:eecc49b0a2741856e697b7e1217c5943cc92566c011080a9f6618ca7934825fd
+    - path: evidence/integration_review.md
+      digest: sha256:39f43e69076b9f9558dc89ea7c63cca7186f9f5187dd22749dd7118bdabc40cf
+    - path: evidence/reference_contract.md
+      digest: sha256:897b290ad6894c7d3b898592f735bc9145dd028edc03ace451f23d9af15318be
+    - path: evidence/topology_design.md
+      digest: sha256:f7d21a6cf6e21233b11295fff85e021b47492757edb479e3f4f31f6fe60793a3
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/BLIND_REVIEW.md
+      - evidence/SELF_REVIEW.md
+      - evidence/reference_contract.md
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/SELF_REVIEW.md
+      - evidence/reference_contract.md
+      - result.md
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/BLIND_REVIEW.md
+      - evidence/SELF_REVIEW.md
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/BLIND_REVIEW.md
+      - evidence/SELF_REVIEW.md
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-08-31T07:19:48.889825908Z"

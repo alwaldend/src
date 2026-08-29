@@ -1,0 +1,73 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a78-flattened-head-rest
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-08-31T09:48:15.234130248Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:69d29116e14d282349e6ad5c073453839be4872922c886d9c74a7b5161fbae35
+  workType: candidate
+status:
+  state: closed
+  closedAt: "2026-08-31T10:03:35.855643852Z"
+  artifacts:
+    planDigest: sha256:f9cbb5d3806e0ae154448a629e2c53fe921fdea841d8f94262f5c29eae40491a
+    resultDigest: sha256:ac322dffb0198de7e44d6321c198370dba944a7490d5ffbcff8ae5224f4b2717
+    evidence:
+    - path: evidence/ADVERSARIAL_PREFLIGHT.md
+      digest: sha256:ef33e03d35ff8c26193e846a88832b56f5f6b9cad50be2bfdbc1053a311def1b
+    - path: evidence/CLOTH_FEASIBILITY.md
+      digest: sha256:39831f7520c2db0d17e2b707169064a680f6e9606b92f848a50c1997c88df84b
+    - path: evidence/SELF_REVIEW.md
+      digest: sha256:9860069ad042f5ea8659211bbbec6c82d29d00b6cc394b10eaeb4811c12d73dc
+    - path: evidence/decision_review.md
+      digest: sha256:2d1c0993ec67e4969fc6a05e1aec7251fba99c56010b95ecb8e78e0b095c88b0
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - evidence/ADVERSARIAL_PREFLIGHT.md
+      - evidence/SELF_REVIEW.md
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - evidence/CLOTH_FEASIBILITY.md
+      - evidence/SELF_REVIEW.md
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - evidence/SELF_REVIEW.md
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-08-31T10:03:35.855643852Z"

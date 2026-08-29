@@ -131,6 +131,11 @@ projects/alwaldend.com/layouts/** rules-lint-ignored=true
 projects/ci_platform/main/go/docs/swagger.* rules-lint-ignored=true
 projects/dotfiles/vial/** rules-lint-ignored=true
 
+# Versioned goal records are produced by the goal store and contain
+# digest-bound plans, results, criteria, and evidence. Their owning validator
+# is authoritative; generic formatting would invalidate closed-attempt hashes.
+projects/renders/goals/** rules-lint-ignored=true
+
 # Explicit templates require a formatter that understands both the host
 # language and its template dialect. Ordinary Markdown/YAML/HTML files remain
 # governed by their normal formatter even when they contain template strings.
@@ -179,3 +184,6 @@ infra/flux/cl/flux-system/flux-operator-oidc.yaml rules-lint-ignored=true
 infra/harbor/cl/cert-manager/issuer-approle.yaml rules-lint-ignored=true
 projects/kustomization/flux-repo/flux-git-src-secret.yaml rules-lint-ignored=true
 projects/kustomization/flux-repo/flux-sops-secret.yaml rules-lint-ignored=true
+projects/renders/docs/** whitespace=-blank-at-eof
+projects/renders/goals/*/attempts/*/*.md whitespace=-blank-at-eof
+projects/renders/goals/*/attempts/*/evidence/*.md whitespace=-blank-at-eof

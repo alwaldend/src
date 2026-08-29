@@ -1,5 +1,9 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_promptfoo//promptfoo:defs.bzl", "promptfoo_validate_test")
+load(
+    "@rules_promptfoo//promptfoo:defs.bzl",
+    "promptfoo_test",
+    "promptfoo_validate_test",
+)
 load("@rules_skill//skill:defs.bzl", "skill_library")
 
 skill_library(
@@ -25,6 +29,24 @@ filegroup(
     name = "eval_cases",
     testonly = True,
     srcs = ["evals/cases.yaml"],
+)
+
+promptfoo_test(
+    name = "eval",
+    size = "enormous",
+    timeout = "eternal",
+    config = "evals/promptfooconfig.yaml",
+    data = [":eval_cases"],
+    env_inherit = [
+        "ALL_PROXY",
+        "CODEX_HOME",
+        "CODEX_PATH_OVERRIDE",
+        "HTTPS_PROXY",
+        "HTTP_PROXY",
+        "NO_PROXY",
+    ],
+    reuse_codex_login = True,
+    skills = [":skill"],
 )
 
 promptfoo_validate_test(

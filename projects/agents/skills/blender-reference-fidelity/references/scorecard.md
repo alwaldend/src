@@ -55,7 +55,7 @@ these example rows.
 
 ## Cycle record
 
-- Accepted baseline:
+- Baseline identity and status (accepted or frozen unaccepted):
 - Dominant measured failure:
 - Current representation:
 - Why that representation can or cannot match the reference:
@@ -67,8 +67,10 @@ these example rows.
 - Four-view comparison paths:
 - Landmark rows improved:
 - Landmark rows regressed:
-- Decision: accept / reject / rebuild subsystem
+- Decision: keep delta / undo delta / accept checkpoint / reject checkpoint /
+  rebuild subsystem
 - Evidence for decision:
+- Structural-limit evidence and discriminating test, if rebuilding:
 
 ## Absolute image review
 

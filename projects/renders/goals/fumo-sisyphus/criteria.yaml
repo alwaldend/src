@@ -1,0 +1,137 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalCriteria
+metadata:
+  name: fumo-sisyphus
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-08-30T17:31:32.62486189Z"
+spec:
+  goalRef:
+    name: fumo-sisyphus
+  revision: 1
+  items:
+  - criterionID: criterion-001
+    revision: 1
+    required: true
+    statement: "A quote-free fixed render matches the controlling Sisyphus macro composition: boulder width 0.40-0.55 frame width in the upper-left or middle and a 45-55 degree lower-left-to-upper-right slope owning roughly the right half."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-002
+    revision: 1
+    required: true
+    statement: Pale amber or cream negative sky remains visible on the left
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-003
+    revision: 1
+    required: true
+    statement: and directional lighting produces readable boulder contact shadow
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-004
+    revision: 1
+    required: true
+    statement: cast shadow
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-005
+    revision: 1
+    required: true
+    statement: and rock relief without a near-black foreground wedge.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-006
+    revision: 1
+    required: true
+    statement: Boulder and terrain read as rounded
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-007
+    revision: 1
+    required: true
+    statement: weathered
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-008
+    revision: 1
+    required: true
+    statement: fractured rock rather than melted smooth forms
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-009
+    revision: 1
+    required: true
+    statement: conspicuous low-poly slabs
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-010
+    revision: 1
+    required: true
+    statement: or flat graphic planes.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-011
+    revision: 1
+    required: true
+    statement: The original image is packed in a render-disabled REFERENCE_ONLY collection
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-012
+    revision: 1
+    required: true
+    statement: displayed beside the working set
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-013
+    revision: 1
+    required: true
+    statement: never overlaid
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-014
+    revision: 1
+    required: true
+    statement: and the review camera contains no quote.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-015
+    revision: 1
+    required: true
+    statement: The character slot contains only a clearly named PLACEHOLDER_FUTURE_APPROVED_FUMO; no Reimu source object is linked
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-016
+    revision: 1
+    required: true
+    statement: copied
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-017
+    revision: 1
+    required: true
+    statement: edited
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-018
+    revision: 1
+    required: true
+    statement: rendered
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-019
+    revision: 1
+    required: true
+    statement: or evaluated.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-020
+    revision: 1
+    required: true
+    statement: Exact tracked Reimu and Sisyphus source hashes remain unchanged; the candidate clean-reopens and exposes reusable named slope
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-021
+    revision: 1
+    required: true
+    statement: boulder
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-022
+    revision: 1
+    required: true
+    statement: camera
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-023
+    revision: 1
+    required: true
+    statement: light
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-024
+    revision: 1
+    required: true
+    statement: reference
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-025
+    revision: 1
+    required: true
+    statement: and character-slot structure.
+    evidenceMethod: Inspect linked evidence against the criterion.

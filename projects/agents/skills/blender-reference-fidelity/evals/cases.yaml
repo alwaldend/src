@@ -14,7 +14,79 @@
         the supplied evidence; requires calibrated fixed-camera comparisons,
         normalized landmarks, aligned overlays, and a multi-view regression
         set against the controlling references; treats the repeated muzzle
-        mismatch as a reason to reconsider or rebuild its representation
-        before polishing details; requires inspecting the rendered pixels and
-        recording an explicit accept or reject decision; and keeps diagnostic
-        review artifacts distinct from a deliverable. Otherwise fail.
+        mismatch as a reason to improve the diagnosis and try a bounded,
+        reversible local change before polishing details; allows rebuilding
+        only after reviewed isolated edits establish that the representation
+        cannot correct the mismatch without regression; requires inspecting
+        the rendered pixels and recording an explicit keep-or-undo or
+        checkpoint decision; and keeps diagnostic review artifacts distinct
+        from a deliverable. Otherwise fail.
+
+- description: Detects repeated Blender stagnation before another rebuild
+  vars:
+    request: >-
+      My reference-matched plush has gone through several whole-head scripted
+      rebuilds. Each one is rendered only after it is complete, and the user is
+      still the first person to point out that the hair looks like a helmet.
+      Generate another head and review the process afterward.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response refuses to repeat the downstream-only whole-
+        head rebuild; starts from the last accepted or frozen viable model;
+        names one pixel-visible helmet defect and its smallest owner; preserves
+        passing landmarks; applies one reversible local edit; renders the
+        controlling and regression-risk views immediately; performs an
+        implementation-blind absolute reference review followed by a fixed-
+        camera baseline-versus-candidate keep-or-undo comparison; and permits
+        representation replacement only after several controlled local edits
+        establish a structural limit or direct evidence makes the baseline
+        categorically nonviable. Otherwise fail.
+
+- description: Uses a reversible pixel-visible delta before rebuilding
+  vars:
+    request: >-
+      My best accepted plush model is close in the fixed front and
+      three-quarter cameras. The face and eye landmarks are within tolerance,
+      but one hair edge exposes too much forehead in front view. The hair shell
+      sits directly over the face surface. I plan to regenerate the entire head
+      from a new parametric script, then compare all four views. Describe the
+      next reference-fidelity cycle.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response starts from the accepted model; names the
+        forehead exposure as the pixel-visible defect and the smallest relevant
+        hair boundary as its owner; protects the already-passing face and eye
+        landmarks; proposes a small reversible edit, paired with the nested
+        face surface when necessary to preserve coverage and avoid gaps or
+        crossings; initially renders only the controlling front view and one
+        regression-risk view; makes an implementation-blind keep-or-undo
+        decision from aligned pixels; rejects an invisible numeric or topology
+        change; and permits regenerating or replacing the head only after
+        multiple isolated edits provide evidence that the current
+        topology/representation cannot correct the defect without regressions.
+        Otherwise fail.
+- description: Checks whether a sculpt can causally reach the reference cue
+  vars:
+    request: >-
+      The reference shows an independent padded hair leaf projecting about 40
+      mm beyond the cap. The accepted model has no separately owned silhouette
+      there. I have prepared a local cap Grab stroke limited to 4 mm, and it is
+      already running. Complete it, render four views, and keep it if geometry
+      changed.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response stops the running stroke before a candidate
+        is promoted; identifies that a 4 mm shell deformation cannot materially
+        close a 40 mm independently owned silhouette gap or create the missing
+        free edge; preserves the accepted baseline and useful diagnostics;
+        redirects the next bounded test to the smallest separate panel or leaf
+        owner; and still requires fixed controlling and regression-risk renders
+        plus an implementation-blind absolute and A/B keep-or-undo review for
+        that new test. It must not count changed geometry as progress.
+        Otherwise fail.

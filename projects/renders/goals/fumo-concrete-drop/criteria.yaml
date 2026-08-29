@@ -1,0 +1,122 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalCriteria
+metadata:
+  name: fumo-concrete-drop
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-08-30T17:32:20.561951975Z"
+spec:
+  goalRef:
+    name: fumo-concrete-drop
+  revision: 1
+  items:
+  - criterionID: criterion-001
+    revision: 1
+    required: true
+    statement: The saved candidate clean-opens with a FUMO collection and named world-transform replacement interface.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-002
+    revision: 1
+    required: true
+    statement: The visible proxy is unmistakably neutral and placeholder-only
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-003
+    revision: 1
+    required: true
+    statement: with no Reimu likeness or plush-behavior claim.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-004
+    revision: 1
+    required: true
+    statement: The scene uses metric units
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-005
+    revision: 1
+    required: true
+    statement: a 0.25 m collision envelope
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-006
+    revision: 1
+    required: true
+    statement: a 0.245 m visible inset
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-007
+    revision: 1
+    required: true
+    statement: and a floor containing the sampled motion.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-008
+    revision: 1
+    required: true
+    statement: The animation runs at 24 fps over frames 1 through 72 with held pre-roll
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-009
+    revision: 1
+    required: true
+    statement: rigid-body release
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-010
+    revision: 1
+    required: true
+    statement: floor collision
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-011
+    revision: 1
+    required: true
+    statement: and post-impact settling.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-012
+    revision: 1
+    required: true
+    statement: Fixed camera and neutral lighting show the proxy
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-013
+    revision: 1
+    required: true
+    statement: floor
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-014
+    revision: 1
+    required: true
+    statement: scale witness
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-015
+    revision: 1
+    required: true
+    statement: and impact region in every sampled frame
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-016
+    revision: 1
+    required: true
+    statement: including the full initial fall.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-017
+    revision: 1
+    required: true
+    statement: A passive floor and separate active collider produce sampled descent and contact with no tunneling
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-018
+    revision: 1
+    required: true
+    statement: at least 0.40 m descent
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-019
+    revision: 1
+    required: true
+    statement: no more than 0.005 m penetration
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-020
+    revision: 1
+    required: true
+    statement: and less than 0.02 m late-motion span.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-021
+    revision: 1
+    required: true
+    statement: Protected Reimu and Sisyphus blend hashes remain exact.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-022
+    revision: 1
+    required: true
+    statement: An inspectable render packet and machine audit bind to the exact clean-reopened candidate hash.
+    evidenceMethod: Inspect linked evidence against the criterion.

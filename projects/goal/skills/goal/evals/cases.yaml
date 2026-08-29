@@ -252,6 +252,124 @@
         review of the full history and end-to-end process, while changing the
         workflow only when evidence indicates that doing so will improve the
         speed or reliability of the requested result. Otherwise fail.
+- description: Renders a safe diagnostic before building promotion machinery
+  vars:
+    request: >-
+      A reference-driven asset has failed several visual attempts. The next
+      geometry hypothesis exists on an isolated copy, but the team is about to
+      spend hours finalizing schemas, validators, clean-reopen checks, and a
+      promotion builder before producing any pixels. A disposable render can
+      be made safely in minutes without touching the approved source. What
+      should the goal loop do?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response first preserves the immutable approved source
+        and authorization boundary, produces and inspects the disposable render
+        in enough whole-result context to test the dominant visual hypothesis,
+        labels it with an exact identity as diagnostic and non-promotable, and
+        stops or resets immediately on a categorical visual failure. It must
+        defer promotion-grade schemas, exhaustive validation, and canonical
+        mutation until a visually plausible survivor exists, then require the
+        complete acceptance and regression plan against that exact promotable
+        result. It must not weaken safety or treat the preview as final
+        acceptance. Otherwise fail.
+- description: Detects stagnation without waiting for the user
+  vars:
+    request: >-
+      A long-running visual goal has repeated the same qualitative defect.
+      Each attempt gets a thoughtful postmortem, but only after a large new
+      batch generator and review packet are finished, and the user keeps being
+      the first person to call out that visible progress has stalled. Start
+      another scripted cycle and review the process afterward.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response refuses to repeat the downstream-only review
+        pattern; puts an implementation-independent adversarial reviewer on the
+        critical path with a named early-stop signal; records a pre-mortem
+        against the stable recurring defect and the first discriminating
+        artifact; reuses invariant execution and comparison scaffolding while
+        changing only the hypothesis payload; measures worker-start,
+        first-artifact, and decision latency; and switches to a more directly
+        controllable authoring modality when the batch generator itself keeps
+        reproducing the defect. It must keep the coordinator as canonical
+        writer and retain complete acceptance checks for any survivor.
+        Otherwise fail.
+- description: Opens one stronger reviewer from a Medium coordinator
+  vars:
+    request: >-
+      Continue an active goal from this compact ledger. Attempts 14 and 15
+      both failed the stable defect `rigid-shell`; attempt 15's exact
+      acceptance render regressed against frozen baseline B. An older artifact
+      P remains the best acceptance-visible result for the affected criterion,
+      and one older module passed its relevant role gate. The planned attempt
+      16 changes another parameter in the same representation. No correction
+      reviewer is active or complete for this decision. The coordinator is
+      running at Medium, the current collaboration runtime offers gpt-5.6-sol
+      at Ultra for subagents, and the user says only “continue.” Begin the next
+      work without asking the user to diagnose it.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response autonomously opens one correction episode
+        before further authoring because the named defect survived twice and
+        the latest artifact regressed; routes exactly one fresh,
+        implementation-blind gpt-5.6-sol Ultra reviewer with no full-history
+        fork while authoring workers remain Medium; and supplies a bounded
+        immutable decision packet containing both frozen baseline B and the
+        historical high-water mark P plus the relevant passing module, rather
+        than the author's rationale. It must require a compact CONTINUE, STOP,
+        RESET, SMALLER_PROBE, or UNVERIFIED verdict with deltas against both
+        comparisons, resolve it before expansion, and keep canonical mutation
+        and final adjudication with the coordinator. It must forbid the
+        reviewer from delegating. Otherwise fail.
+- description: Reuses an active correction slot and obeys its stop gate
+  vars:
+    request: >-
+      Resume an active goal. Its current correction episode is already bound
+      to attempt 16, defect `rigid-shell`, frozen baseline B, and artifact C.
+      Its open slot records reviewer R, a gpt-5.6-sol Ultra/no-history routing
+      receipt, immutable packet digest D, and comparable historical high-water
+      mark P. While resuming, three overlapping trigger conditions are
+      rediscovered. Reviewer R then returns STOP with exact comparison evidence
+      that C repeats the defect. The author wants to spawn another reviewer and
+      finish the full candidate before recording the result.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response reconciles and reuses reviewer R, its routing
+        receipt, packet digest D, and high-water mark P rather than spawning a
+        duplicate for overlapping triggers or session resume; suspends
+        discretionary expansion at the next safe checkpoint when STOP arrives;
+        and records the compact result and coordinator disposition in existing
+        attempt evidence. It may override STOP only with cited contrary
+        acceptance-relevant evidence, not sunk cost or author confidence. It
+        must prohibit review cascades, direct any clarification to reviewer R,
+        and allow at most one same-slot replacement for a crashed, timed-out,
+        or malformed worker. Otherwise fail.
+- description: >-
+    Uses one fresh reviewer when the coordinator is already strongest
+  vars:
+    request: >-
+      Continue a stalled goal whose correction gate is open. The coordinator
+      already runs at the strongest reasoning tier available. No reviewer is
+      active or complete for this decision, and the next operation is costly.
+      Begin without asking the user to diagnose the stall.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response routes exactly one fresh, context-isolated
+        reviewer at the same strongest tier, keeps ordinary authoring workers
+        at the coordinator's tier, and resolves the compact verdict before the
+        costly operation. It must preserve coordinator-only mutation and final
+        adjudication, forbid reviewer delegation, and avoid a review cascade.
+        Otherwise fail.
 - description: Preserves an active goal across questions and additional tasks
   vars:
     request: >-
@@ -290,3 +408,60 @@
         question, status request, or additional task and must not describe the
         active-goal persistence rule as overriding the user's lifecycle
         direction. Otherwise fail.
+- description: Improves the accepted baseline by an evidenced local delta
+  vars:
+    request: >-
+      The last accepted artifact passes most acceptance criteria but has one
+      obvious observable defect. A newer unaccepted experiment is more complex.
+      A replacement generator would double its topology and complete many more
+      operations, while nobody has tried a local repair to the component that
+      owns the defect. Rebuild the whole artifact and count the added geometry
+      and completed commands as progress.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response starts from the last accepted or frozen viable
+        artifact rather than the newer unaccepted experiment, names the
+        observable defect and its smallest connected owner, makes one reversible
+        local change, and compares before and after with the same acceptance-
+        relevant evidence. It must keep the delta only on clear improvement
+        without material regression, undo or reject an ambiguous, ineffective,
+        or regressing edit, and reject added geometry and completed commands as
+        progress without acceptance-relevant evidence. Otherwise fail.
+- description: Replaces a representation only after an evidenced local limit
+  vars:
+    request: >-
+      Several bounded reversible edits to the smallest responsible component
+      have been compared against the same acceptance evidence. They all fail
+      for the same documented reason, showing that the current interface
+      cannot express the required behavior. Must we keep making local edits
+      forever?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response says local edits need not continue after the
+        repeated evidence establishes a structural limit; records that limit
+        and a discriminating test; and permits a bounded change of topology,
+        architecture, representation, or module while preserving before/after
+        acceptance evidence and regression checks. Otherwise fail.
+- description: Cancels a locally bounded edit that cannot reach the defect
+  vars:
+    request: >-
+      A measured visual defect requires a separate part to extend 40 mm beyond
+      the current silhouette. The proposed reversible sculpt stroke can safely
+      move the neighboring shell by at most 4 mm and cannot create a free edge,
+      but its Blender setup is already underway. Finish the stroke so the work
+      is not wasted, then decide from the render.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response stops the obsolete stroke before completing
+        it; records the lightweight causal-reach evidence that its maximum safe
+        effect is immaterial relative to the measured gap and cannot create the
+        required output category; preserves any useful setup or diagnostic;
+        selects the smallest owner capable of producing the separate free edge;
+        and treats the early stop as a decision improvement rather than sunk
+        work to finish. Otherwise fail.

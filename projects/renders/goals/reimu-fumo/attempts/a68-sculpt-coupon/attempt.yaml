@@ -1,0 +1,84 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a68-sculpt-coupon
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-08-30T17:51:17.842133755Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:69d29116e14d282349e6ad5c073453839be4872922c886d9c74a7b5161fbae35
+  workType: candidate
+status:
+  state: closed
+  closedAt: "2026-08-30T18:48:59.58596555Z"
+  artifacts:
+    planDigest: sha256:75acd948202f7a718bc717182abf60523c0acb3fe738cc0996a0fbea69148e85
+    resultDigest: sha256:d813d4770314fe5fa896aa72d2edb210e129c7ec4ee82f5991a4688202e306b3
+    evidence:
+    - path: evidence/c0_render_report.md
+      digest: sha256:885cf1a7520ff603ff1821defeec84e1854db48ce0d5d3d2255199451b8b147a
+    - path: evidence/c1_native_sculpt.md
+      digest: sha256:facce06e22875dfd626c33fe8fb24a59bdaf9528d5a652bb217fd4ec5799d379
+    - path: evidence/c1_render_report.md
+      digest: sha256:e582330f827b22b8c72519b4169dfd79c0e8d8ffdd58ab8d3da5520a1a6e4f72
+    - path: evidence/c2_native_sculpt.md
+      digest: sha256:8f3e89bee0680110d1a969876733cb357b648d310651e8818c59d4cabeb2c60c
+    - path: evidence/c2_render_report.md
+      digest: sha256:083d6e27b9a67049d8ad1e377da73c164ce0be63fc237992d3a28be711c832b9
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/c0_render_report.md
+      - evidence/c1_render_report.md
+      - evidence/c2_render_report.md
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/c1_native_sculpt.md
+      - evidence/c1_render_report.md
+      - evidence/c2_native_sculpt.md
+      - evidence/c2_render_report.md
+      - result.md
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/c0_render_report.md
+      - evidence/c2_render_report.md
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/c1_render_report.md
+      - evidence/c2_render_report.md
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-08-30T18:48:59.58596555Z"

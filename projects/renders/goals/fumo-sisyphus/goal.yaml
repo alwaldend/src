@@ -1,0 +1,39 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: Goal
+metadata:
+  name: fumo-sisyphus
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-08-30T17:31:32.62486189Z"
+  annotations:
+    goals.alwaldend.com/local-owner-root: projects/renders
+spec:
+  title: Build a reference-faithful Sisyphus environment scaffold
+  scope: project
+  retention:
+    policy: durable
+  relationships:
+    dependsOnGoalRefs: []
+    supersedesGoalRefs: []
+status:
+  lifecycleGeneration: 1
+  outcome: open
+  execution: active
+  activeAttemptID: ""
+  acceptedAttemptID: ""
+  acceptedResultDigest: ""
+  criteriaRevision: 1
+  promotion:
+    sourceScope: ""
+    sourceGeneration: 0
+    sourceLifecycleGeneration: 0
+    sourceCriteriaRevision: 0
+    sourceCriteriaDigest: ""
+    sourceStateDigest: ""
+    sourceDigest: ""
+    promotedAt: ""
+  migration:
+    sourceFormat: unversioned
+    sourceDigest: sha256:a3fee6cd7afcb4ffe3efc177776997e07071cf7e0331565f3037e514b233459a
+    migratedAt: "2026-08-30T17:31:32.62486189Z"
+  observedAt: "2026-08-30T17:31:32.62486189Z"

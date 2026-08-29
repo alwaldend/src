@@ -15,6 +15,9 @@ implementation:
 - work type and hypothesis when the work tests one;
 - the smallest high-leverage module or question, its stop condition, and the
   minimum whole-result context needed to detect interface or integration harm;
+- a proportional causal-reach check showing that the module's largest safe
+  effect can materially change the named acceptance evidence and can express
+  the required kind of result;
 - the plan, inputs, parameters, intended result identity, and review packet;
 - affected criteria and the fixed regression checks; and
 - parent checkpoint or prior attempt when one exists.
@@ -29,6 +32,11 @@ polish it in isolation: retain enough surrounding context to judge composition,
 interfaces, and fixed regressions. If a cheap check decisively falsifies the
 module, interface, or approach, stop work and close the attempt with that
 evidence rather than completing the original plan mechanically.
+
+This includes evidence discovered after work begins: stop an in-flight module
+when a measurement shows that its bounded effect cannot reach a meaningful
+fraction of the defect or that it owns the wrong output category. Do not finish
+the implementation merely because setup cost has already been paid.
 
 ## Bind evidence to what was tested
 
@@ -79,7 +87,10 @@ become canonical or reopen a closed lifecycle.
 
 When a required criterion fails or remains unverified, keep the outcome open,
 update the stable failure count, and choose the highest-leverage next attempt.
-After the same defect survives twice, materially change strategy.
+After the same defect survives twice, materially change the diagnosis,
+hypothesis, workflow, or validation method. Change representation only when
+reviewed, isolated local edits establish a structural limit, unless direct
+evidence shows that the baseline itself is categorically nonviable.
 
 At least every three closed attempts, and immediately on a stalled trend,
 examine the complete attempt history and the end-to-end process, not only the

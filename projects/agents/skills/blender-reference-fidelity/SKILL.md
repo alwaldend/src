@@ -42,37 +42,63 @@ construction, or silhouette differ visibly from the references.
    before judging or presenting any candidate. Its absolute image-quality gate
    overrides relative improvement, measurements, and technical cleanliness.
 
-## Evaluate the representation before each cycle
+## Choose a pixel-visible delta before each cycle
 
-Write down the following before editing:
+Start from the last accepted model when one exists. Otherwise explicitly
+freeze the best viable current model as the comparison baseline and record
+that it is not accepted. Preserve that baseline and prefer a small, reversible
+edit over regenerating a component or rebuilding the model. Before editing,
+record:
 
-- the largest reference mismatch, supported by a landmark or overlay;
-- the current modeling representation for that form;
-- whether that representation can produce the referenced construction;
-- one bounded change and its expected effect in every review view;
-- an objective acceptance condition and the likely regression risk.
+- one dominant pixel-visible defect, supported by a landmark or overlay;
+- the smallest geometry or material owner that can change that defect;
+- a lightweight causal-reach check: estimate the measured gap, the largest
+  safe visible effect this owner can produce, and whether the edit can create
+  the required kind of cue such as a silhouette, free edge, overlap, or
+  material response;
+- the controlling view and the view most likely to expose a regression;
+- landmarks already within tolerance, which the edit must not disturb;
+- the expected visible result and a binary keep-or-undo condition.
 
-Replace the representation when it is structurally wrong. Do not keep resizing
-an ellipsoid when the reference shows a gusseted cushion, smooth a cone when it
-shows sewn panels, or add surface detail to hide a silhouette error.
+Edit only that owner. When the visible boundary depends on touching or nested
+surfaces, move the surfaces as a coupled set when needed to preserve coverage,
+contact, and depth order. For example, moving an opening without its underlying
+surface must not expose a gap or cause a crossing. Do not regenerate a whole
+subsystem to solve a local boundary error.
+
+Cancel or redirect the cycle before authoring when the bounded edit cannot
+produce a meaningful fraction of the measured correction, or when it changes
+the wrong visual category—for example, a shallow dent cannot create a missing
+independent fabric leaf. Keep this preflight proportional: use existing
+measurements, a quick projection, or a disposable probe, not a new analysis
+project. If new evidence invalidates causal reach while work is in progress,
+stop at that evidence boundary and preserve only useful diagnostics.
 
 ## Run a complete fidelity cycle
 
 A cycle is complete only after all of these steps:
 
-1. Save the last accepted checkpoint and its fixed-camera renders.
+1. Save the exact accepted checkpoint, or the explicitly frozen unaccepted
+   baseline when no accepted model exists, and its fixed-camera renders.
 2. Diagnose one dominant failure from the references and scorecard.
-3. Apply one coherent hypothesis at one detail tier.
-4. Make fast renders at 512--640 px from the controlling view and the view most
-   likely to expose a regression.
+3. Verify that the owner and safe effect size can reach the named pixels, then
+   apply the smallest reversible edit to its owner, including paired
+   deformation of dependent surfaces when required.
+4. Make fast renders at 512--640 px only from the controlling view and the view
+   most likely to expose a regression.
 5. Align the candidate to the reference using the recorded landmarks. Produce
    a side-by-side comparison and a 30--50% silhouette overlay or edge
    difference. Do not judge an unaligned contact sheet by impression alone.
-6. Render the full front, side, rear, and three-quarter regression set and one
-   uncropped presentation render when the fast comparison passes.
-7. Run the implementation-blind review from the visual-quality gate. Review
-   against the references before revealing the prior candidate, modeling
-   method, measurements, topology, or intended fix.
+6. Run an implementation-blind absolute review of the candidate against the
+   references before revealing the modeling method, measurements, topology,
+   intended fix, or previous model. Then make a fixed-camera baseline-versus-
+   candidate A/B comparison for the keep-or-undo decision. Keep the edit only
+   when its named defect visibly improves and protected landmarks and the
+   regression-risk view do not regress. Numeric or topological change without
+   a visible improvement is churn: undo it.
+7. Render the full front, side, rear, and three-quarter regression set and one
+   uncropped presentation render only when promoting a fast-pass candidate to
+   a checkpoint or approval stage.
 8. Update every affected scorecard row and explicitly accept or reject the
    candidate. Revert rejected geometry rather than building on it.
 
@@ -105,13 +131,23 @@ when averages, overlays, or technical checks pass.
 
 ## Reset a stalled approach
 
-- If the same high-level complaint survives two reviewed cycles, stop tuning
-  that subsystem and rebuild it from the reference construction or restore the
-  last accepted checkpoint.
-- If three or more identity-defining components fail together, return to a
-  macro blockout instead of patching them independently.
+- Do not replace a representation after one failed edit. Rebuild or introduce
+  a new representation only after multiple reviewed, isolated edits show that
+  the current owner cannot correct the target pixels without violating a
+  protected landmark, contact, or silhouette in another view. Record that
+  evidence and start the replacement as a bounded, reversible comparison
+  against the frozen baseline.
+- If repeated edits fail for different reasons, improve the diagnosis or split
+  the owner more narrowly before concluding that topology is the limit.
+- If three or more identity-defining components fail together, first determine
+  whether the frozen baseline is still viable. Return to a macro
+  blockout only when direct evidence makes that baseline categorically
+  nonviable or reviewed local edits establish that the failures share a
+  structural owner.
 - If a front-view fix detaches, intersects, or distorts a part in another view,
-  replace the placement method with surface-relative construction.
+  undo it. Use a surface-relative local edit next when that directly addresses
+  the cross-view failure; replace the placement representation only after
+  repeated controlled evidence establishes that the current one is the limit.
 - Do not declare success from an internal critique, agent vote, or cleaner
   topology when the overlays still fail.
 - Do not use the user as the first visual-quality reviewer. Inspect the final

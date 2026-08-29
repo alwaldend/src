@@ -1,0 +1,128 @@
+load("@com_alwaldend_src_tools_blender//:defs.bzl", "blender_binary")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_test")
+load("//tools/py/main/bzl:al_py_checkers.bzl", "al_py_checkers")
+
+al_py_checkers(
+    name = "checkers",
+    srcs = [
+        "__init__.py",
+        "checkpoint_render.py",
+        "checkpoint_spec.py",
+        "checkpoint_spec_test.py",
+        "live_checkpoint.py",
+        "main.py",
+        "png.py",
+        "render_packet.py",
+        "render_spec.py",
+        "render_spec_test.py",
+        "review.py",
+        "review_test.py",
+    ],
+)
+
+filegroup(
+    name = "live_checkpoint",
+    srcs = [
+        "__init__.py",
+        "checkpoint_spec.py",
+        "live_checkpoint.py",
+        "render_spec.py",
+    ],
+    visibility = ["//projects/renders:__subpackages__"],
+)
+
+py_library(
+    name = "checkpoint_spec_lib",
+    srcs = ["checkpoint_spec.py"],
+    visibility = ["//projects/renders:__subpackages__"],
+    deps = [":render_spec_lib"],
+)
+
+blender_binary(
+    name = "checkpoint_render",
+    arguments = [
+        "--background",
+        "--factory-startup",
+        "--disable-autoexec",
+        "--python-exit-code",
+        "2",
+        "--python",
+        "$(location :checkpoint_render.py)",
+        "--",
+    ],
+    data = [
+        "__init__.py",
+        "checkpoint_render.py",
+        "checkpoint_spec.py",
+        "png.py",
+        "render_packet.py",
+        "render_spec.py",
+    ],
+    env = {"PYTHONHASHSEED": "0"},
+    visibility = ["//projects/renders:__subpackages__"],
+)
+
+blender_binary(
+    name = "render_packet",
+    arguments = [
+        "--background",
+        "--factory-startup",
+        "--disable-autoexec",
+        "--python-exit-code",
+        "2",
+        "--python",
+        "$(location :render_packet.py)",
+        "--",
+    ],
+    data = [
+        "render_packet.py",
+        "render_spec.py",
+    ],
+    env = {"PYTHONHASHSEED": "0"},
+    visibility = ["//projects/renders:__subpackages__"],
+)
+
+py_library(
+    name = "render_spec_lib",
+    srcs = ["render_spec.py"],
+    visibility = ["//projects/renders:__subpackages__"],
+)
+
+py_library(
+    name = "review_lib",
+    srcs = [
+        "__init__.py",
+        "png.py",
+        "review.py",
+    ],
+    visibility = ["//projects/renders:__subpackages__"],
+)
+
+py_binary(
+    name = "fumo_review",
+    srcs = ["main.py"],
+    main = "main.py",
+    visibility = ["//projects/renders:__subpackages__"],
+    deps = [":review_lib"],
+)
+
+py_test(
+    name = "checkpoint_spec_test",
+    size = "small",
+    srcs = ["checkpoint_spec_test.py"],
+    deps = [":checkpoint_spec_lib"],
+)
+
+py_test(
+    name = "render_spec_test",
+    size = "small",
+    srcs = ["render_spec_test.py"],
+    deps = [":render_spec_lib"],
+)
+
+py_test(
+    name = "review_test",
+    size = "small",
+    srcs = ["review_test.py"],
+    deps = [":review_lib"],
+)

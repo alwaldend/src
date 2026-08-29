@@ -1,0 +1,52 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalCriteria
+metadata:
+  name: reimu-fumo
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-08-30T17:46:17.415632476Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  revision: 1
+  items:
+  - criterionID: criterion-001
+    revision: 1
+    required: true
+    statement: "Reference likeness: fixed front/side/rear/three-quarter renders preserve the characteristic broad head; compact seated body; layered brown hair; asymmetric red-and-white bow; half-lidded red eyes; detached sleeves; gathered red skirt; yellow necktie; and small black plush feet."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-002
+    revision: 1
+    required: true
+    statement: "Measured silhouette: every controlled front landmark error is at most 0.05 Wh and every depth landmark lies inside its frozen uncertainty band under the frozen LANDMARKS.md contract with no post-hoc exceptions."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-003
+    revision: 1
+    required: true
+    statement: "Plush construction: visible forms read as stuffed fabric panels with plausible thickness; compression; seams; gathers; ruffles; and contact with no helmet/cone/mask/robot/hard-plastic/disconnected-primitive read in any required view."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-004
+    revision: 1
+    required: true
+    statement: "Presentation quality: two implementation-blind reviews independently identify the same Reimu Fumo variant without a label; score every fidelity category at least 8/10; and report no major visible defect."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-005
+    revision: 1
+    required: true
+    statement: "Reusable structure: the blend has clearly named collections; meshes; materials; armature; actions; and controls with intentional transforms; no missing required resource; and reusable content separated from review cameras/lights/references."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-006
+    revision: 1
+    required: true
+    statement: "Animation readiness: an armature controls head/body/arms/legs/hair/bow and deforms without visible tearing or clipping in the seated pose; head turn; arm wave; and validation animation."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-007
+    revision: 1
+    required: true
+    statement: "Technical integrity: meshes have no unintended non-manifold boundaries; degenerate geometry; duplicate object names; broken modifiers; or dependency cycles and textures are packed or deliberately procedural."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-008
+    revision: 1
+    required: true
+    statement: "Repository delivery: the reusable asset remains at projects/renders/blender/fumo/reimu_fumo/reimu_fumo.blend under Git LFS and is exposed as //projects/renders:reimu_fumo."
+    evidenceMethod: Inspect linked evidence against the criterion.

@@ -1,0 +1,83 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a74-visible-envelope
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-08-31T06:42:12.706864204Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:69d29116e14d282349e6ad5c073453839be4872922c886d9c74a7b5161fbae35
+  workType: candidate
+status:
+  state: closed
+  closedAt: "2026-08-31T07:05:54.235571473Z"
+  artifacts:
+    planDigest: sha256:854327b95fb6a23c3f96b18d8923b34d24039f3f85421ae8ca7d1aa5d3e9c9e7
+    resultDigest: sha256:50ff4a2b12249ea438b68f3b5bc59c05a2e9a7aae4c85b8ebbf6851b0b64d8a2
+    evidence:
+    - path: evidence/BLIND_REVIEW.md
+      digest: sha256:b0d855cd1aa5d9f4d6793c99334852561e8312115013651efca907e813a354ae
+    - path: evidence/REPORT.md
+      digest: sha256:54c95d16429c4a46fac369528c63e879ba3af0552c3a953730721171462ec5d6
+    - path: evidence/SELF_REVIEW.md
+      digest: sha256:91d1c1973877d9243e8b3387d63c3e5e9ce625a1a585dfbb4f3d3a70b6a2d32e
+    - path: evidence/design_review.md
+      digest: sha256:fbcb3727150845fa761e5cdea88e92ee102b74844dbdbddf739c2f8148e9290a
+    - path: evidence/measurement_audit.md
+      digest: sha256:3c83e3a200aa7b222d982a0cfa75362831cfc1f8dee41d65c69ddf4bb0f42b4e
+    - path: evidence/p0_topology_algorithm.md
+      digest: sha256:1a1fb40f93d3136ed46ec2084ccce31cb179a455b5f63fa2f0598be6ede72114
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/BLIND_REVIEW.md
+      - evidence/SELF_REVIEW.md
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/SELF_REVIEW.md
+      - evidence/measurement_audit.md
+      - result.md
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/BLIND_REVIEW.md
+      - evidence/SELF_REVIEW.md
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/BLIND_REVIEW.md
+      - evidence/SELF_REVIEW.md
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-08-31T07:05:54.235571473Z"

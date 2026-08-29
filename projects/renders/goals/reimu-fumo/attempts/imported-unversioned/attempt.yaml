@@ -1,0 +1,137 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: imported-unversioned
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-08-30T17:46:17.415632476Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:69d29116e14d282349e6ad5c073453839be4872922c886d9c74a7b5161fbae35
+  workType: investigation
+status:
+  state: closed
+  closedAt: "2026-08-30T17:46:17.415632476Z"
+  artifacts:
+    planDigest: sha256:9e682f2171ddf7da18c5bbce68a88d881454bbc3c86875b17d63db40dbfae50f
+    resultDigest: sha256:3086117aafdf76b09939f75f747d80a8f3903fbc46847ad11c22dc740047d7b7
+    evidence:
+    - path: evidence/MIGRATION_MAP.md
+      digest: sha256:88bf558132cd9615c9d6c610ad1e756614f84faa5b1923b2ce489f35e4840cf6
+    - path: evidence/acceptance.md
+      digest: sha256:7e574868bbe82a69beabacbd83d9d5b1e90b5a3c518ea2648ec6bb9f37105810
+    - path: evidence/artifacts.md
+      digest: sha256:ee3911ef6f68ba3eef37b46471c3b711999fdd06286f2ee48fd52a6ed749abca
+    - path: evidence/attempt_00.md
+      digest: sha256:c7945c1f399d666ecc4234f682a02c56c6c37cd65529bf37cdd053cfa96586c8
+    - path: evidence/attempt_01.md
+      digest: sha256:9575bfb9c3e4506c8c01b47471f103bf2e42a432a4a51ab5a6d488d20e172543
+    - path: evidence/attempt_02.md
+      digest: sha256:21342cd71ec1551974239bd13657fd8785a4fa9b4f99f214205d4b0039dfac79
+    - path: evidence/attempt_03.md
+      digest: sha256:0b481a378475b9207283673ccdeea3df33de0077f31722d11b7a0bc8a42202bd
+    - path: evidence/attempt_04.md
+      digest: sha256:390b1ac4d67b73652c14e3a71616ab499ea537dbc056fb4d79bf6f2c48db361c
+    - path: evidence/attempt_05.md
+      digest: sha256:f09a255f5ab441a759c3a106ad9f5376e9832220754200fd93c615deee9bd459
+    - path: evidence/attempt_06.md
+      digest: sha256:2f8c691700009cfd67d7d6aa657d13e3f5c69f17cb014c8fc4d06b869dfa21be
+    - path: evidence/attempt_07.md
+      digest: sha256:f03b95e82992f5d16b974c449ba03a6764bdf5d548e673097002c45801aebda6
+    - path: evidence/attempt_08.md
+      digest: sha256:7633231e6e5c29e978adbe6b04f8168bf93844d89f38fd1c3a34f0648f3f4fa1
+    - path: evidence/attempt_09.md
+      digest: sha256:78b50d3ee8fe21c1fd14788ff3e99baf06ea0a63c43e9207eb61a55ca8ef25dd
+    - path: evidence/attempt_10.md
+      digest: sha256:c26e24f69e464f124fcd7ee1435d0a26caf51a8b0c7b323c1a1feae5c479ca25
+    - path: evidence/attempt_11.md
+      digest: sha256:ed6b414dbe079eba46b8b926b41008af36cd5281ec6cca5ad69f4c34ad2872cd
+    - path: evidence/attempt_12.md
+      digest: sha256:23f1d0dc0a860a9280d8b6394db511b1d86d1e210604d5b31c4d4c685fc4f1db
+    - path: evidence/attempt_13.md
+      digest: sha256:94dda5b5d08362b57f25a0f7be8f0fd67f27de6c657c636d58126a2cea56915c
+    - path: evidence/attempt_14.md
+      digest: sha256:d327887d2a5579927ac44e6dced88d07a26b010634e4711f44685f43df3248e4
+    - path: evidence/attempt_15.md
+      digest: sha256:d712ee5c1b63865b8d6ec1bca9926f99ac4422a29b5d9c6f5d85ee335f45b9c7
+    - path: evidence/attempt_16.md
+      digest: sha256:85acd3d2429e36bceafac5d85f5c365bc56ba5aef3a6304b438ff31aaa85cfde
+    - path: evidence/attempt_17.md
+      digest: sha256:cf29a2ba74c61982097c94a16eab52f1e040241731e28c9739dc98f959cf5b47
+    - path: evidence/attempt_18.md
+      digest: sha256:7689e3dc4f19309255b4f4b5582cc2c5bbaad7dd684141ac7381cb2e302be1cc
+    - path: evidence/attempt_19.md
+      digest: sha256:7dfc1270a010eb45f0596e6be6fd0b2e739889546176bb96941b1520ca4e4719
+    - path: evidence/attempt_36.md
+      digest: sha256:98a93207d061bbf02ec08287a14d6af0900aa2555cb0e6bad5ac004a63d407c4
+    - path: evidence/attempt_37_44.md
+      digest: sha256:f01d32686451a0ce25052fc11ea2cc0bcf9a04e72f9a9d68cb248692e26170fa
+    - path: evidence/attempt_45.md
+      digest: sha256:212e0637a42e633993c47c1b202ebd626b3868506297ab2656c8eb08b647fb9b
+    - path: evidence/attempt_52_57.md
+      digest: sha256:05fabed1f31929688a6905b5653cec4f0c39d49dbe6908a17bcd3d8d2b4fe61e
+    - path: evidence/attempt_58.md
+      digest: sha256:c882a327ad96ffefd01041c5f17ba6bea99347151a2cc493597c4d1499841318
+    - path: evidence/attempt_59.md
+      digest: sha256:6ba4c406e07a5bb782ea03bcec469902e3f85de44fca31029dfd3ec95da1ea97
+    - path: evidence/attempt_60_64.md
+      digest: sha256:03664c83e5abe8a0b0c19439513ed332e26b5598607f2bd74ef74d0f94c45951
+    - path: evidence/attempt_65.md
+      digest: sha256:3645069e12e47a4c3c6e29d21c0421cbb6288dd99874712935ffeb165582d095
+    - path: evidence/attempt_66.md
+      digest: sha256:c30ec954b3ceebf757085cd84e56e21ceeba3a27ac8798b3dc75c6201d69f5e8
+    - path: evidence/attempt_67.md
+      digest: sha256:9c76de6b7d6d4580d167cf05680814bdc93abf5b1a992fe384b31c830e737480
+    - path: evidence/attempts_README.md
+      digest: sha256:431656e4310816dd796d59ff619b28aaee02784756e710d07e64f5ae2ab101e8
+    - path: evidence/current_attempt.md
+      digest: sha256:68462372cc84be581279f201ae25f8ba5e4825378fe88debbfd636d81f578d2b
+    - path: evidence/evidence.md
+      digest: sha256:7cd5c0d3dd9a6e37d5788a42bd2166be0b958d72b70549a14574e3c0f913d7da
+    - path: evidence/failures.md
+      digest: sha256:e1d4afa3e62e6231144df0c8e00549ccf98ef1fb821ce77e921c2732b495ab7e
+    - path: evidence/references.md
+      digest: sha256:50c0a15695b3d24c5ac96793f64b5e19c95f0184aee6ae1e46de9bf595321cbb
+    - path: evidence/requirements.md
+      digest: sha256:1ec12fd14155753009973b5f8cac92ee7d514a04df612a483ed3b4b33eb164ec
+  review:
+    decision: refine
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-08-30T17:46:17.415632476Z"

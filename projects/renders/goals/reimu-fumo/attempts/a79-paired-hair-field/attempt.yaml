@@ -1,0 +1,106 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a79-paired-hair-field
+  resourceVersion: "3"
+  generation: 1
+  creationTimestamp: "2026-08-31T10:06:37.036488006Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:69d29116e14d282349e6ad5c073453839be4872922c886d9c74a7b5161fbae35
+  workType: candidate
+status:
+  state: closed
+  closedAt: "2026-08-31T11:58:49.552254738Z"
+  artifacts:
+    planDigest: sha256:258d1cd26a78d83d7cc232a5bba88544ad680445663f3ae31a6b3887aed949f2
+    resultDigest: sha256:8e788b289421476777a97e16c8b87e61363c7fb76100435ab56014002766464b
+    evidence:
+    - path: evidence/ADVERSARIAL_SELECTOR.md
+      digest: sha256:124b24d820d1c15c1cf0d813fa3f61032bd8782198eb1903b8a08b5f28af5ff8
+    - path: evidence/AUDIT.md
+      digest: sha256:95b353e2c05be05950eb9088a118a6dc00026684433bb28191768bdc651fc8ba
+    - path: evidence/BUILD_CONTRACT.md
+      digest: sha256:e0bb13b7bf04bd75acd17c68fc8ecc52e7090935738ad5123f0cdeb9ec34b0b6
+    - path: evidence/DENSITY_PREFLIGHT_AUDIT.md
+      digest: sha256:e6a7778a221976e641ea5e800b815d081992951220d0bd117b51f219cecc6938
+    - path: evidence/DIAGNOSIS.md
+      digest: sha256:2213f86b3f27838966be5597e99aab4e3a9b27b54668c8733c7b2d87102a2da9
+    - path: evidence/GOAL_SKILL_FORWARD_TEST.md
+      digest: sha256:6b53819c5bb845a2d42bba940d9a7d8635094c7403932c748728586c8b69f780
+    - path: evidence/INTERFACE_CONTRACT.md
+      digest: sha256:044d72a747c8779e91e4f04bcf7139a35019997eafdad705931483a08d0de886
+    - path: evidence/LOOP_DESIGN.md
+      digest: sha256:c470f9f5f5e41e4bf9d12f71bce7eb5e53d8b5a34134c9ec027e413c060796b9
+    - path: evidence/MATERIAL_REPORT.md
+      digest: sha256:b2af5b2e8977637c136ac51568275f6eb0ce75da5d1544a05663abd7fc6a5999
+    - path: evidence/NO_GO.md
+      digest: sha256:dc1e88d970faeebf3821f82e9a268e5232787ee17c988c2ac10263af6e6eae67
+    - path: evidence/PROCESS_CHECKPOINT.md
+      digest: sha256:fe1bfe48fc62eabda909629626c398644f3aabace9ce7999af19c923dd84d4ab
+    - path: evidence/PROCESS_OPTIMIZATION.md
+      digest: sha256:272fbe646544a2339892dc101d2beb2daedb5affd89364d7c31e67d3a9342fb1
+    - path: evidence/PROCESS_TIMELINE.md
+      digest: sha256:488c0febe9e637e1cd3d4f3ffbe46a925367718089bd2021067446ae1e193223
+    - path: evidence/PROPOSAL.md
+      digest: sha256:d605bcbabbca4c34cd5b43ae46d39f750a4d7fb72f247dbd9a04080983cd8185
+    - path: evidence/README.md
+      digest: sha256:ada798e23ba8e020af8b04be77d8d65ed7143622c85ffe97a4cc7f9a8b65facf
+    - path: evidence/REPORT.md
+      digest: sha256:0c4fd2f61745ef1d77ccb004cd3533346307e4a6472224cd6f9d3a04a9d59504
+    - path: evidence/RESET.md
+      digest: sha256:c9e6706c12ac733bb3ab04c90f1edb75c3595870388383c7e4b5181096590e3d
+    - path: evidence/TOPOLOGY_DENSITY.md
+      digest: sha256:0e0e68b90df167cfbeb7e5d2471ea9c5f8e419720558c745c35a54d4268c9359
+    - path: evidence/reference_registration.md
+      digest: sha256:80bd1db6ad04ef6f89b4b4099e0a31751f426c68e6056efb462aff48f53a5d77
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/DIAGNOSIS.md
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - evidence/reference_registration.md
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/DENSITY_PREFLIGHT_AUDIT.md
+      - evidence/DIAGNOSIS.md
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - evidence/AUDIT.md
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - evidence/AUDIT.md
+      - evidence/DENSITY_PREFLIGHT_AUDIT.md
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-08-31T11:58:49.552254738Z"

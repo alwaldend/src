@@ -95,3 +95,39 @@
         import/append boundary, save immutable task-owned snapshots under
         out/, and require pinned background clean-reopen and pixel gates before
         trust. Otherwise fail.
+- description: Starts the appropriate Blender host when MCP is unavailable
+  vars:
+    request: >-
+      Continue a live Blender edit. The configured MCP probe cannot connect,
+      but I explicitly selected the installed Blender Flatpak for this live
+      loop and the repository-pinned Blender remains available for checks.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response treats the failed probe as a launch
+        condition, starts exactly one user-selected Flatpak live host under
+        the documented exception, reprobes and verifies its version,
+        foreground state, task-owned file or append boundary, and workspace
+        before editing, and keeps repository-pinned background Blender as the
+        clean-reopen and render verifier. It must not abandon Blender, start
+        both foreground hosts, persist preferences, or trust an older Flatpak
+        snapshot without pinned verification. Otherwise fail.
+- description: Chooses analytical generation only when it fits the form
+  vars:
+    request: >-
+      One Blender task places 128 identical fasteners on an exact radial
+      pattern. Another must reshape organic plush hair against several image
+      references after multiple formula-generated versions repeated the same
+      helmet defect. Use a new procedural generator for both so the workflow
+      is consistent.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses analytical or procedural generation for
+        the exact repeated fastener pattern, rejects consistency as a reason to
+        force the same method onto the organic hair, and chooses a simpler
+        direct or interactive reference-visible authoring loop for the hair.
+        It must retain task-owned isolation, pinned verification, and final
+        pixel inspection regardless of authoring method. Otherwise fail.

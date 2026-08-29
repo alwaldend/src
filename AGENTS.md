@@ -87,6 +87,12 @@ content; they do not make ordinary source or operational facts confidential.
 
 ## Decision-making
 
+Prefer the simplest solution that satisfies the stated requirements,
+constraints, and acceptance evidence. Do not add abstraction, indirection,
+infrastructure, or generality when a smaller direct solution fully solves the
+problem. Simplicity does not justify weakening safety, correctness, or required
+verification.
+
 Use the `decision-review` skill before committing to a material design,
 security, operational, costly, irreversible, or repeatedly failing choice.
 Treat both the user's proposal and your current plan as hypotheses: identify
@@ -124,6 +130,23 @@ state and shared artifacts. Do not fragment trivial operations, recursively
 delegate without a separate benefit, or create speculative work merely to
 occupy available agent slots. Recheck parallelism when work closes, stalls,
 changes strategy, or exposes a new independent task.
+
+When an applicable procedure opens an explicit independent-review or
+correction gate, route exactly one fresh reviewer for that decision episode.
+If the coordinator is below the strongest reasoning tier available for the
+task, use the stronger tier; if it is already at the strongest tier, use a
+fresh independent reviewer at that same tier. Authoring workers inherit the
+coordinator's model and reasoning effort unless the user or another applicable
+policy requires otherwise. In the current collaboration runtime, a Medium
+coordinator should route that reviewer to `gpt-5.6-sol` with
+`reasoning_effort: "ultra"` and `fork_turns: "none"`, or the smallest bounded
+positive fork when it preserves independence. Do not use a full-history fork
+when it prevents the override or imports the author's framing. The reviewer
+must not mutate canonical state, publish, or delegate further; the coordinator
+owns adjudication, any evidence-backed override, integration, and delivery. If
+the preferred route or a reviewer slot is unavailable, use an independent
+inherited-tier reviewer when possible and record the limitation instead of
+claiming stronger review or creating a review cascade.
 
 ## Questions
 
@@ -202,6 +225,11 @@ stated scope.
 ## Documentation
 
 - Document current behavior and supported guarantees first.
+- When the user asks to show, attach, give, or otherwise present any
+  inspectable result, include a direct clickable link to the exact artifact in
+  the user-facing response. For a local artifact, link its exact local path. A
+  tool preview or statement that the result exists does not satisfy the
+  request by itself.
 - Include future plans only when they are intentional and relevant to users;
   include historical behavior only when it helps operate, migrate, or
   understand the current system.

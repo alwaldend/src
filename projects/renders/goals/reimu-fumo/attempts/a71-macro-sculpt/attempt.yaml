@@ -1,0 +1,69 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a71-macro-sculpt
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-08-30T20:51:14.603049167Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:69d29116e14d282349e6ad5c073453839be4872922c886d9c74a7b5161fbae35
+  workType: candidate
+status:
+  state: closed
+  closedAt: "2026-08-30T21:09:19.881174606Z"
+  artifacts:
+    planDigest: sha256:1435d4b6dc0692194a36703a69c9585a49077887e1acda0572dbe9a29d0250a0
+    resultDigest: sha256:06ae5e1bc259f448154aae93766d7c16e8045f591237ff13e11f6311a2e4622c
+    evidence:
+    - path: evidence/SELF_REVIEW.md
+      digest: sha256:0833b8cab891bac96ea183e0d8760e955c015aaba6ac8d2713c496ea41aa2c43
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/SELF_REVIEW.md
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/SELF_REVIEW.md
+      - result.md
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/SELF_REVIEW.md
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/SELF_REVIEW.md
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-08-30T21:09:19.881174606Z"

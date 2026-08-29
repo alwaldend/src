@@ -1,0 +1,50 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects:__pkg__"],
+)
+
+filegroup(
+    name = "fumo_sisyphus",
+    srcs = ["blender/fumo/fumo_sisyphus/fumo_sisyphus.blend"],
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "fumo_sisyphus_references",
+    srcs = [
+        "blender/fumo/fumo_sisyphus/references/README.md",
+        "blender/fumo/fumo_sisyphus/references/sisyphus_reference.png",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "misc_scenes",
+    srcs = ["blender/misc/scenes/scenes.blend"],
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "reimu_fumo",
+    srcs = ["blender/fumo/reimu_fumo/reimu_fumo.blend"],
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "reimu_fumo_references",
+    srcs = [
+        "blender/fumo/reimu_fumo/LANDMARKS.md",
+        "blender/fumo/reimu_fumo/references/README.md",
+        "blender/fumo/reimu_fumo/references/canonical_front_25cm.png",
+        "blender/fumo/reimu_fumo/references/canonical_turn_180.gif",
+        "blender/fumo/reimu_fumo/references/clean_front.png",
+        "blender/fumo/reimu_fumo/references/physical_front.png",
+        "blender/fumo/reimu_fumo/references/physical_side.png",
+        "blender/fumo/reimu_fumo/references/sofa.gif",
+        "blender/fumo/reimu_fumo/references/turn.gif",
+    ],
+    visibility = ["//visibility:public"],
+)

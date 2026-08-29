@@ -40,6 +40,9 @@ Use foreground Blender only for a UI-context operation. Before launching it:
    `//tools/blender:blender` target through `bazel_agent`, isolate
    `BLENDER_USER_CONFIG`, `TMPDIR`, logs, and outputs under `out/<task>/`, and
    start only a loopback-scoped task listener when MCP is actually needed.
+   When the user explicitly selected the installed Flatpak live host, start
+   that single host under the exception below instead. Reprobe after launch;
+   absence of an already-running listener is not a terminal failure.
 4. Use the real display when available. Xvfb is a fallback for headless GUI
    context, not a requirement for background work or an already-running
    compatible session.

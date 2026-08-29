@@ -37,6 +37,7 @@ al_release_binary(
                 "bazel_registry",
                 "bazel_agent",
                 "goal",
+                "renders",
                 "useless_qt_gui",
                 "rules_template",
                 "rules_binary_toolchain",

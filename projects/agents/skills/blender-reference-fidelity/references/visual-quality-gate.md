@@ -50,6 +50,11 @@ Score each applicable category from 0 to 10:
 Relative improvement is not a category. Do not compare with the previous
 candidate until this absolute review is complete.
 
+After the absolute review, make a second fixed-camera A/B comparison between
+the candidate and the last accepted baseline. Hide implementation details and
+randomize or neutralize labels when practical. This second stage controls the
+internal keep-or-undo decision; it does not weaken the absolute approval gate.
+
 ## Pass or reject
 
 An approval candidate passes only when:
@@ -67,8 +72,10 @@ baseline cannot override rejection.
 
 For an internal intermediate cycle, record lower scores and continue working;
 do not present it as an approval candidate. If the same category remains below
-8 after two reviewed cycles, replace that subsystem's representation rather
-than tuning it again.
+8 after two reviewed cycles, change the diagnosis or bounded local hypothesis
+instead of mechanically repeating the edit. Replace the subsystem's
+representation only when reviewed isolated edits establish a structural limit,
+unless direct evidence makes the accepted baseline categorically nonviable.
 
 ## Record the verdict
 
@@ -78,6 +85,8 @@ Record:
 - category scores;
 - the ordered discrepancy list;
 - pass or reject;
-- the next representation change if rejected.
+- the next smallest local correction if rejected, or the recorded structural-
+  limit evidence and discriminating test when a representation change is
+  justified.
 
 Only after a visual pass should technical validation authorize export.

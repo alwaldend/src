@@ -1,0 +1,61 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a86-collar-body-interface
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-01T06:54:12.902484797Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:69d29116e14d282349e6ad5c073453839be4872922c886d9c74a7b5161fbae35
+  workType: candidate
+status:
+  state: closed
+  closedAt: "2026-09-01T07:05:35.579946342Z"
+  artifacts:
+    planDigest: sha256:e9d80b1a271f5a55c3bc88ff544dfce788a7cf8a9a363d696c9e22e0e30a6648
+    resultDigest: sha256:27498b68067df979acfa84780dbcc815f7da49dfff3eba7d6272661a694deeed
+    evidence:
+    - path: evidence/A86_BLIND_REVIEW.md
+      digest: sha256:d56650b6c0c808309d206fb1090981b502a5cd12982d56cf70edfbe93a0e4488
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-01T07:05:35.579946342Z"

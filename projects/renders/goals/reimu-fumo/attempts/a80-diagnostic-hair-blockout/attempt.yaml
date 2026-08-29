@@ -1,0 +1,77 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a80-diagnostic-hair-blockout
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-08-31T12:00:44.756549637Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:69d29116e14d282349e6ad5c073453839be4872922c886d9c74a7b5161fbae35
+  workType: candidate
+status:
+  state: closed
+  closedAt: "2026-08-31T13:22:23.872185762Z"
+  artifacts:
+    planDigest: sha256:d0271c9eca36f1b1bc8258c4a6e027b18cb05774f304b71d5481dc3f672092ff
+    resultDigest: sha256:1c8d9e4b58acc0ea5c5db13930d374b1daec9439b9d940bfa11a5c59e44e6ed7
+    evidence:
+    - path: evidence/A80_CONSTRUCTED_VARIANT.md
+      digest: sha256:4bbe48e7641603ee63d772bc9fbf3f08d6af05d9ea166df7b35d2bb64bb8f246
+    - path: evidence/A80_SCULPTED_VARIANT.md
+      digest: sha256:8f2243e6abd676283f53f2539e58954ff0ab7183e6ab1d055f1f7b4ed321b8ba
+    - path: evidence/BLIND_REVIEW.md
+      digest: sha256:f34bc74d24f3e57b66569766b3d321ef29f7c287633d3cb6a931599b253abbe8
+    - path: evidence/CONTROLS.md
+      digest: sha256:b8f0a2b380d8847a3461349e64ee967881bf857b1f979ef2e9fbe9335465f8b8
+    - path: evidence/SPEED_POSTMORTEM.md
+      digest: sha256:e43e28e688fdae6b7c61aaa9c550594c77b06e23d9667dbb42bdd88f00561e8a
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/A80_CONSTRUCTED_VARIANT.md
+      - evidence/A80_SCULPTED_VARIANT.md
+      - evidence/BLIND_REVIEW.md
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/A80_CONSTRUCTED_VARIANT.md
+      - evidence/A80_SCULPTED_VARIANT.md
+      - evidence/BLIND_REVIEW.md
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-08-31T13:22:23.872185762Z"

@@ -103,9 +103,118 @@ starting an attempt.
    canonical read. On a stale resource version or lifecycle generation, reread
    and reconcile; never overwrite newer state.
 
-If a defect survives two attempts, change the hypothesis, representation,
-workflow, or validation method. Use a stable defect name so recurrence cannot
-be hidden by relabeling. Preserve failed attempts and rejected evidence.
+If a defect survives two attempts, change the diagnosis, hypothesis, workflow,
+or validation method. Change the representation only when bounded local
+evidence establishes that its owner or interface cannot express the required
+result without regression. Use a stable defect name so recurrence cannot be
+hidden by relabeling. Preserve failed attempts and rejected evidence.
+
+### Prefer evidenced deltas before replacement
+
+Start from the last accepted or frozen artifact when one exists and remains a
+viable baseline. Otherwise use the best viable current artifact and record why
+no accepted baseline is available. Before replacing a whole module,
+representation, or architecture, identify one acceptance-visible defect and
+the evidence that exposes it. Find the smallest connected owner of that
+defect, make one reversible change there, and compare the before and after
+states with the same acceptance-relevant views, tests, or observations. Keep
+the change only on clear evidence of improvement without a material
+regression; undo or decline to promote ambiguous changes, no-ops, and
+regressions.
+
+Before spending a work unit, run a lightweight causal-reach check. Trace how
+the proposed owner and operation can change the named acceptance evidence,
+compare its largest safe effect with the measured gap, and check that it can
+produce the required category of result rather than merely nearby activity.
+Cancel or redirect a task whose bounded influence is immaterial or whose
+interface cannot express the required cue. Keep the check proportional and
+prefer existing evidence or one cheap probe over a new planning detour. When
+new evidence disproves reachability during implementation, return early at
+that evidence boundary instead of finishing the obsolete plan.
+
+Numerical or mechanical movement is not result progress by itself. More
+topology, code, parameters, completed commands, attempts, or measured activity
+counts only when acceptance-relevant evidence shows that the requested result
+improved. Permit new topology, architecture, representation, or a whole-module
+replacement only after several bounded local edits establish with evidence
+that the present owner or interface has a structural limit. Record that limit
+and the discriminating test for the replacement before starting it.
+
+### Stage feedback before promotion
+
+When a cheap noncanonical artifact can expose the dominant uncertainty, do not
+make promotion-grade machinery a prerequisite for seeing that artifact. First
+preserve the immutable source, authorization boundary, and safety invariants;
+then produce and inspect a disposable probe in the minimum whole-result context
+needed to falsify the hypothesis. Give it an exact identity and label it
+clearly as diagnostic and non-promotable. A preview, dry run, integration
+coupon, benchmark sample, or partial render is evidence about the hypothesis,
+not evidence that the requested result is acceptable.
+
+Escalate validation only as the artifact earns it:
+
+1. Run the cheap checks necessary to create the diagnostic safely.
+2. Inspect the observable result against the dominant failure and stop
+   immediately on a categorical miss.
+3. Freeze interfaces and invest in exhaustive correctness, regression,
+   reproducibility, and promotion checks only for a plausible survivor.
+4. Rerun the complete acceptance plan against the exact promotable result.
+
+Do not defer a safety, authorization, destructive-action, or source-preservation
+gate merely to obtain faster feedback. Conversely, do not treat speculative
+schemas, validators, builders, dashboards, or reports as progress when a safe
+observable probe would settle the current decision sooner. Contracts should
+describe a representation that survived the relevant early evidence, not force
+an untested hypothesis to satisfy prematurely frozen mechanics.
+
+For long or repeatedly stalled loops, set and record a task-local target for
+time to the next decision-bearing artifact. Base it on measured prior latency
+and the cost of the work rather than a universal duration. If the target is
+missed, stop expanding the work unit, account for the delay, and either emit the
+smallest safe probe or reset the approach. Keep independent preparation in
+parallel only when it can still affect that next decision.
+
+### Put correction on the critical path
+
+Do not rely on the user to notice stagnation, and do not postpone all process
+judgment until an attempt closes. At every attempt preflight and when its first
+decision-bearing artifact arrives, evaluate the correction gate. Open one
+review episode when any of these conditions holds:
+
+- the same stable defect survived two closed attempts;
+- the latest acceptance-visible artifact is flat or regressed against the
+  frozen immediate comparison or the best relevant historical comparison;
+- the recorded artifact-time target was missed for a controllable reason;
+- an unresolved acceptance-material assumption can change the next decision
+  and lacks a cheap deterministic discriminator; or
+- the user identifies a material defect or stagnation that the running process
+  should have detected.
+
+Coalesce overlapping triggers into one episode bound to the current decision;
+resuming a session does not open a duplicate. Read
+[correction-gate.md](references/correction-gate.md) whenever an episode opens
+or remains unresolved. Resolve its reviewer verdict before expanding beyond
+the first decision-bearing artifact, taking a costly or irreversible step,
+closing or promoting the attempt, or starting the next attempt.
+
+Before implementation, still record the strongest recurrence risk and the
+first artifact that distinguishes success from recurrence. Review that exact
+artifact as soon as it exists; do not wait for an archival packet or user
+complaint. Record attempt start, worker start, first-artifact time, and
+decision time when latency matters. The reviewer supplies disconfirming
+evidence and a stop signal, not mutation or publication authority; the
+coordinator owns canonical state and the final evidence-backed disposition.
+
+Separate invariant execution scaffolding from the changing hypothesis. Reuse
+a proven runner, fixture, renderer, comparator, or test harness across bounded
+variants and change only the payload under test. If one authoring modality
+repeatedly produces the same qualitative defect despite parameter changes,
+switch to a more directly controllable modality rather than writing a larger
+generator for the same abstraction. Examples include moving from batch
+generation to an interactive edit loop, from prose-only design to an
+executable coupon, or from end-state inspection to continuous fixed-reference
+comparison. Preserve reproducibility around the surviving result; do not make
+reproducibility machinery a substitute for producing it.
 
 ## Leave inspectable progress
 
@@ -160,7 +269,9 @@ external state; ordinary difficulty and incomplete work remain active.
 Before each next attempt, audit what measurably improved, regressed, or stayed
 unchanged; the highest-leverage unresolved issue; whether the approach should
 continue, change, or be discarded; and where avoidable feedback time went.
-Optimize for cheap falsification without weakening final acceptance.
+Turn that audit into a live control for the next attempt when recurrence risk
+is material; a retrospective alone is insufficient. Optimize for cheap
+falsification without weakening final acceptance.
 
 At least every three closed attempts, and immediately when progress stalls,
 review the full attempt history and the whole delivery process more deeply

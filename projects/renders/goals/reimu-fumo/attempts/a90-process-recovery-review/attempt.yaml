@@ -1,0 +1,84 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a90-process-recovery-review
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-01T08:27:27.018215613Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 3
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:bb9662e269cdbb839c888582f47e223f57a8766d74dc042ce216819ca40ad929
+  workType: decision
+status:
+  state: closed
+  closedAt: "2026-09-01T08:43:51.375677466Z"
+  artifacts:
+    planDigest: sha256:217796985cfde3e386fc837ae43abf8f998bbbdf6c353129462f5121b48b55ca
+    resultDigest: sha256:ab0775101e4982d3bdfbe546a31170e80a86ab339f98e38bbae1b4bc9166448b
+    evidence:
+    - path: evidence/FUMO_GOAL_PROGRESS_REVIEW.md
+      digest: sha256:41fde8240521c5eddb4aa7980f12f025c9d5cc8f5354edeb0f464e3451e9e009
+    - path: evidence/FUMO_RECOVERY_PLAN.md
+      digest: sha256:0d47edb8f5b3a1648f4de91793e23e822a8d0984cabbc6b2eb06ab59040937a8
+    - path: evidence/history_audit.md
+      digest: sha256:6d3453f2db50564edca98afb3efe40fd2f77b63579b5c56439c928a2c6ece038
+    - path: evidence/process_audit.md
+      digest: sha256:3c02b6eb5f5380a32a7ede7489d3d78727167b73be004dd9c83de8c597f25bc2
+    - path: evidence/rebase_blender_review.md
+      digest: sha256:51a1ddecb421f871f584ef8fc94425655f5131c2846ec194b7edb61c7d2babbe
+    - path: evidence/rebase_goal_review.md
+      digest: sha256:34ec3fc9f78e8cdc2d1bbca1e68af5b60b57a08331dcde7cb038070414de3f97
+    - path: evidence/recovery_options.md
+      digest: sha256:a2685c8dc670e953e3a51b86ea4aa82759d600aaaac96670338a3b11e3b8a23b
+    - path: evidence/upstream_impact_review.md
+      digest: sha256:df73b04555ee806ae0f7163d8c0f296b8cc7df04e532eb298a827702709c2ff4
+    - path: evidence/visual_audit.md
+      digest: sha256:36918700f4e9fc757f61a8d05eb039d18cf61e58fc198f3f914bca0e5a54a7b5
+  review:
+    decision: refine
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/FUMO_GOAL_PROGRESS_REVIEW.md
+      - evidence/visual_audit.md
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/FUMO_GOAL_PROGRESS_REVIEW.md
+      - evidence/visual_audit.md
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/FUMO_GOAL_PROGRESS_REVIEW.md
+      - evidence/visual_audit.md
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/FUMO_GOAL_PROGRESS_REVIEW.md
+  observedAt: "2026-09-01T08:43:51.375677466Z"

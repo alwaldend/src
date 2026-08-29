@@ -1,0 +1,67 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a84-neutral-head-cushion
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-08-31T20:56:14.677678541Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:69d29116e14d282349e6ad5c073453839be4872922c886d9c74a7b5161fbae35
+  workType: candidate
+status:
+  state: closed
+  closedAt: "2026-09-01T06:10:16.594736195Z"
+  artifacts:
+    planDigest: sha256:23e5f4c15316c3b49ba4cb5a5a343ba57a850774c155dd73b01fe8e2e34cdbe7
+    resultDigest: sha256:1b58aabacef924e926b8fdc94cbe085a82f6ed8d181a362fd9ef7f844100b462
+    evidence:
+    - path: evidence/A84_CYCLE.md
+      digest: sha256:97411a4f7a38cd8f87c26defc12d0aa1ebed74f4b7caaba23ecf90bd6fb5fa5b
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/A84_CYCLE.md
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/A84_CYCLE.md
+      - result.md
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/A84_CYCLE.md
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-01T06:10:16.594736195Z"

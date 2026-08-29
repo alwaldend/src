@@ -1,0 +1,101 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a83-incremental-sculpt
+  resourceVersion: "9"
+  generation: 1
+  creationTimestamp: "2026-08-31T14:51:49.282925857Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:69d29116e14d282349e6ad5c073453839be4872922c886d9c74a7b5161fbae35
+  workType: change
+status:
+  state: closed
+  closedAt: "2026-08-31T20:55:43.045863378Z"
+  artifacts:
+    planDigest: sha256:a236d3f1ec0e9837fe9aa5f053d2e4a20b768463c1dad82af96281350c6e54ed
+    resultDigest: sha256:29b321be6a05dc37908de1148d8e6534f94efaaebf0e8ab6b539e69f1ff97dbc
+    evidence:
+    - path: evidence/BASELINE_VERDICT.md
+      digest: sha256:ce5dcea20444a0e70bf59a43121634b2364804f1f13356fdf0642091533b6916
+    - path: evidence/C1B_KEEP_UNDO.md
+      digest: sha256:e1e8970777faa8e7ccfa591aa252d231064156e15303af543a225944d02a3e6f
+    - path: evidence/C5_KEEP_UNDO.md
+      digest: sha256:7d7db17cbdfc6b9481cfdd301ed9f27bde1615f81120437619199809137905a1
+    - path: evidence/C6_KEEP_UNDO.md
+      digest: sha256:89123d31ac2e64f3788a1489d348dfdde0771247af72fcb3cb65b9a75e0102f5
+    - path: evidence/C7_KEEP_UNDO.md
+      digest: sha256:0353fd0c2b70abb9e20e2a21c69e31a4e75d55329bad3d9aefbec7069b123dd5
+    - path: evidence/C8_KEEP_UNDO.md
+      digest: sha256:71bb9cd5c77f200f5f59fb0f62397570c1c938f8bf3249eaad98b8c1a0eb8bf9
+    - path: evidence/C9_KEEP_UNDO.md
+      digest: sha256:8783051a69a3ca4658011f6f446f7306e625c15e293e6d2ebb1c295fb4565542
+    - path: evidence/CYCLES_C10_C12_RIG.md
+      digest: sha256:b75de6ecf7b46c126b89a644a243b8d691fa8ac49947f800c323a7cb4a4e7376
+    - path: evidence/CYCLES_C13_C16_R2.md
+      digest: sha256:ad88d249eaff0a136ee26e4db2e7ccab7904e36859f098bf714634bd37580e58
+    - path: evidence/CYCLES_C1_C5.md
+      digest: sha256:3df9a0b34f8b231a147cf42f7a5fb5a726492c88b05b7aa791149421721afa74
+    - path: evidence/CYCLES_C6_C7.md
+      digest: sha256:5fdbbf75a31c6aa6816f228758fcf083264d4038c243caf9808d07da04cf610f
+    - path: evidence/CYCLES_C8_C9.md
+      digest: sha256:8254d6a899bf49facde556f2ca10166c7c2c8b3aaa2c666b2a676ca08761c28b
+    - path: evidence/CYCLE_C18.md
+      digest: sha256:83127ef014ccefa8d96eea45fde151172d5fa4b5d661a5d199f7915f50f3c1dd
+    - path: evidence/DIRECT_SCULPT_LOOP.md
+      digest: sha256:661e9c477caf3750195a50b1e8f784522ccdc638cabe2733b059682f6c60f0ec
+    - path: evidence/PREMORTEM.md
+      digest: sha256:f9d641f06e0e9d94ae4c6b622612d0d766628d3cff59ade6444cef236179ab6a
+    - path: evidence/PROPOSAL.md
+      digest: sha256:d5b6c19b44085511d8304b54cdb055429b75fc770845b5ebb54465e994ada239
+    - path: evidence/REFERENCE_VERDICT.md
+      digest: sha256:f6410be84067c3d5b462cf941d13b4e55fbf83cbf742a570548019af1721b208
+    - path: evidence/REVIEW.md
+      digest: sha256:2ce22014123bbc3278dd1aff50c8819d07d005ffd10e9feb06d640315cb319bc
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/BASELINE_VERDICT.md
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/BASELINE_VERDICT.md
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/BASELINE_VERDICT.md
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-08-31T20:55:43.045863378Z"

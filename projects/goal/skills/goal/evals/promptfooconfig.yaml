@@ -6,14 +6,43 @@ prompts:
 
 providers:
   - id: openai:codex-sdk
+    label: goal-medium-coordinator
     config:
       model: gpt-5.6-sol
-      model_reasoning_effort: high
+      model_reasoning_effort: medium
+      codex_path_override: "{{ env.CODEX_PATH_OVERRIDE }}"
       working_dir: "{{ env.PROMPTFOO_SKILL_WORKSPACE }}"
       skip_git_repo_check: true
       sandbox_mode: read-only
       approval_policy: on-request
+      enable_streaming: true
       persist_threads: false
+      cli_env:
+        ALL_PROXY: "{{ env.ALL_PROXY }}"
+        CODEX_HOME: "{{ env.PROMPTFOO_SUBJECT_CODEX_HOME }}"
+        HTTPS_PROXY: "{{ env.HTTPS_PROXY }}"
+        HTTP_PROXY: "{{ env.HTTP_PROXY }}"
+        NO_PROXY: "{{ env.NO_PROXY }}"
+
+defaultTest:
+  options:
+    provider:
+      id: openai:codex-sdk
+      config:
+        model: gpt-5.6-sol
+        model_reasoning_effort: high
+        codex_path_override: "{{ env.CODEX_PATH_OVERRIDE }}"
+        working_dir: "{{ env.PROMPTFOO_JUDGE_WORKSPACE }}"
+        skip_git_repo_check: true
+        sandbox_mode: read-only
+        approval_policy: on-request
+        persist_threads: false
+        cli_env:
+          ALL_PROXY: "{{ env.ALL_PROXY }}"
+          CODEX_HOME: "{{ env.PROMPTFOO_JUDGE_CODEX_HOME }}"
+          HTTPS_PROXY: "{{ env.HTTPS_PROXY }}"
+          HTTP_PROXY: "{{ env.HTTP_PROXY }}"
+          NO_PROXY: "{{ env.NO_PROXY }}"
 
 tests: file://cases.yaml
 
@@ -24,3 +53,4 @@ evaluateOptions:
   cache: false
   showProgressBar: false
   timeoutMs: 300000
+  maxEvalTimeMs: 1200000

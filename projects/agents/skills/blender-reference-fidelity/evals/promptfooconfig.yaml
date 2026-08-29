@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
-description: Behavioral contract for Blender reference fidelity
+description: Behavioral contract for delta-first Blender reference fidelity
 
 prompts:
   - "{{request}}"
