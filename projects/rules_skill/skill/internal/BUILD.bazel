@@ -1,0 +1,24 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+
+bzl_library(
+    name = "skill_library",
+    srcs = ["skill_library.bzl"],
+    visibility = ["//skill:__pkg__"],
+)
+
+bzl_library(
+    name = "skill_discovery_links",
+    srcs = ["skill_discovery_links.bzl"],
+    visibility = [
+        "//skill:__pkg__",
+        "//tests/analysis:__pkg__",
+    ],
+    deps = [":skill_library"],
+)
+
+bzl_library(
+    name = "skill_validation",
+    srcs = ["skill_validation.bzl"],
+    visibility = ["//skill:__pkg__"],
+    deps = [":skill_library"],
+)

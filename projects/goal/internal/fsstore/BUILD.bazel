@@ -1,0 +1,35 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "fsstore",
+    srcs = [
+        "checkpoint.go",
+        "graph.go",
+        "integrity.go",
+        "markdown.go",
+        "migrate.go",
+        "model.go",
+        "render.go",
+        "store.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/goal/internal/fsstore",
+    visibility = ["//projects/goal/cmd/goal:__pkg__"],
+    deps = [
+        "//projects/goal/api/v1alpha1",
+        "@com_github_goccy_go_yaml//:go-yaml",
+    ],
+)
+
+go_test(
+    name = "go_test",
+    size = "small",
+    srcs = [
+        "graph_test.go",
+        "integrity_test.go",
+        "markdown_test.go",
+        "migrate_test.go",
+        "store_test.go",
+    ],
+    embed = [":fsstore"],
+    deps = ["//projects/goal/api/v1alpha1"],
+)

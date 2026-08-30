@@ -1,0 +1,18 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+alias(
+    name = "goal",
+    actual = "//projects/goal/cmd/goal",
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects:__pkg__"],
+    deps = [
+        "//projects/goal/cmd/goal:docs",
+        "//projects/goal/docs",
+        "//projects/goal/skills/goal:docs",
+    ],
+)

@@ -5,7 +5,8 @@ bzl_library(
     srcs = ["defs.bzl"],
     visibility = ["//visibility:public"],
     deps = [
-        "//skill/private:skill_library",
-        "//skill/private:skill_validation",
+        "//skill/internal:skill_discovery_links",
+        "//skill/internal:skill_library",
+        "//skill/internal:skill_validation",
     ],
 )

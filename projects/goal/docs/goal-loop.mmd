@@ -1,0 +1,92 @@
+%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#eef2ff", "primaryBorderColor": "#6366f1", "primaryTextColor": "#111827", "lineColor": "#64748b", "secondaryColor": "#ecfeff", "tertiaryColor": "#f8fafc"}}}%%
+flowchart TB
+    subgraph coordinator[Coordinator · goal skill]
+        direction TB
+        choose[Choose one explicit goal and session focus]
+        outcome_gate{Outcome open?}
+        terminal[Report terminal state]
+        execution_gate{Execution active?}
+        inactive["Do not start or publish attempt work<br/>report paused · waiting · blocked"]
+        resume_execution["Request a separate checkpoint<br/>to set execution active"]
+        attempt_gate{Validated open attempt exists?}
+        resume["Resume that open attempt<br/>from its exact stored bindings"]
+        plan["Define one bounded work unit<br/>with observable checks and exact inputs"]
+        preflight{"Cheap deterministic<br/>preflight passes?"}
+        revise[Revise the unfrozen plan]
+        open_request["Request checkpoint to open the attempt<br/>with immutable plan and exact bindings"]
+        work["Perform the bounded work<br/>inspect failures and capture subject-bound evidence"]
+        affected{"Affected criteria and<br/>regressions pass?"}
+        final_candidate{Ready for final acceptance?}
+        accept_unit["Close: accept work unit<br/>keep outcome open"]
+        recurring{"Same stable defect<br/>survived two attempts?"}
+        refine[Close: refine]
+        reset["Close: materially<br/>change strategy"]
+        freeze["Freeze one exact result<br/>run every required criterion + full regressions"]
+        final_gate{Full evidence plan passes?}
+        deliver[Deliver or export the frozen result]
+        identity{"Delivered identity matches<br/>the frozen tested identity?"}
+        retest["Freeze the delivered identity<br/>rerun the full evidence plan"]
+        delivered_gate{Delivered identity passes?}
+        achieve_request["Request one checkpoint:<br/>close accept + outcome achieved"]
+        close_request[Request close checkpoint with review]
+        reconcile["Retain isolated artifacts<br/>reread and reconcile: new attempt · revise · discard"]
+        continue_now{Continue now?}
+        yield[Yield with inspectable progress]
+        finish[Report the achieved, delivered identity]
+    end
+
+    subgraph store[goal CLI · local store]
+        direction TB
+        load["Load and validate<br/>goal · current criteria · active attempt"]
+        checkpoint["Acquire per-goal lock<br/>reread and validate canonical state"]
+        cas{"Expected Goal<br/>resourceVersion matches?"}
+        stale[Return stale result without overwriting]
+        validate["Validate attempt bindings and review<br/>achieved requires current required passes<br/>and the accepted result digest"]
+        publish["Atomically replace goal.yaml as the commit point<br/>then publish attempt file or directory renames<br/>generated README last; return committed version"]
+        committed{Committed request}
+    end
+
+    choose --> load --> outcome_gate
+    outcome_gate -->|No| terminal
+    outcome_gate -->|Yes| execution_gate
+    execution_gate -->|No| inactive
+    inactive -->|resume authorized| resume_execution --> checkpoint
+    inactive -->|cannot resume yet| yield
+    execution_gate -->|Yes| attempt_gate
+
+    attempt_gate -->|Yes| resume --> work
+    attempt_gate -->|No| plan --> preflight
+    preflight -->|No; work not started| revise --> plan
+    preflight -->|Yes| open_request --> checkpoint
+
+    work --> affected
+    affected -->|No| recurring
+    affected -->|Yes| final_candidate
+    final_candidate -->|No| accept_unit --> close_request
+    final_candidate -->|Yes| freeze --> final_gate
+    final_gate -->|No| recurring
+    final_gate -->|Yes| deliver --> identity
+    identity -->|No| retest --> delivered_gate
+    delivered_gate -->|No| recurring
+    identity -->|Yes| achieve_request
+    delivered_gate -->|Yes| achieve_request
+
+    recurring -->|No| refine --> close_request
+    recurring -->|Yes| reset --> close_request
+    close_request --> checkpoint
+    achieve_request --> checkpoint
+
+    checkpoint --> cas
+    cas -->|No| stale --> reconcile --> load
+    cas -->|Yes| validate --> publish --> committed
+    committed -->|attempt opened| work
+    committed -->|execution active| load
+    committed -->|outcome open| continue_now
+    committed -->|outcome achieved| finish
+
+    continue_now -->|Yes| load
+    continue_now -->|No| yield
+    yield -->|later attach or resume| load
+
+    classDef cli fill:#ecfeff,stroke:#0891b2,color:#111827;
+    class load,checkpoint,cas,stale,validate,publish,committed cli;

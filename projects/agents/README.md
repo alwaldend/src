@@ -11,14 +11,16 @@ tags:
   - skills
 ---
 
-This project owns the repository's Codex skills and their development-time
-evaluation assets. Each skill is packaged as a `skill_library` under
-`skills/<name>`.
+This project owns repository-wide Codex skills and their development-time
+evaluation assets. Product-specific skills live with their owning project at
+`projects/<project>/skills/<name>`. Every canonical skill is packaged as a
+`skill_library` in its owning directory.
 
-The repository discovery path `.agents/skills` is a direct symlink to this
-project's `skills/` directory. Bazel ignores that symlink and builds only the
-canonical targets under `//projects/agents/skills/...`, preventing duplicate
-packages while keeping the standard Codex discovery location available.
+The repository discovery directory `.agents/skills/` contains one relative
+symlink per skill. Each link points directly to its canonical project-owned
+directory. Bazel ignores the discovery directory and builds only canonical
+targets, preventing duplicate packages while allowing skills from more than
+one owning project.
 
 Skill evaluation data is not part of the runtime `skill_library` unless a
 skill explicitly declares otherwise. Every new or updated skill includes an

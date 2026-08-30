@@ -1,0 +1,15 @@
+load("//tools/mermaid:defs.bzl", "mermaid_svg")
+
+mermaid_svg(
+    name = "smoke_svg",
+    src = "smoke.mmd",
+    out = "smoke.svg",
+)
+
+sh_test(
+    name = "renderer_test",
+    size = "medium",
+    srcs = ["renderer_test.sh"],
+    args = ["$(rootpath :smoke_svg)"],
+    data = [":smoke_svg"],
+)

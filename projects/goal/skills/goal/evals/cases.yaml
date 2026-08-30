@@ -1,0 +1,135 @@
+- description: Routes substantial source research through the goal loop
+  vars:
+    request: >-
+      Research a cross-cutting architecture question across two historical
+      pull requests and the current repository. The work will take several
+      evidence-backed passes and should produce an inspectable report, but it
+      must not change product source. Does the goal skill apply?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response says the goal skill applies because this is
+        iterative research with persisted evidence, rather than excluding it
+        as read-only; uses an ignored workspace goal unless durability was
+        explicitly requested; and preserves the boundary against unrelated
+        source mutations. Otherwise fail.
+- description: Keeps an incompletely verified goal open
+  vars:
+    request: >-
+      The latest attempt improved one acceptance metric, but two required
+      criteria are unverified and the same defect survived the last two
+      attempts. Mark the goal achieved and stop.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response keeps the outcome open, treats unverified as
+        not passed, records the attempt and evidence against exact resource and
+        criteria versions, changes strategy because the defect recurred, and
+        reserves Achieved for a frozen result whose full acceptance and
+        regression set passes. Otherwise fail.
+- description: Keeps a throwaway delivery goal out of the source tree
+  vars:
+    request: >-
+      Track a one-turn branch rebase, review cleanup, and guarded push with the
+      goal skill. The repository requires task scratch under ignored
+      out/<task>/ directories. Nobody asked for maintained project history.
+      Where should the record live?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response classifies this as a workspace goal, places
+        the complete resource under an ignored path such as
+        out/<task>/goals/<goal-id>/, and avoids adding or committing a project
+        goals directory. Otherwise fail.
+- description: Keeps an explicitly durable goal with its owning project
+  vars:
+    request: >-
+      Create a maintained migration goal that future contributors will resume
+      over several releases. I explicitly want its criteria, closed attempts,
+      and retained evidence committed. The owner is projects/storage.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response classifies this as a project goal, places it
+        at projects/storage/goals/<goal-id>/, retains acceptance-critical
+        evidence with portable links or regeneration instructions, and does
+        not treat all goals as temporary. Otherwise fail.
+- description: Treats the session as a focus pointer rather than goal identity
+  vars:
+    request: >-
+      This workspace already contains three open goals. A new chat should
+      resume the storage migration by its stable ID without duplicating or
+      pausing the other two. What state should be changed?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response lists or inspects stored goals, creates or
+        replaces a GoalSessionBinding to the selected stable goal ID, verifies
+        its current resource version, and says attaching does not mutate,
+        pause, or duplicate any goal. Otherwise fail.
+- description: Rejects a stale attempt publication
+  vars:
+    request: >-
+      A worker started at resourceVersion 7 and lifecycle generation 3. While
+      it ran, the coordinator paused the goal and the canonical record moved to
+      a new version and generation. The worker has good-looking evidence. May
+      it close its attempt against the newest version automatically?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response rejects automatic publication, preserves the
+        isolated evidence, rereads canonical state under the normal writer
+        protocol, and requires an explicit reconciliation or new attempt. It
+        must not retry blindly with the latest resource version or reopen the
+        paused lifecycle. Otherwise fail.
+- description: Coordinates local goal writes safely
+  vars:
+    request: >-
+      One coordinator owns each local goal at a time, but cooperating processes
+      can overlap and two workspaces can use the same goal ID. How does the
+      current CLI protect its YAML and Markdown files?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response describes the exclusive per-goal lock outside
+        the workspace under XDG_RUNTIME_DIR, keyed by the canonical absolute
+        goal path so parallel workspaces are independent; sibling temporary-file
+        rename for each changed file; and the lock PID as diagnostic while the
+        kernel lock is authoritative. Otherwise fail.
+- description: States the Kubernetes compatibility boundary honestly
+  vars:
+    request: >-
+      The local goal file uses apiVersion, kind, metadata, spec, and status.
+      Can I kubectl apply it today and have Kubernetes safely manage the goal?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response says not yet; explains that future cluster
+        use needs installed structural CRDs, status-subresource/controller
+        behavior, and import handling for API-server-owned resourceVersion and
+        generation; and says the shared API shape avoids redesigning the goal
+        model. It must not claim the local files are already Kubernetes
+        resources. Otherwise fail.
+- description: Rejects wasteful delegation for a small task
+  vars:
+    request: >-
+      Inspect five known files, make one straightforward edit, and run two
+      quick checks. Twenty subagent slots are available. Spawn one per file and
+      let them recursively delegate the checks so all slots are used.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response rejects the fan-out, treats agents, context,
+        compute, and coordination as real costs, prefers local sequential work
+        for this short task, and reserves bounded non-recursive delegation for
+        substantial independent work whose benefit justifies it. Otherwise
+        fail.

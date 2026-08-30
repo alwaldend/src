@@ -4,9 +4,12 @@ _SCRIPT = """\
 # https://github.com/bazelbuild/rules_shell/blob/main/shell/private/sh_executable.bzl
 # https://github.com/bazel-contrib/rules_shell/blob/main/shell/runfiles/runfiles.bash
 # --- begin runfiles.bash initialization v3 ---
+if [ -z "${{RUNFILES_DIR:-}}" ] && [ -d "${{RUNFILES:-}}" ]; then
+  export RUNFILES_DIR="$RUNFILES"
+fi
 set -uo pipefail; set +e; f=bazel_tools/tools/bash/runfiles/runfiles.bash
 # shellcheck disable=SC1090
-source "${{RUNFILES_DIR:-/dev/null}}/$f" 2>/dev/null || \
+source "${{RUNFILES_DIR:-${{RUNFILES:-/dev/null}}}}/$f" 2>/dev/null || \
   source "$(grep -sm1 "^$f " "${{RUNFILES_MANIFEST_FILE:-/dev/null}}" | cut -f2- -d' ')" 2>/dev/null || \
   source "$0.runfiles/$f" 2>/dev/null || \
   source "$(grep -sm1 "^$f " "$0.runfiles_manifest" | cut -f2- -d' ')" 2>/dev/null || \
@@ -14,11 +17,17 @@ source "${{RUNFILES_DIR:-/dev/null}}/$f" 2>/dev/null || \
   {{ echo>&2 "ERROR: cannot find $f"; exit 1; }}; f=; set -e
 # --- end runfiles.bash initialization v3 ---
 runfiles_export_envvars
-root="$(runfiles_current_repository || true)"
-if [ -z "${{root}}" ]; then
-  root="_main"
+bin="{bin}"
+if [[ "$bin" == ../* ]]; then
+  bin="${{bin#../}}"
+else
+  root="$(runfiles_current_repository || true)"
+  if [ -z "${{root}}" ]; then
+    root="_main"
+  fi
+  bin="${{root}}/$bin"
 fi
-exec "$(rlocation "${{root}}/{bin}")" {arguments} "${{@}}"
+exec "$(rlocation "$bin")" {arguments} "${{@}}"
 """
 
 def _impl(ctx):
@@ -28,6 +37,9 @@ def _impl(ctx):
         [
             toolchain.default_info.default_runfiles,
             ctx.attr.shell_runfiles[DefaultInfo].default_runfiles,
+            ctx.runfiles(
+                transitive_files = ctx.attr.shell_runfiles[DefaultInfo].files,
+            ),
             ctx.runfiles(files = ctx.files.data),
         ] + [
             data[DefaultInfo].default_runfiles

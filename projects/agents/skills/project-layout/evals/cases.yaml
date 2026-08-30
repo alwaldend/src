@@ -1,0 +1,44 @@
+- description: Places a new command by role instead of language
+  vars:
+    request: >-
+      Add a Go command named scanner to the existing project at
+      tools/audit. Decide whether it belongs at tools/audit/main/go/scanner or
+      another path.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response chooses tools/audit/cmd/scanner, explains
+        that cmd is the source role, and rejects main/go as a language-first
+        layer. Otherwise fail.
+
+- description: Uses internal rather than private at any nesting depth
+  vars:
+    request: >-
+      Add Starlark implementation details below projects/rules_example/rule.
+      The APIs must not be consumed outside the rules package. Choose between
+      rule/private and rule/internal, and account for nearby legacy private
+      directories.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response chooses
+        projects/rules_example/rule/internal, never introduces private for
+        internal implementation, treats nearby legacy private directories as
+        grandfathered rather than precedent, and does not propose an unrelated
+        repository-wide migration. Otherwise fail.
+
+- description: Applies project ownership outside the projects tree
+  vars:
+    request: >-
+      Add separately owned integration-test support for the existing Forgejo
+      component under infra/forgejo. Where should it live?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response treats infra/forgejo as the project root and
+        chooses infra/forgejo/test followed by a descriptive name or tree. It
+        must not add a projects layer or organize the support by language.
+        Otherwise fail.

@@ -10,12 +10,19 @@ ARCHIVE = json.decode({archive})
         native_binary(
             name = "{{}}_native_binary".format(binary["name"]),
             src = binary["path"],
+            data = glob(
+                binary.get("runtime_files", []),
+                exclude = [binary["path"]],
+            ),
             exec_compatible_with = ARCHIVE["toolchain"].get("exec_compatible_with"),
             visibility = ARCHIVE["toolchain"].get("visibility", ["//visibility:public"]),
         ),
         filegroup(
             name = "{{}}_filegroup".format(binary["name"]),
-            srcs = [binary["path"]],
+            srcs = [binary["path"]] + glob(
+                binary.get("runtime_files", []),
+                exclude = [binary["path"]],
+            ),
             visibility = ARCHIVE["toolchain"].get("visibility", ["//visibility:public"]),
         )
     ]

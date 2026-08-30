@@ -1,0 +1,21 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    archives = {
+    },
+    lock = "//tools/mermaid:binary_toolchain.json",
+    toolchains_map = {
+        "chrome_headless_shell": "com_alwaldend_src_tools_mermaid",
+    },
+)
+
+register_toolchains(
+    "@com_alwaldend_src_tools_mermaid//:all",
+)
+
+use_repo(
+    binary_toolchain_extension,
+    "com_alwaldend_src_tools_mermaid",
+)
