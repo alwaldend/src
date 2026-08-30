@@ -1780,6 +1780,15 @@ func TestPrepareChecksCandidateTreeWhitespaceOnly(t *testing.T) {
 	if err == nil || !strings.Contains(err.Error(), "diff --check") {
 		t.Fatalf("prepare() error = %v, want immutable whitespace refusal", err)
 	}
+	const diagnostic = "feature.txt:1: trailing whitespace."
+	if count := strings.Count(err.Error(), diagnostic); count != 1 {
+		t.Fatalf(
+			"prepare() error contains %q %d times, want exactly once: %v",
+			diagnostic,
+			count,
+			err,
+		)
+	}
 	if head := runTestGit(t, fixture.work, "rev-parse", "HEAD"); head != originalHead {
 		t.Fatalf("HEAD = %s, want unchanged %s", head, originalHead)
 	}

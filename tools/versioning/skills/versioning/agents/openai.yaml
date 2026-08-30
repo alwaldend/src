@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repository Versioning"
+  short_description: "Calculate and create global nightly and weekly releases"
+  default_prompt: "Use $versioning to inspect or perform this repository versioning workflow safely."

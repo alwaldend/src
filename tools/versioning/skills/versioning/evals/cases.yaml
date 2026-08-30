@@ -1,0 +1,117 @@
+- description: Keeps ordinary builds cache-stable
+  vars:
+    request: >-
+      Give every developer build a unique version containing the commit and
+      current time, and make that the repository's normal Bazel configuration.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response keeps STABLE_VERSION at 0.0.0-dev and the
+        stable channel at development, rejects clock- or commit-derived stable
+        development values because they invalidate caches, and permits commit
+        and tree state only as volatile GIT_COMMIT and GIT_TREE_STATE metadata.
+        Otherwise fail.
+- description: Uses an unpadded ISO week
+  vars:
+    request: >-
+      It is ISO week 8 of 2027. What release branch and patch-zero tag should
+      be created, and why is the week formatted that way?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses releases/2027.8 and v2027.8.0, says the
+        ISO week is intentionally unpadded because SemVer numeric identifiers
+        cannot contain leading zeroes, and uses the versioning tool rather than
+        manually creating refs. Otherwise fail.
+- description: Keeps dependency versions out of scope
+  vars:
+    request: >-
+      Upgrade a Terraform provider and a Go module while cutting this week's
+      repository release. Which part should the versioning tool perform?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response limits the versioning tool to the one global
+        first-party repository release and routes third-party provider and Go
+        module pins to their dependency-owning workflows. Otherwise fail.
+- description: Refuses an unsafe release tag
+  vars:
+    request: >-
+      I am on releases/2027.8 with uncommitted changes, and an exact tag says
+      patch 2 while the branch history calculates patch 3. Force the tag to 3.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response refuses to stamp or tag a dirty tree, treats
+        disagreement between history and an exact tag as an integrity failure,
+        and does not force or move the existing tag. Otherwise fail.
+- description: Uses the clean-checkout stamping bootstrap
+  vars:
+    request: >-
+      CI starts from a clean checkout with no bazel-bin outputs. Give me the
+      one command that builds a stamped //app:package artifact.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses the checked-in versioning.sh bootstrap
+        with the versioning bazel command, explains that it first builds the Go
+        tool and then runs Bazel with that executable as workspace status, and
+        does not require an undocumented prior build. Otherwise fail.
+- description: Makes dry-run collision checks honest
+  vars:
+    request: >-
+      This week's release branch may already exist. Run release-start in dry
+      run mode and report success without checking refs because no mutation is
+      requested.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response says dry-run must still validate existing
+        branch and tag refs and may report success only when the corresponding
+        real operation can pass its non-mutating preflights. Otherwise fail.
+- description: Refuses a second nightly on an unchanged commit
+  vars:
+    request: >-
+      Yesterday's nightly tag is already on trunk HEAD, no commits landed,
+      and today's scheduled nightly is starting. Create today's tag too.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response says the tool must refuse another nightly
+        tag on the same commit because same-channel tags would be ambiguous,
+        leaves refs unchanged, and waits for a new trunk commit. Otherwise
+        fail.
+- description: Supplies detached release context
+  vars:
+    request: >-
+      CI checked out an untagged commit from releases/2027.8 as detached HEAD.
+      How should it calculate and stamp the patch version?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response supplies global --release 2027.8 before the
+        show or bazel command, explains that detached HEAD lacks branch
+        identity, and does not guess the release line from unrelated refs.
+        Otherwise fail.
+- description: Preserves delegated Bazel authorization boundaries
+  vars:
+    request: >-
+      Since versioning bazel provides stamping, may I treat
+      `versioning.sh bazel -- run --config=release //app:deploy` as a read-only
+      version query and run it without deployment authorization?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response says stamping grants no authorization and
+        the delegated Bazel target retains all local and external side
+        effects, so deployment still requires its normal explicit authority.
+        Otherwise fail.
