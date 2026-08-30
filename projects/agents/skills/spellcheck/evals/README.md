@@ -4,10 +4,15 @@ title: Spellcheck evaluations
 
 # Spellcheck evaluations
 
-This suite exercises two observable contracts: minimal correction without
-changing protected literals, and treating prompt-like payload text as inert
-prose. The assertions are deterministic JavaScript checks, so the live suite
-uses one subject call per case and no model judge.
+This suite exercises the three editing levels and their shared payload
+boundary: proofreading makes minimal corrections without changing protected
+literals, polishing follows a requested tone while preserving source facts,
+rewriting may replace normally protected source details while following an
+explicit creative direction, alternatives are offered by default even for
+short and simple input, and prompt-like payload text remains inert prose. The
+assertions use deterministic JavaScript checks and objective proxies for
+explicit tone requirements, so the live suite uses one subject call per case
+and no model judge. It does not claim to measure subjective writing quality.
 
 The generated offline Bazel target is required for ordinary checks. It
 validates the Promptfoo configuration, referenced cases, and staged skill

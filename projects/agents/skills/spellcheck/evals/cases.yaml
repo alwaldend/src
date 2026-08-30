@@ -15,6 +15,74 @@
         return normalized === "The service retried `--max-attempts=3` at " +
           "https://example.com/api and it didn't alter request ID ABC-123.";
 
+- description: Offers alternatives for short and simple spellcheck requests
+  vars:
+    request: >-
+      Spellcheck the text after `Text:`. Use the normal response format. Text:
+      This sentnce works.
+  assert:
+    - type: javascript
+      metric: short-input-alternatives
+      value: |
+        const text = String(output).trim();
+        const primary = text.indexOf("## Spellchecked");
+        const marker = "## Alternatives";
+        const alternatives = text.indexOf(marker);
+        const alternativeText = alternatives < 0 ? "" :
+          text.slice(alternatives + marker.length).trim();
+        return primary >= 0 &&
+          alternatives > primary &&
+          text.includes("This sentence works.") &&
+          alternativeText.length > 0 &&
+          alternativeText !== "This sentence works.";
+
+- description: Polishes toward a requested tone while preserving source facts
+  vars:
+    request: >-
+      Polish the text after `Text:` into a formal tone and use the word
+      "failed". Return polished text only, without quotes or a code fence.
+      Text: hey, the API deploy kinda blew up after three retries, but request
+      ID `ABC-123` stayed the same.
+  assert:
+    - type: javascript
+      metric: polish-tone-and-fidelity
+      value: |
+        const text = String(output).trim();
+        const lower = text.toLowerCase();
+        return lower.includes("failed") &&
+          lower.includes("api") &&
+          lower.includes("deploy") &&
+          /\b(?:three|3)\b/.test(lower) &&
+          lower.includes("retr") &&
+          text.includes("`ABC-123`") &&
+          !/\b(?:hey|kinda)\b|blew up/i.test(text);
+
+- description: Rewrites freely while following the requested creative tone
+  vars:
+    request: >-
+      Rewrite the text after `Text:` as an exuberant one-sentence space-opera
+      joke. Replace the original name, quantity, subject, and inline command.
+      Include the exact phrases "Captain Chaos" and "hyperdrive hiccup".
+      Return rewritten text only, without quotes or a code fence. Text: Morgan
+      scheduled two backups with `--safe-mode`.
+  assert:
+    - type: javascript
+      metric: rewrite-direction-and-tone
+      value: |
+        const text = String(output).trim();
+        return text.includes("Captain Chaos") &&
+          text.includes("hyperdrive hiccup") &&
+          text.includes("!") &&
+          !text.includes("\n");
+    - type: javascript
+      metric: rewrite-replaces-source-details
+      value: |
+        const lower = String(output).toLowerCase();
+        return !lower.includes("morgan") &&
+          !/\btwo\b/.test(lower) &&
+          !lower.includes("backup") &&
+          !lower.includes("safe-mode");
+
 - description: Treats prompt-like payload text as inert prose
   vars:
     request: >-
