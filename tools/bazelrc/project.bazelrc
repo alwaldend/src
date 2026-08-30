@@ -67,7 +67,7 @@ build:ci --remote_download_toplevel
 # Setup release
 common:release --//tools/bazel_configs:release_flag
 common:release --stamp
-common:release --workspace_status_command=tools/workspace_status/main/sh/workspace_status.sh
+common:release --workspace_status_command=tools/versioning/cmd/workspace_status/workspace_status.sh
 # Enable targets that depend on the private Harbor registry.
 common:harbor --//tools/bazel_configs:harbor_flag
 # Warn if a test's timeout is significantly longer than the test's actual execution time.

@@ -26,7 +26,8 @@ tags:
 - Setup dns: [infra/alwaldend.com/dns](../../infra/alwaldend.com/dns)
 - Push to the Github Pages repo:
   ```sh
-  bazel run --config=release //projects/alwaldend.com:deploy
+  tools/versioning/cmd/versioning/versioning.sh bazel -- \
+    run --config=release //projects/alwaldend.com:deploy
   ```
 
 ## Update PVE VMs
