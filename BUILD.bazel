@@ -50,6 +50,7 @@ skill_discovery_links(
         "//projects/agents/skills/bazel-nested-module:skill",
         "//projects/agents/skills/bazel-rules-skill:skill",
         "//projects/agents/skills/blender-reference-fidelity:skill",
+        "//projects/agents/skills/decision-review:skill",
         "//projects/agents/skills/full-repo-check:skill",
         "//projects/agents/skills/git-rebase-remote:skill",
         "//projects/agents/skills/host-bot-diagnostics:skill",

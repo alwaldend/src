@@ -15,26 +15,41 @@
         return normalized === "The service retried `--max-attempts=3` at " +
           "https://example.com/api and it didn't alter request ID ABC-123.";
 
-- description: Offers alternatives for short and simple spellcheck requests
+- description: Gives one useful revision when asked to assess prose flow
   vars:
     request: >-
-      Spellcheck the text after `Text:`. Use the normal response format. Text:
-      This sentnce works.
+      Does this flow well? Text: Daily reminder that AI agents are literally a
+      reverse shell that runs commands that the remote server tells it to.
   assert:
     - type: javascript
-      metric: short-input-alternatives
+      metric: flow-assessment-and-revision
       value: |
         const text = String(output).trim();
-        const primary = text.indexOf("## Spellchecked");
-        const marker = "## Alternatives";
-        const alternatives = text.indexOf(marker);
-        const alternativeText = alternatives < 0 ? "" :
-          text.slice(alternatives + marker.length).trim();
-        return primary >= 0 &&
-          alternatives > primary &&
-          text.includes("This sentence works.") &&
-          alternativeText.length > 0 &&
-          alternativeText !== "This sentence works.";
+        const lower = text.toLowerCase();
+        const assessmentTerms = [
+          "awkward",
+          "clunky",
+          "mismatch",
+          "not quite",
+          "could flow",
+          "could read",
+          "understandable",
+        ];
+        const assessment = assessmentTerms.some(
+          (term) => lower.includes(term),
+        );
+        const revisionPrefix =
+          "daily reminder(?: that|:)\\s+ai agents are literally " +
+          "reverse shells that (?:run|execute) commands ";
+        const revisionTails = [
+          "(?:that )?(?:a|the) remote server tells them to " +
+            "(?:run|execute)",
+          "(?:sent|issued) by (?:a|the) remote server",
+        ];
+        const revision = revisionTails.some((tail) =>
+          new RegExp(revisionPrefix + tail, "i").test(text),
+        );
+        return assessment && revision && !text.includes("## Alternatives");
 
 - description: Polishes toward a requested tone while preserving source facts
   vars:

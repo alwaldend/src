@@ -156,6 +156,23 @@ directory; pass that exact receipt to `review resolve`. Use
 `review request --reviewer <login>` for explicit user accounts. Never invoke
 `gh` directly for these mutations.
 
+When inspection shows that an enabled remote review has started or is still
+running for the exact final head, wait for it to reach a terminal state before
+declaring delivery complete. Use the product's authoritative wait or monitoring
+mechanism when available. Poll `review inspect` at a modest interval only when
+its selected adapter exposes the review execution state needed to distinguish
+running, completed, failed, and cancelled outcomes for that exact head. Do not
+infer completion from the absence of a pending review, a quiet interval, or an
+unchanged review inventory. If no available mechanism exposes that state, make
+a bounded observation attempt, keep the user informed, and report the remote
+review result as unverifiable instead of waiting indefinitely or claiming it
+passed. Do not retrigger the review merely because it is still running. After
+it finishes, reinspect and evaluate every finding through the workflow below.
+If the review fails, is cancelled, or cannot reach a terminal state because of
+an external blocker, report that state explicitly rather than claiming that
+review passed. A new published head invalidates completion observed for an
+older head and requires waiting for any review started for the new exact head.
+
 - For valid feedback, implement the fix, prepare the aggregate commit again,
   rerun all checks that establish publish readiness against the exact new
   top-level `head_oid`, publish, then reply with what changed and why before
@@ -196,9 +213,10 @@ stale IDs or digests.
 
 After a review-driven rewrite, use `repo_delivery review request` to request
 review for the new commit SHA, or use `review inspect` to verify that review
-already covers that exact SHA. Recheck comments through `review inspect` once
-after the final publish, run `verify --receipt-file <path>`, and confirm no
-requested change remains uncommitted.
+already covers that exact SHA. After the final publish, inspect the review
+state, wait for any review started for the exact final head to finish, then
+reinspect and handle its findings. Run `verify --receipt-file <path>` and
+confirm no requested change remains uncommitted.
 
 ## Forgejo compatibility workflow
 

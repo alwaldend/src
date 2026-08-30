@@ -30,9 +30,14 @@ task-owned rewrite authority; only that literal freshly inspected OID may be
 passed to `--replace-remote` and bound into the final snapshot and receipt.
 Review cases also preserve pull-request/head/context,
 last-comment, snapshot-digest, and reply-receipt guards, exact comment
-disclaimers, and post-mutation reinspection. Validation runs from a clean
-checkout of the exact candidate whenever unrelated dirt could influence a
-check, unless the caller can prove that the check cannot consume that dirt.
+disclaimers, post-mutation reinspection, and waiting for a started remote
+review of the exact final head to reach a terminal state before delivery is
+reported complete. When neither the product monitor nor the selected adapter
+exposes authoritative review execution state, the suite requires a bounded
+observation attempt and an explicit unverifiable result instead of inferred
+success or an indefinite wait. Validation runs from a clean checkout of the
+exact candidate whenever unrelated dirt could influence a check, unless the
+caller can prove that the check cannot consume that dirt.
 The compatibility cases separately require honest Forgejo detection, a
 completely clean worktree and index without autostash, exact commit and
 pull-request disclaimer strings, and only the capabilities exposed by
