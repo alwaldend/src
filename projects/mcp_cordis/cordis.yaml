@@ -1,0 +1,6 @@
+- id: repo_context
+  name: ./plugins/repo_context.mjs
+- id: git_worktree
+  name: ./plugins/git_worktree.mjs
+- id: network_probe
+  name: ./plugins/network_probe.mjs

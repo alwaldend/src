@@ -15,3 +15,27 @@
         Bazel's exit status; fixes managed sandbox writable roots instead of
         redirecting caches into /tmp; and distinguishes environment failures
         from failures caused by the repository patch. Otherwise fail.
+- description: Batches only compatible multi-target Bazel work
+  vars:
+    request: >-
+      Plan the repository Bazel invocations for this work. Build
+      //projects/alpha:library and //projects/beta:library with the same
+      options. Test //projects/alpha:unit_test and
+      //projects/beta:unit_test with the same options. Also run
+      //projects/tools:inspector, test //projects/gamma:flaky_test with a
+      different runs-per-test setting, and run a diagnostic test only after
+      the ordinary tests fail so its output stays isolated. Show how you
+      would group and order the commands.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses the repository's bazel_agent runner;
+        batches the two compatible build targets into one build invocation;
+        batches the two compatible ordinary test targets into one test
+        invocation; and keeps the single-target run, the differently
+        configured flaky test, and the conditionally ordered diagnostic work
+        in separate invocations. It must explain that separation is justified
+        by command or option incompatibility, a real ordering dependency, or
+        diagnostic isolation, and must not split compatible targets merely to
+        parallelize them. Otherwise fail.

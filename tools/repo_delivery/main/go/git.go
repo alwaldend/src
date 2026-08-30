@@ -1647,19 +1647,40 @@ func (s *preparationState) stagePaths(
 	// Force tracked entries through the clean/content pipeline before the
 	// ordinary all-changes add. This avoids trusting a racy same-size,
 	// same-timestamp stat match copied from the main index.
-	renormalizeArguments := []string{
-		"--literal-pathspecs",
-		"add",
-		"--renormalize",
-		"--",
+	trackedArguments := []string{"--literal-pathspecs", "ls-files", "-z", "--"}
+	trackedArguments = append(trackedArguments, paths...)
+	tracked, err := g.runEnvironment(ctx, environment, trackedArguments...)
+	if err != nil {
+		return fmt.Errorf("enumerate tracked explicit task paths: %w", err)
 	}
-	renormalizeArguments = append(renormalizeArguments, paths...)
-	if _, err := g.runEnvironment(
-		ctx,
-		environment,
-		renormalizeArguments...,
-	); err != nil {
-		return fmt.Errorf("force-refresh explicit tracked task paths: %w", err)
+	renormalizePaths := make([]string, 0, len(paths))
+	for _, path := range strings.Split(tracked.Stdout, "\x00") {
+		if path == "" {
+			continue
+		}
+		if info, err := os.Lstat(filepath.Join(g.directory, filepath.FromSlash(path))); err == nil {
+			if !info.IsDir() {
+				renormalizePaths = append(renormalizePaths, path)
+			}
+		} else if !os.IsNotExist(err) {
+			return fmt.Errorf("inspect explicit task path %q: %w", path, err)
+		}
+	}
+	if len(renormalizePaths) != 0 {
+		renormalizeArguments := []string{
+			"--literal-pathspecs",
+			"add",
+			"--renormalize",
+			"--",
+		}
+		renormalizeArguments = append(renormalizeArguments, renormalizePaths...)
+		if _, err := g.runEnvironment(
+			ctx,
+			environment,
+			renormalizeArguments...,
+		); err != nil {
+			return fmt.Errorf("force-refresh explicit tracked task paths: %w", err)
+		}
 	}
 	arguments := []string{"--literal-pathspecs", "add", "-A", "--"}
 	arguments = append(arguments, paths...)
@@ -2149,6 +2170,29 @@ func (g *gitRepository) changedPaths(
 	return paths, nil
 }
 
+func (g *gitRepository) pathEntry(
+	ctx context.Context,
+	object string,
+	path string,
+) (string, error) {
+	if !isObjectID(object) {
+		return "", fmt.Errorf("tree entry object is not a full Git object ID")
+	}
+	result, err := g.run(
+		ctx,
+		"--literal-pathspecs",
+		"ls-tree",
+		"-z",
+		object,
+		"--",
+		path,
+	)
+	if err != nil {
+		return "", fmt.Errorf("inspect tree entry %q: %w", path, err)
+	}
+	return result.Stdout, nil
+}
+
 func strictNULPaths(value string) ([]string, error) {
 	if value == "" {
 		return nil, nil
@@ -2173,7 +2217,16 @@ func (g *gitRepository) rangeDiffCheck(
 	if err := requireObjectIDRange(base, head); err != nil {
 		return err
 	}
-	if _, err := g.run(ctx, "diff", "--check", base, head); err != nil {
+	result, err := g.run(ctx, "diff", "--check", base, head)
+	if err != nil {
+		detail := strings.TrimSpace(redactCredentials(result.Stdout))
+		if detail != "" {
+			return fmt.Errorf(
+				"aggregate git diff --check failed: %s: %w",
+				detail,
+				err,
+			)
+		}
 		return fmt.Errorf("aggregate git diff --check failed: %w", err)
 	}
 	return nil
@@ -2749,8 +2802,91 @@ func (g *gitRepository) commitChecked(
 	observer installedCheckoutObserver,
 	flagPathSets ...[]string,
 ) (string, error) {
+	parents := []string{expectedHead}
+	authorOID := ""
+	signatureSources := []string(nil)
+	if amend {
+		var err error
+		parents, err = g.commitParents(ctx, expectedHead)
+		if err != nil {
+			return "", err
+		}
+		authorOID = expectedHead
+		signatureSources = []string{expectedHead}
+	}
+	return g.commitPlannedChecked(
+		ctx,
+		message,
+		expectedHead,
+		expectedTree,
+		branch,
+		parents,
+		authorOID,
+		signatureSources,
+		observer,
+		flagPathSets...,
+	)
+}
+
+func (g *gitRepository) commitConsolidatedChecked(
+	ctx context.Context,
+	message string,
+	expectedHead string,
+	expectedTree string,
+	branch string,
+	parentOID string,
+	authorOID string,
+	signatureSources []string,
+	observer installedCheckoutObserver,
+	flagPathSets ...[]string,
+) (string, error) {
+	if !isObjectID(parentOID) || !isObjectID(authorOID) {
+		return "", fmt.Errorf("consolidated commit plan contains an invalid object ID")
+	}
+	if len(signatureSources) == 0 {
+		return "", fmt.Errorf("consolidated commit plan lacks signature sources")
+	}
+	for _, oid := range signatureSources {
+		if !isObjectID(oid) {
+			return "", fmt.Errorf("consolidated signature source is not a full object ID")
+		}
+	}
+	return g.commitPlannedChecked(
+		ctx,
+		message,
+		expectedHead,
+		expectedTree,
+		branch,
+		[]string{parentOID},
+		authorOID,
+		signatureSources,
+		observer,
+		flagPathSets...,
+	)
+}
+
+func (g *gitRepository) commitPlannedChecked(
+	ctx context.Context,
+	message string,
+	expectedHead string,
+	expectedTree string,
+	branch string,
+	expectedParents []string,
+	authorOID string,
+	signatureSources []string,
+	observer installedCheckoutObserver,
+	flagPathSets ...[]string,
+) (string, error) {
 	if len(flagPathSets) > 1 {
 		return "", fmt.Errorf("commit accepts at most one index-flag path set")
+	}
+	if len(expectedParents) > 1 {
+		return "", fmt.Errorf("aggregate commit accepts at most one parent")
+	}
+	for _, parent := range expectedParents {
+		if !isObjectID(parent) {
+			return "", fmt.Errorf("aggregate commit parent is not a full object ID")
+		}
 	}
 	if err := g.requireCompleteHistory(ctx); err != nil {
 		return "", err
@@ -2788,14 +2924,12 @@ func (g *gitRepository) commitChecked(
 			expectedTree,
 		)
 	}
-	expectedParents := []string{expectedHead}
 	var expectedAuthor *commitAuthor
-	if amend {
-		expectedParents, err = g.commitParents(ctx, expectedHead)
-		if err != nil {
-			return "", err
+	if authorOID != "" {
+		if !isObjectID(authorOID) {
+			return "", fmt.Errorf("aggregate author source is not a full object ID")
 		}
-		author, err := g.author(ctx, expectedHead)
+		author, err := g.author(ctx, authorOID)
 		if err != nil {
 			return "", err
 		}
@@ -2805,8 +2939,11 @@ func (g *gitRepository) commitChecked(
 	if err != nil {
 		return "", err
 	}
-	if amend && !sign {
-		sign, err = g.commitHasSignature(ctx, expectedHead)
+	for _, source := range signatureSources {
+		if sign {
+			break
+		}
+		sign, err = g.commitHasSignature(ctx, source)
 		if err != nil {
 			return "", err
 		}

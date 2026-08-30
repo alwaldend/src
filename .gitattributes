@@ -101,4 +101,4 @@
 *.dat filter=lfs diff=lfs merge=lfs -text
 *.csv filter=lfs diff=lfs merge=lfs -text
 *.icc filter=lfs diff=lfs merge=lfs -text
-projects/rules_promptfoo/patches/promptfoo@0.122.2.patch whitespace=-space-before-tab
+*.patch whitespace=-blank-at-eol,-space-before-tab

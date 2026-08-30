@@ -227,7 +227,7 @@ func newPrepareCommand(
 	options := &prepareOptions{}
 	command := &cobra.Command{
 		Use:   "prepare",
-		Short: "Create or amend the sole feature commit and rebase it",
+		Short: "Create, amend, or consolidate the feature commit and rebase it",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			delivery, err := deliveryFromConfig(ctx, config, getenv, runner)
@@ -282,6 +282,12 @@ func newPrepareCommand(
 		"rewrite",
 		"",
 		"exact local commit OID authorized for amendment",
+	)
+	flags.StringVar(
+		&options.ConsolidateOID,
+		"consolidate",
+		"",
+		"exact local multi-commit head authorized for ownership consolidation",
 	)
 	flags.StringVar(
 		&options.ReplaceRemoteOID,

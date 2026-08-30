@@ -75,6 +75,7 @@ include("//tools/bao:include.MODULE.bazel")
 include("//tools/shfmt:include.MODULE.bazel")
 
 # Projects
+include("//projects/mcp_cordis:include.MODULE.bazel")
 include("//projects/android_launcher:include.MODULE.bazel")
 include("//projects/nexus_security_plugin:include.MODULE.bazel")
 include("//projects/ansible_collection:include.MODULE.bazel")

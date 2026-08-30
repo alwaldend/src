@@ -35,11 +35,29 @@ fork-based or otherwise cross-repository pull request, and stop when remote or
 pull-request ownership is uncertain. An adapter refusal for an observed
 mismatch does not prove that an undiscovered fork topology is safe.
 
+## Correctness revalidation
+
+Any behavior-changing code edit after the latest correctness or review verdict
+invalidates that verdict, independently of exact-commit test invalidation.
+Before preparing or republishing the changed candidate, perform fresh,
+diff-focused correctness scrutiny against the requested behavior and the
+contracts touched by the edit. Actively seek disconfirming cases relevant to
+the change, such as alternate and fallback paths, boundary and encoding
+semantics, malformed or partial state, concurrency and lifecycle transitions,
+and platform or implementation parity. Keep the review proportional to the
+changed behavior rather than reopening unrelated accepted code.
+
+Passing tests do not substitute for this scrutiny: tests establish only their
+encoded cases. Turn valid findings into focused regression coverage, implement
+the corrections, and scrutinize the resulting diff again before proceeding.
+Documentation-only delivery records do not invalidate a behavioral verdict
+unless they can affect execution or the published interface.
+
 ## GitHub adapter
 
 Use `bazel_agent run //tools/repo_delivery -- ...` for `inspect`, `prepare`,
 `publish`, `verify`, and the `review` subcommands. The tool owns deterministic
-mechanics: exact ref and pull-request discovery, the sole feature commit,
+mechanics: exact ref and pull-request discovery, aggregate commit creation,
 signing preservation, rebasing, exact-lease pushes, provider-CLI calls,
 commit-to-pull-request projection, review mutations, disclaimers, and final
 invariants.
@@ -68,7 +86,22 @@ configuration or weakening transport isolation implicitly.
    use `--use-index`; never blanket-stage the worktree.
 3. Before a rewrite, confirm the branch is not shared, stacked, human-owned, or
    carrying unrelated work. Pass the exact reported local OID to `--rewrite`
-   only after that judgment. Stop and ask the user when ownership is uncertain.
+   only after that judgment. With a pending authorized remote replacement,
+   the pull request must still match an exact projectable local or fetched
+   remote commit projection; unrelated text remains a refusal. For a
+   multi-commit feature range, use
+   `--consolidate <literal-inspect.local_head_oid>` only after reviewing every
+   listed commit and obtaining explicit user authorization to replace that
+   exact task-owned range. The adapter additionally requires a merge-free
+   linear chain, identical author and committer identities, the ownership
+   disclaimer on the oldest commit, and a pull-request projection exactly
+   matching the requested aggregate message.
+   Never use consolidation for shared, stacked, human-owned, unrelated, or
+   ambiguous history. Stop and ask the user when ownership is uncertain.
+   During a rebase, an expected aggregate path may disappear only when the
+   prior candidate and fetched base contain the exact same Git tree entry;
+   added paths, non-identical loss, and an empty aggregate remain refusals.
+   Carry the reduced exact path set in the derived receipt.
    A divergent remote feature tip is refused by default. Pass
    `--replace-remote <literal-inspect.remote_head_oid>` only after
    `$git-rebase-remote` has preserved that exact old remote tip and established
@@ -95,9 +128,9 @@ configuration or weakening transport isolation implicitly.
    another preparation, repeat the post-prepare validation against the new
    top-level `head_oid`. Use
    `prepare --message-only --rewrite <exact-oid>` when only the aggregate
-   message needs refreshing. Every message-only amendment
-   changes HEAD even though it preserves the tree, so it invalidates the prior
-   exact-OID gate and requires the checks to run again against the newly
+   message needs refreshing. Every consolidation or message-only amendment
+   changes HEAD, so it invalidates the prior exact-OID gate and requires the
+   checks to run again against the newly
    returned top-level `head_oid`.
 
 The current adapter aborts and removes an isolated rebase when it encounters a

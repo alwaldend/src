@@ -36,6 +36,8 @@ bazel_agent run //tools/repo_delivery -- prepare \
   --receipt-file out/task/prepare.json \
   --path path/to/task/file \
   --rewrite <inspect.local_head_oid> # omit when the range has no commit
+# For an explicitly reviewed task-owned multi-commit range, use
+# --consolidate <inspect.local_head_oid> instead of --rewrite.
 # Run every required validation against the top-level literal head_oid.
 bazel_agent run //tools/repo_delivery -- publish \
   --base master \
@@ -53,6 +55,24 @@ OID or use this escape hatch for shared, stacked, human-owned, unrelated, or
 ambiguous history. A mismatched, malformed, absent, or unnecessary
 authorization is refused. The final fresh snapshot and preparation receipt
 bind the same old remote OID for the later exact force-with-lease push.
+
+`prepare --consolidate <literal-inspect.local_head_oid>` is the explicit
+ownership authorization for replacing a multi-commit feature range with one
+aggregate commit. It is not inferred from author names. The adapter still
+requires a merge-free linear chain, one author and committer identity across
+the range, the ownership disclaimer on its oldest commit, pull-request
+metadata matching the requested aggregate message, and the exact inspected
+head.
+It preserves any signature requirement found in the range and keeps the
+fetched remote feature tip as the publication lease. `--consolidate` and
+`--rewrite` are mutually exclusive.
+
+When a clean replay onto an advanced base makes an expected aggregate path
+disappear from the resulting diff, the adapter accepts that shrink only when
+the prior candidate and the new base have byte-identical Git tree entries at
+that path. A new path, a non-identical disappearance, or an entirely empty
+aggregate remains a refusal. The derived receipt records the reduced exact
+aggregate path set.
 
 Never populate `--validated-head` by resolving the current `HEAD` during
 publication. Carry the literal OID returned by `prepare`; otherwise a checkout
@@ -91,8 +111,14 @@ Use repeated `--path` flags for fully task-owned paths, or pre-stage only
 task-owned hunks and use `--use-index`. Both modes bind the complete existing
 feature diff, not merely the paths newly staged by that invocation.
 `--message-only --rewrite <exact-oid>` preserves the tree but changes the
-commit OID. Every prepare or message-only amendment therefore requires fresh
-validation against its returned exact head.
+commit OID. Consolidation also changes the commit OID and parent structure.
+Every prepare, consolidation, or message-only amendment therefore requires
+fresh validation against its returned exact head.
+When an authorized remote replacement is pending, rewrite evidence accepts an
+existing pull request only if its metadata matches the exact projectable local
+or fetched-remote commit projection. A legacy remote tail that lacks an
+aggregate disclaimer cannot block a matching local aggregate, and unrelated
+pull-request text remains a refusal.
 
 Publish and receipt-bound verify require a clean index and reject staged,
 unstaged, or untracked changes in the prepared task scope. They preserve
@@ -110,7 +136,10 @@ tree, and derived receipt. Validate that returned head directly, then retry
 also supports a guarded retry when the remote already equals its prepared head
 but pull-request creation or metadata synchronization stopped partway through.
 Replacement pull-request identities and any state other than the exact prior
-or desired projection are refused.
+or desired projection are refused. Multi-commit consolidation likewise
+requires an existing pull request to equal the requested aggregate message's
+projection, so consolidation cannot silently replace independently edited
+pull-request text.
 
 The tool creates commits with Git plumbing and pushes one exact ref with hooks
 disabled. It rejects shallow, promisor, or grafted history and ignores

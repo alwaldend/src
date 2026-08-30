@@ -594,6 +594,70 @@ func verifyAggregateScopeInRepository(
 	return refusePathsOutside(paths, scope.AuthorizedPaths, "aggregate")
 }
 
+func reconcileRebasedAggregateScope(
+	ctx context.Context,
+	repository *gitRepository,
+	baseOID string,
+	headOID string,
+	priorHeadOID string,
+	scope aggregateScope,
+) (aggregateScope, error) {
+	if err := scope.validate(); err != nil {
+		return aggregateScope{}, err
+	}
+	if err := repository.rangeDiffCheck(ctx, baseOID, headOID); err != nil {
+		return aggregateScope{}, err
+	}
+	paths, err := repository.changedPaths(ctx, baseOID, headOID)
+	if err != nil {
+		return aggregateScope{}, err
+	}
+	expected := make(map[string]bool, len(scope.AggregatePaths))
+	for _, path := range scope.AggregatePaths {
+		expected[path] = true
+	}
+	observed := make(map[string]bool, len(paths))
+	for _, path := range paths {
+		if !expected[path] {
+			return aggregateScope{}, fmt.Errorf(
+				"rebased aggregate introduced path %q",
+				path,
+			)
+		}
+		observed[path] = true
+	}
+	for _, path := range scope.AggregatePaths {
+		if observed[path] {
+			continue
+		}
+		priorEntry, err := repository.pathEntry(ctx, priorHeadOID, path)
+		if err != nil {
+			return aggregateScope{}, err
+		}
+		baseEntry, err := repository.pathEntry(ctx, baseOID, path)
+		if err != nil {
+			return aggregateScope{}, err
+		}
+		if priorEntry != baseEntry {
+			return aggregateScope{}, fmt.Errorf(
+				"rebased aggregate lost non-identical path %q",
+				path,
+			)
+		}
+	}
+	if len(paths) == 0 {
+		return aggregateScope{}, fmt.Errorf("rebased aggregate path scope is empty")
+	}
+	if err := refusePathsOutside(paths, scope.AuthorizedPaths, "aggregate"); err != nil {
+		return aggregateScope{}, err
+	}
+	scope.AggregatePaths = paths
+	if err := scope.validate(); err != nil {
+		return aggregateScope{}, err
+	}
+	return scope, nil
+}
+
 func (d *delivery) validateReceiptContext(
 	ctx context.Context,
 	receipt preparationReceipt,

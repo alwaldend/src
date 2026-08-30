@@ -1,0 +1,12 @@
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
+npm.npm_translate_lock(
+    name = "com_alwaldend_src_projects_mcp_cordis_npm",
+    data = [
+        "//projects/mcp_cordis:patches/hmr@1.0.16.patch",
+        "//projects/mcp_cordis:pnpm-workspace.yaml",
+    ],
+    pnpm_lock = "//projects/mcp_cordis:pnpm-lock.yaml",
+    run_lifecycle_hooks = False,
+    verify_node_modules_ignored = "//:.bazelignore",
+)
+use_repo(npm, "com_alwaldend_src_projects_mcp_cordis_npm")

@@ -35,6 +35,22 @@ Bazelisk-managed `bazel` from `PATH`, and replaces itself with that process.
 The replacement preserves direct signal delivery and Bazel's exit status. The
 repository `.bazeliskrc` pins the Bazel version and archive hash.
 
+For Bazel commands that support multiple targets, such as `build` and `test`,
+batch compatible targets into one invocation when they use the same options:
+
+```sh
+bazel_agent build //path/to:first //path/to:second
+bazel_agent test //path/to:first_test //path/to:second_test
+```
+
+This is especially important because agent invocations use batch mode and each
+separate command pays Bazel startup and analysis overhead. Do not batch a
+single-target command such as `run`. Otherwise keep invocations separate only
+when they require different commands or options, have a real ordering
+dependency, need failure isolation for diagnosis, or would create unsafe
+resource contention. Do not run separate compatible invocations merely to
+parallelize work that Bazel already schedules internally.
+
 Use `repo-bazel` in addition to this skill when changing BUILD files, Starlark,
 Bzlmod dependencies, toolchains, or the build graph.
 
