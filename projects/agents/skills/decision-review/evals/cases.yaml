@@ -1,0 +1,20 @@
+- description: Revises a material retry design after testing its guarantee
+  vars:
+    request: >-
+      Review this decision before implementation: retry payment requests for
+      seven days with one stable idempotency key and claim that duplicate
+      charges are impossible. The provider retains idempotency records for
+      only 24 hours. We want reliable recovery from transient failures without
+      charging a customer twice. Should we proceed with this design?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response separates the recovery goal from the proposed
+        seven-day retry method; gives the stable-key proposal its strongest
+        case; identifies and tests the seven-day versus 24-hour retention gap
+        as the decisive failure mode; compares credible alternatives such as a
+        bounded retry window and durable reconciliation; issues an explicit
+        revise verdict with material trade-offs and conditions that could
+        change it; and does not claim that reviewing the decision authorizes
+        implementation or another state change. Otherwise fail.
