@@ -35,6 +35,7 @@ al_release_binary(
                 "ansible_collection",
                 "bazel_registry",
                 "bazel_agent",
+                "goal",
                 "useless_qt_gui",
                 "rules_template",
                 "rules_binary_toolchain",

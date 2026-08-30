@@ -1,0 +1,39 @@
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_file")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/mermaid:defs.bzl", "mermaid_svg")
+
+mermaid_svg(
+    name = "goal_tool_svg",
+    src = "goal-tool.mmd",
+    out = "goal-tool.generated.svg",
+)
+
+write_source_file(
+    name = "write_goal_tool_svg",
+    in_file = ":goal_tool_svg",
+    out_file = "goal-tool.svg",
+)
+
+mermaid_svg(
+    name = "goal_loop_svg",
+    src = "goal-loop.mmd",
+    out = "goal-loop.generated.svg",
+)
+
+write_source_file(
+    name = "write_goal_loop_svg",
+    in_file = ":goal_loop_svg",
+    out_file = "goal-loop.svg",
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = [
+        "architecture.md",
+        "goal-loop.mmd",
+        "goal-loop.svg",
+        "goal-tool.mmd",
+        "goal-tool.svg",
+    ],
+    visibility = ["//projects/goal:__pkg__"],
+)

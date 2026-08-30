@@ -1,0 +1,23 @@
+sh_test(
+    name = "filegroup_runfiles_test",
+    srcs = ["filegroup_runfiles_test.sh"],
+    data = [
+        "@runtime_files_fixture_local//:fixture_filegroup_filegroup",
+    ],
+    visibility = ["//:__pkg__"],
+)
+
+sh_test(
+    name = "native_binary_runfiles_test",
+    srcs = [
+        "@runtime_files_fixture_local//:fixture_native_native_binary",
+    ],
+    visibility = ["//:__pkg__"],
+)
+
+sh_test(
+    name = "toolchain_binary_runfiles_environment_test",
+    srcs = ["toolchain_binary_runfiles_environment_test.sh"],
+    data = ["@runtime_files_fixture//:fixture_native_binary"],
+    visibility = ["//:__pkg__"],
+)

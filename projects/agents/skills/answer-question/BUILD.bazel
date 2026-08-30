@@ -15,6 +15,7 @@ skill_library(
             "evals/**",
         ],
     ),
+    visibility = ["//:__pkg__"],
 )
 
 filegroup(

@@ -7,6 +7,10 @@
         {
             "name": "trufflehog",
             "version": "3.94.2"
+        },
+        {
+            "name": "runtime_files_fixture",
+            "version": "0.0.0"
         }
     ],
     "archives": [
@@ -52,6 +56,44 @@
                         "url": "https://github.com/trufflesecurity/trufflehog/releases/download/v3.94.2/trufflehog_3.94.2_linux_amd64.tar.gz",
                         "output": "out",
                         "integrity": "sha256-b/aFT39mPCCMI6PZvjfSMz0VhXwoy+fwCKf8kQqIdo0="
+                    }
+                }
+            ],
+            "toolchain": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        },
+        {
+            "toolchain_name": "runtime_files_fixture",
+            "toolchain_version": "0.0.0",
+            "archive_name": "local",
+            "binaries": [
+                {
+                    "name": "fixture_native",
+                    "path": "bin/fixture_native",
+                    "runtime_files": [
+                        "**"
+                    ]
+                },
+                {
+                    "name": "fixture_filegroup",
+                    "path": "bin/fixture_filegroup",
+                    "runtime_files": [
+                        "**"
+                    ]
+                }
+            ],
+            "actions": [
+                {
+                    "execute": {
+                        "arguments": [
+                            "/bin/sh",
+                            "-c",
+                            "mkdir -p bin runtime && printf '#!/bin/sh\\nset -eu\\nruntime_file=$(find -L \"${RUNFILES_DIR:?}\" -type f -name native-runtime.txt -print -quit)\\ntest -n \"$runtime_file\"\\ntest \"$(cat \"$runtime_file\")\" = native-runtime\\n' > bin/fixture_native && chmod +x bin/fixture_native && printf '#!/bin/sh\\nexit 0\\n' > bin/fixture_filegroup && chmod +x bin/fixture_filegroup && printf 'native-runtime\\n' > runtime/native-runtime.txt && printf 'filegroup-runtime\\n' > runtime/filegroup-runtime.txt"
+                        ]
                     }
                 }
             ],

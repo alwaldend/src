@@ -3,6 +3,7 @@ BinaryToolchainLockArchiveBinary = provider(
     fields = {
         "name": "Binary name",
         "path": "Binary path",
+        "runtime_files": "Glob patterns for archive files required at runtime",
     },
 )
 
@@ -135,10 +136,17 @@ def binary_toolchain_lock_parse_archive(archive):
         path = bin.get("path")
         if not path:
             fail("binary is missing path: {}".format(bin))
+        runtime_files = bin.get("runtime_files", [])
+        if type(runtime_files) != "list":
+            fail("binary runtime_files is not a list: {}".format(bin))
+        for runtime_file in runtime_files:
+            if type(runtime_file) != "string" or not runtime_file:
+                fail("binary runtime_files has an invalid glob: {}".format(bin))
         binaries.append(
             BinaryToolchainLockArchiveBinary(
                 name = name,
                 path = path,
+                runtime_files = runtime_files,
             ),
         )
     toolchain = archive.get("toolchain", {})

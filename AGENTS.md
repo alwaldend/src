@@ -42,6 +42,16 @@ user's actual goal, not agreement or the cheapest satisfaction of stated
 constraints. State material trade-offs to the user; routine reversible
 implementation choices do not need this review or narration.
 
+Expert guidance, audits, and adversarial review are evidence, not authorization
+or new acceptance criteria. Do not turn every hypothetical weakness into
+required work: classify findings against the user's stated scope, fix only
+in-scope blockers, and report optional hardening separately. If an overbroad
+claim would require unrelated machinery, narrow the claim instead of expanding
+the implementation. Do not interrupt in-scope work for routine uncertainty or
+optional hardening. If completing the requested outcome requires a material
+scope expansion that existing context does not authorize, ask before acting;
+otherwise choose the smallest reversible in-scope approach and continue.
+
 ## Questions
 
 Use the `answer-question` skill whenever the user's message contains a
@@ -56,6 +66,8 @@ within that stated scope.
 
 ## Making changes
 
+- Use the `project-layout` skill before creating or moving source, or when
+  deciding a directory layout anywhere in the repository.
 - Read the nearest `README.md`, `BUILD.bazel`, and `include.MODULE.bazel`
   (when present) for the area being changed.
 - Name projects using only ASCII letters, digits, and underscores
@@ -72,6 +84,34 @@ within that stated scope.
   temporary files.
 - Commit binaries only when they are required, are not temporary files, and
   are tracked by Git LFS. Do not commit binaries otherwise.
+
+## Tooling
+
+- Prefer purpose-built tools, MCP capabilities, and repository Bazel targets
+  for work they support. Use direct host-shell commands only when no suitable
+  tool, MCP, or Bazel target exists.
+- Acquire tools used by Bazel hermetically: use pinned, checksummed binary
+  archives or Bazel-integrated package managers driven by checked-in manifests
+  and lockfiles. Do not silently depend on a host-installed tool or an
+  undeclared lifecycle download.
+- Hermetic tool acquisition is important; hermetic tool output has lower
+  priority. A tool may intentionally access the network or produce
+  environment-dependent artifacts when the requested workflow permits it.
+  Continue to apply the repository's authorization, secret-handling, and
+  external-side-effect rules.
+
+## Documentation
+
+- Document current behavior and supported guarantees first.
+- Include future plans only when they are intentional and relevant to users;
+  include historical behavior only when it helps operate, migrate, or
+  understand the current system.
+- Do not add rejected ideas, speculative alternatives, or incidental design
+  exploration to ordinary maintained documentation. Keep that material in the
+  task's goal or research artifacts, or in an explicitly maintained decision
+  record.
+- Prefer the smallest durable explanation that helps a reader use or maintain
+  the system.
 
 ## Searching
 

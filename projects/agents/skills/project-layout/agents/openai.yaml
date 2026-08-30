@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Layout"
+  short_description: "Choose repository paths by source role"
+  default_prompt: "Use $project-layout to place this source."

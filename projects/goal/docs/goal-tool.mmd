@@ -1,0 +1,89 @@
+%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#eef2ff", "primaryBorderColor": "#6366f1", "primaryTextColor": "#111827", "lineColor": "#64748b", "secondaryColor": "#ecfeff", "tertiaryColor": "#f8fafc"}}}%%
+flowchart TB
+    coordinator[Single goal coordinator] --> cli[goal CLI] --> route{Command path}
+
+    subgraph existing[Existing-goal reads and mutations]
+        direction TB
+        full_reads["show · validate"] --> read_lock["Lock each selected canonical goal path<br/>load and validate under lock<br/>release before the next goal"] --> view[Bounded JSON view or validation result]
+        list[list] --> list_read["For each member:<br/>lock goal → read and validate goal.yaml → release"] --> view
+
+        direct_mutations["checkpoint · render"] --> mutation_lock["Lock selected canonical goal path<br/>reread and validate"]
+        relationships[set-relationships] --> relationship_snapshot["First assemble a catalog snapshot<br/>one fully validated goal at a time"]
+        relationship_snapshot --> mutation_lock
+        mutation_lock --> cas{"Expected Goal<br/>resourceVersion matches?"}
+        cas -->|No| stale[Reject stale update]
+        cas -->|Yes| proposed[Build and validate proposed state]
+        proposed --> file_publish["Publish command-defined ordered renames<br/>each file replacement is atomic<br/>checkpoint commits goal.yaml before attempt files<br/>new attempts use a staged-directory rename<br/>generated README last"]
+    end
+
+    subgraph initialize[New target]
+        direction TB
+        init[init] --> init_lock["Lock absent target path<br/>no expected resourceVersion"]
+        init_lock --> init_stage["Build and validate the complete goal<br/>in a sibling temporary directory"]
+        init_stage --> init_publish[Publish with one directory rename]
+    end
+
+    subgraph binding[Session focus]
+        direction TB
+        attach[attach] --> attach_goal["Lock goal → load and validate → release"]
+        attach_goal --> attach_session["Lock session YAML path → write binding → release<br/>no expected resourceVersion"]
+    end
+
+    subgraph catalog[Catalog graph]
+        direction TB
+        graph_cmd[graph] --> graph_snapshot["For each catalog member:<br/>lock goal → load and validate full record → release"]
+        graph_snapshot --> analyze["Analyze the sequential per-goal snapshots<br/>after releasing every lock; no catalog-wide lock"]
+    end
+
+    subgraph transfer[Promotion and migration]
+        direction TB
+        transfer_command["promote · migrate"] --> ordered_locks["Reject equal or overlapping paths<br/>lock canonical source + target in sorted order"]
+        ordered_locks --> transfer_kind{Operation}
+        transfer_kind -->|promote| promote_check["Validate paused workspace source<br/>check expected source resourceVersion"]
+        transfer_kind -->|migrate| migrate_check["Inspect and digest legacy Markdown source<br/>no expected resourceVersion; source stays unchanged"]
+        promote_check --> promote_stage["Copy and transform in hidden staging<br/>scan artifacts and validate target record"]
+        migrate_check --> migrate_stage["Build and validate hidden staged record<br/>re-digest source and recheck absent target"]
+        promote_stage --> transfer_publish[Publish target with one directory rename]
+        migrate_stage --> transfer_publish
+    end
+
+    route --> full_reads
+    route --> list
+    route --> direct_mutations
+    route --> relationships
+    route --> init
+    route --> attach
+    route --> graph_cmd
+    route --> transfer_command
+
+    subgraph files[Local files]
+        direction LR
+        goal_dir[Goal directory]
+        yaml["Canonical YAML resources<br/>goal.yaml · criteria.yaml · criteria-revisions/*.yaml<br/>attempts/*/attempt.yaml"]
+        artifacts["Canonical, digest-bound attempt Markdown<br/>plan.md · result.md · evidence/*.md"]
+        readme["Generated bounded README.md<br/>replaceable projection"]
+        sessions["Separate GoalSessionBinding YAML<br/>under task-specific session scratch"]
+        goal_dir --- yaml
+        goal_dir --- artifacts
+        goal_dir --- readme
+    end
+
+    file_publish -. may update .-> yaml
+    file_publish -. may update .-> artifacts
+    file_publish -. projects .-> readme
+    init_publish -. installs .-> goal_dir
+    transfer_publish -. installs .-> goal_dir
+    attach_session -. updates .-> sessions
+    graph_snapshot -. reads .-> yaml
+    graph_snapshot -. validates .-> artifacts
+
+    atomicity["Atomicity boundary<br/>Ordered multi-file updates are not transactions.<br/>Staged init, promote, and migrate publish with one final directory rename."]
+    file_publish -.-> atomicity
+    init_publish -.-> atomicity
+    transfer_publish -.-> atomicity
+
+    lock_note["Every path lock<br/>canonical absolute path → SHA-256 key → exclusive flock<br/>PID text is diagnostic only"]
+    cli -.-> lock_note
+
+    boundary["Local CLI · local files<br/>one coordinator per goal"]
+    boundary -. design boundary .-> cli

@@ -2,15 +2,19 @@
   vars:
     request: >-
       Add a repository skill named database-backup with Codex metadata and a
-      behavioral evaluation. Explain where each file belongs and verify it.
+      behavioral evaluation. It is owned by projects/storage. Explain where
+      each file belongs and verify it.
   assert:
     - type: llm-rubric
       threshold: 1
       value: >-
         Pass only if the response uses skill-creator; places the canonical
-        skill under projects/agents/skills/database-backup rather than editing
-        the .agents discovery symlink; packages runtime files with
-        skill_library while excluding BUILD.bazel and evals; adds agents
-        metadata whose default prompt names the skill; adds required offline
-        Promptfoo configuration validation; and proposes targeted skill,
-        Promptfoo, and Buildifier checks through bazel_agent. Otherwise fail.
+        skill under projects/storage/skills/database-backup; packages runtime
+        files with a root-visible skill_library while excluding BUILD.bazel and
+        evals; adds the canonical :skill label directly to the root Bazel
+        skill_discovery_links declaration without a separate config or manual
+        symlink edits; runs //:write_skill_links and its generated exact-state
+        test; adds agents metadata whose default prompt names the skill; adds
+        required offline Promptfoo configuration validation; and proposes
+        targeted skill, Promptfoo, discovery-link, and Buildifier checks
+        through bazel_agent. Otherwise fail.

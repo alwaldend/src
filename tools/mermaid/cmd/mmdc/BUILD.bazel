@@ -1,0 +1,42 @@
+load("@com_alwaldend_src_npm//tools:@mermaid-js/mermaid-cli/package_json.bzl", mermaid_cli = "bin")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+mermaid_cli.mmdc_binary(
+    name = "mmdc_raw",
+    data = [
+        "@com_alwaldend_src_tools_mermaid//:chrome_headless_shell_binary",
+    ],
+    visibility = ["//:__subpackages__"],
+)
+
+mermaid_cli.mmdc_binary(
+    name = "mmdc",
+    data = [
+        "@com_alwaldend_src_tools_mermaid//:chrome_headless_shell_binary",
+    ],
+    env = {
+        "PUPPETEER_EXECUTABLE_PATH": "$(rootpath @com_alwaldend_src_tools_mermaid//:chrome_headless_shell_binary)",
+    },
+    expand_env = True,
+    visibility = ["//:__subpackages__"],
+)
+
+sh_test(
+    name = "mmdc_test",
+    size = "medium",
+    srcs = ["mmdc_test.sh"],
+    args = [
+        "$(rootpath :mmdc)",
+        "$(rootpath :smoke.mmd)",
+    ],
+    data = [
+        ":mmdc",
+        ":smoke.mmd",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/mermaid:__pkg__"],
+)

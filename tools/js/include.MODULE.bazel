@@ -19,6 +19,7 @@ npm.npm_translate_lock(
             "tsserver=./bin/tsserver",
         ],
         "lv_font_conv": ["lv_font_conv=./lv_font_conv.js"],
+        "@mermaid-js/mermaid-cli": ["mmdc=./src/cli.js"],
         "prettier": ["prettier=./bin/prettier.cjs"],
         "postcss-cli": ["postcss=./index.js"],
     },

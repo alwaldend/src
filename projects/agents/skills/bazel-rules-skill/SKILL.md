@@ -2,8 +2,9 @@
 name: bazel-rules-skill
 description: >-
   Add or update repository skills packaged by the rules_skill Bazel rule and
-  checked by its validation aspect. Use for projects/agents/skills content and
-  BUILD.bazel declarations in this monorepo.
+  checked by its validation aspect. Use for canonical project-owned skill
+  content, .agents discovery links, and skill BUILD.bazel declarations in this
+  monorepo.
 ---
 
 # Add a repository skill
@@ -12,10 +13,11 @@ description: >-
 
 1. Read the root `AGENTS.md`, use the `skill-creator` skill, and inspect the
    closest existing repository skill.
-2. Put the skill in
-   `projects/agents/skills/lowercase-hyphen-name`. Keep the directory name and
-   the `name` in `SKILL.md` identical. `.agents/skills` is only the ignored
-   discovery symlink; never edit through it.
+2. Identify the narrowest project that owns the skill. Put a product-specific
+   skill at `<owner-project>/skills/lowercase-hyphen-name`. Use
+   `projects/agents/skills/lowercase-hyphen-name` only for a repository-wide
+   agent workflow with no narrower owner. Keep the directory and frontmatter
+   names identical.
 3. Add only resources the skill needs. Put product metadata in
    `agents/openai.yaml`; its `default_prompt` must mention
    `$lowercase-hyphen-name`.
@@ -24,7 +26,7 @@ description: >-
 
 ## Package every skill file
 
-Add `projects/agents/skills/lowercase-hyphen-name/BUILD.bazel`:
+Add `<owner-project>/skills/lowercase-hyphen-name/BUILD.bazel`:
 
 ```starlark
 load("@rules_skill//skill:defs.bzl", "skill_library")
@@ -39,15 +41,52 @@ skill_library(
             "evals/**",
         ],
     ),
+    visibility = ["//:__pkg__"],
 )
 ```
 
 The library exposes the skill files through `DefaultInfo` and `SkillInfo`.
+The root-package visibility lets the repository discovery-link target consume
+the provider while keeping the canonical skill unavailable to other packages.
 Excluding both conventional BUILD filenames keeps repository build metadata
 out of the runtime skill bundle. Keep Promptfoo configurations, cases, and
 eval documentation under `evals/` and exclude them as well; they test the skill
 but are not part of the instructions delivered to an agent. Ensure every
 referenced script, icon, asset, and metadata file remains inside the glob.
+
+## Register skill discovery
+
+Add the canonical `:skill` label to the complete `skills` list in the root
+`skill_discovery_links` declaration:
+
+```starlark
+load(
+    "@rules_skill//skill:defs.bzl",
+    "skill_discovery_links",
+)
+
+skill_discovery_links(
+    name = "write_skill_links",
+    skills = [
+        # Existing canonical skill targets...
+        "//projects/storage/skills/database-backup:skill",
+    ],
+)
+```
+
+The Bazel declaration is the only discovery configuration. The updater derives
+each link name and relative target from `SkillInfo`; do not add a separate
+manifest or create `.agents/skills` links by hand. Run the updater, then its
+generated exact-state test:
+
+```sh
+bazel_agent run //:write_skill_links
+bazel_agent test //:write_skill_links_test
+```
+
+The test rejects missing, extra, indirect, or incorrectly targeted local
+links. Package, validate, and edit only the canonical skill directory; never
+edit through a discovery link.
 
 ## Add Promptfoo coverage
 
@@ -101,9 +140,10 @@ The root Bazel configuration registers `skill_validation_aspect` and requests
 its `skill_validation` output group. Build the library to execute validation:
 
 ```sh
-bazel_agent build //projects/agents/skills/lowercase-hyphen-name:skill
+bazel_agent build //<owner-project>/skills/lowercase-hyphen-name:skill
 bazel_agent test \
-  //projects/agents/skills/lowercase-hyphen-name:eval_config_test
+  //<owner-project>/skills/lowercase-hyphen-name:eval_config_test
+bazel_agent test //:write_skill_links_test
 bazel_agent test //:buildifier_test
 ```
 

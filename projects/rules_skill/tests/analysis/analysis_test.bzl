@@ -2,6 +2,10 @@
 
 load("@bazel_skylib//lib:unittest.bzl", "analysistest", "asserts")
 load("//skill:defs.bzl", "SkillInfo", "skill_validation_aspect")
+load(
+    "//skill/internal:skill_discovery_links.bzl",
+    "SkillDiscoveryLinksInfo",
+)
 
 def _package_path(file):
     return "{}/{}".format(file.owner.package, file.owner.name)
@@ -126,4 +130,40 @@ def _skill_library_aspect_test_impl(ctx):
 skill_library_aspect_test = analysistest.make(
     _skill_library_aspect_test_impl,
     extra_target_under_test_aspects = [skill_validation_aspect],
+)
+
+def _skill_discovery_links_test_impl(ctx):
+    env = analysistest.begin(ctx)
+    target = analysistest.target_under_test(env)
+    links = target[SkillDiscoveryLinksInfo]
+
+    asserts.equals(env, "tests/discovery", links.discovery_dir)
+    asserts.equals(env, ["analysis"], links.names)
+    asserts.equals(env, ["tests/analysis"], links.roots)
+    asserts.equals(env, ["../analysis"], links.targets)
+    asserts.equals(
+        env,
+        [ctx.attr.expected_basename],
+        [file.basename for file in target[DefaultInfo].files.to_list()],
+    )
+    return analysistest.end(env)
+
+skill_discovery_links_test = analysistest.make(
+    _skill_discovery_links_test_impl,
+    attrs = {
+        "expected_basename": attr.string(mandatory = True),
+    },
+)
+
+def _skill_discovery_links_failure_test_impl(ctx):
+    env = analysistest.begin(ctx)
+    asserts.expect_failure(env, ctx.attr.expected_message)
+    return analysistest.end(env)
+
+skill_discovery_links_failure_test = analysistest.make(
+    _skill_discovery_links_failure_test_impl,
+    attrs = {
+        "expected_message": attr.string(mandatory = True),
+    },
+    expect_failure = True,
 )

@@ -9,7 +9,10 @@ docs_filegroup(
     deps = subpackages(
         include = ["**"],
         allow_empty = True,
-        exclude = ["bazel-*"],
+        exclude = [
+            "bazel-*",
+            "test/**",
+        ],
     ),
 )
 
@@ -17,5 +20,8 @@ build_test(
     name = "build_test",
     targets = [
         "//main/bzl:bzl_library",
+        "//test/runtime_files:filegroup_runfiles_test",
+        "//test/runtime_files:native_binary_runfiles_test",
+        "//test/runtime_files:toolchain_binary_runfiles_environment_test",
     ],
 )

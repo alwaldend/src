@@ -1,12 +1,19 @@
-load("//skill:defs.bzl", "skill_library")
+load("//skill:defs.bzl", "skill_discovery_links", "skill_library")
+load(
+    "//skill/internal:skill_discovery_links.bzl",
+    "skill_discovery_links_updater",
+)
 load(
     ":analysis_test.bzl",
+    "skill_discovery_links_failure_test",
+    "skill_discovery_links_test",
     "skill_library_aspect_test",
     "skill_library_failure_test",
     "skill_library_files_test",
     "skill_library_generated_files_test",
     "skill_library_without_openai_test",
 )
+load(":discovery_test.bzl", "skill_discovery_updater_test")
 
 skill_library(
     name = "library",
@@ -16,6 +23,41 @@ skill_library(
         "agents/openai.yaml",
         "reference.txt",
     ],
+)
+
+skill_discovery_links(
+    name = "fixture_links",
+    testonly = True,
+    discovery_dir = "tests/discovery",
+    skills = [":library"],
+    tags = ["manual"],
+)
+
+skill_discovery_links_updater(
+    name = "duplicate_links",
+    testonly = True,
+    discovery_dir = "tests/discovery",
+    skills = [
+        ":library",
+        ":without_openai",
+    ],
+    tags = ["manual"],
+)
+
+skill_discovery_links_updater(
+    name = "generated_links",
+    testonly = True,
+    discovery_dir = "tests/discovery",
+    skills = ["//tests/analysis/generated:library"],
+    tags = ["manual"],
+)
+
+skill_discovery_links_updater(
+    name = "unsafe_discovery_links",
+    testonly = True,
+    discovery_dir = "../discovery",
+    skills = [":library"],
+    tags = ["manual"],
 )
 
 skill_library(
@@ -71,6 +113,44 @@ skill_library_failure_test(
     target_under_test = ":duplicate_path",
 )
 
+skill_discovery_links_test(
+    name = "skill_discovery_links_analysis_test",
+    expected_basename = "fixture_links.sh",
+    target_under_test = ":fixture_links",
+)
+
+skill_discovery_links_test(
+    name = "skill_discovery_links_checker_analysis_test",
+    expected_basename = "fixture_links_test.sh",
+    target_under_test = ":fixture_links_test",
+)
+
+skill_discovery_links_failure_test(
+    name = "skill_discovery_duplicate_name_test",
+    expected_message = "skill discovery links have duplicate name analysis",
+    target_under_test = ":duplicate_links",
+)
+
+skill_discovery_links_failure_test(
+    name = "skill_discovery_generated_skill_test",
+    expected_message = "skill discovery links require a source SKILL.md",
+    target_under_test = ":generated_links",
+)
+
+skill_discovery_links_failure_test(
+    name = "skill_discovery_unsafe_directory_test",
+    expected_message = (
+        "discovery_dir must be normalized and must not contain empty, '.' " +
+        "or '..' segments"
+    ),
+    target_under_test = ":unsafe_discovery_links",
+)
+
+skill_discovery_updater_test(
+    name = "skill_discovery_updater_test",
+    updater = ":fixture_links",
+)
+
 skill_library_failure_test(
     name = "missing_skill_test",
     expected_message = "skill_library requires exactly one SKILL.md in srcs",
@@ -104,6 +184,12 @@ test_suite(
         ":missing_skill_test",
         ":nested_skill_test",
         ":root_package_test",
+        ":skill_discovery_duplicate_name_test",
+        ":skill_discovery_generated_skill_test",
+        ":skill_discovery_links_analysis_test",
+        ":skill_discovery_links_checker_analysis_test",
+        ":skill_discovery_unsafe_directory_test",
+        ":skill_discovery_updater_test",
         ":skill_library_aspect_test",
         ":skill_library_files_test",
         ":skill_library_generated_files_test",

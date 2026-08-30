@@ -1,0 +1,39 @@
+{
+    "toolchains": [
+        {
+            "name": "chrome_headless_shell",
+            "version": "150.0.7871.24"
+        }
+    ],
+    "archives": [
+        {
+            "toolchain_name": "chrome_headless_shell",
+            "toolchain_version": "150.0.7871.24",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "chrome_headless_shell",
+                    "path": "out/chrome-headless-shell-linux64/chrome-headless-shell",
+                    "runtime_files": [
+                        "out/chrome-headless-shell-linux64/**"
+                    ]
+                }
+            ],
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://storage.googleapis.com/chrome-for-testing-public/150.0.7871.24/linux64/chrome-headless-shell-linux64.zip",
+                        "output": "out",
+                        "integrity": "sha256-b52s85PZnDEVqIp73emRZ6ksmFbL0cIYfKds1HHVoto="
+                    }
+                }
+            ],
+            "toolchain": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}
