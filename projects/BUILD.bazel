@@ -31,6 +31,7 @@ al_release_binary(
                 "xray_manager",
                 "cgit",
                 "agents",
+                "mcp_cordis",
                 "alwaldend.com",
                 "ansible_collection",
                 "bazel_registry",

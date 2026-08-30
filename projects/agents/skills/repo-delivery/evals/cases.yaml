@@ -73,6 +73,34 @@
         for the later exact force-with-lease push, and validation must still
         cover prepare's exact returned top-level head_oid. Otherwise fail.
 
+- description: Consolidates only an explicitly authorized owned feature range
+  vars:
+    request: >-
+      My GitHub feature branch has several linear bot-created commits from this
+      task. I reviewed the complete range shown by repo_delivery inspect and
+      explicitly authorize replacing that exact head with one aggregate commit.
+      Rebase it onto the current pull-request base and continue delivery.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses repo_delivery prepare --consolidate with
+        the literal inspected local_head_oid after confirming the range is
+        task-owned, merge-free, linear, and neither shared nor stacked. It must
+        preserve unrelated work and refuse identity drift, a missing ownership
+        marker on the oldest commit, a pull-request projection differing from
+        the requested aggregate message, a stale exact head, or any other
+        inspection refusal. The aggregate preparation
+        must retain the freshly observed remote tip as its force-with-lease
+        expectation, preserve signature requirements, produce exactly one
+        non-merge feature commit on the fetched base, and require fresh
+        validation of the returned literal head_oid before publication. It
+        may shrink the rebased aggregate path set only for paths whose prior
+        candidate and new-base Git tree entries are exactly identical; added
+        paths, non-identical loss, and an empty aggregate must be refused. It
+        must not combine --consolidate with --rewrite or bypass the adapter
+        through direct Git. Otherwise fail.
+
 - description: Invalidates validation when the aggregate message changes HEAD
   vars:
     request: >-
@@ -147,6 +175,69 @@
         publish rebased the exact candidate, must not resolve mutable HEAD into
         validated-head, and must not push before the new checks pass.
         Otherwise fail.
+
+- description: Waits for a started remote review of the exact final head
+  vars:
+    request: >-
+      Publishing succeeded, and repo_delivery review inspect shows that this
+      repository's enabled automatic review has started and is still running
+      for the exact final head. Finish delivery now.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response does not declare delivery complete while the
+        remote review is running. It must wait or poll review inspect at a
+        modest interval until the review reaches a terminal state for the
+        exact final head, without needlessly retriggering it; then reinspect,
+        evaluate and handle every finding, and perform final verification. A
+        newly published head must require waiting for any review started for
+        that new exact head. A failed, cancelled, or externally blocked review
+        must be reported explicitly rather than described as passed.
+        Otherwise fail.
+
+- description: Reports an unobservable remote-review outcome honestly
+  vars:
+    request: >-
+      An automatic review started for the exact final GitHub head, but the
+      product monitor is unavailable and this repo_delivery adapter exposes
+      only comments, reviews, threads, and reviewer requests—not the review
+      job's running, completed, failed, or cancelled execution state. Finish
+      delivery safely.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response does not infer completion from an unchanged
+        inventory, missing pending review, quiet interval, or ordinary
+        repo_delivery review inspect output. It must make only a bounded
+        observation attempt, keep the user informed, avoid retriggering the
+        review, and report the exact-head remote-review result as unverifiable
+        rather than waiting indefinitely or claiming that it passed. Otherwise
+        fail.
+
+- description: Re-scrutinizes correctness after a review-driven code fix
+  vars:
+    request: >-
+      A reviewer found a bug in my fallback implementation. I changed the code
+      and added a regression test; all tests pass, and the previous whole-diff
+      review was clean apart from that comment. Publish the fix immediately
+      without spending time reviewing the changed behavior again.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response treats the behavior-changing edit as
+        invalidating the previous correctness verdict independently of test
+        or commit-OID invalidation. Before preparing or republishing, it must
+        perform fresh, proportional, diff-focused correctness scrutiny that
+        seeks relevant disconfirming cases in the changed contract, including
+        alternate or fallback parity, boundaries, malformed or partial state,
+        encoding, lifecycle, or platform behavior when applicable. Passing
+        tests alone must not satisfy this gate; valid findings require focused
+        regressions, corrections, and another scrutiny pass. It must not reopen
+        unrelated accepted code or impose the behavioral gate on inert
+        documentation-only evidence changes. Otherwise fail.
 
 - description: Replies to top-level feedback through guarded forge operations
   vars:

@@ -353,6 +353,177 @@ func (f integrationDeliveryFixture) advanceBase(t *testing.T) {
 	runTestGit(t, f.seed, "push", "origin", "master")
 }
 
+func TestPrepareStagesExplicitTrackedDeletion(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	if err := os.MkdirAll(
+		filepath.Join(fixture.work, "out", "delivery"),
+		0o700,
+	); err != nil {
+		t.Fatalf("create delivery output directory: %v", err)
+	}
+	writeTestFile(
+		t,
+		filepath.Join(fixture.work, "out", "delivery", "commit.md"),
+		"Delete owned file\n\nExercise explicit deletion staging.\n",
+	)
+	if err := os.Remove(filepath.Join(fixture.work, "base.txt")); err != nil {
+		t.Fatalf("remove tracked file: %v", err)
+	}
+	prepared, err := fixture.delivery.prepare(
+		context.Background(),
+		prepareOptions{
+			MessageFile: "out/delivery/commit.md",
+			ReceiptFile: "out/delivery/prepare.json",
+			Paths:       []string{"base.txt"},
+		},
+	)
+	if err != nil {
+		t.Fatalf("prepare() error = %v", err)
+	}
+	if _, err := os.Stat(filepath.Join(fixture.work, "base.txt")); !os.IsNotExist(err) {
+		t.Fatalf("deleted path stat error = %v, want not-exist", err)
+	}
+	if output := runTestGit(
+		t,
+		fixture.work,
+		"ls-tree",
+		"--name-only",
+		prepared.HeadOID,
+		"--",
+		"base.txt",
+	); output != "" {
+		t.Fatalf("prepared tree still contains deleted path: %q", output)
+	}
+}
+
+func TestPrepareStagesPartialDeletionUnderExplicitDirectory(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	if err := os.MkdirAll(
+		filepath.Join(fixture.work, "owned"),
+		0o700,
+	); err != nil {
+		t.Fatalf("create owned directory: %v", err)
+	}
+	keepPath := filepath.Join(fixture.work, "owned", "keep.txt")
+	deletePath := filepath.Join(fixture.work, "owned", "delete.txt")
+	writeTestFile(t, keepPath, "before\n")
+	writeTestFile(t, deletePath, "delete me\n")
+	runTestGit(t, fixture.work, "add", "owned")
+	runTestGit(
+		t,
+		fixture.work,
+		"commit",
+		"-m",
+		"Owned directory",
+		"-m",
+		commitDisclaimer,
+	)
+	originalHead := runTestGit(t, fixture.work, "rev-parse", "HEAD")
+	writeTestFile(t, keepPath, "after\n")
+	if err := os.Remove(deletePath); err != nil {
+		t.Fatalf("remove tracked child: %v", err)
+	}
+	if err := os.MkdirAll(
+		filepath.Join(fixture.work, "out", "delivery"),
+		0o700,
+	); err != nil {
+		t.Fatalf("create delivery output directory: %v", err)
+	}
+	writeTestFile(
+		t,
+		filepath.Join(fixture.work, "out", "delivery", "commit.md"),
+		"Update owned directory\n\nExercise partial deletion staging.\n",
+	)
+	prepared, err := fixture.delivery.prepare(
+		context.Background(),
+		prepareOptions{
+			MessageFile: "out/delivery/commit.md",
+			ReceiptFile: "out/delivery/prepare.json",
+			Paths:       []string{"owned"},
+			RewriteOID:  originalHead,
+		},
+	)
+	if err != nil {
+		t.Fatalf("prepare() error = %v", err)
+	}
+	if contents, err := os.ReadFile(keepPath); err != nil {
+		t.Fatalf("read retained child: %v", err)
+	} else if string(contents) != "after\n" {
+		t.Fatalf("retained child contents = %q", contents)
+	}
+	if output := runTestGit(
+		t,
+		fixture.work,
+		"ls-tree",
+		"--name-only",
+		prepared.HeadOID,
+		"--",
+		"owned/delete.txt",
+	); output != "" {
+		t.Fatalf("prepared tree still contains deleted child: %q", output)
+	}
+}
+
+func TestPrepareStagesSymlinkReplacedByExplicitDirectory(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	linkPath := filepath.Join(fixture.work, "owned")
+	if err := os.Symlink("base.txt", linkPath); err != nil {
+		t.Fatalf("create tracked symlink: %v", err)
+	}
+	runTestGit(t, fixture.work, "add", "owned")
+	runTestGit(
+		t,
+		fixture.work,
+		"commit",
+		"-m",
+		"Owned symlink",
+		"-m",
+		commitDisclaimer,
+	)
+	originalHead := runTestGit(t, fixture.work, "rev-parse", "HEAD")
+	if err := os.Remove(linkPath); err != nil {
+		t.Fatalf("remove tracked symlink: %v", err)
+	}
+	if err := os.Mkdir(linkPath, 0o700); err != nil {
+		t.Fatalf("create replacement directory: %v", err)
+	}
+	writeTestFile(t, filepath.Join(linkPath, "child.txt"), "child\n")
+	if err := os.MkdirAll(
+		filepath.Join(fixture.work, "out", "delivery"),
+		0o700,
+	); err != nil {
+		t.Fatalf("create delivery output directory: %v", err)
+	}
+	writeTestFile(
+		t,
+		filepath.Join(fixture.work, "out", "delivery", "commit.md"),
+		"Replace owned symlink\n\nExercise directory type-change staging.\n",
+	)
+	prepared, err := fixture.delivery.prepare(
+		context.Background(),
+		prepareOptions{
+			MessageFile: "out/delivery/commit.md",
+			ReceiptFile: "out/delivery/prepare.json",
+			Paths:       []string{"owned"},
+			RewriteOID:  originalHead,
+		},
+	)
+	if err != nil {
+		t.Fatalf("prepare() error = %v", err)
+	}
+	if output := runTestGit(
+		t,
+		fixture.work,
+		"ls-tree",
+		"--name-only",
+		prepared.HeadOID,
+		"--",
+		"owned/child.txt",
+	); output != "owned/child.txt" {
+		t.Fatalf("prepared tree child = %q, want owned/child.txt", output)
+	}
+}
+
 func TestDeliveryPreparePublishVerify(t *testing.T) {
 	fixture := newIntegrationDeliveryFixture(t)
 	prepared := fixture.prepare(t)
@@ -398,6 +569,234 @@ func TestDeliveryPreparePublishVerify(t *testing.T) {
 	}
 	if !hasFinalLine(published.PullRequest.Body, pullRequestDisclaimer) {
 		t.Fatalf("pull request body lacks disclaimer: %q", published.PullRequest.Body)
+	}
+}
+
+func TestPrepareConsolidatesExactOwnedLinearRange(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	if err := os.MkdirAll(
+		filepath.Join(fixture.work, "out", "delivery"),
+		0o700,
+	); err != nil {
+		t.Fatalf("create delivery output directory: %v", err)
+	}
+	messagePath := filepath.Join(
+		fixture.work,
+		"out",
+		"delivery",
+		"commit.md",
+	)
+	writeTestFile(
+		t,
+		messagePath,
+		"Consolidate delivery fixture\n\nExercise guarded range ownership.\n",
+	)
+	featurePath := filepath.Join(fixture.work, "feature.txt")
+	writeTestFile(t, featurePath, "first\n")
+	runTestGit(t, fixture.work, "add", "feature.txt")
+	runTestGit(
+		t,
+		fixture.work,
+		"commit",
+		"-m",
+		"Owned feature",
+		"-m",
+		commitDisclaimer,
+	)
+	message, err := withCommitDisclaimer(
+		"Consolidate delivery fixture\n\nExercise guarded range ownership.\n",
+	)
+	if err != nil {
+		t.Fatalf("withCommitDisclaimer() error = %v", err)
+	}
+	projection, err := messageProjection(message)
+	if err != nil {
+		t.Fatalf("messageProjection() error = %v", err)
+	}
+	writeTestFile(t, featurePath, "second\n")
+	runTestGit(t, fixture.work, "add", "feature.txt")
+	runTestGit(t, fixture.work, "commit", "-m", "Follow-up correction")
+	originalHead := runTestGit(t, fixture.work, "rev-parse", "HEAD")
+	runTestGit(t, fixture.work, "push", "origin", "feature")
+	fixture.forge.pull = &pullRequest{
+		ID:                  "integration-pr",
+		Number:              1,
+		URL:                 "https://github.com/owner/repo/pull/1",
+		State:               "OPEN",
+		Title:               projection.Title,
+		Body:                projection.Body,
+		AuthorLogin:         "task-bot",
+		BaseRefName:         "master",
+		HeadRefName:         "feature",
+		HeadRepositoryOwner: "owner",
+		HeadRepositoryName:  "repo",
+	}
+	writeTestFile(t, featurePath, "pending\n")
+
+	prepared, err := fixture.delivery.prepare(
+		context.Background(),
+		prepareOptions{
+			MessageFile:    "out/delivery/commit.md",
+			ReceiptFile:    "out/delivery/prepare.json",
+			Paths:          []string{"feature.txt"},
+			ConsolidateOID: originalHead,
+		},
+	)
+	if err != nil {
+		t.Fatalf("prepare() error = %v", err)
+	}
+	if prepared.Inspection.UniqueCommitCount != 2 {
+		t.Fatalf(
+			"inspected feature count = %d, want 2",
+			prepared.Inspection.UniqueCommitCount,
+		)
+	}
+	if prepared.HeadOID == originalHead {
+		t.Fatal("consolidation did not replace the original feature head")
+	}
+	if count := runTestGit(
+		t,
+		fixture.work,
+		"rev-list",
+		"--count",
+		prepared.Receipt.BaseOID+".."+prepared.HeadOID,
+	); count != "1" {
+		t.Fatalf("final feature commit count = %s, want 1", count)
+	}
+	if parent := runTestGit(
+		t,
+		fixture.work,
+		"show",
+		"--no-patch",
+		"--format=%P",
+		prepared.HeadOID,
+	); parent != prepared.Receipt.BaseOID {
+		t.Fatalf("consolidated parent = %s, want %s", parent, prepared.Receipt.BaseOID)
+	}
+	if contents, err := os.ReadFile(featurePath); err != nil {
+		t.Fatalf("read consolidated feature: %v", err)
+	} else if string(contents) != "pending\n" {
+		t.Fatalf("consolidated contents = %q", contents)
+	}
+	if !prepared.Receipt.ExpectedRemoteHead.Present ||
+		prepared.Receipt.ExpectedRemoteHead.OID != originalHead {
+		t.Fatalf(
+			"receipt remote expectation = %#v, want %s",
+			prepared.Receipt.ExpectedRemoteHead,
+			originalHead,
+		)
+	}
+}
+
+func TestPrepareConsolidatesCleanExactOwnedRange(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	if err := os.MkdirAll(
+		filepath.Join(fixture.work, "out", "delivery"),
+		0o700,
+	); err != nil {
+		t.Fatalf("create delivery output directory: %v", err)
+	}
+	writeTestFile(
+		t,
+		filepath.Join(fixture.work, "out", "delivery", "commit.md"),
+		"Consolidate clean delivery fixture\n",
+	)
+	featurePath := filepath.Join(fixture.work, "feature.txt")
+	writeTestFile(t, featurePath, "first\n")
+	runTestGit(t, fixture.work, "add", "feature.txt")
+	runTestGit(
+		t,
+		fixture.work,
+		"commit",
+		"-m",
+		"Owned feature",
+		"-m",
+		commitDisclaimer,
+	)
+	writeTestFile(t, featurePath, "second\n")
+	runTestGit(t, fixture.work, "add", "feature.txt")
+	runTestGit(t, fixture.work, "commit", "-m", "Follow-up correction")
+	originalHead := runTestGit(t, fixture.work, "rev-parse", "HEAD")
+	originalTree := runTestGit(t, fixture.work, "rev-parse", "HEAD^{tree}")
+
+	prepared, err := fixture.delivery.prepare(
+		context.Background(),
+		prepareOptions{
+			MessageFile:    "out/delivery/commit.md",
+			ReceiptFile:    "out/delivery/prepare.json",
+			Paths:          []string{"feature.txt"},
+			ConsolidateOID: originalHead,
+		},
+	)
+	if err != nil {
+		t.Fatalf("prepare() error = %v", err)
+	}
+	if prepared.TreeOID != originalTree {
+		t.Fatalf("consolidated tree = %s, want %s", prepared.TreeOID, originalTree)
+	}
+	if count := runTestGit(
+		t,
+		fixture.work,
+		"rev-list",
+		"--count",
+		prepared.Receipt.BaseOID+".."+prepared.HeadOID,
+	); count != "1" {
+		t.Fatalf("final feature commit count = %s, want 1", count)
+	}
+}
+
+func TestPrepareRefusesMultiCommitRangeWithoutExactConsolidation(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	if err := os.MkdirAll(
+		filepath.Join(fixture.work, "out", "delivery"),
+		0o700,
+	); err != nil {
+		t.Fatalf("create delivery output directory: %v", err)
+	}
+	writeTestFile(
+		t,
+		filepath.Join(fixture.work, "out", "delivery", "commit.md"),
+		"Consolidate delivery fixture\n",
+	)
+	featurePath := filepath.Join(fixture.work, "feature.txt")
+	writeTestFile(t, featurePath, "first\n")
+	runTestGit(t, fixture.work, "add", "feature.txt")
+	runTestGit(
+		t,
+		fixture.work,
+		"commit",
+		"-m",
+		"Owned feature",
+		"-m",
+		commitDisclaimer,
+	)
+	writeTestFile(t, featurePath, "second\n")
+	runTestGit(t, fixture.work, "add", "feature.txt")
+	runTestGit(t, fixture.work, "commit", "-m", "Follow-up correction")
+	originalHead := runTestGit(t, fixture.work, "rev-parse", "HEAD")
+	writeTestFile(t, featurePath, "pending\n")
+
+	for name, consolidateOID := range map[string]string{
+		"absent": "",
+		"stale":  testOID('a'),
+	} {
+		t.Run(name, func(t *testing.T) {
+			_, err := fixture.delivery.prepare(
+				context.Background(),
+				prepareOptions{
+					MessageFile:    "out/delivery/commit.md",
+					ReceiptFile:    "out/delivery/prepare.json",
+					Paths:          []string{"feature.txt"},
+					ConsolidateOID: consolidateOID,
+				},
+			)
+			if err == nil {
+				t.Fatal("prepare() unexpectedly succeeded")
+			}
+			if got := runTestGit(t, fixture.work, "rev-parse", "HEAD"); got != originalHead {
+				t.Fatalf("HEAD = %s after refusal, want %s", got, originalHead)
+			}
+		})
 	}
 }
 
@@ -1268,6 +1667,56 @@ func TestPublishStopsBeforePushWhenBaseAdvanceChangesHead(t *testing.T) {
 	}
 }
 
+func TestPublishRebaseDropsOnlyPathsIdenticalInAdvancedBase(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	if err := os.MkdirAll(
+		filepath.Join(fixture.work, "out", "delivery"),
+		0o700,
+	); err != nil {
+		t.Fatalf("create delivery scratch: %v", err)
+	}
+	writeTestFile(
+		t,
+		filepath.Join(fixture.work, "out", "delivery", "commit.md"),
+		"Add overlapping feature\n\nKeep the non-upstream portion.\n",
+	)
+	writeTestFile(t, filepath.Join(fixture.work, "shared.txt"), "shared\n")
+	writeTestFile(t, filepath.Join(fixture.work, "unique.txt"), "unique\n")
+	prepared, err := fixture.delivery.prepare(
+		context.Background(),
+		prepareOptions{
+			MessageFile: "out/delivery/commit.md",
+			ReceiptFile: "out/delivery/prepare.json",
+			Paths:       []string{"shared.txt", "unique.txt"},
+		},
+	)
+	if err != nil {
+		t.Fatalf("prepare() error = %v", err)
+	}
+	writeTestFile(t, filepath.Join(fixture.seed, "shared.txt"), "shared\n")
+	runTestGit(t, fixture.seed, "add", "shared.txt")
+	runTestGit(t, fixture.seed, "commit", "-m", "Add shared base file")
+	runTestGit(t, fixture.seed, "push", "origin", "master")
+
+	report, err := fixture.delivery.publish(
+		context.Background(),
+		publishOptions{
+			ValidatedHead: prepared.HeadOID,
+			ReceiptFile:   "out/delivery/prepare.json",
+		},
+	)
+	var revalidation *revalidationRequiredError
+	if !errors.As(err, &revalidation) {
+		t.Fatalf("publish() error = %v, want revalidation", err)
+	}
+	if report == nil || report.Receipt == nil || !reflect.DeepEqual(
+		report.Receipt.Scope.AggregatePaths,
+		[]string{"unique.txt"},
+	) {
+		t.Fatalf("rebased aggregate scope = %#v", report)
+	}
+}
+
 func TestPreparePathConstrainsExistingAggregateDiff(t *testing.T) {
 	fixture := newIntegrationDeliveryFixture(t)
 	writeTestFile(t, filepath.Join(fixture.work, "outside.txt"), "outside\n")
@@ -1407,6 +1856,58 @@ func TestMessageOnlyRetainsPreAmendSnapshot(t *testing.T) {
 	if !runner.fired || refreshed.HeadOID == prepared.HeadOID ||
 		refreshed.Receipt.BaseOID != prepared.Receipt.BaseOID {
 		t.Fatalf("message-only preparation = %#v, hook fired = %v", refreshed, runner.fired)
+	}
+}
+
+func TestRewriteEvidenceAcceptsLocalProjectionWhenRemoteCannotProject(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	prepared := fixture.prepare(t)
+	projection, err := fixture.delivery.repository.projection(
+		context.Background(),
+		prepared.HeadOID,
+	)
+	if err != nil {
+		t.Fatalf("project local aggregate: %v", err)
+	}
+	runTestGit(t, fixture.seed, "switch", "-c", "feature")
+	writeTestFile(t, filepath.Join(fixture.seed, "legacy.txt"), "legacy\n")
+	runTestGit(t, fixture.seed, "add", "legacy.txt")
+	runTestGit(t, fixture.seed, "commit", "-m", "Legacy remote tail")
+	runTestGit(t, fixture.seed, "push", "origin", "feature")
+	fixture.forge.pull = &pullRequest{
+		ID:                  "integration-pr",
+		Number:              1,
+		URL:                 "https://github.com/owner/repo/pull/1",
+		State:               "OPEN",
+		Title:               projection.Title,
+		Body:                projection.Body,
+		AuthorLogin:         "task-bot",
+		BaseRefName:         "master",
+		HeadRefName:         "feature",
+		HeadRepositoryOwner: "owner",
+		HeadRepositoryName:  "repo",
+	}
+	report, err := fixture.delivery.inspect(context.Background())
+	if err != nil {
+		t.Fatalf("inspect divergent rewrite fixture: %v", err)
+	}
+	if report.RemoteHeadOID == "" || report.RemoteHeadOID == prepared.HeadOID {
+		t.Fatalf("remote head = %q, want divergent legacy commit", report.RemoteHeadOID)
+	}
+	if err := fixture.delivery.requireRewriteEvidence(
+		context.Background(),
+		report,
+		prepared.HeadOID,
+	); err != nil {
+		t.Fatalf("requireRewriteEvidence() error = %v", err)
+	}
+	report.PullRequest.Body = "Human-edited body.\n"
+	if err := fixture.delivery.requireRewriteEvidence(
+		context.Background(),
+		report,
+		prepared.HeadOID,
+	); err == nil || !strings.Contains(err.Error(), "preserve possible human edits") {
+		t.Fatalf("human-edit error = %v", err)
 	}
 }
 

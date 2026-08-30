@@ -330,6 +330,229 @@ func TestPrepareReplaceRemoteFlagPreservesLiteralOID(t *testing.T) {
 	}
 }
 
+func TestPrepareConsolidateFlagPreservesLiteralOID(t *testing.T) {
+	t.Parallel()
+	want := testOID('c')
+	command := newPrepareCommand(
+		context.Background(),
+		&deliveryConfig{},
+		func(string) string { return "" },
+		io.Discard,
+		nil,
+	)
+	if err := command.Flags().Parse([]string{
+		"--message-file", "out/task/message.md",
+		"--receipt-file", "out/task/prepare.json",
+		"--consolidate", want,
+	}); err != nil {
+		t.Fatalf("Parse() error = %v", err)
+	}
+	got, err := command.Flags().GetString("consolidate")
+	if err != nil {
+		t.Fatalf("GetString() error = %v", err)
+	}
+	if got != want {
+		t.Fatalf("--consolidate = %q, want %q", got, want)
+	}
+}
+
+func TestRequireConsolidationEvidence(t *testing.T) {
+	t.Parallel()
+	parentOID := testOID('1')
+	firstOID := testOID('2')
+	headOID := testOID('3')
+	base := inspection{
+		LocalHeadOID:      headOID,
+		UniqueCommitCount: 2,
+		FeatureCommits: []featureCommit{
+			{
+				OID:             firstOID,
+				Parents:         []string{parentOID},
+				AuthorName:      "Task Bot",
+				AuthorEmail:     "task@example.com",
+				CommitterName:   "Task Bot",
+				CommitterEmail:  "task@example.com",
+				SignatureStatus: "N",
+				HasDisclaimer:   true,
+			},
+			{
+				OID:             headOID,
+				Parents:         []string{firstOID},
+				AuthorName:      "Task Bot",
+				AuthorEmail:     "task@example.com",
+				CommitterName:   "Task Bot",
+				CommitterEmail:  "task@example.com",
+				SignatureStatus: "N",
+			},
+		},
+	}
+	evidence, err := (&delivery{}).requireConsolidationEvidence(
+		context.Background(),
+		&base,
+		headOID,
+		"Consolidated change\n\nDetails.\n\n"+commitDisclaimer+"\n",
+	)
+	if err != nil {
+		t.Fatalf("requireConsolidationEvidence() error = %v", err)
+	}
+	if evidence.ParentOID != parentOID || evidence.AuthorOID != firstOID ||
+		!reflect.DeepEqual(evidence.SignatureSource, []string{firstOID, headOID}) {
+		t.Fatalf("consolidation evidence = %#v", evidence)
+	}
+
+	tests := []struct {
+		name        string
+		mutate      func(*inspection)
+		expectedOID string
+		want        string
+	}{
+		{
+			name:        "stale exact head",
+			expectedOID: testOID('4'),
+			want:        "differs from the exact inspected local head",
+		},
+		{
+			name: "missing ownership marker",
+			mutate: func(report *inspection) {
+				report.FeatureCommits[0].HasDisclaimer = false
+			},
+			expectedOID: headOID,
+			want:        "lacks the required ownership marker",
+		},
+		{
+			name: "nonlinear chain",
+			mutate: func(report *inspection) {
+				report.FeatureCommits[1].Parents = []string{parentOID}
+			},
+			expectedOID: headOID,
+			want:        "not one linear parent chain",
+		},
+		{
+			name: "different identity",
+			mutate: func(report *inspection) {
+				report.FeatureCommits[1].CommitterEmail = "human@example.com"
+			},
+			expectedOID: headOID,
+			want:        "different author or committer identity",
+		},
+		{
+			name: "bad signature",
+			mutate: func(report *inspection) {
+				report.FeatureCommits[1].SignatureStatus = "B"
+			},
+			expectedOID: headOID,
+			want:        "has a bad signature",
+		},
+	}
+	for _, test := range tests {
+		test := test
+		t.Run(test.name, func(t *testing.T) {
+			report := base
+			report.FeatureCommits = append(
+				[]featureCommit(nil),
+				base.FeatureCommits...,
+			)
+			for index := range report.FeatureCommits {
+				report.FeatureCommits[index].Parents = append(
+					[]string(nil),
+					report.FeatureCommits[index].Parents...,
+				)
+			}
+			if test.mutate != nil {
+				test.mutate(&report)
+			}
+			_, err := (&delivery{}).requireConsolidationEvidence(
+				context.Background(),
+				&report,
+				test.expectedOID,
+				"Consolidated change\n\nDetails.\n\n"+commitDisclaimer+"\n",
+			)
+			if err == nil || !strings.Contains(err.Error(), test.want) {
+				t.Fatalf("error = %v, want substring %q", err, test.want)
+			}
+		})
+	}
+}
+
+func TestRequireConsolidationEvidencePreservesRequestedPullRequest(t *testing.T) {
+	t.Parallel()
+	parentOID := testOID('1')
+	firstOID := testOID('2')
+	headOID := testOID('3')
+	message := "Consolidated change\n\nCurrent aggregate description.\n\n" +
+		commitDisclaimer + "\n"
+	projection, err := messageProjection(message)
+	if err != nil {
+		t.Fatalf("messageProjection() error = %v", err)
+	}
+	report := inspection{
+		LocalHeadOID:      headOID,
+		UniqueCommitCount: 2,
+		Base:              "master",
+		Branch:            "feature",
+		PullRequest: &pullRequest{
+			Title:       projection.Title,
+			Body:        projection.Body,
+			BaseRefName: "master",
+			HeadRefName: "feature",
+		},
+		FeatureCommits: []featureCommit{
+			{
+				OID:             firstOID,
+				Parents:         []string{parentOID},
+				AuthorName:      "Task Bot",
+				AuthorEmail:     "task@example.com",
+				CommitterName:   "Task Bot",
+				CommitterEmail:  "task@example.com",
+				SignatureStatus: "N",
+				HasDisclaimer:   true,
+			},
+			{
+				OID:             headOID,
+				Parents:         []string{firstOID},
+				AuthorName:      "Task Bot",
+				AuthorEmail:     "task@example.com",
+				CommitterName:   "Task Bot",
+				CommitterEmail:  "task@example.com",
+				SignatureStatus: "N",
+			},
+		},
+	}
+	if _, err := (&delivery{}).requireConsolidationEvidence(
+		context.Background(),
+		&report,
+		headOID,
+		message,
+	); err != nil {
+		t.Fatalf("requireConsolidationEvidence() error = %v", err)
+	}
+	report.PullRequest.Body = "Human-edited body.\n"
+	if _, err := (&delivery{}).requireConsolidationEvidence(
+		context.Background(),
+		&report,
+		headOID,
+		message,
+	); err == nil || !strings.Contains(err.Error(), "requested consolidation projection") {
+		t.Fatalf("error = %v, want requested projection refusal", err)
+	}
+}
+
+func TestEnsurePreparationRefusalsOnlyWaivesMultiCommitOwnership(t *testing.T) {
+	t.Parallel()
+	report := inspection{
+		UniqueCommitCount: 2,
+		Refusals:          []string{multiCommitRefusal(2)},
+	}
+	if err := ensurePreparationRefusals(&report, true); err != nil {
+		t.Fatalf("ensurePreparationRefusals() error = %v", err)
+	}
+	report.Refusals = append(report.Refusals, "unrelated refusal")
+	if err := ensurePreparationRefusals(&report, true); err == nil ||
+		!strings.Contains(err.Error(), "unrelated refusal") {
+		t.Fatalf("error = %v, want unrelated refusal", err)
+	}
+}
+
 func TestRequireRemoteReplacementAuthorization(t *testing.T) {
 	t.Parallel()
 	remoteOID := testOID('a')

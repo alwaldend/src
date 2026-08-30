@@ -1,0 +1,394 @@
+diff --git a/lib/index.js b/lib/index.js
+--- a/lib/index.js
++++ b/lib/index.js
+@@ -84,6 +84,8 @@
+ 	configs = /* @__PURE__ */ new Map();
+ 	configRefreshes = /* @__PURE__ */ new WeakMap();
+ 	refreshTasks = /* @__PURE__ */ new Set();
++	moduleRefresh;
++	moduleRefreshRequested = false;
+ 	/**
+ 	* Changes from externals will always trigger a full reload.
+ 	* Externals are the dependency tree of the CLI worker entry point.
+@@ -199,7 +200,7 @@
+ 			ignored: (path) => match(relative(watchBaseDir, path)),
+ 			ignoreInitial: true
+ 		});
+-		const partialReload = this.ctx.debounce(() => this.partialReload(), this.config.debounce);
++		const refreshModules = this.ctx.debounce(() => this.refreshModules(), this.config.debounce);
+ 		const onChange = (kind, path) => {
+ 			this.ctx.logger.debug("%s detected at %C", kind, path);
+ 			const filename = resolve(watchBaseDir, path);
+@@ -215,7 +216,7 @@
+ 			if (this.externals.has(url)) return loader.exit();
+ 			if (loader.internal.loadCache.has(url)) {
+ 				this.stashed.add(url);
+-				return partialReload();
++				return refreshModules();
+ 			}
+ 			this.ctx.emit("hmr/change", url);
+ 		};
+@@ -265,6 +267,43 @@
+ 		state.running = task;
+ 		this.refreshTasks.add(task);
+ 	}
++	refreshModules() {
++		if (this.moduleRefresh) {
++			this.moduleRefreshRequested = true;
++			return;
++		}
++		const task = (async () => {
++			do {
++				this.moduleRefreshRequested = false;
++				const stashed = this.stashed;
++				this.stashed = /* @__PURE__ */ new Set();
++				try {
++					await this.partialReload(stashed);
++				} catch (reason) {
++					for (const url of stashed) this.stashed.add(url);
++					const error = reason instanceof Error ? reason : new Error(String(reason), { cause: reason });
++					this.ctx.logger.warn("module reload failed");
++					this.ctx.logger.warn(error);
++					if (!this.moduleRefreshRequested) break;
++				}
++			} while (this.stashed.size);
++		})().finally(() => {
++			this.moduleRefresh = void 0;
++			this.refreshTasks.delete(task);
++		});
++		this.moduleRefresh = task;
++		this.refreshTasks.add(task);
++	}
++	async awaitRefresh() {
++		while (this.moduleRefresh) await this.moduleRefresh;
++	}
++	async refreshFile(filename) {
++		const url = pathToFileURL(filename).href;
++		if (!this.internal.loadCache.has(url)) return;
++		this.stashed.add(url);
++		this.refreshModules();
++		await this.awaitRefresh();
++	}
+ 	getOuterStack = () => [];
+ 	async getLinked(url) {
+ 		const job = this.internal.loadCache.get(url);
+@@ -279,12 +318,12 @@
+ 	* dependents are accepted. A file is declined if all its dependents are
+ 	* declined or if it's an external.
+ 	*/
+-	async analyzeChanges() {
++	async analyzeChanges(stashed) {
+ 		const pending = [];
+-		this.accepted = new Set(this.stashed);
++		this.accepted = new Set(stashed);
+ 		this.declined = new Set(this.externals);
+ 		const isExcluded = (url) => url.startsWith("node:") || url.includes("/node_modules/");
+-		await Promise.all([...this.stashed].map(async (url) => {
++		await Promise.all([...stashed].map(async (url) => {
+ 			const children = await this.getLinked(url);
+ 			for (const child of children) {
+ 				if (this.accepted.has(child) || this.declined.has(child) || isExcluded(child)) continue;
+@@ -321,8 +360,8 @@
+ 		}
+ 		for (const url of pending) this.declined.add(url);
+ 	}
+-	async partialReload() {
+-		await this.analyzeChanges();
++	async partialReload(stashed) {
++		await this.analyzeChanges(stashed);
+ 		const pending = /* @__PURE__ */ new Map();
+ 		const reloads = /* @__PURE__ */ new Map();
+ 		const nameMap = Object.create(null);
+@@ -390,12 +429,30 @@
+ 			handleError(this.ctx, e);
+ 			return rollback();
+ 		}
+-		const reload = (plugin, runtime) => {
+-			if (!runtime) return;
+-			for (const oldFiber of runtime.fibers) {
+-				const fiber = oldFiber.parent.registry.plugin(plugin, oldFiber._config, this.getOuterStack);
+-				fiber.entry = oldFiber.entry;
++		const fibers = /* @__PURE__ */ new Map();
++		for (const [plugin, { runtime }] of reloads) {
++			if (!runtime) continue;
++			fibers.set(plugin, [...runtime.fibers].map((fiber) => ({
++				fiber,
++				parent: fiber.parent,
++				config: fiber._config,
++				entry: fiber.entry
++			})));
++		}
++		const dispose = async (plugin) => {
++			const runtime = this.ctx.registry.get(plugin);
++			const active = runtime ? [...runtime.fibers] : [];
++			this.ctx.registry.delete(plugin);
++			await Promise.all(active.map(async (fiber) => {
++				while (fiber.inertia) await fiber.inertia;
++			}));
++		};
++		const reload = async (plugin, records = fibers.get(plugin) ?? []) => {
++			for (const record of records) {
++				const fiber = record.parent.registry.plugin(plugin, record.config, this.getOuterStack);
++				fiber.entry = record.entry;
+ 				if (fiber.entry) fiber.entry.fiber = fiber;
++				await fiber;
+ 			}
+ 		};
+ 		try {
+@@ -403,13 +460,14 @@
+ 				if (!runtime) continue;
+ 				const path = relative(this.baseDir, fileURLToPath(filename));
+ 				try {
+-					this.ctx.registry.delete(plugin);
++					await dispose(plugin);
+ 				} catch (err) {
+ 					this.ctx.logger.warn("failed to dispose plugin at %C", path);
+ 					this.ctx.logger.warn(err);
++					throw err;
+ 				}
+ 				try {
+-					reload(attempts[filename], runtime);
++					await reload(attempts[filename], fibers.get(plugin));
+ 					this.ctx.logger.info("reload plugin at %C", path);
+ 				} catch (err) {
+ 					this.ctx.logger.warn("failed to reload plugin at %C", path);
+@@ -422,8 +480,8 @@
+ 			for (const [plugin, { filename, runtime }] of reloads) {
+ 				if (!runtime) continue;
+ 				try {
+-					this.ctx.registry.delete(attempts[filename]);
+-					reload(plugin, runtime);
++					await dispose(attempts[filename]);
++					await reload(plugin, fibers.get(plugin));
+ 				} catch (err) {
+ 					this.ctx.logger.warn(err);
+ 				}
+@@ -431,7 +489,6 @@
+ 			return;
+ 		}
+ 		this.ctx.emit("hmr/reload", reloads);
+-		this.stashed = /* @__PURE__ */ new Set();
+ 	}
+ };
+ (function(Hmr) {
+diff --git a/src/index.ts b/src/index.ts
+--- a/src/index.ts
++++ b/src/index.ts
+@@ -1,4 +1,4 @@
+-import { Context, Service, type Plugin } from '@deepseek-ai/cordis'
++import { Context, Service, type Fiber, type Plugin } from '@deepseek-ai/cordis'
+ import type { Dict } from '@deepseek-ai/cosmokit'
+ import { ModuleLoader, type ModuleJob, type ResolveResult } from '@deepseek-ai/cordis-plugin-loader'
+ import type { Include } from '@deepseek-ai/cordis-plugin-include'
+@@ -93,6 +93,8 @@
+   private readonly configs = new Map<string, ConfigRegistration>()
+   private readonly configRefreshes = new WeakMap<object, ConfigRefresh>()
+   private readonly refreshTasks = new Set<Promise<void>>()
++  private moduleRefresh?: Promise<void>
++  private moduleRefreshRequested = false
+ 
+   /**
+    * Changes from externals will always trigger a full reload.
+@@ -239,7 +240,7 @@
+       ignoreInitial: true,
+     })
+ 
+-    const partialReload = this.ctx.debounce(() => this.partialReload(), this.config.debounce)
++    const refreshModules = this.ctx.debounce(() => this.refreshModules(), this.config.debounce)
+ 
+     const onChange = (kind: 'add' | 'change' | 'unlink', path: string) => {
+       this.ctx.logger.debug('%s detected at %C', kind, path)
+@@ -264,7 +265,7 @@
+       // in loadCache, so this check covers all module formats.
+       if (loader.internal!.loadCache.has(url)) {
+         this.stashed.add(url)
+-        return partialReload()
++        return refreshModules()
+       }
+ 
+       this.ctx.emit('hmr/change', url)
+@@ -323,6 +325,46 @@
+     this.refreshTasks.add(task)
+   }
+ 
++  private refreshModules() {
++    if (this.moduleRefresh) {
++      this.moduleRefreshRequested = true
++      return
++    }
++    const task = (async () => {
++      do {
++        this.moduleRefreshRequested = false
++        const stashed = this.stashed
++        this.stashed = new Set()
++        try {
++          await this.partialReload(stashed)
++        } catch (reason) {
++          for (const url of stashed) this.stashed.add(url)
++          const error = reason instanceof Error ? reason : new Error(String(reason), { cause: reason })
++          this.ctx.logger.warn('module reload failed')
++          this.ctx.logger.warn(error)
++          if (!this.moduleRefreshRequested) break
++        }
++      } while (this.stashed.size)
++    })().finally(() => {
++      this.moduleRefresh = undefined
++      this.refreshTasks.delete(task)
++    })
++    this.moduleRefresh = task
++    this.refreshTasks.add(task)
++  }
++
++  async awaitRefresh() {
++    while (this.moduleRefresh) await this.moduleRefresh
++  }
++
++  async refreshFile(filename: string) {
++    const url = pathToFileURL(filename).href
++    if (!this.internal.loadCache.has(url)) return
++    this.stashed.add(url)
++    this.refreshModules()
++    await this.awaitRefresh()
++  }
++
+   // hide stack trace from HMR
+   getOuterStack = (): string[] => [
+     // '    at HMR.partialReload (<anonymous>)',
+@@ -342,15 +384,15 @@
+    * dependents are accepted. A file is declined if all its dependents are
+    * declined or if it's an external.
+    */
+-  private async analyzeChanges() {
++  private async analyzeChanges(stashed: Set<string>) {
+     const pending: string[] = []
+ 
+-    this.accepted = new Set(this.stashed)
++    this.accepted = new Set(stashed)
+     this.declined = new Set(this.externals)
+ 
+     const isExcluded = (url: string) => url.startsWith('node:') || url.includes('/node_modules/')
+ 
+-    await Promise.all([...this.stashed].map(async (url) => {
++    await Promise.all([...stashed].map(async (url) => {
+       const children = await this.getLinked(url)
+       for (const child of children) {
+         if (this.accepted.has(child) || this.declined.has(child) || isExcluded(child)) continue
+@@ -397,8 +439,8 @@
+     }
+   }
+ 
+-  private async partialReload() {
+-    await this.analyzeChanges()
++  private async partialReload(stashed: Set<string>) {
++    await this.analyzeChanges(stashed)
+ 
+     const pending = new Map<ModuleJob, Plugin>()
+     const reloads = new Map<Plugin, Reload>()
+@@ -499,12 +541,37 @@
+       return rollback()
+     }
+ 
+-    const reload = (plugin: any, runtime: Plugin.Runtime) => {
+-      if (!runtime) return
+-      for (const oldFiber of runtime.fibers) {
+-        const fiber = oldFiber.parent.registry.plugin(plugin, oldFiber._config, this.getOuterStack)
+-        fiber.entry = oldFiber.entry
++    const fibers = new Map<Plugin, Array<{
++      fiber: Fiber,
++      parent: Context,
++      config: any,
++      entry: Fiber['entry'],
++    }>>()
++    for (const [plugin, { runtime }] of reloads) {
++      if (!runtime) continue
++      fibers.set(plugin, [...runtime.fibers].map(fiber => ({
++        fiber,
++        parent: fiber.parent,
++        config: fiber._config,
++        entry: fiber.entry,
++      })))
++    }
++
++    const dispose = async (plugin: any) => {
++      const runtime = this.ctx.registry.get(plugin)
++      const active = runtime ? [...runtime.fibers] : []
++      this.ctx.registry.delete(plugin)
++      await Promise.all(active.map(async (fiber) => {
++        while (fiber.inertia) await fiber.inertia
++      }))
++    }
++
++    const reload = async (plugin: any, records = fibers.get(plugin) ?? []) => {
++      for (const record of records) {
++        const fiber = record.parent.registry.plugin(plugin, record.config, this.getOuterStack)
++        fiber.entry = record.entry
+         if (fiber.entry) fiber.entry.fiber = fiber
++        await fiber
+       }
+     }
+ 
+@@ -514,14 +581,15 @@
+         const path = relative(this.baseDir, fileURLToPath(filename))
+ 
+         try {
+-          this.ctx.registry.delete(plugin)
++          await dispose(plugin)
+         } catch (err) {
+           this.ctx.logger.warn('failed to dispose plugin at %C', path)
+           this.ctx.logger.warn(err)
++          throw err
+         }
+ 
+         try {
+-          reload(attempts[filename], runtime)
++          await reload(attempts[filename], fibers.get(plugin))
+           this.ctx.logger.info('reload plugin at %C', path)
+         } catch (err) {
+           this.ctx.logger.warn('failed to reload plugin at %C', path)
+@@ -535,8 +603,8 @@
+       for (const [plugin, { filename, runtime }] of reloads) {
+         if (!runtime) continue
+         try {
+-          this.ctx.registry.delete(attempts[filename])
+-          reload(plugin, runtime)
++          await dispose(attempts[filename])
++          await reload(plugin, fibers.get(plugin))
+         } catch (err) {
+           this.ctx.logger.warn(err)
+         }
+@@ -545,7 +613,6 @@
+     }
+ 
+     this.ctx.emit('hmr/reload', reloads)
+-    this.stashed = new Set()
+   }
+ }
+ 
+diff --git a/lib/types/index.d.ts b/lib/types/index.d.ts
+--- a/lib/types/index.d.ts
++++ b/lib/types/index.d.ts
+@@ -30,6 +30,8 @@ declare class Hmr extends Service {
+     private readonly configs;
+     private readonly configRefreshes;
+     private readonly refreshTasks;
++    private moduleRefresh;
++    private moduleRefreshRequested;
+     /**
+      * Changes from externals will always trigger a full reload.
+      * Externals are the dependency tree of the CLI worker entry point.
+@@ -62,6 +64,8 @@ declare class Hmr extends Service {
+     private _resolve;
+     [Service.init](): AsyncGenerator<() => Promise<void>, void, unknown>;
+     private refreshConfig;
++    awaitRefresh(): Promise<void>;
++    refreshFile(filename: string): Promise<void>;
+     getOuterStack: () => string[];
+     getLinked(url: string): Promise<string[]>;
+     /**
+@@ -84,4 +88,4 @@ declare namespace Hmr {
+     const Config: z<Config>;
+ }
+ export default Hmr;
+-//# sourceMappingURL=index.d.ts.map
+\ No newline at end of file
++//# sourceMappingURL=index.d.ts.map

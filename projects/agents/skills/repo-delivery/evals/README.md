@@ -22,6 +22,14 @@ supported GitHub adapter, publish readiness comes only from checks run after
 the latest `prepare` against its exact returned HEAD OID, and review reads and
 mutations stay inside `repo_delivery review`. Neither checks run before
 preparation nor checks run before a message-only amendment satisfy that gate.
+Every behavior-changing review fix also invalidates the prior correctness
+verdict and requires a fresh, proportional, diff-focused scrutiny pass; green
+tests alone do not replace that reasoning gate.
+An explicitly authorized multi-commit range uses `--consolidate` with the
+literal inspected local head only after ownership review; its linearity,
+identity, oldest ownership marker, pull-request projection matching the
+requested aggregate message, signature requirements, and remote lease remain
+fail-closed.
 The literal candidate and strict preparation receipt flow into publication;
 an advancing base produces a new exact candidate and derived receipt that must
 be validated directly. A divergent remote replacement remains refused unless

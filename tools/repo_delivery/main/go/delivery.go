@@ -284,10 +284,7 @@ func (d *delivery) inspect(
 	if report.UniqueCommitCount > 1 {
 		report.Refusals = append(
 			report.Refusals,
-			fmt.Sprintf(
-				"feature range contains %d commits; v1 will not infer consolidation ownership",
-				report.UniqueCommitCount,
-			),
+			multiCommitRefusal(report.UniqueCommitCount),
 		)
 	}
 	if len(report.MergeCommits) != 0 {
@@ -330,7 +327,14 @@ type prepareOptions struct {
 	UseIndex         bool
 	MessageOnly      bool
 	RewriteOID       string
+	ConsolidateOID   string
 	ReplaceRemoteOID string
+}
+
+type consolidationEvidence struct {
+	ParentOID       string
+	AuthorOID       string
+	SignatureSource []string
 }
 
 type prepareReport struct {
@@ -376,7 +380,25 @@ func (d *delivery) prepare(
 	if err != nil {
 		return nil, err
 	}
-	if err := ensureNoRefusals(report); err != nil {
+	if options.RewriteOID != "" && options.ConsolidateOID != "" {
+		return nil, fmt.Errorf("--rewrite and --consolidate are mutually exclusive")
+	}
+	if options.MessageOnly && options.ConsolidateOID != "" {
+		return nil, fmt.Errorf("--message-only cannot be combined with --consolidate")
+	}
+	var consolidation *consolidationEvidence
+	if options.ConsolidateOID != "" {
+		consolidation, err = d.requireConsolidationEvidence(
+			ctx,
+			report,
+			options.ConsolidateOID,
+			message,
+		)
+		if err != nil {
+			return nil, err
+		}
+	}
+	if err := ensurePreparationRefusals(report, consolidation != nil); err != nil {
 		return nil, err
 	}
 	if err := requireRemoteReplacementAuthorization(
@@ -457,7 +479,7 @@ func (d *delivery) prepare(
 		if err := d.requireRewriteEvidence(ctx, report, options.RewriteOID); err != nil {
 			return nil, err
 		}
-		parentOID, err := d.candidateParent(ctx, report)
+		parentOID, err := d.candidateParent(ctx, report, nil)
 		if err != nil {
 			return nil, err
 		}
@@ -504,9 +526,9 @@ func (d *delivery) prepare(
 			); err != nil {
 				return nil, err
 			}
-		} else if report.UniqueCommitCount != 0 {
+		} else if report.UniqueCommitCount > 1 && consolidation == nil {
 			return nil, fmt.Errorf(
-				"feature commit count is %d, want zero or one",
+				"feature commit count is %d; use --consolidate with the exact inspected head after ownership review",
 				report.UniqueCommitCount,
 			)
 		} else if options.RewriteOID != "" {
@@ -577,7 +599,7 @@ func (d *delivery) prepare(
 		if err != nil {
 			return nil, err
 		}
-		if !hasChanges {
+		if !hasChanges && consolidation == nil {
 			return nil, fmt.Errorf("the prepared index is empty")
 		}
 		indexTree, err := d.repository.indexTree(ctx)
@@ -611,7 +633,7 @@ func (d *delivery) prepare(
 		if confirmedIndexTree != indexTree {
 			return nil, fmt.Errorf("index changed during final scope verification")
 		}
-		parentOID, err := d.candidateParent(ctx, report)
+		parentOID, err := d.candidateParent(ctx, report, consolidation)
 		if err != nil {
 			return nil, err
 		}
@@ -646,16 +668,31 @@ func (d *delivery) prepare(
 		if err != nil {
 			return nil, err
 		}
-		preparedHead, err = d.repository.commitChecked(
-			ctx,
-			message,
-			report.UniqueCommitCount == 1,
-			report.LocalHeadOID,
-			indexTree,
-			report.Branch,
-			transaction.noteInstalledCheckout,
-			scope.AuthorizedPaths,
-		)
+		if consolidation == nil {
+			preparedHead, err = d.repository.commitChecked(
+				ctx,
+				message,
+				report.UniqueCommitCount == 1,
+				report.LocalHeadOID,
+				indexTree,
+				report.Branch,
+				transaction.noteInstalledCheckout,
+				scope.AuthorizedPaths,
+			)
+		} else {
+			preparedHead, err = d.repository.commitConsolidatedChecked(
+				ctx,
+				message,
+				report.LocalHeadOID,
+				indexTree,
+				report.Branch,
+				consolidation.ParentOID,
+				consolidation.AuthorOID,
+				consolidation.SignatureSource,
+				transaction.noteInstalledCheckout,
+				scope.AuthorizedPaths,
+			)
+		}
 		if err != nil {
 			return nil, err
 		}
@@ -852,6 +889,7 @@ func (d *delivery) finishPreparation(
 				"the freshly fetched base requires a rebase, but the worktree is not clean",
 			)
 		}
+		rebasedScope := scope
 		rebasedHead, err := d.repository.rebase(
 			ctx,
 			snapshot.BaseOID,
@@ -863,18 +901,22 @@ func (d *delivery) finishPreparation(
 				candidateRepository *gitRepository,
 				candidateHead string,
 			) error {
-				return verifyAggregateScopeInRepository(
+				var reconcileErr error
+				rebasedScope, reconcileErr = reconcileRebasedAggregateScope(
 					checkContext,
 					candidateRepository,
 					snapshot.BaseOID,
 					candidateHead,
+					preparedHead,
 					scope,
 				)
+				return reconcileErr
 			},
 		)
 		if err != nil {
 			return nil, err
 		}
+		scope = rebasedScope
 		currentHead = rebasedHead
 		observedBranch, observedHead, err := d.repository.branchHead(ctx)
 		if err != nil {
@@ -954,9 +996,13 @@ func (d *delivery) finishPreparation(
 func (d *delivery) candidateParent(
 	ctx context.Context,
 	report *inspection,
+	consolidation *consolidationEvidence,
 ) (string, error) {
 	if report.UniqueCommitCount == 0 {
 		return report.LocalHeadOID, nil
+	}
+	if consolidation != nil {
+		return consolidation.ParentOID, nil
 	}
 	parents, err := d.repository.commitParents(ctx, report.LocalHeadOID)
 	if err != nil {
@@ -969,6 +1015,134 @@ func (d *delivery) candidateParent(
 		)
 	}
 	return parents[0], nil
+}
+
+func ensurePreparationRefusals(
+	report *inspection,
+	consolidating bool,
+) error {
+	if !consolidating {
+		return ensureNoRefusals(report)
+	}
+	want := multiCommitRefusal(report.UniqueCommitCount)
+	remaining := make([]string, 0, len(report.Refusals))
+	removed := false
+	for _, refusal := range report.Refusals {
+		if !removed && refusal == want {
+			removed = true
+			continue
+		}
+		remaining = append(remaining, refusal)
+	}
+	if !removed {
+		return fmt.Errorf("delivery refused: the expected multi-commit refusal was absent")
+	}
+	if len(remaining) != 0 {
+		return fmt.Errorf("delivery refused: %s", strings.Join(remaining, "; "))
+	}
+	return nil
+}
+
+func multiCommitRefusal(count int) string {
+	return fmt.Sprintf(
+		"feature range contains %d commits; explicit --consolidate ownership authorization is required",
+		count,
+	)
+}
+
+func (d *delivery) requireConsolidationEvidence(
+	_ context.Context,
+	report *inspection,
+	expectedHead string,
+	message string,
+) (*consolidationEvidence, error) {
+	if !isObjectID(expectedHead) {
+		return nil, fmt.Errorf("--consolidate must be a full Git object ID")
+	}
+	if expectedHead != report.LocalHeadOID {
+		return nil, fmt.Errorf("--consolidate differs from the exact inspected local head")
+	}
+	if report.UniqueCommitCount < 2 {
+		return nil, fmt.Errorf(
+			"--consolidate requires at least two feature commits, found %d",
+			report.UniqueCommitCount,
+		)
+	}
+	if len(report.MergeCommits) != 0 {
+		return nil, fmt.Errorf("--consolidate refuses a feature range containing merges")
+	}
+	if len(report.FeatureCommits) != report.UniqueCommitCount {
+		return nil, fmt.Errorf("feature commit inventory is incomplete")
+	}
+	first := report.FeatureCommits[0]
+	if !first.HasDisclaimer {
+		return nil, fmt.Errorf(
+			"the oldest feature commit lacks the required ownership marker",
+		)
+	}
+	if len(first.Parents) != 1 || !isObjectID(first.Parents[0]) {
+		return nil, fmt.Errorf("the oldest feature commit lacks one exact parent")
+	}
+	previous := first.Parents[0]
+	signatureSources := make([]string, 0, len(report.FeatureCommits))
+	for _, commit := range report.FeatureCommits {
+		if len(commit.Parents) != 1 || commit.Parents[0] != previous {
+			return nil, fmt.Errorf("feature commits are not one linear parent chain")
+		}
+		if commit.AuthorName != first.AuthorName ||
+			commit.AuthorEmail != first.AuthorEmail ||
+			commit.CommitterName != first.CommitterName ||
+			commit.CommitterEmail != first.CommitterEmail {
+			return nil, fmt.Errorf(
+				"feature commit %s has a different author or committer identity",
+				commit.OID,
+			)
+		}
+		if commit.SignatureStatus == "B" {
+			return nil, fmt.Errorf("feature commit %s has a bad signature", commit.OID)
+		}
+		signatureSources = append(signatureSources, commit.OID)
+		previous = commit.OID
+	}
+	if previous != report.LocalHeadOID {
+		return nil, fmt.Errorf("feature commit chain does not end at the inspected head")
+	}
+	if report.PullRequest != nil {
+		projection, err := messageProjection(message)
+		if err != nil {
+			return nil, err
+		}
+		if !pullRequestMatchesProjection(
+			*report.PullRequest,
+			projection,
+			report.Base,
+			report.Branch,
+		) {
+			return nil, fmt.Errorf(
+				"pull request title or body is not the requested consolidation projection; preserve possible human edits",
+			)
+		}
+	}
+	return &consolidationEvidence{
+		ParentOID:       first.Parents[0],
+		AuthorOID:       first.OID,
+		SignatureSource: signatureSources,
+	}, nil
+}
+
+func messageProjection(message string) (commitProjection, error) {
+	normalized := normalizeText(message)
+	parts := strings.SplitN(normalized, "\n\n", 2)
+	if len(parts) != 2 || strings.Contains(parts[0], "\n") {
+		return commitProjection{}, fmt.Errorf(
+			"commit message must separate its one-line subject from the body with a blank line",
+		)
+	}
+	body, err := pullRequestBody(parts[1])
+	if err != nil {
+		return commitProjection{}, err
+	}
+	return commitProjection{Title: parts[0], Body: body}, nil
 }
 
 func (d *delivery) preflightMessageOnly(
@@ -1267,22 +1441,27 @@ func (d *delivery) requireRewriteEvidence(
 		return fmt.Errorf("the existing feature commit lacks the required ownership marker")
 	}
 	if report.PullRequest != nil {
-		sourceOID := report.RemoteHeadOID
-		if sourceOID == "" {
-			sourceOID = report.LocalHeadOID
+		sources := []string{report.LocalHeadOID}
+		if report.RemoteHeadOID != "" &&
+			report.RemoteHeadOID != report.LocalHeadOID {
+			sources = append(sources, report.RemoteHeadOID)
 		}
-		projection, err := d.repository.projection(ctx, sourceOID)
-		if err != nil {
-			return err
+		matches := false
+		for _, sourceOID := range sources {
+			projection, projectionErr := d.repository.projection(ctx, sourceOID)
+			if projectionErr == nil && pullRequestMatchesProjection(
+				*report.PullRequest,
+				projection,
+				report.Base,
+				report.Branch,
+			) {
+				matches = true
+				break
+			}
 		}
-		if !pullRequestMatchesProjection(
-			*report.PullRequest,
-			projection,
-			report.Base,
-			report.Branch,
-		) {
+		if !matches {
 			return fmt.Errorf(
-				"pull request title or body is not the prior commit projection; preserve possible human edits",
+				"pull request title or body is not an exact owned local or remote commit projection; preserve possible human edits",
 			)
 		}
 	}
@@ -1627,6 +1806,7 @@ func (d *delivery) publish(
 		return nil, err
 	}
 	candidateHead := report.LocalHeadOID
+	rebasedScope := receipt.Scope
 	if !baseIsAncestor {
 		if !baseAdvanced {
 			return nil, fmt.Errorf(
@@ -1653,13 +1833,16 @@ func (d *delivery) publish(
 				candidateRepository *gitRepository,
 				candidateHead string,
 			) error {
-				return verifyAggregateScopeInRepository(
+				var reconcileErr error
+				rebasedScope, reconcileErr = reconcileRebasedAggregateScope(
 					checkContext,
 					candidateRepository,
 					snapshot.BaseOID,
 					candidateHead,
+					report.LocalHeadOID,
 					receipt.Scope,
 				)
+				return reconcileErr
 			},
 		)
 		if err != nil {
@@ -1676,7 +1859,7 @@ func (d *delivery) publish(
 			ctx,
 			snapshot.BaseOID,
 			candidateHead,
-			receipt.Scope,
+			rebasedScope,
 		); err != nil {
 			return nil, fmt.Errorf("verify rebased aggregate scope: %w", err)
 		}
@@ -1689,7 +1872,7 @@ func (d *delivery) publish(
 			candidateTree,
 			snapshot.RemoteHeadOID,
 			receipt.ExpectedPullRequest,
-			receipt.Scope,
+			rebasedScope,
 		)
 		if err != nil {
 			return nil, err

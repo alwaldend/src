@@ -1,0 +1,144 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library", "js_test")
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load(
+    "@com_alwaldend_src_projects_mcp_cordis_npm//:defs.bzl",
+    "npm_link_all_packages",
+)
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package(default_visibility = ["//visibility:private"])
+
+CORDIS_NODE_OPTIONS = [
+    "--experimental-vm-modules",
+    "--expose-internals",
+]
+
+exports_files([
+    "package.json",
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml",
+])
+
+npm_link_all_packages(name = "node_modules")
+
+filegroup(
+    name = "starter_packages",
+    srcs = ["cordis.yaml"] + glob(["plugins/**"]),
+)
+
+js_library(
+    name = "runtime",
+    srcs = glob(["internal/*.mjs"]),
+    deps = [
+        ":node_modules/@deepseek-ai/cordis",
+        ":node_modules/@deepseek-ai/cordis-plugin-hmr",
+        ":node_modules/@deepseek-ai/cordis-plugin-include",
+        ":node_modules/@deepseek-ai/cordis-plugin-loader",
+        ":node_modules/@deepseek-ai/cordis-plugin-timer",
+        ":node_modules/@modelcontextprotocol/server",
+        ":node_modules/ajv",
+        ":node_modules/js-yaml",
+        ":node_modules/zod",
+    ],
+)
+
+js_binary(
+    name = "mcp_cordis",
+    data = [
+        ":runtime",
+        ":starter_packages",
+    ],
+    entry_point = "cmd/mcp_cordis/main.mjs",
+    node_options = CORDIS_NODE_OPTIONS,
+    patch_node_fs = False,
+    visibility = ["//visibility:public"],
+)
+
+js_test(
+    name = "exec_test",
+    data = [":runtime"],
+    entry_point = "test/exec_test.mjs",
+    node_options = CORDIS_NODE_OPTIONS,
+    patch_node_fs = False,
+)
+
+js_test(
+    name = "git_worktree_status_test",
+    data = [":starter_packages"],
+    entry_point = "test/git_worktree_status_test.mjs",
+    node_options = CORDIS_NODE_OPTIONS,
+    patch_node_fs = False,
+)
+
+js_test(
+    name = "repo_context_truncation_test",
+    data = [":starter_packages"],
+    entry_point = "test/repo_context_truncation_test.mjs",
+    node_options = CORDIS_NODE_OPTIONS,
+    patch_node_fs = False,
+)
+
+js_test(
+    name = "runtime_test",
+    data = [
+        ":node_modules/@modelcontextprotocol/client",
+        ":runtime",
+        ":starter_packages",
+    ],
+    entry_point = "test/runtime_test.mjs",
+    node_options = CORDIS_NODE_OPTIONS,
+    patch_node_fs = False,
+)
+
+js_test(
+    name = "starter_packages_test",
+    data = [
+        ":runtime",
+        ":starter_packages",
+    ],
+    entry_point = "test/starter_packages_test.mjs",
+    node_options = CORDIS_NODE_OPTIONS,
+    patch_node_fs = False,
+)
+
+js_test(
+    name = "stdio_test",
+    data = [
+        ":mcp_cordis",
+        ":node_modules/@modelcontextprotocol/client",
+    ],
+    entry_point = "test/stdio_test.mjs",
+    fixed_args = ["$(rootpath :mcp_cordis)"],
+    node_options = CORDIS_NODE_OPTIONS,
+    patch_node_fs = False,
+)
+
+build_test(
+    name = "build_test",
+    targets = [":mcp_cordis"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = "content/docs/projects/mcp_cordis",
+    visibility = ["//visibility:public"],
+    deps = [
+        ":goal_attempt_docs",
+        ":goal_docs",
+    ],
+)
+
+docs_filegroup(
+    name = "goal_docs",
+    srcs = glob(["goals/runtime_extensions/*.md"]),
+    prefix = "content/docs/projects/mcp_cordis/goals/runtime_extensions",
+)
+
+docs_filegroup(
+    name = "goal_attempt_docs",
+    srcs = glob(["goals/runtime_extensions/attempts/*.md"]),
+    prefix = (
+        "content/docs/projects/mcp_cordis/goals/runtime_extensions/attempts"
+    ),
+)
