@@ -2,8 +2,22 @@ approval_policy = "on-request"
 approvals_reviewer = "auto_review"
 default_permissions = "host-bot"
 
+[agents]
+# The MultiAgentV2 backend accounts for the root thread separately.
+max_concurrent_threads_per_session = 20
+
 [projects."/var/home/simeonwarrenbot/Projects/src"]
 trust_level = "trusted"
+
+[mcp_servers.arxiv]
+command = "uvx"
+args = [
+  "--from",
+  "arxiv-mcp-server==0.7.2",
+  "arxiv-mcp-server",
+  "--storage-path",
+  "/srv/misc/arxiv-mcp-server/papers",
+]
 
 [mcp_servers.blender]
 command = "uvx"

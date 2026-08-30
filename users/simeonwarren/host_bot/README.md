@@ -32,6 +32,16 @@ volume group retains about 900 GiB for later growth or another logical volume.
 Because the volume is striped, either SSD failing invalidates the disposable
 cache.
 
+The arXiv MCP server is pinned to version 0.7.2 and runs locally over stdio.
+Its downloaded papers and search data live under
+`/srv/misc/arxiv-mcp-server/papers` on a reusable 100-GiB `misc` logical
+volume in the existing `sata_ssd` volume group. The volume is mounted for
+reconstructible non-executable application data. Data with durability or
+different reliability requirements belongs on a separate volume.
+
+The managed Codex configuration allows up to 20 concurrent subagents per
+session. The root agent is accounted for separately.
+
 `T3_MCP_BEARER_TOKEN` authenticates the Codex app-server's loopback MCP
 connection to T3 Code at `/mcp`. Codex excludes it from model-spawned commands
 so those subprocesses do not inherit the credential.

@@ -32,22 +32,27 @@ secret and infrastructure handling rules.
 
 ## Decision-making
 
-For material design, security, and operational decisions, ask what the best
-expert in that field would do and why they would reject your current choice;
-if you can name that reason, don't make the choice. Optimize for what that
-expert would judge correct, never for what satisfies the stated constraints
-most cheaply. State material trade-offs to the user; routine implementation
-choices need not be narrated.
+Use the `decision-review` skill before committing to a material design,
+security, operational, costly, irreversible, or repeatedly failing choice.
+Treat both the user's proposal and your current plan as hypotheses: identify
+the strongest reason a domain expert would reject them, test that reason
+against evidence, and compare credible alternatives. The primary agent owns
+the verdict and must not delegate it to a random subagent. Optimize for the
+user's actual goal, not agreement or the cheapest satisfaction of stated
+constraints. State material trade-offs to the user; routine reversible
+implementation choices do not need this review or narration.
 
 ## Questions
 
 Use the `answer-question` skill whenever the user's message contains a
-substantive question, including when it also requests action. A question,
-including “can we,” “should we,” “why,” or “do we need,” is a request for
-information and not authorization to modify files, settings, pull requests,
-deployments, or other external state. Read-only investigation is allowed when
-it supports a truthful answer. If a message combines a question with an
-explicit request for action, act only within that stated scope.
+substantive question, including when it also requests action. When a
+substantive question asks for a material decision, use both `answer-question`
+and `decision-review`. A question, including “can we,” “should we,” “why,” or
+“do we need,” is a request for information and not authorization to modify
+files, settings, pull requests, deployments, or other external state.
+Read-only investigation is allowed when it supports a truthful answer. If a
+message combines a question with an explicit request for action, act only
+within that stated scope.
 
 ## Making changes
 

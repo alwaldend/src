@@ -238,10 +238,19 @@ example, a calculation or guide before implementation, a low-resolution
 failure view before a full render packet, a focused package test before a
 repository-wide test, or a reusable persistent tool session before repeated
 process startup. Cache stable inputs, make repeated review steps deterministic,
-reuse validated fixtures, and parallelize independent work when shared mutable
-state and review order remain safe. Instrument elapsed time or record a useful
+and reuse validated fixtures. Instrument elapsed time or record a useful
 estimate when the bottleneck is uncertain; do not optimize a step merely
 because it is easy to automate.
+
+Treat subagents, concurrency slots, context, and coordination as real costs,
+not free parallelism or a utilization target. Delegate only when the
+independent work is substantial enough that its expected quality gain or
+critical-path reduction clearly outweighs those costs. A small speedup on a
+routine or throwaway task is not sufficient. Prefer local sequential work for
+short checks, bound delegation fan-out and depth, and stop agents when their
+marginal value disappears. When delegation is justified, parallelize only
+independent work whose shared state and review order remain safe; do not permit
+recursive delegation unless its additional cost is separately warranted.
 
 Use progressive fidelity asymmetrically: a fast checkpoint may reject a bad
 candidate, but it may not establish final acceptance unless it exercises the
