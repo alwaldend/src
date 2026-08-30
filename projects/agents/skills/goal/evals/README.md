@@ -9,7 +9,8 @@ goal pursuit. The required offline Bazel target validates the Promptfoo
 configuration, referenced cases, and staged skill without making a model call.
 The cases also record that ordinary task-coordination goals remain in the
 repository's ignored temporary-output area rather than becoming source-tree
-churn.
+churn, and that agent delegation must justify its coordination and compute
+cost rather than merely produce a small speedup.
 
 A live target is omitted because representative behavior spans multiple turns
 and requires creating and reviewing real artifacts, maintaining goal records,

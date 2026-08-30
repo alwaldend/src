@@ -1,4 +1,16 @@
 ansible_user: simeonwarrenbot
+arxiv_mcp_storage_path: "{{ misc_storage_mount }}/arxiv-mcp-server/papers"
+misc_storage_device: /dev/sata_ssd/misc
+misc_storage_mount: /srv/misc
+misc_storage_mount_options:
+  - defaults
+  - noatime
+  - nodev
+  - nosuid
+  - noexec
+  - nofail
+  - x-systemd.device-timeout=10s
+misc_storage_size: 100G
 dev_vm_bazel_user: "{{ ansible_user }}"
 dev_vm_bazel_group: "{{ ansible_user }}"
 dev_vm_bazel_home: /var/home/simeonwarrenbot

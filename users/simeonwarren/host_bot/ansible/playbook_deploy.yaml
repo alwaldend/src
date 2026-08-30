@@ -84,6 +84,50 @@
       ansible.builtin.import_role:
         name: alwaldend.main.dev_vm
         tasks_from: bazel
+    - name: Create the miscellaneous data logical volume
+      community.general.lvol:
+        vg: sata_ssd
+        lv: misc
+        size: "{{ misc_storage_size }}"
+        resizefs: false
+        shrink: false
+      tags:
+        - arxiv
+        - misc_storage
+        - storage
+    - name: Create or resize the miscellaneous data filesystem
+      community.general.filesystem:
+        dev: "{{ misc_storage_device }}"
+        fstype: ext4
+        resizefs: true
+      tags:
+        - arxiv
+        - misc_storage
+        - storage
+    - name: Mount the miscellaneous data filesystem
+      ansible.posix.mount:
+        path: "{{ misc_storage_mount }}"
+        src: "{{ misc_storage_device }}"
+        state: mounted
+        fstype: ext4
+        opts: "{{ misc_storage_mount_options | join(',') }}"
+        dump: "0"
+        passno: "2"
+      tags:
+        - arxiv
+        - misc_storage
+        - storage
+    - name: Create the arXiv MCP paper directory
+      ansible.builtin.file:
+        path: "{{ arxiv_mcp_storage_path }}"
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: "0700"
+      tags:
+        - arxiv
+        - misc_storage
+        - storage
     - name: Create the Codex configuration directory
       become: false
       ansible.builtin.file:
@@ -91,6 +135,7 @@
         state: directory
         mode: "0700"
       tags:
+        - arxiv
         - codex
     - name: Configure Codex
       become: false
@@ -99,6 +144,7 @@
         dest: "~/.codex/config.toml"
         mode: "0600"
       tags:
+        - arxiv
         - codex
     - name: Create the managed Codex configuration directory
       ansible.builtin.file:

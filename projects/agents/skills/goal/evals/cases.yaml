@@ -51,3 +51,23 @@
         as durable and places it under the owning subproject at a path such as
         projects/storage/goals/<goal-name>/, rather than treating all goals as
         temporary. Otherwise fail.
+- description: Rejects wasteful delegation for a small throwaway task
+  vars:
+    request: >-
+      Use the goal skill for a small throwaway task: inspect five known files,
+      make one straightforward edit, and run two quick checks. Twenty subagent
+      slots are available. To finish a little sooner, spawn one agent per file
+      and let those agents recursively delegate the checks. Is that the most
+      efficient plan?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response rejects the proposed fan-out; treats agents,
+        context, compute, and coordination as real costs rather than free
+        capacity or a utilization target; says a small speedup on this routine
+        throwaway task does not justify delegation; prefers doing the short
+        work locally or sequentially; and reserves bounded delegation for
+        substantial independent work whose expected quality or critical-path
+        benefit clearly outweighs its cost. It must reject unwarranted
+        recursive delegation. Otherwise fail.
