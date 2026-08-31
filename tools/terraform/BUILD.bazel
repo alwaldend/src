@@ -1,6 +1,15 @@
 load("@com_alwaldend_src_tools_terraform//:defs.bzl", "terraform_binary")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+exports_files(["agent_operations.json"])
+
+sh_test(
+    name = "explicit_operations_test",
+    srcs = ["explicit_operations_test.sh"],
+    args = ["$(location defs.bzl)"],
+    data = ["defs.bzl"],
+)
+
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),

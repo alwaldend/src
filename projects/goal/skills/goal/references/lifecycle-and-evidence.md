@@ -13,6 +13,8 @@ implementation:
   compare-and-swap token;
 - the uncertainty or stable defect being targeted;
 - work type and hypothesis when the work tests one;
+- the smallest high-leverage module or question, its stop condition, and the
+  minimum whole-result context needed to detect interface or integration harm;
 - the plan, inputs, parameters, intended result identity, and review packet;
 - affected criteria and the fixed regression checks; and
 - parent checkpoint or prior attempt when one exists.
@@ -21,6 +23,12 @@ Preflight deterministic geometry, numeric gates, controlling references,
 paths, APIs, tools, permissions, and whether the proposed artifact can satisfy
 its own acceptance gate. Preserve material preflight evidence without turning
 discarded prose drafts into fake attempts.
+
+Prefer a bounded module whose result can change the next decision. Do not
+polish it in isolation: retain enough surrounding context to judge composition,
+interfaces, and fixed regressions. If a cheap check decisively falsifies the
+module, interface, or approach, stop work and close the attempt with that
+evidence rather than completing the original plan mechanically.
 
 ## Bind evidence to what was tested
 
@@ -37,6 +45,15 @@ identify its criterion revision and the exact tested subject:
 A later change that can affect a verdict invalidates it until rerun. Never
 combine visual evidence from one candidate with technical evidence from
 another. Command success alone is not evidence of the desired postcondition.
+
+For a monolithic shared artifact without stable mergeable interfaces, derive
+each candidate from an exact immutable baseline and keep it isolated. Use an
+approved baseline when the task requires approval. Compare the candidate in
+the minimum whole-result context needed to detect integration regressions.
+Bind acceptance or approval evidence to its exact identity; the canonical
+writer may promote it only with existing mutation authority and when the
+task's acceptance and approval policy permits. Do not manufacture a permanent
+file split solely to make concurrent editing possible.
 
 ## Review and close
 
@@ -63,6 +80,14 @@ become canonical or reopen a closed lifecycle.
 When a required criterion fails or remains unverified, keep the outcome open,
 update the stable failure count, and choose the highest-leverage next attempt.
 After the same defect survives twice, materially change strategy.
+
+At least every three closed attempts, and immediately on a stalled trend,
+examine the complete attempt history and the end-to-end process, not only the
+latest failure. Identify systemic delays, repeated assumptions, weak evidence,
+poor decomposition, and unhelpful tooling. Process changes are justified only
+when they improve the speed or reliability of producing the requested result.
+Record the review and the last attempt it covers in attempt evidence or the
+attempt result so its cadence survives a session change.
 
 For final acceptance, freeze one exact result, run every required criterion
 and the complete regression set, deliver or export it, and verify that delivery

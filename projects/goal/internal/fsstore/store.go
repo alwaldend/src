@@ -642,7 +642,7 @@ func (s *Store) updateCriteria(
 	if err != nil {
 		return GoalReference{}, err
 	}
-	desiredContent, err := readRegularFile(desiredPath, maxManifestBytes)
+	desiredContent, err := s.readWorkspaceRegularFile(desiredPath, maxManifestBytes)
 	if err != nil {
 		return GoalReference{}, fmt.Errorf("read criteria file: %w", err)
 	}
@@ -831,13 +831,13 @@ func (s *Store) loadAndValidate(dir string) (GoalManifest, CriteriaManifest, []A
 	if err != nil {
 		return GoalManifest{}, CriteriaManifest{}, nil, err
 	}
-	for _, required := range []string{"attempts", "criteria-revisions"} {
-		if _, err := os.Stat(filepath.Join(dir, required)); err != nil {
-			return GoalManifest{}, CriteriaManifest{}, nil, fmt.Errorf("missing %s", required)
-		}
+	if _, err := os.Stat(filepath.Join(dir, "criteria-revisions")); err != nil {
+		return GoalManifest{}, CriteriaManifest{}, nil, fmt.Errorf("missing criteria-revisions")
 	}
 	entries, err := os.ReadDir(filepath.Join(dir, "attempts"))
-	if err != nil {
+	if os.IsNotExist(err) {
+		entries = nil
+	} else if err != nil {
 		return GoalManifest{}, CriteriaManifest{}, nil, err
 	}
 	if len(entries) > maxAttempts {
@@ -1165,6 +1165,22 @@ func readRegularFile(path string, maximum int64) ([]byte, error) {
 		return nil, fmt.Errorf("must be a regular file of at most %d bytes", maximum)
 	}
 	return os.ReadFile(path)
+}
+
+func (s *Store) readWorkspaceRegularFile(path string, maximum int64) ([]byte, error) {
+	resolved, err := s.resolveInsideWorkspace(path)
+	if err != nil {
+		return nil, err
+	}
+	return readRegularFile(resolved, maximum)
+}
+
+func (s *Store) readWorkspaceMarkdownFile(path string, maximum int64) ([]byte, error) {
+	resolved, err := s.resolveInsideWorkspace(path)
+	if err != nil {
+		return nil, err
+	}
+	return readMarkdownFile(resolved, maximum)
 }
 
 func rejectRecordSymlinks(root string) error {

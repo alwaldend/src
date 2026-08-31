@@ -1,0 +1,70 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: phase1-contracts-001
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-08-31T18:01:33.807833498Z"
+spec:
+  goalRef:
+    name: agent-system-phase-1
+  goalGeneration: 2
+  lifecycleGeneration: 7
+  criteriaRevision: 3
+  criteriaDigest: sha256:d8c600b75d19ff670e5df73801c1db81761b8890840c78050fab9a534d3a47cd
+  goalStateDigest: sha256:62db8ac202b22a64c98e3967af88bc6142844890e21f6bc03c3023d3deed375a
+  workType: change
+status:
+  state: closed
+  closedAt: "2026-08-31T18:20:34.800701039Z"
+  artifacts:
+    planDigest: sha256:c32e0747993fa243aaccbebfbb2123853b089d6cd95778c5161ba6de5533203e
+    resultDigest: sha256:b1a087fe11da05380087a6a97d43a6171e6754d01672910bc17419ec3e2949fc
+    evidence:
+    - path: evidence/phase-1-contracts-evidence.md
+      digest: sha256:5e3b48089715bda574f4d7e62dd686e44232839e5dec2812c27a14e7d9fd3dcf
+  review:
+    decision: refine
+    criteria:
+    - criterionID: encountered-bug-policy
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase-1-contracts-evidence.md
+    - criterionID: exact-candidate-validation
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase-1-contracts-evidence.md
+    - criterionID: information-policy
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase-1-contracts-evidence.md
+    - criterionID: registered-universe
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: resource-baseline
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: safe-operations
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: scratch-isolation
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: shared-contracts
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase-1-contracts-evidence.md
+      - result.md
+  observedAt: "2026-08-31T18:20:34.800701039Z"

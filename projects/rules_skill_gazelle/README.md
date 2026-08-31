@@ -1,6 +1,8 @@
 ---
 title: Rules skill Gazelle
 description: Gazelle extension for Bazel skill libraries
+statuses:
+  - active
 languages:
   - go
 tags:

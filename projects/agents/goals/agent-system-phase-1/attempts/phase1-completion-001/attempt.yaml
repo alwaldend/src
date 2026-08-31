@@ -1,0 +1,70 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: phase1-completion-001
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-08-31T18:50:21.8918418Z"
+spec:
+  goalRef:
+    name: agent-system-phase-1
+  goalGeneration: 2
+  lifecycleGeneration: 7
+  criteriaRevision: 3
+  criteriaDigest: sha256:d8c600b75d19ff670e5df73801c1db81761b8890840c78050fab9a534d3a47cd
+  goalStateDigest: sha256:62db8ac202b22a64c98e3967af88bc6142844890e21f6bc03c3023d3deed375a
+  workType: integration
+status:
+  state: closed
+  closedAt: "2026-08-31T19:46:27.039259907Z"
+  artifacts:
+    planDigest: sha256:4bc850e5833964b4003d4232747987f0259312919b1685856e883f319d625ef1
+    resultDigest: sha256:36c87730a5138128580e70fd47fdca5c13b2055d7fa025605dcd2316056a2989
+    evidence:
+    - path: evidence/phase1-validation.md
+      digest: sha256:74200628685d128d23761e8fb739d70c007646bfcde859f6404857c7d9a82061
+  review:
+    decision: accept
+    criteria:
+    - criterionID: encountered-bug-policy
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase1-validation.md
+    - criterionID: exact-candidate-validation
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase1-validation.md
+      - result.md
+    - criterionID: information-policy
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase1-validation.md
+    - criterionID: registered-universe
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase1-validation.md
+    - criterionID: resource-baseline
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase1-validation.md
+    - criterionID: safe-operations
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase1-validation.md
+    - criterionID: scratch-isolation
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase1-validation.md
+    - criterionID: shared-contracts
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase1-validation.md
+  observedAt: "2026-08-31T19:46:27.039259907Z"

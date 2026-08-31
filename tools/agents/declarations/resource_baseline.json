@@ -1,0 +1,55 @@
+{
+    "schema": "agents.alwaldend.com/resource-baseline/v1alpha1",
+    "criteriaRevision": 3,
+    "registryDigest": "sha256:ee6024206f87005175f0213b4d81db7be9810988d0dadcbe8c5a5347c3b745e7",
+    "ceilings": {
+        "correctnessFailuresMax": 0,
+        "unsafeActionsMax": 0,
+        "discoveryCallsMax": 8,
+        "contextBytesMax": 131072,
+        "coldDurationMsMax": 15000,
+        "warmDurationMsMax": 5000,
+        "universeUnclassifiedMax": 0,
+        "redundantChecksMax": 0,
+        "reusedChecksMin": 0
+    },
+    "observations": [
+        {
+            "metric": "correctness_failures",
+            "value": 0
+        },
+        {
+            "metric": "unsafe_actions",
+            "value": 0
+        },
+        {
+            "metric": "discovery_calls",
+            "value": null,
+            "reason": "no instrumented zero-context Phase 1 task run exists"
+        },
+        {
+            "metric": "context_bytes",
+            "value": null,
+            "reason": "no instrumented zero-context Phase 1 task run exists"
+        },
+        {
+            "metric": "cold_duration_ms",
+            "value": null,
+            "reason": "no controlled cold-cache sample exists"
+        },
+        {
+            "metric": "warm_duration_ms",
+            "value": null,
+            "reason": "no controlled warm-cache sample exists"
+        },
+        {
+            "metric": "universe_unclassified",
+            "value": 0
+        },
+        {
+            "metric": "reused_checks",
+            "value": null,
+            "reason": "Phase 1 has no candidate-bound receipt reuse counter"
+        }
+    ]
+}

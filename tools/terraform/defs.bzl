@@ -26,7 +26,6 @@ def terraform_binary(
     )
 
 DEFAULT_TERRAFORM_BINARIES = {
-    "": ["apply"],
     "direct": ["--direct"],
     "init": ["--direct", "init"],
     "migrate": ["--direct", "init", "--migrate-state"],
@@ -49,7 +48,10 @@ def terraform_binary_map(
         args = DEFAULT_TERRAFORM_BINARIES,
         **kwargs):
     """
-    Create several terraform binaries
+    Create several explicitly named Terraform binaries.
+
+    The unnamed target used to alias `apply`. Mutating operations must remain
+    explicit, so callers use `<name>.apply` instead.
     """
     for args_name, args_value in args.items():
         if args_name:

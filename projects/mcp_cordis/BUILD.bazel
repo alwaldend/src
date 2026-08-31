@@ -14,6 +14,7 @@ CORDIS_NODE_OPTIONS = [
 ]
 
 exports_files([
+    "agent_operations.json",
     "package.json",
     "pnpm-lock.yaml",
     "pnpm-workspace.yaml",

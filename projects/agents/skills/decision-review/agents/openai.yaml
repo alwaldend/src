@@ -1,0 +1,4 @@
+interface:
+  display_name: "Decision Review"
+  short_description: "Challenge consequential choices with evidence"
+  default_prompt: "Use $decision-review to challenge this choice."

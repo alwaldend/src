@@ -1,0 +1,63 @@
+{
+    "schema": "agents.alwaldend.com/operations/v1alpha1",
+    "owner": "projects.goal",
+    "provider": "goal.local-store",
+    "definition": "projects/goal/cmd/goal/command.go",
+    "operations": [
+        {
+            "id": "goal.checkpoint",
+            "selector": "checkpoint",
+            "classification": "classified",
+            "effects": ["source.write", "task_state.write"],
+            "inputs": ["goal revision", "attempt artifacts"],
+            "outputs": ["versioned goal state"],
+            "information": ["public", "secret", "personal"],
+            "credentialUse": "none",
+            "networkUse": "none",
+            "environmentSelector": "explicit goal directory",
+            "authorityGate": "goal writer and expected resource version",
+            "preflight": "lock, reread, and validate prospective state",
+            "verification": "complete record validation",
+            "cost": "one goal-lock-bounded update",
+            "cacheability": "not_cacheable",
+            "cancellation": "atomic-file publication boundaries"
+        },
+        {
+            "id": "goal.promote",
+            "selector": "promote",
+            "classification": "classified",
+            "effects": ["source.write", "task_state.write"],
+            "inputs": ["paused workspace goal", "destination owner"],
+            "outputs": ["durable project goal"],
+            "information": ["public", "secret", "personal"],
+            "credentialUse": "none",
+            "networkUse": "none",
+            "environmentSelector": "explicit source and destination",
+            "authorityGate": "explicit durable-record request",
+            "preflight": "ordered locks and source validation",
+            "verification": "destination validation and provenance",
+            "cost": "one bounded goal copy",
+            "cacheability": "not_cacheable",
+            "cancellation": "atomic publication boundaries"
+        },
+        {
+            "id": "goal.migrate",
+            "selector": "migrate",
+            "classification": "classified",
+            "effects": ["source.write", "task_state.write"],
+            "inputs": ["legacy source bytes", "explicit mapping"],
+            "outputs": ["versioned goal"],
+            "information": ["public", "secret", "personal"],
+            "credentialUse": "none",
+            "networkUse": "none",
+            "environmentSelector": "explicit source and destination",
+            "authorityGate": "explicit migration request",
+            "preflight": "source preservation and destination absence",
+            "verification": "destination validation and source digest",
+            "cost": "one bounded migration",
+            "cacheability": "not_cacheable",
+            "cancellation": "atomic publication boundaries"
+        }
+    ],
+    "removedAliases": []
+}

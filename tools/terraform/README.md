@@ -9,4 +9,5 @@ description: Terraform
 
 ## Features
 
-- Terraform binary
+- Terraform binaries use explicit operation suffixes. In particular, apply is
+  `<name>.apply`; the unnamed `<name>` mutating alias is intentionally absent.

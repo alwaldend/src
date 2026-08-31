@@ -1,6 +1,8 @@
 ---
 title: Rules docs Gazelle
 description: Gazelle extension for Bazel documentation packaging rules
+statuses:
+  - active
 languages:
   - go
 tags:

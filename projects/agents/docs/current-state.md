@@ -34,6 +34,23 @@ The immutable audit, criteria, methods, and evidence bindings are retained at
 is the maintained public-system synthesis; its direct source links are the
 documentation projection's evidence surface.
 
+## Phase 1 declared baseline
+
+The Phase 1 candidate adds the shared `agents.alwaldend.com/v1alpha1`
+contracts and a report-only registered-universe check. Registry digest
+`sha256:ee6024206f87005175f0213b4d81db7be9810988d0dadcbe8c5a5347c3b745e7`
+currently covers seven registration authorities, 21 skills, 28 project roots,
+nine workspaces, two maintained goals, ten Cordis gateway tools, four
+supported direct binaries, 24 owner-declared operations, and two generated
+artifacts. The report names two legacy Terraform argument surfaces as
+`requires_migration`; it does not silently call them safe or absent.
+
+Task/run manifests and Cordis scratch now use
+`out/<task>/mcp_cordis/runs/<run>/`, while Bazel action/test temporary storage
+remains Bazel-owned. `bazel_agent doctor` exposes a bounded, non-environment-
+dumping view of runner/source identity, Bazelisk pins, platform, profile/rc
+composition, task scratch, and stale-install state.
+
 ## Direct assessment
 
 The repository has strong specialized mechanisms and weak system-level joins.
@@ -128,9 +145,8 @@ allowed effects, expected cost, and reusable evidence.
 
 - The snapshot contains 409 tracked README files; 407 begin with YAML
   frontmatter and all 407 declare a title.
-- All 28 project roots have title and description. Seventeen declare a project
-  status, and 11 do not. Six status values are in use without a checked
-  repository vocabulary.
+- All 28 project roots have title, description, and exactly one lifecycle
+  status from the checked Phase 1 vocabulary.
 - `docs_filegroup` packages Markdown and direct documentation dependencies. It
   does not carry owner, lifecycle, policy, workspace, capability, or action
   metadata
@@ -145,8 +161,8 @@ allowed effects, expected cost, and reusable evidence.
 
 ### Capabilities
 
-- The root registry and tracked discovery directory contain the same 20 skill
-  names: 18 under `projects/agents`, the goal skill, and versioning.
+- The root registry and tracked discovery directory contain the same 21 skill
+  names: 19 under `projects/agents`, the goal skill, and versioning.
 - Canonical skills have strong artifact validation, but most behavioral
   targets validate configuration rather than outcomes. Descriptions drive
   routing; composition, effects, authority, cost, and observed quality are not
@@ -195,9 +211,8 @@ point consumes its output.
 
 ### Ownership and path policy are not machine-resolvable
 
-`CODEOWNERS` contains only `- @simeonwarren`; the first token is a literal path
-pattern rather than a catch-all for normal repository paths
-([`CODEOWNERS`][snapshot-codeowners]).
+`CODEOWNERS` now uses the intentional `* @simeonwarren` catch-all. More
+specific ownership remains owner-local work rather than an inferred rewrite.
 
 Tree policy also overloads `public`, `published`, and `used in builds` across
 Bazel visibility, artifact publication, documentation, source disclosure,
@@ -208,12 +223,12 @@ meanings.
 
 ### Operations expose labels, not effect contracts
 
-`bazel_agent` intentionally passes commands and later options through without
-validating their meaning. Repository targets do not share machine-readable
-effect, authority, credential, environment, destructive-operation, cost, or
-postcondition metadata. Some generic/default labels are effectful; for example,
-the Terraform target map associates its unnamed operation with `apply`
-([`tools/terraform/defs.bzl`][snapshot-terraform-defs]).
+`bazel_agent` intentionally passes ordinary Bazel commands and later options
+through without validating their meaning. Phase 1 adds owner-local action
+declarations for the goal store, Cordis mutation surface, repository delivery,
+and Terraform map. The unnamed Terraform `apply` alias is removed and the
+explicit `.apply` label remains. Other Bazel targets are not thereby claimed
+to be runtime-enforced; Phase 3 owns admission and enforcement.
 
 The same separation appears in dynamic runtime tools: handlers with different
 filesystem, process, and network behavior have no common capability model.

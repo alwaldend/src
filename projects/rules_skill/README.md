@@ -1,6 +1,8 @@
 ---
 title: Rules skill
 description: Bazel rules and validation for Codex skills
+statuses:
+  - active
 languages:
   - bzl
   - go

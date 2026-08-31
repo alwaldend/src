@@ -11,6 +11,7 @@ import { CordisRuntime } from "../internal/runtime.mjs";
 
 const temporaryRoot = process.env.TEST_TMPDIR;
 assert.ok(temporaryRoot, "Bazel must provide TEST_TMPDIR");
+const defaultScratch = "out/test-task/mcp_cordis/runs/test-run";
 
 async function workspace(label) {
     const root = await mkdtemp(join(temporaryRoot, `${label}-`));
@@ -242,7 +243,7 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
         generation: "v1",
         value: 1,
     });
-    const invalidCompletionPath = "out/mcp_cordis/invalid_timeout_complete";
+    const invalidCompletionPath = `${defaultScratch}/invalid_timeout_complete`;
     await assert.rejects(
         runtime.invoke({
             scope: "scratch",
@@ -262,7 +263,7 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
         (error) => error.code === "ENOENT",
     );
 
-    const completionPath = "out/mcp_cordis/slow_value_complete";
+    const completionPath = `${defaultScratch}/slow_value_complete`;
     await assert.rejects(
         runtime.invoke({
             scope: "scratch",
@@ -309,13 +310,7 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
             "v2"
         );
     });
-    const scratchSource = join(
-        root,
-        "out",
-        "mcp_cordis",
-        "plugins",
-        "echo.mjs",
-    );
+    const scratchSource = join(runtime.scratchRoot, "plugins", "echo.mjs");
     const v2Source = await readFile(scratchSource, "utf8");
     assert.equal(v2Source, plugin("v2"));
     await assert.rejects(
@@ -375,18 +370,8 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
         "ordinary reloads must preserve the enabled state",
     );
 
-    const slowReloadMarker = join(
-        root,
-        "out",
-        "mcp_cordis",
-        "slow_reload_started",
-    );
-    const slowReloadRelease = join(
-        root,
-        "out",
-        "mcp_cordis",
-        "slow_reload_release",
-    );
+    const slowReloadMarker = join(runtime.scratchRoot, "slow_reload_started");
+    const slowReloadRelease = join(runtime.scratchRoot, "slow_reload_release");
     await runtime.define({
         scope: "scratch",
         name: "echo",
@@ -415,24 +400,9 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
         );
     });
 
-    const slowApplyMarker = join(
-        root,
-        "out",
-        "mcp_cordis",
-        "slow_apply_started",
-    );
-    const slowApplyRelease = join(
-        root,
-        "out",
-        "mcp_cordis",
-        "slow_apply_release",
-    );
-    const latestApplyMarker = join(
-        root,
-        "out",
-        "mcp_cordis",
-        "latest_apply_started",
-    );
+    const slowApplyMarker = join(runtime.scratchRoot, "slow_apply_started");
+    const slowApplyRelease = join(runtime.scratchRoot, "slow_apply_release");
+    const latestApplyMarker = join(runtime.scratchRoot, "latest_apply_started");
     await runtime.define({
         scope: "scratch",
         name: "echo",
@@ -475,12 +445,7 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
         JSON.stringify(beforeOverlapStop),
     );
 
-    const failedApplyMarker = join(
-        root,
-        "out",
-        "mcp_cordis",
-        "failed_apply_started",
-    );
+    const failedApplyMarker = join(runtime.scratchRoot, "failed_apply_started");
     await runtime.define({
         scope: "scratch",
         name: "echo",
@@ -776,7 +741,7 @@ test("invocation and Fiber disposal join process-tree cleanup", async (t) => {
         source: processPlugin(),
         activate: true,
     });
-    const timeoutPidPath = "out/mcp_cordis/invoke_timeout_pids";
+    const timeoutPidPath = `${defaultScratch}/invoke_timeout_pids`;
     const timedInvocation = runtime.invoke({
         scope: "scratch",
         packageName: "process_tools",
@@ -794,7 +759,7 @@ test("invocation and Fiber disposal join process-tree cleanup", async (t) => {
     await timedRejection;
     await assertProcessesStopped(await readPids(root, timeoutPidPath));
 
-    const forgottenPidPath = "out/mcp_cordis/fire_and_forget_pids";
+    const forgottenPidPath = `${defaultScratch}/fire_and_forget_pids`;
     const forgottenInvocation = runtime.invoke({
         scope: "scratch",
         packageName: "process_tools",
@@ -808,7 +773,7 @@ test("invocation and Fiber disposal join process-tree cleanup", async (t) => {
     await Promise.all([forgottenInvocation, stopped]);
     await assertProcessesStopped(await readPids(root, forgottenPidPath));
 
-    const activationPidPath = "out/mcp_cordis/activation_pids";
+    const activationPidPath = `${defaultScratch}/activation_pids`;
     await runtime.define({
         scope: "scratch",
         name: "activation_process",
@@ -820,4 +785,47 @@ test("invocation and Fiber disposal join process-tree cleanup", async (t) => {
     );
     await runtime.stop({ scope: "scratch", name: "activation_process" });
     await assertProcessesStopped(await readPids(root, activationPidPath));
+});
+
+test("task and run ownership isolate concurrent scratch", async (t) => {
+    const root = await workspace("scratch-isolation");
+    const first = new CordisRuntime({
+        workspaceRoot: root,
+        taskId: "task-one",
+        runId: "run-one",
+        workerId: "worker-one",
+    });
+    const second = new CordisRuntime({
+        workspaceRoot: root,
+        taskId: "task-two",
+        runId: "run-one",
+        workerId: "worker-two",
+    });
+    t.after(() => Promise.all([first.shutdown(), second.shutdown()]));
+    await Promise.all([first.initialize(), second.initialize()]);
+
+    assert.notEqual(first.scratchRoot, second.scratchRoot);
+    await first.define({
+        scope: "scratch",
+        name: "isolated",
+        source: plugin("task-one"),
+        activate: false,
+    });
+    assert.equal(
+        (await second.listPackages({ scope: "scratch" })).packages.length,
+        0,
+    );
+
+    for (const [runtime, taskId, workerId] of [
+        [first, "task-one", "worker-one"],
+        [second, "task-two", "worker-two"],
+    ]) {
+        const manifest = JSON.parse(
+            await readFile(join(runtime.scratchRoot, "manifest.json"), "utf8"),
+        );
+        assert.equal(manifest.taskId, taskId);
+        assert.equal(manifest.runId, "run-one");
+        assert.equal(manifest.workerId, workerId);
+        assert.equal(manifest.lockScope, `${taskId}/run-one`);
+    }
 });

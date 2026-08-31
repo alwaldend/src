@@ -91,10 +91,35 @@ scratch/output location. They do not write into the canonical goal directory.
 The coordinator reviews their output and imports selected Markdown evidence
 through the canonical checkpoint.
 
+For a long-running goal, the coordinator explicitly lists ready independent
+workstreams at start, resume, and before each attempt. If at least two can
+produce useful reviewable outputs without racing canonical state, delegate
+them concurrently. Remaining sequential requires a concrete reason recorded
+with the attempt, such as an unresolved dependency, unsafe shared mutation, or
+an integration queue that would erase the latency benefit. Recheck when an
+attempt closes, stalls, changes strategy, or exposes another independent
+workstream.
+
+For a monolithic artifact with no stable mergeable interfaces, give each
+worker an isolated copy of the same exact frozen baseline instead of splitting
+the canonical artifact; use an approved baseline when the task requires
+approval. Bound each copy to one falsifiable change and enough whole-result
+context to expose integration regressions. The coordinator may promote a
+candidate only when the task already authorizes the mutation and the task's
+acceptance and approval policy permits it; workers never merge competing
+copies directly. Copy only data permitted for that worker boundary and
+minimize unrelated context.
+
 Before publication, recheck that the goal remains open, the execution state
 permits publication, and all versions still match. This prevents a late worker
 from publishing after pause, completion, abandonment, or supersession.
 
-Parallelize only independent work with disjoint output locations. Bound fanout
-and depth; recursive delegation needs its own cost justification. Stop workers
-whose output can no longer affect the critical path.
+Parallelize only independent work with disjoint output locations. Allocate
+workers and compute to critical-path uncertainty, and cap work in progress at
+the coordinator's review and integration capacity. Idle slots are not a
+failure when no additional useful workstream is ready. Suitable work includes
+bounded candidate variants, research, disjoint modules, blind review,
+verification, and artifact preparation. Bound fanout and depth; do not split
+trivial operations merely to fill slots, and require a separate benefit for
+recursive delegation. Stop workers whose output can no longer affect the next
+decision or required acceptance and delivery evidence.

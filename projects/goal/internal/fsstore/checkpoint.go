@@ -380,13 +380,13 @@ func (s *Store) buildAttemptTree(
 	}
 	var err error
 	if options.PlanFile != "" {
-		tree.Plan, err = readMarkdownFile(options.PlanFile, maxPlanResultBytes)
+		tree.Plan, err = s.readWorkspaceMarkdownFile(options.PlanFile, maxPlanResultBytes)
 		if err != nil {
 			return nil, fmt.Errorf("read plan: %w", err)
 		}
 	}
 	if options.ResultFile != "" {
-		tree.Result, err = readMarkdownFile(options.ResultFile, maxPlanResultBytes)
+		tree.Result, err = s.readWorkspaceMarkdownFile(options.ResultFile, maxPlanResultBytes)
 		if err != nil {
 			return nil, fmt.Errorf("read result: %w", err)
 		}
@@ -405,7 +405,7 @@ func (s *Store) buildAttemptTree(
 		if _, exists := tree.Evidence[name]; exists {
 			return nil, fmt.Errorf("evidence %q already exists and is immutable", name)
 		}
-		content, err := readMarkdownFile(source, maxEvidenceFileBytes)
+		content, err := s.readWorkspaceMarkdownFile(source, maxEvidenceFileBytes)
 		if err != nil {
 			return nil, fmt.Errorf("read evidence %q: %w", name, err)
 		}
@@ -416,7 +416,7 @@ func (s *Store) buildAttemptTree(
 	}
 	tree.Manifest.Status.Artifacts = artifactManifestForTree(*tree)
 	if options.CloseAttempt {
-		reviewContent, err := readRegularFile(options.ReviewFile, maxManifestBytes)
+		reviewContent, err := s.readWorkspaceRegularFile(options.ReviewFile, maxManifestBytes)
 		if err != nil {
 			return nil, fmt.Errorf("read close review: %w", err)
 		}
@@ -498,6 +498,9 @@ func (s *Store) stageNewAttempt(
 	tree attemptTree,
 ) (*stagedAttempt, error) {
 	attemptsDir := filepath.Join(dir, "attempts")
+	if err := ensureAttemptsDirectory(attemptsDir); err != nil {
+		return nil, err
+	}
 	temporary, err := os.MkdirTemp(attemptsDir, ".goal-attempt-")
 	if err != nil {
 		return nil, fmt.Errorf("create temporary attempt directory: %w", err)
@@ -517,6 +520,23 @@ func (s *Store) stageNewAttempt(
 	}
 	staged = true
 	return &stagedAttempt{temporary: temporary, target: target}, nil
+}
+
+func ensureAttemptsDirectory(path string) error {
+	info, err := os.Lstat(path)
+	if os.IsNotExist(err) {
+		if err := os.Mkdir(path, 0o755); err != nil {
+			return fmt.Errorf("create attempts directory: %w", err)
+		}
+		return nil
+	}
+	if err != nil {
+		return fmt.Errorf("inspect attempts directory: %w", err)
+	}
+	if !info.IsDir() || info.Mode()&os.ModeSymlink != 0 {
+		return fmt.Errorf("attempts path must be a directory")
+	}
+	return nil
 }
 
 func (s *Store) publishStagedAttempt(staged *stagedAttempt) error {

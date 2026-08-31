@@ -1,0 +1,6 @@
+interface:
+  display_name: "Repository Blender"
+  short_description: "Operate repository Blender assets safely"
+  default_prompt: >-
+    Use $repo-blender to inspect or modify this Blender asset with the
+    repository-pinned toolchain.

@@ -1,0 +1,70 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: bazel-scratch-001
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-08-31T18:22:53.936243558Z"
+spec:
+  goalRef:
+    name: agent-system-phase-1
+  goalGeneration: 2
+  lifecycleGeneration: 7
+  criteriaRevision: 3
+  criteriaDigest: sha256:d8c600b75d19ff670e5df73801c1db81761b8890840c78050fab9a534d3a47cd
+  goalStateDigest: sha256:62db8ac202b22a64c98e3967af88bc6142844890e21f6bc03c3023d3deed375a
+  workType: change
+status:
+  state: closed
+  closedAt: "2026-08-31T18:28:29.331648213Z"
+  artifacts:
+    planDigest: sha256:f4608934d43062937d248ca6c3cba7f54a202a4b20a49d06371b87898b798fb1
+    resultDigest: sha256:7b7e3ed94dea00071ddb292f7f865b957c610a8435d570cdb6eed756f3fc5912
+    evidence:
+    - path: evidence/bazel-scratch-evidence.md
+      digest: sha256:c476b1f1eba21b3cd228245e6de6c3705b3448e1fe26975f7b426e109a79ad18
+  review:
+    decision: refine
+    criteria:
+    - criterionID: encountered-bug-policy
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/bazel-scratch-evidence.md
+    - criterionID: exact-candidate-validation
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/bazel-scratch-evidence.md
+    - criterionID: information-policy
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/bazel-scratch-evidence.md
+    - criterionID: registered-universe
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: resource-baseline
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: safe-operations
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: scratch-isolation
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/bazel-scratch-evidence.md
+      - result.md
+    - criterionID: shared-contracts
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/bazel-scratch-evidence.md
+  observedAt: "2026-08-31T18:28:29.331648213Z"

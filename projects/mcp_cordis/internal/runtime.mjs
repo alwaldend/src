@@ -25,6 +25,8 @@ const MAX_SOURCE_BYTES = 2_000_000;
 const MAX_READ_BYTES = 64 * 1024 * 1024;
 const NAME_PATTERN = /^[a-z][a-z0-9_]{0,63}$/u;
 const TOOL_NAME_PATTERN = NAME_PATTERN;
+const OWNERSHIP_ID_PATTERN =
+    /^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$/u;
 const LEGACY_SOURCE_MARKER_PATTERN =
     /^(#![^\n]*\n)?export const __mcp_cordis_source_sha256 = "[a-f0-9]{64}";\n/u;
 
@@ -77,6 +79,15 @@ function validateName(name) {
         throw new TypeError("name must match [a-z][a-z0-9_]{0,63}");
     }
     return name;
+}
+
+function validateOwnershipID(field, value) {
+    if (typeof value !== "string" || !OWNERSHIP_ID_PATTERN.test(value)) {
+        throw new TypeError(
+            `${field} must be a lowercase portable identity`,
+        );
+    }
+    return value;
 }
 
 function validateSource(source) {
@@ -380,12 +391,25 @@ export class CordisRuntime {
     constructor({
         workspaceRoot,
         projectRoot = path.join(workspaceRoot, "projects", "mcp_cordis"),
+        taskId = "test-task",
+        runId = "test-run",
+        workerId = "test-worker",
         invokeTimeoutMs = 30_000,
         maxOutputBytes = 1_048_576,
     }) {
         this.workspaceRoot = path.resolve(workspaceRoot);
         this.projectRoot = path.resolve(projectRoot);
-        this.scratchRoot = path.join(this.workspaceRoot, "out", "mcp_cordis");
+        this.taskId = validateOwnershipID("taskId", taskId);
+        this.runId = validateOwnershipID("runId", runId);
+        this.workerId = validateOwnershipID("workerId", workerId);
+        this.scratchRoot = path.join(
+            this.workspaceRoot,
+            "out",
+            this.taskId,
+            "mcp_cordis",
+            "runs",
+            this.runId,
+        );
         if (!isInside(this.workspaceRoot, this.projectRoot)) {
             throw new RangeError("projectRoot must be inside workspaceRoot");
         }
@@ -430,6 +454,32 @@ export class CordisRuntime {
             };
         }
         await mkdir(this.pluginRoots.scratch, { recursive: true });
+        await atomicWrite(
+            path.join(this.scratchRoot, "manifest.json"),
+            `${JSON.stringify(
+                {
+                    apiVersion: "agents.alwaldend.com/v1alpha1",
+                    kind: "TaskRunManifest",
+                    taskId: this.taskId,
+                    runId: this.runId,
+                    workerId: this.workerId,
+                    information: {
+                        public: true,
+                        secret: true,
+                        personal: true,
+                    },
+                    budget: {
+                        calls: 1,
+                        bytes: this.maxOutputBytes,
+                        durationMs: this.invokeTimeoutMs,
+                        concurrency: 1,
+                    },
+                    retention: "task",
+                    lockScope: `${this.taskId}/${this.runId}`,
+                    cleanupOwner: "task-owner",
+                },
+            )}\n`,
+        );
         if ((await readMaybe(this.configFiles.scratch)) === undefined) {
             await atomicWrite(this.configFiles.scratch, "[]\n");
         }

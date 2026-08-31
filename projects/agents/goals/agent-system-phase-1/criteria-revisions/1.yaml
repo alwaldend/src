@@ -1,0 +1,137 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalCriteria
+metadata:
+  name: agent-system-phase-1
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-08-31T17:29:23.202223273Z"
+spec:
+  goalRef:
+    name: agent-system-phase-1
+  revision: 1
+  items:
+  - criterionID: criterion-001
+    revision: 1
+    required: true
+    statement: Shared v1alpha1 contracts round-trip deterministically and reject malformed identity
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-002
+    revision: 1
+    required: true
+    statement: unknown effectful operations
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-003
+    revision: 1
+    required: true
+    statement: widened authority
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-004
+    revision: 1
+    required: true
+    statement: and incompatible information flows.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-005
+    revision: 1
+    required: true
+    statement: A cheap report-only completeness check covers the closed registered agent-reachable universe and names missing or unclassified entries.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-006
+    revision: 1
+    required: true
+    statement: Public
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-007
+    revision: 1
+    required: true
+    statement: secret
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-008
+    revision: 1
+    required: true
+    statement: and personal-information classes remain independent from repository visibility
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-009
+    revision: 1
+    required: true
+    statement: build-consumer
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-010
+    revision: 1
+    required: true
+    statement: and publication policy axes.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-011
+    revision: 1
+    required: true
+    statement: Task and run scratch is namespaced; concurrent tasks do not collide and stale workers fail expected-revision publication.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-012
+    revision: 1
+    required: true
+    statement: Every removed mutating alias has a safe explicit replacement and provider mutation ownership is unambiguous.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-013
+    revision: 1
+    required: true
+    statement: A revision-bound Phase 1 baseline records numeric ceilings for correctness
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-014
+    revision: 1
+    required: true
+    statement: unsafe actions
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-015
+    revision: 1
+    required: true
+    statement: calls
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-016
+    revision: 1
+    required: true
+    statement: context size
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-017
+    revision: 1
+    required: true
+    statement: cold and warm time
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-018
+    revision: 1
+    required: true
+    statement: universe coverage
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-019
+    revision: 1
+    required: true
+    statement: and reused checks without estimating unavailable measurements.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-020
+    revision: 1
+    required: true
+    statement: All affected packages
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-021
+    revision: 1
+    required: true
+    statement: schemas
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-022
+    revision: 1
+    required: true
+    statement: declarations
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-023
+    revision: 1
+    required: true
+    statement: generated checks
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-024
+    revision: 1
+    required: true
+    statement: documentation
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-025
+    revision: 1
+    required: true
+    statement: and goal records pass their focused validation against the exact delivered candidate.
+    evidenceMethod: Inspect linked evidence against the criterion.

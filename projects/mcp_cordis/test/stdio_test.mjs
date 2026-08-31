@@ -64,7 +64,16 @@ async function waitFor(callback, timeoutMs = 5_000) {
 async function connect(binary, workspaceRoot) {
     const transport = new StdioClientTransport({
         command: binary,
-        args: ["--workspace-root", workspaceRoot],
+        args: [
+            "--workspace-root",
+            workspaceRoot,
+            "--task-id",
+            "stdio-task",
+            "--run-id",
+            "stdio-run",
+            "--worker-id",
+            "stdio-worker",
+        ],
         stderr: "pipe",
     });
     let stderr = "";

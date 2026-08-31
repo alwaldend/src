@@ -1,0 +1,20 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "phase1_check_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/agents/cmd/phase1_check",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "phase1_check",
+    embed = [":phase1_check_lib"],
+    visibility = ["//:__subpackages__"],
+)
+
+go_test(
+    name = "phase1_check_test",
+    srcs = ["main_test.go"],
+    embed = [":phase1_check_lib"],
+)

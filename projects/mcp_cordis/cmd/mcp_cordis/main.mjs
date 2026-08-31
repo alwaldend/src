@@ -10,13 +10,26 @@ import { CordisRuntime } from "../../internal/runtime.mjs";
 
 function usage() {
     return [
-        "Usage: mcp_cordis --workspace-root PATH [options]",
+        "Usage: mcp_cordis --workspace-root PATH --task-id ID --run-id ID [options]",
         "",
         "Options:",
+        "  --worker-id ID",
         "  --invoke-timeout-ms N",
         "  --max-output-bytes N",
         "  --help",
     ].join("\n");
+}
+
+const ownershipIDPattern =
+    /^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$/u;
+
+function ownershipID(flag, raw) {
+    if (!ownershipIDPattern.test(raw)) {
+        throw new Error(
+            `${flag} must be a lowercase portable identity`,
+        );
+    }
+    return raw;
 }
 
 function positiveInteger(flag, raw) {
@@ -37,6 +50,12 @@ function parseArguments(argv) {
         index += 1;
         if (flag === "--workspace-root") {
             options.workspaceRoot = value;
+        } else if (flag === "--task-id") {
+            options.taskId = ownershipID(flag, value);
+        } else if (flag === "--run-id") {
+            options.runId = ownershipID(flag, value);
+        } else if (flag === "--worker-id") {
+            options.workerId = ownershipID(flag, value);
         } else if (flag === "--invoke-timeout-ms") {
             options.invokeTimeoutMs = positiveInteger(flag, value);
         } else if (flag === "--max-output-bytes") {
@@ -68,6 +87,10 @@ async function main() {
     options.workspaceRoot = await canonicalWorkspaceRoot(
         options.workspaceRoot ?? process.env.BUILD_WORKSPACE_DIRECTORY,
     );
+    if (!options.taskId || !options.runId) {
+        throw new Error("--task-id and --run-id are required");
+    }
+    options.workerId ??= `process-${process.pid}`;
 
     // Keep the protocol on a private stream. Runtime plugins share this
     // process, so redirect their accidental stdout writes away from the
@@ -90,6 +113,7 @@ async function main() {
     }
     process.stderr.write(
         `[mcp_cordis] workspace=${options.workspaceRoot} ` +
+            `task=${options.taskId} run=${options.runId} ` +
             `loaded=${startup.loaded.length} failed=${startup.errors.length}\n`,
     );
 

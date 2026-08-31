@@ -1,6 +1,8 @@
 ---
 title: MCP Cordis
 description: Workspace-local runtime packages behind a stable MCP server
+statuses:
+  - active
 ---
 
 `mcp_cordis` is a standalone stdio MCP server that mounts runtime JavaScript
@@ -9,7 +11,12 @@ It is intentionally an MCP server, not a Codex plugin bundle.
 
 Reusable definitions are ordinary ESM files in
 `projects/mcp_cordis/plugins`, listed by `projects/mcp_cordis/cordis.yaml`.
-Disposable definitions use the same layout under `out/mcp_cordis`. Every
+Disposable definitions use the same layout under
+`out/<task>/mcp_cordis/runs/<run>/`. Each run writes a bounded manifest with
+explicit task, run, worker, information, budget, retention, lock, and cleanup
+fields. `AGENT_TASK_ID`, `AGENT_RUN_ID`, and `AGENT_WORKER_ID` may provide
+stable identities; the launcher otherwise creates process-scoped identities.
+Every
 package is addressed by both scope and name, so a scratch package never
 silently shadows a reusable package.
 
@@ -19,7 +26,7 @@ The repository's `.codex/config.toml` registers `mcp_cordis` as a
 project-scoped stdio server. Codex loads that file for a trusted workspace and
 finds the active Git worktree before starting the server. Separate clones and
 worktrees therefore use their own source, `projects/mcp_cordis` packages, and
-`out/mcp_cordis` scratch packages. Trusting the repository's root checkout
+task/run-namespaced scratch packages. Trusting the repository's root checkout
 also covers its linked worktrees; a glob trust entry is neither needed nor
 supported. A new Codex session is needed after the MCP registration itself is
 first added; package changes after that do not require another session.
@@ -34,7 +41,9 @@ To build and run the server directly from the repository root:
 
 ```sh
 bazel_agent run //projects/mcp_cordis:mcp_cordis -- \
-  --workspace-root "$PWD"
+  --workspace-root "$PWD" \
+  --task-id example-task \
+  --run-id example-run
 ```
 
 The workspace root is mandatory unless `BUILD_WORKSPACE_DIRECTORY` is

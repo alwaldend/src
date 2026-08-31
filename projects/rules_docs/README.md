@@ -1,6 +1,8 @@
 ---
 title: Rules docs
 description: Bazel documentation packaging rules
+statuses:
+  - active
 languages:
   - bzl
 tags:

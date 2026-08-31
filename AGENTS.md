@@ -107,6 +107,24 @@ optional hardening. If completing the requested outcome requires a material
 scope expansion that existing context does not authorize, ask before acting;
 otherwise choose the smallest reversible in-scope approach and continue.
 
+## Parallel work
+
+At the start or resumption of nontrivial work, and whenever the approach or
+available work changes materially, enumerate the ready independent
+workstreams. When two or more can produce useful, independently reviewable
+outputs concurrently, actively delegate them unless a concrete dependency,
+shared-state risk, or immediate review-and-integration bottleneck makes
+sequential work faster. Record that reason in the task plan or result when
+remaining sequential. Do not wait for the user to request delegation again.
+
+Prefer a few bounded workstreams such as independent research, candidate
+variants, disjoint implementation modules, implementation-blind review,
+verification, or artifact preparation. Keep one coordinator for canonical
+state and shared artifacts. Do not fragment trivial operations, recursively
+delegate without a separate benefit, or create speculative work merely to
+occupy available agent slots. Recheck parallelism when work closes, stalls,
+changes strategy, or exposes a new independent task.
+
 ## Questions
 
 Use the `answer-question` skill whenever the user's requested outcome includes
@@ -123,6 +141,20 @@ stated scope.
 
 ## Making changes
 
+- Perform every task that can modify repository files or task-owned scratch on
+  a dedicated feature branch in its own linked worktree. Treat the default
+  branch and its checkout as read-only and off limits unless the user
+  explicitly authorizes that exact task to use them. Read-only inspection may
+  use the default checkout. Verify the branch and worktree before the first
+  task-owned mutation, and keep the default checkout clean.
+- When the primary agent encounters a small, bounded bug in repository tooling
+  or the affected project, fix and validate it instead of silently working
+  around it. Delegated workers remain within their assigned scope and report
+  discovered bugs to the coordinator rather than expanding their task. If a
+  bug requires substantial effort, redesign, or a rewrite, preserve the
+  evidence and report it separately instead of derailing the requested work;
+  any temporary workaround must be explicit and must not hide a correctness
+  or safety failure.
 - Use the `project-layout` skill before creating or moving source, or when
   deciding a directory layout anywhere in the repository.
 - Read the nearest `README.md`, `BUILD.bazel`, and `include.MODULE.bazel`
@@ -148,6 +180,12 @@ stated scope.
   purpose, scope, and relevant side effects. Report the outcome when the user
   interface may otherwise show only an opaque tool event. Group routine
   repeated checks instead of narrating each mechanical call.
+- Prefer live Cordis handlers over host-shell commands for repository context,
+  bounded file reads and searches, Git inspection, and other operations the
+  active Cordis catalog supports. Discover the catalog before assuming a
+  handler is unavailable. When a recurring repository workflow lacks a safe,
+  bounded handler, consider adding it to Cordis; do not expand the current
+  task's authority merely to avoid a one-off shell command.
 - Prefer purpose-built tools, MCP capabilities, and repository Bazel targets
   for work they support. Use direct host-shell commands only when no suitable
   tool, MCP, or Bazel target exists.
