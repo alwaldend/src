@@ -1,0 +1,21 @@
+model_provider = "openrouter"
+model = "~deepseek/deepseek-v4-flash-latest"
+model_reasoning_effort = "low"
+
+[model_providers.openrouter]
+name = "OpenRouter"
+base_url = "https://openrouter.ai/api/v1"
+wire_api = "responses"
+
+[model_providers.openrouter.auth]
+command = "/usr/bin/secret-tool"
+args = ["lookup", "service", "openrouter", "application", "codex"]
+
+[projects."/var/home/simeonwarrenbot/Projects/src"]
+trust_level = "trusted"
+
+[shell_environment_policy.filters]
+T3_MCP_BEARER_TOKEN = "exclude"
+
+[shell_environment_policy.set]
+T3_MCP_BEARER_TOKEN = ""

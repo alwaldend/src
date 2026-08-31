@@ -146,6 +146,46 @@
       tags:
         - arxiv
         - codex
+    - name: Configure the OpenRouter Codex profile
+      become: false
+      ansible.builtin.copy:
+        src: codex_openrouter.config.toml
+        dest: "~/.codex/openrouter.config.toml"
+        mode: "0600"
+      tags:
+        - codex
+    - name: Configure user-level Codex instructions
+      become: false
+      ansible.builtin.copy:
+        src: codex_agents.md
+        dest: "~/.codex/AGENTS.md"
+        mode: "0600"
+      tags:
+        - codex
+    - name: Create the isolated OpenRouter Codex directories
+      become: false
+      ansible.builtin.file:
+        path: "~/.codex-openrouter"
+        state: directory
+        mode: "0700"
+      tags:
+        - codex
+    - name: Configure the isolated OpenRouter Codex provider
+      become: false
+      ansible.builtin.copy:
+        src: codex_openrouter_provider_config.toml
+        dest: "~/.codex-openrouter/config.toml"
+        mode: "0600"
+      tags:
+        - codex
+    - name: Configure isolated OpenRouter Codex instructions
+      become: false
+      ansible.builtin.copy:
+        src: codex_agents.md
+        dest: "~/.codex-openrouter/AGENTS.md"
+        mode: "0600"
+      tags:
+        - codex
     - name: Create the managed Codex configuration directory
       ansible.builtin.file:
         path: /etc/codex
