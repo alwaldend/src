@@ -1,0 +1,40 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: Goal
+metadata:
+  name: agent-system-phase-2
+  resourceVersion: "7"
+  generation: 2
+  creationTimestamp: "2026-08-31T20:17:20.695313978Z"
+  annotations:
+    goals.alwaldend.com/local-owner-root: projects/agents
+spec:
+  title: Generate a trustworthy system map and bounded context capsule
+  scope: project
+  retention:
+    policy: durable
+  relationships:
+    dependsOnGoalRefs:
+    - name: agent-system-phase-1
+    supersedesGoalRefs: []
+status:
+  lifecycleGeneration: 4
+  outcome: open
+  execution: active
+  activeAttemptID: ""
+  acceptedAttemptID: ""
+  acceptedResultDigest: ""
+  criteriaRevision: 2
+  promotion:
+    sourceScope: ""
+    sourceGeneration: 0
+    sourceLifecycleGeneration: 0
+    sourceCriteriaRevision: 0
+    sourceCriteriaDigest: ""
+    sourceStateDigest: ""
+    sourceDigest: ""
+    promotedAt: ""
+  migration:
+    sourceFormat: ""
+    sourceDigest: ""
+    migratedAt: ""
+  observedAt: "2026-08-31T20:33:10.001394909Z"

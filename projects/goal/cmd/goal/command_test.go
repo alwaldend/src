@@ -60,12 +60,23 @@ func TestCommandInitAttachAndSessionShow(t *testing.T) {
 		"--goals-root", "out/cli-task/goals",
 		"--goal-id", "cli-goal",
 		"--title", "CLI goal",
-		"--criterion", "The CLI works.",
+		"--criterion", "The CLI preserves correctness, safety, and cost.",
 	)
 	if initialized["goalID"] != "cli-goal" {
 		t.Fatalf("unexpected init output: %+v", initialized)
 	}
 	goalDir := filepath.Join(root, "out", "cli-task", "goals", "cli-goal")
+	criteria, err := os.ReadFile(filepath.Join(goalDir, "criteria.yaml"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := strings.Count(string(criteria), "criterionID:"); got != 1 ||
+		!strings.Contains(
+			string(criteria),
+			"statement: The CLI preserves correctness, safety, and cost.",
+		) {
+		t.Fatalf("init criteria did not preserve commas:\n%s", criteria)
+	}
 	attached := run(
 		"attach",
 		"--session-root", "out/cli-task/goal-sessions",
@@ -304,6 +315,7 @@ func TestCommandMigrateUsesDistinctSourceAndDestination(t *testing.T) {
 			"migrate",
 			"--source-goal-dir", source,
 			"--destination-goals-root", "out/cli-migrate/imported/goals",
+			"--criterion", "Preserve source path, digest, and raw bytes.",
 		},
 		getenv,
 		&stdout,
@@ -338,6 +350,18 @@ func TestCommandMigrateUsesDistinctSourceAndDestination(t *testing.T) {
 	)
 	if !pathExistsForCommandTest(target) {
 		t.Fatal("migrate command did not publish the destination record")
+	}
+	migratedCriteriaPath := filepath.Join(filepath.Dir(target), "criteria.yaml")
+	migratedCriteria, err := os.ReadFile(migratedCriteriaPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := strings.Count(string(migratedCriteria), "criterionID:"); got != 1 ||
+		!strings.Contains(
+			string(migratedCriteria),
+			"statement: Preserve source path, digest, and raw bytes.",
+		) {
+		t.Fatalf("migration criteria did not preserve commas:\n%s", migratedCriteria)
 	}
 
 	stdout.Reset()

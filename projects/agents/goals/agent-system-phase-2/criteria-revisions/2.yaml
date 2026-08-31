@@ -1,0 +1,52 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalCriteria
+metadata:
+  name: agent-system-phase-2
+  resourceVersion: "2"
+  generation: 2
+  creationTimestamp: "2026-08-31T20:17:20.695313978Z"
+spec:
+  goalRef:
+    name: agent-system-phase-2
+  revision: 2
+  items:
+  - criterionID: goal-recovery
+    revision: 1
+    required: true
+    statement: Goal publication exposes stable committed and incomplete states, and interruption at every publication boundary recovers to the prior valid record or idempotently completes the intended record.
+    evidenceMethod: Run publication-boundary fault injection, doctor, recovery, and validation tests against exact record identities.
+  - criterionID: legacy-migration
+    revision: 1
+    required: true
+    statement: Legacy goal migration creates a fresh valid identity, retains source path, digest, and raw bytes, maps fields explicitly, and preserves unmapped prose without modifying the source.
+    evidenceMethod: Run migration fixtures and inspect retained provenance and unmapped source evidence.
+  - criterionID: bounded-catalogs
+    revision: 1
+    required: true
+    statement: Versioned bounded topology, policy, action, capability, workspace-check, and goal catalogs derive from owner-local facts with deterministic provenance, conflicts, bounds, and completeness checks.
+    evidenceMethod: Regenerate checked JSON and Markdown, run deterministic and negative completeness fixtures, and compare source digests.
+  - criterionID: system-index
+    revision: 1
+    required: true
+    statement: One bounded AgentSystemIndex contains only catalog identities, versions, input digests, conflicts, and query routes without duplicating catalog bodies.
+    evidenceMethod: Validate the index schema, byte ceiling, input bindings, and rejection of embedded catalog payloads.
+  - criterionID: context-capsule
+    revision: 1
+    required: true
+    statement: A bounded offline context command returns the path-, label-, or task-relevant situation with provenance, structured unavailable states, safe next discovery actions, and a human rendering from the same data.
+    evidenceMethod: Run clean-root task scenarios with optional providers unavailable and compare JSON and human projections.
+  - criterionID: runtime-isolation
+    revision: 1
+    required: true
+    statement: The fixed runtime control kernel and cross-process task isolation remain available under optional package failure, timeout, stale revision, and untrusted-package fault fixtures.
+    evidenceMethod: Run package timeout, fault containment, namespace, lease, and stale publication tests.
+  - criterionID: resource-baseline
+    revision: 1
+    required: true
+    statement: A criteria-revision-bound baseline records numeric ceilings for correctness, unsafe actions, calls, context size, cold and warm time, registered coverage, and reused checks without estimating unavailable measurements.
+    evidenceMethod: Validate the baseline fixture and run its standing scenarios against the exact candidate.
+  - criterionID: exact-candidate-validation
+    revision: 1
+    required: true
+    statement: All affected packages, schemas, generated projections, documentation, goal records, and delivery state pass focused validation against the exact delivered candidate.
+    evidenceMethod: Inspect candidate-bound build, test, formatting, goal-validation, and delivery evidence.

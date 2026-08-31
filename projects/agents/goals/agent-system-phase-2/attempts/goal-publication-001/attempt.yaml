@@ -1,0 +1,51 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: goal-publication-001
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-08-31T20:21:35.801608711Z"
+spec:
+  goalRef:
+    name: agent-system-phase-2
+  goalGeneration: 2
+  lifecycleGeneration: 4
+  criteriaRevision: 2
+  criteriaDigest: sha256:d59bb95d23bbe0ef533977be69a34e50f2db3e3950e8d1ebfb2a78cdd35713c0
+  goalStateDigest: sha256:d30c6c2460142597f858535bfdc6901ecb813568f6e69d7a7cb99861c60c5da4
+  workType: change
+status:
+  state: closed
+  closedAt: "2026-08-31T20:33:10.001164769Z"
+  artifacts:
+    planDigest: sha256:2738f274995f867c7664e25271a5cbae5826f33ac00ece0fb7ebf63c4b3957ca
+    resultDigest: sha256:a0db67e5540c8685e3622cb76f02bfc7da9a49027587f4b081fa934910f930f3
+    evidence:
+    - path: evidence/catalog_inputs.md
+      digest: sha256:26311812b5600ec9e1ca3f6c5aee630228f0a25fadb4e3bcd23cb1a656ee3178
+    - path: evidence/goal_recovery.md
+      digest: sha256:7143d2cc7e71f41efb9c7163011210cffd6e1ea4c14bb1bca9d4f0534e6f9762
+  review:
+    decision: refine
+    criteria:
+    - criterionID: bounded-catalogs
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - evidence/catalog_inputs.md
+    - criterionID: exact-candidate-validation
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: goal-recovery
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/goal_recovery.md
+    - criterionID: legacy-migration
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/goal_recovery.md
+  observedAt: "2026-08-31T20:33:10.001164769Z"
