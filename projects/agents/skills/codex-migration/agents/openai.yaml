@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex Migration"
+  short_description: "Migrate Codex providers and authentication safely"
+  default_prompt: "Use $codex-migration to plan and validate this Codex migration."

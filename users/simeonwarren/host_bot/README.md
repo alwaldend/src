@@ -42,6 +42,21 @@ different reliability requirements belongs on a separate volume.
 The managed Codex configuration allows up to 20 concurrent subagents per
 session. The root agent is accounted for separately.
 
+OpenRouter is available to new sessions through `codex -p openrouter`. The
+profile reads its API key from the desktop keyring entry selected by
+`service=openrouter` and `application=codex`; the key is not stored in the
+profile. Repository work uses the repo-owned `$codex-migration` skill, while
+the user-level Codex instructions require isolated migration testing and
+intentional host changes to be mirrored into this role. Existing sessions are
+not redirected because provider-bound encrypted reasoning history cannot
+safely migrate in place.
+
+T3 Code can use OpenRouter as a separate Codex provider by setting its
+`CODEX_HOME path` to `/var/home/simeonwarrenbot/.codex-openrouter`. That
+isolated home defaults to `~deepseek/deepseek-v4-flash-latest` and shares no
+conversation state with the ChatGPT-backed Codex provider. Start a new thread
+when selecting it.
+
 `T3_MCP_BEARER_TOKEN` authenticates the Codex app-server's loopback MCP
 connection to T3 Code at `/mcp`. Codex excludes it from model-spawned commands
 so those subprocesses do not inherit the credential.
