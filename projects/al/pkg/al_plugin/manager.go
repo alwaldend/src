@@ -64,7 +64,6 @@ func (self *Manager) Env() []string {
 				res = append(res, fmt.Sprintf("%s=%s", k, v))
 			}
 		}
-
 	}
 	return res
 }

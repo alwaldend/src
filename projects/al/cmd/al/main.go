@@ -2,10 +2,11 @@ package main
 
 import (
 	"context"
-	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 )
 
 func main() {

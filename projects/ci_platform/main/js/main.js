@@ -24,8 +24,8 @@ import UniversalComponents from "./lib/main/UniversalComponents";
 import VuexStore from "./lib/store";
 
 Router.beforeEach(function (to, from, next) {
-  window.scrollTo(0, 0);
-  next();
+    window.scrollTo(0, 0);
+    next();
 });
 
 const app = createApp(AppWrapper);
@@ -40,19 +40,19 @@ app.use(VuexStore);
 app.use(VueCookies);
 
 const directives = {
-  tooltip: Tooltip,
-  ripple: Ripple,
-  code: CodeHighlight,
-  badge: BadgeDirective,
-  styleclass: StyleClass,
+    tooltip: Tooltip,
+    ripple: Ripple,
+    code: CodeHighlight,
+    badge: BadgeDirective,
+    styleclass: StyleClass,
 };
 
 for (const [key, value] of Object.entries(UniversalComponents)) {
-  app.component(key, value);
+    app.component(key, value);
 }
 
 for (const [key, value] of Object.entries(directives)) {
-  app.directive(key, value);
+    app.directive(key, value);
 }
 
 app.mount("#app");

@@ -116,7 +116,7 @@
 ## Starter search depends on undeclared ripgrep (occurrence 1)
 
 - Command: `bazel_agent test
-  //projects/mcp_cordis:starter_packages_test`.
+//projects/mcp_cordis:starter_packages_test`.
 - Result: failed in 0.4 seconds with `spawn rg ENOENT`.
 - Cause: `repo_context_search` invoked the preferred ripgrep engine without a
   fallback, while the Bazel test PATH intentionally does not expose the host

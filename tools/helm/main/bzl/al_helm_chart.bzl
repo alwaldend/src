@@ -1,4 +1,3 @@
-load("@bazel_skylib//lib:shell.bzl", "shell")
 load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo", "PackageFilesInfo")
 load(":al_helm_chart_info.bzl", "AlHelmChartInfo")
 

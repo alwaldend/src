@@ -15,8 +15,10 @@ import (
 	"github.com/hashicorp/vault/api"
 )
 
-type requestType string
-type secretType string
+type (
+	requestType string
+	secretType  string
+)
 
 const (
 	reqTypeUpdate   = requestType("update")

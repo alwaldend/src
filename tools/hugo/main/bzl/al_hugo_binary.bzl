@@ -1,5 +1,4 @@
 load("@bazel_skylib//lib:shell.bzl", "shell")
-load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo", "PackageFilesInfo")
 load(":al_hugo_site_info.bzl", "AlHugoSiteInfo")
 
 def _impl(ctx):

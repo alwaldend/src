@@ -1,4 +1,3 @@
-load("@com_alwaldend_src_tools_cloc//:defs.bzl", "cloc_binary")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
 alias(

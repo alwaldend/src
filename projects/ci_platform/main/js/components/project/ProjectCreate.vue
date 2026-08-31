@@ -13,11 +13,15 @@
                 id="project_name"
                 autofocus
                 v-model="validator.project_name.$model"
-                :class="{ 'p-invalid': validator.project_name.$invalid }"
+                :class="{
+                  'p-invalid': validator.project_name.$invalid,
+                }"
               />
               <label
                 for="project_name"
-                :class="{ 'p-error': validator.project_name.$invalid }"
+                :class="{
+                  'p-error': validator.project_name.$invalid,
+                }"
               >
                 Project name
               </label>
@@ -40,11 +44,15 @@
                 id="project_source"
                 autofocus
                 v-model="validator.project_source.$model"
-                :class="{ 'p-invalid': validator.project_source.$invalid }"
+                :class="{
+                  'p-invalid': validator.project_source.$invalid,
+                }"
               />
               <label
                 for="project_source"
-                :class="{ 'p-error': validator.project_source.$invalid }"
+                :class="{
+                  'p-error': validator.project_source.$invalid,
+                }"
               >
                 Project source
               </label>
@@ -58,7 +66,7 @@
               >{{
                 validator.project_source.required.$message.replace(
                   "Value",
-                  "It"
+                  "It",
                 )
               }}</small
             >
@@ -135,7 +143,7 @@ export default {
             params: {
               project_path: response.data.data.path,
             },
-          })
+          }),
         )
         .catch(Error)
         .finally(() => (this.submitted = false));

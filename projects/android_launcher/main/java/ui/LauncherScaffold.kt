@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 
-
 @Composable
 fun LauncherScaffold(
     @StringRes label: Int,
@@ -23,34 +22,22 @@ fun LauncherScaffold(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
-    Column(modifier = modifier) {
-        if (showTopAppBar) {
-            LauncherTopBar(
-                label = stringResource(id = label),
-                goBack = goBack
-            )
-        }
-        content()
+  Column(modifier = modifier) {
+    if (showTopAppBar) {
+      LauncherTopBar(label = stringResource(id = label), goBack = goBack)
     }
+    content()
+  }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun LauncherTopBar(label: String, goBack: () -> Unit) {
-    TopAppBar(
-        title = {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.headlineLarge
-            )
-        },
-        navigationIcon = {
-            IconButton(onClick = goBack) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Arrow back"
-                )
-            }
+  TopAppBar(
+      title = { Text(text = label, style = MaterialTheme.typography.headlineLarge) },
+      navigationIcon = {
+        IconButton(onClick = goBack) {
+          Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Arrow back")
         }
-    )
+      })
 }

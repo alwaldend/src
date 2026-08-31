@@ -27,7 +27,6 @@ import androidx.lifecycle.LifecycleOwner
 import com.google.protobuf.ByteString
 import java.io.ByteArrayOutputStream
 
-
 private val tag = LauncherManager::class.simpleName
 
 class LauncherManager(
@@ -37,197 +36,177 @@ class LauncherManager(
     private val launcherAppsService: LauncherApps
 ) {
 
-    companion object {
-        private val callbacks = mutableListOf<LauncherApps.Callback>()
+  companion object {
+    private val callbacks = mutableListOf<LauncherApps.Callback>()
+  }
+
+  fun isHomeApp(): Boolean {
+    return when {
+      Build.VERSION.SDK_INT >= 29 ->
+          context.getSystemService(RoleManager::class.java).isRoleHeld(RoleManager.ROLE_HOME)
+      else ->
+          listOf<ComponentName>()
+              .apply {
+                packageManager.getPreferredActivities(
+                    listOf(IntentFilter(ACTION_MAIN).apply { addCategory(CATEGORY_HOME) }),
+                    this,
+                    context.packageName)
+              }
+              .isNotEmpty()
     }
+  }
 
-    fun isHomeApp(): Boolean {
-        return when {
-            Build.VERSION.SDK_INT >= 29 -> context
-                .getSystemService(RoleManager::class.java)
-                .isRoleHeld(RoleManager.ROLE_HOME)
-
-            else -> listOf<ComponentName>().apply {
-                packageManager
-                    .getPreferredActivities(
-                        listOf(
-                            IntentFilter(ACTION_MAIN).apply {
-                                addCategory(CATEGORY_HOME)
-                            }
-                        ),
-                        this,
-                        context.packageName
-                    )
-            }.isNotEmpty()
+  fun launchApp(packageName: String, flags: Int? = null) {
+    val intent =
+        packageManager.getLaunchIntentForPackage(packageName).let {
+          if (flags == null) it else it?.setFlags(flags)
         }
+    context.startActivity(intent)
+  }
+
+  fun launchAppInfo(packageName: String) {
+    val intent =
+        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:${packageName}"))
+    context.startActivity(intent)
+  }
+
+  fun launchAppUninstall(packageName: String) {
+    val intent = Intent(Intent.ACTION_DELETE, Uri.parse("package:${packageName}"))
+    context.startActivity(intent)
+  }
+
+  fun launchAppShortcut(shortcut: Model.AppShortcut) {
+    launcherAppsService.startShortcut(
+        shortcut.packageName, shortcut.shortcutId, null, null, Process.myUserHandle())
+  }
+
+  fun removeCallbacks() {
+    for (callback in callbacks) {
+      launcherAppsService.unregisterCallback(callback)
     }
+    callbacks.clear()
+  }
 
-    fun launchApp(packageName: String, flags: Int? = null) {
-        val intent = packageManager
-            .getLaunchIntentForPackage(packageName)
-            .let { if (flags == null) it else it?.setFlags(flags) }
-        context.startActivity(intent)
+  private fun queryPackageManager(intent: Intent): List<ResolveInfo> {
+    return when {
+      Build.VERSION.SDK_INT >= 33 ->
+          packageManager.queryIntentActivities(
+              intent, PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_ALL.toLong()))
+      else -> packageManager.queryIntentActivities(intent, 0)
     }
+  }
 
-    fun launchAppInfo(packageName: String) {
-        val intent = Intent(
-            Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-            Uri.parse("package:${packageName}")
-        )
-        context.startActivity(intent)
-    }
-
-    fun launchAppUninstall(packageName: String) {
-        val intent = Intent(
-            Intent.ACTION_DELETE,
-            Uri.parse("package:${packageName}")
-        )
-        context.startActivity(intent)
-    }
-
-    fun launchAppShortcut(shortcut: Model.AppShortcut) {
-        launcherAppsService.startShortcut(
-            shortcut.packageName,
-            shortcut.shortcutId,
-            null,
-            null,
-            Process.myUserHandle()
-        )
-    }
-
-    fun removeCallbacks() {
-        for (callback in callbacks) {
-            launcherAppsService.unregisterCallback(callback)
-        }
-        callbacks.clear()
-    }
-
-    private fun queryPackageManager(intent: Intent): List<ResolveInfo> {
-        return when {
-            Build.VERSION.SDK_INT >= 33 -> packageManager.queryIntentActivities(
-                intent,
-                PackageManager.ResolveInfoFlags.of(PackageManager.MATCH_ALL.toLong())
-            )
-
-            else -> packageManager.queryIntentActivities(intent, 0)
-        }
-    }
-
-    private fun getAppShortcuts(packageName: String): List<Model.AppShortcut> {
-        val userHandle = Process.myUserHandle()
-        val query = LauncherApps.ShortcutQuery()
+  private fun getAppShortcuts(packageName: String): List<Model.AppShortcut> {
+    val userHandle = Process.myUserHandle()
+    val query =
+        LauncherApps.ShortcutQuery()
             .setPackage(packageName)
             .setQueryFlags(
                 LauncherApps.ShortcutQuery.FLAG_MATCH_DYNAMIC or
-                        LauncherApps.ShortcutQuery.FLAG_MATCH_PINNED or
-                        LauncherApps.ShortcutQuery.FLAG_MATCH_MANIFEST
-            )
-        val shortcuts = try {
-            launcherAppsService.getShortcuts(query, userHandle) ?: listOf()
+                    LauncherApps.ShortcutQuery.FLAG_MATCH_PINNED or
+                    LauncherApps.ShortcutQuery.FLAG_MATCH_MANIFEST)
+    val shortcuts =
+        try {
+          launcherAppsService.getShortcuts(query, userHandle) ?: listOf()
         } catch (e: SecurityException) {
-            Log.d(tag, "got a security exception: $e")
-            listOf()
+          Log.d(tag, "got a security exception: $e")
+          listOf()
         }
-        return shortcuts.map { info ->
-            val label = info.longLabel ?: info.shortLabel ?: info.`package`
-            Model.AppShortcut.newBuilder()
-                .setShortcutId(info.id)
-                .setPackageName(info.`package`)
-                .setLabel(label.toString())
-                .build()
+    return shortcuts.map { info ->
+      val label = info.longLabel ?: info.shortLabel ?: info.`package`
+      Model.AppShortcut.newBuilder()
+          .setShortcutId(info.id)
+          .setPackageName(info.`package`)
+          .setLabel(label.toString())
+          .build()
+    }
+  }
+
+  fun getApp(packageName: String): Model.App? {
+    val queryResults =
+        queryPackageManager(
+            Intent(ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER).setPackage(packageName))
+    if (queryResults.isEmpty()) {
+      return null
+    }
+    return infoToApp(queryResults[0].activityInfo)
+  }
+
+  private fun infoToApp(info: ActivityInfo): Model.App {
+    return Model.App.newBuilder()
+        .setLabel(info.loadLabel(packageManager).toString())
+        .setPackageName(info.packageName)
+        .addAllShortcuts(getAppShortcuts(info.packageName))
+        .setIcon(compressIcon(info.loadIcon(packageManager)))
+        .build()
+  }
+
+  private fun compressIcon(icon: Drawable): ByteString {
+    val stream = ByteArrayOutputStream()
+    icon.toBitmap(config = Bitmap.Config.ARGB_8888).compress(Bitmap.CompressFormat.PNG, 100, stream)
+    return ByteString.copyFrom(stream.toByteArray())
+  }
+
+  fun fetchAllApps(): Model.Apps {
+    val queryResults =
+        queryPackageManager(Intent(ACTION_MAIN, null).addCategory(Intent.CATEGORY_LAUNCHER))
+    val apps =
+        queryResults.associate { info ->
+          val activity = info.activityInfo
+          activity.packageName to infoToApp(activity)
         }
-    }
+    return Model.Apps.newBuilder().putAllApps(apps).build()
+  }
 
-    fun getApp(packageName: String): Model.App? {
-        val queryResults = queryPackageManager(
-            Intent(ACTION_MAIN, null)
-                .addCategory(Intent.CATEGORY_LAUNCHER)
-                .setPackage(packageName)
-        )
-        if (queryResults.isEmpty()) {
-            return null
-        }
-        return infoToApp(queryResults[0].activityInfo)
-    }
+  fun addCallback(
+      onRemoved: (packageName: String) -> Unit,
+      onChanged: (packageName: String) -> Unit
+  ) =
+      launcherAppsService.registerCallback(
+          object : LauncherApps.Callback() {
+            override fun onPackageRemoved(packageName: String, user: UserHandle) =
+                onRemoved(packageName)
 
-    private fun infoToApp(info: ActivityInfo): Model.App {
-        return Model.App.newBuilder()
-            .setLabel(info.loadLabel(packageManager).toString())
-            .setPackageName(info.packageName)
-            .addAllShortcuts(getAppShortcuts(info.packageName))
-            .setIcon(compressIcon(info.loadIcon(packageManager)))
-            .build()
-    }
+            override fun onPackageAdded(packageName: String, user: UserHandle) =
+                onChanged(packageName)
 
-    private fun compressIcon(icon: Drawable): ByteString {
-        val stream = ByteArrayOutputStream()
-        icon.toBitmap(config = Bitmap.Config.ARGB_8888)
-            .compress(Bitmap.CompressFormat.PNG, 100, stream)
-        return ByteString.copyFrom(stream.toByteArray())
-    }
+            override fun onPackageChanged(packageName: String, p2: UserHandle) =
+                onChanged(packageName)
 
-    fun fetchAllApps(): Model.Apps {
-        val queryResults = queryPackageManager(
-            Intent(ACTION_MAIN, null)
-                .addCategory(Intent.CATEGORY_LAUNCHER)
-        )
-        val apps = queryResults.associate { info ->
-            val activity = info.activityInfo
-            activity.packageName to infoToApp(activity)
-        }
-        return Model.Apps.newBuilder().putAllApps(apps).build()
-    }
+            override fun onShortcutsChanged(
+                packageName: String,
+                shortcuts: MutableList<ShortcutInfo>,
+                user: UserHandle
+            ) = onChanged(packageName)
 
-    fun addCallback(
-        onRemoved: (packageName: String) -> Unit,
-        onChanged: (packageName: String) -> Unit
-    ) = launcherAppsService.registerCallback(object : LauncherApps.Callback() {
-        override fun onPackageRemoved(
-            packageName: String, user: UserHandle
-        ) = onRemoved(packageName)
+            override fun onPackagesAvailable(
+                packageNames: Array<out String>?,
+                user: UserHandle?,
+                replacing: Boolean
+            ) = Unit
 
-        override fun onPackageAdded(
-            packageName: String, user: UserHandle
-        ) = onChanged(packageName)
+            override fun onPackagesUnavailable(
+                packageNames: Array<out String>?,
+                user: UserHandle?,
+                replacing: Boolean
+            ) = Unit
+          })
 
-        override fun onPackageChanged(
-            packageName: String, p2: UserHandle
-        ) = onChanged(packageName)
-
-        override fun onShortcutsChanged(
-            packageName: String,
-            shortcuts: MutableList<ShortcutInfo>,
-            user: UserHandle
-        ) = onChanged(packageName)
-
-        override fun onPackagesAvailable(
-            packageNames: Array<out String>?,
-            user: UserHandle?,
-            replacing: Boolean
-        ) = Unit
-
-        override fun onPackagesUnavailable(
-            packageNames: Array<out String>?,
-            user: UserHandle?,
-            replacing: Boolean
-        ) = Unit
-    })
-
-    fun launchSplitScreen(appFirst: String, appSecond: String) {
-        lifecycle.addObserver(object : DefaultLifecycleObserver {
-            override fun onStop(owner: LifecycleOwner) {
-                lifecycle.removeObserver(this)
-                launchApp(
-                    packageName = appSecond,
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                            or Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT
-                            or Intent.FLAG_ACTIVITY_CLEAR_TOP
-                )
-            }
+  fun launchSplitScreen(appFirst: String, appSecond: String) {
+    lifecycle.addObserver(
+        object : DefaultLifecycleObserver {
+          override fun onStop(owner: LifecycleOwner) {
+            lifecycle.removeObserver(this)
+            launchApp(
+                packageName = appSecond,
+                flags =
+                    Intent.FLAG_ACTIVITY_NEW_TASK or
+                        Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT or
+                        Intent.FLAG_ACTIVITY_CLEAR_TOP)
+          }
         })
-        launchApp(
-            packageName = appFirst,
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
-        )
-    }
+    launchApp(
+        packageName = appFirst,
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+  }
 }

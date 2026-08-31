@@ -10,7 +10,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
-
+	"regexp"
 	"sync"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
@@ -18,7 +18,6 @@ import (
 	"github.com/hashicorp/vault/api"
 	"github.com/hashicorp/vault/api/auth/approle"
 	"github.com/hashicorp/vault/api/tokenhelper"
-	"regexp"
 )
 
 const VAULT_DEFAULT_NAME = "default"
@@ -45,7 +44,6 @@ func NewVault(config *al_proto.Config) *VaultStore {
 		config:  config,
 		mx:      &sync.RWMutex{},
 	}
-
 }
 
 func (self *VaultStore) clientCache(path string) (*VaultStoreItem, bool) {

@@ -19,11 +19,11 @@
  * Returns:
  *     true if success, false if failure
  * */
-bool sri_calculate_base64(const unsigned char *in, const unsigned int in_length,
-                          unsigned char *out, unsigned int *out_length) {
+bool sri_calculate_base64(const unsigned char* in, const unsigned int in_length,
+                          unsigned char* out, unsigned int* out_length) {
     BIO *bio_out, *bio_base64;
     char err[BUFSIZ];
-    FILE *out_file = fmemopen(out, BUFSIZ, "w");
+    FILE* out_file = fmemopen(out, BUFSIZ, "w");
     if (out_file == NULL) {
         sprintf(err, "could not open fmemopen: %s", strerror(errno));
         errors_append(err);
@@ -61,7 +61,7 @@ bool sri_calculate_base64(const unsigned char *in, const unsigned int in_length,
         return false;
     };
     BIO_free_all(bio_base64);
-    *out_length = strlen((char *)out);
+    *out_length = strlen((char*)out);
     return true;
 }
 
@@ -77,10 +77,10 @@ bool sri_calculate_base64(const unsigned char *in, const unsigned int in_length,
  * Returns:
  *     true if success, false if failure
  * */
-bool sri_calculate_digest(char *digest_type, FILE *in, unsigned char *out,
-                          unsigned int *out_length) {
-    EVP_MD_CTX *evp_md_ctx;
-    const EVP_MD *evp_md_st;
+bool sri_calculate_digest(char* digest_type, FILE* in, unsigned char* out,
+                          unsigned int* out_length) {
+    EVP_MD_CTX* evp_md_ctx;
+    const EVP_MD* evp_md_st;
     char err[BUFSIZ];
     unsigned char in_buffer[BUFSIZ];
     size_t in_buffer_bytes_read = 0;
@@ -146,8 +146,8 @@ bool sri_calculate_digest(char *digest_type, FILE *in, unsigned char *out,
  * Returns:
  *      true if success, false if failure
  * */
-bool sri_calculate(char *digest_type, FILE *in, unsigned char *out,
-                   unsigned int *out_length) {
+bool sri_calculate(char* digest_type, FILE* in, unsigned char* out,
+                   unsigned int* out_length) {
     unsigned int digest_type_length = strlen(digest_type);
     unsigned char digest[BUFSIZ], digest_base64[BUFSIZ];
     unsigned int digest_length, digest_base64_length;
@@ -169,9 +169,9 @@ bool sri_calculate(char *digest_type, FILE *in, unsigned char *out,
         errors_append(err);
         return false;
     };
-    strncat((char *)out, digest_type, digest_type_length);
-    strncat((char *)out, "-", 1);
-    strncat((char *)out, (char *)digest_base64, digest_base64_length);
+    strncat((char*)out, digest_type, digest_type_length);
+    strncat((char*)out, "-", 1);
+    strncat((char*)out, (char*)digest_base64, digest_base64_length);
     *out_length = digest_type_length + 1 + digest_base64_length;
     return true;
 }
@@ -187,7 +187,7 @@ bool sri_calculate(char *digest_type, FILE *in, unsigned char *out,
  * Returns:
  *      true if success, false if failure
  * */
-bool sri_write(char *digest_type, FILE *in, FILE *out) {
+bool sri_write(char* digest_type, FILE* in, FILE* out) {
     unsigned char sri[BUFSIZ];
     unsigned int sri_length;
     char err[BUFSIZ];

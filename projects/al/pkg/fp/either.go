@@ -7,9 +7,11 @@ type Either[R any] struct {
 	right *R
 }
 
-var _ Monad[Either[int], int] = (*Either[int])(nil)
-var _ Functor[Either[int], int] = (*Either[int])(nil)
-var _ Result[int] = (*Either[int])(nil)
+var (
+	_ Monad[Either[int], int]   = (*Either[int])(nil)
+	_ Functor[Either[int], int] = (*Either[int])(nil)
+	_ Result[int]               = (*Either[int])(nil)
+)
 
 func (self Either[R]) Map(f func(R) R) Either[R] {
 	if self.right == nil {

@@ -1,9 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.alwaldend.src.projects.android_launcher">
+    package="com.alwaldend.src.projects.android_launcher"
+>
 
-    <uses-permission android:name="android.permission.REQUEST_DELETE_PACKAGES" />
+    <uses-permission
+        android:name="android.permission.REQUEST_DELETE_PACKAGES"
+    />
 
     <queries>
         <intent>
@@ -12,8 +16,7 @@
         </intent>
     </queries>
 
-    <uses-sdk android:minSdkVersion="25"
-          android:targetSdkVersion="36" />
+    <uses-sdk android:minSdkVersion="25" android:targetSdkVersion="36" />
 
     <application
         android:name=".LauncherApplication"
@@ -23,14 +26,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Launcher"
         android:appCategory="accessibility"
-        tools:targetApi="36">
+        tools:targetApi="36"
+    >
         <activity
             android:name="com.alwaldend.src.projects.android_launcher.MainActivity"
             android:clearTaskOnLaunch="true"
             android:excludeFromRecents="true"
             android:exported="true"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+        >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,67 +1,66 @@
 package com.alwaldend.src.projects.nexus_security_plugin.model.bundle.configuration;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 
 public class BundleConfigurationScannerRemote implements Serializable {
 
-    @JsonProperty
-    private boolean enabled = false;
-    @JsonProperty("base_url")
-    private String baseUrl = "https://localhost";
-    @JsonProperty
-    private String auth = "";
-    @JsonProperty("fail_on_errors")
-    private boolean failOnErrors = true;
-    @JsonProperty
-    private long interval = 5;
+  @JsonProperty private boolean enabled = false;
 
-    public BundleConfigurationScannerRemote() {
-    }
+  @JsonProperty("base_url")
+  private String baseUrl = "https://localhost";
 
-    public String getBaseUrl() {
-        return baseUrl;
-    }
+  @JsonProperty private String auth = "";
 
-    public BundleConfigurationScannerRemote setBaseUrl(String baseUrl) {
-        this.baseUrl = baseUrl;
-        return this;
-    }
+  @JsonProperty("fail_on_errors")
+  private boolean failOnErrors = true;
 
-    public String getAuth() {
-        return auth;
-    }
+  @JsonProperty private long interval = 5;
 
-    public BundleConfigurationScannerRemote setAuth(String auth) {
-        this.auth = auth;
-        return this;
-    }
+  public BundleConfigurationScannerRemote() {}
 
-    public boolean isFailOnErrors() {
-        return failOnErrors;
-    }
+  public String getBaseUrl() {
+    return baseUrl;
+  }
 
-    public BundleConfigurationScannerRemote setFailOnErrors(boolean failOnErrors) {
-        this.failOnErrors = failOnErrors;
-        return this;
-    }
+  public BundleConfigurationScannerRemote setBaseUrl(String baseUrl) {
+    this.baseUrl = baseUrl;
+    return this;
+  }
 
-    public long getInterval() {
-        return interval;
-    }
+  public String getAuth() {
+    return auth;
+  }
 
-    public BundleConfigurationScannerRemote setInterval(long interval) {
-        this.interval = interval;
-        return this;
-    }
+  public BundleConfigurationScannerRemote setAuth(String auth) {
+    this.auth = auth;
+    return this;
+  }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
+  public boolean isFailOnErrors() {
+    return failOnErrors;
+  }
 
-    public BundleConfigurationScannerRemote setEnabled(boolean enabled) {
-        this.enabled = enabled;
-        return this;
-    }
+  public BundleConfigurationScannerRemote setFailOnErrors(boolean failOnErrors) {
+    this.failOnErrors = failOnErrors;
+    return this;
+  }
+
+  public long getInterval() {
+    return interval;
+  }
+
+  public BundleConfigurationScannerRemote setInterval(long interval) {
+    this.interval = interval;
+    return this;
+  }
+
+  public boolean isEnabled() {
+    return enabled;
+  }
+
+  public BundleConfigurationScannerRemote setEnabled(boolean enabled) {
+    this.enabled = enabled;
+    return this;
+  }
 }

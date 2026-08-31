@@ -29,9 +29,12 @@ bin = "target/ci_platform --config ci_platform.dev.yml server run"
 include_ext = ["go", "tpl", "html", "js", "yml", "vue", "scss", "svg"]
 # Ignore these filename extensions or directories.
 exclude_dir = [
-    "assets", "target", "vendor", "docs",
-    "web/node_modules",
-    "web/dist"
+  "assets",
+  "target",
+  "vendor",
+  "docs",
+  "web/node_modules",
+  "web/dist",
 ]
 # Watch these directories if you specified.
 include_dir = []

@@ -48,10 +48,9 @@ def replace_section_in_file(
     file = pathlib.Path(file_path)
     with tempfile.TemporaryDirectory() as temp_dir:
         temp_file = pathlib.Path(temp_dir, "temp.txt")
-        with temp_file.open("a") as temp_file_obj:
-            with file.open("r") as file_obj:
-                for line in replace_section(file_obj, section, replacement):
-                    temp_file_obj.write(line)
+        with temp_file.open("a") as temp_file_obj, file.open("r") as file_obj:
+            for line in replace_section(file_obj, section, replacement):
+                temp_file_obj.write(line)
         shutil.move(temp_file, file)
 
 

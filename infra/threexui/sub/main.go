@@ -14,9 +14,11 @@ import (
 	"strings"
 )
 
-var hosts = flag.String("hosts", "", "Hostnames for sub servers")
-var subId = flag.String("sub_id", "", "Subscription id")
-var subFile = flag.String("sub_file", "", "File with subs to fix")
+var (
+	hosts   = flag.String("hosts", "", "Hostnames for sub servers")
+	subId   = flag.String("sub_id", "", "Subscription id")
+	subFile = flag.String("sub_file", "", "File with subs to fix")
+)
 
 func run() error {
 	flag.Parse()

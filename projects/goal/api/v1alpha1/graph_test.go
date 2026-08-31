@@ -90,11 +90,9 @@ func TestAnalyzeGoalGraphDerivesDependencyStates(t *testing.T) {
 		"abandoned",
 	)
 	blockedBySupersession := graphGoal("blocked-by-supersession", "open")
-	blockedBySupersession.Spec.Relationships.DependsOnGoalRefs =
-		goalReferences("superseded")
+	blockedBySupersession.Spec.Relationships.DependsOnGoalRefs = goalReferences("superseded")
 	unknown := graphGoal("unknown", "open")
-	unknown.Spec.Relationships.DependsOnGoalRefs =
-		goalReferences("missing")
+	unknown.Spec.Relationships.DependsOnGoalRefs = goalReferences("missing")
 
 	analysis, err := AnalyzeGoalGraph([]Goal{
 		unknown,
@@ -154,24 +152,18 @@ func TestAnalyzeGoalGraphDetectsEachRelationshipCycleIndependently(
 ) {
 	parentA := graphGoal("parent-a", "open")
 	parentB := graphGoal("parent-b", "open")
-	parentA.Spec.Relationships.ParentGoalRef =
-		&GoalReference{Name: "parent-b"}
-	parentB.Spec.Relationships.ParentGoalRef =
-		&GoalReference{Name: "parent-a"}
+	parentA.Spec.Relationships.ParentGoalRef = &GoalReference{Name: "parent-b"}
+	parentB.Spec.Relationships.ParentGoalRef = &GoalReference{Name: "parent-a"}
 
 	dependencyA := graphGoal("dependency-a", "open")
 	dependencyB := graphGoal("dependency-b", "open")
-	dependencyA.Spec.Relationships.DependsOnGoalRefs =
-		goalReferences("dependency-b")
-	dependencyB.Spec.Relationships.DependsOnGoalRefs =
-		goalReferences("dependency-a")
+	dependencyA.Spec.Relationships.DependsOnGoalRefs = goalReferences("dependency-b")
+	dependencyB.Spec.Relationships.DependsOnGoalRefs = goalReferences("dependency-a")
 
 	supersessionA := graphGoal("supersession-a", "open")
 	supersessionB := graphGoal("supersession-b", "open")
-	supersessionA.Spec.Relationships.SupersedesGoalRefs =
-		goalReferences("supersession-b")
-	supersessionB.Spec.Relationships.SupersedesGoalRefs =
-		goalReferences("supersession-a")
+	supersessionA.Spec.Relationships.SupersedesGoalRefs = goalReferences("supersession-b")
+	supersessionB.Spec.Relationships.SupersedesGoalRefs = goalReferences("supersession-a")
 
 	analysis, err := AnalyzeGoalGraph([]Goal{
 		supersessionB,
@@ -225,10 +217,8 @@ func TestAnalyzeGoalGraphDoesNotCombineRelationshipKindsForCycles(
 ) {
 	first := graphGoal("mixed-a", "open")
 	second := graphGoal("mixed-b", "open")
-	first.Spec.Relationships.ParentGoalRef =
-		&GoalReference{Name: "mixed-b"}
-	second.Spec.Relationships.DependsOnGoalRefs =
-		goalReferences("mixed-a")
+	first.Spec.Relationships.ParentGoalRef = &GoalReference{Name: "mixed-b"}
+	second.Spec.Relationships.DependsOnGoalRefs = goalReferences("mixed-a")
 
 	analysis, err := AnalyzeGoalGraph([]Goal{second, first})
 	if err != nil {
@@ -249,10 +239,8 @@ func TestAnalyzeGoalGraphScopesUnknownToUnresolvedRelationshipKind(
 	t *testing.T,
 ) {
 	goal := graphGoal("source", "open")
-	goal.Spec.Relationships.ParentGoalRef =
-		&GoalReference{Name: "missing-parent"}
-	goal.Spec.Relationships.SupersedesGoalRefs =
-		goalReferences("missing-supersession")
+	goal.Spec.Relationships.ParentGoalRef = &GoalReference{Name: "missing-parent"}
+	goal.Spec.Relationships.SupersedesGoalRefs = goalReferences("missing-supersession")
 
 	analysis, err := AnalyzeGoalGraph([]Goal{goal})
 	if err != nil {

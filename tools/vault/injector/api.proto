@@ -81,7 +81,6 @@ message Resource {
   }
 }
 
-
 message Config {
   // Resources
   repeated Resource res = 1;

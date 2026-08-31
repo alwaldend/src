@@ -9,50 +9,39 @@ import kotlinx.coroutines.launch
 
 private val tag = MainActivity::class.simpleName
 
-
 class MainActivity : ComponentActivity() {
 
-    private lateinit var app: LauncherApplication
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  private lateinit var app: LauncherApplication
 
-        app = (application as LauncherApplication).init(this)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        lifecycleScope.launch {
-            app.stateRepo.reloadState(
-                newApps = app.manager.fetchAllApps(),
-                isHomeApp = app.manager.isHomeApp()
-            )
-        }
-        app.manager.addCallback(
-            onChanged = { packageName ->
-                lifecycleScope.launch {
-                    app.manager.getApp(packageName)?.let {
-                        app.stateRepo.reloadApp(it)
-                    }
-                }
-            },
-            onRemoved = { packageName ->
-                lifecycleScope.launch {
-                    app.stateRepo.removeApp(packageName)
-                }
-            }
-        )
+    app = (application as LauncherApplication).init(this)
 
-        setContent {
-            LauncherUi()
-        }
+    lifecycleScope.launch {
+      app.stateRepo.reloadState(
+          newApps = app.manager.fetchAllApps(), isHomeApp = app.manager.isHomeApp())
     }
+    app.manager.addCallback(
+        onChanged = { packageName ->
+          lifecycleScope.launch {
+            app.manager.getApp(packageName)?.let { app.stateRepo.reloadApp(it) }
+          }
+        },
+        onRemoved = { packageName ->
+          lifecycleScope.launch { app.stateRepo.removeApp(packageName) }
+        })
 
-    override fun onResume() {
-        super.onResume()
-        lifecycleScope.launch {
-            app.stateRepo.updateIsHomeApp(app.manager.isHomeApp())
-        }
-    }
+    setContent { LauncherUi() }
+  }
 
-    override fun onStop() {
-        super.onStop()
-        app.manager.removeCallbacks()
-    }
+  override fun onResume() {
+    super.onResume()
+    lifecycleScope.launch { app.stateRepo.updateIsHomeApp(app.manager.isHomeApp()) }
+  }
+
+  override fun onStop() {
+    super.onStop()
+    app.manager.removeCallbacks()
+  }
 }

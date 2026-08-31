@@ -156,8 +156,16 @@ export default {
             { name: "bootstrap4-light-blue", extension: "svg" },
             { name: "bootstrap4-light-purple", extension: "svg" },
 
-            { name: "bootstrap4-dark-blue", extension: "svg", dark: true },
-            { name: "bootstrap4-dark-purple", extension: "svg", dark: true },
+            {
+              name: "bootstrap4-dark-blue",
+              extension: "svg",
+              dark: true,
+            },
+            {
+              name: "bootstrap4-dark-purple",
+              extension: "svg",
+              dark: true,
+            },
           ],
         },
         {
@@ -168,10 +176,26 @@ export default {
             { name: "lara-light-purple", extension: "png" },
             { name: "lara-light-teal", extension: "png" },
 
-            { name: "lara-dark-indigo", extension: "png", dark: true },
-            { name: "lara-dark-blue", extension: "png", dark: true },
-            { name: "lara-dark-purple", extension: "png", dark: true },
-            { name: "lara-dark-teal", extension: "png", dark: true },
+            {
+              name: "lara-dark-indigo",
+              extension: "png",
+              dark: true,
+            },
+            {
+              name: "lara-dark-blue",
+              extension: "png",
+              dark: true,
+            },
+            {
+              name: "lara-dark-purple",
+              extension: "png",
+              dark: true,
+            },
+            {
+              name: "lara-dark-teal",
+              extension: "png",
+              dark: true,
+            },
           ],
         },
         {
@@ -180,8 +204,16 @@ export default {
             { name: "md-light-indigo", extension: "svg" },
             { name: "md-light-deeppurple", extension: "svg" },
 
-            { name: "md-dark-indigo", extension: "svg", dark: true },
-            { name: "md-dark-deeppurple", extension: "svg", dark: true },
+            {
+              name: "md-dark-indigo",
+              extension: "svg",
+              dark: true,
+            },
+            {
+              name: "md-dark-deeppurple",
+              extension: "svg",
+              dark: true,
+            },
           ],
         },
         {

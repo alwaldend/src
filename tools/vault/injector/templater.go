@@ -12,8 +12,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/fp"
 )
 
-type Templater struct {
-}
+type Templater struct{}
 
 type templateCtx struct {
 	Res   map[string]*ResourceResult

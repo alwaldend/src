@@ -50,8 +50,8 @@ metadata:
   name: openid-reader
 rules:
   - nonResourceURLs:
-    - /.well-known/openid-configuration
-    - /openid/v1/jwks
+      - /.well-known/openid-configuration
+      - /openid/v1/jwks
     verbs:
       - get
 ---
@@ -67,4 +67,3 @@ roleRef:
   kind: ClusterRole
   name: openid-reader
   apiGroup: rbac.authorization.k8s.io
----

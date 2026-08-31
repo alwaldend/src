@@ -8,6 +8,6 @@ if ! command -v bazel_agent >/dev/null 2>&1; then
     exit 127
 fi
 
-bazel_agent run //:buildifier
-bazel_agent run //:tf.direct -- -chdir "${PWD}" fmt --recursive
-bazel_agent run @rules_go//go -- fmt "${PWD}"
+bazel_agent run //:format
+bazel_agent test //:repo_quality_test
+bazel_agent build --config=lint //...

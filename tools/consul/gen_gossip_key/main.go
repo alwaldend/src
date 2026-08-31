@@ -8,10 +8,12 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 )
 
-var vault = flag.String("vault", "", "Vault path")
-var consul = flag.String("consul", "", "Consul path")
-var secret = flag.String("secret", "", "Secret path")
-var secretMount = flag.String("secret_mount", "", "Secret mount")
+var (
+	vault       = flag.String("vault", "", "Vault path")
+	consul      = flag.String("consul", "", "Consul path")
+	secret      = flag.String("secret", "", "Secret path")
+	secretMount = flag.String("secret_mount", "", "Secret mount")
+)
 
 func main() {
 	flag.Parse()

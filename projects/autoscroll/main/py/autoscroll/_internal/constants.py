@@ -1,5 +1,5 @@
-from os import environ as os_environ
 import typing
+from os import environ as os_environ
 
 from . import arguments, functions
 
@@ -21,12 +21,10 @@ ICON_ERROR: str = (
     "\npip install pyside6\n"
 )
 
-CONFIG_PATH: str = f'{os_environ.get("HOME")}/.config/autoscroll/config.txt'
+CONFIG_PATH: str = f"{os_environ.get('HOME')}/.config/autoscroll/config.txt"
 CONFIG_ENABLE: bool = False
 CONFIG_INTERVAL: int = 5
-CONFIG_ERROR_ENABLE: str = (
-    "you are trying to enable the config ('enable' is set to 'True'), but the path is not valid"
-)
+CONFIG_ERROR_ENABLE: str = "you are trying to enable the config ('enable' is set to 'True'), but the path is not valid"
 CONFIG_ERROR_PARSE: str = (
     "you are trying to parse the config file, but 'enable' is 'False'"
 )
@@ -53,8 +51,7 @@ ARGUMENTS: dict[str, typing.Any] = {
         "speed": {
             "type": int,
             "help": (
-                "R|constant part of the scrolling speed\n"
-                f"[default: {SCROLLING_SPEED}]"
+                f"R|constant part of the scrolling speed\n[default: {SCROLLING_SPEED}]"
             ),
         },
         "dead-area": {
@@ -80,8 +77,7 @@ ARGUMENTS: dict[str, typing.Any] = {
             "action": "store_const",
             "const": True,
             "help": (
-                "R|if set, the scrolling will end once you release "
-                "--buttons-start"
+                "R|if set, the scrolling will end once you release --buttons-start"
             ),
         },
         "start": {
@@ -91,8 +87,7 @@ ARGUMENTS: dict[str, typing.Any] = {
         "end": {
             "type": int,
             "help": (
-                "R|button that ends the scrolling\n"
-                "[default: --buttons-start]"
+                "R|button that ends the scrolling\n[default: --buttons-start]"
             ),
         },
     },

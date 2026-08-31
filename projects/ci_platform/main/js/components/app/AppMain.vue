@@ -122,9 +122,9 @@ export default {
         element.className = element.className.replace(
           new RegExp(
             "(^|\\b)" + className.split(" ").join("|") + "(\\b|$)",
-            "gi"
+            "gi",
           ),
-          " "
+          " ",
         );
     },
     isDesktop() {

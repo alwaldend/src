@@ -1,3 +1,5 @@
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
 load("//promptfoo:defs.bzl", "promptfoo_validate_test")
 load(
     "//promptfoo/private:promptfoo_test.bzl",

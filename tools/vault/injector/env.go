@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"git.alwaldend.com/alwaldend/src/tools/vault/injector/injector_proto"
 )
 

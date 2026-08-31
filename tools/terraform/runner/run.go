@@ -11,10 +11,12 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 )
 
-var terraformFlag = flag.String("terraform", "", "Terraform binary")
-var chDirFlag = flag.String("chdir", ".", "--chdir flag for terraform")
-var directFlag = flag.Bool("direct", false, "If set, just run the command")
-var logger = log.New(os.Stderr, "com.alwaldend.src.tools.terraform.runner ", log.Flags())
+var (
+	terraformFlag = flag.String("terraform", "", "Terraform binary")
+	chDirFlag     = flag.String("chdir", ".", "--chdir flag for terraform")
+	directFlag    = flag.Bool("direct", false, "If set, just run the command")
+	logger        = log.New(os.Stderr, "com.alwaldend.src.tools.terraform.runner ", log.Flags())
+)
 
 func run() int {
 	flag.Parse()

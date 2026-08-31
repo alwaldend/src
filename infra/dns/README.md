@@ -14,14 +14,19 @@ tags:
 ## Deployment
 
 Interactive:
+
 ```sh
 bazel run //infra/dns
 ```
+
 Just preview:
+
 ```sh
 bazel run //infra/dns:dns.preview
 ```
+
 Just deploy:
+
 ```sh
 bazel run //infra/dns:dns.deploy
 ```

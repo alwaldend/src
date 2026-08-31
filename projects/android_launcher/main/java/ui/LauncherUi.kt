@@ -10,28 +10,24 @@ import androidx.navigation.compose.rememberNavController
 private val startDestination: LauncherRoute<*> = HomeRoute
 
 object Routes {
-    private val home = HomeRoute
-    val settings = SettingsRoute
-    val allRoutes = listOf(home, settings)
+  private val home = HomeRoute
+  val settings = SettingsRoute
+  val allRoutes = listOf(home, settings)
 }
 
 @Composable
 fun LauncherUi(modifier: Modifier = Modifier) {
-    LauncherTheme {
-        Surface(modifier = modifier.fillMaxSize()) {
-            val navController = rememberNavController()
-            NavHost(
-                modifier = modifier,
-                navController = navController,
-                startDestination = startDestination.url
-            ) {
-                Routes.allRoutes.forEach { route ->
-                    launcherComposable(
-                        route = route,
-                        navController = navController
-                    )
-                }
+  LauncherTheme {
+    Surface(modifier = modifier.fillMaxSize()) {
+      val navController = rememberNavController()
+      NavHost(
+          modifier = modifier,
+          navController = navController,
+          startDestination = startDestination.url) {
+            Routes.allRoutes.forEach { route ->
+              launcherComposable(route = route, navController = navController)
             }
-        }
+          }
     }
+  }
 }

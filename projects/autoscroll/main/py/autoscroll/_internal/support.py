@@ -39,11 +39,12 @@ from .functions import (
     return_none,
 )
 
+_NONE_TYPE = type(None)
+
 
 class Base:
-
-    debug_keys_ignore = []
-    debug_keys_only = []
+    debug_keys_ignore: typing.ClassVar[list[typing.Any]] = []
+    debug_keys_only: typing.ClassVar[list[typing.Any]] = []
 
     def update(self, *args, **kwargs) -> None: ...
 
@@ -64,7 +65,7 @@ class Base:
         _name: str,
         _nonexistent_value: typing.Any,
         _value: typing.Any,
-        _type: typing.Any = type(None),
+        _type: typing.Any = _NONE_TYPE,
         _callable: typing.Callable = _convert_callable,
         **kwargs,
     ) -> None:
@@ -78,7 +79,7 @@ class Base:
         self,
         _value: typing.Any,
         none_value: typing.Any = None,
-        _type: typing.Any = type(None),
+        _type: typing.Any = _NONE_TYPE,
         _callable: typing.Callable = _convert_callable,
         **kwargs,
     ) -> typing.Any:
@@ -110,14 +111,15 @@ class Base:
         action: typing.Callable = return_none,
         condition_getter: typing.Callable = return_kwargs,
         action_getter: typing.Callable = return_kwargs,
-        condition_parameters: dict[str, typing.Any] = {},
-        action_parameters: dict[str, typing.Any] = {},
+        condition_parameters: dict[str, typing.Any] | None = None,
+        action_parameters: dict[str, typing.Any] | None = None,
     ) -> None:
-
+        condition_parameters = condition_parameters or {}
+        action_parameters = action_parameters or {}
         if False in list(
             map(callable, (condition, action, condition_getter, action_getter))
         ):
-            raise TypeError(f"some functions are not callable")
+            raise TypeError("some functions are not callable")
         if not has_dict(condition_parameters, action_parameters):
             raise TypeError("parameters should have '__dict__' attribute")
         while condition(**condition_getter(**condition_parameters)):
@@ -127,8 +129,8 @@ class Base:
         self,
         header: str,
         do_print: bool = True,
-        keys_only: typing.Optional[list[str]] = None,
-        keys_ignore: typing.Optional[ list[str]] = None,
+        keys_only: list[str] | None = None,
+        keys_ignore: list[str] | None = None,
     ) -> str:
         result = f"\n[{header}]\n{self._debug(keys_only, keys_ignore)}"
         if do_print:
@@ -142,9 +144,11 @@ class Base:
         return self._debug()
 
     def _debug(
-        self, keys_only: typing.Optional[list[str]] = None, keys_ignore: typing.Optional[list[str]] = None
+        self,
+        keys_only: list[str] | None = None,
+        keys_ignore: list[str] | None = None,
     ) -> str:
-        name = getattr(self, "name") if hasattr(self, "name") else type(self).__name__
+        name = self.name if hasattr(self, "name") else type(self).__name__
         raise_type_error(name, str)
         debug = []
         not_base = {}
@@ -162,8 +166,8 @@ class Base:
     def _debug_key_is_valid(
         self,
         name: str,
-        keys_only: typing.Optional[list[str]] = None,
-        keys_ignore: typing.Optional[list[str]] = None,
+        keys_only: list[str] | None = None,
+        keys_ignore: list[str] | None = None,
     ) -> bool:
         only = self.debug_keys_only if keys_only is None else keys_only
         ignore = self.debug_keys_ignore if keys_ignore is None else keys_ignore
@@ -178,12 +182,11 @@ class Base:
 
 
 class Coordinate(Base):
-
     def update(
         self,
-        current: typing.Optional[typing.Union[int, str]] = None,
-        previous: typing.Optional[ typing.Union[int, str]] = None,
-        initial: typing.Optional[ typing.Union[int, str]] = None,
+        current: int | str | None = None,
+        previous: int | str | None = None,
+        initial: int | str | None = None,
     ) -> None:
         self.initial = initial
         self.previous = previous
@@ -199,29 +202,28 @@ class Coordinate(Base):
 
     @property
     def current(self) -> int:
-        return getattr(self, "_current")
-
+        return self._current
 
     @property
     def previous(self) -> int:
-        return getattr(self, "_previous")
+        return self._previous
 
     @property
     def initial(self) -> int:
-        return getattr(self, "_initial")
+        return self._initial
 
     @current.setter
-    def current(self, value: typing.Optional[typing.Union[int, str]] = None) -> None:
+    def current(self, value: int | str | None = None) -> None:
         _current = getattr(self, "_current", None)
         self._set("_current", 0, value, (str, int), int)
         self._set("_previous", 0, _current, (str, int), int)
 
     @previous.setter
-    def previous(self, value: typing.Optional[typing.Union[int, str]] = None) -> None:
+    def previous(self, value: int | str | None = None) -> None:
         self._set("_previous", 0, value, (str, int), int)
 
     @initial.setter
-    def initial(self, value: typing.Optional[typing.Union[int, str]] = None) -> None:
+    def initial(self, value: int | str | None = None) -> None:
         self._set("_initial", 0, value, (str, int), int)
 
     def json(self) -> dict[str, typing.Any]:
@@ -233,12 +235,11 @@ class Coordinate(Base):
 
 
 class Coordinates(Base):
-
     def update(
         self,
-        x: typing.Optional[typing.Union[Coordinate, str, int]] = None,
-        y: typing.Optional[ typing.Union[Coordinate, str, int]] = None,
-        name: typing.Optional[str]= None,
+        x: Coordinate | str | int | None = None,
+        y: Coordinate | str | int | None = None,
+        name: str | None = None,
     ) -> None:
         self.x = x
         self.y = y
@@ -255,11 +256,11 @@ class Coordinates(Base):
 
     @property
     def x(self) -> Coordinate:
-        return getattr(self, "_x")
+        return self._x
 
     @property
     def y(self) -> Coordinate:
-        return getattr(self, "_y")
+        return self._y
 
     @property
     def current(self) -> tuple[int, int]:
@@ -274,7 +275,7 @@ class Coordinates(Base):
         return (self.x.previous, self.y.previous)
 
     @y.setter
-    def y(self, value: typing.Union[str, int, Coordinate, None] = None) -> None:
+    def y(self, value: str | int | Coordinate | None = None) -> None:
         self._set(
             "_y",
             Coordinate(),
@@ -285,7 +286,7 @@ class Coordinates(Base):
         )
 
     @x.setter
-    def x(self, value: typing.Union[str, int, Coordinate, None] = None) -> None:
+    def x(self, value: str | int | Coordinate | None = None) -> None:
         self._set(
             "_x",
             Coordinate(),
@@ -296,33 +297,35 @@ class Coordinates(Base):
         )
 
     @current.setter
-    def current(self, value: tuple[typing.Union[str, int], typing.Union[str, int]]) -> None:
+    def current(self, value: tuple[str | int, str | int]) -> None:
         self.x.current, self.y.current = self._convert(
             value, (None, None), typing.Iterable, self._convert_iterable
         )
 
     @initial.setter
-    def initial(self, value: tuple[typing.Union[str, int], typing.Union[str, int]]) -> None:
+    def initial(self, value: tuple[str | int, str | int]) -> None:
         self.x.initial, self.y.initial = self._convert(
             value, (None, None), typing.Iterable, self._convert_iterable
         )
 
     @previous.setter
-    def previous(self, value: tuple[typing.Union[str, int], typing.Union[str, int]]) -> None:
+    def previous(self, value: tuple[str | int, str | int]) -> None:
         self.x.previous, self.y.previous = self._convert(
             value, (None, None), typing.Iterable, self._convert_iterable
         )
 
     def _convert_coordinate(
-        self, value: typing.Union[Coordinate, int], name: str
+        self, value: Coordinate | int, name: str
     ) -> Coordinate:
         if isinstance(value, (int, str)):
             coordinate = getattr(self, name)
-            setattr(coordinate, "current", int(value))
+            coordinate.current = int(value)
             return coordinate
         return raise_type_error(value, Coordinate)
 
-    def _convert_iterable(self, value: typing.Any) -> tuple[typing.Optional[int], typing.Optional[int]]:
+    def _convert_iterable(
+        self, value: typing.Any
+    ) -> tuple[int | None, int | None]:
         raise_type_error(value, typing.Iterable)
         x, y = None, None
         if len(value) >= 1:
@@ -348,17 +351,16 @@ class Coordinates(Base):
 
 
 class Buttons(Base):
-
     def __init__(self, *args, **kwargs) -> None:
-        self.button: typing.Optional[pynput.mouse.Button] = None
-        self.is_pressed: typing.Optional[bool] = None
+        self.button: pynput.mouse.Button | None = None
+        self.is_pressed: bool | None = None
         self.update(*args, **kwargs)
 
     def update(
         self,
-        start: typing.Optional[typing.Union[pynput.mouse.Button, int, str]] = None,
-        end: typing.Optional[ typing.Union[pynput.mouse.Button, int, str]] = None,
-        hold: typing.Optional[ typing.Union[bool, str]] = None,
+        start: pynput.mouse.Button | int | str | None = None,
+        end: pynput.mouse.Button | int | str | None = None,
+        hold: bool | str | None = None,
     ) -> None:
         self.start = start
         self.end = end
@@ -396,18 +398,20 @@ class Buttons(Base):
 
     @property
     def start(self) -> pynput.mouse.Button:
-        return getattr(self, "_start")
+        return self._start
 
     @property
     def hold(self) -> bool:
-        return getattr(self, "_hold")
+        return self._hold
 
     @property
     def end(self) -> pynput.mouse.Button:
-        return getattr(self, "_end")
+        return self._end
 
     @start.setter
-    def start(self, value: typing.Optional[typing.Union[int, str, pynput.mouse.Button]] = None) -> None:
+    def start(
+        self, value: int | str | pynput.mouse.Button | None = None
+    ) -> None:
         self._set(
             "_start",
             pynput.mouse.Button(BUTTONS_START),
@@ -417,18 +421,30 @@ class Buttons(Base):
         )
 
     @end.setter
-    def end(self, value: typing.Optional[typing.Union[int, str, pynput.mouse.Button]] = None) -> None:
+    def end(
+        self, value: int | str | pynput.mouse.Button | None = None
+    ) -> None:
         self._set(
-            "_end", self.start, value, (int, pynput.mouse.Button, str), self._convert_button
+            "_end",
+            self.start,
+            value,
+            (int, pynput.mouse.Button, str),
+            self._convert_button,
         )
 
     @hold.setter
-    def hold(self, value: typing.Optional[typing.Union[str, bool]] = None) -> None:
+    def hold(self, value: str | bool | None = None) -> None:
         self._set("_hold", BUTTONS_HOLD, value, (str, bool), convert_bool)
 
     @staticmethod
-    def _convert_button(value: typing.Union[pynput.mouse.Button, int, str]) -> pynput.mouse.Button:
-        return value if isinstance(value, pynput.mouse.Button) else pynput.mouse.Button(int(value))
+    def _convert_button(
+        value: pynput.mouse.Button | int | str,
+    ) -> pynput.mouse.Button:
+        return (
+            value
+            if isinstance(value, pynput.mouse.Button)
+            else pynput.mouse.Button(int(value))
+        )
 
     def json(self) -> dict[str, typing.Any]:
         return {
@@ -441,7 +457,6 @@ class Buttons(Base):
 
 
 class Scrolling(Base):
-
     def __init__(self, *args, **kwargs) -> None:
         self.sleep_interval: float = SCROLLING_SLEEP_INTERVAL_INITIAL
         self.controller: pynput.mouse.Controller = pynput.mouse.Controller()
@@ -459,9 +474,9 @@ class Scrolling(Base):
 
     def update(
         self,
-        dead_area: typing.Optional[typing.Union[str, int]] = None,
-        speed: typing.Optional[typing.Union[str, int]] = None,
-        acceleration: typing.Optional[typing.Union[str, int]] = None,
+        dead_area: str | int | None = None,
+        speed: str | int | None = None,
+        acceleration: str | int | None = None,
     ) -> None:
         self.speed = speed
         self.dead_area = dead_area
@@ -536,26 +551,26 @@ class Scrolling(Base):
 
     @property
     def speed(self) -> int:
-        return getattr(self, "_speed")
+        return self._speed
 
     @property
     def dead_area(self) -> int:
-        return getattr(self, "_dead_area")
+        return self._dead_area
 
     @property
     def acceleration(self) -> int:
-        return getattr(self, "_acceleration")
+        return self._acceleration
 
     @speed.setter
-    def speed(self, value: typing.Optional[typing.Union[str, int]] = None) -> None:
+    def speed(self, value: str | int | None = None) -> None:
         self._set("_speed", SCROLLING_SPEED, value, (str, int), int)
 
     @dead_area.setter
-    def dead_area(self, value: typing.Optional[typing.Union[str, int]] = None) -> None:
+    def dead_area(self, value: str | int | None = None) -> None:
         self._set("_dead_area", SCROLLING_DEAD_AREA, value, (str, int), int)
 
     @acceleration.setter
-    def acceleration(self, value: typing.Optional[typing.Union[str, int]]) -> None:
+    def acceleration(self, value: str | int | None) -> None:
         self._set(
             "_acceleration",
             SCROLLING_ACCELERATION_DISTANCE,
@@ -566,18 +581,17 @@ class Scrolling(Base):
 
 
 class Icon(Base):
-
     def __init__(self, *args, **kwargs) -> None:
-        self.application: typing.Optional[typing.Any] = None
+        self.application: typing.Any | None = None
         self.event_icon_enabled: threading.Event = threading.Event()
         self.event_qt_application_started: threading.Event = threading.Event()
         self.update(*args, **kwargs)
 
     def update(
         self,
-        enable: typing.Optional[typing.Union[str, bool]] = None,
-        path: typing.Optional[str ]= None,
-        size: typing.Optional[typing.Union[str, int]] = None,
+        enable: str | bool | None = None,
+        path: str | None = None,
+        size: str | int | None = None,
     ) -> None:
         self.path = path
         self.size = size
@@ -601,43 +615,49 @@ class Icon(Base):
 
     @property
     def path(self) -> str:
-        return getattr(self, "_path")
+        return self._path
 
     @property
     def size(self) -> int:
-        return getattr(self, "_size")
+        return self._size
 
     @property
     def enable(self) -> bool:
-        return getattr(self, "_enable")
+        return self._enable
 
     @property
-    def icon(self) -> typing.Optional[typing.Any]:
-        return getattr(self, "_icon")
+    def icon(self) -> typing.Any | None:
+        return self._icon
 
     @path.setter
-    def path(self, value: typing.Optional[str] = None) -> None:
+    def path(self, value: str | None = None) -> None:
         self._set("_path", ICON_PATH, value, str)
 
     @size.setter
-    def size(self, value: typing.Optional[typing.Union[str, int]] =None) -> None:
+    def size(self, value: str | int | None = None) -> None:
         self._set("_size", ICON_SIZE, value, (str, int), int)
 
     @enable.setter
-    def enable(self, value: typing.Optional[typing.Union[str, bool]] =None) -> None:
+    def enable(self, value: str | bool | None = None) -> None:
         self._set("_enable", ICON_ENABLE, value, (str, bool), convert_bool)
         if self.enable:
             self.event_icon_enabled.set()
 
     @icon.setter
-    def icon(self, value: typing.Optional[tuple[str, int]] = None) -> None:
+    def icon(self, value: tuple[str, int] | None = None) -> None:
         if not self.enable:
             self._icon = None
             return
         self.event_qt_application_started.wait()
-        if not isinstance(value, tuple) or not self.icon or not self.application:
-            raise Exception("missing value, icon, or application: "
-                f"{value}, {self.icon}, {self.application}")
+        if (
+            not isinstance(value, tuple)
+            or not self.icon
+            or not self.application
+        ):
+            raise Exception(
+                "missing value, icon, or application: "
+                f"{value}, {self.icon}, {self.application}"
+            )
         if getattr(self, "_icon", None) is not None:
             self.icon.update_icon(*value)
             return
@@ -654,15 +674,14 @@ class Icon(Base):
 
 
 class Debug(Base):
-
     def update(
         self,
-        scroll: typing.Optional[bool] = None,
-        file: typing.Optional[bool] = None,
-        click: typing.Optional[bool] = None,
-        initial: typing.Optional[bool] = None,
+        scroll: bool | None = None,
+        file: bool | None = None,
+        click: bool | None = None,
+        initial: bool | None = None,
     ) -> None:
-        self.scroll= scroll
+        self.scroll = scroll
         self.click = click
         self.initial = initial
         self.file = file
@@ -677,39 +696,38 @@ class Debug(Base):
 
     @property
     def scroll(self) -> bool:
-        return getattr(self, "_scroll")
+        return self._scroll
 
     @property
     def click(self) -> bool:
-        return getattr(self, "_click")
+        return self._click
 
     @property
     def initial(self) -> bool:
-        return getattr(self, "_initial")
+        return self._initial
 
     @property
     def file(self) -> bool:
-        return getattr(self, "_file")
+        return self._file
 
     @scroll.setter
-    def scroll(self, value: typing.Optional[bool] = None) -> None:
+    def scroll(self, value: bool | None = None) -> None:
         self._set("_scroll", DEBUG_SCROLL, value, (str, bool), convert_bool)
 
     @click.setter
-    def click(self, value: typing.Optional[bool] = None) -> None:
+    def click(self, value: bool | None = None) -> None:
         self._set("_click", DEBUG_CLICK, value, (str, bool), convert_bool)
 
     @initial.setter
-    def initial(self, value: typing.Optional[bool] =None) -> None:
+    def initial(self, value: bool | None = None) -> None:
         self._set("_initial", DEBUG_INITIAL, value, (str, bool), convert_bool)
 
     @file.setter
-    def file(self, value: typing.Optional[bool] =None) -> None:
+    def file(self, value: bool | None = None) -> None:
         self._set("_file", DEBUG_FILE, value, (str, bool), convert_bool)
 
 
 class Config(Base):
-
     debug_keys_ignore = "content"
 
     def __init__(self, *args, **kwargs) -> None:
@@ -723,9 +741,9 @@ class Config(Base):
 
     def update(
         self,
-        enable: typing.Union[bool, str, None] = None,
-        path: typing.Optional[str] = None,
-        interval: typing.Union[str, int, None] = None,
+        enable: bool | str | None = None,
+        path: str | None = None,
+        interval: str | int | None = None,
     ) -> None:
         self.path = path
         self.enable = enable
@@ -766,18 +784,18 @@ class Config(Base):
 
     @property
     def enable(self) -> bool:
-        return getattr(self, "_enable")
+        return self._enable
 
     @property
     def path(self) -> str:
-        return getattr(self, "_path")
+        return self._path
 
     @property
     def interval(self) -> int:
-        return getattr(self, "_interval")
+        return self._interval
 
     @enable.setter
-    def enable(self, value: typing.Union[bool, str, None] = None) -> None:
+    def enable(self, value: bool | str | None = None) -> None:
         self._set("_enable", CONFIG_ENABLE, value, (bool, str), convert_bool)
         if self.enable and not self.path:
             self.enable = False
@@ -786,11 +804,11 @@ class Config(Base):
             self.event_enabled.set()
 
     @interval.setter
-    def interval(self, value: typing.Union[str, int, None] = None) -> None:
+    def interval(self, value: str | int | None = None) -> None:
         self._set("_interval", CONFIG_INTERVAL, value, (int, str), int)
 
     @path.setter
-    def path(self, value: typing.Optional[str] = None) -> None:
+    def path(self, value: str | None = None) -> None:
         self._set("_path", CONFIG_PATH, value, str)
 
     def json(self) -> dict[str, typing.Any]:

@@ -1,8 +1,8 @@
-import typing
 import argparse
+import typing
 
 
-def parse_arguments(**arguments: typing.Any) ->dict[str, typing.Any]:
+def parse_arguments(**arguments: typing.Any) -> dict[str, typing.Any]:
     result = {}
     for key, value in arguments.items():
         key_split = key.split("_")
@@ -67,7 +67,6 @@ class ArgparseFormatter(argparse.HelpFormatter):
 
 
 class _ArgparseArgumentGroup(argparse._ArgumentGroup):
-
     def add_arguments(
         self, **arguments: dict[str, typing.Any]
     ) -> "_ArgparseArgumentGroup":
@@ -81,10 +80,11 @@ class _ArgparseArgumentGroup(argparse._ArgumentGroup):
 
 
 class ArgparseParser(argparse.ArgumentParser):
-
     def add_argument_group(
-        self, *args, parameters: typing.Optional[ dict[str,dict[str, typing.Any]]] = None,
-        **kwargs
+        self,
+        *args,
+        parameters: dict[str, dict[str, typing.Any]] | None = None,
+        **kwargs,
     ):
         """
         Override
@@ -95,7 +95,9 @@ class ArgparseParser(argparse.ArgumentParser):
             group.add_arguments(**parameters)
         return group
 
-    def add_arguments(self, **groups:dict[str, typing.Any]) -> "ArgparseParser":
+    def add_arguments(
+        self, **groups: dict[str, typing.Any]
+    ) -> "ArgparseParser":
         """
         Add a bunch of arguments and argument groups in one go
         """

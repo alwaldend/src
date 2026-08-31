@@ -150,8 +150,7 @@ func createProxmoxToken(config *pve_login_proto.Config, pveTicket *pveTicket) (*
 	return res, nil
 }
 
-type Plugin struct {
-}
+type Plugin struct{}
 
 func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
 	config := &pve_login_proto.Config{}

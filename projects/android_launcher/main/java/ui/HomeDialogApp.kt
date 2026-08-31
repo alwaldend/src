@@ -13,17 +13,16 @@ fun HomeDialogApp(
     onHeaderAction: (Model.App, HomeDialogState.HeaderActions) -> Unit,
     onDismissRequest: () -> Unit
 ) {
-    val buttons = remember(app) {
-        HomeDialogState.Buttons(app.shortcutsList.map { shortcut ->
-            HomeDialogState.Button(shortcut.label, shortcut)
-        })
-    }
-    HomeDialog(
-        onDismissRequest = onDismissRequest,
-        actionButtons = buttons,
-        app = app,
-        onHeaderAction = onHeaderAction,
-        showButtons = showShortcuts,
-        onButtonClick = { onAppShortcutClick(it) }
-    )
+  val buttons =
+      remember(app) {
+        HomeDialogState.Buttons(
+            app.shortcutsList.map { shortcut -> HomeDialogState.Button(shortcut.label, shortcut) })
+      }
+  HomeDialog(
+      onDismissRequest = onDismissRequest,
+      actionButtons = buttons,
+      app = app,
+      onHeaderAction = onHeaderAction,
+      showButtons = showShortcuts,
+      onButtonClick = { onAppShortcutClick(it) })
 }

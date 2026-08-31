@@ -14,7 +14,7 @@ if [ -z "${url}" ]; then
     exit 1
 fi
 
-data=$(\
+data=$(
     curl \
         --request POST \
         --cacert "${VAULT_CACERT}" \

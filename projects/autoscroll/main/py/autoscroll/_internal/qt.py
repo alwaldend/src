@@ -9,8 +9,8 @@ from .functions import get_path
 application = PySide6.QtWidgets.QApplication(sys_argv)
 application.setQuitOnLastWindowClosed(False)
 
-class Icon(PySide6.QtSvgWidgets.QSvgWidget):
 
+class Icon(PySide6.QtSvgWidgets.QSvgWidget):
     def __init__(self, path: str, size: int) -> None:
         super().__init__()
         self.update_icon(path, size)

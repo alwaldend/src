@@ -39,32 +39,27 @@ import com.alwaldend.src.projects.android_launcher.data.HomeDialogState.HeaderAc
 import com.alwaldend.src.projects.android_launcher.data.UiState
 
 object HomeRoute : LauncherRoute<HomeViewModel> {
-    override val url = "home_screen"
-    override val label = R.string.navigation_home
-    override val showScaffold = false
+  override val url = "home_screen"
+  override val label = R.string.navigation_home
+  override val showScaffold = false
 
-    @Composable
-    override fun getViewModel(): HomeViewModel {
-        return viewModel(factory = HomeViewModel.Factory)
-    }
+  @Composable
+  override fun getViewModel(): HomeViewModel {
+    return viewModel(factory = HomeViewModel.Factory)
+  }
 
-    @Composable
-    override fun Content(
-        vm: HomeViewModel,
-        uiState: UiState.Success<Model.State>
-    ) {
-        HomeScreen(
-            state = uiState.state,
-            onHeaderAction = vm::onHeaderAction,
-            onAppDialogClick = vm::onAppDialogClick,
-            onRowItemClick = vm::onRowItemClick,
-            onLauncherDialogAction = vm::onLauncherDialogAction,
-            getRowItemLabel = vm::getRowItemLabel,
-            sortRowItems = vm::sortRowItems
-        )
-    }
+  @Composable
+  override fun Content(vm: HomeViewModel, uiState: UiState.Success<Model.State>) {
+    HomeScreen(
+        state = uiState.state,
+        onHeaderAction = vm::onHeaderAction,
+        onAppDialogClick = vm::onAppDialogClick,
+        onRowItemClick = vm::onRowItemClick,
+        onLauncherDialogAction = vm::onLauncherDialogAction,
+        getRowItemLabel = vm::getRowItemLabel,
+        sortRowItems = vm::sortRowItems)
+  }
 }
-
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -78,105 +73,83 @@ private fun HomeScreen(
     getRowItemLabel: (Model.App, Model.Settings.AppCard) -> String,
     modifier: Modifier = Modifier
 ) {
-    var showLauncherDialog by remember { mutableStateOf(false) }
-    var showAppDialog by remember { mutableStateOf<Model.App?>(null) }
-    val interactionSource = remember { MutableInteractionSource() }
+  var showLauncherDialog by remember { mutableStateOf(false) }
+  var showAppDialog by remember { mutableStateOf<Model.App?>(null) }
+  val interactionSource = remember { MutableInteractionSource() }
 
-    Column(modifier = modifier.safeDrawingPadding()) {
-        if (!state.isHomeApp) {
-            NotAHomeAppBanner()
-        }
-        HomeRow(
-            modifier = Modifier
-                .fillMaxSize()
+  Column(modifier = modifier.safeDrawingPadding()) {
+    if (!state.isHomeApp) {
+      NotAHomeAppBanner()
+    }
+    HomeRow(
+        modifier =
+            Modifier.fillMaxSize()
                 .combinedClickable(
                     interactionSource = interactionSource,
                     indication = null,
                     onLongClick = { showLauncherDialog = true },
-                    onClick = { }
-                ),
-            settings = state.settings,
-            apps = state.apps,
-            showHiddenApps = state.showHiddenApps,
-            onClick = onRowItemClick,
-            onLongClick = { showAppDialog = it },
-            getItemLabel = getRowItemLabel,
-            sortItems = sortRowItems
-        )
-    }
+                    onClick = {}),
+        settings = state.settings,
+        apps = state.apps,
+        showHiddenApps = state.showHiddenApps,
+        onClick = onRowItemClick,
+        onLongClick = { showAppDialog = it },
+        getItemLabel = getRowItemLabel,
+        sortItems = sortRowItems)
+  }
 
-    if (showLauncherDialog) {
-        HomeDialogLauncherActions(
-            showHiddenApps = state.showHiddenApps,
-            onLauncherDialogAction = onLauncherDialogAction,
-            onDismissRequest = { showLauncherDialog = false }
-        )
-    }
-    showAppDialog?.let {
-        HomeDialogApp(
-            app = it,
-            showShortcuts = state.isHomeApp,
-            onAppShortcutClick = onAppDialogClick,
-            onHeaderAction = onHeaderAction,
-            onDismissRequest = { showAppDialog = null }
-        )
-    }
+  if (showLauncherDialog) {
+    HomeDialogLauncherActions(
+        showHiddenApps = state.showHiddenApps,
+        onLauncherDialogAction = onLauncherDialogAction,
+        onDismissRequest = { showLauncherDialog = false })
+  }
+  showAppDialog?.let {
+    HomeDialogApp(
+        app = it,
+        showShortcuts = state.isHomeApp,
+        onAppShortcutClick = onAppDialogClick,
+        onHeaderAction = onHeaderAction,
+        onDismissRequest = { showAppDialog = null })
+  }
 }
-
 
 @Composable
 private fun NotAHomeAppBanner() {
-    Card {
-        Row(
-            modifier = Modifier
-                .padding(dimensionResource(R.dimen.padding_medium))
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = Icons.Filled.Warning,
-                contentDescription = "Warning icon",
-                modifier = Modifier.size(ButtonDefaults.IconSize * 2),
-            )
-            Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_medium)))
-            Text(stringResource(R.string.not_a_home_app_banner))
+  Card {
+    Row(
+        modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium)).fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically) {
+          Icon(
+              imageVector = Icons.Filled.Warning,
+              contentDescription = "Warning icon",
+              modifier = Modifier.size(ButtonDefaults.IconSize * 2),
+          )
+          Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_medium)))
+          Text(stringResource(R.string.not_a_home_app_banner))
         }
-    }
+  }
 }
 
-
-@Preview(
-    name = "phone",
-    device = "spec:shape=Normal,width=360,height=640,unit=dp,dpi=480"
-)
-@Preview(
-    name = "landscape",
-    device = "spec:shape=Normal,width=640,height=360,unit=dp,dpi=480"
-)
-@Preview(
-    name = "foldable",
-    device = "spec:shape=Normal,width=673,height=841,unit=dp,dpi=480"
-)
-@Preview(
-    name = "tablet",
-    device = "spec:shape=Normal,width=1280,height=800,unit=dp,dpi=480"
-)
+@Preview(name = "phone", device = "spec:shape=Normal,width=360,height=640,unit=dp,dpi=480")
+@Preview(name = "landscape", device = "spec:shape=Normal,width=640,height=360,unit=dp,dpi=480")
+@Preview(name = "foldable", device = "spec:shape=Normal,width=673,height=841,unit=dp,dpi=480")
+@Preview(name = "tablet", device = "spec:shape=Normal,width=1280,height=800,unit=dp,dpi=480")
 @Composable
 private fun HomePagePreview() {
-    val state = Defaults.State
-    LauncherTheme(darkTheme = true) {
-        Box {
-            HomeScreen(
-                modifier = Modifier,
-                state = state,
-                onLauncherDialogAction = { },
-                onAppDialogClick = {},
-                onHeaderAction = { _, _ -> },
-                onRowItemClick = { _ -> },
-                sortRowItems = { _, _ -> listOf() },
-                getRowItemLabel = { app, _ -> app.label }
-            )
-        }
+  val state = Defaults.State
+  LauncherTheme(darkTheme = true) {
+    Box {
+      HomeScreen(
+          modifier = Modifier,
+          state = state,
+          onLauncherDialogAction = {},
+          onAppDialogClick = {},
+          onHeaderAction = { _, _ -> },
+          onRowItemClick = { _ -> },
+          sortRowItems = { _, _ -> listOf() },
+          getRowItemLabel = { app, _ -> app.label })
     }
+  }
 }

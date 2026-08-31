@@ -16,44 +16,43 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-
 abstract class BaseViewModel(
     private val stateRepo: LauncherStateRepository,
     private val navigator: LauncherNavigator
 ) : ViewModel(), LauncherNavigator by navigator {
 
-    private val _errorFlow = MutableStateFlow<Throwable?>(null)
-    val errorFlow = _errorFlow.asStateFlow()
+  private val _errorFlow = MutableStateFlow<Throwable?>(null)
+  val errorFlow = _errorFlow.asStateFlow()
 
-    private val exceptionHandler = CoroutineExceptionHandler { _, e ->
-        _errorFlow.update { e }
-    }
+  private val exceptionHandler = CoroutineExceptionHandler { _, e -> _errorFlow.update { e } }
 
-    protected var prevState = Defaults.State
+  protected var prevState = Defaults.State
 
-    val uiStateFlow = stateRepo.observeState()
-        .map { stateResult ->
-            UiState.Success(stateResult.fold(
-                onSuccess = {
-                    prevState = it
-                    it
-                },
-                onFailure = {
-                    _errorFlow.update { it }
-                    prevState
-                }
-            ))
-        }.stateIn(
-            scope = viewModelScope,
-            initialValue = UiState.Loading(),
-            started = SharingStarted.Lazily
-        )
+  val uiStateFlow =
+      stateRepo
+          .observeState()
+          .map { stateResult ->
+            UiState.Success(
+                stateResult.fold(
+                    onSuccess = {
+                      prevState = it
+                      it
+                    },
+                    onFailure = {
+                      _errorFlow.update { it }
+                      prevState
+                    }))
+          }
+          .stateIn(
+              scope = viewModelScope,
+              initialValue = UiState.Loading(),
+              started = SharingStarted.Lazily)
 
-    protected fun stateAction(action: suspend LauncherStateRepository.() -> Unit) {
-        launch { action.invoke(stateRepo) }
-    }
+  protected fun stateAction(action: suspend LauncherStateRepository.() -> Unit) {
+    launch { action.invoke(stateRepo) }
+  }
 
-    protected fun launch(action: suspend CoroutineScope.() -> Unit) {
-        viewModelScope.launch(exceptionHandler) { action() }
-    }
+  protected fun launch(action: suspend CoroutineScope.() -> Unit) {
+    viewModelScope.launch(exceptionHandler) { action() }
+  }
 }

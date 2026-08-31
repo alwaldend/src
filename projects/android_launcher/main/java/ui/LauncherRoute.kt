@@ -16,51 +16,39 @@ import com.alwaldend.src.projects.android_launcher.Model
 import com.alwaldend.src.projects.android_launcher.data.UiState
 
 interface LauncherRoute<T : BaseViewModel> {
-    val url: String
+  val url: String
 
-    @get:StringRes
-    val label: Int
+  @get:StringRes val label: Int
 
-    val showScaffold: Boolean
+  val showScaffold: Boolean
 
-    @Composable
-    fun Content(vm: T, uiState: UiState.Success<Model.State>)
+  @Composable fun Content(vm: T, uiState: UiState.Success<Model.State>)
 
-    @Composable
-    fun getViewModel(): T
+  @Composable fun getViewModel(): T
 }
 
 fun <T : BaseViewModel> NavGraphBuilder.launcherComposable(
     route: LauncherRoute<T>,
     navController: NavHostController
 ) {
-    composable(route = route.url) {
-        val vm = route.getViewModel()
-        val error by vm.errorFlow.collectAsState()
-        val navigationState by vm.navigationStateFlow.collectAsState()
+  composable(route = route.url) {
+    val vm = route.getViewModel()
+    val error by vm.errorFlow.collectAsState()
+    val navigationState by vm.navigationStateFlow.collectAsState()
 
-        OnChangedNavState(
-            navState = navigationState,
-            navController = navController,
-            onNavigation = vm::onNavigation
-        )
-        ErrorToast(error = error)
-        LauncherScaffold(
-            label = route.label,
-            goBack = { vm.popBackStack() },
-            showTopAppBar = route.showScaffold
-        ) {
-            val uiState by vm.uiStateFlow.collectAsState()
-            when (uiState) {
-                is UiState.Loading -> Unit
-
-                is UiState.Success<Model.State> -> route.Content(
-                    vm = vm,
-                    uiState = uiState as UiState.Success<Model.State>
-                )
-            }
+    OnChangedNavState(
+        navState = navigationState, navController = navController, onNavigation = vm::onNavigation)
+    ErrorToast(error = error)
+    LauncherScaffold(
+        label = route.label, goBack = { vm.popBackStack() }, showTopAppBar = route.showScaffold) {
+          val uiState by vm.uiStateFlow.collectAsState()
+          when (uiState) {
+            is UiState.Loading -> Unit
+            is UiState.Success<Model.State> ->
+                route.Content(vm = vm, uiState = uiState as UiState.Success<Model.State>)
+          }
         }
-    }
+  }
 }
 
 @Composable
@@ -69,29 +57,26 @@ private fun OnChangedNavState(
     onNavigation: (LauncherNavigationState) -> Unit,
     navController: NavHostController
 ) {
-    LaunchedEffect(key1 = navState) {
-        when (navState) {
-            is LauncherNavigationState.GoToRoute -> {
-                val route = navState.route
-                navController.navigate(route = route.url) {
-                    popUpTo(id = navController.graph.findStartDestination().id)
-                    launchSingleTop = true
-                }
-            }
-
-            LauncherNavigationState.Idle -> {}
-            LauncherNavigationState.PopBackStack -> navController.popBackStack()
+  LaunchedEffect(key1 = navState) {
+    when (navState) {
+      is LauncherNavigationState.GoToRoute -> {
+        val route = navState.route
+        navController.navigate(route = route.url) {
+          popUpTo(id = navController.graph.findStartDestination().id)
+          launchSingleTop = true
         }
-        onNavigation(navState)
+      }
+      LauncherNavigationState.Idle -> {}
+      LauncherNavigationState.PopBackStack -> navController.popBackStack()
     }
+    onNavigation(navState)
+  }
 }
 
 @Composable
 private fun ErrorToast(error: Throwable?) {
-    val context = LocalContext.current
-    LaunchedEffect(error) {
-        error?.let {
-            Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-        }
-    }
+  val context = LocalContext.current
+  LaunchedEffect(error) {
+    error?.let { Toast.makeText(context, it.message, Toast.LENGTH_LONG).show() }
+  }
 }

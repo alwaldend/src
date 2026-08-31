@@ -22,9 +22,7 @@
     "editor.autoClosingBrackets": "always",
     "editor.autoClosingQuotes": "always",
     "editor.fontSize": 22,
-    "editor.rulers": [
-        80
-    ],
+    "editor.rulers": [80],
     "editor.accessibilitySupport": "off",
     "editor.suggestSelection": "first",
     "editor.formatOnPaste": true,
@@ -42,13 +40,7 @@
     "zenMode.centerLayout": false,
     "zenMode.silentNotifications": false,
     "json.maxItemsComputed": 999999,
-    "shellcheck.exclude": [
-        "SC1091",
-        "SC1090",
-        "SC2174",
-        "SC2001",
-	"SC2028"
-    ],
+    "shellcheck.exclude": ["SC1091", "SC1090", "SC2174", "SC2001", "SC2028"],
     "prettier.bracketSpacing": true,
     "prettier.useTabs": false,
     "prettier.enable": true,

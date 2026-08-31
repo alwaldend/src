@@ -29,7 +29,7 @@ def al_py_checkers(
         "--config=$(rootpath {})".format(pyproject_label),
     ] + ["$(rootpaths {})".format(src) for src in srcs]
     al_py_checker(
-        name = "black".format(name),
+        name = "{}.black".format(name),
         args_bin = black_args,
         tool = black_label,
         args_test = [black_args[0], "--check"] + black_args[1:],
@@ -40,16 +40,16 @@ def al_py_checkers(
         "--config-file=$(rootpath {})".format(pyproject_label),
     ] + ["$(rootpaths {})".format(src) for src in srcs]
     al_py_checker(
-        name = "mypy".format(name),
+        name = "{}.mypy".format(name),
         args_bin = mypy_args,
         tool = mypy_label,
-        args_test = [mypy_args[0], "--check"] + mypy_args[1:],
+        args_test = mypy_args,
         data = srcs + [pyproject_label],
         disable_fix = True,
     )
 
     al_py_checker(
-        name = "flake8".format(name),
+        name = "{}.flake8".format(name),
         disable_fix = True,
         tool = flake8_label,
         args_test = [

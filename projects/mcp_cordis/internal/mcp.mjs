@@ -1,9 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/server";
 import { z } from "zod";
 
-const nameSchema = z
-    .string()
-    .regex(/^[a-z][a-z0-9_]{0,63}$/);
+const nameSchema = z.string().regex(/^[a-z][a-z0-9_]{0,63}$/);
 const scopeSchema = z.enum(["project", "scratch"]);
 const argumentsSchema = z.record(z.string(), z.unknown());
 
@@ -170,23 +168,25 @@ export function registerMcpTools(server, runtime) {
                 catalog_version: z.number().int().min(1).optional(),
             }),
         },
-        handler(({
-            scope,
-            package: packageName,
-            tool,
-            arguments: args,
-            timeout_ms: timeoutMs,
-            catalog_version: catalogVersion,
-        }) => {
-            return runtime.invoke({
+        handler(
+            ({
                 scope,
-                packageName,
+                package: packageName,
                 tool,
                 arguments: args,
-                timeoutMs,
-                catalogVersion,
-            });
-        }),
+                timeout_ms: timeoutMs,
+                catalog_version: catalogVersion,
+            }) => {
+                return runtime.invoke({
+                    scope,
+                    packageName,
+                    tool,
+                    arguments: args,
+                    timeoutMs,
+                    catalogVersion,
+                });
+            },
+        ),
     );
 
     server.registerTool(
@@ -234,11 +234,7 @@ export function registerMcpTools(server, runtime) {
             }),
             annotations: { destructiveHint: true },
         },
-        handler(({
-            name,
-            target_name: targetName,
-            activate,
-        }) => {
+        handler(({ name, target_name: targetName, activate }) => {
             return runtime.promote({
                 name,
                 targetName,

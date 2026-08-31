@@ -28,31 +28,35 @@ const (
 	maximumOutputLimit           = 100
 )
 
-type ObjectMeta = v1alpha1.ObjectMeta
-type LocalGoalReference = v1alpha1.GoalReference
-type Retention = v1alpha1.Retention
-type Relationships = v1alpha1.Relationships
-type GoalSpec = v1alpha1.GoalSpec
-type PromotionStatus = v1alpha1.PromotionStatus
-type MigrationStatus = v1alpha1.MigrationStatus
-type GoalStatus = v1alpha1.GoalStatus
-type Criterion = v1alpha1.Criterion
-type CriteriaSpec = v1alpha1.CriteriaSpec
-type AttemptSpec = v1alpha1.AttemptSpec
-type ArtifactDigest = v1alpha1.ArtifactDigest
-type ArtifactManifest = v1alpha1.ArtifactManifest
-type CriterionReview = v1alpha1.CriterionReview
-type CloseReview = v1alpha1.CloseReview
-type AttemptStatus = v1alpha1.AttemptStatus
-type SessionSpec = v1alpha1.SessionSpec
-type SessionStatus = v1alpha1.SessionStatus
+type (
+	ObjectMeta         = v1alpha1.ObjectMeta
+	LocalGoalReference = v1alpha1.GoalReference
+	Retention          = v1alpha1.Retention
+	Relationships      = v1alpha1.Relationships
+	GoalSpec           = v1alpha1.GoalSpec
+	PromotionStatus    = v1alpha1.PromotionStatus
+	MigrationStatus    = v1alpha1.MigrationStatus
+	GoalStatus         = v1alpha1.GoalStatus
+	Criterion          = v1alpha1.Criterion
+	CriteriaSpec       = v1alpha1.CriteriaSpec
+	AttemptSpec        = v1alpha1.AttemptSpec
+	ArtifactDigest     = v1alpha1.ArtifactDigest
+	ArtifactManifest   = v1alpha1.ArtifactManifest
+	CriterionReview    = v1alpha1.CriterionReview
+	CloseReview        = v1alpha1.CloseReview
+	AttemptStatus      = v1alpha1.AttemptStatus
+	SessionSpec        = v1alpha1.SessionSpec
+	SessionStatus      = v1alpha1.SessionStatus
+)
 
 // These local names preserve the store's concise implementation while every
 // wire field and backend-neutral rule is owned by api/v1alpha1.
-type GoalManifest v1alpha1.Goal
-type CriteriaManifest v1alpha1.GoalCriteria
-type AttemptManifest v1alpha1.GoalAttempt
-type SessionBinding v1alpha1.GoalSessionBinding
+type (
+	GoalManifest     v1alpha1.Goal
+	CriteriaManifest v1alpha1.GoalCriteria
+	AttemptManifest  v1alpha1.GoalAttempt
+	SessionBinding   v1alpha1.GoalSessionBinding
+)
 
 func (g GoalManifest) validate() error {
 	if err := v1alpha1.Goal(g).Validate(); err != nil {

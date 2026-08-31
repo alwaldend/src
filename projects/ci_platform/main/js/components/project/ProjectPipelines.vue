@@ -110,7 +110,7 @@ export default {
             severity: "success",
             summary: "branch updated",
             life: 3000,
-          })
+          }),
         )
         .catch(Error)
         .finally(() => (this.updatingRemoteBranch = false));

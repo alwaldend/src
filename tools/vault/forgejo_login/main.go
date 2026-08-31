@@ -263,7 +263,6 @@ func (self *login) deleteForgejoToken(ctx context.Context, tokenName string, tok
 		return fmt.Errorf("invalid status code %s: %s", resp.Status, string(body))
 	}
 	return nil
-
 }
 
 type Plugin struct {

@@ -5,12 +5,12 @@ not adjectives.
 
 ## Reference map
 
-| View | Source/frame | Controls | Perspective uncertainty |
-|---|---|---|---|
-| Front | | Widths, vertical landmarks, symmetry | |
-| Side | | Depth, face plane, attachment seating | |
-| Rear | | Back silhouette, seams, rear attachment | |
-| Three-quarter | | Overlap, transitions, volume continuity | |
+| View          | Source/frame | Controls                                | Perspective uncertainty |
+| ------------- | ------------ | --------------------------------------- | ----------------------- |
+| Front         |              | Widths, vertical landmarks, symmetry    |                         |
+| Side          |              | Depth, face plane, attachment seating   |                         |
+| Rear          |              | Back silhouette, seams, rear attachment |                         |
+| Three-quarter |              | Overlap, transitions, volume continuity |                         |
 
 When references conflict, name one primary source for each row. Record other
 sources as variant or uncertainty evidence; do not average them into an
@@ -18,12 +18,12 @@ unbuildable hybrid.
 
 ## Camera calibration
 
-| View | Projection/lens | Object rotation | Crop/scale | Alignment error |
-|---|---|---|---|---:|
-| Front | | | | |
-| Side | | | | |
-| Rear | | | | |
-| Three-quarter | | | | |
+| View          | Projection/lens | Object rotation | Crop/scale | Alignment error |
+| ------------- | --------------- | --------------- | ---------- | --------------: |
+| Front         |                 |                 |            |                 |
+| Side          |                 |                 |            |                 |
+| Rear          |                 |                 |            |                 |
+| Three-quarter |                 |                 |            |                 |
 
 An overlay cannot pass a gate while its camera-alignment error exceeds the
 landmark tolerance being judged.
@@ -32,23 +32,23 @@ landmark tolerance being judged.
 
 Use head width (`Wh`) or another declared invariant as `1.000`.
 
-| Landmark | Target | Tol. | Candidate | Delta | Pass? |
-|---|---:|---:|---:|---:|---|
-| Overall height | | | | | |
-| Head height | | | | | |
-| Head depth | | | | | |
-| Face width and height | | | | | |
-| Eye centers and projection | | | | | |
-| Body width and height | | | | | |
-| Major accessory span and angle | | | | | |
-| Lowest and widest garment points | | | | | |
-| Contact points and visible gaps | | | | | |
-| Head front/rear planes and gusset | | | | | |
-| Face opening and applique projection | | | | | |
-| Accessory root seating and thickness | | | | | |
-| Sleeve panel profile | | | | | |
-| Hem gathering and panel transition | | | | | |
-| Foot occlusion by garment | | | | | |
+| Landmark                             | Target | Tol. | Candidate | Delta | Pass? |
+| ------------------------------------ | -----: | ---: | --------: | ----: | ----- |
+| Overall height                       |        |      |           |       |       |
+| Head height                          |        |      |           |       |       |
+| Head depth                           |        |      |           |       |       |
+| Face width and height                |        |      |           |       |       |
+| Eye centers and projection           |        |      |           |       |       |
+| Body width and height                |        |      |           |       |       |
+| Major accessory span and angle       |        |      |           |       |       |
+| Lowest and widest garment points     |        |      |           |       |       |
+| Contact points and visible gaps      |        |      |           |       |       |
+| Head front/rear planes and gusset    |        |      |           |       |       |
+| Face opening and applique projection |        |      |           |       |       |
+| Accessory root seating and thickness |        |      |           |       |       |
+| Sleeve panel profile                 |        |      |           |       |       |
+| Hem gathering and panel transition   |        |      |           |       |       |
+| Foot occlusion by garment            |        |      |           |       |       |
 
 Add subject-specific identity landmarks rather than forcing every model into
 these example rows.

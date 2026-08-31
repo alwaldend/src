@@ -1,5 +1,5 @@
 load("@bazel_skylib//lib:shell.bzl", "shell")
-load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo", "PackageFilesInfo")
+load("@rules_pkg//pkg:providers.bzl", "PackageFilegroupInfo")
 
 _EXECUTABLE = """\
 #!/usr/bin/env sh

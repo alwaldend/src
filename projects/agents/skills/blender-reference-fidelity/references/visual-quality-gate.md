@@ -37,15 +37,15 @@ Answer these questions from the images alone:
 
 Score each applicable category from 0 to 10:
 
-| Category | Evidence |
-|---|---|
-| Overall reference likeness | Same subject and variant without explanation |
-| Silhouette and proportions | Bounds, masses, spacing, and gaps |
-| Construction | Parts join and deform as referenced |
-| Identity features | Face, hair, accessories, or equivalents |
-| Contact and occlusion | Clean depth order; no floating or clipping |
-| Intended-medium read | Correct fabric, hard-surface, or anatomy read |
-| Presentation | Entire subject under diagnostic-neutral light |
+| Category                   | Evidence                                      |
+| -------------------------- | --------------------------------------------- |
+| Overall reference likeness | Same subject and variant without explanation  |
+| Silhouette and proportions | Bounds, masses, spacing, and gaps             |
+| Construction               | Parts join and deform as referenced           |
+| Identity features          | Face, hair, accessories, or equivalents       |
+| Contact and occlusion      | Clean depth order; no floating or clipping    |
+| Intended-medium read       | Correct fabric, hard-surface, or anatomy read |
+| Presentation               | Entire subject under diagnostic-neutral light |
 
 Relative improvement is not a category. Do not compare with the previous
 candidate until this absolute review is complete.

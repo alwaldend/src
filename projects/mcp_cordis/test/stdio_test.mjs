@@ -35,8 +35,8 @@ function source(generation) {
 
 async function call(client, name, args) {
     const result = await client.callTool({ name, arguments: args });
-    const value = result.structuredContent ??
-        JSON.parse(result.content[0].text);
+    const value =
+        result.structuredContent ?? JSON.parse(result.content[0].text);
     if (result.isError) {
         throw new Error(`${name} failed: ${JSON.stringify(value)}`);
     }
@@ -141,15 +141,11 @@ test("real stdio connection hot-updates and recovers project state", async (t) =
     });
     assert.deepEqual(first.value, { generation: "v1", value: 1 });
 
-    const update = await call(
-        firstConnection.client,
-        "cordis_define",
-        {
-            scope: "project",
-            name: "stdio_package",
-            source: source("v2"),
-        },
-    );
+    const update = await call(firstConnection.client, "cordis_define", {
+        scope: "project",
+        name: "stdio_package",
+        source: source("v2"),
+    });
     assert.equal(update.persisted, true);
     assert.equal(update.activation, "pending");
     const second = await waitFor(async () => {
@@ -176,10 +172,10 @@ test("real stdio connection hot-updates and recovers project state", async (t) =
         firstConnection.client,
         "cordis_invoke",
         {
-        scope: "project",
-        package: "stdio_package",
-        tool: "stdio_echo",
-        arguments: { value: "rollback" },
+            scope: "project",
+            package: "stdio_package",
+            tool: "stdio_echo",
+            arguments: { value: "rollback" },
         },
     );
     assert.equal(afterInvalidSource.value.generation, "v2");

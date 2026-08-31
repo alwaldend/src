@@ -34,6 +34,7 @@ description: >-
    It continues after failures so one run covers the whole repository. Child
    commands use the normal machine output-user-root; Bazel assigns each
    workspace its own output base below it.
+
 3. Note the printed run directory. Read its `report.md` for the command matrix.
    Raw stdout and stderr are combined in its `logs/` directory with mode 0600.
    The run directory and its `logs/` directory have mode 0700. Each workspace
@@ -69,7 +70,7 @@ BEP can contain the client environment.
 Return a Markdown table with these columns:
 
 | Workspace | Phase | Affected target(s) | Root cause | How to fix | Evidence |
-|---|---|---|---|---|---|
+| --------- | ----- | ------------------ | ---------- | ---------- | -------- |
 
 Use one row per distinct root cause. If every command passes, include one row
 whose affected target and root cause are `None`. After the issue table, include

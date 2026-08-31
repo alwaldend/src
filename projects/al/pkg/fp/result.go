@@ -10,9 +10,11 @@ type Result[T any] interface {
 	Get() (T, error)
 }
 
-type ResultFunc[R any] = func(r Result[R]) (R, error)
-type ResultFuncSuccess[R any] = func(r R) (R, error)
-type ResultFuncFail[R any] = func(r R, err error) (R, error)
+type (
+	ResultFunc[R any]        = func(r Result[R]) (R, error)
+	ResultFuncSuccess[R any] = func(r R) (R, error)
+	ResultFuncFail[R any]    = func(r R, err error) (R, error)
+)
 
 func Get[R any](r Result[R]) (R, error) {
 	return r.Get()

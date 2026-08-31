@@ -6,9 +6,11 @@ type Maybe[T any] struct {
 	value *T
 }
 
-var _ Monad[Maybe[int], int] = (*Maybe[int])(nil)
-var _ Functor[Maybe[int], int] = (*Maybe[int])(nil)
-var _ Result[int] = (*Maybe[int])(nil)
+var (
+	_ Monad[Maybe[int], int]   = (*Maybe[int])(nil)
+	_ Functor[Maybe[int], int] = (*Maybe[int])(nil)
+	_ Result[int]              = (*Maybe[int])(nil)
+)
 
 func Just[T any](x T) Maybe[T] {
 	return Maybe[T]{&x}
