@@ -177,6 +177,10 @@ narrowest reasonable package pattern for `//...` whenever possible.
 
 ## Infrastructure safety
 
+- Ordinary read-only build, test, lint, and format-check output for targets
+  under `infra/` is safe to display and must not be suppressed merely because
+  the target is infrastructure-related. The restrictions below apply to
+  secret-bearing values and artifacts, not normal build diagnostics.
 - Treat all files under `infra/`, `users/`, and secret-bearing `data/`
   subtrees as sensitive. Never paste credentials, private keys, state, plan
   output, inventories, or decrypted configuration into logs or commits.

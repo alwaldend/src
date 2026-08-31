@@ -49,4 +49,3 @@ spec:
           value:
             configMapRef:
               name: src-infra-harbor-cl-kubeconfig
----

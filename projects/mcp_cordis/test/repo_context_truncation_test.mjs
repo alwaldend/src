@@ -11,10 +11,7 @@ import { fileURLToPath } from "node:url";
 import test from "node:test";
 import plugin from "../plugins/repo_context.mjs";
 
-const workspaceRoot = fileURLToPath(new URL(
-    "../plugins/",
-    import.meta.url,
-));
+const workspaceRoot = fileURLToPath(new URL("../plugins/", import.meta.url));
 const temporaryRoot = process.env.TEST_TMPDIR;
 const objectHash = "0123456789abcdef".repeat(2) + "01234567";
 const normalStatus = "## main\n M fixture.txt\n";
@@ -67,9 +64,11 @@ function loadHandlers(overrides = {}, selectedRoot = workspaceRoot) {
         resolveWorkspace: (relativePath) => {
             return resolve(selectedRoot, relativePath);
         },
-        readText: overrides.readText ?? ((relativePath) => {
-            return readFile(resolve(selectedRoot, relativePath), "utf8");
-        }),
+        readText:
+            overrides.readText ??
+            ((relativePath) => {
+                return readFile(resolve(selectedRoot, relativePath), "utf8");
+            }),
         tool: (definition, handler) => {
             handlers.set(definition.name, handler);
         },
@@ -99,11 +98,13 @@ function rgMatch(line, text = "needle") {
             path: { text: "fixture.txt" },
             line_number: line,
             lines: { text: `${text}\n` },
-            submatches: [{
-                start: 0,
-                end: text.length,
-                match: { text },
-            }],
+            submatches: [
+                {
+                    start: 0,
+                    end: text.length,
+                    match: { text },
+                },
+            ],
         },
     });
 }
@@ -129,18 +130,15 @@ test("repo_context_get rejects truncated Git root discovery", async () => {
     assert.equal(calls.length, 1);
 });
 
-test(
-    "repo_context_get never reports a truncated HEAD as complete",
-    async () => {
-        const head = outputLimited(objectHash.slice(0, 20));
-        const { value } = await getContext({ head });
+test("repo_context_get never reports a truncated HEAD as complete", async () => {
+    const head = outputLimited(objectHash.slice(0, 20));
+    const { value } = await getContext({ head });
 
-        assert.equal(value.git.root, ".");
-        assert.equal(value.git.head, null);
-        assert.equal(value.git.headTruncated, true);
-        assert.equal(value.git.statusTruncated, false);
-    },
-);
+    assert.equal(value.git.root, ".");
+    assert.equal(value.git.head, null);
+    assert.equal(value.git.headTruncated, true);
+    assert.equal(value.git.statusTruncated, false);
+});
 
 test("repo_context_get propagates host status truncation", async () => {
     const status = outputLimited(normalStatus);
@@ -402,10 +400,11 @@ test("JavaScript fallback reports UTF-8 byte offsets", async () => {
         query: "needle",
         paths: ["fixture.txt"],
     });
-    assert.deepEqual(
-        value.matches[0].submatches[0],
-        { start: 2, end: 8, text: "needle" },
-    );
+    assert.deepEqual(value.matches[0].submatches[0], {
+        start: 2,
+        end: 8,
+        text: "needle",
+    });
 });
 
 test("case-insensitive fallback keeps original-line offsets", async () => {
@@ -420,10 +419,11 @@ test("case-insensitive fallback keeps original-line offsets", async () => {
         case_sensitive: false,
     });
 
-    assert.deepEqual(
-        value.matches[0].submatches[0],
-        { start: 2, end: 3, text: "x" },
-    );
+    assert.deepEqual(value.matches[0].submatches[0], {
+        start: 2,
+        end: 3,
+        text: "x",
+    });
 });
 
 test("regular-expression fallback requires ripgrep", async () => {
@@ -513,7 +513,11 @@ test("fallback context does not invent a line after final newline", async (t) =>
         });
 
         assert.deepEqual(
-            value.matches.map(({ kind, line, text }) => ({ kind, line, text })),
+            value.matches.map(({ kind, line, text }) => ({
+                kind,
+                line,
+                text,
+            })),
             [
                 { kind: "match", line: 1, text: "needle" },
                 { kind: "context", line: 2, text: "" },
@@ -601,10 +605,12 @@ test("directory entry truncation observes the 129th entry", async (t) => {
 
     async function contextWithEntries(count) {
         const root = await mkdtemp(join(temporaryRoot, "repo-entries-"));
-        await Promise.all(Array.from({ length: count }, (_, index) => {
-            const name = `entry-${String(index).padStart(3, "0")}`;
-            return writeFile(join(root, name), "");
-        }));
+        await Promise.all(
+            Array.from({ length: count }, (_, index) => {
+                const name = `entry-${String(index).padStart(3, "0")}`;
+                return writeFile(join(root, name), "");
+            }),
+        );
         const { handlers } = loadHandlers({}, root);
         return handlers.get("repo_context_get")({
             path: ".",
@@ -676,41 +682,38 @@ test("repo_context rejects symlink escapes", async () => {
     );
 });
 
-test(
-    "fallback follows an explicitly selected internal symlink",
-    async () => {
-        assert.ok(temporaryRoot, "Bazel must provide TEST_TMPDIR");
-        const root = await mkdtemp(join(temporaryRoot, "repo-symlink-root-"));
-        await writeFile(join(root, "target.txt"), "needle\n");
-        await symlink("target.txt", join(root, "alias.txt"));
-        const missing = Object.assign(
-            new Error("missing rg"),
-            { code: "ENOENT" },
-        );
-        const { handlers } = loadHandlers({ rg: missing }, root);
-        const value = await handlers.get("repo_context_search")({
-            query: "needle",
-            paths: ["alias.txt"],
-            max_matches: 2,
-        });
+test("fallback follows an explicitly selected internal symlink", async () => {
+    assert.ok(temporaryRoot, "Bazel must provide TEST_TMPDIR");
+    const root = await mkdtemp(join(temporaryRoot, "repo-symlink-root-"));
+    await writeFile(join(root, "target.txt"), "needle\n");
+    await symlink("target.txt", join(root, "alias.txt"));
+    const missing = Object.assign(new Error("missing rg"), { code: "ENOENT" });
+    const { handlers } = loadHandlers({ rg: missing }, root);
+    const value = await handlers.get("repo_context_search")({
+        query: "needle",
+        paths: ["alias.txt"],
+        max_matches: 2,
+    });
 
-        assert.equal(value.engine, "javascript");
-        assert.equal(value.matchCount, 1);
-        assert.equal(value.matches[0].path, "alias.txt");
-        assert.equal(value.truncated, false);
-    },
-);
+    assert.equal(value.engine, "javascript");
+    assert.equal(value.matchCount, 1);
+    assert.equal(value.matches[0].path, "alias.txt");
+    assert.equal(value.truncated, false);
+});
 
 test("repo_context reads the verified symlink target", async () => {
     assert.ok(temporaryRoot, "Bazel must provide TEST_TMPDIR");
     const root = await mkdtemp(join(temporaryRoot, "repo-symlink-root-"));
     await writeFile(join(root, "target.txt"), "inside\n");
     await symlink("target.txt", join(root, "alias.txt"));
-    const { handlers } = loadHandlers({
-        readText: async () => {
-            throw new Error("the lexical alias was reopened");
+    const { handlers } = loadHandlers(
+        {
+            readText: async () => {
+                throw new Error("the lexical alias was reopened");
+            },
         },
-    }, root);
+        root,
+    );
 
     const value = await handlers.get("repo_context_read")({
         files: [{ path: "alias.txt" }],

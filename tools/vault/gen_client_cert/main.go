@@ -11,14 +11,16 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 )
 
-var vaultFlag = flag.String("vault", "", "Vault binary")
-var mountFlag = flag.String("path", "pki/ica_clients", "Mount path")
-var roleFlag = flag.String("role", "pki_ica_clients_users", "Role name")
-var outputDirFlag = flag.String("output_dir", "", "Output directory")
-var usernameFlag = flag.String("user", "", "Username")
-var hostFlag = flag.String("host", "", "Hostname")
-var noCreateFlag = flag.Bool("no_create", false, "If set, do not create a new cert")
-var ttlFlag = flag.String("ttl", "28927206", "TTL")
+var (
+	vaultFlag     = flag.String("vault", "", "Vault binary")
+	mountFlag     = flag.String("path", "pki/ica_clients", "Mount path")
+	roleFlag      = flag.String("role", "pki_ica_clients_users", "Role name")
+	outputDirFlag = flag.String("output_dir", "", "Output directory")
+	usernameFlag  = flag.String("user", "", "Username")
+	hostFlag      = flag.String("host", "", "Hostname")
+	noCreateFlag  = flag.Bool("no_create", false, "If set, do not create a new cert")
+	ttlFlag       = flag.String("ttl", "28927206", "TTL")
+)
 
 func main() {
 	flag.Parse()
@@ -41,9 +43,9 @@ func main() {
 	keyPath := filepath.Join(*outputDirFlag, fmt.Sprintf("%s.key", target))
 	combinedPath := filepath.Join(*outputDirFlag, fmt.Sprintf("%s.pem", target))
 	pkcs12Path := filepath.Join(*outputDirFlag, fmt.Sprintf("%s.pfx", target))
-	al.Check(os.MkdirAll(*outputDirFlag, 0700))
+	al.Check(os.MkdirAll(*outputDirFlag, 0o700))
 	if !*noCreateFlag {
-		output := al.Must(os.OpenFile(jsonPath, os.O_WRONLY|os.O_CREATE, 0600))
+		output := al.Must(os.OpenFile(jsonPath, os.O_WRONLY|os.O_CREATE, 0o600))
 		defer output.Close()
 		al.Check(al.RunCommand(al.CommandArgs{
 			Name: *vaultFlag,
@@ -72,10 +74,10 @@ func main() {
 	combined = append(combined, data.Data.CaChain...)
 	combined = append(combined, data.Data.PrivateKey)
 	combined = append(combined, "")
-	al.Check(os.WriteFile(pubPath, []byte(data.Data.Certificate), 0600))
-	al.Check(os.WriteFile(keyPath, []byte(data.Data.PrivateKey), 0600))
-	al.Check(os.WriteFile(chainPath, []byte(strings.Join(data.Data.CaChain, "\n")), 0600))
-	al.Check(os.WriteFile(combinedPath, []byte(strings.Join(combined, "\n")), 0600))
+	al.Check(os.WriteFile(pubPath, []byte(data.Data.Certificate), 0o600))
+	al.Check(os.WriteFile(keyPath, []byte(data.Data.PrivateKey), 0o600))
+	al.Check(os.WriteFile(chainPath, []byte(strings.Join(data.Data.CaChain, "\n")), 0o600))
+	al.Check(os.WriteFile(combinedPath, []byte(strings.Join(combined, "\n")), 0o600))
 	al.Check(al.RunCommand(al.CommandArgs{
 		Name: "openssl",
 		Args: []string{

@@ -8,8 +8,10 @@ func BoxOf[T any](v T) Box[T] {
 	return Box[T]{v}
 }
 
-var _ Functor[Box[int], int] = (*Box[int])(nil)
-var _ Result[int] = (*Either[int])(nil)
+var (
+	_ Functor[Box[int], int] = (*Box[int])(nil)
+	_ Result[int]            = (*Either[int])(nil)
+)
 
 func (self Box[T]) Map(f func(T) T) Box[T] {
 	return Box[T]{f(self.value)}

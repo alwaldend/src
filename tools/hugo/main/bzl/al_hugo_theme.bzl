@@ -1,4 +1,3 @@
-load("@aspect_rules_js//js:providers.bzl", "JsInfo")
 load(":al_hugo_module_info.bzl", "AlHugoModuleInfo")
 load(":al_hugo_theme_info.bzl", "AlHugoThemeInfo")
 

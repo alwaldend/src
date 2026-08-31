@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 
-import dataclasses
-import urllib.parse
-import enum
-import requests
-import argparse
 import collections
-import typing_extensions
-import pathlib
-import os
-import typing
-import json
+import dataclasses
+import enum
 import functools
+import json
+import os
+import pathlib
+import typing
+import urllib.parse
+
+import requests
+import typing_extensions
 
 T = typing.TypeVar("T")
+
 
 @functools.lru_cache(1)
 def iso_3166() -> typing.Mapping[str, str]:
@@ -26,10 +27,10 @@ def iso_3166() -> typing.Mapping[str, str]:
 @dataclasses.dataclass
 class Config:
     api_url: str = "https://api.mullvad.net/app"
-    token: typing.Optional[str] = None
-    caddy_hostname: typing.Optional[str] = None
+    token: str | None = None
+    caddy_hostname: str | None = None
     clients: typing.Sequence[str] = ()
-    wireguard_private_key: typing.Optional[str] = None
+    wireguard_private_key: str | None = None
     wireguard_endpoint_port: int = 443
     wireguard_address: typing.Sequence[str] = ()
     aggregate_by_fields: typing.Sequence[str] = ("owned",)
@@ -77,7 +78,7 @@ class Config:
     )
     http_ports_start: int = 23275
 
-    def path(self, child: typing.Union[str, pathlib.Path]) -> pathlib.Path:
+    def path(self, child: str | pathlib.Path) -> pathlib.Path:
         return self.output_dir / child
 
 
@@ -88,7 +89,9 @@ def v2ray_subscription(
     query: typing.Mapping[str, typing.Any],
     comment: str,
 ) -> str:
-    return f"{protocol}://{id}@{host}?{urllib.parse.urlencode(query)}#{comment}"
+    return (
+        f"{protocol}://{id}@{host}?{urllib.parse.urlencode(query)}#{comment}"
+    )
 
 
 class MullvadWireguardRelay(typing.TypedDict):
@@ -192,8 +195,8 @@ class Api:
     )
 
     def load_relays(
-        self, *, path: typing.Optional[pathlib.Path] = None
-    ) -> typing.Optional[MullvadWireguardRelayData]:
+        self, *, path: pathlib.Path | None = None
+    ) -> MullvadWireguardRelayData | None:
         if not path.is_file():
             return None
         with path.open("r") as file:
@@ -202,7 +205,7 @@ class Api:
     def fetch_relays(
         self,
         *,
-        output_path: typing.Optional[pathlib.Path] = None,
+        output_path: pathlib.Path | None = None,
         force: bool = False,
     ) -> MullvadWireguardRelayData:
         output_path = output_path or self.config.path(self.config.relays_path)
@@ -217,7 +220,7 @@ class Api:
         relay: MullvadWireguardRelay,
         secret_key: str,
         address: typing.Sequence[str],
-        endpoint_port: typing.Optional[int] = None,
+        endpoint_port: int | None = None,
     ) -> list[dict[str, typing.Any]]:
         endpoint_port = endpoint_port or self.config.wireguard_endpoint_port
         if not relay["active"]:
@@ -423,7 +426,9 @@ class Api:
         rules = []
         inbounds = []
         for aggregation in aggregations:
-            balancer_tag = BalancerTag(data=aggregation["aggregation"]).to_str()
+            balancer_tag = BalancerTag(
+                data=aggregation["aggregation"]
+            ).to_str()
             inbound_tag = InboundTag(
                 data=InboundTagData(
                     protocol=Protocol.vless,
@@ -453,9 +458,9 @@ class Api:
         self,
         aggregated: MullvadWireguardRelaysAggregated,
         *,
-        output_path: typing.Optional[pathlib.Path] = None,
+        output_path: pathlib.Path | None = None,
         clients: typing.Sequence[str] = (),
-        xray_socket_dir: typing.Optional[pathlib.Path] = None,
+        xray_socket_dir: pathlib.Path | None = None,
     ) -> None:
         output_path = output_path or self.config.path(
             self.config.balancers_path
@@ -477,7 +482,9 @@ class Api:
     ) -> str:
         lines = []
         for aggregation in aggregations:
-            balancer_tag = BalancerTag(data=aggregation["aggregation"]).to_str()
+            balancer_tag = BalancerTag(
+                data=aggregation["aggregation"]
+            ).to_str()
             inbound_tag = InboundTag(
                 data=InboundTagData(
                     protocol=Protocol.vless,
@@ -506,9 +513,9 @@ class Api:
         self,
         aggregated: MullvadWireguardRelaysAggregated,
         *,
-        output_path: typing.Optional[pathlib.Path] = None,
-        xray_socket_dir: typing.Optional[pathlib.Path] = None,
-        hostname: typing.Optional[str] = None,
+        output_path: pathlib.Path | None = None,
+        xray_socket_dir: pathlib.Path | None = None,
+        hostname: str | None = None,
     ) -> None:
         output_path = output_path or self.config.path(self.config.caddy_path)
         hostname = hostname or self.config.caddy_hostname
@@ -556,15 +563,13 @@ class Api:
         clients: typing.Sequence[str] = (),
         host: str = "",
         sni: str = "",
-        output_path: typing.Optional[pathlib.Path] = None,
+        output_path: pathlib.Path | None = None,
     ) -> MullvadWireguardRelaysAggregated:
         clients = clients or self.config.clients
         output_path = output_path or self.config.path(
             self.config.wireguard_relays_aggregated
         )
-        return self._write(
-            output_path, self.wireguard_relays_aggregated(relays=relays)
-        )
+        return self._write(output_path, aggregated)
 
     def wireguard_relays_aggregated(
         self,
@@ -592,7 +597,7 @@ class Api:
         self,
         relays: MullvadWireguardRelayData,
         *,
-        output_path: typing.Optional[pathlib.Path] = None,
+        output_path: pathlib.Path | None = None,
     ) -> MullvadWireguardRelaysAggregated:
         output_path = output_path or self.config.path(
             self.config.wireguard_relays_aggregated
@@ -606,12 +611,14 @@ class Api:
         relays: MullvadWireguardRelayData,
         *,
         clients: typing.Sequence[str] = (),
-        http_ports_start: typing.Optional[int] = None,
-        xray_socket_dir: typing.Optional[pathlib.Path] = None,
-        output_path: typing.Optional[pathlib.Path] = None,
+        http_ports_start: int | None = None,
+        xray_socket_dir: pathlib.Path | None = None,
+        output_path: pathlib.Path | None = None,
     ) -> None:
         result = []
-        output_path = output_path or self.config.path(self.config.inbounds_path)
+        output_path = output_path or self.config.path(
+            self.config.inbounds_path
+        )
         xray_socket_dir = xray_socket_dir or self.config.xray_socket_dir
         http_ports_start = http_ports_start or self.config.http_ports_start
         clients = clients or self.config.clients
@@ -634,9 +641,9 @@ class Api:
         relays: MullvadWireguardRelayData,
         *,
         address: typing.Sequence[str] = (),
-        secret_key: typing.Optional[str] = None,
-        endpoint_port: typing.Optional[int] = None,
-        output_path: typing.Optional[pathlib.Path] = None,
+        secret_key: str | None = None,
+        endpoint_port: int | None = None,
+        output_path: pathlib.Path | None = None,
     ) -> None:
         result = []
         secret_key = secret_key or self.config.wireguard_private_key
@@ -663,7 +670,7 @@ class Api:
         self,
         relays: MullvadWireguardRelayData,
         *,
-        output_path: typing.Optional[pathlib.Path] = None,
+        output_path: pathlib.Path | None = None,
     ) -> None:
         result = []
         output_path = output_path or self.config.path(self.config.rules_path)

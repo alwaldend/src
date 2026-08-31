@@ -10,28 +10,26 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
-private val colorSchemes = object {
-    val dark = darkColorScheme()
-    val light = lightColorScheme()
-}
-
-@Composable
-fun LauncherTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
-) {
-    val colorScheme = when {
-        Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            if (darkTheme) {
-                dynamicDarkColorScheme(LocalContext.current)
-            } else {
-                dynamicLightColorScheme(LocalContext.current)
-            }
-        }
-
-        darkTheme -> colorSchemes.dark
-        else -> colorSchemes.light
+private val colorSchemes =
+    object {
+      val dark = darkColorScheme()
+      val light = lightColorScheme()
     }
 
-    MaterialTheme(colorScheme = colorScheme, content = content)
+@Composable
+fun LauncherTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
+  val colorScheme =
+      when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+          if (darkTheme) {
+            dynamicDarkColorScheme(LocalContext.current)
+          } else {
+            dynamicLightColorScheme(LocalContext.current)
+          }
+        }
+        darkTheme -> colorSchemes.dark
+        else -> colorSchemes.light
+      }
+
+  MaterialTheme(colorScheme = colorScheme, content = content)
 }

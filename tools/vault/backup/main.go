@@ -10,8 +10,10 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 )
 
-var rcloneFlag = flag.String("rclone", "", "Rclone binary")
-var vaultFlag = flag.String("vault", "", "Vault binary")
+var (
+	rcloneFlag = flag.String("rclone", "", "Rclone binary")
+	vaultFlag  = flag.String("vault", "", "Vault binary")
+)
 
 func main() {
 	now := time.Now()

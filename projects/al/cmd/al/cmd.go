@@ -131,7 +131,7 @@ func overrideStd(lc *lifecycle.Manager, cmd *exec.Cmd, stdout string, stderr str
 	if stdout == "" {
 		stdoutFile = os.Stdout
 	} else {
-		stdoutFile, err = os.OpenFile(stdout, os.O_WRONLY, 0600)
+		stdoutFile, err = os.OpenFile(stdout, os.O_WRONLY, 0o600)
 		if err != nil {
 			return fmt.Errorf("could not open stdout %s: %w", stdout, err)
 		}
@@ -140,7 +140,7 @@ func overrideStd(lc *lifecycle.Manager, cmd *exec.Cmd, stdout string, stderr str
 	if stderr == "" {
 		stderrFile = os.Stderr
 	} else {
-		stderrFile, err = os.OpenFile(stderr, os.O_WRONLY, 0600)
+		stderrFile, err = os.OpenFile(stderr, os.O_WRONLY, 0o600)
 		if err != nil {
 			return fmt.Errorf("could not open stderr %s: %w", stderr, err)
 		}
@@ -149,7 +149,7 @@ func overrideStd(lc *lifecycle.Manager, cmd *exec.Cmd, stdout string, stderr str
 	if stdin == "" {
 		stdinFile = os.Stdin
 	} else {
-		stdinFile, err = os.OpenFile(stdin, os.O_RDONLY, 0600)
+		stdinFile, err = os.OpenFile(stdin, os.O_RDONLY, 0o600)
 		if err != nil {
 			return fmt.Errorf("could not open stdin %s: %w", stdin, err)
 		}

@@ -10,21 +10,11 @@ import com.alwaldend.src.projects.android_launcher.data.HomeDialogState.Launcher
 import com.alwaldend.src.projects.android_launcher.data.HomeDialogState.LauncherDialogAction.HideHiddenApps
 import com.alwaldend.src.projects.android_launcher.data.HomeDialogState.LauncherDialogAction.ShowHiddenApps
 
-
-private val buttons = Buttons(
-    Button(
-        label = R.string.launcher_dialog_settings,
-        data = GoToSettings
-    ),
-    Button(
-        label = R.string.launcher_dialog_hide_hidden_apps,
-        data = HideHiddenApps
-    ),
-    Button(
-        label = R.string.launcher_dialog_show_hidden_apps,
-        data = ShowHiddenApps
-    )
-)
+private val buttons =
+    Buttons(
+        Button(label = R.string.launcher_dialog_settings, data = GoToSettings),
+        Button(label = R.string.launcher_dialog_hide_hidden_apps, data = HideHiddenApps),
+        Button(label = R.string.launcher_dialog_show_hidden_apps, data = ShowHiddenApps))
 
 @Composable
 fun HomeDialogLauncherActions(
@@ -33,17 +23,16 @@ fun HomeDialogLauncherActions(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    HomeDialog(
-        onDismissRequest = onDismissRequest,
-        modifier = modifier,
-        actionButtons = buttons,
-        showButton = { button ->
-            when (button) {
-                HideHiddenApps -> showHiddenApps
-                ShowHiddenApps -> !showHiddenApps
-                else -> true
-            }
-        },
-        onButtonClick = onLauncherDialogAction
-    )
+  HomeDialog(
+      onDismissRequest = onDismissRequest,
+      modifier = modifier,
+      actionButtons = buttons,
+      showButton = { button ->
+        when (button) {
+          HideHiddenApps -> showHiddenApps
+          ShowHiddenApps -> !showHiddenApps
+          else -> true
+        }
+      },
+      onButtonClick = onLauncherDialogAction)
 }

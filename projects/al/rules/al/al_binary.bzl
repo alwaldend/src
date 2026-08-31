@@ -1,5 +1,4 @@
 load("@bazel_skylib//rules:native_binary.bzl", "native_binary", "native_test")
-load("@rules_go//go:def.bzl", "go_binary")
 
 def _patch_kwargs(kwargs):
     """

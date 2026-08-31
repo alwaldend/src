@@ -1,3 +1,19 @@
+bazel_dep(name = "aspect_rules_lint", version = "2.8.0")
+
+format_tools = use_extension(
+    "@aspect_rules_lint//format:extensions.bzl",
+    "tools",
+)
+format_tools.google_java_format()
+format_tools.ktfmt()
+use_repo(format_tools, "google-java-format", "ktfmt")
+
+rust_host_tools = use_extension(
+    "@rules_rust//rust:extensions.bzl",
+    "rust_host_tools",
+)
+use_repo(rust_host_tools, "rust_host_tools")
+
 binary_toolchain_extension = use_extension(
     "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
     "binary_toolchain_extension",

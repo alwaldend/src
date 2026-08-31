@@ -1,3 +1,3 @@
 from .autoscroll import Autoscroll
 
-__all__ = ("Autoscroll", )
+__all__ = ("Autoscroll",)

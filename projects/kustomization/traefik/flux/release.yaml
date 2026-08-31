@@ -85,4 +85,3 @@ spec:
             - name: traefik-gateway-websecure-tls
               kind: Secret
               group: ""
----

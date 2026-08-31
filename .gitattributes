@@ -102,3 +102,38 @@
 *.csv filter=lfs diff=lfs merge=lfs -text
 *.icc filter=lfs diff=lfs merge=lfs -text
 *.patch whitespace=-blank-at-eol,-space-before-tab
+
+# Upstream rules_lint format discovery exclusions. These files are owned by
+# generators, dependency managers, or upstream vendors and must not be
+# rewritten by general-purpose formatters.
+data/** rules-lint-ignored=true
+third_party/** rules-lint-ignored=true
+**/MODULE.bazel.lock rules-lint-ignored=true
+**/pnpm-lock.yaml rules-lint-ignored=true
+**/.terraform.lock.hcl rules-lint-ignored=true
+**/*_lock.json rules-lint-ignored=true
+**/lazy-lock.json rules-lint-ignored=true
+**/binary_toolchain.json rules-lint-ignored=true
+maven_install.json rules-lint-ignored=true
+requirements.txt rules-lint-ignored=true
+gazelle_python.yaml rules-lint-ignored=true
+infra/dns/types-dnscontrol.d.ts rules-lint-ignored=true
+projects/rules_promptfoo/tests/fake_cli/fake_codex_home/auth.json rules-lint-ignored=true
+projects/alwaldend.com/layouts/** rules-lint-ignored=true
+projects/ci_platform/main/go/docs/swagger.* rules-lint-ignored=true
+projects/dotfiles/vial/** rules-lint-ignored=true
+
+# Ansible YAML is an embedded Jinja dialect. Its owning Bazel/Ansible checks
+# are authoritative; generic YAML formatters reject valid Ansible constructs.
+infra/**/ansible/** rules-lint-ignored=true
+projects/ansible_collection/** rules-lint-ignored=true
+users/**/ansible/** rules-lint-ignored=true
+
+# SOPS-encrypted manifests are owned by the SOPS workflow. Formatter diffs can
+# expose their encrypted payloads in logs and may invalidate authenticated
+# metadata, so general-purpose formatters must not rewrite them.
+infra/flux/cl/cert-manager/issuer-approle.yaml rules-lint-ignored=true
+infra/flux/cl/flux-system/flux-operator-oidc.yaml rules-lint-ignored=true
+infra/harbor/cl/cert-manager/issuer-approle.yaml rules-lint-ignored=true
+projects/kustomization/flux-repo/flux-git-src-secret.yaml rules-lint-ignored=true
+projects/kustomization/flux-repo/flux-sops-secret.yaml rules-lint-ignored=true

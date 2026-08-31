@@ -23,8 +23,7 @@
     },
     "pnpm": {
         "patchedDependencies": {
-            "@deepseek-ai/cordis-plugin-hmr@1.0.16":
-                "patches/hmr@1.0.16.patch"
+            "@deepseek-ai/cordis-plugin-hmr@1.0.16": "patches/hmr@1.0.16.patch"
         }
     }
 }

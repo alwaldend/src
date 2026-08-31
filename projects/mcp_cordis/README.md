@@ -61,15 +61,18 @@ The referenced file is a normal ESM Cordis plugin:
 const plugin = {
   description: "Provide a greeting.",
   apply(ctx) {
-    ctx.tool({
-      name: "hello_world",
-      description: "Return a greeting.",
-      inputSchema: {
-        type: "object",
-        properties: { name: { type: "string" } },
-        additionalProperties: false,
+    ctx.tool(
+      {
+        name: "hello_world",
+        description: "Return a greeting.",
+        inputSchema: {
+          type: "object",
+          properties: { name: { type: "string" } },
+          additionalProperties: false,
+        },
       },
-    }, ({ name = "world" }) => ({ greeting: `Hello, ${name}!` }));
+      ({ name = "world" }) => ({ greeting: `Hello, ${name}!` }),
+    );
   },
 };
 

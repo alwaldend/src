@@ -17,6 +17,7 @@ Go to Nodes -> Host -> Ceph -> Configuration
 ## Crush map update
 
 Ssh to the PVE host and update the map:
+
 ```sh
 sudo ceph osd getcrushmap -o crushmap.cm
 sudo crushtool --decompile crushmap.cm -o crushmap.txt
@@ -25,4 +26,3 @@ sudo crushtool --compile crushmap.txt -o new_crushmap.cm
 sudo ceph osd setcrushmap -i new_crushmap.cm
 sudo ceph -s
 ```
-

@@ -5,8 +5,8 @@ package com.alwaldend.src.tools.vault.forgejo_login.forgejo_login_proto;
 option go_package = "git.alwaldend.com/alwaldend/src/tools/vault/forgejo_login/forgejo_login_proto";
 
 message Config {
-    string forgejo_url = 1;
-    string forgejo_oauth_name = 2;
-    string vault_conn = 3;
-    string vault_auth = 4;
+  string forgejo_url = 1;
+  string forgejo_oauth_name = 2;
+  string vault_conn = 3;
+  string vault_auth = 4;
 }

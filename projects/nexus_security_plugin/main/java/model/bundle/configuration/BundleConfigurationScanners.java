@@ -1,43 +1,40 @@
 package com.alwaldend.src.projects.nexus_security_plugin.model.bundle.configuration;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 
 public class BundleConfigurationScanners implements Serializable {
 
-    @JsonProperty
-    private BundleConfigurationScannerLocal local;
+  @JsonProperty private BundleConfigurationScannerLocal local;
 
-    @JsonProperty
-    private BundleConfigurationScannerRemote remote;
+  @JsonProperty private BundleConfigurationScannerRemote remote;
 
-    public BundleConfigurationScanners() {
-        local = new BundleConfigurationScannerLocal();
-        remote = new BundleConfigurationScannerRemote();
-    }
+  public BundleConfigurationScanners() {
+    local = new BundleConfigurationScannerLocal();
+    remote = new BundleConfigurationScannerRemote();
+  }
 
-    public BundleConfigurationScanners(BundleConfigurationScannerLocal local,
-                                       BundleConfigurationScannerRemote remote) {
-        this.local = local;
-        this.remote = remote;
-    }
+  public BundleConfigurationScanners(
+      BundleConfigurationScannerLocal local, BundleConfigurationScannerRemote remote) {
+    this.local = local;
+    this.remote = remote;
+  }
 
-    public BundleConfigurationScannerLocal getLocal() {
-        return local;
-    }
+  public BundleConfigurationScannerLocal getLocal() {
+    return local;
+  }
 
-    public BundleConfigurationScanners setLocal(BundleConfigurationScannerLocal local) {
-        this.local = local;
-        return this;
-    }
+  public BundleConfigurationScanners setLocal(BundleConfigurationScannerLocal local) {
+    this.local = local;
+    return this;
+  }
 
-    public BundleConfigurationScannerRemote getRemote() {
-        return remote;
-    }
+  public BundleConfigurationScannerRemote getRemote() {
+    return remote;
+  }
 
-    public BundleConfigurationScanners setRemote(BundleConfigurationScannerRemote remote) {
-        this.remote = remote;
-        return this;
-    }
+  public BundleConfigurationScanners setRemote(BundleConfigurationScannerRemote remote) {
+    this.remote = remote;
+    return this;
+  }
 }

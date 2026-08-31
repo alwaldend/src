@@ -1,7 +1,7 @@
 const { defineConfig } = require("@vue/cli-service");
 module.exports = defineConfig({
-  transpileDependencies: true,
-  //configureWebpack: {
-  //  experiments: { topLevelAwait: true },
-  //},
+    transpileDependencies: true,
+    //configureWebpack: {
+    //  experiments: { topLevelAwait: true },
+    //},
 });

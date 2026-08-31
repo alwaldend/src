@@ -10,9 +10,11 @@ func IOOf[T any](f IOFunc[T]) IO[T] {
 	return IO[T]{unsafePerformIO: f}
 }
 
-var _ Monad[IO[int], int] = (*IO[int])(nil)
-var _ Functor[IO[int], int] = (*IO[int])(nil)
-var _ Result[int] = (*IO[int])(nil)
+var (
+	_ Monad[IO[int], int]   = (*IO[int])(nil)
+	_ Functor[IO[int], int] = (*IO[int])(nil)
+	_ Result[int]           = (*IO[int])(nil)
+)
 
 func (self IO[T]) Map(f func(T) T) IO[T] {
 	return IO[T]{func() (T, error) {

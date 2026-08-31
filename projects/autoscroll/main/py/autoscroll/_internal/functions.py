@@ -17,7 +17,7 @@ def construct_argument(argument: tuple[str, dict[str, str]]):
     )
 
 
-def convert_bool(value: typing.Optional[typing.Union[str, bool]] = None) -> bool:
+def convert_bool(value: str | bool | None = None) -> bool:
     if value is None:
         return False
     return value if isinstance(value, bool) else value.lower() in ("true", "+")
@@ -43,15 +43,21 @@ def convert(value: typing.Any) -> dict[str, typing.Any]:
     return raise_type_error(value, (type(None), typing.Iterable))
 
 
-def construct(item: typing.Union[str, tuple[str, typing.Any]]) -> dict[str, typing.Any]:
+def construct(item: str | tuple[str, typing.Any]) -> dict[str, typing.Any]:
     return {item: True} if isinstance(item, str) else {item[0]: item[1]}
 
 
-def parse_argument(argument: list[tuple[str, typing.Any]]) -> dict[str, typing.Any]:
-    return dict(collections.ChainMap(*[construct(item) for item in convert(argument)]))
+def parse_argument(
+    argument: list[tuple[str, typing.Any]],
+) -> dict[str, typing.Any]:
+    return dict(
+        collections.ChainMap(*[construct(item) for item in convert(argument)])
+    )
 
 
-def parse_arguments_old(arguments: dict[str, typing.Any]) -> dict[str, typing.Any]:
+def parse_arguments_old(
+    arguments: dict[str, typing.Any],
+) -> dict[str, typing.Any]:
     return {name: parse_argument(value) for name, value in arguments.items()}
 
 
@@ -70,7 +76,7 @@ def documented_by(original):
 def raise_type_error(value: typing.Any, target_type: typing.Any) -> typing.Any:
     if isinstance(value, target_type):
         return value
-    message = f"value {str(value)} is not {target_type}, it is {type(value)}"
+    message = f"value {value!s} is not {target_type}, it is {type(value)}"
     raise TypeError(message)
 
 
@@ -78,7 +84,7 @@ def check_iterable(value: typing.Sequence, length: int = 2) -> typing.Sequence:
     raise_type_error(value, typing.Sequence)
     if len(value) >= length:
         return value
-    message = f'value "{str(value)}" does not have the length of {str(length)}'
+    message = f'value "{value!s}" does not have the length of {length!s}'
     raise ValueError(message)
 
 
@@ -86,7 +92,7 @@ def get_path(path: str) -> str:
     return path if os.path.isfile(path) else get_resource_path(path)
 
 
-def get_resource_path(resource: typing.Optional[str] = None) -> str:
+def get_resource_path(resource: str | None = None) -> str:
     if resource is None:
         file = ""
         addition = ""

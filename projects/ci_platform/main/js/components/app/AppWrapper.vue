@@ -34,7 +34,7 @@ export default {
       });
       linkElement.parentNode.insertBefore(
         cloneLinkElement,
-        linkElement.nextSibling
+        linkElement.nextSibling,
       );
     },
   },

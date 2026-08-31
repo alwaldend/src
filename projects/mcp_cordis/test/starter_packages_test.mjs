@@ -81,10 +81,11 @@ test("checked-in starter packages execute through Cordis", async (t) => {
     t.after(() => runtime.shutdown());
     const startup = await runtime.initialize();
     assert.equal(startup.errors.length, 0);
-    assert.deepEqual(
-        startup.loaded.map((item) => item.name).sort(),
-        ["git_worktree", "network_probe", "repo_context"],
-    );
+    assert.deepEqual(startup.loaded.map((item) => item.name).sort(), [
+        "git_worktree",
+        "network_probe",
+        "repo_context",
+    ]);
     const snapshots = await runtime.listPackages({ scope: "project" });
     for (const item of snapshots.packages) {
         assert.match(item.description, /\S/u, item.name);
@@ -140,9 +141,11 @@ test("checked-in starter packages execute through Cordis", async (t) => {
         arguments: { repo: ".", log_limit: 2 },
     });
     assert.equal(snapshot.value.branch.oid, head);
-    assert.ok(snapshot.value.changes.some((item) => {
-        return item.path === "sample.txt";
-    }));
+    assert.ok(
+        snapshot.value.changes.some((item) => {
+            return item.path === "sample.txt";
+        }),
+    );
     assert.equal(snapshot.value.commits.length, 2);
 
     const comparison = await runtime.invoke({

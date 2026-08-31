@@ -24,13 +24,13 @@ static struct argp_option options[] = {
 };
 
 struct arguments {
-    char *digest;
-    char *file;
-    char *output_file;
+    char* digest;
+    char* file;
+    char* output_file;
 };
 
-static error_t argp_parser(int key, char *arg, struct argp_state *state) {
-    struct arguments *arguments = state->input;
+static error_t argp_parser(int key, char* arg, struct argp_state* state) {
+    struct arguments* arguments = state->input;
     switch (key) {
         case 'd':
             arguments->digest = arg;
@@ -71,7 +71,7 @@ Example:\n\
 ",
 };
 
-int cmd_run(int argc, char **argv) {
+int cmd_run(int argc, char** argv) {
     FILE *input_file, *output_file;
     struct arguments arguments = {
         .digest = NULL,

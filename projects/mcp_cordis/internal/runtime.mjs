@@ -14,9 +14,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { SourceTextModule } from "node:vm";
 import { Context } from "@deepseek-ai/cordis";
 import Hmr from "@deepseek-ai/cordis-plugin-hmr";
-import Include, {
-    entryListSchema,
-} from "@deepseek-ai/cordis-plugin-include";
+import Include, { entryListSchema } from "@deepseek-ai/cordis-plugin-include";
 import Loader from "@deepseek-ai/cordis-plugin-loader";
 import Timer from "@deepseek-ai/cordis-plugin-timer";
 import Ajv2020 from "ajv/dist/2020.js";
@@ -111,8 +109,8 @@ function prepareSource(source) {
     }
     const legacyMarker = source.match(LEGACY_SOURCE_MARKER_PATTERN);
     if (legacyMarker) {
-        source = `${legacyMarker[1] ?? ""}` +
-            source.slice(legacyMarker[0].length);
+        source =
+            `${legacyMarker[1] ?? ""}` + source.slice(legacyMarker[0].length);
     }
     source = validateSource(source);
     validateModuleSource(source);
@@ -155,10 +153,11 @@ function resolveInsideWorkspace(
 
 function isInside(root, candidate) {
     const relative = path.relative(root, candidate);
-    return relative === "" || (
-        relative !== ".." &&
-        !relative.startsWith(`..${path.sep}`) &&
-        !path.isAbsolute(relative)
+    return (
+        relative === "" ||
+        (relative !== ".." &&
+            !relative.startsWith(`..${path.sep}`) &&
+            !path.isAbsolute(relative))
     );
 }
 
@@ -225,10 +224,12 @@ function normalizeArguments(args) {
 }
 
 function formatValidationErrors(errors) {
-    return (errors ?? []).map((error) => {
-        const location = error.instancePath || "/";
-        return `${location} ${error.message ?? "is invalid"}`;
-    }).join("; ");
+    return (errors ?? [])
+        .map((error) => {
+            const location = error.instancePath || "/";
+            return `${location} ${error.message ?? "is invalid"}`;
+        })
+        .join("; ");
 }
 
 function normalizeToolDefinition(definition, handler, ajv) {
@@ -384,11 +385,7 @@ export class CordisRuntime {
     }) {
         this.workspaceRoot = path.resolve(workspaceRoot);
         this.projectRoot = path.resolve(projectRoot);
-        this.scratchRoot = path.join(
-            this.workspaceRoot,
-            "out",
-            "mcp_cordis",
-        );
+        this.scratchRoot = path.join(this.workspaceRoot, "out", "mcp_cordis");
         if (!isInside(this.workspaceRoot, this.projectRoot)) {
             throw new RangeError("projectRoot must be inside workspaceRoot");
         }
@@ -433,7 +430,7 @@ export class CordisRuntime {
             };
         }
         await mkdir(this.pluginRoots.scratch, { recursive: true });
-        if (await readMaybe(this.configFiles.scratch) === undefined) {
+        if ((await readMaybe(this.configFiles.scratch)) === undefined) {
             await atomicWrite(this.configFiles.scratch, "[]\n");
         }
 
@@ -478,13 +475,10 @@ export class CordisRuntime {
             } catch (error) {
                 const failure = { scope, error: plainError(error) };
                 errors.push(failure);
-                this.#scopeErrors.set(
-                    scope,
-                    structuredClone(failure.error),
-                );
+                this.#scopeErrors.set(scope, structuredClone(failure.error));
                 process.stderr.write(
                     `[mcp_cordis] ${scope} Cordis config failed: ` +
-                    `${JSON.stringify(failure.error)}\n`,
+                        `${JSON.stringify(failure.error)}\n`,
                 );
             }
         }
@@ -583,21 +577,24 @@ export class CordisRuntime {
             this.#tools.set(identity.key, packageTools);
         }
         const toolName = record.metadata.name;
-        context.effect(() => {
-            if (packageTools.has(toolName)) {
-                throw new Error(`tool ${toolName} is already registered`);
-            }
-            packageTools.set(toolName, record);
-            this.#catalogVersion += 1;
-            return () => {
-                if (packageTools.get(toolName) !== record) return;
-                packageTools.delete(toolName);
-                if (packageTools.size === 0) {
-                    this.#tools.delete(identity.key);
+        context.effect(
+            () => {
+                if (packageTools.has(toolName)) {
+                    throw new Error(`tool ${toolName} is already registered`);
                 }
+                packageTools.set(toolName, record);
                 this.#catalogVersion += 1;
-            };
-        }, `mcp_cordis.tool(${JSON.stringify(toolName)})`);
+                return () => {
+                    if (packageTools.get(toolName) !== record) return;
+                    packageTools.delete(toolName);
+                    if (packageTools.size === 0) {
+                        this.#tools.delete(identity.key);
+                    }
+                    this.#catalogVersion += 1;
+                };
+            },
+            `mcp_cordis.tool(${JSON.stringify(toolName)})`,
+        );
     }
 
     #supervisor(context) {
@@ -606,10 +603,16 @@ export class CordisRuntime {
         if (supervisor) return supervisor;
         supervisor = new ProcessSupervisor();
         this.#supervisors.set(fiber, supervisor);
-        context.effect(() => () => supervisor.close(codedError(
-            "EXEC_DISPOSED",
-            "ctx.exec was cancelled during Cordis plugin disposal",
-        )), "mcp_cordis.host_processes");
+        context.effect(
+            () => () =>
+                supervisor.close(
+                    codedError(
+                        "EXEC_DISPOSED",
+                        "ctx.exec was cancelled during Cordis plugin disposal",
+                    ),
+                ),
+            "mcp_cordis.host_processes",
+        );
         return supervisor;
     }
 
@@ -624,7 +627,11 @@ export class CordisRuntime {
         ) {
             throw new TypeError("exec args must be an array of strings");
         }
-        if (!options || typeof options !== "object" || Array.isArray(options)) {
+        if (
+            !options ||
+            typeof options !== "object" ||
+            Array.isArray(options)
+        ) {
             throw new TypeError("exec options must be an object");
         }
         if (
@@ -661,11 +668,9 @@ export class CordisRuntime {
         );
         if (
             options.env !== undefined &&
-            (
-                !options.env ||
+            (!options.env ||
                 typeof options.env !== "object" ||
-                Array.isArray(options.env)
-            )
+                Array.isArray(options.env))
         ) {
             throw new TypeError("exec options.env must be an object");
         }
@@ -681,7 +686,8 @@ export class CordisRuntime {
                 );
             }
         }
-        const supervisor = this.#invocationSupervisors.getStore() ??
+        const supervisor =
+            this.#invocationSupervisors.getStore() ??
             this.#supervisor(context);
         return supervisor.execute({
             file,
@@ -691,27 +697,23 @@ export class CordisRuntime {
                 env,
                 maxBytes,
                 timeoutMs,
-                allowTruncatedOutput:
-                    options.allowTruncatedOutput === true,
+                allowTruncatedOutput: options.allowTruncatedOutput === true,
             },
         });
     }
 
-    async define({
-        scope = "scratch",
-        name,
-        source,
-        activate = undefined,
-    }) {
+    async define({ scope = "scratch", name, source, activate = undefined }) {
         this.#assertOpen();
         validateScope(scope);
         validateName(name);
-        return this.#mutate(() => this.#defineUnlocked({
-            scope,
-            name,
-            source,
-            activate,
-        }));
+        return this.#mutate(() =>
+            this.#defineUnlocked({
+                scope,
+                name,
+                source,
+                activate,
+            }),
+        );
     }
 
     async #defineUnlocked({ scope, name, source, activate }) {
@@ -730,11 +732,7 @@ export class CordisRuntime {
         let reloadPending = false;
 
         if (existing) {
-            const replacement = await this.#replaceSource(
-                scope,
-                name,
-                source,
-            );
+            const replacement = await this.#replaceSource(scope, name, source);
             sourceChanged = replacement.changed;
             if (activate === true && existing.disabled) {
                 await this.root.hmr.refreshFile(filename);
@@ -799,7 +797,9 @@ export class CordisRuntime {
                 sourceFile,
             );
             const state = await this.#configState(scope);
-            const index = state.entries.findIndex((entry) => entry.id === name);
+            const index = state.entries.findIndex(
+                (entry) => entry.id === name,
+            );
             if (index < 0) {
                 throw new RuntimeError(
                     "package_not_found",
@@ -808,7 +808,10 @@ export class CordisRuntime {
             }
             const live = this.#entry(scope, name);
             if (!state.entries[index].disabled && live?.fiber?.uid) {
-                return { changed: false, ...await this.inspect({ scope, name }) };
+                return {
+                    changed: false,
+                    ...(await this.inspect({ scope, name })),
+                };
             }
             const wasDisabled = Boolean(state.entries[index].disabled);
             if (wasDisabled) {
@@ -822,7 +825,7 @@ export class CordisRuntime {
             }
             return {
                 changed: true,
-                ...await this.inspect({ scope, name }),
+                ...(await this.inspect({ scope, name })),
             };
         });
     }
@@ -835,12 +838,9 @@ export class CordisRuntime {
             await this.root.hmr.awaitRefresh();
             const sourceFile = this.#sourceFile(scope, name);
             const source = prepareSource(await readFile(sourceFile, "utf8"));
-            const update = await this.#replaceSource(
-                scope,
-                name,
-                source,
-                { force: true },
-            );
+            const update = await this.#replaceSource(scope, name, source, {
+                force: true,
+            });
             const snapshot = await this.inspect({ scope, name });
             return {
                 changed: update.changed,
@@ -857,7 +857,9 @@ export class CordisRuntime {
         return this.#mutate(async () => {
             await this.root.hmr.awaitRefresh();
             const state = await this.#configState(scope);
-            const index = state.entries.findIndex((entry) => entry.id === name);
+            const index = state.entries.findIndex(
+                (entry) => entry.id === name,
+            );
             if (index < 0) {
                 throw new RuntimeError(
                     "package_not_found",
@@ -867,13 +869,13 @@ export class CordisRuntime {
             if (state.entries[index].disabled) {
                 return {
                     stopped: false,
-                    ...await this.inspect({ scope, name }),
+                    ...(await this.inspect({ scope, name })),
                 };
             }
             const entries = structuredClone(state.entries);
             entries[index].disabled = true;
             await this.#commitConfig(scope, state.content, entries);
-            return { stopped: true, ...await this.inspect({ scope, name }) };
+            return { stopped: true, ...(await this.inspect({ scope, name })) };
         });
     }
 
@@ -926,11 +928,7 @@ export class CordisRuntime {
         });
     }
 
-    async promote({
-        name,
-        targetName = undefined,
-        activate = false,
-    }) {
+    async promote({ name, targetName = undefined, activate = false }) {
         this.#assertOpen();
         validateName(name);
         if (targetName !== undefined) validateName(targetName);
@@ -966,12 +964,13 @@ export class CordisRuntime {
                 errors.push({
                     scope: currentScope,
                     error: structuredClone(
-                        this.#scopeErrors.get(currentScope) ?? plainError(
-                            new RuntimeError(
-                                "scope_unavailable",
-                                `${currentScope} cordis.yaml did not load`,
+                        this.#scopeErrors.get(currentScope) ??
+                            plainError(
+                                new RuntimeError(
+                                    "scope_unavailable",
+                                    `${currentScope} cordis.yaml did not load`,
+                                ),
                             ),
-                        ),
                     ),
                 });
                 continue;
@@ -989,12 +988,9 @@ export class CordisRuntime {
             }
             for (const entry of state.entries) {
                 if (!NAME_PATTERN.test(entry.id ?? "")) continue;
-                packages.push(await this.#snapshot(
-                    currentScope,
-                    entry.id,
-                    entry,
-                    false,
-                ));
+                packages.push(
+                    await this.#snapshot(currentScope, entry.id, entry, false),
+                );
             }
         }
         packages.sort((left, right) => {
@@ -1019,7 +1015,7 @@ export class CordisRuntime {
         }
         return {
             catalogVersion: this.#catalogVersion,
-            ...await this.#snapshot(scope, name, entry, includeSource),
+            ...(await this.#snapshot(scope, name, entry, includeSource)),
         };
     }
 
@@ -1031,9 +1027,10 @@ export class CordisRuntime {
         return {
             scope,
             name,
-            description: typeof callback?.description === "string"
-                ? callback.description
-                : "",
+            description:
+                typeof callback?.description === "string"
+                    ? callback.description
+                    : "",
             module: options.name,
             enabled: !Boolean(options.disabled),
             running: Boolean(live?.fiber?.uid),
@@ -1096,9 +1093,9 @@ export class CordisRuntime {
                 { catalogVersion: this.#catalogVersion },
             );
         }
-        const record = this.#tools.get(
-            packageKey(scope, packageName),
-        )?.get(tool);
+        const record = this.#tools
+            .get(packageKey(scope, packageName))
+            ?.get(tool);
         if (!record) {
             throw new RuntimeError(
                 "tool_not_found",
@@ -1137,10 +1134,11 @@ export class CordisRuntime {
         let completed = false;
         const invocationSupervisor = new ProcessSupervisor();
         const call = Promise.resolve()
-            .then(() => this.#invocationSupervisors.run(
-                invocationSupervisor,
-                () => record.handler(args),
-            ))
+            .then(() =>
+                this.#invocationSupervisors.run(invocationSupervisor, () =>
+                    record.handler(args),
+                ),
+            )
             .then((value) => jsonClone(value, `result from ${tool}`))
             .finally(() => {
                 completed = true;
@@ -1164,25 +1162,29 @@ export class CordisRuntime {
                 value,
             };
         } finally {
-            await invocationSupervisor.close(codedError(
-                "EXEC_DISPOSED",
-                completed
-                    ? "ctx.exec invocation scope has completed"
-                    : "ctx.exec was cancelled at the invocation deadline",
-            ));
+            await invocationSupervisor.close(
+                codedError(
+                    "EXEC_DISPOSED",
+                    completed
+                        ? "ctx.exec invocation scope has completed"
+                        : "ctx.exec was cancelled at the invocation deadline",
+                ),
+            );
             if (completed) {
                 done.resolve();
                 await disposeLease();
             } else {
-                void call.finally(async () => {
-                    done.resolve();
-                    await disposeLease();
-                }).catch((error) => {
-                    process.stderr.write(
-                        `[mcp_cordis] invocation lease cleanup failed: ` +
-                        `${error instanceof Error ? error.message : error}\n`,
-                    );
-                });
+                void call
+                    .finally(async () => {
+                        done.resolve();
+                        await disposeLease();
+                    })
+                    .catch((error) => {
+                        process.stderr.write(
+                            `[mcp_cordis] invocation lease cleanup failed: ` +
+                                `${error instanceof Error ? error.message : error}\n`,
+                        );
+                    });
             }
         }
     }
@@ -1251,9 +1253,7 @@ export class CordisRuntime {
                 rollbackError = failure;
             }
             throw new RuntimeError(
-                rollbackError
-                    ? "config_rollback_failed"
-                    : "activation_failed",
+                rollbackError ? "config_rollback_failed" : "activation_failed",
                 `failed to apply ${scope} cordis.yaml` +
                     (rollbackError ? " and restore its prior entries" : ""),
                 {

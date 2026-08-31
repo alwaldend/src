@@ -43,17 +43,14 @@ fun <T> HomeDialog(
     modifier: Modifier = Modifier,
     showButton: (T) -> Boolean = { true },
 ) {
-    HomeDialogBase(
-        modifier = modifier,
-        onDismissRequest = onDismissRequest
-    ) {
-        HomeDialogButtons(
-            onDismissRequest = onDismissRequest,
-            onButtonClick = onButtonClick,
-            showButton = showButton,
-            actionButtons = actionButtons,
-        )
-    }
+  HomeDialogBase(modifier = modifier, onDismissRequest = onDismissRequest) {
+    HomeDialogButtons(
+        onDismissRequest = onDismissRequest,
+        onButtonClick = onButtonClick,
+        showButton = showButton,
+        actionButtons = actionButtons,
+    )
+  }
 }
 
 @Composable
@@ -67,25 +64,19 @@ fun <T> HomeDialog(
     showButton: (T) -> Boolean = { true },
     showButtons: Boolean = true,
 ) {
-    HomeDialogBase(
-        modifier = modifier,
-        onDismissRequest = onDismissRequest
-    ) {
-        HomeDialogHeader(
-            app = app,
-            onHeaderAction = onHeaderAction,
-            onDismissRequest = onDismissRequest
-        )
-        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_medium)))
-        if (actionButtons.buttons.isNotEmpty() && showButtons) {
-            HomeDialogButtons(
-                onDismissRequest = onDismissRequest,
-                onButtonClick = onButtonClick,
-                showButton = showButton,
-                actionButtons = actionButtons,
-            )
-        }
+  HomeDialogBase(modifier = modifier, onDismissRequest = onDismissRequest) {
+    HomeDialogHeader(
+        app = app, onHeaderAction = onHeaderAction, onDismissRequest = onDismissRequest)
+    Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.padding_medium)))
+    if (actionButtons.buttons.isNotEmpty() && showButtons) {
+      HomeDialogButtons(
+          onDismissRequest = onDismissRequest,
+          onButtonClick = onButtonClick,
+          showButton = showButton,
+          actionButtons = actionButtons,
+      )
     }
+  }
 }
 
 @Composable
@@ -95,17 +86,16 @@ fun HomeDialogButton(
     modifier: Modifier = Modifier,
     textAlign: TextAlign = TextAlign.Center
 ) {
-    Surface(
-        modifier = modifier.fillMaxWidth(),
-        onClick = onClick,
-    ) {
-        Text(
-            text = text,
-            modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium)),
-            style = MaterialTheme.typography.bodyLarge,
-            textAlign = textAlign
-        )
-    }
+  Surface(
+      modifier = modifier.fillMaxWidth(),
+      onClick = onClick,
+  ) {
+    Text(
+        text = text,
+        modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium)),
+        style = MaterialTheme.typography.bodyLarge,
+        textAlign = textAlign)
+  }
 }
 
 @Composable
@@ -115,27 +105,27 @@ private fun <T> HomeDialogButtons(
     showButton: (T) -> Boolean,
     actionButtons: HomeDialogState.Buttons<T>,
 ) {
-    ElevatedCard {
-        Column {
-            actionButtons.buttons.forEach { button ->
-                key(button.hashCode()) {
-                    if (showButton(button.data)) {
-                        HomeDialogButton(
-                            text = when (button.label) {
-                                is Label.Res -> stringResource(button.label.res)
-                                is Label.Str -> button.label.string
-                            },
-                            textAlign = TextAlign.Start,
-                            onClick = {
-                                onButtonClick(button.data)
-                                onDismissRequest()
-                            }
-                        )
-                    }
-                }
-            }
+  ElevatedCard {
+    Column {
+      actionButtons.buttons.forEach { button ->
+        key(button.hashCode()) {
+          if (showButton(button.data)) {
+            HomeDialogButton(
+                text =
+                    when (button.label) {
+                      is Label.Res -> stringResource(button.label.res)
+                      is Label.Str -> button.label.string
+                    },
+                textAlign = TextAlign.Start,
+                onClick = {
+                  onButtonClick(button.data)
+                  onDismissRequest()
+                })
+          }
         }
+      }
     }
+  }
 }
 
 @Composable
@@ -144,14 +134,13 @@ private fun HomeDialogBase(
     modifier: Modifier = Modifier,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    Dialog(onDismissRequest = onDismissRequest) {
-        Column(
-            modifier = modifier.verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-            content = content
-        )
-    }
+  Dialog(onDismissRequest = onDismissRequest) {
+    Column(
+        modifier = modifier.verticalScroll(rememberScrollState()),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+        content = content)
+  }
 }
 
 @Composable
@@ -161,27 +150,24 @@ private fun HomeDialogHeader(
     onDismissRequest: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val icon = remember {
-        val array = app.icon.toByteArray()
-        BitmapFactory.decodeByteArray(array, 0, array.size).asImageBitmap()
-    }
-    Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
+  val icon = remember {
+    val array = app.icon.toByteArray()
+    BitmapFactory.decodeByteArray(array, 0, array.size).asImageBitmap()
+  }
+  Row(
+      modifier = modifier.fillMaxWidth(),
+      horizontalArrangement = Arrangement.SpaceBetween,
+      verticalAlignment = Alignment.CenterVertically) {
         ElevatedCard(modifier = Modifier.weight(1f)) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(0.dp, dimensionResource(R.dimen.padding_medium)),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
+          Column(
+              modifier =
+                  Modifier.fillMaxWidth().padding(0.dp, dimensionResource(R.dimen.padding_medium)),
+              horizontalAlignment = Alignment.CenterHorizontally,
+              verticalArrangement = Arrangement.Center) {
                 Image(
-                    modifier = Modifier
-                        .padding(dimensionResource(R.dimen.padding_small))
-                        .size(dimensionResource(R.dimen.image_size)),
+                    modifier =
+                        Modifier.padding(dimensionResource(R.dimen.padding_small))
+                            .size(dimensionResource(R.dimen.image_size)),
                     bitmap = icon,
                     contentDescription = "App icon",
                 )
@@ -189,58 +175,43 @@ private fun HomeDialogHeader(
                     text = app.label,
                     modifier = Modifier.padding(dimensionResource(R.dimen.padding_small)),
                     style = MaterialTheme.typography.bodyLarge,
-                    textAlign = TextAlign.Center
-                )
-            }
+                    textAlign = TextAlign.Center)
+              }
         }
         Spacer(modifier = Modifier.width(dimensionResource(R.dimen.padding_medium)))
         ElevatedCard(modifier = Modifier.weight(1f)) {
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
+          Column(
+              modifier = Modifier.fillMaxWidth(),
+              horizontalAlignment = Alignment.CenterHorizontally,
+              verticalArrangement = Arrangement.Center) {
                 HomeDialogButton(
                     text = stringResource(R.string.drawer_app_info),
                     onClick = {
-                        onHeaderAction(
-                            app,
-                            HomeDialogState.HeaderActions.GoToInfo
-                        )
-                        onDismissRequest()
-                    }
-                )
+                      onHeaderAction(app, HomeDialogState.HeaderActions.GoToInfo)
+                      onDismissRequest()
+                    })
                 HomeDialogButton(
-                    text = stringResource(
-                        if (app.isHidden) R.string.drawer_app_show else R.string.drawer_app_hide
-                    ),
+                    text =
+                        stringResource(
+                            if (app.isHidden) R.string.drawer_app_show
+                            else R.string.drawer_app_hide),
                     onClick = {
-                        onHeaderAction(
-                            app,
-                            HomeDialogState.HeaderActions.HideOrShow
-                        )
-                        onDismissRequest()
-                    }
-                )
+                      onHeaderAction(app, HomeDialogState.HeaderActions.HideOrShow)
+                      onDismissRequest()
+                    })
                 HomeDialogButton(
                     text = stringResource(R.string.drawer_app_uninstall),
                     onClick = {
-                        onHeaderAction(
-                            app,
-                            HomeDialogState.HeaderActions.Uninstall
-                        )
-                        onDismissRequest()
-                    }
-                )
-            }
+                      onHeaderAction(app, HomeDialogState.HeaderActions.Uninstall)
+                      onDismissRequest()
+                    })
+              }
         }
-    }
+      }
 }
 
 @Preview
 @Composable
 private fun HomeDialogButtonPreview() {
-    LauncherTheme {
-        HomeDialogButton(text = "button", onClick = { })
-    }
+  LauncherTheme { HomeDialogButton(text = "button", onClick = {}) }
 }

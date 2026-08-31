@@ -5,7 +5,7 @@ package com.alwaldend.src.tools.vault.harbor_login.harbor_login_proto;
 option go_package = "git.alwaldend.com/alwaldend/src/tools/vault/harbor_login/harbor_login_proto";
 
 message Config {
-    string harbor_url = 1;
-    string vault_conn = 2;
-    string vault_auth = 3;
+  string harbor_url = 1;
+  string vault_conn = 2;
+  string vault_auth = 3;
 }

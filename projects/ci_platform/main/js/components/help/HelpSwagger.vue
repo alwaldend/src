@@ -79,7 +79,7 @@ export default {
       }
       this.$data.swagger.preauthorizeApiKey(
         "ApiKeyAuth",
-        `Bearer ${this.token}`
+        `Bearer ${this.token}`,
       );
     },
   },

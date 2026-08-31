@@ -1,0 +1,141 @@
+load("@aspect_rules_lint//format:defs.bzl", "format_multirun", "format_test")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_java//java:defs.bzl", "java_binary")
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+
+sh_binary(
+    name = "buf",
+    srcs = ["tool_adapter.sh"],
+    data = ["//tools/buf"],
+)
+
+sh_binary(
+    name = "taplo",
+    srcs = ["tool_adapter.sh"],
+    data = ["//tools/taplo"],
+)
+
+java_binary(
+    name = "java_format",
+    jvm_flags = [
+        "--add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED",
+        "--add-exports jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED",
+        "--add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED",
+        "--add-exports jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED",
+        "--add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED",
+    ],
+    main_class = "com.google.googlejavaformat.java.Main",
+    runtime_deps = ["@google-java-format//jar"],
+)
+
+java_binary(
+    name = "ktfmt",
+    main_class = "com.facebook.ktfmt.cli.Main",
+    runtime_deps = ["@ktfmt//jar"],
+)
+
+format_multirun(
+    name = "format",
+    c = "@llvm_toolchain//:clang-format",
+    cc = "@llvm_toolchain//:clang-format",
+    css = "//tools/prettier",
+    go = "@aspect_rules_lint//format:gofumpt",
+    html = "//tools/prettier",
+    java = ":java_format",
+    javascript = "//tools/prettier",
+    kotlin = ":ktfmt",
+    markdown = "//tools/prettier",
+    protocol_buffer = ":buf",
+    python = "@aspect_rules_lint//format:ruff",
+    rust = "@rules_rust//tools/upstream_wrapper:rustfmt",
+    shell = "//tools/shfmt",
+    sql = "//tools/prettier:prettier_sql",
+    starlark = "//tools/buildifier",
+    starlark_check_args = [
+        "-lint=warn",
+        "-mode=check",
+        "-warnings=-bzl-visibility,-function-docstring-args,-function-docstring-header,-module-docstring,-name-conventions,-no-effect,-print,-unnamed-macro,-unsorted-dict-items,-unused-variable",
+    ],
+    starlark_fix_args = [
+        "-lint=fix",
+        "-mode=fix",
+    ],
+    terraform = "//tools/terraform",
+    toml = ":taplo",
+    visibility = [
+        "//:__pkg__",
+        "//:__subpackages__",
+    ],
+    xml = "//tools/prettier:prettier_xml",
+    yaml = "//tools/prettier",
+    yaml_check_args = [
+        "--check",
+        "--log-level=warn",
+    ],
+    yaml_fix_args = [
+        "--write",
+        "--log-level=warn",
+    ],
+)
+
+format_test(
+    name = "repo_quality_test",
+    size = "large",
+    timeout = "long",
+    c = "@llvm_toolchain//:clang-format",
+    cc = "@llvm_toolchain//:clang-format",
+    css = "//tools/prettier",
+    fix_target = ":format",
+    go = "@aspect_rules_lint//format:gofumpt",
+    html = "//tools/prettier",
+    java = ":java_format",
+    javascript = "//tools/prettier",
+    kotlin = ":ktfmt",
+    markdown = "//tools/prettier",
+    no_sandbox = True,
+    protocol_buffer = ":buf",
+    python = "@aspect_rules_lint//format:ruff",
+    rust = "@rules_rust//tools/upstream_wrapper:rustfmt",
+    shell = "//tools/shfmt",
+    sql = "//tools/prettier:prettier_sql",
+    starlark = "//tools/buildifier",
+    starlark_check_args = [
+        "-lint=warn",
+        "-mode=check",
+        "-warnings=-bzl-visibility,-function-docstring-args,-function-docstring-header,-module-docstring,-name-conventions,-no-effect,-print,-unnamed-macro,-unsorted-dict-items,-unused-variable",
+    ],
+    terraform = "//tools/terraform",
+    toml = ":taplo",
+    visibility = [
+        "//:__pkg__",
+        "//:__subpackages__",
+    ],
+    workspace = "//:MODULE.bazel",
+    xml = "//tools/prettier:prettier_xml",
+    yaml = "//tools/prettier",
+    yaml_check_args = [
+        "--check",
+        "--log-level=warn",
+    ],
+)
+
+test_suite(
+    name = "repo_quality_test_public",
+    tests = [":repo_quality_test"],
+    visibility = ["//:__pkg__"],
+)
+
+alias(
+    name = "check",
+    actual = ":format.check",
+    visibility = [
+        "//:__pkg__",
+        "//:__subpackages__",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//tools:__pkg__"],
+)

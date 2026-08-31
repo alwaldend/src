@@ -7,8 +7,10 @@ import (
 	"syscall"
 )
 
-type lookPathFunc func(string) (string, error)
-type replaceProcessFunc func(string, []string, []string) error
+type (
+	lookPathFunc       func(string) (string, error)
+	replaceProcessFunc func(string, []string, []string) error
+)
 
 func bazelArguments(args []string) []string {
 	result := make([]string, 0, len(args)+2)

@@ -4,7 +4,5 @@ import (
 	_ "embed"
 )
 
-var (
-	//go:embed site_archive.tar
-	Site []byte
-)
+//go:embed site_archive.tar
+var Site []byte

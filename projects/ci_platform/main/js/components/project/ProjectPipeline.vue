@@ -8,7 +8,9 @@
   </div>
   <div v-if="!loadingPipeline" class="card">
     <div class="flex justify-content-between">
-      <div class="font-medium text-3xl text-900 mb-3">{{ pipeline.name }}</div>
+      <div class="font-medium text-3xl text-900 mb-3">
+        {{ pipeline.name }}
+      </div>
       <Button
         label="Run"
         class="p-button-outlined"
@@ -71,7 +73,7 @@ export default {
             summary: "pipeline launched",
             detail: response.data.web_url,
             life: 10000,
-          })
+          }),
         )
         .catch(Error)
         .finally(() => (this.pipelineLaunched = false));

@@ -159,8 +159,10 @@ func (self *Manager) transition(ctx context.Context, fromState State, targetStat
 	return nil
 }
 
-type lifecycleFunc = func(context.Context) error
-type selectorFunc = func(Manageable) lifecycleFunc
+type (
+	lifecycleFunc = func(context.Context) error
+	selectorFunc  = func(Manageable) lifecycleFunc
+)
 
 func rescueLifecycleFunc(f func(context.Context) error) func(context.Context) error {
 	return func(ctx context.Context) error {

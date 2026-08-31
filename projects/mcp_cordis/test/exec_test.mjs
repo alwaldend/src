@@ -107,11 +107,9 @@ test("process supervisor times out and closes its process group", async () => {
     assert.equal(pids.length, 2);
     for (const pid of pids) assert.equal(await processIsLive(pid), false);
 
-    const pending = execute(
-        supervisor,
-        "setInterval(() => {}, 1000);",
-        { timeoutMs: 5_000 },
-    );
+    const pending = execute(supervisor, "setInterval(() => {}, 1000);", {
+        timeoutMs: 5_000,
+    });
     await new Promise((resolve) => setTimeout(resolve, 25));
     const disposed = Object.assign(new Error("disposed"), {
         code: "EXEC_DISPOSED",

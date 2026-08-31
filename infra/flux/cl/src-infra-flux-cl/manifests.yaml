@@ -58,4 +58,3 @@ spec:
   retryInterval: 2m0s
   prune: true
   force: false
----

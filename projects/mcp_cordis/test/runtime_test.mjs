@@ -129,9 +129,11 @@ function nextHmrReload(runtime, label, timeoutMs = 5_000) {
         let dispose;
         const timer = setTimeout(() => {
             void dispose();
-            reject(new Error(
-                `Cordis HMR did not reload ${label} within ${timeoutMs} ms`,
-            ));
+            reject(
+                new Error(
+                    `Cordis HMR did not reload ${label} within ${timeoutMs} ms`,
+                ),
+            );
         }, timeoutMs);
         timer.unref();
         dispose = runtime.root.on("hmr/reload", () => {
@@ -163,9 +165,10 @@ function processPlugin(activationPidPath = undefined) {
       writeFileSync(process.argv[1], process.pid + " " + descendant.pid);
       setInterval(() => {}, 1000);
     `;
-    const activation = activationPidPath === undefined
-        ? ""
-        : `void launch(${JSON.stringify(activationPidPath)}).catch(() => {});`;
+    const activation =
+        activationPidPath === undefined
+            ? ""
+            : `void launch(${JSON.stringify(activationPidPath)}).catch(() => {});`;
     return `import { readFile } from "node:fs/promises";
 export default {
   apply(ctx) {
@@ -239,8 +242,7 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
         generation: "v1",
         value: 1,
     });
-    const invalidCompletionPath =
-        "out/mcp_cordis/invalid_timeout_complete";
+    const invalidCompletionPath = "out/mcp_cordis/invalid_timeout_complete";
     await assert.rejects(
         runtime.invoke({
             scope: "scratch",
@@ -272,7 +274,8 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
         (error) => error.code === "invoke_timeout",
     );
     let stopped = false;
-    const drainingStop = runtime.stop({ scope: "scratch", name: "echo" })
+    const drainingStop = runtime
+        .stop({ scope: "scratch", name: "echo" })
         .then(() => {
             stopped = true;
         });
@@ -301,8 +304,10 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
     assert.equal(updated.activation, "pending");
     assert.equal(updated.running, true);
     await waitFor(async () => {
-        return (await invoke(runtime, "scratch", "echo", 2)).value
-            .generation === "v2";
+        return (
+            (await invoke(runtime, "scratch", "echo", 2)).value.generation ===
+            "v2"
+        );
     });
     const scratchSource = join(
         root,
@@ -331,8 +336,10 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
     await writeFile(scratchSource, plugin("manual"));
     await manualReload;
     await waitFor(async () => {
-        return (await invoke(runtime, "scratch", "echo", 3)).value
-            .generation === "manual";
+        return (
+            (await invoke(runtime, "scratch", "echo", 3)).value.generation ===
+            "manual"
+        );
     });
     assert.equal(
         (await runtime.inspect({ scope: "scratch", name: "echo" })).enabled,
@@ -346,8 +353,10 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
         source: plugin("superseded"),
     });
     await waitFor(async () => {
-        return (await invoke(runtime, "scratch", "echo", 3)).value
-            .generation === "superseded";
+        return (
+            (await invoke(runtime, "scratch", "echo", 3)).value.generation ===
+            "superseded"
+        );
     });
     await runtime.define({
         scope: "scratch",
@@ -355,8 +364,10 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
         source: plugin("latest"),
     });
     await waitFor(async () => {
-        return (await invoke(runtime, "scratch", "echo", 3)).value
-            .generation === "latest";
+        return (
+            (await invoke(runtime, "scratch", "echo", 3)).value.generation ===
+            "latest"
+        );
     });
     assert.equal(
         (await runtime.inspect({ scope: "scratch", name: "echo" })).enabled,
@@ -387,7 +398,7 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
     });
     const slowReloadRefresh = runtime.root.hmr.refreshFile(scratchSource);
     await waitFor(async () => {
-        return await readFile(slowReloadMarker, "utf8") === "started";
+        return (await readFile(slowReloadMarker, "utf8")) === "started";
     });
     await runtime.define({
         scope: "scratch",
@@ -398,8 +409,10 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
     await writeFile(slowReloadRelease, "release");
     await Promise.all([slowReloadRefresh, rapidRefresh]);
     await waitFor(async () => {
-        return (await invoke(runtime, "scratch", "echo", 3)).value
-            .generation === "rapid_latest";
+        return (
+            (await invoke(runtime, "scratch", "echo", 3)).value.generation ===
+            "rapid_latest"
+        );
     });
 
     const slowApplyMarker = join(
@@ -431,7 +444,7 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
     });
     const slowApplyRefresh = runtime.root.hmr.refreshFile(scratchSource);
     await waitFor(async () => {
-        return await readFile(slowApplyMarker, "utf8") === "started";
+        return (await readFile(slowApplyMarker, "utf8")) === "started";
     });
     await runtime.define({
         scope: "scratch",
@@ -447,8 +460,10 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
     await Promise.all([slowApplyRefresh, applyRefresh]);
     assert.equal(await readFile(latestApplyMarker, "utf8"), "started");
     await waitFor(async () => {
-        return (await invoke(runtime, "scratch", "echo", 3)).value
-            .generation === "apply_latest";
+        return (
+            (await invoke(runtime, "scratch", "echo", 3)).value.generation ===
+            "apply_latest"
+        );
     });
     const beforeOverlapStop = await runtime.inspect({
         scope: "scratch",
@@ -473,12 +488,14 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
     });
     const failedRefresh = runtime.root.hmr.refreshFile(scratchSource);
     await waitFor(async () => {
-        return await readFile(failedApplyMarker, "utf8") === "started";
+        return (await readFile(failedApplyMarker, "utf8")) === "started";
     });
     await failedRefresh;
     await waitFor(async () => {
-        return (await invoke(runtime, "scratch", "echo", 3)).value
-            .generation === "apply_latest";
+        return (
+            (await invoke(runtime, "scratch", "echo", 3)).value.generation ===
+            "apply_latest"
+        );
     });
     const afterFailedReplacement = await runtime.inspect({
         scope: "scratch",
@@ -494,8 +511,10 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
     });
     await runtime.root.hmr.refreshFile(scratchSource);
     await waitFor(async () => {
-        return (await invoke(runtime, "scratch", "echo", 3)).value
-            .generation === "recovered";
+        return (
+            (await invoke(runtime, "scratch", "echo", 3)).value.generation ===
+            "recovered"
+        );
     });
 
     const stoppedAfterOverlap = await runtime.stop({
@@ -550,7 +569,8 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
     });
     assert.equal(promoted.scope, "project");
     assert.equal(
-        (await invoke(runtime, "project", "reusable_echo", 6)).value.generation,
+        (await invoke(runtime, "project", "reusable_echo", 6)).value
+            .generation,
         "disabled_update",
     );
     assert.match(
@@ -582,10 +602,7 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
 test("unfiltered listing preserves a healthy scope after partial startup", async (t) => {
     for (const [label, config] of [
         ["malformed config", "[\n"],
-        [
-            "missing module",
-            "- id: missing\n  name: ./plugins/missing.mjs\n",
-        ],
+        ["missing module", "- id: missing\n  name: ./plugins/missing.mjs\n"],
     ]) {
         await t.test(label, async (t) => {
             const root = await workspace("partial-startup");
@@ -730,16 +747,19 @@ test("source at the payload limit round-trips without metadata", async (t) => {
     const legacyRoundTrip = await runtime.define({
         scope: "scratch",
         name: "limit",
-        source: `export const __mcp_cordis_source_sha256 = ` +
+        source:
+            `export const __mcp_cordis_source_sha256 = ` +
             `"${"a".repeat(64)}";\n${source}`,
     });
     assert.equal(legacyRoundTrip.sourceChanged, false);
     assert.equal(
-        (await runtime.inspect({
-            scope: "scratch",
-            name: "limit",
-            includeSource: true,
-        })).source,
+        (
+            await runtime.inspect({
+                scope: "scratch",
+                name: "limit",
+                includeSource: true,
+            })
+        ).source,
         source,
     );
 });
@@ -768,9 +788,9 @@ test("invocation and Fiber disposal join process-tree cleanup", async (t) => {
         timedInvocation,
         (error) => error.code === "invoke_timeout",
     );
-    await waitFor(async () => Boolean(await readFile(
-        join(root, timeoutPidPath),
-    )));
+    await waitFor(async () =>
+        Boolean(await readFile(join(root, timeoutPidPath))),
+    );
     await timedRejection;
     await assertProcessesStopped(await readPids(root, timeoutPidPath));
 
@@ -781,9 +801,9 @@ test("invocation and Fiber disposal join process-tree cleanup", async (t) => {
         tool: "fire_and_forget_tree",
         arguments: { pid_path: forgottenPidPath },
     });
-    await waitFor(async () => Boolean(await readFile(
-        join(root, forgottenPidPath),
-    )));
+    await waitFor(async () =>
+        Boolean(await readFile(join(root, forgottenPidPath))),
+    );
     const stopped = runtime.stop({ scope: "scratch", name: "process_tools" });
     await Promise.all([forgottenInvocation, stopped]);
     await assertProcessesStopped(await readPids(root, forgottenPidPath));
@@ -795,9 +815,9 @@ test("invocation and Fiber disposal join process-tree cleanup", async (t) => {
         source: processPlugin(activationPidPath),
         activate: true,
     });
-    await waitFor(async () => Boolean(await readFile(
-        join(root, activationPidPath),
-    )));
+    await waitFor(async () =>
+        Boolean(await readFile(join(root, activationPidPath))),
+    );
     await runtime.stop({ scope: "scratch", name: "activation_process" });
     await assertProcessesStopped(await readPids(root, activationPidPath));
 });

@@ -1,6 +1,6 @@
 import threading
-import typing
 import time
+import typing
 
 import pynput.mouse
 
@@ -8,7 +8,6 @@ from . import support
 
 
 class Autoscroll(support.Base):
-
     def __init__(self, *args, **kwargs) -> None:
         self.scrolling: support.Scrolling = support.Scrolling()
         self.icon: support.Icon = support.Icon()
@@ -75,7 +74,9 @@ class Autoscroll(support.Base):
         self.scrolling.set_direction_and_coordinates(x, y)
         self.scrolling.set_interval()
 
-    def _on_click(self, x: int, y: int, button: pynput.mouse.Button, pressed: bool) -> None:
+    def _on_click(
+        self, x: int, y: int, button: pynput.mouse.Button, pressed: bool
+    ) -> None:
         self.buttons.press(button, pressed)
 
         if (
@@ -104,10 +105,10 @@ class Autoscroll(support.Base):
     def update(
         self,
         scrolling: typing.Optional[dict[str, typing.Any]] = None,
-        icon: typing.Optional[ dict[str, typing.Any]] = None,
-        buttons: typing.Optional[ dict[str, typing.Any]] = None,
-        debug: typing.Optional[ dict[str, typing.Any]] = None,
-        config: typing.Optional[ dict[str, typing.Any]] = None,
+        icon: typing.Optional[dict[str, typing.Any]] = None,
+        buttons: typing.Optional[dict[str, typing.Any]] = None,
+        debug: typing.Optional[dict[str, typing.Any]] = None,
+        config: typing.Optional[dict[str, typing.Any]] = None,
     ) -> None:
         self.config.update(**self._convert(config, {}, dict))
         self.scrolling.update(**self._convert(scrolling, {}, dict))

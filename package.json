@@ -1,8 +1,7 @@
 {
-  "name": "com_alwaldend_src",
-  "devDependencies": {
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": []
-  }
+    "name": "com_alwaldend_src",
+    "devDependencies": {},
+    "pnpm": {
+        "onlyBuiltDependencies": []
+    }
 }

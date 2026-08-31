@@ -5,6 +5,11 @@ import %workspace%/tools/bazelrc/project.bazelrc
 # Validate skill_library targets whenever they are built.
 build --aspects @rules_skill//skill:defs.bzl%skill_validation_aspect
 build --output_groups=+skill_validation
+
+# Run source linters over declared targets. Formatter drift is checked by
+# //:repo_quality_test because it also covers tracked files outside BUILD rules.
+build:lint --aspects=//tools/repo_quality:linters.bzl%buildifier,//tools/repo_quality:linters.bzl%ruff,//tools/repo_quality:linters.bzl%shellcheck
+build:lint --@aspect_rules_lint//lint:fail_on_violation
 # User preferences
 # Load any settings & overrides specific to the current user from `user.bazelrc`.
 # This file should appear in `.gitignore` so that settings are not shared with team members.

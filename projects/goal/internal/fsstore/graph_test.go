@@ -526,8 +526,7 @@ func TestSetRelationshipsRepairsOneOfTwoDisjointCycles(t *testing.T) {
 		{source: "cycle-d", target: "cycle-c"},
 	} {
 		rewriteGraphGoal(t, store, directories[edge.source], func(goal *v1alpha1.Goal) {
-			goal.Spec.Relationships.DependsOnGoalRefs =
-				[]v1alpha1.GoalReference{{Name: edge.target}}
+			goal.Spec.Relationships.DependsOnGoalRefs = []v1alpha1.GoalReference{{Name: edge.target}}
 		})
 	}
 
@@ -588,16 +587,13 @@ func TestSetRelationshipsAllowsReducedCyclicComponent(t *testing.T) {
 	bDir := initTestGoal(t, store, root, "cycle-b")
 	cDir := initTestGoal(t, store, root, "cycle-c")
 	rewriteGraphGoal(t, store, aDir, func(goal *v1alpha1.Goal) {
-		goal.Spec.Relationships.DependsOnGoalRefs =
-			[]v1alpha1.GoalReference{{Name: "cycle-b"}}
+		goal.Spec.Relationships.DependsOnGoalRefs = []v1alpha1.GoalReference{{Name: "cycle-b"}}
 	})
 	rewriteGraphGoal(t, store, bDir, func(goal *v1alpha1.Goal) {
-		goal.Spec.Relationships.DependsOnGoalRefs =
-			[]v1alpha1.GoalReference{{Name: "cycle-c"}}
+		goal.Spec.Relationships.DependsOnGoalRefs = []v1alpha1.GoalReference{{Name: "cycle-c"}}
 	})
 	rewriteGraphGoal(t, store, cDir, func(goal *v1alpha1.Goal) {
-		goal.Spec.Relationships.DependsOnGoalRefs =
-			[]v1alpha1.GoalReference{{Name: "cycle-a"}}
+		goal.Spec.Relationships.DependsOnGoalRefs = []v1alpha1.GoalReference{{Name: "cycle-a"}}
 	})
 
 	if _, err := store.SetRelationships(SetRelationshipsOptions{
@@ -627,16 +623,13 @@ func TestSetRelationshipsRejectsWorsenedCycle(t *testing.T) {
 	bDir := initTestGoal(t, store, root, "cycle-b")
 	cDir := initTestGoal(t, store, root, "cycle-c")
 	rewriteGraphGoal(t, store, aDir, func(goal *v1alpha1.Goal) {
-		goal.Spec.Relationships.DependsOnGoalRefs =
-			[]v1alpha1.GoalReference{{Name: "cycle-b"}}
+		goal.Spec.Relationships.DependsOnGoalRefs = []v1alpha1.GoalReference{{Name: "cycle-b"}}
 	})
 	rewriteGraphGoal(t, store, bDir, func(goal *v1alpha1.Goal) {
-		goal.Spec.Relationships.DependsOnGoalRefs =
-			[]v1alpha1.GoalReference{{Name: "cycle-a"}}
+		goal.Spec.Relationships.DependsOnGoalRefs = []v1alpha1.GoalReference{{Name: "cycle-a"}}
 	})
 	rewriteGraphGoal(t, store, cDir, func(goal *v1alpha1.Goal) {
-		goal.Spec.Relationships.DependsOnGoalRefs =
-			[]v1alpha1.GoalReference{{Name: "cycle-a"}}
+		goal.Spec.Relationships.DependsOnGoalRefs = []v1alpha1.GoalReference{{Name: "cycle-a"}}
 	})
 
 	_, err := store.SetRelationships(SetRelationshipsOptions{
@@ -654,14 +647,11 @@ func TestSetRelationshipsComparesCyclesByRelationshipKind(t *testing.T) {
 	aDir := initTestGoal(t, store, root, "cycle-a")
 	bDir := initTestGoal(t, store, root, "cycle-b")
 	rewriteGraphGoal(t, store, aDir, func(goal *v1alpha1.Goal) {
-		goal.Spec.Relationships.DependsOnGoalRefs =
-			[]v1alpha1.GoalReference{{Name: "cycle-b"}}
+		goal.Spec.Relationships.DependsOnGoalRefs = []v1alpha1.GoalReference{{Name: "cycle-b"}}
 	})
 	rewriteGraphGoal(t, store, bDir, func(goal *v1alpha1.Goal) {
-		goal.Spec.Relationships.DependsOnGoalRefs =
-			[]v1alpha1.GoalReference{{Name: "cycle-a"}}
-		goal.Spec.Relationships.ParentGoalRef =
-			&v1alpha1.GoalReference{Name: "cycle-a"}
+		goal.Spec.Relationships.DependsOnGoalRefs = []v1alpha1.GoalReference{{Name: "cycle-a"}}
+		goal.Spec.Relationships.ParentGoalRef = &v1alpha1.GoalReference{Name: "cycle-a"}
 	})
 
 	_, err := store.SetRelationships(SetRelationshipsOptions{

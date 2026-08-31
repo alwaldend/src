@@ -3,6 +3,31 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
 prettier.prettier_binary(
     name = "prettier",
+    data = [
+        "//tools:node_modules/@prettier/plugin-xml",
+        "//tools:node_modules/prettier-plugin-sql",
+    ],
+    env = {"BAZEL_BINDIR": "."},
+    visibility = ["//:__subpackages__"],
+)
+
+prettier.prettier_binary(
+    name = "prettier_sql",
+    data = ["//tools:node_modules/prettier-plugin-sql/dir"],
+    env = {"BAZEL_BINDIR": "."},
+    fixed_args = [
+        "--plugin=\"$$JS_BINARY__RUNFILES\"/$(rlocationpath //tools:node_modules/prettier-plugin-sql/dir)/lib/index.js",
+    ],
+    visibility = ["//:__subpackages__"],
+)
+
+prettier.prettier_binary(
+    name = "prettier_xml",
+    data = ["//tools:node_modules/@prettier/plugin-xml/dir"],
+    env = {"BAZEL_BINDIR": "."},
+    fixed_args = [
+        "--plugin=\"$$JS_BINARY__RUNFILES\"/$(rlocationpath //tools:node_modules/@prettier/plugin-xml/dir)/src/plugin.js",
+    ],
     visibility = ["//:__subpackages__"],
 )
 

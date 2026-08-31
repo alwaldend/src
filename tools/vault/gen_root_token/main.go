@@ -15,9 +15,11 @@ import (
 	"golang.org/x/term"
 )
 
-var vaultFlag = flag.String("vault", "", "Vault binary")
-var pgpKeyFlag = flag.String("pgp_key", "", "Public pgp key (in base64)")
-var nonceFlag = flag.String("nonce", "", "Init nonce")
+var (
+	vaultFlag  = flag.String("vault", "", "Vault binary")
+	pgpKeyFlag = flag.String("pgp_key", "", "Public pgp key (in base64)")
+	nonceFlag  = flag.String("nonce", "", "Init nonce")
+)
 
 func main() {
 	flag.Parse()
@@ -80,5 +82,5 @@ func main() {
 		Stdin:  tokenEncBuffer,
 		Stdout: &token,
 	}))
-	os.WriteFile(filepath.Join(al.Must(os.UserHomeDir()), ".vault-token"), token.Bytes(), 0600)
+	os.WriteFile(filepath.Join(al.Must(os.UserHomeDir()), ".vault-token"), token.Bytes(), 0o600)
 }

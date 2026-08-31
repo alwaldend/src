@@ -90,23 +90,17 @@ async function main() {
     }
     process.stderr.write(
         `[mcp_cordis] workspace=${options.workspaceRoot} ` +
-        `loaded=${startup.loaded.length} failed=${startup.errors.length}\n`,
+            `loaded=${startup.loaded.length} failed=${startup.errors.length}\n`,
     );
 
-    const handle = serveStdio(
-        () => createMcpServer(runtime),
-        {
-            transport: new StdioServerTransport(
-                process.stdin,
-                protocolOutput,
-            ),
-            onerror: (error) => {
-                process.stderr.write(
-                    `[mcp_cordis] MCP transport error: ${error.message}\n`,
-                );
-            },
+    const handle = serveStdio(() => createMcpServer(runtime), {
+        transport: new StdioServerTransport(process.stdin, protocolOutput),
+        onerror: (error) => {
+            process.stderr.write(
+                `[mcp_cordis] MCP transport error: ${error.message}\n`,
+            );
         },
-    );
+    });
 
     let closing = false;
     const close = async (signal) => {

@@ -1,21 +1,27 @@
-load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@com_alwaldend_src_npm//:defs.bzl", "npm_link_all_packages")
 load("@com_alwaldend_src_pip//:requirements.bzl", "all_whl_requirements")
 load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
 load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
 load("@rules_skill//skill:defs.bzl", "skill_discovery_links")
 load("@tools_com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "buildifier_test")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
-load("//tools/md/main/bzl:al_md_data.bzl", "al_md_data")
 load("//tools/terraform:defs.bzl", "terraform_binary_map")
 load("//tools/toml/main/bzl:al_toml_data.bzl", "al_toml_data")
 load("//tools/txt/main/bzl:al_txt_data.bzl", "al_txt_data")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+
+exports_files(
+    [
+        ".shellcheckrc",
+        "MODULE.bazel",
+        "pyproject.toml",
+    ],
+    visibility = ["//visibility:public"],
+)
 
 terraform_binary_map(
     name = "tf",
@@ -40,6 +46,21 @@ al_config(
 alias(
     name = "write_git_hooks",
     actual = "//tools/git_hooks/main/go",
+)
+
+alias(
+    name = "format",
+    actual = "//tools/repo_quality:format",
+)
+
+alias(
+    name = "lint",
+    actual = "//tools/repo_quality:check",
+)
+
+test_suite(
+    name = "repo_quality_test",
+    tests = ["//tools/repo_quality:repo_quality_test_public"],
 )
 
 skill_discovery_links(

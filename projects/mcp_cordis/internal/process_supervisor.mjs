@@ -81,7 +81,10 @@ function decodeUtf8Prefix(output) {
 function parseProcStat(stat) {
     const closingParenthesis = stat.lastIndexOf(")");
     if (closingParenthesis < 0) return undefined;
-    const fields = stat.slice(closingParenthesis + 2).trim().split(/\s+/u);
+    const fields = stat
+        .slice(closingParenthesis + 2)
+        .trim()
+        .split(/\s+/u);
     if (fields.length < 3) return undefined;
     const group = Number(fields[2]);
     if (!Number.isSafeInteger(group) || group <= 0) return undefined;
@@ -92,13 +95,14 @@ async function processGroupHasLiveMember(group) {
     const entries = await readdir("/proc", { withFileTypes: true });
     for (const entry of entries) {
         if (!entry.isDirectory() || !/^\d+$/u.test(entry.name)) continue;
-        const stat = await readFile(`/proc/${entry.name}/stat`, "utf8")
-            .catch((error) => {
+        const stat = await readFile(`/proc/${entry.name}/stat`, "utf8").catch(
+            (error) => {
                 if (["EACCES", "ENOENT", "EPERM"].includes(error?.code)) {
                     return undefined;
                 }
                 throw error;
-            });
+            },
+        );
         if (stat === undefined) continue;
         const parsed = parseProcStat(stat);
         if (parsed?.group !== group) continue;
@@ -135,7 +139,7 @@ export async function waitForProcessGroup(
     while (true) {
         signalProcessGroup(child);
         try {
-            if (!await inspect(group)) return;
+            if (!(await inspect(group))) return;
             inspectionFailures = 0;
         } catch (error) {
             inspectionFailures += 1;
@@ -163,10 +167,12 @@ export class ProcessSupervisor {
 
     execute({ file, args, options }) {
         if (!this.#accepting) {
-            return Promise.reject(codedError(
-                "EXEC_DISPOSED",
-                "ctx.exec is unavailable because the package is disposing",
-            ));
+            return Promise.reject(
+                codedError(
+                    "EXEC_DISPOSED",
+                    "ctx.exec is unavailable because the package is disposing",
+                ),
+            );
         }
 
         let child;
@@ -220,9 +226,9 @@ export class ProcessSupervisor {
                 options.maxBytes - record.outputBytes,
             );
             if (retainedBytes > 0) {
-                destination.parts.push(Buffer.from(
-                    chunk.subarray(0, retainedBytes),
-                ));
+                destination.parts.push(
+                    Buffer.from(chunk.subarray(0, retainedBytes)),
+                );
                 destination.bytes += retainedBytes;
                 record.outputBytes += retainedBytes;
             }
@@ -249,15 +255,16 @@ export class ProcessSupervisor {
 
             const decodedStdout = decodeUtf8Prefix(record.stdout);
             const decodedStderr = decodeUtf8Prefix(record.stderr);
-            const invalidUtf8 = decodedStdout.dropped ||
-                decodedStderr.dropped;
-            const error = record.spawnError ?? record.forcedError ??
+            const invalidUtf8 = decodedStdout.dropped || decodedStderr.dropped;
+            const error =
+                record.spawnError ??
+                record.forcedError ??
                 cleanupError ??
                 (invalidUtf8 && !options.allowTruncatedOutput
                     ? codedError(
-                        "EXEC_INVALID_UTF8",
-                        "process output was not valid UTF-8",
-                    )
+                          "EXEC_INVALID_UTF8",
+                          "process output was not valid UTF-8",
+                      )
                     : undefined);
 
             if (error !== undefined) {
@@ -276,20 +283,24 @@ export class ProcessSupervisor {
         };
 
         const timeoutTimer = setTimeout(() => {
-            stop(codedError(
-                "EXEC_TIMEOUT",
-                `process exceeded the ${options.timeoutMs} ms timeout`,
-            ));
+            stop(
+                codedError(
+                    "EXEC_TIMEOUT",
+                    `process exceeded the ${options.timeoutMs} ms timeout`,
+                ),
+            );
         }, options.timeoutMs);
         timeoutTimer.unref();
 
         child.stdout?.on("data", (chunk) => collect(record.stdout, chunk));
         child.stderr?.on("data", (chunk) => collect(record.stderr, chunk));
         const outputError = (error) => {
-            stop(codedError(
-                "EXEC_OUTPUT_ERROR",
-                `failed to read process output: ${error.message}`,
-            ));
+            stop(
+                codedError(
+                    "EXEC_OUTPUT_ERROR",
+                    `failed to read process output: ${error.message}`,
+                ),
+            );
         };
         child.stdout?.on("error", outputError);
         child.stderr?.on("error", outputError);

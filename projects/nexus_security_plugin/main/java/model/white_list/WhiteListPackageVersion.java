@@ -1,34 +1,33 @@
 package com.alwaldend.src.projects.nexus_security_plugin.model.white_list;
 
+import com.alwaldend.src.projects.nexus_security_plugin.model.deserealizer.CustomDateTimeDeserealizer;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.alwaldend.src.projects.nexus_security_plugin.model.deserealizer.CustomDateTimeDeserealizer;
+import java.io.Serializable;
+import javax.annotation.Nullable;
 import org.joda.time.DateTime;
 
-import javax.annotation.Nullable;
-import java.io.Serializable;
-
 public class WhiteListPackageVersion implements Serializable {
-    @JsonProperty("allowed_date")
-    @JsonDeserialize(using = CustomDateTimeDeserealizer.class)
-    private DateTime allowedDate;
-    @JsonProperty
-    private boolean allowed;
+  @JsonProperty("allowed_date")
+  @JsonDeserialize(using = CustomDateTimeDeserealizer.class)
+  private DateTime allowedDate;
 
-    @Nullable
-    public DateTime getAllowedDate() {
-        return allowedDate;
-    }
+  @JsonProperty private boolean allowed;
 
-    public void setAllowedDate(DateTime allowedDate) {
-        this.allowedDate = allowedDate;
-    }
+  @Nullable
+  public DateTime getAllowedDate() {
+    return allowedDate;
+  }
 
-    public boolean isAllowed() {
-        return allowed;
-    }
+  public void setAllowedDate(DateTime allowedDate) {
+    this.allowedDate = allowedDate;
+  }
 
-    public void setAllowed(boolean allowed) {
-        this.allowed = allowed;
-    }
+  public boolean isAllowed() {
+    return allowed;
+  }
+
+  public void setAllowed(boolean allowed) {
+    this.allowed = allowed;
+  }
 }
