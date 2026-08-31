@@ -2,29 +2,29 @@ local lib = require("al_lib")
 
 lib.vault_auth({
     name = "default",
-    token_helper = nil
+    token_helper = nil,
 })
 
 lib.vault_auth({
     name = "token_helper",
-    token_helper = nil
+    token_helper = nil,
 })
 
 lib.vault_auth({
     name = "no_auth",
-    no_auth = true
+    no_auth = true,
 })
 
 lib.vault_conn({
     name = "default",
     config = {
-        address = "https://vault.alwaldend.com:8200"
+        address = "https://vault.alwaldend.com:8200",
     },
     tls = {
         ca_cert = "infra/vault/tf/output/pki_ca_servers.crt",
         -- client_cert = "${HOME}/.al/client_cert/host.crt",
         -- client_key = "${HOME}/.al/client_cert/host.key",
-    }
+    },
 })
 
 lib.plugin_call({
@@ -40,7 +40,7 @@ lib.plugin_call({
                     auth = "no_auth",
                 },
             },
-        }
+        },
     },
 })
 
@@ -57,7 +57,7 @@ lib.plugin_call({
                     auth = "default",
                 },
             },
-        }
+        },
     },
 })
 
@@ -70,11 +70,11 @@ lib.plugin({
     name = "forgejo_login",
     bin = "com_alwaldend_src/tools/vault/forgejo_login/forgejo_login_/forgejo_login",
     labels = {
-        forgejo_login = "1"
+        forgejo_login = "1",
     },
     data = {
         forgejo_url = "https://forgejo.alwaldend.com",
-        forgejo_oauth_name = "vault"
+        forgejo_oauth_name = "vault",
     },
 })
 
@@ -82,7 +82,7 @@ lib.plugin({
     name = "harbor_login",
     bin = "com_alwaldend_src/tools/vault/harbor_login/harbor_login_/harbor_login",
     labels = {
-        harbor_login = "1"
+        harbor_login = "1",
     },
     data = {
         harbor_url = "https://harbor.alwaldend.com",
@@ -93,7 +93,7 @@ lib.plugin({
     name = "pve_login",
     bin = "com_alwaldend_src/tools/vault/pve_login/pve_login_/pve_login",
     labels = {
-        pve_login = "1"
+        pve_login = "1",
     },
     data = {
         pve_base_url = "https://pve.alwaldend.com:8006",

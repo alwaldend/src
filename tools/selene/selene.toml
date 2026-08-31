@@ -1,0 +1,6 @@
+std = "lua51+repo"
+
+[lints]
+# Neovim plugin specifications intentionally combine positional and named
+# fields; this is the API's standard table shape rather than an iteration bug.
+mixed_table = "allow"

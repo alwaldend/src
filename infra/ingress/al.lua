@@ -1,5 +1,5 @@
-local lib = require("al_lib")
 local infra = require("infra.al_lib")
+local lib = require("al_lib")
 
 lib.vault_auth({
     name = "default",
@@ -13,8 +13,8 @@ infra.ansible_keys({
     labels = { ansible = "1" },
     vault_ssh = {
         backend = "ssh/clients/sign/admins",
-        ttl = 60 * 60 * 2
-    }
+        ttl = 60 * 60 * 2,
+    },
 })
 
 lib.plugin_call({
@@ -23,7 +23,7 @@ lib.plugin_call({
     labels = { tf = "main" },
     data = {
         vault_secret = "alwaldend.com/vault1/approles/src_infra_ingress/tf_backend/tf",
-        vault_secret_mount = "secrets"
+        vault_secret_mount = "secrets",
     },
 })
 
@@ -42,23 +42,23 @@ lib.plugin_call({
     plugin = "injector",
     labels = { tf = "main" },
     data = {
-        res =  {
+        res = {
             {
                 name = "image",
                 kv = {
                     path = "alwaldend.com/vault1/approles/src_infra_ingress/image",
                     mount = "secrets",
-                }
+                },
             },
             {
                 name = "TF_VAR_image_signed_url",
                 deps = { "image" },
                 env = {
                     value = "{{ .Last.Data.image_signed_url }}",
-                }
+                },
             },
-        }
-    }
+        },
+    },
 })
 
 lib.plugin_call({
@@ -71,29 +71,29 @@ lib.plugin_call({
                 name = "wireguard",
                 kv = {
                     path = "alwaldend.com/vault1/approles/src_infra_ingress/wireguard",
-                    mount = "secrets"
-                }
+                    mount = "secrets",
+                },
             },
             {
                 name = "TF_VAR_wg_public_keys",
                 deps = { "wireguard" },
                 env = {
                     value = "{{ .Last.Data.wg_public_keys | to_json }}",
-                }
+                },
             },
             {
                 name = "TF_VAR_wg_private_keys",
                 deps = { "wireguard" },
                 env = {
                     value = "{{ .Last.Data.wg_private_keys | to_json }}",
-                }
+                },
             },
             {
                 name = "TF_VAR_wg_preshared_keys",
                 deps = { "wireguard" },
                 env = {
                     value = "{{ .Last.Data.wg_preshared_keys | to_json }}",
-                }
+                },
             },
         },
     },
@@ -109,30 +109,30 @@ lib.plugin_call({
                 name = "mikrotik",
                 kv = {
                     path = "alwaldend.com/vault1/approles/src_infra_ingress/mikrotik",
-                    mount = "secrets"
-                }
+                    mount = "secrets",
+                },
             },
             {
                 name = "MIKROTIK_HOST",
                 deps = { "mikrotik" },
                 env = {
                     value = "https://router1.dc1.alwaldend.com",
-                }
+                },
             },
             {
                 name = "MIKROTIK_USER",
                 deps = { "mikrotik" },
                 env = {
                     value = "{{ .Last.Data.mikrotik_username }}",
-                }
+                },
             },
             {
                 name = "MIKROTIK_PASSWORD",
                 deps = { "mikrotik" },
                 env = {
                     value = "{{ .Last.Data.mikrotik_password }}",
-                }
+                },
             },
-        }
-    }
+        },
+    },
 })

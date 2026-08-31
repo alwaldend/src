@@ -2,6 +2,8 @@ package main
 
 import (
 	"errors"
+	"os"
+	"path/filepath"
 	"reflect"
 	"testing"
 )
@@ -81,11 +83,36 @@ func TestBazelArguments(t *testing.T) {
 }
 
 func TestRunReplacesProcess(t *testing.T) {
-	t.Parallel()
-	environment := []string{"PATH=/bin"}
+	workspace := t.TempDir()
+	if err := os.WriteFile(
+		filepath.Join(workspace, "MODULE.bazel"),
+		[]byte("module(name = \"test\")\n"),
+		0o644,
+	); err != nil {
+		t.Fatal(err)
+	}
+	oldWorkingDirectory, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Chdir(workspace); err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() {
+		if err := os.Chdir(oldWorkingDirectory); err != nil {
+			t.Errorf("restore working directory: %v", err)
+		}
+	})
+
+	environment := []string{
+		"PATH=/bin",
+		"TEMP=/old/temp",
+		"TMP=/old/tmp",
+		"TMPDIR=/old/tmpdir",
+	}
 	var gotPath string
 	var gotArgs, gotEnvironment []string
-	err := run(
+	err = run(
 		[]string{"test", "//pkg:all"},
 		environment,
 		func(name string) (string, error) {
@@ -117,15 +144,45 @@ func TestRunReplacesProcess(t *testing.T) {
 	if !reflect.DeepEqual(gotArgs, wantArgs) {
 		t.Fatalf("args = %q, want %q", gotArgs, wantArgs)
 	}
-	if !reflect.DeepEqual(gotEnvironment, environment) {
-		t.Fatalf("environment = %q, want %q", gotEnvironment, environment)
+	tmpDirectory := filepath.Join(workspace, temporaryDirectory)
+	wantEnvironment := []string{
+		"PATH=/bin",
+		"TMPDIR=" + tmpDirectory,
+		"TMP=" + tmpDirectory,
+		"TEMP=" + tmpDirectory,
+	}
+	if !reflect.DeepEqual(gotEnvironment, wantEnvironment) {
+		t.Fatalf("environment = %q, want %q", gotEnvironment, wantEnvironment)
+	}
+	if info, err := os.Stat(tmpDirectory); err != nil || !info.IsDir() {
+		t.Fatalf("temporary directory stat = %v, %v; want directory", info, err)
 	}
 }
 
 func TestRunReportsLookupFailure(t *testing.T) {
-	t.Parallel()
+	workspace := t.TempDir()
+	if err := os.WriteFile(
+		filepath.Join(workspace, "MODULE.bazel"),
+		[]byte("module(name = \"test\")\n"),
+		0o644,
+	); err != nil {
+		t.Fatal(err)
+	}
+	oldWorkingDirectory, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Chdir(workspace); err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() {
+		if err := os.Chdir(oldWorkingDirectory); err != nil {
+			t.Errorf("restore working directory: %v", err)
+		}
+	})
+
 	wantErr := errors.New("not found")
-	err := run(
+	err = run(
 		[]string{"build", "//..."},
 		nil,
 		func(string) (string, error) { return "", wantErr },
@@ -136,5 +193,43 @@ func TestRunReportsLookupFailure(t *testing.T) {
 	)
 	if !errors.Is(err, wantErr) {
 		t.Fatalf("run() error = %v, want wrapped %v", err, wantErr)
+	}
+}
+
+func TestFindWorkspaceUsesNearestModule(t *testing.T) {
+	t.Parallel()
+	root := t.TempDir()
+	nestedWorkspace := filepath.Join(root, "projects", "nested")
+	start := filepath.Join(nestedWorkspace, "package")
+	for _, directory := range []string{root, nestedWorkspace} {
+		if err := os.MkdirAll(directory, 0o755); err != nil {
+			t.Fatal(err)
+		}
+		if err := os.WriteFile(
+			filepath.Join(directory, "MODULE.bazel"),
+			[]byte("module(name = \"test\")\n"),
+			0o644,
+		); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if err := os.MkdirAll(start, 0o755); err != nil {
+		t.Fatal(err)
+	}
+
+	got, err := findWorkspace(start)
+	if err != nil {
+		t.Fatalf("findWorkspace() error = %v", err)
+	}
+	if got != nestedWorkspace {
+		t.Fatalf("findWorkspace() = %q, want %q", got, nestedWorkspace)
+	}
+}
+
+func TestFindWorkspaceReportsMissingModule(t *testing.T) {
+	t.Parallel()
+	_, err := findWorkspace(string(filepath.Separator))
+	if err == nil {
+		t.Fatal("findWorkspace() error = nil, want an error")
 	}
 }

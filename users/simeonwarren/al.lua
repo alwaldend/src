@@ -11,8 +11,8 @@ infra.ansible_keys({
     labels = { ansible = "1" },
     vault_ssh = {
         backend = "ssh/clients/sign/admins",
-        ttl = 60 * 60 * 2
-    }
+        ttl = 60 * 60 * 2,
+    },
 })
 
 lib.plugin_call({
@@ -27,7 +27,7 @@ lib.plugin_call({
     labels = { tf = "1" },
     data = {
         vault_secret = "alwaldend.com/vault1/approles/user_simeonwarren/tf_backend/main",
-        vault_secret_mount = "secrets"
+        vault_secret_mount = "secrets",
     },
 })
 
@@ -41,30 +41,30 @@ lib.plugin_call({
     plugin = "injector",
     labels = { ansible = "1" },
     data = {
-        res =  {
+        res = {
             {
                 name = "oidc_client",
                 op = {
                     method = "read",
-                    path = "identity/oidc/client/users_simeonwarren_provider"
-                }
+                    path = "identity/oidc/client/users_simeonwarren_provider",
+                },
             },
             {
                 name = "OIDC_CLIENT_ID",
                 deps = { "oidc_client" },
                 env = {
                     value = "{{ .Last.Data.client_id }}",
-                }
+                },
             },
             {
                 name = "OIDC_CLIENT_SECRET",
                 deps = { "oidc_client" },
                 env = {
                     value = "{{ .Last.Data.client_secret }}",
-                }
+                },
             },
-        }
-    }
+        },
+    },
 })
 
 lib.plugin_call({
@@ -93,25 +93,25 @@ lib.plugin_call({
                 name = "opencode_ssh",
                 kv = {
                     path = "alwaldend.com/vault1/approles/user_simeonwarren/opencode_ssh",
-                    mount = "secrets"
-                }
+                    mount = "secrets",
+                },
             },
             {
                 name = "OPENCODE_SSH_PRIVATE_KEY",
                 deps = { "opencode_ssh" },
                 env = {
                     value = "{{ .Last.Data.ssh_private_key }}",
-                }
+                },
             },
             {
                 name = "OPENCODE_SSH_PUBLIC_KEY",
                 deps = { "opencode_ssh" },
                 env = {
                     value = "{{ .Last.Data.ssh_public_key }}",
-                }
+                },
             },
         },
-    }
+    },
 })
 
 lib.plugin_call({
@@ -124,37 +124,37 @@ lib.plugin_call({
                 name = "opencode",
                 kv = {
                     path = "alwaldend.com/vault1/approles/user_simeonwarren/opencode",
-                    mount = "secrets"
-                }
+                    mount = "secrets",
+                },
             },
             {
                 name = "OPENCODE_SERVER_USERNAME",
                 deps = { "opencode" },
                 env = {
                     value = "{{ .Last.Data.opencode_server_username }}",
-                }
+                },
             },
             {
                 name = "OPENCODE_SERVER_PASSWORD",
                 deps = { "opencode" },
                 env = {
                     value = "{{ .Last.Data.opencode_server_password }}",
-                }
+                },
             },
             {
                 name = "OPENCODE_YANDEX_CLOUD_TOKEN",
                 deps = { "opencode" },
                 env = {
                     value = "{{ .Last.Data.yc_secret_key }}",
-                }
+                },
             },
             {
                 name = "OPENCODE_YANDEX_CLOUD_FOLDER",
                 deps = { "opencode" },
                 env = {
                     value = "{{ .Last.Data.yc_folder_id }}",
-                }
+                },
             },
-        }
-    }
+        },
+    },
 })

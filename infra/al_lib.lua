@@ -3,9 +3,10 @@ local lib = require("al_lib")
 local M = {}
 
 function M.k3s_token(t)
-    local name, labels, path, mount = t.name or "k3s_token", t.labels, t.path, t.mount or "secrets"
+    local name, labels, path, mount =
+        t.name or "k3s_token", t.labels, t.path, t.mount or "secrets"
     lib.plugin_call({
-        name =  name,
+        name = name,
         plugin = "injector",
         labels = labels,
         data = {
@@ -14,24 +15,24 @@ function M.k3s_token(t)
                     name = name,
                     kv = {
                         path = path,
-                        mount = mount
-                    }
+                        mount = mount,
+                    },
                 },
                 {
                     name = "K3S_TOKEN",
                     deps = { name },
                     env = {
                         value = "{{ .Last.Data.k3s_token }}",
-                    }
+                    },
                 },
-            }
-        }
+            },
+        },
     })
 end
 
 function M.kubernetes_login(t)
     local name, oidc, labels = t.name or "kubernetes_login", t.oidc, t.labels
-    local cluster_ca, domain = t.cluster_ca, t.domain
+    local cluster_ca = t.cluster_ca
     local res = {
         {
             name = name,
@@ -42,7 +43,7 @@ function M.kubernetes_login(t)
             deps = { name },
             file = {
                 extra = {
-                    cluster_ca = cluster_ca
+                    cluster_ca = cluster_ca,
                 },
                 value = [[
 apiVersion: v1
@@ -62,7 +63,7 @@ users:
   - name: default
     user:
       token: "{{ .Last.Data.id_token }}"
-]]
+]],
             },
         },
         {
@@ -70,19 +71,20 @@ users:
             deps = { name .. "_file" },
             env = {
                 value = "{{ index .Last.Files 0 }}",
-            }
+            },
         },
     }
     lib.plugin_call({
         name = name,
         plugin = "injector",
         labels = labels,
-        data = { res = res }
+        data = { res = res },
     })
 end
 
 function M.ansible_keys(t)
-    local name, vault_ssh, labels = t.name or "ansible_keys", t.vault_ssh, t.labels
+    local name, vault_ssh, labels =
+        t.name or "ansible_keys", t.vault_ssh, t.labels
     local res = {
         {
             name = name,
@@ -93,21 +95,21 @@ function M.ansible_keys(t)
             deps = { name },
             env = {
                 value = "{{ .Last.Data.private_key }}",
-            }
+            },
         },
         {
             name = "SSH_AUTH_SOCK",
             deps = { name },
             env = {
                 value = "",
-            }
+            },
         },
     }
     lib.plugin_call({
         name = name,
         plugin = "injector",
         labels = labels,
-        data = { res = res }
+        data = { res = res },
     })
 end
 
@@ -121,43 +123,43 @@ function M.server_cert(t)
             op = {
                 method = "write",
                 data = data,
-                path = "pki/ica_servers/issue/" .. role
-            }
+                path = "pki/ica_servers/issue/" .. role,
+            },
         },
         {
             name = cert_name,
             deps = { name },
             file = {
-                value = "{{ .VaultOp.certificate }}"
+                value = "{{ .VaultOp.certificate }}",
             },
         },
         {
             name = key_name,
             deps = { name },
             file = {
-                value = "{{ .Last.Data.private_key }}"
+                value = "{{ .Last.Data.private_key }}",
             },
         },
         {
             name = cert_name,
             deps = { cert_name },
             env = {
-                value = "{{ .Last.Data.Files[0] }}"
+                value = "{{ .Last.Data.Files[0] }}",
             },
         },
         {
             name = key_name,
             deps = { key_name },
             env = {
-                value = "{{ .Last.Data.Files[0] }}"
-            }
+                value = "{{ .Last.Data.Files[0] }}",
+            },
         },
     }
     lib.plugin_call({
         name = name,
         plugin = "injector",
         labels = labels,
-        data = { res = res }
+        data = { res = res },
     })
 end
 
@@ -170,32 +172,31 @@ function M.acme_eab(t)
             name = name,
             op = {
                 method = "write",
-                path = "pki/ica_servers/roles/" .. role .. "/acme/new-eab"
-            }
+                path = "pki/ica_servers/roles/" .. role .. "/acme/new-eab",
+            },
         },
         {
             name = id_name,
             deps = { name },
             env = {
-                value = "{{ .VaultOp.id }}"
-            }
+                value = "{{ .VaultOp.id }}",
+            },
         },
         {
             name = key_name,
-            deps = {name},
+            deps = { name },
             env = {
-                value = "{{ .VaultOp.key }}"
-            }
-        }
+                value = "{{ .VaultOp.key }}",
+            },
+        },
     }
     lib.plugin_call({
         name = name,
         plugin = "injector",
         labels = labels,
-        data = { res = res }
+        data = { res = res },
     })
 end
-
 
 function M.tf_backend(t)
     local path, labels, name = t.path, t.labels, t.name or "tf_backend"
@@ -210,7 +211,7 @@ function M.tf_backend(t)
         },
         {
             name = conf_name,
-            deps = {name},
+            deps = { name },
             file = {
                 value = [[
                     bucket = "{{ .Last.Data.bucket }}"
@@ -223,27 +224,31 @@ function M.tf_backend(t)
                     skip_credentials_validation = true
                     skip_requesting_account_id  = true
                     skip_s3_checksum            = true
-                ]]
-            }
+                ]],
+            },
         },
         {
             name = "AL_TF_BACKEND_CONFIG_1",
-            deps = {conf_name},
-            env  = {
-                value = "{{ index .Last.Files 0 }}"
-            }
-        }
+            deps = { conf_name },
+            env = {
+                value = "{{ index .Last.Files 0 }}",
+            },
+        },
     }
     lib.plugin_call({
         name = name,
         plugin = "injector",
         labels = labels,
-        data = { res = res }
+        data = { res = res },
     })
 end
 
 function M.yc_auth(t)
-    local path, labels, name, filename = t.path, t.labels, t.name or "yc_auth", t.filename or "service_account_key"
+    local path, labels, name, filename =
+        t.path,
+        t.labels,
+        t.name or "yc_auth",
+        t.filename or "service_account_key"
     local res = {
         {
             name = name,
@@ -254,52 +259,52 @@ function M.yc_auth(t)
         },
         {
             name = filename,
-            deps = {name},
+            deps = { name },
             file = {
-                value = "{{ .Last.Data.service_account_key }}"
-            }
+                value = "{{ .Last.Data.service_account_key }}",
+            },
         },
         {
             name = "YC_CLOUD_ID",
-            deps = {name},
+            deps = { name },
             env = {
                 value = "{{ .Last.Data.cloud_id }}",
-            }
+            },
         },
         {
             name = "TF_VAR_cloud_id",
-            deps = {name},
+            deps = { name },
             env = {
                 value = "{{ .Last.Data.cloud_id }}",
-            }
+            },
         },
         {
             name = "YC_FOLDER_ID",
-            deps = {name},
+            deps = { name },
             env = {
                 value = "{{ .Last.Data.folder_id }}",
-            }
+            },
         },
         {
             name = "TF_VAR_folder_id",
-            deps = {name},
+            deps = { name },
             env = {
                 value = "{{ .Last.Data.folder_id }}",
-            }
+            },
         },
         {
             name = "YC_SERVICE_ACCOUNT_KEY_FILE",
-            deps = {filename},
+            deps = { filename },
             env = {
                 value = "{{ index .Last.Files 0 }}",
-            }
+            },
         },
     }
     lib.plugin_call({
         name = name,
         plugin = "injector",
         labels = labels,
-        data = { res = res }
+        data = { res = res },
     })
 end
 
@@ -315,24 +320,24 @@ function M.yc_bucket_auth(t)
         },
         {
             name = "AWS_ACCESS_KEY_ID",
-            deps = {name},
+            deps = { name },
             env = {
                 value = "{{ .Last.Data.access_key }}",
-            }
+            },
         },
         {
             name = "AWS_SECRET_ACCESS_KEY",
-            deps = {name},
+            deps = { name },
             env = {
-                value = "{{ .Last.Data.secret_key }}"
-            }
+                value = "{{ .Last.Data.secret_key }}",
+            },
         },
     }
     lib.plugin_call({
         name = name,
         labels = labels,
         plugin = "injector",
-        data = { res = res }
+        data = { res = res },
     })
 end
 
@@ -348,20 +353,19 @@ function M.yc_account(t)
         },
         {
             name = "TF_VAR_service_account_id",
-            deps = {name},
+            deps = { name },
             env = {
                 value = "{{ .Last.Data.service_account_id }}",
-            }
+            },
         },
     }
     lib.plugin_call({
         name = name,
         plugin = "injector",
         labels = labels,
-        data = { res = res }
+        data = { res = res },
     })
 end
-
 
 function M.rclone_config(t)
     local name, labels, path = t.name or "rclone_config", t.labels, t.path
@@ -376,7 +380,7 @@ function M.rclone_config(t)
                     env_auth = true
                     region = ru-central1
                     endpoint = storage.yandexcloud.net
-                ]]
+                ]],
             },
         },
         {
@@ -388,29 +392,30 @@ function M.rclone_config(t)
         },
         {
             name = "RCLONE_CONFIG",
-            deps = {name},
+            deps = { name },
             env = {
                 value = "{{ index .Last.Files 0 }}",
-            }
+            },
         },
         {
             name = "RCLONE_S3_BUCKET",
-            deps = {"rclone_bucket"},
+            deps = { "rclone_bucket" },
             env = {
-                value = "{{ .Last.Data.bucket }}"
-            }
-        }
+                value = "{{ .Last.Data.bucket }}",
+            },
+        },
     }
     lib.plugin_call({
         name = name,
         plugin = "injector",
         labels = labels,
-        data = { res = res }
+        data = { res = res },
     })
 end
 
 function M.mikrotik(t)
-    local name, labels, path, host, mount = t.name or "mikrotik", t.labels, t.path, t.host, t.mount or "secrets"
+    local name, labels, path, host, mount =
+        t.name or "mikrotik", t.labels, t.path, t.host, t.mount or "secrets"
     local res = {
         {
             name = name,
@@ -421,31 +426,31 @@ function M.mikrotik(t)
         },
         {
             name = "MIKROTIK_HOST",
-            deps = {name},
+            deps = { name },
             env = {
                 value = host,
-            }
+            },
         },
         {
             name = "MIKROTIK_USER",
-            deps = {name},
+            deps = { name },
             env = {
                 value = "{{ .Last.Data.mikrotik_username }}",
-            }
+            },
         },
         {
             name = "MIKROTIK_PASSWORD",
-            deps = {name},
+            deps = { name },
             env = {
                 value = "{{ .Last.Data.mikrotik_password }}",
-            }
+            },
         },
     }
     lib.plugin_call({
         name = name,
         plugin = "injector",
         labels = labels,
-        data = { res = res }
+        data = { res = res },
     })
 end
 

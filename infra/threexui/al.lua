@@ -1,5 +1,5 @@
-local lib = require("al_lib")
 local infra = require("infra.al_lib")
+local lib = require("al_lib")
 
 lib.vault_auth({
     name = "default",
@@ -13,8 +13,8 @@ infra.ansible_keys({
     labels = { ansible = "1" },
     vault_ssh = {
         backend = "ssh/clients/sign/admins",
-        ttl = 60 * 60 * 2
-    }
+        ttl = 60 * 60 * 2,
+    },
 })
 
 lib.plugin_call({
@@ -23,7 +23,7 @@ lib.plugin_call({
     labels = { tf = "setup" },
     data = {
         vault_secret = "alwaldend.com/vault1/approles/src_infra_threexui/tf_backend/tf_setup",
-        vault_secret_mount = "secrets"
+        vault_secret_mount = "secrets",
     },
 })
 
@@ -49,7 +49,7 @@ lib.plugin_call({
     labels = { tf = "main" },
     data = {
         vault_secret = "alwaldend.com/vault1/approles/src_infra_threexui/tf_backend/tf",
-        vault_secret_mount = "secrets"
+        vault_secret_mount = "secrets",
     },
 })
 
@@ -63,15 +63,15 @@ lib.plugin_call({
                 name = "mullvad_keys",
                 kv = {
                     path = "alwaldend.com/vault1/approles/src_infra_threexui/mullvad_keys",
-                    mount = "secrets"
-                }
+                    mount = "secrets",
+                },
             },
             {
                 name = "TF_VAR_mullvad_keys",
                 deps = { "mullvad_keys" },
                 env = {
                     value = '{{ to_json_indent .Last.Data.keys "" "    " }}',
-                }
+                },
             },
         },
     },
@@ -87,15 +87,15 @@ lib.plugin_call({
                 name = "http_proxies",
                 kv = {
                     path = "alwaldend.com/vault1/approles/src_infra_threexui/http_proxies",
-                    mount = "secrets"
-                }
+                    mount = "secrets",
+                },
             },
             {
                 name = "TF_VAR_http_proxies",
                 deps = { "http_proxies" },
                 env = {
                     value = "{{ .Last.Data.http_proxies | to_json }}",
-                }
+                },
             },
         },
     },
@@ -111,46 +111,46 @@ lib.plugin_call({
                 name = "control_plane",
                 kv = {
                     path = "alwaldend.com/vault1/approles/src_infra_threexui/control_panel",
-                    mount = "secrets"
-                }
+                    mount = "secrets",
+                },
             },
             {
                 name = "XUI_USERNAME",
                 deps = { "control_plane" },
                 env = {
                     value = "{{ .Last.Data.xui_username }}",
-                }
+                },
             },
             {
                 name = "XUI_PASSWORD",
                 deps = { "control_plane" },
                 env = {
                     value = "{{ .Last.Data.xui_password }}",
-                }
+                },
             },
             {
                 name = "TF_VAR_xui_url",
                 deps = { "control_plane" },
                 env = {
                     value = "{{ .Last.Data.xui_url }}",
-                }
+                },
             },
             {
                 name = "TF_VAR_xui_username",
                 deps = { "control_plane" },
                 env = {
                     value = "{{ .Last.Data.xui_username }}",
-                }
+                },
             },
             {
                 name = "TF_VAR_xui_password",
                 deps = { "control_plane" },
                 env = {
                     value = "{{ .Last.Data.xui_password }}",
-                }
+                },
             },
-        }
-    }
+        },
+    },
 })
 
 lib.plugin_call({
@@ -163,58 +163,58 @@ lib.plugin_call({
                 name = "nodes",
                 kv = {
                     path = "alwaldend.com/vault1/approles/src_infra_threexui/nodes",
-                    mount = "secrets"
-                }
+                    mount = "secrets",
+                },
             },
             {
                 name = "NODE_XUI_USERNAME",
                 deps = { "nodes" },
                 env = {
                     value = "{{ .Last.Data.xui_username }}",
-                }
+                },
             },
             {
                 name = "TF_VAR_node_xui_username",
                 deps = { "nodes" },
                 env = {
                     value = "{{ .Last.Data.xui_username }}",
-                }
+                },
             },
             {
                 name = "NODE_XUI_PASSWORD",
                 deps = { "nodes" },
                 env = {
                     value = "{{ .Last.Data.xui_password }}",
-                }
+                },
             },
             {
                 name = "TF_VAR_node_xui_password",
                 deps = { "nodes" },
                 env = {
                     value = "{{ .Last.Data.xui_password }}",
-                }
+                },
             },
             {
                 name = "NODE_XUI_BASE_PATH",
                 deps = { "nodes" },
                 env = {
                     value = "{{ .Last.Data.xui_base_path }}",
-                }
+                },
             },
             {
                 name = "TF_VAR_node_xui_base_path",
                 deps = { "nodes" },
                 env = {
                     value = "{{ .Last.Data.xui_base_path }}",
-                }
+                },
             },
             {
                 name = "TF_VAR_node_xui_tokens",
                 deps = { "nodes" },
                 env = {
                     value = "{{ .Last.Data.xui_tokens | to_json }}",
-                }
+                },
             },
-        }
-    }
+        },
+    },
 })

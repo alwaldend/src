@@ -14,7 +14,7 @@ lib.plugin_call({
     labels = { tf = "1" },
     data = {
         vault_secret = "alwaldend.com/vault1/approles/src_infra_dc1_pve1/tf_backend",
-        vault_secret_mount = "secrets"
+        vault_secret_mount = "secrets",
     },
 })
 

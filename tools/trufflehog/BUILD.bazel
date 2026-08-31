@@ -14,12 +14,34 @@ trufflehog_test(
         "git",
         "--fail",
         "--fail-on-scan-errors",
+        "--branch",
+        "HEAD",
+        "--skip-additional-refs",
         "--exclude-paths",
         "$(GIT_ROOT)/tools/trufflehog/exclude_paths.txt",
         "file://$(GIT_ROOT)",
     ],
     tags = [
         "local",
+        "no-cache",
+    ],
+    toolchains = ["//tools/git/main/bzl:toolchain_resolved"],
+)
+
+trufflehog_test(
+    name = "repo_all_refs_test",
+    size = "medium",
+    arguments = [
+        "git",
+        "--fail",
+        "--fail-on-scan-errors",
+        "--exclude-paths",
+        "$(GIT_ROOT)/tools/trufflehog/exclude_paths.txt",
+        "file://$(GIT_ROOT)",
+    ],
+    tags = [
+        "local",
+        "manual",
         "no-cache",
     ],
     toolchains = ["//tools/git/main/bzl:toolchain_resolved"],

@@ -7,8 +7,12 @@
     <file alias="add.png">main/res/add.png</file>
     <file alias="home.png">main/res/home.png</file>
     <file alias="close_windiowWhite.png">main/res/close_windiowWhite.png</file>
-    <file alias="maximize_windowWhite.png">main/res/maximize_windowWhite.png</file>
-    <file alias="minimize_windowWhite.png">main/res/minimize_windowWhite.png</file>
+    <file
+            alias="maximize_windowWhite.png"
+        >main/res/maximize_windowWhite.png</file>
+    <file
+            alias="minimize_windowWhite.png"
+        >main/res/minimize_windowWhite.png</file>
     <file alias="leftArrow.png">main/res/leftArrow.png</file>
     <file alias="rightArrow.png">main/res/rightArrow.png</file>
   </qresource>

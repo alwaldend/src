@@ -25,10 +25,13 @@ secret and infrastructure handling rules.
   tool cache, and temporary file under an ignored, task-specific
   `out/<task>/` directory in the applicable workspace.
 - Point configurable tool scratch directories at `out/<task>/` as well. Do
-  not use `/tmp` for task-owned files merely because they are temporary.
-- Use operating-system temporary storage only when a tool cannot be directed
-  elsewhere. Remove any task-owned residue there before handoff; never delete
-  unrelated files or broad temporary directories.
+  not use `/tmp` for task-owned files merely because they are temporary. Set
+  configurable temporary-directory and cache environment variables to the
+  task's `out/<task>/` directory.
+- Treat operating-system temporary storage, including `/tmp`, as an absolute
+  last resort. Use it only when a tool cannot be directed into the applicable
+  workspace's `out/<task>/` directory. Remove any task-owned residue there
+  before handoff; never delete unrelated files or broad temporary directories.
 
 ## Decision-making
 

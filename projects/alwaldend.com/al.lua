@@ -13,7 +13,7 @@ lib.plugin_call({
     labels = { tf = "main" },
     data = {
         vault_secret = "alwaldend.com/vault1/approles/src_projects_alwaldend_com/tf_backend/tf",
-        vault_secret_mount = "secrets"
+        vault_secret_mount = "secrets",
     },
 })
 
