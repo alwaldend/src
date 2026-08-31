@@ -39,24 +39,12 @@ common:ci --//tools/bazel_configs:ci_flag
 common:agent --color=no
 common:agent --curses=no
 common:agent --lockfile_mode=error
-common:agent --repo_env=TEMP
-common:agent --repo_env=TMP
-common:agent --repo_env=TMPDIR
 build:agent --experimental_ui_max_stdouterr_bytes=1048576
-build:agent --action_env=TEMP
-build:agent --action_env=TMP
-build:agent --action_env=TMPDIR
-build:agent --host_action_env=TEMP
-build:agent --host_action_env=TMP
-build:agent --host_action_env=TMPDIR
 build:agent --show_progress
 build:agent --show_progress_rate_limit=5
 build:agent --show_timestamps
 test:agent --max_test_output_bytes=1048576
 test:agent --nocache_test_results
-test:agent --test_env=TEMP
-test:agent --test_env=TMP
-test:agent --test_env=TMPDIR
 test:agent --test_summary=terse
 # Show extra C/C++ errors
 build --copt="-Wextra"

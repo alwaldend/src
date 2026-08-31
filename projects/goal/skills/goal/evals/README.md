@@ -8,8 +8,14 @@ This suite records the semantic contract for persistent, evidence-backed goal
 pursuit. The required offline Bazel target validates the Promptfoo
 configuration, referenced cases, and staged skill without making a model call.
 The cases cover research routing, workspace-versus-project ownership, explicit
-session focus, stale-update reconciliation, honest acceptance, and bounded
-delegation.
+session focus, stale-update reconciliation, honest acceptance,
+result-prioritized modular work, isolated candidate promotion, and
+critical-path delegation. Concurrency cases require active delegation when a
+long-running goal exposes multiple independently reviewable workstreams,
+require a recorded reason for sequential execution, and reject fanout whose
+only purpose is occupying available slots. The interruption case distinguishes
+turn priority from lifecycle state: questions and additional tasks do not
+silently stop an already-authorized active goal or expand its authority.
 
 A live target is omitted because representative behavior spans multiple turns
 and requires filesystem tools, safe writable fixtures, and fresh-session

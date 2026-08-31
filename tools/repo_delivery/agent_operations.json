@@ -1,0 +1,63 @@
+{
+    "schema": "agents.alwaldend.com/operations/v1alpha1",
+    "owner": "tools.repo-delivery",
+    "provider": "github.forge",
+    "definition": "tools/repo_delivery/main/go/command.go",
+    "operations": [
+        {
+            "id": "repo-delivery.prepare",
+            "selector": "prepare",
+            "classification": "classified",
+            "effects": ["history.write", "source.write", "task_state.write"],
+            "inputs": ["task paths", "message", "expected head"],
+            "outputs": ["commit", "preparation receipt"],
+            "information": ["public"],
+            "credentialUse": "none",
+            "networkUse": "read-only forge inspection",
+            "environmentSelector": "selected Git worktree",
+            "authorityGate": "explicit implementation and task path scope",
+            "preflight": "fresh repository and provider inspection",
+            "verification": "clean exact commit and receipt",
+            "cost": "task-path-bounded",
+            "cacheability": "not_cacheable",
+            "cancellation": "process context"
+        },
+        {
+            "id": "repo-delivery.publish",
+            "selector": "publish",
+            "classification": "classified",
+            "effects": ["credential.consume", "network.read", "remote.write"],
+            "inputs": ["preparation receipt", "validated head"],
+            "outputs": ["remote ref", "pull request"],
+            "information": ["public", "secret"],
+            "credentialUse": "Git and forge credentials",
+            "networkUse": "Git and forge write",
+            "environmentSelector": "receipt-bound repository",
+            "authorityGate": "explicit delivery authority and exact receipt",
+            "preflight": "fresh base, feature ref, and PR expectations",
+            "verification": "remote ref and PR match receipt",
+            "cost": "one guarded publication",
+            "cacheability": "not_cacheable",
+            "cancellation": "process context with guarded retry"
+        },
+        {
+            "id": "repo-delivery.review-mutate",
+            "selector": "review",
+            "classification": "classified",
+            "effects": ["credential.consume", "network.read", "remote.write"],
+            "inputs": ["review inventory", "one-shot mutation receipt"],
+            "outputs": ["comment or thread disposition"],
+            "information": ["public", "secret"],
+            "credentialUse": "forge credentials",
+            "networkUse": "forge write",
+            "environmentSelector": "exact pull request",
+            "authorityGate": "explicit review mutation and exact guards",
+            "preflight": "reinspect bounded review inventory",
+            "verification": "post-mutation inventory",
+            "cost": "one bounded forge mutation",
+            "cacheability": "not_cacheable",
+            "cancellation": "one-shot receipt is consumed on attempt"
+        }
+    ],
+    "removedAliases": []
+}

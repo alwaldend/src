@@ -1,6 +1,8 @@
 ---
 title: Rules Promptfoo Gazelle
 description: Gazelle extension for offline Promptfoo validation tests
+statuses:
+  - active
 languages:
   - go
 tags:

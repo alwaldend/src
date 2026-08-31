@@ -1,9 +1,18 @@
 load("@bazelrc-preset.bzl", "bazelrc_preset")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
 
 bazelrc_preset(
     name = "preset",
     strict = True,
+)
+
+sh_test(
+    name = "agent_environment_test",
+    size = "small",
+    srcs = ["agent_environment_test.sh"],
+    args = ["$(rootpath :project.bazelrc)"],
+    data = ["project.bazelrc"],
 )
 
 docs_filegroup(

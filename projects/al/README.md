@@ -1,6 +1,8 @@
 ---
 title: Al
 description: Al repository tool
+statuses:
+  - active
 languages:
   - bzl
   - go

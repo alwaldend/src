@@ -1,0 +1,63 @@
+{
+    "schema": "agents.alwaldend.com/operations/v1alpha1",
+    "owner": "projects.mcp-cordis",
+    "provider": "cordis.runtime",
+    "definition": "projects/mcp_cordis/internal/mcp.mjs",
+    "operations": [
+        {
+            "id": "cordis.define",
+            "selector": "cordis_define",
+            "classification": "classified",
+            "effects": ["code.execute", "source.write", "task_state.write"],
+            "inputs": ["scoped module source"],
+            "outputs": ["persisted package state"],
+            "information": ["public", "secret", "personal"],
+            "credentialUse": "module-dependent",
+            "networkUse": "module-dependent",
+            "environmentSelector": "explicit project or task/run scope",
+            "authorityGate": "scope-specific source write",
+            "preflight": "syntax and path validation",
+            "verification": "persisted digest and activation state",
+            "cost": "bounded source and activation",
+            "cacheability": "not_cacheable",
+            "cancellation": "Fiber lifecycle"
+        },
+        {
+            "id": "cordis.remove",
+            "selector": "cordis_remove",
+            "classification": "classified",
+            "effects": ["source.write", "task_state.write"],
+            "inputs": ["scoped package identity"],
+            "outputs": ["absence result"],
+            "information": ["public", "secret", "personal"],
+            "credentialUse": "none",
+            "networkUse": "none",
+            "environmentSelector": "explicit project or task/run scope",
+            "authorityGate": "scope-specific destructive write",
+            "preflight": "resolve exact package and drain Fiber",
+            "verification": "entry and module absence",
+            "cost": "one package",
+            "cacheability": "not_cacheable",
+            "cancellation": "Fiber lifecycle"
+        },
+        {
+            "id": "cordis.promote",
+            "selector": "cordis_promote",
+            "classification": "classified",
+            "effects": ["code.execute", "source.write", "task_state.write"],
+            "inputs": ["task-scoped module", "project target"],
+            "outputs": ["project package"],
+            "information": ["public", "secret", "personal"],
+            "credentialUse": "module-dependent",
+            "networkUse": "module-dependent",
+            "environmentSelector": "task/run source and project destination",
+            "authorityGate": "explicit reusable-source promotion",
+            "preflight": "source and destination validation",
+            "verification": "project digest and activation state",
+            "cost": "one package",
+            "cacheability": "not_cacheable",
+            "cancellation": "Fiber lifecycle"
+        }
+    ],
+    "removedAliases": []
+}

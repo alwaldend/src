@@ -31,11 +31,17 @@ agent configuration. The runner resolves `bazel` from `PATH` and replaces
 itself with that process, so signals and the final exit status are not mediated
 by another wrapper process.
 
-The runner finds the nearest Bazel workspace, creates `out/tmp` within it, and
-sets `TMPDIR`, `TMP`, and `TEMP` to that absolute path. The agent Bazel
-configuration propagates the variables to repository rules, build actions, and
-tests. This keeps configurable temporary output in the applicable workspace
-rather than in operating-system temporary storage.
+The runner does not create or inject a host temporary directory. Bazel actions
+use declared outputs and Bazel-managed temporary storage, and tests use their
+test temporary-directory contract. Repository-updating host tools that need
+scratch must accept or derive an explicit task/run path under `out/<task>/`
+instead of relying on ambient `TMPDIR`, `TMP`, or `TEMP` values propagated to
+the whole build.
+
+`bazel_agent doctor --workspace-root PATH --task-scratch out/<task>/<run>` is
+a read-only, bounded JSON diagnostic. It reports runner and built-source
+identity, Bazelisk pins, platform, rc/profile composition, task scratch
+classification, and stale host-install state without dumping the environment.
 
 ## Installation
 

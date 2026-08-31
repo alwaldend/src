@@ -1,0 +1,97 @@
+- description: Uses background pinned Blender for a read-only render
+  vars:
+    request: >-
+      Render a tracked .blend to a PNG for inspection without changing the
+      source. There is no interactive or artistic-editing requirement.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response prefers an existing package blender_binary
+        or //tools/blender:blender through bazel-agent; uses background,
+        factory startup, disabled auto-execution, and a Python failure code;
+        writes scripts, renders, and manifests under task-owned out/; does not
+        save the tracked source or launch GUI/MCP; and inspects the final PNG.
+        Otherwise fail.
+- description: Uses a settled foreground context only when required
+  vars:
+    request: >-
+      Apply a native viewport operator that requires VIEW_3D context to an
+      isolated candidate copy. A Blender MCP client is configured, but no
+      running Blender session has been established.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response first probes MCP, uses the repository-pinned
+        foreground Blender only after proving the UI context is necessary,
+        isolates config and files under out/, separates workspace transition,
+        settled-state verification, object/mode/tool preparation, and operator
+        execution across calls, checks poll in a complete current context,
+        verifies an operation-specific pre/post effect beyond FINISHED, and
+        cleans up the task listener/process. Otherwise fail.
+- description: Preserves an existing asset through candidate and reopen gates
+  vars:
+    request: >-
+      Make a scripted change to a user-supplied .blend, save the result, and
+      export it. The original must remain recoverable and unchanged.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response hashes the source, mutates an explicit copy
+        under out/, directs backups/caches/exports there, saves to an explicit
+        candidate path, clean-reopens that exact candidate with pinned
+        background Blender and auto-execution disabled, verifies material
+        scene and export postconditions, rehashes the source, and does not
+        infer permission to replace a canonical asset. Otherwise fail.
+- description: Composes operational and reference-fidelity ownership
+  vars:
+    request: >-
+      Revise a Blender character so fixed front, side, and rear renders match
+      supplied photographs, then provide the final model and renders.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses repo-blender for pinned execution,
+        scratch containment, source safety, saving, reopening, and rendering;
+        uses blender-reference-fidelity for landmarks, calibrated comparisons,
+        regression views, and visual acceptance; and does not introduce
+        subject-specific modeling or sculpt recipes as generic repo-blender
+        policy. Otherwise fail.
+- description: Routes a Blender pin upgrade to build and dependency owners
+  vars:
+    request: >-
+      Upgrade the Blender version pinned by this repository and update its
+      Bazel toolchain integration.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response routes acquisition and integrity changes to
+        repo-external-dependency, Bazel mechanics to repo-bazel and
+        bazel-agent, reads rather than assumes the current pin, and treats
+        repo-blender only as operational smoke-test guidance. It must not use
+        a host Blender, install an unrelated copy, or launch Blender merely to
+        choose a version. Otherwise fail.
+- description: Uses an explicitly requested Flatpak only as a live MCP host
+  vars:
+    request: >-
+      I explicitly want the already-installed Blender Flatpak used for a
+      persistent live MCP editing loop. The repository-pinned Blender remains
+      available for batch verification, and the Flatpak might be older.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response inspects and records the installed Flatpak
+        version, uses it as one disposable interactive mutation owner rather
+        than the deliverable toolchain, enables online access for a loopback
+        MCP listener, probes and verifies the live session before mutation,
+        and does not install an add-on or persist preference changes. If it is
+        older than the pinned or authoring Blender, it must not directly open
+        and overwrite the newer source; it must use an empty or isolated
+        import/append boundary, save immutable task-owned snapshots under
+        out/, and require pinned background clean-reopen and pixel gates before
+        trust. Otherwise fail.

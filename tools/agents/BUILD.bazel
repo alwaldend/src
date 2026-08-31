@@ -1,0 +1,12 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+exports_files([
+    "declarations/registry.json",
+    "declarations/resource_baseline.json",
+])
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//:__subpackages__"],
+)

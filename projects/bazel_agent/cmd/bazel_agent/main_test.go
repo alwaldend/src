@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"strings"
 	"testing"
 )
 
@@ -83,27 +84,6 @@ func TestBazelArguments(t *testing.T) {
 }
 
 func TestRunReplacesProcess(t *testing.T) {
-	workspace := t.TempDir()
-	if err := os.WriteFile(
-		filepath.Join(workspace, "MODULE.bazel"),
-		[]byte("module(name = \"test\")\n"),
-		0o644,
-	); err != nil {
-		t.Fatal(err)
-	}
-	oldWorkingDirectory, err := os.Getwd()
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err := os.Chdir(workspace); err != nil {
-		t.Fatal(err)
-	}
-	t.Cleanup(func() {
-		if err := os.Chdir(oldWorkingDirectory); err != nil {
-			t.Errorf("restore working directory: %v", err)
-		}
-	})
-
 	environment := []string{
 		"PATH=/bin",
 		"TEMP=/old/temp",
@@ -112,7 +92,7 @@ func TestRunReplacesProcess(t *testing.T) {
 	}
 	var gotPath string
 	var gotArgs, gotEnvironment []string
-	err = run(
+	err := run(
 		[]string{"test", "//pkg:all"},
 		environment,
 		func(name string) (string, error) {
@@ -144,45 +124,14 @@ func TestRunReplacesProcess(t *testing.T) {
 	if !reflect.DeepEqual(gotArgs, wantArgs) {
 		t.Fatalf("args = %q, want %q", gotArgs, wantArgs)
 	}
-	tmpDirectory := filepath.Join(workspace, temporaryDirectory)
-	wantEnvironment := []string{
-		"PATH=/bin",
-		"TMPDIR=" + tmpDirectory,
-		"TMP=" + tmpDirectory,
-		"TEMP=" + tmpDirectory,
-	}
-	if !reflect.DeepEqual(gotEnvironment, wantEnvironment) {
-		t.Fatalf("environment = %q, want %q", gotEnvironment, wantEnvironment)
-	}
-	if info, err := os.Stat(tmpDirectory); err != nil || !info.IsDir() {
-		t.Fatalf("temporary directory stat = %v, %v; want directory", info, err)
+	if !reflect.DeepEqual(gotEnvironment, environment) {
+		t.Fatalf("environment = %q, want unchanged %q", gotEnvironment, environment)
 	}
 }
 
 func TestRunReportsLookupFailure(t *testing.T) {
-	workspace := t.TempDir()
-	if err := os.WriteFile(
-		filepath.Join(workspace, "MODULE.bazel"),
-		[]byte("module(name = \"test\")\n"),
-		0o644,
-	); err != nil {
-		t.Fatal(err)
-	}
-	oldWorkingDirectory, err := os.Getwd()
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err := os.Chdir(workspace); err != nil {
-		t.Fatal(err)
-	}
-	t.Cleanup(func() {
-		if err := os.Chdir(oldWorkingDirectory); err != nil {
-			t.Errorf("restore working directory: %v", err)
-		}
-	})
-
 	wantErr := errors.New("not found")
-	err = run(
+	err := run(
 		[]string{"build", "//..."},
 		nil,
 		func(string) (string, error) { return "", wantErr },
@@ -196,40 +145,46 @@ func TestRunReportsLookupFailure(t *testing.T) {
 	}
 }
 
-func TestFindWorkspaceUsesNearestModule(t *testing.T) {
-	t.Parallel()
+func TestBuildDoctorReportIsBoundedAndDetectsStaleInstall(t *testing.T) {
 	root := t.TempDir()
-	nestedWorkspace := filepath.Join(root, "projects", "nested")
-	start := filepath.Join(nestedWorkspace, "package")
-	for _, directory := range []string{root, nestedWorkspace} {
-		if err := os.MkdirAll(directory, 0o755); err != nil {
-			t.Fatal(err)
-		}
-		if err := os.WriteFile(
-			filepath.Join(directory, "MODULE.bazel"),
-			[]byte("module(name = \"test\")\n"),
-			0o644,
-		); err != nil {
-			t.Fatal(err)
-		}
-	}
-	if err := os.MkdirAll(start, 0o755); err != nil {
+	if err := os.WriteFile(filepath.Join(root, ".bazeliskrc"), []byte(
+		"USE_BAZEL_VERSION=8.3.1\nBAZELISK_VERIFY_SHA256=abc123\n",
+	), 0o600); err != nil {
 		t.Fatal(err)
 	}
-
-	got, err := findWorkspace(start)
-	if err != nil {
-		t.Fatalf("findWorkspace() error = %v", err)
+	runner := filepath.Join(root, "installed")
+	if err := os.WriteFile(runner, []byte("installed"), 0o700); err != nil {
+		t.Fatal(err)
 	}
-	if got != nestedWorkspace {
-		t.Fatalf("findWorkspace() = %q, want %q", got, nestedWorkspace)
+	source := filepath.Join(root, "bazel-bin", "projects", "bazel_agent", "cmd", "bazel_agent", "bazel_agent_", "bazel_agent")
+	if err := os.MkdirAll(filepath.Dir(source), 0o700); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(source, []byte("built"), 0o700); err != nil {
+		t.Fatal(err)
+	}
+	report, err := buildDoctorReport(root, "out/task-one/run-one", runner, "/tools/bazel")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if report.Schema != "agents.alwaldend.com/bazel-agent-doctor/v1alpha1" ||
+		report.Source.StaleInstall == nil || !*report.Source.StaleInstall {
+		t.Fatalf("unexpected doctor report: %#v", report)
+	}
+	if !report.Scratch.Namespaced || report.Scratch.Reason != "" {
+		t.Fatalf("scratch = %#v, want namespaced", report.Scratch)
+	}
+	if strings.Contains(strings.Join(report.RCFiles, " "), root) {
+		t.Fatalf("rc composition leaked fixture root: %#v", report.RCFiles)
 	}
 }
 
-func TestFindWorkspaceReportsMissingModule(t *testing.T) {
-	t.Parallel()
-	_, err := findWorkspace(string(filepath.Separator))
-	if err == nil {
-		t.Fatal("findWorkspace() error = nil, want an error")
+func TestTaskScratchRejectsSharedOrEscapingPaths(t *testing.T) {
+	root := t.TempDir()
+	for _, candidate := range []string{"out", "out/shared", "../outside"} {
+		got := taskScratch(root, candidate)
+		if got.Namespaced || got.Reason == "" {
+			t.Fatalf("taskScratch(%q) = %#v, want classified refusal", candidate, got)
+		}
 	}
 }

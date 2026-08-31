@@ -1,0 +1,47 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalCriteria
+metadata:
+  name: agent-system-phase-1
+  resourceVersion: "2"
+  generation: 2
+  creationTimestamp: "2026-08-31T17:29:23.202223273Z"
+spec:
+  goalRef:
+    name: agent-system-phase-1
+  revision: 2
+  items:
+  - criterionID: shared-contracts
+    revision: 1
+    required: true
+    statement: Shared v1alpha1 contracts round-trip deterministically and reject malformed identity, unknown effectful operations, widened authority, and incompatible information flows.
+    evidenceMethod: Run focused schema round-trip and rejection tests.
+  - criterionID: registered-universe
+    revision: 1
+    required: true
+    statement: A cheap report-only completeness check covers the closed registered agent-reachable universe and names missing or unclassified entries.
+    evidenceMethod: Run the registered-universe completeness test.
+  - criterionID: information-policy
+    revision: 1
+    required: true
+    statement: Public, secret, and personal-information classes remain independent from repository visibility, build-consumer, and publication policy axes.
+    evidenceMethod: Run information-flow fixtures and inspect owner policy.
+  - criterionID: scratch-isolation
+    revision: 1
+    required: true
+    statement: Task and run scratch is namespaced; concurrent tasks do not collide and stale workers fail expected-revision publication.
+    evidenceMethod: Run concurrent namespace and stale-publication tests.
+  - criterionID: safe-operations
+    revision: 1
+    required: true
+    statement: Every removed mutating alias has a safe explicit replacement and provider mutation ownership is unambiguous.
+    evidenceMethod: Inspect operation declarations and run negative fixtures.
+  - criterionID: resource-baseline
+    revision: 1
+    required: true
+    statement: A revision-bound Phase 1 baseline records numeric ceilings for correctness, unsafe actions, calls, context size, cold and warm time, universe coverage, and reused checks without estimating unavailable measurements.
+    evidenceMethod: Validate the baseline fixture and its recorded ceilings.
+  - criterionID: exact-candidate-validation
+    revision: 1
+    required: true
+    statement: All affected packages, schemas, declarations, generated checks, documentation, and goal records pass focused validation against the exact delivered candidate.
+    evidenceMethod: Inspect the candidate-bound validation evidence.

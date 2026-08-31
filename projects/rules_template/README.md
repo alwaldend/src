@@ -1,6 +1,8 @@
 ---
 title: Rules template
 description: Rules to template files
+statuses:
+  - active
 languages:
   - bzl
   - go

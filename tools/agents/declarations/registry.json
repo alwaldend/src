@@ -1,0 +1,346 @@
+{
+    "schema": "agents.alwaldend.com/phase1-registry/v1alpha1",
+    "criteriaRevision": 3,
+    "authorities": [
+        {
+            "id": "repository.bazel-operations",
+            "kind": "bazel_operations",
+            "source": "tools/terraform/agent_operations.json"
+        },
+        {
+            "id": "repository.direct-binaries",
+            "kind": "direct_binaries",
+            "source": "tools/agents/declarations/registry.json"
+        },
+        {
+            "id": "repository.goals",
+            "kind": "goals",
+            "source": "projects/agents/goals"
+        },
+        {
+            "id": "repository.projects",
+            "kind": "projects",
+            "source": "projects"
+        },
+        {
+            "id": "repository.runtime-tools",
+            "kind": "runtime_tools",
+            "source": "projects/mcp_cordis/internal/mcp.mjs"
+        },
+        {
+            "id": "repository.skills",
+            "kind": "skills",
+            "source": ".agents/skills"
+        },
+        {
+            "id": "repository.workspaces",
+            "kind": "workspaces",
+            "source": "MODULE.bazel"
+        }
+    ],
+    "skills": [
+        {
+            "id": "answer-question",
+            "owner": "projects/agents",
+            "layer": "procedure",
+            "activation": "substantive user questions",
+            "exclusions": ["inert quoted questions"],
+            "capabilityRefs": ["source.read"],
+            "dependencies": [],
+            "conflicts": [],
+            "providerRequirements": [],
+            "contextCost": "medium",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "bazel-agent",
+            "owner": "projects/agents",
+            "layer": "execution",
+            "activation": "agent-executed Bazel commands",
+            "exclusions": ["non-Bazel host commands"],
+            "capabilityRefs": ["code.execute"],
+            "dependencies": [],
+            "conflicts": [],
+            "providerRequirements": ["bazelisk"],
+            "contextCost": "small",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "bazel-nested-module",
+            "owner": "projects/agents",
+            "layer": "procedure",
+            "activation": "standalone nested Bzlmod modules",
+            "exclusions": ["ordinary Bazel packages"],
+            "capabilityRefs": ["source.write"],
+            "dependencies": ["bazel-agent", "repo-bazel"],
+            "conflicts": [],
+            "providerRequirements": [],
+            "contextCost": "medium",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "bazel-rules-skill",
+            "owner": "projects/agents",
+            "layer": "procedure",
+            "activation": "repository skill packaging",
+            "exclusions": ["personal untracked skills"],
+            "capabilityRefs": ["source.write"],
+            "dependencies": ["bazel-agent", "repo-bazel"],
+            "conflicts": [],
+            "providerRequirements": [],
+            "contextCost": "medium",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "blender-reference-fidelity",
+            "owner": "projects/agents",
+            "layer": "procedure",
+            "activation": "reference-controlled Blender modeling",
+            "exclusions": ["freeform designs"],
+            "capabilityRefs": ["code.execute", "source.write"],
+            "dependencies": [],
+            "conflicts": [],
+            "providerRequirements": ["blender"],
+            "contextCost": "large",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "decision-review",
+            "owner": "projects/agents",
+            "layer": "review",
+            "activation": "material decisions",
+            "exclusions": ["routine reversible choices"],
+            "capabilityRefs": ["source.read"],
+            "dependencies": [],
+            "conflicts": [],
+            "providerRequirements": [],
+            "contextCost": "medium",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "full-repo-check",
+            "owner": "projects/agents",
+            "layer": "validation",
+            "activation": "complete repository health checks",
+            "exclusions": ["ordinary package checks"],
+            "capabilityRefs": ["code.execute"],
+            "dependencies": ["bazel-agent"],
+            "conflicts": [],
+            "providerRequirements": ["bazelisk"],
+            "contextCost": "large",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "git-rebase-remote",
+            "owner": "projects/agents",
+            "layer": "delivery",
+            "activation": "task-owned feature rebase",
+            "exclusions": ["shared or human-owned history"],
+            "capabilityRefs": ["history.write", "network.read", "remote.write"],
+            "dependencies": [],
+            "conflicts": [],
+            "providerRequirements": ["git"],
+            "contextCost": "medium",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "goal",
+            "owner": "projects/goal",
+            "layer": "coordination",
+            "activation": "durable multi-step work",
+            "exclusions": ["simple one-step tasks"],
+            "capabilityRefs": ["task_state.write"],
+            "dependencies": ["bazel-agent"],
+            "conflicts": [],
+            "providerRequirements": [],
+            "contextCost": "large",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "host-bot-diagnostics",
+            "owner": "projects/agents",
+            "layer": "diagnostics",
+            "activation": "host bot audits",
+            "exclusions": ["infrastructure implementation"],
+            "capabilityRefs": ["network.read", "source.read"],
+            "dependencies": [],
+            "conflicts": [],
+            "providerRequirements": ["host-bot"],
+            "contextCost": "medium",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "project-layout",
+            "owner": "projects/agents",
+            "layer": "policy",
+            "activation": "source placement and moves",
+            "exclusions": ["unchanged existing layout"],
+            "capabilityRefs": ["source.read"],
+            "dependencies": [],
+            "conflicts": [],
+            "providerRequirements": [],
+            "contextCost": "small",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "repo-ansible",
+            "owner": "projects/agents",
+            "layer": "procedure",
+            "activation": "repository Ansible changes",
+            "exclusions": ["non-Ansible infrastructure"],
+            "capabilityRefs": ["code.execute", "source.write"],
+            "dependencies": ["bazel-agent", "repo-bazel"],
+            "conflicts": [],
+            "providerRequirements": ["ansible"],
+            "contextCost": "medium",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "repo-bazel",
+            "owner": "projects/agents",
+            "layer": "procedure",
+            "activation": "Bazel graph changes and validation",
+            "exclusions": ["non-Bazel source-only edits"],
+            "capabilityRefs": ["code.execute", "source.write"],
+            "dependencies": ["bazel-agent"],
+            "conflicts": [],
+            "providerRequirements": ["bazelisk"],
+            "contextCost": "medium",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "repo-blender",
+            "owner": "projects/agents",
+            "layer": "procedure",
+            "activation": "repository Blender assets and renders",
+            "exclusions": ["non-Blender image edits"],
+            "capabilityRefs": ["code.execute", "source.write"],
+            "dependencies": ["bazel-agent", "repo-bazel"],
+            "conflicts": [],
+            "providerRequirements": ["blender"],
+            "contextCost": "large",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "repo-delivery",
+            "owner": "projects/agents",
+            "layer": "delivery",
+            "activation": "feature publication and PR review",
+            "exclusions": ["read-only reviews"],
+            "capabilityRefs": ["history.write", "network.read", "remote.write"],
+            "dependencies": ["bazel-agent"],
+            "conflicts": [],
+            "providerRequirements": ["github"],
+            "contextCost": "large",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "repo-external-dependency",
+            "owner": "projects/agents",
+            "layer": "procedure",
+            "activation": "external dependency pins",
+            "exclusions": ["first-party versioning"],
+            "capabilityRefs": ["network.read", "source.write"],
+            "dependencies": ["bazel-agent", "repo-bazel"],
+            "conflicts": [],
+            "providerRequirements": [],
+            "contextCost": "medium",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "repo-gazelle-plugin",
+            "owner": "projects/agents",
+            "layer": "procedure",
+            "activation": "Gazelle language plugins",
+            "exclusions": ["ordinary generated BUILD updates"],
+            "capabilityRefs": ["code.execute", "source.write"],
+            "dependencies": ["bazel-agent", "repo-bazel"],
+            "conflicts": [],
+            "providerRequirements": ["gazelle"],
+            "contextCost": "medium",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "repo-secrets",
+            "owner": "projects/agents",
+            "layer": "security",
+            "activation": "credentials and secret routing",
+            "exclusions": ["ordinary public configuration"],
+            "capabilityRefs": ["credential.consume", "source.write"],
+            "dependencies": [],
+            "conflicts": [],
+            "providerRequirements": ["vault"],
+            "contextCost": "large",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "repo-terraform",
+            "owner": "projects/agents",
+            "layer": "procedure",
+            "activation": "repository Terraform changes",
+            "exclusions": ["non-Terraform infrastructure"],
+            "capabilityRefs": ["code.execute", "source.write"],
+            "dependencies": ["bazel-agent", "repo-bazel"],
+            "conflicts": [],
+            "providerRequirements": ["terraform", "vault"],
+            "contextCost": "large",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "spellcheck",
+            "owner": "projects/agents",
+            "layer": "procedure",
+            "activation": "prose proofreading and rewriting",
+            "exclusions": ["translation-only requests", "code linting"],
+            "capabilityRefs": ["source.read", "source.write"],
+            "dependencies": [],
+            "conflicts": [],
+            "providerRequirements": [],
+            "contextCost": "small",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "versioning",
+            "owner": "tools/versioning",
+            "layer": "release",
+            "activation": "first-party repository releases",
+            "exclusions": ["third-party dependency versions"],
+            "capabilityRefs": ["history.write", "source.read"],
+            "dependencies": ["bazel-agent"],
+            "conflicts": [],
+            "providerRequirements": ["git"],
+            "contextCost": "medium",
+            "evaluationMaturity": "checked"
+        }
+    ],
+    "runtimeTools": [
+        {"id": "cordis_define", "owner": "projects/mcp_cordis", "classification": "classified"},
+        {"id": "cordis_inspect", "owner": "projects/mcp_cordis", "classification": "classified"},
+        {"id": "cordis_invoke", "owner": "projects/mcp_cordis", "classification": "classified"},
+        {"id": "cordis_list", "owner": "projects/mcp_cordis", "classification": "classified"},
+        {"id": "cordis_list_tools", "owner": "projects/mcp_cordis", "classification": "classified"},
+        {"id": "cordis_promote", "owner": "projects/mcp_cordis", "classification": "classified"},
+        {"id": "cordis_reload", "owner": "projects/mcp_cordis", "classification": "classified"},
+        {"id": "cordis_remove", "owner": "projects/mcp_cordis", "classification": "classified"},
+        {"id": "cordis_run", "owner": "projects/mcp_cordis", "classification": "classified"},
+        {"id": "cordis_stop", "owner": "projects/mcp_cordis", "classification": "classified"}
+    ],
+    "operationFiles": [
+        "projects/goal/agent_operations.json",
+        "projects/mcp_cordis/agent_operations.json",
+        "tools/repo_delivery/agent_operations.json",
+        "tools/terraform/agent_operations.json"
+    ],
+    "directBinaries": [
+        {"id": "bazel-agent", "owner": "projects/bazel_agent", "path": "projects/bazel_agent/cmd/bazel_agent/main.go", "classification": "classified"},
+        {"id": "goal", "owner": "projects/goal", "path": "projects/goal/cmd/goal/main.go", "classification": "classified"},
+        {"id": "mcp-cordis", "owner": "projects/mcp_cordis", "path": "projects/mcp_cordis/cmd/mcp_cordis/main.mjs", "classification": "classified"},
+        {"id": "repo-delivery", "owner": "tools/repo_delivery", "path": "tools/repo_delivery/main/go/main.go", "classification": "classified"}
+    ],
+    "generatedArtifacts": [
+        {"path": ".agents/skills/repo-blender", "owner": "projects/agents/skills/repo-blender", "formatter": "relative symlink", "checkedOutput": "//:write_skill_links_test", "updater": "//:write_skill_links"},
+        {"path": "tools/bazelrc/preset.bazelrc", "owner": "tools/bazelrc", "formatter": "bazelrc-preset", "checkedOutput": "//tools/bazelrc:preset.update_test", "updater": "//tools/bazelrc:preset.update"}
+    ],
+    "terraformDefinitions": "tools/terraform/defs.bzl",
+    "cordisMcpSource": "projects/mcp_cordis/internal/mcp.mjs"
+}

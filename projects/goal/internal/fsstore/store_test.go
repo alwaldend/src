@@ -127,6 +127,36 @@ func TestTwoGoalIsolationAndBoundedCatalog(t *testing.T) {
 	}
 }
 
+func TestGoalWithoutTrackedAttemptsDirectoryValidatesAndStartsAttempt(t *testing.T) {
+	store, root := newTestStore(t)
+	goalDir := initTestGoal(t, store, root, "checked-out-goal")
+	plan := filepath.Join(root, "out", "task", "plan.md")
+	writeTestFile(t, plan, "# Checked-out plan\n")
+	attemptsDir := filepath.Join(goalDir, "attempts")
+	if err := os.Remove(attemptsDir); err != nil {
+		t.Fatal(err)
+	}
+	if err := store.ValidateGoal(goalDir); err != nil {
+		t.Fatalf("ValidateGoal() without empty attempts directory: %v", err)
+	}
+	if _, err := store.Checkpoint(CheckpointOptions{
+		GoalDir: goalDir, ExpectedResourceVersion: "1", AttemptID: "attempt-1",
+		PlanFile: filepath.Join("out", "task", "plan.md"),
+	}); err != nil {
+		t.Fatalf("Checkpoint() did not recreate attempts directory: %v", err)
+	}
+	if !pathExists(filepath.Join(attemptsDir, "attempt-1", "attempt.yaml")) {
+		t.Fatal("Checkpoint() did not publish the first attempt")
+	}
+	content, err := os.ReadFile(filepath.Join(attemptsDir, "attempt-1", "plan.md"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	if string(content) != "# Checked-out plan\n" {
+		t.Fatalf("unexpected workspace-relative plan: %q", content)
+	}
+}
+
 func TestFreshStoreResumesExplicitSessionWithPortableReference(t *testing.T) {
 	store, root := newTestStore(t)
 	goalDir := initTestGoal(t, store, root, "resumable-goal")

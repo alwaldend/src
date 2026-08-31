@@ -1,6 +1,8 @@
 ---
 title: Rules Promptfoo
 description: A pinned Bazel runner for Promptfoo skill evaluations
+statuses:
+  - active
 languages:
   - bzl
   - javascript

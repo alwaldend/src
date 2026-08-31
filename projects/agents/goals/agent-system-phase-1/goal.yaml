@@ -1,0 +1,40 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: Goal
+metadata:
+  name: agent-system-phase-1
+  resourceVersion: "14"
+  generation: 2
+  creationTimestamp: "2026-08-31T17:29:23.202223273Z"
+  annotations:
+    goals.alwaldend.com/local-owner-root: projects/agents
+spec:
+  title: Normalize agent semantics and declare safety contracts
+  scope: project
+  retention:
+    policy: durable
+  relationships:
+    dependsOnGoalRefs:
+    - name: repo-agent-system
+    supersedesGoalRefs: []
+status:
+  lifecycleGeneration: 8
+  outcome: achieved
+  execution: paused
+  activeAttemptID: ""
+  acceptedAttemptID: phase1-completion-001
+  acceptedResultDigest: sha256:36c87730a5138128580e70fd47fdca5c13b2055d7fa025605dcd2316056a2989
+  criteriaRevision: 3
+  promotion:
+    sourceScope: ""
+    sourceGeneration: 0
+    sourceLifecycleGeneration: 0
+    sourceCriteriaRevision: 0
+    sourceCriteriaDigest: ""
+    sourceStateDigest: ""
+    sourceDigest: ""
+    promotedAt: ""
+  migration:
+    sourceFormat: ""
+    sourceDigest: ""
+    migratedAt: ""
+  observedAt: "2026-08-31T19:46:27.03948669Z"
