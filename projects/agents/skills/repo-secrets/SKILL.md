@@ -8,11 +8,16 @@ description: Safely add, route, rotate, or review secrets and authentication in 
 ## Follow the repository trust boundary
 
 - Store secret values in Vault, never in Git, Terraform source, Ansible vars,
-  command history, test fixtures, logs, screenshots, or PR text.
+  command history, test fixtures, ordinary logs, screenshots, or PR text. An
+  unavoidable secret-bearing raw artifact follows the task-private temporary
+  handling below and is not durable evidence.
 - Commit only secret **references**: Vault mount/path, environment variable name,
   plugin label, policy, role, or non-sensitive metadata.
-- Treat `infra/` as private infrastructure material as required by
-  `infra/README.md`; do not publish or reuse it as build input.
+- Treat checked-in `infra/` source as public repository content while
+  preserving its repository-internal target visibility, artifact-publication,
+  and production-build dependency boundaries. Decrypted, generated, or live
+  artifacts are not a separate confidentiality class, but inspect them before
+  disclosure because they can contain secrets or personal information.
 - Treat an unexpected credential already in the tree as compromised. Do not
   repeat it in output. Stop exposing it, preserve evidence minimally, and tell
   the user it needs revocation/rotation.
@@ -33,11 +38,15 @@ paths aligned with the component label; do not silently share a broader role.
 
 ## Prevent disclosure while working
 
-- Do not print environment variables, rendered templates, Terraform state,
-  Vault responses, token files, or generated credentials.
+- Do not print secrets or personal information. Do not print whole environment
+  dumps, rendered templates, Terraform state, Vault responses, token files, or
+  generated credentials without review; select or structurally summarize only
+  fields proven not to contain prohibited content.
 - Use placeholders in examples. Prefer stdin or `@file` input over a literal
-  value on a command line, and keep temporary secret files outside the repo with
-  restrictive permissions.
+  value on a command line. Keep temporary secret files outside tracked or
+  committable source. When a file is unavoidable, use ignored task-private
+  `out/<task>/` storage with restrictive permissions, minimum lifetime, and
+  explicit cleanup; never stage it or promote it as evidence.
 - Do not run Vault writes, token generation, unseal, apply, or deployment merely
   to test a code change.
 - Review diffs with `git diff --check` and a targeted search for newly introduced

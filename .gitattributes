@@ -108,6 +108,10 @@
 # rewritten by general-purpose formatters.
 data/** rules-lint-ignored=true
 third_party/** rules-lint-ignored=true
+# Versioned records under the canonical agent-goal owner are tool-generated
+# or digest-bound. Validate and regenerate them through the goal workflow;
+# generic Markdown/YAML formatting can invalidate exact evidence.
+projects/agents/goals/*/** rules-lint-ignored=true
 **/MODULE.bazel.lock rules-lint-ignored=true
 **/pnpm-lock.yaml rules-lint-ignored=true
 **/go.sum rules-lint-ignored=true

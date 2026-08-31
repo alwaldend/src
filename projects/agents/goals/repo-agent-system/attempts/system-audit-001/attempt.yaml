@@ -1,0 +1,71 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: system-audit-001
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-08-31T13:59:23.452162628Z"
+spec:
+  goalRef:
+    name: repo-agent-system
+  goalGeneration: 1
+  lifecycleGeneration: 4
+  criteriaRevision: 2
+  criteriaDigest: sha256:2ac2db1242f5d3358e433b3499da5a622d06bdec49bfa690dd34cf3205e28f34
+  goalStateDigest: sha256:193be5b38881faebc349f9ae1d273e24fac5d5925a9a4402b24706394ffaeb3a
+  workType: investigation
+status:
+  state: closed
+  closedAt: "2026-08-31T14:40:49.580597774Z"
+  artifacts:
+    planDigest: sha256:c9dd0ae7b95b117553db3b5bd6485fab592c70a2b3b5994561fb629134b7e74f
+    resultDigest: sha256:75deb041eabc005a56afcd32a47354017a17dc6234e23bf2f14f98667b4cd97d
+    evidence:
+    - path: evidence/audit-synthesis.md
+      digest: sha256:e06dc491685ab7c0a025fde392d5a979626823dd6c9224aaa5f05d1bd0583e77
+    - path: evidence/build_control.md
+      digest: sha256:587b866ab22838def523c7ed2e5df966dbb71f5cbe5f91dc73b81d6bcf01b8fc
+    - path: evidence/delivery.md
+      digest: sha256:718f816f686c7e512076166d616590bc031ece58742470ff97d611b8b6cc38bc
+    - path: evidence/entrypoint.md
+      digest: sha256:6d608485e1dc75f40232fb32bf617327cb2510179abdd5d526790f66c5b2421b
+    - path: evidence/goals.md
+      digest: sha256:c50538e8341027142a804924c37a73cffaaecdf87ac0028926197ed2f5139f51
+    - path: evidence/runtime.md
+      digest: sha256:42643b02b875146d8fd7c7580f5a1dfc8cd4c73250902ec263c491f9cc497409
+    - path: evidence/safety.md
+      digest: sha256:a963222be2325cc8536c83b4143658f4c3f6dad865ef60c0ba46a3c82e9a27e8
+    - path: evidence/skills.md
+      digest: sha256:5c01950cd0562306fc07c3a1b2220cc32ffce1c3c54892113957d3fc28641b57
+    - path: evidence/topology.md
+      digest: sha256:f15f07927226947daeaef1a0d122d575c1311bb16626689efa5805f0dfcaa5dc
+  review:
+    decision: refine
+    criteria:
+    - criterionID: abstraction-tower
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: closed-learning-loop
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: current-state-audit
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/audit-synthesis.md
+      - result.md
+    - criterionID: prioritized-roadmap
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: repository-validation
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: zero-context-discovery
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-08-31T14:40:49.580597774Z"

@@ -1,6 +1,6 @@
 ---
 title: Agents
-description: Repository-owned agent skills and evaluation assets
+description: Repository-wide agent-system architecture, goals, and skills
 statuses:
   - active
 languages:
@@ -11,10 +11,43 @@ tags:
   - skills
 ---
 
-This project owns repository-wide Codex skills and their development-time
-evaluation assets. Product-specific skills live with their owning project at
-`projects/<project>/skills/<name>`. Every canonical skill is packaged as a
-`skill_library` in its owning directory.
+# Repository agent system
+
+This project owns the repository-wide agent-system contract, its durable
+improvement goals, and reusable cross-repository skills. It does not centralize
+component facts or runtime state: each fact remains canonical at its natural
+owner, and system-wide views are derived projections.
+
+## Start here
+
+| Document                                                                   | Purpose                                                  |
+| -------------------------------------------------------------------------- | -------------------------------------------------------- |
+| [Current state](docs/current-state.md)                                     | Evidence-backed baseline and material seams              |
+| [Architecture](docs/architecture.md)                                       | Canonical abstraction tower, authorities, and invariants |
+| [Roadmap](docs/roadmap.md)                                                 | Dependency-ordered future work and acceptance signals    |
+| [Durable goals](goals/)                                                    | Versioned attempts, evidence, and acceptance state       |
+| [Root agent guide](https://github.com/alwaldend/src/blob/master/AGENTS.md) | Current repository-wide operating policy                 |
+
+The current-state document is a dated snapshot. The architecture defines the
+intended composition contract. The roadmap is not a claim that proposed
+interfaces already exist.
+
+## Ownership boundaries
+
+- `docs/` owns the cross-layer system model and plan, not duplicated component
+  configuration.
+- `goals/` owns durable repository-agent work records and evidence.
+- `skills/` owns reusable repository-wide agent procedures and their
+  development-time evaluations.
+- Product-specific skills remain with their project at
+  `projects/<project>/skills/<name>`.
+- Repository-internal executors and build integrations may live under
+  `tools/`; their behavior remains owned and documented there.
+
+## Skill packaging and discovery
+
+Every canonical skill is packaged as a `skill_library` in its owning
+directory.
 
 The repository discovery directory `.agents/skills/` contains one relative
 symlink per skill. Each link points directly to its canonical project-owned
