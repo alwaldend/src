@@ -12,7 +12,7 @@ lib.plugin_call({
     labels = { tf = "1" },
     data = {
         vault_secret = "alwaldend.com/vault1/approles/src_infra_yandex_cloud_org1/tf_backend/main",
-        vault_secret_mount = "secrets"
+        vault_secret_mount = "secrets",
     },
 })
 

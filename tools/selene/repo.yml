@@ -1,0 +1,8 @@
+---
+globals:
+  config:
+    any: true
+  to_pb_json:
+    any: true
+  vim:
+    any: true

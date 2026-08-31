@@ -1,5 +1,7 @@
 go 1.26.5
 
 use ./
+
 use ./tools/buildifier
+
 use ./tools/pkgsite

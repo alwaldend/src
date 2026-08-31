@@ -13,8 +13,8 @@ infra.ansible_keys({
     labels = { ansible = "1" },
     vault_ssh = {
         backend = "ssh/clients/sign/admins",
-        ttl = 60 * 60 * 2
-    }
+        ttl = 60 * 60 * 2,
+    },
 })
 
 lib.plugin_call({
@@ -23,7 +23,7 @@ lib.plugin_call({
     labels = { tf = "setup" },
     data = {
         vault_secret = "alwaldend.com/vault1/approles/src_infra_dc1_vault/tf_backend/tf_setup",
-        vault_secret_mount = "secrets"
+        vault_secret_mount = "secrets",
     },
 })
 
@@ -33,7 +33,7 @@ lib.plugin_call({
     labels = { tf = "main" },
     data = {
         vault_secret = "alwaldend.com/vault1/approles/src_infra_dc1_vault/tf_backend/main",
-        vault_secret_mount = "secrets"
+        vault_secret_mount = "secrets",
     },
 })
 
@@ -67,16 +67,16 @@ lib.plugin_call({
                 name = "unseal",
                 kv = {
                     path = "alwaldend.com/vault1/approles/src_infra_dc1_vault/unseal",
-                    mount = "secrets"
-                }
+                    mount = "secrets",
+                },
             },
             {
                 name = "UNSEAL_KEY",
                 deps = { "unseal" },
                 env = {
                     value = "{{ .Last.Data.encrypted_key }}",
-                }
+                },
             },
-        }
-    }
+        },
+    },
 })

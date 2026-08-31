@@ -1,4 +1,5 @@
 bazel_dep(name = "aspect_rules_lint", version = "2.8.0")
+bazel_dep(name = "rules_multirun", version = "0.9.0")
 
 format_tools = use_extension(
     "@aspect_rules_lint//format:extensions.bzl",

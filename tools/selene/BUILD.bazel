@@ -1,0 +1,21 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+exports_files(
+    [
+        "repo.yml",
+        "selene.toml",
+    ],
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "selene",
+    actual = "@com_alwaldend_src_tools_selene//:selene_binary",
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools:__pkg__"],
+)

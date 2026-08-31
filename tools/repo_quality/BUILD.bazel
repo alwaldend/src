@@ -1,7 +1,9 @@
 load("@aspect_rules_lint//format:defs.bzl", "format_multirun", "format_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_java//java:defs.bzl", "java_binary")
+load("@rules_multirun//:defs.bzl", "command", "multirun")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
 
 sh_binary(
     name = "buf",
@@ -34,8 +36,155 @@ java_binary(
     runtime_deps = ["@ktfmt//jar"],
 )
 
+sh_binary(
+    name = "go_module_quality",
+    srcs = ["go_module_quality.sh"],
+    deps = ["@bazel_tools//tools/bash/runfiles"],
+)
+
+sh_binary(
+    name = "lua_quality",
+    srcs = ["lua_quality.sh"],
+    deps = ["@bazel_tools//tools/bash/runfiles"],
+)
+
+sh_binary(
+    name = "qt_xml_quality",
+    srcs = ["qt_xml_quality.sh"],
+    deps = ["@bazel_tools//tools/bash/runfiles"],
+)
+
+_LUA_DATA = [
+    "//tools/selene",
+    "//tools/selene:repo.yml",
+    "//tools/selene:selene.toml",
+    "//tools/stylua",
+    "//tools/stylua:stylua_config",
+]
+
+_LUA_ENV = {
+    "SELENE_CONFIG_RLOCATION": "$(rlocationpath //tools/selene:selene.toml)",
+    "SELENE_RLOCATION": "$(rlocationpath //tools/selene)",
+    "STYLUA_CONFIG_RLOCATION": "$(rlocationpath //tools/stylua:stylua_config)",
+    "STYLUA_RLOCATION": "$(rlocationpath //tools/stylua)",
+}
+
+_GO_MODULE_DATA = ["//tools/go"]
+
+_GO_MODULE_ENV = {
+    "GO_RLOCATION": "$(rlocationpath //tools/go)",
+}
+
+command(
+    name = "format_go_modules",
+    arguments = ["fix"],
+    command = ":go_module_quality",
+    data = _GO_MODULE_DATA,
+    description = "Formatting Go module and workspace files...",
+    environment = _GO_MODULE_ENV,
+)
+
+command(
+    name = "check_go_modules",
+    arguments = ["check"],
+    command = ":go_module_quality",
+    data = _GO_MODULE_DATA,
+    description = "Checking Go module and workspace files...",
+    environment = _GO_MODULE_ENV,
+)
+
+command(
+    name = "format_lua",
+    arguments = ["fix"],
+    command = ":lua_quality",
+    data = _LUA_DATA,
+    description = "Formatting Lua with StyLua...",
+    environment = _LUA_ENV,
+)
+
+command(
+    name = "check_lua",
+    arguments = ["check"],
+    command = ":lua_quality",
+    data = _LUA_DATA,
+    description = "Checking Lua with StyLua and Selene...",
+    environment = _LUA_ENV,
+)
+
+_QT_XML_DATA = ["//tools/prettier:prettier_xml"]
+
+_QT_XML_ENV = {
+    "PRETTIER_XML_RLOCATION": "$(rlocationpath //tools/prettier:prettier_xml)",
+}
+
+command(
+    name = "format_qt_xml",
+    arguments = ["fix"],
+    command = ":qt_xml_quality",
+    data = _QT_XML_DATA,
+    description = "Formatting Qt XML with Prettier XML...",
+    environment = _QT_XML_ENV,
+)
+
+command(
+    name = "check_qt_xml",
+    arguments = ["check"],
+    command = ":qt_xml_quality",
+    data = _QT_XML_DATA,
+    description = "Checking Qt XML with Prettier XML...",
+    environment = _QT_XML_ENV,
+)
+
+sh_test(
+    name = "go_module_quality_test",
+    srcs = ["go_module_quality.sh"],
+    args = ["check"],
+    data = _GO_MODULE_DATA + ["//:MODULE.bazel"],
+    env = _GO_MODULE_ENV | {
+        "WORKSPACE_MARKER": "$(location //:MODULE.bazel)",
+    },
+    tags = [
+        "external",
+        "no-cache",
+        "no-sandbox",
+    ],
+    deps = ["@bazel_tools//tools/bash/runfiles"],
+)
+
+sh_test(
+    name = "lua_quality_test",
+    srcs = ["lua_quality.sh"],
+    args = ["check"],
+    data = _LUA_DATA + ["//:MODULE.bazel"],
+    env = _LUA_ENV | {
+        "WORKSPACE_MARKER": "$(location //:MODULE.bazel)",
+    },
+    tags = [
+        "external",
+        "no-cache",
+        "no-sandbox",
+    ],
+    deps = ["@bazel_tools//tools/bash/runfiles"],
+)
+
+sh_test(
+    name = "qt_xml_quality_test",
+    srcs = ["qt_xml_quality.sh"],
+    args = ["check"],
+    data = _QT_XML_DATA + ["//:MODULE.bazel"],
+    env = _QT_XML_ENV | {
+        "WORKSPACE_MARKER": "$(location //:MODULE.bazel)",
+    },
+    tags = [
+        "external",
+        "no-cache",
+        "no-sandbox",
+    ],
+    deps = ["@bazel_tools//tools/bash/runfiles"],
+)
+
 format_multirun(
-    name = "format",
+    name = "format_core",
     c = "@llvm_toolchain//:clang-format",
     cc = "@llvm_toolchain//:clang-format",
     css = "//tools/prettier",
@@ -79,13 +228,13 @@ format_multirun(
 )
 
 format_test(
-    name = "repo_quality_test",
+    name = "repo_format_test",
     size = "large",
     timeout = "long",
     c = "@llvm_toolchain//:clang-format",
     cc = "@llvm_toolchain//:clang-format",
     css = "//tools/prettier",
-    fix_target = ":format",
+    fix_target = ":format_core",
     go = "@aspect_rules_lint//format:gofumpt",
     html = "//tools/prettier",
     java = ":java_format",
@@ -116,6 +265,44 @@ format_test(
     yaml_check_args = [
         "--check",
         "--log-level=warn",
+    ],
+)
+
+multirun(
+    name = "format",
+    buffer_output = True,
+    commands = [
+        ":format_core",
+        ":format_go_modules",
+        ":format_lua",
+        ":format_qt_xml",
+    ],
+    jobs = 3,
+    keep_going = True,
+    visibility = ["//:__pkg__"],
+)
+
+multirun(
+    name = "format.check",
+    buffer_output = True,
+    commands = [
+        ":check_go_modules",
+        ":format_core.check",
+        ":check_lua",
+        ":check_qt_xml",
+    ],
+    jobs = 3,
+    keep_going = True,
+    visibility = ["//:__pkg__"],
+)
+
+test_suite(
+    name = "repo_quality_test",
+    tests = [
+        ":go_module_quality_test",
+        ":lua_quality_test",
+        ":qt_xml_quality_test",
+        ":repo_format_test",
     ],
 )
 
