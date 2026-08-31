@@ -17,7 +17,9 @@ non-secret live or generated facts. It must never contain credentials, other
 secrets, or personal information. Inspect raw artifacts before promoting their
 content.
 
-The current goal's canonical record is under `repo-agent-system/` in
-repository source. The maintained, link-safe public-system synthesis is the
-[current-state document](../docs/current-state.md). Context-bound raw audits
-remain in the canonical goal record rather than the documentation projection.
+The current implementation goal is under `agent-system-phase-2/`. It depends
+on the accepted `agent-system-phase-1/` contracts and the accepted
+`repo-agent-system/` architecture. The maintained, link-safe public-system
+synthesis is the [current-state document](../docs/current-state.md).
+Context-bound raw audits remain in canonical goal records rather than the
+documentation projection.

@@ -115,7 +115,7 @@ func newInitCommand(factory storeFactory, stdout io.Writer) *cobra.Command {
 	flags.StringVar(&options.GoalID, "goal-id", "", "portable goal ID (generated when omitted)")
 	flags.StringVar(&options.Scope, "scope", "workspace", "goal scope: workspace or project")
 	flags.StringVar(&options.OwnerRoot, "owner-root", "", "owning project/task root")
-	flags.StringSliceVar(&options.Criteria, "criterion", nil, "acceptance criterion (repeatable)")
+	flags.StringArrayVar(&options.Criteria, "criterion", nil, "acceptance criterion (repeatable)")
 	flags.StringVar(&options.Retention, "retention", "", "retention policy: ephemeral or durable")
 	return command
 }
@@ -499,7 +499,7 @@ func newMigrateCommand(factory storeFactory, stdout io.Writer) *cobra.Command {
 	flags.StringVar(&options.Title, "title", "", "title override for ambiguous prose")
 	flags.StringVar(&options.Scope, "scope", "workspace", "goal scope: workspace or project")
 	flags.StringVar(&options.OwnerRoot, "owner-root", "", "owning project/task root")
-	flags.StringSliceVar(&options.Criteria, "criterion", nil, "acceptance criterion override (repeatable)")
+	flags.StringArrayVar(&options.Criteria, "criterion", nil, "acceptance criterion override (repeatable)")
 	return command
 }
 

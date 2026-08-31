@@ -1,0 +1,152 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalCriteria
+metadata:
+  name: agent-system-phase-2
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-08-31T20:17:20.695313978Z"
+spec:
+  goalRef:
+    name: agent-system-phase-2
+  revision: 1
+  items:
+  - criterionID: criterion-001
+    revision: 1
+    required: true
+    statement: Goal publication has stable committed and incomplete states
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-002
+    revision: 1
+    required: true
+    statement: interruption-safe recovery
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-003
+    revision: 1
+    required: true
+    statement: and non-destructive legacy migration.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-004
+    revision: 1
+    required: true
+    statement: Versioned bounded topology
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-005
+    revision: 1
+    required: true
+    statement: policy
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-006
+    revision: 1
+    required: true
+    statement: action
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-007
+    revision: 1
+    required: true
+    statement: capability
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-008
+    revision: 1
+    required: true
+    statement: workspace-check
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-009
+    revision: 1
+    required: true
+    statement: and goal catalogs derive from owner-local facts with deterministic provenance and completeness checks.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-010
+    revision: 1
+    required: true
+    statement: A bounded offline context command returns the path-
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-011
+    revision: 1
+    required: true
+    statement: label-
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-012
+    revision: 1
+    required: true
+    statement: or task-relevant situation with structured unavailable states and a human rendering from the same data.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-013
+    revision: 1
+    required: true
+    statement: The runtime control kernel and task isolation remain available under optional package failure
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-014
+    revision: 1
+    required: true
+    statement: timeout
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-015
+    revision: 1
+    required: true
+    statement: and untrusted-package fault fixtures.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-016
+    revision: 1
+    required: true
+    statement: A revision-bound resource baseline measures correctness
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-017
+    revision: 1
+    required: true
+    statement: unsafe actions
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-018
+    revision: 1
+    required: true
+    statement: calls
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-019
+    revision: 1
+    required: true
+    statement: context size
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-020
+    revision: 1
+    required: true
+    statement: cold and warm time
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-021
+    revision: 1
+    required: true
+    statement: coverage
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-022
+    revision: 1
+    required: true
+    statement: and reused checks without estimating unavailable values.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-023
+    revision: 1
+    required: true
+    statement: All affected packages
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-024
+    revision: 1
+    required: true
+    statement: schemas
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-025
+    revision: 1
+    required: true
+    statement: generated projections
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-026
+    revision: 1
+    required: true
+    statement: documentation
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-027
+    revision: 1
+    required: true
+    statement: goal records
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-028
+    revision: 1
+    required: true
+    statement: and delivery state pass candidate-bound validation.
+    evidenceMethod: Inspect linked evidence against the criterion.
