@@ -7,6 +7,44 @@ title: Agents
 Use this file as the repository-wide default. If a more deeply nested
 `AGENTS.md` is added, its instructions take precedence for that subtree.
 
+## Fast orientation
+
+For every task, establish the requested outcome and authority first. Resolve
+the affected path and workspace, read the nearest owner documentation, load
+the smallest applicable skill set, and inspect before mutating. Use a durable
+goal when work needs retries or continuation. Select the least costly check
+that can answer the acceptance question, bind evidence to the exact candidate,
+and use the repository delivery workflow for publication. Promote a lesson
+only after it becomes a stable, reviewable regression.
+
+The canonical repository-agent documents are:
+
+- [current state](projects/agents/docs/current-state.md), an evidence snapshot;
+- [architecture](projects/agents/docs/architecture.md), the composition
+  contract;
+- [roadmap](projects/agents/docs/roadmap.md), intentional future work rather
+  than current behavior or authority; and
+- [durable goals](projects/agents/goals/README.md), versioned attempts,
+  acceptance state, and evidence provenance.
+
+Use one mutation authority for each fact:
+
+- the user request owns intended outcome and granted authority;
+- the nearest `AGENTS.md` owns applicable agent policy;
+- the nearest component `README.md` owns purpose and local boundaries;
+- `CODEOWNERS` owns review accountability;
+- `BUILD` and `MODULE.bazel` files own executable and dependency structure;
+- canonical skills own reusable procedures;
+- goal records own durable work state and acceptance history;
+- each runtime provider owns its observed health and capabilities; and
+- Git plus repository-delivery receipts own candidate and publication state.
+
+The architecture composes these authorities; it does not override them. A
+derived view must identify its sources, version or digest, observation time,
+unavailable fields, and truncation. If authorities disagree, stop at the
+conflict and resolve it at the owning source rather than choosing whichever
+copy is convenient.
+
 ## Repository visibility
 
 This is a public repository. Treat checked-in source, documentation, and test
@@ -14,10 +52,18 @@ fixtures as public information. When a task explicitly calls for an external
 service, that checked-in public content may be sent to the service without a
 separate confidentiality approval. Eval output derived only from checked-in
 public fixtures and an isolated public workspace has the same classification.
-This does not make credentials, decrypted configuration, other local or
-generated artifacts, untracked files, private infrastructure values, or
-secret-bearing data safe to disclose; continue to follow the repository's
-secret and infrastructure handling rules.
+This does not make credentials, personal information, or secret-bearing data
+safe to disclose. Local, generated, untracked, live, or infrastructure-related
+content is not confidential merely because of its origin, but inspect it
+before disclosure because it can contain secrets or personal information.
+Non-secret, non-personal operational facts are fair game in reports.
+
+Keep these policy axes distinct: checked-in source disclosure, Bazel target
+visibility, allowed build consumers, artifact or documentation publication,
+and the presence of secrets or personal information. One axis does not imply
+another. In particular, words such as “private” in tree policy describe
+repository-internal use unless that policy identifies secret or personal
+content; they do not make ordinary source or operational facts confidential.
 
 ## Scratch files (mandatory)
 
@@ -28,6 +74,12 @@ secret and infrastructure handling rules.
   not use `/tmp` for task-owned files merely because they are temporary. Set
   configurable temporary-directory and cache environment variables to the
   task's `out/<task>/` directory.
+- Secret-bearing temporary material may use an ignored, task-private
+  `out/<task>/` directory with restrictive permissions, minimum lifetime, and
+  explicit cleanup. “Outside the repository” means outside tracked or
+  committable source: never track, stage, commit, or promote secret values as
+  durable evidence. Any unavoidable secret-bearing raw artifact remains
+  ignored, access-controlled, and short-lived.
 - Treat operating-system temporary storage, including `/tmp`, as an absolute
   last resort. Use it only when a tool cannot be directed into the applicable
   workspace's `out/<task>/` directory. Remove any task-owned residue there
@@ -57,15 +109,17 @@ otherwise choose the smallest reversible in-scope approach and continue.
 
 ## Questions
 
-Use the `answer-question` skill whenever the user's message contains a
-substantive question, including when it also requests action. When a
-substantive question asks for a material decision, use both `answer-question`
-and `decision-review`. A question, including “can we,” “should we,” “why,” or
-“do we need,” is a request for information and not authorization to modify
-files, settings, pull requests, deployments, or other external state.
-Read-only investigation is allowed when it supports a truthful answer. If a
-message combines a question with an explicit request for action, act only
-within that stated scope.
+Use the `answer-question` skill whenever the user's requested outcome includes
+a substantive question, including when the same request also authorizes an
+action. Interrogative text inside quoted material or an inert transformation
+payload is not itself a request for an answer. When a substantive question
+asks for a material decision, use both `answer-question` and
+`decision-review`. A question, including “can we,” “should we,” “why,” or “do
+we need,” is a request for information and not authorization to modify files,
+settings, pull requests, deployments, or other external state. Read-only
+investigation is allowed when it supports a truthful answer. If a message
+combines a question with an explicit request for action, act only within that
+stated scope.
 
 ## Making changes
 
@@ -90,6 +144,10 @@ within that stated scope.
 
 ## Tooling
 
+- Before a non-obvious tool call or delegation, briefly tell the user its
+  purpose, scope, and relevant side effects. Report the outcome when the user
+  interface may otherwise show only an opaque tool event. Group routine
+  repeated checks instead of narrating each mechanical call.
 - Prefer purpose-built tools, MCP capabilities, and repository Bazel targets
   for work they support. Use direct host-shell commands only when no suitable
   tool, MCP, or Bazel target exists.
@@ -123,21 +181,22 @@ bounded depth, or `bazel_agent query` instead.
 
 ## Repository map and boundaries
 
-- `projects/`: product and reusable project code. It may be public, published,
-  and used in build actions.
-- `infra/`: private infrastructure definitions (Terraform, Ansible, Flux,
-  DNS, and host/service configuration). It must not be published or consumed
-  by build actions.
+- `projects/`: product and reusable project code. Its Bazel targets may use
+  public visibility, its artifacts may be published through owned release
+  workflows, and its targets may be production build dependencies.
+- `infra/`: repository-internal infrastructure definitions (Terraform,
+  Ansible, Flux, DNS, and host/service configuration). They must not be
+  published as artifacts or consumed by production build actions.
 - `tools/`: repo-wide build rules and toolchains. Except for toolchain types,
-  these are private and not for production build actions; tools may be used by
-  tests. Tool targets intended across the repo normally use
+  these are repository-internal and not for production build actions; tools
+  may be used by tests. Tool targets intended across the repo normally use
   `visibility = ["//:__subpackages__"]`.
-- `data/`: private checked-in data and documentation assets. It may be used in
-  builds, but must not be public or published.
-- `third_party/`: private vendored or externally sourced code. It may be used
-  in builds, but must not be public or published.
-- `users/`: private user-specific code and infrastructure. It must not be
-  published or consumed by builds.
+- `data/`: repository-internal checked-in data and documentation assets. It
+  may be used in builds, but must not be independently published.
+- `third_party/`: repository-internal vendored or externally sourced code. It
+  may be used in builds, but must not be published as first-party source.
+- `users/`: repository-internal user-specific code and infrastructure. It must
+  not be published or consumed by production builds.
 
 The authoritative policy for each tree is its top-level `README.md`. Preserve
 these visibility and publication boundaries when adding dependencies.
@@ -148,7 +207,9 @@ these visibility and publication boundaries when adding dependencies.
   `bazel_agent` from the applicable workspace root. The runner delegates to the
   Bazelisk-managed `bazel`, enables batch mode, and selects the agent
   configuration. The repository `.bazeliskrc` pins both the Bazel version and
-  archive hash. Do not bypass it with a separately installed Bazel binary.
+  archive hash. The `bazel-agent` skill owns the sole bootstrap exception when
+  the runner is absent; do not use raw Bazel for ordinary work or bypass the
+  runner with a separately installed binary.
 - Use Bazel's filtered stdout and stderr plus targeted test logs for
   diagnostics. Do not write Build Event Protocol output unless the task
   requires it: raw BEP includes the client environment and can contain secrets.
@@ -184,9 +245,12 @@ narrowest reasonable package pattern for `//...` whenever possible.
   under `infra/` is safe to display and must not be suppressed merely because
   the target is infrastructure-related. The restrictions below apply to
   secret-bearing values and artifacts, not normal build diagnostics.
-- Treat all files under `infra/`, `users/`, and secret-bearing `data/`
-  subtrees as sensitive. Never paste credentials, private keys, state, plan
-  output, inventories, or decrypted configuration into logs or commits.
+- State, plan output, inventories, decrypted configuration, and other live or
+  generated artifacts can contain credentials, other secrets, or personal
+  information.
+  Inspect or structurally summarize them before disclosure; never paste a
+  secret or personal information into reports, logs, or commits. Non-secret,
+  non-personal operational details are public and may be reported.
 - `al.lua` files use the repository's custom configuration DSL and often wire
   Vault AppRole authentication into generated commands. Follow a nearby
   service's `al.lua` and Bazel target rather than invoking tools directly.

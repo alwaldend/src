@@ -1,0 +1,152 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalCriteria
+metadata:
+  name: repo-agent-system
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-08-31T13:55:01.640303113Z"
+spec:
+  goalRef:
+    name: repo-agent-system
+  revision: 1
+  items:
+  - criterionID: criterion-001
+    revision: 1
+    required: true
+    statement: A repository-wide evidence audit identifies the current agent entry points
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-002
+    revision: 1
+    required: true
+    statement: ownership boundaries
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-003
+    revision: 1
+    required: true
+    statement: execution surfaces
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-004
+    revision: 1
+    required: true
+    statement: feedback loops
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-005
+    revision: 1
+    required: true
+    statement: duplicated authorities
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-006
+    revision: 1
+    required: true
+    statement: and material navigation gaps.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-007
+    revision: 1
+    required: true
+    statement: One canonical architecture defines a linked abstraction tower from intent and topology through policy
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-008
+    revision: 1
+    required: true
+    statement: capability
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-009
+    revision: 1
+    required: true
+    statement: execution
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-010
+    revision: 1
+    required: true
+    statement: evidence
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-011
+    revision: 1
+    required: true
+    statement: delivery
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-012
+    revision: 1
+    required: true
+    statement: and durable learning
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-013
+    revision: 1
+    required: true
+    statement: with explicit ownership and invariants at every layer.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-014
+    revision: 1
+    required: true
+    statement: A prioritized implementation roadmap distinguishes current guarantees from proposed work
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-015
+    revision: 1
+    required: true
+    statement: orders changes by dependency and leverage
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-016
+    revision: 1
+    required: true
+    statement: and includes measurable acceptance signals and resource-cost controls.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-017
+    revision: 1
+    required: true
+    statement: The root agent entry point and human-facing repository entry point link directly to the canonical system model without duplicating mutable detail or requiring prior repository knowledge.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-018
+    revision: 1
+    required: true
+    statement: The design integrates existing skills
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-019
+    revision: 1
+    required: true
+    statement: goals
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-020
+    revision: 1
+    required: true
+    statement: Bazel workflows
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-021
+    revision: 1
+    required: true
+    statement: repository metadata
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-022
+    revision: 1
+    required: true
+    statement: validation
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-023
+    revision: 1
+    required: true
+    statement: delivery
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-024
+    revision: 1
+    required: true
+    statement: and review into a closed learning loop while preserving security and authority boundaries.
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-025
+    revision: 1
+    required: true
+    statement: All changed documentation and Bazel metadata are internally consistent
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-026
+    revision: 1
+    required: true
+    statement: link-valid
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-027
+    revision: 1
+    required: true
+    statement: format-clean
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-028
+    revision: 1
+    required: true
+    statement: and pass the narrowest applicable repository checks.
+    evidenceMethod: Inspect linked evidence against the criterion.

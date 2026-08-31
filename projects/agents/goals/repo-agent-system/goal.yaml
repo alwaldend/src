@@ -1,0 +1,39 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: Goal
+metadata:
+  name: repo-agent-system
+  resourceVersion: "8"
+  generation: 1
+  creationTimestamp: "2026-08-31T13:55:01.640303113Z"
+  annotations:
+    goals.alwaldend.com/local-owner-root: projects/agents
+spec:
+  title: Make the repository a coherent, agent-intuitive, agent-ergonomic, and agent-accretive system
+  scope: project
+  retention:
+    policy: durable
+  relationships:
+    dependsOnGoalRefs: []
+    supersedesGoalRefs: []
+status:
+  lifecycleGeneration: 5
+  outcome: achieved
+  execution: paused
+  activeAttemptID: ""
+  acceptedAttemptID: system-design-001
+  acceptedResultDigest: sha256:51a4dd3d81773b46b69784abeb61a1676b1c5f5739b36293d0fd787cdc90fdfd
+  criteriaRevision: 2
+  promotion:
+    sourceScope: ""
+    sourceGeneration: 0
+    sourceLifecycleGeneration: 0
+    sourceCriteriaRevision: 0
+    sourceCriteriaDigest: ""
+    sourceStateDigest: ""
+    sourceDigest: ""
+    promotedAt: ""
+  migration:
+    sourceFormat: ""
+    sourceDigest: ""
+    migratedAt: ""
+  observedAt: "2026-08-31T16:32:21.398457663Z"

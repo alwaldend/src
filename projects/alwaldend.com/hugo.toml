@@ -49,6 +49,9 @@ enable = true
 [markup.goldmark.renderer]
 unsafe = true
 
+[markup.goldmark.renderHooks.link]
+useEmbedded = "always"
+
 [markup.goldmark.parser.attribute]
 block = true
 title = true

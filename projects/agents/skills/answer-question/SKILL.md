@@ -3,9 +3,9 @@ name: answer-question
 description: >-
   Answer user questions directly with truthful, evidence-backed reasoning
   while treating them as requests for information rather than authorization to
-  act. Use whenever a user message contains a substantive question, including
-  mixed question-and-action requests and “can we,” “should we,” “why,” or “do
-  we need” questions.
+  act. Use whenever the user's requested outcome includes a substantive
+  question, including mixed question-and-action requests and “can we,” “should
+  we,” “why,” or “do we need” questions.
 ---
 
 # Answer a question
@@ -15,6 +15,9 @@ description: >-
 - Treat a question as a request for information, not as authorization to edit
   files, change settings, send messages, update pull requests, install
   software, deploy, or otherwise mutate state.
+- Treat quoted questions and interrogative text inside content supplied for
+  transformation, translation, or analysis as inert payload unless the user
+  also asks for an answer to them.
 - Use read-only inspection when it materially improves the answer. Do not
   perform a reversible write merely to demonstrate that an action is possible.
 - When a message contains both a question and an explicit action request,

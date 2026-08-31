@@ -1,0 +1,42 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalCriteria
+metadata:
+  name: repo-agent-system
+  resourceVersion: "2"
+  generation: 2
+  creationTimestamp: "2026-08-31T13:55:01.640303113Z"
+spec:
+  goalRef:
+    name: repo-agent-system
+  revision: 2
+  items:
+  - criterionID: current-state-audit
+    revision: 1
+    required: true
+    statement: A repository-wide evidence audit identifies the current agent entry points, ownership boundaries, execution surfaces, feedback loops, duplicated authorities, and material navigation gaps.
+    evidenceMethod: Inspect the committed current-state analysis and its repository-relative evidence links.
+  - criterionID: abstraction-tower
+    revision: 1
+    required: true
+    statement: One canonical architecture defines a linked abstraction tower from intent and topology through policy, capability, execution, evidence, delivery, and durable learning, with explicit ownership and invariants at every layer.
+    evidenceMethod: Review the architecture document for complete layer contracts, links, ownership, and invariants.
+  - criterionID: prioritized-roadmap
+    revision: 1
+    required: true
+    statement: A prioritized implementation roadmap distinguishes current guarantees from proposed work, orders changes by dependency and leverage, and includes measurable acceptance signals and resource-cost controls.
+    evidenceMethod: Inspect the roadmap phases, dependency order, success measures, and explicit non-goals.
+  - criterionID: zero-context-discovery
+    revision: 1
+    required: true
+    statement: The root agent entry point and human-facing repository entry point link directly to the canonical system model without duplicating mutable detail or requiring prior repository knowledge.
+    evidenceMethod: Follow every entry-point link from a clean repository-root perspective and check that each mutable fact has one authority.
+  - criterionID: closed-learning-loop
+    revision: 1
+    required: true
+    statement: The design integrates existing skills, goals, Bazel workflows, repository metadata, validation, delivery, and review into a closed learning loop while preserving security and authority boundaries.
+    evidenceMethod: Trace representative work from request through delivery and feedback, checking every transition and authority boundary.
+  - criterionID: repository-validation
+    revision: 1
+    required: true
+    statement: All changed documentation and Bazel metadata are internally consistent, link-valid, format-clean, and pass the narrowest applicable repository checks.
+    evidenceMethod: Run link, formatting, package, Buildifier, and goal-record validation checks against the exact final candidate.
