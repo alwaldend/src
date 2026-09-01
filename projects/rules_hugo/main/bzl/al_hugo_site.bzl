@@ -12,19 +12,46 @@ def _impl(ctx):
         transitive_files = depset(transitive = transitive_files),
     )
 
-    path = ":".join((
+    path_entries = [
         "$${{PWD}}/$$(dirname '{}')".format(ctx.executable.postcss.short_path),
         "$${{PWD}}/$$(dirname '{}')".format(ctx.executable.postcss.path),
         "$${{PWD}}/$${{0}}.runfiles/{}/$$(dirname '{}')".format(ctx.workspace_name, ctx.executable.postcss.short_path),
+    ]
+    for tool in ctx.attr.tools:
+        executable = tool[DefaultInfo].files_to_run.executable
+        if executable != None:
+            path_entries.append("$${{PWD}}/$$(dirname '{}')".format(executable.short_path))
+            path_entries.append("$${{PWD}}/$${{0}}.runfiles/{}/$$(dirname '{}')".format(ctx.workspace_name, executable.short_path))
+        for f in tool[DefaultInfo].files.to_list():
+            path_entries.append("$${{PWD}}/$$(dirname '{}')".format(f.short_path))
+            path_entries.append("$${{PWD}}/$${{0}}.runfiles/{}/$$(dirname '{}')".format(ctx.workspace_name, f.short_path))
+            path_entries.append("$${{PWD}}/$$(dirname '{}')".format(f.path))
+            path_entries.append("$$(dirname '{}')".format(f.path))
+        for f in tool[DefaultInfo].default_runfiles.files.to_list():
+            path_entries.append("$${{PWD}}/$$(dirname '{}')".format(f.short_path))
+            path_entries.append("$${{PWD}}/$${{0}}.runfiles/{}/$$(dirname '{}')".format(ctx.workspace_name, f.short_path))
+            path_entries.append("$${{PWD}}/$$(dirname '{}')".format(f.path))
+            path_entries.append("$$(dirname '{}')".format(f.path))
+    path = ":".join(path_entries + [
         ctx.attr.env.get("PATH", ""),
         "$${PATH}",
-    ))
+    ])
+    has_sass = False
+    for tool in ctx.attr.tools:
+        for f in tool[DefaultInfo].files.to_list() + tool[DefaultInfo].default_runfiles.files.to_list():
+            if f.basename == "sass":
+                has_sass = True
+                break
+        if has_sass:
+            break
     env = {}
     env.update(ctx.attr.env)
     env["PATH"] = path
     env["BAZEL_BINDIR"] = "$${{PWD}}/{}".format(
         ctx.executable.postcss.root.path,
     )
+    if has_sass:
+        env["DART_SASS_BINARY"] = "sass"
     env_script = " && ".join([
         cmd
         for name, value in env.items()

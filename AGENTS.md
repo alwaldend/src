@@ -17,6 +17,9 @@ that can answer the acceptance question, bind evidence to the exact candidate,
 and use the repository delivery workflow for publication. Promote a lesson
 only after it becomes a stable, reviewable regression.
 
+Do not attach a token budget to a goal or task unless the user explicitly
+tells you to do so.
+
 The canonical repository-agent documents are:
 
 - [current state](projects/agents/docs/current-state.md), an evidence snapshot;
@@ -171,6 +174,10 @@ stated scope.
   comment handling, and the final delivery report.
 - Place temporary files in the repository-root `out/` directory. Do not commit
   temporary files.
+- Commit and push all legitimate changes (source, documentation, and
+  configuration) unless the user explicitly says otherwise. Binaries,
+  temporary files, task scratch, secrets, and generated artifacts are not
+  covered by this default.
 - Commit binaries only when they are required, are not temporary files, and
   are tracked by Git LFS. Do not commit binaries otherwise.
 
@@ -193,6 +200,11 @@ stated scope.
   archives or Bazel-integrated package managers driven by checked-in manifests
   and lockfiles. Do not silently depend on a host-installed tool or an
   undeclared lifecycle download.
+- Run every shell command with a timeout so it cannot hang unexpectedly,
+  unless there is a good reason not to (for example, a command that must
+  intentionally run for a long time or an interactive session). Prefer a
+  short timeout that fits the command's expected duration, and use
+  `timeout <seconds> <command>` as the wrapper.
 - Hermetic tool acquisition is important; hermetic tool output has lower
   priority. A tool may intentionally access the network or produce
   environment-dependent artifacts when the requested workflow permits it.
@@ -213,9 +225,16 @@ stated scope.
   the system.
 
 ## Searching
-
 Do not use recursive `grep` or `ls`. Use `rg`, `rg --files`, `find` with a
-bounded depth, or `bazel_agent query` instead.
+bounded depth, or `bazel_agent query` instead. Never search from the
+filesystem root (`find /`); it can hang for minutes on large dependency
+caches. Use an explicit root and `-maxdepth`, and prefer `rg --files` with a
+path.
+
+Do not retry the same futile search or diagnostic more than once. After a
+second unsuccessful attempt, change the hypothesis, representation, or
+verification method instead of repeating it. Preserve the failure evidence
+and use a stable name for recurring defects.
 
 ## Repository map and boundaries
 
@@ -317,6 +336,10 @@ Follow `.editorconfig` and the closest existing files:
   deliberately target Python 3.9 compatibility; do not casually synchronize
   those values.
 - Never add broad formatting churn to a focused change.
+- Do not use emojis in any user-facing content: documentation, code comments,
+  commit messages, pull requests, issues, chat or session messages, and other
+  user-facing artifacts. Exceptions only when an emoji is required by the
+  surrounding context or tooling.
 
 ## Verification
 

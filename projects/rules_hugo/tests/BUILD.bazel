@@ -1,0 +1,68 @@
+load("@rules_hugo//main/bzl:al_hugo_run_binary.bzl", "al_hugo_run_binary")
+load("@rules_hugo//main/bzl:al_hugo_site.bzl", "al_hugo_site")
+load("@rules_hugo//main/bzl:al_hugo_worker.bzl", "al_hugo_worker")
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load(":analysis_test.bzl", "hugo_site_action_test")
+load(":worker_action_test.bzl", "hugo_worker_action_test")
+
+genrule(
+    name = "site_archive",
+    testonly = True,
+    outs = ["site_archive.tar"],
+    cmd = ": >$@",
+    tags = ["manual"],
+)
+
+sh_binary(
+    name = "mock_postcss",
+    srcs = ["mock_postcss.sh"],
+)
+
+filegroup(
+    name = "mock_sass",
+    srcs = ["mock_sass_bin/sass"],
+    tags = ["manual"],
+)
+
+al_hugo_site(
+    name = "site_definition",
+    testonly = True,
+    postcss = ":mock_postcss",
+    site = ":site_archive",
+    tags = ["manual"],
+    tools = [":mock_sass"],
+)
+
+al_hugo_run_binary(
+    name = "site",
+    testonly = True,
+    out_dir = "run_destination",
+    site = ":site_definition",
+    tags = ["manual"],
+)
+
+hugo_site_action_test(
+    name = "hugo_site_action_test",
+    target_under_test = ":site",
+    visibility = ["//visibility:public"],
+)
+
+al_hugo_worker(
+    name = "site_worker",
+    testonly = True,
+    out_dir = "worker_destination",
+    site = ":site_definition",
+    tags = ["manual"],
+    worker = ":mock_worker",
+)
+
+sh_binary(
+    name = "mock_worker",
+    srcs = ["mock_worker.sh"],
+)
+
+hugo_worker_action_test(
+    name = "hugo_worker_action_test",
+    target_under_test = ":site_worker",
+    visibility = ["//visibility:public"],
+)

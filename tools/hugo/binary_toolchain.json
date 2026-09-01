@@ -2,14 +2,14 @@
     "toolchains": [
         {
             "name": "hugo",
-            "version": "0.159.2"
+            "version": "0.165.0"
         }
     ],
     "archives": [
         {
-            "archive_name": "linux_x86_64",
             "toolchain_name": "hugo",
-            "toolchain_version": "0.159.2",
+            "toolchain_version": "0.165.0",
+            "archive_name": "linux_x86_64",
             "binaries": [
                 {
                     "name": "hugo",
@@ -19,13 +19,13 @@
             "actions": [
                 {
                     "download_and_extract": {
-                        "url": "https://github.com/gohugoio/hugo/releases/download/v0.159.2/hugo_extended_withdeploy_0.159.2_linux-amd64.tar.gz",
+                        "url": "https://github.com/gohugoio/hugo/releases/download/v0.165.0/hugo_extended_0.165.0_linux-amd64.tar.gz",
                         "output": "out",
-                        "integrity": "sha256-9T2rrtu90J6wBtRR+wpipP+8iUyC547Pj43nk2JZWjo="
+                        "integrity": "sha256-9DSUiUzfSoYwogHVyCgFHHf1I8xmuzk4swgGg1RwrCA="
                     }
                 }
             ],
-            "rules": {
+            "toolchain": {
                 "exec_compatible_with": [
                     "@platforms//os:linux",
                     "@platforms//cpu:x86_64"

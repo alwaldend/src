@@ -35,5 +35,6 @@ template_toolchain(
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
+    prefix = "content/docs/projects/rules_template/main/bzl",
     visibility = ["//:__pkg__"],
 )

@@ -44,6 +44,13 @@ Follow the root `AGENTS.md` and the `repo-bazel` skill. Inspect all existing
    Add Go, Gazelle, toolchain, or extension setup only when the implementation
    requires it; follow the closest nested module rather than installing a
    generic template.
+6. Keep the module self-contained: never reference the parent repository from
+   inside a nested module. Do not use root-workspace labels such as
+   `//tools/...` in BUILD files or rule defaults, because they resolve to
+   `@<module>//tools/...` under Bzlmod and make reusable modules dependent on
+   the parent repository. Use module-internal labels, add a mandatory attr for
+   a tool that must be supplied by the consumer, or declare a dependency the
+   module owns.
 
 ## Integrate it with the parent repository
 
