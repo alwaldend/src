@@ -3,21 +3,14 @@
         "host1": {
             "A": {
                 "name": "host1.ingress",
-                "address": "158.160.196.128"
+                "address": "81.26.185.118"
             },
             "dsp": ["all"]
         },
         "root_host1": {
             "A": {
                 "name": "ingress",
-                "address": "158.160.196.128"
-            },
-            "dsp": ["all"]
-        },
-        "host2": {
-            "A": {
-                "name": "host2.ingress",
-                "address": "103.76.53.6"
+                "address": "81.26.185.118"
             },
             "dsp": ["all"]
         }

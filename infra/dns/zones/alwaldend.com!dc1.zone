@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-08-27T16:10:10Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026082700 3600 600 604800 1440
+; generated with dnscontrol 2026-09-01T15:15:50Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026090100 3600 600 604800 1440
                  IN A     185.199.108.153
                  IN A     185.199.109.153
                  IN A     185.199.110.153
@@ -42,9 +42,8 @@ host1.forgejo    IN A     192.168.10.40
 runner1.forgejo-runner IN A 192.168.10.100
 harbor           IN A     192.168.10.50
 host1.harbor     IN A     192.168.10.50
-ingress          IN A     158.160.196.128
-host1.ingress    IN A     158.160.196.128
-host2.ingress    IN A     103.76.53.6
+ingress          IN A     81.26.185.118
+host1.ingress    IN A     81.26.185.118
 nas              IN A     192.168.1.209
 host1.nas        IN A     192.168.1.209
 pve              IN A     192.168.1.216

@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-09-01T14:52:24Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026090100 3600 600 604800 1440
+; generated with dnscontrol 2026-09-01T15:15:50Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026090101 3600 600 604800 1440
                  IN NS    malavika.ns.cloudflare.com.
                  IN NS    terry.ns.cloudflare.com.
                  IN A     185.199.108.153
@@ -24,9 +24,8 @@ cloud      600   IN CNAME ingress.alwaldend.com.
 dc1.cloud        IN A     192.168.1.209
 forgejo    600   IN CNAME ingress.alwaldend.com.
 int.forgejo      IN A     192.168.10.40
-ingress          IN A     158.160.196.128
-host1.ingress    IN A     158.160.196.128
-host2.ingress    IN A     103.76.53.6
+ingress          IN A     81.26.185.118
+host1.ingress    IN A     81.26.185.118
 simplelogin 10800 IN MX   10 mx1.simplelogin.co.
            10800 IN MX    20 mx2.simplelogin.co.
            10800 IN TXT   "sl-verification=bxfzzfjiggzsxyzxhhmkmjqkaskjgy"
@@ -41,7 +40,7 @@ yc1.nodes.threexui 600 IN CNAME host1.nodes.yc.threexui.alwaldend.com.
 yc.threexui      IN NS    ns1.yandexcloud.net.
                  IN NS    ns2.yandexcloud.net.
 dc1.host-bot.simeonwarren.users IN A 192.168.1.210
-t3code.host-bot.simeonwarren.users 600 IN CNAME host1.ingress.alwaldend.com.
+t3code.host-bot.simeonwarren.users 600 IN CNAME ingress.alwaldend.com.
 dc1.t3code.host-bot.simeonwarren.users IN A 192.168.1.210
 vault      600   IN CNAME ingress.alwaldend.com.
 int.vault        IN A     192.168.1.218
