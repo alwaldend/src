@@ -33,7 +33,9 @@ The editable Mermaid source is [goal-tool.mmd](goal-tool.mmd).
 
 Structured resources use Kubernetes-style YAML envelopes. Attempt plans,
 results, and evidence are canonical, digest-bound Markdown artifacts;
-`README.md` is a generated Markdown projection. A catalog has this shape:
+`README.md` is a generated Markdown projection. A publication intent is
+backend recovery metadata written before each multi-file mutation. A catalog
+has this shape:
 
 ```text
 goals/
@@ -42,6 +44,8 @@ goals/
     criteria.yaml
     criteria-revisions/<revision>.yaml
     README.md
+    .goal-publication.yaml
+    .goal-publication-stage/
     attempts/<attempt-id>/
       attempt.yaml
       plan.md
@@ -57,29 +61,45 @@ never be added to version control.
 
 The orchestrator assigns one coordinator to a goal. The CLI independently
 prevents overlapping cooperating processes. An attempt or lifecycle mutation
-through `checkpoint` follows this path:
+through `checkpoint`, a criteria update, or a relationship update follows this
+path:
 
 1. Resolve the canonical goal path, hash it into a lock path under
    `$XDG_RUNTIME_DIR/alwaldend/goal/locks/`, and take an exclusive `flock` for
    that goal.
-2. Read and validate the current resources under the lock.
+2. Refuse to run while a publication intent is pending; read and validate the
+   current resources under the lock.
 3. Reject a stale expected `resourceVersion`.
-4. Build and validate the proposed resource values in memory. Fully stage a
-   new attempt in a hidden sibling directory when needed.
-5. Publish `goal.yaml` with the advanced resource version as the optimistic-
+4. Build and validate the proposed resource values in memory.
+5. Stage the exact after-images under `.goal-publication-stage/` and install a
+   `.goal-publication.yaml` intent recording each path and its before/after
+   digest. The new-attempt directory is staged as one directory tree.
+6. Publish `goal.yaml` with the advanced resource version as the optimistic-
    concurrency commit point.
-6. Publish the staged attempt directory with one rename, or replace existing
-   attempt files through sibling temporary-file renames.
-7. For a newly created attempt closed by the same checkpoint, finalize
+7. Publish the staged attempt directory with one rename when a new attempt
+   exists, or replace existing attempt files through sibling temporary-file
+   renames.
+8. For a newly created attempt closed by the same checkpoint, finalize
    `goal.yaml` at the same resource version.
-8. Write the replaceable `README.md` projection last and release the lock.
+9. Write the replaceable `README.md` projection last, remove the intent and
+   staging directory, and release the lock.
 
 The first goal write for an immediately closed new attempt deliberately keeps
-an active-attempt pointer until the attempt directory exists. Interruption
-before attempt publication or finalization therefore leaves an invalid record
-instead of silently losing the attempt. Any error after the commit point
-identifies the resource version that committed; validate the record before
-resuming.
+an active-attempt pointer until the attempt directory exists. The intent
+remains on disk until the projection writes; after the commit point, an error
+returns the committed Goal reference, names its advanced resource version, and
+leaves the intent pending for recovery. A failure before the first `goal.yaml`
+rename discards the intent and preserves the exact prior record.
+
+`goal doctor` is a read-only classification command. With a pending intent it
+reports the per-target state: `stable`, `discardable-intent`, `staged-intent`,
+`partial-intent`, or `conflict`. Without one it reports `stable`, a
+`committed-projection-stale` README-only issue, or a validation failure.
+`goal recover` replays every remaining after-image for a staged or partial
+intent, refuses a conflict, or discards a discardable intent to restore the
+prior record. Normal mutations fail closed with a
+`goal publication is incomplete` error while an intent is pending, so the
+coordinator must run `goal doctor` then `goal recover` before continuing.
 
 Reads and mutations use the same exclusive per-goal lock, matching the
 single-coordinator ownership model and leaving one unambiguous holder PID.
@@ -125,11 +145,14 @@ replacement.
 
 Atomic rename prevents a reader from seeing a partially written file. A
 command that replaces multiple files publishes them in a defined order; if it
-is interrupted between renames, validation reports any resulting inconsistency.
-Canonical state consists of validated YAML resources and the exact `plan.md`,
-`result.md`, and `evidence/*.md` bytes whose SHA-256 digests are stored in each
-`attempt.yaml`. Recognized temporary-file residue is removed before validation;
-the generated `README.md` projection is replaceable and non-canonical.
+is interrupted between renames, the pending publication intent records exactly
+which after-images remain. Canonical state consists of validated YAML
+resources and the exact `plan.md`, `result.md`, and `evidence/*.md` bytes whose
+SHA-256 digests are stored in each `attempt.yaml`. Recognized temporary-file
+residue is removed before validation; the generated `README.md` projection is
+replaceable and non-canonical, and `.goal-publication.yaml` plus
+`.goal-publication-stage/` are transitive recovery state that must never be
+committed to version control.
 
 ## Graph model
 

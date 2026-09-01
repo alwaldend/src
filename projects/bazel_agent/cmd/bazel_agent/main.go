@@ -60,8 +60,7 @@ type doctorScratch struct {
 }
 
 func bazelArguments(args []string) []string {
-	result := make([]string, 0, len(args)+2)
-	result = append(result, "--batch")
+	result := make([]string, 0, len(args)+1)
 	if len(args) == 0 {
 		return result
 	}
@@ -171,7 +170,7 @@ func buildDoctorReport(workspaceRoot, scratchPath, executable, bazelPath string)
 			ArchiveSHA256: archiveDigest,
 		},
 		Platform: doctorPlatform{OS: runtime.GOOS, Arch: runtime.GOARCH},
-		Profile:  []string{"--batch", "--config=agent"},
+		Profile:  []string{"--config=agent"},
 		RCFiles: []string{
 			".bazelrc",
 			"tools/bazelrc/root.bazelrc",

@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"os"
 	"os/exec"
@@ -9,6 +10,7 @@ import (
 	"strconv"
 	"strings"
 	"testing"
+	"time"
 )
 
 func writeWorkspaceModules(t *testing.T, repoRoot string) {
@@ -35,8 +37,22 @@ func TestExecuteContinuesAndWritesRestrictedArtifacts(t *testing.T) {
 	}
 
 	commands := 0
+	queries := 0
 	var processes []*exec.Cmd
+	var checkProcesses []*exec.Cmd
 	newCommand := func(name string, args ...string) *exec.Cmd {
+		if name == "bazel_agent" && len(args) == 3 && args[0] == "query" {
+			queries++
+			command := exec.Command(os.Args[0], "-test.run=TestHelperProcess", "--")
+			command.Env = append(
+				os.Environ(),
+				"GO_WANT_HELPER_PROCESS=1",
+				"HELPER_EXIT_CODE=0",
+				"HELPER_OUTPUT=kind(\"//target\")\n",
+			)
+			processes = append(processes, command)
+			return command
+		}
 		commands++
 		wantArgs := []string{"build", "//..."}
 		if commands%2 == 0 {
@@ -60,22 +76,34 @@ func TestExecuteContinuesAndWritesRestrictedArtifacts(t *testing.T) {
 			"GO_WANT_HELPER_PROCESS=1",
 			fmt.Sprintf("HELPER_EXIT_CODE=%d", exitCode),
 		)
-		processes = append(processes, command)
+		checkProcesses = append(checkProcesses, command)
 		return command
 	}
 
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
-	if got := execute(getenv, newCommand, &stdout, &stderr); got != 1 {
+	if got := execute(
+		getenv,
+		newCommand,
+		[]string{"--json-report", filepath.Join(repoRoot, "out", "full.json")},
+		&stdout,
+		&stderr,
+	); got != 1 {
 		t.Fatalf("execute() = %d, want 1", got)
 	}
 	if commands != 20 {
 		t.Errorf("commands executed = %d, want 20", commands)
 	}
-	if len(processes) != 20 {
-		t.Fatalf("process count = %d, want 20", len(processes))
+	if queries != len(repositoryWorkspaces) {
+		t.Errorf("query count = %d, want %d", queries, len(repositoryWorkspaces))
 	}
-	for index, process := range processes {
+	if got := len(processes); got != len(repositoryWorkspaces) {
+		t.Fatalf("query process count = %d, want %d", got, len(repositoryWorkspaces))
+	}
+	if got := len(checkProcesses); got != 20 {
+		t.Fatalf("check process count = %d, want 20", got)
+	}
+	for index, process := range checkProcesses {
 		candidate := repositoryWorkspaces[index/len(checkPhases)]
 		wantDir := filepath.Join(repoRoot, candidate.path)
 		if process.Dir != wantDir {
@@ -162,7 +190,7 @@ func TestExecuteRejectsMissingWorkspace(t *testing.T) {
 	}
 
 	var stderr bytes.Buffer
-	if got := execute(getenv, newCommand, &bytes.Buffer{}, &stderr); got != 1 {
+	if got := execute(getenv, newCommand, nil, &bytes.Buffer{}, &stderr); got != 1 {
 		t.Fatalf("execute() = %d, want 1", got)
 	}
 	if !strings.Contains(
@@ -170,6 +198,258 @@ func TestExecuteRejectsMissingWorkspace(t *testing.T) {
 		"projects/rules_binary_toolchain/MODULE.bazel",
 	) {
 		t.Errorf("stderr = %q, want missing workspace", stderr.String())
+	}
+}
+
+func TestJSONReportEmission(t *testing.T) {
+	repoRoot := t.TempDir()
+	writeWorkspaceModules(t, repoRoot)
+	getenv := func(name string) string {
+		if name == "BUILD_WORKSPACE_DIRECTORY" {
+			return repoRoot
+		}
+		return ""
+	}
+	commandCount := 0
+	newCommand := func(name string, args ...string) *exec.Cmd {
+		commandCount++
+		command := exec.Command(os.Args[0], "-test.run=TestHelperProcess", "--")
+		command.Env = append(
+			os.Environ(),
+			"GO_WANT_HELPER_PROCESS=1",
+			"HELPER_EXIT_CODE=0",
+		)
+		if name == "bazel_agent" &&
+			len(args) == 3 &&
+			args[0] == "query" {
+			command.Env = append(command.Env, "HELPER_OUTPUT=kind(\"//target\")\n")
+		}
+		return command
+	}
+	reportPath := filepath.Join(repoRoot, "out", "report.json")
+	var stderr bytes.Buffer
+	if got := execute(
+		getenv,
+		newCommand,
+		[]string{"--json-report", reportPath},
+		&bytes.Buffer{},
+		&stderr,
+	); got != 0 {
+		t.Fatalf("execute() = %d, stderr = %s", got, stderr.String())
+	}
+	content, err := os.ReadFile(reportPath)
+	if err != nil {
+		t.Fatalf("os.ReadFile(report) error = %v", err)
+	}
+	var report checkReport
+	if err := json.Unmarshal(content, &report); err != nil {
+		t.Fatalf("json.Unmarshal() error = %v: %s", err, content)
+	}
+	if report.APIVersion != reportAPIVersion {
+		t.Errorf("APIVersion = %q, want %q", report.APIVersion, reportAPIVersion)
+	}
+	if report.Kind != reportKind {
+		t.Errorf("Kind = %q, want %q", report.Kind, reportKind)
+	}
+	if report.State != reportComplete {
+		t.Errorf("State = %q, want %q", report.State, reportComplete)
+	}
+	if report.Inputs.Profile != "full" {
+		t.Errorf("Profile = %q, want full", report.Inputs.Profile)
+	}
+	if got := len(report.Workspaces); got != len(repositoryWorkspaces) {
+		t.Errorf("Workspaces = %d, want %d", got, len(repositoryWorkspaces))
+	}
+	if report.TargetUniverse <= 0 {
+		t.Errorf("TargetUniverse = %d, want positive", report.TargetUniverse)
+	}
+	if got := len(report.Phases); got != len(repositoryWorkspaces)*len(checkPhases) {
+		t.Errorf("Phases = %d, want %d", got, len(repositoryWorkspaces)*len(checkPhases))
+	}
+	completed := 0
+	withResults := 0
+	for _, phase := range report.Phases {
+		if phase.Status == "pass" {
+			completed++
+		}
+		if phase.Result != nil {
+			withResults++
+			if phase.Result.DurationMS < 0 {
+				t.Errorf("phase %s/%s negative duration", phase.Workspace, phase.Phase)
+			}
+		}
+	}
+	if completed != len(report.Phases) {
+		t.Errorf("pass phases = %d, want %d", completed, len(report.Phases))
+	}
+	if withResults != len(report.Phases) {
+		t.Errorf("phases with results = %d, want %d", withResults, len(report.Phases))
+	}
+}
+
+func TestResumeWithIdenticalInputs(t *testing.T) {
+	repoRoot := t.TempDir()
+	writeWorkspaceModules(t, repoRoot)
+	getenv := func(name string) string {
+		if name == "BUILD_WORKSPACE_DIRECTORY" {
+			return repoRoot
+		}
+		return ""
+	}
+	newCommand := func(name string, args ...string) *exec.Cmd {
+		command := exec.Command(os.Args[0], "-test.run=TestHelperProcess", "--")
+		command.Env = append(
+			os.Environ(),
+			"GO_WANT_HELPER_PROCESS=1",
+			"HELPER_EXIT_CODE=0",
+		)
+		return command
+	}
+	var stderr bytes.Buffer
+	var stdout bytes.Buffer
+	reportDir := filepath.Join(repoRoot, "out")
+	if err := os.MkdirAll(reportDir, 0o755); err != nil {
+		t.Fatalf("os.MkdirAll() error = %v", err)
+	}
+	reportPath := filepath.Join(reportDir, "full.json")
+	if got := execute(
+		getenv,
+		newCommand,
+		[]string{"--json-report", reportPath},
+		&stdout,
+		&stderr,
+	); got != 0 {
+		t.Fatalf("initial execute() = %d, stderr = %s", got, stderr.String())
+	}
+	content, err := os.ReadFile(reportPath)
+	if err != nil {
+		t.Fatalf("os.ReadFile() error = %v", err)
+	}
+	var report checkReport
+	if err := json.Unmarshal(content, &report); err != nil {
+		t.Fatalf("json.Unmarshal() error = %v", err)
+	}
+	// The resume input is the report's own inputs; identical, so it resumes.
+	// Simulate an interrupted run so the report is actually resumable.
+	report.State = reportUnfinished
+	if got := validateResume(&report, report.Inputs); got != nil {
+		t.Errorf("validateResume(identical) error = %v", got)
+	}
+}
+
+func TestResumeWithDifferentInputsRefuses(t *testing.T) {
+	report := checkReport{
+		APIVersion: reportAPIVersion,
+		Kind:       reportKind,
+		ID:         "full-repo-check.test",
+		Inputs: runInputs{
+			Workspaces:      []string{"root"},
+			Profile:         "full",
+			TargetUniverses: map[string]int64{"root": 42},
+		},
+		TargetUniverse: 42,
+		State:          reportUnfinished,
+	}
+	if err := validateResume(&report, runInputs{}); err == nil {
+		t.Error("validateResume() accepted different inputs")
+	} else if !strings.Contains(err.Error(), "inputs do not match") {
+		t.Errorf("error = %v, want inputs do not match", err)
+	}
+}
+
+func TestResumeRejectsTargetUniverseReduction(t *testing.T) {
+	report := checkReport{
+		APIVersion: reportAPIVersion,
+		Kind:       reportKind,
+		ID:         "full-repo-check.test",
+		Inputs: runInputs{
+			Workspaces:      []string{"root"},
+			Profile:         "full",
+			TargetUniverses: map[string]int64{"root": 100},
+		},
+		TargetUniverse: 100,
+		State:          "unfinished",
+	}
+	err := validateUniverseGrowth(
+		&report,
+		runInputs{TargetUniverses: map[string]int64{"root": 80}},
+		false,
+	)
+	if err == nil {
+		t.Error("validateUniverseGrowth() accepted reduction")
+	} else if !strings.Contains(err.Error(), "was reduced") {
+		t.Errorf("error = %v, want reduction message", err)
+	}
+	// Growth is refused unless explicitly allowed.
+	err = validateUniverseGrowth(
+		&report,
+		runInputs{TargetUniverses: map[string]int64{"root": 120}},
+		false,
+	)
+	if err == nil {
+		t.Error("validateUniverseGrowth() accepted growth without allow")
+	}
+	if err := validateUniverseGrowth(
+		&report,
+		runInputs{TargetUniverses: map[string]int64{"root": 120}},
+		true,
+	); err != nil {
+		t.Errorf("validateUniverseGrowth() with allow error = %v", err)
+	}
+}
+
+func TestResumeMarksUnexecutedPhases(t *testing.T) {
+	report := checkReport{
+		APIVersion: reportAPIVersion,
+		Kind:       reportKind,
+		ID:         "full-repo-check.test",
+		Phases: []jsonPhase{
+			{
+				Workspace: "root",
+				Phase:     "build",
+				Status:    "pass",
+				Result: &jsonCheckResult{
+					Status:     "pass",
+					ExitCode:   0,
+					DurationMS: 12,
+				},
+			},
+			{Workspace: "root", Phase: "test", Status: "unexecuted"},
+		},
+		State: reportUnfinished,
+	}
+	results, composed, err := runChecks(
+		"",
+		"",
+		func(name string, args ...string) *exec.Cmd {
+			t.Fatal("command started for unexecuted phase")
+			return nil
+		},
+		&bytes.Buffer{},
+		report.Inputs,
+		&report,
+		time.Now(),
+	)
+	if err != nil {
+		t.Fatalf("runChecks() error = %v", err)
+	}
+	if len(results) != 2 {
+		t.Fatalf("results = %d, want 2", len(results))
+	}
+	if results[0].status != "pass" {
+		t.Errorf("resumed status = %q, want pass", results[0].status)
+	}
+	if results[1].status != "unexecuted" {
+		t.Errorf("unexecuted status = %q, want unexecuted", results[1].status)
+	}
+	if composed.State != reportUnfinished {
+		t.Errorf("composed state = %q, want %q", composed.State, reportUnfinished)
+	}
+	if composed.Phases[0].Result == nil {
+		t.Error("resumed pass phase has no result")
+	}
+	if composed.Phases[1].Result != nil {
+		t.Error("unexecuted phase must not carry a synthetic result")
 	}
 }
 
@@ -187,6 +467,9 @@ func assertPermissions(t *testing.T, path string, want os.FileMode) {
 func TestHelperProcess(t *testing.T) {
 	if os.Getenv("GO_WANT_HELPER_PROCESS") != "1" {
 		return
+	}
+	if output := os.Getenv("HELPER_OUTPUT"); output != "" {
+		fmt.Fprint(os.Stdout, output)
 	}
 	fmt.Fprintln(os.Stdout, "helper stdout")
 	fmt.Fprintln(os.Stderr, "helper stderr")

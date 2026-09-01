@@ -79,6 +79,15 @@ workspace and goal pathnames must remain stable for the duration of a command.
 A process with the same user identity that races workspace renames or symlink
 replacement is outside the tool's trust boundary.
 
+When an error reports `goal publication is incomplete`, run `goal doctor` on
+the goal directory to classify the pending intent, then `goal recover` to
+replay or discard it. Doctor states: `stable`,
+`committed-projection-stale` (a README-only refresh), `discardable-intent`
+(nothing canonical changed; recover removes it), `staged-intent` or
+`partial-intent` (recover replays the after-images), and `conflict` (refused).
+Never retry a mutation over a pending intent and never delete the intent or
+staging directory by hand.
+
 On a stale update, retain the isolated attempt output, reread the new canonical
 state, and decide whether to rebase the evidence into a new attempt, revise the
 plan, or discard publication. Never retry blindly with a newly read version.

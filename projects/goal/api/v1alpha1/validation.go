@@ -2,6 +2,7 @@ package v1alpha1
 
 import (
 	"fmt"
+	"path/filepath"
 	"regexp"
 	"strings"
 	"time"
@@ -12,6 +13,7 @@ const (
 	MaxGoalRelationshipReferences = 256
 	MaxTitleBytes                 = 200
 	MaxStatementBytes             = 4096
+	MaxPublicationFiles           = 128
 )
 
 var (
@@ -604,14 +606,35 @@ func (p PromotionStatus) validate(scope string) error {
 }
 
 func (m MigrationStatus) validate() error {
-	empty := m.SourceFormat == "" && m.SourceDigest == "" &&
+	empty := m.SourceFormat == "" && m.SourcePath == "" &&
+		m.SourceDigest == "" && m.MappingVersion == "" &&
+		m.ExtractionMode == "" &&
 		m.MigratedAt == ""
 	if empty {
 		return nil
 	}
-	if m.SourceFormat != "unversioned" || !ValidDigest(m.SourceDigest) {
+	if m.SourceFormat != "unversioned" ||
+		m.MappingVersion != "v1" ||
+		(m.ExtractionMode != "extracted" && m.ExtractionMode != "overridden") {
 		return fmt.Errorf(
-			"status.migration must describe an unversioned source",
+			"status.migration must describe an unversioned source with explicit mapping provenance",
+		)
+	}
+	if m.SourcePath == "" || filepath.IsAbs(m.SourcePath) ||
+		strings.Contains(m.SourcePath, `\`) {
+		return fmt.Errorf(
+			"status.migration.sourcePath must be a non-empty workspace-relative portable path",
+		)
+	}
+	clean := filepath.Clean(filepath.FromSlash(m.SourcePath))
+	if clean == "." || clean == ".." || strings.HasPrefix(clean, "../") {
+		return fmt.Errorf(
+			"status.migration.sourcePath must stay under the workspace root",
+		)
+	}
+	if !ValidDigest(m.SourceDigest) {
+		return fmt.Errorf(
+			"status.migration must describe an unversioned source digest",
 		)
 	}
 	return validateRequiredTimestamp(

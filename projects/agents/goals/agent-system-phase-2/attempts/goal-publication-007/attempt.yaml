@@ -1,0 +1,74 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: goal-publication-007
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-09-01T17:48:31.704328776Z"
+spec:
+  goalRef:
+    name: agent-system-phase-2
+  goalGeneration: 2
+  lifecycleGeneration: 4
+  criteriaRevision: 2
+  criteriaDigest: sha256:d59bb95d23bbe0ef533977be69a34e50f2db3e3950e8d1ebfb2a78cdd35713c0
+  goalStateDigest: sha256:d30c6c2460142597f858535bfdc6901ecb813568f6e69d7a7cb99861c60c5da4
+  workType: change
+status:
+  state: closed
+  closedAt: "2026-09-01T17:48:31.704328776Z"
+  artifacts:
+    planDigest: sha256:b8721570c4063a4b388175f37eae5a32810c37c17208ac959b8b005cc27a119d
+    resultDigest: sha256:5479c91785d03a93fd42b1cd928b3e2301921d7b19618288c66b491e8e0db541
+    evidence:
+    - path: evidence/context-capsule-evidence.md
+      digest: sha256:b4f941168a1713ccb08ecdb1f586adc6038c51aaf5bea79c7eba19a76473971e
+  review:
+    decision: refine
+    criteria:
+    - criterionID: bounded-catalogs
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/context-capsule-evidence.md
+      - result.md
+    - criterionID: context-capsule
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/context-capsule-evidence.md
+      - result.md
+    - criterionID: exact-candidate-validation
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: goal-recovery
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - result.md
+    - criterionID: legacy-migration
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - result.md
+    - criterionID: resource-baseline
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/context-capsule-evidence.md
+      - result.md
+    - criterionID: runtime-isolation
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/context-capsule-evidence.md
+      - result.md
+    - criterionID: system-index
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/context-capsule-evidence.md
+      - result.md
+  observedAt: "2026-09-01T17:48:31.704328776Z"

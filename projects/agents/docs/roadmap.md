@@ -381,8 +381,8 @@ rather than being inferred from a final report.
 
 Do not persist raw BEP, environment dumps, or unrestricted subprocess output.
 Batch compatible Bazel checks, deduplicate identical concurrent checks, and
-cap receipts. Benchmark any managed Bazel server against the current batch
-runner before changing process lifetime.
+cap receipts. Benchmark the persistent Bazel server's warm-query latency and
+keep scratch, output-base, and loopback policy aligned with server lifetime.
 
 ## Phase 4: join durable work, delivery, review, version, and release
 

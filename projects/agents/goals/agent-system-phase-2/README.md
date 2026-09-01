@@ -4,12 +4,12 @@
 
 - Goal ID: `agent-system-phase-2`
 - API version: `goals.alwaldend.com/v1alpha1`
-- Resource version: `7`
+- Resource version: `19`
 - Generation: `2`
-- Lifecycle generation: `4`
+- Lifecycle generation: `5`
 - Scope: `project`
-- Outcome: `open`
-- Execution: `active`
+- Outcome: `achieved`
+- Execution: `paused`
 - Active attempt: `—`
 
 ## Relationships
@@ -31,6 +31,13 @@
 
 ## Recent attempts
 
+- [`goal-publication-008`](attempts/goal-publication-008/) — `change`, `closed`, resource version `1`, criteria r2
+- [`goal-publication-007`](attempts/goal-publication-007/) — `change`, `closed`, resource version `1`, criteria r2
+- [`goal-publication-006`](attempts/goal-publication-006/) — `change`, `closed`, resource version `3`, criteria r2
+- [`goal-publication-005`](attempts/goal-publication-005/) — `change`, `closed`, resource version `2`, criteria r2
+- [`goal-publication-004`](attempts/goal-publication-004/) — `change`, `closed`, resource version `2`, criteria r2
+- [`goal-publication-003`](attempts/goal-publication-003/) — `change`, `closed`, resource version `2`, criteria r2
+- [`goal-publication-002`](attempts/goal-publication-002/) — `change`, `closed`, resource version `1`, criteria r2
 - [`goal-publication-001`](attempts/goal-publication-001/) — `change`, `closed`, resource version `2`, criteria r2
 
 ## Record map

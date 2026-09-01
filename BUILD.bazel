@@ -16,6 +16,8 @@ load("//tools/vault:defs.bzl", "vault_binary_map")
 
 exports_files(
     [
+        "AGENTS.md",
+        "CODEOWNERS",
         ".shellcheckrc",
         "MODULE.bazel",
         "pyproject.toml",

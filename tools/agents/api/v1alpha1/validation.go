@@ -346,6 +346,7 @@ func oneOfReferenceKind(kind ReferenceKind) bool {
 		string(ReferenceSubject),
 		string(ReferenceArtifact),
 		string(ReferenceOperation),
+		string(ReferenceGoal),
 	)
 }
 

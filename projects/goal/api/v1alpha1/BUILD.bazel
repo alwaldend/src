@@ -6,11 +6,15 @@ go_library(
         "digest.go",
         "graph.go",
         "normalization.go",
+        "publication_types.go",
         "types.go",
         "validation.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/goal/api/v1alpha1",
-    visibility = ["//projects/goal:__subpackages__"],
+    visibility = [
+        "//projects/goal:__subpackages__",
+        "//tools/agents:__subpackages__",
+    ],
 )
 
 go_test(

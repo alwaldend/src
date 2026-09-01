@@ -1,6 +1,6 @@
 {
     "schema": "agents.alwaldend.com/phase1-registry/v1alpha1",
-    "criteriaRevision": 3,
+    "criteriaRevision": 4,
     "authorities": [
         {
             "id": "repository.bazel-operations",
@@ -335,10 +335,15 @@
         {"id": "bazel-agent", "owner": "projects/bazel_agent", "path": "projects/bazel_agent/cmd/bazel_agent/main.go", "classification": "classified"},
         {"id": "goal", "owner": "projects/goal", "path": "projects/goal/cmd/goal/main.go", "classification": "classified"},
         {"id": "mcp-cordis", "owner": "projects/mcp_cordis", "path": "projects/mcp_cordis/cmd/mcp_cordis/main.mjs", "classification": "classified"},
-        {"id": "repo-delivery", "owner": "tools/repo_delivery", "path": "tools/repo_delivery/main/go/main.go", "classification": "classified"}
+        {"id": "repo-delivery", "owner": "tools/repo_delivery", "path": "tools/repo_delivery/main/go/main.go", "classification": "classified"},
+        {"id": "agent-system", "owner": "tools/agents", "path": "tools/agents/cmd/agent_system/main.go", "classification": "classified"},
+        {"id": "control-status", "owner": "tools/agents", "path": "tools/agents/cmd/control_status/main.go", "classification": "classified"}
     ],
     "generatedArtifacts": [
         {"path": ".agents/skills/repo-blender", "owner": "projects/agents/skills/repo-blender", "formatter": "relative symlink", "checkedOutput": "//:write_skill_links_test", "updater": "//:write_skill_links"},
+        {"path": "tools/agents/catalogs/policy.json", "owner": "tools/agents", "formatter": "policy-compiler", "checkedOutput": "//tools/agents/cmd/policy_check:policy_check_check", "updater": "//tools/agents/cmd/policy_check:policy_update"},
+        {"path": "tools/agents/catalogs/action.json", "owner": "tools/agents", "formatter": "action-compiler", "checkedOutput": "//tools/agents/cmd/action_check:action_check_check", "updater": "//tools/agents/cmd/action_check:action_update"},
+        {"path": "tools/agents/catalogs/topology.json", "owner": "tools/agents", "formatter": "topology-compiler", "checkedOutput": "//tools/agents/cmd/topology_check:topology_check_check", "updater": "//tools/agents/cmd/topology_check:topology_update"},
         {"path": "tools/bazelrc/preset.bazelrc", "owner": "tools/bazelrc", "formatter": "bazelrc-preset", "checkedOutput": "//tools/bazelrc:preset.update_test", "updater": "//tools/bazelrc:preset.update"}
     ],
     "terraformDefinitions": "tools/terraform/defs.bzl",

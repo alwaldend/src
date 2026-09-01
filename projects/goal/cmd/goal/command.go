@@ -82,6 +82,8 @@ func newRootCommand(
 		newPromoteCommand(storeForCommand, stdout),
 		newRenderCommand(storeForCommand, stdout),
 		newMigrateCommand(storeForCommand, stdout),
+		newDoctorCommand(storeForCommand, stdout),
+		newRecoverCommand(storeForCommand, stdout),
 	)
 	return root
 }
@@ -463,7 +465,11 @@ func newMigrateCommand(factory storeFactory, stdout io.Writer) *cobra.Command {
 		Short: "Import an unversioned goal into a fresh v1alpha1 record",
 		Long: "Read an unversioned Markdown goal without changing it, build a " +
 			"complete v1alpha1 record under the destination goals root, and " +
-			"publish that record only when the target Goal name is absent.",
+			"publish that record only when the target Goal name is absent. " +
+			"The record retains the workspace-relative source path, a " +
+			"content digest of every imported byte, the mapping provenance " +
+			"version, and whether title and criteria were extracted or " +
+			"overridden.",
 		Args: cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			if options.SourceGoalDir == "" || options.DestinationGoalsRoot == "" {
@@ -500,6 +506,56 @@ func newMigrateCommand(factory storeFactory, stdout io.Writer) *cobra.Command {
 	flags.StringVar(&options.Scope, "scope", "workspace", "goal scope: workspace or project")
 	flags.StringVar(&options.OwnerRoot, "owner-root", "", "owning project/task root")
 	flags.StringArrayVar(&options.Criteria, "criterion", nil, "acceptance criterion override (repeatable)")
+	return command
+}
+
+func newDoctorCommand(factory storeFactory, stdout io.Writer) *cobra.Command {
+	goalDir := ""
+	command := &cobra.Command{
+		Use:   "doctor",
+		Short: "Classify the publication state of one goal record",
+		Args:  cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			if goalDir == "" {
+				return fmt.Errorf("--goal-dir is required")
+			}
+			store, err := factory()
+			if err != nil {
+				return err
+			}
+			result, err := store.Doctor(goalDir)
+			if err != nil {
+				return err
+			}
+			return writeJSON(stdout, result)
+		},
+	}
+	command.Flags().StringVar(&goalDir, "goal-dir", "", "goal record directory")
+	return command
+}
+
+func newRecoverCommand(factory storeFactory, stdout io.Writer) *cobra.Command {
+	goalDir := ""
+	command := &cobra.Command{
+		Use:   "recover",
+		Short: "Replay or discard a pending goal publication intent",
+		Args:  cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			if goalDir == "" {
+				return fmt.Errorf("--goal-dir is required")
+			}
+			store, err := factory()
+			if err != nil {
+				return err
+			}
+			result, err := store.Recover(goalDir)
+			if err != nil {
+				return err
+			}
+			return writeJSON(stdout, result)
+		},
+	}
+	command.Flags().StringVar(&goalDir, "goal-dir", "", "goal record directory")
 	return command
 }
 

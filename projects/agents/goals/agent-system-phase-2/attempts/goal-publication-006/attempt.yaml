@@ -1,0 +1,71 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: goal-publication-006
+  resourceVersion: "3"
+  generation: 1
+  creationTimestamp: "2026-09-01T13:04:28.392378191Z"
+spec:
+  goalRef:
+    name: agent-system-phase-2
+  goalGeneration: 2
+  lifecycleGeneration: 4
+  criteriaRevision: 2
+  criteriaDigest: sha256:d59bb95d23bbe0ef533977be69a34e50f2db3e3950e8d1ebfb2a78cdd35713c0
+  goalStateDigest: sha256:d30c6c2460142597f858535bfdc6901ecb813568f6e69d7a7cb99861c60c5da4
+  workType: change
+status:
+  state: closed
+  closedAt: "2026-09-01T16:57:30.118572849Z"
+  artifacts:
+    planDigest: sha256:12fb7f759dfc1226abb5be768ce9b864e6713bf7d49d57fdea5c87dd99cd70fc
+    resultDigest: sha256:628733b3169b8ae4b3be0d35c1b1f0e43cc319080116847682a57ed4eb88eb73
+    evidence:
+    - path: evidence/context-catalog-evidence.md
+      digest: sha256:85c6632bdc615bfa0910f6188e26d91f01eb817ee9209a60ad8b6bc291e9eeb7
+  review:
+    decision: refine
+    criteria:
+    - criterionID: bounded-catalogs
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/context-catalog-evidence.md
+      - result.md
+    - criterionID: context-capsule
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: exact-candidate-validation
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: goal-recovery
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - result.md
+    - criterionID: legacy-migration
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - result.md
+    - criterionID: resource-baseline
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: runtime-isolation
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: system-index
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/context-catalog-evidence.md
+      - result.md
+  observedAt: "2026-09-01T16:57:30.118572849Z"

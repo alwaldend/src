@@ -1,0 +1,76 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
+
+go_library(
+    name = "agent_system_lib",
+    srcs = [
+        "main.go",
+        "plan_cmd.go",
+        "readers.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/agents/cmd/agent_system",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//tools/agents/api/v1alpha1",
+        "//tools/agents/catalog/v1alpha1",
+        "//tools/agents/plan",
+    ],
+)
+
+go_binary(
+    name = "agent_system",
+    embed = [":agent_system_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "agent_system_test",
+    size = "small",
+    srcs = [
+        "main_test.go",
+        "plan_cmd_test.go",
+    ],
+    data = glob(["testdata/**"]),
+    embed = [":agent_system_lib"],
+    deps = ["//tools/agents/api/v1alpha1"],
+)
+
+sh_binary(
+    name = "agent_system_update",
+    srcs = ["update.sh"],
+    data = [
+        ":agent_system",
+        "//:MODULE.bazel",
+    ],
+    env = {
+        "AGENT_SYSTEM_RLOCATION": "$(rlocationpath :agent_system)",
+        "WORKSPACE_MARKER": "$(location //:MODULE.bazel)",
+    },
+    tags = [
+        "external",
+        "no-cache",
+        "no-sandbox",
+    ],
+    deps = ["@bazel_tools//tools/bash/runfiles"],
+)
+
+sh_test(
+    name = "agent_system_check",
+    srcs = ["check.sh"],
+    data = [
+        ":agent_system",
+        "//:MODULE.bazel",
+        "//tools/agents/catalogs:capability.json",
+    ],
+    env = {
+        "AGENT_SYSTEM_RLOCATION": "$(rlocationpath :agent_system)",
+        "WORKSPACE_MARKER": "$(location //:MODULE.bazel)",
+    },
+    tags = [
+        "external",
+        "no-cache",
+        "no-sandbox",
+    ],
+    deps = ["@bazel_tools//tools/bash/runfiles"],
+)

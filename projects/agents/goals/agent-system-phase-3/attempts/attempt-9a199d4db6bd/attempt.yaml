@@ -1,0 +1,27 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: attempt-9a199d4db6bd
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-09-01T22:14:44.18089621Z"
+spec:
+  goalRef:
+    name: agent-system-phase-3
+  goalGeneration: 2
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:98a2c415e98d619a0b9d58f1781df6ac2571e317673e677fe8e8197bcb2f9ae0
+  goalStateDigest: sha256:5c19f039a84f0d08e38cc8324a2ad9df40e8f4e1a4cc501b2bb4ea98310a9a8e
+  workType: change
+status:
+  state: open
+  closedAt: ""
+  artifacts:
+    planDigest: sha256:bc32dd484611613563727759a3d39abda74d8bd54dea9dbf57bcf28afe059ef5
+    resultDigest: sha256:7c71f939094bae52a0f08a4909cc06f7d2ad8dc71773b1744d2a05d28d311940
+    evidence: []
+  review:
+    decision: ""
+    criteria: []
+  observedAt: "2026-09-01T22:14:44.18089621Z"
