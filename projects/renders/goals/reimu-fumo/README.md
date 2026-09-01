@@ -4,9 +4,9 @@
 
 - Goal ID: `reimu-fumo`
 - API version: `goals.alwaldend.com/v1alpha1`
-- Resource version: `75`
+- Resource version: `78`
 - Generation: `1`
-- Lifecycle generation: `6`
+- Lifecycle generation: `8`
 - Scope: `project`
 - Outcome: `open`
 - Execution: `blocked`
@@ -31,6 +31,7 @@
 
 ## Recent attempts
 
+- [`a100-sparse-rear-pool`](attempts/a100-sparse-rear-pool/) — `change`, `closed`, resource version `2`, criteria r1
 - [`a99-direct-open-pointer-coupon`](attempts/a99-direct-open-pointer-coupon/) — `investigation`, `closed`, resource version `2`, criteria r1
 - [`a98-minimal-pointer-coupon`](attempts/a98-minimal-pointer-coupon/) — `investigation`, `closed`, resource version `2`, criteria r1
 - [`a97-post-a96-feasibility-decision`](attempts/a97-post-a96-feasibility-decision/) — `decision`, `closed`, resource version `2`, criteria r1
@@ -50,8 +51,7 @@
 - [`a83-incremental-sculpt`](attempts/a83-incremental-sculpt/) — `change`, `closed`, resource version `9`, criteria r1
 - [`a82-atomic-head-shell`](attempts/a82-atomic-head-shell/) — `candidate`, `closed`, resource version `2`, criteria r1
 - [`a81-live-joint-restform`](attempts/a81-live-joint-restform/) — `candidate`, `closed`, resource version `2`, criteria r1
-- [`a80-diagnostic-hair-blockout`](attempts/a80-diagnostic-hair-blockout/) — `candidate`, `closed`, resource version `2`, criteria r1
-- … 13 older attempts omitted by the projection limit.
+- … 14 older attempts omitted by the projection limit.
 
 ## Record map
 
