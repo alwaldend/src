@@ -18,18 +18,17 @@ func TestBazelArguments(t *testing.T) {
 	}{
 		{
 			name: "no command",
-			want: []string{"--batch"},
+			want: []string{},
 		},
 		{
 			name: "help passes through",
 			args: []string{"--help"},
-			want: []string{"--batch", "--help", "--config=agent"},
+			want: []string{"--help", "--config=agent"},
 		},
 		{
 			name: "build",
 			args: []string{"build", "//path/to/package:all"},
 			want: []string{
-				"--batch",
 				"build",
 				"--config=agent",
 				"//path/to/package:all",
@@ -39,7 +38,6 @@ func TestBazelArguments(t *testing.T) {
 			name: "run separator",
 			args: []string{"run", "//path/to:tool", "--", "--tool-flag"},
 			want: []string{
-				"--batch",
 				"run",
 				"--config=agent",
 				"//path/to:tool",
@@ -51,7 +49,6 @@ func TestBazelArguments(t *testing.T) {
 			name: "later options stay later",
 			args: []string{"test", "--config=local", "//..."},
 			want: []string{
-				"--batch",
 				"test",
 				"--config=agent",
 				"--config=local",
@@ -62,7 +59,6 @@ func TestBazelArguments(t *testing.T) {
 			name: "validation belongs to Bazel",
 			args: []string{"--not-a-command", "build", "//..."},
 			want: []string{
-				"--batch",
 				"--not-a-command",
 				"--config=agent",
 				"build",
@@ -116,7 +112,6 @@ func TestRunReplacesProcess(t *testing.T) {
 	}
 	wantArgs := []string{
 		"/bin/bazel",
-		"--batch",
 		"test",
 		"--config=agent",
 		"//pkg:all",

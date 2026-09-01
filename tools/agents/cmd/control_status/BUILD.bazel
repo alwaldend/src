@@ -1,0 +1,23 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "control_status_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/agents/cmd/control_status",
+    visibility = ["//visibility:private"],
+    deps = ["//tools/agents/control"],
+)
+
+go_binary(
+    name = "control_status",
+    embed = [":control_status_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "control_status_test",
+    size = "small",
+    srcs = ["main_test.go"],
+    embed = [":control_status_lib"],
+    deps = ["//tools/agents/control"],
+)

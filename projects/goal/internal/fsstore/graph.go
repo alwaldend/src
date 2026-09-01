@@ -76,6 +76,9 @@ func (s *Store) SetRelationships(
 		return GoalReference{}, err
 	}
 	defer lock.release()
+	if err := s.checkNoPendingPublication(dir); err != nil {
+		return GoalReference{}, err
+	}
 	goal, criteria, attempts, err := s.loadAndValidate(dir)
 	if err != nil {
 		return GoalReference{}, err
@@ -165,16 +168,8 @@ func (s *Store) SetRelationships(
 	); err != nil {
 		return GoalReference{}, err
 	}
-	readme, err := renderREADME(
-		updatedManifest,
-		criteria,
-		attempts,
-		defaultOutputLimit,
-	)
+	updatedBytes, err := marshalYAML(GoalManifest(updatedManifest))
 	if err != nil {
-		return GoalReference{}, err
-	}
-	if err := s.writeYAML(filepath.Join(dir, "goal.yaml"), updatedManifest); err != nil {
 		return GoalReference{}, err
 	}
 	reference := GoalReference{
@@ -182,16 +177,52 @@ func (s *Store) SetRelationships(
 		GoalRef:         ".",
 		ResourceVersion: updated.Metadata.ResourceVersion,
 	}
-	if err := s.atomicWrite(
-		filepath.Join(dir, "README.md"),
-		readme,
-		0o644,
-	); err != nil {
-		return reference, fmt.Errorf(
-			"relationships committed at resourceVersion %s; refresh README projection: %w",
-			reference.ResourceVersion,
-			err,
-		)
+	intent, err := s.beginPublication(
+		dir,
+		updated.Metadata.Name,
+		goal.Metadata.ResourceVersion,
+		updated.Metadata.ResourceVersion,
+		[]publicationFileEntry{
+			{Path: "goal.yaml", BeforeDigest: "", Content: updatedBytes},
+		},
+		nil,
+	)
+	if err != nil {
+		return GoalReference{}, err
+	}
+	if err := s.publishIntentFiles(dir, intent, ""); err != nil {
+		if !s.goalCommitted(dir, intent) {
+			_ = s.finishPublication(dir)
+			return GoalReference{}, err
+		}
+		return reference, &PublicationIncompleteError{
+			OperationID:      intent.Spec.OperationID,
+			IntendedRevision: reference.ResourceVersion,
+			Phase:            "publish",
+			Kind:             "relationships",
+			Message:          err.Error(),
+			Cause:            err,
+		}
+	}
+	if err := s.refreshREADMEProjection(dir); err != nil {
+		return reference, &PublicationIncompleteError{
+			OperationID:      intent.Spec.OperationID,
+			IntendedRevision: reference.ResourceVersion,
+			Phase:            "projection",
+			Kind:             "relationships",
+			Message:          err.Error(),
+			Cause:            err,
+		}
+	}
+	if err := s.finishPublication(dir); err != nil {
+		return reference, &PublicationIncompleteError{
+			OperationID:      intent.Spec.OperationID,
+			IntendedRevision: reference.ResourceVersion,
+			Phase:            "finish",
+			Kind:             "relationships",
+			Message:          err.Error(),
+			Cause:            err,
+		}
 	}
 	return reference, nil
 }

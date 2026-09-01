@@ -12,6 +12,10 @@ import (
 	"strings"
 )
 
+const (
+	migrationMappingVersion = "v1"
+)
+
 type PromoteOptions struct {
 	GoalDir                 string
 	DestinationGoalsRoot    string
@@ -57,6 +61,9 @@ func (s *Store) Promote(options PromoteOptions) (GoalReference, error) {
 	}
 	defer sourceLock.release()
 	defer targetLock.release()
+	if err := s.checkNoPendingPublication(source); err != nil {
+		return GoalReference{}, err
+	}
 	goal, criteria, attempts, err := s.loadAndValidate(source)
 	if err != nil {
 		return GoalReference{}, err
@@ -369,6 +376,9 @@ func (s *Store) Migrate(options MigrateOptions) (GoalReference, error) {
 	defer sourceLock.release()
 	defer targetLock.release()
 
+	if err := s.checkNoPendingPublication(target); err != nil {
+		return GoalReference{}, err
+	}
 	legacyFiles, err := inspectUnversionedRecord(source)
 	if err != nil {
 		return GoalReference{}, err
@@ -396,6 +406,26 @@ func (s *Store) Migrate(options MigrateOptions) (GoalReference, error) {
 		scope = "workspace"
 	}
 	digest := digestLegacyFiles(legacyFiles)
+	sourcePath, err := portableOwnerRoot(s.workspaceRoot, source)
+	if err != nil {
+		return GoalReference{}, fmt.Errorf("source path: %w", err)
+	}
+	titleOverride := strings.TrimSpace(options.Title) != ""
+	criteriaOverride := false
+	for _, statement := range options.Criteria {
+		if strings.TrimSpace(statement) != "" {
+			criteriaOverride = true
+			break
+		}
+	}
+	mapping := MigrationStatus{
+		SourceFormat:   "unversioned",
+		SourcePath:     sourcePath,
+		SourceDigest:   digest,
+		MappingVersion: migrationMappingVersion,
+		ExtractionMode: migrationExtractionMode(titleOverride, criteriaOverride),
+		MigratedAt:     "",
+	}
 	retention := "ephemeral"
 	if scope == "project" {
 		retention = "durable"
@@ -410,6 +440,8 @@ func (s *Store) Migrate(options MigrateOptions) (GoalReference, error) {
 			ownerRef,
 			criteriaStatements,
 			digest,
+			sourcePath,
+			mapping,
 		)
 	}
 
@@ -441,9 +473,12 @@ func (s *Store) Migrate(options MigrateOptions) (GoalReference, error) {
 			Execution:           "active",
 			CriteriaRevision:    1,
 			Migration: MigrationStatus{
-				SourceFormat: "unversioned",
-				SourceDigest: digest,
-				MigratedAt:   now,
+				SourceFormat:   mapping.SourceFormat,
+				SourcePath:     mapping.SourcePath,
+				SourceDigest:   mapping.SourceDigest,
+				MappingVersion: mapping.MappingVersion,
+				ExtractionMode: mapping.ExtractionMode,
+				MigratedAt:     now,
 			},
 			ObservedAt: now,
 		},
@@ -634,14 +669,18 @@ func (s *Store) matchExistingMigration(
 	ownerRef string,
 	criteriaStatements []string,
 	sourceDigest string,
+	sourcePath string,
+	mapping MigrationStatus,
 ) (GoalReference, error) {
-	goal, criteria, _, err := s.loadAndValidate(target)
+	goal, criteria, attempts, err := s.loadAndValidate(target)
 	if err != nil {
 		return GoalReference{}, fmt.Errorf("existing migration target is invalid: %w", err)
 	}
 	if goal.Metadata.Name != goalID ||
 		goal.Status.Migration.SourceFormat != "unversioned" ||
+		goal.Status.Migration.SourcePath != sourcePath ||
 		goal.Status.Migration.SourceDigest != sourceDigest ||
+		goal.Status.Migration.MappingVersion != mapping.MappingVersion ||
 		goal.Spec.Title != title ||
 		goal.Spec.Scope != scope ||
 		goal.Spec.Retention.Policy != retention ||
@@ -662,11 +701,51 @@ func (s *Store) matchExistingMigration(
 			)
 		}
 	}
+	if goal.Status.Migration.ExtractionMode != mapping.ExtractionMode {
+		return GoalReference{}, fmt.Errorf(
+			"existing migration target has different provenance or options",
+		)
+	}
+	if goal.Status.Migration.MigratedAt == "" {
+		return GoalReference{}, fmt.Errorf(
+			"existing migration target is missing a migration timestamp",
+		)
+	}
+	rebound, err := s.reboundLegacyDigest(target, attempts)
+	if err != nil {
+		return GoalReference{}, err
+	}
+	if rebound != sourceDigest {
+		return GoalReference{}, fmt.Errorf(
+			"existing migration imported snapshot does not match provenance",
+		)
+	}
 	return GoalReference{
 		GoalID:          goal.Metadata.Name,
 		GoalRef:         goal.Metadata.Name,
 		ResourceVersion: goal.Metadata.ResourceVersion,
 	}, nil
+}
+
+func (s *Store) reboundLegacyDigest(
+	target string,
+	attempts []AttemptManifest,
+) (string, error) {
+	for _, attempt := range attempts {
+		if attempt.Metadata.Name != "imported-unversioned" {
+			continue
+		}
+		if attempt.Status.Artifacts.PlanDigest == "" {
+			return "", fmt.Errorf("imported attempt lacks bound plan digest")
+		}
+		attemptDir := filepath.Join(target, "attempts", attempt.Metadata.Name)
+		files, err := s.legacyFilesFromImportedAttempt(attemptDir)
+		if err != nil {
+			return "", err
+		}
+		return digestLegacyFiles(files), nil
+	}
+	return "", fmt.Errorf("migration target lacks the imported attempt")
 }
 
 func inspectUnversionedRecord(dir string) (map[string][]byte, error) {
@@ -767,6 +846,52 @@ func digestLegacyFiles(files map[string][]byte) string {
 		writeDigestFrame(hash, files[name])
 	}
 	return "sha256:" + hex.EncodeToString(hash.Sum(nil))
+}
+
+// legacyFilesFromImportedAttempt rebinds the source record from the frozen
+// imported attempt: plan.md holds the legacy README bytes and evidence holds
+// every other root Markdown file byte-for-byte. The rebinding makes
+// idempotence verification depend on the actual imported snapshot instead of
+// copied provenance fields.
+func (s *Store) legacyFilesFromImportedAttempt(
+	attemptDir string,
+) (map[string][]byte, error) {
+	plan, err := readMarkdownFile(
+		filepath.Join(attemptDir, "plan.md"),
+		maxPlanResultBytes,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("read imported plan: %w", err)
+	}
+	files := map[string][]byte{"README.md": plan}
+	entries, err := os.ReadDir(filepath.Join(attemptDir, "evidence"))
+	if err != nil {
+		return nil, fmt.Errorf("read imported evidence: %w", err)
+	}
+	for _, entry := range entries {
+		if entry.IsDir() || !safeEvidenceName(entry.Name()) {
+			return nil, fmt.Errorf("invalid imported evidence entry %q", entry.Name())
+		}
+		content, err := readMarkdownFile(
+			filepath.Join(attemptDir, "evidence", entry.Name()),
+			maxEvidenceFileBytes,
+		)
+		if err != nil {
+			return nil, fmt.Errorf("read imported evidence %q: %w", entry.Name(), err)
+		}
+		files[entry.Name()] = content
+	}
+	if _, ok := files["README.md"]; !ok {
+		return nil, fmt.Errorf("imported attempt lacks README bytes")
+	}
+	return files, nil
+}
+
+func migrationExtractionMode(titleArg, criteriaArg bool) string {
+	if titleArg || criteriaArg {
+		return "overridden"
+	}
+	return "extracted"
 }
 
 type promotionRecordFile struct {

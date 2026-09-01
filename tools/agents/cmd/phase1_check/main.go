@@ -228,7 +228,7 @@ func (c *checker) load() error {
 		return fmt.Errorf("registry: %w", err)
 	}
 	c.report.RegistryDigest = digest(content)
-	if c.registry.Schema != registrySchema || c.registry.CriteriaRevision != 3 {
+	if c.registry.Schema != registrySchema || c.registry.CriteriaRevision != 4 {
 		return fmt.Errorf("registry schema or criteria revision mismatch")
 	}
 	c.operations = map[string]operation{}
@@ -322,7 +322,7 @@ func (c *checker) validateBaseline() error {
 	if _, err := strictJSON(path, &value); err != nil {
 		return fmt.Errorf("resource baseline: %w", err)
 	}
-	if value.Schema != baselineSchema || value.CriteriaRevision != 3 ||
+	if value.Schema != baselineSchema || value.CriteriaRevision != 4 ||
 		value.RegistryDigest != c.report.RegistryDigest {
 		return fmt.Errorf("resource baseline is not bound to this registry")
 	}
@@ -656,7 +656,7 @@ func (c *checker) checkOwnedFiles() {
 func (c *checker) run() error {
 	c.report = report{
 		Schema:            "agents.alwaldend.com/phase1-report/v1alpha1",
-		CriteriaRevision:  3,
+		CriteriaRevision:  4,
 		Counts:            map[string]int{},
 		Missing:           []string{},
 		Unclassified:      []string{},

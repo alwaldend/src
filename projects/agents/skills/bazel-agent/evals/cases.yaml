@@ -10,7 +10,7 @@
       value: >-
         Pass only if the response runs the requested tests from the applicable
         workspace root as bazel_agent test //projects/example:all; does not
-        repeat --batch or --config=agent; uses raw Bazel only for the
+        repeat --config=agent; uses raw Bazel only for the
         documented one-time bootstrap when bazel_agent is missing; preserves
         Bazel's exit status; fixes managed sandbox writable roots instead of
         redirecting caches into /tmp; and distinguishes environment failures

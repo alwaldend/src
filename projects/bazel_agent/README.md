@@ -12,13 +12,13 @@ tags:
 ---
 
 `bazel_agent` is the repository Bazel entry point for agents. It keeps the
-ordinary `bazel` command unchanged while consistently invoking it in batch
-mode with the agent configuration:
+ordinary `bazel` command unchanged while consistently applying the agent
+configuration:
 
 ```text
 bazel_agent test //path/to/package:all
     ->
-bazel --batch test --config=agent //path/to/package:all
+bazel test --config=agent //path/to/package:all
 ```
 
 The runner performs no command validation. It passes an empty argument list,
@@ -29,7 +29,9 @@ after the `--` separator of a `bazel run` invocation. Later options therefore
 retain Bazel's normal precedence and can override settings supplied by the
 agent configuration. The runner resolves `bazel` from `PATH` and replaces
 itself with that process, so signals and the final exit status are not mediated
-by another wrapper process.
+by another wrapper process. Uses of the persistent Bazel server follow the
+host Codex network policy; the `host-bot` profile allows loopback so the
+client-server connection is not blocked.
 
 The runner does not create or inject a host temporary directory. Bazel actions
 use declared outputs and Bazel-managed temporary storage, and tests use their
@@ -48,7 +50,7 @@ classification, and stale host-install state without dumping the environment.
 Bootstrap the host installation with the underlying Bazel command:
 
 ```sh
-bazel --batch run --config=agent //projects/bazel_agent:install
+bazel run --config=agent //projects/bazel_agent:install
 ```
 
 Once installed, update it with:

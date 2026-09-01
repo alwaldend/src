@@ -207,6 +207,84 @@ func TestGoalSpecCanBeValidatedBeforeStatusExists(t *testing.T) {
 	}
 }
 
+func TestMigrationStatusRequiresPathDigestAndMappingProvenance(t *testing.T) {
+	goal := validGoal()
+	goal.Status.Migration = MigrationStatus{
+		SourceFormat:   "unversioned",
+		SourcePath:     "out/task/legacy/legacy-goal",
+		SourceDigest:   "sha256:" + strings.Repeat("ab", 32),
+		MappingVersion: "v1",
+		ExtractionMode: "extracted",
+		MigratedAt:     "2026-09-01T12:00:00Z",
+	}
+	if err := goal.Validate(); err != nil {
+		t.Fatalf("valid migration status was rejected: %v", err)
+	}
+
+	for _, test := range []struct {
+		name   string
+		mutate func(*MigrationStatus)
+	}{
+		{
+			name: "absolute source path",
+			mutate: func(status *MigrationStatus) {
+				status.SourcePath = "/var/legacy/legacy-goal"
+			},
+		},
+		{
+			name: "empty source path",
+			mutate: func(status *MigrationStatus) {
+				status.SourcePath = ""
+			},
+		},
+		{
+			name: "parent escaping source path",
+			mutate: func(status *MigrationStatus) {
+				status.SourcePath = "../legacy-goal"
+			},
+		},
+		{
+			name: "missing mapping version",
+			mutate: func(status *MigrationStatus) {
+				status.MappingVersion = ""
+			},
+		},
+		{
+			name: "unknown mapping version",
+			mutate: func(status *MigrationStatus) {
+				status.MappingVersion = "v9"
+			},
+		},
+		{
+			name: "unknown extraction mode",
+			mutate: func(status *MigrationStatus) {
+				status.ExtractionMode = "guessed"
+			},
+		},
+		{
+			name: "missing source digest",
+			mutate: func(status *MigrationStatus) {
+				status.SourceDigest = ""
+			},
+		},
+		{
+			name: "malformed source digest",
+			mutate: func(status *MigrationStatus) {
+				status.SourceDigest = "md5:deadbeef"
+			},
+		},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			candidate := validGoal()
+			candidate.Status.Migration = goal.Status.Migration
+			test.mutate(&candidate.Status.Migration)
+			if err := candidate.Validate(); err == nil {
+				t.Fatalf("invalid migration status was accepted: %+v", candidate.Status.Migration)
+			}
+		})
+	}
+}
+
 func TestRelationshipFieldNamesAreStableBeforeAlphaRelease(t *testing.T) {
 	type expectedField struct {
 		name string

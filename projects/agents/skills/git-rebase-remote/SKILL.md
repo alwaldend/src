@@ -4,7 +4,9 @@ description: >-
   Keep a feature branch synchronized with its remote base by fetching current
   refs, rebasing task-owned commits, and updating the remote feature ref with
   an explicit force-with-lease. Use before delivery or whenever an advancing
-  remote base requires a rebase; do not rewrite shared or human-owned history.
+  remote base requires a rebase; agent-owned branches may be rewritten as long
+  as neither local nor remote progress is lost, and shared or human-owned
+  history is never rewritten.
 ---
 
 # Synchronize a feature branch with its remote
@@ -23,7 +25,11 @@ perform the full workflow only when the task authorizes those mutations.
    discard, auto-stash, commit, or rewrite unrelated work.
 3. Inspect branch relationships and every commit that the rebase would
    rewrite. Stop when the branch appears shared, stacked, human-owned, or mixed
-   with unrelated commits, or when ownership is materially uncertain.
+   with unrelated commits, or when ownership is materially uncertain. On an
+   agent-owned branch (all commits task or agent generated), rewriting is
+   authorized as long as both local and remote progress are preserved: the
+   rebase replays every task-owned commit, and the final push uses an exact
+   force-with-lease so no remote commit is lost without detection.
 
 ## Fetch and rebase
 
@@ -36,7 +42,8 @@ perform the full workflow only when the task authorizes those mutations.
 3. After fetching, inspect the local and fetched feature tips and both unique
    commit ranges. Establish the expected remote feature state only after
    confirming that replacing it would not overwrite unexpected, shared,
-   human-owned, or unrelated work.
+   human-owned, or unrelated work, and that every previously remote task-owned
+   commit remains reachable from the replacement.
 4. Rebase the intended task-owned commits onto the fetched base OID. Preserve
    required signing and any caller-required commit shape. If a previously
    fetched base changes non-fast-forward, stop and reassess instead of blindly
@@ -55,8 +62,10 @@ Treat fetch, comparison, rebase, and validation as a cycle. After any rebase or
 check run, refresh the pull-request metadata and fetch both refs again. If the
 base advanced, rebase onto its new fetched OID and repeat invalidated checks.
 If the feature ref changed or its existence state changed, stop and inspect
-the remote change instead of overwriting or recreating it. Push only when a
-fresh cycle requires no further rewrite and all pre-push invariants still hold.
+the remote change: when the change is task-owned agent progress, rebase it in
+so neither local nor remote progress is lost; otherwise stop instead of
+overwriting or recreating it. Push only when a fresh cycle requires no further
+rewrite and all pre-push invariants still hold.
 
 For an existing rewritten feature ref, push `HEAD` to the full feature ref
 with the exact OID observed by that final fetch:

@@ -1,7 +1,7 @@
 {
     "schema": "agents.alwaldend.com/resource-baseline/v1alpha1",
-    "criteriaRevision": 3,
-    "registryDigest": "sha256:ee6024206f87005175f0213b4d81db7be9810988d0dadcbe8c5a5347c3b745e7",
+    "criteriaRevision": 4,
+    "registryDigest": "sha256:b6dbab50076708d39717f0bb57210d9d22e4035f34ddf598da9ce438ae6bdba8",
     "ceilings": {
         "correctnessFailuresMax": 0,
         "unsafeActionsMax": 0,
@@ -24,13 +24,11 @@
         },
         {
             "metric": "discovery_calls",
-            "value": null,
-            "reason": "no instrumented zero-context Phase 1 task run exists"
+            "value": 0
         },
         {
             "metric": "context_bytes",
-            "value": null,
-            "reason": "no instrumented zero-context Phase 1 task run exists"
+            "value": 2613
         },
         {
             "metric": "cold_duration_ms",
@@ -49,7 +47,7 @@
         {
             "metric": "reused_checks",
             "value": null,
-            "reason": "Phase 1 has no candidate-bound receipt reuse counter"
+            "reason": "phase 2 has no candidate-bound receipt reuse counter"
         }
     ]
 }

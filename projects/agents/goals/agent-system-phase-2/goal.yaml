@@ -2,7 +2,7 @@ apiVersion: goals.alwaldend.com/v1alpha1
 kind: Goal
 metadata:
   name: agent-system-phase-2
-  resourceVersion: "7"
+  resourceVersion: "19"
   generation: 2
   creationTimestamp: "2026-08-31T20:17:20.695313978Z"
   annotations:
@@ -17,12 +17,12 @@ spec:
     - name: agent-system-phase-1
     supersedesGoalRefs: []
 status:
-  lifecycleGeneration: 4
-  outcome: open
-  execution: active
+  lifecycleGeneration: 5
+  outcome: achieved
+  execution: paused
   activeAttemptID: ""
-  acceptedAttemptID: ""
-  acceptedResultDigest: ""
+  acceptedAttemptID: goal-publication-008
+  acceptedResultDigest: sha256:a94254f41886f69fb7e162db1ce9d47aa08fc10889687f119bd31bffda9338ce
   criteriaRevision: 2
   promotion:
     sourceScope: ""
@@ -35,6 +35,9 @@ status:
     promotedAt: ""
   migration:
     sourceFormat: ""
+    sourcePath: ""
     sourceDigest: ""
+    mappingVersion: ""
+    extractionMode: ""
     migratedAt: ""
-  observedAt: "2026-08-31T20:33:10.001394909Z"
+  observedAt: "2026-09-01T18:21:47.962076525Z"

@@ -617,6 +617,116 @@ func TestMigrationIdempotenceRequiresMatchingProvenanceAndOptions(t *testing.T) 
 	}
 }
 
+func TestMigrationIdempotenceRebindsDigestFromImportedSnapshot(t *testing.T) {
+	store, root := newTestStore(t)
+	source := filepath.Join(root, "legacy", "rebound-import")
+	writeLegacyGoal(t, source, "Rebound import")
+	destinationRoot := filepath.Join(root, "project", "goals")
+	target := filepath.Join(destinationRoot, "rebound-import")
+	if _, err := store.Migrate(MigrateOptions{
+		SourceGoalDir:        source,
+		DestinationGoalsRoot: destinationRoot,
+	}); err != nil {
+		t.Fatal(err)
+	}
+	goal, criteria, attempts, err := store.loadAndValidate(target)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// Morph the frozen imported snapshot into a different byte string while
+	// keeping the record structurally valid: update plan.md, its digest in
+	// the attempt manifest, and the goal state digest binding.
+	importedDir := filepath.Join(target, "attempts", "imported-unversioned")
+	replaced := []byte("# Rebound imported bytes\n")
+	if err := os.WriteFile(filepath.Join(importedDir, "plan.md"), replaced, 0o644); err != nil {
+		t.Fatal(err)
+	}
+	for index := range attempts {
+		if attempts[index].Metadata.Name != "imported-unversioned" {
+			continue
+		}
+		attempts[index].Status.Artifacts.PlanDigest = digestBytes(replaced)
+		if err := store.writeYAML(
+			filepath.Join(importedDir, "attempt.yaml"),
+			attempts[index],
+		); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if err := store.writeYAML(filepath.Join(target, "goal.yaml"), goal); err != nil {
+		t.Fatal(err)
+	}
+	criteriaPath := filepath.Join(target, "criteria.yaml")
+	if err := store.writeYAML(criteriaPath, criteria); err != nil {
+		t.Fatal(err)
+	}
+	if _, _, _, err := store.loadAndValidate(target); err != nil {
+		t.Fatalf("morphed record must remain valid: %v", err)
+	}
+	if _, err := store.Migrate(MigrateOptions{
+		SourceGoalDir:        source,
+		DestinationGoalsRoot: destinationRoot,
+	}); err == nil || !strings.Contains(err.Error(), "snapshot does not match provenance") {
+		t.Fatalf("Migrate() rebound error = %v, want snapshot mismatch rejection", err)
+	}
+}
+
+func TestMigrationRecordsExtractionMode(t *testing.T) {
+	store, root := newTestStore(t)
+	source := filepath.Join(root, "legacy", "extracted-import")
+	writeLegacyGoal(t, source, "Extracted import")
+	destinationRoot := filepath.Join(root, "project", "goals")
+	target := filepath.Join(destinationRoot, "extracted-import")
+	if _, err := store.Migrate(MigrateOptions{
+		SourceGoalDir:        source,
+		DestinationGoalsRoot: destinationRoot,
+	}); err != nil {
+		t.Fatal(err)
+	}
+	goal, err := store.readGoalManifest(target)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if goal.Status.Migration.ExtractionMode != "extracted" {
+		t.Fatalf(
+			"extraction mode = %q, want extracted",
+			goal.Status.Migration.ExtractionMode,
+		)
+	}
+
+	_, err = store.Migrate(MigrateOptions{
+		SourceGoalDir:        source,
+		DestinationGoalsRoot: destinationRoot,
+		Title:                "Overridden title",
+		Criteria:             []string{"Overridden criterion."},
+	})
+	if err == nil || !strings.Contains(err.Error(), "different provenance or options") {
+		t.Fatalf("Migrate() changed-options error = %v", err)
+	}
+
+	other := filepath.Join(root, "legacy", "overridden-import")
+	writeLegacyGoal(t, other, "Overridden import")
+	otherTarget := filepath.Join(destinationRoot, "overridden-import")
+	if _, err := store.Migrate(MigrateOptions{
+		SourceGoalDir:        other,
+		DestinationGoalsRoot: destinationRoot,
+		Title:                "Overridden title",
+		Criteria:             []string{"Overridden criterion."},
+	}); err != nil {
+		t.Fatal(err)
+	}
+	goal, err = store.readGoalManifest(otherTarget)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if goal.Status.Migration.ExtractionMode != "overridden" {
+		t.Fatalf(
+			"extraction mode = %q, want overridden",
+			goal.Status.Migration.ExtractionMode,
+		)
+	}
+}
+
 func TestMigrationNeverOverwritesExistingUnrelatedTarget(t *testing.T) {
 	t.Run("valid goal", func(t *testing.T) {
 		store, root := newTestStore(t)

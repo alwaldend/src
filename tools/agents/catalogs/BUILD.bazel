@@ -1,0 +1,16 @@
+exports_files([
+    "action.json",
+    "action.md",
+    "capability.json",
+    "capability.md",
+    "goal.json",
+    "goal.md",
+    "index.json",
+    "index.md",
+    "policy.json",
+    "policy.md",
+    "topology.json",
+    "topology.md",
+    "workspace-check.json",
+    "workspace-check.md",
+])

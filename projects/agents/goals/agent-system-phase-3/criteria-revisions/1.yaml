@@ -1,0 +1,52 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalCriteria
+metadata:
+  name: agent-system-phase-3
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-09-01T22:12:57.307516153Z"
+spec:
+  goalRef:
+    name: agent-system-phase-3
+  revision: 1
+  items:
+  - criterionID: criterion-001
+    revision: 1
+    required: true
+    statement: "impact-planning: A deterministic ImpactPlan resolves the smallest sufficient plan for a given intent: selected capabilities, required and forbidden effects, changed and reverse-affected targets at narrowest scope, minimum checks plus coverage gaps, expected cost and escalation, and reusable evidence; causal inputs and the same candidate produce the same plan digest."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-002
+    revision: 1
+    required: true
+    statement: "effect-admission: Provider gateways admit action contracts against exact authority, subject, environment, pre-state, and budgets; read and hermetic compute stay cheap; remote writes use prepare/validate/authorize/execute/verify; unknown actions, stale pre-state, wrong environment, weakened safety flags, and missing cancellation budgets are rejected before execution."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-003
+    revision: 1
+    required: true
+    statement: "validation-sets: Execution emits candidate-bound immutable ValidationSets with exact candidate, profile, check identities, sanitized arguments, working scope, provider/config/toolchain/policy digests, clean pre/post state, results, coverage, duration, output bounds, limitations, and task-local raw-log digests; sanitized arguments never contain credential argv."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-004
+    revision: 1
+    required: true
+    statement: "evidence-assertions: Goal and task owners create EvidenceAssertions applying one or more validation sets to an exact criterion revision and semantic verdict; delivery consumes validation sets and goals consume both; the same immutable set supports multiple assertions without mutation."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-005
+    revision: 1
+    required: true
+    statement: "receipt-applicability: Receipt applicability uses relevant dependency-slice digests; tree-bound checks survive message-only rewrites; commit-bound checks do not; changes to base, tree, config, policy, contract, toolchain, generator, environment, or remote generation make evidence stale; global catalog churn triggers reevaluation not a rerun."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-006
+    revision: 1
+    required: true
+    statement: "full-check-structured: full-repo-check emits incremental versioned JSON plus generated Markdown, supports workspace and phase selectors, binds exact inputs and profile, records the target-universe count, rejects zero or unexpected reductions, and resumes only against identical inputs; interrupted work stays explicit."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-007
+    revision: 1
+    required: true
+    statement: "resource-bounds: Do not persist raw BEP or environment dumps; batch compatible Bazel checks; deduplicate identical concurrent checks; cap receipts; benchmark the persistent Bazel server's warm-query latency and keep scratch, output-base, and loopback policy aligned with server lifetime."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-008
+    revision: 1
+    required: true
+    statement: "exact-candidate-validation: All affected packages, schemas, generated projections, documentation, goal records, and delivery state pass focused validation against the exact delivered candidate."
+    evidenceMethod: Inspect linked evidence against the criterion.

@@ -1,0 +1,17 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "evidence",
+    srcs = ["evidence.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/agents/evidence",
+    visibility = ["//visibility:public"],
+    deps = ["//tools/agents/api/v1alpha1"],
+)
+
+go_test(
+    name = "evidence_test",
+    size = "small",
+    srcs = ["evidence_test.go"],
+    embed = [":evidence"],
+    deps = ["//tools/agents/api/v1alpha1"],
+)

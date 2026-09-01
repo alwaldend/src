@@ -1,0 +1,70 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: goal-publication-003
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-01T08:37:47.913171714Z"
+spec:
+  goalRef:
+    name: agent-system-phase-2
+  goalGeneration: 2
+  lifecycleGeneration: 4
+  criteriaRevision: 2
+  criteriaDigest: sha256:d59bb95d23bbe0ef533977be69a34e50f2db3e3950e8d1ebfb2a78cdd35713c0
+  goalStateDigest: sha256:d30c6c2460142597f858535bfdc6901ecb813568f6e69d7a7cb99861c60c5da4
+  workType: change
+status:
+  state: closed
+  closedAt: "2026-09-01T09:46:04.019889741Z"
+  artifacts:
+    planDigest: sha256:fdaa099fa815845f2739a809d2a28adab997348416b604ccf218c613db5cd8e8
+    resultDigest: sha256:1b75c1ad99456f08ba35b1a8e3cf02fb502105e17b1684d30c4a128fb0c42b5d
+    evidence:
+    - path: evidence/topology-catalog.md
+      digest: sha256:3b7c7e9a712e725fc7c312369f5680b4ac5e5c32755c308b97a61a3877e94ce7
+  review:
+    decision: refine
+    criteria:
+    - criterionID: bounded-catalogs
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - evidence/topology-catalog.md
+      - result.md
+    - criterionID: context-capsule
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: exact-candidate-validation
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/topology-catalog.md
+    - criterionID: goal-recovery
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: legacy-migration
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: resource-baseline
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: runtime-isolation
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+    - criterionID: system-index
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - result.md
+  observedAt: "2026-09-01T09:46:04.019889741Z"

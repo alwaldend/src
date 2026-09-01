@@ -84,28 +84,30 @@ configuration or weakening transport isolation implicitly.
 2. Decide which paths or hunks are task-owned. Preserve unrelated changes.
    Pass fully task-owned paths to `prepare`, or pre-stage only safe hunks and
    use `--use-index`; never blanket-stage the worktree.
-3. Before a rewrite, confirm the branch is not shared, stacked, human-owned, or
-   carrying unrelated work. Pass the exact reported local OID to `--rewrite`
-   only after that judgment. With a pending authorized remote replacement,
-   the pull request must still match an exact projectable local or fetched
-   remote commit projection; unrelated text remains a refusal. For a
-   multi-commit feature range, use
-   `--consolidate <literal-inspect.local_head_oid>` only after reviewing every
-   listed commit and obtaining explicit user authorization to replace that
-   exact task-owned range. The adapter additionally requires a merge-free
+3. Ownership determines rewrites: an agent-owned branch (every commit in the
+   range is task or agent generated; no shared, stacked, human-owned, or
+   unrelated work) may be consolidated or rewritten freely, including with
+   `--consolidate <literal-inspect.local_head_oid>`, as long as both local
+   and remote progress are preserved — nothing may be lost from either side.
+   Review every listed commit and the task-scoped diff before a rewrite. Pass
+   the exact reported local OID to `--rewrite` only after that judgment. With
+   a pending authorized remote replacement, the pull request must still match
+   an exact projectable local or fetched remote commit projection; unrelated
+   text remains a refusal. The adapter additionally requires a merge-free
    linear chain, identical author and committer identities, the ownership
    disclaimer on the oldest commit, and a pull-request projection exactly
    matching the requested aggregate message.
-   Never use consolidation for shared, stacked, human-owned, unrelated, or
-   ambiguous history. Stop and ask the user when ownership is uncertain.
+   Never use consolidation or other rewrites for shared, stacked, human-owned,
+   unrelated, or ambiguous history. Stop and ask the user when ownership is
+   uncertain.
    During a rebase, an expected aggregate path may disappear only when the
    prior candidate and fetched base contain the exact same Git tree entry;
    added paths, non-identical loss, and an empty aggregate remain refusals.
    Carry the reduced exact path set in the derived receipt.
    A divergent remote feature tip is refused by default. Pass
    `--replace-remote <literal-inspect.remote_head_oid>` only after
-   `$git-rebase-remote` has preserved that exact old remote tip and established
-   that it is task-owned history the user authorized rewriting. Never infer
+   `$git-rebase-remote` has preserved that exact old remote tip and the new
+   tip retains every previous remote commit's reachable progress. Never infer
    the OID or use this authorization for shared, stacked, human-owned,
    unrelated, or ambiguous history. The final fresh snapshot and receipt must
    retain that same OID as the later force-with-lease expectation.

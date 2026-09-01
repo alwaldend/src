@@ -1,0 +1,63 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
+
+go_library(
+    name = "action_check_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/agents/cmd/action_check",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//tools/agents/catalog/v1alpha1",
+    ],
+)
+
+go_binary(
+    name = "action_check",
+    embed = [":action_check_lib"],
+    visibility = ["//visibility:public"],
+)
+
+go_test(
+    name = "action_check_test",
+    size = "small",
+    srcs = ["main_test.go"],
+    embed = [":action_check_lib"],
+    deps = ["//tools/agents/catalog/v1alpha1"],
+)
+
+sh_binary(
+    name = "action_update",
+    srcs = ["update.sh"],
+    data = [":action_check"],
+    env = {
+        "ACTION_CHECK_RLOCATION": "$(rlocationpath :action_check)",
+    },
+    tags = [
+        "external",
+        "no-cache",
+        "no-sandbox",
+    ],
+    deps = ["@bazel_tools//tools/bash/runfiles"],
+)
+
+sh_test(
+    name = "action_check_check",
+    srcs = ["check.sh"],
+    data = [
+        ":action_check",
+        "//:MODULE.bazel",
+        "//tools/agents/catalogs:action.json",
+        "//tools/agents/catalogs:action.md",
+    ],
+    env = {
+        "ACTION_CHECK_RLOCATION": "$(rlocationpath :action_check)",
+        "WORKSPACE_MARKER": "$(location //:MODULE.bazel)",
+    },
+    tags = [
+        "external",
+        "no-cache",
+        "no-sandbox",
+    ],
+    deps = ["@bazel_tools//tools/bash/runfiles"],
+)

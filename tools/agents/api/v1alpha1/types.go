@@ -22,6 +22,7 @@ const (
 	ReferenceSubject    ReferenceKind = "subject"
 	ReferenceArtifact   ReferenceKind = "artifact"
 	ReferenceOperation  ReferenceKind = "operation"
+	ReferenceGoal       ReferenceKind = "goal"
 )
 
 type Reference struct {

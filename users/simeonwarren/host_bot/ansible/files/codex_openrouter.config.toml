@@ -1,6 +1,7 @@
 model_provider = "openrouter"
 model = "openai/gpt-5.3-codex"
 model_reasoning_effort = "low"
+review_model = "~deepseek/deepseek-v4-flash-latest"
 
 [model_providers.openrouter]
 name = "OpenRouter"

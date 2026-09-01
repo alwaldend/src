@@ -1,0 +1,45 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: Goal
+metadata:
+  name: agent-system-phase-3
+  resourceVersion: "3"
+  generation: 2
+  creationTimestamp: "2026-09-01T22:12:57.307516153Z"
+  annotations:
+    goals.alwaldend.com/local-owner-root: projects/agents
+spec:
+  title: Add advisory planning, admission, and reusable evidence
+  scope: project
+  retention:
+    policy: durable
+  relationships:
+    parentGoalRef:
+      name: repo-agent-system
+    dependsOnGoalRefs:
+    - name: agent-system-phase-2
+    supersedesGoalRefs: []
+status:
+  lifecycleGeneration: 1
+  outcome: open
+  execution: active
+  activeAttemptID: attempt-9a199d4db6bd
+  acceptedAttemptID: ""
+  acceptedResultDigest: ""
+  criteriaRevision: 1
+  promotion:
+    sourceScope: ""
+    sourceGeneration: 0
+    sourceLifecycleGeneration: 0
+    sourceCriteriaRevision: 0
+    sourceCriteriaDigest: ""
+    sourceStateDigest: ""
+    sourceDigest: ""
+    promotedAt: ""
+  migration:
+    sourceFormat: ""
+    sourcePath: ""
+    sourceDigest: ""
+    mappingVersion: ""
+    extractionMode: ""
+    migratedAt: ""
+  observedAt: "2026-09-01T22:14:44.181008606Z"

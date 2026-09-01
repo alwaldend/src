@@ -4,8 +4,14 @@ go_library(
     name = "v1alpha1",
     srcs = [
         "canonical.go",
+        "context_capsule.go",
+        "contracts.go",
+        "phase3_canonical.go",
+        "phase3_validation.go",
+        "plans.go",
         "types.go",
         "validation.go",
+        "validation_sets.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/agents/api/v1alpha1",
     visibility = ["//:__subpackages__"],
@@ -14,6 +20,10 @@ go_library(
 go_test(
     name = "v1alpha1_test",
     size = "small",
-    srcs = ["validation_test.go"],
+    srcs = [
+        "context_capsule_test.go",
+        "phase3_test.go",
+        "validation_test.go",
+    ],
     embed = [":v1alpha1"],
 )

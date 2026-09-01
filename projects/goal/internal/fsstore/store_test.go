@@ -862,6 +862,26 @@ func TestUnversionedMigrationIsNonDestructiveAndIdempotent(t *testing.T) {
 	if goal.Status.Migration.SourceFormat != "unversioned" || len(criteria.Spec.Items) != 1 {
 		t.Fatalf("migration metadata missing: %+v %+v", goal, criteria)
 	}
+	if goal.Status.Migration.SourcePath != "out/task/legacy/legacy-goal" {
+		t.Fatalf(
+			"migration source path = %q, want workspace-relative reference",
+			goal.Status.Migration.SourcePath,
+		)
+	}
+	if goal.Status.Migration.MappingVersion != "v1" ||
+		goal.Status.Migration.ExtractionMode != "extracted" {
+		t.Fatalf(
+			"migration mapping provenance missing: %+v",
+			goal.Status.Migration,
+		)
+	}
+	if goal.Status.Migration.SourceDigest != sourceDigest {
+		t.Fatalf(
+			"migration source digest = %q, want %q",
+			goal.Status.Migration.SourceDigest,
+			sourceDigest,
+		)
+	}
 	plan, err := os.ReadFile(filepath.Join(target, "attempts", "imported-unversioned", "plan.md"))
 	if err != nil {
 		t.Fatal(err)

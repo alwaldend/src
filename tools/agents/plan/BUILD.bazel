@@ -1,0 +1,23 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "plan",
+    srcs = ["plan.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/agents/plan",
+    visibility = ["//:__subpackages__"],
+    deps = [
+        "//tools/agents/api/v1alpha1",
+        "//tools/agents/catalog/v1alpha1",
+    ],
+)
+
+go_test(
+    name = "plan_test",
+    size = "small",
+    srcs = ["plan_test.go"],
+    embed = [":plan"],
+    deps = [
+        "//tools/agents/api/v1alpha1",
+        "//tools/agents/catalog/v1alpha1",
+    ],
+)

@@ -13,7 +13,7 @@ The installed pre-commit hook requires `bazel_agent`. Bootstrap it before
 installing the hook:
 
 ```sh
-bazel --batch run --config=agent //projects/bazel_agent:install
+bazel run --config=agent //projects/bazel_agent:install
 ```
 
 Install or update the checked-in hooks:

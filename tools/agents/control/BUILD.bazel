@@ -1,0 +1,18 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "control",
+    srcs = [
+        "control.go",
+        "util.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/agents/control",
+    visibility = ["//:__subpackages__"],
+)
+
+go_test(
+    name = "control_test",
+    size = "small",
+    srcs = ["control_test.go"],
+    embed = [":control"],
+)

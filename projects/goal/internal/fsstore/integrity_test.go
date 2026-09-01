@@ -270,6 +270,22 @@ func TestCheckpointREADMEFailureReportsCommittedVersion(t *testing.T) {
 		t.Fatalf("Checkpoint() reference = %+v, want committed version 2", reference)
 	}
 	store.beforeRename = nil
+	// A pending intent blocks the retry with the stable gate, then recover
+	// completes the intended state and the stale token is rejected.
+	if _, err := store.Checkpoint(CheckpointOptions{
+		GoalDir:                 goalDir,
+		ExpectedResourceVersion: "1",
+		Execution:               "waiting",
+	}); err == nil || !strings.Contains(err.Error(), "publication is incomplete") {
+		t.Fatalf("retry over pending intent did not fail closed: %v", err)
+	}
+	recovered, err := store.Recover(goalDir)
+	if err != nil {
+		t.Fatalf("Recover() after README failure: %v", err)
+	}
+	if recovered.ResourceVersion != "2" {
+		t.Fatalf("Recover() ResourceVersion = %q, want 2", recovered.ResourceVersion)
+	}
 	if _, err := store.Checkpoint(CheckpointOptions{
 		GoalDir:                 goalDir,
 		ExpectedResourceVersion: "1",
@@ -324,8 +340,15 @@ func TestCriteriaREADMEFailureReportsCommittedVersion(t *testing.T) {
 		GoalDir:                 goalDir,
 		ExpectedResourceVersion: "2",
 		CriteriaFile:            desiredPath,
-	}); err == nil || !strings.Contains(err.Error(), "stale resourceVersion") {
-		t.Fatalf("retry with pre-commit resourceVersion was not stale: %v", err)
+	}); err == nil || !strings.Contains(err.Error(), "publication is incomplete") {
+		t.Fatalf("retry over pending intent did not fail closed: %v", err)
+	}
+	recovered, err := store.Recover(goalDir)
+	if err != nil {
+		t.Fatalf("Recover() after criteria README failure: %v", err)
+	}
+	if recovered.ResourceVersion != "3" {
+		t.Fatalf("Recover() ResourceVersion = %q, want 3", recovered.ResourceVersion)
 	}
 }
 
