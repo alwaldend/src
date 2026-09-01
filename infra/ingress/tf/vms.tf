@@ -5,9 +5,9 @@ locals {
     host1 = {
       zone = "ru-central1-d"
     }
-    host2 = {
-      zone = "ru-central1-b"
-    }
+    # host2 = {
+    #   zone = "ru-central1-b"
+    # }
   }
 }
 
