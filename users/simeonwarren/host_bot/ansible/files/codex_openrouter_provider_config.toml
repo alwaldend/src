@@ -1,6 +1,7 @@
 model_provider = "openrouter"
 model = "~deepseek/deepseek-v4-flash-latest"
 model_reasoning_effort = "low"
+approvals_reviewer = "auto_review"
 
 [model_providers.openrouter]
 name = "OpenRouter"
@@ -19,3 +20,6 @@ T3_MCP_BEARER_TOKEN = "exclude"
 
 [shell_environment_policy.set]
 T3_MCP_BEARER_TOKEN = ""
+
+[sandbox]
+network = true
