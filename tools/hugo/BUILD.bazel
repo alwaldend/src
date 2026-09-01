@@ -10,7 +10,4 @@ docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
     visibility = ["//tools:__pkg__"],
-    deps = [
-        "//tools/hugo/main/bzl:docs",
-    ],
 )

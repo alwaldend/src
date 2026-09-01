@@ -12,9 +12,9 @@ alias(
 
 pkg_files(
     name = "{name}",
-    srcs = glob(["**"]),
+    srcs = glob([{src_glob}]),
     prefix = "{prefix}",
-    strip_prefix = strip_prefix.from_pkg(),
+    strip_prefix = {strip_prefix},
     visibility = ["//visibility:public"],
 )
 """
@@ -60,7 +60,7 @@ _repo = repository_rule(
 )
 
 _BUILD_TOOLCHAIN = """
-load("@com_alwaldend_src//tools/hugo/main/bzl:al_hugo_toolchain.bzl", "al_hugo_toolchain")
+load("@rules_hugo//main/bzl:al_hugo_toolchain.bzl", "al_hugo_toolchain")
 load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
 
 native_binary(
@@ -79,7 +79,7 @@ alias(
 toolchain(
     name = "toolchain",
     toolchain = "toolchain_impl",
-    toolchain_type = "@com_alwaldend_src//tools/hugo/main/bzl:toolchain_type",
+    toolchain_type = "@rules_hugo//main/bzl:toolchain_type",
     exec_compatible_with = {platforms},
     visibility = ["//visibility:public"],
 )
@@ -116,11 +116,18 @@ def _impl(ctx):
                 name = "{}_{}".format(tag.name, data["path"].replace("/", "_").replace("-", "_").replace(".", "_").lower())
                 root_module_direct_deps.append(name)
                 names.append("@{}".format(name))
+                src_glob = "**" if not data.get("root") else data["root"] + "/**"
+                strip_prefix = "strip_prefix.from_pkg()" if not data.get("root") else json.encode(data["root"])
                 http_archive(
                     name = name,
                     url = data["url"],
                     strip_prefix = data["strip_prefix"],
-                    build_file_content = _BUILD.format(prefix = data["path"], name = name),
+                    build_file_content = _BUILD.format(
+                        prefix = data["path"],
+                        name = name,
+                        src_glob = json.encode(src_glob),
+                        strip_prefix = strip_prefix,
+                    ),
                     integrity = data["integrity"],
                 )
             _repo(

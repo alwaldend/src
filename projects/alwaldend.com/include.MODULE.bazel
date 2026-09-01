@@ -1,7 +1,7 @@
-al_hugo_extension = use_extension("//tools/hugo/main/bzl:al_hugo_extension.bzl", "al_hugo_extension")
+al_hugo_extension = use_extension("@rules_hugo//main/bzl:al_hugo_extension.bzl", "al_hugo_extension")
 al_hugo_extension.toolchains(
     name = "com_alwalded_src_hugo_toolchain",
-    version = "0.152.2",
+    version = "0.165.0",
 )
 al_hugo_extension.lock(
     name = "com_alwaldend_src_hugo",

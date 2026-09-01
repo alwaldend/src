@@ -20,6 +20,7 @@ var jsons = [
     require("../nas/dnsconfig.json"),
     require("../../users/simeonwarren/host_bot/dnsconfig.json"),
     require("../../users/simeonwarren/dnsconfig.json"),
+    require("../../projects/alwaldend.com/dnsconfig.json"),
 ];
 
 DEFAULTS(

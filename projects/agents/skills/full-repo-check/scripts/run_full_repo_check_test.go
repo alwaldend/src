@@ -69,11 +69,11 @@ func TestExecuteContinuesAndWritesRestrictedArtifacts(t *testing.T) {
 	if got := execute(getenv, newCommand, &stdout, &stderr); got != 1 {
 		t.Fatalf("execute() = %d, want 1", got)
 	}
-	if commands != 18 {
-		t.Errorf("commands executed = %d, want 18", commands)
+	if commands != 20 {
+		t.Errorf("commands executed = %d, want 20", commands)
 	}
-	if len(processes) != 18 {
-		t.Fatalf("process count = %d, want 18", len(processes))
+	if len(processes) != 20 {
+		t.Fatalf("process count = %d, want 20", len(processes))
 	}
 	for index, process := range processes {
 		candidate := repositoryWorkspaces[index/len(checkPhases)]
@@ -125,8 +125,8 @@ func TestExecuteContinuesAndWritesRestrictedArtifacts(t *testing.T) {
 	if err != nil {
 		t.Fatalf("os.ReadDir(logs) error = %v", err)
 	}
-	if len(logs) != 18 {
-		t.Fatalf("log count = %d, want 18", len(logs))
+	if len(logs) != 20 {
+		t.Fatalf("log count = %d, want 20", len(logs))
 	}
 	firstLog := filepath.Join(runDirectory, "logs", "root.build.log")
 	assertPermissions(t, firstLog, 0o600)

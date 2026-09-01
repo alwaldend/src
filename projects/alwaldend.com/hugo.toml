@@ -8,7 +8,7 @@ enableRobotsTXT = true
 [outputs]
 section = ["html", "rss", "print"]
 home = ["html"]
-page = ["html", "rss", "print"]
+page = ["html", "rss"]
 
 [frontmatter]
 lastmod = [":fileModTime"]
@@ -61,12 +61,17 @@ category = "categories"
 language = "languages"
 status = "statuses"
 tag = "tags"
-site = "sites"
+site = "websites"
 
 [[menus.main]]
 name = "Docs"
 weight = 100
 url = "/docs/"
+
+[[menus.main]]
+name = "Projects"
+weight = 200
+url = "/projects/"
 
 [security.exec]
 # allow = [".*"]
@@ -81,4 +86,21 @@ url = "/docs/"
 
 [module.hugoVersion]
 extended = true
-min = "0.146.0"
+min = "0.160.1"
+
+[module]
+[[module.mounts]]
+source = "themes/github.com/twbs/bootstrap/scss"
+target = "assets/vendor/bootstrap/scss"
+[[module.mounts]]
+source = "themes/github.com/twbs/bootstrap/js"
+target = "assets/vendor/bootstrap/js"
+[[module.mounts]]
+source = "themes/github.com/twbs/bootstrap/dist"
+target = "assets/vendor/bootstrap/dist"
+[[module.mounts]]
+source = "themes/github.com/FortAwesome/Font-Awesome/scss"
+target = "assets/vendor/Font-Awesome/scss"
+[[module.mounts]]
+source = "themes/github.com/FortAwesome/Font-Awesome/webfonts"
+target = "static/webfonts"

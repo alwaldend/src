@@ -86,5 +86,6 @@ bzl_library(
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
+    prefix = "content/docs/projects/rules_binary_toolchain/main/bzl",
     visibility = ["//:__pkg__"],
 )

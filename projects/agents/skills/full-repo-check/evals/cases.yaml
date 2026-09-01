@@ -10,9 +10,9 @@
         Pass only if the response uses the full-repo-check runner through
         a `bazel_agent run --script_path=...` launcher and starts that launcher
         only after the generating Bazel process exits; covers build and test in
-        the root and all eight nested workspaces; lets the runner continue
+        the root and all nine nested workspaces; lets the runner continue
         across failures; inspects the restricted report and targeted failure
         logs; distinguishes repository defects from environment or coverage
-        gaps; and reports the complete eighteen-command matrix without claiming
+        gaps; and reports the complete twenty-command matrix without claiming
         manual targets ran.
         Otherwise fail.

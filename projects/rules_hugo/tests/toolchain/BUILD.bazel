@@ -1,0 +1,29 @@
+load("@rules_hugo//main/bzl:al_hugo_toolchain.bzl", "al_hugo_toolchain")
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+
+sh_binary(
+    name = "mock_hugo_bin",
+    srcs = ["mock_hugo.sh"],
+    visibility = ["//:__pkg__"],
+)
+
+al_hugo_toolchain(
+    name = "mock_hugo_toolchain",
+    exec_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    hugo = ":mock_hugo_bin",
+    visibility = ["//visibility:public"],
+)
+
+toolchain(
+    name = "toolchain_impl",
+    exec_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    toolchain = ":mock_hugo_toolchain",
+    toolchain_type = "@rules_hugo//main/bzl:toolchain_type",
+    visibility = ["//visibility:public"],
+)

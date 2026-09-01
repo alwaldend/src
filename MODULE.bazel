@@ -72,6 +72,7 @@ include("//tools/stylua:include.MODULE.bazel")
 include("//tools/selene:include.MODULE.bazel")
 include("//tools/taplo:include.MODULE.bazel")
 include("//tools/hugo:include.MODULE.bazel")
+include("//tools/sass:include.MODULE.bazel")
 include("//tools/bao:include.MODULE.bazel")
 include("//tools/shfmt:include.MODULE.bazel")
 

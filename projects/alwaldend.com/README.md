@@ -1,7 +1,7 @@
 ---
 title: Alwaldend.com
 description: Alwaldend.com site
-sites:
+websites:
   - alwaldend.com
 statuses:
   - in_progress
@@ -14,7 +14,7 @@ tags:
 
 - Source code: https://github.com/alwaldend/src/tree/master/projects/alwaldend.com
 - Github Pages repo: https://github.com/alwaldend/alwaldend.github.io
-- Hugo rules: [../../tools/hugo](../../tools/hugo)
+- Hugo rules: [../../projects/rules_hugo](../../projects/rules_hugo)
 
 ## Features
 
@@ -23,12 +23,18 @@ tags:
 
 ## Deployment
 
-- Setup dns: [infra/alwaldend.com/dns](../../infra/alwaldend.com/dns)
-- Push to the Github Pages repo:
+- DNS setup: [infra/dns](../../infra/dns)
+- Per-project DNS declaration: [dnsconfig.json](dnsconfig.json). The
+  existing apex and `www` records are managed centrally in the DNS config;
+  this file intentionally adds no records and no subdomains.
+- Deploy to the Github Pages repo (the `pages` branch of
+  `alwaldend/alwaldend.github.io`, which GitHub Pages serves):
   ```sh
   tools/versioning/cmd/versioning/versioning.sh bazel -- \
     run --config=release //projects/alwaldend.com:deploy
   ```
+  The deploy script clones the `pages` branch, replaces its contents with the
+  built site, writes `.nojekyll`, and pushes only when the output changed.
 
 ## Update PVE VMs
 
@@ -106,7 +112,3 @@ Usage:
 ```md
 {{</* alwaldend/docs_misc_books */>}}
 ```
-
-## TODO
-
-- Setup proper deployment
