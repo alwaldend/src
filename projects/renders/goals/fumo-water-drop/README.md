@@ -4,12 +4,12 @@
 
 - Goal ID: `fumo-water-drop`
 - API version: `goals.alwaldend.com/v1alpha1`
-- Resource version: `1`
+- Resource version: `6`
 - Generation: `1`
-- Lifecycle generation: `1`
+- Lifecycle generation: `5`
 - Scope: `project`
-- Outcome: `open`
-- Execution: `active`
+- Outcome: `achieved`
+- Execution: `paused`
 - Active attempt: `—`
 
 ## Relationships
@@ -20,30 +20,17 @@
 
 ## Acceptance criteria
 
-- `criterion-001` (r1, required): A human- and machine-readable contract fixes the exact FUMO — Evidence: Inspect linked evidence against the criterion.
-- `criterion-002` (r1, required): Fumo_Root — Evidence: Inspect linked evidence against the criterion.
-- `criterion-003` (r1, required): Fumo_Rig — Evidence: Inspect linked evidence against the criterion.
-- `criterion-004` (r1, required): Fumo_Seated — Evidence: Inspect linked evidence against the criterion.
-- `criterion-005` (r1, required): FUMO_COLLIDERS — Evidence: Inspect linked evidence against the criterion.
-- `criterion-006` (r1, required): and Fumo_CollisionProxy interface — Evidence: Inspect linked evidence against the criterion.
-- `criterion-007` (r1, required): axes — Evidence: Inspect linked evidence against the criterion.
-- `criterion-008` (r1, required): meters — Evidence: Inspect linked evidence against the criterion.
-- `criterion-009` (r1, required): ownership — Evidence: Inspect linked evidence against the criterion.
-- `criterion-010` (r1, required): and root support plane. — Evidence: Inspect linked evidence against the criterion.
-- `criterion-011` (r1, required): A conservative 0.30 by 0.22 by 0.25 m envelope — Evidence: Inspect linked evidence against the criterion.
-- `criterion-012` (r1, required): 0.80 by 0.65 by 0.65 m tank — Evidence: Inspect linked evidence against the criterion.
-- `criterion-013` (r1, required): Z=0.36 m water line — Evidence: Inspect linked evidence against the criterion.
-- `criterion-014` (r1, required): and domain bounds satisfy documented clearance — Evidence: Inspect linked evidence against the criterion.
-- `criterion-015` (r1, required): depth — Evidence: Inspect linked evidence against the criterion.
-- `criterion-016` (r1, required): and headroom gates. — Evidence: Inspect linked evidence against the criterion.
-- `criterion-017` (r1, required): At 48 fps — Evidence: Inspect linked evidence against the criterion.
-- `criterion-018` (r1, required): release frame 25 and first-contact frame 36 match a 0.26 m ballistic fall within 0.5 frame — Evidence: Inspect linked evidence against the criterion.
-- `criterion-019` (r1, required): with no post-contact physics claim. — Evidence: Inspect linked evidence against the criterion.
-- `criterion-020` (r1, required): Fixed diagnostic camera and lights frame the tank base — Evidence: Inspect linked evidence against the criterion.
-- … 19 more criteria omitted by the projection limit.
+- `criterion-001` (r2, required): A human- and machine-readable replacement contract fixes the exact approved-asset names FUMO, Fumo_Root, Fumo_Rig, Fumo_Seated, FUMO_COLLIDERS, and Fumo_CollisionProxy, together with axes, meters, ownership, and the root support plane; the… — Evidence: Inspect the contract and clean-open scene inventory for exact names, ownership, coordinate convention, and replacement steps.
+- `criterion-002` (r2, required): A conservative 0.300 by 0.220 by 0.250 m neutral envelope, a 0.800 by 0.650 by 0.650 m tank, a Z=0.360 m water guide, and documented domain bounds satisfy the required side clearance, depth, and headroom gates. — Evidence: Report evaluated dimensions, bounds, water-line contact, clearances, and domain headroom from the clean-reopened candidate.
+- `criterion-003` (r2, required): At 48 fps, the root holds at Z=0.620 m through frame 25 and reaches first contact at Z=0.360 m on frame 36 along the documented 0.260 m sampled ballistic fall within 0.5 frame of ideal gravity, with no rotation or authored motion after fir… — Evidence: Compare keyed and evaluated transforms to the exact analytic formula and report frame error and maximum trajectory deviation.
+- `criterion-004` (r2, required): A fixed diagnostic camera and lights frame the tank base, water line, complete placeholder, and the exact legible warning "NEUTRAL PLACEHOLDER - NOT FUMO" in renders at frames 1, 24, and 36, with at least 32 px horizontal and 18 px vertica… — Evidence: Inspect exact rendered pixels and a labeled contact sheet and measure margins and warning readability.
+- `criterion-005` (r2, required): The neutral placeholder lives only in FUMO_PLACEHOLDER__NOT_ASSET, remains outside any FUMO collection, contains no Reimu identity cues, and is replaceable without changing the approved asset hierarchy, action, geometry, materials, scale,… — Evidence: Inspect the scene inventory, replacement contract, and sampled renders.
+- `criterion-006` (r2, required): The temporary scene clean-opens with exact ownership and names and has no liquid modifier, cache, liquid mesh, foam, spray, bubbles, post-contact keys, or source-asset edit. — Evidence: Audit modifiers, cache paths, collections, actions, and animation data in the exact clean-reopened candidate.
+- `criterion-007` (r2, required): A corrected bottom-center-root contact preflight and Stage-B evidence bind to exact artifacts and exact before-and-after hashes of protected Reimu and Sisyphus Blends, without any final-fluid, final-animation, or approved-plush integration… — Evidence: Inspect the corrected preflight, protected-hash receipt, manifest, and claim limits tied to exact artifact digests.
 
 ## Recent attempts
 
+- [`a01-neutral-ballistic-stage-b`](attempts/a01-neutral-ballistic-stage-b/) — `candidate`, `closed`, resource version `2`, criteria r2
 - [`imported-unversioned`](attempts/imported-unversioned/) — `investigation`, `closed`, resource version `1`, criteria r1
 
 ## Record map

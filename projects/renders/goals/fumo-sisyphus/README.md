@@ -4,13 +4,13 @@
 
 - Goal ID: `fumo-sisyphus`
 - API version: `goals.alwaldend.com/v1alpha1`
-- Resource version: `1`
+- Resource version: `9`
 - Generation: `1`
-- Lifecycle generation: `1`
+- Lifecycle generation: `4`
 - Scope: `project`
 - Outcome: `open`
 - Execution: `active`
-- Active attempt: `—`
+- Active attempt: `a04-single-owner-macro-blockout`
 
 ## Relationships
 
@@ -20,30 +20,17 @@
 
 ## Acceptance criteria
 
-- `criterion-001` (r1, required): A quote-free fixed render matches the controlling Sisyphus macro composition: boulder width 0.40-0.55 frame width in the upper-left or middle and a 45-55 degree lower-left-to-upper-right slope owning roughly the right half. — Evidence: Inspect linked evidence against the criterion.
-- `criterion-002` (r1, required): Pale amber or cream negative sky remains visible on the left — Evidence: Inspect linked evidence against the criterion.
-- `criterion-003` (r1, required): and directional lighting produces readable boulder contact shadow — Evidence: Inspect linked evidence against the criterion.
-- `criterion-004` (r1, required): cast shadow — Evidence: Inspect linked evidence against the criterion.
-- `criterion-005` (r1, required): and rock relief without a near-black foreground wedge. — Evidence: Inspect linked evidence against the criterion.
-- `criterion-006` (r1, required): Boulder and terrain read as rounded — Evidence: Inspect linked evidence against the criterion.
-- `criterion-007` (r1, required): weathered — Evidence: Inspect linked evidence against the criterion.
-- `criterion-008` (r1, required): fractured rock rather than melted smooth forms — Evidence: Inspect linked evidence against the criterion.
-- `criterion-009` (r1, required): conspicuous low-poly slabs — Evidence: Inspect linked evidence against the criterion.
-- `criterion-010` (r1, required): or flat graphic planes. — Evidence: Inspect linked evidence against the criterion.
-- `criterion-011` (r1, required): The original image is packed in a render-disabled REFERENCE_ONLY collection — Evidence: Inspect linked evidence against the criterion.
-- `criterion-012` (r1, required): displayed beside the working set — Evidence: Inspect linked evidence against the criterion.
-- `criterion-013` (r1, required): never overlaid — Evidence: Inspect linked evidence against the criterion.
-- `criterion-014` (r1, required): and the review camera contains no quote. — Evidence: Inspect linked evidence against the criterion.
-- `criterion-015` (r1, required): The character slot contains only a clearly named PLACEHOLDER_FUTURE_APPROVED_FUMO; no Reimu source object is linked — Evidence: Inspect linked evidence against the criterion.
-- `criterion-016` (r1, required): copied — Evidence: Inspect linked evidence against the criterion.
-- `criterion-017` (r1, required): edited — Evidence: Inspect linked evidence against the criterion.
-- `criterion-018` (r1, required): rendered — Evidence: Inspect linked evidence against the criterion.
-- `criterion-019` (r1, required): or evaluated. — Evidence: Inspect linked evidence against the criterion.
-- `criterion-020` (r1, required): Exact tracked Reimu and Sisyphus source hashes remain unchanged; the candidate clean-reopens and exposes reusable named slope — Evidence: Inspect linked evidence against the criterion.
-- … 5 more criteria omitted by the projection limit.
+- `criterion-001` (r2, required): A quote-free fixed render matches the controlling Sisyphus macro composition: the boulder occupies 0.40-0.55 frame width in the upper-left or middle, and one 45-55 degree lower-left-to-upper-right slope owns roughly the right half of the f… — Evidence: Compare the exact candidate render and silhouette overlay against the packed controlling reference using measured frame landmarks.
+- `criterion-002` (r2, required): Pale amber or cream negative sky remains visible on the left, and directional lighting produces readable boulder contact shadow, cast shadow, and rock relief without a near-black foreground wedge. — Evidence: Inspect exact rendered pixels and report representative sky luminance, terrain luminance, and the visible contact-shadow path.
+- `criterion-003` (r2, required): Boulder and terrain read as rounded, weathered, fractured rock rather than melted smooth forms, conspicuous low-poly slabs, flat graphic planes, or a pile of giant circular rocks. — Evidence: Review the exact render at full resolution and inventory the visible macro forms before any micro-detail pass.
+- `criterion-004` (r2, required): The original image is packed in a render-disabled REFERENCE_ONLY collection, displayed beside the working set for comparison, never overlaid on the scene, and absent from the quote-free review camera. — Evidence: Inspect the clean-reopened Blend inventory plus a viewport capture that shows the reference beside the working set.
+- `criterion-005` (r2, required): The character slot contains only a clearly named PLACEHOLDER_FUTURE_APPROVED_FUMO; no Reimu source object is linked, copied, edited, rendered, or evaluated. Exact tracked Reimu and Sisyphus source hashes remain unchanged, the candidate cle… — Evidence: Validate exact protected hashes and a machine-readable clean-open scene inventory bound to the candidate hash.
 
 ## Recent attempts
 
+- [`a04-single-owner-macro-blockout`](attempts/a04-single-owner-macro-blockout/) — `candidate`, `open`, resource version `1`, criteria r2
+- [`a03-camera-space-macro-coupon`](attempts/a03-camera-space-macro-coupon/) — `investigation`, `closed`, resource version `2`, criteria r2
+- [`a02-macro-mask`](attempts/a02-macro-mask/) — `candidate`, `closed`, resource version `2`, criteria r2
 - [`imported-unversioned`](attempts/imported-unversioned/) — `investigation`, `closed`, resource version `1`, criteria r1
 
 ## Record map

@@ -1,0 +1,71 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a01-camera-fit-clean-reopen
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-01T14:44:14.003853413Z"
+spec:
+  goalRef:
+    name: fumo-concrete-drop
+  goalGeneration: 1
+  lifecycleGeneration: 4
+  criteriaRevision: 2
+  criteriaDigest: sha256:e34d4101edaeee75325182ccde1fed55473cc5aa66d06bae239c5c789269dded
+  goalStateDigest: sha256:40cc833b2ac973248cded46538ef1feb86db3217ce875f22d8abb3eb1222e288
+  workType: candidate
+status:
+  state: closed
+  closedAt: "2026-09-01T15:06:56.677371668Z"
+  artifacts:
+    planDigest: sha256:b69abaa6c3718f16e70964e006b3364177209e0a49a0f966e81c67daef0742f6
+    resultDigest: sha256:219a8dda66e58a30bf94e0b6f7a7ab97005ffdcc5f968a612772969ea0687a99
+    evidence:
+    - path: evidence/INDEPENDENT_REVIEW.md
+      digest: sha256:3e666a1140db61b1f65f0e7477d24c2111169f0f5fe33e9971f9e026af1cac68
+    - path: evidence/TECHNICAL_RECEIPT.md
+      digest: sha256:85fc04707f007a670c860a49eaca59192fc0dd5684cfaa8c98bc401d0e317f6e
+  review:
+    decision: refine
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/INDEPENDENT_REVIEW.md
+      - evidence/TECHNICAL_RECEIPT.md
+    - criterionID: criterion-002
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/INDEPENDENT_REVIEW.md
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/INDEPENDENT_REVIEW.md
+      - evidence/TECHNICAL_RECEIPT.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/INDEPENDENT_REVIEW.md
+      - evidence/TECHNICAL_RECEIPT.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - evidence/INDEPENDENT_REVIEW.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/INDEPENDENT_REVIEW.md
+      - evidence/TECHNICAL_RECEIPT.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/INDEPENDENT_REVIEW.md
+      - evidence/TECHNICAL_RECEIPT.md
+  observedAt: "2026-09-01T15:06:56.677371668Z"

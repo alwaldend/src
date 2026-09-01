@@ -1,0 +1,27 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a04-single-owner-macro-blockout
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-09-01T15:32:00.575559002Z"
+spec:
+  goalRef:
+    name: fumo-sisyphus
+  goalGeneration: 1
+  lifecycleGeneration: 4
+  criteriaRevision: 2
+  criteriaDigest: sha256:34e46264888f6c96da71d4b293516ed9392277c372def0bbc693e6d06aca4583
+  goalStateDigest: sha256:69ff8978d857f41bb5e494e2dac433348a40f353bc50a7b551d8c204f1f910e5
+  workType: candidate
+status:
+  state: open
+  closedAt: ""
+  artifacts:
+    planDigest: sha256:8b896dcec2038557f2c344b2f16588d329e44e9f8fa126c85d9fa5a378135436
+    resultDigest: sha256:7c71f939094bae52a0f08a4909cc06f7d2ad8dc71773b1744d2a05d28d311940
+    evidence: []
+  review:
+    decision: ""
+    criteria: []
+  observedAt: "2026-09-01T15:32:00.575559002Z"

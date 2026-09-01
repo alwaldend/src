@@ -1,0 +1,73 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a01-neutral-ballistic-stage-b
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-01T14:44:58.903098147Z"
+spec:
+  goalRef:
+    name: fumo-water-drop
+  goalGeneration: 1
+  lifecycleGeneration: 4
+  criteriaRevision: 2
+  criteriaDigest: sha256:13ec914cb366542ed03be0646b055707211aa874649516bf79934c157789f352
+  goalStateDigest: sha256:04cab2ba49bd48b6ff008ae7cc34040c75ca0c0f89ea5167270c902856cd4882
+  workType: candidate
+status:
+  state: closed
+  closedAt: "2026-09-01T15:11:35.168969549Z"
+  artifacts:
+    planDigest: sha256:9a522f8a2467681647c7822c10de9596a41e61aec5a8420323ef4466eb45024c
+    resultDigest: sha256:7f6198bec58a97338ae879a6472b6977a935872a8a6fb8f9cf14a54e19d28019
+    evidence:
+    - path: evidence/ACCEPTANCE_REVIEW.md
+      digest: sha256:5fb2f1964f7677a487bd7076c76b5871e3bdc5d1af1c3a20ae29e9efc29b21b3
+    - path: evidence/TECHNICAL_RECEIPT.md
+      digest: sha256:aa248ba4ba46decf9735cc6530d09d522f2765201de526a144ca871c9b19231e
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/ACCEPTANCE_REVIEW.md
+      - evidence/TECHNICAL_RECEIPT.md
+    - criterionID: criterion-002
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/ACCEPTANCE_REVIEW.md
+      - evidence/TECHNICAL_RECEIPT.md
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/ACCEPTANCE_REVIEW.md
+      - evidence/TECHNICAL_RECEIPT.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/ACCEPTANCE_REVIEW.md
+      - evidence/TECHNICAL_RECEIPT.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/ACCEPTANCE_REVIEW.md
+      - evidence/TECHNICAL_RECEIPT.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/ACCEPTANCE_REVIEW.md
+      - evidence/TECHNICAL_RECEIPT.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/ACCEPTANCE_REVIEW.md
+      - evidence/TECHNICAL_RECEIPT.md
+  observedAt: "2026-09-01T15:11:35.168969549Z"

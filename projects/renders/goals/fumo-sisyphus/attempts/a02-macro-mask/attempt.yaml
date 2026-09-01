@@ -1,0 +1,63 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a02-macro-mask
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-01T14:43:36.057749588Z"
+spec:
+  goalRef:
+    name: fumo-sisyphus
+  goalGeneration: 1
+  lifecycleGeneration: 4
+  criteriaRevision: 2
+  criteriaDigest: sha256:34e46264888f6c96da71d4b293516ed9392277c372def0bbc693e6d06aca4583
+  goalStateDigest: sha256:69ff8978d857f41bb5e494e2dac433348a40f353bc50a7b551d8c204f1f910e5
+  workType: candidate
+status:
+  state: closed
+  closedAt: "2026-09-01T15:03:43.891447447Z"
+  artifacts:
+    planDigest: sha256:863ecf01e24b8955fb93c2e0b45beca50c0d19ae78eab9bf7d05dbd121052926
+    resultDigest: sha256:6d6c63903dc2739de4eff171f4910589fd92093704af9666f9f27cb5e26c07ea
+    evidence:
+    - path: evidence/FIRST_RENDER_PIXEL_VERDICT.md
+      digest: sha256:108c3ce963c960a9b23add0272e44feb03fd574ab96da0a6eb715224c0ab7b39
+    - path: evidence/INDEPENDENT_REVIEW.md
+      digest: sha256:62aae9a97346a3e1324a1ab59efc52e3e10c1775befdd51957410251260b49f1
+    - path: evidence/RUN_RECEIPT.md
+      digest: sha256:6848a7e12b44da3778982cded3212ae4c355f6fa5c548cf644df5a8dbe3ac17c
+    - path: evidence/STRUCTURAL_RECEIPT.md
+      digest: sha256:d9d6059adfe6535183b4b76af03795f6db67be9991b306e87280c0f4a7c6fff5
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - evidence/FIRST_RENDER_PIXEL_VERDICT.md
+      - evidence/INDEPENDENT_REVIEW.md
+    - criterionID: criterion-002
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - evidence/FIRST_RENDER_PIXEL_VERDICT.md
+      - evidence/INDEPENDENT_REVIEW.md
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - evidence/FIRST_RENDER_PIXEL_VERDICT.md
+      - evidence/INDEPENDENT_REVIEW.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs:
+      - evidence/INDEPENDENT_REVIEW.md
+      - evidence/STRUCTURAL_RECEIPT.md
+  observedAt: "2026-09-01T15:03:43.891447447Z"

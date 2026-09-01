@@ -2,7 +2,7 @@ apiVersion: goals.alwaldend.com/v1alpha1
 kind: Goal
 metadata:
   name: fumo-water-drop
-  resourceVersion: "1"
+  resourceVersion: "6"
   generation: 1
   creationTimestamp: "2026-08-30T17:33:10.116890682Z"
   annotations:
@@ -16,13 +16,13 @@ spec:
     dependsOnGoalRefs: []
     supersedesGoalRefs: []
 status:
-  lifecycleGeneration: 1
-  outcome: open
-  execution: active
+  lifecycleGeneration: 5
+  outcome: achieved
+  execution: paused
   activeAttemptID: ""
-  acceptedAttemptID: ""
-  acceptedResultDigest: ""
-  criteriaRevision: 1
+  acceptedAttemptID: a01-neutral-ballistic-stage-b
+  acceptedResultDigest: sha256:7f6198bec58a97338ae879a6472b6977a935872a8a6fb8f9cf14a54e19d28019
+  criteriaRevision: 2
   promotion:
     sourceScope: ""
     sourceGeneration: 0
@@ -36,4 +36,4 @@ status:
     sourceFormat: unversioned
     sourceDigest: sha256:d179aff7c263f6602826a8ea9e7ee75623f2d26eb8a820400e3a7ab6b3563eb5
     migratedAt: "2026-08-30T17:33:10.116890682Z"
-  observedAt: "2026-08-30T17:33:10.116890682Z"
+  observedAt: "2026-09-01T15:11:35.169421735Z"

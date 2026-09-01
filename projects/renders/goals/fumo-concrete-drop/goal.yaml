@@ -2,7 +2,7 @@ apiVersion: goals.alwaldend.com/v1alpha1
 kind: Goal
 metadata:
   name: fumo-concrete-drop
-  resourceVersion: "1"
+  resourceVersion: "8"
   generation: 1
   creationTimestamp: "2026-08-30T17:32:20.561951975Z"
   annotations:
@@ -16,13 +16,13 @@ spec:
     dependsOnGoalRefs: []
     supersedesGoalRefs: []
 status:
-  lifecycleGeneration: 1
-  outcome: open
-  execution: active
+  lifecycleGeneration: 5
+  outcome: achieved
+  execution: paused
   activeAttemptID: ""
-  acceptedAttemptID: ""
-  acceptedResultDigest: ""
-  criteriaRevision: 1
+  acceptedAttemptID: a02-label-clearance
+  acceptedResultDigest: sha256:7aed7fc86a4d09d7f32a140a1d7a13665f6234eb23360b3dc0f19dd580172f37
+  criteriaRevision: 2
   promotion:
     sourceScope: ""
     sourceGeneration: 0
@@ -36,4 +36,4 @@ status:
     sourceFormat: unversioned
     sourceDigest: sha256:a9fae035a577c7cb4d1545f0acc1d33bad19c2e490be76440bd3361672f6d06d
     migratedAt: "2026-08-30T17:32:20.561951975Z"
-  observedAt: "2026-08-30T17:32:20.561951975Z"
+  observedAt: "2026-09-01T15:37:49.271478914Z"

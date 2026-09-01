@@ -1,0 +1,61 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a03-camera-space-macro-coupon
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-01T15:12:08.0669157Z"
+spec:
+  goalRef:
+    name: fumo-sisyphus
+  goalGeneration: 1
+  lifecycleGeneration: 4
+  criteriaRevision: 2
+  criteriaDigest: sha256:34e46264888f6c96da71d4b293516ed9392277c372def0bbc693e6d06aca4583
+  goalStateDigest: sha256:69ff8978d857f41bb5e494e2dac433348a40f353bc50a7b551d8c204f1f910e5
+  workType: investigation
+status:
+  state: closed
+  closedAt: "2026-09-01T15:28:54.22362744Z"
+  artifacts:
+    planDigest: sha256:8dccdbd407040443c53fe8e66004c1da0e90724055d17904b0f92693d1f11f2d
+    resultDigest: sha256:3dd6fb18c12de968a719661fbbb9f6ef3e84faab3bf67d840bff39fbbc0db55c
+    evidence:
+    - path: evidence/ARTIFACT_RECEIPT.md
+      digest: sha256:7f9c1200b2170be058640bc5d22592e39608efbb7a9b9dc14bb7b557f3675dff
+    - path: evidence/INDEPENDENT_REVIEW.md
+      digest: sha256:e4b7b8f6e8847911d9be7e74fc3620d2f48cfe42810838502c4f4f83af059831
+    - path: evidence/PIXEL_VERDICT.md
+      digest: sha256:ed3f9fddf5a539fa4a759691fea2c11444fdad8b9e562f6c78ecb36f692d6d62
+  review:
+    decision: refine
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs:
+      - evidence/ARTIFACT_RECEIPT.md
+      - evidence/INDEPENDENT_REVIEW.md
+      - evidence/PIXEL_VERDICT.md
+    - criterionID: criterion-002
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs:
+      - evidence/INDEPENDENT_REVIEW.md
+      - evidence/PIXEL_VERDICT.md
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs:
+      - evidence/INDEPENDENT_REVIEW.md
+      - evidence/PIXEL_VERDICT.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs:
+      - evidence/ARTIFACT_RECEIPT.md
+  observedAt: "2026-09-01T15:28:54.22362744Z"

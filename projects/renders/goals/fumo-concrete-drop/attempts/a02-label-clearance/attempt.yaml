@@ -1,0 +1,79 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a02-label-clearance
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-01T15:07:53.774752205Z"
+spec:
+  goalRef:
+    name: fumo-concrete-drop
+  goalGeneration: 1
+  lifecycleGeneration: 4
+  criteriaRevision: 2
+  criteriaDigest: sha256:e34d4101edaeee75325182ccde1fed55473cc5aa66d06bae239c5c789269dded
+  goalStateDigest: sha256:40cc833b2ac973248cded46538ef1feb86db3217ce875f22d8abb3eb1222e288
+  workType: candidate
+status:
+  state: closed
+  closedAt: "2026-09-01T15:37:49.271113012Z"
+  artifacts:
+    planDigest: sha256:4d8b921c961eeaf949029712ee6a7168cabaeabd755bdaab3c189d888f20a3bf
+    resultDigest: sha256:7aed7fc86a4d09d7f32a140a1d7a13665f6234eb23360b3dc0f19dd580172f37
+    evidence:
+    - path: evidence/ARTIFACT_RECEIPT.md
+      digest: sha256:03253ea5b2d947e2ec7d4e60ddf8cea466c0ba0c78336a1f44bc052b7714b40e
+    - path: evidence/INDEPENDENT_REVIEW.md
+      digest: sha256:0ca0fc0aa1674e3b90ddc09f93f2bc63fe4452d9f9ce15b06fd033c7f606adfa
+    - path: evidence/PIXEL_REVIEW.md
+      digest: sha256:10e89bdca6583682250a7d0d7930fb0aa66b87ba52b9e4107ddce4343f3a90f1
+    - path: evidence/SEMANTIC_MECHANICS_RECEIPT.md
+      digest: sha256:babf09acbc23e71a4af5bdbdf853bbaa94e12344ee0c13b22bdb0eb507d20223
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/ARTIFACT_RECEIPT.md
+      - evidence/INDEPENDENT_REVIEW.md
+      - evidence/SEMANTIC_MECHANICS_RECEIPT.md
+    - criterionID: criterion-002
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/INDEPENDENT_REVIEW.md
+      - evidence/PIXEL_REVIEW.md
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/INDEPENDENT_REVIEW.md
+      - evidence/SEMANTIC_MECHANICS_RECEIPT.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/INDEPENDENT_REVIEW.md
+      - evidence/SEMANTIC_MECHANICS_RECEIPT.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/INDEPENDENT_REVIEW.md
+      - evidence/PIXEL_REVIEW.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/INDEPENDENT_REVIEW.md
+      - evidence/SEMANTIC_MECHANICS_RECEIPT.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: pass
+      evidenceRefs:
+      - evidence/ARTIFACT_RECEIPT.md
+      - evidence/INDEPENDENT_REVIEW.md
+      - evidence/SEMANTIC_MECHANICS_RECEIPT.md
+  observedAt: "2026-09-01T15:37:49.271113012Z"
