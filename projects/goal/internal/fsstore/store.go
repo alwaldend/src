@@ -10,6 +10,7 @@ import (
 	"os"
 	"path/filepath"
 	"sort"
+	"strconv"
 	"strings"
 	"syscall"
 	"time"
@@ -379,6 +380,9 @@ func (s *Store) ShowGoal(goalDir string, limit int) (GoalView, error) {
 		return GoalView{}, err
 	}
 	defer lock.release()
+	if err := s.checkNoPendingPublication(dir); err != nil {
+		return GoalView{}, err
+	}
 	goal, criteria, attempts, err := s.loadAndValidate(dir)
 	if err != nil {
 		return GoalView{}, err
@@ -728,24 +732,47 @@ func (s *Store) updateCriteria(
 	if err != nil {
 		return GoalReference{}, err
 	}
-	newREADME, err := renderREADME(newGoal, newCriteria, attempts, defaultOutputLimit)
-	if err != nil {
-		return GoalReference{}, err
-	}
 	if err := validateProspectiveRecord(newGoal, newCriteria, attempts); err != nil {
 		return GoalReference{}, err
 	}
-	if err := s.installImmutableFile(
-		criteriaSnapshotPath(dir, newCriteria.Spec.Revision),
-		newCriteriaBytes,
-		0o644,
-	); err != nil {
+	goalBytes, err := marshalYAML(newGoal)
+	if err != nil {
 		return GoalReference{}, err
 	}
-	if err := s.writeYAML(filepath.Join(dir, "criteria.yaml"), newCriteria); err != nil {
+	// criteria-revisions/<n>.yaml is an immutable snapshot with no before
+	// state (new file) or a repeatable identical digest. Publish it after the
+	// mutable criteria.yaml and goal.yaml so a partial publication fails closed
+	// and recovery can replay every after-image in order.
+	entries := []publicationFileEntry{
+		{
+			Path:         "criteria.yaml",
+			BeforeDigest: "",
+			Content:      newCriteriaBytes,
+		},
+		{
+			Path:         "goal.yaml",
+			BeforeDigest: "",
+			Content:      goalBytes,
+		},
+		{
+			Path:         "criteria-revisions/" + strconv.FormatUint(newCriteria.Spec.Revision, 10) + ".yaml",
+			BeforeDigest: "",
+			Content:      newCriteriaBytes,
+		},
+	}
+	// criteria-revisions directory must exist.
+	if err := os.MkdirAll(filepath.Join(dir, "criteria-revisions"), 0o755); err != nil {
 		return GoalReference{}, err
 	}
-	if err := s.writeYAML(filepath.Join(dir, "goal.yaml"), newGoal); err != nil {
+	intent, err := s.beginPublication(
+		dir,
+		newGoal.Metadata.Name,
+		goal.Metadata.ResourceVersion,
+		newGoal.Metadata.ResourceVersion,
+		entries,
+		nil,
+	)
+	if err != nil {
 		return GoalReference{}, err
 	}
 	reference := GoalReference{
@@ -753,12 +780,39 @@ func (s *Store) updateCriteria(
 		GoalRef:         ".",
 		ResourceVersion: newGoal.Metadata.ResourceVersion,
 	}
-	if err := s.atomicWrite(filepath.Join(dir, "README.md"), newREADME, 0o644); err != nil {
-		return reference, fmt.Errorf(
-			"criteria update committed at resourceVersion %s; refresh README projection: %w",
-			reference.ResourceVersion,
-			err,
-		)
+	if err := s.publishIntentFiles(dir, intent, ""); err != nil {
+		if !s.goalCommitted(dir, intent) {
+			_ = s.finishPublication(dir)
+			return GoalReference{}, err
+		}
+		return reference, &PublicationIncompleteError{
+			OperationID:      intent.Spec.OperationID,
+			IntendedRevision: reference.ResourceVersion,
+			Phase:            "publish",
+			Kind:             "criteria",
+			Message:          err.Error(),
+			Cause:            err,
+		}
+	}
+	if err := s.refreshREADMEProjection(dir); err != nil {
+		return reference, &PublicationIncompleteError{
+			OperationID:      intent.Spec.OperationID,
+			IntendedRevision: reference.ResourceVersion,
+			Phase:            "projection",
+			Kind:             "criteria",
+			Message:          err.Error(),
+			Cause:            err,
+		}
+	}
+	if err := s.finishPublication(dir); err != nil {
+		return reference, &PublicationIncompleteError{
+			OperationID:      intent.Spec.OperationID,
+			IntendedRevision: reference.ResourceVersion,
+			Phase:            "finish",
+			Kind:             "criteria",
+			Message:          err.Error(),
+			Cause:            err,
+		}
 	}
 	return reference, nil
 }
@@ -773,6 +827,9 @@ func (s *Store) ValidateGoal(goalDir string) error {
 		return err
 	}
 	defer lock.release()
+	if err := s.checkNoPendingPublication(dir); err != nil {
+		return err
+	}
 	_, _, _, err = s.loadAndValidate(dir)
 	return err
 }

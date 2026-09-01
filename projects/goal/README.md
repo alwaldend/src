@@ -35,9 +35,13 @@ replaceable projection. The portable API treats resource versions as opaque
 and excludes local ownership paths from desired state. The filesystem backend
 supplies one cooperative lock per goal, local numeric resource versions,
 atomic file replacement by sibling temporary-file rename, session bindings,
-promotion, and non-destructive unversioned-record import. It is a local file
-editor with atomic per-file replacement; it does not claim cross-file
-transaction semantics.
+promotion, non-destructive unversioned-record import, and recoverable
+multi-file publication. Before a multi-file mutation, the backend stages exact
+after-images and installs a `.goal-publication.yaml` intent in the goal
+record; `goal doctor` classifies the publication state and `goal recover`
+replays or discards a pending intent. It is a local file editor with atomic
+per-file replacement; it does not claim cross-file transaction semantics
+without the publication intent.
 
 These files are not installed CRDs. A future Kubernetes adapter can convert
 the API types after adding Kubernetes metadata types, structural schemas,
@@ -48,6 +52,13 @@ Run the command through Bazel:
 
 ```sh
 bazel_agent run //projects/goal/cmd/goal -- --help
+```
+
+Diagnose and finish an interrupted publication:
+
+```sh
+bazel_agent run //projects/goal/cmd/goal -- doctor --goal-dir $GOAL_DIR
+bazel_agent run //projects/goal/cmd/goal -- recover --goal-dir $GOAL_DIR
 ```
 
 The canonical skill lives at `skills/goal`; `.agents/skills/goal` is only its

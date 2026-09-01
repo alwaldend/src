@@ -2,7 +2,7 @@ apiVersion: goals.alwaldend.com/v1alpha1
 kind: Goal
 metadata:
   name: agent-system-phase-2
-  resourceVersion: "7"
+  resourceVersion: "8"
   generation: 2
   creationTimestamp: "2026-08-31T20:17:20.695313978Z"
   annotations:
@@ -37,4 +37,4 @@ status:
     sourceFormat: ""
     sourceDigest: ""
     migratedAt: ""
-  observedAt: "2026-08-31T20:33:10.001394909Z"
+  observedAt: "2026-08-31T23:43:43.039799475Z"

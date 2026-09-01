@@ -6,6 +6,7 @@ go_library(
         "digest.go",
         "graph.go",
         "normalization.go",
+        "publication_types.go",
         "types.go",
         "validation.go",
     ],

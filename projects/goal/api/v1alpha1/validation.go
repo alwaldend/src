@@ -12,6 +12,7 @@ const (
 	MaxGoalRelationshipReferences = 256
 	MaxTitleBytes                 = 200
 	MaxStatementBytes             = 4096
+	MaxPublicationFiles           = 128
 )
 
 var (

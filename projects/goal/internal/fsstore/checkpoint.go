@@ -35,6 +35,9 @@ func (s *Store) Checkpoint(options CheckpointOptions) (GoalReference, error) {
 		return GoalReference{}, err
 	}
 	defer lock.release()
+	if err := s.checkNoPendingPublication(dir); err != nil {
+		return GoalReference{}, err
+	}
 	goal, criteria, attempts, err := s.loadAndValidate(dir)
 	if err != nil {
 		return GoalReference{}, err
@@ -225,20 +228,6 @@ func (s *Store) checkpointRecord(
 	if err := validateProspectiveRecord(newGoal, criteria, prospectiveAttempts); err != nil {
 		return GoalReference{}, err
 	}
-	readme, err := renderREADME(newGoal, criteria, prospectiveAttempts, defaultOutputLimit)
-	if err != nil {
-		return GoalReference{}, err
-	}
-	var staged *stagedAttempt
-	if tree != nil && newAttempt {
-		staged, err = s.stageNewAttempt(dir, attemptID, *tree)
-		if err != nil {
-			return GoalReference{}, err
-		}
-		defer func() {
-			_ = os.RemoveAll(staged.temporary)
-		}()
-	}
 	committedGoal := newGoal
 	finalizeGoalAfterAttempt := tree != nil && newAttempt && options.CloseAttempt
 	if finalizeGoalAfterAttempt {
@@ -249,12 +238,130 @@ func (s *Store) checkpointRecord(
 		// the closed attempt.
 		committedGoal.Status.ActiveAttemptID = attemptID
 	}
-	// goal.yaml is the optimistic-concurrency commit point. Stage a new
-	// attempt first, but publish the advanced token before any canonical
-	// attempt content. A later publication failure therefore always leaves the
-	// record guarded by the committed resourceVersion rather than the caller's
-	// stale token.
-	if err := s.writeYAML(filepath.Join(dir, "goal.yaml"), committedGoal); err != nil {
+	// Build the exact deterministic after-image set. goal.yaml is published
+	// first as the optimistic-concurrency commit point; a later publication
+	// failure always leaves the record guarded by the committed resourceVersion
+	// rather than the caller's stale token.
+	goalBytes, err := yaml.Marshal(committedGoal)
+	if err != nil {
+		return GoalReference{}, err
+	}
+	entries := []publicationFileEntry{
+		{
+			Path:         "goal.yaml",
+			BeforeDigest: "",
+			Content:      goalBytes,
+		},
+	}
+	if tree != nil && newAttempt {
+		// New attempt: publish the attempt directory before the goal pointer is
+		// finalized so a crash never leaves a pointer to a missing attempt.
+		// The staged attempt directory already contains plan/result/evidence.
+		entries = append(entries,
+			publicationFileEntry{
+				Path:         "attempts/" + attemptID + "/plan.md",
+				BeforeDigest: "",
+				Content:      tree.Plan,
+			},
+			publicationFileEntry{
+				Path:         "attempts/" + attemptID + "/result.md",
+				BeforeDigest: "",
+				Content:      tree.Result,
+			},
+		)
+		// evidence entries sorted
+		evidenceNames := make([]string, 0, len(tree.Evidence))
+		for name := range tree.Evidence {
+			evidenceNames = append(evidenceNames, name)
+		}
+		sort.Strings(evidenceNames)
+		for _, name := range evidenceNames {
+			entries = append(entries, publicationFileEntry{
+				Path:         "attempts/" + attemptID + "/evidence/" + name,
+				BeforeDigest: "",
+				Content:      tree.Evidence[name],
+			})
+		}
+		manifestBytes, err := yaml.Marshal(tree.Manifest)
+		if err != nil {
+			return GoalReference{}, err
+		}
+		entries = append(entries, publicationFileEntry{
+			Path:         "attempts/" + attemptID + "/attempt.yaml",
+			BeforeDigest: "",
+			Content:      manifestBytes,
+		})
+		if !finalizeGoalAfterAttempt {
+			// Keep goal.yaml as the single commit point; no finalization file.
+		}
+	} else if tree != nil {
+		// Existing attempt: result/evidence/manifest after goal.yaml.
+		if options.ResultFile != "" {
+			entries = append(entries, publicationFileEntry{
+				Path:         "attempts/" + attemptID + "/result.md",
+				BeforeDigest: "",
+				Content:      tree.Result,
+			})
+		}
+		names := make([]string, 0, len(options.EvidenceFiles))
+		for _, source := range options.EvidenceFiles {
+			names = append(names, filepath.Base(source))
+		}
+		sort.Strings(names)
+		for _, name := range names {
+			entries = append(entries, publicationFileEntry{
+				Path:         "attempts/" + attemptID + "/evidence/" + name,
+				BeforeDigest: "",
+				Content:      tree.Evidence[name],
+			})
+		}
+		manifestBytes, err := yaml.Marshal(tree.Manifest)
+		if err != nil {
+			return GoalReference{}, err
+		}
+		entries = append(entries, publicationFileEntry{
+			Path:         "attempts/" + attemptID + "/attempt.yaml",
+			BeforeDigest: "",
+			Content:      manifestBytes,
+		})
+	}
+	if finalizeGoalAfterAttempt {
+		finalBytes, err := yaml.Marshal(newGoal)
+		if err != nil {
+			return GoalReference{}, err
+		}
+		// The final goal.yaml is an additional after-image that replaces the
+		// committed pointer. Recovery replays every remaining after-image in
+		// order, so the intended final state is deterministic.
+		entries = append(entries, publicationFileEntry{
+			Path:           "goal.yaml",
+			BeforeDigest:   digestBytes(goalBytes),
+			Content:        finalBytes,
+			StagedRelative: "goal-final.yaml",
+		})
+	}
+	// README is a replaceable projection and is refreshed after the canonical
+	// files publish, not staged in the intent digest protocol.
+
+	// The parent attempts directory is created before the intent so the
+	// attempt directory rename below has a target parent. The attempt
+	// directory itself is published atomically by publishIntentFiles.
+	if err := os.MkdirAll(filepath.Join(dir, "attempts"), 0o755); err != nil {
+		return GoalReference{}, err
+	}
+	stageDirs := []string{}
+	if tree != nil && newAttempt {
+		stageDirs = []string{"attempts/" + attemptID + "/evidence"}
+	}
+	intent, err := s.beginPublication(
+		dir,
+		newGoal.Metadata.Name,
+		goal.Metadata.ResourceVersion,
+		newGoal.Metadata.ResourceVersion,
+		entries,
+		stageDirs,
+	)
+	if err != nil {
 		return GoalReference{}, err
 	}
 	reference := GoalReference{
@@ -262,37 +369,50 @@ func (s *Store) checkpointRecord(
 		GoalRef:         ".",
 		ResourceVersion: newGoal.Metadata.ResourceVersion,
 	}
-	if tree != nil {
-		if newAttempt {
-			err = s.publishStagedAttempt(staged)
-		} else {
-			err = s.updateExistingAttempt(dir, attemptID, *tree, options)
+	// Preserve the new-attempt directory publication hook point. The staged
+	// directory is published by the intent machinery.
+	newAttemptDir := ""
+	if tree != nil && newAttempt {
+		newAttemptDir = "attempts/" + attemptID
+	}
+	if err := s.publishIntentFiles(dir, intent, newAttemptDir); err != nil {
+		if !s.commitPointPublished(dir, intent) {
+			// The first goal.yaml rename is the first canonical change. If it
+			// did not publish, nothing changed: discard the intent and
+			// preserve the exact prior record.
+			if err := s.finishPublication(dir); err != nil {
+				return GoalReference{}, err
+			}
+			return GoalReference{}, err
 		}
-		if err != nil {
-			return reference, fmt.Errorf(
-				"checkpoint committed at resourceVersion %s; publish attempt %q: %w",
-				reference.ResourceVersion,
-				attemptID,
-				err,
-			)
+		return reference, &PublicationIncompleteError{
+			OperationID:      intent.Spec.OperationID,
+			IntendedRevision: reference.ResourceVersion,
+			Phase:            "publish",
+			Kind:             "checkpoint",
+			Message:          err.Error(),
+			Cause:            err,
 		}
 	}
-	if finalizeGoalAfterAttempt {
-		if err := s.writeYAML(filepath.Join(dir, "goal.yaml"), newGoal); err != nil {
-			return reference, fmt.Errorf(
-				"checkpoint committed at resourceVersion %s; finalize goal after attempt %q: %w",
-				reference.ResourceVersion,
-				attemptID,
-				err,
-			)
+	if err := s.refreshREADMEProjection(dir); err != nil {
+		return reference, &PublicationIncompleteError{
+			OperationID:      intent.Spec.OperationID,
+			IntendedRevision: reference.ResourceVersion,
+			Phase:            "projection",
+			Kind:             "checkpoint",
+			Message:          err.Error(),
+			Cause:            err,
 		}
 	}
-	if err := s.atomicWrite(filepath.Join(dir, "README.md"), readme, 0o644); err != nil {
-		return reference, fmt.Errorf(
-			"checkpoint committed at resourceVersion %s; refresh README projection: %w",
-			reference.ResourceVersion,
-			err,
-		)
+	if err := s.finishPublication(dir); err != nil {
+		return reference, &PublicationIncompleteError{
+			OperationID:      intent.Spec.OperationID,
+			IntendedRevision: reference.ResourceVersion,
+			Phase:            "finish",
+			Kind:             "checkpoint",
+			Message:          err.Error(),
+			Cause:            err,
+		}
 	}
 	return reference, nil
 }

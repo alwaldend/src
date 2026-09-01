@@ -4,7 +4,7 @@
 
 - Goal ID: `agent-system-phase-2`
 - API version: `goals.alwaldend.com/v1alpha1`
-- Resource version: `7`
+- Resource version: `8`
 - Generation: `2`
 - Lifecycle generation: `4`
 - Scope: `project`
@@ -31,6 +31,7 @@
 
 ## Recent attempts
 
+- [`goal-publication-002`](attempts/goal-publication-002/) — `change`, `closed`, resource version `1`, criteria r2
 - [`goal-publication-001`](attempts/goal-publication-001/) — `change`, `closed`, resource version `2`, criteria r2
 
 ## Record map

@@ -57,6 +57,9 @@ func (s *Store) Promote(options PromoteOptions) (GoalReference, error) {
 	}
 	defer sourceLock.release()
 	defer targetLock.release()
+	if err := s.checkNoPendingPublication(source); err != nil {
+		return GoalReference{}, err
+	}
 	goal, criteria, attempts, err := s.loadAndValidate(source)
 	if err != nil {
 		return GoalReference{}, err
@@ -369,6 +372,9 @@ func (s *Store) Migrate(options MigrateOptions) (GoalReference, error) {
 	defer sourceLock.release()
 	defer targetLock.release()
 
+	if err := s.checkNoPendingPublication(target); err != nil {
+		return GoalReference{}, err
+	}
 	legacyFiles, err := inspectUnversionedRecord(source)
 	if err != nil {
 		return GoalReference{}, err

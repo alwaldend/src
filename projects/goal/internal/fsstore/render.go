@@ -26,6 +26,9 @@ func (s *Store) Render(goalDir string, expectedResourceVersion string, limit int
 		return err
 	}
 	defer lock.release()
+	if err := s.checkNoPendingPublication(dir); err != nil {
+		return err
+	}
 	goal, criteria, attempts, err := s.loadAndValidate(dir)
 	if err != nil {
 		return err
