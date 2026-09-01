@@ -1,0 +1,65 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a96-rung003-seated-rest-direct-edit
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-01T12:51:21.931170601Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 5
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:d27f57e6a426c075b0c7c4cb065a40f45ba6df60719b16b7344b67248dddb201
+  workType: change
+status:
+  state: closed
+  closedAt: "2026-09-01T13:11:35.374036046Z"
+  artifacts:
+    planDigest: sha256:8392738f0d9f317ed7b58c9a41ca9142b5dd7ea2dfd07a2eaf76fe509f18c954
+    resultDigest: sha256:8cebaceeffb5caa2c71284634eb8db4a1e6a5bb6b4fe1ca8a20d37bbc54959fb
+    evidence:
+    - path: evidence/BASELINE_REPORT.md
+      digest: sha256:a87517ffe7637ae00146c77da2ad15aeb6043a2b6e9540c5906553357cd2094a
+    - path: evidence/FIRST_PIXEL_VERDICT.md
+      digest: sha256:389109ef82c1c8c6dacdf0a36c2c4ec8292838e9495ba98b2aae2b3202af78c0
+    - path: evidence/RESULT.md
+      digest: sha256:28b9a2139d08438332d0094847d79f0db928727587a628db58b85c100c0618f2
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-01T13:11:35.374036046Z"

@@ -1,0 +1,69 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a98-minimal-pointer-coupon
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-01T13:32:12.590323356Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 5
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:d27f57e6a426c075b0c7c4cb065a40f45ba6df60719b16b7344b67248dddb201
+  workType: investigation
+status:
+  state: closed
+  closedAt: "2026-09-01T14:00:57.542806381Z"
+  artifacts:
+    planDigest: sha256:82651863d3944d431086358510b0a4d9226ce50045c673eda39b0f0e2d2cf0c5
+    resultDigest: sha256:c1981b4f44b98202a32682036e7caec304fadcfb2736166e942bf8294731b3e0
+    evidence:
+    - path: evidence/BASELINE_REPORT.md
+      digest: sha256:2c0ef10aef1b1cfca88279c582df00955b9c7ced5531afa4dfcf519296101b43
+    - path: evidence/MECHANISM_REVIEW_CHECKLIST.md
+      digest: sha256:ec9a0f55e65419327a5ba9c2d1a9a0e2acbf5f60242284c62f3e45dc2113e3c8
+    - path: evidence/PROCESS_STOP_RECEIPT.md
+      digest: sha256:5adf7b3136e6e5ec593892c998619f3865edc4143bb3c811c3c4396c0c43b6ef
+    - path: evidence/RUNTIME_FAILURE.md
+      digest: sha256:b7d9edd48c5a0eca3e96f43330ea7bc25a862b0a477fb6885992690445c792c1
+    - path: evidence/STATIC_VALIDATION.md
+      digest: sha256:86fd8c82636dcd10ee12bfb1dbf4033289d8cea0882d82a93dd963a7177ae8ec
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-01T14:00:57.542806381Z"

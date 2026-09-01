@@ -1,0 +1,63 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a95-result-first-strategy-reset
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-01T12:27:42.591806471Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 5
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:d27f57e6a426c075b0c7c4cb065a40f45ba6df60719b16b7344b67248dddb201
+  workType: decision
+status:
+  state: closed
+  closedAt: "2026-09-01T12:48:53.691160183Z"
+  artifacts:
+    planDigest: sha256:e1400195dbe18d67f222217631f39b240347406a9132a8163dd01179fc8f9b75
+    resultDigest: sha256:f906cb8ad43f41e8cf538197d3ee695ec6ef0a129c09271bb0e873fcfce84acb
+    evidence:
+    - path: evidence/EVIDENCE_SUMMARY.md
+      digest: sha256:1afce470e2f689d58f46b335134e0e6ceeeb1aad272f22c62af81ef0fb9d2e17
+    - path: evidence/STRATEGY_VERDICT.md
+      digest: sha256:f99a4c912fa4a3e3883c49a42357af2c073acc13d7e67de642b4ed434d66feea
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-01T12:48:53.691160183Z"

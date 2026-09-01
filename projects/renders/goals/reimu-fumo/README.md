@@ -4,12 +4,12 @@
 
 - Goal ID: `reimu-fumo`
 - API version: `goals.alwaldend.com/v1alpha1`
-- Resource version: `57`
+- Resource version: `75`
 - Generation: `1`
-- Lifecycle generation: `4`
+- Lifecycle generation: `6`
 - Scope: `project`
 - Outcome: `open`
-- Execution: `paused`
+- Execution: `blocked`
 - Active attempt: `—`
 
 ## Relationships
@@ -31,6 +31,15 @@
 
 ## Recent attempts
 
+- [`a99-direct-open-pointer-coupon`](attempts/a99-direct-open-pointer-coupon/) — `investigation`, `closed`, resource version `2`, criteria r1
+- [`a98-minimal-pointer-coupon`](attempts/a98-minimal-pointer-coupon/) — `investigation`, `closed`, resource version `2`, criteria r1
+- [`a97-post-a96-feasibility-decision`](attempts/a97-post-a96-feasibility-decision/) — `decision`, `closed`, resource version `2`, criteria r1
+- [`a96-rung003-seated-rest-direct-edit`](attempts/a96-rung003-seated-rest-direct-edit/) — `change`, `closed`, resource version `2`, criteria r1
+- [`a95-result-first-strategy-reset`](attempts/a95-result-first-strategy-reset/) — `decision`, `closed`, resource version `2`, criteria r1
+- [`a94-real-pointer-sculpt-coupon`](attempts/a94-real-pointer-sculpt-coupon/) — `investigation`, `closed`, resource version `2`, criteria r1
+- [`a93-direct-sculpt-coupon`](attempts/a93-direct-sculpt-coupon/) — `investigation`, `closed`, resource version `2`, criteria r1
+- [`a92-a88-context-control`](attempts/a92-a88-context-control/) — `candidate`, `closed`, resource version `1`, criteria r1
+- [`a91-whole-plush-bakeoff`](attempts/a91-whole-plush-bakeoff/) — `candidate`, `closed`, resource version `2`, criteria r1
 - [`a90-process-recovery-review`](attempts/a90-process-recovery-review/) — `decision`, `closed`, resource version `2`, criteria r1
 - [`a89-lower-rear-hair`](attempts/a89-lower-rear-hair/) — `candidate`, `closed`, resource version `2`, criteria r1
 - [`a88-crown-interface`](attempts/a88-crown-interface/) — `candidate`, `closed`, resource version `2`, criteria r1
@@ -42,16 +51,7 @@
 - [`a82-atomic-head-shell`](attempts/a82-atomic-head-shell/) — `candidate`, `closed`, resource version `2`, criteria r1
 - [`a81-live-joint-restform`](attempts/a81-live-joint-restform/) — `candidate`, `closed`, resource version `2`, criteria r1
 - [`a80-diagnostic-hair-blockout`](attempts/a80-diagnostic-hair-blockout/) — `candidate`, `closed`, resource version `2`, criteria r1
-- [`a79-paired-hair-field`](attempts/a79-paired-hair-field/) — `candidate`, `closed`, resource version `3`, criteria r1
-- [`a78-flattened-head-rest`](attempts/a78-flattened-head-rest/) — `candidate`, `closed`, resource version `2`, criteria r1
-- [`a77-sparse-head-hair`](attempts/a77-sparse-head-hair/) — `candidate`, `closed`, resource version `2`, criteria r1
-- [`a76-live-sculpt-interface`](attempts/a76-live-sculpt-interface/) — `investigation`, `closed`, resource version `2`, criteria r1
-- [`a75-face-cushion`](attempts/a75-face-cushion/) — `candidate`, `closed`, resource version `2`, criteria r1
-- [`a74-visible-envelope`](attempts/a74-visible-envelope/) — `candidate`, `closed`, resource version `2`, criteria r1
-- [`a73-profile-cage`](attempts/a73-profile-cage/) — `candidate`, `closed`, resource version `2`, criteria r1
-- [`a72-parametric-receiver`](attempts/a72-parametric-receiver/) — `candidate`, `closed`, resource version `2`, criteria r1
-- [`a71-macro-sculpt`](attempts/a71-macro-sculpt/) — `candidate`, `closed`, resource version `2`, criteria r1
-- … 4 older attempts omitted by the projection limit.
+- … 13 older attempts omitted by the projection limit.
 
 ## Record map
 

@@ -1,0 +1,65 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a94-real-pointer-sculpt-coupon
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-01T11:35:07.403950334Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 5
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:d27f57e6a426c075b0c7c4cb065a40f45ba6df60719b16b7344b67248dddb201
+  workType: investigation
+status:
+  state: closed
+  closedAt: "2026-09-01T12:25:55.983245807Z"
+  artifacts:
+    planDigest: sha256:45a8c5005bfcbe83557ca7c02703c8ff38828766f6cd931d4396c6da052fcf8d
+    resultDigest: sha256:d009c3d8cb73f9089b4c942ff10be971f64177610ce4f334d296eee4938c316b
+    evidence:
+    - path: evidence/INPUT_RECEIPT_SUMMARY.md
+      digest: sha256:9f6b2d5814a9beb2a9552043e29ac5116935f76acff224201f19623d260c9232
+    - path: evidence/PROCESS_STOP_RECEIPT.md
+      digest: sha256:cd961d02cf5ab30c2b23ce283eb05c8c46547417c531bf4c6b83ac335691a933
+    - path: evidence/STARTUP_DIAGNOSTICS.md
+      digest: sha256:3ef000fd8b560b191da67f1e883be9c77bab8c763bb78aab8e1c953657e57624
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-01T12:25:55.983245807Z"

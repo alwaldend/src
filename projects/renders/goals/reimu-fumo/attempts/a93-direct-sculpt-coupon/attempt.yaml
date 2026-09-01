@@ -1,0 +1,63 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a93-direct-sculpt-coupon
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-01T11:30:59.559524083Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 5
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:d27f57e6a426c075b0c7c4cb065a40f45ba6df60719b16b7344b67248dddb201
+  workType: investigation
+status:
+  state: closed
+  closedAt: "2026-09-01T11:33:40.829366423Z"
+  artifacts:
+    planDigest: sha256:66cfc609f78c500bf583fbd14c11578a53eb944178691ad14e2076d29885e297
+    resultDigest: sha256:f404b7b5314aee9297bd3c878a68072a299b917645c19080dec95cb21fe5ca7e
+    evidence:
+    - path: evidence/DECISION_REVIEW.md
+      digest: sha256:a4e15448b03275d8374de215b728f66092f137ddc7ee615fda81fd09b0506ddc
+    - path: evidence/PREFLIGHT_CORRECTION.md
+      digest: sha256:bc51446ecf57aed9f0043314ff14adb8ec870ff18fc7d50e95935fb10ce9f2ba
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-01T11:33:40.829366423Z"

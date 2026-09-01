@@ -2,7 +2,7 @@ apiVersion: goals.alwaldend.com/v1alpha1
 kind: Goal
 metadata:
   name: reimu-fumo
-  resourceVersion: "57"
+  resourceVersion: "75"
   generation: 1
   creationTimestamp: "2026-08-30T17:46:17.415632476Z"
   annotations:
@@ -16,9 +16,9 @@ spec:
     dependsOnGoalRefs: []
     supersedesGoalRefs: []
 status:
-  lifecycleGeneration: 4
+  lifecycleGeneration: 6
   outcome: open
-  execution: paused
+  execution: blocked
   activeAttemptID: ""
   acceptedAttemptID: ""
   acceptedResultDigest: ""
@@ -36,4 +36,4 @@ status:
     sourceFormat: unversioned
     sourceDigest: sha256:756f69cfca697a13e492a4aed92a49e6b6969adc1da7e4071aa4ed2544dcb831
     migratedAt: "2026-08-30T17:46:17.415632476Z"
-  observedAt: "2026-09-01T08:43:51.378115012Z"
+  observedAt: "2026-09-01T14:20:32.482269791Z"

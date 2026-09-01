@@ -1,0 +1,64 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a92-a88-context-control
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-09-01T11:28:08.472358996Z"
+spec:
+  goalRef:
+    name: reimu-fumo
+  goalGeneration: 1
+  lifecycleGeneration: 5
+  criteriaRevision: 1
+  criteriaDigest: sha256:c5522700389e76975e7978515c586433ca2058a6d5012ef45fbbadcb78a5740c
+  goalStateDigest: sha256:d27f57e6a426c075b0c7c4cb065a40f45ba6df60719b16b7344b67248dddb201
+  workType: candidate
+status:
+  state: closed
+  closedAt: "2026-09-01T11:28:08.472358996Z"
+  artifacts:
+    planDigest: sha256:9fc75505cfe7635eb0292552cec583d2f72e5e1769101a5c415a39c7c2548c89
+    resultDigest: sha256:8128c19aef07c5e112adc41b0ca889a903843273164b2d9a4a2be928c8766f77
+    evidence:
+    - path: evidence/A92_FIRST_PIXEL_GATE.md
+      digest: sha256:8dd85fa3981a86026ad509db0e16f1566ef832b61d9a7b1e296d7962be5c488c
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/A92_FIRST_PIXEL_GATE.md
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/A92_FIRST_PIXEL_GATE.md
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/A92_FIRST_PIXEL_GATE.md
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-01T11:28:08.472358996Z"
