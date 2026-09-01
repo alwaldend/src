@@ -24,6 +24,7 @@ var repositoryWorkspaces = []workspace{
 	},
 	{name: "projects/rules_docs", path: "projects/rules_docs"},
 	{name: "projects/rules_docs_gazelle", path: "projects/rules_docs_gazelle"},
+	{name: "projects/rules_hugo", path: "projects/rules_hugo"},
 	{name: "projects/rules_promptfoo", path: "projects/rules_promptfoo"},
 	{
 		name: "projects/rules_promptfoo_gazelle",

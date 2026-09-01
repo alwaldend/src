@@ -52,6 +52,8 @@ build --copt="-Wextra"
 common --worker_sandboxing
 # Enable the shell worker
 common --strategy=Shell=worker
+# Enable the Hugo persistent worker
+common --strategy=HugoSite=worker
 # Attempt to build & test every target whose prerequisites were successfully built.
 common --keep_going
 # Enable external runfiles for haskell/llvm

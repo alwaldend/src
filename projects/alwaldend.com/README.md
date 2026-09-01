@@ -1,7 +1,7 @@
 ---
 title: Alwaldend.com
 description: Alwaldend.com site
-sites:
+site:
   - alwaldend.com
 statuses:
   - in_progress
@@ -14,7 +14,7 @@ tags:
 
 - Source code: https://github.com/alwaldend/src/tree/master/projects/alwaldend.com
 - Github Pages repo: https://github.com/alwaldend/alwaldend.github.io
-- Hugo rules: [../../tools/hugo](../../tools/hugo)
+- Hugo rules: [../../projects/rules_hugo](../../projects/rules_hugo)
 
 ## Features
 

@@ -120,6 +120,12 @@ local_path_override(
     path = "projects/rules_skill",
 )
 
+
+bazel_dep(name = "rules_hugo")
+local_path_override(
+    module_name = "rules_hugo",
+    path = "projects/rules_hugo",
+)
 bazel_dep(name = "rules_skill_gazelle", dev_dependency = True)
 local_path_override(
     module_name = "rules_skill_gazelle",

@@ -1,0 +1,40 @@
+{
+    "toolchains": [
+        {
+            "name": "sass",
+            "version": "1.103.1"
+        }
+    ],
+    "archives": [
+        {
+            "toolchain_name": "sass",
+            "toolchain_version": "1.103.1",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "sass",
+                    "path": "out/dart-sass/sass",
+                    "runtime_files": [
+                        "out/dart-sass/src/**",
+                        "out/dart-sass/sass"
+                    ]
+                }
+            ],
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/sass/dart-sass/releases/download/1.103.1/dart-sass-1.103.1-linux-x64.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-szp3R/xBy0+W3/CerwKtpN1HFT8uVM2pFf+TENn4kUo="
+                    }
+                }
+            ],
+            "toolchain": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}

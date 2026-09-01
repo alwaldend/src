@@ -200,6 +200,11 @@ stated scope.
   archives or Bazel-integrated package managers driven by checked-in manifests
   and lockfiles. Do not silently depend on a host-installed tool or an
   undeclared lifecycle download.
+- Run every shell command with a timeout so it cannot hang unexpectedly,
+  unless there is a good reason not to (for example, a command that must
+  intentionally run for a long time or an interactive session). Prefer a
+  short timeout that fits the command's expected duration, and use
+  `timeout <seconds> <command>` as the wrapper.
 - Hermetic tool acquisition is important; hermetic tool output has lower
   priority. A tool may intentionally access the network or produce
   environment-dependent artifacts when the requested workflow permits it.
@@ -220,9 +225,16 @@ stated scope.
   the system.
 
 ## Searching
-
 Do not use recursive `grep` or `ls`. Use `rg`, `rg --files`, `find` with a
-bounded depth, or `bazel_agent query` instead.
+bounded depth, or `bazel_agent query` instead. Never search from the
+filesystem root (`find /`); it can hang for minutes on large dependency
+caches. Use an explicit root and `-maxdepth`, and prefer `rg --files` with a
+path.
+
+Do not retry the same futile search or diagnostic more than once. After a
+second unsuccessful attempt, change the hypothesis, representation, or
+verification method instead of repeating it. Preserve the failure evidence
+and use a stable name for recurring defects.
 
 ## Repository map and boundaries
 
