@@ -15,13 +15,63 @@ spec:
   goalStateDigest: sha256:5c19f039a84f0d08e38cc8324a2ad9df40e8f4e1a4cc501b2bb4ea98310a9a8e
   workType: change
 status:
-  state: open
-  closedAt: ""
+  state: closed
+  closedAt: "2026-09-02T11:10:00Z"
   artifacts:
     planDigest: sha256:bc32dd484611613563727759a3d39abda74d8bd54dea9dbf57bcf28afe059ef5
-    resultDigest: sha256:7c71f939094bae52a0f08a4909cc06f7d2ad8dc71773b1744d2a05d28d311940
-    evidence: []
+    resultDigest: sha256:8419b46c5b43f0d54c8c09bc7e1ecdc673bb15bc1915b2bb08bdab7973784322
+    evidence:
+    - path: evidence/phase3-acceptance-evidence.md
+      digest: sha256:bbdc022a58bfb87269ee62784f8e8c0e915f633ce347f11ab7062224fa0d8e3d
   review:
-    decision: ""
-    criteria: []
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase3-acceptance-evidence.md
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase3-acceptance-evidence.md
+      - result.md
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase3-acceptance-evidence.md
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase3-acceptance-evidence.md
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase3-acceptance-evidence.md
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase3-acceptance-evidence.md
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase3-acceptance-evidence.md
+      - result.md
+    - criterionID: criterion-008
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/phase3-acceptance-evidence.md
+      - result.md
   observedAt: "2026-09-01T22:14:44.18089621Z"

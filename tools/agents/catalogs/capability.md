@@ -6,9 +6,9 @@
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/capability-catalog`
 - Derivation: `1.0.0`
 - Producer: `repository.capability-compiler`
-- Source revision: `0939ccc667b31bf3350630951c515b11`
+- Source revision: `ecacae829300c3662424fe8359d8eab8`
 - Completeness: `partial`
-- JSON digest: `sha256:0e1372b18f31981e113fecfedcc3a37338a2353a52c78052af1cccbdb2a6418f`
+- JSON digest: `sha256:d7a40fd082bf2a7762f6c1327c146fc0031e4471ddcea3d3d37bd23628ed489d`
 
 ## Limitations
 
@@ -42,6 +42,7 @@
 - `answer-question` (owned by `projects/agents`): layer `procedure`, activation `substantive user questions`, cost `medium`
   - exclusions: inert quoted questions
   - capabilities: source.read
+- `ast-grep` (owned by `projects/agents`): layer `procedure`, activation `discovered skill for repository agents`, cost `medium`
 - `bazel-agent` (owned by `projects/agents`): layer `execution`, activation `agent-executed Bazel commands`, cost `small`
   - exclusions: non-Bazel host commands
   - capabilities: code.execute
