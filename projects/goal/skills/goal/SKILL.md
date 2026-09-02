@@ -75,6 +75,21 @@ whenever creating, resuming, inspecting, or validating a record.
 Read [lifecycle-and-evidence.md](references/lifecycle-and-evidence.md) before
 starting an attempt.
 
+Before authoring a candidate, review the goal from its purpose outward. Ask
+what object or outcome is intended, how it is made or used in reality, which
+physical or operational model best represents it, which acceptance failures
+that model implies, and whether alternative representations would test the
+goal more directly. Do not rush into local implementation merely because an
+existing artifact invites editing. If repeated attempts fail, reopen this
+model review before choosing another localized variation.
+
+Prior attempts and prior accepted checkpoints are references, not the goal.
+They preserve progress, prevent lost work, and make regressions visible, but
+the active objective and its acceptance criteria own the verdict. Prefer the
+smallest path to the requested outcome; do not preserve, reproduce, or extend
+a prior construction when a better representation satisfies the goal more
+directly.
+
 1. Define observable acceptance criteria and how each will be checked. Mark
    inferred criteria as assumptions. Never weaken the requested outcome to
    make it pass.
@@ -167,6 +182,9 @@ Before each next attempt, audit what measurably improved, regressed, or stayed
 unchanged; the highest-leverage unresolved issue; whether the approach should
 continue, change, or be discarded; and where avoidable feedback time went.
 Optimize for cheap falsification without weakening final acceptance.
+When a prior checkpoint no longer serves the active objective, treat it as a
+reference for comparison only; do not let fidelity to that checkpoint override
+the goal's acceptance criteria.
 
 At least every three closed attempts, and immediately when progress stalls,
 review the full attempt history and the whole delivery process more deeply
