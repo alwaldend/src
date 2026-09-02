@@ -791,6 +791,14 @@ func (d *delivery) validateReceiptContext(
 	}
 	for _, comparison := range comparisons {
 		if comparison.got != comparison.want {
+			if comparison.name == "base ref" {
+				return fmt.Errorf(
+					"preparation receipt base ref %q differs from current delivery state %q; "+
+						"refusal reason: missing_base (no pull request exists and no explicit --base was supplied to publish)",
+					comparison.got,
+					comparison.want,
+				)
+			}
 			return fmt.Errorf(
 				"preparation receipt %s differs from current delivery state",
 				comparison.name,

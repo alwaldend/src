@@ -13,6 +13,11 @@ Follow the repository instructions for scope and validation. Once requested
 implementation work is ready, deliver it without asking whether to commit or
 push.
 
+At close, use `$agent-ergonomics-review` for substantial work, failed or
+inefficient sessions, and recurring friction. Convert validated ergonomic
+findings into bounded, sanitized evidence before preparing or publishing the
+candidate; do not let this review broaden delivery scope.
+
 Before delivery, run
 `bazel_agent run //tools/repo_delivery -- provider`. Use its sanitized
 repository identity, provider hint, `adapter_available`, sanitized

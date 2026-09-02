@@ -5,9 +5,9 @@
 - ID: `agent-system.goal`
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/goal-catalog`
 - Derivation: `1.0.0`
-- Source revision: `66c291220b48b7f7cdc16a1b4dc2cfd3`
+- Source revision: `33c33fa5eace4c0fb0610681909930fc`
 - Completeness: `complete`
-- JSON digest: `sha256:603aec973771c5b1d9463ff962dcd16d24f74898d02dafacc835e191af76add2`
+- JSON digest: `sha256:a66567353b89e0dd49324055f2628ba3cccbc2fbb192b6a1e962a3a8ecd2608c`
 
 ## Goals
 

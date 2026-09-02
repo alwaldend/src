@@ -5,19 +5,19 @@
 - ID: `agent-system.index`
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/agent-system-index`
 - Derivation: `1.0.0`
-- Source revision: `2aa6b33cd19821252f50e198c50b9604`
+- Source revision: `76b4b430b1369514f21497dd3b838472`
 - Completeness: `complete`
-- JSON digest: `sha256:73cae26787aad96737022287133a7209c4ba2101809665a47a76fae67772ae26`
+- JSON digest: `sha256:9cff493fdf12a4980542a2b6179d7354aa78e1afb8f4f377a616281e1efca608`
 
 ## Catalogs
 
 - `agent-system.action` (action-catalog): complete, digest `sha256:1ec39e7ce0f671e2b22ffec83ed8238ccaa0fc3b2efa39a7adcd26543e05dba5`
   - route: `compile:action-catalog`
   - route: `check:action-catalog`
-- `agent-system.capability` (capability-catalog): partial, digest `sha256:d7a40fd082bf2a7762f6c1327c146fc0031e4471ddcea3d3d37bd23628ed489d`
+- `agent-system.capability` (capability-catalog): partial, digest `sha256:8849f080a74eef0cc214e7d828718e6dc6e013b3a7732fc8ac5fb0835120f3f2`
   - route: `compile:capability-catalog`
   - route: `check:capability-catalog`
-- `agent-system.goal` (goal-catalog): complete, digest `sha256:bc2e09f87ac6669ed6210cd24ea6bf4bc7a79afacbf97aa16e167a7a2a805b73`
+- `agent-system.goal` (goal-catalog): complete, digest `sha256:a66567353b89e0dd49324055f2628ba3cccbc2fbb192b6a1e962a3a8ecd2608c`
   - route: `compile:goal-catalog`
   - route: `check:goal-catalog`
 - `agent-system.policy` (policy-catalog): complete, digest `sha256:0b64de26a8fd013756b0ea5dfb768ff05492d4f752491cc57a49170ea7a3dd0e`

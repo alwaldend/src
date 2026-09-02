@@ -8,6 +8,9 @@ go_library(
         "contracts.go",
         "phase3_canonical.go",
         "phase3_validation.go",
+        "phase5.go",
+        "phase5_canonical.go",
+        "phase5_validation.go",
         "plans.go",
         "types.go",
         "validation.go",
@@ -23,6 +26,7 @@ go_test(
     srcs = [
         "context_capsule_test.go",
         "phase3_test.go",
+        "phase5_test.go",
         "validation_test.go",
     ],
     embed = [":v1alpha1"],

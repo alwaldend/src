@@ -1121,6 +1121,12 @@ func (s *Store) resolveInsideWorkspace(value string) (string, error) {
 	return resolved, nil
 }
 
+// ResolvePath exposes the store's workspace-bound path resolution for command
+// inputs that are consumed outside an existing store operation.
+func (s *Store) ResolvePath(path string) (string, error) {
+	return s.resolveInsideWorkspace(path)
+}
+
 func resolveExistingSymlinks(value string) (string, error) {
 	absolute, err := absoluteClean(value)
 	if err != nil {

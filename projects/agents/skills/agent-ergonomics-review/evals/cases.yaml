@@ -1,0 +1,18 @@
+- description: Captures avoidable repeated reads without transcript leakage
+  metadata:
+    id: repeated-read-friction
+  vars:
+    request: >-
+      The session selected repo-bazel, reread the same module file four times,
+      reran one unchanged query twice, and eventually delivered the requested
+      patch with passing checks.
+  assert:
+    - type: llm-rubric
+      metric: repeated-read-friction
+      threshold: 1
+      value: >-
+        Pass with score 1 only if the response names a stable defect or
+        opportunity, records avoidable reads and repeated checks separately,
+        proposes a narrow owner-level change with a metric and evidence tier,
+        and does not require transcript or secret-bearing content. Otherwise
+        fail with score 0.

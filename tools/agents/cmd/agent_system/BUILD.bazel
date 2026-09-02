@@ -6,6 +6,8 @@ go_library(
     name = "agent_system_lib",
     srcs = [
         "main.go",
+        "phase5_cmd.go",
+        "phase5_coverage_cmd.go",
         "plan_cmd.go",
         "readers.go",
     ],

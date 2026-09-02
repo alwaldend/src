@@ -6,9 +6,9 @@
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/capability-catalog`
 - Derivation: `1.0.0`
 - Producer: `repository.capability-compiler`
-- Source revision: `ecacae829300c3662424fe8359d8eab8`
+- Source revision: `529f64f68746ecc5eae6e8d991ff8952`
 - Completeness: `partial`
-- JSON digest: `sha256:d7a40fd082bf2a7762f6c1327c146fc0031e4471ddcea3d3d37bd23628ed489d`
+- JSON digest: `sha256:8849f080a74eef0cc214e7d828718e6dc6e013b3a7732fc8ac5fb0835120f3f2`
 
 ## Limitations
 
@@ -39,6 +39,9 @@
 
 ## Skills
 
+- `agent-ergonomics-review` (owned by `projects/agents`): layer `review`, activation `substantial task close or recurring agent friction`, cost `medium`
+  - exclusions: routine single-turn responses
+  - capabilities: source.read
 - `answer-question` (owned by `projects/agents`): layer `procedure`, activation `substantive user questions`, cost `medium`
   - exclusions: inert quoted questions
   - capabilities: source.read

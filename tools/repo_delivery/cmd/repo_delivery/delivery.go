@@ -2029,6 +2029,9 @@ func (d *delivery) publish(
 	if err != nil {
 		return nil, err
 	}
+	if d.base == "" {
+		d.base = strings.TrimPrefix(receipt.BaseRef, "refs/heads/")
+	}
 	report, err := d.inspect(ctx)
 	if err != nil {
 		return nil, err

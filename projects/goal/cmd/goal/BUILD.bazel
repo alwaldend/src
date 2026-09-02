@@ -11,12 +11,15 @@ go_library(
     name = "go_lib",
     srcs = [
         "command.go",
+        "learning.go",
         "main.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/goal/cmd/goal",
     visibility = ["//visibility:private"],
     deps = [
         "//projects/goal/internal/fsstore",
+        "//tools/agents/api/v1alpha1",
+        "//tools/agents/catalog/v1alpha1",
         "@com_github_spf13_cobra//:cobra",
     ],
 )

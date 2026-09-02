@@ -179,6 +179,20 @@ bounded. The generated README projection surfaces `stableDefect`,
 `dominantFailure`, `nextAction`, `blocker`, and `resumeCondition` for open
 attempts so an agent can resume directly from the goal record.
 
+For the registered repository goals root, use the goal command's catalog-backed
+resume view instead of scanning goal directories:
+
+```sh
+bazel_agent run //projects/goal/cmd/goal -- resume \
+  --goals-root projects/agents/goals
+```
+
+The output is a bounded `GoalResumePacket` decoded from the checked,
+digest-verified goal catalog. It contains only open goals with a resumable
+open attempt and their exact candidate paths and continuation fields. Override
+`--catalog` only when a task-specific goals root has its own generated goal
+catalog; otherwise the command deliberately refuses stale or invalid catalogs.
+
 `Goal.status.acceptedResultDigest` is the accepted attempt's `result.md`
 SHA-256, not automatically the identity of an external deliverable. Record an
 external subject's exact identity in the result or evidence when acceptance
