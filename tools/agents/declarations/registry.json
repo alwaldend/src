@@ -335,7 +335,7 @@
         {"id": "bazel-agent", "owner": "projects/bazel_agent", "path": "projects/bazel_agent/cmd/bazel_agent/main.go", "classification": "classified"},
         {"id": "goal", "owner": "projects/goal", "path": "projects/goal/cmd/goal/main.go", "classification": "classified"},
         {"id": "mcp-cordis", "owner": "projects/mcp_cordis", "path": "projects/mcp_cordis/cmd/mcp_cordis/main.mjs", "classification": "classified"},
-        {"id": "repo-delivery", "owner": "tools/repo_delivery", "path": "tools/repo_delivery/main/go/main.go", "classification": "classified"},
+        {"id": "repo-delivery", "owner": "tools/repo_delivery", "path": "tools/repo_delivery/cmd/repo_delivery/main.go", "classification": "classified"},
         {"id": "agent-system", "owner": "tools/agents", "path": "tools/agents/cmd/agent_system/main.go", "classification": "classified"},
         {"id": "control-status", "owner": "tools/agents", "path": "tools/agents/cmd/control_status/main.go", "classification": "classified"}
     ],

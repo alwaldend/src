@@ -5,14 +5,14 @@
 - ID: `agent-system.action`
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/action-catalog`
 - Derivation: `1.0.0`
-- Source revision: `ca0c1f7c187e4986daa19ac272a21cbe`
+- Source revision: `7aa44af2a240a52814308e26898ea9ff`
 - Completeness: `complete`
-- JSON digest: `sha256:bea5d306989cf40af723160b48ccdf306f66037e087052ed2080f297890990d6`
+- JSON digest: `sha256:1ec39e7ce0f671e2b22ffec83ed8238ccaa0fc3b2efa39a7adcd26543e05dba5`
 
 ## Providers
 
 - `cordis.runtime` (owned by `projects.mcp-cordis`) — projects/mcp_cordis/internal/mcp.mjs
-- `github.forge` (owned by `tools.repo-delivery`) — tools/repo_delivery/main/go/command.go
+- `github.forge` (owned by `tools.repo-delivery`) — tools/repo_delivery/cmd/repo_delivery/command.go
 - `goal.local-store` (owned by `projects.goal`) — projects/goal/cmd/goal/command.go
 - `terraform.runner` (owned by `tools.terraform`) — tools/terraform/defs.bzl
 

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"context"
 	"crypto/rand"
 	"encoding/hex"
@@ -17,17 +16,9 @@ import (
 )
 
 type gitRepository struct {
-	directory      string
-	executable     string
-	runner         commandRunner
-	removeLockFile func(string) error
-}
-
-func (g *gitRepository) removeLock(path string) error {
-	if g.removeLockFile != nil {
-		return g.removeLockFile(path)
-	}
-	return os.Remove(path)
+	directory  string
+	executable string
+	runner     commandRunner
 }
 
 var gitUnsetEnvironment = []string{
@@ -1471,486 +1462,6 @@ type repositoryStatus struct {
 	Untracked []string `json:"untracked"`
 }
 
-type indexFileSnapshot struct {
-	path     string
-	contents []byte
-	mode     os.FileMode
-	tree     string
-}
-
-type preparationState struct {
-	repository         *gitRepository
-	branch             string
-	originalHead       string
-	original           indexFileSnapshot
-	originalStatus     repositoryStatus
-	candidateHead      string
-	installedHead      string
-	ownedIndexTree     string
-	ownedIndexContents []byte
-}
-
-type installedCheckout struct {
-	head          string
-	indexTree     string
-	indexContents []byte
-}
-
-type installedCheckoutObserver func(installedCheckout)
-
-func (g *gitRepository) beginPreparationState(
-	ctx context.Context,
-	branch string,
-	head string,
-) (*preparationState, error) {
-	if err := g.requireBranchHead(ctx, branch, head); err != nil {
-		return nil, err
-	}
-	indexPath, err := g.text(ctx, "rev-parse", "--git-path", "index")
-	if err != nil {
-		return nil, fmt.Errorf("resolve preparation index path: %w", err)
-	}
-	if !filepath.IsAbs(indexPath) {
-		indexPath = filepath.Join(g.directory, indexPath)
-	}
-	indexPath = filepath.Clean(indexPath)
-	for attempt := 0; attempt < 3; attempt++ {
-		status, err := g.status(ctx)
-		if err != nil {
-			return nil, err
-		}
-		indexTree, err := g.indexTree(ctx)
-		if err != nil {
-			return nil, err
-		}
-		before, err := os.Lstat(indexPath)
-		if err != nil {
-			return nil, fmt.Errorf("inspect preparation index: %w", err)
-		}
-		if !before.Mode().IsRegular() || before.Mode()&os.ModeSymlink != 0 {
-			return nil, fmt.Errorf("preparation index is not a regular non-symlink file")
-		}
-		contents, err := os.ReadFile(indexPath)
-		if err != nil {
-			return nil, fmt.Errorf("read preparation index: %w", err)
-		}
-		confirmedStatus, err := g.status(ctx)
-		if err != nil {
-			return nil, err
-		}
-		confirmedTree, err := g.indexTree(ctx)
-		if err != nil {
-			return nil, err
-		}
-		after, err := os.Lstat(indexPath)
-		if err != nil {
-			return nil, fmt.Errorf("reinspect preparation index: %w", err)
-		}
-		confirmed, err := os.ReadFile(indexPath)
-		if err != nil {
-			return nil, fmt.Errorf("reread preparation index: %w", err)
-		}
-		if os.SameFile(before, after) && before.Size() == after.Size() &&
-			before.ModTime().Equal(after.ModTime()) &&
-			bytes.Equal(contents, confirmed) && confirmedTree == indexTree &&
-			equalStrings(confirmedStatus.Staged, status.Staged) &&
-			equalStrings(confirmedStatus.Unstaged, status.Unstaged) &&
-			equalStrings(confirmedStatus.Untracked, status.Untracked) {
-			return &preparationState{
-				repository:   g,
-				branch:       branch,
-				originalHead: head,
-				original: indexFileSnapshot{
-					path:     indexPath,
-					contents: contents,
-					mode:     before.Mode().Perm(),
-					tree:     indexTree,
-				},
-				originalStatus:     status,
-				ownedIndexTree:     indexTree,
-				ownedIndexContents: append([]byte(nil), contents...),
-			}, nil
-		}
-	}
-	return nil, fmt.Errorf("preparation index or status did not stabilize")
-}
-
-func (s *preparationState) noteInstalledCheckout(
-	installed installedCheckout,
-) {
-	if s.candidateHead == "" {
-		s.candidateHead = installed.head
-	}
-	s.installedHead = installed.head
-	s.ownedIndexTree = installed.indexTree
-	s.ownedIndexContents = append(
-		s.ownedIndexContents[:0],
-		installed.indexContents...,
-	)
-}
-
-func (s *preparationState) stagePaths(
-	ctx context.Context,
-	paths []string,
-) (returnErr error) {
-	if len(paths) == 0 {
-		return fmt.Errorf("staging requires at least one explicit path")
-	}
-	g := s.repository
-	relativeRoot := filepath.Join("out", "repo_delivery")
-	ignored, err := g.pathIgnored(ctx, filepath.ToSlash(relativeRoot))
-	if err != nil {
-		return err
-	}
-	if !ignored {
-		return fmt.Errorf("alternate preparation index directory is not ignored by Git")
-	}
-	if err := ensurePrivateDirectory(filepath.Join(g.directory, "out")); err != nil {
-		return err
-	}
-	root := filepath.Join(g.directory, relativeRoot)
-	if err := ensurePrivateDirectory(root); err != nil {
-		return err
-	}
-	file, err := os.CreateTemp(root, "index-")
-	if err != nil {
-		return fmt.Errorf("create alternate preparation index: %w", err)
-	}
-	path := file.Name()
-	defer func() {
-		if file != nil {
-			returnErr = errors.Join(returnErr, file.Close())
-		}
-		if err := os.Remove(path); err != nil && !os.IsNotExist(err) {
-			returnErr = errors.Join(
-				returnErr,
-				fmt.Errorf("remove alternate preparation index: %w", err),
-			)
-		}
-	}()
-	if err := file.Chmod(0o600); err != nil {
-		return fmt.Errorf("secure alternate preparation index: %w", err)
-	}
-	if _, err := file.Write(s.ownedIndexContents); err != nil {
-		return fmt.Errorf("seed alternate preparation index: %w", err)
-	}
-	if err := file.Sync(); err != nil {
-		return fmt.Errorf("sync alternate preparation index: %w", err)
-	}
-	if err := file.Close(); err != nil {
-		file = nil
-		return fmt.Errorf("close alternate preparation index: %w", err)
-	}
-	file = nil
-
-	environment := []string{"GIT_INDEX_FILE=" + path}
-	// Force tracked entries through the clean/content pipeline before the
-	// ordinary all-changes add. This avoids trusting a racy same-size,
-	// same-timestamp stat match copied from the main index.
-	trackedArguments := []string{"--literal-pathspecs", "ls-files", "-z", "--"}
-	trackedArguments = append(trackedArguments, paths...)
-	tracked, err := g.runEnvironment(ctx, environment, trackedArguments...)
-	if err != nil {
-		return fmt.Errorf("enumerate tracked explicit task paths: %w", err)
-	}
-	renormalizePaths := make([]string, 0, len(paths))
-	for _, path := range strings.Split(tracked.Stdout, "\x00") {
-		if path == "" {
-			continue
-		}
-		if info, err := os.Lstat(filepath.Join(g.directory, filepath.FromSlash(path))); err == nil {
-			if !info.IsDir() {
-				renormalizePaths = append(renormalizePaths, path)
-			}
-		} else if !os.IsNotExist(err) {
-			return fmt.Errorf("inspect explicit task path %q: %w", path, err)
-		}
-	}
-	if len(renormalizePaths) != 0 {
-		renormalizeArguments := []string{
-			"--literal-pathspecs",
-			"add",
-			"--renormalize",
-			"--",
-		}
-		renormalizeArguments = append(renormalizeArguments, renormalizePaths...)
-		if _, err := g.runEnvironment(
-			ctx,
-			environment,
-			renormalizeArguments...,
-		); err != nil {
-			return fmt.Errorf("force-refresh explicit tracked task paths: %w", err)
-		}
-	}
-	arguments := []string{"--literal-pathspecs", "add", "-A", "--"}
-	arguments = append(arguments, paths...)
-	if _, err := g.runEnvironment(ctx, environment, arguments...); err != nil {
-		return fmt.Errorf("stage explicit task paths in alternate index: %w", err)
-	}
-	firstTree, err := g.indexTreeEnvironment(ctx, environment)
-	if err != nil {
-		return err
-	}
-	firstContents, err := readRegularFile(path, "alternate preparation index")
-	if err != nil {
-		return err
-	}
-	secondTree, err := g.indexTreeEnvironment(ctx, environment)
-	if err != nil {
-		return err
-	}
-	secondContents, err := readRegularFile(path, "alternate preparation index")
-	if err != nil {
-		return err
-	}
-	if firstTree != secondTree || !bytes.Equal(firstContents, secondContents) {
-		return fmt.Errorf("alternate preparation index changed while it was captured")
-	}
-	if err := ctx.Err(); err != nil {
-		return err
-	}
-	return s.installOwnedIndex(firstTree, firstContents)
-}
-
-func (g *gitRepository) indexTreeEnvironment(
-	ctx context.Context,
-	environment []string,
-) (string, error) {
-	result, err := g.runEnvironment(ctx, environment, "write-tree")
-	if err != nil {
-		return "", fmt.Errorf("write alternate index tree: %w", err)
-	}
-	tree := strings.TrimSpace(result.Stdout)
-	if !isObjectID(tree) {
-		return "", fmt.Errorf("Git returned invalid alternate index tree object ID %q", tree)
-	}
-	return tree, nil
-}
-
-func readRegularFile(path string, description string) ([]byte, error) {
-	info, err := os.Lstat(path)
-	if err != nil {
-		return nil, fmt.Errorf("inspect %s: %w", description, err)
-	}
-	if !info.Mode().IsRegular() || info.Mode()&os.ModeSymlink != 0 {
-		return nil, fmt.Errorf("%s is not a regular non-symlink file", description)
-	}
-	contents, err := os.ReadFile(path)
-	if err != nil {
-		return nil, fmt.Errorf("read %s: %w", description, err)
-	}
-	return contents, nil
-}
-
-func (s *preparationState) installOwnedIndex(
-	tree string,
-	contents []byte,
-) (returnErr error) {
-	if !isObjectID(tree) {
-		return fmt.Errorf("owned index tree is not a full Git object ID")
-	}
-	ownedContents := append([]byte(nil), contents...)
-	lockPath := s.original.path + ".lock"
-	file, err := os.OpenFile(
-		lockPath,
-		os.O_WRONLY|os.O_CREATE|os.O_EXCL,
-		0o600,
-	)
-	if err != nil {
-		return fmt.Errorf("lock index for prepared installation: %w", err)
-	}
-	ownsLock := true
-	defer func() {
-		if file != nil {
-			returnErr = errors.Join(returnErr, file.Close())
-		}
-		if ownsLock {
-			if err := os.Remove(lockPath); err != nil && !os.IsNotExist(err) {
-				returnErr = errors.Join(returnErr, err)
-			}
-		}
-	}()
-	currentContents, err := os.ReadFile(s.original.path)
-	if err != nil {
-		return fmt.Errorf("read locked preparation index: %w", err)
-	}
-	if !bytes.Equal(currentContents, s.ownedIndexContents) {
-		return fmt.Errorf("preparation index changed before exact staged installation")
-	}
-	if _, err := file.Write(ownedContents); err != nil {
-		return err
-	}
-	if err := file.Chmod(s.original.mode); err != nil {
-		return err
-	}
-	if err := file.Sync(); err != nil {
-		return err
-	}
-	if err := file.Close(); err != nil {
-		file = nil
-		return err
-	}
-	file = nil
-	if err := os.Rename(lockPath, s.original.path); err != nil {
-		return fmt.Errorf("install exact staged preparation index: %w", err)
-	}
-	ownsLock = false
-	// These assignments are deliberately the first operations after the
-	// atomic install and cannot be interrupted by context cancellation.
-	s.ownedIndexTree = tree
-	s.ownedIndexContents = ownedContents
-	return nil
-}
-
-func (s *preparationState) restore(ctx context.Context) error {
-	g := s.repository
-	branch, head, err := g.branchHead(ctx)
-	if err != nil {
-		return fmt.Errorf("inspect failed preparation checkout: %w", err)
-	}
-	expectedHead := s.installedHead
-	if expectedHead == "" {
-		expectedHead = s.originalHead
-	}
-	if branch != s.branch || head != expectedHead {
-		return fmt.Errorf("refuse preparation rollback after branch or HEAD changed")
-	}
-	if err := g.requireIndexTree(ctx, s.ownedIndexTree); err != nil {
-		return fmt.Errorf("refuse preparation rollback after index changed: %w", err)
-	}
-	if s.candidateHead == "" {
-		if err := g.restoreIndexFile(s.original, s.ownedIndexContents); err != nil {
-			return err
-		}
-		return g.requireBranchHead(ctx, s.branch, s.originalHead)
-	}
-	restoreSourceContents := s.ownedIndexContents
-	restoreHead := s.installedHead
-	restoreTree := s.ownedIndexTree
-	if s.installedHead != s.candidateHead {
-		if err := g.requireDefaultIndexFlags(ctx, []string{"."}); err != nil {
-			return fmt.Errorf("refuse rebased preparation rollback: %w", err)
-		}
-		status, err := g.status(ctx)
-		if err != nil {
-			return err
-		}
-		if !status.clean() {
-			return fmt.Errorf("refuse rebased preparation rollback after worktree changed")
-		}
-		if err := g.transitionAttachedBranch(
-			ctx,
-			s.branch,
-			s.installedHead,
-			s.candidateHead,
-			nil,
-		); err != nil {
-			return fmt.Errorf("restore exact pre-rebase candidate checkout: %w", err)
-		}
-		candidateTree, err := g.tree(ctx, s.candidateHead)
-		if err != nil {
-			return err
-		}
-		if err := g.requireIndexTree(ctx, candidateTree); err != nil {
-			return fmt.Errorf("restored candidate index gate: %w", err)
-		}
-		status, err = g.status(ctx)
-		if err != nil {
-			return err
-		}
-		if !status.clean() {
-			return fmt.Errorf("restored candidate checkout is not clean")
-		}
-		restoreSourceContents, err = readRegularFile(
-			s.original.path,
-			"restored candidate index",
-		)
-		if err != nil {
-			return err
-		}
-		restoreHead = s.candidateHead
-		restoreTree = candidateTree
-	}
-	if err := g.advanceAttachedBranch(
-		ctx,
-		s.branch,
-		restoreHead,
-		s.originalHead,
-		restoreTree,
-		nil,
-	); err != nil {
-		return fmt.Errorf("restore exact original branch ref: %w", err)
-	}
-	if err := g.restoreIndexFile(s.original, restoreSourceContents); err != nil {
-		return err
-	}
-	if err := g.requireIndexTree(ctx, s.original.tree); err != nil {
-		return fmt.Errorf("restored preparation index gate: %w", err)
-	}
-	status, err := g.status(ctx)
-	if err != nil {
-		return err
-	}
-	if !equalStrings(status.Staged, s.originalStatus.Staged) ||
-		!equalStrings(status.Unstaged, s.originalStatus.Unstaged) ||
-		!equalStrings(status.Untracked, s.originalStatus.Untracked) {
-		return fmt.Errorf("restored preparation status differs from its exact entry state")
-	}
-	return g.requireBranchHead(ctx, s.branch, s.originalHead)
-}
-
-func (g *gitRepository) restoreIndexFile(
-	snapshot indexFileSnapshot,
-	expectedCurrentContents []byte,
-) (returnErr error) {
-	lockPath := snapshot.path + ".lock"
-	file, err := os.OpenFile(
-		lockPath,
-		os.O_WRONLY|os.O_CREATE|os.O_EXCL,
-		0o600,
-	)
-	if err != nil {
-		return fmt.Errorf("lock index for preparation rollback: %w", err)
-	}
-	ownsLock := true
-	defer func() {
-		if file != nil {
-			returnErr = errors.Join(returnErr, file.Close())
-		}
-		if ownsLock {
-			if err := os.Remove(lockPath); err != nil && !os.IsNotExist(err) {
-				returnErr = errors.Join(returnErr, err)
-			}
-		}
-	}()
-	currentContents, err := os.ReadFile(snapshot.path)
-	if err != nil {
-		return fmt.Errorf("read locked preparation index: %w", err)
-	}
-	if !bytes.Equal(currentContents, expectedCurrentContents) {
-		return fmt.Errorf("preparation index changed before locked restoration")
-	}
-	if _, err := file.Write(snapshot.contents); err != nil {
-		return err
-	}
-	if err := file.Chmod(snapshot.mode); err != nil {
-		return err
-	}
-	if err := file.Sync(); err != nil {
-		return err
-	}
-	if err := file.Close(); err != nil {
-		file = nil
-		return err
-	}
-	file = nil
-	if err := os.Rename(lockPath, snapshot.path); err != nil {
-		return fmt.Errorf("install restored preparation index: %w", err)
-	}
-	ownsLock = false
-	return nil
-}
-
 func (s repositoryStatus) clean() bool {
 	return len(s.Staged) == 0 && len(s.Unstaged) == 0 &&
 		len(s.Untracked) == 0
@@ -2555,243 +2066,6 @@ func (a commitAuthor) environment() []string {
 	}
 }
 
-type gitHEADLock struct {
-	file     *os.File
-	path     string
-	headPath string
-	ownsPath bool
-	remove   func(string) error
-}
-
-func (g *gitRepository) lockHEAD(ctx context.Context) (*gitHEADLock, error) {
-	headPath, err := g.text(ctx, "rev-parse", "--git-path", "HEAD")
-	if err != nil {
-		return nil, fmt.Errorf("resolve HEAD lock path: %w", err)
-	}
-	if !filepath.IsAbs(headPath) {
-		headPath = filepath.Join(g.directory, headPath)
-	}
-	lockPath := headPath + ".lock"
-	file, err := os.OpenFile(
-		lockPath,
-		os.O_WRONLY|os.O_CREATE|os.O_EXCL,
-		0o600,
-	)
-	if err != nil {
-		return nil, fmt.Errorf("lock HEAD against concurrent checkout: %w", err)
-	}
-	return &gitHEADLock{
-		file:     file,
-		path:     lockPath,
-		headPath: headPath,
-		ownsPath: true,
-		remove:   g.removeLock,
-	}, nil
-}
-
-func (l *gitHEADLock) release() error {
-	var closeErr error
-	if l.file != nil {
-		closeErr = l.file.Close()
-		l.file = nil
-	}
-	var removeErr error
-	if l.ownsPath {
-		remove := l.remove
-		if remove == nil {
-			remove = os.Remove
-		}
-		removeErr = remove(l.path)
-		if os.IsNotExist(removeErr) {
-			removeErr = nil
-		}
-		if removeErr == nil {
-			l.ownsPath = false
-		}
-	}
-	if closeErr != nil || removeErr != nil {
-		return errors.Join(closeErr, removeErr)
-	}
-	return nil
-}
-
-func (l *gitHEADLock) commitOID(oid string) error {
-	if !isObjectID(oid) {
-		return fmt.Errorf("HEAD target is not a full Git object ID")
-	}
-	return l.commitContents(oid + "\n")
-}
-
-func (l *gitHEADLock) commitSymbolicRef(ref string) error {
-	if !strings.HasPrefix(ref, "refs/heads/") ||
-		strings.TrimPrefix(ref, "refs/heads/") == "" ||
-		strings.ContainsAny(ref, "\x00\r\n") {
-		return fmt.Errorf("HEAD symbolic target is not a full branch ref")
-	}
-	return l.commitContents("ref: " + ref + "\n")
-}
-
-func (l *gitHEADLock) commitContents(contents string) error {
-	if l.file == nil {
-		return fmt.Errorf("HEAD lock is not open")
-	}
-	if _, err := l.file.WriteString(contents); err != nil {
-		return err
-	}
-	if err := l.file.Sync(); err != nil {
-		return err
-	}
-	if err := l.file.Close(); err != nil {
-		return err
-	}
-	l.file = nil
-	if err := os.Rename(l.path, l.headPath); err != nil {
-		return err
-	}
-	// The rename consumed our lock path. Another process may immediately
-	// acquire a new HEAD.lock; release must never unlink that new owner's file.
-	l.ownsPath = false
-	return nil
-}
-
-func (g *gitRepository) withHEADLock(
-	ctx context.Context,
-	action func() error,
-) (returnErr error) {
-	lock, err := g.lockHEAD(ctx)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		if err := lock.release(); err != nil {
-			if returnErr == nil {
-				returnErr = err
-			} else {
-				returnErr = errors.Join(returnErr, err)
-			}
-		}
-	}()
-	return action()
-}
-
-// detachExactBranch binds both the symbolic HEAD target and its exact object
-// ID while converting HEAD to a detached OID. A normal `git switch --detach`
-// leaves a same-OID branch-switch window between the caller's preflight and
-// Git's own HEAD update.
-func (g *gitRepository) detachExactBranch(
-	ctx context.Context,
-	branch string,
-	expectedHead string,
-) (returnErr error) {
-	if !isObjectID(expectedHead) {
-		return fmt.Errorf("detach target is not a full Git object ID")
-	}
-	if err := g.checkBranch(ctx, branch); err != nil {
-		return err
-	}
-	branchRef := "refs/heads/" + branch
-	branchLock, err := g.lockBranchReference(ctx, branchRef)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		if err := branchLock.release(); err != nil {
-			returnErr = errors.Join(returnErr, err)
-		}
-	}()
-	headLock, err := g.lockHEAD(ctx)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		if err := headLock.release(); err != nil {
-			returnErr = errors.Join(returnErr, err)
-		}
-	}()
-
-	headContents, err := os.ReadFile(headLock.headPath)
-	if err != nil {
-		return fmt.Errorf("read symbolic HEAD while locked for detach: %w", err)
-	}
-	if string(headContents) != "ref: "+branchRef+"\n" &&
-		string(headContents) != "ref: "+branchRef {
-		return fmt.Errorf("symbolic HEAD changed before exact detach")
-	}
-	if _, err := g.run(ctx, "symbolic-ref", "--quiet", branchRef); err == nil {
-		return fmt.Errorf("cannot safely detach a symbolic branch ref")
-	} else if code, ok := commandExitCode(err); !ok || code != 1 {
-		return fmt.Errorf("inspect exact branch ref while locked for detach: %w", err)
-	}
-	branchHead, err := g.text(ctx, "rev-parse", "--verify", branchRef)
-	if err != nil || branchHead != expectedHead {
-		return fmt.Errorf("branch changed before exact detach")
-	}
-	if err := headLock.commitOID(expectedHead); err != nil {
-		return fmt.Errorf("detach exact symbolic HEAD while locked: %w", err)
-	}
-	return nil
-}
-
-func (g *gitRepository) installDetachedCommit(
-	ctx context.Context,
-	branchRef string,
-	expectedHead string,
-	newHead string,
-) (returnErr error) {
-	lock, err := g.lockHEAD(ctx)
-	if err != nil {
-		return err
-	}
-	installed := false
-	defer func() {
-		if installed {
-			return
-		}
-		if err := lock.release(); err != nil {
-			returnErr = errors.Join(returnErr, err)
-		}
-	}()
-
-	headContents, err := os.ReadFile(lock.headPath)
-	if err != nil {
-		return fmt.Errorf("read detached HEAD while locked: %w", err)
-	}
-	if strings.TrimSpace(string(headContents)) != expectedHead {
-		return fmt.Errorf("detached HEAD changed before branch update")
-	}
-	if _, err := g.run(
-		ctx,
-		"update-ref",
-		"-m",
-		"repo_delivery: install exact aggregate commit",
-		branchRef,
-		newHead,
-		expectedHead,
-	); err != nil {
-		return fmt.Errorf("advance branch with exact compare-and-swap: %w", err)
-	}
-	if err := lock.commitOID(newHead); err != nil {
-		_, rollbackErr := g.run(
-			context.Background(),
-			"update-ref",
-			"-m",
-			"repo_delivery: roll back failed aggregate commit install",
-			branchRef,
-			expectedHead,
-			newHead,
-		)
-		if rollbackErr != nil {
-			return errors.Join(
-				fmt.Errorf("install exact detached HEAD: %w", err),
-				fmt.Errorf("roll back aggregate branch: %w", rollbackErr),
-			)
-		}
-		return fmt.Errorf("install exact detached HEAD: %w", err)
-	}
-	installed = true
-	return nil
-}
-
 func (g *gitRepository) commitChecked(
 	ctx context.Context,
 	message string,
@@ -2799,7 +2073,6 @@ func (g *gitRepository) commitChecked(
 	expectedHead string,
 	expectedTree string,
 	branch string,
-	observer installedCheckoutObserver,
 	flagPathSets ...[]string,
 ) (string, error) {
 	parents := []string{expectedHead}
@@ -2823,7 +2096,6 @@ func (g *gitRepository) commitChecked(
 		parents,
 		authorOID,
 		signatureSources,
-		observer,
 		flagPathSets...,
 	)
 }
@@ -2837,7 +2109,6 @@ func (g *gitRepository) commitConsolidatedChecked(
 	parentOID string,
 	authorOID string,
 	signatureSources []string,
-	observer installedCheckoutObserver,
 	flagPathSets ...[]string,
 ) (string, error) {
 	if !isObjectID(parentOID) || !isObjectID(authorOID) {
@@ -2860,7 +2131,6 @@ func (g *gitRepository) commitConsolidatedChecked(
 		[]string{parentOID},
 		authorOID,
 		signatureSources,
-		observer,
 		flagPathSets...,
 	)
 }
@@ -2874,7 +2144,6 @@ func (g *gitRepository) commitPlannedChecked(
 	expectedParents []string,
 	authorOID string,
 	signatureSources []string,
-	observer installedCheckoutObserver,
 	flagPathSets ...[]string,
 ) (string, error) {
 	if len(flagPathSets) > 1 {
@@ -3023,7 +2292,6 @@ func (g *gitRepository) commitPlannedChecked(
 		expectedHead,
 		newHead,
 		expectedTree,
-		observer,
 	); err != nil {
 		return "", fmt.Errorf(
 			"advance attached branch with exact compare-and-swap: %w",
@@ -3283,7 +2551,6 @@ func (g *gitRepository) rebase(
 	baseOID string,
 	branch string,
 	expectedHead string,
-	observer installedCheckoutObserver,
 	validators ...func(context.Context, *gitRepository, string) error,
 ) (rebasedHead string, returnErr error) {
 	if len(validators) > 1 {
@@ -3406,7 +2673,6 @@ func (g *gitRepository) rebase(
 		branch,
 		expectedHead,
 		newHead,
-		observer,
 	); err != nil {
 		return "", err
 	}
@@ -3614,284 +2880,11 @@ func (g *gitRepository) replayExactCommit(
 	return newHead, nil
 }
 
-type attachedBranchLocks struct {
-	branchRef string
-	branch    *gitReferenceLock
-	head      *gitHEADLock
-}
-
-type gitIndexLock struct {
-	file      *os.File
-	path      string
-	indexPath string
-	mode      os.FileMode
-	contents  []byte
-	ownsPath  bool
-	remove    func(string) error
-}
-
-func (g *gitRepository) lockIndex(
-	ctx context.Context,
-) (*gitIndexLock, error) {
-	indexPath, err := g.text(ctx, "rev-parse", "--git-path", "index")
-	if err != nil {
-		return nil, fmt.Errorf("resolve index lock path: %w", err)
-	}
-	if !filepath.IsAbs(indexPath) {
-		indexPath = filepath.Join(g.directory, indexPath)
-	}
-	indexPath = filepath.Clean(indexPath)
-	lockPath := indexPath + ".lock"
-	file, err := os.OpenFile(
-		lockPath,
-		os.O_WRONLY|os.O_CREATE|os.O_EXCL,
-		0o600,
-	)
-	if err != nil {
-		return nil, fmt.Errorf("lock index against concurrent update: %w", err)
-	}
-	result := &gitIndexLock{
-		file:      file,
-		path:      lockPath,
-		indexPath: indexPath,
-		ownsPath:  true,
-		remove:    g.removeLock,
-	}
-	info, err := os.Lstat(indexPath)
-	if err != nil {
-		_ = result.release()
-		return nil, fmt.Errorf("inspect locked index: %w", err)
-	}
-	if !info.Mode().IsRegular() || info.Mode()&os.ModeSymlink != 0 {
-		_ = result.release()
-		return nil, fmt.Errorf("locked index is not a regular non-symlink file")
-	}
-	result.mode = info.Mode().Perm()
-	result.contents, err = os.ReadFile(indexPath)
-	if err != nil {
-		_ = result.release()
-		return nil, fmt.Errorf("read locked index: %w", err)
-	}
-	return result, nil
-}
-
-func (l *gitIndexLock) prepare(contents []byte) error {
-	if l.file == nil || !l.ownsPath {
-		return fmt.Errorf("index lock is not open")
-	}
-	if _, err := l.file.Write(contents); err != nil {
-		return err
-	}
-	if err := l.file.Chmod(l.mode); err != nil {
-		return err
-	}
-	if err := l.file.Sync(); err != nil {
-		return err
-	}
-	if err := l.file.Close(); err != nil {
-		return err
-	}
-	l.file = nil
-	return nil
-}
-
-func (l *gitIndexLock) commit() error {
-	if l.file != nil || !l.ownsPath {
-		return fmt.Errorf("index lock was not prepared for commit")
-	}
-	if err := os.Rename(l.path, l.indexPath); err != nil {
-		return err
-	}
-	l.ownsPath = false
-	return nil
-}
-
-func (l *gitIndexLock) release() error {
-	var closeErr error
-	if l.file != nil {
-		closeErr = l.file.Close()
-		l.file = nil
-	}
-	var removeErr error
-	if l.ownsPath {
-		remove := l.remove
-		if remove == nil {
-			remove = os.Remove
-		}
-		removeErr = remove(l.path)
-		if os.IsNotExist(removeErr) {
-			removeErr = nil
-		}
-		if removeErr == nil {
-			l.ownsPath = false
-		}
-	}
-	return errors.Join(closeErr, removeErr)
-}
-
-func (l *attachedBranchLocks) release() error {
-	// Keep HEAD locked until the branch-ref lock has either been consumed or
-	// removed, so a checkout cannot observe an unlocked intermediate state.
-	branchErr := l.branch.release()
-	headErr := l.head.release()
-	return errors.Join(branchErr, headErr)
-}
-
-func (g *gitRepository) lockAttachedBranch(
-	ctx context.Context,
-	branch string,
-	expectedHead string,
-) (result *attachedBranchLocks, returnErr error) {
-	if !isObjectID(expectedHead) {
-		return nil, fmt.Errorf("attached branch expectation is not a full Git object ID")
-	}
-	if err := g.checkBranch(ctx, branch); err != nil {
-		return nil, err
-	}
-	branchRef := "refs/heads/" + branch
-	branchLock, err := g.lockBranchReference(ctx, branchRef)
-	if err != nil {
-		return nil, err
-	}
-	defer func() {
-		if result == nil {
-			returnErr = errors.Join(returnErr, branchLock.release())
-		}
-	}()
-	headLock, err := g.lockHEAD(ctx)
-	if err != nil {
-		return nil, err
-	}
-	defer func() {
-		if result == nil {
-			returnErr = errors.Join(returnErr, headLock.release())
-		}
-	}()
-	headContents, err := os.ReadFile(headLock.headPath)
-	if err != nil {
-		return nil, fmt.Errorf("read attached HEAD while locked: %w", err)
-	}
-	if string(headContents) != "ref: "+branchRef+"\n" &&
-		string(headContents) != "ref: "+branchRef {
-		return nil, fmt.Errorf("symbolic HEAD changed before attached transaction")
-	}
-	if _, err := g.run(ctx, "symbolic-ref", "--quiet", branchRef); err == nil {
-		return nil, fmt.Errorf("attached branch ref is unexpectedly symbolic")
-	} else if code, ok := commandExitCode(err); !ok || code != 1 {
-		return nil, fmt.Errorf("inspect exact attached branch ref: %w", err)
-	}
-	branchHead, err := g.text(ctx, "rev-parse", "--verify", branchRef)
-	if err != nil || branchHead != expectedHead {
-		return nil, fmt.Errorf("attached branch changed before exact transaction")
-	}
-	result = &attachedBranchLocks{
-		branchRef: branchRef,
-		branch:    branchLock,
-		head:      headLock,
-	}
-	return result, nil
-}
-
-func (g *gitRepository) advanceAttachedBranch(
-	ctx context.Context,
-	branch string,
-	expectedHead string,
-	newHead string,
-	expectedIndexTree string,
-	observer installedCheckoutObserver,
-) (returnErr error) {
-	if !isObjectID(newHead) {
-		return fmt.Errorf("attached branch target is not a full Git object ID")
-	}
-	locks, err := g.lockAttachedBranch(ctx, branch, expectedHead)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		returnErr = errors.Join(returnErr, locks.release())
-	}()
-	indexLock, err := g.lockIndex(ctx)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		returnErr = errors.Join(returnErr, indexLock.release())
-	}()
-	alternatePath, err := g.createAlternateIndex(ctx, indexLock.contents)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		if err := os.Remove(alternatePath); err != nil && !os.IsNotExist(err) {
-			returnErr = errors.Join(
-				returnErr,
-				fmt.Errorf("remove alternate branch index: %w", err),
-			)
-		}
-	}()
-	environment := []string{"GIT_INDEX_FILE=" + alternatePath}
-	observedTree, err := g.indexTreeEnvironment(ctx, environment)
-	if err != nil {
-		return fmt.Errorf("attached branch index gate: %w", err)
-	}
-	if observedTree != expectedIndexTree {
-		return fmt.Errorf(
-			"attached branch index gate: got %s, want %s",
-			observedTree,
-			expectedIndexTree,
-		)
-	}
-	commitErr := locks.branch.commitOID(newHead)
-	if commitErr != nil {
-		// A local filesystem can theoretically report an error after the rename
-		// became visible. Reconcile the exact ref while HEAD remains locked; only
-		// the desired value converts that lost acknowledgement into success.
-		observed, inspectErr := g.text(
-			context.Background(),
-			"rev-parse",
-			"--verify",
-			locks.branchRef,
-		)
-		if inspectErr != nil {
-			return errors.Join(
-				fmt.Errorf("commit exact attached branch: %w", commitErr),
-				fmt.Errorf("reconcile attached branch commit: %w", inspectErr),
-			)
-		}
-		if observed != newHead {
-			if observed != expectedHead {
-				return fmt.Errorf(
-					"commit exact attached branch failed and ref became unexpected %s: %w",
-					observed,
-					commitErr,
-				)
-			}
-			return fmt.Errorf("commit exact attached branch: %w", commitErr)
-		}
-	}
-	if observer != nil {
-		observer(installedCheckout{
-			head:          newHead,
-			indexTree:     expectedIndexTree,
-			indexContents: append([]byte(nil), indexLock.contents...),
-		})
-	}
-	return nil
-}
-
 func (g *gitRepository) requireWorktreeMatchesIndex(
 	ctx context.Context,
 ) error {
-	return g.requireWorktreeMatchesIndexEnvironment(ctx, nil)
-}
-
-func (g *gitRepository) requireWorktreeMatchesIndexEnvironment(
-	ctx context.Context,
-	environment []string,
-) error {
-	if _, err := g.runEnvironment(
+	if _, err := g.run(
 		ctx,
-		environment,
 		"diff-files",
 		"--quiet",
 		"--ignore-submodules=none",
@@ -3902,140 +2895,43 @@ func (g *gitRepository) requireWorktreeMatchesIndexEnvironment(
 	return nil
 }
 
-func (g *gitRepository) createAlternateIndex(
+func (g *gitRepository) advanceAttachedBranch(
 	ctx context.Context,
-	contents []byte,
-) (string, error) {
-	relativeRoot := filepath.Join("out", "repo_delivery")
-	ignored, err := g.pathIgnored(ctx, filepath.ToSlash(relativeRoot))
-	if err != nil {
-		return "", err
-	}
-	if !ignored {
-		return "", fmt.Errorf("alternate transition index directory is not ignored by Git")
-	}
-	if err := ensurePrivateDirectory(filepath.Join(g.directory, "out")); err != nil {
-		return "", err
-	}
-	root := filepath.Join(g.directory, relativeRoot)
-	if err := ensurePrivateDirectory(root); err != nil {
-		return "", err
-	}
-	file, err := os.CreateTemp(root, "transition-index-")
-	if err != nil {
-		return "", fmt.Errorf("create alternate transition index: %w", err)
-	}
-	path := file.Name()
-	failed := true
-	defer func() {
-		if failed {
-			_ = file.Close()
-			_ = os.Remove(path)
-		}
-	}()
-	if err := file.Chmod(0o600); err != nil {
-		return "", err
-	}
-	if _, err := file.Write(contents); err != nil {
-		return "", err
-	}
-	if err := file.Sync(); err != nil {
-		return "", err
-	}
-	if err := file.Close(); err != nil {
-		return "", err
-	}
-	failed = false
-	return path, nil
-}
-
-func (g *gitRepository) rollbackAlternateTreeTransition(
-	environment []string,
-	oldHead string,
-	oldTree string,
+	branch string,
+	expectedHead string,
 	newHead string,
-	newTree string,
+	expectedIndexTree string,
 ) error {
-	ctx := context.Background()
-	currentTree, err := g.indexTreeEnvironment(ctx, environment)
+	if !isObjectID(newHead) {
+		return fmt.Errorf("attached branch target is not a full Git object ID")
+	}
+	observedTree, err := g.indexTree(ctx)
 	if err != nil {
-		return fmt.Errorf("inspect failed attached tree transition: %w", err)
+		return fmt.Errorf("attached branch index gate: %w", err)
 	}
-	if currentTree == oldTree {
-		if err := g.requireWorktreeMatchesIndexEnvironment(
-			ctx,
-			environment,
-		); err != nil {
-			return fmt.Errorf(
-				"refuse attached transition rollback from a concurrently changed worktree: %w",
-				err,
-			)
-		}
-		return nil
-	}
-	if currentTree != newTree {
+	if observedTree != expectedIndexTree {
 		return fmt.Errorf(
-			"refuse attached transition rollback from unexpected index tree %s",
-			currentTree,
+			"attached branch index gate: got %s, want %s",
+			observedTree,
+			expectedIndexTree,
 		)
 	}
-	if err := g.requireWorktreeMatchesIndexEnvironment(
-		ctx,
-		environment,
-	); err != nil {
-		return fmt.Errorf(
-			"refuse attached transition rollback from a concurrently changed worktree: %w",
-			err,
-		)
-	}
-	if _, err := g.runEnvironment(
-		ctx,
-		environment,
-		"read-tree",
-		"-m",
-		"-u",
-		newHead,
-		oldHead,
-	); err != nil {
-		return fmt.Errorf("roll back exact attached tree transition: %w", err)
-	}
-	rolledBackTree, err := g.indexTreeEnvironment(ctx, environment)
-	if err != nil || rolledBackTree != oldTree {
-		return fmt.Errorf(
-			"rolled-back attached index gate: got %s, want %s: %w",
-			rolledBackTree,
-			oldTree,
-			err,
-		)
-	}
-	if err := g.requireWorktreeMatchesIndexEnvironment(
-		ctx,
-		environment,
-	); err != nil {
-		return fmt.Errorf("rolled-back attached worktree gate: %w", err)
-	}
-	return nil
-}
-
-func (g *gitRepository) rollbackCommittedAttachedBranch(
-	branchRef string,
-	installedHead string,
-	originalHead string,
-) (returnErr error) {
-	ctx := context.Background()
-	branchLock, err := g.lockBranchReference(ctx, branchRef)
-	if err != nil {
+	if err := g.requireBranchHead(ctx, branch, expectedHead); err != nil {
 		return err
 	}
-	defer func() {
-		returnErr = errors.Join(returnErr, branchLock.release())
-	}()
-	observed, err := g.text(ctx, "rev-parse", "--verify", branchRef)
-	if err != nil || observed != installedHead {
-		return fmt.Errorf("refuse rollback after attached branch changed")
+	if _, err := g.run(
+		ctx,
+		"update-ref",
+		"-m",
+		"repo_delivery: advance attached branch",
+		"refs/heads/"+branch,
+		newHead,
+		expectedHead,
+	); err != nil {
+		return fmt.Errorf("advance attached branch with exact compare-and-swap: %w", err)
 	}
-	if err := branchLock.commitOID(originalHead); err != nil {
-		return fmt.Errorf("roll back exact attached branch ref: %w", err)
+	if err := g.requireBranchHead(ctx, branch, newHead); err != nil {
+		return fmt.Errorf("attached branch changed during advancement: %w", err)
 	}
 	return nil
 }
@@ -4045,8 +2941,7 @@ func (g *gitRepository) transitionAttachedBranch(
 	branch string,
 	oldHead string,
 	newHead string,
-	observer installedCheckoutObserver,
-) (returnErr error) {
+) error {
 	if !isObjectID(newHead) {
 		return fmt.Errorf("attached transition target is not a full Git object ID")
 	}
@@ -4058,41 +2953,10 @@ func (g *gitRepository) transitionAttachedBranch(
 	if err != nil {
 		return err
 	}
-	locks, err := g.lockAttachedBranch(ctx, branch, oldHead)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		returnErr = errors.Join(returnErr, locks.release())
-	}()
-	indexLock, err := g.lockIndex(ctx)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		returnErr = errors.Join(returnErr, indexLock.release())
-	}()
-	alternatePath, err := g.createAlternateIndex(ctx, indexLock.contents)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		if err := os.Remove(alternatePath); err != nil && !os.IsNotExist(err) {
-			returnErr = errors.Join(
-				returnErr,
-				fmt.Errorf("remove alternate transition index: %w", err),
-			)
-		}
-	}()
-	environment := []string{"GIT_INDEX_FILE=" + alternatePath}
-	if err := g.requireDefaultIndexFlagsEnvironment(
-		ctx,
-		[]string{"."},
-		environment,
-	); err != nil {
+	if err := g.requireDefaultIndexFlags(ctx, []string{"."}); err != nil {
 		return fmt.Errorf("attached transition index flag gate: %w", err)
 	}
-	observedSourceTree, err := g.indexTreeEnvironment(ctx, environment)
+	observedSourceTree, err := g.indexTree(ctx)
 	if err != nil || observedSourceTree != oldTree {
 		return fmt.Errorf(
 			"attached transition source index gate: got %s, want %s: %w",
@@ -4101,164 +2965,43 @@ func (g *gitRepository) transitionAttachedBranch(
 			err,
 		)
 	}
-	if err := g.requireWorktreeMatchesIndexEnvironment(
-		ctx,
-		environment,
-	); err != nil {
+	if err := g.requireWorktreeMatchesIndex(ctx); err != nil {
 		return fmt.Errorf("attached transition source worktree gate: %w", err)
 	}
-	_, transitionErr := g.runEnvironment(
+	if err := g.requireBranchHead(ctx, branch, oldHead); err != nil {
+		return err
+	}
+	if _, err := g.run(
 		ctx,
-		environment,
 		"read-tree",
 		"-m",
 		"-u",
 		oldHead,
 		newHead,
-	)
-	// From this point onward, never let caller cancellation interrupt
-	// ownership reconciliation or an exact rollback.
-	bookkeepingContext := context.Background()
-	observedTree, treeErr := g.indexTreeEnvironment(
-		bookkeepingContext,
-		environment,
-	)
-	stateErr := treeErr
-	if stateErr == nil && observedTree != newTree {
-		stateErr = fmt.Errorf(
-			"alternate transition index tree is %s, want %s",
-			observedTree,
-			newTree,
-		)
+	); err != nil {
+		return fmt.Errorf("transition attached branch tree: %w", err)
 	}
-	if stateErr == nil {
-		stateErr = g.requireWorktreeMatchesIndexEnvironment(
-			bookkeepingContext,
-			environment,
-		)
+	if _, err := g.run(
+		ctx,
+		"update-ref",
+		"-m",
+		"repo_delivery: transition attached branch",
+		"refs/heads/"+branch,
+		newHead,
+		oldHead,
+	); err != nil {
+		return fmt.Errorf("transition attached branch with exact compare-and-swap: %w", err)
 	}
-	if transitionErr != nil || stateErr != nil {
-		rollbackErr := g.rollbackAlternateTreeTransition(
-			environment,
-			oldHead,
-			oldTree,
-			newHead,
-			newTree,
-		)
-		if rollbackErr != nil {
-			return errors.Join(
-				fmt.Errorf(
-					"exact attached tree transition failed: %w",
-					errors.Join(transitionErr, stateErr),
-				),
-				rollbackErr,
-			)
-		}
+	if err := g.requireBranchHead(ctx, branch, newHead); err != nil {
+		return fmt.Errorf("attached branch changed during transition: %w", err)
+	}
+	if observed, err := g.indexTree(ctx); err != nil || observed != newTree {
 		return fmt.Errorf(
-			"exact attached tree transition failed and was rolled back: %w",
-			errors.Join(transitionErr, stateErr),
-		)
-	}
-	candidateContents, err := readRegularFile(
-		alternatePath,
-		"alternate transition index",
-	)
-	if err != nil {
-		rollbackErr := g.rollbackAlternateTreeTransition(
-			environment,
-			oldHead,
-			oldTree,
-			newHead,
+			"attached transition target index gate: got %s, want %s: %w",
+			observed,
 			newTree,
+			err,
 		)
-		return errors.Join(err, rollbackErr)
-	}
-	if err := indexLock.prepare(candidateContents); err != nil {
-		rollbackErr := g.rollbackAlternateTreeTransition(
-			environment,
-			oldHead,
-			oldTree,
-			newHead,
-			newTree,
-		)
-		return errors.Join(
-			fmt.Errorf("prepare exact attached index install: %w", err),
-			rollbackErr,
-		)
-	}
-
-	commitErr := locks.branch.commitOID(newHead)
-	if commitErr != nil {
-		observed, inspectErr := g.text(
-			bookkeepingContext,
-			"rev-parse",
-			"--verify",
-			locks.branchRef,
-		)
-		if inspectErr != nil {
-			return errors.Join(
-				fmt.Errorf("commit exact attached rebased branch: %w", commitErr),
-				fmt.Errorf("reconcile attached rebased branch: %w", inspectErr),
-			)
-		}
-		if observed != newHead && observed != oldHead {
-			return fmt.Errorf(
-				"attached rebased branch became unexpected %s after commit failure: %w",
-				observed,
-				commitErr,
-			)
-		}
-		if observed == oldHead {
-			rollbackErr := g.rollbackAlternateTreeTransition(
-				environment,
-				oldHead,
-				oldTree,
-				newHead,
-				newTree,
-			)
-			return errors.Join(
-				fmt.Errorf("commit exact attached rebased branch: %w", commitErr),
-				rollbackErr,
-			)
-		}
-	}
-	if err := indexLock.commit(); err != nil {
-		installedContents, inspectErr := os.ReadFile(indexLock.indexPath)
-		if inspectErr == nil && bytes.Equal(installedContents, candidateContents) {
-			if observer != nil {
-				observer(installedCheckout{
-					head:          newHead,
-					indexTree:     newTree,
-					indexContents: append([]byte(nil), candidateContents...),
-				})
-			}
-			return nil
-		}
-		branchRollbackErr := g.rollbackCommittedAttachedBranch(
-			locks.branchRef,
-			newHead,
-			oldHead,
-		)
-		treeRollbackErr := g.rollbackAlternateTreeTransition(
-			environment,
-			oldHead,
-			oldTree,
-			newHead,
-			newTree,
-		)
-		return errors.Join(
-			fmt.Errorf("commit exact attached index: %w", err),
-			inspectErr,
-			branchRollbackErr,
-			treeRollbackErr,
-		)
-	}
-	if observer != nil {
-		observer(installedCheckout{
-			head:          newHead,
-			indexTree:     newTree,
-			indexContents: append([]byte(nil), candidateContents...),
-		})
 	}
 	return nil
 }
@@ -4268,7 +3011,6 @@ func (g *gitRepository) reconcileRebasedBranch(
 	branch string,
 	expectedHead string,
 	newHead string,
-	observer installedCheckoutObserver,
 ) error {
 	if err := g.requireCompleteHistory(ctx); err != nil {
 		return err
@@ -4308,423 +3050,10 @@ func (g *gitRepository) reconcileRebasedBranch(
 		branch,
 		expectedHead,
 		newHead,
-		observer,
 	); err != nil {
 		return fmt.Errorf("install exact rebased checkout: %w", err)
 	}
 	return nil
-}
-
-func (g *gitRepository) requireDetachedHead(
-	ctx context.Context,
-	expectedHead string,
-) error {
-	if _, err := g.run(ctx, "symbolic-ref", "--quiet", "HEAD"); err == nil {
-		return fmt.Errorf("HEAD is attached, expected an exact detached commit")
-	} else if code, ok := commandExitCode(err); !ok || code != 1 {
-		return fmt.Errorf("inspect detached HEAD: %w", err)
-	}
-	head, err := g.head(ctx)
-	if err != nil {
-		return err
-	}
-	if head != expectedHead {
-		return fmt.Errorf("detached HEAD changed from the captured commit")
-	}
-	return nil
-}
-
-func (g *gitRepository) reattachOriginalBranch(
-	ctx context.Context,
-	branch string,
-	expectedHead string,
-) (returnErr error) {
-	if !isObjectID(expectedHead) {
-		return fmt.Errorf("cannot reattach a branch to an invalid expected HEAD")
-	}
-	if err := g.checkBranch(ctx, branch); err != nil {
-		return err
-	}
-	branchRef := "refs/heads/" + branch
-	branchLock, err := g.lockBranchReference(ctx, branchRef)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		if err := branchLock.release(); err != nil {
-			returnErr = errors.Join(returnErr, err)
-		}
-	}()
-	headLock, err := g.lockHEAD(ctx)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		if err := headLock.release(); err != nil {
-			returnErr = errors.Join(returnErr, err)
-		}
-	}()
-
-	headContents, err := os.ReadFile(headLock.headPath)
-	if err != nil {
-		return fmt.Errorf("read detached HEAD while locked for reattach: %w", err)
-	}
-	if string(headContents) != expectedHead+"\n" &&
-		string(headContents) != expectedHead {
-		return fmt.Errorf("detached HEAD changed before exact reattach")
-	}
-	if _, err := g.run(ctx, "symbolic-ref", "--quiet", branchRef); err == nil {
-		return fmt.Errorf("cannot safely reattach a symbolic branch ref")
-	} else if code, ok := commandExitCode(err); !ok || code != 1 {
-		return fmt.Errorf("inspect exact branch ref while locked: %w", err)
-	}
-	branchHead, err := g.text(ctx, "rev-parse", branchRef)
-	if err != nil || branchHead != expectedHead {
-		return fmt.Errorf("cannot safely reattach the concurrently changed branch")
-	}
-	if err := headLock.commitSymbolicRef(branchRef); err != nil {
-		return fmt.Errorf("reattach exact branch while HEAD is locked: %w", err)
-	}
-	return nil
-}
-
-type gitReferenceLock struct {
-	file     *os.File
-	path     string
-	refPath  string
-	ownsPath bool
-	remove   func(string) error
-}
-
-func (g *gitRepository) lockBranchReference(
-	ctx context.Context,
-	branchRef string,
-) (*gitReferenceLock, error) {
-	storage, err := g.text(ctx, "config", "--get", "extensions.refStorage")
-	if err != nil {
-		if code, ok := commandExitCode(err); !ok || code != 1 {
-			return nil, fmt.Errorf("inspect Git reference storage: %w", err)
-		}
-	} else if !strings.EqualFold(storage, "files") {
-		return nil, fmt.Errorf(
-			"exact branch reattachment does not support reference storage %q",
-			storage,
-		)
-	}
-	refPath, err := g.text(ctx, "rev-parse", "--git-path", branchRef)
-	if err != nil {
-		return nil, fmt.Errorf("resolve branch lock path: %w", err)
-	}
-	if !filepath.IsAbs(refPath) {
-		refPath = filepath.Join(g.directory, refPath)
-	}
-	if err := os.MkdirAll(filepath.Dir(refPath), 0o700); err != nil {
-		return nil, fmt.Errorf("prepare branch lock directory: %w", err)
-	}
-	lockPath := refPath + ".lock"
-	file, err := os.OpenFile(
-		lockPath,
-		os.O_WRONLY|os.O_CREATE|os.O_EXCL,
-		0o600,
-	)
-	if err != nil {
-		return nil, fmt.Errorf("lock branch against concurrent update: %w", err)
-	}
-	return &gitReferenceLock{
-		file:     file,
-		path:     lockPath,
-		refPath:  refPath,
-		ownsPath: true,
-		remove:   g.removeLock,
-	}, nil
-}
-
-func (l *gitReferenceLock) release() error {
-	var closeErr error
-	if l.file != nil {
-		closeErr = l.file.Close()
-		l.file = nil
-	}
-	var removeErr error
-	if l.ownsPath {
-		remove := l.remove
-		if remove == nil {
-			remove = os.Remove
-		}
-		removeErr = remove(l.path)
-		if os.IsNotExist(removeErr) {
-			removeErr = nil
-		}
-		if removeErr == nil {
-			l.ownsPath = false
-		}
-	}
-	return errors.Join(closeErr, removeErr)
-}
-
-func (l *gitReferenceLock) commitOID(oid string) error {
-	if !isObjectID(oid) {
-		return fmt.Errorf("branch target is not a full Git object ID")
-	}
-	if l.file == nil || !l.ownsPath {
-		return fmt.Errorf("branch lock is not open")
-	}
-	if _, err := l.file.WriteString(oid + "\n"); err != nil {
-		return err
-	}
-	if err := l.file.Sync(); err != nil {
-		return err
-	}
-	if err := l.file.Close(); err != nil {
-		return err
-	}
-	l.file = nil
-	if err := os.Rename(l.path, l.refPath); err != nil {
-		return err
-	}
-	// The rename consumed our lock path. Never remove another updater's lock
-	// if one is acquired immediately afterward.
-	l.ownsPath = false
-	return nil
-}
-
-func (g *gitRepository) attachDetachedHead(
-	ctx context.Context,
-	branch string,
-	expectedHead string,
-) error {
-	if err := g.requireDetachedHead(ctx, expectedHead); err != nil {
-		return err
-	}
-	// Use the files-backend lock protocol instead of update-ref's newer
-	// symref-update transaction command. This path preflights ref storage and
-	// remains compatible with older supported Git versions.
-	if err := g.reattachOriginalBranch(ctx, branch, expectedHead); err != nil {
-		return err
-	}
-	branchName, head, err := g.branchHead(ctx)
-	if err != nil {
-		return err
-	}
-	if branchName != branch || head != expectedHead {
-		return fmt.Errorf("attached branch changed after exact transaction")
-	}
-	return nil
-}
-
-func (g *gitRepository) restoreInstalledBranch(
-	ctx context.Context,
-	branch string,
-	originalHead string,
-	installedHead string,
-) error {
-	return g.restoreDetachedBranch(
-		ctx,
-		branch,
-		installedHead,
-		originalHead,
-		installedHead,
-	)
-}
-
-func (g *gitRepository) restoreDetachedBranch(
-	ctx context.Context,
-	branch string,
-	detachedHead string,
-	originalHead string,
-	installedBranchHead string,
-) (returnErr error) {
-	if !isObjectID(detachedHead) || !isObjectID(originalHead) ||
-		!isObjectID(installedBranchHead) {
-		return fmt.Errorf("cannot restore invalid branch object IDs")
-	}
-	if err := g.checkBranch(ctx, branch); err != nil {
-		return err
-	}
-	if err := g.requireDetachedHead(ctx, detachedHead); err != nil {
-		return fmt.Errorf(
-			"cannot safely restore branch after concurrent checkout change: %w",
-			err,
-		)
-	}
-	branchRef := "refs/heads/" + branch
-	headLock, err := g.lockHEAD(ctx)
-	if err != nil {
-		return err
-	}
-	defer func() {
-		if err := headLock.release(); err != nil {
-			returnErr = errors.Join(returnErr, err)
-		}
-	}()
-
-	headContents, err := os.ReadFile(headLock.headPath)
-	if err != nil {
-		return fmt.Errorf("read detached HEAD while locked for restoration: %w", err)
-	}
-	if string(headContents) != detachedHead+"\n" &&
-		string(headContents) != detachedHead {
-		return fmt.Errorf("detached HEAD changed before exact branch restoration")
-	}
-	if _, err := g.run(
-		ctx,
-		"update-ref",
-		"-m",
-		"repo_delivery: restore branch after failed attachment",
-		branchRef,
-		originalHead,
-		installedBranchHead,
-	); err != nil {
-		return fmt.Errorf("restore original branch with exact compare-and-swap: %w", err)
-	}
-	if err := headLock.commitOID(originalHead); err != nil {
-		_, rollbackErr := g.run(
-			context.Background(),
-			"update-ref",
-			"-m",
-			"repo_delivery: roll back failed branch restoration",
-			branchRef,
-			installedBranchHead,
-			originalHead,
-		)
-		if rollbackErr != nil {
-			return errors.Join(
-				fmt.Errorf("restore detached HEAD: %w", err),
-				fmt.Errorf("roll back failed branch restoration: %w", rollbackErr),
-			)
-		}
-		return fmt.Errorf("restore detached HEAD: %w", err)
-	}
-	if err := g.reattachOriginalBranch(ctx, branch, originalHead); err != nil {
-		return fmt.Errorf("reattach restored original branch: %w", err)
-	}
-	return nil
-}
-
-func (g *gitRepository) restoreAttachedInstalledBranch(
-	ctx context.Context,
-	branch string,
-	originalHead string,
-	installedHead string,
-) error {
-	if symbolic, err := g.text(ctx, "symbolic-ref", "--quiet", "--short", "HEAD"); err == nil {
-		if symbolic != branch {
-			return fmt.Errorf("cannot restore installed commit from another branch")
-		}
-		if err := g.requireBranchHead(ctx, branch, installedHead); err != nil {
-			return err
-		}
-		if err := g.detachExactBranch(ctx, branch, installedHead); err != nil {
-			return fmt.Errorf(
-				"detach installed branch before restoration: %w",
-				err,
-			)
-		}
-	} else if code, ok := commandExitCode(err); !ok || code != 1 {
-		return fmt.Errorf("inspect installed commit attachment: %w", err)
-	} else if err := g.requireDetachedHead(ctx, installedHead); err != nil {
-		return err
-	}
-	return g.restoreInstalledBranch(
-		ctx,
-		branch,
-		originalHead,
-		installedHead,
-	)
-}
-
-func (g *gitRepository) rollbackRebasedBranch(
-	ctx context.Context,
-	branch string,
-	expectedHead string,
-	newHead string,
-) error {
-	return g.restoreExactRebaseEntry(ctx, branch, expectedHead, newHead)
-}
-
-func (g *gitRepository) restoreExactRebaseEntry(
-	ctx context.Context,
-	branch string,
-	originalHead string,
-	rebasedHead string,
-) error {
-	if err := g.requireDefaultIndexFlags(ctx, []string{"."}); err != nil {
-		return fmt.Errorf("refuse rebase restoration with non-default index flags: %w", err)
-	}
-	if symbolic, err := g.text(ctx, "symbolic-ref", "--quiet", "--short", "HEAD"); err == nil {
-		if symbolic != branch {
-			return fmt.Errorf("refuse rebase restoration from another attached branch")
-		}
-		if err := g.requireBranchHead(ctx, branch, rebasedHead); err != nil {
-			return fmt.Errorf("refuse rebase restoration after checkout changed: %w", err)
-		}
-		if err := g.detachExactBranch(ctx, branch, rebasedHead); err != nil {
-			return fmt.Errorf("detach rebased checkout for restoration: %w", err)
-		}
-	} else if code, ok := commandExitCode(err); !ok || code != 1 {
-		return fmt.Errorf("inspect rebase restoration HEAD: %w", err)
-	}
-	detachedHead, err := g.head(ctx)
-	if err != nil {
-		return err
-	}
-	if detachedHead != originalHead && detachedHead != rebasedHead {
-		return fmt.Errorf("refuse rebase restoration from unknown detached HEAD")
-	}
-	status, err := g.status(ctx)
-	if err != nil {
-		return err
-	}
-	if !status.clean() {
-		return fmt.Errorf("refuse rebase restoration after worktree changed")
-	}
-	detachedTree, err := g.tree(ctx, detachedHead)
-	if err != nil {
-		return err
-	}
-	if err := g.requireIndexTree(ctx, detachedTree); err != nil {
-		return fmt.Errorf("rebase restoration index gate: %w", err)
-	}
-	if detachedHead == rebasedHead {
-		if _, err := g.run(
-			ctx,
-			"switch",
-			"--detach",
-			"--no-guess",
-			"--no-recurse-submodules",
-			"--no-overwrite-ignore",
-			originalHead,
-		); err != nil {
-			return fmt.Errorf("restore exact pre-rebase checkout: %w", err)
-		}
-		if err := g.requireDetachedHead(ctx, originalHead); err != nil {
-			return err
-		}
-	}
-	if err := g.restoreDetachedBranch(
-		ctx,
-		branch,
-		originalHead,
-		originalHead,
-		rebasedHead,
-	); err != nil {
-		return fmt.Errorf("restore exact pre-rebase branch: %w", err)
-	}
-	originalTree, err := g.tree(ctx, originalHead)
-	if err != nil {
-		return err
-	}
-	if err := g.requireIndexTree(ctx, originalTree); err != nil {
-		return fmt.Errorf("restored pre-rebase index gate: %w", err)
-	}
-	status, err = g.status(ctx)
-	if err != nil {
-		return err
-	}
-	if !status.clean() {
-		return fmt.Errorf("restored pre-rebase checkout is not clean")
-	}
-	return g.requireBranchHead(ctx, branch, originalHead)
 }
 
 func (g *gitRepository) push(

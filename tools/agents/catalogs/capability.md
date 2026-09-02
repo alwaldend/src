@@ -6,9 +6,9 @@
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/capability-catalog`
 - Derivation: `1.0.0`
 - Producer: `repository.capability-compiler`
-- Source revision: `f1121357f316b17f458ccc66bf037c3c`
+- Source revision: `0939ccc667b31bf3350630951c515b11`
 - Completeness: `partial`
-- JSON digest: `sha256:a376d14ba0a6960106bce790e44c06cc04b9d4b7bb21d60b0bf419ac09629076`
+- JSON digest: `sha256:0e1372b18f31981e113fecfedcc3a37338a2353a52c78052af1cccbdb2a6418f`
 
 ## Limitations
 
@@ -30,11 +30,11 @@
 - `cordis_remove` (runtime_tool, owned by `projects/mcp_cordis`) — projects/mcp_cordis/internal/mcp.mjs
 - `cordis_run` (runtime_tool, owned by `projects/mcp_cordis`) — projects/mcp_cordis/internal/mcp.mjs
 - `cordis_stop` (runtime_tool, owned by `projects/mcp_cordis`) — projects/mcp_cordis/internal/mcp.mjs
-- `github.forge` (operation_provider, owned by `tools.repo-delivery`) — tools/repo_delivery/main/go/command.go
+- `github.forge` (operation_provider, owned by `tools.repo-delivery`) — tools/repo_delivery/cmd/repo_delivery/command.go
 - `goal` (direct_binary, owned by `projects/goal`) — projects/goal/cmd/goal/main.go
 - `goal.local-store` (operation_provider, owned by `projects.goal`) — projects/goal/cmd/goal/command.go
 - `mcp-cordis` (direct_binary, owned by `projects/mcp_cordis`) — projects/mcp_cordis/cmd/mcp_cordis/main.mjs
-- `repo-delivery` (direct_binary, owned by `tools/repo_delivery`) — tools/repo_delivery/main/go/main.go
+- `repo-delivery` (direct_binary, owned by `tools/repo_delivery`) — tools/repo_delivery/cmd/repo_delivery/main.go
 - `terraform.runner` (operation_provider, owned by `tools.terraform`) — tools/terraform/defs.bzl
 
 ## Skills

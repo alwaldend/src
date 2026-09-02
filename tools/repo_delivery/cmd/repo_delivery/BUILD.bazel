@@ -13,7 +13,7 @@ go_library(
         "review.go",
         "runner.go",
     ],
-    importpath = "git.alwaldend.com/alwaldend/src/tools/repo_delivery/main/go",
+    importpath = "git.alwaldend.com/alwaldend/src/tools/repo_delivery/cmd/repo_delivery",
     visibility = ["//visibility:private"],
     deps = ["@com_github_spf13_cobra//:cobra"],
 )
