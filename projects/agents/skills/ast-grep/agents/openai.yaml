@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ast-grep"
+  short_description: "Structure-aware code search and rewrite"
+  default_prompt: "Use $ast-grep to find or rewrite code by syntax shape."

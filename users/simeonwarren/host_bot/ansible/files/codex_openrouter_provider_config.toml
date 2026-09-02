@@ -1,6 +1,9 @@
 model_provider = "openrouter"
 model = "~deepseek/deepseek-v4-flash-latest"
 model_reasoning_effort = "low"
+default_permissions = "host-bot"
+review_model = "~deepseek/deepseek-v4-flash-latest"
+approvals_reviewer = "auto_review"
 
 [model_providers.openrouter]
 name = "OpenRouter"
@@ -14,8 +17,16 @@ args = ["lookup", "service", "openrouter", "application", "codex"]
 [projects."/var/home/simeonwarrenbot/Projects/src"]
 trust_level = "trusted"
 
+[permissions.host-bot.filesystem]
+"/var/cache/bazel/disk_cache" = "write"
+"/var/cache/bazel/output_user_root" = "write"
+"~/.cache/bazelisk" = "write"
+
 [shell_environment_policy.filters]
 T3_MCP_BEARER_TOKEN = "exclude"
 
 [shell_environment_policy.set]
 T3_MCP_BEARER_TOKEN = ""
+
+[sandbox]
+network = true

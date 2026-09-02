@@ -22,6 +22,40 @@ description: Add or upgrade external software consumed by this monorepo with rep
    reverse-domain, underscore-named package under `third_party/` when the
    artifact is shared or needs its own repository definition.
 
+## Add a standalone release binary
+
+For a release binary consumed through a Bazel toolchain, create a package
+such as `tools/<tool>/` with the following files.
+
+1. `binary_toolchain.json` is the lock and the source of truth for archives:
+   - `toolchains[].name` and every `binaries[].name` must be valid Starlark
+     identifiers (letters, digits, underscores; no hyphens). The rule derives
+     target names such as `{name}_binary` and `{name}_toolchain` from them, so
+     a hyphenated name breaks analysis.
+   - `integrity` is the SRI form `sha256-<base64>` of the SHA-256 digest, not
+     the hex digest. Convert hex to base64 before pasting it into the lock.
+   - Put execution-platform constraints in each archive's `toolchain` key, and
+     point `binaries[].path` at the extracted file inside the archive
+     `output` directory.
+2. `include.MODULE.bazel` calls the `binary_toolchain_extension` with
+   `lock = "//tools/<tool>:binary_toolchain.json"` and
+   `toolchains_map = {"<name>": "com_alwaldend_src_tools_<tool>"}`, then
+   registers the created repository and calls `use_repo`. Keep the underscore
+   name here identical to the lock's toolchain name.
+3. `BUILD.bazel` aliases the generated
+   `@com_alwaldend_src_tools_<tool>//:<name>_binary` under a user-facing target
+   with `visibility = ["//:__subpackages__"]`; the alias may be hyphenated
+   even though the generated targets are not.
+4. `README.md` links the upstream release repository.
+
+Then add `include("//tools/<tool>:include.MODULE.bazel")` to the root
+`MODULE.bazel` under the owning section, and run
+`bazel_agent mod deps --lockfile_mode=update` to reconcile the module lock.
+The archive contract lives in the package `binary_toolchain.json`, so adding
+or changing an archive normally does not change the module lock. Verify the
+pin by building and running the alias, for example
+`bazel_agent run //tools/<tool>:<alias> -- --version`, before handing off.
+
 ## Preserve reproducibility
 
 - Pin an immutable release, commit, or digest and use the primary publisher's

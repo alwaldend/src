@@ -1,0 +1,36 @@
+{
+    "toolchains": [
+        {
+            "name": "ast_grep",
+            "version": "0.45.3"
+        }
+    ],
+    "archives": [
+        {
+            "toolchain_name": "ast_grep",
+            "toolchain_version": "0.45.3",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "ast_grep",
+                    "path": "out/ast-grep"
+                }
+            ],
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/ast-grep/ast-grep/releases/download/0.45.3/app-x86_64-unknown-linux-gnu.zip",
+                        "output": "out",
+                        "integrity": "sha256-+KyDCIEznR7e5rJlL1R5jA9Npagn8ts4oI7jERd4POg="
+                    }
+                }
+            ],
+            "toolchain": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}

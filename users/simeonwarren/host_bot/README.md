@@ -16,8 +16,13 @@ Auto-review. The managed Codex requirements allow read-only and `host-bot`
 permissions with on-request approvals, so threads cannot select **Full
 access** or disable approvals. The `host-bot` profile grants workspace writes,
 public command-network access, and write access to the Bazel cache and Bazelisk
-directories while keeping local and private network targets blocked. Hosted
-web search is not restricted by this role.
+directories while keeping local and private network targets blocked. The
+isolated OpenRouter profile selects the same `host-bot` profile and carries
+the same Bazel cache grants so Bazel commands work in sessions started from
+that CODEX_HOME. T3 Code must select a permission profile that includes those
+filesystem grants for the thread; an observed thread still executed under a
+managed restricted profile with read-only paths and no Bazel-cache write,
+which blocks `bazel_agent`. Hosted web search is not restricted by this role.
 
 The deployment installs pinned Bazelisk as `~/.local/bin/bazel` and provisions
 the repository's `bazel_agent` runner in the same directory.
