@@ -18,10 +18,16 @@ dev_vm_install_packages: true
 dev_vm_package_backend: rpm_ostree
 bazel_cache_directories:
   - path: /var/cache/bazel/disk_cache
-    mode: "0700"
+    # World-writable so Codex's workspace-write sandbox can create and write
+    # Bazel cache content without escalating to a host-bot permission profile;
+    # the sandbox only grants writes under the workspace, /tmp, and explicit
+    # writable roots. This cache is disposable and reconstructed from source.
+    mode: "0777"
   - path: /var/cache/bazel/output_user_root
-    # Bazel normalizes its output-user-root to 0755 on every startup.
-    mode: "0755"
+    # World-writable for the same sandbox write requirement. Bazel normalizes
+    # its output-user-root to 0755 on every startup, so this mode only matters
+    # for the initial creation and the sandbox's write permission check.
+    mode: "0777"
 bazel_cache_device: /dev/sata_ssd/bazel_cache
 bazel_cache_mount: /var/cache/bazel
 bazel_cache_pvs:
