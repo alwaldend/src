@@ -593,6 +593,11 @@ type CheckpointOptions struct {
 	GoalDir                 string
 	ExpectedResourceVersion string
 	AttemptID               string
+	PlanID                  string
+	PlanStrategy            string
+	PlanState               string
+	PlanRejectionReason     string
+	PlanOnly                bool
 	WorkType                string
 	PlanFile                string
 	ResultFile              string

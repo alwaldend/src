@@ -84,9 +84,17 @@ type GoalStatus struct {
 	AcceptedAttemptID    string          `json:"acceptedAttemptID" yaml:"acceptedAttemptID"`
 	AcceptedResultDigest string          `json:"acceptedResultDigest" yaml:"acceptedResultDigest"`
 	CriteriaRevision     uint64          `json:"criteriaRevision" yaml:"criteriaRevision"`
+	Plans                []PlanSummary   `json:"plans" yaml:"plans"`
 	Promotion            PromotionStatus `json:"promotion" yaml:"promotion"`
 	Migration            MigrationStatus `json:"migration" yaml:"migration"`
 	ObservedAt           string          `json:"observedAt" yaml:"observedAt"`
+}
+
+type PlanSummary struct {
+	PlanID          string `json:"planID" yaml:"planID"`
+	State           string `json:"state" yaml:"state"`
+	Strategy        string `json:"strategy" yaml:"strategy"`
+	RejectionReason string `json:"rejectionReason,omitempty" yaml:"rejectionReason,omitempty"`
 }
 
 type Goal struct {
@@ -125,6 +133,7 @@ type AttemptSpec struct {
 	CriteriaRevision    uint64        `json:"criteriaRevision" yaml:"criteriaRevision"`
 	CriteriaDigest      string        `json:"criteriaDigest" yaml:"criteriaDigest"`
 	GoalStateDigest     string        `json:"goalStateDigest" yaml:"goalStateDigest"`
+	PlanID              string        `json:"planID,omitempty" yaml:"planID,omitempty"`
 	WorkType            string        `json:"workType" yaml:"workType"`
 	// StableDefect is the reproducible problem under investigation.
 	StableDefect string `json:"stableDefect,omitempty" yaml:"stableDefect,omitempty"`

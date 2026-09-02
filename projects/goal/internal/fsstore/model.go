@@ -20,6 +20,7 @@ const (
 	maxCriteriaRevisions         = 4096
 	maxGoals                     = 4096
 	maxAttempts                  = 1024
+	maxPlans                     = 64
 	maxEvidenceFiles             = 256
 	maxManifestBytes             = 256 * 1024
 	maxPlanResultBytes           = 2 * 1024 * 1024
@@ -38,6 +39,7 @@ type (
 	MigrationStatus    = v1alpha1.MigrationStatus
 	GoalStatus         = v1alpha1.GoalStatus
 	Criterion          = v1alpha1.Criterion
+	PlanSummary        = v1alpha1.PlanSummary
 	CriteriaSpec       = v1alpha1.CriteriaSpec
 	AttemptSpec        = v1alpha1.AttemptSpec
 	ArtifactDigest     = v1alpha1.ArtifactDigest
@@ -110,10 +112,8 @@ func (c CriteriaManifest) validateSnapshot(
 }
 
 func (a AttemptManifest) validate(goal GoalManifest) error {
-	if err := v1alpha1.GoalAttempt(a).ValidateForGoal(
-		v1alpha1.Goal(goal),
-	); err != nil {
-		return err
+	if err := v1alpha1.GoalAttempt(a).ValidateForGoal(v1alpha1.Goal(goal)); err != nil {
+		return fmt.Errorf("planID %q: %w", a.Spec.PlanID, err)
 	}
 	if err := validatePersistedMetadata(a.Metadata); err != nil {
 		return err

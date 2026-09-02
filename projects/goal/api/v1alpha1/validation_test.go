@@ -452,6 +452,25 @@ func validAttempt(envelopeName string) GoalAttempt {
 	}
 }
 
+func TestAttemptPlanRefBindsToGoal(t *testing.T) {
+	attempt := validAttempt("plan-attempt")
+	goal := validGoal()
+	goal.Metadata.Generation = 1
+	attempt.Spec.PlanID = "plan-a"
+	goal.Status.Plans = []PlanSummary{{
+		PlanID:   "plan-a",
+		State:    "active",
+		Strategy: "Use a bounded parser change.",
+	}}
+	if err := attempt.ValidateForGoal(goal); err != nil {
+		t.Fatalf("valid plan reference rejected: %v", err)
+	}
+	goal.Status.Plans[0].PlanID = "plan-b"
+	if err := attempt.ValidateForGoal(goal); err == nil {
+		t.Fatal("attempt with missing plan reference was accepted")
+	}
+}
+
 func TestAttemptResumeFieldsValidateAndBound(t *testing.T) {
 	attempt := validAttempt("resume-attempt")
 	attempt.Spec.StableDefect = "The goal catalog omits resume state for open goals."

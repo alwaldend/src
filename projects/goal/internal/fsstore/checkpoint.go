@@ -54,6 +54,8 @@ func (s *Store) Checkpoint(options CheckpointOptions) (GoalReference, error) {
 	}
 	if options.CriteriaFile != "" {
 		if options.AttemptID != "" || options.WorkType != "" || options.PlanFile != "" ||
+			options.PlanID != "" || options.PlanStrategy != "" ||
+			options.PlanState != "" || options.PlanRejectionReason != "" ||
 			options.ResultFile != "" || len(options.EvidenceFiles) > 0 ||
 			options.ReviewFile != "" || options.CloseAttempt || options.Outcome != "" ||
 			options.Execution != "" {
@@ -78,13 +80,26 @@ func (s *Store) checkpointRecord(
 	attempts []AttemptManifest,
 	options CheckpointOptions,
 ) (GoalReference, error) {
+	hasPlanMutation := options.PlanStrategy != "" || options.PlanState != "" ||
+		options.PlanRejectionReason != ""
 	hasAttemptMutation := options.AttemptID != "" || options.WorkType != "" ||
 		options.PlanFile != "" || options.ResultFile != "" ||
 		len(options.EvidenceFiles) > 0 || options.ReviewFile != "" || options.CloseAttempt
-	if !hasAttemptMutation && options.Outcome == "" && options.Execution == "" {
+	hasAttemptMutation = hasAttemptMutation || (!options.PlanOnly &&
+		(options.PlanID != "" || hasPlanMutation))
+	if !hasAttemptMutation && !hasPlanMutation && options.Outcome == "" &&
+		options.Execution == "" {
 		return GoalReference{}, fmt.Errorf("checkpoint has no mutation")
 	}
-	if hasAttemptMutation && goal.Status.Execution != "active" {
+	if options.PlanOnly && (options.AttemptID != "" || options.WorkType != "" ||
+		options.PlanFile != "" ||
+		options.ResultFile != "" || len(options.EvidenceFiles) > 0 ||
+		options.ReviewFile != "" || options.CloseAttempt) {
+		return GoalReference{}, fmt.Errorf(
+			"--plan-only cannot be combined with attempt mutation",
+		)
+	}
+	if hasAttemptMutation && !options.PlanOnly && goal.Status.Execution != "active" {
 		return GoalReference{}, fmt.Errorf("attempt publication requires active execution")
 	}
 	if options.Outcome != "" &&
@@ -105,15 +120,46 @@ func (s *Store) checkpointRecord(
 		return GoalReference{}, fmt.Errorf("closing an attempt requires --review-file")
 	}
 
+	if options.PlanID == "" {
+		if options.PlanStrategy != "" || options.PlanState != "" ||
+			options.PlanRejectionReason != "" {
+			return GoalReference{}, fmt.Errorf("plan mutations require --plan-id")
+		}
+	} else {
+		if options.PlanStrategy == "" && options.PlanState == "" &&
+			options.PlanRejectionReason == "" {
+			// This is a reference to an existing plan, not a plan mutation.
+		}
+		if options.PlanStrategy != "" &&
+			(options.PlanState != "" || options.PlanRejectionReason != "") {
+			return GoalReference{}, fmt.Errorf(
+				"plan creation cannot be combined with plan transition",
+			)
+		}
+		if options.PlanRejectionReason != "" &&
+			options.PlanState != "rejected" {
+			return GoalReference{}, fmt.Errorf(
+				"--plan-rejection-reason requires --plan-state=rejected",
+			)
+		}
+		if options.PlanState != "" &&
+			!oneOf(options.PlanState, "accepted", "rejected", "superseded") {
+			return GoalReference{}, fmt.Errorf(
+				"invalid plan state transition %q; use accepted, rejected, or superseded",
+				options.PlanState,
+			)
+		}
+	}
+
 	attemptByID := make(map[string]AttemptManifest, len(attempts))
 	for _, attempt := range attempts {
 		attemptByID[attempt.Metadata.Name] = attempt
 	}
 	attemptID := options.AttemptID
-	if attemptID == "" && hasAttemptMutation {
+	if attemptID == "" && hasAttemptMutation && !options.PlanOnly {
 		attemptID = goal.Status.ActiveAttemptID
 	}
-	if attemptID == "" && hasAttemptMutation {
+	if attemptID == "" && hasAttemptMutation && !options.PlanOnly {
 		var err error
 		attemptID, err = s.generateAttemptID()
 		if err != nil {
@@ -126,6 +172,38 @@ func (s *Store) checkpointRecord(
 	newAttempt := false
 	var tree *attemptTree
 	var err error
+	if options.PlanID != "" && options.PlanStrategy != "" {
+		if len(newGoal.Status.Plans) >= maxPlans {
+			return GoalReference{}, fmt.Errorf("plan cardinality exceeds %d", maxPlans)
+		}
+		for index := range newGoal.Status.Plans {
+			if newGoal.Status.Plans[index].State == "active" {
+				newGoal.Status.Plans[index].State = "superseded"
+			}
+		}
+		newGoal.Status.Plans = append(newGoal.Status.Plans, PlanSummary{
+			PlanID:   options.PlanID,
+			State:    "active",
+			Strategy: options.PlanStrategy,
+		})
+	}
+	if options.PlanID != "" && options.PlanState != "" {
+		planIndex := -1
+		for index, plan := range newGoal.Status.Plans {
+			if plan.PlanID == options.PlanID {
+				planIndex = index
+				break
+			}
+		}
+		if planIndex < 0 {
+			return GoalReference{}, fmt.Errorf("plan %q does not exist", options.PlanID)
+		}
+		if newGoal.Status.Plans[planIndex].State != "active" {
+			return GoalReference{}, fmt.Errorf("plan %q is not active", options.PlanID)
+		}
+		newGoal.Status.Plans[planIndex].State = options.PlanState
+		newGoal.Status.Plans[planIndex].RejectionReason = options.PlanRejectionReason
+	}
 	if attemptID != "" {
 		if err := validateRecordID("attempt ID", attemptID); err != nil {
 			return GoalReference{}, err
@@ -150,7 +228,7 @@ func (s *Store) checkpointRecord(
 			if options.PlanFile != "" {
 				return GoalReference{}, fmt.Errorf("an existing attempt plan is immutable")
 			}
-			tree, err = s.buildAttemptTree(dir, goal, criteria, &existing, attemptID, options)
+			tree, err = s.buildAttemptTree(dir, newGoal, criteria, &existing, attemptID, options)
 			if err != nil {
 				return GoalReference{}, err
 			}
@@ -164,7 +242,7 @@ func (s *Store) checkpointRecord(
 				return GoalReference{}, fmt.Errorf("attempt cardinality exceeds %d", maxAttempts)
 			}
 			newAttempt = true
-			tree, err = s.buildAttemptTree(dir, goal, criteria, nil, attemptID, options)
+			tree, err = s.buildAttemptTree(dir, newGoal, criteria, nil, attemptID, options)
 			if err != nil {
 				return GoalReference{}, err
 			}
@@ -222,6 +300,13 @@ func (s *Store) checkpointRecord(
 	next, err := incrementResourceVersion(goal.Metadata.ResourceVersion)
 	if err != nil {
 		return GoalReference{}, err
+	}
+	manifestBytes, err := yaml.Marshal(newGoal)
+	if err != nil {
+		return GoalReference{}, fmt.Errorf("encode goal manifest: %w", err)
+	}
+	if len(manifestBytes) > maxManifestBytes {
+		return GoalReference{}, fmt.Errorf("encoded goal manifest exceeds %d bytes", maxManifestBytes)
 	}
 	newGoal.Metadata.ResourceVersion = next
 	newGoal.Status.ObservedAt = s.timestamp()
@@ -458,6 +543,7 @@ func (s *Store) buildAttemptTree(
 				CriteriaRevision:    criteria.Spec.Revision,
 				CriteriaDigest:      criteriaDigest,
 				GoalStateDigest:     stateDigest,
+				PlanID:              options.PlanID,
 				WorkType:            workType,
 				StableDefect:        options.StableDefect,
 				Hypothesis:          options.Hypothesis,
@@ -744,7 +830,7 @@ func validateProspectiveRecord(
 	open := ""
 	for _, attempt := range attempts {
 		if err := attempt.validate(goal); err != nil {
-			return err
+			return fmt.Errorf("attempt %q: %w", attempt.Metadata.Name, err)
 		}
 		if attempt.Status.State == "open" {
 			if open != "" {
