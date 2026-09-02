@@ -29,7 +29,7 @@ fi
 
 binary="$(rlocation "${CAPABILITY_CHECK_RLOCATION:?}")"
 exec "${binary}" \
-	--workspace-root "${workspace}" \
-	--output tools/agents/catalogs/capability.json \
-	--markdown tools/agents/catalogs/capability.md \
-	--check
+    --workspace-root "${workspace}" \
+    --output tools/agents/catalogs/capability.json \
+    --markdown tools/agents/catalogs/capability.md \
+    --check

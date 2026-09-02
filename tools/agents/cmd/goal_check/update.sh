@@ -27,6 +27,6 @@ fi
 
 binary="$(rlocation "${GOAL_CHECK_RLOCATION:?}")"
 exec "${binary}" \
-	--workspace-root "${workspace}" \
-	--output tools/agents/catalogs/goal.json \
-	--markdown tools/agents/catalogs/goal.md
+    --workspace-root "${workspace}" \
+    --output tools/agents/catalogs/goal.json \
+    --markdown tools/agents/catalogs/goal.md

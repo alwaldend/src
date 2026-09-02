@@ -27,6 +27,6 @@ fi
 
 binary="$(rlocation "${ACTION_CHECK_RLOCATION:?}")"
 exec "${binary}" \
-	--workspace-root "${workspace}" \
-	--output tools/agents/catalogs/action.json \
-	--markdown tools/agents/catalogs/action.md
+    --workspace-root "${workspace}" \
+    --output tools/agents/catalogs/action.json \
+    --markdown tools/agents/catalogs/action.md

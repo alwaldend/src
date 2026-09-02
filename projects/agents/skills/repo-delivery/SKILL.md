@@ -53,6 +53,12 @@ the corrections, and scrutinize the resulting diff again before proceeding.
 Documentation-only delivery records do not invalidate a behavioral verdict
 unless they can affect execution or the published interface.
 
+Delivery requires the mandatory quality gates below: the repository quality
+test suite (`bazel_agent test //:repo_quality_test`) and semantic lint of the
+affected targets (`bazel_agent build --config=lint //affected/...`). Treat
+either failure as a publish blocker on the exact candidate head; re-run them
+after any edit that changes the candidate tree.
+
 ## GitHub adapter
 
 Use `bazel_agent run //tools/repo_delivery -- ...` for `inspect`, `prepare`,
@@ -130,6 +136,12 @@ configuration or weakening transport isolation implicitly.
    immutable aggregate path scope. Treat the top-level returned `head_oid` as
    the candidate to validate. Run every check required for delivery after
    `prepare`, and confirm HEAD still equals that exact OID after the checks.
+   The repository quality test suite is mandatory: run
+   `bazel_agent test //:repo_quality_test` and require it to pass. Semantic
+   lint is also mandatory for the affected targets: run
+   `bazel_agent build --config=lint //affected/...` over every package the
+   change touches and require it to succeed; prefer the narrow affected set
+   over `//...` unless the change spans the repository.
    Record that literal OID; never recompute it from mutable `HEAD` when
    publishing. Run checks from a clean checkout of that exact commit. If
    unrelated dirty files could affect a check, use an ignored isolated linked

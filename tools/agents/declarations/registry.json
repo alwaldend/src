@@ -136,7 +136,11 @@
             "layer": "delivery",
             "activation": "task-owned feature rebase",
             "exclusions": ["shared or human-owned history"],
-            "capabilityRefs": ["history.write", "network.read", "remote.write"],
+            "capabilityRefs": [
+                "history.write",
+                "network.read",
+                "remote.write"
+            ],
             "dependencies": [],
             "conflicts": [],
             "providerRequirements": ["git"],
@@ -227,7 +231,11 @@
             "layer": "delivery",
             "activation": "feature publication and PR review",
             "exclusions": ["read-only reviews"],
-            "capabilityRefs": ["history.write", "network.read", "remote.write"],
+            "capabilityRefs": [
+                "history.write",
+                "network.read",
+                "remote.write"
+            ],
             "dependencies": ["bazel-agent"],
             "conflicts": [],
             "providerRequirements": ["github"],
@@ -314,16 +322,56 @@
         }
     ],
     "runtimeTools": [
-        {"id": "cordis_define", "owner": "projects/mcp_cordis", "classification": "classified"},
-        {"id": "cordis_inspect", "owner": "projects/mcp_cordis", "classification": "classified"},
-        {"id": "cordis_invoke", "owner": "projects/mcp_cordis", "classification": "classified"},
-        {"id": "cordis_list", "owner": "projects/mcp_cordis", "classification": "classified"},
-        {"id": "cordis_list_tools", "owner": "projects/mcp_cordis", "classification": "classified"},
-        {"id": "cordis_promote", "owner": "projects/mcp_cordis", "classification": "classified"},
-        {"id": "cordis_reload", "owner": "projects/mcp_cordis", "classification": "classified"},
-        {"id": "cordis_remove", "owner": "projects/mcp_cordis", "classification": "classified"},
-        {"id": "cordis_run", "owner": "projects/mcp_cordis", "classification": "classified"},
-        {"id": "cordis_stop", "owner": "projects/mcp_cordis", "classification": "classified"}
+        {
+            "id": "cordis_define",
+            "owner": "projects/mcp_cordis",
+            "classification": "classified"
+        },
+        {
+            "id": "cordis_inspect",
+            "owner": "projects/mcp_cordis",
+            "classification": "classified"
+        },
+        {
+            "id": "cordis_invoke",
+            "owner": "projects/mcp_cordis",
+            "classification": "classified"
+        },
+        {
+            "id": "cordis_list",
+            "owner": "projects/mcp_cordis",
+            "classification": "classified"
+        },
+        {
+            "id": "cordis_list_tools",
+            "owner": "projects/mcp_cordis",
+            "classification": "classified"
+        },
+        {
+            "id": "cordis_promote",
+            "owner": "projects/mcp_cordis",
+            "classification": "classified"
+        },
+        {
+            "id": "cordis_reload",
+            "owner": "projects/mcp_cordis",
+            "classification": "classified"
+        },
+        {
+            "id": "cordis_remove",
+            "owner": "projects/mcp_cordis",
+            "classification": "classified"
+        },
+        {
+            "id": "cordis_run",
+            "owner": "projects/mcp_cordis",
+            "classification": "classified"
+        },
+        {
+            "id": "cordis_stop",
+            "owner": "projects/mcp_cordis",
+            "classification": "classified"
+        }
     ],
     "operationFiles": [
         "projects/goal/agent_operations.json",
@@ -332,19 +380,79 @@
         "tools/terraform/agent_operations.json"
     ],
     "directBinaries": [
-        {"id": "bazel-agent", "owner": "projects/bazel_agent", "path": "projects/bazel_agent/cmd/bazel_agent/main.go", "classification": "classified"},
-        {"id": "goal", "owner": "projects/goal", "path": "projects/goal/cmd/goal/main.go", "classification": "classified"},
-        {"id": "mcp-cordis", "owner": "projects/mcp_cordis", "path": "projects/mcp_cordis/cmd/mcp_cordis/main.mjs", "classification": "classified"},
-        {"id": "repo-delivery", "owner": "tools/repo_delivery", "path": "tools/repo_delivery/cmd/repo_delivery/main.go", "classification": "classified"},
-        {"id": "agent-system", "owner": "tools/agents", "path": "tools/agents/cmd/agent_system/main.go", "classification": "classified"},
-        {"id": "control-status", "owner": "tools/agents", "path": "tools/agents/cmd/control_status/main.go", "classification": "classified"}
+        {
+            "id": "bazel-agent",
+            "owner": "projects/bazel_agent",
+            "path": "projects/bazel_agent/cmd/bazel_agent/main.go",
+            "classification": "classified"
+        },
+        {
+            "id": "goal",
+            "owner": "projects/goal",
+            "path": "projects/goal/cmd/goal/main.go",
+            "classification": "classified"
+        },
+        {
+            "id": "mcp-cordis",
+            "owner": "projects/mcp_cordis",
+            "path": "projects/mcp_cordis/cmd/mcp_cordis/main.mjs",
+            "classification": "classified"
+        },
+        {
+            "id": "repo-delivery",
+            "owner": "tools/repo_delivery",
+            "path": "tools/repo_delivery/cmd/repo_delivery/main.go",
+            "classification": "classified"
+        },
+        {
+            "id": "agent-system",
+            "owner": "tools/agents",
+            "path": "tools/agents/cmd/agent_system/main.go",
+            "classification": "classified"
+        },
+        {
+            "id": "control-status",
+            "owner": "tools/agents",
+            "path": "tools/agents/cmd/control_status/main.go",
+            "classification": "classified"
+        }
     ],
     "generatedArtifacts": [
-        {"path": ".agents/skills/repo-blender", "owner": "projects/agents/skills/repo-blender", "formatter": "relative symlink", "checkedOutput": "//:write_skill_links_test", "updater": "//:write_skill_links"},
-        {"path": "tools/agents/catalogs/policy.json", "owner": "tools/agents", "formatter": "policy-compiler", "checkedOutput": "//tools/agents/cmd/policy_check:policy_check_check", "updater": "//tools/agents/cmd/policy_check:policy_update"},
-        {"path": "tools/agents/catalogs/action.json", "owner": "tools/agents", "formatter": "action-compiler", "checkedOutput": "//tools/agents/cmd/action_check:action_check_check", "updater": "//tools/agents/cmd/action_check:action_update"},
-        {"path": "tools/agents/catalogs/topology.json", "owner": "tools/agents", "formatter": "topology-compiler", "checkedOutput": "//tools/agents/cmd/topology_check:topology_check_check", "updater": "//tools/agents/cmd/topology_check:topology_update"},
-        {"path": "tools/bazelrc/preset.bazelrc", "owner": "tools/bazelrc", "formatter": "bazelrc-preset", "checkedOutput": "//tools/bazelrc:preset.update_test", "updater": "//tools/bazelrc:preset.update"}
+        {
+            "path": ".agents/skills/repo-blender",
+            "owner": "projects/agents/skills/repo-blender",
+            "formatter": "relative symlink",
+            "checkedOutput": "//:write_skill_links_test",
+            "updater": "//:write_skill_links"
+        },
+        {
+            "path": "tools/agents/catalogs/policy.json",
+            "owner": "tools/agents",
+            "formatter": "policy-compiler",
+            "checkedOutput": "//tools/agents/cmd/policy_check:policy_check_check",
+            "updater": "//tools/agents/cmd/policy_check:policy_update"
+        },
+        {
+            "path": "tools/agents/catalogs/action.json",
+            "owner": "tools/agents",
+            "formatter": "action-compiler",
+            "checkedOutput": "//tools/agents/cmd/action_check:action_check_check",
+            "updater": "//tools/agents/cmd/action_check:action_update"
+        },
+        {
+            "path": "tools/agents/catalogs/topology.json",
+            "owner": "tools/agents",
+            "formatter": "topology-compiler",
+            "checkedOutput": "//tools/agents/cmd/topology_check:topology_check_check",
+            "updater": "//tools/agents/cmd/topology_check:topology_update"
+        },
+        {
+            "path": "tools/bazelrc/preset.bazelrc",
+            "owner": "tools/bazelrc",
+            "formatter": "bazelrc-preset",
+            "checkedOutput": "//tools/bazelrc:preset.update_test",
+            "updater": "//tools/bazelrc:preset.update"
+        }
     ],
     "terraformDefinitions": "tools/terraform/defs.bzl",
     "cordisMcpSource": "projects/mcp_cordis/internal/mcp.mjs"

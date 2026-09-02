@@ -80,9 +80,11 @@ func TestTopologyCatalogValidationRejectsDuplicateAndUnknown(t *testing.T) {
 		CatalogEnvelope: sampleEnvelope(),
 		Trees:           []TopologyTree{},
 		Components: []TopologyComponent{
-			{ID: "agents", Path: "projects/agents", OwnerReadme: "projects/agents/README.md",
+			{
+				ID: "agents", Path: "projects/agents", OwnerReadme: "projects/agents/README.md",
 				BuildPath: "projects/agents/BUILD.bazel", Title: "Agents",
-				Lifecycle: "active", DocsState: "owned"},
+				Lifecycle: "active", DocsState: "owned",
+			},
 		},
 		Workspaces: []TopologyWorkspace{},
 	}
@@ -119,9 +121,11 @@ func TestCanonicalJSONTopologyDeterministicDigest(t *testing.T) {
 		CatalogEnvelope: sampleEnvelope(),
 		Trees:           []TopologyTree{},
 		Components: []TopologyComponent{
-			{ID: "agents", Path: "projects/agents", OwnerReadme: "projects/agents/README.md",
+			{
+				ID: "agents", Path: "projects/agents", OwnerReadme: "projects/agents/README.md",
 				BuildPath: "projects/agents/BUILD.bazel", Title: "Agents",
-				Lifecycle: "active", DocsState: "owned"},
+				Lifecycle: "active", DocsState: "owned",
+			},
 		},
 		Workspaces: []TopologyWorkspace{},
 	}

@@ -17,9 +17,11 @@ import (
 	"strings"
 )
 
-const registrySchema = "agents.alwaldend.com/phase1-registry/v1alpha1"
-const operationsSchema = "agents.alwaldend.com/operations/v1alpha1"
-const baselineSchema = "agents.alwaldend.com/resource-baseline/v1alpha1"
+const (
+	registrySchema   = "agents.alwaldend.com/phase1-registry/v1alpha1"
+	operationsSchema = "agents.alwaldend.com/operations/v1alpha1"
+	baselineSchema   = "agents.alwaldend.com/resource-baseline/v1alpha1"
+)
 
 var identifierPattern = regexp.MustCompile(
 	`^[a-z][a-z0-9]*(?:[._/-][a-z0-9]+)*$`,

@@ -1,1 +1,90 @@
-{"schema":"agents.alwaldend.com/catalog/v1alpha1/goal-catalog","kind":"goal-catalog","id":"agent-system.goal","derivationVersion":"1.0.0","producerRef":"repository.goal-compiler","sourceRevision":"7218e00d70982425c8533a92457ab34c","inputs":[{"path":"projects/agents/goals/agent-system-phase-1/criteria.yaml","role":"criteria-manifest","digest":"sha256:965680092bc72fca00cd98ce7e6f877d7482fdb2c4ef95194470845e8b5cb7d4"},{"path":"projects/agents/goals/agent-system-phase-1/goal.yaml","role":"goal-manifest","digest":"sha256:340c16a978dd5450da9c8832489f242de5f0f13cdea5cf004ea777375826e4b0"},{"path":"projects/agents/goals/agent-system-phase-2/criteria.yaml","role":"criteria-manifest","digest":"sha256:ac191b51a30d5e0e8bfcbf0df981a25548a947b2fe537e2ae17e420a361607b6"},{"path":"projects/agents/goals/agent-system-phase-2/goal.yaml","role":"goal-manifest","digest":"sha256:8a09f45d39b0527cc09ce6c8d3ebffacfca3643208cbf7b10176317bc8565f47"},{"path":"projects/agents/goals/repo-agent-system/criteria.yaml","role":"criteria-manifest","digest":"sha256:b61214faf045d784bfec13a3e31b1b8be36450bef30e37f2166a521e3558c0c5"},{"path":"projects/agents/goals/repo-agent-system/goal.yaml","role":"goal-manifest","digest":"sha256:e8196e52f287a54275dcdccd056f39b6148b22c7730133000993c44a7e459947"},{"path":"tools/agents/declarations/registry.json","role":"registry","digest":"sha256:436ea371ebc24156e4d10686f642c9d9001ea578e5c67337b17576e90d0e86f6"}],"bounds":{"eligible":3,"emitted":3,"unavailable":0,"maxItems":1000,"maxInputBytes":33554432,"maxOutputBytes":1048576,"truncated":false},"completeness":"complete","limitations":[],"conflicts":[],"digest":"sha256:b904c92f19d5ef78af23e69e3127f8c1a9abe87ad929ac4763cc15b0dba2b97e","goals":[{"candidatePath":"projects/agents/goals/agent-system-phase-1","availability":"available","identity":{"name":"agent-system-phase-1","ownerRoot":"projects/agents","scope":"project"},"coarseStatus":{"outcome":"achieved","execution":"paused"}},{"candidatePath":"projects/agents/goals/agent-system-phase-2","availability":"available","identity":{"name":"agent-system-phase-2","ownerRoot":"projects/agents","scope":"project"},"coarseStatus":{"outcome":"open","execution":"active"}},{"candidatePath":"projects/agents/goals/repo-agent-system","availability":"available","identity":{"name":"repo-agent-system","ownerRoot":"projects/agents","scope":"project"},"coarseStatus":{"outcome":"achieved","execution":"paused"}}]}
+{
+    "schema": "agents.alwaldend.com/catalog/v1alpha1/goal-catalog",
+    "kind": "goal-catalog",
+    "id": "agent-system.goal",
+    "derivationVersion": "1.0.0",
+    "producerRef": "repository.goal-compiler",
+    "sourceRevision": "7218e00d70982425c8533a92457ab34c",
+    "inputs": [
+        {
+            "path": "projects/agents/goals/agent-system-phase-1/criteria.yaml",
+            "role": "criteria-manifest",
+            "digest": "sha256:965680092bc72fca00cd98ce7e6f877d7482fdb2c4ef95194470845e8b5cb7d4"
+        },
+        {
+            "path": "projects/agents/goals/agent-system-phase-1/goal.yaml",
+            "role": "goal-manifest",
+            "digest": "sha256:340c16a978dd5450da9c8832489f242de5f0f13cdea5cf004ea777375826e4b0"
+        },
+        {
+            "path": "projects/agents/goals/agent-system-phase-2/criteria.yaml",
+            "role": "criteria-manifest",
+            "digest": "sha256:ac191b51a30d5e0e8bfcbf0df981a25548a947b2fe537e2ae17e420a361607b6"
+        },
+        {
+            "path": "projects/agents/goals/agent-system-phase-2/goal.yaml",
+            "role": "goal-manifest",
+            "digest": "sha256:8a09f45d39b0527cc09ce6c8d3ebffacfca3643208cbf7b10176317bc8565f47"
+        },
+        {
+            "path": "projects/agents/goals/repo-agent-system/criteria.yaml",
+            "role": "criteria-manifest",
+            "digest": "sha256:b61214faf045d784bfec13a3e31b1b8be36450bef30e37f2166a521e3558c0c5"
+        },
+        {
+            "path": "projects/agents/goals/repo-agent-system/goal.yaml",
+            "role": "goal-manifest",
+            "digest": "sha256:e8196e52f287a54275dcdccd056f39b6148b22c7730133000993c44a7e459947"
+        },
+        {
+            "path": "tools/agents/declarations/registry.json",
+            "role": "registry",
+            "digest": "sha256:436ea371ebc24156e4d10686f642c9d9001ea578e5c67337b17576e90d0e86f6"
+        }
+    ],
+    "bounds": {
+        "eligible": 3,
+        "emitted": 3,
+        "unavailable": 0,
+        "maxItems": 1000,
+        "maxInputBytes": 33554432,
+        "maxOutputBytes": 1048576,
+        "truncated": false
+    },
+    "completeness": "complete",
+    "limitations": [],
+    "conflicts": [],
+    "digest": "sha256:b904c92f19d5ef78af23e69e3127f8c1a9abe87ad929ac4763cc15b0dba2b97e",
+    "goals": [
+        {
+            "candidatePath": "projects/agents/goals/agent-system-phase-1",
+            "availability": "available",
+            "identity": {
+                "name": "agent-system-phase-1",
+                "ownerRoot": "projects/agents",
+                "scope": "project"
+            },
+            "coarseStatus": { "outcome": "achieved", "execution": "paused" }
+        },
+        {
+            "candidatePath": "projects/agents/goals/agent-system-phase-2",
+            "availability": "available",
+            "identity": {
+                "name": "agent-system-phase-2",
+                "ownerRoot": "projects/agents",
+                "scope": "project"
+            },
+            "coarseStatus": { "outcome": "open", "execution": "active" }
+        },
+        {
+            "candidatePath": "projects/agents/goals/repo-agent-system",
+            "availability": "available",
+            "identity": {
+                "name": "repo-agent-system",
+                "ownerRoot": "projects/agents",
+                "scope": "project"
+            },
+            "coarseStatus": { "outcome": "achieved", "execution": "paused" }
+        }
+    ]
+}

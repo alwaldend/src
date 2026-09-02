@@ -239,6 +239,7 @@ stated scope.
   the system.
 
 ## Searching
+
 Do not use recursive `grep` or `ls`. Use `rg`, `rg --files`, `find` with a
 bounded depth, or `bazel_agent query` instead. Never search from the
 filesystem root (`find /`); it can hang for minutes on large dependency

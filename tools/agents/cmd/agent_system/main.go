@@ -187,9 +187,11 @@ func (c *capsuleBuilder) applicableWorkspace(snapshot *catalogSnapshot) *catalog
 			ID:   "root",
 			Path: ".",
 			Phases: []catalogv1alpha1.WorkspacePhase{
-				{ID: "root.check",
+				{
+					ID:              "root.check",
 					ProviderRef:     "repository.bazel-operations",
-					CommandTemplate: "bazel_agent test //..."},
+					CommandTemplate: "bazel_agent test //...",
+				},
 			},
 		}
 	}

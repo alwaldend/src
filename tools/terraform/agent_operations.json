@@ -8,7 +8,12 @@
             "id": "terraform.apply",
             "selector": "apply",
             "classification": "classified",
-            "effects": ["credential.consume", "code.execute", "network.read", "remote.write"],
+            "effects": [
+                "credential.consume",
+                "code.execute",
+                "network.read",
+                "remote.write"
+            ],
             "inputs": ["configuration", "state", "authority"],
             "outputs": ["apply-result"],
             "information": ["public", "secret", "personal"],
@@ -26,7 +31,12 @@
             "id": "terraform.deploy",
             "selector": "deploy",
             "classification": "classified",
-            "effects": ["credential.consume", "code.execute", "network.read", "remote.write"],
+            "effects": [
+                "credential.consume",
+                "code.execute",
+                "network.read",
+                "remote.write"
+            ],
             "inputs": ["configuration", "state", "authority"],
             "outputs": ["apply-result"],
             "information": ["public", "secret", "personal"],
@@ -44,7 +54,12 @@
             "id": "terraform.deploy-y",
             "selector": "deploy_y",
             "classification": "classified",
-            "effects": ["credential.consume", "code.execute", "network.read", "remote.write"],
+            "effects": [
+                "credential.consume",
+                "code.execute",
+                "network.read",
+                "remote.write"
+            ],
             "inputs": ["configuration", "state", "authority"],
             "outputs": ["apply-result"],
             "information": ["public", "secret", "personal"],
@@ -62,7 +77,11 @@
             "id": "terraform.destroy",
             "selector": "destroy",
             "classification": "classified",
-            "effects": ["credential.consume", "network.read", "remote.destroy"],
+            "effects": [
+                "credential.consume",
+                "network.read",
+                "remote.destroy"
+            ],
             "inputs": ["configuration", "state", "authority"],
             "outputs": ["destroy-result"],
             "information": ["public", "secret", "personal"],
@@ -188,7 +207,12 @@
             "id": "terraform.migrate",
             "selector": "migrate",
             "classification": "classified",
-            "effects": ["credential.consume", "network.read", "remote.write", "task_state.write"],
+            "effects": [
+                "credential.consume",
+                "network.read",
+                "remote.write",
+                "task_state.write"
+            ],
             "inputs": ["configuration", "state", "authority"],
             "outputs": ["migrated state"],
             "information": ["public", "secret", "personal"],
@@ -224,7 +248,12 @@
             "id": "terraform.plan",
             "selector": "plan",
             "classification": "classified",
-            "effects": ["credential.consume", "code.execute", "network.read", "task_state.write"],
+            "effects": [
+                "credential.consume",
+                "code.execute",
+                "network.read",
+                "task_state.write"
+            ],
             "inputs": ["configuration", "state"],
             "outputs": ["plan"],
             "information": ["public", "secret", "personal"],

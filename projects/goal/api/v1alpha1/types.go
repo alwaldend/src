@@ -68,12 +68,12 @@ type PromotionStatus struct {
 }
 
 type MigrationStatus struct {
-	SourceFormat string `json:"sourceFormat" yaml:"sourceFormat"`
-	SourcePath   string `json:"sourcePath" yaml:"sourcePath"`
-	SourceDigest string `json:"sourceDigest" yaml:"sourceDigest"`
+	SourceFormat   string `json:"sourceFormat" yaml:"sourceFormat"`
+	SourcePath     string `json:"sourcePath" yaml:"sourcePath"`
+	SourceDigest   string `json:"sourceDigest" yaml:"sourceDigest"`
 	MappingVersion string `json:"mappingVersion" yaml:"mappingVersion"`
 	ExtractionMode string `json:"extractionMode" yaml:"extractionMode"`
-	MigratedAt   string `json:"migratedAt" yaml:"migratedAt"`
+	MigratedAt     string `json:"migratedAt" yaml:"migratedAt"`
 }
 
 type GoalStatus struct {

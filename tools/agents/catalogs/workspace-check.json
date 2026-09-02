@@ -1,1 +1,275 @@
-{"schema":"agents.alwaldend.com/catalog/v1alpha1/workspace-check-catalog","kind":"workspace-check-catalog","id":"agent-system.workspace-check","derivationVersion":"1.0.0","producerRef":"repository.workspace-check-compiler","sourceRevision":"87a51cd7fadb87ac72737f1ef54eef09","inputs":[{"path":".bazelignore","role":"bazel-ignore","digest":"sha256:7ccf264ff1d6a96893f59779e23fc8b9752413773650ee4190c30f55c6e295bf"},{"path":"MODULE.bazel","role":"workspace-module","digest":"sha256:1374a3d6511563f1f6a6598d78f9ebdc2eebc82223e388741f950e2dc8f0fb2f"},{"path":"projects/agents/skills/full-repo-check/scripts/run_full_repo_check.go","role":"full-check-script","digest":"sha256:d947589c104aadf59cae4df8c882a8280cc3ca26b6d4b2c5e8973065ff6715f6"},{"path":"projects/rules_binary_toolchain/MODULE.bazel","role":"workspace-module","digest":"sha256:d704acbd1f8e9aa9a7490ad2b695dd992e37b9e663798b294757826a1a41b87e"},{"path":"projects/rules_docs/MODULE.bazel","role":"workspace-module","digest":"sha256:ebb3a6adf907ac69a1cf161aac60292c5fff2ec58ff4113c92c86214ae4eece7"},{"path":"projects/rules_docs_gazelle/MODULE.bazel","role":"workspace-module","digest":"sha256:bfb836d4250225159b66d813f70f7d3075b50366fec5bb743a6237f856594680"},{"path":"projects/rules_hugo/MODULE.bazel","role":"workspace-module","digest":"sha256:78d88abdf0b64f4d854046c4147076956e581b86957235fb9a7bf8fea18ed055"},{"path":"projects/rules_promptfoo/MODULE.bazel","role":"workspace-module","digest":"sha256:9191186176747f34f7506ea48b5d8301e0dccbf4294893035e189ee2220f4729"},{"path":"projects/rules_promptfoo_gazelle/MODULE.bazel","role":"workspace-module","digest":"sha256:f0c3224c59fcd09e84d2f078f5a7d612b2acc41b0b5265556db4b2432dffe208"},{"path":"projects/rules_skill/MODULE.bazel","role":"workspace-module","digest":"sha256:37efd217262efef39a907b0b90b3c1d692568d0dc576e3c9f32a4d6ffec6eb2f"},{"path":"projects/rules_skill_gazelle/MODULE.bazel","role":"workspace-module","digest":"sha256:3d7839254cb0ea02222d0f17c260031117ea84c1bc56525d53b4e8007ac880e8"},{"path":"projects/rules_template/MODULE.bazel","role":"workspace-module","digest":"sha256:c95a35bea281d2da8332274c8f50dd7c9195b5c48ffd128231a088b556bb02fe"}],"bounds":{"eligible":12,"emitted":12,"unavailable":0,"maxItems":1000,"maxInputBytes":33554432,"maxOutputBytes":1048576,"truncated":false},"completeness":"complete","limitations":[],"conflicts":[],"digest":"sha256:40d46b3b913dc607a7c55a9b0b499cd4d500fdc99a779a5b29843ef4bcb696c0","workspaces":[{"id":"projects.rules_binary_toolchain","path":"projects/rules_binary_toolchain","modulePath":"projects/rules_binary_toolchain/MODULE.bazel","moduleName":"rules_binary_toolchain","projections":{"bazelIgnore":true,"rootOverride":true,"docsAggregation":false,"fullCheck":true},"phases":[{"id":"projects.rules_binary_toolchain.check","providerRef":"repository.bazel-operations","commandTemplate":"bazel_agent test //..."}]},{"id":"projects.rules_docs","path":"projects/rules_docs","modulePath":"projects/rules_docs/MODULE.bazel","moduleName":"rules_docs","projections":{"bazelIgnore":true,"rootOverride":true,"docsAggregation":true,"fullCheck":true},"phases":[{"id":"projects.rules_docs.check","providerRef":"repository.bazel-operations","commandTemplate":"bazel_agent test //..."}]},{"id":"projects.rules_docs_gazelle","path":"projects/rules_docs_gazelle","modulePath":"projects/rules_docs_gazelle/MODULE.bazel","moduleName":"rules_docs_gazelle","projections":{"bazelIgnore":true,"rootOverride":true,"docsAggregation":false,"fullCheck":true},"phases":[{"id":"projects.rules_docs_gazelle.check","providerRef":"repository.bazel-operations","commandTemplate":"bazel_agent test //..."}]},{"id":"projects.rules_hugo","path":"projects/rules_hugo","modulePath":"projects/rules_hugo/MODULE.bazel","moduleName":"rules_hugo","projections":{"bazelIgnore":true,"rootOverride":true,"docsAggregation":false,"fullCheck":true},"phases":[{"id":"projects.rules_hugo.check","providerRef":"repository.bazel-operations","commandTemplate":"bazel_agent test //..."}]},{"id":"projects.rules_promptfoo","path":"projects/rules_promptfoo","modulePath":"projects/rules_promptfoo/MODULE.bazel","moduleName":"rules_promptfoo","projections":{"bazelIgnore":true,"rootOverride":true,"docsAggregation":false,"fullCheck":true},"phases":[{"id":"projects.rules_promptfoo.check","providerRef":"repository.bazel-operations","commandTemplate":"bazel_agent test //..."}]},{"id":"projects.rules_promptfoo_gazelle","path":"projects/rules_promptfoo_gazelle","modulePath":"projects/rules_promptfoo_gazelle/MODULE.bazel","moduleName":"rules_promptfoo_gazelle","projections":{"bazelIgnore":true,"rootOverride":true,"docsAggregation":false,"fullCheck":true},"phases":[{"id":"projects.rules_promptfoo_gazelle.check","providerRef":"repository.bazel-operations","commandTemplate":"bazel_agent test //..."}]},{"id":"projects.rules_skill","path":"projects/rules_skill","modulePath":"projects/rules_skill/MODULE.bazel","moduleName":"rules_skill","projections":{"bazelIgnore":true,"rootOverride":true,"docsAggregation":false,"fullCheck":true},"phases":[{"id":"projects.rules_skill.check","providerRef":"repository.bazel-operations","commandTemplate":"bazel_agent test //..."}]},{"id":"projects.rules_skill_gazelle","path":"projects/rules_skill_gazelle","modulePath":"projects/rules_skill_gazelle/MODULE.bazel","moduleName":"rules_skill_gazelle","projections":{"bazelIgnore":true,"rootOverride":true,"docsAggregation":false,"fullCheck":true},"phases":[{"id":"projects.rules_skill_gazelle.check","providerRef":"repository.bazel-operations","commandTemplate":"bazel_agent test //..."}]},{"id":"projects.rules_template","path":"projects/rules_template","modulePath":"projects/rules_template/MODULE.bazel","moduleName":"rules_template","projections":{"bazelIgnore":true,"rootOverride":true,"docsAggregation":false,"fullCheck":true},"phases":[{"id":"projects.rules_template.check","providerRef":"repository.bazel-operations","commandTemplate":"bazel_agent test //..."}]},{"id":"root","path":".","modulePath":"MODULE.bazel","moduleName":"com_alwaldend_src","projections":{"bazelIgnore":false,"rootOverride":false,"docsAggregation":false,"fullCheck":true},"phases":[{"id":"root.check","providerRef":"repository.bazel-operations","commandTemplate":"bazel_agent test //..."}]}]}
+{
+    "schema": "agents.alwaldend.com/catalog/v1alpha1/workspace-check-catalog",
+    "kind": "workspace-check-catalog",
+    "id": "agent-system.workspace-check",
+    "derivationVersion": "1.0.0",
+    "producerRef": "repository.workspace-check-compiler",
+    "sourceRevision": "87a51cd7fadb87ac72737f1ef54eef09",
+    "inputs": [
+        {
+            "path": ".bazelignore",
+            "role": "bazel-ignore",
+            "digest": "sha256:7ccf264ff1d6a96893f59779e23fc8b9752413773650ee4190c30f55c6e295bf"
+        },
+        {
+            "path": "MODULE.bazel",
+            "role": "workspace-module",
+            "digest": "sha256:1374a3d6511563f1f6a6598d78f9ebdc2eebc82223e388741f950e2dc8f0fb2f"
+        },
+        {
+            "path": "projects/agents/skills/full-repo-check/scripts/run_full_repo_check.go",
+            "role": "full-check-script",
+            "digest": "sha256:d947589c104aadf59cae4df8c882a8280cc3ca26b6d4b2c5e8973065ff6715f6"
+        },
+        {
+            "path": "projects/rules_binary_toolchain/MODULE.bazel",
+            "role": "workspace-module",
+            "digest": "sha256:d704acbd1f8e9aa9a7490ad2b695dd992e37b9e663798b294757826a1a41b87e"
+        },
+        {
+            "path": "projects/rules_docs/MODULE.bazel",
+            "role": "workspace-module",
+            "digest": "sha256:ebb3a6adf907ac69a1cf161aac60292c5fff2ec58ff4113c92c86214ae4eece7"
+        },
+        {
+            "path": "projects/rules_docs_gazelle/MODULE.bazel",
+            "role": "workspace-module",
+            "digest": "sha256:bfb836d4250225159b66d813f70f7d3075b50366fec5bb743a6237f856594680"
+        },
+        {
+            "path": "projects/rules_hugo/MODULE.bazel",
+            "role": "workspace-module",
+            "digest": "sha256:78d88abdf0b64f4d854046c4147076956e581b86957235fb9a7bf8fea18ed055"
+        },
+        {
+            "path": "projects/rules_promptfoo/MODULE.bazel",
+            "role": "workspace-module",
+            "digest": "sha256:9191186176747f34f7506ea48b5d8301e0dccbf4294893035e189ee2220f4729"
+        },
+        {
+            "path": "projects/rules_promptfoo_gazelle/MODULE.bazel",
+            "role": "workspace-module",
+            "digest": "sha256:f0c3224c59fcd09e84d2f078f5a7d612b2acc41b0b5265556db4b2432dffe208"
+        },
+        {
+            "path": "projects/rules_skill/MODULE.bazel",
+            "role": "workspace-module",
+            "digest": "sha256:37efd217262efef39a907b0b90b3c1d692568d0dc576e3c9f32a4d6ffec6eb2f"
+        },
+        {
+            "path": "projects/rules_skill_gazelle/MODULE.bazel",
+            "role": "workspace-module",
+            "digest": "sha256:3d7839254cb0ea02222d0f17c260031117ea84c1bc56525d53b4e8007ac880e8"
+        },
+        {
+            "path": "projects/rules_template/MODULE.bazel",
+            "role": "workspace-module",
+            "digest": "sha256:c95a35bea281d2da8332274c8f50dd7c9195b5c48ffd128231a088b556bb02fe"
+        }
+    ],
+    "bounds": {
+        "eligible": 12,
+        "emitted": 12,
+        "unavailable": 0,
+        "maxItems": 1000,
+        "maxInputBytes": 33554432,
+        "maxOutputBytes": 1048576,
+        "truncated": false
+    },
+    "completeness": "complete",
+    "limitations": [],
+    "conflicts": [],
+    "digest": "sha256:40d46b3b913dc607a7c55a9b0b499cd4d500fdc99a779a5b29843ef4bcb696c0",
+    "workspaces": [
+        {
+            "id": "projects.rules_binary_toolchain",
+            "path": "projects/rules_binary_toolchain",
+            "modulePath": "projects/rules_binary_toolchain/MODULE.bazel",
+            "moduleName": "rules_binary_toolchain",
+            "projections": {
+                "bazelIgnore": true,
+                "rootOverride": true,
+                "docsAggregation": false,
+                "fullCheck": true
+            },
+            "phases": [
+                {
+                    "id": "projects.rules_binary_toolchain.check",
+                    "providerRef": "repository.bazel-operations",
+                    "commandTemplate": "bazel_agent test //..."
+                }
+            ]
+        },
+        {
+            "id": "projects.rules_docs",
+            "path": "projects/rules_docs",
+            "modulePath": "projects/rules_docs/MODULE.bazel",
+            "moduleName": "rules_docs",
+            "projections": {
+                "bazelIgnore": true,
+                "rootOverride": true,
+                "docsAggregation": true,
+                "fullCheck": true
+            },
+            "phases": [
+                {
+                    "id": "projects.rules_docs.check",
+                    "providerRef": "repository.bazel-operations",
+                    "commandTemplate": "bazel_agent test //..."
+                }
+            ]
+        },
+        {
+            "id": "projects.rules_docs_gazelle",
+            "path": "projects/rules_docs_gazelle",
+            "modulePath": "projects/rules_docs_gazelle/MODULE.bazel",
+            "moduleName": "rules_docs_gazelle",
+            "projections": {
+                "bazelIgnore": true,
+                "rootOverride": true,
+                "docsAggregation": false,
+                "fullCheck": true
+            },
+            "phases": [
+                {
+                    "id": "projects.rules_docs_gazelle.check",
+                    "providerRef": "repository.bazel-operations",
+                    "commandTemplate": "bazel_agent test //..."
+                }
+            ]
+        },
+        {
+            "id": "projects.rules_hugo",
+            "path": "projects/rules_hugo",
+            "modulePath": "projects/rules_hugo/MODULE.bazel",
+            "moduleName": "rules_hugo",
+            "projections": {
+                "bazelIgnore": true,
+                "rootOverride": true,
+                "docsAggregation": false,
+                "fullCheck": true
+            },
+            "phases": [
+                {
+                    "id": "projects.rules_hugo.check",
+                    "providerRef": "repository.bazel-operations",
+                    "commandTemplate": "bazel_agent test //..."
+                }
+            ]
+        },
+        {
+            "id": "projects.rules_promptfoo",
+            "path": "projects/rules_promptfoo",
+            "modulePath": "projects/rules_promptfoo/MODULE.bazel",
+            "moduleName": "rules_promptfoo",
+            "projections": {
+                "bazelIgnore": true,
+                "rootOverride": true,
+                "docsAggregation": false,
+                "fullCheck": true
+            },
+            "phases": [
+                {
+                    "id": "projects.rules_promptfoo.check",
+                    "providerRef": "repository.bazel-operations",
+                    "commandTemplate": "bazel_agent test //..."
+                }
+            ]
+        },
+        {
+            "id": "projects.rules_promptfoo_gazelle",
+            "path": "projects/rules_promptfoo_gazelle",
+            "modulePath": "projects/rules_promptfoo_gazelle/MODULE.bazel",
+            "moduleName": "rules_promptfoo_gazelle",
+            "projections": {
+                "bazelIgnore": true,
+                "rootOverride": true,
+                "docsAggregation": false,
+                "fullCheck": true
+            },
+            "phases": [
+                {
+                    "id": "projects.rules_promptfoo_gazelle.check",
+                    "providerRef": "repository.bazel-operations",
+                    "commandTemplate": "bazel_agent test //..."
+                }
+            ]
+        },
+        {
+            "id": "projects.rules_skill",
+            "path": "projects/rules_skill",
+            "modulePath": "projects/rules_skill/MODULE.bazel",
+            "moduleName": "rules_skill",
+            "projections": {
+                "bazelIgnore": true,
+                "rootOverride": true,
+                "docsAggregation": false,
+                "fullCheck": true
+            },
+            "phases": [
+                {
+                    "id": "projects.rules_skill.check",
+                    "providerRef": "repository.bazel-operations",
+                    "commandTemplate": "bazel_agent test //..."
+                }
+            ]
+        },
+        {
+            "id": "projects.rules_skill_gazelle",
+            "path": "projects/rules_skill_gazelle",
+            "modulePath": "projects/rules_skill_gazelle/MODULE.bazel",
+            "moduleName": "rules_skill_gazelle",
+            "projections": {
+                "bazelIgnore": true,
+                "rootOverride": true,
+                "docsAggregation": false,
+                "fullCheck": true
+            },
+            "phases": [
+                {
+                    "id": "projects.rules_skill_gazelle.check",
+                    "providerRef": "repository.bazel-operations",
+                    "commandTemplate": "bazel_agent test //..."
+                }
+            ]
+        },
+        {
+            "id": "projects.rules_template",
+            "path": "projects/rules_template",
+            "modulePath": "projects/rules_template/MODULE.bazel",
+            "moduleName": "rules_template",
+            "projections": {
+                "bazelIgnore": true,
+                "rootOverride": true,
+                "docsAggregation": false,
+                "fullCheck": true
+            },
+            "phases": [
+                {
+                    "id": "projects.rules_template.check",
+                    "providerRef": "repository.bazel-operations",
+                    "commandTemplate": "bazel_agent test //..."
+                }
+            ]
+        },
+        {
+            "id": "root",
+            "path": ".",
+            "modulePath": "MODULE.bazel",
+            "moduleName": "com_alwaldend_src",
+            "projections": {
+                "bazelIgnore": false,
+                "rootOverride": false,
+                "docsAggregation": false,
+                "fullCheck": true
+            },
+            "phases": [
+                {
+                    "id": "root.check",
+                    "providerRef": "repository.bazel-operations",
+                    "commandTemplate": "bazel_agent test //..."
+                }
+            ]
+        }
+    ]
+}

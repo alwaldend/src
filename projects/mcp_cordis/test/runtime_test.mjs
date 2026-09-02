@@ -402,7 +402,10 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
 
     const slowApplyMarker = join(runtime.scratchRoot, "slow_apply_started");
     const slowApplyRelease = join(runtime.scratchRoot, "slow_apply_release");
-    const latestApplyMarker = join(runtime.scratchRoot, "latest_apply_started");
+    const latestApplyMarker = join(
+        runtime.scratchRoot,
+        "latest_apply_started",
+    );
     await runtime.define({
         scope: "scratch",
         name: "echo",
@@ -445,7 +448,10 @@ test("standard Cordis modules use native eventual HMR", async (t) => {
         JSON.stringify(beforeOverlapStop),
     );
 
-    const failedApplyMarker = join(runtime.scratchRoot, "failed_apply_started");
+    const failedApplyMarker = join(
+        runtime.scratchRoot,
+        "failed_apply_started",
+    );
     await runtime.define({
         scope: "scratch",
         name: "echo",

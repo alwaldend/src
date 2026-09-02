@@ -27,6 +27,6 @@ fi
 
 binary="$(rlocation "${POLICY_CHECK_RLOCATION:?}")"
 exec "${binary}" \
-	--workspace-root "${workspace}" \
-	--output tools/agents/catalogs/policy.json \
-	--markdown tools/agents/catalogs/policy.md
+    --workspace-root "${workspace}" \
+    --output tools/agents/catalogs/policy.json \
+    --markdown tools/agents/catalogs/policy.md
