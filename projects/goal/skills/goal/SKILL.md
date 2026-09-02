@@ -75,6 +75,14 @@ whenever creating, resuming, inspecting, or validating a record.
 Read [lifecycle-and-evidence.md](references/lifecycle-and-evidence.md) before
 starting an attempt.
 
+Before authoring a candidate, review the goal from its purpose outward. Ask
+what object or outcome is intended, how it is made or used in reality, which
+physical or operational model best represents it, which acceptance failures
+that model implies, and whether alternative representations would test the
+goal more directly. Do not rush into local implementation merely because an
+existing artifact invites editing. If repeated attempts fail, reopen this
+model review before choosing another localized variation.
+
 1. Define observable acceptance criteria and how each will be checked. Mark
    inferred criteria as assumptions. Never weaken the requested outcome to
    make it pass.
