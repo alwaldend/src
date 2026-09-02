@@ -55,9 +55,11 @@ unless they can affect execution or the published interface.
 
 Delivery requires the mandatory quality gates below: the repository quality
 test suite (`bazel_agent test //:repo_quality_test`) and semantic lint of the
-affected targets (`bazel_agent build --config=lint //affected/...`). Treat
-either failure as a publish blocker on the exact candidate head; re-run them
-after any edit that changes the candidate tree.
+affected targets. Treat either failure as a publish blocker on the exact
+candidate head; re-run them after any edit that changes the candidate tree.
+The `prepare` command returns `affected_bazel_labels` derived from the
+receipt's authorized path scope; pass those labels to
+`bazel_agent build --config=lint` for the affected lint gate.
 
 ## GitHub adapter
 
@@ -138,10 +140,11 @@ configuration or weakening transport isolation implicitly.
    `prepare`, and confirm HEAD still equals that exact OID after the checks.
    The repository quality test suite is mandatory: run
    `bazel_agent test //:repo_quality_test` and require it to pass. Semantic
-   lint is also mandatory for the affected targets: run
-   `bazel_agent build --config=lint //affected/...` over every package the
-   change touches and require it to succeed; prefer the narrow affected set
-   over `//...` unless the change spans the repository.
+   lint is also mandatory for the affected targets: use the returned
+   `affected_bazel_labels` from `prepare` and run
+   `bazel_agent build --config=lint <labels>` over every package the change
+   touches; prefer the narrow affected set over `//...` unless the change
+   spans the repository.
    Record that literal OID; never recompute it from mutable `HEAD` when
    publishing. Run checks from a clean checkout of that exact commit. If
    unrelated dirty files could affect a check, use an ignored isolated linked
@@ -176,6 +179,13 @@ The adjacent lock serializes receipt transitions and reads performed by
 cooperating `repo_delivery` processes; stable rechecks detect already-visible
 changes but are not a portable atomic pathname-content compare-and-swap
 against a same-user writer that ignores the lock.
+
+For a git-only workflow, pass `--no-pull-request` to `publish`. The tool
+pushes the feature branch with the same exact-lease gates and skips
+pull-request creation and synchronization. It refuses when a pull request
+already exists for the branch; close it first or use the PR flow. `verify`
+requires review threads to be resolved before delivery when a pull request
+exists.
 
 The tool refetches before pushing. If it exits nonzero with a structured
 `revalidation_required` report, it has rebased the exact candidate in an

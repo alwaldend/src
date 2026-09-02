@@ -159,3 +159,105 @@ func TestDecodeStrictRejectsUnknownAndTrailing(t *testing.T) {
 		t.Fatal("trailing JSON accepted")
 	}
 }
+
+func TestGoalCatalogRejectsInvalidContinuation(t *testing.T) {
+	base := goalCatalogFixture()
+	if base.Goals[0].Identity == nil || base.Goals[0].CoarseStatus == nil {
+		t.Fatal("fixture goal must be available")
+	}
+	base.Goals[0].Continuation = &GoalContinuation{
+		ActiveAttempt: "resume-attempt",
+		NextAction:    "Continue.",
+	}
+	if err := base.Validate(); err != nil {
+		t.Fatalf("valid continuation rejected: %v", err)
+	}
+
+	for _, test := range []struct {
+		name   string
+		mutate func(*GoalCatalog)
+	}{
+		{
+			name: "continuation on closed goal",
+			mutate: func(catalog *GoalCatalog) {
+				catalog.Goals[0].CoarseStatus.Outcome = "achieved"
+			},
+		},
+		{
+			name: "continuation without active attempt",
+			mutate: func(catalog *GoalCatalog) {
+				catalog.Goals[0].Continuation.ActiveAttempt = ""
+			},
+		},
+		{
+			name: "continuation on unavailable goal",
+			mutate: func(catalog *GoalCatalog) {
+				catalog.Goals[0].Availability = "unavailable"
+				catalog.Goals[0].Reason = "invalid record"
+				catalog.Goals[0].Identity = nil
+				catalog.Goals[0].CoarseStatus = nil
+			},
+		},
+		{
+			name: "unsorted affected criteria",
+			mutate: func(catalog *GoalCatalog) {
+				catalog.Goals[0].Continuation.AffectedCriteria = []string{
+					"criterion-002", "criterion-001",
+				}
+			},
+		},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			catalog := base
+			catalog.Goals = append([]GoalRecord(nil), base.Goals...)
+			if test.name == "unsorted affected criteria" {
+				catalog.Goals[0].Continuation = &GoalContinuation{
+					ActiveAttempt:    "resume-attempt",
+					AffectedCriteria: []string{"criterion-002", "criterion-001"},
+				}
+			} else {
+				test.mutate(&catalog)
+			}
+			if err := catalog.Validate(); err == nil {
+				t.Fatalf("invalid continuation was accepted")
+			}
+		})
+	}
+}
+
+func goalCatalogFixture() GoalCatalog {
+	return GoalCatalog{
+		CatalogEnvelope: CatalogEnvelope{
+			Schema:            APIVersion + "/" + KindGoalCatalog,
+			Kind:              KindGoalCatalog,
+			ID:                "agent-system.goal",
+			DerivationVersion: "1.0.0",
+			SourceRevision:    "0123456789abcdef0123456789abcdef01234567",
+			Inputs: []CatalogInput{{
+				Path:   "projects/agents/goals/example/goal.yaml",
+				Role:   "goal-manifest",
+				Digest: "sha256:" + strings.Repeat("1", 64),
+			}},
+			Bounds: CatalogBounds{
+				Eligible: 1, Emitted: 1, Unavailable: 0,
+				MaxItems: 1000, MaxInputBytes: 1 << 20, MaxOutputBytes: 1 << 20,
+			},
+			Completeness: CompletenessComplete,
+			Limitations:  []string{},
+			Conflicts:    []CatalogConflict{},
+		},
+		Goals: []GoalRecord{{
+			CandidatePath: "projects/agents/goals/example",
+			Availability:  "available",
+			Identity: &GoalCoarseIdentity{
+				Name:      "example",
+				OwnerRoot: "projects/agents",
+				Scope:     "project",
+			},
+			CoarseStatus: &GoalCoarseStatus{
+				Outcome:   "open",
+				Execution: "active",
+			},
+		}},
+	}
+}

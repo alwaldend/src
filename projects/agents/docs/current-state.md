@@ -178,12 +178,22 @@ allowed effects, expected cost, and reusable evidence.
   a repository catalog
   ([`projects/goal/cmd/goal/README.md`](../../goal/cmd/goal/)).
 - Goal resources prove structural identity, concurrency, criteria revision,
-  and artifact integrity. Stable defect, exact external subject, regression
-  set, dominant failure, and next action remain primarily in Markdown.
-- Delivery proves exact prepared/current Git state but receives no attested
-  validation set. Versioning creates guarded local release refs, while remote
-  tag publication lies outside both owned workflows. No traversable record
-  joins review finding, disposition, fix, regression, and delivered result.
+  and artifact integrity, and the repository-wide goal catalog provides
+  globally unambiguous owner-root identities with a bounded continuation
+  packet for every open goal. Stable defect, exact external subject,
+  regression set, dominant failure, and next action are structured resume
+  fields in addition to Markdown explanation.
+- Delivery refuses a caller-asserted head that does not match the exact
+  receipt-bound prepared candidate, and it requires the repository quality
+  gates before publish. Review replies join the durable review finding to
+  goal or delivery identity and a stable defect through validated durable
+  references.
+- Versioning owns a typed `{version, channel, commit, tree_state}` handoff to
+  release. Formal release/tag publication is a separately authorized,
+  verified operation: a reviewed deterministic `ReleaseRefPlan` is consumed by
+  a provider-neutral guarded publisher that requires a distinct
+  `release-refs` lease, atomic multi-ref publication where supported, and
+  remote verification before emitting a `ReleaseRefReceipt`.
 
 ## What each current proof establishes
 
@@ -268,21 +278,23 @@ the main Node process and ambient runtime capabilities. The README correctly
 states that this is a reliability boundary, not a security sandbox
 ([`projects/mcp_cordis/README.md`](../../mcp_cordis/), lines 99-128).
 
-### Durable goals are integrity-rich but system-poor
+### Durable goals are integrity-rich but workflow-poor
 
-Owner-local storage preserves autonomy, but there is no repository-wide goal
-identity or discovery projection. A fresh agent must know a goals root before
-it can list or analyze records. The durable schema cannot directly answer all
-continuation questions required by its own skill protocol, including the
-stable recurring defect, stale regression evidence, exact delivered subject,
-or highest-leverage next action.
+The repository-wide goal catalog now provides one discovery surface with a
+bounded continuation packet, so a fresh agent can find every maintained open
+goal and resume one without free-form archaeology. Owner-local storage still
+preserves autonomy, and the catalog is a projection that must be regenerated
+after record edits. Resume fields are advisory inputs; their acceptance
+criteria and evidence provenance remain in the goal records.
 
-### Delivery and learning lose typed causal links
+### Delivery and learning still miss full causal closure
 
-Delivery and goals do not share a validation or subject receipt. Rewrite
-authority is split between rebase and delivery; version, remote refs, release
-snapshot, and deployed artifact do not form one typed chain. Review disposition
-and its causal regression link are not queryable, so repeated friction does not
+Delivery requires a receipt-bound exact candidate plus the repository quality
+gates, and review replies join durable goal or delivery identity and a stable
+defect. Versioning owns a typed release-ref plan and guarded publisher.
+Rewrite authority remains split between rebase and delivery, and there is
+still no single traversable chain that ties a deployed artifact to its
+release-ref receipt and deployment observation; repeated friction does not
 automatically become a routing case, skill revision, test, or retirement.
 
 ### Topology and context costs recur

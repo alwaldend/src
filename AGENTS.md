@@ -20,6 +20,15 @@ only after it becomes a stable, reviewable regression.
 Do not attach a token budget to a goal or task unless the user explicitly
 tells you to do so.
 
+## Immediate retries are forbidden
+
+Do not repeat the same tool call, query, or diagnostic more than once
+without changing inputs or strategy. When a command fails, read the error,
+adjust the approach, and proceed. When a question has been answered, act on
+the answer rather than re-verifying it. If two attempts fail with the same
+class of error, stop, reconsider the plan, and try a materially different
+method or ask the user.
+
 The canonical repository-agent documents are:
 
 - [current state](projects/agents/docs/current-state.md), an evidence snapshot;
@@ -254,10 +263,7 @@ separate download; read `tools/ast-grep/binary_toolchain.json` for the pinned
 version and follow the `ast-grep` skill for pattern validation and safe
 rewrites.
 
-Do not retry the same futile search or diagnostic more than once. After a
-second unsuccessful attempt, change the hypothesis, representation, or
-verification method instead of repeating it. Preserve the failure evidence
-and use a stable name for recurring defects.
+Preserve failure evidence and use a stable name for recurring defects.
 
 ## Repository map and boundaries
 
@@ -330,7 +336,10 @@ Follow `.editorconfig` and the closest existing files:
   the project metadata supports Python 3.10+, while some tool configurations
   deliberately target Python 3.9 compatibility; do not casually synchronize
   those values.
-- Never add broad formatting churn to a focused change.
+- Formatters are always right. If the repo-wide formatter changes files
+  outside the focused change, commit those changes in the same candidate.
+  The `repo_quality_test` gate validates the whole tree, so stale formatting
+  anywhere blocks delivery until the formatter output is committed.
 - Do not use emojis in any user-facing content: documentation, code comments,
   commit messages, pull requests, issues, chat or session messages, and other
   user-facing artifacts. Exceptions only when an emoji is required by the
@@ -345,3 +354,16 @@ black, mypy) for the files changed and the repository `//:buildifier_test`
 for BUILD or `.bzl` changes. The checked-in pre-commit configuration supplies
 repository hygiene checks; installing `//:write_git_hooks` is optional and
 agents should still run the relevant checks explicitly.
+
+## Immediate retries and settled facts
+
+- Never immediately retry a rejected, rate-limited, or failed escalated
+  operation. One retry after a real delay at most, then stop and change the
+  approach or ask; the rejection usually means the approach is wrong.
+- Do not re-run a command whose result is already settled. Git history, help
+  output, and prior results are immutable within a task; record the conclusion
+  in the task's `out/<task>/notes.md` (or plan) after the first query and move
+  to the next decision.
+- A repeated identical query is a loop signal: the next action must be a
+  decision, a write, or a state-changing step, never another confirmation.
+  After an interrupt, resume at the exact next write; do not re-explore.

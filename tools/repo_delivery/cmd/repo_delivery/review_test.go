@@ -2908,6 +2908,9 @@ func newReviewReceiptFixture(t *testing.T) reviewReceiptFixture {
 		priorDigest,
 		body,
 		inspection,
+		"",
+		"",
+		"",
 	)
 	if err != nil {
 		t.Fatalf("newReviewReplyReceipt() error = %v", err)

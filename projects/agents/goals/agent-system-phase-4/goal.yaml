@@ -1,0 +1,43 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: Goal
+metadata:
+  name: agent-system-phase-4
+  resourceVersion: "5"
+  generation: 2
+  creationTimestamp: "2026-09-02T11:29:19.234636468Z"
+  annotations:
+    goals.alwaldend.com/local-owner-root: projects/agents
+spec:
+  title: Join durable work, delivery, review, version, and release
+  scope: project
+  retention:
+    policy: durable
+  relationships:
+    dependsOnGoalRefs: []
+    supersedesGoalRefs:
+    - name: agent-system-phase-3
+status:
+  lifecycleGeneration: 2
+  outcome: achieved
+  execution: paused
+  activeAttemptID: ""
+  acceptedAttemptID: phase4-implementation
+  acceptedResultDigest: sha256:547fd397868ac147258c4c004f33a8596a7ffebce2d43d968c8b289f83bce633
+  criteriaRevision: 1
+  promotion:
+    sourceScope: ""
+    sourceGeneration: 0
+    sourceLifecycleGeneration: 0
+    sourceCriteriaRevision: 0
+    sourceCriteriaDigest: ""
+    sourceStateDigest: ""
+    sourceDigest: ""
+    promotedAt: ""
+  migration:
+    sourceFormat: unversioned
+    sourcePath: out/phase4/goals-src/agent-system-phase-4
+    sourceDigest: sha256:64dbd4f53362e73a8205e0b0ca156b481ada91ae00b9afae93f3ba29e53540a0
+    mappingVersion: v1
+    extractionMode: overridden
+    migratedAt: "2026-09-02T11:29:19.234636468Z"
+  observedAt: "2026-09-02T15:11:41.667739088Z"

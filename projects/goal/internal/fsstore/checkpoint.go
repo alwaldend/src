@@ -440,6 +440,8 @@ func (s *Store) buildAttemptTree(
 		if err != nil {
 			return nil, err
 		}
+		affected := sortedUniqueStrings(options.AffectedCriteria)
+		regression := sortedUniqueStrings(options.RegressionRefs)
 		tree.Manifest = AttemptManifest{
 			APIVersion: goalAPIVersion,
 			Kind:       "GoalAttempt",
@@ -457,6 +459,17 @@ func (s *Store) buildAttemptTree(
 				CriteriaDigest:      criteriaDigest,
 				GoalStateDigest:     stateDigest,
 				WorkType:            workType,
+				StableDefect:        options.StableDefect,
+				Hypothesis:          options.Hypothesis,
+				Subject:             options.Subject,
+				AffectedCriteria:    affected,
+				RegressionRefs:      regression,
+				PriorAttemptID:      options.PriorAttemptID,
+				DominantFailure:     options.DominantFailure,
+				MeasurableDelta:     options.MeasurableDelta,
+				NextAction:          options.NextAction,
+				Blocker:             options.Blocker,
+				ResumeCondition:     options.ResumeCondition,
 			},
 			Status: AttemptStatus{State: "open", ObservedAt: now},
 		}
@@ -563,6 +576,18 @@ func (s *Store) buildAttemptTree(
 		return nil, err
 	}
 	return tree, nil
+}
+
+func sortedUniqueStrings(values []string) []string {
+	sorted := append([]string(nil), values...)
+	sort.Strings(sorted)
+	result := sorted[:0]
+	for _, value := range sorted {
+		if len(result) == 0 || result[len(result)-1] != value {
+			result = append(result, value)
+		}
+	}
+	return result
 }
 
 func artifactManifestForTree(tree attemptTree) ArtifactManifest {

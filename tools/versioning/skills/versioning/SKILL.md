@@ -139,3 +139,34 @@ preserves its exit code. It does not make that command read-only or authorize
 its side effects. Apply the normal authorization rules for `run`, deployment,
 publishing, infrastructure, and any target that changes local or external
 state.
+
+## Publish reviewed release refs
+
+Generate a deterministic, reviewed release-ref plan from the resolved version
+state. The plan is not an authorization and never moves an existing immutable
+tag:
+
+```sh
+bazel_agent run //tools/versioning/cmd/versioning -- \
+  release-plan --plan out/delivery/release-plan.json
+```
+
+The plan binds the exact version/channel/commit/tree state, the target refs
+(nightly tag only, or release branch plus patch tag), the expected remote
+preconditions, and the atomicity requirement. Review it before consumption.
+
+Publish the exact reviewed plan only with explicit release scope:
+
+```sh
+bazel_agent run //tools/versioning/cmd/versioning -- \
+  release-publish --plan out/delivery/release-plan.json \
+  --receipt out/delivery/release-ref-receipt.json
+```
+
+The guarded publisher fetches expected remote state, acquires the distinct
+`release-refs` lease, publishes with atomic multi-ref support when required,
+and verifies the remote before emitting a `ReleaseRefReceipt`. A remote that
+cannot guarantee atomic publication, an occupied lease, or any observed
+mismatch is an explicit refusal or unknown, never generic success. Keep
+versioning, delivery, release, review, and goals as separate authorities;
+each consumes typed references only.

@@ -21,12 +21,13 @@ import (
 )
 
 const (
-	preparationReceiptSchema = "repo_delivery/preparation/v1"
-	receiptFileLimit         = 256 * 1024
-	receiptRevisionBytes     = 32
-	scopeModePaths           = "paths"
-	scopeModeUseIndex        = "use_index"
-	scopeModeMessageOnly     = "message_only"
+	preparationReceiptSchema   = "repo_delivery/preparation/v1"
+	rewriteAuthorizationSchema = "repo_delivery/rewrite_authorization/v1"
+	receiptFileLimit           = 256 * 1024
+	receiptRevisionBytes       = 32
+	scopeModePaths             = "paths"
+	scopeModeUseIndex          = "use_index"
+	scopeModeMessageOnly       = "message_only"
 )
 
 type refExpectation struct {
@@ -55,6 +56,86 @@ type aggregateScope struct {
 	AggregatePaths  []string `json:"aggregate_paths"`
 }
 
+// rewriteAuthorization is a typed, non-authorizing synchronization record
+// for an explicitly authorized remote feature-ref replacement. It proves the
+// tool observed an exact old remote OID and an exact replacement head OID
+// within one provider-owned repository, alongside the task scope and any
+// source receipts that established ownership. It never contains credentials
+// or remote endpoints; the far ends are identified by digest.
+type rewriteAuthorization struct {
+	Schema                string           `json:"schema"`
+	IssuedAt              string           `json:"issued_at"`
+	RepositoryFingerprint string           `json:"repository_fingerprint"`
+	RemoteRepository      remoteRepository `json:"remote_repository"`
+	Provider              string           `json:"provider"`
+	OldRemoteOID          string           `json:"old_remote_oid"`
+	NewHeadOID            string           `json:"new_head_oid"`
+	OwnerRoot             string           `json:"owner_root"`
+	TaskPaths             []string         `json:"task_paths"`
+	SourceReceiptDigest   string           `json:"source_receipt_digest,omitempty"`
+}
+
+func (a rewriteAuthorization) validate() error {
+	if a.Schema != rewriteAuthorizationSchema {
+		return fmt.Errorf(
+			"unsupported rewrite authorization schema %q",
+			a.Schema,
+		)
+	}
+	if _, err := parseCanonicalReviewReceiptTime(
+		"issued_at",
+		a.IssuedAt,
+	); err != nil {
+		return err
+	}
+	if !validSHA256Digest(a.RepositoryFingerprint) {
+		return fmt.Errorf(
+			"rewrite authorization has an invalid repository fingerprint",
+		)
+	}
+	if a.RemoteRepository.Host == "" || a.RemoteRepository.Owner == "" ||
+		a.RemoteRepository.Name == "" {
+		return fmt.Errorf(
+			"rewrite authorization has incomplete provider identity",
+		)
+	}
+	if a.Provider == "" {
+		return fmt.Errorf("rewrite authorization has an empty provider")
+	}
+	if !isObjectID(a.OldRemoteOID) || !isObjectID(a.NewHeadOID) {
+		return fmt.Errorf(
+			"rewrite authorization must identify exact old and new OIDs",
+		)
+	}
+	if strings.TrimSpace(a.OwnerRoot) == "" ||
+		len(a.OwnerRoot) > 253 {
+		return fmt.Errorf(
+			"rewrite authorization has an invalid owner root",
+		)
+	}
+	if len(a.TaskPaths) == 0 || !sortedUniqueStrings(a.TaskPaths) {
+		return fmt.Errorf(
+			"rewrite authorization task paths must be sorted and unique",
+		)
+	}
+	for _, path := range a.TaskPaths {
+		validated, err := validateTaskPaths([]string{path})
+		if err != nil || len(validated) != 1 || validated[0] != path {
+			return fmt.Errorf(
+				"rewrite authorization contains an invalid task path %q",
+				path,
+			)
+		}
+	}
+	if a.SourceReceiptDigest != "" &&
+		!validSHA256Digest(a.SourceReceiptDigest) {
+		return fmt.Errorf(
+			"rewrite authorization has an invalid source receipt digest",
+		)
+	}
+	return nil
+}
+
 type preparationReceipt struct {
 	Schema                string                 `json:"schema"`
 	RevisionNonce         string                 `json:"revision_nonce"`
@@ -72,6 +153,7 @@ type preparationReceipt struct {
 	ExpectedRemoteHead    refExpectation         `json:"expected_remote_head"`
 	ExpectedPullRequest   pullRequestExpectation `json:"expected_pull_request"`
 	Scope                 aggregateScope         `json:"scope"`
+	RewriteAuthorization  *rewriteAuthorization  `json:"rewrite_authorization,omitempty"`
 }
 
 type receiptPullRequestState string
@@ -438,6 +520,26 @@ func (r preparationReceipt) validate() error {
 	}
 	if err := r.ExpectedPullRequest.validate(); err != nil {
 		return fmt.Errorf("invalid pull-request expectation: %w", err)
+	}
+	if r.RewriteAuthorization != nil {
+		if err := r.RewriteAuthorization.validate(); err != nil {
+			return fmt.Errorf("invalid rewrite authorization: %w", err)
+		}
+		if !validSHA256Digest(r.RepositoryFingerprint) ||
+			r.RewriteAuthorization.RepositoryFingerprint !=
+				r.RepositoryFingerprint {
+			return fmt.Errorf(
+				"rewrite authorization belongs to a different repository",
+			)
+		}
+		if !sameRemoteRepository(
+			r.RemoteRepository,
+			r.RewriteAuthorization.RemoteRepository,
+		) {
+			return fmt.Errorf(
+				"rewrite authorization belongs to a different provider repository",
+			)
+		}
 	}
 	return r.Scope.validate()
 }
@@ -965,6 +1067,61 @@ func (d *delivery) receiptPath(
 	return absolute, nil
 }
 
+// writeAtomicIgnoredJSON validates the ignored task output path and installs
+// the JSON value atomically with restrictive 0600 permissions. It is used for
+// local typed receipt files that are never treated as credentials.
+func (d *delivery) writeAtomicIgnoredJSON(
+	ctx context.Context,
+	path string,
+	description string,
+	value any,
+) error {
+	absolute, err := d.receiptPath(ctx, path, false)
+	if err != nil {
+		return err
+	}
+	contents, err := json.MarshalIndent(value, "", "  ")
+	if err != nil {
+		return fmt.Errorf("encode %s: %w", description, err)
+	}
+	contents = append(contents, '\n')
+	if len(contents) > receiptFileLimit {
+		return fmt.Errorf("%s exceeds 256 KiB", description)
+	}
+	temporary, err := os.CreateTemp(
+		filepath.Dir(absolute),
+		"."+filepath.Base(absolute)+".tmp-",
+	)
+	if err != nil {
+		return fmt.Errorf("create atomic %s: %w", description, err)
+	}
+	temporaryPath := temporary.Name()
+	cleanup := true
+	defer func() {
+		_ = temporary.Close()
+		if cleanup {
+			_ = os.Remove(temporaryPath)
+		}
+	}()
+	if err := temporary.Chmod(0o600); err != nil {
+		return fmt.Errorf("set %s permissions: %w", description, err)
+	}
+	if _, err := temporary.Write(contents); err != nil {
+		return fmt.Errorf("write %s: %w", description, err)
+	}
+	if err := temporary.Sync(); err != nil {
+		return fmt.Errorf("sync %s: %w", description, err)
+	}
+	if err := temporary.Close(); err != nil {
+		return fmt.Errorf("close %s: %w", description, err)
+	}
+	if err := os.Rename(temporaryPath, absolute); err != nil {
+		return fmt.Errorf("install %s atomically: %w", description, err)
+	}
+	cleanup = false
+	return nil
+}
+
 type receiptFileVersion struct {
 	present  bool
 	contents []byte
@@ -1292,7 +1449,8 @@ func (t *receiptTransaction) writeWithDirectorySync(
 		prior, decodeErr := decodePreparationReceipt(t.version.contents)
 		if decodeErr == nil && prior.RevisionNonce == receipt.RevisionNonce {
 			return fmt.Errorf(
-				"preparation receipt update must use a fresh revision nonce",
+				"preparation receipt update must use a fresh revision nonce; " +
+					"delete the existing receipt file and re-run prepare",
 			)
 		}
 	}

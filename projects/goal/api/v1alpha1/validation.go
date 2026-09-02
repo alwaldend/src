@@ -14,6 +14,9 @@ const (
 	MaxTitleBytes                 = 200
 	MaxStatementBytes             = 4096
 	MaxPublicationFiles           = 128
+	MaxResumeFieldBytes           = 4096
+	MaxAffectedCriteria           = 256
+	MaxRegressionRefs             = 256
 )
 
 var (
@@ -231,6 +234,9 @@ func (a GoalAttempt) ValidateForGoal(goal Goal) error {
 			a.Spec.WorkType,
 		)
 	}
+	if err := validateAttemptResumeSpec(a.Spec); err != nil {
+		return err
+	}
 	if !oneOf(a.Status.State, "open", "closed") {
 		return fmt.Errorf("attempt status.state must be open or closed")
 	}
@@ -257,6 +263,94 @@ func (a GoalAttempt) ValidateForGoal(goal Goal) error {
 		"attempt.status.observedAt",
 		a.Status.ObservedAt,
 	)
+}
+
+// validateAttemptResumeSpec checks the optional structured resume fields.
+// They are advisory inputs, not acceptance evidence: a closed attempt may
+// omit them entirely. When present, prose fields must be trimmed, bounded,
+// and free of NUL; identifiers must be portable record IDs; lists must be
+// unique, sorted, and bounded.
+func validateAttemptResumeSpec(spec AttemptSpec) error {
+	for _, field := range []struct {
+		name  string
+		value string
+	}{
+		{"stableDefect", spec.StableDefect},
+		{"hypothesis", spec.Hypothesis},
+		{"subject", spec.Subject},
+		{"dominantFailure", spec.DominantFailure},
+		{"measurableDelta", spec.MeasurableDelta},
+		{"nextAction", spec.NextAction},
+		{"blocker", spec.Blocker},
+		{"resumeCondition", spec.ResumeCondition},
+	} {
+		value := field.value
+		if value == "" {
+			continue
+		}
+		if strings.TrimSpace(value) != value {
+			return fmt.Errorf(
+				"attempt spec.%s must be trimmed",
+				field.name,
+			)
+		}
+		if len(value) > MaxResumeFieldBytes {
+			return fmt.Errorf(
+				"attempt spec.%s exceeds %d bytes",
+				field.name,
+				MaxResumeFieldBytes,
+			)
+		}
+		if strings.ContainsRune(value, '\x00') {
+			return fmt.Errorf(
+				"attempt spec.%s contains a NUL byte",
+				field.name,
+			)
+		}
+	}
+	if spec.PriorAttemptID != "" {
+		if err := ValidateRecordID(
+			"attempt spec.priorAttemptID",
+			spec.PriorAttemptID,
+		); err != nil {
+			return err
+		}
+	}
+	if err := validateUniqueSortedIDs(
+		"attempt spec.affectedCriteria",
+		spec.AffectedCriteria,
+		MaxAffectedCriteria,
+	); err != nil {
+		return err
+	}
+	if err := validateUniqueSortedIDs(
+		"attempt spec.regressionRefs",
+		spec.RegressionRefs,
+		MaxRegressionRefs,
+	); err != nil {
+		return err
+	}
+	return nil
+}
+
+func validateUniqueSortedIDs(field string, values []string, maximum int) error {
+	if len(values) > maximum {
+		return fmt.Errorf("%s cardinality exceeds %d", field, maximum)
+	}
+	previous := ""
+	for _, value := range values {
+		if err := ValidateRecordID(field, value); err != nil {
+			return err
+		}
+		if value <= previous {
+			return fmt.Errorf(
+				"%s must be unique and sorted",
+				field,
+			)
+		}
+		previous = value
+	}
+	return nil
 }
 
 // Validate checks the portable session binding. Filesystem annotations are

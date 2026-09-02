@@ -283,6 +283,25 @@ type GoalCoarseStatus struct {
 	Execution string `json:"execution"`
 }
 
+// GoalContinuation is the bounded resume projection for an open goal. It
+// carries the exact structured continuation state a fresh agent needs to
+// resume without free-form archaeology. It never embeds plan, result, or
+// evidence bytes; those live only in the goal record.
+type GoalContinuation struct {
+	ActiveAttempt    string   `json:"activeAttempt,omitempty"`
+	StableDefect     string   `json:"stableDefect,omitempty"`
+	Hypothesis       string   `json:"hypothesis,omitempty"`
+	Subject          string   `json:"subject,omitempty"`
+	AffectedCriteria []string `json:"affectedCriteria,omitempty"`
+	RegressionRefs   []string `json:"regressionRefs,omitempty"`
+	PriorAttemptID   string   `json:"priorAttemptID,omitempty"`
+	DominantFailure  string   `json:"dominantFailure,omitempty"`
+	MeasurableDelta  string   `json:"measurableDelta,omitempty"`
+	NextAction       string   `json:"nextAction,omitempty"`
+	Blocker          string   `json:"blocker,omitempty"`
+	ResumeCondition  string   `json:"resumeCondition,omitempty"`
+}
+
 // GoalRecord is one eligible goal directory projection.
 type GoalRecord struct {
 	CandidatePath string              `json:"candidatePath"`
@@ -290,6 +309,7 @@ type GoalRecord struct {
 	Reason        string              `json:"reason,omitempty"`
 	Identity      *GoalCoarseIdentity `json:"identity,omitempty"`
 	CoarseStatus  *GoalCoarseStatus   `json:"coarseStatus,omitempty"`
+	Continuation  *GoalContinuation   `json:"continuation,omitempty"`
 }
 
 // GoalCatalog is the bounded goal projection over the registered owner-local
@@ -330,9 +350,70 @@ func (catalog GoalCatalog) Validate() error {
 			return fmt.Errorf("unavailable goal %s lacks a reason",
 				goal.CandidatePath)
 		}
+		if goal.Continuation != nil && !needsIdentity {
+			return fmt.Errorf("unavailable goal %s carries a continuation",
+				goal.CandidatePath)
+		}
+		if goal.Continuation != nil {
+			if goal.CoarseStatus == nil ||
+				goal.CoarseStatus.Outcome != "open" {
+				return fmt.Errorf("goal %s carries a continuation without open outcome",
+					goal.CandidatePath)
+			}
+			if err := validateGoalContinuation(*goal.Continuation); err != nil {
+				return fmt.Errorf("goal %s: %w", goal.CandidatePath, err)
+			}
+		}
 		itemIDs = append(itemIDs, "goal."+goal.CandidatePath)
 	}
 	return catalog.CatalogEnvelope.Validate(itemIDs)
+}
+
+func validateGoalContinuation(continuation GoalContinuation) error {
+	if continuation.ActiveAttempt == "" {
+		return fmt.Errorf("continuation lacks an active attempt")
+	}
+	for _, field := range []struct {
+		name  string
+		value string
+	}{
+		{"stableDefect", continuation.StableDefect},
+		{"hypothesis", continuation.Hypothesis},
+		{"subject", continuation.Subject},
+		{"dominantFailure", continuation.DominantFailure},
+		{"measurableDelta", continuation.MeasurableDelta},
+		{"nextAction", continuation.NextAction},
+		{"blocker", continuation.Blocker},
+		{"resumeCondition", continuation.ResumeCondition},
+	} {
+		value := field.value
+		if value == "" || len(value) <= 4096 {
+			continue
+		}
+		return fmt.Errorf(
+			"continuation %s exceeds 4096 bytes",
+			field.name,
+		)
+	}
+	for _, field := range []struct {
+		name   string
+		values []string
+	}{
+		{"affectedCriteria", continuation.AffectedCriteria},
+		{"regressionRefs", continuation.RegressionRefs},
+	} {
+		previous := ""
+		for _, value := range field.values {
+			if value <= previous || len(value) > 64 {
+				return fmt.Errorf(
+					"continuation %s must be unique and sorted",
+					field.name,
+				)
+			}
+			previous = value
+		}
+	}
+	return nil
 }
 
 // ItemIDs returns the sorted set-like identity list for a goal catalog.

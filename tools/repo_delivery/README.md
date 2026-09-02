@@ -47,6 +47,12 @@ bazel_agent run //tools/repo_delivery -- verify \
   --receipt-file out/task/prepare.json
 ```
 
+Remote rewrites use `rewrite-authorize` to write a typed, non-authorizing
+authorization receipt (old remote OID, new head OID, owner root, task paths,
+provider ownership), then `prepare --rewrite-authorization <file>` instead of
+raw `--replace-remote` handoff. Review replies accept `--goal-ref`,
+`--delivery-ref`, and `--defect-id` durable join references.
+
 `prepare` refuses a divergent remote feature tip by default. Use
 `--replace-remote <literal-inspect.remote_head_oid>` only after the
 `git-rebase-remote` workflow has preserved that exact old tip and established

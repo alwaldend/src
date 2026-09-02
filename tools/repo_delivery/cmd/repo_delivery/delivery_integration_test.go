@@ -44,7 +44,7 @@ func (f *integrationForge) InspectReviews(
 	remoteRepository,
 	pullRequest,
 ) (*reviewInspection, error) {
-	return nil, errors.New("unexpected review inspection")
+	return &reviewInspection{}, nil
 }
 
 func (f *integrationForge) ReplyToReviewThread(

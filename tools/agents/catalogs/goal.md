@@ -5,9 +5,9 @@
 - ID: `agent-system.goal`
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/goal-catalog`
 - Derivation: `1.0.0`
-- Source revision: `ba0cd7b71009199143d4a40d22b9faa1`
+- Source revision: `66c291220b48b7f7cdc16a1b4dc2cfd3`
 - Completeness: `complete`
-- JSON digest: `sha256:bc2e09f87ac6669ed6210cd24ea6bf4bc7a79afacbf97aa16e167a7a2a805b73`
+- JSON digest: `sha256:603aec973771c5b1d9463ff962dcd16d24f74898d02dafacc835e191af76add2`
 
 ## Goals
 
@@ -25,6 +25,12 @@
   - Execution: `paused`
 - `projects/agents/goals/agent-system-phase-3`: available
   - Name: `agent-system-phase-3`
+  - Owner root: `projects/agents`
+  - Scope: `project`
+  - Outcome: `achieved`
+  - Execution: `paused`
+- `projects/agents/goals/agent-system-phase-4`: available
+  - Name: `agent-system-phase-4`
   - Owner root: `projects/agents`
   - Scope: `project`
   - Outcome: `achieved`
