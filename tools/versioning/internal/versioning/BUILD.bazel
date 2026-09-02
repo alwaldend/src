@@ -4,6 +4,8 @@ go_library(
     name = "versioning",
     srcs = [
         "git.go",
+        "releaseplan.go",
+        "releasepublish.go",
         "version.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/versioning/internal/versioning",
@@ -15,6 +17,8 @@ go_test(
     size = "small",
     srcs = [
         "git_integration_test.go",
+        "releaseplan_test.go",
+        "releasepublish_test.go",
         "version_test.go",
     ],
     embed = [":versioning"],

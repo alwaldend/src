@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -42,6 +43,8 @@ func TestEverySubcommandHelpPrintsUsageAndSucceeds(t *testing.T) {
 		"nightly-tag",
 		"release-start",
 		"release-tag",
+		"release-plan",
+		"release-publish",
 		"bazel-status",
 		"bazel",
 	}
@@ -64,10 +67,12 @@ func TestEverySubcommandHelpPrintsUsageAndSucceeds(t *testing.T) {
 
 func TestSubcommandHelpAfterOptionsPrintsUsageAndSucceeds(t *testing.T) {
 	tests := map[string][]string{
-		"show":          {"--format=json"},
-		"nightly-tag":   {"--date=2026-08-30", "--dry-run"},
-		"release-start": {"--date=2026-08-30", "--switch=false"},
-		"release-tag":   {"--dry-run"},
+		"show":            {"--format=json"},
+		"nightly-tag":     {"--date=2026-08-30", "--dry-run"},
+		"release-start":   {"--date=2026-08-30", "--switch=false"},
+		"release-tag":     {"--dry-run"},
+		"release-plan":    {"--plan=out/plan.json"},
+		"release-publish": {"--plan=out/plan.json", "--receipt=out/receipt.json"},
 	}
 	for command, options := range tests {
 		args := append([]string{command}, options...)
@@ -167,4 +172,88 @@ func TestLaunchBazelPreservesChildExitCode(t *testing.T) {
 	if got := processExitCode(err); got != 7 {
 		t.Fatalf("processExitCode(launchBazel error) = %d, want 7: %v", got, err)
 	}
+}
+
+func TestReleasePlanWritesReviewedJSON(t *testing.T) {
+	directory := filepath.Join(t.TempDir(), "repo")
+	if err := os.MkdirAll(directory, 0o755); err != nil {
+		t.Fatal(err)
+	}
+	runTestGit(t, directory, "init", "--initial-branch=master")
+	runTestGit(t, directory, "config", "user.name", "Versioning Test")
+	runTestGit(t, directory, "config", "user.email", "versioning@example.invalid")
+	runTestGit(t, directory, "commit", "--allow-empty", "-m", "base")
+	runTestGit(t, directory, "tag", "v2026.35.0-nightly.20260830")
+	var output bytes.Buffer
+	if err := execute([]string{
+		"--repo", directory,
+		"release-plan",
+		"--plan", filepath.Join(directory, "out", "plan.json"),
+	}, func() time.Time {
+		return time.Date(2026, time.August, 30, 0, 0, 0, 0, time.UTC)
+	}, &output); err != nil {
+		t.Fatalf("release-plan error = %v", err)
+	}
+	if !strings.Contains(output.String(), `"schema": "versioning/release_ref_plan/v1"`) {
+		t.Fatalf("release-plan output missing schema: %q", output.String())
+	}
+}
+
+func TestReleasePlanRequiresPlanPath(t *testing.T) {
+	var output bytes.Buffer
+	if err := execute([]string{"--repo", t.TempDir(), "release-plan"}, time.Now, &output); err == nil ||
+		!strings.Contains(err.Error(), "--plan") {
+		t.Fatalf("release-plan() error = %v, want --plan refusal", err)
+	}
+}
+
+func TestReleasePublishRequiresPlanPath(t *testing.T) {
+	var output bytes.Buffer
+	if err := execute([]string{"--repo", t.TempDir(), "release-publish"}, time.Now, &output); err == nil ||
+		!strings.Contains(err.Error(), "--plan") {
+		t.Fatalf("release-publish() error = %v, want --plan refusal", err)
+	}
+}
+
+func TestReleasePublishRejectsMismatchedAtomicFlag(t *testing.T) {
+	directory := t.TempDir()
+	plan := `{
+		"schema": "versioning/release_ref_plan/v1",
+		"kind": "ReleaseRefPlan",
+		"version": "2026.35.0",
+		"channel": "release",
+		"commit": "` + strings.Repeat("a", 40) + `",
+		"treeState": "clean",
+		"refs": [
+			{"ref": "refs/heads/releases/2026.35", "expected": "` + strings.Repeat("a", 40) + `", "operation": "create"},
+			{"ref": "refs/tags/v2026.35.0", "expected": "` + strings.Repeat("a", 40) + `", "operation": "create"}
+		],
+		"atomic": true,
+		"lease": "lease"
+	}`
+	planPath := filepath.Join(directory, "plan.json")
+	if err := os.WriteFile(planPath, []byte(plan), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	var output bytes.Buffer
+	if err := execute([]string{
+		"--repo", directory,
+		"release-publish",
+		"--plan", planPath,
+		"--receipt", filepath.Join(directory, "receipt.json"),
+		"--atomic=false",
+	}, time.Now, &output); err == nil || !strings.Contains(err.Error(), "--atomic must match") {
+		t.Fatalf("release-publish() error = %v, want atomic mismatch refusal", err)
+	}
+}
+
+func runTestGit(t *testing.T, directory string, args ...string) string {
+	t.Helper()
+	command := exec.Command("git", append([]string{"-C", directory}, args...)...)
+	var stdout bytes.Buffer
+	command.Stdout = &stdout
+	if err := command.Run(); err != nil {
+		t.Fatalf("git %s: %v", strings.Join(args, " "), err)
+	}
+	return strings.TrimSpace(stdout.String())
 }

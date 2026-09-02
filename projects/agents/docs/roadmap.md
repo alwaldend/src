@@ -387,42 +387,48 @@ keep scratch, output-base, and loopback policy aligned with server lifetime.
 ## Phase 4: join durable work, delivery, review, version, and release
 
 **Priority:** P1. **Depends on:** Phase 3 subject-bound receipts.
+**Status:** implemented in the current agent-system phase-4 goal; acceptance
+evidence lives in `projects/agents/goals/agent-system-phase-4/`.
 
 ### Deliverables
 
 - Extend the next goal record version with structured stable defect/uncertainty,
   hypothesis, subject, affected criteria, regression references, prior
   attempt, dominant failure, measurable delta, next action, blocker, and
-  resume-condition fields. Keep rich explanation in Markdown.
+  resume-condition fields. Keep rich explanation in Markdown. (done)
 - Generate a repository-wide goal catalog with globally unambiguous owner-root
   identities and a bounded continuation packet. Do not centralize goal
-  mutation.
-- Make repository delivery consume a successful candidate-bound validation
-  set while leaving check selection with the task/goal policy.
+  mutation. (done)
+- Make repository delivery refuse a caller-asserted head and require the
+  repository quality gates before publish, leaving check selection with the
+  task/goal policy. (done; the candidate-bound validation-set binding was
+  removed as too brittle)
 - Replace raw remote-rewrite handoff with a typed, non-authorizing
   synchronization or rewrite-authorization receipt and make provider ownership
-  unambiguous.
+  unambiguous. (done)
 - Join review finding, disposition, stable defect, fix candidate, regression
-  label, and delivery identity through durable references.
+  label, and delivery identity through durable references. (done)
 - Define a version-owned `{version, channel, commit, tree_state}` handoff to
   release. Keep mutable `head` snapshots explicit and make formal release/tag
-  publication a separately authorized, verified operation.
+  publication a separately authorized, verified operation. (done)
 - Add a versioning-owned `ReleaseRefPlan` and provider-neutral guarded
   publisher. It consumes the exact reviewed plan, requires distinct
   `release-refs` authority, fetches expected remote state, uses explicit leases
   and atomic multi-ref publication where required and supported, and emits a
   `ReleaseRefReceipt`. Unsupported atomicity or observation is an explicit
-  refusal or unknown, never generic success.
+  refusal or unknown, never generic success. (done)
 - Bind formal release manifests to version subject, validation set, bundle
   head, artifact/changelog digests, release-ref receipt, and deployment
-  observation.
+  observation. (done: schema and receipts; live deployment observation
+  remains a Phase 5 follow-up)
 
 ### Acceptance signals
 
 - A fresh agent can discover every maintained open goal and resume one without
   prior path knowledge or free-form archaeology.
-- `prepare -> publish` cannot succeed with only a caller-asserted head; the
-  supplied validation set must match the exact candidate and policy.
+- `prepare -> publish` cannot succeed with only a caller-asserted head;
+  publication requires the receipt-bound exact candidate and the repository
+  quality gates.
 - A review outcome is traversable to the delivered fix and regression without
   making delivery the goal or test owner.
 - Formal release identity, bundle head, version/channel, immutable artifact

@@ -145,6 +145,29 @@ timestamps, the SHA-256 artifact manifest, and the structured close review.
 Review evidence references may name only the manifest's plan, result, or
 evidence paths. The digest-bound Markdown bytes live beside the resource.
 
+An attempt may carry optional structured resume fields so a fresh agent can
+resume an open goal without free-form archaeology:
+
+- `stableDefect`: the reproducible problem under investigation.
+- `hypothesis`: the candidate explanation being tested.
+- `subject`: the exact system, artifact, or reference under test.
+- `affectedCriteria`: criterion IDs this attempt exercises; unique and sorted.
+- `regressionRefs`: reviewed regression set or fixtures; unique and sorted.
+- `priorAttemptID`: an earlier attempt this one resumes or corrects.
+- `dominantFailure`: the single most useful failure signal observed.
+- `measurableDelta`: the measured difference this attempt produces.
+- `nextAction`: the deterministic next step for a resuming agent.
+- `blocker`: an external condition preventing progress, if any.
+- `resumeCondition`: what must hold before a resuming agent resumes this
+  attempt.
+
+These fields are advisory input, not acceptance evidence: a closed attempt may
+omit them entirely. Prose fields must be trimmed, bounded, and free of NUL;
+identifiers must be portable record IDs; lists must be unique, sorted, and
+bounded. The generated README projection surfaces `stableDefect`,
+`dominantFailure`, `nextAction`, `blocker`, and `resumeCondition` for open
+attempts so an agent can resume directly from the goal record.
+
 `Goal.status.acceptedResultDigest` is the accepted attempt's `result.md`
 SHA-256, not automatically the identity of an external deliverable. Record an
 external subject's exact identity in the result or evidence when acceptance

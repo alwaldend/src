@@ -426,3 +426,108 @@ func TestRelationshipValidationIsBoundedAndDeterministic(t *testing.T) {
 		t.Fatalf("self-reference error = %v", err)
 	}
 }
+
+func validAttempt(envelopeName string) GoalAttempt {
+	return GoalAttempt{
+		APIVersion: APIVersion,
+		Kind:       KindAttempt,
+		Metadata:   ObjectMeta{Name: envelopeName},
+		Spec: AttemptSpec{
+			GoalRef:             GoalReference{Name: "portable-goal"},
+			GoalGeneration:      1,
+			LifecycleGeneration: 1,
+			CriteriaRevision:    1,
+			CriteriaDigest:      "sha256:" + strings.Repeat("11", 32),
+			GoalStateDigest:     "sha256:" + strings.Repeat("22", 32),
+			WorkType:            "change",
+		},
+		Status: AttemptStatus{
+			State:      "open",
+			ObservedAt: "2026-08-30T12:00:00Z",
+			Artifacts: ArtifactManifest{
+				PlanDigest:   "sha256:" + strings.Repeat("33", 32),
+				ResultDigest: "sha256:" + strings.Repeat("44", 32),
+			},
+		},
+	}
+}
+
+func TestAttemptResumeFieldsValidateAndBound(t *testing.T) {
+	attempt := validAttempt("resume-attempt")
+	attempt.Spec.StableDefect = "The goal catalog omits resume state for open goals."
+	attempt.Spec.Hypothesis = "A structured continuation packet is needed."
+	attempt.Spec.Subject = "projects/goal"
+	attempt.Spec.AffectedCriteria = []string{"criterion-001", "criterion-002"}
+	attempt.Spec.RegressionRefs = []string{"goal-resume-regression"}
+	attempt.Spec.PriorAttemptID = "attempt-1"
+	attempt.Spec.DominantFailure = "Fresh agents cannot resume open goals."
+	attempt.Spec.MeasurableDelta = "Catalog lists every open goal."
+	attempt.Spec.NextAction = "Promote the continuation packet."
+	attempt.Spec.Blocker = "Awaiting acceptance."
+	attempt.Spec.ResumeCondition = "The catalog check passes."
+	goal := validGoal()
+	goal.Status.CriteriaRevision = 1
+	goal.Metadata.Generation = 1
+	if err := attempt.ValidateForGoal(goal); err != nil {
+		t.Fatalf("valid resume fields rejected: %v", err)
+	}
+
+	for _, test := range []struct {
+		name   string
+		mutate func(*GoalAttempt)
+	}{
+		{
+			name: "untrimmed stable defect",
+			mutate: func(a *GoalAttempt) {
+				a.Spec.StableDefect = " leading"
+			},
+		},
+		{
+			name: "oversized next action",
+			mutate: func(a *GoalAttempt) {
+				a.Spec.NextAction = strings.Repeat("x", MaxResumeFieldBytes+1)
+			},
+		},
+		{
+			name: "NUL in resume condition",
+			mutate: func(a *GoalAttempt) {
+				a.Spec.ResumeCondition = "a\x00b"
+			},
+		},
+		{
+			name: "invalid prior attempt ID",
+			mutate: func(a *GoalAttempt) {
+				a.Spec.PriorAttemptID = "Not-A-Valid-ID!"
+			},
+		},
+		{
+			name: "unsorted affected criteria",
+			mutate: func(a *GoalAttempt) {
+				a.Spec.AffectedCriteria = []string{"criterion-002", "criterion-001"}
+			},
+		},
+		{
+			name: "duplicate regression refs",
+			mutate: func(a *GoalAttempt) {
+				a.Spec.RegressionRefs = []string{"dup", "dup"}
+			},
+		},
+		{
+			name: "oversized affected criteria",
+			mutate: func(a *GoalAttempt) {
+				a.Spec.AffectedCriteria = make([]string, MaxAffectedCriteria+1)
+				for i := range a.Spec.AffectedCriteria {
+					a.Spec.AffectedCriteria[i] = fmt.Sprintf("c-%d", i)
+				}
+			},
+		},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			modified := attempt
+			test.mutate(&modified)
+			if err := modified.ValidateForGoal(goal); err == nil {
+				t.Fatalf("invalid resume fields were accepted")
+			}
+		})
+	}
+}

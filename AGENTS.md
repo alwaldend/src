@@ -345,3 +345,16 @@ black, mypy) for the files changed and the repository `//:buildifier_test`
 for BUILD or `.bzl` changes. The checked-in pre-commit configuration supplies
 repository hygiene checks; installing `//:write_git_hooks` is optional and
 agents should still run the relevant checks explicitly.
+
+## Immediate retries and settled facts
+
+- Never immediately retry a rejected, rate-limited, or failed escalated
+  operation. One retry after a real delay at most, then stop and change the
+  approach or ask; the rejection usually means the approach is wrong.
+- Do not re-run a command whose result is already settled. Git history, help
+  output, and prior results are immutable within a task; record the conclusion
+  in the task's `out/<task>/notes.md` (or plan) after the first query and move
+  to the next decision.
+- A repeated identical query is a loop signal: the next action must be a
+  decision, a write, or a state-changing step, never another confirmation.
+  After an interrupt, resume at the exact next write; do not re-explore.

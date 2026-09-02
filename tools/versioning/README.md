@@ -44,3 +44,36 @@ tools/versioning/cmd/versioning/versioning.sh bazel -- \
 
 Read `$versioning` for the guarded nightly, release, and Bazel stamping
 workflows.
+
+## Guarded release-ref publication
+
+`versioning` also owns a typed, reviewed release-ref plan and a
+provider-neutral guarded publisher for the generated nightly and release
+tags. It never merges versioning, delivery, or goal authority; the tool
+retains its own `release-refs` authority.
+
+Generate a deterministic plan from the resolved version state:
+
+```sh
+bazel_agent run //tools/versioning/cmd/versioning -- release-plan \
+  --plan out/delivery/release-plan.json
+```
+
+The plan records the exact version, channel, commit, tree state, target refs
+(tag-only for nightly, branch-plus-tag for release), the expected remote
+preconditions, and whether atomic multi-ref publication is required. It is
+reviewed before consumption and is not an authorization.
+
+Publish the reviewed plan only after explicit release scope:
+
+```sh
+bazel_agent run //tools/versioning/cmd/versioning -- release-publish \
+  --plan out/delivery/release-plan.json \
+  --receipt out/delivery/release-ref-receipt.json
+```
+
+The guarded publisher fetches expected remote state, acquires a distinct
+`release-refs` lease, publishes the refs (atomically when required and
+supported), and verifies the remote before emitting a `ReleaseRefReceipt`.
+An existing immutable release tag never moves; a remote that cannot guarantee
+atomic multi-ref publication is an explicit refusal, never a generic success.

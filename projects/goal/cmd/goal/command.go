@@ -281,6 +281,17 @@ func newCheckpointCommand(factory storeFactory, stdout io.Writer) *cobra.Command
 	flags.BoolVar(&options.CloseAttempt, "close-attempt", false, "close the selected attempt after publication")
 	flags.StringVar(&options.Outcome, "outcome", "", "goal outcome transition")
 	flags.StringVar(&options.Execution, "execution", "", "goal execution transition")
+	flags.StringVar(&options.StableDefect, "stable-defect", "", "reproducible problem under investigation")
+	flags.StringVar(&options.Hypothesis, "hypothesis", "", "candidate explanation being tested")
+	flags.StringVar(&options.Subject, "subject", "", "exact system or reference under test")
+	flags.StringSliceVar(&options.AffectedCriteria, "affected-criteria", nil, "criterion IDs exercised (repeatable)")
+	flags.StringSliceVar(&options.RegressionRefs, "regression-refs", nil, "reviewed regression set or fixtures (repeatable)")
+	flags.StringVar(&options.PriorAttemptID, "prior-attempt", "", "earlier attempt this one resumes or corrects")
+	flags.StringVar(&options.DominantFailure, "dominant-failure", "", "single most useful failure signal observed")
+	flags.StringVar(&options.MeasurableDelta, "measurable-delta", "", "measured difference this attempt produces")
+	flags.StringVar(&options.NextAction, "next-action", "", "deterministic next step for a resuming agent")
+	flags.StringVar(&options.Blocker, "blocker", "", "external condition preventing progress")
+	flags.StringVar(&options.ResumeCondition, "resume-condition", "", "condition that must hold before resuming")
 	return command
 }
 

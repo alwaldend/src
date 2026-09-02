@@ -3,6 +3,9 @@ package main
 import (
 	"bytes"
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -10,6 +13,7 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+	"time"
 	"unicode/utf8"
 )
 
@@ -321,14 +325,92 @@ func ensureNoRefusals(report *inspection) error {
 }
 
 type prepareOptions struct {
-	MessageFile      string
-	ReceiptFile      string
-	Paths            []string
-	UseIndex         bool
-	MessageOnly      bool
-	RewriteOID       string
-	ConsolidateOID   string
-	ReplaceRemoteOID string
+	MessageFile          string
+	ReceiptFile          string
+	Paths                []string
+	UseIndex             bool
+	MessageOnly          bool
+	RewriteOID           string
+	ConsolidateOID       string
+	ReplaceRemoteOID     string
+	RewriteAuthorization string
+}
+
+type rewriteAuthorizeOptions struct {
+	OldRemoteOID      string
+	NewHeadOID        string
+	OwnerRoot         string
+	TaskPaths         []string
+	SourceReceipt     string
+	AuthorizationFile string
+}
+
+// buildRewriteAuthorization constructs one typed, non-authorizing rewrite
+// authorization record. It re-inspects the current repository and provider so
+// the old remote OID and provider ownership are unambiguous at issuance time.
+func (d *delivery) buildRewriteAuthorization(
+	ctx context.Context,
+	options rewriteAuthorizeOptions,
+) (rewriteAuthorization, error) {
+	if !isObjectID(options.OldRemoteOID) {
+		return rewriteAuthorization{}, fmt.Errorf(
+			"--old-remote-oid must be a full Git object ID",
+		)
+	}
+	if !isObjectID(options.NewHeadOID) {
+		return rewriteAuthorization{}, fmt.Errorf(
+			"--new-head-oid must be a full Git object ID",
+		)
+	}
+	if strings.TrimSpace(options.OwnerRoot) == "" ||
+		len(options.OwnerRoot) > 253 {
+		return rewriteAuthorization{}, fmt.Errorf(
+			"--owner-root must be a bounded path",
+		)
+	}
+	paths, err := validateTaskPaths(options.TaskPaths)
+	if err != nil {
+		return rewriteAuthorization{}, err
+	}
+	if len(paths) == 0 {
+		return rewriteAuthorization{}, fmt.Errorf(
+			"--task-path is required",
+		)
+	}
+	sort.Strings(paths)
+	fingerprint, err := d.repository.repositoryFingerprint(ctx)
+	if err != nil {
+		return rewriteAuthorization{}, err
+	}
+	authorization := rewriteAuthorization{
+		Schema:                rewriteAuthorizationSchema,
+		IssuedAt:              time.Now().UTC().Format(time.RFC3339Nano),
+		RepositoryFingerprint: fingerprint,
+		RemoteRepository:      d.remoteRepository,
+		Provider:              d.forge.Name(),
+		OldRemoteOID:          options.OldRemoteOID,
+		NewHeadOID:            options.NewHeadOID,
+		OwnerRoot:             options.OwnerRoot,
+		TaskPaths:             paths,
+	}
+	if options.SourceReceipt != "" {
+		contents, err := d.readIgnoredFile(
+			ctx,
+			options.SourceReceipt,
+			"--source-receipt",
+			"source receipt",
+		)
+		if err != nil {
+			return rewriteAuthorization{}, err
+		}
+		sum := sha256.Sum256(contents)
+		authorization.SourceReceiptDigest =
+			"sha256:" + hex.EncodeToString(sum[:])
+	}
+	if err := authorization.validate(); err != nil {
+		return rewriteAuthorization{}, err
+	}
+	return authorization, nil
 }
 
 type consolidationEvidence struct {
@@ -387,6 +469,7 @@ func (d *delivery) prepare(
 		return nil, fmt.Errorf("--message-only cannot be combined with --consolidate")
 	}
 	var consolidation *consolidationEvidence
+	var rewriteAuthorizationRecord *rewriteAuthorization
 	if options.ConsolidateOID != "" {
 		consolidation, err = d.requireConsolidationEvidence(
 			ctx,
@@ -401,7 +484,27 @@ func (d *delivery) prepare(
 	if err := ensurePreparationRefusals(report, consolidation != nil); err != nil {
 		return nil, err
 	}
-	if err := requireRemoteReplacementAuthorization(
+	if options.ReplaceRemoteOID != "" && options.RewriteAuthorization != "" {
+		return nil, fmt.Errorf(
+			"--replace-remote and --rewrite-authorization are mutually exclusive",
+		)
+	}
+	if options.RewriteAuthorization != "" {
+		authorization, err := d.readRewriteAuthorization(
+			ctx,
+			options.RewriteAuthorization,
+		)
+		if err != nil {
+			return nil, err
+		}
+		if err := requireRemoteReplacementAuthorization(
+			report,
+			authorization.OldRemoteOID,
+		); err != nil {
+			return nil, err
+		}
+		rewriteAuthorizationRecord = &authorization
+	} else if err := requireRemoteReplacementAuthorization(
 		report,
 		options.ReplaceRemoteOID,
 	); err != nil {
@@ -686,6 +789,20 @@ func (d *delivery) prepare(
 		return nil, err
 	}
 	result = prepared
+	if rewriteAuthorizationRecord != nil {
+		receipt, err := receiptTransaction.read()
+		if err != nil {
+			return nil, err
+		}
+		receipt.RewriteAuthorization = rewriteAuthorizationRecord
+		if err := receipt.validate(); err != nil {
+			return nil, err
+		}
+		if err := receiptTransaction.write(ctx, receipt); err != nil {
+			return nil, err
+		}
+		result.Receipt = receipt
+	}
 	if preparationSnapshot != nil {
 		if cleanupErr := preparationSnapshot.close(
 			context.Background(),
@@ -1446,6 +1563,176 @@ func (d *delivery) readMessage(
 	messageFile string,
 ) (string, error) {
 	return d.readIgnoredText(ctx, messageFile, "--message-file", "message")
+}
+
+// readRewriteAuthorization reads, strictly decodes, and validates one
+// rewrite-authorization receipt from an ignored task output path.
+func (d *delivery) readRewriteAuthorization(
+	ctx context.Context,
+	path string,
+) (rewriteAuthorization, error) {
+	if strings.TrimSpace(path) == "" {
+		return rewriteAuthorization{}, fmt.Errorf(
+			"--rewrite-authorization is required",
+		)
+	}
+	contents, err := d.readIgnoredFile(
+		ctx,
+		path,
+		"--rewrite-authorization",
+		"rewrite authorization",
+	)
+	if err != nil {
+		return rewriteAuthorization{}, err
+	}
+	var authorization rewriteAuthorization
+	decoder := json.NewDecoder(bytes.NewReader(contents))
+	decoder.DisallowUnknownFields()
+	if err := decoder.Decode(&authorization); err != nil {
+		return rewriteAuthorization{}, fmt.Errorf(
+			"decode rewrite authorization strictly: %w",
+			err,
+		)
+	}
+	var extra any
+	if err := decoder.Decode(&extra); err != io.EOF {
+		if err == nil {
+			return rewriteAuthorization{}, fmt.Errorf(
+				"rewrite authorization contains multiple JSON values",
+			)
+		}
+		return rewriteAuthorization{}, fmt.Errorf(
+			"finish decoding rewrite authorization: %w",
+			err,
+		)
+	}
+	if err := authorization.validate(); err != nil {
+		return rewriteAuthorization{}, err
+	}
+	return authorization, nil
+}
+
+// readIgnoredFile reads a bounded regular file from an ignored task output
+// path, mirroring readIgnoredText's path constraints.
+func (d *delivery) readIgnoredFile(
+	ctx context.Context,
+	inputPath string,
+	flag string,
+	description string,
+) ([]byte, error) {
+	if strings.TrimSpace(inputPath) == "" {
+		return nil, fmt.Errorf("%s is required", flag)
+	}
+	if filepath.IsAbs(inputPath) {
+		if filepath.Clean(inputPath) != inputPath {
+			return nil, fmt.Errorf(
+				"%s path must use a canonical lexical form",
+				description,
+			)
+		}
+	} else if err := validateTaskOutputPath(
+		filepath.ToSlash(inputPath),
+	); err != nil {
+		return nil, fmt.Errorf(
+			"%s must be under an ignored out/<task>/ directory: %w",
+			description,
+			err,
+		)
+	}
+	absolute := inputPath
+	if !filepath.IsAbs(absolute) {
+		absolute = filepath.Join(d.repository.directory, absolute)
+	}
+	absolute = filepath.Clean(absolute)
+	resolved, err := filepath.EvalSymlinks(absolute)
+	if err != nil {
+		return nil, fmt.Errorf("resolve %s symlinks: %w", description, err)
+	}
+	if filepath.Clean(resolved) != filepath.Clean(absolute) {
+		return nil, fmt.Errorf("%s path must not contain symlinks", description)
+	}
+	relative, err := filepath.Rel(d.repository.directory, resolved)
+	if err != nil {
+		return nil, fmt.Errorf("locate %s in repository: %w", description, err)
+	}
+	relative = filepath.ToSlash(relative)
+	if err := validateTaskOutputPath(relative); err != nil {
+		return nil, fmt.Errorf(
+			"%s must be under the repository's ignored out/<task>/ directory: %w",
+			description,
+			err,
+		)
+	}
+	tracked, err := d.repository.pathTracked(ctx, relative)
+	if err != nil {
+		return nil, err
+	}
+	if tracked {
+		return nil, fmt.Errorf("%s must be untracked", description)
+	}
+	ignored, err := d.repository.pathIgnored(ctx, relative)
+	if err != nil {
+		return nil, err
+	}
+	if !ignored {
+		return nil, fmt.Errorf("%s must be ignored by Git", description)
+	}
+	before, err := os.Lstat(resolved)
+	if err != nil {
+		return nil, fmt.Errorf("inspect %s: %w", description, err)
+	}
+	if !before.Mode().IsRegular() || before.Mode()&os.ModeSymlink != 0 {
+		return nil, fmt.Errorf("%s must be a regular non-symlink file", description)
+	}
+	if before.Size() > receiptFileLimit {
+		return nil, fmt.Errorf("%s exceeds the receipt size limit", description)
+	}
+	file, err := os.Open(resolved)
+	if err != nil {
+		return nil, fmt.Errorf("open %s: %w", description, err)
+	}
+	defer file.Close()
+	after, err := file.Stat()
+	if err != nil {
+		return nil, fmt.Errorf("inspect opened %s: %w", description, err)
+	}
+	if !after.Mode().IsRegular() || !os.SameFile(before, after) {
+		return nil, fmt.Errorf("%s changed while it was being opened", description)
+	}
+	contents, err := io.ReadAll(io.LimitReader(file, receiptFileLimit+1))
+	if err != nil {
+		return nil, fmt.Errorf("read %s: %w", description, err)
+	}
+	if len(contents) > receiptFileLimit {
+		return nil, fmt.Errorf("%s exceeds the receipt size limit", description)
+	}
+	readAfter, err := file.Stat()
+	if err != nil {
+		return nil, fmt.Errorf("inspect read %s: %w", description, err)
+	}
+	if _, err := file.Seek(0, io.SeekStart); err != nil {
+		return nil, fmt.Errorf("rewind %s: %w", description, err)
+	}
+	confirmed, err := io.ReadAll(io.LimitReader(file, receiptFileLimit+1))
+	if err != nil {
+		return nil, fmt.Errorf("reread %s: %w", description, err)
+	}
+	finalInfo, err := file.Stat()
+	if err != nil {
+		return nil, fmt.Errorf("inspect reread %s: %w", description, err)
+	}
+	pathAfter, err := os.Lstat(resolved)
+	if err != nil {
+		return nil, fmt.Errorf("reinspect %s path: %w", description, err)
+	}
+	if !bytes.Equal(contents, confirmed) || !os.SameFile(before, pathAfter) ||
+		!os.SameFile(after, readAfter) || !os.SameFile(readAfter, finalInfo) ||
+		after.Size() != readAfter.Size() || readAfter.Size() != finalInfo.Size() ||
+		!after.ModTime().Equal(readAfter.ModTime()) ||
+		!readAfter.ModTime().Equal(finalInfo.ModTime()) {
+		return nil, fmt.Errorf("%s changed while it was being read", description)
+	}
+	return contents, nil
 }
 
 func (d *delivery) readReviewBody(

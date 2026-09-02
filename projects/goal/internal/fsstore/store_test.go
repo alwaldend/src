@@ -1178,3 +1178,59 @@ criteria:
 `)
 	return path
 }
+
+func TestCheckpointPersistsStructuredResumeFields(t *testing.T) {
+	store, root := newTestStore(t)
+	goalDir := initTestGoal(t, store, root, "resume-goal")
+	if _, err := store.Checkpoint(CheckpointOptions{
+		GoalDir:                 goalDir,
+		ExpectedResourceVersion: "1",
+		AttemptID:               "resume-attempt",
+		WorkType:                "investigation",
+		StableDefect:            "The catalog omits resume state for open goals.",
+		Hypothesis:              "A structured continuation packet is needed.",
+		Subject:                 "projects/goal",
+		AffectedCriteria:        []string{"criterion-002", "criterion-001", "criterion-002"},
+		RegressionRefs:          []string{"goal-resume-regression"},
+		PriorAttemptID:          "attempt-1",
+		DominantFailure:         "Fresh agents cannot resume open goals.",
+		MeasurableDelta:         "Catalog lists every open goal.",
+		NextAction:              "Promote the continuation packet.",
+		Blocker:                 "Awaiting acceptance.",
+		ResumeCondition:         "The catalog check passes.",
+	}); err != nil {
+		t.Fatal(err)
+	}
+	attemptPath := filepath.Join(goalDir, "attempts", "resume-attempt", "attempt.yaml")
+	var attempt AttemptManifest
+	if err := store.readYAML(attemptPath, &attempt); err != nil {
+		t.Fatal(err)
+	}
+	if got, want := attempt.Spec.AffectedCriteria,
+		[]string{"criterion-001", "criterion-002"}; !equalStrings(got, want) {
+		t.Fatalf("affected criteria = %v, want %v", got, want)
+	}
+	if attempt.Spec.StableDefect != "The catalog omits resume state for open goals." ||
+		attempt.Spec.Hypothesis != "A structured continuation packet is needed." ||
+		attempt.Spec.Subject != "projects/goal" ||
+		attempt.Spec.PriorAttemptID != "attempt-1" ||
+		attempt.Spec.DominantFailure != "Fresh agents cannot resume open goals." ||
+		attempt.Spec.MeasurableDelta != "Catalog lists every open goal." ||
+		attempt.Spec.NextAction != "Promote the continuation packet." ||
+		attempt.Spec.Blocker != "Awaiting acceptance." ||
+		attempt.Spec.ResumeCondition != "The catalog check passes." {
+		t.Fatalf("structured resume fields were not persisted: %+v", attempt.Spec)
+	}
+}
+
+func equalStrings(first []string, second []string) bool {
+	if len(first) != len(second) {
+		return false
+	}
+	for index := range first {
+		if first[index] != second[index] {
+			return false
+		}
+	}
+	return true
+}

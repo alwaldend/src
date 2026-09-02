@@ -141,6 +141,43 @@ func renderREADME(
 			attempt.Metadata.ResourceVersion,
 			attempt.Spec.CriteriaRevision,
 		)
+		if attempt.Status.State == "open" {
+			if attempt.Spec.StableDefect != "" {
+				fmt.Fprintf(
+					&output,
+					"  - Stable defect: %s\n",
+					markdownText(attempt.Spec.StableDefect, 240),
+				)
+			}
+			if attempt.Spec.DominantFailure != "" {
+				fmt.Fprintf(
+					&output,
+					"  - Dominant failure: %s\n",
+					markdownText(attempt.Spec.DominantFailure, 240),
+				)
+			}
+			if attempt.Spec.NextAction != "" {
+				fmt.Fprintf(
+					&output,
+					"  - Next action: %s\n",
+					markdownText(attempt.Spec.NextAction, 240),
+				)
+			}
+			if attempt.Spec.Blocker != "" {
+				fmt.Fprintf(
+					&output,
+					"  - Blocker: %s\n",
+					markdownText(attempt.Spec.Blocker, 240),
+				)
+			}
+			if attempt.Spec.ResumeCondition != "" {
+				fmt.Fprintf(
+					&output,
+					"  - Resume condition: %s\n",
+					markdownText(attempt.Spec.ResumeCondition, 240),
+				)
+			}
+		}
 	}
 	if omitted := len(sorted) - attemptLimit; omitted > 0 {
 		fmt.Fprintf(&output, "- … %d older attempts omitted by the projection limit.\n", omitted)
