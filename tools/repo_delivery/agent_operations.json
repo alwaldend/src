@@ -45,8 +45,16 @@
             "selector": "review",
             "classification": "classified",
             "effects": ["credential.consume", "network.read", "remote.write"],
-            "inputs": ["review inventory", "one-shot mutation receipt"],
-            "outputs": ["comment or thread disposition"],
+            "inputs": [
+                "review inventory",
+                "one-shot mutation receipt",
+                "goal or delivery ref",
+                "defect identity"
+            ],
+            "outputs": [
+                "comment or thread disposition",
+                "joined durable review receipt"
+            ],
             "information": ["public", "secret"],
             "credentialUse": "forge credentials",
             "networkUse": "forge write",

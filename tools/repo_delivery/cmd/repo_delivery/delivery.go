@@ -3,6 +3,9 @@ package main
 import (
 	"bytes"
 	"context"
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -10,6 +13,7 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+	"time"
 	"unicode/utf8"
 )
 
@@ -127,6 +131,7 @@ type inspection struct {
 	MergeCommits       []string         `json:"merge_commits,omitempty"`
 	BaseIsAncestor     bool             `json:"base_is_ancestor"`
 	NeedsRebase        bool             `json:"needs_rebase"`
+	BaseStale          bool             `json:"base_stale"`
 	Status             repositoryStatus `json:"status"`
 	OperationState     []string         `json:"operation_state,omitempty"`
 	Refusals           []string         `json:"refusals,omitempty"`
@@ -302,6 +307,32 @@ func (d *delivery) inspect(
 		return nil, err
 	}
 	report.NeedsRebase = !report.BaseIsAncestor
+	remoteBaseOID, err := d.repository.text(
+		ctx,
+		"rev-parse",
+		"--verify",
+		d.remote+"/master^{commit}",
+	)
+	if err == nil && remoteBaseOID != "" && remoteBaseOID != snapshot.BaseOID {
+		behind, behindErr := d.repository.isAncestor(
+			ctx,
+			snapshot.BaseOID,
+			remoteBaseOID,
+		)
+		if behindErr == nil && behind {
+			report.BaseStale = true
+			report.Refusals = append(
+				report.Refusals,
+				fmt.Sprintf(
+					"base is stale: origin/master is at %s but the inspected "+
+						"base is %s; rebase onto the current base before "+
+						"preparing",
+					remoteBaseOID,
+					snapshot.BaseOID,
+				),
+			)
+		}
+	}
 	report.Status, err = d.repository.status(ctx)
 	if err != nil {
 		return nil, err
@@ -321,14 +352,92 @@ func ensureNoRefusals(report *inspection) error {
 }
 
 type prepareOptions struct {
-	MessageFile      string
-	ReceiptFile      string
-	Paths            []string
-	UseIndex         bool
-	MessageOnly      bool
-	RewriteOID       string
-	ConsolidateOID   string
-	ReplaceRemoteOID string
+	MessageFile          string
+	ReceiptFile          string
+	Paths                []string
+	UseIndex             bool
+	MessageOnly          bool
+	RewriteOID           string
+	ConsolidateOID       string
+	ReplaceRemoteOID     string
+	RewriteAuthorization string
+}
+
+type rewriteAuthorizeOptions struct {
+	OldRemoteOID      string
+	NewHeadOID        string
+	OwnerRoot         string
+	TaskPaths         []string
+	SourceReceipt     string
+	AuthorizationFile string
+}
+
+// buildRewriteAuthorization constructs one typed, non-authorizing rewrite
+// authorization record. It re-inspects the current repository and provider so
+// the old remote OID and provider ownership are unambiguous at issuance time.
+func (d *delivery) buildRewriteAuthorization(
+	ctx context.Context,
+	options rewriteAuthorizeOptions,
+) (rewriteAuthorization, error) {
+	if !isObjectID(options.OldRemoteOID) {
+		return rewriteAuthorization{}, fmt.Errorf(
+			"--old-remote-oid must be a full Git object ID",
+		)
+	}
+	if !isObjectID(options.NewHeadOID) {
+		return rewriteAuthorization{}, fmt.Errorf(
+			"--new-head-oid must be a full Git object ID",
+		)
+	}
+	if strings.TrimSpace(options.OwnerRoot) == "" ||
+		len(options.OwnerRoot) > 253 {
+		return rewriteAuthorization{}, fmt.Errorf(
+			"--owner-root must be a bounded path",
+		)
+	}
+	paths, err := validateTaskPaths(options.TaskPaths)
+	if err != nil {
+		return rewriteAuthorization{}, err
+	}
+	if len(paths) == 0 {
+		return rewriteAuthorization{}, fmt.Errorf(
+			"--task-path is required",
+		)
+	}
+	sort.Strings(paths)
+	fingerprint, err := d.repository.repositoryFingerprint(ctx)
+	if err != nil {
+		return rewriteAuthorization{}, err
+	}
+	authorization := rewriteAuthorization{
+		Schema:                rewriteAuthorizationSchema,
+		IssuedAt:              time.Now().UTC().Format(time.RFC3339Nano),
+		RepositoryFingerprint: fingerprint,
+		RemoteRepository:      d.remoteRepository,
+		Provider:              d.forge.Name(),
+		OldRemoteOID:          options.OldRemoteOID,
+		NewHeadOID:            options.NewHeadOID,
+		OwnerRoot:             options.OwnerRoot,
+		TaskPaths:             paths,
+	}
+	if options.SourceReceipt != "" {
+		contents, err := d.readIgnoredFile(
+			ctx,
+			options.SourceReceipt,
+			"--source-receipt",
+			"source receipt",
+		)
+		if err != nil {
+			return rewriteAuthorization{}, err
+		}
+		sum := sha256.Sum256(contents)
+		authorization.SourceReceiptDigest =
+			"sha256:" + hex.EncodeToString(sum[:])
+	}
+	if err := authorization.validate(); err != nil {
+		return rewriteAuthorization{}, err
+	}
+	return authorization, nil
 }
 
 type consolidationEvidence struct {
@@ -338,11 +447,12 @@ type consolidationEvidence struct {
 }
 
 type prepareReport struct {
-	Inspection *inspection        `json:"inspection"`
-	HeadOID    string             `json:"head_oid"`
-	TreeOID    string             `json:"tree_oid"`
-	Receipt    preparationReceipt `json:"receipt"`
-	Projection commitProjection   `json:"pull_request_projection"`
+	Inspection          *inspection        `json:"inspection"`
+	HeadOID             string             `json:"head_oid"`
+	TreeOID             string             `json:"tree_oid"`
+	Receipt             preparationReceipt `json:"receipt"`
+	Projection          commitProjection   `json:"pull_request_projection"`
+	AffectedBazelLabels []string           `json:"affected_bazel_labels"`
 }
 
 func (d *delivery) prepare(
@@ -387,6 +497,7 @@ func (d *delivery) prepare(
 		return nil, fmt.Errorf("--message-only cannot be combined with --consolidate")
 	}
 	var consolidation *consolidationEvidence
+	var rewriteAuthorizationRecord *rewriteAuthorization
 	if options.ConsolidateOID != "" {
 		consolidation, err = d.requireConsolidationEvidence(
 			ctx,
@@ -401,7 +512,27 @@ func (d *delivery) prepare(
 	if err := ensurePreparationRefusals(report, consolidation != nil); err != nil {
 		return nil, err
 	}
-	if err := requireRemoteReplacementAuthorization(
+	if options.ReplaceRemoteOID != "" && options.RewriteAuthorization != "" {
+		return nil, fmt.Errorf(
+			"--replace-remote and --rewrite-authorization are mutually exclusive",
+		)
+	}
+	if options.RewriteAuthorization != "" {
+		authorization, err := d.readRewriteAuthorization(
+			ctx,
+			options.RewriteAuthorization,
+		)
+		if err != nil {
+			return nil, err
+		}
+		if err := requireRemoteReplacementAuthorization(
+			report,
+			authorization.OldRemoteOID,
+		); err != nil {
+			return nil, err
+		}
+		rewriteAuthorizationRecord = &authorization
+	} else if err := requireRemoteReplacementAuthorization(
 		report,
 		options.ReplaceRemoteOID,
 	); err != nil {
@@ -578,7 +709,17 @@ func (d *delivery) prepare(
 			return nil, err
 		}
 		if !hasChanges && consolidation == nil {
-			return nil, fmt.Errorf("the prepared index is empty")
+			if options.RewriteOID != "" {
+				return nil, fmt.Errorf(
+					"the prepared index is empty; the commit already matches the " +
+						"requested content: use --message-only without --path, or " +
+						"omit --rewrite to keep the existing commit",
+				)
+			}
+			return nil, fmt.Errorf(
+				"the prepared index is empty; stage changes or pass --path " +
+					"flags for task-owned files",
+			)
 		}
 		indexTree, err := d.repository.indexTree(ctx)
 		if err != nil {
@@ -686,6 +827,20 @@ func (d *delivery) prepare(
 		return nil, err
 	}
 	result = prepared
+	if rewriteAuthorizationRecord != nil {
+		receipt, err := receiptTransaction.read()
+		if err != nil {
+			return nil, err
+		}
+		receipt.RewriteAuthorization = rewriteAuthorizationRecord
+		if err := receipt.validate(); err != nil {
+			return nil, err
+		}
+		if err := receiptTransaction.write(ctx, receipt); err != nil {
+			return nil, err
+		}
+		result.Receipt = receipt
+	}
 	if preparationSnapshot != nil {
 		if cleanupErr := preparationSnapshot.close(
 			context.Background(),
@@ -958,12 +1113,87 @@ func (d *delivery) finishPreparation(
 		return nil, err
 	}
 	return &prepareReport{
-		Inspection: previous,
-		HeadOID:    currentHead,
-		TreeOID:    tree,
-		Receipt:    receipt,
-		Projection: projection,
+		Inspection:          previous,
+		HeadOID:             currentHead,
+		TreeOID:             tree,
+		Receipt:             receipt,
+		Projection:          projection,
+		AffectedBazelLabels: d.affectedBazelLabels(ctx, receipt.Scope.AuthorizedPaths),
 	}, nil
+}
+
+// affectedBazelLabels maps task-owned file paths to Bazel package labels. It
+// probes candidate packages with bazel query and keeps only those that
+// actually contain a BUILD file, so the result is always safe to pass directly
+// to bazel build.
+func (d *delivery) affectedBazelLabels(
+	ctx context.Context,
+	paths []string,
+) []string {
+	seen := make(map[string]struct{})
+	for _, path := range paths {
+		dir := path
+		if index := strings.LastIndexByte(dir, '/'); index >= 0 {
+			dir = dir[:index]
+		} else {
+			continue
+		}
+		if dir == "" {
+			continue
+		}
+		seen[dir] = struct{}{}
+	}
+	if len(seen) == 0 {
+		return nil
+	}
+	expressions := make([]string, 0, len(seen))
+	for dir := range seen {
+		expressions = append(expressions, "buildfiles(//"+dir+")")
+	}
+	sort.Strings(expressions)
+	result, err := d.repository.runner.Run(ctx, command{
+		Name: "bazel",
+		Args: append([]string{
+			"--quiet",
+			"query",
+			"--output=package",
+			"--noimplicit_deps",
+			"--noincompatible_shown_upgrades",
+			"--noincompatible_show_target_pattern_loading",
+			"--nodeps",
+			"--noshow_progress",
+			"--noshow_loading_progress",
+			"--noshow_progress",
+			"--keep_going",
+		}, strings.Join(expressions, " + ")),
+		Dir:         d.repository.directory,
+		OutputLimit: 1024 * 1024,
+	})
+	if err != nil || result.ExitCode != 0 {
+		// Fall back to the unfiltered directory mapping when Bazel cannot
+		// answer. This is no worse than the previous behavior.
+		labels := make([]string, 0, len(seen))
+		for dir := range seen {
+			labels = append(labels, "//"+dir+":all")
+		}
+		sort.Strings(labels)
+		return labels
+	}
+	validPackages := make(map[string]struct{})
+	for _, line := range strings.Split(strings.TrimSpace(result.Stdout), "\n") {
+		line = strings.TrimSpace(line)
+		if line != "" {
+			validPackages[line] = struct{}{}
+		}
+	}
+	labels := make([]string, 0, len(validPackages))
+	for dir := range seen {
+		if _, ok := validPackages[dir]; ok {
+			labels = append(labels, "//"+dir+":all")
+		}
+	}
+	sort.Strings(labels)
+	return labels
 }
 
 func (d *delivery) candidateParent(
@@ -1037,8 +1267,10 @@ func (d *delivery) requireConsolidationEvidence(
 	}
 	if report.UniqueCommitCount < 2 {
 		return nil, fmt.Errorf(
-			"--consolidate requires at least two feature commits, found %d",
+			"--consolidate requires at least two feature commits, found %d; "+
+				"use --rewrite=%s without --consolidate to amend the sole commit",
 			report.UniqueCommitCount,
+			report.LocalHeadOID,
 		)
 	}
 	if len(report.MergeCommits) != 0 {
@@ -1448,6 +1680,176 @@ func (d *delivery) readMessage(
 	return d.readIgnoredText(ctx, messageFile, "--message-file", "message")
 }
 
+// readRewriteAuthorization reads, strictly decodes, and validates one
+// rewrite-authorization receipt from an ignored task output path.
+func (d *delivery) readRewriteAuthorization(
+	ctx context.Context,
+	path string,
+) (rewriteAuthorization, error) {
+	if strings.TrimSpace(path) == "" {
+		return rewriteAuthorization{}, fmt.Errorf(
+			"--rewrite-authorization is required",
+		)
+	}
+	contents, err := d.readIgnoredFile(
+		ctx,
+		path,
+		"--rewrite-authorization",
+		"rewrite authorization",
+	)
+	if err != nil {
+		return rewriteAuthorization{}, err
+	}
+	var authorization rewriteAuthorization
+	decoder := json.NewDecoder(bytes.NewReader(contents))
+	decoder.DisallowUnknownFields()
+	if err := decoder.Decode(&authorization); err != nil {
+		return rewriteAuthorization{}, fmt.Errorf(
+			"decode rewrite authorization strictly: %w",
+			err,
+		)
+	}
+	var extra any
+	if err := decoder.Decode(&extra); err != io.EOF {
+		if err == nil {
+			return rewriteAuthorization{}, fmt.Errorf(
+				"rewrite authorization contains multiple JSON values",
+			)
+		}
+		return rewriteAuthorization{}, fmt.Errorf(
+			"finish decoding rewrite authorization: %w",
+			err,
+		)
+	}
+	if err := authorization.validate(); err != nil {
+		return rewriteAuthorization{}, err
+	}
+	return authorization, nil
+}
+
+// readIgnoredFile reads a bounded regular file from an ignored task output
+// path, mirroring readIgnoredText's path constraints.
+func (d *delivery) readIgnoredFile(
+	ctx context.Context,
+	inputPath string,
+	flag string,
+	description string,
+) ([]byte, error) {
+	if strings.TrimSpace(inputPath) == "" {
+		return nil, fmt.Errorf("%s is required", flag)
+	}
+	if filepath.IsAbs(inputPath) {
+		if filepath.Clean(inputPath) != inputPath {
+			return nil, fmt.Errorf(
+				"%s path must use a canonical lexical form",
+				description,
+			)
+		}
+	} else if err := validateTaskOutputPath(
+		filepath.ToSlash(inputPath),
+	); err != nil {
+		return nil, fmt.Errorf(
+			"%s must be under an ignored out/<task>/ directory: %w",
+			description,
+			err,
+		)
+	}
+	absolute := inputPath
+	if !filepath.IsAbs(absolute) {
+		absolute = filepath.Join(d.repository.directory, absolute)
+	}
+	absolute = filepath.Clean(absolute)
+	resolved, err := filepath.EvalSymlinks(absolute)
+	if err != nil {
+		return nil, fmt.Errorf("resolve %s symlinks: %w", description, err)
+	}
+	if filepath.Clean(resolved) != filepath.Clean(absolute) {
+		return nil, fmt.Errorf("%s path must not contain symlinks", description)
+	}
+	relative, err := filepath.Rel(d.repository.directory, resolved)
+	if err != nil {
+		return nil, fmt.Errorf("locate %s in repository: %w", description, err)
+	}
+	relative = filepath.ToSlash(relative)
+	if err := validateTaskOutputPath(relative); err != nil {
+		return nil, fmt.Errorf(
+			"%s must be under the repository's ignored out/<task>/ directory: %w",
+			description,
+			err,
+		)
+	}
+	tracked, err := d.repository.pathTracked(ctx, relative)
+	if err != nil {
+		return nil, err
+	}
+	if tracked {
+		return nil, fmt.Errorf("%s must be untracked", description)
+	}
+	ignored, err := d.repository.pathIgnored(ctx, relative)
+	if err != nil {
+		return nil, err
+	}
+	if !ignored {
+		return nil, fmt.Errorf("%s must be ignored by Git", description)
+	}
+	before, err := os.Lstat(resolved)
+	if err != nil {
+		return nil, fmt.Errorf("inspect %s: %w", description, err)
+	}
+	if !before.Mode().IsRegular() || before.Mode()&os.ModeSymlink != 0 {
+		return nil, fmt.Errorf("%s must be a regular non-symlink file", description)
+	}
+	if before.Size() > receiptFileLimit {
+		return nil, fmt.Errorf("%s exceeds the receipt size limit", description)
+	}
+	file, err := os.Open(resolved)
+	if err != nil {
+		return nil, fmt.Errorf("open %s: %w", description, err)
+	}
+	defer file.Close()
+	after, err := file.Stat()
+	if err != nil {
+		return nil, fmt.Errorf("inspect opened %s: %w", description, err)
+	}
+	if !after.Mode().IsRegular() || !os.SameFile(before, after) {
+		return nil, fmt.Errorf("%s changed while it was being opened", description)
+	}
+	contents, err := io.ReadAll(io.LimitReader(file, receiptFileLimit+1))
+	if err != nil {
+		return nil, fmt.Errorf("read %s: %w", description, err)
+	}
+	if len(contents) > receiptFileLimit {
+		return nil, fmt.Errorf("%s exceeds the receipt size limit", description)
+	}
+	readAfter, err := file.Stat()
+	if err != nil {
+		return nil, fmt.Errorf("inspect read %s: %w", description, err)
+	}
+	if _, err := file.Seek(0, io.SeekStart); err != nil {
+		return nil, fmt.Errorf("rewind %s: %w", description, err)
+	}
+	confirmed, err := io.ReadAll(io.LimitReader(file, receiptFileLimit+1))
+	if err != nil {
+		return nil, fmt.Errorf("reread %s: %w", description, err)
+	}
+	finalInfo, err := file.Stat()
+	if err != nil {
+		return nil, fmt.Errorf("inspect reread %s: %w", description, err)
+	}
+	pathAfter, err := os.Lstat(resolved)
+	if err != nil {
+		return nil, fmt.Errorf("reinspect %s path: %w", description, err)
+	}
+	if !bytes.Equal(contents, confirmed) || !os.SameFile(before, pathAfter) ||
+		!os.SameFile(after, readAfter) || !os.SameFile(readAfter, finalInfo) ||
+		after.Size() != readAfter.Size() || readAfter.Size() != finalInfo.Size() ||
+		!after.ModTime().Equal(readAfter.ModTime()) ||
+		!readAfter.ModTime().Equal(finalInfo.ModTime()) {
+		return nil, fmt.Errorf("%s changed while it was being read", description)
+	}
+	return contents, nil
+}
+
 func (d *delivery) readReviewBody(
 	ctx context.Context,
 	bodyFile string,
@@ -1579,6 +1981,7 @@ func (d *delivery) readIgnoredText(
 type publishOptions struct {
 	ValidatedHead string
 	ReceiptFile   string
+	NoPullRequest bool
 }
 
 type publishReport struct {
@@ -1974,48 +2377,55 @@ func (d *delivery) publish(
 	); err != nil {
 		return nil, err
 	}
-	input := pullRequestInput{
-		BaseRefName:     report.Base,
-		HeadRefName:     report.Branch,
-		ExpectedHeadOID: currentHead,
-		Title:           projection.Title,
-		Body:            projection.Body,
-	}
-	pullRequest := currentPullRequest
-	if pullRequest != nil {
-		expected := *pullRequest
-		expected.State = "OPEN"
-		expected.HeadRefOID = currentHead
-		pullRequest = &expected
-	}
-	if pullRequest == nil {
-		if err := receiptTransaction.requireCurrent(ctx); err != nil {
-			return nil, fmt.Errorf(
-				"pre-create preparation receipt gate: %w",
-				err,
+	var pullRequest *pullRequest
+	if !options.NoPullRequest {
+		input := pullRequestInput{
+			BaseRefName:     report.Base,
+			HeadRefName:     report.Branch,
+			ExpectedHeadOID: currentHead,
+			Title:           projection.Title,
+			Body:            projection.Body,
+		}
+		pullRequest = currentPullRequest
+		if pullRequest != nil {
+			expected := *pullRequest
+			expected.State = "OPEN"
+			expected.HeadRefOID = currentHead
+			pullRequest = &expected
+		}
+		if pullRequest == nil {
+			if err := receiptTransaction.requireCurrent(ctx); err != nil {
+				return nil, fmt.Errorf(
+					"pre-create preparation receipt gate: %w",
+					err,
+				)
+			}
+			pullRequest, err = d.forge.CreatePullRequest(
+				ctx,
+				d.remoteRepository,
+				input,
+			)
+		} else if !pullRequestMatchesInput(*pullRequest, input) {
+			if err := receiptTransaction.requireCurrent(ctx); err != nil {
+				return nil, fmt.Errorf(
+					"pre-update preparation receipt gate: %w",
+					err,
+				)
+			}
+			pullRequest, err = d.forge.UpdatePullRequest(
+				ctx,
+				d.remoteRepository,
+				*pullRequest,
+				input,
 			)
 		}
-		pullRequest, err = d.forge.CreatePullRequest(
-			ctx,
-			d.remoteRepository,
-			input,
-		)
-	} else if !pullRequestMatchesInput(*pullRequest, input) {
-		if err := receiptTransaction.requireCurrent(ctx); err != nil {
-			return nil, fmt.Errorf(
-				"pre-update preparation receipt gate: %w",
-				err,
-			)
+		if err != nil {
+			return nil, err
 		}
-		pullRequest, err = d.forge.UpdatePullRequest(
-			ctx,
-			d.remoteRepository,
-			*pullRequest,
-			input,
+	} else if currentPullRequest != nil {
+		return nil, fmt.Errorf(
+			"a pull request already exists for this branch; use --pull-request to synchronize it or close it before git-only publication",
 		)
-	}
-	if err != nil {
-		return nil, err
 	}
 	if pullRequest != nil && !receipt.ExpectedPullRequest.Present {
 		receipt, err = receipt.bindCreatedPullRequest(
@@ -2047,8 +2457,9 @@ func (d *delivery) publish(
 			"final verification did not describe the exact validated candidate",
 		)
 	}
-	if pullRequest == nil || verified.Inspection.PullRequest == nil ||
-		verified.Inspection.PullRequest.ID != pullRequest.ID {
+	if !options.NoPullRequest &&
+		(pullRequest == nil || verified.Inspection.PullRequest == nil ||
+			verified.Inspection.PullRequest.ID != pullRequest.ID) {
 		return nil, fmt.Errorf(
 			"final verification selected a different pull request",
 		)
@@ -2284,46 +2695,71 @@ func (d *delivery) verify(
 		report.RemoteHeadOID != report.LocalHeadOID {
 		return nil, fmt.Errorf("local HEAD does not equal the fetched remote feature ref")
 	}
+	expectationPresent := receipt != nil && receipt.ExpectedPullRequest.Present
 	if report.PullRequest == nil {
-		return nil, fmt.Errorf("no exact open pull request exists")
-	}
-	if report.PullRequest.HeadRefOID != report.LocalHeadOID {
-		return nil, fmt.Errorf("pull request head does not equal local HEAD")
+		if expectationPresent {
+			return nil, fmt.Errorf("the expected pull request is absent")
+		}
+	} else {
+		reviewInspection, err := d.inspectReviews(ctx)
+		if err != nil {
+			return nil, fmt.Errorf("inspect review threads: %w", err)
+		}
+		for _, thread := range reviewInspection.Threads {
+			if !thread.IsResolved && !thread.IsOutdated {
+				return nil, fmt.Errorf(
+					"unresolved review thread %s on %s (line %v); resolve it before delivery",
+					thread.ID,
+					thread.Path,
+					thread.Line,
+				)
+			}
+		}
+		if report.PullRequest.HeadRefOID != report.LocalHeadOID {
+			return nil, fmt.Errorf("pull request head does not equal local HEAD")
+		}
 	}
 	projection, err := d.repository.projection(ctx, report.LocalHeadOID)
 	if err != nil {
 		return nil, err
 	}
-	if receipt != nil {
-		state, err := receipt.pullRequestState(
-			report.PullRequest,
-			report.RemoteHeadOID,
-			projection,
-		)
-		if err != nil {
-			return nil, err
+	if report.PullRequest != nil {
+		if receipt != nil {
+			state, err := receipt.pullRequestState(
+				report.PullRequest,
+				report.RemoteHeadOID,
+				projection,
+			)
+			if err != nil {
+				return nil, err
+			}
+			if state != receiptPullRequestDesired {
+				return nil, fmt.Errorf(
+					"pull request has not reached the receipt's exact desired state",
+				)
+			}
 		}
-		if state != receiptPullRequestDesired {
+		if !pullRequestMatchesProjection(
+			*report.PullRequest,
+			projection,
+			report.Base,
+			report.Branch,
+		) {
 			return nil, fmt.Errorf(
-				"pull request has not reached the receipt's exact desired state",
+				"pull request does not equal the commit projection",
 			)
 		}
-	}
-	if !pullRequestMatchesProjection(
-		*report.PullRequest,
-		projection,
-		report.Base,
-		report.Branch,
-	) {
-		return nil, fmt.Errorf("pull request does not equal the commit projection")
 	}
 	commitBody, err := d.repository.commitBody(ctx, report.LocalHeadOID)
 	if err != nil {
 		return nil, err
 	}
-	if !hasFinalLine(commitBody, commitDisclaimer) ||
+	if !hasFinalLine(commitBody, commitDisclaimer) {
+		return nil, fmt.Errorf("commit has the wrong final disclaimer")
+	}
+	if report.PullRequest != nil &&
 		!hasFinalLine(report.PullRequest.Body, pullRequestDisclaimer) {
-		return nil, fmt.Errorf("commit or pull request has the wrong final disclaimer")
+		return nil, fmt.Errorf("pull request has the wrong final disclaimer")
 	}
 	if err := d.repository.requireBranchHead(
 		ctx,
@@ -2332,14 +2768,16 @@ func (d *delivery) verify(
 	); err != nil {
 		return nil, err
 	}
-	currentPullRequest, err := d.currentPullRequestMatchingInspection(
-		ctx,
-		report,
-	)
-	if err != nil {
-		return nil, err
+	if report.PullRequest != nil {
+		currentPullRequest, err := d.currentPullRequestMatchingInspection(
+			ctx,
+			report,
+		)
+		if err != nil {
+			return nil, err
+		}
+		report.PullRequest = currentPullRequest
 	}
-	report.PullRequest = currentPullRequest
 	finalStatus, err := d.requireCandidateBoundary(
 		ctx,
 		receipt,

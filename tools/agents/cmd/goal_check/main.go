@@ -198,7 +198,7 @@ func (c *compiler) compileGoal(goalDir string) (goalcatalog.GoalRecord, string) 
 	if ownerRoot == "" {
 		ownerRoot = "projects/agents"
 	}
-	return goalcatalog.GoalRecord{
+	record := goalcatalog.GoalRecord{
 		CandidatePath: candidatePath,
 		Availability:  "available",
 		Identity: &goalcatalog.GoalCoarseIdentity{
@@ -210,7 +210,58 @@ func (c *compiler) compileGoal(goalDir string) (goalcatalog.GoalRecord, string) 
 			Outcome:   goal.Status.Outcome,
 			Execution: goal.Status.Execution,
 		},
-	}, ""
+	}
+	if goal.Status.Outcome == "open" {
+		record.Continuation = continuationFor(goal, attempts)
+	}
+	return record, ""
+}
+
+// continuationFor builds the bounded resume projection for an open goal. It
+// prefers the active attempt and falls back to the most recent open attempt;
+// closed goals carry no continuation.
+func continuationFor(
+	goal goalv1alpha1.Goal,
+	attempts []goalv1alpha1.GoalAttempt,
+) *goalcatalog.GoalContinuation {
+	byID := make(map[string]goalv1alpha1.GoalAttempt, len(attempts))
+	for _, attempt := range attempts {
+		byID[attempt.Metadata.Name] = attempt
+	}
+	var selected *goalv1alpha1.GoalAttempt
+	if attempt, ok := byID[goal.Status.ActiveAttemptID]; ok &&
+		attempt.Status.State == "open" {
+		selected = &attempt
+	} else {
+		for index := range attempts {
+			attempt := attempts[index]
+			if attempt.Status.State != "open" {
+				continue
+			}
+			if selected == nil || attempt.Status.ObservedAt >
+				selected.Status.ObservedAt {
+				selected = &attempts[index]
+			}
+		}
+	}
+	if selected == nil {
+		// An open goal without an open attempt has no resumable work yet.
+		return nil
+	}
+	return &goalcatalog.GoalContinuation{
+		ActiveAttempt:    selected.Metadata.Name,
+		StableDefect:     selected.Spec.StableDefect,
+		Hypothesis:       selected.Spec.Hypothesis,
+		Subject:          selected.Spec.Subject,
+		AffectedCriteria: selected.Spec.AffectedCriteria,
+		RegressionRefs:   selected.Spec.RegressionRefs,
+		PriorAttemptID:   selected.Spec.PriorAttemptID,
+		DominantFailure:  selected.Spec.DominantFailure,
+		MeasurableDelta:  selected.Spec.MeasurableDelta,
+		NextAction:       selected.Spec.NextAction,
+		Blocker:          selected.Spec.Blocker,
+		ResumeCondition:  selected.Spec.ResumeCondition,
+	}
 }
 
 // loadRecord parses every manifest of one goal record from disk without

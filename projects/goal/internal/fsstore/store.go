@@ -602,6 +602,17 @@ type CheckpointOptions struct {
 	CloseAttempt            bool
 	Outcome                 string
 	Execution               string
+	StableDefect            string
+	Hypothesis              string
+	Subject                 string
+	AffectedCriteria        []string
+	RegressionRefs          []string
+	PriorAttemptID          string
+	DominantFailure         string
+	MeasurableDelta         string
+	NextAction              string
+	Blocker                 string
+	ResumeCondition         string
 }
 
 type desiredCriterion struct {

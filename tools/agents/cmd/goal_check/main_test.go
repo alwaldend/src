@@ -270,3 +270,132 @@ func TestGoalCompileRecordsInvalidAsUnavailable(t *testing.T) {
 		t.Fatalf("unexpected goals: %#v", catalog.Goals)
 	}
 }
+
+func openFixtureGoalDir() map[string]string {
+	files := fixtureGoalDir()
+	files["projects/agents/goals/repo-agent-system/goal.yaml"] = `apiVersion: goals.alwaldend.com/v1alpha1
+kind: Goal
+metadata:
+  name: repo-agent-system
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-08-31T13:55:01.640303113Z"
+  annotations:
+    goals.alwaldend.com/local-owner-root: projects/agents
+spec:
+  title: Make the repository a coherent agent system
+  scope: project
+  retention:
+    policy: durable
+  relationships:
+    dependsOnGoalRefs: []
+    supersedesGoalRefs: []
+status:
+  lifecycleGeneration: 1
+  outcome: open
+  execution: active
+  activeAttemptID: resume-attempt
+  criteriaRevision: 1
+  observedAt: "2026-08-31T16:32:21.398457663Z"
+`
+	files["projects/agents/goals/repo-agent-system/criteria.yaml"] = `apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalCriteria
+metadata:
+  name: repo-agent-system
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-08-31T13:55:01.640303113Z"
+spec:
+  goalRef:
+    name: repo-agent-system
+  revision: 1
+  items:
+  - criterionID: audit-current-state
+    revision: 1
+    required: true
+    statement: A repository-wide evidence audit identifies the current system.
+    evidenceMethod: Inspect the committed current-state analysis.
+`
+	files["projects/agents/goals/repo-agent-system/criteria-revisions/1.yaml"] = files["projects/agents/goals/repo-agent-system/criteria.yaml"]
+	files["projects/agents/goals/repo-agent-system/attempts/resume-attempt/attempt.yaml"] = `apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: resume-attempt
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-08-31T14:42:06.530697381Z"
+spec:
+  goalRef:
+    name: repo-agent-system
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:` + strings.Repeat("a", 64) + `
+  goalStateDigest: sha256:` + strings.Repeat("1", 64) + `
+  workType: investigation
+  stableDefect: The catalog omits resume state for open goals.
+  nextAction: Promote the continuation packet.
+  blocker: Awaiting acceptance.
+  resumeCondition: The catalog check passes.
+status:
+  state: open
+  artifacts:
+    planDigest: sha256:` + strings.Repeat("2", 64) + `
+    resultDigest: sha256:` + strings.Repeat("3", 64) + `
+    evidence:
+    - path: evidence/design-review.md
+      digest: sha256:` + strings.Repeat("4", 64) + `
+  observedAt: "2026-08-31T16:32:21.39804838Z"
+`
+	files["projects/agents/goals/repo-agent-system/attempts/resume-attempt/plan.md"] = "# Plan\n"
+	files["projects/agents/goals/repo-agent-system/attempts/resume-attempt/result.md"] = "# Result\n"
+	files["projects/agents/goals/repo-agent-system/attempts/resume-attempt/evidence/design-review.md"] = "# Review\n"
+	delete(files, "projects/agents/goals/repo-agent-system/attempts/system-design-001/attempt.yaml")
+	delete(files, "projects/agents/goals/repo-agent-system/attempts/system-design-001/plan.md")
+	delete(files, "projects/agents/goals/repo-agent-system/attempts/system-design-001/result.md")
+	delete(files, "projects/agents/goals/repo-agent-system/attempts/system-design-001/evidence/design-review.md")
+	return files
+}
+
+func TestGoalCompileIncludesOpenContinuation(t *testing.T) {
+	root := writeFiles(t, openFixtureGoalDir())
+	var stdout bytes.Buffer
+	if err := run([]string{
+		"--workspace-root", root,
+		"--source-revision", "0123456789abcdef0123456789abcdef01234567",
+		"--output", "out/goal.json",
+		"--markdown", "out/goal.md",
+	}, &stdout); err != nil {
+		t.Fatalf("run: %v", err)
+	}
+	content, err := os.ReadFile(filepath.Join(root, "out/goal.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	catalog, err := goalcatalog.DecodeGoalStrict(content)
+	if err != nil {
+		t.Fatalf("decode: %v", err)
+	}
+	if len(catalog.Goals) != 1 {
+		t.Fatalf("unexpected goals: %#v", catalog.Goals)
+	}
+	record := catalog.Goals[0]
+	if record.Continuation == nil {
+		t.Fatalf("open goal lacks continuation: %#v", record)
+	}
+	continuation := record.Continuation
+	if continuation.ActiveAttempt != "resume-attempt" ||
+		continuation.StableDefect != "The catalog omits resume state for open goals." ||
+		continuation.NextAction != "Promote the continuation packet." ||
+		continuation.Blocker != "Awaiting acceptance." ||
+		continuation.ResumeCondition != "The catalog check passes." {
+		t.Fatalf("unexpected continuation: %#v", continuation)
+	}
+	markdown, err := os.ReadFile(filepath.Join(root, "out/goal.md"))
+	if err != nil || !strings.Contains(
+		string(markdown),
+		"Resume: attempt `resume-attempt`",
+	) {
+		t.Fatalf("markdown render missing continuation: %v", err)
+	}
+}

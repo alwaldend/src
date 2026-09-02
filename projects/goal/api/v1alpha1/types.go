@@ -126,6 +126,28 @@ type AttemptSpec struct {
 	CriteriaDigest      string        `json:"criteriaDigest" yaml:"criteriaDigest"`
 	GoalStateDigest     string        `json:"goalStateDigest" yaml:"goalStateDigest"`
 	WorkType            string        `json:"workType" yaml:"workType"`
+	// StableDefect is the reproducible problem under investigation.
+	StableDefect string `json:"stableDefect,omitempty" yaml:"stableDefect,omitempty"`
+	// Hypothesis is the candidate explanation being tested.
+	Hypothesis string `json:"hypothesis,omitempty" yaml:"hypothesis,omitempty"`
+	// Subject names the exact system, artifact, or reference under test.
+	Subject string `json:"subject,omitempty" yaml:"subject,omitempty"`
+	// AffectedCriteria lists the criterion IDs this attempt exercises.
+	AffectedCriteria []string `json:"affectedCriteria,omitempty" yaml:"affectedCriteria,omitempty"`
+	// RegressionRefs records the reviewed regression set or fixtures.
+	RegressionRefs []string `json:"regressionRefs,omitempty" yaml:"regressionRefs,omitempty"`
+	// PriorAttemptID names an earlier attempt this one resumes or corrects.
+	PriorAttemptID string `json:"priorAttemptID,omitempty" yaml:"priorAttemptID,omitempty"`
+	// DominantFailure is the single most useful failure signal observed.
+	DominantFailure string `json:"dominantFailure,omitempty" yaml:"dominantFailure,omitempty"`
+	// MeasurableDelta is the measured difference this attempt produces.
+	MeasurableDelta string `json:"measurableDelta,omitempty" yaml:"measurableDelta,omitempty"`
+	// NextAction is the deterministic next step for a resuming agent.
+	NextAction string `json:"nextAction,omitempty" yaml:"nextAction,omitempty"`
+	// Blocker names the external condition preventing progress, if any.
+	Blocker string `json:"blocker,omitempty" yaml:"blocker,omitempty"`
+	// ResumeCondition states what must hold before resuming this attempt.
+	ResumeCondition string `json:"resumeCondition,omitempty" yaml:"resumeCondition,omitempty"`
 }
 
 type ArtifactDigest struct {

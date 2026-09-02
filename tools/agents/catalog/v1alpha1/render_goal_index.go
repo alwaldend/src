@@ -31,6 +31,33 @@ func RenderGoalMarkdown(catalog GoalCatalog) string {
 			fmt.Fprintf(&builder, "  - Outcome: `%s`\n", goal.CoarseStatus.Outcome)
 			fmt.Fprintf(&builder, "  - Execution: `%s`\n", goal.CoarseStatus.Execution)
 		}
+		if goal.Continuation != nil {
+			fmt.Fprintf(
+				&builder,
+				"  - Resume: attempt `%s`\n",
+				goal.Continuation.ActiveAttempt,
+			)
+			if goal.Continuation.StableDefect != "" {
+				fmt.Fprintf(&builder, "    - Stable defect: %s\n",
+					goal.Continuation.StableDefect)
+			}
+			if goal.Continuation.DominantFailure != "" {
+				fmt.Fprintf(&builder, "    - Dominant failure: %s\n",
+					goal.Continuation.DominantFailure)
+			}
+			if goal.Continuation.NextAction != "" {
+				fmt.Fprintf(&builder, "    - Next action: %s\n",
+					goal.Continuation.NextAction)
+			}
+			if goal.Continuation.Blocker != "" {
+				fmt.Fprintf(&builder, "    - Blocker: %s\n",
+					goal.Continuation.Blocker)
+			}
+			if goal.Continuation.ResumeCondition != "" {
+				fmt.Fprintf(&builder, "    - Resume condition: %s\n",
+					goal.Continuation.ResumeCondition)
+			}
+		}
 		if goal.Reason != "" {
 			fmt.Fprintf(&builder, "  - Reason: %s\n", goal.Reason)
 		}

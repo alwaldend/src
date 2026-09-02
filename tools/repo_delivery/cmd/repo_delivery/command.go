@@ -78,12 +78,92 @@ func newRootCommand(
 	root.AddCommand(
 		newProviderCommand(ctx, config, getenv, stdout, runner),
 		newInspectCommand(ctx, config, getenv, stdout, runner),
+		newRewriteAuthorizeCommand(ctx, config, getenv, stdout, runner),
 		newPrepareCommand(ctx, config, getenv, stdout, runner),
 		newPublishCommand(ctx, config, getenv, stdout, runner),
 		newVerifyCommand(ctx, config, getenv, stdout, runner),
 		newReviewCommand(ctx, config, getenv, stdout, runner),
 	)
 	return root
+}
+
+func newRewriteAuthorizeCommand(
+	ctx context.Context,
+	config *deliveryConfig,
+	getenv func(string) string,
+	stdout io.Writer,
+	runner commandRunner,
+) *cobra.Command {
+	options := &rewriteAuthorizeOptions{}
+	command := &cobra.Command{
+		Use:   "rewrite-authorize",
+		Short: "Write a typed non-authorizing remote-rewrite authorization",
+		Args:  cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			delivery, err := deliveryFromConfig(ctx, config, getenv, runner)
+			if err != nil {
+				return err
+			}
+			authorization, err := delivery.buildRewriteAuthorization(
+				ctx,
+				*options,
+			)
+			if err != nil {
+				return err
+			}
+			if err := delivery.writeAtomicIgnoredJSON(
+				ctx,
+				options.AuthorizationFile,
+				"rewrite authorization",
+				authorization,
+			); err != nil {
+				return err
+			}
+			return writeJSON(stdout, authorization)
+		},
+	}
+	flags := command.Flags()
+	flags.StringVar(
+		&options.OldRemoteOID,
+		"old-remote-oid",
+		"",
+		"exact fetched remote feature OID that will be replaced",
+	)
+	flags.StringVar(
+		&options.NewHeadOID,
+		"new-head-oid",
+		"",
+		"exact local candidate head OID that will replace the remote ref",
+	)
+	flags.StringVar(
+		&options.OwnerRoot,
+		"owner-root",
+		"",
+		"task-owned path root that establishes ownership",
+	)
+	flags.StringArrayVar(
+		&options.TaskPaths,
+		"task-path",
+		nil,
+		"exact task-owned path (repeatable)",
+	)
+	flags.StringVar(
+		&options.SourceReceipt,
+		"source-receipt",
+		"",
+		"ignored preparation or inspection receipt establishing provenance",
+	)
+	flags.StringVar(
+		&options.AuthorizationFile,
+		"authorization-file",
+		"",
+		"ignored output authorization receipt under out/<task>/",
+	)
+	_ = command.MarkFlagRequired("old-remote-oid")
+	_ = command.MarkFlagRequired("new-head-oid")
+	_ = command.MarkFlagRequired("owner-root")
+	_ = command.MarkFlagRequired("authorization-file")
+	return command
 }
 
 func newProviderCommand(
@@ -295,6 +375,12 @@ func newPrepareCommand(
 		"",
 		"exact task-owned remote OID authorized for replacement",
 	)
+	flags.StringVar(
+		&options.RewriteAuthorization,
+		"rewrite-authorization",
+		"",
+		"typed rewrite-authorization receipt under out/<task>/ authorizing a remote replacement",
+	)
 	_ = command.MarkFlagRequired("message-file")
 	_ = command.MarkFlagRequired("receipt-file")
 	return command
@@ -341,6 +427,12 @@ func newPublishCommand(
 		"receipt-file",
 		"",
 		"ignored preparation receipt emitted by prepare",
+	)
+	flags.BoolVar(
+		&options.NoPullRequest,
+		"no-pull-request",
+		false,
+		"push the feature branch without creating or synchronizing a pull request",
 	)
 	_ = command.MarkFlagRequired("validated-head")
 	_ = command.MarkFlagRequired("receipt-file")

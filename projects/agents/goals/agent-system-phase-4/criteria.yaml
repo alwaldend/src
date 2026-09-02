@@ -1,0 +1,42 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalCriteria
+metadata:
+  name: agent-system-phase-4
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-09-02T11:29:19.234636468Z"
+spec:
+  goalRef:
+    name: agent-system-phase-4
+  revision: 1
+  items:
+  - criterionID: criterion-001
+    revision: 1
+    required: true
+    statement: "goal-resume: A fresh agent can discover every maintained open goal and resume one without prior path knowledge or free-form archaeology."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-002
+    revision: 1
+    required: true
+    statement: "delivery-validation: prepare -> publish cannot succeed with only a caller-asserted head; the supplied validation set must match the exact candidate and policy."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-003
+    revision: 1
+    required: true
+    statement: "review-traversal: A review outcome is traversable to the delivered fix and regression without making delivery the goal or test owner."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-004
+    revision: 1
+    required: true
+    statement: "release-identity: Formal release identity, bundle head, version/channel, immutable artifact names, remote refs, and deployment manifest agree; unrelated tags do not truncate changelogs."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-005
+    revision: 1
+    required: true
+    statement: "release-plan: The same reviewed release-ref plan can publish and verify a nightly tag or a release branch/tag pair; an existing immutable release tag never moves."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: criterion-006
+    revision: 1
+    required: true
+    statement: "interrupted-goal-publish: Interrupted multi-file goal publication has a supported deterministic doctor or recovery result."
+    evidenceMethod: Inspect linked evidence against the criterion.
