@@ -25,8 +25,10 @@ import (
 	catalogv1alpha1 "git.alwaldend.com/alwaldend/src/tools/agents/catalog/v1alpha1"
 )
 
-const bazelIgnorePath = ".bazelignore"
-const fullCheckScriptPath = "projects/agents/skills/full-repo-check/scripts/run_full_repo_check.go"
+const (
+	bazelIgnorePath     = ".bazelignore"
+	fullCheckScriptPath = "projects/agents/skills/full-repo-check/scripts/run_full_repo_check.go"
+)
 
 var moduleNamePattern = regexp.MustCompile(`(?m)^\s*(?:name|module\(\s*name)\s*=\s*"([^"]+)"`)
 

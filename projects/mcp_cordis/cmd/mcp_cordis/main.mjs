@@ -20,14 +20,11 @@ function usage() {
     ].join("\n");
 }
 
-const ownershipIDPattern =
-    /^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$/u;
+const ownershipIDPattern = /^[a-z][a-z0-9]*(?:[._-][a-z0-9]+)*$/u;
 
 function ownershipID(flag, raw) {
     if (!ownershipIDPattern.test(raw)) {
-        throw new Error(
-            `${flag} must be a lowercase portable identity`,
-        );
+        throw new Error(`${flag} must be a lowercase portable identity`);
     }
     return raw;
 }

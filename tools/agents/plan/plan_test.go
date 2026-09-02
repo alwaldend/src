@@ -54,11 +54,15 @@ func testIndex() *Index {
 				},
 			},
 			Workspaces: []catalogv1alpha1.TopologyWorkspace{
-				{ID: "root", Path: ".", ModulePath: "MODULE.bazel",
-					ModuleName: "com_alwaldend_src"},
-				{ID: "agents.ws", Path: "tools/agents",
+				{
+					ID: "root", Path: ".", ModulePath: "MODULE.bazel",
+					ModuleName: "com_alwaldend_src",
+				},
+				{
+					ID: "agents.ws", Path: "tools/agents",
 					ModulePath: "tools/agents/MODULE.bazel",
-					ModuleName: "agents"},
+					ModuleName: "agents",
+				},
 			},
 		},
 		Capability: &catalogv1alpha1.CapabilityCatalog{
@@ -75,11 +79,15 @@ func testIndex() *Index {
 		WorkspaceCheck: &catalogv1alpha1.WorkspaceCheckCatalog{
 			CatalogEnvelope: testEnvelope(),
 			Workspaces: []catalogv1alpha1.WorkspaceRecord{
-				{ID: "root", Path: ".", ModulePath: "MODULE.bazel",
-					ModuleName: "com_alwaldend_src"},
-				{ID: "agents.ws", Path: "tools/agents",
+				{
+					ID: "root", Path: ".", ModulePath: "MODULE.bazel",
+					ModuleName: "com_alwaldend_src",
+				},
+				{
+					ID: "agents.ws", Path: "tools/agents",
 					ModulePath: "tools/agents/MODULE.bazel",
-					ModuleName: "agents"},
+					ModuleName: "agents",
+				},
 			},
 		},
 	}

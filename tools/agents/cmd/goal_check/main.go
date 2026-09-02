@@ -285,7 +285,8 @@ func (c *compiler) loadRecord(goalDir string) (
 // loadYAML reads one YAML manifest, records it as an input, parses it, and
 // checks that its metadata name matches the goal directory name.
 func (c *compiler) loadYAML(goalDir, relativePath, role string,
-	destination any) bool {
+	destination any,
+) bool {
 	path := filepath.ToSlash(filepath.Join(goalDir, relativePath))
 	full := filepath.Join(c.root, filepath.FromSlash(path))
 	content, err := os.ReadFile(full)
@@ -305,7 +306,8 @@ func (c *compiler) loadYAML(goalDir, relativePath, role string,
 // as a catalog input. It is used for required record components that are not
 // part of the declared input universe (criteria revisions and attempt files).
 func (c *compiler) readYAMLOnly(goalDir, relativePath string,
-	destination any) bool {
+	destination any,
+) bool {
 	path := filepath.ToSlash(filepath.Join(goalDir, relativePath))
 	full := filepath.Join(c.root, filepath.FromSlash(path))
 	content, err := os.ReadFile(full)

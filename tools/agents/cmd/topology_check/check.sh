@@ -29,7 +29,7 @@ fi
 
 binary="$(rlocation "${TOPOLOGY_CHECK_RLOCATION:?}")"
 exec "${binary}" \
-	--workspace-root "${workspace}" \
-	--output tools/agents/catalogs/topology.json \
-	--markdown tools/agents/catalogs/topology.md \
-	--check
+    --workspace-root "${workspace}" \
+    --output tools/agents/catalogs/topology.json \
+    --markdown tools/agents/catalogs/topology.md \
+    --check

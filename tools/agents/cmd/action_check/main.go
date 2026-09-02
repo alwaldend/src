@@ -21,8 +21,10 @@ import (
 	catalogv1alpha1 "git.alwaldend.com/alwaldend/src/tools/agents/catalog/v1alpha1"
 )
 
-const registrySchema = "agents.alwaldend.com/phase1-registry/v1alpha1"
-const operationsSchema = "agents.alwaldend.com/operations/v1alpha1"
+const (
+	registrySchema   = "agents.alwaldend.com/phase1-registry/v1alpha1"
+	operationsSchema = "agents.alwaldend.com/operations/v1alpha1"
+)
 
 type options struct {
 	workspaceRoot  string

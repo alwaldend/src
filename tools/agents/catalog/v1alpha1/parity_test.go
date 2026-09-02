@@ -9,14 +9,18 @@ func TestTopologyJSONMarkdownParity(t *testing.T) {
 	catalog := TopologyCatalog{
 		CatalogEnvelope: sampleEnvelope(),
 		Trees: []TopologyTree{
-			{ID: "projects", Path: "projects", ReadmePath: "projects/README.md",
-				Boundary: TreeBoundaryProduct},
+			{
+				ID: "projects", Path: "projects", ReadmePath: "projects/README.md",
+				Boundary: TreeBoundaryProduct,
+			},
 		},
 		Components: []TopologyComponent{
-			{ID: "agents", Path: "projects/agents", OwnerReadme: "projects/agents/README.md",
+			{
+				ID: "agents", Path: "projects/agents", OwnerReadme: "projects/agents/README.md",
 				BuildPath: "projects/agents/BUILD.bazel", Title: "Agents",
 				Description: "Repository-wide agent system",
-				Lifecycle:   "active", DocsState: "owned"},
+				Lifecycle:   "active", DocsState: "owned",
+			},
 		},
 		Workspaces: []TopologyWorkspace{
 			{ID: "root", Path: ".", ModulePath: "MODULE.bazel", ModuleName: "com_alwaldend_src"},

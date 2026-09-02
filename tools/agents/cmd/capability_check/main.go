@@ -25,10 +25,12 @@ import (
 
 const registrySchema = "agents.alwaldend.com/phase1-registry/v1alpha1"
 
-const discoveryDir = ".agents/skills"
-const skillsDir = "projects/agents/skills"
-const runtimeToolSource = "projects/mcp_cordis/internal/mcp.mjs"
-const fullCheckSkillPath = "projects/agents/skills/full-repo-check"
+const (
+	discoveryDir       = ".agents/skills"
+	skillsDir          = "projects/agents/skills"
+	runtimeToolSource  = "projects/mcp_cordis/internal/mcp.mjs"
+	fullCheckSkillPath = "projects/agents/skills/full-repo-check"
+)
 
 // discoveryOnlyLimitation is emitted once whenever a discovered skill has no
 // registry entry. The discovery set is intentionally a superset of the

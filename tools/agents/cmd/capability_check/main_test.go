@@ -85,7 +85,7 @@ func TestCapabilityCompileComplete(t *testing.T) {
 		"projects/agents/skills/answer-question/SKILL.md":    "# Answer\n",
 		"projects/agents/skills/answer-question/BUILD.bazel": "skill_library(name = \"answer\")\n",
 		"projects/mcp_cordis/internal/mcp.mjs":               "export const cordis = true;\n",
-		"tools/repo_delivery/cmd/repo_delivery/main.go": "package main\n",
+		"tools/repo_delivery/cmd/repo_delivery/main.go":      "package main\n",
 		"projects/goal/agent_operations.json":                capabilityFixtureOperation,
 		"projects/goal/cmd/goal/command.go":                  "package main\n",
 	})
@@ -136,7 +136,7 @@ func TestCapabilityCompileFailsOnMissingSkillDoc(t *testing.T) {
 		"tools/agents/declarations/registry.json":            capabilityFixtureRegistry,
 		"projects/agents/skills/answer-question/BUILD.bazel": "skill_library(name = \"answer\")\n",
 		"projects/mcp_cordis/internal/mcp.mjs":               "export const cordis = true;\n",
-		"tools/repo_delivery/cmd/repo_delivery/main.go": "package main\n",
+		"tools/repo_delivery/cmd/repo_delivery/main.go":      "package main\n",
 		"projects/goal/agent_operations.json":                capabilityFixtureOperation,
 		"projects/goal/cmd/goal/command.go":                  "package main\n",
 		"out/capability.json":                                "{}\n",
@@ -164,7 +164,7 @@ func TestCapabilityCompileDiscoveryOnlySkill(t *testing.T) {
 		"projects/agents/skills/codex-migration/SKILL.md":    "# Migrate\n",
 		"projects/agents/skills/codex-migration/BUILD.bazel": "skill_library(name = \"codex\")\n",
 		"projects/mcp_cordis/internal/mcp.mjs":               "export const cordis = true;\n",
-		"tools/repo_delivery/cmd/repo_delivery/main.go": "package main\n",
+		"tools/repo_delivery/cmd/repo_delivery/main.go":      "package main\n",
 		"projects/goal/agent_operations.json":                capabilityFixtureOperation,
 		"projects/goal/cmd/goal/command.go":                  "package main\n",
 	})

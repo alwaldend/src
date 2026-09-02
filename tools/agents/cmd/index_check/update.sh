@@ -27,6 +27,6 @@ fi
 
 binary="$(rlocation "${INDEX_CHECK_RLOCATION:?}")"
 exec "${binary}" \
-	--workspace-root "${workspace}" \
-	--output tools/agents/catalogs/index.json \
-	--markdown tools/agents/catalogs/index.md
+    --workspace-root "${workspace}" \
+    --output tools/agents/catalogs/index.json \
+    --markdown tools/agents/catalogs/index.md
