@@ -26,11 +26,15 @@ projects/goal/
 
 Go dependencies flow from `cmd/goal` to `internal/fsstore` to
 `api/v1alpha1`. The API package has no filesystem or command dependency.
+The Go toolchain is Bazel's `@rules_go//go`; run the package targets below
+rather than a host-installed `go`.
 
 The command stores Kubernetes-inspired `goals.alwaldend.com/v1alpha1` YAML
 resources and canonical, digest-bound attempt Markdown in ordinary repository
 files. Each `attempt.yaml` binds `plan.md`, `result.md`, and `evidence/*.md` by
-SHA-256, while each goal record's `README.md` is a generated, bounded,
+SHA-256. `Goal.status.plans` records durable plans with one active plan at a
+time and states `active`, `accepted`, `rejected`, or `superseded`; attempts can
+bind to a plan with `spec.planID`. Each goal record's `README.md` is a generated, bounded,
 replaceable projection. The portable API treats resource versions as opaque
 and excludes local ownership paths from desired state. The filesystem backend
 supplies one cooperative lock per goal, local numeric resource versions,

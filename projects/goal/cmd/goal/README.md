@@ -82,6 +82,12 @@ per-goal-locked catalog snapshot rather than a catalog-wide transaction, so a
 
 `checkpoint` starts or publishes an attempt, changes execution/outcome state,
 or applies a complete desired criteria-items file with `--criteria-file`.
+Plans are durable summaries in `Goal.status.plans`. Create one with
+`--plan-id ... --plan-strategy ... --plan-only`; transition the active plan
+with `--plan-id ... --plan-state accepted|rejected|superseded --plan-only`,
+adding `--plan-rejection-reason` for a rejection. A newly created active plan
+supersedes the prior active plan. Attempts may bind to a plan with
+`--plan-id` when starting or by using the active plan of an existing attempt.
 Criteria updates require paused execution and use ordinary atomic file
 replacement. Immutable criteria snapshots retain the exact canonical criteria
 revision for historical attempts; portable, domain-separated criteria and

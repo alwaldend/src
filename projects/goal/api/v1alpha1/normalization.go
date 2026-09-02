@@ -29,7 +29,20 @@ func (s GoalSpec) Normalized() GoalSpec {
 // persistence and digest form.
 func (g Goal) Normalized() Goal {
 	g.Spec = g.Spec.Normalized()
+	g.Status.Plans = normalizePlanSummaries(g.Status.Plans)
 	return g
+}
+
+func hasPlanSummary(values []PlanSummary, planID string) bool {
+	if planID == "" {
+		return false
+	}
+	for _, plan := range values {
+		if plan.PlanID == planID {
+			return true
+		}
+	}
+	return false
 }
 
 func normalizeGoalReferences(values []GoalReference) []GoalReference {
@@ -38,4 +51,8 @@ func normalizeGoalReferences(values []GoalReference) []GoalReference {
 		return normalized[left].Name < normalized[right].Name
 	})
 	return normalized
+}
+
+func normalizePlanSummaries(values []PlanSummary) []PlanSummary {
+	return append([]PlanSummary{}, values...)
 }

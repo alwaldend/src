@@ -188,10 +188,10 @@ stated scope.
   `go_binary` targets and invoke them with `bazel_agent run`; use
   another language only when Go or Bazel would materially complicate the task.
 - Loading the `repo-delivery` skill is REQUIRED when making changes that will
-  land in the source tree. The skill owns staging, feature-branch commits and
-  pushes, pull request maintenance, review comment handling, and the final
-  delivery report; how to apply it is the agent's judgment under the skill's
-  guidance.
+  land in the source tree, including every implementation task. The skill owns
+  staging, feature-branch commits and pushes, pull request maintenance, review
+  comment handling, and the final delivery report; how to apply it is the
+  agent's judgment under the skill's guidance.
 - Keep all task-owned scratch under the ignored `out/` area per the Scratch
   files section below; never commit temporary files.
 - Commit and push all legitimate changes (source, documentation, and
@@ -203,6 +203,10 @@ stated scope.
 
 ## Tooling
 
+- Go code is compiled and validated by Bazel's `@rules_go//go` toolchain, not
+  by a host-installed Go distribution. Use Bazel test targets and the pinned
+  `bazel_agent` entry points for Go validation; do not use host `go` commands
+  as the acceptance check.
 - When the main agent loads a skill, tell the user which skill it loaded and
   how its context applies to the current task, so the user knows what
   instructions the agent is operating under.

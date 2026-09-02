@@ -138,7 +138,7 @@ attempt that can affect it and against the frozen final result.
 
 `GoalAttempt.spec` binds the work to a `{name: ...}` goal reference, goal and
 lifecycle generations, criteria revision, portable criteria and goal-state
-digests, and work type. It does not store a Goal resource version: that value
+digests, optional `planID`, and work type. It does not store a Goal resource version: that value
 is the checkpoint caller's mutation-time compare-and-swap token, not a durable
 attempt input. Attempt status records whether it is open or closed, relevant
 timestamps, the SHA-256 artifact manifest, and the structured close review.
@@ -160,6 +160,17 @@ resume an open goal without free-form archaeology:
 - `blocker`: an external condition preventing progress, if any.
 - `resumeCondition`: what must hold before a resuming agent resumes this
   attempt.
+
+## Plans
+
+`Goal.status.plans` stores durable plan summaries. Each entry has a portable
+`planID`, a bounded `strategy`, and a state of `active`, `accepted`,
+`rejected`, or `superseded`. A rejected plan carries a bounded
+`rejectionReason`. At most one plan is active. Create or transition a plan
+with `goal checkpoint --plan-id ... --plan-strategy ...` or
+`--plan-state ... --plan-only`; a new plan supersedes the previous active plan.
+An attempt may bind to one of these summaries with `spec.planID`; the plan is
+input context and the attempt review remains the acceptance evidence.
 
 These fields are advisory input, not acceptance evidence: a closed attempt may
 omit them entirely. Prose fields must be trimmed, bounded, and free of NUL;

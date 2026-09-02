@@ -28,6 +28,7 @@ func GoalStateDigest(goal Goal) (string, error) {
 		AcceptedAttemptID    string        `json:"acceptedAttemptID"`
 		AcceptedResultDigest string        `json:"acceptedResultDigest"`
 		CriteriaRevision     uint64        `json:"criteriaRevision"`
+		Plans                []PlanSummary `json:"plans"`
 	}{
 		Domain:               "goals.alwaldend.com/portable-goal-state/v1alpha1",
 		APIVersion:           goal.APIVersion,
@@ -45,6 +46,7 @@ func GoalStateDigest(goal Goal) (string, error) {
 		AcceptedAttemptID:    goal.Status.AcceptedAttemptID,
 		AcceptedResultDigest: goal.Status.AcceptedResultDigest,
 		CriteriaRevision:     goal.Status.CriteriaRevision,
+		Plans:                goal.Status.Plans,
 	}
 	content, err := json.Marshal(state)
 	if err != nil {

@@ -78,28 +78,34 @@ starting an attempt.
 1. Define observable acceptance criteria and how each will be checked. Mark
    inferred criteria as assumptions. Never weaken the requested outcome to
    make it pass.
-2. Start one bounded work unit against exact goal generation, lifecycle,
-   criteria, and portable digest bindings. Keep the current Goal resource
-   version separately as the next checkpoint's compare-and-swap token. Record
-   the work type, target uncertainty or defect, plan, inputs, and intended
-   evidence before implementation.
-3. Preflight cheap deterministic assumptions before expensive work. A rejected
+2. Represent the approach as a durable plan. Create or select a plan with a
+   portable `planID` and bounded `strategy` before starting an attempt. At
+   most one plan is active; creating a replacement supersedes the previous
+   active plan, while a rejected plan records why it cannot continue.
+3. Start one bounded work unit against exact goal generation, lifecycle,
+   criteria, portable digest bindings, and the plan ID when one exists. Keep
+   the current Goal resource version separately as the next checkpoint's
+   compare-and-swap token. Record the work type, target uncertainty or defect,
+   inputs, and intended evidence before implementation.
+4. Preflight cheap deterministic assumptions before expensive work. A rejected
    preflight can revise an unfrozen plan; after work or publication starts, a
-   material change is a new attempt.
-4. Prefer a small, well-defined, high-leverage module over a broad uncertain
+   material change is a new attempt, and a rejected approach is a rejected
+   plan rather than a hidden retry.
+5. Prefer a small, well-defined, high-leverage module over a broad uncertain
    rewrite. Include the minimum whole-result context needed to judge its fit,
    interfaces, and regressions; local polish that harms the whole does not
    count as progress.
-5. Produce the smallest artifact that can reliably test the plan, then inspect
+6. Produce the smallest artifact that can reliably test the plan, then inspect
    the actual result. Close the work unit early when decisive evidence
    falsifies its module, interface, or approach. Successful commands prove
    execution, not acceptance.
-6. Evaluate every affected criterion as `pass`, `fail`, or `unverified`, run
+7. Evaluate every affected criterion as `pass`, `fail`, or `unverified`, run
    the fixed regression set, and bind evidence to the exact criteria revision
    and candidate or operation identity.
-7. Close the attempt with its result and decision: accept, refine, or reset.
-   Closed attempt directories are immutable.
-8. Checkpoint canonical state using the resource version from the most recent
+8. Close the attempt with its result and decision: accept, refine, or reset.
+   Close the plan as accepted, rejected, or superseded when its approach is
+   settled. Closed attempt directories are immutable.
+9. Checkpoint canonical state using the resource version from the most recent
    canonical read. On a stale resource version or lifecycle generation, reread
    and reconcile; never overwrite newer state.
 

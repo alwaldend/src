@@ -78,6 +78,9 @@ func (g Goal) ValidateStatus() error {
 	if g.Status.LifecycleGeneration == 0 || g.Status.CriteriaRevision == 0 {
 		return fmt.Errorf("status generation/revision fields must be positive")
 	}
+	if err := validatePlanSummaries(g.Status.Plans); err != nil {
+		return err
+	}
 	if !oneOf(g.Status.Outcome, "open", "achieved", "abandoned", "superseded") {
 		return fmt.Errorf("invalid status.outcome %q", g.Status.Outcome)
 	}
@@ -219,6 +222,14 @@ func (a GoalAttempt) ValidateForGoal(goal Goal) error {
 		return fmt.Errorf(
 			"attempt input generation/revision fields are invalid",
 		)
+	}
+	if a.Spec.PlanID != "" {
+		if err := ValidateRecordID("attempt spec.planID", a.Spec.PlanID); err != nil {
+			return err
+		}
+		if !hasPlanSummary(goal.Status.Plans, a.Spec.PlanID) {
+			return fmt.Errorf("attempt spec.planID does not match goal")
+		}
 	}
 	if !oneOf(
 		a.Spec.WorkType,
@@ -742,6 +753,58 @@ func validateOptionalTimestamp(field string, value string) error {
 		return nil
 	}
 	return validateRequiredTimestamp(field, value)
+}
+
+func validOptionalStatement(value string) bool {
+	return strings.TrimSpace(value) == value && value != "" &&
+		len(value) <= MaxStatementBytes &&
+		!strings.ContainsRune(value, '\x00')
+}
+
+func validatePlanSummaries(plans []PlanSummary) error {
+	activePlans := 0
+	seen := make(map[string]bool, len(plans))
+	for index, plan := range plans {
+		if err := ValidateRecordID("status.plans.planID", plan.PlanID); err != nil {
+			return err
+		}
+		if seen[plan.PlanID] {
+			return fmt.Errorf("duplicate status.plans.planID %q", plan.PlanID)
+		}
+		seen[plan.PlanID] = true
+		if !oneOf(plan.State, "active", "accepted", "rejected", "superseded") {
+			return fmt.Errorf("invalid status.plans.state %q", plan.State)
+		}
+		if strings.TrimSpace(plan.Strategy) != plan.Strategy ||
+			plan.Strategy == "" ||
+			len(plan.Strategy) > MaxStatementBytes {
+			return fmt.Errorf(
+				"status.plans.strategy must be trimmed and contain 1..%d bytes",
+				MaxStatementBytes,
+			)
+		}
+		if plan.State == "rejected" {
+			if !validOptionalStatement(plan.RejectionReason) {
+				return fmt.Errorf(
+					"rejected status.plans entry requires bounded rejectionReason",
+				)
+			}
+		} else if plan.RejectionReason != "" {
+			return fmt.Errorf(
+				"status.plans.rejectionReason is allowed only for rejected plans",
+			)
+		}
+		if plan.State == "active" {
+			activePlans++
+		}
+		if index > 0 && plans[index-1].State == "active" && plan.State != "active" {
+			return fmt.Errorf("active plan must be last in status.plans")
+		}
+	}
+	if activePlans > 1 {
+		return fmt.Errorf("at most one plan can be active")
+	}
+	return nil
 }
 
 func validateRequiredTimestamp(field string, value string) error {

@@ -71,6 +71,30 @@ func renderREADME(
 	fmt.Fprintf(&output, "- Scope: `%s`\n", goal.Spec.Scope)
 	fmt.Fprintf(&output, "- Outcome: `%s`\n", goal.Status.Outcome)
 	fmt.Fprintf(&output, "- Execution: `%s`\n", goal.Status.Execution)
+	output.WriteString("\n## Plans\n\n")
+	planLimit := min(limit, len(goal.Status.Plans))
+	for _, plan := range goal.Status.Plans[len(goal.Status.Plans)-planLimit:] {
+		fmt.Fprintf(
+			&output,
+			"- `%s` — `%s`: %s\n",
+			plan.PlanID,
+			plan.State,
+			markdownText(plan.Strategy, 240),
+		)
+		if plan.RejectionReason != "" {
+			fmt.Fprintf(
+				&output,
+				"  - Rejection reason: %s\n",
+				markdownText(plan.RejectionReason, 240),
+			)
+		}
+	}
+	if omittedPlans := len(goal.Status.Plans) - planLimit; omittedPlans > 0 {
+		fmt.Fprintf(&output, "- … %d older plans omitted by the projection limit.\n", omittedPlans)
+	}
+	if len(goal.Status.Plans) == 0 {
+		output.WriteString("- No plans recorded.\n")
+	}
 	fmt.Fprintf(&output, "- Active attempt: `%s`\n", valueOrDash(goal.Status.ActiveAttemptID))
 
 	output.WriteString("\n## Relationships\n\n")
@@ -133,11 +157,12 @@ func renderREADME(
 	for _, attempt := range sorted[:attemptLimit] {
 		fmt.Fprintf(
 			&output,
-			"- [`%s`](attempts/%s/) — `%s`, `%s`, resource version `%s`, criteria r%d\n",
+			"- [`%s`](attempts/%s/) — `%s`, `%s`, plan `%s`, resource version `%s`, criteria r%d\n",
 			attempt.Metadata.Name,
 			attempt.Metadata.Name,
 			attempt.Spec.WorkType,
 			attempt.Status.State,
+			valueOrDash(attempt.Spec.PlanID),
 			attempt.Metadata.ResourceVersion,
 			attempt.Spec.CriteriaRevision,
 		)

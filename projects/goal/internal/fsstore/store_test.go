@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"sync"
 	"syscall"
@@ -1220,6 +1221,140 @@ func TestCheckpointPersistsStructuredResumeFields(t *testing.T) {
 		attempt.Spec.Blocker != "Awaiting acceptance." ||
 		attempt.Spec.ResumeCondition != "The catalog check passes." {
 		t.Fatalf("structured resume fields were not persisted: %+v", attempt.Spec)
+	}
+}
+
+func TestCheckpointPlansContainAttempts(t *testing.T) {
+	store, root := newTestStore(t)
+	goalDir := initTestGoal(t, store, root, "plan-goal")
+	if _, err := store.Checkpoint(CheckpointOptions{
+		GoalDir:                 goalDir,
+		ExpectedResourceVersion: "1",
+		PlanOnly:                true,
+		PlanID:                  "plan-a",
+		PlanStrategy:            "Use a bounded parser change.",
+	}); err != nil {
+		t.Fatal(err)
+	}
+	goal, err := store.readGoalManifest(goalDir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(goal.Status.Plans) != 1 ||
+		goal.Status.Plans[0].PlanID != "plan-a" ||
+		goal.Status.Plans[0].State != "active" ||
+		goal.Status.Plans[0].Strategy != "Use a bounded parser change." {
+		t.Fatalf("active plan was not persisted: %+v", goal.Status.Plans)
+	}
+	if _, err := store.Checkpoint(CheckpointOptions{
+		GoalDir:                 goalDir,
+		ExpectedResourceVersion: "2",
+		AttemptID:               "attempt-a",
+		WorkType:                "change",
+		PlanID:                  "plan-a",
+	}); err != nil {
+		t.Fatal(err)
+	}
+	attemptPath := filepath.Join(goalDir, "attempts", "attempt-a", "attempt.yaml")
+	var attempt AttemptManifest
+	if err := store.readYAML(attemptPath, &attempt); err != nil {
+		t.Fatal(err)
+	}
+	second, err := store.readGoalManifest(goalDir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	second.Status.Plans[0].State = "rejected"
+	second.Status.Plans[0].RejectionReason = "The parser interface is unsafe."
+	if err := second.validate(); err != nil {
+		t.Fatalf("rejected plan state rejected: %v", err)
+	}
+	if _, err := store.Checkpoint(CheckpointOptions{
+		GoalDir:                 goalDir,
+		ExpectedResourceVersion: "3",
+		PlanOnly:                true,
+		PlanID:                  "plan-b",
+		PlanStrategy:            "Use a safer immutable parser.",
+	}); err != nil {
+		t.Fatal(err)
+	}
+	goal, err = store.readGoalManifest(goalDir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if goal.Status.Plans[0].State != "superseded" ||
+		goal.Status.Plans[1].PlanID != "plan-b" ||
+		goal.Status.Plans[1].State != "active" {
+		t.Fatalf("plan transition not persisted: %+v", goal.Status.Plans)
+	}
+}
+
+func TestCheckpointPlanOnlyValidation(t *testing.T) {
+	store, root := newTestStore(t)
+	goalDir := initTestGoal(t, store, root, "plan-validation-goal")
+	if _, err := store.Checkpoint(CheckpointOptions{
+		GoalDir:                 goalDir,
+		ExpectedResourceVersion: "1",
+		PlanOnly:                true,
+		PlanID:                  "plan-a",
+		PlanStrategy:            "Use a bounded parser change.",
+	}); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := store.Checkpoint(CheckpointOptions{
+		GoalDir:                 goalDir,
+		ExpectedResourceVersion: "2",
+		PlanOnly:                true,
+		PlanID:                  "plan-a",
+		PlanRejectionReason:     "The parser interface is unsafe.",
+	}); err == nil || !strings.Contains(err.Error(),
+		"--plan-rejection-reason requires --plan-state=rejected") {
+		t.Fatalf("Checkpoint() error = %v, want rejection-reason requirement", err)
+	}
+	if _, err := store.Checkpoint(CheckpointOptions{
+		GoalDir:                 goalDir,
+		ExpectedResourceVersion: "2",
+		PlanID:                  "plan-a",
+		PlanState:               "rejected",
+		PlanRejectionReason:     "The parser interface is unsafe.",
+	}); err != nil {
+		t.Fatal(err)
+	}
+	if _, err := store.Checkpoint(CheckpointOptions{
+		GoalDir:                 goalDir,
+		ExpectedResourceVersion: "3",
+		PlanOnly:                true,
+		PlanID:                  "plan-b",
+		PlanStrategy:            "Use a safer immutable parser.",
+	}); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestCheckpointRejectsOversizedPlanManifest(t *testing.T) {
+	store, root := newTestStore(t)
+	goalDir := initTestGoal(t, store, root, "oversized-plan-goal")
+	resourceVersion := "1"
+	for index := 0; index < 64; index++ {
+		if _, err := store.Checkpoint(CheckpointOptions{
+			GoalDir:                 goalDir,
+			ExpectedResourceVersion: resourceVersion,
+			PlanOnly:                true,
+			PlanID:                  fmt.Sprintf("plan-%03d", index),
+			PlanStrategy:            strings.Repeat("x", 2048),
+		}); err != nil {
+			t.Fatalf("plan %d: %v", index, err)
+		}
+		resourceVersion = strconv.Itoa(index + 2)
+	}
+	if _, err := store.Checkpoint(CheckpointOptions{
+		GoalDir:                 goalDir,
+		ExpectedResourceVersion: resourceVersion,
+		PlanOnly:                true,
+		PlanID:                  "plan-final",
+		PlanStrategy:            strings.Repeat("x", 4096),
+	}); err == nil || !strings.Contains(err.Error(), "plan cardinality exceeds 64") {
+		t.Fatalf("Checkpoint() error = %v, want plan cardinality rejection", err)
 	}
 }
 
