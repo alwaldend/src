@@ -183,6 +183,9 @@ stated scope.
 
 ## Tooling
 
+- When the main agent loads a skill, tell the user which skill it loaded and
+  how its context applies to the current task, so the user knows what
+  instructions the agent is operating under.
 - Before a non-obvious tool call or delegation, briefly tell the user its
   purpose, scope, and relevant side effects. Report the outcome when the user
   interface may otherwise show only an opaque tool event. Group routine
@@ -230,6 +233,14 @@ bounded depth, or `bazel_agent query` instead. Never search from the
 filesystem root (`find /`); it can hang for minutes on large dependency
 caches. Use an explicit root and `-maxdepth`, and prefer `rg --files` with a
 path.
+
+For structure-aware queries that plain-text search cannot express, use the
+repository-pinned ast-grep tool and the `ast-grep` skill. Invoke it through
+`bazel_agent run //tools/ast-grep:ast-grep --` with the pattern and language
+after the separator. Do not substitute an ast-grep binary from `PATH` or a
+separate download; read `tools/ast-grep/binary_toolchain.json` for the pinned
+version and follow the `ast-grep` skill for pattern validation and safe
+rewrites.
 
 Do not retry the same futile search or diagnostic more than once. After a
 second unsuccessful attempt, change the hypothesis, representation, or

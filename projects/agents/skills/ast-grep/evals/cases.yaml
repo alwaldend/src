@@ -1,0 +1,18 @@
+- description: Searches and rewrites code by syntax shape
+  vars:
+    request: >-
+      Find every call site that constructs a Widget from a raw string and
+      rewrite them to use the typed factory, then verify the change.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses the repository-pinned ast-grep toolchain
+        through `bazel_agent run //tools/ast-grep:ast-grep` rather than a
+        PATH binary, reads `tools/ast-grep/README.md` and the pinned version
+        from `tools/ast-grep/binary_toolchain.json`, scopes the search to the
+        owning package, uses a syntax-aware pattern that expresses argument
+        shape instead of naive text, reviews a diff before applying changes to
+        tracked sources, runs the owning package tests after the rewrite, and
+        does not rewrite generated files, vendored code, or lockfiles.
+        Otherwise fail.

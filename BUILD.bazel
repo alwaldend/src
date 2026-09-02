@@ -67,6 +67,7 @@ skill_discovery_links(
     name = "write_skill_links",
     skills = [
         "//projects/agents/skills/answer-question:skill",
+        "//projects/agents/skills/ast-grep:skill",
         "//projects/agents/skills/bazel-agent:skill",
         "//projects/agents/skills/bazel-nested-module:skill",
         "//projects/agents/skills/bazel-rules-skill:skill",
