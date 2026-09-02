@@ -946,10 +946,12 @@ type reviewLifecycleRunner struct {
 	pullRequestUpdatedAt        string
 	advanceEpochAfterReply      bool
 	epochAdvanced               bool
+	appendReplyReviewEventAt    int
 	staleReplyInventoryOnce     bool
 	postMutationViewCount       int
 	postMutationViewEpochs      []string
 	replyMutationCount          int
+	replyReviewEventAppended    bool
 	sawComment                  bool
 	sawReply                    bool
 	sawResolve                  bool
@@ -1143,12 +1145,11 @@ func (r *reviewLifecycleRunner) graphQL(
 		if r.mutated && r.advanceEpochAfterReply &&
 			r.postMutationViewCount == 1 && !r.epochAdvanced {
 			r.pullRequestUpdatedAt = "2026-08-30T00:01:00Z"
-			r.reviews = append(r.reviews, pullRequestReview{
-				ID: "R_reply", URL: "https://github.com/owner/repo/pull/7#review-reply",
-				Body: "", AuthorLogin: "agent", State: "COMMENTED",
-				SubmittedAt: "2026-08-30T00:01:00Z", CommitOID: testOID('b'),
-			})
 			r.epochAdvanced = true
+		}
+		if r.mutated && r.sawReply &&
+			r.replyReviewEventAppendAttempt() {
+			r.appendReplyReviewEvent()
 		}
 		nodes := make([]any, 0, len(r.topComments))
 		for _, comment := range r.topComments {
@@ -1425,6 +1426,33 @@ func (r *reviewLifecycleRunner) threadCommentsMap() map[string]any {
 		},
 	}
 	return result
+}
+
+func (r *reviewLifecycleRunner) replyReviewEventAppendAttempt() bool {
+	attempt := r.appendReplyReviewEventAt
+	if attempt <= 0 {
+		attempt = 1
+	}
+	return r.currentReconcileAttempt() == attempt && !r.replyReviewEventAppended
+}
+
+func (r *reviewLifecycleRunner) currentReconcileAttempt() int {
+	if r.postMutationViewCount == 0 {
+		return 0
+	}
+	return (r.postMutationViewCount + 1) / 2
+}
+
+func (r *reviewLifecycleRunner) appendReplyReviewEvent() {
+	if r.replyReviewEventAppended {
+		return
+	}
+	r.replyReviewEventAppended = true
+	r.reviews = append(r.reviews, pullRequestReview{
+		ID: "R_reply", URL: "https://github.com/owner/repo/pull/7#review-reply",
+		Body: "", AuthorLogin: "agent", State: "COMMENTED",
+		SubmittedAt: "2026-08-30T00:01:00Z", CommitOID: testOID('b'),
+	})
 }
 
 func (r *reviewLifecycleRunner) requestReview(
@@ -1845,6 +1873,51 @@ func TestGitHubReplyRetriesCoherentStaleInventoryWithoutRemutating(t *testing.T)
 			inspection,
 			runner.replyMutationCount,
 		)
+	}
+}
+
+func TestGitHubReplyWaitsForAsyncReplyReviewEvent(t *testing.T) {
+	t.Parallel()
+	runner := newReviewLifecycleRunner(t)
+	runner.appendReplyReviewEventAt = 2
+	forge := &githubForge{executable: "gh-test", runner: runner, directory: "/repo"}
+	inspection, err := forge.ReplyToReviewThread(
+		context.Background(),
+		remoteRepository{Host: "github.com", Owner: "owner", Name: "repo"},
+		testPullRequest(),
+		runner.threadExpectation(),
+		"Implemented the requested fix.",
+	)
+	if err != nil {
+		t.Fatalf("ReplyToReviewThread() error = %v", err)
+	}
+	last := inspection.Threads[0].Comments[len(inspection.Threads[0].Comments)-1]
+	if runner.replyMutationCount != 1 || last.ID != "RC_reply" ||
+		len(inspection.Reviews) != 2 ||
+		inspection.Reviews[1].ID != "R_reply" {
+		t.Fatalf(
+			"ReplyToReviewThread() = %#v, mutation count = %d",
+			inspection,
+			runner.replyMutationCount,
+		)
+	}
+}
+
+func TestGitHubReplyRefusesWhenReplyReviewEventNeverAppears(t *testing.T) {
+	t.Parallel()
+	runner := newReviewLifecycleRunner(t)
+	runner.appendReplyReviewEventAt = 99
+	forge := &githubForge{executable: "gh-test", runner: runner, directory: "/repo"}
+	_, err := forge.ReplyToReviewThread(
+		context.Background(),
+		remoteRepository{Host: "github.com", Owner: "owner", Name: "repo"},
+		testPullRequest(),
+		runner.threadExpectation(),
+		"Implemented the requested fix.",
+	)
+	if err == nil || !strings.Contains(err.Error(), "outcome unknown") ||
+		!strings.Contains(err.Error(), "reply review event") {
+		t.Fatalf("ReplyToReviewThread() error = %v", err)
 	}
 }
 
