@@ -786,7 +786,6 @@ func TestCommitCheckedPreservesSignedAmend(t *testing.T) {
 		oldHead,
 		tree,
 		"master",
-		nil,
 	); err != nil {
 		t.Fatalf("commitChecked() error = %v", err)
 	}
@@ -818,14 +817,15 @@ func TestCommitCheckedBlocksConcurrentHeadChange(t *testing.T) {
 	writeTestFile(t, filepath.Join(repositoryPath, "feature.txt"), "feature\n")
 	runTestGit(t, repositoryPath, "add", "feature.txt")
 	expectedTree := runTestGit(t, repositoryPath, "write-tree")
-	runner := &attachedIndexHookRunner{
+	runner := &attachedUpdateRefHookRunner{
 		delegate: &execRunner{},
 		hook: func() error {
 			command := exec.Command("git", "switch", "intruder")
 			command.Dir = repositoryPath
-			if output, err := command.CombinedOutput(); err == nil {
+			if output, err := command.CombinedOutput(); err != nil {
 				return fmt.Errorf(
-					"concurrent checkout unexpectedly succeeded: %s",
+					"concurrent checkout failed: %v: %s",
+					err,
 					output,
 				)
 			}
@@ -842,169 +842,22 @@ func TestCommitCheckedBlocksConcurrentHeadChange(t *testing.T) {
 	if err != nil {
 		t.Fatalf("openGitRepository() error = %v", err)
 	}
-	newHead, err := repository.commitChecked(
+	_, err = repository.commitChecked(
 		ctx,
 		"feature\n",
 		false,
 		oldHead,
 		expectedTree,
 		"master",
-		nil,
 	)
-	if err != nil {
-		t.Fatalf("commitChecked() error = %v", err)
+	if err == nil || !strings.Contains(err.Error(), "attached branch changed") {
+		t.Fatalf("commitChecked() error = %v, want attached-branch-change refusal", err)
 	}
 	if !runner.fired {
-		t.Fatal("concurrent checkout attempt did not run under transaction locks")
-	}
-	branch, head, err := repository.branchHead(ctx)
-	if err != nil {
-		t.Fatalf("branchHead() error = %v", err)
-	}
-	if branch != "master" || head != newHead {
-		t.Fatalf("checkout = %s@%s, want master@%s", branch, head, newHead)
-	}
-	if _, err := os.Lstat(filepath.Join(repositoryPath, ".git", "HEAD.lock")); !os.IsNotExist(err) {
-		t.Fatalf("HEAD lock was not cleaned up: %v", err)
-	}
-	if _, err := os.Lstat(filepath.Join(repositoryPath, ".git", "index.lock")); !os.IsNotExist(err) {
-		t.Fatalf("index lock was not cleaned up: %v", err)
-	}
-}
-
-func TestDetachExactBranchRejectsAnotherSameOIDBranch(t *testing.T) {
-	ctx := context.Background()
-	repositoryPath := filepath.Join(t.TempDir(), "repository")
-	runTestGit(t, t.TempDir(), "init", "--initial-branch=feature", repositoryPath)
-	configureTestRepository(t, repositoryPath)
-	writeTestFile(t, filepath.Join(repositoryPath, "base.txt"), "base\n")
-	runTestGit(t, repositoryPath, "add", "base.txt")
-	runTestGit(t, repositoryPath, "commit", "-m", "base")
-	head := runTestGit(t, repositoryPath, "rev-parse", "HEAD")
-	runTestGit(t, repositoryPath, "branch", "intruder", head)
-	runTestGit(t, repositoryPath, "symbolic-ref", "HEAD", "refs/heads/intruder")
-	repository, err := openGitRepository(
-		ctx,
-		repositoryPath,
-		"git",
-		func(string) string { return "" },
-		&execRunner{},
-	)
-	if err != nil {
-		t.Fatalf("openGitRepository() error = %v", err)
-	}
-	if err := repository.detachExactBranch(ctx, "feature", head); err == nil ||
-		!strings.Contains(err.Error(), "symbolic HEAD changed") {
-		t.Fatalf("detachExactBranch() error = %v, want same-OID branch refusal", err)
+		t.Fatal("concurrent checkout did not run during branch advancement")
 	}
 	if got := runTestGit(t, repositoryPath, "symbolic-ref", "--short", "HEAD"); got != "intruder" {
-		t.Fatalf("HEAD = %q, want preserved intruder branch", got)
-	}
-}
-
-func TestHEADLockReleasePreservesAReplacementOwner(t *testing.T) {
-	ctx := context.Background()
-	repositoryPath := filepath.Join(t.TempDir(), "repository")
-	runTestGit(t, t.TempDir(), "init", "--initial-branch=master", repositoryPath)
-	configureTestRepository(t, repositoryPath)
-	writeTestFile(t, filepath.Join(repositoryPath, "base.txt"), "base\n")
-	runTestGit(t, repositoryPath, "add", "base.txt")
-	runTestGit(t, repositoryPath, "commit", "-m", "base")
-	repository, err := openGitRepository(
-		ctx,
-		repositoryPath,
-		"git",
-		func(string) string { return "" },
-		&execRunner{},
-	)
-	if err != nil {
-		t.Fatalf("openGitRepository() error = %v", err)
-	}
-	head := runTestGit(t, repositoryPath, "rev-parse", "HEAD")
-	lock, err := repository.lockHEAD(ctx)
-	if err != nil {
-		t.Fatalf("lockHEAD() error = %v", err)
-	}
-	if err := lock.commitOID(head); err != nil {
-		t.Fatalf("commitOID() error = %v", err)
-	}
-	replacement, err := os.OpenFile(
-		lock.path,
-		os.O_WRONLY|os.O_CREATE|os.O_EXCL,
-		0o600,
-	)
-	if err != nil {
-		t.Fatalf("create replacement HEAD lock: %v", err)
-	}
-	if _, err := replacement.WriteString("replacement owner\n"); err != nil {
-		t.Fatalf("write replacement HEAD lock: %v", err)
-	}
-	if err := replacement.Close(); err != nil {
-		t.Fatalf("close replacement HEAD lock: %v", err)
-	}
-	if err := lock.release(); err != nil {
-		t.Fatalf("release() error = %v", err)
-	}
-	contents, err := os.ReadFile(lock.path)
-	if err != nil {
-		t.Fatalf("replacement HEAD lock was removed: %v", err)
-	}
-	if string(contents) != "replacement owner\n" {
-		t.Fatalf("replacement HEAD lock = %q", contents)
-	}
-	if err := os.Remove(lock.path); err != nil {
-		t.Fatalf("remove replacement HEAD lock: %v", err)
-	}
-}
-
-func TestCommitCheckedRestoresOriginalBranchWhenAttachmentFails(t *testing.T) {
-	ctx := context.Background()
-	repositoryPath := filepath.Join(t.TempDir(), "repository")
-	runTestGit(t, t.TempDir(), "init", "--initial-branch=master", repositoryPath)
-	configureTestRepository(t, repositoryPath)
-	writeTestFile(t, filepath.Join(repositoryPath, ".gitignore"), "/out/\n")
-	writeTestFile(t, filepath.Join(repositoryPath, "base.txt"), "base\n")
-	runTestGit(t, repositoryPath, "add", ".gitignore", "base.txt")
-	runTestGit(t, repositoryPath, "commit", "-m", "base")
-	originalHead := runTestGit(t, repositoryPath, "rev-parse", "HEAD")
-	writeTestFile(t, filepath.Join(repositoryPath, "feature.txt"), "feature\n")
-	runTestGit(t, repositoryPath, "add", "feature.txt")
-	expectedTree := runTestGit(t, repositoryPath, "write-tree")
-	runner := &failAttachedIndexInspectionRunner{delegate: &execRunner{}}
-	repository, err := openGitRepository(
-		ctx,
-		repositoryPath,
-		"git",
-		func(string) string { return "" },
-		runner,
-	)
-	if err != nil {
-		t.Fatalf("openGitRepository() error = %v", err)
-	}
-	_, err = repository.commitChecked(
-		ctx,
-		"feature\n",
-		false,
-		originalHead,
-		expectedTree,
-		"master",
-		nil,
-	)
-	if err == nil || !strings.Contains(err.Error(), "attached branch index gate") {
-		t.Fatalf("commitChecked() error = %v, want pre-commit index refusal", err)
-	}
-	branch, head, err := repository.branchHead(ctx)
-	if err != nil {
-		t.Fatalf("branchHead() error = %v", err)
-	}
-	if branch != "master" || head != originalHead {
-		t.Fatalf("checkout = %s@%s, want master@%s", branch, head, originalHead)
-	}
-	if got := runTestGit(t, repositoryPath, "rev-parse", "master"); got != originalHead {
-		t.Fatalf("master = %s, want restored %s", got, originalHead)
-	}
-	if runner.failures != 1 {
-		t.Fatalf("injected index-inspection failures = %d, want 1", runner.failures)
+		t.Fatalf("HEAD branch = %q, want concurrent intruder", got)
 	}
 }
 
@@ -1060,7 +913,7 @@ func TestRebasePreservesCapturedSignatureRequirement(t *testing.T) {
 	if err != nil {
 		t.Fatalf("openGitRepository() error = %v", err)
 	}
-	if _, err := repository.rebase(ctx, base, "feature", oldFeature, nil); err != nil {
+	if _, err := repository.rebase(ctx, base, "feature", oldFeature); err != nil {
 		t.Fatalf("rebase() error = %v", err)
 	}
 	newFeature, err := repository.head(ctx)
@@ -1167,7 +1020,6 @@ func TestRebaseDoesNotUpdateSiblingRefs(t *testing.T) {
 		newBase,
 		"feature",
 		oldFeature,
-		nil,
 	)
 	if err != nil {
 		t.Fatalf("rebase() error = %v", err)
@@ -1198,15 +1050,16 @@ func TestRebaseDoesNotUpdateSiblingRefs(t *testing.T) {
 func TestAttachedRebaseRejectsConcurrentMainCheckout(t *testing.T) {
 	ctx := context.Background()
 	repositoryPath, base, oldFeature := newRebaseFixture(t)
-	runTestGit(t, repositoryPath, "branch", "intruder", base)
+	runTestGit(t, repositoryPath, "branch", "intruder", oldFeature)
 	runner := &attachedTransitionHookRunner{
 		delegate: &execRunner{},
 		hook: func() error {
 			command := exec.Command("git", "switch", "intruder")
 			command.Dir = repositoryPath
-			if output, err := command.CombinedOutput(); err == nil {
+			if output, err := command.CombinedOutput(); err != nil {
 				return fmt.Errorf(
-					"concurrent main checkout unexpectedly succeeded: %s",
+					"concurrent main checkout failed: %v: %s",
+					err,
 					output,
 				)
 			}
@@ -1223,19 +1076,18 @@ func TestAttachedRebaseRejectsConcurrentMainCheckout(t *testing.T) {
 	if err != nil {
 		t.Fatalf("openGitRepository() error = %v", err)
 	}
-	rebasedHead, err := repository.rebase(ctx, base, "feature", oldFeature, nil)
-	if err != nil {
-		t.Fatalf("rebase() error = %v", err)
+	_, err = repository.rebase(ctx, base, "feature", oldFeature)
+	if err == nil || !strings.Contains(err.Error(), "attached branch changed") {
+		t.Fatalf("rebase() error = %v, want attached-branch-change refusal", err)
 	}
 	if !runner.fired {
 		t.Fatal("concurrent main checkout attempt did not run during attached transition")
 	}
-	branch, head, err := repository.branchHead(ctx)
-	if err != nil {
-		t.Fatalf("branchHead() error = %v", err)
+	if got := runTestGit(t, repositoryPath, "rev-parse", "feature^"); got != base {
+		t.Fatalf("feature ref parent = %s, want rebased base %s", got, base)
 	}
-	if branch != "feature" || head != rebasedHead {
-		t.Fatalf("checkout = %s@%s, want feature@%s", branch, head, rebasedHead)
+	if got := runTestGit(t, repositoryPath, "symbolic-ref", "--short", "HEAD"); got != "intruder" {
+		t.Fatalf("HEAD branch = %q, want concurrent intruder", got)
 	}
 }
 
@@ -1277,7 +1129,7 @@ func TestAttachedRebaseRejectsSiblingWorktreeClaim(t *testing.T) {
 	if err != nil {
 		t.Fatalf("openGitRepository() error = %v", err)
 	}
-	rebasedHead, err := repository.rebase(ctx, base, "feature", oldFeature, nil)
+	rebasedHead, err := repository.rebase(ctx, base, "feature", oldFeature)
 	if err != nil {
 		t.Fatalf("rebase() error = %v", err)
 	}
@@ -1293,48 +1145,6 @@ func TestAttachedRebaseRejectsSiblingWorktreeClaim(t *testing.T) {
 	}
 	if branch != "feature" || head != rebasedHead {
 		t.Fatalf("checkout = %s@%s, want feature@%s", branch, head, rebasedHead)
-	}
-}
-
-func TestAttachedRebaseVerificationFailureRollsBackExactly(t *testing.T) {
-	ctx := context.Background()
-	repositoryPath, base, oldFeature := newRebaseFixture(t)
-	originalTree := runTestGit(t, repositoryPath, "write-tree")
-	runner := &failAttachedTransitionVerificationRunner{
-		delegate: &execRunner{},
-	}
-	repository, err := openGitRepository(
-		ctx,
-		repositoryPath,
-		"git",
-		func(string) string { return "" },
-		runner,
-	)
-	if err != nil {
-		t.Fatalf("openGitRepository() error = %v", err)
-	}
-	_, err = repository.rebase(ctx, base, "feature", oldFeature, nil)
-	if err == nil || !strings.Contains(err.Error(), "rolled back") {
-		t.Fatalf("rebase() error = %v, want exact transition rollback", err)
-	}
-	if !runner.failed {
-		t.Fatal("attached transition verification failure did not fire")
-	}
-	branch, head, err := repository.branchHead(ctx)
-	if err != nil {
-		t.Fatalf("branchHead() error = %v", err)
-	}
-	if branch != "feature" || head != oldFeature {
-		t.Fatalf("checkout = %s@%s, want feature@%s", branch, head, oldFeature)
-	}
-	if got := runTestGit(t, repositoryPath, "write-tree"); got != originalTree {
-		t.Fatalf("index tree = %s, want restored %s", got, originalTree)
-	}
-	if got := runTestGit(t, repositoryPath, "status", "--porcelain"); got != "" {
-		t.Fatalf("restored status = %q, want clean", got)
-	}
-	if _, err := os.Lstat(filepath.Join(repositoryPath, "advance.txt")); !os.IsNotExist(err) {
-		t.Fatalf("base-only file survived exact transition rollback: %v", err)
 	}
 }
 
@@ -1370,7 +1180,7 @@ func TestRebaseConflictLeavesMainWorktreeUntouchedAndCleansIsolation(
 	if err != nil {
 		t.Fatalf("openGitRepository() error = %v", err)
 	}
-	_, err = repository.rebase(ctx, base, "feature", oldFeature, nil)
+	_, err = repository.rebase(ctx, base, "feature", oldFeature)
 	if err == nil || !strings.Contains(err.Error(), "isolated exact-OID rebase") {
 		t.Fatalf("rebase() error = %v, want isolated conflict", err)
 	}
@@ -1428,7 +1238,7 @@ exec %q "$@"
 	if err != nil {
 		t.Fatalf("openGitRepository() error = %v", err)
 	}
-	if _, err := repository.rebase(ctx, base, "feature", oldFeature, nil); err != nil {
+	if _, err := repository.rebase(ctx, base, "feature", oldFeature); err != nil {
 		t.Fatalf("rebase() error = %v", err)
 	}
 	if got := runTestGit(
@@ -1472,9 +1282,10 @@ func TestRebaseBranchCASPreservesConcurrentRefUpdate(t *testing.T) {
 				oldFeature,
 			)
 			command.Dir = repositoryPath
-			if output, err := command.CombinedOutput(); err == nil {
+			if output, err := command.CombinedOutput(); err != nil {
 				return fmt.Errorf(
-					"concurrent branch update unexpectedly succeeded: %s",
+					"concurrent branch update failed: %v: %s",
+					err,
 					output,
 				)
 			}
@@ -1491,15 +1302,15 @@ func TestRebaseBranchCASPreservesConcurrentRefUpdate(t *testing.T) {
 	if err != nil {
 		t.Fatalf("openGitRepository() error = %v", err)
 	}
-	rebasedHead, err := repository.rebase(ctx, base, "feature", oldFeature, nil)
-	if err != nil {
-		t.Fatalf("rebase() error = %v", err)
+	_, err = repository.rebase(ctx, base, "feature", oldFeature)
+	if err == nil || !strings.Contains(err.Error(), "exact compare-and-swap") {
+		t.Fatalf("rebase() error = %v, want compare-and-swap refusal", err)
 	}
 	if !runner.fired {
-		t.Fatal("concurrent branch update did not run under the branch lock")
+		t.Fatal("concurrent branch update did not run during attached transition")
 	}
-	if got := runTestGit(t, repositoryPath, "rev-parse", "feature"); got != rebasedHead {
-		t.Fatalf("feature ref = %s, want rebased %s", got, rebasedHead)
+	if got := runTestGit(t, repositoryPath, "rev-parse", "feature"); got != base {
+		t.Fatalf("feature ref = %s, want concurrent %s (must not be clobbered)", got, base)
 	}
 }
 
@@ -1512,9 +1323,10 @@ func TestRebaseHeadCASPreservesConcurrentHeadChange(t *testing.T) {
 		hook: func() error {
 			command := exec.Command("git", "switch", "intruder")
 			command.Dir = repositoryPath
-			if output, err := command.CombinedOutput(); err == nil {
+			if output, err := command.CombinedOutput(); err != nil {
 				return fmt.Errorf(
-					"concurrent checkout unexpectedly succeeded: %s",
+					"concurrent checkout failed: %v: %s",
+					err,
 					output,
 				)
 			}
@@ -1531,74 +1343,21 @@ func TestRebaseHeadCASPreservesConcurrentHeadChange(t *testing.T) {
 	if err != nil {
 		t.Fatalf("openGitRepository() error = %v", err)
 	}
-	rebasedHead, err := repository.rebase(ctx, base, "feature", oldFeature, nil)
-	if err != nil {
-		t.Fatalf("rebase() error = %v", err)
+	_, err = repository.rebase(ctx, base, "feature", oldFeature)
+	if err == nil || !strings.Contains(err.Error(), "attached branch changed") {
+		t.Fatalf("rebase() error = %v, want attached-branch-change refusal", err)
 	}
 	if !runner.fired {
-		t.Fatal("concurrent checkout attempt did not run under transaction locks")
+		t.Fatal("concurrent checkout did not run during attached transition")
 	}
-	if got := runTestGit(t, repositoryPath, "rev-parse", "feature"); got != rebasedHead {
-		t.Fatalf("feature ref = %s, want rebased %s", got, rebasedHead)
+	if got := runTestGit(t, repositoryPath, "rev-parse", "feature^"); got != base {
+		t.Fatalf("feature ref parent = %s, want rebased base %s", got, base)
 	}
-	if got := runTestGit(
-		t,
-		repositoryPath,
-		"symbolic-ref",
-		"--short",
-		"HEAD",
-	); got != "feature" {
-		t.Fatalf("HEAD branch = %q, want continuously attached feature", got)
+	if got := runTestGit(t, repositoryPath, "symbolic-ref", "--short", "HEAD"); got != "intruder" {
+		t.Fatalf("HEAD branch = %q, want concurrent intruder", got)
 	}
 	if got := runTestGit(t, repositoryPath, "rev-parse", "intruder"); got != oldFeature {
 		t.Fatalf("intruder ref = %s, want unchanged %s", got, oldFeature)
-	}
-}
-
-func TestRebaseRestoresOriginalBranchWhenAttachmentFails(t *testing.T) {
-	ctx := context.Background()
-	repositoryPath, base, originalHead := newRebaseFixture(t)
-	runner := &failAttachedTransitionVerificationRunner{delegate: &execRunner{}}
-	repository, err := openGitRepository(
-		ctx,
-		repositoryPath,
-		"git",
-		func(string) string { return "" },
-		runner,
-	)
-	if err != nil {
-		t.Fatalf("openGitRepository() error = %v", err)
-	}
-	_, err = repository.rebase(ctx, base, "feature", originalHead, nil)
-	if err == nil || !strings.Contains(err.Error(), "was rolled back") {
-		t.Fatalf("rebase() error = %v, want exact transition rollback", err)
-	}
-	branch, head, err := repository.branchHead(ctx)
-	if err != nil {
-		t.Fatalf("branchHead() error = %v", err)
-	}
-	if branch != "feature" || head != originalHead {
-		t.Fatalf("checkout = %s@%s, want feature@%s", branch, head, originalHead)
-	}
-	if got := runTestGit(t, repositoryPath, "rev-parse", "feature"); got != originalHead {
-		t.Fatalf("feature = %s, want restored %s", got, originalHead)
-	}
-	originalTree := runTestGit(t, repositoryPath, "rev-parse", originalHead+"^{tree}")
-	if got := runTestGit(t, repositoryPath, "write-tree"); got != originalTree {
-		t.Fatalf("restored index tree = %s, want %s", got, originalTree)
-	}
-	if got := runTestGit(t, repositoryPath, "status", "--porcelain"); got != "" {
-		t.Fatalf("restored checkout status = %q, want clean", got)
-	}
-	if _, err := os.Lstat(filepath.Join(repositoryPath, "advance.txt")); !os.IsNotExist(err) {
-		t.Fatalf("base-only file survived failed rebase rollback: %v", err)
-	}
-	contents, err := os.ReadFile(filepath.Join(repositoryPath, "feature.txt"))
-	if err != nil || string(contents) != "feature\n" {
-		t.Fatalf("feature content after rollback = %q, %v", contents, err)
-	}
-	if !runner.failed {
-		t.Fatal("attached transition verification failure was not injected")
 	}
 }
 
@@ -1616,7 +1375,7 @@ func TestRebaseCleanupFailureLeavesOriginalBranchUntouched(t *testing.T) {
 	if err != nil {
 		t.Fatalf("openGitRepository() error = %v", err)
 	}
-	_, err = repository.rebase(ctx, base, "feature", originalHead, nil)
+	_, err = repository.rebase(ctx, base, "feature", originalHead)
 	if err == nil || !strings.Contains(err.Error(), "clean isolated rebase worktree") {
 		t.Fatalf("rebase() error = %v, want cleanup refusal", err)
 	}
@@ -1654,7 +1413,7 @@ func TestRebaseDisablesConfiguredAutostash(t *testing.T) {
 	if err != nil {
 		t.Fatalf("openGitRepository() error = %v", err)
 	}
-	_, err = repository.rebase(ctx, base, "feature", oldFeature, nil)
+	_, err = repository.rebase(ctx, base, "feature", oldFeature)
 	if err == nil || !strings.Contains(err.Error(), "clean worktree") {
 		t.Fatalf("rebase() error = %v, want clean-worktree refusal", err)
 	}
@@ -2269,18 +2028,24 @@ func commandConfiguration(environment map[string]string) (map[string]string, err
 	return result, nil
 }
 
-type attachedIndexHookRunner struct {
+type attachedTransitionHookRunner struct {
 	delegate commandRunner
 	hook     func() error
 	fired    bool
 }
 
-func (r *attachedIndexHookRunner) Run(
+type attachedUpdateRefHookRunner struct {
+	delegate commandRunner
+	hook     func() error
+	fired    bool
+}
+
+func (r *attachedUpdateRefHookRunner) Run(
 	ctx context.Context,
 	request command,
 ) (commandResult, error) {
-	if !r.fired && hasEnvironmentPrefix(request.Env, "GIT_INDEX_FILE=") &&
-		containsString(request.Args, "write-tree") {
+	if !r.fired && containsSequence(request.Args, "update-ref") &&
+		hasRefPrefix(request.Args, "refs/heads/") {
 		r.fired = true
 		if err := r.hook(); err != nil {
 			return commandResult{}, err
@@ -2289,32 +2054,13 @@ func (r *attachedIndexHookRunner) Run(
 	return r.delegate.Run(ctx, request)
 }
 
-type failAttachedIndexInspectionRunner struct {
-	delegate commandRunner
-	failures int
-}
-
-func (r *failAttachedIndexInspectionRunner) Run(
-	ctx context.Context,
-	request command,
-) (commandResult, error) {
-	if r.failures == 0 &&
-		hasEnvironmentPrefix(request.Env, "GIT_INDEX_FILE=") &&
-		containsString(request.Args, "write-tree") {
-		r.failures++
-		return syntheticCommandFailure(
-			request,
-			74,
-			"synthetic attached index inspection failure",
-		)
+func hasRefPrefix(values []string, prefix string) bool {
+	for _, value := range values {
+		if strings.HasPrefix(value, prefix) {
+			return true
+		}
 	}
-	return r.delegate.Run(ctx, request)
-}
-
-type attachedTransitionHookRunner struct {
-	delegate commandRunner
-	hook     func() error
-	fired    bool
+	return false
 }
 
 func (r *attachedTransitionHookRunner) Run(
@@ -2328,32 +2074,6 @@ func (r *attachedTransitionHookRunner) Run(
 		}
 	}
 	return r.delegate.Run(ctx, request)
-}
-
-type failAttachedTransitionVerificationRunner struct {
-	delegate     commandRunner
-	transitioned bool
-	failed       bool
-}
-
-func (r *failAttachedTransitionVerificationRunner) Run(
-	ctx context.Context,
-	request command,
-) (commandResult, error) {
-	if r.transitioned && !r.failed && containsString(request.Args, "write-tree") {
-		r.failed = true
-		return syntheticCommandFailure(
-			request,
-			75,
-			"synthetic attached-transition verification failure",
-		)
-	}
-	result, err := r.delegate.Run(ctx, request)
-	if err == nil && !r.transitioned &&
-		containsSequence(request.Args, "read-tree", "-m", "-u") {
-		r.transitioned = true
-	}
-	return result, err
 }
 
 type failFirstWorktreeRemoveRunner struct {

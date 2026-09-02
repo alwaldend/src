@@ -2,7 +2,7 @@
     "schema": "agents.alwaldend.com/operations/v1alpha1",
     "owner": "tools.repo-delivery",
     "provider": "github.forge",
-    "definition": "tools/repo_delivery/main/go/command.go",
+    "definition": "tools/repo_delivery/cmd/repo_delivery/command.go",
     "operations": [
         {
             "id": "repo-delivery.prepare",

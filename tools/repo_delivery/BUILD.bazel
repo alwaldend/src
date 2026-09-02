@@ -4,7 +4,7 @@ exports_files(["agent_operations.json"])
 
 alias(
     name = "repo_delivery",
-    actual = "//tools/repo_delivery/main/go",
+    actual = "//tools/repo_delivery/cmd/repo_delivery:go",
     visibility = ["//:__subpackages__"],
 )
 

@@ -165,8 +165,10 @@ stated scope.
   evidence and report it separately instead of derailing the requested work;
   any temporary workaround must be explicit and must not hide a correctness
   or safety failure.
-- Use the `project-layout` skill before creating or moving source, or when
-  deciding a directory layout anywhere in the repository.
+- Loading the `project-layout` skill is REQUIRED before creating or moving
+  any directory in the source tree, or when deciding a directory layout
+  anywhere in the repository. How to apply its guidance is the agent's
+  judgment.
 - Read the nearest `README.md`, `BUILD.bazel`, and `include.MODULE.bazel`
   (when present) for the area being changed.
 - Name projects using only ASCII letters, digits, and underscores

@@ -420,27 +420,6 @@ func (d *delivery) prepare(
 			return nil, fmt.Errorf("explicit task path index flag gate: %w", err)
 		}
 	}
-	transaction, err := d.repository.beginPreparationState(
-		ctx,
-		report.Branch,
-		report.LocalHeadOID,
-	)
-	if err != nil {
-		return nil, fmt.Errorf("capture preparation entry state: %w", err)
-	}
-	defer func() {
-		if returnErr == nil || result != nil {
-			return
-		}
-		if rollbackErr := transaction.restore(
-			context.Background(),
-		); rollbackErr != nil {
-			returnErr = errors.Join(
-				returnErr,
-				fmt.Errorf("roll back failed preparation: %w", rollbackErr),
-			)
-		}
-	}()
 	var preparedHead string
 	var scope aggregateScope
 	var preparationSnapshot *refSnapshot
@@ -506,7 +485,6 @@ func (d *delivery) prepare(
 			report.LocalHeadOID,
 			report.LocalTreeOID,
 			report.Branch,
-			transaction.noteInstalledCheckout,
 			scope.AuthorizedPaths,
 		)
 		if err != nil {
@@ -574,7 +552,7 @@ func (d *delivery) prepare(
 					return nil, err
 				}
 			}
-			if err := transaction.stagePaths(ctx, paths); err != nil {
+			if err := d.repository.addPaths(ctx, paths); err != nil {
 				return nil, err
 			}
 			staged, err := d.repository.status(ctx)
@@ -676,7 +654,6 @@ func (d *delivery) prepare(
 				report.LocalHeadOID,
 				indexTree,
 				report.Branch,
-				transaction.noteInstalledCheckout,
 				scope.AuthorizedPaths,
 			)
 		} else {
@@ -689,7 +666,6 @@ func (d *delivery) prepare(
 				consolidation.ParentOID,
 				consolidation.AuthorOID,
 				consolidation.SignatureSource,
-				transaction.noteInstalledCheckout,
 				scope.AuthorizedPaths,
 			)
 		}
@@ -704,7 +680,6 @@ func (d *delivery) prepare(
 		preparedHead,
 		scope,
 		preparationSnapshot,
-		transaction,
 		receiptTransaction,
 	)
 	if err != nil {
@@ -816,7 +791,6 @@ func (d *delivery) finishPreparation(
 	preparedHead string,
 	scope aggregateScope,
 	preparationSnapshot *refSnapshot,
-	transaction *preparationState,
 	receiptFileTransaction *receiptTransaction,
 ) (result *prepareReport, returnErr error) {
 	branch, currentHead, err := d.repository.branchHead(ctx)
@@ -895,7 +869,6 @@ func (d *delivery) finishPreparation(
 			snapshot.BaseOID,
 			branch,
 			preparedHead,
-			transaction.noteInstalledCheckout,
 			func(
 				checkContext context.Context,
 				candidateRepository *gitRepository,
@@ -1827,7 +1800,6 @@ func (d *delivery) publish(
 			snapshot.BaseOID,
 			report.Branch,
 			report.LocalHeadOID,
-			nil,
 			func(
 				checkContext context.Context,
 				candidateRepository *gitRepository,
