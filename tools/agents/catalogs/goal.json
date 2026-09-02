@@ -4,7 +4,7 @@
     "id": "agent-system.goal",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.goal-compiler",
-    "sourceRevision": "ba0cd7b71009199143d4a40d22b9faa1",
+    "sourceRevision": "33c33fa5eace4c0fb0610681909930fc",
     "inputs": [
         {
             "path": "projects/agents/goals/agent-system-phase-1/criteria.yaml",
@@ -37,6 +37,16 @@
             "digest": "sha256:9b40b542a068a0b864ca56ec94e02af2d2d54aafdd5a0cd177e5e9576db24aaf"
         },
         {
+            "path": "projects/agents/goals/agent-system-phase-4/criteria.yaml",
+            "role": "criteria-manifest",
+            "digest": "sha256:0165ca5a4e7682868d399c657f89e172e82ad6027b7aaa4df5a6f3a0bc529050"
+        },
+        {
+            "path": "projects/agents/goals/agent-system-phase-4/goal.yaml",
+            "role": "goal-manifest",
+            "digest": "sha256:25ab660a5df4e373f4ece37afb96b87edaea048718b280c3a008c5d467f3d98b"
+        },
+        {
             "path": "projects/agents/goals/repo-agent-system/criteria.yaml",
             "role": "criteria-manifest",
             "digest": "sha256:b61214faf045d784bfec13a3e31b1b8be36450bef30e37f2166a521e3558c0c5"
@@ -49,12 +59,12 @@
         {
             "path": "tools/agents/declarations/registry.json",
             "role": "registry",
-            "digest": "sha256:b621f570dc9b3938a61eebbf78e22bcd6a76a85804b474fc59d6d85394978e3e"
+            "digest": "sha256:343911ceb0f081db2ec85f8f01608a865305ceefc95e8f95ef1c12220497545a"
         }
     ],
     "bounds": {
-        "eligible": 4,
-        "emitted": 4,
+        "eligible": 5,
+        "emitted": 5,
         "unavailable": 0,
         "maxItems": 1000,
         "maxInputBytes": 33554432,
@@ -64,7 +74,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:bc2e09f87ac6669ed6210cd24ea6bf4bc7a79afacbf97aa16e167a7a2a805b73",
+    "digest": "sha256:a66567353b89e0dd49324055f2628ba3cccbc2fbb192b6a1e962a3a8ecd2608c",
     "goals": [
         {
             "candidatePath": "projects/agents/goals/agent-system-phase-1",
@@ -91,6 +101,16 @@
             "availability": "available",
             "identity": {
                 "name": "agent-system-phase-3",
+                "ownerRoot": "projects/agents",
+                "scope": "project"
+            },
+            "coarseStatus": { "outcome": "achieved", "execution": "paused" }
+        },
+        {
+            "candidatePath": "projects/agents/goals/agent-system-phase-4",
+            "availability": "available",
+            "identity": {
+                "name": "agent-system-phase-4",
                 "ownerRoot": "projects/agents",
                 "scope": "project"
             },

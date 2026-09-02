@@ -449,13 +449,18 @@ authority.
 ## Phase 5: close the learning loop and optimize from measurements
 
 **Priority:** P1/P2. **Depends on:** stable context, plans, and receipts.
+**Status:** implemented for typed 5A-5D contracts and bounded CLI entry
+points; fixture population, scheduled live comparisons, and optimization
+adoption remain owner-local follow-up.
 
 ### 5A. Normalize behavioral evidence
 
 - Give every skill evaluation case and requirement assertion a stable ID,
   provenance, metric, and evidence tier.
+  (done: shared `SkillCase` and `RequirementAssertion` schemas)
 - Reject duplicate normalized cases and publish a coverage matrix distinguishing
   configured, routed, fixture-tested, live, stale, and unverified behavior.
+  (done: coverage CLI rejects duplicate case identities)
 - Test routing across the whole skill graph: positive, adjacent negative,
   inert payload, exclusion, conflict, and composition cases.
 - Add deterministic writable fixtures for high-risk Git, Bazel, forge,
@@ -469,12 +474,14 @@ At task close, retain a bounded sanitized record of selected/considered
 capabilities, conflicts, missing providers, avoidable reads or commands,
 failed assumptions, verification latency, and exact public evidence identity.
 Aggregate by stable defect signature.
+(done: bounded `FrictionRecord` schema)
 
 Repeated issues create a `LearningProposal`, never an automatic edit. Adoption
 requires an owner, minimized public reproducer, regression, contract, fallback,
 resource budget, validation, delivered revision, and deprecation/retirement
 rule. Runtime promotion creates an isolated source candidate and enters the
 ordinary layout, validation, review, and delivery path.
+(done: validated `LearningProposal` schema and goal CLI validator)
 
 ### 5C. Optimize progressive disclosure
 
@@ -484,6 +491,7 @@ ordinary layout, validation, review, and delivery path.
   ranged resources for large source or logs.
 - Cache launch and projection artifacts by exact provenance; lazy-load optional
   runtime packages after measuring phase latency.
+  (done: `DisclosureBudget` schema binds lazy-load and ranged-resource policy)
 - Promote the advisory resolver to authoritative routing only if predeclared
   correctness and critical-boundary thresholds beat the current selector.
   Otherwise narrow or abandon it.
@@ -493,12 +501,13 @@ ordinary layout, validation, review, and delivery path.
 - Provide a goal CLI subcommand that reads the repository-wide catalog,
   selects an open goal, and prints its bounded continuation packet
   (stable defect, next action, resume condition, affected criteria, and
-  prior attempt) without free-form archaeology.
+  prior attempt) without free-form archaeology. (done)
 - Make the resume packet the default handoff format for durable
   multi-session work; prose handoffs remain an exception for single-turn
-  tasks.
+  tasks. (done)
 - Expose checkpoint publication through the same CLI so agents can record
   evidence, results, and resume fields without editing YAML directly.
+  (done; typed learning proposals remain in 5B)
 
 ### Acceptance signals
 

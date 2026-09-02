@@ -845,6 +845,24 @@ func TestPublishReceiptSupportsIdempotentRetry(t *testing.T) {
 	}
 }
 
+func TestPublishUsesReceiptBaseWithoutExplicitBase(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	prepared := fixture.prepare(t)
+	fixture.delivery.base = ""
+	report, err := fixture.delivery.publish(context.Background(),
+		publishOptions{
+			ValidatedHead: prepared.HeadOID,
+			ReceiptFile:   "out/delivery/prepare.json",
+		},
+	)
+	if err != nil {
+		t.Fatalf("publish() error = %v", err)
+	}
+	if !report.Verified || report.PullRequest == nil {
+		t.Fatalf("publish report = %#v", report)
+	}
+}
+
 func TestPublishRetryRepairsPushOnlyPartialUpdate(t *testing.T) {
 	fixture := newIntegrationDeliveryFixture(t)
 	first := fixture.prepare(t)

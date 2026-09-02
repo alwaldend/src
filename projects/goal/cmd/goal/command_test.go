@@ -4,10 +4,13 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	goalcatalog "git.alwaldend.com/alwaldend/src/tools/agents/catalog/v1alpha1"
 )
 
 func TestCommandReportsToolVersion(t *testing.T) {
@@ -121,6 +124,182 @@ func TestCommandRequiresTaskSpecificSessionRoot(t *testing.T) {
 	)
 	if err == nil {
 		t.Fatal("expected missing --session-root to fail")
+	}
+}
+
+func TestCommandResumeReturnsCatalogContinuation(t *testing.T) {
+	root := t.TempDir()
+	runtimeRoot := t.TempDir()
+	if err := os.Chmod(runtimeRoot, 0o700); err != nil {
+		t.Fatal(err)
+	}
+	getenv := func(name string) string {
+		switch name {
+		case "BUILD_WORKSPACE_DIRECTORY":
+			return root
+		case "XDG_RUNTIME_DIR":
+			return runtimeRoot
+		}
+		return ""
+	}
+	goalsRoot := "out/cli-task/goals"
+	openGoal := fmt.Sprintf("%s/open-goal", goalsRoot)
+	closedGoal := fmt.Sprintf("%s/closed-goal", goalsRoot)
+	if err := os.MkdirAll(filepath.Join(root, openGoal), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.MkdirAll(filepath.Join(root, closedGoal), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	catalog := goalCatalogForResumeTest([]goalcatalog.GoalRecord{
+		{
+			CandidatePath: openGoal,
+			Availability:  "available",
+			Identity: &goalcatalog.GoalCoarseIdentity{
+				Name:      "open-goal",
+				OwnerRoot: "out/cli-task",
+				Scope:     "workspace",
+			},
+			CoarseStatus: &goalcatalog.GoalCoarseStatus{
+				Outcome:   "open",
+				Execution: "active",
+			},
+			Continuation: &goalcatalog.GoalContinuation{
+				ActiveAttempt:   "attempt-one",
+				StableDefect:    "resume command missing",
+				NextAction:      "Run the focused goal test.",
+				ResumeCondition: "The focused goal test passes.",
+			},
+		},
+		{
+			CandidatePath: closedGoal,
+			Availability:  "available",
+			Identity: &goalcatalog.GoalCoarseIdentity{
+				Name:      "closed-goal",
+				OwnerRoot: "out/cli-task",
+				Scope:     "workspace",
+			},
+			CoarseStatus: &goalcatalog.GoalCoarseStatus{
+				Outcome:   "achieved",
+				Execution: "paused",
+			},
+		},
+	})
+	catalogContent, err := goalcatalog.CanonicalJSONGoal(catalog)
+	if err != nil {
+		t.Fatal(err)
+	}
+	catalogPath := filepath.Join(root, goalsRoot, "goal-catalog.json")
+	if err := os.WriteFile(catalogPath, catalogContent, 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	stdout := &bytes.Buffer{}
+	stderr := &bytes.Buffer{}
+
+	tampered := append([]byte(nil), catalogContent...)
+	tampered = bytes.Replace(
+		tampered,
+		[]byte(`"goalID":"`),
+		[]byte(`"goalID":"`),
+		1,
+	)
+	tampered = bytes.Replace(
+		tampered,
+		[]byte(`"stableDefect":"resume command missing"`),
+		[]byte(`"stableDefect":"tampered"`),
+		1,
+	)
+	if err := os.WriteFile(catalogPath, tampered, 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := Execute(
+		context.Background(),
+		[]string{
+			"resume",
+			"--goals-root", goalsRoot,
+			"--catalog", "goal-catalog.json",
+		},
+		getenv,
+		stdout,
+		stderr,
+	); err == nil || !strings.Contains(err.Error(), "invalid goal catalog") {
+		t.Fatalf("tampered catalog error = %v, output=%q", err, stdout.String())
+	}
+	if err := os.WriteFile(catalogPath, catalogContent, 0o644); err != nil {
+		t.Fatal(err)
+	}
+
+	if err := Execute(
+		context.Background(),
+		[]string{
+			"resume",
+			"--goals-root", goalsRoot,
+			"--catalog", "goal-catalog.json",
+			"--limit", "1",
+		},
+		getenv,
+		stdout,
+		stderr,
+	); err != nil {
+		t.Fatalf("resume failed: %v; stderr=%s", err, stderr.String())
+	}
+	var packet ResumePacket
+	if err := json.Unmarshal(stdout.Bytes(), &packet); err != nil {
+		t.Fatalf("decode resume packet %q: %v", stdout.String(), err)
+	}
+	if packet.Kind != "GoalResumePacket" || packet.Returned != 1 ||
+		packet.Truncated {
+		t.Fatalf("unexpected resume packet: %#v", packet)
+	}
+	if len(packet.Goals) != 1 || packet.Goals[0].Identity.Name != "open-goal" {
+		t.Fatalf("unexpected resume goals: %#v", packet.Goals)
+	}
+	if packet.Goals[0].Continuation.ActiveAttempt != "attempt-one" {
+		t.Fatalf("unexpected continuation: %#v", packet.Goals[0].Continuation)
+	}
+
+	err = Execute(
+		context.Background(),
+		[]string{
+			"resume",
+			"--goals-root", goalsRoot,
+			"--catalog", "goal-catalog.json",
+			"--limit", "0",
+		},
+		getenv,
+		stdout,
+		stderr,
+	)
+	if err == nil || !strings.Contains(err.Error(), "limit must be") {
+		t.Fatalf("invalid limit error = %v, output=%q", err, stdout.String())
+	}
+}
+
+func goalCatalogForResumeTest(
+	goals []goalcatalog.GoalRecord,
+) goalcatalog.GoalCatalog {
+	return goalcatalog.GoalCatalog{
+		CatalogEnvelope: goalcatalog.CatalogEnvelope{
+			Schema:            goalcatalog.APIVersion + "/" + goalcatalog.KindGoalCatalog,
+			Kind:              goalcatalog.KindGoalCatalog,
+			ID:                "test.goal",
+			DerivationVersion: "1.0.0",
+			SourceRevision:    "0123456789abcdef0123456789abcdef01234567",
+			Inputs:            []goalcatalog.CatalogInput{},
+			Bounds: goalcatalog.CatalogBounds{
+				Eligible:       len(goals),
+				Emitted:        len(goals),
+				Unavailable:    0,
+				MaxItems:       1000,
+				MaxInputBytes:  1024,
+				MaxOutputBytes: 4096,
+			},
+			Completeness: goalcatalog.CompletenessComplete,
+			Limitations:  []string{},
+			Conflicts:    []goalcatalog.CatalogConflict{},
+		},
+		Goals: goals,
 	}
 }
 

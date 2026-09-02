@@ -71,14 +71,26 @@ global catalog.
 workspace-relative owner used only by the local adapter. It is deliberately
 absent from portable `Goal.spec` and portable digests.
 
-Commands are `init`, `list`, `show`, `attach`, `checkpoint`, `graph`,
-`set-relationships`, `validate`, `promote`, `render`, and `migrate`.
+Commands are `init`, `list`, `resume`, `show`, `attach`, `checkpoint`,
+`learning-proposal`, `graph`, `set-relationships`, `validate`, `promote`,
+`render`, and `migrate`.
 `set-relationships` replaces the complete dependency and supersession lists;
 the parent is preserved unless explicitly set or cleared. It requires no
 active attempt, advances Goal generation and resource version on every accepted
 request, and refreshes the bounded README projection. Its cycle check is a
 per-goal-locked catalog snapshot rather than a catalog-wide transaction, so a
 `graph` call after concurrent writes settle is authoritative.
+
+`resume` reads the checked repository goal catalog by default and prints a
+bounded `GoalResumePacket` containing only open goals with a resumable attempt.
+The packet carries the exact candidate path and structured continuation fields;
+it never mutates records or opens goal plans, results, or evidence. Use
+`--catalog` for a task-specific generated catalog and rely on the strict
+decoder to reject stale or invalid catalogs.
+
+`learning-proposal` validates one Phase 5 proposal. Repeated friction references
+are required, but the command never promotes the proposal or edits source; the
+owning project adopts it through ordinary review and delivery.
 
 `checkpoint` starts or publishes an attempt, changes execution/outcome state,
 or applies a complete desired criteria-items file with `--criteria-file`.

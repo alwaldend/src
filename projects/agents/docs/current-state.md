@@ -282,10 +282,20 @@ states that this is a reliability boundary, not a security sandbox
 
 The repository-wide goal catalog now provides one discovery surface with a
 bounded continuation packet, so a fresh agent can find every maintained open
-goal and resume one without free-form archaeology. Owner-local storage still
-preserves autonomy, and the catalog is a projection that must be regenerated
-after record edits. Resume fields are advisory inputs; their acceptance
-criteria and evidence provenance remain in the goal records.
+goal and resume one without free-form archaeology. The goal CLI's `resume`
+command reads the digest-verified catalog and prints a bounded resume packet;
+its `checkpoint` command records evidence, results, and resume fields without
+direct YAML editing. Owner-local storage still preserves autonomy, and the
+catalog is a projection that must be regenerated after record edits. Resume
+fields are advisory inputs; their acceptance criteria and evidence provenance
+remain in the goal records.
+
+Phase 5 adds typed behavioral-evidence, coverage, friction, learning-proposal,
+context-measurement, and disclosure-budget contracts. The goal CLI can emit a
+bounded resume packet and validate a learning proposal; the agent-system CLI
+can normalize skill cases and publish a duplicate-free coverage matrix. These
+contracts reject unstable identities, missing provenance, unbounded records,
+and proposals without repeated evidence, regression, fallback, and retirement.
 
 ### Delivery and learning still miss full causal closure
 

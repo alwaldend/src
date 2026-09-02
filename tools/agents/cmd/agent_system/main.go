@@ -528,6 +528,12 @@ func run(args []string, stdout io.Writer) error {
 	if len(args) > 0 && args[0] == "plan" {
 		return runPlan(args[1:], stdout)
 	}
+	if len(args) > 0 && args[0] == "normalize" {
+		return runNormalize(args[1:], stdout)
+	}
+	if len(args) > 0 && args[0] == "coverage" {
+		return runCoverage(args[1:], stdout)
+	}
 	opts, err := parseFlags(args)
 	if err != nil {
 		return err

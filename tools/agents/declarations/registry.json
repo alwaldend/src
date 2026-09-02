@@ -53,6 +53,19 @@
             "evaluationMaturity": "checked"
         },
         {
+            "id": "agent-ergonomics-review",
+            "owner": "projects/agents",
+            "layer": "review",
+            "activation": "substantial task close or recurring agent friction",
+            "exclusions": ["routine single-turn responses"],
+            "capabilityRefs": ["source.read"],
+            "dependencies": [],
+            "conflicts": [],
+            "providerRequirements": [],
+            "contextCost": "medium",
+            "evaluationMaturity": "checked"
+        },
+        {
             "id": "bazel-agent",
             "owner": "projects/agents",
             "layer": "execution",

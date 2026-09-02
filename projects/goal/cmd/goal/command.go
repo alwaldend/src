@@ -6,13 +6,16 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"sort"
 
 	"git.alwaldend.com/alwaldend/src/projects/goal/internal/fsstore"
+	goalcatalog "git.alwaldend.com/alwaldend/src/tools/agents/catalog/v1alpha1"
 	"github.com/spf13/cobra"
 )
 
 const (
 	defaultOutputLimit = 20
+	maximumOutputLimit = 100
 	toolVersion        = "0.0.1"
 )
 
@@ -73,10 +76,12 @@ func newRootCommand(
 	root.AddCommand(
 		newInitCommand(storeForCommand, stdout),
 		newListCommand(storeForCommand, stdout),
+		newResumeCommand(storeForCommand, stdout),
 		newGraphCommand(storeForCommand, stdout),
 		newShowCommand(storeForCommand, stdout),
 		newAttachCommand(storeForCommand, stdout),
 		newCheckpointCommand(storeForCommand, stdout),
+		newLearningCommand(),
 		newSetRelationshipsCommand(storeForCommand, stdout),
 		newValidateCommand(storeForCommand, stdout),
 		newPromoteCommand(storeForCommand, stdout),
@@ -86,6 +91,132 @@ func newRootCommand(
 		newRecoverCommand(storeForCommand, stdout),
 	)
 	return root
+}
+
+func newResumeCommand(factory storeFactory, stdout io.Writer) *cobra.Command {
+	goalsRoot := ""
+	catalogPath := ""
+	limit := defaultOutputLimit
+	command := &cobra.Command{
+		Use:   "resume",
+		Short: "Print a bounded continuation packet from the goal catalog",
+		Args:  cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			if goalsRoot == "" {
+				return fmt.Errorf("--goals-root is required")
+			}
+			store, err := factory()
+			if err != nil {
+				return err
+			}
+			catalog, err := readGoalCatalog(store, goalsRoot, catalogPath)
+			if err != nil {
+				return err
+			}
+			return writeResumePacket(stdout, catalog, limit)
+		},
+	}
+	flags := command.Flags()
+	flags.StringVar(&goalsRoot, "goals-root", "", "directory containing goal records")
+	flags.StringVar(&catalogPath, "catalog", "",
+		"goal catalog JSON relative to the goals root")
+	flags.IntVar(&limit, "limit", defaultOutputLimit, "maximum returned goals")
+	return command
+}
+
+func readGoalCatalog(
+	store *fsstore.Store,
+	goalsRoot string,
+	catalogPath string,
+) (
+	goalcatalog.GoalCatalog,
+	error,
+) {
+	if catalogPath == "" {
+		if goalsRoot == "" {
+			catalogPath = "tools/agents/catalogs/goal.json"
+			content, err := os.ReadFile(catalogPath)
+			if err != nil {
+				return goalcatalog.GoalCatalog{}, fmt.Errorf(
+					"read goal catalog: %w", err,
+				)
+			}
+			catalog, err := goalcatalog.DecodeGoalStrict(content)
+			if err != nil {
+				return goalcatalog.GoalCatalog{}, fmt.Errorf(
+					"invalid goal catalog: %w", err,
+				)
+			}
+			return catalog, nil
+		}
+		return goalcatalog.GoalCatalog{}, fmt.Errorf("--catalog is required")
+	}
+	if goalsRoot == "" {
+		return goalcatalog.GoalCatalog{}, fmt.Errorf("--goals-root is required")
+	}
+	resolvedGoalsRoot, err := store.ResolvePath(goalsRoot)
+	if err != nil {
+		return goalcatalog.GoalCatalog{}, fmt.Errorf("goals root: %w", err)
+	}
+	content, err := os.ReadFile(resolvedGoalsRoot + "/" + catalogPath)
+	if err != nil {
+		return goalcatalog.GoalCatalog{}, fmt.Errorf("read goal catalog: %w", err)
+	}
+	catalog, err := goalcatalog.DecodeGoalStrict(content)
+	if err != nil {
+		return goalcatalog.GoalCatalog{}, fmt.Errorf("invalid goal catalog: %w", err)
+	}
+	return catalog, nil
+}
+
+func writeResumePacket(
+	writer io.Writer,
+	catalog goalcatalog.GoalCatalog,
+	limit int,
+) error {
+	if limit < 1 || limit > maximumOutputLimit {
+		return fmt.Errorf(
+			"limit must be between 1 and %d",
+			maximumOutputLimit,
+		)
+	}
+	resumable := make([]goalcatalog.GoalRecord, 0, limit)
+	total := 0
+	for _, goal := range catalog.Goals {
+		if goal.Continuation == nil {
+			continue
+		}
+		total++
+		if len(resumable) < limit {
+			resumable = append(resumable, goal)
+		}
+	}
+	sort.Slice(resumable, func(left int, right int) bool {
+		return resumeGoalID(resumable[left]) <
+			resumeGoalID(resumable[right])
+	})
+	return writeJSON(writer, ResumePacket{
+		APIVersion: goalcatalog.APIVersion,
+		Kind:       "GoalResumePacket",
+		Goals:      resumable,
+		Returned:   len(resumable),
+		Truncated:  total > len(resumable),
+	})
+}
+
+type ResumePacket struct {
+	APIVersion string                   `json:"apiVersion"`
+	Kind       string                   `json:"kind"`
+	Goals      []goalcatalog.GoalRecord `json:"goals"`
+	Returned   int                      `json:"returned"`
+	Truncated  bool                     `json:"truncated"`
+}
+
+func resumeGoalID(goal goalcatalog.GoalRecord) string {
+	if goal.Identity == nil {
+		return goal.CandidatePath
+	}
+	return goal.Identity.Name
 }
 
 type storeFactory func() (*fsstore.Store, error)

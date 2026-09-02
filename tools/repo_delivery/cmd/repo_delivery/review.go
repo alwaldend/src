@@ -93,6 +93,13 @@ type reviewReplyReceipt struct {
 
 type reviewReplyReceiptClockKey struct{}
 
+type reviewReplyReport struct {
+	ReplyCommentID     string            `json:"reply_comment_id"`
+	ThreadID           string            `json:"thread_id"`
+	ResultThreadDigest string            `json:"result_thread_digest"`
+	Inspection         *reviewInspection `json:"inspection"`
+}
+
 func withReviewReplyReceiptClock(
 	ctx context.Context,
 	clock func() time.Time,
@@ -302,7 +309,23 @@ func newReviewReplyCommand(
 					err,
 				)
 			}
-			return writeJSON(stdout, inspection)
+			var threadDigest string
+			var replyCommentID string
+			for _, thread := range inspection.Threads {
+				if thread.ID == options.ThreadID {
+					threadDigest = thread.ExpectationDigest
+					if len(thread.Comments) > 0 {
+						replyCommentID = thread.Comments[len(thread.Comments)-1].ID
+					}
+					break
+				}
+			}
+			return writeJSON(stdout, reviewReplyReport{
+				ReplyCommentID:     replyCommentID,
+				ThreadID:           options.ThreadID,
+				ResultThreadDigest: threadDigest,
+				Inspection:         inspection,
+			})
 		},
 	}
 	addReviewTargetFlags(command, &options.reviewTargetOptions)
@@ -1516,6 +1539,9 @@ func validateReviewReplyReceiptJSON(contents []byte) error {
 		"reply_comment_id":        true,
 		"reply_body_digest":       true,
 		"result_thread_digest":    true,
+		"goal_ref":                true,
+		"delivery_ref":            true,
+		"defect_id":               true,
 	}
 	remoteRepositoryFields := map[string]bool{
 		"host":  true,
