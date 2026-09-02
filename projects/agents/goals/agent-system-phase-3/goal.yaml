@@ -20,11 +20,11 @@ spec:
     supersedesGoalRefs: []
 status:
   lifecycleGeneration: 1
-  outcome: open
-  execution: active
-  activeAttemptID: attempt-9a199d4db6bd
-  acceptedAttemptID: ""
-  acceptedResultDigest: ""
+  outcome: achieved
+  execution: paused
+  activeAttemptID: ""
+  acceptedAttemptID: attempt-9a199d4db6bd
+  acceptedResultDigest: sha256:8419b46c5b43f0d54c8c09bc7e1ecdc673bb15bc1915b2bb08bdab7973784322
   criteriaRevision: 1
   promotion:
     sourceScope: ""

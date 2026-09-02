@@ -5,9 +5,9 @@
 - ID: `agent-system.policy`
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/policy-catalog`
 - Derivation: `1.0.0`
-- Source revision: `165ac224781dfdc4d79175b022b682c2`
+- Source revision: `7e7df9cf9a83fe1b8a9a64de77f37d3e`
 - Completeness: `complete`
-- JSON digest: `sha256:60de6ee935594334ad954d638174b42bf25b0578e85099f696e34d8b967ea840`
+- JSON digest: `sha256:0b64de26a8fd013756b0ea5dfb768ff05492d4f752491cc57a49170ea7a3dd0e`
 
 ## Limitations
 
