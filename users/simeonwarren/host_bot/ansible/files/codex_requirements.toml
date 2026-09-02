@@ -1,9 +1,10 @@
-allowed_approval_policies = ["on-request"]
+allowed_approval_policies = ["on-request", "never"]
 default_permissions = "host-bot"
 
 [allowed_permission_profiles]
 ":read-only" = true
 "host-bot" = true
+":danger-full-access" = true
 
 [features]
 network_proxy = true
