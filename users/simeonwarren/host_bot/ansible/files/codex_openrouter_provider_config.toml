@@ -17,16 +17,27 @@ args = ["lookup", "service", "openrouter", "application", "codex"]
 [projects."/var/home/simeonwarrenbot/Projects/src"]
 trust_level = "trusted"
 
+[permissions.host-bot]
+description = "Workspace access with public network and Bazel caches."
+extends = ":workspace"
+
 [permissions.host-bot.filesystem]
 "/var/cache/bazel/disk_cache" = "write"
 "/var/cache/bazel/output_user_root" = "write"
 "~/.cache/bazelisk" = "write"
+
+[permissions.host-bot.network]
+enabled = true
+allow_local_binding = true
+
+[permissions.host-bot.network.domains]
+"*" = "allow"
+"localhost" = "allow"
+"127.0.0.1" = "allow"
+"::1" = "allow"
 
 [shell_environment_policy.filters]
 T3_MCP_BEARER_TOKEN = "exclude"
 
 [shell_environment_policy.set]
 T3_MCP_BEARER_TOKEN = ""
-
-[sandbox]
-network = true

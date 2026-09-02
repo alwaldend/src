@@ -9,6 +9,25 @@ max_concurrent_threads_per_session = 20
 [projects."/var/home/simeonwarrenbot/Projects/src"]
 trust_level = "trusted"
 
+[permissions.host-bot]
+description = "Workspace access with public network and Bazel caches."
+extends = ":workspace"
+
+[permissions.host-bot.filesystem]
+"/var/cache/bazel/disk_cache" = "write"
+"/var/cache/bazel/output_user_root" = "write"
+"~/.cache/bazelisk" = "write"
+
+[permissions.host-bot.network]
+enabled = true
+allow_local_binding = true
+
+[permissions.host-bot.network.domains]
+"*" = "allow"
+"localhost" = "allow"
+"127.0.0.1" = "allow"
+"::1" = "allow"
+
 [mcp_servers.arxiv]
 command = "uvx"
 args = [
