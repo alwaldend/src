@@ -100,6 +100,15 @@ configuration or weakening transport isolation implicitly.
    Never use consolidation or other rewrites for shared, stacked, human-owned,
    unrelated, or ambiguous history. Stop and ask the user when ownership is
    uncertain.
+   Force-pushing an agent-owned feature branch is allowed only as an
+   exact-lease update that preserves every previously remote commit's
+   reachable progress: first fetch the current remote feature tip and record
+   its OID, verify the replacement keeps all prior remote commits in its
+   ancestry (amends and rebases of task-owned commits qualify), then push
+   `HEAD` to the feature ref with
+   `--force-with-lease=<ref>:<observed-remote-oid>`. Never use a bare
+   `--force`, and never force-push shared, stacked, human-owned, or
+   ambiguous history.
    During a rebase, an expected aggregate path may disappear only when the
    prior candidate and fetched base contain the exact same Git tree entry;
    added paths, non-identical loss, and an empty aggregate remain refusals.

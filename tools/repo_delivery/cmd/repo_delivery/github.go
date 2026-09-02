@@ -2057,11 +2057,13 @@ func (g *githubForge) reconcileReplyInspection(
 	repository remoteRepository,
 	expected pullRequest,
 	beforeThread *reviewThread,
+	beforeReviews []pullRequestReview,
 	body string,
 	mutationCommentID string,
 ) (*reviewInspection, error) {
 	budget := &githubInventoryBudget{}
 	floor := expected
+	replyVerified := false
 	for attempt := 0; attempt < 3; attempt++ {
 		inspection, err := g.inspectReviews(
 			ctx,
@@ -2091,13 +2093,35 @@ func (g *githubForge) reconcileReplyInspection(
 			)
 		}
 		if verifyErr == nil {
+			verifyErr = g.verifyReplyReviewEvent(
+				beforeReviews,
+				inspection.Reviews,
+				afterThread.Comments[len(afterThread.Comments)-1],
+			)
+		}
+		if verifyErr == nil {
 			return inspection, nil
+		}
+		if strings.Contains(verifyErr.Error(), "reply review event is not yet visible") {
+			replyVerified = true
+		}
+		if mutationCommentID != "" && afterThread != nil &&
+			verifyGithubReply(beforeThread, afterThread, body, mutationCommentID) == nil {
+			// The reply is visible in the thread but its own review event has
+			// not materialized yet. Retry rather than binding the receipt to an
+			// inventory that is still missing the event.
+			continue
 		}
 		if mutationCommentID != "" && afterThread != nil &&
 			sameGithubReviewThreadSnapshot(*beforeThread, *afterThread) {
 			continue
 		}
 		return nil, verifyErr
+	}
+	if replyVerified {
+		return nil, fmt.Errorf(
+			"reply review event is not yet visible in the review inventory",
+		)
 	}
 	return nil, fmt.Errorf(
 		"GitHub review state did not stabilize on the exact appended reply",
@@ -2476,6 +2500,37 @@ func verifyGithubReply(
 	return nil
 }
 
+// verifyReplyReviewEvent verifies that the reply's own review event is
+// visible in the post-reply review inventory. GitHub materializes a new
+// COMMENTED review for a review-thread reply asynchronously, so a reply that
+// fails this check must be reconciled again rather than bound to an inventory
+// that is missing the event.
+func (g *githubForge) verifyReplyReviewEvent(
+	beforeReviews []pullRequestReview,
+	afterReviews []pullRequestReview,
+	reply reviewComment,
+) error {
+	before := make(map[string]bool, len(beforeReviews))
+	for _, review := range beforeReviews {
+		before[review.ID] = true
+	}
+	for _, review := range afterReviews {
+		if before[review.ID] {
+			continue
+		}
+		if review.State != "COMMENTED" || review.AuthorLogin != reply.AuthorLogin {
+			continue
+		}
+		submittedAt, submittedErr := time.Parse(time.RFC3339Nano, review.SubmittedAt)
+		createdAt, createdErr := time.Parse(time.RFC3339Nano, reply.CreatedAt)
+		if submittedErr == nil && createdErr == nil &&
+			!submittedAt.Before(createdAt) {
+			return nil
+		}
+	}
+	return fmt.Errorf("reply review event is not yet visible in the review inventory")
+}
+
 func (g *githubForge) ReplyToReviewThread(
 	ctx context.Context,
 	repository remoteRepository,
@@ -2524,6 +2579,7 @@ func (g *githubForge) ReplyToReviewThread(
 		repository,
 		before.PullRequest,
 		beforeThread,
+		before.Reviews,
 		body,
 		mutationCommentID,
 	)
