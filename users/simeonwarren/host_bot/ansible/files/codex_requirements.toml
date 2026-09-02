@@ -7,22 +7,3 @@ default_permissions = "host-bot"
 
 [features]
 network_proxy = true
-
-[permissions.host-bot]
-description = "Workspace access with public network and Bazel caches."
-extends = ":workspace"
-
-[permissions.host-bot.filesystem]
-"/var/cache/bazel/disk_cache" = "write"
-"/var/cache/bazel/output_user_root" = "write"
-"~/.cache/bazelisk" = "write"
-
-[permissions.host-bot.network]
-enabled = true
-allow_local_binding = false
-
-[permissions.host-bot.network.domains]
-"*" = "allow"
-"localhost" = "deny"
-"127.0.0.1" = "deny"
-"::1" = "deny"
