@@ -58,7 +58,7 @@ func resumedResult(candidate checkStep, phase jsonPhase) checkResult {
 	return checkResult{
 		workspace: candidate.workspace,
 		phase:     candidate.phase,
-		command:   []string{"bazel_agent", candidate.phase, "//..."},
+		command:   []string{"bazel_agent", "bazel", candidate.phase, "//..."},
 		exitCode:  phase.Result.ExitCode,
 		status:    phase.Result.Status,
 		logPath:   phase.Result.Log,
@@ -180,7 +180,7 @@ func runCheck(
 	newCommand commandFactory,
 	progress io.Writer,
 ) checkResult {
-	command := []string{"bazel_agent", phase, "//..."}
+	command := []string{"bazel_agent", "bazel", phase, "//..."}
 	safeWorkspace := strings.ReplaceAll(candidate.name, "/", "__")
 	logPath := filepath.Join(
 		runDirectory,
@@ -721,7 +721,7 @@ func writeReport(
 	)
 	fmt.Fprintln(
 		&report,
-		"Scope: normal `//...` expansion through `bazel_agent`. The runner",
+		"Scope: normal `//...` expansion through `bazel_agent bazel`. The runner",
 	)
 	fmt.Fprintln(
 		&report,
@@ -833,6 +833,7 @@ func countTargets(
 ) (int64, error) {
 	process := newCommand(
 		"bazel_agent",
+		"bazel",
 		"query",
 		"//...",
 		"--output=label_kind",
@@ -856,7 +857,7 @@ func collectTargetUniverses(
 	repoRoot string,
 	progress io.Writer,
 ) (map[string]int64, error) {
-	fmt.Fprintf(progress, "Expanding target universes with bazel_agent query ...\n")
+	fmt.Fprintf(progress, "Expanding target universes with bazel_agent bazel query ...\n")
 	counts := make(map[string]int64, len(repositoryWorkspaces))
 	for _, candidate := range repositoryWorkspaces {
 		count, err := countTargets(newCommand, candidate, repoRoot)

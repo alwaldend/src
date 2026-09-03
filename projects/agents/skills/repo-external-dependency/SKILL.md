@@ -54,7 +54,7 @@ Then add `include("//tools/<tool>:include.MODULE.bazel")` to the root
 The archive contract lives in the package `binary_toolchain.json`, so adding
 or changing an archive normally does not change the module lock. Verify the
 pin by building and running the alias, for example
-`bazel_agent run //tools/<tool>:<alias> -- --version`, before handing off.
+`bazel_agent bazel run //tools/<tool>:<alias> -- --version`, before handing off.
 
 ## Preserve reproducibility
 
@@ -85,5 +85,5 @@ Review the lockfile diff for unrelated resolution changes. Then query and build
 the dependency package and its narrowest consumer, followed by:
 
 ```sh
-bazel_agent test //:buildifier_test
+bazel_agent bazel test //:buildifier_test
 ```

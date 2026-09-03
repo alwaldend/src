@@ -40,7 +40,7 @@ Codex remains connected.
 To build and run the server directly from the repository root:
 
 ```sh
-bazel_agent run //projects/mcp_cordis:mcp_cordis -- \
+bazel_agent bazel run //projects/mcp_cordis:mcp_cordis -- \
   --workspace-root "$PWD" \
   --task-id example-task \
   --run-id example-run

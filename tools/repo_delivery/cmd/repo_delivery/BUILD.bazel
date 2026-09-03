@@ -4,6 +4,7 @@ go_library(
     name = "go_lib",
     srcs = [
         "command.go",
+        "deliver.go",
         "delivery.go",
         "forge.go",
         "git.go",

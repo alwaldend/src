@@ -29,7 +29,7 @@ records generated-artifact ownership. Run the report-only completeness check
 with:
 
 ```sh
-bazel_agent run //tools/agents/cmd/phase1_check -- \
+bazel_agent bazel run //tools/agents/cmd/phase1_check -- \
   --workspace-root "$PWD" \
   --report out/<task>/phase1-report.json
 ```
@@ -54,13 +54,13 @@ renders the same data and states the JSON digest.
 Regenerate with:
 
 ```sh
-bazel_agent run //tools/agents/cmd/topology_check:topology_update
+bazel_agent bazel run //tools/agents/cmd/topology_check:topology_update
 ```
 
 Verify the checked artifacts are current with:
 
 ```sh
-bazel_agent test //tools/agents/cmd/topology_check:topology_check_check
+bazel_agent bazel test //tools/agents/cmd/topology_check:topology_check_check
 ```
 
 The catalog contains no timestamps, absolute checkout paths, or nested
@@ -78,7 +78,7 @@ path, label, or task. It joins the six checked catalogs plus the applicable
 `Completeness: partial` with structured limitations rather than failure.
 
 ```sh
-bazel_agent run //tools/agents/cmd/agent_system:agent_system_update -- \
+bazel_agent bazel run //tools/agents/cmd/agent_system:agent_system_update -- \
   --workspace-root "$PWD"
 ```
 
@@ -88,7 +88,7 @@ revision, input digests, bounded byte size), and bounded component,
 capability, check, and provider views. Verification:
 
 ```sh
-bazel_agent test //tools/agents/cmd/agent_system:agent_system_check
+bazel_agent bazel test //tools/agents/cmd/agent_system:agent_system_check
 ```
 
 ## Runtime control kernel and status
@@ -102,12 +102,12 @@ The `control_status` command renders the snapshot/asset status for a control
 root (Markdown with `--markdown`):
 
 ```sh
-bazel_agent run //tools/agents/cmd/control_status:control_status -- \
+bazel_agent bazel run //tools/agents/cmd/control_status:control_status -- \
   --workspace-root "$PWD" [--markdown]
 ```
 
 Verification:
 
 ```sh
-bazel_agent test //tools/agents/control:all //tools/agents/cmd/control_status:all
+bazel_agent bazel test //tools/agents/control:all //tools/agents/cmd/control_status:all
 ```

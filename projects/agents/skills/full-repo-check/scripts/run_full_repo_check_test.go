@@ -41,7 +41,8 @@ func TestExecuteContinuesAndWritesRestrictedArtifacts(t *testing.T) {
 	var processes []*exec.Cmd
 	var checkProcesses []*exec.Cmd
 	newCommand := func(name string, args ...string) *exec.Cmd {
-		if name == "bazel_agent" && len(args) == 3 && args[0] == "query" {
+		if name == "bazel_agent" && len(args) == 4 &&
+			args[0] == "bazel" && args[1] == "query" {
 			queries++
 			command := exec.Command(os.Args[0], "-test.run=TestHelperProcess", "--")
 			command.Env = append(
@@ -54,9 +55,9 @@ func TestExecuteContinuesAndWritesRestrictedArtifacts(t *testing.T) {
 			return command
 		}
 		commands++
-		wantArgs := []string{"build", "//..."}
+		wantArgs := []string{"bazel", "build", "//..."}
 		if commands%2 == 0 {
-			wantArgs[0] = "test"
+			wantArgs[1] = "test"
 		}
 		if name != "bazel_agent" ||
 			strings.Join(args, " ") != strings.Join(wantArgs, " ") {
@@ -139,7 +140,7 @@ func TestExecuteContinuesAndWritesRestrictedArtifacts(t *testing.T) {
 		t.Fatalf("os.ReadFile(report) error = %v", err)
 	}
 	for _, want := range []string{
-		"| root | build | `bazel_agent build //...` | FAIL (exit 9)",
+		"| root | build | `bazel_agent bazel build //...` | FAIL (exit 9)",
 		"| projects/rules_template | test |",
 		"## Failed commands",
 		"| root | build | 9 |",

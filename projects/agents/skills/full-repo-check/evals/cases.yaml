@@ -8,7 +8,7 @@
       threshold: 1
       value: >-
         Pass only if the response uses the full-repo-check runner through
-        a `bazel_agent run --script_path=...` launcher and starts that launcher
+        a `bazel_agent bazel run --script_path=...` launcher and starts that launcher
         only after the generating Bazel process exits; covers build and test in
         the root and all nine nested workspaces; lets the runner continue
         across failures; inspects the restricted report and targeted failure

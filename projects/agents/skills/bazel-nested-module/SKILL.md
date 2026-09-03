@@ -86,11 +86,11 @@ needed, review every generated change, and run it a second time to prove the
 result is stable. Validate at least:
 
 ```sh
-bazel_agent test //...
-bazel_agent build //...
+bazel_agent bazel test //...
+bazel_agent bazel build //...
 ```
 
 Run those commands inside the new module and run focused parent-repository
-checks for its integration, including `bazel_agent test //:buildifier_test`.
+checks for its integration, including `bazel_agent bazel test //:buildifier_test`.
 Finish with `full-repo-check` when adding a workspace so the updated
 nested-workspace matrix is exercised.

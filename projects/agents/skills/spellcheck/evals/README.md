@@ -30,7 +30,7 @@ another Codex process concurrently. Run it explicitly with the absolute home
 used by a successful Codex login:
 
 ```sh
-bazel_agent test //projects/agents/skills/spellcheck:eval \
+bazel_agent bazel test //projects/agents/skills/spellcheck:eval \
   --test_env=CODEX_HOME=/absolute/path/to/.codex \
   --test_env=CODEX_PATH_OVERRIDE=/absolute/path/to/codex \
   --test_output=errors

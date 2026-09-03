@@ -164,7 +164,7 @@ stated scope.
 - Prefer a small, target-specific change. This is a large monorepo, so query,
   build, and test the affected Bazel package before considering `//...`.
 - Prefer Go for repository automation and scripts. Expose them as Bazel
-  `go_binary` targets and invoke them with `bazel_agent run`; use
+  `go_binary` targets and invoke them with `bazel_agent bazel run`; use
   another language only when Go or Bazel would materially complicate the task.
 - Use the `repo-delivery` skill to finalize implementation work. It owns
   staging, feature-branch commits and pushes, pull request maintenance, review
@@ -215,7 +215,7 @@ stated scope.
 ## Searching
 
 Do not use recursive `grep` or `ls`. Use `rg`, `rg --files`, `find` with a
-bounded depth, or `bazel_agent query` instead.
+bounded depth, or `bazel_agent bazel query` instead.
 
 ## Repository map and boundaries
 
@@ -260,21 +260,21 @@ these visibility and publication boundaries when adding dependencies.
   Do not put machine-local settings into checked-in rc files.
 - Do not hand-edit files that identify themselves as generated. Run the update
   command in their header. Common update targets use a `.update` suffix (for
-  example, `bazel_agent run //tools/ansible:requirements.update`).
+  example, `bazel_agent bazel run //tools/ansible:requirements.update`).
 - When changing BUILD or `.bzl` files, use existing macros and naming patterns
   in the same package. Run the root Buildifier test as well as package tests.
-- Run `bazel_agent run //:gazelle` only when a source/dependency change requires
+- Run `bazel_agent bazel run //:gazelle` only when a source/dependency change requires
   generated BUILD updates, then review every generated change.
 
 Useful discovery commands:
 
 ```sh
-bazel_agent query //path/to/package:all
-bazel_agent query 'tests(//path/to/package:all)'
-bazel_agent query 'rdeps(//..., //path/to/package:target)'
+bazel_agent bazel query //path/to/package:all
+bazel_agent bazel query 'tests(//path/to/package:all)'
+bazel_agent bazel query 'rdeps(//..., //path/to/package:target)'
 ```
 
-`bazel_agent query` can be expensive at repository scope. Substitute the
+`bazel_agent bazel query` can be expensive at repository scope. Substitute the
 narrowest reasonable package pattern for `//...` whenever possible.
 
 ## Infrastructure safety
@@ -324,18 +324,18 @@ Choose checks that match the files changed, in this order:
 
 ```sh
 git diff --check
-bazel_agent test //path/to/affected/package:all
-bazel_agent build //path/to/affected/package:all
-bazel_agent test //:buildifier_test           # BUILD/.bzl changes
+bazel_agent bazel test //path/to/affected/package:all
+bazel_agent bazel build //path/to/affected/package:all
+bazel_agent bazel test //:buildifier_test           # BUILD/.bzl changes
 black --check path/to/changed/python          # Python changes
 mypy path/to/changed/python                   # Python changes
-bazel_agent test //...                        # only when justified/feasible
+bazel_agent bazel test //...                        # only when justified/feasible
 ```
 
-Not every package exposes all of these targets. Use `bazel_agent query` first
+Not every package exposes all of these targets. Use `bazel_agent bazel query` first
 rather than guessing.
 
 The checked-in pre-commit configuration supplies repository hygiene checks.
-Install the hook with `bazel_agent run //:write_git_hooks`, and verify it with
-`bazel_agent run //:write_git_hooks -- test`. Installation is optional, and
+Install the hook with `bazel_agent bazel run //:write_git_hooks`, and verify it with
+`bazel_agent bazel run //:write_git_hooks -- test`. Installation is optional, and
 agents should still run the relevant checks explicitly.

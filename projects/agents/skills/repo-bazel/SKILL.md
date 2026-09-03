@@ -15,7 +15,7 @@ description: Build, test, query, and maintain targets in this Bazel monorepo. Us
    `try-import %workspace%/user.bazelrc` so local overrides remain last.
 4. Find existing rules with `rg`; copy the closest repository pattern instead of
    inventing a parallel macro.
-5. Use `bazel_agent query` to confirm labels and dependency boundaries when
+5. Use `bazel_agent bazel query` to confirm labels and dependency boundaries when
    uncertain.
 
 ## Edit targets
@@ -44,13 +44,13 @@ description: Build, test, query, and maintain targets in this Bazel monorepo. Us
 Run the cheapest relevant commands first:
 
 ```sh
-bazel_agent query //path/to/package:all
-bazel_agent test //path/to/package:all
-bazel_agent build //path/to/package:all
-bazel_agent test //:buildifier_test
+bazel_agent bazel query //path/to/package:all
+bazel_agent bazel test //path/to/package:all
+bazel_agent bazel build //path/to/package:all
+bazel_agent bazel test //:buildifier_test
 ```
 
-Use `bazel_agent test //...` or `bazel_agent build //...` only when the scope
+Use `bazel_agent bazel test //...` or `bazel_agent bazel build //...` only when the scope
 and available time justify a repository-wide check. Report remote-cache,
 credential, network, or platform failures separately from failures caused by
 the patch.
@@ -58,8 +58,8 @@ the patch.
 For generated targets, inspect available labels before guessing:
 
 ```sh
-bazel_agent query '//path/to/package:*'
+bazel_agent bazel query '//path/to/package:*'
 ```
 
-Never run deploy, apply, or other mutating `bazel_agent run` targets merely as a
+Never run deploy, apply, or other mutating `bazel_agent bazel run` targets merely as a
 validation step.

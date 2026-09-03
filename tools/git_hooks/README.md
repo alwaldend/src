@@ -19,11 +19,11 @@ bazel run --config=agent //projects/bazel_agent:install
 Install or update the checked-in hooks:
 
 ```sh
-bazel_agent run //:write_git_hooks
+bazel_agent bazel run //:write_git_hooks
 ```
 
 Verify that every hook is current and executable without changing it:
 
 ```sh
-bazel_agent run //:write_git_hooks -- test
+bazel_agent bazel run //:write_git_hooks -- test
 ```

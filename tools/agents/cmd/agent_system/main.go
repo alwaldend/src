@@ -190,7 +190,7 @@ func (c *capsuleBuilder) applicableWorkspace(snapshot *catalogSnapshot) *catalog
 				{
 					ID:              "root.check",
 					ProviderRef:     "repository.bazel-operations",
-					CommandTemplate: "bazel_agent test //...",
+					CommandTemplate: "bazel_agent bazel test //...",
 				},
 			},
 		}
@@ -536,6 +536,9 @@ func Run(args []string, stdout io.Writer) error {
 	}
 	if len(args) > 0 && args[0] == "aggregate" {
 		return runAggregate(args[1:], stdout)
+	}
+	if len(args) > 0 && args[0] == "friction" {
+		return runFriction(args[1:], stdout)
 	}
 	opts, err := parseFlags(args)
 	if err != nil {

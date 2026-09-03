@@ -82,7 +82,7 @@ it from the canonical record instead of editing it by hand.
 Use the repository tool for canonical operations when it is available:
 
 ```sh
-bazel_agent run //projects/goal/cmd/goal -- <command> --help
+bazel_agent bazel run //projects/goal/cmd/goal -- <command> --help
 ```
 
 The command owns IDs, resource validation, per-goal locking,
@@ -183,7 +183,7 @@ For the registered repository goals root, use the goal command's catalog-backed
 resume view instead of scanning goal directories:
 
 ```sh
-bazel_agent run //projects/goal/cmd/goal -- resume \
+bazel_agent bazel run //projects/goal/cmd/goal -- resume \
   --goals-root projects/agents/goals
 ```
 

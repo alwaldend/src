@@ -206,8 +206,8 @@ func TestCommandResumeReturnsCatalogContinuation(t *testing.T) {
 	)
 	tampered = bytes.Replace(
 		tampered,
-		[]byte(`"stableDefect":"resume command missing"`),
-		[]byte(`"stableDefect":"tampered"`),
+		[]byte(`"stableDefect": "resume command missing"`),
+		[]byte(`"stableDefect": "tampered"`),
 		1,
 	)
 	if err := os.WriteFile(catalogPath, tampered, 0o644); err != nil {

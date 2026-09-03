@@ -113,13 +113,19 @@ func validateSkill(
 	}
 	var errors []string
 	if _, ok := declared[filepath.Clean(skillPath)]; !ok {
-		errors = append(errors, "SKILL.md is not declared by skill_library")
+		errors = append(errors, fmt.Sprintf(
+			"%s is not declared by skill_library",
+			skillPath,
+		))
 	}
 	if openAIPath != "" {
 		if _, ok := declared[filepath.Clean(openAIPath)]; !ok {
 			errors = append(
 				errors,
-				"agents/openai.yaml is not declared by skill_library",
+				fmt.Sprintf(
+					"%s is not declared by skill_library",
+					openAIPath,
+				),
 			)
 		}
 	}

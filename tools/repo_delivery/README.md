@@ -17,7 +17,7 @@ choose validation commands, resolve conflicts, or judge review feedback.
 Detect the provider without printing a credential-bearing remote URL:
 
 ```sh
-bazel_agent run //tools/repo_delivery -- provider
+bazel_agent bazel run //tools/repo_delivery -- provider
 ```
 
 The sanitized report distinguishes forge support from Git transport support.
@@ -29,8 +29,8 @@ canonical SSH endpoints. It never reports either endpoint.
 For the supported GitHub adapter, the normal workflow is:
 
 ```sh
-bazel_agent run //tools/repo_delivery -- inspect --base master
-bazel_agent run //tools/repo_delivery -- prepare \
+bazel_agent bazel run //tools/repo_delivery -- inspect --base master
+bazel_agent bazel run //tools/repo_delivery -- prepare \
   --base master \
   --message-file out/task/commit.md \
   --receipt-file out/task/prepare.json \
@@ -39,11 +39,11 @@ bazel_agent run //tools/repo_delivery -- prepare \
 # For an explicitly reviewed task-owned multi-commit range, use
 # --consolidate <inspect.local_head_oid> instead of --rewrite.
 # Run every required validation against the top-level literal head_oid.
-bazel_agent run //tools/repo_delivery -- publish \
+bazel_agent bazel run //tools/repo_delivery -- publish \
   --base master \
   --receipt-file out/task/prepare.json \
   --validated-head <literal-head_oid>
-bazel_agent run //tools/repo_delivery -- verify \
+bazel_agent bazel run //tools/repo_delivery -- verify \
   --receipt-file out/task/prepare.json
 ```
 
@@ -51,7 +51,7 @@ To synchronize a prepared, task-owned, single-commit feature branch with an
 advanced base before `prepare`, use the guarded adapter workflow:
 
 ```sh
-bazel_agent run //tools/repo_delivery -- rebase --base master
+bazel_agent bazel run //tools/repo_delivery -- rebase --base master
 ```
 
 The command refuses dirty trees, divergent remote feature tips, multi-commit
@@ -186,7 +186,7 @@ immediately to branch-update webhooks.
 Start with a bounded structured inventory:
 
 ```sh
-bazel_agent run //tools/repo_delivery -- review inspect
+bazel_agent bazel run //tools/repo_delivery -- review inspect
 ```
 
 Carry values from the latest inspection literally. All mutations require the
@@ -195,7 +195,7 @@ top-level reply also requires the
 reported last-comment sentinel and top-level inventory digest:
 
 ```sh
-bazel_agent run //tools/repo_delivery -- review comment \
+bazel_agent bazel run //tools/repo_delivery -- review comment \
   --pull-request-id <pull_request.id> \
   --expected-head <pull_request.head_ref_oid> \
   --expected-pull-request-digest <pull_request_expectation_digest> \
@@ -210,7 +210,7 @@ Thread replies and resolutions additionally bind the thread, its last comment,
 and its complete expectation digest:
 
 ```sh
-bazel_agent run //tools/repo_delivery -- review reply \
+bazel_agent bazel run //tools/repo_delivery -- review reply \
   --pull-request-id <pull_request.id> \
   --expected-head <pull_request.head_ref_oid> \
   --expected-pull-request-digest <pull_request_expectation_digest> \
@@ -220,7 +220,7 @@ bazel_agent run //tools/repo_delivery -- review reply \
   --body-file out/task/reply.md \
   --reply-receipt-file out/task/reply.json
 
-bazel_agent run //tools/repo_delivery -- review resolve \
+bazel_agent bazel run //tools/repo_delivery -- review resolve \
   --pull-request-id <pull_request.id> \
   --expected-head <pull_request.head_ref_oid> \
   --expected-pull-request-digest <pull_request_expectation_digest> \
@@ -229,7 +229,7 @@ bazel_agent run //tools/repo_delivery -- review resolve \
   --expected-thread-digest <review_threads[index].expectation_digest> \
   --reply-receipt-file out/task/reply.json
 
-bazel_agent run //tools/repo_delivery -- review request \
+bazel_agent bazel run //tools/repo_delivery -- review request \
   --pull-request-id <pull_request.id> \
   --expected-head <pull_request.head_ref_oid> \
   --expected-pull-request-digest <pull_request_expectation_digest> \

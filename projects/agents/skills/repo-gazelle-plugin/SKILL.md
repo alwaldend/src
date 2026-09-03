@@ -109,8 +109,8 @@ update its lock and validate its complete, intentionally small graph:
 
 ```sh
 bazel_agent mod deps --lockfile_mode=update
-bazel_agent test //...
-bazel_agent build //...
+bazel_agent bazel test //...
+bazel_agent bazel build //...
 ```
 
 From the repository root, update the parent lock when its module graph changed,
@@ -118,10 +118,10 @@ run Gazelle, inspect the resulting diff, and validate the integration:
 
 ```sh
 bazel_agent mod deps --lockfile_mode=update
-bazel_agent run //:gazelle
-bazel_agent test //path/to/affected/package:all
-bazel_agent build //path/to/affected/package:all
-bazel_agent test //:buildifier_test
+bazel_agent bazel run //:gazelle
+bazel_agent bazel test //path/to/affected/package:all
+bazel_agent bazel build //path/to/affected/package:all
+bazel_agent bazel test //:buildifier_test
 ```
 
 Run root Gazelle a second time and confirm that it changes nothing. Finish with

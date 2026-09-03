@@ -24,7 +24,7 @@ synchronized with an advanced base. Run required validations against the
 literal resulting head before `prepare` and `publish`.
 
 Before delivery, run
-`bazel_agent run //tools/repo_delivery -- provider`. Use its sanitized
+`bazel_agent bazel run //tools/repo_delivery -- provider`. Use its sanitized
 repository identity, provider hint, `adapter_available`, sanitized
 `git_transport`, and `delivery_transport_available` results; do not print or
 inspect the raw configured remote URL because it may contain credentials.
@@ -64,16 +64,16 @@ Documentation-only delivery records do not invalidate a behavioral verdict
 unless they can affect execution or the published interface.
 
 Delivery requires the mandatory quality gates below: the repository quality
-test suite (`bazel_agent test //:repo_quality_test`) and semantic lint of the
+test suite (`bazel_agent bazel test //:repo_quality_test`) and semantic lint of the
 affected targets. Treat either failure as a publish blocker on the exact
 candidate head; re-run them after any edit that changes the candidate tree.
 The `prepare` command returns `affected_bazel_labels` derived from the
 receipt's authorized path scope; pass those labels to
-`bazel_agent build --config=lint` for the affected lint gate.
+`bazel_agent bazel build --config=lint` for the affected lint gate.
 
 ## GitHub adapter
 
-Use `bazel_agent run //tools/repo_delivery -- ...` for `inspect`, `prepare`,
+Use `bazel_agent bazel run //tools/repo_delivery -- ...` for `inspect`, `prepare`,
 `publish`, `verify`, and the `review` subcommands. The tool owns deterministic
 mechanics: exact ref and pull-request discovery, aggregate commit creation,
 signing preservation, rebasing, exact-lease pushes, provider-CLI calls,
@@ -118,6 +118,14 @@ configuration or weakening transport isolation implicitly.
    Never use consolidation or other rewrites for shared, stacked, human-owned,
    unrelated, or ambiguous history. Stop and ask the user when ownership is
    uncertain.
+   Consolidation additionally requires the oldest feature commit to carry the
+   ownership disclaimer trailer, so add it to that commit before the first
+   `prepare` when a branch predates the convention; the adapter's error names
+   the exact commit when it is missing. Divergent remote tips require a typed
+   `rewrite-authorize` receipt (its `--old-remote-oid` is the freshly
+   inspected `remote_head_oid`), passed to `prepare --rewrite-authorization`;
+   do not combine it with `--replace-remote`, which is the untyped, direct
+   authorization form.
    Force-pushing an agent-owned feature branch is allowed only as an
    exact-lease update that preserves every previously remote commit's
    reachable progress: first fetch the current remote feature tip and record
@@ -149,10 +157,10 @@ configuration or weakening transport isolation implicitly.
    the candidate to validate. Run every check required for delivery after
    `prepare`, and confirm HEAD still equals that exact OID after the checks.
    The repository quality test suite is mandatory: run
-   `bazel_agent test //:repo_quality_test` and require it to pass. Semantic
+   `bazel_agent bazel test //:repo_quality_test` and require it to pass. Semantic
    lint is also mandatory for the affected targets: use the returned
    `affected_bazel_labels` from `prepare` and run
-   `bazel_agent build --config=lint <labels>` over every package the change
+   `bazel_agent bazel build --config=lint <labels>` over every package the change
    touches; prefer the narrow affected set over `//...` unless the change
    spans the repository.
    Record that literal OID; never recompute it from mutable `HEAD` when
@@ -168,6 +176,13 @@ configuration or weakening transport isolation implicitly.
    changes HEAD, so it invalidates the prior exact-OID gate and requires the
    checks to run again against the newly
    returned top-level `head_oid`.
+   If any Git history operation loses a commit, tree state, or a resolved
+   conflict, recover with `git reflog` instead of reconstructing the state
+   by hand: identify the last known-good `HEAD@{n}` entry, verify it with
+   `git diff <known-good-oid> <candidate-oid>` before resetting, and prefer
+   `git reset --hard <oid>` onto the verified state. Record the OID chosen
+   for recovery in the task notes, then restart the failed preparation step
+   from that exact state.
 
 The current adapter aborts and removes an isolated rebase when it encounters a
 conflict; it does not expose an interactive resolver. Stop for direction rather
@@ -177,9 +192,12 @@ other fail-closed result.
 
 ### Publish and review
 
-After the post-prepare checks pass, pass that exact literal
-top-level `head_oid` and the emitted receipt to
-`publish --validated-head <commit-oid> --receipt-file <path>`. The receipt,
+For the common message-only amend cycle, use
+`deliver --message-file <path> --receipt-file <path> --owner-root <root>
+--task-path <path>`; it inspects, authorizes a diverged remote when needed,
+prepares, publishes, and verifies as one idempotent command, stopping on the
+first real error. When a step needs custom flags the wrapper does not expose,
+run the individual commands instead. The receipt,
 not a separate command-line lease, binds the repository, remote endpoint
 digests, forge, refs, base, prepared tree and head, expected remote head,
 expected pull-request identity or absence, and aggregate scope. Do not edit or
@@ -188,14 +206,18 @@ process write it while `prepare`, `publish`, or receipt-bound `verify` runs.
 The adjacent lock serializes receipt transitions and reads performed by
 cooperating `repo_delivery` processes; stable rechecks detect already-visible
 changes but are not a portable atomic pathname-content compare-and-swap
-against a same-user writer that ignores the lock.
+against a same-user writer that ignores the lock. A failed `prepare` may
+leave both the receipt and its adjacent `.lock` file; retrying with the same
+receipt path requires removing both, and because they are ignored by Git,
+`git clean -fx <path>` is needed (plain `-f` skips them).
 
 For a git-only workflow, pass `--no-pull-request` to `publish`. The tool
 pushes the feature branch with the same exact-lease gates and skips
 pull-request creation and synchronization. It refuses when a pull request
 already exists for the branch; close it first or use the PR flow. `verify`
 requires review threads to be resolved before delivery when a pull request
-exists.
+exists, and takes only `--receipt-file` (unlike `publish`, it has no
+`--validated-head` flag).
 
 The tool refetches before pushing. If it exits nonzero with a structured
 `revalidation_required` report, it has rebased the exact candidate in an
@@ -230,7 +252,9 @@ digest. Put comment bodies under ignored `out/<task>/` and pass them with
 `--body-file`. `review reply` also writes a strict reply receipt in that task
 directory; pass that exact receipt to `review resolve`. Use
 `review request --reviewer <login>` for explicit user accounts. Never invoke
-`gh` directly for these mutations.
+`gh` directly for these mutations. After a reply, resolve with the receipt's
+`result_thread_digest` and `reply_comment_id` (the post-reply thread state
+and appended comment), not the pre-reply inspection values.
 
 When inspection shows that an enabled remote review has started or is still
 running for the exact final head, wait for it to reach a terminal state before
@@ -300,7 +324,7 @@ Except for its required read-only `provider` command, do not invoke
 `repo_delivery` for a Forgejo remote until it has a Forgejo adapter. Use
 `$git-rebase-remote` for exact ref discovery, synchronization, rebasing, and
 an exact-lease push. Use
-`bazel_agent run //tools/fj -- ...` for only the basic pull-request operations
+`bazel_agent bazel run //tools/fj -- ...` for only the basic pull-request operations
 that the installed `fj` v0.5.0 exposes: `pr search`, `pr create`, `pr view`,
 `pr view ... comments`, `pr edit ... title`, `pr edit ... body`, and
 `pr comment`. Check the command's help rather than assuming newer capabilities.

@@ -25,7 +25,7 @@ mkdir -p -- "${scratch_directory}"
 run_script="$(mktemp "${scratch_directory}/launch.XXXXXXXX")"
 
 cd -- "${workspace_root}"
-bazel_agent run "--script_path=${run_script}" \
+bazel_agent bazel run "--script_path=${run_script}" \
     //projects/mcp_cordis:mcp_cordis -- \
     --workspace-root "${workspace_root}" \
     --task-id "${task_id}" \

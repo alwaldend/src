@@ -100,7 +100,7 @@ never credential contents through `env` or a checked-in config. Set the
 provider's `codex_path_override` from `CODEX_PATH_OVERRIDE`:
 
 ```sh
-bazel_agent test //path/to:answer_question_eval \
+bazel_agent bazel test //path/to:answer_question_eval \
   --test_env=CODEX_HOME=/absolute/path/to/.codex \
   --test_env=CODEX_PATH_OVERRIDE=/absolute/path/to/codex \
   --test_output=errors

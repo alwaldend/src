@@ -537,7 +537,7 @@ func run(args []string, stdout io.Writer, stderr io.Writer) error {
 			return fmt.Errorf("checked topology JSON unavailable: %w", err)
 		}
 		if !bytes.Equal(tracked, jsonContent) {
-			return fmt.Errorf("checked topology JSON is stale; rerun the generator")
+			return fmt.Errorf("checked topology JSON is stale; run //tools/agents/cmd/topology_check:topology_update")
 		}
 		markdownPath, err := compiler.inside(compiler.root, opts.markdownPath)
 		if err != nil {
@@ -548,7 +548,7 @@ func run(args []string, stdout io.Writer, stderr io.Writer) error {
 			return fmt.Errorf("checked topology Markdown unavailable: %w", err)
 		}
 		if !bytes.Equal(trackedMarkdown, []byte(markdown)) {
-			return fmt.Errorf("checked topology Markdown is stale; rerun the generator")
+			return fmt.Errorf("checked topology Markdown is stale; run //tools/agents/cmd/topology_check:topology_update")
 		}
 	}
 	if err := compiler.writeArtifacts(opts, jsonContent, markdown); err != nil {

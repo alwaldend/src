@@ -1,0 +1,46 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: Goal
+metadata:
+  name: agent-system-phase-six-ergonomics
+  resourceVersion: "6"
+  generation: 1
+  creationTimestamp: "2026-09-03T14:52:07.970004726Z"
+  annotations:
+    goals.alwaldend.com/local-owner-root: projects/agents
+spec:
+  title: Improve agent ergonomics through measured friction reduction
+  scope: project
+  retention:
+    policy: durable
+  relationships:
+    dependsOnGoalRefs: []
+    supersedesGoalRefs: []
+status:
+  lifecycleGeneration: 2
+  outcome: achieved
+  execution: paused
+  activeAttemptID: ""
+  acceptedAttemptID: attempt-5fbe69af8f1e
+  acceptedResultDigest: sha256:506ba8232da9d54dd50875f2d37387965d5f0de6c9e631801c9bdf1008b22f9e
+  criteriaRevision: 1
+  plans:
+  - planID: phase6-baseline-001
+    state: active
+    strategy: Measure friction across representative task archetypes before selecting optimizations
+  promotion:
+    sourceScope: ""
+    sourceGeneration: 0
+    sourceLifecycleGeneration: 0
+    sourceCriteriaRevision: 0
+    sourceCriteriaDigest: ""
+    sourceStateDigest: ""
+    sourceDigest: ""
+    promotedAt: ""
+  migration:
+    sourceFormat: ""
+    sourcePath: ""
+    sourceDigest: ""
+    mappingVersion: ""
+    extractionMode: ""
+    migratedAt: ""
+  observedAt: "2026-09-03T17:15:41.404920909Z"

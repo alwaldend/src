@@ -30,7 +30,7 @@ branch-point tag.
 Build and inspect the tool with:
 
 ```sh
-bazel_agent run //tools/versioning/cmd/versioning -- show
+bazel_agent bazel run //tools/versioning/cmd/versioning -- show
 ```
 
 For a stamped build, use the bootstrap entry point. It generates a
@@ -55,7 +55,7 @@ retains its own `release-refs` authority.
 Generate a deterministic plan from the resolved version state:
 
 ```sh
-bazel_agent run //tools/versioning/cmd/versioning -- release-plan \
+bazel_agent bazel run //tools/versioning/cmd/versioning -- release-plan \
   --plan out/delivery/release-plan.json
 ```
 
@@ -67,7 +67,7 @@ reviewed before consumption and is not an authorization.
 Publish the reviewed plan only after explicit release scope:
 
 ```sh
-bazel_agent run //tools/versioning/cmd/versioning -- release-publish \
+bazel_agent bazel run //tools/versioning/cmd/versioning -- release-publish \
   --plan out/delivery/release-plan.json \
   --receipt out/delivery/release-ref-receipt.json
 ```

@@ -8,6 +8,28 @@ import (
 	"testing"
 )
 
+func TestSuggestedValidationCommands(t *testing.T) {
+	t.Parallel()
+	commands := suggestedValidationCommands([]string{
+		"//tools/foo",
+		"//tools/bar",
+	})
+	want := []string{
+		"bazel_agent bazel test //tools/bar //tools/foo",
+		"bazel_agent bazel build --config=lint //tools/bar //tools/foo",
+	}
+	if !reflect.DeepEqual(commands, want) {
+		t.Fatalf("commands = %v, want %v", commands, want)
+	}
+}
+
+func TestSuggestedValidationCommandsEmpty(t *testing.T) {
+	t.Parallel()
+	if commands := suggestedValidationCommands(nil); commands != nil {
+		t.Fatalf("commands = %v, want nil", commands)
+	}
+}
+
 func TestCommitAndPullRequestDisclaimers(t *testing.T) {
 	t.Parallel()
 	message, err := withCommitDisclaimer(
@@ -30,6 +52,75 @@ func TestCommitAndPullRequestDisclaimers(t *testing.T) {
 	}
 	if strings.Contains(body, commitDisclaimer) {
 		t.Fatalf("body retained commit disclaimer:\n%s", body)
+	}
+}
+
+func TestWithCommitDisclaimerAcceptsRegularConventions(t *testing.T) {
+	t.Parallel()
+	message, err := withCommitDisclaimer(
+		"Add delivery automation\n\nExplain the aggregate change.\n\n" +
+			"Goal-Ref: goal\nAttempt-ID: attempt\n",
+	)
+	if err != nil {
+		t.Fatalf("withCommitDisclaimer() error = %v", err)
+	}
+	want := "Add delivery automation\n\nExplain the aggregate change.\n\n" +
+		"Goal-Ref: goal\nAttempt-ID: attempt\n\n" + commitDisclaimer + "\n"
+	if message != want {
+		t.Fatalf("message =\n%s\nwant:\n%s", message, want)
+	}
+}
+
+func TestWithCommitDisclaimerRejectsConventionalPrefix(t *testing.T) {
+	t.Parallel()
+	_, err := withCommitDisclaimer("feat: Add delivery automation")
+	if err == nil || !strings.Contains(
+		err.Error(),
+		"artificial prefix",
+	) {
+		t.Fatalf(
+			"withCommitDisclaimer() error = %v, want artificial prefix",
+			err,
+		)
+	}
+}
+
+func TestWithCommitDisclaimerRejectsMissingSubjectSeparator(t *testing.T) {
+	t.Parallel()
+	_, err := withCommitDisclaimer("Add delivery automation\nBody")
+	if err == nil || !strings.Contains(err.Error(), "blank line") {
+		t.Fatalf(
+			"withCommitDisclaimer() error = %v, want blank line",
+			err,
+		)
+	}
+}
+
+func TestWithCommitDisclaimerRejectsUnpairedGoalTrailers(t *testing.T) {
+	t.Parallel()
+	_, err := withCommitDisclaimer(
+		"Add delivery automation\n\nGoal-Ref: goal",
+	)
+	if err == nil || !strings.Contains(err.Error(), "Goal-Ref") {
+		t.Fatalf(
+			"withCommitDisclaimer() error = %v, want Goal-Ref pairing",
+			err,
+		)
+	}
+}
+
+func TestWithCommitDisclaimerRejectsDisclaimerBeforeGoalTrailers(t *testing.T) {
+	t.Parallel()
+	_, err := withCommitDisclaimer(
+		"Add delivery automation\n\n" +
+			commitDisclaimer + "\n\n" +
+			"Goal-Ref: goal\nAttempt-ID: attempt",
+	)
+	if err == nil || !strings.Contains(err.Error(), "final trailer") {
+		t.Fatalf(
+			"withCommitDisclaimer() error = %v, want final trailer",
+			err,
+		)
 	}
 }
 
@@ -368,6 +459,7 @@ func TestRequireConsolidationEvidence(t *testing.T) {
 			{
 				OID:             firstOID,
 				Parents:         []string{parentOID},
+				Title:           "First feature commit",
 				AuthorName:      "Task Bot",
 				AuthorEmail:     "task@example.com",
 				CommitterName:   "Task Bot",
@@ -417,7 +509,7 @@ func TestRequireConsolidationEvidence(t *testing.T) {
 				report.FeatureCommits[0].HasDisclaimer = false
 			},
 			expectedOID: headOID,
-			want:        "lacks the required ownership marker",
+			want:        "lacks the required ownership marker; amend",
 		},
 		{
 			name: "nonlinear chain",

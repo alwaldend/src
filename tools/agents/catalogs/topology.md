@@ -6,9 +6,9 @@
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/topology-catalog`
 - Derivation: `1.0.0`
 - Producer: `repository.topology-compiler`
-- Source revision: `c2166457c47b4608`
+- Source revision: `536a3b8266cb5e4b`
 - Completeness: `complete`
-- JSON digest: `sha256:24cfd78b69ac9e4821cc1ac27a4a3ad36be99a583b65ed2c090842256cd2c3b3`
+- JSON digest: `sha256:8407369059651156f7e7e786d72f61418024973ea2950d420a5a774887341626`
 
 ## Limitations
 

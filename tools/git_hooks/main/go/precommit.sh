@@ -8,6 +8,6 @@ if ! command -v bazel_agent >/dev/null 2>&1; then
     exit 127
 fi
 
-bazel_agent run //:format
-bazel_agent test //:repo_quality_test
-bazel_agent build --config=lint //...
+bazel_agent bazel run //:format
+bazel_agent bazel test //:repo_quality_test
+bazel_agent bazel build --config=lint //...
