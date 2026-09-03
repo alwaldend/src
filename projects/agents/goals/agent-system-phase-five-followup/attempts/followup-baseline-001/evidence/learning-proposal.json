@@ -1,0 +1,50 @@
+{
+  "apiVersion": "agents.alwaldend.com/v1alpha1",
+  "kind": "LearningProposal",
+  "id": "proposal/goal-check-validation-error-visibility",
+  "owner": "tools/agents/cmd/goal_check",
+  "defectSignature": "goal-check-validation-error-suppressed",
+  "reproducer": {
+    "kind": "artifact",
+    "id": "artifact/phase5-followup-friction-one",
+    "version": "session-1"
+  },
+  "regressionRef": {
+    "kind": "artifact",
+    "id": "artifact/goal-check-validation-error-visibility-regression",
+    "version": "workspace"
+  },
+  "contractRef": {
+    "kind": "repository",
+    "id": "repository/goal-check-validation-contract",
+    "version": "workspace"
+  },
+  "fallback": "Revert to generic 'invalid record' reason if the surfaced error exceeds bounded-reason constraints or breaks catalog strict decoding.",
+  "resourceBudget": {
+    "calls": 1,
+    "bytes": 4096,
+    "durationMs": 5000,
+    "concurrency": 1
+  },
+  "validationRefs": [
+    {
+      "kind": "artifact",
+      "id": "artifact/goal-check-test-agent-system",
+      "version": "workspace"
+    }
+  ],
+  "frictionRefs": [
+    {
+      "kind": "artifact",
+      "id": "artifact/phase5-followup-friction-one",
+      "version": "session-1"
+    },
+    {
+      "kind": "artifact",
+      "id": "artifact/phase5-followup-friction-two",
+      "version": "session-1"
+    }
+  ],
+  "deliveredRevision": "499bd74dfc00e10eaca6e08c56e199188e69e0f8",
+  "retirementRule": "Remove the bounded diagnostic surface if three consecutive goal_check runs produce no validation-error regression; retire when the underlying validation contract is replaced by a schema-level validator that surfaces errors at parse time."
+}

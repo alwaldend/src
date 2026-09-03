@@ -1,3 +1,4 @@
+load("@bazel_skylib//rules:native_binary.bzl", "native_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_map")
@@ -44,6 +45,35 @@ al_ansible_binary(
         "//projects/ansible_collection:collections",
     ],
     process_name = "ansible_playbook",
+)
+
+native_test(
+    name = "ansible_lint",
+    src = "//tools/ansible/lint:ansible_lint_test",
+    args = [
+        "--strict",
+        "inventory.yaml",
+        "group_vars/all.yaml",
+        "playbook_deploy.yaml",
+    ],
+    data = [
+        "files/k3s.yaml",
+        "files/k3s_admission.yaml",
+        "files/k3s_auth.yaml",
+        "files/k3s_manifests.yaml",
+        "group_vars/all.yaml",
+        "inventory.yaml",
+        "playbook_deploy.yaml",
+        "//projects/ansible_collection:collection",
+        "//tools/ansible",
+        "//tools/ansible:ansible_config",
+        "//tools/ansible:ansible_galaxy",
+        "//tools/ansible:ansible_lint",
+        "//tools/ansible:ansible_playbook",
+    ],
+    env = {
+        "ANSIBLE_LINT_PACKAGE_ROOT": "infra/flux/ansible",
+    },
 )
 
 pkg_filegroup(

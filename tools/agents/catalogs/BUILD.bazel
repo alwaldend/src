@@ -1,3 +1,5 @@
+load("@rules_go//go:def.bzl", "go_test")
+
 exports_files([
     "action.json",
     "action.md",
@@ -9,8 +11,25 @@ exports_files([
     "index.md",
     "policy.json",
     "policy.md",
+    "skill-cases.json",
+    "skill-coverage.json",
+    "skill-coverage.md",
     "topology.json",
     "topology.md",
     "workspace-check.json",
     "workspace-check.md",
 ])
+
+go_test(
+    name = "coverage_check",
+    srcs = ["coverage_check_test.go"],
+    data = [
+        "capability.json",
+        "skill-cases.json",
+        "skill-coverage.json",
+        "skill-coverage.md",
+    ],
+    deps = [
+        "//tools/agents/cmd/agent_system:agent_system_lib",
+    ],
+)

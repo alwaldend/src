@@ -4,7 +4,7 @@
 // It performs no network or stateful operation, and never mutates goal
 // records. Outputs are checked repository artifacts: portable JSON plus a
 // human Markdown render that states the JSON digest.
-package main
+package goal_check
 
 import (
 	"bytes"
@@ -96,6 +96,12 @@ type compiler struct {
 	unavailable int
 }
 
+func (c *compiler) invalidRecord(format string, args ...any) string {
+	reason := fmt.Sprintf(format, args...)
+	c.problems = append(c.problems, reason)
+	return reason
+}
+
 func (c *compiler) problem(format string, args ...any) {
 	c.problems = append(c.problems, fmt.Sprintf(format, args...))
 }
@@ -136,7 +142,7 @@ func (c *compiler) compile() error {
 		} else {
 			c.unavailable++
 		}
-		if reason != "" {
+		if reason != "" && record.Reason == reason {
 			c.problem("goal %s unavailable: %s", goalDir, reason)
 		}
 	}
@@ -190,8 +196,14 @@ func (c *compiler) compileGoal(goalDir string) (goalcatalog.GoalRecord, string) 
 		unavailable.Reason = reason
 		return unavailable, reason
 	}
-	if err := validateCompleteRecord(goal, criteria, criteriaRevision, attempts); err != nil {
-		unavailable.Reason = "invalid record: " + boundedReason(err)
+	if err := validateCompleteRecord(
+		goal, criteria, criteriaRevision, attempts,
+	); err != nil {
+		unavailable.Reason = c.invalidRecord(
+			"goal %s invalid record: %s",
+			candidatePath,
+			boundedReason(err),
+		)
 		return unavailable, unavailable.Reason
 	}
 	ownerRoot := goal.Metadata.Annotations[goalv1alpha1.LocalOwnerRootAnnotation]
@@ -559,7 +571,7 @@ func (c *compiler) buildOutputs(catalog goalcatalog.GoalCatalog) ([]byte, string
 	return jsonContent, goalcatalog.RenderGoalMarkdown(catalog), nil
 }
 
-func run(args []string, stdout io.Writer) error {
+func Run(args []string, stdout io.Writer) error {
 	opts, err := parseFlags(args)
 	if err != nil {
 		return err
@@ -650,7 +662,7 @@ func run(args []string, stdout io.Writer) error {
 }
 
 func main() {
-	if err := run(os.Args[1:], os.Stdout); err != nil {
+	if err := Run(os.Args[1:], os.Stdout); err != nil {
 		fmt.Fprintln(os.Stderr, "goal_check:", err)
 		os.Exit(1)
 	}

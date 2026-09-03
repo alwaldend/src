@@ -1,4 +1,4 @@
-package main
+package goal_check
 
 import (
 	"bytes"
@@ -148,7 +148,7 @@ status:
 func TestGoalCompileComplete(t *testing.T) {
 	root := writeFiles(t, fixtureGoalDir())
 	var stdout bytes.Buffer
-	if err := run([]string{
+	if err := Run([]string{
 		"--workspace-root", root,
 		"--source-revision", "0123456789abcdef0123456789abcdef01234567",
 		"--output", "out/goal.json",
@@ -191,7 +191,7 @@ func TestGoalCompileIncompleteOnMissingManifest(t *testing.T) {
 	delete(files, "projects/agents/goals/repo-agent-system/goal.yaml")
 	root := writeFiles(t, files)
 	var stdout bytes.Buffer
-	if err := run([]string{
+	if err := Run([]string{
 		"--workspace-root", root,
 		"--source-revision", "0123456789abcdef0123456789abcdef01234567",
 		"--output", "out/goal.json",
@@ -245,7 +245,7 @@ func TestGoalCompileRecordsInvalidAsUnavailable(t *testing.T) {
 			"  criteriaRevision: 2\n"
 	root := writeFiles(t, files)
 	var stdout bytes.Buffer
-	if err := run([]string{
+	if err := Run([]string{
 		"--workspace-root", root,
 		"--source-revision", "0123456789abcdef0123456789abcdef01234567",
 		"--output", "out/goal.json",
@@ -360,7 +360,7 @@ status:
 func TestGoalCompileIncludesOpenContinuation(t *testing.T) {
 	root := writeFiles(t, openFixtureGoalDir())
 	var stdout bytes.Buffer
-	if err := run([]string{
+	if err := Run([]string{
 		"--workspace-root", root,
 		"--source-revision", "0123456789abcdef0123456789abcdef01234567",
 		"--output", "out/goal.json",

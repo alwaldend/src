@@ -1,0 +1,110 @@
+[
+  {
+    "apiVersion": "agents.alwaldend.com/v1alpha1",
+    "kind": "SkillCase",
+    "id": "case/routing/positive",
+    "skillId": "repo-bazel",
+    "provenance": {
+      "kind": "repository",
+      "id": "repository/repo-bazel-skill",
+      "version": "workspace"
+    },
+    "metric": "routing/positive",
+    "evidenceTier": "routed",
+    "sourceRef": {
+      "kind": "artifact",
+      "id": "artifact/promptfoo-config",
+      "version": "workspace"
+    }
+  },
+  {
+    "apiVersion": "agents.alwaldend.com/v1alpha1",
+    "kind": "SkillCase",
+    "id": "case/routing/adjacent-negative",
+    "skillId": "repo-bazel",
+    "provenance": {
+      "kind": "repository",
+      "id": "repository/repo-bazel-skill",
+      "version": "workspace"
+    },
+    "metric": "routing/adjacent-negative",
+    "evidenceTier": "routed",
+    "sourceRef": {
+      "kind": "artifact",
+      "id": "artifact/promptfoo-config",
+      "version": "workspace"
+    }
+  },
+  {
+    "apiVersion": "agents.alwaldend.com/v1alpha1",
+    "kind": "SkillCase",
+    "id": "case/routing/inert-payload",
+    "skillId": "answer-question",
+    "provenance": {
+      "kind": "repository",
+      "id": "repository/answer-question-skill",
+      "version": "workspace"
+    },
+    "metric": "routing/inert-payload",
+    "evidenceTier": "routed",
+    "sourceRef": {
+      "kind": "artifact",
+      "id": "artifact/promptfoo-config",
+      "version": "workspace"
+    }
+  },
+  {
+    "apiVersion": "agents.alwaldend.com/v1alpha1",
+    "kind": "SkillCase",
+    "id": "case/routing/conflict",
+    "skillId": "repo-secrets",
+    "provenance": {
+      "kind": "repository",
+      "id": "repository/repo-secrets-skill",
+      "version": "workspace"
+    },
+    "metric": "routing/conflict",
+    "evidenceTier": "routed",
+    "sourceRef": {
+      "kind": "artifact",
+      "id": "artifact/promptfoo-config",
+      "version": "workspace"
+    }
+  },
+  {
+    "apiVersion": "agents.alwaldend.com/v1alpha1",
+    "kind": "SkillCase",
+    "id": "case/routing/exclusion",
+    "skillId": "spellcheck",
+    "provenance": {
+      "kind": "repository",
+      "id": "repository/spellcheck-skill",
+      "version": "workspace"
+    },
+    "metric": "routing/exclusion",
+    "evidenceTier": "routed",
+    "sourceRef": {
+      "kind": "artifact",
+      "id": "artifact/promptfoo-config",
+      "version": "workspace"
+    }
+  },
+  {
+    "apiVersion": "agents.alwaldend.com/v1alpha1",
+    "kind": "SkillCase",
+    "id": "case/routing/composition",
+    "skillId": "repo-delivery",
+    "provenance": {
+      "kind": "repository",
+      "id": "repository/repo-delivery-skill",
+      "version": "workspace"
+    },
+    "metric": "routing/composition",
+    "evidenceTier": "routed",
+    "sourceRef": {
+      "kind": "artifact",
+      "id": "artifact/promptfoo-config",
+      "version": "workspace"
+    }
+  }
+]

@@ -20,14 +20,31 @@ only after it becomes a stable, reviewable regression.
 Do not attach a token budget to a goal or task unless the user explicitly
 tells you to do so.
 
-## Immediate retries are forbidden
+## Settled results and the no-loop rule
 
-Do not repeat the same tool call, query, or diagnostic more than once
-without changing inputs or strategy. When a command fails, read the error,
-adjust the approach, and proceed. When a question has been answered, act on
-the answer rather than re-verifying it. If two attempts fail with the same
-class of error, stop, reconsider the plan, and try a materially different
-method or ask the user.
+A query is settled the moment it returns its expected-shaped result. Empty
+output, zero matches, a successful no-op, and a negative search all count as
+answers. A settled result is never inconclusive; do not re-run it hoping for
+different output.
+
+Exit status is irrelevant to settlement. A query that exits 0 with no
+matches is exactly as settled as one that exits 0 with results.
+
+Two invocations count as the same query when they ask the same question of
+the same target, even if flags, ordering, quoting, glob patterns, or output
+limits differ. Judged by intent, not by bytes.
+
+After any settled result, the next action must be one of:
+
+- a write, patch, or other state change;
+- a materially different query class (different tool, different question, or
+  different target that would change the decision);
+- a revision to the plan itself; or
+- a question to the user.
+
+Re-running a settled query is never one of these options. If you notice you
+are about to issue a query you have already settled, treat that recognition
+as a hard stop: name the finding, then take one of the four allowed actions.
 
 The canonical repository-agent documents are:
 
@@ -223,6 +240,9 @@ stated scope.
 - Prefer purpose-built tools, MCP capabilities, and repository Bazel targets
   for work they support. Use direct host-shell commands only when no suitable
   tool, MCP, or Bazel target exists.
+- Do not introduce shell scripts or shell-based Bazel rules unless the task
+  explicitly requires them. Prefer Go programs and Bazel-native rules such as
+  `go_binary`, `go_test`, and repository Bazel checks over shell wrappers.
 - Acquire tools used by Bazel hermetically: use pinned, checksummed binary
   archives or Bazel-integrated package managers driven by checked-in manifests
   and lockfiles. Do not silently depend on a host-installed tool or an
@@ -359,15 +379,12 @@ for BUILD or `.bzl` changes. The checked-in pre-commit configuration supplies
 repository hygiene checks; installing `//:write_git_hooks` is optional and
 agents should still run the relevant checks explicitly.
 
-## Immediate retries and settled facts
+## Escalated operations and settled facts
 
 - Never immediately retry a rejected, rate-limited, or failed escalated
   operation. One retry after a real delay at most, then stop and change the
   approach or ask; the rejection usually means the approach is wrong.
-- Do not re-run a command whose result is already settled. Git history, help
-  output, and prior results are immutable within a task; record the conclusion
-  in the task's `out/<task>/notes.md` (or plan) after the first query and move
-  to the next decision.
-- A repeated identical query is a loop signal: the next action must be a
-  decision, a write, or a state-changing step, never another confirmation.
-  After an interrupt, resume at the exact next write; do not re-explore.
+- Git history, help output, and prior results are immutable within a task;
+  record the conclusion in the task's `out/<task>/notes.md` (or plan) after
+  the first query and move to the next decision.
+- After an interrupt, resume at the exact next write; do not re-explore.

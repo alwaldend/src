@@ -15,6 +15,7 @@ tags:
 ## Features
 
 - Ansible collection
+- Bazel-managed Ansible source packaging.
 
 ## Galaxy
 

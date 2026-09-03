@@ -1,0 +1,32 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalCriteria
+metadata:
+  name: agent-system-phase-five-followup
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-09-03T09:00:00.000000000Z"
+spec:
+  goalRef:
+    name: agent-system-phase-five-followup
+  revision: 1
+  items:
+  - criterionID: baseline-coverage
+    revision: 1
+    required: true
+    statement: "baseline-coverage: The repository emits a bounded CoverageMatrix from normalized routing cases, binding the exact capability-catalog digest and distinguishing emitted cases from the complete skill universe."
+    evidenceMethod: Run the coverage aggregate, decode the canonical matrix, and inspect truncation and provenance.
+  - criterionID: writable-fixtures
+    revision: 1
+    required: true
+    statement: "writable-fixtures: Representative Git, Bazel, forge, Terraform, Ansible, secret, and runtime trajectories have deterministic writable fixtures and recorded coverage gaps."
+    evidenceMethod: Inspect fixture targets and their coverage records against this criterion.
+  - criterionID: live-comparison-policy
+    revision: 1
+    required: true
+    statement: "live-comparison-policy: Scheduled live comparisons remain outside ordinary tests and bind model, skill, catalog, fixture, and judge identities."
+    evidenceMethod: Inspect the scheduled comparison policy and exact identity bindings.
+  - criterionID: optimization-adoption
+    revision: 1
+    required: true
+    statement: "optimization-adoption: Each adopted optimization traces a measured baseline, predeclared threshold, reviewed proposal, owner-local change, regression, fallback, and retirement rule."
+    evidenceMethod: Trace accepted learning proposals through their evidence and delivered revisions.

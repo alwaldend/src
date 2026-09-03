@@ -4,7 +4,7 @@
     "id": "agent-system.goal",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.goal-compiler",
-    "sourceRevision": "33c33fa5eace4c0fb0610681909930fc",
+    "sourceRevision": "0d8eda4fb3c72c3b6c722781e0e5b30b",
     "inputs": [
         {
             "path": "projects/agents/goals/agent-system-phase-1/criteria.yaml",
@@ -47,6 +47,16 @@
             "digest": "sha256:25ab660a5df4e373f4ece37afb96b87edaea048718b280c3a008c5d467f3d98b"
         },
         {
+            "path": "projects/agents/goals/agent-system-phase-five-followup/criteria.yaml",
+            "role": "criteria-manifest",
+            "digest": "sha256:245b651150a36d7d6c6d63f651e81fb9ccdc27beb18bc46642450a173564ce30"
+        },
+        {
+            "path": "projects/agents/goals/agent-system-phase-five-followup/goal.yaml",
+            "role": "goal-manifest",
+            "digest": "sha256:31c2389d0bbc79d4c4901e2976581c25b12383d78474eb30143dc206926debd1"
+        },
+        {
             "path": "projects/agents/goals/repo-agent-system/criteria.yaml",
             "role": "criteria-manifest",
             "digest": "sha256:b61214faf045d784bfec13a3e31b1b8be36450bef30e37f2166a521e3558c0c5"
@@ -59,12 +69,12 @@
         {
             "path": "tools/agents/declarations/registry.json",
             "role": "registry",
-            "digest": "sha256:343911ceb0f081db2ec85f8f01608a865305ceefc95e8f95ef1c12220497545a"
+            "digest": "sha256:1d6afa1232d5b96f72473513ee934b1f0a1e59aec154a6fff31b65ba04e7b4bc"
         }
     ],
     "bounds": {
-        "eligible": 5,
-        "emitted": 5,
+        "eligible": 6,
+        "emitted": 6,
         "unavailable": 0,
         "maxItems": 1000,
         "maxInputBytes": 33554432,
@@ -74,7 +84,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:a66567353b89e0dd49324055f2628ba3cccbc2fbb192b6a1e962a3a8ecd2608c",
+    "digest": "sha256:377fe27022d02358b4346e3a0485127f7950b404687ea35a5a2841cd86607157",
     "goals": [
         {
             "candidatePath": "projects/agents/goals/agent-system-phase-1",
@@ -84,7 +94,10 @@
                 "ownerRoot": "projects/agents",
                 "scope": "project"
             },
-            "coarseStatus": { "outcome": "achieved", "execution": "paused" }
+            "coarseStatus": {
+                "outcome": "achieved",
+                "execution": "paused"
+            }
         },
         {
             "candidatePath": "projects/agents/goals/agent-system-phase-2",
@@ -94,7 +107,10 @@
                 "ownerRoot": "projects/agents",
                 "scope": "project"
             },
-            "coarseStatus": { "outcome": "achieved", "execution": "paused" }
+            "coarseStatus": {
+                "outcome": "achieved",
+                "execution": "paused"
+            }
         },
         {
             "candidatePath": "projects/agents/goals/agent-system-phase-3",
@@ -104,7 +120,10 @@
                 "ownerRoot": "projects/agents",
                 "scope": "project"
             },
-            "coarseStatus": { "outcome": "achieved", "execution": "paused" }
+            "coarseStatus": {
+                "outcome": "achieved",
+                "execution": "paused"
+            }
         },
         {
             "candidatePath": "projects/agents/goals/agent-system-phase-4",
@@ -114,7 +133,29 @@
                 "ownerRoot": "projects/agents",
                 "scope": "project"
             },
-            "coarseStatus": { "outcome": "achieved", "execution": "paused" }
+            "coarseStatus": {
+                "outcome": "achieved",
+                "execution": "paused"
+            }
+        },
+        {
+            "candidatePath": "projects/agents/goals/agent-system-phase-five-followup",
+            "availability": "available",
+            "identity": {
+                "name": "agent-system-phase-five-followup",
+                "ownerRoot": "projects/agents",
+                "scope": "project"
+            },
+            "coarseStatus": {
+                "outcome": "open",
+                "execution": "paused"
+            },
+            "continuation": {
+                "activeAttempt": "followup-baseline-001",
+                "stableDefect": "Phase 5 fixture, live-comparison, and optimization evidence is incomplete",
+                "nextAction": "Expand deterministic writable fixtures and measure candidate optimizations",
+                "resumeCondition": "Baseline coverage is regenerated and focused package tests pass"
+            }
         },
         {
             "candidatePath": "projects/agents/goals/repo-agent-system",
@@ -124,7 +165,10 @@
                 "ownerRoot": "projects/agents",
                 "scope": "project"
             },
-            "coarseStatus": { "outcome": "achieved", "execution": "paused" }
+            "coarseStatus": {
+                "outcome": "achieved",
+                "execution": "paused"
+            }
         }
     ]
 }

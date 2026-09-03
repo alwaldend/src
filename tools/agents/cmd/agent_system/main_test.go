@@ -1,4 +1,4 @@
-package main
+package agent_system
 
 import (
 	"bytes"
@@ -11,7 +11,7 @@ import (
 
 func TestRunEmitsCompleteJSON(t *testing.T) {
 	var stdout bytes.Buffer
-	if err := run([]string{
+	if err := Run([]string{
 		"--workspace-root", "testdata/root",
 		"--path", "projects/agents",
 		"--revision", "abcdef0123456789",
@@ -43,7 +43,7 @@ func TestRunEmitsCompleteJSON(t *testing.T) {
 
 func TestRunEmitsStructuredUnavailableOnMissingCatalogs(t *testing.T) {
 	var stdout bytes.Buffer
-	if err := run([]string{
+	if err := Run([]string{
 		"--workspace-root", "testdata/missing",
 		"--path", ".",
 		"--revision", "abcdef0123456789",
@@ -65,7 +65,7 @@ func TestRunEmitsStructuredUnavailableOnMissingCatalogs(t *testing.T) {
 
 func TestMarkdownRenderUsesSameData(t *testing.T) {
 	var jsonOut, markdownOut bytes.Buffer
-	if err := run([]string{
+	if err := Run([]string{
 		"--workspace-root", "testdata/root",
 		"--path", "projects/agents",
 		"--revision", "abcdef0123456789",
@@ -73,7 +73,7 @@ func TestMarkdownRenderUsesSameData(t *testing.T) {
 	}, &jsonOut); err != nil {
 		t.Fatal(err)
 	}
-	if err := run([]string{
+	if err := Run([]string{
 		"--workspace-root", "testdata/root",
 		"--path", "projects/agents",
 		"--revision", "abcdef0123456789",

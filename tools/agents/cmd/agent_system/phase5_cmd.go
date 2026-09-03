@@ -1,4 +1,4 @@
-package main
+package agent_system
 
 import (
 	"encoding/json"
