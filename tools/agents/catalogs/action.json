@@ -4,7 +4,7 @@
     "id": "agent-system.action",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.action-compiler",
-    "sourceRevision": "7aa44af2a240a52814308e26898ea9ff",
+    "sourceRevision": "b2876b3fe824d37f59acacb66a74ef7d",
     "inputs": [
         {
             "path": "projects/goal/agent_operations.json",
@@ -14,7 +14,7 @@
         {
             "path": "projects/goal/cmd/goal/command.go",
             "role": "operation-definition",
-            "digest": "sha256:49b7afe600c087878f3ede137d0fc9b8381fe983a2b3835c00b2ab2c96830ab0"
+            "digest": "sha256:97bf6c8526d8f63d7a8d6d7869293e4ec3fc052ce705b8c00b300839e6281a0b"
         },
         {
             "path": "projects/mcp_cordis/agent_operations.json",
@@ -29,22 +29,22 @@
         {
             "path": "tools/agents/declarations/registry.json",
             "role": "registry",
-            "digest": "sha256:b621f570dc9b3938a61eebbf78e22bcd6a76a85804b474fc59d6d85394978e3e"
+            "digest": "sha256:1d6afa1232d5b96f72473513ee934b1f0a1e59aec154a6fff31b65ba04e7b4bc"
         },
         {
             "path": "tools/repo_delivery/agent_operations.json",
             "role": "operation-file",
-            "digest": "sha256:72c241ed4622e735ff5110b04ca00b2204e3bb7eec222dc233a4495a5b6abc9c"
+            "digest": "sha256:16f555d394e0400730541b17c4d8987a9c84f0c776cf6617a7c1489e11a59dff"
         },
         {
             "path": "tools/repo_delivery/cmd/repo_delivery/command.go",
             "role": "operation-definition",
-            "digest": "sha256:e9e2f262dc9e44d99b7366ca3b189e4a437418ad387e53f51b67f747f16b5245"
+            "digest": "sha256:bc38e03a261c3b58d1513e2ed912998914be90d6549152386203bc63f1a73ae9"
         },
         {
             "path": "tools/terraform/agent_operations.json",
             "role": "operation-file",
-            "digest": "sha256:687ef44a0e1db4efa319eeed66480a98a95da8ad79ec7324546198b32f2b1a33"
+            "digest": "sha256:4438641cb5d440b18e1e7b3980d1493350792eba88572469af6b18c85ef3f147"
         },
         {
             "path": "tools/terraform/defs.bzl",
@@ -64,7 +64,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:1ec39e7ce0f671e2b22ffec83ed8238ccaa0fc3b2efa39a7adcd26543e05dba5",
+    "digest": "sha256:b94f106ffa5f7fc206bbb61e2b8e00a508d293025eb2a2985ea7bca95b5215c2",
     "providers": [
         {
             "id": "cordis.runtime",
@@ -95,10 +95,22 @@
             "sourcePath": "projects/mcp_cordis/agent_operations.json",
             "selector": "cordis_define",
             "classification": "classified",
-            "effects": ["code.execute", "source.write", "task_state.write"],
-            "inputs": ["scoped module source"],
-            "outputs": ["persisted package state"],
-            "information": ["public", "secret", "personal"],
+            "effects": [
+                "code.execute",
+                "source.write",
+                "task_state.write"
+            ],
+            "inputs": [
+                "scoped module source"
+            ],
+            "outputs": [
+                "persisted package state"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
             "credentialUse": "module-dependent",
             "networkUse": "module-dependent",
             "environmentSelector": "explicit project or task/run scope",
@@ -116,10 +128,23 @@
             "sourcePath": "projects/mcp_cordis/agent_operations.json",
             "selector": "cordis_promote",
             "classification": "classified",
-            "effects": ["code.execute", "source.write", "task_state.write"],
-            "inputs": ["task-scoped module", "project target"],
-            "outputs": ["project package"],
-            "information": ["public", "secret", "personal"],
+            "effects": [
+                "code.execute",
+                "source.write",
+                "task_state.write"
+            ],
+            "inputs": [
+                "task-scoped module",
+                "project target"
+            ],
+            "outputs": [
+                "project package"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
             "credentialUse": "module-dependent",
             "networkUse": "module-dependent",
             "environmentSelector": "task/run source and project destination",
@@ -137,10 +162,21 @@
             "sourcePath": "projects/mcp_cordis/agent_operations.json",
             "selector": "cordis_remove",
             "classification": "classified",
-            "effects": ["source.write", "task_state.write"],
-            "inputs": ["scoped package identity"],
-            "outputs": ["absence result"],
-            "information": ["public", "secret", "personal"],
+            "effects": [
+                "source.write",
+                "task_state.write"
+            ],
+            "inputs": [
+                "scoped package identity"
+            ],
+            "outputs": [
+                "absence result"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
             "credentialUse": "none",
             "networkUse": "none",
             "environmentSelector": "explicit project or task/run scope",
@@ -158,10 +194,22 @@
             "sourcePath": "projects/goal/agent_operations.json",
             "selector": "checkpoint",
             "classification": "classified",
-            "effects": ["source.write", "task_state.write"],
-            "inputs": ["goal revision", "attempt artifacts"],
-            "outputs": ["versioned goal state"],
-            "information": ["public", "secret", "personal"],
+            "effects": [
+                "source.write",
+                "task_state.write"
+            ],
+            "inputs": [
+                "goal revision",
+                "attempt artifacts"
+            ],
+            "outputs": [
+                "versioned goal state"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
             "credentialUse": "none",
             "networkUse": "none",
             "environmentSelector": "explicit goal directory",
@@ -179,10 +227,22 @@
             "sourcePath": "projects/goal/agent_operations.json",
             "selector": "migrate",
             "classification": "classified",
-            "effects": ["source.write", "task_state.write"],
-            "inputs": ["legacy source bytes", "explicit mapping"],
-            "outputs": ["versioned goal"],
-            "information": ["public", "secret", "personal"],
+            "effects": [
+                "source.write",
+                "task_state.write"
+            ],
+            "inputs": [
+                "legacy source bytes",
+                "explicit mapping"
+            ],
+            "outputs": [
+                "versioned goal"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
             "credentialUse": "none",
             "networkUse": "none",
             "environmentSelector": "explicit source and destination",
@@ -200,10 +260,22 @@
             "sourcePath": "projects/goal/agent_operations.json",
             "selector": "promote",
             "classification": "classified",
-            "effects": ["source.write", "task_state.write"],
-            "inputs": ["paused workspace goal", "destination owner"],
-            "outputs": ["durable project goal"],
-            "information": ["public", "secret", "personal"],
+            "effects": [
+                "source.write",
+                "task_state.write"
+            ],
+            "inputs": [
+                "paused workspace goal",
+                "destination owner"
+            ],
+            "outputs": [
+                "durable project goal"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
             "credentialUse": "none",
             "networkUse": "none",
             "environmentSelector": "explicit source and destination",
@@ -221,10 +293,23 @@
             "sourcePath": "tools/repo_delivery/agent_operations.json",
             "selector": "prepare",
             "classification": "classified",
-            "effects": ["history.write", "source.write", "task_state.write"],
-            "inputs": ["task paths", "message", "expected head"],
-            "outputs": ["commit", "preparation receipt"],
-            "information": ["public"],
+            "effects": [
+                "history.write",
+                "source.write",
+                "task_state.write"
+            ],
+            "inputs": [
+                "task paths",
+                "message",
+                "expected head"
+            ],
+            "outputs": [
+                "commit",
+                "preparation receipt"
+            ],
+            "information": [
+                "public"
+            ],
             "credentialUse": "none",
             "networkUse": "read-only forge inspection",
             "environmentSelector": "selected Git worktree",
@@ -242,10 +327,23 @@
             "sourcePath": "tools/repo_delivery/agent_operations.json",
             "selector": "publish",
             "classification": "classified",
-            "effects": ["credential.consume", "network.read", "remote.write"],
-            "inputs": ["preparation receipt", "validated head"],
-            "outputs": ["remote ref", "pull request"],
-            "information": ["public", "secret"],
+            "effects": [
+                "credential.consume",
+                "network.read",
+                "remote.write"
+            ],
+            "inputs": [
+                "preparation receipt",
+                "validated head"
+            ],
+            "outputs": [
+                "remote ref",
+                "pull request"
+            ],
+            "information": [
+                "public",
+                "secret"
+            ],
             "credentialUse": "Git and forge credentials",
             "networkUse": "Git and forge write",
             "environmentSelector": "receipt-bound repository",
@@ -263,10 +361,25 @@
             "sourcePath": "tools/repo_delivery/agent_operations.json",
             "selector": "review",
             "classification": "classified",
-            "effects": ["credential.consume", "network.read", "remote.write"],
-            "inputs": ["review inventory", "one-shot mutation receipt"],
-            "outputs": ["comment or thread disposition"],
-            "information": ["public", "secret"],
+            "effects": [
+                "credential.consume",
+                "network.read",
+                "remote.write"
+            ],
+            "inputs": [
+                "review inventory",
+                "one-shot mutation receipt",
+                "goal or delivery ref",
+                "defect identity"
+            ],
+            "outputs": [
+                "comment or thread disposition",
+                "joined durable review receipt"
+            ],
+            "information": [
+                "public",
+                "secret"
+            ],
             "credentialUse": "forge credentials",
             "networkUse": "forge write",
             "environmentSelector": "exact pull request",
@@ -290,9 +403,19 @@
                 "network.read",
                 "remote.write"
             ],
-            "inputs": ["configuration", "state", "authority"],
-            "outputs": ["apply-result"],
-            "information": ["public", "secret", "personal"],
+            "inputs": [
+                "configuration",
+                "state",
+                "authority"
+            ],
+            "outputs": [
+                "apply-result"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
             "credentialUse": "vault-backed provider credentials",
             "networkUse": "provider and state backend",
             "environmentSelector": "owning al.lua workspace",
@@ -316,9 +439,19 @@
                 "network.read",
                 "remote.write"
             ],
-            "inputs": ["configuration", "state", "authority"],
-            "outputs": ["apply-result"],
-            "information": ["public", "secret", "personal"],
+            "inputs": [
+                "configuration",
+                "state",
+                "authority"
+            ],
+            "outputs": [
+                "apply-result"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
             "credentialUse": "vault-backed provider credentials",
             "networkUse": "provider and state backend",
             "environmentSelector": "owning al.lua workspace",
@@ -342,9 +475,19 @@
                 "network.read",
                 "remote.write"
             ],
-            "inputs": ["configuration", "state", "authority"],
-            "outputs": ["apply-result"],
-            "information": ["public", "secret", "personal"],
+            "inputs": [
+                "configuration",
+                "state",
+                "authority"
+            ],
+            "outputs": [
+                "apply-result"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
             "credentialUse": "vault-backed provider credentials",
             "networkUse": "provider and state backend",
             "environmentSelector": "owning al.lua workspace",
@@ -367,9 +510,19 @@
                 "network.read",
                 "remote.destroy"
             ],
-            "inputs": ["configuration", "state", "authority"],
-            "outputs": ["destroy-result"],
-            "information": ["public", "secret", "personal"],
+            "inputs": [
+                "configuration",
+                "state",
+                "authority"
+            ],
+            "outputs": [
+                "destroy-result"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
             "credentialUse": "vault-backed provider credentials",
             "networkUse": "provider and state backend",
             "environmentSelector": "owning al.lua workspace",
@@ -387,10 +540,20 @@
             "sourcePath": "tools/terraform/agent_operations.json",
             "selector": "direct",
             "classification": "requires_migration",
-            "effects": ["code.execute"],
-            "inputs": ["caller arguments"],
-            "outputs": ["terraform output"],
-            "information": ["public", "secret", "personal"],
+            "effects": [
+                "code.execute"
+            ],
+            "inputs": [
+                "caller arguments"
+            ],
+            "outputs": [
+                "terraform output"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
             "credentialUse": "depends on caller arguments",
             "networkUse": "depends on caller arguments",
             "environmentSelector": "owning al.lua workspace",
@@ -408,10 +571,19 @@
             "sourcePath": "tools/terraform/agent_operations.json",
             "selector": "fmt",
             "classification": "classified",
-            "effects": ["code.execute", "source.write"],
-            "inputs": ["terraform source"],
-            "outputs": ["formatted source"],
-            "information": ["public"],
+            "effects": [
+                "code.execute",
+                "source.write"
+            ],
+            "inputs": [
+                "terraform source"
+            ],
+            "outputs": [
+                "formatted source"
+            ],
+            "information": [
+                "public"
+            ],
             "credentialUse": "none",
             "networkUse": "none",
             "environmentSelector": "selected package",
@@ -429,10 +601,19 @@
             "sourcePath": "tools/terraform/agent_operations.json",
             "selector": "fmt_check",
             "classification": "classified",
-            "effects": ["code.execute", "source.read"],
-            "inputs": ["terraform source"],
-            "outputs": ["format verdict"],
-            "information": ["public"],
+            "effects": [
+                "code.execute",
+                "source.read"
+            ],
+            "inputs": [
+                "terraform source"
+            ],
+            "outputs": [
+                "format verdict"
+            ],
+            "information": [
+                "public"
+            ],
             "credentialUse": "none",
             "networkUse": "none",
             "environmentSelector": "selected package",
@@ -450,10 +631,22 @@
             "sourcePath": "tools/terraform/agent_operations.json",
             "selector": "force_unlock",
             "classification": "classified",
-            "effects": ["credential.consume", "network.read", "remote.write"],
-            "inputs": ["lock identity", "authority"],
-            "outputs": ["unlock result"],
-            "information": ["public", "secret"],
+            "effects": [
+                "credential.consume",
+                "network.read",
+                "remote.write"
+            ],
+            "inputs": [
+                "lock identity",
+                "authority"
+            ],
+            "outputs": [
+                "unlock result"
+            ],
+            "information": [
+                "public",
+                "secret"
+            ],
             "credentialUse": "state backend credentials",
             "networkUse": "state backend",
             "environmentSelector": "owning al.lua workspace",
@@ -471,10 +664,24 @@
             "sourcePath": "tools/terraform/agent_operations.json",
             "selector": "import",
             "classification": "classified",
-            "effects": ["credential.consume", "network.read", "remote.write"],
-            "inputs": ["resource identity", "state", "authority"],
-            "outputs": ["updated state"],
-            "information": ["public", "secret", "personal"],
+            "effects": [
+                "credential.consume",
+                "network.read",
+                "remote.write"
+            ],
+            "inputs": [
+                "resource identity",
+                "state",
+                "authority"
+            ],
+            "outputs": [
+                "updated state"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
             "credentialUse": "provider and state credentials",
             "networkUse": "provider and state backend",
             "environmentSelector": "owning al.lua workspace",
@@ -492,10 +699,22 @@
             "sourcePath": "tools/terraform/agent_operations.json",
             "selector": "init",
             "classification": "classified",
-            "effects": ["code.execute", "network.read", "task_state.write"],
-            "inputs": ["configuration", "dependency locks"],
-            "outputs": ["initialized task state"],
-            "information": ["public", "secret"],
+            "effects": [
+                "code.execute",
+                "network.read",
+                "task_state.write"
+            ],
+            "inputs": [
+                "configuration",
+                "dependency locks"
+            ],
+            "outputs": [
+                "initialized task state"
+            ],
+            "information": [
+                "public",
+                "secret"
+            ],
             "credentialUse": "backend credentials when configured",
             "networkUse": "dependency and backend discovery",
             "environmentSelector": "selected package",
@@ -519,9 +738,19 @@
                 "remote.write",
                 "task_state.write"
             ],
-            "inputs": ["configuration", "state", "authority"],
-            "outputs": ["migrated state"],
-            "information": ["public", "secret", "personal"],
+            "inputs": [
+                "configuration",
+                "state",
+                "authority"
+            ],
+            "outputs": [
+                "migrated state"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
             "credentialUse": "state backend credentials",
             "networkUse": "source and destination backends",
             "environmentSelector": "owning al.lua workspace",
@@ -539,10 +768,21 @@
             "sourcePath": "tools/terraform/agent_operations.json",
             "selector": "output",
             "classification": "classified",
-            "effects": ["credential.consume", "network.read"],
-            "inputs": ["state"],
-            "outputs": ["terraform outputs"],
-            "information": ["public", "secret", "personal"],
+            "effects": [
+                "credential.consume",
+                "network.read"
+            ],
+            "inputs": [
+                "state"
+            ],
+            "outputs": [
+                "terraform outputs"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
             "credentialUse": "state backend credentials",
             "networkUse": "state backend",
             "environmentSelector": "owning al.lua workspace",
@@ -566,9 +806,18 @@
                 "network.read",
                 "task_state.write"
             ],
-            "inputs": ["configuration", "state"],
-            "outputs": ["plan"],
-            "information": ["public", "secret", "personal"],
+            "inputs": [
+                "configuration",
+                "state"
+            ],
+            "outputs": [
+                "plan"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
             "credentialUse": "provider and state credentials",
             "networkUse": "provider and state backend",
             "environmentSelector": "owning al.lua workspace",
@@ -586,10 +835,20 @@
             "sourcePath": "tools/terraform/agent_operations.json",
             "selector": "show",
             "classification": "classified",
-            "effects": ["source.read"],
-            "inputs": ["plan or state artifact"],
-            "outputs": ["rendered structure"],
-            "information": ["public", "secret", "personal"],
+            "effects": [
+                "source.read"
+            ],
+            "inputs": [
+                "plan or state artifact"
+            ],
+            "outputs": [
+                "rendered structure"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
             "credentialUse": "none for local artifacts",
             "networkUse": "none",
             "environmentSelector": "selected package",
@@ -607,10 +866,22 @@
             "sourcePath": "tools/terraform/agent_operations.json",
             "selector": "state",
             "classification": "requires_migration",
-            "effects": ["credential.consume", "network.read"],
-            "inputs": ["caller arguments", "state"],
-            "outputs": ["state command result"],
-            "information": ["public", "secret", "personal"],
+            "effects": [
+                "credential.consume",
+                "network.read"
+            ],
+            "inputs": [
+                "caller arguments",
+                "state"
+            ],
+            "outputs": [
+                "state command result"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
             "credentialUse": "state backend credentials",
             "networkUse": "state backend",
             "environmentSelector": "owning al.lua workspace",

@@ -1684,6 +1684,59 @@ func TestPublishStopsBeforePushWhenBaseAdvanceChangesHead(t *testing.T) {
 	}
 }
 
+func TestRebaseReplaysAdvancedBaseAndLeasePushes(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	prepared := fixture.prepare(t)
+	fixture.advanceBase(t)
+
+	report, err := fixture.delivery.rebase(context.Background(), rebaseOptions{})
+	if err != nil {
+		t.Fatalf("rebase() error = %v", err)
+	}
+	if report == nil ||
+		report.Status != "rebased" ||
+		!report.Pushed ||
+		report.HeadOID == prepared.HeadOID ||
+		report.RemoteHeadOID != report.HeadOID ||
+		report.BaseOID == prepared.Receipt.BaseOID {
+		t.Fatalf("rebase report = %#v", report)
+	}
+	remoteHead := runTestGit(
+		t,
+		fixture.remote,
+		"rev-parse",
+		"refs/heads/feature",
+	)
+	if remoteHead != report.HeadOID {
+		t.Fatalf("remote feature head = %s, want %s", remoteHead, report.HeadOID)
+	}
+}
+
+func TestRebaseRequiresCleanWorktree(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	fixture.prepare(t)
+	originalHead := runTestGit(t, fixture.work, "rev-parse", "HEAD")
+	fixture.advanceBase(t)
+	writeTestFile(t, filepath.Join(fixture.work, "base.txt"), "user edit\n")
+	writeTestFile(t, filepath.Join(fixture.work, "notes.txt"), "user notes\n")
+
+	_, err := fixture.delivery.rebase(context.Background(), rebaseOptions{})
+	if err == nil || !strings.Contains(err.Error(), "clean worktree and index") {
+		t.Fatalf("rebase() error = %v, want dirty-worktree refusal", err)
+	}
+	if got := runTestGit(t, fixture.work, "rev-parse", "HEAD"); got != originalHead {
+		t.Fatalf("HEAD = %s, want unchanged %s", got, originalHead)
+	}
+	baseContents, readErr := os.ReadFile(filepath.Join(fixture.work, "base.txt"))
+	if readErr != nil || string(baseContents) != "user edit\n" {
+		t.Fatalf("tracked edit was not preserved: %q, %v", baseContents, readErr)
+	}
+	noteContents, readErr := os.ReadFile(filepath.Join(fixture.work, "notes.txt"))
+	if readErr != nil || string(noteContents) != "user notes\n" {
+		t.Fatalf("untracked file was not preserved: %q, %v", noteContents, readErr)
+	}
+}
+
 func TestPublishRebaseDropsOnlyPathsIdenticalInAdvancedBase(t *testing.T) {
 	fixture := newIntegrationDeliveryFixture(t)
 	if err := os.MkdirAll(

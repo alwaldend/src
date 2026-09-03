@@ -121,7 +121,7 @@ func CanonicalJSONPolicy(catalog PolicyCatalog) ([]byte, error) {
 		return nil, fmt.Errorf("encode policy catalog: %w", err)
 	}
 	withoutDigest.Digest = digest(content)
-	contentWithDigest, err := json.Marshal(withoutDigest)
+	contentWithDigest, err := json.MarshalIndent(withoutDigest, "", "    ")
 	if err != nil {
 		return nil, fmt.Errorf("encode policy catalog with digest: %w", err)
 	}

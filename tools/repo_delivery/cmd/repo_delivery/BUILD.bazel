@@ -9,6 +9,7 @@ go_library(
         "git.go",
         "github.go",
         "main.go",
+        "rebase.go",
         "receipt.go",
         "review.go",
         "runner.go",

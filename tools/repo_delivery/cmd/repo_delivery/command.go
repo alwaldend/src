@@ -81,6 +81,7 @@ func newRootCommand(
 		newRewriteAuthorizeCommand(ctx, config, getenv, stdout, runner),
 		newPrepareCommand(ctx, config, getenv, stdout, runner),
 		newPublishCommand(ctx, config, getenv, stdout, runner),
+		newRebaseCommand(ctx, config, getenv, stdout, runner),
 		newVerifyCommand(ctx, config, getenv, stdout, runner),
 		newReviewCommand(ctx, config, getenv, stdout, runner),
 	)
@@ -477,4 +478,31 @@ func newVerifyCommand(
 	)
 	_ = command.MarkFlagRequired("receipt-file")
 	return command
+}
+
+func newRebaseCommand(
+	ctx context.Context,
+	config *deliveryConfig,
+	getenv func(string) string,
+	stdout io.Writer,
+	runner commandRunner,
+) *cobra.Command {
+	return &cobra.Command{
+		Use:   "rebase",
+		Short: "Fetch the advanced base, replay the task-owned commit, and lease-push it",
+		Args:  cobra.NoArgs,
+		RunE: func(cmd *cobra.Command, args []string) error {
+			delivery, err := deliveryFromConfig(ctx, config, getenv, runner)
+			if err != nil {
+				return err
+			}
+			report, err := delivery.rebase(ctx, rebaseOptions{})
+			if report != nil {
+				if outputErr := writeJSON(stdout, report); outputErr != nil {
+					return outputErr
+				}
+			}
+			return err
+		},
+	}
 }

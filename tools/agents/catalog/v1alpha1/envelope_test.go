@@ -140,7 +140,7 @@ func TestCanonicalJSONTopologyDeterministicDigest(t *testing.T) {
 	if string(first) != string(second) {
 		t.Fatal("canonical JSON is not deterministic")
 	}
-	if !strings.Contains(string(first), `"digest":"sha256:`) {
+	if !strings.Contains(string(first), `"digest": "sha256:`) {
 		t.Fatalf("digest field missing: %s", first)
 	}
 }

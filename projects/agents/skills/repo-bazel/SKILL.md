@@ -27,7 +27,11 @@ description: Build, test, query, and maintain targets in this Bazel monorepo. Us
 - Keep runtime files in `data`; declaring a file in `srcs` does not necessarily
   make it available to an executed tool.
 - Preserve least-privilege `visibility` and use package-relative labels when
-  that is the surrounding convention.
+  that is the surrounding convention. When the same consumer target or package
+  must be granted access from several packages, define a named `package_group`
+  and grant visibility to that group instead of repeating the same package
+  label in every dependent package. Name the group for the capability it
+  authorizes, not for a list of unrelated packages.
 - Update dependency lockfiles only through the owning repository workflow. Do
   not mix unrelated generated-file churn into a change.
 

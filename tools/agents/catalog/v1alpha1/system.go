@@ -131,7 +131,7 @@ func CanonicalJSONCapability(catalog CapabilityCatalog) ([]byte, error) {
 		return nil, fmt.Errorf("encode capability catalog: %w", err)
 	}
 	withoutDigest.Digest = digest(content)
-	contentWithDigest, err := json.Marshal(withoutDigest)
+	contentWithDigest, err := json.MarshalIndent(withoutDigest, "", "    ")
 	if err != nil {
 		return nil, fmt.Errorf("encode capability catalog with digest: %w", err)
 	}
@@ -238,7 +238,7 @@ func CanonicalJSONWorkspaceCheck(catalog WorkspaceCheckCatalog) ([]byte, error) 
 		return nil, fmt.Errorf("encode workspace-check catalog: %w", err)
 	}
 	withoutDigest.Digest = digest(content)
-	contentWithDigest, err := json.Marshal(withoutDigest)
+	contentWithDigest, err := json.MarshalIndent(withoutDigest, "", "    ")
 	if err != nil {
 		return nil, fmt.Errorf("encode workspace-check catalog with digest: %w", err)
 	}
@@ -438,7 +438,7 @@ func CanonicalJSONGoal(catalog GoalCatalog) ([]byte, error) {
 		return nil, fmt.Errorf("encode goal catalog: %w", err)
 	}
 	withoutDigest.Digest = digest(content)
-	contentWithDigest, err := json.Marshal(withoutDigest)
+	contentWithDigest, err := json.MarshalIndent(withoutDigest, "", "    ")
 	if err != nil {
 		return nil, fmt.Errorf("encode goal catalog with digest: %w", err)
 	}
@@ -547,7 +547,7 @@ func CanonicalJSONIndex(index AgentSystemIndex) ([]byte, error) {
 		return nil, fmt.Errorf("encode agent system index: %w", err)
 	}
 	withoutDigest.Digest = digest(content)
-	contentWithDigest, err := json.Marshal(withoutDigest)
+	contentWithDigest, err := json.MarshalIndent(withoutDigest, "", "    ")
 	if err != nil {
 		return nil, fmt.Errorf("encode agent system index with digest: %w", err)
 	}

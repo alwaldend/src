@@ -486,19 +486,15 @@ func (c *compiler) readRegisteredSkill(entry registrySkill) (catalogv1alpha1.Cap
 func (c *compiler) readSkillDocuments(id, discoveryPath, canonicalPath string) error {
 	skillDoc := canonicalPath + "/SKILL.md"
 	fullDoc := filepath.Join(c.root, filepath.FromSlash(skillDoc))
-	content, err := os.ReadFile(fullDoc)
-	if err != nil {
+	if _, err := os.ReadFile(fullDoc); err != nil {
 		return fmt.Errorf("SKILL.md: %w", err)
 	}
-	c.input(skillDoc, "skill-doc", content)
 
 	buildPath := canonicalPath + "/BUILD.bazel"
 	fullBuild := filepath.Join(c.root, filepath.FromSlash(buildPath))
-	buildContent, err := os.ReadFile(fullBuild)
-	if err != nil {
+	if _, err := os.ReadFile(fullBuild); err != nil {
 		return fmt.Errorf("BUILD.bazel: %w", err)
 	}
-	c.input(buildPath, "skill-build", buildContent)
 
 	target, err := os.Readlink(filepath.Join(c.root, filepath.FromSlash(discoveryPath)))
 	if err != nil {
