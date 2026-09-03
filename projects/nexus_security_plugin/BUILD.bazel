@@ -4,7 +4,10 @@ load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 docs_filegroup(
     name = "docs",
     srcs = ["diagram.svg"],
-    visibility = ["//projects:__pkg__"],
+    visibility = [
+        "//projects:__pkg__",
+        "//projects/nexus_security_plugin/landing:__pkg__",
+    ],
     deps = [
         ":docs_pages",
         "//projects/nexus_security_plugin/releases:docs",
@@ -22,4 +25,14 @@ pkg_files(
         "README.md": "_index.md",
         "//projects/nexus_security_plugin/main/java:model/README.md": "model/_index.md",
     },
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = [
+        "//infra:__pkg__",
+        "//infra/dns:__pkg__",
+        "//projects/alwaldend.com:__subpackages__",
+    ],
 )

@@ -1,13 +1,15 @@
 # gazelle:exclude site.go
 
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_library")
-load("@rules_hugo//main/bzl:al_hugo_binary.bzl", "al_hugo_binary")
-load("@rules_hugo//main/bzl:al_hugo_site.bzl", "al_hugo_site")
-load("@rules_hugo//main/bzl:al_hugo_worker.bzl", "al_hugo_worker")
+load("@rules_hugo//pkg/bzl:al_hugo_binary.bzl", "al_hugo_binary")
+load("@rules_hugo//pkg/bzl:al_hugo_site.bzl", "al_hugo_site")
+load("@rules_hugo//pkg/bzl:al_hugo_worker.bzl", "al_hugo_worker")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//tools/http_server/main/bzl:al_http_server_binary.bzl", "al_http_server_binary")
 load("//tools/pkg/main/bzl:al_pkg_rename_files.bzl", "al_pkg_rename_files")
@@ -59,7 +61,10 @@ _BUILD_FLAGS = [
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//projects:__pkg__"],
+    visibility = [
+        "//projects:__pkg__",
+        "//projects/alwaldend.com/landing:__pkg__",
+    ],
     deps = [
         "//projects/alwaldend.com/releases:docs",
         "//projects/alwaldend.com/tf:docs",
@@ -71,6 +76,7 @@ filegroup(
     srcs = ["dnsconfig.json"],
     visibility = [
         "//infra:__pkg__",
+        "//infra/dns:__pkg__",
         "//projects/alwaldend.com:__subpackages__",
     ],
 )
@@ -101,12 +107,14 @@ al_hugo_worker(
     out_dir = "site.destination",
     site = ":site_site",
     visibility = ["//:__subpackages__"],
-    worker = "//tools/hugo_worker",
 )
 
 pkg_tar(
     name = "site_archive",
-    srcs = [":site"],
+    srcs = [
+        ":project_cname",
+        ":site",
+    ],
 )
 
 pkg_tar(
@@ -137,41 +145,30 @@ pkg_filegroup(
     ],
 )
 
-genrule(
-    name = "deploy",
-    srcs = [":site_archive"],
-    outs = ["deploy.sh"],
-    cmd = """
-cat - >$(@) <<EOF
-#!/usr/bin/env sh
-set -eu
+# The deploy wipes the pages branch contents, so the archive must carry the
+# CNAME file binding the apex custom domain; without it the next deploy
+# unbinds alwaldend.com from GitHub Pages.
+write_file(
+    name = "project_cname",
+    out = "CNAME",
+    content = ["alwaldend.com"],
+)
 
-archive="\\$$(dirname \\$${0})/site_archive.tar"
-temp=\\$$(mktemp -d)
-trap "rm -rf \\$${temp}" EXIT
-cd "\\$${temp}"
-git clone \
-    --depth 1 \
-    --single-branch \
-    --branch pages \
-    git@github.com:alwaldend/alwaldend.github.io.git site
-cd site
-# Remove the previous checkout (except .git) so deleted or renamed
-# pages are not served stale; tar -xf does not remove absent files.
-find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
-tar -xf "\\$${archive}" --strip-components 1
-# Disable Jekyll so GitHub Pages serves the Hugo output verbatim.
-touch .nojekyll
-git add -A
-if git diff --cached --quiet; then
-    echo "Site unchanged, nothing to deploy"
-    exit 0
-fi
-git commit -m "Update the site"
-git push origin HEAD:pages
-EOF
-    """,
-    executable = True,
+sh_binary(
+    name = "deploy",
+    srcs = ["deploy.sh"],
+    args = ["$(rootpath :site_archive)"],
+    data = [":site_archive"],
+)
+
+sh_binary(
+    name = "deploy_project",
+    srcs = ["deploy_project.sh"],
+)
+
+sh_binary(
+    name = "deploy_all",
+    srcs = ["deploy_all.sh"],
 )
 
 pkg_filegroup(

@@ -1,0 +1,11 @@
+{
+    "records": {
+        "android_launcher_landing": {
+            "CNAME": {
+                "name": "android-launcher",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

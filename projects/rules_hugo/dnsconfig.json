@@ -1,0 +1,11 @@
+{
+    "records": {
+        "rules_hugo_landing": {
+            "CNAME": {
+                "name": "rules-hugo",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

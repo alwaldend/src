@@ -1,0 +1,11 @@
+{
+    "records": {
+        "leetcode_downloader_landing": {
+            "CNAME": {
+                "name": "leetcode-downloader",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

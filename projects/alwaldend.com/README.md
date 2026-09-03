@@ -24,9 +24,12 @@ tags:
 ## Deployment
 
 - DNS setup: [infra/dns](../../infra/dns)
-- Per-project DNS declaration: [dnsconfig.json](dnsconfig.json). The
-  existing apex and `www` records are managed centrally in the DNS config;
-  this file intentionally adds no records and no subdomains.
+- Per-project DNS declaration: [dnsconfig.json](dnsconfig.json). It declares
+  the GitHub Pages `pages` address and one unproxied CNAME per project landing
+  subdomain, for example `android-launcher.alwaldend.com`. Hostnames use
+  hyphens while docs paths keep underscores. Each landing site links to its
+  project documentation, so Cloudflare redirects are unnecessary. The apex
+  and `www` records stay managed centrally.
 - Deploy to the Github Pages repo (the `pages` branch of
   `alwaldend/alwaldend.github.io`, which GitHub Pages serves):
   ```sh

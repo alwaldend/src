@@ -3,7 +3,10 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 filegroup(
     name = "dnsconfig",
     srcs = ["//users/simeonwarren:dnsconfig"],
-    visibility = ["//infra:__pkg__"],
+    visibility = [
+        "//infra:__pkg__",
+        "//infra/dns:__pkg__",
+    ],
 )
 
 docs_filegroup(

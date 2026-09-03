@@ -1,0 +1,11 @@
+{
+    "records": {
+        "bazel_agent_landing": {
+            "CNAME": {
+                "name": "bazel-agent",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

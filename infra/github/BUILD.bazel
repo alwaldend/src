@@ -1,0 +1,19 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/al/rules/al:al_config.bzl", "al_config")
+
+al_config(
+    name = "al",
+    srcs = ["al.lua"],
+    visibility = ["//infra/github:__subpackages__"],
+    deps = ["//infra:al"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//infra:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)

@@ -1,0 +1,53 @@
+load("@bazel_skylib//rules:write_file.bzl", "write_file")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects:projects.bzl", "PROJECTS")
+load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//infra/github:__pkg__"],
+)
+
+_CONFIGS = ["//infra/github:al"]
+
+_RUN_ARGS = [
+    "--plugin_label",
+    "tf=main",
+]
+
+_DATA = glob(["*.tf"]) + [
+    ".terraform.lock.hcl",
+    ":project_pages",
+    "//tools/vault/tf_backend",
+    "//tools/vault/injector",
+]
+
+_PROJECT_PAGES = {
+    project: project.replace("_", "-") + "-landing"
+    for project in PROJECTS
+}
+
+write_file(
+    name = "project_pages",
+    out = "project_pages.json",
+    content = [
+        json.encode_indent(
+            _PROJECT_PAGES,
+            indent = "  ",
+        ),
+    ],
+)
+
+terraform_binary_map(
+    name = "tf",
+    configs = _CONFIGS,
+    data = _DATA,
+    run_args = _RUN_ARGS,
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    configs = _CONFIGS,
+    data = _DATA,
+)

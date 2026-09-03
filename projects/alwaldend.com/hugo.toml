@@ -28,6 +28,16 @@ version_menu_pagelinks = true
 name = "Docs"
 url = "https://alwaldend.com/docs/"
 
+[[params.alwaldend.panels]]
+title = "Projects"
+url = "/projects/"
+section = "/docs/projects"
+
+[[params.alwaldend.panels]]
+title = "Infra"
+url = "/docs/infra/"
+section = "/docs/infra"
+
 [[params.alwaldend.links]]
 name = "Github"
 url = "https://github.com/alwaldend/src/"
@@ -62,6 +72,7 @@ language = "languages"
 status = "statuses"
 tag = "tags"
 site = "websites"
+
 
 [[menus.main]]
 name = "Docs"

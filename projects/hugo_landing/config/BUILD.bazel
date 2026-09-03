@@ -1,0 +1,16 @@
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+
+pkg_files(
+    name = "hugo_config",
+    srcs = ["hugo.toml"],
+    visibility = ["//visibility:public"],
+)
+
+pkg_filegroup(
+    name = "config",
+    srcs = [":hugo_config"],
+    prefix = "config/_default",
+    visibility = ["//visibility:public"],
+)
+
+exports_files(["hugo.toml"])

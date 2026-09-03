@@ -1,0 +1,11 @@
+{
+    "records": {
+        "xray_manager_landing": {
+            "CNAME": {
+                "name": "xray-manager",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

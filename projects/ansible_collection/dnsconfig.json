@@ -1,0 +1,13 @@
+{
+    "records": {
+        "ansible_collection_landing": {
+            "CNAME": {
+                "name": "ansible-collection",
+                "target": "pages.alwaldend.com.",
+            },
+            "dsp": [
+                "global"
+            ]
+        }
+    }
+}

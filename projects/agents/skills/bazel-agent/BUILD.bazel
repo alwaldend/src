@@ -1,5 +1,12 @@
+load("@rules_go//go:def.bzl", "go_test")
 load("@rules_promptfoo//promptfoo:defs.bzl", "promptfoo_validate_test")
 load("@rules_skill//skill:defs.bzl", "skill_library")
+
+go_test(
+    name = "contract_test",
+    size = "small",
+    srcs = ["contract_test.go"],
+)
 
 skill_library(
     name = "skill",

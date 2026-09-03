@@ -25,3 +25,9 @@ docs_filegroup(
     prefix = "content/docs/projects/rules_skill",
     visibility = ["//visibility:public"],
 )
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = ["//visibility:public"],
+)

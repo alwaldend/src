@@ -14,7 +14,10 @@ build_test(
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//projects:__pkg__"],
+    visibility = [
+        "//projects:__pkg__",
+        "//projects/dotfiles/landing:__pkg__",
+    ],
     deps = [
         "//projects/dotfiles/releases:docs",
     ],
@@ -52,4 +55,14 @@ pkg_tar(
     srcs = [":make_install"],
     package_dir = "dotfiles",
     visibility = ["//projects/dotfiles/releases:__pkg__"],
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = [
+        "//infra:__pkg__",
+        "//infra/dns:__pkg__",
+        "//projects/alwaldend.com:__subpackages__",
+    ],
 )

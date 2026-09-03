@@ -25,3 +25,9 @@ build_test(
         "//test/runtime_files:toolchain_binary_runfiles_environment_test",
     ],
 )
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = ["//visibility:public"],
+)

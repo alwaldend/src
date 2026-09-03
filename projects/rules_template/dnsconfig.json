@@ -1,0 +1,11 @@
+{
+    "records": {
+        "rules_template_landing": {
+            "CNAME": {
+                "name": "rules-template",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

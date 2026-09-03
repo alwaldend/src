@@ -1,0 +1,30 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+
+pkg_filegroup(
+    name = "assets",
+    srcs = [":assets_files"],
+    prefix = "assets/scss",
+    visibility = ["//projects:__subpackages__"],
+)
+
+pkg_files(
+    name = "assets_files",
+    srcs = glob(
+        ["**"],
+        exclude = [
+            "BUILD.bazel",
+            "README.md",
+        ],
+    ),
+    strip_prefix = strip_prefix.from_pkg(),
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(
+        ["*.md"],
+        allow_empty = True,
+    ),
+    visibility = ["//projects:__subpackages__"],
+)

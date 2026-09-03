@@ -1,0 +1,11 @@
+{
+    "records": {
+        "goal_landing": {
+            "CNAME": {
+                "name": "goal",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

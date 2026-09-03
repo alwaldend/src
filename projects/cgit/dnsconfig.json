@@ -1,0 +1,11 @@
+{
+    "records": {
+        "cgit_landing": {
+            "CNAME": {
+                "name": "cgit",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

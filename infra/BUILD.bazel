@@ -5,6 +5,26 @@ load("//projects/al/rules/al:al_config.bzl", "al_config")
 filegroup(
     name = "dnsconfig",
     srcs = [
+        "//infra/dns:requires",
+        "//infra/flux:dnsconfig",
+        "//infra/forgejo:dnsconfig",
+        "//infra/forgejo_runner:dnsconfig",
+        "//infra/harbor:dnsconfig",
+        "//infra/ingress:dnsconfig",
+        "//infra/mikrotik:dnsconfig",
+        "//infra/nas:dnsconfig",
+        "//infra/pve:dnsconfig",
+        "//infra/threexui:dnsconfig",
+        "//infra/vault:dnsconfig",
+        "//users/simeonwarren:dnsconfig",
+        "//users/simeonwarren/host_bot:dnsconfig",
+    ],
+    visibility = ["//infra:__subpackages__"],
+)
+
+filegroup(
+    name = "dnsconfig_nonlanding",
+    srcs = [
         "//infra/flux:dnsconfig",
         "//infra/forgejo:dnsconfig",
         "//infra/forgejo_runner:dnsconfig",

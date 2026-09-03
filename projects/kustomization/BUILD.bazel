@@ -3,9 +3,22 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//projects:__pkg__"],
+    visibility = [
+        "//projects:__pkg__",
+        "//projects/kustomization/landing:__pkg__",
+    ],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
     ),
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = [
+        "//infra:__pkg__",
+        "//infra/dns:__pkg__",
+        "//projects/alwaldend.com:__subpackages__",
+    ],
 )

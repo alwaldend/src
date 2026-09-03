@@ -1,4 +1,6 @@
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects:projects.bzl", "PROJECTS")
 load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
 
 docs_filegroup(
@@ -31,6 +33,7 @@ al_release_binary(
             exclude = [
                 "xray_manager",
                 "cgit",
+                "hugo_landing",
                 "agents",
                 "mcp_cordis",
                 "alwaldend.com",
@@ -38,6 +41,7 @@ al_release_binary(
                 "bazel_registry",
                 "bazel_agent",
                 "goal",
+                "rules_dnscontrol",
                 "useless_qt_gui",
                 "rules_template",
                 "rules_binary_toolchain",
@@ -51,4 +55,13 @@ al_release_binary(
             ],
         )
     ] + [],
+)
+
+build_test(
+    name = "landings",
+    targets = [
+        "//projects/{}/landing:site".format(project)
+        for project in PROJECTS
+        if project != "alwaldend.com" and not project.startswith("rules_")
+    ],
 )

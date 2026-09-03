@@ -1,0 +1,21 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/hugo_landing/pkg/bzl:al_hugo_landing.bzl", "al_hugo_landing_site")
+
+al_hugo_landing_site(
+    name = "site",
+    docs = "//projects/useless_qt_gui:docs",
+    docs_url = "https://alwaldend.com/docs/projects/useless_qt_gui/",
+    project = "useless_qt_gui",
+    repository_url = "https://github.com/alwaldend/src",
+    title = "Useless Qt Gui",
+    visibility = ["//projects:__pkg__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(
+        ["*.md"],
+        allow_empty = True,
+    ),
+    visibility = ["//projects/useless_qt_gui:__pkg__"],
+)

@@ -1,0 +1,11 @@
+{
+    "records": {
+        "mcp_cordis_landing": {
+            "CNAME": {
+                "name": "mcp-cordis",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

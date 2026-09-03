@@ -1,0 +1,21 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/hugo_landing/pkg/bzl:al_hugo_landing.bzl", "al_hugo_landing_site")
+
+al_hugo_landing_site(
+    name = "site",
+    docs = "//projects/mcp_cordis:docs",
+    docs_url = "https://alwaldend.com/docs/projects/mcp_cordis/",
+    project = "mcp_cordis",
+    repository_url = "https://github.com/alwaldend/src",
+    title = "Mcp Cordis",
+    visibility = ["//projects:__pkg__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(
+        ["*.md"],
+        allow_empty = True,
+    ),
+    visibility = ["//projects/mcp_cordis:__pkg__"],
+)

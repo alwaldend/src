@@ -30,3 +30,9 @@ docs_filegroup(
         ],
     ),
 )
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = ["//visibility:public"],
+)

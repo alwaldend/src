@@ -46,6 +46,30 @@ Re-running a settled query is never one of these options. If you notice you
 are about to issue a query you have already settled, treat that recognition
 as a hard stop: name the finding, then take one of the four allowed actions.
 
+The same hard stop applies to writes. A write is settled when it completes;
+if it did not produce the intended state, diagnose the cause before writing
+again. Do not issue identical or equivalent mutations because the first
+mutation did not visibly change an artifact. In particular:
+
+- Never make a no-op patch, rerun a replacement that reports no substitution,
+  or otherwise count an unchanged file as progress.
+- After two consecutive edits that leave the edited bytes unchanged, stop,
+  identify the unchanged source or cache dependency, and repair that
+  dependency.
+- If cached or generated outputs appear stale, make one deterministic
+  cache-invalidating action, such as changing an input name or forcing one
+  target to rebuild. Do not alternate cached rebuilds with no-op writes.
+- Before declaring a change complete, verify the source-level result and a
+  representative output artifact, not only the output.
+
+Variation is not progress. Repeating the same fact-finding question with a
+different command, path, regex, or output format is still a repeat. After two
+searches that do not produce a decision, stop searching, record what is known
+and unknown, and move to the next decision or act on the best available
+answer. Empty, inconclusive, and partially matching results are answers, not
+invitations to reformulate. Prefer writing the change under the best current
+assumption over gathering more evidence for a reversible in-scope choice.
+
 The canonical repository-agent documents are:
 
 - [current state](projects/agents/docs/current-state.md), an evidence snapshot;
@@ -204,6 +228,8 @@ stated scope.
 - Prefer Go for repository automation and scripts. Expose them as Bazel
   `go_binary` targets and invoke them with `bazel_agent bazel run`; use
   another language only when Go or Bazel would materially complicate the task.
+- Do not use `genrule`. Write a proper Bazel rule, a Go binary, or a separate
+  checked-in script instead; `repo-bazel` owns the detailed guidance.
 - Loading the `repo-delivery` skill is REQUIRED when making changes that will
   land in the source tree, including every implementation task. The skill owns
   staging, feature-branch commits and pushes, pull request maintenance, review
@@ -247,6 +273,10 @@ stated scope.
   archives or Bazel-integrated package managers driven by checked-in manifests
   and lockfiles. Do not silently depend on a host-installed tool or an
   undeclared lifecycle download.
+- Run every build action inside a Bazel sandbox and without network access.
+  If an action genuinely needs network access or must disable sandboxing,
+  document the reason in the owning project's README before enabling it and
+  prefer the narrowest possible exemption.
 - Run every shell command with a timeout so it cannot hang unexpectedly,
   unless there is a good reason not to (for example, a command that must
   intentionally run for a long time or an interactive session). Prefer a

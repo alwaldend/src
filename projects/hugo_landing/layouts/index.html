@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ .Title }}</title>
+    {{ with .Site.Params.github_repo }}
+    <meta name="github-repo" content="{{ . }}" />
+    {{ end }} {{ with resources.Get "scss/landing.scss" }} {{ with . | toCSS |
+    minify | fingerprint }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}" />
+    {{ end }} {{ end }}
+  </head>
+  <body>
+    <header class="landing-topbar">
+      <a class="landing-brand" href="{{ .RelPermalink }}">{{ .Site.Title }}</a>
+      <nav class="landing-nav" aria-label="Project links">
+        {{ range .Site.Params.alwaldend.links }}
+        <a href="{{ .url }}">{{ .name }}</a>
+        {{ end }}
+      </nav>
+    </header>
+    <main class="landing-container">
+      <div class="landing-header">
+        <h1>{{ .Title }}</h1>
+        <div class="btn-group" role="group" aria-label="Project links">
+          {{ range .Site.Params.alwaldend.links }}
+          <a class="btn btn-outline-primary" href="{{ .url }}">{{ .name }}</a>
+          {{ end }}
+        </div>
+      </div>
+      <div class="landing-readme">{{ .Content }}</div>
+    </main>
+    <footer class="landing-footer">
+      <p>Generated from the project README.</p>
+    </footer>
+  </body>
+</html>

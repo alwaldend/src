@@ -1,0 +1,11 @@
+{
+    "records": {
+        "autoscroll_landing": {
+            "CNAME": {
+                "name": "autoscroll",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

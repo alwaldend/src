@@ -1,4 +1,4 @@
-al_hugo_extension = use_extension("@rules_hugo//main/bzl:al_hugo_extension.bzl", "al_hugo_extension")
+al_hugo_extension = use_extension("@rules_hugo//pkg/bzl:al_hugo_extension.bzl", "al_hugo_extension")
 al_hugo_extension.toolchains(
     name = "com_alwalded_src_hugo_toolchain",
     version = "0.165.0",

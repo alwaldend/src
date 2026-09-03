@@ -1,4 +1,4 @@
-load("@rules_hugo//main/bzl:al_hugo_toolchain.bzl", "al_hugo_toolchain")
+load("@rules_hugo//pkg/bzl:al_hugo_toolchain.bzl", "al_hugo_toolchain")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 
 sh_binary(
@@ -24,6 +24,6 @@ toolchain(
         "@platforms//cpu:x86_64",
     ],
     toolchain = ":mock_hugo_toolchain",
-    toolchain_type = "@rules_hugo//main/bzl:toolchain_type",
+    toolchain_type = "@rules_hugo//pkg/bzl:toolchain_type",
     visibility = ["//visibility:public"],
 )
