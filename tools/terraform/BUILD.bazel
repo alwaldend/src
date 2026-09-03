@@ -1,6 +1,8 @@
 load("@com_alwaldend_src_tools_terraform//:defs.bzl", "terraform_binary")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
+load(":defs.bzl", "terraform_test_map")
+load(":defs_test.bzl", "terraform_test_map_test")
 
 exports_files(["agent_operations.json"])
 
@@ -9,6 +11,23 @@ sh_test(
     srcs = ["explicit_operations_test.sh"],
     args = ["$(location defs.bzl)"],
     data = ["defs.bzl"],
+)
+
+terraform_binary(
+    name = "fixture_terraform",
+    testonly = True,
+    tags = ["manual"],
+)
+
+terraform_test_map(
+    name = "fixture",
+    testonly = True,
+    tags = ["manual"],
+)
+
+terraform_test_map_test(
+    name = "terraform_test_map_analysis_test",
+    target_under_test = ":fixture.fmt_test",
 )
 
 docs_filegroup(

@@ -296,6 +296,9 @@ bounded resume packet and validate a learning proposal; the agent-system CLI
 can normalize skill cases and publish a duplicate-free coverage matrix. These
 contracts reject unstable identities, missing provenance, unbounded records,
 and proposals without repeated evidence, regression, fallback, and retirement.
+The checked capability catalog and normalized routing cases now produce a
+bounded skill-coverage projection, which reports only the measured fixture
+cases and does not claim complete or live coverage.
 
 ### Delivery and learning still miss full causal closure
 

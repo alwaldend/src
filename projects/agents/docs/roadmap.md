@@ -449,8 +449,9 @@ authority.
 ## Phase 5: close the learning loop and optimize from measurements
 
 **Priority:** P1/P2. **Depends on:** stable context, plans, and receipts.
-**Status:** implemented for typed 5A-5D contracts and bounded CLI entry
-points; fixture population, scheduled live comparisons, and optimization
+**Status:** typed 5A-5D contracts and bounded CLI entry points are
+implemented; the repository baseline coverage matrix is populated. Scheduled
+live comparisons, complete writable high-risk fixtures, and optimization
 adoption remain owner-local follow-up.
 
 ### 5A. Normalize behavioral evidence
@@ -463,6 +464,11 @@ adoption remain owner-local follow-up.
   (done: coverage CLI rejects duplicate case identities)
 - Test routing across the whole skill graph: positive, adjacent negative,
   inert payload, exclusion, conflict, and composition cases.
+- Publish a bounded baseline coverage matrix for representative routing
+  cases. (started: `skill-cases.json` and the aggregate CLI emit
+  `skill-coverage.json` for positive routing, inert payload, and conflict
+  fixtures; adjacent negative, exclusion, and composition cases remain
+  explicit gaps)
 - Add deterministic writable fixtures for high-risk Git, Bazel, forge,
   Terraform, Ansible, secret, and runtime trajectories.
 - Keep live stochastic comparisons manual or scheduled, never in ordinary

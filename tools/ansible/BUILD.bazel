@@ -29,3 +29,10 @@ compile_pip_requirements(
     )
     for script in AL_ANSIBLE_SCRIPTS
 ]
+
+py_console_script_binary(
+    name = "ansible_lint",
+    pkg = "@com_alwaldend_src_bzl_rules_ansible_pip//ansible_lint:pkg",
+    script = "ansible-lint",
+    visibility = ["//:__subpackages__"],
+)

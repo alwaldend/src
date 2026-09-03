@@ -6,7 +6,7 @@ go_library(
     name = "goal_check_lib",
     srcs = ["main.go"],
     importpath = "git.alwaldend.com/alwaldend/src/tools/agents/cmd/goal_check",
-    visibility = ["//visibility:private"],
+    visibility = ["//:__subpackages__"],
     deps = [
         "//projects/goal/api/v1alpha1",
         "//tools/agents/catalog/v1alpha1",
@@ -14,9 +14,16 @@ go_library(
     ],
 )
 
+go_library(
+    name = "goal_check_main_lib",
+    srcs = ["main_pkg.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/agents/cmd/goal_check/main",
+    deps = [":goal_check_lib"],
+)
+
 go_binary(
     name = "goal_check",
-    embed = [":goal_check_lib"],
+    embed = [":goal_check_main_lib"],
     visibility = ["//visibility:public"],
 )
 

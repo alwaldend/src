@@ -6,13 +6,14 @@ go_library(
     name = "agent_system_lib",
     srcs = [
         "main.go",
+        "phase5_aggregate_cmd.go",
         "phase5_cmd.go",
         "phase5_coverage_cmd.go",
         "plan_cmd.go",
         "readers.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/agents/cmd/agent_system",
-    visibility = ["//visibility:private"],
+    visibility = ["//:__subpackages__"],
     deps = [
         "//tools/agents/api/v1alpha1",
         "//tools/agents/catalog/v1alpha1",
@@ -20,9 +21,16 @@ go_library(
     ],
 )
 
+go_library(
+    name = "agent_system_main_lib",
+    srcs = ["main_pkg.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/agents/cmd/agent_system/main",
+    deps = [":agent_system_lib"],
+)
+
 go_binary(
     name = "agent_system",
-    embed = [":agent_system_lib"],
+    embed = [":agent_system_main_lib"],
     visibility = ["//visibility:public"],
 )
 
@@ -31,6 +39,7 @@ go_test(
     size = "small",
     srcs = [
         "main_test.go",
+        "phase5_aggregate_cmd_test.go",
         "plan_cmd_test.go",
     ],
     data = glob(["testdata/**"]),

@@ -5,7 +5,7 @@
 // source, and does not depend on Cordis or MCP. A missing optional provider
 // or catalog becomes a structured unavailable field; it never fails the
 // whole capsule.
-package main
+package agent_system
 
 import (
 	"crypto/sha256"
@@ -524,7 +524,7 @@ func bounded(err error) string {
 	return message
 }
 
-func run(args []string, stdout io.Writer) error {
+func Run(args []string, stdout io.Writer) error {
 	if len(args) > 0 && args[0] == "plan" {
 		return runPlan(args[1:], stdout)
 	}
@@ -533,6 +533,9 @@ func run(args []string, stdout io.Writer) error {
 	}
 	if len(args) > 0 && args[0] == "coverage" {
 		return runCoverage(args[1:], stdout)
+	}
+	if len(args) > 0 && args[0] == "aggregate" {
+		return runAggregate(args[1:], stdout)
 	}
 	opts, err := parseFlags(args)
 	if err != nil {
@@ -565,7 +568,7 @@ func run(args []string, stdout io.Writer) error {
 }
 
 func main() {
-	if err := run(os.Args[1:], os.Stdout); err != nil {
+	if err := Run(os.Args[1:], os.Stdout); err != nil {
 		fmt.Fprintln(os.Stderr, "agent_system:", err)
 		os.Exit(1)
 	}

@@ -1,0 +1,37 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: Goal
+metadata:
+  name: agent-system-phase-five-followup
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-09-03T09:00:00.000000000Z"
+  annotations:
+    goals.alwaldend.com/local-owner-root: projects/agents
+spec:
+  title: Complete Phase 5 fixture and optimization follow-up
+  scope: project
+  retention:
+    policy: durable
+  relationships:
+    dependsOnGoalRefs: []
+    supersedesGoalRefs: []
+status:
+  lifecycleGeneration: 1
+  outcome: open
+  execution: paused
+  activeAttemptID: followup-baseline-001
+  criteriaRevision: 1
+  promotion:
+    sourceScope: ""
+    sourceGeneration: 0
+    sourceLifecycleGeneration: 0
+    sourceCriteriaRevision: 0
+    sourceCriteriaDigest: ""
+    sourceStateDigest: ""
+    sourceDigest: ""
+    promotedAt: ""
+  migration:
+    sourceFormat: ""
+    sourceDigest: ""
+    migratedAt: ""
+  observedAt: "2026-09-03T09:00:00.000000000Z"

@@ -1,4 +1,4 @@
-package main
+package agent_system
 
 import (
 	"bytes"
@@ -11,7 +11,7 @@ import (
 
 func TestRunPlanEmitsValidJSON(t *testing.T) {
 	var stdout bytes.Buffer
-	if err := run([]string{
+	if err := Run([]string{
 		"plan",
 		"--workspace-root", "testdata/root",
 		"--profile", "changed/fast",
@@ -47,7 +47,7 @@ func TestRunPlanRequiresIntentAndPath(t *testing.T) {
 		{"plan", "--workspace-root", "testdata/root", "--path", "tools/agents"},
 		{"plan", "--workspace-root", "testdata/root", "--intent", "x"},
 	} {
-		if err := run(args, &bytes.Buffer{}); err == nil {
+		if err := Run(args, &bytes.Buffer{}); err == nil {
 			t.Fatalf("run %v: expected error", args)
 		}
 	}
