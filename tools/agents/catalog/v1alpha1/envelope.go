@@ -230,7 +230,7 @@ func CanonicalJSON(envelope CatalogEnvelope, itemIDs []string) ([]byte, error) {
 		return nil, fmt.Errorf("encode catalog: %w", err)
 	}
 	withoutDigest.Digest = digest(content)
-	contentWithDigest, err := json.Marshal(withoutDigest)
+	contentWithDigest, err := json.MarshalIndent(withoutDigest, "", "    ")
 	if err != nil {
 		return nil, fmt.Errorf("encode catalog with digest: %w", err)
 	}

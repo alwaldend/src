@@ -21,6 +21,13 @@ Keep the boundary rules from the root `AGENTS.md` and the nearest `README.md`.
 If an owner does not exist, create a named project inside the appropriate
 boundary before choosing its internal layout.
 
+Prefer project-local ownership. Store skills, metadata, docs, and other
+supporting content in the project that owns the behavior they support. Avoid
+creating a separate generic project that aggregates unrelated content merely
+by type, such as a standalone `skills` project; a shared project is justified
+only when its members have a common owner, contract, or consumer, not just a
+common directory role.
+
 ## Choose a source type
 
 Place project-owned source at `<project>/<type>/<name-or-tree>`. Choose

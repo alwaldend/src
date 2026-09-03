@@ -12,7 +12,7 @@ skill_library(
             "evals/**",
         ],
     ),
-    visibility = ["//:__pkg__"],
+    visibility = ["//tools/agents:skill_discovery"],
 )
 
 docs_filegroup(

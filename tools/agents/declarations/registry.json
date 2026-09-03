@@ -79,6 +79,32 @@
             "evaluationMaturity": "checked"
         },
         {
+            "id": "ast-grep",
+            "owner": "projects/agents",
+            "layer": "procedure",
+            "activation": "structure-aware code search or rewrite",
+            "exclusions": ["plain-text searches expressible with rg"],
+            "capabilityRefs": ["code.execute"],
+            "dependencies": ["bazel-agent"],
+            "conflicts": [],
+            "providerRequirements": [],
+            "contextCost": "medium",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "codex-migration",
+            "owner": "projects/agents",
+            "layer": "migration",
+            "activation": "Codex model, provider, authentication, or shared configuration migration",
+            "exclusions": ["generic application configuration changes"],
+            "capabilityRefs": ["credential.consume", "network.read"],
+            "dependencies": [],
+            "conflicts": [],
+            "providerRequirements": ["codex"],
+            "contextCost": "large",
+            "evaluationMaturity": "checked"
+        },
+        {
             "id": "bazel-nested-module",
             "owner": "projects/agents",
             "layer": "procedure",
@@ -240,7 +266,7 @@
         },
         {
             "id": "repo-delivery",
-            "owner": "projects/agents",
+            "owner": "tools/repo_delivery",
             "layer": "delivery",
             "activation": "feature publication and PR review",
             "exclusions": ["read-only reviews"],
@@ -435,8 +461,8 @@
             "path": ".agents/skills/repo-blender",
             "owner": "projects/agents/skills/repo-blender",
             "formatter": "relative symlink",
-            "checkedOutput": "//:write_skill_links_test",
-            "updater": "//:write_skill_links"
+            "checkedOutput": "//tools/agents:write_skill_links_test",
+            "updater": "//tools/agents:write_skill_links"
         },
         {
             "path": "tools/agents/catalogs/policy.json",

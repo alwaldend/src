@@ -6,13 +6,13 @@
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/capability-catalog`
 - Derivation: `1.0.0`
 - Producer: `repository.capability-compiler`
-- Source revision: `529f64f68746ecc5eae6e8d991ff8952`
-- Completeness: `partial`
-- JSON digest: `sha256:8849f080a74eef0cc214e7d828718e6dc6e013b3a7732fc8ac5fb0835120f3f2`
+- Source revision: `debcbc897a7b96b5a392729ce8a61d1e`
+- Completeness: `complete`
+- JSON digest: `sha256:0775209e0054d7c3d68e905699c3a07b6b36b4f2a2a0e589c12ef1782202d7c5`
 
 ## Limitations
 
-- discovered skill has no registry entry; emitted as discovery-only with explicit identity
+None.
 
 ## Providers
 
@@ -45,14 +45,19 @@
 - `answer-question` (owned by `projects/agents`): layer `procedure`, activation `substantive user questions`, cost `medium`
   - exclusions: inert quoted questions
   - capabilities: source.read
-- `ast-grep` (owned by `projects/agents`): layer `procedure`, activation `discovered skill for repository agents`, cost `medium`
 - `bazel-agent` (owned by `projects/agents`): layer `execution`, activation `agent-executed Bazel commands`, cost `small`
   - exclusions: non-Bazel host commands
   - capabilities: code.execute
+- `ast-grep` (owned by `projects/agents`): layer `procedure`, activation `structure-aware code search or rewrite`, cost `medium`
+  - exclusions: plain-text searches expressible with rg
+  - capabilities: code.execute
+  - dependencies: bazel-agent
 - `blender-reference-fidelity` (owned by `projects/agents`): layer `procedure`, activation `reference-controlled Blender modeling`, cost `large`
   - exclusions: freeform designs
   - capabilities: code.execute, source.write
-- `codex-migration` (owned by `projects/agents`): layer `procedure`, activation `discovered skill for repository agents`, cost `medium`
+- `codex-migration` (owned by `projects/agents`): layer `migration`, activation `Codex model, provider, authentication, or shared configuration migration`, cost `large`
+  - exclusions: generic application configuration changes
+  - capabilities: credential.consume, network.read
 - `decision-review` (owned by `projects/agents`): layer `review`, activation `material decisions`, cost `medium`
   - exclusions: routine reversible choices
   - capabilities: source.read
@@ -93,7 +98,7 @@
   - exclusions: non-Blender image edits
   - capabilities: code.execute, source.write
   - dependencies: bazel-agent, repo-bazel
-- `repo-delivery` (owned by `projects/agents`): layer `delivery`, activation `feature publication and PR review`, cost `large`
+- `repo-delivery` (owned by `tools/repo_delivery`): layer `delivery`, activation `feature publication and PR review`, cost `large`
   - exclusions: read-only reviews
   - capabilities: history.write, network.read, remote.write
   - dependencies: bazel-agent

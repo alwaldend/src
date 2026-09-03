@@ -159,7 +159,7 @@ func CanonicalJSONTopology(catalog TopologyCatalog) ([]byte, error) {
 		return nil, fmt.Errorf("encode topology catalog: %w", err)
 	}
 	withoutDigest.Digest = digest(content)
-	contentWithDigest, err := json.Marshal(withoutDigest)
+	contentWithDigest, err := json.MarshalIndent(withoutDigest, "", "    ")
 	if err != nil {
 		return nil, fmt.Errorf("encode topology catalog with digest: %w", err)
 	}

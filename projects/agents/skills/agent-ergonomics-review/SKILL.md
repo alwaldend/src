@@ -50,7 +50,10 @@ instructions, schemas, catalogs, or runtime behavior.
 5. Define how the improvement would be measured and retired if it stops
    helping.
 6. Route the proposal through goal checkpoint, review, or delivery as
-   applicable; do not silently edit canonical state.
+   applicable; do not silently edit canonical state. Fix small, in-scope
+   ergonomics problems immediately without asking; obtain explicit user
+   authorization when a proposed remedy is large, uncertain, costly, or
+   expands task scope.
 
 ## Preserve proportion and safety
 

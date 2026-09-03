@@ -1,12 +1,38 @@
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_skill//skill:defs.bzl", "skill_discovery_links")
 
-exports_files([
-    "declarations/registry.json",
-    "declarations/resource_baseline.json",
-])
+package_group(
+    name = "skill_discovery",
+    packages = [
+        "//tools/agents",
+    ],
+)
 
-docs_filegroup(
-    name = "docs",
-    srcs = ["README.md"],
-    visibility = ["//:__subpackages__"],
+skill_discovery_links(
+    name = "write_skill_links",
+    skills = [
+        "//projects/agents/skills/answer-question:skill",
+        "//projects/agents/skills/agent-ergonomics-review:skill",
+        "//projects/agents/skills/ast-grep:skill",
+        "//projects/agents/skills/bazel-agent:skill",
+        "//projects/agents/skills/bazel-nested-module:skill",
+        "//projects/agents/skills/bazel-rules-skill:skill",
+        "//projects/agents/skills/blender-reference-fidelity:skill",
+        "//projects/agents/skills/codex-migration:skill",
+        "//projects/agents/skills/decision-review:skill",
+        "//projects/agents/skills/full-repo-check:skill",
+        "//projects/agents/skills/git-rebase-remote:skill",
+        "//projects/agents/skills/host-bot-diagnostics:skill",
+        "//projects/agents/skills/project-layout:skill",
+        "//projects/agents/skills/repo-ansible:skill",
+        "//projects/agents/skills/repo-bazel:skill",
+        "//projects/agents/skills/repo-blender:skill",
+        "//tools/repo_delivery/skills/repo-delivery:skill",
+        "//projects/agents/skills/repo-external-dependency:skill",
+        "//projects/agents/skills/repo-gazelle-plugin:skill",
+        "//projects/agents/skills/repo-secrets:skill",
+        "//projects/agents/skills/repo-terraform:skill",
+        "//projects/agents/skills/spellcheck:skill",
+        "//projects/goal/skills/goal:skill",
+        "//tools/versioning/skills/versioning:skill",
+    ],
 )

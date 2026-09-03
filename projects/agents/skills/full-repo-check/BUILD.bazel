@@ -40,7 +40,7 @@ skill_library(
             "evals/**",
         ],
     ),
-    visibility = ["//:__pkg__"],
+    visibility = ["//tools/agents:skill_discovery"],
 )
 
 promptfoo_validate_test(

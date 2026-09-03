@@ -16,11 +16,8 @@ source "${RUNFILES_DIR:-/dev/null}/$f" 2>/dev/null ||
 }
 runfiles_export_envvars
 
-if [[ -n "${BUILD_WORKING_DIRECTORY:-}" ]]; then
-    workspace="$BUILD_WORKING_DIRECTORY"
-elif [[ -n "${BUILD_WORKSPACE_DIRECTORY:-}" ]]; then
-    workspace="$BUILD_WORKSPACE_DIRECTORY"
-elif [[ -n "${WORKSPACE_MARKER:-}" ]]; then
+workspace="${BUILD_WORKSPACE_DIRECTORY:-}"
+if [[ -z "$workspace" && -n "${WORKSPACE_MARKER:-}" ]]; then
     workspace="$(dirname "$(realpath "${WORKSPACE_MARKER}")")"
 else
     echo >&2 "unable to locate the repository workspace"

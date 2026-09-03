@@ -4,17 +4,17 @@
     "id": "agent-system.index",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.index-compiler",
-    "sourceRevision": "76b4b430b1369514f21497dd3b838472",
+    "sourceRevision": "dcdca7da4115b3b11780aa2304d26e75",
     "inputs": [
         {
             "path": "tools/agents/catalogs/action.json",
             "role": "catalog-descriptor",
-            "digest": "sha256:c6b942a3e4da05d034a8e0e08cb0437c512f119eaac91bf0ed76740d327d9963"
+            "digest": "sha256:4bab8d2415eaac9cc2157898f5145aad098a03548438523e096db8f08afb640d"
         },
         {
             "path": "tools/agents/catalogs/capability.json",
             "role": "catalog-descriptor",
-            "digest": "sha256:48517e4bf420bebc817f21847a389a1d72971c93525456aec3ffa68768741ef0"
+            "digest": "sha256:a70e0b4073cca7887e5b0280fa76f291b4b98afe00610b98f4d8e73db7e2be76"
         },
         {
             "path": "tools/agents/catalogs/goal.json",
@@ -52,97 +52,72 @@
         {
             "id": "agent-system.policy.policy.agents",
             "code": "policy_axis_conflict",
-            "sourcePaths": ["AGENTS.md"]
+            "sourcePaths": [
+                "AGENTS.md"
+            ]
         }
     ],
-    "digest": "sha256:9cff493fdf12a4980542a2b6179d7354aa78e1afb8f4f377a616281e1efca608",
+    "digest": "sha256:68817062503bea7ee7e155dfc3777fe570238ad5f73ef3758b7b3afe3e8b159b",
     "catalogs": [
         {
             "id": "agent-system.action",
             "kind": "action-catalog",
             "schema": "agents.alwaldend.com/catalog/v1alpha1/action-catalog",
             "derivationVersion": "1.0.0",
-            "digest": "sha256:1ec39e7ce0f671e2b22ffec83ed8238ccaa0fc3b2efa39a7adcd26543e05dba5",
+            "digest": "sha256:b94f106ffa5f7fc206bbb61e2b8e00a508d293025eb2a2985ea7bca95b5215c2",
             "inputDigests": [
-                "sha256:49b7afe600c087878f3ede137d0fc9b8381fe983a2b3835c00b2ab2c96830ab0",
+                "sha256:16f555d394e0400730541b17c4d8987a9c84f0c776cf6617a7c1489e11a59dff",
+                "sha256:1d6afa1232d5b96f72473513ee934b1f0a1e59aec154a6fff31b65ba04e7b4bc",
+                "sha256:4438641cb5d440b18e1e7b3980d1493350792eba88572469af6b18c85ef3f147",
                 "sha256:4ad73fc6b6a68d6f791e7a84f90e58c9a11bc3d6ca626f1f836c443a6f13e6d5",
-                "sha256:687ef44a0e1db4efa319eeed66480a98a95da8ad79ec7324546198b32f2b1a33",
-                "sha256:72c241ed4622e735ff5110b04ca00b2204e3bb7eec222dc233a4495a5b6abc9c",
                 "sha256:89eb5a55c24e9fea5dea820019c653f445c3b61ead90732aead73e37fc70184c",
+                "sha256:97bf6c8526d8f63d7a8d6d7869293e4ec3fc052ce705b8c00b300839e6281a0b",
                 "sha256:9dce259234fd06ec9e9210b4f5174a3a6974a7e66cbdc19d5f6d203c8a5da26b",
-                "sha256:b621f570dc9b3938a61eebbf78e22bcd6a76a85804b474fc59d6d85394978e3e",
-                "sha256:e9e2f262dc9e44d99b7366ca3b189e4a437418ad387e53f51b67f747f16b5245",
+                "sha256:bc38e03a261c3b58d1513e2ed912998914be90d6549152386203bc63f1a73ae9",
                 "sha256:ec16c4075b8234d614d2edf90de2e8a0afb7addab9c698db582e7057c6662f18"
             ],
             "completeness": "complete",
             "limitations": [],
-            "queryRoutes": ["compile:action-catalog", "check:action-catalog"]
+            "queryRoutes": [
+                "compile:action-catalog",
+                "check:action-catalog"
+            ]
         },
         {
             "id": "agent-system.capability",
             "kind": "capability-catalog",
             "schema": "agents.alwaldend.com/catalog/v1alpha1/capability-catalog",
             "derivationVersion": "1.0.0",
-            "digest": "sha256:8849f080a74eef0cc214e7d828718e6dc6e013b3a7732fc8ac5fb0835120f3f2",
+            "digest": "sha256:0775209e0054d7c3d68e905699c3a07b6b36b4f2a2a0e589c12ef1782202d7c5",
             "inputDigests": [
-                "sha256:09fd77f8106ab0deb877f105a09b826224241e79f8dfe453fe48c771a4f410c7",
                 "sha256:0cffec00684c661a2b86a0b78983b35ec6d5e60412dbad43744e21b25ef34178",
-                "sha256:0edf95ef1885ff070fb03b21782bf4a4d513a53f6115fb3554f4da7e85080371",
-                "sha256:0f11e4bb4a181ad02e46289b61be6ee0da87e8df26c4da98502b23494c7239af",
                 "sha256:10083ee7f4758ad6ebfb6375e8369d088e1b4b9df1ee213c184e85fd76f4c062",
                 "sha256:16f555d394e0400730541b17c4d8987a9c84f0c776cf6617a7c1489e11a59dff",
                 "sha256:19a243a7ba7ceb5e4d4e1618f7d5474b650f5dafad6c44920a9b8592257c6021",
-                "sha256:2193374eb9d4f6bdd527dbe14a0b374f09b6a8f8958bb5648e54a2aaeb1e73ea",
-                "sha256:235bacd951b35bd74f2f2e1ecd5efb2d694e853df202040c90850619c853cf5d",
-                "sha256:2611a7e824d6a042ca0711e1976e38fb2a58a215ed26d29c0cc280984882212d",
-                "sha256:26296af38accb69ceff8a256b37e52cda6c4a5fde8c95e31e6c3836c4776f605",
-                "sha256:2a2c3d74d348c76dadf2ef55ec9a251a8a0dd42e9e8884302c839c2c1f0d239f",
+                "sha256:1d6afa1232d5b96f72473513ee934b1f0a1e59aec154a6fff31b65ba04e7b4bc",
+                "sha256:220f13cfcda04ae01e399ca99a292d3293ad869abbd90d5b7d8e653445e566fb",
                 "sha256:2b72217f79c78210961e45014b111fe0c8a86dbc4c00449673befb3d23d30f5c",
                 "sha256:2d2ce9112cb793054f5b446c25a59db3f12bb63d0237184dfd43dfa9ceeeca7a",
                 "sha256:329f1868cdbf2ccc935dc90dd4f65a773993cfa882941a96fb4c09c94935ab41",
-                "sha256:343911ceb0f081db2ec85f8f01608a865305ceefc95e8f95ef1c12220497545a",
-                "sha256:3b3851ea6da6c8814480ad70edd0c9970d73ac2b4d6381a4ce7036e5a0e63942",
                 "sha256:4438641cb5d440b18e1e7b3980d1493350792eba88572469af6b18c85ef3f147",
                 "sha256:4ad73fc6b6a68d6f791e7a84f90e58c9a11bc3d6ca626f1f836c443a6f13e6d5",
                 "sha256:552350fa906f0ec8274f10ffa42635c58c14fc1c1789e7de9a36519064507bb8",
                 "sha256:57a48db82e87441a37bbbfc83a15075d48ab8f2124b8b110b0058503bc947ec0",
-                "sha256:5959adf6be89b5f6eaa6409c7e0d2bda58e45b0895371b86ea0bc156f8b83e2a",
-                "sha256:5b0ccae21e1d97c76063d5a009f6a0cdad9fd82622e7dd90bbe812bc7df0cdd0",
-                "sha256:5ef02807bd7626c401654de47f71937bb31ff8a1a7b6101d4ae929793de4876f",
                 "sha256:5f463faf49039e9838108cc53561b3422575e7e5e04b113a9f09dc42644e6895",
                 "sha256:60892c618331973ab4a7432fb7bd0dc259928abf799c57d6b8d9c3a34082f624",
-                "sha256:658c9532f879afffe2a5968229832c8870f7d81146a6c73ab2f419e27ae07049",
-                "sha256:66ea4d15b4f0a21637f9f5f7d26e199fb4323dbbe4c98790397a5a911b3b7e70",
-                "sha256:696c060067d21e803449a7315daf304109ec0523b0dd169b30c205bf5b1d6822",
-                "sha256:6e61a92eb43d1dc9d76ae9c45b685e96327848b7033a313fa8abfb772ef4aa8a",
                 "sha256:6f2c2a44d3dd73b75d3dae01af9a09de259987f429348177cf448a0b09959585",
                 "sha256:7203ad9a0e7f8bcb6010e0b9c56ecd5b94a2c6a6712f0847e788bcda3f41223c",
                 "sha256:7ac7be8feb029d7415a66a9a0e3ea4b5e002d3a514fae64432fcefb4fde0f08f",
                 "sha256:7cb6f49e2d510f4c802cc4705b07c6f0e05062171b5241e43cba13f18f8fadd9",
-                "sha256:7ebd57fae765701f5dd308bf152e08185bacfe69a6695158212874b8916da611",
                 "sha256:7f8dee1eb323d34d88d986ed84a06abf2cb17062892b5d613cc3605596cb06bf",
-                "sha256:87b6b5417f3d714237366c7fe9b65a1516bf0ebadd1b1ea231e94aff9f0ce20b",
                 "sha256:89eb5a55c24e9fea5dea820019c653f445c3b61ead90732aead73e37fc70184c",
-                "sha256:908120de981249fb33ba2f324714fe9f04f34c51167395c2374d9cbd1e1188cd",
-                "sha256:90c1272a98ef30633e4deb70556ef19c8a7a71049fce13fd94184c1b8260f413",
-                "sha256:9186b527517eabc6f9218ec4ad74ca123dbc2805f509474eb5fcad41cab1718d",
-                "sha256:958d922556e1d2f000340eb1a8a8705cd88e7eddcbce090e4aa880e20222b454",
-                "sha256:987ab210d3722beec46a70f8399b610e565f18521d7490401f17c8b0d59f687d",
+                "sha256:97bf6c8526d8f63d7a8d6d7869293e4ec3fc052ce705b8c00b300839e6281a0b",
                 "sha256:9dce259234fd06ec9e9210b4f5174a3a6974a7e66cbdc19d5f6d203c8a5da26b",
-                "sha256:9e9062689a49a353874bedcfc7a144b37c9499f4a4e785ffea8ace973b493fbb",
                 "sha256:a31dacca00d305059b7bbae532227b9ef7aae15d359d4b3406d82a4438bf5dd7",
-                "sha256:b2422b8f74b051663f1fa857c3950642e5a9fb6ba0fff50cd3c58284a0944d1f",
-                "sha256:b27144d85705186f7ba469088436031da41b82afc987421df39689fda7fedb12",
                 "sha256:b33701aaa8d839d8f4650ace636dec3e80d9aa3a01605033648fc6b24e49c36c",
-                "sha256:b40aae3bed33b2738e7ddcdc5a798df7957009fbc7699ba245b4421bdcaf0708",
                 "sha256:b9b9b3fabefebe22281d827ca945d9ed9eb4113842091049cfa7bdf7ecf767f2",
-                "sha256:baee425e7d390910237b1efd77f1eff2d1fb8e413c9227b634c2b16293a1b110",
+                "sha256:bc38e03a261c3b58d1513e2ed912998914be90d6549152386203bc63f1a73ae9",
                 "sha256:bf9bdc364fd927bb7f0f1d492681f521b8f720b543261981fb1d77f50b654ef4",
-                "sha256:c01d5c3efd469970a58556a466b1cfa13e718f5b9aa978b39072fc4de0dc0c31",
-                "sha256:c6cd78f0a803cbd75f3d25c7a140b4c3ae81541a2d45e0aca3b75171e6c4b413",
-                "sha256:c7195ce9902e958acb002d4cca78cc7df030d42f94c4e67857e768b9f71dfc89",
-                "sha256:cb9a0f9b9a85abab1beeeac9084855d3d246523810054a7a0ddd67009fc520fb",
-                "sha256:d2e799bac2bee7b2fddeb66046491234b002e6d9453d947e5a65fe7f9ff33cd7",
                 "sha256:d5c38921ae5ac98b326f5908115cfc30002748fd6cffdbe48d02b57a4b1d6333",
                 "sha256:d91a5ccf859072b7747187bce868479c6419d91debf6e91b11541f821e82fb62",
                 "sha256:db74343d970ca70d1e03d34510de872bc845f89a73f76dbd853c5b1c35751474",
@@ -150,16 +125,13 @@
                 "sha256:e9be7270abc2201c663e3341e84b24d9e2e3f29434206c9ba0b8aff9e961c627",
                 "sha256:ead9139a906152e9a8ec6c478e666bb64039b283379a407d1ff60c1ef305c0e3",
                 "sha256:ec16c4075b8234d614d2edf90de2e8a0afb7addab9c698db582e7057c6662f18",
-                "sha256:f215bd2b26051b24f82d5f9d2dd8274b3e397dcd428b9a5501e123102fd9fd5f",
                 "sha256:f557843f61038380ecc9764ea4805211abcc600cfb469fe45db674324f979605",
                 "sha256:f6b8586c0f230bf2f595fc77ddf39935585239ade8ef06bda96bc0ff179cfd73",
                 "sha256:f8f12e9a6caad6bab01442036d53f9167fe1a3ea2da56b2b21bd116d017c3589",
                 "sha256:fc1fd76f77d52ffaa77d14e9e80ae617ab5a4eecd47f1e97c2ba53f7d6e70ba5"
             ],
-            "completeness": "partial",
-            "limitations": [
-                "discovered skill has no registry entry; emitted as discovery-only with explicit identity"
-            ],
+            "completeness": "complete",
+            "limitations": [],
             "queryRoutes": [
                 "compile:capability-catalog",
                 "check:capability-catalog"
@@ -186,7 +158,10 @@
             ],
             "completeness": "complete",
             "limitations": [],
-            "queryRoutes": ["compile:goal-catalog", "check:goal-catalog"]
+            "queryRoutes": [
+                "compile:goal-catalog",
+                "check:goal-catalog"
+            ]
         },
         {
             "id": "agent-system.policy",
@@ -206,7 +181,10 @@
             ],
             "completeness": "complete",
             "limitations": [],
-            "queryRoutes": ["compile:policy-catalog", "check:policy-catalog"]
+            "queryRoutes": [
+                "compile:policy-catalog",
+                "check:policy-catalog"
+            ]
         },
         {
             "id": "agent-system.topology",

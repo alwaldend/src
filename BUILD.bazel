@@ -6,7 +6,6 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_python//python:pip.bzl", "compile_pip_requirements")
 load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
 load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
-load("@rules_skill//skill:defs.bzl", "skill_discovery_links")
 load("@tools_com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "buildifier_test")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//tools/terraform:defs.bzl", "terraform_binary_map")
@@ -63,36 +62,6 @@ alias(
 test_suite(
     name = "repo_quality_test",
     tests = ["//tools/repo_quality:repo_quality_test_public"],
-)
-
-skill_discovery_links(
-    name = "write_skill_links",
-    skills = [
-        "//projects/agents/skills/answer-question:skill",
-        "//projects/agents/skills/agent-ergonomics-review:skill",
-        "//projects/agents/skills/ast-grep:skill",
-        "//projects/agents/skills/bazel-agent:skill",
-        "//projects/agents/skills/bazel-nested-module:skill",
-        "//projects/agents/skills/bazel-rules-skill:skill",
-        "//projects/agents/skills/blender-reference-fidelity:skill",
-        "//projects/agents/skills/codex-migration:skill",
-        "//projects/agents/skills/decision-review:skill",
-        "//projects/agents/skills/full-repo-check:skill",
-        "//projects/agents/skills/git-rebase-remote:skill",
-        "//projects/agents/skills/host-bot-diagnostics:skill",
-        "//projects/agents/skills/project-layout:skill",
-        "//projects/agents/skills/repo-ansible:skill",
-        "//projects/agents/skills/repo-bazel:skill",
-        "//projects/agents/skills/repo-blender:skill",
-        "//projects/agents/skills/repo-delivery:skill",
-        "//projects/agents/skills/repo-external-dependency:skill",
-        "//projects/agents/skills/repo-gazelle-plugin:skill",
-        "//projects/agents/skills/repo-secrets:skill",
-        "//projects/agents/skills/repo-terraform:skill",
-        "//projects/agents/skills/spellcheck:skill",
-        "//projects/goal/skills/goal:skill",
-        "//tools/versioning/skills/versioning:skill",
-    ],
 )
 
 docs_filegroup(

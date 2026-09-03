@@ -47,6 +47,20 @@ bazel_agent run //tools/repo_delivery -- verify \
   --receipt-file out/task/prepare.json
 ```
 
+To synchronize a prepared, task-owned, single-commit feature branch with an
+advanced base before `prepare`, use the guarded adapter workflow:
+
+```sh
+bazel_agent run //tools/repo_delivery -- rebase --base master
+```
+
+The command refuses dirty trees, divergent remote feature tips, multi-commit
+or merge-containing ranges, and pull-request metadata changes. It fetches
+fresh refs, replays the commit in an isolated worktree, preserves signature
+requirements, pushes only with the captured remote feature lease, verifies
+base advancement, and reports the literal resulting head. Run required
+validations against that head before `prepare` and `publish`.
+
 Remote rewrites use `rewrite-authorize` to write a typed, non-authorizing
 authorization receipt (old remote OID, new head OID, owner root, task paths,
 provider ownership), then `prepare --rewrite-authorization <file>` instead of

@@ -18,6 +18,11 @@ inefficient sessions, and recurring friction. Convert validated ergonomic
 findings into bounded, sanitized evidence before preparing or publishing the
 candidate; do not let this review broaden delivery scope.
 
+For GitHub adapter delivery, prefer `repo_delivery rebase` over manual Git
+commands when a prepared, task-owned, single-commit feature branch must be
+synchronized with an advanced base. Run required validations against the
+literal resulting head before `prepare` and `publish`.
+
 Before delivery, run
 `bazel_agent run //tools/repo_delivery -- provider`. Use its sanitized
 repository identity, provider hint, `adapter_available`, sanitized

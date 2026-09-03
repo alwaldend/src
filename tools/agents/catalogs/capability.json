@@ -4,7 +4,7 @@
     "id": "agent-system.capability",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.capability-compiler",
-    "sourceRevision": "529f64f68746ecc5eae6e8d991ff8952",
+    "sourceRevision": "debcbc897a7b96b5a392729ce8a61d1e",
     "inputs": [
         {
             "path": ".agents/skills/agent-ergonomics-review",
@@ -94,7 +94,7 @@
         {
             "path": ".agents/skills/repo-delivery",
             "role": "skill-discovery",
-            "digest": "sha256:b2422b8f74b051663f1fa857c3950642e5a9fb6ba0fff50cd3c58284a0944d1f"
+            "digest": "sha256:220f13cfcda04ae01e399ca99a292d3293ad869abbd90d5b7d8e653445e566fb"
         },
         {
             "path": ".agents/skills/repo-external-dependency",
@@ -127,226 +127,6 @@
             "digest": "sha256:e0759e8de9e0f9a1273eb0b47177b21d61e65f7beab0adcee42858a3674e5829"
         },
         {
-            "path": "projects/agents/skills/agent-ergonomics-review/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:658c9532f879afffe2a5968229832c8870f7d81146a6c73ab2f419e27ae07049"
-        },
-        {
-            "path": "projects/agents/skills/agent-ergonomics-review/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:cb9a0f9b9a85abab1beeeac9084855d3d246523810054a7a0ddd67009fc520fb"
-        },
-        {
-            "path": "projects/agents/skills/answer-question/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:958d922556e1d2f000340eb1a8a8705cd88e7eddcbce090e4aa880e20222b454"
-        },
-        {
-            "path": "projects/agents/skills/answer-question/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:9186b527517eabc6f9218ec4ad74ca123dbc2805f509474eb5fcad41cab1718d"
-        },
-        {
-            "path": "projects/agents/skills/ast-grep/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:2a2c3d74d348c76dadf2ef55ec9a251a8a0dd42e9e8884302c839c2c1f0d239f"
-        },
-        {
-            "path": "projects/agents/skills/ast-grep/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:7ebd57fae765701f5dd308bf152e08185bacfe69a6695158212874b8916da611"
-        },
-        {
-            "path": "projects/agents/skills/bazel-agent/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:2a2c3d74d348c76dadf2ef55ec9a251a8a0dd42e9e8884302c839c2c1f0d239f"
-        },
-        {
-            "path": "projects/agents/skills/bazel-agent/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:90c1272a98ef30633e4deb70556ef19c8a7a71049fce13fd94184c1b8260f413"
-        },
-        {
-            "path": "projects/agents/skills/bazel-nested-module/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:2a2c3d74d348c76dadf2ef55ec9a251a8a0dd42e9e8884302c839c2c1f0d239f"
-        },
-        {
-            "path": "projects/agents/skills/bazel-nested-module/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:b27144d85705186f7ba469088436031da41b82afc987421df39689fda7fedb12"
-        },
-        {
-            "path": "projects/agents/skills/bazel-rules-skill/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:2193374eb9d4f6bdd527dbe14a0b374f09b6a8f8958bb5648e54a2aaeb1e73ea"
-        },
-        {
-            "path": "projects/agents/skills/bazel-rules-skill/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:2611a7e824d6a042ca0711e1976e38fb2a58a215ed26d29c0cc280984882212d"
-        },
-        {
-            "path": "projects/agents/skills/blender-reference-fidelity/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:2a2c3d74d348c76dadf2ef55ec9a251a8a0dd42e9e8884302c839c2c1f0d239f"
-        },
-        {
-            "path": "projects/agents/skills/blender-reference-fidelity/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:987ab210d3722beec46a70f8399b610e565f18521d7490401f17c8b0d59f687d"
-        },
-        {
-            "path": "projects/agents/skills/codex-migration/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:2a2c3d74d348c76dadf2ef55ec9a251a8a0dd42e9e8884302c839c2c1f0d239f"
-        },
-        {
-            "path": "projects/agents/skills/codex-migration/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:5ef02807bd7626c401654de47f71937bb31ff8a1a7b6101d4ae929793de4876f"
-        },
-        {
-            "path": "projects/agents/skills/decision-review/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:f215bd2b26051b24f82d5f9d2dd8274b3e397dcd428b9a5501e123102fd9fd5f"
-        },
-        {
-            "path": "projects/agents/skills/decision-review/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:c01d5c3efd469970a58556a466b1cfa13e718f5b9aa978b39072fc4de0dc0c31"
-        },
-        {
-            "path": "projects/agents/skills/full-repo-check/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:6e61a92eb43d1dc9d76ae9c45b685e96327848b7033a313fa8abfb772ef4aa8a"
-        },
-        {
-            "path": "projects/agents/skills/full-repo-check/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:87b6b5417f3d714237366c7fe9b65a1516bf0ebadd1b1ea231e94aff9f0ce20b"
-        },
-        {
-            "path": "projects/agents/skills/git-rebase-remote/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:2a2c3d74d348c76dadf2ef55ec9a251a8a0dd42e9e8884302c839c2c1f0d239f"
-        },
-        {
-            "path": "projects/agents/skills/git-rebase-remote/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:0f11e4bb4a181ad02e46289b61be6ee0da87e8df26c4da98502b23494c7239af"
-        },
-        {
-            "path": "projects/agents/skills/host-bot-diagnostics/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:2a2c3d74d348c76dadf2ef55ec9a251a8a0dd42e9e8884302c839c2c1f0d239f"
-        },
-        {
-            "path": "projects/agents/skills/host-bot-diagnostics/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:235bacd951b35bd74f2f2e1ecd5efb2d694e853df202040c90850619c853cf5d"
-        },
-        {
-            "path": "projects/agents/skills/project-layout/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:2a2c3d74d348c76dadf2ef55ec9a251a8a0dd42e9e8884302c839c2c1f0d239f"
-        },
-        {
-            "path": "projects/agents/skills/project-layout/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:66ea4d15b4f0a21637f9f5f7d26e199fb4323dbbe4c98790397a5a911b3b7e70"
-        },
-        {
-            "path": "projects/agents/skills/repo-ansible/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:2a2c3d74d348c76dadf2ef55ec9a251a8a0dd42e9e8884302c839c2c1f0d239f"
-        },
-        {
-            "path": "projects/agents/skills/repo-ansible/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:d2e799bac2bee7b2fddeb66046491234b002e6d9453d947e5a65fe7f9ff33cd7"
-        },
-        {
-            "path": "projects/agents/skills/repo-bazel/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:2a2c3d74d348c76dadf2ef55ec9a251a8a0dd42e9e8884302c839c2c1f0d239f"
-        },
-        {
-            "path": "projects/agents/skills/repo-bazel/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:696c060067d21e803449a7315daf304109ec0523b0dd169b30c205bf5b1d6822"
-        },
-        {
-            "path": "projects/agents/skills/repo-blender/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:2a2c3d74d348c76dadf2ef55ec9a251a8a0dd42e9e8884302c839c2c1f0d239f"
-        },
-        {
-            "path": "projects/agents/skills/repo-blender/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:26296af38accb69ceff8a256b37e52cda6c4a5fde8c95e31e6c3836c4776f605"
-        },
-        {
-            "path": "projects/agents/skills/repo-delivery/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:2a2c3d74d348c76dadf2ef55ec9a251a8a0dd42e9e8884302c839c2c1f0d239f"
-        },
-        {
-            "path": "projects/agents/skills/repo-delivery/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:9e9062689a49a353874bedcfc7a144b37c9499f4a4e785ffea8ace973b493fbb"
-        },
-        {
-            "path": "projects/agents/skills/repo-external-dependency/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:2a2c3d74d348c76dadf2ef55ec9a251a8a0dd42e9e8884302c839c2c1f0d239f"
-        },
-        {
-            "path": "projects/agents/skills/repo-external-dependency/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:09fd77f8106ab0deb877f105a09b826224241e79f8dfe453fe48c771a4f410c7"
-        },
-        {
-            "path": "projects/agents/skills/repo-gazelle-plugin/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:2193374eb9d4f6bdd527dbe14a0b374f09b6a8f8958bb5648e54a2aaeb1e73ea"
-        },
-        {
-            "path": "projects/agents/skills/repo-gazelle-plugin/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:5959adf6be89b5f6eaa6409c7e0d2bda58e45b0895371b86ea0bc156f8b83e2a"
-        },
-        {
-            "path": "projects/agents/skills/repo-secrets/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:2a2c3d74d348c76dadf2ef55ec9a251a8a0dd42e9e8884302c839c2c1f0d239f"
-        },
-        {
-            "path": "projects/agents/skills/repo-secrets/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:c7195ce9902e958acb002d4cca78cc7df030d42f94c4e67857e768b9f71dfc89"
-        },
-        {
-            "path": "projects/agents/skills/repo-terraform/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:2a2c3d74d348c76dadf2ef55ec9a251a8a0dd42e9e8884302c839c2c1f0d239f"
-        },
-        {
-            "path": "projects/agents/skills/repo-terraform/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:b40aae3bed33b2738e7ddcdc5a798df7957009fbc7699ba245b4421bdcaf0708"
-        },
-        {
-            "path": "projects/agents/skills/spellcheck/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:f215bd2b26051b24f82d5f9d2dd8274b3e397dcd428b9a5501e123102fd9fd5f"
-        },
-        {
-            "path": "projects/agents/skills/spellcheck/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:baee425e7d390910237b1efd77f1eff2d1fb8e413c9227b634c2b16293a1b110"
-        },
-        {
             "path": "projects/bazel_agent/cmd/bazel_agent/main.go",
             "role": "direct-binary-source",
             "digest": "sha256:ead9139a906152e9a8ec6c478e666bb64039b283379a407d1ff60c1ef305c0e3"
@@ -359,22 +139,12 @@
         {
             "path": "projects/goal/cmd/goal/command.go",
             "role": "operation-definition",
-            "digest": "sha256:c6cd78f0a803cbd75f3d25c7a140b4c3ae81541a2d45e0aca3b75171e6c4b413"
+            "digest": "sha256:97bf6c8526d8f63d7a8d6d7869293e4ec3fc052ce705b8c00b300839e6281a0b"
         },
         {
             "path": "projects/goal/cmd/goal/main.go",
             "role": "direct-binary-source",
             "digest": "sha256:a31dacca00d305059b7bbae532227b9ef7aae15d359d4b3406d82a4438bf5dd7"
-        },
-        {
-            "path": "projects/goal/skills/goal/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:0edf95ef1885ff070fb03b21782bf4a4d513a53f6115fb3554f4da7e85080371"
-        },
-        {
-            "path": "projects/goal/skills/goal/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:908120de981249fb33ba2f324714fe9f04f34c51167395c2374d9cbd1e1188cd"
         },
         {
             "path": "projects/mcp_cordis/agent_operations.json",
@@ -409,7 +179,7 @@
         {
             "path": "tools/agents/declarations/registry.json",
             "role": "registry",
-            "digest": "sha256:343911ceb0f081db2ec85f8f01608a865305ceefc95e8f95ef1c12220497545a"
+            "digest": "sha256:1d6afa1232d5b96f72473513ee934b1f0a1e59aec154a6fff31b65ba04e7b4bc"
         },
         {
             "path": "tools/repo_delivery/agent_operations.json",
@@ -419,7 +189,7 @@
         {
             "path": "tools/repo_delivery/cmd/repo_delivery/command.go",
             "role": "operation-definition",
-            "digest": "sha256:5b0ccae21e1d97c76063d5a009f6a0cdad9fd82622e7dd90bbe812bc7df0cdd0"
+            "digest": "sha256:bc38e03a261c3b58d1513e2ed912998914be90d6549152386203bc63f1a73ae9"
         },
         {
             "path": "tools/repo_delivery/cmd/repo_delivery/main.go",
@@ -435,33 +205,21 @@
             "path": "tools/terraform/defs.bzl",
             "role": "operation-definition",
             "digest": "sha256:4ad73fc6b6a68d6f791e7a84f90e58c9a11bc3d6ca626f1f836c443a6f13e6d5"
-        },
-        {
-            "path": "tools/versioning/skills/versioning/BUILD.bazel",
-            "role": "skill-build",
-            "digest": "sha256:658c9532f879afffe2a5968229832c8870f7d81146a6c73ab2f419e27ae07049"
-        },
-        {
-            "path": "tools/versioning/skills/versioning/SKILL.md",
-            "role": "skill-doc",
-            "digest": "sha256:3b3851ea6da6c8814480ad70edd0c9970d73ac2b4d6381a4ce7036e5a0e63942"
         }
     ],
     "bounds": {
         "eligible": 40,
-        "emitted": 28,
+        "emitted": 26,
         "unavailable": 0,
         "maxItems": 1000,
         "maxInputBytes": 33554432,
         "maxOutputBytes": 1048576,
         "truncated": false
     },
-    "completeness": "partial",
-    "limitations": [
-        "discovered skill has no registry entry; emitted as discovery-only with explicit identity"
-    ],
+    "completeness": "complete",
+    "limitations": [],
     "conflicts": [],
-    "digest": "sha256:8849f080a74eef0cc214e7d828718e6dc6e013b3a7732fc8ac5fb0835120f3f2",
+    "digest": "sha256:0775209e0054d7c3d68e905699c3a07b6b36b4f2a2a0e589c12ef1782202d7c5",
     "skills": [
         {
             "id": "agent-ergonomics-review",
@@ -470,8 +228,12 @@
             "discoveryPath": ".agents/skills/agent-ergonomics-review",
             "layer": "review",
             "activation": "substantial task close or recurring agent friction",
-            "exclusions": ["routine single-turn responses"],
-            "capabilityRefs": ["source.read"],
+            "exclusions": [
+                "routine single-turn responses"
+            ],
+            "capabilityRefs": [
+                "source.read"
+            ],
             "dependencies": null,
             "conflicts": null,
             "providerRequirements": null,
@@ -485,28 +247,17 @@
             "discoveryPath": ".agents/skills/answer-question",
             "layer": "procedure",
             "activation": "substantive user questions",
-            "exclusions": ["inert quoted questions"],
-            "capabilityRefs": ["source.read"],
+            "exclusions": [
+                "inert quoted questions"
+            ],
+            "capabilityRefs": [
+                "source.read"
+            ],
             "dependencies": null,
             "conflicts": null,
             "providerRequirements": null,
             "contextCost": "medium",
             "evaluationMaturity": "checked"
-        },
-        {
-            "id": "ast-grep",
-            "owner": "projects/agents",
-            "canonicalPath": "projects/agents/skills/ast-grep",
-            "discoveryPath": ".agents/skills/ast-grep",
-            "layer": "procedure",
-            "activation": "discovered skill for repository agents",
-            "exclusions": [],
-            "capabilityRefs": [],
-            "dependencies": [],
-            "conflicts": [],
-            "providerRequirements": [],
-            "contextCost": "medium",
-            "evaluationMaturity": "discovered"
         },
         {
             "id": "bazel-agent",
@@ -515,12 +266,39 @@
             "discoveryPath": ".agents/skills/bazel-agent",
             "layer": "execution",
             "activation": "agent-executed Bazel commands",
-            "exclusions": ["non-Bazel host commands"],
-            "capabilityRefs": ["code.execute"],
+            "exclusions": [
+                "non-Bazel host commands"
+            ],
+            "capabilityRefs": [
+                "code.execute"
+            ],
             "dependencies": null,
             "conflicts": null,
-            "providerRequirements": ["bazelisk"],
+            "providerRequirements": [
+                "bazelisk"
+            ],
             "contextCost": "small",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "ast-grep",
+            "owner": "projects/agents",
+            "canonicalPath": "projects/agents/skills/ast-grep",
+            "discoveryPath": ".agents/skills/ast-grep",
+            "layer": "procedure",
+            "activation": "structure-aware code search or rewrite",
+            "exclusions": [
+                "plain-text searches expressible with rg"
+            ],
+            "capabilityRefs": [
+                "code.execute"
+            ],
+            "dependencies": [
+                "bazel-agent"
+            ],
+            "conflicts": null,
+            "providerRequirements": null,
+            "contextCost": "medium",
             "evaluationMaturity": "checked"
         },
         {
@@ -530,11 +308,18 @@
             "discoveryPath": ".agents/skills/blender-reference-fidelity",
             "layer": "procedure",
             "activation": "reference-controlled Blender modeling",
-            "exclusions": ["freeform designs"],
-            "capabilityRefs": ["code.execute", "source.write"],
+            "exclusions": [
+                "freeform designs"
+            ],
+            "capabilityRefs": [
+                "code.execute",
+                "source.write"
+            ],
             "dependencies": null,
             "conflicts": null,
-            "providerRequirements": ["blender"],
+            "providerRequirements": [
+                "blender"
+            ],
             "contextCost": "large",
             "evaluationMaturity": "checked"
         },
@@ -543,15 +328,22 @@
             "owner": "projects/agents",
             "canonicalPath": "projects/agents/skills/codex-migration",
             "discoveryPath": ".agents/skills/codex-migration",
-            "layer": "procedure",
-            "activation": "discovered skill for repository agents",
-            "exclusions": [],
-            "capabilityRefs": [],
-            "dependencies": [],
-            "conflicts": [],
-            "providerRequirements": [],
-            "contextCost": "medium",
-            "evaluationMaturity": "discovered"
+            "layer": "migration",
+            "activation": "Codex model, provider, authentication, or shared configuration migration",
+            "exclusions": [
+                "generic application configuration changes"
+            ],
+            "capabilityRefs": [
+                "credential.consume",
+                "network.read"
+            ],
+            "dependencies": null,
+            "conflicts": null,
+            "providerRequirements": [
+                "codex"
+            ],
+            "contextCost": "large",
+            "evaluationMaturity": "checked"
         },
         {
             "id": "decision-review",
@@ -560,8 +352,12 @@
             "discoveryPath": ".agents/skills/decision-review",
             "layer": "review",
             "activation": "material decisions",
-            "exclusions": ["routine reversible choices"],
-            "capabilityRefs": ["source.read"],
+            "exclusions": [
+                "routine reversible choices"
+            ],
+            "capabilityRefs": [
+                "source.read"
+            ],
             "dependencies": null,
             "conflicts": null,
             "providerRequirements": null,
@@ -575,11 +371,19 @@
             "discoveryPath": ".agents/skills/full-repo-check",
             "layer": "validation",
             "activation": "complete repository health checks",
-            "exclusions": ["ordinary package checks"],
-            "capabilityRefs": ["code.execute"],
-            "dependencies": ["bazel-agent"],
+            "exclusions": [
+                "ordinary package checks"
+            ],
+            "capabilityRefs": [
+                "code.execute"
+            ],
+            "dependencies": [
+                "bazel-agent"
+            ],
             "conflicts": null,
-            "providerRequirements": ["bazelisk"],
+            "providerRequirements": [
+                "bazelisk"
+            ],
             "contextCost": "large",
             "evaluationMaturity": "checked"
         },
@@ -590,7 +394,9 @@
             "discoveryPath": ".agents/skills/git-rebase-remote",
             "layer": "delivery",
             "activation": "task-owned feature rebase",
-            "exclusions": ["shared or human-owned history"],
+            "exclusions": [
+                "shared or human-owned history"
+            ],
             "capabilityRefs": [
                 "history.write",
                 "network.read",
@@ -598,7 +404,9 @@
             ],
             "dependencies": null,
             "conflicts": null,
-            "providerRequirements": ["git"],
+            "providerRequirements": [
+                "git"
+            ],
             "contextCost": "medium",
             "evaluationMaturity": "checked"
         },
@@ -609,9 +417,15 @@
             "discoveryPath": ".agents/skills/goal",
             "layer": "coordination",
             "activation": "durable multi-step work",
-            "exclusions": ["simple one-step tasks"],
-            "capabilityRefs": ["task_state.write"],
-            "dependencies": ["bazel-agent"],
+            "exclusions": [
+                "simple one-step tasks"
+            ],
+            "capabilityRefs": [
+                "task_state.write"
+            ],
+            "dependencies": [
+                "bazel-agent"
+            ],
             "conflicts": null,
             "providerRequirements": null,
             "contextCost": "large",
@@ -624,11 +438,18 @@
             "discoveryPath": ".agents/skills/host-bot-diagnostics",
             "layer": "diagnostics",
             "activation": "host bot audits",
-            "exclusions": ["infrastructure implementation"],
-            "capabilityRefs": ["network.read", "source.read"],
+            "exclusions": [
+                "infrastructure implementation"
+            ],
+            "capabilityRefs": [
+                "network.read",
+                "source.read"
+            ],
             "dependencies": null,
             "conflicts": null,
-            "providerRequirements": ["host-bot"],
+            "providerRequirements": [
+                "host-bot"
+            ],
             "contextCost": "medium",
             "evaluationMaturity": "checked"
         },
@@ -639,8 +460,12 @@
             "discoveryPath": ".agents/skills/project-layout",
             "layer": "policy",
             "activation": "source placement and moves",
-            "exclusions": ["unchanged existing layout"],
-            "capabilityRefs": ["source.read"],
+            "exclusions": [
+                "unchanged existing layout"
+            ],
+            "capabilityRefs": [
+                "source.read"
+            ],
             "dependencies": null,
             "conflicts": null,
             "providerRequirements": null,
@@ -654,11 +479,20 @@
             "discoveryPath": ".agents/skills/repo-bazel",
             "layer": "procedure",
             "activation": "Bazel graph changes and validation",
-            "exclusions": ["non-Bazel source-only edits"],
-            "capabilityRefs": ["code.execute", "source.write"],
-            "dependencies": ["bazel-agent"],
+            "exclusions": [
+                "non-Bazel source-only edits"
+            ],
+            "capabilityRefs": [
+                "code.execute",
+                "source.write"
+            ],
+            "dependencies": [
+                "bazel-agent"
+            ],
             "conflicts": null,
-            "providerRequirements": ["bazelisk"],
+            "providerRequirements": [
+                "bazelisk"
+            ],
             "contextCost": "medium",
             "evaluationMaturity": "checked"
         },
@@ -669,9 +503,16 @@
             "discoveryPath": ".agents/skills/bazel-nested-module",
             "layer": "procedure",
             "activation": "standalone nested Bzlmod modules",
-            "exclusions": ["ordinary Bazel packages"],
-            "capabilityRefs": ["source.write"],
-            "dependencies": ["bazel-agent", "repo-bazel"],
+            "exclusions": [
+                "ordinary Bazel packages"
+            ],
+            "capabilityRefs": [
+                "source.write"
+            ],
+            "dependencies": [
+                "bazel-agent",
+                "repo-bazel"
+            ],
             "conflicts": null,
             "providerRequirements": null,
             "contextCost": "medium",
@@ -684,9 +525,16 @@
             "discoveryPath": ".agents/skills/bazel-rules-skill",
             "layer": "procedure",
             "activation": "repository skill packaging",
-            "exclusions": ["personal untracked skills"],
-            "capabilityRefs": ["source.write"],
-            "dependencies": ["bazel-agent", "repo-bazel"],
+            "exclusions": [
+                "personal untracked skills"
+            ],
+            "capabilityRefs": [
+                "source.write"
+            ],
+            "dependencies": [
+                "bazel-agent",
+                "repo-bazel"
+            ],
             "conflicts": null,
             "providerRequirements": null,
             "contextCost": "medium",
@@ -699,11 +547,21 @@
             "discoveryPath": ".agents/skills/repo-ansible",
             "layer": "procedure",
             "activation": "repository Ansible changes",
-            "exclusions": ["non-Ansible infrastructure"],
-            "capabilityRefs": ["code.execute", "source.write"],
-            "dependencies": ["bazel-agent", "repo-bazel"],
+            "exclusions": [
+                "non-Ansible infrastructure"
+            ],
+            "capabilityRefs": [
+                "code.execute",
+                "source.write"
+            ],
+            "dependencies": [
+                "bazel-agent",
+                "repo-bazel"
+            ],
             "conflicts": null,
-            "providerRequirements": ["ansible"],
+            "providerRequirements": [
+                "ansible"
+            ],
             "contextCost": "medium",
             "evaluationMaturity": "checked"
         },
@@ -714,30 +572,46 @@
             "discoveryPath": ".agents/skills/repo-blender",
             "layer": "procedure",
             "activation": "repository Blender assets and renders",
-            "exclusions": ["non-Blender image edits"],
-            "capabilityRefs": ["code.execute", "source.write"],
-            "dependencies": ["bazel-agent", "repo-bazel"],
+            "exclusions": [
+                "non-Blender image edits"
+            ],
+            "capabilityRefs": [
+                "code.execute",
+                "source.write"
+            ],
+            "dependencies": [
+                "bazel-agent",
+                "repo-bazel"
+            ],
             "conflicts": null,
-            "providerRequirements": ["blender"],
+            "providerRequirements": [
+                "blender"
+            ],
             "contextCost": "large",
             "evaluationMaturity": "checked"
         },
         {
             "id": "repo-delivery",
-            "owner": "projects/agents",
-            "canonicalPath": "projects/agents/skills/repo-delivery",
+            "owner": "tools/repo_delivery",
+            "canonicalPath": "tools/repo_delivery/skills/repo-delivery",
             "discoveryPath": ".agents/skills/repo-delivery",
             "layer": "delivery",
             "activation": "feature publication and PR review",
-            "exclusions": ["read-only reviews"],
+            "exclusions": [
+                "read-only reviews"
+            ],
             "capabilityRefs": [
                 "history.write",
                 "network.read",
                 "remote.write"
             ],
-            "dependencies": ["bazel-agent"],
+            "dependencies": [
+                "bazel-agent"
+            ],
             "conflicts": null,
-            "providerRequirements": ["github"],
+            "providerRequirements": [
+                "github"
+            ],
             "contextCost": "large",
             "evaluationMaturity": "checked"
         },
@@ -748,9 +622,17 @@
             "discoveryPath": ".agents/skills/repo-external-dependency",
             "layer": "procedure",
             "activation": "external dependency pins",
-            "exclusions": ["first-party versioning"],
-            "capabilityRefs": ["network.read", "source.write"],
-            "dependencies": ["bazel-agent", "repo-bazel"],
+            "exclusions": [
+                "first-party versioning"
+            ],
+            "capabilityRefs": [
+                "network.read",
+                "source.write"
+            ],
+            "dependencies": [
+                "bazel-agent",
+                "repo-bazel"
+            ],
             "conflicts": null,
             "providerRequirements": null,
             "contextCost": "medium",
@@ -763,11 +645,21 @@
             "discoveryPath": ".agents/skills/repo-gazelle-plugin",
             "layer": "procedure",
             "activation": "Gazelle language plugins",
-            "exclusions": ["ordinary generated BUILD updates"],
-            "capabilityRefs": ["code.execute", "source.write"],
-            "dependencies": ["bazel-agent", "repo-bazel"],
+            "exclusions": [
+                "ordinary generated BUILD updates"
+            ],
+            "capabilityRefs": [
+                "code.execute",
+                "source.write"
+            ],
+            "dependencies": [
+                "bazel-agent",
+                "repo-bazel"
+            ],
             "conflicts": null,
-            "providerRequirements": ["gazelle"],
+            "providerRequirements": [
+                "gazelle"
+            ],
             "contextCost": "medium",
             "evaluationMaturity": "checked"
         },
@@ -778,11 +670,18 @@
             "discoveryPath": ".agents/skills/repo-secrets",
             "layer": "security",
             "activation": "credentials and secret routing",
-            "exclusions": ["ordinary public configuration"],
-            "capabilityRefs": ["credential.consume", "source.write"],
+            "exclusions": [
+                "ordinary public configuration"
+            ],
+            "capabilityRefs": [
+                "credential.consume",
+                "source.write"
+            ],
             "dependencies": null,
             "conflicts": null,
-            "providerRequirements": ["vault"],
+            "providerRequirements": [
+                "vault"
+            ],
             "contextCost": "large",
             "evaluationMaturity": "checked"
         },
@@ -793,11 +692,22 @@
             "discoveryPath": ".agents/skills/repo-terraform",
             "layer": "procedure",
             "activation": "repository Terraform changes",
-            "exclusions": ["non-Terraform infrastructure"],
-            "capabilityRefs": ["code.execute", "source.write"],
-            "dependencies": ["bazel-agent", "repo-bazel"],
+            "exclusions": [
+                "non-Terraform infrastructure"
+            ],
+            "capabilityRefs": [
+                "code.execute",
+                "source.write"
+            ],
+            "dependencies": [
+                "bazel-agent",
+                "repo-bazel"
+            ],
             "conflicts": null,
-            "providerRequirements": ["terraform", "vault"],
+            "providerRequirements": [
+                "terraform",
+                "vault"
+            ],
             "contextCost": "large",
             "evaluationMaturity": "checked"
         },
@@ -808,8 +718,14 @@
             "discoveryPath": ".agents/skills/spellcheck",
             "layer": "procedure",
             "activation": "prose proofreading and rewriting",
-            "exclusions": ["code linting", "translation-only requests"],
-            "capabilityRefs": ["source.read", "source.write"],
+            "exclusions": [
+                "code linting",
+                "translation-only requests"
+            ],
+            "capabilityRefs": [
+                "source.read",
+                "source.write"
+            ],
             "dependencies": null,
             "conflicts": null,
             "providerRequirements": null,
@@ -823,11 +739,20 @@
             "discoveryPath": ".agents/skills/versioning",
             "layer": "release",
             "activation": "first-party repository releases",
-            "exclusions": ["third-party dependency versions"],
-            "capabilityRefs": ["history.write", "source.read"],
-            "dependencies": ["bazel-agent"],
+            "exclusions": [
+                "third-party dependency versions"
+            ],
+            "capabilityRefs": [
+                "history.write",
+                "source.read"
+            ],
+            "dependencies": [
+                "bazel-agent"
+            ],
             "conflicts": null,
-            "providerRequirements": ["git"],
+            "providerRequirements": [
+                "git"
+            ],
             "contextCost": "medium",
             "evaluationMaturity": "checked"
         }
