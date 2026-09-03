@@ -4,7 +4,10 @@ load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]) + ["galaxy.yml"],
-    visibility = ["//projects:__pkg__"],
+    visibility = [
+        "//projects:__pkg__",
+        "//projects/ansible_collection/landing:__pkg__",
+    ],
     deps = [
         "//projects/ansible_collection/playbooks:docs",
         "//projects/ansible_collection/roles:docs",
@@ -40,4 +43,14 @@ pkg_filegroup(
         "@com_ansible_galaxy",
     ],
     visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = [
+        "//infra:__pkg__",
+        "//infra/dns:__pkg__",
+        "//projects/alwaldend.com:__subpackages__",
+    ],
 )

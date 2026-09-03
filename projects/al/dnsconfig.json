@@ -1,0 +1,11 @@
+{
+    "records": {
+        "al_landing": {
+            "CNAME": {
+                "name": "al",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

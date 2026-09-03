@@ -1,4 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files")
 
 exports_files(["agent_operations.json"])
 
@@ -11,10 +12,30 @@ alias(
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//projects:__pkg__"],
+    visibility = [
+        "//projects:__pkg__",
+        "//projects/goal/landing:__pkg__",
+    ],
     deps = [
         "//projects/goal/cmd/goal:docs",
         "//projects/goal/docs",
         "//projects/goal/skills/goal:docs",
     ],
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = [
+        "//infra:__pkg__",
+        "//infra/dns:__pkg__",
+        "//projects/alwaldend.com:__subpackages__",
+    ],
+)
+
+pkg_files(
+    name = "readme",
+    srcs = ["README.md"],
+    prefix = "projects/goal",
+    visibility = ["//projects/goal:__subpackages__"],
 )

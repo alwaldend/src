@@ -1,0 +1,15 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_binary")
+
+go_binary(
+    name = "hugo_worker",
+    srcs = ["main.go"],
+    visibility = ["//visibility:public"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = [],
+    prefix = "content/docs/projects/rules_hugo/cmd/hugo_worker",
+    visibility = ["//visibility:public"],
+)

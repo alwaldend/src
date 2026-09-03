@@ -16,3 +16,9 @@ build_test(
         "//gazelle:gazelle_skills",
     ],
 )
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = ["//visibility:public"],
+)

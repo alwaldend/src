@@ -1,0 +1,11 @@
+{
+    "records": {
+        "tf_modules_landing": {
+            "CNAME": {
+                "name": "tf-modules",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

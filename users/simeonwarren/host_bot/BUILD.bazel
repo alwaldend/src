@@ -11,7 +11,10 @@ al_config(
 filegroup(
     name = "dnsconfig",
     srcs = ["dnsconfig.json"],
-    visibility = ["//infra:__pkg__"],
+    visibility = [
+        "//infra:__pkg__",
+        "//infra/dns:__pkg__",
+    ],
 )
 
 docs_filegroup(

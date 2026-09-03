@@ -60,8 +60,8 @@ def _hugo_site_action_test_impl(ctx):
     )
     asserts.true(
         env,
-        'DART_SASS_BINARY="sass"' in command or "DART_SASS_BINARY=sass" in command,
-        "the site environment must define the bare DART_SASS_BINARY Hugo whitelists",
+        "mock_sass_bin" in command,
+        "the action must expose the declared Sass tool directory",
     )
     return analysistest.end(env)
 

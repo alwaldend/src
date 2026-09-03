@@ -1,0 +1,11 @@
+{
+    "records": {
+        "dotfiles_landing": {
+            "CNAME": {
+                "name": "dotfiles",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

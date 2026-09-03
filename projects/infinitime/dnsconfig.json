@@ -1,0 +1,11 @@
+{
+    "records": {
+        "infinitime_landing": {
+            "CNAME": {
+                "name": "infinitime",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

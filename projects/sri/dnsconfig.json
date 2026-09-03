@@ -1,0 +1,11 @@
+{
+    "records": {
+        "sri_landing": {
+            "CNAME": {
+                "name": "sri",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

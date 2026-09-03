@@ -1,0 +1,11 @@
+{
+    "records": {
+        "useless_qt_gui_landing": {
+            "CNAME": {
+                "name": "useless-qt-gui",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

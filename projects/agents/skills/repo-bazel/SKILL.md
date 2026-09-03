@@ -26,6 +26,9 @@ description: Build, test, query, and maintain targets in this Bazel monorepo. Us
   `terraform_binary_map`, `terraform_test_map`, and `vault_binary_map`.
 - Keep runtime files in `data`; declaring a file in `srcs` does not necessarily
   make it available to an executed tool.
+- Do not use `genrule`. Write a proper Bazel rule, a Go binary, or a separate
+  checked-in script instead. When no suitable rule exists, consider adding one
+  to the owning tools package; do not encode build logic in shell snippets.
 - Preserve least-privilege `visibility` and use package-relative labels when
   that is the surrounding convention. When the same consumer target or package
   must be granted access from several packages, define a named `package_group`
@@ -38,6 +41,24 @@ description: Build, test, query, and maintain targets in this Bazel monorepo. Us
   with the relevant `//tools/repo_quality` format test before delivery.
 - Update dependency lockfiles only through the owning repository workflow. Do
   not mix unrelated generated-file churn into a change.
+
+## Sandbox and network policy
+
+Run every build action inside a Bazel sandbox and without network access.
+If an action genuinely needs network access or must disable sandboxing,
+document the reason in the owning project's README before enabling it and
+prefer the narrowest possible exemption.
+
+## Cached outputs and no-op edits
+
+A successful no-op patch is settled evidence that something other than the
+target bytes is in control. Do not repeat it. Diagnose the action cache,
+generated-file ownership, macro name expansion, or output path, then make a
+single state-changing correction. When a build reports up-to-date after a
+behavioral source change, inspect the exact generated inputs and action
+arguments before rebuilding; if a cache is stale, invalidate the target
+once with a real input change rather than alternating no-op edits with
+builds.
 
 ## Validate narrowly, then broadly
 

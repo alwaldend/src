@@ -143,3 +143,13 @@ docs_filegroup(
         "content/docs/projects/mcp_cordis/goals/runtime_extensions/attempts"
     ),
 )
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = [
+        "//infra:__pkg__",
+        "//infra/dns:__pkg__",
+        "//projects/alwaldend.com:__subpackages__",
+    ],
+)

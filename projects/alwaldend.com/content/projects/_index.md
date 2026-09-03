@@ -31,6 +31,8 @@ repository and any maintained docs.
 ## Build rules
 
 - [Rules Hugo](/docs/projects/rules_hugo/) - Bazel rules for Hugo sites
+- [Rules DNSControl](/docs/projects/rules_dnscontrol/) - Bazel rules for DNSControl
+- [Hugo landing](/docs/projects/hugo_landing/) - Reusable Hugo landing site for project pages
 - [Rules skill](/docs/projects/rules_skill/) - Bazel rules and validation for Codex skills
 - [Rules template](/docs/projects/rules_template/) - Rules to template files
 - [Rules binary toolchain](/docs/projects/rules_binary_toolchain/) - Bazel rules for binary-file toolchains

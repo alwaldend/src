@@ -1,4 +1,11 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_skill//skill:defs.bzl", "skill_discovery_links")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools:__pkg__"],
+)
 
 package_group(
     name = "skill_discovery",

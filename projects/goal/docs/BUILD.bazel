@@ -35,5 +35,12 @@ docs_filegroup(
         "goal-tool.mmd",
         "goal-tool.svg",
     ],
-    visibility = ["//projects/goal:__pkg__"],
+    visibility = [
+        "//projects:__pkg__",
+        "//projects/goal:__pkg__",
+        "//projects/goal/landing:__pkg__",
+    ],
+    deps = [
+        "//projects/goal:readme",
+    ],
 )

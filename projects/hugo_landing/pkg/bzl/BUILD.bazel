@@ -1,0 +1,18 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(
+        ["*.md"],
+        allow_empty = True,
+    ),
+    prefix = "content/docs/projects/hugo_landing/pkg/bzl",
+    visibility = ["//:__pkg__"],
+)
+
+bzl_library(
+    name = "al_hugo_landing",
+    srcs = ["al_hugo_landing.bzl"],
+    visibility = ["//visibility:public"],
+)

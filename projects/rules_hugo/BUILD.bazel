@@ -1,22 +1,28 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+alias(
+    name = "hugo_worker",
+    actual = "//cmd/hugo_worker",
+    visibility = ["//visibility:public"],
+)
+
 build_test(
     name = "build_test",
     targets = [
-        "//main/bzl:al_hugo_archives",
-        "//main/bzl:al_hugo_binary",
-        "//main/bzl:al_hugo_extension",
-        "//main/bzl:al_hugo_module",
-        "//main/bzl:al_hugo_module_info",
-        "//main/bzl:al_hugo_run_binary",
-        "//main/bzl:al_hugo_site",
-        "//main/bzl:al_hugo_site_info",
-        "//main/bzl:al_hugo_theme",
-        "//main/bzl:al_hugo_theme_info",
-        "//main/bzl:al_hugo_toolchain",
-        "//main/bzl:al_hugo_worker",
-        "//main/bzl:toolchain_type",
+        "//pkg/bzl:al_hugo_archives",
+        "//pkg/bzl:al_hugo_binary",
+        "//pkg/bzl:al_hugo_extension",
+        "//pkg/bzl:al_hugo_module",
+        "//pkg/bzl:al_hugo_module_info",
+        "//pkg/bzl:al_hugo_run_binary",
+        "//pkg/bzl:al_hugo_site",
+        "//pkg/bzl:al_hugo_site_info",
+        "//pkg/bzl:al_hugo_theme",
+        "//pkg/bzl:al_hugo_theme_info",
+        "//pkg/bzl:al_hugo_toolchain",
+        "//pkg/bzl:al_hugo_worker",
+        "//pkg/bzl:toolchain_type",
         "//tests:hugo_site_action_test",
         "//tests/toolchain:toolchain_impl",
     ],
@@ -35,4 +41,10 @@ docs_filegroup(
             "tests/**",
         ],
     ),
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = ["//visibility:public"],
 )

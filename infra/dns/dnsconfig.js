@@ -7,21 +7,7 @@ var DSP_GLOBAL = NewDnsProvider("global");
 var DSP_GLOBAL_BIND = NewDnsProvider("global_bind");
 var DSP_DC1 = NewDnsProvider("dc1");
 var DSP_DC1_BIND = NewDnsProvider("dc1_bind");
-var jsons = [
-    require("../pve/dnsconfig.json"),
-    require("../vault/dnsconfig.json"),
-    require("../mikrotik/dnsconfig.json"),
-    require("../forgejo/dnsconfig.json"),
-    require("../forgejo_runner/dnsconfig.json"),
-    require("../harbor/dnsconfig.json"),
-    require("../flux/dnsconfig.json"),
-    require("../threexui/dnsconfig.json"),
-    require("../ingress/dnsconfig.json"),
-    require("../nas/dnsconfig.json"),
-    require("../../users/simeonwarren/host_bot/dnsconfig.json"),
-    require("../../users/simeonwarren/dnsconfig.json"),
-    require("../../projects/alwaldend.com/dnsconfig.json"),
-];
+var jsons = require("./requires.js").flat();
 
 DEFAULTS(
     CF_PROXY_DEFAULT_OFF, // turn proxy off when not specified otherwise
@@ -154,6 +140,7 @@ D(
     modifiers.all,
     modifiers.global,
 );
+
 D(
     "alwaldend.com!dc1",
     REG_NONE,

@@ -1,0 +1,11 @@
+{
+    "records": {
+        "rules_docs_gazelle_landing": {
+            "CNAME": {
+                "name": "rules-docs-gazelle",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

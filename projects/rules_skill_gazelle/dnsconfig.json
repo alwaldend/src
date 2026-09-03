@@ -1,0 +1,11 @@
+{
+    "records": {
+        "rules_skill_gazelle_landing": {
+            "CNAME": {
+                "name": "rules-skill-gazelle",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

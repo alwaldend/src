@@ -9,9 +9,13 @@ tags:
 ## Links
 
 - Docs: https://docs.dnscontrol.org
-- Rules: [../../tools/dnscontrol](../../tools/dnscontrol)
+- Rules: [../../projects/rules_dnscontrol](../../projects/rules_dnscontrol)
 
 ## Deployment
+
+Project landing records live next to their projects in
+`projects/<project>/dnsconfig.json`. The main website owns the shared
+`pages` address, and project files own their own subdomain CNAMEs.
 
 Interactive:
 

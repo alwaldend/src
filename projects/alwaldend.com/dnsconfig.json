@@ -1,3 +1,15 @@
 {
-    "records": {}
+    "records": {
+        "pages": {
+            "A": {
+                "name": "pages",
+                "address": "185.199.108.153"
+            },
+            "AAAA": {
+                "name": "pages",
+                "address": "2606:50c0:8000::153"
+            },
+            "dsp": ["global"]
+        }
+    }
 }

@@ -1,4 +1,6 @@
+load("@rules_dnscontrol//main/bzl:dnscontrol.bzl", "dnscontrol_site")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects:projects.bzl", "PROJECTS")
 load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//tools/vault:defs.bzl", "vault_binary_map")
@@ -10,14 +12,43 @@ vault_binary_map(
 
 _ZONES = glob(["zones/**/*.zone"])
 
-_BIN = "$(rootpath //tools/dnscontrol)"
-
-_ARGS = [
-    "--config",
-    "$(rootpath dnsconfig.js)",
-    "--creds",
-    '"!sh -c \'cat $${DNSCONTROL_CREDS}\'"',
+_INFRA_RECORD_DNSCONFIGS = [
+    "//infra/flux:dnsconfig",
+    "//infra/forgejo:dnsconfig",
+    "//infra/forgejo_runner:dnsconfig",
+    "//infra/harbor:dnsconfig",
+    "//infra/ingress:dnsconfig",
+    "//infra/mikrotik:dnsconfig",
+    "//infra/nas:dnsconfig",
+    "//infra/pve:dnsconfig",
+    "//infra/threexui:dnsconfig",
+    "//infra/vault:dnsconfig",
+    "//projects/alwaldend.com:dnsconfig",
+    "//users/simeonwarren:dnsconfig",
+    "//users/simeonwarren/host_bot:dnsconfig",
 ]
+
+_PROJECT_RECORD_DNSCONFIGS = [
+    "//projects/{}:dnsconfig".format(project)
+    for project in PROJECTS
+    if project != "alwaldend.com" and not project.startswith("rules_")
+]
+
+_RECORD_DNSCONFIGS = _INFRA_RECORD_DNSCONFIGS + _PROJECT_RECORD_DNSCONFIGS + [
+    "@rules_{}//:dnsconfig".format(project.removeprefix("rules_"))
+    for project in PROJECTS
+    if project.startswith("rules_")
+]
+
+dnscontrol_site(
+    name = "requires",
+    srcs = _RECORD_DNSCONFIGS,
+    config = "dnsconfig.js",
+    data = _ZONES,
+    visibility = ["//infra:__pkg__"],
+)
+
+_BIN = "$(rootpath //tools/dnscontrol)"
 
 al_config(
     name = "al",
@@ -31,23 +62,31 @@ al_binary_run_map(
     args = {
         "": [
             _BIN,
+            "--config",
+            "$(rootpath dnsconfig.js)",
             "push",
             "-i",
-        ] + _ARGS,
+        ],
         "deploy": [
             _BIN,
+            "--config",
+            "$(rootpath dnsconfig.js)",
             "push",
-        ] + _ARGS,
+        ],
         "preview": [
             _BIN,
+            "--config",
+            "$(rootpath dnsconfig.js)",
             "preview",
-        ] + _ARGS,
+        ],
     },
     configs = [":al"],
     data = [
         "creds.json.tpl",
         "dnsconfig.js",
-        "//infra:dnsconfig",
+        ":requires_manifest",
+        ":requires_manifest_raw",
+        "//infra:dnsconfig_nonlanding",
         "//tools/dnscontrol",
         "//tools/vault/injector",
     ] + _ZONES,
@@ -55,6 +94,12 @@ al_binary_run_map(
         "--plugin_label",
         "dns",
     ],
+)
+
+filegroup(
+    name = "project_dnsconfigs",
+    srcs = _RECORD_DNSCONFIGS,
+    visibility = ["//infra:__pkg__"],
 )
 
 docs_filegroup(

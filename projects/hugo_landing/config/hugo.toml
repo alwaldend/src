@@ -1,0 +1,51 @@
+title = "Project"
+baseURL = "/"
+theme = ["github.com/google/docsy"]
+enableRobotsTXT = true
+
+[outputs]
+home = ["html"]
+page = ["html"]
+
+[params]
+github_repo = "https://github.com/alwaldend/src"
+github_branch = "master"
+
+[[params.alwaldend.links]]
+name = "Docs"
+url = "/"
+
+[params.ui]
+navbar_logo = false
+showLightDarkModeMenu = true
+sidebar_menu_compact = true
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup.goldmark.renderHooks.link]
+useEmbedded = "always"
+
+[markup.goldmark.parser.attribute]
+block = true
+title = true
+
+[module.hugoVersion]
+extended = true
+min = "0.160.1"
+
+[[module.mounts]]
+source = "themes/github.com/twbs/bootstrap/scss"
+target = "assets/vendor/bootstrap/scss"
+[[module.mounts]]
+source = "themes/github.com/twbs/bootstrap/js"
+target = "assets/vendor/bootstrap/js"
+[[module.mounts]]
+source = "themes/github.com/twbs/bootstrap/dist"
+target = "assets/vendor/bootstrap/dist"
+[[module.mounts]]
+source = "themes/github.com/FortAwesome/Font-Awesome/scss"
+target = "assets/vendor/Font-Awesome/scss"
+[[module.mounts]]
+source = "themes/github.com/FortAwesome/Font-Awesome/webfonts"
+target = "static/webfonts"

@@ -1,0 +1,11 @@
+{
+    "records": {
+        "rules_promptfoo_landing": {
+            "CNAME": {
+                "name": "rules-promptfoo",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

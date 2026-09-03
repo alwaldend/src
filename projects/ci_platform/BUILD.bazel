@@ -3,8 +3,21 @@ load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]) + ["arch.drawio.svg"],
-    visibility = ["//projects:__pkg__"],
+    visibility = [
+        "//projects:__pkg__",
+        "//projects/ci_platform/landing:__pkg__",
+    ],
     deps = [
         "//projects/ci_platform/releases:docs",
+    ],
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = [
+        "//infra:__pkg__",
+        "//infra/dns:__pkg__",
+        "//projects/alwaldend.com:__subpackages__",
     ],
 )

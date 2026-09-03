@@ -1,0 +1,11 @@
+{
+    "records": {
+        "ci_platform_landing": {
+            "CNAME": {
+                "name": "ci-platform",
+                "target": "pages.alwaldend.com."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

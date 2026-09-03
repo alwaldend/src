@@ -39,19 +39,25 @@ perform the full workflow only when the task authorizes those mutations.
 2. Record the fetched base OID and feature-ref OID as immutable values; do not
    rely on a remote-tracking ref remaining unchanged. If the feature ref is
    confirmed absent, record that state instead.
-3. After fetching, inspect the local and fetched feature tips and both unique
+3. Record the fetched OIDs in the task's `out/<task>/` directory. Do not create
+   temporary local base or feature branches or leave unrelated local branch
+   state behind. Inspect fetched commits with detached OIDs, revision
+   expressions, or `git diff`, and re-read the recorded values throughout the
+   rebase cycle. Replace the records only after a fresh fetch changes an
+   observed OID.
+4. After fetching, inspect the local and fetched feature tips and both unique
    commit ranges. Establish the expected remote feature state only after
    confirming that replacing it would not overwrite unexpected, shared,
    human-owned, or unrelated work, and that every previously remote task-owned
    commit remains reachable from the replacement.
-4. Rebase the intended task-owned commits onto the fetched base OID. Preserve
+5. Rebase the intended task-owned commits onto the fetched base OID. Preserve
    required signing and any caller-required commit shape. If a previously
    fetched base changes non-fast-forward, stop and reassess instead of blindly
    replaying onto it.
-5. Resolve conflicts only when the correct result is supported by the task and
+6. Resolve conflicts only when the correct result is supported by the task and
    repository evidence. Stage explicit resolutions and continue. Abort when a
    conflict cannot be resolved without guessing or importing unrelated work.
-6. Rerun checks invalidated by the rewrite and inspect the complete
+7. Rerun checks invalidated by the rewrite and inspect the complete
    base-to-head diff. Reassert every caller-required pre-push invariant,
    including commit count and absence of merge commits. If no feature change
    remains relative to the base, stop without inventing an empty commit.

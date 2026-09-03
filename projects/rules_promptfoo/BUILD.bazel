@@ -38,3 +38,9 @@ docs_filegroup(
     prefix = "content/docs/projects/rules_promptfoo",
     visibility = ["//visibility:public"],
 )
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = ["//visibility:public"],
+)

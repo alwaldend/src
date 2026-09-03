@@ -1,0 +1,21 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/hugo_landing/pkg/bzl:al_hugo_landing.bzl", "al_hugo_landing_site")
+
+al_hugo_landing_site(
+    name = "site",
+    docs = "//projects/al:docs",
+    docs_url = "https://alwaldend.com/docs/projects/al/",
+    project = "al",
+    repository_url = "https://github.com/alwaldend/src",
+    title = "Al",
+    visibility = ["//projects:__pkg__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(
+        ["*.md"],
+        allow_empty = True,
+    ),
+    visibility = ["//projects/al:__pkg__"],
+)
