@@ -4,7 +4,7 @@
     "id": "agent-system.capability",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.capability-compiler",
-    "sourceRevision": "debcbc897a7b96b5a392729ce8a61d1e",
+    "sourceRevision": "6105344746529abebfe130dda440ea5f",
     "inputs": [
         {
             "path": ".agents/skills/agent-ergonomics-review",
@@ -129,7 +129,7 @@
         {
             "path": "projects/bazel_agent/cmd/bazel_agent/main.go",
             "role": "direct-binary-source",
-            "digest": "sha256:ead9139a906152e9a8ec6c478e666bb64039b283379a407d1ff60c1ef305c0e3"
+            "digest": "sha256:c5e6b85e25ab1d070a2b809146cf13413061b41d66c7c8049f9274c08079da75"
         },
         {
             "path": "projects/goal/agent_operations.json",
@@ -169,7 +169,7 @@
         {
             "path": "tools/agents/cmd/agent_system/main.go",
             "role": "direct-binary-source",
-            "digest": "sha256:6f2c2a44d3dd73b75d3dae01af9a09de259987f429348177cf448a0b09959585"
+            "digest": "sha256:2cc3ea5e83ff30ce18ca6be22680d544edec4eb3001f5e9d02579a71c4480437"
         },
         {
             "path": "tools/agents/cmd/control_status/main.go",
@@ -219,7 +219,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:0775209e0054d7c3d68e905699c3a07b6b36b4f2a2a0e589c12ef1782202d7c5",
+    "digest": "sha256:e5f4733ddba410341d97799b182e7c9182296a97297204157162248092a00ff0",
     "skills": [
         {
             "id": "agent-ergonomics-review",

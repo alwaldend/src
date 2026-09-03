@@ -55,14 +55,14 @@ API-server-owned metadata.
 Run the command through Bazel:
 
 ```sh
-bazel_agent run //projects/goal/cmd/goal -- --help
+bazel_agent bazel run //projects/goal/cmd/goal -- --help
 ```
 
 Diagnose and finish an interrupted publication:
 
 ```sh
-bazel_agent run //projects/goal/cmd/goal -- doctor --goal-dir $GOAL_DIR
-bazel_agent run //projects/goal/cmd/goal -- recover --goal-dir $GOAL_DIR
+bazel_agent bazel run //projects/goal/cmd/goal -- doctor --goal-dir $GOAL_DIR
+bazel_agent bazel run //projects/goal/cmd/goal -- recover --goal-dir $GOAL_DIR
 ```
 
 The canonical skill lives at `skills/goal`; `.agents/skills/goal` is only its

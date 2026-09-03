@@ -21,19 +21,19 @@ and `.qrc` files.
 Format all safe, hand-maintained files:
 
 ```sh
-bazel_agent run //:format
+bazel_agent bazel run //:format
 ```
 
 Run the non-mutating repository check:
 
 ```sh
-bazel_agent test //:repo_quality_test
+bazel_agent bazel test //:repo_quality_test
 ```
 
 Run semantic source linters over declared targets:
 
 ```sh
-bazel_agent build --config=lint //...
+bazel_agent bazel build --config=lint //...
 ```
 
 The CSS formatter bucket includes CSS, Less and SCSS. The JavaScript bucket

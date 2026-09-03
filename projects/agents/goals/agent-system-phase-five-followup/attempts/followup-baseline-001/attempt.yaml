@@ -2,7 +2,7 @@ apiVersion: goals.alwaldend.com/v1alpha1
 kind: GoalAttempt
 metadata:
   name: followup-baseline-001
-  resourceVersion: "1"
+  resourceVersion: "2"
   generation: 1
   creationTimestamp: "2026-09-03T09:00:00.000000000Z"
 spec:
@@ -18,7 +18,8 @@ spec:
   nextAction: Expand deterministic writable fixtures and measure candidate optimizations
   resumeCondition: Baseline coverage is regenerated and focused package tests pass
 status:
-  state: open
+  state: closed
+  closedAt: "2026-09-03T14:50:31.454444684Z"
   artifacts:
     planDigest: sha256:ecfb3202f0b67577db74e6d29b9e8b8a849f767dc7bd71d0d761731cc6c472ea
     resultDigest: sha256:47d520f966960eb2b121fbfb8746c50c0ae2bdaa275e9a04a4580c114f81af54
@@ -31,4 +32,27 @@ status:
       digest: sha256:4fa4950ba0936c8001499c8818de79bd8b3536f6688847d5b71878681cc95436
     - path: evidence/writable-fixtures.md
       digest: sha256:12f0005ae55181bd999433b212158747be5839ddbe94e61d4f77ad8b1d2ac9e0
-  observedAt: "2026-09-03T09:00:00.000000000Z"
+  review:
+    decision: accept
+    criteria:
+    - criterionID: baseline-coverage
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/baseline-coverage.md
+    - criterionID: live-comparison-policy
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/live-comparison-policy.md
+    - criterionID: optimization-adoption
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/optimization-adoption.md
+    - criterionID: writable-fixtures
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/writable-fixtures.md
+  observedAt: "2026-09-03T14:50:31.454444684Z"

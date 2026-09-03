@@ -9,7 +9,7 @@ bootstrap_dir="${workspace_root}/out/versioning/bootstrap"
 bootstrap_script="${bootstrap_dir}/versioning"
 mkdir -p "${bootstrap_dir}"
 
-bazel_agent run \
+bazel_agent bazel run \
     --script_path="${bootstrap_script}" \
     //tools/versioning/cmd/versioning
 exec "${bootstrap_script}" --repo "${workspace_root}" "$@"

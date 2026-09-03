@@ -57,20 +57,20 @@ use network services, depend on an existing Codex login, and are stochastic.
 Pass the absolute Codex home used by a successful `codex login`:
 
 ```sh
-bazel_agent test //projects/agents/skills/answer-question:eval \
+bazel_agent bazel test //projects/agents/skills/answer-question:eval \
   --test_env=CODEX_HOME=/absolute/path/to/.codex \
   --test_env=CODEX_PATH_OVERRIDE=/absolute/path/to/codex
-bazel_agent test //projects/agents/skills/answer-question:eval_no_skill \
+bazel_agent bazel test //projects/agents/skills/answer-question:eval_no_skill \
   --test_env=CODEX_HOME=/absolute/path/to/.codex \
   --test_env=CODEX_PATH_OVERRIDE=/absolute/path/to/codex
-bazel_agent test \
+bazel_agent bazel test \
   //projects/agents/skills/answer-question:eval_no_skill_stability \
   --test_env=CODEX_HOME=/absolute/path/to/.codex \
   --test_env=CODEX_PATH_OVERRIDE=/absolute/path/to/codex
-bazel_agent test //projects/agents/skills/answer-question:eval_routing \
+bazel_agent bazel test //projects/agents/skills/answer-question:eval_routing \
   --test_env=CODEX_HOME=/absolute/path/to/.codex \
   --test_env=CODEX_PATH_OVERRIDE=/absolute/path/to/codex
-bazel_agent test //projects/agents/skills/answer-question:eval_stability \
+bazel_agent bazel test //projects/agents/skills/answer-question:eval_stability \
   --test_env=CODEX_HOME=/absolute/path/to/.codex \
   --test_env=CODEX_PATH_OVERRIDE=/absolute/path/to/codex
 ```
@@ -79,9 +79,9 @@ The config validation targets are offline and safe for ordinary repository
 checks:
 
 ```sh
-bazel_agent test //projects/agents/skills/answer-question:eval_config_test
-bazel_agent test \
+bazel_agent bazel test //projects/agents/skills/answer-question:eval_config_test
+bazel_agent bazel test \
   //projects/agents/skills/answer-question:eval_no_skill_config_test
-bazel_agent test \
+bazel_agent bazel test \
   //projects/agents/skills/answer-question:eval_routing_config_test
 ```

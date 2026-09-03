@@ -9,6 +9,7 @@ go_library(
         "phase5_aggregate_cmd.go",
         "phase5_cmd.go",
         "phase5_coverage_cmd.go",
+        "phase6_friction_cmd.go",
         "plan_cmd.go",
         "readers.go",
     ],
@@ -40,6 +41,7 @@ go_test(
     srcs = [
         "main_test.go",
         "phase5_aggregate_cmd_test.go",
+        "phase6_friction_cmd_test.go",
         "plan_cmd_test.go",
     ],
     data = glob(["testdata/**"]),

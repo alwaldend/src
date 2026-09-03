@@ -12,25 +12,25 @@ tags:
 ---
 
 `bazel_agent` is the repository Bazel entry point for agents. It keeps the
-ordinary `bazel` command unchanged while consistently applying the agent
-configuration:
+Bazel invocation behind a validated subcommand while consistently applying the
+agent configuration:
 
 ```text
-bazel_agent test //path/to/package:all
+bazel_agent bazel test //path/to/package:all
     ->
 bazel test --config=agent //path/to/package:all
 ```
 
-The runner performs no command validation. It passes an empty argument list,
-`--help`, malformed commands, and every other argument through to Bazel. When a
-first argument exists, it is placed in Bazel's command position and followed
-by `--config=agent`; all remaining arguments are unchanged, including arguments
-after the `--` separator of a `bazel run` invocation. Later options therefore
-retain Bazel's normal precedence and can override settings supplied by the
-agent configuration. The runner resolves `bazel` from `PATH` and replaces
-itself with that process, so signals and the final exit status are not mediated
-by another wrapper process. Uses of the persistent Bazel server follow the
-host Codex network policy; the `host-bot` profile allows loopback so the
+`bazel` is the only Bazel entry point, and it is a validated subcommand. The
+runner accepts a known Bazel command after the `bazel` keyword, rejects
+arbitrary leading arguments, and places `--config=agent` after the command.
+Targets, command options, and arguments after the `--` separator of a
+`bazel run` invocation pass through unchanged. Later options therefore retain
+Bazel's normal precedence and can override settings supplied by the agent
+configuration. The runner resolves `bazel` from `PATH` and replaces itself
+with that process, so signals and the final exit status are not mediated by
+another wrapper process. Uses of the persistent Bazel server follow the host
+Codex network policy; the `host-bot` profile allows loopback so the
 client-server connection is not blocked.
 
 The runner does not create or inject a host temporary directory. Bazel actions
@@ -56,7 +56,7 @@ bazel run --config=agent //projects/bazel_agent:install
 Once installed, update it with:
 
 ```sh
-bazel_agent run //projects/bazel_agent:install
+bazel_agent bazel run //projects/bazel_agent:install
 ```
 
 The install target atomically replaces `~/.local/bin/bazel_agent`. After every

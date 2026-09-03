@@ -4,7 +4,7 @@
     "id": "agent-system.topology",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.topology-compiler",
-    "sourceRevision": "c2166457c47b4608",
+    "sourceRevision": "536a3b8266cb5e4b",
     "inputs": [
         {
             "path": "MODULE.bazel",
@@ -19,7 +19,7 @@
         {
             "path": "infra/README.md",
             "role": "tree-boundary-readme",
-            "digest": "sha256:3390d9faa88a756c624d78bee15aa0717b2aa90c96dd8bd341757f859a1c1923"
+            "digest": "sha256:a2df19e07a2bff8e3448bf3a8fa0ad704f1cc14f8033f0ccab14f8f82620e9b9"
         },
         {
             "path": "projects/README.md",
@@ -74,7 +74,7 @@
         {
             "path": "projects/ansible_collection/README.md",
             "role": "component-readme",
-            "digest": "sha256:3d7ebb20c4fd0aea7638497cf483539652465a01468b028505bfc3c6ead78589"
+            "digest": "sha256:c740fc9a125a9714a2921f7a0913577e050f815eafe76888f8a8ef01e9b47499"
         },
         {
             "path": "projects/autoscroll/BUILD.bazel",
@@ -94,7 +94,7 @@
         {
             "path": "projects/bazel_agent/README.md",
             "role": "component-readme",
-            "digest": "sha256:ba0319efaf85584eb162ad9fe4c269e46426682c621f03a1dfe4a58f76403ef7"
+            "digest": "sha256:749f86819332828d1bb788254f053a382528bcddbb0db640a128fc897f9c52bb"
         },
         {
             "path": "projects/cgit/BUILD.bazel",
@@ -134,7 +134,7 @@
         {
             "path": "projects/goal/README.md",
             "role": "component-readme",
-            "digest": "sha256:b24fe1ee9c06b906861f8163bd30dbcf20cc958af4565cb3b96c80bdd5e4c6f7"
+            "digest": "sha256:baa4e1776310446db8336295394d55b275ef2ea41cf7f5967f342a20b3d23335"
         },
         {
             "path": "projects/infinitime/BUILD.bazel",
@@ -174,7 +174,7 @@
         {
             "path": "projects/mcp_cordis/README.md",
             "role": "component-readme",
-            "digest": "sha256:ba8fedfccf58bfa82970214536f64c3a1a07c659d0a8ed9a577ee109fd81b0fe"
+            "digest": "sha256:1962ba8f8f58043d823708a413caf317d8f5d7e1c28c3f767b8961fd2d49e5ce"
         },
         {
             "path": "projects/nexus_security_plugin/BUILD.bazel",
@@ -259,7 +259,7 @@
         {
             "path": "projects/rules_promptfoo/README.md",
             "role": "component-readme",
-            "digest": "sha256:255cd3ce24355923a7586081a350ba58deb58e266e2ef7d366d0186e20188a12"
+            "digest": "sha256:19ffd7770b779fef8b63633096ddf85b0295a42ec4477913cfa708baa4f7c9fa"
         },
         {
             "path": "projects/rules_promptfoo_gazelle/BUILD.bazel",
@@ -364,7 +364,7 @@
         {
             "path": "third_party/README.md",
             "role": "tree-boundary-readme",
-            "digest": "sha256:66134cc8748a7b3e7a6bfeb9eaa0fa18dcaa84c85325b0620197f03417304737"
+            "digest": "sha256:81590697c40f5333a23c9bdb865537c111c55a92e92947dfa364604877fe0d3b"
         },
         {
             "path": "tools/README.md",
@@ -374,7 +374,7 @@
         {
             "path": "tools/agents/declarations/registry.json",
             "role": "registry",
-            "digest": "sha256:b621f570dc9b3938a61eebbf78e22bcd6a76a85804b474fc59d6d85394978e3e"
+            "digest": "sha256:1d6afa1232d5b96f72473513ee934b1f0a1e59aec154a6fff31b65ba04e7b4bc"
         },
         {
             "path": "users/README.md",
@@ -394,7 +394,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:24cfd78b69ac9e4821cc1ac27a4a3ad36be99a583b65ed2c090842256cd2c3b3",
+    "digest": "sha256:8407369059651156f7e7e786d72f61418024973ea2950d420a5a774887341626",
     "trees": [
         {
             "id": "projects",

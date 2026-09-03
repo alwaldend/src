@@ -1,0 +1,52 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: attempt-5fbe69af8f1e
+  resourceVersion: "5"
+  generation: 1
+  creationTimestamp: "2026-09-03T14:53:38.882525813Z"
+spec:
+  goalRef:
+    name: agent-system-phase-six-ergonomics
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:2a67ea67b2f350f7c19a55135e9acac49a0bf4b9a1ef2624e5e68e7405be8fcb
+  goalStateDigest: sha256:2d5a6e0c0687187e2c04d06a65badf2da5280eb2fc53f77d3f53acfa415f46ac
+  planID: phase6-baseline-001
+  workType: investigation
+  stableDefect: Agent ergonomics friction is not measured across representative task archetypes
+  hypothesis: Systematic FrictionRecord capture will reveal the highest-cost defects for optimization
+  subject: repository agent system
+  nextAction: Record friction for each archetype and produce the baseline evidence
+  resumeCondition: All archetypes have at least one bounded FrictionRecord
+status:
+  state: closed
+  closedAt: "2026-09-03T17:15:41.404546319Z"
+  artifacts:
+    planDigest: sha256:f9daa78c1969986768c42531a085b2210536ccbcda6d845073c0c86545d345bf
+    resultDigest: sha256:506ba8232da9d54dd50875f2d37387965d5f0de6c9e631801c9bdf1008b22f9e
+    evidence:
+    - path: evidence/baseline-plan.md
+      digest: sha256:4d4c255e7831de689f45b813659858126593e30d708bb3c7f0a5f791862b0974
+    - path: evidence/friction-baseline.md
+      digest: sha256:3da5541e46a74570fc2ce7cd18c9efc2fb6e5a888948d2d95c5dfe985ae6b431
+    - path: evidence/optimization-pipeline.md
+      digest: sha256:1c6110f66ab1ea43c095fba47024caa3deda9e42aa95c915e40644ed82205ad5
+    - path: evidence/skill-specificity.md
+      digest: sha256:56e9d27397b7e5529ad340a3e6de98b948ce53e4aef50da64f5879af8853e1e8
+  review:
+    decision: accept
+    criteria:
+    - criterionID: friction-baseline
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/friction-baseline.md
+    - criterionID: optimization-pipeline
+      criterionRevision: 1
+      verdict: pass
+      evidenceRefs:
+      - evidence/optimization-pipeline.md
+      - evidence/skill-specificity.md
+  observedAt: "2026-09-03T17:15:41.404546319Z"

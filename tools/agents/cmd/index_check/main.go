@@ -342,7 +342,7 @@ func run(args []string, stdout io.Writer) error {
 			return fmt.Errorf("checked index JSON unavailable: %w", err)
 		}
 		if !bytes.Equal(tracked, jsonContent) {
-			return fmt.Errorf("checked index JSON is stale; rerun the generator")
+			return fmt.Errorf("checked index JSON is stale; run //tools/agents/cmd/index_check:index_update")
 		}
 		markdownPath := filepath.Join(compiler.root, filepath.FromSlash(opts.markdownPath))
 		trackedMarkdown, err := os.ReadFile(markdownPath)
@@ -350,7 +350,7 @@ func run(args []string, stdout io.Writer) error {
 			return fmt.Errorf("checked index Markdown unavailable: %w", err)
 		}
 		if !bytes.Equal(trackedMarkdown, []byte(markdown)) {
-			return fmt.Errorf("checked index Markdown is stale; rerun the generator")
+			return fmt.Errorf("checked index Markdown is stale; run //tools/agents/cmd/index_check:index_update")
 		}
 	}
 	if err := os.MkdirAll(

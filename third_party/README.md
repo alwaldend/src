@@ -27,5 +27,5 @@ This is a state-changing operator example. An agent needs explicit publication
 authority and must invoke the target through `bazel_agent`.
 
 ```sh
-bazel_agent run //third_party:publish_helm.io_goharbor_helm_harbor
+bazel_agent bazel run //third_party:publish_helm.io_goharbor_helm_harbor
 ```

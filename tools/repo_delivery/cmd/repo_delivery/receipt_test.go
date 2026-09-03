@@ -583,6 +583,67 @@ func TestCanonicalPreparationReceiptJSON(t *testing.T) {
 	}
 }
 
+func TestReceiptShapeMatchesStruct(t *testing.T) {
+	t.Parallel()
+	shape := preparationReceiptJSONShape()
+	preparationType := reflect.TypeOf(preparationReceipt{})
+	for index := 0; index < preparationType.NumField(); index++ {
+		field := preparationType.Field(index)
+		jsonTag := field.Tag.Get("json")
+		name, _, _ := strings.Cut(jsonTag, ",")
+		if name == "-" {
+			continue
+		}
+		child, present := shape.fields[name]
+		if !present {
+			t.Errorf(
+				"struct field %q (json %q) is missing from preparationReceiptJSONShape",
+				field.Name,
+				name,
+			)
+			continue
+		}
+		if strings.Contains(jsonTag, ",omitempty") != child.optional {
+			t.Errorf(
+				"struct field %q omitempty=%v but shape optional=%v",
+				field.Name,
+				strings.Contains(jsonTag, ",omitempty"),
+				child.optional,
+			)
+		}
+	}
+	authShape := shape.fields["rewrite_authorization"]
+	if authShape == nil {
+		t.Fatal("shape lacks rewrite_authorization")
+	}
+	authType := reflect.TypeOf(rewriteAuthorization{})
+	for index := 0; index < authType.NumField(); index++ {
+		field := authType.Field(index)
+		jsonTag := field.Tag.Get("json")
+		name, _, _ := strings.Cut(jsonTag, ",")
+		if name == "-" {
+			continue
+		}
+		child, present := authShape.fields[name]
+		if !present {
+			t.Errorf(
+				"struct field %q (json %q) is missing from rewrite_authorization shape",
+				field.Name,
+				name,
+			)
+			continue
+		}
+		if strings.Contains(jsonTag, ",omitempty") != child.optional {
+			t.Errorf(
+				"struct field %q omitempty=%v but shape optional=%v",
+				field.Name,
+				strings.Contains(jsonTag, ",omitempty"),
+				child.optional,
+			)
+		}
+	}
+}
+
 func TestValidateTaskOutputPath(t *testing.T) {
 	t.Parallel()
 	for _, value := range []string{

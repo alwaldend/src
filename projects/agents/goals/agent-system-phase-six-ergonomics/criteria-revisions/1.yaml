@@ -1,0 +1,22 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalCriteria
+metadata:
+  name: agent-system-phase-six-ergonomics
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-09-03T14:52:07.970004726Z"
+spec:
+  goalRef:
+    name: agent-system-phase-six-ergonomics
+  revision: 1
+  items:
+  - criterionID: friction-baseline
+    revision: 1
+    required: true
+    statement: "friction-baseline: Representative task archetypes have bounded FrictionRecord evidence with stable defect signatures and measured avoidable cost."
+    evidenceMethod: Inspect linked evidence against the criterion.
+  - criterionID: optimization-pipeline
+    revision: 1
+    required: true
+    statement: "optimization-pipeline: Each adopted ergonomics optimization traces a measured baseline, predeclared threshold, reviewed learning proposal, regression, fallback, and retirement rule."
+    evidenceMethod: Inspect linked evidence against the criterion.

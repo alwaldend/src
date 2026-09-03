@@ -14,33 +14,34 @@ description: >-
 Run Bazel from the applicable workspace root with this form:
 
 ```sh
-bazel_agent test //path/to/package:all
+bazel_agent bazel test //path/to/package:all
 ```
 
-The runner performs no command validation. It passes an empty argument list,
-`--help`, malformed commands, and every other argument through to Bazel. When a
-first argument exists, it places that argument in Bazel's command position,
-then passes targets, command options, and arguments after a `bazel run`
-separator normally. Later options retain Bazel's normal precedence, so use
-them when the task intentionally needs to override an agent configuration
-setting:
+`bazel` is the only Bazel entry point, and it is a validated subcommand.
+The runner accepts a known Bazel command after the `bazel` keyword, rejects
+arbitrary leading arguments, and places `--config=agent` in its required
+position. Targets, command options, and arguments after a `bazel run`
+separator pass through normally. Later options retain Bazel's normal
+precedence, so use them when the task intentionally needs to override an
+agent configuration setting:
 
 ```sh
-bazel_agent run //path/to:tool -- --tool-option
+bazel_agent bazel run //path/to:tool -- --tool-option
 ```
 
-Do not call `bazel` directly or repeat `--config=agent`. `bazel_agent` adds
-that flag in its required position, resolves the Bazelisk-managed `bazel` from
-`PATH`, and replaces itself with that process. The replacement preserves direct
-signal delivery and Bazel's exit status. The repository `.bazeliskrc` pins the
-Bazel version and archive hash.
+Do not call `bazel` directly or repeat `--config=agent`. Nested workspaces
+import the same shared rc files, so the `agent` configuration resolves there
+as well. `bazel_agent` adds the flag in its required position, resolves the
+Bazelisk-managed `bazel` from `PATH`, and replaces itself with that process.
+The replacement preserves direct signal delivery and Bazel's exit status. The
+repository `.bazeliskrc` pins the Bazel version and archive hash.
 
 For Bazel commands that support multiple targets, such as `build` and `test`,
 batch compatible targets into one invocation when they use the same options:
 
 ```sh
-bazel_agent build //path/to:first //path/to:second
-bazel_agent test //path/to:first_test //path/to:second_test
+bazel_agent bazel build //path/to:first //path/to:second
+bazel_agent bazel test //path/to:first_test //path/to:second_test
 ```
 
 The persistent Bazel server keeps startup overhead low across invocations, so
@@ -65,7 +66,7 @@ bazel run --config=agent //projects/bazel_agent:install
 After every code update under `projects/bazel_agent`, reinstall the host copy:
 
 ```sh
-bazel_agent run //projects/bazel_agent:install
+bazel_agent bazel run //projects/bazel_agent:install
 ```
 
 The install target atomically updates `~/.local/bin/bazel_agent`; confirm that

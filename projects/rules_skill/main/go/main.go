@@ -80,7 +80,12 @@ func run(arguments []string, stdout io.Writer, stderr io.Writer) int {
 	)
 	if len(errors) != 0 {
 		for _, validationError := range errors {
-			fmt.Fprintf(stderr, "ERROR: %s\n", validationError)
+			fmt.Fprintf(
+				stderr,
+				"ERROR: skill %s: %s\n",
+				expectedName,
+				validationError,
+			)
 		}
 		return 1
 	}

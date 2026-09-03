@@ -24,7 +24,7 @@ Follow `bazel-agent` for every Bazel invocation. Run ast-grep through the
 repository alias and pass pattern and options after Bazel's separator:
 
 ```sh
-bazel_agent run //tools/ast-grep:ast-grep -- --pattern 'console.log($A)' --lang javascript .
+bazel_agent bazel run //tools/ast-grep:ast-grep -- --pattern 'console.log($A)' --lang javascript .
 ```
 
 Do not substitute an ast-grep binary from `PATH`, a separately downloaded

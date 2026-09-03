@@ -17,7 +17,7 @@ description: >-
 
    ```sh
    mkdir -p out/full-repo-check
-   bazel_agent run \
+   bazel_agent bazel run \
      --script_path=out/full-repo-check/run_full_repo_check \
      //projects/agents/skills/full-repo-check:run_full_repo_check
    out/full-repo-check/run_full_repo_check
@@ -26,11 +26,11 @@ description: >-
    `--script_path` writes a launcher without running it. The first command can
    therefore exit and release its Bazel output-base lock before the launcher
    starts the checker and its child Bazel processes. Do not replace these two
-   commands with a direct `bazel_agent run` of the target: the checker would
+   commands with a direct `bazel_agent bazel run` of the target: the checker would
    then wait on the lock held by its own enclosing Bazel invocation.
 
-   The checker executes `bazel_agent build //...` and
-   `bazel_agent test //...` in the root workspace and nine nested workspaces.
+   The checker executes `bazel_agent bazel build //...` and
+   `bazel_agent bazel test //...` in the root workspace and nine nested workspaces.
    It continues after failures so one run covers the whole repository. Child
    commands use the normal machine output-user-root; Bazel assigns each
    workspace its own output base below it.

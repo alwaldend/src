@@ -2,7 +2,7 @@ apiVersion: goals.alwaldend.com/v1alpha1
 kind: Goal
 metadata:
   name: agent-system-phase-five-followup
-  resourceVersion: "1"
+  resourceVersion: "2"
   generation: 1
   creationTimestamp: "2026-09-03T09:00:00.000000000Z"
   annotations:
@@ -16,11 +16,14 @@ spec:
     dependsOnGoalRefs: []
     supersedesGoalRefs: []
 status:
-  lifecycleGeneration: 1
-  outcome: open
+  lifecycleGeneration: 2
+  outcome: achieved
   execution: paused
-  activeAttemptID: followup-baseline-001
+  activeAttemptID: ""
+  acceptedAttemptID: followup-baseline-001
+  acceptedResultDigest: sha256:47d520f966960eb2b121fbfb8746c50c0ae2bdaa275e9a04a4580c114f81af54
   criteriaRevision: 1
+  plans: []
   promotion:
     sourceScope: ""
     sourceGeneration: 0
@@ -32,6 +35,9 @@ status:
     promotedAt: ""
   migration:
     sourceFormat: ""
+    sourcePath: ""
     sourceDigest: ""
+    mappingVersion: ""
+    extractionMode: ""
     migratedAt: ""
-  observedAt: "2026-09-03T09:00:00.000000000Z"
+  observedAt: "2026-09-03T14:50:31.454786549Z"

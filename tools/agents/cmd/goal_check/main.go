@@ -595,7 +595,7 @@ func Run(args []string, stdout io.Writer) error {
 			return fmt.Errorf("checked goal JSON unavailable: %w", err)
 		}
 		if !bytes.Equal(tracked, jsonContent) {
-			return fmt.Errorf("checked goal JSON is stale; rerun the generator")
+			return fmt.Errorf("checked goal JSON is stale; run //tools/agents/cmd/goal_check:goal_update")
 		}
 		markdownPath := filepath.Join(compiler.root, filepath.FromSlash(opts.markdownPath))
 		trackedMarkdown, err := os.ReadFile(markdownPath)
@@ -603,7 +603,7 @@ func Run(args []string, stdout io.Writer) error {
 			return fmt.Errorf("checked goal Markdown unavailable: %w", err)
 		}
 		if !bytes.Equal(trackedMarkdown, []byte(markdown)) {
-			return fmt.Errorf("checked goal Markdown is stale; rerun the generator")
+			return fmt.Errorf("checked goal Markdown is stale; run //tools/agents/cmd/goal_check:goal_update")
 		}
 	}
 	if err := os.MkdirAll(

@@ -4,6 +4,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"os"
 	"os/exec"
@@ -16,7 +17,34 @@ import (
 type (
 	lookPathFunc       func(string) (string, error)
 	replaceProcessFunc func(string, []string, []string) error
+	argumentsFunc      func([]string) ([]string, error)
 )
+
+var errDoctorHandled = errors.New("doctor")
+
+var bazelCommands = map[string]struct{}{
+	"analyze-profile":    {},
+	"aquery":             {},
+	"build":              {},
+	"canonicalize-flags": {},
+	"clean":              {},
+	"coverage":           {},
+	"cinfo":              {},
+	"cquery":             {},
+	"dump":               {},
+	"fetch":              {},
+	"help":               {},
+	"info":               {},
+	"mobile-install":     {},
+	"mod":                {},
+	"print_action":       {},
+	"query":              {},
+	"run":                {},
+	"shutdown":           {},
+	"sync":               {},
+	"test":               {},
+	"version":            {},
+}
 
 type doctorReport struct {
 	Schema   string         `json:"schema"`
@@ -59,13 +87,40 @@ type doctorScratch struct {
 	Reason     string `json:"reason,omitempty"`
 }
 
-func bazelArguments(args []string) []string {
-	result := make([]string, 0, len(args)+1)
+func bazelArguments(args []string) ([]string, error) {
 	if len(args) == 0 {
-		return result
+		return nil, fmt.Errorf(
+			"a subcommand is required; usage: bazel_agent bazel <command> " +
+				"[args...] or bazel_agent doctor",
+		)
 	}
-	result = append(result, args[0], "--config=agent")
-	return append(result, args[1:]...)
+	if args[0] == "doctor" {
+		return nil, errDoctorHandled
+	}
+	if args[0] != "bazel" {
+		return nil, fmt.Errorf(
+			"unknown command %q; usage: bazel_agent bazel <command> "+
+				"[args...] or bazel_agent doctor",
+			args[0],
+		)
+	}
+	if len(args) == 1 {
+		return nil, fmt.Errorf(
+			"the bazel subcommand requires a Bazel command, " +
+				"for example: bazel_agent bazel build //...",
+		)
+	}
+	command := args[1]
+	if _, ok := bazelCommands[command]; !ok {
+		return nil, fmt.Errorf(
+			"unsupported Bazel command %q; run bazel_agent bazel help "+
+				"for the list",
+			command,
+		)
+	}
+	result := make([]string, 0, len(args))
+	result = append(result, command, "--config=agent")
+	return append(result, args[2:]...), nil
 }
 
 func run(
@@ -73,12 +128,17 @@ func run(
 	environment []string,
 	lookPath lookPathFunc,
 	replaceProcess replaceProcessFunc,
+	arguments argumentsFunc,
 ) error {
+	bazelArgs, err := arguments(args)
+	if err != nil {
+		return err
+	}
 	bazelPath, err := lookPath("bazel")
 	if err != nil {
 		return fmt.Errorf("find bazel in PATH: %w", err)
 	}
-	processArgs := append([]string{bazelPath}, bazelArguments(args)...)
+	processArgs := append([]string{bazelPath}, bazelArgs...)
 	if err := replaceProcess(bazelPath, processArgs, environment); err != nil {
 		return fmt.Errorf("execute bazel: %w", err)
 	}
@@ -225,11 +285,15 @@ func runDoctor(args []string) error {
 
 func main() {
 	args := os.Args[1:]
-	var err error
-	if len(args) > 0 && args[0] == "doctor" {
+	err := run(
+		args,
+		os.Environ(),
+		exec.LookPath,
+		syscall.Exec,
+		bazelArguments,
+	)
+	if errors.Is(err, errDoctorHandled) {
 		err = runDoctor(args[1:])
-	} else {
-		err = run(args, os.Environ(), exec.LookPath, syscall.Exec)
 	}
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "bazel_agent: %v\n", err)

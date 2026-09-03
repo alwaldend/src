@@ -46,7 +46,7 @@ raw `kubectl` input, and this project supplies neither CRDs nor a controller.
 Run it through Bazel:
 
 ```sh
-bazel_agent run //projects/goal/cmd/goal -- init \
+bazel_agent bazel run //projects/goal/cmd/goal -- init \
   --goals-root out/example/goals \
   --goal-id verify-the-release \
   --title "Verify the release" \
@@ -56,7 +56,7 @@ bazel_agent run //projects/goal/cmd/goal -- init \
 Use a task-specific binding directory when changing session focus:
 
 ```sh
-bazel_agent run //projects/goal/cmd/goal -- attach \
+bazel_agent bazel run //projects/goal/cmd/goal -- attach \
   --session-root out/example/goal-sessions \
   --session-id current \
   --goal-dir out/example/goals/verify-the-release
@@ -107,6 +107,28 @@ goal-state digests avoid binding durable records to local resource-version
 tokens. Closing an attempt requires `--review-file` with an `accept`, `refine`,
 or `reset` decision and per-criterion verdicts linked to frozen plan, result,
 or evidence artifacts.
+The review file is plain YAML with exactly two keys. Criteria entries must be
+sorted by `criterionID`, and `evidenceRefs` must be unique, sorted, and name
+only frozen artifacts (`plan.md`, `result.md`, or files under `evidence/`).
+Verdicts are `pass`, `fail`, or `unverified`; a non-`unverified` verdict
+requires at least one evidence reference. Do not add `apiVersion` or `kind`
+headers:
+
+```yaml
+decision: accept
+criteria:
+  - criterionID: friction-baseline
+    criterionRevision: 1
+    verdict: pass
+    evidenceRefs:
+      - evidence/friction-baseline.md
+  - criterionID: optimization-pipeline
+    criterionRevision: 1
+    verdict: pass
+    evidenceRefs:
+      - evidence/optimization-pipeline.md
+```
+
 An achieved outcome must close an accepting attempt whose exact passes cover
 every current required criterion. Structured verdicts are kept in
 `attempt.yaml`; richer narrative stays in `result.md`.
@@ -133,7 +155,7 @@ the same import is idempotent only while source provenance and import options
 match the existing target.
 
 ```sh
-bazel_agent run //projects/goal/cmd/goal -- migrate \
+bazel_agent bazel run //projects/goal/cmd/goal -- migrate \
   --source-goal-dir out/example/legacy/verify-the-release \
   --destination-goals-root out/example/imported/goals
 ```

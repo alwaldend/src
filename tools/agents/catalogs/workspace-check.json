@@ -4,12 +4,12 @@
     "id": "agent-system.workspace-check",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.workspace-check-compiler",
-    "sourceRevision": "87a51cd7fadb87ac72737f1ef54eef09",
+    "sourceRevision": "e0fcca8fb38f9748b1f2c8623932b1b0",
     "inputs": [
         {
             "path": ".bazelignore",
             "role": "bazel-ignore",
-            "digest": "sha256:7ccf264ff1d6a96893f59779e23fc8b9752413773650ee4190c30f55c6e295bf"
+            "digest": "sha256:8b1b3e1d0cf9d29b8820254b04fc90f456754b620bd68b3086986161e72dc68d"
         },
         {
             "path": "MODULE.bazel",
@@ -19,7 +19,7 @@
         {
             "path": "projects/agents/skills/full-repo-check/scripts/run_full_repo_check.go",
             "role": "full-check-script",
-            "digest": "sha256:d947589c104aadf59cae4df8c882a8280cc3ca26b6d4b2c5e8973065ff6715f6"
+            "digest": "sha256:4fe9b2fd564109257cc44779c49107791c3d117c698f0af2365a4e680cb93cf8"
         },
         {
             "path": "projects/rules_binary_toolchain/MODULE.bazel",
@@ -79,7 +79,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:40d46b3b913dc607a7c55a9b0b499cd4d500fdc99a779a5b29843ef4bcb696c0",
+    "digest": "sha256:d3bebeb04b1f822eacd0a34a75b71b26f1e5a86bc2865e7cf849e1a355471a7f",
     "workspaces": [
         {
             "id": "projects.rules_binary_toolchain",
@@ -96,7 +96,7 @@
                 {
                     "id": "projects.rules_binary_toolchain.check",
                     "providerRef": "repository.bazel-operations",
-                    "commandTemplate": "bazel_agent test //..."
+                    "commandTemplate": "bazel_agent bazel test //..."
                 }
             ]
         },
@@ -115,7 +115,7 @@
                 {
                     "id": "projects.rules_docs.check",
                     "providerRef": "repository.bazel-operations",
-                    "commandTemplate": "bazel_agent test //..."
+                    "commandTemplate": "bazel_agent bazel test //..."
                 }
             ]
         },
@@ -134,7 +134,7 @@
                 {
                     "id": "projects.rules_docs_gazelle.check",
                     "providerRef": "repository.bazel-operations",
-                    "commandTemplate": "bazel_agent test //..."
+                    "commandTemplate": "bazel_agent bazel test //..."
                 }
             ]
         },
@@ -153,7 +153,7 @@
                 {
                     "id": "projects.rules_hugo.check",
                     "providerRef": "repository.bazel-operations",
-                    "commandTemplate": "bazel_agent test //..."
+                    "commandTemplate": "bazel_agent bazel test //..."
                 }
             ]
         },
@@ -172,7 +172,7 @@
                 {
                     "id": "projects.rules_promptfoo.check",
                     "providerRef": "repository.bazel-operations",
-                    "commandTemplate": "bazel_agent test //..."
+                    "commandTemplate": "bazel_agent bazel test //..."
                 }
             ]
         },
@@ -191,7 +191,7 @@
                 {
                     "id": "projects.rules_promptfoo_gazelle.check",
                     "providerRef": "repository.bazel-operations",
-                    "commandTemplate": "bazel_agent test //..."
+                    "commandTemplate": "bazel_agent bazel test //..."
                 }
             ]
         },
@@ -210,7 +210,7 @@
                 {
                     "id": "projects.rules_skill.check",
                     "providerRef": "repository.bazel-operations",
-                    "commandTemplate": "bazel_agent test //..."
+                    "commandTemplate": "bazel_agent bazel test //..."
                 }
             ]
         },
@@ -229,7 +229,7 @@
                 {
                     "id": "projects.rules_skill_gazelle.check",
                     "providerRef": "repository.bazel-operations",
-                    "commandTemplate": "bazel_agent test //..."
+                    "commandTemplate": "bazel_agent bazel test //..."
                 }
             ]
         },
@@ -248,7 +248,7 @@
                 {
                     "id": "projects.rules_template.check",
                     "providerRef": "repository.bazel-operations",
-                    "commandTemplate": "bazel_agent test //..."
+                    "commandTemplate": "bazel_agent bazel test //..."
                 }
             ]
         },
@@ -267,7 +267,7 @@
                 {
                     "id": "root.check",
                     "providerRef": "repository.bazel-operations",
-                    "commandTemplate": "bazel_agent test //..."
+                    "commandTemplate": "bazel_agent bazel test //..."
                 }
             ]
         }

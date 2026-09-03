@@ -663,7 +663,7 @@ func run(args []string, stdout io.Writer) error {
 			return fmt.Errorf("checked capability JSON unavailable: %w", err)
 		}
 		if !bytes.Equal(tracked, jsonContent) {
-			return fmt.Errorf("checked capability JSON is stale; rerun the generator")
+			return fmt.Errorf("checked capability JSON is stale; run //tools/agents/cmd/capability_check:capability_update")
 		}
 		markdownPath := filepath.Join(compiler.root, filepath.FromSlash(opts.markdownPath))
 		trackedMarkdown, err := os.ReadFile(markdownPath)
@@ -671,7 +671,7 @@ func run(args []string, stdout io.Writer) error {
 			return fmt.Errorf("checked capability Markdown unavailable: %w", err)
 		}
 		if !bytes.Equal(trackedMarkdown, []byte(markdown)) {
-			return fmt.Errorf("checked capability Markdown is stale; rerun the generator")
+			return fmt.Errorf("checked capability Markdown is stale; run //tools/agents/cmd/capability_check:capability_update")
 		}
 	}
 	if err := os.MkdirAll(filepath.Dir(filepath.Join(compiler.root, filepath.FromSlash(opts.outputPath))), 0o755); err != nil {

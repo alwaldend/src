@@ -62,7 +62,10 @@ func launchBazel(
 		args,
 		"--workspace_status_command="+statusCommand,
 	)
-	command := exec.Command("bazel_agent", arguments...)
+	command := exec.Command("bazel_agent", append(
+		[]string{"bazel"},
+		arguments...,
+	)...)
 	command.Dir = repository
 	command.Stdin = os.Stdin
 	command.Stdout = os.Stdout

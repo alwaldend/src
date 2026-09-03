@@ -1064,7 +1064,11 @@ func (d *delivery) receiptPath(
 			return "", fmt.Errorf("receipt file must be a regular non-symlink file")
 		}
 		if info.Mode().Perm() != 0o600 {
-			return "", fmt.Errorf("receipt file permissions must be 0600")
+			return "", fmt.Errorf(
+				"receipt file %s has mode %04o; require 0600",
+				relative,
+				info.Mode().Perm(),
+			)
 		}
 	} else if requireExisting || !os.IsNotExist(err) {
 		if os.IsNotExist(err) {
@@ -1570,6 +1574,7 @@ type canonicalJSONShape struct {
 	fields     map[string]*canonicalJSONShape
 	element    *canonicalJSONShape
 	scalarKind string
+	optional   bool
 }
 
 func preparationReceiptJSONShape() *canonicalJSONShape {
@@ -1577,6 +1582,11 @@ func preparationReceiptJSONShape() *canonicalJSONShape {
 	boolValue := &canonicalJSONShape{scalarKind: "boolean"}
 	numberValue := &canonicalJSONShape{scalarKind: "number"}
 	stringsArray := &canonicalJSONShape{element: stringValue}
+	remoteRepository := &canonicalJSONShape{fields: map[string]*canonicalJSONShape{
+		"host":  stringValue,
+		"owner": stringValue,
+		"name":  stringValue,
+	}}
 	return &canonicalJSONShape{fields: map[string]*canonicalJSONShape{
 		"schema":                 stringValue,
 		"revision_nonce":         stringValue,
@@ -1584,17 +1594,13 @@ func preparationReceiptJSONShape() *canonicalJSONShape {
 		"remote_name":            stringValue,
 		"fetch_endpoint_sha256":  stringValue,
 		"push_endpoint_sha256":   stringValue,
-		"remote_repository": {fields: map[string]*canonicalJSONShape{
-			"host":  stringValue,
-			"owner": stringValue,
-			"name":  stringValue,
-		}},
-		"forge":             stringValue,
-		"base_ref":          stringValue,
-		"base_oid":          stringValue,
-		"head_ref":          stringValue,
-		"prepared_head_oid": stringValue,
-		"prepared_tree_oid": stringValue,
+		"remote_repository":      remoteRepository,
+		"forge":                  stringValue,
+		"base_ref":               stringValue,
+		"base_oid":               stringValue,
+		"head_ref":               stringValue,
+		"prepared_head_oid":      stringValue,
+		"prepared_tree_oid":      stringValue,
 		"expected_remote_head": {fields: map[string]*canonicalJSONShape{
 			"ref":     stringValue,
 			"present": boolValue,
@@ -1614,6 +1620,18 @@ func preparationReceiptJSONShape() *canonicalJSONShape {
 			"mode":             stringValue,
 			"authorized_paths": stringsArray,
 			"aggregate_paths":  stringsArray,
+		}},
+		"rewrite_authorization": {optional: true, fields: map[string]*canonicalJSONShape{
+			"schema":                 stringValue,
+			"issued_at":              stringValue,
+			"repository_fingerprint": stringValue,
+			"remote_repository":      remoteRepository,
+			"provider":               stringValue,
+			"old_remote_oid":         stringValue,
+			"new_head_oid":           stringValue,
+			"owner_root":             stringValue,
+			"task_paths":             stringsArray,
+			"source_receipt_digest":  {optional: true, scalarKind: "string"},
 		}},
 	}}
 }
@@ -1713,17 +1731,29 @@ func validateCanonicalJSONValue(
 		if closing != json.Delim('}') {
 			return fmt.Errorf("%s has an invalid object terminator", location)
 		}
-		if len(seen) != len(shape.fields) {
+		requiredCount := 0
+		for key, child := range shape.fields {
+			if !child.optional {
+				requiredCount++
+			}
+			_ = key
+		}
+		if seenCount := len(seen); seenCount < requiredCount {
 			var missing []string
 			for key := range shape.fields {
+				if shape.fields[key].optional {
+					continue
+				}
 				if _, present := seen[key]; !present {
 					missing = append(missing, key)
 				}
 			}
 			sort.Strings(missing)
 			return fmt.Errorf(
-				"%s is missing canonical keys %q",
+				"%s has %d keys, want %d (missing: %q)",
 				location,
+				seenCount,
+				requiredCount,
 				missing,
 			)
 		}

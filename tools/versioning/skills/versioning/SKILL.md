@@ -35,7 +35,7 @@ dependency pins and upgrades to their owning dependency workflow.
 Run:
 
 ```sh
-bazel_agent run //tools/versioning/cmd/versioning -- show --format json
+bazel_agent bazel run //tools/versioning/cmd/versioning -- show --format json
 ```
 
 `show` and `bazel-status` are read-only. Tag and branch commands mutate local
@@ -52,8 +52,8 @@ they omit only the committed ref update and branch switch.
 From a clean trunk checkout:
 
 ```sh
-bazel_agent run //tools/versioning/cmd/versioning -- nightly-tag --dry-run
-bazel_agent run //tools/versioning/cmd/versioning -- nightly-tag
+bazel_agent bazel run //tools/versioning/cmd/versioning -- nightly-tag --dry-run
+bazel_agent bazel run //tools/versioning/cmd/versioning -- nightly-tag
 ```
 
 Use `--date YYYY-MM-DD` only for a deliberate UTC calendar override. The tool
@@ -70,17 +70,17 @@ Start the current ISO week from clean trunk. The tool atomically creates the
 branch and patch-zero tag, then switches to the release branch:
 
 ```sh
-bazel_agent run //tools/versioning/cmd/versioning -- release-start --dry-run
-bazel_agent run //tools/versioning/cmd/versioning -- release-start
+bazel_agent bazel run //tools/versioning/cmd/versioning -- release-start --dry-run
+bazel_agent bazel run //tools/versioning/cmd/versioning -- release-start
 ```
 
 On `releases/YYYY.W`, every first-parent commit changes the calculated patch.
 Inspect it, then create the exact release tag:
 
 ```sh
-bazel_agent run //tools/versioning/cmd/versioning -- show --format json
-bazel_agent run //tools/versioning/cmd/versioning -- release-tag --dry-run
-bazel_agent run //tools/versioning/cmd/versioning -- release-tag
+bazel_agent bazel run //tools/versioning/cmd/versioning -- show --format json
+bazel_agent bazel run //tools/versioning/cmd/versioning -- release-tag --dry-run
+bazel_agent bazel run //tools/versioning/cmd/versioning -- release-tag
 ```
 
 Do not manually move release base tags or reuse a weekly branch name. A
@@ -96,7 +96,7 @@ Branch context is unavailable on detached HEAD. If the exact commit has both
 the nightly and release tags, select which immutable tag is being rebuilt:
 
 ```sh
-bazel_agent run //tools/versioning/cmd/versioning -- \
+bazel_agent bazel run //tools/versioning/cmd/versioning -- \
   --channel release show --format json
 ```
 
@@ -104,7 +104,7 @@ An untagged commit from a release branch needs its release line to calculate
 the patch from first-parent history:
 
 ```sh
-bazel_agent run //tools/versioning/cmd/versioning -- \
+bazel_agent bazel run //tools/versioning/cmd/versioning -- \
   --release 2026.35 show --format json
 ```
 
@@ -147,7 +147,7 @@ state. The plan is not an authorization and never moves an existing immutable
 tag:
 
 ```sh
-bazel_agent run //tools/versioning/cmd/versioning -- \
+bazel_agent bazel run //tools/versioning/cmd/versioning -- \
   release-plan --plan out/delivery/release-plan.json
 ```
 
@@ -158,7 +158,7 @@ preconditions, and the atomicity requirement. Review it before consumption.
 Publish the exact reviewed plan only with explicit release scope:
 
 ```sh
-bazel_agent run //tools/versioning/cmd/versioning -- \
+bazel_agent bazel run //tools/versioning/cmd/versioning -- \
   release-publish --plan out/delivery/release-plan.json \
   --receipt out/delivery/release-ref-receipt.json
 ```

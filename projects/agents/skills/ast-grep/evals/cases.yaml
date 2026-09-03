@@ -8,7 +8,7 @@
       threshold: 1
       value: >-
         Pass only if the response uses the repository-pinned ast-grep toolchain
-        through `bazel_agent run //tools/ast-grep:ast-grep` rather than a
+        through `bazel_agent bazel run //tools/ast-grep:ast-grep` rather than a
         PATH binary, reads `tools/ast-grep/README.md` and the pinned version
         from `tools/ast-grep/binary_toolchain.json`, scopes the search to the
         owning package, uses a syntax-aware pattern that expresses argument

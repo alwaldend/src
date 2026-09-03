@@ -9,7 +9,7 @@ one-off script when no such target exists, use this shape from the workspace
 root:
 
 ```sh
-bazel_agent run //tools/blender:blender -- \
+bazel_agent bazel run //tools/blender:blender -- \
   --background \
   --factory-startup \
   --disable-autoexec \
@@ -44,7 +44,7 @@ Use foreground Blender only for a UI-context operation. Before launching it:
    context, not a requirement for background work or an already-running
    compatible session.
 
-A long-lived `bazel_agent run` couples Blender to that Bazel client. Plan other
+A long-lived `bazel_agent bazel run` couples Blender to that Bazel client. Plan other
 Bazel work around the session and confirm observed lock contention rather than
 assuming it. A same-session generated-wrapper launch is a narrow fallback:
 first build `//tools/blender:blender` through `bazel_agent`, resolve the

@@ -65,7 +65,7 @@
 
 ## Attempt 1, check 1: npm repository analysis
 
-- Command: `bazel_agent query //projects/mcp_cordis:all`
+- Command: `bazel_agent bazel query //projects/mcp_cordis:all`
 - Result: failed before target analysis.
 - Cause: rules_js requires pnpm v10 workspaces to declare
   `onlyBuiltDependencies`, including when lifecycle actions are disabled.
@@ -78,7 +78,7 @@
 
 ## Attempt 1, check 2: package query after npm correction
 
-- Command: `bazel_agent query //projects/mcp_cordis:all`
+- Command: `bazel_agent bazel query //projects/mcp_cordis:all`
 - Result: npm translation succeeded; target loading stopped because the
   deliberately non-empty starter-package glob had not yet been populated.
 - Cause: implementation was queried while the parallel starter-package draft
@@ -90,7 +90,7 @@
 
 ## Attempt 1, check 3: runtime test process did not terminate
 
-- Command: `bazel_agent test //projects/mcp_cordis:runtime_test`
+- Command: `bazel_agent bazel test //projects/mcp_cordis:runtime_test`
 - Result: both test bodies completed in under 400 ms, one failed, but a worker
   retained by the failing test kept the process alive until the run was
   interrupted at 144 seconds.
@@ -115,7 +115,7 @@
 
 ## Starter search depends on undeclared ripgrep (occurrence 1)
 
-- Command: `bazel_agent test
+- Command: `bazel_agent bazel test
 //projects/mcp_cordis:starter_packages_test`.
 - Result: failed in 0.4 seconds with `spawn rg ENOENT`.
 - Cause: `repo_context_search` invoked the preferred ripgrep engine without a
@@ -131,7 +131,7 @@
 
 ## Lifecycle drain test uses an elapsed-time race (occurrence 1)
 
-- Command: `bazel_agent test //projects/mcp_cordis:all` on rebased commit
+- Command: `bazel_agent bazel test //projects/mcp_cordis:all` on rebased commit
   `e3e74cb1e573867825347292bf17220a5b9a4a0c`.
 - Result: three test targets pass; `runtime_test` reports actual drain count
   `0`, expected `1`.
@@ -146,7 +146,7 @@
 
 ## BUILD data labels not in Buildifier order (occurrence 1)
 
-- Command: `bazel_agent test //:buildifier_test` during Attempt 3.
+- Command: `bazel_agent bazel test //:buildifier_test` during Attempt 3.
 - Result: failed with an exact three-line ordering diff in
   `projects/mcp_cordis/BUILD.bazel`.
 - Cause: the external-style `:node_modules/...` label followed the two shorter

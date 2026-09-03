@@ -202,7 +202,7 @@ stated scope.
 - Prefer a small, target-specific change. This is a large monorepo, so query,
   build, and test the affected Bazel package before considering `//...`.
 - Prefer Go for repository automation and scripts. Expose them as Bazel
-  `go_binary` targets and invoke them with `bazel_agent run`; use
+  `go_binary` targets and invoke them with `bazel_agent bazel run`; use
   another language only when Go or Bazel would materially complicate the task.
 - Loading the `repo-delivery` skill is REQUIRED when making changes that will
   land in the source tree, including every implementation task. The skill owns
@@ -274,14 +274,14 @@ stated scope.
 ## Searching
 
 Do not use recursive `grep` or `ls`. Use `rg`, `rg --files`, `find` with a
-bounded depth, or `bazel_agent query` instead. Never search from the
+bounded depth, or `bazel_agent bazel query` instead. Never search from the
 filesystem root (`find /`); it can hang for minutes on large dependency
 caches. Use an explicit root and `-maxdepth`, and prefer `rg --files` with a
 path.
 
 For structure-aware queries that plain-text search cannot express, use the
 repository-pinned ast-grep tool and the `ast-grep` skill. Invoke it through
-`bazel_agent run //tools/ast-grep:ast-grep --` with the pattern and language
+`bazel_agent bazel run //tools/ast-grep:ast-grep --` with the pattern and language
 after the separator. Do not substitute an ast-grep binary from `PATH` or a
 separate download; read `tools/ast-grep/binary_toolchain.json` for the pinned
 version and follow the `ast-grep` skill for pattern validation and safe
@@ -368,6 +368,14 @@ Follow `.editorconfig` and the closest existing files:
   commit messages, pull requests, issues, chat or session messages, and other
   user-facing artifacts. Exceptions only when an emoji is required by the
   surrounding context or tooling.
+
+Commit messages follow ordinary Git conventions. Use a concise, unprefixed
+subject; a blank line before any body; and a blank line before the trailer
+footer. Do not use Conventional Commit or other artificial subject prefixes.
+Use `Token: value` trailers in Git's `git interpret-trailers` format. Goal-
+linked delivery commits require both `Goal-Ref` and `Attempt-ID`; optionally
+add `Learning-Proposal`. The generated `LLM-disclaimer` remains the final
+trailer.
 
 ## Verification
 

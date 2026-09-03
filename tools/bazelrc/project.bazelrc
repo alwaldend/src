@@ -46,6 +46,7 @@ build:agent --show_timestamps
 test:agent --max_test_output_bytes=1048576
 test:agent --nocache_test_results
 test:agent --test_summary=terse
+test:agent --test_output=errors
 # Show extra C/C++ errors
 build --copt="-Wextra"
 # Sandbox workers

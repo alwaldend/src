@@ -35,7 +35,7 @@ owning Bazel and dependency skills.
 Pass Blender arguments after Bazel's separator:
 
 ```sh
-bazel_agent run //tools/blender:blender -- --version
+bazel_agent bazel run //tools/blender:blender -- --version
 ```
 
 ## Select the least-stateful execution mode

@@ -80,6 +80,7 @@ func newRootCommand(
 		newInspectCommand(ctx, config, getenv, stdout, runner),
 		newRewriteAuthorizeCommand(ctx, config, getenv, stdout, runner),
 		newPrepareCommand(ctx, config, getenv, stdout, runner),
+		newDeliverCommand(ctx, config, getenv, stdout, runner),
 		newPublishCommand(ctx, config, getenv, stdout, runner),
 		newRebaseCommand(ctx, config, getenv, stdout, runner),
 		newVerifyCommand(ctx, config, getenv, stdout, runner),
@@ -421,7 +422,7 @@ func newPublishCommand(
 		&options.ValidatedHead,
 		"validated-head",
 		"",
-		"exact HEAD commit OID covered by the reported validations",
+		"exact HEAD commit OID covered by the reported validations; defaults to the receipt's prepared_head_oid",
 	)
 	flags.StringVar(
 		&options.ReceiptFile,
@@ -435,7 +436,6 @@ func newPublishCommand(
 		false,
 		"push the feature branch without creating or synchronizing a pull request",
 	)
-	_ = command.MarkFlagRequired("validated-head")
 	_ = command.MarkFlagRequired("receipt-file")
 	return command
 }

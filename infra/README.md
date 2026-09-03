@@ -38,15 +38,15 @@ running an equivalent command.
   [example](https://github.com/alwaldend/src/blob/master/infra/vault/tf/group_approles.tf)
 - Run apply:
   ```sh
-  bazel_agent run //infra/vault/tf:tf.apply
+  bazel_agent bazel run //infra/vault/tf:tf.apply
   ```
 - Update Yandex Cloud folders:
   ```sh
-  bazel_agent run //infra/yandex_cloud/org1/tf:tf.apply
+  bazel_agent bazel run //infra/yandex_cloud/org1/tf:tf.apply
   ```
 - Update Proxmox resource pools:
   ```sh
-  bazel_agent run //infra/pve/tf:tf.apply
+  bazel_agent bazel run //infra/pve/tf:tf.apply
   ```
 - Set up al config:
   [example](https://github.com/alwaldend/src/blob/master/infra/pve/al.lua)
