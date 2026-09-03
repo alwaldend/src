@@ -32,6 +32,10 @@ description: Build, test, query, and maintain targets in this Bazel monorepo. Us
   and grant visibility to that group instead of repeating the same package
   label in every dependent package. Name the group for the capability it
   authorizes, not for a list of unrelated packages.
+- When a checked-in generated file must not be rewritten by repo-wide
+  formatting (for example, generator-owned JSON with a fixed layout), exclude
+  it in `.gitattributes` with `rules-lint-ignored=true`. Verify the exclusion
+  with the relevant `//tools/repo_quality` format test before delivery.
 - Update dependency lockfiles only through the owning repository workflow. Do
   not mix unrelated generated-file churn into a change.
 

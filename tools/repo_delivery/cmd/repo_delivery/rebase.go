@@ -38,7 +38,11 @@ func (d *delivery) rebase(
 		)
 	}
 	if report.UniqueCommitCount != 1 || len(report.MergeCommits) != 0 {
-		return nil, fmt.Errorf("rebase requires exactly one non-merge feature commit")
+		return nil, fmt.Errorf(
+			"rebase requires exactly one non-merge feature commit; observed %d commits and %d merge commits; use prepare with --consolidate when explicitly authorized",
+			report.UniqueCommitCount,
+			len(report.MergeCommits),
+		)
 	}
 	snapshot, err := d.repository.snapshot(
 		ctx,
