@@ -1,0 +1,58 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: head-hair-rebuild-003
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T07:43:30.795747659Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:baccd948c8b16e69f1845fc580981579437436eed22c64aad779f8f37def99d8
+  goalStateDigest: sha256:20f51130bcf290e3ad0af24a48444ec2d19f601bfa8945d52d84a2762eec3ff2
+  planID: recovery-clay-v1
+  workType: candidate
+  stableDefect: head-hair-helmet-read
+  hypothesis: A shallow gusseted cushion plus separately rooted padded rear, top, side, crown, and fringe panels can replace the monolithic cap while preserving A157 whole-character layout.
+  subject: A157 sha256:433d08ad36be488bb16e4221a85f831d4390660c258a43ea0b08775811574b73
+  affectedCriteria:
+  - criterion-001
+  - criterion-002
+  - criterion-003
+  regressionRefs:
+  - canonical-front-v1
+  - canonical-turn-v1
+  - fixed-five-view-v1
+  priorAttemptID: camera-capability-002
+  nextAction: Create one isolated head-and-hair candidate through Blender MCP, render pinned front and side views, inspect absolute pixels and measurements, then either reset or produce the full five-view packet.
+status:
+  state: closed
+  closedAt: "2026-09-04T07:47:40.270397937Z"
+  artifacts:
+    planDigest: sha256:1a2bfa61b530637690a32b73994f6e9487c4a772901b2a4e7d0d7d5bbd491341
+    resultDigest: sha256:9a1fdbcbbdb36d0c508063b017cf01721f91daf88bf0f65519cf92149a4dbec1
+    evidence:
+    - path: evidence/evidence.md
+      digest: sha256:440fd7a36e9aeb193a7ad3fb0f16753a2a07fa7f6c14aeba4ea3451aef22c424
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/evidence.md
+  observedAt: "2026-09-04T07:47:40.270397937Z"

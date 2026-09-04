@@ -1,0 +1,59 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a157-tail-vector-013
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T10:55:09.640944416Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 14
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:99797129cf6b30096783b627d303f29987dcb8aba089f4514c05a256fb4f82df
+  planID: a157-tail-vector-v11
+  workType: candidate
+  stableDefect: A157 lower-tail bow assembly is compressed and modal numeric text did not reach Blender transform values
+  hypothesis: Explicit values on Blender native connected proportional transforms will move both selected red-tail and ruffle bands exactly and produce a broad reference-width bow without root or trim regression
+  subject: A157 SHA-256 433d08ad36be488bb16e4221a85f831d4390660c258a43ea0b08775811574b73; paired lower-tail red meshes and white ruffles only
+  affectedCriteria:
+  - criterion-001
+  - criterion-002
+  - criterion-003
+  regressionRefs:
+  - a157-five-view-baseline
+  - numeric-transform-failure-012
+  - review-contract-v4
+  priorAttemptID: a157-tail-assembly-012
+  measurableDelta: "Each outer band moves 0.0267 +/- 0.001 m in X with zero Y/Z movement and protected roots; the centered 512 px complete bow envelope reaches about 503 +/- 12 px"
+  nextAction: Copy pristine A157 and execute one explicit-value native proportional transform per two-object tail assembly before pinned front and side rendering
+status:
+  state: closed
+  closedAt: "2026-09-04T11:05:34.493076545Z"
+  artifacts:
+    planDigest: sha256:2a25061459a0200c7d4bf25a051dd789eb91e7c52d1279a2a47f87fe321233da
+    resultDigest: sha256:af5f95a647e29db5b46ecb45a3012665b598bfd3a5ce340a8d74ec62c24e567a
+    evidence:
+    - path: evidence/evidence.md
+      digest: sha256:fd3bb2a8bcb74f7f4be360330a4a2b6cd4ce8e1343aacf04f0a0620da295c0f3
+  review:
+    decision: refine
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - evidence/evidence.md
+  observedAt: "2026-09-04T11:05:34.493076545Z"

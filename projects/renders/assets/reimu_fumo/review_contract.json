@@ -1,0 +1,114 @@
+{
+    "schema_version": 1,
+    "contract_id": "reimu-fumo-review-v1",
+    "landmarks": {
+        "path": "LANDMARKS.md",
+        "sha256": "133d741d9252f34cee4e27990b0ea8d0710dc7408f43eb2a38b47d3c52a98140",
+        "size_bytes": 3962
+    },
+    "references": {
+        "canonical_front": {
+            "path": "references/canonical_front_25cm.png",
+            "sha256": "864b597117c79e5556fcf360333a798584ed6964e0fdcfe97e002a34013ed63c",
+            "size_bytes": 137801,
+            "authority": "controlling_front",
+            "source_status": "recovered_from_pr_24",
+            "source_locator": "t3-attachment:136a19c9-b38c-4c43-959e-141b9e2224e3-82f07f2f-0207-4723-8a9b-d76b2e7e0d49.png",
+            "license_status": "unverified"
+        },
+        "canonical_turn": {
+            "path": "references/canonical_turn_180.gif",
+            "sha256": "0d774eaa7f75828e388df4fb886cda7c563ce3bcd4ccb38d9885997a0846af30",
+            "size_bytes": 2602747,
+            "authority": "controlling_depth_and_rear",
+            "source_status": "recovered_from_pr_24",
+            "source_locator": "https://c.tenor.com/wuTstMILarIAAAAC/tenor.gif",
+            "license_status": "unverified"
+        },
+        "clean_front": {
+            "path": "references/clean_front.png",
+            "sha256": "37813e03e04e4966f1dbe914e03a25a5f5ae561dcbf58b72677195c513ea48ca",
+            "size_bytes": 166087,
+            "authority": "supporting_only",
+            "source_status": "recovered_from_pr_24",
+            "source_locator": "t3-attachment:136a19c9-b38c-4c43-959e-141b9e2224e3-04ac3273-048f-4ee0-a605-12a7edd4c7bf.png",
+            "license_status": "unverified"
+        },
+        "physical_front": {
+            "path": "references/physical_front.png",
+            "sha256": "f8c7d0f9911dbff1ef7f5d75601f9b10825015aecb367381971c076a5a3e7b51",
+            "size_bytes": 179663,
+            "authority": "controlling_construction_when_non_conflicting",
+            "source_status": "recovered_from_pr_24",
+            "source_locator": "t3-attachment:136a19c9-b38c-4c43-959e-141b9e2224e3-c690c3e5-d072-4c0a-bda5-7d452a501519.png",
+            "license_status": "unverified"
+        },
+        "physical_side": {
+            "path": "references/physical_side.png",
+            "sha256": "cbb39e70f95fa464f6dc94862e0300d15771f3ff4c046d005849891aca55a19d",
+            "size_bytes": 231096,
+            "authority": "controlling_construction_when_non_conflicting",
+            "source_status": "recovered_from_pr_24",
+            "source_locator": "t3-attachment:136a19c9-b38c-4c43-959e-141b9e2224e3-5a8e0eba-24f7-4d02-97db-5608d16966f9.png",
+            "license_status": "unverified"
+        },
+        "sofa": {
+            "path": "references/sofa.gif",
+            "sha256": "7c9173f91e6b6c801a1c77e50f9135e86fc89319f3c0262c10312320b1af8589",
+            "size_bytes": 2999046,
+            "authority": "supporting_only",
+            "source_status": "recovered_from_pr_24",
+            "source_locator": "t3-attachment:136a19c9-b38c-4c43-959e-141b9e2224e3-631a9796-a3a8-487c-baa6-89da2eb26598.gif",
+            "license_status": "unverified"
+        },
+        "turn": {
+            "path": "references/turn.gif",
+            "sha256": "b42368e921bd055d73fbbb7bf65c2509a9aaf190cab02f89824b92b4cb75ece4",
+            "size_bytes": 71020,
+            "authority": "supporting_only",
+            "source_status": "recovered_from_pr_24",
+            "source_locator": "t3-attachment:136a19c9-b38c-4c43-959e-141b9e2224e3-f8df027f-9508-4b59-8779-21310993ccfa.gif",
+            "license_status": "unverified"
+        }
+    },
+    "fixed_views": {
+        "front": {
+            "camera": "Review_front_Camera",
+            "location_m": [0.0, -0.8, 0.13],
+            "rotation_euler_rad": [1.570796, 0.0, 0.0]
+        },
+        "rear": {
+            "camera": "Review_rear_Camera",
+            "location_m": [0.0, 0.8, 0.13],
+            "rotation_euler_rad": [-1.570796, 3.141593, 0.0]
+        },
+        "side": {
+            "camera": "Review_side_Camera",
+            "location_m": [0.8, 0.0, 0.13],
+            "rotation_euler_rad": [1.570796, 0.0, 1.570796]
+        },
+        "three_quarter": {
+            "camera": "Review_three_quarter_Camera",
+            "location_m": [0.52, -0.52, 0.135],
+            "rotation_euler_rad": [1.563997, 0.0, 0.785398]
+        },
+        "three_quarter_mirror": {
+            "camera": "Review_three_quarter_mirror_Camera",
+            "location_m": [-0.52, -0.52, 0.135],
+            "rotation_euler_rad": [1.563997, 0.0, -0.785398]
+        }
+    },
+    "camera": {
+        "projection": "ORTHO",
+        "ortho_scale_m": 0.292,
+        "resolution": [512, 512, 100],
+        "character_up_axis": "+Z",
+        "character_front_camera_axis": "-Y"
+    },
+    "reviewers": {
+        "retain_minimum": 1,
+        "stage_and_final_minimum": 2,
+        "implementation_blind": true,
+        "identity_requirement": "Record a stable reviewer ID and role in the exact candidate packet."
+    }
+}

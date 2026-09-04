@@ -1,0 +1,229 @@
+{
+    "acceptance_note": "No image or attempt in this packet is accepted evidence of goal completion. Candidate blend bytes are not published, so these renders are not independently reproducible from this packet.",
+    "attempts": [
+        {
+            "acceptance_status": "not_accepted",
+            "attempt_id": "head-hair-rebuild-003",
+            "attempt_status": "rejected",
+            "candidate": {
+                "bytes_published": false,
+                "note": "Candidate bytes are not included. The digest can identify independently recovered bytes but cannot reproduce the rendered scene.",
+                "reproducible_from_this_packet": false,
+                "sha256": "e132aec4cf4f4bc5d8de3b4fdb3ac15974eb25c2bca21b6835543908d53f949d"
+            },
+            "representation_family": "planar padded panel box",
+            "views": {
+                "front": {
+                    "path": "attempts/head-hair-rebuild-003/front.png",
+                    "pixel_data_preserved": true,
+                    "removed_chunk_types": ["eXIf", "oFFs", "tEXt"],
+                    "sha256": "d0e66506e333890bb875313f2cad236a401091d612ea87a9a50e5dfee4cb80c6",
+                    "size_bytes": 520470,
+                    "source_render_sha256": "36aa71914873c4ab44c3afe8761d717c943d6bdc234ea9790929edeb2ba54066",
+                    "source_render_size_bytes": 520937
+                },
+                "side": {
+                    "path": "attempts/head-hair-rebuild-003/side.png",
+                    "pixel_data_preserved": true,
+                    "removed_chunk_types": ["eXIf", "oFFs", "tEXt"],
+                    "sha256": "0896d1722a37bea12b0a62e0b1ba5dd34aed6025eafaa0f5e7b46bdddbdedcce",
+                    "size_bytes": 468908,
+                    "source_render_sha256": "a5685111ef6bd474942284f48f4a8888c61ce751051c067ab5493dd19b5310f7",
+                    "source_render_size_bytes": 469374
+                }
+            }
+        },
+        {
+            "acceptance_status": "not_accepted",
+            "attempt_id": "curved-cap-004",
+            "attempt_status": "rejected",
+            "candidate": {
+                "bytes_published": false,
+                "note": "Candidate bytes are not included. The digest can identify independently recovered bytes but cannot reproduce the rendered scene.",
+                "reproducible_from_this_packet": false,
+                "sha256": "58b77d791b64ad0cb2034f26dd5caa603f9bd9f3e493d646e011813b9789d6aa"
+            },
+            "representation_family": "partial continuous curved superellipsoid shell",
+            "views": {
+                "front": {
+                    "path": "attempts/curved-cap-004/front.png",
+                    "pixel_data_preserved": true,
+                    "removed_chunk_types": ["eXIf", "oFFs", "tEXt"],
+                    "sha256": "62517c894690cf7e4f99601b035b05ac2e08d7691fa3cb6a3289f82e18380d6b",
+                    "size_bytes": 519538,
+                    "source_render_sha256": "8e9604f7fcf620aba53f046d49f95a65087871a9360cf5b422266a1df580b304",
+                    "source_render_size_bytes": 519991
+                },
+                "side": {
+                    "path": "attempts/curved-cap-004/side.png",
+                    "pixel_data_preserved": true,
+                    "removed_chunk_types": ["eXIf", "oFFs", "tEXt"],
+                    "sha256": "4ccde209d57ab1e6f5e3d24f8abe380d3d24790b212e9e1f1977afd28311bf2d",
+                    "size_bytes": 481324,
+                    "source_render_sha256": "0dc7b196580ac3d71a9f02ed8ce3f9cd8dbe8e22c3a04d2278fbbf31db3905c7",
+                    "source_render_size_bytes": 481776
+                }
+            }
+        },
+        {
+            "acceptance_status": "not_accepted",
+            "attempt_id": "integrated-hair-005",
+            "attempt_status": "rejected",
+            "candidate": {
+                "bytes_published": false,
+                "note": "Candidate bytes are not included. The digest can identify independently recovered bytes but cannot reproduce the rendered scene.",
+                "reproducible_from_this_packet": false,
+                "sha256": "176d5ab2e92175f05b8adf2e67268064ac1c48f9b36c247cd61cf0442bab522d"
+            },
+            "representation_family": "integrated textile substrate and material-region hair",
+            "views": {
+                "front": {
+                    "path": "attempts/integrated-hair-005/front.png",
+                    "pixel_data_preserved": true,
+                    "removed_chunk_types": ["eXIf", "oFFs", "tEXt"],
+                    "sha256": "668c17dd22fc1803bbd3f00b0f3ecaa14e9eea5eaff0281a9c6b53377038bd24",
+                    "size_bytes": 513852,
+                    "source_render_sha256": "9daa6d886344da5cd647361ce09db2d14a34a862d6706f69efbfeb10d12c9ca6",
+                    "source_render_size_bytes": 514315
+                },
+                "rear": {
+                    "path": "attempts/integrated-hair-005/rear.png",
+                    "pixel_data_preserved": true,
+                    "removed_chunk_types": ["eXIf", "oFFs", "tEXt"],
+                    "sha256": "3e482f577ad2c47df12e62ccb8b4b71cbf4f0496d1af8d8d21b686d751784653",
+                    "size_bytes": 502997,
+                    "source_render_sha256": "c36e5cf33002d5331feec45c802701a9b9e211817f0238610f6d5baf47b31874",
+                    "source_render_size_bytes": 503459
+                },
+                "side": {
+                    "path": "attempts/integrated-hair-005/side.png",
+                    "pixel_data_preserved": true,
+                    "removed_chunk_types": ["eXIf", "oFFs", "tEXt"],
+                    "sha256": "644ffb155fb828cb918aca4a134db8713d77b8678cf83153960be6dcb76f0f02",
+                    "size_bytes": 473040,
+                    "source_render_sha256": "4d5b60b0594fd6d62f9979c4c7d1fcdeb5d20de4b7879b07144d30097f43f611",
+                    "source_render_size_bytes": 473502
+                },
+                "three_quarter": {
+                    "path": "attempts/integrated-hair-005/three_quarter.png",
+                    "pixel_data_preserved": true,
+                    "removed_chunk_types": ["eXIf", "oFFs", "tEXt"],
+                    "sha256": "40ee3550d04b0434196a3b24ffd6f0b8d932493e2c6f1b3c1ec9269fcc019549",
+                    "size_bytes": 498992,
+                    "source_render_sha256": "72f1d2b87138df346d57c64e1dbc210b50890d450f4d75ccc34366a6ee4dd0b3",
+                    "source_render_size_bytes": 499463
+                },
+                "three_quarter_mirror": {
+                    "path": "attempts/integrated-hair-005/three_quarter_mirror.png",
+                    "pixel_data_preserved": true,
+                    "removed_chunk_types": ["eXIf", "oFFs", "tEXt"],
+                    "sha256": "f1f529d2dcf72f76c39d50a8976a0c3f37ef1d7fd484edfe14d37be1e77d45e2",
+                    "size_bytes": 502682,
+                    "source_render_sha256": "76b9acbbc6f8cf0c3c3bdf2266401bef833dd527dbf7e9c8688405373d4b330c",
+                    "source_render_size_bytes": 503160
+                }
+            }
+        },
+        {
+            "acceptance_status": "not_accepted",
+            "attempt_id": "shingled-hair-006",
+            "attempt_status": "rejected",
+            "candidate": {
+                "bytes_published": false,
+                "note": "Candidate bytes are not included. The digest can identify independently recovered bytes but cannot reproduce the rendered scene.",
+                "reproducible_from_this_packet": false,
+                "sha256": "3847634874fecdccb50795d7519c532449338c711c762c2f0350a580e1ba713f"
+            },
+            "representation_family": "analytic shingled closed padded locks",
+            "views": {
+                "front": {
+                    "path": "attempts/shingled-hair-006/front.png",
+                    "pixel_data_preserved": true,
+                    "removed_chunk_types": ["eXIf", "oFFs", "tEXt"],
+                    "sha256": "b20c9dad0a31fb636276f19abe5ad36c403b1fec448e6514e39a0628fbea21dd",
+                    "size_bytes": 519777,
+                    "source_render_sha256": "cb34341d40911b4ae952d010d9b6aeeb076b314c8c29e7c191b62e01a7973874",
+                    "source_render_size_bytes": 520236
+                },
+                "side": {
+                    "path": "attempts/shingled-hair-006/side.png",
+                    "pixel_data_preserved": true,
+                    "removed_chunk_types": ["eXIf", "oFFs", "tEXt"],
+                    "sha256": "4c8cea025f822eb1badd983b3e79c4c27965e59c67fa8da9b2b41dd6100a3fe7",
+                    "size_bytes": 478538,
+                    "source_render_sha256": "767cd286871a8e342981922182cc760767a62b21f1594558eb9a2b5e5386a76b",
+                    "source_render_size_bytes": 478996
+                },
+                "three_quarter": {
+                    "path": "attempts/shingled-hair-006/three_quarter.png",
+                    "pixel_data_preserved": true,
+                    "removed_chunk_types": ["eXIf", "oFFs", "tEXt"],
+                    "sha256": "07b23e63484088f44eef7fe34255b58f24d18ba150b33a2aed5e2141b3d11069",
+                    "size_bytes": 503533,
+                    "source_render_sha256": "77eacb884a3b50803ce0151377a2098eecb5182bc384d7c8d8f003a7442bb23f",
+                    "source_render_size_bytes": 504000
+                }
+            }
+        },
+        {
+            "acceptance_status": "not_accepted",
+            "attempt_id": "evaluated-lobes-007",
+            "attempt_status": "rejected",
+            "candidate": {
+                "bytes_published": false,
+                "note": "Candidate bytes are not included. The digest can identify independently recovered bytes but cannot reproduce the rendered scene.",
+                "reproducible_from_this_packet": false,
+                "sha256": "ef0e01a678b5d55d75bf07a0dce4c39a0e66123c474c3c691099aa60f23413a0"
+            },
+            "representation_family": "evaluated-surface closed padded lobes",
+            "views": {
+                "front": {
+                    "path": "attempts/evaluated-lobes-007/front.png",
+                    "pixel_data_preserved": true,
+                    "removed_chunk_types": ["eXIf", "oFFs", "tEXt"],
+                    "sha256": "33dbfdf65a894ffe478d77ae1ba8da10f4ee91a1f03da5815cc7fc3fe1a0a098",
+                    "size_bytes": 515858,
+                    "source_render_sha256": "934ff49b758b77ffd6a41a928ea0cc359d3ae66d5e4b11c2a77df2ea02660ecd",
+                    "source_render_size_bytes": 516321
+                },
+                "side": {
+                    "path": "attempts/evaluated-lobes-007/side.png",
+                    "pixel_data_preserved": true,
+                    "removed_chunk_types": ["eXIf", "oFFs", "tEXt"],
+                    "sha256": "6c24f4a268db06e4a57e92988f07f8c7f1d899f63a1ca155b63d468a41ec5b98",
+                    "size_bytes": 476790,
+                    "source_render_sha256": "9a4c2a195dc4084c06a9714275a665488797b8682d6334ee8e75c943e5ce388b",
+                    "source_render_size_bytes": 477252
+                },
+                "three_quarter": {
+                    "path": "attempts/evaluated-lobes-007/three_quarter.png",
+                    "pixel_data_preserved": true,
+                    "removed_chunk_types": ["eXIf", "oFFs", "tEXt"],
+                    "sha256": "86d3209604af985d2bcdec0a4d905e5e02dc8be2858a75a00eb74b8c23b04209",
+                    "size_bytes": 503592,
+                    "source_render_sha256": "b514a781b019d4e39d1a16949ec0c7ba524226d1f840e1d1d0b21142617d9dd4",
+                    "source_render_size_bytes": 504063
+                }
+            }
+        }
+    ],
+    "privacy": {
+        "allowed_png_chunks": [
+            "IDAT",
+            "IEND",
+            "IHDR",
+            "PLTE",
+            "cHRM",
+            "gAMA",
+            "pHYs",
+            "sRGB",
+            "tRNS"
+        ],
+        "forbidden_metadata_chunks_present": false,
+        "path_policy": "All manifest paths are relative to manifest.json.",
+        "sensitive_string_matches": 0
+    },
+    "purpose": "Minimal visual evidence for rejected representation families",
+    "schema_version": 1,
+    "status": "historical_failure_evidence_only"
+}

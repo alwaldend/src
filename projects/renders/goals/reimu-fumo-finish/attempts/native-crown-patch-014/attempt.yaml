@@ -1,0 +1,59 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: native-crown-patch-014
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T11:19:12.840059469Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 14
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:65dfa28abfa30b83973ec132c0487713d862c534dce448cdb2074cf9d8e0103f
+  planID: native-crown-patch-v12
+  workType: candidate
+  stableDefect: head-hair-helmet-read
+  hypothesis: Removing the lower enclosing apron from the already surface-fitted cap will expose the independent fringe and locks as layered hair while preserving the crown, face plane, and depth bands
+  subject: Protected A157 SHA-256 433d08ad36be488bb16e4221a85f831d4390660c258a43ea0b08775811574b73; A44 continuous hair cap only
+  affectedCriteria:
+  - criterion-001
+  - criterion-002
+  - criterion-003
+  regressionRefs:
+  - a157-five-view-baseline
+  - evaluated-lobes-007
+  - macro-sculpt-010
+  priorAttemptID: evaluated-lobes-007
+  measurableDelta: A44 cap changes from 8835 enclosing faces to one 5252-face crown patch with 5350 referenced vertices and 194 boundary edges while every non-cap geometry digest remains unchanged
+  nextAction: Create one native-deleted crown-patch candidate from protected A157, then pinned-render front, side, and revealing three-quarter views and reset without correction on any automatic defect
+status:
+  state: closed
+  closedAt: "2026-09-04T11:27:41.038867354Z"
+  artifacts:
+    planDigest: sha256:ce384f0e95fe6290bed1f0fd5a149bea412ab4b24e584f2c270fe886eb32aeee
+    resultDigest: sha256:5456aee20b48e8fedd4eea1bd14424b95f8086920c9abf2b2815545354601b28
+    evidence:
+    - path: evidence/evidence.md
+      digest: sha256:f544cc5c011e8f2791dbcb84275927afaf0cf5ee18e91bc1a3813603d0748127
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - evidence/evidence.md
+  observedAt: "2026-09-04T11:27:41.038867354Z"
