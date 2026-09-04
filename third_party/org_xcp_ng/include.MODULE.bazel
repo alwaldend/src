@@ -1,0 +1,12 @@
+iso_extension = use_extension(
+    "@rules_iso//pkg/bzl:iso_extension.bzl",
+    "iso_extension",
+)
+iso_extension.image(
+    name = "org_xcp_ng",
+    integrity = "sha256-HQbi2IoPv5o4OEqkZjf9XRrVaLoN96s+2V+wR2VfIuY=",
+    urls = [
+        "https://updates.xcp-ng.org/isos/8.3/xcp-ng-8.3.0-20260806.iso",
+    ],
+)
+use_repo(iso_extension, "org_xcp_ng", "org_xcp_ng_flash")
