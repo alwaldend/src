@@ -30,17 +30,34 @@ different output.
 Exit status is irrelevant to settlement. A query that exits 0 with no
 matches is exactly as settled as one that exits 0 with results.
 
-Two invocations count as the same query when they ask the same question of
-the same target, even if flags, ordering, quoting, glob patterns, or output
-limits differ. Judged by intent, not by bytes.
+Two invocations count as the same query when they ask the same decision
+question of the same target through causally equivalent paths with the same
+relevant inputs. Cosmetic changes to flags, ordering, quoting, glob patterns,
+output limits, or tools do not make a new query. A changed flag, input, or path
+does make a different query when it can change decision-relevant evidence or
+discriminate a named failure hypothesis. Judge equivalence by causal effect,
+not command bytes.
+
+For queries, writes, and larger attempts, "the same setup" means the same
+decision question, target, relevant inputs, and causal execution path. It does
+not mean that a target or desired outcome may be tried only once. A retry is
+allowed after the failure mechanism is identified or narrowed to a falsifiable
+causal hypothesis, and the changed input or execution path could repair,
+bypass, or discriminate that mechanism if the hypothesis is true. Before
+retrying, reference the prior failure and record the causal change and the
+observable difference it predicts. A new label, reordered command, different
+tool with equivalent behavior, or parameter unrelated to the failure
+hypothesis is still the same setup.
 
 After any settled result, the next action must be one of:
 
-- a write, patch, or other state change;
-- a materially different query class (different tool, different question, or
-  different target that would change the decision);
+- a write, patch, or other state change that acts on the settled result or
+  advances a revised plan;
+- a materially different query class (a different question, or a different
+  target, relevant input, or causal execution path that can change the
+  decision; changing tools alone does not qualify);
 - a revision to the plan itself; or
-- a question to the user.
+- a question whose answer is needed to choose the next causal action.
 
 Re-running a settled query is never one of these options. If you notice you
 are about to issue a query you have already settled, treat that recognition

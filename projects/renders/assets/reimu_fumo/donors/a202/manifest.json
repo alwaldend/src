@@ -1,0 +1,102 @@
+{
+    "schema_version": 1,
+    "status": "rejected_technical_donor",
+    "candidate": {
+        "path": "model.blend",
+        "sha256": "a5e1e96dbbabaee9d4f23c28d95930509082644124adab4607e2757b708852b5",
+        "size_bytes": 1600433,
+        "derivation": "privacy_sanitized_from_recovered_a202",
+        "source_sha256": "6a9f3757facba526550e78817dc85f1d23cf85bcdad360228e113bb60d5f3aa0",
+        "source_size_bytes": 1623719,
+        "source_commit": "401582f36e23b72b9ac68bdde4ebf7e3bf95e698",
+        "source_path": "projects/renders/blender/fumo/reimu_fumo/reimu_fumo.blend"
+    },
+    "sanitization": {
+        "unique_library_weak_references_cleared": 113,
+        "embedded_text_bodies_cleared": 1,
+        "embedded_text_original_bytes": 41024,
+        "absolute_scene_render_paths_cleared": 1,
+        "relative_render_bake_paths_cleared": 1,
+        "other_geometry_rig_material_or_inventory_changes": 0
+    },
+    "renderer": {
+        "blender": "5.2.1 LTS",
+        "build_hash": "9e2066aef7ef",
+        "repository_contract": "tools/blender/binary_toolchain.json",
+        "background": true,
+        "factory_startup": true,
+        "autoexec_disabled": true,
+        "scene": "Attempt41_Manual_Head_Maquette",
+        "view_layer": "ViewLayer",
+        "engine": "BLENDER_EEVEE",
+        "resolution": [512, 512, 100],
+        "pixel_aspect": [1.0, 1.0],
+        "file_format": "PNG",
+        "color_mode": "RGBA",
+        "color_depth": "8",
+        "compression": 15,
+        "view_transform": "Standard",
+        "exposure": -0.100000001,
+        "gamma": 1.0
+    },
+    "renders": {
+        "front": {
+            "path": "renders/front.png",
+            "camera": "Review_front_Camera",
+            "sha256": "db57add9168bb65ff9a0a8b20b88e00577c20da229ada550e04086941cdf146a",
+            "size_bytes": 341024
+        },
+        "rear": {
+            "path": "renders/rear.png",
+            "camera": "Review_rear_Camera",
+            "sha256": "ac79be0e5cc4a5e06d66be4945b6476b24fc17bef447f336215c47b6ffd39570",
+            "size_bytes": 331738
+        },
+        "side": {
+            "path": "renders/side.png",
+            "camera": "Review_side_Camera",
+            "sha256": "75d057d0a4634fea6dfeb2695e9eb4b31943dbe7e03193345fa334fcb145972e",
+            "size_bytes": 311690
+        },
+        "three_quarter": {
+            "path": "renders/three_quarter.png",
+            "camera": "Review_three_quarter_Camera",
+            "sha256": "68c65e150e5dafaed9a7167c8b239e87108e73bedb0f9334f473cb53b4f2e6fd",
+            "size_bytes": 332577
+        },
+        "three_quarter_mirror": {
+            "path": "renders/three_quarter_mirror.png",
+            "camera": "Review_three_quarter_mirror_Camera",
+            "sha256": "e0a8b3f516a20ff67c492b87465683258bec4a0e94ca4058d378fbae8f32c3a5",
+            "size_bytes": 333038
+        }
+    },
+    "audit": {
+        "linked_libraries": 0,
+        "missing_runtime_dependencies": 0,
+        "external_images": 0,
+        "embedded_text_bodies_nonempty": 0,
+        "library_weak_reference_filepaths_nonempty": 0,
+        "persisted_id_datablocks_scanned": 447,
+        "reachable_rna_structs_scanned": 5051,
+        "rna_strings_scanned": 19138,
+        "custom_strings_scanned": 102,
+        "unreadable_properties": 0,
+        "privacy_findings": 0,
+        "png_path_timestamp_or_exif_chunks": 0,
+        "source_preserved_before_and_after_derivation": true,
+        "candidate_preserved_before_and_after_render": true
+    },
+    "preservation": {
+        "inventory_preserved": true,
+        "geometry_sha256": "21d643f7c481fccace8bf2bb4dbb738a5ceace25bf204c917b6153a5f05eb12b",
+        "rig_sha256": "e1e1c8fa51413f033adb1bc48b6a490d209e18d78f336cba9854eca99bea627f",
+        "materials_sha256": "f46abdf9715973718a3b86c065e37172042e7f203083ef08758daa6bf6ac0822"
+    },
+    "acceptance": {
+        "inherited_criterion_passes": [],
+        "visual_stage_score": 5,
+        "decision": "reject",
+        "reason": "Recognizable technical donor with a helmet head, cone body, rigid sleeves, disconnected feet, and hard bow and panel roots."
+    }
+}

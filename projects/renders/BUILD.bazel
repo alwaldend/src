@@ -1,0 +1,96 @@
+load("@com_alwaldend_src_tools_blender//:defs.bzl", "blender_test")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_test")
+
+filegroup(
+    name = "goal_records",
+    srcs = glob(["goals/**"]),
+)
+
+go_test(
+    name = "goal_validation_test",
+    size = "small",
+    srcs = ["goal_validation_test.go"],
+    data = [
+        ":goal_records",
+        "//projects/goal/cmd/goal",
+    ],
+    deps = ["@rules_go//go/tools/bazel"],
+)
+
+filegroup(
+    name = "reimu_fumo_references",
+    srcs = [
+        "assets/reimu_fumo/LANDMARKS.md",
+        "assets/reimu_fumo/review_contract.json",
+    ] + glob(["assets/reimu_fumo/references/*"]),
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "reimu_fumo_failure_evidence",
+    srcs = [
+        "assets/reimu_fumo/failure_evidence/README.md",
+        "assets/reimu_fumo/failure_evidence/manifest.json",
+    ] + glob(["assets/reimu_fumo/failure_evidence/attempts/**/*.png"]),
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "reimu_fumo_a202_rejected_donor",
+    srcs = [
+        "assets/reimu_fumo/donors/a202/MANIFEST.md",
+        "assets/reimu_fumo/donors/a202/manifest.json",
+        "assets/reimu_fumo/donors/a202/model.blend",
+    ] + glob(["assets/reimu_fumo/donors/a202/renders/*.png"]),
+    visibility = ["//:__subpackages__"],
+)
+
+go_test(
+    name = "reimu_fumo_a202_packet_integrity_test",
+    size = "small",
+    srcs = ["a202_packet_integrity_test.go"],
+    data = [":reimu_fumo_a202_rejected_donor"],
+    deps = ["@rules_go//go/runfiles"],
+)
+
+go_test(
+    name = "reimu_fumo_review_evidence_integrity_test",
+    size = "small",
+    srcs = ["review_evidence_integrity_test.go"],
+    data = [
+        ":goal_records",
+        ":reimu_fumo_failure_evidence",
+        ":reimu_fumo_references",
+    ],
+    deps = ["@rules_go//go/runfiles"],
+)
+
+blender_test(
+    name = "reimu_fumo_a202_sanitized_donor_blend_audit_test",
+    size = "medium",
+    arguments = [
+        "--background",
+        "--factory-startup",
+        "--disable-autoexec",
+        "$(location assets/reimu_fumo/donors/a202/model.blend)",
+        "--python-exit-code",
+        "2",
+        "--python",
+        "$(location test/reimu_fumo/a202_blend_audit.py)",
+        "--",
+        "$(location assets/reimu_fumo/donors/a202/model.blend)",
+        "$(location assets/reimu_fumo/review_contract.json)",
+    ],
+    data = [
+        "assets/reimu_fumo/donors/a202/model.blend",
+        "assets/reimu_fumo/review_contract.json",
+        "test/reimu_fumo/a202_blend_audit.py",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects:__pkg__"],
+)

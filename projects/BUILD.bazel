@@ -50,6 +50,7 @@ al_release_binary(
                 "rules_hugo",
                 "rules_promptfoo",
                 "rules_promptfoo_gazelle",
+                "renders",
                 "rules_skill",
                 "rules_skill_gazelle",
             ],

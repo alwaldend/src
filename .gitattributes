@@ -108,12 +108,15 @@
 # rewritten by general-purpose formatters.
 data/** rules-lint-ignored=true
 third_party/** rules-lint-ignored=true
-# Versioned records under the canonical agent-goal owner are tool-generated
-# or digest-bound. Validate and regenerate them through the goal workflow;
-# generic Markdown/YAML formatting can invalidate exact evidence.
+# Versioned goal records are tool-generated or digest-bound. Validate and
+# regenerate them through the goal workflow; generic Markdown/YAML formatting
+# can invalidate exact evidence.
 projects/agents/goals/*/** rules-lint-ignored=true
 projects/agents/goals/*/attempts/*/result.md whitespace=-blank-at-eof
 projects/agents/goals/*/attempts/*/evidence/*.md whitespace=-blank-at-eof
+projects/renders/goals/*/** rules-lint-ignored=true
+projects/renders/goals/*/attempts/*/result.md whitespace=-blank-at-eof
+projects/renders/goals/*/attempts/*/evidence/*.md whitespace=-blank-at-eof
 tools/agents/catalogs/action.json rules-lint-ignored=true
 tools/agents/catalogs/capability.json rules-lint-ignored=true
 tools/agents/catalogs/index.json rules-lint-ignored=true
