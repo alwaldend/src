@@ -1,0 +1,70 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: fitted-torso-cloth-023
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T21:40:59.217438104Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:43b99427a35a090cab369aeec2f16148c80b3576bc3b6053584e3422921667ab
+  planID: fitted-torso-cloth-v21
+  workType: candidate
+  stableDefect: Over-wide torso and disconnected collar/cravat
+  hypothesis: A narrow waist with surface-fitted thin collar and tie fixes body proportion and depth attachment without changing seated height
+  subject: Frozen body022b and canonical front/turn references
+  priorAttemptID: seated-body-cloth-022
+  nextAction: Apply torso width field, integrate reviewed collar draft, save body023 and check fixed-view geometry and pixels
+status:
+  state: closed
+  closedAt: "2026-09-04T22:04:19.264954608Z"
+  artifacts:
+    planDigest: sha256:3e6ddef47480fd6656f4189336f4eac7029eb358d35235b71abfb9e60fe5a37b
+    resultDigest: sha256:c48ac693485a4ba58716c95c107b345ac55e2fff80db0fe0ad391385916bbce8
+    evidence:
+    - path: evidence/body_023_evidence.md
+      digest: sha256:e6fa9819b776029b44317f1358c3b1bddcf4dc88caaf600ed454c5b12ee2d34b
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-04T22:04:19.264954608Z"

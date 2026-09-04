@@ -1,0 +1,74 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: curvature-resolved-crown-046
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T08:44:14.013568999Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:444f039ac6fb4b9fb50d11b258710609a33f440a6ec373592b73cd795f2b0f02
+  planID: fitted-crown-free-panels-v43
+  workType: change
+  stableDefect: projected-cloth-receiver-crossing
+  hypothesis: Adaptive curvature-resolved fabric and upper stuffing inset eliminate the observed coarse projection crossings
+  subject: cushion_044d_candidate.blend
+  priorAttemptID: fitted-crown-free-panels-045
+  nextAction: Build hair_046 candidate and inspect fixed front-side coverage and hanging fabric
+status:
+  state: closed
+  closedAt: "2026-09-05T08:55:04.946799853Z"
+  artifacts:
+    planDigest: sha256:2fe6f038c7cc4df45fcfbed16a155ef2c04f27c3e636a64bb31f0c4baf74634e
+    resultDigest: sha256:9bf5a2ff8d6c7791458f5b61c74dbf44bc93a47bafa4bd67a9db24e44a800758
+    evidence:
+    - path: evidence/hair_045_result.md
+      digest: sha256:b35f7aa4d50dd49eb188283c6cd664f4a428d42b66d5091e9b1dc60c30d3f55f
+    - path: evidence/hair_046_preflight_repair.md
+      digest: sha256:da427843f037580fd8f160d07f7f0ae9d8519075bfaa91521803a13d4fbd4a6a
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T08:55:04.946799853Z"

@@ -1,0 +1,30 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: independent-original-macro-115
+  resourceVersion: "2"
+  generation: 2
+  creationTimestamp: "2026-09-06T11:13:46.737093226Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: hair115A=46020796b7bb913e2acd1dd895e70eb1a1ff8efad1d0293d2d764801b05b335d;bodyB=c0c41fd23e4e5fc862c756d19844046329ba6704e618f11dd421da741e7bf048;face-script-unrun
+  priorAttemptID: shared-root-filled-panels-114
+  nextAction: Inspect completed hair115A pixels; record bodyB failures and stop its sweep; run saved face-placement guide study only when work resumes. No accepted full model.
+status:
+  state: open
+  closedAt: ""
+  artifacts:
+    planDigest: sha256:39fcbfb54ddbd970d9d0e3d2d1f2b63359f2f1fed53eb27762a6626e80de1061
+    resultDigest: sha256:f3e2705b78ede8c07aef4079534ce1de4e79436f23ad9fa0823fb9040f564448
+    evidence: []
+  review:
+    decision: ""
+    criteria: []
+  observedAt: "2026-09-06T11:43:15.008905657Z"

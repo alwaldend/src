@@ -1,0 +1,64 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: gusset-graphic-supported-arms-060
+  resourceVersion: "3"
+  generation: 1
+  creationTimestamp: "2026-09-05T15:41:59.250087978Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:2708996fdd41cb656e28d9a817e1ad071b75576272fb4e8bd2bb1b6461609259
+  planID: gusset-graphic-supported-arms-v54
+  workType: change
+status:
+  state: closed
+  closedAt: "2026-09-05T15:54:12.137554264Z"
+  artifacts:
+    planDigest: sha256:78a1d0e87a532b74c45bf3f02d1510fec14791f091269d07ba4528dd7bc8ff2c
+    resultDigest: sha256:86c3e906e847b9276bce4eeebff49889ea53ce89cc9378bf74637b1f4c829875
+    evidence:
+    - path: evidence/macro_060_root_repair.md
+      digest: sha256:3b0a7ddce0907dc6ce3aad1008b9e726c35bf629ab764ba8adf9cea5be3414e6
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T15:54:12.137554264Z"

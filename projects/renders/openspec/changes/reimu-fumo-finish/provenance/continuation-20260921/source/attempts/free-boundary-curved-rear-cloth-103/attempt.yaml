@@ -1,0 +1,79 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: free-boundary-curved-rear-cloth-103
+  resourceVersion: "5"
+  generation: 5
+  creationTimestamp: "2026-09-06T05:38:30.766996294Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: 0bbfad0aafc68aa1e3a745294c0f03685cad2a76b7c92ac45b72f9a0caf3bbae
+  nextAction: Freeze104 separate fitted-side receiver and free-rear ownership with coherent underside contour and independently ending broad cloth; retained101 is source,103 no candidate.
+status:
+  state: closed
+  closedAt: "2026-09-06T06:08:53.598611846Z"
+  artifacts:
+    planDigest: sha256:87826f16009e363187857bd08ab4e0f7a90285288d82161440932feb6c4dc9ed
+    resultDigest: sha256:2c7585f57509a1cb8f6b9aa15f997e5e0b4fa571365a4034bc1d489a297a8f43
+    evidence:
+    - path: evidence/hair_103_contact_diagnosis.md
+      digest: sha256:521304e269441daca56c7df467d10deb7b4864bb39fa19d9b2e18310c269d85e
+    - path: evidence/hair_103_domain_review.md
+      digest: sha256:09c058bf5aee463f8636a47b8a7da5c61e4eab9d1d6c909e4c497ef418abdbbb
+    - path: evidence/hair_103_free_boundary_notes.md
+      digest: sha256:df3b763905f10069013d9fd2ce51bc5def15907fe62ca322bf96c6edddf1d060
+    - path: evidence/hair_103_native_failure.md
+      digest: sha256:3863b5f33c18482bad66076de0e2d7bf66888647eb205fc1c395df4326609a22
+    - path: evidence/hair_103_pixel_direction.md
+      digest: sha256:30557c6d9ecc74def3aa612d9dfe7814a8e09ee96ca49a3e8cab67d55c57d0d3
+    - path: evidence/hair_103_preexecution.md
+      digest: sha256:b7b75a45832feffdcdc585c0bdd5ff6f1abd3432598a5cf0e3ddcde68f5aea6b
+    - path: evidence/hair_103_representation_review.md
+      digest: sha256:ce80d02240f705af66a3bfb51887407f48debc4d101b99c81460b933064adcec
+    - path: evidence/hair_104_representation_review.md
+      digest: sha256:f67cea7e4d0596e622b69abda9507b04059dc1500346be363c23ca5c4fa93ad3
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T06:08:53.598611846Z"

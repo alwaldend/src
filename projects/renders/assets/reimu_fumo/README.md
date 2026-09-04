@@ -9,8 +9,8 @@ scenes.
 The [OpenSpec change](../../openspec/changes/reimu-fumo-finish/proposal.md)
 records the unfinished objective. Its [tasks](../../openspec/changes/reimu-fumo-finish/tasks.md)
 and [design](../../openspec/changes/reimu-fumo-finish/design.md) own continuation
-and acceptance work. The imported state is **open** with **blocked** execution
-and no accepted candidate. In the originating worktree,
+and acceptance work. Current continuation is **open** with **active** execution and no accepted
+candidate; the imported blocked state remains historical evidence. In the originating worktree,
 `out/reimu_fumo_finish/CURRENT.md`, when present, is an ignored convenience
 projection for local models and renders. Its absence in GitHub or a fresh
 worktree is expected; it cannot override the maintained change.
@@ -62,8 +62,9 @@ writer. Every promoted checkpoint is a new file under
 repository-pinned Blender 5.2.1 toolchain. References, review cameras, lights,
 and diagnostics remain outside the reusable export collection.
 
-No external service or third-party generated asset may supply geometry,
-textures, materials, rigging, or animation. This work does not modify or
+The user permits only the simplest generic external base mesh; no external
+Fumo or character-specific plush may supply the model. Character-specific
+geometry, textures, materials, rigging, and animation remain locally authored. This work does not modify or
 integrate into a downstream scene.
 
 No historical candidate is accepted. The exact A157 and original A202 bytes

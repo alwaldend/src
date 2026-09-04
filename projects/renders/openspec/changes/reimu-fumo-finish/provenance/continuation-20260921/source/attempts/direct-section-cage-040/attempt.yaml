@@ -1,0 +1,74 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: direct-section-cage-040
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T06:30:32.244876559Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:1b6de285d21099bc70e5e9f2b1e096198c8e507b5e6174df21af5f83ba41338a
+  planID: direct-section-cage-v38
+  workType: candidate
+  stableDefect: radial-drum-and-disconnected-seated-construction
+  priorAttemptID: bowed-front-gusset-039
+  nextAction: Build direct head/body section cages and surface-relative cloth, save separate040 and inspect fixed front-side before further work.
+status:
+  state: closed
+  closedAt: "2026-09-05T06:45:21.098738429Z"
+  artifacts:
+    planDigest: sha256:65be1e0980cfdd02ff8a63ef596ca3872f3c1ba2252acdeeae491cff5c69f962
+    resultDigest: sha256:9efcffbf2a09239aa27ad120fef50297c7247a7286fa9615df6656f34f0edbf4
+    evidence:
+    - path: evidence/macro_039_visual.md
+      digest: sha256:3a9f0a0ec9c9c87736567f47cbeb3d4d59d6744a4b84bcf9ab23e42f9a10b50e
+    - path: evidence/macro_040_contact_correction.md
+      digest: sha256:c4e9885ae5a6ac0f8d575fbd24090b20302d61a3355f99b442f1dc062e013022
+    - path: evidence/macro_040_scorecard.md
+      digest: sha256:cfce815e943cc1af21a2a8217453767895d546d3907bba2c02094dad6a917249
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T06:45:21.098738429Z"

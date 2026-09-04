@@ -1,0 +1,77 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: released-rear-curtain-thin-liner-102
+  resourceVersion: "5"
+  generation: 5
+  creationTimestamp: "2026-09-06T05:01:24.718065794Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: 40ec32f8d2832f4a42e36c4ee4f27bdf213d1940ba0114a4fd2efcc476b9408b
+  nextAction: Keep101 baseline; review explicit free-boundary rear cloth construction replacing stretched lower mixed wrap before freezing next coherent trial.
+status:
+  state: closed
+  closedAt: "2026-09-06T05:22:53.305606057Z"
+  artifacts:
+    planDigest: sha256:58daf7b84b70354ac2c07a40e3fe7253a1ce6fc36b9c293389e1bf4d3b6a33a5
+    resultDigest: sha256:449319e80b7762732849e97c36ffd2343c21bce7da6929e373347d4175f5461b
+    evidence:
+    - path: evidence/hair_101_liner_feasibility.md
+      digest: sha256:aee1c11b349c109134e9439c6a69c48a6627a443c2b1f1dcdaaf3e89cc22697f
+    - path: evidence/hair_102_collision_diagnosis.md
+      digest: sha256:ba90af94d0032419d95c9ad2415c49ada1879b956f9469c5d98757fdd21881e9
+    - path: evidence/hair_102_design_review.md
+      digest: sha256:cff23671118d79add41a9d069d7af9681f673b04e6e26082c605112ba0cfb293
+    - path: evidence/hair_102_failed.md
+      digest: sha256:88d55834c62b3ca008e6ad21b5b6027bf824b97972f2e6e08ab58fe66e545571
+    - path: evidence/hair_102_pixel_direction.md
+      digest: sha256:09e3f3a87da099571b581447aebc9e70922f80d9d51f48bcf03412e9def2b540
+    - path: evidence/hair_102_preflight_clarification.md
+      digest: sha256:6219cbeb25b079b1ff1f0c1753b671dedb383e6028631df9b7920b22c4d499ea
+    - path: evidence/process_102_review.md
+      digest: sha256:80d580573ffa138ba3773048522fbcb96af5f2bedd2ec9ce2f22f280cb620fa9
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T05:22:53.305606057Z"

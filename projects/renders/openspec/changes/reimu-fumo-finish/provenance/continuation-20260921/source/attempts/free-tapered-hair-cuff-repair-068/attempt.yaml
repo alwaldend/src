@@ -1,0 +1,66 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: free-tapered-hair-cuff-repair-068
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-05T18:32:44.465550434Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:a8277383232b37b00289c1e82ca30b75c2c543dadd368d6acfedb95df61dacf3
+  planID: free-tapered-hair-cuff-repair-v62
+  workType: change
+  subject: 20f6eec6080abd8df44a395d410102c6217907386d008ef49d0e5101bee0e1a8
+  nextAction: Repair four hair sheets with ordered normal-based roots and broad free rear panels; preserve068 technical cuff repair provisionally, pending independent audit.
+status:
+  state: closed
+  closedAt: "2026-09-05T18:39:45.343547715Z"
+  artifacts:
+    planDigest: sha256:91bbcf87bd214645d7b3dc4916469e6f87a5589fe612526a2070804bb6e9c1d7
+    resultDigest: sha256:0c3332c7793d42d531fb08950d65afea82e20e4948b38506c5099635462ac492
+    evidence:
+    - path: evidence/hair_068_design_review.md
+      digest: sha256:ad1bedc216f5e69542bc2750151cd91ccfb118d282c67493c411b8f6b164d037
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T18:39:45.343547715Z"
