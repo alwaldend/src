@@ -269,6 +269,13 @@ func newReviewReplyCommand(
 			if err != nil {
 				return err
 			}
+			if err := validateReviewReplyJoinRefs(
+				options.GoalRef,
+				options.DeliveryRef,
+				options.DefectID,
+			); err != nil {
+				return err
+			}
 			inspection, err := delivery.replyToReviewThread(
 				ctx,
 				options.reviewTargetOptions,
@@ -1076,10 +1083,22 @@ func (r reviewReplyReceipt) validate() error {
 	if r.PriorThreadDigest == r.ResultThreadDigest {
 		return fmt.Errorf("review reply receipt does not record an appended reply")
 	}
+	return validateReviewReplyJoinRefs(
+		r.GoalRef,
+		r.DeliveryRef,
+		r.DefectID,
+	)
+}
+
+func validateReviewReplyJoinRefs(
+	goalRef string,
+	deliveryRef string,
+	defectID string,
+) error {
 	for name, value := range map[string]string{
-		"goal ref":     r.GoalRef,
-		"delivery ref": r.DeliveryRef,
-		"defect ID":    r.DefectID,
+		"goal ref":     goalRef,
+		"delivery ref": deliveryRef,
+		"defect ID":    defectID,
 	} {
 		if value == "" {
 			continue

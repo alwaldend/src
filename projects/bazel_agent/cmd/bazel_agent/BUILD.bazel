@@ -2,7 +2,10 @@ load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 
 go_library(
     name = "go_lib",
-    srcs = ["main.go"],
+    srcs = [
+        "main.go",
+        "tool.go",
+    ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/bazel_agent/cmd/bazel_agent",
     visibility = ["//visibility:private"],
 )
@@ -15,7 +18,10 @@ go_binary(
 
 go_test(
     name = "bazel_agent_test",
-    srcs = ["main_test.go"],
+    srcs = [
+        "main_test.go",
+        "tool_test.go",
+    ],
     # keep
     embed = [":go_lib"],
 )

@@ -45,10 +45,7 @@ js_library(
 
 js_binary(
     name = "mcp_cordis",
-    data = [
-        ":runtime",
-        ":starter_packages",
-    ],
+    data = [":runtime"],
     entry_point = "cmd/mcp_cordis/main.mjs",
     node_options = CORDIS_NODE_OPTIONS,
     patch_node_fs = False,

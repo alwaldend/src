@@ -36,6 +36,9 @@ be validated directly. A divergent remote replacement remains refused unless
 `$git-rebase-remote` first preserves the exact old tip and establishes
 task-owned rewrite authority; only that literal freshly inspected OID may be
 passed to `--replace-remote` and bound into the final snapshot and receipt.
+When an isolated rebase stops on conflicts, a manual rebase is permitted only
+for exact, evidence-backed minor hunks whose unambiguous resolution preserves
+both sides; all other conflicts still require user direction.
 Review cases also preserve pull-request/head/context,
 last-comment, snapshot-digest, and reply-receipt guards, exact comment
 disclaimers, post-mutation reinspection, and waiting for a started remote

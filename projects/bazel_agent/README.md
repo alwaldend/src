@@ -40,6 +40,33 @@ scratch must accept or derive an explicit task/run path under `out/<task>/`
 instead of relying on ambient `TMPDIR`, `TMP`, or `TEMP` values propagated to
 the whole build.
 
+## Cached repository tools
+
+Frequently used repository control tools can bypass Bazel analysis after one
+exact build:
+
+```sh
+bazel_agent tool run repo_delivery -- provider
+bazel_agent tool warm mcp_cordis repo_delivery
+bazel_agent tool path repo_delivery
+```
+
+The runner hashes its own binary plus each tool's declared source, dependency
+locks, Bazel pins, repository rc files, optional user and host rc files, their
+transitive imports, any `BAZELRC` environment files, and the platform. A cache
+miss takes an exclusive per-key lock, builds the target with runfiles enabled,
+and copies the complete runnable output into an atomically installed entry. A
+hit executes that entry directly without starting a Bazel client or loading a
+worktree graph. Concurrent misses for the same exact key share one build.
+Inputs are hashed again under the lock and after the build; an in-flight source
+change selects a new key instead of publishing stale output under the old one.
+
+`BAZEL_AGENT_TOOL_CACHE` or `--cache-root` can select the cache. The default is
+`/var/cache/bazel/tool_cache` when that managed directory exists, otherwise
+the user's cache directory. Because entries contain executable code, the cache
+root must not be writable by group or others. Source changes select a new key,
+so a dirty relevant source file cannot silently reuse an older executable.
+
 `bazel_agent doctor --workspace-root PATH --task-scratch out/<task>/<run>` is
 a read-only, bounded JSON diagnostic. It reports runner and built-source
 identity, Bazelisk pins, platform, rc/profile composition, task scratch
@@ -61,4 +88,6 @@ bazel_agent bazel run //projects/bazel_agent:install
 
 The install target atomically replaces `~/.local/bin/bazel_agent`. After every
 code update to this project, rerun the install target; the installed binary is
-not updated automatically.
+not updated automatically. Repository launchers probe the installed runner's
+tool-cache support before using it, so an older host installation retains its
+documented Bazel fallback during rollout.
