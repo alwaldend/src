@@ -84,6 +84,62 @@
       ansible.builtin.import_role:
         name: alwaldend.main.dev_vm
         tasks_from: bazel
+    - name: Install Open Computer Use dependencies
+      ansible.builtin.import_role:
+        name: alwaldend.main.dev_vm
+        tasks_from: packages
+      vars:
+        dev_vm_packages:
+          - nodejs
+          - npm
+      tags:
+        - codex
+        - open_computer_use
+    - name: Install Open Computer Use
+      become: false
+      community.general.npm:
+        name: open-computer-use
+        version: "{{ open_computer_use_version }}"
+        global: true
+        state: present
+        ignore_scripts: true
+        executable: /usr/bin/npm
+      environment:
+        NPM_CONFIG_PREFIX: "{{ open_computer_use_npm_prefix }}"
+      tags:
+        - codex
+        - open_computer_use
+    - name: Create the managed Open Computer Use skill directories
+      loop:
+        - /etc/codex
+        - /etc/codex/skills
+        - /etc/codex/skills/open-computer-use
+        - /etc/codex/skills/open-computer-use/agents
+        - /etc/codex/skills/open-computer-use/references
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+      tags:
+        - codex
+        - open_computer_use
+    - name: Install the managed Open Computer Use skill
+      loop: "{{ open_computer_use_skill_files }}"
+      ansible.builtin.get_url:
+        url: >-
+          https://raw.githubusercontent.com/{{
+          open_computer_use_skill_repository }}/{{
+          open_computer_use_skill_revision }}/skills/open-computer-use/{{
+          item }}
+        dest: "/etc/codex/skills/open-computer-use/{{ item }}"
+        owner: root
+        group: root
+        mode: "0644"
+      tags:
+        - codex
+        - open_computer_use
     - name: Create the miscellaneous data logical volume
       community.general.lvol:
         vg: sata_ssd
@@ -137,6 +193,7 @@
       tags:
         - arxiv
         - codex
+        - open_computer_use
     - name: Configure Codex
       become: false
       ansible.builtin.copy:
@@ -146,6 +203,7 @@
       tags:
         - arxiv
         - codex
+        - open_computer_use
     - name: Configure the OpenRouter Codex profile
       become: false
       ansible.builtin.copy:
@@ -154,6 +212,7 @@
         mode: "0600"
       tags:
         - codex
+        - open_computer_use
     - name: Configure user-level Codex instructions
       become: false
       ansible.builtin.copy:
@@ -170,6 +229,7 @@
         mode: "0700"
       tags:
         - codex
+        - open_computer_use
     - name: Configure the isolated OpenRouter Codex provider
       become: false
       ansible.builtin.copy:
@@ -178,21 +238,13 @@
         mode: "0600"
       tags:
         - codex
+        - open_computer_use
     - name: Configure isolated OpenRouter Codex instructions
       become: false
       ansible.builtin.copy:
         src: codex_agents.md
         dest: "~/.codex-openrouter/AGENTS.md"
         mode: "0600"
-      tags:
-        - codex
-    - name: Create the managed Codex configuration directory
-      ansible.builtin.file:
-        path: /etc/codex
-        state: directory
-        owner: root
-        group: root
-        mode: "0755"
       tags:
         - codex
     - name: Configure managed Codex requirements

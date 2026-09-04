@@ -1,4 +1,15 @@
 ansible_user: simeonwarrenbot
+open_computer_use_version: "0.3.3"
+open_computer_use_npm_prefix: "{{ dev_vm_bazel_home }}/.local"
+open_computer_use_skill_repository: iFurySt/open-codex-computer-use
+open_computer_use_skill_revision: >-
+  41c5294cfe4735baca03f9c82b4de99d191a0b49
+open_computer_use_skill_files:
+  - SKILL.md
+  - agents/openai.yaml
+  - references/installation.md
+  - references/troubleshooting.md
+  - references/usage.md
 arxiv_mcp_storage_path: "{{ misc_storage_mount }}/arxiv-mcp-server/papers"
 misc_storage_device: /dev/sata_ssd/misc
 misc_storage_mount: /srv/misc

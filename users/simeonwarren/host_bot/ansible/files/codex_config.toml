@@ -48,5 +48,9 @@ args = [
   "blender-mcp",
 ]
 
+[mcp_servers.open_computer_use]
+command = "/var/home/simeonwarrenbot/.local/bin/open-computer-use"
+args = ["mcp"]
+
 [shell_environment_policy.filters]
 T3_MCP_BEARER_TOKEN = "exclude"

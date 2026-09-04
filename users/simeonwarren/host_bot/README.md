@@ -47,6 +47,16 @@ different reliability requirements belongs on a separate volume.
 The managed Codex configuration allows up to 20 concurrent subagents per
 session. The root agent is accounted for separately.
 
+Node.js and npm are provisioned through the development VM role's mutable or
+OSTree package backend. Open Computer Use 0.3.3 is then installed without npm
+lifecycle scripts under the managed user's `~/.local` prefix. Its skill is
+then installed for the whole host under `/etc/codex/skills` from the matching
+immutable upstream revision. The deployment configures its stdio MCP server in
+the normal Codex config, the OpenRouter profile overlay, and the isolated
+OpenRouter home. The MCP can inspect and control the logged-in desktop session,
+so agents must treat its actions as real user input and obtain approval before
+externally visible or destructive actions.
+
 OpenRouter is available to new sessions through `codex -p openrouter`. The
 profile reads its API key from the desktop keyring entry selected by
 `service=openrouter` and `application=codex`; the key is not stored in the

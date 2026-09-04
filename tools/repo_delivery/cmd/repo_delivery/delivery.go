@@ -1123,7 +1123,10 @@ func (d *delivery) finishPreparation(
 	if err := receiptFileTransaction.write(ctx, receipt); err != nil {
 		return nil, err
 	}
-	labels := d.affectedBazelLabels(ctx, receipt.Scope.AuthorizedPaths)
+	labels, err := d.affectedBazelLabels(ctx, receipt.Scope.AuthorizedPaths)
+	if err != nil {
+		return nil, err
+	}
 	return &prepareReport{
 		Inspection:                  previous,
 		HeadOID:                     currentHead,
@@ -1148,78 +1151,149 @@ func suggestedValidationCommands(labels []string) []string {
 	}
 }
 
-// affectedBazelLabels maps task-owned file paths to Bazel package labels. It
-// probes candidate packages with bazel query and keeps only those that
-// actually contain a BUILD file, so the result is always safe to pass directly
-// to bazel build.
+// affectedBazelLabels maps each task-owned file to its nearest containing Bazel
+// package, then asks the root workspace which candidates it can resolve.
 func (d *delivery) affectedBazelLabels(
 	ctx context.Context,
 	paths []string,
-) []string {
-	seen := make(map[string]struct{})
-	for _, path := range paths {
-		dir := path
-		if index := strings.LastIndexByte(dir, '/'); index >= 0 {
-			dir = dir[:index]
-		} else {
+) ([]string, error) {
+	candidates, err := bazelLabelsForPaths(d.repository.directory, paths)
+	if err != nil || len(candidates) == 0 {
+		return candidates, err
+	}
+	expressions := make([]string, 0, len(candidates))
+	for _, label := range candidates {
+		if label == "//:all" {
 			continue
 		}
-		if dir == "" {
-			continue
-		}
-		seen[dir] = struct{}{}
+		expressions = append(
+			expressions,
+			"buildfiles("+label+")",
+		)
 	}
-	if len(seen) == 0 {
-		return nil
+	if len(expressions) == 0 {
+		return candidates, nil
 	}
-	expressions := make([]string, 0, len(seen))
-	for dir := range seen {
-		expressions = append(expressions, "buildfiles(//"+dir+")")
-	}
-	sort.Strings(expressions)
-	result, err := d.repository.runner.Run(ctx, command{
+	result, queryErr := d.repository.runner.Run(ctx, command{
 		Name: "bazel",
 		Args: append([]string{
 			"--quiet",
 			"query",
 			"--output=package",
-			"--noimplicit_deps",
-			"--noincompatible_shown_upgrades",
-			"--noincompatible_show_target_pattern_loading",
-			"--nodeps",
-			"--noshow_progress",
-			"--noshow_loading_progress",
-			"--noshow_progress",
 			"--keep_going",
 		}, strings.Join(expressions, " + ")),
 		Dir:         d.repository.directory,
 		OutputLimit: 1024 * 1024,
 	})
-	if err != nil || result.ExitCode != 0 {
-		// Fall back to the unfiltered directory mapping when Bazel cannot
-		// answer. This is no worse than the previous behavior.
-		labels := make([]string, 0, len(seen))
-		for dir := range seen {
-			labels = append(labels, "//"+dir+":all")
-		}
-		sort.Strings(labels)
-		return labels
+	if result.Truncated {
+		return nil, fmt.Errorf("Bazel affected-package query was truncated")
 	}
+	if queryErr != nil && result.ExitCode <= 0 {
+		return nil, fmt.Errorf(
+			"run Bazel affected-package query: %w",
+			queryErr,
+		)
+	}
+	return filterBazelLabels(candidates, result.Stdout), nil
+}
+
+func bazelLabelsForPaths(
+	repositoryDirectory string,
+	paths []string,
+) ([]string, error) {
+	seen := make(map[string]struct{})
+	for _, path := range paths {
+		label, found, err := nearestBazelPackageLabel(
+			repositoryDirectory,
+			path,
+		)
+		if err != nil {
+			return nil, err
+		}
+		if !found {
+			continue
+		}
+		seen[label] = struct{}{}
+	}
+	if len(seen) == 0 {
+		return nil, nil
+	}
+	labels := make([]string, 0, len(seen))
+	for label := range seen {
+		labels = append(labels, label)
+	}
+	sort.Strings(labels)
+	return labels, nil
+}
+
+func filterBazelLabels(labels []string, queryOutput string) []string {
 	validPackages := make(map[string]struct{})
-	for _, line := range strings.Split(strings.TrimSpace(result.Stdout), "\n") {
+	for _, line := range strings.Split(strings.TrimSpace(queryOutput), "\n") {
 		line = strings.TrimSpace(line)
 		if line != "" {
 			validPackages[line] = struct{}{}
 		}
 	}
-	labels := make([]string, 0, len(validPackages))
-	for dir := range seen {
-		if _, ok := validPackages[dir]; ok {
-			labels = append(labels, "//"+dir+":all")
+	filtered := make([]string, 0, len(labels))
+	for _, label := range labels {
+		if label == "//:all" {
+			filtered = append(filtered, label)
+			continue
+		}
+		directory := strings.TrimSuffix(
+			strings.TrimPrefix(label, "//"),
+			":all",
+		)
+		if _, ok := validPackages[directory]; ok {
+			filtered = append(filtered, label)
 		}
 	}
-	sort.Strings(labels)
-	return labels
+	return filtered
+}
+
+func nearestBazelPackageLabel(
+	repositoryDirectory string,
+	path string,
+) (string, bool, error) {
+	cleanPath := filepath.Clean(filepath.FromSlash(path))
+	parentPrefix := ".." + string(filepath.Separator)
+	if filepath.IsAbs(cleanPath) || cleanPath == ".." ||
+		strings.HasPrefix(cleanPath, parentPrefix) {
+		return "", false, fmt.Errorf(
+			"affected path %q escapes the repository",
+			path,
+		)
+	}
+	directory := filepath.Dir(cleanPath)
+	for {
+		for _, name := range []string{"BUILD.bazel", "BUILD"} {
+			candidate := filepath.Join(repositoryDirectory, directory, name)
+			info, err := os.Stat(candidate)
+			if err == nil {
+				if info.IsDir() {
+					return "", false, fmt.Errorf(
+						"Bazel package marker %q is a directory",
+						candidate,
+					)
+				}
+				if directory == "." {
+					return "//:all", true, nil
+				}
+				return "//" + filepath.ToSlash(directory) + ":all", true, nil
+			}
+			if !errors.Is(err, os.ErrNotExist) {
+				return "", false, fmt.Errorf(
+					"inspect Bazel package marker %q: %w",
+					candidate,
+					err,
+				)
+			}
+		}
+		if directory == "." {
+			return "", false, nil
+		}
+		directory = filepath.Dir(directory)
+	}
 }
 
 func (d *delivery) candidateParent(

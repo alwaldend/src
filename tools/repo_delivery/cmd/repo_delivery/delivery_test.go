@@ -2,7 +2,10 @@ package main
 
 import (
 	"context"
+	"errors"
 	"io"
+	"os"
+	"path/filepath"
 	"reflect"
 	"strings"
 	"testing"
@@ -28,6 +31,112 @@ func TestSuggestedValidationCommandsEmpty(t *testing.T) {
 	if commands := suggestedValidationCommands(nil); commands != nil {
 		t.Fatalf("commands = %v, want nil", commands)
 	}
+}
+
+func TestBazelLabelsForPathsUseNearestPackage(t *testing.T) {
+	t.Parallel()
+	repository := t.TempDir()
+	for _, path := range []string{
+		"BUILD.bazel",
+		"users/simeonwarren/host_bot/BUILD.bazel",
+		"users/simeonwarren/host_bot/ansible/BUILD",
+	} {
+		absolute := filepath.Join(repository, filepath.FromSlash(path))
+		if err := os.MkdirAll(filepath.Dir(absolute), 0o755); err != nil {
+			t.Fatalf("MkdirAll(%q): %v", filepath.Dir(absolute), err)
+		}
+		if err := os.WriteFile(absolute, []byte("# test\n"), 0o600); err != nil {
+			t.Fatalf("WriteFile(%q): %v", absolute, err)
+		}
+	}
+
+	labels, err := bazelLabelsForPaths(repository, []string{
+		"MODULE.bazel",
+		"users/simeonwarren/host_bot/README.md",
+		"users/simeonwarren/host_bot/ansible/files/codex_config.toml",
+		"users/simeonwarren/host_bot/ansible/group_vars/all.yaml",
+	})
+	if err != nil {
+		t.Fatalf("bazelLabelsForPaths() error = %v", err)
+	}
+	want := []string{
+		"//:all",
+		"//users/simeonwarren/host_bot/ansible:all",
+		"//users/simeonwarren/host_bot:all",
+	}
+	if !reflect.DeepEqual(labels, want) {
+		t.Fatalf("labels = %v, want %v", labels, want)
+	}
+}
+
+func TestBazelLabelsForPathsRejectEscape(t *testing.T) {
+	t.Parallel()
+	_, err := bazelLabelsForPaths(t.TempDir(), []string{"../outside.txt"})
+	if err == nil || !strings.Contains(err.Error(), "escapes the repository") {
+		t.Fatalf("bazelLabelsForPaths() error = %v, want escape", err)
+	}
+}
+
+func TestAffectedBazelLabelsFiltersNestedWorkspace(t *testing.T) {
+	t.Parallel()
+	repository := t.TempDir()
+	for _, path := range []string{
+		"BUILD.bazel",
+		"projects/rules_skill/BUILD.bazel",
+		"users/simeonwarren/host_bot/ansible/BUILD.bazel",
+	} {
+		absolute := filepath.Join(repository, filepath.FromSlash(path))
+		if err := os.MkdirAll(filepath.Dir(absolute), 0o755); err != nil {
+			t.Fatalf("MkdirAll(%q): %v", filepath.Dir(absolute), err)
+		}
+		if err := os.WriteFile(absolute, []byte("# test\n"), 0o600); err != nil {
+			t.Fatalf("WriteFile(%q): %v", absolute, err)
+		}
+	}
+	runner := &transcriptRunner{
+		t: t,
+		expected: []expectedCommand{{
+			command: command{
+				Name: "bazel",
+				Args: []string{
+					"--quiet",
+					"query",
+					"--output=package",
+					"--keep_going",
+					"buildfiles(//projects/rules_skill:all) + " +
+						"buildfiles(//users/simeonwarren/host_bot/ansible:all)",
+				},
+				Dir:         repository,
+				OutputLimit: 1024 * 1024,
+			},
+			result: commandResult{
+				Stdout:   "users/simeonwarren/host_bot/ansible\n",
+				Stderr:   "ignored nested workspace",
+				ExitCode: 3,
+			},
+			err: errors.New("Bazel query returned partial results"),
+		}},
+	}
+	d := &delivery{repository: &gitRepository{
+		directory: repository,
+		runner:    runner,
+	}}
+	labels, err := d.affectedBazelLabels(context.Background(), []string{
+		"MODULE.bazel",
+		"projects/rules_skill/README.md",
+		"users/simeonwarren/host_bot/ansible/files/config.toml",
+	})
+	if err != nil {
+		t.Fatalf("affectedBazelLabels() error = %v", err)
+	}
+	want := []string{
+		"//:all",
+		"//users/simeonwarren/host_bot/ansible:all",
+	}
+	if !reflect.DeepEqual(labels, want) {
+		t.Fatalf("labels = %v, want %v", labels, want)
+	}
+	runner.done()
 }
 
 func TestCommitAndPullRequestDisclaimers(t *testing.T) {
