@@ -42,6 +42,7 @@ al_release_binary(
                 "bazel_agent",
                 "goal",
                 "rules_dnscontrol",
+                "rules_iso",
                 "useless_qt_gui",
                 "rules_template",
                 "rules_binary_toolchain",

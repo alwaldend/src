@@ -4,20 +4,16 @@ docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
     visibility = ["//third_party:__pkg__"],
-    deps = subpackages(
-        include = ["*"],
-        allow_empty = True,
-    ),
 )
 
 alias(
-    name = "com_truenas_scale",
-    actual = "@com_truenas_scale//file:file",
+    name = "org_xcp_ng",
+    actual = "@org_xcp_ng//file:file",
     visibility = ["//:__subpackages__"],
 )
 
 alias(
     name = "iso_flash",
-    actual = "@com_truenas_scale_flash//:iso_flash",
+    actual = "@org_xcp_ng_flash//:iso_flash",
     visibility = ["//:__subpackages__"],
 )

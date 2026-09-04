@@ -132,6 +132,12 @@ local_path_override(
     path = "projects/rules_dnscontrol",
 )
 
+bazel_dep(name = "rules_iso")
+local_path_override(
+    module_name = "rules_iso",
+    path = "projects/rules_iso",
+)
+
 bazel_dep(name = "rules_skill_gazelle", dev_dependency = True)
 local_path_override(
     module_name = "rules_skill_gazelle",

@@ -234,8 +234,11 @@ stated scope.
   or safety failure.
 - Loading the `project-layout` skill is REQUIRED before creating or moving
   any directory in the source tree, or when deciding a directory layout
-  anywhere in the repository. How to apply its guidance is the agent's
-  judgment.
+  anywhere in the repository. This is a hard gate, not a suggestion: do not
+  create the directory until the skill has been loaded and its layout has
+  been checked against the planned path. The skill's role-based layout is
+  mandatory for new projects and new subdirectories. Legacy layouts such as
+  `main/` are grandfathered and must not be used as precedent for new paths.
 - Read the nearest `README.md`, `BUILD.bazel`, and `include.MODULE.bazel`
   (when present) for the area being changed.
 - Name projects using only ASCII letters, digits, and underscores
