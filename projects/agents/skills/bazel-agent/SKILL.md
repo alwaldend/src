@@ -55,6 +55,31 @@ Bazel already schedules internally.
 Use `repo-bazel` in addition to this skill when changing BUILD files, Starlark,
 Bzlmod dependencies, toolchains, or the build graph.
 
+## Run cached repository tools
+
+Use the runner's content-addressed path for registered, frequently used
+repository control tools:
+
+```sh
+bazel_agent tool run repo_delivery -- provider
+bazel_agent tool warm mcp_cordis repo_delivery
+```
+
+`tool run` hashes the registered source, locks one exact cache key, and builds
+and atomically installs the executable on a miss. A hit execs the cached tool
+without starting Bazel or loading the current worktree's configured graph.
+The key includes the transitive imports of workspace, user, host, and
+`BAZELRC` environment rc files.
+Use `tool warm` for optional background or provisioning work; do not replace it
+with a broad Bazel query. Tool arguments belong after `--`.
+
+The managed cache defaults to `/var/cache/bazel/tool_cache` when present and
+falls back to the user's cache directory. Override it only with
+`BAZEL_AGENT_TOOL_CACHE` or `--cache-root` for an isolated test. An executable
+cache must not be writable by group or others. A cache miss still uses the
+normal agent Bazel profile and may be slow once; diagnose that build rather
+than bypassing the runner or reusing a differently keyed artifact.
+
 ## Install or update the runner
 
 If `bazel_agent` is not installed, bootstrap it with the underlying command:

@@ -39,3 +39,20 @@
         by command or option incompatibility, a real ordering dependency, or
         diagnostic isolation, and must not split compatible targets merely to
         parallelize them. Otherwise fail.
+- description: Uses exact cached runtimes for frequent repository tools
+  vars:
+    request: >-
+      Run repo_delivery's provider check without paying Bazel analysis in
+      every worktree, and arrange an optional background warmup for Cordis and
+      repo_delivery on a newly provisioned machine.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response runs the provider check as bazel_agent tool
+        run repo_delivery -- provider and uses bazel_agent tool warm
+        mcp_cordis repo_delivery for the optional warmup. It must explain that
+        the first exact key may build through Bazel, while a cache hit directly
+        executes a content-addressed runtime without a Bazel query or per-
+        worktree analysis. It must not suggest bazel query //... as the
+        warmup. Otherwise fail.

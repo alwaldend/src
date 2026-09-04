@@ -24,7 +24,7 @@ synchronized with an advanced base. Run required validations against the
 literal resulting head before `prepare` and `publish`.
 
 Before delivery, run
-`bazel_agent bazel run //tools/repo_delivery -- provider`. Use its sanitized
+`bazel_agent tool run repo_delivery -- provider`. Use its sanitized
 repository identity, provider hint, `adapter_available`, sanitized
 `git_transport`, and `delivery_transport_available` results; do not print or
 inspect the raw configured remote URL because it may contain credentials.
@@ -70,10 +70,13 @@ candidate head; re-run them after any edit that changes the candidate tree.
 The `prepare` command returns `affected_bazel_labels` derived from the
 receipt's authorized path scope; pass those labels to
 `bazel_agent bazel build --config=lint` for the affected lint gate.
+These labels cover the repository's root Bazel workspace. Paths excluded by
+`.bazelignore` or owned by a nested workspace are omitted and require the
+owning workspace's separate validation workflow.
 
 ## GitHub adapter
 
-Use `bazel_agent bazel run //tools/repo_delivery -- ...` for `inspect`, `prepare`,
+Use `bazel_agent tool run repo_delivery -- ...` for `inspect`, `prepare`,
 `publish`, `verify`, and the `review` subcommands. The tool owns deterministic
 mechanics: exact ref and pull-request discovery, aggregate commit creation,
 signing preservation, rebasing, exact-lease pushes, provider-CLI calls,
@@ -185,10 +188,14 @@ configuration or weakening transport isolation implicitly.
    from that exact state.
 
 The current adapter aborts and removes an isolated rebase when it encounters a
-conflict; it does not expose an interactive resolver. Stop for direction rather
-than bypassing the tool with direct Git. Also stop on a changed lease,
-ambiguous ownership, human-edited pull-request metadata, an unsafe base, or any
-other fail-closed result.
+conflict; it does not expose an interactive resolver. After inspecting the
+exact three-way hunks, a manual rebase is allowed only when repository policy
+classifies every conflict as minor and task plus repository evidence makes the
+combined result unambiguous. Record the fetched base and feature OIDs, preserve
+both sides, stage only the explicit resolutions, and rerun invalidated checks.
+Stop for direction when any conflict is not minor. Also stop on a changed
+lease, ambiguous ownership, human-edited pull-request metadata, an unsafe base,
+or any other fail-closed result.
 
 ### Publish and review
 

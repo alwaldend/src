@@ -140,6 +140,31 @@
       tags:
         - codex
         - open_computer_use
+    - name: Check the repository tool workspace
+      become: false
+      ansible.builtin.stat:
+        path: "{{ repo_tool_workspace_root }}/MODULE.bazel"
+      register: repo_tool_workspace
+      tags:
+        - bazel
+        - codex
+    - name: Preseed repository agent tools
+      become: false
+      ansible.builtin.command:
+        argv:
+          - "{{ dev_vm_bazel_home }}/.local/bin/bazel_agent"
+          - tool
+          - warm
+          - --workspace-root
+          - "{{ repo_tool_workspace_root }}"
+          - mcp_cordis
+          - repo_delivery
+      register: repo_tool_warm
+      changed_when: "'installed' in repo_tool_warm.stdout"
+      when: repo_tool_workspace.stat.isreg | default(false)
+      tags:
+        - bazel
+        - codex
     - name: Create the miscellaneous data logical volume
       community.general.lvol:
         vg: sata_ssd

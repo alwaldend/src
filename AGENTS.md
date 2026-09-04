@@ -232,6 +232,17 @@ stated scope.
   evidence and report it separately instead of derailing the requested work;
   any temporary workaround must be explicit and must not hide a correctness
   or safety failure.
+- An agent may resolve a Git conflict without additional user confirmation
+  when the branch rewrite is already authorized and the conflict is minor: its
+  scope is bounded, the intended combined result is unambiguous from the task
+  and repository evidence, and the resolution preserves all relevant changes
+  from both sides. Inspect the exact three-way hunks, stage only explicit
+  resolutions, and rerun every check invalidated by the rewrite. A conflict is
+  not minor when resolving it requires guessing intent, choosing between
+  unsupported behaviors, dropping work, or changing security, infrastructure,
+  public-interface, or data semantics beyond the authorized task; abort and
+  ask for direction in those cases. Continue to use the applicable rebase and
+  delivery workflows, including exact remote leases.
 - Loading the `project-layout` skill is REQUIRED before creating or moving
   any directory in the source tree, or when deciding a directory layout
   anywhere in the repository. This is a hard gate, not a suggestion: do not

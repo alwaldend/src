@@ -21,6 +21,16 @@ for value in "${task_id}" "${run_id}" "${worker_id}"; do
 done
 scratch_directory="${workspace_root}/out/${task_id}/mcp_cordis/runs/${run_id}"
 
+if bazel_agent tool --help >/dev/null 2>&1; then
+    exec bazel_agent tool run \
+        --workspace-root "${workspace_root}" \
+        mcp_cordis -- \
+        --workspace-root "${workspace_root}" \
+        --task-id "${task_id}" \
+        --run-id "${run_id}" \
+        --worker-id "${worker_id}"
+fi
+
 mkdir -p -- "${scratch_directory}"
 run_script="$(mktemp "${scratch_directory}/launch.XXXXXXXX")"
 

@@ -24,8 +24,11 @@ network binding and loopback connections available for Bazel servers. Other
 private network targets remain blocked. T3 Code must select that profile for
 the thread. Hosted web search is not restricted by this role.
 
-The deployment installs pinned Bazelisk as `~/.local/bin/bazel` and provisions
-the repository's `bazel_agent` runner in the same directory.
+The deployment installs pinned Bazelisk as `~/.local/bin/bazel`, provisions
+the repository's `bazel_agent` runner in the same directory, and pre-seeds its
+content-addressed `mcp_cordis` and `repo_delivery` runtimes when the canonical
+repository checkout is present. New Codex worktrees can then start Cordis and
+run delivery operations without first loading their own Bazel graph.
 
 Two SATA SSDs, selected by their stable ATA IDs, back the `sata_ssd` volume
 group. Its striped `bazel_cache` logical volume is mounted persistently at
@@ -36,6 +39,12 @@ room within the 1-TiB filesystem for output bases and install state; the
 volume group retains about 900 GiB for later growth or another logical volume.
 Because the volume is striped, either SSD failing invalidates the disposable
 cache.
+
+Executable repository tools use `/var/cache/bazel/tool_cache`. Unlike the
+disposable action and output caches, this directory is private to the host-bot
+account. Cache entries are keyed by declared source, build configuration,
+platform, and dependency pins, and are installed atomically after a Bazel
+build on the first miss.
 
 The arXiv MCP server is pinned to version 0.7.2 and runs locally over stdio.
 Its downloaded papers and search data live under

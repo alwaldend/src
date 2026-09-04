@@ -3333,6 +3333,18 @@ func TestReviewReplyRequiresSubstantiveValidUTF8Body(t *testing.T) {
 	}
 }
 
+func TestReviewReplyJoinRefsRejectInvalidValuesBeforeMutation(t *testing.T) {
+	t.Parallel()
+	err := validateReviewReplyJoinRefs(
+		"goal-1",
+		"github.com/owner/repository/pull/58",
+		"review-reply-preflight",
+	)
+	if err == nil || !strings.Contains(err.Error(), "path separator") {
+		t.Fatalf("validateReviewReplyJoinRefs() error = %v", err)
+	}
+}
+
 func TestReviewReplyArtifactPathsMustShareTaskDirectory(t *testing.T) {
 	t.Parallel()
 	delivery := &delivery{repository: &gitRepository{directory: "/repo"}}

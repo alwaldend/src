@@ -24,6 +24,7 @@ extends = ":workspace"
 [permissions.host-bot.filesystem]
 "/var/cache/bazel/disk_cache" = "write"
 "/var/cache/bazel/output_user_root" = "write"
+"/var/cache/bazel/tool_cache" = "write"
 "~/.cache/bazelisk" = "write"
 
 [permissions.host-bot.network]

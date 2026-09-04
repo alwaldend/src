@@ -39,6 +39,11 @@ bazel_cache_directories:
     # its output-user-root to 0755 on every startup, so this mode only matters
     # for the initial creation and the sandbox's write permission check.
     mode: "0777"
+  - path: /var/cache/bazel/tool_cache
+    # Cached tools are executable, so only the owning account may modify or
+    # traverse this content-addressed store.
+    mode: "0700"
+repo_tool_workspace_root: /var/home/simeonwarrenbot/Projects/src
 bazel_cache_device: /dev/sata_ssd/bazel_cache
 bazel_cache_mount: /var/cache/bazel
 bazel_cache_pvs:

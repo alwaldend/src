@@ -1151,61 +1151,30 @@ func suggestedValidationCommands(labels []string) []string {
 	}
 }
 
-// affectedBazelLabels maps each task-owned file to its nearest containing Bazel
-// package, then asks the root workspace which candidates it can resolve.
+// affectedBazelLabels maps task-owned paths to packages loadable from the root
+// Bazel workspace without starting Bazel. Nested and explicitly ignored
+// workspaces require their own validation workflow.
 func (d *delivery) affectedBazelLabels(
-	ctx context.Context,
+	_ context.Context,
 	paths []string,
 ) ([]string, error) {
-	candidates, err := bazelLabelsForPaths(d.repository.directory, paths)
-	if err != nil || len(candidates) == 0 {
-		return candidates, err
-	}
-	expressions := make([]string, 0, len(candidates))
-	for _, label := range candidates {
-		if label == "//:all" {
-			continue
-		}
-		expressions = append(
-			expressions,
-			"buildfiles("+label+")",
-		)
-	}
-	if len(expressions) == 0 {
-		return candidates, nil
-	}
-	result, queryErr := d.repository.runner.Run(ctx, command{
-		Name: "bazel",
-		Args: append([]string{
-			"--quiet",
-			"query",
-			"--output=package",
-			"--keep_going",
-		}, strings.Join(expressions, " + ")),
-		Dir:         d.repository.directory,
-		OutputLimit: 1024 * 1024,
-	})
-	if result.Truncated {
-		return nil, fmt.Errorf("Bazel affected-package query was truncated")
-	}
-	if queryErr != nil && result.ExitCode <= 0 {
-		return nil, fmt.Errorf(
-			"run Bazel affected-package query: %w",
-			queryErr,
-		)
-	}
-	return filterBazelLabels(candidates, result.Stdout), nil
+	return bazelLabelsForPaths(d.repository.directory, paths)
 }
 
 func bazelLabelsForPaths(
 	repositoryDirectory string,
 	paths []string,
 ) ([]string, error) {
+	ignored, err := bazelIgnoredDirectories(repositoryDirectory)
+	if err != nil {
+		return nil, fmt.Errorf("inspect Bazel ignored directories: %w", err)
+	}
 	seen := make(map[string]struct{})
 	for _, path := range paths {
 		label, found, err := nearestBazelPackageLabel(
 			repositoryDirectory,
 			path,
+			ignored,
 		)
 		if err != nil {
 			return nil, err
@@ -1226,34 +1195,10 @@ func bazelLabelsForPaths(
 	return labels, nil
 }
 
-func filterBazelLabels(labels []string, queryOutput string) []string {
-	validPackages := make(map[string]struct{})
-	for _, line := range strings.Split(strings.TrimSpace(queryOutput), "\n") {
-		line = strings.TrimSpace(line)
-		if line != "" {
-			validPackages[line] = struct{}{}
-		}
-	}
-	filtered := make([]string, 0, len(labels))
-	for _, label := range labels {
-		if label == "//:all" {
-			filtered = append(filtered, label)
-			continue
-		}
-		directory := strings.TrimSuffix(
-			strings.TrimPrefix(label, "//"),
-			":all",
-		)
-		if _, ok := validPackages[directory]; ok {
-			filtered = append(filtered, label)
-		}
-	}
-	return filtered
-}
-
 func nearestBazelPackageLabel(
 	repositoryDirectory string,
 	path string,
+	ignored []string,
 ) (string, bool, error) {
 	cleanPath := filepath.Clean(filepath.FromSlash(path))
 	parentPrefix := ".." + string(filepath.Separator)
@@ -1264,29 +1209,29 @@ func nearestBazelPackageLabel(
 			path,
 		)
 	}
+	if bazelPathIgnored(cleanPath, ignored) {
+		return "", false, nil
+	}
+	nested, err := hasNestedBazelWorkspace(repositoryDirectory, cleanPath)
+	if err != nil {
+		return "", false, err
+	}
+	if nested {
+		return "", false, nil
+	}
 	directory := filepath.Dir(cleanPath)
 	for {
 		for _, name := range []string{"BUILD.bazel", "BUILD"} {
 			candidate := filepath.Join(repositoryDirectory, directory, name)
-			info, err := os.Stat(candidate)
-			if err == nil {
-				if info.IsDir() {
-					return "", false, fmt.Errorf(
-						"Bazel package marker %q is a directory",
-						candidate,
-					)
-				}
+			exists, err := bazelRegularFile(candidate)
+			if err != nil {
+				return "", false, err
+			}
+			if exists {
 				if directory == "." {
 					return "//:all", true, nil
 				}
 				return "//" + filepath.ToSlash(directory) + ":all", true, nil
-			}
-			if !errors.Is(err, os.ErrNotExist) {
-				return "", false, fmt.Errorf(
-					"inspect Bazel package marker %q: %w",
-					candidate,
-					err,
-				)
 			}
 		}
 		if directory == "." {
@@ -1294,6 +1239,86 @@ func nearestBazelPackageLabel(
 		}
 		directory = filepath.Dir(directory)
 	}
+}
+
+func bazelIgnoredDirectories(repositoryRoot string) ([]string, error) {
+	content, err := os.ReadFile(filepath.Join(repositoryRoot, ".bazelignore"))
+	if errors.Is(err, os.ErrNotExist) {
+		return nil, nil
+	}
+	if err != nil {
+		return nil, err
+	}
+	var directories []string
+	for _, line := range strings.Split(string(content), "\n") {
+		line = strings.TrimSpace(line)
+		if line == "" || strings.HasPrefix(line, "#") {
+			continue
+		}
+		directory := filepath.Clean(filepath.FromSlash(line))
+		if filepath.IsAbs(directory) || directory == "." ||
+			directory == ".." || strings.HasPrefix(
+			directory,
+			".."+string(filepath.Separator),
+		) {
+			return nil, fmt.Errorf(
+				"invalid Bazel ignored directory %q",
+				line,
+			)
+		}
+		directories = append(directories, directory)
+	}
+	return directories, nil
+}
+
+func bazelPathIgnored(path string, ignored []string) bool {
+	for _, directory := range ignored {
+		if path == directory || strings.HasPrefix(
+			path,
+			directory+string(filepath.Separator),
+		) {
+			return true
+		}
+	}
+	return false
+}
+
+func hasNestedBazelWorkspace(
+	repositoryRoot string,
+	path string,
+) (bool, error) {
+	for dir := filepath.Dir(path); dir != "."; dir = filepath.Dir(dir) {
+		for _, marker := range []string{
+			"MODULE.bazel",
+			"WORKSPACE.bazel",
+			"WORKSPACE",
+		} {
+			exists, err := bazelRegularFile(
+				filepath.Join(repositoryRoot, dir, marker),
+			)
+			if err != nil {
+				return false, err
+			}
+			if exists {
+				return true, nil
+			}
+		}
+	}
+	return false, nil
+}
+
+func bazelRegularFile(path string) (bool, error) {
+	info, err := os.Stat(path)
+	if errors.Is(err, os.ErrNotExist) {
+		return false, nil
+	}
+	if err != nil {
+		return false, fmt.Errorf("inspect Bazel marker %q: %w", path, err)
+	}
+	if !info.Mode().IsRegular() {
+		return false, fmt.Errorf("Bazel marker %q is not a regular file", path)
+	}
+	return true, nil
 }
 
 func (d *delivery) candidateParent(
