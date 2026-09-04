@@ -263,7 +263,8 @@ func computeArtifactManifest(attemptDir string) (ArtifactManifest, error) {
 		return ArtifactManifest{}, fmt.Errorf("read result artifact: %w", err)
 	}
 	entries, err := os.ReadDir(filepath.Join(attemptDir, "evidence"))
-	if err != nil {
+	// An absent empty directory has the same portable manifest as an empty one.
+	if err != nil && !os.IsNotExist(err) {
 		return ArtifactManifest{}, fmt.Errorf("read evidence directory: %w", err)
 	}
 	if len(entries) > maxEvidenceFiles {

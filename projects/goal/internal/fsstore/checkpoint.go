@@ -597,7 +597,9 @@ func (s *Store) buildAttemptTree(
 			return nil, err
 		}
 		entries, err := os.ReadDir(filepath.Join(attemptDir, "evidence"))
-		if err != nil {
+		// Validation already checked the frozen manifest; packaging can omit
+		// an empty evidence directory before this attempt is resumed.
+		if err != nil && !os.IsNotExist(err) {
 			return nil, err
 		}
 		for _, entry := range entries {
