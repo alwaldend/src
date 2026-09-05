@@ -5,9 +5,9 @@
 - ID: `agent-system.action`
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/action-catalog`
 - Derivation: `1.0.0`
-- Source revision: `b2876b3fe824d37f59acacb66a74ef7d`
+- Source revision: `4c4add83561f89421f6639d971feb539`
 - Completeness: `complete`
-- JSON digest: `sha256:b94f106ffa5f7fc206bbb61e2b8e00a508d293025eb2a2985ea7bca95b5215c2`
+- JSON digest: `sha256:d9efa4017d3f069c57e2572a2dc7906fd3e34a4ab98b4fb3b62de2f91b59bf02`
 
 ## Providers
 
@@ -24,9 +24,11 @@
 - `goal.checkpoint` (goal.local-store.checkpoint): classified
 - `goal.migrate` (goal.local-store.migrate): classified
 - `goal.promote` (goal.local-store.promote): classified
+- `repo-delivery.continue` (github.forge.continue): classified
 - `repo-delivery.prepare` (github.forge.prepare): classified
 - `repo-delivery.publish` (github.forge.publish): classified
 - `repo-delivery.review-mutate` (github.forge.review): classified
+- `repo-delivery.validate` (github.forge.validate): classified
 - `terraform.apply` (terraform.runner.apply): classified
 - `terraform.deploy` (terraform.runner.deploy): classified
 - `terraform.deploy-y` (terraform.runner.deploy_y): classified

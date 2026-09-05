@@ -8,17 +8,21 @@ import (
 	"os"
 
 	v1alpha1 "git.alwaldend.com/alwaldend/src/tools/agents/api/v1alpha1"
+	catalogv1alpha1 "git.alwaldend.com/alwaldend/src/tools/agents/catalog/v1alpha1"
 )
 
 type coverageOptions struct {
-	catalog string
-	input   string
-	output  string
+	workspaceRoot string
+	catalog       string
+	input         string
+	output        string
 }
 
 func parseCoverageFlags(args []string) (coverageOptions, error) {
 	var opts coverageOptions
 	flags := flag.NewFlagSet("coverage", flag.ContinueOnError)
+	flags.StringVar(&opts.workspaceRoot, "workspace-root", "",
+		"base for relative paths (default: BUILD_WORKSPACE_DIRECTORY or working directory)")
 	flags.StringVar(&opts.catalog, "catalog", "",
 		"capability catalog JSON file")
 	flags.StringVar(&opts.input, "input", "", "coverage entries JSON file")
@@ -31,7 +35,11 @@ func parseCoverageFlags(args []string) (coverageOptions, error) {
 			"--catalog, --input, and --output are required",
 		)
 	}
-	return opts, nil
+	if flags.NArg() != 0 {
+		return coverageOptions{}, fmt.Errorf("unexpected positional arguments")
+	}
+	err := workspaceFilePaths(opts.workspaceRoot, &opts.catalog, &opts.input, &opts.output)
+	return opts, err
 }
 
 func runCoverage(args []string, stdout io.Writer) error {
@@ -43,14 +51,10 @@ func runCoverage(args []string, stdout io.Writer) error {
 	if err != nil {
 		return fmt.Errorf("read capability catalog: %w", err)
 	}
-	catalogEnvelope := struct {
-		Digest string     `json:"digest"`
-		Skills []struct{} `json:"skills"`
-	}{}
-	if err := json.Unmarshal(catalogContent, &catalogEnvelope); err != nil {
+	catalog, err := catalogv1alpha1.DecodeCapabilityStrict(catalogContent)
+	if err != nil {
 		return fmt.Errorf("decode capability catalog: %w", err)
 	}
-	totalSkills := len(catalogEnvelope.Skills)
 	content, err := os.ReadFile(opts.input)
 	if err != nil {
 		return fmt.Errorf("read coverage input: %w", err)
@@ -59,18 +63,10 @@ func runCoverage(args []string, stdout io.Writer) error {
 	if err := json.Unmarshal(content, &entries); err != nil {
 		return fmt.Errorf("decode coverage entries: %w", err)
 	}
-	matrix := v1alpha1.CoverageMatrix{
-		APIVersion: v1alpha1.APIVersion,
-		Kind:       "CoverageMatrix",
-		ID:         "coverage/agent-system",
-		CatalogRef: v1alpha1.Reference{
-			Kind:   v1alpha1.ReferenceArtifact,
-			ID:     "artifact/agent-system-capability",
-			Digest: catalogEnvelope.Digest,
-		},
-		Entries:   entries,
-		Total:     totalSkills,
-		Truncated: len(entries) < totalSkills,
+	matrix, err := configuredCoverageMatrix(catalog, entries,
+		"coverage/agent-system")
+	if err != nil {
+		return err
 	}
 	encoded, err := v1alpha1.CanonicalCoverageMatrixJSON(matrix)
 	if err != nil {
@@ -83,4 +79,49 @@ func runCoverage(args []string, stdout io.Writer) error {
 		"entries": len(entries),
 		"output":  opts.output,
 	})
+}
+
+// Neither inventory command loads or verifies a model execution result.
+// Reject observed-evidence claims until a result-verifying importer exists.
+func configuredCoverageMatrix(
+	catalog catalogv1alpha1.CapabilityCatalog,
+	entries []v1alpha1.CoverageEntry,
+	id string,
+) (v1alpha1.CoverageMatrix, error) {
+	skillIDs := make(map[string]bool, len(catalog.Skills))
+	for _, skill := range catalog.Skills {
+		skillIDs[skill.ID] = true
+	}
+	coveredSkills := make(map[string]bool)
+	for _, entry := range entries {
+		if entry.EvidenceTier != v1alpha1.TierConfigured ||
+			entry.State != v1alpha1.CoverageConfigured {
+			return v1alpha1.CoverageMatrix{}, fmt.Errorf(
+				"case %q: coverage inventories configured cases only; execution evidence requires a result-verifying importer",
+				entry.CaseID,
+			)
+		}
+		if !skillIDs[entry.SkillID] {
+			return v1alpha1.CoverageMatrix{}, fmt.Errorf(
+				"case %q references skill %q absent from the bound catalog",
+				entry.CaseID, entry.SkillID,
+			)
+		}
+		coveredSkills[entry.SkillID] = true
+	}
+	return v1alpha1.CoverageMatrix{
+		APIVersion: v1alpha1.APIVersion,
+		Kind:       "CoverageMatrix",
+		ID:         id,
+		CatalogRef: v1alpha1.Reference{
+			Kind:   v1alpha1.ReferenceArtifact,
+			ID:     "artifact/agent-system-capability",
+			Digest: catalog.Digest,
+		},
+		Entries:       entries,
+		Total:         len(entries),
+		Truncated:     false,
+		TotalSkills:   len(catalog.Skills),
+		CoveredSkills: len(coveredSkills),
+	}, nil
 }

@@ -9,6 +9,12 @@ branch and its pull request. Its required offline Bazel target validates the
 Promptfoo configuration, referenced cases, and staged skill without making a
 model call.
 
+The skill entry point contains ordinary delivery and final review completion.
+Conditional packaged references retain history rewrites and recovery, review
+mutations, and Forgejo. Cases exercise those routes as well as older-runner
+fallback and explicit validation-gap handling; duplicated review cases are not
+counted as extra coverage.
+
 A live target is omitted because representative delivery requires inspecting
 and changing Git history, pushing a remote ref, interacting with a forge, and
 responding to live review state. A read-only, tool-free model evaluation cannot
@@ -18,10 +24,19 @@ behavior still needs isolated integration fixtures or review of a real,
 authorized delivery.
 
 The cases preserve failure-sensitive invariants for future live coverage. On a
-supported GitHub adapter, publish readiness comes only from checks run after
-the latest `prepare` against its exact returned HEAD OID, and review reads and
-mutations stay inside `repo_delivery review`. Neither checks run before
-preparation nor checks run before a message-only amendment satisfy that gate.
+supported GitHub adapter, publish readiness requires a validation decision
+bound to the latest `prepare` and its exact returned HEAD OID. Required checks
+run after preparation by default. A tree-preserving amendment may reuse prior
+candidate-bound passes only with recorded unchanged relevant inputs; commit-,
+history-, stamp-sensitive and uncertain checks rerun. The `deliver` wrapper
+pauses for this decision before publication. Structured `validate` records the
+caller-selected plan and exact passing candidate; explicit `continue --publish`
+uses that evidence. Manual `publish` still requires the literal validated OID.
+The structured path rejects stale inputs and never automatically repeats an
+uncertain publication. The launcher case avoids nesting validation beneath an
+ordinary lock-holding Bazel invocation on an older installed runner.
+Review reads and mutations stay inside
+`repo_delivery review`.
 Every behavior-changing review fix also invalidates the prior correctness
 verdict and requires a fresh, proportional, diff-focused scrutiny pass; green
 tests alone do not replace that reasoning gate.

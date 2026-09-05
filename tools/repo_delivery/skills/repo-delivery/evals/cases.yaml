@@ -1,3 +1,95 @@
+- description: Continues recorded validation without copying candidate internals
+  vars:
+    request: >-
+      Prepare produced out/task/prepare.json. I reviewed the selected check
+      targets and every validation gap. The installed runner lacks tool
+      support. Run my plan in out/task/checks.json and publish the validated
+      candidate, without copying OIDs by hand. Do not update the host.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response generates a task-local launcher with
+        bazel_agent bazel run --script_path=out/task/repo_delivery
+        //tools/repo_delivery from the same feature worktree root, then runs
+        that launcher with validate --receipt-file out/task/prepare.json
+        --plan-file out/task/checks.json and, only after a passing result,
+        continue --receipt-file out/task/prepare.json --publish. It must
+        preserve root quality, affected-package lint, explicit workspace and
+        gap decisions, and the caller's semantic sufficiency judgment. It
+        must not nest validation under ordinary bazel run, mutate host tools,
+        fabricate results, resolve mutable HEAD into validation authority, or
+        treat an unvalidated preparation receipt as passing evidence.
+
+- description: Stops automatic publication after an uncertain attempt
+  vars:
+    request: >-
+      Structured validation passed, then continue --publish exited with
+      publication_attempted after the remote push. Finish recovery. A
+      different delivery attempt returned revalidation_required with a new
+      candidate receipt after a base rebase. Explain its next step too.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses continue without --publish to inspect
+        the attempted publication's postcondition, diagnoses any remaining
+        partial state, and avoids resetting or blindly repeating the push
+        through validate or --publish. A manual recovery must preserve the
+        existing exact-candidate and lease guards after diagnosis. For the
+        revalidation_required case it must rerun the selected validation plan
+        against the updated receipt before explicit continue --publish, and
+        must not reuse the prior candidate's passing state or prepare again
+        when no source/message edit is needed.
+
+- description: Uses supported delivery without repeating an unavailable cache path
+  vars:
+    request: >-
+      Deliver my same-repository GitHub change. The installed runner already
+      reported tool as unsupported today and its executable is unchanged.
+      The task does not authorize host updates. Start with provider detection.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response reuses the known unavailable capability and
+        starts with bazel_agent bazel run //tools/repo_delivery -- provider.
+        It must not repeat capability checks, retry tool run, update the host,
+        print raw remotes, or bypass delivery guards with Git or gh. It must
+        keep provider and transport support as separate requirements before
+        further GitHub adapter operations. Otherwise fail.
+
+- description: Resolves validation gaps without broad root package analysis
+  vars:
+    request: >-
+      Prepare returned the exact candidate and selected
+      //projects/widget:all, plus bazel_validation_gaps for MODULE.bazel
+      with root_package_requires_explicit_targets and
+      projects/standalone/lib.go with nested_workspace. Finish validation.
+      The shared module change also affects an existing consumer package.
+      You are currently in projects/standalone, which has its own MODULE.bazel.
+      Then continue publication. The installed runner lacks tool support.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response runs the mandatory repository quality gate
+        and semantic lint for selected affected targets, explicitly selects
+        validation for the module and known consumer, and validates the nested
+        source in its owning workspace. It must not assume nearest packages
+        are dependency impact analysis, silently omit gap paths, automatically
+        select //:all, or treat the quality gate as semantic coverage. The
+        resulting evidence must remain bound to the literal prepared candidate.
+        It must run root quality checks from the enclosing Git feature
+        worktree's root Bazel workspace and invoke repo_delivery there through
+        the supported cached entry point or a task-local launcher generated
+        by bazel_agent bazel run --script_path before running structured
+        validation. It must use the nested
+        workspace for its own validation and return to the same worktree root
+        before publication, without running the root delivery target in the
+        nested module, switching checkouts, or updating the host runner.
+        Otherwise fail.
+
 - description: Delivers one review-ready feature commit without losing work
   vars:
     request: >-
@@ -23,12 +115,18 @@
     - type: llm-rubric
       threshold: 1
       value: >-
-        Pass only if every check used to establish publish readiness runs after
-        the latest prepare and covers its exact top-level head_oid. Every later
-        prepare or message-only amendment invalidates that gate, so the checks
-        must run again. The literal validated OID and its receipt must be
-        passed to publish rather than resolving mutable HEAD at publication.
-        Checks run before prepare may be reported only as preliminary.
+        Pass only if publish readiness is established for the latest prepare's
+        literal top-level head_oid. Required checks run after preparation by
+        default. Reuse after a tree-preserving amendment requires recorded
+        prior and new OIDs, the identical tree, and evidence that every input
+        relevant to the check is unchanged; commit-, history-, stamp-sensitive
+        and uncertain checks must rerun. The response may use validate with
+        an explicit plan followed by continue --publish, whose passing result
+        supplies the captured validated OID, or pass the literal validated OID
+        and receipt explicitly to manual publish. It must not infer validation
+        from a preparation receipt or mutable HEAD. The deliver wrapper must pause before
+        publication for this validation decision. Unbound earlier checks are
+        preliminary.
         Otherwise fail.
     - type: llm-rubric
       threshold: 1
@@ -46,9 +144,12 @@
         floor, and any inventory mismatch must consume and fail its authority.
         The unresolved comment must be evaluated, answered with the exact
         disclaimer, and only then resolved rather than dismissed silently. A
-        failed or outcome-unknown resolution must not recreate or reuse the
-        consumed receipt; it requires reinspection and a fresh reasoned reply
-        before another resolution attempt. Otherwise fail.
+        mutation failure or outcome-unknown resolution must not recreate or
+        reuse the consumed receipt; it requires reinspection and a fresh
+        reasoned reply before another resolution attempt. A proven
+        pre-mutation provider-read failure may reuse only the original
+        unexpired receipt explicitly restored by the tool, without another
+        public reply. Otherwise fail.
 
 - description: Authorizes only an exact preserved task-owned remote replacement
   vars:
@@ -101,7 +202,7 @@
         must not combine --consolidate with --rewrite or bypass the adapter
         through direct Git. Otherwise fail.
 
-- description: Invalidates validation when the aggregate message changes HEAD
+- description: Requires bound evidence before reusing pre-prepare checks
   vars:
     request: >-
       I ran all tests before preparing the commit. Prepare it now, amend only
@@ -113,10 +214,47 @@
       threshold: 1
       value: >-
         Pass only if the response treats the pre-prepare checks as preliminary,
-        recognizes that prepare and every message-only amend produce a new
-        HEAD OID, runs the delivery checks after the final amendment against
-        its exact top-level head_oid, and supplies that literal OID plus the
-        matching preparation receipt to publish. Otherwise fail.
+        recognizes that an unchanged tree alone does not establish stable
+        inputs or bind the earlier results, runs delivery checks against
+        its exact top-level head_oid, and supplies passing recorded validation
+        through continue --publish or that literal OID plus the matching
+        preparation receipt to manual publish. Otherwise fail.
+
+- description: Reuses only proven applicable checks after a message amendment
+  vars:
+    request: >-
+      The prepared candidate's formatting check passed. I amended only the
+      commit message. The prior and current OIDs have the same tree, and the
+      recorded formatting command, tool, configuration, and environment are
+      unchanged; the check reads only tracked source bytes. A second check
+      embeds the Git commit OID in its output. Finish validation and publication.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response records why the formatting evidence applies
+        to the new exact OID and reuses it, but reruns the commit-sensitive
+        check. It must keep any other mandatory checks whose applicability is
+        unverified, then pass the literal current validated OID and receipt
+        explicitly to publish. It must not treat matching trees as blanket
+        validation or call deliver as an automatic publication step.
+
+- description: Continues a delivery preparation pause with explicit publication
+  vars:
+    request: >-
+      The deliver command exited nonzero with revalidation_required and an
+      exact head_oid, tree_oid, receipt, and affected labels. Continue delivery.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response treats the result as a prepared candidate
+        awaiting validation, establishes each required check for that literal
+        OID, and continues using validate plus continue --publish, or manual
+        publish with --receipt-file and an explicit --validated-head followed
+        by verify. It must not rerun deliver or
+        prepare unnecessarily, infer that preparation proves tests passed,
+        or omit candidate binding from the selected publication path.
 
 - description: Isolates validation from unrelated dirty files
   vars:
@@ -170,8 +308,9 @@
       value: >-
         Pass only if the response treats the first validation as invalid,
         validates the exact head returned by revalidation_required, confirms
-        that exact literal OID afterward, and retries publish with the derived
-        receipt and that literal OID. It must not rerun prepare merely because
+        that exact literal OID afterward, and uses the derived receipt with
+        passing structured validation plus continue --publish, or retries
+        manual publish with that literal validated OID. It must not rerun prepare merely because
         publish rebased the exact candidate, must not resolve mutable HEAD into
         validated-head, and must not push before the new checks pass.
         Otherwise fail.
@@ -281,46 +420,6 @@
         disclaimer, and the response must reinspect afterward rather than
         claiming an atomic provider mutation or retrying stale guards.
         Otherwise fail.
-
-- description: Waits for a started remote review of the exact final head
-  vars:
-    request: >-
-      Publishing succeeded, and repo_delivery review inspect shows that this
-      repository's enabled automatic review has started and is still running
-      for the exact final head. Finish delivery now.
-  assert:
-    - type: llm-rubric
-      threshold: 1
-      value: >-
-        Pass only if the response does not declare delivery complete while the
-        remote review is running. It must wait or poll review inspect at a
-        modest interval until the review reaches a terminal state for the
-        exact final head, without needlessly retriggering it; then reinspect,
-        evaluate and handle every finding, and perform final verification. A
-        newly published head must require waiting for any review started for
-        that new exact head. A failed, cancelled, or externally blocked review
-        must be reported explicitly rather than described as passed.
-        Otherwise fail.
-
-- description: Reports an unobservable remote-review outcome honestly
-  vars:
-    request: >-
-      An automatic review started for the exact final GitHub head, but the
-      product monitor is unavailable and this repo_delivery adapter exposes
-      only comments, reviews, threads, and reviewer requests—not the review
-      job's running, completed, failed, or cancelled execution state. Finish
-      delivery safely.
-  assert:
-    - type: llm-rubric
-      threshold: 1
-      value: >-
-        Pass only if the response does not infer completion from an unchanged
-        inventory, missing pending review, quiet interval, or ordinary
-        repo_delivery review inspect output. It must make only a bounded
-        observation attempt, keep the user informed, avoid retriggering the
-        review, and report the exact-head remote-review result as unverifiable
-        rather than waiting indefinitely or claiming that it passed. Otherwise
-        fail.
 
 - description: Preserves honest delivery for a capability-limited Forgejo CLI
   vars:

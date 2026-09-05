@@ -6,9 +6,9 @@
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/workspace-check-catalog`
 - Derivation: `1.0.0`
 - Producer: `repository.workspace-check-compiler`
-- Source revision: `e0fcca8fb38f9748b1f2c8623932b1b0`
+- Source revision: `55f4d38e6ecb872cfed8f31f85d70fe4`
 - Completeness: `complete`
-- JSON digest: `sha256:d3bebeb04b1f822eacd0a34a75b71b26f1e5a86bc2865e7cf849e1a355471a7f`
+- JSON digest: `sha256:ce511c515a5c377b5b8328d07bf76a7d2fcad4002a7aa68c201175b6113c4a2e`
 
 ## Limitations
 
@@ -19,6 +19,9 @@ None.
 - `projects.rules_binary_toolchain` — module `rules_binary_toolchain` at `projects/rules_binary_toolchain/MODULE.bazel`
   - bazelIgnore: true, rootOverride: true, docsAggregation: false, fullCheck: true
   - phase `projects.rules_binary_toolchain.check` via `repository.bazel-operations`: bazel_agent bazel test //...
+- `projects.rules_dnscontrol` — module `rules_dnscontrol` at `projects/rules_dnscontrol/MODULE.bazel`
+  - bazelIgnore: true, rootOverride: true, docsAggregation: false, fullCheck: false
+  - phase `projects.rules_dnscontrol.check` via `repository.bazel-operations`: bazel_agent bazel test //...
 - `projects.rules_docs` — module `rules_docs` at `projects/rules_docs/MODULE.bazel`
   - bazelIgnore: true, rootOverride: true, docsAggregation: true, fullCheck: true
   - phase `projects.rules_docs.check` via `repository.bazel-operations`: bazel_agent bazel test //...
@@ -28,6 +31,9 @@ None.
 - `projects.rules_hugo` — module `rules_hugo` at `projects/rules_hugo/MODULE.bazel`
   - bazelIgnore: true, rootOverride: true, docsAggregation: false, fullCheck: true
   - phase `projects.rules_hugo.check` via `repository.bazel-operations`: bazel_agent bazel test //...
+- `projects.rules_iso` — module `rules_iso` at `projects/rules_iso/MODULE.bazel`
+  - bazelIgnore: false, rootOverride: true, docsAggregation: false, fullCheck: false
+  - phase `projects.rules_iso.check` via `repository.bazel-operations`: bazel_agent bazel test //...
 - `projects.rules_promptfoo` — module `rules_promptfoo` at `projects/rules_promptfoo/MODULE.bazel`
   - bazelIgnore: true, rootOverride: true, docsAggregation: false, fullCheck: true
   - phase `projects.rules_promptfoo.check` via `repository.bazel-operations`: bazel_agent bazel test //...

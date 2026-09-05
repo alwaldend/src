@@ -25,6 +25,7 @@ const (
 	maxManifestBytes             = 256 * 1024
 	maxPlanResultBytes           = 2 * 1024 * 1024
 	maxEvidenceFileBytes         = 16 * 1024 * 1024
+	maxCheckpointSummaryBytes    = 8192
 	defaultOutputLimit           = 20
 	maximumOutputLimit           = 100
 )

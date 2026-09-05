@@ -10,7 +10,8 @@ configuration, referenced cases, and staged skill without making a model call.
 The cases cover research routing, workspace-versus-project ownership, explicit
 session focus, stale-update reconciliation, honest acceptance,
 result-prioritized modular work, isolated candidate promotion, and
-critical-path delegation. Concurrency cases require active delegation when a
+critical-path delegation, compact local checkpoints, meaningful publication
+milestones, and explicitly requested remote backup. Concurrency cases require active delegation when a
 long-running goal exposes multiple independently reviewable workstreams,
 require a recorded reason for sequential execution, and reject fanout whose
 only purpose is occupying available slots. The interruption case distinguishes

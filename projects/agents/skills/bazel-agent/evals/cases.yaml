@@ -44,7 +44,8 @@
     request: >-
       Run repo_delivery's provider check without paying Bazel analysis in
       every worktree, and arrange an optional background warmup for Cordis and
-      repo_delivery on a newly provisioned machine.
+      repo_delivery on a newly provisioned machine. This installed runner's
+      tool help has already confirmed run and warm support.
   assert:
     - type: llm-rubric
       threshold: 1
@@ -56,3 +57,19 @@
         executes a content-addressed runtime without a Bazel query or per-
         worktree analysis. It must not suggest bazel query //... as the
         warmup. Otherwise fail.
+- description: Uses the baseline when the installed runner lacks cached tools
+  vars:
+    request: >-
+      Run repo_delivery's provider check. This installed bazel_agent reported
+      that tool is an unknown subcommand earlier in this session; its binary
+      has not changed. The checked-in runner has newer cache support, but the
+      task does not authorize host updates.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response reuses the known capability result and runs
+        bazel_agent bazel run //tools/repo_delivery -- provider. It must not
+        retry tool help or tool run, install or update the host runner, bypass
+        bazel_agent, or treat newer checked-in source as proof of installed
+        support. Otherwise fail.

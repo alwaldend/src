@@ -11,13 +11,16 @@ import (
 )
 
 type normalizeOptions struct {
-	input  string
-	output string
+	workspaceRoot string
+	input         string
+	output        string
 }
 
 func parseNormalizeFlags(args []string) (normalizeOptions, error) {
 	var opts normalizeOptions
 	flags := flag.NewFlagSet("normalize", flag.ContinueOnError)
+	flags.StringVar(&opts.workspaceRoot, "workspace-root", "",
+		"base for relative paths (default: BUILD_WORKSPACE_DIRECTORY or working directory)")
 	flags.StringVar(&opts.input, "input", "", "input skill-case JSON file")
 	flags.StringVar(&opts.output, "output", "", "normalized output JSON file")
 	if err := flags.Parse(args); err != nil {
@@ -26,7 +29,11 @@ func parseNormalizeFlags(args []string) (normalizeOptions, error) {
 	if opts.input == "" || opts.output == "" {
 		return normalizeOptions{}, fmt.Errorf("--input and --output are required")
 	}
-	return opts, nil
+	if flags.NArg() != 0 {
+		return normalizeOptions{}, fmt.Errorf("unexpected positional arguments")
+	}
+	err := workspaceFilePaths(opts.workspaceRoot, &opts.input, &opts.output)
+	return opts, err
 }
 
 func runNormalize(args []string, stdout io.Writer) error {

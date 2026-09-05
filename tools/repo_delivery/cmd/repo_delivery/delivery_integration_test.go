@@ -571,6 +571,101 @@ func TestDeliveryPreparePublishVerify(t *testing.T) {
 	}
 }
 
+func TestPrepareReportsNarrowChecksForAggregateFilesUnderDirectoryScope(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	files := map[string]string{
+		"BUILD.bazel":                   "# Root package includes broad aggregators.\n",
+		"AGENTS.md":                     "Task policy\n",
+		"projects/task/BUILD.bazel":     "# Task package\n",
+		"projects/task/README.md":       "Task documentation\n",
+		"projects/task/pkg/BUILD.bazel": "# Source package\n",
+		"projects/task/pkg/source.go":   "package task\n",
+		"out/delivery/commit.md":        "Add source and task policy\n",
+	}
+	for path, content := range files {
+		absolute := filepath.Join(fixture.work, filepath.FromSlash(path))
+		if err := os.MkdirAll(filepath.Dir(absolute), 0o700); err != nil {
+			t.Fatal(err)
+		}
+		writeTestFile(t, absolute, content)
+	}
+	prepared, err := fixture.delivery.prepare(context.Background(), prepareOptions{
+		MessageFile: "out/delivery/commit.md",
+		ReceiptFile: "out/delivery/prepare.json",
+		Paths:       []string{"AGENTS.md", "BUILD.bazel", "projects/task"},
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	wantLabels := []string{"//projects/task/pkg:all", "//projects/task:all"}
+	if !reflect.DeepEqual(prepared.AffectedBazelLabels, wantLabels) {
+		t.Fatalf("labels = %v, want %v", prepared.AffectedBazelLabels, wantLabels)
+	}
+	wantGaps := []bazelValidationGap{
+		{Path: "AGENTS.md", Reason: "root_package_requires_explicit_targets"},
+		{Path: "BUILD.bazel", Reason: "root_package_requires_explicit_targets"},
+	}
+	if !reflect.DeepEqual(prepared.BazelValidationGaps, wantGaps) {
+		t.Fatalf("gaps = %v, want %v", prepared.BazelValidationGaps, wantGaps)
+	}
+	if prepared.BazelSelectionBasis != "nearest_non_root_package_without_dependency_analysis" {
+		t.Fatalf("selection basis = %q", prepared.BazelSelectionBasis)
+	}
+	wantCommands := []string{
+		"bazel_agent bazel test //projects/task/pkg:all //projects/task:all",
+		"bazel_agent bazel build --config=lint //projects/task/pkg:all //projects/task:all",
+		"bazel_agent bazel test //:repo_quality_test",
+	}
+	if !reflect.DeepEqual(prepared.SuggestedValidationCommands, wantCommands) {
+		t.Fatalf("commands = %v, want %v", prepared.SuggestedValidationCommands, wantCommands)
+	}
+}
+
+func TestDeliverPreparesAndStopsBeforePublication(t *testing.T) {
+	fixture := newIntegrationDeliveryFixture(t)
+	prior := fixture.prepare(t)
+	writeTestFile(
+		t,
+		filepath.Join(fixture.work, "out", "delivery", "amend.md"),
+		"Clarify delivery fixture\n\nKeep the prepared source tree.\n",
+	)
+	report, err := fixture.delivery.deliver(context.Background(), deliverOptions{
+		MessageFile: "out/delivery/amend.md",
+		ReceiptFile: "out/delivery/amend.json",
+		OwnerRoot:   "feature.txt",
+		TaskPaths:   []string{"feature.txt"},
+	})
+	var revalidation *revalidationRequiredError
+	if !errors.As(err, &revalidation) {
+		t.Fatalf("deliver() error = %v, want validation pause", err)
+	}
+	if report == nil || report.prepareReport == nil ||
+		report.Status != "revalidation_required" ||
+		report.HeadOID == prior.HeadOID || report.TreeOID != prior.TreeOID ||
+		report.Receipt.PreparedHeadOID != report.HeadOID ||
+		report.HeadOID != revalidation.Report.HeadOID ||
+		runTestGit(t, fixture.work, "rev-parse", "HEAD") != report.HeadOID {
+		t.Fatalf("deliver() report = %#v, want exact unvalidated amendment", report)
+	}
+	if fixture.forge.pull != nil {
+		t.Fatal("deliver() created a pull request before validation")
+	}
+	command := exec.Command(
+		"git", "--git-dir", fixture.remote,
+		"show-ref", "--verify", "--quiet", "refs/heads/feature",
+	)
+	if err := command.Run(); err == nil {
+		t.Fatal("deliver() pushed feature before validation")
+	}
+	published, err := fixture.delivery.publish(context.Background(), publishOptions{
+		ReceiptFile:   "out/delivery/amend.json",
+		ValidatedHead: report.HeadOID,
+	})
+	if err != nil || !published.Verified || published.HeadOID != report.HeadOID {
+		t.Fatalf("publish() = %#v, %v, want explicit exact candidate", published, err)
+	}
+}
+
 func TestPrepareConsolidatesExactOwnedLinearRange(t *testing.T) {
 	fixture := newIntegrationDeliveryFixture(t)
 	if err := os.MkdirAll(

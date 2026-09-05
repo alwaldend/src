@@ -939,7 +939,14 @@ type reviewLifecycleRunner struct {
 	completeReviewImmediately   bool
 	commentErr                  error
 	commentResponse             string
+	preMutationViewErr          error
+	preMutationViewTruncated    bool
 	postMutationViewErr         error
+	postMutationViewTruncated   bool
+	finalThreadReadErr          error
+	finalThreadReadTruncated    bool
+	resolveErr                  error
+	resolveTruncated            bool
 	mutated                     bool
 	nullReplyResponse           bool
 	replyMutationCommentID      string
@@ -1070,8 +1077,11 @@ func (r *reviewLifecycleRunner) Run(
 	}
 	if len(request.Args) >= 2 && request.Args[0] == "pr" &&
 		request.Args[1] == "view" {
-		if r.mutated && r.postMutationViewErr != nil {
-			return commandResult{}, r.postMutationViewErr
+		if !r.mutated && (r.preMutationViewErr != nil || r.preMutationViewTruncated) {
+			return commandResult{Truncated: r.preMutationViewTruncated}, r.preMutationViewErr
+		}
+		if r.mutated && (r.postMutationViewErr != nil || r.postMutationViewTruncated) {
+			return commandResult{Truncated: r.postMutationViewTruncated}, r.postMutationViewErr
 		}
 		if r.mutated {
 			r.postMutationViewCount++
@@ -1196,6 +1206,9 @@ func (r *reviewLifecycleRunner) graphQL(
 	case githubThreadCommentsQuery:
 		r.requireThreadID(payload.Variables)
 		r.threadCommentsReadCount++
+		if r.threadCommentsReadCount == 2 && (r.finalThreadReadErr != nil || r.finalThreadReadTruncated) {
+			return commandResult{Truncated: r.finalThreadReadTruncated}, r.finalThreadReadErr
+		}
 		if r.appendBeforeFinalThreadRead && r.threadCommentsReadCount == 2 {
 			r.comments = append(r.comments, reviewComment{
 				ID: "RC_human_late", URL: "https://github.com/owner/repo/pull/7#late",
@@ -1270,6 +1283,9 @@ func (r *reviewLifecycleRunner) graphQL(
 		r.sawResolve = true
 		r.mutated = true
 		r.resolved = true
+		if r.resolveErr != nil || r.resolveTruncated {
+			return commandResult{Truncated: r.resolveTruncated}, r.resolveErr
+		}
 		return githubGraphQLResult(r.t, map[string]any{
 			"resolveReviewThread": map[string]any{
 				"thread": map[string]any{
@@ -2159,6 +2175,159 @@ func TestGitHubResolveRefusesAuthorityExpiredDuringInventory(t *testing.T) {
 	}
 }
 
+func TestGitHubResolveMarksOnlyPreMutationReadFailures(t *testing.T) {
+	t.Parallel()
+	connectionErr := errors.New("connection closed")
+	for _, test := range []struct {
+		name       string
+		configure  func(*reviewLifecycleRunner)
+		readFailed bool
+		mutated    bool
+		wantCause  error
+	}{
+		{
+			name: "initial read",
+			configure: func(r *reviewLifecycleRunner) {
+				r.preMutationViewErr = connectionErr
+			},
+			readFailed: true,
+			wantCause:  connectionErr,
+		},
+		{
+			name: "final read",
+			configure: func(r *reviewLifecycleRunner) {
+				r.finalThreadReadErr = connectionErr
+			},
+			readFailed: true,
+			wantCause:  connectionErr,
+		},
+		{
+			name: "truncated initial read with error",
+			configure: func(r *reviewLifecycleRunner) {
+				r.preMutationViewErr = connectionErr
+				r.preMutationViewTruncated = true
+			},
+			readFailed: true,
+			wantCause:  connectionErr,
+		},
+		{
+			name: "truncated initial read without error",
+			configure: func(r *reviewLifecycleRunner) {
+				r.preMutationViewTruncated = true
+			},
+			readFailed: true,
+		},
+		{
+			name: "truncated final read without error",
+			configure: func(r *reviewLifecycleRunner) {
+				r.finalThreadReadTruncated = true
+			},
+			readFailed: true,
+		},
+		{
+			name: "inventory mismatch",
+			configure: func(r *reviewLifecycleRunner) {
+				r.topComments[0].Body = "Human edit"
+			},
+		},
+		{
+			name: "coherence mismatch",
+			configure: func(r *reviewLifecycleRunner) {
+				r.pullRequestUpdatedAt = "2026-08-29T00:00:00Z"
+			},
+		},
+		{
+			name: "mutation failure",
+			configure: func(r *reviewLifecycleRunner) {
+				r.resolveErr = connectionErr
+			},
+			mutated: true,
+		},
+		{
+			name: "truncated mutation with error",
+			configure: func(r *reviewLifecycleRunner) {
+				r.resolveErr = connectionErr
+				r.resolveTruncated = true
+			},
+			mutated: true,
+		},
+		{
+			name: "truncated mutation without error",
+			configure: func(r *reviewLifecycleRunner) {
+				r.resolveTruncated = true
+			},
+			mutated: true,
+		},
+		{
+			name: "post-mutation read",
+			configure: func(r *reviewLifecycleRunner) {
+				r.postMutationViewErr = connectionErr
+			},
+			mutated: true,
+		},
+		{
+			name: "truncated post-mutation read",
+			configure: func(r *reviewLifecycleRunner) {
+				r.postMutationViewErr = connectionErr
+				r.postMutationViewTruncated = true
+			},
+			mutated: true,
+		},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			runner := newReviewLifecycleRunner(t)
+			runner.comments = append(runner.comments, reviewComment{
+				ID: "RC_reply", URL: "https://github.com/owner/repo/pull/7#reply",
+				Body: "Implemented.\n\n" + commentDisclaimer, AuthorLogin: "agent",
+				CreatedAt: "2026-08-30T00:01:00Z", UpdatedAt: "2026-08-30T00:01:00Z",
+				Path: "file.go", CommitOID: testOID('b'),
+			})
+			expectation := runner.threadExpectation()
+			test.configure(runner)
+			forge := &githubForge{executable: "gh-test", runner: runner, directory: "/repo"}
+			_, err := forge.ResolveReviewThread(
+				context.Background(),
+				remoteRepository{Host: "github.com", Owner: "owner", Name: "repo"},
+				testPullRequest(),
+				expectation,
+			)
+			var readErr *reviewResolutionReadError
+			if err == nil || errors.As(err, &readErr) != test.readFailed ||
+				runner.sawResolve != test.mutated {
+				t.Fatalf("error = %v, read failure = %v, mutated = %v", err, readErr, runner.sawResolve)
+			}
+			if test.wantCause != nil && !errors.Is(err, test.wantCause) {
+				t.Fatalf("read failure lost its cause: %v", err)
+			}
+
+			// Feed the adapter's actual error through receipt consumption and
+			// restoration. No error marker is manufactured by the fixture.
+			fixture := newReviewReceiptFixture(t)
+			original, readReceiptErr := os.ReadFile(fixture.absolute)
+			if readReceiptErr != nil {
+				t.Fatal(readReceiptErr)
+			}
+			fixture.forge.beforeResolve = func() error { return err }
+			_, resolutionErr := fixture.delivery.resolveReviewThread(
+				fixture.ctx, fixture.options, fixture.expectation, fixture.receiptFile,
+			)
+			if resolutionErr == nil {
+				t.Fatal("failed adapter resolution unexpectedly succeeded")
+			}
+			restored, readReceiptErr := os.ReadFile(fixture.absolute)
+			if test.readFailed {
+				if readReceiptErr != nil || !bytes.Equal(original, restored) ||
+					!strings.Contains(resolutionErr.Error(), "was restored") {
+					t.Fatalf("pre-mutation read did not restore exact receipt: %v, %v", resolutionErr, readReceiptErr)
+				}
+			} else if !errors.Is(readReceiptErr, os.ErrNotExist) ||
+				!strings.Contains(resolutionErr.Error(), "was consumed") {
+				t.Fatalf("non-restorable failure retained receipt: %v, %v", resolutionErr, readReceiptErr)
+			}
+		})
+	}
+}
+
 func TestGitHubResolveRefusesLateTargetAppendWithUnchangedParent(t *testing.T) {
 	runner := newReviewLifecycleRunner(t)
 	runner.threadID = "RT_selected"
@@ -2658,6 +2827,7 @@ type reviewReceiptForge struct {
 	otherThreads       []reviewThread
 	requestedReviewers []requestedReviewer
 	sawResolve         bool
+	beforeResolve      func() error
 }
 
 func (f *reviewReceiptForge) Name() string { return "github" }
@@ -2775,6 +2945,11 @@ func (f *reviewReceiptForge) ResolveReviewThread(
 	expected pullRequest,
 	expectation reviewThreadExpectation,
 ) (*reviewInspection, error) {
+	if f.beforeResolve != nil {
+		if err := f.beforeResolve(); err != nil {
+			return nil, err
+		}
+	}
 	if !sameRemoteRepository(repository, f.repository) ||
 		!sameGithubReviewPullRequestContext(expected, f.pullRequest) ||
 		expectation.ThreadID != f.thread.ID || f.thread.IsResolved ||
@@ -2970,6 +3145,114 @@ func TestReviewReplyReceiptFullReplyWriteReadResolveChain(t *testing.T) {
 	}
 	if _, err := os.Lstat(fixture.absolute); !errors.Is(err, os.ErrNotExist) {
 		t.Fatalf("consumed review reply receipt still exists: %v", err)
+	}
+}
+
+func TestReviewReplyReceiptRestoresUnchangedAfterReadFailure(t *testing.T) {
+	fixture := newReviewReceiptFixture(t)
+	original, err := os.ReadFile(fixture.absolute)
+	if err != nil {
+		t.Fatal(err)
+	}
+	fixture.forge.beforeResolve = func() error {
+		fixture.clock.now = fixture.clock.now.Add(time.Minute)
+		return &reviewResolutionReadError{err: errors.New("connection closed")}
+	}
+	_, err = fixture.delivery.resolveReviewThread(
+		fixture.ctx, fixture.options, fixture.expectation, fixture.receiptFile,
+	)
+	if err == nil || !strings.Contains(err.Error(), "was restored") ||
+		fixture.forge.sawResolve {
+		t.Fatalf("error = %v, mutated = %v", err, fixture.forge.sawResolve)
+	}
+	restored, err := os.ReadFile(fixture.absolute)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(original, restored) {
+		t.Fatal("restoration changed receipt bytes or extended its authority")
+	}
+	fixture.forge.beforeResolve = nil
+	inspection, err := fixture.delivery.resolveReviewThread(
+		fixture.ctx, fixture.options, fixture.expectation, fixture.receiptFile,
+	)
+	if err != nil || !inspection.Threads[0].IsResolved {
+		t.Fatalf("retry inspection = %#v, error = %v", inspection, err)
+	}
+	if _, err := os.Lstat(fixture.absolute); !errors.Is(err, os.ErrNotExist) {
+		t.Fatalf("successful retry did not consume receipt: %v", err)
+	}
+}
+
+func TestReviewReplyReceiptReadFailureDoesNotExtendExpiry(t *testing.T) {
+	fixture := newReviewReceiptFixture(t)
+	fixture.forge.beforeResolve = func() error {
+		fixture.clock.now = fixture.clock.now.Add(reviewReplyAuthorityLimit)
+		return &reviewResolutionReadError{err: errors.New("connection closed")}
+	}
+	_, err := fixture.delivery.resolveReviewThread(
+		fixture.ctx, fixture.options, fixture.expectation, fixture.receiptFile,
+	)
+	if err == nil || !strings.Contains(err.Error(), "expired") ||
+		fixture.forge.sawResolve {
+		t.Fatalf("error = %v, mutated = %v", err, fixture.forge.sawResolve)
+	}
+	if _, err := os.Lstat(fixture.absolute); !errors.Is(err, os.ErrNotExist) {
+		t.Fatalf("expired receipt was restored: %v", err)
+	}
+}
+
+func TestReviewReplyReceiptReadFailureDoesNotReplaceRecreatedPath(t *testing.T) {
+	fixture := newReviewReceiptFixture(t)
+	replacement := []byte("new receipt from another operation\n")
+	fixture.forge.beforeResolve = func() error {
+		if err := os.WriteFile(fixture.absolute, replacement, 0o600); err != nil {
+			t.Fatal(err)
+		}
+		return &reviewResolutionReadError{err: errors.New("connection closed")}
+	}
+	_, err := fixture.delivery.resolveReviewThread(
+		fixture.ctx, fixture.options, fixture.expectation, fixture.receiptFile,
+	)
+	if err == nil || !strings.Contains(err.Error(), "without replacement") ||
+		fixture.forge.sawResolve {
+		t.Fatalf("error = %v, mutated = %v", err, fixture.forge.sawResolve)
+	}
+	current, err := os.ReadFile(fixture.absolute)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !bytes.Equal(current, replacement) {
+		t.Fatal("restoration overwrote a recreated receipt path")
+	}
+}
+
+func TestReviewReplyReceiptDoesNotRestoreOtherResolutionFailures(t *testing.T) {
+	for _, test := range []struct {
+		name    string
+		err     error
+		mutated bool
+	}{
+		{name: "state mismatch", err: errors.New("thread changed")},
+		{name: "mutation failure", err: errors.New("mutation failed"), mutated: true},
+		{name: "unknown outcome", err: errors.New("outcome unknown"), mutated: true},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			fixture := newReviewReceiptFixture(t)
+			fixture.forge.beforeResolve = func() error {
+				fixture.forge.sawResolve = test.mutated
+				return test.err
+			}
+			_, err := fixture.delivery.resolveReviewThread(
+				fixture.ctx, fixture.options, fixture.expectation, fixture.receiptFile,
+			)
+			if err == nil || !strings.Contains(err.Error(), "was consumed") {
+				t.Fatalf("error = %v", err)
+			}
+			if _, err := os.Lstat(fixture.absolute); !errors.Is(err, os.ErrNotExist) {
+				t.Fatalf("failed resolution restored receipt: %v", err)
+			}
+		})
 	}
 }
 

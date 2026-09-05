@@ -2634,6 +2634,29 @@ func verifyGithubResolution(
 	return verifyUnchangedGithubComments(before, after)
 }
 
+// githubResolutionReadRunner is used only by a private adapter copy for the
+// reads preceding resolution. Truncated reads cannot establish provider state
+// but have not attempted a mutation. Decoder, inventory-budget, and
+// state-validation errors remain unmarked, as do all errors from mutation and
+// its later inspection.
+type githubResolutionReadRunner struct {
+	commandRunner
+}
+
+func (r githubResolutionReadRunner) Run(
+	ctx context.Context,
+	request command,
+) (commandResult, error) {
+	result, err := r.commandRunner.Run(ctx, request)
+	if err == nil && result.Truncated {
+		err = fmt.Errorf("GitHub pre-resolution read output was truncated")
+	}
+	if err != nil {
+		return result, &reviewResolutionReadError{err: err}
+	}
+	return result, err
+}
+
 func (g *githubForge) ResolveReviewThread(
 	ctx context.Context,
 	repository remoteRepository,
@@ -2643,8 +2666,10 @@ func (g *githubForge) ResolveReviewThread(
 	if err := validateResolutionThreadExpectation(expectation); err != nil {
 		return nil, err
 	}
+	reader := *g
+	reader.runner = githubResolutionReadRunner{commandRunner: g.runner}
 	budget := &githubInventoryBudget{}
-	before, err := g.inspectReviews(ctx, repository, pullRequest, budget)
+	before, err := reader.inspectReviews(ctx, repository, pullRequest, budget)
 	if err != nil {
 		return nil, err
 	}
@@ -2676,7 +2701,7 @@ func (g *githubForge) ResolveReviewThread(
 			"last review-thread comment does not match the tool-issued reply receipt",
 		)
 	}
-	latestThread, err := g.reviewThreadDetailsWithBudget(
+	latestThread, err := reader.reviewThreadDetailsWithBudget(
 		ctx,
 		repository,
 		before.PullRequest,

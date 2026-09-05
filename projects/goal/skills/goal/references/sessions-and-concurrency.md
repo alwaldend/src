@@ -132,3 +132,19 @@ verification, and artifact preparation. Bound fanout and depth; do not split
 trivial operations merely to fill slots, and require a separate benefit for
 recursive delegation. Stop workers whose output can no longer affect the next
 decision or required acceptance and delivery evidence.
+
+## Registered goal discovery
+
+For registered repository goals, use the explicit checked catalog:
+
+```sh
+bazel_agent bazel run //projects/goal/cmd/goal -- resume \
+  --goals-root projects/agents/goals \
+  --catalog ../../../tools/agents/catalogs/goal.json
+```
+
+`--catalog` is required and resolves relative to `--goals-root`. The bounded
+view selects open goals with resumable attempts and verifies the catalog's
+stored digest, not freshness against current records. Use `show --goal-dir`
+for a selected local record or workspace goal before continuing its next
+action.

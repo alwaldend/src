@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"sort"
+	"strings"
 
 	"git.alwaldend.com/alwaldend/src/projects/goal/internal/fsstore"
 	goalcatalog "git.alwaldend.com/alwaldend/src/tools/agents/catalog/v1alpha1"
@@ -388,6 +389,9 @@ func newCheckpointCommand(factory storeFactory, stdout io.Writer) *cobra.Command
 			if options.GoalDir == "" || options.ExpectedResourceVersion == "" {
 				return fmt.Errorf("--goal-dir and --expected-resource-version are required")
 			}
+			if cmd.Flags().Changed("summary") && strings.TrimSpace(options.Summary) == "" {
+				return fmt.Errorf("--summary must not be blank")
+			}
 			store, err := factory()
 			if err != nil {
 				return err
@@ -411,6 +415,7 @@ func newCheckpointCommand(factory storeFactory, stdout io.Writer) *cobra.Command
 	flags.StringVar(&options.WorkType, "work-type", "", "attempt work type (default change for a new attempt)")
 	flags.StringVar(&options.PlanFile, "plan-file", "", "immutable plan Markdown for a new attempt")
 	flags.StringVar(&options.ResultFile, "result-file", "", "result Markdown to publish")
+	flags.StringVar(&options.Summary, "summary", "", "inline progress Markdown, at most 8192 bytes; requires --subject and --next-action")
 	flags.StringSliceVar(&options.EvidenceFiles, "evidence", nil, "evidence file to copy (repeatable)")
 	flags.StringVar(&options.ReviewFile, "review-file", "", "structured close review YAML")
 	flags.StringVar(&options.CriteriaFile, "criteria-file", "", "desired criteria items YAML; requires paused execution")

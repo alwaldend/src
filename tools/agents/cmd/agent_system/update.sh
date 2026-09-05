@@ -16,4 +16,4 @@ source "${RUNFILES_DIR:-/dev/null}/$f" 2>/dev/null ||
 }
 
 binary="$(rlocation "$AGENT_SYSTEM_RLOCATION")"
-"$binary" --workspace-root "$BUILD_WORKSPACE_DIRECTORY" --json
+exec "$binary" --workspace-root "$BUILD_WORKSPACE_DIRECTORY" "$@"

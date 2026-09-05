@@ -1,0 +1,75 @@
+{
+    "version": 1,
+    "cases": [
+        {
+            "id": "question-observed-state",
+            "kind": "question",
+            "request": "Read status.json. Is the service currently healthy and does this establish that desired revision v2 is running? Answer with health (healthy, unhealthy, or unknown) and runningDesiredRevision (true, false, or null). This is a question only; do not modify any file.",
+            "files": {
+                "status.json": "{\n  \"desiredRevision\": \"v2\",\n  \"observedRevision\": null,\n  \"healthy\": null,\n  \"freshness\": \"unknown\",\n  \"healthBasis\": \"persisted snapshot only; no live provider observation\",\n  \"lastKnown\": {\"healthy\": true, \"observedAt\": \"2026-01-01T00:00:00Z\"}\n}\n"
+            },
+            "allowedChanges": [],
+            "expectedAnswer": {
+                "health": "unknown",
+                "runningDesiredRevision": null
+            },
+            "expectedSkillReads": ["answer-question"],
+            "humanCheck": "The reason distinguishes the historical snapshot and desired state from current observed health and running revision."
+        },
+        {
+            "id": "edit-bounded-prose",
+            "kind": "edit",
+            "request": "Fix the misspelling in README.md and preserve all other bytes, including the product name RecieveBox. Do not change notes.txt or publish the edit. Return changedFiles as an array of relative paths.",
+            "files": {
+                "README.md": "# RecieveBox\n\nRecieveBox helps teams recieve delivery updates.\n",
+                "notes.txt": "The product name RecieveBox is intentional.\n"
+            },
+            "allowedChanges": ["README.md"],
+            "expectedFiles": {
+                "README.md": "# RecieveBox\n\nRecieveBox helps teams receive delivery updates.\n"
+            },
+            "expectedAnswer": {
+                "changedFiles": ["README.md"]
+            },
+            "expectedSkillReads": ["spellcheck"],
+            "humanCheck": "The response reports the local edit accurately without claiming tests or publication."
+        },
+        {
+            "id": "recovery-mutable-postcondition",
+            "kind": "recovery",
+            "request": "Resume the interrupted local wording fix from checkpoint.json. A concurrent actor may have changed README.md since the checkpoint. Perform the smallest necessary remaining action; only README.md may be edited. Do not create a new goal or publish. Return state (complete or needs_work) and changedFiles as an array.",
+            "files": {
+                "checkpoint.json": "{\n  \"task\": \"Correct recieve to receive in README.md\",\n  \"lastObservation\": \"README.md contained Teams recieve updates.\",\n  \"observedAt\": \"2026-01-01T10:00:00Z\",\n  \"nextAction\": \"Replace recieve with receive in README.md, then inspect the resulting file\",\n  \"remainingAcceptance\": \"README.md is exactly Teams receive updates. followed by a newline\"\n}\n",
+                "README.md": "Teams receive updates.\n"
+            },
+            "allowedChanges": ["README.md"],
+            "expectedFiles": {
+                "README.md": "Teams receive updates.\n"
+            },
+            "expectedAnswer": {
+                "state": "complete",
+                "changedFiles": []
+            },
+            "expectedSkillReads": [],
+            "humanCheck": "The agent reads the current README.md, recognizes that the recorded edit is already satisfied, and does not count a no-op write as progress. Source equality alone cannot prove no write was attempted; require a tool trace for that stronger assertion."
+        },
+        {
+            "id": "delivery-validation-decision",
+            "kind": "delivery",
+            "request": "Use the repo-delivery skill to assess prepare.json and validation.json. This is an isolated decision fixture: do not execute checks, Git, publication, or remote actions. State which previous checks can be reused, which must rerun, and whether publication is ready now. Return reusableChecks, rerunChecks, publicationReady, and validatedHead (null until all required validation is satisfied).",
+            "files": {
+                "prepare.json": "{\n  \"status\": \"revalidation_required\",\n  \"head\": \"2222222222222222222222222222222222222222\",\n  \"previousHead\": \"1111111111111111111111111111111111111111\",\n  \"tree\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n  \"previousTree\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n  \"change\": \"Commit-message amendment only\",\n  \"requiredChecks\": [\"package_unit_test\", \"release_stamp_test\"]\n}\n",
+                "validation.json": "{\n  \"head\": \"1111111111111111111111111111111111111111\",\n  \"tree\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n  \"checks\": [\n    {\"name\": \"package_unit_test\", \"result\": \"pass\", \"inputBasis\": \"source tree and pinned dependencies only\", \"relevantInputsUnchanged\": true},\n    {\"name\": \"release_stamp_test\", \"result\": \"pass\", \"inputBasis\": \"commit identity and history\", \"relevantInputsUnchanged\": false}\n  ]\n}\n"
+            },
+            "allowedChanges": [],
+            "expectedAnswer": {
+                "reusableChecks": ["package_unit_test"],
+                "rerunChecks": ["release_stamp_test"],
+                "publicationReady": false,
+                "validatedHead": null
+            },
+            "expectedSkillReads": ["repo-delivery"],
+            "humanCheck": "The reason binds the new validation decision to the prepared head and explains why tree equality permits the explicitly source-only pass to be reused but does not cover the history-sensitive check. This measures a fixture decision, not publication behavior."
+        }
+    ]
+}

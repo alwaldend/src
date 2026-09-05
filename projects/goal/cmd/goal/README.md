@@ -81,12 +81,13 @@ request, and refreshes the bounded README projection. Its cycle check is a
 per-goal-locked catalog snapshot rather than a catalog-wide transaction, so a
 `graph` call after concurrent writes settle is authoritative.
 
-`resume` reads the checked repository goal catalog by default and prints a
-bounded `GoalResumePacket` containing only open goals with a resumable attempt.
-The packet carries the exact candidate path and structured continuation fields;
-it never mutates records or opens goal plans, results, or evidence. Use
-`--catalog` for a task-specific generated catalog and rely on the strict
-decoder to reject stale or invalid catalogs.
+`resume` requires `--catalog`, resolved relative to `--goals-root`, and prints
+a bounded `GoalResumePacket` containing only open goals with a resumable
+attempt. The packet carries candidate paths and structured continuation
+fields; it never mutates records or opens goal plans, results, or evidence.
+The strict decoder validates catalog structure and its stored digest, not
+freshness against current goal records. Use `show --goal-dir` for current
+local state.
 
 `learning-proposal` validates one Phase 5 proposal. Repeated friction references
 are required, but the command never promotes the proposal or edits source; the
@@ -94,6 +95,43 @@ owning project adopts it through ordinary review and delivery.
 
 `checkpoint` starts or publishes an attempt, changes execution/outcome state,
 or applies a complete desired criteria-items file with `--criteria-file`.
+
+For ordinary work, initialize the objective and acceptance once with `init
+--title ... --criterion ...`, then use an inline checkpoint:
+
+```sh
+bazel_agent bazel run //projects/goal/cmd/goal -- checkpoint \
+  --goal-dir out/example/goals/fix-parser \
+  --expected-resource-version 1 \
+  --subject "candidate digest or source revision" \
+  --summary "Parser repaired; focused checks remain unverified." \
+  --next-action "Run the parser acceptance check."
+bazel_agent bazel run //projects/goal/cmd/goal -- show \
+  --goal-dir out/example/goals/fix-parser
+```
+
+`--summary` is nonblank UTF-8 Markdown, limited to 8192 bytes, and requires
+`--subject` and `--next-action`. It cannot combine with `--plan-file` or
+`--result-file`. The store generates the initial plan from the objective,
+criteria, and next action, then writes progress into the existing canonical
+`result.md`. Later checkpoints reuse the open attempt, preserve its initial
+plan and imported evidence, and update the declared subject and next action.
+Changing an existing subject requires a replacement summary or result;
+retained evidence applies only to the candidate identified in that evidence.
+A next-action-only checkpoint is also supported.
+
+`show` includes `activeAttempt` with current continuation fields, an 8192-byte
+UTF-8 result preview, complete result byte count/digest, evidence digests,
+observation time, and source paths relative to the goal directory. Its
+`resultTruncated` field indicates when the canonical result needs a separate
+read. Subject and progress are caller declarations, not live Git observations
+or criterion verdicts. Initialization, summary checkpoints, and bounded views
+use the same store and recovery protocol as detailed attempts; there is no
+separate compact record format. Closing still requires an explicit
+`--close-attempt --review-file` with criterion verdicts and evidence; a
+summary does not imply acceptance.
+
+Detailed attempts can provide separate plan, result, and review payloads.
 Plans are durable summaries in `Goal.status.plans`. Create one with
 `--plan-id ... --plan-strategy ... --plan-only`; transition the active plan
 with `--plan-id ... --plan-state accepted|rejected|superseded --plan-only`,

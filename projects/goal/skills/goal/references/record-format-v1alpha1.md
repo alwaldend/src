@@ -1,6 +1,7 @@
 # Goal resource format v1alpha1
 
-Use this reference to create, resume, inspect, or validate a goal. The files
+Use this reference for checkpoint payloads, criteria changes, record semantics,
+or validation errors. Ordinary resume uses the CLI's bounded view. The files
 use Kubernetes-style resource envelopes for familiar versioning and evolution;
 they are portable local records, not Kubernetes objects or CRDs.
 
@@ -184,14 +185,17 @@ resume view instead of scanning goal directories:
 
 ```sh
 bazel_agent bazel run //projects/goal/cmd/goal -- resume \
-  --goals-root projects/agents/goals
+  --goals-root projects/agents/goals \
+  --catalog ../../../tools/agents/catalogs/goal.json
 ```
 
 The output is a bounded `GoalResumePacket` decoded from the checked,
 digest-verified goal catalog. It contains only open goals with a resumable
-open attempt and their exact candidate paths and continuation fields. Override
-`--catalog` only when a task-specific goals root has its own generated goal
-catalog; otherwise the command deliberately refuses stale or invalid catalogs.
+open attempt and their exact candidate paths and continuation fields.
+`--catalog` is required and resolves relative to `--goals-root`; a task-specific
+root needs its own generated catalog. The command validates catalog structure
+and its stored digest, not freshness against owning goal records. Revalidate
+the selected record before acting on its continuation fields.
 
 `Goal.status.acceptedResultDigest` is the accepted attempt's `result.md`
 SHA-256, not automatically the identity of an external deliverable. Record an
@@ -207,6 +211,30 @@ An open attempt may receive isolated evidence. Closing it publishes its final
 resource, plan, result, and evidence set. After close, treat its directory as
 immutable; a correction or additional evidence is a new attempt that refers to
 the old one.
+
+## Close review
+
+`checkpoint --close-attempt --review-file <path>` takes plain YAML with
+exactly two keys, `decision` and `criteria`; do not add resource-envelope
+headers. Use the actual IDs and revisions returned by `show`:
+
+```yaml
+decision: accept
+criteria:
+  - criterionID: criterion-001
+    criterionRevision: 1
+    verdict: pass
+    evidenceRefs:
+      - evidence/acceptance.md
+```
+
+Decisions are `accept`, `refine`, or `reset`. Verdicts are `pass`, `fail`, or
+`unverified`; passing or failing requires a reference to `plan.md`,
+`result.md`, or an imported `evidence/*.md` artifact. Sort criteria by ID and
+keep evidence references unique and sorted. Evidence must describe the exact
+tested candidate and actual observations. To mark the goal achieved, add
+`--outcome achieved` only when this accepting close passes every current
+required criterion. Ordinary summaries do not supply these verdicts.
 
 ## Bounds and paths
 

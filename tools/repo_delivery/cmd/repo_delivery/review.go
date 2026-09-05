@@ -93,6 +93,17 @@ type reviewReplyReceipt struct {
 
 type reviewReplyReceiptClockKey struct{}
 
+// reviewResolutionReadError identifies a failed provider read before any
+// resolution mutation. Only this error permits restoring unexpired authority;
+// state mismatches and mutation outcomes must never use it.
+type reviewResolutionReadError struct {
+	err error
+}
+
+func (e *reviewResolutionReadError) Error() string { return e.err.Error() }
+
+func (e *reviewResolutionReadError) Unwrap() error { return e.err }
+
 type reviewReplyReport struct {
 	ReplyCommentID     string            `json:"reply_comment_id"`
 	ThreadID           string            `json:"thread_id"`
@@ -650,6 +661,27 @@ func (d *delivery) resolveReviewThread(
 		*pullRequest,
 		expectation,
 	)
+	var readErr *reviewResolutionReadError
+	if errors.As(resolveErr, &readErr) {
+		restored, restoreErr := consumed.restore(
+			receipt,
+			reviewReplyReceiptNow(ctx),
+		)
+		if restored {
+			return nil, errors.Join(
+				resolveErr,
+				fmt.Errorf(
+					"resolution was not attempted; the original reply receipt "+
+						"was restored without extending its expiry (%s); "+
+						"reinspect before retrying",
+					receipt.ExpiresAt,
+				),
+				restoreErr,
+				consumed.cleanup(),
+			)
+		}
+		resolveErr = errors.Join(resolveErr, restoreErr)
+	}
 	cleanupErr := consumed.cleanup()
 	if resolveErr != nil {
 		retryErr := fmt.Errorf(
@@ -1443,6 +1475,7 @@ func readReviewReplyReceiptFile(absolute string) (reviewReplyReceipt, error) {
 type consumedReviewReplyReceipt struct {
 	directory       string
 	movedPath       string
+	originalPath    string
 	parentDirectory string
 }
 
@@ -1482,6 +1515,7 @@ func (d *delivery) consumeReviewReplyReceipt(
 	consumed := &consumedReviewReplyReceipt{
 		directory:       directory,
 		movedPath:       movedPath,
+		originalPath:    absolute,
 		parentDirectory: parent,
 	}
 	moved, readErr := readReviewReplyReceiptFile(movedPath)
@@ -1514,6 +1548,32 @@ func (d *delivery) consumeReviewReplyReceipt(
 		)
 	}
 	return consumed, nil
+}
+
+// restore keeps the original bytes and deadline after a failed provider read.
+// Linking is atomic and refuses an occupied path, including a newer receipt.
+// The boolean records successful restoration even if directory sync fails.
+func (c *consumedReviewReplyReceipt) restore(
+	expected reviewReplyReceipt,
+	now time.Time,
+) (bool, error) {
+	if err := expected.validateAuthorityAt(now); err != nil {
+		return false, err
+	}
+	current, err := readReviewReplyReceiptFile(c.movedPath)
+	if err != nil {
+		return false, fmt.Errorf("read consumed review reply receipt: %w", err)
+	}
+	if current != expected {
+		return false, fmt.Errorf("consumed review reply receipt changed before restoration")
+	}
+	if err := os.Link(c.movedPath, c.originalPath); err != nil {
+		return false, fmt.Errorf("restore review reply receipt without replacement: %w", err)
+	}
+	if err := syncReceiptDirectory(c.parentDirectory); err != nil {
+		return true, fmt.Errorf("sync restored review reply receipt: %w", err)
+	}
+	return true, nil
 }
 
 func (c *consumedReviewReplyReceipt) cleanup() error {

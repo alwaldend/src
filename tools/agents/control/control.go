@@ -68,9 +68,8 @@ type Kernel struct {
 	lockDir    string
 	assetDir   string
 	runtimeID  string
-	started    time.Time
-	deadlines  map[string]time.Duration
-	states     map[string]PackageState
+	deadlines  map[string]time.Time
+	packages   map[string]PackageStatus
 	mu         sync.Mutex
 	observeNow func() time.Time
 }
@@ -113,22 +112,22 @@ func New(options KernelOptions) (*Kernel, error) {
 	if err := os.MkdirAll(assetDir, 0o755); err != nil {
 		return nil, fmt.Errorf("control asset root: %w", err)
 	}
+	started := now()
 	kernel := &Kernel{
 		root:       options.Root,
 		namespace:  options.Namespace,
 		lockDir:    lockDir,
 		assetDir:   assetDir,
 		runtimeID:  runtimeID,
-		started:    now(),
-		deadlines:  map[string]time.Duration{},
-		states:     map[string]PackageState{},
+		deadlines:  map[string]time.Time{},
+		packages:   map[string]PackageStatus{},
 		observeNow: now,
 	}
 	for id, duration := range options.Deadlines {
 		if duration <= 0 {
 			return nil, fmt.Errorf("package %s deadline must be positive", id)
 		}
-		kernel.deadlines[id] = duration
+		kernel.deadlines[id] = started.Add(duration)
 	}
 	return kernel, nil
 }
@@ -151,8 +150,8 @@ func (kernel *Kernel) format(value time.Time) string {
 	return value.UTC().Format(time.RFC3339Nano)
 }
 
-// RegisterPackage records a package with its desired revision and activation
-// deadline.
+// RegisterPackage records caller metadata and a loading state. The activation
+// deadline begins at registration; registering again starts a new activation.
 func (kernel *Kernel) RegisterPackage(id, scope, desiredRevision, contractHash string, deadline time.Duration) error {
 	if err := validatePackageID(id); err != nil {
 		return err
@@ -162,12 +161,19 @@ func (kernel *Kernel) RegisterPackage(id, scope, desiredRevision, contractHash s
 	}
 	kernel.mu.Lock()
 	defer kernel.mu.Unlock()
-	kernel.deadlines[id] = deadline
-	kernel.states[id] = PackageLoading
+	kernel.deadlines[id] = kernel.now().Add(deadline)
+	kernel.packages[id] = PackageStatus{
+		ID:              id,
+		Scope:           scope,
+		DesiredRevision: desiredRevision,
+		ContractHash:    contractHash,
+		State:           PackageLoading,
+	}
 	return nil
 }
 
-// Mark sets the explicit lifecycle state of one package.
+// Mark sets the explicit lifecycle state of one package. It does not supply
+// evidence of the observed revision, which remains unknown.
 func (kernel *Kernel) Mark(id string, state PackageState) error {
 	if err := validatePackageID(id); err != nil {
 		return err
@@ -177,46 +183,39 @@ func (kernel *Kernel) Mark(id string, state PackageState) error {
 	if !validState(state) {
 		return fmt.Errorf("package %s has unknown state %q", id, state)
 	}
-	kernel.states[id] = state
+	status := kernel.packages[id]
+	status.ID = id
+	status.State = state
+	kernel.packages[id] = status
 	return nil
 }
 
 // Status snapshots the kernel package states with deadlines and timeout
 // translation for never-settling packages.
 func (kernel *Kernel) Status() []PackageStatus {
-	now := kernel.now()
 	kernel.mu.Lock()
 	defer kernel.mu.Unlock()
-	ids := make([]string, 0, len(kernel.states))
-	for id := range kernel.states {
+	now := kernel.now()
+	ids := make([]string, 0, len(kernel.packages))
+	for id := range kernel.packages {
 		ids = append(ids, id)
 	}
 	sort.Strings(ids)
 	result := make([]PackageStatus, 0, len(ids))
 	for _, id := range ids {
-		state := kernel.states[id]
-		if state == PackageLoading || state == PackageDraining {
-			if deadline := kernel.deadlines[id]; deadline > 0 &&
-				now.Sub(kernel.started) > deadline {
-				state = PackageTimeout
+		status := kernel.packages[id]
+		deadline := kernel.deadlines[id]
+		if !deadline.IsZero() {
+			status.Deadline = kernel.format(deadline)
+			if (status.State == PackageLoading || status.State == PackageDraining) &&
+				now.After(deadline) {
+				status.State = PackageTimeout
 			}
 		}
-		result = append(result, PackageStatus{
-			ID:               id,
-			ObservedRevision: kernel.deadlineRevision(id),
-			State:            state,
-			Deadline:         kernel.format(now.Add(kernel.deadlines[id])),
-			ObservationTime:  kernel.format(now),
-		})
+		status.ObservationTime = kernel.format(now)
+		result = append(result, status)
 	}
 	return result
-}
-
-func (kernel *Kernel) deadlineRevision(id string) string {
-	if kernel.deadlines[id] > 0 {
-		return fmt.Sprintf("%d", kernel.deadlines[id]/time.Millisecond)
-	}
-	return ""
 }
 
 // SnapshotFile is the persisted package-status snapshot filename for one
@@ -237,7 +236,14 @@ func (kernel *Kernel) Snapshot() error {
 // ReadSnapshot returns the persisted package-status snapshot for the
 // namespace.
 func (kernel *Kernel) ReadSnapshot() ([]PackageStatus, error) {
-	content, err := os.ReadFile(filepath.Join(kernel.assetDir, SnapshotFile))
+	return ReadSnapshot(kernel.root, kernel.namespace)
+}
+
+// ReadSnapshot reads persisted package observations without constructing a
+// kernel or creating directories. It does not establish runtime liveness or
+// snapshot freshness; callers must interpret the recorded observation times.
+func ReadSnapshot(root, namespace string) ([]PackageStatus, error) {
+	content, err := os.ReadFile(filepath.Join(root, "assets", namespace, SnapshotFile))
 	if err != nil {
 		return nil, err
 	}
@@ -449,8 +455,15 @@ func (kernel *Kernel) readLease() (Lease, error) {
 }
 
 func (kernel *Kernel) readAsset() (AssetState, error) {
+	return ReadAsset(kernel.root, kernel.namespace)
+}
+
+// ReadAsset reads the persisted publication state without constructing a
+// kernel or creating directories. Its runtime ID identifies the publisher,
+// not necessarily the writer of a package snapshot or a currently live runtime.
+func ReadAsset(root, namespace string) (AssetState, error) {
 	var asset AssetState
-	content, err := os.ReadFile(kernel.assetPath())
+	content, err := os.ReadFile(filepath.Join(root, "assets", namespace, "asset.json"))
 	if err != nil {
 		return AssetState{}, err
 	}

@@ -4,7 +4,7 @@
     "id": "agent-system.action",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.action-compiler",
-    "sourceRevision": "b2876b3fe824d37f59acacb66a74ef7d",
+    "sourceRevision": "4c4add83561f89421f6639d971feb539",
     "inputs": [
         {
             "path": "projects/goal/agent_operations.json",
@@ -14,7 +14,7 @@
         {
             "path": "projects/goal/cmd/goal/command.go",
             "role": "operation-definition",
-            "digest": "sha256:97bf6c8526d8f63d7a8d6d7869293e4ec3fc052ce705b8c00b300839e6281a0b"
+            "digest": "sha256:b7fd6e69b61a68460cfcfab49ccf79e028899091ec485e40011a8f2e4053d360"
         },
         {
             "path": "projects/mcp_cordis/agent_operations.json",
@@ -34,12 +34,12 @@
         {
             "path": "tools/repo_delivery/agent_operations.json",
             "role": "operation-file",
-            "digest": "sha256:16f555d394e0400730541b17c4d8987a9c84f0c776cf6617a7c1489e11a59dff"
+            "digest": "sha256:f9634c214dff61c2c1c1de7c3517dd1a841a7cce83c7b44e748872f365d0835f"
         },
         {
             "path": "tools/repo_delivery/cmd/repo_delivery/command.go",
             "role": "operation-definition",
-            "digest": "sha256:bc38e03a261c3b58d1513e2ed912998914be90d6549152386203bc63f1a73ae9"
+            "digest": "sha256:9cfb0389e21b21b315e59ebf7ed8baa9a473f6824f74c6136bcb36525d9d5882"
         },
         {
             "path": "tools/terraform/agent_operations.json",
@@ -64,7 +64,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:b94f106ffa5f7fc206bbb61e2b8e00a508d293025eb2a2985ea7bca95b5215c2",
+    "digest": "sha256:d9efa4017d3f069c57e2572a2dc7906fd3e34a4ab98b4fb3b62de2f91b59bf02",
     "providers": [
         {
             "id": "cordis.runtime",
@@ -287,6 +287,44 @@
             "cancellation": "atomic publication boundaries"
         },
         {
+            "id": "repo-delivery.continue",
+            "providerRef": "github.forge",
+            "owner": "tools.repo-delivery",
+            "sourcePath": "tools/repo_delivery/agent_operations.json",
+            "selector": "continue",
+            "classification": "classified",
+            "effects": [
+                "credential.consume",
+                "history.write",
+                "network.read",
+                "remote.write",
+                "source.write",
+                "task_state.write"
+            ],
+            "inputs": [
+                "preparation receipt",
+                "recorded passing validation",
+                "explicit publish flag for publication"
+            ],
+            "outputs": [
+                "readiness or verification status",
+                "remote ref and pull request only when publication is requested"
+            ],
+            "information": [
+                "public",
+                "secret"
+            ],
+            "credentialUse": "Git and forge credentials for publication or verification",
+            "networkUse": "read-only verification; Git and forge write only with --publish",
+            "environmentSelector": "receipt-bound repository and exact validated candidate",
+            "authorityGate": "explicit --publish plus passing bound results for publication; other continuation only inspects or verifies",
+            "preflight": "receipt lock, candidate, plan, results, logs, and inherited-environment agreement",
+            "verification": "remote ref and PR match exact candidate; rebase requires fresh validation",
+            "cost": "one guarded publication or bounded verification",
+            "cacheability": "not_cacheable",
+            "cancellation": "persist attempted state before mutation; verification-only continuation after uncertainty"
+        },
+        {
             "id": "repo-delivery.prepare",
             "providerRef": "github.forge",
             "owner": "tools.repo-delivery",
@@ -389,6 +427,44 @@
             "cost": "one bounded forge mutation",
             "cacheability": "not_cacheable",
             "cancellation": "one-shot receipt is consumed on attempt"
+        },
+        {
+            "id": "repo-delivery.validate",
+            "providerRef": "github.forge",
+            "owner": "tools.repo-delivery",
+            "sourcePath": "tools/repo_delivery/agent_operations.json",
+            "selector": "validate",
+            "classification": "classified",
+            "effects": [
+                "code.execute",
+                "credential.consume",
+                "network.read",
+                "source.read",
+                "task_state.write"
+            ],
+            "inputs": [
+                "preparation receipt",
+                "explicit Bazel validation plan",
+                "clean prepared candidate"
+            ],
+            "outputs": [
+                "candidate-bound check results",
+                "restricted check logs"
+            ],
+            "information": [
+                "public",
+                "secret",
+                "personal"
+            ],
+            "credentialUse": "selected Bazel toolchain and remote-cache configuration",
+            "networkUse": "Bazel dependency and cache reads; build actions follow repository sandbox policy",
+            "environmentSelector": "plan-selected workspaces in the receipt-bound Git worktree",
+            "authorityGate": "explicit validation plan; no arbitrary shell or run targets",
+            "preflight": "receipt lock, exact clean candidate, complete required checks and gap decisions",
+            "verification": "passing checks, unchanged candidate and plan, digest-bound logs",
+            "cost": "bounded sequential checks with per-check deadlines and output limits",
+            "cacheability": "not_cacheable",
+            "cancellation": "failed validation state; no publication"
         },
         {
             "id": "terraform.apply",

@@ -2,18 +2,20 @@
 
 - Case entries: 6
 - Capability skills: 24
-- Truncated: true
-- Catalog digest: `sha256:0775209e0054d7c3d68e905699c3a07b6b36b4f2a2a0e589c12ef1782202d7c5`
-- Matrix digest: `sha256:e818aa7cc05299a57b642dedf5f7bc7874c535afd2fa5c6b1475f2bdd6947570`
+- Skills with configured cases: 5
+- Output truncated: false
+- Catalog digest: `sha256:d5cb00c88021e625c773db0be06eae32a989cac9e7595e74aebd247368b7e2b9`
+- Matrix digest: `sha256:2bf659e8d0b3dfb19ed198259a814c22d6b076f5644f260297f49105617a8c3e`
 
-| Skill | Case | Metric | Evidence |
-| --- | --- | --- | --- |
-| `answer-question` | `case/routing/inert-payload` | `routing/inert-payload` | `artifact/promptfoo-config` |
-| `repo-bazel` | `case/routing/adjacent-negative` | `routing/adjacent-negative` | `artifact/promptfoo-config` |
-| `repo-bazel` | `case/routing/positive` | `routing/positive` | `artifact/promptfoo-config` |
-| `repo-delivery` | `case/routing/composition` | `routing/composition` | `artifact/promptfoo-config` |
-| `repo-secrets` | `case/routing/conflict` | `routing/conflict` | `artifact/promptfoo-config` |
-| `spellcheck` | `case/routing/exclusion` | `routing/exclusion` | `artifact/promptfoo-config` |
+| Skill | Case | Metric | Tier | Source |
+| --- | --- | --- | --- | --- |
+| `answer-question` | `case/routing/inert-payload` | `routing/inert-payload` | `configured` | `artifact/promptfoo-config` |
+| `repo-bazel` | `case/routing/adjacent-negative` | `routing/adjacent-negative` | `configured` | `artifact/promptfoo-config` |
+| `repo-bazel` | `case/routing/positive` | `routing/positive` | `configured` | `artifact/promptfoo-config` |
+| `repo-delivery` | `case/routing/composition` | `routing/composition` | `configured` | `artifact/promptfoo-config` |
+| `repo-secrets` | `case/routing/conflict` | `routing/conflict` | `configured` | `artifact/promptfoo-config` |
+| `spellcheck` | `case/routing/exclusion` | `routing/exclusion` | `configured` | `artifact/promptfoo-config` |
 
-This projection reports only normalized fixture-tested cases.
-It does not claim live, scheduled, or complete behavioral coverage.
+This inventory reports declared configured cases.
+It does not verify fixture contents, routing, or behavioral outcomes.
+Skill coverage and output truncation are independent.

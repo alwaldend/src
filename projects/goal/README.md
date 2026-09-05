@@ -13,7 +13,11 @@ tags:
 ---
 
 This project owns the goal execution skill and the deterministic local store
-that supports it.
+that supports it. Ordinary tasks use `init` for the objective and acceptance,
+`checkpoint --summary --subject --next-action` for local progress, and `show`
+for bounded continuation. The store derives IDs and digests while retaining
+explicit resource-version checks. Detailed attempt plans and histories remain
+available for maintained goals, repeated failures, and complex coordination.
 
 ```text
 projects/goal/

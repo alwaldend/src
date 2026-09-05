@@ -4,7 +4,7 @@
     "id": "agent-system.capability",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.capability-compiler",
-    "sourceRevision": "6105344746529abebfe130dda440ea5f",
+    "sourceRevision": "9d4edc191000f03b866bf205cc60e3d1",
     "inputs": [
         {
             "path": ".agents/skills/agent-ergonomics-review",
@@ -129,7 +129,7 @@
         {
             "path": "projects/bazel_agent/cmd/bazel_agent/main.go",
             "role": "direct-binary-source",
-            "digest": "sha256:c5e6b85e25ab1d070a2b809146cf13413061b41d66c7c8049f9274c08079da75"
+            "digest": "sha256:163d181818302723cc41613c74c95d17561f9f3aa36731cb737d289b5cfaf5fe"
         },
         {
             "path": "projects/goal/agent_operations.json",
@@ -139,7 +139,7 @@
         {
             "path": "projects/goal/cmd/goal/command.go",
             "role": "operation-definition",
-            "digest": "sha256:97bf6c8526d8f63d7a8d6d7869293e4ec3fc052ce705b8c00b300839e6281a0b"
+            "digest": "sha256:b7fd6e69b61a68460cfcfab49ccf79e028899091ec485e40011a8f2e4053d360"
         },
         {
             "path": "projects/goal/cmd/goal/main.go",
@@ -169,12 +169,12 @@
         {
             "path": "tools/agents/cmd/agent_system/main.go",
             "role": "direct-binary-source",
-            "digest": "sha256:2cc3ea5e83ff30ce18ca6be22680d544edec4eb3001f5e9d02579a71c4480437"
+            "digest": "sha256:09384cde8a46f0011640af3549657ddda5c9ac7b2276bee76896c7a102651a0f"
         },
         {
             "path": "tools/agents/cmd/control_status/main.go",
             "role": "direct-binary-source",
-            "digest": "sha256:57a48db82e87441a37bbbfc83a15075d48ab8f2124b8b110b0058503bc947ec0"
+            "digest": "sha256:376e03c851ca3c490f3a017295fafb61d8e01c186398d5ad7ae85982dc6f3a1f"
         },
         {
             "path": "tools/agents/declarations/registry.json",
@@ -184,12 +184,12 @@
         {
             "path": "tools/repo_delivery/agent_operations.json",
             "role": "operation-file",
-            "digest": "sha256:16f555d394e0400730541b17c4d8987a9c84f0c776cf6617a7c1489e11a59dff"
+            "digest": "sha256:f9634c214dff61c2c1c1de7c3517dd1a841a7cce83c7b44e748872f365d0835f"
         },
         {
             "path": "tools/repo_delivery/cmd/repo_delivery/command.go",
             "role": "operation-definition",
-            "digest": "sha256:bc38e03a261c3b58d1513e2ed912998914be90d6549152386203bc63f1a73ae9"
+            "digest": "sha256:9cfb0389e21b21b315e59ebf7ed8baa9a473f6824f74c6136bcb36525d9d5882"
         },
         {
             "path": "tools/repo_delivery/cmd/repo_delivery/main.go",
@@ -219,7 +219,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:e5f4733ddba410341d97799b182e7c9182296a97297204157162248092a00ff0",
+    "digest": "sha256:d5cb00c88021e625c773db0be06eae32a989cac9e7595e74aebd247368b7e2b9",
     "skills": [
         {
             "id": "agent-ergonomics-review",

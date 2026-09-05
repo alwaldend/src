@@ -42,13 +42,17 @@ instructions, schemas, catalogs, or runtime behavior.
    identifier rather than prose that changes between sessions.
 2. Attach the smallest reproducible evidence, metric, and evidence tier
    (`configured`, `routed`, `fixture-tested`, `live`, `stale`, or
-   `unverified`).
+   `unverified`). Declarations and configuration checks do not establish
+   observed routing, successful behavior, or runtime health.
 3. Distinguish a routing error, missing contract, stale catalog, avoidable
    read, repeated check, and context-size failure from an acceptable cost.
 4. Propose the narrowest owner change: fixture, assertion, skill description,
    reference, catalog projection, checkpoint field, or optimization.
-5. Define how the improvement would be measured and retired if it stops
-   helping.
+5. Define how to measure the improvement and when to retire proposal tracking
+   or an obsolete workaround. Clean runs can show that a fix works; they do
+   not justify removing useful diagnostics or regression coverage. Remove a
+   safeguard only when evidence shows it is obsolete or its cost outweighs
+   its benefit, while preserving required guarantees.
 6. Route the proposal through goal checkpoint, review, or delivery as
    applicable; do not silently edit canonical state. Fix small, in-scope
    ergonomics problems immediately without asking; obtain explicit user

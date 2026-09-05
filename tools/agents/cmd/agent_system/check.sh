@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Verify the checked context-capsule projection is current.
+# Smoke-check offline context rendering; this does not verify catalog freshness.
 set -euo pipefail
 
 f=bazel_tools/tools/bash/runfiles/runfiles.bash
@@ -20,4 +20,4 @@ workspace="${BUILD_WORKSPACE_DIRECTORY:-}"
 if [[ -z "$workspace" && -n "${WORKSPACE_MARKER:-}" ]]; then
     workspace="$(dirname "$(rlocation "$WORKSPACE_MARKER")")"
 fi
-"$binary" --workspace-root "$workspace" --json >/dev/null
+"$binary" --workspace-root "$workspace" "$@" >/dev/null

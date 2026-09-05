@@ -21,10 +21,12 @@ files are task scratch: keep them under `out/<task>/` and cite them from goal
 evidence Markdown rather than committing them into `evidence/`, which accepts
 only `.md` files.
 
-The current open implementation goal is under
-`agent-system-phase-six-ergonomics/`. It measures agent friction across
-representative task archetypes and adopts optimizations through the Phase 5
-learning-proposal contract. The maintained, link-safe public-system synthesis
-is the [current-state document](../docs/current-state.md).
-Context-bound raw audits remain in canonical goal records rather than the
-documentation projection.
+Discover current open work through the goal catalog and its bounded resume
+view; status is owned by each goal record. The
+`agent-system-phase-six-ergonomics/` goal records a completed friction-reduction
+attempt, with the original evidence and its limitations preserved.
+
+The [current-state document](../docs/current-state.md) describes supported
+interfaces and current evidence boundaries. Closed attempts remain historical
+records; later implementation reviews may narrow claims they made without
+rewriting those immutable records.
