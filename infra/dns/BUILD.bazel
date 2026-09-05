@@ -23,6 +23,7 @@ _INFRA_RECORD_DNSCONFIGS = [
     "//infra/pve:dnsconfig",
     "//infra/threexui:dnsconfig",
     "//infra/vault:dnsconfig",
+    "//infra/xcp_ng:dnsconfig",
     "//projects/alwaldend.com:dnsconfig",
     "//users/simeonwarren:dnsconfig",
     "//users/simeonwarren/host_bot:dnsconfig",

@@ -20,6 +20,7 @@ resource "vault_identity_group" "approles" {
     module.src_infra_flux_cluster_approle.entity_id,
     module.src_infra_threexui_approle.entity_id,
     module.src_infra_ingress_approle.entity_id,
+    module.src_infra_xcp_ng_approle.entity_id,
     module.src_third_party_approle.entity_id,
     module.src_projects_alwaldend_com_approle.entity_id,
     module.users_simeonwarren_approle.entity_id,

@@ -1,0 +1,27 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+
+_DATA = [
+    ".terraform.lock.hcl",
+    "provider.tf",
+]
+
+terraform_binary_map(
+    name = "tf",
+    configs = ["//infra/xcp_ng:al"],
+    data = _DATA + ["//tools/vault/tf_backend"],
+    run_args = [
+        "--plugin_label",
+        "tf=main",
+    ],
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    data = _DATA,
+)
+
+docs_filegroup(
+    name = "docs",
+    visibility = ["//infra/xcp_ng:__pkg__"],
+)
