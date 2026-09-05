@@ -25,22 +25,12 @@ version_menu = "Versions"
 version_menu_pagelinks = true
 
 [[params.alwaldend.links]]
-name = "Docs"
-url = "https://alwaldend.com/docs/"
-
-[[params.alwaldend.panels]]
-title = "Projects"
-url = "/projects/"
-section = "/docs/projects"
-
-[[params.alwaldend.panels]]
-title = "Infra"
-url = "/docs/infra/"
-section = "/docs/infra"
+name = "GitHub"
+url = "https://github.com/alwaldend/src/"
 
 [[params.alwaldend.links]]
-name = "Github"
-url = "https://github.com/alwaldend/src/"
+name = "Docs"
+url = "/docs/"
 
 # [params.copyright]
 # authors = ""
@@ -60,7 +50,7 @@ enable = true
 unsafe = true
 
 [markup.goldmark.renderHooks.link]
-useEmbedded = "always"
+useEmbedded = "fallback"
 
 [markup.goldmark.parser.attribute]
 block = true
@@ -79,11 +69,6 @@ name = "Docs"
 weight = 100
 url = "/docs/"
 
-[[menus.main]]
-name = "Projects"
-weight = 200
-url = "/projects/"
-
 [security.exec]
 # allow = [".*"]
 # osEnv = [".*"]
@@ -100,6 +85,9 @@ extended = true
 min = "0.160.1"
 
 [module]
+[[module.mounts]]
+source = "assets"
+target = "assets"
 [[module.mounts]]
 source = "themes/github.com/twbs/bootstrap/scss"
 target = "assets/vendor/bootstrap/scss"

@@ -1,26 +1,25 @@
-{{ $release := partial "alwaldend/get_release" (dict "Page" .Page) -}}
-<!-- -->
 {{- $page := .Page -}}
 <!-- -->
 {{ $releasePageRef := .Page.Resources.Get "release_page.json" -}}
 <!-- -->
 {{ $releasePage := transform.Unmarshal $releasePageRef -}}
 <!-- -->
-{{- $show := compare.Conditional .standalone "show" "" -}}
+{{- $expanded := eq (printf "%v" (.standalone | default false)) "true" -}}
 <!-- -->
-{{ range $releasePage.sections -}}
+{{- $context := compare.Conditional $expanded "page" "list" -}}
 <!-- -->
-{{- $id := strings.ToLower (printf "release_%s_%s" $release.Data.name .title)
--}}
+{{ range $index, $section := $releasePage.sections -}}
+<!-- -->
+{{- $id := printf "release-%s-%s-%d" (crypto.MD5 $page.Path) $context $index -}}
 <div class="accordion mt-2" id="{{ $id }}_accordion">
   <div class="accordion-item">
     <h3 class="accordion-header" id="{{ $id }}">
       <button
-        class="accordion-button"
+        class="accordion-button{{ if not $expanded }} collapsed{{ end }}"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#{{ $id }}_collapse"
-        aria-expanded="true"
+        aria-expanded="{{ $expanded }}"
         aria-controls="{{ $id }}_collapse"
       >
         {{- .title -}}
@@ -32,9 +31,9 @@
     </h3>
     <div
       id="{{ $id }}_collapse"
-      class="accordion-collapse collapse {{ $show }}"
+      class="accordion-collapse collapse{{ if $expanded }} show{{ end }}"
       aria-labelledby="{{ $id }}"
-      data-bs-parent="#{{ $id }}"
+      data-bs-parent="#{{ $id }}_accordion"
     >
       <div class="accordion-body">
         {{- range .items -}}

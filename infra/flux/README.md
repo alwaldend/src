@@ -62,11 +62,11 @@ bazel run //infra/flux/cl:cmctl -- renew traefik-gateway-websecure-tls -n traefi
   TOKEN=$(echo "${SECRET_ID}" | bazel run //infra/flux/cl:vault.ops_token | jq -r .auth.client_token)
   echo "Secret id: ${SECRET_ID}, Token: ${TOKEN}"
   ```
-- Patch secret-id in [./cl/cert-manager/issuer-approle.yaml](./cl/cert-manager/issuer-approle.yaml)
-- Patch token in [./cl/flux-system/flux-sops-secret.yaml](./cl/flux-system/flux-sops-secret.yaml)
+- Patch secret-id in [./cl/cert-manager/issuer-approle.yaml](https://github.com/alwaldend/src/blob/master/infra/flux/cl/cert-manager/issuer-approle.yaml)
+- Patch token in [projects/kustomization/flux-repo/flux-sops-secret.yaml](https://github.com/alwaldend/src/blob/master/projects/kustomization/flux-repo/flux-sops-secret.yaml)
 - Encrypt:
   ```sh
   bazel run //infra/flux/cl:sops.encrypt infra/flux/cl/cert-manager/issuer-approle.yaml
-  bazel run //infra/flux/cl:sops.encrypt infra/flux/cl/repo/flux-sops-secret.yaml
-  bazel run //infra/flux/cl:sops.encrypt infra/flux/cl/repo/flux-git-src-secret.yaml
+  bazel run //infra/flux/cl:sops.encrypt projects/kustomization/flux-repo/flux-sops-secret.yaml
+  bazel run //infra/flux/cl:sops.encrypt projects/kustomization/flux-repo/flux-git-src-secret.yaml
   ```

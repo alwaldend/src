@@ -19,6 +19,8 @@ cd site
 # are not served stale; tar -xf does not remove absent files.
 find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
 tar -xf "${archive}" --strip-components 1
+# CNAME is at the archive root, so the stripped extraction skips it.
+tar -xf "${archive}" CNAME
 
 # Disable Jekyll so GitHub Pages serves the Hugo output verbatim.
 touch .nojekyll

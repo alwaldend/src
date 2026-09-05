@@ -21,10 +21,37 @@ tags:
 - [Hugo](https://gohugo.io) site
 - [Docsy](https://github.com/google/docsy), [Bootstrap](https://getbootstrap.com)
 
+## Local preview and validation
+
+Run from the repository root:
+
+```sh
+bazel_agent bazel build //projects/alwaldend.com:site
+bazel_agent bazel test //projects/alwaldend.com:site_test \
+  //projects/alwaldend.com/test/site:site_test
+bazel_agent bazel run //projects/alwaldend.com:site_serve
+```
+
+The preview serves the local build at http://127.0.0.1:1313. The generated-site
+test checks internal links, image paths, fragment targets, duplicate IDs, and
+selected page markup. It does not check external destination availability.
+
+## Documentation links
+
+Markdown links and images resolve relative to their source directory.
+`README.md` and `_index.md` links resolve to generated pages; packaged resources
+use their published URLs, including when embedded in print pages. Link files
+that exist only in the repository with explicit GitHub URLs. Unknown internal
+destinations remain unchanged and are reported by the generated-site test;
+they are not silently redirected to GitHub.
+
+Print pages scope IDs and their fragment and control references to each source
+document, keeping anchors distinct when documents are combined.
+
 ## Deployment
 
 - DNS setup: [infra/dns](../../infra/dns)
-- Per-project DNS declaration: [dnsconfig.json](dnsconfig.json). It declares
+- Per-project DNS declaration: [dnsconfig.json](https://github.com/alwaldend/src/blob/master/projects/alwaldend.com/dnsconfig.json). It declares
   the GitHub Pages `pages` address and one unproxied CNAME per project landing
   subdomain, for example `android-launcher.alwaldend.com`. Hostnames use
   hyphens while docs paths keep underscores. Each landing site links to its
@@ -88,12 +115,13 @@ Usage:
 
 ### `alwaldend/svg_file`
 
-Create `img` for an svg file
+Render a packaged SVG using its published URL. Set `alt` to describe the image;
+the page title is the fallback.
 
 Usage:
 
 ```md
-{{</* alwaldend/svg_file file=local_file.svg */>}}
+{{</* alwaldend/svg_file file="local_file.svg" alt="Project architecture" */>}}
 ```
 
 ### `alwaldend/include_html`
