@@ -29,6 +29,11 @@ agent configuration setting:
 bazel_agent bazel run //path/to:tool -- --tool-option
 ```
 
+`bazel run` may launch the tool in its runfiles tree. Pass workspace-absolute
+paths for caller-owned input and output files unless the tool explicitly
+normalizes relative paths against `BUILD_WORKSPACE_DIRECTORY`. Keep generated
+outputs under the task's ignored workspace `out/<task>/` directory.
+
 Do not call `bazel` directly or repeat `--config=agent`. Nested workspaces
 import the same shared rc files, so the `agent` configuration resolves there
 as well. `bazel_agent` adds the flag in its required position, resolves the
@@ -57,7 +62,25 @@ Bzlmod dependencies, toolchains, or the build graph.
 
 ## Run cached repository tools
 
-Use the runner's content-addressed path for registered, frequently used
+Run these repository control-tool examples from the enclosing Git worktree's
+root Bazel workspace, which owns `tools/repo_delivery`, even for changes in a
+nested module. Nested build and test targets still use their owning workspace.
+Cached tools are optional; the baseline works with older installed runners:
+
+```sh
+bazel_agent bazel run //tools/repo_delivery -- provider
+```
+
+Before first using the cache path, establish whether this installed runner
+supports it. Reuse a known result while the runner binary is unchanged;
+otherwise inspect `bazel_agent tool --help` once. If `tool` is unsupported,
+retain that observation and use the baseline target without updating the host.
+Do not retry unsupported commands, assume checked-in code is already installed,
+or fall back after a tool's safety refusal or execution failure; diagnose those
+failures at their source. A runner update requires existing task authority to
+change the agent environment.
+
+When supported, use the content-addressed path for registered, frequently used
 repository control tools:
 
 ```sh
@@ -88,7 +111,7 @@ If `bazel_agent` is not installed, bootstrap it with the underlying command:
 bazel run --config=agent //projects/bazel_agent:install
 ```
 
-After every code update under `projects/bazel_agent`, reinstall the host copy:
+When the task authorizes updating the host runner after a code change:
 
 ```sh
 bazel_agent bazel run //projects/bazel_agent:install

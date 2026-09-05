@@ -23,6 +23,69 @@
             "cancellation": "process context"
         },
         {
+            "id": "repo-delivery.validate",
+            "selector": "validate",
+            "classification": "classified",
+            "effects": [
+                "code.execute",
+                "credential.consume",
+                "network.read",
+                "source.read",
+                "task_state.write"
+            ],
+            "inputs": [
+                "preparation receipt",
+                "explicit Bazel validation plan",
+                "clean prepared candidate"
+            ],
+            "outputs": [
+                "candidate-bound check results",
+                "restricted check logs"
+            ],
+            "information": ["public", "secret", "personal"],
+            "credentialUse": "selected Bazel toolchain and remote-cache configuration",
+            "networkUse": "Bazel dependency and cache reads; build actions follow repository sandbox policy",
+            "environmentSelector": "plan-selected workspaces in the receipt-bound Git worktree",
+            "authorityGate": "explicit validation plan; no arbitrary shell or run targets",
+            "preflight": "receipt lock, exact clean candidate, complete required checks and gap decisions",
+            "verification": "passing checks, unchanged candidate and plan, digest-bound logs",
+            "cost": "bounded sequential checks with per-check deadlines and output limits",
+            "cacheability": "not_cacheable",
+            "cancellation": "failed validation state; no publication"
+        },
+        {
+            "id": "repo-delivery.continue",
+            "selector": "continue",
+            "classification": "classified",
+            "effects": [
+                "credential.consume",
+                "history.write",
+                "network.read",
+                "remote.write",
+                "source.write",
+                "task_state.write"
+            ],
+            "inputs": [
+                "preparation receipt",
+                "recorded passing validation",
+                "explicit publish flag for publication"
+            ],
+            "outputs": [
+                "readiness or verification status",
+                "remote ref and pull request only when publication is requested"
+            ],
+            "information": ["public", "secret"],
+            "credentialUse": "Git and forge credentials for publication or verification",
+            "networkUse": "read-only verification; Git and forge write only with --publish",
+            "environmentSelector": "receipt-bound repository and exact validated candidate",
+            "authorityGate": "explicit --publish plus passing bound results for publication; other continuation only inspects or verifies",
+            "preflight": "receipt lock, candidate, plan, results, logs, and inherited-environment agreement",
+            "verification": "remote ref and PR match exact candidate; rebase requires fresh validation",
+            "cost": "one guarded publication or bounded verification",
+            "cacheability": "not_cacheable",
+            "cancellation": "persist attempted state before mutation; verification-only continuation after uncertainty"
+        },
+        {
             "id": "repo-delivery.publish",
             "selector": "publish",
             "classification": "classified",

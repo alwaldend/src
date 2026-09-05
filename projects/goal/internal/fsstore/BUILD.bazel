@@ -25,6 +25,7 @@ go_test(
     name = "go_test",
     size = "small",
     srcs = [
+        "compact_test.go",
         "graph_test.go",
         "integrity_test.go",
         "markdown_test.go",

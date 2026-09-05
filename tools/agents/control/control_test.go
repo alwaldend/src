@@ -243,3 +243,119 @@ func TestNamespacesAreIsolated(t *testing.T) {
 		t.Fatalf("task-a lease must be isolated: %v", err)
 	}
 }
+
+func TestOfflineReadersDoNotCreateControlRoot(t *testing.T) {
+	root := filepath.Join(t.TempDir(), "missing")
+	if _, err := ReadSnapshot(root, "task"); !os.IsNotExist(err) {
+		t.Fatalf("missing snapshot error = %v, want not exist", err)
+	}
+	if _, err := ReadAsset(root, "task"); !os.IsNotExist(err) {
+		t.Fatalf("missing asset error = %v, want not exist", err)
+	}
+	if _, err := os.Stat(root); !os.IsNotExist(err) {
+		t.Fatalf("offline readers created the root: %v", err)
+	}
+}
+
+func TestPackageSnapshotPreservesRegistrationMetadata(t *testing.T) {
+	kernel := newTestKernel(t, "metadata")
+	if err := kernel.RegisterPackage("pkg.a", "scratch", "revision-a", "contract-a", 5*time.Second); err != nil {
+		t.Fatal(err)
+	}
+	if err := kernel.Mark("pkg.a", PackageReady); err != nil {
+		t.Fatal(err)
+	}
+	if err := kernel.Snapshot(); err != nil {
+		t.Fatal(err)
+	}
+	actual, err := ReadSnapshot(kernel.root, "metadata")
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := PackageStatus{
+		ID:              "pkg.a",
+		Scope:           "scratch",
+		DesiredRevision: "revision-a",
+		ContractHash:    "contract-a",
+		State:           PackageReady,
+		Deadline:        testNowValue().Add(5 * time.Second).Format(time.RFC3339Nano),
+		ObservationTime: testNowValue().Format(time.RFC3339Nano),
+	}
+	if len(actual) != 1 || actual[0] != want {
+		t.Fatalf("persisted status = %+v, want %+v; observed revision must remain unknown", actual, want)
+	}
+}
+
+func TestPackageDeadlineBeginsAtRegistrationAndDoesNotSlide(t *testing.T) {
+	clock := testNowValue()
+	kernel, err := New(KernelOptions{
+		Root: t.TempDir(), Namespace: "registration",
+		ObserveNow: func() time.Time { return clock },
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	registered := clock.Add(time.Hour)
+	clock = registered
+	if err := kernel.RegisterPackage("pkg.a", "project", "rev-a", "hash-a", 2*time.Second); err != nil {
+		t.Fatal(err)
+	}
+	wantDeadline := registered.Add(2 * time.Second).Format(time.RFC3339Nano)
+	for _, test := range []struct {
+		elapsed time.Duration
+		state   PackageState
+	}{
+		{0, PackageLoading},
+		{time.Second, PackageLoading},
+		{2 * time.Second, PackageLoading},
+		{2*time.Second + time.Nanosecond, PackageTimeout},
+	} {
+		clock = registered.Add(test.elapsed)
+		actual := kernel.Status()
+		if len(actual) != 1 || actual[0].State != test.state ||
+			actual[0].Deadline != wantDeadline ||
+			actual[0].ObservationTime != clock.Format(time.RFC3339Nano) {
+			t.Fatalf("status after %s = %+v, want state %s, deadline %s", test.elapsed, actual, test.state, wantDeadline)
+		}
+	}
+	clock = clock.Add(time.Hour)
+	if err := kernel.RegisterPackage("pkg.a", "scratch", "rev-b", "hash-b", 5*time.Second); err != nil {
+		t.Fatal(err)
+	}
+	actual := kernel.Status()[0]
+	if actual.State != PackageLoading || actual.DesiredRevision != "rev-b" ||
+		actual.Scope != "scratch" || actual.ContractHash != "hash-b" ||
+		actual.Deadline != clock.Add(5*time.Second).Format(time.RFC3339Nano) {
+		t.Fatalf("registering again must begin a new activation: %+v", actual)
+	}
+}
+
+func TestConfiguredAndUnconfiguredPackageDeadlines(t *testing.T) {
+	clock := testNowValue()
+	kernel, err := New(KernelOptions{
+		Root: t.TempDir(), Namespace: "configured",
+		Deadlines:  map[string]time.Duration{"pkg.configured": 2 * time.Second},
+		ObserveNow: func() time.Time { return clock },
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	clock = clock.Add(3 * time.Second)
+	if err := kernel.Mark("pkg.configured", PackageLoading); err != nil {
+		t.Fatal(err)
+	}
+	if err := kernel.Mark("pkg.unconfigured", PackageReady); err != nil {
+		t.Fatal(err)
+	}
+	actual := kernel.Status()
+	if len(actual) != 2 {
+		t.Fatalf("status = %+v, want two packages", actual)
+	}
+	if actual[0].State != PackageTimeout ||
+		actual[0].Deadline != testNowValue().Add(2*time.Second).Format(time.RFC3339Nano) {
+		t.Fatalf("configured deadline must be anchored at creation: %+v", actual[0])
+	}
+	if actual[1].State != PackageReady || actual[1].Deadline != "" || actual[1].ObservedRevision != "" {
+		t.Fatalf("unconfigured package must not invent a deadline or revision: %+v", actual[1])
+	}
+}

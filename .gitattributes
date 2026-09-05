@@ -120,6 +120,7 @@ projects/renders/goals/*/attempts/*/evidence/*.md whitespace=-blank-at-eof
 tools/agents/catalogs/action.json rules-lint-ignored=true
 tools/agents/catalogs/capability.json rules-lint-ignored=true
 tools/agents/catalogs/index.json rules-lint-ignored=true
+tools/agents/catalogs/policy.json rules-lint-ignored=true
 tools/agents/catalogs/skill-cases.json rules-lint-ignored=true
 tools/agents/catalogs/skill-coverage.md rules-lint-ignored=true
 tools/agents/catalogs/skill-coverage.json rules-lint-ignored=true

@@ -1,0 +1,10 @@
+filegroup(
+    name = "fixtures",
+    testonly = True,
+    srcs = [
+        "README.md",
+        "cases.json",
+        "subject-prompt.txt",
+    ],
+    visibility = ["//projects/agents:__subpackages__"],
+)

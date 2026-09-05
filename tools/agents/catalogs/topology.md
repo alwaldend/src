@@ -6,9 +6,9 @@
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/topology-catalog`
 - Derivation: `1.0.0`
 - Producer: `repository.topology-compiler`
-- Source revision: `536a3b8266cb5e4b`
+- Source revision: `0e956ee8f207e046`
 - Completeness: `complete`
-- JSON digest: `sha256:8407369059651156f7e7e786d72f61418024973ea2950d420a5a774887341626`
+- JSON digest: `sha256:4f36392b105e41415f5edaa6e43bade1309f238ef59f8e802f92a1081b50a71d`
 
 ## Limitations
 
@@ -36,15 +36,19 @@ None.
 - `ci_platform` — Ci platform (projects/ci_platform, owned); lifecycle `abandoned`
 - `dotfiles` — Dotfiles (projects/dotfiles, owned); lifecycle `maintenance`
 - `goal` — Goal (projects/goal, owned); lifecycle `experimental`
+- `hugo_landing` — Hugo Landing (projects/hugo_landing, owned); lifecycle `active`
 - `infinitime` — Infinitime (projects/infinitime, owned); lifecycle `maintenance`
 - `kustomization` — Kustomization (projects/kustomization, owned); lifecycle `in_progress`
 - `leetcode_downloader` — Leetcode downloader (projects/leetcode_downloader, owned); lifecycle `in_progress`
 - `mcp_cordis` — MCP Cordis (projects/mcp_cordis, owned); lifecycle `active`
 - `nexus_security_plugin` — Nexus security plugin (projects/nexus_security_plugin, owned); lifecycle `finished`
+- `renders` — Renders (projects/renders, owned); lifecycle `in_progress`
 - `rules_binary_toolchain` — Rules binary toolchain (projects/rules_binary_toolchain, owned); lifecycle `active`
+- `rules_dnscontrol` — Rules Dnscontrol (projects/rules_dnscontrol, owned); lifecycle `active`
 - `rules_docs` — Rules docs (projects/rules_docs, owned); lifecycle `active`
 - `rules_docs_gazelle` — Rules docs Gazelle (projects/rules_docs_gazelle, owned); lifecycle `active`
 - `rules_hugo` — Rules Hugo (projects/rules_hugo, owned); lifecycle `active`
+- `rules_iso` — rules_iso (projects/rules_iso, owned); lifecycle `active`
 - `rules_promptfoo` — Rules Promptfoo (projects/rules_promptfoo, owned); lifecycle `active`
 - `rules_promptfoo_gazelle` — Rules Promptfoo Gazelle (projects/rules_promptfoo_gazelle, owned); lifecycle `active`
 - `rules_skill` — Rules skill (projects/rules_skill, owned); lifecycle `active`
@@ -59,9 +63,11 @@ None.
 
 - `root` — module `com_alwaldend_src` at `MODULE.bazel`
 - `projects.rules_binary_toolchain` — module `rules_binary_toolchain` at `projects/rules_binary_toolchain/MODULE.bazel`
+- `projects.rules_dnscontrol` — module `rules_dnscontrol` at `projects/rules_dnscontrol/MODULE.bazel`
 - `projects.rules_docs` — module `rules_docs` at `projects/rules_docs/MODULE.bazel`
 - `projects.rules_docs_gazelle` — module `rules_docs_gazelle` at `projects/rules_docs_gazelle/MODULE.bazel`
 - `projects.rules_hugo` — module `rules_hugo` at `projects/rules_hugo/MODULE.bazel`
+- `projects.rules_iso` — module `rules_iso` at `projects/rules_iso/MODULE.bazel`
 - `projects.rules_promptfoo` — module `rules_promptfoo` at `projects/rules_promptfoo/MODULE.bazel`
 - `projects.rules_promptfoo_gazelle` — module `rules_promptfoo_gazelle` at `projects/rules_promptfoo_gazelle/MODULE.bazel`
 - `projects.rules_skill` — module `rules_skill` at `projects/rules_skill/MODULE.bazel`

@@ -151,6 +151,7 @@ func (matrix CoverageMatrix) Validate() error {
 		return fmt.Errorf("coverage matrix exceeds 4096 entries")
 	}
 	seen := map[string]bool{}
+	coveredSkills := map[string]bool{}
 	for _, entry := range matrix.Entries {
 		if err := entry.Validate(); err != nil {
 			return err
@@ -160,12 +161,21 @@ func (matrix CoverageMatrix) Validate() error {
 			return fmt.Errorf("duplicate normalized case %q for skill %q", entry.CaseID, entry.SkillID)
 		}
 		seen[identity] = true
+		coveredSkills[entry.SkillID] = true
+	}
+	if matrix.TotalSkills < 0 || matrix.TotalSkills > 4096 ||
+		matrix.CoveredSkills != len(coveredSkills) ||
+		matrix.CoveredSkills > matrix.TotalSkills {
+		return fmt.Errorf("coverage skill counts must match emitted skills and catalog bounds")
 	}
 	if matrix.Total < len(matrix.Entries) || matrix.Total > 4096 {
 		return fmt.Errorf("coverage total must include every emitted entry")
 	}
 	if matrix.Truncated && matrix.Total == len(matrix.Entries) {
 		return fmt.Errorf("truncated matrix cannot claim total equals emitted")
+	}
+	if !matrix.Truncated && matrix.Total != len(matrix.Entries) {
+		return fmt.Errorf("untruncated matrix must emit every case")
 	}
 	if matrix.Digest != "" && !validDigest(matrix.Digest) {
 		return fmt.Errorf("malformed matrix digest")

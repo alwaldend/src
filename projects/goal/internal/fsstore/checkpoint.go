@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+	"unicode/utf8"
 
 	"github.com/goccy/go-yaml"
 )
@@ -56,9 +57,9 @@ func (s *Store) Checkpoint(options CheckpointOptions) (GoalReference, error) {
 		if options.AttemptID != "" || options.WorkType != "" || options.PlanFile != "" ||
 			options.PlanID != "" || options.PlanStrategy != "" ||
 			options.PlanState != "" || options.PlanRejectionReason != "" ||
-			options.ResultFile != "" || len(options.EvidenceFiles) > 0 ||
+			options.ResultFile != "" || options.Summary != "" || len(options.EvidenceFiles) > 0 ||
 			options.ReviewFile != "" || options.CloseAttempt || options.Outcome != "" ||
-			options.Execution != "" {
+			options.Execution != "" || options.Subject != "" || options.NextAction != "" {
 			return GoalReference{}, fmt.Errorf(
 				"--criteria-file cannot be combined with another checkpoint mutation",
 			)
@@ -83,7 +84,8 @@ func (s *Store) checkpointRecord(
 	hasPlanMutation := options.PlanStrategy != "" || options.PlanState != "" ||
 		options.PlanRejectionReason != ""
 	hasAttemptMutation := options.AttemptID != "" || options.WorkType != "" ||
-		options.PlanFile != "" || options.ResultFile != "" ||
+		options.PlanFile != "" || options.ResultFile != "" || options.Summary != "" ||
+		options.Subject != "" || options.NextAction != "" ||
 		len(options.EvidenceFiles) > 0 || options.ReviewFile != "" || options.CloseAttempt
 	hasAttemptMutation = hasAttemptMutation || (!options.PlanOnly &&
 		(options.PlanID != "" || hasPlanMutation))
@@ -93,7 +95,8 @@ func (s *Store) checkpointRecord(
 	}
 	if options.PlanOnly && (options.AttemptID != "" || options.WorkType != "" ||
 		options.PlanFile != "" ||
-		options.ResultFile != "" || len(options.EvidenceFiles) > 0 ||
+		options.ResultFile != "" || options.Summary != "" ||
+		options.Subject != "" || options.NextAction != "" || len(options.EvidenceFiles) > 0 ||
 		options.ReviewFile != "" || options.CloseAttempt) {
 		return GoalReference{}, fmt.Errorf(
 			"--plan-only cannot be combined with attempt mutation",
@@ -118,6 +121,19 @@ func (s *Store) checkpointRecord(
 	}
 	if options.CloseAttempt && options.ReviewFile == "" {
 		return GoalReference{}, fmt.Errorf("closing an attempt requires --review-file")
+	}
+	if options.Summary != "" {
+		if options.PlanFile != "" || options.ResultFile != "" {
+			return GoalReference{}, fmt.Errorf("--summary cannot be combined with --plan-file or --result-file")
+		}
+		if strings.TrimSpace(options.Summary) == "" ||
+			len(options.Summary) > maxCheckpointSummaryBytes ||
+			!utf8.ValidString(options.Summary) || strings.ContainsRune(options.Summary, 0) {
+			return GoalReference{}, fmt.Errorf("--summary must be nonblank UTF-8 without NUL, at most %d bytes", maxCheckpointSummaryBytes)
+		}
+		if strings.TrimSpace(options.Subject) == "" || strings.TrimSpace(options.NextAction) == "" {
+			return GoalReference{}, fmt.Errorf("--summary requires --subject and --next-action")
+		}
 	}
 
 	if options.PlanID == "" {
@@ -381,7 +397,7 @@ func (s *Store) checkpointRecord(
 		}
 	} else if tree != nil {
 		// Existing attempt: result/evidence/manifest after goal.yaml.
-		if options.ResultFile != "" {
+		if options.ResultFile != "" || options.Summary != "" {
 			entries = append(entries, publicationFileEntry{
 				Path:         "attempts/" + attemptID + "/result.md",
 				BeforeDigest: "",
@@ -565,6 +581,10 @@ func (s *Store) buildAttemptTree(
 		if options.WorkType != "" && options.WorkType != existing.Spec.WorkType {
 			return nil, fmt.Errorf("an existing attempt workType is immutable")
 		}
+		if options.Subject != "" && options.Subject != existing.Spec.Subject &&
+			options.Summary == "" && options.ResultFile == "" {
+			return nil, fmt.Errorf("changing --subject requires a new --summary or --result-file; prior evidence does not validate a new candidate")
+		}
 		tree.Manifest = *existing
 		attemptDir := filepath.Join(dir, "attempts", attemptID)
 		var err error
@@ -609,6 +629,34 @@ func (s *Store) buildAttemptTree(
 		if err != nil {
 			return nil, fmt.Errorf("read result: %w", err)
 		}
+	}
+	if options.Subject != "" {
+		tree.Manifest.Spec.Subject = options.Subject
+	}
+	if options.NextAction != "" {
+		tree.Manifest.Spec.NextAction = options.NextAction
+	}
+	if existing != nil && (tree.Manifest.Spec.Subject != existing.Spec.Subject ||
+		tree.Manifest.Spec.NextAction != existing.Spec.NextAction) {
+		tree.Manifest.Metadata.Generation++
+		if tree.Manifest.Metadata.Generation == 0 {
+			return nil, fmt.Errorf("attempt generation overflow")
+		}
+	}
+	if options.Summary != "" {
+		if existing == nil {
+			var plan strings.Builder
+			fmt.Fprintf(&plan, "# Plan\n\n## Objective\n\n%s\n\n## Acceptance\n\n", goal.Spec.Title)
+			for _, criterion := range criteria.Spec.Items {
+				fmt.Fprintf(&plan, "- %s: %s\n", criterion.CriterionID, criterion.Statement)
+			}
+			fmt.Fprintf(&plan, "\n## Initial next action\n\n%s\n", options.NextAction)
+			tree.Plan = []byte(plan.String())
+		}
+		tree.Result = []byte(fmt.Sprintf(
+			"# Checkpoint\n\n## Candidate (caller-declared)\n\n%s\n\n## Evidence and progress\n\n%s\n\nRetained evidence applies only to the candidate identified in that evidence.\nThis checkpoint does not establish acceptance.\n\n## Next action\n\n%s\n",
+			options.Subject, strings.TrimSpace(options.Summary), options.NextAction,
+		))
 	}
 	newEvidenceNames := map[string]bool{}
 	for _, source := range options.EvidenceFiles {

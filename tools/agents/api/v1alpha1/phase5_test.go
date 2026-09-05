@@ -58,12 +58,14 @@ func TestCoverageMatrixRejectsDuplicateNormalizedCase(t *testing.T) {
 		EvidenceTier: TierFixtureTested,
 	}
 	matrix := CoverageMatrix{
-		APIVersion: APIVersion,
-		Kind:       "CoverageMatrix",
-		ID:         "matrix/example",
-		CatalogRef: phase5Reference(ReferenceArtifact, "artifact/catalog"),
-		Entries:    []CoverageEntry{entry, entry},
-		Total:      2,
+		APIVersion:    APIVersion,
+		Kind:          "CoverageMatrix",
+		ID:            "matrix/example",
+		CatalogRef:    phase5Reference(ReferenceArtifact, "artifact/catalog"),
+		Entries:       []CoverageEntry{entry, entry},
+		Total:         2,
+		TotalSkills:   2,
+		CoveredSkills: 1,
 	}
 	if _, err := CanonicalCoverageMatrixJSON(matrix); err == nil ||
 		!strings.Contains(err.Error(), "duplicate normalized case") {
@@ -84,12 +86,46 @@ func TestCoverageMatrixRejectsImpossibleTruncation(t *testing.T) {
 			Metric:       "routing/accuracy",
 			EvidenceTier: TierFixtureTested,
 		}},
-		Total:     1,
-		Truncated: true,
+		Total:         1,
+		Truncated:     true,
+		TotalSkills:   2,
+		CoveredSkills: 1,
 	}
 	if _, err := CanonicalCoverageMatrixJSON(matrix); err == nil ||
 		!strings.Contains(err.Error(), "truncated matrix") {
 		t.Fatalf("CanonicalCoverageMatrixJSON() error = %v, want truncation rejection", err)
+	}
+}
+
+func TestCoverageMatrixValidatesSkillCountsIndependently(t *testing.T) {
+	matrix := CoverageMatrix{
+		APIVersion: APIVersion, Kind: "CoverageMatrix", ID: "matrix/example",
+		CatalogRef: phase5Reference(ReferenceArtifact, "artifact/catalog"),
+		Entries: []CoverageEntry{{
+			SkillID: "example", CaseID: "case/example", Metric: "routing/accuracy",
+			State: CoverageConfigured, EvidenceTier: TierConfigured,
+		}},
+		Total: 1, TotalSkills: 2, CoveredSkills: 1,
+	}
+	if err := matrix.Validate(); err != nil {
+		t.Fatalf("partial skill coverage with complete output: %v", err)
+	}
+	for _, counts := range [][2]int{{2, 0}, {2, 2}, {0, 1}, {-1, 1}, {4097, 1}} {
+		candidate := matrix
+		candidate.TotalSkills, candidate.CoveredSkills = counts[0], counts[1]
+		if err := candidate.Validate(); err == nil ||
+			!strings.Contains(err.Error(), "skill counts") {
+			t.Fatalf("counts %v: error = %v, want rejection", counts, err)
+		}
+	}
+	matrix.Total = 2
+	if err := matrix.Validate(); err == nil ||
+		!strings.Contains(err.Error(), "untruncated matrix") {
+		t.Fatalf("missing output without truncation: error = %v", err)
+	}
+	matrix.Truncated = true
+	if err := matrix.Validate(); err != nil {
+		t.Fatalf("explicitly truncated output: %v", err)
 	}
 }
 

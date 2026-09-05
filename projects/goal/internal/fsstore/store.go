@@ -15,6 +15,7 @@ import (
 	"syscall"
 	"time"
 	"unicode"
+	"unicode/utf8"
 
 	"github.com/goccy/go-yaml"
 )
@@ -358,16 +359,35 @@ type AttemptSummary struct {
 }
 
 type GoalView struct {
-	APIVersion   string           `json:"apiVersion"`
-	Kind         string           `json:"kind"`
-	Goal         GoalManifest     `json:"goal"`
-	Criteria     []Criterion      `json:"criteria"`
-	Attempts     []AttemptSummary `json:"attempts"`
-	Returned     int              `json:"returned"`
-	Total        int              `json:"total"`
-	Truncated    bool             `json:"truncated"`
-	Session      *SessionBinding  `json:"session,omitempty"`
-	SessionStale bool             `json:"sessionStale,omitempty"`
+	APIVersion    string                 `json:"apiVersion"`
+	Kind          string                 `json:"kind"`
+	Goal          GoalManifest           `json:"goal"`
+	Criteria      []Criterion            `json:"criteria"`
+	Attempts      []AttemptSummary       `json:"attempts"`
+	Returned      int                    `json:"returned"`
+	Total         int                    `json:"total"`
+	Truncated     bool                   `json:"truncated"`
+	Session       *SessionBinding        `json:"session,omitempty"`
+	SessionStale  bool                   `json:"sessionStale,omitempty"`
+	ActiveAttempt *AttemptCheckpointView `json:"activeAttempt,omitempty"`
+}
+
+// AttemptCheckpointView exposes current local progress without requiring a
+// second read of the canonical attempt files. Subject and prose are caller
+// declarations, not acceptance evidence or observations of live Git state.
+type AttemptCheckpointView struct {
+	AttemptID       string           `json:"attemptID"`
+	ResourceVersion string           `json:"resourceVersion"`
+	ObservedAt      string           `json:"observedAt"`
+	SourcePath      string           `json:"sourcePath"`
+	Subject         string           `json:"subject"`
+	NextAction      string           `json:"nextAction"`
+	ResultPath      string           `json:"resultPath"`
+	ResultDigest    string           `json:"resultDigest"`
+	ResultMarkdown  string           `json:"resultMarkdown"`
+	ResultBytes     int              `json:"resultBytes"`
+	ResultTruncated bool             `json:"resultTruncated"`
+	Evidence        []ArtifactDigest `json:"evidence"`
 }
 
 func (s *Store) ShowGoal(goalDir string, limit int) (GoalView, error) {
@@ -387,10 +407,10 @@ func (s *Store) ShowGoal(goalDir string, limit int) (GoalView, error) {
 	if err != nil {
 		return GoalView{}, err
 	}
-	return makeGoalView(goal, criteria, attempts, limit)
+	return s.makeGoalView(dir, goal, criteria, attempts, limit)
 }
 
-func makeGoalView(goal GoalManifest, criteria CriteriaManifest, attempts []AttemptManifest, limit int) (GoalView, error) {
+func (s *Store) makeGoalView(dir string, goal GoalManifest, criteria CriteriaManifest, attempts []AttemptManifest, limit int) (GoalView, error) {
 	limit, err := validateLimit(limit)
 	if err != nil {
 		return GoalView{}, err
@@ -418,15 +438,51 @@ func makeGoalView(goal GoalManifest, criteria CriteriaManifest, attempts []Attem
 	if len(criteriaItems) > limit {
 		criteriaItems = criteriaItems[:limit]
 	}
+	var active *AttemptCheckpointView
+	for _, attempt := range attempts {
+		if attempt.Metadata.Name != goal.Status.ActiveAttemptID {
+			continue
+		}
+		resultPath := "attempts/" + attempt.Metadata.Name + "/result.md"
+		content, err := readMarkdownFile(filepath.Join(dir, resultPath), maxPlanResultBytes)
+		if err != nil {
+			return GoalView{}, err
+		}
+		// The digest also guards against a non-cooperating writer changing the
+		// result between record validation and this bounded projection.
+		if digestBytes(content) != attempt.Status.Artifacts.ResultDigest {
+			return GoalView{}, fmt.Errorf("active attempt result changed during show")
+		}
+		preview := content[:min(len(content), maxCheckpointSummaryBytes)]
+		for !utf8.Valid(preview) {
+			preview = preview[:len(preview)-1]
+		}
+		active = &AttemptCheckpointView{
+			AttemptID:       attempt.Metadata.Name,
+			ResourceVersion: attempt.Metadata.ResourceVersion,
+			ObservedAt:      attempt.Status.ObservedAt,
+			SourcePath:      "attempts/" + attempt.Metadata.Name + "/attempt.yaml",
+			Subject:         attempt.Spec.Subject,
+			NextAction:      attempt.Spec.NextAction,
+			ResultPath:      resultPath,
+			ResultDigest:    attempt.Status.Artifacts.ResultDigest,
+			ResultMarkdown:  string(preview),
+			ResultBytes:     len(content),
+			ResultTruncated: len(preview) < len(content),
+			Evidence:        attempt.Status.Artifacts.Evidence,
+		}
+		break
+	}
 	return GoalView{
-		APIVersion: goalAPIVersion,
-		Kind:       "GoalView",
-		Goal:       goal,
-		Criteria:   criteriaItems,
-		Attempts:   summaries,
-		Returned:   returned,
-		Total:      len(attempts),
-		Truncated:  len(attempts) > returned || len(criteria.Spec.Items) > len(criteriaItems),
+		APIVersion:    goalAPIVersion,
+		Kind:          "GoalView",
+		Goal:          goal,
+		Criteria:      criteriaItems,
+		Attempts:      summaries,
+		Returned:      returned,
+		Total:         len(attempts),
+		Truncated:     len(attempts) > returned || len(criteria.Spec.Items) > len(criteriaItems),
+		ActiveAttempt: active,
 	}, nil
 }
 
@@ -565,7 +621,7 @@ func (s *Store) ShowSession(sessionRoot string, sessionID string, limit int) (Go
 	if err != nil {
 		return GoalView{}, err
 	}
-	view, err := makeGoalView(goal, criteria, attempts, limit)
+	view, err := s.makeGoalView(goalDir, goal, criteria, attempts, limit)
 	if err != nil {
 		return GoalView{}, err
 	}
@@ -601,6 +657,7 @@ type CheckpointOptions struct {
 	WorkType                string
 	PlanFile                string
 	ResultFile              string
+	Summary                 string
 	EvidenceFiles           []string
 	ReviewFile              string
 	CriteriaFile            string

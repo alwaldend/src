@@ -452,13 +452,25 @@ type consolidationEvidence struct {
 }
 
 type prepareReport struct {
-	Inspection                  *inspection        `json:"inspection"`
-	HeadOID                     string             `json:"head_oid"`
-	TreeOID                     string             `json:"tree_oid"`
-	Receipt                     preparationReceipt `json:"receipt"`
-	Projection                  commitProjection   `json:"pull_request_projection"`
-	AffectedBazelLabels         []string           `json:"affected_bazel_labels"`
-	SuggestedValidationCommands []string           `json:"suggested_validation_commands"`
+	Inspection                  *inspection          `json:"inspection"`
+	HeadOID                     string               `json:"head_oid"`
+	TreeOID                     string               `json:"tree_oid"`
+	Receipt                     preparationReceipt   `json:"receipt"`
+	Projection                  commitProjection     `json:"pull_request_projection"`
+	AffectedBazelLabels         []string             `json:"affected_bazel_labels"`
+	BazelSelectionBasis         string               `json:"bazel_selection_basis"`
+	BazelValidationGaps         []bazelValidationGap `json:"bazel_validation_gaps"`
+	SuggestedValidationCommands []string             `json:"suggested_validation_commands"`
+}
+
+type bazelValidationGap struct {
+	Path   string `json:"path"`
+	Reason string `json:"reason"`
+}
+
+type bazelValidationSelection struct {
+	Labels []string
+	Gaps   []bazelValidationGap
 }
 
 func (d *delivery) prepare(
@@ -1123,7 +1135,10 @@ func (d *delivery) finishPreparation(
 	if err := receiptFileTransaction.write(ctx, receipt); err != nil {
 		return nil, err
 	}
-	labels, err := d.affectedBazelLabels(ctx, receipt.Scope.AuthorizedPaths)
+	selection, err := bazelValidationForPaths(
+		d.repository.directory,
+		receipt.Scope.AggregatePaths,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -1133,14 +1148,17 @@ func (d *delivery) finishPreparation(
 		TreeOID:                     tree,
 		Receipt:                     receipt,
 		Projection:                  projection,
-		AffectedBazelLabels:         labels,
-		SuggestedValidationCommands: suggestedValidationCommands(labels),
+		AffectedBazelLabels:         selection.Labels,
+		BazelSelectionBasis:         "nearest_non_root_package_without_dependency_analysis",
+		BazelValidationGaps:         selection.Gaps,
+		SuggestedValidationCommands: suggestedValidationCommands(selection.Labels),
 	}, nil
 }
 
 func suggestedValidationCommands(labels []string) []string {
+	quality := "bazel_agent bazel test //:repo_quality_test"
 	if len(labels) == 0 {
-		return nil
+		return []string{quality}
 	}
 	sorted := append([]string(nil), labels...)
 	sort.Strings(sorted)
@@ -1148,76 +1166,81 @@ func suggestedValidationCommands(labels []string) []string {
 	return []string{
 		"bazel_agent bazel test " + joined,
 		"bazel_agent bazel build --config=lint " + joined,
+		quality,
 	}
 }
 
-// affectedBazelLabels maps task-owned paths to packages loadable from the root
-// Bazel workspace without starting Bazel. Nested and explicitly ignored
-// workspaces require their own validation workflow.
-func (d *delivery) affectedBazelLabels(
-	_ context.Context,
-	paths []string,
-) ([]string, error) {
-	return bazelLabelsForPaths(d.repository.directory, paths)
-}
-
-func bazelLabelsForPaths(
+// bazelValidationForPaths suggests package checks without starting Bazel.
+// This is not dependency analysis: shared inputs may need consumer checks.
+// The root package includes repository-wide aggregators, so its paths need
+// explicit target selection instead of the unbounded //:all wildcard. Every
+// path without a suggested package remains visible as a validation gap.
+func bazelValidationForPaths(
 	repositoryDirectory string,
 	paths []string,
-) ([]string, error) {
+) (bazelValidationSelection, error) {
+	selection := bazelValidationSelection{}
 	ignored, err := bazelIgnoredDirectories(repositoryDirectory)
 	if err != nil {
-		return nil, fmt.Errorf("inspect Bazel ignored directories: %w", err)
+		return selection, fmt.Errorf("inspect Bazel ignored directories: %w", err)
 	}
 	seen := make(map[string]struct{})
+	seenPaths := make(map[string]struct{})
 	for _, path := range paths {
-		label, found, err := nearestBazelPackageLabel(
+		label, reason, err := nearestBazelPackageLabel(
 			repositoryDirectory,
 			path,
 			ignored,
 		)
 		if err != nil {
-			return nil, err
+			return bazelValidationSelection{}, err
 		}
-		if !found {
+		if reason != "" {
+			path = filepath.ToSlash(filepath.Clean(filepath.FromSlash(path)))
+			if _, duplicate := seenPaths[path]; !duplicate {
+				selection.Gaps = append(selection.Gaps, bazelValidationGap{
+					Path:   path,
+					Reason: reason,
+				})
+				seenPaths[path] = struct{}{}
+			}
 			continue
 		}
 		seen[label] = struct{}{}
 	}
-	if len(seen) == 0 {
-		return nil, nil
-	}
-	labels := make([]string, 0, len(seen))
 	for label := range seen {
-		labels = append(labels, label)
+		selection.Labels = append(selection.Labels, label)
 	}
-	sort.Strings(labels)
-	return labels, nil
+	sort.Strings(selection.Labels)
+	sort.Slice(selection.Gaps, func(i, j int) bool {
+		return selection.Gaps[i].Path < selection.Gaps[j].Path
+	})
+	return selection, nil
 }
 
 func nearestBazelPackageLabel(
 	repositoryDirectory string,
 	path string,
 	ignored []string,
-) (string, bool, error) {
+) (string, string, error) {
 	cleanPath := filepath.Clean(filepath.FromSlash(path))
 	parentPrefix := ".." + string(filepath.Separator)
 	if filepath.IsAbs(cleanPath) || cleanPath == ".." ||
 		strings.HasPrefix(cleanPath, parentPrefix) {
-		return "", false, fmt.Errorf(
+		return "", "", fmt.Errorf(
 			"affected path %q escapes the repository",
 			path,
 		)
 	}
 	if bazelPathIgnored(cleanPath, ignored) {
-		return "", false, nil
+		return "", "ignored_by_root_workspace", nil
 	}
 	nested, err := hasNestedBazelWorkspace(repositoryDirectory, cleanPath)
 	if err != nil {
-		return "", false, err
+		return "", "", err
 	}
 	if nested {
-		return "", false, nil
+		return "", "nested_workspace", nil
 	}
 	directory := filepath.Dir(cleanPath)
 	for {
@@ -1225,17 +1248,17 @@ func nearestBazelPackageLabel(
 			candidate := filepath.Join(repositoryDirectory, directory, name)
 			exists, err := bazelRegularFile(candidate)
 			if err != nil {
-				return "", false, err
+				return "", "", err
 			}
 			if exists {
 				if directory == "." {
-					return "//:all", true, nil
+					return "", "root_package_requires_explicit_targets", nil
 				}
-				return "//" + filepath.ToSlash(directory) + ":all", true, nil
+				return "//" + filepath.ToSlash(directory) + ":all", "", nil
 			}
 		}
 		if directory == "." {
-			return "", false, nil
+			return "", "no_bazel_package", nil
 		}
 		directory = filepath.Dir(directory)
 	}
@@ -2130,7 +2153,7 @@ type revalidationRequiredError struct {
 
 func (e *revalidationRequiredError) Error() string {
 	return fmt.Sprintf(
-		"publish paused before push because HEAD changed; rerun validations and retry with --validated-head=%s",
+		"delivery paused before push; establish validation for the reported candidate and run publish with --validated-head=%s",
 		e.Report.HeadOID,
 	)
 }
@@ -2139,6 +2162,9 @@ func (d *delivery) publish(
 	ctx context.Context,
 	options publishOptions,
 ) (result *publishReport, returnErr error) {
+	if !isObjectID(options.ValidatedHead) {
+		return nil, fmt.Errorf("--validated-head requires the explicit full candidate OID covered by validation")
+	}
 	receiptTransaction, err := d.beginReceiptTransaction(
 		ctx,
 		options.ReceiptFile,
@@ -2152,12 +2178,19 @@ func (d *delivery) publish(
 			returnErr = errors.Join(returnErr, closeErr)
 		}
 	}()
+	return d.publishWithReceiptTransaction(ctx, options, receiptTransaction)
+}
+
+// publishWithReceiptTransaction also serves continuation, which holds the
+// preparation lock while checking its recorded validation and publishing.
+func (d *delivery) publishWithReceiptTransaction(
+	ctx context.Context,
+	options publishOptions,
+	receiptTransaction *receiptTransaction,
+) (result *publishReport, returnErr error) {
 	receipt, err := receiptTransaction.read()
 	if err != nil {
 		return nil, err
-	}
-	if options.ValidatedHead == "" {
-		options.ValidatedHead = receipt.PreparedHeadOID
 	}
 	if d.base == "" {
 		d.base = strings.TrimPrefix(receipt.BaseRef, "refs/heads/")
@@ -2840,12 +2873,7 @@ func (d *delivery) verify(
 		}
 		for _, thread := range reviewInspection.Threads {
 			if !thread.IsResolved && !thread.IsOutdated {
-				return nil, fmt.Errorf(
-					"unresolved review thread %s on %s (line %v); resolve it before delivery",
-					thread.ID,
-					thread.Path,
-					thread.Line,
-				)
+				return nil, unresolvedReviewThreadError(thread)
 			}
 		}
 		if report.PullRequest.HeadRefOID != report.LocalHeadOID {
@@ -2922,6 +2950,21 @@ func (d *delivery) verify(
 	}
 	report.Status = finalStatus
 	return &verifyReport{Inspection: report, Verified: true}, nil
+}
+
+func unresolvedReviewThreadError(thread reviewThread) error {
+	location := "line unknown"
+	if thread.Line != nil {
+		location = fmt.Sprintf("line %d", *thread.Line)
+	} else if thread.OriginalLine != nil {
+		location = fmt.Sprintf("original line %d", *thread.OriginalLine)
+	}
+	return fmt.Errorf(
+		"unresolved review thread %s on %s (%s); resolve it before delivery",
+		thread.ID,
+		thread.Path,
+		location,
+	)
 }
 
 func normalizeText(value string) string {

@@ -28,8 +28,9 @@ owner, and system-wide views are derived projections.
 | [Durable goals](goals/)                                                    | Versioned attempts, evidence, and acceptance state       |
 | [Root agent guide](https://github.com/alwaldend/src/blob/master/AGENTS.md) | Current repository-wide operating policy                 |
 
-The current-state document is a dated snapshot. The architecture defines the
-intended composition contract. The roadmap is not a claim that proposed
+The current-state document describes supported entry points and their evidence
+boundaries. Dated audits remain in the goal records. The architecture defines
+the intended composition contract; the roadmap does not claim that proposed
 interfaces already exist.
 
 ## Ownership boundaries

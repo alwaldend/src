@@ -16,3 +16,25 @@
         proposes a narrow owner-level change with a metric and evidence tier,
         and does not require transcript or secret-bearing content. Otherwise
         fail with score 0.
+
+- description: Retires tracking while preserving useful regression protection
+  metadata:
+    id: successful-fix-retirement
+  vars:
+    request: >-
+      A missing-output diagnostic and regression test fixed a recurring
+      failure. Three later runs passed. The learning record says to retire
+      the improvement after three clean runs. Should we now remove the
+      diagnostic and test and close the tracking record?
+  assert:
+    - type: llm-rubric
+      metric: successful-fix-retirement
+      threshold: 1
+      value: >-
+        Pass with score 1 only if the response separates closing the tracking
+        record from removing the fix, explains that clean runs can support the
+        fix's effectiveness without proving it unnecessary, and retains the
+        useful diagnostic and regression test unless evidence establishes
+        obsolescence or a material cost exceeding their benefit. It must not
+        silently rewrite historical evidence or claim that this question
+        authorizes a repository mutation. Otherwise fail with score 0.

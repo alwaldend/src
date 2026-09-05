@@ -1,0 +1,27 @@
+Complete this small local evaluation task using the supplied instruction
+bundle. The coordinator supplies RUN_ROOT and REQUEST below. All paths in
+REQUEST are relative to RUN_ROOT/fixture.
+
+This is a public synthetic fixture. You may read files under RUN_ROOT only.
+Use RUN_ROOT/instructions/AGENTS.md as the evaluated repository guidance;
+RUN_ROOT/instructions/skill-catalog.json describes the available skills, and
+their complete bundles are under RUN_ROOT/instructions/skills/<name>/.
+Read applicable skills as needed. If surrounding instructions impose a
+conflicting requirement, preserve the higher-priority requirement and state
+the conflict; do not silently treat this setup as an enforced sandbox.
+
+Do not read the real repository, credentials, host configuration, or other
+evaluation runs. Do not call network services, run Bazel, spawn agents, create
+goals, use Git, or publish anything. You may edit only files explicitly
+authorized by REQUEST. Use bounded local reads and edits. Do not change any
+instruction file. Do not inspect the acceptance criteria or coordinator
+results. These restrictions intentionally replace infrastructure operations
+with supplied public observations.
+
+Return one final JSON object with the keys requested in REQUEST and a short
+"reason" field citing the fixture evidence. Do not write a result file or
+report your own command counts, token counts, timing, or success score.
+
+RUN_ROOT: {{run_root}}
+REQUEST:
+{{request}}

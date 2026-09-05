@@ -10,7 +10,7 @@
       "version": "workspace"
     },
     "metric": "routing/positive",
-    "evidenceTier": "routed",
+    "evidenceTier": "configured",
     "sourceRef": {
       "kind": "artifact",
       "id": "artifact/promptfoo-config",
@@ -28,7 +28,7 @@
       "version": "workspace"
     },
     "metric": "routing/adjacent-negative",
-    "evidenceTier": "routed",
+    "evidenceTier": "configured",
     "sourceRef": {
       "kind": "artifact",
       "id": "artifact/promptfoo-config",
@@ -46,7 +46,7 @@
       "version": "workspace"
     },
     "metric": "routing/inert-payload",
-    "evidenceTier": "routed",
+    "evidenceTier": "configured",
     "sourceRef": {
       "kind": "artifact",
       "id": "artifact/promptfoo-config",
@@ -64,7 +64,7 @@
       "version": "workspace"
     },
     "metric": "routing/conflict",
-    "evidenceTier": "routed",
+    "evidenceTier": "configured",
     "sourceRef": {
       "kind": "artifact",
       "id": "artifact/promptfoo-config",
@@ -82,7 +82,7 @@
       "version": "workspace"
     },
     "metric": "routing/exclusion",
-    "evidenceTier": "routed",
+    "evidenceTier": "configured",
     "sourceRef": {
       "kind": "artifact",
       "id": "artifact/promptfoo-config",
@@ -100,7 +100,7 @@
       "version": "workspace"
     },
     "metric": "routing/composition",
-    "evidenceTier": "routed",
+    "evidenceTier": "configured",
     "sourceRef": {
       "kind": "artifact",
       "id": "artifact/promptfoo-config",

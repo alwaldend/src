@@ -13,15 +13,18 @@ import (
 )
 
 type aggregateOptions struct {
-	catalog  string
-	input    string
-	output   string
-	markdown string
+	workspaceRoot string
+	catalog       string
+	input         string
+	output        string
+	markdown      string
 }
 
 func parseAggregateFlags(args []string) (aggregateOptions, error) {
 	var opts aggregateOptions
 	flags := flag.NewFlagSet("aggregate", flag.ContinueOnError)
+	flags.StringVar(&opts.workspaceRoot, "workspace-root", "",
+		"base for relative paths (default: BUILD_WORKSPACE_DIRECTORY or working directory)")
 	flags.StringVar(&opts.catalog, "catalog", "",
 		"capability catalog JSON file")
 	flags.StringVar(&opts.input, "input", "skill-cases.json",
@@ -41,7 +44,11 @@ func parseAggregateFlags(args []string) (aggregateOptions, error) {
 		return aggregateOptions{}, fmt.Errorf(
 			"--markdown requires --input")
 	}
-	return opts, nil
+	if flags.NArg() != 0 {
+		return aggregateOptions{}, fmt.Errorf("unexpected positional arguments")
+	}
+	err := workspaceFilePaths(opts.workspaceRoot, &opts.catalog, &opts.input, &opts.output, &opts.markdown)
+	return opts, err
 }
 
 func runAggregate(args []string, stdout io.Writer) error {
@@ -81,6 +88,12 @@ func runAggregate(args []string, stdout io.Writer) error {
 		if err := value.Validate(); err != nil {
 			return fmt.Errorf("skill case %q: %w", value.ID, err)
 		}
+		if value.EvidenceTier != v1alpha1.TierConfigured {
+			return fmt.Errorf(
+				"skill case %q: aggregate inventories configured cases only; execution evidence requires a result-verifying importer",
+				value.ID,
+			)
+		}
 		if !catalogSkillIDs[value.SkillID] {
 			return fmt.Errorf(
 				"skill case %q references skill %q absent from the bound catalog",
@@ -101,9 +114,7 @@ func runAggregate(args []string, stdout io.Writer) error {
 		return cases[left].ID < cases[right].ID
 	})
 	entries := make([]v1alpha1.CoverageEntry, 0, len(cases))
-	coveredSkills := make(map[string]bool)
 	for _, value := range cases {
-		coveredSkills[value.SkillID] = true
 		entries = append(entries, v1alpha1.CoverageEntry{
 			SkillID:      value.SkillID,
 			CaseID:       value.ID,
@@ -113,23 +124,10 @@ func runAggregate(args []string, stdout io.Writer) error {
 			EvidenceRef:  value.SourceRef,
 		})
 	}
-	total := totalSkills
-	truncated := len(coveredSkills) < totalSkills
-	if len(entries) > totalSkills {
-		total = len(entries)
-	}
-	matrix := v1alpha1.CoverageMatrix{
-		APIVersion: v1alpha1.APIVersion,
-		Kind:       "CoverageMatrix",
-		ID:         "coverage/repository-skills",
-		CatalogRef: v1alpha1.Reference{
-			Kind:   v1alpha1.ReferenceArtifact,
-			ID:     "artifact/agent-system-capability",
-			Digest: catalog.Digest,
-		},
-		Entries:   entries,
-		Total:     total,
-		Truncated: truncated,
+	matrix, err := configuredCoverageMatrix(catalog, entries,
+		"coverage/repository-skills")
+	if err != nil {
+		return err
 	}
 	encoded, err := v1alpha1.CanonicalCoverageMatrixJSON(matrix)
 	if err != nil {
@@ -145,55 +143,60 @@ func runAggregate(args []string, stdout io.Writer) error {
 	if opts.markdown != "" {
 		if err := os.WriteFile(
 			opts.markdown,
-			[]byte(renderCoverageMarkdown(finalMatrix, totalSkills)),
+			[]byte(renderCoverageMarkdown(finalMatrix)),
 			0o644,
 		); err != nil {
 			return fmt.Errorf("write coverage Markdown: %w", err)
 		}
 	}
 	return writeJSONLine(stdout, map[string]any{
-		"cases":     len(cases),
-		"total":     totalSkills,
-		"truncated": finalMatrix.Truncated,
-		"output":    opts.output,
-		"markdown":  opts.markdown,
-		"digest":    finalMatrix.Digest,
+		"cases":         len(cases),
+		"total":         finalMatrix.Total,
+		"totalSkills":   finalMatrix.TotalSkills,
+		"coveredSkills": finalMatrix.CoveredSkills,
+		"truncated":     finalMatrix.Truncated,
+		"output":        opts.output,
+		"markdown":      opts.markdown,
+		"digest":        finalMatrix.Digest,
 	})
 }
 
 func renderCoverageMarkdown(
 	matrix v1alpha1.CoverageMatrix,
-	totalSkills int,
 ) string {
 	content := fmt.Sprintf(
 		"# Skill coverage matrix\n\n"+
 			"- Case entries: %d\n"+
 			"- Capability skills: %d\n"+
-			"- Truncated: %t\n"+
+			"- Skills with configured cases: %d\n"+
+			"- Output truncated: %t\n"+
 			"- Catalog digest: `%s`\n"+
 			"- Matrix digest: `%s`\n\n",
 		len(matrix.Entries),
-		totalSkills,
+		matrix.TotalSkills,
+		matrix.CoveredSkills,
 		matrix.Truncated,
 		matrix.CatalogRef.Digest,
 		matrix.Digest,
 	)
-	content += "| Skill | Case | Metric | Evidence |\n"
-	content += "| --- | --- | --- | --- |\n"
+	content += "| Skill | Case | Metric | Tier | Source |\n"
+	content += "| --- | --- | --- | --- | --- |\n"
 	for _, entry := range matrix.Entries {
 		evidence := "none"
 		if entry.EvidenceRef.ID != "" {
 			evidence = entry.EvidenceRef.ID
 		}
 		content += fmt.Sprintf(
-			"| `%s` | `%s` | `%s` | `%s` |\n",
+			"| `%s` | `%s` | `%s` | `%s` | `%s` |\n",
 			entry.SkillID,
 			entry.CaseID,
 			entry.Metric,
+			entry.EvidenceTier,
 			evidence,
 		)
 	}
-	content += "\nThis projection reports only normalized fixture-tested cases.\n" +
-		"It does not claim live, scheduled, or complete behavioral coverage.\n"
+	content += "\nThis inventory reports declared configured cases.\n" +
+		"It does not verify fixture contents, routing, or behavioral outcomes.\n" +
+		"Skill coverage and output truncation are independent.\n"
 	return content
 }

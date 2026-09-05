@@ -64,16 +64,20 @@ type CoverageEntry struct {
 	EvidenceRef  Reference     `json:"evidenceRef,omitempty"`
 }
 
-// CoverageMatrix is the bounded published projection of normalized behavior.
+// CoverageMatrix separates case output bounds from represented skill counts.
 type CoverageMatrix struct {
 	APIVersion string          `json:"apiVersion"`
 	Kind       string          `json:"kind"`
 	ID         string          `json:"id"`
 	CatalogRef Reference       `json:"catalogRef"`
 	Entries    []CoverageEntry `json:"entries"`
-	Total      int             `json:"total"`
-	Truncated  bool            `json:"truncated"`
-	Digest     string          `json:"digest,omitempty"`
+	// Total counts cases before output truncation, never catalog skills.
+	Total     int  `json:"total"`
+	Truncated bool `json:"truncated"`
+	// TotalSkills is the catalog size; CoveredSkills counts emitted skill IDs.
+	TotalSkills   int    `json:"totalSkills"`
+	CoveredSkills int    `json:"coveredSkills"`
+	Digest        string `json:"digest,omitempty"`
 }
 
 // FrictionRecord is one bounded sanitized observation at task close.

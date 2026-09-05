@@ -4,17 +4,17 @@
     "id": "agent-system.workspace-check",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.workspace-check-compiler",
-    "sourceRevision": "e0fcca8fb38f9748b1f2c8623932b1b0",
+    "sourceRevision": "55f4d38e6ecb872cfed8f31f85d70fe4",
     "inputs": [
         {
             "path": ".bazelignore",
             "role": "bazel-ignore",
-            "digest": "sha256:8b1b3e1d0cf9d29b8820254b04fc90f456754b620bd68b3086986161e72dc68d"
+            "digest": "sha256:f54b33b68c5bcb917bef6cc4e3d105a60b732df775c14b7446d2d1a4be5c4e21"
         },
         {
             "path": "MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:1374a3d6511563f1f6a6598d78f9ebdc2eebc82223e388741f950e2dc8f0fb2f"
+            "digest": "sha256:11c7461c4fac5cc014df466046e0c2a6ca5bdae39a231514f286472460bf5143"
         },
         {
             "path": "projects/agents/skills/full-repo-check/scripts/run_full_repo_check.go",
@@ -25,6 +25,11 @@
             "path": "projects/rules_binary_toolchain/MODULE.bazel",
             "role": "workspace-module",
             "digest": "sha256:d704acbd1f8e9aa9a7490ad2b695dd992e37b9e663798b294757826a1a41b87e"
+        },
+        {
+            "path": "projects/rules_dnscontrol/MODULE.bazel",
+            "role": "workspace-module",
+            "digest": "sha256:58f18e9ac2a12e1da107df865fe9d8538e0fad2907847000fc0e2b3334f1cc33"
         },
         {
             "path": "projects/rules_docs/MODULE.bazel",
@@ -39,7 +44,12 @@
         {
             "path": "projects/rules_hugo/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:78d88abdf0b64f4d854046c4147076956e581b86957235fb9a7bf8fea18ed055"
+            "digest": "sha256:fee5527d7deee448871d5af58d4933557edbf86b35023e855559aa3708d1103a"
+        },
+        {
+            "path": "projects/rules_iso/MODULE.bazel",
+            "role": "workspace-module",
+            "digest": "sha256:6008b40c2da673b800954356d394ee71816b466c1e419ad3414c6ca072ca8f71"
         },
         {
             "path": "projects/rules_promptfoo/MODULE.bazel",
@@ -68,8 +78,8 @@
         }
     ],
     "bounds": {
-        "eligible": 12,
-        "emitted": 12,
+        "eligible": 14,
+        "emitted": 14,
         "unavailable": 0,
         "maxItems": 1000,
         "maxInputBytes": 33554432,
@@ -79,7 +89,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:d3bebeb04b1f822eacd0a34a75b71b26f1e5a86bc2865e7cf849e1a355471a7f",
+    "digest": "sha256:ce511c515a5c377b5b8328d07bf76a7d2fcad4002a7aa68c201175b6113c4a2e",
     "workspaces": [
         {
             "id": "projects.rules_binary_toolchain",
@@ -95,6 +105,25 @@
             "phases": [
                 {
                     "id": "projects.rules_binary_toolchain.check",
+                    "providerRef": "repository.bazel-operations",
+                    "commandTemplate": "bazel_agent bazel test //..."
+                }
+            ]
+        },
+        {
+            "id": "projects.rules_dnscontrol",
+            "path": "projects/rules_dnscontrol",
+            "modulePath": "projects/rules_dnscontrol/MODULE.bazel",
+            "moduleName": "rules_dnscontrol",
+            "projections": {
+                "bazelIgnore": true,
+                "rootOverride": true,
+                "docsAggregation": false,
+                "fullCheck": false
+            },
+            "phases": [
+                {
+                    "id": "projects.rules_dnscontrol.check",
                     "providerRef": "repository.bazel-operations",
                     "commandTemplate": "bazel_agent bazel test //..."
                 }
@@ -152,6 +181,25 @@
             "phases": [
                 {
                     "id": "projects.rules_hugo.check",
+                    "providerRef": "repository.bazel-operations",
+                    "commandTemplate": "bazel_agent bazel test //..."
+                }
+            ]
+        },
+        {
+            "id": "projects.rules_iso",
+            "path": "projects/rules_iso",
+            "modulePath": "projects/rules_iso/MODULE.bazel",
+            "moduleName": "rules_iso",
+            "projections": {
+                "bazelIgnore": false,
+                "rootOverride": true,
+                "docsAggregation": false,
+                "fullCheck": false
+            },
+            "phases": [
+                {
+                    "id": "projects.rules_iso.check",
                     "providerRef": "repository.bazel-operations",
                     "commandTemplate": "bazel_agent bazel test //..."
                 }

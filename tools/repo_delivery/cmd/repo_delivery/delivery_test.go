@@ -10,6 +10,31 @@ import (
 	"testing"
 )
 
+func TestUnresolvedReviewThreadErrorReportsLineValues(t *testing.T) {
+	t.Parallel()
+	current, original := 43, 17
+	for _, test := range []struct {
+		name     string
+		line     *int
+		original *int
+		location string
+	}{
+		{name: "current", line: &current, original: &original, location: "line 43"},
+		{name: "original", original: &original, location: "original line 17"},
+		{name: "unknown", location: "line unknown"},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			err := unresolvedReviewThreadError(reviewThread{
+				ID: "thread-id", Path: "source.go", Line: test.line, OriginalLine: test.original,
+			})
+			want := "unresolved review thread thread-id on source.go (" + test.location + "); resolve it before delivery"
+			if err.Error() != want {
+				t.Fatalf("error = %q, want %q", err, want)
+			}
+		})
+	}
+}
+
 func TestSuggestedValidationCommands(t *testing.T) {
 	t.Parallel()
 	commands := suggestedValidationCommands([]string{
@@ -19,6 +44,7 @@ func TestSuggestedValidationCommands(t *testing.T) {
 	want := []string{
 		"bazel_agent bazel test //tools/bar //tools/foo",
 		"bazel_agent bazel build --config=lint //tools/bar //tools/foo",
+		"bazel_agent bazel test //:repo_quality_test",
 	}
 	if !reflect.DeepEqual(commands, want) {
 		t.Fatalf("commands = %v, want %v", commands, want)
@@ -27,12 +53,13 @@ func TestSuggestedValidationCommands(t *testing.T) {
 
 func TestSuggestedValidationCommandsEmpty(t *testing.T) {
 	t.Parallel()
-	if commands := suggestedValidationCommands(nil); commands != nil {
-		t.Fatalf("commands = %v, want nil", commands)
+	want := []string{"bazel_agent bazel test //:repo_quality_test"}
+	if commands := suggestedValidationCommands(nil); !reflect.DeepEqual(commands, want) {
+		t.Fatalf("commands = %v, want %v", commands, want)
 	}
 }
 
-func TestBazelLabelsForPathsUseNearestPackage(t *testing.T) {
+func TestBazelValidationForPathsUseNearestPackage(t *testing.T) {
 	t.Parallel()
 	repository := t.TempDir()
 	for _, path := range []string{
@@ -49,34 +76,39 @@ func TestBazelLabelsForPathsUseNearestPackage(t *testing.T) {
 		}
 	}
 
-	labels, err := bazelLabelsForPaths(repository, []string{
+	selection, err := bazelValidationForPaths(repository, []string{
 		"MODULE.bazel",
 		"users/simeonwarren/host_bot/README.md",
 		"users/simeonwarren/host_bot/ansible/files/codex_config.toml",
 		"users/simeonwarren/host_bot/ansible/group_vars/all.yaml",
 	})
 	if err != nil {
-		t.Fatalf("bazelLabelsForPaths() error = %v", err)
+		t.Fatalf("bazelValidationForPaths() error = %v", err)
 	}
-	want := []string{
-		"//:all",
-		"//users/simeonwarren/host_bot/ansible:all",
-		"//users/simeonwarren/host_bot:all",
+	want := bazelValidationSelection{
+		Labels: []string{
+			"//users/simeonwarren/host_bot/ansible:all",
+			"//users/simeonwarren/host_bot:all",
+		},
+		Gaps: []bazelValidationGap{{
+			Path:   "MODULE.bazel",
+			Reason: "root_package_requires_explicit_targets",
+		}},
 	}
-	if !reflect.DeepEqual(labels, want) {
-		t.Fatalf("labels = %v, want %v", labels, want)
+	if !reflect.DeepEqual(selection, want) {
+		t.Fatalf("selection = %v, want %v", selection, want)
 	}
 }
 
-func TestBazelLabelsForPathsRejectEscape(t *testing.T) {
+func TestBazelValidationForPathsRejectEscape(t *testing.T) {
 	t.Parallel()
-	_, err := bazelLabelsForPaths(t.TempDir(), []string{"../outside.txt"})
+	_, err := bazelValidationForPaths(t.TempDir(), []string{"../outside.txt"})
 	if err == nil || !strings.Contains(err.Error(), "escapes the repository") {
-		t.Fatalf("bazelLabelsForPaths() error = %v, want escape", err)
+		t.Fatalf("bazelValidationForPaths() error = %v, want escape", err)
 	}
 }
 
-func TestBazelLabelsForPathsSkipIgnoredAndNestedWorkspaces(t *testing.T) {
+func TestBazelValidationForPathsReportIgnoredAndNestedWorkspaces(t *testing.T) {
 	t.Parallel()
 	repository := t.TempDir()
 	for _, path := range []string{
@@ -102,7 +134,7 @@ func TestBazelLabelsForPathsSkipIgnoredAndNestedWorkspaces(t *testing.T) {
 	); err != nil {
 		t.Fatalf("WriteFile(.bazelignore): %v", err)
 	}
-	labels, err := bazelLabelsForPaths(repository, []string{
+	selection, err := bazelValidationForPaths(repository, []string{
 		"MODULE.bazel",
 		"projects/root_package/README.md",
 		"projects/ignored/README.md",
@@ -110,30 +142,80 @@ func TestBazelLabelsForPathsSkipIgnoredAndNestedWorkspaces(t *testing.T) {
 		"users/simeonwarren/host_bot/ansible/files/config.toml",
 	})
 	if err != nil {
-		t.Fatalf("bazelLabelsForPaths() error = %v", err)
+		t.Fatalf("bazelValidationForPaths() error = %v", err)
 	}
-	want := []string{
-		"//:all",
-		"//projects/root_package:all",
-		"//users/simeonwarren/host_bot/ansible:all",
+	want := bazelValidationSelection{
+		Labels: []string{
+			"//projects/root_package:all",
+			"//users/simeonwarren/host_bot/ansible:all",
+		},
+		Gaps: []bazelValidationGap{
+			{Path: "MODULE.bazel", Reason: "root_package_requires_explicit_targets"},
+			{Path: "projects/ignored/README.md", Reason: "ignored_by_root_workspace"},
+			{Path: "projects/nested/README.md", Reason: "nested_workspace"},
+		},
 	}
-	if !reflect.DeepEqual(labels, want) {
-		t.Fatalf("labels = %v, want %v", labels, want)
+	if !reflect.DeepEqual(selection, want) {
+		t.Fatalf("selection = %v, want %v", selection, want)
 	}
 }
 
-func TestBazelLabelsForPathsRejectNonRegularMarker(t *testing.T) {
+func TestBazelValidationForPathsRejectNonRegularMarker(t *testing.T) {
 	t.Parallel()
 	repository := t.TempDir()
 	marker := filepath.Join(repository, "projects", "broken", "BUILD.bazel")
 	if err := os.MkdirAll(marker, 0o755); err != nil {
 		t.Fatalf("MkdirAll(%q): %v", marker, err)
 	}
-	_, err := bazelLabelsForPaths(repository, []string{
+	_, err := bazelValidationForPaths(repository, []string{
 		"projects/broken/README.md",
 	})
 	if err == nil || !strings.Contains(err.Error(), "not a regular file") {
-		t.Fatalf("bazelLabelsForPaths() error = %v, want marker error", err)
+		t.Fatalf("bazelValidationForPaths() error = %v, want marker error", err)
+	}
+}
+
+func TestBazelValidationRootPathsRequireExplicitTargets(t *testing.T) {
+	t.Parallel()
+	repository := t.TempDir()
+	if err := os.WriteFile(filepath.Join(repository, "BUILD.bazel"), []byte("# test\n"), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	for _, path := range []string{
+		"AGENTS.md", ".gitattributes", "BUILD.bazel", "MODULE.bazel",
+		".bazelrc", "main.go", "unpackaged/source.go",
+	} {
+		t.Run(path, func(t *testing.T) {
+			selection, err := bazelValidationForPaths(repository, []string{path, "./" + path})
+			if err != nil {
+				t.Fatal(err)
+			}
+			if len(selection.Labels) != 0 {
+				t.Fatalf("root path selected broad package checks: %v", selection.Labels)
+			}
+			wantGaps := []bazelValidationGap{{Path: path, Reason: "root_package_requires_explicit_targets"}}
+			if !reflect.DeepEqual(selection.Gaps, wantGaps) {
+				t.Fatalf("gaps = %v, want %v", selection.Gaps, wantGaps)
+			}
+			wantCommands := []string{"bazel_agent bazel test //:repo_quality_test"}
+			if commands := suggestedValidationCommands(selection.Labels); !reflect.DeepEqual(commands, wantCommands) {
+				t.Fatalf("commands = %v, want %v", commands, wantCommands)
+			}
+		})
+	}
+}
+
+func TestBazelValidationReportsMissingPackage(t *testing.T) {
+	t.Parallel()
+	selection, err := bazelValidationForPaths(t.TempDir(), []string{"new/source.go"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := bazelValidationSelection{
+		Gaps: []bazelValidationGap{{Path: "new/source.go", Reason: "no_bazel_package"}},
+	}
+	if !reflect.DeepEqual(selection, want) {
+		t.Fatalf("selection = %v, want %v", selection, want)
 	}
 }
 
@@ -499,6 +581,34 @@ func TestPreparePathFlagPreservesCommaInLiteralPath(t *testing.T) {
 	}
 	if !reflect.DeepEqual(paths, []string{"owned/foo,bar"}) {
 		t.Fatalf("--path values = %q, want one literal comma path", paths)
+	}
+}
+
+func TestPublishRequiresExplicitValidatedHead(t *testing.T) {
+	t.Parallel()
+	for _, value := range []string{"", "HEAD", "1234"} {
+		t.Run(value, func(t *testing.T) {
+			delivery := &delivery{}
+			_, err := delivery.publish(context.Background(), publishOptions{
+				ReceiptFile:   "out/task/prepare.json",
+				ValidatedHead: value,
+			})
+			if err == nil || !strings.Contains(err.Error(), "--validated-head") {
+				t.Fatalf("publish() error = %v, want explicit candidate refusal", err)
+			}
+		})
+	}
+	command := newPublishCommand(
+		context.Background(),
+		&deliveryConfig{},
+		func(string) string { return "" },
+		io.Discard,
+		nil,
+	)
+	command.SetArgs([]string{"--receipt-file", "out/task/prepare.json"})
+	if err := command.Execute(); err == nil ||
+		!strings.Contains(err.Error(), `"validated-head"`) {
+		t.Fatalf("Execute() error = %v, want required validated-head", err)
 	}
 }
 

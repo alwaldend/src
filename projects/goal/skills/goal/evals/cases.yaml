@@ -1,3 +1,22 @@
+- description: Resumes registered goals with explicit catalog provenance
+  vars:
+    request: >-
+      Show the bounded resumable goals for projects/agents/goals using the
+      checked catalog at tools/agents/catalogs/goal.json. A goal may have
+      changed since catalog generation. Do not mutate any goal yet.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses bazel_agent bazel run
+        //projects/goal/cmd/goal -- resume with --goals-root
+        projects/agents/goals and --catalog
+        ../../../tools/agents/catalogs/goal.json, interpreting catalog paths
+        relative to the goals root. It must distinguish structural and stored
+        digest validation from freshness against goal records, inspect the
+        selected record before acting, and preserve the read-only request.
+        Otherwise fail.
+
 - description: Routes substantial source research through the goal loop
   vars:
     request: >-
@@ -58,23 +77,75 @@
         at projects/storage/goals/<goal-id>/, retains acceptance-critical
         evidence with portable links or regeneration instructions, and does
         not treat all goals as temporary. Otherwise fail.
-- description: Pushes durable active-goal progress without committing scratch
+- description: Keeps interrupted progress local until a delivery milestone
   vars:
     request: >-
-      An active project goal produced a rejected but useful source change, a
-      tracked attempt result, and several large ignored render diagnostics.
-      The feature branch has not been pushed. How should this turn end?
+      An active workspace goal has a partial source change and focused tests
+      still pending. I asked for a quick status update during implementation,
+      then want you to keep working. No review milestone or remote backup was
+      requested. Must you commit, push, and run full delivery before answering?
   assert:
     - type: llm-rubric
       threshold: 1
       value: >-
-        Pass only if the response runs proportional checks, stages only the
-        task-owned durable source and goal record, commits or amends according
-        to repository policy, pushes the feature branch, and verifies that the
-        remote contains the exact local commit. It must leave disposable
-        renders ignored, preserve any decision-relevant findings durably or
-        reproducibly, avoid an empty or cosmetic commit, and report rather
-        than conceal any blocker to a safe push. Otherwise fail.
+        Pass only if the response says no, preserves a local checkpoint when
+        needed, answers status, and continues authorized work. It must reserve
+        full validation/publication for a meaningful review-ready milestone
+        or final handoff, distinguish local progress from remote backup, and
+        retain eventual delivery of legitimate source changes. Otherwise fail.
+
+- description: Uses a compact checkpoint for ordinary resumable work
+  vars:
+    request: >-
+      Track a moderate parser fix that may be interrupted. The goal already
+      has its objective and acceptance criterion. We are at observed resource
+      version 3, candidate tree abc123; parsing is fixed but size-bound checks
+      have not run. Save enough state for another agent to resume. No detailed
+      project history, repeated failures, or complex coordination is involved.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses checkpoint --summary with the literal
+        expected resource version 3, declares candidate abc123 through
+        --subject, records the pending checks honestly, and gives a concrete
+        --next-action. It should use show to resume without requiring a
+        separate plan ID, manually authored plan/result payload, process
+        audit, or fresh attempt for routine progress. It must not mark the
+        criterion passed or goal achieved. Otherwise fail.
+
+- description: Delivers at final handoff while leaving scratch ignored
+  vars:
+    request: >-
+      The parser change is complete and reviewed, with its acceptance checks
+      passing against the final candidate. Hand it off now. The feature branch
+      is unpushed and the workspace goal and diagnostic logs are ignored.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response follows repo-delivery to validate, commit,
+        push, and verify legitimate task-owned source before final handoff,
+        while leaving workspace records and disposable diagnostics ignored.
+        It must not use local checkpoint permission to omit final publication
+        or claim an unverified remote copy. Otherwise fail.
+
+- description: Preserves an explicitly requested remote backup
+  vars:
+    request: >-
+      We are midway through the implementation. Make a remote backup of the
+      legitimate source changes now; keep the workspace goal and logs local.
+      Then continue the remaining checks and implementation.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response honors the explicit backup request through
+        repo-delivery, verifies the remote candidate, keeps ignored scratch
+        local, and continues remaining authorized work. It must not reject the
+        request because ordinary checkpoints are local or equate backup with
+        final acceptance. Otherwise fail.
+
 - description: Treats the session as a focus pointer rather than goal identity
   vars:
     request: >-

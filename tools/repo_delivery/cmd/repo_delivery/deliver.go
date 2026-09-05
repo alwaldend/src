@@ -23,9 +23,9 @@ type deliverStepReport struct {
 }
 
 type deliverReport struct {
-	Steps   []deliverStepReport `json:"steps"`
-	Publish *publishReport      `json:"publish,omitempty"`
-	Verify  *verifyReport       `json:"verify,omitempty"`
+	*prepareReport
+	Status string              `json:"status"`
+	Steps  []deliverStepReport `json:"steps"`
 }
 
 func newDeliverCommand(
@@ -38,7 +38,7 @@ func newDeliverCommand(
 	options := &deliverOptions{}
 	command := &cobra.Command{
 		Use:   "deliver",
-		Short: "Prepare, publish, and verify in one idempotent command",
+		Short: "Prepare a message amendment and pause for validation",
 		Args:  cobra.NoArgs,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			delivery, err := deliveryFromConfig(ctx, config, getenv, runner)
@@ -139,7 +139,7 @@ func (d *delivery) deliver(
 	if inspection.RemoteHeadDiverged && remoteHeadOID != "" {
 		prepareOptions.RewriteAuthorization = authorizationPath
 	}
-	_, err = d.prepare(ctx, prepareOptions)
+	prepared, err := d.prepare(ctx, prepareOptions)
 	if err != nil {
 		return report, fmt.Errorf("prepare: %w", err)
 	}
@@ -147,31 +147,14 @@ func (d *delivery) deliver(
 		Step:   "prepare",
 		Status: "ok",
 	})
-	receipt, err := d.readReceipt(ctx, options.ReceiptFile)
-	if err != nil {
-		return report, fmt.Errorf("read prepared receipt: %w", err)
-	}
-	publishReport, err := d.publish(ctx, publishOptions{
-		ReceiptFile: options.ReceiptFile,
-	})
-	if err != nil {
-		return report, fmt.Errorf("publish: %w", err)
-	}
-	report.Publish = publishReport
-	report.Steps = append(report.Steps, deliverStepReport{
-		Step:   "publish",
-		Status: "ok",
-	})
-	verifyReport, err := d.verify(ctx, &receipt)
-	if err != nil {
-		return report, fmt.Errorf("verify: %w", err)
-	}
-	report.Verify = verifyReport
-	report.Steps = append(report.Steps, deliverStepReport{
-		Step:   "verify",
-		Status: "ok",
-	})
-	return report, nil
+	report.prepareReport = prepared
+	report.Status = "revalidation_required"
+	return report, &revalidationRequiredError{Report: &publishReport{
+		Status:  report.Status,
+		HeadOID: prepared.HeadOID,
+		TreeOID: prepared.TreeOID,
+		Receipt: &prepared.Receipt,
+	}}
 }
 
 func buildAuthorizationPath(receiptPath string) string {

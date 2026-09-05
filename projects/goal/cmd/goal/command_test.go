@@ -127,6 +127,50 @@ func TestCommandRequiresTaskSpecificSessionRoot(t *testing.T) {
 	}
 }
 
+func TestCommandCompactCheckpointAndResume(t *testing.T) {
+	root := t.TempDir()
+	runtimeRoot := t.TempDir()
+	if err := os.Chmod(runtimeRoot, 0o700); err != nil {
+		t.Fatal(err)
+	}
+	getenv := func(name string) string {
+		switch name {
+		case "BUILD_WORKSPACE_DIRECTORY":
+			return root
+		case "XDG_RUNTIME_DIR":
+			return runtimeRoot
+		}
+		return ""
+	}
+	run := func(args ...string) string {
+		t.Helper()
+		var out bytes.Buffer
+		if err := Execute(context.Background(), args, getenv, &out, &out); err != nil {
+			t.Fatalf("Execute(%v): %v; output=%s", args, err, out.String())
+		}
+		return out.String()
+	}
+	goalDir := "out/compact/goals/task"
+	run("init", "--goals-root", "out/compact/goals", "--goal-id", "task",
+		"--title", "Repair the bounded parser", "--criterion", "The parser rejects oversized inputs.")
+	run("checkpoint", "--goal-dir", goalDir, "--expected-resource-version", "1",
+		"--subject", "candidate-one", "--summary", "Parser fix is ready; focused test pending.",
+		"--next-action", "Run the parser test.")
+	shown := run("show", "--goal-dir", goalDir)
+	for _, want := range []string{"candidate-one", "Run the parser test.", "focused test pending", "activeAttempt", "resultDigest"} {
+		if !strings.Contains(shown, want) {
+			t.Fatalf("resume output lacks %q: %s", want, shown)
+		}
+	}
+	var out bytes.Buffer
+	err := Execute(context.Background(), []string{
+		"checkpoint", "--goal-dir", goalDir, "--expected-resource-version", "2", "--summary", "",
+	}, getenv, &out, &out)
+	if err == nil || !strings.Contains(err.Error(), "must not be blank") {
+		t.Fatalf("empty explicit summary was accepted: %v", err)
+	}
+}
+
 func TestCommandResumeReturnsCatalogContinuation(t *testing.T) {
 	root := t.TempDir()
 	runtimeRoot := t.TempDir()

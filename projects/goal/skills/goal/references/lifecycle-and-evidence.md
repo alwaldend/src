@@ -1,16 +1,16 @@
 # Attempt lifecycle and evidence
 
-Use this reference before starting or evaluating an attempt.
+Use this reference for maintained goals, repeated failures, and complex
+coordination. Ordinary progress uses the compact checkpoint workflow in the
+skill entry point.
 
 ## Plan before work
 
-One attempt is a bounded work unit with one reviewable outcome. Record before
-implementation:
+One attempt is a bounded work unit with one reviewable outcome. Establish before implementation:
 
-- the exact goal generation, lifecycle generation, criteria revision, criteria
-  digest, and goal-state digest stored as durable attempt bindings;
-- the Goal resource version to use only as the next checkpoint's
-  compare-and-swap token;
+- the observed Goal resource version as the next checkpoint's
+  compare-and-swap token; the store derives generation, lifecycle, criteria,
+  and digest bindings rather than requiring manual transcription;
 - the uncertainty or stable defect being targeted;
 - work type and hypothesis when the work tests one;
 - the smallest high-leverage module or question, its stop condition, and the

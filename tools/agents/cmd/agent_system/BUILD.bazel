@@ -5,6 +5,7 @@ load("@rules_shell//shell:sh_test.bzl", "sh_test")
 go_library(
     name = "agent_system_lib",
     srcs = [
+        "git_observation.go",
         "main.go",
         "phase5_aggregate_cmd.go",
         "phase5_cmd.go",
@@ -12,6 +13,7 @@ go_library(
         "phase6_friction_cmd.go",
         "plan_cmd.go",
         "readers.go",
+        "workspace.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/tools/agents/cmd/agent_system",
     visibility = ["//:__subpackages__"],
@@ -39,14 +41,19 @@ go_test(
     name = "agent_system_test",
     size = "small",
     srcs = [
+        "git_observation_test.go",
         "main_test.go",
         "phase5_aggregate_cmd_test.go",
         "phase6_friction_cmd_test.go",
         "plan_cmd_test.go",
+        "workspace_test.go",
     ],
     data = glob(["testdata/**"]),
     embed = [":agent_system_lib"],
-    deps = ["//tools/agents/api/v1alpha1"],
+    deps = [
+        "//tools/agents/api/v1alpha1",
+        "//tools/agents/catalog/v1alpha1",
+    ],
 )
 
 sh_binary(

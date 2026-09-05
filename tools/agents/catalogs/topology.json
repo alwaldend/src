@@ -4,12 +4,12 @@
     "id": "agent-system.topology",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.topology-compiler",
-    "sourceRevision": "536a3b8266cb5e4b",
+    "sourceRevision": "0e956ee8f207e046",
     "inputs": [
         {
             "path": "MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:1374a3d6511563f1f6a6598d78f9ebdc2eebc82223e388741f950e2dc8f0fb2f"
+            "digest": "sha256:11c7461c4fac5cc014df466046e0c2a6ca5bdae39a231514f286472460bf5143"
         },
         {
             "path": "data/README.md",
@@ -34,12 +34,12 @@
         {
             "path": "projects/agents/README.md",
             "role": "component-readme",
-            "digest": "sha256:f6a662eaa4b25cd59fd649efbcdc2def18ee23f117dc39f1ac8e0f9e02c571cf"
+            "digest": "sha256:d0b8c3c4f088f94b4828e97a1e911a6393e0e33e3ed1964c165d827081fe9a8e"
         },
         {
             "path": "projects/al/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:7c241006df5d9b9bea3a963fc6a77d80c4a6ebe329930086364ff75b5afa0aef"
+            "digest": "sha256:08a1f83b56e00185fc1a9be1a9c0c99521857cc0b954b266879f100f8c098dd0"
         },
         {
             "path": "projects/al/README.md",
@@ -49,17 +49,17 @@
         {
             "path": "projects/alwaldend.com/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:f7d6581ba4b24fdacc09e53ff910118070264f4def2facb4afbee391c72e89d3"
+            "digest": "sha256:a927e8269b7c6fe298a034056216ba2c38587c7db5a317f12f3981073bcf53ed"
         },
         {
             "path": "projects/alwaldend.com/README.md",
             "role": "component-readme",
-            "digest": "sha256:a6b33bac7bb791603f0cf669236d96ebfc82aaa4f4c95e80736ffa094eb886e0"
+            "digest": "sha256:a59aaf8277f8f9c863c2f1594ae267604575d0f185112b10b4a258c26fe82c26"
         },
         {
             "path": "projects/android_launcher/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:b5a7403c3243be6a32b7e904ab3e5b65d23735c3a73aba26ce107562fd0b3be2"
+            "digest": "sha256:db9a013a7e9bde433809d59520c12078aa43958292461d2d58b73755447bd219"
         },
         {
             "path": "projects/android_launcher/README.md",
@@ -69,7 +69,7 @@
         {
             "path": "projects/ansible_collection/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:17209ccda56eb669833a63dd43861993c3054891ef7224912169a64eecaf2d7d"
+            "digest": "sha256:e2a04691dc13d1c801400260b9227c0f04fb7b84a90a17f32b694ce57818ebe9"
         },
         {
             "path": "projects/ansible_collection/README.md",
@@ -79,7 +79,7 @@
         {
             "path": "projects/autoscroll/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:6b69fd1a93084c044ab100587789e67ff0df8cb931f9e45a9e3de9791fb2e66a"
+            "digest": "sha256:101083a9d4dc58205805ce16cf10a2c6cb3b432977d5ebf707272fef300cd888"
         },
         {
             "path": "projects/autoscroll/README.md",
@@ -89,17 +89,17 @@
         {
             "path": "projects/bazel_agent/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:f244303a1ed4ad84cd403c633ecb48c29907995fea7e5adca3db2cf00da488b3"
+            "digest": "sha256:1b970dff1426d17124338efbdb12bddacebd3895a8c5e3b640a618cb24309e53"
         },
         {
             "path": "projects/bazel_agent/README.md",
             "role": "component-readme",
-            "digest": "sha256:749f86819332828d1bb788254f053a382528bcddbb0db640a128fc897f9c52bb"
+            "digest": "sha256:7a220433897cdd2709629b94c5ca098c9d878eb1ddeab83b25c18ff559ea4cf9"
         },
         {
             "path": "projects/cgit/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:bcbd8e022ca90e944f9f6999ec2b85a712420b64e1b0206dc0bba83247ba58b8"
+            "digest": "sha256:bdb0cfc4899068f5edb6abe92f76f01008816c0ac7e53a60ec85006ba1038392"
         },
         {
             "path": "projects/cgit/README.md",
@@ -109,7 +109,7 @@
         {
             "path": "projects/ci_platform/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:517181a84d45111d7710064b2d6dde7c9951d2f9ac6a0795c854baf7475b179e"
+            "digest": "sha256:e45745bc57292d55369b8d52fd0058afc8fd7d480d82c6a040ca6082ecf81c37"
         },
         {
             "path": "projects/ci_platform/README.md",
@@ -119,7 +119,7 @@
         {
             "path": "projects/dotfiles/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:fb906bc75255f3c5aa8a0ea1ab11e640fca5ed88b236e612fbfe34fab9104a7e"
+            "digest": "sha256:c3923897641f6de5b236ea80661793e8780f2a7b58c50315443a57da7f8b982e"
         },
         {
             "path": "projects/dotfiles/README.md",
@@ -129,17 +129,27 @@
         {
             "path": "projects/goal/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:23aeefdf45b150a0997881d9e347947676020eed71df5cd405fdddd5342fbd69"
+            "digest": "sha256:d01cb8c679d4fcbb4993f66fda207b5fe5b42beb5d0b8cf23fd4008d5796f9ae"
         },
         {
             "path": "projects/goal/README.md",
             "role": "component-readme",
-            "digest": "sha256:baa4e1776310446db8336295394d55b275ef2ea41cf7f5967f342a20b3d23335"
+            "digest": "sha256:df5961a6a1f6e764c30f85f05839205df704f39197cfe2817ca37d1b326d408d"
+        },
+        {
+            "path": "projects/hugo_landing/BUILD.bazel",
+            "role": "component-build",
+            "digest": "sha256:6796ec34f9c3be5ea4c63430aeb41a9adf9e71fd6b7485f87b4646865228734f"
+        },
+        {
+            "path": "projects/hugo_landing/README.md",
+            "role": "component-readme",
+            "digest": "sha256:18d89bd55110410611fd697415dced84cdad7e4d9bbccf72d14a7be253badc16"
         },
         {
             "path": "projects/infinitime/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:175203110b022d9b0507f091c8e836cd53961c14a723c7698c03141ecf9c28fb"
+            "digest": "sha256:520fbddfd6f299760d54e0ddac58d195ecc1fe9e5286a67a76b73eb9a4d49a7d"
         },
         {
             "path": "projects/infinitime/README.md",
@@ -149,7 +159,7 @@
         {
             "path": "projects/kustomization/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:371c6bc75a1a95eeaefd12c7d2c98a1d5173ce4e2af8fa1a01c82bc2071a691a"
+            "digest": "sha256:79097cbbf308944cb7cb1f190f291e26056298aede809753644518660c80f3b8"
         },
         {
             "path": "projects/kustomization/README.md",
@@ -159,7 +169,7 @@
         {
             "path": "projects/leetcode_downloader/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:5e37dbf649926b43f24b20fb9aa55f283f5dd7e8605b293ae2ec1bba65580391"
+            "digest": "sha256:ff02ba7bbab739d89c2f0052468acc2ab984a8e29c1c295e046e7b7874499656"
         },
         {
             "path": "projects/leetcode_downloader/README.md",
@@ -169,17 +179,17 @@
         {
             "path": "projects/mcp_cordis/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:78cfbc2c440503bc2a60c217afed81044de85b752e878f6d72c908371b8f19f1"
+            "digest": "sha256:1e714ac02a7691d0af516e67c526924856471767634f866f0f0d348b4e9501a6"
         },
         {
             "path": "projects/mcp_cordis/README.md",
             "role": "component-readme",
-            "digest": "sha256:1962ba8f8f58043d823708a413caf317d8f5d7e1c28c3f767b8961fd2d49e5ce"
+            "digest": "sha256:0e78ac48489af2c5a1c297365aa55294522d8302867c718f439e0e0676dae842"
         },
         {
             "path": "projects/nexus_security_plugin/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:2ed970e0cae0e98781f50e98e6e53379b84c3c7389b0edbb226f05e7941593ff"
+            "digest": "sha256:93a8516362d8a66955a16f4c26152e28fb27b425927c288410c4b27b3bec1e0b"
         },
         {
             "path": "projects/nexus_security_plugin/README.md",
@@ -187,9 +197,19 @@
             "digest": "sha256:50fc95ee222efbb7b3cf1c35ee94417f2676d7085847bccfc43a43a7a8555d54"
         },
         {
+            "path": "projects/renders/BUILD.bazel",
+            "role": "component-build",
+            "digest": "sha256:415e2dd8c3a12d61ab2c40934c1087c96aaf53f38a49e74155e4abb96f7d018c"
+        },
+        {
+            "path": "projects/renders/README.md",
+            "role": "component-readme",
+            "digest": "sha256:17055bea16af5e5ae1d99ceadc1f9fff1cf6599927e963d7b03b7d1966cfffa7"
+        },
+        {
             "path": "projects/rules_binary_toolchain/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:ff689dc67423394ee6b617489e2ee3ecd2c1ae9f7db37647e03367ca13037abf"
+            "digest": "sha256:1420a0f09639584ceb6bea010af136d82fb94ddd99b350f417ad082bd3244e77"
         },
         {
             "path": "projects/rules_binary_toolchain/MODULE.bazel",
@@ -202,9 +222,24 @@
             "digest": "sha256:72e0ce460ff53b761d6eafbeafba52d4332bed091aee9eb0e6bbea7df847b95f"
         },
         {
+            "path": "projects/rules_dnscontrol/BUILD.bazel",
+            "role": "component-build",
+            "digest": "sha256:9d623cad0982695da3333634ba76c761f4db61748b25f6d01952cce73dd9be73"
+        },
+        {
+            "path": "projects/rules_dnscontrol/MODULE.bazel",
+            "role": "workspace-module",
+            "digest": "sha256:58f18e9ac2a12e1da107df865fe9d8538e0fad2907847000fc0e2b3334f1cc33"
+        },
+        {
+            "path": "projects/rules_dnscontrol/README.md",
+            "role": "component-readme",
+            "digest": "sha256:3e05f58e0ef0b364b15f5723204dcc8288fbd5e7e1f34e7c007d9244dbfe8bf9"
+        },
+        {
             "path": "projects/rules_docs/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:2ac5285c9e135caa72945c6e1b29ef990bf04dae837897a915570440bf04e87b"
+            "digest": "sha256:0f64ad7be322ac069c149b4a2901cb8923e8725de499f937b25cd65f8482125b"
         },
         {
             "path": "projects/rules_docs/MODULE.bazel",
@@ -219,7 +254,7 @@
         {
             "path": "projects/rules_docs_gazelle/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:c72af25618e06a7eccb5bdc95348169f06074bcc5b340c22ec4c260fca006fdb"
+            "digest": "sha256:4e109a7b3f56704077a43cfc577968c52302d988cd9b29431ec2c4ae37afaf2d"
         },
         {
             "path": "projects/rules_docs_gazelle/MODULE.bazel",
@@ -234,22 +269,37 @@
         {
             "path": "projects/rules_hugo/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:357c72eb6016321b97ae0e294cb30bdf3e77a9f91e35f253e6d87c8cff0c6c87"
+            "digest": "sha256:1dd8cb3a02f348f2fa0fb5a18c91450903ef250807097c1bd341286167a02b87"
         },
         {
             "path": "projects/rules_hugo/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:78d88abdf0b64f4d854046c4147076956e581b86957235fb9a7bf8fea18ed055"
+            "digest": "sha256:fee5527d7deee448871d5af58d4933557edbf86b35023e855559aa3708d1103a"
         },
         {
             "path": "projects/rules_hugo/README.md",
             "role": "component-readme",
-            "digest": "sha256:c7af9f0c73f97dfe7bfc23f10eb2c37808ec2daefc89c478ad18f898c9fa3b7a"
+            "digest": "sha256:a2e25843197b6c8619bf6b73cb8d3e6c3cefb6f0a417ef34fc9493dbcc2a67fd"
+        },
+        {
+            "path": "projects/rules_iso/BUILD.bazel",
+            "role": "component-build",
+            "digest": "sha256:95eda3ae5434cb17cd3862c539fb5c5a16cddffb5007f121f768006e1e322a8b"
+        },
+        {
+            "path": "projects/rules_iso/MODULE.bazel",
+            "role": "workspace-module",
+            "digest": "sha256:6008b40c2da673b800954356d394ee71816b466c1e419ad3414c6ca072ca8f71"
+        },
+        {
+            "path": "projects/rules_iso/README.md",
+            "role": "component-readme",
+            "digest": "sha256:9d5c3d9b9e452713e1c425a8488c417dcf9837ec794cd04a5a6914e36200e226"
         },
         {
             "path": "projects/rules_promptfoo/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:fa3f3689da4502067d79eb99f62730af87f3b4ddc15d0f18036c1814912ee36f"
+            "digest": "sha256:b12f4ffe720f1c0de4b682bf6711d26cd66ffd29bfca52100f697e069c10efef"
         },
         {
             "path": "projects/rules_promptfoo/MODULE.bazel",
@@ -264,7 +314,7 @@
         {
             "path": "projects/rules_promptfoo_gazelle/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:6777f693defd6e110b6c0b71dbc9b4f00d0ddf2a278e092e53f6e1a90fbbfb7d"
+            "digest": "sha256:150570eb7986e5dffe682374ded9b15a82dd6c425080491315507d4081981c94"
         },
         {
             "path": "projects/rules_promptfoo_gazelle/MODULE.bazel",
@@ -279,7 +329,7 @@
         {
             "path": "projects/rules_skill/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:ed81d83cc4f8e9a9f5caf216e080c2b5be5db45caa42eecd050d92b44ce44261"
+            "digest": "sha256:560c5c475ba9c89d40c3bb4829650c326577deaeefb4b517eb62b59efdc35357"
         },
         {
             "path": "projects/rules_skill/MODULE.bazel",
@@ -294,7 +344,7 @@
         {
             "path": "projects/rules_skill_gazelle/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:a717f6c67bf2c4eeb54284b98d9c642e284a5fa2179a30884ddf9d2a7f4cb4de"
+            "digest": "sha256:6f6c6e525f0f824c31b4e233650da8b2cc07f3f2e22b8ff90d6e80d4e72a7f6a"
         },
         {
             "path": "projects/rules_skill_gazelle/MODULE.bazel",
@@ -309,7 +359,7 @@
         {
             "path": "projects/rules_template/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:3be024a8c2727a61425756f5c6332cde096fe8f077c3353494ae28dcc88dbb08"
+            "digest": "sha256:5ee7ccdf1f2eb03fe6177ef7b5dcff9680cb04d12c8db3ddf40d4170fd5f246c"
         },
         {
             "path": "projects/rules_template/MODULE.bazel",
@@ -324,7 +374,7 @@
         {
             "path": "projects/sri/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:a08e5289f5f0a5dbd9313469bd389a1dedb718b443ea702cb96b684a5dcdc3d1"
+            "digest": "sha256:f17054339f4247db9a7a23e3ed2e1ac19a598c01c856b731ab94f1719a4220fb"
         },
         {
             "path": "projects/sri/README.md",
@@ -334,7 +384,7 @@
         {
             "path": "projects/tf_modules/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:371c6bc75a1a95eeaefd12c7d2c98a1d5173ce4e2af8fa1a01c82bc2071a691a"
+            "digest": "sha256:78446aea1d4c4fb537e56882d99ba415f0b14258bfeed4d96d4bae81921615f2"
         },
         {
             "path": "projects/tf_modules/README.md",
@@ -344,7 +394,7 @@
         {
             "path": "projects/useless_qt_gui/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:03b2adb7dfa83477c96d101972853c16d17997e013089d76427028921fa7e3d7"
+            "digest": "sha256:b0d095231c98381c7a1466972a95e8a0411b70b3479759937a23c3cc7e7ad962"
         },
         {
             "path": "projects/useless_qt_gui/README.md",
@@ -354,7 +404,7 @@
         {
             "path": "projects/xray_manager/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:77be39d8cde5d02c8f08b90231db8a049d9a9f40084aa71c1798ce570b5cdb82"
+            "digest": "sha256:715608c27d5fcf5d403aaf8931652e97cbdd76d14e8ec2bea667d27861ce6713"
         },
         {
             "path": "projects/xray_manager/README.md",
@@ -383,8 +433,8 @@
         }
     ],
     "bounds": {
-        "eligible": 45,
-        "emitted": 45,
+        "eligible": 51,
+        "emitted": 51,
         "unavailable": 0,
         "maxItems": 1000,
         "maxInputBytes": 33554432,
@@ -394,7 +444,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:8407369059651156f7e7e786d72f61418024973ea2950d420a5a774887341626",
+    "digest": "sha256:4f36392b105e41415f5edaa6e43bade1309f238ef59f8e802f92a1081b50a71d",
     "trees": [
         {
             "id": "projects",
@@ -545,6 +595,16 @@
             "docsState": "owned"
         },
         {
+            "id": "hugo_landing",
+            "path": "projects/hugo_landing",
+            "ownerReadmePath": "projects/hugo_landing/README.md",
+            "buildPath": "projects/hugo_landing/BUILD.bazel",
+            "title": "Hugo Landing",
+            "description": "Reusable Hugo landing site for project pages",
+            "lifecycle": "active",
+            "docsState": "owned"
+        },
+        {
             "id": "infinitime",
             "path": "projects/infinitime",
             "ownerReadmePath": "projects/infinitime/README.md",
@@ -595,12 +655,32 @@
             "docsState": "owned"
         },
         {
+            "id": "renders",
+            "path": "projects/renders",
+            "ownerReadmePath": "projects/renders/README.md",
+            "buildPath": "projects/renders/BUILD.bazel",
+            "title": "Renders",
+            "description": "Repository-owned render assets and their acceptance evidence",
+            "lifecycle": "in_progress",
+            "docsState": "owned"
+        },
+        {
             "id": "rules_binary_toolchain",
             "path": "projects/rules_binary_toolchain",
             "ownerReadmePath": "projects/rules_binary_toolchain/README.md",
             "buildPath": "projects/rules_binary_toolchain/BUILD.bazel",
             "title": "Rules binary toolchain",
             "description": "Bazel rules that can generate simple toolchains for binary files",
+            "lifecycle": "active",
+            "docsState": "owned"
+        },
+        {
+            "id": "rules_dnscontrol",
+            "path": "projects/rules_dnscontrol",
+            "ownerReadmePath": "projects/rules_dnscontrol/README.md",
+            "buildPath": "projects/rules_dnscontrol/BUILD.bazel",
+            "title": "Rules Dnscontrol",
+            "description": "Bazel-aware DNSControl configuration packaging",
             "lifecycle": "active",
             "docsState": "owned"
         },
@@ -631,6 +711,16 @@
             "buildPath": "projects/rules_hugo/BUILD.bazel",
             "title": "Rules Hugo",
             "description": "Bazel rules for Hugo sites",
+            "lifecycle": "active",
+            "docsState": "owned"
+        },
+        {
+            "id": "rules_iso",
+            "path": "projects/rules_iso",
+            "ownerReadmePath": "projects/rules_iso/README.md",
+            "buildPath": "projects/rules_iso/BUILD.bazel",
+            "title": "rules_iso",
+            "description": "ISO image download and flash rules",
             "lifecycle": "active",
             "docsState": "owned"
         },
@@ -739,6 +829,12 @@
             "moduleName": "rules_binary_toolchain"
         },
         {
+            "id": "projects.rules_dnscontrol",
+            "path": "projects/rules_dnscontrol",
+            "modulePath": "projects/rules_dnscontrol/MODULE.bazel",
+            "moduleName": "rules_dnscontrol"
+        },
+        {
             "id": "projects.rules_docs",
             "path": "projects/rules_docs",
             "modulePath": "projects/rules_docs/MODULE.bazel",
@@ -755,6 +851,12 @@
             "path": "projects/rules_hugo",
             "modulePath": "projects/rules_hugo/MODULE.bazel",
             "moduleName": "rules_hugo"
+        },
+        {
+            "id": "projects.rules_iso",
+            "path": "projects/rules_iso",
+            "modulePath": "projects/rules_iso/MODULE.bazel",
+            "moduleName": "rules_iso"
         },
         {
             "id": "projects.rules_promptfoo",

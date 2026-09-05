@@ -4,12 +4,12 @@
     "id": "agent-system.policy",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.policy-compiler",
-    "sourceRevision": "7e7df9cf9a83fe1b8a9a64de77f37d3e",
+    "sourceRevision": "9cce8e9bcd3455aa5a71a062010de505",
     "inputs": [
         {
             "path": "AGENTS.md",
             "role": "agent-policy",
-            "digest": "sha256:9017621c0c85b0e7b54f66b037a6b25f27db0e10e33e80ec4efa3125179bb25b"
+            "digest": "sha256:65ef3e4fa65769f1b1bd4915d5023cc2f9681d3b75c292d5f1d465faea1f4824"
         },
         {
             "path": "CODEOWNERS",
@@ -24,7 +24,7 @@
         {
             "path": "infra/README.md",
             "role": "boundary-readme",
-            "digest": "sha256:3390d9faa88a756c624d78bee15aa0717b2aa90c96dd8bd341757f859a1c1923"
+            "digest": "sha256:a2df19e07a2bff8e3448bf3a8fa0ad704f1cc14f8033f0ccab14f8f82620e9b9"
         },
         {
             "path": "projects/README.md",
@@ -34,7 +34,7 @@
         {
             "path": "third_party/README.md",
             "role": "boundary-readme",
-            "digest": "sha256:66134cc8748a7b3e7a6bfeb9eaa0fa18dcaa84c85325b0620197f03417304737"
+            "digest": "sha256:81590697c40f5333a23c9bdb865537c111c55a92e92947dfa364604877fe0d3b"
         },
         {
             "path": "tools/README.md",
@@ -62,10 +62,12 @@
         {
             "id": "policy.agents",
             "code": "policy_axis_conflict",
-            "sourcePaths": ["AGENTS.md"]
+            "sourcePaths": [
+                "AGENTS.md"
+            ]
         }
     ],
-    "digest": "sha256:0b64de26a8fd013756b0ea5dfb768ff05492d4f752491cc57a49170ea7a3dd0e",
+    "digest": "sha256:2f447dddcc6460cf65b7a0c8517518b9cdeffa2b62d1b35bf2c984c4f3c23624",
     "policies": [
         {
             "id": "policy.agents",

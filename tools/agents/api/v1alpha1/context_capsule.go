@@ -8,21 +8,36 @@ import (
 	"encoding/json"
 	"fmt"
 	"strings"
+	"time"
 )
 
 // CapsuleIdentity is the repository, workspace, worktree, revision, and
 // dirty-input identity for one zero-context read.
 type CapsuleIdentity struct {
-	Repository     string   `json:"repository"`
-	WorkspaceRoot  string   `json:"workspaceRoot"`
-	WorktreePath   string   `json:"worktreePath"`
-	Revision       string   `json:"revision"`
-	DirtyInputs    bool     `json:"dirtyInputs"`
-	SourceDigest   string   `json:"sourceDigest,omitempty"`
-	SourceTime     string   `json:"sourceTime,omitempty"`
-	InputDigest    string   `json:"inputDigest"`
-	ByteSize       int64    `json:"byteSize"`
-	InputLanguages []string `json:"inputLanguages,omitempty"`
+	Repository        string                 `json:"repository"`
+	WorkspaceRoot     string                 `json:"workspaceRoot"`
+	WorktreePath      string                 `json:"worktreePath"`
+	Revision          string                 `json:"revision"`
+	DirtyInputs       bool                   `json:"dirtyInputs"`
+	RevisionSource    string                 `json:"revisionSource,omitempty"`
+	DirtyInputsSource string                 `json:"dirtyInputsSource,omitempty"`
+	Git               *CapsuleGitObservation `json:"git,omitempty"`
+	SourceDigest      string                 `json:"sourceDigest,omitempty"`
+	SourceTime        string                 `json:"sourceTime,omitempty"`
+	InputDigest       string                 `json:"inputDigest"`
+	ByteSize          int64                  `json:"byteSize"`
+	InputLanguages    []string               `json:"inputLanguages,omitempty"`
+}
+
+// CapsuleGitObservation separates local Git evidence from caller declarations.
+// Dirty covers tracked and untracked paths under WorkspaceRoot, excluding
+// ignored files. Nil means unknown, and a missing revision can mean an unborn
+// branch. Neither field establishes the freshness of generated catalogs.
+type CapsuleGitObservation struct {
+	Revision    string   `json:"revision,omitempty"`
+	Dirty       *bool    `json:"dirty"`
+	ObservedAt  string   `json:"observedAt"`
+	Unavailable []string `json:"unavailable,omitempty"`
 }
 
 // CapsuleTask is the task/session, coordinator, worker, and run identity.
@@ -143,6 +158,27 @@ func (capsule ContextCapsule) Validate() error {
 	if capsule.Identity.ByteSize <= 0 {
 		return fmt.Errorf("capsule byte size must be positive")
 	}
+	if git := capsule.Identity.Git; git != nil {
+		if _, err := time.Parse(time.RFC3339Nano, git.ObservedAt); err != nil {
+			return fmt.Errorf("capsule Git observation time is invalid")
+		}
+		if git.Revision != "" {
+			if _, err := hex.DecodeString(git.Revision); err != nil || len(git.Revision) != 40 && len(git.Revision) != 64 {
+				return fmt.Errorf("capsule Git revision is invalid")
+			}
+		}
+		for _, reason := range git.Unavailable {
+			if strings.TrimSpace(reason) == "" {
+				return fmt.Errorf("capsule Git unavailable reasons must not be blank")
+			}
+		}
+		if (git.Dirty == nil || git.Revision == "") && len(git.Unavailable) == 0 {
+			return fmt.Errorf("unavailable capsule Git fields require a reason")
+		}
+	}
+	if err := capsule.Identity.validateSources(); err != nil {
+		return err
+	}
 	if capsule.Provenance.Completeness == "" {
 		return fmt.Errorf("capsule provenance completeness is required")
 	}
@@ -157,6 +193,43 @@ func (capsule ContextCapsule) Validate() error {
 			}
 			seen[document.Path] = true
 		}
+	}
+	return nil
+}
+
+// Omitted source labels preserve legacy capsules. Explicit labels must name
+// a supported basis and agree with the corresponding value when derived.
+// Caller declarations remain independent of any accompanying observation.
+func (identity CapsuleIdentity) validateSources() error {
+	switch identity.RevisionSource {
+	case "":
+	case "caller-declared":
+		if strings.TrimSpace(identity.Revision) == "" {
+			return fmt.Errorf("caller-declared revision source requires a nonblank revision")
+		}
+	case "input-digest":
+		if identity.Revision != identity.InputDigest {
+			return fmt.Errorf("input-digest revision source requires revision to match inputDigest")
+		}
+	case "observed-git-head":
+		if identity.Git == nil || identity.Git.Revision == "" || identity.Revision != identity.Git.Revision {
+			return fmt.Errorf("observed-git-head revision source requires a matching Git revision observation")
+		}
+	default:
+		return fmt.Errorf("unknown capsule revision source %q", identity.RevisionSource)
+	}
+	switch identity.DirtyInputsSource {
+	case "", "caller-declared":
+	case "conservative-default":
+		if !identity.DirtyInputs {
+			return fmt.Errorf("conservative-default dirty-input source requires dirtyInputs to be true")
+		}
+	case "observed-git-status":
+		if identity.Git == nil || identity.Git.Dirty == nil || identity.DirtyInputs != *identity.Git.Dirty {
+			return fmt.Errorf("observed-git-status dirty-input source requires a matching Git dirty observation")
+		}
+	default:
+		return fmt.Errorf("unknown capsule dirty-input source %q", identity.DirtyInputsSource)
 	}
 	return nil
 }
@@ -230,6 +303,26 @@ func RenderContextMarkdown(capsule ContextCapsule) string {
 	fmt.Fprintf(&builder, "- Worktree: `%s`\n", capsule.Identity.WorktreePath)
 	fmt.Fprintf(&builder, "- Revision: `%s`\n", capsule.Identity.Revision)
 	fmt.Fprintf(&builder, "- Dirty inputs: %t\n", capsule.Identity.DirtyInputs)
+	if capsule.Identity.RevisionSource != "" {
+		fmt.Fprintf(&builder, "- Revision source: %s\n", capsule.Identity.RevisionSource)
+	}
+	if capsule.Identity.DirtyInputsSource != "" {
+		fmt.Fprintf(&builder, "- Dirty-input source: %s\n", capsule.Identity.DirtyInputsSource)
+	}
+	if git := capsule.Identity.Git; git != nil {
+		fmt.Fprintf(&builder, "- Git observed at: %s\n", git.ObservedAt)
+		if git.Revision != "" {
+			fmt.Fprintf(&builder, "- Observed Git HEAD: `%s`\n", git.Revision)
+		}
+		if git.Dirty == nil {
+			builder.WriteString("- Observed Git dirty state: unavailable\n")
+		} else {
+			fmt.Fprintf(&builder, "- Observed Git dirty state: %t\n", *git.Dirty)
+		}
+		for _, reason := range git.Unavailable {
+			fmt.Fprintf(&builder, "- Git limitation: %s\n", reason)
+		}
+	}
 	fmt.Fprintf(&builder, "- Input digest: `%s`\n", capsule.Identity.InputDigest)
 	fmt.Fprintf(&builder, "- Byte size: %d\n", capsule.Identity.ByteSize)
 	builder.WriteString("\n## Component\n\n")
@@ -239,6 +332,7 @@ func RenderContextMarkdown(capsule ContextCapsule) string {
 		fmt.Fprintf(&builder, "- Path: `%s`\n", capsule.Component.Path)
 		fmt.Fprintf(&builder, "- Component: `%s`\n", capsule.Component.ComponentID)
 		fmt.Fprintf(&builder, "- Workspace: `%s`\n", capsule.Component.Workspace)
+		fmt.Fprintf(&builder, "- Owner README: `%s`\n", capsule.Component.OwnerReadme)
 		fmt.Fprintf(&builder, "- Lifecycle: `%s`\n", capsule.Component.Lifecycle)
 		fmt.Fprintf(&builder, "- Review owners: %s\n", capsule.Component.ReviewOwners)
 	}

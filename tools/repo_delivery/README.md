@@ -14,11 +14,23 @@ choose validation commands, resolve conflicts, or judge review feedback.
 
 ## Provider and delivery workflow
 
-Detect the provider without printing a credential-bearing remote URL:
+Run delivery commands from this Git worktree's repository root, which owns the
+root `MODULE.bazel` and `tools/repo_delivery`. This also applies when changed
+files belong to a nested Bazel module: its workspace does not own the delivery
+target. Use the same feature worktree, not another checkout. The baseline works
+with older installed runners. Detect the provider without printing a
+credential-bearing remote URL:
 
 ```sh
-bazel_agent tool run repo_delivery -- provider
+bazel_agent bazel run //tools/repo_delivery -- provider
 ```
+
+The optional cached form is `bazel_agent tool run repo_delivery -- ...`.
+Follow the `bazel-agent` skill's one-time capability check before using it:
+reuse the known result for this runner binary, or inspect
+`bazel_agent tool --help` once. Unsupported `tool` means use the baseline
+without updating the host; an execution failure or delivery refusal still
+requires diagnosis. All examples below use the baseline.
 
 The sanitized report distinguishes forge support from Git transport support.
 `adapter_available` reports whether the forge has an adapter;
@@ -26,11 +38,22 @@ The sanitized report distinguishes forge support from Git transport support.
 `delivery_transport_available` is true only when both captured endpoints are
 canonical SSH endpoints. It never reports either endpoint.
 
+For validation that invokes Bazel, use the cached entry point or generate a
+task-local launcher once from the repository root. Ordinary `bazel run` can
+retain the Bazel lock while its target runs; `--script_path` releases it before
+the generated launcher is executed. Refresh the launcher after changing the
+delivery tool. This requires no installed runner update:
+
+```sh
+bazel_agent bazel run --script_path=out/task/repo_delivery \
+  //tools/repo_delivery
+```
+
 For the supported GitHub adapter, the normal workflow is:
 
 ```sh
-bazel_agent tool run repo_delivery -- inspect --base master
-bazel_agent tool run repo_delivery -- prepare \
+bazel_agent bazel run //tools/repo_delivery -- inspect --base master
+bazel_agent bazel run //tools/repo_delivery -- prepare \
   --base master \
   --message-file out/task/commit.md \
   --receipt-file out/task/prepare.json \
@@ -38,24 +61,99 @@ bazel_agent tool run repo_delivery -- prepare \
   --rewrite <inspect.local_head_oid> # omit when the range has no commit
 # For an explicitly reviewed task-owned multi-commit range, use
 # --consolidate <inspect.local_head_oid> instead of --rewrite.
-# Run every required validation against the top-level literal head_oid.
-bazel_agent tool run repo_delivery -- publish \
-  --base master \
-  --receipt-file out/task/prepare.json \
-  --validated-head <literal-head_oid>
-bazel_agent tool run repo_delivery -- verify \
+out/task/repo_delivery validate \
+  --receipt-file out/task/prepare.json --plan-file out/task/checks.json
+out/task/repo_delivery continue \
+  --receipt-file out/task/prepare.json --publish
+out/task/repo_delivery continue \
   --receipt-file out/task/prepare.json
 ```
 
-The affected Bazel labels reported by `prepare` cover packages loadable from
-the root workspace. Authorized paths under `.bazelignore` or a nested Bazel
-workspace are omitted and must be validated from that owning workspace.
+`checks.json` is an explicitly selected validation plan. Keep it mode 0600 in
+the same ignored `out/<task>/` directory as the preparation receipt. For
+example, a change confined to the delivery Go package can use:
+
+```json
+{
+  "schema": "repo_delivery/validation_plan/v1",
+  "checks": [
+    {
+      "workspace": ".",
+      "kind": "test",
+      "targets": [
+        "//tools/repo_delivery/cmd/repo_delivery:go_test",
+        "//:repo_quality_test"
+      ],
+      "timeout_seconds": 3600
+    },
+    {
+      "workspace": ".",
+      "kind": "lint",
+      "targets": ["//tools/repo_delivery/cmd/repo_delivery:all"],
+      "timeout_seconds": 3600
+    }
+  ],
+  "gap_decisions": []
+}
+```
+
+Allowed kinds are `test`, `build`, and `lint` (build with `--config=lint`).
+The plan accepts 1–32 sequential checks, 1–128 explicit local labels per check,
+and a 1–3600 second deadline per check. Package `:all` is supported outside the
+root package; recursive target patterns, arbitrary `run` targets, shell
+commands, and free-form flags are not. Workspace paths are relative to the Git
+worktree root and must name real Bazel workspace roots. Nested checks execute
+there; the required `//:repo_quality_test` check executes in `.`. The plan must
+lint every suggested non-root affected package and resolve each validation gap
+with exactly one `{ "path": "...", "reason": "..." }` decision. The caller
+still selects sufficient consumer checks and verifies representative output.
+
+`validate` runs aggregate `git diff --check` first, then the selected checks.
+It requires a fully clean worktree and ordinary index flags before and after
+checks. It records exact head/tree, preparation revision, plan bytes, inherited
+environment digest, check outcomes, and log digests beside the receipt, using
+mode 0600 files. Each output stream is capped at 96 KiB; truncation fails the
+check. The same receipt lock protects validation and continuation. Keep all
+these files trusted and unedited; they are consistency evidence, not security
+tokens. Tool binaries, ignored configuration, external services, and other
+inputs outside the recorded Git tree/environment still require the caller's
+input-stability judgment before publication. No passing checks are reused
+automatically by a new validation run.
+
+`continue` reports readiness without publishing. Only `continue --publish`
+uses the captured passing result to call the existing guarded publication and
+verification path; it never substitutes the current mutable `HEAD` as evidence.
+Changed candidate, receipt, plan, environment, incomplete results, altered
+logs, and dirty inputs refuse publication. A base rebase records
+`revalidation_required` and stops before pushing: rerun `validate` against the
+updated receipt, then explicitly continue. An interrupted or failed publication
+remains `publication_attempted`; further continuation only verifies its remote
+postcondition and never blindly repeats a push or metadata mutation. Diagnose
+an incomplete result before using the existing manual recovery API. A new
+validation run cannot reset an uncertain attempt for the same candidate.
+
+`prepare` derives `affected_bazel_labels` from the prepared aggregate changed
+paths, selecting each nearest non-root Bazel package. It never infers `//:all`
+from a root-owned file. The reported
+`bazel_selection_basis` is `nearest_non_root_package_without_dependency_analysis`:
+this bounds discovery but does not establish downstream impact. Shared build
+inputs may need explicit consumer checks.
+
+`bazel_validation_gaps` lists paths requiring a separate decision, with reasons
+`root_package_requires_explicit_targets`, `ignored_by_root_workspace`,
+`nested_workspace`, or `no_bazel_package`. For each gap, select appropriate
+targets or record why no target check applies. Validate nested or ignored
+workspaces through their owner, then return to the repository root for delivery.
+The suggested commands always include the root-workspace gate
+`bazel_agent bazel test //:repo_quality_test`; that gate does not establish
+semantic correctness for BUILD, MODULE, or configuration changes. Run semantic
+lint for the selected affected targets in addition to that mandatory gate.
 
 To synchronize a prepared, task-owned, single-commit feature branch with an
 advanced base before `prepare`, use the guarded adapter workflow:
 
 ```sh
-bazel_agent tool run repo_delivery -- rebase --base master
+bazel_agent bazel run //tools/repo_delivery -- rebase --base master
 ```
 
 The command refuses dirty trees, divergent remote feature tips, multi-commit
@@ -98,9 +196,21 @@ that path. A new path, a non-identical disappearance, or an entirely empty
 aggregate remains a refusal. The derived receipt records the reduced exact
 aggregate path set.
 
-Never populate `--validated-head` by resolving the current `HEAD` during
-publication. Carry the literal OID returned by `prepare`; otherwise a checkout
-change after validation could authorize an unvalidated commit.
+The manual `publish --receipt-file <path> --validated-head <literal-head_oid>`
+API remains available for validations outside the structured plan and diagnosed
+recovery. Never populate that flag by resolving current `HEAD`: carry the
+literal candidate that the checks covered. A preparation receipt alone does
+not establish validation. The structured continuation path supplies that
+literal value from its recorded passing results instead.
+
+For message-only amendments, `deliver --message-file <path> --receipt-file
+<path> --owner-root <root> --task-path <path>` combines inspection, any needed
+rewrite authorization, and preparation. It stops before publication with a
+nonzero exit and a `revalidation_required` report containing the exact head,
+tree, receipt, affected labels, and suggested checks. Establish validation for
+that candidate using `validate`, then use `continue --publish`, or use the
+manual `publish` API and `verify`. Do not repeat `deliver` to continue, because
+that prepares another candidate.
 
 Version 1 delivery accepts only SCP-style or `ssh://` Git fetch and push
 endpoints. The `gh` CLI is still used for the GitHub forge API, but the tool
@@ -136,8 +246,15 @@ task-owned hunks and use `--use-index`. Both modes bind the complete existing
 feature diff, not merely the paths newly staged by that invocation.
 `--message-only --rewrite <exact-oid>` preserves the tree but changes the
 commit OID. Consolidation also changes the commit OID and parent structure.
-Every prepare, consolidation, or message-only amendment therefore requires
-fresh validation against its returned exact head.
+Every prepare, consolidation, or message-only amendment therefore requires a
+validation decision bound to its returned exact head. Run required checks
+after preparation by default. For a tree-preserving amendment, prior passing
+evidence may be reused only after recording its exact prior candidate, the
+matching tree OID, the new OID, and unchanged inputs relevant to each check.
+Those inputs include commands, tools, configuration, and environment. Rerun
+checks affected by commit identity, history, or stamping, and any check whose
+input stability is unknown. The caller owns and records this applicability
+judgment; the receipt neither proves validation nor authorizes reuse.
 When an authorized remote replacement is pending, rewrite evidence accepts an
 existing pull request only if its metadata matches the exact projectable local
 or fetched-remote commit projection. A legacy remote tail that lacks an
@@ -190,7 +307,7 @@ immediately to branch-update webhooks.
 Start with a bounded structured inventory:
 
 ```sh
-bazel_agent tool run repo_delivery -- review inspect
+bazel_agent bazel run //tools/repo_delivery -- review inspect
 ```
 
 Carry values from the latest inspection literally. All mutations require the
@@ -199,7 +316,7 @@ top-level reply also requires the
 reported last-comment sentinel and top-level inventory digest:
 
 ```sh
-bazel_agent tool run repo_delivery -- review comment \
+bazel_agent bazel run //tools/repo_delivery -- review comment \
   --pull-request-id <pull_request.id> \
   --expected-head <pull_request.head_ref_oid> \
   --expected-pull-request-digest <pull_request_expectation_digest> \
@@ -214,7 +331,7 @@ Thread replies and resolutions additionally bind the thread, its last comment,
 and its complete expectation digest:
 
 ```sh
-bazel_agent tool run repo_delivery -- review reply \
+bazel_agent bazel run //tools/repo_delivery -- review reply \
   --pull-request-id <pull_request.id> \
   --expected-head <pull_request.head_ref_oid> \
   --expected-pull-request-digest <pull_request_expectation_digest> \
@@ -224,7 +341,7 @@ bazel_agent tool run repo_delivery -- review reply \
   --body-file out/task/reply.md \
   --reply-receipt-file out/task/reply.json
 
-bazel_agent tool run repo_delivery -- review resolve \
+bazel_agent bazel run //tools/repo_delivery -- review resolve \
   --pull-request-id <pull_request.id> \
   --expected-head <pull_request.head_ref_oid> \
   --expected-pull-request-digest <pull_request_expectation_digest> \
@@ -233,7 +350,7 @@ bazel_agent tool run repo_delivery -- review resolve \
   --expected-thread-digest <review_threads[index].expectation_digest> \
   --reply-receipt-file out/task/reply.json
 
-bazel_agent tool run repo_delivery -- review request \
+bazel_agent bazel run //tools/repo_delivery -- review request \
   --pull-request-id <pull_request.id> \
   --expected-head <pull_request.head_ref_oid> \
   --expected-pull-request-digest <pull_request_expectation_digest> \
@@ -252,11 +369,15 @@ Reinspect after every mutation and use the newly reported IDs and digests for
 the next one.
 The one-use reply authority expires no more than five minutes after issuance.
 Resolution verifies the authority window and atomically consumes the receipt
-before contacting the provider. On expiration, failure, or an outcome-unknown
-result, including any full-inventory mismatch, the authority is consumed;
-never recreate or reuse the receipt. Reinspect the remote state and, if
-resolution remains appropriate, leave a fresh reasoned reply to obtain new
-one-use authority.
+before contacting the provider. If a provider read fails before any resolution
+mutation is attempted, the tool can restore the original unexpired receipt
+without replacing another file or extending its authority window. Only an
+explicit restoration report permits retry with that receipt; no additional
+public reply is needed for that read failure.
+Expiration, semantic or full-inventory mismatch, mutation failure, and an
+unknown mutation outcome still consume authority. Never recreate the receipt
+yourself. Reinspect the remote state and, if resolution remains appropriate,
+leave a fresh reasoned reply to obtain new one-use authority.
 
 GitHub provides neither compare-and-swap resolution nor a documented monotonic
 review-thread epoch. A human resolve followed by unresolve can therefore be
