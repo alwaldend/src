@@ -1,0 +1,87 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: coordinate-preserving-animation-037
+  resourceVersion: "5"
+  generation: 1
+  creationTimestamp: "2026-09-05T02:48:12.697643239Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:5389f1f3e3faff43c0e057c2a09770702d6604a848cfa851823f7e0682fdfd6c
+  workType: candidate
+  stableDefect: stationary-post-armature-cages-and-unbound-decorations
+  hypothesis: A rest-baked copy with preserved explicit coordinate fields and one final existing-bone transform per component can maintain neutral appearance and supply consistent reusable motion.
+  subject: Retained033 existing85components and ReimuFumoRig; separate candidate only
+  priorAttemptID: cylindrical-head-interface-036
+  nextAction: Run one curve coordinate coupon then generalize proven capture and bind methods with per-object guards.
+status:
+  state: closed
+  closedAt: "2026-09-05T05:53:36.632943286Z"
+  artifacts:
+    planDigest: sha256:c71ba1494de7b4a19f0a9d46152e6b6b905099f602bb133a2aaaad0aebdbc971
+    resultDigest: sha256:016fff39bff319882fb338bf0e886a8d4ccf99413f7edea6c32baeb1c2de8085
+    evidence:
+    - path: evidence/rig_037_append_dependency_diagnostic.md
+      digest: sha256:27361eec1b7d9acb20371716dbe38e79ac0ad4b51a8abee2516c8260afa3ab9b
+    - path: evidence/rig_037_curve_coordinate_plan.md
+      digest: sha256:b5ca2ff7ff9cd60bd20d0812e1a02cee48a4ca7294f62ae0da28c3af4cdf2558
+    - path: evidence/rig_037_curve_result.md
+      digest: sha256:24a728c6979116be0dabf37775c325d1718553f5a22676ad7d62d52109d8f004
+    - path: evidence/rig_037_neutral_blind.md
+      digest: sha256:08ef594a91a57595f78e9a473e53991b3f54568992e96c16d6bd88cc68115dd0
+    - path: evidence/rig_037_neutral_root_review.md
+      digest: sha256:83ffcfe38b0c172762293a5b9dfb81335451b980849a1c25f3838318d0bb0ce1
+    - path: evidence/rig_037_pose_blind.md
+      digest: sha256:90e75ab124a0eb00cfe1462ed8f008be6bb480929ce7b13b0e544c3d4a9f3a51
+    - path: evidence/rig_037_pose_root_review.md
+      digest: sha256:c07050bdbcc7e195db35801a039958ff73f5658f9dcfd24e3e38c97843cc73e1
+    - path: evidence/rig_037_sleeve_result.md
+      digest: sha256:7cd852cc27ff4f892d7b02883179238d390bf0768f2d45e7c43916e82d6fda6e
+    - path: evidence/rig_037_witness_diagnostic.md
+      digest: sha256:ea162388f395e8d08d62ee9216e6073bdbc109431f05eb781e10cbfdf2f98573
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T05:53:36.632943286Z"

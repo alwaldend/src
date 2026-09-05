@@ -1,0 +1,74 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: reference-led-macro-038
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T05:54:06.261826178Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:f811f9de6021c2cfe811f20f213803ca6904ee8f3d14ae84ab0989390853f517
+  planID: reference-led-macro-v36
+  workType: candidate
+  stableDefect: hard-disconnected-whole-character-construction
+  priorAttemptID: coordinate-preserving-animation-037
+  nextAction: Build reference-led neutral macro candidate with root as sole pinned Blender writer, then clean-reopen and inspect front and side before detail or rig.
+status:
+  state: closed
+  closedAt: "2026-09-05T06:16:39.764768768Z"
+  artifacts:
+    planDigest: sha256:aa5a312b03129ee7275042f24bb2535ff3396c616a37a49950122183073cad95
+    resultDigest: sha256:6847d1b4f44fd41eae90bca5fd56512de95395e92fa387476504fe31ccf18814
+    evidence:
+    - path: evidence/macro_038_api_repair.md
+      digest: sha256:836f604f65d8d20dea2a8946a38e15c8558a6a08bc451841f9cbadbba753bbec
+    - path: evidence/macro_038_direction.md
+      digest: sha256:c07c909f9adac3fa378cab7020a05ac338a3471ea6f28e3eb57e2aa821b87847
+    - path: evidence/macro_038_surface_repair.md
+      digest: sha256:e5911984f84b765a9b1875664d8345376857db0734a0febd36490fd4f25912de
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T06:16:39.764768768Z"

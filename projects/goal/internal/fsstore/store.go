@@ -1342,7 +1342,7 @@ func validateAttemptFiles(dir string) error {
 		"plan.md":      false,
 		"result.md":    false,
 	}
-	if len(entries) != len(allowed) {
+	if len(entries) < len(allowed)-1 || len(entries) > len(allowed) {
 		return fmt.Errorf(
 			"attempt %s must contain only attempt.yaml, plan.md, result.md, and evidence/",
 			filepath.Base(dir),
@@ -1353,6 +1353,12 @@ func validateAttemptFiles(dir string) error {
 		if !ok || entry.IsDir() != wantDirectory {
 			return fmt.Errorf("unexpected attempt entry %q", entry.Name())
 		}
+		delete(allowed, entry.Name())
+	}
+	for _, name := range []string{"attempt.yaml", "plan.md", "result.md"} {
+		if _, missing := allowed[name]; missing {
+			return fmt.Errorf("missing required attempt entry %q", name)
+		}
 	}
 	for _, name := range []string{"plan.md", "result.md"} {
 		if _, err := readMarkdownFile(filepath.Join(dir, name), maxPlanResultBytes); err != nil {
@@ -1360,7 +1366,9 @@ func validateAttemptFiles(dir string) error {
 		}
 	}
 	evidenceEntries, err := os.ReadDir(filepath.Join(dir, "evidence"))
-	if err != nil {
+	// Git and packaged runfiles omit empty directories. The artifact manifest
+	// still rejects any missing declared evidence.
+	if err != nil && !os.IsNotExist(err) {
 		return fmt.Errorf("read evidence directory: %w", err)
 	}
 	if len(evidenceEntries) > maxEvidenceFiles {

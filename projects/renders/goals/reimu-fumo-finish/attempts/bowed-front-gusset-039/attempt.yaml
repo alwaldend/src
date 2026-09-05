@@ -1,0 +1,74 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: bowed-front-gusset-039
+  resourceVersion: "3"
+  generation: 1
+  creationTimestamp: "2026-09-05T06:17:51.135636219Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:330eb678aab07cb2acf3647021e39a97b605f5003e456645d84f5bc46534fcea
+  planID: bowed-front-gusset-v37
+  workType: candidate
+  stableDefect: receding-front-helmet-and-unsupported-cloth
+  priorAttemptID: reference-led-macro-038
+  nextAction: Save bowed-front gusset candidate and reject front-side macro defects before detail or rig.
+status:
+  state: closed
+  closedAt: "2026-09-05T06:30:13.104385753Z"
+  artifacts:
+    planDigest: sha256:8ecc7490d95328282769d6cbec0f6019faa1629e364da022f3ae951ebcfd0e42
+    resultDigest: sha256:62246db4c46970cb4b3bf9f0f7a16acd4813606e1ed0ee4822b39f1313fb59cc
+    evidence:
+    - path: evidence/macro_038_result.md
+      digest: sha256:6847d1b4f44fd41eae90bca5fd56512de95395e92fa387476504fe31ccf18814
+    - path: evidence/macro_039_start_correction.md
+      digest: sha256:ea688d8bc9714088da199fd0c7f257b7626c3fb88eeed68fdae0c36cec39e138
+    - path: evidence/macro_039_visual.md
+      digest: sha256:3a9f0a0ec9c9c87736567f47cbeb3d4d59d6744a4b84bcf9ab23e42f9a10b50e
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T06:30:13.104385753Z"
