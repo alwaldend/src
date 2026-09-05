@@ -5,6 +5,7 @@ docs_filegroup(
     srcs = glob(["*.md"]) + [
         "//data/books",
         "//data/books:authors",
+        "//data/books:covers",
     ],
     prefix = "content/docs/misc/books",
     visibility = ["//projects/alwaldend.com/content/docs/misc:__pkg__"],

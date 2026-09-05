@@ -89,7 +89,7 @@ instructions when validation itself invokes Bazel.
 
 ## Evidence and implementation limits
 
-The [coverage projection](../../../tools/agents/catalogs/skill-coverage.md)
+The [coverage projection](https://github.com/alwaldend/src/blob/master/tools/agents/catalogs/skill-coverage.md)
 inventories configured cases. It does not measure successful routing or task
 completion. Offline configuration checks are useful hygiene; stronger claims
 require actual result artifacts identifying the source, fixture, execution,
@@ -117,7 +117,7 @@ steps against the prior behavior. Keep model and fixture identities with
 observations; do not infer measured improvement from configuration checks or
 the presence of a new schema.
 
-The [local comparison fixtures](../test/ergonomics/) provide four bounded
+The [local comparison fixtures](https://github.com/alwaldend/src/tree/master/projects/agents/test/ergonomics/) provide four bounded
 scenarios and an observer protocol. They cover question answering, a local
 prose edit, recovery after a changed postcondition, and a delivery validation
 decision. Their simulated observations do not exercise real publication.

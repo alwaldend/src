@@ -1,1 +1,11 @@
-{{ partial "td/render-heading.html" . }}
+{{- $attributes := .Attributes -}}
+{{- if and (in .PageInner.Params.tags "bzl_stardoc") (strings.Contains .PageInner.RawContent (printf `<a id="%s"></a>` .Anchor)) -}}
+  {{- /* Stardoc already emits the public anchor immediately before the heading. */ -}}
+  {{- $attributes = dict -}}
+  {{- range $key, $value := .Attributes -}}
+    {{- if ne $key "id" -}}
+      {{- $attributes = merge $attributes (dict $key $value) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- partial "td/render-heading.html" (dict "Level" .Level "Attributes" $attributes "Text" .Text "Anchor" .Anchor) -}}

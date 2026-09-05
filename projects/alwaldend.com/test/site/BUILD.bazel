@@ -1,0 +1,16 @@
+load("@rules_go//go:def.bzl", "go_test")
+
+# Reuse the repository's existing pinned HTML parser.
+# gazelle:resolve go golang.org/x/net/html @tools_org_golang_x_net//html:go_default_library
+
+go_test(
+    name = "site_test",
+    size = "medium",
+    srcs = ["site_test.go"],
+    args = ["-site-index=$(rlocationpath //projects/alwaldend.com:site)/index.html"],
+    data = ["//projects/alwaldend.com:site"],
+    deps = [
+        "@rules_go//go/runfiles",
+        "@tools_org_golang_x_net//html:go_default_library",
+    ],
+)

@@ -1,0 +1,3 @@
+{{- $href := partial "alwaldend/resolve-destination.html" (dict "Page" .PageInner "Destination" .Destination) -}}
+<a href="{{ $href }}"{{ with .Title }} title="{{ . }}"{{ end }}>{{ .Text }}</a>
+{{- /* Keep inline links adjacent to their surrounding text. */ -}}

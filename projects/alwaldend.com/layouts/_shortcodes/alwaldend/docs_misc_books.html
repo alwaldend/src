@@ -10,6 +10,14 @@ transform.Unmarshal).author -}} {{ $books := (.Page.Resources.Get "books.toml"
         range (collections.Slice .title .authors .completion .reading .quality
         .summary .links) -}} {{ if . -}} {{ $rowspan = math.Add $rowspan 1 -}}
         {{ end -}} {{ end -}}
+        {{ $thumbnail := .thumbnail | default "" -}}
+        {{ if and $thumbnail (not (urls.Parse $thumbnail).Host) -}}
+          {{ with $.Page.Resources.Get (strings.TrimPrefix "./" $thumbnail) -}}
+            {{ $thumbnail = .RelPermalink -}}
+          {{ else -}}
+            {{ errorf "Missing book cover %q for %q" $thumbnail .title -}}
+          {{ end -}}
+        {{ end -}}
 
         <tr>
           <td
@@ -18,12 +26,14 @@ transform.Unmarshal).author -}} {{ $books := (.Page.Resources.Get "books.toml"
             class="text-center"
             rowspan="{{ $rowspan }}"
           >
+            {{ if $thumbnail -}}
             <img
-              src="{{ .thumbnail }}"
+              src="{{ $thumbnail }}"
               class="img-fluid mx-auto"
               loading="lazy"
-              alt="Thumbnail"
+              alt="Cover of {{ .title }}"
             />
+            {{ end -}}
           </td>
           <td colspan="1">Title</td>
           <td colspan="4">

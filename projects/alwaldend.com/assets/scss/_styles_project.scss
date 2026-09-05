@@ -1,0 +1,31 @@
+.td-footer {
+    --td-footer-min-height: 0;
+    padding-block: 0.5rem;
+}
+
+.td-footer__center a {
+    color: #8ab4f8;
+
+    &:hover,
+    &:focus-visible {
+        color: #cfe2ff;
+    }
+}
+
+.td-home {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+.td-home .td-outer {
+    flex: 1;
+    min-height: 0;
+}
+
+@include media-breakpoint-up(md) {
+    .td-home .td-default main > section:first-of-type {
+        padding-top: clamp(8rem, 25vh, 14rem);
+    }
+}
