@@ -30,6 +30,7 @@ filegroup(
     name = "dnsconfig",
     srcs = ["dnsconfig.json"],
     visibility = [
+        "//infra:__pkg__",
         "//infra/dns:__pkg__",
         "//users:__pkg__",
         "//users/simeonwarren:__subpackages__",

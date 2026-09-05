@@ -1,0 +1,18 @@
+{
+    "records": {
+        "host1": {
+            "A": {
+                "name": "host1.xcp-ng",
+                "address": "192.168.1.213"
+            },
+            "dsp": ["dc1"]
+        },
+        "root": {
+            "A": {
+                "name": "xcp-ng",
+                "address": "192.168.1.213"
+            },
+            "dsp": ["dc1"]
+        }
+    }
+}
