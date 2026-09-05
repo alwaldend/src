@@ -26,7 +26,7 @@ version_menu_pagelinks = true
 
 [[params.alwaldend.links]]
 name = "Docs"
-url = "https://alwaldend.com/docs/"
+url = "/docs/"
 
 [[params.alwaldend.panels]]
 title = "Projects"
@@ -34,12 +34,12 @@ url = "/projects/"
 section = "/docs/projects"
 
 [[params.alwaldend.panels]]
-title = "Infra"
+title = "Infrastructure"
 url = "/docs/infra/"
 section = "/docs/infra"
 
 [[params.alwaldend.links]]
-name = "Github"
+name = "GitHub"
 url = "https://github.com/alwaldend/src/"
 
 # [params.copyright]
@@ -60,7 +60,7 @@ enable = true
 unsafe = true
 
 [markup.goldmark.renderHooks.link]
-useEmbedded = "always"
+useEmbedded = "fallback"
 
 [markup.goldmark.parser.attribute]
 block = true

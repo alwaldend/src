@@ -1,32 +1,31 @@
-<div class="row row-cols-1 row-cols-md-3 g-4">
-  <div class="col">
-    <div class="card h-100">
-      <div class="card-body">
-        <h2 class="card-title h5">Links</h2>
-        <ul class="list-group list-group-flush">
-          {{ range .Page.Site.Params.alwaldend.links }}
-          <li class="list-group-item">
-            <a href="{{ .url }}">{{ .name }}</a>
-          </li>
-          {{- end -}}
-        </ul>
-      </div>
-    </div>
-  </div>
+<nav class="d-flex flex-wrap gap-3 mb-4" aria-label="Quick links">
+  {{ range .Page.Site.Params.alwaldend.links }}
+  <a class="btn btn-outline-primary" href="{{ .url | relURL }}">
+    {{ .name }}
+  </a>
+  {{ end }}
+</nav>
+<div class="row row-cols-1 row-cols-md-2 g-4">
   {{ range .Page.Site.Params.alwaldend.panels }}
   {{ $panel := . }}
   {{ with site.GetPage .section }}
+  {{ $url := $panel.url | default .RelPermalink }}
   <div class="col">
-    <div class="card h-100">
+    <div class="card">
       <div class="card-body">
         <h2 class="card-title h5">
-          <a href="{{ .RelPermalink }}">{{ $panel.title }}</a>
+          <a href="{{ $url | relURL }}">{{ $panel.title }}</a>
         </h2>
         <ul class="list-group list-group-flush">
-          {{ range .Pages }}
-          <li class="list-group-item"><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+          {{ range first 4 .Pages.ByTitle }}
+          <li class="list-group-item">
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          </li>
           {{ end }}
         </ul>
+        <p class="card-text mt-3 mb-0">
+          <a href="{{ $url | relURL }}">Browse all {{ $panel.title | lower }}</a>
+        </p>
       </div>
     </div>
   </div>

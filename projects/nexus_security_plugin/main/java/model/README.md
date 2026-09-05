@@ -1,6 +1,7 @@
 ---
 title: Model
 description: Attributes of some classes
+al_source_path: projects/nexus_security_plugin/main/java/model/README.md
 ---
 
 ## `org.sonatype.nexus.repository.view.Response`

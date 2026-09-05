@@ -1,6 +1,7 @@
 ---
 title: Projects
 description: First-party projects and tools
+type: landing
 ---
 
 This site documents first-party projects and reusable build rules. Each
