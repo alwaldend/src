@@ -12,7 +12,7 @@ description: Ssh keys
 
 CA for SSH clients
 
-Source: [../../infra/dc1/vault/tf/output](../../infra/dc1/vault/tf/output/README.md)
+Source: [../../infra/vault/tf/output](../../infra/vault/tf/output/README.md)
 
 Update: automatically
 
@@ -20,7 +20,7 @@ Update: automatically
 
 CA for SSH servers
 
-Source: [../../infra/dc1/vault/tf/output](../../infra/dc1/vault/tf/output/README.md)
+Source: [../../infra/vault/tf/output](../../infra/vault/tf/output/README.md)
 
 Update: automatically
 

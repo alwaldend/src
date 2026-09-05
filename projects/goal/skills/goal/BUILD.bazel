@@ -17,8 +17,24 @@ skill_library(
 
 docs_filegroup(
     name = "docs",
-    srcs = glob(["**/*.md"]),
+    srcs = glob(["*.md"]),
     visibility = ["//projects/goal:__pkg__"],
+    deps = [
+        ":evaluation_docs",
+        ":reference_docs",
+    ],
+)
+
+docs_filegroup(
+    name = "reference_docs",
+    srcs = glob(["references/*.md"]),
+    prefix = "content/docs/projects/goal/skills/goal/references",
+)
+
+docs_filegroup(
+    name = "evaluation_docs",
+    srcs = glob(["evals/*.md"]),
+    prefix = "content/docs/projects/goal/skills/goal/evals",
 )
 
 filegroup(

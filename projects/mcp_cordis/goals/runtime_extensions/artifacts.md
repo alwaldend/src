@@ -7,7 +7,7 @@
 - [Attempt 10 plan](attempts/010.md): dependency-owned reload serialization
   with deterministic slow-evaluation and slow-activation regressions. Review
   verdict: focused tests pass; complete delivery evidence remains open.
-- [Pinned HMR patch](../../patches/hmr@1.0.16.patch): standard pnpm patch that
+- [Pinned HMR patch](https://github.com/alwaldend/src/blob/master/projects/mcp_cordis/patches/hmr@1.0.16.patch): standard pnpm patch that
   serializes the package's module reload task and drains newly stashed URLs.
   Review verdict: exact-package apply check and focused regressions pass.
 - [Attempt 9 plan](attempts/009.md): atomic persistence plus official Cordis

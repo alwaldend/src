@@ -27,7 +27,7 @@ tags:
   SECRET_ID=$(bazel run //infra/harbor/cl:vault.secret_id | jq -r .data.secret_id)
   echo "Secret id: ${SECRET_ID}"
   ```
-- Patch secret-id in [./cl/cert-manager/issuer-approle.yaml](./cl/cert-manager/issuer-approle.yaml)
+- Patch secret-id in [./cl/cert-manager/issuer-approle.yaml](https://github.com/alwaldend/src/blob/master/infra/harbor/cl/cert-manager/issuer-approle.yaml)
 - Encrypt:
   ```sh
   bazel run //infra/flux/cl:sops.encrypt infra/harbor/cl/cert-manager/issuer-approle.yaml

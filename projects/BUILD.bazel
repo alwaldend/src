@@ -13,6 +13,7 @@ docs_filegroup(
         exclude = ["rules_*"],
     ) + [
         "@rules_binary_toolchain//:docs",
+        "@rules_dnscontrol//:docs",
         "@rules_docs//:docs",
         "@rules_docs_gazelle//:docs",
         "@rules_hugo//:docs",
