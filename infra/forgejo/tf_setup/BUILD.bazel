@@ -16,14 +16,15 @@ _CONFIGS = ["//infra/forgejo:al"]
 _RUN_ARGS = [
     "--plugin_label",
     "tf=setup",
+    "--plugin_label",
+    "xoa_login=1",
 ]
 
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
-    "//projects/tf_modules/pve_vm_qemu",
+    "//infra/cloud_init:xen_linux",
     "//infra/forgejo:dnsconfig",
-    "//infra/mikrotik:dnsconfig",
-    "//tools/vault/pve_login",
+    "//infra/xcp_ng/cmd/xo_login",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",
 ]

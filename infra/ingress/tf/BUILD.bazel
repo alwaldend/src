@@ -19,7 +19,7 @@ _DATA = glob(["*.tf"]) + [
     "//infra/ingress/ansible:inventory",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",
-    "//infra/pve/ansible:cloud_init",
+    "//infra/cloud_init:cloud_init",
 ]
 
 terraform_binary_map(

@@ -1,0 +1,120 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
+load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/xcp_ng:__pkg__"],
+)
+
+al_binary_run_map(
+    name = "ansible",
+    args = {
+        "": [
+            "$(rootpath :ansible_bin)",
+            "--inventory",
+            "inventory.yaml",
+            "playbook_deploy.yaml",
+        ],
+        "host": [
+            "$(rootpath :ansible_bin)",
+            "--inventory",
+            "inventory.yaml",
+            "playbook_host.yaml",
+        ],
+        "inspect_host": [
+            "$(rootpath :ansible_bin)",
+            "--inventory",
+            "inventory.yaml",
+            "playbook_inspect_host.yaml",
+        ],
+        "inspect": [
+            "$(rootpath :ansible_bin)",
+            "--inventory",
+            "inventory.yaml",
+            "playbook_inspect.yaml",
+        ],
+    },
+    configs = ["//infra/xcp_ng:al"],
+    data = [
+        ":ansible_bin",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "vault_env=xcp_ng",
+        "--plugin_label",
+        "xcp_ng_ansible=1",
+        "--plugin_label",
+        "xcpng_host=1",
+    ],
+)
+
+al_ansible_binary(
+    name = "ansible_bin",
+    data = [
+        ":srcs",
+        "//infra:ansible_cfg",
+        "//projects/ansible_collection:collections",
+    ],
+    process_name = "ansible_playbook",
+)
+
+pkg_filegroup(
+    name = "srcs",
+    srcs = [
+        ":oidc_files",
+        ":runtime_files",
+        ":srcs_files",
+    ],
+)
+
+pkg_files(
+    name = "srcs_files",
+    srcs = ["inventory.yaml"] + glob([
+        "group_vars/**/*.yaml",
+        "playbook_*.yaml",
+        "templates/**",
+        "tasks/**/*.yaml",
+        "files/**",
+    ]),
+    strip_prefix = strip_prefix.from_pkg(),
+)
+
+pkg_files(
+    name = "runtime_files",
+    srcs = [
+        "//data/ssl/alwaldend.com:root_ca",
+        "//third_party/com_github_go_acme_lego_bin:binary_toolchain.json",
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
+    ],
+    prefix = "files",
+    renames = {
+        "//data/ssl/alwaldend.com:root_ca": "root_ca.crt",
+        "//third_party/com_github_go_acme_lego_bin:binary_toolchain.json": "lego-lock.json",
+        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "vault",
+    },
+)
+
+pkg_files(
+    name = "oidc_files",
+    srcs = [
+        "//third_party/com_github_vatesfr_xen_orchestra_oidc:index_js",
+        "//third_party/com_github_vatesfr_xen_orchestra_oidc:license",
+        "//third_party/com_github_vatesfr_xen_orchestra_oidc:oauth",
+        "//third_party/com_github_vatesfr_xen_orchestra_oidc:package_json",
+        "//third_party/com_github_vatesfr_xen_orchestra_oidc:passport_openidconnect",
+        "//third_party/com_github_vatesfr_xen_orchestra_oidc:passport_strategy",
+    ],
+    prefix = "files/oidc",
+    renames = {
+        "//third_party/com_github_vatesfr_xen_orchestra_oidc:index_js": "index.js",
+        "//third_party/com_github_vatesfr_xen_orchestra_oidc:license": "LICENSE.md",
+        "//third_party/com_github_vatesfr_xen_orchestra_oidc:package_json": "package.json",
+        "//third_party/com_github_vatesfr_xen_orchestra_oidc:passport_openidconnect": "passport-openidconnect.tgz",
+        "//third_party/com_github_vatesfr_xen_orchestra_oidc:oauth": "oauth.tgz",
+        "//third_party/com_github_vatesfr_xen_orchestra_oidc:passport_strategy": "passport-strategy.tgz",
+    },
+)

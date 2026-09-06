@@ -7,6 +7,7 @@ resource "vault_identity_oidc_scope" "user" {
   template    = <<EOT
 {
   "username": {{ identity.entity.metadata.username }},
+  "preferred_username": {{ identity.entity.metadata.username }},
   "nickname": {{ identity.entity.metadata.username }}
 }
 EOT

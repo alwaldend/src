@@ -1,0 +1,206 @@
+- name: Configure Xen Orchestra OIDC prerequisites and Vault ACME certificates
+  hosts: xoa
+  become: true
+  force_handlers: true
+  pre_tasks:
+    - name: Require inspected appliance settings before changing certificate files
+      ansible.builtin.assert:
+        that:
+          - ansible_user is defined
+          - ansible_os_family == 'Debian'
+          - xoa_https_certificate_path is defined
+          - xoa_https_key_path is defined
+          - xoa_https_certificate_path is match('^/')
+          - xoa_https_key_path is match('^/')
+          - xoa_https_certificate_path != xoa_https_key_path
+          - xoa_native_acme_disabled | default(false) | bool
+          - xoa_service_runs_as_root | default(false) | bool
+        fail_msg: Supply the provisioned SSH user and the inspected absolute XO certificate/key paths; confirm native autoCert is disabled and xo-server runs as root.
+    - name: Check existing certificate and key paths
+      ansible.builtin.stat:
+        path: "{{ item }}"
+        follow: true
+      loop:
+        - "{{ xoa_https_certificate_path }}"
+        - "{{ xoa_https_key_path }}"
+      register: xoa_existing_tls
+    - name: Require existing regular TLS files
+      ansible.builtin.assert:
+        that:
+          - item.stat.isreg | default(false)
+      loop: "{{ xoa_existing_tls.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+  tasks:
+    - name: Install the group-aware OpenID Connect plugin
+      ansible.builtin.import_tasks: tasks/oidc.yaml
+    - name: Install the appliance distribution's ACME client
+      ansible.builtin.apt:
+        name: certbot
+        state: present
+        update_cache: true
+        cache_valid_time: 3600
+    - name: Create private ACME directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0700"
+      loop:
+        - "{{ xoa_acme_dir }}"
+        - "{{ xoa_acme_work_dir }}"
+        - "{{ xoa_acme_log_dir }}"
+    - name: Install the Vault CA for the ACME client and XO
+      ansible.builtin.copy:
+        src: files/root_ca.crt
+        dest: "{{ xoa_acme_dir }}/ca.crt"
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Restart XO
+    - name: Create the XO service override directory
+      ansible.builtin.file:
+        path: /etc/systemd/system/xo-server.service.d
+        state: directory
+        mode: "0755"
+    - name: Trust Vault certificates in the XO Node process
+      ansible.builtin.copy:
+        dest: /etc/systemd/system/xo-server.service.d/vault-ca.conf
+        content: |
+          [Service]
+          Environment=NODE_EXTRA_CA_CERTS={{ xoa_acme_dir }}/ca.crt
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Restart XO
+    - name: Write persistent ACME options without EAB credentials
+      ansible.builtin.template:
+        src: templates/client.ini.j2
+        dest: "{{ xoa_acme_dir }}/client.ini"
+        owner: root
+        group: root
+        mode: "0600"
+    - name: Check whether the managed certificate already exists
+      ansible.builtin.stat:
+        path: "{{ xoa_acme_dir }}/live/{{ xoa_acme_cert_name }}/fullchain.pem"
+      register: xoa_managed_certificate
+    - name: Register an ACME account and issue the initial certificate
+      when: not xoa_managed_certificate.stat.exists
+      block:
+        - name: Generate a role-scoped external account binding
+          delegate_to: localhost
+          become: false
+          ansible.builtin.command:
+            argv:
+              - "{{ playbook_dir }}/files/vault"
+              - write
+              - -format=json
+              - --force
+              - "{{ xoa_acme_path }}/new-eab"
+          register: xoa_eab
+          changed_when: true
+          no_log: true
+        - name: Write short-lived registration options
+          ansible.builtin.copy:
+            dest: "{{ xoa_acme_dir }}/registration.ini"
+            content: |
+              {{ lookup('ansible.builtin.template', 'templates/client.ini.j2') }}
+              eab-kid = {{ (xoa_eab.stdout | from_json).data.id }}
+              eab-hmac-key = {{ (xoa_eab.stdout | from_json).data.key }}
+            owner: root
+            group: root
+            mode: "0600"
+          no_log: true
+        - name: Obtain the certificate using standalone HTTP validation
+          ansible.builtin.command:
+            argv:
+              - /usr/bin/certbot
+              - certonly
+              - --config
+              - "{{ xoa_acme_dir }}/registration.ini"
+              - --domains
+              - "{{ xoa_acme_domains | join(',') }}"
+            creates: "{{ xoa_acme_dir }}/live/{{ xoa_acme_cert_name }}/fullchain.pem"
+          environment:
+            REQUESTS_CA_BUNDLE: "{{ xoa_acme_dir }}/ca.crt"
+          no_log: true
+      always:
+        - name: Remove registration credentials
+          ansible.builtin.file:
+            path: "{{ xoa_acme_dir }}/registration.ini"
+            state: absent
+          no_log: true
+        - name: Ensure management service is running after issuance
+          ansible.builtin.systemd_service:
+            name: xo-server
+            state: started
+            daemon_reload: true
+    - name: Renew seven-day Vault certificates with two days remaining
+      tags: [renewal_policy]
+      ansible.builtin.lineinfile:
+        path: "{{ xoa_acme_dir }}/renewal/{{ xoa_acme_cert_name }}.conf"
+        regexp: '^renew_before_expiry\s*='
+        line: renew_before_expiry = 2 days
+        insertbefore: BOF
+        owner: root
+        group: root
+        mode: "0600"
+    - name: Preserve the previous certificate and key once
+      ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "{{ item }}.before-vault-acme"
+        remote_src: true
+        force: false
+        owner: root
+        group: root
+        mode: "0600"
+      loop:
+        - "{{ xoa_https_certificate_path }}"
+        - "{{ xoa_https_key_path }}"
+      no_log: true
+    - name: Point the inspected XO TLS paths to the renewable certificate
+      ansible.builtin.file:
+        src: "{{ xoa_acme_dir }}/live/{{ xoa_acme_cert_name }}/{{ item.name }}"
+        dest: "{{ item.path }}"
+        state: link
+        force: true
+      loop:
+        - name: fullchain.pem
+          path: "{{ xoa_https_certificate_path }}"
+        - name: privkey.pem
+          path: "{{ xoa_https_key_path }}"
+      notify: Restart XO
+    - name: Install ACME renewal service and timer
+      ansible.builtin.template:
+        src: "templates/{{ item }}.j2"
+        dest: "/etc/systemd/system/{{ item }}"
+        owner: root
+        group: root
+        mode: "0644"
+      loop:
+        - xo-acme-renew.service
+        - xo-acme-renew.timer
+    - name: Enable periodic renewal
+      ansible.builtin.systemd_service:
+        name: xo-acme-renew.timer
+        enabled: true
+        state: started
+        daemon_reload: true
+    - name: Apply certificate and trust changes
+      ansible.builtin.meta: flush_handlers
+    - name: Verify the XO HTTPS endpoint with the Vault CA
+      ansible.builtin.uri:
+        url: "https://{{ xoa_acme_domains[0] }}/"
+        ca_path: "{{ xoa_acme_dir }}/ca.crt"
+        validate_certs: true
+      register: xoa_https_check
+      retries: 12
+      delay: 5
+      until: xoa_https_check is succeeded
+  handlers:
+    - name: Restart XO
+      ansible.builtin.systemd_service:
+        name: xo-server
+        state: restarted
+        daemon_reload: true

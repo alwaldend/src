@@ -9,7 +9,7 @@ spec:
     branch: master
   secretRef:
     name: flux-git-src
-  url: ssh://forgejo@forgejo.alwaldend.com:3005/alwaldend/src.git
+  url: ssh://forgejo@git.alwaldend.com:3005/alwaldend/src.git
   ignore: |
     /*
     !/infra

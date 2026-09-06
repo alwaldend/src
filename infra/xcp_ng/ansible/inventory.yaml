@@ -1,0 +1,7 @@
+xoa:
+  hosts:
+    xoa.xcp-ng.alwaldend.com:
+      ansible_host: 192.168.1.206
+xcpng:
+  hosts:
+    host1.xcp-ng.alwaldend.com:

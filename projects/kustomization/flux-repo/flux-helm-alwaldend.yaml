@@ -5,6 +5,6 @@ metadata:
   name: flux-helm-alwaldend
 spec:
   interval: 10m
-  url: https://forgejo.alwaldend.com/api/packages/alwaldend/helm
+  url: https://git.alwaldend.com/api/packages/alwaldend/helm
   certSecretRef:
     name: flux-helm-alwaldend-ca

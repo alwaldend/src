@@ -1,0 +1,66 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
+
+al_binary_run(
+    name = "bootstrap",
+    args = [
+        "$(rootpath :xo_login)",
+        "--report",
+    ],
+    configs = ["//infra:al"],
+    data = [
+        "bootstrap.lua",
+        ":xo_login",
+    ],
+    run_args = [
+        "--config",
+        "$(rootpath bootstrap.lua)",
+        "--plugin_label",
+        "xoa_login=1",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/xcp_ng:__pkg__"],
+)
+
+go_library(
+    name = "xo_login_lib",
+    srcs = [
+        "issuer.go",
+        "main.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/infra/xcp_ng/cmd/xo_login",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//infra/xcp_ng/internal/oidclogin",
+        "//projects/al/api/al_proto",
+        "//projects/al/pkg/al",
+        "//projects/al/pkg/al_plugin",
+        "//projects/al/pkg/lifecycle",
+        "@com_github_hashicorp_vault_api//:api",
+    ],
+)
+
+go_binary(
+    name = "xo_login",
+    embed = [":xo_login_lib"],
+    visibility = ["//infra:__subpackages__"],
+)
+
+go_test(
+    name = "xo_login_test",
+    srcs = [
+        "issuer_test.go",
+        "main_test.go",
+    ],
+    data = ["bootstrap.lua"],
+    embed = [":xo_login_lib"],
+    deps = [
+        "//projects/al/pkg/al",
+        "@com_github_hashicorp_vault_api//:api",
+    ],
+)

@@ -2,6 +2,26 @@
   hosts: forgejo
   force_handlers: true
   become: true
+  pre_tasks:
+    - name: Keep LAN traffic symmetric through the configured gateway
+      tags: [forgejo_network, traefik, forgejo_oidc]
+      ansible.posix.sysctl:
+        name: "net.ipv4.conf.{{ item }}.accept_redirects"
+        value: "0"
+        sysctl_file: /etc/sysctl.d/99-forgejo-network.conf
+        sysctl_set: true
+        reload: true
+      loop: [all, default, "{{ ansible_facts.default_ipv4.interface }}"]
+      notify: Clear learned network routes
+
+    - name: Verify Xen data disk attachments before creating filesystems
+      ansible.builtin.assert:
+        that:
+          - "'xvdb' in ansible_facts.devices"
+          - "'xvdc' in ansible_facts.devices"
+          - "(ansible_facts.devices.xvdb.sectors | int) * (ansible_facts.devices.xvdb.sectorsize | int) == 40 * 1024 * 1024 * 1024"
+          - "(ansible_facts.devices.xvdc.sectors | int) * (ansible_facts.devices.xvdc.sectorsize | int) == 5 * 1024 * 1024 * 1024"
+        fail_msg: Expected the 40 GiB Forgejo disk at xvdb and the 5 GiB Traefik disk at xvdc.
   tasks:
     - ansible.builtin.import_role:
         name: alwaldend.main.host
@@ -9,3 +29,104 @@
         name: alwaldend.main.traefik
     - ansible.builtin.import_role:
         name: alwaldend.main.forgejo
+    - name: Bootstrap Vault authentication for a fresh Forgejo instance
+      tags:
+        - forgejo_oidc
+      block:
+        - name: Install ACL support for running authentication commands as Forgejo
+          ansible.builtin.package:
+            name: acl
+            state: present
+
+        - name: List existing Forgejo authentication sources
+          become_user: "{{ forgejo_user }}"
+          ansible.builtin.command:
+            argv:
+              - "{{ forgejo_bin_path }}"
+              - --config
+              - "{{ forgejo_config_path }}"
+              - --work-path
+              - "{{ forgejo_work_dir }}"
+              - admin
+              - auth
+              - list
+          register: forgejo_auth_sources
+          changed_when: false
+
+        - name: Check authentication source listing size
+          ansible.builtin.assert:
+            that:
+              - forgejo_auth_sources.stdout | length < 65536
+            fail_msg: Authentication source listing exceeds the bootstrap parser limit.
+
+        - name: Identify the existing Vault authentication source
+          no_log: true
+          ansible.builtin.set_fact:
+            forgejo_vault_auth_sources: >-
+              {{ forgejo_auth_sources.stdout | regex_findall('(?m)^\s*([0-9]+)\s+vault\s+(\S+)\s+(true|false)\s*$') }}
+
+        - name: Require an unambiguous active Vault OAuth source when present
+          ansible.builtin.assert:
+            that:
+              - forgejo_vault_auth_sources | length <= 1
+              - forgejo_vault_auth_sources | length == 0 or forgejo_vault_auth_sources[0][1] == 'OAuth2'
+              - forgejo_vault_auth_sources | length == 0 or forgejo_vault_auth_sources[0][2] == 'true'
+            fail_msg: Existing Vault authentication must be a single active OAuth2 source.
+
+        - name: Create the missing Vault OpenID Connect source
+          when: forgejo_vault_auth_sources | length == 0
+          become_user: "{{ forgejo_user }}"
+          no_log: true
+          ansible.builtin.command:
+            argv:
+              - "{{ forgejo_bin_path }}"
+              - --config
+              - "{{ forgejo_config_path }}"
+              - --work-path
+              - "{{ forgejo_work_dir }}"
+              - admin
+              - auth
+              - add-oauth
+              - --name
+              - vault
+              - --provider
+              - openidConnect
+              - --key
+              - "{{ lookup('ansible.builtin.env', 'FORGEJO_OIDC_CLIENT_ID', default=undef()) }}"
+              - --secret
+              - "{{ lookup('ansible.builtin.env', 'FORGEJO_OIDC_CLIENT_SECRET', default=undef()) }}"
+              - --auto-discover-url
+              - https://vault.alwaldend.com:8200/v1/identity/oidc/provider/src_infra_dc1_forgejo1_provider/.well-known/openid-configuration
+              - --scopes
+              - user
+              - --scopes
+              - groups
+              - --scopes
+              - email
+              - --scopes
+              - ssh
+              - --group-claim-name
+              - groups
+              - --admin-group
+              - src_infra_dc1_forgejo1_admins
+              - --restricted-group
+              - src_infra_dc1_forgejo1_restricted
+              - --attribute-ssh-public-key
+              - sshpubkey
+          register: forgejo_vault_auth_created
+          changed_when: forgejo_vault_auth_created.rc == 0
+          notify: Restart Forgejo after authentication bootstrap
+
+        - name: Load the newly created authentication source
+          when: forgejo_vault_auth_created is changed
+          ansible.builtin.meta: flush_handlers
+  handlers:
+    - name: Clear learned network routes
+      ansible.builtin.command:
+        argv: [ip, route, flush, cache]
+      changed_when: true
+
+    - name: Restart Forgejo after authentication bootstrap
+      ansible.builtin.systemd_service:
+        name: "{{ forgejo_service_path | basename }}"
+        state: restarted

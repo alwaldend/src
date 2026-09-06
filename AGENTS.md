@@ -48,6 +48,16 @@ facts at their owning source; architecture does not override those owners.
   fragment trivial tasks or invent work for unused agents. Reassess when
   dependencies or workstreams change; explain a constraint only when it
   materially affects the task.
+- All infrastructure provisioning and persistent configuration MUST be defined
+  in checked-in infrastructure as code and deployed through its owning
+  Terraform, Ansible, or other declarative workflow. This includes certificates,
+  renewal jobs, authentication, networking, and appliance configuration.
+  Any exception, including an imperative bootstrap or emergency change outside
+  that workflow, requires explicit user approval for the exact exception before
+  execution. Record the approved scope and how it will be reconciled into IaC;
+  general deployment authorization does not approve an exception. Read-only
+  inspection does not constitute a configuration exception. Secret values stay
+  in Vault; IaC contains their references only.
 - Never run state-changing infrastructure operations without the user's
   explicit request for the exact operation and scope. Ordinary implementation
   validation must not contact or mutate live systems.
@@ -153,10 +163,9 @@ Start verification with `git diff --check`, then the narrowest useful package
 checks under `repo-bazel`; run configured formatters and `//:buildifier_test`
 for BUILD/Starlark changes. Before completion, verify source and a
 representative output against the exact candidate. Command success alone is
-not acceptance. Formatting-only repairs needed to pass required checks are
-authorized within the current task, including pre-existing failures outside
-the task's original paths; no separate approval is needed. Use the configured
-formatter, inspect its diff, and include only the necessary formatting changes.
+not acceptance. Accept and commit all changes produced by the repository's
+configured formatters, including changes outside the initial task scope;
+no separate approval is needed. Use the configured formatter and inspect its diff.
 Preserve unrelated edits and never include semantic changes under this
 exception. Record baseline failures and their repairs without waiving the
 delivery quality gate. Git hook installation is optional; required checks

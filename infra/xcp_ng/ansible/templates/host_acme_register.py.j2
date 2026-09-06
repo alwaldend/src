@@ -1,0 +1,11 @@
+"""Temporary ACME registration; Ansible removes this script after execution."""
+import json
+import runpy
+
+manager = runpy.run_path("/etc/xcp-ng-acme/host_acme.py")
+try:
+    manager["renew"](json.loads({{ ((xcpng_eab.stdout | from_json).data | to_json) | to_json }}))
+except Exception:
+    print(json.dumps({"success": False}))
+else:
+    print(json.dumps({"success": True}))

@@ -83,6 +83,8 @@ add mac-address=FE:B3:B4:C4:A4:48 name=ovpn-server1
 add allowed-address=10.10.0.2/24 comment=host2 endpoint-address=103.76.53.6 endpoint-port=51820 interface=ingress-vpc name=ingress-vpc-host2 persistent-keepalive=5s public-key="Z2JamOjZYOGaf4tPZzchyHjLw/XlOtUtQObyROEQ9DM="
 add allowed-address=10.10.0.1/24 comment=host1 endpoint-address=158.160.196.128 endpoint-port=51820 interface=ingress-vpc name=ingress-vpc-host1 persistent-keepalive=5s public-key="xmyl+frvngmzRB9z5yEURxQj4vTw47tKQV7EZrTAREw="
 add allowed-address=10.20.0.1/24 comment=host1 endpoint-address=158.160.220.223 endpoint-port=51820 interface=hermes-vpc name=hermes-vpc-host1 persistent-keepalive=5s public-key="oA4ZpsmrclIOIWh3ECsb4ZFKH1hQMDtuW3xNXat3IyQ="
+/ip settings
+set send-redirects=no
 /ip address
 add address=192.168.1.1/24 comment="bridge1 (LAN)" interface=bridge1 network=192.168.1.0
 add address=192.168.2.1/24 comment="bridge2 (Wireless)" interface=bridge2 network=192.168.2.0

@@ -9,8 +9,15 @@ resource "forgejo_repository" "alwaldend_src" {
 
 resource "forgejo_collaborator" "alwaldend_src_flux" {
   repository_id = forgejo_repository.alwaldend_src.id
-  user          = "src_infra_flux_git"
+  user          = one(local.alwaldend_src_writers)
   permission    = "write"
+
+  lifecycle {
+    precondition {
+      condition     = length(local.alwaldend_src_writers) == 1
+      error_message = "The src repository automation writer group must contain exactly one discovered Forgejo user."
+    }
+  }
 }
 
 resource "forgejo_branch_protection" "alwaldend_src_master" {
@@ -21,10 +28,8 @@ resource "forgejo_branch_protection" "alwaldend_src_master" {
   push_whitelist_teams = [
     forgejo_team.alwaldend_admins.name,
   ]
-  push_whitelist_usernames = [
-    "src_infra_flux_git",
-  ]
-  enable_merge_whitelist = true
+  push_whitelist_usernames = local.alwaldend_src_writers
+  enable_merge_whitelist   = true
   merge_whitelist_teams = [
     forgejo_team.alwaldend_admins.name,
   ]

@@ -1,0 +1,27 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_template//main/bzl:template_run_binary.bzl", "template_run_binary")
+
+package(default_visibility = ["//:__subpackages__"])
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra:__pkg__"],
+)
+
+filegroup(
+    name = "cloud_init",
+    srcs = ["assets/cloud_init.yaml"],
+)
+
+filegroup(
+    name = "cloud_init_min",
+    srcs = ["assets/cloud_init_min.yaml"],
+)
+
+template_run_binary(
+    name = "xen_linux",
+    srcs = ["assets/xen_linux.json.gotmpl"],
+    outs = ["xen_linux.json"],
+    data = [":cloud_init"],
+)

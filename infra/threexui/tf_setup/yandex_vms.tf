@@ -1,5 +1,5 @@
 locals {
-  yc_cloud_init = file("${path.module}/../../pve/ansible/files/cloud_init.yaml")
+  yc_cloud_init = file("${path.module}/../../cloud_init/assets/cloud_init.yaml")
   yc_vms = {
     host1 = {
       zone = "ru-central1-d"

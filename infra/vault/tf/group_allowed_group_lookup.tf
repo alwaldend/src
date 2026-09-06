@@ -5,7 +5,9 @@ resource "vault_identity_group" "allowed_group_lookup" {
     vault_policy.allowed_group_lookup.name,
   ]
   member_group_ids = [
+    module.src_infra_dc1_forgejo1_approle.group_id,
     module.src_infra_dc1_pve1_approle.group_id,
+    module.src_infra_xcp_ng_approle.group_id,
     module.src_infra_yandex_cloud_org1_approle.group_id,
     module.src_infra_threexui_approle.group_id,
   ]
