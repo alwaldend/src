@@ -1,6 +1,6 @@
 $TTL 300
-; generated with dnscontrol 2026-09-01T15:15:50Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026090100 3600 600 604800 1440
+; generated with dnscontrol 2026-09-06T12:22:39Z
+@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026090601 3600 600 604800 1440
                  IN A     185.199.108.153
                  IN A     185.199.109.153
                  IN A     185.199.110.153
@@ -68,6 +68,10 @@ t3code.host-bot.simeonwarren.users IN A 192.168.1.210
 dc1.t3code.host-bot.simeonwarren.users IN A 192.168.1.210
 vault            IN A     192.168.1.218
 www              IN CNAME alwaldend.com.
+xcp-ng           IN A     192.168.1.213
+host1.xcp-ng     IN A     192.168.1.213
+xoa.xcp-ng       IN A     192.168.1.206
+host1.xoa.xcp-ng IN A     192.168.1.206
 yandex     21600 IN MX    10 mx.yandex.net.
                  IN TXT   "v=spf1 redirect=_spf.yandex.net"
                  IN TXT   "yandex-verification: b83672f59b3dbe16"

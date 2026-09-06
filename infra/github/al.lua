@@ -26,7 +26,7 @@ lib.plugin_call({
             {
                 name = "github",
                 kv = {
-                    path = "github.com/pages_token",
+                    path = "alwaldend.com/vault1/approles/src_infra_github/github",
                     mount = "secrets",
                 },
             },
@@ -34,7 +34,7 @@ lib.plugin_call({
                 name = "GITHUB_TOKEN",
                 deps = { "github" },
                 env = {
-                    value = "{{ .Last.Data.token }}",
+                    value = "{{ .Last.Data.github_token }}",
                 },
             },
         },

@@ -1,31 +1,56 @@
-$TTL 300
-; generated with dnscontrol 2026-09-01T15:15:50Z
-@                IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026090101 3600 600 604800 1440
-                 IN NS    malavika.ns.cloudflare.com.
-                 IN NS    terry.ns.cloudflare.com.
-                 IN A     185.199.108.153
-                 IN A     185.199.109.153
-                 IN A     185.199.110.153
-                 IN A     185.199.111.153
+$TTL 600
+; generated with dnscontrol 2026-09-06T11:52:06Z
+@          300   IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026090600 3600 600 604800 1440
+           300   IN NS    malavika.ns.cloudflare.com.
+           300   IN NS    terry.ns.cloudflare.com.
+           300   IN A     185.199.108.153
+           300   IN A     185.199.109.153
+           300   IN A     185.199.110.153
+           300   IN A     185.199.111.153
+           300   IN AAAA  2606:50c0:8000::153
+           300   IN AAAA  2606:50c0:8001::153
+           300   IN AAAA  2606:50c0:8002::153
+           300   IN AAAA  2606:50c0:8003::153
+           300   IN MX    10 mail.protonmail.ch.
+           300   IN MX    20 mailsec.protonmail.ch.
+           300   IN TXT   "_globalsign-domain-verification=0QBJgVV_uwcFLTi1Rot3bb1LyJ5uW1WD0ygvIS4OM5"
+           300   IN TXT   "protonmail-verification=bdcd133d3f472fa17f66328950d02fbeae1bef75"
+           300   IN TXT   "v=spf1 include:_spf.protonmail.ch ~all"
+_dmarc     300   IN TXT   "v=DMARC1; p=quarantine; adkim=s"
+protonmail._domainkey 300 IN CNAME protonmail.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
+protonmail2._domainkey 300 IN CNAME protonmail2.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
+protonmail3._domainkey 300 IN CNAME protonmail3.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
+al               IN CNAME pages.alwaldend.com.
+android-launcher IN CNAME pages.alwaldend.com.
+ansible-collection IN CNAME pages.alwaldend.com.
+autoscroll       IN CNAME pages.alwaldend.com.
+bazel-agent      IN CNAME pages.alwaldend.com.
+cgit             IN CNAME pages.alwaldend.com.
+ci-platform      IN CNAME pages.alwaldend.com.
+cloud            IN CNAME ingress.alwaldend.com.
+dc1.cloud  300   IN A     192.168.1.209
+dotfiles         IN CNAME pages.alwaldend.com.
+forgejo          IN CNAME ingress.alwaldend.com.
+int.forgejo 300  IN A     192.168.10.40
+goal             IN CNAME pages.alwaldend.com.
+infinitime       IN CNAME pages.alwaldend.com.
+ingress    300   IN A     81.26.185.118
+host1.ingress 300 IN A    81.26.185.118
+kustomization    IN CNAME pages.alwaldend.com.
+leetcode-downloader IN CNAME pages.alwaldend.com.
+mcp-cordis       IN CNAME pages.alwaldend.com.
+nexus-security-plugin IN CNAME pages.alwaldend.com.
+pages      300   IN A     185.199.108.153
                  IN AAAA  2606:50c0:8000::153
-                 IN AAAA  2606:50c0:8001::153
-                 IN AAAA  2606:50c0:8002::153
-                 IN AAAA  2606:50c0:8003::153
-                 IN MX    10 mail.protonmail.ch.
-                 IN MX    20 mailsec.protonmail.ch.
-                 IN TXT   "_globalsign-domain-verification=0QBJgVV_uwcFLTi1Rot3bb1LyJ5uW1WD0ygvIS4OM5"
-                 IN TXT   "protonmail-verification=bdcd133d3f472fa17f66328950d02fbeae1bef75"
-                 IN TXT   "v=spf1 include:_spf.protonmail.ch ~all"
-_dmarc           IN TXT   "v=DMARC1; p=quarantine; adkim=s"
-protonmail._domainkey IN CNAME protonmail.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
-protonmail2._domainkey IN CNAME protonmail2.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
-protonmail3._domainkey IN CNAME protonmail3.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
-cloud      600   IN CNAME ingress.alwaldend.com.
-dc1.cloud        IN A     192.168.1.209
-forgejo    600   IN CNAME ingress.alwaldend.com.
-int.forgejo      IN A     192.168.10.40
-ingress          IN A     81.26.185.118
-host1.ingress    IN A     81.26.185.118
+rules-binary-toolchain IN CNAME pages.alwaldend.com.
+rules-docs       IN CNAME pages.alwaldend.com.
+rules-docs-gazelle IN CNAME pages.alwaldend.com.
+rules-hugo       IN CNAME pages.alwaldend.com.
+rules-promptfoo  IN CNAME pages.alwaldend.com.
+rules-promptfoo-gazelle IN CNAME pages.alwaldend.com.
+rules-skill      IN CNAME pages.alwaldend.com.
+rules-skill-gazelle IN CNAME pages.alwaldend.com.
+rules-template   IN CNAME pages.alwaldend.com.
 simplelogin 10800 IN MX   10 mx1.simplelogin.co.
            10800 IN MX    20 mx2.simplelogin.co.
            10800 IN TXT   "sl-verification=bxfzzfjiggzsxyzxhhmkmjqkaskjgy"
@@ -34,18 +59,22 @@ _dmarc.simplelogin 10800 IN TXT "v=DMARC1; p=quarantine; pct=100; adkim=s; aspf=
 dkim._domainkey.simplelogin 10800 IN CNAME dkim._domainkey.simplelogin.co.
 dkim02._domainkey.simplelogin 10800 IN CNAME dkim02._domainkey.simplelogin.co.
 dkim03._domainkey.simplelogin 10800 IN CNAME dkim03._domainkey.simplelogin.co.
-njalla1.nodes.threexui IN A 45.142.141.133
-           600   IN AAAA  2a0a:3840:8078:141:0:2d8e:8d85:1337
-yc1.nodes.threexui 600 IN CNAME host1.nodes.yc.threexui.alwaldend.com.
-yc.threexui      IN NS    ns1.yandexcloud.net.
-                 IN NS    ns2.yandexcloud.net.
-dc1.host-bot.simeonwarren.users IN A 192.168.1.210
-t3code.host-bot.simeonwarren.users 600 IN CNAME ingress.alwaldend.com.
-dc1.t3code.host-bot.simeonwarren.users IN A 192.168.1.210
-vault      600   IN CNAME ingress.alwaldend.com.
-int.vault        IN A     192.168.1.218
-www              IN CNAME alwaldend.com.
+sri              IN CNAME pages.alwaldend.com.
+tf-modules       IN CNAME pages.alwaldend.com.
+njalla1.nodes.threexui 300 IN A 45.142.141.133
+                 IN AAAA  2a0a:3840:8078:141:0:2d8e:8d85:1337
+yc1.nodes.threexui IN CNAME host1.nodes.yc.threexui.alwaldend.com.
+yc.threexui 300  IN NS    ns1.yandexcloud.net.
+           300   IN NS    ns2.yandexcloud.net.
+useless-qt-gui   IN CNAME pages.alwaldend.com.
+dc1.host-bot.simeonwarren.users 300 IN A 192.168.1.210
+t3code.host-bot.simeonwarren.users IN CNAME ingress.alwaldend.com.
+dc1.t3code.host-bot.simeonwarren.users 300 IN A 192.168.1.210
+vault            IN CNAME ingress.alwaldend.com.
+int.vault  300   IN A     192.168.1.218
+www        300   IN CNAME alwaldend.com.
+xray-manager     IN CNAME pages.alwaldend.com.
 yandex     21600 IN MX    10 mx.yandex.net.
-                 IN TXT   "v=spf1 redirect=_spf.yandex.net"
-                 IN TXT   "yandex-verification: b83672f59b3dbe16"
-mail._domainkey.yandex IN TXT "v=DKIM1; k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcYzFVgkeDOhaIIkWM8gNQjxVsv0/aXfU+ax5urB5y6hA6lSjRnjRo6tm0bXbkOJf41GmiwMNgdXpwRtzgzAlX1i2aJbtEr4b9jzibEGLQ7Cvqs44bOYES9f/K3ueQpnvdTOJmFqlRReFL7ZrUyDFCoQ7f4+7h4i8s01cCcRrt5wIDAQAB"
+           300   IN TXT   "v=spf1 redirect=_spf.yandex.net"
+           300   IN TXT   "yandex-verification: b83672f59b3dbe16"
+mail._domainkey.yandex 300 IN TXT "v=DKIM1; k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcYzFVgkeDOhaIIkWM8gNQjxVsv0/aXfU+ax5urB5y6hA6lSjRnjRo6tm0bXbkOJf41GmiwMNgdXpwRtzgzAlX1i2aJbtEr4b9jzibEGLQ7Cvqs44bOYES9f/K3ueQpnvdTOJmFqlRReFL7ZrUyDFCoQ7f4+7h4i8s01cCcRrt5wIDAQAB"
