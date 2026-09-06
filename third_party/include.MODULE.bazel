@@ -54,8 +54,6 @@ bazel_dep(name = "rules_cc", version = "0.2.17")
 bazel_dep(name = "rules_foreign_cc", version = "0.15.1")
 bazel_dep(name = "toolchains_llvm", version = "1.8.0")
 
-bazel_dep(name = "hedron_compile_commands", dev_dependency = True)
-
 # Perl
 bazel_dep(name = "rules_perl", version = "1.1.1")
 
@@ -70,9 +68,6 @@ bazel_dep(name = "rules_robolectric", version = "4.16.1")
 # Oci
 bazel_dep(name = "rules_oci", version = "2.3.0")
 bazel_dep(name = "rules_distroless", version = "0.6.2")
-
-# Tools
-bazel_dep(name = "com_alwaldend_com_github_infinitimeorg_infinitime")
 
 # Local
 
@@ -142,35 +137,4 @@ bazel_dep(name = "rules_skill_gazelle", dev_dependency = True)
 local_path_override(
     module_name = "rules_skill_gazelle",
     path = "projects/rules_skill_gazelle",
-)
-
-## Overrides
-
-git_override(
-    module_name = "com_alwaldend_com_github_infinitimeorg_infinitime",
-    commit = "0a89c99b2994d9f9b58a05e870557783a3f74bc7",
-    init_submodules = True,
-    patch_strip = 1,
-    patches = ["//projects/infinitime/main/patch:cmake_toolchain.patch"],
-    recursive_init_submodules = True,
-    remote = "https://github.com/alwaldend/com_github_infinitimeorg_infinitime.git",
-    shallow_since = "1733253068 +0100",
-)
-
-# local_path_override(
-#     module_name = "com_alwaldend_com_github_infinitimeorg_infinitime",
-#     path = "../com_github_infinitimeorg_infinitime",
-# )
-
-git_override(
-    module_name = "contrib_rules_jvm",
-    commit = "1a5301c33cb579042edafc1de6e98bf5ecc49840",
-    remote = "https://github.com/bazel-contrib/rules_jvm.git",
-)
-
-archive_override(
-    module_name = "hedron_compile_commands",
-    integrity = "sha256-7B5Bk1jrI9rqsN0CBt/JMDFrrJ3pQtlOuCAZ9AICKEc=",
-    strip_prefix = "bazel-compile-commands-extractor-abb61a688167623088f8768cc9264798df6a9d10",
-    urls = ["https://github.com/hedronvision/bazel-compile-commands-extractor/archive/abb61a688167623088f8768cc9264798df6a9d10.zip"],
 )

@@ -4,7 +4,7 @@
     "id": "agent-system.workspace-check",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.workspace-check-compiler",
-    "sourceRevision": "55f4d38e6ecb872cfed8f31f85d70fe4",
+    "sourceRevision": "f178961479cccf8974efd9d4cbea9a09",
     "inputs": [
         {
             "path": ".bazelignore",
@@ -14,7 +14,7 @@
         {
             "path": "MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:11c7461c4fac5cc014df466046e0c2a6ca5bdae39a231514f286472460bf5143"
+            "digest": "sha256:71c5ee54b8258b9689eca17c02f1f1bb93eaf1d433c7ed8d5ecff5e6c50f5472"
         },
         {
             "path": "projects/agents/skills/full-repo-check/scripts/run_full_repo_check.go",
@@ -89,7 +89,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:ce511c515a5c377b5b8328d07bf76a7d2fcad4002a7aa68c201175b6113c4a2e",
+    "digest": "sha256:7139eabdac087bfa74cb04f8f9495f49f14857f004f6656b6d0486b7f6f5cb13",
     "workspaces": [
         {
             "id": "projects.rules_binary_toolchain",

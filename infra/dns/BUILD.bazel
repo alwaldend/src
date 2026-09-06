@@ -1,3 +1,4 @@
+load("@bazel_skylib//rules:native_binary.bzl", "native_test")
 load("@rules_dnscontrol//main/bzl:dnscontrol.bzl", "dnscontrol_site")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects:projects.bzl", "PROJECTS")
@@ -51,6 +52,21 @@ dnscontrol_site(
 
 _BIN = "$(rootpath //tools/dnscontrol)"
 
+native_test(
+    name = "config_test",
+    size = "small",
+    src = "//tools/dnscontrol",
+    args = [
+        "check",
+        "--config",
+        "$(rootpath dnsconfig.js)",
+    ],
+    data = [
+        "dnsconfig.js",
+        ":requires_manifest_raw",
+    ],
+)
+
 al_config(
     name = "al",
     srcs = ["al.lua"],
@@ -63,28 +79,34 @@ al_binary_run_map(
     args = {
         "": [
             _BIN,
+            "push",
             "--config",
             "$(rootpath dnsconfig.js)",
-            "push",
+            "--creds",
+            "$(rootpath providers.json)",
             "-i",
         ],
         "deploy": [
             _BIN,
+            "push",
             "--config",
             "$(rootpath dnsconfig.js)",
-            "push",
+            "--creds",
+            "$(rootpath providers.json)",
         ],
         "preview": [
             _BIN,
+            "preview",
             "--config",
             "$(rootpath dnsconfig.js)",
-            "preview",
+            "--creds",
+            "$(rootpath providers.json)",
         ],
     },
     configs = [":al"],
     data = [
-        "creds.json.tpl",
         "dnsconfig.js",
+        "providers.json",
         ":requires_manifest",
         ":requires_manifest_raw",
         "//infra:dnsconfig_nonlanding",

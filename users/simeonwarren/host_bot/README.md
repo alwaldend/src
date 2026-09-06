@@ -40,6 +40,11 @@ volume group retains about 900 GiB for later growth or another logical volume.
 Because the volume is striped, either SSD failing invalidates the disposable
 cache.
 
+The managed user bazelrc limits each Bazel invocation to eight concurrent jobs
+and budgets half of the host CPUs for local actions. These scheduling limits
+apply to builds and tests; they do not impose a combined CPU cap across
+independent Bazel processes or Codex sessions.
+
 Executable repository tools use `/var/cache/bazel/tool_cache`. Unlike the
 disposable action and output caches, this directory is private to the host-bot
 account. Cache entries are keyed by declared source, build configuration,

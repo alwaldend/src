@@ -6,7 +6,7 @@ def _requires_impl(ctx):
     requires = []
     require_files = []
     for src in ctx.files.srcs:
-        link_name = "{}__{}".format(
+        link_name = "{}__{}.json".format(
             ctx.attr.name.removesuffix("_manifest_raw"),
             src.short_path.replace("/", "_").replace(".", "_"),
         )
@@ -15,15 +15,10 @@ def _requires_impl(ctx):
             output = link,
             target_file = src,
         )
-        requires.append(link.basename)
+        requires.append("./" + link.basename)
         require_files.append(link)
 
-    content = "module.exports = [\n{}];\n".format(
-        "".join([
-            "    require(\"./{}\"),\n".format(path)
-            for path in requires
-        ]),
-    )
+    content = json.encode_indent(requires) + "\n"
     out = ctx.outputs.out
     ctx.actions.write(output = out, content = content)
     return [DefaultInfo(files = depset([out] + require_files))]
@@ -49,7 +44,7 @@ def dnscontrol_site(name, config, srcs, data = [], visibility = None):
     _requires(
         name = "{}_manifest_raw".format(name),
         srcs = srcs,
-        out = "{}.js".format(name),
+        out = "{}.json".format(name),
     )
 
     pkg_files(

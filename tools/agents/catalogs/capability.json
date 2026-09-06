@@ -4,7 +4,7 @@
     "id": "agent-system.capability",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.capability-compiler",
-    "sourceRevision": "9d4edc191000f03b866bf205cc60e3d1",
+    "sourceRevision": "2359bdc95cbb86e35570d6359c2874d4",
     "inputs": [
         {
             "path": ".agents/skills/agent-ergonomics-review",
@@ -204,7 +204,7 @@
         {
             "path": "tools/terraform/defs.bzl",
             "role": "operation-definition",
-            "digest": "sha256:4ad73fc6b6a68d6f791e7a84f90e58c9a11bc3d6ca626f1f836c443a6f13e6d5"
+            "digest": "sha256:6386e4bc076b285871085cdcb8772fd7fb376e28ff63976d590dae8593e4db31"
         }
     ],
     "bounds": {
@@ -219,7 +219,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:d5cb00c88021e625c773db0be06eae32a989cac9e7595e74aebd247368b7e2b9",
+    "digest": "sha256:d8cb40d86f2d90d794974c26775aeb0389986798c570ca7ee9fc94100752692f",
     "skills": [
         {
             "id": "agent-ergonomics-review",

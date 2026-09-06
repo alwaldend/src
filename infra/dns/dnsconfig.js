@@ -7,7 +7,12 @@ var DSP_GLOBAL = NewDnsProvider("global");
 var DSP_GLOBAL_BIND = NewDnsProvider("global_bind");
 var DSP_DC1 = NewDnsProvider("dc1");
 var DSP_DC1_BIND = NewDnsProvider("dc1_bind");
-var jsons = require("./requires.js").flat();
+var jsons = [].concat.apply(
+    [],
+    require("./requires.json").map(function (path) {
+        return require(path);
+    }),
+);
 
 DEFAULTS(
     CF_PROXY_DEFAULT_OFF, // turn proxy off when not specified otherwise

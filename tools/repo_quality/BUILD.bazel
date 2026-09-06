@@ -303,6 +303,8 @@ test_suite(
         ":lua_quality_test",
         ":qt_xml_quality_test",
         ":repo_format_test",
+        "//tools/bazel_module/cmd/update:freshness_test",
+        "//tools/repo_quality/test/root_build:root_build_test",
     ],
 )
 

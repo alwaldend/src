@@ -4,8 +4,8 @@
 - Capability skills: 24
 - Skills with configured cases: 5
 - Output truncated: false
-- Catalog digest: `sha256:d5cb00c88021e625c773db0be06eae32a989cac9e7595e74aebd247368b7e2b9`
-- Matrix digest: `sha256:2bf659e8d0b3dfb19ed198259a814c22d6b076f5644f260297f49105617a8c3e`
+- Catalog digest: `sha256:d8cb40d86f2d90d794974c26775aeb0389986798c570ca7ee9fc94100752692f`
+- Matrix digest: `sha256:d679fd6e11fc0f0f6406da146bfbf6e5409bb4d4ce3083ef52a56cd72a9643b3`
 
 | Skill | Case | Metric | Tier | Source |
 | --- | --- | --- | --- | --- |

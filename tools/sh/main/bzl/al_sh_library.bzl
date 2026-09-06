@@ -5,7 +5,7 @@ load("@rules_shell//shell:sh_test.bzl", "sh_test")
 def al_sh_library(
         name,
         shfmt_src = "//tools/shfmt",
-        editorconfig_src = "//:editorconfig",
+        editorconfig_src = "//tools/shfmt:editorconfig",
         shellcheck_src = "//tools/shellcheck",
         run_args_src = "//tools/sh/main/sh:run_args_lib",
         visibility = ["//:__subpackages__"],

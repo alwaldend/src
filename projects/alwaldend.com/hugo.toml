@@ -42,6 +42,7 @@ separate_page_tags = ["Bzl-Targets", "Changelog"]
 showLightDarkModeMenu = true
 sidebar_menu_compact = true
 sidebar_menu_foldable = true
+sidebar_menu_truncate = 200
 
 [params.drawio]
 enable = true

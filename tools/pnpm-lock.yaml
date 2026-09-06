@@ -6,9 +6,7 @@ settings:
 
 importers:
 
-  .: {}
-
-  tools:
+  .:
     devDependencies:
       '@mermaid-js/mermaid-cli':
         specifier: 11.16.0

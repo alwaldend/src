@@ -25,7 +25,7 @@ al_config(
     name = "al",
     srcs = ["al.lua"],
     visibility = ["//projects/alwaldend.com:__subpackages__"],
-    deps = ["//:al"],
+    deps = ["//tools/al:config"],
 )
 
 go_library(
@@ -134,8 +134,8 @@ al_pkg_rename_files(
 pkg_filegroup(
     name = "site_source_filegroup",
     srcs = [
+        ":repo_docs",
         ":site_config",
-        "//:docs",
         "//projects/alwaldend.com/assets",
         "//projects/alwaldend.com/content:docs",
         "//projects/alwaldend.com/data",
@@ -203,4 +203,28 @@ pkg_files(
 al_toml_data(
     name = "site_config_src",
     srcs = ["hugo.toml"],
+)
+
+# Preserve the repository documentation tree while keeping root package loading
+# independent of the documentation rules.
+pkg_files(
+    name = "repo_docs_empty",
+    srcs = [],
+    prefix = "content/docs/",
+    visibility = ["//:__pkg__"],
+)
+
+docs_filegroup(
+    name = "repo_docs",
+    srcs = [],
+    prefix = "content/docs/",
+    visibility = ["//:__pkg__"],
+    deps = [
+        "//data:docs",
+        "//infra:docs",
+        "//projects:docs",
+        "//third_party:docs",
+        "//tools:docs",
+        "//users:docs",
+    ],
 )

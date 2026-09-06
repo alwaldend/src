@@ -1,46 +1,52 @@
-load("@com_alwaldend_src_npm//:defs.bzl", "npm_link_all_packages")
-load("@com_alwaldend_src_pip//:requirements.bzl", "all_whl_requirements")
-load("@gazelle//:def.bzl", "DEFAULT_LANGUAGES", "gazelle", "gazelle_binary")
-load("@hedron_compile_commands//:refresh_compile_commands.bzl", "refresh_compile_commands")
-load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_python//python:pip.bzl", "compile_pip_requirements")
-load("@rules_python_gazelle_plugin//manifest:defs.bzl", "gazelle_python_manifest")
-load("@rules_python_gazelle_plugin//modules_mapping:def.bzl", "modules_mapping")
-load("@tools_com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier", "buildifier_test")
-load("//projects/al/rules/al:al_config.bzl", "al_config")
-load("//tools/terraform:defs.bzl", "terraform_binary_map")
-load("//tools/toml/main/bzl:al_toml_data.bzl", "al_toml_data")
-load("//tools/txt/main/bzl:al_txt_data.bzl", "al_txt_data")
-load("//tools/vault:defs.bzl", "vault_binary_map")
+# Keep this package free of load() statements. Common configuration labels
+# must not evaluate language dependency generators or repository tools.
 
 exports_files(
     [
         "AGENTS.md",
         "CODEOWNERS",
+        ".editorconfig",
         ".shellcheckrc",
+        "BUILD.bazel",
         "MODULE.bazel",
+        "al.lua",
+        "al_lib.lua",
+        "gazelle_python.yaml",
         "pyproject.toml",
+        "requirements.txt",
     ],
     visibility = ["//visibility:public"],
 )
 
-terraform_binary_map(
-    name = "tf",
-    configs = [":al"],
-)
-
-vault_binary_map(
-    name = "vault",
-    configs = [":al"],
-)
-
-al_config(
-    name = "al",
-    srcs = ["al.lua"],
-    data = [
-        "al_lib.lua",
-        "//data/ssl/alwaldend.com:ica_servers",
+package_group(
+    name = "repository_docs_consumers",
+    packages = [
+        "//",
+        "//projects/alwaldend.com",
     ],
+)
+
+alias(
+    name = "node_modules",
+    actual = "//tools:node_modules",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "node_modules/autoprefixer",
+    actual = "//tools:node_modules/autoprefixer",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "node_modules/postcss-cli",
+    actual = "//tools:node_modules/postcss-cli",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "al",
+    actual = "//tools/al:config",
     visibility = ["//:__subpackages__"],
 )
 
@@ -59,72 +65,221 @@ alias(
     actual = "//tools/repo_quality:check",
 )
 
+alias(
+    name = "docs",
+    actual = "//projects/alwaldend.com:repo_docs",
+    visibility = ["//projects/alwaldend.com:__pkg__"],
+)
+
+alias(
+    name = "docs.files",
+    actual = "//projects/alwaldend.com:repo_docs_empty",
+)
+
+alias(
+    name = "gazelle",
+    actual = "//tools/gazelle:gazelle",
+    tags = ["manual"],
+)
+
+alias(
+    name = "gazelle_bin",
+    actual = "//tools/gazelle:gazelle_bin",
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "gazelle_python_manifest",
+    actual = "//tools/gazelle:gazelle_python_manifest",
+    tags = ["manual"],
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "modules_map",
+    actual = "//tools/gazelle:modules_map",
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "requirements",
+    actual = "//tools/py:requirements",
+)
+
+alias(
+    name = "editorconfig",
+    actual = "//tools/shfmt:editorconfig",
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "pyproject",
+    actual = "//tools/py:pyproject",
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "buildifier",
+    actual = "//tools/buildifier:workspace",
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+)
+
+test_suite(
+    name = "buildifier_test",
+    tests = ["//tools/buildifier:workspace_test"],
+)
+
+alias(
+    name = "refresh_compile_commands",
+    actual = "//tools/cc:refresh_compile_commands",
+)
+
+alias(
+    name = "requirements.update",
+    actual = "//tools/py:requirements.update",
+)
+
+test_suite(
+    name = "requirements.test",
+    tests = ["//tools/py:requirements.test"],
+)
+
+alias(
+    name = "gazelle_python_manifest.update",
+    actual = "//tools/gazelle:gazelle_python_manifest.update",
+    tags = ["manual"],
+)
+
+test_suite(
+    name = "gazelle_python_manifest.test",
+    tests = ["//tools/gazelle:gazelle_python_manifest.test"],
+)
+
+test_suite(
+    name = "requirements_test",
+    tags = ["manual"],
+    tests = ["//tools/py:requirements.test"],
+)
+
+alias(
+    name = "tf.direct",
+    actual = "//tools/terraform/cmd/workspace:tf.direct",
+)
+
+alias(
+    name = "tf.init",
+    actual = "//tools/terraform/cmd/workspace:tf.init",
+)
+
+alias(
+    name = "tf.migrate",
+    actual = "//tools/terraform/cmd/workspace:tf.migrate",
+)
+
+alias(
+    name = "tf.fmt",
+    actual = "//tools/terraform/cmd/workspace:tf.fmt",
+)
+
+alias(
+    name = "tf.fmt_check",
+    actual = "//tools/terraform/cmd/workspace:tf.fmt_check",
+)
+
+alias(
+    name = "tf.plan",
+    actual = "//tools/terraform/cmd/workspace:tf.plan",
+)
+
+alias(
+    name = "tf.output",
+    actual = "//tools/terraform/cmd/workspace:tf.output",
+)
+
+alias(
+    name = "tf.import",
+    actual = "//tools/terraform/cmd/workspace:tf.import",
+)
+
+alias(
+    name = "tf.destroy",
+    actual = "//tools/terraform/cmd/workspace:tf.destroy",
+)
+
+alias(
+    name = "tf.apply",
+    actual = "//tools/terraform/cmd/workspace:tf.apply",
+)
+
+alias(
+    name = "tf.show",
+    actual = "//tools/terraform/cmd/workspace:tf.show",
+)
+
+alias(
+    name = "tf.deploy",
+    actual = "//tools/terraform/cmd/workspace:tf.deploy",
+)
+
+alias(
+    name = "tf.deploy_y",
+    actual = "//tools/terraform/cmd/workspace:tf.deploy_y",
+)
+
+alias(
+    name = "tf.state",
+    actual = "//tools/terraform/cmd/workspace:tf.state",
+)
+
+alias(
+    name = "tf.force_unlock",
+    actual = "//tools/terraform/cmd/workspace:tf.force_unlock",
+)
+
+alias(
+    name = "vault",
+    actual = "//tools/vault/cmd/workspace:vault",
+)
+
+alias(
+    name = "vault.kv_get",
+    actual = "//tools/vault/cmd/workspace:vault.kv_get",
+)
+
+alias(
+    name = "vault.kv_put",
+    actual = "//tools/vault/cmd/workspace:vault.kv_put",
+)
+
+alias(
+    name = "vault.kv_patch",
+    actual = "//tools/vault/cmd/workspace:vault.kv_patch",
+)
+
+alias(
+    name = "vault.kv_delete",
+    actual = "//tools/vault/cmd/workspace:vault.kv_delete",
+)
+
+alias(
+    name = "vault.login",
+    actual = "//tools/vault/cmd/workspace:vault.login",
+)
+
+alias(
+    name = "vault.token_lookup",
+    actual = "//tools/vault/cmd/workspace:vault.token_lookup",
+)
+
+alias(
+    name = "vault.status",
+    actual = "//tools/vault/cmd/workspace:vault.status",
+)
+
 test_suite(
     name = "repo_quality_test",
     tests = ["//tools/repo_quality:repo_quality_test_public"],
-)
-
-docs_filegroup(
-    name = "docs",
-    srcs = [],
-    visibility = ["//projects/alwaldend.com:__pkg__"],
-    deps = subpackages(
-        include = ["*"],
-        exclude = ["bazel-*"],
-    ),
-)
-
-npm_link_all_packages(
-    name = "node_modules",
-)
-
-gazelle_python_manifest(
-    name = "gazelle_python_manifest",
-    modules_mapping = ":modules_map",
-    pip_repository_name = "com_alwaldend_src_pip",
-    requirements = "//:requirements.txt",
-    visibility = ["//:__subpackages__"],
-)
-
-modules_mapping(
-    name = "modules_map",
-    include_stub_packages = True,
-    wheels = all_whl_requirements,
-)
-
-compile_pip_requirements(
-    name = "requirements",
-    size = "large",
-    timeout = "long",
-    srcs = [":pyproject"],
-    extra_args = ["--no-strip-extras"],
-    requirements_txt = ":requirements.txt",
-)
-
-al_txt_data(
-    name = "editorconfig",
-    srcs = [".editorconfig"],
-    visibility = ["//:__subpackages__"],
-)
-
-al_toml_data(
-    name = "pyproject",
-    srcs = ["pyproject.toml"],
-    visibility = ["//:__subpackages__"],
-)
-
-buildifier(
-    name = "buildifier",
-    exclude_patterns = ["./out/*"],
-    visibility = ["//:__subpackages__"],
-)
-
-buildifier_test(
-    name = "buildifier_test",
-    size = "small",
-    exclude_patterns = ["./out/*"],
-    no_sandbox = True,
-    workspace = "//:BUILD.bazel",
 )
 
 # gazelle:python_generate_proto true
@@ -142,27 +297,14 @@ buildifier_test(
 # gazelle:exclude **/mod_tidy_fix.go
 # gazelle:exclude **/go_mod_tidy_fix.go
 
-gazelle(
-    name = "gazelle",
-    command = "fix",
-    gazelle = ":gazelle_bin",
+alias(
+    name = "node_modules/autoprefixer/dir",
+    actual = "//tools:node_modules/autoprefixer/dir",
+    visibility = ["//visibility:public"],
 )
 
-gazelle_binary(
-    name = "gazelle_bin",
-    languages = DEFAULT_LANGUAGES + [
-        "@contrib_rules_jvm//java/gazelle",
-        "@rules_docs_gazelle//gazelle",
-        "@rules_promptfoo_gazelle//gazelle",
-        "@rules_python_gazelle_plugin//python:python",
-        "@rules_skill_gazelle//gazelle",
-    ],
-    visibility = ["//:__subpackages__"],
-)
-
-refresh_compile_commands(
-    name = "refresh_compile_commands",
-    targets = {
-        "//projects/sri/main/c/...": "",
-    },
+alias(
+    name = "node_modules/postcss-cli/dir",
+    actual = "//tools:node_modules/postcss-cli/dir",
+    visibility = ["//visibility:public"],
 )

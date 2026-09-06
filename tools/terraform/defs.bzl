@@ -6,6 +6,7 @@ def terraform_binary(
         terraform = "//tools/terraform",
         terraform_runner = "//tools/terraform/runner",
         is_test = False,
+        chdir = None,
         **kwargs):
     """
     Create a binary for terraform commands
@@ -19,7 +20,7 @@ def terraform_binary(
             "--terraform",
             "$(rootpath {})".format(terraform),
             "--chdir",
-            native.package_name() or ".",
+            (native.package_name() or ".") if chdir == None else chdir,
         ] + args,
         data = data + [terraform, terraform_runner],
         **kwargs

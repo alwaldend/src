@@ -24,12 +24,12 @@ npm.npm_translate_lock(
         "postcss-cli": ["postcss=./index.js"],
     },
     data = [
-        "//:pnpm-workspace.yaml",
+        "//tools:pnpm-workspace.yaml",
     ],
-    pnpm_lock = "//:pnpm-lock.yaml",
+    pnpm_lock = "//tools:pnpm-lock.yaml",
     public_hoist_packages = {
-        "autoprefixer": [""],
-        "postcss-cli": [""],
+        "autoprefixer": ["tools"],
+        "postcss-cli": ["tools"],
     },
     run_lifecycle_hooks = False,
     verify_node_modules_ignored = "//:.bazelignore",

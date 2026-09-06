@@ -59,13 +59,13 @@ al_config(
     name = "al",
     data = ["al_lib.lua"],
     visibility = ["//:__subpackages__"],
-    deps = ["//:al"],
+    deps = ["//tools/al:config"],
 )
 
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
-    visibility = ["//:__pkg__"],
+    visibility = ["//:repository_docs_consumers"],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,

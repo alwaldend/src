@@ -24,6 +24,19 @@ tags:
 
 ## Usage
 
+The root workspace declares the pinned firmware with `use_repo_rule` in
+`include.MODULE.bazel`, preserving recursive Git submodules and the CMake
+toolchain patch. Firmware source is fetched when referenced, rather than
+during module resolution. Its Python/npm lockfiles and SDK archives retain
+the upstream pins; Python and Node runtimes use the root workspace toolchains.
+The project re-exports pip and npm with separate extension identities so
+unrelated Python/npm targets do not fetch firmware to read those lockfiles.
+The isolated pip extension declares the Linux x86_64 host platform used by
+the pinned ARM compiler archive.
+`bazel mod deps` deliberately evaluates all extensions and can still fetch it.
+
+Validate the firmware with `bazel test //projects/infinitime:build_test`.
+
 - Install [Gadgetbridge](https://gadgetbridge.org/)
 - Download the firmware:
   ```sh

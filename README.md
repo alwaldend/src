@@ -51,6 +51,26 @@ Each linked tree README is authoritative for that tree. Bazel `BUILD` and
 structure; generated maps and catalogs are projections, not new sources of
 truth.
 
+## Bazel package loading
+
+The root `MODULE.bazel` is generated with `bazel run //tools/bazel_module:update`.
+Maintain dependency pins in their owning `include.MODULE.bazel` files; the
+generator discovers them and the repository quality suite checks freshness.
+See [root module generation](tools/bazel_module/README.md) for discovery and
+ordering boundaries.
+
+The root `BUILD.bazel` contains source exports, compatibility aliases, test
+suites, and repository-wide Gazelle directives. Tool implementations live in
+their owning packages so loading a root configuration file does not evaluate
+unrelated language dependency generators.
+`//tools/repo_quality/test/root_build:root_build_test`, included in
+`//:repo_quality_test`, enforces the absence of `load()` statements.
+
+Existing commands such as `//:gazelle`, `//:buildifier`, `//:requirements.update`,
+`//:vault`, and `//:tf.plan` remain available. Shared AL configuration is owned
+by `//tools/al:config`; repository documentation is assembled by
+`//projects/alwaldend.com:repo_docs`.
+
 ## External links
 
 - Homepage: https://alwaldend.com/
