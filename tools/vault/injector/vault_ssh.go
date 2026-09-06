@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"os/exec"
@@ -34,10 +35,10 @@ func (self *VaultSshFetcher) String() string {
 }
 
 // Create an ssh key and sign it
-func (self *VaultSshFetcher) Get(ctx context.Context, r *injector_proto.Resource, d []*ResourceResult) (*ResourceResult, error) {
+func (self *VaultSshFetcher) Get(ctx context.Context, r *injector_proto.Resource, d []*ResourceResult) (result *ResourceResult, resultErr error) {
 	client, err := fp.Get(self.vault.Client(ctx, r.VaultConn, r.VaultAuth))
 	if err != nil {
-		return nil, fmt.Errorf("could not create vault client: %w", err)
+		return nil, fmt.Errorf("could not create vault client: %w", al.SanitizeVaultError(err))
 	}
 	ssh := r.GetVaultSsh()
 	if ssh == nil {
@@ -48,18 +49,25 @@ func (self *VaultSshFetcher) Get(ctx context.Context, r *injector_proto.Resource
 	}
 	dir, err := os.MkdirTemp("", fmt.Sprintf("%s_*", self.String()))
 	if err != nil {
-		return nil, fmt.Errorf("could not create a temporary directory: %w", err)
+		return nil, fmt.Errorf("could not create a temporary directory: %w", al.SanitizeVaultError(err))
 	}
-	self.cleaner.Add(dir)
+	successful := false
+	defer func() {
+		if !successful {
+			resultErr = errors.Join(resultErr, os.RemoveAll(dir))
+		}
+	}()
+
 	privateKey := filepath.Join(dir, "private_key")
 	passphrase := uuid.New().String()
 	publicKey := fmt.Sprintf("%s.pub", privateKey)
 	publicKeySigned := fmt.Sprintf("%s.pub", privateKey)
 	passphraseScript := fmt.Sprintf("%s.sh", privateKey)
 	if err := os.WriteFile(passphraseScript, []byte(fmt.Sprintf("#!/usr/bin/env sh\necho '%s'", passphrase)), 0o700); err != nil {
-		return nil, fmt.Errorf("could not write the passphrase script: %w", err)
+		return nil, fmt.Errorf("could not write the passphrase script: %w", al.SanitizeVaultError(err))
 	}
-	cmd := exec.Command(
+	cmd := exec.CommandContext(
+		ctx,
 		"ssh-keygen",
 		"-t",
 		"Ed25519",
@@ -74,11 +82,11 @@ func (self *VaultSshFetcher) Get(ctx context.Context, r *injector_proto.Resource
 	cmd.Stdout = self.ctx.Stderr
 	cmd.Stdin = self.ctx.Stdin
 	if err := cmd.Run(); err != nil {
-		return nil, fmt.Errorf("could not generate a key: %w", err)
+		return nil, fmt.Errorf("could not generate a key: %w", al.SanitizeVaultError(err))
 	}
 	publicKeyContent, err := os.ReadFile(publicKey)
 	if err != nil {
-		return nil, fmt.Errorf("could not read the generated public key: %w", err)
+		return nil, fmt.Errorf("could not read the generated public key: %w", al.SanitizeVaultError(err))
 	}
 	data := map[string]any{
 		"public_key": fmt.Sprintf("%s\n", publicKeyContent),
@@ -86,20 +94,23 @@ func (self *VaultSshFetcher) Get(ctx context.Context, r *injector_proto.Resource
 	if ssh.Ttl != 0 {
 		data["ttl"] = ssh.Ttl
 	}
-	resp, err := client.Client.Logical().Write(ssh.Backend, data)
+	resp, err := client.Client.Logical().WriteWithContext(ctx, ssh.Backend, data)
 	if err != nil {
-		return nil, fmt.Errorf("could not sign the key: %w", err)
+		return nil, fmt.Errorf("could not sign the key: %w", al.SanitizeVaultError(err))
+	}
+	if resp == nil {
+		return nil, fmt.Errorf("empty signing response")
 	}
 	publicKeySignedAny, ok := resp.Data["signed_key"]
 	if !ok {
-		return nil, fmt.Errorf("vault response is missing the signed key: %s", resp.Data)
+		return nil, fmt.Errorf("vault response is missing the signed key")
 	}
 	publicKeySignedContent, ok := publicKeySignedAny.(string)
 	if !ok {
-		return nil, fmt.Errorf("signed public key is not a string: %s", publicKeySignedAny)
+		return nil, fmt.Errorf("signed public key is not a string")
 	}
 	if err := os.WriteFile(publicKeySigned, []byte(publicKeySignedContent), 0o600); err != nil {
-		return nil, fmt.Errorf("could not write signed public key to file: %w", err)
+		return nil, fmt.Errorf("could not write signed public key to file: %w", al.SanitizeVaultError(err))
 	}
 	res := &ResourceResult{
 		Name: r.Name,
@@ -111,5 +122,9 @@ func (self *VaultSshFetcher) Get(ctx context.Context, r *injector_proto.Resource
 			"public_key_signed": publicKeySigned,
 		},
 	}
+	if err := self.cleaner.Add(dir); err != nil {
+		return nil, err
+	}
+	successful = true
 	return res, nil
 }

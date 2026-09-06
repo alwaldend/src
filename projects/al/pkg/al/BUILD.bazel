@@ -1,4 +1,17 @@
-load("@rules_go//go:def.bzl", "go_library")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_test(
+    name = "al_test",
+    srcs = [
+        "config_test.go",
+        "vault_test.go",
+    ],
+    embed = [":al"],
+    deps = [
+        "//projects/al/api/al_proto",
+        "@com_github_hashicorp_vault_api//:api",
+    ],
+)
 
 go_library(
     name = "al",

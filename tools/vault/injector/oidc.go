@@ -13,7 +13,8 @@ import (
 )
 
 type OidcFetcher struct {
-	vault *al.VaultStore
+	vault      *al.VaultStore
+	httpClient *http.Client
 }
 
 func NewOidcFetcher(vault *al.VaultStore) *OidcFetcher {
@@ -33,8 +34,15 @@ func (self *OidcFetcher) Get(ctx context.Context, r *injector_proto.Resource, d 
 	}
 	client, err := self.vault.Client(ctx, r.VaultConn, r.VaultAuth).Get()
 	if err != nil {
-		return nil, fmt.Errorf("could not create vault client: %w", err)
+		return nil, fmt.Errorf("could not create vault client: %w", al.SanitizeVaultError(err))
 	}
+	transport := self.httpClient
+	if transport == nil {
+		transport = client.Client.CloneConfig().HttpClient
+	}
+	httpClient := *transport
+	// Never forward the bearer token or token request body through redirects.
+	httpClient.CheckRedirect = func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }
 	data := map[string]any{
 		"scope":         config.Scope,
 		"response_type": "code",
@@ -43,37 +51,41 @@ func (self *OidcFetcher) Get(ctx context.Context, r *injector_proto.Resource, d 
 	}
 	reqBody, err := json.Marshal(data)
 	if err != nil {
-		return nil, fmt.Errorf("could not marshal data: %w", err)
+		return nil, fmt.Errorf("could not marshal data: %w", al.SanitizeVaultError(err))
 	}
 	token := client.Client.Token()
-	req, err := http.NewRequest(
+	req, err := http.NewRequestWithContext(
+		ctx,
 		http.MethodPost,
 		fmt.Sprintf("%s/v1/identity/oidc/provider/%s/authorize", client.Client.Address(), config.Name),
 		bytes.NewBuffer(reqBody),
 	)
 	if err != nil {
-		return nil, fmt.Errorf("could not create authorization request: %w", err)
+		return nil, fmt.Errorf("could not create authorization request: %w", al.SanitizeVaultError(err))
 	}
 	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := httpClient.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("could not execute the authorization request: %w", err)
+		return nil, fmt.Errorf("could not execute the authorization request: %w", al.SanitizeVaultError(err))
 	}
 	defer resp.Body.Close()
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, fmt.Errorf("could not read the body: %w", err)
+		return nil, fmt.Errorf("could not read the body: %w", al.SanitizeVaultError(err))
 	}
 	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("invalid authorization request response code: %s: %s", resp.Status, string(body))
+		return nil, fmt.Errorf("invalid authorization request response code: %d", resp.StatusCode)
 	}
 	oidc := &al.VaultOidc{}
 	if err = json.Unmarshal(body, oidc); err != nil {
-		return nil, fmt.Errorf("could not unmarshal response body: %w", err)
+		return nil, fmt.Errorf("could not unmarshal response body: %w", al.SanitizeVaultError(err))
 	}
-	clientResp, err := client.Client.Logical().Read(fmt.Sprintf("identity/oidc/client/%s", config.Name))
+	clientResp, err := client.Client.Logical().ReadWithContext(ctx, fmt.Sprintf("identity/oidc/client/%s", config.Name))
 	if err != nil {
-		return nil, fmt.Errorf("could not get oidc client info: %w", err)
+		return nil, fmt.Errorf("could not get oidc client info: %w", al.SanitizeVaultError(err))
+	}
+	if clientResp == nil {
+		return nil, fmt.Errorf("missing oidc client info")
 	}
 	clientSecret, ok := clientResp.Data["client_secret"]
 	if !ok {
@@ -88,34 +100,35 @@ func (self *OidcFetcher) Get(ctx context.Context, r *injector_proto.Resource, d 
 	}
 	tokenBody, err := json.Marshal(tokenData)
 	if err != nil {
-		return nil, fmt.Errorf("could not marshal token data: %w", err)
+		return nil, fmt.Errorf("could not marshal token data: %w", al.SanitizeVaultError(err))
 	}
-	tokenReq, err := http.NewRequest(
+	tokenReq, err := http.NewRequestWithContext(
+		ctx,
 		http.MethodPost,
 		fmt.Sprintf("%s/v1/identity/oidc/provider/%s/token", client.Client.Address(), config.Name),
 		bytes.NewBuffer(tokenBody),
 	)
 	if err != nil {
-		return nil, fmt.Errorf("could not create token request: %w", err)
+		return nil, fmt.Errorf("could not create token request: %w", al.SanitizeVaultError(err))
 	}
 	tokenReq.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
-	tokenResp, err := http.DefaultClient.Do(tokenReq)
+	tokenResp, err := httpClient.Do(tokenReq)
 	if err != nil {
-		return nil, fmt.Errorf("could not execute the token request: %w", err)
+		return nil, fmt.Errorf("could not execute the token request: %w", al.SanitizeVaultError(err))
 	}
-	defer tokenReq.Body.Close()
+	defer tokenResp.Body.Close()
 	tokenRespBody, err := io.ReadAll(tokenResp.Body)
 	if err != nil {
-		return nil, fmt.Errorf("could not read the token response body: %w", err)
+		return nil, fmt.Errorf("could not read the token response body: %w", al.SanitizeVaultError(err))
 	}
 	if tokenResp.StatusCode != 200 {
-		return nil, fmt.Errorf("invalid token request response code: %s: %s", tokenResp.Status, string(tokenRespBody))
+		return nil, fmt.Errorf("invalid token request response code: %d", tokenResp.StatusCode)
 	}
 	tokenRespData := &struct {
 		IdToken string `json:"id_token"`
 	}{}
 	if err = json.Unmarshal(tokenRespBody, tokenRespData); err != nil {
-		return nil, fmt.Errorf("could not unmarshal token response body: %w", err)
+		return nil, fmt.Errorf("could not unmarshal token response body: %w", al.SanitizeVaultError(err))
 	}
 	res := &ResourceResult{
 		Name: r.Name,

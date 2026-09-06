@@ -35,11 +35,11 @@ func (self *SecretFetcher) Get(ctx context.Context, r *injector_proto.Resource, 
 	}
 	client, err := self.vault.Client(ctx, r.VaultConn, r.VaultAuth).Get()
 	if err != nil {
-		return nil, fmt.Errorf("could not get a client for the secret: %w", err)
+		return nil, fmt.Errorf("could not get a client for the secret: %w", al.SanitizeVaultError(err))
 	}
 	data, err := client.Client.KVv2(secret.Mount).Get(ctx, secret.Path)
 	if err != nil {
-		return nil, fmt.Errorf("could not fetch secret: %w", err)
+		return nil, fmt.Errorf("could not fetch secret: %w", al.SanitizeVaultError(err))
 	}
 	res := &ResourceResult{
 		Name: r.Name,

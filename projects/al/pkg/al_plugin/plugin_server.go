@@ -2,8 +2,10 @@ package al_plugin
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"runtime/debug"
+	"time"
 
 	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
 	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
@@ -11,20 +13,17 @@ import (
 )
 
 func grpcRecover(rec any) error {
-	var err error
-	switch recTyped := rec.(type) {
-	case error:
-		err = recTyped
-	case nil:
+	if rec == nil {
 		return nil
 	}
-	return fmt.Errorf("panic: %s\n%s: %w", rec, string(debug.Stack()), err)
+	return fmt.Errorf("plugin panic (%T)\n%s", rec, debug.Stack())
 }
 
 type PluginServer struct {
-	server *grpc.Server
-	res    chan error
-	ctx    *al.CmdCtx
+	server  *grpc.Server
+	res     chan error
+	ctx     *al.CmdCtx
+	started bool
 }
 
 func streamInterceptor(srv any, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) (err error) {
@@ -47,6 +46,7 @@ func unaryInterceptor(ctx context.Context, req any, info *grpc.UnaryServerInfo, 
 
 func NewPluginServer(ctx *al.CmdCtx, plugin al_proto.PluginServiceServer) *PluginServer {
 	server := grpc.NewServer(
+		grpc.WaitForHandlers(true),
 		grpc.StreamInterceptor(streamInterceptor),
 		grpc.UnaryInterceptor(unaryInterceptor),
 	)
@@ -61,11 +61,25 @@ func NewPluginServer(ctx *al.CmdCtx, plugin al_proto.PluginServiceServer) *Plugi
 
 func (self *PluginServer) Stop(ctx context.Context) error {
 	self.ctx.Logger.Printf("stopping plugin server")
-	self.server.GracefulStop()
-	if err := <-self.res; err != nil {
-		return fmt.Errorf("serving error error: %w", err)
+	if !self.started {
+		return nil
 	}
-	return nil
+	stopCtx, cancel := context.WithTimeout(ctx, 5*time.Second)
+	defer cancel()
+	done := make(chan struct{})
+	go func() { self.server.GracefulStop(); close(done) }()
+	var stopErr error
+	select {
+	case <-done:
+	case <-stopCtx.Done():
+		stopErr = fmt.Errorf("plugin server drain deadline: %w", stopCtx.Err())
+		self.server.Stop()
+		<-done
+	}
+	if err := <-self.res; err != nil && !errors.Is(err, grpc.ErrServerStopped) {
+		return errors.Join(stopErr, err)
+	}
+	return stopErr
 }
 
 func (self *PluginServer) Start(_ context.Context) error {
@@ -74,9 +88,14 @@ func (self *PluginServer) Start(_ context.Context) error {
 	if err != nil {
 		return fmt.Errorf("could not create a listener: %w", err)
 	}
+	listener.onDisconnect = self.ctx.RequestShutdown
+	self.started = true
 	go func() {
 		err := self.server.Serve(listener)
 		if err != nil {
+			if self.ctx.RequestShutdown != nil {
+				self.ctx.RequestShutdown()
+			}
 			err = fmt.Errorf("could not serve: %w", err)
 		}
 		self.res <- err

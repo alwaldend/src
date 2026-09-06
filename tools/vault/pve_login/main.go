@@ -1,8 +1,10 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -40,87 +42,96 @@ type pveToken struct {
 	} `json:"data"`
 }
 
-func createOIDCRequest(config *pve_login_proto.Config) (*url.URL, error) {
-	req, err := http.NewRequest(
+func createOIDCRequest(ctx context.Context, config *pve_login_proto.Config) (*url.URL, error) {
+	req, err := http.NewRequestWithContext(
+		ctx,
 		http.MethodPost,
-		fmt.Sprintf("%s/api2/json/access/openid/auth-url?realm=%s&redirect-url=%s", config.PveBaseUrl, config.PveRealm, config.PveRedirectUrl),
+		fmt.Sprintf("%s/api2/json/access/openid/auth-url", config.PveBaseUrl),
 		strings.NewReader("{}"),
 	)
 	if err != nil {
-		return nil, fmt.Errorf("could not create request: %w", err)
+		return nil, fmt.Errorf("could not create request")
 	}
+	query := req.URL.Query()
+	query.Set("realm", config.PveRealm)
+	query.Set("redirect-url", config.PveRedirectUrl)
+	req.URL.RawQuery = query.Encode()
 	req.Header.Add("Content-Type", "application/json")
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := pveHTTPClient.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("could not execute request: %w", err)
+		return nil, fmt.Errorf("could not execute request: %w", safeHTTPError(err))
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("invalid status code: %s", resp.Status)
+		return nil, fmt.Errorf("invalid status code: %d", resp.StatusCode)
 	}
-	body, err := io.ReadAll(resp.Body)
+	body, err := io.ReadAll(io.LimitReader(resp.Body, 1<<20))
 	if err != nil {
 		return nil, fmt.Errorf("could not read response body: %w", err)
 	}
 	data := &oidcUrl{}
 	err = json.Unmarshal(body, data)
 	if err != nil {
-		return nil, fmt.Errorf("could not unmarshal response: %w", err)
+		return nil, fmt.Errorf("could not unmarshal response")
 	}
 	res, err := url.Parse(data.Data)
 	if err != nil {
-		return nil, fmt.Errorf("could not parse the url: %w", err)
+		return nil, fmt.Errorf("could not parse authorization URL")
 	}
 	return res, nil
 }
 
-func createProxmoxTicket(config *pve_login_proto.Config, oidc *al.VaultOidc) (*pveTicket, error) {
-	req, err := http.NewRequest(
+func createProxmoxTicket(ctx context.Context, config *pve_login_proto.Config, oidc *al.VaultOidc) (*pveTicket, error) {
+	body, err := json.Marshal(map[string]string{"state": oidc.State, "code": oidc.Code, "redirect-url": config.PveRedirectUrl})
+	if err != nil {
+		return nil, fmt.Errorf("could not encode ticket request")
+	}
+	req, err := http.NewRequestWithContext(
+		ctx,
 		http.MethodPost,
 		fmt.Sprintf("%s/api2/json/access/openid/login", config.PveBaseUrl),
-		strings.NewReader("{}"),
+		bytes.NewReader(body),
 	)
 	if err != nil {
-		return nil, fmt.Errorf("could not create request: %w", err)
+		return nil, fmt.Errorf("could not create request")
 	}
-	query := req.URL.Query()
-	query.Add("state", oidc.State)
-	query.Add("code", oidc.Code)
-	query.Add("redirect-url", config.PveRedirectUrl)
-	req.URL.RawQuery = query.Encode()
 	req.Header.Add("Content-Type", "application/json")
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := pveHTTPClient.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("could not execute the request: %w", err)
+		return nil, fmt.Errorf("could not execute the request: %w", safeHTTPError(err))
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("invalid response code: %s", resp.Status)
+		return nil, fmt.Errorf("invalid response code: %d", resp.StatusCode)
 	}
-	body, err := io.ReadAll(resp.Body)
+	body, err = io.ReadAll(io.LimitReader(resp.Body, 1<<20))
 	if err != nil {
 		return nil, fmt.Errorf("could not read response body: %w", err)
 	}
 	res := &pveTicket{}
 	if err := json.Unmarshal(body, res); err != nil {
-		return nil, fmt.Errorf("could not unmarshel response body: %w", err)
+		return nil, fmt.Errorf("could not unmarshal response body")
+	}
+	if res.Data.Username == "" || res.Data.Ticket == "" || res.Data.CSRFPreventionToken == "" {
+		return nil, fmt.Errorf("incomplete Proxmox ticket response")
 	}
 	return res, nil
 }
 
-func createProxmoxToken(config *pve_login_proto.Config, pveTicket *pveTicket) (*pveToken, error) {
-	req, err := http.NewRequest(
+func createProxmoxToken(ctx context.Context, config *pve_login_proto.Config, pveTicket *pveTicket, name string) (*pveToken, error) {
+	req, err := http.NewRequestWithContext(
+		ctx,
 		http.MethodPost,
 		fmt.Sprintf(
 			"%s/api2/json/access/users/%s/token/%s",
 			config.PveBaseUrl,
-			pveTicket.Data.Username,
-			fmt.Sprintf("tools-vault-pve-login-%s", uuid.New().String()),
+			url.PathEscape(pveTicket.Data.Username),
+			name,
 		),
 		strings.NewReader("{}"),
 	)
 	if err != nil {
-		return nil, fmt.Errorf("could not create request: %w", err)
+		return nil, fmt.Errorf("could not create request")
 	}
 	query := req.URL.Query()
 	query.Add("comment", "Automatically created by //tools/vault/pve_login")
@@ -128,53 +139,108 @@ func createProxmoxToken(config *pve_login_proto.Config, pveTicket *pveTicket) (*
 	query.Add("privsep", "0")
 	req.URL.RawQuery = query.Encode()
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("CSRFPreventionToken", pveTicket.Data.CSRFPreventionToken)
 	req.AddCookie(&http.Cookie{Name: "PVEAuthCookie", Value: pveTicket.Data.Ticket})
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := pveHTTPClient.Do(req)
 	if err != nil {
-		return nil, fmt.Errorf("could not execute the request: %w", err)
+		return nil, fmt.Errorf("could not execute the request: %w", safeHTTPError(err))
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("invalid response code: %s", resp.Status)
+		return nil, fmt.Errorf("invalid response code: %d", resp.StatusCode)
 	}
-	body, err := io.ReadAll(resp.Body)
+	body, err := io.ReadAll(io.LimitReader(resp.Body, 1<<20))
 	if err != nil {
 		return nil, fmt.Errorf("could not read response body: %w", err)
 	}
 	res := &pveToken{}
 	if err := json.Unmarshal(body, res); err != nil {
-		return nil, fmt.Errorf("could not unmarshal response body: %w", err)
+		return nil, fmt.Errorf("could not unmarshal response body")
+	}
+	if res.Data.TokenId != pveTicket.Data.Username+"!"+name || res.Data.TokenSecret == "" {
+		return nil, fmt.Errorf("incomplete or mismatched Proxmox token response")
 	}
 	return res, nil
 }
 
-type Plugin struct{}
+var pveHTTPClient = &http.Client{
+	Timeout:       30 * time.Second,
+	CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse },
+}
 
-func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (*al_proto.PluginStartResponse, error) {
+func safeHTTPError(err error) error {
+	var urlErr *url.Error
+	if errors.As(err, &urlErr) {
+		return urlErr.Err
+	}
+	return err
+}
+
+func deleteProxmoxToken(ctx context.Context, config *pve_login_proto.Config, ticket *pveTicket, name string) error {
+	req, err := http.NewRequestWithContext(ctx, http.MethodDelete,
+		fmt.Sprintf("%s/api2/json/access/users/%s/token/%s", config.PveBaseUrl, url.PathEscape(ticket.Data.Username), url.PathEscape(name)), nil)
+	if err != nil {
+		return fmt.Errorf("could not create token deletion request")
+	}
+	req.Header.Set("CSRFPreventionToken", ticket.Data.CSRFPreventionToken)
+	req.AddCookie(&http.Cookie{Name: "PVEAuthCookie", Value: ticket.Data.Ticket})
+	resp, err := pveHTTPClient.Do(req)
+	if err != nil {
+		return fmt.Errorf("could not delete Proxmox token: %w", safeHTTPError(err))
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("Proxmox token deletion returned HTTP %d", resp.StatusCode)
+	}
+	return nil
+}
+
+type Plugin struct{ lc lifecycle.Manager }
+
+func (self *Plugin) Start(ctx context.Context) error { return self.lc.Start(ctx) }
+func (self *Plugin) Stop(ctx context.Context) error  { return self.lc.Stop(ctx) }
+
+func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (_ *al_proto.PluginStartResponse, retErr error) {
+	defer func() {
+		if retErr != nil {
+			cleanupCtx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+			defer cancel()
+			retErr = errors.Join(retErr, self.Stop(cleanupCtx))
+		}
+	}()
 	config := &pve_login_proto.Config{}
 	if _, err := al.FromPbJsonToPb(req.Plugin.Data, config).Get(); err != nil {
-		return nil, fmt.Errorf("could not parse plugin data: %w", err)
+		return nil, fmt.Errorf("could not parse plugin data")
 	}
 	vault := al.NewVault(req.Config)
+	if err := self.lc.AddState(lifecycle.StateStarted, vault); err != nil {
+		return nil, fmt.Errorf("could not register Vault cleanup: %w", err)
+	}
 	client, err := vault.Client(ctx, config.VaultConn, config.VaultAuth).Get()
 	if err != nil {
 		return nil, fmt.Errorf("could not create the vault client: %w", err)
 	}
-	oidcUrl, err := createOIDCRequest(config)
+	oidcUrl, err := createOIDCRequest(ctx, config)
 	if err != nil {
 		return nil, fmt.Errorf("could not create OIDC request: %w", err)
 	}
-	vaultOidc, err := vault.OidcLogin(client.Client, oidcUrl)
+	vaultOidc, err := vault.OidcLoginContext(ctx, client.Client, oidcUrl)
 	if err != nil {
 		return nil, fmt.Errorf("could not login to OIDC provider: %w", err)
 	}
-	pveTicket, err := createProxmoxTicket(config, vaultOidc)
+	pveTicket, err := createProxmoxTicket(ctx, config, vaultOidc)
 	if err != nil {
 		return nil, fmt.Errorf("could not create PVE ticket: %w", err)
 	}
-	pveToken, err := createProxmoxToken(config, pveTicket)
+	name := fmt.Sprintf("tools-vault-pve-login-%s", uuid.New().String())
+	// Register by the locally generated name before issuing the creation request:
+	// even a lost or malformed response may have created the token.
+	if err := self.lc.AddState(lifecycle.StateStarted, lifecycle.StoppableFunc(func(ctx context.Context) error {
+		return deleteProxmoxToken(ctx, config, pveTicket, name)
+	})); err != nil {
+		return nil, fmt.Errorf("could not register token cleanup: %w", err)
+	}
+	pveToken, err := createProxmoxToken(ctx, config, pveTicket, name)
 	if err != nil {
 		return nil, fmt.Errorf("could not create proxmox token: %w", err)
 	}
@@ -193,8 +259,9 @@ func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRe
 
 func run(ctx *al.CmdCtx) error {
 	var lc lifecycle.Manager
-	server := al_plugin.NewPluginServer(ctx, &Plugin{})
-	lc.Add(server)
+	plugin := &Plugin{}
+	server := al_plugin.NewPluginServer(ctx, plugin)
+	lc.Add(plugin, server)
 	if err := lc.Run(ctx.Ctx, time.Second*10); err != nil {
 		return fmt.Errorf("could not run: %w", err)
 	}

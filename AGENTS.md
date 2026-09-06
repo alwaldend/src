@@ -153,9 +153,14 @@ Start verification with `git diff --check`, then the narrowest useful package
 checks under `repo-bazel`; run configured formatters and `//:buildifier_test`
 for BUILD/Starlark changes. Before completion, verify source and a
 representative output against the exact candidate. Command success alone is
-not acceptance. Do not overwrite or stage unrelated formatter changes; record
-baseline failures without waiving the delivery quality gate. Git hook
-installation is optional; required checks still apply.
+not acceptance. Formatting-only repairs needed to pass required checks are
+authorized within the current task, including pre-existing failures outside
+the task's original paths; no separate approval is needed. Use the configured
+formatter, inspect its diff, and include only the necessary formatting changes.
+Preserve unrelated edits and never include semantic changes under this
+exception. Record baseline failures and their repairs without waiving the
+delivery quality gate. Git hook installation is optional; required checks
+still apply.
 
 ## Public source and protected data
 

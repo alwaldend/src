@@ -68,6 +68,20 @@ go_test(
     ],
 )
 
+go_test(
+    name = "cleanup_test",
+    srcs = [
+        "cleanup_test.go",
+        "oidc_test.go",
+    ],
+    embed = [":injector_lib"],
+    deps = [
+        ":injector_proto",
+        "//projects/al/api/al_proto",
+        "//projects/al/pkg/al",
+    ],
+)
+
 native_binary(
     name = "vault_fixture",
     src = "//tools/vault",

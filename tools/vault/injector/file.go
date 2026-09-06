@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 
@@ -25,7 +26,7 @@ func (self *FileFetcher) String() string {
 	return "com.alwaldend.src.tools.vault.injector.FileFetcher"
 }
 
-func (self *FileFetcher) Get(ctx context.Context, r *injector_proto.Resource, d []*ResourceResult) (*ResourceResult, error) {
+func (self *FileFetcher) Get(ctx context.Context, r *injector_proto.Resource, d []*ResourceResult) (result *ResourceResult, resultErr error) {
 	value := ""
 	f := r.GetFile()
 	if r.GetFile() == nil {
@@ -55,15 +56,28 @@ func (self *FileFetcher) Get(ctx context.Context, r *injector_proto.Resource, d 
 	if err != nil {
 		return nil, fmt.Errorf("could not create temporary file: %w", err)
 	}
-	defer tmp.Close()
+	successful := false
+	defer func() {
+		if !successful {
+			if err := tmp.Close(); err != nil && !errors.Is(err, os.ErrClosed) {
+				resultErr = errors.Join(resultErr, err)
+			}
+			resultErr = errors.Join(resultErr, os.RemoveAll(tmp.Name()))
+		}
+	}()
 	res := &ResourceResult{
 		Name:  r.Name,
 		Files: []string{tmp.Name()},
 	}
 	if _, err = tmp.WriteString(content); err != nil {
-		defer os.RemoveAll(tmp.Name())
 		return nil, fmt.Errorf("could not write to the temp file: %w", err)
 	}
-	self.cleaner.Add(tmp.Name())
+	if err := tmp.Close(); err != nil {
+		return nil, fmt.Errorf("could not close temporary file: %w", err)
+	}
+	if err := self.cleaner.Add(tmp.Name()); err != nil {
+		return nil, err
+	}
+	successful = true
 	return res, nil
 }

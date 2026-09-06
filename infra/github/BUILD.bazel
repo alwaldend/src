@@ -8,6 +8,7 @@ al_config(
     visibility = ["//infra/github:__subpackages__"],
     deps = ["//infra:al"],
 )
+
 vault_binary_map(
     name = "vault",
     configs = [":al"],

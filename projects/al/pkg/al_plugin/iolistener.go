@@ -1,10 +1,13 @@
 package al_plugin
 
 import (
+	"errors"
 	"fmt"
 	"io"
 	"net"
+	"os"
 	"sync"
+	"sync/atomic"
 	"time"
 )
 
@@ -41,20 +44,29 @@ func (self *IOAddr) String() string {
 // Multiple goroutines may invoke methods on a Conn simultaneously.
 // https://pkg.go.dev/net#Conn
 type IOConn struct {
-	reader io.Reader
-	writer io.Writer
-	addr   *IOAddr
-	closed bool
+	reader         io.Reader
+	writer         io.Writer
+	addr           *IOAddr
+	closed         atomic.Bool
+	closeOnce      sync.Once
+	closeErr       error
+	onDisconnect   func()
+	disconnectOnce sync.Once
 }
 
 var _ net.Conn = (*IOConn)(nil)
 
 func NewIOConn(reader io.Reader, writer io.Writer, addr *IOAddr) (*IOConn, error) {
+	if _, ok := reader.(io.Closer); !ok {
+		return nil, errors.New("connection reader must be closable")
+	}
+	if _, ok := writer.(io.Closer); !ok {
+		return nil, errors.New("connection writer must be closable")
+	}
 	return &IOConn{
 		reader: reader,
 		writer: writer,
 		addr:   addr,
-		closed: false,
 	}, nil
 }
 
@@ -62,10 +74,13 @@ func NewIOConn(reader io.Reader, writer io.Writer, addr *IOAddr) (*IOConn, error
 // Read can be made to time out and return an error after a fixed
 // time limit; see SetDeadline and SetReadDeadline.
 func (self *IOConn) Read(b []byte) (n int, err error) {
-	if self.closed {
-		n, err = 0, fmt.Errorf("closed")
+	if self.closed.Load() {
+		n, err = 0, net.ErrClosed
 	} else {
 		n, err = self.reader.Read(b)
+		if err != nil && self.onDisconnect != nil {
+			self.disconnectOnce.Do(self.onDisconnect)
+		}
 	}
 	return
 }
@@ -74,8 +89,8 @@ func (self *IOConn) Read(b []byte) (n int, err error) {
 // Write can be made to time out and return an error after a fixed
 // time limit; see SetDeadline and SetWriteDeadline.
 func (self *IOConn) Write(b []byte) (n int, err error) {
-	if self.closed {
-		n, err = 0, fmt.Errorf("closed")
+	if self.closed.Load() {
+		n, err = 0, net.ErrClosed
 	} else {
 		n, err = self.writer.Write(b)
 	}
@@ -87,8 +102,22 @@ func (self *IOConn) Write(b []byte) (n int, err error) {
 // Close may or may not block until any buffered data is sent;
 // for TCP connections see [*TCPConn.SetLinger].
 func (self *IOConn) Close() error {
-	self.closed = true
-	return nil
+	self.closeOnce.Do(func() {
+		self.closed.Store(true)
+		var errs []error
+		if c, ok := self.reader.(io.Closer); ok {
+			if err := c.Close(); err != nil && !errors.Is(err, os.ErrClosed) && !errors.Is(err, net.ErrClosed) {
+				errs = append(errs, err)
+			}
+		}
+		if c, ok := self.writer.(io.Closer); ok {
+			if err := c.Close(); err != nil && !errors.Is(err, os.ErrClosed) && !errors.Is(err, net.ErrClosed) {
+				errs = append(errs, err)
+			}
+		}
+		self.closeErr = errors.Join(errs...)
+	})
+	return self.closeErr
 }
 
 // LocalAddr returns the local network address, if known.
@@ -97,7 +126,7 @@ func (self *IOConn) LocalAddr() net.Addr {
 }
 
 // RemoteAddr returns the remote network address, if known.
-func (self IOConn) RemoteAddr() net.Addr {
+func (self *IOConn) RemoteAddr() net.Addr {
 	return nil
 }
 
@@ -123,14 +152,17 @@ func (self IOConn) RemoteAddr() net.Addr {
 //
 // A zero value for t means I/O operations will not time out.
 func (self *IOConn) SetDeadline(t time.Time) error {
-	return nil
+	return errors.Join(self.SetReadDeadline(t), self.SetWriteDeadline(t))
 }
 
 // SetReadDeadline sets the deadline for future Read calls
 // and any currently-blocked Read call.
 // A zero value for t means Read will not time out.
 func (self *IOConn) SetReadDeadline(t time.Time) error {
-	return nil
+	if d, ok := self.reader.(interface{ SetReadDeadline(time.Time) error }); ok {
+		return d.SetReadDeadline(t)
+	}
+	return os.ErrNoDeadline
 }
 
 // SetWriteDeadline sets the deadline for future Write calls
@@ -139,7 +171,10 @@ func (self *IOConn) SetReadDeadline(t time.Time) error {
 // some of the data was successfully written.
 // A zero value for t means Write will not time out.
 func (self *IOConn) SetWriteDeadline(t time.Time) error {
-	return nil
+	if d, ok := self.writer.(interface{ SetWriteDeadline(time.Time) error }); ok {
+		return d.SetWriteDeadline(t)
+	}
+	return os.ErrNoDeadline
 }
 
 // A Listener is a generic network listener for stream-oriented protocols.
@@ -147,12 +182,14 @@ func (self *IOConn) SetWriteDeadline(t time.Time) error {
 // Multiple goroutines may invoke methods on a Listener simultaneously.
 // https://pkg.go.dev/net#Listener
 type IOListener struct {
-	reader   io.Reader
-	writer   io.Writer
-	addr     *IOAddr
-	accepted bool
-	closed   chan any
-	mx       sync.Mutex
+	reader       io.Reader
+	writer       io.Writer
+	addr         *IOAddr
+	accepted     bool
+	onDisconnect func()
+	closed       chan any
+	closeOnce    sync.Once
+	mx           sync.Mutex
 }
 
 var _ net.Listener = (*IOListener)(nil)
@@ -169,23 +206,30 @@ func NewIOListener(reader io.Reader, writer io.Writer) (*IOListener, error) {
 // Accept waits for and returns the next connection to the listener.
 func (self *IOListener) Accept() (net.Conn, error) {
 	self.mx.Lock()
-	defer self.mx.Unlock()
-	if self.accepted {
-		<-self.closed
-		return nil, fmt.Errorf("closed")
+	select {
+	case <-self.closed:
+		self.mx.Unlock()
+		return nil, net.ErrClosed
+	default:
 	}
-	conn, err := NewIOConn(self.reader, self.writer, self.addr)
-	if err != nil {
-		return nil, fmt.Errorf("could not create an io connection: %w", err)
+	if self.accepted {
+		self.mx.Unlock()
+		<-self.closed
+		return nil, net.ErrClosed
 	}
 	self.accepted = true
-	return conn, nil
+	self.mx.Unlock()
+	conn, err := NewIOConn(self.reader, self.writer, self.addr)
+	if conn != nil {
+		conn.onDisconnect = self.onDisconnect
+	}
+	return conn, err
 }
 
 // Close closes the listener.
 // Any blocked Accept operations will be unblocked and return errors.
 func (self *IOListener) Close() error {
-	close(self.closed)
+	self.closeOnce.Do(func() { close(self.closed) })
 	return nil
 }
 
