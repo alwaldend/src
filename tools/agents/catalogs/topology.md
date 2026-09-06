@@ -6,9 +6,9 @@
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/topology-catalog`
 - Derivation: `1.0.0`
 - Producer: `repository.topology-compiler`
-- Source revision: `9074e6fd016559a4`
+- Source revision: `269295fc53bf3a47`
 - Completeness: `complete`
-- JSON digest: `sha256:79b20db637d6da429350bc3dfb118efb7dce78d674112dd134c2b805f2fc4b41`
+- JSON digest: `sha256:745756278a9d466ba086ba552092f61a1f193a51ba840e85704415f268f86798`
 
 ## Limitations
 
@@ -32,7 +32,6 @@ None.
 - `ansible_collection` — Ansible collection (projects/ansible_collection, owned); lifecycle `maintenance`
 - `autoscroll` — Autoscroll (projects/autoscroll, owned); lifecycle `finished`
 - `bazel_agent` — Bazel agent (projects/bazel_agent, owned); lifecycle `active`
-- `cgit` — CGit (projects/cgit, owned); lifecycle `maintenance`
 - `ci_platform` — Ci platform (projects/ci_platform, owned); lifecycle `abandoned`
 - `dotfiles` — Dotfiles (projects/dotfiles, owned); lifecycle `maintenance`
 - `goal` — Goal (projects/goal, owned); lifecycle `experimental`
@@ -57,7 +56,6 @@ None.
 - `sri` — Sri (projects/sri, owned); lifecycle `finished`
 - `tf_modules` — Tf modules (projects/tf_modules, owned); lifecycle `in_progress`
 - `useless_qt_gui` — Useless QT GUI (projects/useless_qt_gui, owned); lifecycle `finished`
-- `xray_manager` — Xray manager (projects/xray_manager, owned); lifecycle `in_progress`
 
 ## Workspaces
 

@@ -4,8 +4,13 @@
     "id": "agent-system.capability",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.capability-compiler",
-    "sourceRevision": "2359bdc95cbb86e35570d6359c2874d4",
+    "sourceRevision": "d26ed54e63ceafb48ea587659f8cd198",
     "inputs": [
+        {
+            "path": ".agents/skills/add-project-site",
+            "role": "skill-discovery",
+            "digest": "sha256:37690d7288000a23a0e9dc44752f7a4152bd6b439c4bfb1561a97f5e1e9bdbc3"
+        },
         {
             "path": ".agents/skills/agent-ergonomics-review",
             "role": "skill-discovery",
@@ -179,7 +184,7 @@
         {
             "path": "tools/agents/declarations/registry.json",
             "role": "registry",
-            "digest": "sha256:1d6afa1232d5b96f72473513ee934b1f0a1e59aec154a6fff31b65ba04e7b4bc"
+            "digest": "sha256:81a898951097ae85a8045644501ddf7568157f266d016bc2481da3ab45375fa2"
         },
         {
             "path": "tools/repo_delivery/agent_operations.json",
@@ -208,7 +213,7 @@
         }
     ],
     "bounds": {
-        "eligible": 40,
+        "eligible": 41,
         "emitted": 26,
         "unavailable": 0,
         "maxItems": 1000,
@@ -219,7 +224,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:d8cb40d86f2d90d794974c26775aeb0389986798c570ca7ee9fc94100752692f",
+    "digest": "sha256:821bc640ce621a1b07916254c1eb011bac21b71f40ae0a9ba6209fe17d6ba14c",
     "skills": [
         {
             "id": "agent-ergonomics-review",
@@ -710,6 +715,37 @@
             ],
             "contextCost": "large",
             "evaluationMaturity": "checked"
+        },
+        {
+            "id": "add-project-site",
+            "owner": "projects/hugo_landing",
+            "canonicalPath": "projects/hugo_landing/skills/add-project-site",
+            "discoveryPath": ".agents/skills/add-project-site",
+            "layer": "procedure",
+            "activation": "project landing onboarding and requested deployment",
+            "exclusions": [
+                "apex-site changes",
+                "unrelated website design"
+            ],
+            "capabilityRefs": [
+                "code.execute",
+                "remote.write",
+                "source.write"
+            ],
+            "dependencies": [
+                "bazel-agent",
+                "repo-bazel",
+                "repo-secrets",
+                "repo-terraform"
+            ],
+            "conflicts": null,
+            "providerRequirements": [
+                "dnscontrol",
+                "github",
+                "terraform"
+            ],
+            "contextCost": "medium",
+            "evaluationMaturity": "configuration-only"
         },
         {
             "id": "spellcheck",

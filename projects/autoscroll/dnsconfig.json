@@ -3,7 +3,7 @@
         "autoscroll_landing": {
             "CNAME": {
                 "name": "autoscroll",
-                "target": "pages.alwaldend.com."
+                "target": "alwaldend.github.io."
             },
             "dsp": ["global"]
         }

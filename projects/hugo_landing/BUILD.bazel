@@ -11,3 +11,13 @@ docs_filegroup(
         "//projects/hugo_landing/assets/scss:docs",
     ],
 )
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = [
+        "//infra:__pkg__",
+        "//infra/dns:__pkg__",
+        "//projects/alwaldend.com:__subpackages__",
+    ],
+)

@@ -11,7 +11,7 @@ page = ["html"]
 github_repo = "https://github.com/alwaldend/src"
 github_branch = "master"
 
-[[params.alwaldend.links]]
+[[menus.main]]
 name = "Docs"
 url = "/"
 
@@ -24,7 +24,7 @@ sidebar_menu_compact = true
 unsafe = true
 
 [markup.goldmark.renderHooks.link]
-useEmbedded = "always"
+useEmbedded = "fallback"
 
 [markup.goldmark.parser.attribute]
 block = true
@@ -34,6 +34,9 @@ title = true
 extended = true
 min = "0.160.1"
 
+[[module.mounts]]
+source = "assets"
+target = "assets"
 [[module.mounts]]
 source = "themes/github.com/twbs/bootstrap/scss"
 target = "assets/vendor/bootstrap/scss"

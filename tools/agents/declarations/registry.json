@@ -40,6 +40,24 @@
     ],
     "skills": [
         {
+            "id": "add-project-site",
+            "owner": "projects/hugo_landing",
+            "layer": "procedure",
+            "activation": "project landing onboarding and requested deployment",
+            "exclusions": ["unrelated website design", "apex-site changes"],
+            "capabilityRefs": ["code.execute", "source.write", "remote.write"],
+            "dependencies": [
+                "bazel-agent",
+                "repo-bazel",
+                "repo-secrets",
+                "repo-terraform"
+            ],
+            "conflicts": [],
+            "providerRequirements": ["github", "dnscontrol", "terraform"],
+            "contextCost": "medium",
+            "evaluationMaturity": "configuration-only"
+        },
+        {
             "id": "answer-question",
             "owner": "projects/agents",
             "layer": "procedure",

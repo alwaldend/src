@@ -3,7 +3,7 @@
         "rules_skill_landing": {
             "CNAME": {
                 "name": "rules-skill",
-                "target": "pages.alwaldend.com."
+                "target": "alwaldend.github.io."
             },
             "dsp": ["global"]
         }

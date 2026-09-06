@@ -3,7 +3,7 @@
         "rules_template_landing": {
             "CNAME": {
                 "name": "rules-template",
-                "target": "pages.alwaldend.com."
+                "target": "alwaldend.github.io."
             },
             "dsp": ["global"]
         }

@@ -1,6 +1,6 @@
 ---
 title: Useless QT GUI
-description: Desktop GUI written with C++
+description: Desktop GUI application built with C++ and Qt
 statuses:
   - finished
 languages:
@@ -10,6 +10,9 @@ tags:
   - desktop
   - qt
 ---
+
+Useless QT GUI is a desktop application built with C++ and Qt. Its Bazel build
+uses a pinned Qt distribution without requiring a system Qt installation.
 
 ## Links
 

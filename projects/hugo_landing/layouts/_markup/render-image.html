@@ -1,0 +1,19 @@
+{{- $destination := .Destination -}} {{- $url := urls.Parse $destination -}}
+{{- if and (not $url.IsAbs) (not (strings.HasPrefix $destination "//")) -}} {{-
+$path := path.Clean (printf "projects/%s/%s" .Page.Site.Params.project
+$url.Path) -}} {{- $repository := replace .Page.Site.Params.github_repo
+"https://github.com/" "https://raw.githubusercontent.com/" -}} {{- $destination
+= printf "%s/master/%s" $repository $path -}} {{- end -}}
+<img
+  src="{{ $destination | safeURL }}"
+  alt="{{ .PlainText }}"
+  {{
+  with
+  .Title
+  }}
+  title="{{ . }}"
+  {{
+  end
+  }}
+  loading="lazy"
+/>

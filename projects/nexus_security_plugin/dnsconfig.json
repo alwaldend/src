@@ -3,7 +3,7 @@
         "nexus_security_plugin_landing": {
             "CNAME": {
                 "name": "nexus-security-plugin",
-                "target": "pages.alwaldend.com."
+                "target": "alwaldend.github.io."
             },
             "dsp": ["global"]
         }

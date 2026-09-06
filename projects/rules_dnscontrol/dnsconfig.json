@@ -1,0 +1,11 @@
+{
+    "records": {
+        "rules_dnscontrol_landing": {
+            "CNAME": {
+                "name": "rules-dnscontrol",
+                "target": "alwaldend.github.io."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

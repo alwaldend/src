@@ -1,0 +1,11 @@
+{
+    "records": {
+        "rules_iso_landing": {
+            "CNAME": {
+                "name": "rules-iso",
+                "target": "alwaldend.github.io."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

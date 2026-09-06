@@ -1,6 +1,6 @@
 ---
 title: Alwaldend.com
-description: Alwaldend.com site
+description: Main website and project documentation
 websites:
   - alwaldend.com
 statuses:
@@ -9,6 +9,9 @@ tags:
   - hugo
   - github_pages
 ---
+
+Alwaldend.com is the repository's main website and documentation site. It
+uses Hugo with Docsy to publish project documentation on GitHub Pages.
 
 ## Links
 
@@ -51,12 +54,11 @@ document, keeping anchors distinct when documents are combined.
 ## Deployment
 
 - DNS setup: [infra/dns](../../infra/dns)
-- Per-project DNS declaration: [dnsconfig.json](https://github.com/alwaldend/src/blob/master/projects/alwaldend.com/dnsconfig.json). It declares
-  the GitHub Pages `pages` address and one unproxied CNAME per project landing
-  subdomain, for example `android-launcher.alwaldend.com`. Hostnames use
-  hyphens while docs paths keep underscores. Each landing site links to its
-  project documentation, so Cloudflare redirects are unnecessary. The apex
-  and `www` records stay managed centrally.
+- This project's [DNS declaration](https://github.com/alwaldend/src/blob/master/projects/alwaldend.com/dnsconfig.json)
+  owns the shared `pages` address. Each other project owns its landing CNAME
+  pointing directly to `alwaldend.github.io.`. Hostnames use hyphens while docs
+  paths keep underscores. The [project directory](../README.md) links to all
+  sites. The apex and `www` records stay managed centrally.
 - Deploy to the Github Pages repo (the `pages` branch of
   `alwaldend/alwaldend.github.io`, which GitHub Pages serves):
   ```sh

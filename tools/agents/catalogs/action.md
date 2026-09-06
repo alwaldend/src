@@ -5,9 +5,9 @@
 - ID: `agent-system.action`
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/action-catalog`
 - Derivation: `1.0.0`
-- Source revision: `8c31b0b3849d53799753cc176587a7c5`
+- Source revision: `c96e9118d7beed918a968be0da0be2d8`
 - Completeness: `complete`
-- JSON digest: `sha256:4dde51513415a8f132c4dc9cad526e784300043ed8b36f887006974266d8620e`
+- JSON digest: `sha256:f9fb833e98ca04ffb9e49adf38f5bb97a3e044cd08ecd0273d22351ba287170f`
 
 ## Providers
 

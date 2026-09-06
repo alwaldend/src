@@ -3,7 +3,7 @@
         "rules_promptfoo_gazelle_landing": {
             "CNAME": {
                 "name": "rules-promptfoo-gazelle",
-                "target": "pages.alwaldend.com."
+                "target": "alwaldend.github.io."
             },
             "dsp": ["global"]
         }

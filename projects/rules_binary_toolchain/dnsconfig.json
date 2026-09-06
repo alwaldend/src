@@ -3,7 +3,7 @@
         "rules_binary_toolchain_landing": {
             "CNAME": {
                 "name": "rules-binary-toolchain",
-                "target": "pages.alwaldend.com."
+                "target": "alwaldend.github.io."
             },
             "dsp": ["global"]
         }

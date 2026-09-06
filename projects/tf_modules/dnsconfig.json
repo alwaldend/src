@@ -3,7 +3,7 @@
         "tf_modules_landing": {
             "CNAME": {
                 "name": "tf-modules",
-                "target": "pages.alwaldend.com."
+                "target": "alwaldend.github.io."
             },
             "dsp": ["global"]
         }

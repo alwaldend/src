@@ -1,0 +1,131 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/hugo_landing/pkg/bzl:al_hugo_landing.bzl", "al_hugo_landing_site")
+
+al_hugo_landing_site(
+    name = "site",
+    docs = "//projects/hugo_landing:docs",
+    docs_url = "https://alwaldend.com/docs/projects/hugo_landing/",
+    project = "hugo_landing",
+    repository_url = "https://github.com/alwaldend/src",
+    title = "Hugo Landing",
+    visibility = ["//projects:__pkg__"],
+)
+
+al_hugo_landing_site(
+    name = "rules_binary_toolchain",
+    docs = "@rules_binary_toolchain//:docs",
+    docs_url = "https://alwaldend.com/docs/projects/rules_binary_toolchain/",
+    project = "rules_binary_toolchain",
+    repository_url = "https://github.com/alwaldend/src",
+    title = "Rules Binary Toolchain",
+    visibility = ["//projects:__pkg__"],
+)
+
+al_hugo_landing_site(
+    name = "rules_dnscontrol",
+    docs = "@rules_dnscontrol//:docs",
+    docs_url = "https://alwaldend.com/docs/projects/rules_dnscontrol/",
+    project = "rules_dnscontrol",
+    repository_url = "https://github.com/alwaldend/src",
+    title = "Rules Dnscontrol",
+    visibility = ["//projects:__pkg__"],
+)
+
+al_hugo_landing_site(
+    name = "rules_docs",
+    docs = "@rules_docs//:docs",
+    docs_url = "https://alwaldend.com/docs/projects/rules_docs/",
+    project = "rules_docs",
+    repository_url = "https://github.com/alwaldend/src",
+    title = "Rules Docs",
+    visibility = ["//projects:__pkg__"],
+)
+
+al_hugo_landing_site(
+    name = "rules_docs_gazelle",
+    docs = "@rules_docs_gazelle//:docs",
+    docs_url = "https://alwaldend.com/docs/projects/rules_docs_gazelle/",
+    project = "rules_docs_gazelle",
+    repository_url = "https://github.com/alwaldend/src",
+    title = "Rules Docs Gazelle",
+    visibility = ["//projects:__pkg__"],
+)
+
+al_hugo_landing_site(
+    name = "rules_hugo",
+    docs = "@rules_hugo//:docs",
+    docs_url = "https://alwaldend.com/docs/projects/rules_hugo/",
+    project = "rules_hugo",
+    repository_url = "https://github.com/alwaldend/src",
+    title = "Rules Hugo",
+    visibility = ["//projects:__pkg__"],
+)
+
+al_hugo_landing_site(
+    name = "rules_iso",
+    docs = "@rules_iso//:docs",
+    docs_url = "https://alwaldend.com/docs/projects/rules_iso/",
+    project = "rules_iso",
+    repository_url = "https://github.com/alwaldend/src",
+    title = "Rules Iso",
+    visibility = ["//projects:__pkg__"],
+)
+
+al_hugo_landing_site(
+    name = "rules_promptfoo",
+    docs = "@rules_promptfoo//:docs",
+    docs_url = "https://alwaldend.com/docs/projects/rules_promptfoo/",
+    project = "rules_promptfoo",
+    repository_url = "https://github.com/alwaldend/src",
+    title = "Rules Promptfoo",
+    visibility = ["//projects:__pkg__"],
+)
+
+al_hugo_landing_site(
+    name = "rules_promptfoo_gazelle",
+    docs = "@rules_promptfoo_gazelle//:docs",
+    docs_url = "https://alwaldend.com/docs/projects/rules_promptfoo_gazelle/",
+    project = "rules_promptfoo_gazelle",
+    repository_url = "https://github.com/alwaldend/src",
+    title = "Rules Promptfoo Gazelle",
+    visibility = ["//projects:__pkg__"],
+)
+
+al_hugo_landing_site(
+    name = "rules_skill",
+    docs = "@rules_skill//:docs",
+    docs_url = "https://alwaldend.com/docs/projects/rules_skill/",
+    project = "rules_skill",
+    repository_url = "https://github.com/alwaldend/src",
+    title = "Rules Skill",
+    visibility = ["//projects:__pkg__"],
+)
+
+al_hugo_landing_site(
+    name = "rules_skill_gazelle",
+    docs = "@rules_skill_gazelle//:docs",
+    docs_url = "https://alwaldend.com/docs/projects/rules_skill_gazelle/",
+    project = "rules_skill_gazelle",
+    repository_url = "https://github.com/alwaldend/src",
+    title = "Rules Skill Gazelle",
+    visibility = ["//projects:__pkg__"],
+)
+
+al_hugo_landing_site(
+    name = "rules_template",
+    docs = "@rules_template//:docs",
+    docs_url = "https://alwaldend.com/docs/projects/rules_template/",
+    project = "rules_template",
+    repository_url = "https://github.com/alwaldend/src",
+    title = "Rules Template",
+    visibility = ["//projects:__pkg__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(
+        ["*.md"],
+        allow_empty = True,
+    ),
+    visibility = ["//projects/hugo_landing:__pkg__"],
+)

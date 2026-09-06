@@ -3,7 +3,7 @@
         "goal_landing": {
             "CNAME": {
                 "name": "goal",
-                "target": "pages.alwaldend.com."
+                "target": "alwaldend.github.io."
             },
             "dsp": ["global"]
         }

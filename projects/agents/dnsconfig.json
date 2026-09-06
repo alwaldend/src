@@ -1,0 +1,11 @@
+{
+    "records": {
+        "agents_landing": {
+            "CNAME": {
+                "name": "agents",
+                "target": "alwaldend.github.io."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

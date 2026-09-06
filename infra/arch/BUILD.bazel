@@ -1,14 +1,25 @@
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 load("@com_drawio_desktop_bin//:defs.bzl", "drawio_binary")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/drawio:defs.bzl", "drawio_svg")
 
 docs_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
+    srcs = glob(["*.md"]) + ["arch.drawio"],
     visibility = ["//infra:__pkg__"],
-    deps = subpackages(
+    deps = [":docs_assets"] + subpackages(
         include = ["*"],
         allow_empty = True,
     ),
+)
+
+docs_filegroup(
+    name = "docs_assets",
+    srcs = glob(
+        ["assets/*.svg"],
+        allow_empty = True,
+    ),
+    prefix = "content/docs/infra/arch/assets",
 )
 
 drawio_binary(
@@ -20,4 +31,47 @@ drawio_binary(
 filegroup(
     name = "diagram",
     srcs = ["arch.drawio"],
+)
+
+drawio_svg(
+    name = "rendered",
+    src = "arch.drawio",
+    pages = {
+        "DC1": "dc1.svg",
+        "Vault": "vault.svg",
+        "Flux": "flux.svg",
+        "Forgejo": "forgejo.svg",
+        "www": "www.svg",
+        "Threexui": "threexui.svg",
+        "DNS": "dns.svg",
+        "Ingress": "ingress.svg",
+        "T3code": "t3code.svg",
+        "Truenas": "truenas.svg",
+        "Archive/Harvester": "archive-harvester.svg",
+        "Archive/Opencode": "archive-opencode.svg",
+        "Archive/Hermes": "archive-hermes.svg",
+        "Archive/Proxmox": "archive-proxmox.svg",
+        "Archive/Harbor": "archive-harbor.svg",
+    },
+)
+
+write_source_files(
+    name = "update",
+    files = {
+        "assets/dc1.svg": ":rendered/dc1.svg",
+        "assets/vault.svg": ":rendered/vault.svg",
+        "assets/flux.svg": ":rendered/flux.svg",
+        "assets/forgejo.svg": ":rendered/forgejo.svg",
+        "assets/www.svg": ":rendered/www.svg",
+        "assets/threexui.svg": ":rendered/threexui.svg",
+        "assets/dns.svg": ":rendered/dns.svg",
+        "assets/ingress.svg": ":rendered/ingress.svg",
+        "assets/t3code.svg": ":rendered/t3code.svg",
+        "assets/truenas.svg": ":rendered/truenas.svg",
+        "assets/archive-harvester.svg": ":rendered/archive-harvester.svg",
+        "assets/archive-opencode.svg": ":rendered/archive-opencode.svg",
+        "assets/archive-hermes.svg": ":rendered/archive-hermes.svg",
+        "assets/archive-proxmox.svg": ":rendered/archive-proxmox.svg",
+        "assets/archive-harbor.svg": ":rendered/archive-harbor.svg",
+    },
 )

@@ -1,0 +1,18 @@
+.landing-content {
+    max-width: 60rem;
+}
+
+.landing-content img {
+    height: auto;
+    max-width: 100%;
+}
+
+.landing-content pre,
+.landing-content table {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.landing-content table {
+    display: block;
+}

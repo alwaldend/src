@@ -8,6 +8,7 @@ docs_filegroup(
         "//projects/al/landing:__pkg__",
     ],
     deps = [
+        "//projects/al/docs",
         "//projects/al/releases:docs",
         "//projects/al/rules:docs",
     ],

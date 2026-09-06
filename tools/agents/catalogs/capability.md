@@ -6,9 +6,9 @@
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/capability-catalog`
 - Derivation: `1.0.0`
 - Producer: `repository.capability-compiler`
-- Source revision: `2359bdc95cbb86e35570d6359c2874d4`
+- Source revision: `d26ed54e63ceafb48ea587659f8cd198`
 - Completeness: `complete`
-- JSON digest: `sha256:d8cb40d86f2d90d794974c26775aeb0389986798c570ca7ee9fc94100752692f`
+- JSON digest: `sha256:821bc640ce621a1b07916254c1eb011bac21b71f40ae0a9ba6209fe17d6ba14c`
 
 ## Limitations
 
@@ -117,6 +117,10 @@ None.
   - exclusions: non-Terraform infrastructure
   - capabilities: code.execute, source.write
   - dependencies: bazel-agent, repo-bazel
+- `add-project-site` (owned by `projects/hugo_landing`): layer `procedure`, activation `project landing onboarding and requested deployment`, cost `medium`
+  - exclusions: apex-site changes, unrelated website design
+  - capabilities: code.execute, remote.write, source.write
+  - dependencies: bazel-agent, repo-bazel, repo-secrets, repo-terraform
 - `spellcheck` (owned by `projects/agents`): layer `procedure`, activation `prose proofreading and rewriting`, cost `small`
   - exclusions: code linting, translation-only requests
   - capabilities: source.read, source.write
