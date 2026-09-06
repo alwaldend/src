@@ -1,0 +1,20 @@
+{{- $destination := .Destination -}} {{- $url := urls.Parse $destination -}}
+{{- if and (not $url.IsAbs) (not (strings.HasPrefix $destination "//")) (not
+(strings.HasPrefix $destination "#")) -}} {{- $path := path.Clean (printf
+"projects/%s/%s" .Page.Site.Params.project $url.Path) -}} {{- $destination =
+printf "%s/blob/master/%s" .Page.Site.Params.github_repo $path -}} {{- with
+$url.RawQuery }}{{ $destination = printf "%s?%s" $destination . }}{{ end -}}
+{{- with $url.Fragment }}{{ $destination = printf "%s#%s" $destination . }}{{
+end -}} {{- end -}}
+<a
+  href="{{ $destination | safeURL }}"
+  {{
+  with
+  .Title
+  }}
+  title="{{ . }}"
+  {{
+  end
+  }}
+  >{{ .Text | safeHTML }}</a
+>

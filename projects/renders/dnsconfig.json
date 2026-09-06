@@ -1,0 +1,11 @@
+{
+    "records": {
+        "renders_landing": {
+            "CNAME": {
+                "name": "renders",
+                "target": "alwaldend.github.io."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

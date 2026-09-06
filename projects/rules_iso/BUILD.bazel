@@ -1,4 +1,19 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    prefix = "content/docs/projects/rules_iso",
+    visibility = ["//visibility:public"],
+)
+
 exports_files([
     "MODULE.bazel",
     "README.md",
 ])
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = ["//visibility:public"],
+)

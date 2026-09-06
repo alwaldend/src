@@ -1,6 +1,6 @@
 ---
 title: Leetcode downloader
-description: CLI app to download leetcode submissions
+description: LeetCode submission export and documentation tools
 statuses:
   - in_progress
 languages:
@@ -12,6 +12,11 @@ tags:
   - bzl_rules
   - proto
 ---
+
+This project exports LeetCode submissions and generates documentation from
+submission files using a CLI and Bazel rules. A Tampermonkey script provides
+a browser-based download path; direct CLI downloads are currently blocked by
+LeetCode bot protection.
 
 ## Links
 

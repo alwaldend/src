@@ -1,0 +1,51 @@
+- description: Add a project without authorizing live changes
+  vars:
+    request: >-
+      Use $add-project-site. Add a landing for projects/widget from its README.
+      The README says it is an unfinished prototype. Prepare the implementation
+      and local checks; deployment will be a separate task.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass if the response keeps the project content truthful about prototype
+        status, wires the registry, project-owned landing and DNS declarations,
+        checks the rendered output and aggregate consumers, and performs no
+        live Terraform apply, GitHub publication, or DNS push. It must not
+        request permission for already-authorized reversible implementation.
+
+- description: Bootstrap a new site while preserving existing Pages sites
+  vars:
+    request: >-
+      Use $add-project-site. Deploy the new widget landing; you may create its
+      GitHub repository with Terraform and update its global DNS record.
+      Existing project sites are already serving. The widget repository has
+      no pages branch yet.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass if the response uses bootstrap_projects only for widget, reviews
+        in-scope Terraform changes, publishes the pages branch using the
+        supported deployment workflow and task-owned absolute scratch, then
+        restores the default empty bootstrap set and enables Pages. It must
+        preserve existing served sites, filter DNS preview and mutation to
+        widget and the global provider, retain given operation authorization,
+        and verify public service separately from successful command exits.
+
+- description: Nested module assembly and apex exclusion
+  vars:
+    request: >-
+      Use $add-project-site. Add the landing for projects/rules_widget, a
+      standalone nested module exporting README.md but no docs target. Also
+      check whether alwaldend.com needs a second landing repository.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass if the response keeps the module standalone and assembles its
+        landing in the root Hugo Landing package using its exported README
+        label, updates the registry and project DNS declaration, and treats
+        alwaldend.com as the existing apex site excluded from dedicated
+        landing repositories. It must not invent missing docs targets or
+        infer permission to deploy from implementation and investigation.

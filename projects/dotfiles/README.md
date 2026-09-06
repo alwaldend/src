@@ -1,6 +1,6 @@
 ---
 title: Dotfiles
-description: Dotfiles
+description: Personal configuration files with installation and comparison commands
 statuses:
   - maintenance
 languages:
@@ -12,6 +12,10 @@ tags:
   - make
   - udev
 ---
+
+This project packages personal configuration files into an installable
+archive. Make and Bazel entry points compare the packaged files with the
+local system and install selected configurations.
 
 ## Links
 

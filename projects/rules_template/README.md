@@ -1,6 +1,6 @@
 ---
 title: Rules template
-description: Rules to template files
+description: Bazel rules and a Go command for rendering template files
 statuses:
   - active
 languages:
@@ -9,6 +9,10 @@ languages:
 tags:
   - bzl_rules
 ---
+
+`rules_template` provides Bazel rules and a Go command for rendering template
+files. A registered toolchain supplies the templating executable to build
+actions.
 
 ## Getting started
 

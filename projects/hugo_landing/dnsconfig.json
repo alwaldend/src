@@ -1,0 +1,11 @@
+{
+    "records": {
+        "hugo_landing_landing": {
+            "CNAME": {
+                "name": "hugo-landing",
+                "target": "alwaldend.github.io."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

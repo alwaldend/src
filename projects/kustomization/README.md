@@ -1,6 +1,6 @@
 ---
 title: Kustomization
-description: Kustomization resources
+description: Kubernetes resources for Flux, Traefik, and cert-manager
 statuses:
   - in_progress
 languages:
@@ -9,6 +9,9 @@ tags:
   - k8s
   - flux
 ---
+
+This project contains Kubernetes Kustomization resources for Flux, Traefik,
+and cert-manager. It is still in progress.
 
 ## Links
 

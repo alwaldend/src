@@ -1,4 +1,5 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects:projects.bzl", "PROJECTS")
 load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
@@ -17,6 +18,7 @@ docs_filegroup(
         "@rules_docs//:docs",
         "@rules_docs_gazelle//:docs",
         "@rules_hugo//:docs",
+        "@rules_iso//:docs",
         "@rules_promptfoo//:docs",
         "@rules_promptfoo_gazelle//:docs",
         "@rules_skill//:docs",
@@ -32,8 +34,6 @@ al_release_binary(
         for package in subpackages(
             include = ["*"],
             exclude = [
-                "xray_manager",
-                "cgit",
                 "hugo_landing",
                 "agents",
                 "mcp_cordis",
@@ -60,11 +60,27 @@ al_release_binary(
     ] + [],
 )
 
+_LANDING_TARGETS = [
+    "//projects/hugo_landing/landing:{}".format(project) if project.startswith("rules_") else "//projects/{}/landing:site".format(project)
+    for project in PROJECTS
+]
+
+filegroup(
+    name = "landing_sites",
+    srcs = _LANDING_TARGETS,
+)
+
 build_test(
     name = "landings",
-    targets = [
-        "//projects/{}/landing:site".format(project)
-        for project in PROJECTS
-        if project != "alwaldend.com" and not project.startswith("rules_")
+    targets = _LANDING_TARGETS,
+)
+
+native_binary(
+    name = "deploy_landings",
+    src = "//projects/hugo_landing/cmd/deploy",
+    args = [
+        "--site={}=$(rootpath {})".format(project, target)
+        for project, target in zip(PROJECTS, _LANDING_TARGETS)
     ],
+    data = _LANDING_TARGETS,
 )

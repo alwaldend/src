@@ -22,8 +22,8 @@ are populated by the AL Vault injector; DNSControl reads the values directly
 without a rendered credentials file.
 
 Project landing records live next to their projects in
-`projects/<project>/dnsconfig.json`. The main website owns the shared
-`pages` address, and project files own their own subdomain CNAMEs.
+`projects/<project>/dnsconfig.json`. Project files own their subdomain CNAMEs, which point directly to
+`alwaldend.github.io.` as required by GitHub Pages custom-domain setup.
 
 Interactive:
 

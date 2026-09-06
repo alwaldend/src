@@ -1,6 +1,6 @@
 $TTL 600
-; generated with dnscontrol 2026-09-06T11:52:06Z
-@          300   IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026090600 3600 600 604800 1440
+; generated with dnscontrol 2026-09-06T16:13:25+03:00
+@          300   IN SOA   DEFAULT_NOT_SET. DEFAULT_NOT_SET. 2026090601 3600 600 604800 1440
            300   IN NS    malavika.ns.cloudflare.com.
            300   IN NS    terry.ns.cloudflare.com.
            300   IN A     185.199.108.153
@@ -20,37 +20,41 @@ _dmarc     300   IN TXT   "v=DMARC1; p=quarantine; adkim=s"
 protonmail._domainkey 300 IN CNAME protonmail.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
 protonmail2._domainkey 300 IN CNAME protonmail2.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
 protonmail3._domainkey 300 IN CNAME protonmail3.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch.
-al               IN CNAME pages.alwaldend.com.
-android-launcher IN CNAME pages.alwaldend.com.
-ansible-collection IN CNAME pages.alwaldend.com.
-autoscroll       IN CNAME pages.alwaldend.com.
-bazel-agent      IN CNAME pages.alwaldend.com.
-cgit             IN CNAME pages.alwaldend.com.
-ci-platform      IN CNAME pages.alwaldend.com.
+agents           IN CNAME alwaldend.github.io.
+al               IN CNAME alwaldend.github.io.
+android-launcher IN CNAME alwaldend.github.io.
+ansible-collection IN CNAME alwaldend.github.io.
+autoscroll       IN CNAME alwaldend.github.io.
+bazel-agent      IN CNAME alwaldend.github.io.
+ci-platform      IN CNAME alwaldend.github.io.
 cloud            IN CNAME ingress.alwaldend.com.
 dc1.cloud  300   IN A     192.168.1.209
-dotfiles         IN CNAME pages.alwaldend.com.
+dotfiles         IN CNAME alwaldend.github.io.
 forgejo          IN CNAME ingress.alwaldend.com.
 int.forgejo 300  IN A     192.168.10.40
-goal             IN CNAME pages.alwaldend.com.
-infinitime       IN CNAME pages.alwaldend.com.
+goal             IN CNAME alwaldend.github.io.
+hugo-landing     IN CNAME alwaldend.github.io.
+infinitime       IN CNAME alwaldend.github.io.
 ingress    300   IN A     81.26.185.118
 host1.ingress 300 IN A    81.26.185.118
-kustomization    IN CNAME pages.alwaldend.com.
-leetcode-downloader IN CNAME pages.alwaldend.com.
-mcp-cordis       IN CNAME pages.alwaldend.com.
-nexus-security-plugin IN CNAME pages.alwaldend.com.
+kustomization    IN CNAME alwaldend.github.io.
+leetcode-downloader IN CNAME alwaldend.github.io.
+mcp-cordis       IN CNAME alwaldend.github.io.
+nexus-security-plugin IN CNAME alwaldend.github.io.
 pages      300   IN A     185.199.108.153
                  IN AAAA  2606:50c0:8000::153
-rules-binary-toolchain IN CNAME pages.alwaldend.com.
-rules-docs       IN CNAME pages.alwaldend.com.
-rules-docs-gazelle IN CNAME pages.alwaldend.com.
-rules-hugo       IN CNAME pages.alwaldend.com.
-rules-promptfoo  IN CNAME pages.alwaldend.com.
-rules-promptfoo-gazelle IN CNAME pages.alwaldend.com.
-rules-skill      IN CNAME pages.alwaldend.com.
-rules-skill-gazelle IN CNAME pages.alwaldend.com.
-rules-template   IN CNAME pages.alwaldend.com.
+renders          IN CNAME alwaldend.github.io.
+rules-binary-toolchain IN CNAME alwaldend.github.io.
+rules-dnscontrol IN CNAME alwaldend.github.io.
+rules-docs       IN CNAME alwaldend.github.io.
+rules-docs-gazelle IN CNAME alwaldend.github.io.
+rules-hugo       IN CNAME alwaldend.github.io.
+rules-iso        IN CNAME alwaldend.github.io.
+rules-promptfoo  IN CNAME alwaldend.github.io.
+rules-promptfoo-gazelle IN CNAME alwaldend.github.io.
+rules-skill      IN CNAME alwaldend.github.io.
+rules-skill-gazelle IN CNAME alwaldend.github.io.
+rules-template   IN CNAME alwaldend.github.io.
 simplelogin 10800 IN MX   10 mx1.simplelogin.co.
            10800 IN MX    20 mx2.simplelogin.co.
            10800 IN TXT   "sl-verification=bxfzzfjiggzsxyzxhhmkmjqkaskjgy"
@@ -59,21 +63,20 @@ _dmarc.simplelogin 10800 IN TXT "v=DMARC1; p=quarantine; pct=100; adkim=s; aspf=
 dkim._domainkey.simplelogin 10800 IN CNAME dkim._domainkey.simplelogin.co.
 dkim02._domainkey.simplelogin 10800 IN CNAME dkim02._domainkey.simplelogin.co.
 dkim03._domainkey.simplelogin 10800 IN CNAME dkim03._domainkey.simplelogin.co.
-sri              IN CNAME pages.alwaldend.com.
-tf-modules       IN CNAME pages.alwaldend.com.
+sri              IN CNAME alwaldend.github.io.
+tf-modules       IN CNAME alwaldend.github.io.
 njalla1.nodes.threexui 300 IN A 45.142.141.133
                  IN AAAA  2a0a:3840:8078:141:0:2d8e:8d85:1337
 yc1.nodes.threexui IN CNAME host1.nodes.yc.threexui.alwaldend.com.
 yc.threexui 300  IN NS    ns1.yandexcloud.net.
            300   IN NS    ns2.yandexcloud.net.
-useless-qt-gui   IN CNAME pages.alwaldend.com.
+useless-qt-gui   IN CNAME alwaldend.github.io.
 dc1.host-bot.simeonwarren.users 300 IN A 192.168.1.210
 t3code.host-bot.simeonwarren.users IN CNAME ingress.alwaldend.com.
 dc1.t3code.host-bot.simeonwarren.users 300 IN A 192.168.1.210
 vault            IN CNAME ingress.alwaldend.com.
 int.vault  300   IN A     192.168.1.218
 www        300   IN CNAME alwaldend.com.
-xray-manager     IN CNAME pages.alwaldend.com.
 yandex     21600 IN MX    10 mx.yandex.net.
            300   IN TXT   "v=spf1 redirect=_spf.yandex.net"
            300   IN TXT   "yandex-verification: b83672f59b3dbe16"

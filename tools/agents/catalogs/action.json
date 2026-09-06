@@ -4,7 +4,7 @@
     "id": "agent-system.action",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.action-compiler",
-    "sourceRevision": "8c31b0b3849d53799753cc176587a7c5",
+    "sourceRevision": "c96e9118d7beed918a968be0da0be2d8",
     "inputs": [
         {
             "path": "projects/goal/agent_operations.json",
@@ -29,7 +29,7 @@
         {
             "path": "tools/agents/declarations/registry.json",
             "role": "registry",
-            "digest": "sha256:1d6afa1232d5b96f72473513ee934b1f0a1e59aec154a6fff31b65ba04e7b4bc"
+            "digest": "sha256:81a898951097ae85a8045644501ddf7568157f266d016bc2481da3ab45375fa2"
         },
         {
             "path": "tools/repo_delivery/agent_operations.json",
@@ -64,7 +64,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:4dde51513415a8f132c4dc9cad526e784300043ed8b36f887006974266d8620e",
+    "digest": "sha256:f9fb833e98ca04ffb9e49adf38f5bb97a3e044cd08ecd0273d22351ba287170f",
     "providers": [
         {
             "id": "cordis.runtime",

@@ -5,8 +5,6 @@ statuses:
   - in_progress
 ---
 
-# Renders
-
 This project owns reusable Blender assets, their controlling references, and
 compact goal records that bind acceptance evidence to exact candidate bytes.
 

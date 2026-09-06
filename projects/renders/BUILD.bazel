@@ -92,5 +92,18 @@ blender_test(
 docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
-    visibility = ["//projects:__pkg__"],
+    visibility = [
+        "//projects:__pkg__",
+        "//projects/renders/landing:__pkg__",
+    ],
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = [
+        "//infra:__pkg__",
+        "//infra/dns:__pkg__",
+        "//projects/alwaldend.com:__subpackages__",
+    ],
 )

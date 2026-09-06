@@ -3,7 +3,7 @@
         "sri_landing": {
             "CNAME": {
                 "name": "sri",
-                "target": "pages.alwaldend.com."
+                "target": "alwaldend.github.io."
             },
             "dsp": ["global"]
         }

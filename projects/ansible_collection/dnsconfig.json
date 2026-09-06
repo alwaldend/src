@@ -3,11 +3,9 @@
         "ansible_collection_landing": {
             "CNAME": {
                 "name": "ansible-collection",
-                "target": "pages.alwaldend.com.",
+                "target": "alwaldend.github.io."
             },
-            "dsp": [
-                "global"
-            ]
+            "dsp": ["global"]
         }
     }
 }

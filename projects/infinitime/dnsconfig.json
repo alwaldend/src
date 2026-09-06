@@ -3,7 +3,7 @@
         "infinitime_landing": {
             "CNAME": {
                 "name": "infinitime",
-                "target": "pages.alwaldend.com."
+                "target": "alwaldend.github.io."
             },
             "dsp": ["global"]
         }

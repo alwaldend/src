@@ -1,6 +1,6 @@
 ---
 title: Infinitime
-description: Fork of InfiniTimeOrg/InfiniTime
+description: InfiniTime firmware fork with a text watchface and Pomodoro app
 statuses:
   - maintenance
 languages:
@@ -9,6 +9,9 @@ tags:
   - embedded
   - fork
 ---
+
+This InfiniTime firmware fork adds a text watchface and a Pomodoro app. The
+repository packages the pinned firmware source and its build dependencies.
 
 ## Links
 

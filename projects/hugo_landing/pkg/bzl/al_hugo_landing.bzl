@@ -20,66 +20,37 @@ def _readme_impl(ctx):
         ]
     if not candidates:
         fail("could not find README.md for project {}".format(ctx.attr.project))
-    readme = candidates[0]
+    readme = sorted(candidates, key = _path_length)[0]
     out = ctx.actions.declare_file("{}/_index.md".format(ctx.attr.name))
     ctx.actions.run_shell(
         inputs = [readme],
         outputs = [out],
-        command = "sed 's/{{.*}}//' '{}' > '{}'".format(readme.path, out.path),
+        command = "sed 's/{{[<%].*[>%]}}//' '{}' > '{}'".format(readme.path, out.path),
     )
     return [DefaultInfo(files = depset([out]))]
+
+def _path_length(file):
+    return len(file.path)
 
 _readme = rule(
     implementation = _readme_impl,
     attrs = {
         "project": attr.string(mandatory = True),
-        "src": attr.label(mandatory = True),
+        "src": attr.label(mandatory = True, allow_files = [".md"]),
     },
 )
 
 def _write_config_impl(ctx):
     content = """\
-[module.hugoVersion]
-extended = true
-min = "0.160.1"
-
 disableKinds = ["taxonomy", "term"]
 title = "{}"
 baseURL = "/"
-theme = ["github.com/google/docsy"]
 enableRobotsTXT = true
+theme = ["github.com/google/docsy"]
 
-[outputs]
-home = ["html"]
-page = ["html"]
-
-[params]
-github_repo = "{}"
-github_branch = "master"
-
-[[params.alwaldend.links]]
-name = "Docs"
-url = "{}"
-
-[[params.alwaldend.links]]
-name = "Github"
-url = "{}"
-
-[params.ui]
-navbar_logo = false
-showLightDarkModeMenu = true
-sidebar_menu_compact = true
-
-[markup.goldmark.renderer]
-unsafe = true
-
-[markup.goldmark.renderHooks.link]
-useEmbedded = "always"
-
-[markup.goldmark.parser.attribute]
-block = true
-title = true
-
+[[module.mounts]]
+source = "assets"
+target = "assets"
 [[module.mounts]]
 source = "themes/github.com/twbs/bootstrap/scss"
 target = "assets/vendor/bootstrap/scss"
@@ -95,9 +66,47 @@ target = "assets/vendor/Font-Awesome/scss"
 [[module.mounts]]
 source = "themes/github.com/FortAwesome/Font-Awesome/webfonts"
 target = "static/webfonts"
+
+[module.hugoVersion]
+extended = true
+min = "0.160.1"
+
+[outputs]
+home = ["html"]
+page = ["html"]
+
+[params]
+github_repo = "{}"
+github_branch = "master"
+project = "{}"
+
+[[menus.main]]
+name = "Docs"
+url = "{}"
+
+[[menus.main]]
+name = "GitHub"
+url = "{}"
+
+[params.ui]
+navbar_logo = false
+showLightDarkModeMenu = true
+sidebar_menu_compact = true
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup.goldmark.renderHooks.link]
+useEmbedded = "fallback"
+
+[markup.goldmark.parser.attribute]
+block = true
+title = true
+
 """.format(
         ctx.attr.title.replace('"', '\\"'),
         ctx.attr.repository_url.replace('"', '\\"'),
+        ctx.attr.project,
         ctx.attr.docs_url.replace('"', '\\"'),
         ctx.attr.repository_url.replace('"', '\\"'),
     )
@@ -108,6 +117,7 @@ target = "static/webfonts"
 _write_config = rule(
     implementation = _write_config_impl,
     attrs = {
+        "project": attr.string(mandatory = True),
         "docs_url": attr.string(mandatory = True),
         "repository_url": attr.string(mandatory = True),
         "title": attr.string(mandatory = True),
@@ -121,6 +131,7 @@ def al_hugo_landing(name, project, title, docs, docs_url, repository_url, **kwar
         docs_url = docs_url,
         repository_url = repository_url,
         title = title,
+        project = project,
     )
 
     _readme(
@@ -146,11 +157,9 @@ def al_hugo_landing(name, project, title, docs, docs_url, repository_url, **kwar
         srcs = [
             "//projects/hugo_landing/assets/scss:assets",
             "//projects/hugo_landing/layouts:layouts",
+            "@com_alwaldend_src_hugo",
             ":{}_config_file".format(name),
             ":{}_readme_file".format(name),
-            "@com_alwaldend_src_hugo_github_com_google_docsy",
-            "@com_alwaldend_src_hugo_github_com_twbs_bootstrap",
-            "@com_alwaldend_src_hugo_github_com_fortawesome_font_awesome",
         ],
     )
 
@@ -177,9 +186,6 @@ def al_hugo_landing_site(name, project, title, docs, docs_url, repository_url, *
         site = ":{}_source".format(name),
         tools = [
             "//tools/sass:dart-sass",
-            "@com_alwaldend_src_hugo_github_com_fortawesome_font_awesome",
-            "@com_alwaldend_src_hugo_github_com_google_docsy",
-            "@com_alwaldend_src_hugo_github_com_twbs_bootstrap",
         ],
     )
     al_hugo_worker(

@@ -3,7 +3,7 @@
         "mcp_cordis_landing": {
             "CNAME": {
                 "name": "mcp-cordis",
-                "target": "pages.alwaldend.com."
+                "target": "alwaldend.github.io."
             },
             "dsp": ["global"]
         }
