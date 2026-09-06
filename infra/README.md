@@ -48,6 +48,10 @@ running an equivalent command.
   ```sh
   bazel_agent bazel run //infra/pve/tf:tf.apply
   ```
+- Update Xen Orchestra AppRole resource sets:
+  ```sh
+  bazel_agent bazel run //infra/xcp_ng/tf:tf.apply
+  ```
 - Set up al config:
   [example](https://github.com/alwaldend/src/blob/master/infra/pve/al.lua)
 - Set up a bucket for Terraform state:

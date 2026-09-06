@@ -2705,6 +2705,7 @@ func TestProviderHintsOnlyKnownHosts(t *testing.T) {
 	}{
 		{host: "github.com", provider: "github", available: true},
 		{host: "codeberg.org", provider: "forgejo", available: false},
+		{host: "git.alwaldend.com", provider: "forgejo", available: false},
 		{
 			host: "forgejo.alwaldend.com", provider: "forgejo",
 			available: false,

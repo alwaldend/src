@@ -3,16 +3,23 @@ load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
 
 _DATA = [
     ".terraform.lock.hcl",
-    "provider.tf",
-]
+] + glob(["*.tf"])
 
 terraform_binary_map(
     name = "tf",
     configs = ["//infra/xcp_ng:al"],
-    data = _DATA + ["//tools/vault/tf_backend"],
+    data = _DATA + [
+        "//infra/xcp_ng/cmd/xo_config",
+        "//tools/vault/injector",
+        "//tools/vault/tf_backend",
+    ],
     run_args = [
         "--plugin_label",
-        "tf=main",
+        "xcp_ng_tf=1",
+        "--plugin_label",
+        "xoa=1",
+        "--plugin_label",
+        "vault_env=xcp_ng",
     ],
 )
 

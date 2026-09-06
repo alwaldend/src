@@ -53,25 +53,22 @@ pkg_filegroup(
     ],
 )
 
-filegroup(
-    name = "cloud_init",
-    srcs = ["files/cloud_init.yaml"],
-    visibility = ["//:__subpackages__"],
-)
-
 pkg_files(
     name = "srcs_files",
     srcs = [
         "inventory.yaml",
         "//data/ssl/alwaldend.com:ica_servers",
         "//data/ssl/alwaldend.com:root_ca",
+        "//infra/cloud_init",
+        "//infra/cloud_init:cloud_init_min",
         "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
     ] + glob([
         "group_vars/**/*.yaml",
-        "files/**",
         "playbook_*.yaml",
     ]),
     renames = {
+        "//infra/cloud_init:cloud_init": "files/cloud_init.yaml",
+        "//infra/cloud_init:cloud_init_min": "files/cloud_init_min.yaml",
         "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "files/vault",
         "//data/ssl/alwaldend.com:root_ca": "files/pki_ca_root.crt",
         "//data/ssl/alwaldend.com:ica_servers": "files/pki_ca_servers.crt",

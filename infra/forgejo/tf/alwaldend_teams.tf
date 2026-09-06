@@ -36,14 +36,24 @@ resource "forgejo_team" "alwaldend_devs" {
 }
 
 locals {
-  alwaldend_admins          = ["simeonwarren", "src_infra_dc1_forgejo1"]
-  alwaldend_package_writers = ["src_third_party"]
+  alwaldend_admin_entity_ids = toset(concat(
+    tolist(data.vault_identity_group.forgejo_access["admins"].member_entity_ids),
+    flatten([for group in data.vault_identity_group.forgejo_admin_members : tolist(group.member_entity_ids)]),
+  ))
+  alwaldend_admins = {
+    for name, entity in local.vault_user_entities : name => entity
+    if contains(local.alwaldend_admin_entity_ids, entity.entity_id)
+  }
+  alwaldend_package_writers = {
+    for name, entity in local.vault_user_entities : name => entity
+    if contains(data.vault_identity_group.forgejo_access["package_writers"].member_entity_ids, entity.entity_id)
+  }
 }
 
 resource "forgejo_team_member" "alwaldend_admins" {
-  for_each = { for admin in local.alwaldend_admins : admin => "" }
+  for_each = local.alwaldend_admins
   team_id  = forgejo_team.alwaldend_admins.id
-  user     = each.key
+  user     = forgejo_user.vault[each.key].login
 }
 
 resource "forgejo_team" "alwaldend_package_writers" {
@@ -58,7 +68,7 @@ resource "forgejo_team" "alwaldend_package_writers" {
 }
 
 resource "forgejo_team_member" "alwaldend_package_writers" {
-  for_each = { for login in local.alwaldend_package_writers : login => "" }
+  for_each = local.alwaldend_package_writers
   team_id  = forgejo_team.alwaldend_package_writers.id
-  user     = each.key
+  user     = forgejo_user.vault[each.key].login
 }

@@ -144,7 +144,7 @@ al_binary_run_map(
             "bootstrap",
             "git",
             "--url",
-            "ssh://forgejo@forgejo.alwaldend.com:3005/alwaldend/src.git",
+            "ssh://forgejo@git.alwaldend.com:3005/alwaldend/src.git",
             "--branch",
             "master",
             "--author-email",

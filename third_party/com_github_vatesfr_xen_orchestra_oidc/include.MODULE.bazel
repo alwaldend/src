@@ -1,0 +1,43 @@
+http_file = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_file")
+
+http_file(
+    name = "com_github_vatesfr_xen_orchestra_oidc_license",
+    downloaded_file_path = "LICENSE.md",
+    integrity = "sha256-pwi1OyothO869Dokbxydr4xgNKboPmOBPmYXCnyXnUw=",
+    urls = ["https://raw.githubusercontent.com/vatesfr/xen-orchestra/4bc614ffd1417d3e0563522aeb4a195fa494c57c/LICENSE.md"],
+)
+
+http_file(
+    name = "com_github_vatesfr_xen_orchestra_oidc_index_js",
+    downloaded_file_path = "index.js",
+    integrity = "sha256-NEa4dpsJOR1KHD3z9eSdNLQrXUO7J8TzPifreobudDM=",
+    urls = ["https://raw.githubusercontent.com/vatesfr/xen-orchestra/4bc614ffd1417d3e0563522aeb4a195fa494c57c/packages/xo-server-auth-oidc/index.js"],
+)
+
+http_file(
+    name = "com_github_vatesfr_xen_orchestra_oidc_package_json",
+    downloaded_file_path = "package.json",
+    integrity = "sha256-5Y38A3Wrd84yz6eOnyTL8hT5oE8pewa65dGj7wVIJ/0=",
+    urls = ["https://raw.githubusercontent.com/vatesfr/xen-orchestra/4bc614ffd1417d3e0563522aeb4a195fa494c57c/packages/xo-server-auth-oidc/package.json"],
+)
+
+http_file(
+    name = "com_github_vatesfr_xen_orchestra_oidc_passport_openidconnect",
+    downloaded_file_path = "passport-openidconnect.tgz",
+    integrity = "sha512-JX3rTyW+KFZ/E9OF/IpXJPbyLO9vGzcmXB5FgSP2jfL3LGKJPdV7zUE8rWeKeeI/iueQggOeFa3onrCmhxXZTg==",
+    urls = ["https://registry.npmjs.org/passport-openidconnect/-/passport-openidconnect-0.1.2.tgz"],
+)
+
+http_file(
+    name = "com_github_vatesfr_xen_orchestra_oidc_oauth",
+    downloaded_file_path = "oauth.tgz",
+    integrity = "sha512-JtFnB+8nxDEXgNyniwz573xxbKSOu3R8D40xQKqcjwJ2CDkYqUDI53o6IuzDJBx60Z8VKCm271+t8iFjakrl8Q==",
+    urls = ["https://registry.npmjs.org/oauth/-/oauth-0.10.2.tgz"],
+)
+
+http_file(
+    name = "com_github_vatesfr_xen_orchestra_oidc_passport_strategy",
+    downloaded_file_path = "passport-strategy.tgz",
+    integrity = "sha512-CB97UUvDKJde2V0KDWWB3lyf6PC3FaZP7YxZ2G8OAtn9p4HI9j9JLP9qjOGZFvyl8uwNT8qM+hGnz/n16NI7oA==",
+    urls = ["https://registry.npmjs.org/passport-strategy/-/passport-strategy-1.0.0.tgz"],
+)

@@ -1,0 +1,43 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+docs_filegroup(
+    name = "docs",
+    srcs = [],
+    visibility = ["//infra/xcp_ng:__pkg__"],
+)
+
+go_library(
+    name = "xo_config_lib",
+    srcs = [
+        "authorization.go",
+        "host.go",
+        "main.go",
+        "template.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/infra/xcp_ng/cmd/xo_config",
+    visibility = ["//visibility:private"],
+    deps = [
+        "//infra/xcp_ng/internal/oidclogin",
+        "@tools_org_golang_x_net//websocket",
+    ],
+)
+
+go_binary(
+    name = "xo_config",
+    embed = [":xo_config_lib"],
+    visibility = ["//infra/xcp_ng:__subpackages__"],
+)
+
+go_test(
+    name = "xo_config_test",
+    size = "small",
+    srcs = [
+        "authorization_test.go",
+        "host_test.go",
+        "main_test.go",
+        "template_test.go",
+    ],
+    embed = [":xo_config_lib"],
+    deps = ["@tools_org_golang_x_net//websocket"],
+)

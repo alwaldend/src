@@ -1,0 +1,10 @@
+[Unit]
+Description=Renew and install the XCP-ng Vault ACME certificate
+After=network-online.target xapi.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+UMask=0077
+ExecStart=/usr/bin/python3 /etc/xcp-ng-acme/host_acme.py renew
+TimeoutStartSec=420

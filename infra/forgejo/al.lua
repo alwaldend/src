@@ -1,6 +1,16 @@
 local infra = require("infra.al_lib")
 local lib = require("al_lib")
 
+lib.plugin({
+    name = "xo_login",
+    bin = "com_alwaldend_src/infra/xcp_ng/cmd/xo_login/xo_login_/xo_login",
+    labels = { xoa_login = "1" },
+    data = {
+        xoa_url = "https://xoa.xcp-ng.alwaldend.com",
+        discovery_url = "https://vault.alwaldend.com:8200/v1/identity/oidc/provider/src_infra_xcp_ng_provider/.well-known/openid-configuration",
+    },
+})
+
 lib.vault_auth({
     name = "default",
     approle = {
@@ -38,12 +48,6 @@ lib.plugin_call({
 })
 
 lib.plugin_call({
-    name = "pve_login",
-    plugin = "pve_login",
-    labels = { tf = "setup" },
-})
-
-lib.plugin_call({
     name = "forgejo_login",
     plugin = "forgejo_login",
     labels = { tf = "main" },
@@ -55,6 +59,23 @@ lib.plugin_call({
     labels = { ansible = "1" },
     data = {
         res = {
+            {
+                name = "forgejo_oidc_client",
+                op = {
+                    method = "read",
+                    path = "identity/oidc/client/src_infra_dc1_forgejo1_provider",
+                },
+            },
+            {
+                name = "FORGEJO_OIDC_CLIENT_ID",
+                deps = { "forgejo_oidc_client" },
+                env = { value = "{{ .Last.Data.client_id }}" },
+            },
+            {
+                name = "FORGEJO_OIDC_CLIENT_SECRET",
+                deps = { "forgejo_oidc_client" },
+                env = { value = "{{ .Last.Data.client_secret }}" },
+            },
             {
                 name = "config",
                 kv = {

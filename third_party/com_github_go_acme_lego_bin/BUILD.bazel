@@ -1,0 +1,24 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+exports_files(
+    ["binary_toolchain.json"],
+    visibility = ["//infra/xcp_ng/ansible:__pkg__"],
+)
+
+alias(
+    name = "lego",
+    actual = "@com_github_go_acme_lego_bin//:lego_binary",
+    visibility = ["//infra/xcp_ng/ansible:__pkg__"],
+)
+
+alias(
+    name = "file",
+    actual = "@com_github_go_acme_lego_bin_linux_x86_64//:lego_filegroup",
+    visibility = ["//infra/xcp_ng/ansible:__pkg__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)
