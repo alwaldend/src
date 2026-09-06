@@ -229,15 +229,42 @@
         - arxiv
         - codex
         - open_computer_use
-    - name: Configure the OpenRouter Codex profile
+    - name: Remove provider profiles from the main Codex home
+      become: false
+      ansible.builtin.file:
+        path: "~/.codex/{{ item }}.config.toml"
+        state: absent
+      loop:
+        - openrouter
+        - abliteration
+      tags:
+        - codex
+    - name: Create the isolated Abliteration Codex directory
+      become: false
+      ansible.builtin.file:
+        path: "~/.codex-abliteration"
+        state: directory
+        mode: "0700"
+      tags:
+        - codex
+        - open_computer_use
+    - name: Configure the isolated Abliteration Codex provider
       become: false
       ansible.builtin.copy:
-        src: codex_openrouter.config.toml
-        dest: "~/.codex/openrouter.config.toml"
+        src: codex_abliteration_provider_config.toml
+        dest: "~/.codex-abliteration/config.toml"
         mode: "0600"
       tags:
         - codex
         - open_computer_use
+    - name: Configure isolated Abliteration Codex instructions
+      become: false
+      ansible.builtin.copy:
+        src: codex_agents.md
+        dest: "~/.codex-abliteration/AGENTS.md"
+        mode: "0600"
+      tags:
+        - codex
     - name: Configure user-level Codex instructions
       become: false
       ansible.builtin.copy:

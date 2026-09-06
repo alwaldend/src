@@ -1,0 +1,70 @@
+model = "abliterated-model"
+model_provider = "abliteration"
+web_search = "live"
+
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+default_permissions = "host-bot"
+
+[agents]
+# The MultiAgentV2 backend accounts for the root thread separately.
+max_concurrent_threads_per_session = 20
+
+[projects."/var/home/simeonwarrenbot/Projects/src"]
+trust_level = "trusted"
+
+[permissions.host-bot]
+description = "Workspace access with public network and Bazel caches."
+extends = ":workspace"
+
+[permissions.host-bot.filesystem]
+"/var/cache/bazel/disk_cache" = "write"
+"/var/cache/bazel/output_user_root" = "write"
+"/var/cache/bazel/tool_cache" = "write"
+"~/.cache/bazelisk" = "write"
+
+[permissions.host-bot.network]
+enabled = true
+allow_local_binding = true
+
+[permissions.host-bot.network.domains]
+"*" = "allow"
+"localhost" = "allow"
+"127.0.0.1" = "allow"
+"::1" = "allow"
+
+[mcp_servers.arxiv]
+command = "uvx"
+args = [
+  "--from",
+  "arxiv-mcp-server==0.7.2",
+  "arxiv-mcp-server",
+  "--storage-path",
+  "/srv/misc/arxiv-mcp-server/papers",
+]
+
+[mcp_servers.blender]
+command = "uvx"
+args = [
+  "--with",
+  "mcp<2",
+  "--from",
+  "git+https://projects.blender.org/lab/blender_mcp.git#subdirectory=mcp",
+  "blender-mcp",
+]
+
+[mcp_servers.open_computer_use]
+command = "/var/home/simeonwarrenbot/.local/bin/open-computer-use"
+args = ["mcp"]
+
+[shell_environment_policy.filters]
+T3_MCP_BEARER_TOKEN = "exclude"
+
+[model_providers.abliteration]
+name = "abliteration.ai"
+base_url = "https://api.abliteration.ai/v1"
+wire_api = "responses"
+
+[model_providers.abliteration.auth]
+command = "/usr/bin/secret-tool"
+args = ["lookup", "service", "abliteration", "application", "codex"]

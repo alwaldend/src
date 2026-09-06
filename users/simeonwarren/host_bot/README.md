@@ -17,7 +17,7 @@ permissions with on-request approvals, so threads cannot select **Full
 access** or disable approvals. The requirements file only allowlists the
 `host-bot` profile; it must not define the profile because T3 Code supplies a
 per-thread config layer with the same name, and Codex rejects profiles defined
-by both requirements and config. The normal and isolated OpenRouter configs
+by both requirements and config. The normal and isolated provider configs
 define `host-bot` with workspace writes, public command-network access, and
 write access to the Bazel cache and Bazelisk directories while keeping local
 network binding and loopback connections available for Bazel servers. Other
@@ -66,15 +66,14 @@ OSTree package backend. Open Computer Use 0.3.3 is then installed without npm
 lifecycle scripts under the managed user's `~/.local` prefix. Its skill is
 then installed for the whole host under `/etc/codex/skills` from the matching
 immutable upstream revision. The deployment configures its stdio MCP server in
-the normal Codex config, the OpenRouter profile overlay, and the isolated
-OpenRouter home. The MCP can inspect and control the logged-in desktop session,
-so agents must treat its actions as real user input and obtain approval before
+the normal Codex config and the isolated OpenRouter and Abliteration homes.
+The MCP can inspect and control the logged-in desktop session, so agents must treat its actions as real user input and obtain approval before
 externally visible or destructive actions.
 
-OpenRouter is available to new sessions through `codex -p openrouter`. The
-profile reads its API key from the desktop keyring entry selected by
+OpenRouter is available through its isolated Codex home. Its
+configuration reads its API key from the desktop keyring entry selected by
 `service=openrouter` and `application=codex`; the key is not stored in the
-profile. Repository work uses the repo-owned `$codex-migration` skill, while
+configuration. Repository work uses the repo-owned `$codex-migration` skill, while
 the user-level Codex instructions require isolated migration testing and
 intentional host changes to be mirrored into this role. Existing sessions are
 not redirected because provider-bound encrypted reasoning history cannot
@@ -85,6 +84,24 @@ T3 Code can use OpenRouter as a separate Codex provider by setting its
 isolated home defaults to `~deepseek/deepseek-v4-flash-latest` and shares no
 conversation state with the ChatGPT-backed Codex provider. Start a new thread
 when selecting it.
+
+Abliteration uses a separate home with
+`CODEX_HOME="$HOME/.codex-abliteration" codex`, using the endpoint and model from its
+[Codex integration guide](https://docs.abliteration.ai/integrations/codex).
+It retrieves its API token at runtime with `secret-tool`, selecting
+`service=abliteration` and `application=codex`. Save the token from an
+interactive terminal in the same user's desktop keyring:
+
+```sh
+secret-tool store --label='Abliteration API token for Codex' service abliteration application codex
+```
+
+Enter the token at the hidden prompt. The configuration contains only the
+lookup command. Provider response and tool-call validation require a saved
+token. Both providers keep their configuration and conversation state outside
+the main Codex home; provider profiles in the main home are removed. For
+T3 Code, set its `CODEX_HOME path` to
+`/var/home/simeonwarrenbot/.codex-abliteration` and start a new thread.
 
 `T3_MCP_BEARER_TOKEN` authenticates the Codex app-server's loopback MCP
 connection to T3 Code at `/mcp`. Codex excludes it from model-spawned commands
