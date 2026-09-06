@@ -84,6 +84,12 @@ or committable source; ignored task scratch is suitable.
   bootstrap, BUILD/Starlark/MODULE mechanics, generated files, sandboxing, and
   validation. Do not call `bazel` directly or expose raw BEP output. Run the
   owning update command instead of hand-editing generated files.
+- Nested Bazel workspaces must use regular `.bazelrc` files with a single
+  import of `tools/bazelrc/bzl_project.bazelrc`, which owns shared settings,
+  the `agent` profile, and the final user override. Do not symlink `.bazelrc`,
+  duplicate the wrapper's imports, or independently redefine shared settings.
+  Put required module-specific additions before that import;
+  `bazel-nested-module` owns the exact relative path.
 - Load `repo-external-dependency` when acquiring or updating external inputs.
   Tools used by Bazel must be pinned and checksummed, with no undeclared host
   tools or lifecycle downloads. Environment-dependent tool output is allowed

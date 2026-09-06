@@ -20,3 +20,10 @@ bazel_agent tool warm repo_delivery >/dev/null 2>&1 || true
 '''
 async = true
 timeout = 600
+
+[[hooks.SessionEnd]]
+
+[[hooks.SessionEnd.hooks]]
+type = "command"
+command = 'bash "$(git rev-parse --show-toplevel)/tools/bazel_session_cleanup/hooks/session_end.sh"'
+timeout = 3

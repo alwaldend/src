@@ -1,3 +1,1 @@
-import %workspace%/../../tools/bazelrc/preset.bazelrc
-import %workspace%/../../tools/bazelrc/project.bazelrc
-try-import %workspace%/../../user.bazelrc
+import %workspace%/../../tools/bazelrc/bzl_project.bazelrc

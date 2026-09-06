@@ -19,13 +19,14 @@ Follow the root `AGENTS.md` and the `repo-bazel` skill. Inspect all existing
    and `bazel_compatibility = [">=8.0.0"]` until release policy requires a
    different value.
 2. Symlink `.bazeliskrc` to `../../.bazeliskrc` and `.bazelignore` to
-   `../../.bazelignore`. Normally symlink `.bazelrc` to
-   `../../tools/bazelrc/bzl_project.bazelrc` too. If the module needs
-   workspace-wide flags such as a validation aspect, use a regular `.bazelrc`
-   that imports `%workspace%/../../tools/bazelrc/preset.bazelrc`, then
-   `%workspace%/../../tools/bazelrc/project.bazelrc`, adds only its custom
-   flags, and `try-import`s `%workspace%/../../user.bazelrc` last. Do not copy
-   shared settings into it.
+   `../../.bazelignore`. Every nested workspace must inherit the shared
+   repository configuration, including the `agent` profile. Use a regular
+   `.bazelrc` with one import:
+   `import %workspace%/../../tools/bazelrc/bzl_project.bazelrc`.
+   The shared wrapper owns the preset, project settings, and final user
+   override. Put any required module-specific flags before that import. Do
+   not symlink `.bazelrc`, duplicate the wrapper's imports, or copy or
+   independently redefine shared settings.
 3. Declare only dependencies the module needs. For repository documentation,
    depend on `rules_docs` and load `@rules_docs//docs:defs.bzl`; `rules_docs`
    itself uses the canonical `//docs:defs.bzl` label instead of depending on
