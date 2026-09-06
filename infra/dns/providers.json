@@ -1,0 +1,21 @@
+{
+    "global": {
+        "TYPE": "CLOUDFLAREAPI",
+        "accountid": "$DNSCONTROL_CLOUDFLARE_ACCOUNT_ID",
+        "apitoken": "$DNSCONTROL_CLOUDFLARE_API_TOKEN"
+    },
+    "global_bind": {
+        "TYPE": "BIND",
+        "directory": "infra/dns/zones"
+    },
+    "dc1": {
+        "TYPE": "MIKROTIK",
+        "host": "https://router1.dc1.alwaldend.com",
+        "username": "$DNSCONTROL_MIKROTIK_USERNAME",
+        "password": "$DNSCONTROL_MIKROTIK_PASSWORD"
+    },
+    "dc1_bind": {
+        "TYPE": "BIND",
+        "directory": "infra/dns/zones"
+    }
+}

@@ -1,0 +1,46 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_test")
+
+go_binary(
+    name = "update",
+    srcs = ["main.go"],
+    args = ["--git=$(rlocationpath //tools/git)"],
+    data = ["//tools/git"],
+    visibility = ["//tools/bazel_module:__pkg__"],
+    deps = ["@rules_go//go/runfiles"],
+)
+
+go_test(
+    name = "update_test",
+    size = "small",
+    srcs = [
+        "main.go",
+        "main_test.go",
+    ],
+    args = ["-git=$(rlocationpath //tools/git)"],
+    data = ["//tools/git"],
+    deps = ["@rules_go//go/runfiles"],
+)
+
+go_test(
+    name = "freshness_test",
+    size = "small",
+    srcs = [
+        "freshness_test.go",
+        "main.go",
+    ],
+    args = [
+        "-git=$(rlocationpath //tools/git)",
+        "-workspace-marker=$(rlocationpath //:MODULE.bazel)",
+    ],
+    data = [
+        "//:MODULE.bazel",
+        "//tools/git",
+    ],
+    tags = [
+        "external",
+        "no-cache",
+        "no-sandbox",
+    ],
+    visibility = ["//tools/repo_quality:__pkg__"],
+    deps = ["@rules_go//go/runfiles"],
+)

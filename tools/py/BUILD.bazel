@@ -1,4 +1,24 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_python//python:pip.bzl", "compile_pip_requirements")
+load("//tools/toml/main/bzl:al_toml_data.bzl", "al_toml_data")
+
+al_toml_data(
+    name = "pyproject",
+    srcs = ["//:pyproject.toml"],
+    visibility = ["//:__subpackages__"],
+)
+
+compile_pip_requirements(
+    name = "requirements",
+    size = "large",
+    timeout = "long",
+    srcs = ["//:pyproject.toml"],
+    # Preserve the checked-in lock header and its compatible public command.
+    env = {"CUSTOM_COMPILE_COMMAND": "bazel run //:requirements.update"},
+    extra_args = ["--no-strip-extras"],
+    requirements_txt = "//:requirements.txt",
+    visibility = ["//:__subpackages__"],
+)
 
 docs_filegroup(
     name = "docs",

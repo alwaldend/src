@@ -1,0 +1,15 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/terraform:defs.bzl", "terraform_binary_map")
+
+docs_filegroup(
+    name = "docs",
+    srcs = [],
+    visibility = ["//tools/terraform:__pkg__"],
+)
+
+terraform_binary_map(
+    name = "tf",
+    chdir = ".",
+    configs = ["//tools/al:config"],
+    visibility = ["//:__pkg__"],
+)

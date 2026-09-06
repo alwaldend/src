@@ -8,8 +8,12 @@ build --output_groups=+skill_validation
 
 # Run source linters over declared targets. Formatter drift is checked by
 # //:repo_quality_test because it also covers tracked files outside BUILD rules.
+# Keep the build setting identical between normal and lint invocations so
+# switching modes does not discard the analysis cache.
+build --@aspect_rules_lint//lint:fail_on_violation
 build:lint --aspects=//tools/repo_quality:linters.bzl%buildifier,//tools/repo_quality:linters.bzl%ruff,//tools/repo_quality:linters.bzl%shellcheck
-build:lint --@aspect_rules_lint//lint:fail_on_violation
+# Request checks only; ordinary target outputs belong to build/test commands.
+build:lint --output_groups=rules_lint_human,skill_validation
 # User preferences
 # Load any settings & overrides specific to the current user from `user.bazelrc`.
 # This file should appear in `.gitignore` so that settings are not shared with team members.

@@ -4,7 +4,7 @@
     "id": "agent-system.action",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.action-compiler",
-    "sourceRevision": "4c4add83561f89421f6639d971feb539",
+    "sourceRevision": "8c31b0b3849d53799753cc176587a7c5",
     "inputs": [
         {
             "path": "projects/goal/agent_operations.json",
@@ -49,7 +49,7 @@
         {
             "path": "tools/terraform/defs.bzl",
             "role": "operation-definition",
-            "digest": "sha256:4ad73fc6b6a68d6f791e7a84f90e58c9a11bc3d6ca626f1f836c443a6f13e6d5"
+            "digest": "sha256:6386e4bc076b285871085cdcb8772fd7fb376e28ff63976d590dae8593e4db31"
         }
     ],
     "bounds": {
@@ -64,7 +64,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:d9efa4017d3f069c57e2572a2dc7906fd3e34a4ab98b4fb3b62de2f91b59bf02",
+    "digest": "sha256:4dde51513415a8f132c4dc9cad526e784300043ed8b36f887006974266d8620e",
     "providers": [
         {
             "id": "cordis.runtime",

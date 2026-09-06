@@ -1,0 +1,7 @@
+exports_files(
+    [
+        "npm.bzl",
+        "pip.bzl",
+    ],
+    visibility = ["//:__pkg__"],
+)

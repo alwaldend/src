@@ -6,9 +6,9 @@
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/workspace-check-catalog`
 - Derivation: `1.0.0`
 - Producer: `repository.workspace-check-compiler`
-- Source revision: `55f4d38e6ecb872cfed8f31f85d70fe4`
+- Source revision: `f178961479cccf8974efd9d4cbea9a09`
 - Completeness: `complete`
-- JSON digest: `sha256:ce511c515a5c377b5b8328d07bf76a7d2fcad4002a7aa68c201175b6113c4a2e`
+- JSON digest: `sha256:7139eabdac087bfa74cb04f8f9495f49f14857f004f6656b6d0486b7f6f5cb13`
 
 ## Limitations
 

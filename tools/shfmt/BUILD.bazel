@@ -1,5 +1,11 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+filegroup(
+    name = "editorconfig",
+    srcs = ["//:.editorconfig"],
+    visibility = ["//:__subpackages__"],
+)
+
 alias(
     name = "shfmt",
     actual = "@com_alwaldend_src_tools_shfmt//:shfmt_binary",

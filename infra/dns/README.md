@@ -13,6 +13,14 @@ tags:
 
 ## Deployment
 
+`//infra/dns:config_test` validates the generated configuration with the pinned
+DNSControl `check` command. It requires no credentials and does not access DNS
+providers.
+
+Operational wrappers pass `providers.json` explicitly. Its environment references
+are populated by the AL Vault injector; DNSControl reads the values directly
+without a rendered credentials file.
+
 Project landing records live next to their projects in
 `projects/<project>/dnsconfig.json`. The main website owns the shared
 `pages` address, and project files own their own subdomain CNAMEs.

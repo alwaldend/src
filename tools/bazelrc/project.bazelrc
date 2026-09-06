@@ -38,13 +38,11 @@ common:ci --//tools/bazel_configs:ci_flag
 # Keep agent output bounded, non-interactive, and useful for monitoring.
 common:agent --color=no
 common:agent --curses=no
-common:agent --lockfile_mode=error
 build:agent --experimental_ui_max_stdouterr_bytes=1048576
 build:agent --show_progress
 build:agent --show_progress_rate_limit=5
 build:agent --show_timestamps
 test:agent --max_test_output_bytes=1048576
-test:agent --nocache_test_results
 test:agent --test_summary=terse
 test:agent --test_output=errors
 # Show extra C/C++ errors

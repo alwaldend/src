@@ -1,0 +1,16 @@
+load("@rules_go//go:def.bzl", "go_test")
+
+# gazelle:resolve go github.com/bazelbuild/buildtools/build @tools_com_github_bazelbuild_buildtools//build:go_default_library
+
+go_test(
+    name = "root_build_test",
+    size = "small",
+    srcs = ["root_build_test.go"],
+    args = ["-root-build=$(rlocationpath //:BUILD.bazel)"],
+    data = ["//:BUILD.bazel"],
+    visibility = ["//tools/repo_quality:__pkg__"],
+    deps = [
+        "@rules_go//go/runfiles",
+        "@tools_com_github_bazelbuild_buildtools//build:go_default_library",
+    ],
+)

@@ -67,17 +67,31 @@ lib.plugin_call({
                 },
             },
             {
-                name = "creds",
-                deps = { "cloudflare", "mikrotik" },
-                file = {
-                    from_file = "infra/dns/creds.json.tpl",
+                name = "DNSCONTROL_CLOUDFLARE_ACCOUNT_ID",
+                deps = { "cloudflare" },
+                env = {
+                    value = "{{ .Last.Data.cloudflare_account_id }}",
                 },
             },
             {
-                name = "DNSCONTROL_CREDS",
-                deps = { "creds" },
+                name = "DNSCONTROL_CLOUDFLARE_API_TOKEN",
+                deps = { "cloudflare" },
                 env = {
-                    value = "{{ index .Last.Files 0 }}",
+                    value = "{{ .Last.Data.cloudflare_api_token }}",
+                },
+            },
+            {
+                name = "DNSCONTROL_MIKROTIK_USERNAME",
+                deps = { "mikrotik" },
+                env = {
+                    value = "{{ .Last.Data.username }}",
+                },
+            },
+            {
+                name = "DNSCONTROL_MIKROTIK_PASSWORD",
+                deps = { "mikrotik" },
+                env = {
+                    value = "{{ .Last.Data.password }}",
                 },
             },
         },

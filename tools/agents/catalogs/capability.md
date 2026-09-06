@@ -6,9 +6,9 @@
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/capability-catalog`
 - Derivation: `1.0.0`
 - Producer: `repository.capability-compiler`
-- Source revision: `9d4edc191000f03b866bf205cc60e3d1`
+- Source revision: `2359bdc95cbb86e35570d6359c2874d4`
 - Completeness: `complete`
-- JSON digest: `sha256:d5cb00c88021e625c773db0be06eae32a989cac9e7595e74aebd247368b7e2b9`
+- JSON digest: `sha256:d8cb40d86f2d90d794974c26775aeb0389986798c570ca7ee9fc94100752692f`
 
 ## Limitations
 

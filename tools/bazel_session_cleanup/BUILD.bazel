@@ -1,5 +1,12 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//tools:__pkg__"],
+)
 
 sh_binary(
     name = "session_end",

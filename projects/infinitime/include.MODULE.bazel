@@ -1,0 +1,79 @@
+# Keep firmware source out of module resolution. The rules dependencies from
+# the pinned upstream MODULE.bazel are already supplied by //third_party.
+git_repository = use_repo_rule("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
+
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+git_repository(
+    name = "com_alwaldend_com_github_infinitimeorg_infinitime",
+    commit = "0a89c99b2994d9f9b58a05e870557783a3f74bc7",
+    init_submodules = True,
+    patch_args = ["-p1"],
+    patches = ["//projects/infinitime/main/patch:cmake_toolchain.patch"],
+    recursive_init_submodules = True,
+    remote = "https://github.com/alwaldend/com_github_infinitimeorg_infinitime.git",
+    shallow_since = "1733253068 +0100",
+)
+
+# Separate extension identities prevent unrelated pip/npm consumers from
+# reading firmware lockfiles and thereby fetching the source repository.
+# Python and Node toolchains are provided by //tools/py and //tools/js.
+pip = use_extension("//projects/infinitime/internal:pip.bzl", "pip")
+
+# Re-exporting pip also isolates rules_python's MODULE.bazel platform defaults.
+# Restore the platform used by the pinned x86_64 Linux firmware compiler below.
+pip.default(
+    arch_name = "x86_64",
+    config_settings = [
+        "@platforms//cpu:x86_64",
+        "@platforms//os:linux",
+        "@rules_python//python/config_settings:_is_py_freethreaded_no",
+    ],
+    env = {"platform_version": "0"},
+    os_name = "linux",
+    platform = "linux_x86_64",
+    whl_abi_tags = [
+        "abi3",
+        "cp{major}{minor}",
+    ],
+    whl_platform_tags = [
+        "linux_x86_64",
+        "manylinux_*_x86_64",
+    ],
+)
+pip.parse(
+    hub_name = "com_alwaldend_com_github_infinitimeorg_infinitime_pip",
+    python_version = "3.13.9",
+    requirements_lock = "@com_alwaldend_com_github_infinitimeorg_infinitime//bazel/py:requirements.txt",
+)
+use_repo(pip, "com_alwaldend_com_github_infinitimeorg_infinitime_pip")
+
+npm = use_extension("//projects/infinitime/internal:npm.bzl", "npm")
+npm.npm_translate_lock(
+    name = "com_alwaldend_com_github_infinitimeorg_infinitime_npm",
+    bins = {
+        "lv_font_conv": ["lv_font_conv=./lv_font_conv.js"],
+    },
+    data = ["@com_alwaldend_com_github_infinitimeorg_infinitime//:pnpm-workspace.yaml"],
+    pnpm_lock = "@com_alwaldend_com_github_infinitimeorg_infinitime//:pnpm-lock.yaml",
+    run_lifecycle_hooks = False,
+    verify_node_modules_ignored = "@com_alwaldend_com_github_infinitimeorg_infinitime//:.bazelignore",
+)
+use_repo(npm, "com_alwaldend_com_github_infinitimeorg_infinitime_npm")
+
+# Preserve the upstream SDK/toolchain pins and packaging BUILD file.
+http_archive(
+    name = "com_alwaldend_com_github_infinitimeorg_infinitime_com_arm_developer_gcc_arm",
+    build_file = "@com_alwaldend_com_github_infinitimeorg_infinitime//:BUILD.general.bazel",
+    integrity = "sha256-l9u08BmtFlC3Mvr/zIgWic7cFOK37oY9OQ4KQe8WyaM=",
+    strip_prefix = "gcc-arm-none-eabi-10.3-2021.10",
+    url = "https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2",
+)
+
+http_archive(
+    name = "com_alwaldend_com_github_infinitimeorg_infinitime_com_nordicsemi_developer_nrfsdk",
+    build_file = "@com_alwaldend_com_github_infinitimeorg_infinitime//:BUILD.general.bazel",
+    integrity = "sha256-nJMH11fRCQB/L8xOVHrBCxqf2fqkd+jb8/fhYkxIAaU=",
+    strip_prefix = "nRF5_SDK_15.3.0_59ac345",
+    url = "https://developer.nordicsemi.com/nRF5_SDK/nRF5_SDK_v15.x.x/nRF5_SDK_15.3.0_59ac345.zip",
+)
