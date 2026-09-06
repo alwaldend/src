@@ -11,10 +11,28 @@
         Pass only if the response inspects existing projects/rules_* modules;
         creates projects/rules_widget with a matching module name, version
         0.0.0, Bazel 8 compatibility, lockfile, README, BUILD file, and shared
-        configuration symlinks; declares only required dependencies and public
-        docs; adds the parent bazel_dep and local override, .bazelignore entry,
+        version-pin and ignore symlinks plus a regular .bazelrc with one import
+        of tools/bazelrc/bzl_project.bazelrc; declares
+        only required dependencies and public docs; adds the parent bazel_dep
+        and local override, .bazelignore entry,
         project docs integration, deployment exclusion, and full-repo-check
         workspace; updates locks through bazel_agent; runs applicable Gazelle
         generation twice and reviews its diff; and tests and builds the nested
         module plus focused parent integration and Buildifier checks. Otherwise
         fail.
+- description: Inherits shared configuration when a module needs extra flags
+  vars:
+    request: >-
+      A nested Bazel module needs a workspace-specific validation aspect.
+      Should I replace its shared .bazelrc symlink with a standalone config
+      containing my own agent profile and build settings?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response requires a regular .bazelrc inheriting the
+        repository's shared configuration through a single import of
+        tools/bazelrc/bzl_project.bazelrc, retains the shared agent profile,
+        and adds only the module-specific aspect flags before that import so
+        the wrapper's user override remains last. It must reject copying
+        shared settings or duplicating the wrapper's imports. Otherwise fail.

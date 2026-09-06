@@ -1,0 +1,13 @@
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
+
+sh_binary(
+    name = "session_end",
+    srcs = ["hooks/session_end.sh"],
+)
+
+sh_test(
+    name = "session_end_test",
+    srcs = ["test/session_end_test.sh"],
+    data = ["hooks/session_end.sh"],
+)
