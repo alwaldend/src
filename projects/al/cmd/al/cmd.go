@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"os"
@@ -90,7 +91,7 @@ func newRunCmd(ctx *al.CmdCtx) *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("could not load configs: %w", err)
 			}
-			runCmd := exec.CommandContext(ctx.Ctx, args[0], args[1:]...)
+			runCmd := exec.Command(args[0], args[1:]...)
 			runCmd.Env = os.Environ()
 			if err := al.SetRunfilesEnv(runCmd); err != nil {
 				return fmt.Errorf("could not add runfiles env: %w", err)
@@ -102,15 +103,15 @@ func newRunCmd(ctx *al.CmdCtx) *cobra.Command {
 			if err != nil {
 				return fmt.Errorf("could not create plugin manager: %w", err)
 			}
+			lc.Add(pluginManager.Lifecycle())
 			if err := pluginManager.AddLabels(pluginLabels); err != nil {
 				return fmt.Errorf("could not add plugin labels: %w", err)
 			}
-			lc.Add(pluginManager.Lifecycle())
 			if err := lc.Start(ctx.Ctx); err != nil {
 				return fmt.Errorf("could not start the lifecycle: %w", err)
 			}
 			runCmd.Env = append(runCmd.Env, pluginManager.Env()...)
-			if err := runCmd.Run(); err != nil {
+			if err := runCommand(ctx.Ctx, runCmd); err != nil {
 				return fmt.Errorf("could not run the command: %w", err)
 			}
 			return nil
@@ -123,6 +124,27 @@ func newRunCmd(ctx *al.CmdCtx) *cobra.Command {
 	flags.StringVar(&cmdStdin, "stdin", "", "Override stdin")
 	flags.StringArrayVar(&pluginLabels, "plugin_label", nil, "Plugin labels to run")
 	return cmd
+}
+
+// Let the command finish its own shutdown while its injected files and plugin
+// services are still available. The enclosing lifecycle stops plugins afterward.
+func runCommand(ctx context.Context, cmd *exec.Cmd) error {
+	if err := ctx.Err(); err != nil {
+		return err
+	}
+	if err := cmd.Start(); err != nil {
+		return err
+	}
+	wait := make(chan error, 1)
+	go func() { wait <- cmd.Wait() }()
+	select {
+	case err := <-wait:
+		return err
+	case <-ctx.Done():
+		stopCtx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		defer cancel()
+		return errors.Join(ctx.Err(), lifecycle.StopProcess(stopCtx, cmd, wait))
+	}
 }
 
 func overrideStd(lc *lifecycle.Manager, cmd *exec.Cmd, stdout string, stderr string, stdin string) error {

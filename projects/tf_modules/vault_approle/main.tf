@@ -168,6 +168,9 @@ resource "vault_policy" "policy_approle" {
     path "auth/${var.backend}/role/${vault_approle_auth_backend_role.role.role_name}/secret-id" {
         capabilities = ["update", "read"]
     }
+    path "auth/${var.backend}/role/${vault_approle_auth_backend_role.role.role_name}/secret-id-accessor/destroy" {
+        capabilities = ["update"]
+    }
 EOT
 }
 

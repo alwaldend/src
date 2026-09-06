@@ -3,7 +3,7 @@ load("@protobuf//bazel:java_proto_library.bzl", "java_proto_library")
 load("@protobuf//bazel:proto_library.bzl", "proto_library")
 load("@protobuf//bazel:py_proto_library.bzl", "py_proto_library")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_go//go:def.bzl", "go_binary", "go_library")
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 load("@rules_go//proto:def.bzl", "go_proto_library")
 load("@rules_java//java:defs.bzl", "java_library")
 load("//tools/proto/main/bzl:al_proto_docs.bzl", "al_proto_docs")
@@ -85,4 +85,14 @@ py_proto_library(
     name = "pve_login_proto_py_pb2",
     visibility = ["//:__subpackages__"],
     deps = [":pve_login_proto_proto"],
+)
+
+go_test(
+    name = "pve_login_test",
+    srcs = ["main_test.go"],
+    embed = [":pve_login_lib"],
+    deps = [
+        ":pve_login_proto",
+        "//projects/al/pkg/lifecycle",
+    ],
 )

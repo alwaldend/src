@@ -1,4 +1,4 @@
-load("@rules_go//go:def.bzl", "go_library")
+load("@rules_go//go:def.bzl", "go_library", "go_test")
 
 go_library(
     name = "al_plugin",
@@ -17,8 +17,25 @@ go_library(
         "//projects/al/pkg/lifecycle",
         "@org_golang_google_grpc//:grpc",
         "@org_golang_google_grpc//credentials/insecure",
-        "@org_golang_google_protobuf//encoding/protojson",
         "@org_golang_google_protobuf//proto",
+        "@rules_go//go/runfiles",
+    ],
+)
+
+go_test(
+    name = "al_plugin_test",
+    srcs = [
+        "iolistener_test.go",
+        "plugin_client_test.go",
+        "plugin_server_test.go",
+    ],
+    embed = [":al_plugin"],
+    deps = [
+        "//projects/al/api/al_proto",
+        "//projects/al/pkg/al",
+        "//projects/al/pkg/lifecycle",
+        "@org_golang_google_grpc//:grpc",
+        "@org_golang_google_grpc//credentials/insecure",
         "@rules_go//go/runfiles",
     ],
 )
