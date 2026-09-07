@@ -181,6 +181,19 @@ documentation publication, and secrets/personal information distinct.
 protected content; it does not make ordinary source or operational facts
 confidential.
 
+## Naming
+
+Use precise, professional vocabulary for every name you choose, including
+files, scripts, directories, functions, variables, classes, commits, and
+branches. Name the purpose or behavior accurately, using language suitable
+for a technical specification. Avoid slang, casual shorthand, chat-culture
+terms, jokes, and cute or clever wordplay.
+
+Prefer established domain terminology and standard technical abbreviations;
+follow the language's and component's naming conventions. For example, a
+script that deploys dashboards should be named `deploy_dashboards.sh`, not
+`push_dashboards.sh`. The principle applies to all names, not just scripts.
+
 ## Communicate and maintain source
 
 When the main agent loads a skill, say which one and why it applies. Explain
