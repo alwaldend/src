@@ -1,0 +1,76 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: cushion-sewn-repair-044
+  resourceVersion: "4"
+  generation: 1
+  creationTimestamp: "2026-09-05T07:25:02.766401737Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:8f542de318371de943ed3854a69b1bcaeffa6264fa6dd31c351299ed7591a60f
+  planID: cushion-sewn-repair-v42
+  workType: change
+  hypothesis: Coherent cushion depth and sewn construction address image-review shape failures; restored cloth-rest evaluation makes pattern correction real
+  subject: 043 head/face/garment plus exact041b corrected cloth simulation
+  nextAction: Run cloth_044_build.py; inspect fixed views before integrating reviewed cushion and hem helpers into new044 candidate
+status:
+  state: closed
+  closedAt: "2026-09-05T08:35:42.360837197Z"
+  artifacts:
+    planDigest: sha256:7454382926205f024cb6c7b2b9b58822c68b31dc413297349a5a5bc144c3b685
+    resultDigest: sha256:c072a685801eeb4c68d531b6ee0b0cb3d4ced6c18bca96d35000672a17cab8f7
+    evidence:
+    - path: evidence/appearance_044_session_review.md
+      digest: sha256:2836f7e1d8d53a447abbf91b58fbfc033fdd7c80f4683cd4e804dd26b6454efc
+    - path: evidence/cloth_rest_044_evidence.md
+      digest: sha256:61db9b54639d5fec6da4e75a9532c80b6c5610c1267a485408e5e17dd71cf2ec
+    - path: evidence/cushion_044_final_review.md
+      digest: sha256:8e39a244d99b7382c1b6e2bd226ebe38287de9096a65c5fc06b9be37979bbb4c
+    - path: evidence/cushion_044_geometry_evidence.md
+      digest: sha256:325f245c9179d6da435b7be44426f99760d9938a351ce5342646c299e0ee87ce
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T08:35:42.360837197Z"

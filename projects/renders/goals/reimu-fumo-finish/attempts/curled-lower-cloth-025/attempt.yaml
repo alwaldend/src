@@ -1,0 +1,71 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: curled-lower-cloth-025
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T22:20:38.887403475Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:ff873000dc262ba4994e2e9adab54483ff52d7c7b7c8d65ea6526df042400f79
+  workType: candidate
+  stableDefect: flat-hem-black-pod-feet
+  hypothesis: Continuous curling cloth and shorter tapered stuffing remove the tooth/cylinder failure while preserving proven contacts.
+  subject: 023 lower assembly reset after024 image rejection
+  priorAttemptID: sewn-lower-assembly-024
+  nextAction: Root modifies the fold trajectory and leg profile, freezes a new candidate, and reviews actual multi-view pixels.
+status:
+  state: closed
+  closedAt: "2026-09-04T22:25:10.504997788Z"
+  artifacts:
+    planDigest: sha256:ed0e7c01322c36ce3f76918c6ac4288982ed7e73dceeb5e60973f534982b40c1
+    resultDigest: sha256:075fc59b5ee089e0606defe598d2a7c27d45dd54401489193cf2e3e4cd1643f5
+    evidence:
+    - path: evidence/lower_025_evidence.md
+      digest: sha256:7aba403ba0a5f40937e957695d0ef32bc333b401a8c29691f67acf3c729a95b8
+    - path: evidence/lower_025_sources.md
+      digest: sha256:76404fdea756fdcdf859b613e0e2d3383927854bb6c19364b78dd7072c2417bb
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-04T22:25:10.504997788Z"

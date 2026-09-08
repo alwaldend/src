@@ -1,0 +1,72 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: fitted-crown-free-panels-045
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T08:36:09.447351827Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:444f039ac6fb4b9fb50d11b258710609a33f440a6ec373592b73cd795f2b0f02
+  planID: fitted-crown-free-panels-v43
+  workType: change
+  stableDefect: solid-lower-hair-helmet
+  hypothesis: Removing lower receiver bulk and providing thin free fabric edges changes the enclosing helmet construction
+  subject: cushion_044d_candidate.blend
+  priorAttemptID: cushion-sewn-repair-044
+  nextAction: Build hair_045 candidate and reject construction failures in fixed front and side renders
+status:
+  state: closed
+  closedAt: "2026-09-05T08:43:58.462731611Z"
+  artifacts:
+    planDigest: sha256:bd1367535c35b80b4b60b6e0e79a314c1f1dc3a8fd1c7d1a21645163b08d81f7
+    resultDigest: sha256:b35f7aa4d50dd49eb188283c6cd664f4a428d42b66d5091e9b1dc60c30d3f55f
+    evidence:
+    - path: evidence/hair_045_plan.md
+      digest: sha256:bd1367535c35b80b4b60b6e0e79a314c1f1dc3a8fd1c7d1a21645163b08d81f7
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T08:43:58.462731611Z"

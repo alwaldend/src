@@ -1,0 +1,72 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: fixed-geometry-fabric-041
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T06:45:21.427136923Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:473da51d18e43989f15979a6c39bf2987f925ad88e91f7e50e51e38da3b779f6
+  planID: fixed-geometry-fabric-v39
+  workType: candidate
+  stableDefect: unresolved-geometry-versus-material-plush-read
+  priorAttemptID: direct-section-cage-040
+  nextAction: Save fixed-base-geometry fabric diagnostic, clean-reopen and review full fixed-view pixels independently without waiving shape/contact defects.
+status:
+  state: closed
+  closedAt: "2026-09-05T06:59:12.657451259Z"
+  artifacts:
+    planDigest: sha256:ef0215823c7df1ac42992cf80cb6e9e693c9cc80aa965f9904cff2c5070fed14
+    resultDigest: sha256:d0d04f8d238f4d985919642b4f16cfd6b53d24449756202c0f3637c86ffdfda2
+    evidence:
+    - path: evidence/fabric_041_result.md
+      digest: sha256:d0d04f8d238f4d985919642b4f16cfd6b53d24449756202c0f3637c86ffdfda2
+    - path: evidence/macro_040_result.md
+      digest: sha256:9efcffbf2a09239aa27ad120fef50297c7247a7286fa9615df6656f34f0edbf4
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T06:59:12.657451259Z"

@@ -1,0 +1,70 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: surface-relative-pillow-053
+  resourceVersion: "4"
+  generation: 4
+  creationTimestamp: "2026-09-05T11:53:10.568784818Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:1292584ec4c24819de167585a014af9dcee2820b32cc51df7104530af6d66a05
+  planID: surface-relative-pillow-v47
+  workType: change
+  stableDefect: rigid-head-cover-assembly
+  subject: head_053_candidate.blend sha256:932ca479ed18ac09a64f372629cc6a714c6f2bd8edfd0927c840e65d03b084c2
+  priorAttemptID: shared-pillow-cover-052
+  nextAction: Replace rejected lower radius-floor curtain with fitted upper cloth and rooted planar-hem sheets
+status:
+  state: closed
+  closedAt: "2026-09-05T12:08:43.897484883Z"
+  artifacts:
+    planDigest: sha256:b92950c12c04194821f3a53721510318138d855367e0d2028eafd8b14aac210d
+    resultDigest: sha256:8f2dec0231948211d230f24326d912141c03a9be2e43f15d2f812a47c99d8555
+    evidence:
+    - path: evidence/head_053_binding_repair.md
+      digest: sha256:a94c98b38d8ca72109051cdcee258e61745ed375dfa55b220c26a1634f2e18a3
+    - path: evidence/head_053_envelope_repair.md
+      digest: sha256:4a7c19c08267a1da1e815d80bd5bea18025d28c61b594406c64ebdb4dbbb9013
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T12:08:43.897484883Z"

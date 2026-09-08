@@ -1,0 +1,79 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: local-head-tangent-032
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T00:30:03.895567664Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:1d2913d2d0d652e217500869876e51600a2bb70d364bb8574c9af176be1557cf
+  workType: candidate
+  stableDefect: front-gusset-tangent-kink
+  hypothesis: Matching the retained outer front panel tangent to the gusset removes the measured44-77degree kink inherited by the hood without resizing the head or altering its protected interfaces.
+  subject: Frozen030b core hood and fringe only; retained face neck locks body and bow protected
+  priorAttemptID: proximal-cream-leg-031
+  nextAction: Run reviewed three-object direct-base helper, save032 and inspect five fixed views before scoped technical acceptance.
+status:
+  state: closed
+  closedAt: "2026-09-05T00:44:29.672136723Z"
+  artifacts:
+    planDigest: sha256:c2bbe11523569f3a54bdc87e3801e856c00882ea8d8de7841a87db517bf544d2
+    resultDigest: sha256:bcd993f39d767a6817dc0545866782de891f90456c1afeb620f9597dc6f4a970
+    evidence:
+    - path: evidence/head_032_blind.md
+      digest: sha256:6af7d1d652c9829bcc572a644dad031a45eac524b5300ab92deee95339860b99
+    - path: evidence/head_032_draft.md
+      digest: sha256:f7673cbc795084888e28391db0b154bcb5607bffe4b283a48e79bc067f0fcbbe
+    - path: evidence/head_032_machine_evidence.md
+      digest: sha256:c28f079baa241379ef7b79855b7842b4c2cbf5ec77f5cfdd8de7a0d9bc876a39
+    - path: evidence/head_032_preflight.md
+      digest: sha256:8399969d31c7b3e8f4a9f3b8ebb2b698f0d1ba6126aeae16490d1ce5674198c9
+    - path: evidence/head_032_sources.md
+      digest: sha256:1bf5cd14e98e8da5c5aa46293d14d925badd4da00a12c9560e32fcc15a67a094
+    - path: evidence/head_032_technical_audit.md
+      digest: sha256:d82307762699f947479aecebf0c72a5aa934b467d90a26ef58355e4994bdce47
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T00:44:29.672136723Z"

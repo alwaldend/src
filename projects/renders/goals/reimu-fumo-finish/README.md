@@ -4,42 +4,38 @@
 
 - Goal ID: `reimu-fumo-finish`
 - API version: `goals.alwaldend.com/v1alpha1`
-- Resource version: `58`
+- Resource version: `184`
 - Generation: `1`
-- Lifecycle generation: `15`
+- Lifecycle generation: `16`
 - Scope: `project`
 - Outcome: `open`
-- Execution: `blocked`
+- Execution: `active`
 
 ## Plans
 
-- `recovery-clay-v1` — `superseded`: Treat PR #24 and local continuation 401582f3 as archived evidence, recover A157 as the immutable visual scaffold and A202 as a technical donor, prove the Blender MCP save/reopen/render path, then rebuild the head-and-hair representation an…
-- `curved-cap-v2` — `rejected`: Return to protected A157, retain its soft cushion and already separate fringe/cheek/rear locks, replace only the continuous helmet cap with a thin curved crown/rear shell, and accept no correction unless a new attempt explicitly supersedes…
-  - Rejection reason: Second reviewed head-covering shell or panel-box failure; representation family retired by PROCESS.md stop rule.
-- `integrated-textile-v3` — `rejected`: Use the existing soft head cushion as the brown hair substrate outside a measured beige face region, with independent fringe, cheek, and rear locks and no overlay shell.
-  - Rejection reason: Blind five-view review scored clay readiness 3/10 and found the integrated stuffed substrate still reads as a monolithic helmet; fine tuning cannot clear the macro gate.
-- `shingled-locks-v4` — `rejected`: Replace monolithic hair with four independently closed curved crown cushions, two closed side locks, and retained independent lower locks over the beige stuffed head substrate.
-  - Rejection reason: Analytic panels were embedded by the evaluated head lattice, exposing the crown and leaving detached oval side pads on the first pinned render.
-- `evaluated-lobes-v5` — `rejected`: Generate six independently closed organic padded hair lobes from the evaluated head surface and normals, with quiet crown overlaps and distinct lower side tips.
-  - Rejection reason: The complete evaluated-surface assembly produced a segmented cap, giant side pad, and overlapping pillow cluster; padded-lobe family retired after two failures.
-- `event-simulated-sculpt-v6` — `superseded`: Run one isolated authoring-capability coupon in pinned interactive Blender: use the existing MCP live-code and viewport tools to enqueue a bounded Window.event_simulate sculpt drag on a disposable mesh, then prove local deformation, undo,…
-- `event-simulated-sculpt-v7` — `superseded`: Run one isolated authoring-capability coupon in pinned interactive Blender: use the existing MCP live-code and viewport tools to enqueue a bounded Window.event_simulate sculpt drag on a disposable source copy; prove local deformation, save…
-- `mapped-gui-sculpt-v8` — `accepted`: Treat v7's 0x0 unmapped pinned window as a launch-host defect, not a sculpt-path verdict. Use the already-installed mapped Flatpak Blender 5.1 plus its loopback MCP only for a disposable Window.event_simulate sculpt coupon; bind deformatio…
-- `a157-bow-span-v9` — `rejected`: Start from immutable A157 and use mapped XWayland Blender MCP native Grab strokes only on its independent left and right draped bow tails. Target complete front bow span 2.038 Wh +/- 0.05 Wh while preserving roots, thickness, all non-targe…
-  - Rejection reason: The single-extremum assembled-view Grab path failed both shape distribution and right-side surface picking; repeating it cannot produce a valid symmetric bow correction.
-- `a157-tail-assembly-v10` — `rejected`: Return to immutable A157 and replace the rejected assembled-view tip Grab with deterministic multi-object Edit Mode selection of each red tail plus its white ruffle. Use one native connected proportional global-X transform per side with a…
-  - Rejection reason: The modal numeric-entry mechanism completed at zero displacement; key-stream spelling changes would be equivalent retries.
-- `a157-tail-vector-v11` — `rejected`: Return to immutable A157 and preserve attempt 012 deterministic outer-band selection of each red-tail and ruffle pair, but replace failed modal numeric text parsing with Blender native proportional transform operators receiving explicit +/…
-  - Rejection reason: The explicit-vector mechanism worked and hit span, but the horizontal-only representation produced fin-like tails with abrupt roots and weak ruffle readability
-- `native-crown-patch-v12` — `rejected`: Return to protected A157 and use the accepted native edit capability to turn its surface-fitted A44 continuous cap into a crown-only patch: native-delete the lower enclosing apron below frozen Z 0.155 m, retain the existing independent fri…
-  - Rejection reason: A scalar crown cut removed enclosing faces but produced a smaller horizontal slab, broad pale gaps, and rigid disconnected-looking hair pieces in the pinned fast trio
-- `native-manual-head-v13` — `rejected`: Use protected A157 only as body, face-layout, bow, and camera donor. A single named Blender writer uses the accepted native interactive sculpt/edit path to bake and manually reshape one shallow head cushion plus at most four independently…
-  - Rejection reason: Manual native shaping still produced pillow, card, crown-rail, and floating-root defects; the broad-Grab/native-transform route cannot clear the head-and-hair gate
-- `localized-sculpt-stack-v14` — `superseded`: Prove on one disposable connected padded panel that the existing Blender MCP route can combine native Smooth, Scrape or Flatten, volume, Grab, mask or face-set isolation, controlled multi-view strokes, exact undo, save, pinned clean-open,…
-- `localized-sculpt-stack-v15` — `rejected`: Repeat the unresolved localized multi-brush capability question only after removing attempt 016s two diagnosed empty-scene dependencies: the live Blender 5.1 fixture setup does not configure a render engine or access a World, then one froz…
-  - Rejection reason: Three isolated native Flatten strokes produced a real but under-gate response: 4.8236 percent plane-variance reduction versus the frozen 35 percent requirement; root and tip stages were withheld
-- `flatten-dose-response-v16` — `rejected`: Use exact attempt-017 partial bytes and hold fixture, mask, view, PLANE brush, strength, radius, trajectory, timing, metric, and threshold fixed while varying only cumulative identical Flatten dose in three-stroke blocks to a hard 27-strok…
-  - Rejection reason: The fixed dose response plateaued at 32.4431 percent plane-variance reduction at the hard 27-stroke ceiling, below the unchanged 35 percent gate, and introduced terrace-like ridges; root and tip stages were withheld
+- `local-head-tangent-v30` — `superseded`: Repair only the retained outer front cushion tangent into its gusset and transfer the receiver change to hood/fringe, preserving landmarks and neck; gate fixed-view softness rather than seam metrics alone.
+- `sewn-visible-foot-panels-v31` — `superseded`: Partition the retained visible rounded foot surface into a coherent black toe cap and cream upper panel while preserving envelope and contact; gate first-hit material masks and pixels instead of hidden-root bounds.
+- `oriented-shared-head-interface-v32` — `superseded`: Replace the folded chord-projected shared fringe/hood join with oriented boundary co-normal derivatives while retaining exact cut paths, thickness endpoints, protected head inputs and all retained033 non-targets; reject reversed Jacobians…
+- `chart-triangulated-head-interface-v33` — `superseded`: Replace the crossed side-root boundary and fixed ruled correspondence with one bounded root-support reset, a simple XZ domain, constrained triangulation and minimum-bending depth, preserving actual landmarks and retained033 controls.
+- `cylindrical-head-interface-v34` — `superseded`: Use one fixed angle-height chart around the model vertical axis with scalar radius, preserving035 support sets and actual landmarks; verify conditioning and inner boundary before a constrained radial-field construction.
+- `coordinate-preserving-animation-v35` — `superseded`: Build a separate reusable rest-baked copy with explicit tested texture coordinates, one final existing-bone transform per component, and stored neutral/head/arm/combined actions; preserve033 donor and require neutral, motion and append che…
+- `reference-led-macro-v36` — `superseded`: Rebuild whole-character macro silhouette from canonical contours and shallow stuffed side volume; discard rejected037 geometry while preserving files, prioritize front-side visual review before details or rig.
+- `bowed-front-gusset-v37` — `superseded`: Replace receding ellipsoid front with gently bowed cushion panel and explicit rounded gusset; conform face, rear hair and collar to shared support surfaces and judge front plus side before detail.
+- `direct-section-cage-v38` — `superseded`: Direct independent crown-cheek-chin-back and seated-body section cages replace radial surfaces; wrap cloth on receiving supports and reject macro failures in front-side renders before detail.
+- `fixed-geometry-fabric-v39` — `superseded`: Keep040b base mesh geometry fixed and discriminate material-driven hard-surface appearance using local cloth shading, submillimeter pile and neutral physical lighting; retain fixed-view silhouette/contact gates.
+- `simulated-gathered-cloth-v40` — `superseded`: Replace prescribed conical skirt with a pinned gathering cloth annulus and real body foot floor collision, bounded solve, fixed-view rejection gates and no changes to other geometry.
+- `readable-sewn-textile-v41` — `superseded`: Test resolvable local pile and sewn bow sleeve details on an explicit unaccepted source, flatten black foot endcaps, and judge all-view appearance without waiving shape contacts or final criteria.
+- `cushion-sewn-repair-v42` — `superseded`: Use measured coherent cushion and eye shaping, buried hair roots and sewn garment corrections; prove cloth rest-coordinate evaluation before corrected full solve; gate all-side plush likeness and contacts independently of detail.
+- `fitted-crown-free-panels-v43` — `superseded`: Replace solid brown lower rear head with tapered cream receiver, fitted crown and thin free hanging fabric extensions; preserve canonical front landmarks and gate actual front-side construction before detail.
+- `surface-fitted-collar-v44` — `superseded`: Repair evidenced collar torso intersections through curvature-resolved support with smooth free shoulder continuation, preserving contours and thickness; reject detached bridging or neck regressions.
+- `flatter-free-panels-v45` — `rejected`: Preserve fitted upper crown and canonical front while replacing unsupported lower rear shell arcs and repeated rounded tongues with shallow ruled fabric and independently tapered hems, guarded by receiver clearance and blind multi-view rev…
+  - Rejection reason: Shortened lower panels expose a broad cream underside strip and do not resolve the helmet appearance; coverage must constrain any next representation.
+- `shared-pillow-cover-v46` — `superseded`: Replace separately domed head and full-height rear lobes with a shared front-back pillow volume, surface-fitted front hair and continuous lower cover; preserve canonical XZ and gate actual front-side construction before detail.
+- `surface-relative-pillow-v47` — `superseded`: Replace unrun052 unsupported band projection with complete surface attachment, continuous crown endpoints and bowed shared pillow profile; preserve050 non-targets and reject at fixed front-side gate before detail.
+- `rooted-sheet-crown-v48` — `superseded`: Replace rejected053 radial lower curtain with close upper fabric and rooted planar-hem sheets; seat actual cloth along receiver normals and preserve measured front contour and050 non-targets.
+- `sewn-face-pillow-v49` — `rejected`: Replace exposed all-cream receiver and enclosing hair cover with measured brown pillow, fitted cream face panel, retained exact-XZ fringe and independent lower cloth; test plush construction in fixed pixels.
+  - Rejection reason: Independent fast review rejects segmented side wall, inset fringe boundary and rigid side-lock roots; replace seam construction instead of tuning or adding fibers.
+- … 29 older plans omitted by the projection limit.
 - Active attempt: `—`
 
 ## Relationships
@@ -61,24 +57,27 @@
 
 ## Recent attempts
 
-- [`flatten-dose-response-018`](attempts/flatten-dose-response-018/) — `investigation`, `closed`, plan `flatten-dose-response-v16`, resource version `2`, criteria r4
-- [`localized-sculpt-coupon-017`](attempts/localized-sculpt-coupon-017/) — `investigation`, `closed`, plan `localized-sculpt-stack-v15`, resource version `2`, criteria r4
-- [`localized-sculpt-coupon-016`](attempts/localized-sculpt-coupon-016/) — `investigation`, `closed`, plan `localized-sculpt-stack-v14`, resource version `2`, criteria r4
-- [`native-manual-head-015`](attempts/native-manual-head-015/) — `candidate`, `closed`, plan `native-manual-head-v13`, resource version `2`, criteria r4
-- [`native-crown-patch-014`](attempts/native-crown-patch-014/) — `candidate`, `closed`, plan `native-crown-patch-v12`, resource version `2`, criteria r4
-- [`a157-tail-vector-013`](attempts/a157-tail-vector-013/) — `candidate`, `closed`, plan `a157-tail-vector-v11`, resource version `2`, criteria r4
-- [`a157-tail-assembly-012`](attempts/a157-tail-assembly-012/) — `candidate`, `closed`, plan `a157-tail-assembly-v10`, resource version `2`, criteria r4
-- [`a157-bow-span-011`](attempts/a157-bow-span-011/) — `candidate`, `closed`, plan `a157-bow-span-v9`, resource version `2`, criteria r4
-- [`macro-sculpt-010`](attempts/macro-sculpt-010/) — `investigation`, `closed`, plan `mapped-gui-sculpt-v8`, resource version `2`, criteria r4
-- [`mapped-gui-sculpt-009`](attempts/mapped-gui-sculpt-009/) — `investigation`, `closed`, plan `mapped-gui-sculpt-v8`, resource version `2`, criteria r4
-- [`measurement-band-correction-008`](attempts/measurement-band-correction-008/) — `validation`, `closed`, plan `—`, resource version `1`, criteria r4
-- [`evaluated-lobes-007`](attempts/evaluated-lobes-007/) — `candidate`, `closed`, plan `evaluated-lobes-v5`, resource version `2`, criteria r1
-- [`shingled-hair-006`](attempts/shingled-hair-006/) — `candidate`, `closed`, plan `shingled-locks-v4`, resource version `2`, criteria r1
-- [`integrated-hair-005`](attempts/integrated-hair-005/) — `candidate`, `closed`, plan `integrated-textile-v3`, resource version `2`, criteria r1
-- [`curved-cap-004`](attempts/curved-cap-004/) — `candidate`, `closed`, plan `curved-cap-v2`, resource version `2`, criteria r1
-- [`head-hair-rebuild-003`](attempts/head-hair-rebuild-003/) — `candidate`, `closed`, plan `recovery-clay-v1`, resource version `2`, criteria r1
-- [`camera-capability-002`](attempts/camera-capability-002/) — `validation`, `closed`, plan `recovery-clay-v1`, resource version `2`, criteria r1
-- [`recovery-capability-001`](attempts/recovery-capability-001/) — `integration`, `closed`, plan `recovery-clay-v1`, resource version `2`, criteria r1
+- [`sewn-face-pillow-055`](attempts/sewn-face-pillow-055/) — `change`, `closed`, plan `sewn-face-pillow-v49`, resource version `2`, criteria r4
+- [`rooted-sheet-crown-054`](attempts/rooted-sheet-crown-054/) — `change`, `closed`, plan `rooted-sheet-crown-v48`, resource version `2`, criteria r4
+- [`surface-relative-pillow-053`](attempts/surface-relative-pillow-053/) — `change`, `closed`, plan `surface-relative-pillow-v47`, resource version `4`, criteria r4
+- [`shared-pillow-cover-052`](attempts/shared-pillow-cover-052/) — `change`, `closed`, plan `shared-pillow-cover-v46`, resource version `3`, criteria r4
+- [`flatter-free-panels-051`](attempts/flatter-free-panels-051/) — `change`, `closed`, plan `flatter-free-panels-v45`, resource version `2`, criteria r4
+- [`surface-fitted-collar-050`](attempts/surface-fitted-collar-050/) — `change`, `closed`, plan `surface-fitted-collar-v44`, resource version `2`, criteria r4
+- [`continuous-crown-angle-049`](attempts/continuous-crown-angle-049/) — `change`, `closed`, plan `fitted-crown-free-panels-v43`, resource version `2`, criteria r4
+- [`continuous-hair-drape-048`](attempts/continuous-hair-drape-048/) — `change`, `closed`, plan `fitted-crown-free-panels-v43`, resource version `2`, criteria r4
+- [`shared-crown-boundary-047`](attempts/shared-crown-boundary-047/) — `change`, `closed`, plan `fitted-crown-free-panels-v43`, resource version `2`, criteria r4
+- [`curvature-resolved-crown-046`](attempts/curvature-resolved-crown-046/) — `change`, `closed`, plan `fitted-crown-free-panels-v43`, resource version `2`, criteria r4
+- [`fitted-crown-free-panels-045`](attempts/fitted-crown-free-panels-045/) — `change`, `closed`, plan `fitted-crown-free-panels-v43`, resource version `2`, criteria r4
+- [`cushion-sewn-repair-044`](attempts/cushion-sewn-repair-044/) — `change`, `closed`, plan `cushion-sewn-repair-v42`, resource version `4`, criteria r4
+- [`readable-sewn-textile-043`](attempts/readable-sewn-textile-043/) — `change`, `closed`, plan `readable-sewn-textile-v41`, resource version `2`, criteria r4
+- [`simulated-gathered-cloth-042`](attempts/simulated-gathered-cloth-042/) — `change`, `closed`, plan `simulated-gathered-cloth-v40`, resource version `2`, criteria r4
+- [`fixed-geometry-fabric-041`](attempts/fixed-geometry-fabric-041/) — `candidate`, `closed`, plan `fixed-geometry-fabric-v39`, resource version `2`, criteria r4
+- [`direct-section-cage-040`](attempts/direct-section-cage-040/) — `candidate`, `closed`, plan `direct-section-cage-v38`, resource version `2`, criteria r4
+- [`bowed-front-gusset-039`](attempts/bowed-front-gusset-039/) — `candidate`, `closed`, plan `bowed-front-gusset-v37`, resource version `3`, criteria r4
+- [`reference-led-macro-038`](attempts/reference-led-macro-038/) — `candidate`, `closed`, plan `reference-led-macro-v36`, resource version `2`, criteria r4
+- [`coordinate-preserving-animation-037`](attempts/coordinate-preserving-animation-037/) — `candidate`, `closed`, plan `—`, resource version `5`, criteria r4
+- [`cylindrical-head-interface-036`](attempts/cylindrical-head-interface-036/) — `candidate`, `closed`, plan `—`, resource version `4`, criteria r4
+- … 35 older attempts omitted by the projection limit.
 
 ## Record map
 

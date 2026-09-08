@@ -54,6 +54,21 @@ criteria, active attempt when one exists, and the skills for the current
 phase. Do not load historical attempts or later-phase procedures unless the
 current decision needs them.
 
+Routine attempt starts, setup repairs, and ordinary continuation use local
+goal-tool checkpoints with the required frozen plans and evidence. Verify the
+checkpoint succeeded and its artifacts are accessible before continuing. A
+pause or same-worktree handoff does not require a commit or push. Preserve
+local records and update `CURRENT.md`; distinguish a local checkpoint from a
+verified remote copy.
+
+Use repository delivery at meaningful review-ready milestones, final
+implementation handoff, an explicitly requested remote backup, or before a
+handoff to another checkout that cannot access the required local artifacts.
+For that remote-dependent handoff, commit and push the necessary records and
+permitted artifacts, verify remote reachability, and establish that the
+recipient can access the exact required bytes before it resumes. Publication
+does not transfer writer authority or replace live binding checks.
+
 ## Modeling gates
 
 Work advances in this order:
@@ -146,12 +161,12 @@ reject the plan with the terminal reason, and keep outcome `open`. Set execution
 to `blocked` only when no other authorized route is immediately actionable
 because a named authority, input, or external state is unavailable; otherwise
 keep execution `active` for the ready route. Leave acceptance pointers unset
-and do not open Reimu bytes. Use repository delivery to commit and push that
-checkpoint and verify remote reachability before claiming the route is durably
-retired. If publication fails, preserve the closed local investigation, report
-that retirement is not remote, and repair or reconcile repository delivery
-under the causal-retry rule. Do not rerun checkpoint zero unless a new route or
-hypothesis is authorized.
+and do not open Reimu bytes. Verify the closed local investigation and update
+`CURRENT.md` with the retired route and its evidence. Publish according to the
+milestone and handoff rules above, and report whether the retirement record is
+local or verified remote. A publication failure does not reopen the settled
+route decision. Do not rerun checkpoint zero unless a new route or hypothesis
+is authorized.
 
 Write a passing receipt last under
 `out/reimu_fumo_finish/preflight/<session-id>/receipt.json`. Before attempt
@@ -170,29 +185,34 @@ pre-mutation execution state. Then bind the receipt to work in this order:
    and the durable evidence copy, and bind its portable goal plan ID. Goal
    execution must already be `active`.
 3. Start the attempt with a goal-tool checkpoint that records the frozen plan
-   and evidence copy in the attempt. Before the first decision-bearing
-   operation or any handoff, use the repository-delivery workflow to commit and
-   push that checkpoint, then verify the commit is reachable from the remote
-   branch.
+   and evidence copy in the attempt. Verify the checkpoint succeeded and its
+   exact evidence is accessible before the first decision-bearing operation.
 4. Before handing off an open attempt that used any preauthorized setup repair,
    append every contemporaneous repair checkpoint to tracked attempt evidence
-   with the goal tool, then commit, push, and verify that checkpoint as well. If
-   this cannot complete, suspend the attempt; the recipient must not resume it.
-5. Treat publication as evidence preservation, not session authority. Before a
-   recipient operation, compare the bound writer and verifier identities,
-   writer session and workspace, process, version, build, launch flags, add-on,
-   listener, authoring tool, and procedure against the live environment.
+   with the goal tool. Verify the local record before ordinary continuation or
+   a handoff with access to the same artifacts. For a remote-dependent handoff,
+   also complete the publication and accessibility checks above; the recipient
+   must wait if the required evidence is unavailable.
+5. Treat checkpoints and publication as evidence preservation, not session
+   authority. Before a recipient operation, compare the bound writer and
+   verifier identities, writer session and workspace, process, version, build,
+   launch flags, add-on, listener, authoring tool, and procedure against the
+   live environment.
 
-A handoff before an attempt opens, a failed publication required for a passing
-receipt or open attempt, or any mismatch or change in a stable binding
-invalidates the receipt. When no attempt is open, discard the invalid receipt
-without an attempt mutation, rerun checkpoint zero in the recipient writer
-workspace, then follow the passing or terminal flow above. If a receipt bound
-to an open attempt becomes invalid for any reason, immediately suspend
+Any mismatch or change in a stable binding invalidates the receipt, including
+across a handoff before an attempt opens. A publication failure alone does not
+invalidate an unchanged local receipt or require repeating preflight. Preserve
+the local checkpoint and resolve publication before a remote-dependent
+handoff; a recipient without the required artifacts must wait.
+
+When no attempt is open, discard an invalid receipt without an attempt
+mutation, rerun checkpoint zero in the recipient writer workspace, then follow
+the passing or terminal flow above. If a receipt bound to an open attempt
+becomes invalid for any reason, immediately suspend
 decision-bearing work. Do not rewrite its frozen plan or resume that attempt.
 Close it through a goal-tool checkpoint with a `reset` review decision, keep
 goal outcome `open`, leave acceptance pointers unset, and record
-`setup-invalidated`, the invalidator, and any failed publication in setup
+`setup-invalidated`, the invalidator, and the relevant failure evidence in setup
 evidence. Keep execution `active` when replacement checkpoint zero is
 immediately actionable. Set it to `blocked` only when a named authority, input,
 or external state makes replacement preflight unavailable, and record that
@@ -201,7 +221,7 @@ zero immediately without opening Reimu bytes. If it becomes blocked, wait for
 the resume condition, use a separate no-attempt goal checkpoint to return
 execution to `active`, and then rerun checkpoint zero. After the replacement
 receipt passes, perform the common plan and execution transition and all five
-binding and publication steps above before work resumes.
+checkpoint and binding steps above before work resumes.
 
 Recheck dynamic window, selection, mode, and operator context immediately
 before each operation instead of treating them as durable session properties.
@@ -218,7 +238,8 @@ existing attempt as the preceding paragraph requires, even if no
 decision-bearing operation occurred. Before opening the attempt, bind an exact
 subject, decision question, hypothesis, writer, acceptance gate, and stop
 condition. The attempt-start checkpoint described above opens the durable
-attempt; decision-bearing work begins only after its remote publication gate.
+attempt; decision-bearing work begins only after that local checkpoint
+succeeds and its exact evidence is accessible.
 
 An attempt plan may preauthorize a bounded number or class of causal setup
 repairs without predicting an unknown failure. Immediately before using that

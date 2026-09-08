@@ -460,3 +460,84 @@ func TestAttemptRootAndEvidenceLayoutsAreExact(t *testing.T) {
 		t.Fatalf("non-Markdown evidence was accepted: %v", err)
 	}
 }
+
+func TestAttemptWithoutEvidenceSurvivesMissingEmptyDirectory(t *testing.T) {
+	store, root := newTestStore(t)
+	goalDir := initTestGoal(t, store, root, "empty-evidence-roundtrip")
+	if _, err := store.Checkpoint(CheckpointOptions{
+		GoalDir: goalDir, ExpectedResourceVersion: "1", AttemptID: "attempt-1",
+	}); err != nil {
+		t.Fatal(err)
+	}
+	// Git and Bazel file packaging do not preserve empty directories.
+	evidenceDir := filepath.Join(goalDir, "attempts", "attempt-1", "evidence")
+	if err := os.Remove(evidenceDir); err != nil {
+		t.Fatal(err)
+	}
+	if err := store.ValidateGoal(goalDir); err != nil {
+		t.Fatalf("missing empty evidence directory invalidated the record: %v", err)
+	}
+	if _, err := store.Checkpoint(CheckpointOptions{
+		GoalDir: goalDir, ExpectedResourceVersion: "2", AttemptID: "attempt-1",
+		NextAction: "Continue verification after checkout.",
+	}); err != nil {
+		t.Fatalf("missing empty evidence directory prevented continuation: %v", err)
+	}
+	if err := store.ValidateGoal(goalDir); err != nil {
+		t.Fatalf("continued attempt is invalid: %v", err)
+	}
+}
+
+func TestAttemptStillRequiresPlanAndResult(t *testing.T) {
+	for _, name := range []string{"plan.md", "result.md"} {
+		t.Run(name, func(t *testing.T) {
+			store, root := newTestStore(t)
+			goalDir := initTestGoal(t, store, root, "missing-required-artifact")
+			if _, err := store.Checkpoint(CheckpointOptions{
+				GoalDir: goalDir, ExpectedResourceVersion: "1", AttemptID: "attempt-1",
+			}); err != nil {
+				t.Fatal(err)
+			}
+			attemptDir := filepath.Join(goalDir, "attempts", "attempt-1")
+			if err := os.Remove(filepath.Join(attemptDir, name)); err != nil {
+				t.Fatal(err)
+			}
+			if err := store.ValidateGoal(goalDir); err == nil {
+				t.Fatalf("attempt with missing %s was accepted", name)
+			}
+		})
+	}
+}
+
+func TestAttemptStillRequiresDeclaredEvidence(t *testing.T) {
+	for _, removeDirectory := range []bool{false, true} {
+		name := "missing file"
+		if removeDirectory {
+			name = "missing directory"
+		}
+		t.Run(name, func(t *testing.T) {
+			store, root := newTestStore(t)
+			goalDir := initTestGoal(t, store, root, "missing-declared-evidence")
+			evidence := filepath.Join(root, "out", "task", "evidence.md")
+			writeTestFile(t, evidence, "# Evidence\n\nCandidate verification.\n")
+			if _, err := store.Checkpoint(CheckpointOptions{
+				GoalDir: goalDir, ExpectedResourceVersion: "1", AttemptID: "attempt-1",
+				EvidenceFiles: []string{evidence},
+			}); err != nil {
+				t.Fatal(err)
+			}
+			evidenceDir := filepath.Join(goalDir, "attempts", "attempt-1", "evidence")
+			if err := os.Remove(filepath.Join(evidenceDir, "evidence.md")); err != nil {
+				t.Fatal(err)
+			}
+			if removeDirectory {
+				if err := os.Remove(evidenceDir); err != nil {
+					t.Fatal(err)
+				}
+			}
+			if err := store.ValidateGoal(goalDir); err == nil {
+				t.Fatal("attempt with missing declared evidence was accepted")
+			}
+		})
+	}
+}
