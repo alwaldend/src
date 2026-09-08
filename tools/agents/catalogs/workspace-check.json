@@ -4,7 +4,7 @@
     "id": "agent-system.workspace-check",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.workspace-check-compiler",
-    "sourceRevision": "f178961479cccf8974efd9d4cbea9a09",
+    "sourceRevision": "579f79cf1500823da0c4d2b65fd0fe4b",
     "inputs": [
         {
             "path": ".bazelignore",
@@ -14,7 +14,7 @@
         {
             "path": "MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:71c5ee54b8258b9689eca17c02f1f1bb93eaf1d433c7ed8d5ecff5e6c50f5472"
+            "digest": "sha256:b98b7c2cdeed976b38a17cb0829470d2fd5466605a5b9e23898b35f826317301"
         },
         {
             "path": "projects/agents/skills/full-repo-check/scripts/run_full_repo_check.go",
@@ -24,62 +24,67 @@
         {
             "path": "projects/rules_binary_toolchain/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:d704acbd1f8e9aa9a7490ad2b695dd992e37b9e663798b294757826a1a41b87e"
+            "digest": "sha256:79e5383fc80764760657662d5b2314c56403bb6b175688de659b1ca0ca33b891"
         },
         {
             "path": "projects/rules_dnscontrol/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:58f18e9ac2a12e1da107df865fe9d8538e0fad2907847000fc0e2b3334f1cc33"
+            "digest": "sha256:e774b92246faf0ea00fc81568ed9601acbca6791012491a3b06798b27f6f9a17"
         },
         {
             "path": "projects/rules_docs/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:ebb3a6adf907ac69a1cf161aac60292c5fff2ec58ff4113c92c86214ae4eece7"
+            "digest": "sha256:5903cb969acf11440b40f8dbc3e3da370dd1d41b15f6af22fadaecd4fa588fa7"
         },
         {
             "path": "projects/rules_docs_gazelle/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:bfb836d4250225159b66d813f70f7d3075b50366fec5bb743a6237f856594680"
+            "digest": "sha256:c5ff15eeb74604ee105751986a7ca83ea58edfe9dc7660ac953f99ee4682a48c"
         },
         {
             "path": "projects/rules_hugo/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:fee5527d7deee448871d5af58d4933557edbf86b35023e855559aa3708d1103a"
+            "digest": "sha256:342a16333c44652a62f5a3ef28a20e0a19f5ce716af9bfc046cadaa66698e51b"
         },
         {
             "path": "projects/rules_iso/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:6008b40c2da673b800954356d394ee71816b466c1e419ad3414c6ca072ca8f71"
+            "digest": "sha256:a9038227f81a6a19b5febf11902d22fcca7cf2662486efab9027753f469c0ff3"
+        },
+        {
+            "path": "projects/rules_openspec/MODULE.bazel",
+            "role": "workspace-module",
+            "digest": "sha256:60ca99d9a14a955933cf2dd45c66afb159ce26f361a1eec9f6dbebcc6c9ae7ff"
         },
         {
             "path": "projects/rules_promptfoo/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:9191186176747f34f7506ea48b5d8301e0dccbf4294893035e189ee2220f4729"
+            "digest": "sha256:124136f844049d81d63533349c1093bade93df5648f49b4c9ddaeae55cf09aa7"
         },
         {
             "path": "projects/rules_promptfoo_gazelle/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:f0c3224c59fcd09e84d2f078f5a7d612b2acc41b0b5265556db4b2432dffe208"
+            "digest": "sha256:5b6d92088777d2e24641accf272b3573258717309bcdd8a420fbbf6c43bb98d6"
         },
         {
             "path": "projects/rules_skill/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:37efd217262efef39a907b0b90b3c1d692568d0dc576e3c9f32a4d6ffec6eb2f"
+            "digest": "sha256:02b10036b3032920d6c78ea977a4f8523daf736876efafc96b63679ab2be6f18"
         },
         {
             "path": "projects/rules_skill_gazelle/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:3d7839254cb0ea02222d0f17c260031117ea84c1bc56525d53b4e8007ac880e8"
+            "digest": "sha256:474566a88c394baa237a4b4333c89a8c386b44c02dc9bc147e954e36d7ab5470"
         },
         {
             "path": "projects/rules_template/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:c95a35bea281d2da8332274c8f50dd7c9195b5c48ffd128231a088b556bb02fe"
+            "digest": "sha256:51c6a8df6bb12c92f8ea6e5b08fd32ecb4fec589fe7831d65d3b35823fe21dcd"
         }
     ],
     "bounds": {
-        "eligible": 14,
-        "emitted": 14,
+        "eligible": 15,
+        "emitted": 15,
         "unavailable": 0,
         "maxItems": 1000,
         "maxInputBytes": 33554432,
@@ -89,7 +94,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:7139eabdac087bfa74cb04f8f9495f49f14857f004f6656b6d0486b7f6f5cb13",
+    "digest": "sha256:4db7303129fdad524b00360c4ee7c545612410d99fd496851eec5ac1b497a8cc",
     "workspaces": [
         {
             "id": "projects.rules_binary_toolchain",
@@ -200,6 +205,25 @@
             "phases": [
                 {
                     "id": "projects.rules_iso.check",
+                    "providerRef": "repository.bazel-operations",
+                    "commandTemplate": "bazel_agent bazel test //..."
+                }
+            ]
+        },
+        {
+            "id": "projects.rules_openspec",
+            "path": "projects/rules_openspec",
+            "modulePath": "projects/rules_openspec/MODULE.bazel",
+            "moduleName": "rules_openspec",
+            "projections": {
+                "bazelIgnore": false,
+                "rootOverride": true,
+                "docsAggregation": false,
+                "fullCheck": false
+            },
+            "phases": [
+                {
+                    "id": "projects.rules_openspec.check",
                     "providerRef": "repository.bazel-operations",
                     "commandTemplate": "bazel_agent bazel test //..."
                 }

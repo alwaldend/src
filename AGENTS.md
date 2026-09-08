@@ -22,7 +22,7 @@ Keep one owner for each fact: the user request owns outcome and authority;
 `AGENTS.md` owns agent policy; the nearest `README.md` owns component purpose
 and boundaries; `CODEOWNERS` owns review accountability; BUILD and MODULE
 files own executable and dependency structure; canonical skills own
-procedures; goal records own durable work state; runtime providers own their
+procedures; OpenSpec changes own maintained work state; runtime providers own their
 observed capabilities; Git and delivery receipts own candidate and publication
 state. Derived views must identify their sources, version or digest,
 observation time, unavailable fields, and truncation. Resolve conflicting
@@ -110,9 +110,13 @@ or committable source; ignored task scratch is suitable.
   work. Preserve the owning `al.lua` and Bazel packaging/injection flow.
   Never commit `.terraform/`, state, plans, environment files, or local
   credentials.
-- Load `goal` when work needs durable continuation or retries. Use the
-  smallest record that preserves acceptance and the next action; do not
-  attach a token budget unless the user explicitly requests one.
+- Load `openspec` for maintained specifications, changes, or work that needs
+  durable continuation. Use the owning project's `openspec/` workspace;
+  use `infra/src/openspec/` for evolution of the repository itself. Keep the
+  smallest artifacts that preserve acceptance, evidence, and the next action. Temporary
+  coordination belongs under ignored `out/<task>/`. The `goal` skill is
+  disabled and `//projects/goal/cmd/goal` is deprecated compatibility tooling;
+  do not create new maintained goal records.
 - Load `repo-delivery` when preparing publication or final handoff, before
   staging or committing delivery changes. It owns validation gates, commits,
   pushes, pull requests, reviews, and receipts. Commit and push all legitimate
@@ -152,6 +156,9 @@ two inconclusive searches, revise the approach using what is known. Before
 retrying failure, identify its cause, a real change, and the predicted effect.
 After two unchanged edits, diagnose the source/cache dependency; invalidate
 stale generated output once deterministically and inspect the effect.
+Never issue an identical command after an unchanged result; choose a different
+action, record a blocking diagnosis, or stop. For command-output loops, do not
+invoke the same target again until state or arguments have demonstrably changed.
 
 Bounded polling, mutation postconditions, and advanced refs justify fresh
 observations. Record relevant revisions and observation times. After
@@ -222,5 +229,7 @@ become stable, reviewable regressions.
 
 Use concise, unprefixed Git subjects, a blank line before the body and trailer
 footer, and `Token: value` trailers. Do not use Conventional Commit prefixes.
-Goal-linked delivery commits need `Goal-Ref` and `Attempt-ID`; optional
-`Learning-Proposal` precedes the generated final `LLM-disclaimer` trailer.
+OpenSpec-linked delivery commits use `OpenSpec-Change` with the change path.
+Legacy goal-linked commits retain paired `Goal-Ref` and `Attempt-ID` trailers
+for compatibility. Optional `Learning-Proposal` precedes the generated final
+`LLM-disclaimer` trailer.

@@ -10,7 +10,8 @@ import (
 // authority.
 func RenderGoalMarkdown(catalog GoalCatalog) string {
 	var builder strings.Builder
-	builder.WriteString("# Goal catalog\n\n")
+	builder.WriteString("# Goal catalog (deprecated)\n\n")
+	builder.WriteString("Maintained specifications and durable work use owner OpenSpec workspaces; see `infra/src/openspec/README.md` for the migration index.\n\n")
 	builder.WriteString("> Generated deterministic projection. The JSON document at ")
 	builder.WriteString("`tools/agents/catalogs/goal.json` is authoritative.\n\n")
 	fmt.Fprintf(&builder, "- ID: `%s`\n", catalog.ID)
@@ -20,6 +21,9 @@ func RenderGoalMarkdown(catalog GoalCatalog) string {
 	fmt.Fprintf(&builder, "- Completeness: `%s`\n", catalog.Completeness)
 	fmt.Fprintf(&builder, "- JSON digest: `%s`\n", catalog.Digest)
 	builder.WriteString("\n## Goals\n\n")
+	if len(catalog.Goals) == 0 {
+		builder.WriteString("None. Maintained work is listed by OpenSpec.\n")
+	}
 	for _, goal := range catalog.Goals {
 		fmt.Fprintf(&builder, "- `%s`: %s\n", goal.CandidatePath, goal.Availability)
 		if goal.Identity != nil {

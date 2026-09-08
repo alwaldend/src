@@ -107,6 +107,9 @@ type operationProviderFile struct {
 	Owner      string `json:"owner"`
 	Provider   string `json:"provider"`
 	Definition string `json:"definition"`
+	Operations []struct {
+		Classification string `json:"classification"`
+	} `json:"operations"`
 }
 
 type registry struct {
@@ -331,7 +334,7 @@ func (c *compiler) compile() error {
 			Owner:          operations.Owner,
 			Kind:           "operation_provider",
 			SourcePath:     operations.Definition,
-			Classification: "classified",
+			Classification: operations.classification(),
 		}
 		if operations.Definition != "" {
 			fullDef := filepath.Join(c.root, filepath.FromSlash(operations.Definition))
@@ -366,6 +369,18 @@ func (c *compiler) compile() error {
 	}
 	c.providers = deduped
 	return nil
+}
+
+func (operations operationProviderFile) classification() string {
+	if len(operations.Operations) == 0 {
+		return "classified"
+	}
+	for _, operation := range operations.Operations {
+		if operation.Classification != "deprecated" {
+			return "classified"
+		}
+	}
+	return "deprecated"
 }
 
 func (c *compiler) readDiscoveryLinks() ([]string, error) {

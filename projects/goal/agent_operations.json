@@ -7,7 +7,7 @@
         {
             "id": "goal.checkpoint",
             "selector": "checkpoint",
-            "classification": "classified",
+            "classification": "deprecated",
             "effects": ["source.write", "task_state.write"],
             "inputs": ["goal revision", "attempt artifacts"],
             "outputs": ["versioned goal state"],
@@ -25,7 +25,7 @@
         {
             "id": "goal.promote",
             "selector": "promote",
-            "classification": "classified",
+            "classification": "deprecated",
             "effects": ["source.write", "task_state.write"],
             "inputs": ["paused workspace goal", "destination owner"],
             "outputs": ["durable project goal"],
@@ -43,7 +43,7 @@
         {
             "id": "goal.migrate",
             "selector": "migrate",
-            "classification": "classified",
+            "classification": "deprecated",
             "effects": ["source.write", "task_state.write"],
             "inputs": ["legacy source bytes", "explicit mapping"],
             "outputs": ["versioned goal"],

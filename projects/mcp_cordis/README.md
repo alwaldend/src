@@ -168,11 +168,12 @@ group is confirmed stopped before the timeout response settles.
 These were selected from aggregate recurring task categories in recent local
 sessions. No transcript content, credentials, or private outputs are included.
 
-## Durable goal
+## Maintained change history
 
-Future runtime-extension work should resume from the maintained
-[runtime extensions goal](goals/runtime_extensions/), which records acceptance
-criteria, decisions, failed attempts, and supporting evidence.
+The completed [runtime extensions change](openspec/changes/archive/2026-09-08-runtime-extensions/)
+preserves acceptance criteria, decisions, failed attempts and supporting
+evidence. New work uses the [project OpenSpec workspace](openspec/)
+and a new change; the archived acceptance remains historical.
 
 ## Dependency notices
 

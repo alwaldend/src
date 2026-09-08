@@ -53,6 +53,7 @@ al_release_binary(
                 "rules_promptfoo",
                 "rules_promptfoo_gazelle",
                 "renders",
+                "rules_openspec",
                 "rules_skill",
                 "rules_skill_gazelle",
             ],

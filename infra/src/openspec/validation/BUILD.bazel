@@ -1,0 +1,96 @@
+load("@rules_openspec//main/bzl:openspec.bzl", "openspec_validation")
+
+package(default_visibility = ["//visibility:private"])
+
+package_group(
+    name = "validation",
+    packages = ["//infra/src/openspec/validation"],
+)
+
+_WORKSPACE_SOURCES = {
+    "repository": "//infra/src/openspec:source",
+    "infra_arch": "//infra/arch/openspec:source",
+    "infra_ceph": "//infra/ceph/openspec:source",
+    "infra_cloud_init": "//infra/cloud_init/openspec:source",
+    "infra_dns": "//infra/dns/openspec:source",
+    "infra_flux": "//infra/flux/openspec:source",
+    "infra_forgejo": "//infra/forgejo/openspec:source",
+    "infra_forgejo_runner": "//infra/forgejo_runner/openspec:source",
+    "infra_github": "//infra/github/openspec:source",
+    "infra_harbor": "//infra/harbor/openspec:source",
+    "infra_ingress": "//infra/ingress/openspec:source",
+    "infra_mikrotik": "//infra/mikrotik/openspec:source",
+    "infra_nas": "//infra/nas/openspec:source",
+    "infra_pve": "//infra/pve/openspec:source",
+    "infra_threexui": "//infra/threexui/openspec:source",
+    "infra_vault": "//infra/vault/openspec:source",
+    "infra_xcp_ng": "//infra/xcp_ng/openspec:source",
+    "infra_yandex_cloud": "//infra/yandex_cloud/openspec:source",
+    "projects_agents": "//projects/agents/openspec:source",
+    "projects_al": "//projects/al/openspec:source",
+    "projects_alwaldend_com": "//projects/alwaldend.com/openspec:source",
+    "projects_android_launcher": "//projects/android_launcher/openspec:source",
+    "projects_ansible_collection": "//projects/ansible_collection/openspec:source",
+    "projects_autoscroll": "//projects/autoscroll/openspec:source",
+    "projects_bazel_agent": "//projects/bazel_agent/openspec:source",
+    "projects_ci_platform": "//projects/ci_platform/openspec:source",
+    "projects_dotfiles": "//projects/dotfiles/openspec:source",
+    "projects_goal": "//projects/goal/openspec:source",
+    "projects_hugo_landing": "//projects/hugo_landing/openspec:source",
+    "projects_infinitime": "//projects/infinitime/openspec:source",
+    "projects_kustomization": "//projects/kustomization/openspec:source",
+    "projects_leetcode_downloader": "//projects/leetcode_downloader/openspec:source",
+    "projects_mcp_cordis": "//projects/mcp_cordis/openspec:source",
+    "projects_nexus_security_plugin": "//projects/nexus_security_plugin/openspec:source",
+    "projects_renders": "//projects/renders/openspec:source",
+    "projects_rules_binary_toolchain": "@rules_binary_toolchain//openspec:source",
+    "projects_rules_dnscontrol": "@rules_dnscontrol//openspec:source",
+    "projects_rules_docs": "@rules_docs//openspec:source",
+    "projects_rules_docs_gazelle": "@rules_docs_gazelle//openspec:source",
+    "projects_rules_hugo": "@rules_hugo//openspec:source",
+    "projects_rules_iso": "@rules_iso//openspec:source",
+    "projects_rules_openspec": "@rules_openspec//openspec:source",
+    "projects_rules_promptfoo": "@rules_promptfoo//openspec:source",
+    "projects_rules_promptfoo_gazelle": "@rules_promptfoo_gazelle//openspec:source",
+    "projects_rules_skill": "@rules_skill//openspec:source",
+    "projects_rules_skill_gazelle": "@rules_skill_gazelle//openspec:source",
+    "projects_rules_template": "@rules_template//openspec:source",
+    "projects_sri": "//projects/sri/openspec:source",
+    "projects_tf_modules": "//projects/tf_modules/openspec:source",
+    "projects_useless_qt_gui": "//projects/useless_qt_gui/openspec:source",
+}
+
+[
+    openspec_validation(
+        name = name + "_validate_test",
+        source = source,
+    )
+    for name, source in _WORKSPACE_SOURCES.items()
+]
+
+_ARCHIVE_WORKSPACES = [
+    "repository",
+    "projects_agents",
+    "projects_mcp_cordis",
+]
+
+[
+    openspec_validation(
+        name = name + "_archive_test",
+        archived = True,
+        source = _WORKSPACE_SOURCES[name],
+    )
+    for name in _ARCHIVE_WORKSPACES
+]
+
+test_suite(
+    name = "validate_test",
+    tests = [":" + name + "_validate_test" for name in _WORKSPACE_SOURCES],
+    visibility = ["//:__subpackages__"],
+)
+
+test_suite(
+    name = "archive_test",
+    tests = [":" + name + "_archive_test" for name in _ARCHIVE_WORKSPACES],
+    visibility = ["//:__subpackages__"],
+)

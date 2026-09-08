@@ -26,6 +26,7 @@ go_library(
 
 go_binary(
     name = "goal",
+    deprecation = "Use //tools/openspec for new work; goal remains for legacy record compatibility.",
     embed = [":go_lib"],
     visibility = ["//:__subpackages__"],
 )

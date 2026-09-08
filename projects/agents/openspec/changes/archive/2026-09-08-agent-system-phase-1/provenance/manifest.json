@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "source_commit": "550d7e79b1f5fdbc2b6017b75178471d6914082f",
+  "files": [
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/README.md",
+      "snapshot_path": "provenance/source/README.md",
+      "sha256": "4fa0be3f7c6b355a299526dee3c2224dccbae9542a14a8c4ea48190e9096ddb1",
+      "size_bytes": 3261
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/attempts/bazel-scratch-001/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/bazel-scratch-001/attempt.yaml",
+      "sha256": "1636eab8948e112e796972a49aaa32e696263ae28f5b5208b0c10aec78e2b7d6",
+      "size_bytes": 2153
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/attempts/bazel-scratch-001/evidence/bazel-scratch-evidence.md",
+      "snapshot_path": "provenance/source/attempts/bazel-scratch-001/evidence/bazel-scratch-evidence.md",
+      "sha256": "c476b1f1eba21b3cd228245e6de6c3705b3448e1fe26975f7b426e109a79ad18",
+      "size_bytes": 2488
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/attempts/bazel-scratch-001/plan.md",
+      "snapshot_path": "provenance/source/attempts/bazel-scratch-001/plan.md",
+      "sha256": "f4608934d43062937d248ca6c3cba7f54a202a4b20a49d06371b87898b798fb1",
+      "size_bytes": 1584
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/attempts/bazel-scratch-001/result.md",
+      "snapshot_path": "provenance/source/attempts/bazel-scratch-001/result.md",
+      "sha256": "7b7e3ed94dea00071ddb292f7f865b957c610a8435d570cdb6eed756f3fc5912",
+      "size_bytes": 573
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/attempts/phase1-completion-001/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/phase1-completion-001/attempt.yaml",
+      "sha256": "3c624a56adc38ed58d9b55ec2455a022c6327f851d652041901c06a6763af013",
+      "size_bytes": 2172
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/attempts/phase1-completion-001/evidence/phase1-validation.md",
+      "snapshot_path": "provenance/source/attempts/phase1-completion-001/evidence/phase1-validation.md",
+      "sha256": "74200628685d128d23761e8fb739d70c007646bfcde859f6404857c7d9a82061",
+      "size_bytes": 1815
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/attempts/phase1-completion-001/plan.md",
+      "snapshot_path": "provenance/source/attempts/phase1-completion-001/plan.md",
+      "sha256": "4bc850e5833964b4003d4232747987f0259312919b1685856e883f319d625ef1",
+      "size_bytes": 2031
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/attempts/phase1-completion-001/result.md",
+      "snapshot_path": "provenance/source/attempts/phase1-completion-001/result.md",
+      "sha256": "36c87730a5138128580e70fd47fdca5c13b2055d7fa025605dcd2316056a2989",
+      "size_bytes": 976
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/attempts/phase1-contracts-001/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/phase1-contracts-001/attempt.yaml",
+      "sha256": "d2732bb167165217bc2374c2cd241f158807699485a6d13adf1e2c2785a490f9",
+      "size_bytes": 2157
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/attempts/phase1-contracts-001/evidence/phase-1-contracts-evidence.md",
+      "snapshot_path": "provenance/source/attempts/phase1-contracts-001/evidence/phase-1-contracts-evidence.md",
+      "sha256": "5e3b48089715bda574f4d7e62dd686e44232839e5dec2812c27a14e7d9fd3dcf",
+      "size_bytes": 3212
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/attempts/phase1-contracts-001/plan.md",
+      "snapshot_path": "provenance/source/attempts/phase1-contracts-001/plan.md",
+      "sha256": "c32e0747993fa243aaccbebfbb2123853b089d6cd95778c5161ba6de5533203e",
+      "size_bytes": 1842
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/attempts/phase1-contracts-001/result.md",
+      "snapshot_path": "provenance/source/attempts/phase1-contracts-001/result.md",
+      "sha256": "b1a087fe11da05380087a6a97d43a6171e6754d01672910bc17419ec3e2949fc",
+      "size_bytes": 1197
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/criteria-revisions/1.yaml",
+      "snapshot_path": "provenance/source/criteria-revisions/1.yaml",
+      "sha256": "dae88379e881279375da2caf61849ea611deac15bc81a1d6aa8c70f984de26e3",
+      "size_bytes": 5004
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/criteria-revisions/2.yaml",
+      "snapshot_path": "provenance/source/criteria-revisions/2.yaml",
+      "sha256": "d9deeb338a576cfa4e6fd849fc6d635f3a93a085e6c8831fa81629761e965fe1",
+      "size_bytes": 2432
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/criteria-revisions/3.yaml",
+      "snapshot_path": "provenance/source/criteria-revisions/3.yaml",
+      "sha256": "965680092bc72fca00cd98ce7e6f877d7482fdb2c4ef95194470845e8b5cb7d4",
+      "size_bytes": 2866
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/criteria.yaml",
+      "snapshot_path": "provenance/source/criteria.yaml",
+      "sha256": "965680092bc72fca00cd98ce7e6f877d7482fdb2c4ef95194470845e8b5cb7d4",
+      "size_bytes": 2866
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-1/goal.yaml",
+      "snapshot_path": "provenance/source/goal.yaml",
+      "sha256": "340c16a978dd5450da9c8832489f242de5f0f13cdea5cf004ea777375826e4b0",
+      "size_bytes": 1066
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+schema: spec-driven
+
+context: |
+  This is the alwaldend/src Bazel monorepo. Read AGENTS.md, the affected
+  component README, BUILD.bazel and include.MODULE.bazel before changing it.
+  This infra/src/openspec workspace describes evolution of the repository itself:
+  its shared structure, build system and development workflows. Each project
+  and infrastructure component owns a separate openspec/ workspace beside
+  its source. Keep component requirements and changes with that owner.
+  Root and nested Bazel workspaces share the bazel_agent runner. Use the
+  repository-pinned OpenSpec CLI through bazel_agent bazel run //tools/openspec.
+  User requests own outcome and authority. Specs and plans do not authorize
+  deployment, infrastructure mutation, publication, or new scope. Continue
+  actions already authorized by the task; no additional approval ceremony.
+  Maintained work uses the owning workspace's openspec/changes; temporary
+  notes use ignored out/<task>. Select component work with OPENSPEC_PROJECT
+  set to its repository-relative owner directory when running the pinned CLI.
+  Legacy goals have migrated; projects/goal is deprecated compatibility code
+  and its skill is disabled. See infra/src/openspec/migration.md for preserved history.
+
+rules:
+  proposal:
+    - Name the requested outcome, affected capability IDs, scope and acceptance.
+    - Distinguish current behavior from proposed behavior and historical claims.
+  specs:
+    - Write concrete SHALL or MUST requirements with WHEN/THEN scenarios.
+    - Preserve owner boundaries and link source evidence for baseline behavior.
+    - Use delta requirements for changes; do not reapply migrated historical deltas.
+  design:
+    - Record decisions, constraints, evidence, current candidate and next action.
+    - Record blocked or paused execution separately from completion and authority.
+  tasks:
+    - Keep actionable checkboxes; check work only when its acceptance is evidenced.
+    - Validate the exact candidate and representative output before completion.

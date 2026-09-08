@@ -5,9 +5,9 @@
 - ID: `agent-system.action`
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/action-catalog`
 - Derivation: `1.0.0`
-- Source revision: `c96e9118d7beed918a968be0da0be2d8`
+- Source revision: `81d1dc2f2fc2ce7f7720fcef43433b0f`
 - Completeness: `complete`
-- JSON digest: `sha256:f9fb833e98ca04ffb9e49adf38f5bb97a3e044cd08ecd0273d22351ba287170f`
+- JSON digest: `sha256:8f53f92f16753680fd83f7c1ccd1210d8c6beb2cb46538e8913697eed4896ade`
 
 ## Providers
 
@@ -21,9 +21,9 @@
 - `cordis.define` (cordis.runtime.cordis_define): classified
 - `cordis.promote` (cordis.runtime.cordis_promote): classified
 - `cordis.remove` (cordis.runtime.cordis_remove): classified
-- `goal.checkpoint` (goal.local-store.checkpoint): classified
-- `goal.migrate` (goal.local-store.migrate): classified
-- `goal.promote` (goal.local-store.promote): classified
+- `goal.checkpoint` (goal.local-store.checkpoint): deprecated
+- `goal.migrate` (goal.local-store.migrate): deprecated
+- `goal.promote` (goal.local-store.promote): deprecated
 - `repo-delivery.continue` (github.forge.continue): classified
 - `repo-delivery.prepare` (github.forge.prepare): classified
 - `repo-delivery.publish` (github.forge.publish): classified

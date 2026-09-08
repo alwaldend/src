@@ -32,6 +32,9 @@ func RenderCapabilityMarkdown(catalog CapabilityCatalog) string {
 	for _, provider := range catalog.Providers {
 		fmt.Fprintf(&builder, "- `%s` (%s, owned by `%s`) — %s\n",
 			provider.ID, provider.Kind, provider.Owner, provider.SourcePath)
+		if provider.Classification == "deprecated" {
+			builder.WriteString("  - Deprecated; retained for compatibility.\n")
+		}
 	}
 	builder.WriteString("\n## Skills\n\n")
 	for _, skill := range catalog.Skills {

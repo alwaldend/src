@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "source_commit": "550d7e79b1f5fdbc2b6017b75178471d6914082f",
+  "files": [
+    {
+      "source_path": "projects/agents/goals/BUILD.bazel",
+      "snapshot_path": "provenance/owner/goals/BUILD.bazel.original",
+      "sha256": "8a646a2001d6ecd699a2414a7191e1e17a4b06f311526c1e7affc18fea17b8d8",
+      "size_bytes": 165
+    },
+    {
+      "source_path": "projects/agents/goals/README.md",
+      "snapshot_path": "provenance/owner/goals/README.md",
+      "sha256": "e240c285e7d0f129996e9cb8dbb91b8a0b827c094688b615071463e91307a5c7",
+      "size_bytes": 1420
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/README.md",
+      "snapshot_path": "provenance/source/README.md",
+      "sha256": "51700df5ee90e498fe67396e5f873a3fbbee8ffe5fdbf284073bd76b2471320f",
+      "size_bytes": 3104
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-audit-001/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/system-audit-001/attempt.yaml",
+      "sha256": "af041cc65f8bdb144602094ac12101c7418b67bee522082a7c61e6c11d58c9a9",
+      "size_bytes": 2688
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-audit-001/evidence/audit-synthesis.md",
+      "snapshot_path": "provenance/source/attempts/system-audit-001/evidence/audit-synthesis.md",
+      "sha256": "e06dc491685ab7c0a025fde392d5a979626823dd6c9224aaa5f05d1bd0583e77",
+      "size_bytes": 11036
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-audit-001/evidence/build_control.md",
+      "snapshot_path": "provenance/source/attempts/system-audit-001/evidence/build_control.md",
+      "sha256": "587b866ab22838def523c7ed2e5df966dbb71f5cbe5f91dc73b81d6bcf01b8fc",
+      "size_bytes": 27236
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-audit-001/evidence/delivery.md",
+      "snapshot_path": "provenance/source/attempts/system-audit-001/evidence/delivery.md",
+      "sha256": "718f816f686c7e512076166d616590bc031ece58742470ff97d611b8b6cc38bc",
+      "size_bytes": 27747
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-audit-001/evidence/entrypoint.md",
+      "snapshot_path": "provenance/source/attempts/system-audit-001/evidence/entrypoint.md",
+      "sha256": "6d608485e1dc75f40232fb32bf617327cb2510179abdd5d526790f66c5b2421b",
+      "size_bytes": 21958
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-audit-001/evidence/goals.md",
+      "snapshot_path": "provenance/source/attempts/system-audit-001/evidence/goals.md",
+      "sha256": "c50538e8341027142a804924c37a73cffaaecdf87ac0028926197ed2f5139f51",
+      "size_bytes": 24678
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-audit-001/evidence/runtime.md",
+      "snapshot_path": "provenance/source/attempts/system-audit-001/evidence/runtime.md",
+      "sha256": "42643b02b875146d8fd7c7580f5a1dfc8cd4c73250902ec263c491f9cc497409",
+      "size_bytes": 30426
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-audit-001/evidence/safety.md",
+      "snapshot_path": "provenance/source/attempts/system-audit-001/evidence/safety.md",
+      "sha256": "a963222be2325cc8536c83b4143658f4c3f6dad865ef60c0ba46a3c82e9a27e8",
+      "size_bytes": 33626
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-audit-001/evidence/skills.md",
+      "snapshot_path": "provenance/source/attempts/system-audit-001/evidence/skills.md",
+      "sha256": "5c01950cd0562306fc07c3a1b2220cc32ffce1c3c54892113957d3fc28641b57",
+      "size_bytes": 23393
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-audit-001/evidence/topology.md",
+      "snapshot_path": "provenance/source/attempts/system-audit-001/evidence/topology.md",
+      "sha256": "f15f07927226947daeaef1a0d122d575c1311bb16626689efa5805f0dfcaa5dc",
+      "size_bytes": 26181
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-audit-001/plan.md",
+      "snapshot_path": "provenance/source/attempts/system-audit-001/plan.md",
+      "sha256": "c9dd0ae7b95b117553db3b5bd6485fab592c70a2b3b5994561fb629134b7e74f",
+      "size_bytes": 2145
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-audit-001/result.md",
+      "snapshot_path": "provenance/source/attempts/system-audit-001/result.md",
+      "sha256": "75deb041eabc005a56afcd32a47354017a17dc6234e23bf2f14f98667b4cd97d",
+      "size_bytes": 973
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-design-001/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/system-design-001/attempt.yaml",
+      "sha256": "ec8d984ae5a95e8434fd32fa3145d3a9d2daeec81c1bb8a0c087de00c3cfd01e",
+      "size_bytes": 2374
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-design-001/evidence/candidate-identity.md",
+      "snapshot_path": "provenance/source/attempts/system-design-001/evidence/candidate-identity.md",
+      "sha256": "d97100605217ef6a7e18c7ca8047b71bb986e4d6b59adbd9f06d83bd4530f305",
+      "size_bytes": 2669
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-design-001/evidence/design-review.md",
+      "snapshot_path": "provenance/source/attempts/system-design-001/evidence/design-review.md",
+      "sha256": "6f19e4ba0b28a372213c3bc612cbc6c3e7a868865b9d57b523535ec3c22aeab0",
+      "size_bytes": 3539
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-design-001/evidence/validation.md",
+      "snapshot_path": "provenance/source/attempts/system-design-001/evidence/validation.md",
+      "sha256": "609cbacf3aec80352a504a20c4555e4d01b1e82dc4b17a2e7b59016c2bcc123e",
+      "size_bytes": 3515
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-design-001/plan.md",
+      "snapshot_path": "provenance/source/attempts/system-design-001/plan.md",
+      "sha256": "2b4135b7aa8411be156f2eead93b51c8ec7ed9fbd2dba604f48c45ebefca2af8",
+      "size_bytes": 4230
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/attempts/system-design-001/result.md",
+      "snapshot_path": "provenance/source/attempts/system-design-001/result.md",
+      "sha256": "51a4dd3d81773b46b69784abeb61a1676b1c5f5739b36293d0fd787cdc90fdfd",
+      "size_bytes": 5600
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/criteria-revisions/1.yaml",
+      "snapshot_path": "provenance/source/criteria-revisions/1.yaml",
+      "sha256": "2b75354850944e3221ebc7ac6302f502b3af6680fa74e39659a02ec6816ecfec",
+      "size_bytes": 5529
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/criteria-revisions/2.yaml",
+      "snapshot_path": "provenance/source/criteria-revisions/2.yaml",
+      "sha256": "b61214faf045d784bfec13a3e31b1b8be36450bef30e37f2166a521e3558c0c5",
+      "size_bytes": 2682
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/criteria.yaml",
+      "snapshot_path": "provenance/source/criteria.yaml",
+      "sha256": "b61214faf045d784bfec13a3e31b1b8be36450bef30e37f2166a521e3558c0c5",
+      "size_bytes": 2682
+    },
+    {
+      "source_path": "projects/agents/goals/repo-agent-system/goal.yaml",
+      "snapshot_path": "provenance/source/goal.yaml",
+      "sha256": "e8196e52f287a54275dcdccd056f39b6148b22c7730133000993c44a7e459947",
+      "size_bytes": 1070
+    }
+  ]
+}

@@ -18,6 +18,7 @@ const (
 	defaultOutputLimit = 20
 	maximumOutputLimit = 100
 	toolVersion        = "0.0.1"
+	deprecationNotice  = "goal is deprecated; use OPENSPEC_PROJECT=<owner-root> bazel_agent bazel run //tools/openspec -- ... for new work in the owner's OpenSpec workspace"
 )
 
 func Execute(
@@ -27,6 +28,7 @@ func Execute(
 	stdout io.Writer,
 	stderr io.Writer,
 ) error {
+	fmt.Fprintln(stderr, "Warning: "+deprecationNotice)
 	root := newRootCommand(ctx, getenv, stdout)
 	root.SetArgs(args)
 	root.SetOut(stdout)
@@ -45,8 +47,10 @@ func newRootCommand(
 	_ = ctx
 	workspaceRoot := ""
 	root := &cobra.Command{
-		Use:           "goal",
-		Short:         "Manage local versioned goal records",
+		Use:   "goal",
+		Short: "Deprecated: manage legacy local goal records",
+		Long: deprecationNotice + ".\n\n" +
+			"Existing commands remain available for legacy record compatibility and recovery.",
 		Version:       toolVersion,
 		SilenceErrors: true,
 		SilenceUsage:  true,

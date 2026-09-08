@@ -6,9 +6,9 @@
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/topology-catalog`
 - Derivation: `1.0.0`
 - Producer: `repository.topology-compiler`
-- Source revision: `269295fc53bf3a47`
+- Source revision: `c35e27647bcc0031`
 - Completeness: `complete`
-- JSON digest: `sha256:745756278a9d466ba086ba552092f61a1f193a51ba840e85704415f268f86798`
+- JSON digest: `sha256:e46c76fa0dd603f6fe1da2282ce9fd2f5a115f49f746f2e1eb5d1c8fbd89e8ac`
 
 ## Limitations
 
@@ -34,7 +34,7 @@ None.
 - `bazel_agent` — Bazel agent (projects/bazel_agent, owned); lifecycle `active`
 - `ci_platform` — Ci platform (projects/ci_platform, owned); lifecycle `abandoned`
 - `dotfiles` — Dotfiles (projects/dotfiles, owned); lifecycle `maintenance`
-- `goal` — Goal (projects/goal, owned); lifecycle `experimental`
+- `goal` — Goal (projects/goal, owned); lifecycle `maintenance`
 - `hugo_landing` — Hugo Landing (projects/hugo_landing, owned); lifecycle `active`
 - `infinitime` — Infinitime (projects/infinitime, owned); lifecycle `maintenance`
 - `kustomization` — Kustomization (projects/kustomization, owned); lifecycle `in_progress`
@@ -48,6 +48,7 @@ None.
 - `rules_docs_gazelle` — Rules docs Gazelle (projects/rules_docs_gazelle, owned); lifecycle `active`
 - `rules_hugo` — Rules Hugo (projects/rules_hugo, owned); lifecycle `active`
 - `rules_iso` — rules_iso (projects/rules_iso, owned); lifecycle `active`
+- `rules_openspec` — OpenSpec (projects/rules_openspec, owned); lifecycle `active`
 - `rules_promptfoo` — Rules Promptfoo (projects/rules_promptfoo, owned); lifecycle `active`
 - `rules_promptfoo_gazelle` — Rules Promptfoo Gazelle (projects/rules_promptfoo_gazelle, owned); lifecycle `active`
 - `rules_skill` — Rules skill (projects/rules_skill, owned); lifecycle `active`
@@ -66,6 +67,7 @@ None.
 - `projects.rules_docs_gazelle` — module `rules_docs_gazelle` at `projects/rules_docs_gazelle/MODULE.bazel`
 - `projects.rules_hugo` — module `rules_hugo` at `projects/rules_hugo/MODULE.bazel`
 - `projects.rules_iso` — module `rules_iso` at `projects/rules_iso/MODULE.bazel`
+- `projects.rules_openspec` — module `rules_openspec` at `projects/rules_openspec/MODULE.bazel`
 - `projects.rules_promptfoo` — module `rules_promptfoo` at `projects/rules_promptfoo/MODULE.bazel`
 - `projects.rules_promptfoo_gazelle` — module `rules_promptfoo_gazelle` at `projects/rules_promptfoo_gazelle/MODULE.bazel`
 - `projects.rules_skill` — module `rules_skill` at `projects/rules_skill/MODULE.bazel`

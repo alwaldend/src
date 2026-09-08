@@ -1,0 +1,8 @@
+schema: spec-driven
+
+context: |
+  This OpenSpec workspace belongs to projects/dotfiles.
+  Read the project README, applicable AGENTS.md, and owning build declarations.
+  Keep this project's specifications and changes in this local openspec directory.
+  The infra/src/openspec workspace owns the repository's evolution.
+  User requests own scope and authority; specifications do not authorize deployment.

@@ -21,8 +21,11 @@ without replacing their authorities.
   learning compose.
 - [Agent-system roadmap](projects/agents/docs/roadmap.md) distinguishes
   proposed work from current guarantees.
-- [Durable agent-system goals](projects/agents/goals/README.md) retain
-  versioned attempts, acceptance state, and evidence provenance.
+- [Repository evolution](infra/src/openspec/README.md) describes changes to the monorepo
+  itself. Each project and infrastructure component owns its specifications
+  and maintained changes in its local `openspec/` directory. The
+  [goal migration](infra/src/openspec/migration.md) preserves prior acceptance state and
+  evidence provenance.
 - [Repository setup](https://alwaldend.com/docs/misc/repo/) explains the human
   development environment.
 
@@ -44,7 +47,9 @@ request -> owner and policy -> capability -> work -> execution
   inputs.
 - [`users/`](users/README.md): user-owned code and infrastructure.
 - [`projects/agents/`](projects/agents/README.md): repository-wide agent
-  architecture, goals, skills, and evaluation assets.
+  architecture, skills, and evaluation assets.
+- [`infra/src/`](infra/src/README.md): specifications and changes for evolution
+  of the repository itself.
 
 Each linked tree README is authoritative for that tree. Bazel `BUILD` and
 `MODULE.bazel` files remain authoritative for executable and dependency

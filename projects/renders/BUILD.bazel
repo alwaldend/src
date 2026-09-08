@@ -2,20 +2,12 @@ load("@com_alwaldend_src_tools_blender//:defs.bzl", "blender_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_test")
 
-filegroup(
-    name = "goal_records",
-    srcs = glob(["goals/**"]),
-)
-
 go_test(
-    name = "goal_validation_test",
+    name = "reimu_fumo_migration_integrity_test",
     size = "small",
-    srcs = ["goal_validation_test.go"],
-    data = [
-        ":goal_records",
-        "//projects/goal/cmd/goal",
-    ],
-    deps = ["@rules_go//go/tools/bazel"],
+    srcs = ["migration_integrity_test.go"],
+    data = ["//projects/renders/openspec:reimu_fumo_change"],
+    deps = ["@rules_go//go/runfiles"],
 )
 
 filegroup(
@@ -59,9 +51,9 @@ go_test(
     size = "small",
     srcs = ["review_evidence_integrity_test.go"],
     data = [
-        ":goal_records",
         ":reimu_fumo_failure_evidence",
         ":reimu_fumo_references",
+        "//projects/renders/openspec:reimu_fumo_change",
     ],
     deps = ["@rules_go//go/runfiles"],
 )

@@ -13,9 +13,9 @@
             "source": "tools/agents/declarations/registry.json"
         },
         {
-            "id": "repository.goals",
-            "kind": "goals",
-            "source": "projects/agents/goals"
+            "id": "repository.openspec",
+            "kind": "openspec",
+            "source": "infra/src/openspec"
         },
         {
             "id": "repository.projects",
@@ -205,13 +205,20 @@
             "evaluationMaturity": "checked"
         },
         {
-            "id": "goal",
-            "owner": "projects/goal",
+            "id": "openspec",
+            "owner": "tools/openspec",
             "layer": "coordination",
-            "activation": "durable multi-step work",
-            "exclusions": ["simple one-step tasks"],
-            "capabilityRefs": ["task_state.write"],
-            "dependencies": ["bazel-agent"],
+            "activation": "repository specifications, change planning, and durable multi-step work",
+            "exclusions": [
+                "simple one-step tasks without specification changes"
+            ],
+            "capabilityRefs": [
+                "code.execute",
+                "source.read",
+                "source.write",
+                "task_state.write"
+            ],
+            "dependencies": ["bazel-agent", "repo-bazel"],
             "conflicts": [],
             "providerRequirements": [],
             "contextCost": "large",
@@ -447,7 +454,7 @@
             "id": "goal",
             "owner": "projects/goal",
             "path": "projects/goal/cmd/goal/main.go",
-            "classification": "classified"
+            "classification": "deprecated"
         },
         {
             "id": "mcp-cordis",

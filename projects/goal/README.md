@@ -1,8 +1,8 @@
 ---
 title: Goal
-description: Versioned goal resources, local storage, and agent workflow
+description: Deprecated goal tool retained for legacy record compatibility
 statuses:
-  - experimental
+  - maintenance
 languages:
   - go
   - markdown
@@ -12,12 +12,19 @@ tags:
   - workflow
 ---
 
-This project owns the goal execution skill and the deterministic local store
-that supports it. Ordinary tasks use `init` for the objective and acceptance,
-`checkpoint --summary --subject --next-action` for local progress, and `show`
-for bounded continuation. The store derives IDs and digests while retaining
-explicit resource-version checks. Detailed attempt plans and histories remain
-available for maintained goals, repeated failures, and complex coordination.
+The goal tool is deprecated. New specifications and resumable work use the
+affected owner's `openspec/` workspace through the pinned
+[OpenSpec command](../../tools/openspec/README.md). Select its owner directory
+with `OPENSPEC_PROJECT=<owner>` when running the command from the root Bazel
+workspace. `infra/src/openspec/` is for repository evolution. The goal skill is
+disabled and removed from repository skill discovery.
+
+This project retains the portable resource API, deterministic local store,
+and existing CLI commands for legacy record compatibility and recovery. The
+CLI emits its deprecation notice on stderr, preserving JSON and version
+output on stdout. Existing readers, validation, recovery, and legacy writes
+remain available; creating new goal records is no longer the supported
+repository workflow.
 
 ```text
 projects/goal/
@@ -25,7 +32,7 @@ projects/goal/
   cmd/goal/          Cobra command wiring and command tests
   docs/              Current architecture and generated diagrams
   internal/fsstore/  Local persistence, per-goal locking, and store tests
-  skills/goal/       Model-facing execution protocol and evaluations
+  skills/goal/       Disabled skill notice and historical format references
 ```
 
 Go dependencies flow from `cmd/goal` to `internal/fsstore` to
@@ -69,5 +76,6 @@ bazel_agent bazel run //projects/goal/cmd/goal -- doctor --goal-dir $GOAL_DIR
 bazel_agent bazel run //projects/goal/cmd/goal -- recover --goal-dir $GOAL_DIR
 ```
 
-The canonical skill lives at `skills/goal`; `.agents/skills/goal` is only its
-repository discovery symlink.
+The historical skill source remains at `skills/goal` for compatibility
+documentation. Its package is not registered for discovery; the replacement
+skill is [`openspec`](../../tools/openspec/skills/openspec/SKILL.md).

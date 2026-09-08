@@ -1,6 +1,6 @@
 ---
 title: Goal command
-description: CLI for versioned local goal records
+description: Deprecated CLI for legacy local goal records
 languages:
   - go
 tags:
@@ -8,8 +8,15 @@ tags:
   - workflow
 ---
 
-`goal` is the command surface for the repository goal skill. Portable resource
-types and domain validation live in `api/v1alpha1`; deterministic local
+`goal` is deprecated. Use the affected owner's `openspec/` workspace and the
+[pinned OpenSpec command](../../../../tools/openspec/README.md) for new work.
+Set `OPENSPEC_PROJECT=<owner>` when running it from the root Bazel workspace;
+`infra/src/openspec/` is for repository evolution. The goal skill is disabled.
+All existing commands remain available for legacy record
+compatibility and recovery. Every invocation emits a deprecation notice on
+stderr while preserving stdout formats.
+
+Portable resource types and domain validation live in `api/v1alpha1`; deterministic local
 persistence lives in `internal/fsstore`. The command keeps authoritative
 Kubernetes-inspired YAML envelopes and digest-bound attempt Markdown separate
 from the bounded generated `README.md` projection, uses the same record format
@@ -31,8 +38,8 @@ goals/<goal-id>/
     evidence/
 ```
 
-`<owner-root>/goals/<goal-id>/` is the preferred project placement, not a CLI
-constraint. Direct initialization, promotion, and migration also accept other
+`<owner-root>/goals/<goal-id>/` was the project placement convention, not a CLI
+constraint. Legacy initialization, promotion, and migration also accept other
 safe in-workspace goals roots while recording the explicit owner root.
 
 The YAML objects use `apiVersion: goals.alwaldend.com/v1alpha1` and the kinds
@@ -43,14 +50,11 @@ values and use object-shaped local goal references. The shared API treats
 numeric versions and requires complete persisted metadata. The files are not
 raw `kubectl` input, and this project supplies neither CRDs nor a controller.
 
-Run it through Bazel:
+Inspect an existing legacy record through Bazel:
 
 ```sh
-bazel_agent bazel run //projects/goal/cmd/goal -- init \
-  --goals-root out/example/goals \
-  --goal-id verify-the-release \
-  --title "Verify the release" \
-  --criterion "All affected tests pass"
+bazel_agent bazel run //projects/goal/cmd/goal -- show \
+  --goal-dir "<legacy-goal-directory>"
 ```
 
 Use a task-specific binding directory when changing session focus:
@@ -96,8 +100,9 @@ owning project adopts it through ordinary review and delivery.
 `checkpoint` starts or publishes an attempt, changes execution/outcome state,
 or applies a complete desired criteria-items file with `--criteria-file`.
 
-For ordinary work, initialize the objective and acceptance once with `init
---title ... --criterion ...`, then use an inline checkpoint:
+The legacy write interface supports `init --title ... --criterion ...` and
+inline checkpoints. This remains compatibility documentation; use OpenSpec
+for new work:
 
 ```sh
 bazel_agent bazel run //projects/goal/cmd/goal -- checkpoint \

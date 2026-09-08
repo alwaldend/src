@@ -4,17 +4,17 @@
     "id": "agent-system.action",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.action-compiler",
-    "sourceRevision": "c96e9118d7beed918a968be0da0be2d8",
+    "sourceRevision": "81d1dc2f2fc2ce7f7720fcef43433b0f",
     "inputs": [
         {
             "path": "projects/goal/agent_operations.json",
             "role": "operation-file",
-            "digest": "sha256:ec16c4075b8234d614d2edf90de2e8a0afb7addab9c698db582e7057c6662f18"
+            "digest": "sha256:99d844cd03882b24bb2285ee54c3640be47cba7f1cdfe0c589a16fb934f548b6"
         },
         {
             "path": "projects/goal/cmd/goal/command.go",
             "role": "operation-definition",
-            "digest": "sha256:b7fd6e69b61a68460cfcfab49ccf79e028899091ec485e40011a8f2e4053d360"
+            "digest": "sha256:eaac45fbd982d27f7edc2d886b67a4c36ee407d103d6ceb0bda35100b75aa3ae"
         },
         {
             "path": "projects/mcp_cordis/agent_operations.json",
@@ -29,7 +29,7 @@
         {
             "path": "tools/agents/declarations/registry.json",
             "role": "registry",
-            "digest": "sha256:81a898951097ae85a8045644501ddf7568157f266d016bc2481da3ab45375fa2"
+            "digest": "sha256:170f250ce280e6a1b024564d443fbca8b44c880f87cd120375bc710e664edb27"
         },
         {
             "path": "tools/repo_delivery/agent_operations.json",
@@ -64,7 +64,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:f9fb833e98ca04ffb9e49adf38f5bb97a3e044cd08ecd0273d22351ba287170f",
+    "digest": "sha256:8f53f92f16753680fd83f7c1ccd1210d8c6beb2cb46538e8913697eed4896ade",
     "providers": [
         {
             "id": "cordis.runtime",
@@ -193,7 +193,7 @@
             "owner": "projects.goal",
             "sourcePath": "projects/goal/agent_operations.json",
             "selector": "checkpoint",
-            "classification": "classified",
+            "classification": "deprecated",
             "effects": [
                 "source.write",
                 "task_state.write"
@@ -226,7 +226,7 @@
             "owner": "projects.goal",
             "sourcePath": "projects/goal/agent_operations.json",
             "selector": "migrate",
-            "classification": "classified",
+            "classification": "deprecated",
             "effects": [
                 "source.write",
                 "task_state.write"
@@ -259,7 +259,7 @@
             "owner": "projects.goal",
             "sourcePath": "projects/goal/agent_operations.json",
             "selector": "promote",
-            "classification": "classified",
+            "classification": "deprecated",
             "effects": [
                 "source.write",
                 "task_state.write"

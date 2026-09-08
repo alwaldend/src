@@ -4,12 +4,12 @@
     "id": "agent-system.policy",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.policy-compiler",
-    "sourceRevision": "9cce8e9bcd3455aa5a71a062010de505",
+    "sourceRevision": "7f866cf47cf98ee7a57f0db06a0e5a14",
     "inputs": [
         {
             "path": "AGENTS.md",
             "role": "agent-policy",
-            "digest": "sha256:65ef3e4fa65769f1b1bd4915d5023cc2f9681d3b75c292d5f1d465faea1f4824"
+            "digest": "sha256:29d83cc62266c27539bb4d29261256a9f652cdfdabed96dabfba77547776df05"
         },
         {
             "path": "CODEOWNERS",
@@ -24,12 +24,12 @@
         {
             "path": "infra/README.md",
             "role": "boundary-readme",
-            "digest": "sha256:a2df19e07a2bff8e3448bf3a8fa0ad704f1cc14f8033f0ccab14f8f82620e9b9"
+            "digest": "sha256:dc7ef805e0ffc93aee2f9a1eb6e6f5215fd591542721ae26712bed3544f96bd6"
         },
         {
             "path": "projects/README.md",
             "role": "boundary-readme",
-            "digest": "sha256:8f96ac5685d3ac36f4eb4e7e0194ce49fcbfae780f62ab0cbab0feb9b8db9798"
+            "digest": "sha256:c03369bdd60944bf473d6b0576f272e7f96344e4996a1c3ce65e8eeed06355ca"
         },
         {
             "path": "third_party/README.md",
@@ -67,7 +67,7 @@
             ]
         }
     ],
-    "digest": "sha256:2f447dddcc6460cf65b7a0c8517518b9cdeffa2b62d1b35bf2c984c4f3c23624",
+    "digest": "sha256:564377c13935bf3896bc05772e2912d2c745ac23def87de4e77c8c37f4750fcb",
     "policies": [
         {
             "id": "policy.agents",

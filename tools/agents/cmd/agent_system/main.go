@@ -100,7 +100,6 @@ type catalogSnapshot struct {
 	action         *catalogv1alpha1.ActionCatalog
 	capability     *catalogv1alpha1.CapabilityCatalog
 	workspaceCheck *catalogv1alpha1.WorkspaceCheckCatalog
-	goal           *catalogv1alpha1.GoalCatalog
 	index          *catalogv1alpha1.AgentSystemIndex
 	limitations    []string
 }
@@ -136,12 +135,6 @@ func (c *capsuleBuilder) loadCatalogs() *catalogSnapshot {
 	} else {
 		snapshot.limitations = append(snapshot.limitations,
 			"workspace-check catalog unavailable: "+bounded(err))
-	}
-	if value, err := c.readGoal(); err == nil {
-		snapshot.goal = value
-	} else {
-		snapshot.limitations = append(snapshot.limitations,
-			"goal catalog unavailable: "+bounded(err))
 	}
 	if value, err := c.readIndex(); err == nil {
 		snapshot.index = value
@@ -377,6 +370,21 @@ func (c *capsuleBuilder) documentSources(
 		}
 	}
 	addDiscovered("CODEOWNERS")
+	foundOpenSpec := false
+	for _, ancestor := range ancestors {
+		if ancestor == "." {
+			break
+		}
+		workspace := filepath.ToSlash(filepath.Join(ancestor, "openspec"))
+		if addDiscovered(workspace + "/config.yaml") {
+			addDiscovered(workspace + "/README.md")
+			foundOpenSpec = true
+			break
+		}
+	}
+	if !foundOpenSpec && addDiscovered("infra/src/openspec/config.yaml") {
+		addDiscovered("infra/src/openspec/README.md")
+	}
 	return documents, ownerReadme
 }
 
@@ -405,7 +413,8 @@ func (c *capsuleBuilder) capabilities(
 	result := []v1alpha1.CapsuleCapability{}
 	if snapshot.action != nil {
 		for _, provider := range snapshot.action.Providers {
-			if !c.ownerInWorkspace(snapshot, workspace, provider.Owner) {
+			if deprecatedProvider(snapshot, provider.ID) ||
+				!c.ownerInWorkspace(snapshot, workspace, provider.Owner) {
 				continue
 			}
 			result = append(result, v1alpha1.CapsuleCapability{
@@ -443,6 +452,31 @@ func (c *capsuleBuilder) capabilities(
 		return result[i].ID < result[j].ID
 	})
 	return result
+}
+
+// Deprecated providers remain in compatibility catalogs, but are excluded
+// from current capability recommendations and runtime observations.
+func deprecatedProvider(snapshot *catalogSnapshot, id string) bool {
+	if snapshot.capability != nil {
+		for _, provider := range snapshot.capability.Providers {
+			if provider.ID == id && provider.Classification == "deprecated" {
+				return true
+			}
+		}
+	}
+	matched := false
+	if snapshot.action != nil {
+		for _, action := range snapshot.action.Actions {
+			if action.ProviderRef != id {
+				continue
+			}
+			matched = true
+			if action.Classification != "deprecated" {
+				return false
+			}
+		}
+	}
+	return matched
 }
 
 // Root-workspace capabilities remain candidates in nested workspaces. A
@@ -505,6 +539,9 @@ func (c *capsuleBuilder) providerStatus(
 	var result []v1alpha1.CapsuleProviderStatus
 	if snapshot.action != nil {
 		for _, provider := range snapshot.action.Providers {
+			if deprecatedProvider(snapshot, provider.ID) {
+				continue
+			}
 			result = append(result, v1alpha1.CapsuleProviderStatus{
 				ProviderID:  provider.ID,
 				State:       "unavailable",
@@ -542,8 +579,16 @@ func (c *capsuleBuilder) nextActions(
 	}
 	actions = append(actions,
 		"inspect "+buildPath+" and select the narrowest checks for the requested change")
-	if snapshot.goal != nil && len(snapshot.goal.Goals) > 0 {
-		actions = append(actions, "select a goal explicitly if this task needs durable continuation")
+	for _, document := range documents {
+		if strings.HasSuffix(document.Path, "/openspec/config.yaml") {
+			workspace := filepath.ToSlash(filepath.Dir(document.Path))
+			change := "an OpenSpec change"
+			if workspace == "infra/src/openspec" {
+				change = "a repository evolution change"
+			}
+			actions = append(actions, "inspect "+document.Path+" and select "+change+" under "+workspace+"/changes/ if this task needs durable continuation")
+			break
+		}
 	}
 	for _, limitation := range snapshot.limitations {
 		actions = append(actions, "inspect unavailable input: "+limitation)
@@ -603,7 +648,7 @@ func (c *capsuleBuilder) build(snapshot *catalogSnapshot, observedAt time.Time) 
 	limitations := append([]string(nil), snapshot.limitations...)
 	limitations = append(limitations,
 		"catalog freshness against owning sources is unknown; catalog self-digests verify only stored bytes",
-		"runtime health, task authority, goal binding, and effective CODEOWNERS are not observed",
+		"runtime health, task authority, OpenSpec change binding, and effective CODEOWNERS are not observed",
 		"capabilities are workspace candidates; task-intent routing and cross-workspace dependencies are not resolved",
 	)
 

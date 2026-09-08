@@ -16,6 +16,11 @@ or personal information. Inspect raw state, plans, inventories, and decrypted
 configuration because those artifacts can contain prohibited content; do not
 track the artifacts themselves.
 
+Each infrastructure project owns its specifications and maintained changes
+in `<project>/openspec/`. Use the [pinned OpenSpec workflow](../tools/openspec/README.md)
+with that project selected. These specifications describe checked-in definitions;
+they do not establish deployed state or authorize infrastructure operations.
+
 ## Requirements
 
 - Bazel targets MUST use repository-internal visibility.

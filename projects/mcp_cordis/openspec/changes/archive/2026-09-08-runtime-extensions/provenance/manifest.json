@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "source_commit": "550d7e79b1f5fdbc2b6017b75178471d6914082f",
+  "files": [
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/README.md",
+      "snapshot_path": "provenance/source/README.md",
+      "sha256": "d130e57adbf59ba799e562ff1bc24a37bb0241c93616023070f9050c12b1ce03",
+      "size_bytes": 4735
+    },
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/acceptance.md",
+      "snapshot_path": "provenance/source/acceptance.md",
+      "sha256": "2ee590956abc4a501cca2f567cb5dc50cc5b3bc332a38a4f8c711b4551f3c761",
+      "size_bytes": 3628
+    },
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/artifacts.md",
+      "snapshot_path": "provenance/source/artifacts.md",
+      "sha256": "cf9168882fc0b3c511d901bc7674094509065d5f0175be279682e57700e846af",
+      "size_bytes": 4334
+    },
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/attempts/001.md",
+      "snapshot_path": "provenance/source/attempts/001.md",
+      "sha256": "6df7a76f909d2091a09419135a41753fcdeb58311cb22b1ba7c09cc2dc94139b",
+      "size_bytes": 4962
+    },
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/attempts/002.md",
+      "snapshot_path": "provenance/source/attempts/002.md",
+      "sha256": "f9c468773763f120bb78cc292b6234057cb0b889bc2f01a59fc10fc04ad7a1ef",
+      "size_bytes": 4089
+    },
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/attempts/003.md",
+      "snapshot_path": "provenance/source/attempts/003.md",
+      "sha256": "3c99002633c612a9ab910e74937f1ee511e98758e88f7c4fc5246da3c1cd203a",
+      "size_bytes": 4620
+    },
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/attempts/004.md",
+      "snapshot_path": "provenance/source/attempts/004.md",
+      "sha256": "6e710b80e386efe56f62e2f042f32fc88784a189f94ae09603ad7cc41ad17b08",
+      "size_bytes": 4901
+    },
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/attempts/005.md",
+      "snapshot_path": "provenance/source/attempts/005.md",
+      "sha256": "da973396140e98b8dfdee28a2d68fd8035c4efd43538147f795fff6c5d92c17c",
+      "size_bytes": 7138
+    },
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/attempts/006.md",
+      "snapshot_path": "provenance/source/attempts/006.md",
+      "sha256": "0823a0e92991e29e653724c0a44dc0b999270a816d5ad6c2ad1f703bf5808356",
+      "size_bytes": 7561
+    },
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/attempts/007.md",
+      "snapshot_path": "provenance/source/attempts/007.md",
+      "sha256": "98a1dc7059b97be3475e3a80271993bb02ec8e1bfe1b9307bbf27b3b64ddd2fd",
+      "size_bytes": 4491
+    },
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/attempts/008.md",
+      "snapshot_path": "provenance/source/attempts/008.md",
+      "sha256": "71b32433f40d1752afdd9782d0acd4502cbe7cd8eb2209ad2795e3c3e80217cb",
+      "size_bytes": 6484
+    },
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/attempts/009.md",
+      "snapshot_path": "provenance/source/attempts/009.md",
+      "sha256": "b9be79910d3630a25daf18fd2d65e32dc85d9565476b694a645ffa1f02bde617",
+      "size_bytes": 3122
+    },
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/attempts/010.md",
+      "snapshot_path": "provenance/source/attempts/010.md",
+      "sha256": "dfcab8438e907490b49dcf854c76cafc764165f911ced024cf23273a99b43b9a",
+      "size_bytes": 6891
+    },
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/attempts/011.md",
+      "snapshot_path": "provenance/source/attempts/011.md",
+      "sha256": "10574a1ba80734516904fa786c42e172abb1d4001ae0f9fd8b926618428ef2bf",
+      "size_bytes": 5126
+    },
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/attempts/README.md",
+      "snapshot_path": "provenance/source/attempts/README.md",
+      "sha256": "b406b8ec3eaa96baa220e7e5e9d93f64210a7d9f38e9edf3f8eacaa8a5b5fd56",
+      "size_bytes": 2293
+    },
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/evidence.md",
+      "snapshot_path": "provenance/source/evidence.md",
+      "sha256": "0d759fb5ff0aee12e3e177296505401528408432c3c607f7c9e295bba78f3047",
+      "size_bytes": 23249
+    },
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/failure_ledger.md",
+      "snapshot_path": "provenance/source/failure_ledger.md",
+      "sha256": "8d074efeba289a80c76e0eec18916f1b6175649eae76ee1acd8211de0b88de30",
+      "size_bytes": 21872
+    },
+    {
+      "source_path": "projects/mcp_cordis/goals/runtime_extensions/requirements.md",
+      "snapshot_path": "provenance/source/requirements.md",
+      "sha256": "099222dc72bcc3ce88628e6772bc60a3204363f1983ae0d16eb1be3df9abf6cf",
+      "size_bytes": 4153
+    }
+  ]
+}

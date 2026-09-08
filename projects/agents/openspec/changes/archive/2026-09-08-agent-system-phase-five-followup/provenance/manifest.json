@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "source_commit": "550d7e79b1f5fdbc2b6017b75178471d6914082f",
+  "files": [
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-five-followup/README.md",
+      "snapshot_path": "provenance/source/README.md",
+      "sha256": "310c52ad7657addf1c4961dc22506bec9829b178759d8023eedf8c0706de48ae",
+      "size_bytes": 2150
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-five-followup/attempts/followup-baseline-001/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/followup-baseline-001/attempt.yaml",
+      "sha256": "ab66356c57548f94cdf933259f1da233884bf92a6ce655ece24c494c10571422",
+      "size_bytes": 2254
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-five-followup/attempts/followup-baseline-001/evidence/baseline-coverage.md",
+      "snapshot_path": "provenance/source/attempts/followup-baseline-001/evidence/baseline-coverage.md",
+      "sha256": "4b344551a2df8c06d85a0cde157aafa54b508506ddc0578a0feb10fbbf22760d",
+      "size_bytes": 683
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-five-followup/attempts/followup-baseline-001/evidence/live-comparison-policy.md",
+      "snapshot_path": "provenance/source/attempts/followup-baseline-001/evidence/live-comparison-policy.md",
+      "sha256": "cbd221f946e81be1d3f3da7bfa4c589712d53489f6b8b494dc251b7b4f1cd9f7",
+      "size_bytes": 1983
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-five-followup/attempts/followup-baseline-001/evidence/optimization-adoption.md",
+      "snapshot_path": "provenance/source/attempts/followup-baseline-001/evidence/optimization-adoption.md",
+      "sha256": "4fa4950ba0936c8001499c8818de79bd8b3536f6688847d5b71878681cc95436",
+      "size_bytes": 2223
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-five-followup/attempts/followup-baseline-001/evidence/writable-fixtures.md",
+      "snapshot_path": "provenance/source/attempts/followup-baseline-001/evidence/writable-fixtures.md",
+      "sha256": "12f0005ae55181bd999433b212158747be5839ddbe94e61d4f77ad8b1d2ac9e0",
+      "size_bytes": 2581
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-five-followup/attempts/followup-baseline-001/plan.md",
+      "snapshot_path": "provenance/source/attempts/followup-baseline-001/plan.md",
+      "sha256": "ecfb3202f0b67577db74e6d29b9e8b8a849f767dc7bd71d0d761731cc6c472ea",
+      "size_bytes": 595
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-five-followup/attempts/followup-baseline-001/result.md",
+      "snapshot_path": "provenance/source/attempts/followup-baseline-001/result.md",
+      "sha256": "47d520f966960eb2b121fbfb8746c50c0ae2bdaa275e9a04a4580c114f81af54",
+      "size_bytes": 345
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-five-followup/criteria-revisions/1.yaml",
+      "snapshot_path": "provenance/source/criteria-revisions/1.yaml",
+      "sha256": "245b651150a36d7d6c6d63f651e81fb9ccdc27beb18bc46642450a173564ce30",
+      "size_bytes": 1750
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-five-followup/criteria.yaml",
+      "snapshot_path": "provenance/source/criteria.yaml",
+      "sha256": "245b651150a36d7d6c6d63f651e81fb9ccdc27beb18bc46642450a173564ce30",
+      "size_bytes": 1750
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-five-followup/goal.yaml",
+      "snapshot_path": "provenance/source/goal.yaml",
+      "sha256": "a1b064c4f78e29fa604d2be892817d807356f8d823961cee5908d3e5bb503589",
+      "size_bytes": 1125
+    }
+  ]
+}

@@ -5,28 +5,28 @@
 - ID: `agent-system.index`
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/agent-system-index`
 - Derivation: `1.0.0`
-- Source revision: `8f9655cc2041e7deb4322b17140b2f86`
+- Source revision: `ce269819df9be802c9ac0b7d1ec6d22e`
 - Completeness: `complete`
-- JSON digest: `sha256:6fc5828c2369f9bace6cdcee0363512ef39aa3323504e5d693898534182ee36c`
+- JSON digest: `sha256:f896d2284ce8a915ad5dabd8d3837213d4a1a495ce79cd103251f3026bc81fbc`
 
 ## Catalogs
 
-- `agent-system.action` (action-catalog): complete, digest `sha256:4dde51513415a8f132c4dc9cad526e784300043ed8b36f887006974266d8620e`
+- `agent-system.action` (action-catalog): complete, digest `sha256:8f53f92f16753680fd83f7c1ccd1210d8c6beb2cb46538e8913697eed4896ade`
   - route: `compile:action-catalog`
   - route: `check:action-catalog`
-- `agent-system.capability` (capability-catalog): complete, digest `sha256:d8cb40d86f2d90d794974c26775aeb0389986798c570ca7ee9fc94100752692f`
+- `agent-system.capability` (capability-catalog): complete, digest `sha256:34705877e37ac0d0a28baca783cdb5dc42e6d3c4eb99b8a76bcb307e9d5eeeb0`
   - route: `compile:capability-catalog`
   - route: `check:capability-catalog`
-- `agent-system.goal` (goal-catalog): complete, digest `sha256:b52f4efd6ffa80fbc23e78bd187e206727278bfbd8f43b2e6d37492b7fcc1255`
+- `agent-system.goal` (goal-catalog): complete, digest `sha256:fe1cea158b6dcd836d3ee987e6a7b411777cc3005a58d95178e5d45a7dd5feab`
   - route: `compile:goal-catalog`
   - route: `check:goal-catalog`
-- `agent-system.policy` (policy-catalog): complete, digest `sha256:2f447dddcc6460cf65b7a0c8517518b9cdeffa2b62d1b35bf2c984c4f3c23624`
+- `agent-system.policy` (policy-catalog): complete, digest `sha256:564377c13935bf3896bc05772e2912d2c745ac23def87de4e77c8c37f4750fcb`
   - route: `compile:policy-catalog`
   - route: `check:policy-catalog`
-- `agent-system.topology` (topology-catalog): complete, digest `sha256:79b20db637d6da429350bc3dfb118efb7dce78d674112dd134c2b805f2fc4b41`
+- `agent-system.topology` (topology-catalog): complete, digest `sha256:e46c76fa0dd603f6fe1da2282ce9fd2f5a115f49f746f2e1eb5d1c8fbd89e8ac`
   - route: `compile:topology-catalog`
   - route: `check:topology-catalog`
-- `agent-system.workspace-check` (workspace-check-catalog): complete, digest `sha256:7139eabdac087bfa74cb04f8f9495f49f14857f004f6656b6d0486b7f6f5cb13`
+- `agent-system.workspace-check` (workspace-check-catalog): complete, digest `sha256:4db7303129fdad524b00360c4ee7c545612410d99fd496851eec5ac1b497a8cc`
   - route: `compile:workspace-check-catalog`
   - route: `check:workspace-check-catalog`
 
