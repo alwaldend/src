@@ -6,6 +6,7 @@ exports_files(["agent_operations.json"])
 alias(
     name = "goal",
     actual = "//projects/goal/cmd/goal",
+    deprecation = "Use //tools/openspec for new work; goal remains for legacy record compatibility.",
     visibility = ["//:__subpackages__"],
 )
 

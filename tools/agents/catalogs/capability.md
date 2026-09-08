@@ -6,9 +6,9 @@
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/capability-catalog`
 - Derivation: `1.0.0`
 - Producer: `repository.capability-compiler`
-- Source revision: `d26ed54e63ceafb48ea587659f8cd198`
+- Source revision: `c57bca0851093160dfea90124e3d0893`
 - Completeness: `complete`
-- JSON digest: `sha256:821bc640ce621a1b07916254c1eb011bac21b71f40ae0a9ba6209fe17d6ba14c`
+- JSON digest: `sha256:34705877e37ac0d0a28baca783cdb5dc42e6d3c4eb99b8a76bcb307e9d5eeeb0`
 
 ## Limitations
 
@@ -32,7 +32,9 @@ None.
 - `cordis_stop` (runtime_tool, owned by `projects/mcp_cordis`) — projects/mcp_cordis/internal/mcp.mjs
 - `github.forge` (operation_provider, owned by `tools.repo-delivery`) — tools/repo_delivery/cmd/repo_delivery/command.go
 - `goal` (direct_binary, owned by `projects/goal`) — projects/goal/cmd/goal/main.go
+  - Deprecated; retained for compatibility.
 - `goal.local-store` (operation_provider, owned by `projects.goal`) — projects/goal/cmd/goal/command.go
+  - Deprecated; retained for compatibility.
 - `mcp-cordis` (direct_binary, owned by `projects/mcp_cordis`) — projects/mcp_cordis/cmd/mcp_cordis/main.mjs
 - `repo-delivery` (direct_binary, owned by `tools/repo_delivery`) — tools/repo_delivery/cmd/repo_delivery/main.go
 - `terraform.runner` (operation_provider, owned by `tools.terraform`) — tools/terraform/defs.bzl
@@ -68,10 +70,6 @@ None.
 - `git-rebase-remote` (owned by `projects/agents`): layer `delivery`, activation `task-owned feature rebase`, cost `medium`
   - exclusions: shared or human-owned history
   - capabilities: history.write, network.read, remote.write
-- `goal` (owned by `projects/goal`): layer `coordination`, activation `durable multi-step work`, cost `large`
-  - exclusions: simple one-step tasks
-  - capabilities: task_state.write
-  - dependencies: bazel-agent
 - `host-bot-diagnostics` (owned by `projects/agents`): layer `diagnostics`, activation `host bot audits`, cost `medium`
   - exclusions: infrastructure implementation
   - capabilities: network.read, source.read
@@ -89,6 +87,10 @@ None.
 - `bazel-rules-skill` (owned by `projects/agents`): layer `procedure`, activation `repository skill packaging`, cost `medium`
   - exclusions: personal untracked skills
   - capabilities: source.write
+  - dependencies: bazel-agent, repo-bazel
+- `openspec` (owned by `tools/openspec`): layer `coordination`, activation `repository specifications, change planning, and durable multi-step work`, cost `large`
+  - exclusions: simple one-step tasks without specification changes
+  - capabilities: code.execute, source.read, source.write, task_state.write
   - dependencies: bazel-agent, repo-bazel
 - `repo-ansible` (owned by `projects/agents`): layer `procedure`, activation `repository Ansible changes`, cost `medium`
   - exclusions: non-Ansible infrastructure

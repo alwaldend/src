@@ -1,5 +1,6 @@
 {
     "devDependencies": {
+        "@fission-ai/openspec": "1.11.0",
         "@mermaid-js/mermaid-cli": "11.16.0",
         "@prettier/plugin-xml": "3.4.2",
         "autoprefixer": "^10.4.21",

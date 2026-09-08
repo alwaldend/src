@@ -1,6 +1,6 @@
 ---
 title: Agents
-description: Repository-wide agent-system architecture, goals, and skills
+description: Repository-wide agent-system architecture and skills
 statuses:
   - active
 languages:
@@ -13,8 +13,9 @@ tags:
 
 # Repository agent system
 
-This project owns the repository-wide agent-system contract, its durable
-improvement goals, and reusable cross-repository skills. It does not centralize
+This project owns the repository-wide agent-system contract and reusable
+cross-repository skills. Maintained improvement work lives in this project's
+[OpenSpec workspace](openspec/). It does not centralize
 component facts or runtime state: each fact remains canonical at its natural
 owner, and system-wide views are derived projections.
 
@@ -25,11 +26,12 @@ owner, and system-wide views are derived projections.
 | [Current state](docs/current-state.md)                                     | Evidence-backed baseline and material seams              |
 | [Architecture](docs/architecture.md)                                       | Canonical abstraction tower, authorities, and invariants |
 | [Roadmap](docs/roadmap.md)                                                 | Dependency-ordered future work and acceptance signals    |
-| [Durable goals](goals/)                                                    | Versioned attempts, evidence, and acceptance state       |
+| [OpenSpec changes](openspec/changes/)                                      | Maintained work, acceptance, and preserved goal history  |
 | [Root agent guide](https://github.com/alwaldend/src/blob/master/AGENTS.md) | Current repository-wide operating policy                 |
 
 The current-state document describes supported entry points and their evidence
-boundaries. Dated audits remain in the goal records. The architecture defines
+boundaries. Dated audits remain in [migrated history](../../infra/src/openspec/migration.md).
+The architecture defines
 the intended composition contract; the roadmap does not claim that proposed
 interfaces already exist.
 
@@ -37,7 +39,10 @@ interfaces already exist.
 
 - `docs/` owns the cross-layer system model and plan, not duplicated component
   configuration.
-- `goals/` owns durable repository-agent work records and evidence.
+- `openspec/` owns agent-system requirements, changes, and evidence;
+  [the migration map](../../infra/src/openspec/migration.md) locates historical records.
+- Other components own their specifications and changes under their own
+  `openspec/` directory. `infra/src/openspec/` describes repository evolution.
 - `skills/` owns reusable repository-wide agent procedures and their
   development-time evaluations.
 - Product-specific skills remain with their project at

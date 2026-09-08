@@ -88,20 +88,6 @@ func (c *capsuleBuilder) readWorkspaceCheck() (*catalogv1alpha1.WorkspaceCheckCa
 	return &catalog, nil
 }
 
-func (c *capsuleBuilder) readGoal() (*catalogv1alpha1.GoalCatalog, error) {
-	path := "tools/agents/catalogs/goal.json"
-	content, err := c.readRaw(path)
-	if err != nil {
-		return nil, err
-	}
-	catalog, err := catalogv1alpha1.DecodeGoalStrict(content)
-	if err != nil {
-		return nil, err
-	}
-	c.input(path, "catalog", digestBytes(content))
-	return &catalog, nil
-}
-
 func (c *capsuleBuilder) readIndex() (*catalogv1alpha1.AgentSystemIndex, error) {
 	path := "tools/agents/catalogs/index.json"
 	content, err := c.readRaw(path)

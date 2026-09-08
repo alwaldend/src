@@ -6,18 +6,22 @@ scenes.
 
 ## Resume now
 
-The generated [goal projection](../../goals/reimu-fumo-finish/README.md) is
-the durable state authority and records the current execution and acceptance
-state. In the originating worktree, `out/reimu_fumo_finish/CURRENT.md`, when
-present, is an ignored convenience projection that points directly to local
-models and renders. Its absence in GitHub or a fresh worktree is expected, and
-it cannot override the goal record.
+The [OpenSpec change](../../openspec/changes/reimu-fumo-finish/proposal.md)
+records the unfinished objective. Its [tasks](../../openspec/changes/reimu-fumo-finish/tasks.md)
+and [design](../../openspec/changes/reimu-fumo-finish/design.md) own continuation
+and acceptance work. The imported state is **open** with **blocked** execution
+and no accepted candidate. In the originating worktree,
+`out/reimu_fumo_finish/CURRENT.md`, when present, is an ignored convenience
+projection for local models and renders. Its absence in GitHub or a fresh
+worktree is expected; it cannot override the maintained change.
 
-The
-[`flatten-dose-response-018` result](../../goals/reimu-fumo-finish/attempts/flatten-dose-response-018/result.md)
-records the capability stop that established blocked execution at goal
-resource version 58. Confirm the goal projection before acting because later
-goal state or evidence may supersede that historical result.
+The preserved
+[`flatten-dose-response-018` result](../../openspec/changes/reimu-fumo-finish/provenance/source/attempts/flatten-dose-response-018/result.md)
+records the capability stop at legacy resource version 58. Read the current
+OpenSpec design before acting: an authorized unblock can change execution
+state while the outcome stays open until every acceptance criterion passes.
+The [migration metadata](../../openspec/changes/reimu-fumo-finish/migration.json)
+retains the source state and exact provenance.
 
 The
 [ergonomics provenance correction](ERGONOMICS_PROVENANCE.md)

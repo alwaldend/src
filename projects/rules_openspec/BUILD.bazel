@@ -1,0 +1,11 @@
+load("@rules_openspec_npm//:defs.bzl", "npm_link_all_packages")
+
+package(default_visibility = ["//visibility:private"])
+
+exports_files([
+    "package.json",
+    "pnpm-lock.yaml",
+    "pnpm-workspace.yaml",
+])
+
+npm_link_all_packages(name = "node_modules")

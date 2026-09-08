@@ -68,6 +68,143 @@ func TestRunEmitsStructuredUnavailableOnMissingCatalogs(t *testing.T) {
 	}
 }
 
+func TestContinuationUsesOpenSpecAndExcludesDeprecatedProviders(t *testing.T) {
+	root := t.TempDir()
+	if err := os.MkdirAll(filepath.Join(root, "infra/src/openspec"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(root, "infra/src/openspec/config.yaml"), []byte("schema: spec-driven\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	builder := &capsuleBuilder{root: root, opts: options{path: ".", repository: "test/repo"}}
+	snapshot := &catalogSnapshot{
+		action: &catalogv1alpha1.ActionCatalog{
+			Providers: []catalogv1alpha1.ActionProvider{
+				{ID: "goal.local-store", Owner: "projects/goal"},
+				{ID: "repo-delivery", Owner: "tools/repo_delivery"},
+			},
+			Actions: []catalogv1alpha1.ActionRecord{
+				{ID: "goal.checkpoint", ProviderRef: "goal.local-store", Classification: "deprecated"},
+				{ID: "repo-delivery.check", ProviderRef: "repo-delivery", Classification: "classified"},
+			},
+		},
+	}
+	documents, _ := builder.documentSources(snapshot)
+	nextActions := strings.Join(builder.nextActions(snapshot, documents), "\n")
+	if !strings.Contains(nextActions, "infra/src/openspec/config.yaml") || strings.Contains(nextActions, "select a goal") {
+		t.Fatalf("incorrect continuation routing: %s", nextActions)
+	}
+	capabilities := builder.capabilities(snapshot, nil)
+	if len(capabilities) != 1 || capabilities[0].ID != "repo-delivery" {
+		t.Fatalf("deprecated provider recommended: %+v", capabilities)
+	}
+	status := builder.providerStatus(snapshot)
+	if len(status) != 1 || status[0].ProviderID != "repo-delivery" {
+		t.Fatalf("deprecated provider reported as current: %+v", status)
+	}
+	// The capability catalog can classify a provider even without actions.
+	snapshot.action.Actions = nil
+	snapshot.capability = &catalogv1alpha1.CapabilityCatalog{
+		Providers: []catalogv1alpha1.CapabilityProvider{
+			{ID: "goal.local-store", Classification: "deprecated"},
+		},
+	}
+	capabilities = builder.capabilities(snapshot, nil)
+	status = builder.providerStatus(snapshot)
+	if len(capabilities) != 1 || capabilities[0].ID != "repo-delivery" ||
+		len(status) != 1 || status[0].ProviderID != "repo-delivery" {
+		t.Fatalf("deprecated capability provider remains current: %+v, %+v", capabilities, status)
+	}
+}
+
+func TestContinuationSelectsOwnerOpenSpecOrRepositoryEvolution(t *testing.T) {
+	for _, test := range []struct {
+		path      string
+		workspace string
+	}{
+		{"projects/sample/src/new.go", "projects/sample/openspec"},
+		{"projects/sample/openspec/config.yaml", "projects/sample/openspec"},
+		{"infra/service/src/new.tf", "infra/service/openspec"},
+		{".", "infra/src/openspec"},
+		{"tools/compiler/new.go", "infra/src/openspec"},
+	} {
+		t.Run(test.path, func(t *testing.T) {
+			root := t.TempDir()
+			for path, content := range map[string]string{
+				"infra/src/openspec/config.yaml":       "schema: spec-driven\n",
+				"infra/src/openspec/README.md":         "repository evolution\n",
+				"projects/sample/openspec/config.yaml": "schema: spec-driven\n",
+				"projects/sample/openspec/README.md":   "project continuation\n",
+				"infra/service/openspec/config.yaml":   "schema: spec-driven\n",
+				"openspec/config.yaml":                 "old root workspace\n",
+			} {
+				full := filepath.Join(root, filepath.FromSlash(path))
+				if err := os.MkdirAll(filepath.Dir(full), 0o755); err != nil {
+					t.Fatal(err)
+				}
+				if err := os.WriteFile(full, []byte(content), 0o644); err != nil {
+					t.Fatal(err)
+				}
+			}
+			snapshot := &catalogSnapshot{}
+			build := func() (*capsuleBuilder, []v1alpha1.CapsuleDocumentSource) {
+				builder := &capsuleBuilder{root: root, opts: options{path: test.path, repository: "test/repo"}}
+				documents, _ := builder.documentSources(snapshot)
+				return builder, documents
+			}
+			builder, documents := build()
+			config := test.workspace + "/config.yaml"
+			count := 0
+			for _, document := range documents {
+				if strings.HasSuffix(document.Path, "/openspec/config.yaml") || document.Path == "openspec/config.yaml" {
+					count++
+					if document.Path != config || document.Digest == "" {
+						t.Fatalf("unexpected workspace document: %+v", document)
+					}
+				}
+			}
+			actions := strings.Join(builder.nextActions(snapshot, documents), "\n")
+			if count != 1 || !strings.Contains(actions, config) || !strings.Contains(actions, test.workspace+"/changes/") {
+				t.Fatalf("incorrect continuation routing: documents=%+v actions=%s", documents, actions)
+			}
+			if strings.Contains(actions, "repository evolution change") != (test.workspace == "infra/src/openspec") {
+				t.Fatalf("repository evolution scope incorrectly reported: %s", actions)
+			}
+			digest := builder.sourceDigest(snapshot)
+			if err := os.WriteFile(filepath.Join(root, filepath.FromSlash(config)), []byte("schema: spec-driven\ncontext: changed\n"), 0o644); err != nil {
+				t.Fatal(err)
+			}
+			changed, _ := build()
+			if changed.sourceDigest(snapshot) == digest {
+				t.Fatal("selected OpenSpec configuration was not bound into the source digest")
+			}
+		})
+	}
+}
+
+func TestUnavailableOwnerOpenSpecDoesNotFallBackToRepository(t *testing.T) {
+	root := t.TempDir()
+	config := "projects/sample/openspec/config.yaml"
+	for _, path := range []string{config, "infra/src/openspec"} {
+		if err := os.MkdirAll(filepath.Join(root, filepath.FromSlash(path)), 0o755); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if err := os.WriteFile(filepath.Join(root, "infra/src/openspec/config.yaml"), []byte("schema: spec-driven\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	builder := &capsuleBuilder{root: root, opts: options{path: "projects/sample", repository: "test/repo"}}
+	snapshot := &catalogSnapshot{}
+	documents, _ := builder.documentSources(snapshot)
+	actions := strings.Join(builder.nextActions(snapshot, documents), "\n")
+	if strings.Contains(actions, "repository evolution change") || strings.Contains(actions, "infra/src/openspec") {
+		t.Fatalf("unavailable owner configuration silently changed ownership: %s", actions)
+	}
+	if !strings.Contains(strings.Join(snapshot.limitations, "\n"), "document unavailable: "+config) {
+		t.Fatalf("unavailable owner configuration not reported: %v", snapshot.limitations)
+	}
+}
+
 func TestMarkdownRenderUsesSameData(t *testing.T) {
 	var jsonOut, markdownOut bytes.Buffer
 	now := func() time.Time { return time.Date(2026, 9, 5, 12, 0, 0, 0, time.UTC) }

@@ -168,5 +168,5 @@ The guarded publisher fetches expected remote state, acquires the distinct
 and verifies the remote before emitting a `ReleaseRefReceipt`. A remote that
 cannot guarantee atomic publication, an occupied lease, or any observed
 mismatch is an explicit refusal or unknown, never generic success. Keep
-versioning, delivery, release, review, and goals as separate authorities;
-each consumes typed references only.
+versioning, delivery, release, review, and OpenSpec changes as separate
+authorities; each consumes typed references only.

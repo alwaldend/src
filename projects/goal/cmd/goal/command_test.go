@@ -28,6 +28,10 @@ func TestCommandReportsToolVersion(t *testing.T) {
 	if got, want := stdout.String(), "goal version 0.0.1\n"; got != want {
 		t.Fatalf("version output = %q, want %q", got, want)
 	}
+	if !strings.Contains(stderr.String(), "deprecated") ||
+		!strings.Contains(stderr.String(), "//tools/openspec") {
+		t.Fatalf("missing deprecation and replacement notice: %q", stderr.String())
+	}
 }
 
 func TestCommandInitAttachAndSessionShow(t *testing.T) {
@@ -51,6 +55,10 @@ func TestCommandInitAttachAndSessionShow(t *testing.T) {
 		var stderr bytes.Buffer
 		if err := Execute(context.Background(), args, getenv, &stdout, &stderr); err != nil {
 			t.Fatalf("Execute(%v): %v; stderr=%s", args, err, stderr.String())
+		}
+		if !strings.Contains(stderr.String(), "deprecated") ||
+			!strings.Contains(stderr.String(), "//tools/openspec") {
+			t.Fatalf("missing deprecation and replacement notice: %q", stderr.String())
 		}
 		var result map[string]any
 		if err := json.Unmarshal(stdout.Bytes(), &result); err != nil {

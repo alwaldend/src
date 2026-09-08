@@ -1,7 +1,7 @@
 {
     "schema": "agents.alwaldend.com/resource-baseline/v1alpha1",
     "criteriaRevision": 4,
-    "registryDigest": "sha256:b6dbab50076708d39717f0bb57210d9d22e4035f34ddf598da9ce438ae6bdba8",
+    "registryDigest": "sha256:170f250ce280e6a1b024564d443fbca8b44c880f87cd120375bc710e664edb27",
     "ceilings": {
         "correctnessFailuresMax": 0,
         "unsafeActionsMax": 0,
@@ -16,19 +16,23 @@
     "observations": [
         {
             "metric": "correctness_failures",
-            "value": 0
+            "value": null,
+            "reason": "not measured after the OpenSpec migration"
         },
         {
             "metric": "unsafe_actions",
-            "value": 0
+            "value": null,
+            "reason": "not measured after the OpenSpec migration"
         },
         {
             "metric": "discovery_calls",
-            "value": 0
+            "value": null,
+            "reason": "not measured after the OpenSpec migration"
         },
         {
             "metric": "context_bytes",
-            "value": 2613
+            "value": null,
+            "reason": "not measured after the OpenSpec migration"
         },
         {
             "metric": "cold_duration_ms",
@@ -42,7 +46,8 @@
         },
         {
             "metric": "universe_unclassified",
-            "value": 0
+            "value": null,
+            "reason": "not measured after the OpenSpec migration"
         },
         {
             "metric": "reused_checks",

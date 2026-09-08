@@ -14,7 +14,7 @@ This document records intentional future work. The
 component documentation and executable tests establish implementation details.
 The [architecture](architecture.md) describes composition responsibilities.
 Historical phase plans and acceptance records remain in the immutable
-[goals](../goals/). A completed historical phase does not establish a current
+[OpenSpec migration](../../../infra/src/openspec/migration.md). A completed historical phase does not establish a current
 runtime guarantee.
 
 ## First: measure and simplify ordinary tasks
@@ -48,8 +48,8 @@ remove obsolete workarounds and completed tracking when their purpose expires.
 
 Extend bounded offline context only with facts that have an identifiable
 owner and observation method. Prefer observed Git state and direct routes to
-applicable policy, owner documentation, build declarations, and explicit goal
-records. Never infer authorization or task-to-goal association from proximity,
+applicable policy, owner documentation, build declarations, and explicit OpenSpec
+changes. Never infer authorization or task-to-change association from proximity,
 ownership, a catalog entry, or an available tool.
 
 Check suggestions must explain their selection basis and uncovered scope.
@@ -116,13 +116,13 @@ ordinary repository work.
 
 - Facts remain at their owning sources; generated views carry provenance and
   limits rather than becoming new mutation authorities.
-- Keep goals, delivery, release, review, and provider state separate. Add joins
+- Keep OpenSpec changes, delivery, release, review, and provider state separate. Add joins
   through typed references only when a real workflow needs them.
 - Do not add a mandatory daemon, database, vector store, network call, or
   central orchestrator for basic orientation.
 - Do not relocate components merely to match conceptual diagrams.
 - Keep reviewed evidence bounded and free of credentials and personal data.
-- Use workspace goals for temporary coordination and owner-local maintained
-  records only when durable project history is justified.
+- Use ignored `out/<task>/` notes for temporary coordination and the affected
+  owner's OpenSpec changes when maintained project history is justified.
 - Choose the least costly check that answers acceptance; broad audits remain
   separately scoped work.

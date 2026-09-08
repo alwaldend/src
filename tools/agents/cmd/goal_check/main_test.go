@@ -186,6 +186,80 @@ func TestGoalCompileComplete(t *testing.T) {
 	}
 }
 
+func TestOpenSpecAuthorityProducesDeprecatedEmptyCatalog(t *testing.T) {
+	// Archived manifests are provenance, not eligible current goal records.
+	root := writeFiles(t, map[string]string{
+		"tools/agents/declarations/registry.json": `{
+			"schema": "agents.alwaldend.com/phase1-registry/v1alpha1",
+			"authorities": [{"id":"repository.openspec","kind":"openspec","source":"infra/src/openspec"}]
+		}`,
+		"infra/src/openspec/README.md":   "# OpenSpec\n",
+		"infra/src/openspec/config.yaml": "schema: spec-driven\n",
+		"projects/sample/openspec/changes/archive/2026-09-08-example/provenance/source/goal.yaml": "legacy provenance\n",
+	})
+	var stdout bytes.Buffer
+	if err := Run([]string{
+		"--workspace-root", root,
+		"--output", "out/goal.json",
+		"--markdown", "out/goal.md",
+	}, &stdout); err != nil {
+		t.Fatal(err)
+	}
+	content, err := os.ReadFile(filepath.Join(root, "out/goal.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	catalog, err := goalcatalog.DecodeGoalStrict(content)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(catalog.Goals) != 0 || catalog.Bounds.Eligible != 0 ||
+		catalog.Completeness != goalcatalog.CompletenessComplete {
+		t.Fatalf("unexpected legacy projection: %+v", catalog)
+	}
+	if len(catalog.Limitations) != 1 || !strings.Contains(catalog.Limitations[0], "Deprecated") {
+		t.Fatalf("missing deprecation boundary: %v", catalog.Limitations)
+	}
+	inputs := map[string]bool{}
+	for _, input := range catalog.Inputs {
+		inputs[input.Path] = true
+	}
+	if !inputs["infra/src/openspec/README.md"] || !inputs["infra/src/openspec/config.yaml"] {
+		t.Fatalf("OpenSpec migration sources not bound: %+v", catalog.Inputs)
+	}
+}
+
+func TestOpenSpecAuthorityRejectsCompetingLegacyRoot(t *testing.T) {
+	root := writeFiles(t, map[string]string{
+		"tools/agents/declarations/registry.json": `{
+			"schema": "agents.alwaldend.com/phase1-registry/v1alpha1",
+			"authorities": [
+				{"id":"repository.openspec","kind":"openspec","source":"infra/src/openspec"},
+				{"id":"repository.goals","kind":"goals","source":"projects/agents/goals"}
+			]
+		}`,
+	})
+	var stdout bytes.Buffer
+	err := Run([]string{"--workspace-root", root}, &stdout)
+	if err == nil || !strings.Contains(err.Error(), "both legacy goals and OpenSpec") {
+		t.Fatalf("expected ambiguous continuation authority failure, got %v", err)
+	}
+}
+
+func TestOpenSpecAuthorityRejectsFormerRootWorkspace(t *testing.T) {
+	root := writeFiles(t, map[string]string{
+		"tools/agents/declarations/registry.json": `{
+			"schema": "agents.alwaldend.com/phase1-registry/v1alpha1",
+			"authorities": [{"id":"repository.openspec","kind":"openspec","source":"openspec"}]
+		}`,
+	})
+	var stdout bytes.Buffer
+	err := Run([]string{"--workspace-root", root}, &stdout)
+	if err == nil || !strings.Contains(err.Error(), "OpenSpec authority root mismatch") {
+		t.Fatalf("expected obsolete root authority failure, got %v", err)
+	}
+}
+
 func TestGoalCompileIncompleteOnMissingManifest(t *testing.T) {
 	files := fixtureGoalDir()
 	delete(files, "projects/agents/goals/repo-agent-system/goal.yaml")

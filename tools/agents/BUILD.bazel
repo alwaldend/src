@@ -39,7 +39,7 @@ skill_discovery_links(
         "//projects/agents/skills/repo-secrets:skill",
         "//projects/agents/skills/repo-terraform:skill",
         "//projects/agents/skills/spellcheck:skill",
-        "//projects/goal/skills/goal:skill",
+        "//projects/agents/skills/openspec:skill",
         "//projects/hugo_landing/skills/add-project-site:skill",
         "//tools/versioning/skills/versioning:skill",
     ],

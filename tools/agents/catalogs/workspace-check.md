@@ -6,9 +6,9 @@
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/workspace-check-catalog`
 - Derivation: `1.0.0`
 - Producer: `repository.workspace-check-compiler`
-- Source revision: `f178961479cccf8974efd9d4cbea9a09`
+- Source revision: `579f79cf1500823da0c4d2b65fd0fe4b`
 - Completeness: `complete`
-- JSON digest: `sha256:7139eabdac087bfa74cb04f8f9495f49f14857f004f6656b6d0486b7f6f5cb13`
+- JSON digest: `sha256:4db7303129fdad524b00360c4ee7c545612410d99fd496851eec5ac1b497a8cc`
 
 ## Limitations
 
@@ -34,6 +34,9 @@ None.
 - `projects.rules_iso` — module `rules_iso` at `projects/rules_iso/MODULE.bazel`
   - bazelIgnore: false, rootOverride: true, docsAggregation: false, fullCheck: false
   - phase `projects.rules_iso.check` via `repository.bazel-operations`: bazel_agent bazel test //...
+- `projects.rules_openspec` — module `rules_openspec` at `projects/rules_openspec/MODULE.bazel`
+  - bazelIgnore: false, rootOverride: true, docsAggregation: false, fullCheck: false
+  - phase `projects.rules_openspec.check` via `repository.bazel-operations`: bazel_agent bazel test //...
 - `projects.rules_promptfoo` — module `rules_promptfoo` at `projects/rules_promptfoo/MODULE.bazel`
   - bazelIgnore: true, rootOverride: true, docsAggregation: false, fullCheck: true
   - phase `projects.rules_promptfoo.check` via `repository.bazel-operations`: bazel_agent bazel test //...

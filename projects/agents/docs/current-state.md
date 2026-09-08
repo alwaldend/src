@@ -12,7 +12,8 @@ tags:
 This is the maintained guide to the checked-in interfaces. Source links below
 identify their owners; runtime availability must be observed in the current
 session. Historical audits and acceptance claims remain in the immutable
-[goal records](../goals/). Their dates and evidence tiers limit what they prove.
+[migrated OpenSpec records](../../../infra/src/openspec/migration.md). Their dates and
+evidence tiers limit what they prove.
 
 ## Start with the affected path
 
@@ -25,26 +26,26 @@ The offline context command provides a bounded advisory view:
 
 ```sh
 bazel_agent bazel run //tools/agents/cmd/agent_system -- \
-  --workspace-root "$PWD" --path projects/goal
+  --workspace-root "$PWD" --path tools/openspec
 ```
 
 Its [owner documentation](../../../tools/agents/README.md) describes the
 supported flags and limitations. Catalog declarations identify source facts;
 they do not establish live provider health, action authorization, successful
-validation, or a task's association with a goal. Missing observations remain
+validation, or a task's association with a change. Missing observations remain
 explicit. A source digest proves identity, not freshness against a live system.
 
 ## Use the owning interface
 
-| Need                  | Entry point                                                  | Boundary                                                                                                       |
-| --------------------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
-| Policy and layout     | Applicable `AGENTS.md`, owner README, BUILD and MODULE files | The user request owns intended outcome and authorization.                                                      |
-| Procedure             | Canonical skill selected from `.agents/skills`               | Load only the procedure needed for the task.                                                                   |
-| Build or test         | `bazel_agent bazel <command>`                                | Start with the affected package and avoid redundant compatible invocations.                                    |
-| Context               | `//tools/agents/cmd/agent_system`                            | Offline, advisory source projection.                                                                           |
-| Stored runtime status | `//tools/agents/cmd/control_status`                          | Stored package observations do not prove present runtime health.                                               |
-| Durable work          | `//projects/goal/cmd/goal`                                   | Use workspace records for task coordination and owner-local project records when maintained history is needed. |
-| Delivery              | `//tools/repo_delivery`                                      | Prepare, establish applicable validation, then explicitly publish the exact candidate.                         |
+| Need                  | Entry point                                                  | Boundary                                                                                                            |
+| --------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| Policy and layout     | Applicable `AGENTS.md`, owner README, BUILD and MODULE files | The user request owns intended outcome and authorization.                                                           |
+| Procedure             | Canonical skill selected from `.agents/skills`               | Load only the procedure needed for the task.                                                                        |
+| Build or test         | `bazel_agent bazel <command>`                                | Start with the affected package and avoid redundant compatible invocations.                                         |
+| Context               | `//tools/agents/cmd/agent_system`                            | Offline, advisory source projection.                                                                                |
+| Stored runtime status | `//tools/agents/cmd/control_status`                          | Stored package observations do not prove present runtime health.                                                    |
+| Durable work          | `//tools/openspec`                                           | The affected owner's `openspec/changes/` holds maintained work; ignored `out/<task>/` holds temporary coordination. |
+| Delivery              | `//tools/repo_delivery`                                      | Prepare, establish applicable validation, then explicitly publish the exact candidate.                              |
 
 The [Bazel runner](../../bazel_agent/) also supports cached control-tool
 execution in current builds. If an installed runner lacks that subcommand,
@@ -53,13 +54,19 @@ installation is a separate operation from changing repository source.
 
 ## Keep routine work small
 
-Simple tasks need no durable goal. For work that needs a resume point, the
-[goal checkpoint](../../goal/) accepts a short summary, the current candidate,
-evidence references, and the next action. The store maintains the record's
-identity and digests; `show` includes the active continuation. Detailed attempt
-review remains available for repeated failures and maintained project history.
-Local progress checkpoints do not trigger publication. Deliver at a meaningful
-review boundary or final handoff, with explicit remote backups when needed.
+Simple tasks need no maintained change. For work that needs a resume point,
+[OpenSpec](../../../tools/openspec/README.md) keeps the outcome in `proposal.md`,
+decisions and continuation in `design.md`, remaining work in `tasks.md`, and
+requirement deltas in `specs/`. Use the affected component's `<owner>/openspec/`
+workspace, such as [this project's workspace](../openspec/), and select the
+owner with `OPENSPEC_PROJECT=<owner>` when running the CLI from the root Bazel
+workspace. `infra/src/openspec/` records evolution of the repository itself.
+Preserve the exact candidate, evidence,
+execution state and next action. These ordinary files use Git and a single
+coordinator; they do not provide the legacy store's revision locks or attempt
+transactions. A checked task still requires acceptance evidence. Local notes
+do not trigger publication. Deliver at a meaningful review boundary or final
+handoff, with explicit remote backups when needed.
 
 [Delivery](../../../tools/repo_delivery/) can execute a caller-selected Bazel
 validation plan and retain its results against the prepared candidate. Its
@@ -75,10 +82,11 @@ instructions when validation itself invokes Bazel.
 
 - [Skill packaging](../../rules_skill/) validates canonical artifacts and
   discovery links. Evaluation payloads are separate from runtime skill bodies.
-- [Goal storage](../../goal/) validates resource revisions and artifact
-  digests, provides bounded continuation information, and supports recovery
-  from interrupted publication. These checks establish record integrity;
-  criterion verdicts still require appropriate evidence.
+- [OpenSpec](../../../tools/openspec/README.md) validates specification and change
+  structure through the pinned upstream CLI. Its migration retains original
+  records and checksum manifests; structure and checksums do not prove
+  requirement acceptance. [Goal storage](../../goal/) remains deprecated
+  compatibility code, and its skill is disabled for discovery.
 - [Delivery](../../../tools/repo_delivery/) binds the prepared candidate,
   scope, remote expectations, and pull-request identity. Exact leases and
   state checks protect publication. The caller selects and establishes the

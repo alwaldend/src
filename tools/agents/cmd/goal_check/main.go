@@ -1,5 +1,6 @@
-// Command goal_check compiles the bounded deterministic GoalCatalog over
-// the registered repository goals root (projects/agents/goals).
+// Command goal_check preserves the deprecated GoalCatalog projection for
+// legacy consumers. An explicit OpenSpec authority replaces maintained goals
+// with an empty legacy projection; legacy registries still compile records.
 //
 // It performs no network or stateful operation, and never mutates goal
 // records. Outputs are checked repository artifacts: portable JSON plus a
@@ -28,6 +29,9 @@ const (
 	goalsRegistryAuthorityID   = "repository.goals"
 	goalsRegistryAuthorityKind = "goals"
 	goalsRegistryAuthorityRoot = "projects/agents/goals"
+	openspecAuthorityID        = "repository.openspec"
+	openspecAuthorityKind      = "openspec"
+	openspecAuthorityRoot      = "infra/src/openspec"
 	currentCriteriaFileName    = "criteria.yaml"
 	criteriaRevisionsDirectory = "criteria-revisions"
 	attemptsDirectory          = "attempts"
@@ -94,6 +98,7 @@ type compiler struct {
 	eligible    int
 	emitted     int
 	unavailable int
+	migrated    bool
 }
 
 func (c *compiler) invalidRecord(format string, args ...any) string {
@@ -122,6 +127,9 @@ func (c *compiler) compile() error {
 	if err != nil {
 		return err
 	}
+	if c.migrated {
+		return nil
+	}
 	entries, err := os.ReadDir(goalsRoot)
 	if err != nil {
 		return fmt.Errorf("read goals root: %w", err)
@@ -149,8 +157,8 @@ func (c *compiler) compile() error {
 	return nil
 }
 
-// goalsRoot reads the registry, verifies the repository.goals authority, and
-// returns the absolute eligible goals root.
+// goalsRoot reads the registry and verifies the registered continuation
+// authority. OpenSpec is a migration boundary, not a legacy goals directory.
 func (c *compiler) goalsRoot() (string, error) {
 	registryPath := filepath.Join(c.root, filepath.FromSlash(c.opts.registryPath))
 	registryContent, err := os.ReadFile(registryPath)
@@ -166,7 +174,14 @@ func (c *compiler) goalsRoot() (string, error) {
 		return "", fmt.Errorf("registry schema mismatch: %s", registry.Schema)
 	}
 	c.input(c.opts.registryPath, "registry", registryContent)
+	var legacyRoot string
 	for _, authority := range registry.Authorities {
+		if authority.ID == openspecAuthorityID && authority.Kind == openspecAuthorityKind {
+			if authority.Source != openspecAuthorityRoot {
+				return "", fmt.Errorf("OpenSpec authority root mismatch: %s", authority.Source)
+			}
+			c.migrated = true
+		}
 		if authority.ID == goalsRegistryAuthorityID &&
 			authority.Kind == goalsRegistryAuthorityKind {
 			if authority.Source != goalsRegistryAuthorityRoot {
@@ -175,8 +190,24 @@ func (c *compiler) goalsRoot() (string, error) {
 					authority.Source,
 				)
 			}
-			return filepath.Join(c.root, filepath.FromSlash(authority.Source)), nil
+			legacyRoot = filepath.Join(c.root, filepath.FromSlash(authority.Source))
 		}
+	}
+	if c.migrated {
+		if legacyRoot != "" {
+			return "", fmt.Errorf("registry declares both legacy goals and OpenSpec authorities")
+		}
+		for _, path := range []string{openspecAuthorityRoot + "/README.md", openspecAuthorityRoot + "/config.yaml"} {
+			content, err := os.ReadFile(filepath.Join(c.root, filepath.FromSlash(path)))
+			if err != nil {
+				return "", fmt.Errorf("read OpenSpec migration source %s: %w", path, err)
+			}
+			c.input(path, "openspec-migration", content)
+		}
+		return "", nil
+	}
+	if legacyRoot != "" {
+		return legacyRoot, nil
 	}
 	return "", fmt.Errorf("registry lacks goals authority %q",
 		goalsRegistryAuthorityID)
@@ -516,6 +547,11 @@ func (c *compiler) catalog() (goalcatalog.GoalCatalog, error) {
 		completeness = goalcatalog.CompletenessPartial
 		limitations = c.problems
 	}
+	if c.migrated {
+		limitations = append(limitations,
+			"Deprecated compatibility catalog; maintained specifications and change state use owner OpenSpec workspaces. "+
+				"This empty legacy goal projection does not inventory OpenSpec changes; see infra/src/openspec/README.md.")
+	}
 	inputs := c.inputs
 	if inputs == nil {
 		inputs = []goalcatalog.CatalogInput{}
@@ -538,7 +574,7 @@ func (c *compiler) catalog() (goalcatalog.GoalCatalog, error) {
 			Schema:            goalcatalog.APIVersion + "/" + goalcatalog.KindGoalCatalog,
 			Kind:              goalcatalog.KindGoalCatalog,
 			ID:                "agent-system.goal",
-			DerivationVersion: "1.0.0",
+			DerivationVersion: "1.1.0",
 			ProducerRef:       c.opts.producerRef,
 			SourceRevision:    sourceRevision,
 			Inputs:            inputs,

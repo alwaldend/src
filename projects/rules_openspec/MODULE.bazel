@@ -1,0 +1,66 @@
+module(
+    name = "rules_openspec",
+    version = "0.0.0",
+)
+
+bazel_dep(name = "aspect_rules_js", version = "2.8.3")
+bazel_dep(name = "aspect_bazel_lib", version = "2.22.5")
+bazel_dep(name = "rules_binary_toolchain")
+bazel_dep(name = "rules_dnscontrol")
+bazel_dep(name = "rules_docs", version = "0.0.0")
+bazel_dep(name = "rules_docs_gazelle")
+bazel_dep(name = "rules_hugo")
+bazel_dep(name = "rules_iso")
+bazel_dep(name = "rules_template")
+bazel_dep(name = "rules_nodejs", version = "6.7.3")
+
+local_path_override(
+    module_name = "rules_binary_toolchain",
+    path = "../rules_binary_toolchain",
+)
+
+local_path_override(
+    module_name = "rules_dnscontrol",
+    path = "../rules_dnscontrol",
+)
+
+local_path_override(
+    module_name = "rules_docs",
+    path = "../rules_docs",
+)
+
+local_path_override(
+    module_name = "rules_docs_gazelle",
+    path = "../rules_docs_gazelle",
+)
+
+local_path_override(
+    module_name = "rules_hugo",
+    path = "../rules_hugo",
+)
+
+local_path_override(
+    module_name = "rules_iso",
+    path = "../rules_iso",
+)
+
+local_path_override(
+    module_name = "rules_template",
+    path = "../rules_template",
+)
+
+node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node")
+node.toolchain(
+    node_version = "24.13.0",
+)
+
+npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
+npm.npm_translate_lock(
+    name = "rules_openspec_npm",
+    data = [
+        "//:pnpm-workspace.yaml",
+    ],
+    pnpm_lock = "//:pnpm-lock.yaml",
+    run_lifecycle_hooks = False,
+)
+use_repo(npm, "rules_openspec_npm")

@@ -20,10 +20,20 @@ because it appears here. The [current-state snapshot](current-state.md)
 describes implemented behavior; the [roadmap](roadmap.md) orders the work
 needed to reach this design.
 
+Maintained work uses the affected owner's OpenSpec workspace, such as
+[`projects/agents/openspec/`](../openspec/) for this agent system. The
+[`infra/src` workspace](../../../infra/src/openspec/README.md) describes
+repository evolution. The [migration](../../../infra/src/openspec/migration.md)
+preserves prior goal resources
+as historical evidence. Existing `GoalAttempt`, `GoalOutcome` and criterion
+types below describe legacy or proposed integration contracts, not an active
+goal workflow or guarantees supplied by OpenSpec. New work records its outcome,
+decisions, tasks and requirement deltas in OpenSpec artifacts.
+
 The objective is to let an agent form an accurate situation model, choose the
 least costly safe action, prove the exact result, and make later work cheaper.
 The design must remain useful with no daemon, network, credential, runtime
-extension, or active durable goal.
+extension, or maintained change record.
 
 ## System thesis
 
@@ -46,30 +56,32 @@ This yields four structural rules:
    explicit authority plus an executable contract controls mutation.
 
 Physical co-location is not required for logical cohesion. Repository-agent
-documents and goals belong under `projects/agents`. A future
+documents belong under `projects/agents`; maintained specifications and changes
+use `<owner>/openspec/` beside the owning component. The `infra/src/openspec/`
+workspace owns specifications and changes for the repository itself. A future
 repository-internal controller or executor may belong under `tools/agents`.
 Component declarations remain with their component.
 
 ## Mutation authorities
 
-| Fact                                    | Mutation authority                           | System projection                |
-| --------------------------------------- | -------------------------------------------- | -------------------------------- |
-| Requested outcome and granted authority | Current user/task interaction                | Task authority envelope          |
-| Applicable agent policy                 | Nearest `AGENTS.md` chain                    | Policy slice with source digests |
-| Component purpose and local boundary    | Nearest owner `README.md`                    | Topology record                  |
-| Review accountability                   | `CODEOWNERS`                                 | Effective reviewer record        |
-| Workspace and dependency structure      | `MODULE.bazel`, `BUILD`, and owning macros   | Workspace and action catalogs    |
-| Reusable procedure and routing intent   | Canonical project-owned skill                | Capability record                |
-| Durable outcome, criteria, and attempts | Owner-local goal resources                   | Goal catalog and resume packet   |
-| Task-local scratch and worker ownership | Task manifest below ignored `out/<task>/`    | Bounded task-status record       |
-| Desired runtime configuration           | Owning checked-in or task-local config       | Desired-state reference          |
-| Observed runtime state                  | Live provider instance                       | Provider-health observation      |
-| Source candidate                        | Git plus an explicit dirty-input declaration | Subject reference                |
-| Check execution                         | Executing provider                           | Action receipt                   |
-| Acceptance judgment                     | Goal criterion or task acceptance policy     | Evidence assertion               |
-| Feature publication and review          | Git, forge, and repository delivery          | Delivery and review receipts     |
-| Version and release identity            | Versioning and release owners                | Release identity and manifest    |
-| Durable adopted learning                | Destination owner through normal review      | Updated contract and regression  |
+| Fact                                    | Mutation authority                             | System projection                |
+| --------------------------------------- | ---------------------------------------------- | -------------------------------- |
+| Requested outcome and granted authority | Current user/task interaction                  | Task authority envelope          |
+| Applicable agent policy                 | Nearest `AGENTS.md` chain                      | Policy slice with source digests |
+| Component purpose and local boundary    | Nearest owner `README.md`                      | Topology record                  |
+| Review accountability                   | `CODEOWNERS`                                   | Effective reviewer record        |
+| Workspace and dependency structure      | `MODULE.bazel`, `BUILD`, and owning macros     | Workspace and action catalogs    |
+| Reusable procedure and routing intent   | Canonical project-owned skill                  | Capability record                |
+| Maintained requirements and work        | Owning component's OpenSpec specs and changes  | OpenSpec CLI views and Git diff  |
+| Task-local scratch and worker ownership | Task manifest below ignored `out/<task>/`      | Bounded task-status record       |
+| Desired runtime configuration           | Owning checked-in or task-local config         | Desired-state reference          |
+| Observed runtime state                  | Live provider instance                         | Provider-health observation      |
+| Source candidate                        | Git plus an explicit dirty-input declaration   | Subject reference                |
+| Check execution                         | Executing provider                             | Action receipt                   |
+| Acceptance judgment                     | Requirement scenario or task acceptance policy | Evidence assertion               |
+| Feature publication and review          | Git, forge, and repository delivery            | Delivery and review receipts     |
+| Version and release identity            | Versioning and release owners                  | Release identity and manifest    |
+| Durable adopted learning                | Destination owner through normal review        | Updated contract and regression  |
 
 The architecture owns only this composition model. It must not restate mutable
 component values. If two authorities conflict, a projection reports the
@@ -119,8 +131,8 @@ produces a bounded contract for the layer below.
 
 ### 0. Intent, outcome, and authority
 
-**Owner:** the user interaction; durable acceptance belongs to the goal when
-one exists.
+**Owner:** the user interaction; maintained requirements and acceptance
+evidence belong to the named OpenSpec change when one exists.
 
 **Input:** the request, explicit constraints, and prior accepted context.
 
@@ -139,7 +151,8 @@ extends to tags, releases, deployments, infrastructure changes, or
 destruction.
 
 Simple bounded tasks may keep this state in the active interaction. Iterative,
-delegated, or resumable work uses a durable goal and attempt.
+delegated, or resumable work uses a named OpenSpec change when maintained
+history is needed, or ignored task notes for temporary coordination.
 
 ### 1. Topology, classification, and ownership
 
@@ -198,7 +211,7 @@ release-ref publication, deployment, and destruction map to additive atomic
 effects rather than substituting for them.
 
 Review accountability, component ownership, task path/hunk or commit
-ownership, goal-storage ownership, remote-ref ownership, external-resource
+ownership, OpenSpec artifact ownership, remote-ref ownership, external-resource
 ownership, and user authority are separate relations. Unknown ownership fails
 closed for history rewrite, credential expansion, publication, remote
 mutation, and destruction.
@@ -221,21 +234,28 @@ load only after compact metadata selects them.
 
 ### 4. Durable work and planning
 
-**Owner:** the current task coordinator and, for durable work, owner-local goal
-resources.
+**Owner:** the current task coordinator and, for maintained work, the affected
+owner's OpenSpec change artifacts.
 
 **Input:** intent, criteria, context slice, capability choices, prior evidence,
 and relevant defects.
 
-**Output:** a `WorkPacket` or goal attempt plus `CapabilityPlan` and
-`ActionPlan`, with exact inputs, affected criteria, hypotheses where needed,
-checks, omissions, fallbacks, fixed regressions, budgets, stop conditions, and
-a strategy-reset condition.
+**Output:** a proposal, design, task checklist and requirement deltas, with
+exact inputs, acceptance scenarios, hypotheses where needed, checks, omissions,
+fallbacks, fixed regressions, resource constraints, next action and execution
+state. The broader `WorkPacket`, `CapabilityPlan` and `ActionPlan` types remain
+optional integration concepts, not prerequisites for ordinary work.
 
 **Invariant:** a plan does not authorize and does not prove. Delegated workers
 receive immutable bindings and disjoint output ownership; only the coordinator
-mutates canonical goal state. A repeated stable defect changes strategy rather
+coordinates shared change artifacts. A repeated stable defect changes strategy rather
 than accumulating indistinguishable retries.
+
+OpenSpec's plain files do not implement the legacy goal store's transactional
+locking or optimistic resource versions. Use disjoint worker files and Git
+reconciliation; a task checkbox or structurally valid spec is not acceptance
+evidence. Archive only completed changes after verifying their resulting
+baseline deltas. Historical migrated deltas are not reapplied.
 
 ### 5. Execution providers
 
@@ -317,7 +337,7 @@ document, contract, check, evaluation, skill, or global invariant.
 **Invariant:** learning is never automatic mutation. It is minimized, public,
 reviewed, regression-backed, measurable, reversible, and given a retirement
 path. Runtime promotion creates a normal candidate; it does not write project
-source or goal state directly.
+source or maintained change state directly.
 
 ## Provenance spine
 
@@ -397,7 +417,7 @@ to function. It contains:
 
 - repository, workspace, worktree, revision, and dirty-input identity;
 - task/session, coordinator, worker, and run identity;
-- requested outcome, authority, budgets, and durable goal binding if any;
+- requested outcome, authority, budgets, and explicit OpenSpec change binding if any;
 - applicable instruction and owner-document paths with digests;
 - component, workspace, review owner, and classification slice;
 - candidate capabilities with effects, cost, dependencies, providers, and
@@ -470,9 +490,10 @@ owner-approved destination, not the automatic final rung of the sequence.
   observed revisions, action contract, observation time, and expiry.
 - Provider lifecycle is explicit: `loading`, `ready`, `degraded`, `failed`,
   `timed_out`, `draining`, or `disabled`.
-- Shared mutable task, goal, and runtime state uses a cross-process lock or
-  lease plus expected version/digest; atomic rename alone is not concurrency
-  control.
+- Runtime and legacy transactional stores use their owning lock and version
+  contracts. OpenSpec artifact edits use a single coordinator, disjoint worker
+  paths and Git reconciliation; plain-file writes provide no transactional
+  concurrency guarantee.
 - Nested work uses one absolute deadline with cancellation and cleanup margin.
 - Failures carry phase, stable code/signature, subject, observed state, valid
   partial result, retry class, cost spent, redacted artifact references, and
@@ -509,7 +530,7 @@ count or architectural novelty. Track at least:
 - No raw transcript ingestion, secret promotion, or automatic doctrine edits.
 - No inference of authority from selection, planning, receipts, ownership, or
   tool availability.
-- No durable goal requirement for a simple one-step task.
+- No maintained OpenSpec change requirement for a simple one-step task.
 - No broad `//...` validation or live model evaluation by default.
 - No physical repository reorganization merely to make the conceptual model
   look centralized.

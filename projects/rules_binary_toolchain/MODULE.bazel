@@ -6,6 +6,7 @@ module(
 
 bazel_dep(name = "bazel_skylib", version = "1.9.0")
 bazel_dep(name = "platforms", version = "1.0.0")
+bazel_dep(name = "rules_openspec", version = "0.0.0")
 bazel_dep(name = "rules_docs", version = "0.0.0")
 
 bazel_dep(name = "rules_docs_gazelle", version = "0.0.0", dev_dependency = True)
@@ -23,3 +24,8 @@ local_path_override(
 )
 
 include("//examples:example.MODULE.bazel")
+
+local_path_override(
+    module_name = "rules_openspec",
+    path = "../rules_openspec",
+)

@@ -34,6 +34,20 @@ bazel_agent bazel run //tools/agents/cmd/phase1_check -- \
   --report out/<task>/phase1-report.json
 ```
 
+Each project and infrastructure owner keeps maintained specifications and
+durable change state in its own `openspec/` directory.
+[`infra/src/openspec/`](../../infra/src/openspec/README.md) describes repository evolution and
+indexes the historical goal migration. The completeness check counts native
+active and archived changes under direct `projects/*` and
+`infra/*` owners, excluding nested provenance and fixtures. The registry advertises the
+`openspec` skill; goal's direct binary and operations are classified as
+`deprecated` for compatibility. Deprecated providers remain visible in the
+catalogs but are excluded from current context-capsule recommendations.
+The legacy `goal.json` schema and compiler remain available for historical
+consumers. With the OpenSpec authority registered, the compiler emits an
+empty legacy projection and explicitly states that it does not inventory
+OpenSpec changes. Its old manifest support is limited to legacy registries.
+
 The adjacent criteria-revision-bound resource baseline records numeric
 ceilings separately from observations. Unavailable observations carry a
 reason instead of an estimate.
@@ -89,7 +103,12 @@ bazel_agent bazel run //tools/agents/cmd/agent_system -- \
 
 The legacy `agent_system_update` wrapper also forwards these query flags and
 does not update tracked files. `--task` records a caller-supplied task ID; it
-does not select a goal. Input digests bind accepted catalog and document inputs.
+does not select an OpenSpec change. Input digests bind accepted catalog and
+document inputs, including the nearest ancestor `openspec/config.yaml` and
+its optional README. Continuation recommendations name that owner's
+`openspec/changes/` directory; `infra/src/openspec/` is the repository evolution
+fallback when no nearer workspace exists. The capsule does not read or
+associate individual changes.
 
 Relative `--workspace-root` values resolve against
 `BUILD_WORKSPACE_DIRECTORY` under `bazel run`, so `--workspace-root .` means
@@ -123,7 +142,7 @@ snapshot or proof that generated catalogs match HEAD.
 
 The capsule reports the actual read time, unknown catalog freshness, and
 partial completeness. It does not observe runtime health, infer authority,
-resolve effective CODEOWNERS, or associate an unrelated active goal. Its
+resolve effective CODEOWNERS, or associate an unrelated OpenSpec change. Its
 capability list is an inventory of root-workspace and selected-workspace
 candidates, not task-intent routing or a complete cross-workspace dependency
 closure. Workspace check phases are references, not instructions to run a

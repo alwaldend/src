@@ -76,7 +76,7 @@ const capabilityFixtureOperation = `{
 	"owner": "projects.goal",
 	"provider": "goal.local-store",
 	"definition": "projects/goal/cmd/goal/command.go",
-	"operations": []
+	"operations": [{"classification":"deprecated"}]
 }`
 
 func TestCapabilityCompileComplete(t *testing.T) {
@@ -123,10 +123,17 @@ func TestCapabilityCompileComplete(t *testing.T) {
 	providers := map[string]bool{}
 	for _, provider := range catalog.Providers {
 		providers[provider.ID] = true
+		if provider.ID == "goal.local-store" && provider.Classification != "deprecated" {
+			t.Fatalf("legacy provider not marked deprecated: %+v", provider)
+		}
 	}
 	if !providers["cordis_define"] || !providers["repo-delivery"] ||
 		!providers["goal.local-store"] {
 		t.Fatalf("unexpected providers: %#v", catalog.Providers)
+	}
+	markdown, err := os.ReadFile(filepath.Join(root, "out/capability.md"))
+	if err != nil || !strings.Contains(string(markdown), "Deprecated; retained for compatibility.") {
+		t.Fatalf("deprecation missing from human projection: %v", err)
 	}
 }
 

@@ -31,9 +31,10 @@ output:
 - Whether a fresh agent could discover and resume the work from bounded
   records without free-form archaeology.
 
-Prefer existing goal, validation, or delivery receipts over new storage. If a
-workspace learning record is warranted, keep it sanitized, bounded, stable-ID,
-and task-local. It is a proposal for review, never an automatic edit to shared
+Prefer existing OpenSpec changes, validation, or delivery receipts over new
+storage. If a workspace learning record is warranted, keep it sanitized,
+bounded, stable-ID, and task-local. It is a proposal for review, never an
+automatic edit to shared
 instructions, schemas, catalogs, or runtime behavior.
 
 ## Turn friction into reviewable evidence
@@ -53,7 +54,7 @@ instructions, schemas, catalogs, or runtime behavior.
    not justify removing useful diagnostics or regression coverage. Remove a
    safeguard only when evidence shows it is obsolete or its cost outweighs
    its benefit, while preserving required guarantees.
-6. Route the proposal through goal checkpoint, review, or delivery as
+6. Route the proposal through its OpenSpec change, review, or delivery as
    applicable; do not silently edit canonical state. Fix small, in-scope
    ergonomics problems immediately without asking; obtain explicit user
    authorization when a proposed remedy is large, uncertain, costly, or

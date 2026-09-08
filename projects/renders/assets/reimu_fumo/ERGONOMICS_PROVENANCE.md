@@ -14,7 +14,7 @@ rewriting that closed attempt.
 - Goal tree: `733966a68d40eb97dc1e08b22b6d02125dc5f704`
 - Closed-attempt tree: `0a954fc6f9fe759427927d0b4fa91371da2ec89b`
 - Report blob: `8533ae01c89cdd9a38e8dfba7b8ab273922b520d`
-- Report path:
+- Historical report path in the source commit:
   `projects/renders/goals/reimu-fumo-finish/attempts/flatten-dose-response-018/evidence/session_ergonomics_review.md`
 - Report SHA-256:
   `7edd22cbd6788af5dd1c2cca772f409996688b4e780f4526ece36ca178cda73d`
@@ -25,6 +25,16 @@ unchanged by this correction, so their trees and report blob remain reachable
 at the same paths in the correcting commit even if one-commit publication
 changes its commit identity. The goal tree contains resource version 58 in the
 final blocked state.
+
+## OpenSpec migration
+
+The historical goal tree was migrated without changing report bytes to
+[the preserved report](../../openspec/changes/reimu-fumo-finish/provenance/source/attempts/flatten-dose-response-018/evidence/session_ergonomics_review.md).
+The [snapshot manifest](../../openspec/changes/reimu-fumo-finish/provenance/manifest.json)
+binds original paths to migrated files and their SHA-256 digests. Git tree and
+blob identities above describe the original delivered snapshot; the active
+[OpenSpec change](../../openspec/changes/reimu-fumo-finish/proposal.md)
+owns subsequent continuation.
 
 ## Unavailable historical inputs
 

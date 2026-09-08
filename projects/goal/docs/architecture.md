@@ -5,6 +5,12 @@ description: Local storage, locking, formats, and graph boundaries
 
 # Goal architecture
 
+The goal tool is deprecated; new work uses the repository's
+[OpenSpec workflow](../../../tools/openspec/README.md) in the affected owner's
+`openspec/` workspace. This document describes
+the retained legacy format and compatibility implementation. The goal skill
+is disabled and absent from repository skill discovery.
+
 The goal tool is a local CLI for one coordinator working on a goal at a time.
 It edits ordinary files inside the workspace. It does not require a service,
 daemon, database, controller, or network connection.
@@ -15,7 +21,8 @@ not imply a stable tool release.
 
 ## Goal pursuit loop
 
-The pursuit loop belongs to the goal skill and its coordinator. The CLI does
+The historical pursuit loop belonged to the goal skill and its coordinator.
+The retained diagram documents that legacy workflow. The CLI does
 not schedule or perform the work; it validates and checkpoints the state
 transitions chosen by the coordinator.
 

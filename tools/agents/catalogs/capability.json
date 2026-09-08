@@ -4,7 +4,7 @@
     "id": "agent-system.capability",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.capability-compiler",
-    "sourceRevision": "d26ed54e63ceafb48ea587659f8cd198",
+    "sourceRevision": "c57bca0851093160dfea90124e3d0893",
     "inputs": [
         {
             "path": ".agents/skills/add-project-site",
@@ -67,14 +67,14 @@
             "digest": "sha256:f557843f61038380ecc9764ea4805211abcc600cfb469fe45db674324f979605"
         },
         {
-            "path": ".agents/skills/goal",
-            "role": "skill-discovery",
-            "digest": "sha256:f6b8586c0f230bf2f595fc77ddf39935585239ade8ef06bda96bc0ff179cfd73"
-        },
-        {
             "path": ".agents/skills/host-bot-diagnostics",
             "role": "skill-discovery",
             "digest": "sha256:7cb6f49e2d510f4c802cc4705b07c6f0e05062171b5241e43cba13f18f8fadd9"
+        },
+        {
+            "path": ".agents/skills/openspec",
+            "role": "skill-discovery",
+            "digest": "sha256:58a6b2c9ab9658be7998aac21d7b5aeef15c3803cc77ade0cf7efd2bd5319a87"
         },
         {
             "path": ".agents/skills/project-layout",
@@ -139,12 +139,12 @@
         {
             "path": "projects/goal/agent_operations.json",
             "role": "operation-file",
-            "digest": "sha256:ec16c4075b8234d614d2edf90de2e8a0afb7addab9c698db582e7057c6662f18"
+            "digest": "sha256:99d844cd03882b24bb2285ee54c3640be47cba7f1cdfe0c589a16fb934f548b6"
         },
         {
             "path": "projects/goal/cmd/goal/command.go",
             "role": "operation-definition",
-            "digest": "sha256:b7fd6e69b61a68460cfcfab49ccf79e028899091ec485e40011a8f2e4053d360"
+            "digest": "sha256:eaac45fbd982d27f7edc2d886b67a4c36ee407d103d6ceb0bda35100b75aa3ae"
         },
         {
             "path": "projects/goal/cmd/goal/main.go",
@@ -174,7 +174,7 @@
         {
             "path": "tools/agents/cmd/agent_system/main.go",
             "role": "direct-binary-source",
-            "digest": "sha256:09384cde8a46f0011640af3549657ddda5c9ac7b2276bee76896c7a102651a0f"
+            "digest": "sha256:813490cd23ad69975cf529cf9c76ee01d10963f99da5f48e108dd8a31269d997"
         },
         {
             "path": "tools/agents/cmd/control_status/main.go",
@@ -184,7 +184,7 @@
         {
             "path": "tools/agents/declarations/registry.json",
             "role": "registry",
-            "digest": "sha256:81a898951097ae85a8045644501ddf7568157f266d016bc2481da3ab45375fa2"
+            "digest": "sha256:170f250ce280e6a1b024564d443fbca8b44c880f87cd120375bc710e664edb27"
         },
         {
             "path": "tools/repo_delivery/agent_operations.json",
@@ -224,7 +224,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:821bc640ce621a1b07916254c1eb011bac21b71f40ae0a9ba6209fe17d6ba14c",
+    "digest": "sha256:34705877e37ac0d0a28baca783cdb5dc42e6d3c4eb99b8a76bcb307e9d5eeeb0",
     "skills": [
         {
             "id": "agent-ergonomics-review",
@@ -416,27 +416,6 @@
             "evaluationMaturity": "checked"
         },
         {
-            "id": "goal",
-            "owner": "projects/goal",
-            "canonicalPath": "projects/goal/skills/goal",
-            "discoveryPath": ".agents/skills/goal",
-            "layer": "coordination",
-            "activation": "durable multi-step work",
-            "exclusions": [
-                "simple one-step tasks"
-            ],
-            "capabilityRefs": [
-                "task_state.write"
-            ],
-            "dependencies": [
-                "bazel-agent"
-            ],
-            "conflicts": null,
-            "providerRequirements": null,
-            "contextCost": "large",
-            "evaluationMaturity": "checked"
-        },
-        {
             "id": "host-bot-diagnostics",
             "owner": "projects/agents",
             "canonicalPath": "projects/agents/skills/host-bot-diagnostics",
@@ -543,6 +522,31 @@
             "conflicts": null,
             "providerRequirements": null,
             "contextCost": "medium",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "openspec",
+            "owner": "tools/openspec",
+            "canonicalPath": "projects/agents/skills/openspec",
+            "discoveryPath": ".agents/skills/openspec",
+            "layer": "coordination",
+            "activation": "repository specifications, change planning, and durable multi-step work",
+            "exclusions": [
+                "simple one-step tasks without specification changes"
+            ],
+            "capabilityRefs": [
+                "code.execute",
+                "source.read",
+                "source.write",
+                "task_state.write"
+            ],
+            "dependencies": [
+                "bazel-agent",
+                "repo-bazel"
+            ],
+            "conflicts": null,
+            "providerRequirements": null,
+            "contextCost": "large",
             "evaluationMaturity": "checked"
         },
         {
@@ -919,7 +923,7 @@
             "owner": "projects/goal",
             "kind": "direct_binary",
             "sourcePath": "projects/goal/cmd/goal/main.go",
-            "classification": "classified",
+            "classification": "deprecated",
             "actionRefs": null
         },
         {
@@ -927,7 +931,7 @@
             "owner": "projects.goal",
             "kind": "operation_provider",
             "sourcePath": "projects/goal/cmd/goal/command.go",
-            "classification": "classified",
+            "classification": "deprecated",
             "actionRefs": null
         },
         {

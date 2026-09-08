@@ -4,12 +4,12 @@
     "id": "agent-system.topology",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.topology-compiler",
-    "sourceRevision": "269295fc53bf3a47",
+    "sourceRevision": "c35e27647bcc0031",
     "inputs": [
         {
             "path": "MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:71c5ee54b8258b9689eca17c02f1f1bb93eaf1d433c7ed8d5ecff5e6c50f5472"
+            "digest": "sha256:b98b7c2cdeed976b38a17cb0829470d2fd5466605a5b9e23898b35f826317301"
         },
         {
             "path": "data/README.md",
@@ -19,22 +19,22 @@
         {
             "path": "infra/README.md",
             "role": "tree-boundary-readme",
-            "digest": "sha256:a2df19e07a2bff8e3448bf3a8fa0ad704f1cc14f8033f0ccab14f8f82620e9b9"
+            "digest": "sha256:dc7ef805e0ffc93aee2f9a1eb6e6f5215fd591542721ae26712bed3544f96bd6"
         },
         {
             "path": "projects/README.md",
             "role": "tree-boundary-readme",
-            "digest": "sha256:13536243852cb60f59361585fc18821970a4d83842955bd73adfda0fc7ebb39c"
+            "digest": "sha256:c03369bdd60944bf473d6b0576f272e7f96344e4996a1c3ce65e8eeed06355ca"
         },
         {
             "path": "projects/agents/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:67ab5e2b7cc9699aa2ae8f62ea3082b049317390058292c3d1b04c1e976d3356"
+            "digest": "sha256:0efbf2d31b9bee0c878e28278316f8feab6d3835ff9b2a2289d710efc978a04f"
         },
         {
             "path": "projects/agents/README.md",
             "role": "component-readme",
-            "digest": "sha256:d0b8c3c4f088f94b4828e97a1e911a6393e0e33e3ed1964c165d827081fe9a8e"
+            "digest": "sha256:26b051c7387446e5ac52138085f1e5d474c447bfc70363e20db626bb28773bad"
         },
         {
             "path": "projects/al/BUILD.bazel",
@@ -119,12 +119,12 @@
         {
             "path": "projects/goal/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:d01cb8c679d4fcbb4993f66fda207b5fe5b42beb5d0b8cf23fd4008d5796f9ae"
+            "digest": "sha256:5bf6954895d68f69d8cc94f0100e67d9a6d8c5322467b81a1ae7fd25ef621ade"
         },
         {
             "path": "projects/goal/README.md",
             "role": "component-readme",
-            "digest": "sha256:df5961a6a1f6e764c30f85f05839205df704f39197cfe2817ca37d1b326d408d"
+            "digest": "sha256:8946ad53b4dbd995a37190e5c4a96a4ecd050b73f12f39fd82b0d6ee3e7c5710"
         },
         {
             "path": "projects/hugo_landing/BUILD.bazel",
@@ -169,12 +169,12 @@
         {
             "path": "projects/mcp_cordis/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:1e714ac02a7691d0af516e67c526924856471767634f866f0f0d348b4e9501a6"
+            "digest": "sha256:6e06fa5199e312ed959d99b2de99ba2add225e8e6a4e0a61f5722c8058a97abc"
         },
         {
             "path": "projects/mcp_cordis/README.md",
             "role": "component-readme",
-            "digest": "sha256:0e78ac48489af2c5a1c297365aa55294522d8302867c718f439e0e0676dae842"
+            "digest": "sha256:f652f0c8b94192827c64c711b8f20b111ae4fc9a0ddc8a89bf7a3576e83fc594"
         },
         {
             "path": "projects/nexus_security_plugin/BUILD.bazel",
@@ -189,12 +189,12 @@
         {
             "path": "projects/renders/BUILD.bazel",
             "role": "component-build",
-            "digest": "sha256:7403de953680c6b7a4f1356da10a7e44017f5f46c23703d6a37b02bb9a7f8a64"
+            "digest": "sha256:fd0fc3878ac3cb39430aba2409b3a19031f003b1c02f9f890c7f7e88c4e492d5"
         },
         {
             "path": "projects/renders/README.md",
             "role": "component-readme",
-            "digest": "sha256:7502e8aac2978338d54cc6b21b50ee076c7674bfc5d07c0b2a8e3ad31e50a5b9"
+            "digest": "sha256:fac6ddc03b0a0cf1dda5deed02ec06f635937d25f3bf94e264b9478b9c9f9c92"
         },
         {
             "path": "projects/rules_binary_toolchain/BUILD.bazel",
@@ -204,7 +204,7 @@
         {
             "path": "projects/rules_binary_toolchain/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:d704acbd1f8e9aa9a7490ad2b695dd992e37b9e663798b294757826a1a41b87e"
+            "digest": "sha256:79e5383fc80764760657662d5b2314c56403bb6b175688de659b1ca0ca33b891"
         },
         {
             "path": "projects/rules_binary_toolchain/README.md",
@@ -219,7 +219,7 @@
         {
             "path": "projects/rules_dnscontrol/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:58f18e9ac2a12e1da107df865fe9d8538e0fad2907847000fc0e2b3334f1cc33"
+            "digest": "sha256:e774b92246faf0ea00fc81568ed9601acbca6791012491a3b06798b27f6f9a17"
         },
         {
             "path": "projects/rules_dnscontrol/README.md",
@@ -234,7 +234,7 @@
         {
             "path": "projects/rules_docs/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:ebb3a6adf907ac69a1cf161aac60292c5fff2ec58ff4113c92c86214ae4eece7"
+            "digest": "sha256:5903cb969acf11440b40f8dbc3e3da370dd1d41b15f6af22fadaecd4fa588fa7"
         },
         {
             "path": "projects/rules_docs/README.md",
@@ -249,7 +249,7 @@
         {
             "path": "projects/rules_docs_gazelle/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:bfb836d4250225159b66d813f70f7d3075b50366fec5bb743a6237f856594680"
+            "digest": "sha256:c5ff15eeb74604ee105751986a7ca83ea58edfe9dc7660ac953f99ee4682a48c"
         },
         {
             "path": "projects/rules_docs_gazelle/README.md",
@@ -264,7 +264,7 @@
         {
             "path": "projects/rules_hugo/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:fee5527d7deee448871d5af58d4933557edbf86b35023e855559aa3708d1103a"
+            "digest": "sha256:342a16333c44652a62f5a3ef28a20e0a19f5ce716af9bfc046cadaa66698e51b"
         },
         {
             "path": "projects/rules_hugo/README.md",
@@ -279,12 +279,27 @@
         {
             "path": "projects/rules_iso/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:6008b40c2da673b800954356d394ee71816b466c1e419ad3414c6ca072ca8f71"
+            "digest": "sha256:a9038227f81a6a19b5febf11902d22fcca7cf2662486efab9027753f469c0ff3"
         },
         {
             "path": "projects/rules_iso/README.md",
             "role": "component-readme",
             "digest": "sha256:9d5c3d9b9e452713e1c425a8488c417dcf9837ec794cd04a5a6914e36200e226"
+        },
+        {
+            "path": "projects/rules_openspec/BUILD.bazel",
+            "role": "component-build",
+            "digest": "sha256:494b6c01d16b6f91a211d8e76e866a0a11480ccbdbee3d067dbb49d57cbe7619"
+        },
+        {
+            "path": "projects/rules_openspec/MODULE.bazel",
+            "role": "workspace-module",
+            "digest": "sha256:60ca99d9a14a955933cf2dd45c66afb159ce26f361a1eec9f6dbebcc6c9ae7ff"
+        },
+        {
+            "path": "projects/rules_openspec/README.md",
+            "role": "component-readme",
+            "digest": "sha256:591c4bd67db1758efad111c1caae06b70fc4398a71d435545c92ca0b0f7b01cd"
         },
         {
             "path": "projects/rules_promptfoo/BUILD.bazel",
@@ -294,7 +309,7 @@
         {
             "path": "projects/rules_promptfoo/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:9191186176747f34f7506ea48b5d8301e0dccbf4294893035e189ee2220f4729"
+            "digest": "sha256:124136f844049d81d63533349c1093bade93df5648f49b4c9ddaeae55cf09aa7"
         },
         {
             "path": "projects/rules_promptfoo/README.md",
@@ -309,7 +324,7 @@
         {
             "path": "projects/rules_promptfoo_gazelle/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:f0c3224c59fcd09e84d2f078f5a7d612b2acc41b0b5265556db4b2432dffe208"
+            "digest": "sha256:5b6d92088777d2e24641accf272b3573258717309bcdd8a420fbbf6c43bb98d6"
         },
         {
             "path": "projects/rules_promptfoo_gazelle/README.md",
@@ -324,7 +339,7 @@
         {
             "path": "projects/rules_skill/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:37efd217262efef39a907b0b90b3c1d692568d0dc576e3c9f32a4d6ffec6eb2f"
+            "digest": "sha256:02b10036b3032920d6c78ea977a4f8523daf736876efafc96b63679ab2be6f18"
         },
         {
             "path": "projects/rules_skill/README.md",
@@ -339,7 +354,7 @@
         {
             "path": "projects/rules_skill_gazelle/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:3d7839254cb0ea02222d0f17c260031117ea84c1bc56525d53b4e8007ac880e8"
+            "digest": "sha256:474566a88c394baa237a4b4333c89a8c386b44c02dc9bc147e954e36d7ab5470"
         },
         {
             "path": "projects/rules_skill_gazelle/README.md",
@@ -354,7 +369,7 @@
         {
             "path": "projects/rules_template/MODULE.bazel",
             "role": "workspace-module",
-            "digest": "sha256:c95a35bea281d2da8332274c8f50dd7c9195b5c48ffd128231a088b556bb02fe"
+            "digest": "sha256:51c6a8df6bb12c92f8ea6e5b08fd32ecb4fec589fe7831d65d3b35823fe21dcd"
         },
         {
             "path": "projects/rules_template/README.md",
@@ -404,7 +419,7 @@
         {
             "path": "tools/agents/declarations/registry.json",
             "role": "registry",
-            "digest": "sha256:81a898951097ae85a8045644501ddf7568157f266d016bc2481da3ab45375fa2"
+            "digest": "sha256:170f250ce280e6a1b024564d443fbca8b44c880f87cd120375bc710e664edb27"
         },
         {
             "path": "users/README.md",
@@ -413,8 +428,8 @@
         }
     ],
     "bounds": {
-        "eligible": 49,
-        "emitted": 49,
+        "eligible": 51,
+        "emitted": 51,
         "unavailable": 0,
         "maxItems": 1000,
         "maxInputBytes": 33554432,
@@ -424,7 +439,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:745756278a9d466ba086ba552092f61a1f193a51ba840e85704415f268f86798",
+    "digest": "sha256:e46c76fa0dd603f6fe1da2282ce9fd2f5a115f49f746f2e1eb5d1c8fbd89e8ac",
     "trees": [
         {
             "id": "projects",
@@ -470,7 +485,7 @@
             "ownerReadmePath": "projects/agents/README.md",
             "buildPath": "projects/agents/BUILD.bazel",
             "title": "Agents",
-            "description": "Repository-wide agent-system architecture, goals, and skills",
+            "description": "Repository-wide agent-system architecture and skills",
             "lifecycle": "active",
             "docsState": "owned"
         },
@@ -560,8 +575,8 @@
             "ownerReadmePath": "projects/goal/README.md",
             "buildPath": "projects/goal/BUILD.bazel",
             "title": "Goal",
-            "description": "Versioned goal resources, local storage, and agent workflow",
-            "lifecycle": "experimental",
+            "description": "Deprecated goal tool retained for legacy record compatibility",
+            "lifecycle": "maintenance",
             "docsState": "owned"
         },
         {
@@ -695,6 +710,16 @@
             "docsState": "owned"
         },
         {
+            "id": "rules_openspec",
+            "path": "projects/rules_openspec",
+            "ownerReadmePath": "projects/rules_openspec/README.md",
+            "buildPath": "projects/rules_openspec/BUILD.bazel",
+            "title": "OpenSpec",
+            "description": "Pinned OpenSpec CLI and repository specification validation",
+            "lifecycle": "active",
+            "docsState": "owned"
+        },
+        {
             "id": "rules_promptfoo",
             "path": "projects/rules_promptfoo",
             "ownerReadmePath": "projects/rules_promptfoo/README.md",
@@ -817,6 +842,12 @@
             "path": "projects/rules_iso",
             "modulePath": "projects/rules_iso/MODULE.bazel",
             "moduleName": "rules_iso"
+        },
+        {
+            "id": "projects.rules_openspec",
+            "path": "projects/rules_openspec",
+            "modulePath": "projects/rules_openspec/MODULE.bazel",
+            "moduleName": "rules_openspec"
         },
         {
             "id": "projects.rules_promptfoo",

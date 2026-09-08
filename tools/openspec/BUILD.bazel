@@ -1,0 +1,5 @@
+alias(
+    name = "openspec",
+    actual = "@rules_openspec//main/bzl:openspec",
+    visibility = ["//:__subpackages__"],
+)

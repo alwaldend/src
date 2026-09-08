@@ -121,24 +121,6 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     prefix = "content/docs/projects/mcp_cordis",
     visibility = ["//visibility:public"],
-    deps = [
-        ":goal_attempt_docs",
-        ":goal_docs",
-    ],
-)
-
-docs_filegroup(
-    name = "goal_docs",
-    srcs = glob(["goals/runtime_extensions/*.md"]),
-    prefix = "content/docs/projects/mcp_cordis/goals/runtime_extensions",
-)
-
-docs_filegroup(
-    name = "goal_attempt_docs",
-    srcs = glob(["goals/runtime_extensions/attempts/*.md"]),
-    prefix = (
-        "content/docs/projects/mcp_cordis/goals/runtime_extensions/attempts"
-    ),
 )
 
 filegroup(

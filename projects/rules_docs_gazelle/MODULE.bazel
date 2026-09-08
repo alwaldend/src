@@ -6,6 +6,7 @@ module(
 
 bazel_dep(name = "bazel_skylib", version = "1.9.0")
 bazel_dep(name = "gazelle", version = "0.47.0")
+bazel_dep(name = "rules_openspec", version = "0.0.0")
 bazel_dep(name = "rules_docs", version = "0.0.0")
 bazel_dep(name = "rules_go", version = "0.60.0")
 
@@ -16,3 +17,8 @@ local_path_override(
 
 go_sdk = use_extension("@rules_go//go:extensions.bzl", "go_sdk")
 go_sdk.from_file(go_mod = "//:go.mod")
+
+local_path_override(
+    module_name = "rules_openspec",
+    path = "../rules_openspec",
+)

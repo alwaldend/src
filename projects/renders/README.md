@@ -6,12 +6,14 @@ statuses:
 ---
 
 This project owns reusable Blender assets, their controlling references, and
-compact goal records that bind acceptance evidence to exact candidate bytes.
+acceptance evidence bound to exact candidate bytes. Maintained work uses the
+[project OpenSpec workspace](openspec/).
 
 The Reimu Fumo work lives under [assets/reimu_fumo/](https://github.com/alwaldend/src/tree/master/projects/renders/assets/reimu_fumo/). Its
 reusable asset target will be added only after a candidate passes the visual,
 structural, animation, and exact-byte delivery gates in
-[goals/reimu-fumo-finish/](https://github.com/alwaldend/src/tree/master/projects/renders/goals/reimu-fumo-finish/).
+[Reimu Fumo change](openspec/changes/reimu-fumo-finish/). That change
+preserves the open outcome, blocked execution and original goal history.
 
 Working candidates and intermediate renders belong under the repository-root
 `out/reimu_fumo_finish/` directory. They are not accepted or durable merely

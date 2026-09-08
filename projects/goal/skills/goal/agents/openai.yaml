@@ -1,4 +1,6 @@
 interface:
-  display_name: "Goal Loop"
-  short_description: "Persist goals, attempts, evidence, and honest evaluations"
-  default_prompt: "Use $goal to define this goal, execute an evidence-backed plan, and iterate until the acceptance criteria are genuinely met."
+  display_name: "Goal (disabled)"
+  short_description: "Disabled legacy workflow; use OpenSpec for new work"
+  default_prompt: "Read $goal only for its deprecation notice and legacy compatibility references."
+policy:
+  allow_implicit_invocation: false

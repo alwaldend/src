@@ -305,6 +305,7 @@ func validateOperation(candidate operation) error {
 		return fmt.Errorf("operation %q is incomplete", candidate.ID)
 	}
 	if candidate.Classification != "classified" &&
+		candidate.Classification != "deprecated" &&
 		candidate.Classification != "requires_migration" {
 		return fmt.Errorf(
 			"operation %s has unknown classification %q",
@@ -358,6 +359,7 @@ func (c *checker) checkAuthorities() {
 		"bazel_operations": true,
 		"direct_binaries":  true,
 		"goals":            true,
+		"openspec":         true,
 		"projects":         true,
 		"runtime_tools":    true,
 		"skills":           true,
@@ -495,23 +497,36 @@ func walkFiles(root string, wanted func(string) bool) ([]string, error) {
 	return result, err
 }
 
-func (c *checker) checkWorkspacesAndGoals() error {
+func (c *checker) checkWorkspacesAndChanges() error {
 	modules, err := walkFiles(c.root, func(path string) bool {
 		return filepath.Base(path) == "MODULE.bazel"
 	})
 	if err != nil {
 		return err
 	}
-	goals, err := walkFiles(c.root, func(path string) bool {
-		return strings.Contains(path, "/goals/") &&
-			filepath.Base(path) == "goal.yaml"
-	})
+	changes, err := walkFiles(c.root, isOpenSpecChangeMetadata)
 	if err != nil {
 		return err
 	}
 	c.report.Counts["workspaces"] = len(modules)
-	c.report.Counts["goals"] = len(goals)
+	c.report.Counts["openspecChanges"] = len(changes)
 	return nil
+}
+
+// isOpenSpecChangeMetadata recognizes native active and archived changes only
+// in a direct project/infra owner's workspace, including repository evolution.
+// Deeper metadata can be frozen provenance or test fixtures, not current state.
+func isOpenSpecChangeMetadata(path string) bool {
+	parts := strings.Split(path, "/")
+	if len(parts) < 6 || (parts[0] != "projects" && parts[0] != "infra") ||
+		parts[2] != "openspec" || parts[3] != "changes" {
+		return false
+	}
+	parts = parts[4:]
+	if parts[0] == "archive" {
+		parts = parts[1:]
+	}
+	return len(parts) == 2 && parts[1] == ".openspec.yaml"
 }
 
 func setDifference(observed, declared map[string]bool) ([]string, []string) {
@@ -621,6 +636,7 @@ func (c *checker) checkOwnedFiles() {
 	for _, binary := range c.registry.DirectBinaries {
 		if !validateID(binary.ID) || binary.Owner == "" ||
 			(binary.Classification != "classified" &&
+				binary.Classification != "deprecated" &&
 				binary.Classification != "requires_migration") {
 			c.issue("unclassified", "direct-binary:"+binary.ID)
 		}
@@ -674,7 +690,7 @@ func (c *checker) run() error {
 	if err := c.checkProjects(); err != nil {
 		return err
 	}
-	if err := c.checkWorkspacesAndGoals(); err != nil {
+	if err := c.checkWorkspacesAndChanges(); err != nil {
 		return err
 	}
 	if err := c.checkRuntimeTools(); err != nil {

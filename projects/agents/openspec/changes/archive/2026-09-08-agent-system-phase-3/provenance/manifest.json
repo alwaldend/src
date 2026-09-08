@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "source_commit": "550d7e79b1f5fdbc2b6017b75178471d6914082f",
+  "files": [
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-3/README.md",
+      "snapshot_path": "provenance/source/README.md",
+      "sha256": "cc27e6181cc5a6971ebd172626202abcf67da6ccd99d93ac1ded756ea7267f50",
+      "size_bytes": 3553
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-3/attempts/attempt-9a199d4db6bd/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/attempt-9a199d4db6bd/attempt.yaml",
+      "sha256": "4c3f472986e293252f081c901d6d38abb2a6617599a58a5d7702ca932e6d1b9c",
+      "size_bytes": 2317
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-3/attempts/attempt-9a199d4db6bd/evidence/phase3-acceptance-evidence.md",
+      "snapshot_path": "provenance/source/attempts/attempt-9a199d4db6bd/evidence/phase3-acceptance-evidence.md",
+      "sha256": "bbdc022a58bfb87269ee62784f8e8c0e915f633ce347f11ab7062224fa0d8e3d",
+      "size_bytes": 3191
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-3/attempts/attempt-9a199d4db6bd/plan.md",
+      "snapshot_path": "provenance/source/attempts/attempt-9a199d4db6bd/plan.md",
+      "sha256": "bc32dd484611613563727759a3d39abda74d8bd54dea9dbf57bcf28afe059ef5",
+      "size_bytes": 2435
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-3/attempts/attempt-9a199d4db6bd/result.md",
+      "snapshot_path": "provenance/source/attempts/attempt-9a199d4db6bd/result.md",
+      "sha256": "8419b46c5b43f0d54c8c09bc7e1ecdc673bb15bc1915b2bb08bdab7973784322",
+      "size_bytes": 2433
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-3/criteria-revisions/1.yaml",
+      "snapshot_path": "provenance/source/criteria-revisions/1.yaml",
+      "sha256": "baf34afb86de5ab4178ff0f7f3a36704558f00b26a95ca4e17f57e2c0f217a96",
+      "size_bytes": 3995
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-3/criteria.yaml",
+      "snapshot_path": "provenance/source/criteria.yaml",
+      "sha256": "baf34afb86de5ab4178ff0f7f3a36704558f00b26a95ca4e17f57e2c0f217a96",
+      "size_bytes": 3995
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-3/goal.yaml",
+      "snapshot_path": "provenance/source/goal.yaml",
+      "sha256": "9b40b542a068a0b864ca56ec94e02af2d2d54aafdd5a0cd177e5e9576db24aaf",
+      "size_bytes": 1183
+    }
+  ]
+}

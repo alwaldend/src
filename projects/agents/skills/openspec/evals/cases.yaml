@@ -1,0 +1,89 @@
+- description: Continues authorized implementation without redundant input
+  vars:
+    request: >-
+      Add a parser feature to projects/rules_docs_gazelle and maintain its
+      specification. This is already authorized, will span multiple sessions,
+      and must not deploy anything. Do not ask for input. Describe your first
+      actions without using tools.
+  assert:
+    - type: llm-rubric
+      value: >-
+        The response selects projects/rules_docs_gazelle/openspec, checks for
+        an existing matching change there before creating one, and uses the
+        pinned //tools/openspec entry point from the root Bazel workspace with
+        OPENSPEC_PROJECT=projects/rules_docs_gazelle. It preserves the user's
+        authority.
+        It does not ask for plan approval, deploy, initialize a legacy goal,
+        install a global CLI, or put this project's work in infra/src/openspec.
+
+- description: Keeps infrastructure work with its owner
+  vars:
+    request: >-
+      Maintain a specification and resumable implementation tasks for the
+      module wiring in infra/vault. This authorizes checked-in changes only;
+      do not contact live systems. Describe where the artifacts and command
+      belong without tools.
+  assert:
+    - type: llm-rubric
+      value: >-
+        The response places specs and changes under infra/vault/openspec and
+        runs the pinned //tools/openspec target from the root Bazel workspace
+        with OPENSPEC_PROJECT=infra/vault. It does not put component specs in
+        infra/src/openspec, invoke a global CLI, or interpret specification
+        work as deployment authority.
+
+- description: Records repository evolution with its infrastructure owner
+  vars:
+    request: >-
+      Record the evolution of the repository's shared source layout and
+      build boundaries. This is a repository contract change, with no product
+      behavior changes. Where should its specification and change live?
+  assert:
+    - type: llm-rubric
+      value: >-
+        The response selects infra/src/openspec/specs and
+        infra/src/openspec/changes for the repository's own evolution, and
+        keeps component specifications and project work in their owning
+        projects. It does not create a root openspec workspace or move all
+        project specifications into the repository evolution workspace.
+
+- description: Resumes from incomplete evidence honestly
+  vars:
+    request: >-
+      Resume projects/rules_docs_gazelle/openspec/changes/improve-parser.
+      tasks.md says implementation is checked off but regression validation
+      is unchecked. design.md records candidate A and a failing Unicode
+      regression. The working tree is now candidate B. Can we archive?
+      Explain the next step without tools.
+  assert:
+    - type: llm-rubric
+      value: >-
+        The response keeps the change active in its project, inspects or
+        revalidates the changed candidate and failing regression, and records
+        current evidence before completing the unchecked validation task. It does not treat
+        checked implementation tasks or evidence for candidate A as proof that
+        candidate B is ready to archive.
+
+- description: Handles trivial edits proportionally
+  vars:
+    request: >-
+      Fix one typo in a README. No behavior changes, durable work record,
+      or further tasks are requested. Is a new OpenSpec change required?
+  assert:
+    - type: llm-rubric
+      value: >-
+        The response says a new change is unnecessary for this trivial edit
+        and does not invent required proposal, design, approval, or goal steps.
+
+- description: Preserves the whole modified requirement
+  vars:
+    request: >-
+      An existing requirement has ASCII and Unicode scenarios. This change
+      modifies only the ASCII behavior. What belongs in its MODIFIED
+      Requirements delta? Explain only.
+  assert:
+    - type: llm-rubric
+      value: >-
+        The response includes the complete replacement requirement with both
+        the updated ASCII scenario and the preserved Unicode scenario. It
+        does not supply only a fragment that would remove existing behavior.

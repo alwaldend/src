@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "source_commit": "550d7e79b1f5fdbc2b6017b75178471d6914082f",
+  "files": [
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-six-ergonomics/README.md",
+      "snapshot_path": "provenance/source/README.md",
+      "sha256": "8080b156948b1478307ded443a97efa55b8c72a387095a4ed7d234a50cd84249",
+      "size_bytes": 1571
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-six-ergonomics/attempts/attempt-5fbe69af8f1e/attempt.yaml",
+      "snapshot_path": "provenance/source/attempts/attempt-5fbe69af8f1e/attempt.yaml",
+      "sha256": "85b8961ba7c603f660b4eaa18e3b8a7445bc330d66ffea9b4b04aa761e6241a2",
+      "size_bytes": 2155
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-six-ergonomics/attempts/attempt-5fbe69af8f1e/evidence/baseline-plan.md",
+      "snapshot_path": "provenance/source/attempts/attempt-5fbe69af8f1e/evidence/baseline-plan.md",
+      "sha256": "4d4c255e7831de689f45b813659858126593e30d708bb3c7f0a5f791862b0974",
+      "size_bytes": 233
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-six-ergonomics/attempts/attempt-5fbe69af8f1e/evidence/friction-baseline.md",
+      "snapshot_path": "provenance/source/attempts/attempt-5fbe69af8f1e/evidence/friction-baseline.md",
+      "sha256": "bfff6bcab8e0f57b1460e725b83b54dd0b9e8305bdbb2a483c1d2f751defbb2b",
+      "size_bytes": 1639
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-six-ergonomics/attempts/attempt-5fbe69af8f1e/evidence/optimization-pipeline.md",
+      "snapshot_path": "provenance/source/attempts/attempt-5fbe69af8f1e/evidence/optimization-pipeline.md",
+      "sha256": "f9ccf591876a28f261facf903fb38be526814072381ef9460a755e13d9241327",
+      "size_bytes": 2788
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-six-ergonomics/attempts/attempt-5fbe69af8f1e/evidence/skill-specificity.md",
+      "snapshot_path": "provenance/source/attempts/attempt-5fbe69af8f1e/evidence/skill-specificity.md",
+      "sha256": "56e9d27397b7e5529ad340a3e6de98b948ce53e4aef50da64f5879af8853e1e8",
+      "size_bytes": 1054
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-six-ergonomics/attempts/attempt-5fbe69af8f1e/plan.md",
+      "snapshot_path": "provenance/source/attempts/attempt-5fbe69af8f1e/plan.md",
+      "sha256": "f9daa78c1969986768c42531a085b2210536ccbcda6d845073c0c86545d345bf",
+      "size_bytes": 989
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-six-ergonomics/attempts/attempt-5fbe69af8f1e/result.md",
+      "snapshot_path": "provenance/source/attempts/attempt-5fbe69af8f1e/result.md",
+      "sha256": "506ba8232da9d54dd50875f2d37387965d5f0de6c9e631801c9bdf1008b22f9e",
+      "size_bytes": 1037
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-six-ergonomics/criteria-revisions/1.yaml",
+      "snapshot_path": "provenance/source/criteria-revisions/1.yaml",
+      "sha256": "a363ee3342e2cbd14a84501092697822b762efa5a5e3c3e3ebbca316eccd60e6",
+      "size_bytes": 929
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-six-ergonomics/criteria.yaml",
+      "snapshot_path": "provenance/source/criteria.yaml",
+      "sha256": "a363ee3342e2cbd14a84501092697822b762efa5a5e3c3e3ebbca316eccd60e6",
+      "size_bytes": 929
+    },
+    {
+      "source_path": "projects/agents/goals/agent-system-phase-six-ergonomics/goal.yaml",
+      "snapshot_path": "provenance/source/goal.yaml",
+      "sha256": "07566e19e3ccfa1ad23fd5eca1af3731926b6841a55a54c220d27bdcc0ac9177",
+      "size_bytes": 1281
+    }
+  ]
+}

@@ -14,6 +14,7 @@ npm = use_extension("@aspect_rules_js//npm:extensions.bzl", "npm")
 npm.npm_translate_lock(
     name = "com_alwaldend_src_npm",
     bins = {
+        "@fission-ai/openspec": ["openspec=./bin/openspec.js"],
         "typescript": [
             "tsc=./bin/tsc",
             "tsserver=./bin/tsserver",
