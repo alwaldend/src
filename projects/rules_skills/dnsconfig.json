@@ -1,0 +1,11 @@
+{
+    "records": {
+        "rules_skills_landing": {
+            "CNAME": {
+                "name": "rules-skill",
+                "target": "alwaldend.github.io."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

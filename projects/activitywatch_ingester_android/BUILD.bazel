@@ -1,0 +1,54 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+exports_files(
+    ["maven_lock.json"],
+    visibility = ["//projects/activitywatch_ingester_android:__subpackages__"],
+)
+
+filegroup(
+    name = "manifest",
+    srcs = ["AndroidManifest.xml"],
+    visibility = [":__subpackages__"],
+)
+
+filegroup(
+    name = "test_manifest",
+    srcs = ["//projects/activitywatch_ingester_android/androidTest:manifest"],
+    visibility = [":__subpackages__"],
+)
+
+filegroup(
+    name = "proguard",
+    srcs = ["proguard_rules.pro"],
+    visibility = [":__subpackages__"],
+)
+
+filegroup(
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = [
+        "//infra:__pkg__",
+        "//infra/dns:__pkg__",
+        "//projects/alwaldend.com:__subpackages__",
+    ],
+)
+
+filegroup(
+    name = "fastlane_metadata",
+    srcs = glob(
+        ["fastlane/metadata/android/**/*.txt"],
+    ),
+    visibility = ["//visibility:public"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = [
+        "//projects:__pkg__",
+        "//projects/activitywatch_ingester_android/landing:__pkg__",
+    ],
+    deps = [
+        "//projects/activitywatch_ingester_android/releases:docs",
+    ],
+)

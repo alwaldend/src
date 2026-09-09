@@ -55,3 +55,11 @@ args = ["mcp"]
 
 [shell_environment_policy.filters]
 T3_MCP_BEARER_TOKEN = "exclude"
+
+[hooks.state]
+
+[hooks.state."/var/home/simeonwarrenbot/Projects/src/.codex/config.toml:session_end:0:0"]
+trusted_hash = "sha256:b5cdfdf1ae7340333d9be76d592efb5ae11d7f5eddb0139e64bdfb2a4f66c176"
+
+[hooks.state."/var/home/simeonwarrenbot/Projects/src/.codex/config.toml:session_start:0:0"]
+trusted_hash = "sha256:b5cdfdf1ae7340333d9be76d592efb5ae11d7f5eddb0139e64bdfb2a4f66c176"

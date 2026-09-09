@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.alwaldend.src.projects.activitywatch_ingester_android.test"
+>
+    <uses-sdk android:minSdkVersion="25" android:targetSdkVersion="36" />
+    <instrumentation
+        android:name="androidx.test.runner.AndroidJUnitRunner"
+        android:targetPackage="com.alwaldend.src.projects.activitywatch_ingester_android"
+    />
+</manifest>

@@ -5,6 +5,7 @@ from this dedicated-site list.
 """
 
 PROJECTS = [
+    "activitywatch_ingester_android",
     "agents",
     "al",
     "android_launcher",
@@ -28,7 +29,7 @@ PROJECTS = [
     "rules_iso",
     "rules_promptfoo",
     "rules_promptfoo_gazelle",
-    "rules_skill",
+    "rules_skills",
     "rules_skill_gazelle",
     "rules_template",
     "sri",

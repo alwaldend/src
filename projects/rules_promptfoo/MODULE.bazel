@@ -12,7 +12,7 @@ bazel_dep(name = "rules_openspec", version = "0.0.0")
 bazel_dep(name = "rules_docs", version = "0.0.0")
 bazel_dep(name = "rules_nodejs", version = "6.7.3")
 bazel_dep(name = "rules_shell", version = "0.6.1")
-bazel_dep(name = "rules_skill", version = "0.0.0")
+bazel_dep(name = "rules_skills", version = "0.0.0")
 
 local_path_override(
     module_name = "rules_docs",
@@ -20,8 +20,8 @@ local_path_override(
 )
 
 local_path_override(
-    module_name = "rules_skill",
-    path = "../rules_skill",
+    module_name = "rules_skills",
+    path = "../rules_skills",
 )
 
 node = use_extension("@rules_nodejs//nodejs:extensions.bzl", "node")

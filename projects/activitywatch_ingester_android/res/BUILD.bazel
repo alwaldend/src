@@ -1,0 +1,22 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+filegroup(
+    name = "res",
+    srcs = glob(
+        ["**"],
+        exclude = [
+            "BUILD.bazel",
+            "README.md",
+        ],
+    ),
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(
+        ["*.md"],
+        allow_empty = True,
+    ),
+    visibility = ["//projects/activitywatch_ingester_android:__pkg__"],
+)

@@ -5,10 +5,10 @@
 Enabled repository skills SHALL have canonical project-owned directories and
 `skill_library` targets. Each skill SHALL grant `//.agents:skill_discovery`
 read access. `.agents/BUILD.bazel` SHALL declare the complete discovery set
-through `skill_discovery_links`, and `.agents/skills/` SHALL expose relative
-symlinks to the canonical directories while Bazel builds the canonical targets.
-The discovery directory SHALL contain only those managed links. The removed
-goal skill SHALL NOT be reintroduced.
+through `skills_write`, and `.agents/skills/` SHALL expose relative symlinks to
+the canonical directories while archive-backed skills are materialized as
+regular files beside them. The discovery directory SHALL contain only those
+managed entries. The removed goal skill SHALL NOT be reintroduced.
 
 #### Scenario: An agent discovers a reusable procedure
 
@@ -21,8 +21,8 @@ goal skill SHALL NOT be reintroduced.
 - **WHEN** a contributor adds a canonical skill
 - **THEN** they add its `:skill` label to the `.agents/BUILD.bazel` declaration
   and grant `//.agents:skill_discovery` visibility
-- **AND** `//.agents:write_skill_links` regenerates the links and
-  `//.agents:write_skill_links_test` verifies the exact state
+- **AND** `//.agents:write_skills` regenerates the links and
+  `//.agents:write_skills_test` verifies the exact state
 
 ## ADDED Requirements
 

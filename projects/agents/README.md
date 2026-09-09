@@ -49,7 +49,7 @@ directory.
 The repository discovery directory `.agents/skills/` contains one relative
 symlink per skill. Each link points directly to its canonical project-owned
 directory. `.agents/BUILD.bazel` declares the complete discovery set and
-generates those links with `//.agents:write_skill_links`; its generated
+generates those links with `//.agents:write_skills`; its generated
 exact-state test verifies them. Bazel ignores the discovery directory and
 builds only canonical targets, preventing duplicate packages while allowing
 skills from more than one owning project. Each skill grants

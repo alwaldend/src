@@ -1,4 +1,4 @@
-load("@rules_skill//skill:defs.bzl", "skill_discovery_links")
+load("@rules_skills//skill:defs.bzl", "skills_write")
 
 package(default_visibility = ["//visibility:private"])
 
@@ -7,10 +7,24 @@ package_group(
     packages = ["//.agents"],
 )
 
-skill_discovery_links(
-    name = "write_skill_links",
+skills_write(
+    name = "write_skills",
+    archives = [
+        "@org_fissionai_openspec//:openspec-apply-change",
+        "@org_fissionai_openspec//:openspec-archive-change",
+        "@org_fissionai_openspec//:openspec-bulk-archive-change",
+        "@org_fissionai_openspec//:openspec-continue-change",
+        "@org_fissionai_openspec//:openspec-explore",
+        "@org_fissionai_openspec//:openspec-ff-change",
+        "@org_fissionai_openspec//:openspec-new-change",
+        "@org_fissionai_openspec//:openspec-onboard",
+        "@org_fissionai_openspec//:openspec-propose",
+        "@org_fissionai_openspec//:openspec-sync-specs",
+        "@org_fissionai_openspec//:openspec-update-change",
+        "@org_fissionai_openspec//:openspec-verify-change",
+    ],
     discovery_dir = ".agents/skills",
-    skills = [
+    symlinks = [
         "//projects/alwaldend.com/skills/alwaldend-blog:skill",
         "//projects/agents/skills/answer-question:skill",
         "//projects/agents/skills/agent-ergonomics-review:skill",
@@ -40,4 +54,6 @@ skill_discovery_links(
         "//projects/agents/skills/openspec:skill",
         "//tools/versioning/skills/versioning:skill",
     ],
+    visibility = ["//visibility:public"],
+    workspace_marker = "//:AGENTS.md",
 )

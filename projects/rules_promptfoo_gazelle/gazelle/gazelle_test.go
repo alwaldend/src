@@ -864,7 +864,7 @@ func TestCombinedGazelleCreatesFreshSkillPackage(t *testing.T) {
 	}
 	for _, load := range []string{
 		`load("@rules_promptfoo//promptfoo:defs.bzl", "promptfoo_validate_test")`,
-		`load("@rules_skill//skill:defs.bzl", "skill_library")`,
+		`load("@rules_skills//skill:defs.bzl", "skill_library")`,
 	} {
 		if !strings.Contains(first, load) {
 			t.Errorf("generated BUILD does not contain %q:\n%s", load, first)

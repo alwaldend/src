@@ -27,11 +27,11 @@ bazel_dep(
 )
 ```
 
-For one-pass skill package creation, also add `rules_skill` as a normal
+For one-pass skill package creation, also add `rules_skills` as a normal
 dependency and `rules_skill_gazelle` as a development dependency:
 
 ```starlark
-bazel_dep(name = "rules_skill", version = "<VERSION>")
+bazel_dep(name = "rules_skills", version = "<VERSION>")
 bazel_dep(
     name = "rules_skill_gazelle",
     version = "<VERSION>",
@@ -76,7 +76,7 @@ variant cannot claim a collision target's namespace.
 
 When a non-root containing package has a `SKILL.md`, each ordinary validation
 target stages that package's conventional `:skill` target. Repository-root
-skills are unsupported by `rules_skill`, so a root-package `SKILL.md` does not
+skills are unsupported by `rules_skills`, so a root-package `SKILL.md` does not
 infer that label. The exact `no_skill` variant omits `skills` so it remains a
 control. A generic Promptfoo package without `SKILL.md` receives no inferred
 skill label. Every non-configuration regular file under `evals/`, including

@@ -1,7 +1,11 @@
 package com.alwaldend.src.projects.android_launcher.ui
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.LocalIndication
+import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
@@ -15,6 +19,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -37,6 +42,7 @@ import com.alwaldend.src.projects.android_launcher.Model.Settings.HorizontalArra
 fun HomeRow(
     apps: Model.Apps,
     showHiddenApps: Boolean,
+    selectedPackage: String?,
     onClick: (Model.App) -> Unit,
     onLongClick: (Model.App) -> Unit,
     sortItems: (Model.Apps, Model.Settings.Layout) -> List<Model.App>,
@@ -59,6 +65,7 @@ fun HomeRow(
         if (!it.isHidden || showHiddenApps) {
           HomeRowItemCard(
               label = label,
+              selected = it.packageName == selectedPackage,
               onClick = { onClick(it) },
               onLongClick = { onLongClick(it) },
               settings = settings.appCard)
@@ -75,26 +82,44 @@ private fun HomeRowItemCard(
     onClick: () -> Unit,
     onLongClick: () -> Unit,
     settings: Model.Settings.AppCard,
+    selected: Boolean,
     modifier: Modifier = Modifier,
 ) {
-  Box(modifier = modifier.semantics { role = Role.Button }.clip(ButtonDefaults.textShape)) {
-    Row(
-        modifier =
-            Modifier.combinedClickable(onLongClick = onLongClick, onClick = onClick)
-                .defaultMinSize(
-                    minWidth = ButtonDefaults.MinWidth, minHeight = ButtonDefaults.MinHeight)
-                .padding(ButtonDefaults.TextButtonContentPadding),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-      Text(
-          modifier = Modifier.padding(settings.padding.dp),
-          style = getTextStyle(settings.textStyle, MaterialTheme.typography),
-          fontFamily = getFontFamily(settings.fontFamily),
-          color = getTextColor(settings.textColor),
-          text = label)
-    }
-  }
+  val interactionSource = remember { MutableInteractionSource() }
+  val pressed by interactionSource.collectIsPressedAsState()
+  val backgroundColor =
+      if (pressed || selected) {
+        MaterialTheme.colorScheme.secondaryContainer
+      } else {
+        Color.Transparent
+      }
+  Box(
+      modifier =
+          modifier
+              .semantics { role = Role.Button }
+              .clip(ButtonDefaults.textShape)
+              .background(backgroundColor)
+              .combinedClickable(
+                  interactionSource = interactionSource,
+                  indication = LocalIndication.current,
+                  onLongClick = onLongClick,
+                  onClick = onClick)) {
+        Row(
+            modifier =
+                Modifier.defaultMinSize(
+                        minWidth = ButtonDefaults.MinWidth, minHeight = ButtonDefaults.MinHeight)
+                    .padding(ButtonDefaults.TextButtonContentPadding),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+          Text(
+              modifier = Modifier.padding(settings.padding.dp),
+              style = getTextStyle(settings.textStyle, MaterialTheme.typography),
+              fontFamily = getFontFamily(settings.fontFamily),
+              color = getTextColor(settings.textColor),
+              text = label)
+        }
+      }
 }
 
 private fun getTextStyle(
@@ -160,6 +185,7 @@ private fun HomeItemCardPreview() {
     HomeRowItemCard(
         modifier = Modifier.padding(30.dp),
         label = "app",
+        selected = false,
         onClick = { /*TODO*/},
         onLongClick = { /*TODO*/},
         settings = Defaults.AppCardSettings)

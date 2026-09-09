@@ -1,6 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_promptfoo//promptfoo:defs.bzl", "promptfoo_validate_test")
-load("@rules_skill//skill:defs.bzl", "skill_library")
+load("@rules_skills//skill:defs.bzl", "skill_library")
 
 skill_library(
     name = "skill",

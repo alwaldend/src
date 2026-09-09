@@ -4,7 +4,6 @@ go_library(
     name = "go_lib",
     srcs = [
         "main.go",
-        "tool.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/bazel_agent/cmd/bazel_agent",
     visibility = ["//visibility:private"],
@@ -20,7 +19,7 @@ go_test(
     name = "bazel_agent_test",
     srcs = [
         "main_test.go",
-        "tool_test.go",
+        "tool_removed_test.go",
     ],
     # keep
     embed = [":go_lib"],

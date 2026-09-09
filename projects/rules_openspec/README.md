@@ -28,7 +28,7 @@ OPENSPEC_PROJECT=infra/vault bazel_agent bazel run //tools/openspec -- list --sp
 `OPENSPEC_PROJECT` is a repository launcher setting, not an upstream CLI flag.
 It is relative to the enclosing repository root, and OpenSpec reads and writes
 that owner's source artifacts directly. Standalone nested projects use the
-same root invocation, for example `OPENSPEC_PROJECT=projects/rules_skill`.
+same root invocation, for example `OPENSPEC_PROJECT=projects/rules_skills`.
 
 Run upstream validation for all 51 owner workspaces in sandboxed tests against
 declared source inputs:

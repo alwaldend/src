@@ -2,6 +2,10 @@
 globals:
   config:
     any: true
+  tool:
+    any: true
+  tool_method:
+    any: true
   to_pb_json:
     any: true
   vim:

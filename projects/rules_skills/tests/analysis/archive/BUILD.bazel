@@ -1,0 +1,10 @@
+load("//skill:defs.bzl", "skill_archives")
+
+skill_archives(
+    name = "archive_skills",
+    roots = [
+        "skills/alpha",
+        "skills/beta",
+    ],
+    visibility = ["//tests/analysis:__pkg__"],
+)

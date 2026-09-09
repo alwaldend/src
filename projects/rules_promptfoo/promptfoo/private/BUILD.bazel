@@ -20,5 +20,5 @@ bzl_library(
         "//tests/analysis:__pkg__",
         "//tests/fake_cli:__pkg__",
     ],
-    deps = ["@rules_skill//skill:defs"],
+    deps = ["@rules_skills//skill:defs"],
 )

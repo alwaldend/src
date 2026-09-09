@@ -1,0 +1,11 @@
+{
+    "records": {
+        "activitywatch_ingester_android_landing": {
+            "CNAME": {
+                "name": "activitywatch-ingester-android",
+                "target": "alwaldend.github.io."
+            },
+            "dsp": ["global"]
+        }
+    }
+}

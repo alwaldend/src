@@ -21,7 +21,7 @@ Add the module and its skill-provider dependency:
 
 ```starlark
 bazel_dep(name = "rules_promptfoo", version = "<VERSION>")
-bazel_dep(name = "rules_skill", version = "<VERSION>")
+bazel_dep(name = "rules_skills", version = "<VERSION>")
 ```
 
 The development checkout uses sibling `local_path_override` declarations.

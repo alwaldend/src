@@ -22,8 +22,8 @@ local_path_override(
 )
 
 local_path_override(
-    module_name = "rules_skill",
-    path = "../rules_skill",
+    module_name = "rules_skills",
+    path = "../rules_skills",
 )
 
 local_path_override(

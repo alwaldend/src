@@ -141,3 +141,24 @@ MUST identify itself as deprecated compatibility functionality.
 - **THEN** its OpenSpec change exposes the original history and status
 - **AND** historical completion does not establish acceptance for a different
   candidate or automatically apply old specification deltas
+
+### Requirement: Rule scripts and generated documentation
+
+Bazel rules MUST NOT embed templated executable content in rule source. A rule
+that needs an executable MUST reference an ordinary checked-in script and
+supply its inputs as declared arguments or data files. Every public rule set
+MUST generate stardoc documentation for its public `.bzl` entry points, and the
+repository's main documentation output MUST include that generated
+documentation.
+
+#### Scenario: A rule needs to run scripted logic
+
+- **WHEN** an implementation needs a rule to run a script
+- **THEN** the script is checked in as a normal file with its own target and receives data through arguments or a declared data file
+- **AND** generated shell or program text does not live in the `.bzl` source
+
+#### Scenario: A rule set exposes public rules
+
+- **WHEN** a project publishes a public Bazel rule or macro
+- **THEN** it declares stardoc coverage for the declaring file
+- **AND** the generated pages appear in the repository documentation build

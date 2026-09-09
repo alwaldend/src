@@ -48,9 +48,9 @@ func (*skillLanguage) Loads() []rule.LoadInfo {
 func (*skillLanguage) ApparentLoads(
 	moduleToApparentName func(string) string,
 ) []rule.LoadInfo {
-	rulesSkill := moduleToApparentName("rules_skill")
+	rulesSkill := moduleToApparentName("rules_skills")
 	if rulesSkill == "" {
-		rulesSkill = "rules_skill"
+		rulesSkill = "rules_skills"
 	}
 	return []rule.LoadInfo{{
 		Name:    fmt.Sprintf("@%s//skill:defs.bzl", rulesSkill),

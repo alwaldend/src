@@ -196,13 +196,13 @@ func TestApparentLoads(t *testing.T) {
 		},
 		{
 			name: "legacy fallback",
-			want: "@rules_skill//skill:defs.bzl",
+			want: "@rules_skills//skill:defs.bzl",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			loads := lang.ApparentLoads(func(module string) string {
-				if module == "rules_skill" {
+				if module == "rules_skills" {
 					return tt.apparent
 				}
 				return ""

@@ -1,7 +1,7 @@
 ---
 name: bazel-rules-skill
 description: >-
-  Add or update repository skills packaged by the rules_skill Bazel rule and
+  Add or update repository skills packaged by the rules_skills Bazel rules and
   checked by its validation aspect. Use for canonical project-owned skill
   content, .agents discovery links, and skill BUILD.bazel declarations in this
   monorepo.
@@ -30,7 +30,7 @@ description: >-
 Add `<owner-project>/skills/lowercase-hyphen-name/BUILD.bazel`:
 
 ```starlark
-load("@rules_skill//skill:defs.bzl", "skill_library")
+load("@rules_skills//skill:defs.bzl", "skill_library")
 
 skill_library(
     name = "skill",
@@ -58,21 +58,22 @@ referenced script, icon, asset, and metadata file remains inside the glob.
 
 ## Register skill discovery
 
-Add the canonical `:skill` label to the complete `skills` list in the
-`skill_discovery_links` declaration in `.agents/BUILD.bazel`:
+Add the canonical `:skill` label to the `symlinks` list of the `skills_write`
+declaration in `.agents/BUILD.bazel`. Archive-backed skills go in its
+`archives` list instead:
 
 ```starlark
-load(
-    "@rules_skill//skill:defs.bzl",
-    "skill_discovery_links",
-)
+load("@rules_skills//skill:defs.bzl", "skills_write")
 
-skill_discovery_links(
-    name = "write_skill_links",
-    skills = [
+skills_write(
+    name = "write_skills",
+    discovery_dir = ".agents/skills",
+    symlinks = [
         # Existing canonical skill targets...
         "//projects/storage/skills/database-backup:skill",
     ],
+    archives = ["@org_fissionai_openspec//:openspec-propose"],
+    workspace_marker = "//:AGENTS.md",
 )
 ```
 
@@ -82,8 +83,8 @@ manifest or create `.agents/skills` links by hand. Run the updater, then its
 generated exact-state test:
 
 ```sh
-bazel_agent bazel run //.agents:write_skill_links
-bazel_agent bazel test //.agents:write_skill_links_test
+bazel_agent bazel run //.agents:write_skills
+bazel_agent bazel test //.agents:write_skills_test
 ```
 
 The test rejects missing, extra, indirect, or incorrectly targeted local
@@ -145,7 +146,7 @@ its `skill_validation` output group. Build the library to execute validation:
 bazel_agent bazel build //<owner-project>/skills/lowercase-hyphen-name:skill
 bazel_agent bazel test \
   //<owner-project>/skills/lowercase-hyphen-name:eval_config_test
-bazel_agent bazel test //.agents:write_skill_links_test
+bazel_agent bazel test //.agents:write_skills_test
 bazel_agent bazel test //:buildifier_test
 ```
 

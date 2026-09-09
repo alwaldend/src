@@ -1,0 +1,13 @@
+load("@rules_skills//skill:defs.bzl", "skill_archives")
+
+package(default_visibility = ["//visibility:public"])
+
+# Derive one skill target per upstream skill directory; new upstream skills are
+# picked up without editing this file.
+skill_archives(
+    name = "skills",
+    roots = [
+        manifest.rsplit("/", 1)[0]
+        for manifest in glob(["skills/*/SKILL.md"])
+    ],
+)

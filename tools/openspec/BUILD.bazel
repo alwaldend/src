@@ -1,5 +1,13 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
 alias(
     name = "openspec",
     actual = "@rules_openspec//main/bzl:openspec",
     visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//tools:__pkg__"],
 )
