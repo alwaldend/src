@@ -45,6 +45,13 @@
       ansible.builtin.import_role:
         name: alwaldend.main.dev_vm
         tasks_from: packages
+    - name: Configure SELinux for Android emulation
+      ansible.builtin.import_role:
+        name: alwaldend.main.dev_vm
+        tasks_from: selinux
+      tags:
+        - android
+        - selinux
     - name: Setup Bazel cache volume group
       ansible.builtin.import_role:
         name: alwaldend.main.lvg
