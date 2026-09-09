@@ -6,9 +6,9 @@
 - Schema: `agents.alwaldend.com/catalog/v1alpha1/capability-catalog`
 - Derivation: `1.0.0`
 - Producer: `repository.capability-compiler`
-- Source revision: `c57bca0851093160dfea90124e3d0893`
+- Source revision: `e3a94cd1c36ab8108c9d110c39ee0202`
 - Completeness: `complete`
-- JSON digest: `sha256:34705877e37ac0d0a28baca783cdb5dc42e6d3c4eb99b8a76bcb307e9d5eeeb0`
+- JSON digest: `sha256:bca0c5836142f72352abb884aff82c1321415f0ae052a2295a609470d5953a6c`
 
 ## Limitations
 
@@ -80,6 +80,10 @@ None.
   - exclusions: non-Bazel source-only edits
   - capabilities: code.execute, source.write
   - dependencies: bazel-agent
+- `android` (owned by `tools/android`): layer `procedure`, activation `Android app builds and publication`, cost `medium`
+  - exclusions: non-Android Java or Kotlin work
+  - capabilities: code.execute, source.write
+  - dependencies: bazel-agent, repo-bazel
 - `bazel-nested-module` (owned by `projects/agents`): layer `procedure`, activation `standalone nested Bzlmod modules`, cost `medium`
   - exclusions: ordinary Bazel packages
   - capabilities: source.write
@@ -123,6 +127,10 @@ None.
   - exclusions: apex-site changes, unrelated website design
   - capabilities: code.execute, remote.write, source.write
   - dependencies: bazel-agent, repo-bazel, repo-secrets, repo-terraform
+- `repo-vault` (owned by `projects/agents`): layer `security`, activation `Vault operations and token refresh`, cost `medium`
+  - exclusions: secret-value routing handled by repo-secrets
+  - capabilities: code.execute, credential.consume
+  - dependencies: bazel-agent
 - `spellcheck` (owned by `projects/agents`): layer `procedure`, activation `prose proofreading and rewriting`, cost `small`
   - exclusions: code linting, translation-only requests
   - capabilities: source.read, source.write

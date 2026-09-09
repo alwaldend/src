@@ -16,6 +16,9 @@ fi
 
 data=$(
     curl \
+        --fail \
+        --silent \
+        --show-error \
         --request POST \
         --cacert "${VAULT_CACERT}" \
         --cert "${url}" \
@@ -23,5 +26,9 @@ data=$(
         "${VAULT_ADDR}/v1/auth/cert/login" \
         "${@}"
 )
-token=$(echo "${data}" | jq -r .auth.client_token)
+token=$(echo "${data}" | jq -r '.auth.client_token | select(type == "string" and length > 0)')
+if [ -z "${token}" ]; then
+    echo "Login response did not contain a client token" >&2
+    exit 1
+fi
 echo "${token}" >~/.vault-token

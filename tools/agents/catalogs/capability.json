@@ -4,7 +4,7 @@
     "id": "agent-system.capability",
     "derivationVersion": "1.0.0",
     "producerRef": "repository.capability-compiler",
-    "sourceRevision": "c57bca0851093160dfea90124e3d0893",
+    "sourceRevision": "e3a94cd1c36ab8108c9d110c39ee0202",
     "inputs": [
         {
             "path": ".agents/skills/add-project-site",
@@ -15,6 +15,11 @@
             "path": ".agents/skills/agent-ergonomics-review",
             "role": "skill-discovery",
             "digest": "sha256:2d2ce9112cb793054f5b446c25a59db3f12bb63d0237184dfd43dfa9ceeeca7a"
+        },
+        {
+            "path": ".agents/skills/android",
+            "role": "skill-discovery",
+            "digest": "sha256:6f964f49e3dd3de4a3c62c8bb1021560f6fbcb692eac69ac3c95c9ea898247c0"
         },
         {
             "path": ".agents/skills/answer-question",
@@ -122,6 +127,11 @@
             "digest": "sha256:fc1fd76f77d52ffaa77d14e9e80ae617ab5a4eecd47f1e97c2ba53f7d6e70ba5"
         },
         {
+            "path": ".agents/skills/repo-vault",
+            "role": "skill-discovery",
+            "digest": "sha256:f4d03d85d951e09ea1dd923cf6931594e0fe117d7724a71e3ab82d3d3b2d77c9"
+        },
+        {
             "path": ".agents/skills/spellcheck",
             "role": "skill-discovery",
             "digest": "sha256:2b72217f79c78210961e45014b111fe0c8a86dbc4c00449673befb3d23d30f5c"
@@ -184,7 +194,7 @@
         {
             "path": "tools/agents/declarations/registry.json",
             "role": "registry",
-            "digest": "sha256:170f250ce280e6a1b024564d443fbca8b44c880f87cd120375bc710e664edb27"
+            "digest": "sha256:96c4fa708e499ca6df610a344ef9ecf3662b77bbd4d6b7e65c1a8a0dd0c7258b"
         },
         {
             "path": "tools/repo_delivery/agent_operations.json",
@@ -213,7 +223,7 @@
         }
     ],
     "bounds": {
-        "eligible": 41,
+        "eligible": 43,
         "emitted": 26,
         "unavailable": 0,
         "maxItems": 1000,
@@ -224,7 +234,7 @@
     "completeness": "complete",
     "limitations": [],
     "conflicts": [],
-    "digest": "sha256:34705877e37ac0d0a28baca783cdb5dc42e6d3c4eb99b8a76bcb307e9d5eeeb0",
+    "digest": "sha256:bca0c5836142f72352abb884aff82c1321415f0ae052a2295a609470d5953a6c",
     "skills": [
         {
             "id": "agent-ergonomics-review",
@@ -476,6 +486,31 @@
             "conflicts": null,
             "providerRequirements": [
                 "bazelisk"
+            ],
+            "contextCost": "medium",
+            "evaluationMaturity": "checked"
+        },
+        {
+            "id": "android",
+            "owner": "tools/android",
+            "canonicalPath": "tools/android/skills/android",
+            "discoveryPath": ".agents/skills/android",
+            "layer": "procedure",
+            "activation": "Android app builds and publication",
+            "exclusions": [
+                "non-Android Java or Kotlin work"
+            ],
+            "capabilityRefs": [
+                "code.execute",
+                "source.write"
+            ],
+            "dependencies": [
+                "bazel-agent",
+                "repo-bazel"
+            ],
+            "conflicts": null,
+            "providerRequirements": [
+                "gradle"
             ],
             "contextCost": "medium",
             "evaluationMaturity": "checked"
@@ -747,6 +782,30 @@
                 "dnscontrol",
                 "github",
                 "terraform"
+            ],
+            "contextCost": "medium",
+            "evaluationMaturity": "configuration-only"
+        },
+        {
+            "id": "repo-vault",
+            "owner": "projects/agents",
+            "canonicalPath": "projects/agents/skills/repo-vault",
+            "discoveryPath": ".agents/skills/repo-vault",
+            "layer": "security",
+            "activation": "Vault operations and token refresh",
+            "exclusions": [
+                "secret-value routing handled by repo-secrets"
+            ],
+            "capabilityRefs": [
+                "code.execute",
+                "credential.consume"
+            ],
+            "dependencies": [
+                "bazel-agent"
+            ],
+            "conflicts": null,
+            "providerRequirements": [
+                "vault"
             ],
             "contextCost": "medium",
             "evaluationMaturity": "configuration-only"

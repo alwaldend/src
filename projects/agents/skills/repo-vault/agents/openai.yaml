@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repository Vault"
+  short_description: "Operate Bazel Vault targets and refresh tokens safely"
+  default_prompt: "Use $repo-vault to handle this Vault operation safely."
