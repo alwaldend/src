@@ -21,7 +21,7 @@ Use the `al_gradle_lock` Starlark macro from
 `main/bzl/gradle_lock.bzl` in your app's `gradle/BUILD.bazel`:
 
 ```starlark
-load("//tools/maven_install_gradle_converter/main/bzl:gradle_lock.bzl", "al_gradle_lock")
+load("//tools/maven_install_gradle_converter:defs.bzl", "al_gradle_lock")
 
 al_gradle_lock(
     name = "update",
