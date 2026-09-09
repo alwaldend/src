@@ -23,7 +23,7 @@ must outlive the removal.
 **Non-Goals:**
 
 - Replacing the catalogs or capsule with another generated projection.
-- Changing `rules_skill` behavior or the `skill_discovery_links` contract.
+- Changing `rules_skills` behavior or the `skills_write` contract.
 - Relocating or re-authoring any skill.
 
 ## Decisions
@@ -34,8 +34,8 @@ directory it populates.
 The rule resolves skill roots and the discovery directory relative to the
 workspace root through `BUILD_WORKSPACE_DIRECTORY`, not relative to its own
 package, so the generated relative symlinks do not depend on where the
-declaration lives. A `write_skill_links` run after the move reconciled 27 links
-with no diff, and `//.agents:write_skill_links_test` passes.
+declaration lives. A `write_skills` run after the move reconciled 27 links
+with no diff, and `//.agents:write_skills_test` passes.
 
 `.agents/skills/BUILD.bazel` was rejected as the location. The generated
 updater and checker scripts scan every entry in the discovery directory and
@@ -60,7 +60,7 @@ would add no guarantee.
   workflow loses an input, but the projections are gone if a future need
   appears.
 - Skill discovery now depends on a dot-directory package. This is deliberate:
-  it colocates the generator with its output, and `//.agents:write_skill_links`
+  it colocates the generator with its output, and `//.agents:write_skills`
   is the single entry point.
 - Historical provenance under `projects/agents/openspec/changes/archive/`
   still references `tools/agents` paths. Those bytes are retained evidence and

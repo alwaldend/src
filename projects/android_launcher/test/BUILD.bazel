@@ -1,6 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_go//go:def.bzl", "go_test")
 load("@rules_kotlin//kotlin:android.bzl", "kt_android_local_test")
-load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 
 [
     kt_android_local_test(
@@ -19,9 +19,9 @@ load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
     for file in glob(["**/*.kt"])
 ]
 
-sh_binary(
+go_test(
     name = "launcher_smoke_test",
-    srcs = ["launcher_smoke_test.sh"],
+    srcs = ["launcher_smoke_test.go"],
     data = ["//projects/android_launcher/main/java:launcher_binary"],
     env = {
         "ACTIVITY_NAME": "com.alwaldend.src.projects.android_launcher.MainActivity",
@@ -34,6 +34,7 @@ sh_binary(
         "no-sandbox",
     ],
     visibility = ["//projects/android_launcher:__subpackages__"],
+    deps = ["@rules_go//go/runfiles"],
 )
 
 docs_filegroup(

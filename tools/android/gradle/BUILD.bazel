@@ -1,0 +1,7 @@
+exports_files(
+    ["libs.versions.toml"],
+    visibility = [
+        "//projects/activitywatch_ingester_android:__pkg__",
+        "//projects/android_launcher:__pkg__",
+    ],
+)

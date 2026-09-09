@@ -92,10 +92,10 @@ al_hugo_landing_site(
 )
 
 al_hugo_landing_site(
-    name = "rules_skill",
-    docs = "@rules_skill//:docs",
-    docs_url = "https://alwaldend.com/docs/projects/rules_skill/",
-    project = "rules_skill",
+    name = "rules_skills",
+    docs = "@rules_skills//:docs",
+    docs_url = "https://alwaldend.com/docs/projects/rules_skills/",
+    project = "rules_skills",
     repository_url = "https://github.com/alwaldend/src",
     title = "Rules Skill",
     visibility = ["//projects:__pkg__"],

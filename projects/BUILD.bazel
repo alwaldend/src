@@ -21,8 +21,8 @@ docs_filegroup(
         "@rules_iso//:docs",
         "@rules_promptfoo//:docs",
         "@rules_promptfoo_gazelle//:docs",
-        "@rules_skill//:docs",
         "@rules_skill_gazelle//:docs",
+        "@rules_skills//:docs",
         "@rules_template//:docs",
     ],
 )
@@ -54,7 +54,7 @@ al_release_binary(
                 "rules_promptfoo_gazelle",
                 "renders",
                 "rules_openspec",
-                "rules_skill",
+                "rules_skills",
                 "rules_skill_gazelle",
             ],
         )

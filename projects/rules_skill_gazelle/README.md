@@ -11,14 +11,14 @@ tags:
 
 `rules_skill_gazelle` adds a `skill_library(name = "skill")` to each named
 subpackage that contains a `SKILL.md`. The generated rule loads its macro from
-the apparent `rules_skill` repository, so Bzlmod repository mappings are
+the apparent `rules_skills` repository, so Bzlmod repository mappings are
 respected.
 
-Add `rules_skill` as a normal dependency and this generator as a development
+Add `rules_skills` as a normal dependency and this generator as a development
 dependency:
 
 ```starlark
-bazel_dep(name = "rules_skill", version = "<VERSION>")
+bazel_dep(name = "rules_skills", version = "<VERSION>")
 bazel_dep(
     name = "rules_skill_gazelle",
     version = "<VERSION>",
@@ -42,7 +42,7 @@ gazelle_binary(
 The generated source bundle is:
 
 ```starlark
-load("@rules_skill//skill:defs.bzl", "skill_library")
+load("@rules_skills//skill:defs.bzl", "skill_library")
 
 skill_library(
     name = "skill",
@@ -61,7 +61,7 @@ The generator always excludes `BUILD.bazel` and `BUILD`, plus every custom
 BUILD filename configured in Gazelle. Duplicate configured names are removed.
 
 `SKILL.md` is sufficient for Gazelle to create a new BUILD file below the
-repository root. A root-level `SKILL.md` is ignored because `rules_skill`
+repository root. A root-level `SKILL.md` is ignored because `rules_skills`
 requires a named package from which it can derive the skill name. Existing
 attributes on a manually maintained `skill_library(name = "skill")` are
 preserved, and a missing `SKILL.md` does not delete a manual rule.

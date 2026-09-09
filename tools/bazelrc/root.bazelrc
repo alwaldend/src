@@ -3,7 +3,7 @@ import %workspace%/tools/bazelrc/preset.bazelrc
 # Project-specific flags
 import %workspace%/tools/bazelrc/project.bazelrc
 # Validate skill_library targets whenever they are built.
-build --aspects @rules_skill//skill:defs.bzl%skill_validation_aspect
+build --aspects @rules_skills//skill:defs.bzl%skill_validation_aspect
 build --output_groups=+skill_validation
 
 # Run source linters over declared targets. Formatter drift is checked by

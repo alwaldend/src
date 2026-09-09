@@ -47,8 +47,8 @@ android_binary(
     name = "launcher_binary",
     manifest = "//projects/android_launcher:manifest",
     manifest_values = {
-        "versionCode": "0",
-        "versionName": "0.0.0",
+        "versionCode": "1",
+        "versionName": "0.0.0-dev",
         "applicationId": _PACKAGE,
     },
     visibility = ["//projects/android_launcher:__subpackages__"],

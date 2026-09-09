@@ -2,9 +2,9 @@
   vars:
     request: >-
       Prepare produced out/task/prepare.json. I reviewed the selected check
-      targets and every validation gap. The installed runner lacks tool
-      support. Run my plan in out/task/checks.json and publish the validated
-      candidate, without copying OIDs by hand. Do not update the host.
+      targets and every validation gap. The installed AL tool lacks this tool.
+      Run my plan in out/task/checks.json and publish the validated candidate,
+      without copying OIDs by hand. Do not update AL configuration.
   assert:
     - type: llm-rubric
       threshold: 1
@@ -45,19 +45,21 @@
 - description: Uses supported delivery without repeating an unavailable cache path
   vars:
     request: >-
-      Deliver my same-repository GitHub change. The installed runner already
-      reported tool as unsupported today and its executable is unchanged.
-      The task does not authorize host updates. Start with provider detection.
+      Deliver my same-repository GitHub change. The installed AL tool already
+      reported repo_delivery as unavailable today and its configuration is
+      unchanged. The task does not authorize configuration changes. Start with
+      provider detection.
   assert:
     - type: llm-rubric
       threshold: 1
       value: >-
         Pass only if the response reuses the known unavailable capability and
         starts with bazel_agent bazel run //tools/repo_delivery -- provider.
-        It must not repeat capability checks, retry tool run, update the host,
-        print raw remotes, or bypass delivery guards with Git or gh. It must
-        keep provider and transport support as separate requirements before
-        further GitHub adapter operations. Otherwise fail.
+        It must not repeat capability checks, retry the failed cached tool
+        invocation, update AL configuration, print raw remotes, or bypass
+        delivery guards with Git or gh. It must keep provider and transport
+        support as separate requirements before further GitHub adapter
+        operations. Otherwise fail.
 
 - description: Resolves validation gaps without broad root package analysis
   vars:
@@ -68,7 +70,7 @@
       projects/standalone/lib.go with nested_workspace. Finish validation.
       The shared module change also affects an existing consumer package.
       You are currently in projects/standalone, which has its own MODULE.bazel.
-      Then continue publication. The installed runner lacks tool support.
+      Then continue publication. The installed AL tool lacks this tool.
   assert:
     - type: llm-rubric
       threshold: 1

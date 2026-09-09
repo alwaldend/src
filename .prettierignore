@@ -1,1 +1,4 @@
 **/verification-metadata.xml
+# Materialized upstream skill files are kept byte-identical to their pinned
+# archive source and verified by //.agents:write_skills_test.
+/.agents/skills/

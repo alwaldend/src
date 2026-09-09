@@ -91,7 +91,7 @@ func bazelArguments(args []string) ([]string, error) {
 	if len(args) == 0 {
 		return nil, fmt.Errorf(
 			"a subcommand is required; usage: bazel_agent bazel <command> " +
-				"[args...], bazel_agent doctor, or bazel_agent tool",
+				"[args...], or bazel_agent doctor",
 		)
 	}
 	if args[0] == "doctor" {
@@ -100,7 +100,7 @@ func bazelArguments(args []string) ([]string, error) {
 	if args[0] != "bazel" {
 		return nil, fmt.Errorf(
 			"unknown command %q; usage: bazel_agent bazel <command> "+
-				"[args...], bazel_agent doctor, or bazel_agent tool",
+				"[args...], or bazel_agent doctor",
 			args[0],
 		)
 	}
@@ -288,13 +288,6 @@ func main() {
 	var err error
 	if len(args) > 0 && args[0] == "doctor" {
 		err = runDoctor(args[1:])
-	} else if len(args) > 0 && args[0] == "tool" {
-		err = runTool(
-			args[1:],
-			os.Environ(),
-			syscall.Exec,
-			bazelBuildTool,
-		)
 	} else {
 		err = run(
 			args,

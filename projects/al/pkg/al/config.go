@@ -78,6 +78,24 @@ func loadConfig(ctx context.Context, path string) (*al_proto.Config, error) {
 			}
 			return 1
 		}))
+		state.SetGlobal("tool_method", state.NewFunction(func(l *lua.LState) int {
+			method, err := parseToolMethod(l)
+			if err != nil {
+				state.ArgError(1, err.Error())
+				return 0
+			}
+			proto.Merge(res, &al_proto.Config{ToolMethods: []*al_proto.ToolMethod{method}})
+			return 0
+		}))
+		state.SetGlobal("tool", state.NewFunction(func(l *lua.LState) int {
+			tool, err := parseTool(l)
+			if err != nil {
+				state.ArgError(1, err.Error())
+				return 0
+			}
+			proto.Merge(res, &al_proto.Config{Tools: []*al_proto.Tool{tool}})
+			return 0
+		}))
 		err := state.DoString(string(configContent))
 		if err != nil {
 			return nil, fmt.Errorf("could not run Lua config %s", path)

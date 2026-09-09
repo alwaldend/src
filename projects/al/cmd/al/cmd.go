@@ -40,7 +40,38 @@ func newRootCommand(ctx *al.CmdCtx) (*cobra.Command, error) {
 	cmd.SetArgs(ctx.Args[1:])
 	cmd.AddCommand(newConfigCmd(ctx))
 	cmd.AddCommand(newRunCmd(ctx))
+	cmd.AddCommand(newToolCmd(ctx))
 	return cmd, nil
+}
+
+func newToolCmd(ctx *al.CmdCtx) *cobra.Command {
+	var configs []string
+	var cacheRoot string
+	cmd := &cobra.Command{
+		Use:   "tool [options] TOOL [--] [args...]",
+		Short: "Run a cache-backed repository tool",
+		Long:  "Run a cache-backed repository tool",
+		RunE: func(cmd *cobra.Command, args []string) error {
+			if len(args) == 0 {
+				return fmt.Errorf("tool name is required")
+			}
+			return al.RunTool(ctx.Ctx, &al.ToolOptions{
+				Arguments:     args,
+				CacheRoot:     cacheRoot,
+				ConfigPaths:   configs,
+				Environment:   os.Environ(),
+				Stdin:         ctx.Stdin,
+				Stdout:        ctx.Stdout,
+				Stderr:        ctx.Stderr,
+				WorkspaceRoot: os.Getenv("BUILD_WORKSPACE_DIRECTORY"),
+			})
+		},
+	}
+	flags := cmd.Flags()
+	flags.SetInterspersed(false)
+	flags.StringArrayVar(&configs, "config", nil, "Tool configuration path")
+	flags.StringVar(&cacheRoot, "cache-root", "", "Tool cache root")
+	return cmd
 }
 
 func newConfigCmd(ctx *al.CmdCtx) *cobra.Command {

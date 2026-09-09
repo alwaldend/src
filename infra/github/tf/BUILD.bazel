@@ -23,9 +23,27 @@ _DATA = glob(["*.tf"]) + [
     "//tools/vault/injector",
 ]
 
-_PROJECT_PAGES = {
-    project: project.replace("_", "-") + "-landing"
+# Projects whose published hostname and landing repository must not follow a
+# source-only rename. Keep this list empty except while a project is renamed, so
+# an apply never destroys a live landing repository or its custom domain.
+_PUBLISHED_PROJECT_HOSTNAMES = {
+    "rules_skills": "rules-skill",
+}
+
+_PROJECT_PAGE_HOSTNAMES = {
+    project: _PUBLISHED_PROJECT_HOSTNAMES.get(
+        project,
+        project.replace("_", "-"),
+    )
     for project in PROJECTS
+}
+
+_PROJECT_PAGES = {
+    project: {
+        "hostname": hostname,
+        "repository": hostname + "-landing",
+    }
+    for project, hostname in _PROJECT_PAGE_HOSTNAMES.items()
 }
 
 write_file(

@@ -1,6 +1,6 @@
 """Stages selected SkillInfo bundles as a Codex skill workspace."""
 
-load("@rules_skill//skill:defs.bzl", "SkillInfo")
+load("@rules_skills//skill:defs.bzl", "SkillInfo")
 
 PromptfooWorkspaceInfo = provider(
     doc = "An isolated workspace containing selected Codex skills.",
@@ -80,7 +80,7 @@ promptfoo_workspace = rule(
     implementation = _promptfoo_workspace_impl,
     attrs = {
         "skills": attr.label_list(
-            doc = "rules_skill targets to stage below .agents/skills.",
+            doc = "rules_skills targets to stage below .agents/skills.",
             providers = [[SkillInfo]],
         ),
     },

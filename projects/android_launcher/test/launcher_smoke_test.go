@@ -34,7 +34,10 @@ func adbOutput(t *testing.T, args ...string) string {
 }
 
 func TestLauncherSmoke(t *testing.T) {
-	apkPath := runfiles.MustPath("//projects/android_launcher/main/java:launcher_binary.apk")
+	apkPath, err := runfiles.Rlocation("_main/projects/android_launcher/main/java/launcher_binary.apk")
+	if err != nil {
+		t.Fatalf("resolve launcher APK: %v", err)
+	}
 	apkFile, err := os.Open(apkPath)
 	if err != nil {
 		t.Fatalf("open launcher APK: %v", err)
@@ -54,9 +57,10 @@ func TestLauncherSmoke(t *testing.T) {
 	var pid string
 	deadline := time.Now().Add(30 * time.Second)
 	for pid == "" && time.Now().Before(deadline) {
-		output := adbOutput(t, "shell", "pidof", *packageName)
-		pid = strings.TrimSpace(output)
-		if pid == "" {
+		output, err := adbCommand(t, "shell", "pidof", *packageName).Output()
+		if err == nil {
+			pid = strings.TrimSpace(string(output))
+		} else if pid == "" {
 			time.Sleep(500 * time.Millisecond)
 		}
 	}
@@ -69,6 +73,12 @@ func TestLauncherSmoke(t *testing.T) {
 
 func init() {
 	flag.Parse()
+	if *packageName == "" {
+		*packageName = os.Getenv("PACKAGE_NAME")
+	}
+	if *activityName == "" {
+		*activityName = os.Getenv("ACTIVITY_NAME")
+	}
 	if *adbPath == "" {
 		home, _ := os.UserHomeDir()
 		candidate := filepath.Join(home, "Android", "Sdk", "platform-tools", "adb")

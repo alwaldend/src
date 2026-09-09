@@ -9,9 +9,10 @@ projects/rules_promptfoo_gazelle
 projects/rules_hugo
 projects/rules_iso
 projects/rules_dnscontrol
-projects/rules_skill
+projects/rules_skills
 projects/rules_skill_gazelle
 projects/rules_openspec
 node_modules
 out
 tools/node_modules
+.agents/skills

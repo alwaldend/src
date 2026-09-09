@@ -12,6 +12,9 @@ dependencyResolutionManagement {
     google()
     mavenCentral()
   }
+  versionCatalogs {
+    create("androidPlugins") { from(files("../../tools/android/gradle/libs.versions.toml")) }
+  }
 }
 
 rootProject.name = "android_launcher"

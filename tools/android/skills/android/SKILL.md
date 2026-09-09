@@ -125,6 +125,47 @@ Do not run it as a CI test; it requires local Android platform tools and a
 connected device. Add one per Android app before F-Droid submission because
 `build_test` does not prove that the installed APK starts successfully.
 
+### Debug vs release APK signing
+
+`assembleRelease` produces an unsigned APK that Android refuses to install
+outside the F-Droid build server (which signs it server-side). Use
+`assembleDebug` for local device and emulator testing; Gradle signs the debug
+APK with the debug keystore so it installs directly.
+
+```sh
+bazel_agent bazel run //tools/gradle:gradle-wrapper -- assembleDebug
+```
+
+Run this from the app project directory with `ANDROID_HOME` set to the local
+Android SDK. The debug APK lands at
+`app/build/outputs/apk/debug/app-debug.apk`.
+
+### Troubleshooting "App not installed"
+
+The most common cause is a signature mismatch with an existing install.
+Uninstall the old version first:
+
+```sh
+adb uninstall <package>
+```
+
+Other causes to check:
+
+- **Unsigned release APK** — see the signing section above; use the debug
+  variant for local installs.
+- **ABI mismatch** — the APK may lack a native library for the device's CPU.
+  Check with `aapt dump badging app.apk | rg native-code`.
+- **Insufficient storage** — check `adb shell df /data`.
+- **Corrupt APK** — verify it parses: `aapt dump badging app.apk`.
+- **Unknown sources** — enable "Install unknown apps" for your file manager or
+  adb source in Settings → Apps → Special access.
+
+Watch `PackageManager` errors while attempting the install:
+
+```sh
+adb logcat | rg 'PackageManager|INSTALL_FAILED'
+```
+
 ## Standard repo practices
 
 - Put all Android source under `projects/<app>/main/java/` with resources in

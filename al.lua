@@ -66,6 +66,20 @@ lib.plugin({
     bin = "com_alwaldend_src/tools/vault/injector/injector_/injector",
 })
 
+tool_method({
+    name = "repo_delivery",
+    kind = "bazel",
+    bazel = {
+        target = "//tools/repo_delivery/cmd/repo_delivery:go",
+        output = "bazel-bin/tools/repo_delivery/cmd/repo_delivery/go_/go",
+    },
+})
+
+tool({
+    name = "repo_delivery",
+    method = "repo_delivery",
+})
+
 lib.plugin({
     name = "forgejo_login",
     bin = "com_alwaldend_src/tools/vault/forgejo_login/forgejo_login_/forgejo_login",

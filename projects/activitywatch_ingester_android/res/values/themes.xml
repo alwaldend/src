@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <!--
+      The Compose theme owns in-app colors. This platform theme only covers the window before the
+      first composition, so the status bar never flashes an untinted background.
+    -->
+    <style
+        name="Theme.Ingester"
+        parent="android:Theme.DeviceDefault.Light.NoActionBar"
+    >
+        <item name="android:windowBackground">@color/window_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item
+            name="android:navigationBarColor"
+        >@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

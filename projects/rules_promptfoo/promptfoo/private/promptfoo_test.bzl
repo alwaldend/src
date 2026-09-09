@@ -366,7 +366,7 @@ def promptfoo_test(
     Args:
         name: Target name.
         config: Promptfoo configuration file.
-        skills: rules_skill targets staged for Codex discovery.
+        skills: rules_skills targets staged for Codex discovery.
         args: Additional literal Promptfoo CLI arguments.
         data: Runtime files needed by the Promptfoo configuration.
         env: Non-secret environment variables.

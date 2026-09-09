@@ -1,0 +1,1 @@
+Send browser tabs from Android accessibility to ActivityWatch.

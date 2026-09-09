@@ -14,7 +14,7 @@
         while excluding BUILD.bazel and evals; adds the canonical :skill label
         directly to .agents/BUILD.bazel's skill_discovery_links declaration
         without a separate config or manual symlink edits; runs
-        //.agents:write_skill_links and its generated exact-state test;
+        //.agents:write_skills and its generated exact-state test;
         adds agents metadata whose default prompt names the skill; adds
         required offline Promptfoo configuration validation; and proposes
         targeted skill, Promptfoo, discovery-link, and Buildifier checks

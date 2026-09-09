@@ -48,7 +48,7 @@ The extension SHALL preserve existing attributes on a manually maintained
 ### Requirement: Respect the apparent skill repository name
 
 The extension SHALL load `skill_library` from the apparent Bzlmod name of
-`rules_skill`, falling back to `rules_skill` when no mapping is available.
+`rules_skills`, falling back to `rules_skills` when no mapping is available.
 
 #### Scenario: A consumer maps the skill module to another apparent name
 

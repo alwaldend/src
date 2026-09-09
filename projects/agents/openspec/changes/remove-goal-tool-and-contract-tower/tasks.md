@@ -1,12 +1,12 @@
 ## 1. Relocate skill discovery
 
-- [x] 1.1 Add `.agents/BUILD.bazel` with the `skill_discovery_links`
+- [x] 1.1 Add `.agents/BUILD.bazel` with the `skills_write`
       declaration, `discovery_dir = ".agents/skills"`, and a
       `skill_discovery` package group for `//.agents`.
 - [x] 1.2 Repoint every skill `BUILD.bazel` visibility label from
       `//tools/agents:skill_discovery` to `//.agents:skill_discovery`.
-- [x] 1.3 Confirm `//.agents:write_skill_links_test` passes and
-      `//.agents:write_skill_links` reconciles 27 links with no diff.
+- [x] 1.3 Confirm `//.agents:write_skills_test` passes and
+      `//.agents:write_skills` reconciles 27 links with no diff.
 
 ## 2. Remove the control tower
 
@@ -26,7 +26,7 @@
 
 ## 4. Validate
 
-- [x] 4.1 `bazel_agent bazel test //.agents:write_skill_links_test` passes; the
+- [x] 4.1 `bazel_agent bazel test //.agents:write_skills_test` passes; the
       updater reconciles 27 links with no diff.
 - [x] 4.2 `bazel_agent bazel test //tools/repo_quality:repo_quality_test`
       passes.

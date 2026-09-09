@@ -9,18 +9,6 @@ required = false
 startup_timeout_sec = 120
 tool_timeout_sec = 300
 
-[[hooks.SessionStart]]
-matcher = "^startup$"
-
-[[hooks.SessionStart.hooks]]
-type = "command"
-command = '''
-bazel_agent bazel info server_pid >/dev/null 2>&1 || true
-bazel_agent tool warm repo_delivery >/dev/null 2>&1 || true
-'''
-async = true
-timeout = 600
-
 [[hooks.SessionEnd]]
 
 [[hooks.SessionEnd.hooks]]

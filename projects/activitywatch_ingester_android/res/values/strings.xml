@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <string name="app_name">ActivityWatch ingester</string>
+    <string name="accessibility_service_description">
+        Collects browser address-bar text and sends it to ActivityWatch on this device.
+    </string>
+    <string name="settings_title">ActivityWatch ingester</string>
+    <string
+        name="settings_subtitle"
+    >Sends browser address-bar activity to ActivityWatch.</string>
+    <string name="settings_group_server">Server</string>
+    <string name="settings_base_url">ActivityWatch server URL</string>
+    <string
+        name="settings_base_url_support"
+    >Loopback default: http://127.0.0.1:5600</string>
+    <string name="settings_api_key">API key (optional)</string>
+    <string name="settings_group_capture">Capture</string>
+    <string
+        name="settings_accessibility"
+    >Enable accessibility ingestion</string>
+    <string name="settings_accessibility_support">
+        Requires the full-accessibility service toggle in Android settings.
+    </string>
+    <string name="settings_url_extraction">Extract URLs</string>
+    <string name="settings_url_extraction_support">
+        Sends the focused browser address bar as a web.tab.current heartbeat.
+    </string>
+    <string name="settings_key_logging">Log key presses</string>
+    <string name="settings_key_logging_support">
+        Reserved capture gate; no key events are transmitted yet.
+    </string>
+    <string
+        name="settings_open_accessibility"
+    >Open accessibility settings</string>
+</resources>

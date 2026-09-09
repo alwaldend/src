@@ -18,18 +18,15 @@ worktree. Load `$bazel-agent` and `$repo-bazel` for invocation and validation.
 Run all delivery commands from this feature worktree's Git repository root,
 which owns the root `MODULE.bazel` and `tools/repo_delivery`, including when
 the change belongs to a nested Bazel module. Use that same worktree's root,
-not another checkout. The baseline works with older installed runners:
+not another checkout. The baseline works with a bare Bazel entry point:
 
 ```sh
 bazel_agent bazel run //tools/repo_delivery -- provider
 ```
 
-For the cached path, follow `$bazel-agent` capability detection once per runner
-binary: if support is unknown, inspect `bazel_agent tool --help`; use
-`bazel_agent tool run repo_delivery -- ...` only when supported. Retain the
-result. An unsupported `tool` command uses the baseline above without a host
-update. A delivery refusal or execution failure needs diagnosis, not a change
-of entry point. Below, `repo_delivery <command>` means the selected invocation.
+For the cached path, use `al tool repo_delivery -- ...` when configured. A
+delivery refusal or execution failure needs diagnosis, not a change of entry
+point. Below, `repo_delivery <command>` means the selected invocation.
 
 For `validate`, use the cached entry point or generate one task-local launcher
 from the repository root, then invoke that launcher. This releases Bazel's
