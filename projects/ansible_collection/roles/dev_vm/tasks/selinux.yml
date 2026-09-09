@@ -1,0 +1,12 @@
+---
+- name: Configure SELinux booleans for Android emulation
+  when: dev_vm_selinux_android_emulation | bool
+  tags:
+    - dev_vm
+    - selinux
+  block:
+    - name: Allow executable heap for QEMU user-mode emulation
+      ansible.posix.seboolean:
+        name: selinuxuser_execheap
+        state: true
+        persistent: true
