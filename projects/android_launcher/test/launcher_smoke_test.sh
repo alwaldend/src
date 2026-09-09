@@ -11,7 +11,10 @@ if [ ! -x "$adb" ]; then
     exit 1
 fi
 
-apk="$(find -L "${RUNFILES_DIR:?}" -type f -name '*.apk' | head -1)"
+apk="$(find -L "${RUNFILES_DIR:?}" -type f -name '*.apk' | grep -v '_unsigned' | head -1)"
+if [ -z "$apk" ]; then
+    apk="$(find -L "${RUNFILES_DIR:?}" -type f -name '*.apk' | head -1)"
+fi
 if [ -z "$apk" ]; then
     echo >&2 "launcher APK not found in runfiles"
     exit 1
