@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android"
+  short_description: "Build and publish Android apps from this Bazel monorepo"
+  default_prompt: "Use $android to build, package, or publish an Android app, including the Gradle parallel build required for F-Droid."

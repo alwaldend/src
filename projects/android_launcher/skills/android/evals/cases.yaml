@@ -1,0 +1,9 @@
+- vars:
+    request: "Does the Android skill describe the F-Droid Gradle parallel build requirement?"
+  assert:
+    - type: contains
+      value: "F-Droid"
+    - type: contains
+      value: "Gradle"
+    - type: contains
+      value: "al_gradle_lock"

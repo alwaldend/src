@@ -1,0 +1,12 @@
+# yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
+description: Validate Android skill loads and contains required sections
+
+prompts:
+  - "{{request}}"
+
+providers:
+  - id: echo
+    config:
+      transform: output
+
+tests: file://cases.yaml
