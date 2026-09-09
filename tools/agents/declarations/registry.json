@@ -359,6 +359,32 @@
             "evaluationMaturity": "checked"
         },
         {
+            "id": "repo-vault",
+            "owner": "projects/agents",
+            "layer": "security",
+            "activation": "Vault operations and token refresh",
+            "exclusions": ["secret-value routing handled by repo-secrets"],
+            "capabilityRefs": ["credential.consume", "code.execute"],
+            "dependencies": ["bazel-agent"],
+            "conflicts": [],
+            "providerRequirements": ["vault"],
+            "contextCost": "medium",
+            "evaluationMaturity": "configuration-only"
+        },
+        {
+            "id": "android",
+            "owner": "tools/android",
+            "layer": "procedure",
+            "activation": "Android app builds and publication",
+            "exclusions": ["non-Android Java or Kotlin work"],
+            "capabilityRefs": ["code.execute", "source.write"],
+            "dependencies": ["bazel-agent", "repo-bazel"],
+            "conflicts": [],
+            "providerRequirements": ["gradle"],
+            "contextCost": "medium",
+            "evaluationMaturity": "checked"
+        },
+        {
             "id": "spellcheck",
             "owner": "projects/agents",
             "layer": "procedure",

@@ -1,11 +1,11 @@
 # Skill coverage matrix
 
 - Case entries: 6
-- Capability skills: 25
+- Capability skills: 27
 - Skills with configured cases: 5
 - Output truncated: false
-- Catalog digest: `sha256:34705877e37ac0d0a28baca783cdb5dc42e6d3c4eb99b8a76bcb307e9d5eeeb0`
-- Matrix digest: `sha256:65f0a468cae0fb660d0c50cf213885667b66ec1abee11bf923c0a27d6b57a0b7`
+- Catalog digest: `sha256:bca0c5836142f72352abb884aff82c1321415f0ae052a2295a609470d5953a6c`
+- Matrix digest: `sha256:5e51a9a521d38e1c6a58a394104b1cfefbfea7129f935a1846d40d9067fb8c36`
 
 | Skill | Case | Metric | Tier | Source |
 | --- | --- | --- | --- | --- |
