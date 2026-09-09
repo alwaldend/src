@@ -36,7 +36,7 @@ dependencies so an F-Droid reviewer sees a conventional Gradle project.
 (`tools/maven_install_gradle_converter/cmd/gradle_lock_gen`) reads the `maven_lock.json` lock file
 and produces `gradle/libs.versions.toml` and
 `gradle/verification-metadata.xml`. The `al_gradle_lock` Starlark macro
-(`tools/maven_install_gradle_converter/main/bzl/gradle_lock.bzl`) wires these through
+(`tools/maven_install_gradle_converter/defs.bzl`) wires these through
 `write_source_file`, so a Bazel test (`*_write_test`) fails when the checked-in
 Gradle files go stale relative to the Bazel lock.
 

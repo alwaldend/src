@@ -1,4 +1,4 @@
-load("//tools/maven_install_gradle_converter/main/bzl:gradle_lock.bzl", "al_gradle_lock")
+load("//tools/maven_install_gradle_converter:defs.bzl", "al_gradle_lock")
 
 exports_files(
     [

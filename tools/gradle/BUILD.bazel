@@ -1,6 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/gradle/main/bzl:gradle_wrapper_binary.bzl", "gradle_wrapper_binary")
-load("//tools/gradle/main/bzl:java_home.bzl", "java_home")
+load("//tools/gradle:defs.bzl", "gradle_wrapper_binary")
+load("//tools/gradle:java_home.bzl", "java_home")
 
 java_home(
     name = "java_home",
