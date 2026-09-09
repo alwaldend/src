@@ -14,6 +14,13 @@ docs_filegroup(
     ],
 )
 
+exports_files(
+    ["maven_lock.json"],
+    visibility = [
+        "//projects/android_launcher:__subpackages__",
+    ],
+)
+
 filegroup(
     name = "manifest",
     srcs = ["AndroidManifest.xml"],

@@ -1,0 +1,32 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/gradle/main/bzl:gradle_wrapper_binary.bzl", "gradle_wrapper_binary")
+load("//tools/gradle/main/bzl:java_home.bzl", "java_home")
+
+java_home(
+    name = "java_home",
+    runtime = "@rules_java//toolchains:remotejdk_21",
+    visibility = ["//:__subpackages__"],
+)
+
+gradle_wrapper_binary(
+    name = "gradle-wrapper",
+    data = [
+        "//third_party/net_gradle_gradle:gradle_distribution",
+        "//tools/gradle:java_home",
+        "@rules_java//toolchains:remotejdk_21",
+    ],
+    gradle = "@net_gradle_gradle//:bin/gradle",
+    java_home = ":java_home",
+    tags = [
+        "external",
+        "no-cache",
+        "no-sandbox",
+    ],
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools:__pkg__"],
+)

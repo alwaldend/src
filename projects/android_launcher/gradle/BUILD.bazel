@@ -1,0 +1,15 @@
+load("//tools/maven_install_gradle_converter/main/bzl:gradle_lock.bzl", "al_gradle_lock")
+
+exports_files(
+    [
+        "libs.versions.toml",
+        "verification-metadata.xml",
+    ],
+    visibility = ["//projects/android_launcher:__subpackages__"],
+)
+
+al_gradle_lock(
+    name = "update",
+    lock_file = "//projects/android_launcher:maven_lock.json",
+    tool = "//tools/maven_install_gradle_converter/cmd/gradle_lock_gen",
+)

@@ -51,7 +51,7 @@ android_binary(
         "versionName": "0.0.0",
         "applicationId": _PACKAGE,
     },
-    visibility = ["//projects/android_launcher/releases:__pkg__"],
+    visibility = ["//projects/android_launcher:__subpackages__"],
     deps = [":launcher_library"],
 )
 
@@ -59,6 +59,7 @@ build_test(
     name = "test_builds",
     targets = [
         ":launcher_binary",
+        "//projects/android_launcher/test:launcher_smoke_test",
     ],
 )
 

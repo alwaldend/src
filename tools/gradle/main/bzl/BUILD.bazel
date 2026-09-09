@@ -1,0 +1,11 @@
+load("//tools/bzl/main/bzl:al_bzl_library_map.bzl", "al_bzl_library_map")
+
+al_bzl_library_map(
+    name = "libs",
+    libs = {
+        "java_home": [
+            "@rules_java//java/common:common",
+        ],
+    },
+    visibility = ["//:__subpackages__"],
+)

@@ -472,3 +472,7 @@ dist
 hs_err_pid*
 replay_pid*
 /.aspect
+
+# Android/Gradle build outputs
+build/
+.gradle/
