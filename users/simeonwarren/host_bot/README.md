@@ -85,6 +85,26 @@ isolated home defaults to `~deepseek/deepseek-v4-flash-latest` and shares no
 conversation state with the ChatGPT-backed Codex provider. Start a new thread
 when selecting it.
 
+The OpenRouter no-tools home at `~/.codex-openrouter-no-tools` mirrors the
+OpenRouter provider with every tool surface disabled. It reuses the same
+keyring lookup and model, sets `web_search = "disabled"`, turns off the shell,
+unified-exec, image, multi-agent, computer-use, browser, app, plugin, and goal
+features, and disables the `request_user_input` tool and the MCP servers.
+Codex then advertises no tools at all, so the model can only reply with text.
+This matters beyond tidiness: OpenRouter rejects a request that carries any
+tools when its routed endpoint supports none, so a single leftover tool fails
+the turn.
+
+T3 Code launches the Codex app server with
+`-c mcp_servers.t3-code.url=...`, so its own MCP server would otherwise
+reintroduce the MCP resource tools. The no-tools config therefore declares
+`[mcp_servers.t3-code]` with `enabled = false`, which still wins over that
+launch-time override.
+
+Select it in T3 Code with `CODEX_HOME path` set to
+`/var/home/simeonwarrenbot/.codex-openrouter-no-tools` and start a new thread.
+The Abliteration and standard OpenRouter homes keep their tools.
+
 Abliteration uses a separate home with
 `CODEX_HOME="$HOME/.codex-abliteration" codex`, using the endpoint and model from its
 [Codex integration guide](https://docs.abliteration.ai/integrations/codex).

@@ -1,0 +1,87 @@
+model_provider = "openrouter"
+model = "~deepseek/deepseek-v4-flash-latest"
+model_reasoning_effort = "low"
+default_permissions = "host-bot"
+review_model = "~deepseek/deepseek-v4-flash-latest"
+approvals_reviewer = "auto_review"
+web_search = "disabled"
+
+[features]
+shell_tool = false
+unified_exec = false
+view_image = false
+image_generation = false
+multi_agent = false
+computer_use = false
+browser_use = false
+apps = false
+plugins = false
+goals = false
+
+# Explicit per-tool controls. The [features] flags above are version
+# dependent; these documented tool switches keep the emitted tool array empty
+# even when a client build does not recognize a given feature name.
+[tools]
+experimental_request_user_input = { enabled = false }
+update_plan = { enabled = false }
+view_image = false
+
+[model_providers.openrouter]
+name = "OpenRouter"
+base_url = "https://openrouter.ai/api/v1"
+wire_api = "responses"
+
+[model_providers.openrouter.auth]
+command = "/usr/bin/secret-tool"
+args = ["lookup", "service", "openrouter", "application", "codex"]
+
+[projects."/var/home/simeonwarrenbot/Projects/src"]
+trust_level = "trusted"
+
+[permissions.host-bot]
+description = "Workspace access with public network and Bazel caches."
+extends = ":workspace"
+
+[permissions.host-bot.filesystem]
+"/var/cache/bazel/disk_cache" = "write"
+"/var/cache/bazel/output_user_root" = "write"
+"/var/cache/bazel/tool_cache" = "write"
+"~/.cache/bazelisk" = "write"
+
+[permissions.host-bot.network]
+enabled = true
+allow_local_binding = true
+
+[permissions.host-bot.network.domains]
+"*" = "allow"
+"localhost" = "allow"
+"127.0.0.1" = "allow"
+"::1" = "allow"
+
+[mcp_servers.open_computer_use]
+command = "/var/home/simeonwarrenbot/.local/bin/open-computer-use"
+args = ["mcp"]
+enabled = false
+
+# T3 Code launches the app-server with
+# `-c mcp_servers.t3-code.url=...`, which would otherwise expose the MCP
+# resource tools (list_mcp_resources et al.). Disable it here; a config-file
+# `enabled = false` still wins over that launch-time override. The url is a
+# placeholder so this file parses when the client does not supply one.
+[mcp_servers.t3-code]
+url = "http://127.0.0.1:3773/mcp"
+bearer_token_env_var = "T3_MCP_BEARER_TOKEN"
+enabled = false
+
+# mcp_cordis is declared by the repository project config. Define the command
+# here as well so this file parses on its own, and disable it so this provider
+# exposes no MCP tools.
+[mcp_servers.mcp_cordis]
+command = "/bin/false"
+enabled = false
+
+[shell_environment_policy.filters]
+T3_MCP_BEARER_TOKEN = "exclude"
+
+[shell_environment_policy.set]
+T3_MCP_BEARER_TOKEN = ""
