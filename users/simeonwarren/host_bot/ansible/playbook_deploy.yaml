@@ -306,6 +306,35 @@
         mode: "0600"
       tags:
         - codex
+    - name: Create the OpenRouter no-tools Codex directories
+      become: false
+      ansible.builtin.file:
+        path: "~/.codex-openrouter-no-tools"
+        state: directory
+        mode: "0700"
+      tags:
+        - codex
+        - codex_openrouter_no_tools
+        - open_computer_use
+    - name: Configure the OpenRouter no-tools Codex provider
+      become: false
+      ansible.builtin.copy:
+        src: codex_openrouter_no_tools_provider_config.toml
+        dest: "~/.codex-openrouter-no-tools/config.toml"
+        mode: "0600"
+      tags:
+        - codex
+        - codex_openrouter_no_tools
+        - open_computer_use
+    - name: Configure OpenRouter no-tools Codex instructions
+      become: false
+      ansible.builtin.copy:
+        src: codex_agents.md
+        dest: "~/.codex-openrouter-no-tools/AGENTS.md"
+        mode: "0600"
+      tags:
+        - codex
+        - codex_openrouter_no_tools
     - name: Configure managed Codex requirements
       ansible.builtin.copy:
         src: codex_requirements.toml
