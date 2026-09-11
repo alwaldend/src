@@ -5,7 +5,7 @@ later local continuation.
 
 ## Roles
 
-- The coordinator is the only writer of canonical goal state.
+- The coordinator is the only writer of canonical change state.
 - One explicitly named local Blender MCP session or sponsor-approved native
   Blender artist is the sole writer of each model candidate.
 - Measurement and technical QA may run in parallel on frozen copies.
@@ -16,31 +16,31 @@ later local continuation.
 - `technique valid` means an operation behaved as intended.
 - `module retained` means a bounded component improved without a regression.
 - `stage pass` means one exact candidate passed every gate for that stage.
-- `goal accepted` means one exact candidate passed every current required
+- `asset accepted` means one exact candidate passed every current required
   criterion and exact-byte delivery was verified.
 
-Only `stage pass` advances modeling tiers. Only `goal accepted` may populate
-the goal's accepted attempt and result digest. An `accept` review decision for
-a technique or module is not asset acceptance.
+Only `stage pass` advances modeling tiers. Only `asset accepted` may record an
+accepted candidate and result digest in the change. An `accept` review decision
+for a technique or module is not asset acceptance.
 
 ## Workspace handoff and user feedback
 
 `out/reimu_fumo_finish/CURRENT.md` is the local artifact-discovery convenience
 projection when the originating worktree is available. It is ignored, may be
-absent in a fresh worktree, and never overrides the canonical goal or frozen
+absent in a fresh worktree, and never overrides the canonical change or frozen
 receipts. The coordinator updates it after a decision-bearing execution,
 attempt, baseline, candidate, render, blocker, or acceptance change. It must
 record:
 
 - its observation and durable source identity;
-- goal resource version, outcome, execution, and accepted attempt or `none`;
+- change status, attempt state, and accepted packet or `none`;
 - protected baseline path and SHA-256;
 - latest saved Reimu candidate path, SHA-256, and `accepted`, `rejected`, or
   `baseline` label;
 - latest reviewable Reimu render path with the same label;
 - terminal capability result, blocker, resume condition, and next authorized
   action; and
-- the durable goal and pull-request links.
+- the durable change and pull-request links.
 
 Never point a “latest Reimu” field at an unsaved viewport state or a technique
 coupon. A direct request for status, a render, or a model path is answered in
@@ -49,7 +49,7 @@ continues.
 
 Local artifact lookup in the originating worktree requires only this asset
 README and the workspace index. Normal task orientation still follows the
-repository instructions. Before mutation, read the canonical goal, current
+repository instructions. Before mutation, read the canonical change, current
 criteria, active attempt when one exists, and the skills for the current
 phase. Do not load historical attempts or later-phase procedures unless the
 current decision needs them.
@@ -82,32 +82,32 @@ satisfies only the external-availability condition: it permits the coordinator
 to reopen execution for one bounded capability investigation per named route
 and hypothesis, not to accept that capability.
 
-Before exercising the organic capability question, create a new active portable
-goal plan or use the already-active plan whose strategy matches the route and
-hypothesis. If execution is `blocked`, use a separate plan-only, no-attempt
-checkpoint to return it to `active`; do not combine that transition with
-attempt start. If both the intended plan and active execution are already
-current, emit no checkpoint. Then bind the plan and start a durable
-investigation attempt. A pass closes the investigation with an `accept` review
-decision, accepts the settled capability plan, keeps goal outcome `open` and
-execution `active`, and may then authorize modeling through that route. A
-failure closes the attempt with its negative evidence, rejects the settled
-route plan with the failure reason, and returns execution to `blocked` only
-when no other authorized route is immediately actionable because a named
-authority, input, or external state is unavailable; otherwise execution
-remains `active` for the ready route. Causally justified setup repairs remain
-checkpoints in the same attempt while the route, hypothesis, and gate remain
-unchanged.
+Before exercising the organic capability question, record the route and
+hypothesis as the active plan in this project's OpenSpec change
+(`projects/renders/openspec/changes/reimu-fumo-finish/`). If execution is
+`blocked`, first record a plan-only change update that returns it to `active`;
+do not combine that transition with attempt start. If the intended plan and
+active execution are already current, emit no update. Then bind the plan and
+start a durable investigation attempt recorded in the change. A pass closes the
+investigation with an `accept` review decision, accepts the settled capability
+plan, keeps the change open with execution `active`, and may then authorize
+modeling through that route. A failure records the attempt result and negative
+evidence, rejects the settled route plan with the failure reason, and returns
+execution to `blocked` only when no other authorized route is immediately
+actionable because a named authority, input, or external state is unavailable;
+otherwise execution remains `active` for the ready route. Causally justified
+setup repairs remain recorded in the same attempt while the route, hypothesis,
+and gate remain unchanged.
 
-Every checkpoint that changes execution to `blocked` must record the named
-unavailable authority, input, or external state and a concrete, testable resume
-condition in its durable result or evidence and in the ignored `CURRENT.md`
-projection. When those values are known before a newly created terminal
-investigation starts, also publish them through its structured `blocker` and
+Every recorded change update that sets execution to `blocked` must record the
+named unavailable authority, input, or external state and a concrete, testable
+resume condition in its durable result or evidence and in the ignored
+`CURRENT.md` projection. When those values are known before a newly created
+terminal investigation starts, also record them in the attempt's `blocker` and
 `resumeCondition` fields. Those attempt fields are immutable: when a blocker is
 learned while closing an existing capability or modeling attempt, preserve it
 in the close result and evidence instead of pretending to update the frozen
-attempt specification.
+attempt record.
 
 After a route satisfies the resume condition, run checkpoint zero before a
 model attempt. Use disposable bytes and check only contracts the planned work
@@ -135,49 +135,47 @@ consumes that budget only after a checkpoint names the failed check, causal
 change, and predicted result. If the budget is exhausted or a check is
 irreparable, the terminal failure becomes a decision about the route. Prepare
 uniquely named Markdown plan, result, and evidence inputs that preserve the
-decision-relevant failure receipt and digest. First create its new active
-portable goal plan, or use its already-active portable goal plan
-whose strategy matches the frozen preflight plan. Use a plan-only, no-attempt
-checkpoint for plan creation and/or a required
-`blocked`-to-`active` transition. If both the intended plan and active execution
-are already current, emit no checkpoint. Then bind that plan ID and start and
-close one bounded `investigation` attempt with a `reset` review decision,
-reject the plan with the terminal reason, and keep outcome `open`. Set execution
-to `blocked` only when no other authorized route is immediately actionable
-because a named authority, input, or external state is unavailable; otherwise
-keep execution `active` for the ready route. Leave acceptance pointers unset
-and do not open Reimu bytes. Use repository delivery to commit and push that
-checkpoint and verify remote reachability before claiming the route is durably
-retired. If publication fails, preserve the closed local investigation, report
+decision-relevant failure receipt and digest. First record the plan in the
+OpenSpec change, or reuse the recorded plan whose strategy matches the frozen
+preflight plan. Use a plan-only change update for plan creation and/or a
+required `blocked`-to-`active` transition. If the intended plan and active
+execution are already current, emit no update. Then record the plan and start
+and close one bounded `investigation` attempt with a `reset` review decision,
+reject the plan with the terminal reason, and keep the change open. Set
+execution to `blocked` only when no other authorized route is immediately
+actionable because a named authority, input, or external state is unavailable;
+otherwise keep execution `active` for the ready route. Record no accepted
+packet and do not open Reimu bytes. Use repository delivery to commit and push
+that change update and verify remote reachability before claiming the route is
+durably retired. If publication fails, preserve the closed local investigation, report
 that retirement is not remote, and repair or reconcile repository delivery
 under the causal-retry rule. Do not rerun checkpoint zero unless a new route or
 hypothesis is authorized.
 
 Write a passing receipt last under
 `out/reimu_fumo_finish/preflight/<session-id>/receipt.json`. Before attempt
-start, create a new active portable goal plan or use its already-active portable
-goal plan whose strategy matches the frozen attempt plan. Use a plan-only,
-no-attempt checkpoint for plan creation and/or a required
-`blocked`-to-`active` transition. If both the intended plan and active execution
-are already current, emit no checkpoint. Do not combine a required execution
-transition with attempt start because attempt publication checks the
-pre-mutation execution state. Then bind the receipt to work in this order:
+start, record the attempt plan in the OpenSpec change, or reuse the recorded
+plan whose strategy matches the frozen attempt plan. Use a plan-only change
+update for plan creation and/or a required `blocked`-to-`active` transition. If
+the intended plan and active execution are already current, emit no update. Do
+not combine a required execution transition with attempt start because attempt
+publication checks the pre-mutation execution state. Then bind the receipt to
+work in this order:
 
 1. Prepare a durable evidence copy containing its decision-relevant bindings,
    checks, results, source writer workspace, and digest. The ignored receipt is
    a local diagnostic; its path and hash alone are not durable evidence.
 2. Freeze an attempt plan that references the receipt's exact path and SHA-256
-   and the durable evidence copy, and bind its portable goal plan ID. Goal
-   execution must already be `active`.
-3. Start the attempt with a goal-tool checkpoint that records the frozen plan
-   and evidence copy in the attempt. Before the first decision-bearing
-   operation or any handoff, use the repository-delivery workflow to commit and
-   push that checkpoint, then verify the commit is reachable from the remote
-   branch.
+   and the durable evidence copy, and record it in the OpenSpec change with its
+   plan identity. Execution must already be `active`.
+3. Start the attempt with a change update that records the frozen plan and
+   evidence copy in the attempt. Before the first decision-bearing operation or
+   any handoff, use the repository-delivery workflow to commit and push that
+   update, then verify the commit is reachable from the remote branch.
 4. Before handing off an open attempt that used any preauthorized setup repair,
-   append every contemporaneous repair checkpoint to tracked attempt evidence
-   with the goal tool, then commit, push, and verify that checkpoint as well. If
-   this cannot complete, suspend the attempt; the recipient must not resume it.
+   append every contemporaneous repair record to tracked attempt evidence in
+   the change, then commit, push, and verify that update as well. If this cannot
+   complete, suspend the attempt; the recipient must not resume it.
 5. Treat publication as evidence preservation, not session authority. Before a
    recipient operation, compare the bound writer and verifier identities,
    writer session and workspace, process, version, build, launch flags, add-on,
@@ -190,16 +188,16 @@ without an attempt mutation, rerun checkpoint zero in the recipient writer
 workspace, then follow the passing or terminal flow above. If a receipt bound
 to an open attempt becomes invalid for any reason, immediately suspend
 decision-bearing work. Do not rewrite its frozen plan or resume that attempt.
-Close it through a goal-tool checkpoint with a `reset` review decision, keep
-goal outcome `open`, leave acceptance pointers unset, and record
-`setup-invalidated`, the invalidator, and any failed publication in setup
-evidence. Keep execution `active` when replacement checkpoint zero is
-immediately actionable. Set it to `blocked` only when a named authority, input,
-or external state makes replacement preflight unavailable, and record that
-dependency as the resume condition. If execution stays active, rerun checkpoint
-zero immediately without opening Reimu bytes. If it becomes blocked, wait for
-the resume condition, use a separate no-attempt goal checkpoint to return
-execution to `active`, and then rerun checkpoint zero. After the replacement
+Close it through a change update with a `reset` review decision, keep the
+change open, record no accepted packet, and record `setup-invalidated`, the
+invalidator, and any failed publication in setup evidence. Keep execution
+`active` when replacement checkpoint zero is immediately actionable. Set it to
+`blocked` only when a named authority, input, or external state makes
+replacement preflight unavailable, and record that dependency as the resume
+condition. If execution stays active, rerun checkpoint zero immediately without
+opening Reimu bytes. If it becomes blocked, wait for the resume condition,
+record a separate plan-only change update to return execution to `active`, and
+then rerun checkpoint zero. After the replacement
 receipt passes, perform the common plan and execution transition and all five
 binding and publication steps above before work resumes.
 
@@ -260,7 +258,7 @@ effect, the stop condition, and the likely regression view. Then:
    with the exact candidate digest.
 
 Relative improvement is regression evidence only. It cannot pass an absolute
-stage or goal criterion.
+stage or asset criterion.
 
 The model writer's self-review may reset a candidate but may not retain one.
 Every `retain` decision requires at least one implementation-blind reviewer of
@@ -316,9 +314,10 @@ coordinator reviews the complete trend and changes the process only when the
 change shortens feedback or improves acceptance reliability.
 
 When every authorized representation or authoring route for the dominant
-failure has met its stop condition, the coordinator sets goal execution to
-`blocked` with one concrete blocker and resume condition. Renaming the same
-geometry family or adding harness work is not a new capability.
+failure has met its stop condition, the coordinator records execution as
+`blocked` in the change with one concrete blocker and resume condition.
+Renaming the same geometry family or adding harness work is not a new
+capability.
 
 ## Milestone packet
 
@@ -343,10 +342,10 @@ candidate bytes are published, and whether the renders are independently
 reproducible. Failure evidence cannot satisfy or inherit an acceptance
 criterion.
 
-## Goal closure
+## Change closure
 
-The repository goal tool is the sole goal-state writer. A result narrative
-cannot override structured verdicts. Final closure requires every current
+This project's OpenSpec change is the sole state writer. A result narrative
+cannot override recorded verdicts. Final closure requires every current
 criterion to pass against one candidate digest, followed by verification that
 the committed Git LFS object is byte-identical to that reviewed candidate. The
 public controlling references remain tracked at the user's explicit direction

@@ -1,6 +1,0 @@
-interface:
-  display_name: "Goal (disabled)"
-  short_description: "Disabled legacy workflow; use OpenSpec for new work"
-  default_prompt: "Read $goal only for its deprecation notice and legacy compatibility references."
-policy:
-  allow_implicit_invocation: false

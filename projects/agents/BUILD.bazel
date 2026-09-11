@@ -7,9 +7,6 @@ docs_filegroup(
         "//projects:__pkg__",
         "//projects/agents/landing:__pkg__",
     ],
-    deps = [
-        "docs",
-    ],
 )
 
 filegroup(

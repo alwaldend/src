@@ -163,6 +163,16 @@ checksum. The migrated `criteria.yaml` byte checksum is
 The migrated `goal.yaml` byte checksum is
 `26fc3104902a160e859fd4d660678f7b5debbf29f591c79b3f0d8be62f8aff71`.
 
+### Continue the process contract without the removed goal tool
+
+The repository removed the legacy goal tool after this change was migrated.
+`projects/renders/assets/reimu_fumo/PROCESS.md` was the authoritative stage-gate
+contract and still required goal-tool checkpoints, portable goal plans, and goal
+state to start, repair, reset, and close attempts. Those mechanics now record
+into this OpenSpec change and its durable evidence, so every required gate stays
+executable without the removed tool. The acceptance criteria and the blocked
+continuation state are unchanged.
+
 ## Risks / Trade-offs
 
 History includes a technically successful transport path and an accepted

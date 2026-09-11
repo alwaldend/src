@@ -32,7 +32,6 @@ dc1.cloud  300   IN A     192.168.1.209
 dotfiles         IN CNAME alwaldend.github.io.
 forgejo          IN CNAME ingress.alwaldend.com.
 int.forgejo 300  IN A     192.168.10.40
-goal             IN CNAME alwaldend.github.io.
 hugo-landing     IN CNAME alwaldend.github.io.
 infinitime       IN CNAME alwaldend.github.io.
 ingress    300   IN A     81.26.185.118

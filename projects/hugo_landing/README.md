@@ -17,10 +17,10 @@ source archive.
 ```starlark
 al_hugo_landing(
     name = "landing_site",
-    docs = "//projects/goal:docs",
-    project = "goal",
-    title = "Goal",
-    docs_url = "https://alwaldend.com/docs/projects/goal/",
+    docs = "//projects/agents:docs",
+    project = "agents",
+    title = "Agents",
+    docs_url = "https://alwaldend.com/docs/projects/agents/",
     repository_url = "https://github.com/alwaldend/src",
 )
 ```
@@ -28,10 +28,10 @@ al_hugo_landing(
 ```starlark
 al_hugo_landing_site(
     name = "site",
-    docs = "//projects/goal/docs:docs",
-    project = "goal",
-    title = "Goal",
-    docs_url = "https://alwaldend.com/docs/projects/goal/",
+    docs = "//projects/agents:docs",
+    project = "agents",
+    title = "Agents",
+    docs_url = "https://alwaldend.com/docs/projects/agents/",
     repository_url = "https://github.com/alwaldend/src",
 )
 ```

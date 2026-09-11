@@ -1,0 +1,42 @@
+load("@rules_skill//skill:defs.bzl", "skill_discovery_links")
+
+package(default_visibility = ["//visibility:private"])
+
+package_group(
+    name = "skill_discovery",
+    packages = ["//.agents"],
+)
+
+skill_discovery_links(
+    name = "write_skill_links",
+    discovery_dir = ".agents/skills",
+    skills = [
+        "//projects/agents/skills/answer-question:skill",
+        "//projects/agents/skills/agent-ergonomics-review:skill",
+        "//projects/agents/skills/ast-grep:skill",
+        "//tools/android/skills/android:skill",
+        "//projects/agents/skills/bazel-agent:skill",
+        "//projects/agents/skills/bazel-nested-module:skill",
+        "//projects/agents/skills/bazel-rules-skill:skill",
+        "//projects/agents/skills/blender-reference-fidelity:skill",
+        "//projects/agents/skills/codex-migration:skill",
+        "//projects/agents/skills/decision-review:skill",
+        "//projects/agents/skills/full-repo-check:skill",
+        "//projects/agents/skills/git-rebase-remote:skill",
+        "//projects/agents/skills/host-bot-diagnostics:skill",
+        "//projects/agents/skills/project-layout:skill",
+        "//projects/agents/skills/repo-ansible:skill",
+        "//projects/agents/skills/repo-bazel:skill",
+        "//projects/agents/skills/repo-blender:skill",
+        "//tools/repo_delivery/skills/repo-delivery:skill",
+        "//projects/agents/skills/repo-external-dependency:skill",
+        "//projects/agents/skills/repo-gazelle-plugin:skill",
+        "//projects/agents/skills/repo-vault:skill",
+        "//projects/agents/skills/repo-secrets:skill",
+        "//projects/agents/skills/repo-terraform:skill",
+        "//projects/agents/skills/spellcheck:skill",
+        "//projects/agents/skills/openspec:skill",
+        "//projects/hugo_landing/skills/add-project-site:skill",
+        "//tools/versioning/skills/versioning:skill",
+    ],
+)

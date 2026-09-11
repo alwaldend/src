@@ -14,7 +14,7 @@ skill_library(
             "evals/**",
         ],
     ),
-    visibility = ["//tools/agents:skill_discovery"],
+    visibility = ["//.agents:skill_discovery"],
 )
 
 promptfoo_validate_test(

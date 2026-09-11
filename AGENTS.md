@@ -10,11 +10,11 @@ resolve the affected path and Bazel workspace, read the nearest `README.md`,
 `BUILD.bazel`, and `include.MODULE.bazel` when present, and inspect before
 mutating. Load only the skills needed for the current phase.
 
-Use [README.md](README.md) for the repository map and
-[projects/agents/README.md](projects/agents/README.md) for the agent-system
-documents. Each top-level tree's README owns its target visibility, allowed
-build consumers, and publication boundaries; read it before changing those
-relationships. Roadmaps describe intent, not current behavior or authority.
+Use [README.md](README.md) for the repository map. Reusable procedures live
+as canonical skills and are discovered through the standard skill
+directories. Each top-level tree's README owns its target visibility,
+allowed build consumers, and publication boundaries; read it before
+changing those relationships.
 
 ## Authority and scope
 
@@ -65,6 +65,11 @@ facts at their owning source; architecture does not override those owners.
   choose a materially safer authorized approach, or ask; never route around
   it. Never immediately retry a rejected, failed, or rate-limited escalated
   operation. Allow at most one retry after a real delay and causal change.
+- Every change and implementation follows delivery. Completing the local edits
+  is not the end of a task: an authorized change MUST be validated, committed,
+  pushed, and offered as a pull request through `repo-delivery`, unless the
+  user explicitly withholds publication. Do not stop at an uncommitted working
+  tree or a summary of intended work.
 
 ## Isolate changes and scratch
 
@@ -114,9 +119,8 @@ or committable source; ignored task scratch is suitable.
   durable continuation. Use the owning project's `openspec/` workspace;
   use `infra/src/openspec/` for evolution of the repository itself. Keep the
   smallest artifacts that preserve acceptance, evidence, and the next action. Temporary
-  coordination belongs under ignored `out/<task>/`. The `goal` skill is
-  disabled and `//projects/goal/cmd/goal` is deprecated compatibility tooling;
-  do not create new maintained goal records.
+  coordination belongs under ignored `out/<task>/`. The legacy goal tool and
+  its skill are removed; do not recreate goal records or revive that store.
 - Load `repo-delivery` when preparing publication or final handoff, before
   staging or committing delivery changes. It owns validation gates, commits,
   pushes, pull requests, reviews, and receipts. Commit and push all legitimate

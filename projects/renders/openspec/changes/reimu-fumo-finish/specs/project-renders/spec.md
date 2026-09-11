@@ -158,3 +158,18 @@ and does not replace an acceptance criterion.
 - **WHEN** a future executor considers continuing the unfinished asset
 - **THEN** the executor first establishes the recorded artist or different-capability unblock condition and the authority to execute
 - **AND** generic desktop input transport, more Flatten dose, parameter tuning, or repetition of the rejected families does not satisfy that condition
+
+### Requirement: Continue the process contract without the removed goal tool
+
+The authoritative [process contract](../../../../../assets/reimu_fumo/PROCESS.md) SHALL
+remain executable after the legacy goal tool was removed. Its attempt, plan,
+checkpoint, blocker, and closure state SHALL be recorded in this OpenSpec change
+and its durable evidence, not in a goal store. The contract SHALL NOT require a
+removed goal command, goal store, or goal record format for any required stage
+gate.
+
+#### Scenario: Execute a stage gate after the goal tool removal
+
+- **WHEN** an authorized coordinator executes a required Reimu stage gate
+- **THEN** the attempt, plan, checkpoint, blocker, and closure state are recorded in this change and its evidence
+- **AND** no removed goal tool, goal store, or goal record format is required to satisfy the gate
