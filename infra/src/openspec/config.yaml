@@ -15,8 +15,8 @@ context: |
   Maintained work uses the owning workspace's openspec/changes; temporary
   notes use ignored out/<task>. Select component work with OPENSPEC_PROJECT
   set to its repository-relative owner directory when running the pinned CLI.
-  Legacy goals have migrated; projects/goal is deprecated compatibility code
-  and its skill is disabled. See infra/src/openspec/migration.md for preserved history.
+  Legacy goals have migrated and their tooling has been removed; see
+  infra/src/openspec/migration.md for preserved history.
 
 rules:
   proposal:

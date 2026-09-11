@@ -14,18 +14,14 @@ without replacing their authorities.
 
 - [Agent policy](AGENTS.md) is the repository-wide operating contract. A
   nearer `AGENTS.md` takes precedence within its subtree.
-- [Agent-system current state](projects/agents/docs/current-state.md) records
-  the evidence-backed baseline.
-- [Agent-system architecture](projects/agents/docs/architecture.md) defines
-  how intent, policy, capabilities, work, execution, evidence, delivery, and
-  learning compose.
-- [Agent-system roadmap](projects/agents/docs/roadmap.md) distinguishes
-  proposed work from current guarantees.
+- [Repository skills](projects/agents/README.md) are the reusable agent
+  procedures, discovered through `.agents/skills/` from their canonical
+  project-owned directories.
 - [Repository evolution](infra/src/openspec/README.md) describes changes to the monorepo
   itself. Each project and infrastructure component owns its specifications
   and maintained changes in its local `openspec/` directory. The
-  [goal migration](infra/src/openspec/migration.md) preserves prior acceptance state and
-  evidence provenance.
+  [goal migration](infra/src/openspec/migration.md) preserves prior acceptance
+  state and evidence provenance; the legacy goal tool has since been removed.
 - [Repository setup](https://alwaldend.com/docs/misc/repo/) explains the human
   development environment.
 

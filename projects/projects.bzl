@@ -13,7 +13,6 @@ PROJECTS = [
     "bazel_agent",
     "ci_platform",
     "dotfiles",
-    "goal",
     "hugo_landing",
     "infinitime",
     "kustomization",

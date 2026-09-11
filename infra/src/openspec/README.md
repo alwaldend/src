@@ -54,7 +54,7 @@ notes, raw logs and validation receipts under ignored `out/<task>/`.
 
 On interruption, preserve the candidate, evidence, execution state and next
 action. Keep blocked or unfinished work explicit. OpenSpec files and Git do
-not supply the deprecated goal store's transaction locks or evidence verdicts;
+not supply the removed legacy goal store's transaction locks or evidence verdicts;
 one coordinator owns a change and reconciles concurrent edits.
 
 After acceptance, validate and archive the change in its owning workspace,
@@ -70,6 +70,6 @@ history, checksums and acceptance states are preserved. Historical deltas
 were archived without applying them to current specs. Reimu Fumo remains
 open and blocked.
 
-The goal skill is disabled and the [goal CLI](../../../projects/goal/README.md)
-is deprecated compatibility tooling. New maintained work uses the owning
-OpenSpec workspace.
+The legacy goal tool, its skill, and its store have been removed. New
+maintained work uses the owning OpenSpec workspace; the migration record above
+preserves the historical record.

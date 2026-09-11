@@ -22,3 +22,11 @@ the record migration does not authorize modeling or capability experiments.
 ## 3. Close only after full acceptance
 
 - [ ] 3.1 Review all eight required criteria against the same exact candidate and applicable failure regressions, record the final accepted identities and evidence, and archive this change only when every criterion passes.
+
+## 4. Continue the process contract without the removed goal tool
+
+The legacy goal tool was removed repository-wide. The Reimu process contract
+was migrated so its required stage gates no longer depend on it.
+
+- [x] 4.1 Rewrite `assets/reimu_fumo/PROCESS.md` so attempt, plan, checkpoint, blocker, and closure state are recorded in this OpenSpec change and its durable evidence rather than a goal store.
+- [x] 4.2 Record the continuation requirement in `specs/project-renders/spec.md` and validate the change.

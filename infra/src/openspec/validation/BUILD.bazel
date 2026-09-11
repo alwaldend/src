@@ -35,7 +35,6 @@ _WORKSPACE_SOURCES = {
     "projects_bazel_agent": "//projects/bazel_agent/openspec:source",
     "projects_ci_platform": "//projects/ci_platform/openspec:source",
     "projects_dotfiles": "//projects/dotfiles/openspec:source",
-    "projects_goal": "//projects/goal/openspec:source",
     "projects_hugo_landing": "//projects/hugo_landing/openspec:source",
     "projects_infinitime": "//projects/infinitime/openspec:source",
     "projects_kustomization": "//projects/kustomization/openspec:source",

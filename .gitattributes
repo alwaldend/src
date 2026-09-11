@@ -112,13 +112,6 @@ third_party/** rules-lint-ignored=true
 # Generic formatting must not rewrite preserved history or its evidence.
 projects/*/openspec/changes/**/provenance/** rules-lint-ignored=true
 projects/*/openspec/changes/**/provenance/** whitespace=-blank-at-eof
-tools/agents/catalogs/action.json rules-lint-ignored=true
-tools/agents/catalogs/capability.json rules-lint-ignored=true
-tools/agents/catalogs/index.json rules-lint-ignored=true
-tools/agents/catalogs/policy.json rules-lint-ignored=true
-tools/agents/catalogs/skill-cases.json rules-lint-ignored=true
-tools/agents/catalogs/skill-coverage.md rules-lint-ignored=true
-tools/agents/catalogs/skill-coverage.json rules-lint-ignored=true
 **/MODULE.bazel.lock rules-lint-ignored=true
 **/pnpm-lock.yaml rules-lint-ignored=true
 **/go.sum rules-lint-ignored=true

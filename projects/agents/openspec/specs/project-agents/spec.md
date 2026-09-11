@@ -2,14 +2,13 @@
 
 ## Purpose
 
-Describe the repository agent-system contract, shared procedures, and evidence
-boundaries owned by `projects/agents`. The architecture defines intended
-composition; the current-state guide identifies implemented capabilities.
+Describe the reusable repository skills and their packaging and discovery
+contract as owned by `projects/agents`. Component behavior, repository policy,
+and requested authority remain at their own owners.
 
 Sources: [project README](../../../README.md),
-[current state](../../../docs/current-state.md),
-[architecture](../../../docs/architecture.md), and
-[documentation packaging](../../../BUILD.bazel).
+[project packaging](../../../BUILD.bazel), and
+[discovery declaration](../../../../../.agents/BUILD.bazel).
 Baseline source revision: `550d7e79b1f5fdbc2b6017b75178471d6914082f`,
 observed 2026-09-08; durable-work routing includes this OpenSpec migration.
 
@@ -17,17 +16,17 @@ observed 2026-09-08; durable-work routing includes this OpenSpec migration.
 
 ### Requirement: Preserve natural fact ownership
 
-The agent-system documentation SHALL keep component behavior at its owning
-README and implementation, repository policy at applicable `AGENTS.md` files,
-and requested outcome and action authority in the user interaction. Architecture
-and derived catalogs SHALL NOT independently authorize actions.
+This project SHALL keep component behavior at its owning README and
+implementation, repository policy at applicable `AGENTS.md` files, and
+requested outcome and action authority in the user interaction. Project
+documentation SHALL NOT independently authorize actions.
 
-#### Scenario: A design document names a future interface
+#### Scenario: A document describes an unimplemented interface
 
-- **WHEN** an interface is described by the architecture or roadmap without an
-  implemented provider and supporting evidence
-- **THEN** the current-state guide treats it as intended composition rather than
-  a supported runtime capability.
+- **WHEN** a document describes an interface without an implemented provider
+  and supporting evidence
+- **THEN** it states that status explicitly rather than implying a supported
+  runtime capability
 
 ### Requirement: Package canonical skills separately from discovery
 

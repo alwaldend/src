@@ -41,12 +41,12 @@ skill_library(
             "evals/**",
         ],
     ),
-    visibility = ["//tools/agents:skill_discovery"],
+    visibility = ["//.agents:skill_discovery"],
 )
 ```
 
 The library exposes the skill files through `DefaultInfo` and `SkillInfo`.
-The `skill_discovery` package group grants the owning `//tools/agents`
+The `skill_discovery` package group grants the owning `//.agents`
 discovery target access while keeping the canonical skill unavailable to
 other packages.
 Excluding both conventional BUILD filenames keeps repository build metadata
@@ -58,7 +58,7 @@ referenced script, icon, asset, and metadata file remains inside the glob.
 ## Register skill discovery
 
 Add the canonical `:skill` label to the complete `skills` list in the
-`skill_discovery_links` declaration in `tools/agents/BUILD.bazel`:
+`skill_discovery_links` declaration in `.agents/BUILD.bazel`:
 
 ```starlark
 load(
@@ -81,8 +81,8 @@ manifest or create `.agents/skills` links by hand. Run the updater, then its
 generated exact-state test:
 
 ```sh
-bazel_agent bazel run //tools/agents:write_skill_links
-bazel_agent bazel test //tools/agents:write_skill_links_test
+bazel_agent bazel run //.agents:write_skill_links
+bazel_agent bazel test //.agents:write_skill_links_test
 ```
 
 The test rejects missing, extra, indirect, or incorrectly targeted local
@@ -144,7 +144,7 @@ its `skill_validation` output group. Build the library to execute validation:
 bazel_agent bazel build //<owner-project>/skills/lowercase-hyphen-name:skill
 bazel_agent bazel test \
   //<owner-project>/skills/lowercase-hyphen-name:eval_config_test
-bazel_agent bazel test //tools/agents:write_skill_links_test
+bazel_agent bazel test //.agents:write_skill_links_test
 bazel_agent bazel test //:buildifier_test
 ```
 
