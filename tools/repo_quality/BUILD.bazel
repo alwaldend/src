@@ -304,6 +304,7 @@ test_suite(
         ":qt_xml_quality_test",
         ":repo_format_test",
         "//tools/bazel_module/cmd/update:freshness_test",
+        "//tools/go_mod/cmd/go_mod:test",
         "//tools/repo_quality/test/root_build:root_build_test",
     ],
 )
