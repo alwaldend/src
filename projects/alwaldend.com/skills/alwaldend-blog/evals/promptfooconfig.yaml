@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://promptfoo.dev/config-schema.json
-description: Project landing onboarding and scoped deployment contracts
+description: Alwaldend blog publishing and review contracts
 
 prompts:
   - "{{request}}"

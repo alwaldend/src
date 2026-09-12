@@ -1,0 +1,6 @@
+interface:
+  display_name: "Repo Hugo"
+  short_description: "Work with repository Hugo sites, themes, and landing pages"
+  default_prompt: >-
+    Use $repo-hugo for repository Hugo sites and themes, including adding a
+    project landing page and deploying it when requested.

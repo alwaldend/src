@@ -1,10 +1,20 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 
+# The shared Docsy theme rules live with the reusable site shell in
+# hugo_landing; this site packages them into its own assets tree so both sites
+# render the same canvas from one implementation.
+pkg_files(
+    name = "shared_theme",
+    srcs = ["//projects/hugo_landing/assets/scss:shared_theme"],
+    prefix = "scss",
+)
+
 pkg_filegroup(
     name = "assets",
     srcs = [
         ":assets_files",
+        ":shared_theme",
     ],
     prefix = "assets",
     visibility = ["//projects/alwaldend.com:__pkg__"],

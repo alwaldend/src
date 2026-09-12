@@ -6,6 +6,7 @@ docs_filegroup(
     prefix = "content",
     visibility = ["//projects/alwaldend.com:__pkg__"],
     deps = [
+        "//projects/alwaldend.com/content/blog:docs",
         "//projects/alwaldend.com/content/docs",
     ],
 )

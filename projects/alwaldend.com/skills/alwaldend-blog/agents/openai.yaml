@@ -1,0 +1,6 @@
+interface:
+  display_name: "Alwaldend Blog"
+  short_description: "Publish and review an alwaldend.com article"
+  default_prompt: >-
+    Use $alwaldend-blog to publish the supplied content as an unpublished post
+    and review it for style and inconsistencies.

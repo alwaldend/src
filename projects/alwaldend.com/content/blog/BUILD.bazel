@@ -1,0 +1,20 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+# Each post is its own package so the post bundle and its resources are
+# independently owned; the section index lives in this package.
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = "content/blog",
+    visibility = ["//projects/alwaldend.com/content:__pkg__"],
+    deps = [
+        "//{}/{}:docs".format(
+            package_name(),
+            subpackage,
+        )
+        for subpackage in subpackages(
+            include = ["*"],
+            allow_empty = True,
+        )
+    ],
+)

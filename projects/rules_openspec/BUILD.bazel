@@ -1,3 +1,4 @@
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_openspec_npm//:defs.bzl", "npm_link_all_packages")
 
 package(default_visibility = ["//visibility:private"])
@@ -9,3 +10,11 @@ exports_files([
 ])
 
 npm_link_all_packages(name = "node_modules")
+
+build_test(
+    name = "build_test",
+    targets = [
+        "//main/bzl:openspec_validation",
+        "//main/bzl:workspace",
+    ],
+)

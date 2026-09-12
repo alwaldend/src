@@ -1,7 +1,7 @@
 - description: Add a project without authorizing live changes
   vars:
     request: >-
-      Use $add-project-site. Add a landing for projects/widget from its README.
+      Use $repo-hugo. Add a landing for projects/widget from its README.
       The README says it is an unfinished prototype. Prepare the implementation
       and local checks; deployment will be a separate task.
   assert:
@@ -17,7 +17,7 @@
 - description: Bootstrap a new site while preserving existing Pages sites
   vars:
     request: >-
-      Use $add-project-site. Deploy the new widget landing; you may create its
+      Use $repo-hugo. Deploy the new widget landing; you may create its
       GitHub repository with Terraform and update its global DNS record.
       Existing project sites are already serving. The widget repository has
       no pages branch yet.
@@ -36,7 +36,7 @@
 - description: Nested module assembly and apex exclusion
   vars:
     request: >-
-      Use $add-project-site. Add the landing for projects/rules_widget, a
+      Use $repo-hugo. Add the landing for projects/rules_widget, a
       standalone nested module exporting README.md but no docs target. Also
       check whether alwaldend.com needs a second landing repository.
   assert:

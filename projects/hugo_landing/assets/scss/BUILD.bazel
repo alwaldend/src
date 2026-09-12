@@ -8,6 +8,16 @@ pkg_filegroup(
     visibility = ["//projects:__subpackages__"],
 )
 
+# The apex site renders the same canvas as the landing sites but is built from
+# its own source archive, so it consumes this shared style file rather than
+# keeping a second copy of the rules.
+pkg_files(
+    name = "shared_theme",
+    srcs = ["_shared_theme.scss"],
+    strip_prefix = strip_prefix.files_only(),
+    visibility = ["//projects/alwaldend.com/assets:__pkg__"],
+)
+
 pkg_files(
     name = "assets_files",
     srcs = glob(

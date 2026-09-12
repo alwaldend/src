@@ -43,7 +43,9 @@ Each project owns its rendered landing target at
 `hugo_landing` so the visual shell and README-to-site transformation stay
 reusable.
 
-Agent workflow: [Add a project site](https://github.com/alwaldend/src/blob/master/projects/hugo_landing/skills/add-project-site/SKILL.md).
+Agent workflow for this component and its Hugo themes:
+[Repository Hugo sites and themes](https://github.com/alwaldend/src/blob/master/projects/agents/skills/repo-hugo/SKILL.md),
+owned by the generic agent project.
 
 `projects/projects.bzl` lists the dedicated project sites; the
 [project directory](../README.md) links to each site. The existing

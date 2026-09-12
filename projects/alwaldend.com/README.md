@@ -36,6 +36,21 @@ bazel_agent bazel run //projects/alwaldend.com:site_serve
 
 The preview serves the local build at http://127.0.0.1:1313.
 
+## Blog
+
+The site publishes dated articles from `content/blog`. Each post is its own
+Bazel package with an `index.md` and a `BUILD.bazel` declaring its
+`docs_filegroup`; the section package aggregates them. The section publishes
+HTML, an RSS feed, and a print edition, and appears in the main navigation.
+The section index and its posts carry a `github_subdir` cascade so the
+per-page GitHub links point at the content sources.
+
+A post stays unpublished while its front matter declares `draft: true`. Local
+builds render drafts for review and the release build excludes them, so the
+draft state alone withholds a post from the deployed site.
+
+Agent workflow: [Add a blog post](https://github.com/alwaldend/src/blob/master/projects/alwaldend.com/skills/alwaldend-blog/SKILL.md).
+
 ## Documentation links
 
 Markdown links and images resolve relative to their source directory.

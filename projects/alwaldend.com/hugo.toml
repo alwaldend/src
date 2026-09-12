@@ -66,6 +66,11 @@ site = "websites"
 
 
 [[menus.main]]
+name = "Blog"
+weight = 50
+url = "/blog/"
+
+[[menus.main]]
 name = "Docs"
 weight = 100
 url = "/docs/"

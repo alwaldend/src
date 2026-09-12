@@ -28,6 +28,13 @@ state. Derived views must identify their sources, version or digest,
 observation time, unavailable fields, and truncation. Resolve conflicting
 facts at their owning source; architecture does not override those owners.
 
+Keep one implementation of each behavior and one copy of each fact. Reuse the
+owning component instead of copying, restating, or reimplementing its content
+in another package; a second copy is a defect even when the first is hard to
+reach. Extend the owner or parameterize it, and import shared material through
+its declared dependency rather than duplicating it. Do not restate a fact that
+another source already owns; link to that source instead.
+
 - Use `answer-question` for substantive questions, including mixed requests.
   A question alone authorizes investigation, not mutation; preserve action
   authority already granted in the conversation. Quoted transformation

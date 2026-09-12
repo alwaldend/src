@@ -35,6 +35,11 @@ Relative dependency names without a colon are normalized to the child
 package's `docs` target. `prefix` defaults to the current package beneath
 `content/docs/`.
 
+Files are packaged at their basename by default. When a package's sources span
+subdirectories that hold identically named files, set `preserve_paths = True`
+so each source keeps its package-relative path and the destinations stay
+distinct.
+
 ## Gazelle extension
 
 Generation support is packaged separately so consumers of the documentation

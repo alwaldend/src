@@ -1,6 +1,0 @@
-interface:
-  display_name: "Add Project Site"
-  short_description: "Add and deploy repository project landing pages"
-  default_prompt: >-
-    Use $add-project-site to add a landing page for a project in this repository
-    and deploy it when requested.

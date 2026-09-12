@@ -50,12 +50,18 @@ _BUILD_FLAGS = [
     "--logLevel",
     "debug",
     "--panicOnWarning",
-    "--buildDrafts",
     "--buildExpired",
     "--buildFuture",
     "--printI18nWarnings",
     "--printPathWarnings",
     # "--printUnusedTemplates", /404.html is unused
+]
+
+# Local builds render drafts so an author can inspect work in progress. The
+# release build must not, so a post whose front matter still says
+# `draft: true` cannot reach the deployed site.
+_PREVIEW_FLAGS = [
+    "--buildDrafts",
 ]
 
 docs_filegroup(
@@ -102,7 +108,7 @@ al_hugo_worker(
             "--baseURL",
             "https://alwaldend.com",
         ],
-        "//conditions:default": _BUILD_FLAGS,
+        "//conditions:default": _BUILD_FLAGS + _PREVIEW_FLAGS,
     }),
     out_dir = "site.destination",
     site = ":site_site",

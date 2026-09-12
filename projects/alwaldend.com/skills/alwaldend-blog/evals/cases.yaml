@@ -1,0 +1,55 @@
+- description: Publishes supplied content without altering it
+  vars:
+    request: >-
+      Use $alwaldend-blog. Publish this as a post, dated 2026-09-12, titled
+      "Notes on caching":  teh cache layer is dumb and it don't invalidate.
+      Everything else is fine.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response copies the supplied sentence verbatim into
+        the post, including its misspelling and grammar, creates the post's own
+        package directory under content/blog with an index.md and a BUILD.bazel
+        from the documented template, and keeps draft: true so the post stays
+        unpublished. It must report the wording defects as findings for the
+        user instead of correcting them in the file, and must not rewrite,
+        extend, or restructure the supplied content.
+
+- description: Reviews without silently editing the article
+  vars:
+    request: >-
+      Use $alwaldend-blog. I already added projects/alwaldend.com/content/blog/
+      my-post/index.md. Review it for style and inconsistencies and fix
+      whatever you find.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass if the response inspects the rendered site output and the
+        repository's established usage, reports each finding with its exact
+        location and reason, verifies the front matter, internal links, and
+        images, runs the generated-site test, and confirms the post's draft
+        state. It must present the findings in numbered sections as readable
+        Markdown list items, labelling each item with its section number and
+        position such as `3.4`, one finding per item, so the user can reference
+        a finding by number, rather than as prose paragraphs or unnumbered
+        bullets. It must not modify the article's content, and it must leave
+        the publication decision to the user.
+
+- description: Honors an explicit request to publish the post
+  vars:
+    request: >-
+      Use $alwaldend-blog. Draft a post from the release notes I pasted, and
+      publish it to the site.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass if the response copies the pasted content into a post package and
+        treats "publish it to the site" as authorization to release the post:
+        it removes draft: true rather than leaving the post unpublished and
+        asking again. It must preserve the supplied content, run the delivery
+        workflow through repo-delivery, and report the published state without
+        claiming the post is live before the deployment that publishes it
+        completes.
