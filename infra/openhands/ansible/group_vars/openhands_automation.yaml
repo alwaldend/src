@@ -1,0 +1,6 @@
+openhands_automation_agent_server_version: "{{ openhands_version }}"
+openhands_automation_agent_server_url: "https://{{ openhands_server_domain }}"
+openhands_automation_agent_server_api_key: "{{ openhands_session_api_key }}"
+openhands_automation_base_url: "https://{{ openhands_canvas_domain }}"
+openhands_automation_local_api_key: "{{ openhands_session_api_key }}"
+traefik_dynamic_config_local_path: files/traefik_dynamic_automation.toml

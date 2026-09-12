@@ -21,6 +21,7 @@ _INFRA_RECORD_DNSCONFIGS = [
     "//infra/ingress:dnsconfig",
     "//infra/mikrotik:dnsconfig",
     "//infra/nas:dnsconfig",
+    "//infra/openhands:dnsconfig",
     "//infra/pve:dnsconfig",
     "//infra/threexui:dnsconfig",
     "//infra/vault:dnsconfig",

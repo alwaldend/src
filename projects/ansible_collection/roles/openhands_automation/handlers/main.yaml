@@ -1,0 +1,4 @@
+- name: Restart OpenHands automation server
+  ansible.builtin.systemd_service:
+    name: "{{ openhands_automation_service_path | basename }}"
+    state: restarted

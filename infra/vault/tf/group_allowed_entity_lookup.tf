@@ -10,6 +10,7 @@ resource "vault_identity_group" "allowed_entity_lookup" {
     module.src_infra_xcp_ng_approle.group_id,
     module.src_infra_yandex_cloud_org1_approle.group_id,
     module.src_infra_threexui_approle.group_id,
+    module.src_infra_openhands.group_id,
   ]
   metadata = {
     comment = "Allowed to read entity info, required for data.vault_identity_entity (https://registry.terraform.io/providers/hashicorp/vault/latest/docs/data-sources/identity_group)"

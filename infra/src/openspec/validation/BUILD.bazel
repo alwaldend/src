@@ -21,6 +21,7 @@ _WORKSPACE_SOURCES = {
     "infra_ingress": "//infra/ingress/openspec:source",
     "infra_mikrotik": "//infra/mikrotik/openspec:source",
     "infra_nas": "//infra/nas/openspec:source",
+    "infra_openhands": "//infra/openhands/openspec:source",
     "infra_pve": "//infra/pve/openspec:source",
     "infra_threexui": "//infra/threexui/openspec:source",
     "infra_vault": "//infra/vault/openspec:source",

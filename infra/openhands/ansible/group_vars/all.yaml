@@ -1,0 +1,33 @@
+ansible_user: ansible
+ssh_vault_role: src_infra_openhands_ssh
+traefik_acme_path: pki/ica_servers/roles/src_infra_openhands_pki_server/acme
+traefik_acme_url: "https://vault.alwaldend.com:8200/v1/{{ traefik_acme_path }}/directory"
+openhands_domain: openhands.alwaldend.com
+# Site-local names resolve only inside dc1, so the inter-service hops below
+# never traverse the public ingress and therefore need no client certificate.
+openhands_canvas_domain: canvas.openhands.alwaldend.com
+openhands_server_domain: server.openhands.alwaldend.com
+openhands_automation_domain: automation.openhands.alwaldend.com
+openhands_agent_server_port: 18000
+openhands_automation_port: 18001
+openhands_canvas_port: 8000
+openhands_version: "1.46.0"
+openhands_automation_version: "1.11.1"
+openhands_canvas_version: "1.18.0"
+openhands_session_api_key: "{{ lookup('ansible.builtin.env', 'OPENHANDS_SESSION_API_KEY', default=undefined()) }}"
+openhands_secret_key: "{{ lookup('ansible.builtin.env', 'OPENHANDS_SECRET_KEY', default=undefined()) }}"
+openhands_automation_kv_secret: "{{ lookup('ansible.builtin.env', 'OPENHANDS_AUTOMATION_KV_SECRET', default=undefined()) }}"
+ssh_valid_principals:
+  - openhands.alwaldend.com
+  - "*.openhands.alwaldend.com"
+
+firewall_allow_port_from:
+  - src: "any"
+    port: 22
+    comment: ssh
+  - src: "any"
+    port: 443
+    comment: HTTPS
+  - src: "any"
+    port: 80
+    comment: HTTP

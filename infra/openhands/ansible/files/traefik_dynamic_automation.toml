@@ -1,0 +1,8 @@
+[http.routers.openhands_automation]
+rule = "Host(`{{ openhands_automation_domain }}`) || Host(`{{ inventory_hostname }}`) || Host(`{{ openhands_canvas_domain }}`)"
+service = "openhands_automation"
+tls = { certResolver = "default", domains = [{ main = "{{ openhands_automation_domain }}", sans = ["{{ inventory_hostname }}"] }] }
+
+[http.services.openhands_automation.loadBalancer]
+[[http.services.openhands_automation.loadBalancer.servers]]
+url = "http://127.0.0.1:{{ openhands_automation_port }}"

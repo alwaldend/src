@@ -125,7 +125,7 @@ alone does not establish a usable or deployed page.
 Adding a site authorizes implementation and offline checks. Live Terraform,
 GitHub publication, and DNS mutations require the user's requested operation
 and scope; retain authorization already given instead of requesting it again.
-Use `repo-terraform` and `repo-secrets` for their owning procedures. Follow the
+Use `repo-infra` and `repo-secrets` for their owning procedures. Follow the
 README rollout entry points, including `//projects:deploy_landings` with an
 absolute task-owned `--scratch` directory. Keep a single-project request
 scoped to that project when choosing deployment arguments.
