@@ -85,11 +85,14 @@ can modify repository files or task-owned scratch. Verify both before the
 first mutation. The default branch and checkout are read-only unless the user
 explicitly authorizes that exact task there; keep them clean.
 
-Keep every task-owned download, report, log, cache, extracted archive, and
-temporary file under ignored `out/<task>/` in the applicable workspace. Point
-configurable temporary and cache directories there too. Use operating-system
-temporary storage only when the tool cannot use workspace scratch, and remove
-only your residue before handoff. Never delete unrelated temporary files.
+Keep every task-owned download, report, log, cache, extracted archive,
+temporary file, and tool input or output under ignored `out/<task>/` in the
+applicable workspace; that directory is the default and needs no
+justification. Point configurable temporary and cache directories there too,
+including `TMPDIR`, `TMP`, and tool-specific cache variables. Never write task
+scratch to `/tmp`, `/var/tmp`, or another shared system location unless the
+tool cannot use workspace scratch at all; state that reason and remove only
+your residue before handoff. Never delete unrelated temporary files.
 
 Secret-bearing temporary material must be task-private, access-restricted,
 short-lived, and explicitly cleaned up. Never track, stage, commit, or promote
