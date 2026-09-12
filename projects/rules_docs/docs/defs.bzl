@@ -1,6 +1,6 @@
 """Documentation packaging helpers."""
 
-load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
 
 def docs_filegroup(
         name,
@@ -8,7 +8,8 @@ def docs_filegroup(
         visibility = None,
         deps = [],
         prefix_root = "content/docs/",
-        prefix = None):
+        prefix = None,
+        preserve_paths = False):
     """Creates a documentation filegroup.
 
     Args:
@@ -20,6 +21,12 @@ def docs_filegroup(
             are normalized to their `docs` targets.
         prefix_root: Default archive root used when `prefix` is omitted.
         prefix: Optional explicit archive prefix.
+        preserve_paths: Keep each source's path relative to the package
+            instead of flattening it to its basename. Enable this when the
+            sources sit in subdirectories that hold identically named files,
+            which would otherwise collide on one destination path. Sources
+            outside this package cannot be preserved and keep their flattened
+            name.
     """
     package_name = native.package_name()
     package_prefix = package_name
@@ -47,8 +54,11 @@ def docs_filegroup(
 
     pkg_filegroup(**aggregate_kwargs)
 
-    pkg_files(
-        name = "{}.files".format(name),
-        srcs = srcs,
-        prefix = prefix,
-    )
+    files_kwargs = {
+        "name": "{}.files".format(name),
+        "srcs": srcs,
+        "prefix": prefix,
+    }
+    if preserve_paths:
+        files_kwargs["strip_prefix"] = strip_prefix.from_pkg()
+    pkg_files(**files_kwargs)

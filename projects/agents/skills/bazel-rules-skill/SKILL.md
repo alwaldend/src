@@ -13,11 +13,12 @@ description: >-
 
 1. Read the root `AGENTS.md`, use the `skill-creator` skill, and inspect the
    closest existing repository skill.
-2. Identify the narrowest project that owns the skill. Put a product-specific
-   skill at `<owner-project>/skills/lowercase-hyphen-name`. Use
-   `projects/agents/skills/lowercase-hyphen-name` only for a repository-wide
-   agent workflow with no narrower owner. Keep the directory and frontmatter
-   names identical.
+2. Identify the narrowest project that genuinely owns the skill. Put a
+   product-specific skill at `<owner-project>/skills/lowercase-hyphen-name`.
+   Use `projects/agents/skills/lowercase-hyphen-name` when the procedure is
+   genuinely cross-product or repository-wide and no narrower project owns it
+   without contrivance; do not invent or stretch a local owner to avoid the
+   generic one. Keep the directory and frontmatter names identical.
 3. Add only resources the skill needs. Put product metadata in
    `agents/openai.yaml`; its `default_prompt` must mention
    `$lowercase-hyphen-name`.

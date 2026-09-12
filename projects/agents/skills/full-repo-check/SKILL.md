@@ -30,7 +30,8 @@ description: >-
    then wait on the lock held by its own enclosing Bazel invocation.
 
    The checker executes `bazel_agent bazel build //...` and
-   `bazel_agent bazel test //...` in the root workspace and nine nested workspaces.
+   `bazel_agent bazel test //...` in the root workspace and twelve nested
+   workspaces.
    It continues after failures so one run covers the whole repository. Child
    commands use the normal machine output-user-root; Bazel assigns each
    workspace its own output base below it.
@@ -74,7 +75,7 @@ Return a Markdown table with these columns:
 
 Use one row per distinct root cause. If every command passes, include one row
 whose affected target and root cause are `None`. After the issue table, include
-the twenty-command result matrix from `report.md`, with exact commands, exit
+the twenty-six-command result matrix from `report.md`, with exact commands, exit
 statuses, durations, and the run-directory path.
 
 This check covers Bazel's normal `//...` expansion through `bazel_agent`.

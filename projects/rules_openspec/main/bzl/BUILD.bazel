@@ -1,3 +1,4 @@
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 load("@rules_openspec_npm//:@fission-ai/openspec/package_json.bzl", openspec = "bin")
 load("//main/bzl:openspec.bzl", "OPENSPEC_ENV")
 
@@ -8,4 +9,17 @@ openspec.openspec_binary(
     chdir = "$${BUILD_WORKSPACE_DIRECTORY}/$${OPENSPEC_PROJECT:-infra/src}",
     data = ["//:node_modules/@fission-ai/openspec"],
     env = OPENSPEC_ENV,
+)
+
+bzl_library(
+    name = "workspace",
+    srcs = ["workspace.bzl"],
+)
+
+bzl_library(
+    name = "openspec_validation",
+    srcs = ["openspec.bzl"],
+    deps = [
+        "@aspect_rules_js//js:defs",
+    ],
 )

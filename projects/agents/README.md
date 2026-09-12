@@ -34,10 +34,12 @@ Dated audits remain in
   [the migration map](../../infra/src/openspec/migration.md) locates historical records.
 - Other components own their specifications and changes under their own
   `openspec/` directory. `infra/src/openspec/` describes repository evolution.
-- `skills/` owns reusable repository-wide agent procedures and their
-  development-time evaluations.
+- `skills/` owns reusable cross-product, repository-wide agent procedures and
+  their development-time evaluations. A product-specific procedure belongs
+  with its product; a procedure that no narrower project genuinely owns lives
+  here rather than in a contrived local home.
 - Product-specific skills remain with their project at
-  `projects/<project>/skills/<name>`.
+  `projects/<project>/skills/<name>`. Do not split one skill across owners.
 
 ## Skill packaging and discovery
 

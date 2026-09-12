@@ -1,4 +1,20 @@
-exports_files([
-    "iso_extension.bzl",
-    "iso_flash_binary.bzl",
-])
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+
+package(default_visibility = ["//visibility:public"])
+
+bzl_library(
+    name = "iso_flash_binary",
+    srcs = ["iso_flash_binary.bzl"],
+)
+
+bzl_library(
+    name = "iso_flash_repo",
+    srcs = ["iso_flash_repo.bzl"],
+    deps = [":iso_flash_binary"],
+)
+
+bzl_library(
+    name = "iso_extension",
+    srcs = ["iso_extension.bzl"],
+    deps = [":iso_flash_repo"],
+)

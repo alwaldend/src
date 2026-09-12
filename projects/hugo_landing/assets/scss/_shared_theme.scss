@@ -1,0 +1,63 @@
+// Shared Docsy theme for the repository's Hugo sites.
+//
+// The apex site (`projects/alwaldend.com`) and the project landing sites render
+// the same pure black canvas with the same text and surface palette. Each site
+// imports this file from its own `_styles_project.scss`; do not copy these rules
+// into a site-local file.
+//
+// Docsy imports `_styles_project.scss` after Bootstrap, so the `*-dark` palette
+// values below are in scope. The overrides are CSS custom properties because
+// that is what Bootstrap components and Docsy surfaces read at runtime.
+
+$alwaldend-canvas: $black !default;
+
+@mixin alwaldend-canvas-palette {
+    color-scheme: dark;
+
+    --bs-body-bg: #{$alwaldend-canvas};
+    --bs-body-bg-rgb: #{to-rgb($alwaldend-canvas)};
+    --bs-body-color: #{$body-color-dark};
+    --bs-body-color-rgb: #{to-rgb($body-color-dark)};
+    --bs-emphasis-color: #{$body-emphasis-color-dark};
+    --bs-emphasis-color-rgb: #{to-rgb($body-emphasis-color-dark)};
+    --bs-secondary-color: #{$body-secondary-color-dark};
+    --bs-secondary-color-rgb: #{to-rgb($body-secondary-color-dark)};
+    --bs-tertiary-color: #{$body-tertiary-color-dark};
+    --bs-tertiary-color-rgb: #{to-rgb($body-tertiary-color-dark)};
+
+    --bs-secondary-bg: #{$body-secondary-bg-dark};
+    --bs-secondary-bg-rgb: #{to-rgb($body-secondary-bg-dark)};
+    --bs-tertiary-bg: #{$body-tertiary-bg-dark};
+    --bs-tertiary-bg-rgb: #{to-rgb($body-tertiary-bg-dark)};
+
+    --bs-heading-color: #{$headings-color-dark};
+    --bs-border-color: #{$border-color-dark};
+    --bs-border-color-translucent: #{$border-color-translucent-dark};
+    --bs-link-color: #{$link-color-dark};
+    --bs-link-color-rgb: #{to-rgb($link-color-dark)};
+    --bs-link-hover-color: #{$link-hover-color-dark};
+    --bs-link-hover-color-rgb: #{to-rgb($link-hover-color-dark)};
+    --bs-code-color: #{$code-color-dark};
+    --bs-highlight-color: #{$mark-color-dark};
+    --bs-highlight-bg: #{$mark-bg-dark};
+}
+
+// `:root` also covers a page rendered without a color-mode attribute, so the
+// canvas does not depend on the selected color mode.
+:root,
+[data-bs-theme="light"],
+[data-bs-theme="dark"] {
+    @include alwaldend-canvas-palette;
+}
+
+// Docsy paints a canvas with system colors before the stylesheet loads; that
+// color is visible while the page loads and during overscroll.
+html {
+    background-color: $alwaldend-canvas;
+}
+
+// Docsy gives the footer a literal dark gray surface. It spans the page width,
+// so keep it on the site canvas.
+.td-footer {
+    background-color: var(--bs-body-bg);
+}
