@@ -22,5 +22,6 @@ docs_filegroup(
         ],
         allow_empty = True,
     ),
+    preserve_paths = True,
     visibility = ["//infra/src:__pkg__"],
 )
