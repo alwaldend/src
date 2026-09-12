@@ -20,7 +20,7 @@ infra.ansible_keys({
 lib.plugin_call({
     name = "tf_backend_tf_setup",
     plugin = "tf_backend",
-    labels = { tf = "setup" },
+    labels = { tf = "setup", dns = "1" },
     data = {
         vault_secret = "alwaldend.com/vault1/approles/src_infra_harbor/tf_backend/tf_setup",
         vault_secret_mount = "secrets",
@@ -65,4 +65,14 @@ infra.kubernetes_login({
         client_id = "d8LmH5d7CHKwOQ925CGllVDkytJ1mYgn",
         redirect_uri = "https://unused",
     },
+})
+
+infra.pve_provider_inputs({
+    labels = { dns = "1" },
+})
+
+infra.dns({
+    labels = { tf = "setup", dns = "1" },
+    dc1 = true,
+    global = false,
 })

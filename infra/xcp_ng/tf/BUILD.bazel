@@ -1,18 +1,24 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_target_binary_map", "terraform_test_map")
+
+_CONFIGS = ["//infra/xcp_ng:al"]
 
 _DATA = [
     ".terraform.lock.hcl",
+    "//infra/xcp_ng:dnsconfig",
+    "//projects/tf_modules/dns_records:dns_records",
 ] + glob(["*.tf"])
+
+_RUNTIME_DATA = _DATA + [
+    "//infra/xcp_ng/cmd/xo_config",
+    "//tools/vault/injector",
+    "//tools/vault/tf_backend",
+]
 
 terraform_binary_map(
     name = "tf",
-    configs = ["//infra/xcp_ng:al"],
-    data = _DATA + [
-        "//infra/xcp_ng/cmd/xo_config",
-        "//tools/vault/injector",
-        "//tools/vault/tf_backend",
-    ],
+    configs = _CONFIGS,
+    data = _RUNTIME_DATA,
     run_args = [
         "--plugin_label",
         "xcp_ng_tf=1",
@@ -21,6 +27,17 @@ terraform_binary_map(
         "--plugin_label",
         "vault_env=xcp_ng",
     ],
+)
+
+terraform_target_binary_map(
+    name = "dns",
+    configs = _CONFIGS,
+    data = _RUNTIME_DATA,
+    run_args = [
+        "--plugin_label",
+        "dns=1",
+    ],
+    target = "module.dns",
 )
 
 terraform_test_map(

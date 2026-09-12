@@ -1,72 +1,6 @@
-load("@bazel_skylib//rules:native_binary.bzl", "native_test")
-load("@rules_dnscontrol//main/bzl:dnscontrol.bzl", "dnscontrol_site")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects:projects.bzl", "PROJECTS")
-load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 load("//tools/vault:defs.bzl", "vault_binary_map")
-
-vault_binary_map(
-    name = "vault",
-    configs = [":al"],
-)
-
-_ZONES = glob(["zones/**/*.zone"])
-
-_INFRA_RECORD_DNSCONFIGS = [
-    "//infra/flux:dnsconfig",
-    "//infra/forgejo:dnsconfig",
-    "//infra/forgejo_runner:dnsconfig",
-    "//infra/harbor:dnsconfig",
-    "//infra/ingress:dnsconfig",
-    "//infra/mikrotik:dnsconfig",
-    "//infra/nas:dnsconfig",
-    "//infra/openhands:dnsconfig",
-    "//infra/pve:dnsconfig",
-    "//infra/threexui:dnsconfig",
-    "//infra/vault:dnsconfig",
-    "//infra/xcp_ng:dnsconfig",
-    "//projects/alwaldend.com:dnsconfig",
-    "//users/simeonwarren:dnsconfig",
-    "//users/simeonwarren/host_bot:dnsconfig",
-]
-
-_PROJECT_RECORD_DNSCONFIGS = [
-    "//projects/{}:dnsconfig".format(project)
-    for project in PROJECTS
-    if project != "alwaldend.com" and not project.startswith("rules_")
-]
-
-_RECORD_DNSCONFIGS = _INFRA_RECORD_DNSCONFIGS + _PROJECT_RECORD_DNSCONFIGS + [
-    "@rules_{}//:dnsconfig".format(project.removeprefix("rules_"))
-    for project in PROJECTS
-    if project.startswith("rules_")
-]
-
-dnscontrol_site(
-    name = "requires",
-    srcs = _RECORD_DNSCONFIGS,
-    config = "dnsconfig.js",
-    data = _ZONES,
-    visibility = ["//infra:__pkg__"],
-)
-
-_BIN = "$(rootpath //tools/dnscontrol)"
-
-native_test(
-    name = "config_test",
-    size = "small",
-    src = "//tools/dnscontrol",
-    args = [
-        "check",
-        "--config",
-        "$(rootpath dnsconfig.js)",
-    ],
-    data = [
-        "dnsconfig.js",
-        ":requires_manifest_raw",
-    ],
-)
 
 al_config(
     name = "al",
@@ -75,55 +9,35 @@ al_config(
     deps = ["//infra:al"],
 )
 
-al_binary_run_map(
-    name = "dns",
-    args = {
-        "": [
-            _BIN,
-            "push",
-            "--config",
-            "$(rootpath dnsconfig.js)",
-            "--creds",
-            "$(rootpath providers.json)",
-            "-i",
-        ],
-        "deploy": [
-            _BIN,
-            "push",
-            "--config",
-            "$(rootpath dnsconfig.js)",
-            "--creds",
-            "$(rootpath providers.json)",
-        ],
-        "preview": [
-            _BIN,
-            "preview",
-            "--config",
-            "$(rootpath dnsconfig.js)",
-            "--creds",
-            "$(rootpath providers.json)",
-        ],
-    },
+vault_binary_map(
+    name = "vault",
     configs = [":al"],
-    data = [
-        "dnsconfig.js",
-        "providers.json",
-        ":requires_manifest",
-        ":requires_manifest_raw",
-        "//infra:dnsconfig_nonlanding",
-        "//tools/dnscontrol",
-        "//tools/vault/injector",
-    ] + _ZONES,
-    run_args = [
-        "--plugin_label",
-        "dns",
-    ],
 )
 
 filegroup(
-    name = "project_dnsconfigs",
-    srcs = _RECORD_DNSCONFIGS,
-    visibility = ["//infra:__pkg__"],
+    name = "dnsconfig",
+    srcs = ["dnsconfig.json"],
+    visibility = ["//infra:__subpackages__"],
+)
+
+alias(
+    name = "lint",
+    actual = "//infra/dns/cmd/lint",
+)
+
+test_suite(
+    name = "config_test",
+    tests = [
+        "//infra/dns/cmd/lint:lint_test",
+        "//infra/dns/internal/lint:lint_test",
+        "//infra/dns/test/repository:repository_test",
+    ],
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "lint_test",
+    actual = ":config_test",
 )
 
 docs_filegroup(

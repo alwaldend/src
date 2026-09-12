@@ -81,7 +81,8 @@ Add `--project <project_id>` to publish only one registered site.
 
 Repository creation and Pages settings belong to
 [GitHub Terraform](../../infra/github/tf/README.md). DNS records belong to
-`projects/<project>/dnsconfig.json` and are applied through
-[DNSControl](../../infra/dns/README.md). Review each plan or preview and apply
-only the authorized project-site changes. Verify the published commit, Pages
+`projects/<project>/dnsconfig.json`. Each owner packages a Terraform DNS stage;
+the [DNS migration workflow](../../infra/dns/README.md) describes activation
+and the handoff from DNSControl. Review each plan and apply only the
+authorized project-site changes. Verify the published commit, Pages
 build, DNS, and HTTPS response before calling a rollout complete.

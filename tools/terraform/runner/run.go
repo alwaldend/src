@@ -1,10 +1,12 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"slices"
 	"strings"
 
@@ -12,18 +14,62 @@ import (
 )
 
 var (
-	terraformFlag = flag.String("terraform", "", "Terraform binary")
-	chDirFlag     = flag.String("chdir", ".", "--chdir flag for terraform")
-	directFlag    = flag.Bool("direct", false, "If set, just run the command")
-	logger        = log.New(os.Stderr, "com.alwaldend.src.tools.terraform.runner ", log.Flags())
+	terraformFlag        = flag.String("terraform", "", "Terraform binary")
+	chDirFlag            = flag.String("chdir", ".", "--chdir flag for terraform")
+	directFlag           = flag.Bool("direct", false, "If set, just run the command")
+	requireSavedPlanFlag = flag.Bool("require-saved-plan", false, "Require apply with exactly one existing saved plan file")
+	logger               = log.New(os.Stderr, "com.alwaldend.src.tools.terraform.runner ", log.Flags())
 )
+
+func validateArgs(args []string, chdir string, requireSavedPlan bool) error {
+	if !requireSavedPlan {
+		return nil
+	}
+	if len(args) != 2 || args[0] != "apply" || args[1] == "" || strings.HasPrefix(args[1], "-") {
+		return errors.New("--require-saved-plan requires apply <saved-plan-file> with no other arguments")
+	}
+	planPath := args[1]
+	if !filepath.IsAbs(planPath) {
+		planPath = filepath.Join(chdir, planPath)
+	}
+	info, err := os.Stat(planPath)
+	if err != nil {
+		return fmt.Errorf("could not inspect saved plan file: %w", err)
+	}
+	if !info.Mode().IsRegular() {
+		return errors.New("saved plan path must refer to a regular file")
+	}
+	return nil
+}
+
+func validateEnvironment(environ []string, requireSavedPlan bool) error {
+	if !requireSavedPlan {
+		return nil
+	}
+	for _, env := range environ {
+		name, value, _ := strings.Cut(env, "=")
+		if value != "" && (name == "TF_CLI_ARGS" || strings.HasPrefix(name, "TF_CLI_ARGS_")) {
+			return fmt.Errorf("--require-saved-plan rejects nonempty %s", name)
+		}
+	}
+	return nil
+}
 
 func run() int {
 	flag.Parse()
+	args := flag.Args()
+	if err := validateArgs(args, *chDirFlag, *requireSavedPlanFlag); err != nil {
+		logger.Printf("Invalid command: %s\n", err)
+		return 2
+	}
+	environ := os.Environ()
+	if err := validateEnvironment(environ, *requireSavedPlanFlag); err != nil {
+		logger.Printf("Invalid environment: %s\n", err)
+		return 2
+	}
 	commonArgs := []string{fmt.Sprintf("-chdir=%s", *chDirFlag)}
 	backendArgs := []string{}
-	args := flag.Args()
-	for _, env := range os.Environ() {
+	for _, env := range environ {
 		split := strings.SplitN(env, "=", 2)
 		if len(split) != 2 {
 			continue

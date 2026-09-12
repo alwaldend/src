@@ -22,6 +22,7 @@ docs_filegroup(
         ],
         allow_empty = True,
     ),
+    preserve_paths = True,
     visibility = ["//projects/renders:__pkg__"],
 )
 

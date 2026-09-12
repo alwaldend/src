@@ -15,6 +15,11 @@ directories, and each is a separate stage:
 `README.md` owns the component's purpose and boundaries; `BUILD.bazel` owns
 target structure; `al.lua` owns wiring. Read them before changing any stage.
 
+DNS declarations feed the shared Terraform `dns_records` module in the owner's
+`tf_setup` stage when present, otherwise `tf`. The
+[DNS workflow](dns.md) describes runtime source discovery, ownership checks,
+and the prerequisites for using those roots.
+
 ## Authentication and injection
 
 Each component authenticates with its own Vault AppRole and receives the

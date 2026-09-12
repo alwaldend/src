@@ -23,5 +23,6 @@ docs_filegroup(
         allow_empty = True,
     ),
     prefix = "content/docs/projects/rules_binary_toolchain/openspec",
+    preserve_paths = True,
     visibility = ["//:__pkg__"],
 )

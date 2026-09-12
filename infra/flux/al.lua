@@ -33,7 +33,7 @@ infra.ansible_keys({
 lib.plugin_call({
     name = "tf_backend_tf_setup",
     plugin = "tf_backend",
-    labels = { tf = "setup" },
+    labels = { tf = "setup", dns = "1" },
     data = {
         vault_secret = "alwaldend.com/vault1/approles/src_infra_flux/tf_backend/tf_setup",
         vault_secret_mount = "secrets",
@@ -60,4 +60,14 @@ infra.k3s_token({
     name = "k3s_token",
     path = "alwaldend.com/vault1/approles/src_infra_flux/config",
     labels = { ansible = "1" },
+})
+
+infra.pve_provider_inputs({
+    labels = { dns = "1" },
+})
+
+infra.dns({
+    labels = { tf = "setup", dns = "1" },
+    dc1 = true,
+    global = false,
 })

@@ -35,7 +35,7 @@
             },
             "AAAA": {
                 "name": "njalla1.nodes.threexui",
-                "address": "2a0a:3840:8078:141::2d8e:8d85:1337"
+                "address": "2a0a:3840:8078:141:0:2d8e:8d85:1337"
             },
             "dsp": ["all"]
         },

@@ -1,0 +1,23 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects/tf_modules/dns_records:__pkg__"],
+)
+
+filegroup(
+    name = "global",
+    srcs = [
+        "main.tf",
+        "//projects/tf_modules/dns_records/normalize",
+    ],
+    visibility = ["//:__subpackages__"],
+)
+
+filegroup(
+    name = "test_sources",
+    testonly = True,
+    srcs = glob(["tests/*.tftest.hcl"]) + [":global"],
+    visibility = ["//projects/tf_modules/dns_records:__subpackages__"],
+)

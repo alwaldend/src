@@ -1,0 +1,249 @@
+{
+    "records": {
+        "github_pages_a_1": {
+            "A": {
+                "name": "@",
+                "ttl": 300,
+                "address": "185.199.108.153"
+            },
+            "dsp": ["all"]
+        },
+        "github_pages_a_2": {
+            "A": {
+                "name": "@",
+                "ttl": 300,
+                "address": "185.199.109.153"
+            },
+            "dsp": ["all"]
+        },
+        "github_pages_a_3": {
+            "A": {
+                "name": "@",
+                "ttl": 300,
+                "address": "185.199.110.153"
+            },
+            "dsp": ["all"]
+        },
+        "github_pages_a_4": {
+            "A": {
+                "name": "@",
+                "ttl": 300,
+                "address": "185.199.111.153"
+            },
+            "dsp": ["all"]
+        },
+        "github_pages_aaaa_1": {
+            "AAAA": {
+                "name": "@",
+                "ttl": 300,
+                "address": "2606:50c0:8000::153"
+            },
+            "dsp": ["all"]
+        },
+        "github_pages_aaaa_2": {
+            "AAAA": {
+                "name": "@",
+                "ttl": 300,
+                "address": "2606:50c0:8001::153"
+            },
+            "dsp": ["all"]
+        },
+        "github_pages_aaaa_3": {
+            "AAAA": {
+                "name": "@",
+                "ttl": 300,
+                "address": "2606:50c0:8002::153"
+            },
+            "dsp": ["all"]
+        },
+        "github_pages_aaaa_4": {
+            "AAAA": {
+                "name": "@",
+                "ttl": 300,
+                "address": "2606:50c0:8003::153"
+            },
+            "dsp": ["all"]
+        },
+        "www": {
+            "CNAME": {
+                "name": "www",
+                "ttl": 300,
+                "target": "alwaldend.com."
+            },
+            "dsp": ["all"]
+        },
+        "protonmail_verification": {
+            "TXT": {
+                "name": "@",
+                "ttl": 300,
+                "content": "protonmail-verification=bdcd133d3f472fa17f66328950d02fbeae1bef75"
+            },
+            "dsp": ["all"]
+        },
+        "protonmail_spf": {
+            "TXT": {
+                "name": "@",
+                "ttl": 300,
+                "content": "v=spf1 include:_spf.protonmail.ch ~all"
+            },
+            "dsp": ["all"]
+        },
+        "globalsign_verification": {
+            "TXT": {
+                "name": "@",
+                "ttl": 300,
+                "content": "_globalsign-domain-verification=0QBJgVV_uwcFLTi1Rot3bb1LyJ5uW1WD0ygvIS4OM5"
+            },
+            "dsp": ["all"]
+        },
+        "protonmail_mx_primary": {
+            "MX": {
+                "name": "@",
+                "ttl": 300,
+                "target": "mail.protonmail.ch.",
+                "priority": 10
+            },
+            "dsp": ["all"]
+        },
+        "protonmail_mx_secondary": {
+            "MX": {
+                "name": "@",
+                "ttl": 300,
+                "target": "mailsec.protonmail.ch.",
+                "priority": 20
+            },
+            "dsp": ["all"]
+        },
+        "protonmail_dkim_1": {
+            "CNAME": {
+                "name": "protonmail._domainkey",
+                "ttl": 300,
+                "target": "protonmail.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch."
+            },
+            "dsp": ["all"]
+        },
+        "protonmail_dkim_2": {
+            "CNAME": {
+                "name": "protonmail2._domainkey",
+                "ttl": 300,
+                "target": "protonmail2.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch."
+            },
+            "dsp": ["all"]
+        },
+        "protonmail_dkim_3": {
+            "CNAME": {
+                "name": "protonmail3._domainkey",
+                "ttl": 300,
+                "target": "protonmail3.domainkey.djgwfzcu5fgjtpoijqqomgifmqj6zeiuwdd4mzim4hrxab3zsgwkq.domains.proton.ch."
+            },
+            "dsp": ["all"]
+        },
+        "protonmail_dmarc": {
+            "TXT": {
+                "name": "_dmarc",
+                "ttl": 300,
+                "content": "v=DMARC1; p=quarantine; adkim=s"
+            },
+            "dsp": ["all"]
+        },
+        "simplelogin_mx_primary": {
+            "MX": {
+                "name": "simplelogin",
+                "ttl": 10800,
+                "target": "mx1.simplelogin.co.",
+                "priority": 10
+            },
+            "dsp": ["all"]
+        },
+        "simplelogin_mx_secondary": {
+            "MX": {
+                "name": "simplelogin",
+                "ttl": 10800,
+                "target": "mx2.simplelogin.co.",
+                "priority": 20
+            },
+            "dsp": ["all"]
+        },
+        "simplelogin_verification": {
+            "TXT": {
+                "name": "simplelogin",
+                "ttl": 10800,
+                "content": "sl-verification=bxfzzfjiggzsxyzxhhmkmjqkaskjgy"
+            },
+            "dsp": ["all"]
+        },
+        "simplelogin_spf": {
+            "TXT": {
+                "name": "simplelogin",
+                "ttl": 10800,
+                "content": "v=spf1 include:simplelogin.co ~all"
+            },
+            "dsp": ["all"]
+        },
+        "simplelogin_dmarc": {
+            "TXT": {
+                "name": "_dmarc.simplelogin",
+                "ttl": 10800,
+                "content": "v=DMARC1; p=quarantine; pct=100; adkim=s; aspf=s"
+            },
+            "dsp": ["all"]
+        },
+        "simplelogin_dkim_1": {
+            "CNAME": {
+                "name": "dkim._domainkey.simplelogin",
+                "ttl": 10800,
+                "target": "dkim._domainkey.simplelogin.co."
+            },
+            "dsp": ["all"]
+        },
+        "simplelogin_dkim_2": {
+            "CNAME": {
+                "name": "dkim02._domainkey.simplelogin",
+                "ttl": 10800,
+                "target": "dkim02._domainkey.simplelogin.co."
+            },
+            "dsp": ["all"]
+        },
+        "simplelogin_dkim_3": {
+            "CNAME": {
+                "name": "dkim03._domainkey.simplelogin",
+                "ttl": 10800,
+                "target": "dkim03._domainkey.simplelogin.co."
+            },
+            "dsp": ["all"]
+        },
+        "yandex_mx": {
+            "MX": {
+                "name": "yandex",
+                "ttl": 21600,
+                "target": "mx.yandex.net.",
+                "priority": 10
+            },
+            "dsp": ["all"]
+        },
+        "yandex_verification": {
+            "TXT": {
+                "name": "yandex",
+                "ttl": 300,
+                "content": "yandex-verification: b83672f59b3dbe16"
+            },
+            "dsp": ["all"]
+        },
+        "yandex_spf": {
+            "TXT": {
+                "name": "yandex",
+                "ttl": 300,
+                "content": "v=spf1 redirect=_spf.yandex.net"
+            },
+            "dsp": ["all"]
+        },
+        "yandex_dkim": {
+            "TXT": {
+                "name": "mail._domainkey.yandex",
+                "ttl": 300,
+                "content": "v=DKIM1; k=rsa; t=s; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCcYzFVgkeDOhaIIkWM8gNQjxVsv0/aXfU+ax5urB5y6hA6lSjRnjRo6tm0bXbkOJf41GmiwMNgdXpwRtzgzAlX1i2aJbtEr4b9jzibEGLQ7Cvqs44bOYES9f/K3ueQpnvdTOJmFqlRReFL7ZrUyDFCoQ7f4+7h4i8s01cCcRrt5wIDAQAB"
+            },
+            "dsp": ["all"]
+        }
+    }
+}

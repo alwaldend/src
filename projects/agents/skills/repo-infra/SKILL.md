@@ -66,8 +66,9 @@ as a syntax check; it can mutate inventory hosts.
 ## DNS
 
 Read [references/dns.md](references/dns.md) before adding or changing records.
-Record definitions are declarative and per owner; `infra/dns/zones/*.zone` is
-generated output and must never be hand-edited.
+Record definitions remain in each owner's `dnsconfig.json`; Terraform modules
+consume them. The DNS linter discovers those files at runtime, prints their
+declarations as a table, and enforces one source file per domain name.
 
 ## Vault operations
 
@@ -86,7 +87,7 @@ audit procedure and the evidence a finding must carry.
 | -------------- | -------------------------------------------------------------------------------------------------- |
 | Terraform      | `bazel_agent bazel test //path/tf:tf_tests.fmt_test`; an authorized live review can use `:tf.plan` |
 | Ansible        | `bazel_agent bazel build //path/ansible:ansible_bin`                                               |
-| DNS            | `bazel_agent bazel test //infra/dns:config_test`                                                   |
+| DNS            | `bazel_agent bazel run //infra/dns:lint`; `bazel_agent bazel test //infra/dns:config_test`         |
 | BUILD/Starlark | `bazel_agent bazel test //:buildifier_test`                                                        |
 | Any            | `git diff --check`                                                                                 |
 

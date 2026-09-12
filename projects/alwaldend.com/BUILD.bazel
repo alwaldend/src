@@ -25,7 +25,7 @@ al_config(
     name = "al",
     srcs = ["al.lua"],
     visibility = ["//projects/alwaldend.com:__subpackages__"],
-    deps = ["//tools/al:config"],
+    deps = ["//infra:al"],
 )
 
 go_library(

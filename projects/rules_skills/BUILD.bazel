@@ -24,10 +24,17 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     prefix = "content/docs/projects/rules_skills",
     visibility = ["//visibility:public"],
+    deps = ["//tf:docs"],
 )
 
 filegroup(
     name = "dnsconfig",
     srcs = ["dnsconfig.json"],
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "dns_al_source",
+    srcs = ["al.lua"],
     visibility = ["//visibility:public"],
 )

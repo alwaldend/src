@@ -1,0 +1,5 @@
+- [x] Provision the dedicated AppRole through the scoped owning Vault plan.
+- [x] Validate provider discovery and activate the project's source.
+- [x] Import the existing record and review a no-change adoption plan.
+- [x] Apply the reviewed plan and verify public DNS and unrelated records.
+- [x] Record adoption evidence and prepare project specification synchronization.

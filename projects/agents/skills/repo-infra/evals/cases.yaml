@@ -20,6 +20,26 @@
         from any authorized plan without exposing values;
         and does not apply, destroy, import, or edit state because deployment
         was explicitly excluded. Otherwise fail.
+- description: Groups cohesive Terraform resources into modules
+  vars:
+    request: >-
+      Add AppRoles for two projects. Each project's role, policy, and KV
+      namespace have the same owner and lifecycle. Choose a maintainable
+      Terraform structure using the repository's existing AppRole module,
+      wire it into the Vault stage, and validate without deployment.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response groups each project's related resources
+        into a cohesive Terraform module owned by the Vault stage, reuses the
+        existing AppRole module instead of duplicating its implementation,
+        connects the child modules through explicit inputs and outputs where
+        needed, and includes their source files in the stage's Bazel data;
+        preserves the stage's authentication and state backend; and validates
+        through repository formatting and offline checks without applying or
+        contacting live providers. Fail if it only sorts resources into files
+        in one flat module or requires a separate module for every resource.
 - description: Adds and validates packaged idempotent Ansible automation
   vars:
     request: >-
@@ -50,16 +70,42 @@
       threshold: 1
       value: >-
         Pass only if the response adds records to the owning component's
-        dnsconfig.json rather than a global list; uses the existing record shape
-        with exactly one A, AAAA, CNAME, or NS per entry, name and target for
-        CNAME, no Cloudflare proxy flags, and a supported dsp scope; exposes the
-        file through the owning BUILD dnsconfig filegroup and the record lists
-        in infra/BUILD.bazel and infra/dns/BUILD.bazel when required; follows
-        the dc1 site-local plus global CNAME to ingress convention for public
-        reachability without claiming that public reachability alone authorizes
-        access; does not hand-edit infra/dns/zones; and validates with the
-        offline config test rather than a push, deploy, or preview target.
-        Otherwise fail.
+        dnsconfig.json rather than a global list; follows the shared
+        dns_records schema, allowing multiple supported type members per
+        logical key and a supported dsp list; consumes that JSON through the
+        shared Terraform module in tf_setup when present, otherwise tf; keeps
+        the source and module files in the root's Bazel data; relies on runtime
+        linter discovery rather than adding a source registry; identifies
+        deployed AppRole access and the referenced DNS credential fields in
+        Vault as operational prerequisites without claiming disabled DNS
+        management bypasses provider configuration; distinguishes source
+        implementation from live adoption; follows the owner's ingress
+        convention without claiming DNS reachability alone authorizes access;
+        and validates current declarations with the offline DNS lint target
+        and the linter unit suite with config_test without a live plan,
+        import, or apply. Otherwise fail.
+- description: Detects one domain name declared by multiple source files
+  vars:
+    request: >-
+      Check whether multiple dnsconfig.json files manage the same domain.
+      One file declares an A record for api in global, another declares an
+      AAAA record for API.ALWALDEND.COM. in dc1, and a third owns web in both
+      views. Use the repository's DNS linter and explain the result without
+      changing declarations or contacting providers.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response invokes or identifies the offline
+        //infra/dns:lint target through bazel_agent, explains its runtime
+        discovery of source files and declaration table, identifies the first
+        two files as conflicting owners of api.alwaldend.com despite name case,
+        absolute notation, record type, and view differences, and accepts
+        the third file's distinct name across views. It must preserve all
+        canonical sources in runtime discovery, allow multiple type members
+        or values for a name within its one source file, and avoid treating the
+        whole zone as one domain ownership unit. It must not edit records,
+        remove inputs, or call live DNS providers. Otherwise fail.
 - description: Refreshes an expired host Vault token without redundant approval
   vars:
     request: >-

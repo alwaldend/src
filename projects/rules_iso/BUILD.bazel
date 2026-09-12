@@ -6,6 +6,7 @@ docs_filegroup(
     srcs = ["README.md"],
     prefix = "content/docs/projects/rules_iso",
     visibility = ["//visibility:public"],
+    deps = ["//tf:docs"],
 )
 
 exports_files([
@@ -26,4 +27,10 @@ build_test(
         "//pkg/bzl:iso_flash_binary",
         "//pkg/bzl:iso_flash_repo",
     ],
+)
+
+filegroup(
+    name = "dns_al_source",
+    srcs = ["al.lua"],
+    visibility = ["//visibility:public"],
 )

@@ -5,7 +5,7 @@ load("//tools/vault:defs.bzl", "vault_binary_map")
 al_config(
     name = "al",
     srcs = ["al.lua"],
-    visibility = ["//infra/harvester:__subpackages__"],
+    visibility = ["//infra/nas:__subpackages__"],
     deps = ["//infra:al"],
 )
 

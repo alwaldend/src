@@ -1,0 +1,19 @@
+load("@rules_go//go:def.bzl", "go_test")
+
+go_test(
+    name = "repository_test",
+    size = "small",
+    srcs = ["repository_test.go"],
+    args = ["-workspace-marker=$(rlocationpath //:MODULE.bazel)"],
+    data = ["//:MODULE.bazel"],
+    tags = [
+        "external",
+        "no-cache",
+        "no-sandbox",
+    ],
+    visibility = ["//infra/dns:__pkg__"],
+    deps = [
+        "//infra/dns/internal/lint",
+        "@rules_go//go/runfiles",
+    ],
+)

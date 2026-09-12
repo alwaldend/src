@@ -1,6 +1,9 @@
 module "src_infra_openhands" {
   source = "./approle_src_infra_openhands"
   name   = "src_infra_openhands"
+  policies = [
+    module.dns_access["src_infra_openhands"].policy_name,
+  ]
   member_entity_ids = [
     vault_identity_entity.simeonwarren.id,
   ]

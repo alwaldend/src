@@ -14,7 +14,7 @@ plugin. The plugin supplies a temporary XO token and revokes it on shutdown;
 no infrastructure administrator token is loaded. The setup HTTP backend
 remains owned by the same OpenHands config.
 
-Before running this package, bootstrap the AppRole's XO OIDC user and apply
+Before running VM setup, bootstrap the AppRole's XO OIDC user and apply
 its resource-set membership through `infra/xcp_ng/tf`. Subjects are matched by
 immutable Vault entity UUID under the configured OIDC issuer, not by login
 name or AppRole group membership. See
@@ -45,3 +45,18 @@ Ansible.
 bazel_agent bazel run //infra/openhands/tf_setup:tf_setup.plan
 bazel_agent bazel run //infra/openhands/tf_setup:tf_setup.apply
 ```
+
+Use this package's `dns.plan`, `dns.show`, and `dns.apply` targets for the
+[scoped DNS adoption workflow](../../dns/README.md).
+They select `dns=1` and target `module.dns` in the same root, AppRole, and
+backend without starting XO login. Apply requires the reviewed saved plan;
+the [shared procedure](../../dns/openspec/changes/archive/2026-09-13-migrate-project-dns-to-terraform/cutover.md#prepare-the-owner)
+owns preparation and reconciliation.
+
+`dns_enabled` defaults to `true` after
+[verified initial provisioning](../openspec/changes/archive/2026-09-13-adopt-dns-records/design.md).
+Keep it enabled to retain the managed records. Unchanged declarations and
+provider records produce a no-change DNS plan. Successful DNS checks do not
+establish VM, OpenHands service, or TLS readiness; the separate
+[service deployment change](../openspec/changes/add-openhands-deployment/design.md)
+retains that acceptance work.

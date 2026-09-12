@@ -1,0 +1,25 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects/tf_modules/dns_records:__pkg__"],
+)
+
+alias(
+    name = "cloudflare",
+    actual = "@dns_test_cloudflare//:provider",
+    visibility = ["//:__subpackages__"],
+)
+
+alias(
+    name = "proxmox",
+    actual = "@dns_test_proxmox//:provider",
+    visibility = ["//projects/tf_modules/dns_records/test:__pkg__"],
+)
+
+alias(
+    name = "routeros",
+    actual = "@dns_test_routeros//:provider",
+    visibility = ["//:__subpackages__"],
+)

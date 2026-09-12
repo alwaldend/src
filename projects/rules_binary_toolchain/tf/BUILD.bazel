@@ -1,0 +1,14 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+filegroup(
+    name = "sources",
+    srcs = glob(["*.tf"]) + [".terraform.lock.hcl"],
+    visibility = ["//visibility:public"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    prefix = "content/docs/projects/rules_binary_toolchain/tf",
+    visibility = ["//:__pkg__"],
+)

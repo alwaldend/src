@@ -81,6 +81,10 @@ const (
 	// Allow complete migration inventories beyond the generic diagnostic
 	// ceiling while retaining a strict operation-specific output bound.
 	gitStatusOutputLimit = 1024 * 1024
+	// Aggregate diffs include both old and new paths for moved files. Keep
+	// complete immutable path inventories bounded independently of ordinary
+	// diagnostic output, including migrations with long archived paths.
+	gitChangedPathsOutputLimit = 1024 * 1024
 )
 
 var gitForcedEnvironment = []string{
@@ -1662,8 +1666,9 @@ func (g *gitRepository) changedPaths(
 	if !isObjectID(oldObject) || !isObjectID(newObject) {
 		return nil, fmt.Errorf("tree diff endpoints must be full Git object IDs")
 	}
-	result, err := g.run(
+	result, err := g.runWithOutputLimit(
 		ctx,
+		gitChangedPathsOutputLimit,
 		"diff",
 		"--no-ext-diff",
 		"--no-textconv",

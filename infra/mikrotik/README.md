@@ -7,6 +7,9 @@ tags:
   - mikrotik
 ---
 
+The [Terraform package](tf/README.md) prepares owner-local DNS management.
+Router exports remain documentation inputs and are not applied by that package.
+
 ## Deployment
 
 - Open [Winbox](https://help.mikrotik.com/docs/spaces/ROS/pages/328129/WinBox)

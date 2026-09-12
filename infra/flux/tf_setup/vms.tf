@@ -7,7 +7,7 @@ module "vms" {
     host1 = { vmid = 800 },
   }
   source = ".././../../projects/tf_modules/pve_vm_qemu"
-  name   = "${local.dns.domains.default.records[each.key].A.name}.alwaldend.com"
+  name   = "${local.dns.records[each.key].A.name}.alwaldend.com"
   vmid   = each.value.vmid
   pool   = "src_infra_flux"
   cores  = 2
@@ -22,6 +22,6 @@ module "vms" {
   scsi2 = {
     size = "20G" # K3s storage
   }
-  ip   = "${local.dns.domains.default.records[each.key].A.address}/24"
+  ip   = "${local.dns.records[each.key].A.address}/24"
   tags = ["flux"]
 }

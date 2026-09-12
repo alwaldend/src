@@ -23,5 +23,6 @@ docs_filegroup(
         allow_empty = True,
     ),
     prefix = "content/docs/projects/rules_hugo/openspec",
+    preserve_paths = True,
     visibility = ["//:__pkg__"],
 )

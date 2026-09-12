@@ -6,6 +6,7 @@ module "src_infra_dc1_vault_approle" {
   ]
   secrets = vault_mount.secrets.path
   policies = [
+    module.dns_access["src_infra_dc1_vault"].policy_name,
     vault_policy.pki_admin.name,
     vault_policy.auth_admin.name,
     vault_policy.identity_admin.name,

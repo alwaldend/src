@@ -47,3 +47,15 @@ membership do not select the ACL subject. Group discovery selects only
 synchronized OIDC groups and rejects duplicate names. The provider has no
 group datasource and its user datasource does not expose immutable external
 subjects. API credentials remain in the injected environment.
+
+Use this package's `dns.plan`, `dns.show`, and `dns.apply` targets for the
+[scoped DNS adoption workflow](../../dns/README.md).
+These commands select `dns=1` and target `module.dns` in this same root and
+backend, using the existing `src_infra_xcp_ng` AppRole through named `xcp_ng`
+Vault authentication. The ordinary service wrappers retain their XO
+authentication and labels. A successful DNS-only operation verifies its scoped
+DNS result; full service health requires the service's own checks.
+
+DNS ownership defaults to enabled after the completed
+[record adoption](../openspec/changes/archive/2026-09-13-adopt-dns-records/design.md).
+Keep that default enabled to retain the imported records.
