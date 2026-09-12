@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_target_binary_map", "terraform_test_map")
 
 docs_filegroup(
     name = "docs",
@@ -46,6 +46,8 @@ _RUN_ARGS = [
 
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
+    "//projects/alwaldend.com:dnsconfig",
+    "//projects/tf_modules/dns_records/global:global",
     "//tools/vault/pve_login",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",
@@ -56,6 +58,17 @@ terraform_binary_map(
     configs = _CONFIGS,
     data = _DATA,
     run_args = _RUN_ARGS,
+)
+
+terraform_target_binary_map(
+    name = "dns",
+    configs = _CONFIGS,
+    data = _DATA,
+    run_args = [
+        "--plugin_label",
+        "dns=1",
+    ],
+    target = "module.dns",
 )
 
 terraform_test_map(

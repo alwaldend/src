@@ -1,53 +1,68 @@
 # DNS declarations in this repository
 
-DNS configuration is declarative and split by owner. Project-owned records live
-in `projects/<project>/dnsconfig.json`; infrastructure records live under the
-matching `infra/` owner. `infra/dns/dnsconfig.js` is the bridge that turns JSON
-records into DNSControl domains and modifiers.
+Canonical DNS declarations remain in each owner's `dnsconfig.json`. Read the
+[DNS README](../../../../../infra/dns/README.md) for linting, owner-local
+Terraform roots, and the cutover procedure. The shared
+[`dns_records` Terraform module](../../../../../projects/tf_modules/dns_records/README.md)
+owns the schema, normalization, and provider resource mapping.
 
-## Required workflow
+## Declare and package records
 
-1. Read the nearest existing `dnsconfig.json` before changing its schema.
-2. Add project records to the owning project, not to a global list.
-3. Use the existing record shape:
-   - One record per key, holding exactly one `A`, `AAAA`, `CNAME`, or `NS`.
-   - `CNAME.name` is the subdomain; `CNAME.target` is the upstream hostname.
-   - Cloudflare proxy flags are not used.
-   - `dsp` selects `global`, `dc1`, or `all`.
-4. Expose the file through the owning `BUILD.bazel` `dnsconfig` filegroup, and
-   add the owner to the record lists in `infra/BUILD.bazel` and
-   `infra/dns/BUILD.bazel`. For project workspaces, this is driven by the
-   `PROJECTS` registry instead.
-5. Validate with:
+1. Read the owner's existing declarations and Terraform stage before editing.
+2. Keep records in the owning source file. Each logical record key may contain
+   multiple supported type members (`A`, `AAAA`, `CNAME`, `NS`, `MX`, `TXT`)
+   and a `dsp` list selecting `global`, `dc1`, or `all`. Follow the shared
+   module's schema; Cloudflare records remain unproxied.
+3. Use the shared `dns_records` module in the owner's `tf_setup` root when it
+   exists, otherwise `tf`. Consume the JSON instead of copying record values
+   into Terraform. Include the source filegroup and module sources in the
+   root's Bazel data and preserve its AppRole, injection, and backend flow.
+4. Run the offline checks:
 
    ```sh
+   bazel_agent bazel run //infra/dns:lint
    bazel_agent bazel test //infra/dns:config_test
    ```
 
-Never run `//infra/dns` or `//infra/dns:dns.deploy` as validation. Those targets
-contact DNS providers and can change live records. Use preview only when the
-user explicitly authorizes that exact live read operation.
+The linter discovers raw `dnsconfig.json` files in the current workspace at
+runtime, including nested project workspaces, and prints the declarations as
+a table. There is no central source registry to update. `config_test` runs
+the offline linter unit suite and checks every current checkout declaration;
+run `:lint` to inspect the declaration table.
 
-`infra/dns/zones/*.zone` are generated BIND snapshots used to diff against
-`infra/mikrotik/router1.rsc`; never hand-edit them.
+Each canonical domain name must be managed by one source file across all
+record types and views. Multiple values or types for that name may share that
+file; separate names in the same DNS zone may have different owners. Duplicate
+JSON object keys are errors. Resolve a duplicate at its owning source rather
+than excluding that source from discovery.
 
-## Scopes
+## Operational prerequisites and migration
 
-- `dc1`: site-local names resolved by the dc1 router.
-- `global`: public Cloudflare records.
-- `all`: emitted to every scope.
+Before invoking an operational root, establish its deployed AppRole access and
+the referenced Vault credentials: Cloudflare token, plus RouterOS username and
+password for `dc1`. An explicit Cloudflare zone ID is optional; enabled global
+records resolve the zone by name when it is absent or empty, requiring zone-list
+and zone-read access. DNS and ingress share the RouterOS endpoint in the infra
+AL configuration. These defaults require no additional metadata fields in
+existing credential entries. Follow the owning `al.lua` and cutover procedure
+for exact references and independent endpoint recovery requirements. Disabled
+DNS management does not bypass credential injection or guarantee that provider
+configuration is unnecessary.
 
-A service that must be reachable both site-locally and publicly typically
-declares a `dc1` record for the real host and a `global` `CNAME` to
-`ingress.alwaldend.com.`, following the `infra/ingress` convention of an
-explicitly prefixed site-local target. Public reachability is not the same as
-public authorization: an ingress service that keeps a TLS client-auth policy
-still requires a client certificate.
+Source implementation does not establish live adoption. Follow the DNS
+README's cutover procedure to freeze old central deployment jobs and source
+revisions, import existing records into the owning state, and review adoption
+before enabling writes. The same procedure owns rollback and recovery.
+Terraform plans contact live systems; imports, applies, and state operations
+can mutate them. Keep those operations within the user's exact authorization.
 
-## Landing subdomains
+## Scopes and landing sites
 
-Project landing sites use `<project-slug>.alwaldend.com`, CNAME to
-`pages.alwaldend.com`, and are unproxied so GitHub Pages can serve them directly
-and issue their certificates. Keep the `pages` A/AAAA records with the landing
-records so GitHub Pages traffic follows one address set. The apex remains
-separately configured; never replace the apex with a project wildcard or CNAME.
+`dc1` selects site-local router records, `global` public Cloudflare records,
+and `all` both views. Follow the owning component's ingress convention when a
+service needs both local and public names. Public DNS reachability does not
+remove an ingress service's authentication requirements.
+
+For project landing names and targets, follow the DNS README and the project's
+existing declarations. Keep apex and shared hosting records with their
+declared owner instead of copying them into project files.

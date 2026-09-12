@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/terraform:defs.bzl", "terraform_binary_map")
+load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
 
 docs_filegroup(
     name = "docs",
@@ -15,6 +15,8 @@ _CONFIGS = ["//infra/dns:al"]
 
 _DATA = glob(["*.tf"]) + [
     ".terraform.lock.hcl",
+    "//infra/dns:dnsconfig",
+    "//projects/tf_modules/dns_records",
     "//tools/vault/tf_backend",
     "//tools/vault/injector",
 ]
@@ -27,4 +29,10 @@ terraform_binary_map(
         "--plugin_label",
         "tf",
     ],
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    configs = _CONFIGS,
+    data = _DATA,
 )

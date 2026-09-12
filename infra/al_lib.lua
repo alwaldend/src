@@ -1,6 +1,25 @@
 local lib = require("al_lib")
 
-local M = {}
+local M = {
+    routeros_hosturl = "https://router1.dc1.alwaldend.com",
+}
+
+-- Supply the configured endpoint for provider validation without logging in.
+function M.pve_provider_inputs(t)
+    lib.plugin_call({
+        name = "pve_provider_inputs",
+        plugin = "injector",
+        labels = t.labels,
+        data = {
+            res = {
+                {
+                    name = "PM_API_URL",
+                    env = { value = lib.pve_base_url .. "/api2/json" },
+                },
+            },
+        },
+    })
+end
 
 function M.k3s_token(t)
     local name, labels, path, mount =
@@ -450,6 +469,62 @@ function M.mikrotik(t)
         name = name,
         plugin = "injector",
         labels = labels,
+        data = { res = res },
+    })
+end
+
+-- Provider credentials for component-owned Terraform DNS records. Callers
+-- select only the views they own; secret values remain in Vault.
+function M.dns(t)
+    local res = {}
+    if t.global ~= false then
+        res[#res + 1] = {
+            name = "dns_cloudflare",
+            vault_auth = t.vault_auth,
+            kv = { path = "cloudflare.com/dns_token", mount = "secrets" },
+        }
+        res[#res + 1] = {
+            name = "CLOUDFLARE_API_TOKEN",
+            deps = { "dns_cloudflare" },
+            env = { value = "{{ .Last.Data.cloudflare_api_token }}" },
+        }
+        res[#res + 1] = {
+            name = "TF_VAR_dns_cloudflare_zone_id",
+            deps = { "dns_cloudflare" },
+            env = {
+                value = '{{ with index .Last.Data "cloudflare_zone_id" }}{{ . }}{{ end }}',
+            },
+        }
+    end
+    if t.dc1 then
+        res[#res + 1] = {
+            name = "dns_mikrotik",
+            vault_auth = t.vault_auth,
+            kv = {
+                path = "alwaldend.com/vault1/approles/src_infra_dns/mikrotik",
+                mount = "secrets",
+            },
+        }
+        res[#res + 1] = {
+            name = "TF_VAR_dns_routeros_hosturl",
+            deps = { "dns_mikrotik" },
+            env = { value = M.routeros_hosturl },
+        }
+        res[#res + 1] = {
+            name = "TF_VAR_dns_routeros_username",
+            deps = { "dns_mikrotik" },
+            env = { value = "{{ .Last.Data.username }}" },
+        }
+        res[#res + 1] = {
+            name = "TF_VAR_dns_routeros_password",
+            deps = { "dns_mikrotik" },
+            env = { value = "{{ .Last.Data.password }}" },
+        }
+    end
+    lib.plugin_call({
+        name = t.name or "dns_providers",
+        plugin = "injector",
+        labels = t.labels,
         data = { res = res },
     })
 end

@@ -1,4 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/al/rules/al:al_config.bzl", "al_config")
+load("//tools/vault:defs.bzl", "vault_binary_map")
 
 docs_filegroup(
     name = "docs",
@@ -7,6 +9,7 @@ docs_filegroup(
         "//projects:__pkg__",
         "//projects/agents/landing:__pkg__",
     ],
+    deps = ["//projects/agents/tf:docs"],
 )
 
 filegroup(
@@ -15,6 +18,19 @@ filegroup(
     visibility = [
         "//infra:__pkg__",
         "//infra/dns:__pkg__",
+        "//projects/agents/tf:__pkg__",
         "//projects/alwaldend.com:__subpackages__",
     ],
+)
+
+al_config(
+    name = "al",
+    srcs = ["al.lua"],
+    visibility = ["//projects/agents/tf:__pkg__"],
+    deps = ["//infra:al"],
+)
+
+vault_binary_map(
+    name = "vault",
+    configs = [":al"],
 )

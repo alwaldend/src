@@ -4,9 +4,9 @@ module "approle" {
   member_entity_ids        = var.member_entity_ids
   secrets                  = var.secrets
   disable_yc_folder_policy = true
-  policies = [
+  policies = concat([
     module.ssh.policy,
-  ]
+  ], var.policies)
   backend          = var.approle_backend
   backend_accessor = var.approle_backend_accessor
 }

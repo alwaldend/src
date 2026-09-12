@@ -1,3 +1,4 @@
+local infra = require("infra.al_lib")
 local lib = require("al_lib")
 
 lib.vault_auth({
@@ -8,7 +9,7 @@ lib.vault_auth({
 lib.plugin_call({
     name = "tf_backend",
     plugin = "tf_backend",
-    labels = { xcp_ng_tf = "1" },
+    labels = { xcp_ng_tf = "1", dns = "1" },
     data = {
         vault_auth = "xcp_ng",
         vault_secret = "alwaldend.com/vault1/approles/src_infra_xcp_ng/tf_backend",
@@ -102,4 +103,11 @@ lib.plugin_call({
             },
         },
     },
+})
+
+infra.dns({
+    labels = { xcp_ng_tf = "1", dns = "1" },
+    dc1 = true,
+    global = false,
+    vault_auth = "xcp_ng",
 })

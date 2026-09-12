@@ -8,12 +8,20 @@ al_config(
     deps = ["//infra:al"],
 )
 
+al_config(
+    name = "dns_al",
+    srcs = ["dns.al.lua"],
+    visibility = ["//users/simeonwarren/host_bot/tf:__pkg__"],
+    deps = ["//infra:al"],
+)
+
 filegroup(
     name = "dnsconfig",
     srcs = ["dnsconfig.json"],
     visibility = [
         "//infra:__pkg__",
         "//infra/dns:__pkg__",
+        "//users/simeonwarren/host_bot/tf:__pkg__",
     ],
 )
 

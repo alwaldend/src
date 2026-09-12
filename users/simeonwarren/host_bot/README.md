@@ -11,6 +11,10 @@ Host Bot runs Traefik with mTLS in front of T3 Code. The host firewall blocks
 direct external access to T3 Code and accepts new connections only on SSH,
 HTTP, and HTTPS ports.
 
+The [DNS Terraform package](tf/README.md) uses the dedicated
+`src_users_simeonwarren_host_bot` AppRole through `dns_al`. Ansible retains
+its existing `al` configuration and `user_simeonwarren` authentication.
+
 T3 Code controls permissions per thread. Its **Auto** mode maps to Codex
 Auto-review. The managed Codex requirements allow read-only and `host-bot`
 permissions with on-request approvals, so threads cannot select **Full

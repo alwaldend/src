@@ -69,6 +69,18 @@ DEFAULT_TERRAFORM_TESTS = {
     "fmt": ["--direct", "fmt", "--check", "--recursive"],
 }
 
+def terraform_target_binary_map(name, target, **kwargs):
+    """Plan one target in an owning root and apply only a saved plan."""
+    terraform_binary_map(
+        name = name,
+        args = {
+            "plan": ["plan", "-target=" + target],
+            "show": ["show"],
+            "apply": ["--require-saved-plan", "apply"],
+        },
+        **kwargs
+    )
+
 def terraform_test_map(
         name,
         args = DEFAULT_TERRAFORM_TESTS,

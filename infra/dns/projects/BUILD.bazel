@@ -1,0 +1,40 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load(":defs.bzl", "project_dns")
+load(":defs_test.bzl", "project_files_test")
+
+package(default_visibility = ["//infra:__subpackages__"])
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/dns:__pkg__"],
+)
+
+project_dns(name = "rules_binary_toolchain")
+
+project_dns(name = "rules_dnscontrol")
+
+project_dns(name = "rules_docs")
+
+project_dns(name = "rules_docs_gazelle")
+
+project_dns(name = "rules_hugo")
+
+project_dns(name = "rules_iso")
+
+project_dns(name = "rules_promptfoo")
+
+project_dns(name = "rules_promptfoo_gazelle")
+
+project_dns(name = "rules_skill_gazelle")
+
+project_dns(name = "rules_skills")
+
+project_dns(name = "rules_template")
+
+project_files_test(
+    name = "project_files_test",
+    records = "@rules_docs//:dnsconfig",
+    sources = "@rules_docs//tf:sources",
+    target_under_test = ":rules_docs_files",
+)

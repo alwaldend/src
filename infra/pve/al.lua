@@ -11,7 +11,7 @@ lib.vault_auth({
 lib.plugin_call({
     name = "tf_backend",
     plugin = "tf_backend",
-    labels = { tf = "1" },
+    labels = { tf = "1", dns = "1" },
     data = {
         vault_secret = "alwaldend.com/vault1/approles/src_infra_dc1_pve1/tf_backend",
         vault_secret_mount = "secrets",
@@ -20,7 +20,7 @@ lib.plugin_call({
 
 infra.yc_auth({
     path = "yandex.cloud/org1/folders/src-infra-dc1-pve1/account_iam_key",
-    labels = { tf = "1" },
+    labels = { tf = "1", dns = "1" },
 })
 
 infra.yc_bucket_auth({
@@ -30,5 +30,15 @@ infra.yc_bucket_auth({
 
 infra.yc_account({
     path = "yandex.cloud/org1/folders/src-infra-dc1-pve1/account",
-    labels = { tf = "1" },
+    labels = { tf = "1", dns = "1" },
+})
+
+infra.pve_provider_inputs({
+    labels = { dns = "1" },
+})
+
+infra.dns({
+    labels = { tf = "1", dns = "1" },
+    dc1 = true,
+    global = false,
 })

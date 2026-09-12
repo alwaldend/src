@@ -6,6 +6,7 @@ module "src_infra_dc1_forgejo1_approle" {
   ]
   secrets = vault_mount.secrets.path
   policies = [
+    module.dns_access["src_infra_dc1_forgejo1"].policy_name,
     module.src_infra_dc1_forgejo1_ssh.policy,
   ]
   backend          = vault_auth_backend.approle.path

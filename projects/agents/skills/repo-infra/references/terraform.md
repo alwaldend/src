@@ -11,6 +11,12 @@ Not every component needs both stages. A component that keeps its state in
 files or a database may legitimately have no `tf` package at all; document the
 reason rather than adding an empty one.
 
+Prefer grouping related Terraform resources into modules when they form a
+cohesive unit with shared ownership and lifecycle. Keep component-specific
+modules with their owning stage, and reuse existing modules before extracting
+shared behavior. A module should express a useful boundary, not merely wrap
+each resource individually.
+
 ## Package conventions
 
 Terraform packages declare `.tf` files and `.terraform.lock.hcl` in `data`,

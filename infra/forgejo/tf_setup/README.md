@@ -46,3 +46,16 @@ There is no cross-provider state move or data restoration in this package.
 bazel_agent bazel run //infra/forgejo/tf_setup:tf_setup.plan
 bazel_agent bazel run //infra/forgejo/tf_setup:tf_setup.apply
 ```
+
+Use this package's `dns.plan`, `dns.show`, and `dns.apply` targets for the
+[scoped DNS workflow](../../dns/README.md). They select `dns=1`, retain the
+existing setup backend and `src_infra_dc1_forgejo1` AppRole, and target
+`module.dns` without starting unrelated service authentication. Inspect the
+saved plan through `dns.show` and pass only that reviewed file to `dns.apply`.
+
+`dns_enabled` defaults to `true` after verified adoption. Keep it enabled to
+retain existing records; disabling it would propose deletion. Follow the
+[cutover procedure](../../dns/openspec/changes/archive/2026-09-13-migrate-project-dns-to-terraform/cutover.md#prepare-the-owner)
+for prerequisites, reconciliation, and recovery. The owner adoption change
+records the historical import and DNS verification evidence; scoped DNS checks
+do not establish service or VM health.

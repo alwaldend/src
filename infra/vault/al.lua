@@ -20,7 +20,7 @@ infra.ansible_keys({
 lib.plugin_call({
     name = "tf_backend",
     plugin = "tf_backend",
-    labels = { tf = "setup" },
+    labels = { tf = "setup", dns = "1" },
     data = {
         vault_secret = "alwaldend.com/vault1/approles/src_infra_dc1_vault/tf_backend/tf_setup",
         vault_secret_mount = "secrets",
@@ -79,4 +79,13 @@ lib.plugin_call({
             },
         },
     },
+})
+
+infra.pve_provider_inputs({
+    labels = { dns = "1" },
+})
+
+infra.dns({
+    labels = { tf = "setup", dns = "1" },
+    dc1 = true,
 })

@@ -1,0 +1,26 @@
+load("@rules_go//go:def.bzl", "go_test")
+
+go_test(
+    name = "provider_test",
+    srcs = [
+        "provider_test.go",
+        "targeted_import_test.go",
+    ],
+    args = [
+        "-terraform=$(rootpath //tools/terraform)",
+        "-cloudflare=$(rootpath //projects/tf_modules/dns_records/test/providers:cloudflare)",
+        "-routeros=$(rootpath //projects/tf_modules/dns_records/test/providers:routeros)",
+        "-proxmox=$(rootpath //projects/tf_modules/dns_records/test/providers:proxmox)",
+    ],
+    data = [
+        "//projects/tf_modules/dns_records:test_sources",
+        "//projects/tf_modules/dns_records/test/providers:cloudflare",
+        "//projects/tf_modules/dns_records/test/providers:proxmox",
+        "//projects/tf_modules/dns_records/test/providers:routeros",
+        "//tools/terraform",
+    ],
+    target_compatible_with = [
+        "@platforms//cpu:x86_64",
+        "@platforms//os:linux",
+    ],
+)

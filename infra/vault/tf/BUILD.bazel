@@ -23,6 +23,8 @@ _RUN_ARGS = [
 _DATA = glob([
     "*.tf",
     "approle_src_infra_openhands/*.tf",
+    "approles/*/*.tf",
+    "dns_access/*.tf",
 ]) + [
     ".terraform.lock.hcl",
     "//data/ssl/alwaldend.com:ica1",

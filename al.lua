@@ -110,8 +110,8 @@ lib.plugin({
         pve_login = "1",
     },
     data = {
-        pve_base_url = "https://pve.alwaldend.com:8006",
-        pve_redirect_url = "https://pve.alwaldend.com:8006",
+        pve_base_url = lib.pve_base_url,
+        pve_redirect_url = lib.pve_base_url,
         pve_realm = "src_infra_dc1_vault",
     },
 })

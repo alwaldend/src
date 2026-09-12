@@ -8,6 +8,9 @@ module "src_infra_xcp_ng_approle" {
   backend                  = vault_auth_backend.approle.path
   backend_accessor         = vault_auth_backend.approle.accessor
   disable_yc_folder_policy = true
+  policies = [
+    module.dns_access["src_infra_xcp_ng"].policy_name,
+  ]
 }
 
 module "src_infra_xcp_ng_pki_server" {

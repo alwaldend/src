@@ -31,3 +31,9 @@ filegroup(
     srcs = ["dnsconfig.json"],
     visibility = ["//visibility:public"],
 )
+
+filegroup(
+    name = "dns_al_source",
+    srcs = ["al.lua"],
+    visibility = ["//visibility:public"],
+)

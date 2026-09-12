@@ -7,7 +7,7 @@ module "vms" {
     host1 = { vmid = 700 },
   }
   source = ".././../../projects/tf_modules/pve_vm_qemu"
-  name   = "${local.dns.domains.default.records[each.key].A.name}.alwaldend.com"
+  name   = "${local.dns.records[each.key].A.name}.alwaldend.com"
   vmid   = each.value.vmid
   pool   = "src_infra_harbor"
   cores  = 2
@@ -21,6 +21,6 @@ module "vms" {
   scsi2 = {
     size = "40G" # K3s storage
   }
-  ip   = "${local.dns.domains.default.records[each.key].A.address}/24"
+  ip   = "${local.dns.records[each.key].A.address}/24"
   tags = ["harbor"]
 }

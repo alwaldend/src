@@ -8,7 +8,7 @@ module "vm_ha" {
     # host3 = { vmid = 401 }
   }
   source = ".././../../projects/tf_modules/pve_vm_qemu"
-  name   = "${local.dns.domains.default.records[each.key].A.name}.alwaldend.com"
+  name   = "${local.dns.records[each.key].A.name}.alwaldend.com"
   vmid   = each.value.vmid
   pool   = "src_infra_dc1_vault"
   cores  = 1
@@ -16,6 +16,6 @@ module "vm_ha" {
   scsi0 = {
     size = "20G"
   }
-  ip   = "${local.dns.domains.default.records[each.key].A.address}/24"
+  ip   = "${local.dns.records[each.key].A.address}/24"
   tags = ["vault"]
 }

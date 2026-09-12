@@ -6,6 +6,7 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     prefix = "content/docs/projects/rules_docs",
     visibility = ["//visibility:public"],
+    deps = ["//tf:docs"],
 )
 
 build_test(
@@ -19,5 +20,11 @@ build_test(
 filegroup(
     name = "dnsconfig",
     srcs = ["dnsconfig.json"],
+    visibility = ["//visibility:public"],
+)
+
+filegroup(
+    name = "dns_al_source",
+    srcs = ["al.lua"],
     visibility = ["//visibility:public"],
 )

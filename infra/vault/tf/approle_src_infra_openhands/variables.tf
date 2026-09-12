@@ -14,6 +14,12 @@ variable "secrets" {
   description = "Secrets backend"
 }
 
+variable "policies" {
+  type        = list(string)
+  description = "Additional policies for the component AppRole"
+  default     = []
+}
+
 variable "approle_backend" {
   type        = string
   description = "AppRole auth backend"
