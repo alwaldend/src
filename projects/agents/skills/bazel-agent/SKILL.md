@@ -108,6 +108,13 @@ task authorizes installation or updating the agent environment.
 
 ## Diagnose failures without bypassing the runner
 
+Allow a cold tool build enough time for analysis as well as execution; use
+observed build duration to choose a bounded deadline, not a short generic
+command timeout. Poll at intervals that permit useful output and user updates.
+Separate commands using the same Bazel server share its lock: complete ready
+CLI work before starting a long build, and wait for that build before issuing
+dependent commands. Do not queue another invocation merely to check progress.
+
 - If `bazel_agent` is missing, install it rather than duplicating its flags in
   later commands.
 - If it cannot find `bazel`, repair the host's `bazel` to Bazelisk provisioning

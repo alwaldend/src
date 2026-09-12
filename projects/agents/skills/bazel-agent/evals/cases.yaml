@@ -1,3 +1,20 @@
+- description: Budgets cold builds without queuing progress probes
+  vars:
+    request: >-
+      The previous cold build of our repository control tool took 175 seconds,
+      mostly in analysis. Start another cold build with a sensible deadline.
+      An independent CLI task also needs the same Bazel server. Explain the
+      ordering and how you will monitor progress without hiding failures.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response budgets for the observed total build time,
+        including analysis; schedules ready CLI work before the long build or
+        waits for that build to release the server lock; uses modest polling
+        with user updates; and diagnoses failures without switching entry
+        points or issuing another Bazel invocation as a progress probe.
+
 - description: Runs and troubleshoots Bazel through the repository runner
   vars:
     request: >-

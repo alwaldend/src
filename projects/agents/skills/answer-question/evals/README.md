@@ -8,8 +8,9 @@ This Promptfoo suite checks conformance with the reasoning behaviors promised
 by the `answer-question` skill. It covers premise testing, calibrated positive
 and negative causal conclusions, evidence independence and applicability,
 repository versus deployment state, conditional-action answer behavior,
-quantitative checks, criteria-based recommendations and critique, and
-proportional treatment of a simple stable question. It is not a general
+quantitative checks, criteria-based recommendations and critique,
+ownership boundaries, ignore matching, authentication paths, and proportional
+treatment of a simple stable question. It is not a general
 factual-accuracy benchmark.
 
 The Bazel rule creates a temporary workspace containing only the declared
@@ -19,8 +20,8 @@ workspace.
 A separately invoked Codex judge, running in an empty workspace without the
 skill, evaluates one consolidated binary checklist per non-deterministic case.
 A threshold of one prevents a weak score from passing through averaging, while
-consolidation keeps the smoke run to roughly nineteen model calls instead of
-more than one hundred. The selected model name does not make the judge
+consolidation uses one judge call per non-deterministic case instead of one
+per criterion. The selected model name does not make the judge
 immutable or independent of the subject's model family, so human calibration
 still matters.
 

@@ -158,6 +158,12 @@ tooling merely to avoid a one-off command.
 Use `rg`, `rg --files`, bounded `find`, or Bazel queries; never recursive
 `grep`/`ls` or filesystem-root searches. Wrap shell commands in an appropriate
 `timeout`, except intentionally long-running or interactive operations.
+For checkout isolation, query the current checkout's root, branch, and Git
+directories before requesting a full worktree inventory. Narrow discovery
+queries that truncate instead of treating incomplete output as sufficient
+evidence. Read only needed policy sections, and extract diagnostic fields
+from runtime logs before displaying them; raw command/environment dumps can
+expose unrelated or protected data.
 Prefer Go and Bazel-native rules for repository automation. Do not introduce
 shell scripts or shell-based rules unless the task explicitly requires them.
 Do not use `genrule`. Expose Go automation as Bazel `go_binary` targets; use
