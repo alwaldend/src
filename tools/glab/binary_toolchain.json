@@ -1,0 +1,36 @@
+{
+    "toolchains": [
+        {
+            "name": "glab",
+            "version": "1.117.0"
+        }
+    ],
+    "archives": [
+        {
+            "toolchain_name": "glab",
+            "toolchain_version": "1.117.0",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "glab",
+                    "path": "out/bin/glab"
+                }
+            ],
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://gitlab.com/gitlab-org/cli/-/releases/v1.117.0/downloads/glab_1.117.0_linux_amd64.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-Ht/Q+6KE6TOWqf2Imbn/8Q80+QtzOUOxpw4hQxoZkas="
+                    }
+                }
+            ],
+            "toolchain": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}

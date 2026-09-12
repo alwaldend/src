@@ -1,0 +1,36 @@
+{
+    "toolchains": [
+        {
+            "name": "gh",
+            "version": "2.89.0"
+        }
+    ],
+    "archives": [
+        {
+            "toolchain_name": "gh",
+            "toolchain_version": "2.89.0",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "gh",
+                    "path": "out/gh_2.89.0_linux_amd64/bin/gh"
+                }
+            ],
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/cli/cli/releases/download/v2.89.0/gh_2.89.0_linux_amd64.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-0EIsqt5SBTDnbBxVjaR9rrqo4SA9a3/xCtfW+ro0kNg="
+                    }
+                }
+            ],
+            "toolchain": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}
