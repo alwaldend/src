@@ -1,0 +1,19 @@
+openhands_canvas_user: openhands
+openhands_canvas_user_uid: 8153
+openhands_canvas_dir: /opt/openhands-canvas
+openhands_canvas_home_dir: "{{ openhands_canvas_dir }}/home"
+openhands_canvas_work_dir: "{{ openhands_canvas_dir }}/work"
+openhands_canvas_state_dir: "{{ openhands_canvas_dir }}/state"
+openhands_canvas_package_dir: "{{ openhands_canvas_dir }}/lib/node_modules/@openhands/agent-canvas"
+openhands_canvas_disk:
+openhands_canvas_packages:
+  - nodejs24
+  - nodejs24-npm
+openhands_canvas_host: 127.0.0.1
+openhands_canvas_port: 8000
+openhands_canvas_version: "{{ undefined() }}"
+openhands_canvas_service_path: /lib/systemd/system/openhands-canvas.service
+openhands_canvas_env_path: "{{ openhands_canvas_dir }}/.env"
+openhands_canvas_env:
+  NODE_ENV: production
+openhands_canvas_env_override: {}

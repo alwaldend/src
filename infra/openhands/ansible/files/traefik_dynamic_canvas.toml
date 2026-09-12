@@ -1,0 +1,45 @@
+[http.routers.openhands_canvas]
+rule = "Host(`{{ openhands_canvas_domain }}`) || Host(`{{ inventory_hostname }}`)"
+service = "openhands_canvas"
+priority = 1
+tls = { certResolver = "default" }
+
+[http.services.openhands_canvas.loadBalancer]
+[[http.services.openhands_canvas.loadBalancer.servers]]
+url = "http://127.0.0.1:{{ openhands_canvas_port }}"
+
+# The canvas origin proxies the backend API paths so the browser issues no
+# cross-origin request. Explicit priorities select automation before the broader
+# agent API and keep all API routes ahead of the canvas catch-all. Each backend URL uses the same site-local
+# hostname its certificate is issued for, so no SNI override is required.
+[http.routers.openhands_automation]
+rule = "Host(`{{ openhands_canvas_domain }}`) && PathPrefix(`/api/automation`)"
+service = "openhands_automation"
+priority = 30
+tls = { certResolver = "default" }
+
+[http.services.openhands_automation.loadBalancer]
+[[http.services.openhands_automation.loadBalancer.servers]]
+url = "https://{{ openhands_automation_domain }}"
+
+[http.routers.openhands_agent_server]
+rule = "Host(`{{ openhands_canvas_domain }}`) && PathPrefix(`/api`)"
+service = "openhands_agent_server"
+priority = 20
+tls = { certResolver = "default" }
+
+[http.services.openhands_agent_server.loadBalancer]
+[[http.services.openhands_agent_server.loadBalancer.servers]]
+url = "https://{{ openhands_server_domain }}"
+
+[http.routers.openhands_agent_server_sockets]
+rule = "Host(`{{ openhands_canvas_domain }}`) && PathPrefix(`/sockets`)"
+service = "openhands_agent_server"
+priority = 20
+tls = { certResolver = "default" }
+
+[http.routers.openhands_agent_server_info]
+rule = "Host(`{{ openhands_canvas_domain }}`) && PathPrefix(`/server_info`)"
+service = "openhands_agent_server"
+priority = 20
+tls = { certResolver = "default" }

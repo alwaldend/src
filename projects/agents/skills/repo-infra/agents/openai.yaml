@@ -1,0 +1,5 @@
+interface:
+  display_name: "Repository Infrastructure"
+  short_description: "Change and validate repository infrastructure safely"
+  default_prompt: >-
+    Use $repo-infra to implement and validate this infrastructure change.

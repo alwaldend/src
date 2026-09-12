@@ -20,7 +20,10 @@ _RUN_ARGS = [
     "vault_env=default_default",
 ]
 
-_DATA = glob(["*.tf"]) + [
+_DATA = glob([
+    "*.tf",
+    "approle_src_infra_openhands/*.tf",
+]) + [
     ".terraform.lock.hcl",
     "//data/ssl/alwaldend.com:ica1",
     "//data/ssl/alwaldend.com:simeonwarren",

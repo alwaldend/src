@@ -13,7 +13,7 @@ physical clusters and are not created per AppRole.
 
 `resource_set_inventory` assigns a pool, template, storage repository and
 network by name to each AppRole. Native provider lookups resolve their IDs
-and reject ambiguous matches. Only Forgejo has an assignment by default;
+and reject ambiguous matches. Forgejo and OpenHands have assignments by default;
 other sets remain empty. Subjects are the exact synchronized OIDC users
 selected by Vault issuer and immutable AppRole entity UUID. Bootstrap has
 synchronized the 18 AppRole users; new AppRoles need their first OIDC login

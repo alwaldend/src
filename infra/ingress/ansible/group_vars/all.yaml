@@ -10,6 +10,9 @@ traefik_services:
   git:
     hostname: git.alwaldend.com
     target: "int.forgejo.alwaldend.com"
+  openhands-canvas:
+    hostname: canvas.openhands.alwaldend.com
+    target: "dc1.canvas.openhands.alwaldend.com"
   forgejo:
     hostname: forgejo.alwaldend.com
     target: "int.forgejo.alwaldend.com"

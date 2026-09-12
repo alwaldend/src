@@ -31,6 +31,13 @@ output:
 - Whether a fresh agent could discover and resume the work from bounded
   records without free-form archaeology.
 
+Treat time spent waiting for remote review as an expected workflow cost;
+several minutes is acceptable. Measure it separately from agent overhead such
+as duplicate review requests, premature result reads, unnecessary polling, or
+failed coordination. Duration alone does not establish a defect or justify
+bypassing review. Propose changes only for observed avoidable work while
+preserving the owning workflow's guarantees.
+
 Prefer existing OpenSpec changes, validation, or delivery receipts over new
 storage. If a workspace learning record is warranted, keep it sanitized,
 bounded, stable-ID, and task-local. It is a proposal for review, never an

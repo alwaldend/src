@@ -1,0 +1,17 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//third_party:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+alias(
+    name = "com_openhands_openhands_canvas_ui_tool",
+    actual = "@com_openhands_openhands_canvas_ui_tool//file",
+    visibility = ["//:__subpackages__"],
+)

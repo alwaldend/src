@@ -1,0 +1,43 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//infra/openhands:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ),
+)
+
+_CONFIGS = ["//infra/openhands:al"]
+
+_RUN_ARGS = [
+    "--plugin_label",
+    "tf=setup",
+    "--plugin_label",
+    "xoa_login=1",
+]
+
+_DATA = glob(["*.tf"]) + [
+    ".terraform.lock.hcl",
+    "//infra/cloud_init:xen_linux",
+    "//infra/openhands:dnsconfig",
+    "//infra/xcp_ng/cmd/xo_login",
+    "//tools/vault/tf_backend",
+    "//tools/vault/injector",
+]
+
+terraform_binary_map(
+    name = "tf_setup",
+    configs = _CONFIGS,
+    data = _DATA,
+    run_args = _RUN_ARGS,
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    configs = _CONFIGS,
+    data = _DATA,
+)

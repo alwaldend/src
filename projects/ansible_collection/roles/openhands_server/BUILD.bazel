@@ -1,0 +1,23 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/ansible/main/bzl:al_ansible_role.bzl", "al_ansible_role")
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/ansible_collection/roles:__pkg__"],
+    deps = subpackages(
+        include = ["*"],
+        allow_empty = True,
+    ) + [":role.docs"],
+)
+
+al_ansible_role(
+    name = "role",
+    srcs = glob(["**"]) + [
+        "//third_party/com_openhands_openhands_canvas_ui_tool",
+    ],
+    renames = {
+        "//third_party/com_openhands_openhands_canvas_ui_tool:com_openhands_openhands_canvas_ui_tool": "files/canvas_ui_tool.py",
+    },
+    visibility = ["//:__subpackages__"],
+)

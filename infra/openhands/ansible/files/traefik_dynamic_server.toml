@@ -1,0 +1,21 @@
+[http.routers.openhands_server]
+rule = "Host(`{{ openhands_server_domain }}`) || Host(`{{ inventory_hostname }}`) || Host(`{{ openhands_canvas_domain }}`)"
+service = "openhands_server"
+priority = 1
+tls = { certResolver = "default", domains = [{ main = "{{ openhands_server_domain }}", sans = ["{{ inventory_hostname }}"] }] }
+
+[http.services.openhands_server.loadBalancer]
+[[http.services.openhands_server.loadBalancer.servers]]
+url = "http://127.0.0.1:{{ openhands_server_port }}"
+
+# The editor is served on the same origin under a path prefix, which matches
+# OH_VSCODE_BASE_PATH in the agent server environment.
+[http.routers.openhands_server_vscode]
+rule = "(Host(`{{ openhands_server_domain }}`) || Host(`{{ openhands_canvas_domain }}`)) && PathPrefix(`{{ openhands_server_vscode_base_path }}`)"
+service = "openhands_server_vscode"
+priority = 20
+tls = { certResolver = "default", domains = [{ main = "{{ openhands_server_domain }}", sans = ["{{ inventory_hostname }}"] }] }
+
+[http.services.openhands_server_vscode.loadBalancer]
+[[http.services.openhands_server_vscode.loadBalancer.servers]]
+url = "http://127.0.0.1:{{ openhands_server_vscode_port }}"

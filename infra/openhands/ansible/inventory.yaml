@@ -1,0 +1,11 @@
+openhands_canvas:
+  hosts:
+    host1.canvas.openhands.alwaldend.com:
+
+openhands_server_secure:
+  hosts:
+    host1.server.openhands.alwaldend.com:
+
+openhands_automation:
+  hosts:
+    host1.automation.openhands.alwaldend.com:

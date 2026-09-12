@@ -121,10 +121,10 @@ or committable source; ignored task scratch is suitable.
   within the requested workflow's authority and sandbox/network policy.
 - Load `ast-grep` for syntax-shape searches or rewrites that plain text cannot
   express; use its repository-pinned Bazel entry point.
-- Load `repo-terraform`, `repo-ansible`, and `repo-secrets` for their respective
-  work. Preserve the owning `al.lua` and Bazel packaging/injection flow.
-  Never commit `.terraform/`, state, plans, environment files, or local
-  credentials.
+- Load `repo-infra` for Terraform, Ansible, DNS, Vault operations, and
+  deployment diagnostics, and `repo-secrets` for secret handling. Preserve the
+  owning `al.lua` and Bazel packaging/injection flow. Never commit
+  `.terraform/`, state, plans, environment files, or local credentials.
 - Load `openspec` for maintained specifications, changes, or work that needs
   durable continuation. Use the owning project's `openspec/` workspace;
   use `infra/src/openspec/` for evolution of the repository itself. Keep the

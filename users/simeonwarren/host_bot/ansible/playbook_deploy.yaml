@@ -325,3 +325,25 @@
     - name: Setup Traefik
       ansible.builtin.import_role:
         name: alwaldend.main.traefik
+    # The unsecured agent server shares host-bot's trust boundary. It binds to
+    # loopback and receives no session API key, so it is intentionally not
+    # routed through host-bot's Traefik or its public firewall ports.
+    - name: Configure OpenHands agent server packages
+      ansible.builtin.import_role:
+        name: alwaldend.main.dev_vm
+        tasks_from: packages
+      vars:
+        dev_vm_packages: "{{ openhands_server_packages }}"
+      tags:
+        - openhands_server
+    - name: Require the OpenHands dependencies in the booted deployment
+      when: dev_vm_rpm_ostree_result.needs_reboot | default(false)
+      ansible.builtin.fail:
+        msg: >-
+          OpenHands dependencies were staged in a new OSTree deployment.
+          Reboot the host and rerun this playbook to install the agent server.
+      tags:
+        - openhands_server
+    - name: Deploy the OpenHands agent server
+      ansible.builtin.import_role:
+        name: alwaldend.main.openhands_server
