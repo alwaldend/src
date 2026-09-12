@@ -66,7 +66,9 @@ reproducing mutations with Git or `gh` or bypassing a safety refusal.
    resolution, or recovery,
    read [rewrites and recovery](references/rewrites.md). Never rewrite shared,
    stacked, human-owned, unrelated, or ambiguous history.
-2. Put the complete aggregate commit message and receipt under ignored
+2. Run the configured formatters and inspect their changes before preparing
+   the candidate, so formatting-only corrections do not require an amendment
+   and repeated candidate validation. Then put the aggregate commit message and receipt under ignored
    `out/<task>/`. Stage fully task-owned paths with repeated `prepare --path`,
    or stage only owned hunks and use `--use-index`; never blanket-stage. The
    scope must include the entire existing feature diff. For one owned feature

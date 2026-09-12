@@ -1,3 +1,19 @@
+- description: Formats before creating the validated candidate
+  vars:
+    request: >-
+      My Markdown edits are ready to publish, but I have not run the configured
+      formatter. Prepare the aggregate commit and complete delivery. Explain
+      where formatting belongs relative to preparation and validation.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response runs the configured formatter and inspects
+        its changes before preparing the aggregate candidate, then runs the
+        required quality and affected-package checks bound to that candidate.
+        Formatting must not be deferred to a failed post-prepare gate or used
+        as a substitute for validation.
+
 - description: Continues recorded validation without copying candidate internals
   vars:
     request: >-
