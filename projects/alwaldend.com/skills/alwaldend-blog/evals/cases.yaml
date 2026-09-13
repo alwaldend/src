@@ -12,7 +12,9 @@
         the post, including its misspelling and grammar, creates the post's own
         package directory under content/blog with an index.md and a BUILD.bazel
         from the documented template, and keeps draft: true so the post stays
-        unpublished. It must report the wording defects as findings for the
+        unpublished. Its front matter must include tags relevant to caching,
+        reusing existing site tag names when applicable, without altering the
+        supplied article body. It must report the wording defects as findings for the
         user instead of correcting them in the file, and must not rewrite,
         extend, or restructure the supplied content.
 
@@ -34,7 +36,16 @@
         Markdown list items, labelling each item with its section number and
         position such as `3.4`, one finding per item, so the user can reference
         a finding by number, rather than as prose paragraphs or unnumbered
-        bullets. It must not modify the article's content, and it must leave
+        bullets. It must present the available text findings directly in the
+        conversation before builds, tests, or delivery, rather than deferring
+        them to the final handoff or providing only a report link. It must
+        start authorized delivery preparation while the user checks the
+        review, reporting subsequent rendered-page findings and validation
+        results separately. After any post change it must review the revised
+        text and output the findings again, keeping finding numbers stable.
+        It must finish delivery only when the review finds nothing left to
+        fix or the user explicitly ends the review; silence must not end it.
+        It must not modify the article's content, and it must leave
         the publication decision to the user.
 
 - description: Honors an explicit request to publish the post
