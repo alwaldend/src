@@ -49,8 +49,7 @@ owned by the generic agent project.
 
 `projects/projects.bzl` lists the dedicated project sites; the
 [project directory](../README.md) links to each site. The existing
-`alwaldend.com` apex site covers that project. Nested rules modules use
-`//projects/hugo_landing/landing:<project>` targets in the root workspace.
+`alwaldend.com` apex site covers that project.
 
 README-relative links lead to their source files on GitHub, and relative images
 load from the matching source directory. Literal template examples are preserved;

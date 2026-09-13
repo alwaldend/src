@@ -19,21 +19,26 @@ each resource individually.
 
 ## Package conventions
 
-Terraform packages declare `.tf` files and `.terraform.lock.hcl` in `data`,
-pass one or more `al_config` labels, and expose `terraform_binary_map` commands
-plus `terraform_test_map` tests. Add module or provider inputs to `data` when
-the configuration reads them.
+Terraform packages declare `.tf` files and configuration inputs in `data`,
+select provider labels through `providers`, and pass one or more `al_config`
+labels through the generic AL wrapper's `wrapper_kwargs`. The
+[reusable Terraform rules](../../../../../tools/rules_terraform/README.md) own
+`terraform_binary_map` commands and `terraform_test_map` tests. Select
+`al_binary_run` or `al_binary_run_test` as their optional `wrapper` when the
+invocation needs AL configuration. Provider pins belong to
+[third_party/terraform](../../../../../third_party/terraform/README.md) and are
+shared across roots; source `.terraform.lock.hcl` files are not used.
 
-Provider constraints and the lockfile workflow are per package. Reuse the
-established `backend "http" {}` block; `tools/vault/tf_backend` supplies its
+Reuse the established `backend "http" {}` block; `tools/vault/tf_backend` supplies its
 endpoint, lock URLs, and credentials through the injected `TF_HTTP_*`
 environment. The runner's separate `AL_TF_BACKEND_CONFIG_*` support converts
 values to literal backend arguments; it is not this plugin's output.
 
 ## Implement safely
 
-- Match the existing provider version constraints and lockfile workflow; do not
-  regenerate a lockfile by hand.
+- Keep provider constraints compatible with the shared extension pins. Add or
+  upgrade providers through the owning Bazel declaration, following the rule
+  documentation; do not acquire providers through a runtime registry fallback.
 - Mark genuinely secret outputs and variables `sensitive`, while remembering
   this does not remove values from state.
 - Avoid unnecessary resource renames. When a rename is unavoidable, add a
@@ -80,6 +85,19 @@ target. The saved plan already records target selection; do not regenerate it
 with different flags during apply. An interactive apply can instead hold at
 its confirmation prompt while its proposed changes are reviewed. Both flows
 must preserve the authorized scope and the secret handling of plan artifacts.
+
+Finish formatting and all input-file edits before saving the plan. Terraform
+checks `file()` results during apply, so even JSON whitespace changes can
+invalidate it. Regenerate and review the plan after any input change. A failed
+apply can still have completed independent resources or advanced state metadata
+without changing resources; inspect refreshed state and save a new plan for the
+remaining changes before retrying.
+
+When using `bazel_agent bazel run --script_path` launchers, regenerate every
+owning launcher used, including both plan and apply, after changing declared
+data files. `bazel_agent bazel build` can refresh the manifest while an existing
+runfiles directory still omits added inputs or retains dangling links to deleted
+ones. Verify each launcher's inputs before planning or applying.
 
 ## Diagnose provider startup failures
 

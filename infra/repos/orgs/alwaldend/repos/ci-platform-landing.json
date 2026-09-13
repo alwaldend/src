@@ -1,0 +1,22 @@
+{
+    "description": "Landing page for ci_platform",
+    "homepage_url": "https://ci-platform.alwaldend.com/",
+    "default_branch": "master",
+    "visibility": "public",
+    "github": {
+        "pages": {
+            "build_type": "legacy",
+            "cname": "ci-platform.alwaldend.com",
+            "source": {
+                "branch": "pages",
+                "path": "/"
+            }
+        },
+        "landing_project": "ci_platform",
+        "id": 1359123108
+    },
+    "gitlab": {
+        "import_from": "github",
+        "id": 86425670
+    }
+}

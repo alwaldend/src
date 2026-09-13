@@ -1,10 +1,18 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_target_binary_map", "terraform_test_map")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_target_binary_map", "terraform_test_map")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
+
+_PROVIDERS = [
+    "@terraform_provider_cloudflare_cloudflare//:provider",
+    "@terraform_provider_hashicorp_external//:provider",
+    "@terraform_provider_hashicorp_vault//:provider",
+    "@terraform_provider_terraform_routeros_routeros//:provider",
+    "@terraform_provider_vatesfr_xenorchestra//:provider",
+]
 
 _CONFIGS = ["//infra/xcp_ng:al"]
 
 _DATA = [
-    ".terraform.lock.hcl",
     "//infra/xcp_ng:dnsconfig",
     "//projects/tf_modules/dns_records:dns_records",
 ] + glob(["*.tf"])
@@ -17,32 +25,41 @@ _RUNTIME_DATA = _DATA + [
 
 terraform_binary_map(
     name = "tf",
-    configs = _CONFIGS,
     data = _RUNTIME_DATA,
-    run_args = [
-        "--plugin_label",
-        "xcp_ng_tf=1",
-        "--plugin_label",
-        "xoa=1",
-        "--plugin_label",
-        "vault_env=xcp_ng",
-    ],
+    providers = _PROVIDERS,
+    wrapper = al_binary_run,
+    wrapper_kwargs = {
+        "configs": _CONFIGS,
+        "run_args": [
+            "--plugin_label",
+            "xcp_ng_tf=1",
+            "--plugin_label",
+            "xoa=1",
+            "--plugin_label",
+            "vault_env=xcp_ng",
+        ],
+    },
 )
 
 terraform_target_binary_map(
     name = "dns",
-    configs = _CONFIGS,
     data = _RUNTIME_DATA,
-    run_args = [
-        "--plugin_label",
-        "dns=1",
-    ],
+    providers = _PROVIDERS,
     target = "module.dns",
+    wrapper = al_binary_run,
+    wrapper_kwargs = {
+        "configs": _CONFIGS,
+        "run_args": [
+            "--plugin_label",
+            "dns=1",
+        ],
+    },
 )
 
 terraform_test_map(
     name = "tf_tests",
     data = _DATA,
+    providers = _PROVIDERS,
 )
 
 docs_filegroup(

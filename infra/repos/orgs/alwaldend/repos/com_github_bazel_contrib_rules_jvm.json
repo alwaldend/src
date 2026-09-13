@@ -1,0 +1,15 @@
+{
+    "description": "Contributed Bazel rules that make working with java projects more pleasant",
+    "homepage_url": "https://registry.build/github/bazel-contrib/rules_jvm",
+    "default_branch": "main",
+    "visibility": "public",
+    "github": {
+        "has_projects": true,
+        "id": 1133007534
+    },
+    "gitlab": {
+        "import_from": "github",
+        "id": 86425674
+    },
+    "upstream_url": "https://github.com/bazel-contrib/rules_jvm"
+}

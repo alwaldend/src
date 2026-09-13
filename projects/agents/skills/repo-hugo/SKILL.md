@@ -11,7 +11,7 @@ description: >-
 # Hugo sites in this repository
 
 Read the owning READMEs before editing: [Hugo Landing](../../../hugo_landing/README.md) for the
-shared landing shell and rollout entry points, [Rules Hugo](../../../rules_hugo/README.md)
+shared landing shell and rollout entry points, [Rules Hugo](../../../../tools/rules_hugo/README.md)
 for the toolchain and build rules, and [Alwaldend.com](../../../alwaldend.com/README.md)
 for the apex site. The [Hugo miscellaneous page](../../../alwaldend.com/content/docs/misc/hugo.md)
 records the environment-allowlist constraint that the site build depends on.
@@ -26,7 +26,7 @@ repeating a fact in another file.
 ## Build model
 
 - Hugo is pinned as a Bazel toolchain. `al_hugo_extension` in
-  `projects/rules_hugo` downloads the requested release and registers a
+  `tools/rules_hugo` downloads the requested release and registers a
   `@rules_hugo//pkg/bzl:toolchain_type` toolchain per platform. The site
   archive stays in the target configuration while the Hugo binary stays in the
   execution configuration.
@@ -93,20 +93,21 @@ or presenting unfinished work as released.
 - Ordinary projects own `projects/<project>/landing:site`, using
   `al_hugo_landing_site` and their public README/docs target. Keep content in
   the owning project and shared presentation in `hugo_landing`.
-- Nested `rules_*` modules use root-workspace assembly at
-  `//projects/hugo_landing/landing:<project>` and external labels such as
-  `@rules_example//:docs`. An exported root README is sufficient when the
-  module has no docs target. Ensure the header's Docs URL is actually published
-  by `//projects:docs`, or point it to the source README. Do not make a standalone module depend on the root
-  repository just to render its landing page.
+- Reusable `tools/rules_*` modules publish their documentation through
+  `//tools:docs`, using external labels such as `@rules_example//:docs`.
+  They are outside the dedicated-site registry and have no project landing,
+  Pages repository, or landing DNS record. Keep standalone modules independent
+  of the parent repository when integrating their documentation.
 - Add the registry entry, landing target, project-owned `dnsconfig.json`, and
   its BUILD export/visibility together. Follow a neighboring project for the
   unproxied global CNAME directly to `alwaldend.github.io.`. Project identifiers retain
   underscores; hostnames and `<project>-landing` repository names use hyphens.
-- `//projects:landing_sites` and `//projects:landings` aggregate the registry;
-  `infra/github/tf` generates repository declarations from it; `infra/dns`
-  collects each project's DNS target. Inspect these consumers after changing
-  membership. Do not hand-edit generated mappings or duplicate apex records.
+- `//projects:landing_sites` and `//projects:landings` aggregate the site
+  registry. `infra/github/tf` consumes the shared [repository catalog](../../../../infra/repos/README.md)
+  for Pages repositories; keep the site's catalog entry aligned with its
+  registration. Follow the owning project's Terraform stage for landing DNS.
+  Inspect these consumers after changing membership; do not duplicate apex
+  records or repository data.
 - Add the site's clickable link to `projects/README.md`. Include a useful
   description and introduction in the project README. Use the shared Docsy
   header; do not duplicate navigation as buttons or add generated-source labels.
@@ -138,16 +139,13 @@ changes within the authorized scope. Never include an existing served site
 just to get bootstrap past a failure. Publish the rendered pages branches,
 then plan/apply with the default empty set to enable Pages for those sites.
 
-Preview DNS changes using the affected record names and the global provider;
-apply the same filtered scope only after checking the preview. Do not include
-unrelated infrastructure or apex changes. If the plan or preview expands the
-scope, resolve the configuration or selection before executing it.
-The public virtual zone is `alwaldend.com!global`: use
-`--domains 'alwaldend.com!global' --providers global` with the preview/deploy
-targets. The bare `alwaldend.com` selector matches zero configured zones;
-a zero-zone preview does not establish that DNS is current.
+Plan DNS changes through the site's owning Terraform root, following
+`repo-infra` and the [DNS workflow](../../../../infra/dns/README.md).
+Review the complete plan and apply its saved artifact only within the
+authorized scope. Resolve any unrelated infrastructure or apex changes before
+executing it.
 
 Verify the pushed revision, Pages configuration/build state, DNS, and HTTPS
 page content. Report observed successes separately from pending propagation,
-certificate issuance, or failed operations. A Terraform apply, Git push, or
-DNSControl exit code alone is not evidence that the public site is serving.
+certificate issuance, or failed operations. A Terraform apply or Git push
+alone is not evidence that the public site is serving.

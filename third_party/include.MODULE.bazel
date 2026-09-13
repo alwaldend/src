@@ -74,73 +74,79 @@ bazel_dep(name = "rules_distroless", version = "0.6.2")
 bazel_dep(name = "rules_template")
 local_path_override(
     module_name = "rules_template",
-    path = "projects/rules_template",
+    path = "tools/rules_template",
 )
 
 register_toolchains("@rules_template//main/bzl:all")
 
+bazel_dep(name = "rules_terraform")
+local_path_override(
+    module_name = "rules_terraform",
+    path = "tools/rules_terraform",
+)
+
 bazel_dep(name = "rules_binary_toolchain")
 local_path_override(
     module_name = "rules_binary_toolchain",
-    path = "projects/rules_binary_toolchain",
+    path = "tools/rules_binary_toolchain",
 )
 
 bazel_dep(name = "rules_openspec")
 local_path_override(
     module_name = "rules_openspec",
-    path = "projects/rules_openspec",
+    path = "tools/rules_openspec",
 )
 
 bazel_dep(name = "rules_docs")
 local_path_override(
     module_name = "rules_docs",
-    path = "projects/rules_docs",
+    path = "tools/rules_docs",
 )
 
 bazel_dep(name = "rules_docs_gazelle", dev_dependency = True)
 local_path_override(
     module_name = "rules_docs_gazelle",
-    path = "projects/rules_docs_gazelle",
+    path = "tools/rules_docs_gazelle",
 )
 
 bazel_dep(name = "rules_promptfoo")
 local_path_override(
     module_name = "rules_promptfoo",
-    path = "projects/rules_promptfoo",
+    path = "tools/rules_promptfoo",
 )
 
 bazel_dep(name = "rules_promptfoo_gazelle", dev_dependency = True)
 local_path_override(
     module_name = "rules_promptfoo_gazelle",
-    path = "projects/rules_promptfoo_gazelle",
+    path = "tools/rules_promptfoo_gazelle",
 )
 
 bazel_dep(name = "rules_skills")
 local_path_override(
     module_name = "rules_skills",
-    path = "projects/rules_skills",
+    path = "tools/rules_skills",
 )
 
 bazel_dep(name = "rules_hugo")
 local_path_override(
     module_name = "rules_hugo",
-    path = "projects/rules_hugo",
+    path = "tools/rules_hugo",
 )
 
 bazel_dep(name = "rules_dnscontrol")
 local_path_override(
     module_name = "rules_dnscontrol",
-    path = "projects/rules_dnscontrol",
+    path = "tools/rules_dnscontrol",
 )
 
 bazel_dep(name = "rules_iso")
 local_path_override(
     module_name = "rules_iso",
-    path = "projects/rules_iso",
+    path = "tools/rules_iso",
 )
 
 bazel_dep(name = "rules_skill_gazelle", dev_dependency = True)
 local_path_override(
     module_name = "rules_skill_gazelle",
-    path = "projects/rules_skill_gazelle",
+    path = "tools/rules_skill_gazelle",
 )

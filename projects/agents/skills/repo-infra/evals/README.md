@@ -7,8 +7,9 @@ title: Repository infrastructure evaluations
 This suite describes the contract for routing and executing infrastructure work
 through the consolidated skill: choosing the owning stage, grouping cohesive
 Terraform resources into modules, preserving the shared packaging and injection
-flow, distinguishing AppRole bootstrap from KV
-capabilities, inspecting token metadata without disclosure, and validating
+flow, distinguishing AppRole bootstrap from KV capabilities, preparing
+component credential writes with private stdin and exact authorization,
+inspecting token metadata without disclosure, and validating
 without mutating live systems. It also covers Ansible variable precedence and
 launcher listeners, host package ownership, and Host/priority/certificate
 behavior across chained Traefik proxies, DNS operational prerequisites, and

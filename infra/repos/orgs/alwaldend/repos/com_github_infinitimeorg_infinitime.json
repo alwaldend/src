@@ -1,0 +1,15 @@
+{
+    "description": "Infinitime fork",
+    "homepage_url": "",
+    "default_branch": "com_alwaldend_src",
+    "visibility": "public",
+    "github": {
+        "has_projects": true,
+        "id": 1111777513
+    },
+    "gitlab": {
+        "import_from": "github",
+        "id": 86425654
+    },
+    "upstream_url": "https://github.com/InfiniTimeOrg/InfiniTime"
+}

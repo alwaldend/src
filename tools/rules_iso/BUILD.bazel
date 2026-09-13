@@ -1,0 +1,23 @@
+load("@bazel_skylib//rules:build_test.bzl", "build_test")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    prefix = "content/docs/tools/rules_iso",
+    visibility = ["//visibility:public"],
+)
+
+exports_files([
+    "MODULE.bazel",
+    "README.md",
+])
+
+build_test(
+    name = "build_test",
+    targets = [
+        "//pkg/bzl:iso_extension",
+        "//pkg/bzl:iso_flash_binary",
+        "//pkg/bzl:iso_flash_repo",
+    ],
+)

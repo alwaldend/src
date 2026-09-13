@@ -8,6 +8,7 @@ itself: its shared structure, build system and development workflows.
 Each component owns a separate OpenSpec workspace beside its source:
 
 - `projects/<project>/openspec/` holds that project's specs and changes.
+- `tools/<project>/openspec/` holds that tool project's specs and changes.
 - `infra/<project>/openspec/` holds that infrastructure project's specs and changes.
 - `infra/src/openspec/` holds the repository's own specs and changes.
 
@@ -19,7 +20,7 @@ Component READMEs and build declarations retain their existing authority.
 
 ## Run OpenSpec
 
-The [pinned CLI](../../../projects/rules_openspec/README.md) runs from the Git worktree
+The [pinned CLI](../../../tools/rules_openspec/README.md) runs from the Git worktree
 root. It selects `infra/src` by default; use `OPENSPEC_PROJECT` for a component:
 
 ```sh

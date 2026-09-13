@@ -23,6 +23,7 @@ _WORKSPACE_SOURCES = {
     "infra_nas": "//infra/nas/openspec:source",
     "infra_openhands": "//infra/openhands/openspec:source",
     "infra_pve": "//infra/pve/openspec:source",
+    "infra_repos": "//infra/repos/openspec:source",
     "infra_threexui": "//infra/threexui/openspec:source",
     "infra_vault": "//infra/vault/openspec:source",
     "infra_xcp_ng": "//infra/xcp_ng/openspec:source",
@@ -59,6 +60,7 @@ _WORKSPACE_SOURCES = {
     "projects_sri": "//projects/sri/openspec:source",
     "projects_tf_modules": "//projects/tf_modules/openspec:source",
     "projects_useless_qt_gui": "//projects/useless_qt_gui/openspec:source",
+    "tools_rules_terraform": "@rules_terraform//openspec:source",
 }
 
 [
@@ -70,9 +72,11 @@ _WORKSPACE_SOURCES = {
 ]
 
 _ARCHIVE_WORKSPACES = [
+    "infra_repos",
     "repository",
     "projects_agents",
     "projects_mcp_cordis",
+    "tools_rules_terraform",
 ]
 
 [

@@ -7,7 +7,7 @@
     - type: llm-rubric
       threshold: 1
       value: >-
-        Pass only if the response uses projects/rules_docs_gazelle as the
+        Pass only if the response uses tools/rules_docs_gazelle as the
         reference; keeps the plugin in a separate standalone nested module;
         implements module-aware apparent loads with a canonical fallback;
         generates from explicit package-local evidence; preserves manual

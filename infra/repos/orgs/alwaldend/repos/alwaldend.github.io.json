@@ -1,0 +1,24 @@
+{
+    "description": "",
+    "homepage_url": "",
+    "default_branch": "master",
+    "visibility": "public",
+    "github": {
+        "has_issues": true,
+        "has_projects": true,
+        "has_wiki": true,
+        "pages": {
+            "build_type": "legacy",
+            "cname": "alwaldend.com",
+            "source": {
+                "branch": "pages",
+                "path": "/"
+            }
+        },
+        "id": 1116240447
+    },
+    "gitlab": {
+        "import_from": "github",
+        "id": 86425657
+    }
+}

@@ -25,7 +25,7 @@ resource "forgejo_team" "alwaldend_devs" {
   permission                = "write"
   description               = "Developers"
   can_create_org_repo       = false
-  includes_all_repositories = false
+  includes_all_repositories = true
   units_map = {
     "repo.code"     = "write"
     "repo.issues"   = "write"
@@ -42,7 +42,10 @@ locals {
   ))
   alwaldend_admins = {
     for name, entity in local.vault_user_entities : name => entity
-    if contains(local.alwaldend_admin_entity_ids, entity.entity_id)
+    if contains(local.organization.admins, name) || (
+      contains(local.alwaldend_admin_entity_ids, entity.entity_id) &&
+      anytrue([for alias in entity.aliases : alias.mount_type == "approle"])
+    )
   }
   alwaldend_package_writers = {
     for name, entity in local.vault_user_entities : name => entity
@@ -54,6 +57,24 @@ resource "forgejo_team_member" "alwaldend_admins" {
   for_each = local.alwaldend_admins
   team_id  = forgejo_team.alwaldend_admins.id
   user     = forgejo_user.vault[each.key].login
+
+  lifecycle {
+    prevent_destroy = true
+    precondition {
+      condition     = length(setintersection(toset(keys(local.alwaldend_admins)), toset(local.organization.users))) == 0
+      error_message = "Catalog developers must not receive administrator access through Vault groups."
+    }
+  }
+}
+
+resource "forgejo_team_member" "alwaldend_devs" {
+  for_each = toset(local.organization.users)
+  team_id  = forgejo_team.alwaldend_devs.id
+  user     = forgejo_user.vault[each.key].login
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "forgejo_team" "alwaldend_package_writers" {

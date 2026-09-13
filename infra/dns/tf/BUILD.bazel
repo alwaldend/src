@@ -1,5 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_test")
 
 docs_filegroup(
     name = "docs",
@@ -11,10 +12,14 @@ docs_filegroup(
     ),
 )
 
+_PROVIDERS = [
+    "@terraform_provider_cloudflare_cloudflare//:provider",
+    "@terraform_provider_terraform_routeros_routeros//:provider",
+]
+
 _CONFIGS = ["//infra/dns:al"]
 
 _DATA = glob(["*.tf"]) + [
-    ".terraform.lock.hcl",
     "//infra/dns:dnsconfig",
     "//projects/tf_modules/dns_records",
     "//tools/vault/tf_backend",
@@ -23,16 +28,24 @@ _DATA = glob(["*.tf"]) + [
 
 terraform_binary_map(
     name = "tf",
-    configs = _CONFIGS,
     data = _DATA,
-    run_args = [
-        "--plugin_label",
-        "tf",
-    ],
+    providers = _PROVIDERS,
+    wrapper = al_binary_run,
+    wrapper_kwargs = {
+        "configs": _CONFIGS,
+        "run_args": [
+            "--plugin_label",
+            "tf",
+        ],
+    },
 )
 
 terraform_test_map(
     name = "tf_tests",
-    configs = _CONFIGS,
     data = _DATA,
+    providers = _PROVIDERS,
+    wrapper = al_binary_run_test,
+    wrapper_kwargs = {
+        "configs": _CONFIGS,
+    },
 )

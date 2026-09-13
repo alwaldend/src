@@ -1,21 +1,24 @@
 ---
 name: bazel-nested-module
 description: >-
-  Create or update a standalone nested Bzlmod module under projects/ and wire
-  it into this monorepo. Use for projects with their own MODULE.bazel; do not
-  use for ordinary Bazel packages or Git submodules.
+  Create or update a standalone nested Bzlmod module under tools/ or projects/
+  and wire it into this monorepo. Use for owners with their own MODULE.bazel;
+  do not use for ordinary Bazel packages or Git submodules.
 ---
 
 # Create a nested Bazel module
 
 Follow the root `AGENTS.md` and the `repo-bazel` skill. Inspect all existing
-`projects/rules_*` modules before changing conventions shared by them.
+`tools/rules_*` modules before changing conventions shared by them.
 
 ## Create the standalone workspace
 
-1. Use `projects/<module_name>` with an underscore-separated module name that
-   matches `module(name = ...)`. Add `MODULE.bazel`, `MODULE.bazel.lock`,
-   `README.md`, and a root `BUILD.bazel`. New modules use `version = "0.0.0"`
+1. Use `project-layout` and the owning tree's README to choose the boundary:
+   reusable Bazel rules live at `tools/<module_name>`; standalone product
+   modules may live at `projects/<module_name>`. Use an underscore-separated
+   module name matching `module(name = ...)`. Add `MODULE.bazel`,
+   `MODULE.bazel.lock`, `README.md`, and a root `BUILD.bazel`.
+   New modules use `version = "0.0.0"`
    and `bazel_compatibility = [">=8.0.0"]` until release policy requires a
    different value.
 2. Symlink `.bazeliskrc` to `../../.bazeliskrc` and `.bazelignore` to
@@ -39,8 +42,8 @@ Follow the root `AGENTS.md` and the `repo-bazel` skill. Inspect all existing
    release.
 4. Give the README the repository's documentation frontmatter. Expose a
    public root `docs_filegroup` with the explicit
-   `content/docs/projects/<module_name>` prefix so the parent documentation
-   aggregate preserves its destination layout.
+   `content/docs/<tree>/<module_name>` prefix matching its owning tree so the
+   parent documentation aggregate preserves its destination layout.
 5. Add focused `build_test` or analysis tests for the module's public rules.
    Add Go, Gazelle, toolchain, or extension setup only when the implementation
    requires it; follow the closest nested module rather than installing a
@@ -61,12 +64,17 @@ Follow the root `AGENTS.md` and the `repo-bazel` skill. Inspect all existing
   rules modules in `third_party/include.MODULE.bazel`. If parent targets use a
   toolchain supplied by the module, register that toolchain there as well;
   otherwise do not add a repository-wide registration.
-- Add its external `:docs` target to `//projects:docs`. Exclude the directory
-  from local `subpackages()` expansion and from `//projects:deploy_heads`
-  unless the module intentionally provides the required release target.
+- Add its external `:docs` target to the owning tree's aggregate, such as
+  `//tools:docs` for reusable rules or `//projects:docs` for a product module.
+  Exclude the directory from local `subpackages()` expansion. A module under
+  `projects/` must also be excluded from `//projects:deploy_heads` unless it
+  intentionally provides the required release target. Reusable rules under
+  `tools/` do not receive a dedicated landing site merely by being registered.
 - Add the workspace to the `full-repo-check` runner and update its expected
   command count. A complete repository check must build and test every nested
   module independently.
+- Ensure the root `.gitignore` covers the nested workspace's generated
+  `bazel-*` convenience symlinks before staging source after a build.
 - Register any Gazelle language library in the root `gazelle_binary`. Remember
   that root Gazelle ignores nested workspaces; run the plugin against the
   nested repository root as well when it should generate that module's BUILD

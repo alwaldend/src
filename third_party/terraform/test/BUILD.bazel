@@ -1,0 +1,30 @@
+load("@rules_go//go:def.bzl", "go_test")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary")
+
+terraform_binary(
+    name = "with_provider",
+    testonly = True,
+    arguments = ["--direct"],
+    providers = ["@terraform_provider_hashicorp_local//:provider"],
+)
+
+terraform_binary(
+    name = "without_provider",
+    testonly = True,
+    arguments = ["--direct"],
+)
+
+go_test(
+    name = "provider_installation_test",
+    size = "medium",
+    srcs = ["provider_installation_test.go"],
+    args = [
+        "-with-provider=$(rlocationpath :with_provider)",
+        "-without-provider=$(rlocationpath :without_provider)",
+    ],
+    data = [
+        ":with_provider",
+        ":without_provider",
+    ],
+    deps = ["@rules_go//go/runfiles"],
+)

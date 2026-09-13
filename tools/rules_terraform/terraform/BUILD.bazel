@@ -1,0 +1,12 @@
+load("@rules_terraform_cli//:defs.bzl", "terraform_binary")
+
+exports_files([
+    "binary_toolchain.json",
+    "defs.bzl",
+    "providers.bzl",
+])
+
+terraform_binary(
+    name = "cli",
+    visibility = ["//visibility:public"],
+)

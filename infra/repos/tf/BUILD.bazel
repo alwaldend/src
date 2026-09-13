@@ -1,0 +1,35 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_terraform//terraform:defs.bzl", "terraform_test_map")
+
+filegroup(
+    name = "module",
+    srcs = glob(["*.tf"]),
+    visibility = ["//infra/repos:consumers"],
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    args = {
+        "catalog": [
+            "--direct",
+            "test",
+            "-no-color",
+        ],
+        "fmt": [
+            "--direct",
+            "fmt",
+            "--check",
+            "--recursive",
+        ],
+    },
+    data = [
+        ":module",
+        "//infra/repos:config",
+    ] + glob(["*.tftest.hcl"]),
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//infra/repos:__pkg__"],
+)

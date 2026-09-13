@@ -1,0 +1,15 @@
+{
+    "description": "Fork",
+    "homepage_url": "https://haskell.build",
+    "default_branch": "master",
+    "visibility": "public",
+    "github": {
+        "has_projects": true,
+        "id": 1074306680
+    },
+    "gitlab": {
+        "import_from": "github",
+        "id": 86425659
+    },
+    "upstream_url": "https://github.com/tweag/rules_haskell"
+}

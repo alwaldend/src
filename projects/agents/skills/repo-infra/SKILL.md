@@ -32,9 +32,13 @@ for that exact operation and scope.
 
 ## Keep the shared flow intact
 
-Terraform packages declare `.tf` files and `.terraform.lock.hcl` in `data`,
-pass one or more `al_config` labels, and expose commands with
-`terraform_binary_map`. Ansible packages package runtime files as
+Terraform packages declare `.tf` files and module inputs in `data`, select
+provider labels through `providers`, pass one or more `al_config` labels, and
+expose commands with `terraform_binary_map` from rules_terraform, selecting
+AL's generic wrapper and its configuration explicitly in the BUILD file. Follow the
+[Terraform rule owner](../../../../tools/rules_terraform/README.md) for provider
+pinning and installation; do not add source `.terraform.lock.hcl` files.
+Ansible packages package runtime files as
 `pkg_files`/`pkg_filegroup`, build with `al_ansible_binary`, and run through
 `al_binary_run`/`al_binary_run_map`. Authentication, state backend, and secret
 values arrive through plugins named in `al.lua` and selected by labels
@@ -72,9 +76,9 @@ declarations as a table, and enforces one source file per domain name.
 
 ## Vault operations
 
-Read [references/vault.md](references/vault.md) for AppRole bootstrap, KV
-capabilities, safe token metadata, refresh, and failure handling through
-repository targets.
+Read [references/vault.md](references/vault.md) for AppRole bootstrap,
+component credential setup, KV capabilities, safe token metadata, refresh,
+and failure handling through repository targets.
 
 ## Diagnostics
 

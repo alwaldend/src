@@ -75,19 +75,28 @@ Source: [deployment playbook](../../../ansible/playbook_deploy.yaml).
 - **THEN** the bootstrap assertion fails rather than selecting or replacing
   an arbitrary source
 
-### Requirement: Vault-authoritative account and repository access
+### Requirement: Vault identities and service grants with catalog named roles
 
 Service Terraform SHALL require a verified positive integer Vault OAuth
 source ID, discover login users from the owning Vault group through at most
 two nested group levels, and use entity UUIDs as external login names.
-Managed accounts SHALL be protected from deletion. Access memberships SHALL
-belong to the discovered login population, and the `src` automation writer
-group SHALL resolve to exactly one user.
+Managed accounts SHALL be protected from deletion. The shared repository
+catalog SHALL own named organization administrator and developer assignments
+and organization-owned repository identities. Catalog members and Vault
+access-group members SHALL belong to the discovered login population.
+Existing Vault service-administrator, package-writer, and automation-writer
+grants SHALL be retained; the `src` automation writer group SHALL resolve to
+exactly one user. A catalog developer SHALL NOT also receive administrator
+access through the retained Vault groups.
 
 Sources: [service Terraform contract](../../../tf/README.md),
 [users](../../../tf/users.tf),
 [access validation](../../../tf/access.tf), and
 [repository access](../../../tf/alwaldend_repos.tf).
+The [shared catalog contract](../../../../repos/README.md) owns repository
+naming and named-role assignments; its
+[adoption change](../../../../repos/openspec/changes/archive/2026-09-13-adopt-shared-repository-catalog/design.md)
+records the source migration and pending verification.
 
 #### Scenario: Reject unsupported group membership
 
@@ -96,3 +105,20 @@ Sources: [service Terraform contract](../../../tf/README.md),
   not one
 - **THEN** the corresponding Terraform condition rejects the configuration
 - **AND** Terraform does not silently omit the unsupported membership
+
+#### Scenario: Resolve a catalog member through Vault
+
+- **WHEN** a catalog administrator or developer is assigned organization access
+- **THEN** that assignment uses the discovered account's existing Vault entity
+  UUID and verified OAuth source mapping
+- **AND** the assignment does not create a password-based replacement account
+
+#### Scenario: Retain service access while restricting a named developer
+
+- **WHEN** shared named roles are adopted
+- **THEN** existing Vault service administration, package-writing, and
+  automation-writer grants remain configured
+- **AND** the catalog developer receives feature-branch and pull-request
+  access without a default-branch push or merge bypass
+- **AND** an overlapping administrator grant for that developer fails
+  validation

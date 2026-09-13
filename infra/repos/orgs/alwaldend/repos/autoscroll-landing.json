@@ -1,0 +1,22 @@
+{
+    "description": "Landing page for autoscroll",
+    "homepage_url": "https://autoscroll.alwaldend.com/",
+    "default_branch": "master",
+    "visibility": "public",
+    "github": {
+        "pages": {
+            "build_type": "legacy",
+            "cname": "autoscroll.alwaldend.com",
+            "source": {
+                "branch": "pages",
+                "path": "/"
+            }
+        },
+        "landing_project": "autoscroll",
+        "id": 1359125337
+    },
+    "gitlab": {
+        "import_from": "github",
+        "id": 86425658
+    }
+}

@@ -72,6 +72,12 @@ Existing commands such as `//:gazelle`, `//:buildifier`, `//:requirements.update
 by `//tools/al:config`; repository documentation is assembled by
 `//projects/alwaldend.com:repo_docs`.
 
+Reusable Terraform rules and provider installation belong to
+[`tools/rules_terraform`](tools/rules_terraform/README.md). Repository command
+wrappers select generic AL authentication and backend injection in their BUILD
+files. Shared provider pins belong to
+[`third_party/terraform`](third_party/terraform/README.md).
+
 ## External links
 
 - Homepage: https://alwaldend.com/

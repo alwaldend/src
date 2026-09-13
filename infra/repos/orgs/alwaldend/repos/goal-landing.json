@@ -1,0 +1,22 @@
+{
+    "description": "Landing page for goal",
+    "homepage_url": "https://goal.alwaldend.com/",
+    "default_branch": "master",
+    "visibility": "public",
+    "github": {
+        "pages": {
+            "build_type": "legacy",
+            "cname": "goal.alwaldend.com",
+            "source": {
+                "branch": "pages",
+                "path": "/"
+            }
+        },
+        "landing_project": "goal",
+        "id": 1359123150
+    },
+    "gitlab": {
+        "import_from": "github",
+        "id": 86425669
+    }
+}

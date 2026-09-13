@@ -3,20 +3,16 @@ title: DNS test providers
 description: Pinned provider packages for offline Terraform tests
 ---
 
-These Linux AMD64 packages provide schemas to Terraform tests. Bazel
-downloads them from the publisher before test execution and verifies the
-publisher's release SHA-256 checksums. Terraform uses a local filesystem
-mirror with no direct registry fallback; tests do not download providers or
-contact live services.
+The [test target](../BUILD.bazel) uses the public
+[rules_terraform](../../../../../tools/rules_terraform/README.md) wrapper with
+the same Cloudflare, RouterOS, and Proxmox provider labels as infrastructure
+targets. The shared extension owns provider versions, release URLs, and
+checksums. Bazel fetches the declared archives before tests execute; Terraform
+uses the wrapper's packaged filesystem mirror without a registry fallback.
 
-Pins match the existing DNS, ingress, and Proxmox Terraform roots:
-
-- [Cloudflare 5.22.0 release](https://github.com/cloudflare/terraform-provider-cloudflare/releases/tag/v5.22.0)
-  and its [checksums](https://github.com/cloudflare/terraform-provider-cloudflare/releases/download/v5.22.0/terraform-provider-cloudflare_5.22.0_SHA256SUMS).
-- [RouterOS 1.99.1 release](https://github.com/terraform-routeros/terraform-provider-routeros/releases/tag/v1.99.1)
-  and its [checksums](https://github.com/terraform-routeros/terraform-provider-routeros/releases/download/v1.99.1/terraform-provider-routeros_1.99.1_SHA256SUMS).
-- [Proxmox 3.0.2-rc07 release](https://github.com/Telmate/terraform-provider-proxmox/releases/tag/v3.0.2-rc07)
-  and its [checksums](https://github.com/Telmate/terraform-provider-proxmox/releases/download/v3.0.2-rc07/terraform-provider-proxmox_3.0.2-rc07_SHA256SUMS).
+Each regression runs Terraform in a caller-owned temporary module directory.
+Tests retain an explicit environment without inherited provider credentials;
+provider installation and mocked lifecycles require no network access.
 
 The targeted import regression matches the owning Proxmox provider block by
 omitting `pm_api_url`. It checks both empty state and existing Proxmox resource
