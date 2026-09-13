@@ -42,6 +42,8 @@ linkTitle: <short title>
 date: <YYYY-MM-DD>
 description: <one-line description>
 author: <author>
+tags:
+  - <relevant topic>
 draft: true
 ---
 ```
@@ -52,6 +54,8 @@ draft: true
 - `description` renders as the lead paragraph and appears in listing excerpts.
 - `author` renders in the post byline. Omit it only when the user supplied no
   author.
+- Every post must have relevant `tags` derived from its content. Reuse the
+  site's existing tag names for the same topics, and avoid unrelated tags.
 - Keep `draft: true` from the template below. New posts are unpublished.
 
 Put any images or other resources the post references beside `index.md` in the
@@ -96,7 +100,27 @@ asks to publish.
 
 ## Review the post
 
-Review after the package builds. Do not change the content: report findings.
+Use this loop until the review finds nothing left to fix or the user explicitly
+ends the review:
+
+1. The post is added or modified, either by the user or through approved edits.
+2. Review the current text promptly and output the numbered findings directly
+   in the conversation before running builds, tests, or delivery. Do not defer
+   the review to the final handoff or provide only a link to a report.
+3. Start authorized delivery preparation and validation while the user checks
+   the review. Report additional rendered-page findings and check results
+   separately, adding any new findings to the open review.
+4. If the post changes, return to step 1 and review the revised text. If the
+   user requests another review without changing the post, return to step 2.
+   When nothing remains to fix or the user explicitly ends the review, finish
+   the authorized delivery. Otherwise keep the review open; silence does not
+   end it.
+
+Keep finding numbers stable across iterations, mark resolved findings, and
+assign new numbers to new findings. Report content changes for the user to
+decide; apply only edits the user requested. Once the review is finished,
+complete already-authorized delivery without asking separately whether to
+commit or push.
 
 Number the review so the user can reference a finding by number. Group the
 findings into numbered sections, and render every finding as a Markdown list
@@ -113,7 +137,7 @@ list.
   depth, list and code-fence style, link text, terminology, and any spelling
   that conflicts with the repository's established usage.
 - Check the front matter matches the content, including title, description,
-  date, and author.
+  date, author, and relevant tags.
 - Check that internal links and images resolve. Markdown targets resolve
   relative to the source directory; `README.md` and `_index.md` map to published
   pages. The site preserves an unknown destination instead of failing the build,

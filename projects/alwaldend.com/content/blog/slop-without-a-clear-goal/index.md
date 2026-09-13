@@ -4,6 +4,9 @@ linkTitle: Slop without a clear goal
 date: 2026-09-12
 description: >-
   Imprecise goals without quality assurance lead to bad results, obviously.
+tags:
+  - agent
+  - repo
 ---
 
 A while back, I said to Jipity[^jipity]: "Jipity, how can I improve agent ergonomics in this monorepo?", and Jipity gave me some useful suggestions, but one of them was not like the rest. It said that context in the repo was too splintered — agents had to read many things in different directories to understand how things are done. In my infinite wisdom, I said, "Jipity, write me a comprehensive plan implementing a unified agent system with the goal of improving ergonomics in this monorepo". And it wrote me a plan, I did not really read it.
