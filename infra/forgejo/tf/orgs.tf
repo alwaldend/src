@@ -1,4 +1,8 @@
 resource "forgejo_organization" "alwaldend" {
-  name       = "alwaldend"
-  visibility = "public"
+  name       = local.organization.name
+  visibility = local.organization.forgejo.visibility
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }

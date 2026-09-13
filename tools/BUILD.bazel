@@ -8,8 +8,25 @@ docs_filegroup(
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
-        exclude = ["openspec"],
-    ),
+        exclude = [
+            "openspec",
+            "rules_*",
+        ],
+    ) + [
+        "@rules_binary_toolchain//:docs",
+        "@rules_dnscontrol//:docs",
+        "@rules_docs//:docs",
+        "@rules_docs_gazelle//:docs",
+        "@rules_hugo//:docs",
+        "@rules_iso//:docs",
+        "@rules_openspec//:docs",
+        "@rules_promptfoo//:docs",
+        "@rules_promptfoo_gazelle//:docs",
+        "@rules_skill_gazelle//:docs",
+        "@rules_skills//:docs",
+        "@rules_template//:docs",
+        "@rules_terraform//:docs",
+    ],
 )
 
 npm_link_all_packages(

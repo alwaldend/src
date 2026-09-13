@@ -8,13 +8,13 @@ description: >-
 
 # Add a repository Gazelle plugin
 
-Use `projects/rules_docs_gazelle` as the reference implementation. Also follow
+Use `tools/rules_docs_gazelle` as the reference implementation. Also follow
 the `bazel-nested-module`, `repo-bazel`, and `bazel-agent` skills: a repository
 Gazelle plugin is both a Go language extension and a standalone Bzlmod module.
 
 ## Preserve workspace boundaries
 
-- Put the plugin in an underscore-named `projects/rules_*_gazelle` module with
+- Put the plugin in an underscore-named `tools/rules_*_gazelle` module with
   its own `MODULE.bazel`, lockfile, root `BUILD.bazel`, README, and `go.mod`.
   Reuse the nested-module Bazel configuration symlinks and documentation
   conventions rather than treating it as a root package.
@@ -70,7 +70,7 @@ Gazelle plugin is both a Go language extension and a standalone Bzlmod module.
 ## Test generation and merging
 
 Add focused Go tests patterned after
-`projects/rules_docs_gazelle/gazelle/gazelle_test.go`. Cover:
+`tools/rules_docs_gazelle/gazelle/gazelle_test.go`. Cover:
 
 - the positive generation case and exact rule kind, name, and owned values;
 - missing or irrelevant inputs, including the absence of an existing package

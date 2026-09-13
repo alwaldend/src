@@ -29,9 +29,6 @@ func TestTargetedImportSkipsUnrelatedProviderAuthentication(t *testing.T) {
 func targetedImportFixture(t *testing.T, seedState bool) {
 	t.Helper()
 	workspace := t.TempDir()
-	cliConfig := installProviderMirror(t, workspace, []providerPackage{
-		{"telmate", "proxmox", "3.0.2-rc07", *proxmox},
-	})
 
 	var requests atomic.Int64
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
@@ -124,7 +121,7 @@ resource "terraform_data" "records" {
 		if endpoint {
 			environment = []string{"PM_API_URL=" + server.URL + "/api2/json"}
 		}
-		return runTerraform(workspace, cliConfig, environment, args...)
+		return runTerraform(workspace, environment, args...)
 	}
 	run := func(args ...string) []byte {
 		t.Helper()

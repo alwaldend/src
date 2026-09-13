@@ -3,7 +3,6 @@ package dns_records_test
 import (
 	"context"
 	"flag"
-	"fmt"
 	"io/fs"
 	"os"
 	"os/exec"
@@ -13,12 +12,7 @@ import (
 	"time"
 )
 
-var (
-	terraform  = flag.String("terraform", "", "Pinned Terraform executable")
-	cloudflare = flag.String("cloudflare", "", "Pinned Cloudflare provider")
-	routeros   = flag.String("routeros", "", "Pinned RouterOS provider")
-	proxmox    = flag.String("proxmox", "", "Pinned Proxmox provider")
-)
+var terraform = flag.String("terraform", "", "Terraform wrapper with declared provider archives")
 
 func TestProviderDeclarations(t *testing.T) {
 	runfiles := filepath.Join(os.Getenv("TEST_SRCDIR"), os.Getenv("TEST_WORKSPACE"))
@@ -52,10 +46,6 @@ func TestProviderDeclarations(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	cliConfig := installProviderMirror(t, workspace, []providerPackage{
-		{"cloudflare", "cloudflare", "5.22.0", *cloudflare},
-		{"terraform-routeros", "routeros", "1.99.1", *routeros},
-	})
 	for _, check := range []struct {
 		name, directory string
 		arguments       []string
@@ -68,7 +58,7 @@ func TestProviderDeclarations(t *testing.T) {
 				{"init", "-backend=false", "-input=false", "-no-color"},
 				check.arguments,
 			} {
-				if output, err := runTerraform(check.directory, cliConfig, nil, args...); err != nil {
+				if output, err := runTerraform(check.directory, nil, args...); err != nil {
 					t.Fatalf("terraform %v: %v\n%s", args, err, output)
 				}
 			}
@@ -76,41 +66,17 @@ func TestProviderDeclarations(t *testing.T) {
 	}
 }
 
-type providerPackage struct {
-	namespace, name, version, path string
-}
-
-func installProviderMirror(t *testing.T, workspace string, providers []providerPackage) string {
-	t.Helper()
-	runfiles := filepath.Join(os.Getenv("TEST_SRCDIR"), os.Getenv("TEST_WORKSPACE"))
-	mirror := filepath.Join(workspace, "mirror")
-	for _, provider := range providers {
-		directory := filepath.Join(mirror, "registry.terraform.io", provider.namespace, provider.name, provider.version, "linux_amd64")
-		if err := os.MkdirAll(directory, 0o700); err != nil {
-			t.Fatal(err)
-		}
-		if err := os.Symlink(filepath.Join(runfiles, provider.path), filepath.Join(directory, "terraform-provider-"+provider.name+"_v"+provider.version)); err != nil {
-			t.Fatal(err)
-		}
-	}
-	cliConfig := filepath.Join(workspace, "terraform.rc")
-	if err := os.WriteFile(cliConfig, []byte(fmt.Sprintf("provider_installation { filesystem_mirror { path = %q } }\n", mirror)), 0o600); err != nil {
-		t.Fatal(err)
-	}
-	return cliConfig
-}
-
-func runTerraform(directory, cliConfig string, environment []string, args ...string) ([]byte, error) {
+func runTerraform(directory string, environment []string, args ...string) ([]byte, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
 	runfiles := filepath.Join(os.Getenv("TEST_SRCDIR"), os.Getenv("TEST_WORKSPACE"))
-	command := exec.CommandContext(ctx, filepath.Join(runfiles, *terraform), args...)
+	command := exec.CommandContext(ctx, filepath.Join(runfiles, *terraform), append([]string{"--chdir", directory}, args...)...)
 	command.Dir = directory
 	command.WaitDelay = 5 * time.Second
 	// A relative temporary directory keeps provider Unix socket names within
 	// the platform limit even when Bazel's isolated test root is long. The
 	// explicit environment excludes inherited provider credentials.
-	command.Env = []string{"PATH=" + os.Getenv("PATH"), "RUNFILES_DIR=" + os.Getenv("TEST_SRCDIR"), "TMPDIR=.", "TF_IN_AUTOMATION=1", "CHECKPOINT_DISABLE=1", "TF_CLI_CONFIG_FILE=" + cliConfig}
+	command.Env = []string{"PATH=" + os.Getenv("PATH"), "RUNFILES_DIR=" + os.Getenv("TEST_SRCDIR"), "TMPDIR=.", "TF_IN_AUTOMATION=1", "CHECKPOINT_DISABLE=1"}
 	command.Env = append(command.Env, environment...)
 	return command.CombinedOutput()
 }

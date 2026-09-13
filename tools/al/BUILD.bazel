@@ -1,4 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
 
 al_config(
@@ -9,6 +11,14 @@ al_config(
         "//data/ssl/alwaldend.com:ica_servers",
     ],
     visibility = ["//:__subpackages__"],
+)
+
+terraform_binary_map(
+    name = "tf",
+    chdir = ".",
+    visibility = ["//:__pkg__"],
+    wrapper = al_binary_run,
+    wrapper_kwargs = {"configs": [":config"]},
 )
 
 docs_filegroup(

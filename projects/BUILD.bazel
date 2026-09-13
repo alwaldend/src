@@ -11,20 +11,7 @@ docs_filegroup(
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
-        exclude = ["rules_*"],
-    ) + [
-        "@rules_binary_toolchain//:docs",
-        "@rules_dnscontrol//:docs",
-        "@rules_docs//:docs",
-        "@rules_docs_gazelle//:docs",
-        "@rules_hugo//:docs",
-        "@rules_iso//:docs",
-        "@rules_promptfoo//:docs",
-        "@rules_promptfoo_gazelle//:docs",
-        "@rules_skill_gazelle//:docs",
-        "@rules_skills//:docs",
-        "@rules_template//:docs",
-    ],
+    ),
 )
 
 al_release_binary(
@@ -42,27 +29,15 @@ al_release_binary(
                 "bazel_registry",
                 "bazel_agent",
                 "goal",
-                "rules_dnscontrol",
-                "rules_iso",
                 "useless_qt_gui",
-                "rules_template",
-                "rules_binary_toolchain",
-                "rules_docs",
-                "rules_docs_gazelle",
-                "rules_hugo",
-                "rules_promptfoo",
-                "rules_promptfoo_gazelle",
                 "renders",
-                "rules_openspec",
-                "rules_skills",
-                "rules_skill_gazelle",
             ],
         )
     ] + [],
 )
 
 _LANDING_TARGETS = [
-    "//projects/hugo_landing/landing:{}".format(project) if project.startswith("rules_") else "//projects/{}/landing:site".format(project)
+    "//projects/{}/landing:site".format(project)
     for project in PROJECTS
 ]
 

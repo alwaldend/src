@@ -1,0 +1,22 @@
+{
+    "description": "Landing page for hugo_landing",
+    "homepage_url": "https://hugo-landing.alwaldend.com/",
+    "default_branch": "master",
+    "visibility": "public",
+    "github": {
+        "pages": {
+            "build_type": "legacy",
+            "cname": "hugo-landing.alwaldend.com",
+            "source": {
+                "branch": "pages",
+                "path": "/"
+            }
+        },
+        "landing_project": "hugo_landing",
+        "id": 1359123347
+    },
+    "gitlab": {
+        "import_from": "github",
+        "id": 86425684
+    }
+}

@@ -164,77 +164,77 @@ test_suite(
 
 alias(
     name = "tf.direct",
-    actual = "//tools/terraform/cmd/workspace:tf.direct",
+    actual = "//tools/al:tf.direct",
 )
 
 alias(
     name = "tf.init",
-    actual = "//tools/terraform/cmd/workspace:tf.init",
+    actual = "//tools/al:tf.init",
 )
 
 alias(
     name = "tf.migrate",
-    actual = "//tools/terraform/cmd/workspace:tf.migrate",
+    actual = "//tools/al:tf.migrate",
 )
 
 alias(
     name = "tf.fmt",
-    actual = "//tools/terraform/cmd/workspace:tf.fmt",
+    actual = "//tools/al:tf.fmt",
 )
 
 alias(
     name = "tf.fmt_check",
-    actual = "//tools/terraform/cmd/workspace:tf.fmt_check",
+    actual = "//tools/al:tf.fmt_check",
 )
 
 alias(
     name = "tf.plan",
-    actual = "//tools/terraform/cmd/workspace:tf.plan",
+    actual = "//tools/al:tf.plan",
 )
 
 alias(
     name = "tf.output",
-    actual = "//tools/terraform/cmd/workspace:tf.output",
+    actual = "//tools/al:tf.output",
 )
 
 alias(
     name = "tf.import",
-    actual = "//tools/terraform/cmd/workspace:tf.import",
+    actual = "//tools/al:tf.import",
 )
 
 alias(
     name = "tf.destroy",
-    actual = "//tools/terraform/cmd/workspace:tf.destroy",
+    actual = "//tools/al:tf.destroy",
 )
 
 alias(
     name = "tf.apply",
-    actual = "//tools/terraform/cmd/workspace:tf.apply",
+    actual = "//tools/al:tf.apply",
 )
 
 alias(
     name = "tf.show",
-    actual = "//tools/terraform/cmd/workspace:tf.show",
+    actual = "//tools/al:tf.show",
 )
 
 alias(
     name = "tf.deploy",
-    actual = "//tools/terraform/cmd/workspace:tf.deploy",
+    actual = "//tools/al:tf.deploy",
 )
 
 alias(
     name = "tf.deploy_y",
-    actual = "//tools/terraform/cmd/workspace:tf.deploy_y",
+    actual = "//tools/al:tf.deploy_y",
 )
 
 alias(
     name = "tf.state",
-    actual = "//tools/terraform/cmd/workspace:tf.state",
+    actual = "//tools/al:tf.state",
 )
 
 alias(
     name = "tf.force_unlock",
-    actual = "//tools/terraform/cmd/workspace:tf.force_unlock",
+    actual = "//tools/al:tf.force_unlock",
 )
 
 alias(

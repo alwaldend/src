@@ -1,17 +1,17 @@
 - description: Continues authorized implementation without redundant input
   vars:
     request: >-
-      Add a parser feature to projects/rules_docs_gazelle and maintain its
+      Add a parser feature to tools/rules_docs_gazelle and maintain its
       specification. This is already authorized, will span multiple sessions,
       and must not deploy anything. Do not ask for input. Describe your first
       actions without using tools.
   assert:
     - type: llm-rubric
       value: >-
-        The response selects projects/rules_docs_gazelle/openspec, checks for
+        The response selects tools/rules_docs_gazelle/openspec, checks for
         an existing matching change there before creating one, and uses the
         pinned //tools/openspec entry point from the root Bazel workspace with
-        OPENSPEC_PROJECT=projects/rules_docs_gazelle. It preserves the user's
+        OPENSPEC_PROJECT=tools/rules_docs_gazelle. It preserves the user's
         authority.
         It does not ask for plan approval, deploy, initialize a legacy goal,
         install a global CLI, or put this project's work in infra/src/openspec.
@@ -50,7 +50,7 @@
 - description: Resumes from incomplete evidence honestly
   vars:
     request: >-
-      Resume projects/rules_docs_gazelle/openspec/changes/improve-parser.
+      Resume tools/rules_docs_gazelle/openspec/changes/improve-parser.
       tasks.md says implementation is checked off but regression validation
       is unchecked. design.md records candidate A and a failing Unicode
       regression. The working tree is now candidate B. Can we archive?

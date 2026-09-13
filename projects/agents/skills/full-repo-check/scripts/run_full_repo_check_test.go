@@ -92,8 +92,8 @@ func TestExecuteContinuesAndWritesRestrictedArtifacts(t *testing.T) {
 	); got != 1 {
 		t.Fatalf("execute() = %d, want 1", got)
 	}
-	if commands != 26 {
-		t.Errorf("commands executed = %d, want 26", commands)
+	if commands != 28 {
+		t.Errorf("commands executed = %d, want 28", commands)
 	}
 	if queries != len(repositoryWorkspaces) {
 		t.Errorf("query count = %d, want %d", queries, len(repositoryWorkspaces))
@@ -101,8 +101,8 @@ func TestExecuteContinuesAndWritesRestrictedArtifacts(t *testing.T) {
 	if got := len(processes); got != len(repositoryWorkspaces) {
 		t.Fatalf("query process count = %d, want %d", got, len(repositoryWorkspaces))
 	}
-	if got := len(checkProcesses); got != 26 {
-		t.Fatalf("check process count = %d, want 26", got)
+	if got := len(checkProcesses); got != 28 {
+		t.Fatalf("check process count = %d, want 28", got)
 	}
 	for index, process := range checkProcesses {
 		candidate := repositoryWorkspaces[index/len(checkPhases)]
@@ -141,7 +141,8 @@ func TestExecuteContinuesAndWritesRestrictedArtifacts(t *testing.T) {
 	}
 	for _, want := range []string{
 		"| root | build | `bazel_agent bazel build //...` | FAIL (exit 9)",
-		"| projects/rules_template | test |",
+		"| tools/rules_template | test |",
+		"| tools/rules_terraform | test |",
 		"## Failed commands",
 		"| root | build | 9 |",
 	} {
@@ -154,8 +155,8 @@ func TestExecuteContinuesAndWritesRestrictedArtifacts(t *testing.T) {
 	if err != nil {
 		t.Fatalf("os.ReadDir(logs) error = %v", err)
 	}
-	if len(logs) != 26 {
-		t.Fatalf("log count = %d, want 26", len(logs))
+	if len(logs) != 28 {
+		t.Fatalf("log count = %d, want 28", len(logs))
 	}
 	firstLog := filepath.Join(runDirectory, "logs", "root.build.log")
 	assertPermissions(t, firstLog, 0o600)
@@ -196,7 +197,7 @@ func TestExecuteRejectsMissingWorkspace(t *testing.T) {
 	}
 	if !strings.Contains(
 		stderr.String(),
-		"projects/rules_binary_toolchain/MODULE.bazel",
+		"tools/rules_binary_toolchain/MODULE.bazel",
 	) {
 		t.Errorf("stderr = %q, want missing workspace", stderr.String())
 	}

@@ -209,7 +209,7 @@ format_multirun(
         "-lint=fix",
         "-mode=fix",
     ],
-    terraform = "//tools/terraform",
+    terraform = "@rules_terraform//terraform:cli",
     toml = ":taplo",
     visibility = [
         "//:__pkg__",
@@ -253,7 +253,7 @@ format_test(
         "-mode=check",
         "-warnings=-bzl-visibility,-function-docstring-args,-function-docstring-header,-module-docstring,-name-conventions,-no-effect,-print,-unnamed-macro,-unsorted-dict-items,-unused-variable",
     ],
-    terraform = "//tools/terraform",
+    terraform = "@rules_terraform//terraform:cli",
     toml = ":taplo",
     visibility = [
         "//:__pkg__",

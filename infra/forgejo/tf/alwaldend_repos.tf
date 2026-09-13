@@ -1,14 +1,25 @@
-resource "forgejo_repository" "alwaldend_src" {
+resource "forgejo_repository" "repositories" {
+  for_each = module.repositories.forgejo_repositories
+
   owner          = forgejo_organization.alwaldend.name
-  name           = "src"
-  description    = "Source code"
-  website        = "https://alwaldend.com/"
-  default_branch = "master"
-  clone_addr     = "https://github.com/alwaldend/src.git"
+  name           = each.value.name
+  description    = each.value.description
+  website        = each.value.homepage_url
+  default_branch = each.value.default_branch
+  clone_addr     = each.value.config.clone_addr
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+moved {
+  from = forgejo_repository.alwaldend_src
+  to   = forgejo_repository.repositories["alwaldend/src"]
 }
 
 resource "forgejo_collaborator" "alwaldend_src_flux" {
-  repository_id = forgejo_repository.alwaldend_src.id
+  repository_id = forgejo_repository.repositories[local.src_repository_key].id
   user          = one(local.alwaldend_src_writers)
   permission    = "write"
 
@@ -21,8 +32,8 @@ resource "forgejo_collaborator" "alwaldend_src_flux" {
 }
 
 resource "forgejo_branch_protection" "alwaldend_src_master" {
-  branch_name           = "master"
-  repository_id         = forgejo_repository.alwaldend_src.id
+  branch_name           = module.repositories.forgejo_repositories[local.src_repository_key].default_branch
+  repository_id         = forgejo_repository.repositories[local.src_repository_key].id
   enable_push           = true
   enable_push_whitelist = true
   push_whitelist_teams = [
@@ -44,7 +55,7 @@ resource "forgejo_branch_protection" "alwaldend_src_master" {
 
 resource "forgejo_branch_protection" "alwaldend_src_releases" {
   branch_name           = "releases/*"
-  repository_id         = forgejo_repository.alwaldend_src.id
+  repository_id         = forgejo_repository.repositories[local.src_repository_key].id
   enable_push           = true
   enable_push_whitelist = true
   push_whitelist_teams = [

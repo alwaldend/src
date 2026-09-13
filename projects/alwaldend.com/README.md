@@ -17,7 +17,7 @@ uses Hugo with Docsy to publish project documentation on GitHub Pages.
 
 - Source code: https://github.com/alwaldend/src/tree/master/projects/alwaldend.com
 - Github Pages repo: https://github.com/alwaldend/alwaldend.github.io
-- Hugo rules: [../../projects/rules_hugo](../../projects/rules_hugo)
+- Hugo rules: [../../tools/rules_hugo](../../tools/rules_hugo)
 
 ## Features
 

@@ -35,8 +35,16 @@ missing: undeployed configuration and insufficient bootstrap policy are
 separate possibilities. Even a component `vault.status` target can fail here;
 use `//:vault.status` to isolate server reachability from component login.
 
-If the role or its policy has not been deployed, prepare and validate the
-owning `infra/vault/tf` change. An authorized KV write does not also authorize
+When implementing a new component, register its role and operator bootstrap
+membership in the [owning Vault stage](../../../../../infra/vault/tf/README.md)
+using the [shared AppRole module](../../../../tf_modules/vault_approle/main.tf).
+Its own KV subtree covers component credentials and Terraform state. Disable
+the optional Yandex Cloud policy when unused, and do not add general
+infrastructure group membership merely to enable a credential write.
+
+A checked-in role is not evidence that it has been deployed. If the role or
+its policy has not been deployed, prepare and validate the owning
+`infra/vault/tf` change. An authorized KV write does not also authorize
 that Terraform apply; retain the exact operation and scope boundary from
 `AGENTS.md`. Once bootstrap works, inspect the selected role token's capability
 on the exact destination through the component passthrough, for example:
@@ -49,6 +57,40 @@ These checks report capabilities without reading a secret. Use the target
 whose injected identity owns the destination; do not copy or broaden a policy
 merely to bypass a failing authentication context. Keep source validation
 moving while a live prerequisite is unavailable.
+
+## Set up a component credential
+
+Derive the logical secret path and field name from the component's `al.lua`
+and select its `vault.kv_put` target from the owning `BUILD.bazel`. Once the
+AppRole and bootstrap access above are deployed, this target writes using
+the component's identity. Its KV alias already selects the `secrets` mount.
+For a new single-field credential, replace the placeholders below with those
+source-owned names and run this Bash example:
+
+```bash
+(
+  set +x
+  read -rsp 'API token: ' component_token || exit 1
+  printf '\n' >&2
+  [ -n "$component_token" ] || exit 1
+  printf '%s' "$component_token" |
+    bazel_agent bazel run '//infra/<component>:vault.kv_put' -- \
+      '<logical-path>' '<field>=-'
+)
+```
+
+The hidden prompt and Bash builtins keep the value out of shell history and
+process arguments; the subshell releases the variable when it exits.
+[`<field>=-` reads the value from stdin](https://developer.hashicorp.com/vault/docs/commands/kv/put).
+`kv put` replaces the secret's fields, so preserve any existing fields when
+updating a shared record; use the owning `vault.kv_patch` target when only one
+field should change. Confirm the command's result without reading the token
+back.
+
+A request for the command authorizes explanation, not execution. Execute a
+write or prerequisite apply only within the exact authorization already
+granted; do not ask again when it covers that operation and scope. Preparing
+the role or explaining this example does not authorize either live operation.
 
 ## Inspect token metadata without exposing credentials
 

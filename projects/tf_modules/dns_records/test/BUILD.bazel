@@ -1,4 +1,17 @@
 load("@rules_go//go:def.bzl", "go_test")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary")
+
+terraform_binary(
+    name = "terraform",
+    testonly = True,
+    arguments = ["--direct"],
+    data = ["//projects/tf_modules/dns_records:test_sources"],
+    providers = [
+        "@terraform_provider_cloudflare_cloudflare//:provider",
+        "@terraform_provider_telmate_proxmox//:provider",
+        "@terraform_provider_terraform_routeros_routeros//:provider",
+    ],
+)
 
 go_test(
     name = "provider_test",
@@ -7,17 +20,11 @@ go_test(
         "targeted_import_test.go",
     ],
     args = [
-        "-terraform=$(rootpath //tools/terraform)",
-        "-cloudflare=$(rootpath //projects/tf_modules/dns_records/test/providers:cloudflare)",
-        "-routeros=$(rootpath //projects/tf_modules/dns_records/test/providers:routeros)",
-        "-proxmox=$(rootpath //projects/tf_modules/dns_records/test/providers:proxmox)",
+        "-terraform=$(rootpath :terraform)",
     ],
     data = [
+        ":terraform",
         "//projects/tf_modules/dns_records:test_sources",
-        "//projects/tf_modules/dns_records/test/providers:cloudflare",
-        "//projects/tf_modules/dns_records/test/providers:proxmox",
-        "//projects/tf_modules/dns_records/test/providers:routeros",
-        "//tools/terraform",
     ],
     target_compatible_with = [
         "@platforms//cpu:x86_64",

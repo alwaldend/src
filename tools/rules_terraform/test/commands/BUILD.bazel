@@ -1,0 +1,106 @@
+load("//terraform:defs.bzl", "terraform_binary_map", "terraform_target_binary_map", "terraform_test_map")
+load(":commands_test.bzl", "invocation_test", "recording_wrapper", "wrapper_test")
+
+terraform_binary_map(
+    name = "wrapped",
+    testonly = True,
+    srcs = ["main.tf"],
+    args = {"plan": [
+        "plan",
+        "-refresh=false",
+    ]},
+    data = ["context.json"],
+    tags = ["manual"],
+    wrapper = recording_wrapper,
+    wrapper_kwargs = {"mode": "caller-authentication"},
+)
+
+wrapper_test(
+    name = "binary_wrapper_test",
+    target_under_test = ":wrapped.plan",
+)
+
+invocation_test(
+    name = "wrapped_invocation_test",
+    expected_arguments = [
+        "plan",
+        "-refresh=false",
+    ],
+    target_under_test = ":wrapped.plan.terraform",
+)
+
+terraform_test_map(
+    name = "wrapped_checks",
+    size = "medium",
+    srcs = ["main.tf"],
+    data = ["context.json"],
+    tags = ["manual"],
+    wrapper = recording_wrapper,
+    wrapper_kwargs = {"mode": "caller-authentication"},
+)
+
+wrapper_test(
+    name = "test_wrapper_test",
+    expected_size = "medium",
+    target_under_test = ":wrapped_checks.fmt_test",
+)
+
+invocation_test(
+    name = "wrapped_test_invocation_test",
+    expected_arguments = [
+        "--direct",
+        "fmt",
+        "--check",
+        "--recursive",
+    ],
+    target_under_test = ":wrapped_checks.fmt_test.terraform",
+)
+
+terraform_target_binary_map(
+    name = "selected",
+    testonly = True,
+    srcs = ["main.tf"],
+    tags = ["manual"],
+    target = "module.dns",
+)
+
+invocation_test(
+    name = "targeted_plan_test",
+    expected_arguments = [
+        "plan",
+        "-target=module.dns",
+    ],
+    target_under_test = ":selected.plan",
+)
+
+invocation_test(
+    name = "saved_plan_apply_test",
+    expected_arguments = [
+        "--require-saved-plan",
+        "apply",
+    ],
+    target_under_test = ":selected.apply",
+)
+
+invocation_test(
+    name = "saved_plan_show_test",
+    expected_arguments = ["show"],
+    target_under_test = ":selected.show",
+)
+
+terraform_test_map(
+    name = "checks",
+    srcs = ["main.tf"],
+)
+
+invocation_test(
+    name = "direct_test_rule_test",
+    expected_arguments = [
+        "--direct",
+        "fmt",
+        "--check",
+        "--recursive",
+    ],
+    expected_kind = "terraform_test",
+    target_under_test = ":checks.fmt_test",
+)

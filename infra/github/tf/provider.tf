@@ -2,7 +2,7 @@ terraform {
   required_providers {
     github = {
       source  = "integrations/github"
-      version = "6.6.0"
+      version = "6.10.2"
     }
   }
   backend "http" {
@@ -10,5 +10,5 @@ terraform {
 }
 
 provider "github" {
-  owner = "alwaldend"
+  owner = local.github_organization_name
 }

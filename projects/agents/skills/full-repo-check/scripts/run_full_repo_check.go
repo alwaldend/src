@@ -23,26 +23,27 @@ type workspace struct {
 var repositoryWorkspaces = []workspace{
 	{name: "root", path: "."},
 	{
-		name: "projects/rules_binary_toolchain",
-		path: "projects/rules_binary_toolchain",
+		name: "tools/rules_binary_toolchain",
+		path: "tools/rules_binary_toolchain",
 	},
-	{name: "projects/rules_docs", path: "projects/rules_docs"},
-	{name: "projects/rules_docs_gazelle", path: "projects/rules_docs_gazelle"},
-	{name: "projects/rules_dnscontrol", path: "projects/rules_dnscontrol"},
-	{name: "projects/rules_hugo", path: "projects/rules_hugo"},
-	{name: "projects/rules_iso", path: "projects/rules_iso"},
-	{name: "projects/rules_openspec", path: "projects/rules_openspec"},
-	{name: "projects/rules_promptfoo", path: "projects/rules_promptfoo"},
+	{name: "tools/rules_docs", path: "tools/rules_docs"},
+	{name: "tools/rules_docs_gazelle", path: "tools/rules_docs_gazelle"},
+	{name: "tools/rules_dnscontrol", path: "tools/rules_dnscontrol"},
+	{name: "tools/rules_hugo", path: "tools/rules_hugo"},
+	{name: "tools/rules_iso", path: "tools/rules_iso"},
+	{name: "tools/rules_openspec", path: "tools/rules_openspec"},
+	{name: "tools/rules_promptfoo", path: "tools/rules_promptfoo"},
 	{
-		name: "projects/rules_promptfoo_gazelle",
-		path: "projects/rules_promptfoo_gazelle",
+		name: "tools/rules_promptfoo_gazelle",
+		path: "tools/rules_promptfoo_gazelle",
 	},
-	{name: "projects/rules_skills", path: "projects/rules_skills"},
+	{name: "tools/rules_skills", path: "tools/rules_skills"},
 	{
-		name: "projects/rules_skill_gazelle",
-		path: "projects/rules_skill_gazelle",
+		name: "tools/rules_skill_gazelle",
+		path: "tools/rules_skill_gazelle",
 	},
-	{name: "projects/rules_template", path: "projects/rules_template"},
+	{name: "tools/rules_template", path: "tools/rules_template"},
+	{name: "tools/rules_terraform", path: "tools/rules_terraform"},
 }
 
 var checkPhases = []string{"build", "test"}

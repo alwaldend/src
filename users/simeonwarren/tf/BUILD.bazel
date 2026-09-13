@@ -1,5 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/terraform:defs.bzl", "terraform_binary_map")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
 
 docs_filegroup(
     name = "docs",
@@ -11,10 +12,15 @@ docs_filegroup(
     ),
 )
 
+_PROVIDERS = [
+    "@terraform_provider_hashicorp_vault//:provider",
+    "@terraform_provider_telmate_proxmox//:provider",
+    "@terraform_provider_yandex_cloud_yandex//:provider",
+]
+
 _CONFIGS = ["//users/simeonwarren:al"]
 
 _DATA = glob(["*.tf"]) + [
-    ".terraform.lock.hcl",
     "//projects/tf_modules/pve_vm_qemu",
     "//users/simeonwarren:dnsconfig",
     "//tools/vault/tf_backend",
@@ -25,12 +31,16 @@ _DATA = glob(["*.tf"]) + [
 
 terraform_binary_map(
     name = "tf",
-    configs = _CONFIGS,
     data = _DATA,
-    run_args = [
-        "--plugin_label",
-        "tf",
-        "--plugin_label",
-        "vault_env=default_default",
-    ],
+    providers = _PROVIDERS,
+    wrapper = al_binary_run,
+    wrapper_kwargs = {
+        "configs": _CONFIGS,
+        "run_args": [
+            "--plugin_label",
+            "tf",
+            "--plugin_label",
+            "vault_env=default_default",
+        ],
+    },
 )

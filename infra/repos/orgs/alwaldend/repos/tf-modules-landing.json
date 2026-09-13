@@ -1,0 +1,22 @@
+{
+    "description": "Landing page for tf_modules",
+    "homepage_url": "https://tf-modules.alwaldend.com/",
+    "default_branch": "master",
+    "visibility": "public",
+    "github": {
+        "pages": {
+            "build_type": "legacy",
+            "cname": "tf-modules.alwaldend.com",
+            "source": {
+                "branch": "pages",
+                "path": "/"
+            }
+        },
+        "landing_project": "tf_modules",
+        "id": 1359124033
+    },
+    "gitlab": {
+        "import_from": "github",
+        "id": 86425688
+    }
+}

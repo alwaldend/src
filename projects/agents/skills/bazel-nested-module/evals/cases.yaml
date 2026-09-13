@@ -1,25 +1,40 @@
 - description: Creates and integrates a standalone nested Bzlmod workspace
   vars:
     request: >-
-      Add a public rules_widget Bazel module under projects, integrate it with
+      Add a public rules_widget Bazel module under tools, integrate it with
       the parent repository, generate any required BUILD files, and verify the
       result without publishing it.
   assert:
     - type: llm-rubric
       threshold: 1
       value: >-
-        Pass only if the response inspects existing projects/rules_* modules;
-        creates projects/rules_widget with a matching module name, version
+        Pass only if the response inspects existing tools/rules_* modules;
+        creates tools/rules_widget with a matching module name, version
         0.0.0, Bazel 8 compatibility, lockfile, README, BUILD file, and shared
         version-pin and ignore symlinks plus a regular .bazelrc with one import
         of tools/bazelrc/bzl_project.bazelrc; declares
         only required dependencies and public docs; adds the parent bazel_dep
         and local override, .bazelignore entry,
-        project docs integration, deployment exclusion, and full-repo-check
+        tools docs integration and full-repo-check
         workspace; updates locks through bazel_agent; runs applicable Gazelle
         generation twice and reviews its diff; and tests and builds the nested
         module plus focused parent integration and Buildifier checks. Otherwise
-        fail.
+        fail. It must not add a dedicated landing site, DNS record, or Pages
+        repository for the reusable rule module.
+- description: Keeps a standalone product module with its product owner
+  vars:
+    request: >-
+      The product at projects/widget needs its own standalone MODULE.bazel.
+      Integrate its nested workspace without moving the product into tools.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response preserves projects/widget as the product
+        owner, applies the shared nested-workspace configuration there, and
+        integrates its documentation and independent build/test coverage.
+        It must not force a product into tools merely because it has a
+        MODULE.bazel.
 - description: Inherits shared configuration when a module needs extra flags
   vars:
     request: >-

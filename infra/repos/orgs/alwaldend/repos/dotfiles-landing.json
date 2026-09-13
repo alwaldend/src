@@ -1,0 +1,22 @@
+{
+    "description": "Landing page for dotfiles",
+    "homepage_url": "https://dotfiles.alwaldend.com/",
+    "default_branch": "master",
+    "visibility": "public",
+    "github": {
+        "pages": {
+            "build_type": "legacy",
+            "cname": "dotfiles.alwaldend.com",
+            "source": {
+                "branch": "pages",
+                "path": "/"
+            }
+        },
+        "landing_project": "dotfiles",
+        "id": 1359124008
+    },
+    "gitlab": {
+        "import_from": "github",
+        "id": 86425656
+    }
+}

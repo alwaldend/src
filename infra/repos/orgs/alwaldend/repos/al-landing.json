@@ -1,0 +1,22 @@
+{
+    "description": "Landing page for al",
+    "homepage_url": "https://al.alwaldend.com/",
+    "default_branch": "master",
+    "visibility": "public",
+    "github": {
+        "pages": {
+            "build_type": "legacy",
+            "cname": "al.alwaldend.com",
+            "source": {
+                "branch": "pages",
+                "path": "/"
+            }
+        },
+        "landing_project": "al",
+        "id": 1359124069
+    },
+    "gitlab": {
+        "import_from": "github",
+        "id": 86425676
+    }
+}

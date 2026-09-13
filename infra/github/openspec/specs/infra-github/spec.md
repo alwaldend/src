@@ -2,52 +2,111 @@
 
 ## Purpose
 
-Describe Terraform ownership of GitHub repositories and Pages settings for
-project landing sites. This baseline records desired configuration; it does not
-assert that repositories or published sites were inspected live.
-
-Baseline source revision: `550d7e79b1f5fdbc2b6017b75178471d6914082f`.
-Observation date: 2026-09-08. Sources are linked in full; no excerpts are used.
+Describe Terraform ownership of the catalog-defined GitHub organization,
+repositories, member access, default-branch restrictions, and Pages settings.
+These requirements describe source guarantees; they do not assert that a plan
+has been applied or that published sites are healthy.
 
 Sources: [component documentation](../../../README.md),
 [Terraform workflow](../../../tf/README.md),
-[registry-derived inputs](../../../tf/BUILD.bazel),
-[repository resources](../../../tf/alwaldend_pages_repos.tf), and
+[shared catalog](../../../../repos/README.md),
+[packaged inputs](../../../tf/BUILD.bazel),
+[repository resources](../../../tf/repositories.tf),
+[landing repositories](../../../tf/alwaldend_pages_repos.tf),
+[organization access](../../../tf/organization.tf),
+[branch rules](../../../tf/branch_rules.tf), and
 [provider configuration](../../../tf/provider.tf).
 
 ## Requirements
 
-### Requirement: Derive landing repositories from the project registry
+### Requirement: Consume the shared organization and repository catalog
 
-The package SHALL generate its Terraform project-to-repository mapping from
-`PROJECTS`. Each entry SHALL name a public repository by replacing underscores
-in the project name with hyphens and appending `-landing`, under the configured
-`alwaldend` GitHub owner. A project MAY pin a published hostname and repository
-that do not follow its current source name, so that a source-only rename never
-destroys or repoints a live landing repository or its custom domain. Pinned
-entries SHALL be declared beside the mapping and SHALL be empty except while a
-project is being renamed.
+The package SHALL consume organization identity, administrator and developer
+lists, repository identity, default branches, repository settings, and Pages
+configuration through `infra/repos/tf`. It SHALL NOT generate a second inventory
+from the build-project registry. Its provider instance SHALL require exactly
+one configured GitHub organization.
 
-#### Scenario: Generate the mapping for a project with underscores
+Landing resources SHALL retain their existing addresses, using the catalog's
+`landing_project` field. Retired projects SHALL retain their published
+repositories while their catalog entries remain. Explicitly retired landing
+repositories SHALL be removed from the catalog after the authorized retirement
+workflow has established their exact deletion scope.
 
-- **WHEN** a registered project is named `example_project`
-- **THEN** its generated repository name is `example-project-landing`
-- **AND** its configured homepage is `https://example-project.alwaldend.com/`
+#### Scenario: Preserve a published identity after project retirement
 
-#### Scenario: Preserve a published identity across a source rename
+- **WHEN** a source project leaves the build registry but remains in the
+  repository catalog
+- **THEN** its landing repository and environment remain configured at their
+  existing resource addresses
 
-- **WHEN** a registered project's source name changes but its published
-  hostname is pinned to the previous name
-- **THEN** the generated repository name and homepage URL keep the pinned
-  hostname
-- **AND** a plan for the renamed registry key reports no repository or Pages
-  resource to destroy
+### Requirement: Adopt existing resources without recreating them
+
+The package SHALL provide import blocks for existing organization settings,
+repositories, default branches, memberships, developer collaborators, and
+the two existing `src` rulesets. Repositories with observed catalog IDs SHALL
+retain those IDs. Managed resources SHALL reject Terraform destruction, and
+any deletion or replacement SHALL require explicit user approval before apply.
+
+The organization settings resource SHALL own only catalog-defined base
+repository access. Its mandatory billing argument SHALL be an import-only
+placeholder whose imported value is ignored; billing, profile, and other
+organization defaults SHALL remain outside this module's ownership. Existing
+non-landing Dependabot alert settings SHALL be preserved.
+
+#### Scenario: An existing repository cannot be imported
+
+- **WHEN** import cannot resolve an observed catalog repository
+- **THEN** the operation fails rather than creating a replacement repository
+
+### Requirement: Restrict developers to contribution branches
+
+Catalog administrators SHALL be organization owners. Catalog developers SHALL
+receive explicit write access on every GitHub catalog repository through
+non-authoritative collaborator resources. Repository default branches SHALL
+have active rulesets restricting creation, updates, deletion, and force
+pushes, with bypass restricted to organization administrators. The update
+restriction SHALL NOT permit fork syncing as a developer bypass. Ruleset
+application SHALL follow the managed default-branch selection. The two
+pre-existing `src` rulesets SHALL be imported unchanged, retaining their
+rules and bypass actors alongside the new default-branch ruleset.
+
+#### Scenario: A developer contributes a change
+
+- **WHEN** a catalog developer writes to a non-protected contribution branch
+- **THEN** repository write access permits the contribution and opening a pull
+  request
+- **AND** the developer cannot push or merge into the default branch
+
+#### Scenario: Publish to a landing repository's Pages branch
+
+- **WHEN** a catalog developer publishes site content to the landing
+  repository's `pages` branch
+- **THEN** repository write access permits publication
+- **AND** its separate `master` default branch remains protected from developer
+  pushes and merges
+
+### Requirement: Separate landing defaults from Pages publication
+
+Landing repositories SHALL use the catalog default branch independently of
+their Pages source branch. A missing default branch SHALL be created from the
+existing Pages branch before Terraform selects it as the default. Existing
+default branches SHALL be imported. The migration SHALL NOT rename or delete
+the Pages branch or change its content.
+
+#### Scenario: A landing repository only has its Pages branch
+
+- **WHEN** Terraform changes its default branch from `pages` to `master`
+- **THEN** it creates `master` from the current Pages branch tip
+- **AND** it selects `master` as the default after creation
+- **AND** Pages continues to publish from the original `pages` branch
 
 ### Requirement: Enable Pages only after its source branch exists
 
-Terraform SHALL configure Pages to use the `pages` branch at `/` with the
-project's hyphenated `alwaldend.com` subdomain, except for entries explicitly in
-`bootstrap_projects`. That set SHALL default to empty.
+Terraform SHALL configure landing Pages from the catalog, except for entries
+explicitly in `bootstrap_projects`. That set SHALL default to empty. New
+bootstrapping repositories SHALL omit default-branch creation and selection
+until their Pages branch has been published.
 
 #### Scenario: Bootstrap a new landing repository
 

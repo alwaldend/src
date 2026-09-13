@@ -1,0 +1,15 @@
+{
+    "admins": ["simeonwarren"],
+    "users": ["simeonwarrenbot"],
+    "github": {
+        "id": 209336066,
+        "default_repository_permission": "read"
+    },
+    "gitlab": {
+        "id": 142102546,
+        "visibility": "public"
+    },
+    "forgejo": {
+        "visibility": "public"
+    }
+}

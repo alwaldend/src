@@ -12,6 +12,14 @@ tags:
 - Docs: https://forgejo.org/docs/latest/admin/installation/binary/
 - Config reference: https://forgejo.org/docs/latest/admin/config-cheat-sheet/
 
+## Repository configuration
+
+Service Terraform consumes the shared [repository catalog](../repos/README.md)
+for organization-owned repositories and named administrator/developer roles.
+Vault continues to own OIDC login identities and service-specific access.
+See [service Terraform](tf/README.md) for identity validation, state adoption,
+and the preserved automation grants.
+
 ## Deployment
 
 Forgejo is recreated on XCP-ng through Xen Orchestra, using the

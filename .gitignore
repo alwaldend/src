@@ -17,6 +17,9 @@ creds.json
 # Local .terraform directories
 **/.terraform/*
 
+# Provider pins belong to the Bazel module extension.
+.terraform.lock.hcl
+
 # .tfstate files
 *.tfstate
 *.tfstate.*
@@ -78,6 +81,7 @@ eclipse-*bin/
 # based on the name of the directory bazel is cloned into.
 /bazel-*
 /projects/*/bazel-*
+/tools/*/bazel-*
 
 # Ignore outputs generated during Bazel bootstrapping.
 /output/

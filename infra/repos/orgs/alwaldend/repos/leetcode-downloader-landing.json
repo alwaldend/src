@@ -1,0 +1,22 @@
+{
+    "description": "Landing page for leetcode_downloader",
+    "homepage_url": "https://leetcode-downloader.alwaldend.com/",
+    "default_branch": "master",
+    "visibility": "public",
+    "github": {
+        "pages": {
+            "build_type": "legacy",
+            "cname": "leetcode-downloader.alwaldend.com",
+            "source": {
+                "branch": "pages",
+                "path": "/"
+            }
+        },
+        "landing_project": "leetcode_downloader",
+        "id": 1359123185
+    },
+    "gitlab": {
+        "import_from": "github",
+        "id": 86425675
+    }
+}

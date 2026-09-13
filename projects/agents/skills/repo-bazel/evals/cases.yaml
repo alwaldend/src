@@ -1,3 +1,20 @@
+- description: Selects a hermetic Terraform provider dependency
+  vars:
+    request: >-
+      A Terraform Bazel target needs a provider already pinned by another
+      infrastructure root. Add the dependency without downloading providers
+      when Terraform runs, and keep the current single-version policy.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses the rules_terraform documentation to
+        find the existing extension declaration in third_party/terraform and selects its provider label
+        through the target's providers attribute. It must preserve one version
+        per provider source, keep source Terraform lockfiles absent, explicitly select
+        generic AL wrappers when the target requires repository authentication, and
+        verify the declaration through offline Bazel checks. Fail if it adds
+        a second pin, host provider cache, or runtime registry fallback.
 - description: Makes and verifies a narrowly scoped Bazel target change
   vars:
     request: >-

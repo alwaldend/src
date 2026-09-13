@@ -1,0 +1,22 @@
+{
+    "description": "Landing page for renders",
+    "homepage_url": "https://renders.alwaldend.com/",
+    "default_branch": "master",
+    "visibility": "public",
+    "github": {
+        "pages": {
+            "build_type": "legacy",
+            "cname": "renders.alwaldend.com",
+            "source": {
+                "branch": "pages",
+                "path": "/"
+            }
+        },
+        "landing_project": "renders",
+        "id": 1359123037
+    },
+    "gitlab": {
+        "import_from": "github",
+        "id": 86425685
+    }
+}

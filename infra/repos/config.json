@@ -1,0 +1,23 @@
+{
+    "version": 1,
+    "defaults": {
+        "github": {
+            "has_issues": false,
+            "has_projects": false,
+            "has_wiki": false,
+            "allow_merge_commit": true,
+            "allow_squash_merge": true,
+            "allow_rebase_merge": true,
+            "allow_auto_merge": false,
+            "delete_branch_on_merge": false,
+            "allow_update_branch": false,
+            "web_commit_signoff_required": false,
+            "is_template": false,
+            "archived": false,
+            "squash_merge_commit_title": "COMMIT_OR_PR_TITLE",
+            "squash_merge_commit_message": "COMMIT_MESSAGES",
+            "merge_commit_title": "MERGE_MESSAGE",
+            "merge_commit_message": "PR_TITLE"
+        }
+    }
+}

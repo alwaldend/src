@@ -1,11 +1,16 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary_map", "terraform_test_map")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_test")
 
 docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
     visibility = ["//projects/kustomization:__pkg__"],
 )
+
+_PROVIDERS = [
+    "@terraform_provider_cloudflare_cloudflare//:provider",
+]
 
 _CONFIGS = ["//projects/kustomization:al"]
 
@@ -15,7 +20,6 @@ _RUN_ARGS = [
 ]
 
 _DATA = glob(["*.tf"]) + [
-    ".terraform.lock.hcl",
     "//projects/kustomization:dnsconfig",
     "//projects/tf_modules/dns_records/global:global",
     "//tools/vault/injector",
@@ -24,13 +28,21 @@ _DATA = glob(["*.tf"]) + [
 
 terraform_binary_map(
     name = "tf",
-    configs = _CONFIGS,
     data = _DATA,
-    run_args = _RUN_ARGS,
+    providers = _PROVIDERS,
+    wrapper = al_binary_run,
+    wrapper_kwargs = {
+        "configs": _CONFIGS,
+        "run_args": _RUN_ARGS,
+    },
 )
 
 terraform_test_map(
     name = "tf_tests",
-    configs = _CONFIGS,
     data = _DATA,
+    providers = _PROVIDERS,
+    wrapper = al_binary_run_test,
+    wrapper_kwargs = {
+        "configs": _CONFIGS,
+    },
 )

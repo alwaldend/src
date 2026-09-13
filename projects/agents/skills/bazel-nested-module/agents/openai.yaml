@@ -3,4 +3,4 @@ interface:
   short_description: "Create a convention-compliant nested Bzlmod module"
   default_prompt: >-
     Use $bazel-nested-module to create and integrate a standalone nested Bazel
-    module under projects/.
+    module under its owning tools/ or projects/ boundary.

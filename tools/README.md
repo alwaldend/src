@@ -7,15 +7,22 @@ cascade:
       - tool
 ---
 
-This tree contains tools used inside the repository. All tracked content
-follows the repository's public-source policy.
+This tree contains developer tools and reusable Bazel rule modules. All tracked
+content follows the repository's public-source policy. Standalone `rules_*`
+modules retain their own Bzlmod names and public build APIs, with documentation
+on the main repository site. They do not own separate landing sites.
 
 ## Requirements
 
-- Bazel targets MUST use repository-internal visibility except for toolchain
-  types whose owner explicitly exposes a public build API.
+- Bazel targets MUST use repository-internal visibility except for standalone
+  Bazel rule modules and toolchain types whose owner explicitly exposes a public
+  build API.
 - Tool artifacts MUST NOT be published as first-party product artifacts.
-- Tool targets MUST NOT be used as dependencies of production build targets.
+- Standalone Bazel rule modules MAY publish their reusable build APIs through
+  their explicit module release workflow.
+- Production build targets MAY consume the public build APIs of standalone
+  Bazel rule modules and toolchains. Other tool targets MUST NOT be dependencies
+  of production build targets.
 - Tool targets intended for repository-wide use MUST use
   `visibility = ["//:__subpackages__"]`.
 - Tool targets MAY be used in tests and explicit source-generation/update

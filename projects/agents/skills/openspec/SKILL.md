@@ -10,9 +10,10 @@ description: >-
 # OpenSpec
 
 Select the component that owns the affected behavior. Its specifications and
-changes live in `<owner>/openspec/`, such as `projects/agents/openspec/` or
-`infra/vault/openspec/`. The `infra/src/openspec/` workspace describes
-the evolution of the repository itself: its shared structure and contracts.
+changes live in `<owner>/openspec/`, such as `projects/agents/openspec/`,
+`tools/rules_docs/openspec/`, or `infra/vault/openspec/`. The
+`infra/src/openspec/` workspace describes the evolution of the repository
+itself: its shared structure and contracts.
 
 Read the owner README, its `openspec/config.yaml`, and the affected
 `openspec/specs/<capability>/spec.md` before changing a contract.
