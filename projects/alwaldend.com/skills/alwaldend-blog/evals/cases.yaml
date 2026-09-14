@@ -39,14 +39,52 @@
         bullets. It must present the available text findings directly in the
         conversation before builds, tests, or delivery, rather than deferring
         them to the final handoff or providing only a report link. It must
-        start authorized delivery preparation while the user checks the
-        review, reporting subsequent rendered-page findings and validation
-        results separately. After any post change it must review the revised
+        inspect delivery requirements and run validation while the user checks
+        the review, reporting subsequent rendered-page findings and validation
+        results separately, without staging, committing, pushing, creating or
+        updating a pull request, or running repo_delivery prepare before the
+        review permits delivery. After any post change it must review the revised
         text and output the findings again, keeping finding numbers stable.
         It must finish delivery only when the review finds nothing left to
         fix or the user explicitly ends the review; silence must not end it.
         It must not modify the article's content, and it must leave
         the publication decision to the user.
+
+- description: Waits while the author writes a new draft
+  vars:
+    request: >-
+      Use $alwaldend-blog. I asked you to add a new blog post draft titled
+      "Slop cannon review". You created its package and then observed me
+      editing index.md twice. The latest paragraph has no review findings,
+      and the preview checks pass. I have not said I am finished writing.
+      What do you do next?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response keeps delivery paused and waits for the user
+        to explicitly finish writing or request delivery of the current draft.
+        It must not ask whether to wait or deliver, treat silence or passing
+        checks or a clean review as completion, stage or commit the post, run
+        repo_delivery prepare, push, or create or update a pull request.
+        Reviewing the text and running validation may continue.
+
+- description: Delivers after the author finishes without another confirmation
+  vars:
+    request: >-
+      Use $alwaldend-blog. You paused delivery of my new post while I was
+      writing. I am finished writing now. The latest text review has no
+      unresolved findings. Keep it as a draft.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass if the response resumes already-authorized repository delivery,
+        validates the finished candidate, commits and pushes it, and offers
+        its pull request through repo-delivery without asking separately
+        whether to commit or push. It must keep draft: true and must not
+        interpret finished writing as authorization to release the post
+        on the deployed site.
 
 - description: Honors an explicit request to publish the post
   vars:
