@@ -39,11 +39,35 @@ jobs:
                   raise RuntimeError(message)
 
           class AuthenticationError(RuntimeError):
-              def __init__(self, status):
-                  super().__init__(f"Authentication request failed: HTTP {status}")
+              def __init__(self, status, stage, category):
+                  super().__init__(f"{stage} failed: HTTP {status} ({category})")
                   self.status = status
+                  self.category = category
 
-          def request_json(url, *, headers=None, payload=None):
+          def error_category(content):
+              # Only fixed categories leave memory; response text can contain claims.
+              try:
+                  errors = json.loads(content).get("errors", [])
+                  message = " ".join(value for value in errors if isinstance(value, str)).lower()
+              except (ValueError, AttributeError, TypeError):
+                  message = ""
+              for name in ("audience", "issuer", "signature", "certificate", "oidc", "jwks"):
+                  if name in message:
+                      return name
+              for name in ("repository", "ref_type", "event_name", "workflow_ref", "run_id", "sha", "sub", "ref"):
+                  if '"' + name + '"' in message or "'" + name + "'" in message:
+                      return "claim " + name
+              if "claim" in message:
+                  return "claims"
+              return "unclassified response"
+
+          class RejectRedirects(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, req, fp, code, msg, headers, newurl):
+                  raise RuntimeError("Authentication endpoint redirect rejected")
+
+          opener = urllib.request.build_opener(RejectRedirects())
+
+          def request_json(url, *, headers=None, payload=None, stage="Configuration read"):
               body = None if payload is None else json.dumps(payload).encode()
               request = urllib.request.Request(
                   url,
@@ -51,11 +75,12 @@ jobs:
                   headers={"Content-Type": "application/json", **(headers or {})},
               )
               try:
-                  with urllib.request.urlopen(request, timeout=30) as response:
+                  with opener.open(request, timeout=30) as response:
                       content = response.read(1048576)
                       return json.loads(content) if content else {}
               except urllib.error.HTTPError as error:
-                  raise AuthenticationError(error.code) from None
+                  category = error_category(error.read(16384))
+                  raise AuthenticationError(error.code, stage, category) from None
               except urllib.error.URLError:
                   raise RuntimeError("Authentication endpoint could not be reached") from None
 
@@ -106,6 +131,7 @@ jobs:
                       headers={
                           "Authorization": "Bearer " + os.environ["ACTIONS_ID_TOKEN_REQUEST_TOKEN"],
                       },
+                      stage="Forgejo identity issuance",
                   )["value"]
 
               login_url = f"{vault_url}/v1/auth/{os.environ['VAULT_AUTH_PATH']}/login"
@@ -117,14 +143,17 @@ jobs:
                           "role": os.environ["VAULT_AUTH_ROLE"],
                           "jwt": unauthorized_identity,
                       },
+                      stage="Vault negative login",
                   )
               except AuthenticationError as error:
                   require(error.status in (400, 403), "Unexpected audience rejection status")
+                  require(error.category == "audience", str(error))
               else:
                   request_json(
                       f"{vault_url}/v1/auth/token/revoke-self",
                       headers={"X-Vault-Token": unexpected["auth"]["client_token"]},
                       payload={},
+                      stage="Unexpected token revocation",
                   )
                   raise RuntimeError("Vault accepted an unauthorized audience")
               print("Vault rejected an unauthorized audience")
@@ -132,12 +161,14 @@ jobs:
               login = request_json(
                   login_url,
                   payload={"role": os.environ["VAULT_AUTH_ROLE"], "jwt": identity(vault_url)},
+                  stage="Vault login",
               )
               token = login["auth"]["client_token"]
               headers = {"X-Vault-Token": token}
               try:
                   metadata = request_json(
-                      f"{vault_url}/v1/auth/token/lookup-self", headers=headers
+                      f"{vault_url}/v1/auth/token/lookup-self", headers=headers,
+                      stage="Vault token lookup",
                   )["data"]
                   require(
                       set(metadata["policies"]) == {
@@ -149,7 +180,8 @@ jobs:
                   print("Vault OIDC authentication and restricted token checks passed")
               finally:
                   request_json(
-                      f"{vault_url}/v1/auth/token/revoke-self", headers=headers, payload={}
+                      f"{vault_url}/v1/auth/token/revoke-self", headers=headers, payload={},
+                      stage="Vault token revocation",
                   )
               print("CI token revoked")
 

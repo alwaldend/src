@@ -103,24 +103,31 @@ errors for the `forgejo` expression context before executing any Python.
 The workflow now uses the supported `github` compatibility context. Source
 inspection also found missing native OIDC request environment support in v11;
 the dependency is upgraded to the publisher-checksummed v13.1.0. That binary's
-offline workflow validation passes. The upgrade is not yet deployed.
+offline workflow validation passes. The upgrade is deployed.
 
-At 18:21 UTC the controller's bootstrap Vault credential became invalid;
-token lookup and AppRole SecretID creation returned HTTP 403. The user was
-asked to renew the host's Vault login without sharing the token. Next deploy
-the pinned runner upgrade, then create a validation commit with the validated
-source tree and the observed prior validation commit as its parent. This keeps
-the test branch fast-forward while delivery can maintain one aggregate feature
-commit. Inspect the source difference first, record source/tree/validation OIDs,
-and use the helper's explicit prior-commit lease. Run CI again, verify the exact
-runner registration, and archive the completed change.
+The controller login expired during deployment and the user renewed it.
+The scoped Ansible upgrade then succeeded without repeating registration;
+an authenticated repository inventory confirms exactly one idle runner named
+`secure`, label `secure`, version v13.1.0.
 
-The corrected source candidate `a8a036ea09c474d3083a061c4c7adfdde4e31147`
-passes both required delivery checks, including semantic lint for the upgraded
-dependency. The actual downloaded runner binary's SHA-256 matches the publisher
-checksum in the lock. Packaged Ansible syntax and strict OpenSpec validation
-also pass. Publication retains this change as active because live deployment
-of the upgrade and successful OIDC CI verification remain outstanding.
+The upgraded source tree `409377b38fc64e27553ab8315f35691fe94e869e` was tested
+by validation commit `2024d4e24a06efd618a3ebfe0555181c561f4387`, a fast-forward
+child of the first test commit. [CI run 2](https://git.alwaldend.com/alwaldend/src/actions/runs/2)
+passed resource checks but returned HTTP 400 during authentication. The
+workflow now reports fixed error categories without response text or claims,
+requires an audience-specific rejection for its negative check, and rejects
+HTTP redirects before credentials can reach another endpoint. The next action
+is to validate and test this diagnostic candidate, then fix the observed cause.
+
+Provider v5.8 splits CSV alternatives into arrays by default; the live Vault
+role confirms all expected claim arrays. The parsing setting is explicit for
+clarity. This is not an authentication-policy change.
+
+Validation retries use a commit with the validated source tree and the observed
+prior validation commit as its parent. This keeps the protected test branch
+fast-forward while delivery maintains one aggregate feature commit. Inspect the
+source difference first, record source/tree/validation OIDs, and use the helper's
+explicit prior-commit lease. Archive only after successful live CI verification.
 
 ## Operator confirmation and state retirement
 

@@ -16,7 +16,7 @@
       service health, repository registration and repeat-deployment behavior.
 - [ ] 2.4 Run the smoke workflow on the declared protected validation branch;
       verify capacity, Vault token restrictions and revocation for the exact commit.
-      Upgrade the runner through Ansible after renewing the controller Vault login.
+      Runner 13.1.0 is deployed; diagnose the authentication HTTP 400 in run 2.
 
 ## 3. Deliver
 

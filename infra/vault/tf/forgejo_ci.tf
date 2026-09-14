@@ -39,6 +39,9 @@ resource "vault_jwt_auth_backend_role" "forgejo_ci_secure" {
   bound_audiences   = [var.vault_url]
   bound_claims_type = "string"
 
+  # Provider 5.8 splits comma-separated alternatives into Vault JSON arrays.
+  disable_bound_claims_parsing = false
+
   # Forgejo 15.0.3 hardcodes ref_protected=false in services/actions/context.go.
   # Bind the default and exact validation branches, covered by protection in
   # infra/forgejo/tf. This restricts Vault authentication, not runner scheduling.
