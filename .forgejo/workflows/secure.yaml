@@ -51,6 +51,10 @@ jobs:
                   message = " ".join(value for value in errors if isinstance(value, str)).lower()
               except (ValueError, AttributeError, TypeError):
                   message = ""
+              if "not before (nbf)" in message or "issued at (iat)" in message:
+                  return "clock skew"
+              if "expiration time (exp)" in message:
+                  return "expired identity"
               for name in ("audience", "issuer", "signature", "certificate", "oidc", "jwks"):
                   if name in message:
                       return name

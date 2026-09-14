@@ -34,6 +34,12 @@ al_binary_run_map(
             "inventory.yaml",
             "playbook_setup_bm.yaml",
         ],
+        "time": [
+            "$(rootpath :ansible_bin)",
+            "--inventory",
+            "inventory.yaml",
+            "playbook_sync_time.yaml",
+        ],
     },
     configs = ["//infra/vault:al"],
     data = [

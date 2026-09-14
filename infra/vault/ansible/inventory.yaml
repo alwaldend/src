@@ -5,6 +5,8 @@ vm:
 bm:
   hosts:
     host1.vault.alwaldend.com:
+      ansible_host: host1.vault.dc1.alwaldend.com
+      ansible_ssh_common_args: "-o HostKeyAlias={{ inventory_hostname }}"
 vault:
   children:
     # vm:

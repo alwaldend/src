@@ -117,7 +117,34 @@ passed resource checks but returned HTTP 400 during authentication. The
 workflow now reports fixed error categories without response text or claims,
 requires an audience-specific rejection for its negative check, and rejects
 HTTP redirects before credentials can reach another endpoint. The next action
-is to validate and test this diagnostic candidate, then fix the observed cause.
+is to correct the observed Vault clock drift through its owning IaC.
+
+[CI run 3](https://git.alwaldend.com/alwaldend/src/actions/runs/3), commit
+`74c22d579148f09718454cc21dd494c0e8d18b26`, confirms audience-specific rejection
+and isolates the positive login failure to claim validation. Fresh uncached
+HTTP observations at 18:58 UTC show Vault about 155 seconds behind both the
+controller and Forgejo. This exceeds the default JWT issued-at clock tolerance;
+the workflow now distinguishes fixed clock-skew and expiry categories.
+Do not widen the JWT acceptance window to mask a clock synchronization failure.
+
+Read-only Vault host diagnostics succeeded with zero changes. Chrony is enabled
+and running, but both configured sources have reachability zero and its leap
+state is unsynchronized. A bounded NTP request from that host verified
+`time.cloudflare.com`: leap indicator 0, stratum 3, approximately 3 ms delay and
+154.89 seconds ahead of the host. The current router replied unsynchronized and
+is unsuitable as a replacement. The prepared `//infra/vault/ansible:ansible.time`
+target replaces the observed main server entry and declares the initial-step
+policy, enables/restarts Chrony as needed, and requires synchronized state with
+less than half a second of correction remaining. Other Chrony settings and
+DHCP-provided sources remain configured. Its offline
+Ansible syntax check passes. The inventory now uses its declared DNS transport
+while preserving its existing signed SSH host-certificate identity.
+
+Decision verdict: ask before the live Vault-host clock correction. Root
+`AGENTS.md` requires explicit operation and scope for infrastructure mutations;
+the runner deployment authority does not explicitly name this host clock
+repair. The exact repair was presented to the user; approval is pending.
+Continue independent validation/publication and retain the live CI task open.
 
 Provider v5.8 splits CSV alternatives into arrays by default; the live Vault
 role confirms all expected claim arrays. The parsing setting is explicit for
@@ -157,6 +184,14 @@ removed from the current component.
   failed before execution, and that runner lacks OIDC environment support.
   The pinned upgrade adds an offline workflow-schema validation command before
   another live test.
+- `runner-authentication-error-classification` (live and fixture-tested): generic
+  HTTP 400 output hid claim timing failures and the negative check accepted any
+  failure. Fixed stage/category diagnostics identify failures without exposing
+  response text; an isolated HTTP fixture confirms redirect rejection and no
+  credential forwarding across ten redirect cases.
+- `vault-host-clock-drift` (live): uncached service timestamps differ by about
+  155 seconds. Preserve the default JWT tolerance and repair time synchronization
+  through the Vault owner after confirming host configuration and authority.
 - One cold build exceeded its initial deadline; the longer warmed retry passed.
   Buildifier checks caught declaration ordering, repaired with the owning
   formatter. No shared skill or host configuration changes are needed.
