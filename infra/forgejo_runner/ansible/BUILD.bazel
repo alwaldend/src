@@ -1,6 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
-load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run", "al_binary_run_map")
 load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
 
 docs_filegroup(
@@ -40,15 +40,70 @@ al_ansible_binary(
     process_name = "ansible_playbook",
 )
 
+al_binary_run(
+    name = "ci_validation",
+    args = [
+        "$(rootpath :ansible_bin)",
+        "--inventory",
+        "inventory.yaml",
+        "playbook_ci_validation.yaml",
+    ],
+    configs = ["//infra/forgejo_runner:al"],
+    data = [
+        ":ansible_bin",
+        "//tools/vault/forgejo_login",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "vault_env=default_default",
+        "--plugin_label",
+        "registration=1",
+    ],
+)
+
+al_binary_run(
+    name = "registration",
+    args = [
+        "$(rootpath :ansible_bin)",
+        "--inventory",
+        "inventory.yaml",
+        "playbook_registration.yaml",
+    ],
+    configs = ["//infra/forgejo_runner:al"],
+    data = [
+        ":ansible_bin",
+        "//tools/vault/forgejo_login",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "vault_env=default_default",
+        "--plugin_label",
+        "registration=1",
+    ],
+)
+
 pkg_filegroup(
     name = "srcs",
-    srcs = [":srcs_files"],
+    srcs = [
+        ":srcs_files",
+        ":ssh_ca_files",
+    ],
+)
+
+pkg_files(
+    name = "ssh_ca_files",
+    srcs = ["//data/ssh:ca_servers"],
+    prefix = "files",
+    renames = {"//data/ssh:ca_servers": "ssh_ca_servers.pub"},
 )
 
 pkg_files(
     name = "srcs_files",
     srcs = ["inventory.yaml"] + glob([
         "group_vars/**/*.yaml",
+        "files/**",
         "playbook_*.yaml",
     ]),
     strip_prefix = strip_prefix.from_pkg(),

@@ -1,0 +1,9 @@
+- name: Synchronize the Vault host clock
+  hosts: vault
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Configure Vault time synchronization
+      ansible.builtin.import_role:
+        name: alwaldend.main.vault
+        tasks_from: time
