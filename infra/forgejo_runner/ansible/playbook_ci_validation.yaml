@@ -1,0 +1,38 @@
+---
+- name: Publish and verify the protected Forgejo CI validation branch
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Validate an exact committed candidate with controller credentials
+      ansible.builtin.command:
+        argv:
+          - "{{ ansible_playbook_python }}"
+          - "{{ playbook_dir }}/files/ci_validation.py"
+          - --workspace
+          - "{{ runner_ci_workspace | mandatory }}"
+          - --commit
+          - "{{ runner_ci_commit | mandatory }}"
+          - --previous-commit
+          - "{{ runner_ci_previous_commit | default('') }}"
+          - --instance
+          - "{{ forgejo_runner_instance }}"
+          - --repository
+          - "{{ forgejo_runner_repository }}"
+          - --timeout
+          - "{{ runner_ci_timeout | default(240) | string }}"
+      register: runner_ci_result
+      changed_when: (runner_ci_result.stdout | from_json).pushed
+      failed_when: false
+      no_log: true
+
+    - name: Report the credential-free CI receipt
+      ansible.builtin.debug:
+        msg: "{{ runner_ci_result.stdout | from_json }}"
+
+    - name: Require successful validation
+      ansible.builtin.assert:
+        that:
+          - runner_ci_result.rc == 0
+        fail_msg: CI validation failed; inspect the reported stage and run URL.
+        quiet: true

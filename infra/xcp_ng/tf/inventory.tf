@@ -7,6 +7,12 @@ variable "resource_set_inventory" {
     network  = string
   }))
   default = {
+    src_infra_forgejo_runner = {
+      pool     = "host1.xcp-ng.alwaldend.com"
+      template = "fedora44-cloud.templates.xcp-ng.alwaldend.com"
+      storage  = "Local storage"
+      network  = "Pool-wide network 1"
+    }
     src_infra_openhands = {
       pool     = "host1.xcp-ng.alwaldend.com"
       template = "fedora44-cloud.templates.xcp-ng.alwaldend.com"

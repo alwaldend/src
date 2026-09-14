@@ -1,20 +1,41 @@
-- tags:
+---
+- name: Configure the Forgejo runner
+  tags:
     - forgejo_runner
   block:
-    - name: Install packages
+    - name: Validate runner configuration
+      ansible.builtin.assert:
+        that:
+          - forgejo_runner_capacity | int > 0
+          - forgejo_runner_labels | length > 0
+          - forgejo_runner_dir is match('^/')
+          - forgejo_runner_config_path is match('^/')
+          - forgejo_runner_registration_path is match('^/')
+
+    - name: Install runner packages
+      when: forgejo_runner_install_packages | bool
       ansible.builtin.package:
-        name:
-          - podman
-    - name: Create Forgejo runner user
+        name: "{{ forgejo_runner_packages }}"
+        state: present
+
+    - name: Create the runner installation directory
+      ansible.builtin.file:
+        path: "{{ forgejo_runner_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Create the Forgejo runner user
       ansible.builtin.user:
         name: "{{ forgejo_runner_user }}"
         uid: "{{ forgejo_runner_user_uid }}"
         shell: /sbin/nologin
         home: "{{ forgejo_runner_home_dir }}"
         system: true
-    - name: Create runner dirs
+
+    - name: Create runner data directories
       loop:
-        - "{{ forgejo_runner_dir }}"
         - "{{ forgejo_runner_home_dir }}"
         - "{{ forgejo_runner_work_dir }}"
       ansible.builtin.file:
@@ -23,50 +44,129 @@
         group: "{{ forgejo_runner_user }}"
         mode: "0700"
         path: "{{ item }}"
+
     - name: Copy the Forgejo runner binary
-      register: forgejo_runner_bin_result
+      notify: Restart the Forgejo runner service
       ansible.builtin.copy:
         src: "{{ forgejo_runner_bin_local_path }}"
         dest: "{{ forgejo_runner_bin_path }}"
         owner: root
         group: "{{ forgejo_runner_user }}"
         mode: "0750"
-    - name: Register Forgejo runner
-      become_user: "{{ forgejo_runner_user }}"
-      args:
-        chdir: "{{ forgejo_runner_work_dir }}"
-        creates: "{{ forgejo_runner_work_dir }}/.runner"
-        stdin: |-
-          {{ forgejo_runner_instance }}
-          {{ forgejo_runner_token }}
-          {{ forgejo_runner_name }}
-          {{ forgejo_runner_labels | join(',') }}
-      ansible.builtin.command:
-        argv:
-          - "{{ forgejo_runner_bin_path }}"
-          - register
+
+    - name: Write the Forgejo runner configuration
+      notify: Restart the Forgejo runner service
+      ansible.builtin.template:
+        src: config.yaml.j2
+        dest: "{{ forgejo_runner_config_path }}"
+        owner: root
+        group: "{{ forgejo_runner_user }}"
+        mode: "0640"
+
+    - name: Check for an existing runner registration
+      register: forgejo_runner_registration
+      ansible.builtin.stat:
+        path: "{{ forgejo_runner_registration_path }}"
+
+    - name: Validate initial registration inputs
+      when: not forgejo_runner_registration.stat.exists
+      no_log: true
+      ansible.builtin.assert:
+        that:
+          - forgejo_runner_instance | length > 0
+          - forgejo_runner_token | length > 0
+          - forgejo_runner_name | length > 0
+
+    - name: Register the Forgejo runner
+      when: not forgejo_runner_registration.stat.exists
+      block:
+        - name: Submit the initial runner registration
+          become: true
+          become_user: "{{ forgejo_runner_user }}"
+          no_log: true
+          register: forgejo_runner_registration_result
+          async: "{{ forgejo_runner_registration_timeout }}"
+          poll: 5
+          notify: Restart the Forgejo runner service
+          ansible.builtin.command:
+            argv:
+              - "{{ forgejo_runner_bin_path }}"
+              - --config
+              - "{{ forgejo_runner_config_path }}"
+              - register
+            chdir: "{{ forgejo_runner_work_dir }}"
+            creates: "{{ forgejo_runner_registration_path }}"
+            stdin: |-
+              {{ forgejo_runner_instance }}
+              {{ forgejo_runner_token }}
+              {{ forgejo_runner_name }}
+      rescue:
+        - name: Classify the registration failure without exposing credentials
+          no_log: true
+          vars:
+            registration_diagnostic: >-
+              {{
+                (
+                  (forgejo_runner_registration_result.msg | default('')) ~
+                  ' ' ~
+                  (forgejo_runner_registration_result.stderr | default('')) ~
+                  ' ' ~
+                  (forgejo_runner_registration_result.stdout | default(''))
+                ) | lower
+              }}
+          ansible.builtin.set_fact:
+            forgejo_runner_registration_failure_category: >-
+              {% if registration_diagnostic is search('permission denied|operation not permitted|setfacl|chmod|unprivileged user|sudo|become') %}
+              permissions
+              {% elif registration_diagnostic is search('timed out|timeout|did not complete') %}
+              timeout
+              {% elif registration_diagnostic is search('x509|certificate|tls|ssl') %}
+              TLS
+              {% elif registration_diagnostic is search('connection refused|cannot ping|failed to connect|no route|no such host|network is unreachable') %}
+              connection
+              {% else %}
+              registration
+              {% endif %}
+            forgejo_runner_registration_failure_rc: >-
+              {{
+                forgejo_runner_registration_result.rc
+                if (
+                  forgejo_runner_registration_result.rc | default(none)
+                  is integer and
+                  forgejo_runner_registration_result.rc >= 0 and
+                  forgejo_runner_registration_result.rc <= 255
+                ) else 'unavailable'
+              }}
+
+        - name: Report the registration failure category
+          ansible.builtin.fail:
+            msg: >-
+              Runner registration failed (category:
+              {{ forgejo_runner_registration_failure_category | trim }};
+              exit status: {{ forgejo_runner_registration_failure_rc }}).
+
+    - name: Restrict access to the runner registration
+      ansible.builtin.file:
+        path: "{{ forgejo_runner_registration_path }}"
+        state: file
+        owner: "{{ forgejo_runner_user }}"
+        group: "{{ forgejo_runner_user }}"
+        mode: "0600"
+
     - name: Write the Forgejo runner service
-      register: forgejo_runner_service_result
+      notify: Restart the Forgejo runner service
       ansible.builtin.template:
         src: forgejo-runner.service
         dest: "{{ forgejo_runner_service_path }}"
         owner: root
         group: root
         mode: "0644"
-    - name: Ensure the daemon is reloaded
-      when: forgejo_runner_service_result.changed
-      ansible.builtin.systemd_service:
-        daemon_reload: true
-    - name: Start the Forgejo runner service and enable it
-      register: forgejo_runner_service_started_result
+
+    - name: Apply pending runner service changes
+      ansible.builtin.meta: flush_handlers
+
+    - name: Start and enable the Forgejo runner service
       ansible.builtin.systemd_service:
         name: "{{ forgejo_runner_service_path | basename }}"
         enabled: true
         state: started
-    - name: Restart the Forgejo runner service
-      when:
-        - not forgejo_runner_service_started_result.changed
-        - forgejo_runner_bin_result.changed or forgejo_runner_service_result.changed
-      ansible.builtin.systemd_service:
-        name: "{{ forgejo_runner_service_path | basename }}"
-        state: restarted

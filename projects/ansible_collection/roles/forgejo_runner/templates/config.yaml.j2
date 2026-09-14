@@ -1,0 +1,14 @@
+log:
+  level: info
+  job_level: info
+runner:
+  file: {{ forgejo_runner_registration_path | to_json }}
+  capacity: {{ forgejo_runner_capacity | int }}
+  labels: {{ forgejo_runner_labels | to_json }}
+  timeout: {{ forgejo_runner_timeout | to_json }}
+  shutdown_timeout: {{ forgejo_runner_shutdown_timeout | to_json }}
+  insecure: false
+cache:
+  enabled: {{ forgejo_runner_cache_enabled | bool | lower }}
+host:
+  workdir_parent: {{ forgejo_runner_work_dir | to_json }}
