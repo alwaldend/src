@@ -6,7 +6,7 @@ Setup SHALL provision an extensible map of XCP-ng runner VMs, initially only
 `secure` with eight vCPUs, 16 GiB memory and a 500 GiB root disk. Its hostname
 and address SHALL derive from the owner's DNS declaration.
 
-#### Scenario: Inspect the initial allocation
+#### Scenario: Inspect the runner capacity definition
 
 - **WHEN** setup uses its checked-in defaults
 - **THEN** exactly one XCP-ng runner is provisioned with the requested resources
@@ -18,7 +18,7 @@ The deployment SHALL actively configure the shared host, dev_vm and Forgejo
 runner roles. Repeated deployment SHALL retain registration and ensure the
 runner service is enabled and healthy.
 
-#### Scenario: Deploy the runner
+#### Scenario: Determine the effect of the current playbook
 
 - **WHEN** the packaged Ansible deployment runs against the provisioned VM
 - **THEN** the host receives development tools and an enabled runner service
@@ -30,7 +30,7 @@ The owner SHALL expose Terraform and Ansible commands through its existing
 AL and Vault integration. The runner registration credential SHALL remain in
 Vault and arrive through injection; CI SHALL receive no provisioning identity.
 
-#### Scenario: Initialize registration
+#### Scenario: Resolve the registration credential source
 
 - **WHEN** the registration playbook retrieves the repository-scoped credential
 - **THEN** it preserves other Vault config fields and uses compare-and-set

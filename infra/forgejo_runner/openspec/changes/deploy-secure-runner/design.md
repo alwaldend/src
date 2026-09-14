@@ -90,6 +90,38 @@ server CA and generate inventory-scoped trust under ignored operational cache.
 The full Terraform reconciliation plan reports no changes and confirms the
 requested allocation.
 
+The full repeat deployment used strict CA verification and succeeded: 209 host
+tasks, 19 changes in shared baseline configuration, no failures; initial runner
+registration was skipped and service health passed. Candidate
+`d68b08979c7b889690f72caa26ffa05f15c66e96` passed both delivery validation checks
+(root quality and targeted tests, then semantic lint for all affected packages).
+
+Its protected validation branch produced
+[CI run 1](https://git.alwaldend.com/alwaldend/src/actions/runs/1), task 1.
+The job log identifies `secure` running runner v11.0.0, then reports schema
+errors for the `forgejo` expression context before executing any Python.
+The workflow now uses the supported `github` compatibility context. Source
+inspection also found missing native OIDC request environment support in v11;
+the dependency is upgraded to the publisher-checksummed v13.1.0. That binary's
+offline workflow validation passes. The upgrade is not yet deployed.
+
+At 18:21 UTC the controller's bootstrap Vault credential became invalid;
+token lookup and AppRole SecretID creation returned HTTP 403. The user was
+asked to renew the host's Vault login without sharing the token. Next deploy
+the pinned runner upgrade, then create a validation commit with the validated
+source tree and the observed prior validation commit as its parent. This keeps
+the test branch fast-forward while delivery can maintain one aggregate feature
+commit. Inspect the source difference first, record source/tree/validation OIDs,
+and use the helper's explicit prior-commit lease. Run CI again, verify the exact
+runner registration, and archive the completed change.
+
+The corrected source candidate `a8a036ea09c474d3083a061c4c7adfdde4e31147`
+passes both required delivery checks, including semantic lint for the upgraded
+dependency. The actual downloaded runner binary's SHA-256 matches the publisher
+checksum in the lock. Packaged Ansible syntax and strict OpenSpec validation
+also pass. Publication retains this change as active because live deployment
+of the upgrade and successful OIDC CI verification remain outstanding.
+
 ## Operator confirmation and state retirement
 
 The user confirmed that the legacy Proxmox VM is gone. The new secure VM had
@@ -114,6 +146,10 @@ removed from the current component.
 - `runner-controller-host-trust` (live): the controller lacked CA trust for a
   newly provisioned hostname. The deployment now owns its task-local trust
   file, avoiding manual controller configuration.
+- `runner-oidc-version-contract` (live and source-verified): a v11 workflow
+  failed before execution, and that runner lacks OIDC environment support.
+  The pinned upgrade adds an offline workflow-schema validation command before
+  another live test.
 - One cold build exceeded its initial deadline; the longer warmed retry passed.
-  One Buildifier check caught dependency ordering and the configured formatter
-  repaired it. No shared skill or host configuration changes are needed.
+  Buildifier checks caught declaration ordering, repaired with the owning
+  formatter. No shared skill or host configuration changes are needed.

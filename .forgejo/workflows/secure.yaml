@@ -9,8 +9,8 @@ jobs:
     # This limits this workflow only. Vault independently verifies its signed
     # claims against the default branch and the exact configured validation ref.
     if: >-
-      forgejo.ref == format('refs/heads/{0}', forgejo.event.repository.default_branch)
-      || startsWith(forgejo.ref, 'refs/heads/releases/')
+      github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+      || startsWith(github.ref, 'refs/heads/releases/')
     runs-on: secure
     enable-openid-connect: true
     steps:
@@ -19,7 +19,11 @@ jobs:
           VAULT_ADDR: https://vault.alwaldend.com:8200
           VAULT_AUTH_PATH: forgejo_ci
           VAULT_AUTH_ROLE: secure
-          CI_DEFAULT_BRANCH: ${{ forgejo.event.repository.default_branch }}
+          CI_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          CI_SERVER_URL: ${{ github.server_url }}
+          CI_REPOSITORY: ${{ github.repository }}
+          CI_SHA: ${{ github.sha }}
+          CI_REF: ${{ github.ref }}
         run: |
           python3 - <<'PY'
           import json
@@ -56,10 +60,10 @@ jobs:
                   raise RuntimeError("Authentication endpoint could not be reached") from None
 
           def verify():
-              server_url = urllib.parse.urlsplit(os.environ["FORGEJO_SERVER_URL"])
+              server_url = urllib.parse.urlsplit(os.environ["CI_SERVER_URL"])
               require(server_url.scheme == "https", "Unexpected Forgejo server URL")
-              repository = urllib.parse.quote(os.environ["FORGEJO_REPOSITORY"], safe="/")
-              revision = urllib.parse.quote(os.environ["FORGEJO_SHA"], safe="")
+              repository = urllib.parse.quote(os.environ["CI_REPOSITORY"], safe="/")
+              revision = urllib.parse.quote(os.environ["CI_SHA"], safe="")
               config = request_json(
                   f"{server_url.geturl().rstrip('/')}/api/v1/repos/{repository}/raw/"
                   f"infra/forgejo_runner/ci.json?ref={revision}"
@@ -68,7 +72,7 @@ jobs:
                   "refs/heads/" + os.environ["CI_DEFAULT_BRANCH"],
                   "refs/heads/" + config["validation_branch"],
               }
-              if os.environ["FORGEJO_REF"] not in allowed_refs:
+              if os.environ["CI_REF"] not in allowed_refs:
                   print("Authentication smoke check does not apply to this release branch")
                   return
 

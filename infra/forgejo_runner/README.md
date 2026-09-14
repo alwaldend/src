@@ -47,7 +47,8 @@ not a guarantee of runner admission enforcement.
 
 Add a named allocation to `runners`, a corresponding owner DNS record, and an
 Ansible inventory entry with its runner name and label. Review/apply the scoped
-runner and DNS plans, then deploy that host with `--limit`. Runners with a
+runner and DNS plans, then deploy with `--limit <hostname>,localhost` so the
+controller trust preparation also runs. Runners with a
 different trust boundary need separate repository registration and CI policy.
 
 The operator confirmed the legacy Proxmox VM was already gone. Its stale state

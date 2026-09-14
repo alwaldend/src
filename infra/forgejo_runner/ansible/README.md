@@ -52,13 +52,20 @@ bazel_agent bazel run //infra/forgejo_runner/ansible:ci_validation -- \
 It checks the live `releases/*` protection rule, creates the branch with an
 empty expected-value lease, and verifies the published SHA and effective
 protection. An existing branch at the same commit resumes read-only validation;
-a different commit is rejected. It then polls that commit's smoke
-workflow and jobs for up to `runner_ci_timeout` seconds (default 240, maximum
-300), reporting only their identifiers, statuses, and run URL. A created branch
-remains available for inspection if CI fails; this target never replaces or
-deletes it. CI Vault authentication accepts the protected default branch and
-the exact validation branch according to the
+a different commit requires the explicit retry option below. It then polls
+that commit's smoke workflow and jobs for up to `runner_ci_timeout` seconds
+(default 240, maximum 300), reporting only their identifiers, statuses, and run
+URL. A created branch
+remains available for inspection if CI fails; this target never rewrites history
+or deletes the branch. CI Vault authentication accepts the protected default
+branch and the exact validation branch according to the
 [Vault role](../../vault/tf/forgejo_ci.tf).
+
+To test a committed fix on the existing validation branch, also pass
+`runner_ci_previous_commit=<full-observed-branch-sha>`. The helper verifies
+that exact protected tip, requires it to be an ancestor of the new candidate,
+and pushes with an explicit lease for the previous SHA. A stale tip or a
+candidate that would rewrite history is rejected before pushing.
 
 The Python standard-library helper runs inside the packaged Ansible controller,
 where it can invoke Git and poll the Forgejo API without writing an auth file

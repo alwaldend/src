@@ -13,6 +13,8 @@
           - "{{ runner_ci_workspace | mandatory }}"
           - --commit
           - "{{ runner_ci_commit | mandatory }}"
+          - --previous-commit
+          - "{{ runner_ci_previous_commit | default('') }}"
           - --instance
           - "{{ forgejo_runner_instance }}"
           - --repository

@@ -1,4 +1,4 @@
-"""Create the validation ref once and observe its exact Forgejo CI run."""
+"""Publish a validation commit without rewriting history and observe CI."""
 
 import argparse
 import base64
@@ -126,7 +126,19 @@ def require_release_protection(rules):
         raise ValidationError("Release protection does not restrict pushes")
 
 
-def push_candidate(workspace, candidate, branch, api, login):
+def require_branch(published, branch, candidate):
+    if (
+        published.get("name") != branch
+        or published.get("commit", {}).get("id") != candidate
+        or published.get("protected") is not True
+        or published.get("effective_branch_protection_name") != "releases/*"
+    ):
+        raise ValidationError("Published branch protection or SHA mismatch")
+
+
+def push_candidate(
+    workspace, candidate, branch, api, login, previous_commit=""
+):
     environment = {
         key: value
         for key, value in os.environ.items()
@@ -154,7 +166,7 @@ def push_candidate(workspace, candidate, branch, api, login):
         "http.followRedirects=false",
         "push",
         "--porcelain",
-        "--force-with-lease=refs/heads/" + branch + ":",
+        "--force-with-lease=refs/heads/" + branch + ":" + previous_commit,
         api.origin + "/" + api.repository + ".git",
         candidate + ":refs/heads/" + branch,
         environment=environment,
@@ -261,23 +273,45 @@ def validate(arguments, receipt):
         raise ValidationError("The controller identity must be a site admin")
     require_release_protection(api.get(prefix + "/branch_protections"))
     published = api.get(branch_path, allow_missing=True)
-    if published is None:
+    previous_commit = arguments.previous_commit
+    if previous_commit and not re.fullmatch(r"[0-9a-f]{40}", previous_commit):
+        raise ValidationError("Previous commit must be a full commit SHA")
+    if published is None and previous_commit:
+        raise ValidationError("Expected validation branch no longer exists")
+    advance = published is not None and (
+        published.get("commit", {}).get("id") != arguments.commit
+    )
+    if advance:
+        if not previous_commit:
+            raise ValidationError("A different tip requires --previous-commit")
+        require_branch(published, branch, previous_commit)
+        try:
+            git(
+                arguments.workspace,
+                "merge-base",
+                "--is-ancestor",
+                previous_commit,
+                arguments.commit,
+            )
+        except ValidationError:
+            raise ValidationError(
+                "Previous commit is not a known ancestor of the candidate"
+            ) from None
+        receipt["previous_commit"] = previous_commit
+    if published is None or advance:
         receipt["stage"] = "push"
         push_candidate(
-            arguments.workspace, arguments.commit, branch, api, identity["login"]
+            arguments.workspace,
+            arguments.commit,
+            branch,
+            api,
+            identity["login"],
+            previous_commit=previous_commit,
         )
         receipt["pushed"] = True
         published = api.get(branch_path)
-    elif published.get("commit", {}).get("id") != arguments.commit:
-        raise ValidationError("Validation branch has a different commit")
     receipt["stage"] = "branch_protection"
-    if (
-        published.get("name") != branch
-        or published.get("commit", {}).get("id") != arguments.commit
-        or published.get("protected") is not True
-        or published.get("effective_branch_protection_name") != "releases/*"
-    ):
-        raise ValidationError("Published branch protection or SHA mismatch")
+    require_branch(published, branch, arguments.commit)
     receipt["protected"] = True
     receipt["stage"] = "actions"
     observe_run(
@@ -290,6 +324,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--workspace", required=True)
     parser.add_argument("--commit", required=True)
+    parser.add_argument("--previous-commit", default="")
     parser.add_argument("--instance", required=True)
     parser.add_argument("--repository", required=True)
     parser.add_argument("--timeout", type=int, default=240)
