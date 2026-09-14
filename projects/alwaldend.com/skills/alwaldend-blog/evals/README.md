@@ -4,8 +4,9 @@ title: Alwaldend blog skill evaluations
 
 The offline target validates the Promptfoo configuration, case files, and skill
 staging without credentials or model calls. Cases cover verbatim preservation
-of supplied content, the unpublished default state, and reporting style
-findings instead of silently editing them.
+of supplied content, the unpublished default state, reporting style findings
+instead of silently editing them, waiting for the author to finish writing,
+and resuming delivery without redundant confirmation.
 
 No live target is declared: representative behavior requires creating a Bazel
 package, building the site, editing repository files, and reading rendered

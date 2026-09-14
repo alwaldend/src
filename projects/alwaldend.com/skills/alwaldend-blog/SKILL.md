@@ -14,7 +14,7 @@ the post unpublished, then review it.
 
 ## Preserve the supplied content
 
-- Treat the supplied text as the finished article. Copy it verbatim: keep
+- Preserve the supplied text, including unfinished drafts. Copy it verbatim: keep
   wording, punctuation, capitalization, markdown, code blocks, links, and
   images exactly as given.
 - Do not rewrite, reorder, summarize, extend, or "improve" the content, and do
@@ -100,6 +100,12 @@ asks to publish.
 
 ## Review the post
 
+If the user asks for a draft to write in, says they are still writing, or
+continues editing the source, pause delivery until they explicitly say they
+are finished writing or request delivery of the current draft. Do not ask
+whether to wait or deliver the unfinished draft; wait. Silence, passing checks,
+and a review with no findings do not establish that the user has finished.
+
 Use this loop until the review finds nothing left to fix or the user explicitly
 ends the review:
 
@@ -107,18 +113,20 @@ ends the review:
 2. Review the current text promptly and output the numbered findings directly
    in the conversation before running builds, tests, or delivery. Do not defer
    the review to the final handoff or provide only a link to a report.
-3. Start authorized delivery preparation and validation while the user checks
-   the review. Report additional rendered-page findings and check results
-   separately, adding any new findings to the open review.
+3. Inspect delivery requirements and run validation while the user checks the
+   review. This preparation excludes `repo_delivery prepare`, staging,
+   commits, pushes, and pull-request creation or updates; defer those until
+   step 4 permits delivery. Report additional rendered-page findings and
+   check results separately, adding any new findings to the open review.
 4. If the post changes, return to step 1 and review the revised text. If the
    user requests another review without changing the post, return to step 2.
    When nothing remains to fix or the user explicitly ends the review, finish
-   the authorized delivery. Otherwise keep the review open; silence does not
-   end it.
+   the authorized delivery only if the authoring pause above has also ended.
+   Otherwise keep delivery paused; silence ends neither writing nor review.
 
 Keep finding numbers stable across iterations, mark resolved findings, and
 assign new numbers to new findings. Report content changes for the user to
-decide; apply only edits the user requested. Once the review is finished,
+decide; apply only edits the user requested. Once step 4 permits delivery,
 complete already-authorized delivery without asking separately whether to
 commit or push.
 
