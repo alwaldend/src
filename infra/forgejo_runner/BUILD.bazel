@@ -15,6 +15,15 @@ filegroup(
     visibility = ["//infra:__subpackages__"],
 )
 
+filegroup(
+    name = "ci_config",
+    srcs = ["ci.json"],
+    visibility = [
+        "//infra/forgejo_runner/ci:__pkg__",
+        "//infra/vault/tf:__pkg__",
+    ],
+)
+
 vault_binary_map(
     name = "vault",
     configs = [":al"],

@@ -125,6 +125,7 @@ or committable source; ignored task scratch is suitable.
   deployment diagnostics, and `repo-secrets` for secret handling. Preserve the
   owning `al.lua` and Bazel packaging/injection flow. Never commit
   `.terraform/`, state, plans, environment files, or local credentials.
+- Load `repo-ci` for workflow changes, reusable CI commands, and CI diagnostics.
 - Load `openspec` for maintained specifications, changes, or work that needs
   durable continuation. Use the owning project's `openspec/` workspace;
   use `infra/src/openspec/` for evolution of the repository itself. Keep the
