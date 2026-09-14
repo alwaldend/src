@@ -9,8 +9,124 @@ import (
 	"strings"
 	"testing"
 
+	"git.alwaldend.com/alwaldend/src/projects/al/api/al_proto"
+	"git.alwaldend.com/alwaldend/src/projects/al/pkg/al"
 	"git.alwaldend.com/alwaldend/src/tools/vault/forgejo_login/forgejo_login_proto"
+	"google.golang.org/protobuf/proto"
 )
+
+func pluginData(t *testing.T, value any) *al_proto.Json {
+	t.Helper()
+	data, err := al.ToPbJson(value).Get()
+	if err != nil {
+		t.Fatal(err)
+	}
+	return data
+}
+
+func TestPluginConfigInheritsDefaultsAndSelectsNamedAuthentication(t *testing.T) {
+	defaults := map[string]any{
+		"forgejo_url":        "https://forgejo.example",
+		"forgejo_oauth_name": "vault",
+		"vault_conn":         "primary",
+		"vault_auth":         "default",
+	}
+	for _, test := range []struct {
+		name     string
+		calls    []*al_proto.PluginCall
+		wantAuth string
+	}{
+		{name: "no selected calls", wantAuth: "default"},
+		{
+			name: "empty calls preserve defaults",
+			calls: []*al_proto.PluginCall{
+				{Name: "first"},
+				{Name: "second", Data: pluginData(t, map[string]any{})},
+			},
+			wantAuth: "default",
+		},
+		{
+			name: "named authentication inherits service configuration",
+			calls: []*al_proto.PluginCall{
+				{Name: "ordinary"},
+				{Name: "registration", Data: pluginData(t, map[string]any{"vault_auth": "forgejo_registration"})},
+			},
+			wantAuth: "forgejo_registration",
+		},
+		{
+			name: "empty fields preserve defaults",
+			calls: []*al_proto.PluginCall{
+				{Data: pluginData(t, map[string]any{"vault_auth": "", "forgejo_url": ""})},
+			},
+			wantAuth: "default",
+		},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			data := pluginData(t, defaults)
+			original := proto.Clone(data)
+			got, err := parsePluginConfig(&al_proto.PluginConfig{Data: data, Calls: test.calls})
+			if err != nil {
+				t.Fatal(err)
+			}
+			want := &forgejo_login_proto.Config{
+				ForgejoUrl:       "https://forgejo.example",
+				ForgejoOauthName: "vault",
+				VaultConn:        "primary",
+				VaultAuth:        test.wantAuth,
+			}
+			if !proto.Equal(got, want) {
+				t.Fatalf("configuration = %v, want %v", got, want)
+			}
+			if !proto.Equal(data, original) {
+				t.Fatal("plugin defaults were mutated")
+			}
+		})
+	}
+}
+
+func TestPluginConfigRejectsAmbiguousOrMalformedData(t *testing.T) {
+	for _, test := range []struct {
+		name   string
+		plugin *al_proto.PluginConfig
+	}{
+		{name: "missing plugin"},
+		{
+			name: "malformed defaults",
+			plugin: &al_proto.PluginConfig{
+				Data: pluginData(t, "private-default-data"),
+			},
+		},
+		{
+			name: "malformed call",
+			plugin: &al_proto.PluginConfig{Calls: []*al_proto.PluginCall{
+				{Data: pluginData(t, map[string]any{"vault_auth": map[string]any{"private": true}})},
+			}},
+		},
+		{
+			name: "unknown call field",
+			plugin: &al_proto.PluginConfig{Calls: []*al_proto.PluginCall{
+				{Data: pluginData(t, map[string]any{"private_unknown_field": "value"})},
+			}},
+		},
+		{
+			name: "ambiguous selected identities",
+			plugin: &al_proto.PluginConfig{Calls: []*al_proto.PluginCall{
+				{Data: pluginData(t, map[string]any{"vault_auth": "first"})},
+				{Data: pluginData(t, map[string]any{"vault_auth": "second"})},
+			}},
+		},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			config, err := parsePluginConfig(test.plugin)
+			if err == nil || config != nil {
+				t.Fatalf("invalid configuration accepted: %v", config)
+			}
+			if strings.Contains(err.Error(), "private") {
+				t.Fatal("configuration values disclosed in error")
+			}
+		})
+	}
+}
 
 type transportFunc func(*http.Request) (*http.Response, error)
 

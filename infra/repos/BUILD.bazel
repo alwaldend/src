@@ -7,6 +7,7 @@ package_group(
         "//infra/github/tf",
         "//infra/gitlab/tf",
         "//infra/repos/...",
+        "//infra/vault/tf",
     ],
 )
 

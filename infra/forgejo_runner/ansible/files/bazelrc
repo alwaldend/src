@@ -1,0 +1,2 @@
+# Keep CI artifacts on the runner's provisioned root disk.
+startup --output_user_root=/opt/forgejo-runner/home/.cache/bazel

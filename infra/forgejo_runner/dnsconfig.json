@@ -1,9 +1,9 @@
 {
     "records": {
-        "runner1": {
+        "secure": {
             "A": {
-                "name": "runner1.forgejo-runner",
-                "address": "192.168.10.100"
+                "name": "secure.forgejo-runner",
+                "address": "192.168.10.101"
             },
             "dsp": ["dc1"]
         }

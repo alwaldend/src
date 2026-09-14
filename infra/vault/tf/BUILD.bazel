@@ -33,6 +33,9 @@ _DATA = glob([
     "approles/*/*.tf",
     "dns_access/*.tf",
 ]) + [
+    "//infra/forgejo_runner:ci_config",
+    "//infra/repos:config",
+    "//infra/repos/tf:module",
     "//data/ssl/alwaldend.com:ica1",
     "//data/ssl/alwaldend.com:simeonwarren",
     "//projects/tf_modules/backup_bucket",

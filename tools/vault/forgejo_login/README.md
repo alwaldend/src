@@ -8,6 +8,13 @@ tags:
   - vault
 ---
 
+Plugin data supplies the default Forgejo URL, OIDC source, Vault connection,
+and Vault authentication. One selected `plugin_call` may override nonempty
+configuration fields, for example `vault_auth = "forgejo_registration"`,
+while inheriting the remaining defaults. Calls without overrides preserve
+the defaults. Multiple calls with overrides and malformed configuration are
+rejected before authentication; configuration values are omitted from errors.
+
 The plugin registers token removal before issuance, using a unique token name.
 Startup failure and normal shutdown attempt removal through the authenticated
 Forgejo browser session, including when creation did not return a usable token.

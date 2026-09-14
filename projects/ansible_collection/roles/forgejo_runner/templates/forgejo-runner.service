@@ -7,10 +7,15 @@ Wants=network-online.target
 Type=simple
 User={{ forgejo_runner_user }}
 Group={{ forgejo_runner_user }}
-WorkingDirectory={{ forgejo_runner_dir }}
-ExecStart={{ forgejo_runner_bin_path }} daemon
+WorkingDirectory={{ forgejo_runner_work_dir }}
+Environment=HOME={{ forgejo_runner_home_dir }}
+Environment=PATH={{ forgejo_runner_home_dir }}/.local/bin:/usr/local/bin:/usr/bin:/bin
+ExecStart={{ forgejo_runner_bin_path }} --config {{ forgejo_runner_config_path }} daemon
+UMask=0077
+NoNewPrivileges=true
 Restart=on-failure
 RestartSec=5s
+TimeoutStopSec={{ forgejo_runner_service_stop_timeout }}
 
 [Install]
 WantedBy=multi-user.target

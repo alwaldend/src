@@ -1,0 +1,161 @@
+name: Secure runner smoke check
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    # This limits this workflow only. Vault independently verifies its signed
+    # claims against the default branch and the exact configured validation ref.
+    if: >-
+      forgejo.ref == format('refs/heads/{0}', forgejo.event.repository.default_branch)
+      || startsWith(forgejo.ref, 'refs/heads/releases/')
+    runs-on: secure
+    enable-openid-connect: true
+    steps:
+      - name: Check runner resources and Vault authentication
+        env:
+          VAULT_ADDR: https://vault.alwaldend.com:8200
+          VAULT_AUTH_PATH: forgejo_ci
+          VAULT_AUTH_ROLE: secure
+          CI_DEFAULT_BRANCH: ${{ forgejo.event.repository.default_branch }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          import sys
+          import urllib.error
+          import urllib.parse
+          import urllib.request
+
+          def require(condition, message):
+              if not condition:
+                  raise RuntimeError(message)
+
+          class AuthenticationError(RuntimeError):
+              def __init__(self, status):
+                  super().__init__(f"Authentication request failed: HTTP {status}")
+                  self.status = status
+
+          def request_json(url, *, headers=None, payload=None):
+              body = None if payload is None else json.dumps(payload).encode()
+              request = urllib.request.Request(
+                  url,
+                  data=body,
+                  headers={"Content-Type": "application/json", **(headers or {})},
+              )
+              try:
+                  with urllib.request.urlopen(request, timeout=30) as response:
+                      content = response.read(1048576)
+                      return json.loads(content) if content else {}
+              except urllib.error.HTTPError as error:
+                  raise AuthenticationError(error.code) from None
+              except urllib.error.URLError:
+                  raise RuntimeError("Authentication endpoint could not be reached") from None
+
+          def verify():
+              server_url = urllib.parse.urlsplit(os.environ["FORGEJO_SERVER_URL"])
+              require(server_url.scheme == "https", "Unexpected Forgejo server URL")
+              repository = urllib.parse.quote(os.environ["FORGEJO_REPOSITORY"], safe="/")
+              revision = urllib.parse.quote(os.environ["FORGEJO_SHA"], safe="")
+              config = request_json(
+                  f"{server_url.geturl().rstrip('/')}/api/v1/repos/{repository}/raw/"
+                  f"infra/forgejo_runner/ci.json?ref={revision}"
+              )
+              allowed_refs = {
+                  "refs/heads/" + os.environ["CI_DEFAULT_BRANCH"],
+                  "refs/heads/" + config["validation_branch"],
+              }
+              if os.environ["FORGEJO_REF"] not in allowed_refs:
+                  print("Authentication smoke check does not apply to this release branch")
+                  return
+
+              require((os.cpu_count() or 0) >= 8, "Runner requires at least eight CPUs")
+              memory = dict(
+                  line.split(":", 1)
+                  for line in Path("/proc/meminfo").read_text().splitlines()
+              )
+              memory_bytes = int(memory["MemTotal"].split()[0]) * 1024
+              require(memory_bytes >= 15 * 1024**3, "Runner has less than 15 GiB usable RAM")
+              storage = os.statvfs(".")
+              require(
+                  storage.f_blocks * storage.f_frsize >= 450 * 1024**3,
+                  "Runner workspace has less than 450 GiB filesystem capacity",
+              )
+              print("Runner CPU, memory and workspace capacity checks passed")
+
+              vault_url = os.environ["VAULT_ADDR"].rstrip("/")
+              oidc_url = urllib.parse.urlsplit(os.environ["ACTIONS_ID_TOKEN_REQUEST_URL"])
+              require(
+                  oidc_url.scheme == "https" and oidc_url.netloc == server_url.netloc,
+                  "Unexpected Forgejo OIDC endpoint",
+              )
+              query = urllib.parse.parse_qsl(oidc_url.query, keep_blank_values=True)
+              query = [(key, value) for key, value in query if key != "audience"]
+              def identity(audience):
+                  return request_json(
+                      urllib.parse.urlunsplit(oidc_url._replace(
+                          query=urllib.parse.urlencode(query + [("audience", audience)])
+                      )),
+                      headers={
+                          "Authorization": "Bearer " + os.environ["ACTIONS_ID_TOKEN_REQUEST_TOKEN"],
+                      },
+                  )["value"]
+
+              login_url = f"{vault_url}/v1/auth/{os.environ['VAULT_AUTH_PATH']}/login"
+              unauthorized_identity = identity("urn:forgejo-runner:invalid-audience")
+              try:
+                  unexpected = request_json(
+                      login_url,
+                      payload={
+                          "role": os.environ["VAULT_AUTH_ROLE"],
+                          "jwt": unauthorized_identity,
+                      },
+                  )
+              except AuthenticationError as error:
+                  require(error.status in (400, 403), "Unexpected audience rejection status")
+              else:
+                  request_json(
+                      f"{vault_url}/v1/auth/token/revoke-self",
+                      headers={"X-Vault-Token": unexpected["auth"]["client_token"]},
+                      payload={},
+                  )
+                  raise RuntimeError("Vault accepted an unauthorized audience")
+              print("Vault rejected an unauthorized audience")
+
+              login = request_json(
+                  login_url,
+                  payload={"role": os.environ["VAULT_AUTH_ROLE"], "jwt": identity(vault_url)},
+              )
+              token = login["auth"]["client_token"]
+              headers = {"X-Vault-Token": token}
+              try:
+                  metadata = request_json(
+                      f"{vault_url}/v1/auth/token/lookup-self", headers=headers
+                  )["data"]
+                  require(
+                      set(metadata["policies"]) == {
+                          "auth_token_lookup_self", "forgejo_ci_revoke_self"
+                      },
+                      "CI token has unexpected policies",
+                  )
+                  require(0 < metadata["ttl"] <= 300, "CI token has unexpected TTL")
+                  print("Vault OIDC authentication and restricted token checks passed")
+              finally:
+                  request_json(
+                      f"{vault_url}/v1/auth/token/revoke-self", headers=headers, payload={}
+                  )
+              print("CI token revoked")
+
+          try:
+              verify()
+          except Exception as error:
+              # Do not print response bodies, request headers or credentials.
+              if isinstance(error, RuntimeError):
+                  print(str(error), file=sys.stderr)
+              else:
+                  print(f"Smoke check failed: {type(error).__name__}", file=sys.stderr)
+              sys.exit(1)
+          PY

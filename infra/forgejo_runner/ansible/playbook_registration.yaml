@@ -1,0 +1,63 @@
+- name: Store the repository runner registration credential in Vault
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    runner_vault_config_url: "{{ lookup('ansible.builtin.env', 'VAULT_ADDR') }}/v1/secrets/data/alwaldend.com/vault1/approles/src_infra_forgejo_runner/config"
+  tasks:
+    - name: Verify the controller's Forgejo identity
+      no_log: true
+      ansible.builtin.uri:
+        url: "{{ forgejo_runner_instance }}/api/v1/user"
+        headers:
+          Authorization: "token {{ lookup('ansible.builtin.env', 'FORGEJO_API_TOKEN', default=undefined()) }}"
+        return_content: true
+        status_code: 200
+      register: runner_controller
+    - name: Require the configured registration administrator
+      ansible.builtin.assert:
+        that: runner_controller.json.is_admin | bool
+        fail_msg: The controller's Forgejo identity must be an instance administrator for repository runner registration.
+    - name: Read the repository registration token
+      no_log: true
+      ansible.builtin.uri:
+        url: "{{ forgejo_runner_instance }}/api/v1/repos/{{ forgejo_runner_repository }}/actions/runners/registration-token"
+        headers:
+          Authorization: "token {{ lookup('ansible.builtin.env', 'FORGEJO_API_TOKEN', default=undefined()) }}"
+        return_content: true
+        status_code: [200, 403]
+      register: runner_registration
+    - name: Require access to repository runner registration
+      ansible.builtin.assert:
+        that: runner_registration.status == 200
+        fail_msg: >-
+          Forgejo rejected runner registration (HTTP {{ runner_registration.status }}).
+          {{ 'The API requires the repository owner or an instance administrator.'
+             if 'owner' in runner_registration.json.message | default('')
+             else 'Verify the controller API token scope and repository permissions.' }}
+    - name: Read existing component configuration
+      no_log: true
+      ansible.builtin.uri:
+        url: "{{ runner_vault_config_url }}"
+        headers:
+          X-Vault-Token: "{{ lookup('ansible.builtin.env', 'VAULT_TOKEN', default=undefined()) }}"
+        return_content: true
+        status_code: [200, 404]
+      register: runner_config
+    - name: Preserve configuration while updating the registration credential
+      no_log: true
+      when: >-
+        runner_config.status == 404 or
+        runner_config.json.data.data.runner_token | default('') != runner_registration.json.token
+      ansible.builtin.uri:
+        url: "{{ runner_vault_config_url }}"
+        method: POST
+        headers:
+          X-Vault-Token: "{{ lookup('ansible.builtin.env', 'VAULT_TOKEN', default=undefined()) }}"
+        body_format: json
+        body:
+          options:
+            cas: "{{ runner_config.json.data.metadata.version | default(0) }}"
+          data: "{{ runner_config.json.data.data | default({}) | combine({'runner_token': runner_registration.json.token}) }}"
+        status_code: 200
+      changed_when: true

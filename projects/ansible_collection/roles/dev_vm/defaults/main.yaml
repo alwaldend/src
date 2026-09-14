@@ -3,6 +3,7 @@ dev_vm_install_packages: true
 dev_vm_package_backend: auto
 dev_vm_rpm_ostree_apply_live: false
 dev_vm_packages:
+  - acl
   - clang
   - clang-tools-extra
   - java-latest-openjdk-devel

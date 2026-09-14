@@ -5,6 +5,7 @@ resource "vault_identity_group" "ansible" {
     vault_policy.ssh_clients_sign_admins.name,
   ]
   member_group_ids = [
+    module.src_infra_forgejo_runner_approle.group_id,
     module.src_infra_dc1_forgejo1_approle.group_id,
     module.src_infra_harbor_approle.group_id,
     module.src_infra_flux_approle.group_id,

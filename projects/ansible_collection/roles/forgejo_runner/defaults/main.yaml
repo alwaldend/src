@@ -1,14 +1,27 @@
+---
 forgejo_runner_user: forgejo-runner
 forgejo_runner_user_uid: 5721
 forgejo_runner_dir: /opt/forgejo-runner
-forgejo_runner_disk:
-forgejo_runner_home_dir: /opt/forgejo-runner/home
-forgejo_runner_work_dir: /opt/forgejo-runner/work
+forgejo_runner_home_dir: "{{ forgejo_runner_dir }}/home"
+forgejo_runner_work_dir: "{{ forgejo_runner_dir }}/work"
 forgejo_runner_bin_local_path: "{{ role_path }}/files/forgejo-runner"
-forgejo_runner_bin_path: /usr/bin/forgejo-runner
-forgejo_runner_service_path: /lib/systemd/system/forgejo-runner.service
+forgejo_runner_bin_path: "{{ forgejo_runner_dir }}/forgejo-runner"
+forgejo_runner_service_path: /etc/systemd/system/forgejo-runner.service
+forgejo_runner_config_path: "{{ forgejo_runner_dir }}/config.yaml"
+forgejo_runner_registration_path: "{{ forgejo_runner_work_dir }}/.runner"
+forgejo_runner_install_packages: true
+forgejo_runner_packages:
+  - acl
+  - git
+  - podman
 forgejo_runner_instance: "{{ undefined() }}"
 forgejo_runner_token: "{{ undefined() }}"
 forgejo_runner_name: "{{ inventory_hostname }}"
 forgejo_runner_labels:
   - "self-hosted:host"
+forgejo_runner_capacity: 1
+forgejo_runner_timeout: 3h
+forgejo_runner_shutdown_timeout: 30s
+forgejo_runner_service_stop_timeout: 60s
+forgejo_runner_registration_timeout: 120
+forgejo_runner_cache_enabled: false

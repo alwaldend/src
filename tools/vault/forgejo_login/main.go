@@ -22,6 +22,7 @@ import (
 	"git.alwaldend.com/alwaldend/src/tools/vault/forgejo_login/forgejo_login_proto"
 	"github.com/google/uuid"
 	"golang.org/x/net/html"
+	"google.golang.org/protobuf/proto"
 )
 
 type login struct {
@@ -401,6 +402,34 @@ func (self *Plugin) Stop(ctx context.Context) error {
 	return self.lc.Stop(ctx)
 }
 
+func parsePluginConfig(plugin *al_proto.PluginConfig) (*forgejo_login_proto.Config, error) {
+	if plugin == nil {
+		return nil, errors.New("missing plugin configuration")
+	}
+	config := &forgejo_login_proto.Config{}
+	if _, err := al.FromPbJsonToPb(plugin.Data, config).Get(); err != nil {
+		return nil, errors.New("could not parse plugin data")
+	}
+	var selected *forgejo_login_proto.Config
+	for _, call := range plugin.Calls {
+		overrides := &forgejo_login_proto.Config{}
+		if _, err := al.FromPbJsonToPb(call.GetData(), overrides).Get(); err != nil {
+			return nil, errors.New("could not parse plugin call data")
+		}
+		if proto.Size(overrides) == 0 {
+			continue
+		}
+		if selected != nil {
+			return nil, errors.New("multiple Forgejo login calls specify configuration overrides")
+		}
+		selected = overrides
+	}
+	if selected != nil {
+		proto.Merge(config, selected)
+	}
+	return config, nil
+}
+
 func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRequest) (res *al_proto.PluginStartResponse, err error) {
 	defer func() {
 		if err != nil {
@@ -410,9 +439,9 @@ func (self *Plugin) PluginStart(ctx context.Context, req *al_proto.PluginStartRe
 		}
 	}()
 	self.ctx.Logger.Printf("init")
-	config := &forgejo_login_proto.Config{}
-	if _, err := al.FromPbJsonToPb(req.Plugin.Data, config).Get(); err != nil {
-		return nil, errors.New("could not parse plugin data")
+	config, err := parsePluginConfig(req.Plugin)
+	if err != nil {
+		return nil, err
 	}
 	vault := al.NewVault(req.Config)
 	if err := self.lc.AddState(lifecycle.StateStarted, lifecycle.StoppableFunc(vault.Stop)); err != nil {
