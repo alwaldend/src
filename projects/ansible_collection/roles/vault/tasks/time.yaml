@@ -1,0 +1,35 @@
+- name: Install the time synchronization service
+  ansible.builtin.package:
+    name: chrony
+    state: present
+
+- name: Configure the main time source
+  ansible.builtin.lineinfile:
+    path: /etc/chrony.conf
+    regexp: '^(server|pool)\s+'
+    line: "server {{ vault_time_server }} iburst"
+    validate: /usr/sbin/chronyd -p -f %s
+  notify: Restart Vault time synchronization
+
+- name: Allow initial correction of a drifted clock
+  ansible.builtin.lineinfile:
+    path: /etc/chrony.conf
+    regexp: '^makestep\s+'
+    line: makestep 1.0 3
+    validate: /usr/sbin/chronyd -p -f %s
+  notify: Restart Vault time synchronization
+
+- name: Enable time synchronization
+  ansible.builtin.systemd_service:
+    name: chronyd.service
+    enabled: true
+    state: started
+
+- name: Apply changed time configuration before verifying it
+  ansible.builtin.meta: flush_handlers
+
+- name: Require synchronization with less than half a second of correction remaining
+  when: not ansible_check_mode
+  ansible.builtin.command:
+    argv: [chronyc, waitsync, "30", "0.5", "0", "2"]
+  changed_when: false

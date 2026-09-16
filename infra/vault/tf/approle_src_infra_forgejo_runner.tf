@@ -9,8 +9,9 @@ module "src_infra_forgejo_runner_approle" {
     module.dns_access["src_infra_forgejo_runner"].policy_name,
     module.src_infra_forgejo_runner_ssh.policy,
   ]
-  backend          = vault_auth_backend.approle.path
-  backend_accessor = vault_auth_backend.approle.accessor
+  disable_yc_folder_policy = true
+  backend                  = vault_auth_backend.approle.path
+  backend_accessor         = vault_auth_backend.approle.accessor
 }
 
 module "src_infra_forgejo_runner_ssh" {
