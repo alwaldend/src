@@ -34,4 +34,18 @@ run "catalog_contract" {
     ])
     error_message = "Landing defaults must be master while publication remains on pages."
   }
+  assert {
+    condition = alltrue([
+      for repository in output.github_repositories : (
+        repository.config.allow_merge_commit &&
+        !repository.config.allow_squash_merge &&
+        !repository.config.allow_rebase_merge
+      )
+    ])
+    error_message = "Every GitHub repository must permit merge commits only."
+  }
+  assert {
+    condition     = !output.github_repositories["alwaldend/src"].config.allow_squash_merge && !output.github_repositories["alwaldend/src"].config.allow_rebase_merge
+    error_message = "src must inherit the shared merge-commit-only policy rather than override it."
+  }
 }

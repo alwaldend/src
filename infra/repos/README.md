@@ -35,9 +35,14 @@ adopt existing remote resources by import and preserve managed resource
 addresses or declare explicit moves. Named developers can read repositories,
 write feature branches, and open pull or merge requests; protected default
 branches restrict pushes and merges to administrators and any separately
-owned existing service grants. Landing repositories use `master` as their
-protected default branch while their Pages source remains `pages`, allowing
-the developer's existing Pages deployment access to continue.
+owned existing service grants. Catalog GitHub repositories permit merge
+commits only: the shared defaults disable squash merges and rebase merges, and
+a catalog precondition rejects any repository record that enables them. Merging
+therefore keeps the reviewed feature commit as a parent of the default-branch
+commit instead of replacing it. GitLab and Forgejo merge methods are not owned
+here. Landing repositories use `master` as their protected default branch while
+their Pages source remains `pages`, allowing the developer's existing Pages
+deployment access to continue.
 
 Catalog targets are repository-internal infrastructure inputs. They are not
 production build dependencies or published artifacts.
