@@ -73,7 +73,8 @@ reproducing mutations with Git or `gh` or bypassing a safety refusal.
    or stage only owned hunks and use `--use-index`; never blanket-stage. The
    scope must include the entire existing feature diff. For one owned feature
    commit, pass `--rewrite <literal-inspect.local_head_oid>`; omit it for a
-   new range. Keep the aggregate message accurate; the tool adds its disclaimer.
+   new range. Read [commit conventions](references/commits.md) before
+   writing the aggregate message; the tool adds its disclaimer.
 3. Run `prepare --message-file <path> --receipt-file <path>` with that scope.
    Inspect the resulting base-to-head diff, immutable path scope, receipt, and
    literal returned `head_oid`. Keep the receipt local, trusted, and unedited;

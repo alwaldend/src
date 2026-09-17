@@ -89,3 +89,12 @@ bazel_agent bazel query '//path/to/package:*'
 
 Never run deploy, apply, or other mutating `bazel_agent bazel run` targets merely as a
 validation step.
+
+## Automate with Go and Bazel
+
+Prefer Go and Bazel-native rules for repository automation. Do not introduce
+shell scripts or shell-based rules unless the task explicitly requires them.
+Expose Go automation as `go_binary` targets, and validate it with the pinned
+Bazel toolchain rather than host `go`. Write a proper rule, a checked-in Go
+binary, or a separate checked-in script instead of encoding build logic in a
+shell snippet.
