@@ -18,7 +18,10 @@ filegroup(
 filegroup(
     name = "ci_config",
     srcs = ["ci.json"],
-    visibility = ["//infra/vault/tf:__pkg__"],
+    visibility = [
+        "//infra/forgejo_runner/ci:__pkg__",
+        "//infra/vault/tf:__pkg__",
+    ],
 )
 
 vault_binary_map(

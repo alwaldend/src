@@ -25,7 +25,8 @@ on the runner.
 The repository-scoped runner executes `secure:host` jobs as its dedicated
 unprivileged account. Repository writers must be trusted: host jobs share the
 runner account and its persistent workspace. The smoke workflow checks resource
-capacity, exchanges Forgejo's signed job identity for a five-minute Vault token,
+capacity through the [Bazel CI command](ci/README.md), exchanges Forgejo's signed
+job identity for a five-minute Vault token,
 checks its limited policies, and revokes it. That identity currently grants
 only token self-lookup and self-revocation.
 

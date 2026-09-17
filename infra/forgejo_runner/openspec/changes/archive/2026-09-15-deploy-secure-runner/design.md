@@ -117,7 +117,7 @@ passed resource checks but returned HTTP 400 during authentication. The
 workflow now reports fixed error categories without response text or claims,
 requires an audience-specific rejection for its negative check, and rejects
 HTTP redirects before credentials can reach another endpoint. The next action
-is to correct the observed Vault clock drift through its owning IaC.
+was to correct the observed Vault clock drift through its owning IaC; the approved repair and successful run are recorded below.
 
 [CI run 3](https://git.alwaldend.com/alwaldend/src/actions/runs/3), commit
 `74c22d579148f09718454cc21dd494c0e8d18b26`, confirms audience-specific rejection
@@ -140,11 +140,19 @@ DHCP-provided sources remain configured. Its offline
 Ansible syntax check passes. The inventory now uses its declared DNS transport
 while preserving its existing signed SSH host-certificate identity.
 
-Decision verdict: ask before the live Vault-host clock correction. Root
-`AGENTS.md` requires explicit operation and scope for infrastructure mutations;
-the runner deployment authority does not explicitly name this host clock
-repair. The exact repair was presented to the user; approval is pending.
-Continue independent validation/publication and retain the live CI task open.
+The user explicitly approved deploying the prepared Vault time repair. The
+owning `ansible.time` deployment completed with six successful tasks, two
+changes and no failures: source configuration and Chrony restart. Vault remained
+unsealed. Fresh HTTP observations at 23:29 UTC on 2026-09-14 show matching
+Vault/Forgejo dates, and the Vault clock is within one second of the controller.
+[CI run 4](https://git.alwaldend.com/alwaldend/src/actions/runs/4) succeeded on
+protected validation commit `1588c9d91068581ba46c61dccf189ecd0d3cfdef`, whose tree
+matches validated source commit `5d1a9e4945783db561c808b927997b1ff2e3a07c`
+(`a52f228e89d28682e0ad3f3c7371b963181f3bb2`). The job identifies runner v13.1.0
+and confirms CPU/memory/disk capacity, audience-specific negative rejection,
+positive OIDC login, restricted policies and TTL, and successful self-revocation.
+The repeat time deployment reports five successful tasks, zero changes and
+zero failures; Chrony is not restarted when its configuration is unchanged.
 
 Provider v5.8 splits CSV alternatives into arrays by default; the live Vault
 role confirms all expected claim arrays. The parsing setting is explicit for
@@ -191,7 +199,7 @@ removed from the current component.
   credential forwarding across ten redirect cases.
 - `vault-host-clock-drift` (live): uncached service timestamps differ by about
   155 seconds. Preserve the default JWT tolerance and repair time synchronization
-  through the Vault owner after confirming host configuration and authority.
+  through the Vault owner. The approved repair made the same authentication flow pass without widening JWT tolerance.
 - One cold build exceeded its initial deadline; the longer warmed retry passed.
   Buildifier checks caught declaration ordering, repaired with the owning
   formatter. No shared skill or host configuration changes are needed.

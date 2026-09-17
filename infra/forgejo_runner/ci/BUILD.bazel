@@ -1,0 +1,29 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_python//python:py_binary.bzl", "py_binary")
+load("@rules_python//python:py_library.bzl", "py_library")
+load("@rules_python//python:py_test.bzl", "py_test")
+
+py_library(
+    name = "smoke_lib",
+    srcs = ["smoke.py"],
+    data = ["//infra/forgejo_runner:ci_config"],
+)
+
+py_binary(
+    name = "smoke",
+    srcs = ["smoke.py"],
+    data = ["//infra/forgejo_runner:ci_config"],
+    visibility = ["//infra/forgejo_runner:__subpackages__"],
+)
+
+py_test(
+    name = "smoke_test",
+    srcs = ["smoke_test.py"],
+    deps = [":smoke_lib"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/forgejo_runner:__pkg__"],
+)

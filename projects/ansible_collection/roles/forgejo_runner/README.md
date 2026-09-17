@@ -19,8 +19,9 @@ The registration file is mode `0600`. Changing labels or capacity updates the
 daemon configuration; changing a registered runner's instance or identity
 requires deliberate re-registration.
 
-Set `forgejo_runner_install_packages: false` when the calling deployment uses
-[`dev_vm`](../dev_vm/README.md) to manage packages, including RPM-OSTree hosts.
+Set `forgejo_runner_install_packages: false` when the calling deployment supplies
+all [runner packages](defaults/main.yaml), including on RPM-OSTree hosts.
+Node.js is required for JavaScript actions such as checkout.
 The `acl` package must be available for Ansible to execute registration as the
 unprivileged runner account; both roles include it in their package defaults.
 Complete any required reboot before starting this role. Container runtime

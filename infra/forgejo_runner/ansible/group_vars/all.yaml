@@ -5,7 +5,6 @@ ssh_valid_principals:
   - "*.forgejo-runner.alwaldend.com"
 forgejo_runner_instance: https://git.alwaldend.com
 forgejo_runner_token: "{{ lookup('ansible.builtin.env', 'FORGEJO_RUNNER_TOKEN', default=undefined()) }}"
-forgejo_runner_install_packages: false
 forgejo_runner_repository: alwaldend/src
 dev_vm_bazel_user: "{{ forgejo_runner_user }}"
 dev_vm_bazel_home: "{{ forgejo_runner_home_dir }}"

@@ -13,6 +13,7 @@ forgejo_runner_install_packages: true
 forgejo_runner_packages:
   - acl
   - git
+  - nodejs
   - podman
 forgejo_runner_instance: "{{ undefined() }}"
 forgejo_runner_token: "{{ undefined() }}"
