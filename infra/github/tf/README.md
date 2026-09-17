@@ -43,10 +43,13 @@ other collaborators. Each repository has an active default-branch ruleset
 restricting creation, updates, deletion, and force pushes, with an organization
 administrator bypass. Developers can push other branches and open pull
 requests, but cannot directly push or merge into the default branch. Forks
-also disable the upstream fetch-and-merge exception. Both pre-existing `src`
-rulesets retain their separate release-branch protections and bypass actors;
-the default-branch ruleset also applies alongside them. Repository rulesets are
-available for these public repositories on
+also disable the upstream fetch-and-merge exception. Catalog repositories
+permit merge commits only; squash and rebase merges are disabled, so an
+accepted pull request records a merge commit whose parents include the
+reviewed feature commit. Both pre-existing `src` rulesets retain their
+separate release-branch protections and bypass actors; the default-branch
+ruleset also applies alongside them. Repository rulesets are available for
+these public repositories on
 [GitHub Free](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets).
 
 Landing repositories use the catalog default branch independently of their

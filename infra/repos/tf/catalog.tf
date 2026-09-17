@@ -82,6 +82,26 @@ output "organizations" {
     ])) == length(local.projected)
     error_message = "Normalized repository names must be unique within each organization and forge."
   }
+  precondition {
+    condition = alltrue([
+      for repository in local.repositories : repository.forge != "github" ? true : (
+        try(repository.config.allow_merge_commit, false) &&
+        !try(repository.config.allow_squash_merge, false) &&
+        !try(repository.config.allow_rebase_merge, false)
+      )
+    ])
+    error_message = format(
+      "GitHub repositories must permit merge commits only; squash and rebase merges are disabled. Offending records: %s",
+      join(", ", [
+        for repository in local.repositories : "${repository.organization}/${repository.catalog_key}"
+        if repository.forge == "github" && (
+          !try(repository.config.allow_merge_commit, false) ||
+          try(repository.config.allow_squash_merge, false) ||
+          try(repository.config.allow_rebase_merge, false)
+        )
+      ])
+    )
+  }
 }
 
 output "github_repositories" {
