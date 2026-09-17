@@ -5,251 +5,137 @@ title: Agents
 ## Start with the task
 
 This is the repository-wide default; a nearer `AGENTS.md` takes precedence
-within its subtree. Establish the requested outcome and existing authority,
-resolve the affected path and Bazel workspace, read the nearest `README.md`,
-`BUILD.bazel`, and `include.MODULE.bazel` when present, and inspect before
-mutating. Load only the skills needed for the current phase.
-
-Use [README.md](README.md) for the repository map. Reusable procedures live
-as canonical skills and are discovered through the standard skill
-directories. Each top-level tree's README owns its target visibility,
-allowed build consumers, and publication boundaries; read it before
-changing those relationships.
+within its subtree. Establish the requested outcome and authority before
+mutating. Read the applicable policy chain and the owning `README.md`; inspect
+`BUILD.bazel` and `MODULE.bazel` only when implementation or validation depends
+on them, and load only the skills the phase needs.
 
 ## Authority and scope
 
-Keep one owner for each fact: the user request owns outcome and authority;
-`AGENTS.md` owns agent policy; the nearest `README.md` owns component purpose
-and boundaries; `CODEOWNERS` owns review accountability; BUILD and MODULE
-files own executable and dependency structure; canonical skills own
-procedures; OpenSpec changes own maintained work state; runtime providers own their
-observed capabilities; Git and delivery receipts own candidate and publication
-state. Derived views must identify their sources, version or digest,
-observation time, unavailable fields, and truncation. Resolve conflicting
-facts at their owning source; architecture does not override those owners.
+Keep one owner for each fact: the user request owns outcome and authority,
+`AGENTS.md` owns policy, the nearest `README.md` owns component boundaries,
+`CODEOWNERS` owns review accountability, BUILD and MODULE files own executable
+and dependency structure, canonical skills own procedures, OpenSpec changes own
+maintained work state, runtime providers own observed capabilities, and Git and
+delivery receipts own publication state.
 
-Keep one implementation of each behavior and one copy of each fact. Reuse the
-owning component instead of copying, restating, or reimplementing its content
-in another package; a second copy is a defect even when the first is hard to
-reach. Extend the owner or parameterize it, and import shared material through
-its declared dependency rather than duplicating it. Do not restate a fact that
-another source already owns; link to that source instead.
+Each fact has one authoritative source: independently maintained duplicates are
+defects even when the original is hard to reach, so extend or parameterize the
+owner. Generated projections, fixtures, and source-identifying summaries are
+projections, not duplicates.
 
-- Use `answer-question` for substantive questions, including mixed requests.
-  A question alone authorizes investigation, not mutation; preserve action
-  authority already granted in the conversation. Quoted transformation
-  payloads do not trigger this skill.
-- Use `decision-review` for material design, security, operational, costly,
-  irreversible, or repeatedly failing choices. The primary agent owns the
-  verdict and material trade-offs. Routine reversible choices need no review.
-- Reviews and audits are evidence, not authority or new acceptance criteria.
-  Fix in-scope blockers and tiny defects directly related to the requested
-  change; report other incidental findings separately and continue. Delegated
-  workers report findings outside their assigned scope to the coordinator.
-  Do not conceal correctness or safety failures behind a workaround. If a
-  blocker needs material unauthorized scope expansion, ask; otherwise choose
-  the smallest supported in-scope fix. Narrow unsupported claims instead of
-  adding unrelated machinery.
-- Delegate useful independent work when it can proceed safely in parallel.
-  Keep one coordinator for shared state and bounded worker ownership. Do not
-  fragment trivial tasks or invent work for unused agents. Reassess when
-  dependencies or workstreams change; explain a constraint only when it
-  materially affects the task.
+A question authorizes investigation, not mutation, and preserves granted
+authority. The primary agent owns material trade-offs and consequential
+verdicts. Reviews and audits are evidence, not new acceptance criteria: fix
+in-scope blockers and tiny related defects, and report other findings.
+
 - All infrastructure provisioning and persistent configuration MUST be defined
   in checked-in infrastructure as code and deployed through its owning
-  Terraform, Ansible, or other declarative workflow. This includes certificates,
-  renewal jobs, authentication, networking, and appliance configuration.
-  Any exception, including an imperative bootstrap or emergency change outside
-  that workflow, requires explicit user approval for the exact exception before
-  execution. Record the approved scope and how it will be reconciled into IaC;
-  general deployment authorization does not approve an exception. Read-only
-  inspection does not constitute a configuration exception. Secret values stay
-  in Vault; IaC contains their references only.
-- Never run state-changing infrastructure operations without the user's
-  explicit request for the exact operation and scope. Ordinary implementation
-  validation must not contact or mutate live systems.
-- Treat an automatic approval rejection as a strategy signal. Diagnose it,
-  choose a materially safer authorized approach, or ask; never route around
-  it. Never immediately retry a rejected, failed, or rate-limited escalated
-  operation. Allow at most one retry after a real delay and causal change.
-- Every change and implementation follows delivery. Completing the local edits
-  is not the end of a task: an authorized change MUST be validated, committed,
-  pushed, and offered as a pull request through `repo-delivery`, unless the
-  user explicitly withholds publication. Do not stop at an uncommitted working
-  tree or a summary of intended work.
+  Terraform, Ansible, or other declarative workflow. Any exception, such as an
+  imperative bootstrap or emergency change, requires explicit approval for that
+  exact exception, with its scope and IaC reconciliation recorded; general
+  deployment authorization does not approve one, and read-only inspection is
+  not one. Secret values stay in Vault; IaC carries only their references.
+- Never run state-changing infrastructure operations without the user's exact
+  request for that operation and scope; validation must not mutate live systems.
+- Treat an automatic approval rejection as a strategy signal: diagnose it,
+  choose a materially safer authorized approach, or ask. Never route around it
+  or retry a rejected, failed, or rate-limited escalated operation immediately.
+- Every authorized change follows delivery: validate, commit, push, and offer a
+  pull request through `repo-delivery` unless the user withholds publication.
 
-## Isolate changes and scratch
+## When to load a skill
+
+This table owns routing; each skill owns its procedure.
+
+| When                                                                     | Load                                         |
+| ------------------------------------------------------------------------ | -------------------------------------------- |
+| Before the first mutation or task-scratch write                          | `repo-workspace`                             |
+| Substantive question, including a mixed question-and-action request      | `answer-question`                            |
+| Material, consequential, or repeatedly failing choice                    | `decision-review`                            |
+| Creating or moving source, or choosing a directory layout                | `project-layout`                             |
+| Any Bazel invocation, BUILD or `.bzl` mechanics, or validation scope     | `bazel-agent`, `repo-bazel`                  |
+| A standalone nested workspace with its own `MODULE.bazel`                | `bazel-nested-module`                        |
+| External dependencies, archives, toolchains, or lockfiles                | `repo-external-dependency`                   |
+| Gazelle generation behavior or a language plugin                         | `repo-gazelle-plugin`                        |
+| Structure-aware search or rewrite by syntax shape                        | `ast-grep`                                   |
+| `infra/**`, `host_bot`, `al.lua`, tf/Ansible/DNS, deployment diagnostics | `repo-infra`                                 |
+| Credentials, tokens, private keys, Vault policy, secret-bearing config   | `repo-secrets`                               |
+| Hugo site or theme, or landing-site onboarding                           | `repo-hugo`                                  |
+| Android app build, packaging, or publication                             | `android`                                    |
+| A `.blend` asset, or Blender work judged by supplied-reference likeness  | `repo-blender`, `blender-reference-fidelity` |
+| Host Codex model, provider, authentication, or shared-config migration   | `codex-migration`                            |
+| Durable specifications, changes, or continuation state                   | `openspec`                                   |
+| Adding or updating a repository skill                                    | `bazel-rules-skill`                          |
+| Proofreading, polishing, or rewriting supplied prose                     | `spellcheck`                                 |
+| Publishing an article to the blog                                        | `alwaldend-blog`                             |
+| Complete repository build-and-test health check                          | `full-repo-check`                            |
+| Computing a development, nightly, or weekly version                      | `versioning`                                 |
+| Preparing publication or final handoff                                   | `repo-delivery`                              |
+| Synchronizing an advancing remote base, or rebasing task-owned commits   | `git-rebase-remote`                          |
+| Reviewing a substantial or inefficient session at task close             | `agent-ergonomics-review`                    |
+
+## Isolate and verify changes
 
 Use a dedicated feature branch in its own linked worktree for every task that
-can modify repository files or task-owned scratch. Verify both before the
-first mutation. The default branch and checkout are read-only unless the user
-explicitly authorizes that exact task there; keep them clean.
+can modify repository files or task-owned scratch, and verify both before the
+first write. The default branch and checkout are read-only unless the user
+explicitly authorizes that exact task there. Preserve unrelated edits and never
+discard, auto-stash, commit, or rewrite shared, human-owned, unrelated, or
+ambiguous history; never lose progress on either branch side.
 
-Keep every task-owned download, report, log, cache, extracted archive,
-temporary file, and tool input or output under ignored `out/<task>/` in the
-applicable workspace; that directory is the default and needs no
-justification. Point configurable temporary and cache directories there too,
-including `TMPDIR`, `TMP`, and tool-specific cache variables. Never write task
-scratch to `/tmp`, `/var/tmp`, or another shared system location unless the
-tool cannot use workspace scratch at all; state that reason and remove only
-your residue before handoff. Never delete unrelated temporary files.
-
-Secret-bearing temporary material must be task-private, access-restricted,
-short-lived, and explicitly cleaned up. Never track, stage, commit, or promote
-secrets as durable evidence. "Outside the repository" means outside tracked
-or committable source; ignored task scratch is suitable.
-
-## Load procedures when needed
-
-- Load `project-layout` before creating or moving source directories or
-  deciding a repository layout. Use its role-based layout for new paths;
-  legacy `main/` layouts are not precedent. Project names use only ASCII
-  letters, digits, and underscores.
-- Load `bazel-agent` and `repo-bazel` before Bazel work. They own invocation,
-  bootstrap, BUILD/Starlark/MODULE mechanics, generated files, sandboxing, and
-  validation. Do not call `bazel` directly or expose raw BEP output. Run the
-  owning update command instead of hand-editing generated files.
-- Nested Bazel workspaces must use regular `.bazelrc` files with a single
-  import of `tools/bazelrc/bzl_project.bazelrc`, which owns shared settings,
-  the `agent` profile, and the final user override. Do not symlink `.bazelrc`,
-  duplicate the wrapper's imports, or independently redefine shared settings.
-  Put required module-specific additions before that import;
-  `bazel-nested-module` owns the exact relative path.
-- Load `repo-external-dependency` when acquiring or updating external inputs.
-  Tools used by Bazel must be pinned and checksummed, with no undeclared host
-  tools or lifecycle downloads. Environment-dependent tool output is allowed
-  within the requested workflow's authority and sandbox/network policy.
-- Load `ast-grep` for syntax-shape searches or rewrites that plain text cannot
-  express; use its repository-pinned Bazel entry point.
-- Load `repo-infra` for Terraform, Ansible, DNS, Vault operations, and
-  deployment diagnostics, and `repo-secrets` for secret handling. Preserve the
-  owning `al.lua` and Bazel packaging/injection flow. Never commit
-  `.terraform/`, state, plans, environment files, or local credentials.
-- Load `openspec` for maintained specifications, changes, or work that needs
-  durable continuation. Use the owning project's `openspec/` workspace;
-  use `infra/src/openspec/` for evolution of the repository itself. Keep the
-  smallest artifacts that preserve acceptance, evidence, and the next action. Temporary
-  coordination belongs under ignored `out/<task>/`. The legacy goal tool and
-  its skill are removed; do not recreate goal records or revive that store.
-- Load `repo-delivery` when preparing publication or final handoff, before
-  staging or committing delivery changes. It owns validation gates, commits,
-  pushes, pull requests, reviews, and receipts. Commit and push all legitimate
-  task-owned source, documentation, and configuration at delivery unless the
-  user says otherwise. A conversational pause is not itself a delivery gate.
-  Scratch, secrets, temporary files, and generated artifacts are excluded;
-  required non-temporary binaries may be committed only through Git LFS.
-- Before rewriting branch history, resolving conflicts, or recovering a
-  publication, load the delivery recovery guidance and `git-rebase-remote`
-  as applicable. Preserve local and remote task progress; never rewrite
-  shared, human-owned, unrelated, or ambiguous history. Use exact remote
-  leases. Resolve authorized minor conflicts only from unambiguous task and
-  three-way evidence, stage explicit resolutions, and rerun invalidated
-  checks. Abort and ask when resolution would guess intent, discard work, or
-  alter unauthorized semantics.
+Verify source and a representative output against the exact candidate; command
+success alone is not acceptance. Accept and commit all changes produced by the
+repository's configured formatters, even outside the initial task scope, but
+inspect the diff and never include semantic changes under that exception.
+Exclude disposable build outputs and include required generator-maintained
+files updated through their owning workflow. Commit and push legitimate
+task-owned source and configuration unless the user says otherwise, with binary
+artifacts only through Git LFS. `repo-delivery` owns gates, commits, push, and
+requests.
 
 ## Use bounded tools and evidence
 
-Prefer supported live Cordis handlers for context, reads, searches, and Git
-inspection; discover the catalog before assuming one is unavailable. Otherwise
-prefer purpose-built tools, MCP capabilities, and repository Bazel targets.
-Use a host shell only when no suitable entry point exists. Do not build new
-tooling merely to avoid a one-off command.
+Prefer supported live Cordis handlers, then purpose-built tools, MCP
+capabilities, and repository Bazel targets; use a host shell only when no
+suitable entry point exists. Use `rg`, `rg --files`, bounded `find`, or Bazel
+queries rather than recursive searches, wrap commands in a `timeout`, and
+extract diagnostic fields from logs before display because raw dumps can leak
+protected data.
 
-Use `rg`, `rg --files`, bounded `find`, or Bazel queries; never recursive
-`grep`/`ls` or filesystem-root searches. Wrap shell commands in an appropriate
-`timeout`, except intentionally long-running or interactive operations.
-For checkout isolation, query the current checkout's root, branch, and Git
-directories before requesting a full worktree inventory. Narrow discovery
-queries that truncate instead of treating incomplete output as sufficient
-evidence. Read only needed policy sections, and extract diagnostic fields
-from runtime logs before displaying them; raw command/environment dumps can
-expose unrelated or protected data.
-Prefer Go and Bazel-native rules for repository automation. Do not introduce
-shell scripts or shell-based rules unless the task explicitly requires them.
-Do not use `genrule`. Expose Go automation as Bazel `go_binary` targets; use
-another language only when Go or Bazel would materially complicate the task.
-Validate Go with the pinned Bazel toolchain, not host `go`.
+Reuse evidence while inputs are unchanged; empty results and no-ops are
+evidence with bounded coverage, not proof of absence. Repeat an operation only
+when changed inputs, new evidence, or expected asynchronous progress justify
+it, and record revisions and observation times. After interruption, resume from
+the recorded action and recheck mutable dependencies. Preserve failure evidence
+and a stable defect name.
 
-Reuse evidence while relevant inputs are unchanged. Empty results and no-ops
-are evidence with bounded coverage, not proof of absence or progress. After
-two inconclusive searches, revise the approach using what is known. Before
-retrying failure, identify its cause, a real change, and the predicted effect.
-After two unchanged edits, diagnose the source/cache dependency; invalidate
-stale generated output once deterministically and inspect the effect.
-Never issue an identical command after an unchanged result; choose a different
-action, record a blocking diagnosis, or stop. For command-output loops, do not
-invoke the same target again until state or arguments have demonstrably changed.
+## Disclosure, naming, and communication
 
-Bounded polling, mutation postconditions, and advanced refs justify fresh
-observations. Record relevant revisions and observation times. After
-interruption, resume from the recorded next action and recheck only mutable
-dependencies, including authority, branch, candidate, and in-flight operations.
-Preserve failure evidence and a stable name for recurring defects.
-
-Start verification with `git diff --check`, then the narrowest useful package
-checks under `repo-bazel`; run configured formatters and `//:buildifier_test`
-for BUILD/Starlark changes. Before completion, verify source and a
-representative output against the exact candidate. Command success alone is
-not acceptance. Accept and commit all changes produced by the repository's
-configured formatters, including changes outside the initial task scope;
-no separate approval is needed. Use the configured formatter and inspect its diff.
-Preserve unrelated edits and never include semantic changes under this
-exception. Record baseline failures and their repairs without waiving the
-delivery quality gate. Git hook installation is optional; required checks
-still apply.
-
-## Public source and protected data
-
-Checked-in source, documentation, and fixtures are public. When the task calls
-for an external service, public source and eval output derived solely from
-public fixtures in an isolated public workspace may be sent without a separate
-confidentiality approval. This does not authorize exposing credentials,
-personal information, or secret-bearing data.
-
-Inspect local, generated, untracked, live, and infrastructure artifacts before
-disclosure because they can contain protected data. Their origin alone does
-not make them confidential. Ordinary build/test/lint diagnostics and non-secret,
-non-personal operational facts may be reported, including for `infra/`.
-
-Keep source disclosure, target visibility, build consumers, artifact and
-documentation publication, and secrets/personal information distinct.
-"Private" tree policy means repository-internal use unless it identifies
-protected content; it does not make ordinary source or operational facts
-confidential.
-
-## Naming
+Checked-in source, documentation, and fixtures are public. Public source and
+eval output from public fixtures in an isolated public workspace may be sent to
+an external service the task calls without separate confidentiality approval;
+this does not authorize exposing credentials, personal information, or
+secret-bearing data. Inspect local, generated, untracked, live, and
+infrastructure artifacts before disclosure because they can contain protected
+data, but their origin does not make them confidential. Ordinary build, test,
+and lint diagnostics and non-secret, non-personal operational facts may be
+reported, including for `infra/`. Keep source disclosure, target visibility,
+build consumers, artifact publication, and secrets distinct, and treat tree
+"privacy" as repository-internal unless it identifies protected content.
 
 Use precise, professional vocabulary for every name you choose, including
 files, scripts, directories, functions, variables, classes, commits, and
-branches. Name the purpose or behavior accurately, using language suitable
-for a technical specification. Avoid slang, casual shorthand, chat-culture
-terms, jokes, and cute or clever wordplay.
+branches, and name the purpose or behavior accurately for a technical
+specification. Avoid slang, casual shorthand, chat-culture terms, jokes, and
+cute wordplay, and prefer established domain terminology and standard
+abbreviations. Name a dashboard-deploying script `deploy_dashboards.sh`,
+never `push_dashboards.sh`.
 
-Prefer established domain terminology and standard technical abbreviations;
-follow the language's and component's naming conventions. For example, a
-script that deploys dashboards should be named `deploy_dashboards.sh`, not
-`push_dashboards.sh`. The principle applies to all names, not just scripts.
-
-## Communicate and maintain source
-
-When the main agent loads a skill, say which one and why it applies. Explain
-the purpose and relevant side effects of non-obvious tools or delegations;
-group routine checks and report opaque tool outcomes.
-
-Follow `.editorconfig`, `pyproject.toml`, configured formatters, and nearby
-files. Preserve intentional differences between Python support and individual
-tool targets. Do not use emojis in user-facing content unless the surrounding
-context or tooling requires one.
-
-Document current behavior and supported guarantees first. Keep explanations
-small; retain relevant intentional plans and operational history only. Put
-speculation and rejected designs in task artifacts or an explicitly maintained
-decision record, not ordinary documentation. Promote lessons only when they
-become stable, reviewable regressions.
-
-Use concise, unprefixed Git subjects, a blank line before the body and trailer
-footer, and `Token: value` trailers. Do not use Conventional Commit prefixes.
-OpenSpec-linked delivery commits use `OpenSpec-Change` with the change path.
-Legacy goal-linked commits retain paired `Goal-Ref` and `Attempt-ID` trailers
-for compatibility. Optional `Learning-Proposal` precedes the generated final
-`LLM-disclaimer` trailer.
+When the main agent loads a skill, say which one and why it applies. Follow
+`.editorconfig`, `pyproject.toml`, configured formatters, and nearby files,
+preserving differences between Python support and individual tool targets, and
+use no emojis in user-facing content unless the tooling requires one. Document
+current behavior and guarantees first, keeping explanations small and retaining
+only relevant plans and history; put speculation and rejected designs in task
+artifacts or a decision record.

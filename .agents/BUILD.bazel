@@ -47,6 +47,7 @@ skills_write(
         "//projects/agents/skills/repo-hugo:skill",
         "//projects/agents/skills/repo-infra:skill",
         "//projects/agents/skills/repo-secrets:skill",
+        "//projects/agents/skills/repo-workspace:skill",
         "//projects/agents/skills/spellcheck:skill",
         "//projects/agents/skills/openspec:skill",
         "//tools/versioning/skills/versioning:skill",

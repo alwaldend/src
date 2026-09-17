@@ -1,0 +1,5 @@
+interface:
+  display_name: "Repository Workspace"
+  short_description: "Isolate task worktrees and keep scratch under out"
+  default_prompt: >-
+    Use $repo-workspace to prepare an isolated workspace before this change.
