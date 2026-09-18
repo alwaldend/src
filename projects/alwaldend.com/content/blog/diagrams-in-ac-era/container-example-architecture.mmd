@@ -1,0 +1,15 @@
+architecture-beta
+    service browser(server)[Browser]
+
+    group host(cloud)[Host]
+    service proxy(server)[Proxy] in host
+    service application(server)[Application] in host
+
+    group providers(cloud)[Providers]
+    service alpha(server)[Provider A] in providers
+    service beta(server)[Provider B] in providers
+
+    browser:R -- L:proxy
+    proxy:R -- L:application
+    application:R -- L:alpha
+    application:R -- L:beta

@@ -19,7 +19,7 @@ go_library(
     visibility = ["//visibility:private"],
     deps = [
         "//infra/xcp_ng/internal/oidclogin",
-        "@tools_org_golang_x_net//websocket",
+        "@org_golang_x_net//websocket",
     ],
 )
 
@@ -39,5 +39,5 @@ go_test(
         "template_test.go",
     ],
     embed = [":xo_config_lib"],
-    deps = ["@tools_org_golang_x_net//websocket"],
+    deps = ["@org_golang_x_net//websocket"],
 )
