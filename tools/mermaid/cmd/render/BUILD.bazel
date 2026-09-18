@@ -1,0 +1,24 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
+
+# js_binary copies only its entry point, so the sibling module is declared
+# through a js_library and consumed as a dependency.
+js_library(
+    name = "render_lib",
+    srcs = [
+        "fontconfig.mjs",
+        "main.mjs",
+    ],
+    visibility = ["//tools/mermaid:__subpackages__"],
+)
+
+js_binary(
+    name = "render",
+    data = [
+        ":render_lib",
+        "//tools:node_modules/@mermaid-js/mermaid-cli",
+        "//tools:node_modules/puppeteer",
+        "@com_alwaldend_src_tools_mermaid//:chrome_headless_shell_binary",
+    ],
+    entry_point = "main.mjs",
+    visibility = ["//tools/mermaid:__subpackages__"],
+)

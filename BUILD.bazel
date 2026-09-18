@@ -292,10 +292,25 @@ test_suite(
 # gazelle:resolve java org.joda.time.format @com_alwandend_src_maven//:joda_time_joda_time
 # gazelle:resolve java org.sonatype.nexus.repository.view @com_alwandend_src_maven//:org_sonatype_nexus_nexus_repository
 # gazelle:resolve java org.sonatype.nexus.repository.storage @com_alwaldend_src_maven//:org_sonatype_nexus_nexus_repository
-
 # gazelle:exclude **/leetcode-submissions/**
 # gazelle:exclude **/mod_tidy_fix.go
 # gazelle:exclude **/go_mod_tidy_fix.go
+
+# Go test targets are hand-maintained here: their names, data, deps, tags, and
+# visibility are deliberate. Excluding test sources keeps Gazelle from adding a
+# second, incomplete go_test per package, and file mode makes an empty test set
+# generate nothing rather than an empty rule that would clear the hand-written
+# target.
+# gazelle:exclude **/*_test.go
+# gazelle:go_test file
+
+# Directories whose files run under another runtime instead of being imported as
+# Python modules. A generated BUILD file inside them would also make them Bazel
+# subpackages, breaking the globs and labels in their parent packages. The
+# Blender audit script additionally imports bpy, which exists only inside
+# Blender.
+# gazelle:exclude projects/renders/test/reimu_fumo
+# gazelle:exclude infra/xcp_ng/ansible/files
 
 alias(
     name = "node_modules/autoprefixer/dir",

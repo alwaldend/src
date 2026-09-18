@@ -64,5 +64,6 @@ terraform_test_map(
 
 docs_filegroup(
     name = "docs",
+    srcs = glob(["*.md"]),
     visibility = ["//infra/xcp_ng:__pkg__"],
 )
