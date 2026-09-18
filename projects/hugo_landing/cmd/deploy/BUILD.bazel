@@ -1,3 +1,4 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 
 go_library(
@@ -17,4 +18,10 @@ go_test(
     name = "deploy_test",
     srcs = ["main_test.go"],
     embed = [":deploy_lib"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects/hugo_landing:__pkg__"],
 )

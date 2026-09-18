@@ -1,12 +1,11 @@
-load("@rules_go//go:def.bzl", "go_binary", "go_test")
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 
 go_binary(
     name = "update",
-    srcs = ["main.go"],
     args = ["--git=$(rlocationpath //tools/git)"],
     data = ["//tools/git"],
+    embed = [":update_lib"],
     visibility = ["//tools/bazel_module:__pkg__"],
-    deps = ["@rules_go//go/runfiles"],
 )
 
 go_test(
@@ -42,5 +41,13 @@ go_test(
         "no-sandbox",
     ],
     visibility = ["//tools/repo_quality:__pkg__"],
+    deps = ["@rules_go//go/runfiles"],
+)
+
+go_library(
+    name = "update_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/bazel_module/cmd/update",
+    visibility = ["//visibility:private"],
     deps = ["@rules_go//go/runfiles"],
 )

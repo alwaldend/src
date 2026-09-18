@@ -1,5 +1,5 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_go//go:def.bzl", "go_binary")
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
 
 docs_filegroup(
     name = "docs",
@@ -9,6 +9,13 @@ docs_filegroup(
 
 go_binary(
     name = "fdroid_wrapper",
-    srcs = ["main.go"],
+    embed = [":fdroid_lib"],
     visibility = ["//visibility:public"],
+)
+
+go_library(
+    name = "fdroid_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/fdroid",
+    visibility = ["//visibility:private"],
 )
