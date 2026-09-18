@@ -1,0 +1,26 @@
+flowchart LR
+    remote(["Actor (remote)"])
+
+    subgraph dc1["Local infra: dc1.alwaldend.com"]
+        intranet(["Actor (intranet)"])
+
+        subgraph host_bot["BM (Fedora Silverblue) (Insecure)<br/>host-bot.simeonwarren.users.alwaldend.com"]
+            traefik["Traefik"]
+            t3code["T3 Code<br/>t3code.host-bot.simeonwarren.users.alwaldend.com"]
+            codex["Codex"]
+        end
+    end
+
+    ingress["Ingress"]
+    vault["Vault<br/>vault.alwaldend.com"]
+    github["GitHub<br/>github.com"]
+    openai["OpenAI<br/>openai.com"]
+
+    remote -->|"HTTPS + mTLS"| ingress
+    intranet -->|"HTTPS"| traefik
+    ingress -->|"HTTPS over Wireguard"| traefik
+    traefik --> t3code
+    t3code --> codex
+    t3code -->|"Source"| github
+    traefik -->|"ACME"| vault
+    codex -->|"inference"| openai

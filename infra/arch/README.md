@@ -43,10 +43,6 @@ Open an image for its full-size SVG.
 
 [![Ingress infrastructure diagram](assets/ingress.svg)](assets/ingress.svg)
 
-## T3code
-
-[![T3code infrastructure diagram](assets/t3code.svg)](assets/t3code.svg)
-
 ## Truenas
 
 [![Truenas infrastructure diagram](assets/truenas.svg)](assets/truenas.svg)
@@ -86,7 +82,7 @@ bazel_agent bazel run //infra/arch:update
 bazel_agent bazel test //infra/arch:update_tests
 ```
 
-The update target renders all 15 named pages in Bazel sandboxes with Drawio
+The update target renders all 14 named pages in Bazel sandboxes with Drawio
 30.2.6 web assets from the [pinned desktop archive](https://github.com/alwaldend/src/blob/master/third_party/com_drawio_desktop_bin/binary_toolchain.json)
 and the repository's [pinned headless Chrome](https://github.com/alwaldend/src/blob/master/tools/mermaid/binary_toolchain.json).
 A [pinned Liberation font set](https://github.com/alwaldend/src/blob/master/tools/drawio/include.MODULE.bazel) and isolated

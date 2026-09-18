@@ -1,5 +1,7 @@
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
+load("//tools/mermaid:defs.bzl", "mermaid_svg")
 
 al_config(
     name = "al",
@@ -27,10 +29,32 @@ filegroup(
 
 docs_filegroup(
     name = "docs",
-    srcs = glob(["*.md"]),
+    srcs = glob(["*.md"]) + ["t3code-architecture.mmd"],
     visibility = ["//users/simeonwarren:__pkg__"],
-    deps = subpackages(
+    deps = [":docs_assets"] + subpackages(
         include = ["*"],
         allow_empty = True,
     ),
+)
+
+docs_filegroup(
+    name = "docs_assets",
+    srcs = glob(
+        ["assets/*.svg"],
+        allow_empty = True,
+    ),
+    prefix = "content/docs/users/simeonwarren/host_bot/assets",
+)
+
+mermaid_svg(
+    name = "rendered",
+    src = "t3code-architecture.mmd",
+    out = "rendered/t3code-architecture.svg",
+)
+
+write_source_files(
+    name = "update",
+    files = {
+        "assets/t3code-architecture.svg": ":rendered/t3code-architecture.svg",
+    },
 )
