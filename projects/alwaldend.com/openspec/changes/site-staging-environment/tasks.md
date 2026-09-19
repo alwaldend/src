@@ -28,12 +28,12 @@
 - [x] 4.2 Verify the apex documentation and taxonomy routes still resolve
 - [x] 4.3 Deploy the landing index changes to staging and the apex
 
-## 5. Retirement (postponed at the user's request)
+## 5. Retirement (authorized 2026-09-20)
 
-- [ ] 5.1 Retire the per-project DNS records and confirm the former hostnames no longer serve a landing site. **Postponed**: the user directed that teardown wait until they say so.
-- [ ] 5.2 Retire the per-project landing Pages repositories. **Postponed** with 5.1.
-- [ ] 5.3 Record the retirement evidence and close
-      `consolidate-project-landings-into-apex` task 7.9. **Postponed** with 5.1.
+- [x] 5.1 Retire the per-project DNS records and confirm the former hostnames no longer serve a landing site. All 19 retired records destroyed; none of the former hostnames resolve.
+- [x] 5.2 Retire the per-project landing Pages repositories and their GitLab mirrors. 20 GitHub repositories and 20 GitLab projects destroyed; the 9 shared repositories on each forge are unchanged.
+- [x] 5.3 Record the retirement evidence and close
+      `consolidate-project-landings-into-apex` task 7.9. Evidence is recorded there, including the plan-only scope, the branch-protection handling, and the pre-existing `goal.alwaldend.com` residual that the teardown did not create and did not remove.
 
 ## 6. Validation
 
