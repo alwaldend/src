@@ -29,6 +29,7 @@ test_suite(
     name = "config_test",
     tests = [
         "//infra/dns/cmd/lint:lint_test",
+        "//infra/dns/internal/dump:dump_test",
         "//infra/dns/internal/lint:lint_test",
         "//infra/dns/test/repository:repository_test",
     ],
@@ -43,6 +44,7 @@ alias(
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
+    prefix = "content/docs/infra/dns",
     visibility = ["//infra:__pkg__"],
     deps = subpackages(
         include = ["*"],

@@ -11,6 +11,19 @@ through the reusable [Terraform DNS module](../../projects/tf_modules/dns_record
 from its designated `tf_setup` or `tf` root. This component's
 [dnsconfig.json](dnsconfig.json) owns shared apex and mail records.
 
+## Declaration pages
+
+[Cloudflare DNS](cloudflare_dns.md) and [Mikrotik DNS](mikrotik_dns.md) list the
+records this repository declares for each destination view, with the owning
+declaration for every record. They are generated from `dnsconfig.json`:
+
+```sh
+bazel_agent bazel run //infra/dns/cmd/dump -- --write
+```
+
+`//infra/dns:config_test` fails when a checked-in page is out of date, so the
+pages cannot drift from the declarations they project.
+
 ## Inspect and lint declarations
 
 ```sh
@@ -80,5 +93,6 @@ additions-only plan that preserves all existing records.
 Rollback requires stopping the affected Terraform writers and following the
 runbook's recorded prior revision and state-reconciliation procedure.
 
-Historical `zones/*.zone` files are deployment snapshots. They are not a current
-inventory or a declared-state export and must not be hand-edited.
+Deployment snapshots are not maintained here. The generated declaration pages
+above project declared state, and the declarations themselves remain the only
+inventory.

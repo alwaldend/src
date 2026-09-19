@@ -151,11 +151,31 @@ replacements, or deletions and SHALL preserve unrelated provider records.
 
 ### Requirement: Avoid a separate DNS exporter
 
-The implementation SHALL expose runtime declaration tables rather than a
-normalized inventory or BIND exporter. Historical snapshots SHALL NOT be
-presented as current desired state.
+The implementation SHALL derive its declaration views from the owning
+`dnsconfig.json` files rather than maintaining a normalized inventory or BIND
+exporter. Historical provider snapshots SHALL NOT be presented as current
+desired state, and no provider snapshot SHALL be committed as a declaration
+source.
 
 #### Scenario: Inspect declared ownership
 
 - **WHEN** the runtime linter succeeds
 - **THEN** its table reports the discovered declarations without an export step
+
+### Requirement: Publish declaration pages per destination view
+
+The implementation SHALL render one documentation page per destination view
+from the declared records, with the owning declaration for every record, and
+SHALL fail its offline check when a checked-in page differs from the
+declarations it projects.
+
+#### Scenario: Regenerate a declaration page
+
+- **WHEN** an owner changes a declaration and the generation command runs
+- **THEN** the affected view's page lists the declared records with their owner
+- **AND** the check passes against the regenerated page
+
+#### Scenario: A declaration page is stale
+
+- **WHEN** a checked-in page no longer matches the declarations
+- **THEN** the offline check fails rather than serving a stale inventory

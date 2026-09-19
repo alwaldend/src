@@ -14,26 +14,18 @@ locals {
   github_repositories = {
     for repository in module.repositories.github_repositories : repository.name => repository
   }
-  project_pages = {
-    for repository in local.github_repositories : repository.config.landing_project => repository
-    if can(repository.config.landing_project)
+  # Landing repositories were retired with the project landing pages: the main
+  # site now publishes every landing at /projects/<name>/, so the catalog no
+  # longer carries a `landing_project` key and no dedicated Pages repository,
+  # custom domain, or environment remains to manage.
+  repositories = local.github_repositories
+  managed_repository_names = {
+    for name, repository in github_repository.other : name => repository.name
   }
-  other_repositories = {
-    for name, repository in local.github_repositories : name => repository
-    if !can(repository.config.landing_project)
-  }
-  default_branch_repositories = {
-    for name, repository in local.github_repositories : name => repository
-    if !contains(var.bootstrap_projects, try(repository.config.landing_project, ""))
-  }
-  managed_repository_names = merge(
-    { for project, repository in github_repository.project_landing : repository.name => repository.name },
-    { for name, repository in github_repository.other : name => repository.name },
-  )
 }
 
 resource "github_repository" "other" {
-  for_each = local.other_repositories
+  for_each = local.repositories
 
   name                        = each.value.name
   description                 = each.value.description
@@ -85,13 +77,10 @@ resource "github_repository" "other" {
 }
 
 resource "github_branch_default" "repository" {
-  for_each = local.default_branch_repositories
+  for_each = local.repositories
 
   repository = local.managed_repository_names[each.key]
-  branch = try(
-    github_branch.landing_default[each.value.config.landing_project].branch,
-    each.value.default_branch,
-  )
+  branch     = each.value.default_branch
 
   lifecycle {
     prevent_destroy = true

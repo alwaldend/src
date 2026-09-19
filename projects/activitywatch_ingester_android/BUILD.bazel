@@ -1,6 +1,4 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/al/rules/al:al_config.bzl", "al_config")
-load("//tools/vault:defs.bzl", "vault_binary_map")
 
 exports_files(
     ["maven_lock.json"],
@@ -26,17 +24,6 @@ filegroup(
 )
 
 filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = [
-        "//infra:__pkg__",
-        "//infra/dns:__pkg__",
-        "//projects/activitywatch_ingester_android/tf:__pkg__",
-        "//projects/alwaldend.com:__subpackages__",
-    ],
-)
-
-filegroup(
     name = "fastlane_metadata",
     srcs = glob(
         ["fastlane/metadata/android/**/*.txt"],
@@ -49,22 +36,8 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = [
         "//projects:__pkg__",
-        "//projects/activitywatch_ingester_android/landing:__pkg__",
     ],
     deps = [
         "//projects/activitywatch_ingester_android/releases:docs",
-        "//projects/activitywatch_ingester_android/tf:docs",
     ],
-)
-
-al_config(
-    name = "al",
-    srcs = ["al.lua"],
-    visibility = ["//projects/activitywatch_ingester_android/tf:__pkg__"],
-    deps = ["//infra:al"],
-)
-
-vault_binary_map(
-    name = "vault",
-    configs = [":al"],
 )
