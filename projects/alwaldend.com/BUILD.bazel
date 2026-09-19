@@ -69,7 +69,6 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = [
         "//projects:__pkg__",
-        "//projects/alwaldend.com/landing:__pkg__",
     ],
     deps = [
         "//projects/alwaldend.com/releases:docs",
@@ -165,16 +164,6 @@ sh_binary(
     srcs = ["deploy.sh"],
     args = ["$(rootpath :site_archive)"],
     data = [":site_archive"],
-)
-
-sh_binary(
-    name = "deploy_project",
-    srcs = ["deploy_project.sh"],
-)
-
-sh_binary(
-    name = "deploy_all",
-    srcs = ["deploy_all.sh"],
 )
 
 pkg_filegroup(

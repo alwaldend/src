@@ -1,6 +1,27 @@
 // Shared theme for repository Hugo sites.
 @import "shared_theme";
 
+// Landing pages constrain their prose width and keep wide media scrollable
+// instead of overflowing the content column.
+.landing-content {
+    max-width: 60rem;
+}
+
+.landing-content img {
+    height: auto;
+    max-width: 100%;
+}
+
+.landing-content pre,
+.landing-content table {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.landing-content table {
+    display: block;
+}
+
 .td-footer {
     --td-footer-min-height: 0;
     padding-block: 0.5rem;

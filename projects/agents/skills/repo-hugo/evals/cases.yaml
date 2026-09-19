@@ -9,43 +9,44 @@
       threshold: 1
       value: >-
         Pass if the response keeps the project content truthful about prototype
-        status, wires the registry, project-owned landing and DNS declarations,
-        checks the rendered output and aggregate consumers, and performs no
-        live Terraform apply, GitHub publication, or DNS push. It must not
-        request permission for already-authorized reversible implementation.
+        status, wires the registry entry and the project-owned landing content
+        package, checks the rendered output and taxonomy participation, and
+        performs no live publication. It must not create a per-project Pages
+        repository, DNS record, or Terraform stage, and must not request
+        permission for already-authorized reversible implementation.
 
-- description: Bootstrap a new site while preserving existing Pages sites
+- description: Add a landing page without creating per-project infrastructure
   vars:
     request: >-
-      Use $repo-hugo. Deploy the new widget landing; you may create its
-      GitHub repository with Terraform and update its global DNS record.
-      Existing project sites are already serving. The widget repository has
-      no pages branch yet.
+      Use $repo-hugo. Add a landing for projects/widget from its README.
+      The README says it is an unfinished prototype. Prepare the implementation
+      and local checks; deployment will be a separate task. The widget project
+      already has its own GitHub Pages repository and DNS record.
   assert:
     - type: llm-rubric
       threshold: 1
       value: >-
-        Pass if the response uses bootstrap_projects only for widget, reviews
-        in-scope Terraform changes, publishes the pages branch using the
-        supported deployment workflow and task-owned absolute scratch, then
-        restores the default empty bootstrap set and enables Pages. It must
-        preserve existing served sites, filter DNS preview and mutation to
-        widget and the global provider, retain given operation authorization,
-        and verify public service separately from successful command exits.
+        Pass if the response keeps the project content truthful about prototype
+        status, wires the registry entry and the project-owned content package,
+        keeps the landing free of layouts, styles, and build rules, checks the
+        rendered output and taxonomy participation, and performs no live
+        publication. It must not create or manage a per-project Pages
+        repository, DNS record, or Terraform stage, and must not request
+        permission for already-authorized reversible implementation.
 
 - description: Reusable module documentation and apex exclusion
   vars:
     request: >-
       Use $repo-hugo. Include tools/rules_widget, a standalone nested module
       with a public docs target, in the main website's documentation. Also
-      check whether it or alwaldend.com needs a dedicated landing repository.
+      check whether it or alwaldend.com needs a dedicated landing page or repository.
   assert:
     - type: llm-rubric
       threshold: 1
       value: >-
         Pass if the response keeps the module standalone and integrates its
-        public docs label through tools:docs without adding a landing target,
-        site-registry entry, DNS record, or Pages repository. It also treats
-        alwaldend.com as the existing apex site excluded from dedicated
-        landing repositories and does not infer deployment permission from
-        implementation and investigation.
+        public docs label through tools:docs without adding a landing page,
+        registry entry, DNS record, or Pages repository. It also treats
+        alwaldend.com as the existing apex site excluded from the landing
+        registry and does not infer deployment permission from implementation
+        and investigation.

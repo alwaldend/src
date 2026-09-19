@@ -12,7 +12,6 @@ Sources: [component documentation](../../../README.md),
 [shared catalog](../../../../repos/README.md),
 [packaged inputs](../../../tf/BUILD.bazel),
 [repository resources](../../../tf/repositories.tf),
-[landing repositories](../../../tf/alwaldend_pages_repos.tf),
 [organization access](../../../tf/organization.tf),
 [branch rules](../../../tf/branch_rules.tf), and
 [provider configuration](../../../tf/provider.tf).
@@ -27,18 +26,25 @@ configuration through `infra/repos/tf`. It SHALL NOT generate a second inventory
 from the build-project registry. Its provider instance SHALL require exactly
 one configured GitHub organization.
 
-Landing resources SHALL retain their existing addresses, using the catalog's
-`landing_project` field. Retired projects SHALL retain their published
-repositories while their catalog entries remain. Explicitly retired landing
-repositories SHALL be removed from the catalog after the authorized retirement
-workflow has established their exact deletion scope.
+#### Scenario: Consume a catalog repository
 
-#### Scenario: Preserve a published identity after project retirement
+- **WHEN** the package renders its repository resources
+- **THEN** every catalog GitHub repository is managed from its catalog record
 
-- **WHEN** a source project leaves the build registry but remains in the
-  repository catalog
-- **THEN** its landing repository and environment remain configured at their
-  existing resource addresses
+### Requirement: Publish project landings from the apex site
+
+Dedicated per-project landing repositories SHALL NOT be managed. The main site
+publishes every project landing at `/projects/<name>/`, so the catalog carries
+no `landing_project` key and no per-project Pages repository, custom domain,
+`github-pages` environment, or landing default branch is declared.
+
+#### Scenario: Publish a project landing
+
+- **WHEN** a project's landing page is published
+- **THEN** it is served by the apex site at `/projects/<name>/` from the apex
+  Pages repository
+- **AND** no per-project repository, Pages configuration, or custom domain is
+  managed
 
 ### Requirement: Adopt existing resources without recreating them
 
@@ -52,7 +58,7 @@ The organization settings resource SHALL own only catalog-defined base
 repository access. Its mandatory billing argument SHALL be an import-only
 placeholder whose imported value is ignored; billing, profile, and other
 organization defaults SHALL remain outside this module's ownership. Existing
-non-landing Dependabot alert settings SHALL be preserved.
+Dependabot alert settings SHALL be preserved.
 
 #### Scenario: An existing repository cannot be imported
 
@@ -78,80 +84,38 @@ rules and bypass actors alongside the new default-branch ruleset.
   request
 - **AND** the developer cannot push or merge into the default branch
 
-#### Scenario: Publish to a landing repository's Pages branch
+#### Scenario: Publish the main site
 
-- **WHEN** a catalog developer publishes site content to the landing
-  repository's `pages` branch
+- **WHEN** the site publisher writes content to the apex repository's `pages`
+  branch
 - **THEN** repository write access permits publication
-- **AND** its separate `master` default branch remains protected from developer
-  pushes and merges
-
-### Requirement: Separate landing defaults from Pages publication
-
-Landing repositories SHALL use the catalog default branch independently of
-their Pages source branch. A missing default branch SHALL be created from the
-existing Pages branch before Terraform selects it as the default. Existing
-default branches SHALL be imported. The migration SHALL NOT rename or delete
-the Pages branch or change its content.
-
-#### Scenario: A landing repository only has its Pages branch
-
-- **WHEN** Terraform changes its default branch from `pages` to `master`
-- **THEN** it creates `master` from the current Pages branch tip
-- **AND** it selects `master` as the default after creation
-- **AND** Pages continues to publish from the original `pages` branch
-
-### Requirement: Enable Pages only after its source branch exists
-
-Terraform SHALL configure landing Pages from the catalog, except for entries
-explicitly in `bootstrap_projects`. That set SHALL default to empty. New
-bootstrapping repositories SHALL omit default-branch creation and selection
-until their Pages branch has been published.
-
-#### Scenario: Bootstrap a new landing repository
-
-- **WHEN** an authorized apply includes a new project in `bootstrap_projects`
-- **THEN** the repository resource omits its Pages block
-- **AND** the documented workflow publishes the site before a later apply removes
-  that project from the bootstrap set and enables Pages
+- **AND** its `master` default branch remains protected from developer pushes
+  and merges
 
 ### Requirement: Keep repository provisioning separate from site and DNS publication
 
-This package SHALL own repository resources, Pages settings, and the
-`github-pages` environment with custom branch policies. The documented workflow
-SHALL use `//projects:deploy_landings` for site content and `//infra/dns` for DNS
-records.
+This package SHALL own repository resources and Pages settings. The documented
+workflow SHALL use `//projects/alwaldend.com:deploy` for site content and
+`//infra/dns` for DNS records.
 
-#### Scenario: Review a landing-site rollout
+#### Scenario: Review a site rollout
 
-- **WHEN** an operator prepares an authorized project landing rollout
+- **WHEN** an operator prepares an authorized site rollout
 - **THEN** repository and Pages changes are reviewed in the Terraform workflow
 - **AND** built content publication and DNS changes use their separately owned
   workflows
 
 ### Requirement: Provide an explicit certificate reprovision procedure
 
-GitHub issues the custom-domain certificate as part of its Pages build, so the
-package SHALL provide a supported, separately named way to omit a live site's
-Pages block and then restore it, forcing a new certificate. This intent SHALL
-NOT be expressed through `bootstrap_projects`, whose documented meaning remains
-projects whose `pages` branch does not yet exist. When a project is named in
-either set, its Pages block SHALL be omitted; an empty set for both SHALL enable
-Pages for every project. The documented procedure SHALL include the two filtered
-applies and an HTTPS verification step.
+GitHub issues the custom-domain certificate as part of its Pages build and
+offers no direct reissue action, so the package SHALL document a supported,
+separately reviewed way to omit the apex site's Pages block and then restore
+it, forcing a new certificate. The procedure SHALL use two filtered applies
+and SHALL include an HTTPS verification step.
 
-#### Scenario: Reprovision a live site's certificate
+#### Scenario: Reprovision the apex site certificate
 
-- **WHEN** an authorized apply names one live site in the certificate
-  reprovision set
-- **THEN** the plan removes only that project's Pages block
-- **AND** the documented procedure restores it with a later apply that leaves
-  both sets empty
+- **WHEN** an authorized apply removes the apex site's Pages block
+- **THEN** the reviewed plan removes only that configuration
+- **AND** the documented procedure restores it with a later apply
 - **AND** the operator verifies the certificate served for the custom domain
-
-#### Scenario: Bootstrap a new site without affecting served sites
-
-- **WHEN** a new project is named in `bootstrap_projects`
-- **THEN** no project that is absent from both sets loses its Pages block
-- **AND** an already-served site is never named in `bootstrap_projects` to force
-  recovery
