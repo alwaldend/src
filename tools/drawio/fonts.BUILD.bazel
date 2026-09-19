@@ -6,5 +6,6 @@ filegroup(
 
 exports_files([
     "LICENSE",
+    "LiberationMono-Regular.ttf",
     "LiberationSans-Regular.ttf",
 ])

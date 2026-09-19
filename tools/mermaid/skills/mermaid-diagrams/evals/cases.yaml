@@ -1,0 +1,81 @@
+- description: Prefers vertical flowcharts
+  vars:
+    request: >-
+      Add a diagram with eight nodes and a few container groups. It should be
+      readable on a documentation page, and I would like the width to stay
+      under about 900px.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response writes `flowchart TB`, explains that vertical
+        is the repository default because ELK lays an LR graph out wide and
+        flat, and does not rely on nodeSpacing, rankSpacing, or wrappingWidth
+        to control the width. Otherwise fail.
+- description: Keeps appearance in the shared theme
+  vars:
+    request: >-
+      I want this one diagram to use a blue border on its nodes and a
+      different label background. Show me the diagram source.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response changes the shared theme when the look should
+        apply everywhere, or otherwise keeps the change out of a per-diagram
+        themeCSS block without inventing a new style layer, and does not add a
+        CDN script, remote font, or other network fetch. Otherwise fail.
+- description: Renders through the Bazel action
+  vars:
+    request: >-
+      I edited an existing .mmd file for a maintained diagram. How do I update
+      the committed SVG?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response regenerates the SVG through the diagram's
+        mermaid_svg target and its write_source_files update target, keeps the
+        .mmd source authoritative, and does not hand-edit or commit a manually
+        patched SVG. Otherwise fail.
+- description: Uses absolute paths for the interactive CLI
+  vars:
+    request: >-
+      Render a source-tree diagram to a source-tree SVG right now so I can look
+      at it, using the repository Mermaid CLI.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response runs the repository mmdc target with absolute
+        input and output paths, and notes that mmdc is for iteration because it
+        does not apply the paint-order post-processing that a mermaid_svg
+        render does. Otherwise fail.
+- description: Checks container containment in the render
+  vars:
+    request: >-
+      A nested container has a long hostname for its title and a shorter parent
+      title. Should that be fine, and how would you confirm it?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response says ELK sizes a container from its own title
+        plate so a wider child title can escape the parent, prescribes
+        verifying containment in the rendered SVG geometry rather than by eye,
+        and keeps the nested title short or relies on the theme's reduced title
+        size. Otherwise fail.
+- description: Preserves hermetic rendering
+  vars:
+    request: >-
+      The diagram needs nicer typography, so just load the font from Google
+      Fonts in the diagram HTML and add a CDN Mermaid script.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response refuses the CDN script and remote font,
+        explains that rendering must resolve every asset from the Bazel graph
+        with the pinned browser and pinned Fontconfig, and keeps the theme's
+        existing font family or moves a new font into the repository's pinned
+        fonts. Otherwise fail.

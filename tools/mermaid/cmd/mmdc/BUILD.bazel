@@ -1,38 +1,68 @@
-load("@com_alwaldend_src_npm//tools:@mermaid-js/mermaid-cli/package_json.bzl", mermaid_cli = "bin")
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_library")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("@rules_shell//shell:sh_test.bzl", "sh_test")
+load("@rules_go//go:def.bzl", "go_test")
 
-mermaid_cli.mmdc_binary(
-    name = "mmdc_raw",
-    data = [
-        "@com_alwaldend_src_tools_mermaid//:chrome_headless_shell_binary",
+js_library(
+    name = "mmdc_lib",
+    srcs = [
+        "main.mjs",
+        "//tools/mermaid/cmd/render:render_lib",
     ],
-    visibility = ["//:__subpackages__"],
 )
 
-mermaid_cli.mmdc_binary(
+# The interactive CLI applies the repository theme and the pinned Fontconfig,
+# so a run from the workspace produces the same diagram geometry as a build
+# action. Later command-line arguments win, so callers can still override.
+js_binary(
     name = "mmdc",
     data = [
+        ":mmdc_lib",
+        "//tools:node_modules/@mermaid-js/mermaid-cli",
+        "//tools:node_modules/puppeteer",
+        "//tools/mermaid:theme.json",
+        "//tools/mermaid/fonts:ArchitectsDaughter-Regular.ttf",
+        "@com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf",
         "@com_alwaldend_src_tools_mermaid//:chrome_headless_shell_binary",
     ],
+    entry_point = "main.mjs",
     env = {
+        "MERMAID_BODY_FONT": "$(rootpath @com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf)",
+        "MERMAID_LABEL_FONT": "$(rootpath //tools/mermaid/fonts:ArchitectsDaughter-Regular.ttf)",
         "PUPPETEER_EXECUTABLE_PATH": "$(rootpath @com_alwaldend_src_tools_mermaid//:chrome_headless_shell_binary)",
     },
+    expand_args = True,
     expand_env = True,
+    fixed_args = [
+        "--configFile",
+        "$(rootpath //tools/mermaid:theme.json)",
+    ],
+    no_copy_to_bin = [
+        "@com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf",
+        "//tools/mermaid/fonts:ArchitectsDaughter-Regular.ttf",
+        "//tools/mermaid:theme.json",
+    ],
     visibility = ["//:__subpackages__"],
 )
 
-sh_test(
+go_test(
     name = "mmdc_test",
     size = "medium",
-    srcs = ["mmdc_test.sh"],
+    srcs = ["mmdc_test.go"],
     args = [
-        "$(rootpath :mmdc)",
-        "$(rootpath :smoke.mmd)",
+        "-mmdc=$(rlocationpath :mmdc)",
+        "-input=$(rlocationpath :smoke.mmd)",
+        "-nested-input=$(rlocationpath //tools/mermaid/test/renderer:nested_clusters_mmd)",
+        "-mono-anchor=$(rlocationpath @com_alwaldend_src_tools_drawio_fonts//:LiberationMono-Regular.ttf)",
     ],
     data = [
         ":mmdc",
         ":smoke.mmd",
+        "//tools/mermaid/test/renderer:nested_clusters_mmd",
+        "@com_alwaldend_src_tools_drawio_fonts//:LiberationMono-Regular.ttf",
+    ],
+    deps = [
+        "//tools/mermaid/test/svgdoc",
+        "@rules_go//go/runfiles",
     ],
 )
 

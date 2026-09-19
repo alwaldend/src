@@ -1,0 +1,31 @@
+flowchart TB
+    remote("Remote actor")
+
+    ingress("Ingress")
+
+    subgraph dc1["Local infra<br/>dc1.alwaldend.com"]
+        intranet("Intranet actor")
+
+        subgraph host_bot["host-bot.simeonwarren.users.alwaldend.com"]
+            traefik("Traefik")
+            t3code("T3 Code")
+            codex("Codex")
+        end
+    end
+
+    subgraph external["External services"]
+        vault("Vault<br/>vault.alwaldend.com")
+        github("GitHub<br/>github.com")
+        openai("OpenAI<br/>openai.com")
+        openrouter("OpenRouter<br/>openrouter.ai")
+    end
+
+    remote -->|"HTTPS + mTLS"| ingress
+    intranet -->|"HTTPS"| traefik
+    ingress -->|"HTTPS over Wireguard"| traefik
+    traefik --> t3code
+    t3code --> codex
+    traefik -->|"ACME"| vault
+    t3code -->|"Source"| github
+    codex -->|"inference"| openai
+    codex -->|"inference"| openrouter

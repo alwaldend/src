@@ -38,6 +38,7 @@ skills_write(
         "//projects/agents/skills/decision-review:skill",
         "//projects/agents/skills/full-repo-check:skill",
         "//projects/agents/skills/git-rebase-remote:skill",
+        "//tools/mermaid/skills/mermaid-diagrams:skill",
         "//projects/agents/skills/project-layout:skill",
         "//projects/agents/skills/repo-bazel:skill",
         "//projects/agents/skills/repo-blender:skill",

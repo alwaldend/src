@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repository Mermaid Diagrams"
+  short_description: "Write and render repository Mermaid diagrams"
+  default_prompt: "Use $mermaid-diagrams to add or update a diagram in this repository."
