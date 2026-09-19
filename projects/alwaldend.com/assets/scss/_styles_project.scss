@@ -6,12 +6,14 @@
     padding-block: 0.5rem;
 }
 
+// The footer links carry the shared accent rather than a site-local blue, so
+// they follow `_variables_project.scss` like every other link on the site.
 .td-footer__center a {
-    color: #8ab4f8;
+    color: var(--bs-link-color);
 
     &:hover,
     &:focus-visible {
-        color: #cfe2ff;
+        color: var(--bs-link-hover-color);
     }
 }
 
