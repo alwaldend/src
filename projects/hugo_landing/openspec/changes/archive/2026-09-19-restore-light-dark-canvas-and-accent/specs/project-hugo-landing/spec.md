@@ -1,19 +1,4 @@
-# Hugo Landing Specification
-
-## Purpose
-
-Describe the reusable Hugo landing site that transforms a project's README into
-a project page using a shared visual shell.
-
-Sources: [project README](../../../README.md),
-[Bazel package](../../../BUILD.bazel),
-[landing macros](../../../pkg/bzl/al_hugo_landing.bzl),
-[link rendering](../../../layouts/_markup/render-link.html),
-and [image rendering](../../../layouts/_markup/render-image.html).
-Baseline source revision: `550d7e79b1f5fdbc2b6017b75178471d6914082f`,
-observed 2026-09-08.
-
-## Requirements
+## MODIFIED Requirements
 
 ### Requirement: Produce reusable source and rendered sites
 
@@ -69,41 +54,3 @@ from it rather than restating its value.
 
 - **WHEN** a rendered page has no color-mode attribute on its root element
 - **THEN** it uses the pure white light palette rather than the dark palette
-
-### Requirement: Select and adapt project README content
-
-README selection SHALL prefer candidates associated with the requested project,
-choose the shortest candidate path, and fail if no README exists. The selected
-content SHALL become `content/_index.md` with full-documentation Hugo shortcodes
-removed by the configured transformation.
-
-#### Scenario: No README is provided by the documentation target
-
-- **WHEN** the declared documentation files contain no `README.md`
-- **THEN** landing-source analysis fails with a missing-README diagnostic.
-
-### Requirement: Resolve repository-relative resources
-
-Relative Markdown links SHALL resolve to their project source paths on the
-configured GitHub repository's `master` branch, preserving query and fragment
-parts. Relative image paths SHALL resolve to corresponding raw source URLs.
-Absolute URLs SHALL retain their original destinations.
-
-#### Scenario: Render a link to a project-local document
-
-- **WHEN** a README links to `docs/README.md#usage`
-- **THEN** the landing page links to that project's source document on GitHub
-  with the `usage` fragment retained.
-
-### Requirement: Keep project publication explicit
-
-Rendered landing targets SHALL be owned by their projects, with root-workspace
-landing targets for nested rules modules. The registered deployment workflow
-SHALL preserve Pages history, skip unchanged sites, and support a dry run that
-stages and compares without pushing.
-
-#### Scenario: A registered landing site is unchanged
-
-- **WHEN** deployment compares rendered content with the existing Pages branch
-  and finds no differences
-- **THEN** it creates no publication commit for that site.

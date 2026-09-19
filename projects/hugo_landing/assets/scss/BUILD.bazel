@@ -18,6 +18,15 @@ pkg_files(
     visibility = ["//projects/alwaldend.com/assets:__pkg__"],
 )
 
+# The accent is a pre-Bootstrap variable, so the apex site needs it among its
+# own `_variables_project.scss` imports rather than in the shared canvas file.
+pkg_files(
+    name = "shared_accent",
+    srcs = ["_shared_accent.scss"],
+    strip_prefix = strip_prefix.files_only(),
+    visibility = ["//projects/alwaldend.com/assets:__pkg__"],
+)
+
 pkg_files(
     name = "assets_files",
     srcs = glob(
