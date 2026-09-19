@@ -111,11 +111,16 @@ inventing features or presenting unfinished work as released.
 - Landing front matter participates in the site's `statuses`, `languages`,
   and `tags` taxonomies, so a landing appears on the corresponding taxonomy
   term pages. Use the vocabulary already present on the site.
-- `/projects/` lists landings alphabetically in the documentation column
-  (`col-12 col-md-9 col-xl-8 ps-md-5`) without the docs sidebars. The
-  `projects/list.html` layout renders the section index with each entry's
-  description, status, and tags, linking the last two to their taxonomy term
-  pages; the section index carries no introductory prose.
+- `/projects/` carries `type: projects_index` in
+  `content/projects/README.md`, which selects `layouts/projects_index/`. That
+  type renders the documentation column without either sidebar, so the index
+  centers on the same axis and starts at the same heading offset as `/docs/`
+  and `/blog/`; `baseof.html` owns that column markup. Its
+  `list.html` renders the section index with each entry's description, status,
+  and tags, linking the last two to their taxonomy term pages, ordered by
+  title; the section index carries no introductory prose. Keep the type
+  distinct from `projects`: a `layouts/projects/baseof.html` would also capture
+  the 18 landing pages that resolve `projects/landing.html`.
 - Reusable `tools/rules_*` modules publish their documentation through
   `//tools:docs`, using external labels such as `@rules_example//:docs`. They
   are outside the landing registry and have no landing page, Pages repository,
