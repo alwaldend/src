@@ -29,13 +29,6 @@ run "catalog_contract" {
   }
   assert {
     condition = alltrue([
-      for repository in output.github_repositories : repository.default_branch == "master" && repository.config.pages.source.branch == "pages"
-      if can(repository.config.landing_project)
-    ])
-    error_message = "Landing defaults must be master while publication remains on pages."
-  }
-  assert {
-    condition = alltrue([
       for repository in output.github_repositories : (
         repository.config.allow_merge_commit &&
         !repository.config.allow_squash_merge &&

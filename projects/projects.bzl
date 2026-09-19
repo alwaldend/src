@@ -1,7 +1,7 @@
-"""Project packages that receive dedicated landing pages and GitHub Pages repos.
+"""Projects that publish a landing page in the main site.
 
 The alwaldend.com project is already served by the apex website and is excluded
-from this dedicated-site list.
+from this list.
 """
 
 PROJECTS = [
@@ -14,7 +14,6 @@ PROJECTS = [
     "bazel_agent",
     "ci_platform",
     "dotfiles",
-    "hugo_landing",
     "infinitime",
     "kustomization",
     "leetcode_downloader",

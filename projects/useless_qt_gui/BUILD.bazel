@@ -7,8 +7,6 @@ load(
     "qt_resource_via_qrc",
     "qt_ui_library",
 )
-load("//projects/al/rules/al:al_config.bzl", "al_config")
-load("//tools/vault:defs.bzl", "vault_binary_map")
 
 build_test(
     name = "build_test",
@@ -22,9 +20,7 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = [
         "//projects:__pkg__",
-        "//projects/useless_qt_gui/landing:__pkg__",
     ],
-    deps = ["//projects/useless_qt_gui/tf:docs"],
 )
 
 qt_resource_via_qrc(
@@ -67,27 +63,4 @@ qt_cc_binary(
         ":resources",
         "@rules_qt//:qt_widgets",
     ],
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = [
-        "//infra:__pkg__",
-        "//infra/dns:__pkg__",
-        "//projects/alwaldend.com:__subpackages__",
-        "//projects/useless_qt_gui/tf:__pkg__",
-    ],
-)
-
-al_config(
-    name = "al",
-    srcs = ["al.lua"],
-    visibility = ["//projects/useless_qt_gui/tf:__pkg__"],
-    deps = ["//infra:al"],
-)
-
-vault_binary_map(
-    name = "vault",
-    configs = [":al"],
 )

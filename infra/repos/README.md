@@ -40,9 +40,10 @@ commits only: the shared defaults disable squash merges and rebase merges, and
 a catalog precondition rejects any repository record that enables them. Merging
 therefore keeps the reviewed feature commit as a parent of the default-branch
 commit instead of replacing it. GitLab and Forgejo merge methods are not owned
-here. Landing repositories use `master` as their protected default branch while
-their Pages source remains `pages`, allowing the developer's existing Pages
-deployment access to continue.
+here. Dedicated per-project landing repositories are retired: the main site
+publishes every project landing at `/projects/<name>/`, so the catalog carries
+no landing repository. The apex site repository keeps the Pages configuration
+that serves it.
 
 Catalog targets are repository-internal infrastructure inputs. They are not
 production build dependencies or published artifacts.

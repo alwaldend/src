@@ -2,49 +2,19 @@
 
 ## Purpose
 
-Provide this project's independently packaged Terraform DNS stage while preserving
-its canonical record declarations and explicit migration activation boundary.
+Record the retirement of this project's landing DNS infrastructure while
+preserving its repository documentation and builds.
 
 ## Requirements
 
-### Requirement: Project-owned DNS stage
+### Requirement: Keep landing infrastructure retired
 
-The project SHALL expose a Terraform stage consuming its existing DNS declaration
-and using its own Vault authentication and Terraform state.
+The project SHALL have no dedicated landing DNS declaration, Terraform root, or
+operational source export. Its landing page SHALL be published by the main site
+under `/projects/renders/` instead of a dedicated hostname.
 
-#### Scenario: Package the project stage
+#### Scenario: Inspect the project after landing retirement
 
-- **WHEN** the project's Terraform command is built
-- **THEN** its runfiles include the project declaration, shared DNS module, and
-  the configured authentication, state, and provider injection plugins.
-
-### Requirement: Explicit ownership activation
-
-The DNS stage SHALL declare no managed records before explicit activation for
-authorized adoption and SHALL retain enabled ownership afterward. Its
-public-only integration SHALL require only Cloudflare, and operational commands
-SHALL select the existing stage's provider injection.
-
-#### Scenario: Inspect the prepared source defaults
-
-- **WHEN** the project's prepared stage has not yet been activated for adoption
-- **THEN** record ownership is disabled and the zone input is optional, while
-  operational provider setup and authentication require their Vault prerequisites.
-
-#### Scenario: Adopt existing public DNS records
-
-- **WHEN** an authorized adoption freezes the old central writers and enables
-  this project's record ownership
-- **THEN** the stage uses its project state and Cloudflare configuration to
-  import existing records without a RouterOS dependency.
-
-#### Scenario: Inspect adopted source defaults
-
-- **WHEN** the adopted project stage uses its checked-in source defaults
-- **THEN** record ownership is enabled and the zone input remains optional.
-
-#### Scenario: Reconcile existing public DNS records
-
-- **WHEN** the project plans against its adopted state and unchanged declarations
-- **THEN** it proposes no record additions, changes, replacements, or deletions
-  and does not require a RouterOS provider.
+- **WHEN** the project tree is consumed
+- **THEN** it contains no landing DNS declaration, Terraform DNS stage, or
+  landing build target, and the main site owns its landing page.

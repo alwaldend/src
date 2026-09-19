@@ -9,11 +9,15 @@ owner, repositories, default branches, repository settings, organization
 administrators, and developers. This root supports one GitHub organization per
 provider instance and rejects multiple configured owners.
 
-Existing repositories are imported, including forks and published landing
-repositories whose source project has been retired. The `landing_project`
-catalog key preserves the existing Terraform addresses. Published repository names and Pages
-domains come directly from the catalog; they are not regenerated from the
+Existing repositories are imported, including forks. The apex site repository
+keeps its Pages configuration and custom domain. Published repository names and
+Pages domains come directly from the catalog; they are not regenerated from the
 current build-project registry.
+
+Dedicated per-project landing repositories were retired: the main site now
+publishes every project landing at `/projects/<name>/`, so the catalog carries
+no `landing_project` key and this root manages no per-project Pages repository,
+custom domain, `github-pages` environment, or landing default branch.
 
 ## Adoption and access
 
@@ -33,8 +37,7 @@ GitHub and are explicitly ignored. The required empty `billing_email` argument
 is an import-only placeholder: the existing billing address is retained from
 state and must never be committed or exposed in plan output. Do not create
 this organization-settings resource without its import block. Dependabot alert
-settings for newly adopted non-landing repositories are similarly preserved;
-landing repositories retain their existing enabled-alert policy.
+settings for newly adopted repositories are similarly preserved.
 
 Catalog administrators are organization owners. Developers receive explicit
 write access on every catalog repository, while organization base permissions
@@ -52,53 +55,18 @@ ruleset also applies alongside them. Repository rulesets are available for
 these public repositories on
 [GitHub Free](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets).
 
-Landing repositories use the catalog default branch independently of their
-Pages publication branch. Terraform creates a missing default branch from the
-existing Pages branch, then changes the default in place. It never renames or
-deletes the Pages branch. Default-branch rules protect `master`, while the bot
-retains write access to `pages` for the existing deployment workflow.
+## Publish the main site
 
-## Publish a landing site
+The apex site repository receives its built Hugo site from
+`//projects/alwaldend.com:deploy` in the root workspace. Terraform manages the
+catalog-defined custom domain and Pages source. Keep all applies limited to
+reviewed, authorized repository and Pages changes. DNS is managed by the
+owning Terraform root; [DNS documentation](../../dns/README.md) describes the
+workflow. Validate the public custom domain after rollout.
 
-Each landing repository receives its built Hugo site from
-`//projects:deploy_landings` in the root workspace. Terraform manages the
-catalog-defined custom domain and Pages source, plus the existing
-`github-pages` environment with custom branch policies.
-
-For a new site, first plan and apply with `bootstrap_projects` containing only
-the new projects whose `pages` branches do not yet exist. For example, pass
-`-var='bootstrap_projects=["new_project"]'` to `//infra/github/tf:tf.plan` and
-the reviewed `tf.apply`. This creates the repository without enabling Pages or
-creating its separate default branch before the Pages branch has been
-published. Do not include an existing live site: doing so
-would remove its Pages configuration.
-
-Publish the built site with `//projects:deploy_landings`, then plan and apply
-with the default empty `bootstrap_projects` to enable Pages. Keep all applies
-limited to reviewed, authorized repository and Pages changes. DNS is managed
-by each site's owning Terraform root; [DNS documentation](../../dns/README.md)
-describes the workflow. Validate the public custom domain after rollout.
-
-## Reprovision a landing-site certificate
-
-GitHub issues the custom-domain certificate as part of its Pages build and
-offers no direct reissue action. To force a new certificate for one live site,
-plan and apply with only that project in `certificate_reprovision_projects`:
-
-```sh
-bazel_agent bazel run //infra/github/tf:tf.plan -- \
-  -var='certificate_reprovision_projects=["affected_project"]'
-```
-
-Inspect that the plan removes only that project's Pages block, then apply the
-reviewed changes. Restore the site with a second plan and apply that leaves both
-`bootstrap_projects` and `certificate_reprovision_projects` empty. GitHub
-schedules a new certificate once the custom domain returns.
-
-Republish the site with `//projects:deploy_landings` only if the first apply
-removed its `pages` branch content; normally the branch is unchanged. Verify the
-pushed revision, Pages build state, DNS, and the certificate served for the
-custom domain before closing the recovery.
-
-Keep this variable empty outside an active recovery. Never name an existing
-served site in `bootstrap_projects` to force a reissue.
+GitHub issues the custom-domain certificate as part of its Pages build. If a
+certificate must be reissued, remove the `pages` block from the apex catalog
+record in a reviewed plan, apply it, then restore it in a second plan; GitHub
+schedules a new certificate once the custom domain returns. Verify the pushed
+revision, Pages build state, DNS, and the served certificate before closing the
+recovery.
