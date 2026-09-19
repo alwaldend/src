@@ -1,0 +1,20 @@
+{
+    "description": "Staging publication of the main site",
+    "homepage_url": "https://www-staging.alwaldend.com/",
+    "default_branch": "main",
+    "visibility": "public",
+    "github": {
+        "pages": {
+            "build_type": "legacy",
+            "cname": "www-staging.alwaldend.com",
+            "source": {
+                "branch": "pages",
+                "path": "/"
+            }
+        },
+        "auto_init": true
+    },
+    "gitlab": {
+        "import_from": "github"
+    }
+}

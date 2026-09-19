@@ -111,6 +111,9 @@ inventing features or presenting unfinished work as released.
 - Landing front matter participates in the site's `statuses`, `languages`,
   and `tags` taxonomies, so a landing appears on the corresponding taxonomy
   term pages. Use the vocabulary already present on the site.
+- `/projects/` lists landings alphabetically. The `projects/list.html` layout
+  renders each card with its status and tags, linking them to their taxonomy
+  term pages; the section index carries no introductory prose.
 - Reusable `tools/rules_*` modules publish their documentation through
   `//tools:docs`, using external labels such as `@rules_example//:docs`. They
   are outside the landing registry and have no landing page, Pages repository,

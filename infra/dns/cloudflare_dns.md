@@ -57,6 +57,7 @@ This page is generated from the declarations; run `bazel run //infra/dns/cmd/dum
 | t3code.host-bot.simeonwarren.users | CNAME | default | ingress.alwaldend.com. | users/simeonwarren/host_bot/dnsconfig.json |
 | vault | CNAME | default | ingress.alwaldend.com. | infra/vault/dnsconfig.json |
 | www | CNAME | 300 | alwaldend.com. | infra/dns/dnsconfig.json |
+| www-staging | CNAME | 300 | alwaldend.github.io. | infra/dns/dnsconfig.json |
 | yandex | MX | 21600 | 10 mx.yandex.net. | infra/dns/dnsconfig.json |
 | yandex | TXT | 300 | v=spf1 redirect=_spf.yandex.net | infra/dns/dnsconfig.json |
 | yandex | TXT | 300 | yandex-verification: b83672f59b3dbe16 | infra/dns/dnsconfig.json |

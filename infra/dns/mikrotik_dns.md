@@ -87,6 +87,7 @@ This page is generated from the declarations; run `bazel run //infra/dns/cmd/dum
 | vault | A | default | 192.168.1.218 | infra/vault/dnsconfig.json |
 | vault.dc1 | A | default | 192.168.1.218 | infra/vault/dnsconfig.json |
 | www | CNAME | 300 | alwaldend.com. | infra/dns/dnsconfig.json |
+| www-staging | CNAME | 300 | alwaldend.github.io. | infra/dns/dnsconfig.json |
 | xcp-ng | A | default | 192.168.1.213 | infra/xcp_ng/dnsconfig.json |
 | xoa.xcp-ng | A | default | 192.168.1.206 | infra/xcp_ng/dnsconfig.json |
 | yandex | MX | 21600 | 10 mx.yandex.net. | infra/dns/dnsconfig.json |

@@ -9,6 +9,14 @@
         <div class="card-body">
           <h2 class="card-title h5"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
           {{ with .Description }}<p class="card-text">{{ . }}</p>{{ end }}
+          <p class="card-text mb-0">
+            {{ range .GetTerms "statuses" }}
+            <a class="badge rounded-pill bg-secondary text-decoration-none" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+            {{ end }}
+            {{ range .GetTerms "tags" }}
+            <a class="badge rounded-pill bg-light text-dark border text-decoration-none" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+            {{ end }}
+          </p>
         </div>
       </article>
     </div>

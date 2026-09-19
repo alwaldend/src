@@ -2,6 +2,12 @@ module "repositories" {
   source = "../../repos/tf"
 }
 
+variable "bootstrap_repositories" {
+  description = "Repositories whose Pages configuration is deferred until their publication branch exists. Leave empty after bootstrap."
+  type        = set(string)
+  default     = []
+}
+
 locals {
   github_organizations = {
     for name, organization in module.repositories.organizations : name => organization
@@ -48,9 +54,14 @@ resource "github_repository" "other" {
   squash_merge_commit_message = each.value.config.squash_merge_commit_message
   merge_commit_title          = each.value.config.merge_commit_title
   merge_commit_message        = each.value.config.merge_commit_message
+  # Creation-only: gives a new repository a default branch that the managed
+  # ruleset protects, while site content publishes to a separate branch.
+  auto_init = each.value.config.auto_init
 
+  # GitHub rejects a Pages source branch that does not exist yet, so a
+  # repository being created is published to first and configured after.
   dynamic "pages" {
-    for_each = try([each.value.config.pages], [])
+    for_each = contains(var.bootstrap_repositories, each.key) ? [] : try([each.value.config.pages], [])
     content {
       build_type = pages.value.build_type
       cname      = pages.value.cname
