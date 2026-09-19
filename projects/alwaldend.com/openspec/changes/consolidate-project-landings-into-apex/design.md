@@ -165,12 +165,14 @@ imports, forcing a copy).
   authored per project; a registered project without content produces no page
   and no failure. Documentation appears only where real user-facing
   documentation exists.
-- **Pre-existing drift unrelated to this change.** → The historical global zone
-  snapshot lists 11 `rules-*` hostnames whose landing infrastructure the module
-  specifications already record as retired, and the catalog retains a
-  `goal-landing` entry and repository for a removed `goal` project. Both predate
-  this change; report them rather than silently folding them into retirement
-  scope. The zone file is a snapshot and must not be hand edited.
+- **Pre-existing drift unrelated to this change.** → The retired `rules-*`
+  hostnames the module specifications already record as retired resolve to no
+  record, so they need no retirement action. The `goal-landing` repository, its
+  catalog entry, and `projects/goal/dnsconfig.json` were deleted by `fe25efac`,
+  but its public CNAME had no remaining declaration or state owner. It was
+  removed as unowned drift under an explicit instruction rather than through the
+  declared Terraform flow. The declaration pages are generated projections and
+  must not be hand edited.
 
 ### Scope retirement to each project's own DNS
 

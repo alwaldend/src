@@ -33,7 +33,7 @@
 - [x] 5.1 Retire the per-project DNS records and confirm the former hostnames no longer serve a landing site. All 19 retired records destroyed; none of the former hostnames resolve.
 - [x] 5.2 Retire the per-project landing Pages repositories and their GitLab mirrors. 20 GitHub repositories and 20 GitLab projects destroyed; the 9 shared repositories on each forge are unchanged.
 - [x] 5.3 Record the retirement evidence and close
-      `consolidate-project-landings-into-apex` task 7.9. Evidence is recorded there, including the plan-only scope, the branch-protection handling, and the pre-existing `goal.alwaldend.com` residual that the teardown did not create and did not remove.
+      `consolidate-project-landings-into-apex` task 7.9. Evidence is recorded there, including the plan-only scope, the branch-protection handling, and the removal of the unowned `goal.alwaldend.com` residual.
 
 ## 6. Validation
 
