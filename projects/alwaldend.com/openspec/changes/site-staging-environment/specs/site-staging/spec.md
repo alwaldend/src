@@ -38,6 +38,30 @@ protected default branch distinct from the branch that serves site content.
 - **THEN** it has a default branch that the managed ruleset protects
 - **AND** site content is published to a separate unprotected branch
 
+### Requirement: Present the project index on the documentation axis
+
+The `/projects/` section index SHALL resolve a layout that renders the same
+centered documentation column as `/docs/` and `/blog/` without either sidebar,
+so its heading starts at the same offset and its content shares the same
+column width. It SHALL list the landings alphabetically by title with each
+entry's description, status, and tags linked to their taxonomy term pages.
+
+#### Scenario: Match the documentation page geometry
+
+- **WHEN** `/projects/`, `/docs/`, and `/blog/` are measured at the same
+  viewport width
+- **THEN** each page places its heading at the same top offset and its content
+  at the same left edge and width
+- **AND** `/projects/` renders neither the section sidebar nor the table of
+  contents sidebar
+
+#### Scenario: List the landings
+
+- **WHEN** the section index renders
+- **THEN** it lists the registered landings in title order
+- **AND** each entry carries its status and tags as links to the corresponding
+  taxonomy term pages
+
 ### Requirement: Verify the replacement before retiring per-project publication
 
 The landing, documentation, and taxonomy routes served by the apex site SHALL

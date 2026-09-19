@@ -12,6 +12,9 @@
 - [x] 2.2 List landings alphabetically by title
 - [x] 2.3 Render each card's status and tags, linked to their taxonomy term pages
 - [x] 2.4 Document the index's ordering and card contents in the `repo-hugo` skill
+- [x] 2.5 Give the section index its own `projects_index` type so it renders the
+      centered documentation column without either sidebar, matching `/docs/`
+      and `/blog/` geometry
 
 ## 3. Staging publication
 
@@ -23,7 +26,7 @@
 
 - [x] 4.1 Deploy the accepted output to the apex site and confirm `/projects/<name>/` is served
 - [x] 4.2 Verify the apex documentation and taxonomy routes still resolve
-- [ ] 4.3 Deploy the landing index changes to staging and the apex
+- [x] 4.3 Deploy the landing index changes to staging and the apex
 
 ## 5. Retirement (postponed at the user's request)
 
@@ -34,5 +37,11 @@
 
 ## 6. Validation
 
-- [ ] 6.1 Run the formatter and confirm no unrelated target changes
-- [ ] 6.2 Build the repository and confirm the affected site, DNS, catalog, and skill targets pass
+- [x] 6.1 Run the formatter and confirm no unrelated target changes
+- [x] 6.2 Build the repository and confirm the affected site, DNS, catalog, and skill targets pass
+
+## 7. Deferred
+
+- [ ] 7.1 Sort the project index automatically by lifecycle rather than by
+      title. Deferred at the user's request; the index currently orders by
+      title.
