@@ -1,0 +1,12 @@
+schema: spec-driven
+
+context: |
+  This workspace owns the proposed infra/nexus deployment in alwaldend/src.
+  Follow repository AGENTS.md, infra/README.md, and the owning component
+  documentation. Keep reusable Ansible behavior in projects/ansible_collection.
+  infra/nexus/README.md owns component boundaries; the active deployment
+  proposal records the agreed scope. Keep reusable database contracts with
+  the Ansible collection owner before changing its PostgreSQL role.
+  Specifications describe desired checked-in behavior, not deployed state.
+  Use the repository-pinned OpenSpec CLI through bazel_agent.
+  Planning does not authorize implementation or live infrastructure operations.
