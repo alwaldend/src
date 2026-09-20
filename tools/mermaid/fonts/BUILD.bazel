@@ -1,0 +1,21 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = [],
+    visibility = ["//tools/mermaid:__pkg__"],
+)
+
+# One pinned handwriting font, exposed as the file the renderer hands to
+# Fontconfig and as the filegroup that names its directory.
+filegroup(
+    name = "fonts",
+    srcs = ["@com_github_google_fonts_architects_daughter//file"],
+    visibility = ["//tools/mermaid:__subpackages__"],
+)
+
+alias(
+    name = "ArchitectsDaughter-Regular.ttf",
+    actual = "@com_github_google_fonts_architects_daughter//file",
+    visibility = ["//tools/mermaid:__subpackages__"],
+)

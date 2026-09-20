@@ -25,7 +25,7 @@ promptfoo_validate_test(
     config = "evals/promptfooconfig.yaml",
     data = [
         "evals/README.md",
-        ":eval_cases",
+        "evals/cases.yaml",
     ],
     skills = [":skill"],
 )

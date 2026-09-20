@@ -1,0 +1,20 @@
+flowchart LR
+    browser("Browser")
+
+    subgraph host["Host"]
+        proxy("Proxy")
+
+        subgraph host_app["App"]
+            app("Application")
+        end
+    end
+
+    subgraph providers["Providers"]
+        alpha("Provider A")
+        beta("Provider B")
+    end
+
+    browser -->|"HTTPS"| proxy
+    proxy -->|"Forward"| app
+    app -->|"Inference"| alpha
+    app -->|"Inference"| beta

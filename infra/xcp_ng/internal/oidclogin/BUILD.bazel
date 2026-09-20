@@ -16,7 +16,7 @@ go_library(
     ],
     importpath = "git.alwaldend.com/alwaldend/src/infra/xcp_ng/internal/oidclogin",
     visibility = ["//infra/xcp_ng:__subpackages__"],
-    deps = ["@tools_org_golang_x_net//websocket"],
+    deps = ["@org_golang_x_net//websocket"],
 )
 
 go_test(
@@ -27,5 +27,5 @@ go_test(
         "session_test.go",
     ],
     embed = [":oidclogin"],
-    deps = ["@tools_org_golang_x_net//websocket"],
+    deps = ["@org_golang_x_net//websocket"],
 )

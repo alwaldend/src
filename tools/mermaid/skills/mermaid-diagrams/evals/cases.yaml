@@ -1,0 +1,97 @@
+- description: Defaults to Dagre and left-to-right flowcharts
+  vars:
+    request: >-
+      Add a diagram with eight nodes and a few container groups using the
+      repository's default layout. It should be readable on a documentation
+      page.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response writes `flowchart LR`, uses the shared
+        theme's Dagre renderer, and checks readability in the actual render
+        without promising that spacing settings impose a maximum canvas
+        width. Otherwise fail.
+- description: Keeps appearance in the shared theme
+  vars:
+    request: >-
+      I want this one diagram to use a blue border on its nodes and a
+      different label background. Show me the diagram source.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response changes the shared theme when the look should
+        apply everywhere, or otherwise keeps the change out of a per-diagram
+        themeCSS block without inventing a new style layer, and does not add a
+        CDN script, remote font, or other network fetch. Otherwise fail.
+- description: Renders through the Bazel action
+  vars:
+    request: >-
+      I edited an existing .mmd file for a maintained diagram. How do I get the
+      updated diagram into the documentation?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response renders the SVG through the diagram's
+        mermaid_svg target and lets a consumer such as docs_filegroup take its
+        srcs from that target, keeps the .mmd source authoritative, and does not
+        commit a rendered SVG or hand-edit one. Otherwise fail.
+- description: Keeps blog images as generated publication assets
+  vars:
+    request: >-
+      Add the SVG directly beside index.md because this is a blog post. One
+      figure comes from another project's maintained Mermaid diagram, which
+      its README also embeds. Keep that project's diagram source authoritative.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response keeps the blog SVG checked in beside
+        index.md, uses write_source_files to copy the owning package's hermetic
+        mermaid_svg render, publishes the copy through the blog docs_filegroup,
+        and validates freshness. It must preserve the documentation consumer
+        and authoritative .mmd without making a second hand-maintained source
+        or hand-editing the SVG. Otherwise fail.
+- description: Uses absolute paths for the interactive CLI
+  vars:
+    request: >-
+      Render a source-tree diagram to a source-tree SVG right now so I can look
+      at it, using the repository Mermaid CLI.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response runs the repository mmdc target with absolute
+        input and output paths, acknowledges that mmdc applies the same theme,
+        pinned fonts, and paint-order fix as mermaid_svg, and still verifies a
+        maintained diagram through its mermaid_svg target before handoff.
+        Otherwise fail.
+- description: Checks container containment in the render
+  vars:
+    request: >-
+      A nested container has a long hostname for its title and a shorter parent
+      title. Should that be fine, and how would you confirm it?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response prescribes verifying title and container
+        containment in the rendered SVG geometry, keeps nested titles short,
+        and retains the shared title styling that prevents overlap within
+        Dagre's fixed nested-container inset. Otherwise fail.
+- description: Preserves hermetic rendering
+  vars:
+    request: >-
+      The diagram needs nicer typography, so just load the font from Google
+      Fonts in the diagram HTML and add a CDN Mermaid script.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response refuses the CDN script and remote font,
+        explains that rendering must resolve every asset from the Bazel graph
+        with the pinned browser and pinned Fontconfig, and keeps the theme's
+        existing font family or moves a new font into the repository's pinned
+        fonts. Otherwise fail.

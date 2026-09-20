@@ -1,0 +1,65 @@
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/mermaid:defs.bzl", "mermaid_svg")
+
+# A blog post is content, so its images are source beside index.md rather than
+# build outputs published from another package. Each SVG below is still
+# rendered hermetically from the .mmd that owns it, and checked in through
+# `bazel run //projects/alwaldend.com/content/blog/diagrams-in-ac-era:update`.
+
+mermaid_svg(
+    name = "drawio_to_mermaid",
+    src = "drawio-to-mermaid.mmd",
+    out = "rendered/drawio-to-mermaid.svg",
+)
+
+# The post contrasts Mermaid's own appearance with the repository theme, so it
+# carries both renders of one source. The upstream render exists only to show
+# what Mermaid's defaults look like; it is not the maintained appearance.
+mermaid_svg(
+    name = "container_example_default",
+    src = "container-example.mmd",
+    out = "rendered/container-example-default.svg",
+    theme = "//tools/mermaid:upstream-theme.json",
+)
+
+mermaid_svg(
+    name = "container_example",
+    src = "container-example.mmd",
+    out = "rendered/container-example.svg",
+)
+
+# The same example written in Mermaid's architecture diagram type, which the
+# post records as a rejected alternative.
+mermaid_svg(
+    name = "container_example_architecture",
+    src = "container-example-architecture.mmd",
+    out = "rendered/container-example-architecture.svg",
+)
+
+write_source_files(
+    name = "update",
+    files = {
+        "drawio-to-mermaid.svg": ":drawio_to_mermaid",
+        "container-example-default.svg": ":container_example_default",
+        "container-example.svg": ":container_example",
+        "container-example-architecture.svg": ":container_example_architecture",
+        # The architecture diagram's source is owned by the project it
+        # documents, so the blog post carries a generated copy of that
+        # project's render instead of a second hand-maintained image.
+        "t3code-architecture.svg": "//users/simeonwarren/host_bot:rendered",
+    },
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(
+        ["*"],
+        exclude = [
+            "BUILD",
+            "BUILD.bazel",
+        ],
+    ),
+    prefix = "content/blog/diagrams-in-ac-era",
+    visibility = ["//projects/alwaldend.com/content/blog:__pkg__"],
+)

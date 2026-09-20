@@ -131,6 +131,21 @@ T3 Code, set its `CODEX_HOME path` to
 connection to T3 Code at `/mcp`. Codex excludes it from model-spawned commands
 so those subprocesses do not inherit the credential.
 
+## Architecture
+
+[![Host Bot architecture diagram](assets/t3code-architecture.svg)](assets/t3code-architecture.svg)
+
+The diagram source is [`t3code-architecture.mmd`](t3code-architecture.mmd),
+and the SVG beside this page is rendered from it at build time by
+`//users/simeonwarren/host_bot:rendered`. There is no committed copy to refresh:
+edit the `.mmd` and the next build renders the new diagram.
+
+Rendering uses the repository's pinned Mermaid, headless Chrome, and Liberation
+font inputs, so the maintained image does not depend on host fonts or a CDN.
+The shared [Mermaid theme](https://github.com/alwaldend/src/blob/master/tools/mermaid/theme.json)
+owns the diagram appearance, so this diagram follows the same visual contract
+as the rest of the repository.
+
 ## Deployment
 
 ```sh

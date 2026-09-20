@@ -1,0 +1,40 @@
+flowchart LR
+    subgraph internet["Internet"]
+        direction TB
+        remote("Actor")
+        ingress("Ingress")
+    end
+
+    subgraph dc1["Local infra<br/>dc1.alwaldend.com"]
+        direction TB
+        intranet("Actor")
+        vault("Vault<br/>vault.alwaldend.com")
+
+        subgraph host_bot["Bare metal host<br/>host-bot.simeonwarren.users.alwaldend.com"]
+            direction TB
+            traefik("Traefik")
+            t3code("T3 Code")
+            codex("Codex")
+        end
+    end
+
+    subgraph external["Internet"]
+        direction TB
+        github("GitHub<br/>github.com")
+        openai("OpenAI<br/>openai.com")
+        openrouter("OpenRouter<br/>openrouter.ai")
+    end
+
+    remote -->|"HTTPS + mTLS"| ingress
+    intranet -->|"HTTPS"| traefik
+    ingress -->|"HTTPS over Wireguard"| traefik
+    traefik --> t3code
+    t3code --> codex
+    traefik <-->|"ACME (HTTP)"| vault
+    t3code -->|"Source"| github
+    codex ---|"Inference"| inference@{ shape: junction }
+    inference --> openai
+    inference --> openrouter
+
+    classDef actor font-style:normal;
+    class remote,intranet actor
