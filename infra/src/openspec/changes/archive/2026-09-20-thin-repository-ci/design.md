@@ -33,10 +33,9 @@ Vault returned HTTP 403, and token lookup confirmed an invalid controller
 session. A login refresh was requested without requesting credential content.
 Candidate `7f1b96eeefff476aeae17d99b12e6aa2fa7e4d07` passed the full selected
 validation plan (94 tests and affected-package semantic lint) and was published
-to [PR 88](https://github.com/alwaldend/src/pull/88). Remaining work is the
-authorized prerequisite deployment and protected-branch CI check after login
-refresh, followed by acceptance and archival. Do not equate the prior inline
-workflow's successful run with validation of this extracted command.
+to [PR 88](https://github.com/alwaldend/src/pull/88). At that point, prerequisite deployment and the protected-branch check still
+required a refreshed login. The runtime acceptance below supersedes that
+blocker; the earlier inline workflow run did not validate this extraction.
 
 ### Cold runner prerequisites (2026-09-20)
 
@@ -69,3 +68,22 @@ for Node and Python. This repairs the trust input without weakening certificate
 verification. The prerequisite deployment is idempotent (secure: 12 tasks OK,
 zero changed, zero failed); explicit archive permissions account for the
 runner's restrictive umask.
+
+### Acceptance (2026-09-20)
+
+[Live run 7](https://git.alwaldend.com/alwaldend/src/actions/runs/7) and job 7
+succeeded on validation commit `35d5e911148522ff428c436da867959d2b5791d5`.
+Its tree `90dbe23076dd3bdf6c5a2056cafeedbc00af3634` exactly matches source
+candidate `9acf5679c99a5da8ec03a36adde92e93a6d80975`. The controller verified
+`releases/*` protection and the expected tip before publishing with an explicit
+lease; the receipt finished at stage `complete` with both run and job successful.
+
+The live output confirms resource capacity, rejection of an unauthorized
+audience, successful Vault OIDC login, the exact restricted policies and TTL,
+and token revocation. This validates the extracted Bazel command rather than
+the earlier inline workflow. All 96 selected tests, affected-package semantic
+lint, and installer/Ansible/smoke builds pass. The installer archive launches
+independently, and the scoped Ansible deployment reports zero changes and no
+failures on repeat. The final archival/documentation tree receives the same
+publication gates and an additional exact-tree live check; delivery receipts
+remain under ignored `out/repo_ci`.

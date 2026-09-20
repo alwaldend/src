@@ -4,5 +4,5 @@
 - [x] Extract the smoke implementation and configure a thin workflow.
 - [x] Declare the checkout runtime prerequisite in Ansible.
 - [x] Validate skill discovery, unit tests, workflow syntax, and affected packages.
-- [ ] Deploy prerequisites and verify the revised workflow on secure.
-- [ ] Record evidence, archive the change, and deliver the validated candidate.
+- [x] Deploy prerequisites and verify the revised workflow on secure.
+- [x] Record acceptance evidence and prepare the validated change for archival and delivery.

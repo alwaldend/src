@@ -22,6 +22,6 @@ rule, and migration of the current workflow to that rule.
 ## Impact
 
 Touches skill discovery, the Forgejo workflow, and the runner CI package and
-package prerequisites. Existing [runner contracts](../../../../forgejo_runner/openspec/specs/secure-runner-ci/spec.md)
+package prerequisites. Existing [runner contracts](../../../../../forgejo_runner/openspec/specs/secure-runner-ci/spec.md)
 and Vault restrictions remain owned by the component. Acceptance requires
 offline checks and an authorized live run of the extracted command.
