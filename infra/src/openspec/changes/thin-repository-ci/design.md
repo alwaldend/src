@@ -57,3 +57,15 @@ receipts. This avoids requiring a working Android toolchain to bootstrap Bazel
 on the runner. SDK installation adds download and disk cost, but preserves the
 existing development build contract. Validate the packaged installer, deploy
 only the Android/Bazel tasks to secure, and run the exact candidate in CI.
+
+Run 6 (`223f56a3ddc8c63f159c7f0b5a6dda12442a92ef`, source tree
+`796a16a275bf52c896a4a01fad54ffe8fb25ac2b`) built the smoke command and passed
+resource checks after fetching the pinned LLVM toolchain. It exposed
+`runner-ca-bundle-missing`: the workflow's legacy Fedora bundle path did not
+exist, so pinned Python loaded zero CA certificates. Read-only probes with the
+runner's same Python 3.13.9 runtime loaded 124 CAs from Fedora's canonical PEM
+bundle and received HTTP 200 from both Forgejo and Vault. Select that bundle
+for Node and Python. This repairs the trust input without weakening certificate
+verification. The prerequisite deployment is idempotent (secure: 12 tasks OK,
+zero changed, zero failed); explicit archive permissions account for the
+runner's restrictive umask.
