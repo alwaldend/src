@@ -12,3 +12,5 @@ firewall_allow_port_from:
   - src: "any"
     port: 22
     comment: ssh
+dev_vm_android_installer_src: android_installer.tar.gz
+dev_vm_android_packages_src: android_packages.txt

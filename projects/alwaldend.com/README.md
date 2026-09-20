@@ -51,6 +51,21 @@ draft state alone withholds a post from the deployed site.
 
 Agent workflow: [Add a blog post](https://github.com/alwaldend/src/blob/master/projects/alwaldend.com/skills/alwaldend-blog/SKILL.md).
 
+## Projects
+
+The site publishes each registered project's visitor-facing landing page at
+`/projects/<name>/`, with the section index at `/projects/`. Each project owns
+its landing content in `projects/<name>/site/content/`; this site packages
+those directories into `content/projects/<name>/` from the registry in
+[projects/projects.bzl](../projects.bzl). Landing content carries no layouts,
+styles, or build rules, and participates in the shared `statuses`,
+`languages`, and `tags` taxonomies.
+
+Repository reference documentation, including each project README, stays under
+`/docs/projects/<name>/`. Because every landing is part of this one build, a
+content error in any landing fails the whole site build and the blog
+deployment.
+
 ## Documentation links
 
 Markdown links and images resolve relative to their source directory.
@@ -66,10 +81,10 @@ document, keeping anchors distinct when documents are combined.
 
 - DNS setup: [infra/dns](../../infra/dns)
 - This project's [DNS declaration](https://github.com/alwaldend/src/blob/master/projects/alwaldend.com/dnsconfig.json)
-  owns the shared `pages` address. Each other project owns its landing CNAME
-  pointing directly to `alwaldend.github.io.`. Hostnames use hyphens while docs
-  paths keep underscores. The [project directory](../README.md) links to all
-  sites. The apex and `www` records stay managed centrally.
+  owns the shared `pages` address. Project landing pages are published by this
+  site under `/projects/<name>/`, so no project owns a CNAME or a dedicated
+  hostname. The [project directory](../README.md) links to every landing page.
+  The apex and `www` records stay managed centrally.
 - Deploy to the Github Pages repo (the `pages` branch of
   `alwaldend/alwaldend.github.io`, which GitHub Pages serves):
   ```sh

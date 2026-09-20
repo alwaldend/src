@@ -1,0 +1,22 @@
+- description: Isolates the task and keeps scratch under ignored out
+  vars:
+    request: >-
+      I need you to update a checked-in configuration file and run a few
+      commands that download tool archives and write logs. I have not set up
+      anything special for this task yet. Get started.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response verifies the current checkout root, branch,
+        and Git directories before the first write; requires a dedicated
+        feature branch in its own linked worktree and treats the default
+        branch and checkout as read-only absent explicit authorization; reuses
+        any existing task worktree and branch rather than creating duplicates;
+        places every download, log, cache, extracted archive, and temporary
+        file under ignored out/<task>/ in the applicable workspace; points
+        TMPDIR, TMP, and applicable tool cache variables there; avoids /tmp,
+        /var/tmp, or other shared system locations unless a tool cannot use
+        workspace scratch at all and states that reason; removes only its own
+        residue on handoff without deleting unrelated temporary files; and
+        preserves unrelated, shared, or ambiguous work. Otherwise fail.

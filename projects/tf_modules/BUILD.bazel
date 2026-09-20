@@ -1,39 +1,13 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/al/rules/al:al_config.bzl", "al_config")
-load("//tools/vault:defs.bzl", "vault_binary_map")
 
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
     visibility = [
         "//projects:__pkg__",
-        "//projects/tf_modules/landing:__pkg__",
     ],
     deps = subpackages(
         include = ["*"],
         allow_empty = True,
     ),
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = [
-        "//infra:__pkg__",
-        "//infra/dns:__pkg__",
-        "//projects/alwaldend.com:__subpackages__",
-        "//projects/tf_modules/tf:__pkg__",
-    ],
-)
-
-al_config(
-    name = "al",
-    srcs = ["al.lua"],
-    visibility = ["//projects/tf_modules/tf:__pkg__"],
-    deps = ["//infra:al"],
-)
-
-vault_binary_map(
-    name = "vault",
-    configs = [":al"],
 )

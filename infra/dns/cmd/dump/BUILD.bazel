@@ -1,0 +1,15 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library")
+
+go_library(
+    name = "dump_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/infra/dns/cmd/dump",
+    visibility = ["//visibility:private"],
+    deps = ["//infra/dns/internal/dump"],
+)
+
+go_binary(
+    name = "dump",
+    embed = [":dump_lib"],
+    visibility = ["//infra/dns:__subpackages__"],
+)

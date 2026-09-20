@@ -1,7 +1,4 @@
-load("@bazel_skylib//rules:build_test.bzl", "build_test")
-load("@bazel_skylib//rules:native_binary.bzl", "native_binary")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects:projects.bzl", "PROJECTS")
 load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
 
 docs_filegroup(
@@ -21,7 +18,6 @@ al_release_binary(
         for package in subpackages(
             include = ["*"],
             exclude = [
-                "hugo_landing",
                 "agents",
                 "mcp_cordis",
                 "alwaldend.com",
@@ -34,29 +30,4 @@ al_release_binary(
             ],
         )
     ] + [],
-)
-
-_LANDING_TARGETS = [
-    "//projects/{}/landing:site".format(project)
-    for project in PROJECTS
-]
-
-filegroup(
-    name = "landing_sites",
-    srcs = _LANDING_TARGETS,
-)
-
-build_test(
-    name = "landings",
-    targets = _LANDING_TARGETS,
-)
-
-native_binary(
-    name = "deploy_landings",
-    src = "//projects/hugo_landing/cmd/deploy",
-    args = [
-        "--site={}=$(rootpath {})".format(project, target)
-        for project, target in zip(PROJECTS, _LANDING_TARGETS)
-    ],
-    data = _LANDING_TARGETS,
 )

@@ -1,0 +1,15 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects:projects.bzl", "PROJECTS")
+
+# Landing membership comes from the project registry so a project is declared
+# once; each project owns its own landing content package.
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    prefix = "content/projects",
+    visibility = ["//projects/alwaldend.com/content:__pkg__"],
+    deps = [
+        "//projects/{}/site/content:docs".format(project)
+        for project in PROJECTS
+    ],
+)

@@ -1,0 +1,13 @@
+// Shared accent color for the repository's Hugo sites.
+//
+// This file is imported from each site's `_variables_project.scss`, which Docsy
+// loads *before* Bootstrap. That position is what lets `$primary` drive the
+// compiled theme: Bootstrap derives `$link-color`, the `btn-*` variants, the
+// `--bs-primary*` custom properties, and the dark-mode link tint from it. The
+// assignments are intentionally not `!default`, because Docsy's
+// `variables_forward` has already assigned these variables by this point.
+//
+// Do not copy these values into a site-local file; see `_shared_theme.scss` for
+// the post-Bootstrap canvas and surface rules.
+
+$primary: #7c3aed;

@@ -69,7 +69,6 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = [
         "//projects:__pkg__",
-        "//projects/alwaldend.com/landing:__pkg__",
     ],
     deps = [
         "//projects/alwaldend.com/releases:docs",
@@ -111,6 +110,17 @@ al_hugo_worker(
         "//conditions:default": _BUILD_FLAGS + _PREVIEW_FLAGS,
     }),
     out_dir = "site.destination",
+    site = ":site_site",
+    visibility = ["//:__subpackages__"],
+)
+
+al_hugo_worker(
+    name = "site_staging",
+    arguments = _BUILD_FLAGS + [
+        "--baseURL",
+        "https://www-staging.alwaldend.com",
+    ],
+    out_dir = "site_staging.destination",
     site = ":site_site",
     visibility = ["//:__subpackages__"],
 )
@@ -163,18 +173,46 @@ write_file(
 sh_binary(
     name = "deploy",
     srcs = ["deploy.sh"],
-    args = ["$(rootpath :site_archive)"],
+    args = [
+        "$(rootpath :site_archive)",
+        "alwaldend/alwaldend.github.io",
+        "pages",
+    ],
     data = [":site_archive"],
 )
 
-sh_binary(
-    name = "deploy_project",
-    srcs = ["deploy_project.sh"],
+# The staging site is the same rendered source with the staging base URL, so
+# an evaluation on it exercises the deployed content. Its archive carries the
+# staging CNAME because the deploy replaces the published branch contents.
+write_file(
+    name = "staging_cname_src",
+    out = "CNAME.staging",
+    content = ["www-staging.alwaldend.com"],
+)
+
+pkg_files(
+    name = "staging_cname",
+    srcs = [":staging_cname_src"],
+    renames = {":staging_cname_src": "CNAME"},
+)
+
+pkg_tar(
+    name = "site_staging_archive",
+    srcs = [
+        ":site_staging",
+        ":staging_cname",
+    ],
 )
 
 sh_binary(
-    name = "deploy_all",
-    srcs = ["deploy_all.sh"],
+    name = "deploy_staging",
+    srcs = ["deploy.sh"],
+    args = [
+        "$(rootpath :site_staging_archive)",
+        "alwaldend/www-staging",
+        "pages",
+    ],
+    data = [":site_staging_archive"],
 )
 
 pkg_filegroup(

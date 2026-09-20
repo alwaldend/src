@@ -76,9 +76,8 @@ resource "github_repository_ruleset" "src_protected" {
 }
 
 # Repository rulesets apply to public repositories on GitHub Free.
-# Wait for default-branch changes so landing publication branches stay writable.
 resource "github_repository_ruleset" "default_branch" {
-  for_each = local.default_branch_repositories
+  for_each = local.repositories
 
   name        = "default_branch_admins"
   repository  = local.managed_repository_names[each.key]

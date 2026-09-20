@@ -1,19 +1,15 @@
 # gazelle:java_extension disabled
 
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/al/rules/al:al_config.bzl", "al_config")
-load("//tools/vault:defs.bzl", "vault_binary_map")
 
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
     visibility = [
         "//projects:__pkg__",
-        "//projects/android_launcher/landing:__pkg__",
     ],
     deps = [
         "//projects/android_launcher/releases:docs",
-        "//projects/android_launcher/tf:docs",
     ],
 )
 
@@ -34,27 +30,4 @@ filegroup(
     name = "proguard",
     srcs = ["proguard_rules.pro"],
     visibility = [":__subpackages__"],
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = [
-        "//infra:__pkg__",
-        "//infra/dns:__pkg__",
-        "//projects/alwaldend.com:__subpackages__",
-        "//projects/android_launcher/tf:__pkg__",
-    ],
-)
-
-al_config(
-    name = "al",
-    srcs = ["al.lua"],
-    visibility = ["//projects/android_launcher/tf:__pkg__"],
-    deps = ["//infra:al"],
-)
-
-vault_binary_map(
-    name = "vault",
-    configs = [":al"],
 )

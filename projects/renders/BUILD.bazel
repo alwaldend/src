@@ -1,8 +1,6 @@
 load("@com_alwaldend_src_tools_blender//:defs.bzl", "blender_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_test")
-load("//projects/al/rules/al:al_config.bzl", "al_config")
-load("//tools/vault:defs.bzl", "vault_binary_map")
 
 go_test(
     name = "reimu_fumo_migration_integrity_test",
@@ -88,30 +86,5 @@ docs_filegroup(
     srcs = ["README.md"],
     visibility = [
         "//projects:__pkg__",
-        "//projects/renders/landing:__pkg__",
     ],
-    deps = ["//projects/renders/tf:docs"],
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = [
-        "//infra:__pkg__",
-        "//infra/dns:__pkg__",
-        "//projects/alwaldend.com:__subpackages__",
-        "//projects/renders/tf:__pkg__",
-    ],
-)
-
-al_config(
-    name = "al",
-    srcs = ["al.lua"],
-    visibility = ["//projects/renders/tf:__pkg__"],
-    deps = ["//infra:al"],
-)
-
-vault_binary_map(
-    name = "vault",
-    configs = [":al"],
 )

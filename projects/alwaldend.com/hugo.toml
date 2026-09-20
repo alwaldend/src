@@ -71,6 +71,11 @@ weight = 50
 url = "/blog/"
 
 [[menus.main]]
+name = "Projects"
+weight = 75
+url = "/projects/"
+
+[[menus.main]]
 name = "Docs"
 weight = 100
 url = "/docs/"

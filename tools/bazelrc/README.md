@@ -29,3 +29,8 @@ requests only lint reports and skill validation, not ordinary target outputs.
 ## Links
 
 - Rules: https://github.com/bazel-contrib/bazelrc-preset.bzl/
+
+The generated preset omits the optional Cloudflare module mirror because it
+slow-stalls on the CI network. Bazel uses the source URLs and mirrors declared
+by each registry entry. Configure this omission in `BUILD.bazel`, then regenerate
+`preset.bazelrc`; a later empty flag does not clear an accumulated mirror.

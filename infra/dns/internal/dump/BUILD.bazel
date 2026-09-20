@@ -1,0 +1,16 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "dump",
+    srcs = ["dump.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/infra/dns/internal/dump",
+    visibility = ["//infra/dns:__subpackages__"],
+    deps = ["//infra/dns/internal/lint"],
+)
+
+go_test(
+    name = "dump_test",
+    srcs = ["dump_test.go"],
+    embed = [":dump"],
+    visibility = ["//infra/dns:__pkg__"],
+)

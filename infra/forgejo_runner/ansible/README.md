@@ -18,7 +18,8 @@ fields and rejects concurrent changes. Credential tasks suppress output.
 
 Deployment uses the component AppRole for signed SSH access and credential
 injection. It waits for cloud-init, applies `host` and `dev_vm`, installs and
-registers the runner, installs Bazel tools for that account, and checks the
+registers the runner, installs the repository Android prerequisites and Bazel
+tools for that account, and checks the
 service. Only the inventory's `secure` host is deployed. Existing registration
 is preserved on subsequent runs and service changes restart through a handler.
 
@@ -76,3 +77,8 @@ output, and the helper emits a bounded receipt without response bodies or logs.
 
 `ansible_bin` is the packaged entry point for offline `--syntax-check` and
 fixture rendering. The normal `ansible` target is a live deployment.
+
+The `android` and `bazel` deployment tags install the prerequisites used even by
+non-Android builds: root module toolchain registration resolves the SDK and
+NDK during analysis. Package versions remain owned by `tools/android/packages.txt`;
+the runner rc selects the installed SDK and the managed `ndk/current` link.

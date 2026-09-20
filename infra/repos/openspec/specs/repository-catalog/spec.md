@@ -67,24 +67,14 @@ preserved and distinguished from named developer assignments.
   open a pull or merge request
 - **AND** the developer cannot push or merge to its protected default branch
 
-#### Scenario: Deploy a landing repository
-
-- **WHEN** a GitHub landing repository is adopted
-- **THEN** its protected default branch is `master`
-- **AND** its Pages source remains `pages` with its existing custom domain
-- **AND** the developer can continue deploying to `pages` without receiving
-  push or merge access to `master`
-
 ### Requirement: Adopt existing resources without recreation
 
 Consumers SHALL adopt existing remote resources through imports and preserve
 their remote identities. Existing managed resource addresses SHALL remain
 stable or use explicit state-preserving moves. Existing GitHub repository
-settings and Pages configuration SHALL remain intact. Default branches SHALL
-remain unchanged except for the requested landing-repository migration to
-`master`; a missing destination branch SHALL be created from existing
-repository contents before changing the default. No deletion or replacement
-SHALL execute without separate user approval for its concrete scope.
+settings and Pages configuration SHALL remain intact, and default branches
+SHALL remain unchanged. No deletion or replacement SHALL execute without
+separate user approval for its concrete scope.
 
 #### Scenario: Adopt an existing repository
 
@@ -98,13 +88,6 @@ SHALL execute without separate user approval for its concrete scope.
 - **WHEN** any reviewed plan proposes a deletion or replacement
 - **THEN** execution of that operation stops pending the user's explicit
   approval for the identified operation and scope
-
-#### Scenario: Change a landing default without changing Pages
-
-- **WHEN** a landing repository has no `master` branch before adoption
-- **THEN** the migration creates it from existing repository contents before
-  selecting it as the protected default branch
-- **AND** the existing `pages` branch and Pages configuration remain intact
 
 ### Requirement: GitLab copies and fork preserve their source identity
 

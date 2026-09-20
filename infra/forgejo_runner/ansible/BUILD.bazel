@@ -87,6 +87,7 @@ al_binary_run(
 pkg_filegroup(
     name = "srcs",
     srcs = [
+        ":android_files",
         ":srcs_files",
         ":ssh_ca_files",
     ],
@@ -107,4 +108,17 @@ pkg_files(
         "playbook_*.yaml",
     ]),
     strip_prefix = strip_prefix.from_pkg(),
+)
+
+pkg_files(
+    name = "android_files",
+    srcs = [
+        "//tools/android:installer_tar",
+        "//tools/android:packages.txt",
+    ],
+    prefix = "files",
+    renames = {
+        "//tools/android:installer_tar": "android_installer.tar.gz",
+        "//tools/android:packages.txt": "android_packages.txt",
+    },
 )

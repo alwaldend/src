@@ -7,16 +7,7 @@ import {
 
 import {
   for_each = {
-    for project, repository in local.project_pages : project => repository
-    if can(repository.config.id)
-  }
-  to = github_repository.project_landing[each.key]
-  id = each.value.name
-}
-
-import {
-  for_each = {
-    for name, repository in local.other_repositories : name => repository
+    for name, repository in local.repositories : name => repository
     if can(repository.config.id)
   }
   to = github_repository.other[each.key]
@@ -25,7 +16,7 @@ import {
 
 import {
   for_each = {
-    for name, repository in local.default_branch_repositories : name => repository
+    for name, repository in local.repositories : name => repository
     if can(repository.config.id)
   }
   to = github_branch_default.repository[each.key]

@@ -1,7 +1,5 @@
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/al/rules/al:al_config.bzl", "al_config")
-load("//tools/vault:defs.bzl", "vault_binary_map")
 
 build_test(
     name = "build_test",
@@ -15,33 +13,8 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     visibility = [
         "//projects:__pkg__",
-        "//projects/infinitime/landing:__pkg__",
     ],
     deps = [
         "//projects/infinitime/releases:docs",
-        "//projects/infinitime/tf:docs",
     ],
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = [
-        "//infra:__pkg__",
-        "//infra/dns:__pkg__",
-        "//projects/alwaldend.com:__subpackages__",
-        "//projects/infinitime/tf:__pkg__",
-    ],
-)
-
-al_config(
-    name = "al",
-    srcs = ["al.lua"],
-    visibility = ["//projects/infinitime/tf:__pkg__"],
-    deps = ["//infra:al"],
-)
-
-vault_binary_map(
-    name = "vault",
-    configs = [":al"],
 )

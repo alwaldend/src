@@ -5,8 +5,6 @@ load(
     "npm_link_all_packages",
 )
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//projects/al/rules/al:al_config.bzl", "al_config")
-load("//tools/vault:defs.bzl", "vault_binary_map")
 
 package(default_visibility = ["//visibility:private"])
 
@@ -123,28 +121,4 @@ docs_filegroup(
     srcs = glob(["*.md"]),
     prefix = "content/docs/projects/mcp_cordis",
     visibility = ["//visibility:public"],
-    deps = ["//projects/mcp_cordis/tf:docs"],
-)
-
-filegroup(
-    name = "dnsconfig",
-    srcs = ["dnsconfig.json"],
-    visibility = [
-        "//infra:__pkg__",
-        "//infra/dns:__pkg__",
-        "//projects/alwaldend.com:__subpackages__",
-        "//projects/mcp_cordis/tf:__pkg__",
-    ],
-)
-
-al_config(
-    name = "al",
-    srcs = ["al.lua"],
-    visibility = ["//projects/mcp_cordis/tf:__pkg__"],
-    deps = ["//infra:al"],
-)
-
-vault_binary_map(
-    name = "vault",
-    configs = [":al"],
 )

@@ -37,3 +37,23 @@ to [PR 88](https://github.com/alwaldend/src/pull/88). Remaining work is the
 authorized prerequisite deployment and protected-branch CI check after login
 refresh, followed by acceptance and archival. Do not equate the prior inline
 workflow's successful run with validation of this extracted command.
+
+### Cold runner prerequisites (2026-09-20)
+
+Run 5 exposed `runner-android-toolchain-missing` and
+`runner-module-mirror-stall`: registered NDK toolchains require a local NDK even
+for the Python smoke target, while the optional Cloudflare mirror transferred
+module archives too slowly to reach Bazel's fallback URLs. Direct BCR and Google
+endpoints worked in the recorded runner probes. The refreshed controller Vault
+session was verified by a read-only TTL lookup.
+
+Decision review verdict: proceed with declaring Android prerequisites in Ansible
+and omitting the optional mirror through the preset generator. Removing NDK
+registration would change Android build behavior; command-line overrides had
+not avoided resolution. A later empty mirror flag cannot remove accumulated
+values. The installer archive reuses the pinned command-line tools and a shared
+package list; Ansible performs runtime installation and verifies package
+receipts. This avoids requiring a working Android toolchain to bootstrap Bazel
+on the runner. SDK installation adds download and disk cost, but preserves the
+existing development build contract. Validate the packaged installer, deploy
+only the Android/Bazel tasks to secure, and run the exact candidate in CI.

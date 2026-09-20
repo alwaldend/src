@@ -1,17 +1,40 @@
 // Shared theme for repository Hugo sites.
 @import "shared_theme";
 
+// Landing pages constrain their prose width and keep wide media scrollable
+// instead of overflowing the content column.
+.landing-content {
+    max-width: 60rem;
+}
+
+.landing-content img {
+    height: auto;
+    max-width: 100%;
+}
+
+.landing-content pre,
+.landing-content table {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+.landing-content table {
+    display: block;
+}
+
 .td-footer {
     --td-footer-min-height: 0;
     padding-block: 0.5rem;
 }
 
+// The footer links carry the shared accent rather than a site-local blue, so
+// they follow `_variables_project.scss` like every other link on the site.
 .td-footer__center a {
-    color: #8ab4f8;
+    color: var(--bs-link-color);
 
     &:hover,
     &:focus-visible {
-        color: #cfe2ff;
+        color: var(--bs-link-hover-color);
     }
 }
 

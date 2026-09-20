@@ -123,6 +123,11 @@ maven_install.json rules-lint-ignored=true
 requirements.txt rules-lint-ignored=true
 gazelle_python.yaml rules-lint-ignored=true
 infra/dns/types-dnscontrol.d.ts rules-lint-ignored=true
+# Generated DNS declaration pages are written by //infra/dns/cmd/dump and are
+# checked for freshness by //infra/dns/test/repository; a formatter must not
+# rewrite them into a state the generator would not produce.
+infra/dns/cloudflare_dns.md rules-lint-ignored=true
+infra/dns/mikrotik_dns.md rules-lint-ignored=true
 tools/rules_promptfoo/tests/fake_cli/fake_codex_home/auth.json rules-lint-ignored=true
 projects/alwaldend.com/layouts/** rules-lint-ignored=true
 projects/ci_platform/main/go/docs/swagger.* rules-lint-ignored=true

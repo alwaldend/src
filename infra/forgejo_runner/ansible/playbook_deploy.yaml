@@ -44,6 +44,10 @@
     - name: Install and register the Forgejo runner
       ansible.builtin.import_role:
         name: alwaldend.main.forgejo_runner
+    - name: Install the repository Android prerequisites
+      ansible.builtin.import_role:
+        name: alwaldend.main.dev_vm
+        tasks_from: android
     - name: Configure the runner's Bazel tools
       ansible.builtin.import_role:
         name: alwaldend.main.dev_vm
