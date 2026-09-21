@@ -1,0 +1,13 @@
+{
+    "description": "Pull mirror of the checkout action used by repository CI",
+    "homepage_url": "",
+    "default_branch": "main",
+    "visibility": "public",
+    "upstream_url": "https://github.com/actions/checkout",
+    "forgejo": {
+        "clone_from": "upstream",
+        "mirror": true,
+        "mirror_interval": "12h0m0s",
+        "has_actions": false
+    }
+}

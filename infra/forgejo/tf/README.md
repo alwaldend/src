@@ -67,3 +67,8 @@ automation-writer exceptions.
 bazel_agent bazel run //infra/forgejo/tf:tf.plan
 bazel_agent bazel run //infra/forgejo/tf:tf.apply
 ```
+
+The catalog's `com_github_actions_checkout` record declares a public pull mirror
+of `actions/checkout`. Terraform owns its mirror settings and disables workflows
+on that mirror. Repository CI downloads the action from this Forgejo repository
+at an immutable commit; mirror synchronization does not update the workflow pin.

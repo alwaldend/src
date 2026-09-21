@@ -1,12 +1,15 @@
 resource "forgejo_repository" "repositories" {
   for_each = module.repositories.forgejo_repositories
 
-  owner          = forgejo_organization.alwaldend.name
-  name           = each.value.name
-  description    = each.value.description
-  website        = each.value.homepage_url
-  default_branch = each.value.default_branch
-  clone_addr     = each.value.config.clone_addr
+  owner           = forgejo_organization.alwaldend.name
+  name            = each.value.name
+  description     = each.value.description
+  website         = each.value.homepage_url
+  default_branch  = each.value.default_branch
+  clone_addr      = each.value.config.clone_addr
+  mirror          = try(each.value.config.mirror, false)
+  mirror_interval = try(each.value.config.mirror_interval, null)
+  has_actions     = try(each.value.config.has_actions, null)
 
   lifecycle {
     prevent_destroy = true

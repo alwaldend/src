@@ -1,0 +1,5 @@
+# Keep CI artifacts on the runner's provisioned root disk.
+startup --output_user_root=/opt/forgejo-runner/home/.cache/bazel
+# Registered Android toolchains are resolved even for non-Android CI targets.
+common --repo_env=ANDROID_HOME=/opt/forgejo-runner/home/Android/Sdk
+common --repo_env=ANDROID_NDK_HOME=/opt/forgejo-runner/home/Android/Sdk/ndk/current
