@@ -3,6 +3,7 @@ dev_vm_install_packages: true
 dev_vm_package_backend: auto
 dev_vm_rpm_ostree_apply_live: false
 dev_vm_packages:
+  - acl
   - clang
   - clang-tools-extra
   - java-latest-openjdk-devel
@@ -35,3 +36,8 @@ dev_vm_bazelrc_src: bazelrc
 dev_vm_bazelisk_src: bazelisk
 dev_vm_bazel_agent_src: bazel_agent
 dev_vm_selinux_android_emulation: true
+dev_vm_android_sdk_root: "{{ dev_vm_bazel_home }}/Android/Sdk"
+dev_vm_android_installer_dir: "{{ dev_vm_bazel_home }}/.local/lib/android-installer"
+dev_vm_android_installer_src: "{{ undefined() }}"
+dev_vm_android_packages_src: "{{ undefined() }}"
+dev_vm_android_install_timeout: 1800

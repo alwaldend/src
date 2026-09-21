@@ -1,0 +1,68 @@
+---
+- name: Install the repository Android prerequisites
+  tags: [android, dev_vm]
+  become: true
+  vars:
+    android_packages: "{{ lookup('file', dev_vm_android_packages_src).splitlines() }}"
+    android_ndk_packages: "{{ android_packages | select('match', '^ndk;') | list }}"
+  block:
+    - name: Validate the Android package selection
+      ansible.builtin.assert:
+        that:
+          - android_ndk_packages | length == 1
+          - dev_vm_android_sdk_root is match('^/')
+          - dev_vm_android_installer_dir is match('^/')
+
+    - name: Create Android installation directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: "{{ dev_vm_bazel_user }}"
+        group: "{{ dev_vm_bazel_group }}"
+        mode: "0755"
+      loop:
+        - "{{ dev_vm_android_sdk_root }}"
+        - "{{ dev_vm_android_installer_dir }}"
+
+    - name: Unpack the repository Android installer
+      ansible.builtin.unarchive:
+        src: "{{ dev_vm_android_installer_src }}"
+        dest: "{{ dev_vm_android_installer_dir }}"
+        owner: "{{ dev_vm_bazel_user }}"
+        group: "{{ dev_vm_bazel_group }}"
+        mode: "u=rwX,g=rX,o="
+
+    - name: Check installed Android packages
+      ansible.builtin.stat:
+        path: "{{ dev_vm_android_sdk_root }}/{{ item | replace(';', '/') }}/package.xml"
+      loop: "{{ android_packages }}"
+      register: android_installed_packages
+
+    - name: Install missing Android packages
+      become_user: "{{ dev_vm_bazel_user }}"
+      when: android_installed_packages.results | rejectattr('stat.exists') | list | length > 0
+      ansible.builtin.command:
+        argv:
+          - /bin/sh
+          - "{{ dev_vm_android_installer_dir }}/install.sh"
+          - "{{ dev_vm_android_installer_dir }}/cmdline-tools/bin/sdkmanager"
+          - "{{ dev_vm_android_installer_dir }}/packages.txt"
+        stdin: "{{ 'y\n' * 20 }}"
+      environment:
+        ANDROID_HOME: "{{ dev_vm_android_sdk_root }}"
+      async: "{{ dev_vm_android_install_timeout }}"
+      poll: 10
+      changed_when: true
+
+    - name: Verify all requested Android packages were installed
+      ansible.builtin.stat:
+        path: "{{ dev_vm_android_sdk_root }}/{{ item | replace(';', '/') }}/package.xml"
+      loop: "{{ android_packages }}"
+      register: android_verified_package
+      failed_when: not android_verified_package.stat.exists
+
+    - name: Select the repository NDK version
+      ansible.builtin.file:
+        src: "{{ dev_vm_android_sdk_root }}/{{ android_ndk_packages[0] | replace(';', '/') }}"
+        dest: "{{ dev_vm_android_sdk_root }}/ndk/current"
+        state: link

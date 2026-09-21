@@ -4,6 +4,7 @@ load("@rules_shell//shell:sh_test.bzl", "sh_test")
 
 bazelrc_preset(
     name = "preset",
+    extra_presets = {"module_mirrors": []},
     strict = True,
 )
 

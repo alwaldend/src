@@ -18,4 +18,5 @@ register_toolchains(
 use_repo(
     binary_toolchain_extension,
     "com_alwaldend_src_tools_android_cmdtools",
+    "com_alwaldend_src_tools_android_cmdtools_linux_x86_64",
 )

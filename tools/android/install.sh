@@ -13,12 +13,10 @@ if [ -z "${RUNFILES_DIR:-}" ] && [ -d "${0}.runfiles" ]; then
 fi
 
 sdkmanager="${1}"
-shift
+packages="${2}"
+shift 2
 
 exec "${sdkmanager}" \
     --sdk_root="${ANDROID_HOME}" \
-    "platforms;android-36" \
-    "build-tools;36.0.0" \
-    "platform-tools" \
-    "ndk;29.0.14206865" \
+    --package_file="${packages}" \
     "${@}"
