@@ -2,6 +2,8 @@
 import %workspace%/tools/bazelrc/preset.bazelrc
 # Project-specific flags
 import %workspace%/tools/bazelrc/project.bazelrc
+# This build setting belongs only to the root workspace.
+common:ci --//tools/bazel_configs:ci_flag
 # Validate skill_library targets whenever they are built.
 build --aspects @rules_skills//skill:defs.bzl%skill_validation_aspect
 build --output_groups=+skill_validation

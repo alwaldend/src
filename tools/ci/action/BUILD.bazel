@@ -1,0 +1,17 @@
+load("@aspect_rules_js//js:defs.bzl", "js_test")
+
+filegroup(
+    name = "action",
+    srcs = [
+        "action.yml",
+        "main.cjs",
+    ],
+    visibility = ["//tools/ci:__pkg__"],
+)
+
+js_test(
+    name = "action_test",
+    size = "small",
+    data = ["main.cjs"],
+    entry_point = "main_test.cjs",
+)

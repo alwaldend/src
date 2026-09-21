@@ -61,6 +61,7 @@ This table owns routing; each skill owns its procedure.
 | Structure-aware search or rewrite by syntax shape                        | `ast-grep`                                   |
 | `infra/**`, `host_bot`, `al.lua`, tf/Ansible/DNS, deployment diagnostics | `repo-infra`                                 |
 | Credentials, tokens, private keys, Vault policy, secret-bearing config   | `repo-secrets`                               |
+| Workflow changes, reusable CI commands, or CI diagnostics                | `repo-ci`                                    |
 | Hugo site or theme, or landing-site onboarding                           | `repo-hugo`                                  |
 | Android app build, packaging, or publication                             | `android`                                    |
 | A `.blend` asset, or Blender work judged by supplied-reference likeness  | `repo-blender`, `blender-reference-fidelity` |

@@ -40,3 +40,10 @@ The role packages its default Linux x86-64 Bazelisk and `bazel_agent` sources.
 The calling playbook must package the Bazel rc, plus any overridden binary
 sources, in an Ansible file search path. Cache storage and machine-specific
 Bazel settings remain the caller's responsibility.
+
+The optional `android` task entry point installs the caller-packaged repository
+Android installer as `dev_vm_bazel_user`. Supply `dev_vm_android_installer_src`
+and `dev_vm_android_packages_src` from `//tools/android`. It installs missing
+packages, accepts their licenses as part of the requested deployment, verifies
+each package receipt, and points `ndk/current` at the selected NDK. It requires
+the role's Java package and does not invoke Bazel on the destination host.

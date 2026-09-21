@@ -1,15 +1,47 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_files", "strip_prefix")
+load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 
 sh_binary(
     name = "install",
     srcs = ["install.sh"],
-    args = ["$(rootpath //tools/android_cmdtools:sdkmanager)"],
-    data = ["//tools/android_cmdtools:sdkmanager"],
+    args = [
+        "$(rootpath //tools/android_cmdtools:sdkmanager)",
+        "$(rootpath :packages.txt)",
+    ],
+    data = [
+        "packages.txt",
+        "//tools/android_cmdtools:sdkmanager",
+    ],
 )
 
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
     visibility = ["//tools:__pkg__"],
+)
+
+exports_files(
+    ["packages.txt"],
+    visibility = ["//infra/forgejo_runner/ansible:__pkg__"],
+)
+
+pkg_files(
+    name = "installer_files",
+    srcs = [
+        "install.sh",
+        "packages.txt",
+    ],
+    strip_prefix = strip_prefix.from_pkg(),
+)
+
+pkg_tar(
+    name = "installer_tar",
+    srcs = [
+        ":installer_files",
+        "//tools/android_cmdtools:sdkmanager_files",
+    ],
+    extension = "tar.gz",
+    visibility = ["//infra/forgejo_runner/ansible:__pkg__"],
 )

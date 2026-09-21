@@ -1,0 +1,21 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "ci_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/ci/cmd/ci",
+    visibility = ["//visibility:private"],
+)
+
+go_binary(
+    name = "ci",
+    embed = [":ci_lib"],
+    visibility = ["//tools/ci:__pkg__"],
+)
+
+go_test(
+    name = "ci_test",
+    size = "small",
+    srcs = ["main_test.go"],
+    embed = [":ci_lib"],
+)

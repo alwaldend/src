@@ -42,6 +42,7 @@ skills_write(
         "//projects/agents/skills/project-layout:skill",
         "//projects/agents/skills/repo-bazel:skill",
         "//projects/agents/skills/repo-blender:skill",
+        "//projects/agents/skills/repo-ci:skill",
         "//tools/repo_delivery/skills/repo-delivery:skill",
         "//projects/agents/skills/repo-external-dependency:skill",
         "//projects/agents/skills/repo-gazelle-plugin:skill",

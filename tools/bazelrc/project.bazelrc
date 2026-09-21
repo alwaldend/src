@@ -33,8 +33,6 @@ common:arm --platforms=@rules_go//go/toolchain:linux_arm_cgo
 # common --config=al_toml_validate
 # common:al_toml_validate --aspects tools/toml/main/bzl/al_toml_validate.bzl%al_toml_validate
 # common:al_toml_validate --output_groups=+al_toml_validate
-# Set CI flag in CI
-common:ci --//tools/bazel_configs:ci_flag
 # Keep agent output bounded, non-interactive, and useful for monitoring.
 common:agent --color=no
 common:agent --curses=no

@@ -1,0 +1,5 @@
+name: Repository CI
+description: Build and test the repository through its shared Bazel entry point
+runs:
+  using: node20
+  main: main.cjs
