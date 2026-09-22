@@ -61,7 +61,7 @@ pkg_files(
         "//data/ssl/alwaldend.com:root_ca",
         "//infra/cloud_init",
         "//infra/cloud_init:cloud_init_min",
-        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
+        "@com_hashicorp_vault_linux_x86_64//:vault_filegroup",
     ] + glob([
         "group_vars/**/*.yaml",
         "playbook_*.yaml",
@@ -69,7 +69,7 @@ pkg_files(
     renames = {
         "//infra/cloud_init:cloud_init": "files/cloud_init.yaml",
         "//infra/cloud_init:cloud_init_min": "files/cloud_init_min.yaml",
-        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "files/vault",
+        "@com_hashicorp_vault_linux_x86_64//:vault_filegroup": "files/vault",
         "//data/ssl/alwaldend.com:root_ca": "files/pki_ca_root.crt",
         "//data/ssl/alwaldend.com:ica_servers": "files/pki_ca_servers.crt",
     },

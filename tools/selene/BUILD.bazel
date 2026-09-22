@@ -10,7 +10,7 @@ exports_files(
 
 alias(
     name = "selene",
-    actual = "@com_alwaldend_src_tools_selene//:selene_binary",
+    actual = "//third_party/com_github_kampfkarren_selene:selene",
     visibility = ["//:__subpackages__"],
 )
 

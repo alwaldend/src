@@ -1,0 +1,21 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    archives = {
+    },
+    lock = "//third_party/com_google_chrome_headless_shell:binary_toolchain.json",
+    toolchains_map = {
+        "chrome_headless_shell": "com_google_chrome_headless_shell",
+    },
+)
+
+register_toolchains(
+    "@com_google_chrome_headless_shell//:all",
+)
+
+use_repo(
+    binary_toolchain_extension,
+    "com_google_chrome_headless_shell",
+)

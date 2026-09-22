@@ -6,17 +6,17 @@ The [machine-readable inventory](migration.json) maps all 222 tracked source fil
 
 ## Record mapping
 
-| Former maintained goal                                    | OpenSpec change                                                                                                                                 | Preserved outcome | Preserved execution   |
-| --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------------------- |
-| `projects/agents/goals/agent-system-phase-1`              | [agent-system-phase-1](../../../projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-1/proposal.md)                           | achieved          | paused                |
-| `projects/agents/goals/agent-system-phase-2`              | [agent-system-phase-2](../../../projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-2/proposal.md)                           | achieved          | paused                |
-| `projects/agents/goals/agent-system-phase-3`              | [agent-system-phase-3](../../../projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-3/proposal.md)                           | achieved          | paused                |
-| `projects/agents/goals/agent-system-phase-4`              | [agent-system-phase-4](../../../projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-4/proposal.md)                           | achieved          | paused                |
-| `projects/agents/goals/agent-system-phase-five-followup`  | [agent-system-phase-five-followup](../../../projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-five-followup/proposal.md)   | achieved          | paused                |
-| `projects/agents/goals/agent-system-phase-six-ergonomics` | [agent-system-phase-six-ergonomics](../../../projects/agents/openspec/changes/archive/2026-09-08-agent-system-phase-six-ergonomics/proposal.md) | achieved          | paused                |
-| `projects/agents/goals/repo-agent-system`                 | [repo-agent-system](../../../projects/agents/openspec/changes/archive/2026-09-08-repo-agent-system/proposal.md)                                 | achieved          | paused                |
-| `projects/renders/goals/reimu-fumo-finish`                | [reimu-fumo-finish](../../../projects/renders/openspec/changes/reimu-fumo-finish/proposal.md)                                                   | open              | blocked               |
-| `projects/mcp_cordis/goals/runtime_extensions`            | [runtime_extensions](../../../projects/mcp_cordis/openspec/changes/archive/2026-09-08-runtime-extensions/proposal.md)                           | achieved          | unavailable in source |
+| Former maintained goal                                    | OpenSpec change                                                                                                                              | Preserved outcome | Preserved execution   |
+| --------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | --------------------- |
+| `projects/agents/goals/agent-system-phase-1`              | [agent-system-phase-1](../../../tools/agents/openspec/changes/archive/2026-09-08-agent-system-phase-1/proposal.md)                           | achieved          | paused                |
+| `projects/agents/goals/agent-system-phase-2`              | [agent-system-phase-2](../../../tools/agents/openspec/changes/archive/2026-09-08-agent-system-phase-2/proposal.md)                           | achieved          | paused                |
+| `projects/agents/goals/agent-system-phase-3`              | [agent-system-phase-3](../../../tools/agents/openspec/changes/archive/2026-09-08-agent-system-phase-3/proposal.md)                           | achieved          | paused                |
+| `projects/agents/goals/agent-system-phase-4`              | [agent-system-phase-4](../../../tools/agents/openspec/changes/archive/2026-09-08-agent-system-phase-4/proposal.md)                           | achieved          | paused                |
+| `projects/agents/goals/agent-system-phase-five-followup`  | [agent-system-phase-five-followup](../../../tools/agents/openspec/changes/archive/2026-09-08-agent-system-phase-five-followup/proposal.md)   | achieved          | paused                |
+| `projects/agents/goals/agent-system-phase-six-ergonomics` | [agent-system-phase-six-ergonomics](../../../tools/agents/openspec/changes/archive/2026-09-08-agent-system-phase-six-ergonomics/proposal.md) | achieved          | paused                |
+| `projects/agents/goals/repo-agent-system`                 | [repo-agent-system](../../../tools/agents/openspec/changes/archive/2026-09-08-repo-agent-system/proposal.md)                                 | achieved          | paused                |
+| `projects/renders/goals/reimu-fumo-finish`                | [reimu-fumo-finish](../../../projects/renders/openspec/changes/reimu-fumo-finish/proposal.md)                                                | open              | blocked               |
+| `projects/mcp_cordis/goals/runtime_extensions`            | [runtime_extensions](../../../projects/mcp_cordis/openspec/changes/archive/2026-09-08-runtime-extensions/proposal.md)                        | achieved          | unavailable in source |
 
 ## Mapping and acceptance
 

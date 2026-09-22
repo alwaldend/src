@@ -24,7 +24,7 @@ The catalog owns destination names and upstream identities.
 [AL configuration](../al.lua) authenticates with the
 [`src_infra_gitlab` AppRole](../../vault/tf/approles/src_infra_gitlab/main.tf),
 injects the `gitlab_token` field as `GITLAB_TOKEN`, and supplies the existing
-[Vault HTTP state backend](../../../projects/agents/skills/repo-infra/references/flow.md).
+[Vault HTTP state backend](../../../tools/agents/skills/repo-infra/references/flow.md).
 The configuration owns the Vault paths and plugin labels.
 
 The provider uses GitLab.com by default. For another instance, set

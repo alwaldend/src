@@ -273,3 +273,6 @@ its consumer, which uses declared Bazel paths and needs no absolute-path
 handling. The [diagram skill](skills/mermaid-diagrams/SKILL.md) defines direct
 documentation consumption and checked-in publication assets for blog posts.
 The `.mmd` remains the authoritative diagram source in both cases.
+
+The pinned upstream binary is owned by
+[`third_party/com_google_chrome_headless_shell`](../../third_party/com_google_chrome_headless_shell/README.md).

@@ -1,0 +1,13 @@
+load("@com_github_stackexchange_dnscontrol//:defs.bzl", "dnscontrol_binary")
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+dnscontrol_binary(
+    name = "dnscontrol",
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//third_party:__pkg__"],
+)

@@ -1,0 +1,21 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    archives = {
+    },
+    lock = "//third_party/org_blender_blender:binary_toolchain.json",
+    toolchains_map = {
+        "blender": "org_blender_blender",
+    },
+)
+
+register_toolchains(
+    "@org_blender_blender//:all",
+)
+
+use_repo(
+    binary_toolchain_extension,
+    "org_blender_blender",
+)

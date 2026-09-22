@@ -29,7 +29,7 @@ _WORKSPACE_SOURCES = {
     "infra_vault": "//infra/vault/openspec:source",
     "infra_xcp_ng": "//infra/xcp_ng/openspec:source",
     "infra_yandex_cloud": "//infra/yandex_cloud/openspec:source",
-    "projects_agents": "//projects/agents/openspec:source",
+    "tools_agents": "//tools/agents/openspec:source",
     "projects_al": "//projects/al/openspec:source",
     "projects_alwaldend_com": "//projects/alwaldend.com/openspec:source",
     "projects_activitywatch_ingester_android": "//projects/activitywatch_ingester_android/openspec:source",
@@ -74,7 +74,7 @@ _WORKSPACE_SOURCES = {
 _ARCHIVE_WORKSPACES = [
     "infra_repos",
     "repository",
-    "projects_agents",
+    "tools_agents",
     "projects_mcp_cordis",
     "tools_rules_terraform",
 ]

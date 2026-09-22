@@ -15,7 +15,7 @@ func TestGenerateRules(t *testing.T) {
 	t.Parallel()
 
 	result := NewLanguage().GenerateRules(language.GenerateArgs{
-		Rel:          "projects/agents/skills/example",
+		Rel:          "tools/agents/skills/example",
 		RegularFiles: []string{"SKILL.md", "reference.md"},
 	})
 

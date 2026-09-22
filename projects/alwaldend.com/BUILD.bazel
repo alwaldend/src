@@ -91,7 +91,7 @@ al_hugo_site(
     postcss = "//tools/postcss",
     site = ":site_source_archive",
     tools = [
-        "//tools/sass:dart-sass",
+        "//third_party/com_github_sass_dart_sass:dart-sass",
     ],
 )
 

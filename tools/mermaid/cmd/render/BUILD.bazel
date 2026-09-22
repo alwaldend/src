@@ -19,7 +19,7 @@ js_binary(
         ":render_lib",
         "//tools:node_modules/@mermaid-js/mermaid-cli",
         "//tools:node_modules/puppeteer",
-        "@com_alwaldend_src_tools_mermaid//:chrome_headless_shell_binary",
+        "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
     ],
     entry_point = "main.mjs",
     visibility = ["//tools/mermaid:__subpackages__"],
@@ -28,11 +28,11 @@ js_binary(
 js_test(
     name = "paint_order_test",
     size = "small",
-    args = ["$(rootpath @com_alwaldend_src_tools_mermaid//:chrome_headless_shell_binary)"],
+    args = ["$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)"],
     data = [
         "paint_order.mjs",
         "//tools:node_modules/puppeteer",
-        "@com_alwaldend_src_tools_mermaid//:chrome_headless_shell_binary",
+        "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
     ],
     entry_point = "paint_order_test.mjs",
 )

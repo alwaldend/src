@@ -66,7 +66,7 @@ The unsecured host-bot server has a separate `secret_key` reference owned by
 [its host's AL configuration](../../users/simeonwarren/host_bot/al.lua).
 
 Prepare one private JSON input for each path through the
-[secret-handling workflow](../../projects/agents/skills/repo-secrets/SKILL.md).
+[secret-handling workflow](../../tools/agents/skills/repo-secrets/SKILL.md).
 Set `OPENHANDS_AGENT_SERVER_JSON`, `OPENHANDS_AUTOMATION_JSON`, and
 `OPENHANDS_HOST_BOT_JSON` to those input file paths. Each JSON object contains
 the fields listed above for its path. Initialize the paths through standard

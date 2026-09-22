@@ -1,0 +1,21 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    archives = {
+    },
+    lock = "//third_party/build_buf_buf:binary_toolchain.json",
+    toolchains_map = {
+        "buf": "build_buf_buf",
+    },
+)
+
+register_toolchains(
+    "@build_buf_buf//:all",
+)
+
+use_repo(
+    binary_toolchain_extension,
+    "build_buf_buf",
+)

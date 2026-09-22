@@ -50,7 +50,7 @@ None.
 ## Impact
 
 `AGENTS.md` shrinks to roughly 100-140 lines. New skill
-`projects/agents/skills/repo-workspace` with its package, discovery link, and
+`tools/agents/skills/repo-workspace` with its package, discovery link, and
 offline eval; new reference
 `tools/repo_delivery/skills/repo-delivery/references/commits.md`.
 `repo-bazel`, `git-rebase-remote`, `project-layout`, and the delivery skill see

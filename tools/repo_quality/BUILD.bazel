@@ -8,13 +8,13 @@ load("@rules_shell//shell:sh_test.bzl", "sh_test")
 sh_binary(
     name = "buf",
     srcs = ["tool_adapter.sh"],
-    data = ["//tools/buf"],
+    data = ["//third_party/build_buf_buf:buf"],
 )
 
 sh_binary(
     name = "taplo",
     srcs = ["tool_adapter.sh"],
-    data = ["//tools/taplo"],
+    data = ["//third_party/com_github_tamasfe_taplo:taplo"],
 )
 
 java_binary(

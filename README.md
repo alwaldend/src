@@ -14,7 +14,7 @@ without replacing their authorities.
 
 - [Agent policy](AGENTS.md) is the repository-wide operating contract. A
   nearer `AGENTS.md` takes precedence within its subtree.
-- [Repository skills](projects/agents/README.md) are the reusable agent
+- [Repository skills](tools/agents/README.md) are the reusable agent
   procedures, discovered through `.agents/skills/` from their canonical
   project-owned directories.
 - [Repository evolution](infra/src/openspec/README.md) describes changes to the monorepo
@@ -42,7 +42,7 @@ request -> owner and policy -> capability -> work -> execution
 - [`third_party/`](third_party/README.md): vendored and externally sourced
   inputs.
 - [`users/`](users/README.md): user-owned code and infrastructure.
-- [`projects/agents/`](projects/agents/README.md): repository-wide agent
+- [`tools/agents/`](tools/agents/README.md): repository-wide agent
   architecture, skills, and evaluation assets.
 - [`infra/src/`](infra/src/README.md): specifications and changes for evolution
   of the repository itself.

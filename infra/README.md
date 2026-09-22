@@ -60,5 +60,5 @@ running an equivalent command.
 - Set up al config:
   [example](https://github.com/alwaldend/src/blob/master/infra/pve/al.lua)
 - Configure the component's Terraform state through the existing
-  [Vault HTTP backend flow](../projects/agents/skills/repo-infra/references/flow.md).
+  [Vault HTTP backend flow](../tools/agents/skills/repo-infra/references/flow.md).
   The `tf_backend` plugin creates state and lock KV entries on first use.

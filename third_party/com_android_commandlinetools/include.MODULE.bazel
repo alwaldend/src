@@ -1,0 +1,22 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    archives = {
+    },
+    lock = "//third_party/com_android_commandlinetools:binary_toolchain.json",
+    toolchains_map = {
+        "android_cmdtools": "com_android_commandlinetools",
+    },
+)
+
+register_toolchains(
+    "@com_android_commandlinetools//:all",
+)
+
+use_repo(
+    binary_toolchain_extension,
+    "com_android_commandlinetools",
+    "com_android_commandlinetools_linux_x86_64",
+)

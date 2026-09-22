@@ -84,7 +84,7 @@ bazel_agent bazel test //infra/arch:update_tests
 
 The update target renders all 14 named pages in Bazel sandboxes with Drawio
 30.2.6 web assets from the [pinned desktop archive](https://github.com/alwaldend/src/blob/master/third_party/com_drawio_desktop_bin/binary_toolchain.json)
-and the repository's [pinned headless Chrome](https://github.com/alwaldend/src/blob/master/tools/mermaid/binary_toolchain.json).
+and the repository's [pinned headless Chrome](https://github.com/alwaldend/src/blob/master/third_party/com_google_chrome_headless_shell/binary_toolchain.json).
 A [pinned Liberation font set](https://github.com/alwaldend/src/blob/master/tools/drawio/include.MODULE.bazel) and isolated
 Fontconfig configuration keep text measurement independent of host fonts.
 The renderer loads only local assets, fails on missing pages and export errors,

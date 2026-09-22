@@ -117,13 +117,13 @@ al_binary_run(
     args = [
         "$(rootpath //tools/vault/backup)",
         "--rclone",
-        "$(rootpath //tools/rclone)",
+        "$(rootpath //third_party/org_rclone_rclone:rclone)",
         "--vault",
         "$(rootpath //tools/vault)",
     ],
     configs = ["//infra/vault:al"],
     data = [
-        "//tools/rclone",
+        "//third_party/org_rclone_rclone:rclone",
         "//tools/vault",
         "//tools/vault/backup",
         "//tools/vault/injector",

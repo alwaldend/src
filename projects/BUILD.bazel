@@ -18,7 +18,6 @@ al_release_binary(
         for package in subpackages(
             include = ["*"],
             exclude = [
-                "agents",
                 "mcp_cordis",
                 "alwaldend.com",
                 "ansible_collection",

@@ -1,0 +1,36 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_attributes", "pkg_files", "strip_prefix")
+
+[
+    alias(
+        name = name,
+        actual = "@com_android_commandlinetools//:{}_binary".format(name),
+        visibility = ["//:__subpackages__"],
+    )
+    for name in [
+        "apkanalyzer",
+        "avdmanager",
+        "d8",
+        "lint",
+        "profgen",
+        "r8",
+        "resourceshrinker",
+        "retrace",
+        "screenshot2",
+        "sdkmanager",
+    ]
+]
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//third_party:__pkg__"],
+)
+
+pkg_files(
+    name = "sdkmanager_files",
+    srcs = ["@com_android_commandlinetools_linux_x86_64//:sdkmanager_filegroup"],
+    attributes = pkg_attributes(mode = "0755"),
+    strip_prefix = strip_prefix.from_root("out"),
+    visibility = ["//tools/android:__pkg__"],
+)

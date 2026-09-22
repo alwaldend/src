@@ -22,5 +22,5 @@ The operator bootstrap membership follows the existing component pattern.
 An authorized Vault apply must create the roles and policies before their DNS
 stages can authenticate; source validation does not establish deployed access.
 Follow the [DNS migration](../../dns/README.md) for the coordinated cutover and
-the [AppRole bootstrap procedure](../../../projects/agents/skills/repo-infra/references/vault.md)
+the [AppRole bootstrap procedure](../../../tools/agents/skills/repo-infra/references/vault.md)
 when distinguishing missing deployment from insufficient operator access.

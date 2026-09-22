@@ -1,0 +1,21 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    archives = {
+    },
+    lock = "//third_party/land_oras_oras:binary_toolchain.json",
+    toolchains_map = {
+        "oras": "land_oras_oras",
+    },
+)
+
+register_toolchains(
+    "@land_oras_oras//:all",
+)
+
+use_repo(
+    binary_toolchain_extension,
+    "land_oras_oras",
+)

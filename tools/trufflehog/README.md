@@ -15,3 +15,6 @@ include every local Git ref, such as T3 checkpoint refs from other worktrees.
 ## Links
 
 - Repo: https://github.com/trufflesecurity/trufflehog
+
+The pinned upstream binary is owned by
+[`third_party/com_github_trufflesecurity_trufflehog`](../../third_party/com_github_trufflesecurity_trufflehog/README.md).

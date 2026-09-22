@@ -1,9 +1,9 @@
-load("@com_alwaldend_src_tools_trufflehog//:defs.bzl", "trufflehog_test")
+load("@com_github_trufflesecurity_trufflehog//:defs.bzl", "trufflehog_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
 alias(
     name = "trufflehog",
-    actual = "@com_alwaldend_src_tools_trufflehog//:trufflehog_binary",
+    actual = "//third_party/com_github_trufflesecurity_trufflehog:trufflehog",
     visibility = ["//:__subpackages__"],
 )
 

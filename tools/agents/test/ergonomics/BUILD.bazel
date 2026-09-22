@@ -1,0 +1,18 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+filegroup(
+    name = "fixtures",
+    testonly = True,
+    srcs = [
+        "README.md",
+        "cases.json",
+        "subject-prompt.txt",
+    ],
+    visibility = ["//tools/agents:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//tools/agents:__pkg__"],
+)

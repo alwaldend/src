@@ -6,7 +6,6 @@ from this list.
 
 PROJECTS = [
     "activitywatch_ingester_android",
-    "agents",
     "al",
     "android_launcher",
     "ansible_collection",
