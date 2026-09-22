@@ -1,4 +1,3 @@
-load("@com_alwaldend_src_tools_vault//:defs.bzl", "vault_binary")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
@@ -11,7 +10,8 @@ docs_filegroup(
     ),
 )
 
-vault_binary(
+alias(
     name = "vault",
+    actual = "//third_party/com_hashicorp_vault:vault",
     visibility = ["//:__subpackages__"],
 )

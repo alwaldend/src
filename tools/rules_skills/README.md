@@ -71,7 +71,7 @@ attrs = {
   The validation aspect verifies that the `SKILL.md` frontmatter uses the same
   name.
 - `root` is the owning Bazel package path within the skill's repository, such
-  as `projects/agents/skills/answer-question`. It has no repository,
+  as `tools/agents/skills/answer-question`. It has no repository,
   execution-path, or runfiles prefix. It is always non-empty because
   repository root packages are unsupported.
 - `files_by_path` maps slash-separated paths relative to `root` to Bazel
@@ -123,7 +123,7 @@ skills_write(
     name = "write_skills",
     archives = ["@org_fissionai_openspec//:openspec-propose"],
     discovery_dir = ".agents/skills",
-    symlinks = ["//projects/agents/skills/answer-question:skill"],
+    symlinks = ["//tools/agents/skills/answer-question:skill"],
     workspace_marker = "//:AGENTS.md",
 )
 ```

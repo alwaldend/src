@@ -14,17 +14,3 @@ rust_host_tools = use_extension(
     "rust_host_tools",
 )
 use_repo(rust_host_tools, "rust_host_tools")
-
-binary_toolchain_extension = use_extension(
-    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
-    "binary_toolchain_extension",
-)
-binary_toolchain_extension.toolchains(
-    archives = {
-    },
-    lock = "@rules_binary_toolchain//examples:binary_toolchain.json",
-    toolchains_map = {
-    },
-)
-
-register_toolchains()

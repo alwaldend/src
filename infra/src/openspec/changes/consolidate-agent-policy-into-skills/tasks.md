@@ -13,7 +13,7 @@
 
 ## 2. Add the workspace skill
 
-- [x] 2.1 Add `projects/agents/skills/repo-workspace` with its `SKILL.md`,
+- [x] 2.1 Add `tools/agents/skills/repo-workspace` with its `SKILL.md`,
       `BUILD.bazel`, `agents/openai.yaml`, and offline eval.
 - [x] 2.2 Register its `:skill` label in `.agents/BUILD.bazel` and regenerate
       the discovery links.

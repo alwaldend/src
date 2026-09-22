@@ -22,7 +22,7 @@
     "renderer": {
         "blender": "5.2.1 LTS",
         "build_hash": "9e2066aef7ef",
-        "repository_contract": "tools/blender/binary_toolchain.json",
+        "repository_contract": "third_party/org_blender_blender/binary_toolchain.json",
         "background": true,
         "factory_startup": true,
         "autoexec_disabled": true,

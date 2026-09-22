@@ -12,3 +12,6 @@ Selene's ordinary Lua diagnostics enabled.
 
 - Repo: https://github.com/Kampfkarren/selene
 - Documentation: https://kampfkarren.github.io/selene/
+
+The pinned upstream binary is owned by
+[`third_party/com_github_kampfkarren_selene`](../../third_party/com_github_kampfkarren_selene/README.md).

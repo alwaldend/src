@@ -1,0 +1,23 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    archives = {
+        "consul": ["linux_x86_64"],
+    },
+    lock = "//third_party/com_hashicorp_consul:binary_toolchain.json",
+    toolchains_map = {
+        "consul": "com_hashicorp_consul",
+    },
+)
+
+register_toolchains(
+    "@com_hashicorp_consul//:all",
+)
+
+use_repo(
+    binary_toolchain_extension,
+    "com_hashicorp_consul",
+    "com_hashicorp_consul_linux_x86_64",
+)

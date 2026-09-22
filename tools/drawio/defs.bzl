@@ -56,7 +56,7 @@ _drawio_svg = rule(
         "_font_anchor": attr.label(default = "@com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf", allow_single_file = True),
         "_fonts": attr.label(default = "@com_alwaldend_src_tools_drawio_fonts//:fonts"),
         "_render": attr.label(default = "//tools/drawio/cmd/render", executable = True, cfg = "exec"),
-        "_browser": attr.label(default = "@com_alwaldend_src_tools_mermaid//:chrome_headless_shell_binary", executable = True, cfg = "exec"),
+        "_browser": attr.label(default = "@com_google_chrome_headless_shell//:chrome_headless_shell_binary", executable = True, cfg = "exec"),
     },
 )
 

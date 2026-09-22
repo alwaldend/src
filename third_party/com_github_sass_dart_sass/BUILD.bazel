@@ -1,0 +1,13 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+filegroup(
+    name = "dart-sass",
+    srcs = ["@com_github_sass_dart_sass_linux_x86_64//:sass_filegroup"],
+    visibility = ["//visibility:public"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//third_party:__pkg__"],
+)

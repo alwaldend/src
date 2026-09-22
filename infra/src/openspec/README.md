@@ -25,12 +25,12 @@ root. It selects `infra/src` by default; use `OPENSPEC_PROJECT` for a component:
 
 ```sh
 bazel_agent bazel run //tools/openspec -- list --specs
-OPENSPEC_PROJECT=projects/agents bazel_agent bazel run //tools/openspec -- list
+OPENSPEC_PROJECT=tools/agents bazel_agent bazel run //tools/openspec -- list
 OPENSPEC_PROJECT=infra/vault bazel_agent bazel run //tools/openspec -- list --specs
 ```
 
 Use `new change`, `status`, `instructions`, `validate`, and `archive` with the
-same owner selection. The packaged [OpenSpec skill](../../../projects/agents/skills/openspec/SKILL.md)
+same owner selection. The packaged [OpenSpec skill](../../../tools/agents/skills/openspec/SKILL.md)
 documents continuation and acceptance. No global install or assistant
 configuration rewrite is needed. The CLI isolates configuration and disables
 telemetry.

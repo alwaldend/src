@@ -1,0 +1,23 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    archives = {
+        "sass": ["linux_x86_64"],
+    },
+    lock = "//third_party/com_github_sass_dart_sass:binary_toolchain.json",
+    toolchains_map = {
+        "sass": "com_github_sass_dart_sass",
+    },
+)
+
+register_toolchains(
+    "@com_github_sass_dart_sass//:all",
+)
+
+use_repo(
+    binary_toolchain_extension,
+    "com_github_sass_dart_sass",
+    "com_github_sass_dart_sass_linux_x86_64",
+)

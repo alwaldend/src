@@ -1,0 +1,21 @@
+binary_toolchain_extension = use_extension(
+    "@rules_binary_toolchain//main/bzl:binary_toolchain_extension.bzl",
+    "binary_toolchain_extension",
+)
+binary_toolchain_extension.toolchains(
+    archives = {
+    },
+    lock = "//third_party/org_rclone_rclone:binary_toolchain.json",
+    toolchains_map = {
+        "rclone": "org_rclone_rclone",
+    },
+)
+
+register_toolchains(
+    "@org_rclone_rclone//:all",
+)
+
+use_repo(
+    binary_toolchain_extension,
+    "org_rclone_rclone",
+)

@@ -69,7 +69,7 @@ al_binary_run_map(
     args = {
         "": [
             "$(rootpath :deploy_yc_script)",
-            "$(rootpath //tools/rclone)",
+            "$(rootpath //third_party/org_rclone_rclone:rclone)",
             "$(rootpath :rclone.conf)",
             "$(rootpath //third_party/org_fedora_cloud)",
         ],
@@ -81,7 +81,7 @@ al_binary_run_map(
         "rclone.conf",
         ":deploy_yc_script",
         "//third_party/org_fedora_cloud",
-        "//tools/rclone",
+        "//third_party/org_rclone_rclone:rclone",
         "//tools/vault/injector",
     ],
     run_args = [

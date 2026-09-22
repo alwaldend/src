@@ -73,7 +73,7 @@ al_release_binary = rule(
         "oras": attr.label(
             executable = True,
             cfg = "exec",
-            default = "//tools/oras",
+            default = "//third_party/land_oras_oras:oras",
             doc = "Oras binary",
         ),
         "release_tool": attr.label(

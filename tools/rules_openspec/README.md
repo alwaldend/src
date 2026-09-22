@@ -21,7 +21,7 @@ bazel_agent bazel run //tools/openspec -- --version
 bazel_agent bazel run //tools/openspec -- list --specs --json
 bazel_agent bazel run //tools/openspec -- status --change <change-name> --json
 bazel_agent bazel run //tools/openspec -- validate --all --strict --no-interactive
-OPENSPEC_PROJECT=projects/agents bazel_agent bazel run //tools/openspec -- list --specs --json
+OPENSPEC_PROJECT=tools/agents bazel_agent bazel run //tools/openspec -- list --specs --json
 OPENSPEC_PROJECT=infra/vault bazel_agent bazel run //tools/openspec -- list --specs --json
 ```
 

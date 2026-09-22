@@ -1,4 +1,4 @@
-load("@com_alwaldend_src_tools_blender//:defs.bzl", "blender_test")
+load("@org_blender_blender//:defs.bzl", "blender_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_go//go:def.bzl", "go_test")
 

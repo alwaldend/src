@@ -35,7 +35,7 @@ load("@rules_promptfoo//promptfoo:defs.bzl", "promptfoo_test")
 promptfoo_test(
     name = "answer_question_eval",
     config = "promptfooconfig.yaml",
-    skills = ["//projects/agents/skills/answer-question:skill"],
+    skills = ["//tools/agents/skills/answer-question:skill"],
     env_inherit = [
         "CODEX_HOME",
         "CODEX_PATH_OVERRIDE",

@@ -88,13 +88,13 @@ pkg_files(
     srcs = [
         "//data/ssl/alwaldend.com:root_ca",
         "//third_party/com_github_go_acme_lego_bin:binary_toolchain.json",
-        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
+        "@com_hashicorp_vault_linux_x86_64//:vault_filegroup",
     ],
     prefix = "files",
     renames = {
         "//data/ssl/alwaldend.com:root_ca": "root_ca.crt",
         "//third_party/com_github_go_acme_lego_bin:binary_toolchain.json": "lego-lock.json",
-        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "vault",
+        "@com_hashicorp_vault_linux_x86_64//:vault_filegroup": "vault",
     },
 )
 

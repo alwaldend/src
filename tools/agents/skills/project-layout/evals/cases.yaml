@@ -1,0 +1,73 @@
+- description: Places a new command by role instead of language
+  vars:
+    request: >-
+      Add a Go command named scanner to the existing project at
+      tools/audit. Decide whether it belongs at tools/audit/main/go/scanner or
+      another path.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response chooses tools/audit/cmd/scanner, explains
+        that cmd is the source role, and rejects main/go as a language-first
+        layer. Otherwise fail.
+
+- description: Uses internal rather than private at any nesting depth
+  vars:
+    request: >-
+      Add Starlark implementation details below tools/rules_example/rule.
+      The APIs must not be consumed outside the rules package. Choose between
+      rule/private and rule/internal, and account for nearby legacy private
+      directories.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response chooses
+        tools/rules_example/rule/internal, never introduces private for
+        internal implementation, treats nearby legacy private directories as
+        grandfathered rather than precedent, and does not propose an unrelated
+        repository-wide migration. Otherwise fail.
+
+- description: Applies project ownership outside the projects tree
+  vars:
+    request: >-
+      Add separately owned integration-test support for the existing Forgejo
+      component under infra/forgejo. Where should it live?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response treats infra/forgejo as the project root and
+        chooses infra/forgejo/test followed by a descriptive name or tree. It
+        must not add a projects layer or organize the support by language.
+        Otherwise fail.
+
+- description: Places simple external dependencies under third party
+  vars:
+    request: >-
+      Add a pinned http_archive, a Git source download, and a binary_toolchain
+      release binary for the root Bazel module. Where should their definitions
+      live, how should they be named, and where should our custom wrappers live?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if all three simple dependency definitions go under
+        third_party in upstream-identifying reverse-domain underscore packages,
+        their external repository names match, and first-party wrappers retain
+        their component ownership rather than moving into third_party.
+
+- description: Keeps standalone Bazel module dependencies self-contained
+  vars:
+    request: >-
+      tools/rules_example has its own MODULE.bazel and must build independently.
+      It uses binary_toolchain and http_archive in its module and examples.
+      Should these definitions move to the enclosing repository's third_party?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response keeps the dependency definitions and examples
+        within the standalone module, explaining that depending on the main
+        module would break its independent build boundary.

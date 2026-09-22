@@ -15,11 +15,11 @@ al_ansible_role(
     srcs = glob(["**"]) + [
         "//data/ssh:ca_clients",
         "//data/ssl/alwaldend.com:ica_servers",
-        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup",
+        "@com_hashicorp_vault_linux_x86_64//:vault_filegroup",
     ],
     renames = {
         "//data/ssh:ca_clients": "files/ssh_ca_clients.pub",
-        "@com_alwaldend_src_tools_vault_linux_x86_64//:vault_filegroup": "files/vault",
+        "@com_hashicorp_vault_linux_x86_64//:vault_filegroup": "files/vault",
     },
     visibility = ["//:__subpackages__"],
 )

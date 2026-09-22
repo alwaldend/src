@@ -10,7 +10,7 @@ compatibility.
 **Migration**: Continue to use the affected owner's `openspec/` workspace
 through `bazel_agent bazel run //tools/openspec -- ...`. The migration record
 at [migration.md](../../../../migration.md) and the preserved history under
-`projects/agents/openspec/changes/archive/` remain the historical record. The
+`tools/agents/openspec/changes/archive/` remain the historical record. The
 removed bytes stay retrievable from git history at the removal commit's
 parent.
 

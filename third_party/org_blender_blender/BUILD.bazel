@@ -1,0 +1,13 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+alias(
+    name = "blender",
+    actual = "@org_blender_blender//:blender_binary",
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//third_party:__pkg__"],
+)

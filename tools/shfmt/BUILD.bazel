@@ -8,7 +8,7 @@ filegroup(
 
 alias(
     name = "shfmt",
-    actual = "@com_alwaldend_src_tools_shfmt//:shfmt_binary",
+    actual = "//third_party/com_github_mvdan_sh:shfmt",
     visibility = ["//:__subpackages__"],
 )
 

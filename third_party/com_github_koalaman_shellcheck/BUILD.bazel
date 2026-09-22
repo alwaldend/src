@@ -1,0 +1,13 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+alias(
+    name = "shellcheck",
+    actual = "@com_github_koalaman_shellcheck//:shellcheck_binary",
+    visibility = ["//:__subpackages__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//third_party:__pkg__"],
+)

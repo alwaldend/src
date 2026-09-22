@@ -1,4 +1,3 @@
-load("@com_alwaldend_src_tools_gitea//:defs.bzl", "gitea_binary")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
 docs_filegroup(
@@ -11,7 +10,8 @@ docs_filegroup(
     ),
 )
 
-gitea_binary(
+alias(
     name = "gitea",
+    actual = "//third_party/com_gitea_gitea:gitea",
     visibility = ["//:__subpackages__"],
 )

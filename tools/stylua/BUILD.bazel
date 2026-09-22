@@ -9,7 +9,7 @@ al_toml_data(
 
 alias(
     name = "stylua",
-    actual = "@com_alwaldend_src_tools_stylua//:stylua_binary",
+    actual = "//third_party/com_github_johnnymorganz_stylua:stylua",
     visibility = ["//:__subpackages__"],
 )
 

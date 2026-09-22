@@ -7,12 +7,12 @@ sh_binary(
     name = "install",
     srcs = ["install.sh"],
     args = [
-        "$(rootpath //tools/android_cmdtools:sdkmanager)",
+        "$(rootpath //third_party/com_android_commandlinetools:sdkmanager)",
         "$(rootpath :packages.txt)",
     ],
     data = [
         "packages.txt",
-        "//tools/android_cmdtools:sdkmanager",
+        "//third_party/com_android_commandlinetools:sdkmanager",
     ],
 )
 
@@ -40,7 +40,7 @@ pkg_tar(
     name = "installer_tar",
     srcs = [
         ":installer_files",
-        "//tools/android_cmdtools:sdkmanager_files",
+        "//third_party/com_android_commandlinetools:sdkmanager_files",
     ],
     extension = "tar.gz",
     visibility = ["//infra/forgejo_runner/ansible:__pkg__"],

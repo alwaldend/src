@@ -107,7 +107,7 @@ mermaid_svg = rule(
         ),
         "_browser": attr.label(
             cfg = "exec",
-            default = "@com_alwaldend_src_tools_mermaid//:chrome_headless_shell_binary",
+            default = "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
             executable = True,
         ),
         "_render": attr.label(
