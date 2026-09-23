@@ -1,20 +1,24 @@
 {{ define "main" }}
 <div class="td-content">
   <h1>{{ .Title }}</h1>
-  {{ with .Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
-  {{ .Content }}
+  {{ with .Params.description }}
+  <div class="lead">{{ . | markdownify }}</div>
+  {{ end }} {{ .Content }}
   <div class="section-index">
-    <hr class="panel-line">
+    <hr class="panel-line" />
     {{ range .Pages.ByTitle }}
     <div class="entry">
       <h5><a href="{{ .RelPermalink }}">{{ .Title }}</a></h5>
       <p>{{ .Description | markdownify }}</p>
       <p>
         {{ range .GetTerms "statuses" }}
-        <a class="badge rounded-pill bg-secondary text-decoration-none" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
-        {{ end }}
-        {{ range .GetTerms "tags" }}
-        <a class="badge rounded-pill bg-light text-dark border text-decoration-none" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+        <a class="taxonomy-term" href="{{ .RelPermalink }}"
+          >{{ .LinkTitle }}</a
+        >
+        {{ end }} {{ range .GetTerms "tags" }}
+        <a class="taxonomy-term" href="{{ .RelPermalink }}"
+          >{{ .LinkTitle }}</a
+        >
         {{ end }}
       </p>
     </div>

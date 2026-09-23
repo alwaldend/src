@@ -11,6 +11,7 @@ load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files")
 load("@rules_pkg//pkg:tar.bzl", "pkg_tar")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
+load("//projects/alwaldend.com/internal/content:prepare.bzl", "prepare_content")
 load("//tools/http_server/main/bzl:al_http_server_binary.bzl", "al_http_server_binary")
 load("//tools/pkg/main/bzl:al_pkg_rename_files.bzl", "al_pkg_rename_files")
 load("//tools/toml/main/bzl:al_toml_data.bzl", "al_toml_data")
@@ -133,8 +134,13 @@ pkg_tar(
     ],
 )
 
-pkg_tar(
+prepare_content(
     name = "site_source_archive",
+    src = ":site_source_raw_archive",
+)
+
+pkg_tar(
+    name = "site_source_raw_archive",
     srcs = [":site_source_filegroup_renamed"],
     strip_prefix = ".",
 )

@@ -95,6 +95,19 @@ task-owned source and configuration unless the user says otherwise, with binary
 artifacts only through Git LFS. `repo-delivery` owns gates, commits, push, and
 requests.
 
+## Testing
+
+- NEVER write unit tests after writing code.
+- Highly prefer end-to-end (E2E) tests as the sole testing mechanism. Use them
+  to verify that complex features work. At the end of E2E tests, produce a
+  verifiable and repeatable artifact.
+- If you must test a system in isolation, FIRST write all the ways it could
+  fail, THEN write the code.
+- Tautological tests are considered harmful.
+- Change-detector tests are considered harmful.
+- Do not create regression tests for bug fixes without a genuine gap in
+  behavior testing.
+
 ## Use bounded tools and evidence
 
 Prefer supported live Cordis handlers, then purpose-built tools, MCP

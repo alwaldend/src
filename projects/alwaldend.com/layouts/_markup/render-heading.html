@@ -8,4 +8,9 @@
     {{- end -}}
   {{- end -}}
 {{- end -}}
-{{- partial "td/render-heading.html" (dict "Level" .Level "Attributes" $attributes "Text" .Text "Anchor" .Anchor) -}}
+{{- if and .PageInner.Params.al_title_from_heading (eq .Ordinal 0) (eq .Level 1) -}}
+  {{- /* Hugo renders the derived page title; retain existing incoming fragments. */ -}}
+  <span id="{{ .Anchor }}"></span>
+{{- else -}}
+  {{- partial "td/render-heading.html" (dict "Level" .Level "Attributes" $attributes "Text" .Text "Anchor" .Anchor) -}}
+{{- end -}}

@@ -1,0 +1,7 @@
+{{ define "main" -}}
+<div class="td-content error-content">
+  <h1>{{ .Title }}</h1>
+  <p>This page could not be found.</p>
+  <p>Go to the <a href="{{ "/" | relURL }}">homepage</a> or browse the <a href="{{ "/docs/" | relURL }}">documentation</a>.</p>
+</div>
+{{- end }}

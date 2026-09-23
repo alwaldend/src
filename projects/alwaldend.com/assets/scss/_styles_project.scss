@@ -1,10 +1,24 @@
-// Shared theme for repository Hugo sites.
+// One theme for every section of the site.
 @import "shared_theme";
+
+.td-breadcrumbs__single {
+    display: inline !important;
+}
 
 // Landing pages constrain their prose width and keep wide media scrollable
 // instead of overflowing the content column.
 .landing-content {
     max-width: 60rem;
+}
+
+.error-content {
+    max-width: 50rem;
+    margin-inline: auto;
+    padding-block: 1.5rem;
+
+    @include media-breakpoint-up(md) {
+        padding-top: calc(#{$td-navbar-min-height} + 1.5rem);
+    }
 }
 
 .landing-content img {
@@ -22,13 +36,33 @@
     display: block;
 }
 
+.book-list {
+    table-layout: fixed;
+    width: 100%;
+
+    td {
+        overflow-wrap: anywhere;
+    }
+
+    &__cover {
+        width: 10rem;
+
+        @include media-breakpoint-down(md) {
+            width: 3rem;
+        }
+    }
+
+    &__cover + td {
+        width: 5.5rem;
+    }
+}
+
 .td-footer {
     --td-footer-min-height: 0;
     padding-block: 0.5rem;
 }
 
-// The footer links carry the shared accent rather than a site-local blue, so
-// they follow `_variables_project.scss` like every other link on the site.
+// Footer links follow the active neutral palette.
 .td-footer__center a {
     color: var(--bs-link-color);
 
@@ -50,8 +84,71 @@
     min-height: 0;
 }
 
-@include media-breakpoint-up(md) {
-    .td-home .td-default main > section:first-of-type {
-        padding-top: clamp(8rem, 25vh, 14rem);
+.home-links {
+    max-width: 52rem;
+    margin-inline: auto;
+    padding: 0.75rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: $border-radius-lg;
+    background-color: var(--bs-body-bg);
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li a {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1.5rem;
+        padding: 0.625rem 1rem;
+        border-radius: $border-radius;
+        text-decoration: none;
+        font-weight: 500;
+
+        &:hover {
+            background-color: var(--bs-tertiary-bg);
+        }
+    }
+
+    &__destination {
+        color: var(--bs-secondary-color);
+        font-size: 0.8125rem;
+        font-weight: 400;
+        text-align: right;
+        text-decoration: underline;
+        text-decoration-color: var(--bs-border-color);
+        text-underline-offset: 0.2em;
+        overflow-wrap: anywhere;
+    }
+
+    li.home-links__project a {
+        padding-left: 2.25rem;
+        padding-block: 0.4375rem;
+        font-size: 0.875rem;
+        font-weight: 400;
+    }
+
+    @include media-breakpoint-down(md) {
+        padding: 0.5rem;
+
+        li a {
+            flex-direction: column;
+            gap: 0.125rem;
+        }
+
+        &__destination {
+            text-align: left;
+        }
+    }
+}
+
+.td-home .td-default main > section:first-of-type {
+    padding-block: 2rem 4rem;
+
+    @include media-breakpoint-up(md) {
+        padding-top: calc(#{$td-navbar-min-height} + clamp(3rem, 8vh, 6rem));
     }
 }
