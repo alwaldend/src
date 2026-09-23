@@ -1,26 +1,17 @@
-// Shared Docsy theme for the repository's Hugo sites.
-//
-// The apex site (`projects/alwaldend.com`) and the project landing sites render
-// the same canvas, text, and surface palette. Each site imports this file from
-// its own `_styles_project.scss`; do not copy these rules into a site-local
-// file.
+// Shared presentation for the homepage, blog, documentation, and project pages.
 //
 // Docsy imports `_styles_project.scss` after Bootstrap, so both the light
 // palette variables and the `*-dark` palette variables are in scope. The
 // overrides are CSS custom properties because that is what Bootstrap
 // components and Docsy surfaces read at runtime.
 
-$alwaldend-canvas-light: #fff !default;
-$alwaldend-canvas-dark: #000 !default;
-
-// Docsy and Bootstrap already derive a full per-mode palette. These mixins
-// restate those values on the mode selector and replace only the page canvas,
-// so light mode stays pure white and dark mode stays pure black.
+// Restate Bootstrap's palette on each mode selector so every shared surface
+// follows the neutral tokens from `_shared_accent.scss`.
 @mixin alwaldend-light-palette {
     color-scheme: light;
 
-    --bs-body-bg: #{$alwaldend-canvas-light};
-    --bs-body-bg-rgb: #{to-rgb($alwaldend-canvas-light)};
+    --bs-body-bg: #{$body-bg};
+    --bs-body-bg-rgb: #{to-rgb($body-bg)};
     --bs-body-color: #{$body-color};
     --bs-body-color-rgb: #{to-rgb($body-color)};
     --bs-emphasis-color: #{$body-emphasis-color};
@@ -50,8 +41,8 @@ $alwaldend-canvas-dark: #000 !default;
 @mixin alwaldend-dark-palette {
     color-scheme: dark;
 
-    --bs-body-bg: #{$alwaldend-canvas-dark};
-    --bs-body-bg-rgb: #{to-rgb($alwaldend-canvas-dark)};
+    --bs-body-bg: #{$body-bg-dark};
+    --bs-body-bg-rgb: #{to-rgb($body-bg-dark)};
     --bs-body-color: #{$body-color-dark};
     --bs-body-color-rgb: #{to-rgb($body-color-dark)};
     --bs-emphasis-color: #{$body-emphasis-color-dark};
@@ -95,6 +86,32 @@ $alwaldend-canvas-dark: #000 !default;
 // canvas custom property keeps that surface in step with the selected mode.
 html {
     background-color: var(--bs-body-bg);
+    scrollbar-color: var(--bs-border-color) transparent;
+}
+
+* {
+    scrollbar-width: thin;
+}
+
+// Firefox uses the standard properties above; WebKit supports rounded thumbs.
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--bs-border-color);
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
 }
 
 // Docsy gives the footer the literal `.td-box--dark` surface, which would
@@ -103,4 +120,542 @@ html {
 .td-footer {
     color: var(--bs-body-color);
     background-color: var(--bs-body-bg);
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+}
+
+.td-navbar {
+    --td-navbar-bg-color: var(--bs-body-bg);
+    --bs-navbar-color: var(--bs-secondary-color);
+    --bs-navbar-hover-color: var(--bs-emphasis-color);
+    --bs-navbar-active-color: var(--bs-emphasis-color);
+    box-shadow: none;
+
+    .nav-link {
+        border-radius: $border-radius;
+        font-weight: 500;
+
+        &:hover,
+        &.active {
+            background-color: var(--bs-tertiary-bg);
+        }
+    }
+}
+
+.td-sidebar {
+    background-color: var(--bs-tertiary-bg);
+
+    @include media-breakpoint-up(md) {
+        border-right: 0;
+    }
+}
+
+.td-sidebar-nav {
+    font-size: 0.875rem;
+    margin-inline: 0;
+    padding-inline: 0;
+
+    @include media-breakpoint-up(md) {
+        // Leave room for the fixed header, search field, and a bottom gutter.
+        max-height: calc(100dvh - #{$td-navbar-min-height} - 6.5rem);
+    }
+
+    @include media-breakpoint-down(md) {
+        max-height: min(65dvh, 32rem);
+        overflow-y: auto;
+    }
+
+    > .ul-0 {
+        container-type: inline-size;
+        // Remove Docsy's extra desktop gutter; the sidebar owns the inset.
+        padding-inline: 0 !important;
+
+        > li {
+            padding-inline-start: 0;
+        }
+    }
+
+    .td-sidebar-link {
+        position: relative;
+        isolation: isolate;
+        padding-block: 0.375rem;
+        // Docsy puts Bootstrap's `ps-0` utility on every tree link.
+        padding-inline: 0.5rem !important;
+        border-radius: $border-radius-sm;
+        font-weight: 400;
+        overflow-wrap: anywhere;
+
+        // All levels share a right edge. Size the row against the navigation
+        // container so its background and link hit area include the indent.
+        &::before {
+            content: "";
+            position: absolute;
+            inset-block: 0;
+            inset-inline-end: 0;
+            width: 100cqw;
+            border-radius: inherit;
+            z-index: -1;
+        }
+
+        &:hover,
+        &.active {
+            color: var(--bs-emphasis-color);
+        }
+
+        &:focus-visible {
+            outline: none;
+
+            &::before {
+                outline: 2px solid var(--bs-emphasis-color);
+                outline-offset: -2px;
+            }
+        }
+
+        &.active {
+            font-weight: 500;
+        }
+
+        &.tree-root {
+            border-bottom: 0;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+    }
+
+    .td-sidebar-link:hover::before,
+    label:hover > .td-sidebar-link::before {
+        background-color: color-mix(
+            in srgb,
+            var(--bs-secondary-bg) 60%,
+            transparent
+        );
+    }
+
+    .td-sidebar-link.active::before {
+        background-color: var(--bs-secondary-bg);
+    }
+}
+
+.td-sidebar-toc {
+    border-left: 0;
+    font-size: 0.8125rem;
+    padding-inline: 1rem;
+    padding-top: 1.5rem;
+
+    .td-page-meta {
+        margin-inline: 0 !important;
+        padding-top: 0 !important;
+
+        a {
+            padding: 0.3125rem 0.5rem;
+            color: var(--bs-secondary-color);
+            font-weight: 400;
+            line-height: 1.5;
+            border-radius: $border-radius-sm;
+            text-decoration: none;
+
+            &:hover {
+                color: var(--bs-emphasis-color);
+                background-color: var(--bs-tertiary-bg);
+            }
+        }
+
+        i {
+            display: none;
+        }
+    }
+}
+
+.td-sidebar-nav.foldable-nav .ul-1 .with-child {
+    > label::after {
+        // Give the disclosure a usable hit area without enlarging its glyph.
+        content: "";
+        position: absolute;
+        z-index: 1;
+        top: 0.25rem;
+        left: 0;
+        width: 1.25rem;
+        height: 1.5rem;
+        cursor: pointer;
+    }
+
+    > label::before {
+        content: "";
+        // Keep expansion independently clickable above the full-row link.
+        z-index: 1;
+        top: 0.875rem;
+        left: 0.375rem;
+        width: 0.375rem;
+        height: 0.375rem;
+        padding: 0;
+        border-right: 1px solid currentColor;
+        border-bottom: 1px solid currentColor;
+        color: var(--bs-secondary-color);
+        transform: rotate(-45deg);
+        transition: transform 0.15s;
+    }
+
+    > input:checked ~ label::before {
+        transform: rotate(45deg);
+        transition: transform 0.15s;
+    }
+}
+
+.td-sidebar-nav.foldable-nav {
+    .ul-1 .with-child,
+    .ul-1 .without-child {
+        padding-inline-start: 0.75rem;
+    }
+
+    @include media-breakpoint-only(md) {
+        .ul-1 .with-child,
+        .ul-1 .without-child {
+            padding-inline-start: 0.5rem;
+        }
+
+        .ul-1 .with-child > label::after {
+            width: 1rem;
+        }
+    }
+
+    .with-child > input[type="checkbox"] {
+        // Keep native Space-to-toggle and checked-state announcements available.
+        display: block;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        clip-path: inset(50%);
+        overflow: hidden;
+    }
+
+    input:focus-visible ~ label > .td-sidebar-link::before {
+        outline: 2px solid var(--bs-emphasis-color);
+        outline-offset: -2px;
+    }
+}
+
+.td-toc {
+    margin-block: 1.75rem;
+
+    &-title {
+        border-bottom: 0;
+        padding-inline: 0.5rem;
+        margin-bottom: 0.5rem;
+
+        &__text {
+            font-weight: inherit;
+        }
+    }
+
+    #TableOfContents {
+        --td-toc-h1-font-weight-delta: 0;
+        margin-left: 0;
+
+        a {
+            padding: 0.375rem 0.5rem;
+            border-left: 0;
+            border-radius: $border-radius-sm;
+
+            &:hover,
+            &.active {
+                color: var(--bs-emphasis-color);
+                background-color: var(--bs-tertiary-bg);
+            }
+        }
+    }
+}
+
+.td-breadcrumbs {
+    font-size: 0.8125rem;
+    color: var(--bs-secondary-color);
+
+    a {
+        color: inherit;
+    }
+}
+
+.td-search__input.form-control {
+    background-color: var(--bs-tertiary-bg);
+    border-color: var(--bs-border-color);
+    border-radius: $border-radius;
+    font-size: 0.875rem;
+}
+
+.card,
+.dropdown-menu,
+.popover,
+.alert {
+    box-shadow: none;
+    border-color: var(--bs-border-color);
+}
+
+.dropdown-menu {
+    --bs-dropdown-link-active-color: var(--bs-emphasis-color);
+    --bs-dropdown-link-active-bg: var(--bs-secondary-bg);
+}
+
+.accordion {
+    --bs-accordion-bg: var(--bs-body-bg);
+    --bs-accordion-color: var(--bs-body-color);
+    --bs-accordion-btn-bg: var(--bs-tertiary-bg);
+    --bs-accordion-btn-color: var(--bs-body-color);
+    --bs-accordion-active-bg: var(--bs-secondary-bg);
+    --bs-accordion-active-color: var(--bs-emphasis-color);
+    --bs-accordion-border-color: var(--bs-border-color);
+    --bs-accordion-btn-focus-box-shadow: none;
+}
+
+// Bootstrap outline variants compile fixed colors. Follow the active palette
+// so release attribute dropdowns remain legible on both canvases.
+.btn-outline-primary {
+    --bs-btn-color: var(--bs-body-color);
+    --bs-btn-border-color: var(--bs-secondary-color);
+    --bs-btn-hover-color: var(--bs-body-bg);
+    --bs-btn-hover-bg: var(--bs-body-color);
+    --bs-btn-hover-border-color: var(--bs-body-color);
+    --bs-btn-active-color: var(--bs-body-bg);
+    --bs-btn-active-bg: var(--bs-body-color);
+    --bs-btn-active-border-color: var(--bs-body-color);
+    --bs-btn-disabled-color: var(--bs-secondary-color);
+    --bs-btn-disabled-border-color: var(--bs-border-color);
+}
+
+.taxonomy-term,
+.td-content a.taxonomy-term {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.375rem;
+    padding: 0.125rem 0.5rem;
+    margin: 0 0.25rem 0.375rem 0;
+    border: 1px solid var(--bs-border-color);
+    border-radius: $border-radius-sm;
+    background: transparent;
+    color: var(--bs-secondary-color);
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-decoration: none;
+    -webkit-clip-path: none;
+    clip-path: none;
+
+    &:hover {
+        background-color: var(--bs-tertiary-bg);
+        color: var(--bs-emphasis-color);
+
+        .taxonomy-count {
+            color: inherit;
+        }
+    }
+
+    .taxonomy-count {
+        padding: 0;
+        margin: 0;
+        border-radius: 0;
+        background: transparent;
+        color: inherit;
+        font-size: inherit;
+    }
+}
+
+.taxonomy-terms-article .taxonomy-title,
+.taxonomy-terms-cloud .taxonomy-title {
+    color: var(--bs-secondary-color);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    border-bottom: 0;
+}
+
+.taxonomy-terms-page .taxonomy-terms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+
+    li {
+        display: inline-flex;
+    }
+}
+
+.td-sidebar-toc .taxonomy-terms-cloud {
+    margin-top: 2rem;
+
+    .taxonomy-title {
+        margin: 0 0 0.75rem;
+        padding-inline: 0.5rem;
+    }
+
+    .taxonomy-term {
+        display: inline-flex;
+        gap: 0.375rem;
+        border: 0;
+        padding: 0.25rem 0.5rem;
+        margin: 0 0.125rem 0.25rem 0;
+        font-size: 0.8125rem;
+
+        &:hover {
+            background-color: var(--bs-tertiary-bg);
+            text-decoration: none;
+        }
+
+        .taxonomy-count {
+            flex-shrink: 0;
+            color: var(--bs-secondary-color);
+            font-variant-numeric: tabular-nums;
+        }
+    }
+}
+
+.td-sidebar-toc .taxonomy-title,
+.td-toc-title {
+    color: var(--bs-body-color);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.td-content {
+    a {
+        overflow-wrap: anywhere;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: var(--bs-body-font-family);
+        font-weight: $headings-font-weight;
+        letter-spacing: -0.02em;
+        overflow-wrap: anywhere;
+    }
+
+    > h1 {
+        font-size: $h1-font-size;
+        font-weight: $headings-font-weight;
+        margin-bottom: 0.75rem;
+    }
+
+    .td-heading-self-link {
+        color: var(--bs-secondary-color);
+        font-size: 0.75em;
+    }
+
+    .lead {
+        color: var(--bs-secondary-color);
+        font-size: 1.125rem;
+        font-weight: 400;
+    }
+
+    p a,
+    li a,
+    td a {
+        text-decoration: underline;
+        text-decoration-color: var(--bs-secondary-color);
+        text-underline-offset: 0.2em;
+    }
+
+    blockquote {
+        border-left: 2px solid var(--bs-border-color);
+    }
+
+    pre,
+    .highlight {
+        border-radius: $border-radius;
+    }
+
+    p code,
+    li > code,
+    table code {
+        border-radius: 0.25rem;
+    }
+
+    .td-table {
+        --bs-table-striped-bg: transparent;
+        --bs-table-border-color: var(--bs-border-color);
+
+        th {
+            font-weight: 500;
+        }
+    }
+}
+
+.section-index h5 a {
+    font-weight: $headings-font-weight;
+}
+
+.td-blog .td-rss-button {
+    color: var(--bs-secondary-color);
+    background-color: transparent;
+    border: 1px solid var(--bs-border-color);
+    border-radius: $border-radius;
+    font-size: 1rem;
+
+    &:hover {
+        color: var(--bs-emphasis-color);
+        background-color: var(--bs-tertiary-bg);
+    }
+}
+
+// Documentation components use the same quiet surfaces as navigation.
+:root,
+[data-bs-theme="light"],
+[data-bs-theme="dark"] {
+    --td-pre-bg: var(--bs-tertiary-bg);
+}
+
+.alert {
+    color: var(--bs-body-color);
+    background-color: var(--bs-tertiary-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: $border-radius;
+    font-weight: 400;
+
+    .alert-heading,
+    .alert-link {
+        color: var(--bs-emphasis-color);
+    }
+}
+
+.pageinfo {
+    color: var(--bs-body-color);
+    background-color: var(--bs-tertiary-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: $border-radius;
+    padding: 1rem 1.25rem;
+}
+
+[data-bs-theme] .chroma {
+    color: var(--bs-body-color);
+    background-color: var(--td-pre-bg);
+
+    span {
+        color: inherit;
+        background-color: transparent;
+    }
+
+    .c,
+    .c1,
+    .cm,
+    .cs,
+    .go {
+        color: var(--bs-secondary-color);
+    }
+}
+
+// An outline remains visible without relying on an accent color or shadow.
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+summary:focus-visible,
+.td-navbar .nav-link:focus-visible {
+    outline: 2px solid var(--bs-emphasis-color);
+    outline-offset: 3px;
+    box-shadow: none;
+}
+
+.td-footer {
+    border-top: 1px solid var(--bs-border-color);
 }

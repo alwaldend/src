@@ -1,14 +1,31 @@
-<div class="card mx-auto" style="max-width: 40rem;">
-  <div class="card-body">
-    <nav aria-label="Quick links">
-      <ul class="list-group list-group-flush">
-        {{ range .Page.Site.Params.alwaldend.links }}
-        {{ $label := .url | absURL | strings.TrimPrefix "https://" | strings.TrimPrefix "http://" | strings.TrimSuffix "/" }}
-        <li class="list-group-item">
-          {{ .name }}: <a class="text-break" href="{{ .url | relURL }}">{{ $label }}</a>
-        </li>
-        {{ end }}
-      </ul>
-    </nav>
-  </div>
-</div>
+<nav class="home-links" aria-label="Quick links">
+  <ul>
+    {{ range .Page.Site.Params.alwaldend.links }}
+    <li>
+      <a href="{{ .url | relURL }}">
+        <span>{{ .name }}</span>
+        <span class="home-links__destination"
+          >{{ strings.TrimSuffix "/" (strings.TrimPrefix "https://" .url)
+          }}</span
+        >
+      </a>
+    </li>
+    {{ end }} {{ $site := .Page.Site }} {{ range slice "Blog" "Docs" "Projects"
+    }} {{ range where $site.Menus.main "Name" . }}
+    <li>
+      <a href="{{ .URL | relURL }}">
+        <span>{{ .Name }}</span>
+        <span class="home-links__destination">{{ .URL | relURL }}</span>
+      </a>
+    </li>
+    {{ end }} {{ end }} {{ with $site.GetPage "/projects" }} {{ range
+    .Pages.ByTitle }}
+    <li class="home-links__project">
+      <a href="{{ .RelPermalink }}">
+        <span>{{ .LinkTitle }}</span>
+        <span class="home-links__destination">{{ .RelPermalink }}</span>
+      </a>
+    </li>
+    {{ end }} {{ end }}
+  </ul>
+</nav>

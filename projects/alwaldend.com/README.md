@@ -24,6 +24,24 @@ uses Hugo with Docsy to publish project documentation on GitHub Pages.
 - [Hugo](https://gohugo.io) site
 - [Docsy](https://github.com/google/docsy), [Bootstrap](https://getbootstrap.com)
 
+The homepage, blog, documentation, and project pages share a flat monochrome
+theme with white and charcoal color modes, subtle borders, and system fonts.
+The navigation's theme menu supports light, dark, and system preferences.
+Every page uses an "Al" SVG favicon outlined in Architects Daughter.
+Prose links are underlined, and keyboard focus uses a visible outline.
+Scrollbars are thin and muted; taxonomy links use small rounded labels shared
+with the project index. Documentation sidebars use plain action rows,
+uppercase group headings, compact wrapping taxonomy items, subtle hover and active
+backgrounds spanning the full tree row, and compact chevrons. Tree labels stay
+indented; chevrons expand branches independently of the row's page link. Headings,
+search fields, code blocks, tables, and callouts follow the same typography
+and surface styles. Syntax highlighting
+uses CSS classes so code colors follow the active theme.
+The homepage panel links to GitHub, GitLab, Blog, Docs, and the project index,
+followed by permanently visible, indented project links in title order.
+Each row shows its destination alongside its title; narrow screens place the
+destination below the title. The panel has space below the fixed header.
+
 ## Local preview and validation
 
 Run from the repository root:
@@ -76,6 +94,14 @@ destinations remain unchanged rather than being silently redirected to GitHub.
 
 Print pages scope IDs and their fragment and control references to each source
 document, keeping anchors distinct when documents are combined.
+
+During site packaging, plain documentation that starts with an H1 receives a
+derived Hugo title. Missing ancestor section pages preserve its directory
+hierarchy, including OpenSpec specifications. Existing front matter and leaf
+bundles remain authoritative. The title is rendered once and its original
+heading anchor remains available; canonical Markdown needs no site metadata.
+Tree disclosure controls support pointer clicks and keyboard toggling.
+The tag index wraps its items, and `/404.html` offers links back to the site.
 
 ## Deployment
 

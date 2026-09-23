@@ -4,7 +4,7 @@ transform.Unmarshal).author -}} {{ $books := (.Page.Resources.Get "books.toml"
 
 <div class="container">
   <div class="row table-responsive">
-    <table class="td-initial table text-start">
+    <table class="td-initial table text-start book-list">
       <tbody>
         {{ range ($books | collections.Reverse) -}} {{ $rowspan := 0 -}} {{
         range (collections.Slice .title .authors .completion .reading .quality
@@ -22,8 +22,7 @@ transform.Unmarshal).author -}} {{ $books := (.Page.Resources.Get "books.toml"
         <tr>
           <td
             colspan="1"
-            style="width: 10rem"
-            class="text-center"
+            class="text-center book-list__cover"
             rowspan="{{ $rowspan }}"
           >
             {{ if $thumbnail -}}

@@ -1,8 +1,2 @@
-// Docsy imports this file before Bootstrap so the shared accent feeds the
-// compiled theme palette. This site has no site-local theme variables, so the
-// shared accent is the only content here.
+// Feed the shared neutral tokens into the compiled Bootstrap and Docsy theme.
 @import "shared_accent";
-
-.td-breadcrumbs__single {
-    display: inline !important;
-}

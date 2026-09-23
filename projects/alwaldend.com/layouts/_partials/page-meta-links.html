@@ -14,7 +14,7 @@ after 0.9.0 */ -}}
 {{ end -}}
 {{ $gh_project_repo := $.Param "github_project_repo" -}}
 {{ $gh_branch := $.Param "github_branch" | default "main" -}}
-{{ $isGen := false -}}
+{{ $isGen := .Params.al_generated_section | default false -}}
 {{ range .GetTerms "tags" }}
 {{ if in .Site.Params.ui.generated_tags .LinkTitle -}}
 {{ $isGen = true -}}
