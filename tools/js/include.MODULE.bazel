@@ -27,6 +27,12 @@ npm.npm_translate_lock(
     data = [
         "//tools:pnpm-workspace.yaml",
     ],
+    patch_args = {
+        "mermaid@11.17.2": ["-p1"],
+    },
+    patches = {
+        "mermaid@11.17.2": ["//third_party/com_github_mermaid_js_mermaid:edge-spacing.patch"],
+    },
     pnpm_lock = "//tools:pnpm-lock.yaml",
     public_hoist_packages = {
         "autoprefixer": ["tools"],

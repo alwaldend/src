@@ -1,5 +1,14 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_palette")
+
+mermaid_palette(
+    name = "mermaid_palette",
+    src = "scss/mermaid.scss",
+    out = "mermaid-palette.css",
+    visibility = ["//:__subpackages__"],
+    deps = ["scss/_shared_accent.scss"],
+)
 
 # The shared Docsy canvas and accent live in this site's own assets tree now
 # that the reusable landing project is retired, so both the home page and the

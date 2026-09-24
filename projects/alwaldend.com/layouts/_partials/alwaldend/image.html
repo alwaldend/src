@@ -1,0 +1,34 @@
+{{- $context := . -}}
+{{- $attributes := .Attributes | default dict -}}
+{{- $src := partial "alwaldend/resolve-destination.html" (dict "Page" .Page "Destination" .Destination) -}}
+{{- $url := urls.Parse $src -}}
+{{- $dark := "" -}}
+{{- if and (ne .Page.Section "blog") (not $url.IsAbs) (eq (path.Ext $url.Path) ".svg") -}}
+  {{- $darkPath := printf "%s.dark.svg" (strings.TrimSuffix ".svg" $url.Path) -}}
+  {{- $darkSource := printf "%s.dark.svg" (strings.TrimSuffix ".svg" (urls.Parse .Destination).Path) -}}
+  {{- with or (.Page.Resources.Get $darkSource) (resources.Get $darkSource) -}}
+    {{- $dark = .RelPermalink -}}
+  {{- else -}}
+    {{- if fileExists (printf "content/%s" (strings.TrimPrefix "/" $darkPath)) -}}
+      {{- $dark = $darkPath -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $images := slice (dict "Source" $src "Class" "") -}}
+{{- if $dark -}}
+  {{- $images = slice (dict "Source" $src "Class" "mermaid-light") (dict "Source" $dark "Class" "mermaid-dark") -}}
+  <span class="mermaid-diagram"{{ with index $attributes "id" }} id="{{ . }}"{{ end }}>
+{{- end -}}
+{{- range $images -}}
+  {{- $class := strings.TrimSpace (printf "%s %s" .Class (index $attributes "class" | default "")) -}}
+  <img src="{{ .Source }}" alt="{{ $context.Alt }}" loading="lazy"
+    {{- with $class }} class="{{ . }}"{{ end -}}
+    {{- with $context.Title }} title="{{ . }}"{{ end -}}
+    {{- range $key, $value := $attributes -}}
+      {{- if and $value (not (in (slice "alt" "src" "loading" "class") $key)) (not (and $dark (eq $key "id"))) -}}
+        {{- printf " %s=%q" $key ($value | transform.HTMLEscape) | safeHTMLAttr -}}
+      {{- end -}}
+    {{- end -}}
+  >
+{{- end -}}
+{{- if $dark -}}</span>{{- end -}}

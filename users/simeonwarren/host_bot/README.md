@@ -137,14 +137,14 @@ so those subprocesses do not inherit the credential.
 
 The diagram source is [`t3code-architecture.mmd`](t3code-architecture.mmd),
 and the SVG beside this page is rendered from it at build time by
-`//users/simeonwarren/host_bot:rendered`. There is no committed copy to refresh:
+`//users/simeonwarren/host_bot:rendered_site`. There is no committed copy to refresh:
 edit the `.mmd` and the next build renders the new diagram.
 
-Rendering uses the repository's pinned Mermaid, headless Chrome, and Liberation
-font inputs, so the maintained image does not depend on host fonts or a CDN.
-The shared [Mermaid theme](https://github.com/alwaldend/src/blob/master/tools/mermaid/theme.json)
-owns the diagram appearance, so this diagram follows the same visual contract
-as the rest of the repository.
+Rendering uses the repository’s pinned Mermaid, headless Chrome, and Liberation
+font inputs. The site preset renders native light/dark SVG variants with bordered
+caption labels and rounded containers; it does not post-process the generated SVG.
+The site selects the variant matching its theme menu. The `rendered` target
+retains the original appearance used by the historical blog publication.
 
 ## Deployment
 

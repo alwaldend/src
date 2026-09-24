@@ -1,10 +1,2 @@
-{{- $src := partial "alwaldend/resolve-destination.html" (dict "Page" .PageInner "Destination" .Destination) -}}
-<img src="{{ $src }}" alt="{{ .PlainText }}" loading="lazy"
-  {{- with .Title }} title="{{ . }}"{{ end -}}
-  {{- range $key, $value := .Attributes -}}
-    {{- if and $value (ne $key "alt") (ne $key "src") (ne $key "loading") -}}
-      {{- printf " %s=%q" $key ($value | transform.HTMLEscape) | safeHTMLAttr -}}
-    {{- end -}}
-  {{- end -}}
->
+{{- partial "alwaldend/image.html" (dict "Page" .PageInner "Destination" .Destination "Alt" .PlainText "Title" .Title "Attributes" .Attributes) -}}
 {{- /* Keep inline images adjacent to their surrounding text. */ -}}

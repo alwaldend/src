@@ -1,0 +1,21 @@
+{
+    "theme": "base",
+    "look": "classic",
+    "layout": "dagre",
+    "themeVariables": {
+        "fontFamily": "Liberation Sans, sans-serif",
+        "fontSize": "16px"
+    },
+    "flowchart": {
+        "curve": "basis",
+        "nodeSpacing": 32,
+        "rankSpacing": 40,
+        "padding": 12,
+        "subGraphTitleMargin": {
+            "top": -16,
+            "bottom": 0
+        },
+        "edgeSpacing": 44
+    },
+    "themeCSS": ".node rect,.cluster rect{rx:12px;ry:12px;}.edgeLabel p{background:var(--mermaid-background);border:1px solid var(--mermaid-primaryBorderColor);border-radius:4px;padding:2px 6px;margin:3px;display:inline-block;}.edgeLabel .labelBkg{background:transparent;}.cluster-label span p{background:var(--mermaid-background);border:1px solid var(--mermaid-clusterBorder);border-radius:6px;padding:0 6px;margin:3px;line-height:1;display:inline-block;font-size:13px;text-align:center;}.flowchart-link{stroke-linecap:round;stroke-linejoin:round;}"
+}

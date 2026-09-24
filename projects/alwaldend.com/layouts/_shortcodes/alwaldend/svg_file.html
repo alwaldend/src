@@ -1,7 +1,1 @@
-{{ $file := .Get "file" -}} {{ $image := .Page.Resources.GetMatch $file -}}
-<img
-  src="{{ $image.RelPermalink }}"
-  alt="{{ .Get "alt" | default .Page.Title }}"
-  class="img-fluid"
-  loading="lazy"
-/>
+{{- partial "alwaldend/image.html" (dict "Page" .Page "Destination" (.Get "file") "Alt" (.Get "alt" | default .Page.Title) "Attributes" (dict "class" "img-fluid")) -}}
