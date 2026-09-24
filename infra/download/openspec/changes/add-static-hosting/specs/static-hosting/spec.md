@@ -161,3 +161,17 @@ delete releases, or merge storage across environments.
 - **WHEN** a daily job runs again or is interrupted
 - **THEN** published content and website selection remain intact
 - **AND** another run can reuse the private hash database without overlapping an active service run
+
+### Requirement: Administrator access to the content account
+
+The service SHALL retain its dedicated content account without configuring
+its authorized keys. Administrators SHALL use their existing SSH and sudo
+access to run publication as the content account. Host configuration SHALL
+install rsync and provision storage without uploading or selecting releases.
+
+#### Scenario: Configure a host without a publisher key
+
+- **WHEN** an administrator configures the selected download host
+- **THEN** the content account and rsync are available for publication
+- **AND** no separate publisher key or authorization entry is required
+- **AND** existing release content and website selection remain unchanged

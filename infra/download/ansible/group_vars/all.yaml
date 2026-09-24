@@ -1,0 +1,12 @@
+ansible_user: ansible
+download_nginx_port: 8008
+download_acme_email: src_infra_download@alwaldend.com
+ssh_vault_role: src_infra_download_ssh
+firewall_allow_port_from:
+  - { src: any, port: 22, proto: tcp, comment: SSH }
+  - { src: any, port: 80, proto: tcp, comment: HTTP }
+  - { src: any, port: 443, proto: tcp, comment: HTTPS }
+nginx_config_template: files/nginx.conf.j2
+traefik_config_local_path: files/traefik.toml.j2
+traefik_dynamic_config_local_path: files/traefik_dynamic.toml.j2
+traefik_service_path: /etc/systemd/system/traefik.service

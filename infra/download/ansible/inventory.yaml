@@ -1,0 +1,10 @@
+download:
+  children:
+    download_local:
+      hosts:
+        host1.dc1.download.alwaldend.com:
+          download_content_device: /dev/xvdb
+    download_yandex:
+      hosts:
+        host1.yc.download.alwaldend.com:
+          download_content_device: /dev/disk/by-id/virtio-download-content

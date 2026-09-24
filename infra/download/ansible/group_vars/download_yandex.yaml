@@ -1,0 +1,3 @@
+traefik_disable_eab: true
+download_acme_directory: https://acme-v02.api.letsencrypt.org/directory
+download_acme_certificates_duration: 2160

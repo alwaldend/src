@@ -1,0 +1,6 @@
+- name: Configure the selected download VM
+  hosts: download
+  become: true
+  force_handlers: true
+  roles:
+    - alwaldend.main.download_host

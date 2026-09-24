@@ -1,0 +1,65 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_filegroup", "pkg_files", "strip_prefix")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run_map")
+load("//tools/ansible/main/bzl:al_ansible_binary.bzl", "al_ansible_binary")
+
+al_binary_run_map(
+    name = "ansible",
+    args = {environment: [
+        "$(rootpath :ansible_bin)",
+        "--inventory",
+        "inventory.yaml",
+        "--limit",
+        "download_" + environment,
+        "playbook_deploy.yaml",
+    ] for environment in [
+        "local",
+        "yandex",
+    ]},
+    configs = ["//infra/download:al"],
+    data = [
+        ":ansible_bin",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "vault_env=default_default",
+        "--plugin_label",
+        "ansible=1",
+    ],
+)
+
+al_ansible_binary(
+    name = "ansible_bin",
+    data = [
+        ":srcs",
+        "//infra:ansible_cfg",
+        "//projects/ansible_collection:collections",
+    ],
+    process_name = "ansible_playbook",
+)
+
+pkg_files(
+    name = "files",
+    srcs = [
+        "inventory.yaml",
+        "playbook_deploy.yaml",
+    ] + glob([
+        "group_vars/**",
+        "files/**",
+    ]),
+    strip_prefix = strip_prefix.from_pkg(),
+)
+
+pkg_filegroup(
+    name = "srcs",
+    srcs = [
+        ":files",
+    ],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/download:__pkg__"],
+)

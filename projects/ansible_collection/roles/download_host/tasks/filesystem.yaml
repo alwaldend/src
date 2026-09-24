@@ -4,6 +4,7 @@
       - btrfs-progs
       - duperemove
       - policycoreutils-python-utils
+      - rsync
     state: present
 
 - name: Create the content filesystem without overwriting existing data

@@ -1,0 +1,29 @@
+[http.routers.download]
+  rule = "Host(`download.alwaldend.com`)"
+  entryPoints = ["websecure"]
+  service = "nginx"
+  [http.routers.download.tls]
+    certResolver = "default"
+
+[http.routers.site]
+  rule = "Host(`alwaldend.com`)"
+  entryPoints = ["websecure"]
+  service = "nginx"
+  [http.routers.site.tls]
+    certResolver = "default"
+
+[http.routers.www]
+  rule = "Host(`www.alwaldend.com`)"
+  entryPoints = ["websecure"]
+  service = "noop@internal"
+  middlewares = ["apex"]
+  [http.routers.www.tls]
+    certResolver = "default"
+
+[http.middlewares.apex.redirectRegex]
+  regex = "^https?://www\\.alwaldend\\.com(?::[0-9]+)?/(.*)"
+  replacement = "https://alwaldend.com/${1}"
+  permanent = true
+
+[[http.services.nginx.loadBalancer.servers]]
+  url = "http://127.0.0.1:{{ download_nginx_port }}"

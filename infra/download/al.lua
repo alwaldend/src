@@ -27,3 +27,8 @@ infra.yc_auth({
 })
 
 infra.dns({ labels = { tf = "dns" }, dc1 = true })
+
+infra.ansible_keys({
+    labels = { ansible = "1" },
+    vault_ssh = { backend = "ssh/clients/sign/admins", ttl = 60 * 60 * 2 },
+})

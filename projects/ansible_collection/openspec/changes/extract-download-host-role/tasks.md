@@ -26,5 +26,7 @@
 
 ## 2. Consumer follow-up
 
-- [ ] 2.1 After this role merges, rebase PR #102 onto trunk, apply its prepared
-      conversion, and validate/publish the role-based consumer against trunk.
+- [x] 2.1 Rebase PR #102 onto the merged role, apply its prepared conversion,
+      and validate the role-based consumer against trunk. Both packaged inventories
+      and rendered configurations pass; publication is recorded by PR #102 and
+      its delivery receipts.

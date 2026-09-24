@@ -1,10 +1,3 @@
-- name: Require publisher authorized keys
-  ansible.builtin.assert:
-    that:
-      - download_publisher_authorized_keys | length > 0
-    quiet: true
-  no_log: true
-
 - name: Resolve the content device path
   ansible.builtin.stat:
     path: "{{ download_content_device }}"
@@ -30,20 +23,12 @@
   ansible.builtin.import_role:
     name: alwaldend.main.host
 
-- name: Create the SSH publisher
+- name: Create the content publisher account
   ansible.builtin.user:
     name: "{{ download_publisher }}"
     shell: /bin/bash
     create_home: true
     password_lock: true
-
-- name: Install the publisher's authorized keys
-  ansible.posix.authorized_key:
-    user: "{{ download_publisher }}"
-    key: "{{ download_publisher_authorized_keys }}"
-    key_options: restrict
-    exclusive: true
-  no_log: true
 
 - name: Configure content storage and maintenance
   ansible.builtin.import_tasks: filesystem.yaml

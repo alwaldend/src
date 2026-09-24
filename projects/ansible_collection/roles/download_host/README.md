@@ -10,14 +10,17 @@ forcing replacement of an existing filesystem, and mounts by UUID. This role
 is intended for the Fedora hosts used by `infra/download`.
 
 The role creates only the publication roots: `projects/`, `sites/`, and private
-`staging/`, owned by the SSH publisher. Publishers create individual projects,
+`staging/`, owned by the `download` publisher account. Publishers create individual projects,
 sites, and releases. The mount root and service state remain root-owned;
 privileged ownership changes never traverse per-site directories. Shared Nginx
 and Traefik roles own their service units. Traefik uses its standard system-disk
 location. A daily systemd timer runs incremental duperemove over projects
 and sites with resource limits and private hash state. Uploading files,
 extracting sites, and switching the current-release symlink are separate
-publisher operations.
+publisher operations. Administrators authenticate with existing SSH access and
+run publication as this account through sudo. The role does not manage its
+`authorized_keys` and requires no publisher key input. It installs rsync for
+SSH transfers.
 
 On SELinux-enabled hosts, the role persists `httpd_sys_content_t` labels for
 static content and applies them with `restorecon`. This permits confined Nginx
@@ -37,9 +40,8 @@ both direct device paths and by-id symlinks work. Attachment checks remain in
   privilege escalation. The role does not restrict play size.
 - Set `force_handlers: true` on the play so completed configuration changes run
   their notified handlers even if a later task fails.
-- Supply `download_content_device` and `download_publisher_authorized_keys`.
-  Obtain keys through the caller's injection mechanism; do not embed credentials
-  in role defaults.
+- Supply `download_content_device`. Administrator SSH and sudo access come
+  from the shared host roles; no dedicated upload key is configured.
 - Override `download_root` and `download_publisher` as needed. The content mount
   must be under root-owned, non-publisher-writable parent directories.
 - Keep Traefik configuration and data on the system disk (the shared role
