@@ -55,6 +55,18 @@ alwaldend.github.io.` records.
 
 ## Decisions
 
+### Keep publication transport owned by the SSH hosting plan
+
+The later
+[SSH hosting plan](../add-download-browser-and-ssh-hosting/proposal.md)
+owns the active replacement of `Separate preview and publication`. This
+change retains its build delta; its added `project-landing-pages` capability
+already owns the requirement that landings publish with the main site and
+need no dedicated hosting. Removing this change's redundant Pages-based
+publication replacement prevents either archive order from overwriting SSH
+publication. Completed tasks and recorded deployment evidence below retain
+their historical meaning.
+
 ### Separate the public namespace from the on-disk content directory
 
 Publish at `/projects/<name>/` while packaging project content from
