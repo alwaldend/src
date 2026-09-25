@@ -13,7 +13,6 @@ go_test(
     ],
     visibility = ["//infra/dns:__pkg__"],
     deps = [
-        "//infra/dns/internal/dump",
         "//infra/dns/internal/lint",
         "@rules_go//go/runfiles",
     ],

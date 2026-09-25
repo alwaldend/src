@@ -126,7 +126,7 @@ requirements.txt rules-lint-ignored=true
 gazelle_python.yaml rules-lint-ignored=true
 infra/dns/types-dnscontrol.d.ts rules-lint-ignored=true
 # Generated DNS declaration pages are written by //infra/dns/cmd/dump and are
-# checked for freshness by //infra/dns/test/repository; a formatter must not
+# refreshed or checked explicitly by operators; a formatter must not
 # rewrite them into a state the generator would not produce.
 infra/dns/cloudflare_dns.md rules-lint-ignored=true
 infra/dns/mikrotik_dns.md rules-lint-ignored=true
