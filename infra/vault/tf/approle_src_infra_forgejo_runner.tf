@@ -1,6 +1,7 @@
 module "src_infra_forgejo_runner_approle" {
-  source = "../../../projects/tf_modules/vault_approle"
-  name   = "src_infra_forgejo_runner"
+  source                   = "../../../projects/tf_modules/vault_approle"
+  name                     = "src_infra_forgejo_runner"
+  disable_yc_folder_policy = true
   member_entity_ids = [
     vault_identity_entity.simeonwarren.id,
   ]

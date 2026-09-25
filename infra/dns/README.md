@@ -15,14 +15,19 @@ from its designated `tf_setup` or `tf` root. This component's
 
 [Cloudflare DNS](cloudflare_dns.md) and [Mikrotik DNS](mikrotik_dns.md) list the
 records this repository declares for each destination view, with the owning
-declaration for every record. They are generated from `dnsconfig.json`:
+declaration for every record. They are manually refreshed snapshots of
+`dnsconfig.json` and may lag behind the declarations. Regenerate them explicitly
+when a documentation refresh is wanted, for example after parallel DNS changes
+have merged:
 
 ```sh
 bazel_agent bazel run //infra/dns/cmd/dump -- --write
 ```
 
-`//infra/dns:config_test` fails when a checked-in page is out of date, so the
-pages cannot drift from the declarations they project.
+Ordinary validation checks declarations and ownership without requiring or
+rewriting these snapshots. A DNS change does not require a documentation
+refresh in the same PR. To explicitly check snapshot freshness, run
+`bazel_agent bazel run //infra/dns/cmd/dump -- --check`.
 
 ## Inspect and lint declarations
 
@@ -93,6 +98,6 @@ additions-only plan that preserves all existing records.
 Rollback requires stopping the affected Terraform writers and following the
 runbook's recorded prior revision and state-reconciliation procedure.
 
-Deployment snapshots are not maintained here. The generated declaration pages
-above project declared state, and the declarations themselves remain the only
-inventory.
+Deployment snapshots are not maintained here. The declaration pages above
+reflect their last manual refresh; each owner's declarations remain the
+authoritative inventory.
