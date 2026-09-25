@@ -48,16 +48,19 @@ const readFamilyName = (data) => {
     throw new Error("font carries no name table");
 };
 
-// embedFont returns the document with the handwriting face inlined, so the
-// text keeps the metrics the renderer measured it with wherever the file is
-// displayed. A font without a family name, or a document without the
-// renderer's stylesheet, is left unchanged rather than silently degraded.
-export const embedFont = (svg, font) => {
+// Native renders pass this stylesheet through the CLI's supported CSS input.
+// The historical renderer embeds the same bytes below to preserve its output.
+export const fontFace = (font) => {
     const family = readFamilyName(font);
     const encoded = Buffer.from(font).toString("base64");
-    const rule =
+    return (
         `@font-face{font-family:'${family}';` +
-        `src:url(data:font/ttf;base64,${encoded}) format('truetype');}`;
+        `src:url(data:font/ttf;base64,${encoded}) format('truetype');}`
+    );
+};
+
+export const embedFont = (svg, font) => {
+    const rule = fontFace(font);
     const style = "<style>";
     const start = svg.indexOf(style);
     if (start < 0) return svg;

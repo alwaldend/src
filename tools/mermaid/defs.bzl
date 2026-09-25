@@ -8,8 +8,13 @@ def _mermaid_svg_impl(ctx):
     if not output.basename.endswith(".svg"):
         fail("out must name an .svg file, got: {}".format(output.basename))
 
+    outputs = [output]
+    if ctx.attr.native and (ctx.attr.plain or not ctx.file.palette or not ctx.outputs.dark_out):
+        fail("native rendering requires a palette and dark_out, and cannot be plain")
+    if not ctx.attr.native and (ctx.file.palette or ctx.outputs.dark_out):
+        fail("palette and dark_out require native rendering")
     plain = ctx.attr.plain
-    label_font = ctx.file._label_font
+    label_font = ctx.file.label_font or ctx.file._label_font
 
     args = ctx.actions.args()
     args.add("--input", source.path)
@@ -23,8 +28,13 @@ def _mermaid_svg_impl(ctx):
         args.add("--plain")
     else:
         args.add("--config", theme.path)
+        if ctx.attr.native:
+            args.add("--native")
+            args.add("--palette", ctx.file.palette.path)
+            args.add("--dark-output", ctx.outputs.dark_out.path)
+            outputs.append(ctx.outputs.dark_out)
 
-        # The handwriting face travels inside the rendered document, so a
+        # The selected label face travels inside the rendered document, so a
         # consumer that can load no webfont still shows the glyphs the
         # renderer measured.
         args.add("--font", label_font.path)
@@ -33,7 +43,7 @@ def _mermaid_svg_impl(ctx):
         # Fontconfig, so no family resolves from the host. Every file in an
         # exposed directory becomes reachable, so each holds one repository-owned
         # family.
-        font_files = ctx.files._body_fonts + ctx.files._label_fonts
+        font_files = ctx.files._body_fonts + ctx.files._label_fonts + [label_font]
         font_directories = {}
         for font in font_files:
             font_directories[font.dirname] = None
@@ -43,7 +53,9 @@ def _mermaid_svg_impl(ctx):
     inputs = [source]
     if not plain:
         inputs.append(theme)
-        inputs = inputs + ctx.files._body_fonts + ctx.files._label_fonts
+        if ctx.file.palette:
+            inputs.append(ctx.file.palette)
+        inputs = inputs + ctx.files._body_fonts + ctx.files._label_fonts + [label_font]
 
     ctx.actions.run(
         arguments = [args],
@@ -55,7 +67,7 @@ def _mermaid_svg_impl(ctx):
         executable = ctx.executable._render,
         inputs = inputs,
         mnemonic = "MermaidSvg",
-        outputs = [output],
+        outputs = outputs,
         progress_message = "Rendering Mermaid SVG %{label}",
         tools = [
             ctx.attr._browser[DefaultInfo].files_to_run,
@@ -63,7 +75,7 @@ def _mermaid_svg_impl(ctx):
         ],
     )
 
-    return [DefaultInfo(files = depset([output]))]
+    return [DefaultInfo(files = depset(outputs))]
 
 mermaid_svg = rule(
     implementation = _mermaid_svg_impl,
@@ -90,6 +102,21 @@ mermaid_svg = rule(
             default = "//tools/mermaid:theme.json",
             doc = "Mermaid configuration applied by default; a diagram's own " +
                   "Mermaid directives still override it.",
+        ),
+        "native": attr.bool(
+            default = False,
+            doc = "Render light/dark variants using native Mermaid APIs without SVG post-processing.",
+        ),
+        "palette": attr.label(
+            allow_single_file = [".css"],
+            doc = "Stylesheet exposing --mermaid-* theme variables in light and dark media.",
+        ),
+        "dark_out": attr.output(
+            doc = "Dark SVG output for native rendering.",
+        ),
+        "label_font": attr.label(
+            allow_single_file = [".ttf"],
+            doc = "Optional embedded font override matching the selected theme.",
         ),
         "_label_font": attr.label(
             allow_single_file = [".ttf"],

@@ -34,6 +34,15 @@ docs_filegroup(
 )
 ```
 
+For diagrams published in the main site's documentation, use
+`mermaid_site_svg` from `//projects/alwaldend.com/pkg/mermaid:defs.bzl`.
+It renders light/dark SVG siblings with native Mermaid layout and sans-serif
+labels. Package both outputs; reference the light `.svg` in Markdown or the SVG
+shortcode, and the site selects its `.dark.svg` sibling for dark mode.
+It uses no SVG post-processing or custom actor decoration.
+Keep historical blog assets on their existing `mermaid_svg` render targets;
+when one source serves both, declare a separate site render from that source.
+
 For README documentation, consume the rendered target directly instead of
 committing an SVG or adding a `write_source_files` copy. Point the README image
 at the path `docs_filegroup` publishes and let the build produce the file.
@@ -69,7 +78,7 @@ change the theme when the look should apply everywhere.
 A diagram may still override a specific key with a Mermaid directive, because
 Mermaid merges a directive over the file config:
 
-```mermaid
+```text
 %%{init: {"look": "classic"}}%%
 flowchart LR
     a[Square] --> b(Rounded)

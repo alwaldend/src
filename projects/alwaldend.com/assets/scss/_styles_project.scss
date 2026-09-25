@@ -1,6 +1,34 @@
 // One theme for every section of the site.
 @import "shared_theme";
 
+.mermaid-diagram {
+    display: inline-block;
+    width: 100%;
+    max-width: 100%;
+}
+
+.mermaid-dark {
+    display: none;
+}
+
+[data-bs-theme="dark"] {
+    .mermaid-light {
+        display: none;
+    }
+    .mermaid-dark {
+        display: inline;
+    }
+}
+
+@media print {
+    .mermaid-light {
+        display: inline !important;
+    }
+    .mermaid-dark {
+        display: none !important;
+    }
+}
+
 .td-breadcrumbs__single {
     display: inline !important;
 }

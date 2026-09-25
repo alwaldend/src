@@ -1,6 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { run } from "@mermaid-js/mermaid-cli";
+import { renderNative } from "./native.mjs";
 import { embedFont } from "./embed_font.mjs";
 import { writeFontConfig } from "./fontconfig.mjs";
 import { liftClusterLabels } from "./paint_order.mjs";
@@ -8,7 +9,7 @@ import { liftClusterLabels } from "./paint_order.mjs";
 // Switches carry no value; every other flag may be repeated, and every
 // occurrence accumulates so one flag can carry a list of inputs, such as
 // several pinned font files.
-const switches = new Set(["plain"]);
+const switches = new Set(["plain", "native"]);
 
 const parseFlags = (argv) => {
     const flags = {};
@@ -60,7 +61,7 @@ const config =
 const fontDirectories = asList(flags["font-directory"]).map((directory) =>
     path.resolve(directory),
 );
-// The handwriting face is embedded in the output so the document carries the
+// The selected label face is embedded so the document carries the
 // glyphs its geometry was measured with; see embed_font.mjs.
 const embedFontFile =
     flags.font === undefined ? undefined : path.resolve(flags.font);
@@ -77,41 +78,57 @@ try {
     let fontConfig;
     if (!plain && fontDirectories.length > 0)
         fontConfig = await writeFontConfig(fontDirectories, scratch);
-    await run(input, output, {
-        puppeteerConfig: {
-            executablePath: browser,
-            headless: "shell",
-            // Puppeteer replaces the browser environment when `env` is set,
-            // so inherited values have to be preserved explicitly.
-            ...(fontConfig === undefined
-                ? {}
-                : {
-                      env: {
-                          ...process.env,
-                          FONTCONFIG_FILE: fontConfig.file,
-                          FONTCONFIG_PATH: fontConfig.dir,
-                      },
-                  }),
-        },
-        parseMMDOptions: {
-            backgroundColor: flags.background ?? "white",
-            ...(mermaidConfig === undefined ? {} : { mermaidConfig }),
-            viewport: { width: 800, height: 600, deviceScaleFactor: 1 },
-        },
-    });
-    // Mermaid paints container titles before the edges, so an edge that
-    // crosses a container border draws over the title plate. Lifting the
-    // plates to the end of the root group fixes the paint order without
-    // moving any geometry.
-    if (!plain) {
-        const rendered = await fs.readFile(output, "utf8");
-        const lifted = liftClusterLabels(rendered);
-        await fs.writeFile(
+    const puppeteerConfig = {
+        executablePath: browser,
+        headless: "shell",
+        // Puppeteer replaces the browser environment when `env` is set,
+        // so inherited values have to be preserved explicitly.
+        ...(fontConfig === undefined
+            ? {}
+            : {
+                  env: {
+                      ...process.env,
+                      FONTCONFIG_FILE: fontConfig.file,
+                      FONTCONFIG_PATH: fontConfig.dir,
+                  },
+              }),
+    };
+    if (flags.native) {
+        for (const required of ["palette", "dark-output", "font"])
+            if (!flags[required])
+                throw new Error(`Missing required flag --${required}`);
+        await renderNative({
+            input,
             output,
-            embedFontFile === undefined
-                ? lifted
-                : embedFont(lifted, await fs.readFile(embedFontFile)),
-        );
+            darkOutput: path.resolve(flags["dark-output"]),
+            palette: path.resolve(flags.palette),
+            config: mermaidConfig,
+            font: embedFontFile,
+            puppeteerConfig,
+        });
+    } else {
+        await run(input, output, {
+            puppeteerConfig,
+            parseMMDOptions: {
+                backgroundColor: flags.background ?? "white",
+                ...(mermaidConfig === undefined ? {} : { mermaidConfig }),
+                viewport: { width: 800, height: 600, deviceScaleFactor: 1 },
+            },
+        });
+        // Mermaid paints container titles before the edges, so an edge that
+        // crosses a container border draws over the title plate. Lifting the
+        // plates to the end of the root group fixes the paint order without
+        // moving any geometry.
+        if (!plain) {
+            const rendered = await fs.readFile(output, "utf8");
+            const lifted = liftClusterLabels(rendered);
+            await fs.writeFile(
+                output,
+                embedFontFile === undefined
+                    ? lifted
+                    : embedFont(lifted, await fs.readFile(embedFontFile)),
+            );
+        }
     }
 } finally {
     await fs.rm(scratch, { recursive: true, force: true });

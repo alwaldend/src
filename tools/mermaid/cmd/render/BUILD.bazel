@@ -8,6 +8,7 @@ js_library(
         "embed_font.mjs",
         "fontconfig.mjs",
         "main.mjs",
+        "native.mjs",
         "paint_order.mjs",
     ],
     visibility = ["//tools/mermaid:__subpackages__"],

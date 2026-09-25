@@ -1,0 +1,19 @@
+load("@aspect_rules_js//js:defs.bzl", "js_test")
+
+js_test(
+    name = "mermaid_test",
+    size = "medium",
+    args = [
+        "$(rootpath //projects/alwaldend.com:site)",
+        "$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)",
+    ],
+    data = [
+        "//projects/alwaldend.com:site",
+        "//tools:node_modules/puppeteer",
+        "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+    ],
+    entry_point = "mermaid_test.mjs",
+    # The built Docsy site loads its SRI-pinned jQuery and Lunr from CDNs.
+    # The browser check allowlists those two URLs; see the site README.
+    tags = ["requires-network"],
+)

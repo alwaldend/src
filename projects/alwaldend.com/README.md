@@ -37,6 +37,19 @@ indented; chevrons expand branches independently of the row's page link. Heading
 search fields, code blocks, tables, and callouts follow the same typography
 and surface styles. Syntax highlighting
 uses CSS classes so code colors follow the active theme.
+Documentation Mermaid images use the same light/dark palette and follow the
+theme menu, including system preference. They use clean, rounded nodes and
+containers, smooth connectors, embedded sans-serif lettering, and Mermaid's
+native Dagre layout, with bordered caption plates for edge labels and container
+titles. The `mermaid_site_svg` macro in `pkg/mermaid/defs.bzl`
+derives light/dark configurations from the shared Sass palette and renders both
+SVGs through the native Mermaid API without post-processing. The preset supplies
+caption styling through `themeCSS` and places titles on container borders with
+Mermaid's `subGraphTitleMargin` setting. Compact node/rank spacing and the
+pinned renderer's `edgeSpacing` option separate nested title plates. Package both
+outputs and reference the light `.svg`; Markdown and the SVG shortcode recognize
+its `.dark.svg` sibling. The site theme selects the visible image, and print
+always uses light. Blog diagrams retain their original files and presentation.
 The homepage panel links to GitHub, GitLab, Blog, Docs, and the project index,
 followed by permanently visible, indented project links in title order.
 Each row shows its destination alongside its title; narrow screens place the
@@ -49,10 +62,17 @@ Run from the repository root:
 ```sh
 bazel_agent bazel build //projects/alwaldend.com:site
 bazel_agent bazel test //projects/alwaldend.com:site_test
+bazel_agent bazel test //projects/alwaldend.com/test/mermaid:mermaid_test
 bazel_agent bazel run //projects/alwaldend.com:site_serve
 ```
 
 The preview serves the local build at http://127.0.0.1:1313.
+The Mermaid browser check writes screenshots and a JSON report to its Bazel
+test outputs. It exercises the theme menu, saved and system preferences,
+mobile layout, documentation print output, and unchanged blog images.
+This browser test requires network access for Docsy's existing, SRI-pinned
+jQuery and Lunr CDN scripts; its request allowlist permits only those two
+external URLs. Rendering and loading Mermaid diagrams needs no network.
 
 ## Blog
 

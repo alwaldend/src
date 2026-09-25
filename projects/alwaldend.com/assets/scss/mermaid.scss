@@ -1,0 +1,47 @@
+// Build input for Mermaid's native themeVariables, derived from site tokens.
+@use "shared_accent" as theme;
+
+@mixin palette($canvas, $ink, $border, $secondary, $tertiary) {
+    --mermaid-background: #{$canvas};
+    --mermaid-primaryColor: #{$canvas};
+    --mermaid-primaryTextColor: #{$ink};
+    --mermaid-primaryBorderColor: #{$ink};
+    --mermaid-secondaryColor: #{$secondary};
+    --mermaid-secondaryTextColor: #{$ink};
+    --mermaid-tertiaryColor: #{$tertiary};
+    --mermaid-tertiaryTextColor: #{$ink};
+    --mermaid-mainBkg: #{$canvas};
+    --mermaid-nodeBorder: #{$ink};
+    --mermaid-nodeTextColor: #{$ink};
+    --mermaid-lineColor: #{$ink};
+    --mermaid-textColor: #{$ink};
+    --mermaid-titleColor: #{$ink};
+    --mermaid-clusterBkg: #{$canvas};
+    --mermaid-clusterBorder: #{$border};
+    --mermaid-edgeLabelBackground: #{$canvas};
+    --mermaid-noteBkgColor: #{$secondary};
+    --mermaid-noteTextColor: #{$ink};
+    --mermaid-noteBorderColor: #{$border};
+}
+
+:root {
+    @include palette(
+        theme.$body-bg,
+        theme.$body-color,
+        theme.$border-color,
+        theme.$gray-100,
+        theme.$gray-200
+    );
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        @include palette(
+            theme.$body-bg-dark,
+            theme.$body-color-dark,
+            theme.$border-color-dark,
+            theme.$body-secondary-bg-dark,
+            theme.$body-tertiary-bg-dark
+        );
+    }
+}

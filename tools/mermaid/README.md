@@ -20,7 +20,7 @@ The `mermaid_svg` rule and the `mmdc` target both apply the theme by default.
 A diagram can override any part of it with its own Mermaid directive, which
 Mermaid merges over the file config:
 
-```mermaid
+```text
 %%{init: {"look": "classic"}}%%
 flowchart LR
     a[Square] --> b(Rounded)
@@ -212,6 +212,32 @@ mermaid_svg(
 This is a comparison input, not a second appearance the repository maintains. It
 exists so a before-and-after pair renders from one source through the same
 pipeline; a diagram's own look still comes from `theme.json`.
+
+## Native site diagrams
+
+The main site's `mermaid_site_svg` macro lives in
+[`projects/alwaldend.com/pkg/mermaid/defs.bzl`](../../projects/alwaldend.com/pkg/mermaid/defs.bzl).
+It selects `mermaid_svg(native = True)` with the site's own configuration,
+compiled palette, and pinned Liberation Sans font. It does not inherit the
+historical theme or actor decoration. Its own preset restores rounded caption
+plates using Mermaid's `themeCSS` and flowchart settings. The site's compact
+preset uses basis curves and `flowchart.edgeSpacing`; the
+[pinned dependency patch](../../third_party/com_github_mermaid_js_mermaid/README.md)
+passes the latter through to Dagre before layout, including nested subgraphs.
+
+Native mode requires a `palette` CSS input and `dark_out` SVG output. The
+stylesheet exposes `--mermaid-*` custom properties named after Mermaid theme
+variables. Chrome resolves them in light and dark media, and the renderer
+passes the resulting values to Mermaid's native configuration and exposes the
+same `--mermaid-*` properties on its diagram root for input `themeCSS`. Font embedding
+uses the CLI's CSS input. The returned SVG bytes are written directly: there
+is no color rewriting, paint-order change, or stylesheet insertion afterwards.
+
+Both outputs are packaged beside each other. The site selects the `.dark.svg`
+sibling using its existing theme attribute and always prints the light image.
+A diagram used by documentation and a historical blog post can expose both
+render targets from one authoritative `.mmd` source. Blog consumers keep their
+original `mermaid_svg` target and its existing appearance.
 
 ## Tests
 

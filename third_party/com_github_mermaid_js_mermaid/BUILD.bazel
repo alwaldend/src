@@ -1,0 +1,12 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+exports_files(
+    ["edge-spacing.patch"],
+    visibility = ["//tools/js:__pkg__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)

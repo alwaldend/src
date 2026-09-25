@@ -1,5 +1,6 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg")
 load("//tools/mermaid:defs.bzl", "mermaid_svg")
 
 al_config(
@@ -57,8 +58,14 @@ mermaid_svg(
     plain = True,
 )
 
+mermaid_site_svg(
+    name = "rendered_site",
+    src = "t3code-architecture.mmd",
+    out = "rendered/site/t3code-architecture.svg",
+)
+
 docs_filegroup(
     name = "docs_assets",
-    srcs = [":rendered"],
+    srcs = [":rendered_site"],
     prefix = "content/docs/users/simeonwarren/host_bot/assets",
 )
