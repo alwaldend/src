@@ -1,0 +1,60 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary", "terraform_binary_map", "terraform_test_map")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
+load("//projects/al/rules/al:al_config.bzl", "al_config")
+
+_DATA = glob([
+    "*.tf",
+    "tests/*.tftest.hcl",
+]) + [
+    "//projects/tf_modules/vault_approle",
+    "//projects/tf_modules/vault_pki_server",
+    "//projects/tf_modules/vault_ssh_server_role",
+    "//infra/vault/tf:dns_access",
+    "//tools/vault/tf_backend",
+    "//tools/vault/injector",
+]
+
+_PROVIDERS = ["@terraform_provider_hashicorp_vault//:provider"]
+
+al_config(
+    name = "al",
+    srcs = ["al.lua"],
+    deps = ["//infra/vault:al"],
+)
+
+terraform_binary_map(
+    name = "tf",
+    data = _DATA,
+    providers = _PROVIDERS,
+    wrapper = al_binary_run,
+    wrapper_kwargs = {
+        "configs": [":al"],
+        "run_args": [
+            "--plugin_label",
+            "tf=approle_download",
+            "--plugin_label",
+            "vault_env=default_default",
+        ],
+    },
+)
+
+terraform_binary(
+    name = "offline",
+    testonly = True,
+    arguments = ["--direct"],
+    data = _DATA,
+    providers = _PROVIDERS,
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    data = _DATA,
+    providers = _PROVIDERS,
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/vault:__pkg__"],
+)
