@@ -13,6 +13,24 @@ Deliver authorized implementation work without asking again whether to commit
 or push. Preserve unrelated work and use the repository's dedicated feature
 worktree. Load `$bazel-agent` and `$repo-bazel` for invocation and validation.
 
+## Choose the pull-request base
+
+Use trunk-based development by default: each new feature branch and pull
+request targets the repository trunk (`master` here). Create stacked pull
+requests only when the user explicitly asks for them. A request to split a
+change into separate PRs, or dependencies between those changes, does not
+authorize stacking or an intermediate integration base.
+
+For a split, start each branch from freshly fetched trunk, keep each diff
+scoped to its part, and link any merge prerequisites in the PR descriptions.
+Publish each PR only after its required validation gates pass. If an
+unmerged prerequisite prevents a dependent candidate from passing, publish
+the ready prerequisites first and defer the dependent PR. After the
+prerequisite merges, synchronize that branch with trunk, validate it, and
+then publish. A blocked check grants neither a gate exception nor authority
+to merge a prerequisite or create a stack. Inspect an existing PR's actual base before changing
+history; do not silently retarget it or rewrite a shared stack.
+
 ## Select the entry point once
 
 Run all delivery commands from this feature worktree's Git repository root,

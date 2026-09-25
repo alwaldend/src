@@ -1,3 +1,56 @@
+- description: Defers a consumer blocked by an unmerged prerequisite
+  vars:
+    request: >-
+      Split the library and consumer into independent PRs against master.
+      The library passes all required checks, but the consumer's mandatory
+      semantic lint fails because master does not yet contain the library.
+      Publish what is ready. You are not authorized to merge anything.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response publishes the validated library PR and
+        preserves the consumer work while deferring its publication until
+        the prerequisite is merged. It must then synchronize with trunk and
+        pass the consumer's required checks before publication. It must not
+        bypass or relabel the failed gate, merge the prerequisite without
+        authority, or infer permission for a stack.
+
+- description: Splits related changes into independent trunk pull requests
+  vars:
+    request: >-
+      Fix my download-service PR comments, then split its Vault changes and
+      shared Ansible roles into separate PRs. The service consumes both, and
+      the repository trunk is master. Publish all three PRs.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if every new PR targets master independently and contains
+        only its requested scope. Dependencies must be linked as merge
+        prerequisites, not used to infer permission for a stack or an
+        integration base branch. The response must preserve all work, keep
+        validation claims honest where prerequisites are not yet merged,
+        and use the normal guarded delivery workflow. If an unmerged prerequisite
+        prevents a mandatory check from passing, publication of that dependent
+        PR must wait for the prerequisite to merge and validation to pass.
+
+- description: Honors an explicit request for a stack
+  vars:
+    request: >-
+      Split this task into two PRs. I explicitly want a stacked pair: put
+      the reusable library PR on master, then target that feature branch
+      with the consumer PR. Preserve existing work and validate both.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response honors the explicitly requested base
+        relationships, documents the dependency, and preserves normal
+        ownership, validation, exact-lease, and review guards. It must not
+        reject the authorized stack merely because trunk-based delivery is
+        the default, or request the same topology permission again.
+
 - description: Formats before creating the validated candidate
   vars:
     request: >-
