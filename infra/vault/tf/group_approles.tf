@@ -6,6 +6,7 @@ resource "vault_identity_group" "approles" {
     vault_policy.pki_server.name,
   ]
   member_entity_ids = [
+    data.vault_identity_entity.src_infra_download.entity_id,
     module.src_infra_dc1_consul1_approle.entity_id,
     module.src_infra_dc1_forgejo1_approle.entity_id,
     module.src_infra_forgejo_runner_approle.entity_id,

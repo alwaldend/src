@@ -6,7 +6,8 @@ credentials should not become the new service's deployment identity.
 
 ## What Changes
 
-- Declare `src_infra_download` through the existing AppRole composition.
+- Declare `src_infra_download` in a standalone Terraform root with its own
+  backend, using the existing AppRole composition and name-based data lookups.
 - Grant its own state access, required provider-secret references, and the
   SSH and certificate permissions selected for the download component.
 - Add the existing group membership and outputs needed by Yandex folder
@@ -26,8 +27,10 @@ None. Existing DNS-owner isolation requirements continue to apply.
 
 ## Impact
 
-The declaration and policies belong to `infra/vault/tf`, consuming reusable
-modules in `projects/tf_modules`. The [hosting plan](../../../../../infra/download/openspec/changes/add-static-hosting/proposal.md)
+The declaration and policies belong to
+`infra/vault/approles/src_infra_download`, consuming reusable modules in
+`projects/tf_modules`. The core `infra/vault/tf` stage looks up the created
+identity/group by name and retains ownership of shared memberships. The [hosting plan](../../../../../infra/download/openspec/changes/add-static-hosting/proposal.md)
 owns AL injection and the consuming infrastructure. Yandex Cloud and XCP-ng
 retain ownership of their provider-side assignments.
 

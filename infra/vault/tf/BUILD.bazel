@@ -68,3 +68,9 @@ terraform_test_map(
         "configs": _CONFIGS,
     },
 )
+
+filegroup(
+    name = "dns_access",
+    srcs = ["dns_access/main.tf"],
+    visibility = ["//infra/vault/approles/src_infra_download:__pkg__"],
+)

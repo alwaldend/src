@@ -22,6 +22,12 @@ variable "allowed_domains" {
   description = "Allowed domains"
 }
 
+variable "allow_subdomains" {
+  type        = bool
+  description = "Allow descendants of the listed certificate names."
+  default     = true
+}
+
 variable "server_flag" {
   type    = bool
   default = true
@@ -122,7 +128,7 @@ resource "vault_pki_secret_backend_role" "role" {
   allow_localhost    = false
   allowed_domains    = var.allowed_domains
   allow_bare_domains = true
-  allow_subdomains   = true
+  allow_subdomains   = var.allow_subdomains
   server_flag        = var.server_flag
   client_flag        = var.client_flag
   no_store           = false
@@ -140,7 +146,7 @@ resource "vault_pki_secret_backend_role" "rsa_2048" {
   allow_localhost    = false
   allowed_domains    = var.allowed_domains
   allow_bare_domains = true
-  allow_subdomains   = true
+  allow_subdomains   = var.allow_subdomains
   server_flag        = var.server_flag
   client_flag        = var.client_flag
   no_store           = false
