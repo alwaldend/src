@@ -51,7 +51,9 @@ locals {
         import_url = try(repository.config.import_from, null) == "github" ? "https://github.com/${repository.organization}/${repository.catalog_key}.git" : null
         fork_from  = try(repository.config.fork_from, null)
         } : repository.forge == "forgejo" ? {
-        clone_addr = try(repository.config.clone_from, null) == "github" ? "https://github.com/${repository.organization}/${repository.catalog_key}.git" : null
+        clone_addr = try(repository.config.clone_from, null) == "upstream" ? repository.upstream_url : (
+          try(repository.config.clone_from, null) == "github" ? "https://github.com/${repository.organization}/${repository.catalog_key}.git" : null
+        )
       } : {})
     })
   }
@@ -75,6 +77,16 @@ output "organizations" {
       for repository in local.repositories : repository.upstream_url == null ? true : can(regex("^https://[a-zA-Z0-9.-]+/[^?#@]+$", repository.upstream_url))
     ])
     error_message = "Fork and mirror origins must be public HTTPS repository URLs without credentials, queries, or fragments."
+  }
+  precondition {
+    condition = alltrue([
+      for repository in values(local.projected) : repository.forge != "forgejo" ? true : (
+        (try(repository.config.clone_from, null) == null ? true : contains(["github", "upstream"], repository.config.clone_from)) &&
+        (try(repository.config.clone_from, null) != "upstream" || repository.upstream_url != null) &&
+        (!try(repository.config.mirror, false) || repository.config.clone_addr != null)
+      )
+    ])
+    error_message = "Forgejo clone_from must select github or upstream; upstream requires upstream_url and pull mirrors require a clone source."
   }
   precondition {
     condition = length(distinct([

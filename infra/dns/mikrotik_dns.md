@@ -75,7 +75,7 @@ This page is generated from the declarations; run `bazel run //infra/dns/cmd/dum
 | pve | A | default | 192.168.1.216 | infra/pve/dnsconfig.json |
 | router1.dc1 | A | default | 192.168.1.1 | infra/mikrotik/dnsconfig.json |
 | router1.dc1 | AAAA | default | fd2e:546d:5738::1 | infra/mikrotik/dnsconfig.json |
-| runner1.forgejo-runner | A | default | 192.168.10.100 | infra/forgejo_runner/dnsconfig.json |
+| secure.forgejo-runner | A | default | 192.168.10.101 | infra/forgejo_runner/dnsconfig.json |
 | server.openhands | A | default | 192.168.10.91 | infra/openhands/dnsconfig.json |
 | simplelogin | MX | 10800 | 10 mx1.simplelogin.co. | infra/dns/dnsconfig.json |
 | simplelogin | MX | 10800 | 20 mx2.simplelogin.co. | infra/dns/dnsconfig.json |

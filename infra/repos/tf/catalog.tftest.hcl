@@ -41,4 +41,22 @@ run "catalog_contract" {
     condition     = !output.github_repositories["alwaldend/src"].config.allow_squash_merge && !output.github_repositories["alwaldend/src"].config.allow_rebase_merge
     error_message = "src must inherit the shared merge-commit-only policy rather than override it."
   }
+  assert {
+    condition = (
+      output.forgejo_repositories["alwaldend/com_github_actions_checkout"].name == "com_github_actions_checkout" &&
+      output.forgejo_repositories["alwaldend/com_github_actions_checkout"].config.clone_addr == "https://github.com/actions/checkout" &&
+      output.forgejo_repositories["alwaldend/com_github_actions_checkout"].config.mirror &&
+      output.forgejo_repositories["alwaldend/com_github_actions_checkout"].config.mirror_interval == "12h0m0s" &&
+      !output.forgejo_repositories["alwaldend/com_github_actions_checkout"].config.has_actions
+    )
+    error_message = "Checkout must be a Forgejo pull mirror of its original upstream without running upstream workflows."
+  }
+  assert {
+    condition = (
+      !contains(keys(output.github_repositories), "alwaldend/com_github_actions_checkout") &&
+      !contains(keys(output.gitlab_repositories), "alwaldend/com_github_actions_checkout") &&
+      output.forgejo_repositories["alwaldend/src"].config.clone_addr == "https://github.com/alwaldend/src.git"
+    )
+    error_message = "The checkout mirror must not create other forge copies or change the source repository clone origin."
+  }
 }
