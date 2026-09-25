@@ -30,6 +30,16 @@ they do not establish deployed state or authorize infrastructure operations.
 - Public checked-in documentation MAY be included in the repository
   documentation site, including non-secret, non-personal operational facts.
 
+## Shared AL helpers
+
+`infra.al_lib.xo_login({ labels = ..., oidc_provider = ... })` registers the
+Xen Orchestra login plugin with the shared XO and Vault endpoints. The caller
+must supply the Vault OIDC provider name; the helper constructs its discovery
+URL. Consumers include
+`//infra/xcp_ng/cmd/xo_login` in their runtime data and select the same labels
+in their command wrapper. Registration does not authenticate until a matching
+command selects the plugin.
+
 ## New project
 
 The commands below are state-changing operator examples. An agent must use

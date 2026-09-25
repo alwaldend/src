@@ -22,8 +22,10 @@ reconfigure the other environment's VM or content.
 
 Each VM SHALL accept traffic directly through its Traefik service and serve
 static content through Nginx on loopback. Both configured hostnames SHALL
-permit anonymous reads, redirect HTTP to HTTPS, and present certificates
-trusted by normal public browsers. Serving SHALL NOT depend on shared ingress.
+permit anonymous reads and redirect HTTP to HTTPS. Yandex SHALL use publicly
+trusted Let's Encrypt certificates; XCP-ng SHALL use Vault certificates trusted
+by clients with the repository CA. Both SHALL use HTTP-01 validation. Serving
+SHALL NOT depend on shared ingress.
 
 #### Scenario: Read without client credentials
 
@@ -34,11 +36,13 @@ trusted by normal public browsers. Serving SHALL NOT depend on shared ingress.
 #### Scenario: Validate the local hostname certificate
 
 - **WHEN** local DNS resolves the hostname to XCP-ng while public DNS points to Yandex
-- **THEN** the local VM can obtain and renew a trusted certificate for that hostname
+- **THEN** the local VM can obtain and renew a Vault certificate for that hostname
+- **AND** Vault validates HTTP-01 against the local DNS destination
 
 ### Requirement: Preserve the existing website alias
 
-Each VM SHALL accept `www.alwaldend.com` over HTTP and publicly trusted HTTPS
+Each VM SHALL accept `www.alwaldend.com` over HTTP and HTTPS trusted by its
+environment's configured CA
 and permanently redirect it to `https://alwaldend.com`, preserving the path
 and query. The existing `www` CNAME SHALL continue to follow the apex in both
 DNS views. The alias SHALL NOT select a separate website or release.
@@ -46,7 +50,8 @@ DNS views. The alias SHALL NOT select a separate website or release.
 #### Scenario: Follow an existing website link
 
 - **WHEN** a visitor opens `https://www.alwaldend.com/projects/?page=2` through either DNS view
-- **THEN** the TLS connection succeeds without a browser warning
+- **THEN** the TLS connection succeeds without a browser warning on a client trusting
+  the environment's CA
 - **AND** the response permanently redirects to `https://alwaldend.com/projects/?page=2`
 
 #### Scenario: Follow the alias over HTTP
@@ -110,8 +115,10 @@ SHALL be served unchanged.
 ### Requirement: Persistent content and limited runtime access
 
 Content and site selection SHALL survive service restart, host reboot, and
-Ansible configuration reruns. Replacement of a VM SHALL retain and reattach
-its content storage unless deletion is explicitly requested. The publisher
+Ansible configuration reruns. Yandex VM replacement SHALL retain and reattach
+its content storage unless deletion is explicitly requested. The XCP-ng VM
+SHALL reject automatic destruction and replacement; its replacement workflow
+is deferred to a future explicitly authorized change. The publisher
 SHALL have write access while Nginx SHALL have read-only content access.
 Staging, credentials, and service state SHALL NOT be public browse roots.
 
@@ -131,3 +138,26 @@ publication to one environment SHALL NOT be reported as success there.
 
 - **WHEN** a new version is published to the local VM
 - **THEN** the cloud copy remains unchanged until explicitly published there
+
+### Requirement: Daily content deduplication
+
+Each environment SHALL use Btrfs content storage and run a daily background
+extent-deduplication job over published project files and extracted website
+releases. The job SHALL use persistent incremental hash state outside its scan
+roots, run at low I/O priority with bounded CPU/memory, and wait for mounted
+storage. It SHALL preserve file bytes, independent file identities, permissions,
+and the selected website link. It SHALL NOT scan staging or service state,
+delete releases, or merge storage across environments.
+
+#### Scenario: Deduplicate repeated assets
+
+- **WHEN** two releases contain independently uploaded files with identical extents
+- **THEN** a successful maintenance run shares their physical extent storage
+- **AND** both original paths still return their original bytes
+- **AND** a later write to one file does not change the other file
+
+#### Scenario: Repeat or interrupt maintenance
+
+- **WHEN** a daily job runs again or is interrupted
+- **THEN** published content and website selection remain intact
+- **AND** another run can reuse the private hash database without overlapping an active service run

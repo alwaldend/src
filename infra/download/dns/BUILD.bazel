@@ -1,0 +1,53 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary", "terraform_binary_map", "terraform_test_map")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
+
+_DATA = glob([
+    "*.tf",
+    "tests/*.tftest.hcl",
+]) + [
+    "//infra/download:dnsconfig",
+    "//tools/vault/tf_backend",
+    "//tools/vault/injector",
+    "//projects/tf_modules/dns_records",
+]
+
+_PROVIDERS = [
+    "@terraform_provider_cloudflare_cloudflare//:provider",
+    "@terraform_provider_terraform_routeros_routeros//:provider",
+]
+
+terraform_binary_map(
+    name = "tf",
+    data = _DATA,
+    providers = _PROVIDERS,
+    wrapper = al_binary_run,
+    wrapper_kwargs = {
+        "configs": ["//infra/download:al"],
+        "run_args": [
+            "--plugin_label",
+            "tf=dns",
+        ],
+    },
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    data = _DATA,
+    providers = _PROVIDERS,
+)
+
+# Offline init/validate entry point: no AL plugins, backend, or credentials.
+terraform_binary(
+    name = "offline",
+    testonly = True,
+    arguments = ["--direct"],
+    data = _DATA,
+    providers = _PROVIDERS,
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/download:__pkg__"],
+)

@@ -4,6 +4,26 @@ local M = {
     routeros_hosturl = "https://router1.dc1.alwaldend.com",
 }
 
+-- Register XO authentication with the caller's Vault OIDC provider.
+-- Callers package //infra/xcp_ng/cmd/xo_login and select the same labels.
+function M.xo_login(t)
+    assert(
+        type(t.oidc_provider) == "string" and t.oidc_provider ~= "",
+        "xo_login requires oidc_provider"
+    )
+    lib.plugin({
+        name = t.name or "xo_login",
+        bin = "com_alwaldend_src/infra/xcp_ng/cmd/xo_login/xo_login_/xo_login",
+        labels = t.labels,
+        data = {
+            xoa_url = "https://xoa.xcp-ng.alwaldend.com",
+            discovery_url = "https://vault.alwaldend.com:8200/v1/identity/oidc/provider/"
+                .. t.oidc_provider
+                .. "/.well-known/openid-configuration",
+        },
+    })
+end
+
 -- Supply the configured endpoint for provider validation without logging in.
 function M.pve_provider_inputs(t)
     lib.plugin_call({

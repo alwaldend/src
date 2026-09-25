@@ -1,0 +1,50 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("@rules_terraform//terraform:defs.bzl", "terraform_binary", "terraform_binary_map", "terraform_test_map")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
+
+_DATA = glob([
+    "*.tf",
+    "tests/*.tftest.hcl",
+]) + [
+    "//infra/download:dnsconfig",
+    "//tools/vault/tf_backend",
+    "//tools/vault/injector",
+    "//infra/cloud_init:cloud_init",
+]
+
+_PROVIDERS = ["@terraform_provider_yandex_cloud_yandex//:provider"]
+
+terraform_binary_map(
+    name = "tf",
+    data = _DATA,
+    providers = _PROVIDERS,
+    wrapper = al_binary_run,
+    wrapper_kwargs = {
+        "configs": ["//infra/download:al"],
+        "run_args": [
+            "--plugin_label",
+            "tf=yandex",
+        ],
+    },
+)
+
+terraform_test_map(
+    name = "tf_tests",
+    data = _DATA,
+    providers = _PROVIDERS,
+)
+
+# Offline init/validate entry point: no AL plugins, backend, or credentials.
+terraform_binary(
+    name = "offline",
+    testonly = True,
+    arguments = ["--direct"],
+    data = _DATA,
+    providers = _PROVIDERS,
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//infra/download:__pkg__"],
+)

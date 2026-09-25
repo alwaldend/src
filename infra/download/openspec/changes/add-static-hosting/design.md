@@ -27,10 +27,12 @@ release. Routine source work does not authorize live provisioning or cutover.
 
 Each environment has one VM with 100 GB of persistent filesystem storage for
 release archives, ordinary artifacts, extracted sites, and service state.
-Use a retained data disk mounted at `/srv/download`; size the boot disk using
-the existing VM pattern. Yandex uses a VM-attached block disk, not object
-storage. Retaining the data disk across VM replacement protects redeployment,
-but is not a backup.
+Mount a dedicated Btrfs content disk at `/srv/download` alongside a 20 GiB boot
+disk. Yandex retains an independently managed block disk across VM replacement.
+The pinned XCP-ng provider owns its disks with the VM and cannot reattach a
+retained disk through the VM resource. As explicitly confirmed by the user,
+protect the whole XCP-ng VM with `prevent_destroy`; a future change must
+define its replacement workflow. These lifecycle protections are not backups.
 
 Use separate local and Yandex Terraform state keys and clearly named command
 targets, with the existing Vault HTTP backend. Share one Ansible playbook and
@@ -45,7 +47,7 @@ publisher ----> chosen VM over SSH ----> release files and selected site
 ```
 
 Traefik binds ports 80 and 443, redirects HTTP to HTTPS, and routes by host.
-Nginx binds loopback, conventionally `127.0.0.1:8080`. Both public names are
+Nginx binds `127.0.0.1:8008`, a Fedora SELinux HTTP port. Both public names are
 anonymous read endpoints. There is no connection through `infra/ingress`.
 
 ### Filesystem and routes
@@ -74,7 +76,7 @@ Preserve `www.alwaldend.com` as an alias: Traefik accepts both HTTP and trusted
 HTTPS for it and permanently redirects to `https://alwaldend.com`, retaining
 the request path and query. This is a redirect router, not another website
 root or release selection. Obtain a certificate covering `www` on each VM
-before cutover as well as certificates for the two content hostnames.
+from its configured issuer as well as certificates for the two content names.
 
 The SSH publisher can write release and site storage. Nginx has read access
 only. Ansible creates storage, accounts, configuration, and services; the
@@ -95,24 +97,52 @@ maintained values. Retire obsolete apex A/AAAA destinations during cutover;
 preserve unrelated records and the existing `www` CNAME pointing at the apex
 in both views. That alias continues to belong to the apex DNS owner.
 
-Within `tf_setup`, give download DNS one state-owning stage and keep VM state
-separate per environment. That DNS stage consumes the declared addresses for
-both VMs, avoiding two states that manage the same record. Reuse the existing
-combined Cloudflare/RouterOS module rather than adding view-filter behavior.
+The root-level `dns` stage owns the component's Cloudflare/RouterOS
+aliases and delegation through the existing combined DNS module. The Yandex
+stage owns its delegated `yc.download.alwaldend.com` zone and host A record,
+which consumes the reserved address directly. Public service CNAMEs target
+that host; Cloudflare flattens the apex CNAME. The public apex follows the stable download service
+name, so the component owns the Yandex endpoint once. The apex owner's local
+A record is the single local address input used by Terraform; the unique
+host CNAME and local download alias follow it. Prepare that dc1 apex record
+through its owner before configuring the local host, while preserving the
+old public Pages records until the later two-phase public cutover. The local
+website has a maintenance interval during host/content setup.
+Each name has one state owner, and VM states remain separate per environment.
 
-Use public ACME certificates on both hosts. DNS-01 validation through the
-existing DNS provider is the selected approach because the local host is not
-the public A/AAAA destination. The repository Traefik role supplies the binary
-and service; component configuration supplies the public resolver, provider
-secret references, and persistent ACME state. Confirm provider support in the
-pinned binary, exercise issuance with the ACME staging service, and verify
-renewal for both hosts before cutover. Do not copy a Vault-private certificate
-pattern into an anonymously browsable public service.
+Use HTTP-01 in both environments, as requested in PR review: Let's Encrypt
+for public Yandex traffic and Vault ACME for local XCP-ng traffic. The shared
+Traefik role obtains EAB credentials for the component-scoped Vault PKI role;
+Yandex disables EAB. Only the three serving names are allowed by that role,
+with no subdomain or client-certificate grant. Local clients trust the
+repository CA. DNS credentials are used only by provisioning.
 
-[Traefik's ACME reference](https://doc.traefik.io/traefik/v3.3/https/acme/)
-describes DNS challenges and provider credentials. Independent renewals for
-the same names require testing concurrent TXT-record handling; do not share a
-writable ACME state file between hosts.
+The shared host role installs the CA used to connect to Vault. Traefik keeps
+private ACME state per VM and uses environment-specific renewal timing. The
+issuer must resolve each name to its corresponding VM and reach port 80;
+certificate bootstrap therefore follows DNS routing, with an explicit initial
+TLS transition interval. HTTP-to-HTTPS redirects remain compatible with the
+challenge handler. Verify issuance and renewal in each environment.
+
+[Traefik's ACME reference](https://doc.traefik.io/traefik/reference/install-configuration/tls/certificate-resolvers/acme/)
+and [Vault's ACME reference](https://developer.hashicorp.com/vault/docs/secrets/pki/acme)
+describe HTTP validation and external account binding.
+
+### Deduplication
+
+The user selected Btrfs with daily background deduplication. Use the native
+`duperemove` package and a component-owned systemd service/timer to scan only
+published project files and extracted sites. Keep a persistent hash database
+in private service state for incremental scans. The kernel shares identical
+extents while files remain independently writable through copy-on-write.
+Hardlinks are not needed, and the SSH publisher requires no deduplication logic.
+
+Bound the maintenance job to one I/O and one CPU thread, half a CPU core,
+512 MiB memory, idle I/O priority, and a six-hour deadline. Systemd prevents
+overlapping service runs and catches up a missed daily timer event. Neither
+maintenance failure nor cancellation changes release selection or deletes
+files. Compressed archives may offer little sharing; verify actual allocation
+savings without promising a capacity multiplier.
 
 ### Public listing integration
 
@@ -132,8 +162,8 @@ component and contains no download-specific frontend or hostnames.
   can differ from the public release until it is deployed to Yandex.
 - Archives plus extracted content share 100 GB -> report insufficient space
   before activation and leave the selected site intact; cleanup is manual.
-- Public DNS points away from the local VM -> test DNS-01 issuance and
-  renewal on both hosts, including challenge overlap, before DNS cutover.
+- HTTP-01 needs routed DNS before issuance -> coordinate the certificate
+  bootstrap interval; Vault must use the dc1 DNS view for local validation.
 - A symlink change is atomic, but browser asset requests span time -> site
   builds must provide a coherent asset strategy; acceptance checks both HTML
   and its assets after activation rather than claiming a transactional session.
@@ -144,24 +174,24 @@ component and contains no download-specific frontend or hostnames.
    changes; keep the current public site reachable while preparing candidates.
 2. With separately authorized live scope, bootstrap Vault and provider
    assignments, provision both VMs, and apply the shared Ansible deployment.
-3. Obtain trusted certificates and deploy a website archive to each explicit
-   SSH target. Test both content hostnames and the `www` HTTPS redirect using
-   address overrides before DNS changes.
-4. Apply reviewed split-horizon records through their owners and verify both
-   public and local resolution, TLS, downloads, the main website, and `www`
-   path/query-preserving redirects.
+3. Deploy a website archive to each explicit SSH target and verify HTTP
+   content using address overrides before DNS changes.
+4. Apply reviewed split-horizon records through their owners. Once the issuers
+   can reach their respective hosts on port 80, exercise public staging and
+   production issuance and local Vault issuance, then verify both trust chains,
+   downloads, the main website, and `www` path/query-preserving redirects.
 5. Redeploy any retained site version through the same release command when a
    different selection is needed. Do not add a rollback operation.
 
 ## Acceptance and continuation
 
-All implementation tasks are initially unchecked. Run an isolated, repeatable
-SSH-to-HTTP fixture before live rollout, with its scenario matrix written
-before implementation. Retain commands, candidate identity, request results,
-artifact checksums, and browser evidence. Live DNS, certificate renewal, and
-reboot checks require authorized environments and separate evidence.
+The current implementation pass covers IaC, the linked Nginx role and Vault
+identity source, and the architecture diagram. The linked SSH release tool
+and website browser remain separate implementation work. See
+[acceptance.md](acceptance.md) for the matrix written before implementation
+and [evidence.md](evidence.md) for checks and their limits.
 
-The first implementation action is to complete the linked Nginx and Vault
-plans, then assemble component provisioning and the end-to-end fixture.
-New OpenSpec owner packaging and aggregate validation registration for this
-component belong to implementation; this delivery writes change artifacts only.
+Before live rollout, run the integrated SSH-to-HTTP/browser fixture. Retain
+commands, candidate identity, request results, artifact checksums, and browser
+evidence. Live inventory, SELinux enforcement, DNS, certificate renewal, and
+reboot checks require authorized environments and separate evidence.
