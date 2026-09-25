@@ -15,6 +15,11 @@ mutations, and Forgejo. Cases exercise those routes as well as older-runner
 fallback and explicit validation-gap handling; duplicated review cases are not
 counted as extra coverage.
 
+The base-selection cases cover an ordinary split with shared dependencies
+an explicitly requested stack, and a consumer blocked by a prerequisite. They distinguish dependency ordering from
+permission to target another feature branch. Offline validation checks that
+these cases load; it does not prove an agent chooses the correct topology.
+
 A live target is omitted because representative delivery requires inspecting
 and changing Git history, pushing a remote ref, interacting with a forge, and
 responding to live review state. A read-only, tool-free model evaluation cannot
