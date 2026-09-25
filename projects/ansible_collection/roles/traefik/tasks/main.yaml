@@ -43,6 +43,7 @@
         group: "{{ traefik_user }}"
         mode: "0755"
     - name: Generate the eab
+      no_log: true
       connection: local
       when: not traefik_disable_eab
       register: traefik_eab_result
@@ -61,6 +62,7 @@
           - --force
           - "{{ traefik_acme_path }}/new-eab"
     - name: Parse eab
+      no_log: true
       when: not traefik_disable_eab
       vars:
         traefik_acme_data: "{{ (traefik_eab_result.stdout | from_json).data }}"
@@ -69,6 +71,7 @@
         traefik_acme_hmac: "{{ traefik_acme_data.key }}"
         traefik_acme_hmac_encoded: "{{ traefik_acme_data.key | b64encode }}"
     - name: Write the config
+      no_log: "{{ not traefik_disable_eab }}"
       register: traefik_config_var
       ansible.builtin.template:
         src: "{{ traefik_config_local_path }}"
