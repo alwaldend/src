@@ -1,0 +1,18 @@
+[Unit]
+Description=Deduplicate published download content
+RequiresMountsFor={{ download_root }}
+
+[Service]
+Type=oneshot
+ExecStart=duperemove -drq --io-threads=1 --cpu-threads=1 --hashfile={{ download_root }}/state/deduplication/hashes.db {{ download_root }}/projects {{ download_root }}/sites
+TimeoutStartSec=6h
+Nice=19
+IOSchedulingClass=idle
+CPUQuota=50%
+MemoryMax=512M
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=strict
+ReadWritePaths={{ download_root }}/projects {{ download_root }}/sites {{ download_root }}/state/deduplication

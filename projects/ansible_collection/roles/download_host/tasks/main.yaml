@@ -1,0 +1,57 @@
+- name: Require publisher authorized keys
+  ansible.builtin.assert:
+    that:
+      - download_publisher_authorized_keys | length > 0
+    quiet: true
+  no_log: true
+
+- name: Resolve the content device path
+  ansible.builtin.stat:
+    path: "{{ download_content_device }}"
+    follow: false
+    get_checksum: false
+  register: download_content_link
+
+- name: Inspect the content disk attachment
+  ansible.builtin.stat:
+    path: "{{ download_content_link.stat.lnk_source | default(download_content_device) }}"
+    follow: true
+    get_checksum: false
+  register: download_content_stat
+
+- name: Require an attached content block device
+  ansible.builtin.assert:
+    that:
+      - download_content_stat.stat.exists
+      - download_content_stat.stat.isblk | default(false)
+    fail_msg: "Expected a content block device at {{ download_content_device }}."
+
+- name: Configure the base host
+  ansible.builtin.import_role:
+    name: alwaldend.main.host
+
+- name: Create the SSH publisher
+  ansible.builtin.user:
+    name: "{{ download_publisher }}"
+    shell: /bin/bash
+    create_home: true
+    password_lock: true
+
+- name: Install the publisher's authorized keys
+  ansible.posix.authorized_key:
+    user: "{{ download_publisher }}"
+    key: "{{ download_publisher_authorized_keys }}"
+    key_options: restrict
+    exclusive: true
+  no_log: true
+
+- name: Configure content storage and maintenance
+  ansible.builtin.import_tasks: filesystem.yaml
+
+- name: Configure Nginx
+  ansible.builtin.import_role:
+    name: alwaldend.main.nginx
+
+- name: Configure Traefik
+  ansible.builtin.import_role:
+    name: alwaldend.main.traefik
