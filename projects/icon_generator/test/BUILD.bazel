@@ -1,0 +1,15 @@
+load("@rules_go//go:def.bzl", "go_test")
+
+go_test(
+    name = "e2e_test",
+    size = "small",
+    srcs = [
+        "algorithms_test.go",
+        "e2e_test.go",
+        "output_linux_test.go",
+        "regions_test.go",
+    ],
+    args = ["-generator=$(rootpath //projects/icon_generator/cmd/icon_generator)"],
+    data = ["//projects/icon_generator/cmd/icon_generator"],
+    visibility = ["//projects/icon_generator:__pkg__"],
+)

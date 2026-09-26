@@ -13,6 +13,7 @@ PROJECTS = [
     "bazel_agent",
     "ci_platform",
     "dotfiles",
+    "icon_generator",
     "infinitime",
     "kustomization",
     "leetcode_downloader",

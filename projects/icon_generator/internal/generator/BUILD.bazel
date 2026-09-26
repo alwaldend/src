@@ -1,0 +1,13 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "generator",
+    srcs = [
+        "compact.go",
+        "generator.go",
+        "regions.go",
+        "replication.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/icon_generator/internal/generator",
+    visibility = ["//projects/icon_generator:__subpackages__"],
+)
