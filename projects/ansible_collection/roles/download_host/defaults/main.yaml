@@ -1,0 +1,6 @@
+# Persistent Btrfs content mount and its non-sudo SSH publisher.
+download_root: /srv/download
+download_publisher: download
+# Required: the content block device and public SSH keys.
+download_content_device: "{{ undefined() }}"
+download_publisher_authorized_keys: "{{ undefined() }}"

@@ -1,0 +1,126 @@
+- name: Install filesystem and SELinux tools
+  ansible.builtin.package:
+    name:
+      - btrfs-progs
+      - duperemove
+      - policycoreutils-python-utils
+    state: present
+
+- name: Create the content filesystem without overwriting existing data
+  community.general.filesystem:
+    dev: "{{ download_content_device }}"
+    fstype: btrfs
+    force: false
+
+- name: Read Btrfs filesystem identities
+  community.general.btrfs_info: {}
+  register: download_btrfs_info
+
+- name: Mount the content disk by UUID
+  ansible.posix.mount:
+    path: "{{ download_root }}"
+    src: >-
+      UUID={{ (download_btrfs_info.filesystems |
+        selectattr('devices', 'contains', download_content_stat.stat.path) |
+        first).uuid }}
+    fstype: btrfs
+    opts: defaults,nodev,nosuid,noexec
+    state: mounted
+
+- name: Keep the content mount root owned by root
+  ansible.builtin.file:
+    path: "{{ download_root }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+    follow: false
+
+- name: Create persistent publication directories
+  ansible.builtin.file:
+    path: "{{ download_root }}/{{ item }}"
+    state: directory
+    owner: "{{ download_publisher }}"
+    group: "{{ download_publisher }}"
+    mode: "0755"
+    follow: false
+  loop:
+    - projects
+    - sites
+
+- name: Create private publisher staging
+  ansible.builtin.file:
+    path: "{{ download_root }}/staging"
+    state: directory
+    owner: "{{ download_publisher }}"
+    group: "{{ download_publisher }}"
+    mode: "0700"
+    follow: false
+
+- name: Create private service state parent
+  ansible.builtin.file:
+    path: "{{ download_root }}/state"
+    state: directory
+    owner: root
+    group: root
+    mode: "0711"
+    follow: false
+
+- name: Declare read-only SELinux content labels
+  when: ansible_facts.selinux.status == 'enabled'
+  community.general.sefcontext:
+    target: "{{ download_root | regex_escape }}(/(projects|sites|staging)(/.*)?)?"
+    setype: httpd_sys_content_t
+    state: present
+
+- name: Restore content SELinux labels
+  when: ansible_facts.selinux.status == 'enabled'
+  ansible.builtin.command:
+    argv:
+      [
+        restorecon,
+        -Rv,
+        "{{ download_root }}/projects",
+        "{{ download_root }}/sites",
+        "{{ download_root }}/staging",
+      ]
+  register: download_restorecon
+  changed_when: download_restorecon.stdout | length > 0
+
+- name: Restore the mounted filesystem root SELinux label
+  when: ansible_facts.selinux.status == 'enabled'
+  ansible.builtin.command:
+    argv: [restorecon, -v, "{{ download_root }}"]
+  register: download_root_restorecon
+  changed_when: download_root_restorecon.stdout | length > 0
+
+- name: Create private deduplication state
+  ansible.builtin.file:
+    path: "{{ download_root }}/state/deduplication"
+    state: directory
+    owner: root
+    group: root
+    mode: "0700"
+
+- name: Install content deduplication units
+  ansible.builtin.template:
+    src: "{{ item }}.j2"
+    dest: "/etc/systemd/system/{{ item }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - download-deduplicate.service
+    - download-deduplicate.timer
+  register: download_deduplication_units
+
+- name: Reload changed deduplication units
+  when: download_deduplication_units.changed
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+
+- name: Enable daily content deduplication
+  ansible.builtin.systemd_service:
+    name: download-deduplicate.timer
+    enabled: true
+    state: "{{ 'restarted' if download_deduplication_units.changed else 'started' }}"
