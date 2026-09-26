@@ -1,0 +1,11 @@
+---
+- ansible.builtin.import_playbook: ../shared/initialize.yml
+
+- name: Prepare Git client
+  hosts: molecule
+  become: true
+  tasks:
+    - name: Install Git verification client
+      ansible.builtin.package:
+        name: git
+        state: present

@@ -1,0 +1,24 @@
+load("@rules_go//go:def.bzl", "go_test")
+load("//tools/molecule:defs.bzl", "molecule_test")
+
+molecule_test(
+    name = "smoke_test",
+    collections = ["//tools/molecule/test/fixture:mapping"],
+    scenario = glob(["smoke/*.yml"]),
+    scenario_name = "smoke",
+)
+
+go_test(
+    name = "acceptance_test",
+    timeout = "eternal",
+    srcs = ["acceptance_test.go"],
+    args = ["-runner=$(rootpath :smoke_test)"],
+    data = [":smoke_test"],
+    tags = [
+        "external",
+        "manual",
+        "no-remote",
+        "requires-network",
+    ],
+    deps = ["@rules_go//go/runfiles"],
+)

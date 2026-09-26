@@ -1,0 +1,78 @@
+---
+- name: Initialize guest prerequisites
+  hosts: molecule
+  become: true
+  tasks:
+    - name: Require completed cloud initialization
+      ansible.builtin.command: cloud-init status --wait --format json
+      changed_when: false
+    - name: Check image verification prerequisites
+      ansible.builtin.command: rpm -q --quiet curl openssl python3 sudo
+      register: fixture_packages
+      changed_when: false
+      failed_when: fixture_packages.rc not in [0, 1]
+    - name: Install verification prerequisites
+      when: fixture_packages.rc != 0
+      ansible.builtin.package:
+        name: [curl, openssl, python3, sudo]
+        state: present
+
+- name: Generate private fixture state
+  hosts: localhost
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: "{{ ansible_playbook_python }}"
+    fixture_dir: "{{ lookup('env', 'MOLECULE_RUNNER_STATE') }}/fixture"
+  tasks:
+    - name: Create restricted fixture directory
+      ansible.builtin.file:
+        path: "{{ fixture_dir }}"
+        state: directory
+        mode: "0700"
+    - name: Create test CA key
+      community.crypto.openssl_privatekey:
+        path: "{{ fixture_dir }}/ca.key"
+        type: ECC
+        curve: secp256r1
+        return_content: false
+    - name: Create test CA request
+      community.crypto.openssl_csr:
+        path: "{{ fixture_dir }}/ca.csr"
+        privatekey_path: "{{ fixture_dir }}/ca.key"
+        common_name: Molecule disposable CA
+        basic_constraints: ["CA:TRUE"]
+        basic_constraints_critical: true
+        key_usage: [keyCertSign, cRLSign]
+    - name: Create test CA certificate
+      community.crypto.x509_certificate:
+        path: "{{ fixture_dir }}/ca.crt"
+        privatekey_path: "{{ fixture_dir }}/ca.key"
+        csr_path: "{{ fixture_dir }}/ca.csr"
+        provider: selfsigned
+        selfsigned_not_after: +1d
+    - name: Create test TLS key
+      community.crypto.openssl_privatekey:
+        path: "{{ fixture_dir }}/server.key"
+        type: ECC
+        curve: secp256r1
+        return_content: false
+    - name: Create test TLS request
+      community.crypto.openssl_csr:
+        path: "{{ fixture_dir }}/server.csr"
+        privatekey_path: "{{ fixture_dir }}/server.key"
+        common_name: localhost
+        subject_alt_name: ["DNS:localhost", "IP:127.0.0.1"]
+        extended_key_usage: [serverAuth]
+    - name: Sign test TLS certificate
+      community.crypto.x509_certificate:
+        path: "{{ fixture_dir }}/server.crt"
+        csr_path: "{{ fixture_dir }}/server.csr"
+        ownca_path: "{{ fixture_dir }}/ca.crt"
+        ownca_privatekey_path: "{{ fixture_dir }}/ca.key"
+        ownca_not_after: +1d
+        provider: ownca
+    - name: Initialize configuration revision
+      ansible.builtin.copy:
+        dest: "{{ fixture_dir }}/revision.yml"
+        content: "fixture_revision: initial\n"
+        mode: "0600"

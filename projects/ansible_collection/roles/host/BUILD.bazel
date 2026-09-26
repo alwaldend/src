@@ -15,3 +15,11 @@ al_ansible_role(
     srcs = glob(["**"]),
     visibility = ["//:__subpackages__"],
 )
+
+test_suite(
+    name = "molecule_test",
+    tags = ["manual"],
+    testonly = True,
+    tests = ["//projects/ansible_collection/extensions/molecule:host_test"],
+    visibility = ["//:__subpackages__"],
+)

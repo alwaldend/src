@@ -1,0 +1,22 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+alias(
+    name = "qemu_system_x86_64",
+    actual = "@com_github_hermeticbuild_qemu//:qemu_system_x86_64_binary",
+    visibility = ["//:__subpackages__"],
+)
+alias(
+    name = "qemu_img",
+    actual = "@com_github_hermeticbuild_qemu//:qemu_img_binary",
+    visibility = ["//:__subpackages__"],
+)
+alias(
+    name = "bios",
+    actual = "@com_github_hermeticbuild_qemu_data//:share/qemu/bios-256k.bin",
+    visibility = ["//:__subpackages__"],
+)
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)

@@ -1,0 +1,23 @@
+{
+  "inputs": [
+    "packaged Forgejo binary and systemd unit",
+    "SQLite database",
+    "generated local account password",
+    "private test Git repository"
+  ],
+  "assertions": [
+    "zero changes and no lifecycle action on unchanged run",
+    "service enabled",
+    "HTTP application name update",
+    "authenticated account and repository creation",
+    "push and fresh clone matching commit and content",
+    "restart preserves account repository and commit"
+  ],
+  "excluded": [
+    "OIDC",
+    "external database",
+    "production inventory",
+    "full deployment playbooks"
+  ],
+  "role": "alwaldend.main.forgejo"
+}

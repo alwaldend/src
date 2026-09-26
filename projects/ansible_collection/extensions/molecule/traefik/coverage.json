@@ -1,0 +1,23 @@
+{
+  "inputs": [
+    "packaged Traefik binary and systemd unit",
+    "local HTTP backend",
+    "generated CA and server certificate",
+    "EAB disabled"
+  ],
+  "assertions": [
+    "zero changes and no lifecycle action on unchanged run",
+    "service enabled",
+    "trusted HTTPS route",
+    "unmatched route rejected",
+    "new route visible and old route removed",
+    "restart persistence"
+  ],
+  "excluded": [
+    "Vault EAB",
+    "public ACME",
+    "production inventory",
+    "full deployment playbooks"
+  ],
+  "role": "alwaldend.main.traefik"
+}

@@ -1,0 +1,17 @@
+[http.routers.fixture]
+rule = "PathPrefix(`/{{ fixture_revision }}`)"
+entryPoints = ["https"]
+service = "backend"
+middlewares = ["strip"]
+[http.routers.fixture.tls]
+
+[http.middlewares.strip.stripPrefix]
+prefixes = ["/{{ fixture_revision }}"]
+
+[http.services.backend.loadBalancer]
+[[http.services.backend.loadBalancer.servers]]
+url = "http://127.0.0.1:8080"
+
+[[tls.certificates]]
+certFile = "/etc/molecule-tls/server.crt"
+keyFile = "/etc/molecule-tls/server.key"

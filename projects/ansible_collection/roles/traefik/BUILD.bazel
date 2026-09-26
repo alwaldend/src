@@ -26,3 +26,11 @@ al_ansible_role(
     },
     visibility = ["//:__subpackages__"],
 )
+
+test_suite(
+    name = "molecule_test",
+    tags = ["manual"],
+    testonly = True,
+    tests = ["//projects/ansible_collection/extensions/molecule:traefik_test"],
+    visibility = ["//:__subpackages__"],
+)

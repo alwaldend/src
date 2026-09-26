@@ -1,0 +1,19 @@
+---
+- name: Read service lifecycle after application
+  ansible.builtin.command:
+    argv:
+      - systemctl
+      - show
+      - "{{ fixture_service }}"
+      - --property=ActiveEnterTimestampMonotonic,ExecMainStartTimestampMonotonic,ExecReload,InvocationID
+  register: lifecycle_after
+  changed_when: false
+- name: Require unchanged service lifecycle for an unchanged input
+  when: fixture_already_converged.stat.exists
+  ansible.builtin.assert:
+    that: lifecycle_before.stdout == lifecycle_after.stdout
+- name: Record a successfully applied configuration
+  ansible.builtin.copy:
+    dest: "/var/lib/molecule-{{ fixture_service }}-{{ fixture_revision }}"
+    content: "converged\n"
+    mode: "0600"

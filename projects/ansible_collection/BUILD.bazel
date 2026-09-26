@@ -43,3 +43,14 @@ pkg_filegroup(
     ],
     visibility = ["//:__subpackages__"],
 )
+
+test_suite(
+    name = "molecule_test",
+    tests = [
+        "//projects/ansible_collection/extensions/molecule:host_test",
+        "//projects/ansible_collection/extensions/molecule:traefik_test",
+        "//projects/ansible_collection/extensions/molecule:forgejo_test",
+    ],
+    tags = ["manual"],
+    visibility = ["//:__subpackages__"],
+)

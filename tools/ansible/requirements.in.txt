@@ -3,3 +3,5 @@ ansible-lint
 ansible-core>=2.20.7rc1
 cryptography>=48.0.1
 proxmoxer
+molecule==26.9.0
+pycdlib==1.21.0

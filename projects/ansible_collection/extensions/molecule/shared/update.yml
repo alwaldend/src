@@ -1,0 +1,10 @@
+---
+- name: Change the supported fixture input
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Select updated configuration
+      ansible.builtin.copy:
+        dest: "{{ lookup('env', 'MOLECULE_RUNNER_STATE') }}/fixture/revision.yml"
+        content: "fixture_revision: updated\n"
+        mode: "0600"

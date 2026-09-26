@@ -1,0 +1,14 @@
+---
+- name: Read service lifecycle before application
+  ansible.builtin.command:
+    argv:
+      - systemctl
+      - show
+      - "{{ fixture_service }}"
+      - --property=ActiveEnterTimestampMonotonic,ExecMainStartTimestampMonotonic,ExecReload,InvocationID
+  register: lifecycle_before
+  changed_when: false
+- name: Check whether this configuration has already converged
+  ansible.builtin.stat:
+    path: "/var/lib/molecule-{{ fixture_service }}-{{ fixture_revision }}"
+  register: fixture_already_converged

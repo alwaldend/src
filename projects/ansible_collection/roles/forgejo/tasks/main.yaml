@@ -39,6 +39,7 @@
         mode: "0700"
         path: "{{ item }}"
     - name: Copy the forgejo binary
+      notify: Restart Forgejo
       register: forgejo_bin_var
       ansible.builtin.copy:
         src: "{{ forgejo_bin_local_path }}"
@@ -47,6 +48,7 @@
         group: "{{ forgejo_user }}"
         mode: "0755"
     - name: Copy the config
+      notify: Restart Forgejo
       ansible.builtin.template:
         src: "{{ forgejo_config_local_path }}"
         dest: "{{ forgejo_config_path }}"
@@ -54,6 +56,7 @@
         group: "{{ forgejo_user }}"
         mode: "0600"
     - name: Write the service
+      notify: Restart Forgejo
       register: forgejo_service_result
       ansible.builtin.template:
         src: systemd_service.conf
@@ -71,8 +74,3 @@
         name: "{{ forgejo_service_path | basename }}"
         enabled: true
         state: started
-    - name: Reload the service
-      when: not forgejo_service_started_result.changed
-      ansible.builtin.systemd_service:
-        name: "{{ forgejo_service_path | basename }}"
-        state: reloaded

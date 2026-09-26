@@ -1,0 +1,36 @@
+load("@rules_go//go:def.bzl", "go_library")
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+
+py_binary(
+    name = "seed",
+    srcs = ["seed.py"],
+    visibility = ["//tools/molecule:__pkg__"],
+    deps = ["@com_alwaldend_src_bzl_rules_ansible_pip//pycdlib:pkg"],
+)
+
+filegroup(
+    name = "lifecycle",
+    srcs = [
+        "create.yml",
+        "destroy.yml",
+        ":events",
+    ],
+    visibility = ["//tools/molecule:__pkg__"],
+)
+
+py_library(
+    name = "events",
+    srcs = ["events.py"],
+    deps = ["@com_alwaldend_src_bzl_rules_ansible_pip//ansible_core:pkg"],
+)
+
+go_library(
+    name = "runner",
+    srcs = [
+        "runner.go",
+        "vm.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/tools/molecule/internal",
+    visibility = ["//tools/molecule:__subpackages__"],
+    deps = ["@rules_go//go/runfiles"],
+)

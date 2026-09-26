@@ -1,0 +1,34 @@
+APP_NAME = Molecule {{ fixture_revision }}
+RUN_USER = forgejo
+RUN_MODE = prod
+WORK_PATH = {{ forgejo_work_dir }}
+
+[server]
+DOMAIN = localhost
+HTTP_ADDR = 127.0.0.1
+HTTP_PORT = 3000
+ROOT_URL = http://localhost:3000/
+DISABLE_SSH = true
+APP_DATA_PATH = /opt/forgejo/data
+
+[database]
+DB_TYPE = sqlite3
+PATH = /opt/forgejo/data/forgejo.db
+
+[repository]
+ROOT = /opt/forgejo/data/repositories
+
+[security]
+INSTALL_LOCK = true
+SECRET_KEY = {{ lookup('ansible.builtin.password', fixture_dir + '/secret_key', length=64, chars=['ascii_letters', 'digits']) }}
+INTERNAL_TOKEN = {{ lookup('ansible.builtin.password', fixture_dir + '/internal_token', length=64, chars=['ascii_letters', 'digits']) }}
+
+[oauth2]
+JWT_SECRET = {{ lookup('ansible.builtin.password', fixture_dir + '/jwt_secret', length=32, chars=['ascii_letters', 'digits']) | b64encode(urlsafe=True) | regex_replace('=+$', '') }}
+
+[service]
+DISABLE_REGISTRATION = true
+
+[log]
+MODE = console
+LEVEL = Warn
