@@ -12,6 +12,7 @@ _WORKSPACE_SOURCES = {
     "infra_arch": "//infra/arch/openspec:source",
     "infra_ceph": "//infra/ceph/openspec:source",
     "infra_cloud_init": "//infra/cloud_init/openspec:source",
+    "infra_download": "//infra/download/openspec:source",
     "infra_dns": "//infra/dns/openspec:source",
     "infra_flux": "//infra/flux/openspec:source",
     "infra_forgejo": "//infra/forgejo/openspec:source",

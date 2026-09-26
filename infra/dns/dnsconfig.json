@@ -1,68 +1,20 @@
 {
     "records": {
-        "github_pages_a_1": {
+        "download_global": {
+            "CNAME": {
+                "name": "@",
+                "ttl": 300,
+                "target": "download.alwaldend.com."
+            },
+            "dsp": ["global"]
+        },
+        "download_dc1": {
             "A": {
                 "name": "@",
                 "ttl": 300,
-                "address": "185.199.108.153"
+                "address": "192.168.10.66"
             },
-            "dsp": ["all"]
-        },
-        "github_pages_a_2": {
-            "A": {
-                "name": "@",
-                "ttl": 300,
-                "address": "185.199.109.153"
-            },
-            "dsp": ["all"]
-        },
-        "github_pages_a_3": {
-            "A": {
-                "name": "@",
-                "ttl": 300,
-                "address": "185.199.110.153"
-            },
-            "dsp": ["all"]
-        },
-        "github_pages_a_4": {
-            "A": {
-                "name": "@",
-                "ttl": 300,
-                "address": "185.199.111.153"
-            },
-            "dsp": ["all"]
-        },
-        "github_pages_aaaa_1": {
-            "AAAA": {
-                "name": "@",
-                "ttl": 300,
-                "address": "2606:50c0:8000::153"
-            },
-            "dsp": ["all"]
-        },
-        "github_pages_aaaa_2": {
-            "AAAA": {
-                "name": "@",
-                "ttl": 300,
-                "address": "2606:50c0:8001::153"
-            },
-            "dsp": ["all"]
-        },
-        "github_pages_aaaa_3": {
-            "AAAA": {
-                "name": "@",
-                "ttl": 300,
-                "address": "2606:50c0:8002::153"
-            },
-            "dsp": ["all"]
-        },
-        "github_pages_aaaa_4": {
-            "AAAA": {
-                "name": "@",
-                "ttl": 300,
-                "address": "2606:50c0:8003::153"
-            },
-            "dsp": ["all"]
+            "dsp": ["dc1"]
         },
         "www": {
             "CNAME": {

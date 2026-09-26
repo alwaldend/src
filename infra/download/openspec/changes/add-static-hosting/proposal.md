@@ -9,6 +9,7 @@ and activate archived websites through a selected-release symlink.
 
 - Add `infra/download`, with one VM in each environment, 100 GB of filesystem
   storage per VM, and independent deployment targets and Terraform state.
+  Use Btrfs with a daily incremental deduplication job for published content.
 - Run the standard Traefik service in front of Nginx on each VM. Both receive
   traffic directly; `infra/ingress` is not part of the serving path.
 - Serve `download.alwaldend.com` and `alwaldend.com` through split-horizon DNS:
@@ -39,7 +40,7 @@ This change coordinates the following owner-local plans:
 | Owner              | Change                                                                                                                                       |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | Ansible collection | [Nginx role](../../../../../projects/ansible_collection/openspec/changes/add-nginx-role/proposal.md)                                         |
-| Vault              | [Download AppRole](../../../../../infra/vault/openspec/changes/add-download-approle/proposal.md)                                             |
+| Vault              | [Download AppRole](../../../../../infra/vault/approles/src_infra_download/README.md)                                                         |
 | Release tool       | [SSH deployment](../../../../../tools/release/openspec/changes/add-ssh-deployment/proposal.md)                                               |
 | Main website       | [Downloads browser and SSH hosting](../../../../../projects/alwaldend.com/openspec/changes/add-download-browser-and-ssh-hosting/proposal.md) |
 

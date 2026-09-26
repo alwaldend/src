@@ -1,14 +1,9 @@
 local infra = require("infra.al_lib")
 local lib = require("al_lib")
 
-lib.plugin({
-    name = "xo_login",
-    bin = "com_alwaldend_src/infra/xcp_ng/cmd/xo_login/xo_login_/xo_login",
+infra.xo_login({
     labels = { xoa_login = "1" },
-    data = {
-        xoa_url = "https://xoa.xcp-ng.alwaldend.com",
-        discovery_url = "https://vault.alwaldend.com:8200/v1/identity/oidc/provider/src_infra_xcp_ng_provider/.well-known/openid-configuration",
-    },
+    oidc_provider = "src_infra_xcp_ng_provider",
 })
 
 lib.vault_auth({
