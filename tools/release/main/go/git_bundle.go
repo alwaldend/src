@@ -42,7 +42,7 @@ func openGitBundle(path string) (_ *git.Repository, returnErr error) {
 
 	references, err := readGitBundleReferences(reader)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("read Git bundle references: %w", err)
 	}
 	head, ok := references[releaseGitBranch]
 	if !ok {

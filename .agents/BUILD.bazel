@@ -46,6 +46,7 @@ skills_write(
         "//tools/repo_delivery/skills/repo-delivery:skill",
         "//tools/agents/skills/repo-external-dependency:skill",
         "//tools/agents/skills/repo-gazelle-plugin:skill",
+        "//tools/agents/skills/repo-go:skill",
         "//tools/agents/skills/repo-hugo:skill",
         "//tools/agents/skills/repo-infra:skill",
         "//tools/agents/skills/repo-secrets:skill",

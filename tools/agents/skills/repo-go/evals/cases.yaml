@@ -1,0 +1,31 @@
+- description: Preserves causes with useful error context
+  vars:
+    request: >-
+      A Go release publisher returns err directly when it cannot read an archive
+      and returns cmd.Run() from its rsync helper. Fix the error handling so the
+      CLI identifies the failed operation and callers can still inspect causes.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if every propagated non-nil error is wrapped with useful
+        operation or path context using fmt.Errorf and %w, including subprocess
+        errors, while nil remains nil. The response must preserve error identity
+        for errors.Is/As, avoid formatting an underlying cause only with %v,
+        and not expose credentials in diagnostics.
+- description: Uses repository Go tooling and existing dependencies
+  vars:
+    request: >-
+      Add shell quoting to a Go Bazel tool in this monorepo and validate a
+      command that transfers filenames with spaces and apostrophes over SSH.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if it checks local code and declared dependencies before
+        seeking a new library, obtains explicit user approval for the specific
+        new dependency before adding it, follows repo-external-dependency,
+        uses the Bazel-pinned Go toolchain through bazel_agent,
+        declares the Go dependency in BUILD.bazel, and verifies literal filenames
+        with an isolated command-level fixture. It must not use host Go, hand-edit
+        generated locks, disable host verification, or run against a live host.

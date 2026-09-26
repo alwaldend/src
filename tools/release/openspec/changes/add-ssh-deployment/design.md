@@ -1,95 +1,86 @@
 ## Context
 
-See [proposal.md](proposal.md). `ReleaseDeployment` currently contains only
-OCI configuration, `deploy` invokes Soras for OCI files, and the CLI always
-requires `soras_path`. Local generated releases store payload under `files/`.
-That local package layout is distinct from the requested public server layout.
+The release tool already generates manifests/pages and deploys OCI files.
+The user requested SSH support plus `infra/download` publishing targets, then
+explicitly selected ordinary rsync or rclone instead of a custom upload
+protocol. The implementation uses rsync over OpenSSH.
 
 ## Goals / Non-Goals
 
-**Goals:** Reuse the existing manifest and deploy command for file publication
-and optional website activation over authenticated SSH.
-
-**Non-Goals:** Ansible publication, an upload daemon, rollback commands,
-automatic replication, automatic version deletion, or global version-policy
-changes. Existing OCI metadata and deployment remain supported.
+Reuse the existing `deploy` command, manifest version and filenames. Keep
+publication independent of Ansible. Preserve the download account as content
+owner without configuring authorized keys. Do not add a custom receiver,
+upload service, rollback command, replication, or automatic deletion.
 
 ## Decisions
 
-### Deployment metadata and execution
+### Authentication and transfer
 
-Add an SSH deployment variant with explicit environment/host, publisher
-identity or SSH configuration reference, destination root, public project
-name, and optional site archive designation. Reuse release version and file
-names from their existing manifest owners. `projects/alwaldend.com` maps to
-the public project key `alwaldend.com`; avoid accidentally producing
-`projects/projects/alwaldend.com` on the server.
+Use administrator SSH and `sudo -n -u download rsync` on download hosts.
+OpenSSH retains authentication and strict host trust. Connection settings are
+public metadata; identity/known-hosts file paths are runtime options only.
+The download role installs native rsync alongside the filesystem tools.
 
-Keep connection values outside artifacts that would expose credentials. Use
-standard SSH authentication and host verification, with argument-safe process
-execution and bounded timeouts. Do not disable host-key checks. Reuse available
-packaged SSH/SFTP facilities after inspecting repository dependencies.
+Select `local` or `yandex` explicitly. `infra/download:publish.<environment>`
+packages a destination and accepts a release directory. The public project
+removes one leading `projects/` from the manifest project or uses an explicit
+override. Ordinary files land directly in the version directory. Rsync owns
+checksums, temporary files, retry/update behavior, and error reporting. It
+updates existing filenames without deleting other release files. This replaces
+the earlier custom immutable-file/conflict protocol at the user's request.
 
-The existing `deploy` command selects the requested environment explicitly.
-An SSH-only manifest requires SSH tooling but no Soras executable. A manifest
-with OCI deployment still requires Soras. Keep native build/deploy wrappers
-aligned with the selected backend and preserve existing OCI behavior.
+### Independent publication steps
 
-### Ordinary uploads
+The user confirmed independent upload, extraction, and linking during review.
+`--steps` is an ordered subset of `upload,extract,link`, defaulting to upload.
+The deploy method creates a publisher and dispatches each selected operation;
+configuration and validation stay separate from the transfer operations.
 
-Copy each local payload file to an unpublished temporary destination, verify
-its expected bytes/checksum, then rename it into
-`<root>/projects/<project>/releases/<version>/<filename>`. There is no public
-`files/` layer and no archive extraction for ordinary artifacts. A release is
-a directory of independent files, not an all-files transaction.
+Upload copies manifest files using rsync and its normal temporary-file rename.
+Extraction reads the already-published archive, reuses the rooted Go extractor,
+and transfers the completed tree into private remote staging. Promotion keeps
+an existing completed version unchanged. Linking checks the retained site and
+atomically replaces current, without an archive or any rsync operation.
 
-Reject unsafe path components. Repeating an identical upload is idempotent;
-different bytes at an existing filename/version produce a conflict, preserving
-the published file. Interrupted uploads never appear under their final names.
-Report partial success clearly if a release contains several files.
+The extraction decision is to reuse the existing validated Go implementation.
+Running remote tar/unzip would avoid transferring the archive back, but would
+introduce host dependencies and a different archive-safety contract. Reusing
+the extractor preserves traversal/link/device checks and needs no installed
+receiver. The cost is local temporary space and an extra archive transfer.
+Reconsider that choice if measured archive sizes make it a material bottleneck.
 
-### Site activation and redeployment
+A short per-project flock protects promotion and linking. Staging uses the
+content filesystem and retains its noexec mount. Invalid step sequences fail
+before remote mutation; upload failures can leave completed ordinary files,
+while extraction failures preserve the currently selected site.
 
-Only an explicitly designated site archive is extracted. The archive remains
-an ordinary public release file. Initially support `.tar.gz` and `.zip` with
-prebuilt HTML/assets at archive root; do not run a website build on the VM.
-Treat these format and root conventions as implementation defaults to document.
+### Quoting and error context
 
-Validate archive entries and extract into a unique staging directory on the
-same filesystem as `<root>/sites/<project>/releases/<version>`. Reject absolute
-paths, traversal, link/device entries, and unsupported structure. Do not
-follow archive-provided symlinks into other projects or staging paths.
-Verify a readable `index.html` and expected content before publishing the
-extracted directory and atomically replacing `sites/<project>/current`.
+Preserve literal remote arguments and rsync's SSH command with the existing
+POSIX single-quote escaping approach. The existing pinned anmitsu/go-shlex
+package only tokenizes strings; its missing quoting API does not justify adding
+another dependency without approval. The user rejected the added quoting
+library and required an explicit approval gate in AGENTS.md. No new external
+dependency is needed for publication. Propagated errors wrap their causes with
+operation and path context; repo-go owns that repository procedure.
 
-Use a per-project activation lock and bind extraction to the uploaded archive
-digest so concurrent or conflicting deployments cannot corrupt a release.
-If an already extracted release matches its recorded archive identity,
-redeployment only reselects that release via the same deploy command. A failed
-upload, extraction, validation, or activation leaves the old link intact.
-Selecting an older release is ordinary redeployment, not a rollback command.
+### Build and backend selection
 
-Keep staging and extraction bookkeeping outside the public release tree and
-the site document root. Failed attempts clean up only their own temporary
-paths. Disk-full errors preserve published files and the active site.
+The protobuf and Bazel deployment rule represent OCI or SSH. SSH-only wrapper
+targets omit Soras. A supplied SSH deployment/host publishes all manifest
+files to that destination; otherwise an explicit environment selects attached
+SSH metadata. Existing OCI operation remains the default without an environment.
+Generated download URLs use the same public project and version mapping.
 
 ## Risks / Trade-offs
 
-- Shell metacharacters and unusual filenames -> validate structural names,
-  quote remote arguments safely, and test spaces, Unicode, and punctuation.
-- Repeated publication to mutable names such as `head` -> require a concrete
-  deployment version for differing content; do not silently overwrite a
-  retained release. The website can redeploy any retained concrete version.
-- Source packaging differs from public layout -> test exact remote paths and
-  release-page links with a real generated manifest.
-- Independent targets -> report each target's result without pretending that
-  publication across hosts is atomic.
+Rsync and OpenSSH must be installed locally and rsync remotely. Website
+extraction also needs local free space. Multi-file rsync is not a transaction;
+completed ordinary files can remain after failure. Website activation waits
+for the complete site transfer. Administrators retain their existing sudo
+capability; the content process runs as the dedicated non-sudo account.
 
-## Migration Plan
+## Acceptance
 
-Add the metadata variant and regenerate bindings through the owning workflow,
-then implement the backend and wire the site consumer. Prepare the behavioral
-failure matrix and isolated SSH/HTTP fixture before implementation. Introduce
-the new OpenSpec owner's packaging/validation registration in implementation.
-Existing OCI consumers require no metadata migration; the site consumer moves
-to explicit versioned SSH deployment through its linked plan.
+See [acceptance.md](acceptance.md) for the failure matrix and retained evidence.
+Tests use an isolated SSH/Nginx environment, not either production VM.

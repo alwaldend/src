@@ -55,6 +55,7 @@ This table owns routing; each skill owns its procedure.
 | Material, consequential, or repeatedly failing choice                    | `decision-review`                            |
 | Creating or moving source, or choosing a directory layout                | `project-layout`                             |
 | Any Bazel invocation, BUILD or `.bzl` mechanics, or validation scope     | `bazel-agent`, `repo-bazel`                  |
+| Go implementation, refactoring, or review                                | `repo-go`                                    |
 | A standalone nested workspace with its own `MODULE.bazel`                | `bazel-nested-module`                        |
 | External dependencies, archives, toolchains, or lockfiles                | `repo-external-dependency`                   |
 | Gazelle generation behavior or a language plugin                         | `repo-gazelle-plugin`                        |
@@ -109,6 +110,20 @@ requests.
   behavior testing.
 
 ## Use bounded tools and evidence
+
+**Adding new external dependencies is strongly discouraged and requires the
+user's explicit approval for the specific dependency before it is added.**
+A request to implement a feature, fix a bug, or use a capability does not
+approve a new dependency. Do not add one merely because it is convenient or
+an existing dependency lacks a preferred API.
+
+Before searching for a new external dependency, inspect existing repository
+code, standard libraries, manifests, lockfiles, and locally available
+dependencies. Prefer reusing those options. If a new dependency is necessary,
+first prepare a concrete proposal naming it, explaining why existing options
+are insufficient, and describing its maintenance and supply-chain costs;
+then ask the user for approval. Do not install, vendor, declare, or add it to
+source or build configuration before approval.
 
 Prefer supported live Cordis handlers, then purpose-built tools, MCP
 capabilities, and repository Bazel targets; use a host shell only when no

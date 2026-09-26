@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repository Go"
+  short_description: "Implement and validate Go changes in this repository"
+  default_prompt: "Use $repo-go to implement and validate this Go change with contextual error wrapping."
