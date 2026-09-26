@@ -62,4 +62,4 @@ both direct device paths and by-id symlinks work. Attachment checks remain in
 The collection packages the role automatically through its existing role
 aggregation. Domain-specific serving templates stay with the deployment.
 
-{{< readfile file="defaults/main.yaml" code="true" lang="yaml" >}}
+[Default configuration](defaults/)

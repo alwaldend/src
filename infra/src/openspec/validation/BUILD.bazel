@@ -41,6 +41,7 @@ _WORKSPACE_SOURCES = {
     "projects_bazel_agent": "//projects/bazel_agent/openspec:source",
     "projects_ci_platform": "//projects/ci_platform/openspec:source",
     "projects_dotfiles": "//projects/dotfiles/openspec:source",
+    "projects_icon_generator": "//projects/icon_generator/openspec:source",
     "projects_infinitime": "//projects/infinitime/openspec:source",
     "projects_kustomization": "//projects/kustomization/openspec:source",
     "projects_leetcode_downloader": "//projects/leetcode_downloader/openspec:source",
@@ -77,6 +78,7 @@ _ARCHIVE_WORKSPACES = [
     "infra_repos",
     "repository",
     "tools_agents",
+    "projects_icon_generator",
     "projects_mcp_cordis",
     "tools_rules_terraform",
 ]
