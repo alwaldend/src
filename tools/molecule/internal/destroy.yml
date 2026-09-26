@@ -1,0 +1,13 @@
+---
+- name: Destroy owned disposable guest
+  hosts: localhost
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: Destroy guest through the lifecycle owner
+      ansible.builtin.command:
+        argv:
+          - "{{ lookup('env', 'MOLECULE_RUNNER') }}"
+          - stop
+          - "{{ lookup('env', 'MOLECULE_RUNNER_STATE') }}"
+      changed_when: false

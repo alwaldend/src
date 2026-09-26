@@ -1,0 +1,55 @@
+---
+- name: "Verify disposable guest behavior {{ diagnostic_marker }}"
+  hosts: molecule
+  become: true
+  vars:
+    diagnostic_marker: molecule-task-name-sentinel
+  tasks:
+    - name: "Exercise protected task heading {{ diagnostic_marker }}"
+      ansible.builtin.debug:
+        msg: Public fixture for retained diagnostic isolation
+      no_log: true
+      changed_when: true
+      notify: Diagnostic fixture handler
+    - name: Exercise protected handler heading
+      ansible.builtin.meta: flush_handlers
+    - name: Execute the renamed declared input in the guest
+      ansible.builtin.command: /usr/local/bin/molecule-fixture
+      register: mapped_output
+      changed_when: false
+    - name: Require exact mapped executable behavior
+      ansible.builtin.assert:
+        that: mapped_output.stdout == 'declared executable mapping'
+    - name: Check controller credential isolation
+      ansible.builtin.assert:
+        that:
+          - lookup('env', 'VAULT_TOKEN') == ''
+          - lookup('env', 'AWS_SECRET_ACCESS_KEY') == ''
+          - lookup('env', 'SSH_AUTH_SOCK') == ''
+    - name: Verify installed package
+      ansible.builtin.command: jq --version
+      changed_when: false
+    - name: Inject deliberate verification failure
+      ansible.builtin.fail:
+        msg: molecule_acceptance_injected_failure
+      when: lookup('env', 'MOLECULE_ACCEPTANCE_MODE') == 'failure'
+    - name: Wait for acceptance cancellation
+      ansible.builtin.pause:
+        seconds: 300
+      when: lookup('env', 'MOLECULE_ACCEPTANCE_MODE') == 'cancellation'
+    - name: Reboot the guest
+      ansible.builtin.reboot:
+        reboot_timeout: 300
+    - name: Read marker after reboot
+      ansible.builtin.slurp:
+        src: /var/lib/molecule-marker
+      register: marker
+    - name: Verify persisted content
+      ansible.builtin.assert:
+        that: marker.content | b64decode == 'molecule smoke\n'
+  handlers:
+    - name: "Handle protected fixture {{ diagnostic_marker }}"
+      listen: Diagnostic fixture handler
+      ansible.builtin.debug:
+        msg: Public fixture for retained handler isolation
+      no_log: true

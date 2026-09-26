@@ -1,0 +1,9 @@
+---
+- name: Reject unexpected execution of a prerequisite probe
+  hosts: all
+  gather_facts: false
+  become: false
+  tasks:
+    - name: Stop without modifying the controller or guest
+      ansible.builtin.fail:
+        msg: The runner must reject unavailable prerequisites before executing playbooks

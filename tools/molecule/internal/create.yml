@@ -1,0 +1,13 @@
+---
+- name: Create owned disposable guest
+  hosts: localhost
+  gather_facts: false
+  connection: local
+  tasks:
+    - name: Create guest through the lifecycle owner
+      ansible.builtin.command:
+        argv:
+          - "{{ lookup('env', 'MOLECULE_RUNNER') }}"
+          - create
+          - "{{ lookup('env', 'MOLECULE_RUNNER_STATE') }}"
+      changed_when: true

@@ -23,6 +23,17 @@ description: Add or upgrade external software consumed by this monorepo with rep
    under `third_party/`; standalone Bazel modules keep their dependencies local.
    Keep consumer-specific configuration and first-party wrappers with the consumer.
 
+## Check publisher reputation
+
+Choose a reputable publisher before selecting an artifact. Prefer official
+upstream releases or an established distribution or vendor. Inspect maintenance
+history, project ownership, and auditable build and release provenance; do not
+adopt an obscure third-party repackager merely because its binary is convenient.
+A checksum establishes artifact integrity, not publisher trust. Popularity or
+star counts alone neither establish nor disqualify a legitimate upstream.
+When the consumer permits a host runtime prerequisite, an existing distribution
+package can avoid another binary distributor; document that non-hermetic boundary.
+
 ## Add a standalone release binary
 
 For a release binary consumed through a Bazel toolchain, create a package

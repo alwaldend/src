@@ -7,7 +7,7 @@ Traefik and Forgejo request reloads on unchanged applications. Those are
 source-level reasons to expect failures, not observed VM-test results.
 
 The shared runner is defined by the linked
-[tools-owned change](../../../../../tools/molecule/openspec/changes/add-qemu-molecule-runner/proposal.md).
+[tools-owned change](../../../../../tools/molecule/openspec/changes/archive/2026-09-26-add-qemu-molecule-runner/proposal.md).
 Its design owns VM provisioning, dependencies, package materialization,
 credential isolation, cleanup, execution policy, and retained evidence.
 This design owns collection inputs, assertions, and any narrow role fixes.
@@ -98,3 +98,15 @@ inspect retained outputs, and verify test fixtures do not enter production
 payloads. No live deployment or host configuration is part of this rollout.
 Rollback removes the scenarios and separately reverts any incompatible role
 correction. Update cross-change links when either change is archived.
+
+
+## Delivery split (2026-09-26)
+
+The role implementation and behavioral acceptance are preserved in
+[PR #111](https://github.com/alwaldend/src/pull/111), candidate
+`8b7784d127480ea3ef60d82024e98deda1199c75`. The user requested the shared Molecule
+setup in a separate prerequisite PR. This change stays active on master until
+that runner is available; its scope remains the three role scenarios and the
+demonstrated role fixes. After the prerequisite merges, rebase PR #111 onto
+master, remove the already-delivered tooling scope, and validate the consumer
+candidate. Do not stack the PRs or merge the prerequisite automatically.

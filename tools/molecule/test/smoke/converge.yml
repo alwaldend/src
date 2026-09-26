@@ -1,0 +1,28 @@
+---
+- name: Converge smoke guest
+  hosts: molecule
+  become: true
+  tasks:
+    - name: Require executable mode in the staged package mapping
+      delegate_to: localhost
+      become: false
+      ansible.builtin.stat:
+        path: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/collections/ansible_collections/molecule/fixture/files/renamed_executable"
+      register: mapped_executable
+    - name: Verify preserved executable mode
+      ansible.builtin.assert:
+        that: mapped_executable.stat.executable
+    - name: Copy the renamed declared executable
+      ansible.builtin.copy:
+        src: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/collections/ansible_collections/molecule/fixture/files/renamed_executable"
+        dest: /usr/local/bin/molecule-fixture
+        mode: "0755"
+    - name: Install a package through the guest package service
+      ansible.builtin.package:
+        name: jq
+        state: present
+    - name: Write persistent marker
+      ansible.builtin.copy:
+        dest: /var/lib/molecule-marker
+        content: "molecule smoke\n"
+        mode: "0644"
