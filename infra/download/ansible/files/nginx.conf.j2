@@ -1,0 +1,54 @@
+user nginx;
+worker_processes auto;
+pid /run/nginx.pid;
+error_log /var/log/nginx/error.log;
+
+events { worker_connections 1024; }
+
+http {
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+    sendfile on;
+    # Directory redirects retain the client's HTTPS origin and public port.
+    absolute_redirect off;
+    server_tokens off;
+    access_log /var/log/nginx/access.log;
+
+    server {
+        listen 127.0.0.1:{{ download_nginx_port }} default_server;
+        server_name _;
+        return 404;
+    }
+
+    server {
+        listen 127.0.0.1:{{ download_nginx_port }};
+        server_name download.alwaldend.com;
+        root {{ download_root }};
+        location = / { return 302 /projects/; }
+        location /projects/ {
+            # A directory is always data, even if it contains index.html.
+            index __download_listing_has_no_index__;
+            autoindex on;
+            autoindex_format json;
+            disable_symlinks on;
+            add_header Access-Control-Allow-Origin "*" always;
+            add_header Access-Control-Expose-Headers "Content-Length, Content-Range, Accept-Ranges" always;
+            add_header Cache-Control "no-cache" always;
+            limit_except GET { deny all; }
+        }
+        location / { return 404; }
+    }
+
+    server {
+        listen 127.0.0.1:{{ download_nginx_port }};
+        server_name alwaldend.com;
+        root {{ download_root }}/sites/alwaldend.com/current;
+        index index.html;
+        # Follow only the selected root; disallow links inside site content.
+        disable_symlinks on from=$document_root;
+        location / {
+            try_files $uri $uri/ =404;
+            limit_except GET { deny all; }
+        }
+    }
+}

@@ -1,0 +1,23 @@
+flowchart LR
+    public[Public visitors] --> global[Public DNS]
+    local[Local visitors] --> dc1[dc1 DNS]
+    publisher[SSH publisher]
+
+    subgraph cloud[Yandex Cloud VM]
+        ct[Traefik<br/>Let's Encrypt HTTP-01] --> cn[Nginx<br/>Loopback only]
+        cn --> cd[(100 GiB Btrfs<br/>Files and sites<br/>Daily deduplication)]
+        cs[SSH] --> cd
+    end
+    subgraph onprem[XCP-ng VM]
+        lt[Traefik<br/>Vault ACME HTTP-01] --> ln[Nginx<br/>Loopback only]
+        ln --> ld[(100 GiB Btrfs<br/>Files and sites<br/>Daily deduplication)]
+        ls[SSH] --> ld
+    end
+
+    global --> ct
+    dc1 --> lt
+    publisher -->|Upload| cs
+    publisher -->|Upload| ls
+    vault[Vault AppRole<br/>Provider and DNS credentials] -.-> config[Terraform and Ansible<br/>Explicit environment selection]
+    config -.-> ct
+    config -.-> lt

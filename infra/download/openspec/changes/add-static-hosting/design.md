@@ -26,7 +26,9 @@ release. Routine source work does not authorize live provisioning or cutover.
 ### Topology and state
 
 Each environment has one VM with 100 GB of persistent filesystem storage for
-release archives, ordinary artifacts, extracted sites, and service state.
+release archives, ordinary artifacts, extracted sites, and deduplication state.
+Traefik configuration and ACME state stay on the system disk under `/opt/traefik`;
+the proxy has no dependency on the content mount.
 Mount a dedicated Btrfs content disk at `/srv/download` alongside a 20 GiB boot
 disk. Yandex retains an independently managed block disk across VM replacement.
 The pinned XCP-ng provider owns its disks with the VM and cannot reattach a
@@ -78,10 +80,12 @@ the request path and query. This is a redirect router, not another website
 root or release selection. Obtain a certificate covering `www` on each VM
 from its configured issuer as well as certificates for the two content names.
 
-The SSH publisher can write release and site storage. Nginx has read access
-only. Ansible creates storage, accounts, configuration, and services; the
-release tool owns content upload and activation. Neither a configuration
-rerun nor a service restart removes published content.
+The download account owns release and site storage, with no authorized keys
+configured for it. Administrators connect using existing SSH access and run
+rsync and activation through sudo as that account. Nginx has read access only.
+Ansible creates storage, accounts, configuration, and services; the release
+tool owns content upload and activation in its separate publication PR. Neither
+a configuration rerun nor a service restart removes published content.
 
 ### DNS ownership and HTTPS
 
@@ -187,7 +191,8 @@ component and contains no download-specific frontend or hostnames.
 
 The current implementation pass covers IaC, the linked Nginx role and Vault
 identity source, and the architecture diagram. The linked SSH release tool
-and website browser remain separate implementation work. See
+and component publishing targets are delivered in a separate PR against
+`master`; the website browser remains separate implementation work. See
 [acceptance.md](acceptance.md) for the matrix written before implementation
 and [evidence.md](evidence.md) for checks and their limits.
 

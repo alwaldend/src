@@ -2,7 +2,12 @@
 
 Write these cases before implementation. Source and isolated fixture checks
 do not establish live deployment. This pass implements IaC and its diagram;
-the linked release-tool and browser changes remain separate work.
+the browser change remains separate work. SSH publication is verified by
+the linked release-tool acceptance fixture.
+
+The custom container fixtures were removed during PR review. Their prior results
+remain in [evidence.md](evidence.md); maintained Molecule coverage is future work.
+The scenarios below remain acceptance criteria.
 
 | Boundary                 | Success                                                               | Failure or preservation case                                                                     | Evidence                                                     |
 | ------------------------ | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -17,12 +22,12 @@ the linked release-tool and browser changes remain separate work.
 | DNS                      | Public selects Yandex; dc1 selects XCP-ng                             | One owner per name; old apex A/AAAA removed; mail and `www` preserved                            | Offline normalization, source linter, generated declarations |
 | Certificate lifecycle    | HTTP-01: Let's Encrypt externally, Vault internally                   | Issuer-specific DNS reachability, EAB scope, CA trust, and renewal                               | Separately authorized live check                             |
 | SSH publication          | Dedicated writer; services read content                               | Writer cannot alter service config or ACME secrets                                               | Account/filesystem declarations and fixture                  |
-| Release activation       | Verified upload, safe extraction, atomic selection                    | Interrupted/conflicting upload, unsafe archive, disk exhaustion preserve selection               | Linked release-tool E2E (separate implementation)            |
+| Release activation       | Verified upload, safe extraction, atomic selection                    | Interrupted upload, unsafe archive, disk exhaustion preserve selection                           | Linked release-tool E2E                                      |
 | Browser                  | Downloads/header and reusable release listing                         | Missing service, unsafe names, multiple instances                                                | Linked website E2E (separate implementation)                 |
 | Host lifecycle           | Reboot and Ansible rerun preserve releases                            | No backups, replication, automatic deletion, or rollback command                                 | Authorized rollout evidence                                  |
 
-Required identity paths: own `src_infra_download` KV subtree for state and
-publisher inputs; its Yandex folder credentials; the existing Cloudflare DNS
+Required identity paths: own `src_infra_download` KV subtree for state;
+its Yandex folder credentials; the existing Cloudflare DNS
 token and RouterOS DNS credentials; `src_infra_download_ssh` for host signing.
 Internal ACME uses a component PKI role limited to the three serving names. Unrelated AppRole state and provider
 administrative credentials are forbidden. Existing infrastructure group
@@ -30,8 +35,8 @@ membership supplies the established XO/Yandex identity discovery contract.
 
 ## Deduplication extension
 
-The user selected Btrfs with daily background deduplication. Before implementing
-it, add these observable cases to the native fixture:
+The user selected Btrfs with daily background deduplication. Future Molecule
+coverage should exercise these observable cases:
 
 - Two independently uploaded files with identical blocks retain their paths,
   inode identities, permissions, and byte checksums while sharing extents.

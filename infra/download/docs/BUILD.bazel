@@ -1,0 +1,15 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//tools/mermaid:defs.bzl", "mermaid_svg")
+
+mermaid_svg(
+    name = "architecture",
+    src = "architecture.mmd",
+    out = "rendered/architecture.svg",
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = [":architecture"],
+    prefix = "content/docs/infra/download/assets",
+    visibility = ["//infra/download:__pkg__"],
+)

@@ -1,0 +1,28 @@
+[entryPoints.web]
+  address = ":80"
+  [entryPoints.web.http.redirections.entryPoint]
+    to = "websecure"
+    scheme = "https"
+    permanent = true
+[entryPoints.websecure]
+  address = ":443"
+
+[providers.file]
+  filename = "{{ traefik_dynamic_config_path }}"
+  watch = true
+
+[certificatesResolvers.default.acme]
+  email = "{{ download_acme_email }}"
+  caServer = "{{ download_acme_directory }}"
+  storage = "{{ traefik_data_dir }}/acme.json"
+  certificatesDuration = {{ download_acme_certificates_duration }}
+  [certificatesResolvers.default.acme.httpChallenge]
+    entryPoint = "web"
+{% if not traefik_disable_eab %}
+  [certificatesResolvers.default.acme.eab]
+    kid = "{{ traefik_acme_kid }}"
+    hmacEncoded = "{{ traefik_acme_hmac }}"
+{% endif %}
+
+[log]
+  level = "INFO"
