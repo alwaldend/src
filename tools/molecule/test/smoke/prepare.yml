@@ -1,0 +1,8 @@
+---
+- name: Wait for guest initialization
+  hosts: molecule
+  become: true
+  tasks:
+    - name: Wait for cloud-init
+      ansible.builtin.command: cloud-init status --wait --format json
+      changed_when: false

@@ -39,7 +39,7 @@ inputs; this change adds a test consumer without changing its public layout.
 Implementation affects collection scenario and suite declarations and any
 minimal corrections required in the three roles or their directly exercised
 helpers. The shared runner and Ansible dependency integration are owned by
-[add-qemu-molecule-runner](../../../../../tools/molecule/openspec/changes/add-qemu-molecule-runner/proposal.md).
+[add-qemu-molecule-runner](../../../../../tools/molecule/openspec/changes/archive/2026-09-26-add-qemu-molecule-runner/proposal.md).
 That change owns generic lifecycle, cleanup, execution, evidence, and
 credential-isolation behavior; this consumer does not redefine it.
 

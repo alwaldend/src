@@ -4,10 +4,11 @@ title: External dependency evaluations
 
 # External dependency evaluations
 
-This suite describes the reproducibility and ownership contract for updating a
-shared external dependency. Its required offline Bazel target validates the
-Promptfoo configuration, referenced case, and staged skill without making a
-model call.
+This suite describes reproducibility, ownership, and publisher selection for
+external dependencies. Cases distinguish reputable upstream or distribution
+sources from obscure repackagers without treating star counts as a trust
+threshold. Its required offline Bazel target validates the Promptfoo
+configuration, referenced cases, and staged skill without making a model call.
 
 A live target is omitted because representative behavior requires inspecting
 repository consumers, querying an upstream registry or release service,

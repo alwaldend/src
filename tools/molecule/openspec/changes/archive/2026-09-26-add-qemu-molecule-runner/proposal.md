@@ -34,7 +34,7 @@ pin. Initial support is Linux x86-64 with local QEMU; remote hypervisors,
 persistent host provisioning, and production inventories are excluded.
 
 The first consumer is the linked
-[collection role-test change](../../../../../projects/ansible_collection/openspec/changes/add-qemu-molecule-role-tests/proposal.md),
+[collection role-test change](../../../../../../projects/ansible_collection/openspec/changes/add-qemu-molecule-role-tests/proposal.md),
 which owns scenarios for `host`, `traefik`, and `forgejo`. This change owns
 generic runner behavior and its smoke/failure acceptance; it does not define
 role-specific assertions. Both changes can be implemented together while

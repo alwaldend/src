@@ -12,7 +12,6 @@ dependencies. A Go test runner exposes the CLI binaries under their
 hyphenated names, configures writable Ansible paths, and invokes the
 linter against workspace-relative sources.
 
-Molecule is not integrated yet. The likely path is to add Molecule to
-these Python requirements and invoke it through a Bazel-native Go runner,
-but practical scenarios require choosing and provisioning a Molecule
-driver before any scenarios can run.
+The same Python lock supplies Molecule and the seed-image library to the
+[local QEMU runner](../molecule/README.md). It uses Ansible-native lifecycle
+playbooks and the existing packaged collection mappings.
