@@ -30,6 +30,12 @@ the public website continues using Pages during this local preparation.
 
 The local VM consumes the same apex A value from source. The host CNAME and
 local download alias follow it, so renumbering has one maintained address.
+The dc1 apex also declares the unusable AAAA address `::ffff`, following
+[RouterOS's documented override](https://help.mikrotik.com/docs/spaces/ROS/pages/37748767/DNS).
+An A record alone does not suppress upstream AAAA answers: while public DNS
+still points to Pages, IPv6 clients would reach that site instead of the local
+VM. This local override keeps clients on the configured IPv4 endpoint without
+changing public DNS or relying on a guest's temporary IPv6 address.
 The public apex follows `download.alwaldend.com`, which in turn follows the
 component-owned Yandex host. Renaming that host therefore requires no copied
 endpoint edit in the apex owner.
