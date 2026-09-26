@@ -24,6 +24,7 @@ al_release_binary(
                 "bazel_registry",
                 "bazel_agent",
                 "goal",
+                "icon_generator",
                 "useless_qt_gui",
                 "renders",
             ],

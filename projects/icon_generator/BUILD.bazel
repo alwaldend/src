@@ -1,0 +1,19 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+alias(
+    name = "icon_generator",
+    actual = "//projects/icon_generator/cmd/icon_generator",
+    visibility = ["//:__subpackages__"],
+)
+
+test_suite(
+    name = "test",
+    tests = ["//projects/icon_generator/test:e2e_test"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//projects:__pkg__"],
+    deps = ["//projects/icon_generator/openspec:docs"],
+)
