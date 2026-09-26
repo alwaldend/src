@@ -1,0 +1,79 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: continuous-upper-crown-028
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T23:25:23.874552923Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:7c0ceffb0db3a6d1cdc78a7b3c243a0af894a28a1acb947dcac745fcfce71a7c
+  workType: candidate
+  stableDefect: helmet-head-card-hair
+  hypothesis: Removing the upper constant-depth plateau yields a continuous softly compressed crown without sacrificing lower face or temple coverage.
+  subject: 027c head19ce0cb14c7d679750422702d6df97753480cf8a4db7cd73f1203b0f28bf7416, regenerated from protected026 recipe
+  priorAttemptID: rolled-gusset-hair-frame-027
+  nextAction: Implement one shared upper-front profile, freeze028 and compare fixed side/three-quarter before retention.
+status:
+  state: closed
+  closedAt: "2026-09-04T23:34:42.619425877Z"
+  artifacts:
+    planDigest: sha256:ca2baa1b3eca63d7dae259358596f5fe564d5c7f108ed544a30ef8a4c2a5d76a
+    resultDigest: sha256:19d5027a4a384f49a2c58d8189a9823b48b5475ffb7b866743b69e1dbb80fd68
+    evidence:
+    - path: evidence/head_028_blind.md
+      digest: sha256:f5c175c3f889d4f19adc8e0806b727b1e509a62c35b644fbbe26009ce1a4515b
+    - path: evidence/head_028_initial_evidence.md
+      digest: sha256:8eb0b4b6e6bdd4d872971660310c11bba2a2f8fc98ec060941ec7ba83cbd7a44
+    - path: evidence/head_028_machine_evidence.md
+      digest: sha256:dabc2531ba5b93a25578c011ef0e925773e7cb4c4648a43f61fd98503ff2777c
+    - path: evidence/head_028_refinement.md
+      digest: sha256:63ce6f07cfc6d122e294110ba8607483c5898a941dd4378c8d072aa297ff54e6
+    - path: evidence/head_028_sources.md
+      digest: sha256:23335be26c51a7b57056c319eecec2191439469e323d3c6fcf62b2820ba8e0cd
+    - path: evidence/head_028_technical_audit.md
+      digest: sha256:7ad58555f6d285e59ab5e3a30e25113a7568e1ea5d22ab1aa4f4f155df0987e0
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-04T23:34:42.619425877Z"

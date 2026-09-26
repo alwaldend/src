@@ -1,0 +1,69 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: fitted-side-free-rear-ownership-104
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-06T06:18:27.300376168Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: 75485d1351d6c7a9af9e3a39d50e63d2d788cbb85e58cdd6b1eadd800fb75f7f
+  nextAction: "Ground-up review delivered: freeze one fresh low-complexity whole-character reference study before new modeling; preserve101, stop104patching, compare aligned visuals before detailed construction."
+status:
+  state: closed
+  closedAt: "2026-09-06T07:21:02.462942926Z"
+  artifacts:
+    planDigest: sha256:68639da245ca44a371e3de337ecf0bdf1a809c824aef1bd3b075ea5760ed6842
+    resultDigest: sha256:6a17d01da13486c86dbdec2b1e0a87632199452545df1242bbb3f19d204c2bdc
+    evidence:
+    - path: evidence/chin_104_visual_diagnosis.md
+      digest: sha256:2cd78f36f960086946d01ce3befcf44e7031454d05cbc50ebd733ebb79a4bcee
+    - path: evidence/hair_104_preexecution.md
+      digest: sha256:50dd1ac419a2a9bb6c80ef61cca94e97db27def62a4d35de39936f9170b14901
+    - path: evidence/hair_104_side_rear_boundary.md
+      digest: sha256:5bed02fb154d6af9ddaec19c3eb4b51984e7619732cc765fd266bacd0b2a7b50
+    - path: evidence/process_104_ground_up_review.md
+      digest: sha256:242bf3acfd67b6cff637b35739bd6e32daeac872f4580e4b35023be8dc95bf4e
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T07:21:02.462942926Z"

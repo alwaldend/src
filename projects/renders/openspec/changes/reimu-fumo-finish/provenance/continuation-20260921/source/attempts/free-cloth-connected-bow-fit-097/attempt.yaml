@@ -1,0 +1,67 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: free-cloth-connected-bow-fit-097
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-06T03:08:45.276055711Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: af5a61921ae309a69cfe98b0da092d206b2d0ff29c9123ac2a4886de5a0f9add
+  nextAction: Separate source-preserving bow attachment repair from a new free-hair representation; do not rerun097.
+status:
+  state: closed
+  closedAt: "2026-09-06T03:39:19.250970594Z"
+  artifacts:
+    planDigest: sha256:6a8104173e8174bd306c7f28044f6723f4fbae0a46cc8d7cca780303cd68ae17
+    resultDigest: sha256:31e9cf4904bf9c400894973713d6ab61593d81f6f552a999cd563955c33dec88
+    evidence:
+    - path: evidence/assembly_097_data_repair.md
+      digest: sha256:d30cd106c39b95a2ec69db6d11b1e2734f7b183b5cf3eebd87bfe85b2f42157c
+    - path: evidence/assembly_097_pixel_direction.md
+      digest: sha256:2ff4b419967757a52d67a0517673f943ab7d347bb04ed8b3e6e9aab35a493000
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T03:39:19.250970594Z"

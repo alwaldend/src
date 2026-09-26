@@ -1,0 +1,43 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: measurement-band-correction-008
+  resourceVersion: "1"
+  generation: 1
+  creationTimestamp: "2026-09-04T09:46:57.506672647Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 12
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:b3245e4a70d26af50ae4eb463a7d328906215c38590025755f0eae94c80acb37
+  workType: validation
+  stableDefect: integrated-hair-005 records two narrower depth tolerances than the controlling LANDMARKS.md bands
+  hypothesis: Literal range comparison will correct both witness interpretations without changing the rejected candidate or criterion verdict
+  subject: integrated-hair-005 measurement evidence for candidate 176d5ab2e92175f05b8adf2e67268064ac1c48f9b36c247cd61cf0442bab522d
+  affectedCriteria:
+  - criterion-002
+  priorAttemptID: integrated-hair-005
+  measurableDelta: Depth half-widths corrected from 0.05 and 0.06 Wh to 0.08 Wh; both witness passes and the criterion failure remain unchanged
+  nextAction: Use the literal LANDMARKS.md depth ranges for every future measurement packet
+status:
+  state: closed
+  closedAt: "2026-09-04T09:46:57.506672647Z"
+  artifacts:
+    planDigest: sha256:3c4fc9d3d17f5054bdf70f2b76751de2df19dac13c76926c0da96bb113117340
+    resultDigest: sha256:d6700ad12a12fffb44e4091ef2413400749ce9aff23f41146cd4e1a2e6aabceb
+    evidence:
+    - path: evidence/correction.md
+      digest: sha256:232100783731284802e13837f22d9105fd2fb2b6c2c7fb1506e5350facccc485
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - evidence/correction.md
+      - result.md
+  observedAt: "2026-09-04T09:46:57.506672647Z"

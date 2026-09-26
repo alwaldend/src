@@ -1,0 +1,71 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: hanging-rear-cloth-021
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T20:51:23.197394996Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:09c2a84a2ab7826b84af7c077a2003f1df39bc56669e8d1aa73857336171511b
+  planID: hanging-rear-cloth-v19
+  workType: candidate
+  stableDefect: Inherited rear locks fold into shelves during surface fitting
+  hypothesis: Explicit thin cloth grids with continuous depth fields remove folds while keeping separate rooted hanging locks
+  subject: Experimental head020b frozen candidate and controlling references
+  priorAttemptID: tapered-head-panels-020
+  nextAction: Replace only three rear locks, save head021 candidate, verify side/rear pixels and control geometry, then seek independent review
+status:
+  state: closed
+  closedAt: "2026-09-04T21:01:01.237688942Z"
+  artifacts:
+    planDigest: sha256:f3e1dc3f31734c410a866222ba5bf05b592c89a1b20de8b32bc28ae00da4fd3e
+    resultDigest: sha256:c624d585e967ec93d4f0f72248ab6e6daa2f9eb19eebbc550c2e00bf63412a70
+    evidence:
+    - path: evidence/preflight_evidence.md
+      digest: sha256:68612505657063a20658b49be6e18d82a4938486c30922275b3d118f9cb2fa3f
+    - path: evidence/reproduction_021_evidence.md
+      digest: sha256:b9c6a0b2ee3fd559e363fdfb28c7ce22396beda32c8b78092363e891aa5ac81c
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-04T21:01:01.237688942Z"

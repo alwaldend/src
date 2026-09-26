@@ -1,0 +1,58 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: curved-cap-004
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T07:48:07.901403588Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:baccd948c8b16e69f1845fc580981579437436eed22c64aad779f8f37def99d8
+  goalStateDigest: sha256:0d58bf4092b8f01f53ba246d49e468c7d3a579f8531b7474f28bdd9462302e36
+  planID: curved-cap-v2
+  workType: candidate
+  stableDefect: head-hair-helmet-read
+  hypothesis: A thin partial curved cap over the existing cushion, with existing separate fringe and locks retained, will remove the deep helmet and flat-card reads simultaneously.
+  subject: A157 sha256:433d08ad36be488bb16e4221a85f831d4390660c258a43ea0b08775811574b73
+  affectedCriteria:
+  - criterion-001
+  - criterion-002
+  - criterion-003
+  regressionRefs:
+  - canonical-front-v1
+  - canonical-turn-v1
+  - fixed-five-view-v1
+  priorAttemptID: head-hair-rebuild-003
+  nextAction: Build one partial curved-cap candidate through Blender MCP, render pinned front and side views, and close without correction unless both pass the absolute construction gate.
+status:
+  state: closed
+  closedAt: "2026-09-04T07:52:35.942860551Z"
+  artifacts:
+    planDigest: sha256:04f52326ad1afa7ebdd25b59bec1f89528e1f3e4bfb619ac984ab0e8ec1f24cc
+    resultDigest: sha256:c08dd10920127eafec68ad35bb1e645fbcdd0cf7e8796a85015e26f7095c3ac3
+    evidence:
+    - path: evidence/evidence.md
+      digest: sha256:cc288f7bfc657cbb772ed863649fc0142872a17f345a4dff0930a572f777aeac
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/evidence.md
+  observedAt: "2026-09-04T07:52:35.942860551Z"

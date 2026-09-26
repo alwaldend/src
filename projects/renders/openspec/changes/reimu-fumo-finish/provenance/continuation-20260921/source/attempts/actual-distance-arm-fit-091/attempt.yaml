@@ -1,0 +1,65 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: actual-distance-arm-fit-091
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-06T01:10:25.441101172Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: ad150b251b1320099c5403b9bd90f4868e1aaee36f808c6a90fd09bcf60db6cc
+  nextAction: Freeze092 downward oval cuff construction; source087, preserve proven091support. 091visualreset, no wholeacceptance. Hair093frontpatch helper preparing independently.
+status:
+  state: closed
+  closedAt: "2026-09-06T01:22:39.124395698Z"
+  artifacts:
+    planDigest: sha256:90b84429e3922655c7a2a4ca7770d1e250cb0c3ec29fff5b99e85d30cb868e50
+    resultDigest: sha256:eab7f721daa557336602edca22ba80c7cab6cefa14c0124f08227d8944f417d2
+    evidence:
+    - path: evidence/sleeve_091_pixel_review.md
+      digest: sha256:f833597b44dd2b42bc4f53057fbd9516ec721536fb982fdac48202af364a2951
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T01:22:39.124395698Z"
