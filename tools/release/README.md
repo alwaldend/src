@@ -15,6 +15,25 @@ OCI deployment uses Soras. SSH deployment uses the operator's OpenSSH and
 rsync executables and requires rsync on the destination; it needs neither
 Soras nor Ansible. No custom receiver or upload service is installed.
 
+## Build a portable release bundle
+
+`al_release_bundle` packages declared payloads as `release.json` and
+`files/<filename>` in a Bazel directory output. It reuses the manifest
+generator for file sizes and hashes and reads `STABLE_VERSION` from the
+versioning owner's workspace status. Run its build through
+`tools/versioning/cmd/versioning/versioning.sh bazel -- build --config=release`.
+It does not contact deployment destinations or calculate another version.
+
+The CLI equivalent is `generate --project projects/<name> --version_file
+<status-file> --add_file <payload> --output_dir <empty-directory>`. Repeat
+`--add_file` for multiple payloads. Missing or duplicate version values,
+unsafe path components, missing payloads, colliding filenames, and empty
+bundles fail. The output directory must be absent or empty. A completed
+manifest is written only after payload copying finishes.
+
+The website's `//projects/alwaldend.com:release` target consumes this rule;
+its owner documents the complete build and SSH publication commands.
+
 ## Publish over SSH
 
 A release directory contains `release.json` and `files/<filename>`. The

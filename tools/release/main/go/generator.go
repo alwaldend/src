@@ -44,6 +44,9 @@ type GenerateOpts struct {
 	OutputReleasePages []string
 	OutputFileMode     string
 	GitBundle          string
+	Project            string
+	VersionFile        string
+	OutputDir          string
 	MarshalOptions     *protojson.MarshalOptions
 }
 
@@ -52,6 +55,11 @@ func (self *Generator) Generate(opts *GenerateOpts) error {
 	release, err := self.parseRelease(opts)
 	if err != nil {
 		return fmt.Errorf("could not create release %v: %w", opts, err)
+	}
+	if opts.OutputDir != "" {
+		if err := self.writeBundle(opts, release); err != nil {
+			return fmt.Errorf("write release bundle %q: %w", opts.OutputDir, err)
+		}
 	}
 	for _, manifest := range opts.OutputManifests {
 		err := self.writeMessage(opts, release, manifest)
@@ -235,6 +243,16 @@ func (self *Generator) parseRelease(opts *GenerateOpts) (*contracts.Release, err
 		if err := self.addManifest(release, manifest); err != nil {
 			return nil, fmt.Errorf("could not add manifest %s to release: %w", manifest, err)
 		}
+	}
+	if opts.Project != "" {
+		release.Project.Subdir = opts.Project
+	}
+	if opts.VersionFile != "" {
+		version, err := readReleaseVersion(opts.VersionFile)
+		if err != nil {
+			return nil, fmt.Errorf("read release version: %w", err)
+		}
+		release.Name = version
 	}
 	if release.Project.Subdir != "" {
 		release.Project.SafeSubdir = safeString(release.Project.Subdir)
