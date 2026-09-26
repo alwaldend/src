@@ -1,0 +1,45 @@
+---
+- name: Authenticate existing test account
+  no_log: true
+  ansible.builtin.uri:
+    url: http://127.0.0.1:3000/api/v1/user
+    user: molecule
+    password: "{{ fixture_password }}"
+    force_basic_auth: true
+    return_content: true
+  register: account
+- name: Require the original account
+  ansible.builtin.assert:
+    that: account.json.login == 'molecule'
+- name: Clone existing private repository into a fresh directory
+  no_log: true
+  environment:
+    GIT_CONFIG_COUNT: "1"
+    GIT_CONFIG_KEY_0: http.extraHeader
+    GIT_CONFIG_VALUE_0: "Authorization: Basic {{ ('molecule:' + fixture_password) | b64encode }}"
+    GIT_TERMINAL_PROMPT: "0"
+  ansible.builtin.command:
+    argv:
+      - git
+      - clone
+      - --branch=main
+      - http://127.0.0.1:3000/molecule/acceptance.git
+      - "/var/lib/molecule-clone-{{ clone_suffix }}"
+  changed_when: true
+- name: Read freshly cloned content
+  ansible.builtin.slurp:
+    src: "/var/lib/molecule-clone-{{ clone_suffix }}/acceptance.txt"
+  register: cloned_content
+- name: Read original commit identity
+  ansible.builtin.command: git -C /var/lib/molecule-git rev-parse HEAD
+  register: original_commit
+  changed_when: false
+- name: Read freshly cloned commit identity
+  ansible.builtin.command: "git -C /var/lib/molecule-clone-{{ clone_suffix }} rev-parse HEAD"
+  register: cloned_commit
+  changed_when: false
+- name: Require original commit and content
+  ansible.builtin.assert:
+    that:
+      - original_commit.stdout == cloned_commit.stdout
+      - cloned_content.content | b64decode == 'molecule repository content\n'

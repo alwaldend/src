@@ -1,0 +1,11 @@
+---
+- ansible.builtin.import_playbook: ../shared/update.yml
+
+- name: Exercise configuration updates with boot enablement drift
+  hosts: molecule
+  become: true
+  tasks:
+    - name: Disable boot enablement while keeping the service active
+      ansible.builtin.systemd_service:
+        name: forgejo
+        enabled: false

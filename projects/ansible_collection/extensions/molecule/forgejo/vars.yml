@@ -1,0 +1,5 @@
+---
+fixture_service: forgejo
+fixture_dir: "{{ lookup('env', 'MOLECULE_RUNNER_STATE') }}/fixture"
+fixture_password: "{{ lookup('ansible.builtin.password', fixture_dir + '/password', length=40, chars=['ascii_letters', 'digits']) }}"
+forgejo_config_local_path: "{{ playbook_dir }}/forgejo.ini.j2"

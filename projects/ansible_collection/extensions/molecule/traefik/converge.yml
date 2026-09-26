@@ -1,0 +1,15 @@
+---
+- name: Converge real packaged Traefik role
+  hosts: molecule
+  become: true
+  vars_files:
+    - vars.yml
+    - "{{ lookup('env', 'MOLECULE_RUNNER_STATE') }}/fixture/revision.yml"
+  tasks:
+    - ansible.builtin.import_tasks: ../shared/lifecycle_before.yml
+    - name: Apply Traefik
+      ansible.builtin.include_role:
+        name: alwaldend.main.traefik
+    - name: Apply service handlers
+      ansible.builtin.meta: flush_handlers
+    - ansible.builtin.import_tasks: ../shared/lifecycle_after.yml

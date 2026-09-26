@@ -1,0 +1,129 @@
+---
+- name: Verify configured administrator and host state
+  hosts: molecule
+  become: true
+  vars:
+    ansible_user: molecule_admin
+  vars_files:
+    - "{{ lookup('env', 'MOLECULE_RUNNER_STATE') }}/fixture/revision.yml"
+  tasks:
+    - name: Establish a fresh administrator connection
+      ansible.builtin.meta: reset_connection
+    - name: Verify privilege escalation
+      ansible.builtin.command: id -u
+      register: privilege
+      changed_when: false
+    - name: Require root through the configured administrator
+      ansible.builtin.assert:
+        that: privilege.stdout == '0'
+    - name: Verify SSH host certificate authentication through the test CA
+      delegate_to: localhost
+      become: false
+      ansible.builtin.command:
+        argv:
+          - ssh
+          - -F
+          - /dev/null
+          - -o
+          - BatchMode=yes
+          - -o
+          - StrictHostKeyChecking=yes
+          - -o
+          - IdentitiesOnly=yes
+          - -o
+          - "UserKnownHostsFile={{ lookup('env', 'MOLECULE_RUNNER_STATE') }}/fixture/known_hosts"
+          - -o
+          - GlobalKnownHostsFile=/dev/null
+          - -o
+          - HostKeyAlgorithms=ssh-ed25519-cert-v01@openssh.com
+          - -i
+          - "{{ lookup('env', 'MOLECULE_RUNNER_STATE') }}/ssh_key"
+          - -p
+          - "{{ molecule_ports['22'] | string }}"
+          - molecule_admin@127.0.0.1
+          - sudo -n true
+      changed_when: false
+    - name: Verify regular user
+      ansible.builtin.getent:
+        database: passwd
+        key: regular
+    - name: Verify intentional user configuration update
+      when: fixture_revision == 'updated'
+      ansible.builtin.getent:
+        database: passwd
+        key: additional
+    - name: Inspect timezone
+      ansible.builtin.command: timedatectl show --property=Timezone --value
+      register: timezone
+      changed_when: false
+    - name: Require UTC
+      ansible.builtin.assert:
+        that: timezone.stdout == 'UTC'
+    - name: Verify installed test trust
+      ansible.builtin.command: openssl verify /etc/pki/ca-trust/source/anchors/ca.crt
+      changed_when: false
+    - name: Inspect effective SSH configuration
+      ansible.builtin.command: sshd -T
+      register: ssh_configuration
+      changed_when: false
+    - name: Require SSH hardening and loaded host certificates
+      ansible.builtin.assert:
+        that:
+          - "'permitrootlogin no' in ssh_configuration.stdout"
+          - "'passwordauthentication no' in ssh_configuration.stdout"
+          - "'hostcertificate /etc/ssh/ssh_host_' in ssh_configuration.stdout"
+          - "'trustedusercakeys /etc/ssh/ca_clients.pem' in ssh_configuration.stdout"
+    - name: Inspect OS hardening
+      ansible.builtin.command: sysctl -n fs.protected_hardlinks
+      register: hardening
+      changed_when: false
+    - name: Require protected hardlinks
+      ansible.builtin.assert:
+        that: hardening.stdout == '1'
+    - name: Read managed login policy
+      ansible.builtin.slurp:
+        src: /etc/login.defs
+      register: login_policy
+    - name: Require the configured password aging policy
+      ansible.builtin.assert:
+        that: (login_policy.content | b64decode) is regex('(?m)^PASS_MAX_DAYS\s+60\s*$')
+    - name: Verify allowed traffic from the controller
+      delegate_to: localhost
+      become: false
+      ansible.builtin.uri:
+        url: "http://127.0.0.1:{{ molecule_ports['8080'] }}/"
+        timeout: 5
+    - name: Verify denied traffic from the controller
+      delegate_to: localhost
+      become: false
+      ansible.builtin.uri:
+        url: "http://127.0.0.1:{{ molecule_ports['8081'] }}/"
+        timeout: 3
+      register: denied
+      failed_when: denied.status != -1
+    - name: Verify denied listener actually runs inside the guest
+      ansible.builtin.uri:
+        url: http://127.0.0.1:8081/
+    - name: Write managed storage marker
+      when: fixture_revision == 'initial'
+      ansible.builtin.copy:
+        dest: /srv/molecule-data/marker
+        content: "persistent host data\n"
+        mode: "0600"
+    - name: Reboot hardened host
+      ansible.builtin.reboot:
+        reboot_timeout: 300
+    - name: Inspect persistent mount
+      ansible.builtin.command: findmnt --noheadings --output SOURCE,FSTYPE /srv/molecule-data
+      register: mount
+      changed_when: false
+    - name: Read persistent marker
+      ansible.builtin.slurp:
+        src: /srv/molecule-data/marker
+      register: marker
+    - name: Require persistent filesystem and content
+      ansible.builtin.assert:
+        that:
+          - "'/dev/mapper/molecule-data' in mount.stdout"
+          - "'ext4' in mount.stdout"
+          - marker.content | b64decode == 'persistent host data\n'

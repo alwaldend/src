@@ -1,4 +1,5 @@
 ssh_hardening_enabled: true
+ssh_client_ca_local_path: ssh_ca_clients.pub
 ssh_vault_mount: ssh/servers
 ssh_vault_role: "{{ undefined }}"
 ssh_sign_ignore_errors: false

@@ -1,0 +1,61 @@
+---
+- ansible.builtin.import_playbook: ../shared/initialize.yml
+
+- name: Prepare host-only test prerequisites
+  hosts: molecule
+  become: true
+  vars:
+    fixture_dir: "{{ lookup('env', 'MOLECULE_RUNNER_STATE') }}/fixture"
+  tasks:
+    - name: Install storage and verification tools
+      ansible.builtin.package:
+        name: [lvm2, e2fsprogs, procps-ng, util-linux]
+        state: present
+    - name: Create local SSH certificate authority
+      delegate_to: localhost
+      become: false
+      no_log: true
+      ansible.builtin.command:
+        argv: [ssh-keygen, -q, -t, ed25519, -N, "", -f, "{{ fixture_dir }}/ssh_ca"]
+        creates: "{{ fixture_dir }}/ssh_ca"
+    - name: Trust only the disposable host certificate authority
+      delegate_to: localhost
+      become: false
+      ansible.builtin.copy:
+        dest: "{{ fixture_dir }}/known_hosts"
+        content: "@cert-authority [127.0.0.1]:{{ molecule_ports['22'] }} {{ lookup('file', fixture_dir + '/ssh_ca.pub') }}\n"
+        mode: "0600"
+    - name: Discover guest host keys
+      ansible.builtin.find:
+        paths: /etc/ssh
+        patterns: ssh_host_*_key.pub
+      register: fixture_host_keys
+    - name: Sign each guest host key locally
+      ansible.builtin.include_tasks: sign_host.yml
+      loop: "{{ fixture_host_keys.files }}"
+      loop_control:
+        loop_var: fixture_host_key
+    - name: Install test network listeners
+      loop: [8080, 8081]
+      ansible.builtin.copy:
+        dest: "/etc/systemd/system/molecule-listener-{{ item }}.service"
+        mode: "0644"
+        content: |
+          [Unit]
+          Description=Molecule firewall listener
+          [Service]
+          ExecStart=/usr/bin/python3 -m http.server {{ item }} --bind 0.0.0.0 --directory /var/empty
+          [Install]
+          WantedBy=multi-user.target
+    - name: Create empty listener document root
+      ansible.builtin.file:
+        path: /var/empty
+        state: directory
+        mode: "0755"
+    - name: Start network listeners
+      loop: [8080, 8081]
+      ansible.builtin.systemd_service:
+        name: "molecule-listener-{{ item }}"
+        enabled: true
+        state: started
+        daemon_reload: true

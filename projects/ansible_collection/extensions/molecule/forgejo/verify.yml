@@ -1,0 +1,97 @@
+---
+- name: Verify Forgejo application behavior and data persistence
+  hosts: molecule
+  become: true
+  vars_files:
+    - vars.yml
+    - "{{ lookup('env', 'MOLECULE_RUNNER_STATE') }}/fixture/revision.yml"
+  tasks:
+    - name: Require enabled Forgejo service
+      ansible.builtin.command: systemctl is-enabled forgejo
+      changed_when: false
+    - name: Require configured application name over HTTP
+      ansible.builtin.uri:
+        url: http://127.0.0.1:3000/
+        return_content: true
+      register: application
+      until: application.status == 200 and ('Molecule ' + fixture_revision) in application.content
+      retries: 30
+      delay: 2
+    - name: Create disposable account and repository on initial verification
+      when: fixture_revision == 'initial'
+      block:
+        - name: Create local test account
+          no_log: true
+          become_user: forgejo
+          ansible.builtin.command:
+            argv:
+              - /usr/bin/forgejo
+              - --config
+              - /opt/forgejo/configs/forgejo.ini
+              - admin
+              - user
+              - create
+              - --username
+              - molecule
+              - --password
+              - "{{ fixture_password }}"
+              - --email
+              - molecule@example.invalid
+              - --must-change-password=false
+          changed_when: true
+        - name: Create repository through the real API
+          no_log: true
+          ansible.builtin.uri:
+            url: http://127.0.0.1:3000/api/v1/user/repos
+            method: POST
+            user: molecule
+            password: "{{ fixture_password }}"
+            force_basic_auth: true
+            body_format: json
+            body:
+              name: acceptance
+              private: true
+            status_code: 201
+        - name: Initialize local Git worktree
+          ansible.builtin.command: git init --initial-branch=main /var/lib/molecule-git
+          changed_when: true
+        - name: Write known repository content
+          ansible.builtin.copy:
+            dest: /var/lib/molecule-git/acceptance.txt
+            content: "molecule repository content\n"
+            mode: "0644"
+        - name: Stage repository content
+          ansible.builtin.command: git -C /var/lib/molecule-git add acceptance.txt
+          changed_when: true
+        - name: Commit known content
+          ansible.builtin.command:
+            argv: [git, -C, /var/lib/molecule-git, -c, user.name=Molecule, -c, user.email=molecule@example.invalid, commit, -m, "Molecule acceptance"]
+          changed_when: true
+        - name: Push commit through authenticated HTTP
+          no_log: true
+          environment:
+            GIT_CONFIG_COUNT: "1"
+            GIT_CONFIG_KEY_0: http.extraHeader
+            GIT_CONFIG_VALUE_0: "Authorization: Basic {{ ('molecule:' + fixture_password) | b64encode }}"
+            GIT_TERMINAL_PROMPT: "0"
+          ansible.builtin.command: git -C /var/lib/molecule-git push http://127.0.0.1:3000/molecule/acceptance.git main
+          changed_when: true
+    - name: Verify repository before restart
+      ansible.builtin.include_tasks: roundtrip.yml
+      vars:
+        clone_suffix: "{{ fixture_revision }}-before"
+    - name: Restart the application without recreating data
+      ansible.builtin.systemd_service:
+        name: forgejo
+        state: restarted
+    - name: Wait for restarted application
+      ansible.builtin.uri:
+        url: http://127.0.0.1:3000/api/v1/version
+      register: health
+      until: health.status == 200
+      retries: 30
+      delay: 2
+    - name: Verify account repository and commit after restart
+      ansible.builtin.include_tasks: roundtrip.yml
+      vars:
+        clone_suffix: "{{ fixture_revision }}-after"

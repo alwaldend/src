@@ -4,8 +4,8 @@ Provide repeatable behavioral tests for the collection's deployment-used
 `host`, `traefik`, and `forgejo` roles on disposable local QEMU machines.
 
 The scenarios consume the `molecule-qemu-runner` contract owned by
-`tools/molecule`. Its planned definition is in the linked
-[runner change](../../../../../../../tools/molecule/openspec/changes/add-qemu-molecule-runner/specs/molecule-qemu-runner/spec.md).
+`tools/molecule`. Its supported definition is in the linked
+[runner specification](../../../../../../../../tools/molecule/openspec/specs/molecule-qemu-runner/spec.md).
 Generic VM lifecycle, environment, cleanup, and evidence guarantees are owned
 there and are not independently specified by this consumer.
 

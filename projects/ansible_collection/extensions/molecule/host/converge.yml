@@ -1,0 +1,9 @@
+---
+- name: Converge real packaged host role
+  hosts: molecule
+  become: true
+  vars_files:
+    - vars.yml
+    - "{{ lookup('env', 'MOLECULE_RUNNER_STATE') }}/fixture/revision.yml"
+  roles:
+    - alwaldend.main.host

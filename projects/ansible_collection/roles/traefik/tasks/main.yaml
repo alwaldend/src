@@ -35,6 +35,7 @@
         mode: "0700"
         path: "{{ item }}"
     - name: Copy the traefik binary
+      notify: Restart Traefik
       register: traefik_bin_var
       ansible.builtin.copy:
         src: "{{ traefik_bin_local_path }}"
@@ -72,6 +73,7 @@
         traefik_acme_hmac_encoded: "{{ traefik_acme_data.key | b64encode }}"
     - name: Write the config
       no_log: "{{ not traefik_disable_eab }}"
+      notify: Restart Traefik
       register: traefik_config_var
       ansible.builtin.template:
         src: "{{ traefik_config_local_path }}"
@@ -80,6 +82,7 @@
         group: "{{ traefik_user }}"
         mode: "0650"
     - name: Write the dynamic config
+      notify: Restart Traefik
       ansible.builtin.template:
         src: "{{ traefik_dynamic_config_local_path }}"
         dest: "{{ traefik_dynamic_config_path }}"
@@ -87,6 +90,7 @@
         group: "{{ traefik_user }}"
         mode: "0650"
     - name: Write the mtls cert
+      notify: Restart Traefik
       ansible.builtin.copy:
         src: "{{ traefik_mtls_ca_local_path }}"
         dest: "{{ traefik_mtls_ca_path }}"
@@ -94,6 +98,7 @@
         group: "{{ traefik_user }}"
         mode: "0740"
     - name: Write the service
+      notify: Restart Traefik
       register: traefik_service_var
       ansible.builtin.template:
         src: systemd_service.conf
@@ -106,20 +111,9 @@
       ansible.builtin.systemd_service:
         daemon_reload: true
     - name: Start the service and enable
+      register: traefik_service_started_result
       ansible.builtin.systemd_service:
         name: "{{ traefik_service_path | basename }}"
         enabled: true
         state: started
-        scope: "{{ traefik_service_scope }}"
-    - name: Restart the service
-      when: traefik_config_var.changed
-      ansible.builtin.systemd_service:
-        name: "{{ traefik_service_path | basename }}"
-        state: restarted
-        scope: "{{ traefik_service_scope }}"
-    - name: Reload the service
-      when: not traefik_config_var.changed
-      ansible.builtin.systemd_service:
-        name: "{{ traefik_service_path | basename }}"
-        state: reloaded
         scope: "{{ traefik_service_scope }}"

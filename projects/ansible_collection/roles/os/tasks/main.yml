@@ -9,3 +9,20 @@
         - name: Harden os
           ansible.builtin.include_role: 
             name: devsec.hardening.os_hardening
+        # The upstream role configures UFW defaults only on Debian systems.
+        # UFW must not overwrite the managed sysctls when it reloads on Fedora.
+        - name: Inspect UFW defaults on Red Hat systems
+          when: ansible_facts.os_family == 'RedHat'
+          ansible.builtin.stat:
+            path: /etc/default/ufw
+          register: os_ufw_defaults
+        - name: Preserve hardened sysctls during UFW reloads
+          when:
+            - ansible_facts.os_family == 'RedHat'
+            - os_ufw_defaults.stat.exists
+            - os_sysctl_enabled | default(true)
+            - ufw_manage_defaults | default(true)
+          ansible.builtin.lineinfile:
+            path: /etc/default/ufw
+            regexp: '^IPT_SYSCTL='
+            line: "IPT_SYSCTL={{ ufw_ipt_sysctl | default('') }}"

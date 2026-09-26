@@ -1,0 +1,16 @@
+load("//tools/molecule:defs.bzl", "molecule_test")
+
+[
+    molecule_test(
+        name = role + "_test",
+        scenario_name = role,
+        services = ["sshd", "ufw", "fail2ban"] if role == "host" else [role],
+        scenario = glob([role + "/**", "shared/**"]),
+        collections = ["//projects/ansible_collection:collections"],
+        data_disks_gb = [2] if role == "host" else [],
+        ports = [22, 8080, 8081] if role == "host" else [22],
+        ansible_args = ["--skip-tags=ssh_sign_key", "--diff"] if role == "host" else [],
+        visibility = ["//projects/ansible_collection:__subpackages__"],
+    )
+    for role in ["host", "traefik", "forgejo"]
+]

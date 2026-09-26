@@ -1,0 +1,50 @@
+---
+- name: Verify Traefik routing and persistence
+  hosts: molecule
+  become: true
+  vars_files:
+    - vars.yml
+    - "{{ lookup('env', 'MOLECULE_RUNNER_STATE') }}/fixture/revision.yml"
+  tasks:
+    - name: Require enabled service
+      ansible.builtin.command: systemctl is-enabled traefik
+      changed_when: false
+    - name: Require trusted TLS route to backend
+      ansible.builtin.uri:
+        url: "https://127.0.0.1:8443/{{ fixture_revision }}/"
+        ca_path: /etc/molecule-tls/ca.crt
+        return_content: true
+      register: route
+      until: route.status == 200
+      retries: 15
+      delay: 2
+    - name: Verify backend response
+      ansible.builtin.assert:
+        that: route.content == 'molecule backend\n'
+    - name: Require unmatched route rejection
+      ansible.builtin.uri:
+        url: https://127.0.0.1:8443/unmatched/
+        ca_path: /etc/molecule-tls/ca.crt
+        status_code: 404
+    - name: Require removal of previous route
+      when: fixture_revision == 'updated'
+      ansible.builtin.uri:
+        url: https://127.0.0.1:8443/initial/
+        ca_path: /etc/molecule-tls/ca.crt
+        status_code: 404
+    - name: Restart Traefik
+      ansible.builtin.systemd_service:
+        name: traefik
+        state: restarted
+    - name: Require route after restart
+      ansible.builtin.uri:
+        url: "https://127.0.0.1:8443/{{ fixture_revision }}/"
+        ca_path: /etc/molecule-tls/ca.crt
+        return_content: true
+      register: persisted
+      until: persisted.status == 200
+      retries: 15
+      delay: 2
+    - name: Verify persisted backend response
+      ansible.builtin.assert:
+        that: persisted.content == 'molecule backend\n'

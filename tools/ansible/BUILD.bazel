@@ -36,3 +36,10 @@ py_console_script_binary(
     script = "ansible-lint",
     visibility = ["//:__subpackages__"],
 )
+
+py_console_script_binary(
+    name = "molecule",
+    pkg = "@com_alwaldend_src_bzl_rules_ansible_pip//molecule:pkg",
+    script = "molecule",
+    visibility = ["//:__subpackages__"],
+)

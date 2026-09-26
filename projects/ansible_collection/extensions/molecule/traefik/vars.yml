@@ -1,0 +1,6 @@
+---
+fixture_service: traefik
+traefik_disable_eab: true
+traefik_config_local_path: "{{ playbook_dir }}/static.toml.j2"
+traefik_dynamic_config_local_path: "{{ playbook_dir }}/dynamic.toml.j2"
+traefik_mtls_ca_local_path: "{{ lookup('env', 'MOLECULE_RUNNER_STATE') }}/fixture/ca.crt"

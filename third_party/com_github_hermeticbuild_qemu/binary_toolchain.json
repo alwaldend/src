@@ -1,0 +1,47 @@
+{
+    "toolchains": [
+        {
+            "name": "qemu",
+            "version": "11.0.0.1"
+        }
+    ],
+    "archives": [
+        {
+            "toolchain_name": "qemu",
+            "toolchain_version": "11.0.0.1",
+            "archive_name": "linux_x86_64",
+            "binaries": [
+                {
+                    "name": "qemu_system_x86_64",
+                    "path": "out/bin/qemu-system-x86_64"
+                },
+                {
+                    "name": "qemu_img",
+                    "path": "out/bin/qemu-img"
+                }
+            ],
+            "actions": [
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/hermeticbuild/qemu-prebuilt/releases/download/11.0.0.1/qemu-img-linux-amd64-11.0.0.1.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-TKtuPxhuxsUA3TQPhLeU+DIOPViisrnS+DVBZYknnT4="
+                    }
+                },
+                {
+                    "download_and_extract": {
+                        "url": "https://github.com/hermeticbuild/qemu-prebuilt/releases/download/11.0.0.1/qemu-system-bin-linux-amd64-x86_64-softmmu-11.0.0.1.tar.gz",
+                        "output": "out",
+                        "integrity": "sha256-MTma+Nh0F28QRnnGqujIdBvNhig9vI3h/OihQPZ/FEg="
+                    }
+                }
+            ],
+            "toolchain": {
+                "exec_compatible_with": [
+                    "@platforms//os:linux",
+                    "@platforms//cpu:x86_64"
+                ]
+            }
+        }
+    ]
+}

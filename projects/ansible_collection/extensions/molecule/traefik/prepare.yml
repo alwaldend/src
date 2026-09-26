@@ -1,0 +1,49 @@
+---
+- ansible.builtin.import_playbook: ../shared/initialize.yml
+
+- name: Prepare local Traefik backend and TLS files
+  hosts: molecule
+  become: true
+  vars:
+    fixture_dir: "{{ lookup('env', 'MOLECULE_RUNNER_STATE') }}/fixture"
+  tasks:
+    - name: Create backend content directory
+      ansible.builtin.file:
+        path: /var/lib/molecule-backend
+        state: directory
+        mode: "0755"
+    - name: Write known backend response
+      ansible.builtin.copy:
+        dest: /var/lib/molecule-backend/index.html
+        content: "molecule backend\n"
+        mode: "0644"
+    - name: Install backend unit
+      ansible.builtin.copy:
+        dest: /etc/systemd/system/molecule-backend.service
+        mode: "0644"
+        content: |
+          [Unit]
+          Description=Molecule HTTP backend
+          [Service]
+          ExecStart=/usr/bin/python3 -m http.server 8080 --bind 127.0.0.1 --directory /var/lib/molecule-backend
+          [Install]
+          WantedBy=multi-user.target
+    - name: Start backend
+      ansible.builtin.systemd_service:
+        name: molecule-backend
+        state: started
+        enabled: true
+        daemon_reload: true
+    - name: Create fixture TLS directory
+      ansible.builtin.file:
+        path: /etc/molecule-tls
+        state: directory
+        mode: "0755"
+    - name: Install fixture TLS material
+      no_log: true
+      loop: [ca.crt, server.crt, server.key]
+      ansible.builtin.copy:
+        src: "{{ fixture_dir }}/{{ item }}"
+        dest: "/etc/molecule-tls/{{ item }}"
+        owner: "3578"
+        mode: "0400"

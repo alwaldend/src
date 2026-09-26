@@ -133,3 +133,104 @@ and concurrency acceptance, then validate the three consumer scenarios in
 their owning change. Rollback removes the tooling without migrating production
 resources. Archive this owner when its acceptance passes and update consumer
 links to the archived change or stable owner specification.
+
+## Implementation evidence (2026-09-26)
+
+The proposal merged in PR #110. Implementation began after fast-forwarding the
+clean task branch to `32c0494893c8f3d6a1b66f9fded798bdac92bf88`; no replay was
+needed because the source trees were identical.
+
+Acceptance cases were written in `test/acceptance.md`, the smoke playbooks, and
+`test/acceptance_test.go` before the runner implementation. The linked collection
+mapped its role inputs and assertions in `extensions/molecule/acceptance.md`
+before any role corrections.
+
+Dependency decision: proceed with hermeticbuild's published static QEMU
+11.0.0.1 distribution (QEMU 11.0.0), including its matching firmware. Unlike
+using host QEMU, these declared inputs are pinned by content. Building QEMU
+and its native dependency closure from source would add a separate build-system
+project. The trade-off is trusting this third-party binary publisher; its
+source recipe and release attestations are public. Downloaded system, image,
+and firmware archives matched publisher checksum files and GitHub asset
+digests. The Bazel-provided system binary reports QEMU 11.0.0.
+
+Initial smoke failures exposed localhost Ansible temporary-directory isolation
+and QEMU daemonization's changed working directory. The runner now selects a
+private localhost temporary path and validates the open overlay for cleanup.
+Fedora cloud-init reported only a hostname-setting warning; the fixture now
+preserves the image hostname because changing it is not a test prerequisite.
+At that stage, remaining acceptance tasks were unchecked. Raw
+transient diagnostics live under ignored `out/molecule-role-tests`.
+
+A sandboxed KVM smoke run completed create, prepare, converge, idempotence,
+reboot verification, and destroy; source/image hashes, package inventory, and
+cleanup success were inspected. The first executable acceptance suite passed
+concurrency, repeated fresh execution, injected assertion failure, and handled
+cancellation. Recovery and package-mapping acceptance were extended in the later run below. A controller-module failure identified that Ansible's plain Python
+subprocess lacked Bazel's dependency imports; the runner now constructs its
+Python path from the declared `PyInfo` rather than installing host libraries.
+
+Further acceptance corrections use the CLI spelling `side-effect`, wrap the
+executable mapping fixture in `pkg_filegroup`, and preserve separate numbered
+phase logs for initial and updated applications. Recovery validates the PID
+namespace as well as process start times, unique QEMU names, and the open owned
+overlay. The harness additionally exercises TCG, bounded boot failure, abrupt
+supervisor death, and repeatable scoped recovery. Native Bazel aliases do not
+execute tests when selected with `bazel test`; collection convenience labels
+therefore use single-test `test_suite` wrappers.
+
+A downloaded guest-image cache entry differed from the existing Fedora pin
+before role execution (observed SHA-256 `33be10d98d890758a8a98bc6a3cc9b467345d649ffd8d6410b071ed3bd4c7b1e`).
+Its cause was not established. A repository-owned `bazel fetch --force
+--repo=@org_fedora_cloud` restored the pinned bytes
+(`28680fe5b371a5a82ebf43a31926e086a168e59949d03969c5093e7071f90b7f`).
+Earlier role failures remain diagnostic observations, not final acceptance;
+acceptance must use and retain the restored input identity.
+
+Candidate `3ee3787109a858b26f6cbfe2dc2d7a49396ba6a1` passed the expanded
+runner acceptance and explicit smoke test on the restored Fedora pin. The
+acceptance includes KVM and forced TCG, concurrent and repeated runs, renamed
+executable mappings, assertion failure, missing input and accelerator checks,
+boot deadline, SIGTERM, and SIGKILL recovery followed by two scoped destroys.
+Every completed run reported successful cleanup; recovery retained its own
+structured receipt. The artifact scan found no isolation sentinel or private
+key PEM markers. Root quality (27 tests including the two OpenSpec validations),
+affected semantic lint, and candidate compilation also passed. The linked
+role suite was incomplete at that candidate: Traefik passed, host failed a fixture trust-path
+assertion after passing idempotence, and Forgejo still rewrote configuration.
+
+## Accepted result
+
+Published candidate `1bfe561c394e52d514b2bc756154ff24cc07a320` passed all three
+collection scenarios, explicit smoke execution, affected semantic lint,
+collection/runner compilation, and all 27 repository quality/OpenSpec tests.
+The runner acceptance passed at `3ee3787109a858b26f6cbfe2dc2d7a49396ba6a1`;
+the later candidate changed only two consumer fixtures and OpenSpec records.
+Runner source, rule, smoke/acceptance fixtures, tool pins, image, and executable
+configuration were unchanged. The two explicit smoke invocations retained equal
+input hashes and tool versions but different run IDs, proving fresh execution.
+Both used the pinned Fedora image digest recorded above.
+
+Local evidence is under `out/molecule-role-tests/candidate-3ee3787` and
+`out/molecule-role-tests/candidate-1bfe561`; delivery validation is bound by
+`fixture-corrections-prepare.json.validation.json`. All completed scenarios
+reported successful cleanup and their private runtime directories were absent.
+The 55 retained consumer/smoke artifact files contained no isolation sentinel
+or private-key PEM markers. These are local reproducible test artifacts, not
+published credentials or production validation.
+
+[Implementation PR #111](https://github.com/alwaldend/src/pull/111) was published
+and verified against the accepted candidate. Archival and final documentation
+change no runtime inputs; final publication reruns lint, OpenSpec validation,
+and repository quality checks.
+
+## Session review
+
+The task-local `ergonomics.json` records bounded evidence and corrections for
+`molecule-test-alias-selection`, `molecule-forgejo-config-normalization`,
+`molecule-fedora-trust-lookup`, `molecule-large-result-display`,
+`molecule-merged-proposal-branch`, `molecule-validation-plan-permissions`, and
+`molecule-observer-stop-identity`. Use single-test suites, summarize result
+fields, keep validation plans private, and use bounded observer lifetimes.
+Mutable Fedora package setup and real KVM/TCG acceptance account for expected
+verification latency. No shared skill or host configuration was changed.

@@ -1,0 +1,23 @@
+{
+  "inputs": [
+    "administrator and regular users",
+    "SSH/OS hardening enabled",
+    "explicit allow and deny firewall paths",
+    "test CA and locally signed SSH host certificates",
+    "LVM ext4 data disk"
+  ],
+  "assertions": [
+    "administrator reconnect and sudo",
+    "users and updated user input",
+    "timezone and trust",
+    "effective SSH and login policy",
+    "allowed and denied traffic",
+    "reboot mount and content persistence"
+  ],
+  "excluded": [
+    "external SSH certificate issuance (ssh_sign_key)",
+    "production inventory",
+    "full deployment playbooks"
+  ],
+  "role": "alwaldend.main.host"
+}

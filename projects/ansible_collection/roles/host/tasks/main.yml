@@ -5,9 +5,9 @@
     - name: Setup facts
       ansible.builtin.import_role:
         name: alwaldend.main.facts
-    - name: Setup firewall
+    - name: Update all packages before configuring the host
       ansible.builtin.import_role:
-        name: alwaldend.main.firewall
+        name: alwaldend.main.update_all_packages
     - name: Setup users
       ansible.builtin.import_role:
         name: alwaldend.main.users
@@ -38,9 +38,9 @@
     - name: Setup ssh
       ansible.builtin.import_role:
         name: alwaldend.main.ssh
+    - name: Setup firewall after SSH package dependencies
+      ansible.builtin.import_role:
+        name: alwaldend.main.firewall
     - name: Setup os
       ansible.builtin.import_role:
         name: alwaldend.main.os
-    - name: Update all packages
-      ansible.builtin.import_role:
-        name: alwaldend.main.update_all_packages

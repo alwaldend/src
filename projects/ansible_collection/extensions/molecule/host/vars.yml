@@ -1,0 +1,47 @@
+---
+users_admins:
+  molecule:
+    name: molecule
+    sudo_no_passwd: true
+  molecule_admin:
+    name: molecule_admin
+    sudo_no_passwd: true
+users_regular: "{{ {'regular': {'name': 'regular'}} | combine({'additional': {'name': 'additional'}} if fixture_revision == 'updated' else {}) }}"
+users_ssh_keys:
+  molecule:
+    user: molecule
+    key: "{{ lookup('file', lookup('env', 'MOLECULE_RUNNER_STATE') + '/ssh_key.pub') }}"
+  molecule_admin:
+    user: molecule_admin
+    key: "{{ lookup('file', lookup('env', 'MOLECULE_RUNNER_STATE') + '/ssh_key.pub') }}"
+firewall_allow_port_from:
+  - port: "22"
+    proto: tcp
+    src: any
+    comment: Molecule SSH
+  - port: "8080"
+    proto: tcp
+    src: any
+    comment: Molecule allowed listener
+install_ca:
+  - path: "{{ lookup('env', 'MOLECULE_RUNNER_STATE') }}/fixture/ca.crt"
+lvg_volume_groups:
+  - vg: molecule
+    pvs: /dev/vdc
+lvol_volumes:
+  - vg: molecule
+    lv: data
+    size: 512m
+filesystem_setup:
+  - dev: /dev/molecule/data
+    fstype: ext4
+    resizefs: true
+mount_points:
+  - path: /srv/molecule-data
+    src: /dev/molecule/data
+    state: mounted
+    fstype: ext4
+ssh_hardening_enabled: true
+ssh_client_ca_local_path: "{{ lookup('env', 'MOLECULE_RUNNER_STATE') }}/fixture/ssh_ca.pub"
+os_hardening_enabled: true
+ssh_allow_users: molecule molecule_admin
