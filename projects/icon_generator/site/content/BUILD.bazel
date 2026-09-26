@@ -1,0 +1,8 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["_index.md"],
+    prefix = "content/projects/icon_generator",
+    visibility = ["//projects/alwaldend.com/content/projects:__pkg__"],
+)
