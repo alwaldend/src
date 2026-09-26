@@ -4,6 +4,7 @@ load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
 go_library(
     name = "go_lib",
     srcs = [
+        "bundle.go",
         "cmd.go",
         "deployer.go",
         "generator.go",
@@ -31,7 +32,11 @@ go_library(
 
 go_test(
     name = "go_test",
-    srcs = ["git_bundle_test.go"],
+    srcs = [
+        "bundle_test.go",
+        "git_bundle_test.go",
+    ],
+    data = [":go"],
     embed = [":go_lib"],
     deps = [
         "@com_github_go_git_go_git_v5//:go-git",

@@ -16,6 +16,7 @@ al_bzl_library_map(
             ":al_release_deployment_info",
         ],
         "al_release_info": [],
+        "al_release_bundle": [],
         "al_release_deployment_info": [],
         "al_release_deployment": [":al_release_deployment_info"],
         "al_release_deps": [":al_release_files"],

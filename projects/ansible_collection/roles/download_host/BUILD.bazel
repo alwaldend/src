@@ -9,7 +9,11 @@ al_ansible_role(
 
 docs_filegroup(
     name = "docs",
-    srcs = ["README.md"],
+    srcs = [
+        "README.md",
+        "defaults/main.yaml",
+    ],
+    preserve_paths = True,
     visibility = ["//projects/ansible_collection/roles:__pkg__"],
     deps = [":role.docs"],
 )
