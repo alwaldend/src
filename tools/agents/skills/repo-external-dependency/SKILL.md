@@ -5,11 +5,25 @@ description: Add or upgrade external software consumed by this monorepo with rep
 
 # Manage external dependencies
 
+## Decide whether a new dependency is necessary
+
+New external dependencies are strongly discouraged. Before searching for one,
+inspect existing repository code, standard libraries, manifests, lockfiles,
+and locally available dependencies. Prefer an existing option that meets the
+requirements; a missing preferred API alone does not justify another library.
+
+If a new dependency is necessary, prepare a proposal naming the exact package,
+explaining why existing options are insufficient, and describing maintenance
+and supply-chain costs. Ask the user for explicit approval of that dependency
+before installing, vendoring, declaring, or adding it to source or build
+configuration. General authorization to implement a feature or fix a bug is
+not approval to add a dependency.
+
 ## Choose the owning mechanism
 
-1. Read the root `AGENTS.md` and the nearest owning `README.md`, `BUILD.bazel`,
-   and `include.MODULE.bazel` when present. Follow the `repo-bazel` conventions
-   for every Bazel command.
+1. Read the nearest owning `README.md`, `BUILD.bazel`, and
+   `include.MODULE.bazel` when present. Follow `repo-bazel` for every Bazel
+   command.
 2. Inspect the closest dependency of the same kind before choosing a mechanism:
    - BCR modules belong in the owning `include.MODULE.bazel` as `bazel_dep`.
    - Standalone release binaries use `rules_binary_toolchain` and a checked-in

@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"math"
+	"net/url"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -129,6 +130,13 @@ func (self *Generator) artifactSectionItem(release *contracts.Release, item *con
 		},
 	)
 	for _, deployment := range item.Deployments {
+		if deployment.Ssh != nil && deployment.Ssh.PublicUrl != "" {
+			link, err := sshArtifactURL(release, item.File, deployment.Ssh)
+			if err != nil {
+				return nil, fmt.Errorf("generate SSH artifact link for %q: %w", item.File.Name, err)
+			}
+			sectionItem.Content, sectionItem.ContentUrl = item.File.Name, link
+		}
 		if deployment.Oci != nil {
 			for _, tag := range deployment.Oci.Tags {
 				sectionItem.Attrs = append(
@@ -178,6 +186,9 @@ func (self *Generator) artifactSectionItem(release *contracts.Release, item *con
 
 func (self *Generator) changelogSection(release *contracts.Release) (*contracts.ReleasePageSection, error) {
 	changelogSection := &contracts.ReleasePageSection{Title: "Changelog"}
+	if release.Git == nil {
+		return changelogSection, nil
+	}
 	for _, commit := range release.Git.Commits {
 		sectionItem := &contracts.ReleasePageSectionItem{
 			Content: commit.Message,
@@ -244,6 +255,13 @@ func (self *Generator) parseRelease(opts *GenerateOpts) (*contracts.Release, err
 			encItems[item.File.Name] = item
 		}
 		for _, deployment := range item.Deployments {
+			if deployment.Ssh != nil && deployment.Ssh.PublicUrl != "" && release.Name != "" {
+				link, err := sshArtifactURL(release, item.File, deployment.Ssh)
+				if err != nil {
+					return nil, fmt.Errorf("generate SSH artifact link for %q: %w", item.File.Name, err)
+				}
+				item.File.Url = link
+			}
 			if deployment.Oci != nil {
 				tag := fmt.Sprintf(
 					"%s:%s_%s_%s",
@@ -399,4 +417,24 @@ func safeString(val string) string {
 func roundFloat(val float64, precision uint) float64 {
 	ratio := math.Pow(10, float64(precision))
 	return math.Round(val*ratio) / ratio
+}
+
+func sshArtifactURL(release *contracts.Release, file *contracts.ReleaseFile, deployment *contracts.ReleaseDeploymentSsh) (string, error) {
+	project := deployment.Project
+	if project == "" {
+		project = strings.TrimPrefix(release.GetProject().GetSubdir(), "projects/")
+	}
+	for _, component := range []string{project, release.Name, file.Name} {
+		if err := pathComponent(component); err != nil {
+			return "", fmt.Errorf("public artifact path: %w", err)
+		}
+	}
+	origin, err := url.Parse(deployment.PublicUrl)
+	if err != nil {
+		return "", fmt.Errorf("parse public download URL: %w", err)
+	}
+	if (origin.Scheme != "https" && origin.Scheme != "http") || origin.Host == "" || origin.User != nil || origin.RawQuery != "" || origin.Fragment != "" {
+		return "", fmt.Errorf("invalid public download URL")
+	}
+	return strings.TrimRight(deployment.PublicUrl, "/") + "/projects/" + url.PathEscape(project) + "/releases/" + url.PathEscape(release.Name) + "/" + url.PathEscape(file.Name), nil
 }

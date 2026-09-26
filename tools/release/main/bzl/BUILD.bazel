@@ -11,7 +11,10 @@ al_bzl_library_map(
             ":al_release_files_info",
             "//tools/git/main/bzl:al_git_current_state",
         ],
-        "al_release_binary": [":al_release_info"],
+        "al_release_binary": [
+            ":al_release_info",
+            ":al_release_deployment_info",
+        ],
         "al_release_info": [],
         "al_release_deployment_info": [],
         "al_release_deployment": [":al_release_deployment_info"],

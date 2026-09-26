@@ -1,9 +1,10 @@
+load("//tools/release/main/bzl:al_release_deployment_info.bzl", "AlReleaseDeploymentInfo")
 load("//tools/release/main/bzl:al_release_info.bzl", "AlReleaseInfo")
 
 _SCRIPT = """\
 #!/usr/bin/env sh
 set -eu
-for root in "" "${{RUNFILES_DIR:-}}/{workspace_name}/" "${{0}}.runfiles/{workspace_name}"; do
+for root in "" "${{RUNFILES_DIR:-}}/{workspace_name}/" "${{0}}.runfiles/{workspace_name}/"; do
     if [ -x "${{root}}{bin}" ]; then
         exec "${{root}}{bin}" {arguments} "${{@}}"
     fi
@@ -14,14 +15,17 @@ exit 1
 
 def _impl(ctx):
     runfiles = ctx.runfiles()
-    runfiles = runfiles.merge(ctx.attr.oras[DefaultInfo].default_runfiles)
+    if ctx.attr.oras:
+        runfiles = runfiles.merge(ctx.attr.oras[DefaultInfo].default_runfiles)
     runfiles = runfiles.merge(ctx.attr.release_tool[DefaultInfo].default_runfiles)
     script = ctx.actions.declare_file("{}.script.sh".format(ctx.label.name))
-    arguments = [
-        ctx.attr.cmd,
-        "--soras_path",
-        "$${{root}}{}".format(ctx.executable.oras.short_path),
-    ]
+    arguments = [ctx.attr.cmd]
+    if ctx.attr.oras:
+        arguments.extend(["--soras_path", "$${{root}}{}".format(ctx.executable.oras.short_path)])
+    if ctx.attr.ssh_deployment:
+        deployment = ctx.attr.ssh_deployment[AlReleaseDeploymentInfo].info_file
+        runfiles = runfiles.merge(ctx.runfiles(files = [deployment]))
+        arguments.extend(["--ssh_deployment", "$${{root}}{}".format(deployment.short_path)])
 
     symlinks = {}
     for release_target in ctx.attr.srcs:
@@ -54,7 +58,7 @@ def _impl(ctx):
         ),
     ]
 
-al_release_binary = rule(
+_al_release_binary = rule(
     implementation = _impl,
     doc = "Release binary",
     executable = True,
@@ -70,10 +74,13 @@ al_release_binary = rule(
             providers = [AlReleaseInfo],
             doc = "Releases",
         ),
+        "ssh_deployment": attr.label(
+            providers = [AlReleaseDeploymentInfo],
+            doc = "SSH destination for all files in runtime release_dir inputs",
+        ),
         "oras": attr.label(
             executable = True,
             cfg = "exec",
-            default = "//third_party/land_oras_oras:oras",
             doc = "Oras binary",
         ),
         "release_tool": attr.label(
@@ -84,3 +91,13 @@ al_release_binary = rule(
         ),
     },
 )
+
+def al_release_binary(name, oras = "//third_party/land_oras_oras:oras", **kwargs):
+    """Create a release command; oras=None omits the OCI executable.
+
+    Args:
+        name: Target name.
+        oras: OCI executable, or None for an SSH-only command.
+        **kwargs: Remaining release rule attributes.
+    """
+    _al_release_binary(name = name, oras = oras, **kwargs)

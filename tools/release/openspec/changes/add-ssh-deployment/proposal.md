@@ -1,17 +1,18 @@
 ## Why
 
 Release artifacts need direct SSH publication to the download hosts. Static
-websites use the same public archive upload followed by extraction and
-selection, so this belongs in the existing release tool's deployment model.
+websites use public archive uploads plus publication of their extracted
+content and selection, so this belongs in the existing release tool's deployment model.
 
 ## What Changes
 
 - Extend deployment metadata, Bazel rule inputs, and the existing `deploy`
-  command with an SSH deployment type alongside OCI deployment.
+  command with an SSH deployment type alongside OCI deployment. Use rsync
+  over the existing administrator SSH access, with sudo to the content account.
 - Upload ordinary files without extraction into
   `projects/<project>/releases/<version>/` on the selected host.
-- Optionally deploy a declared website archive into a separate extracted
-  release and atomically update its `current` symlink after validation.
+- Make upload, extraction of a published website archive, and atomic selection
+  independently selectable steps of deploy.
 - Make redeployment of an existing site release select that release by
   changing the link; do not add a rollback command.
 - Preserve local release-package layout and OCI behavior. SSH-only deployment

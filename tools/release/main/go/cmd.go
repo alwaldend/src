@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"io"
+	"time"
 
 	gitLib "git.alwaldend.com/alwaldend/src/tools/git/main/go"
 	"github.com/spf13/cobra"
@@ -46,11 +47,11 @@ func newRootCommand(
 	cmd.SetArgs(args)
 	cmdGen, err := newGenCommand(ctx)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("create release subcommand: %w", err)
 	}
 	cmdDeploy, err := newDeployCommand(ctx)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("create release subcommand: %w", err)
 	}
 	cmd.AddCommand(cmdGen, cmdDeploy)
 	return cmd, nil
@@ -64,13 +65,32 @@ func newDeployCommand(ctx context.Context) (*cobra.Command, error) {
 		Short: "deploy",
 		Long:  "Deploy releases",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return deployer.Deploy(opts)
+			opts.Stdout, opts.Stderr = cmd.OutOrStdout(), cmd.ErrOrStderr()
+			if err := deployer.Deploy(opts); err != nil {
+				return fmt.Errorf("deploy releases: %w", err)
+			}
+			return nil
 		},
 	}
 	flags := cmd.PersistentFlags()
 	flags.StringVar(&opts.SorasPath, "soras_path", "", "Path to the soras binary")
 	flags.StringArrayVar(&opts.Releases, "release_dir", nil, "Path to a release directory")
-	cmd.MarkFlagRequired("soras_path")
+	flags.StringVar(&opts.Environment, "environment", "", "Explicit SSH environment (OCI when omitted)")
+	flags.StringVar(&opts.SSHDeployment, "ssh_deployment", "", "SSH deployment JSON; publish all release files using it")
+	flags.StringVar(&opts.SSHHost, "ssh_host", "", "SSH host; publish all release files using this host")
+	flags.StringVar(&opts.SSHUser, "ssh_user", "", "Administrator SSH login override")
+	flags.StringVar(&opts.SSHRoot, "ssh_root", "", "Remote content root override")
+	flags.StringVar(&opts.PublishUser, "publish_user", "", "Remote content account override")
+	flags.StringVar(&opts.Project, "project", "", "Public project name override")
+	flags.StringVar(&opts.SiteArchive, "site_archive", "", "Published archive filename for the extract step")
+	flags.StringSliceVar(&opts.SSHSteps, "steps", []string{"upload"}, "SSH steps: ordered subset of upload,extract,link")
+	flags.StringVar(&opts.SSHPath, "ssh_path", "ssh", "OpenSSH executable")
+	flags.StringVar(&opts.RsyncPath, "rsync_path", "rsync", "Local rsync executable")
+	flags.StringVar(&opts.SSHConfig, "ssh_config", "", "OpenSSH configuration file")
+	flags.StringVar(&opts.SSHIdentity, "ssh_identity", "", "OpenSSH identity file")
+	flags.StringVar(&opts.SSHKnownHosts, "ssh_known_hosts", "", "Known-hosts file (default: OpenSSH configuration)")
+	flags.IntVar(&opts.SSHPort, "ssh_port", 0, "SSH port override")
+	flags.DurationVar(&opts.Timeout, "timeout", 30*time.Minute, "Maximum time for each SSH release deployment")
 	return cmd, nil
 }
 
@@ -83,7 +103,10 @@ func newGenCommand(ctx context.Context) (*cobra.Command, error) {
 		Short: "Generate",
 		Long:  "Merge several manifests into one",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return generator.Generate(opts)
+			if err := generator.Generate(opts); err != nil {
+				return fmt.Errorf("generate release: %w", err)
+			}
+			return nil
 		},
 	}
 	flags := cmd.PersistentFlags()

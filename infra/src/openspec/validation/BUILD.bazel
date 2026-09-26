@@ -30,6 +30,7 @@ _WORKSPACE_SOURCES = {
     "infra_vault": "//infra/vault/openspec:source",
     "infra_xcp_ng": "//infra/xcp_ng/openspec:source",
     "infra_yandex_cloud": "//infra/yandex_cloud/openspec:source",
+    "tools_release": "//tools/release/openspec:source",
     "tools_agents": "//tools/agents/openspec:source",
     "projects_al": "//projects/al/openspec:source",
     "projects_alwaldend_com": "//projects/alwaldend.com/openspec:source",

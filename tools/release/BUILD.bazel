@@ -19,6 +19,8 @@ docs_filegroup(
     visibility = ["//tools:__pkg__"],
     deps = [
         "//tools/release/main/bzl:docs",
+        "//tools/release/main/go:docs",
         "//tools/release/main/proto:docs",
+        "//tools/release/openspec:docs",
     ],
 )

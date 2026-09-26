@@ -1,6 +1,39 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("//projects/al/rules/al:al_config.bzl", "al_config")
+load("//tools/release/main/bzl:al_release_binary.bzl", "al_release_binary")
+load("//tools/release/main/bzl:al_release_deployment.bzl", "al_release_deployment")
 load("//tools/vault:defs.bzl", "vault_binary_map")
+
+[
+    al_release_deployment(
+        name = "publication." + environment,
+        ssh_environment = environment,
+        ssh_host = host,
+        ssh_public_url = "https://download.alwaldend.com",
+        ssh_publish_user = "download",
+        ssh_user = "ansible",
+    )
+    for environment, host in {
+        "local": "host1.dc1.download.alwaldend.com",
+        "yandex": "host1.yc.download.alwaldend.com",
+    }.items()
+]
+
+[
+    al_release_binary(
+        name = "publish." + environment,
+        arguments = [
+            "--environment",
+            environment,
+        ],
+        oras = None,
+        ssh_deployment = ":publication." + environment,
+    )
+    for environment in [
+        "local",
+        "yandex",
+    ]
+]
 
 al_config(
     name = "al",
