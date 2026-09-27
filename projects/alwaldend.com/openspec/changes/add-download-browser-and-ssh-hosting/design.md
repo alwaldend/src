@@ -108,3 +108,24 @@ with its DNS owner only after those checks pass. Keep GitHub Pages reachable
 through preparation; remove it as the production deployment dependency after
 cutover. Changing the selected site release uses ordinary redeployment; no
 rollback command is introduced.
+
+## Release bundle implementation scope (2026-09-26)
+
+The current implementation task covers section 3 packaging and explicitly
+authorized XCP-ng publication. The listing UI and public/Yandex cutover remain
+separate work. Reuse the existing release generator, rules_pkg archive rule,
+and versioning workspace status; no external dependency is required.
+
+A generic release bundle rule consumes declared payloads and STABLE_VERSION
+and emits a directory containing release.json and files/. The website target
+requires release configuration so drafts cannot enter a deployable bundle.
+Keep that target outside the site's generated documentation inputs, avoiding
+a cycle from site -> release documentation -> site archive -> site.
+
+Acceptance includes the built CLI's version/identity and byte checks, rejected
+missing or duplicate version keys, unsafe versions, missing project/files,
+filename collisions and empty payloads; then inspect the real archive's root
+index, assets, project landing pages and draft exclusion. Finally publish the
+exact bundle with the existing local SSH target and compare served bytes.
+A feature-branch build retains the versioning owner's 0.0.0-dev identity; no
+nightly or release tag is created implicitly.

@@ -117,6 +117,9 @@ func newGenCommand(ctx context.Context) (*cobra.Command, error) {
 	flags.StringArrayVar(&opts.OutputReleasePages, "output_release_page", nil, "Write the release page to this path")
 	flags.StringVar(&opts.OutputFileMode, "output_file_mode", "0444", "Create output files with this file mode")
 	flags.StringVar(&opts.GitBundle, "git_bundle", "", "Git bundle with release history")
+	flags.StringVar(&opts.Project, "project", "", "Release project subdirectory")
+	flags.StringVar(&opts.VersionFile, "version_file", "", "Workspace status file containing STABLE_VERSION")
+	flags.StringVar(&opts.OutputDir, "output_dir", "", "Write a portable release.json and files/ bundle to an empty directory")
 	flags.StringVar(&opts.MarshalOptions.Indent, "indent", "    ", "Json indent")
 	return cmd, nil
 }

@@ -125,6 +125,43 @@ The tag index wraps its items, and `/404.html` offers links back to the site.
 
 ## Deployment
 
+Build a portable website release bundle from the repository root:
+
+```sh
+tools/versioning/cmd/versioning/versioning.sh bazel -- \
+  build --config=release //projects/alwaldend.com:release
+```
+
+The output directory `bazel-bin/projects/alwaldend.com/release` contains
+`release.json` and `files/website.tar.gz`. The manifest uses `STABLE_VERSION`
+from the versioning tool, including `0.0.0-dev` for development builds.
+The archive contains the complete site with `index.html` at its root and
+excludes drafts. The release target requires release configuration. Building
+it does not connect to a host or publish anything.
+
+With administrator SSH access configured, publish the bundle to XCP-ng:
+
+```sh
+bazel_agent bazel run //infra/download:publish.local -- \
+  --release_dir "$PWD/bazel-bin/projects/alwaldend.com/release" \
+  --site_archive website.tar.gz --steps upload,extract,link
+```
+
+Use `publish.yandex` only for an explicitly selected, configured cloud host.
+The publisher uses ordinary OpenSSH authentication and strict host trust; it
+does not run Ansible. See the [release tool](../../tools/release/README.md)
+for identity/configuration overrides and independently selecting upload,
+extraction, or linking. The manifest version selects both the public archive
+directory and the extracted site release; linking selects the main website.
+Use a new version for changed site content because an already extracted
+version is retained. Development `0.0.0-dev` is suitable for the first local
+deployment; subsequent releases should use distinct versions from the
+[versioning workflow](../../tools/versioning/README.md).
+
+The bundle is intentionally separate from the generated release documentation:
+including the website archive in its own documentation would create a build
+cycle. The Pages commands below remain available during the staged migration.
+
 - DNS setup: [infra/dns](../../infra/dns)
 - This project's [DNS declaration](https://github.com/alwaldend/src/blob/master/projects/alwaldend.com/dnsconfig.json)
   owns the shared `pages` address. Project landing pages are published by this
