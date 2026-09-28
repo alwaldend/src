@@ -38,11 +38,16 @@ Two SATA SSDs, selected by their stable ATA IDs, back the `sata_ssd` volume
 group. Its striped `bazel_cache` logical volume is mounted persistently at
 `/var/cache/bazel`. Every Bazel workspace uses its `disk_cache` directory and
 the managed user bazelrc points its output-user root at the same filesystem.
-Automatic garbage collection caps the action disk cache at 700 GiB, leaving
-room within the 1-TiB filesystem for output bases and install state; the
-volume group retains about 900 GiB for later growth or another logical volume.
-Because the volume is striped, either SSD failing invalidates the disposable
-cache.
+The managed user bazelrc also sets `repo_contents_cache` to
+`/var/cache/bazel/repo_contents_cache`, which shares materialized external
+repositories across output bases. A fresh worktree therefore reuses the
+already-extracted pinned LLVM distribution instead of repeating a
+multi-gigabyte extraction for every output base. The repository cache still
+avoids the network archive download. Automatic garbage collection caps the
+action disk cache at 700 GiB, leaving room within the 1-TiB filesystem for
+output bases, repository contents, and install state; the volume group retains
+about 900 GiB for later growth or another logical volume. Because the volume is
+striped, either SSD failing invalidates the disposable cache.
 
 The managed user bazelrc limits each Bazel invocation to eight concurrent jobs
 and budgets half of the host CPUs for local actions. These scheduling limits
