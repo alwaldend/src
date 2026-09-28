@@ -3,5 +3,9 @@ common --repo_env=ANDROID_HOME=/var/home/simeonwarrenbot/Android/Sdk
 common --repo_env=ANDROID_NDK_HOME=/var/home/simeonwarrenbot/Android/Sdk/ndk/29.0.14206865
 common --disk_cache=/var/cache/bazel/disk_cache
 common --experimental_disk_cache_gc_max_size=700G
+# Share materialized external repositories across output bases so a new
+# worktree does not re-extract large toolchains such as the pinned LLVM
+# distribution. The repository cache still avoids the network download.
+common --repo_contents_cache=/var/cache/bazel/repo_contents_cache
 build --local_resources=cpu=HOST_CPUS*0.5
 build --jobs=8

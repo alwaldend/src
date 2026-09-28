@@ -39,6 +39,12 @@ bazel_cache_directories:
     # its output-user-root to 0755 on every startup, so this mode only matters
     # for the initial creation and the sandbox's write permission check.
     mode: "0777"
+  - path: /var/cache/bazel/repo_contents_cache
+    # Owner-only because Bazel restores these materialized external repositories
+    # without re-verifying their contents, and they may carry executable
+    # Starlark and tool binaries. Codex reaches this cache through its explicit
+    # filesystem write permission rather than through world write access.
+    mode: "0700"
   - path: /var/cache/bazel/tool_cache
     # Cached tools are executable, so only the owning account may modify or
     # traverse this content-addressed store.
