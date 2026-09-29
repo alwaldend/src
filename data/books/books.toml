@@ -1018,7 +1018,7 @@ links = [
 title = "Mask of Humanity"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/80031-mask-of-humanity-grimdark-cultivation-litrpg.jpg"
 quality = "Decent"
-reading = "Dropped, C366"
+reading = "Dropped, C367"
 authors = ["slaughterbot"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/80031/mask-of-humanity" },
@@ -1038,7 +1038,7 @@ links = [
 title = "The Tower of Infinite Evil"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/122142-the-tower-of-infinite-evil-a-litrpg-horror.jpg"
 quality = "Decent"
-reading = "Dropped, C127"
+reading = "Dropped, C172"
 authors = ["lit-homunculus"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/122142/the-tower-of-infinite-evil-a-litrpg-horror-comedy" },
@@ -1212,7 +1212,7 @@ links = [
 title = "Re:Cursed"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/104556-recursed.jpg?time=1763017950"
 quality = "Decent"
-reading = "Dropped, C176"
+reading = "Dropped, C217"
 authors = ["joroboros"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/104556/recursed" },
@@ -1232,7 +1232,7 @@ links = [
 title = "Hell Difficulty Tutorial"
 thumbnail = "https://www.royalroadcdn.com/public/covers-large/64916-hell-difficulty-tutorial.jpg"
 quality = "Decent"
-reading = "Dropped, C841"
+reading = "Dropped, C891"
 authors = ["cerim"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/64916/hell-difficulty-tutorial" },
@@ -1313,4 +1313,40 @@ reading = "Dropped, B6C25"
 authors = ["warby-picus"]
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/fiction/107917/sky-pride" },
+]
+
+[[book]]
+title = "Exemplary"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/exemplary-aaaaoj20hc.jpg?time=1763836608"
+reading = "Dropped, C30"
+authors = ["wupwup"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/141029/exemplary" },
+]
+
+[[book]]
+title = "REND"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/117255-rend.jpg?time=1753951030"
+reading = "Dropped, B4C5.1"
+authors = ["temple"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/117255/rend" },
+]
+
+[[book]]
+title = "Erind x Deen Alternate Reality Spin-Off of REND"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/54581-erind-x-deen-alternate-reality-spin-off.jpg?time=1768694164"
+reading = "Dropped, C94"
+authors = ["temple"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/54581/erind-x-deen-alternate-reality-spin-off-of-rend" },
+]
+
+[[book]]
+title = "Father of Monstrosity"
+thumbnail = "https://www.royalroadcdn.com/public/covers-large/62577-father-of-monstrosity.jpg?time=1686861148"
+reading = "Dropped, C9 (IX)"
+authors = ["dosei"]
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/fiction/62577/father-of-monstrosity-also-available-on-amazon" },
 ]
