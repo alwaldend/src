@@ -1,0 +1,26 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "markdown",
+    srcs = [
+        "converter.go",
+        "diagnostic.go",
+        "image.go",
+        "inline.go",
+        "post.go",
+        "source.go",
+        "util.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_article_uploader/internal/markdown",
+    visibility = ["//projects/x_article_uploader:__subpackages__"],
+    deps = [
+        "//projects/x_article_uploader/internal/draftjs",
+        "@com_github_goccy_go_yaml//:go-yaml",
+        "@com_github_yuin_goldmark//:goldmark",
+        "@com_github_yuin_goldmark//ast",
+        "@com_github_yuin_goldmark//extension",
+        "@com_github_yuin_goldmark//extension/ast",
+        "@com_github_yuin_goldmark//text",
+        "@com_github_yuin_goldmark//util",
+    ],
+)

@@ -8,8 +8,10 @@ raster render SHALL reuse the maintained render contract rather than defining a
 second appearance: the same shared theme, the same pinned browser and fonts, and
 the same paint-order pass as the SVG rule. Encoding MUST go through the pinned
 browser, so the rule introduces no image-conversion dependency. The render SHALL
-be hermetic — no host browser, host font, or network fetch — and deterministic
-for a given source, theme, and configuration.
+be a projection of the SVG render — the same maintained document, encoded to a
+raster — rather than a second layout. The render SHALL be hermetic — no host
+browser, host font, or network fetch — and deterministic for a given source,
+theme, and configuration.
 
 #### Scenario: Render a diagram to a raster image
 
@@ -23,6 +25,15 @@ for a given source, theme, and configuration.
 - **WHEN** the same diagram source is rendered to SVG and to the raster format
 - **THEN** both renders apply the shared theme and the same paint-order pass
 - **AND** neither render introduces an appearance of its own
+- **AND** the raster canvas reproduces the SVG render's geometry at the rule's scale
+
+#### Scenario: Reproduce the natural canvas
+
+- **WHEN** a diagram's natural canvas differs from the browser's default
+  replaced-element size
+- **THEN** the raster is captured at the SVG's own `viewBox` geometry rather than
+  the default size
+- **AND** its canvas equals the SVG render's geometry at the rule's scale
 
 #### Scenario: Depend on no image-conversion toolchain
 

@@ -167,6 +167,11 @@ module "src_projects_useless_qt_gui" {
   context = local.dns_approle_context
 }
 
+module "src_projects_x_article_uploader" {
+  source  = "./approles/src_projects_x_article_uploader"
+  context = local.dns_approle_context
+}
+
 module "src_users_simeonwarren_host_bot" {
   source  = "./approles/src_users_simeonwarren_host_bot"
   context = local.dns_approle_context

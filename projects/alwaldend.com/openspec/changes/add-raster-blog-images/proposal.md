@@ -40,6 +40,9 @@ None.
 - `projects/alwaldend.com/skills/alwaldend-blog/SKILL.md`: the authoring
   guidance states the rule.
 - The raster render target itself is owned by `tools/mermaid`; this change
-  consumes it and records the rule its consumers follow.
+  consumes it and records the rule its consumers follow. `mermaid_webp` is that
+  target, and the authoring guidance in
+  `projects/alwaldend.com/skills/alwaldend-blog/SKILL.md` states the rule and
+  names it.
 - No published page changes: posts that already reference SVG keep doing so, and
   the rule is prospective only.

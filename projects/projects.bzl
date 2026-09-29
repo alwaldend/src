@@ -23,4 +23,5 @@ PROJECTS = [
     "sri",
     "tf_modules",
     "useless_qt_gui",
+    "x_article_uploader",
 ]

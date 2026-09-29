@@ -144,3 +144,112 @@ mermaid_svg = rule(
         ),
     },
 )
+
+def _mermaid_webp_impl(ctx):
+    source = ctx.file.src
+    theme = ctx.file.theme
+    output = ctx.outputs.out
+
+    if not output.basename.endswith(".webp"):
+        fail("out must name a .webp file, got: {}".format(output.basename))
+
+    label_font = ctx.file.label_font or ctx.file._label_font
+
+    args = ctx.actions.args()
+    args.add("--input", source.path)
+    args.add("--output", output.path)
+    args.add("--browser", ctx.executable._browser.path)
+    args.add("--background", "white")
+    args.add("--raster")
+    args.add("--scale", str(ctx.attr.scale))
+    args.add("--config", theme.path)
+    args.add("--font", label_font.path)
+
+    # The render exposes exactly these directories to Chrome through
+    # Fontconfig, so no family resolves from the host. Every file in an
+    # exposed directory becomes reachable, so each holds one repository-owned
+    # family.
+    font_files = ctx.files._body_fonts + ctx.files._label_fonts + [label_font]
+    font_directories = {}
+    for font in font_files:
+        font_directories[font.dirname] = None
+    for directory in font_directories:
+        args.add("--font-directory", directory)
+
+    ctx.actions.run(
+        arguments = [args],
+        env = {
+            "BAZEL_BINDIR": ctx.bin_dir.path,
+            # Declared File.path values are relative to the action execroot.
+            "JS_BINARY__NO_CD_BINDIR": "1",
+        },
+        executable = ctx.executable._render,
+        inputs = [source, theme] + ctx.files._body_fonts + ctx.files._label_fonts + [label_font],
+        mnemonic = "MermaidWebp",
+        outputs = [output],
+        progress_message = "Rendering Mermaid WebP %{label}",
+        tools = [
+            ctx.attr._browser[DefaultInfo].files_to_run,
+            ctx.attr._render[DefaultInfo].files_to_run,
+        ],
+    )
+
+    return [DefaultInfo(files = depset([output]))]
+
+mermaid_webp = rule(
+    implementation = _mermaid_webp_impl,
+    doc = "Renders one Mermaid source file to a WebP image a service " +
+          "upload endpoint accepts, reusing the maintained SVG render " +
+          "contract and encoding the raster through the pinned browser.",
+    attrs = {
+        "src": attr.label(
+            allow_single_file = [".mmd"],
+            mandatory = True,
+            doc = "Mermaid source file.",
+        ),
+        "out": attr.output(
+            mandatory = True,
+            doc = "Rendered .webp output.",
+        ),
+        "scale": attr.int(
+            default = 2,
+            doc = "Raster scale factor. The image is authored at the " +
+                  "diagram's natural size and scaled by this factor, so a " +
+                  "node-sized diagram still carries crisp text.",
+        ),
+        "theme": attr.label(
+            allow_single_file = [".json"],
+            default = "//tools/mermaid:theme.json",
+            doc = "Mermaid configuration applied by default; a diagram's own " +
+                  "Mermaid directives still override it.",
+        ),
+        "label_font": attr.label(
+            allow_single_file = [".ttf"],
+            doc = "Optional embedded font override matching the selected theme.",
+        ),
+        "_label_font": attr.label(
+            allow_single_file = [".ttf"],
+            default = "//tools/mermaid/fonts:ArchitectsDaughter-Regular.ttf",
+            doc = "Handwriting face embedded in the rendered document, so the " +
+                  "output keeps its measured text metrics without a webfont.",
+        ),
+        "_body_fonts": attr.label(
+            default = "@com_alwaldend_src_tools_drawio_fonts//:fonts",
+            doc = "Pinned fonts the theme falls back to.",
+        ),
+        "_label_fonts": attr.label(
+            default = "//tools/mermaid/fonts:fonts",
+            doc = "Pinned handwriting font the theme labels diagrams with.",
+        ),
+        "_browser": attr.label(
+            cfg = "exec",
+            default = "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+            executable = True,
+        ),
+        "_render": attr.label(
+            cfg = "exec",
+            default = "//tools/mermaid/cmd/render",
+            executable = True,
+        ),
+    },
+)

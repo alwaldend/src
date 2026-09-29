@@ -1,0 +1,50 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/al/rules/al:al_binary.bzl", "al_binary_run")
+load("//projects/al/rules/al:al_config.bzl", "al_config")
+load("//tools/vault:defs.bzl", "vault_binary_map")
+
+al_config(
+    name = "al",
+    srcs = ["al.lua"],
+    visibility = ["//projects/x_article_uploader:__subpackages__"],
+    deps = ["//infra:al"],
+)
+
+# Runs draft creation with the injected OAuth 1.0a credential. The plugin label
+# selects the injection declared in al.lua; the plugin binary is in data. The
+# target creates a draft only and never publishes an article.
+al_binary_run(
+    name = "draft",
+    args = [
+        "$(rootpath //projects/x_article_uploader/cmd/draft)",
+    ],
+    configs = [":al"],
+    data = [
+        "//projects/x_article_uploader/cmd/draft",
+        "//tools/vault/injector",
+    ],
+    run_args = [
+        "--plugin_label",
+        "x_api=1",
+    ],
+)
+
+vault_binary_map(
+    name = "vault",
+    configs = [":al"],
+)
+
+test_suite(
+    name = "test",
+    tests = ["//projects/x_article_uploader/test/e2e:e2e_test"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = glob(["*.md"]),
+    visibility = ["//projects:__pkg__"],
+    deps = [
+        "//projects/x_article_uploader/openspec:docs",
+        "//projects/x_article_uploader/site:docs",
+    ],
+)

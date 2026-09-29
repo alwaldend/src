@@ -5,6 +5,7 @@ go 1.26.5
 require (
 	github.com/BurntSushi/toml v1.5.0
 	github.com/go-git/go-billy/v5 v5.9.1
+	github.com/yuin/goldmark v1.8.6
 )
 
 require (

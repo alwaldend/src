@@ -1,0 +1,11 @@
+load("@rules_go//go:def.bzl", "go_binary")
+
+go_binary(
+    name = "draft",
+    srcs = ["main.go"],
+    visibility = ["//projects/x_article_uploader:__subpackages__"],
+    deps = [
+        "//projects/x_article_uploader/internal/draft",
+        "//projects/x_article_uploader/internal/xapi",
+    ],
+)

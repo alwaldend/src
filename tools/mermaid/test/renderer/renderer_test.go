@@ -9,6 +9,7 @@ package renderer_test
 
 import (
 	"flag"
+	"math"
 	"os"
 	"strings"
 	"testing"
@@ -22,6 +23,7 @@ var (
 	edges  = flag.String("edges", "", "runfile path of the edge-label diagram SVG")
 	nested = flag.String("nested", "", "runfile path of the nested-cluster diagram SVG")
 	plain  = flag.String("plain", "", "runfile path of the plain smoke diagram SVG")
+	raster = flag.String("raster", "", "runfile path of the smoke diagram WebP render")
 	theme  = flag.String("theme", "", "runfile path of the theme JSON")
 )
 
@@ -291,6 +293,44 @@ func TestPlainRenderIgnoresTheme(t *testing.T) {
 	} {
 		if strings.Contains(svg, unexpected) {
 			t.Errorf("plain render still applies theme output %q", unexpected)
+		}
+	}
+}
+
+// TestRasterRenderIsWebp asserts the raster rule produces a WebP whose canvas
+// reproduces the SVG render's geometry. The check compares the raster against
+// the SVG rather than asserting only that a file appeared, so a raster render
+// that no longer follows the maintained document fails here.
+func TestRasterRenderIsWebp(t *testing.T) {
+	svg := readSVG(t, "smoke", *smoke)
+	data := []byte(readRunfile(t, "raster", *raster))
+
+	width, height, err := svgdoc.WebPDimensions(data)
+	if err != nil {
+		t.Fatalf("raster render is not a readable WebP: %v", err)
+	}
+	if width <= 0 || height <= 0 {
+		t.Fatalf("raster render measures %dx%d", width, height)
+	}
+
+	viewWidth, viewHeight, err := svgdoc.CanvasSize(svg)
+	if err != nil {
+		t.Fatalf("read SVG canvas: %v", err)
+	}
+	// The rule authors the raster at the diagram's natural size and scales it
+	// by two, so the canvas is the SVG's geometry at that scale.
+	const scale = 2
+	for _, expected := range []struct {
+		name string
+		got  int
+		want float64
+	}{
+		{"width", width, viewWidth * scale},
+		{"height", height, viewHeight * scale},
+	} {
+		if math.Abs(float64(expected.got)-expected.want) > scale {
+			t.Errorf("raster %s is %d, but the SVG geometry at scale %d is %.1f",
+				expected.name, expected.got, scale, expected.want)
 		}
 	}
 }

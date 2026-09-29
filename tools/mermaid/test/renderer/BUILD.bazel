@@ -1,5 +1,5 @@
 load("@rules_go//go:def.bzl", "go_test")
-load("//tools/mermaid:defs.bzl", "mermaid_svg")
+load("//tools/mermaid:defs.bzl", "mermaid_svg", "mermaid_webp")
 
 # The nested-container source is shared with the mmdc test, which asserts that
 # an interactive render applies the same paint order as a build action.
@@ -21,10 +21,14 @@ mermaid_svg(
     out = "nested_clusters.svg",
 )
 
+# The smoke fixture is the raster rule's reference diagram. The uploader's
+# end-to-end check consumes both renders to prove the raster is a projection of
+# the maintained SVG, so this pair is visible across the repository.
 mermaid_svg(
     name = "smoke_svg",
     src = "smoke.mmd",
     out = "smoke.svg",
+    visibility = ["//visibility:public"],
 )
 
 # Mermaid's own defaults, for checking that the plain opt-out really bypasses
@@ -34,6 +38,15 @@ mermaid_svg(
     src = "smoke.mmd",
     out = "smoke_plain.svg",
     plain = True,
+)
+
+# A raster render of the same source, so a check can compare the raster's
+# geometry against the SVG render it was encoded from.
+mermaid_webp(
+    name = "smoke_webp",
+    src = "smoke.mmd",
+    out = "smoke.webp",
+    visibility = ["//visibility:public"],
 )
 
 go_test(
@@ -46,12 +59,14 @@ go_test(
         "-nested=$(rlocationpath :nested_clusters_svg)",
         "-theme=$(rlocationpath //tools/mermaid:theme.json)",
         "-plain=$(rlocationpath :smoke_plain_svg)",
+        "-raster=$(rlocationpath :smoke_webp)",
     ],
     data = [
         ":edge_labels_svg",
         ":nested_clusters_svg",
         ":smoke_plain_svg",
         ":smoke_svg",
+        ":smoke_webp",
         "//tools/mermaid:theme.json",
     ],
     deps = [

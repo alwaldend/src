@@ -18,3 +18,12 @@ docs_filegroup(
         )
     ],
 )
+
+# The uploader's end-to-end checks read the real posts and their images from the
+# build graph. This exposes the same bundle under a target scoped to that
+# consumer instead of widening the docs target's visibility.
+filegroup(
+    name = "test_data",
+    srcs = [":docs"],
+    visibility = ["//projects/x_article_uploader/test/e2e:__pkg__"],
+)

@@ -2,11 +2,15 @@
 
 See `proposal.md` for motivation and `specs/` for the behavior contract.
 
-The target API is X API v2.168. Its Articles surface is two endpoints:
-`POST /2/articles/draft` and `POST /2/articles/{article_id}/publish`. The draft
-body is `title` plus a `content_state` DraftJS document (`blocks`, `entities`),
-with an optional `cover_media`. The spec at `api.x.com/2/openapi.json` fixes the
-vocabulary this project must target:
+The target API is X API v2.168. Its Articles surface is two endpoints,
+`POST /2/articles/draft` and `POST /2/articles/{article_id}/publish`; this
+project uses only the draft endpoint. The draft body is `title` plus a
+`content_state` DraftJS document (`blocks`, `entities`), with an optional
+`cover_media`. The spec at `api.x.com/2/openapi.json` fixes the vocabulary this
+project must target, and the draft shape is not canonical DraftJS: blocks name
+their ranges `inline_style_ranges` and `entity_ranges`, carry no `depth`, and
+`entities` is a mapping of `{key, value}` entries, because the schema sets
+`additionalProperties: false`:
 
 - block `type`: `unstyled`, `header-one`, `header-two`, `header-three`,
   `unordered-list-item`, `ordered-list-item`, `blockquote`, `atomic`;
@@ -37,7 +41,7 @@ The blog posts live at `projects/alwaldend.com/content/blog/<slug>/index.md`.
 
 - Compile a blog post's Markdown into a valid `content_state` document offline.
 - Keep conversion deterministic and testable without credentials or network.
-- Resolve and upload referenced images, then create and publish the article.
+- Resolve and upload referenced images, then create an X Article draft.
 - Give a new post a raster form for its images, including a Mermaid diagram,
   because the upload endpoints accept no SVG.
 - Build under the repository's pinned, hermetic Bazel workflow.
@@ -46,7 +50,8 @@ The blog posts live at `projects/alwaldend.com/content/blog/<slug>/index.md`.
 
 - Rendering the article inside Hugo, or adding any site output format.
 - Authoring or editing posts, drafts, or titles on X outside this pipeline.
-- Tracking publication state, scheduling, or retracting a published article.
+- Publishing an article: the uploader creates drafts only, so publication and
+  any tracking or retraction of a published article are out of scope.
 - Supporting `post`, `emoji`, and `latex` entities: the posts do not use them,
   and they carry composer-specific identifiers this project cannot synthesize.
 
@@ -57,7 +62,17 @@ The blog posts live at `projects/alwaldend.com/content/blog/<slug>/index.md`.
 Convert from the Markdown source using `github.com/yuin/goldmark`, a
 CommonMark/GFM parser that exposes a node tree with inline text and source
 positions, instead of parsing `.Content` HTML inside Hugo templates. The user
-approved this dependency on 2026-09-29.
+approved this dependency on 2026-09-29, choosing it by name from the parser
+options presented for this project.
+
+The proposal named the exact package and its maintenance and supply-chain
+costs before that approval: it is a widely used pure-Go parser with no cgo and
+no runtime services, pinned to `v1.8.6` in the root Go manifest and lockfile and
+exposed through the owning `use_repo` declaration, so the import graph stays
+hermetic and reproducible. Its maintenance surface is a single module
+(`github.com/yuin/goldmark`) plus its own extension packages; upgrading it is an
+ordinary dependency-pin bump through the owning dependency workflow, and it
+carries no new transitive dependency needing review.
 
 Alternatives considered for the parser: `rsc.io/markdown`, already resolvable in
 the repository as `@tools_io_rsc_markdown//:go_default_library`. It is rejected
@@ -91,7 +106,7 @@ requires a `title` that `content_state` cannot carry. The input model is
 therefore a parsed post: front matter is extracted as metadata, its `title` is
 returned alongside the document for draft creation, and the body alone is
 converted. Converting the file as one Markdown document would emit the front
-matter as article text and leave publication without its required title.
+matter as article text and leave draft creation without its required title.
 
 ### Raster-only authoring policy for posts from now on
 
@@ -120,7 +135,7 @@ through the existing binary-asset path.
 
 The converter still reports an image whose media type the upload endpoints
 reject, with its source position, rather than emitting an entity that
-publication can never resolve. That report is now a guardrail for a policy
+draft creation can never resolve. That report is now a guardrail for a policy
 violation in a source post rather than the expected outcome of every diagram
 post; a post that follows the policy converts without such a report.
 
@@ -141,25 +156,26 @@ listed by hand, so a post added later is covered without editing the check. A
 new post is expected to conform by default; only a post that fails the
 raster-only policy carries a failing expectation.
 
-### Separate the library, the converter command, and the publisher command
+### Separate the library, the converter command, and the draft command
 
-The parse-and-map logic is a library under `internal/`; conversion and
-publication are separate entry points under `cmd/`. Conversion writes a
-`content_state` document and performs no network access; publication consumes
-that document and is the only network path.
+The parse-and-map logic is a library under `internal/`; conversion and draft
+creation are separate entry points under `cmd/`. Conversion writes a
+`content_state` document and performs no network access; draft creation consumes
+that document and is the only network path. It calls only the draft endpoint and
+exposes no publish operation, so no invocation can make an article public.
 
 This keeps the hermetic, credential-free half independently testable, and lets
-a draft be produced, diffed, and reviewed before anything reaches X. The
-publisher also takes a pre-built document file so publication can be re-run
-against a reviewed document without re-converting.
+a draft be produced and diffed before anything reaches X. The draft command also
+takes a pre-built document file so a draft can be re-run against a reviewed
+document without re-converting.
 
 Uploads need one piece of state that neither half may rewrite: the mapping from
 an uploaded image's content digest to the `media_id` the API returned. A digest
 alone cannot recover it, and the reviewed artifact must stay unchanged, so the
-publisher owns a separate cache file under the task's ignored output directory
+draft command owns a separate cache file under the task's ignored output directory
 that records the mapping and is read on the next run. The cache holds identifiers
 and digests only, never credential material; a missing or unreadable cache costs a
-re-upload rather than failing publication, and a cache entry whose recorded
+re-upload rather than failing draft creation, and a cache entry whose recorded
 digest no longer matches the artifact's is ignored. Because that directory is
 disposable, the reuse guarantee is scoped to a task workspace rather than to any
 host or any later machine.
@@ -210,20 +226,20 @@ trailing `Footnotes` heading with each definition as an ordered list item,
 rather than being dropped. `slop-without-a-clear-goal/index.md` uses one
 footnote, so this path is exercised by a real post.
 
-### Images: convert to a skeleton, resolve at publication
+### Images: convert to a skeleton, resolve at draft creation
 
 The converter emits an `atomic` block plus an `image` entity carrying the alt
-text as `caption` and leaving the media unresolved. The publisher uploads the
-image bytes through the media endpoint, sets `media_items` to the returned
+text as `caption` and leaving the media unresolved. The draft command uploads
+the image bytes through the media endpoint, sets `media_items` to the returned
 `media_id` with category `tweet_image`, and only then creates the draft.
 
 `media_items` requires a `media_id`, and `url` is documented for `link`, so a
 document URL cannot source an image and an upload is unavoidable for an image
 that is to render as one. Uploading at conversion time would break conversion's
-offline and deterministic contract, so the resolution step belongs to
-publication. The document format therefore distinguishes an unresolved image
-from a resolved one, and publication refuses to send an unresolved image.
-Uploads are keyed by content hash so re-running publication does not re-upload
+offline and deterministic contract, so the resolution step belongs to draft
+creation. The document format therefore distinguishes an unresolved image from
+a resolved one, and draft creation refuses to send an unresolved image. Uploads
+are keyed by content hash so re-running draft creation does not re-upload
 identical bytes.
 
 The API entity cannot carry the image's source, because its `data` object
@@ -232,29 +248,62 @@ artifact therefore carries the locator as its own metadata, outside
 `content_state`: each unresolved image gets an entry naming the image's source
 path relative to the post's directory, the post package that base resolves
 against, and a digest of the bytes as they were at conversion time. Recording
-the base lets the artifact travel — the publisher resolves the path against the
+the base lets the artifact travel — the draft command resolves the path against the
 recorded package rather than against wherever the artifact file happens to sit —
-and recording the digest gives the publisher the value it tests the current
+and recording the digest gives the draft command the value it tests the current
 bytes against. A locator also records the `image` entity it resolves, by the
-entity's `entity_key`, so publication attaches a returned `media_id` to the
-entity the locator names: an artifact can carry several images, captions and
+entity's `entity_key`, so the returned `media_id` is attached to the entity the
+locator names: an artifact can carry several images, captions and
 byte digests can repeat, and position or caption alone is not a stable
 identifier. A locator that escapes the post's directory, or an image whose
 digest no longer matches, is a failure rather than a silent substitution.
 
+Containment is a property of the object actually read, not of the pathname that
+was checked: a check that canonicalizes a path and then re-opens it can be
+defeated by a writer that swaps the canonical target for a symlink in between,
+so the bytes then come from outside the validated package even though the digest
+matches. Both the converter's read and the draft command's read therefore resolve
+the name through `os.Root`, which walks each component through descriptors and
+refuses a symlink that escapes the directory it is anchored at. The check and
+the read then operate on the same descriptor, so a swapped symlink cannot
+redirect the read.
+
 All six image references in the current posts are `.svg`
 (`diagrams-in-ac-era/index.md`), and SVG is not among the media types the upload
 endpoints accept, so these images cannot be uploaded as-is. Since only new posts
-need to publish, the existing post is left as it is and its images are reported
+need a draft, the existing post is left as it is and its images are reported
 with their source positions when it is converted. A new post follows the
 raster-only policy in the decision above, so its images are uploadable without a
 special case.
 
+### OAuth 1.0a user context, signed with the standard library
+
+The Articles and media endpoints accept either an OAuth 2.0 user token or an
+OAuth 1.0a user context. The user's decision is OAuth 1.0a, because an OAuth 2.0
+user token expires in about two hours and its refresh token is single-use and
+rotating: a missed rotation invalidates the token family, which turns a
+scheduled draft creation into a coordination problem with a credential store the
+component may only read. An OAuth 1.0a user-context token does not expire on a
+fixed schedule; it stays valid until it is revoked or the account is suspended,
+so a stored credential keeps working without a rotation step. An app-only
+bearer token was rejected as well: it carries no user context, so the Articles
+and media endpoints reject it.
+
+OAuth 1.0a needs four fields — API key, API secret, access token, and access
+token secret — so the injected reference is a four-variable tuple rather than
+the single `X_API_TOKEN` the first sketch assumed; the environment variable
+names follow that sketch's prefix. Request signing is HMAC-SHA1 over a
+normalized parameter string with the RFC 5849 percent-encoding rules, which the
+standard library provides (`crypto/hmac`, `crypto/sha1`, `encoding/base64`,
+`net/url`), so no signing dependency is added. The nonce and timestamp are the
+only non-deterministic inputs; they are generated per request, while conversion
+stays deterministic because signing belongs to draft creation alone.
+
 ### Credentials through the repository injection flow
 
-No credential value is recorded in source. The publisher reads the credential
-reference at run time through the same Vault-backed injection flow the other
-components use. Publication is the only operation that needs it.
+No credential value is recorded in source. The draft command reads the four
+credential fields at run time through the same Vault-backed injection flow the
+other components use. Publication is the only operation that needs them.
 
 Application-side loading is only half of that path, so this change also plans
 the repository half. A run-time read needs a component identity to authenticate
@@ -263,9 +312,14 @@ access to its own path, none of which exist for a new project. The uploader
 therefore gets an `al.lua` and its `al_config` target that name the injected
 reference and select the injector plugin, and the identity, policy, and
 reference are carried by their owner in
-`infra/vault/openspec/changes/add-x-article-uploader-credentials`. The plan adds
-the wiring but does not write a credential, create a role, or exercise a live
-read: those remain separately authorized operations.
+`infra/vault/openspec/changes/add-x-article-uploader-credentials`. The credential is held at
+`alwaldend.com/vault1/approles/src_projects_x_article_uploader/oauth1` -- its
+path is one checked-in value that both the identity's checks and the injected
+reference read, so the two cannot drift -- inside the identity's own AppRole
+subtree, the same shape every other component uses, so the shared AppRole
+module's own-subtree policy grants the read. The plan adds the wiring but does
+not write a credential, create a role, or exercise a live read: those remain
+separately authorized operations.
 
 ## Risks / Trade-offs
 
@@ -291,7 +345,7 @@ available; a regenerated table is the fallback, and the tests assert cell
 contents survive.
 
 [Uploaded media and created drafts are external state that a failed run can
-leave behind] -> publication reports the identifiers it created and reuses an
+leave behind] -> draft creation reports the identifier it created and reuses an
 upload through its digest-to-`media_id` cache; the cache lives in the task's
 ignored output directory, so a re-run in the same task workspace reuses an
 identifier while a lost cache costs a re-upload rather than a duplicate draft.
@@ -321,8 +375,8 @@ title as document metadata, and fails conversion when no non-empty title exists.
 
 - The token's required scopes beyond the documented `tweet.read`,
   `tweet.write`, and `users.read` — media upload additionally needs
-  `media.write` — can be confirmed against a live credential when publication is
-  first exercised; the specs require the reference, not the exact scope list.
+  `media.write` — can be confirmed against a live credential when draft creation
+  is first exercised; the specs require the reference, not the exact scope list.
 - Whether X accepts a draft with zero `atomic` blocks or requires at least one
   body block is unknown; the specs do not depend on it, and a live call settles
   it.

@@ -239,6 +239,40 @@ A diagram used by documentation and a historical blog post can expose both
 render targets from one authoritative `.mmd` source. Blog consumers keep their
 original `mermaid_svg` target and its existing appearance.
 
+## Raster renders
+
+`mermaid_webp` renders the same diagram source to a WebP image for a consumer
+that has to upload the file to a service. Some upload endpoints accept only a
+fixed set of raster media types and reject `image/svg+xml`, so such a consumer
+cannot use the SVG rule at all.
+
+```starlark
+load("//tools/mermaid:defs.bzl", "mermaid_webp")
+
+mermaid_webp(
+    name = "rendered",
+    src = "architecture.mmd",
+    out = "rendered/architecture.webp",
+)
+```
+
+The rule is a projection of the `mermaid_svg` document, not a second
+appearance. It renders the themed SVG first — same shared theme, same pinned
+browser and fonts, same paint-order pass — then has the pinned browser encode
+that document to WebP. Encoding therefore stays inside the hermetic graph and
+adds no image-conversion dependency. The raster is authored at the diagram's
+natural size and scaled by the rule's `scale` (default `2`), so a node-sized
+diagram still carries crisp text when a consumer re-encodes it. A raster render
+always uses the maintained appearance; it has no `plain` opt-out, because a
+plain raster could not show the contrast a comparison needs any more reliably
+than the SVG rule's.
+
+Consumers that must keep the image as a checked-in asset obtain it from the
+rule's output rather than by hand, so the asset can be regenerated and compared
+against a fresh render. The `.mmd` source stays authoritative. Blog posts keep
+the raster render beside `index.md` by copying it through `write_source_files`,
+as the [diagram skill](skills/mermaid-diagrams/SKILL.md) describes.
+
 ## Tests
 
 `test/renderer/renderer_test.go` renders fixture diagrams through the
@@ -247,7 +281,10 @@ palette and hand-drawn node class survive, the built-in lavender colors do not,
 labels are measured through the pinned fonts, and the label plates keep their
 border slack. It also asserts that every container title is written after the
 nodes, which is the paint order `cmd/render/paint_order.mjs` produces and the
-property that keeps an edge from drawing over a title. `cmd/mmdc/mmdc_test.go`
+property that keeps an edge from drawing over a title. The same package renders
+a WebP fixture and asserts the raster reproduces the SVG canvas at the rule's
+scale, so a raster that stopped following the maintained document fails there.
+`cmd/mmdc/mmdc_test.go`
 drives the interactive CLI and re-renders under a Fontconfig pointed at a
 monospace-only pool; a byte-identical result shows the CLI resolved text
 through the pinned fonts.

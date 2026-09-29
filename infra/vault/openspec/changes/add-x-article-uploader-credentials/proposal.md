@@ -10,11 +10,12 @@ component access to that path alone.
 
 - Declare a `src_projects_x_article_uploader` identity, composing the existing
   AppRole module rather than introducing a second authentication mechanism.
-- Store the X API credential in the component's own Vault path, by reference
+- Store the OAuth 1.0a credential — API key, API secret, access token, and
+  access token secret — under the component's own AppRole subtree, by reference
   only: no credential value enters checked-in source.
-- Grant the identity read access to that path and nothing else, so the
-  publication credential cannot read another component's secrets.
-- Record the injected environment variable the publisher consumes, and the
+- Read it through the shared module's own-subtree policy, so the identity cannot
+  read another component's secrets.
+- Record the injected environment variables the draft command consumes, and the
   non-secret project wiring that selects the injection.
 
 ## Capabilities

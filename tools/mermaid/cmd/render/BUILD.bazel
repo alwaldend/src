@@ -10,6 +10,7 @@ js_library(
         "main.mjs",
         "native.mjs",
         "paint_order.mjs",
+        "raster.mjs",
     ],
     visibility = ["//tools/mermaid:__subpackages__"],
 )
@@ -32,6 +33,7 @@ js_test(
     args = ["$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)"],
     data = [
         "paint_order.mjs",
+        "raster.mjs",
         "//tools:node_modules/puppeteer",
         "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
     ],
