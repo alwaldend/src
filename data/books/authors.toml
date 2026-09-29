@@ -498,3 +498,21 @@ name = "Cognosticon"
 links = [
   { title = "royalroad", url = "https://www.royalroad.com/profile/270595" },
 ]
+
+[author.wupwup]
+name = "Wupwup"
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/429403" },
+]
+
+[author.temple]
+name = "Temple"
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/165560" },
+]
+
+[author.dosei]
+name = "Dosei"
+links = [
+  { title = "royalroad", url = "https://www.royalroad.com/profile/303906" },
+]
