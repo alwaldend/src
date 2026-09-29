@@ -30,6 +30,7 @@ _WORKSPACE_SOURCES = {
     "infra_vault": "//infra/vault/openspec:source",
     "infra_xcp_ng": "//infra/xcp_ng/openspec:source",
     "infra_yandex_cloud": "//infra/yandex_cloud/openspec:source",
+    "tools_mermaid": "//tools/mermaid/openspec:source",
     "tools_release": "//tools/release/openspec:source",
     "tools_agents": "//tools/agents/openspec:source",
     "projects_al": "//projects/al/openspec:source",
@@ -63,6 +64,7 @@ _WORKSPACE_SOURCES = {
     "projects_sri": "//projects/sri/openspec:source",
     "projects_tf_modules": "//projects/tf_modules/openspec:source",
     "projects_useless_qt_gui": "//projects/useless_qt_gui/openspec:source",
+    "projects_x_article_uploader": "//projects/x_article_uploader/openspec:source",
     "tools_rules_terraform": "@rules_terraform//openspec:source",
 }
 

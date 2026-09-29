@@ -1,0 +1,9 @@
+schema: spec-driven
+
+context: |
+  This OpenSpec workspace belongs to tools/mermaid.
+  Read the tool README, applicable AGENTS.md, and owning build declarations.
+  Keep this tool's specifications and changes in this local openspec directory.
+  The infra/src/openspec workspace owns the repository's evolution.
+  User requests own scope and authority; specifications do not authorize
+  publication or deployment.
