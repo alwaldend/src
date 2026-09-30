@@ -9,13 +9,13 @@ or credentials.
 ### Requirement: Bazel targets for the uploader
 
 The project SHALL expose Bazel targets for its converter library, its
-conversion command, and its publication command, with tests declared beside the
-sources they cover. Targets MUST follow the repository's role-based source
+conversion command, and its draft-creation command, with tests declared beside
+the sources they cover. Targets MUST follow the repository's role-based source
 layout using `internal/` for implementation and `cmd/` for entry points.
 
-#### Scenario: Build the converter and publisher
+#### Scenario: Build the converter and draft command
 
-- **WHEN** the project's conversion and publication targets are built
+- **WHEN** the project's conversion and draft-creation targets are built
 - **THEN** both binaries build from the project's declared sources
 
 #### Scenario: Test the converter
@@ -81,9 +81,9 @@ constants or assert only that output changed.
 - **WHEN** a conversion behavior is implemented
 - **THEN** the case that establishes its expected outcome already exists
 
-### Requirement: Raster diagram renders for publishable posts
+### Requirement: Raster diagram renders for posts intended for a draft
 
-A post intended for publication SHALL reference only images whose media type the
+A post intended for a draft SHALL reference only images whose media type the
 upload endpoints accept. A Mermaid diagram in such a post SHALL be referenced as
 a raster render of its `.mmd` source, and this change SHALL verify that render
 with an end-to-end check. The check SHALL prove the properties this project
@@ -101,7 +101,7 @@ unacceptable-image diagnostic.
 
 #### Scenario: Convert a post that references a rendered diagram
 
-- **WHEN** a publishable post references a diagram's raster render
+- **WHEN** a post intended for a draft references a diagram's raster render
 - **THEN** the conversion check reads that rendered image from the post's package
 - **AND** the image is in a media type the upload endpoints accept
 - **AND** the post's recorded outcome is the mapping contract, with no
@@ -117,7 +117,7 @@ unacceptable-image diagnostic.
 ### Requirement: Project registration
 
 The new project SHALL be registered everywhere the repository catalogs direct
-projects, so the project builds, publishes, and validates like its siblings.
+projects, so the project builds, tests, and validates like its siblings.
 
 #### Scenario: Register the project
 

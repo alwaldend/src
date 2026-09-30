@@ -1,0 +1,17 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "draft",
+    srcs = [
+        "artifact.go",
+        "credentials.go",
+        "draft.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_article_uploader/internal/draft",
+    visibility = ["//projects/x_article_uploader:__subpackages__"],
+    deps = [
+        "//projects/x_article_uploader/internal/draftjs",
+        "//projects/x_article_uploader/internal/markdown",
+        "//projects/x_article_uploader/internal/xapi",
+    ],
+)

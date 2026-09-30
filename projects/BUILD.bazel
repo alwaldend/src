@@ -27,6 +27,7 @@ al_release_binary(
                 "icon_generator",
                 "useless_qt_gui",
                 "renders",
+                "x_article_uploader",
             ],
         )
     ] + [],

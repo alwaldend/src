@@ -32,7 +32,7 @@ rather than producing a document that cannot be uploaded.
 
 The converter SHALL transform a Markdown source file into a X-compatible
 DraftJS `content_state` document containing a `blocks` array and an `entities`
-array. Conversion MUST be deterministic and MUST NOT perform network access.
+array of `{key, value}` entries. Conversion MUST be deterministic and MUST NOT perform network access.
 
 #### Scenario: Convert a post offline
 
@@ -44,6 +44,25 @@ array. Conversion MUST be deterministic and MUST NOT perform network access.
 
 - **WHEN** the same Markdown input and configuration are converted twice
 - **THEN** both outputs are byte-identical
+
+### Requirement: Articles wire shape
+
+The emitted document SHALL use the exact shape the Articles draft endpoint
+accepts, not the canonical DraftJS spelling. Each block SHALL name its ranges
+`inline_style_ranges` and `entity_ranges`, and MUST NOT carry a `depth` field,
+because the endpoint's schema sets `additionalProperties: false` and rejects
+both the camelCase range names and any `depth`. Each entry of `entities` SHALL
+be `{"key": "<index>", "value": {"type", "mutability", "data"}}`, matching the
+endpoint's schema rather than DraftJS's inline `entityMap`.
+
+#### Scenario: Emit the Articles field names
+
+- **WHEN** a document with inline styles, links, and a list is converted
+- **THEN** every block names its ranges `inline_style_ranges` and `entity_ranges`
+  and carries no `depth`
+- **AND** each entity is a `{key, value}` entry whose `value` carries `type`,
+  `mutability`, and `data`
+- **AND** no block or entity field falls outside the schema's allowed names
 
 ### Requirement: Heading level mapping
 
@@ -88,10 +107,45 @@ being merged into the parent item.
 - **THEN** the nested items are emitted as list-item blocks
 - **AND** no item's text contains the nested list's raw Markdown
 
+#### Scenario: Convert a list item with several paragraphs
+
+- **WHEN** a list item contains more than one paragraph, as a loose list does,
+  whether or not a block construct such as a nested list or a code block lies
+  between them
+- **THEN** the item becomes a single list-item block whose text carries all of
+  the item's paragraphs
+- **AND** the item's block constructs follow that block in source order
+- **AND** it does not become one block per paragraph, which DraftJS would read
+  as separate items and which would renumber an ordered list
+
+#### Scenario: Convert a block construct nested in a list item
+
+- **WHEN** a list item contains a block construct such as a fenced code block,
+  an indented code block, a table, or a thematic break
+- **THEN** the construct is emitted through the same block mapping it uses at
+  the top level, with its source preserved
+- **AND** its source is not silently dropped by walking only inline children
+
 #### Scenario: Convert a block quote
 
 - **WHEN** a post contains a block quote
 - **THEN** it becomes a `blockquote` block containing the quoted text
+
+#### Scenario: Convert a heading inside a block quote
+
+- **WHEN** a block quote contains a heading, as in `> # Warning`, whether
+  directly or through a nested list as in `> - # Warning`
+- **THEN** the heading text is emitted as a `blockquote` block, not an ordinary
+  heading outside the quote and not a list-item block that drops the quote
+- **AND** the lost heading level is reported, because X exposes no quoted-heading
+  block type
+
+#### Scenario: Preserve a line break
+
+- **WHEN** a paragraph contains a soft line break or a hard line break written
+  with two trailing spaces or a trailing backslash
+- **THEN** the block's text contains a newline at that break
+- **AND** the two lines are not joined into one word
 
 ### Requirement: Inline styles and link entities
 
@@ -119,6 +173,57 @@ JavaScript string.
 - **WHEN** a paragraph contains a Markdown link
 - **THEN** a `link` entity carrying the destination URL is added to `entities`
 - **AND** the enclosing block references it with an `entity_range` selecting the link text
+
+#### Scenario: Convert a link carrying a title
+
+- **WHEN** a Markdown link carries an optional title, as in
+  `[docs](https://example.test "Reference")`
+- **THEN** the entity cannot carry the title, so its loss is reported as a
+  continuing diagnostic naming the title and positioned at the link
+- **AND** the link's text and destination are still preserved
+
+#### Scenario: Convert an image carrying a title
+
+- **WHEN** a Markdown image carries an optional title
+- **THEN** its loss is reported as a continuing diagnostic naming the title and
+  positioned at the image
+- **AND** the image is still emitted as an `atomic` block
+
+#### Scenario: A titled construct has no text of its own
+
+- **WHEN** a titled link or image has an empty label or alt text, so the
+  construct has no text node to locate it
+- **THEN** the lost-title diagnostic is positioned at the construct's own
+  opening delimiter rather than at the start of the enclosing block
+- **AND** the reported source position still names the construct that produced
+  the loss
+
+#### Scenario: Convert an email autolink
+
+- **WHEN** a paragraph contains an email autolink such as `<user@example.com>`
+- **THEN** the `link` entity records it as `mailto:user@example.com`
+- **AND** the recorded URL is an email address rather than a relative link
+
+#### Scenario: A destination carries Markdown escapes or character references
+
+- **WHEN** a link or image destination escapes a punctuation character or uses a
+  character reference, as in `[x](https://example.test/a\(1\)?x=1&amp;y=2)`
+- **THEN** the recorded destination resolves those encodings to the URL the
+  author wrote
+- **AND** the recorded link or image target does not contain the literal
+  backslashes or unresolved entity
+
+#### Scenario: Prose carries Markdown escapes or character references
+
+- **WHEN** ordinary prose escapes a punctuation character or uses a character
+  reference, as in `\*literal\*` or `AT&amp;T`
+- **THEN** the emitted block text resolves those encodings to the characters the
+  author wrote rather than keeping the backslashes or the raw entity
+- **AND** a raw span such as a code span keeps its literal source, because its
+  encoding is its content
+- **AND** an image caption, which is flattened from its inline content, follows
+  the same rule: resolution applies to each non-raw descendant while a raw span
+  inside the caption keeps its literal source
 
 #### Scenario: Keep offsets correct for adjacent spans
 
@@ -154,6 +259,14 @@ table block or entity.
 - **AND** the entity payload preserves the table as Markdown with its rows and
   cell contents intact
 
+#### Scenario: Convert an indented code block
+
+- **WHEN** a post contains an indented code block immediately followed by a
+  non-indented paragraph
+- **THEN** the `markdown` entity payload contains only the code block's own lines
+- **AND** the following paragraph is emitted once, as its own block, rather than
+  being swallowed into the entity and repeated
+
 #### Scenario: Report the markdown payload budget
 
 - **WHEN** the total `markdown` entity payload for an article would exceed the
@@ -177,6 +290,12 @@ purpose, rather than being dropped as an unrecognized paragraph.
 - **THEN** the block's final text contains the span's literal text
 - **AND** conversion reports the lost code styling as a diagnostic
 
+#### Scenario: Convert a GFM task-list item
+
+- **WHEN** a post contains a task-list item
+- **THEN** the item's text keeps an indicator of its checkbox state
+- **AND** the checked state is not silently dropped
+
 #### Scenario: Convert a thematic break
 
 - **WHEN** a post contains a thematic break
@@ -197,6 +316,23 @@ reference SHALL become plain bracketed text, and each definition SHALL become an
 - **AND** a `Footnotes` heading is appended with each definition as an
   ordered list item
 
+#### Scenario: Preserve a structured footnote definition
+
+- **WHEN** a footnote definition contains multiple paragraphs or inline
+  formatting such as a link
+- **THEN** each definition paragraph becomes its own ordered list item rather
+  than being joined without a separator
+- **AND** inline entities such as links are preserved by the normal inline
+  mapper rather than flattened to plain text
+
+#### Scenario: Preserve a construct nested in a footnote definition
+
+- **WHEN** a footnote definition contains a nested list, block quote, fenced or
+  indented code block, table, or thematic break
+- **THEN** the construct is emitted through the block mapper with its content
+  preserved
+- **AND** it is not silently dropped
+
 #### Scenario: Convert a post without footnotes
 
 - **WHEN** a post contains no footnotes
@@ -213,13 +349,18 @@ silently emitting a broken article. Because the media endpoints accept only a
 fixed set of image media types that excludes `image/svg+xml`, the converter
 SHALL report an image whose media type the upload endpoints cannot accept, with
 its source position, rather than emitting an entity that publication can never
-resolve.
+resolve. The declared extension SHALL be accepted as the media type only when
+the file's bytes carry that format's own signature, so a file renamed to an
+accepted raster extension — even one accepted format renamed to another — is
+reported rather than sent to the upload endpoint.
 
 #### Scenario: Convert an inline image
 
 - **WHEN** a post contains an image with alt text
 - **THEN** it becomes an `atomic` block with an `image` entity
-- **AND** the entity preserves the alt text as its caption
+- **AND** the entity preserves the alt text as its caption, resolving Markdown
+  escapes and character references the way prose is resolved while a raw span
+  inside the alt text keeps its literal source
 
 #### Scenario: Publication has not yet resolved an image
 
@@ -232,6 +373,78 @@ resolve.
 - **WHEN** a post references an image whose media type the media upload endpoints do not accept
 - **THEN** the converter reports the image with its source position
 - **AND** it does not emit an entity that publication could never resolve
+
+#### Scenario: An image reference resolves outside the post directory
+
+- **WHEN** a post's image reference is a syntactically safe relative path whose
+  canonical target lies outside the post's directory, such as a symlink to a
+  file elsewhere
+- **THEN** the converter reports the image with its source position rather than
+  reading bytes outside the post boundary
+- **AND** it does not record a locator that publication would later reject, so a
+  converted artifact remains publishable
+
+#### Scenario: Image bytes do not match the declared extension
+
+- **WHEN** a post references an image whose bytes are not the format its extension declares
+- **THEN** the converter reports the image with its source position instead of treating it as the declared type
+- **AND** it does not emit an entity the upload endpoint would reject
+
+#### Scenario: An accepted format is renamed to another accepted extension
+
+- **WHEN** bytes of one accepted raster format carry the extension of a different accepted raster format
+- **THEN** the converter reports the mismatch rather than accepting the sniffed type
+- **AND** it does not fall back to another accepted media type
+
+#### Scenario: An image reference requires Markdown escaping
+
+- **WHEN** a local image reference names a file whose name needs Markdown
+  escaping, as in `![plot](plot\(final\).png)`
+- **THEN** the reference is resolved before filesystem lookup, so the file it
+  names is read rather than reported unreadable
+- **AND** the recorded locator names the resolved path
+
+#### Scenario: A symlink's target has a different extension than the reference
+
+- **WHEN** an image reference such as `image.png` is an in-directory symlink to a
+  file with a different raster extension, such as `actual.webp`
+- **THEN** the declared-extension check classifies the image by the reference the
+  author wrote, not by the canonical target's name
+- **AND** bytes that do not match the reference's declared format are reported
+  rather than accepted through the target's extension
+
+#### Scenario: An inline image splits a styled span
+
+- **WHEN** an inline image interrupts a styled or linked span
+- **THEN** the text before the image keeps its style or entity range
+- **AND** the text after the image keeps its style or entity range
+
+#### Scenario: A link wraps only an image
+
+- **WHEN** a Markdown image is the entire content of a link, as in
+  `[![alt](image.png)](target)`
+- **THEN** the image is still emitted as an `atomic` block with its `image`
+  entity
+- **AND** the lost destination is reported as a continuing diagnostic naming the
+  link target, because the link has no text span to carry it
+
+#### Scenario: A link wraps an image inside an inline wrapper
+
+- **WHEN** the link's only content is an image nested inside a style wrapper,
+  as in `[**![alt](image.png)**](target)`
+- **THEN** the enclosing link is found by ancestry rather than by immediate
+  parentage
+- **AND** the lost destination is still reported, because the link has no text
+  outside the image
+
+#### Scenario: A link carries text beside an image
+
+- **WHEN** a link contains non-whitespace text of its own in addition to an
+  image, as in `[label ![alt](image.png)](target)`
+- **THEN** the destination survives as a `link` entity over that text
+- **AND** the image, which still cannot carry the link, is reported as a
+  continuing diagnostic naming the destination, so the partial loss is not
+  hidden merely because sibling text kept the link
 
 #### Scenario: A post follows the raster-only policy
 
@@ -250,7 +463,13 @@ SHALL record a digest of the image bytes as they were at conversion time, so the
 artifact identifies both the image and the directory it resolves against.
 Publication SHALL be able to obtain the image bytes from the artifact alone,
 without re-parsing Markdown, and SHALL reject a locator that escapes the post's
-directory or whose current bytes do not match the recorded digest.
+directory or whose current bytes do not match the recorded digest. Conversion
+SHALL apply the same containment before it reads an image, so it neither
+inspects bytes outside the post boundary nor records a locator that publication
+would refuse. Both SHALL enforce containment by resolving the name through
+descriptor-anchored directory handles that reject a symlink escaping the root,
+rather than by checking a pathname and then re-opening it, so the object whose
+containment is checked is the object read.
 
 #### Scenario: Convert an image into the artifact
 
@@ -267,6 +486,57 @@ directory or whose current bytes do not match the recorded digest.
 - **AND** publication attaches each returned `media_id` to the entity its locator
   names rather than by position
 
+#### Scenario: Convert a source given by an absolute path
+
+- **WHEN** the conversion command is given an absolute `--source` and no
+  `--post-package`
+- **THEN** the recorded locator's package is relative to the workspace named by
+  `--workspace`, rather than the absolute source directory
+- **AND** the artifact remains publishable, because publication refuses an
+  absolute package rather than resolving it
+- **AND** the workspace root is the caller-supplied `--workspace` value and is
+  never re-discovered by walking the filesystem, so no repository marker found
+  through a link can be mistaken for it
+
+#### Scenario: A post directory is reached through a symlink
+
+- **WHEN** the derived package would name a post directory whose canonical
+  target, after resolving symlinks, lies outside the workspace root
+- **THEN** the conversion is refused with a directive to pass `--post-package`
+  explicitly, rather than recording a package the descriptor-anchored read
+  would resolve past and reject
+- **AND** an in-workspace symlink still records the relative package of the
+  canonical directory it resolves to, so the recorded package matches the
+  object publication reads
+- **AND** a link that points directly at another checkout's root, a link into
+  another tree beneath its root, and a post directory reached through an
+  intermediate symlink-component are all refused rather than recorded relative
+  to the external tree or collapsed to `.`
+- **AND** containment is established by opening the directory through a
+  descriptor-anchored handle on the workspace, so the no-symlink validation and
+  the directory accepted for the package are the same traversal and cannot be
+  separated by a writer swapping the directory for a link
+- **AND** image reads for the post go through that same handle rather than
+  re-opening the source pathname, so a symlink retargeted after validation
+  cannot make conversion read another tree's bytes while the artifact still
+  records the validated package
+
+#### Scenario: A post package is supplied explicitly
+
+- **WHEN** the conversion command is given `--post-package` rather than having
+  one derived
+- **THEN** the package is accepted only when the directory it opens to is the
+  post directory, compared by file identity rather than by pathname, because
+  publication resolves the locator paths against the package and a package
+  naming another directory would make publication read a different object than
+  conversion did
+- **AND** the post's images are read through the descriptor-anchored handle the
+  identity was checked on, so a package retargeted between the check and the
+  read cannot supply another tree's bytes while the locator still names the
+  supplied package
+- **AND** an absolute package, a package that escapes the workspace, or a
+  package naming a different directory than the post is refused
+
 #### Scenario: Resolve an image from the artifact
 
 - **WHEN** publication reads an unresolved image from the artifact
@@ -276,6 +546,15 @@ directory or whose current bytes do not match the recorded digest.
   when the artifact was moved elsewhere
 - **AND** it refuses a locator that escapes the post's directory or names bytes
   whose digest does not match the recorded one
+
+#### Scenario: A symlink changes after containment validation
+
+- **WHEN** a locator's path or its target is swapped for a symlink that leaves the
+  post directory after containment was established
+- **THEN** the read is refused rather than following the swapped symlink
+- **AND** a swapped symlink cannot redirect the read to a different file, because
+  the containment check and the read operate on the same descriptor rather than
+  on a re-opened pathname
 
 ### Requirement: Conversion diagnostics
 
@@ -294,8 +573,24 @@ one.
 - **THEN** it reports the construct with its source position
 - **AND** conversion fails rather than emitting a document that discards the content
 
+#### Scenario: Report continuing losses when conversion also fails
+
+- **WHEN** a source contains both a continuing loss and a failing construct, such
+  as an inline-code span and an unacceptable image
+- **THEN** the continuing diagnostic is reported alongside the failing one
+  rather than being discarded with the returned error
+- **AND** the author sees every detected loss in one run
+
 #### Scenario: Encounter a construct whose formatting is lost
 
 - **WHEN** the converter preserves a construct's content but cannot reproduce its formatting
 - **THEN** it reports the lost formatting with its source position
 - **AND** conversion still completes with the content present
+
+#### Scenario: Report a position after a multi-byte character
+
+- **WHEN** a diagnostic's construct follows a multi-byte character on the same
+  line
+- **THEN** the reported column counts source characters rather than bytes, so it
+  names the position an editor shows
+- **AND** the byte offset is still recorded for slicing the source

@@ -15,7 +15,9 @@ paint-order pass, and the same hermetic inputs.
 ## What Changes
 
 - Add a `mermaid_webp` rule beside `mermaid_svg` that renders a diagram source
-  to a WebP image.
+  to a WebP image; the rule renders the maintained SVG and encodes it through
+  the pinned browser, at the diagram's natural size scaled by its `scale`
+  attribute.
 - Keep the maintained appearance, pinned browser and fonts, and the paint-order
   pass unchanged between the two formats, so one diagram has one appearance.
 - Encode WebP through the pinned browser rather than adding an image-conversion

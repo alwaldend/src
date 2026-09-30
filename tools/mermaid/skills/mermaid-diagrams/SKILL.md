@@ -2,9 +2,10 @@
 name: mermaid-diagrams
 description: >-
   Write and render Mermaid diagrams in this repository with the checked-in
-  theme, hermetic Bazel rendering, and the maintained `mermaid_svg` rule. Use
-  when adding or editing a diagram source, or wiring a rendered diagram into a
-  build consumer; do not use to redesign the shared theme.
+  theme, hermetic Bazel rendering, and the maintained `mermaid_svg` and
+  `mermaid_webp` rules. Use when adding or editing a diagram source, or wiring
+  a rendered diagram into a build consumer; do not use to redesign the shared
+  theme.
 ---
 
 # Write repository diagrams
@@ -57,6 +58,38 @@ the same render under their respective URLs.
 
 Other consumers that cannot consume a Bazel target may also use a checked-in
 projection through `write_source_files`; document the reason in the package.
+
+## Render a raster for a service upload
+
+A consumer that uploads the image to a service may need a raster, because some
+upload endpoints accept only a fixed set of image media types that excludes
+`image/svg+xml`. The X Articles media upload endpoints, for example, accept a
+fixed raster set that `projects/x_article_uploader/README.md` owns and enumerates;
+`mermaid_webp` produces `image/webp`, which is in that set. Declare a
+`mermaid_webp` action beside the SVG render:
+
+```starlark
+load("//tools/mermaid:defs.bzl", "mermaid_webp")
+
+mermaid_webp(
+    name = "rendered_webp",
+    src = "architecture.mmd",
+    out = "rendered/architecture.webp",
+)
+```
+
+The rule reuses the maintained render contract — the shared theme, the pinned
+browser and fonts, and the paint-order pass — and has the pinned browser encode
+the WebP, so there is no second appearance and no image-conversion toolchain.
+The raster is authored at the diagram's natural size and scaled by the rule's
+`scale` (default `2`). There is no `plain` raster: a comparison render is what
+the SVG rule's `plain` opt-out is for.
+
+For a consumer that keeps the image as a checked-in asset, copy the rule output
+into the package with `write_source_files` instead of committing a hand-made
+raster, so the asset can be regenerated and compared against a fresh render.
+The `.mmd` source stays authoritative. A blog post that is intended for
+syndication references the raster render beside `index.md` rather than the SVG.
 
 ## Default to Dagre and `flowchart LR`
 

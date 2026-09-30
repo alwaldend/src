@@ -1,0 +1,21 @@
+load("@rules_go//go:def.bzl", "go_binary", "go_library", "go_test")
+
+go_library(
+    name = "convert_lib",
+    srcs = ["main.go"],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_article_uploader/cmd/convert",
+    visibility = ["//visibility:private"],
+    deps = ["//projects/x_article_uploader/internal/markdown"],
+)
+
+go_binary(
+    name = "convert",
+    embed = [":convert_lib"],
+    visibility = ["//projects/x_article_uploader:__subpackages__"],
+)
+
+go_test(
+    name = "convert_test",
+    srcs = ["main_test.go"],
+    embed = [":convert_lib"],
+)

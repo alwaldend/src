@@ -2,24 +2,25 @@
 
 Blog posts live as Markdown under `projects/alwaldend.com/content/blog/*/index.md`,
 but X Articles has no Markdown import. Its `POST /2/articles/draft` endpoint
-accepts only a DraftJS `content_state`, and `POST /2/articles/{id}/publish`
-requires an authenticated call. Republishing a post by hand means re-creating
-its structure, inline styles, links, and code blocks in X's editor.
+accepts only a DraftJS `content_state` and requires an authenticated call.
+Republishing a post by hand means re-creating its structure, inline styles,
+links, and code blocks in X's editor.
 
-A deterministic converter plus an authenticated publisher turns each post into a
-reviewable draft, so the same Markdown that renders the site also produces the
-article body, and a published article stays traceable to the revision it came
-from.
+A deterministic converter plus an authenticated draft command turns each post
+into a reviewable draft, so the same Markdown that renders the site also
+produces the article body. The uploader creates drafts only, so a separate
+review step in X is what makes an article public.
 
 ## What Changes
 
 - Add `projects/x_article_uploader`, a Go project that compiles a Markdown post
-  into a DraftJS `content_state` document and can publish it to X Articles.
-- Split conversion from publication: conversion is offline and hermetic;
-  publication is the only path that performs network calls and requires
+  into a DraftJS `content_state` document and creates an X Article draft.
+- Split conversion from draft creation: conversion is offline and hermetic;
+  draft creation is the only path that performs network calls and requires
   credentials.
-- Add an explicit publish step. Creating a draft and publishing it are
-  separate operations, so a draft can be reviewed before it becomes a post.
+- Create drafts only. The uploader calls no publish endpoint and exposes no
+  publish operation, so a draft becomes public only through a separate review
+  step in X.
 - Treat a source post as front matter plus body: the parsed title is carried
   alongside the document, because draft creation requires a title that
   `content_state` does not hold.
@@ -32,7 +33,7 @@ from.
   rely on and matches the parser family Hugo renders with.
 - Adopt a raster-only image policy for posts from now on, and add a
   `mermaid_webp` rule that rasterizes a Mermaid diagram into a media type the
-  upload endpoints accept, so a post with diagrams can be published instead of
+  upload endpoints accept, so a post with diagrams can be drafted instead of
   only reported as unconvertible.
 - Add Bazel targets for the library, both binaries, and hermetic tests over the
   real blog posts, plus the OpenSpec workspace and project declarations for the
@@ -46,10 +47,12 @@ from.
 - `markdown-to-draftjs`: Compile a blog post's Markdown body into a
   X-compatible DraftJS `content_state` document and report its parsed title,
   deterministically and without network access.
-- `x-article-publication`: Create and publish X Articles drafts using the X
-  API, including uploading referenced images and resolving their `media_id`.
+- `x-article-publication`: Create X Article drafts using the X API, including
+  uploading referenced images and resolving their `media_id`. Drafts only; no
+  publication.
 - `x-article-uploader-build`: Bazel targets, tests, and project declarations
-  that build the converter and publisher hermetically from pinned dependencies.
+  that build the converter and draft command hermetically from pinned
+  dependencies.
 
 ### Modified Capabilities
 

@@ -16,9 +16,20 @@ Checked-in declarations SHALL contain secret references only.
 
 ### Requirement: Least-privilege access to the publication credential
 
-The identity's policy SHALL grant read access to the uploader's own credential
-path and SHALL NOT grant access to another component's secrets. The credential
-value SHALL live in Vault, and the checked-in source SHALL reference it by path.
+The identity's policy SHALL grant access to the uploader's own credential path
+and SHALL NOT grant access to another component's secrets. The credential value
+SHALL live in Vault under the identity's own AppRole subtree, read through the
+shared module's own-subtree policy, and the checked-in source SHALL reference it
+by mount and path only.
+
+#### Scenario: Reference the credential by path
+
+- **WHEN** the credential mount and its logical path are evaluated for the
+  injected reference
+- **THEN** the checked-in source names the mount and the path and no credential
+  value, so no secret enters source
+- **AND** the path lies inside the identity's own AppRole subtree, so the shared
+  module's own-subtree policy grants the read
 
 #### Scenario: Read the publication credential
 
@@ -34,13 +45,15 @@ value SHALL live in Vault, and the checked-in source SHALL reference it by path.
 
 ### Requirement: Injected credential reference
 
-The injected reference SHALL name exactly one environment variable for the
-publication credential, and this identity's configuration SHALL declare that
-variable by name. The reference SHALL be what checked-in configuration carries;
-no credential value enters source.
+The publication credential is an OAuth 1.0a user-context credential, which
+requires four fields: the API key, the API secret, the access token, and the
+access token secret. The injected reference SHALL name one environment variable
+per field, and this identity's configuration SHALL declare those variables by
+name. The references, not the values, are what checked-in configuration
+carries; no credential value enters source.
 
 #### Scenario: Inject the credential at run time
 
 - **WHEN** the uploader's injection runs
-- **THEN** the credential is placed in the named environment variable
+- **THEN** each of the four credential fields is placed in its named environment variable
 - **AND** the reference, not the value, is what checked-in configuration names

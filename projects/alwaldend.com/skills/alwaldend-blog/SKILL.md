@@ -62,6 +62,41 @@ Put any images or other resources the post references beside `index.md` in the
 same directory, and reference them by bare relative path, such as
 `![diagram](diagram.png)`. Do not place them in `static/`.
 
+## Use a media type a syndication target accepts
+
+A post may later be republished to a service from the same Markdown, so use an
+image media type a syndication target accepts. The X Articles media upload
+endpoints, the target the uploader publishes to, accept a fixed raster set that
+excludes `image/svg+xml`. `projects/x_article_uploader/README.md` owns that set
+and is the authority; read it rather than repeating the list here. A post
+intended for syndication therefore must not reference an SVG.
+
+A Mermaid diagram in such a post is referenced through a raster render beside
+`index.md`, produced by the repository's Mermaid pipeline rather than
+hand-committed:
+
+```starlark
+load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
+load("//tools/mermaid:defs.bzl", "mermaid_webp")
+
+mermaid_webp(
+    name = "diagram_webp",
+    src = "diagram.mmd",
+    out = "rendered/diagram.webp",
+)
+
+write_source_files(
+    name = "update",
+    files = {"diagram.webp": ":diagram_webp"},
+)
+```
+
+Then reference `![diagram](diagram.webp)` from `index.md`. The `.mmd` source
+stays authoritative; run the `update` target rather than editing the raster.
+The `mermaid-diagrams` skill owns the render rule's details. A post that is not
+intended for syndication may keep the SVG render the section already publishes,
+and no existing post has to change its image references.
+
 Declare the package in `BUILD.bazel`:
 
 ```starlark

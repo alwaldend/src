@@ -5,11 +5,12 @@ import { renderNative } from "./native.mjs";
 import { embedFont } from "./embed_font.mjs";
 import { writeFontConfig } from "./fontconfig.mjs";
 import { liftClusterLabels } from "./paint_order.mjs";
+import { renderWebp } from "./raster.mjs";
 
 // Switches carry no value; every other flag may be repeated, and every
 // occurrence accumulates so one flag can carry a list of inputs, such as
 // several pinned font files.
-const switches = new Set(["plain", "native"]);
+const switches = new Set(["plain", "native", "raster"]);
 
 const parseFlags = (argv) => {
     const flags = {};
@@ -93,7 +94,42 @@ try {
                   },
               }),
     };
-    if (flags.native) {
+    if (flags.raster) {
+        for (const required of ["font"])
+            if (!flags[required])
+                throw new Error(`Missing required flag --${required}`);
+        if (plain)
+            throw new Error("A raster render requires the maintained theme");
+        // A raster render is a projection of the maintained SVG: render the
+        // themed document first, apply the same paint-order and font
+        // post-processing a plain SVG render applies, then let the pinned
+        // browser encode it. No second appearance is introduced. The SVG is
+        // scratch, not a declared output, so it lives in the render scratch.
+        const svgPath = path.join(scratch, "raster.svg");
+        await run(input, svgPath, {
+            puppeteerConfig,
+            parseMMDOptions: {
+                backgroundColor: flags.background ?? "white",
+                ...(mermaidConfig === undefined ? {} : { mermaidConfig }),
+                viewport: { width: 800, height: 600, deviceScaleFactor: 1 },
+            },
+        });
+        const rendered = await fs.readFile(svgPath, "utf8");
+        await fs.writeFile(
+            svgPath,
+            embedFont(
+                liftClusterLabels(rendered),
+                await fs.readFile(embedFontFile),
+            ),
+        );
+        await renderWebp({
+            svgPath,
+            output,
+            puppeteerConfig,
+            deviceScaleFactor:
+                flags.scale === undefined ? 2 : Number(flags.scale),
+        });
+    } else if (flags.native) {
         for (const required of ["palette", "dark-output", "font"])
             if (!flags[required])
                 throw new Error(`Missing required flag --${required}`);

@@ -1,0 +1,12 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "xapi",
+    srcs = [
+        "client.go",
+        "oauth1.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/x_article_uploader/internal/xapi",
+    visibility = ["//projects/x_article_uploader:__subpackages__"],
+    deps = ["//projects/x_article_uploader/internal/draftjs"],
+)
