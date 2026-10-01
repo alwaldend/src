@@ -68,6 +68,22 @@
         pinned fonts, and paint-order fix as mermaid_svg, and still verifies a
         maintained diagram through its mermaid_svg target before handoff.
         Otherwise fail.
+- description: Uses the site's native palette for a raster social image
+  vars:
+    request: >-
+      Make this blog diagram a WebP for syndication and a social preview,
+      matching alwaldend.com's dark native Mermaid styling. Keep historical blog
+      diagrams unchanged.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response uses mermaid_site_webp from the site's
+        pkg/mermaid/defs.bzl with color_scheme = "dark", preserves the authoritative
+        .mmd and generated
+        checked-in blog asset, and keeps the historical rendering default
+        unchanged. It must not introduce a hand-edited raster, diagram-local
+        themeCSS, or an external image-conversion dependency. Otherwise fail.
 - description: Checks container containment in the render
   vars:
     request: >-

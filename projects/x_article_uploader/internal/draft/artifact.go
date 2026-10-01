@@ -17,6 +17,7 @@ type Artifact struct {
 	Title       string                  `json:"title"`
 	Document    map[string]any          `json:"content_state"`
 	Locators    []markdown.ImageLocator `json:"image_locators"`
+	Banner      *markdown.ImageSource   `json:"banner_locator,omitempty"`
 	Diagnostics []markdown.Diagnostic   `json:"diagnostics"`
 }
 
@@ -46,7 +47,7 @@ func ReadArtifact(path string) (*Artifact, error) {
 // the canonical target for a symlink after a check cannot redirect the read,
 // because no pathname is re-opened between the check and the read. The returned
 // path is still the canonical target the read resolved to.
-func ImageBytes(locator markdown.ImageLocator, workspaceRoot string) ([]byte, string, error) {
+func ImageBytes(locator markdown.ImageSource, workspaceRoot string) ([]byte, string, error) {
 	packagePath := filepath.FromSlash(locator.PostPackage)
 	if filepath.IsAbs(packagePath) {
 		return nil, "", fmt.Errorf("locator records absolute post package %q", locator.PostPackage)
@@ -80,6 +81,9 @@ func ImageBytes(locator markdown.ImageLocator, workspaceRoot string) ([]byte, st
 	digest := hex.EncodeToString(sum[:])
 	if digest != locator.Digest {
 		return nil, "", fmt.Errorf("image %q digest %s does not match the artifact's %s", locator.Path, digest, locator.Digest)
+	}
+	if err := markdown.ValidateImageType(locator.Path, content, locator.MediaType); err != nil {
+		return nil, "", fmt.Errorf("validate image %q: %w", locator.Path, err)
 	}
 	// The returned path is informational only: the bytes above were read through
 	// the root, so the read never depended on this pathname. It is still

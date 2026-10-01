@@ -3,6 +3,8 @@ title: This X Article was generated from markdown
 linkTitle: This X Article was generated from markdown
 date: 2026-09-30
 description: A tour of the elements the X Articles endpoint accepts, exercised by the uploader's own conversion path
+images:
+  - pipeline.webp
 tags:
   - x
   - markdown

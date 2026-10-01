@@ -3,6 +3,8 @@ title: Diagrams in the AC (After Clanker) era
 linkTitle: Diagrams in the AC (After Clanker) era
 date: 2026-09-18
 description: Replacing Drawio diagrams with Mermaid diagrams
+images:
+  - drawio-to-mermaid.webp
 tags:
   - mermaid
   - drawio

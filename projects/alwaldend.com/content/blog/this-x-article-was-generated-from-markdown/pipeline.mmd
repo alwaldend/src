@@ -1,4 +1,12 @@
+%%{init: {"flowchart": {"diagramPadding": 24}}}%%
 flowchart LR
-    md[Markdown post] -->|convert| cs[DraftJS content_state]
-    cs -->|draft| x[X Article draft]
-    x -->|review| pub[Published article]
+    subgraph offline[Offline conversion]
+        direction TB
+        md[Markdown] --> artifact["Draft artifact<br/>text + image references"]
+    end
+    subgraph draft[Draft creation]
+        direction TB
+        media["Upload images to X<br/>or reuse cached media IDs"] --> attach["Attach media IDs<br/>to banner + body"]
+        attach -->|create draft| x[X Article draft]
+    end
+    offline --> draft

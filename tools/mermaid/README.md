@@ -225,7 +225,9 @@ preset uses basis curves and `flowchart.edgeSpacing`; the
 [pinned dependency patch](../../third_party/com_github_mermaid_js_mermaid/README.md)
 passes the latter through to Dagre before layout, including nested subgraphs.
 
-Native mode requires a `palette` CSS input and `dark_out` SVG output. The
+Native mode requires a `palette` CSS input. `mermaid_svg` also requires a
+`dark_out` SVG output; `mermaid_webp` encodes the selected `color_scheme`
+(`light` by default, or `dark`). The
 stylesheet exposes `--mermaid-*` custom properties named after Mermaid theme
 variables. Chrome resolves them in light and dark media, and the renderer
 passes the resulting values to Mermaid's native configuration and exposes the
@@ -256,11 +258,21 @@ mermaid_webp(
 )
 ```
 
-The rule is a projection of the `mermaid_svg` document, not a second
-appearance. It renders the themed SVG first — same shared theme, same pinned
-browser and fonts, same paint-order pass — then has the pinned browser encode
-that document to WebP. Encoding therefore stays inside the hermetic graph and
-adds no image-conversion dependency. The raster is authored at the diagram's
+The rule projects the `mermaid_svg` document to a raster. By default it renders
+the historical themed SVG first — same shared theme, same pinned browser and
+fonts, same paint-order pass — then has the pinned browser encode that document
+to WebP. Set `native = True` and pass the same `palette`, `theme`, and
+`label_font` as a native SVG target to encode that target's appearance.
+Set `color_scheme = "dark"` for its dark appearance; the default remains
+`"light"`. Native rendering reads the palette's selected media values, embeds
+the selected font through Mermaid's CSS input, and sends the returned SVG straight to the
+existing encoder without SVG post-processing. `native` and `palette` must be
+set together; selecting `"dark"` requires native rendering. The site macro
+`mermaid_site_webp` accepts the same `color_scheme` option. A WebP carries one
+fixed appearance for page embeds, social cards, and service uploads.
+
+Encoding stays inside the hermetic graph and adds no image-conversion
+dependency. The raster is authored at the diagram's
 natural size and scaled by the rule's `scale` (default `2`), so a node-sized
 diagram still carries crisp text when a consumer re-encodes it. A raster render
 always uses the maintained appearance; it has no `plain` opt-out, because a
@@ -284,6 +296,11 @@ nodes, which is the paint order `cmd/render/paint_order.mjs` produces and the
 property that keeps an edge from drawing over a title. The same package renders
 a WebP fixture and asserts the raster reproduces the SVG canvas at the rule's
 scale, so a raster that stopped following the maintained document fails there.
+`test/renderer/native_raster_test.mjs` compares light and dark native WebPs with
+their separately built SVGs, checks each selected site palette, visible label
+pixels, and the embedded sans-serif font, and verifies unchanged scaled canvas
+geometry. The test saves each reference and actual image and a JSON measurement
+report in its undeclared outputs for repeatable inspection.
 `cmd/mmdc/mmdc_test.go`
 drives the interactive CLI and re-renders under a Fontconfig pointed at a
 monospace-only pool; a byte-identical result shows the CLI resolved text

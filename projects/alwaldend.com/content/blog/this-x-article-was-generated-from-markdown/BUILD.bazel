@@ -1,15 +1,16 @@
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/mermaid:defs.bzl", "mermaid_webp")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_webp")
 
 # The post is intended for syndication to X, whose media upload endpoints
 # accept no SVG, so the diagram is referenced through its raster render beside
 # index.md. The .mmd stays authoritative and is copied in through `update`.
 
-mermaid_webp(
+mermaid_site_webp(
     name = "pipeline_webp",
     src = "pipeline.mmd",
     out = "rendered/pipeline.webp",
+    color_scheme = "dark",
 )
 
 write_source_files(

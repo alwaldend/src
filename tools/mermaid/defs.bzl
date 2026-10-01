@@ -152,6 +152,12 @@ def _mermaid_webp_impl(ctx):
 
     if not output.basename.endswith(".webp"):
         fail("out must name a .webp file, got: {}".format(output.basename))
+    if ctx.attr.native and not ctx.file.palette:
+        fail("native rendering requires a palette")
+    if not ctx.attr.native and ctx.file.palette:
+        fail("palette requires native rendering")
+    if not ctx.attr.native and ctx.attr.color_scheme != "light":
+        fail("a dark color_scheme requires native rendering")
 
     label_font = ctx.file.label_font or ctx.file._label_font
 
@@ -164,6 +170,10 @@ def _mermaid_webp_impl(ctx):
     args.add("--scale", str(ctx.attr.scale))
     args.add("--config", theme.path)
     args.add("--font", label_font.path)
+    if ctx.attr.native:
+        args.add("--native")
+        args.add("--palette", ctx.file.palette.path)
+        args.add("--color-scheme", ctx.attr.color_scheme)
 
     # The render exposes exactly these directories to Chrome through
     # Fontconfig, so no family resolves from the host. Every file in an
@@ -176,6 +186,10 @@ def _mermaid_webp_impl(ctx):
     for directory in font_directories:
         args.add("--font-directory", directory)
 
+    inputs = [source, theme] + ctx.files._body_fonts + ctx.files._label_fonts + [label_font]
+    if ctx.file.palette:
+        inputs.append(ctx.file.palette)
+
     ctx.actions.run(
         arguments = [args],
         env = {
@@ -184,7 +198,7 @@ def _mermaid_webp_impl(ctx):
             "JS_BINARY__NO_CD_BINDIR": "1",
         },
         executable = ctx.executable._render,
-        inputs = [source, theme] + ctx.files._body_fonts + ctx.files._label_fonts + [label_font],
+        inputs = inputs,
         mnemonic = "MermaidWebp",
         outputs = [output],
         progress_message = "Rendering Mermaid WebP %{label}",
@@ -216,6 +230,19 @@ mermaid_webp = rule(
             doc = "Raster scale factor. The image is authored at the " +
                   "diagram's natural size and scaled by this factor, so a " +
                   "node-sized diagram still carries crisp text.",
+        ),
+        "native": attr.bool(
+            default = False,
+            doc = "Encode a native SVG using the consumer's palette without SVG post-processing.",
+        ),
+        "color_scheme": attr.string(
+            default = "light",
+            values = ["light", "dark"],
+            doc = "Color scheme selected from the native palette; dark requires native rendering.",
+        ),
+        "palette": attr.label(
+            allow_single_file = [".css"],
+            doc = "Stylesheet exposing --mermaid-* theme variables; requires native rendering.",
         ),
         "theme": attr.label(
             allow_single_file = [".json"],

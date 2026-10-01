@@ -1,9 +1,9 @@
 load("@aspect_bazel_lib//lib:write_source_files.bzl", "write_source_files")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
-load("//tools/mermaid:defs.bzl", "mermaid_svg")
+load("//tools/mermaid:defs.bzl", "mermaid_svg", "mermaid_webp")
 
 # A blog post is content, so its images are source beside index.md rather than
-# build outputs published from another package. Each SVG below is still
+# build outputs published from another package. Each image below is still
 # rendered hermetically from the .mmd that owns it, and checked in through
 # `bazel run //projects/alwaldend.com/content/blog/diagrams-in-ac-era:update`.
 
@@ -11,6 +11,12 @@ mermaid_svg(
     name = "drawio_to_mermaid",
     src = "drawio-to-mermaid.mmd",
     out = "rendered/drawio-to-mermaid.svg",
+)
+
+mermaid_webp(
+    name = "drawio_to_mermaid_webp",
+    src = "drawio-to-mermaid.mmd",
+    out = "rendered/drawio-to-mermaid.webp",
 )
 
 # The post contrasts Mermaid's own appearance with the repository theme, so it
@@ -41,6 +47,7 @@ write_source_files(
     name = "update",
     files = {
         "drawio-to-mermaid.svg": ":drawio_to_mermaid",
+        "drawio-to-mermaid.webp": ":drawio_to_mermaid_webp",
         "container-example-default.svg": ":container_example_default",
         "container-example.svg": ":container_example",
         "container-example-architecture.svg": ":container_example_architecture",

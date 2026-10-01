@@ -76,16 +76,29 @@ type draftResponse struct {
 	Data Draft `json:"data"`
 }
 
-// CreateDraft sends the title and content_state to the draft endpoint. It does
-// not publish anything.
-func (c *Client) CreateDraft(title string, contentState any) (*Draft, error) {
-	if strings.TrimSpace(title) == "" {
+// CoverMedia references an image already uploaded through the media endpoint.
+type CoverMedia struct {
+	MediaCategory string `json:"media_category"`
+	MediaID       string `json:"media_id"`
+}
+
+// DraftRequest is the draft endpoint's payload. A banner is optional and stays
+// separate from the body document's image entities.
+type DraftRequest struct {
+	Title        string      `json:"title"`
+	ContentState any         `json:"content_state"`
+	CoverMedia   *CoverMedia `json:"cover_media,omitempty"`
+}
+
+// CreateDraft sends the title, content_state, and optional cover_media to the
+// draft endpoint. It does not publish anything.
+func (c *Client) CreateDraft(request DraftRequest) (*Draft, error) {
+	if strings.TrimSpace(request.Title) == "" {
 		return nil, fmt.Errorf("create draft: the artifact carries no parsed title")
 	}
-	payload := map[string]any{"title": title, "content_state": contentState}
 	var envelope draftResponse
-	if err := c.doJSON(http.MethodPost, "/articles/draft", payload, &envelope); err != nil {
-		return nil, err
+	if err := c.doJSON(http.MethodPost, "/articles/draft", request, &envelope); err != nil {
+		return nil, fmt.Errorf("send draft request: %w", err)
 	}
 	if strings.TrimSpace(envelope.Data.ID) == "" {
 		return nil, fmt.Errorf("create draft: the API returned no draft id")
