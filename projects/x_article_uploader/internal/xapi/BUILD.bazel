@@ -5,6 +5,7 @@ go_library(
     srcs = [
         "client.go",
         "oauth1.go",
+        "rate_limits.go",
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/x_article_uploader/internal/xapi",
     visibility = ["//projects/x_article_uploader:__subpackages__"],

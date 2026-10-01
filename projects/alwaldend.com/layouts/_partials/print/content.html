@@ -1,13 +1,23 @@
 {{ $tpl := printf "print/content-%s.html" .Page.Type }}
+{{ $blog := eq .Page.Type "blog" }}
 
-{{ if templates.Exists (printf "_partials/%s" $tpl) }}
+{{ if and (not $blog) (templates.Exists (printf "_partials/%s" $tpl)) }}
   {{ partial $tpl . }}
 {{ else -}}
 {{ $break := cond .DoPageBreak "page-break-before: always" "" -}}
 <div class="td-content" style="{{ $break }}">
     {{ $break := cond .DoPageBreak "page-break-before: always" "" }}
-	<h1 id="pg-{{ .Page.File.UniqueID }}">{{ .PageNum }} - {{ .Page.Title }}</h1>
+	<h1 id="pg-{{ .Page.File.UniqueID }}">{{ if not $blog }}{{ .PageNum }} - {{ end }}{{ .Page.Title }}</h1>
     {{ with .Page.Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
+	{{ if $blog }}
+		{{ with .Page }}
+			<div class="td-byline mb-4">
+				{{ with .Params.author }}{{ T "post_byline_by" }} <b>{{ . | markdownify }}</b> |{{ end }}
+				{{ with .Date }}<time datetime="{{ .Format "2006-01-02" }}" class="text-body-secondary">{{ .Format $.Page.Site.Params.time_format_blog }}</time>{{ end }}
+			</div>
+			{{ partial "alwaldend/blog-images.html" . }}
+		{{ end }}
+	{{ end }}
 	{{ partial "alwaldend/print-content.html" .Page }}
 </div>
 {{ end }}

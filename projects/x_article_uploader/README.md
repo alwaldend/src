@@ -39,9 +39,13 @@ banner. It must name a supported raster image relative to the post package;
 remote URLs, missing files, and references outside the package fail offline
 conversion. Later entries do not become additional banners. Conversion records
 the selected image in an optional `banner_locator` with its path, post package,
-media type, and content digest. It does not add a body image for the banner:
-an existing Markdown image remains in the body, including when it references
-the same file. Posts and older artifacts without a banner remain supported.
+media type, and content digest. It does not add a body image for the banner.
+
+Every explicit Markdown image remains in the article body, including opening
+images and repetitions of the selected banner. Front matter `images` selects
+the banner independently: it neither inserts nor removes body images. Identical
+banner and body bytes still share one media upload. Posts and older artifacts
+without a banner remain supported.
 
 Markdown maps onto the vocabulary the API exposes:
 
@@ -54,7 +58,7 @@ Markdown maps onto the vocabulary the API exposes:
   matching how the document is interpreted as a JavaScript string. A link or
   image destination resolves the Markdown escapes and character references the
   source may carry, so the recorded URL or path is the one the author wrote.
-- Fenced code and tables become `atomic` blocks backed by a `markdown` entity
+- Fenced code and tables become `atomic` blocks backed by a mutable `markdown` entity
   that preserves the original Markdown, because X has no table block or entity.
 - Footnotes become a trailing `Footnotes` heading with each definition as an
   ordered list item.
@@ -69,7 +73,7 @@ Markdown maps onto the vocabulary the API exposes:
   so the outcome does not depend on whether unrelated sibling text happens to
   exist. A link or image title has no place in the entity `data` object, so its
   loss is reported the same way.
-- Each image becomes an `atomic` block with an unresolved `image` entity. Its
+- Each body image becomes an `atomic` block with an unresolved `image` entity. Its
   source travels beside the document as a locator, because the entity's `data`
   object rejects additional properties. An image whose media type the upload
   endpoints reject is reported instead of being emitted as an entity publication
@@ -77,14 +81,34 @@ Markdown maps onto the vocabulary the API exposes:
 
 ### Accepted image media types
 
-This project owns the set of image media types the X media upload endpoints
-accept, because it is the component that talks to them. The accepted set is
-`image/jpeg`, `image/gif`, `image/bmp`, `image/png`, `image/webp`,
-`image/pjpeg`, and `image/tiff`; `image/svg+xml` is not among them. A post
-intended for publication therefore must not reference an SVG. Authoring
-guidance for blog posts and Mermaid diagrams points at this list rather than
-repeating it, so a change in X's support is made in the uploader's
-`internal/markdown/image.go` and read from here.
+The uploader supports static `image/jpeg`, `image/png`, `image/gif`, and
+`image/webp` files no larger than 5,000,000 bytes, matching the documented
+[simple-image upload formats and limit](https://docs.x.com/x-api/media/quickstart/best-practices).
+Animated GIF, APNG, and WebP are refused explicitly; this tool does not implement
+the separate animated-media upload contract. BMP, TIFF, PJPEG, and SVG are not
+supported by this uploader. The initialize endpoint's broader MIME enumeration
+does not establish support in the simple-upload path used here.
+
+Conversion and draft preflight apply the same checks to banners and body images.
+JPEG, PNG, and GIF are decoded; WebP receives RIFF container, chunk, frame-header,
+and dimension validation, not full pixel decoding. A separate local limit of
+32,000,000 pixels bounds decoder memory use; this is a tool resource guard,
+not a claimed X limit. File extensions must match the detected format.
+Authoring guidance points at this section rather than repeating the contract;
+the implementation is owned by `internal/markdown/image.go`.
+
+### Markdown payload budget
+
+[X's schema](https://docs.x.com/x-api/articles/create-draft-article) documents a
+10,000 weighted-length limit for Markdown entities per article,
+but does not publish an Articles-specific weighting algorithm. Conversion uses
+a conservative estimate with a local budget of 9,500: NFC-normalized text for
+counting, the [published X codepoint weights](https://github.com/twitter/twitter-text/blob/master/config/v3.json),
+separate weights for emoji components, and at least 23 units for each plausible
+dotted domain fragment. Other characters are counted normally. The original
+Markdown payload is preserved unchanged. This can reject some content X would
+accept and is not a guarantee of equivalence to its backend validator. An
+over-budget diagnostic reports the estimate and the local budget.
 
 Conversion distinguishes two outcomes and never silently drops content: a
 construct whose content survives with lost formatting is reported and
@@ -101,12 +125,21 @@ resolving the name through descriptor-anchored directory handles that reject a
 symlink escaping the root, so the checked object is the object read and a
 swapped symlink cannot redirect it. For body images, the returned `media_id` lands
 on the entity the locator names, not by position. Identical bytes reuse one
-identifier within a run and across a later run through a digest-to-`media_id`
-cache under the task's ignored output directory; each entry records the lifetime
-the upload endpoint reported, so an identifier that X has since dropped is
-uploaded again rather than reused. The cache holds identifiers, digests, and
-expiries only, never credential material. Banner and body images use this same
-cache, so identical bytes need only one upload even when both reference them.
+identifier within a resolution and, when its lifetime is known, across later
+runs through a versioned cache under the task's ignored output directory.
+Persistent reuse is scoped to a one-way fingerprint of the API endpoint, media
+category, and all four OAuth credential fields. Changing accounts or rotating
+credentials therefore causes a cache miss without an extra identity request.
+Unscoped legacy entries are not trusted. The cache contains identifiers,
+digests, expiries, and opaque scope fingerprints, never credential values.
+
+Known lifetimes are anchored before the upload request, so upload and processing
+time cannot extend them, and reserve 30 seconds for submission. Media that
+expires while other files upload is refused before draft creation, including a
+later duplicate of an earlier image; it is not uploaded again mid-resolution. Missing or
+zero lifetime permits deduplication only within the current resolution; negative
+or already unusable lifetimes fail. Banner and body images share the cache, so
+identical bytes need only one upload within that resolution.
 All referenced files, content digests, and media types are verified before the
 first upload; an invalid banner cannot consume an upload or draft request.
 Recording the cache is best-effort: a cache that cannot be written costs a later
@@ -119,9 +152,39 @@ uploaded identifier becomes the draft request's top-level `cover_media`, with
 in their DraftJS entities. This follows the
 [X draft endpoint's request schema](https://docs.x.com/x-api/articles/create-draft-article).
 
+An upload without `processing_info`, or with a `succeeded` state, needs no
+status request. Reported `pending` or `in_progress` processing triggers signed
+read-only status checks after the server's `check_after_secs`, with a minimum
+one-second delay and a two-minute default deadline. Failed, unknown, missing,
+or inconsistent processing state, partial upload errors, and rejected status
+requests stop the operation before the draft POST. Status polling never replays
+an upload, and no rejected request is retried automatically.
+
 The uploader creates a draft and reports its article identifier; it never calls
 the publish endpoint, so a review in the X composer is always the step that makes
 an article public. It does not retry automatically when a request is rejected.
+HTTP redirects are returned as failures without following them, preventing a
+redirect from issuing another media upload or draft request. The HTTP transport
+cannot recreate a consumed POST body for an automatic replay.
+
+### Failed requests and retry timing
+
+Every non-2xx API error, including HTTP 503, retains and prints the response's
+`X-Rate-Limit-{Limit,Remaining,Reset}`,
+`X-User-Limit-24hour-{Limit,Remaining,Reset}`, and `Retry-After` headers.
+Only those headers are copied; authorization, cookies, and other response
+headers are excluded. The original operation, status, and body remain visible,
+including the available body and underlying cause if reading the response fails.
+
+Valid Unix reset values also show their UTC date and time. A
+`Rate-limit retry not before` line appears only when known exhausted windows
+(`Remaining: 0`) have unambiguous future resets. It uses the latest exhausted
+window's reset and extends it with valid later `Retry-After` advice, either an
+HTTP date or seconds after response receipt. Missing, invalid, ambiguous, or
+elapsed reset evidence leaves the current retry time unknown. Positive remaining
+counts and standalone `Retry-After` advice do not establish upload eligibility.
+The displayed boundary does not guarantee service recovery or request success,
+and it never triggers an automatic wait or retry.
 
 ## Credentials
 

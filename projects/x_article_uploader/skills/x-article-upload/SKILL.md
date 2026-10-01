@@ -53,22 +53,30 @@ Do the conversion before the draft, and never export `X_*` values by hand.
 
 The draft endpoint enforces two independent limits, and `429` does not say
 which one was hit, so read the response headers before choosing how long to
-wait. `Retry-After` is not returned; the standard `X-Rate-Limit-*` headers
-describe the window, and `X-User-Limit-24hour-*` describes the account cap.
+wait. The uploader includes both sets of limit headers and `Retry-After`, when
+present, in errors, and decodes valid reset timestamps into UTC. The standard
+`X-Rate-Limit-*` headers describe the endpoint window, and
+`X-User-Limit-24hour-*` describes the account cap.
 
 - **24-hour per-user cap** (the usual cause): `X-User-Limit-24hour-Limit`,
-  `-Remaining`, and `-Reset`. X applies a fixed daily allowance to Article
-  draft creation per user, observed as 10 drafts per 24 hours, with no
-  per-endpoint reset in between. Because the window is rolling, wait until
-  `X-User-Limit-24hour-Reset` (a Unix seconds timestamp) before retrying; a
-  retry before then returns `429` again no matter how the shorter window looks.
+  `-Remaining`, and `-Reset`. The observed allowance is 10 per 24 hours. When
+  this counter is exhausted, wait until its reported reset (a Unix seconds
+  timestamp); an earlier endpoint reset does not replenish this allowance.
 - **Endpoint rate limit**: `X-Rate-Limit-Limit`, `-Remaining`, and `-Reset`.
   This window is minutes long and resets on the normal schedule.
 
 Do not loop or retry a `429` automatically: the uploader already reports the
 status and does not auto-retry, and the draft command must not be re-run to
-probe the limit because each attempt that succeeds spends a slot. Wait for the
-reported reset, then run the draft step once.
+probe the limit. A failed request, including a `503`, does not establish that
+quota was preserved. Use the latest captured counters; an earlier positive
+remaining value does not prove that a slot is still available.
+
+If both counters are exhausted, use the later valid reset and respect any
+`Retry-After` hint. Report the timestamp in the user's timezone, distinguishing
+a reported waiting boundary from guaranteed upload success. Missing or invalid
+headers leave the current waiting boundary unknown; label any older reset as
+historical evidence. Wait for the reported reset, then run the draft step once
+within the user's retry authorization.
 
 A `429` here is not an authentication problem. Credentials, the AppRole, and the
 media upload can all succeed while the draft call is capped: the media upload

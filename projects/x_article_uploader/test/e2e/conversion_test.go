@@ -45,12 +45,13 @@ var outcomes = map[string]postOutcome{
 		name: "slop-without-a-clear-goal",
 	},
 	"this-x-article-was-generated-from-markdown": {
-		// The fixture post exercises the whole accepted vocabulary, so it
-		// carries a raster diagram and the inline-code style loss every
-		// code-span-bearing post produces.
+		// The fixture post exercises representative vocabulary, so it
+		// carries a raster banner and the inline-code style loss every
+		// code-span-bearing post produces. Its diagram appears only in front
+		// matter, which creates no image in the article body.
 		name:                  "this-x-article-was-generated-from-markdown",
 		continuingDiagnostics: []string{"inline-code-style-lost"},
-		images:                1,
+		images:                0,
 	},
 }
 

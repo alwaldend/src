@@ -13,6 +13,10 @@ js_test(
         "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
     ],
     entry_point = "mermaid_test.mjs",
+    env_inherit = [
+        "HTTPS_PROXY",
+        "https_proxy",
+    ],
     # The built Docsy site loads its SRI-pinned jQuery and Lunr from CDNs.
     # The browser check allowlists those two URLs; see the site README.
     tags = ["requires-network"],

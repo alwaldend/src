@@ -5,13 +5,15 @@ date: 2026-09-18
 description: Replacing Drawio diagrams with Mermaid diagrams
 images:
   - drawio-to-mermaid.webp
+resources:
+  - src: drawio-to-mermaid.webp
+    params:
+      alt: Drawio to Mermaid
 tags:
   - mermaid
   - drawio
   - repo
 ---
-
-![Drawio to Mermaid](./drawio-to-mermaid.svg)
 
 I have some diagrams in the repo, as one naturally does. My diagrams do not look particularly pretty, but they display information, which is the whole point.
 

@@ -57,8 +57,9 @@ draft: true
 - `description` renders as the lead paragraph and appears in listing excerpts.
 - `author` renders in the post byline. Omit it only when the user supplied no
   author.
-- `images` selects the post's social preview image. Use an existing bundled
-  image's bare relative filename, and omit the field when none is available.
+- `images` selects the post's opening images and social previews. Use existing
+  bundled images' bare relative filenames, and omit the field when none are
+  available.
 - Every post must have relevant `tags` derived from its content. Reuse the
   site's existing tag names for the same topics, and avoid unrelated tags.
 - Keep `draft: true` from the template below. New posts are unpublished.
@@ -69,19 +70,20 @@ same directory, and reference them by bare relative path, such as
 
 Encourage a representative image for every post. When a post already has an
 opening image, reuse it in `images` unless the user selected another preview.
-Prefer a raster image supported by the intended social platform; an SVG body
-image can keep its original reference while `images` selects an existing or
-authorized generated raster. The [site README](../../README.md#blog) owns how
-this metadata becomes social cards. If no suitable image is available,
+Prefer a raster image supported by the intended social platform, using an
+existing or authorized generated raster of an SVG when needed. The
+[site README](../../README.md#blog) owns header rendering, resource metadata
+for alternative text and captions, and social cards. If no suitable image is available,
 recommend one in the review and leave `images` absent rather than inventing an
 asset or blocking the post's delivery. Preserve the article body and draft
 state when adding image metadata.
 
-`images` does not insert an image into the article body. Keep a body reference
-when the image belongs inside the article; using the same asset in metadata
-does not display it twice. The X uploader uses the first `images` entry as the
-article banner and keeps Markdown body images inline; its README owns that
-conversion and upload behavior.
+The site displays every `images` entry above the blog body and in print. Use
+metadata alone for header images. When an opening-image migration is
+authorized, remove only the matching initial Markdown image, move its alt text
+and any caption into the bundled resource's parameters, and preserve later
+body images and prose. The X uploader uses the first `images` entry as the
+article banner; its README owns how body images are converted and uploaded.
 
 ## Use a media type a syndication target accepts
 
@@ -195,7 +197,9 @@ list.
 - Check the front matter matches the content, including title, description,
   date, author, relevant tags, and the selected `images` resource. When an
   image is selected, inspect the rendered `og:image` and `twitter:image` URLs
-  and verify they resolve to the intended bundled image.
+  and verify they resolve to the intended bundled image. Check that header
+  images appear above the prose without duplicate opening body images, retain
+  useful alternative text and captions, and fit on narrow screens.
 - Check that internal links and images resolve. Markdown targets resolve
   relative to the source directory; `README.md` and `_index.md` map to published
   pages. The site preserves an unknown destination instead of failing the build,

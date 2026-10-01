@@ -92,15 +92,15 @@ containment is checked is the object read.
 
 #### Scenario: Reuse an already uploaded image
 
-- **WHEN** the same image content has already been uploaded by this tool
+- **WHEN** the same image content has a ready upload in the current credential context and a usable lifetime
 - **THEN** the publisher reuses the recorded `media_id` rather than uploading the
   same bytes again
 
 #### Scenario: Reuse an upload in a later run
 
 - **WHEN** draft creation runs again in a new process for an image this tool already uploaded
-- **THEN** it reads the digest-to-`media_id` mapping from its own cache and
-  reuses the identifier
+- **THEN** it reuses the identifier only when the cache schema, endpoint, media category,
+  credential context, content digest, and conservative expiry all match
 - **AND** it stays correct when the cache is absent or the recorded digest no
   longer matches the artifact's, by uploading again rather than reusing a stale
   identifier
@@ -119,9 +119,9 @@ containment is checked is the object read.
 
 #### Scenario: Expire a cached upload
 
-- **WHEN** the recorded lifetime of a cached media identifier has passed
+- **WHEN** the recorded lifetime of a cached media identifier has passed before image resolution begins
 - **THEN** the cached entry is treated as a miss and the image is uploaded again
-- **AND** an entry whose lifetime has not passed is still reused
+- **AND** an entry with enough lifetime for draft submission is still reused
 
 #### Scenario: An image cannot be uploaded
 
@@ -178,8 +178,28 @@ containment is checked is the object read.
 
 The publisher SHALL report the identifier it obtained and SHALL fail loudly
 rather than report success when a request was rejected. Failures MUST identify
-which operation failed and MUST NOT be retried automatically when the response
-indicates an authentication or request error.
+which operation failed and MUST NOT be retried automatically.
+
+For every non-2xx API response, including HTTP 503, the error SHALL preserve and
+display the original operation, status, body, and only these response headers:
+`X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, `X-Rate-Limit-Reset`,
+`X-User-Limit-24hour-Limit`, `X-User-Limit-24hour-Remaining`,
+`X-User-Limit-24hour-Reset`, and `Retry-After`. It SHALL preserve every value of
+those headers and SHALL NOT copy authorization, cookies, or other headers into
+the error. A rejected response whose body cannot be completely read SHALL
+retain its status and headers alongside the body-read error cause.
+
+Valid Unix reset timestamps SHALL also be displayed as human-readable UTC.
+A combined rate-limit retry not-before boundary SHALL be reported only when
+known exhausted windows have valid, future reset times at response receipt.
+A window SHALL count as exhausted only when its unambiguous remaining value
+is zero. The boundary SHALL use the latest reset among those windows, extended
+by a valid later `Retry-After` value interpreted as decimal seconds from receipt
+or an HTTP date. Missing, malformed, ambiguous, or already-elapsed reset data
+for an exhausted window SHALL prevent a combined boundary. A positive remaining
+count or `Retry-After` alone MUST NOT imply upload eligibility. The diagnostic
+SHALL distinguish a not-before boundary from guaranteed service recovery or
+request success, and SHALL preserve raw values when timing is unknown.
 
 #### Scenario: Report the created identifier
 
@@ -190,7 +210,31 @@ indicates an authentication or request error.
 
 - **WHEN** an API request is rejected
 - **THEN** the publisher reports the failing operation and the API's error
-- **AND** it does not report the operation as successful
+- **AND** it does not report the operation as successful or retry automatically
+
+#### Scenario: Service unavailable with remaining allowance
+
+- **WHEN** a 503 response includes remaining allowance and reset headers
+- **THEN** the error retains those headers and displays readable UTC resets
+- **AND** it does not claim that the resets guarantee service recovery
+
+#### Scenario: Both rate windows are exhausted
+
+- **WHEN** both remaining counts are zero and both resets are valid future times
+- **THEN** the rate-limit boundary is no earlier than the later reset
+- **AND** valid later Retry-After advice extends that boundary
+
+#### Scenario: Timing evidence is incomplete or invalid
+
+- **WHEN** an exhausted window has a missing, malformed, ambiguous, or elapsed reset
+- **THEN** the diagnostic reports that a current retry time is unknown
+- **AND** it keeps the original header values without inventing an exact time
+
+#### Scenario: A rejected response body is truncated
+
+- **WHEN** a non-2xx response terminates before its declared body length
+- **THEN** the error retains the operation, status, partial body, and allowlisted headers
+- **AND** callers can still inspect the body-read error cause
 
 #### Scenario: Validation runs without network access
 
@@ -229,3 +273,69 @@ digests, and media types before any upload or draft request.
 - **WHEN** any banner or body locator is malformed, escapes its package, names
   missing bytes, or has a mismatched digest or media type
 - **THEN** draft creation fails before any media or draft HTTP request
+
+### Requirement: Media readiness before draft creation
+
+The publisher SHALL inspect media processing information before using an upload
+identifier. A response without processing information or with succeeded state
+SHALL require no status request. Pending or in-progress processing SHALL use
+read-only signed status requests, respect the reported delay, and stop within a
+bounded deadline. Failed, unknown, inconsistent, or incomplete processing state,
+partial upload errors, and rejected status requests SHALL prevent draft creation.
+Neither upload nor draft POST requests SHALL be replayed by this workflow.
+
+#### Scenario: A static upload is immediately usable
+
+- **WHEN** upload succeeds without processing information or with succeeded state
+- **THEN** the publisher makes no processing-status request
+- **AND** the media identifier can be attached to the draft
+
+#### Scenario: Media processing remains pending
+
+- **WHEN** the upload reports pending or in-progress processing
+- **THEN** the publisher checks status after the prescribed delay within a finite budget
+- **AND** it creates a draft only after observing succeeded state
+
+#### Scenario: Processing cannot establish usable media
+
+- **WHEN** processing fails, exceeds its deadline, returns errors, or supplies inconsistent state
+- **THEN** the publisher reports the media failure without creating a draft
+- **AND** it does not retry the upload POST
+
+### Requirement: Credential-scoped media cache validity
+
+Persistent media reuse SHALL be scoped to the upload endpoint, media category,
+and OAuth credential context without persisting plaintext credentials or
+requesting account identity merely to name the cache. Changing any credential
+field SHALL prevent reuse from the prior context. Unscoped legacy entries SHALL
+be treated as misses.
+
+A persisted entry SHALL have a known positive lifetime, conservatively anchored
+before upload and accounting for processing time and a submission reserve.
+Missing or zero lifetime SHALL permit reuse only within the current resolution,
+never across resolutions or processes. Negative or already unusable upload
+lifetimes SHALL fail before draft creation.
+
+#### Scenario: A token or account changes
+
+- **WHEN** identical image bytes are submitted using a different credential context
+- **THEN** the earlier context's cached identifier is not reused
+- **AND** the cache contains no credential values
+
+#### Scenario: A response provides no known lifetime
+
+- **WHEN** an upload response omits its lifetime or reports zero
+- **THEN** identical banner and body images may share that fresh identifier within one resolution
+- **AND** a later resolution uploads the bytes again
+
+#### Scenario: Uploading or processing consumes the usable lifetime
+
+- **WHEN** a positive reported lifetime has insufficient time remaining for submission
+- **THEN** draft creation stops instead of attaching the expired or near-expiry identifier
+
+#### Scenario: An earlier image expires before its later duplicate is resolved
+
+- **WHEN** uploading another image consumes the usable lifetime of an identifier already selected for a banner or body image
+- **AND** a later body image references those same bytes
+- **THEN** resolution stops without uploading the duplicate again or creating a draft
+- **AND** a replacement cache entry cannot mask the expired identifier already selected for the draft

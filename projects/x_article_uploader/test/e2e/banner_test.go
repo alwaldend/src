@@ -31,6 +31,11 @@ import (
 //   - malformed metadata, missing/unsupported media, escapes, changed bytes, or
 //     forged media types spend an upload or draft request before being refused;
 //   - a valid banner hides an invalid body image or vice versa.
+// Explicit body-image failure modes, specified before implementation:
+//   - an opening image is dropped because its bytes also supply the banner;
+//   - repeated images or identical-file aliases lose their place in the body;
+//   - metadata creates extra body blocks or orphaned image entities;
+//   - equal bytes bypass source containment or accepted-media validation.
 // These checks drive conversion, artifact serialization, publisher resolution,
 // and the real HTTP client together. Only the remote service is substituted.
 
@@ -136,9 +141,11 @@ func bannerPost(t *testing.T, metadata, body string) (string, string, []byte) {
 		t.Fatalf("encode body image: %v", err)
 	}
 	for name, content := range map[string][]byte{
-		"banner.png": tinyPNG,
-		"body.png":   encoded.Bytes(),
-		"vector.svg": []byte(`<svg xmlns="http://www.w3.org/2000/svg"/>`),
+		"banner.png":      tinyPNG,
+		"banner-copy.png": tinyPNG,
+		"wrong-type.jpg":  tinyPNG,
+		"body.png":        encoded.Bytes(),
+		"vector.svg":      []byte(`<svg xmlns="http://www.w3.org/2000/svg"/>`),
 	} {
 		if err := os.WriteFile(filepath.Join(postDir, name), content, 0o644); err != nil {
 			t.Fatalf("write image %s: %v", name, err)
@@ -196,19 +203,33 @@ func writeBannerEvidence(t *testing.T, artifact map[string]any, exchanges []bann
 
 func TestBannerDraftHTTPPipeline(t *testing.T) {
 	for _, test := range []struct {
-		name       string
-		metadata   string
-		body       string
-		banner     bool
-		uploads    int
-		bodyImages int
+		name      string
+		metadata  string
+		body      string
+		banner    bool
+		uploads   int
+		blocks    int
+		bodyPaths []string
 	}{
-		{"banner_only", "images: [banner.png]\n", "Article text.", true, 1, 0},
-		{"shared_body_image", "images: [banner.png]\n", "![diagram](banner.png)", true, 1, 1},
-		{"distinct_body_image", "images: [banner.png]\n", "![diagram](body.png)", true, 2, 1},
-		{"first_image_only", "images: [banner.png, missing.png]\n", "Article text.", true, 1, 0},
-		{"no_banner", "", "![diagram](body.png)", false, 1, 1},
-		{"empty_images", "images: []\n", "Article text.", false, 0, 0},
+		{"metadata_banner_only", "images: [banner.png]\n", "Article text.", true, 1, 1, nil},
+		{"opening_body_image", "images: [banner.png]\n", "![diagram](banner.png)\n\nArticle text.", true, 1, 2, []string{"banner.png"}},
+		{"image_only_body", "images: [banner.png]\n", "![diagram](banner.png)", true, 1, 1, []string{"banner.png"}},
+		{"identical_file_alias", "images: [banner.png]\n", "![copy](./banner-copy.png)\n\nArticle text.", true, 1, 2, []string{"./banner-copy.png"}},
+		{"repeated_opening_paragraphs", "images: [banner.png]\n", "![first](./banner.png)\n\n![second](banner.png)\n\nArticle text.", true, 1, 3, []string{"./banner.png", "banner.png"}},
+		{"repeated_adjacent_images", "images: [banner.png]\n", "![first](banner.png)![second](banner.png)\n\nArticle text.", true, 1, 3, []string{"banner.png", "banner.png"}},
+		{"alternating_image_paragraphs", "images: [banner.png]\n", "![first](banner.png)\n\n![other](body.png)\n\n![later](banner.png)", true, 2, 3, []string{"banner.png", "body.png", "banner.png"}},
+		{"alternating_adjacent_images", "images: [banner.png]\n", "![first](banner.png)![other](body.png)![later](banner.png)", true, 2, 3, []string{"banner.png", "body.png", "banner.png"}},
+		{"later_repeat", "images: [banner.png]\n", "Article text.\n\n![diagram](banner.png)", true, 1, 2, []string{"banner.png"}},
+		{"body_image_after_heading", "images: [banner.png]\n", "## Heading\n\n![diagram](banner.png)", true, 1, 2, []string{"banner.png"}},
+		{"mixed_paragraph", "images: [banner.png]\n", "![diagram](banner.png) Caption.", true, 1, 2, []string{"banner.png"}},
+		{"linked_body_image", "images: [banner.png]\n", "[![linked](banner.png)](https://example.invalid/)\n\n![later](banner.png)", true, 1, 2, []string{"banner.png", "banner.png"}},
+		{"quoted_body_image", "images: [banner.png]\n", "> ![quoted](banner.png)\n\n![later](banner.png)", true, 1, 2, []string{"banner.png", "banner.png"}},
+		{"list_body_image", "images: [banner.png]\n", "- ![listed](banner.png)\n\n![later](banner.png)", true, 1, 2, []string{"banner.png", "banner.png"}},
+		{"distinct_body_image", "images: [banner.png]\n", "![diagram](body.png)", true, 2, 1, []string{"body.png"}},
+		{"secondary_metadata_image", "images: [banner.png, body.png]\n", "![secondary](body.png)", true, 2, 1, []string{"body.png"}},
+		{"first_image_only", "images: [banner.png, missing.png]\n", "Article text.", true, 1, 1, nil},
+		{"no_banner", "", "![diagram](body.png)", false, 1, 1, []string{"body.png"}},
+		{"empty_images", "images: []\n", "Article text.", false, 0, 1, nil},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			root, postDir, source := bannerPost(t, test.metadata, test.body)
@@ -252,21 +273,53 @@ func TestBannerDraftHTTPPipeline(t *testing.T) {
 			}
 			document := request.Payload["content_state"].(map[string]any)
 			blocks := document["blocks"].([]any)
-			if len(blocks) != 1 {
-				t.Errorf("front matter added body blocks: got %d, want 1", len(blocks))
+			if len(blocks) != test.blocks {
+				t.Errorf("body block count = %d, want %d", len(blocks), test.blocks)
 			}
-			if len(artifact.Locators) != test.bodyImages {
-				t.Fatalf("body image count = %d, want %d", len(artifact.Locators), test.bodyImages)
+			if len(artifact.Locators) != len(test.bodyPaths) {
+				t.Fatalf("body image count = %d, want %d", len(artifact.Locators), len(test.bodyPaths))
 			}
-			for _, locator := range artifact.Locators {
+			imageEntities := 0
+			for _, raw := range document["entities"].([]any) {
+				entity := raw.(map[string]any)
+				value := entity["value"].(map[string]any)
+				if value["type"] == "image" {
+					imageEntities++
+				}
+			}
+			if imageEntities != len(test.bodyPaths) {
+				t.Errorf("body retains %d image entities, want %d", imageEntities, len(test.bodyPaths))
+			}
+			for index, locator := range artifact.Locators {
+				if locator.Path != test.bodyPaths[index] {
+					t.Errorf("body image %d = %q, want %q", index, locator.Path, test.bodyPaths[index])
+				}
 				assertMediaAttached(t, document, locator.EntityKey, mediaByDigest[locator.Digest])
 			}
 		})
 	}
 }
 
+// bannerClockClient keeps this fixture's upload and cache clocks aligned while
+// retaining real HTTP requests. The production client's signing clock is
+// independent of its actual upload timestamp.
+type bannerClockClient struct {
+	*xapi.Client
+	now func() time.Time
+}
+
+func (c *bannerClockClient) UploadImage(name string, content []byte) (*xapi.MediaUpload, error) {
+	started := c.now()
+	upload, err := c.Client.UploadImage(name, content)
+	if err != nil {
+		return nil, fmt.Errorf("upload fixture image: %w", err)
+	}
+	upload.UploadedAt = started
+	return upload, nil
+}
+
 func TestBannerMediaCacheLifetime(t *testing.T) {
-	root, postDir, source := bannerPost(t, "images: [banner.png]\n", "![diagram](banner.png)")
+	root, postDir, source := bannerPost(t, "images: [banner.png]\n", "Article text.\n\n![diagram](banner.png)")
 	path, artifactJSON := bannerArtifact(t, root, postDir, source)
 	service, client := newBannerService(t)
 	for run, elapsed := range []int64{0, 60, 3601} {
@@ -274,8 +327,9 @@ func TestBannerMediaCacheLifetime(t *testing.T) {
 		if err != nil {
 			t.Fatalf("read artifact: %v", err)
 		}
-		publisher := draft.New(client, root, filepath.Join(root, "cache.json"))
-		publisher.Now = func() time.Time { return time.Unix(1700000000+elapsed, 0) }
+		clocked := &bannerClockClient{Client: client, now: func() time.Time { return time.Unix(1700000000+elapsed, 0) }}
+		publisher := draft.New(clocked, root, filepath.Join(root, "cache.json"))
+		publisher.Now = clocked.now
 		if err := publisher.LoadCache(); err != nil {
 			t.Fatalf("load cache: %v", err)
 		}
@@ -299,6 +353,25 @@ func TestBannerMediaCacheLifetime(t *testing.T) {
 		if !ok || cover["media_id"] != exchanges[pair[1]].MediaID {
 			t.Errorf("request %d used unexpected cover: %#v", pair[0], cover)
 		}
+	}
+}
+
+func TestInvalidOpeningBodyReferenceIsRefused(t *testing.T) {
+	for _, test := range []struct{ name, reference, diagnostic string }{
+		{"path_escape", "../outside.png", "image-not-readable"},
+		{"symlink_escape", "escape.png", "image-not-readable"},
+		{"mismatched_media_type", "wrong-type.jpg", "image-media-type-rejected"},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			_, postDir, source := bannerPost(t, "images: [banner.png]\n", "![opening]("+test.reference+")\n\nArticle text.")
+			article, err := markdown.New(postDir, "post").Convert(source)
+			if err == nil {
+				t.Fatal("matching banner bytes bypassed source validation")
+			}
+			if codes := diagnosticCodes(article); !hasDiagnostic(codes, test.diagnostic) {
+				t.Errorf("expected %s, got %v (%v)", test.diagnostic, codes, err)
+			}
+		})
 	}
 }
 

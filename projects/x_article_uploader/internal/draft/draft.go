@@ -14,13 +14,30 @@ import (
 	"git.alwaldend.com/alwaldend/src/projects/x_article_uploader/internal/xapi"
 )
 
-// mediaCacheEntry records an uploaded media identifier and the time after which
-// the upload endpoint no longer serves it. A zero ExpiresAt means the response
-// carried no lifetime, so the identifier is reused without an expiry.
+// mediaCacheEntry records an uploaded media identifier and a conservative reuse
+// deadline. A zero ExpiresAt is usable only in the current image resolution and
+// is never read from or written to persistent storage.
 type mediaCacheEntry struct {
 	MediaID   string `json:"media_id"`
 	ExpiresAt int64  `json:"expires_at,omitempty"`
 }
+
+// mediaCacheFile separates content digests by API endpoint, media category, and
+// credential context. Legacy caches without this scope are deliberately misses.
+type mediaCacheFile struct {
+	Version int                                   `json:"version"`
+	Scopes  map[string]map[string]mediaCacheEntry `json:"scopes"`
+}
+
+// mediaCacheScope lets a client opt into persistent reuse with a nonsecret,
+// stable namespace. Clients without one get resolution-local reuse only.
+type mediaCacheScope interface {
+	MediaCacheScope() string
+}
+
+// Leave time for sending the resulting draft, instead of consuming a media
+// identifier at the very end of the lifetime the API reported.
+const mediaExpiryReserve = 30 * time.Second
 
 // MediaClient is the subset of the API client draft creation uses, so the
 // checks can substitute a recorded response.
@@ -34,11 +51,13 @@ type Publisher struct {
 	Client MediaClient
 	// WorkspaceRoot is the repository root the post package resolves against.
 	WorkspaceRoot string
-	// CachePath is the digest-to-media_id cache. An unreadable cache costs a
-	// re-upload rather than failing publication.
+	// CachePath is the scoped digest-to-media_id cache. An unreadable cache
+	// costs a re-upload rather than failing publication.
 	CachePath string
 	// Cache holds identifiers reused within this run, keyed by content digest.
-	cache map[string]mediaCacheEntry
+	cache       map[string]mediaCacheEntry
+	cacheScope  string
+	cacheScopes map[string]map[string]mediaCacheEntry
 	// Now supplies the current time for expiry checks; checks set it for a
 	// stable run.
 	Now func() time.Time
@@ -51,6 +70,7 @@ func New(client MediaClient, workspaceRoot, cachePath string) *Publisher {
 		WorkspaceRoot: workspaceRoot,
 		CachePath:     cachePath,
 		cache:         map[string]mediaCacheEntry{},
+		cacheScopes:   map[string]map[string]mediaCacheEntry{},
 		Now:           time.Now,
 	}
 }
@@ -60,19 +80,54 @@ func New(client MediaClient, workspaceRoot, cachePath string) *Publisher {
 // than failing publication.
 func (p *Publisher) LoadCache() error {
 	p.cache = map[string]mediaCacheEntry{}
+	p.cacheScopes = map[string]map[string]mediaCacheEntry{}
+	p.cacheScope = p.scope()
+	if p.cacheScope == "" {
+		return nil
+	}
 	raw, err := os.ReadFile(p.CachePath)
 	if err != nil {
 		return nil
 	}
-	decoded := map[string]mediaCacheEntry{}
-	if err := json.Unmarshal(raw, &decoded); err != nil {
-		// A cache written by an earlier revision stored bare identifiers with
-		// no lifetime, which cannot be reused safely once an upload can
-		// expire. Discard it and upload again.
+	var decoded mediaCacheFile
+	if err := json.Unmarshal(raw, &decoded); err != nil || decoded.Version != 1 || decoded.Scopes == nil {
+		// Older caches do not identify the account or endpoint that owns the
+		// uploaded media. They cannot be trusted across credential changes.
 		return nil
 	}
-	p.cache = decoded
+	p.cacheScopes = decoded.Scopes
+	for digest, entry := range decoded.Scopes[p.cacheScope] {
+		if entry.ExpiresAt > 0 && p.unexpired(entry) {
+			p.cache[digest] = entry
+		}
+	}
 	return nil
+}
+
+func (p *Publisher) scope() string {
+	if client, ok := p.Client.(mediaCacheScope); ok {
+		return client.MediaCacheScope()
+	}
+	return ""
+}
+
+// beginResolution invalidates unknown lifetimes between operations and reloads
+// the correct namespace if the caller changed its client or credentials.
+func (p *Publisher) beginResolution() {
+	scope := p.scope()
+	if scope == "" {
+		p.cache = map[string]mediaCacheEntry{}
+		p.cacheScope = ""
+		return
+	}
+	if scope != p.cacheScope {
+		_ = p.LoadCache()
+	}
+	for digest, entry := range p.cache {
+		if entry.ExpiresAt <= 0 || !p.unexpired(entry) {
+			delete(p.cache, digest)
+		}
+	}
 }
 
 // saveCache writes the digest-to-media_id mapping with each entry's expiry. A
@@ -80,10 +135,17 @@ func (p *Publisher) LoadCache() error {
 // publication, so every failure is swallowed: cache storage is an optimization,
 // not a precondition.
 func (p *Publisher) saveCache() {
-	if p.CachePath == "" {
+	if p.CachePath == "" || p.cacheScope == "" {
 		return
 	}
-	encoded, err := json.MarshalIndent(p.cache, "", "  ")
+	persisted := map[string]mediaCacheEntry{}
+	for digest, entry := range p.cache {
+		if entry.ExpiresAt > 0 && p.unexpired(entry) {
+			persisted[digest] = entry
+		}
+	}
+	p.cacheScopes[p.cacheScope] = persisted
+	encoded, err := json.MarshalIndent(mediaCacheFile{Version: 1, Scopes: p.cacheScopes}, "", "  ")
 	if err != nil {
 		return
 	}
@@ -141,6 +203,7 @@ func (p *Publisher) resolveUploads(artifact *Artifact) (*xapi.CoverMedia, error)
 		}
 		contents[index] = content
 	}
+	p.beginResolution()
 	var cover *xapi.CoverMedia
 	bodyOffset := 0
 	for index, source := range sources {
@@ -158,15 +221,30 @@ func (p *Publisher) resolveUploads(artifact *Artifact) (*xapi.CoverMedia, error)
 			return nil, fmt.Errorf("attach uploaded image %q: %w", source.Path, err)
 		}
 	}
+	// A later upload or processing wait may consume an earlier item's safe
+	// lifetime. Refuse the draft instead of referencing that expired item or
+	// silently spending another upload request.
+	for _, source := range sources {
+		if !p.unexpired(p.cache[source.Digest]) {
+			return nil, fmt.Errorf("resolve image %q: media lifetime expired before draft creation", source.Path)
+		}
+	}
 	p.saveCache()
 	return cover, nil
 }
 
 // uploadImage reuses the same digest cache for banner and body sources.
 func (p *Publisher) uploadImage(source markdown.ImageSource, content []byte) (string, error) {
-	if entry, ok := p.cache[source.Digest]; ok && p.unexpired(entry) {
-		return entry.MediaID, nil
+	if entry, ok := p.cache[source.Digest]; ok {
+		if p.unexpired(entry) {
+			return entry.MediaID, nil
+		}
+		// beginResolution already removed old entries. Replacing one that
+		// expires during this operation could leave an earlier banner or body
+		// attachment pointing at the old identifier, so stop without retrying.
+		return "", fmt.Errorf("image %q: media lifetime expired during image resolution", source.Path)
 	}
+	started := p.now()
 	upload, err := p.Client.UploadImage(source.Path, content)
 	if err != nil {
 		return "", fmt.Errorf("upload image %q: %w", source.Path, err)
@@ -174,7 +252,11 @@ func (p *Publisher) uploadImage(source markdown.ImageSource, content []byte) (st
 	if upload == nil || upload.MediaID == "" {
 		return "", fmt.Errorf("upload image %q: the API returned no media_id", source.Path)
 	}
-	p.cache[source.Digest] = p.cacheEntry(upload)
+	entry, err := p.cacheEntry(upload, started)
+	if err != nil {
+		return "", fmt.Errorf("cache uploaded image %q: %w", source.Path, err)
+	}
+	p.cache[source.Digest] = entry
 	return upload.MediaID, nil
 }
 
@@ -196,9 +278,9 @@ func (p *Publisher) CreateDraft(artifact *Artifact) (*xapi.Draft, error) {
 	return draft, nil
 }
 
-// unexpired reports whether a cached identifier may be reused. An entry with no
-// recorded expiry is reused; an entry whose lifetime has passed is a miss, so
-// the bytes are uploaded again rather than referenced after X has dropped them.
+// unexpired reports whether a cached identifier may be reused. Unknown expiry
+// is allowed only for freshly uploaded entries in this resolution; LoadCache
+// refuses it and beginResolution drops it before any subsequent operation.
 func (p *Publisher) unexpired(entry mediaCacheEntry) bool {
 	if entry.MediaID == "" {
 		return false
@@ -209,14 +291,24 @@ func (p *Publisher) unexpired(entry mediaCacheEntry) bool {
 	return p.now().Unix() < entry.ExpiresAt
 }
 
-// cacheEntry records an upload's identifier and expiry. The response's lifetime
-// is relative to now, so the absolute instant is what the cache persists.
-func (p *Publisher) cacheEntry(upload *xapi.MediaUpload) mediaCacheEntry {
+// cacheEntry anchors lifetime before upload, so network and processing delays
+// cannot extend it. A custom client without UploadedAt uses the caller's start.
+func (p *Publisher) cacheEntry(upload *xapi.MediaUpload, started time.Time) (mediaCacheEntry, error) {
 	entry := mediaCacheEntry{MediaID: upload.MediaID}
-	if upload.ExpiresAfterSecs > 0 {
-		entry.ExpiresAt = p.now().Add(time.Duration(upload.ExpiresAfterSecs) * time.Second).Unix()
+	if upload.ExpiresAfterSecs < 0 || int64(upload.ExpiresAfterSecs) > int64((1<<63-1)/time.Second) {
+		return mediaCacheEntry{}, fmt.Errorf("the API returned an invalid media lifetime")
 	}
-	return entry
+	if upload.ExpiresAfterSecs == 0 {
+		return entry, nil
+	}
+	if !upload.UploadedAt.IsZero() {
+		started = upload.UploadedAt
+	}
+	entry.ExpiresAt = started.Add(time.Duration(upload.ExpiresAfterSecs)*time.Second - mediaExpiryReserve).Unix()
+	if !p.unexpired(entry) {
+		return mediaCacheEntry{}, fmt.Errorf("the uploaded media lifetime is too short or has expired")
+	}
+	return entry, nil
 }
 
 // now returns the creator's clock, defaulting to the wall clock.

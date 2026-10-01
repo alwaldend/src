@@ -65,21 +65,25 @@
         claiming the post is live before the deployment that publishes it
         completes.
 
-- description: Reuses an opening image for social previews without inventing assets
+- description: Moves an opening image into the shared header without inventing assets
   vars:
     request: >-
       Use $alwaldend-blog. Prepare two existing drafts for review. The first
       opens with ![Cache diagram](cache.webp), and cache.webp is already in its
       post package. Its front matter has no images field. The second draft is
-      text only and has no bundled images. Keep both article bodies unchanged.
+      text only and has no bundled images. Move the first opening image into
+      the shared blog header and keep both drafts' prose unchanged.
   assert:
     - type: llm-rubric
       threshold: 1
       value: >-
         Pass if the response selects the existing cache.webp in the first
-        draft's images front matter as a list, preserves its body image and
-        both drafts' unpublished state, and checks the rendered og:image and
-        twitter:image resolve to that bundled resource. It must recommend a
+        draft's images front matter as a list, removes only the duplicate
+        opening Markdown image, preserves its alt text in the bundled resource
+        metadata and both drafts' unpublished state, and checks the image
+        appears once above the rendered prose while og:image and twitter:image
+        resolve to that resource. It must preserve any later body images and
+        recommend a
         representative image for the text-only post without inventing an
         image path, creating artwork, or treating the recommendation as a
         requirement that blocks review or delivery. It must not add an empty

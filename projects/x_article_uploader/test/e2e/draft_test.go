@@ -32,6 +32,10 @@ type recordedClient struct {
 	failUpload    bool
 }
 
+func (c *recordedClient) MediaCacheScope() string {
+	return "recorded-client-fixture"
+}
+
 func (c *recordedClient) UploadImage(name string, content []byte) (*xapi.MediaUpload, error) {
 	if c.failUpload {
 		return nil, &xapi.APIError{Operation: "upload image", Status: 400, Body: "rejected"}
@@ -284,7 +288,7 @@ func TestUploadedMediaIsReusedAcrossRuns(t *testing.T) {
 	root, artifactPath, _, _ := publishedPost(t, "diagram.png", tinyPNG)
 	cachePath := filepath.Join(root, "cache.json")
 
-	first := &recordedClient{uploadID: "media-1", draftID: "draft-1"}
+	first := &recordedClient{uploadID: "media-1", uploadExpires: 3600, draftID: "draft-1"}
 	firstPub := draft.New(first, root, cachePath)
 	if err := firstPub.LoadCache(); err != nil {
 		t.Fatalf("load cache: %v", err)
@@ -301,7 +305,7 @@ func TestUploadedMediaIsReusedAcrossRuns(t *testing.T) {
 	}
 
 	// A later run in a new process reads the digest mapping and reuses it.
-	second := &recordedClient{uploadID: "media-2", draftID: "draft-2"}
+	second := &recordedClient{uploadID: "media-2", uploadExpires: 3600, draftID: "draft-2"}
 	secondPub := draft.New(second, root, cachePath)
 	if err := secondPub.LoadCache(); err != nil {
 		t.Fatalf("load cache: %v", err)

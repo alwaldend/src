@@ -7,10 +7,15 @@ go_test(
     size = "medium",
     srcs = [
         "banner_test.go",
+        "cache_validity_test.go",
         "constructs_test.go",
         "conversion_test.go",
         "draft_test.go",
+        "image_preflight_test.go",
+        "markdown_contract_test.go",
+        "media_processing_test.go",
         "raster_test.go",
+        "rate_limits_test.go",
         "support_test.go",
     ],
     args = [
