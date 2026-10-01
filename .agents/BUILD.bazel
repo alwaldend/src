@@ -26,6 +26,7 @@ skills_write(
     discovery_dir = ".agents/skills",
     symlinks = [
         "//projects/alwaldend.com/skills/alwaldend-blog:skill",
+        "//projects/x_article_uploader/skills/x-article-upload:skill",
         "//tools/agents/skills/answer-question:skill",
         "//tools/agents/skills/agent-ergonomics-review:skill",
         "//tools/agents/skills/ast-grep:skill",

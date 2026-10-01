@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 	"time"
 
 	"git.alwaldend.com/alwaldend/src/projects/x_article_uploader/internal/draftjs"
@@ -25,10 +26,10 @@ type mediaCacheEntry struct {
 // checks can substitute a recorded response.
 type MediaClient interface {
 	UploadImage(name string, content []byte) (*xapi.MediaUpload, error)
-	CreateDraft(title string, contentState any) (*xapi.Draft, error)
+	CreateDraft(request xapi.DraftRequest) (*xapi.Draft, error)
 }
 
-// Publisher resolves a draft artifact's images and creates or publishes it.
+// Publisher resolves a draft artifact's images and creates an unpublished draft.
 type Publisher struct {
 	Client MediaClient
 	// WorkspaceRoot is the repository root the post package resolves against.
@@ -94,63 +95,101 @@ func (p *Publisher) saveCache() {
 	_ = os.WriteFile(p.CachePath, append(encoded, '\n'), 0o644)
 }
 
-// ResolveUploads uploads every unresolved image the artifact names and attaches
-// each returned media_id to the entity its locator records. An unresolved image
-// is never sent as resolved.
+// ResolveUploads validates and uploads body and banner images, attaching body
+// media identifiers to the entities their locators name. The shared cache keeps
+// a later CreateDraft call from uploading these images again.
 func (p *Publisher) ResolveUploads(artifact *Artifact) error {
+	if _, err := p.resolveUploads(artifact); err != nil {
+		return fmt.Errorf("resolve uploads: %w", err)
+	}
+	return nil
+}
+
+// resolveUploads preflights every source before spending any API calls. The
+// verified bytes are retained for uploading, so a later filesystem change cannot
+// substitute different bytes between verification and upload.
+func (p *Publisher) resolveUploads(artifact *Artifact) (*xapi.CoverMedia, error) {
 	if artifact.Document == nil {
-		return fmt.Errorf("resolve images: the artifact carries no content_state")
+		return nil, fmt.Errorf("resolve images: the artifact carries no content_state")
 	}
 	entities, err := entitiesOf(artifact.Document)
 	if err != nil {
-		return err
+		return nil, fmt.Errorf("read image entities: %w", err)
 	}
 	// An unresolved image entity must be resolved by exactly one locator, and
 	// every locator must name an image entity. Validating this before any
 	// upload keeps a malformed artifact from spending API calls and then
 	// failing, and keeps an entity without media_items from being sent.
 	if err := verifyLocators(entities, artifact.Locators); err != nil {
-		return err
+		return nil, fmt.Errorf("verify image locators: %w", err)
+	}
+	// The banner is not a body entity. It contributes one source to the same
+	// upload resolution, and its identifier is returned separately for the
+	// draft request's cover_media field.
+	sources := make([]markdown.ImageSource, 0, len(artifact.Locators)+1)
+	if artifact.Banner != nil {
+		sources = append(sources, *artifact.Banner)
 	}
 	for _, locator := range artifact.Locators {
-		// The bytes the digest was verified against travel into the upload
-		// itself, so a file that changes after verification cannot be sent.
-		content, _, err := ImageBytes(locator, p.WorkspaceRoot)
+		sources = append(sources, locator.ImageSource)
+	}
+	contents := make([][]byte, len(sources))
+	for index, source := range sources {
+		content, _, err := ImageBytes(source, p.WorkspaceRoot)
 		if err != nil {
-			return fmt.Errorf("resolve image: %w", err)
+			return nil, fmt.Errorf("resolve image %q: %w", source.Path, err)
 		}
-		mediaID := ""
-		if entry, ok := p.cache[locator.Digest]; ok && p.unexpired(entry) {
-			mediaID = entry.MediaID
+		contents[index] = content
+	}
+	var cover *xapi.CoverMedia
+	bodyOffset := 0
+	for index, source := range sources {
+		mediaID, err := p.uploadImage(source, contents[index])
+		if err != nil {
+			return nil, fmt.Errorf("resolve upload %q: %w", source.Path, err)
 		}
-		if mediaID == "" {
-			upload, err := p.Client.UploadImage(locator.Path, content)
-			if err != nil {
-				return fmt.Errorf("upload image %q: %w", locator.Path, err)
-			}
-			if upload == nil || upload.MediaID == "" {
-				return fmt.Errorf("upload image %q: the API returned no media_id", locator.Path)
-			}
-			mediaID = upload.MediaID
-			p.cache[locator.Digest] = p.cacheEntry(upload)
+		if index == 0 && artifact.Banner != nil {
+			cover = &xapi.CoverMedia{MediaCategory: draftjs.MediaCategoryImage, MediaID: mediaID}
+			bodyOffset = 1
+			continue
 		}
+		locator := artifact.Locators[index-bodyOffset]
 		if err := attachMedia(entities, locator.EntityKey, mediaID); err != nil {
-			return err
+			return nil, fmt.Errorf("attach uploaded image %q: %w", source.Path, err)
 		}
 	}
 	p.saveCache()
-	return nil
+	return cover, nil
+}
+
+// uploadImage reuses the same digest cache for banner and body sources.
+func (p *Publisher) uploadImage(source markdown.ImageSource, content []byte) (string, error) {
+	if entry, ok := p.cache[source.Digest]; ok && p.unexpired(entry) {
+		return entry.MediaID, nil
+	}
+	upload, err := p.Client.UploadImage(source.Path, content)
+	if err != nil {
+		return "", fmt.Errorf("upload image %q: %w", source.Path, err)
+	}
+	if upload == nil || upload.MediaID == "" {
+		return "", fmt.Errorf("upload image %q: the API returned no media_id", source.Path)
+	}
+	p.cache[source.Digest] = p.cacheEntry(upload)
+	return upload.MediaID, nil
 }
 
 // CreateDraft resolves images, then creates a draft. It does not publish.
 func (p *Publisher) CreateDraft(artifact *Artifact) (*xapi.Draft, error) {
-	if artifact.Title == "" {
+	if strings.TrimSpace(artifact.Title) == "" {
 		return nil, fmt.Errorf("create draft: the artifact carries no parsed title")
 	}
-	if err := p.ResolveUploads(artifact); err != nil {
-		return nil, err
+	cover, err := p.resolveUploads(artifact)
+	if err != nil {
+		return nil, fmt.Errorf("prepare draft media: %w", err)
 	}
-	draft, err := p.Client.CreateDraft(artifact.Title, artifact.Document)
+	draft, err := p.Client.CreateDraft(xapi.DraftRequest{
+		Title: artifact.Title, ContentState: artifact.Document, CoverMedia: cover,
+	})
 	if err != nil {
 		return nil, fmt.Errorf("create draft: %w", err)
 	}

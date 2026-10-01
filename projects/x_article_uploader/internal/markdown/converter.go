@@ -26,18 +26,25 @@ type Article struct {
 	Title       string            `json:"title"`
 	Document    *draftjs.Document `json:"content_state"`
 	Locators    []ImageLocator    `json:"image_locators"`
+	Banner      *ImageSource      `json:"banner_locator,omitempty"`
 	Diagnostics []Diagnostic      `json:"diagnostics"`
 }
 
-// ImageLocator records where an unresolved image's bytes come from, resolved
+// ImageSource records where an image's bytes come from, resolved
 // against the post package so the artifact stays usable after it is moved.
-type ImageLocator struct {
-	EntityKey   int    `json:"entity_key"`
+type ImageSource struct {
 	Path        string `json:"path"`
 	PostPackage string `json:"post_package"`
 	Digest      string `json:"digest"`
 	MediaType   string `json:"media_type"`
-	Caption     string `json:"caption"`
+}
+
+// ImageLocator associates an unresolved body image with its document entity.
+// Embedding ImageSource preserves the existing locator's JSON field names.
+type ImageLocator struct {
+	EntityKey int `json:"entity_key"`
+	ImageSource
+	Caption string `json:"caption"`
 }
 
 // Converter converts parsed posts into draft artifacts. PostDir is the
@@ -67,7 +74,19 @@ func New(postDir, postPackage string) *Converter {
 func (c *Converter) Convert(raw []byte) (*Article, error) {
 	post, err := ParsePost(c.PostDir, raw)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("parse post: %w", err)
+	}
+	var banner *ImageSource
+	if len(post.Images) > 0 {
+		reference := post.Images[0]
+		content, mediaType, digest, err := readImage(c.PackageRoot, c.PostDir, reference)
+		if err != nil {
+			return nil, fmt.Errorf("%s: resolve front matter images[0] as banner: %w", c.PostSource, err)
+		}
+		if err := ValidateImageType(reference, content, mediaType); err != nil {
+			return nil, fmt.Errorf("%s: validate front matter images[0] as banner: %w", c.PostSource, err)
+		}
+		banner = &ImageSource{Path: reference, PostPackage: c.PostPackage, Digest: digest, MediaType: mediaType}
 	}
 	conv := &conversion{converter: c, post: post, body: post.Body, doc: draftjs.New()}
 
@@ -75,7 +94,7 @@ func (c *Converter) Convert(raw []byte) (*Article, error) {
 	doc := md.Parser().Parse(text.NewReader(post.Body))
 
 	if err := conv.walkBlocks(doc, blockContext{}); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("convert post blocks: %w", err)
 	}
 	conv.appendFootnotes(doc)
 
@@ -89,10 +108,11 @@ func (c *Converter) Convert(raw []byte) (*Article, error) {
 		Title:       post.Title,
 		Document:    conv.doc,
 		Locators:    conv.locators,
+		Banner:      banner,
 		Diagnostics: conv.diagnostics,
 	}
 	if err := conv.failure(); err != nil {
-		return article, err
+		return article, fmt.Errorf("convert post: %w", err)
 	}
 	return article, nil
 }

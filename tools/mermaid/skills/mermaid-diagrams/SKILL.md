@@ -78,12 +78,17 @@ mermaid_webp(
 )
 ```
 
-The rule reuses the maintained render contract — the shared theme, the pinned
-browser and fonts, and the paint-order pass — and has the pinned browser encode
-the WebP, so there is no second appearance and no image-conversion toolchain.
-The raster is authored at the diagram's natural size and scaled by the rule's
-`scale` (default `2`). There is no `plain` raster: a comparison render is what
-the SVG rule's `plain` opt-out is for.
+By default the rule encodes the historical shared theme with its pinned browser,
+fonts, and paint-order pass. For a site-themed blog or social image, use
+`mermaid_site_webp` from `//projects/alwaldend.com/pkg/mermaid:defs.bzl`; it selects
+native rendering with the site's palette and sans-serif labels. Select
+`color_scheme = "dark"` for the site's dark appearance; `"light"` is the default.
+The raster has that fixed appearance in page embeds and social previews. Other
+native consumers set `native = True` with the SVG target's `palette`, `theme`,
+and `label_font`. Native WebP follows the selected SVG without post-processing;
+both modes use the pinned browser encoder with no image-conversion toolchain.
+The raster uses the diagram's natural size and the rule's `scale` (default `2`).
+There is no `plain` raster: use the SVG rule's `plain` opt-out for comparison.
 
 For a consumer that keeps the image as a checked-in asset, copy the rule output
 into the package with `write_source_files` instead of committing a hand-made

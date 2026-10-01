@@ -19,8 +19,8 @@ the post unpublished, then review it.
   images exactly as given.
 - Do not rewrite, reorder, summarize, extend, or "improve" the content, and do
   not fix what looks like a typo. Report defects instead of editing them.
-- Carry over only what the post needs to build: front matter and the package
-  declaration. Do not invent title, description, date, or author values.
+- Add only front matter and the package declaration around the supplied
+  content. Do not invent title, description, date, or author values.
 - Ask the user for a missing title, date, or other required field only when the
   content itself does not supply it and the build cannot proceed without it.
 
@@ -42,6 +42,9 @@ linkTitle: <short title>
 date: <YYYY-MM-DD>
 description: <one-line description>
 author: <author>
+# Recommended when a suitable image is available; omit otherwise.
+images:
+  - <opening-image.webp>
 tags:
   - <relevant topic>
 draft: true
@@ -54,6 +57,8 @@ draft: true
 - `description` renders as the lead paragraph and appears in listing excerpts.
 - `author` renders in the post byline. Omit it only when the user supplied no
   author.
+- `images` selects the post's social preview image. Use an existing bundled
+  image's bare relative filename, and omit the field when none is available.
 - Every post must have relevant `tags` derived from its content. Reuse the
   site's existing tag names for the same topics, and avoid unrelated tags.
 - Keep `draft: true` from the template below. New posts are unpublished.
@@ -61,6 +66,22 @@ draft: true
 Put any images or other resources the post references beside `index.md` in the
 same directory, and reference them by bare relative path, such as
 `![diagram](diagram.png)`. Do not place them in `static/`.
+
+Encourage a representative image for every post. When a post already has an
+opening image, reuse it in `images` unless the user selected another preview.
+Prefer a raster image supported by the intended social platform; an SVG body
+image can keep its original reference while `images` selects an existing or
+authorized generated raster. The [site README](../../README.md#blog) owns how
+this metadata becomes social cards. If no suitable image is available,
+recommend one in the review and leave `images` absent rather than inventing an
+asset or blocking the post's delivery. Preserve the article body and draft
+state when adding image metadata.
+
+`images` does not insert an image into the article body. Keep a body reference
+when the image belongs inside the article; using the same asset in metadata
+does not display it twice. The X uploader uses the first `images` entry as the
+article banner and keeps Markdown body images inline; its README owns that
+conversion and upload behavior.
 
 ## Use a media type a syndication target accepts
 
@@ -172,7 +193,9 @@ list.
   depth, list and code-fence style, link text, terminology, and any spelling
   that conflicts with the repository's established usage.
 - Check the front matter matches the content, including title, description,
-  date, author, and relevant tags.
+  date, author, relevant tags, and the selected `images` resource. When an
+  image is selected, inspect the rendered `og:image` and `twitter:image` URLs
+  and verify they resolve to the intended bundled image.
 - Check that internal links and images resolve. Markdown targets resolve
   relative to the source directory; `README.md` and `_index.md` map to published
   pages. The site preserves an unknown destination instead of failing the build,

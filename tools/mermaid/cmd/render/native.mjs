@@ -9,6 +9,7 @@ export async function renderNative({
     input,
     output,
     darkOutput,
+    colorScheme = "light",
     palette,
     config,
     font,
@@ -22,10 +23,14 @@ export async function renderNative({
         });
         const definition = await fs.readFile(input, "utf8");
         const myCSS = fontFace(await fs.readFile(font));
-        for (const [mode, destination] of [
-            ["light", output],
-            ["dark", darkOutput],
-        ]) {
+        const variants =
+            darkOutput === undefined
+                ? [[colorScheme, output]]
+                : [
+                      ["light", output],
+                      ["dark", darkOutput],
+                  ];
+        for (const [mode, destination] of variants) {
             await page.emulateMediaFeatures([
                 { name: "prefers-color-scheme", value: mode },
             ]);

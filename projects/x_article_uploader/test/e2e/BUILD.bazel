@@ -6,6 +6,7 @@ go_test(
     name = "e2e_test",
     size = "medium",
     srcs = [
+        "banner_test.go",
         "constructs_test.go",
         "conversion_test.go",
         "draft_test.go",

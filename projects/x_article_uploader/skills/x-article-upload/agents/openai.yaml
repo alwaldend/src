@@ -1,0 +1,7 @@
+interface:
+  display_name: "X Article Upload"
+  short_description: "Upload a blog post to X as an Article draft"
+  default_prompt: >-
+    Use $x-article-upload to convert and upload the post as an X Article draft,
+    report that it is not published, and, if X rejects the request, read the
+    rate-limit headers and wait for the reported reset instead of retrying.

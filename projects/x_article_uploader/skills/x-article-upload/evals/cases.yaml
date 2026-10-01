@@ -1,0 +1,82 @@
+- description: Converts before creating the draft and never publishes
+  vars:
+    request: >-
+      Use $x-article-upload. Upload the post at
+      projects/alwaldend.com/content/blog/my-post/index.md to X.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response converts the post offline first with the
+        convert command and a recorded post package, then creates the draft
+        through the Vault-injected draft wrapper, uses workspace-absolute paths
+        for the artifact, and reports the draft identifier together with the
+        fact that the article is not published. It must not claim the article
+        is public, and it must not export X_ values by hand. Otherwise fail.
+
+- description: Reads the 24-hour users cap from the headers
+  vars:
+    request: >-
+      Use $x-article-upload. Creating the draft returned 429 with
+      X-User-Limit-24hour-Limit: 10, X-User-Limit-24hour-Remaining: 0,
+      X-User-Limit-24hour-Reset: 1790881775, and
+      X-Rate-Limit-Remaining: 39996. How long do I wait?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response identifies the 24-hour per-user cap as the
+        binding limit because X-User-Limit-24hour-Remaining is 0, explains that
+        the largely untouched X-Rate-Limit-Remaining rules out the short
+        endpoint window, and says to wait until the X-User-Limit-24hour-Reset
+        timestamp before retrying the draft step once. It must not advise
+        retrying immediately, looping, or re-running the draft command to probe
+        the limit. Otherwise fail.
+
+- description: Keeps the short window separate from the users cap
+  vars:
+    request: >-
+      Use $x-article-upload. The draft failed with 429. The rate limit reset
+      header passed a minute ago, so isn't it safe to retry now?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response refuses to treat the endpoint rate-limit
+        reset as sufficient evidence when the 24-hour per-user allowance is
+        exhausted, and instead checks X-User-Limit-24hour-Remaining and
+        X-User-Limit-24hour-Reset before retrying, retrying the draft step at
+        most once. Otherwise fail.
+
+- description: Distinguishes an expired Vault token from an X rejection
+  vars:
+    request: >-
+      Use $x-article-upload. The draft command failed with "could not create
+      secret id for the approle: Vault request failed (HTTP 403)". Is the X
+      credential bad?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response identifies the failing stage as the host's
+        Vault bootstrap token being invalid or expired, so the AppRole cannot be
+        logged into, and directs re-authentication with //tools/vault/login
+        rather than blaming or changing the X credential, the uploader, or its
+        al.lua. It must not retry the draft command as the fix or export X_
+        values by hand. Otherwise fail.
+
+- description: Reuses the cached media identifier after a failed draft
+  vars:
+    request: >-
+      Use $x-article-upload. Yesterday the uploader uploaded the image and
+      cached its media_id, then the draft call was capped at 429. Can I re-run
+      the whole thing, or does the image need uploading again?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response explains that the media upload has its own
+        budget separate from the 24-hour Article draft cap, so the cached
+        media_id is reused and only the draft step needs repeating, subject to
+        the cached lifetime, and that the draft step should be run once after
+        the reported reset. Otherwise fail.

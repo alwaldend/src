@@ -17,7 +17,7 @@ operations with different inputs, outputs, and trust requirements:
 - **Conversion** compiles a post's Markdown body into the DraftJS
   `content_state` document the X Articles draft endpoint accepts. It is
   offline, deterministic, and credential-free; it performs no network access.
-- **Draft creation** resolves the images the document references through the
+- **Draft creation** resolves the body images and article banner through the
   media upload endpoint, then creates an X Article draft. It is the only
   operation that performs network calls, and the only one that needs
   credentials. The uploader creates drafts only and never publishes.
@@ -33,6 +33,15 @@ metadata: its `title` is returned alongside the document because the draft
 endpoint requires a title that `content_state` cannot carry, and it never
 appears in the article text. A source without a non-empty title fails
 conversion.
+
+The first entry in front matter `images`, when present, supplies the article
+banner. It must name a supported raster image relative to the post package;
+remote URLs, missing files, and references outside the package fail offline
+conversion. Later entries do not become additional banners. Conversion records
+the selected image in an optional `banner_locator` with its path, post package,
+media type, and content digest. It does not add a body image for the banner:
+an existing Markdown image remains in the body, including when it references
+the same file. Posts and older artifacts without a banner remain supported.
 
 Markdown maps onto the vocabulary the API exposes:
 
@@ -85,20 +94,30 @@ Both name the source position that produced them.
 ## What draft creation does
 
 Draft creation reads the draft artifact conversion emitted. It obtains each
-image's bytes from the locator the artifact records — resolved against the
-recorded post package, refused when the path escapes the post directory or the
+body or banner image's bytes from the locator the artifact records — resolved
+against the recorded post package, refused when the path escapes the post directory or the
 bytes' digest no longer matches — and uploads it. Containment is enforced by
 resolving the name through descriptor-anchored directory handles that reject a
 symlink escaping the root, so the checked object is the object read and a
-swapped symlink cannot redirect it. The returned `media_id` lands
+swapped symlink cannot redirect it. For body images, the returned `media_id` lands
 on the entity the locator names, not by position. Identical bytes reuse one
 identifier within a run and across a later run through a digest-to-`media_id`
 cache under the task's ignored output directory; each entry records the lifetime
 the upload endpoint reported, so an identifier that X has since dropped is
 uploaded again rather than reused. The cache holds identifiers, digests, and
-expiries only, never credential material. Recording the cache is best-effort: a
-cache that cannot be written costs a later re-upload rather than failing draft
+expiries only, never credential material. Banner and body images use this same
+cache, so identical bytes need only one upload even when both reference them.
+All referenced files, content digests, and media types are verified before the
+first upload; an invalid banner cannot consume an upload or draft request.
+Recording the cache is best-effort: a cache that cannot be written costs a later
+re-upload rather than failing draft
 creation after the uploads already succeeded.
+
+The media uploads happen separately before draft creation. The selected banner's
+uploaded identifier becomes the draft request's top-level `cover_media`, with
+`media_category: "tweet_image"` and `media_id`. Body image identifiers remain
+in their DraftJS entities. This follows the
+[X draft endpoint's request schema](https://docs.x.com/x-api/articles/create-draft-article).
 
 The uploader creates a draft and reports its article identifier; it never calls
 the publish endpoint, so a review in the X composer is always the step that makes

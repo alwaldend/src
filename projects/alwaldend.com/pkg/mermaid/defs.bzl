@@ -1,6 +1,10 @@
 """Native Mermaid diagrams using the site's shared color palette."""
 
-load("//tools/mermaid:defs.bzl", "mermaid_svg")
+load("//tools/mermaid:defs.bzl", "mermaid_svg", "mermaid_webp")
+
+_SITE_THEME = "//projects/alwaldend.com/pkg/mermaid:theme.json"
+_SITE_PALETTE = "//projects/alwaldend.com/assets:mermaid_palette"
+_SITE_FONT = "@com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf"
 
 def _mermaid_palette_impl(ctx):
     ctx.actions.run(
@@ -35,8 +39,21 @@ def mermaid_site_svg(name, src, out, **kwargs):
         out = out,
         dark_out = out.removesuffix(".svg") + ".dark.svg",
         native = True,
-        theme = "//projects/alwaldend.com/pkg/mermaid:theme.json",
-        palette = "//projects/alwaldend.com/assets:mermaid_palette",
-        label_font = "@com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf",
+        theme = _SITE_THEME,
+        palette = _SITE_PALETTE,
+        label_font = _SITE_FONT,
+        **kwargs
+    )
+
+def mermaid_site_webp(name, src, out, **kwargs):
+    """Render a site diagram in the selected color scheme (light by default)."""
+    mermaid_webp(
+        name = name,
+        src = src,
+        out = out,
+        native = True,
+        theme = _SITE_THEME,
+        palette = _SITE_PALETTE,
+        label_font = _SITE_FONT,
         **kwargs
     )

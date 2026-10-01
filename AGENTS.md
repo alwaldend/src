@@ -71,6 +71,7 @@ This table owns routing; each skill owns its procedure.
 | Adding or updating a repository skill                                    | `bazel-rules-skill`                          |
 | Proofreading, polishing, or rewriting supplied prose                     | `spellcheck`                                 |
 | Publishing an article to the blog                                        | `alwaldend-blog`                             |
+| Uploading a blog post to X as an Article draft, or a 429 from X          | `x-article-upload`                           |
 | Complete repository build-and-test health check                          | `full-repo-check`                            |
 | Computing a development, nightly, or weekly version                      | `versioning`                                 |
 | Preparing publication or final handoff                                   | `repo-delivery`                              |

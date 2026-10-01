@@ -395,12 +395,14 @@ func (c *conversion) emitImage(image *gast.Image, container gast.Node) {
 	}
 	key := c.emitAtomic(draftjs.EntityImage, draftjs.MutabilityImmutable, map[string]any{"caption": caption})
 	c.locators = append(c.locators, ImageLocator{
-		EntityKey:   key,
-		Path:        reference,
-		PostPackage: c.converter.PostPackage,
-		Digest:      digest,
-		MediaType:   mediaType,
-		Caption:     caption,
+		EntityKey: key,
+		ImageSource: ImageSource{
+			Path:        reference,
+			PostPackage: c.converter.PostPackage,
+			Digest:      digest,
+			MediaType:   mediaType,
+		},
+		Caption: caption,
 	})
 }
 

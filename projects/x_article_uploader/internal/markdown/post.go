@@ -16,6 +16,8 @@ type Post struct {
 	Source string
 	// Title is the parsed, non-empty front matter title.
 	Title string
+	// Images is the ordered front matter image list; its first entry is the banner.
+	Images []string
 	// Body is the Markdown body with the front matter block removed.
 	Body []byte
 	// FileLine is the one-based line in the source file where Body begins, so a
@@ -31,6 +33,7 @@ type frontMatter struct {
 	Title       string `yaml:"title"`
 	LinkTitle   string `yaml:"linkTitle"`
 	Description string `yaml:"description"`
+	Images      []any  `yaml:"images"`
 }
 
 // ParsePost splits a source file into front matter and body, and returns the
@@ -44,7 +47,15 @@ func ParsePost(source string, raw []byte) (*Post, error) {
 	if strings.TrimSpace(meta.Title) == "" {
 		return nil, fmt.Errorf("%s: front matter has no non-empty title", source)
 	}
-	return &Post{Source: source, Title: meta.Title, Body: body, FileLine: fileLine}, nil
+	images := make([]string, len(meta.Images))
+	for index, value := range meta.Images {
+		image, ok := value.(string)
+		if !ok {
+			return nil, fmt.Errorf("%s: front matter images[%d] must be a string", source, index)
+		}
+		images[index] = image
+	}
+	return &Post{Source: source, Title: meta.Title, Images: images, Body: body, FileLine: fileLine}, nil
 }
 
 // splitFrontMatter returns the parsed front matter and the Markdown body. The

@@ -3,9 +3,9 @@ import puppeteer from "puppeteer";
 
 // Rasterize a rendered SVG through the pinned browser.
 //
-// The SVG is the maintained artifact: it already carries the shared theme, the
-// pinned fonts, and the paint-order pass. Encoding it to WebP is therefore a
-// projection of that document rather than a second appearance, and Chrome
+// The SVG is the maintained artifact: it already carries its selected theme and
+// pinned fonts. Encoding it to WebP is therefore a projection of that document
+// rather than a second appearance, and Chrome
 // performs the encode, so the rule needs no image-conversion toolchain.
 //
 // The raster is authored at the diagram's natural size, then scaled by
@@ -41,7 +41,7 @@ const readBackground = (svg) => {
  * Render an SVG file to a WebP image through the pinned browser.
  *
  * @param {object} options
- * @param {string} options.svgPath Rendered SVG on disk, already post-processed.
+ * @param {string} options.svgPath Rendered SVG on disk, with its theme and font.
  * @param {string} options.output Destination `.webp` path.
  * @param {object} options.puppeteerConfig Launch options, including pinned fonts.
  * @param {number} options.deviceScaleFactor Raster scale; 2 keeps text crisp.
@@ -62,10 +62,15 @@ export async function renderWebp({
     // screenshot's clip box is exactly the drawing.
     const width = Math.ceil(viewBox.width);
     const height = Math.ceil(viewBox.height);
-    const document = svg
-        .replace(/\swidth="[^"]*"/, "")
-        .replace(/\sheight="[^"]*"/, "")
-        .replace(/<svg\b/, `<svg width="${width}" height="${height}"`);
+    // Native Mermaid SVGs omit the root height. Restrict dimension changes to
+    // the root tag so an absent root attribute never removes a label's
+    // foreignObject height and makes that label disappear.
+    const document = svg.replace(/<svg\b[^>]*>/, (root) =>
+        root
+            .replace(/\swidth="[^"]*"/, "")
+            .replace(/\sheight="[^"]*"/, "")
+            .replace(/<svg\b/, `<svg width="${width}" height="${height}"`),
+    );
     const html =
         `<html><head><style>html,body{margin:0;padding:0;` +
         `background:${background}}</style></head><body>${document}</body></html>`;

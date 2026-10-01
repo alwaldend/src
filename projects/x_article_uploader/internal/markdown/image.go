@@ -23,6 +23,22 @@ var acceptedImageTypes = map[string]bool{
 	"image/tiff":  true,
 }
 
+// ValidateImageType verifies accepted bytes against both the source extension
+// and the artifact's declared media type before an upload can begin.
+func ValidateImageType(reference string, content []byte, recordedType string) error {
+	actualType := mediaTypeFor(reference, content)
+	if actualType == "" {
+		return fmt.Errorf("image %q has bytes that do not match its declared image extension", reference)
+	}
+	if !acceptedImageTypes[actualType] {
+		return fmt.Errorf("image %q has media type %q, which the media upload endpoints do not accept", reference, actualType)
+	}
+	if actualType != recordedType {
+		return fmt.Errorf("image %q media type %q does not match the artifact's %q", reference, actualType, recordedType)
+	}
+	return nil
+}
+
 // mediaTypeFor returns the media type an image is treated as, or "" when a
 // recognized extension's declared type does not match the bytes. The declared
 // extension is authoritative for the formats the endpoints accept, and the

@@ -46,6 +46,15 @@ for (const required of ["input", "output", "browser"])
     if (flags[required] === undefined)
         throw new Error(`Missing required flag --${required}`);
 const plain = flags.plain === true;
+if (flags.native && (plain || !flags.palette))
+    throw new Error("Native rendering requires a palette and cannot be plain");
+if (!flags.native && flags.palette)
+    throw new Error("A palette requires native rendering");
+const colorScheme = flags["color-scheme"] ?? "light";
+if (!["light", "dark"].includes(colorScheme))
+    throw new Error("Color scheme must be light or dark");
+if (flags["color-scheme"] !== undefined && (!flags.native || !flags.raster))
+    throw new Error("A color scheme requires native raster rendering");
 if (!plain && flags.config === undefined)
     throw new Error("Missing required flag --config");
 
@@ -100,28 +109,42 @@ try {
                 throw new Error(`Missing required flag --${required}`);
         if (plain)
             throw new Error("A raster render requires the maintained theme");
-        // A raster render is a projection of the maintained SVG: render the
-        // themed document first, apply the same paint-order and font
-        // post-processing a plain SVG render applies, then let the pinned
-        // browser encode it. No second appearance is introduced. The SVG is
-        // scratch, not a declared output, so it lives in the render scratch.
+        // Render the same SVG document as the corresponding SVG action, then
+        // let the existing encoder project it to a raster. The SVG is scratch,
+        // not a declared output, so it lives in the render scratch.
         const svgPath = path.join(scratch, "raster.svg");
-        await run(input, svgPath, {
-            puppeteerConfig,
-            parseMMDOptions: {
-                backgroundColor: flags.background ?? "white",
-                ...(mermaidConfig === undefined ? {} : { mermaidConfig }),
-                viewport: { width: 800, height: 600, deviceScaleFactor: 1 },
-            },
-        });
-        const rendered = await fs.readFile(svgPath, "utf8");
-        await fs.writeFile(
-            svgPath,
-            embedFont(
-                liftClusterLabels(rendered),
-                await fs.readFile(embedFontFile),
-            ),
-        );
+        if (flags.native) {
+            await renderNative({
+                input,
+                output: svgPath,
+                colorScheme,
+                palette: path.resolve(flags.palette),
+                config: mermaidConfig,
+                font: embedFontFile,
+                puppeteerConfig,
+            });
+        } else {
+            await run(input, svgPath, {
+                puppeteerConfig,
+                parseMMDOptions: {
+                    backgroundColor: flags.background ?? "white",
+                    ...(mermaidConfig === undefined ? {} : { mermaidConfig }),
+                    viewport: {
+                        width: 800,
+                        height: 600,
+                        deviceScaleFactor: 1,
+                    },
+                },
+            });
+            const rendered = await fs.readFile(svgPath, "utf8");
+            await fs.writeFile(
+                svgPath,
+                embedFont(
+                    liftClusterLabels(rendered),
+                    await fs.readFile(embedFontFile),
+                ),
+            );
+        }
         await renderWebp({
             svgPath,
             output,

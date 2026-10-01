@@ -26,6 +26,7 @@ const server = http.createServer(async (request, response) => {
             ".css": "text/css",
             ".js": "text/javascript",
             ".svg": "image/svg+xml",
+            ".webp": "image/webp",
         };
         response.setHeader(
             "Content-Type",
@@ -519,6 +520,146 @@ try {
         assert.ok(image.alt);
     }
     report.push({ blogImagesPreserved: blogImages.length });
+    const historicalSocial = await page.evaluate(() => ({
+        openGraph: document.querySelector('meta[property="og:image"]').content,
+        twitter: document.querySelector('meta[name="twitter:image"]').content,
+    }));
+    assert.equal(historicalSocial.openGraph, historicalSocial.twitter);
+    assert.ok(historicalSocial.openGraph.endsWith("/drawio-to-mermaid.webp"));
+    const historicalImage = await fetch(
+        new URL(new URL(historicalSocial.openGraph).pathname, base),
+    );
+    assert.equal(historicalImage.status, 200);
+    assert.equal(historicalImage.headers.get("content-type"), "image/webp");
+    report.push({ historicalSocial });
+
+    // Social metadata must select the working inline image exactly once:
+    // missing tags, relative URLs, duplicate images, and broken assets fail.
+    await page.setViewport({ width: 1280, height: 1000 });
+    await page.goto(
+        `${base}/blog/this-x-article-was-generated-from-markdown/`,
+        { waitUntil: "networkidle0" },
+    );
+    await select("dark");
+    const pipelineImages = await page.$$(".td-content img");
+    assert.equal(pipelineImages.length, 1, "The post has one inline image");
+    const pipeline = pipelineImages[0];
+    await pipeline.scrollIntoView();
+    await pipeline.evaluate((element) => element.decode());
+    const inlineImage = await pipeline.evaluate((element) => ({
+        src: element.src,
+        alt: element.alt,
+        width: element.naturalWidth,
+        height: element.naturalHeight,
+    }));
+    assert.ok(inlineImage.alt, "The diagram has alternative text");
+    assert.ok(inlineImage.width > 0 && inlineImage.height > 0);
+    const canvas = await pipeline.evaluate((element) => {
+        const canvas = document.createElement("canvas");
+        canvas.width = element.naturalWidth;
+        canvas.height = element.naturalHeight;
+        const context = canvas.getContext("2d");
+        context.fillStyle = getComputedStyle(document.body).backgroundColor;
+        context.fillRect(0, 0, 1, 1);
+        const siteBackground = [
+            ...context.getImageData(0, 0, 1, 1).data,
+        ].slice(0, 3);
+        context.drawImage(element, 0, 0);
+        const { data } = context.getImageData(
+            0,
+            0,
+            canvas.width,
+            canvas.height,
+        );
+        const background = [...data.slice(0, 3)];
+        let left = canvas.width,
+            right = 0,
+            top = canvas.height,
+            bottom = 0;
+        // Count the muted section borders as diagram content too; the dark
+        // palette keeps them lower contrast than labels and node outlines.
+        for (let y = 0; y < canvas.height; y++) {
+            for (let x = 0; x < canvas.width; x++) {
+                const offset = (y * canvas.width + x) * 4;
+                if (
+                    background.some(
+                        (channel, i) =>
+                            Math.abs(channel - data[offset + i]) > 12,
+                    )
+                ) {
+                    left = Math.min(left, x);
+                    right = Math.max(right, x);
+                    top = Math.min(top, y);
+                    bottom = Math.max(bottom, y);
+                }
+            }
+        }
+        return { siteBackground, background, left, right, top, bottom };
+    });
+    canvas.background.forEach((channel, i) =>
+        assert.ok(
+            Math.abs(channel - canvas.siteBackground[i]) <= 3,
+            "The image canvas matches the site's dark background",
+        ),
+    );
+    assert.ok(
+        canvas.left >= 12 && inlineImage.width - canvas.right >= 12,
+        "Keep visible side margins around the diagram",
+    );
+    assert.ok(
+        (canvas.right - canvas.left) / inlineImage.width >= 0.85,
+        "The diagram fills the image width without excessive padding",
+    );
+    assert.ok(
+        (canvas.bottom - canvas.top) / inlineImage.height >= 0.45,
+        "The diagram fills the image height without excessive padding",
+    );
+    report.push({ pipelineCanvas: canvas });
+    const social = await page.evaluate(() => {
+        const content = (selector) =>
+            [...document.querySelectorAll(selector)].map(
+                (element) => element.content,
+            );
+        return {
+            page: content('meta[property="og:url"]'),
+            openGraph: content('meta[property="og:image"]'),
+            twitterImage: content('meta[name="twitter:image"]'),
+            twitterCard: content('meta[name="twitter:card"]'),
+        };
+    });
+    report.push({ pipelineImage: inlineImage, social });
+    assert.equal(social.page.length, 1);
+    const canonical = new URL(social.page[0]);
+    const expectedImage = new URL("pipeline.webp", canonical);
+    assert.deepEqual(
+        social.openGraph,
+        [expectedImage.href],
+        "Open Graph selects the absolute diagram resource URL",
+    );
+    assert.deepEqual(
+        social.twitterImage,
+        social.openGraph,
+        "Twitter selects the same single diagram resource",
+    );
+    assert.deepEqual(social.twitterCard, ["summary_large_image"]);
+    assert.equal(new URL(inlineImage.src).pathname, expectedImage.pathname);
+
+    // Serve the canonical URL's path from this candidate's ephemeral server.
+    const socialResponse = await fetch(new URL(expectedImage.pathname, base));
+    assert.equal(socialResponse.status, 200, "The social image is available");
+    assert.equal(socialResponse.headers.get("content-type"), "image/webp");
+    const socialBytes = Buffer.from(await socialResponse.arrayBuffer());
+    assert.equal(socialBytes.toString("ascii", 0, 4), "RIFF");
+    assert.equal(socialBytes.toString("ascii", 8, 12), "WEBP");
+    assert.deepEqual(
+        socialBytes,
+        await fs.readFile(path.join(root, expectedImage.pathname)),
+        "The social URL serves the packaged diagram",
+    );
+    await pipeline.screenshot({
+        path: path.join(output, "pipeline-social.png"),
+    });
+    report.push({ pipelineSocialImage: "loaded", bytes: socialBytes.length });
 } finally {
     await fs.writeFile(
         path.join(output, "report.json"),

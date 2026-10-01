@@ -41,10 +41,10 @@ func (c *recordedClient) UploadImage(name string, content []byte) (*xapi.MediaUp
 	return &xapi.MediaUpload{MediaID: c.uploadID, MediaCategory: "tweet_image", ExpiresAfterSecs: c.uploadExpires}, nil
 }
 
-func (c *recordedClient) CreateDraft(title string, contentState any) (*xapi.Draft, error) {
+func (c *recordedClient) CreateDraft(request xapi.DraftRequest) (*xapi.Draft, error) {
 	c.drafts++
-	c.draftTitle = title
-	c.draftBody = contentState
+	c.draftTitle = request.Title
+	c.draftBody = request.ContentState
 	return &xapi.Draft{ID: c.draftID}, nil
 }
 
@@ -455,7 +455,7 @@ func TestDraftDecodesV2Envelope(t *testing.T) {
 		HTTPClient: server.Client(),
 		Now:        func() time.Time { return time.Unix(1700000000, 0) },
 	}
-	draft, err := client.CreateDraft("Example", map[string]any{"blocks": []any{}, "entities": []any{}})
+	draft, err := client.CreateDraft(xapi.DraftRequest{Title: "Example", ContentState: map[string]any{"blocks": []any{}, "entities": []any{}}})
 	if err != nil {
 		t.Fatalf("create draft: %v", err)
 	}
@@ -698,7 +698,7 @@ func TestImageBytesReadsResolvedPath(t *testing.T) {
 	}
 	locator := artifact.Locators[0]
 	locator.Path = "link.png"
-	_, resolved, err := draft.ImageBytes(locator, root)
+	_, resolved, err := draft.ImageBytes(locator.ImageSource, root)
 	if err != nil {
 		t.Fatalf("resolve image bytes: %v", err)
 	}
@@ -824,7 +824,7 @@ func TestDraftRequiresIdentifier(t *testing.T) {
 		HTTPClient: server.Client(),
 		Now:        func() time.Time { return time.Unix(1700000000, 0) },
 	}
-	if _, err := client.CreateDraft("Example", map[string]any{"blocks": []any{}, "entities": []any{}}); err == nil {
+	if _, err := client.CreateDraft(xapi.DraftRequest{Title: "Example", ContentState: map[string]any{"blocks": []any{}, "entities": []any{}}}); err == nil {
 		t.Error("expected a draft response without data.id to fail")
 	}
 }

@@ -49,7 +49,11 @@ Mermaid's `subGraphTitleMargin` setting. Compact node/rank spacing and the
 pinned renderer's `edgeSpacing` option separate nested title plates. Package both
 outputs and reference the light `.svg`; Markdown and the SVG shortcode recognize
 its `.dark.svg` sibling. The site theme selects the visible image, and print
-always uses light. Blog diagrams retain their original files and presentation.
+always uses light. Historical blog diagrams retain their original files and
+presentation. New raster diagrams can use `mermaid_site_webp` from the same
+macro file to encode the native diagram with the site's palette and sans-serif
+font for syndication and social previews. Set `color_scheme = "dark"` to select
+the dark palette; the default remains light.
 The homepage panel links to GitHub, GitLab, Blog, Docs, and the project index,
 followed by permanently visible, indented project links in title order.
 Each row shows its destination alongside its title; narrow screens place the
@@ -86,6 +90,15 @@ per-page GitHub links point at the content sources.
 A post stays unpublished while its front matter declares `draft: true`. Local
 builds render drafts for review and the release build excludes them, so the
 draft state alone withholds a post from the deployed site.
+
+A post can select a bundled image for social previews with front matter
+`images: [pipeline.webp]`. Hugo's Open Graph and Twitter card templates resolve
+that resource and emit its absolute URL with a large image card. The post may
+reference the same image in its body; no separate featured image or head hook
+is required. Every post is encouraged to have a representative image. Reuse an
+opening image when available, and prefer a raster projection for social cards
+when the body references SVG. Posts without a suitable image can omit this
+metadata.
 
 Agent workflow: [Add a blog post](https://github.com/alwaldend/src/blob/master/projects/alwaldend.com/skills/alwaldend-blog/SKILL.md).
 

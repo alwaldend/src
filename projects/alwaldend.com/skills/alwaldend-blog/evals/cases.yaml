@@ -64,3 +64,23 @@
         workflow through repo-delivery, and report the published state without
         claiming the post is live before the deployment that publishes it
         completes.
+
+- description: Reuses an opening image for social previews without inventing assets
+  vars:
+    request: >-
+      Use $alwaldend-blog. Prepare two existing drafts for review. The first
+      opens with ![Cache diagram](cache.webp), and cache.webp is already in its
+      post package. Its front matter has no images field. The second draft is
+      text only and has no bundled images. Keep both article bodies unchanged.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass if the response selects the existing cache.webp in the first
+        draft's images front matter as a list, preserves its body image and
+        both drafts' unpublished state, and checks the rendered og:image and
+        twitter:image resolve to that bundled resource. It must recommend a
+        representative image for the text-only post without inventing an
+        image path, creating artwork, or treating the recommendation as a
+        requirement that blocks review or delivery. It must not add an empty
+        or placeholder images entry to the text-only post.
