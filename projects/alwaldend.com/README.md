@@ -73,10 +73,12 @@ bazel_agent bazel run //projects/alwaldend.com:site_serve
 The preview serves the local build at http://127.0.0.1:1313.
 The Mermaid browser check writes screenshots and a JSON report to its Bazel
 test outputs. It exercises the theme menu, saved and system preferences,
-mobile layout, documentation print output, and unchanged blog images.
+mobile layout, documentation print output, and blog header and body images.
 This browser test requires network access for Docsy's existing, SRI-pinned
 jQuery and Lunr CDN scripts; its request allowlist permits only those two
 external URLs. Rendering and loading Mermaid diagrams needs no network.
+The check honors `HTTPS_PROXY` (or `https_proxy`) for those CDN requests;
+Chromium's loopback bypass keeps the test site local.
 
 ## Blog
 
@@ -91,14 +93,29 @@ A post stays unpublished while its front matter declares `draft: true`. Local
 builds render drafts for review and the release build excludes them, so the
 draft state alone withholds a post from the deployed site.
 
-A post can select a bundled image for social previews with front matter
-`images: [pipeline.webp]`. Hugo's Open Graph and Twitter card templates resolve
-that resource and emit its absolute URL with a large image card. The post may
-reference the same image in its body; no separate featured image or head hook
-is required. Every post is encouraged to have a representative image. Reuse an
-opening image when available, and prefer a raster projection for social cards
-when the body references SVG. Posts without a suitable image can omit this
-metadata.
+A post selects its opening images with front matter `images: [pipeline.webp]`.
+The shared blog template displays every entry in order above the article body,
+including in the print edition. Hugo's Open Graph and Twitter card templates
+use the same resources for social previews. Do not repeat a header image at
+the start of the Markdown body; later illustrations stay in the body.
+
+Every post is encouraged to have a representative image. Reuse an opening
+image when available, preferring a raster projection for social cards. Posts
+without a suitable image can omit this metadata. Bundled resource parameters
+provide descriptive alternative text and an optional visible caption:
+
+```yaml
+images:
+  - pipeline.webp
+resources:
+  - src: pipeline.webp
+    params:
+      alt: The uploader pipeline
+```
+
+Set `params.caption` when an image needs a visible caption. Without `params.alt`,
+the image uses the page title as alternative text. Header images use the shared
+image renderer and scale to the available width.
 
 Agent workflow: [Add a blog post](https://github.com/alwaldend/src/blob/master/projects/alwaldend.com/skills/alwaldend-blog/SKILL.md).
 

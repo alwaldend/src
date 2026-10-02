@@ -56,7 +56,12 @@
         group: "{{ vault_user }}"
         mode: "0650"
     - name: Write certs
-      ignore_errors: true
+      tags:
+        - vault_tls
+      no_log: true
+      # Certificate recovery must stop before reload if either write fails.
+      # Keep the existing tolerance for a full bootstrap deployment.
+      ignore_errors: "{{ 'vault_tls' not in ansible_run_tags }}"
       block:
         - name: Generate a cert
           connection: local
@@ -117,6 +122,8 @@
       ansible.builtin.systemd_service:
         daemon_reload: true
     - name: Reload the service
+      tags:
+        - vault_tls
       ansible.builtin.systemd_service:
         name: "{{ vault_service_path | basename }}"
         state: reloaded

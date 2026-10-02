@@ -4,20 +4,58 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"regexp"
 
 	"github.com/yuin/goldmark"
 	gast "github.com/yuin/goldmark/ast"
 	"github.com/yuin/goldmark/extension"
 	extensionast "github.com/yuin/goldmark/extension/ast"
 	"github.com/yuin/goldmark/text"
+	"golang.org/x/text/unicode/norm"
 
 	"git.alwaldend.com/alwaldend/src/projects/x_article_uploader/internal/draftjs"
 )
 
-// MarkdownPayloadBudget bounds the total `markdown` entity payload for one
-// article. The API documents a 10,000 weighted-length limit; this fails below
-// that so an over-budget article is refused locally rather than by the API.
+// MarkdownPayloadBudget limits the estimated weighted length of all Markdown
+// entities in one article. It leaves a margin below X's documented 10,000 limit;
+// the Articles backend's exact counting algorithm is not published.
 const MarkdownPayloadBudget = 9500
+
+var markdownDomainFragment = regexp.MustCompile(`[\p{L}\p{M}\p{N}\p{So}_-]+(?:\.[\p{L}\p{M}\p{N}\p{So}_-]+)+`)
+
+// markdownWeightedLengthEstimate uses X's published v3 character weights and
+// NFC normalization for counting only. Emoji components count separately and
+// domain-like fragments cost at least 23, accounting for short URL expansion
+// without a TLD database or exact URL/emoji parser. Ordinary punctuation stays
+// unchanged. This is a conservative local estimate, not a strict upper bound or
+// an exact validator for the undocumented Articles counting algorithm.
+//
+// https://docs.x.com/fundamentals/counting-characters
+// https://github.com/twitter/twitter-text/blob/master/config/v3.json
+func markdownWeightedLengthEstimate(payload string) int {
+	normalized := norm.NFC.String(payload)
+	weight := markdownCodePointWeight(normalized)
+	for _, fragment := range markdownDomainFragment.FindAllString(normalized, -1) {
+		weight += max(23-markdownCodePointWeight(fragment), 0)
+	}
+	return weight
+}
+
+func markdownCodePointWeight(value string) int {
+	weight := 0
+	for _, codePoint := range value {
+		switch {
+		case codePoint <= 0x10ff,
+			codePoint >= 0x2000 && codePoint <= 0x200d,
+			codePoint >= 0x2010 && codePoint <= 0x201f,
+			codePoint >= 0x2032 && codePoint <= 0x2037:
+			weight++
+		default:
+			weight += 2
+		}
+	}
+	return weight
+}
 
 // Article is the emitted draft artifact: the content_state document, the title
 // draft creation needs, the locators publication resolves images from, and the
@@ -98,10 +136,10 @@ func (c *Converter) Convert(raw []byte) (*Article, error) {
 	}
 	conv.appendFootnotes(doc)
 
-	if conv.markdownLen > MarkdownPayloadBudget {
+	if conv.markdownWeightEstimate > MarkdownPayloadBudget {
 		conv.report(Failing, "markdown-payload-over-budget", fmt.Sprintf(
-			"the article's markdown payload is %d bytes, over the %d budget",
-			conv.markdownLen, MarkdownPayloadBudget), 0)
+			"the article's markdown payload has a weighted-length estimate of %d, over the local %d budget",
+			conv.markdownWeightEstimate, MarkdownPayloadBudget), 0)
 	}
 
 	article := &Article{
@@ -131,13 +169,13 @@ type blockContext struct {
 }
 
 type conversion struct {
-	converter   *Converter
-	post        *Post
-	body        []byte
-	doc         *draftjs.Document
-	locators    []ImageLocator
-	diagnostics []Diagnostic
-	markdownLen int
+	converter              *Converter
+	post                   *Post
+	body                   []byte
+	doc                    *draftjs.Document
+	locators               []ImageLocator
+	diagnostics            []Diagnostic
+	markdownWeightEstimate int
 }
 
 func (c *conversion) report(severity Severity, code, message string, offset int) {

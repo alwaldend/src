@@ -244,7 +244,7 @@ JavaScript string.
 ### Requirement: Code blocks and tables preserve source Markdown
 
 Code fences and tables SHALL be emitted as `atomic` blocks backed by a
-`markdown` entity whose payload preserves the construct's original Markdown
+`markdown` entity with `mutable` mutability whose payload preserves the construct's original Markdown
 source. A table MUST NOT be flattened into paragraph text, because X exposes no
 table block or entity.
 
@@ -271,10 +271,11 @@ table block or entity.
 
 #### Scenario: Report the markdown payload budget
 
-- **WHEN** the total `markdown` entity payload for an article would exceed the
-  API's per-article limit
-- **THEN** conversion fails with a diagnostic naming the article and the
-  measured size rather than emitting a document the API will reject
+- **WHEN** the documented conservative weighted-length estimate for Markdown
+  entities exceeds the local per-article budget
+- **THEN** conversion fails with the measured estimate and budget
+- **AND** the diagnostic and documentation distinguish that estimate from X's
+  undocumented Articles-specific backend validation
 
 ### Requirement: Inline code and thematic breaks
 
@@ -344,8 +345,8 @@ reference SHALL become plain bracketed text, and each definition SHALL become an
 
 The `image` entity SHALL carry its media as `media_items`, whose entries require
 a `media_category` and a `media_id`; `data.url` is documented for `link`
-entities and MUST NOT be treated as an image source. Each image SHALL become an
-`atomic` block plus an `image` entity, and unresolved images SHALL remain
+entities and MUST NOT be treated as an image source. Each explicit body image
+SHALL become an `atomic` block plus an `image` entity, and unresolved images SHALL remain
 explicitly unresolved so publication can resolve or reject them rather than
 silently emitting a broken article. Because the media endpoints accept only a
 fixed set of image media types that excludes `image/svg+xml`, the converter
@@ -358,7 +359,7 @@ reported rather than sent to the upload endpoint.
 
 #### Scenario: Convert an inline image
 
-- **WHEN** a post contains an image with alt text
+- **WHEN** a post contains an explicit Markdown image with alt text
 - **THEN** it becomes an `atomic` block with an `image` entity
 - **AND** the entity preserves the alt text as its caption, resolving Markdown
   escapes and character references the way prose is resolved while a raw span
@@ -451,7 +452,7 @@ reported rather than sent to the upload endpoint.
 #### Scenario: A post follows the raster-only policy
 
 - **WHEN** a post's images all use a media type the media upload endpoints accept
-- **THEN** conversion completes with an `image` entity for each image
+- **THEN** conversion completes with an `image` entity for each explicit body image
 - **AND** no unacceptable-image diagnostic is reported for that post
 
 ### Requirement: Artifact carries image locators
@@ -597,14 +598,43 @@ one.
   names the position an editor shows
 - **AND** the byte offset is still recorded for slicing the source
 
-### Requirement: Banner image metadata
+### Requirement: Validate the supported static image contract
+
+Conversion and draft preflight SHALL accept only static JPEG, PNG, GIF, and
+WebP images up to 5,000,000 bytes. They SHALL reject unsupported formats,
+animations, malformed images detectable by the supported decoder or container
+validator, and images exceeding the documented local decoded-size guard. The
+implementation SHALL distinguish X's upload limits from local resource guards
+and SHALL NOT claim full WebP decoding when only container/header validation is
+available. Every image SHALL pass preflight before any upload or draft request.
+
+#### Scenario: An unsupported or animated image is referenced
+
+- **WHEN** a banner or retained body image uses an unsupported format or animation
+- **THEN** conversion reports the unusable source
+- **AND** a supplied artifact containing that source is also refused before network requests
+
+#### Scenario: A file exceeds the simple-image upload limit
+
+- **WHEN** a selected image contains more than 5,000,000 bytes
+- **THEN** conversion and draft preflight refuse it before upload
+
+#### Scenario: A malformed image only carries a recognized signature
+
+- **WHEN** a file's signature matches its extension but decoding or container validation fails
+- **THEN** it is refused rather than sent as a usable image
+
+### Requirement: Independent banner and body image conversion
 
 The converter SHALL resolve the first entry of the optional front matter
 `images` array as the article banner. It SHALL record a separate banner locator
 with the post-relative path, post package, content digest, and detected media
-type, using the same image validation as body images. It MUST NOT insert a body
-block or remove an existing body image because the image is selected as a banner.
-Malformed metadata or an unusable selected image SHALL fail conversion.
+type, using the same image validation as body images. Banner metadata MUST NOT
+insert or remove any body image blocks, entities, or locators. The converter
+SHALL preserve every valid explicit Markdown image in source order, including
+opening images, repeated references, and images whose bytes match the banner.
+Malformed metadata or an unusable selected image SHALL fail conversion. Banner
+selection MUST NOT bypass body image containment or media validation.
 
 #### Scenario: Select a banner independently of body images
 
@@ -612,6 +642,25 @@ Malformed metadata or an unusable selected image SHALL fail conversion.
 - **THEN** conversion records its banner locator separately from body locators
 - **AND** later `images` entries do not select additional banners
 - **AND** body text and images retain their original order
+
+#### Scenario: Preserve an opening image that matches the banner
+
+- **WHEN** a post opens with explicit Markdown images whose validated bytes
+  match its selected banner, in one or several paragraphs
+- **THEN** every occurrence produces its normal body block, entity, and locator
+- **AND** the separate banner locator remains present
+
+#### Scenario: Keep metadata-only images out of the body
+
+- **WHEN** a post selects a banner in `images` and contains no Markdown images
+- **THEN** conversion records the banner locator
+- **AND** it creates no body image blocks, entities, or locators from metadata
+
+#### Scenario: Preserve a secondary front matter image
+
+- **WHEN** a body image also appears in a later `images` entry
+- **THEN** the explicit Markdown image remains in the body
+- **AND** that metadata entry creates no additional banner or body occurrence
 
 #### Scenario: Convert without a selected banner
 
@@ -623,3 +672,10 @@ Malformed metadata or an unusable selected image SHALL fail conversion.
 - **WHEN** `images` is not an array of strings, or its selected image is missing,
   unsupported, remote, or outside the post package
 - **THEN** conversion fails with a diagnostic before any network operation
+
+#### Scenario: Validate a body image that aliases the banner
+
+- **WHEN** a body image aliases the banner's bytes through an escaping symlink
+  or an unsupported media type
+- **THEN** normal conversion diagnostics refuse that body reference
+- **AND** matching bytes do not bypass validation

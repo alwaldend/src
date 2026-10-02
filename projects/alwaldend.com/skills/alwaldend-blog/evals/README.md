@@ -6,8 +6,9 @@ The offline target validates the Promptfoo configuration, case files, and skill
 staging without credentials or model calls. Cases cover verbatim preservation
 of supplied content, the unpublished default state, and reporting style
 findings instead of silently editing them. Social-preview coverage checks
-reusing an existing opening image and recommending an image for text-only
-posts without inventing assets or making the recommendation mandatory.
+migrating an existing opening image to the shared header with its alternative
+text and recommending an image for text-only posts without inventing assets
+or making the recommendation mandatory.
 
 No live target is declared: representative behavior requires creating a Bazel
 package, building the site, editing repository files, and reading rendered

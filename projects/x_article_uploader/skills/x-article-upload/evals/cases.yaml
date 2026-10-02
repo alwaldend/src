@@ -48,6 +48,25 @@
         X-User-Limit-24hour-Reset before retrying, retrying the draft step at
         most once. Otherwise fail.
 
+- description: Does not infer current quota from an earlier failed response
+  vars:
+    request: >-
+      Use $x-article-upload. An earlier 503 response said one daily request
+      remained. The latest attempt returned 429, but its headers were not
+      captured. Did the failed request leave our slot available, and when can
+      I upload?
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass only if the response treats the earlier remaining count as a
+        historical observation, does not assume the 503 preserved quota, and
+        explains that the current binding limit and reset are unknown without
+        the latest headers. It may give an earlier recorded reset only as the
+        last known value, not confirmed current eligibility. It must not send
+        another draft request to probe the limit or promise automatic retries.
+        Otherwise fail.
+
 - description: Distinguishes an expired Vault token from an X rejection
   vars:
     request: >-

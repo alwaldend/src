@@ -39,9 +39,13 @@ const server = http.createServer(async (request, response) => {
 });
 await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
 const base = `http://127.0.0.1:${server.address().port}`;
+// Chromium does not read the proxy environment itself. Keep its default
+// loopback bypass so the local site is direct and only allowlisted CDNs use it.
+const proxy = process.env.HTTPS_PROXY || process.env.https_proxy;
 const browser = await puppeteer.launch({
     executablePath: path.resolve(process.argv[3]),
     headless: "shell",
+    args: proxy ? [`--proxy-server=${proxy}`] : [],
 });
 const report = [];
 try {
@@ -497,14 +501,67 @@ try {
     }
     report.push({ shortcodeImagesLoaded: shortcodeImages.length });
 
+    // Frontmatter images are visible above prose without duplicate opening
+    // Markdown images. Existing later body illustrations remain intact.
+    const checkHeaderImages = async (expected) => {
+        const headers = await page.$$eval(".blog-header-images", (groups) =>
+            groups.map((group) => ({
+                images: [...group.querySelectorAll("img")].map((image) => ({
+                    name: new URL(image.src).pathname.split("/").at(-1),
+                    alt: image.alt,
+                })),
+                precedesProse: Boolean(
+                    group.compareDocumentPosition(
+                        [
+                            ...group
+                                .closest(".td-content")
+                                .querySelectorAll("p"),
+                        ].find(
+                            (paragraph) =>
+                                !group.contains(paragraph) &&
+                                paragraph.textContent.trim(),
+                        ),
+                    ) & Node.DOCUMENT_POSITION_FOLLOWING,
+                ),
+            })),
+        );
+        assert.deepEqual(
+            headers.map((header) => header.images),
+            expected,
+        );
+        assert.ok(headers.every((header) => header.precedesProse));
+        report.push({ blogHeaderImages: headers });
+    };
+
     await page.goto(`${base}/blog/diagrams-in-ac-era/`, {
         waitUntil: "networkidle0",
     });
+    await checkHeaderImages([
+        [
+            {
+                name: "drawio-to-mermaid.webp",
+                alt: "Drawio to Mermaid",
+            },
+        ],
+    ]);
     const blogImages = await page.$$eval(".td-content img", (images) =>
         images.map((element) => ({ src: element.src, alt: element.alt })),
     );
     assert.equal(await page.$(".mermaid-diagram"), null);
-    assert.ok(blogImages.length >= 6, "Historical blog images remain present");
+    assert.deepEqual(
+        blogImages.map((image) =>
+            new URL(image.src).pathname.split("/").at(-1),
+        ),
+        [
+            "drawio-to-mermaid.webp",
+            "container-example-default.svg",
+            "container-example.svg",
+            "container-example-architecture.svg",
+            "old_t3code_arch_diagram.svg",
+            "t3code-architecture.svg",
+        ],
+        "The header appears once and later body diagrams are preserved",
+    );
     for (const image of blogImages) {
         assert.ok(
             !image.src.includes("/diagrams/"),
@@ -533,7 +590,7 @@ try {
     assert.equal(historicalImage.headers.get("content-type"), "image/webp");
     report.push({ historicalSocial });
 
-    // Social metadata must select the working inline image exactly once:
+    // Social metadata must select the working header image exactly once:
     // missing tags, relative URLs, duplicate images, and broken assets fail.
     await page.setViewport({ width: 1280, height: 1000 });
     await page.goto(
@@ -541,8 +598,16 @@ try {
         { waitUntil: "networkidle0" },
     );
     await select("dark");
+    await checkHeaderImages([
+        [
+            {
+                name: "pipeline.webp",
+                alt: "The uploader pipeline",
+            },
+        ],
+    ]);
     const pipelineImages = await page.$$(".td-content img");
-    assert.equal(pipelineImages.length, 1, "The post has one inline image");
+    assert.equal(pipelineImages.length, 1, "The post has one header image");
     const pipeline = pipelineImages[0];
     await pipeline.scrollIntoView();
     await pipeline.evaluate((element) => element.decode());
@@ -660,6 +725,37 @@ try {
         path: path.join(output, "pipeline-social.png"),
     });
     report.push({ pipelineSocialImage: "loaded", bytes: socialBytes.length });
+
+    await page.setViewport({ width: 390, height: 844 });
+    const mobileHeader = await pipeline.boundingBox();
+    assert.ok(mobileHeader.width > 0 && mobileHeader.height > 0);
+    assert.ok(
+        mobileHeader.x >= 0 && mobileHeader.x + mobileHeader.width <= 390,
+    );
+    await page.screenshot({
+        path: path.join(output, "blog-header-mobile.png"),
+    });
+    report.push({ mobileBlogHeader: mobileHeader });
+
+    await page.goto(`${base}/blog/slop-without-a-clear-goal/`, {
+        waitUntil: "networkidle0",
+    });
+    assert.equal(await page.$(".blog-header-images"), null);
+    assert.equal(await page.$(".td-content img"), null);
+
+    await page.goto(`${base}/_print/blog/`, { waitUntil: "networkidle0" });
+    await checkHeaderImages([
+        [{ name: "pipeline.webp", alt: "The uploader pipeline" }],
+        [{ name: "drawio-to-mermaid.webp", alt: "Drawio to Mermaid" }],
+    ]);
+    const printHeaderImages = await page.$$(".blog-header-images img");
+    for (const image of printHeaderImages) {
+        await image.scrollIntoView();
+        await image.evaluate((element) => element.decode());
+    }
+    await page.screenshot({
+        path: path.join(output, "blog-headers-print.png"),
+    });
 } finally {
     await fs.writeFile(
         path.join(output, "report.json"),

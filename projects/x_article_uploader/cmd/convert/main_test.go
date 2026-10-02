@@ -5,6 +5,8 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"image"
+	"image/png"
 	"os"
 	"path/filepath"
 	"strings"
@@ -66,10 +68,16 @@ func TestRunDerivesRelativePostPackage(t *testing.T) {
 	}
 }
 
-// tinyPNGForCommandTest is the leading signature of a PNG file, enough for the
-// converter's format check; the bytes are never decoded.
+// tinyPNGForCommandTest is a complete, decodable one-pixel PNG.
 var tinyPNGForCommandTest = []byte{
 	0x89, 'P', 'N', 'G', 0x0D, 0x0A, 0x1A, 0x0A,
+	0x00, 0x00, 0x00, 0x0d, 'I', 'H', 'D', 'R',
+	0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01,
+	0x08, 0x06, 0x00, 0x00, 0x00, 0x1f, 0x15, 0xc4,
+	0x89, 0x00, 0x00, 0x00, 0x0a, 'I', 'D', 'A', 'T',
+	0x78, 0x9c, 0x63, 0x00, 0x01, 0x00, 0x00, 0x05,
+	0x00, 0x01, 0x0d, 0x0a, 0x2d, 0xb4, 0x00, 0x00,
+	0x00, 0x00, 'I', 'E', 'N', 'D', 0xae, 0x42, 0x60, 0x82,
 }
 
 // TestPostPackageWithinRefusesEscapingSymlink asserts a post directory reached
@@ -399,7 +407,7 @@ func TestConversionReadsImagesThroughValidatedHandle(t *testing.T) {
 	if err := os.MkdirAll(validated, 0o755); err != nil {
 		t.Fatalf("create validated post: %v", err)
 	}
-	validatedBytes := append(append([]byte{}, tinyPNGForCommandTest...), 0x01, 0x02, 0x03)
+	validatedBytes := tinyPNGForCommandTest
 	if err := os.WriteFile(filepath.Join(validated, "diagram.png"), validatedBytes, 0o644); err != nil {
 		t.Fatalf("write validated image: %v", err)
 	}
@@ -418,7 +426,11 @@ func TestConversionReadsImagesThroughValidatedHandle(t *testing.T) {
 	if err := os.MkdirAll(replacement, 0o755); err != nil {
 		t.Fatalf("create replacement post: %v", err)
 	}
-	replacementBytes := append(append([]byte{}, tinyPNGForCommandTest...), 0xFF, 0xFE)
+	var replacementImage bytes.Buffer
+	if err := png.Encode(&replacementImage, image.NewRGBA(image.Rect(0, 0, 2, 2))); err != nil {
+		t.Fatalf("encode replacement image: %v", err)
+	}
+	replacementBytes := replacementImage.Bytes()
 	if err := os.WriteFile(filepath.Join(replacement, "diagram.png"), replacementBytes, 0o644); err != nil {
 		t.Fatalf("write replacement image: %v", err)
 	}

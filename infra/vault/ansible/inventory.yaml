@@ -5,6 +5,7 @@ vm:
 bm:
   hosts:
     host1.vault.alwaldend.com:
+      ansible_host: host1.vault.dc1.alwaldend.com
 vault:
   children:
     # vm:

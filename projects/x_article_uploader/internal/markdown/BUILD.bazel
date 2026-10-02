@@ -22,5 +22,6 @@ go_library(
         "@com_github_yuin_goldmark//extension/ast",
         "@com_github_yuin_goldmark//text",
         "@com_github_yuin_goldmark//util",
+        "@org_golang_x_text//unicode/norm",
     ],
 )

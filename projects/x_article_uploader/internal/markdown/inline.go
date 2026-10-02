@@ -364,8 +364,8 @@ func (c *conversion) emitDivider() {
 // emitMarkdownEntityAt appends source-preserving Markdown as an atomic block.
 func (c *conversion) emitMarkdownEntityAt(source []byte) {
 	payload := string(source)
-	c.markdownLen += len(payload)
-	c.emitAtomic(draftjs.EntityMarkdown, draftjs.MutabilityImmutable, map[string]any{"markdown": payload})
+	c.markdownWeightEstimate += markdownWeightedLengthEstimate(payload)
+	c.emitAtomic(draftjs.EntityMarkdown, draftjs.MutabilityMutable, map[string]any{"markdown": payload})
 }
 
 // emitImage appends an atomic block with an unresolved image entity and records
@@ -377,20 +377,14 @@ func (c *conversion) emitImage(image *gast.Image, container gast.Node) {
 	caption := resolveInlineText(image, c.body)
 	c.reportTitleLoss(image.Title, "image-title-lost",
 		"an image keeps its media but loses its title", image)
-	_, mediaType, digest, err := readImage(c.converter.PackageRoot, c.converter.PostDir, reference)
+	content, mediaType, digest, err := readImage(c.converter.PackageRoot, c.converter.PostDir, reference)
 	offset := imageOffset(c.body, image, container)
 	if err != nil {
 		c.report(Failing, "image-not-readable", err.Error(), offset)
 		return
 	}
-	if mediaType == "" {
-		c.report(Failing, "image-media-type-rejected",
-			"image "+reference+" has bytes that do not match its declared image extension", offset)
-		return
-	}
-	if !acceptedImageTypes[mediaType] {
-		c.report(Failing, "image-media-type-rejected",
-			"image "+reference+" has media type "+mediaType+", which the media upload endpoints do not accept", offset)
+	if err := ValidateImageType(reference, content, mediaType); err != nil {
+		c.report(Failing, "image-media-type-rejected", err.Error(), offset)
 		return
 	}
 	key := c.emitAtomic(draftjs.EntityImage, draftjs.MutabilityImmutable, map[string]any{"caption": caption})

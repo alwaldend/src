@@ -1,0 +1,17 @@
+{{- $page := . -}}
+{{- with .Params.images -}}
+  <div class="blog-header-images">
+    {{- range . -}}
+      {{- $alt := $page.Title -}}
+      {{- $caption := "" -}}
+      {{- with $page.Resources.Get . -}}
+        {{- $alt = .Params.alt | default $alt -}}
+        {{- $caption = .Params.caption | default "" -}}
+      {{- end -}}
+      <figure>
+        {{- partial "alwaldend/image.html" (dict "Page" $page "Destination" . "Alt" $alt "Attributes" (dict "class" "img-fluid")) -}}
+        {{- with $caption -}}<figcaption>{{ . | markdownify }}</figcaption>{{- end -}}
+      </figure>
+    {{- end -}}
+  </div>
+{{- end -}}
