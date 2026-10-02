@@ -65,14 +65,29 @@
         claiming the post is live before the deployment that publishes it
         completes.
 
+- description: Deploys an article to the site and X
+  vars:
+    request: >-
+      Use $alwaldend-blog. The review is finished. Deploy this blog article.
+  assert:
+    - type: llm-rubric
+      threshold: 1
+      value: >-
+        Pass if the response finishes repository delivery, uses repo-hugo to
+        deploy the site and verify the live post, then uses x-article-upload
+        to upload the same post as an unpublished X Article draft. It must
+        report both outcomes separately and must not claim the X article is
+        publicly published or automatically retry a failed upload. An explicit
+        site-only scope must take precedence over this default.
+
 - description: Moves an opening image into the shared header without inventing assets
   vars:
     request: >-
       Use $alwaldend-blog. Prepare two existing drafts for review. The first
       opens with ![Cache diagram](cache.webp), and cache.webp is already in its
-      post package. Its front matter has no images field. The second draft is
-      text only and has no bundled images. Move the first opening image into
-      the shared blog header and keep both drafts' prose unchanged.
+      post package at 1500 by 600 pixels. Its front matter has no images field.
+      The second draft is text only and has no bundled images. Move the first
+      opening image into the shared blog header and keep both drafts' prose unchanged.
   assert:
     - type: llm-rubric
       threshold: 1
@@ -83,8 +98,9 @@
         metadata and both drafts' unpublished state, and checks the image
         appears once above the rendered prose while og:image and twitter:image
         resolve to that resource. It must preserve any later body images and
-        recommend a
-        representative image for the text-only post without inventing an
+        check that the selected header is WebP with a 5:2 width-to-height ratio,
+        and recommend a representative WebP header at that ratio in images for
+        the text-only post without inventing an
         image path, creating artwork, or treating the recommendation as a
         requirement that blocks review or delivery. It must not add an empty
         or placeholder images entry to the text-only post.

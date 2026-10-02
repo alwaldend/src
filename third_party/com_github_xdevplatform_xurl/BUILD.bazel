@@ -1,0 +1,13 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+alias(
+    name = "xurl",
+    actual = "@com_github_xdevplatform_xurl//:xurl_binary",
+    visibility = ["//tools/xurl:__pkg__"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)

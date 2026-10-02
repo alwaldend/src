@@ -204,7 +204,7 @@ func (p *Publisher) resolveUploads(artifact *Artifact) (*xapi.CoverMedia, error)
 		contents[index] = content
 	}
 	p.beginResolution()
-	var cover *xapi.CoverMedia
+	cover := artifact.CoverMedia
 	bodyOffset := 0
 	for index, source := range sources {
 		mediaID, err := p.uploadImage(source, contents[index])
@@ -229,6 +229,7 @@ func (p *Publisher) resolveUploads(artifact *Artifact) (*xapi.CoverMedia, error)
 			return nil, fmt.Errorf("resolve image %q: media lifetime expired before draft creation", source.Path)
 		}
 	}
+	artifact.CoverMedia = cover
 	p.saveCache()
 	return cover, nil
 }

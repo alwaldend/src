@@ -89,12 +89,14 @@ func publishedPost(t *testing.T, imageName string, imageBytes []byte) (root stri
 		t.Fatalf("write artifact: %v", err)
 	}
 	var decoded struct {
-		Document map[string]any `json:"content_state"`
+		Payload struct {
+			Document map[string]any `json:"content_state"`
+		} `json:"payload"`
 	}
 	if err := json.Unmarshal(encoded, &decoded); err != nil {
 		t.Fatalf("decode artifact: %v", err)
 	}
-	return root, artifactPath, article.Locators[0], decoded.Document
+	return root, artifactPath, article.Locators[0], decoded.Payload.Document
 }
 
 // tinyPNG is a one-pixel PNG, so the converter treats the reference as an
@@ -909,5 +911,21 @@ func TestMediaUploadRequestCarriesCategory(t *testing.T) {
 	}
 	if gotFile != "diagram.png" {
 		t.Errorf("media upload sent file %q, expected diagram.png", gotFile)
+	}
+}
+
+// Old flat artifacts must fail at the read boundary before credentials or API calls.
+func TestReadArtifactRequiresPayload(t *testing.T) {
+	for _, body := range []string{
+		`{"title":"Legacy","content_state":{"blocks":[],"entities":[]}}`,
+		`{"payload":null}`, `{"payload":{"title":"Missing document"}}`,
+	} {
+		file := filepath.Join(t.TempDir(), "article.json")
+		if err := os.WriteFile(file, []byte(body), 0o600); err != nil {
+			t.Fatalf("write artifact: %v", err)
+		}
+		if _, err := draft.ReadArtifact(file); err == nil {
+			t.Fatalf("accepted invalid artifact %s", body)
+		}
 	}
 }

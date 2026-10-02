@@ -502,14 +502,27 @@ try {
     report.push({ shortcodeImagesLoaded: shortcodeImages.length });
 
     // Frontmatter images are visible above prose without duplicate opening
-    // Markdown images. Existing later body illustrations remain intact.
+    // Markdown images. Their files carry X's 5:2 Article cover ratio; styling
+    // alone cannot make the same assets fit both the website and an upload.
+    // Existing later body illustrations remain intact.
     const checkHeaderImages = async (expected) => {
+        for (const image of await page.$$(".blog-header-images img")) {
+            await image.scrollIntoView();
+            await image.evaluate((element) => element.decode());
+        }
         const headers = await page.$$eval(".blog-header-images", (groups) =>
             groups.map((group) => ({
-                images: [...group.querySelectorAll("img")].map((image) => ({
-                    name: new URL(image.src).pathname.split("/").at(-1),
-                    alt: image.alt,
-                })),
+                images: [...group.querySelectorAll("img")].map((image) => {
+                    const bounds = image.getBoundingClientRect();
+                    return {
+                        name: new URL(image.src).pathname.split("/").at(-1),
+                        alt: image.alt,
+                        naturalWidth: image.naturalWidth,
+                        naturalHeight: image.naturalHeight,
+                        width: bounds.width,
+                        height: bounds.height,
+                    };
+                }),
                 precedesProse: Boolean(
                     group.compareDocumentPosition(
                         [
@@ -526,9 +539,24 @@ try {
             })),
         );
         assert.deepEqual(
-            headers.map((header) => header.images),
+            headers.map((header) =>
+                header.images.map(({ name, alt }) => ({ name, alt })),
+            ),
             expected,
         );
+        for (const image of headers.flatMap((header) => header.images)) {
+            assert.ok(image.naturalWidth > 0 && image.naturalHeight > 0);
+            assert.equal(
+                image.naturalWidth * 2,
+                image.naturalHeight * 5,
+                `${image.name} has an intrinsic 5:2 Article cover ratio`,
+            );
+            assert.ok(image.width > 0 && image.height > 0);
+            assert.ok(
+                Math.abs(image.width - (image.height * 5) / 2) < 1,
+                `${image.name} preserves its aspect ratio when displayed`,
+            );
+        }
         assert.ok(headers.every((header) => header.precedesProse));
         report.push({ blogHeaderImages: headers });
     };
@@ -729,6 +757,9 @@ try {
     await page.setViewport({ width: 390, height: 844 });
     const mobileHeader = await pipeline.boundingBox();
     assert.ok(mobileHeader.width > 0 && mobileHeader.height > 0);
+    assert.ok(
+        Math.abs(mobileHeader.width - (mobileHeader.height * 5) / 2) < 1,
+    );
     assert.ok(
         mobileHeader.x >= 0 && mobileHeader.x + mobileHeader.width <= 390,
     );

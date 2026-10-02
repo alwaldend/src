@@ -18,15 +18,23 @@ func main() {
 	out := flag.String("out", "", "path to write the draft artifact JSON")
 	postPackage := flag.String("post-package", "", "repository package the post's directory belongs to (default: derived from --workspace)")
 	workspace := flag.String("workspace", ".", "repository root a derived --post-package is relative to")
+	warningsAsErrors := flag.Bool("warnings-as-errors", true, "fail conversion on warnings; false still reports warnings and always fails on errors")
 	flag.Parse()
 
-	if err := run(*source, *out, *postPackage, *workspace, os.Stdout, os.Stderr); err != nil {
+	if err := runWithOptions(*source, *out, *postPackage, *workspace, *warningsAsErrors, os.Stdout, os.Stderr); err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 }
 
 func run(source, out, postPackage, workspace string, stdout, stderr io.Writer) error {
+	if err := runWithOptions(source, out, postPackage, workspace, true, stdout, stderr); err != nil {
+		return fmt.Errorf("convert article: %w", err)
+	}
+	return nil
+}
+
+func runWithOptions(source, out, postPackage, workspace string, warningsAsErrors bool, stdout, stderr io.Writer) error {
 	if source == "" {
 		return fmt.Errorf("--source is required")
 	}
@@ -76,16 +84,14 @@ func run(source, out, postPackage, workspace string, stdout, stderr io.Writer) e
 	converter.PackageRoot = handle
 	converter.PostSource = source
 	article, convertErr := converter.Convert(raw)
+	if article != nil {
+		printDiagnostics(stderr, article.Diagnostics)
+	}
 	if convertErr != nil {
-		// A failing conversion returns the artifact it built alongside the
-		// error, and DiagnosticError carries only the failing diagnostics. Print
-		// every diagnostic first so a run that both fails and loses formatting
-		// reports the continuing losses too, rather than hiding them behind the
-		// fatal one.
-		if article != nil {
-			printDiagnostics(stderr, article.Diagnostics)
-		}
-		return convertErr
+		return fmt.Errorf("convert source %q: %w", source, convertErr)
+	}
+	if warningsAsErrors && len(article.Diagnostics) > 0 {
+		return fmt.Errorf("convert source %q: conversion failed with %d warnings; use --warnings-as-errors=false to allow warnings", source, len(article.Diagnostics))
 	}
 	encoded, err := article.JSON()
 	if err != nil {
@@ -97,9 +103,8 @@ func run(source, out, postPackage, workspace string, stdout, stderr io.Writer) e
 	if err := os.WriteFile(out, append(encoded, '\n'), 0o644); err != nil {
 		return fmt.Errorf("write artifact: %w", err)
 	}
-	printDiagnostics(stderr, article.Diagnostics)
-	fmt.Fprintf(stdout, "converted %s -> %s (%d blocks, %d diagnostics)\n",
-		source, out, len(article.Document.Blocks), len(article.Diagnostics))
+	fmt.Fprintf(stdout, "converted %s -> %s (%d blocks)\n",
+		source, out, len(article.Document.Blocks))
 	return nil
 }
 

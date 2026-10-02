@@ -279,6 +279,14 @@ always uses the maintained appearance; it has no `plain` opt-out, because a
 plain raster could not show the contrast a comparison needs any more reliably
 than the SVG rule's.
 
+Set `aspect_ratio = [5, 2]` when a cover image needs fixed proportions. The
+encoder reduces the two positive integer terms and adds the selected theme's
+background around the scaled diagram. It uses the smallest whole-pixel canvas
+with that exact ratio that contains the original image, centers the diagram,
+and never crops or stretches it. SVG output is unaffected. Omitting the ratio
+keeps the natural raster canvas. `scale` must be a positive integer, and the
+final image must fit WebP's 16383-pixel limit in each dimension.
+
 Consumers that must keep the image as a checked-in asset obtain it from the
 rule's output rather than by hand, so the asset can be regenerated and compared
 against a fresh render. The `.mmd` source stays authoritative. Blog posts keep
@@ -301,6 +309,10 @@ their separately built SVGs, checks each selected site palette, visible label
 pixels, and the embedded sans-serif font, and verifies unchanged scaled canvas
 geometry. The test saves each reference and actual image and a JSON measurement
 report in its undeclared outputs for repeatable inspection.
+`test/renderer/aspect_ratio_test.mjs` checks horizontal and vertical padding,
+minimal exact-ratio dimensions, unchanged content scale, and theme backgrounds
+against independently rendered SVG references. It also exercises invalid size
+and ratio inputs, and saves reference rasters and measurement reports.
 `cmd/mmdc/mmdc_test.go`
 drives the interactive CLI and re-renders under a Fontconfig pointed at a
 monospace-only pool; a byte-identical result shows the CLI resolved text

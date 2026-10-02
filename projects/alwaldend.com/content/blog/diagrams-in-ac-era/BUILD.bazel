@@ -17,6 +17,10 @@ mermaid_webp(
     name = "drawio_to_mermaid_webp",
     src = "drawio-to-mermaid.mmd",
     out = "rendered/drawio-to-mermaid.webp",
+    aspect_ratio = [
+        5,
+        2,
+    ],
 )
 
 # The post contrasts Mermaid's own appearance with the repository theme, so it

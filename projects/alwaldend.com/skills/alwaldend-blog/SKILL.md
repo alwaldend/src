@@ -42,9 +42,9 @@ linkTitle: <short title>
 date: <YYYY-MM-DD>
 description: <one-line description>
 author: <author>
-# Recommended when a suitable image is available; omit otherwise.
+# Recommended: a WebP header with a 5:2 canvas; omit if unavailable.
 images:
-  - <opening-image.webp>
+  - <header-image.webp>
 tags:
   - <relevant topic>
 draft: true
@@ -68,15 +68,17 @@ Put any images or other resources the post references beside `index.md` in the
 same directory, and reference them by bare relative path, such as
 `![diagram](diagram.png)`. Do not place them in `static/`.
 
-Encourage a representative image for every post. When a post already has an
-opening image, reuse it in `images` unless the user selected another preview.
-Prefer a raster image supported by the intended social platform, using an
-existing or authorized generated raster of an SVG when needed. The
-[site README](../../README.md#blog) owns header rendering, resource metadata
-for alternative text and captions, and social cards. If no suitable image is available,
-recommend one in the review and leave `images` absent rather than inventing an
-asset or blocking the post's delivery. Preserve the article body and draft
-state when adding image metadata.
+Encourage a representative header image in `images` for every post. Prepare
+header assets as WebP with a **5:2 width-to-height ratio**, following the
+[site README](../../README.md#blog). Keep the complete illustration visible
+without cropping or stretching; arrange diagrams for a wide canvas and add
+only the padding needed. When a post already has an opening image, reuse it
+unless the user selected another preview, preparing a suitable WebP from its
+source when needed. The site README owns header rendering, resource metadata
+for alternative text and captions, and social cards. If no suitable image is
+available, recommend one in the review and leave `images` absent rather than
+inventing an asset or blocking the post's delivery. Preserve the article body
+and draft state when adding image metadata.
 
 The site displays every `images` entry above the blog body and in print. Use
 metadata alone for header images. When an opening-image migration is
@@ -116,6 +118,8 @@ write_source_files(
 
 Then reference `![diagram](diagram.webp)` from `index.md`. The `.mmd` source
 stays authoritative; run the `update` target rather than editing the raster.
+For a header, set `aspect_ratio = [5, 2]` on the WebP rule and select its file
+through `images`; ordinary body diagrams keep their natural dimensions.
 The `mermaid-diagrams` skill owns the render rule's details. A post that is not
 intended for syndication may keep the SVG render the section already publishes,
 and no existing post has to change its image references.
@@ -199,7 +203,9 @@ list.
   image is selected, inspect the rendered `og:image` and `twitter:image` URLs
   and verify they resolve to the intended bundled image. Check that header
   images appear above the prose without duplicate opening body images, retain
-  useful alternative text and captions, and fit on narrow screens.
+  useful alternative text and captions, and fit on narrow screens. Verify that
+  the header files themselves are WebP with a 5:2 canvas, rather than relying
+  on CSS to crop or stretch them into that ratio.
 - Check that internal links and images resolve. Markdown targets resolve
   relative to the source directory; `README.md` and `_index.md` map to published
   pages. The site preserves an unknown destination instead of failing the build,
@@ -223,3 +229,11 @@ Local preview is available with `bazel_agent bazel run
 //projects/alwaldend.com:site_serve` at `http://127.0.0.1:1313`. Use the
 `repo-hugo` skill for the site's Hugo toolchain, theme, and deployment
 workflow.
+
+When the user asks to deploy a blog article, complete both destinations unless
+they explicitly limit the scope: deploy the site through `repo-hugo`, verify
+the live post, then upload the same article to X through `x-article-upload`.
+Finish repository delivery first. The X upload creates an unpublished Article
+draft; it does not make the article publicly visible on X. Follow that skill's
+credential and rate-limit procedure, and report site deployment and X draft
+creation separately, including any failure without automatically retrying.

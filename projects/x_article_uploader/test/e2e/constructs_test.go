@@ -224,8 +224,8 @@ func TestLinkEntityRange(t *testing.T) {
 	}
 }
 
-// TestHeadingClamping asserts each heading depth maps onto the three levels X
-// exposes.
+// TestHeadingClamping covers all Markdown heading depths without emitting the
+// schema-enumerated header-three type that the live draft endpoint rejects.
 func TestHeadingClamping(t *testing.T) {
 	source := "---\ntitle: Example\n---\n\n" +
 		"# One\n\n## Two\n\n### Three\n\n#### Four\n\n##### Five\n\n###### Six\n"
@@ -238,9 +238,9 @@ func TestHeadingClamping(t *testing.T) {
 		draftjs.BlockHeaderOne,
 		draftjs.BlockHeaderOne,
 		draftjs.BlockHeaderTwo,
-		draftjs.BlockHeaderThree,
-		draftjs.BlockHeaderThree,
-		draftjs.BlockHeaderThree,
+		draftjs.BlockHeaderTwo,
+		draftjs.BlockHeaderTwo,
+		draftjs.BlockHeaderTwo,
 	}
 	got := blockTypes(article)
 	if len(got) != len(want) {
@@ -249,6 +249,11 @@ func TestHeadingClamping(t *testing.T) {
 	for i := range want {
 		if got[i] != want[i] {
 			t.Errorf("heading %d mapped to %s, expected %s", i+1, got[i], want[i])
+		}
+	}
+	for i, text := range []string{"One", "Two", "Three", "Four", "Five", "Six"} {
+		if article.Document.Blocks[i].Text != text {
+			t.Errorf("heading %d text = %q, want %q", i+1, article.Document.Blocks[i].Text, text)
 		}
 	}
 }
