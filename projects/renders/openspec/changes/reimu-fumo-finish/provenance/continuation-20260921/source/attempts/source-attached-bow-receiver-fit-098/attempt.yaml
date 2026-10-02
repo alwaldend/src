@@ -1,0 +1,72 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: source-attached-bow-receiver-fit-098
+  resourceVersion: "4"
+  generation: 4
+  creationTimestamp: "2026-09-06T03:41:52.118428923Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: 2bee72c54ba571662e36fead903c9516ecb0f13b04d9138fbe897e0c1ffb6193
+  nextAction: Use retained098 for sleeve-corridor arm refit and new released rear-cloth construction, whole goal open.
+status:
+  state: closed
+  closedAt: "2026-09-06T03:52:14.883538031Z"
+  artifacts:
+    planDigest: sha256:8fe284cb11b32ccb97c93788b16dde03b1619c26d172ff020f31e9922c1e38de
+    resultDigest: sha256:57d072c0222773bb52173633fc7fdf13b7c7831ab9ebb821f4443dfad740f5de
+    evidence:
+    - path: evidence/bow_098_data_repair.md
+      digest: sha256:59a1fa7fb90ff28d3b57f5823b0fc3a70fd25f808e52338734f34c992865ed25
+    - path: evidence/bow_098_pixel_review.md
+      digest: sha256:6fa7a774644e637296c502352e725709ddf094d1c4ef6c3b8e89dd4d9ce4f596
+    - path: evidence/bow_098_saved.md
+      digest: sha256:d55cc3eec6aeaa58261ddb1db6a1ca3ce6b77a20d25dd09e8e681e52adc252aa
+    - path: evidence/hair_098_representation_review.md
+      digest: sha256:6d8e80c716083579ec54c9d31aaeaf2f32540f26a02aa6f05aca6574255a375f
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-06T03:52:14.883538031Z"

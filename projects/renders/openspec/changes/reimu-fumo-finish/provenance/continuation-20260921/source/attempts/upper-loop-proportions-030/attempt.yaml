@@ -1,0 +1,87 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: upper-loop-proportions-030
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T23:59:34.293706384Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:0b6093032fc90e6773ff099a1f413d38270000116ead6e12d1bd7f63d368d466
+  workType: candidate
+  stableDefect: upper-bow-wide-shallow-framing
+  hypothesis: Narrowing only the over-wide upper loops and deepening their lower outboard silhouette improves reference framing without resizing the already-close head or tail span.
+  subject: Frozen029b paired upper-loop macro cages and their ten dependent geometry objects
+  priorAttemptID: short-stuffed-hand-029
+  nextAction: Review helper, save one fresh030 candidate, render five fixed views and independently audit exact controls and likeness.
+status:
+  state: closed
+  closedAt: "2026-09-05T00:18:14.001667433Z"
+  artifacts:
+    planDigest: sha256:2987b8e2bd459d167ee296b1fa8048cfbe367da22cf7787b8265211ab00c407f
+    resultDigest: sha256:d1c0de23427d6aadd64ba0916640ead654aa551895c237d59c4df9905cb83078
+    evidence:
+    - path: evidence/bow_030_blind.md
+      digest: sha256:af5b126ccd2dfbeed5d755912f6cc14b62a22f116f71614d976f12d1b7a32f02
+    - path: evidence/bow_030_draft.md
+      digest: sha256:8e273139001234aa38329d2a6de403ad0d3fe5ec40d20e87141964eabe338bf8
+    - path: evidence/bow_030_machine_evidence.md
+      digest: sha256:3f67b839e5d5bd73c821ddf24bc1074394dae6c8f677deadcb48b19879792440
+    - path: evidence/bow_030_preflight.md
+      digest: sha256:8ddbb2cf62067d28ec24884c79e03c497f72bf0678605072e573656f5b1c5f1c
+    - path: evidence/bow_030_sources.md
+      digest: sha256:00c7e9ed10ed35650caf174e3070f37bae540f0bad894f8d6beb023f704aa196
+    - path: evidence/bow_030_technical_audit.md
+      digest: sha256:7ea13f6c40d0e0e07296951a1d8a1e6a55a2e65e271acba62af1463b99ad772a
+    - path: evidence/bow_030b_blind.md
+      digest: sha256:09c54c0e5c7bf1670414083ad2addaf760b96513fdd89761fbb4baa20b59d997
+    - path: evidence/bow_030b_sources.md
+      digest: sha256:61518e61d5b07e5d47b002e5231ac7df9a7a899a2d52205f4d1de50c0f930d76
+    - path: evidence/bow_030b_technical_audit.md
+      digest: sha256:2c5cca776a8af124dcf076bc141565a3e532a41c1be5f2ca1eaa27c701098a20
+    - path: evidence/hand_bow_030_ergonomics.md
+      digest: sha256:a1273474a9a1f8debc555cfc178d6244ad93b3f74eeb64c444a640565971a07d
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T00:18:14.001667433Z"

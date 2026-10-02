@@ -1,0 +1,68 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: folded-supported-sleeves-067
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-05T18:16:26.214793892Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:c7fdffd07aa41578752d4aca42da0a68667a1d0251ef386e17daffa193f6bcd9
+  planID: folded-supported-sleeves-v61
+  workType: change
+  subject: fe1bf37cb77d044ad6023e0e019eff3e6cc2fae776d0cb25e66c94f22c10e3a4
+  nextAction: Correct outgoing cuff turn and revise free rear hair construction on a new provisional candidate; no acceptance claimed.
+status:
+  state: closed
+  closedAt: "2026-09-05T18:30:01.565293657Z"
+  artifacts:
+    planDigest: sha256:2c3a059070795d21aafc21d541a96505faefc798f16337b196019894094c12f5
+    resultDigest: sha256:01643fd3b0aa9b8842ce412a582865946abfdbad204b241586ac4e457c29f169
+    evidence:
+    - path: evidence/audit_067_report.md
+      digest: sha256:274f1cdf53b7485c9d65d2d1eb3275cff75bab382c994706ac1586785170b471
+    - path: evidence/macro_067_blind_review.md
+      digest: sha256:5b79e3f2d36177e1daac24bbc69f5b4d25897f2c69966e4b6d6c113d05c604ee
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T18:30:01.565293657Z"

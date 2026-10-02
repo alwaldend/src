@@ -1,0 +1,50 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: recovery-capability-001
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T07:37:23.051556224Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:baccd948c8b16e69f1845fc580981579437436eed22c64aad779f8f37def99d8
+  goalStateDigest: sha256:20f51130bcf290e3ad0af24a48444ec2d19f601bfa8945d52d84a2762eec3ff2
+  planID: recovery-clay-v1
+  workType: integration
+  stableDefect: authoring-capability-unproven
+  hypothesis: The local Blender MCP background interface can safely save a visible bounded edit that pinned Blender 5.2.1 can clean-reopen and render.
+  subject: A157 sha256:433d08ad36be488bb16e4221a85f831d4390660c258a43ea0b08775811574b73
+  affectedCriteria:
+  - criterion-005
+  - criterion-007
+  regressionRefs:
+  - fixed-landmarks-v1
+  - process-contract-v1
+  nextAction: Run the isolated MCP save coupon, clean-reopen it with pinned Blender 5.2.1, render one diagnostic view, inspect pixels, and close this attempt.
+status:
+  state: closed
+  closedAt: "2026-09-04T07:39:21.909994203Z"
+  artifacts:
+    planDigest: sha256:d76cf6af47e16bd090703ee7dca153f51ce16265c7722fa75d99cd3bbe317645
+    resultDigest: sha256:65200b31001b1b90ae65126dbd1bda326356a863ce94c04f03acea43469cbc80
+    evidence:
+    - path: evidence/evidence.md
+      digest: sha256:4bc7cb82a41d810af5d9be8573f6e6eb7d8868addaf62bfa7df8ed6252377ab8
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-005
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-007
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - evidence/evidence.md
+  observedAt: "2026-09-04T07:39:21.909994203Z"

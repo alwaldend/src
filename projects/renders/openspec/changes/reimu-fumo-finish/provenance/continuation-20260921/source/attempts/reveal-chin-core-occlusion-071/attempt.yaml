@@ -1,0 +1,67 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: reveal-chin-core-occlusion-071
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-05T19:08:56.236237056Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: 129180df3be51e140d53f3b0bc4119327fb8993adcd9b079fad9807d396d0abc
+  nextAction: Broaden the lower-head cushion after directional review; preserve upper landmarks and compact collar seating.071 only provisional, not accepted.
+status:
+  state: closed
+  closedAt: "2026-09-05T19:22:33.706187167Z"
+  artifacts:
+    planDigest: sha256:df118967bc8d2e007226c72605e572940204e8acbc8cd6350c138843d7632604
+    resultDigest: sha256:6a3e1184facbda54fd63edd3dfdb379dda5b7416d94b8e8df6a40418f973d0aa
+    evidence:
+    - path: evidence/chin_071_blind_review.md
+      digest: sha256:540b3424302468763a7b2078e43e83eff4532e37adeb63dd92572d4bf5165d71
+    - path: evidence/chin_071_reference_diagnosis.md
+      digest: sha256:67e5b226d2064da77e222d36b2341017a0e7e71ac3d6accad366a0f64d4857c3
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T19:22:33.706187167Z"

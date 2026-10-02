@@ -1,0 +1,63 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: broad-layered-lower-hair-083
+  resourceVersion: "4"
+  generation: 4
+  creationTimestamp: "2026-09-05T22:51:25.385886767Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:d3dd99930bf18292653455d315de740e68d0a10d03186a30fad1ab2e06501ad6
+  workType: change
+  subject: e6783ba03e9f5d0b937b1ec9a3c2c9ce5b7fa3e598bf6c451acce8e551daa38b
+  nextAction: Conceal upperpanel boundaries inside crown; keep083free lowerlobes and076face, require freecontactclearance.
+status:
+  state: closed
+  closedAt: "2026-09-05T23:07:27.521502186Z"
+  artifacts:
+    planDigest: sha256:09445ac7d19a7a1b72d07c0ee99908ddbc193895b043871427c74a5ed0338706
+    resultDigest: sha256:5ab8a8a04772c10662df4671d65a9b7b8d70f01e1d6ad7f0a2fa208b8522fd53
+    evidence: []
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T23:07:27.521502186Z"

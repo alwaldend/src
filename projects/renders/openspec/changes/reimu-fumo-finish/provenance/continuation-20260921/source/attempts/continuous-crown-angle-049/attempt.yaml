@@ -1,0 +1,74 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: continuous-crown-angle-049
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T09:22:21.436726576Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:444f039ac6fb4b9fb50d11b258710609a33f440a6ec373592b73cd795f2b0f02
+  planID: fitted-crown-free-panels-v43
+  workType: change
+  stableDefect: crown-angle-fallback-discontinuity
+  hypothesis: Applying lower wrap before the no-intersection fallback removes the proven0.47rad panel discontinuity
+  subject: hair_048_candidate.blend
+  priorAttemptID: continuous-hair-drape-048
+  nextAction: Build hair_049 with continuity assertions and inspect fixed side and rear
+status:
+  state: closed
+  closedAt: "2026-09-05T09:45:01.857444327Z"
+  artifacts:
+    planDigest: sha256:fd0cfc9a329dbedd654d6cfc06a6aac4c91c5e36c6aa155d4f68bba4c38c57ff
+    resultDigest: sha256:7647f55241a7534a135e763ab7ade251f7cb60a02f63f0e8e48aeede50308127
+    evidence:
+    - path: evidence/hair_048_result.md
+      digest: sha256:32b77c41f25878e070811f7a5add163fd4957bb282620d3562cce54d088921eb
+    - path: evidence/hair_049_result.md
+      digest: sha256:7647f55241a7534a135e763ab7ade251f7cb60a02f63f0e8e48aeede50308127
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T09:45:01.857444327Z"

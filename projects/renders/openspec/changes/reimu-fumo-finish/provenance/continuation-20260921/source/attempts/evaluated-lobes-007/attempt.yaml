@@ -1,0 +1,58 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: evaluated-lobes-007
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T08:16:11.427053706Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 1
+  criteriaRevision: 1
+  criteriaDigest: sha256:baccd948c8b16e69f1845fc580981579437436eed22c64aad779f8f37def99d8
+  goalStateDigest: sha256:7f14a97e02839215f3a69cc984be4153fa39bc4e9d351736ddb206bb3909b6f4
+  planID: evaluated-lobes-v5
+  workType: candidate
+  stableDefect: head-hair-helmet-read
+  hypothesis: Evaluated-surface radial pillows with organic boundaries will attach without cards or floating pads and form a coherent non-monolithic hair mass across front, side, and three-quarter views.
+  subject: A157 sha256:433d08ad36be488bb16e4221a85f831d4390660c258a43ea0b08775811574b73
+  affectedCriteria:
+  - criterion-001
+  - criterion-002
+  - criterion-003
+  regressionRefs:
+  - canonical-front-v1
+  - canonical-turn-v1
+  - fixed-five-view-v1
+  priorAttemptID: shingled-hair-006
+  nextAction: Build one six-lobe candidate from the evaluated A157 head through Blender MCP; render pinned front, side, and three-quarter views and close without correction on any automatic defect.
+status:
+  state: closed
+  closedAt: "2026-09-04T08:19:40.641939304Z"
+  artifacts:
+    planDigest: sha256:765d0e32118a0d82783248ec906a6bfdab817c77c84359559c85d9feaec95b9e
+    resultDigest: sha256:090dee2a66adf7d3cf980a22237ac7fdab1f21b83fb4d32f148e458ce713894c
+    evidence:
+    - path: evidence/evidence.md
+      digest: sha256:8fa65b489a3d63a75d6da7e023e868481d4b22ca54b054997f1a304c8136cf20
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-002
+      criterionRevision: 1
+      verdict: unverified
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-003
+      criterionRevision: 1
+      verdict: fail
+      evidenceRefs:
+      - evidence/evidence.md
+  observedAt: "2026-09-04T08:19:40.641939304Z"

@@ -1,0 +1,85 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: sewn-visible-foot-panels-033
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T00:45:40.332391253Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:f56638c1cfee205665d3e58ec272d73f92f46f0128bce17178c6ec40f866ce58
+  workType: candidate
+  stableDefect: hidden-cream-identity-behind-foot-shell
+  hypothesis: A conformal sewn material boundary on the actual first-hit rounded pod surface can expose the cream foot cue without another hidden-root warp or loss of retained contact.
+  subject: Frozen032 two rounded black foot pod shells; all head body hem roots and placement protected
+  priorAttemptID: local-head-tangent-032
+  nextAction: Review one coherent seam helper and first-hit masks, then guarded save033 and five-view blind test.
+status:
+  state: closed
+  closedAt: "2026-09-05T01:19:27.24194816Z"
+  artifacts:
+    planDigest: sha256:37845e2a10bd7462013bb23b7ed00c06f807cfd875c6d6c844ae0d789bc70a65
+    resultDigest: sha256:586e92eb8161d829ed2fea69983923240ca2e429d16b00f0f616d915694fa46e
+    evidence:
+    - path: evidence/animation_attachment_plan.md
+      digest: sha256:7a9f25e2ede8f8ed509c2503942559fe92ac21b05c0737a3557c3f5f9e36a3c6
+    - path: evidence/animation_readiness_032.md
+      digest: sha256:68158aa9a52f60a94d33f8ea039f706a10d2623f1ee4d71811752ba6ad934e90
+    - path: evidence/foot_033_blind.md
+      digest: sha256:84e2c7fa16aa47e9d2ab6144de1fba1e4d3ea787a3c07c8788880b230feed235
+    - path: evidence/foot_033_machine_receipts.md
+      digest: sha256:0c3ff08ccf4dbeffe652ff01e765c86c96aa5e942c5c9f0124165d00a6683b81
+    - path: evidence/foot_033_root_visual.md
+      digest: sha256:70d589ed11888fe502eb81a0822593cdde977ad3c536efbb9122851b7951db6c
+    - path: evidence/foot_033_sources.md
+      digest: sha256:bd1d87b07be956e09c1b08225c1aa41fca442fc237e1e092787e971a287554f7
+    - path: evidence/foot_033_technical.md
+      digest: sha256:bbe27222fa03bed85ba0f130dc8a29df587c5148e343732d34afd906a0318657
+    - path: evidence/leg_031_occlusion_failure.md
+      digest: sha256:16ddb2c39316aba944906c7c85ecec248b51c9f152de45c3c185b8d71bb60a66
+  review:
+    decision: accept
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - evidence/animation_readiness_032.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - evidence/animation_readiness_032.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T01:19:27.24194816Z"

@@ -1,0 +1,58 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: a157-bow-span-011
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-04T10:37:07.070163936Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 14
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:842a6555a7fd56aed9818c9cfa0946ee3e20f47547ec7efbbbc34b4a221ad659
+  planID: a157-bow-span-v9
+  workType: candidate
+  stableDefect: A157 complete front-view bow envelope is compressed to about 1.64 Wh
+  hypothesis: "A paired broad native Grab correction on the two independent draped bow tails can reach 2.038 Wh +/- 0.05 Wh without moving roots, collapsing thickness, or changing non-target meshes"
+  subject: A157 SHA-256 433d08ad36be488bb16e4221a85f831d4390660c258a43ea0b08775811574b73; only A42 Left and Right independent draped bow tail meshes
+  affectedCriteria:
+  - criterion-001
+  - criterion-002
+  - criterion-003
+  regressionRefs:
+  - a157-five-view-baseline
+  - review-contract-v4
+  priorAttemptID: macro-sculpt-010
+  measurableDelta: "Complete front bow span changes from about 1.64 Wh toward 2.038 Wh +/- 0.05 Wh while protected roots, side/rear thickness, and all non-target geometry remain stable"
+  nextAction: Copy A157, perform exactly one native Grab stroke per independent bow tail, save a new candidate, then render the pinned front and side fast pair
+status:
+  state: closed
+  closedAt: "2026-09-04T10:45:56.610896616Z"
+  artifacts:
+    planDigest: sha256:746d8e011be1cbd306978c7037f281169ff7d60bca3a0e253558ad762330b844
+    resultDigest: sha256:09d4db6c12572928774057afcf8f078fcfd3a958b19bdd372f83a2ed9137f7ac
+    evidence:
+    - path: evidence/evidence.md
+      digest: sha256:b3771f115236c0d1b1191bdf8f1b73a0884ff091eaa27607819b05f892717b33
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs:
+      - evidence/evidence.md
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - evidence/evidence.md
+  observedAt: "2026-09-04T10:45:56.610896616Z"

@@ -1,0 +1,68 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: actual-receiver-short-pile-070
+  resourceVersion: "3"
+  generation: 3
+  creationTimestamp: "2026-09-05T18:46:37.780595505Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:cc0ff7f68b2e9005415294cb91bcf20250f0cb9c2131f5ecbe1441636855a754
+  planID: actual-receiver-short-pile-v64
+  workType: change
+  subject: a3f025b21b74104a29eab2c2a5afb0da662c9ca702732ecd9ee0b0e84366d27c
+  nextAction: Use saved070 diagnostic without acceptance. Revisit independent fringe/sewn-panel construction and aggregate cloth surface response; do not repeat global inflation, retired068/069 sheet release or an unmeasured fiber-density sweep.
+status:
+  state: closed
+  closedAt: "2026-09-05T18:55:28.733564749Z"
+  artifacts:
+    planDigest: sha256:c2efeb22144cd91e27d01ed94ff6d6111204fa541204c93a69ec8f659ab368dc
+    resultDigest: sha256:4606da45e3bb19a4fe38f0e8c43a0efbb6b0c146457fc3fb8d4f955ff35c05c0
+    evidence:
+    - path: evidence/audit_068_supplement.md
+      digest: sha256:184f198970b1a55953f98b33c159556047c894c091e78b34f771a601615fcefc
+    - path: evidence/fabric_070_visual_read.md
+      digest: sha256:7256be94ebba79c2ec1a1ed1c73aa9429f8de3cf38cda5564b4a2d90a276fc7b
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T18:55:28.733564749Z"

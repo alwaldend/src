@@ -1,0 +1,72 @@
+apiVersion: goals.alwaldend.com/v1alpha1
+kind: GoalAttempt
+metadata:
+  name: simulated-gathered-cloth-042
+  resourceVersion: "2"
+  generation: 1
+  creationTimestamp: "2026-09-05T06:59:57.237625203Z"
+spec:
+  goalRef:
+    name: reimu-fumo-finish
+  goalGeneration: 1
+  lifecycleGeneration: 16
+  criteriaRevision: 4
+  criteriaDigest: sha256:f5fe4b5c4efc12d5b82ad42cf0d41fd7274f48b421abf42e9db1ce5ae316d8a3
+  goalStateDigest: sha256:0349bca02acf0690cdaa32fc9320487e1e5422783cf8390f6bebb576a00a1948
+  planID: simulated-gathered-cloth-v40
+  workType: change
+  hypothesis: Tension gravity and body foot contact will redistribute excess fabric instead of preserving an analytic cone
+  subject: 041b unaccepted skirt and hem only
+  nextAction: Run cloth_042_build.py once under240second timeout; inspect actual failure or clean-open fixed views
+status:
+  state: closed
+  closedAt: "2026-09-05T07:14:18.092578984Z"
+  artifacts:
+    planDigest: sha256:cf5aec4a59f19d3982c2e7cca4bbd85197b074ef0b2be5c9e3ebb269b04a9dcb
+    resultDigest: sha256:8948010e7cca6f80b9acd9e030ad4bf9b758970d5a90935d1b2f9183575c555d
+    evidence:
+    - path: evidence/cloth_042_mechanics.md
+      digest: sha256:10c967162e12a1b12bfef2537175f693ad0100016580e83ef840e216f5e9bca7
+    - path: evidence/cloth_042_start.md
+      digest: sha256:cf5aec4a59f19d3982c2e7cca4bbd85197b074ef0b2be5c9e3ebb269b04a9dcb
+  review:
+    decision: reset
+    criteria:
+    - criterionID: criterion-001
+      criterionRevision: 3
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-002
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-003
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-004
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-005
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-006
+      criterionRevision: 2
+      verdict: fail
+      evidenceRefs:
+      - result.md
+    - criterionID: criterion-007
+      criterionRevision: 2
+      verdict: unverified
+      evidenceRefs: []
+    - criterionID: criterion-008
+      criterionRevision: 3
+      verdict: unverified
+      evidenceRefs: []
+  observedAt: "2026-09-05T07:14:18.092578984Z"

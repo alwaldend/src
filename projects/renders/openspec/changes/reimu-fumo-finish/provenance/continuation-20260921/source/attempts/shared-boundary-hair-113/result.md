@@ -1,0 +1,13 @@
+#113 shared boundary — reject, specific shape refinement required
+
+Native head_113_shared_seam.blend d84d3608a2063ff04acf41605ea21359b4c2cf4d33d0c37c719475565e11f27a; builder fedfef3177678a5c3c1856a0dcee6e34dca6378561cd1d893faec3072c455ef2. Unchanged34vertexhead, four mesh objects; shared81vertexfront/rear boundary. Clean six-view render packet head_113_shared_seam_review binds candidate and camera contract. Source109 and all rejected variants unchanged. Mesh hygiene passes: no nonmanifold edges/zero-area faces, no evaluated vertices inside skin over0.5mm; mainhair minimum1.0165mm, locks minimum-.0205mm/+.0691mm.
+
+Root and independent head113-blind-pixels-01 reject current construction. Blind reviewer saw only six current images plus canonical front, physical side and turn10/21 before verdict: likeness6, silhouette6, construction4, identity6, contact5, plush-medium4, presentation8. Major issues: broad squared rear curtain/helmet, pinched temple and horizontal accidental dents, nearly razor-thin locks. Missing body/eyes/bow/materials excluded, no rear/full-subject acceptance. After verdict reviewer is allowed code access solely for a bounded construction diagnosis; that later advice is not another independent review.
+
+The shared adjacency solves independent scalp overlap, but it is not evidence of likeness. Keep that topology capability; do not claim hair fixed. Root confirms front endpoints reasonably follow reference while profile remains wrong. No detail/material tier advance or full Fumo acceptance.
+
+## Front registration
+
+Canonical full photograph1000x1000 mapped by x=(px-485)*.25/695 and z=(846-py)*.25/695. Diagnostic closefront512 camera z=.151, ortho scale.174, no pose/translation altered to favor the model. Implied exact reference crop x243.14,y184.36,size483.72. Rounded crop484x484+243+184 resized512; rounding error<.7px or.002Wh, below.02Wh registration tolerance. head_113_front_comparison.png is reference/current side-by-side. head_113_front_overlay.png is40%candidate/60%reference full-color projection overlay, not a segmented silhouette metric. No perspective side-image overlay claimed. Canonical crown/center anchored by the same recorded front map; graphic differences are model deviations, not post-hoc alignment. All full criteria unverified.
+
+Next bounded construction change must address rear hem shape, temple surface continuity and real cloth-lock thickness together, without another independent scalp-offset sweep. Own-task whole-body contextual inspection is diagnostic only and cannot promote rejected hair. Preserve exact113draft and helper112 source.

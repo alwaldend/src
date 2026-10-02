@@ -1,4 +1,81 @@
-## Context
+## Current continuation — 2026-09-22
+
+The [coupled neutral head construction 136](evidence/neutral-head-136.md)
+is rejected after its diagnosed setup repair. It removes a cap seam and
+improves bow-center gathering, but leaves invalid band attachments, native
+crossings and rigid hair/bow construction. Source 127 remains unchanged and
+retained. Next, prove one cheek-lock-and-band component on the frozen new head
+using shared surface coordinates before any full-model integration. The new
+head's technical checks are not a likeness pass. No stage is accepted.
+
+The completed [gathered-sheet and sewn-panel studies 134–135](evidence/static-gather-134.md)
+are rejected. Static fixture 134 fails rest-metric, contact and pixel checks.
+Completed 135 improves the hem and side drape visually but has 461 audited
+skirt self-crossing pairs and fails absolute construction review. Neither is
+transferred. Source 127 stays protected. The subsequent neutral head blockout
+is recorded above. Another lower-body substitution would repeat the closed
+family without resolving the camera/body ambiguity. No model or stage is
+accepted.
+
+The completed [cloth and bow studies 130–133](evidence/construction-calibration-130.md)
+retain 127 as the continuation source and preserve 133 as a separate unfinished
+bow study. Cloth calibration 130 fails after its diagnosed setup repair;
+the conditional gathered ribbon 132 remains unexecuted. Bow 131 is rejected.
+Study 133 improves the upper-lobe outline and corrects a mirrored trim defect,
+but the full model remains rejected. Canonical and turntable fabric poses are
+distinguished; their extrema are not assumed to identify shared material
+corners. The subsequent static sheet-relaxation fixture is recorded above.
+No candidate or stage is accepted.
+
+The completed [whole-figure panel reset 127–128](evidence/macro-panels-127.md)
+retains only 127's partial lower hair-outline improvement. The full model,
+its seam repairs and the garment replacement remain rejected. The subsequent
+[folded ribbon fixture 129](evidence/folded-ribbon-129.md) also fails its visual
+gate and is excluded. Its result establishes the construction prerequisite:
+prove sewn attachment and soft three-dimensional fullness before another
+full garment. No candidate or modeling stage is accepted.
+
+The preceding [component integration study 126](evidence/component-integration-126.md)
+combines the bounded [cheek 125](evidence/cheek-cushion-125.md) and
+[sleeve 124 B](evidence/sleeve-panels-124.md) improvements in the previous full
+assembly. The whole model remains rejected. The
+[feet 123](evidence/seated-assembly-123.md) are preserved separately after their
+integration failed garment-contact checks. The [bow 122](evidence/sewn-bow-122.md)
+family is closed rejected; its camera audit could not establish a replacement
+calibration. All final criteria and the frozen review contract remain unchanged.
+
+Earlier [assembly 116](evidence/assembly-116.md),
+[cloth 117](evidence/cloth-drape-117.md),
+[pattern 118](evidence/seated-pattern-118.md),
+[hair 119](evidence/connected-hair-119.md), and
+[garment 120](evidence/contact-envelope-120.md) remain rejected studies. The
+[camera/body investigation 121](evidence/camera-occlusion-121.md) is completed
+historical diagnostic evidence. The latest construction record above owns the
+next action; earlier studies do not authorize further tuning of closed families.
+
+Outcome is **open**, execution is **active**, and no candidate or modeling
+stage is accepted. The user explicitly requested rebasing, reviewing and
+researching the process, and continuing the Fumo. The later branch history
+supersedes the migration snapshot for continuation; the migration snapshot
+remains unchanged historical evidence.
+
+The [continuation archive](provenance/continuation-20260921/README.md) preserves
+629 exact files through attempt 115 and resource version 375, including the
+saved uncommitted attempts. The [completed fit-study record](evidence/continuation-20260921.md)
+preserves the study115 candidates and observed results; the latest study above
+owns continuation. The
+[process review](evidence/process-review-20260921.md) records the independent
+diagnosis and primary-source research.
+
+The current native writer is `root-native-batch-115`, with the same repository
+Blender 5.2.1 build, protected sources, background mesh-data route, four-thread
+limit, and passing preflight as the saved attempt. This resumes the accepted
+local tool route; it does not retry the rejected interactive Flatten family.
+The completed fit-only cycle covered only hair B and saved diagnostic face
+footprints. Subsequent construction work is bounded by the current linked
+study above. All eight final criteria remain unresolved.
+
+## Historical migration context
 
 This is the native OpenSpec continuation of the durable legacy goal
 `reimu-fumo-finish`, titled "Finish a reference-faithful reusable animated
@@ -6,8 +83,8 @@ Reimu Fumo". The source snapshot has goal resource version `58`, generation
 `1`, lifecycle generation `15`, and criteria revision `4`. Its last state
 observation is `2026-09-04T12:58:04.377051268Z`.
 
-Outcome remains **open** and execution remains **blocked**. No attempt is
-active; `acceptedAttemptID` and `acceptedResultDigest` are empty. There are no
+At migration, outcome was **open** and execution was **blocked**. No attempt
+was active; `acceptedAttemptID` and `acceptedResultDigest` are empty. There are no
 parent, dependency, or supersedes relationships. All eight model acceptance
 criteria remain unresolved. Accepted capability experiments and an accepted
 measurement correction are not accepted Reimu candidates.
@@ -26,7 +103,7 @@ on the same exact bytes. Native requirements in
 `specs/project-renders/spec.md` preserve the current criteria and associate
 them with their legacy IDs and revisions.
 
-The present migration does not resume modeling or capability trials, alter
+The original migration did not resume modeling or capability trials, alter
 references or thresholds, accept a donor or rejected artifact, install or
 configure Blender, or expose an accepted asset target. Historical binaries
 and images described as ignored scratch have not been recovered or verified
@@ -34,9 +111,9 @@ by this migration.
 
 ## Decisions
 
-### Keep the work open and preserve the execution blocker
+### Preserve the historical execution blocker and its failure evidence
 
-The latest closed attempt,
+The migration snapshot's latest closed attempt,
 [flatten-dose-response-018](provenance/source/attempts/flatten-dose-response-018/attempt.yaml),
 is an investigation with review decision `reset` and no criterion verdicts.
 Its [result](provenance/source/attempts/flatten-dose-response-018/result.md)
@@ -44,11 +121,11 @@ rejects plan `flatten-dose-response-v16` and blocks autonomous execution.
 Do not convert its closed-attempt state into a completed change or mark any
 model acceptance task complete.
 
-Resume only with a sponsor-approved skilled Blender artist or a genuinely
+The historical resume condition required a sponsor-approved skilled Blender artist or a genuinely
 different organic authoring capability independently proven outside the
 failed broad-transform and fixed-dose families. Generic desktop input
 transport, additional Flatten dose, and further parameter tuning do not
-meet the condition. A migration instruction is not approval to resume those
+meet that condition. A migration instruction is not approval to resume those
 operations.
 
 ### Preserve the controlling acceptance contract
@@ -170,14 +247,15 @@ The repository removed the legacy goal tool after this change was migrated.
 contract and still required goal-tool checkpoints, portable goal plans, and goal
 state to start, repair, reset, and close attempts. Those mechanics now record
 into this OpenSpec change and its durable evidence, so every required gate stays
-executable without the removed tool. The acceptance criteria and the blocked
-continuation state are unchanged.
+executable without the removed tool. The acceptance criteria remain unchanged;
+current execution follows the separate authorized continuation at the top of
+this document.
 
 ## Risks / Trade-offs
 
 History includes a technically successful transport path and an accepted
 capability plan. Treating either as asset acceptance would erase the visual
-failure and violate the source criteria. Native OpenSpec tasks remain
+failure and violate the source criteria. Model acceptance tasks remain
 unchecked and this change stays outside the archive to preserve the
 distinction.
 
@@ -187,11 +265,9 @@ or establish present host capabilities. Any future authorized continuation
 must revalidate the exact inputs it needs without substituting unverified
 artifacts or weakening the frozen contract.
 
-## Migration Plan
+## Historical migration plan
 
-Preserve original files byte-for-byte with the repository migration receipt,
-validate this native OpenSpec change, and retain it as open and blocked.
-Do not execute the unchecked modeling or acceptance tasks as part of the
-record migration. On an authorized future resume, first establish the
-recorded unblock condition, then record the new execution state and evidence
-in this change before developing a new candidate.
+The migration preserved original files byte-for-byte, validated the native
+OpenSpec change, and retained the then-open, blocked state. It executed no
+modeling or acceptance tasks. The subsequent authorized continuation and its
+evidence are recorded above; the original migration receipt remains immutable.
