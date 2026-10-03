@@ -84,6 +84,87 @@ mermaid_webp(
     theme = "//projects/alwaldend.com/pkg/mermaid:theme.json",
 )
 
+mermaid_webp(
+    name = "smoke_cover_webp",
+    src = "smoke.mmd",
+    out = "smoke-cover.webp",
+    aspect_ratio = [
+        5,
+        2,
+    ],
+    scale = 3,
+)
+
+mermaid_webp(
+    name = "edge_labels_native_cover_webp",
+    src = "edge_labels.mmd",
+    out = "edge-labels-native-cover.webp",
+    aspect_ratio = [
+        10,
+        4,
+    ],
+    label_font = "@com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf",
+    native = True,
+    palette = "//projects/alwaldend.com/assets:mermaid_palette",
+    scale = 1,
+    theme = "//projects/alwaldend.com/pkg/mermaid:theme.json",
+)
+
+mermaid_webp(
+    name = "edge_labels_native_dark_cover_webp",
+    src = "edge_labels.mmd",
+    out = "edge-labels-native-dark-cover.webp",
+    aspect_ratio = [
+        5,
+        2,
+    ],
+    color_scheme = "dark",
+    label_font = "@com_alwaldend_src_tools_drawio_fonts//:LiberationSans-Regular.ttf",
+    native = True,
+    palette = "//projects/alwaldend.com/assets:mermaid_palette",
+    theme = "//projects/alwaldend.com/pkg/mermaid:theme.json",
+)
+
+js_test(
+    name = "aspect_ratio_test",
+    size = "medium",
+    args = [
+        "$(rootpath @com_google_chrome_headless_shell//:chrome_headless_shell_binary)",
+        "$(rootpath :edge_labels_native_dark_webp)",
+        "classic",
+        "$(rootpath :smoke_svg)",
+        "$(rootpath :smoke_cover_webp)",
+        "5",
+        "2",
+        "3",
+        "light",
+        "$(rootpath :edge-labels-native.svg)",
+        "$(rootpath :edge_labels_native_cover_webp)",
+        "10",
+        "4",
+        "1",
+        "dark",
+        "$(rootpath :edge-labels-native.dark.svg)",
+        "$(rootpath :edge_labels_native_dark_cover_webp)",
+        "5",
+        "2",
+        "2",
+    ],
+    data = [
+        ":edge-labels-native.dark.svg",
+        ":edge-labels-native.svg",
+        ":edge_labels_native_cover_webp",
+        ":edge_labels_native_dark_cover_webp",
+        ":edge_labels_native_dark_webp",
+        ":smoke_cover_webp",
+        ":smoke_svg",
+        "//tools:node_modules/puppeteer",
+        "//tools/mermaid/cmd/render:render_lib",
+        "@com_google_chrome_headless_shell//:chrome_headless_shell_binary",
+    ],
+    entry_point = "aspect_ratio_test.mjs",
+)
+
 js_test(
     name = "native_raster_test",
     size = "medium",

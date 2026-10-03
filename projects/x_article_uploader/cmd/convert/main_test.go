@@ -5,14 +5,17 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"flag"
 	"image"
 	"image/png"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"testing"
 
 	"git.alwaldend.com/alwaldend/src/projects/x_article_uploader/internal/markdown"
+	"github.com/bazelbuild/rules_go/go/runfiles"
 )
 
 // TestRunDerivesRelativePostPackage asserts that omitting --post-package
@@ -508,5 +511,96 @@ func TestRunReportsContinuingDiagnosticsOnFailure(t *testing.T) {
 	}
 	if !strings.Contains(err.Error(), "image-media-type-rejected") {
 		t.Errorf("error did not report the failing diagnostic: %v", err)
+	}
+}
+
+var converterBinary = flag.String("convert-binary", "", "converter executable for command E2E coverage")
+
+// TestConversionCommandPolicy exercises the executable, including its flags,
+// exit status, diagnostic stream, and the artifact consumed by draft creation.
+func TestConversionCommandPolicy(t *testing.T) {
+	binary, err := runfiles.Rlocation(*converterBinary)
+	if err != nil {
+		t.Fatalf("resolve converter executable: %v", err)
+	}
+	for _, tc := range []struct {
+		name, body          string
+		allowWarnings, fail bool
+		diagnostic          string
+	}{
+		{name: "clean", body: "Hello **world**."},
+		{name: "warning-default", body: "Keep `inline code`.", fail: true, diagnostic: "inline-code-style-lost"},
+		{name: "warning-allowed", body: "Keep `inline code`.", allowWarnings: true, diagnostic: "inline-code-style-lost"},
+		{name: "error-default", body: "![missing](missing.png)", fail: true, diagnostic: "image"},
+		{name: "error-with-warnings-allowed", body: "![missing](missing.png)", allowWarnings: true, fail: true, diagnostic: "image"},
+		{name: "all-diagnostics", body: "Keep `inline code` and ![missing](missing.png).", fail: true, diagnostic: "inline-code-style-lost"},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			dir := t.TempDir()
+			source, output := filepath.Join(dir, "index.md"), filepath.Join(dir, "article.json")
+			if err := os.WriteFile(source, []byte("---\ntitle: Example\n---\n\n"+tc.body+"\n"), 0o600); err != nil {
+				t.Fatalf("write source: %v", err)
+			}
+			args := []string{"--source", source, "--out", output, "--workspace", dir}
+			if tc.allowWarnings {
+				args = append(args, "--warnings-as-errors=false")
+			}
+			var stdout, stderr bytes.Buffer
+			cmd := exec.Command(binary, args...)
+			cmd.Stdout, cmd.Stderr = &stdout, &stderr
+			err := cmd.Run()
+			if (err != nil) != tc.fail {
+				t.Fatalf("exit error %v, expected failure=%v; stderr: %s", err, tc.fail, &stderr)
+			}
+			if tc.diagnostic != "" && !strings.Contains(stderr.String(), tc.diagnostic) {
+				t.Fatalf("missing diagnostic %q: %s", tc.diagnostic, &stderr)
+			}
+			if tc.name == "all-diagnostics" && !strings.Contains(stderr.String(), "image") {
+				t.Fatalf("missing error diagnostic: %s", &stderr)
+			}
+			raw, readErr := os.ReadFile(output)
+			if tc.fail {
+				if !os.IsNotExist(readErr) {
+					t.Fatalf("failed conversion wrote an artifact: %v", readErr)
+				}
+				if stdout.Len() != 0 {
+					t.Fatalf("failed conversion wrote stdout: %s", &stdout)
+				}
+				return
+			}
+			if readErr != nil {
+				t.Fatalf("read artifact: %v", readErr)
+			}
+			var artifact map[string]json.RawMessage
+			if err := json.Unmarshal(raw, &artifact); err != nil {
+				t.Fatalf("decode artifact: %v", err)
+			}
+			for _, forbidden := range []string{"title", "content_state", "diagnostics"} {
+				if _, found := artifact[forbidden]; found {
+					t.Fatalf("artifact exposes %q outside payload", forbidden)
+				}
+			}
+			var payload struct {
+				Title        string
+				ContentState struct{ Blocks []struct{ Text string } } `json:"content_state"`
+			}
+			if err := json.Unmarshal(artifact["payload"], &payload); err != nil {
+				t.Fatalf("decode payload: %v", err)
+			}
+			if payload.Title != "Example" || len(payload.ContentState.Blocks) != 1 {
+				t.Fatalf("missing article content: %+v", payload)
+			}
+			if tc.allowWarnings && payload.ContentState.Blocks[0].Text != "Keep inline code." {
+				t.Fatalf("warning lost content: %+v", payload)
+			}
+			if tc.name == "clean" && stderr.Len() != 0 {
+				t.Fatalf("clean conversion emitted stderr: %s", &stderr)
+			}
+			if artifacts := os.Getenv("TEST_UNDECLARED_OUTPUTS_DIR"); artifacts != "" {
+				if err := os.WriteFile(filepath.Join(artifacts, tc.name+".json"), raw, 0o600); err != nil {
+					t.Fatalf("save artifact: %v", err)
+				}
+			}
+		})
 	}
 }

@@ -117,6 +117,14 @@ Set `params.caption` when an image needs a visible caption. Without `params.alt`
 the image uses the page title as alternative text. Header images use the shared
 image renderer and scale to the available width.
 
+Header image files use a 5:2 canvas, matching the current
+[X Article cover display](https://abs.twimg.com/x-web/x-web/assets/article-detail-B7xvnd3U.js).
+This is a display ratio, not an API upload restriction. Keep the complete
+illustration inside the canvas without cropping or stretching. Mermaid header
+renders set `aspect_ratio = [5, 2]`; arrange their content for a wide canvas
+before adding the minimum padding needed to reach that ratio. Other body
+illustrations keep their natural dimensions.
+
 Agent workflow: [Add a blog post](https://github.com/alwaldend/src/blob/master/projects/alwaldend.com/skills/alwaldend-blog/SKILL.md).
 
 ## Projects

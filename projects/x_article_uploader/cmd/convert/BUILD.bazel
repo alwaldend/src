@@ -17,5 +17,8 @@ go_binary(
 go_test(
     name = "convert_test",
     srcs = ["main_test.go"],
+    args = ["-convert-binary=$(rlocationpath :convert)"],
+    data = [":convert"],
     embed = [":convert_lib"],
+    deps = ["@rules_go//go/runfiles"],
 )

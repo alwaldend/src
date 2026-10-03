@@ -8,7 +8,8 @@ package draftjs
 
 import "strconv"
 
-// Block types the Articles API accepts.
+// Block types enumerated by the Articles API schema. The converter avoids
+// BlockHeaderThree because the live draft endpoint rejects it with HTTP 503.
 const (
 	BlockUnstyled          = "unstyled"
 	BlockHeaderOne         = "header-one"

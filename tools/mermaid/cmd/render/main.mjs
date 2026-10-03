@@ -55,6 +55,8 @@ if (!["light", "dark"].includes(colorScheme))
     throw new Error("Color scheme must be light or dark");
 if (flags["color-scheme"] !== undefined && (!flags.native || !flags.raster))
     throw new Error("A color scheme requires native raster rendering");
+if (flags["aspect-ratio"] !== undefined && !flags.raster)
+    throw new Error("An aspect ratio requires raster rendering");
 if (!plain && flags.config === undefined)
     throw new Error("Missing required flag --config");
 
@@ -151,6 +153,10 @@ try {
             puppeteerConfig,
             deviceScaleFactor:
                 flags.scale === undefined ? 2 : Number(flags.scale),
+            aspectRatio:
+                flags["aspect-ratio"] === undefined
+                    ? undefined
+                    : asList(flags["aspect-ratio"]).map(Number),
         });
     } else if (flags.native) {
         for (const required of ["palette", "dark-output", "font"])

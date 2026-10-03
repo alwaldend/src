@@ -68,10 +68,11 @@ endpoint's schema rather than DraftJS's inline `entityMap`.
 
 ### Requirement: Heading level mapping
 
-Markdown headings SHALL map onto the block types X exposes, and no heading MAY
-produce a type outside that set. Because X exposes only three heading levels,
-depth SHALL be clamped: `#` and `##` map to `header-one`, `###` maps to
-`header-two`, and `####` and deeper map to `header-three`.
+Markdown headings SHALL map onto the two heading block types accepted by the
+live Articles draft endpoint. Depth SHALL be clamped: `#` and `##` map to
+`header-one`, and `###` and deeper map to `header-two`. The converter MUST NOT
+emit `header-three`: although the API schema permits it, the live endpoint
+returns HTTP 503 for that type.
 
 #### Scenario: Map a second-level heading
 
@@ -86,8 +87,8 @@ depth SHALL be clamped: `#` and `##` map to `header-one`, `###` maps to
 #### Scenario: Clamp a heading deeper than X supports
 
 - **WHEN** a post contains a `####`, `#####`, or `######` heading
-- **THEN** it becomes a `header-three` block
-- **AND** no block uses a heading type outside `header-one`, `header-two`, or `header-three`
+- **THEN** it becomes a `header-two` block
+- **AND** no block uses a heading type outside `header-one` or `header-two`
 
 ### Requirement: Block-level Markdown mapping
 
@@ -564,8 +565,10 @@ containment is checked is the object read.
 The converter SHALL report a construct it cannot represent with the source
 location that produced it. It SHALL distinguish two outcomes and never emit a
 document that silently omits content it could not represent: a construct whose
-content is preserved but whose formatting is lost is reported and conversion
-continues, while a construct whose content would be lost fails conversion. The
+content is preserved but whose formatting is lost is reported as a warning.
+The conversion command SHALL fail on warnings by default and SHALL permit them
+only with `--warnings-as-errors=false`. Errors SHALL fail with either setting.
+All diagnostics SHALL be printed to stderr and SHALL NOT appear in artifact JSON. The
 image whose media type the upload endpoints reject and the source without a
 title are failing outcomes; an inline-code span's lost styling is a continuing
 one.
@@ -588,7 +591,9 @@ one.
 
 - **WHEN** the converter preserves a construct's content but cannot reproduce its formatting
 - **THEN** it reports the lost formatting with its source position
-- **AND** conversion still completes with the content present
+- **AND** command conversion fails by default without writing an artifact
+- **AND** `--warnings-as-errors=false` permits completion with the content present
+  while still reporting the warning to stderr
 
 #### Scenario: Report a position after a multi-byte character
 
@@ -597,6 +602,34 @@ one.
 - **THEN** the reported column counts source characters rather than bytes, so it
   names the position an editor shows
 - **AND** the byte offset is still recorded for slicing the source
+
+### Requirement: Artifact separates the X payload from local metadata
+
+The converted artifact SHALL put title and content_state inside payload. Body
+image locators and the optional banner locator SHALL remain outside payload.
+Diagnostics SHALL NOT be serialized. Media resolution SHALL attach body media
+IDs inside payload.content_state and the banner ID inside payload.cover_media.
+Artifact reading SHALL reject the old flat format and require regeneration.
+
+#### Scenario: Build an offline artifact
+
+- **WHEN** conversion succeeds
+- **THEN** payload contains title and content_state in the X request shape
+- **AND** local media references remain alongside payload
+- **AND** there is no serialized diagnostics field
+
+#### Scenario: Resolve media for draft submission
+
+- **WHEN** the uploader resolves an artifact's media
+- **THEN** body entities inside payload receive media_items
+- **AND** the banner becomes payload.cover_media
+- **AND** the draft request contains only X payload fields
+
+#### Scenario: Read a legacy flat artifact
+
+- **WHEN** an artifact has title and content_state outside payload
+- **THEN** reading fails before any API request
+- **AND** the error instructs the caller to regenerate the artifact
 
 ### Requirement: Validate the supported static image contract
 

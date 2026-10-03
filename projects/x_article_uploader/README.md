@@ -29,7 +29,7 @@ make a post publicly visible.
 ## What conversion does
 
 A source post is YAML front matter plus a Markdown body. The front matter is
-metadata: its `title` is returned alongside the document because the draft
+metadata: its `title` is placed in `payload` alongside `content_state` because the draft
 endpoint requires a title that `content_state` cannot carry, and it never
 appears in the article text. A source without a non-empty title fails
 conversion.
@@ -49,8 +49,12 @@ without a banner remain supported.
 
 Markdown maps onto the vocabulary the API exposes:
 
-- Headings clamp: `#`/`##` to `header-one`, `###` to `header-two`, and `####`
-  and deeper to `header-three`, because X exposes three heading levels.
+- Headings clamp: `#`/`##` to `header-one`, and `###` and deeper to
+  `header-two`. The API schema lists `header-three`, but the live draft
+  endpoint returns HTTP 503 for it. A controlled upload of the complete
+  47-block showcase succeeded after changing only its `header-three` block
+  to `header-two`. This follows the same
+  [workaround implemented by Postiz](https://github.com/gitroomhq/postiz-app/commit/a4088abc1ad2d964cf1ff7b5d6a4c55f9774b411).
 - Paragraphs, both list kinds, nested list items, and block quotes map onto
   their matching block types.
 - Bold, italic, and strikethrough become `inline_style_ranges`; links become
@@ -110,10 +114,28 @@ Markdown payload is preserved unchanged. This can reject some content X would
 accept and is not a guarantee of equivalence to its backend validator. An
 over-budget diagnostic reports the estimate and the local budget.
 
-Conversion distinguishes two outcomes and never silently drops content: a
-construct whose content survives with lost formatting is reported and
-conversion continues, while one whose content would be lost fails conversion.
-Both name the source position that produced them.
+Conversion never silently drops content. Formatting losses produce warnings;
+content-loss errors always fail. The command prints diagnostics with source
+positions to stderr and fails on warnings by default. Pass
+`--warnings-as-errors=false` to allow warnings while retaining their stderr
+reports. Failed conversion does not write an artifact.
+
+The artifact separates the X request from local upload metadata:
+
+```json
+{
+  "payload": {
+    "title": "Example",
+    "content_state": { "blocks": [], "entities": [] }
+  },
+  "image_locators": []
+}
+```
+
+This schematic omits article content. An optional `banner_locator` sits beside
+`payload`; after media resolution its ID becomes `payload.cover_media`.
+Diagnostics are not serialized. Legacy artifacts with flat `title` and
+`content_state` fields must be regenerated.
 
 ## What draft creation does
 
@@ -147,7 +169,8 @@ re-upload rather than failing draft
 creation after the uploads already succeeded.
 
 The media uploads happen separately before draft creation. The selected banner's
-uploaded identifier becomes the draft request's top-level `cover_media`, with
+uploaded identifier becomes `payload.cover_media`, sent as the draft request's
+top-level `cover_media`, with
 `media_category: "tweet_image"` and `media_id`. Body image identifiers remain
 in their DraftJS entities. This follows the
 [X draft endpoint's request schema](https://docs.x.com/x-api/articles/create-draft-article).

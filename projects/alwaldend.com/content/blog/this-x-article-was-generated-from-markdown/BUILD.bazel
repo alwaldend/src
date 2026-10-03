@@ -10,6 +10,10 @@ mermaid_site_webp(
     name = "pipeline_webp",
     src = "pipeline.mmd",
     out = "rendered/pipeline.webp",
+    aspect_ratio = [
+        5,
+        2,
+    ],
     color_scheme = "dark",
 )
 

@@ -10,15 +10,21 @@ import (
 	"strings"
 
 	"git.alwaldend.com/alwaldend/src/projects/x_article_uploader/internal/markdown"
+	"git.alwaldend.com/alwaldend/src/projects/x_article_uploader/internal/xapi"
 )
 
-// Artifact is the draft artifact the converter emitted.
+// Payload is the X request projection, with a mutable document for media IDs.
+type Payload struct {
+	Title      string           `json:"title"`
+	Document   map[string]any   `json:"content_state"`
+	CoverMedia *xapi.CoverMedia `json:"cover_media,omitempty"`
+}
+
+// Artifact contains the X request payload and local media sources.
 type Artifact struct {
-	Title       string                  `json:"title"`
-	Document    map[string]any          `json:"content_state"`
-	Locators    []markdown.ImageLocator `json:"image_locators"`
-	Banner      *markdown.ImageSource   `json:"banner_locator,omitempty"`
-	Diagnostics []markdown.Diagnostic   `json:"diagnostics"`
+	Payload  `json:"payload"`
+	Locators []markdown.ImageLocator `json:"image_locators"`
+	Banner   *markdown.ImageSource   `json:"banner_locator,omitempty"`
 }
 
 // ReadArtifact loads a converted draft artifact.
@@ -30,6 +36,9 @@ func ReadArtifact(path string) (*Artifact, error) {
 	var artifact Artifact
 	if err := json.Unmarshal(raw, &artifact); err != nil {
 		return nil, fmt.Errorf("decode artifact %s: %w", path, err)
+	}
+	if artifact.Document == nil {
+		return nil, fmt.Errorf("artifact %q requires payload.content_state; regenerate legacy flat artifacts", path)
 	}
 	return &artifact, nil
 }

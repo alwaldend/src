@@ -158,6 +158,10 @@ def _mermaid_webp_impl(ctx):
         fail("palette requires native rendering")
     if not ctx.attr.native and ctx.attr.color_scheme != "light":
         fail("a dark color_scheme requires native rendering")
+    if ctx.attr.scale <= 0:
+        fail("scale must be a positive integer")
+    if ctx.attr.aspect_ratio and (len(ctx.attr.aspect_ratio) != 2 or min(ctx.attr.aspect_ratio) <= 0):
+        fail("aspect_ratio must contain two positive integers")
 
     label_font = ctx.file.label_font or ctx.file._label_font
 
@@ -168,6 +172,9 @@ def _mermaid_webp_impl(ctx):
     args.add("--background", "white")
     args.add("--raster")
     args.add("--scale", str(ctx.attr.scale))
+    if ctx.attr.aspect_ratio:
+        for term in ctx.attr.aspect_ratio:
+            args.add("--aspect-ratio", str(term))
     args.add("--config", theme.path)
     args.add("--font", label_font.path)
     if ctx.attr.native:
@@ -230,6 +237,11 @@ mermaid_webp = rule(
             doc = "Raster scale factor. The image is authored at the " +
                   "diagram's natural size and scaled by this factor, so a " +
                   "node-sized diagram still carries crisp text.",
+        ),
+        "aspect_ratio": attr.int_list(
+            doc = "Optional [width, height] ratio of positive integers. Adds " +
+                  "theme-colored padding around the scaled diagram without " +
+                  "cropping or stretching; empty keeps the natural canvas.",
         ),
         "native": attr.bool(
             default = False,

@@ -57,15 +57,20 @@ func markdownCodePointWeight(value string) int {
 	return weight
 }
 
-// Article is the emitted draft artifact: the content_state document, the title
-// draft creation needs, the locators publication resolves images from, and the
-// diagnostics conversion produced.
+// Payload contains only the X draft request fields available offline.
+// Media identifiers are attached by the publisher before submission.
+type Payload struct {
+	Title    string            `json:"title"`
+	Document *draftjs.Document `json:"content_state"`
+}
+
+// Article contains the X payload and local media metadata. Diagnostics remain
+// in memory for reporting and never travel in the serialized artifact.
 type Article struct {
-	Title       string            `json:"title"`
-	Document    *draftjs.Document `json:"content_state"`
-	Locators    []ImageLocator    `json:"image_locators"`
-	Banner      *ImageSource      `json:"banner_locator,omitempty"`
-	Diagnostics []Diagnostic      `json:"diagnostics"`
+	Payload     `json:"payload"`
+	Locators    []ImageLocator `json:"image_locators"`
+	Banner      *ImageSource   `json:"banner_locator,omitempty"`
+	Diagnostics []Diagnostic   `json:"-"`
 }
 
 // ImageSource records where an image's bytes come from, resolved
@@ -143,8 +148,7 @@ func (c *Converter) Convert(raw []byte) (*Article, error) {
 	}
 
 	article := &Article{
-		Title:       post.Title,
-		Document:    conv.doc,
+		Payload:     Payload{Title: post.Title, Document: conv.doc},
 		Locators:    conv.locators,
 		Banner:      banner,
 		Diagnostics: conv.diagnostics,
@@ -157,7 +161,11 @@ func (c *Converter) Convert(raw []byte) (*Article, error) {
 
 // JSON marshals the artifact with a stable field order.
 func (a *Article) JSON() ([]byte, error) {
-	return json.MarshalIndent(a, "", "  ")
+	encoded, err := json.MarshalIndent(a, "", "  ")
+	if err != nil {
+		return nil, fmt.Errorf("encode article artifact: %w", err)
+	}
+	return encoded, nil
 }
 
 // blockContext carries the block-mapping state for the blocks being emitted.
@@ -348,16 +356,13 @@ func paragraphType(ctx blockContext) string {
 	return draftjs.BlockUnstyled
 }
 
-// headingType clamps a heading level onto the three levels X exposes.
+// headingType uses the two heading levels accepted by the live draft endpoint.
+// The schema also lists header-three, but submitting it causes HTTP 503.
 func headingType(level int) string {
-	switch {
-	case level <= 2:
+	if level <= 2 {
 		return draftjs.BlockHeaderOne
-	case level == 3:
-		return draftjs.BlockHeaderTwo
-	default:
-		return draftjs.BlockHeaderThree
 	}
+	return draftjs.BlockHeaderTwo
 }
 
 // appendFootnotes emits a trailing `Footnotes` section when the document has

@@ -45,13 +45,28 @@ const readBackground = (svg) => {
  * @param {string} options.output Destination `.webp` path.
  * @param {object} options.puppeteerConfig Launch options, including pinned fonts.
  * @param {number} options.deviceScaleFactor Raster scale; 2 keeps text crisp.
+ * @param {number[]} [options.aspectRatio] Optional positive integer width/height.
  */
 export async function renderWebp({
     svgPath,
     output,
     puppeteerConfig,
     deviceScaleFactor = 2,
+    aspectRatio,
 }) {
+    if (!Number.isSafeInteger(deviceScaleFactor) || deviceScaleFactor <= 0)
+        throw new Error("Raster scale must be a positive safe integer");
+    if (
+        aspectRatio !== undefined &&
+        (!Array.isArray(aspectRatio) ||
+            aspectRatio.length !== 2 ||
+            !aspectRatio.every(
+                (term) => Number.isSafeInteger(term) && term > 0,
+            ))
+    )
+        throw new Error(
+            "Raster aspect ratio must contain two positive safe integers",
+        );
     const svg = await fs.readFile(svgPath, "utf8");
     const viewBox = readViewBox(svg);
     if (viewBox === undefined)
@@ -62,6 +77,31 @@ export async function renderWebp({
     // screenshot's clip box is exactly the drawing.
     const width = Math.ceil(viewBox.width);
     const height = Math.ceil(viewBox.height);
+    let canvasWidth = width * deviceScaleFactor;
+    let canvasHeight = height * deviceScaleFactor;
+    if (aspectRatio !== undefined) {
+        let [numerator, denominator] = aspectRatio;
+        while (denominator !== 0)
+            [numerator, denominator] = [denominator, numerator % denominator];
+        const ratioWidth = aspectRatio[0] / numerator;
+        const ratioHeight = aspectRatio[1] / numerator;
+        const multiplier = Math.ceil(
+            Math.max(canvasWidth / ratioWidth, canvasHeight / ratioHeight),
+        );
+        canvasWidth = ratioWidth * multiplier;
+        canvasHeight = ratioHeight * multiplier;
+    }
+    // WebP limits each dimension to 16383 pixels. Fail before starting Chrome
+    // rather than returning an empty or differently sized screenshot.
+    if (
+        ![canvasWidth, canvasHeight].every(
+            (dimension) =>
+                Number.isSafeInteger(dimension) && dimension <= 16383,
+        )
+    )
+        throw new Error(
+            "Raster dimensions must not exceed WebP's 16383-pixel limit",
+        );
     // Native Mermaid SVGs omit the root height. Restrict dimension changes to
     // the root tag so an absent root attribute never removes a label's
     // foreignObject height and makes that label disappear.
@@ -78,14 +118,21 @@ export async function renderWebp({
     const browser = await puppeteer.launch(puppeteerConfig);
     try {
         const page = await browser.newPage();
+        // A ratio applies to final pixels, not CSS pixels. Use a physical-pixel
+        // viewport for this opt-in path so odd dimensions remain exact even at
+        // scale 2 or 3. The SVG keeps the same scaled geometry. The default
+        // path retains its existing device scale, layout, and capture bounds.
+        const padded = aspectRatio !== undefined;
+        const renderScale = padded ? deviceScaleFactor : 1;
+        const viewportScale = padded ? 1 : deviceScaleFactor;
         await page.setViewport({
-            width,
-            height,
-            deviceScaleFactor,
+            width: padded ? canvasWidth : width,
+            height: padded ? canvasHeight : height,
+            deviceScaleFactor: viewportScale,
         });
         await page.setContent(html);
         await page.evaluate(
-            (naturalWidth, naturalHeight) => {
+            (naturalWidth, naturalHeight, padding) => {
                 const svg = document.querySelector("svg");
                 // Keep the explicit `viewBox`-derived size through measurement
                 // and capture. Removing it would let the SVG fall back to the
@@ -96,23 +143,36 @@ export async function renderWebp({
                 svg.style.height = `${naturalHeight}px`;
                 svg.style.maxWidth = "none";
                 svg.style.background = "transparent";
+                if (padding !== null) {
+                    svg.style.position = "absolute";
+                    svg.style.left = `${padding.x}px`;
+                    svg.style.top = `${padding.y}px`;
+                }
             },
-            width,
-            height,
+            width * renderScale,
+            height * renderScale,
+            padded
+                ? {
+                      x: (canvasWidth - width * renderScale) / 2,
+                      y: (canvasHeight - height * renderScale) / 2,
+                  }
+                : null,
         );
-        const clip = await page.$eval("svg", (element) => {
-            const bounds = element.getBoundingClientRect();
-            return {
-                x: Math.floor(bounds.left),
-                y: Math.floor(bounds.top),
-                width: Math.ceil(bounds.width),
-                height: Math.ceil(bounds.height),
-            };
-        });
+        const clip = padded
+            ? { x: 0, y: 0, width: canvasWidth, height: canvasHeight }
+            : await page.$eval("svg", (element) => {
+                  const bounds = element.getBoundingClientRect();
+                  return {
+                      x: Math.floor(bounds.left),
+                      y: Math.floor(bounds.top),
+                      width: Math.ceil(bounds.width),
+                      height: Math.ceil(bounds.height),
+                  };
+              });
         await page.setViewport({
             width: clip.x + clip.width,
             height: clip.y + clip.height,
-            deviceScaleFactor,
+            deviceScaleFactor: viewportScale,
         });
         const data = await page.screenshot({
             type: "webp",

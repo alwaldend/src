@@ -30,9 +30,11 @@ Do the conversion before the draft, and never export `X_*` values by hand.
      --post-package projects/alwaldend.com/content/blog/<slug>
    ```
 
-   A failing conversion prints every diagnostic and exits non-zero; a
-   successful one prints the block and diagnostic counts, including any
-   continuing `inline-code-style-lost` losses.
+   Conversion reports diagnostics on stderr and fails on warnings or errors
+   by default. If the user accepts a reported formatting loss, use
+   `--warnings-as-errors=false`; errors still fail. Successful output contains
+   the X request under `payload`, media locators alongside it, and no diagnostic
+   records. Regenerate legacy flat artifacts before uploading.
 
 2. Create the draft through the Vault-injected wrapper, which is the only step
    that needs credentials and the only one that touches the network:

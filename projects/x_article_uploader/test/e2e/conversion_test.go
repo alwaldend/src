@@ -121,6 +121,11 @@ func assertMappingContract(t *testing.T, article *markdown.Article) {
 	if article.Document == nil || len(article.Document.Blocks) == 0 {
 		t.Fatal("conversion produced no blocks")
 	}
+	for i, block := range article.Document.Blocks {
+		if block.Type == "header-three" {
+			t.Errorf("block %d uses header-three, which causes the live draft endpoint to return 503", i)
+		}
+	}
 	if article.Title == "" {
 		t.Error("conversion produced no parsed title")
 	}
@@ -216,20 +221,22 @@ func TestDraftArtifactIsRepeatable(t *testing.T) {
 
 		// The emitted document must parse as a content_state payload.
 		var decoded struct {
-			Title    string `json:"title"`
-			Document struct {
-				Blocks   []draftjs.Block  `json:"blocks"`
-				Entities []draftjs.Entity `json:"entities"`
-			} `json:"content_state"`
+			Payload struct {
+				Title    string `json:"title"`
+				Document struct {
+					Blocks   []draftjs.Block  `json:"blocks"`
+					Entities []draftjs.Entity `json:"entities"`
+				} `json:"content_state"`
+			} `json:"payload"`
 			Locators []markdown.ImageLocator `json:"image_locators"`
 		}
 		if err := json.Unmarshal(firstJSON, &decoded); err != nil {
 			t.Fatalf("%s: artifact does not parse: %v", name, err)
 		}
-		if decoded.Title != first.Title || decoded.Title == "" {
-			t.Errorf("%s: artifact title %q does not match the parsed title %q", name, decoded.Title, first.Title)
+		if decoded.Payload.Title != first.Title || decoded.Payload.Title == "" {
+			t.Errorf("%s: artifact title %q does not match the parsed title %q", name, decoded.Payload.Title, first.Title)
 		}
-		if len(decoded.Document.Blocks) == 0 {
+		if len(decoded.Payload.Document.Blocks) == 0 {
 			t.Errorf("%s: artifact carries no blocks", name)
 		}
 		for _, locator := range decoded.Locators {
@@ -322,15 +329,17 @@ func TestEmittedDocumentMatchesArticlesSchema(t *testing.T) {
 		t.Fatalf("encode artifact: %v", err)
 	}
 	var raw struct {
-		Document struct {
-			Blocks   []map[string]json.RawMessage `json:"blocks"`
-			Entities []map[string]json.RawMessage `json:"entities"`
-		} `json:"content_state"`
+		Payload struct {
+			Document struct {
+				Blocks   []map[string]json.RawMessage `json:"blocks"`
+				Entities []map[string]json.RawMessage `json:"entities"`
+			} `json:"content_state"`
+		} `json:"payload"`
 	}
 	if err := json.Unmarshal(encoded, &raw); err != nil {
 		t.Fatalf("decode artifact: %v", err)
 	}
-	if len(raw.Document.Blocks) == 0 {
+	if len(raw.Payload.Document.Blocks) == 0 {
 		t.Fatal("document carries no blocks")
 	}
 
@@ -343,7 +352,7 @@ func TestEmittedDocumentMatchesArticlesSchema(t *testing.T) {
 		"header-three": true, "unordered-list-item": true,
 		"ordered-list-item": true, "blockquote": true, "atomic": true,
 	}
-	for i, block := range raw.Document.Blocks {
+	for i, block := range raw.Payload.Document.Blocks {
 		for key := range block {
 			if !blockKeys[key] {
 				t.Errorf("block %d carries field %q, which the schema does not allow", i, key)
@@ -377,7 +386,7 @@ func TestEmittedDocumentMatchesArticlesSchema(t *testing.T) {
 		"markdown": true, "divider": true, "latex": true,
 	}
 	mutabilities := map[string]bool{"immutable": true, "mutable": true, "segmented": true}
-	for i, entity := range raw.Document.Entities {
+	for i, entity := range raw.Payload.Document.Entities {
 		if len(entity) != 2 || entity["key"] == nil || entity["value"] == nil {
 			t.Fatalf("entity %d is not a {key, value} entry: %v", i, keysOf(entity))
 		}
