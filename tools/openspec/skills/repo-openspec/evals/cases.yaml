@@ -64,7 +64,7 @@
         checked implementation tasks or evidence for candidate A as proof that
         candidate B is ready to archive.
 
-- description: Handles trivial edits proportionally
+- description: Records trivial edits proportionally
   vars:
     request: >-
       Fix one typo in a README. No behavior changes, durable work record,
@@ -72,18 +72,24 @@
   assert:
     - type: llm-rubric
       value: >-
-        The response says a new change is unnecessary for this trivial edit
-        and does not invent required proposal, design, approval, or goal steps.
+        The response requires a matching owner-local OpenSpec change even for
+        the typo, reuses an active matching change when available, and keeps
+        artifacts small. Without a behavior delta it uses skip_specs: true
+        rather than inventing a requirement. It adds no approval or goal step.
 
-- description: Preserves the whole modified requirement
+- description: Routes operation procedures to upstream skills
   vars:
     request: >-
-      An existing requirement has ASCII and Unicode scenarios. This change
-      modifies only the ASCII behavior. What belongs in its MODIFIED
-      Requirements delta? Explain only.
+      We need to create planning artifacts, implement tasks, verify the result,
+      and archive an authorized change in tools/rules_docs_gazelle. Which skills
+      and command entry point should we use? Explain without tools.
   assert:
     - type: llm-rubric
       value: >-
-        The response includes the complete replacement requirement with both
-        the updated ASCII scenario and the preserved Unicode scenario. It
-        does not supply only a fragment that would remove existing behavior.
+        Uses the repo-openspec skill for owner selection and wrapper
+        integration, and routes operations to openspec-propose or an appropriate
+        planning skill, openspec-apply-change, openspec-verify-change, and
+        openspec-archive-change. Translates upstream commands through
+        OPENSPEC_PROJECT=tools/rules_docs_gazelle bazel_agent bazel run
+        //tools/openspec -- with the original arguments. Keeps generic artifact
+        steps owned upstream, preserves authority, and does not use a global CLI.

@@ -3,7 +3,8 @@ name: repo-workspace
 description: >-
   Establish an isolated task workspace before the first mutation or
   task-scratch write. Use to verify checkout isolation, select or reuse a
-  dedicated feature branch in its own linked worktree, keep task downloads,
+  dedicated feature branch in its own linked worktree, select the required
+  OpenSpec change, keep task downloads,
   reports, logs, caches, and temporary files under ignored workspace scratch,
   and preserve unrelated work. It does not own secret handling, delivery,
   layout, or versioning.
@@ -39,6 +40,14 @@ authority.
 6. Preserve unrelated work. Never discard, auto-stash, commit, or rewrite
    shared, human-owned, unrelated, or ambiguous history while preparing a
    workspace.
+
+## Select the required OpenSpec change
+
+After verifying isolation and before editing repository source or configuration,
+use `repo-openspec` to select the owning workspace and reuse a matching active change
+or create one. AGENTS.md requires a record for every repository change, even a
+small edit. Keep artifacts proportional and preserve already granted authority;
+recording work adds no approval step. Read-only investigation needs no record.
 
 ## Keep scratch under ignored out
 

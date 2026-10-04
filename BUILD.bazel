@@ -13,7 +13,6 @@ exports_files(
         "al_lib.lua",
         "gazelle_python.yaml",
         "pyproject.toml",
-        "requirements.txt",
     ],
     visibility = ["//visibility:public"],
 )

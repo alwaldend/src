@@ -1,0 +1,8 @@
+load("@rules_skills//skill:defs.bzl", "skill_archive")
+
+skill_archive(
+    name = "review-agent",
+    root = "review-agent",
+    srcs = glob(["review-agent/**"]),
+    visibility = ["@//third_party/com_github_openai_codex:__pkg__"],
+)

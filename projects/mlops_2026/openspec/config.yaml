@@ -1,0 +1,6 @@
+schema: spec-driven
+
+context: |
+  This workspace owns the mlops_2026 MLOps course placeholder.
+  README.md owns the course description and external link.
+  There is no application code or deployment behavior yet.

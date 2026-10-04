@@ -10,6 +10,7 @@ package_group(
 skills_write(
     name = "write_skills",
     archives = [
+        "//third_party/com_github_openai_codex:review-agent",
         "@org_fissionai_openspec//:openspec-apply-change",
         "@org_fissionai_openspec//:openspec-archive-change",
         "@org_fissionai_openspec//:openspec-bulk-archive-change",
@@ -50,10 +51,11 @@ skills_write(
         "//tools/agents/skills/repo-go:skill",
         "//tools/agents/skills/repo-hugo:skill",
         "//tools/agents/skills/repo-infra:skill",
+        "//tools/py/skills/repo-python:skill",
         "//tools/agents/skills/repo-secrets:skill",
         "//tools/agents/skills/repo-workspace:skill",
         "//tools/agents/skills/spellcheck:skill",
-        "//tools/agents/skills/openspec:skill",
+        "//tools/openspec/skills/repo-openspec:skill",
         "//tools/versioning/skills/versioning:skill",
     ],
     visibility = ["//visibility:public"],

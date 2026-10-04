@@ -1,14 +1,16 @@
 # GENERATED FILE - DO NOT EDIT!
 #
 # To update this file, run:
-#   bazel run //:gazelle_python_manifest.update
+#   bazel run //tools/gazelle:gazelle_python_manifest.update
 
 ---
 manifest:
   modules_mapping:
     30fcd23745efe32ce681__mypyc: black
     7ae574991b77ef47acad__mypyc: mypy
+    annotated_doc: annotated_doc
     annotated_types: annotated_types
+    anyio: anyio
     black: black
     blackd: black
     blib2to3: black
@@ -20,11 +22,15 @@ manifest:
     cryptography: cryptography
     distlib: distlib
     docutils: docutils
+    dotenv: python_dotenv
+    fastapi: fastapi
     fd7dcdb10166ebd4db98__mypyc: pytokens
     filelock: filelock
     flake8: flake8
     flake8p: flake8_pyproject
     git_filter_repo: git_filter_repo
+    h11: h11
+    httptools: httptools
     id: id
     identify: identify
     idna: idna
@@ -44,6 +50,18 @@ manifest:
     native_internal: mypy
     nh3: nh3
     nodeenv: nodeenv
+    opentelemetry.attributes: opentelemetry_api
+    opentelemetry.baggage: opentelemetry_api
+    opentelemetry.context: opentelemetry_api
+    opentelemetry.environment_variables: opentelemetry_api
+    opentelemetry.metrics: opentelemetry_api
+    opentelemetry.propagate: opentelemetry_api
+    opentelemetry.propagators.composite: opentelemetry_api
+    opentelemetry.propagators.textmap: opentelemetry_api
+    opentelemetry.trace: opentelemetry_api
+    opentelemetry.util.re: opentelemetry_api
+    opentelemetry.util.types: opentelemetry_api
+    opentelemetry.version: opentelemetry_api
     packaging: packaging
     pathspec: pathspec
     platformdirs: platformdirs
@@ -61,12 +79,17 @@ manifest:
     rfc3986: rfc3986
     rich: rich
     secretstorage: secretstorage
+    starlette: starlette
     twine: twine
     typing_extensions: typing_extensions
     typing_inspection: typing_inspection
     urllib3: urllib3
+    uvicorn: uvicorn
+    uvloop: uvloop
     virtualenv: virtualenv
+    watchfiles: watchfiles
+    websockets: websockets
     yaml: pyyaml
   pip_repository:
     name: com_alwaldend_src_pip
-integrity: 4ce71e790dde1be8db8eda9aa6ccccbb867f5a2a675980f60b316b86ebf595c4
+integrity: 959d59eeef05b4ea53395d27078c95c707ef4aa66468ec38de92a9ced033f2fb

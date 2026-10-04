@@ -1,0 +1,75 @@
+- description: Finds a reproducible bug in a commit range
+  vars:
+    request: >-
+      Review base..candidate. A manifest moved from root to tools/py; the diff
+      updates its generator but leaves a consumer label at //:requirements.txt.
+      Existing validation only ran the generator. What should the review check?
+  assert:
+    - type: llm-rubric
+      value: >-
+        Identifies the candidate and base, traces the dangling consumer label
+        and its owning declaration, and explains the failing build trigger and
+        consequence. Checks consumers and exact-candidate evidence rather than
+        treating generator success as proof. Findings cite a minimal location
+        and applicable contract. Does not modify files or post comments.
+- description: Reviews staged and unstaged changes without expanding authority
+  vars:
+    request: >-
+      Review my staged changes only. There are also unstaged edits to the same
+      file and unrelated untracked files. Do not fix anything or publish a review.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Reviews the index against HEAD and keeps unstaged and untracked work out
+        of the candidate, while preserving them. Does not treat a working-tree
+        test as exact staged-candidate evidence unless input equality is shown.
+        Does not stage, reset, stash, create an OpenSpec change for the read-only
+        review, edit source, or send external review messages.
+- description: Grounds standards findings and bounds clean-review claims
+  vars:
+    request: >-
+      Review this documentation-only change against repository standards.
+      Applicable AGENTS.md requires type hints in Python, but the diff contains
+      no Python code. You inspected the full diff and found no actionable defect;
+      a source-rendering check was unavailable. Report the result.
+  assert:
+    - type: llm-rubric
+      value: >-
+        States no actionable findings and names the unavailable rendering check
+        as a validation limit. Does not invent Python typing violations or style
+        preferences, claim all behavior is proven, or automatically add tests
+        or fixes. Applies only standards relevant to the touched content.
+- description: Uses an ahead upstream and a merge-base comparison
+  vars:
+    request: >-
+      Review this feature branch against master. Local master is behind its
+      configured upstream, which contains unrelated changes. Explain how you
+      select the comparison baseline without editing files or Git history.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Resolves the configured upstream and uses it when it is ahead of local
+        master, computes git merge-base with the candidate HEAD, and reviews
+        the candidate against that merge base rather than directly against the
+        branch tip. If local master cannot resolve, tries its configured
+        upstream explicitly. Does not include unrelated upstream changes as
+        candidate defects or switch, rebase, reset, or fetch into shared refs.
+- description: Applies the defect eligibility gate and exact finding format
+  vars:
+    request: >-
+      Review a diff with an introduced reproducible resource leak, an unchanged
+      pre-existing error, an explicitly requested behavior change, a speculative
+      timing concern, and a harmless naming preference. Explain which issues
+      qualify and how confirmed findings should be reported.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Includes the introduced resource leak only when its affected path and
+        consequence are demonstrated and the author would likely fix it.
+        Excludes the pre-existing error, intended behavior change, speculation,
+        and harmless naming preference. Requires discrete, actionable impact
+        on correctness, security, performance, or meaningful maintainability.
+        Uses a severity-prefixed imperative title with a minimal changed file
+        location and one short explanatory paragraph, followed by a brief
+        assessment and actual validation limits. Continues through the whole
+        diff and never invents findings to fill a quota.

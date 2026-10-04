@@ -19,6 +19,7 @@ al_release_binary(
             include = ["*"],
             exclude = [
                 "mcp_cordis",
+                "mlops_2026",
                 "alwaldend.com",
                 "ansible_collection",
                 "bazel_registry",
