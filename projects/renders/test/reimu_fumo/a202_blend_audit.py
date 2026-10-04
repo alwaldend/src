@@ -1,15 +1,14 @@
 """Fail closed when the sanitized A202 Blender donor leaks local paths."""
 
+from collections import abc as collections_abc
 import hashlib
 import json
 import math
 import os
 import re
 import sys
-from collections.abc import Mapping, Sequence
 
 import bpy
-
 
 EXPECTED_ARMATURE = "ReimuFumoRig"
 EXPECTED_VIEW_CAMERAS = {
@@ -95,7 +94,9 @@ def inspect_custom_value(location, value, depth=0):
         return
     if isinstance(value, bpy.types.ID):
         return
-    if isinstance(value, Mapping) or callable(getattr(value, "keys", None)):
+    if isinstance(value, collections_abc.Mapping) or callable(
+        getattr(value, "keys", None)
+    ):
         try:
             keys = list(value.keys())
         except Exception as error:
@@ -112,7 +113,7 @@ def inspect_custom_value(location, value, depth=0):
                 f"{location}.value[{index}]", child, depth + 1
             )
         return
-    if isinstance(value, Sequence) and not isinstance(
+    if isinstance(value, collections_abc.Sequence) and not isinstance(
         value, (bytes, bytearray)
     ):
         try:

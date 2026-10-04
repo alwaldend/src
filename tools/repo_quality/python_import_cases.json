@@ -1,0 +1,33 @@
+{
+    "valid": [
+        "import pydantic\nvalue = pydantic.BaseModel",
+        "import pathlib as paths",
+        "from python.runfiles import runfiles",
+        "from collections import abc as collections_abc",
+        "from projects.mlops_2026.internal.models import recommender as models",
+        "from autoscroll._internal import support",
+        "# from pydantic import BaseModel",
+        "text = 'from pydantic import BaseModel'"
+    ],
+    "invalid": [
+        "import projects.mlops_2026.internal.models.recommender as models",
+        "from pydantic import BaseModel",
+        "from fastapi import Query as Q",
+        "from typing import (\n    Literal,\n)",
+        "from . import support",
+        "from projects.mlops_2026.internal.models.recommender import RecommenderSong",
+        "from projects.mlops_2026.internal.recommender.application.app import create_app",
+        "from package import *"
+    ],
+    "valid_exports": [
+        "from pydantic import BaseModel\n__all__: tuple[str, ...] = (\"BaseModel\",)",
+        "from .recommender import RecommenderSong\n__all__ = [\"RecommenderSong\"]",
+        "from fastapi import Query as PublicQuery\n__all__ = (\"PublicQuery\",)"
+    ],
+    "invalid_exports": [
+        "from pydantic import BaseModel",
+        "from pydantic import BaseModel\n__all__ = (\"Other\",)",
+        "from package import *\n__all__ = (\"*\",)",
+        "from pydantic import BaseModel, Field\n__all__ = (\"BaseModel\",)"
+    ]
+}

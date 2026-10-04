@@ -19,7 +19,9 @@ manifest:
     cfgv: cfgv
     charset_normalizer: charset_normalizer
     click: click
+    cloudpickle: cloudpickle
     cryptography: cryptography
+    dateutil: python_dateutil
     distlib: distlib
     docutils: docutils
     dotenv: python_dotenv
@@ -39,6 +41,7 @@ manifest:
     jaraco.context: jaraco_context
     jaraco.functools: jaraco_functools
     jeepney: jeepney
+    joblib: joblib
     keyring: keyring
     markdown_it: markdown_it_py
     mccabe: mccabe
@@ -47,9 +50,11 @@ manifest:
     mypy: mypy
     mypy_extensions: mypy_extensions
     mypyc: mypy
+    narwhals: narwhals
     native_internal: mypy
     nh3: nh3
     nodeenv: nodeenv
+    numpy: numpy
     opentelemetry.attributes: opentelemetry_api
     opentelemetry.baggage: opentelemetry_api
     opentelemetry.context: opentelemetry_api
@@ -63,6 +68,7 @@ manifest:
     opentelemetry.util.types: opentelemetry_api
     opentelemetry.version: opentelemetry_api
     packaging: packaging
+    pandas: pandas
     pathspec: pathspec
     platformdirs: platformdirs
     pre_commit: pre_commit
@@ -78,8 +84,12 @@ manifest:
     requests_toolbelt: requests_toolbelt
     rfc3986: rfc3986
     rich: rich
+    scipy: scipy
     secretstorage: secretstorage
+    six: six
+    sklearn: scikit_learn
     starlette: starlette
+    threadpoolctl: threadpoolctl
     twine: twine
     typing_extensions: typing_extensions
     typing_inspection: typing_inspection
@@ -92,4 +102,4 @@ manifest:
     yaml: pyyaml
   pip_repository:
     name: com_alwaldend_src_pip
-integrity: 959d59eeef05b4ea53395d27078c95c707ef4aa66468ec38de92a9ced033f2fb
+integrity: 698811d5b3e024609fbf1093450271786ebf7a838015cdbfe4a3013256e97aa1

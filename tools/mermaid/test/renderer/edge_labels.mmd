@@ -1,3 +1,7 @@
 flowchart TB
     actor -->|"HTTPS"| ingress
-    ingress --> service
+    subgraph outer[Outer container]
+        subgraph inner[Inner container]
+            ingress --> service
+        end
+    end

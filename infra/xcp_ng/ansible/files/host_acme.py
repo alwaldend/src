@@ -6,7 +6,7 @@ import fcntl
 import hashlib
 import json
 import os
-from pathlib import Path
+import pathlib
 import re
 import ssl
 import subprocess
@@ -15,12 +15,11 @@ import tarfile
 import tempfile
 import urllib.request
 
-
-ROOT = Path("/etc/xcp-ng-acme")
+ROOT = pathlib.Path("/etc/xcp-ng-acme")
 CERT = ROOT / "certificates/host1.crt"
 KEY = ROOT / "certificates/host1.key"
 CHAIN = ROOT / "certificates/host1.issuer.crt"
-CURRENT = Path("/etc/xensource/xapi-ssl.pem")
+CURRENT = pathlib.Path("/etc/xensource/xapi-ssl.pem")
 
 
 def write_file(path, content, mode):
@@ -55,7 +54,7 @@ def install(config):
     ROOT.mkdir(mode=0o700, exist_ok=True)
     os.chmod(str(ROOT), 0o700)
     os.chown(str(ROOT), 0, 0)
-    webroot = Path(config["webroot"])
+    webroot = pathlib.Path(config["webroot"])
     if not webroot.is_dir() or webroot.stat().st_uid != 0:
         raise RuntimeError(
             "The inspected XAPI webroot must exist and be root-owned"
@@ -108,7 +107,7 @@ def install(config):
         [str(ROOT / "lego"), "--version"], check=True, stdout=subprocess.PIPE
     )
     changed |= write_file(
-        ROOT / "host_acme.py", Path(__file__).read_bytes(), 0o700
+        ROOT / "host_acme.py", pathlib.Path(__file__).read_bytes(), 0o700
     )
     changed |= write_file(ROOT / "ca.crt", ca.encode("utf-8"), 0o600)
     changed |= write_file(
@@ -117,12 +116,12 @@ def install(config):
         0o600,
     )
     changed |= write_file(
-        Path("/etc/systemd/system/xcp-ng-acme-renew.service"),
+        pathlib.Path("/etc/systemd/system/xcp-ng-acme-renew.service"),
         unit.encode("utf-8"),
         0o644,
     )
     changed |= write_file(
-        Path("/etc/systemd/system/xcp-ng-acme-renew.timer"),
+        pathlib.Path("/etc/systemd/system/xcp-ng-acme-renew.timer"),
         timer.encode("utf-8"),
         0o644,
     )

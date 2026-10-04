@@ -22,6 +22,51 @@ Use precise collection and optional types; do not silence missing annotations
 with `Any`, blanket ignores, or disabled type checks. Model external boundaries
 with appropriate typed interfaces and narrow validated values before use.
 
+## Keep implementation attributes private
+
+Instance and class attributes are private by default: prefix implementation
+state with `_`, for example `self._model` and `self._recommendations`.
+Expose public attributes only as deliberate APIs or required framework contracts.
+Prefer typed read-only properties for public access to owned implementation
+objects. Keep Pydantic response fields and other serialization contracts public;
+do not change their names or established public APIs merely to add `_`.
+
+## Require namespaced imports
+
+In implementation and consumer files, import modules and reference their members
+through the module namespace.
+Use `import pydantic` with `pydantic.BaseModel` and `pydantic.Field`, and
+`import fastapi` with `fastapi.Query`. Apply this to standard-library and
+repository modules too: use `import pathlib` and `pathlib.Path`, or
+`from projects.example.internal import models` and `models.Response`.
+For long module paths, use `from package.path import module`, with a clear
+module alias when needed. This imports a module, not one of its members.
+Combine imports from the same package in one `from package import a, b`
+statement, letting the formatter wrap long lines. This includes aliased imports.
+Use a common exported package namespace when combining imports with different
+parent paths; do not duplicate exports solely to shorten an import. Ruff import
+lint (`I`) and isort enforce combining imports; Ruff formatting alone does not
+sort them. The repository sorter settings enable combining aliased imports.
+Strongly prefer package APIs with explicit exports in `__init__.py` over
+cross-package imports of individual implementation files. Import the package
+and use its exported members through that namespace, for example
+`from projects.example.internal import models` and `models.Response`.
+Keep exports typed and declare `__all__`; do not instantiate services in exports.
+Implementation modules within one package may import siblings directly to
+avoid circular initialization. Keep package initialization free of side effects.
+Do not import individual classes, functions, or constants with `from ... import`
+outside `__init__.py`. In `__init__.py`, direct symbol imports are encouraged
+for public re-exports listed in an explicit `__all__`, for example
+`from .models import Response` with `__all__: tuple[str, ...] = ("Response",)`.
+These imports preserve the original type annotations and signatures without
+redundant alias assignments. Wildcard imports remain forbidden.
+Prefer the imported module's own name. Do not append redundant suffixes such as
+`_module`, and do not write `module as module`. Use a descriptive alias only
+to resolve a name collision or clarify an otherwise ambiguous module name.
+
+The `//tools/repo_quality:python_import_quality_test` target rejects symbol imports
+outside explicit `__init__.py` re-exports in tracked first-party Python and is included in `//:repo_quality_test`.
+
 ## Respect Python support and formatting
 
 The root pyproject.toml owns shared formatter and type-checker settings. Read

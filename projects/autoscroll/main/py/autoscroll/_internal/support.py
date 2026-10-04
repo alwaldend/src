@@ -5,39 +5,7 @@ import typing
 
 import pynput.mouse
 
-from .arguments import ArgparseParser, parse_arguments
-from .constants import (
-    ARGUMENTS,
-    BUTTONS_HOLD,
-    BUTTONS_START,
-    CONFIG_ENABLE,
-    CONFIG_ERROR_ENABLE,
-    CONFIG_INTERVAL,
-    CONFIG_PATH,
-    COORDINATE_NAME,
-    DEBUG_CLICK,
-    DEBUG_FILE,
-    DEBUG_INITIAL,
-    DEBUG_PADDING,
-    DEBUG_SCROLL,
-    ICON_ENABLE,
-    ICON_ERROR,
-    ICON_PATH,
-    ICON_SIZE,
-    PARSER_INITIALIZER,
-    SCROLLING_ACCELERATION_DISTANCE,
-    SCROLLING_DEAD_AREA,
-    SCROLLING_SLEEP_INTERVAL_INITIAL,
-    SCROLLING_SPEED,
-)
-from .functions import (
-    construct_coordinates,
-    convert_bool,
-    has_dict,
-    raise_type_error,
-    return_kwargs,
-    return_none,
-)
+from autoscroll._internal import arguments, constants, functions
 
 _NONE_TYPE = type(None)
 
@@ -103,14 +71,14 @@ class Base:
                 f'value "{_value}" is "{_type}", but the '
                 "conversion function is not callable"
             )
-        return raise_type_error(_value, (type(None), _type))
+        return functions.raise_type_error(_value, (type(None), _type))
 
     def _loop(
         self,
-        condition: typing.Callable = return_none,
-        action: typing.Callable = return_none,
-        condition_getter: typing.Callable = return_kwargs,
-        action_getter: typing.Callable = return_kwargs,
+        condition: typing.Callable = functions.return_none,
+        action: typing.Callable = functions.return_none,
+        condition_getter: typing.Callable = functions.return_kwargs,
+        action_getter: typing.Callable = functions.return_kwargs,
         condition_parameters: dict[str, typing.Any] | None = None,
         action_parameters: dict[str, typing.Any] | None = None,
     ) -> None:
@@ -120,7 +88,7 @@ class Base:
             map(callable, (condition, action, condition_getter, action_getter))
         ):
             raise TypeError("some functions are not callable")
-        if not has_dict(condition_parameters, action_parameters):
+        if not functions.has_dict(condition_parameters, action_parameters):
             raise TypeError("parameters should have '__dict__' attribute")
         while condition(**condition_getter(**condition_parameters)):
             action(**action_getter(**action_parameters))
@@ -149,7 +117,7 @@ class Base:
         keys_ignore: list[str] | None = None,
     ) -> str:
         name = self.name if hasattr(self, "name") else type(self).__name__
-        raise_type_error(name, str)
+        functions.raise_type_error(name, str)
         debug = []
         not_base = {}
         for key, value in self.json().items():
@@ -178,7 +146,7 @@ class Base:
             [item for item in args]
             + [f"{name} - {value}" for name, value in kwargs.items()]
         )
-        return _header.ljust(DEBUG_PADDING, " ") + result
+        return _header.ljust(constants.DEBUG_PADDING, " ") + result
 
 
 class Coordinate(Base):
@@ -243,7 +211,7 @@ class Coordinates(Base):
     ) -> None:
         self.x = x
         self.y = y
-        self.name: str = self._convert(name, COORDINATE_NAME, str)
+        self.name: str = self._convert(name, constants.COORDINATE_NAME, str)
 
     def direction(self) -> tuple[int, int]:
         return (self.x.direction(), self.y.direction())
@@ -321,12 +289,12 @@ class Coordinates(Base):
             coordinate = getattr(self, name)
             coordinate.current = int(value)
             return coordinate
-        return raise_type_error(value, Coordinate)
+        return functions.raise_type_error(value, Coordinate)
 
     def _convert_iterable(
         self, value: typing.Any
     ) -> tuple[int | None, int | None]:
-        raise_type_error(value, typing.Iterable)
+        functions.raise_type_error(value, typing.Iterable)
         x, y = None, None
         if len(value) >= 1:
             x = self._convert(value[0], None, (str, int), int)
@@ -341,7 +309,7 @@ class Coordinates(Base):
         }
         coordinates.update(
             {
-                item: construct_coordinates(
+                item: functions.construct_coordinates(
                     getattr(self.x, item), getattr(self.y, item)
                 )
                 for item in ("current", "previous", "initial")
@@ -414,7 +382,7 @@ class Buttons(Base):
     ) -> None:
         self._set(
             "_start",
-            pynput.mouse.Button(BUTTONS_START),
+            pynput.mouse.Button(constants.BUTTONS_START),
             value,
             (int, pynput.mouse.Button, str),
             self._convert_button,
@@ -434,7 +402,13 @@ class Buttons(Base):
 
     @hold.setter
     def hold(self, value: str | bool | None = None) -> None:
-        self._set("_hold", BUTTONS_HOLD, value, (str, bool), convert_bool)
+        self._set(
+            "_hold",
+            constants.BUTTONS_HOLD,
+            value,
+            (str, bool),
+            functions.convert_bool,
+        )
 
     @staticmethod
     def _convert_button(
@@ -458,7 +432,7 @@ class Buttons(Base):
 
 class Scrolling(Base):
     def __init__(self, *args, **kwargs) -> None:
-        self.sleep_interval: float = SCROLLING_SLEEP_INTERVAL_INITIAL
+        self.sleep_interval: float = constants.SCROLLING_SLEEP_INTERVAL_INITIAL
         self.controller: pynput.mouse.Controller = pynput.mouse.Controller()
         self.coordinates: Coordinates = Coordinates()
         self.coordinates.debug_keys_ignore = ["direction"]
@@ -525,7 +499,7 @@ class Scrolling(Base):
         self.sleep_interval = (
             abs(100 / interval)
             if interval
-            else SCROLLING_SLEEP_INTERVAL_INITIAL
+            else constants.SCROLLING_SLEEP_INTERVAL_INITIAL
         )
 
     def set_initial_coordinates(self, x: int, y: int) -> None:
@@ -563,17 +537,23 @@ class Scrolling(Base):
 
     @speed.setter
     def speed(self, value: str | int | None = None) -> None:
-        self._set("_speed", SCROLLING_SPEED, value, (str, int), int)
+        self._set("_speed", constants.SCROLLING_SPEED, value, (str, int), int)
 
     @dead_area.setter
     def dead_area(self, value: str | int | None = None) -> None:
-        self._set("_dead_area", SCROLLING_DEAD_AREA, value, (str, int), int)
+        self._set(
+            "_dead_area",
+            constants.SCROLLING_DEAD_AREA,
+            value,
+            (str, int),
+            int,
+        )
 
     @acceleration.setter
     def acceleration(self, value: str | int | None) -> None:
         self._set(
             "_acceleration",
-            SCROLLING_ACCELERATION_DISTANCE,
+            constants.SCROLLING_ACCELERATION_DISTANCE,
             value,
             (str, int),
             int,
@@ -631,15 +611,21 @@ class Icon(Base):
 
     @path.setter
     def path(self, value: str | None = None) -> None:
-        self._set("_path", ICON_PATH, value, str)
+        self._set("_path", constants.ICON_PATH, value, str)
 
     @size.setter
     def size(self, value: str | int | None = None) -> None:
-        self._set("_size", ICON_SIZE, value, (str, int), int)
+        self._set("_size", constants.ICON_SIZE, value, (str, int), int)
 
     @enable.setter
     def enable(self, value: str | bool | None = None) -> None:
-        self._set("_enable", ICON_ENABLE, value, (str, bool), convert_bool)
+        self._set(
+            "_enable",
+            constants.ICON_ENABLE,
+            value,
+            (str, bool),
+            functions.convert_bool,
+        )
         if self.enable:
             self.event_icon_enabled.set()
 
@@ -666,11 +652,10 @@ class Icon(Base):
 
     def _get_qt(self, get_application: bool = False) -> typing.Callable:
         try:
-            from .qt import Icon as qt_icon
-            from .qt import application
+            from autoscroll._internal import qt
         except ImportError as exception:
-            raise ValueError(ICON_ERROR) from exception
-        return application if get_application else qt_icon
+            raise ValueError(constants.ICON_ERROR) from exception
+        return qt.application if get_application else qt.Icon
 
 
 class Debug(Base):
@@ -712,19 +697,43 @@ class Debug(Base):
 
     @scroll.setter
     def scroll(self, value: bool | None = None) -> None:
-        self._set("_scroll", DEBUG_SCROLL, value, (str, bool), convert_bool)
+        self._set(
+            "_scroll",
+            constants.DEBUG_SCROLL,
+            value,
+            (str, bool),
+            functions.convert_bool,
+        )
 
     @click.setter
     def click(self, value: bool | None = None) -> None:
-        self._set("_click", DEBUG_CLICK, value, (str, bool), convert_bool)
+        self._set(
+            "_click",
+            constants.DEBUG_CLICK,
+            value,
+            (str, bool),
+            functions.convert_bool,
+        )
 
     @initial.setter
     def initial(self, value: bool | None = None) -> None:
-        self._set("_initial", DEBUG_INITIAL, value, (str, bool), convert_bool)
+        self._set(
+            "_initial",
+            constants.DEBUG_INITIAL,
+            value,
+            (str, bool),
+            functions.convert_bool,
+        )
 
     @file.setter
     def file(self, value: bool | None = None) -> None:
-        self._set("_file", DEBUG_FILE, value, (str, bool), convert_bool)
+        self._set(
+            "_file",
+            constants.DEBUG_FILE,
+            value,
+            (str, bool),
+            functions.convert_bool,
+        )
 
 
 class Config(Base):
@@ -734,9 +743,11 @@ class Config(Base):
         self._stamp: float = 0
         self.event_enabled: threading.Event = threading.Event()
         self._parse_config_file_content: dict[str, typing.Any] = {}
-        self.argument_parser: ArgparseParser = ArgparseParser(
-            **PARSER_INITIALIZER
-        ).add_arguments(**ARGUMENTS)
+        self.argument_parser: arguments.ArgparseParser = (
+            arguments.ArgparseParser(
+                **constants.PARSER_INITIALIZER
+            ).add_arguments(**constants.ARGUMENTS)
+        )
         self.update(*args, **kwargs)
 
     def update(
@@ -771,7 +782,7 @@ class Config(Base):
         return result
 
     def _parse(self, *args, **kwargs) -> dict[str, typing.Any]:
-        return parse_arguments(
+        return arguments.parse_arguments(
             **vars(self.argument_parser.parse_args(*args, **kwargs))
         )
 
@@ -796,20 +807,34 @@ class Config(Base):
 
     @enable.setter
     def enable(self, value: bool | str | None = None) -> None:
-        self._set("_enable", CONFIG_ENABLE, value, (bool, str), convert_bool)
+        self._set(
+            "_enable",
+            constants.CONFIG_ENABLE,
+            value,
+            (bool, str),
+            functions.convert_bool,
+        )
         if self.enable and not self.path:
             self.enable = False
-            raise ValueError(f"{CONFIG_ERROR_ENABLE}, path - {self.path}")
+            raise ValueError(
+                f"{constants.CONFIG_ERROR_ENABLE}, path - {self.path}"
+            )
         if self.enable and not self.event_enabled.is_set():
             self.event_enabled.set()
 
     @interval.setter
     def interval(self, value: str | int | None = None) -> None:
-        self._set("_interval", CONFIG_INTERVAL, value, (int, str), int)
+        self._set(
+            "_interval",
+            constants.CONFIG_INTERVAL,
+            value,
+            (int, str),
+            int,
+        )
 
     @path.setter
     def path(self, value: str | None = None) -> None:
-        self._set("_path", CONFIG_PATH, value, str)
+        self._set("_path", constants.CONFIG_PATH, value, str)
 
     def json(self) -> dict[str, typing.Any]:
         return {

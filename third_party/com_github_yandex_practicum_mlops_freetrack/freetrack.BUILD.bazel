@@ -1,0 +1,23 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_library")
+
+exports_files(["data.csv", "dataset.csv"], visibility = ["@//third_party/com_github_yandex_practicum_mlops_freetrack:__pkg__"])
+
+py_library(
+    name = "recommender",
+    srcs = ["recommender.py"],
+    imports = ["."],
+    visibility = ["@//third_party/com_github_yandex_practicum_mlops_freetrack:__pkg__"],
+    deps = [
+        "@com_alwaldend_src_pip//joblib",
+        "@com_alwaldend_src_pip//pandas",
+        "@com_alwaldend_src_pip//scikit_learn",
+    ],
+)
+
+py_binary(
+    name = "train_and_save_model",
+    srcs = ["train_and_save_model.py"],
+    data = ["data.csv", "dataset.csv"],
+    deps = [":recommender"],
+    visibility = ["@//third_party/com_github_yandex_practicum_mlops_freetrack:__pkg__"],
+)

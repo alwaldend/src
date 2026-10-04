@@ -1,0 +1,13 @@
+--- a/recommender.py
++++ b/recommender.py
+@@ -94,8 +94,8 @@
+     joblib.dump(model, "model.pkl")
+ 
+ 
+-def load_model():
+-    return joblib.load("model.pkl")
++def load_model(model_path="model.pkl"):
++    return joblib.load(model_path)
+ 
+ 
+ def recommend_songs(model, track_title: str, N: int = 5):

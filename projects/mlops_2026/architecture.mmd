@@ -1,0 +1,12 @@
+flowchart LR
+    client[Actor]
+    client -->|HTTP| uvicorn
+    subgraph runtime[Local deployment]
+        uvicorn[Uvicorn] --> fastapi[FastAPI]
+        fastapi --> recommend["/api/v1/recommend"]
+        recommend -->|Similarity| model[Model]
+        model -->|load at startup| artifact
+    end
+    subgraph training[Model training]
+        fetch["Fetch CSV<br/>(Bazel)"] --> prepare["Prepare data<br/>(pandas)"] --> train["Train model<br/>(Cosine similarity between song pairs with scikit-learn)"] --> artifact[(model.pkl)]
+    end

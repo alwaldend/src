@@ -1,0 +1,6 @@
+- [x] Pin the approved source archive and expose narrowly scoped targets.
+- [x] Regenerate the Python lock and Gazelle metadata; pass consistency tests.
+- [x] Verify actual recommender HTTP and model consumers with E2E artifacts.
+- [x] Enforce namespaced imports using pinned ast-grep in repository quality.
+- [x] Migrate existing first-party imports and verify affected consumers.
+- [x] Validate the Python skill and refined recommendation application.

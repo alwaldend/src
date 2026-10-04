@@ -10,6 +10,8 @@ py_version = 39
 profile = "black"
 line_length = 79
 group_by_package = true
+combine_as_imports = true
+known_third_party = ["recommender"]
 skip_gitignore = true
 
 [tool.mypy]
@@ -34,3 +36,8 @@ target-version = "py39"
 
 [tool.ruff.lint]
 select = ["B", "E4", "E7", "E9", "F", "I", "RUF"]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+known-first-party = ["autoscroll", "projects"]
+known-third-party = ["recommender"]

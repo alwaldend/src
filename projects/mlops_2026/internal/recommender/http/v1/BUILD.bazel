@@ -1,0 +1,15 @@
+load("@rules_python//python:defs.bzl", "py_library")
+
+py_library(
+    name = "v1_lib",
+    srcs = [
+        "__init__.py",
+        "router.py",
+    ],
+    visibility = ["//projects/mlops_2026:__subpackages__"],
+    deps = [
+        "//projects/mlops_2026/internal/models:models_lib",
+        "//projects/mlops_2026/internal/recommender:recommender_lib",
+        "@com_alwaldend_src_pip//fastapi",
+    ],
+)

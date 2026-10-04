@@ -90,6 +90,31 @@ try {
             deviceScaleFactor: 2,
         });
         await page.evaluate(() => document.fonts.ready);
+        const containerTitles = await page.evaluate(() =>
+            [...document.querySelectorAll(".cluster")].map((container) => {
+                const border = container
+                    .querySelector("rect")
+                    .getBoundingClientRect();
+                const plate = container
+                    .querySelector(".cluster-label p")
+                    .getBoundingClientRect();
+                return {
+                    title: container.querySelector(".cluster-label p")
+                        .textContent,
+                    centerOffset: plate.y + plate.height / 2 - border.y,
+                    containedHorizontally:
+                        plate.x >= border.x && plate.right <= border.right,
+                };
+            }),
+        );
+        assert.ok(containerTitles.length >= 2);
+        for (const title of containerTitles) {
+            assert.ok(
+                Math.abs(title.centerOffset) <= 1,
+                `${title.title} caption must straddle its top border; offset ${title.centerOffset}`,
+            );
+            assert.ok(title.containedHorizontally);
+        }
         const firstLabel = await page.$eval(".edgeLabel p", (element) => {
             const bounds = element.getBoundingClientRect();
             return {
@@ -170,6 +195,7 @@ try {
             actual,
             palette,
             firstLabel,
+            containerTitles,
             scale: 2,
         };
         await fs.writeFile(

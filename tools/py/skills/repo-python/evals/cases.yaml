@@ -24,3 +24,36 @@
         the Gazelle Python manifest and runs Gazelle through bazel_agent.
         Reviews generated diffs and validates locks and affected consumers.
         Does not hand-edit generated locks or install into host Python.
+
+- description: Requires namespaced Python imports
+  vars:
+    request: >-
+      Add Pydantic models and a FastAPI query handler. May I use
+      from pydantic import BaseModel and from fastapi import Query?
+  assert:
+    - type: llm-rubric
+      value: >-
+        Requires import pydantic and import fastapi, qualified references
+        pydantic.BaseModel and fastapi.Query, and namespaced module imports
+        for standard-library and repository modules as well.
+        Allows from package.path import module for module imports and requires
+        this form for long paths, retaining qualified member access.
+        Uses natural module names without redundant _module suffixes or
+        same-name aliases; aliases resolve collisions or ambiguity only.
+        Strongly prefers explicit typed __init__.py exports and namespaced
+        package APIs over cross-package imports of implementation files.
+        Encourages direct symbol imports in __init__.py for public re-exports
+        listed in explicit __all__, while prohibiting them in consumer files.
+
+- description: Defaults implementation attributes to private without breaking contracts
+  vars:
+    request: >-
+      Add a recommendation service holding a model and a Pydantic song response.
+      How should instance attributes and response fields be exposed?
+  assert:
+    - type: llm-rubric
+      value: >-
+        Prefixes implementation state such as _model with an underscore by
+        default, uses typed read-only properties for intentional public access,
+        and keeps Pydantic serialized fields public with their specified names.
+        Preserves established public APIs rather than renaming every member.

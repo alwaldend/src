@@ -2,23 +2,24 @@
 
 ## Purpose
 
-Describe the MLOps course project placeholder and its documentation contract
-while distinguishing course metadata from future application implementation.
+Describe current MLOps course documentation and supported local commands.
 
 ## Requirements
 
 ### Requirement: Publish truthful course placeholder documentation
 
-The project SHALL provide a README identifying it as an MLOps course, linking
-the user-supplied course page, and stating that no implementation code exists.
-Its documentation SHALL be included through the repository documentation targets.
-The placeholder SHALL NOT require a release deployment target.
+The project SHALL provide a README identifying it as an MLOps course and linking
+the user-supplied course page. After implementation it SHALL describe the runnable
+health service and its supported endpoints and startup command, rather than
+claiming that no code exists. Its documentation SHALL remain included through
+repository documentation targets. The local application SHALL NOT require a
+release deployment target.
 
 #### Scenario: Inspect the course project
 
-- **WHEN** a reader opens the project README
+- **WHEN** a reader opens the project README after implementation
 - **THEN** its description and external link identify the course
-- **AND** the implementation is explicitly described as a placeholder
+- **AND** it documents the health service, OpenAPI endpoints, and local startup
 
 #### Scenario: Build project documentation
 

@@ -1,0 +1,18 @@
+load("@rules_python//python:defs.bzl", "py_binary")
+
+# gazelle:ignore
+py_binary(
+    name = "recommender",
+    srcs = ["main.py"],
+    data = [
+        "//projects/mlops_2026:model",
+        "//third_party/com_github_yandex_practicum_mlops_freetrack:data.csv",
+        "//third_party/com_github_yandex_practicum_mlops_freetrack:dataset.csv",
+    ],
+    main = "main.py",
+    visibility = ["//projects/mlops_2026:__subpackages__"],
+    deps = [
+        "//projects/mlops_2026/internal/recommender/application:application_lib",
+        "@com_alwaldend_src_pip//uvicorn",
+    ],
+)
