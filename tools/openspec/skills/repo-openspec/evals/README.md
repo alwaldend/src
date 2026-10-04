@@ -4,8 +4,8 @@ title: OpenSpec skill evaluations
 
 The cases cover continued authority, project and infrastructure workspace
 selection, `infra/src` specifications for repository evolution, evidence-bound
-resume, proportional handling of trivial edits, and complete modified
-requirements. `eval_config_test` validates the Promptfoo configuration, case
+resume, mandatory and proportional recording of trivial edits, and routing to upstream
+operation skills. `eval_config_test` validates the Promptfoo configuration, case
 files, and staged skill offline without model calls or credentials.
 
 A live target is omitted because implementation, fresh-session continuation,

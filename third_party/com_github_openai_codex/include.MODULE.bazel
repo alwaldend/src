@@ -1,0 +1,11 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "com_github_openai_codex",
+    add_prefix = "review-agent",
+    build_file = "//third_party/com_github_openai_codex:codex.BUILD.bazel",
+    integrity = "sha256-BcFcErpgIuaT2D2RoZdlHdvlheeFXknIKWHzTm3DY5w=",
+    strip_prefix = "codex-afb436df8b70bb5bc57b86d9a3e829968988cd21/codex-rs/skills/src/assets/samples/review-agent",
+    type = "tar.gz",
+    urls = ["https://codeload.github.com/openai/codex/tar.gz/afb436df8b70bb5bc57b86d9a3e829968988cd21"],
+)

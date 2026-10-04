@@ -1,0 +1,8 @@
+load("@rules_promptfoo//promptfoo:defs.bzl", "promptfoo_validate_test")
+
+promptfoo_validate_test(
+    name = "eval_config_test",
+    config = "promptfooconfig.yaml",
+    data = ["cases.yaml"],
+    skills = ["//third_party/com_github_openai_codex:review-agent"],
+)

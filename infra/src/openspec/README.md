@@ -30,7 +30,7 @@ OPENSPEC_PROJECT=infra/vault bazel_agent bazel run //tools/openspec -- list --sp
 ```
 
 Use `new change`, `status`, `instructions`, `validate`, and `archive` with the
-same owner selection. The packaged [OpenSpec skill](../../../tools/agents/skills/openspec/SKILL.md)
+same owner selection. The packaged [Repository OpenSpec skill](../../../tools/openspec/skills/repo-openspec/SKILL.md)
 documents continuation and acceptance. No global install or assistant
 configuration rewrite is needed. The CLI isolates configuration and disables
 telemetry.

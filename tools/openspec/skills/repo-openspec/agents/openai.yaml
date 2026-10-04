@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repository OpenSpec"
+  short_description: "Select repo workspaces and upstream OpenSpec operations"
+  default_prompt: "Use $repo-openspec to select the repository workspace and pinned CLI, then follow the appropriate upstream OpenSpec skill."

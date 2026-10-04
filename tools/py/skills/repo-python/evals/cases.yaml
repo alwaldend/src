@@ -1,0 +1,26 @@
+- description: Requires complete typing and repository validation
+  vars:
+    request: >-
+      Add an async Python API handler with a callback and an optional response
+      in this repository. Explain the annotation and validation requirements.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Requires type hints for all parameters and return values, including
+        async handlers and callbacks, uses precise optional types and None
+        returns, and uses repository-pinned tooling through bazel_agent.
+        Checks root pyproject.toml and component support rather than assuming the
+        Bazel runtime determines the supported source syntax.
+- description: Preserves extras and updates generated dependency mappings
+  vars:
+    request: >-
+      The user explicitly approved adding uvicorn[standard] to root Python
+      dependencies. Describe the complete repository update workflow.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Updates tools/py/pyproject.toml, preserves the standard extra, regenerates
+        tools/py/requirements.txt through tools/py:requirements.update, then updates
+        the Gazelle Python manifest and runs Gazelle through bazel_agent.
+        Reviews generated diffs and validates locks and affected consumers.
+        Does not hand-edit generated locks or install into host Python.

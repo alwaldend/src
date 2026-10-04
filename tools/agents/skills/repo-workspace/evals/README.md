@@ -5,7 +5,8 @@ title: Task workspace evaluations
 # Task workspace evaluations
 
 This suite records the behavioral contract for isolating a task workspace
-before the first mutation or task-scratch write. The required offline Bazel
+before the first mutation or task-scratch write and selecting the required
+OpenSpec change before source or configuration edits. The required offline Bazel
 target validates the Promptfoo configuration, referenced case, and staged skill
 without making a model call.
 

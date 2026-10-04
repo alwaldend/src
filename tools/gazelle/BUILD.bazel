@@ -28,7 +28,7 @@ gazelle_python_manifest(
     manifest = "//:gazelle_python.yaml",
     modules_mapping = ":modules_map",
     pip_repository_name = "com_alwaldend_src_pip",
-    requirements = "//:requirements.txt",
+    requirements = "//tools/py:requirements.txt",
     visibility = ["//:__subpackages__"],
 )
 

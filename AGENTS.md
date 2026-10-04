@@ -41,6 +41,10 @@ in-scope blockers and tiny related defects, and report other findings.
 - Treat an automatic approval rejection as a strategy signal: diagnose it,
   choose a materially safer authorized approach, or ask. Never route around it
   or retry a rejected, failed, or rate-limited escalated operation immediately.
+- Every repository change MUST use an OpenSpec change in its owning workspace,
+  including trivial edits, documentation, configuration, and dependency changes.
+  Reuse a matching active change and keep artifacts proportional to the scope.
+  Read-only questions and reviews do not require a change record.
 - Every authorized change follows delivery: validate, commit, push, and offer a
   pull request through `repo-delivery` unless the user withholds publication.
 
@@ -55,6 +59,7 @@ This table owns routing; each skill owns its procedure.
 | Material, consequential, or repeatedly failing choice                    | `decision-review`                            |
 | Creating or moving source, or choosing a directory layout                | `project-layout`                             |
 | Any Bazel invocation, BUILD or `.bzl` mechanics, or validation scope     | `bazel-agent`, `repo-bazel`                  |
+| Python implementation, refactoring, or review                            | `repo-python`                                |
 | Go implementation, refactoring, or review                                | `repo-go`                                    |
 | A standalone nested workspace with its own `MODULE.bazel`                | `bazel-nested-module`                        |
 | External dependencies, archives, toolchains, or lockfiles                | `repo-external-dependency`                   |
@@ -67,16 +72,22 @@ This table owns routing; each skill owns its procedure.
 | Android app build, packaging, or publication                             | `android`                                    |
 | A `.blend` asset, or Blender work judged by supplied-reference likeness  | `repo-blender`, `blender-reference-fidelity` |
 | Host Codex model, provider, authentication, or shared-config migration   | `codex-migration`                            |
-| Durable specifications, changes, or continuation state                   | `openspec`                                   |
+| Every repository change, specifications, or continuation state           | `repo-openspec`                              |
 | Adding or updating a repository skill                                    | `bazel-rules-skill`                          |
 | Proofreading, polishing, or rewriting supplied prose                     | `spellcheck`                                 |
 | Publishing an article to the blog                                        | `alwaldend-blog`                             |
 | Uploading a blog post to X as an Article draft, or a 429 from X          | `x-article-upload`                           |
 | Complete repository build-and-test health check                          | `full-repo-check`                            |
 | Computing a development, nightly, or weekly version                      | `versioning`                                 |
+| Reviewing a PR, commit range, or other bounded change set                | `review-agent`                               |
 | Preparing publication or final handoff                                   | `repo-delivery`                              |
 | Synchronizing an advancing remote base, or rebasing task-owned commits   | `git-rebase-remote`                          |
 | Reviewing a substantial or inefficient session at task close             | `agent-ergonomics-review`                    |
+
+Use `review-agent` for every requested review of repository changes, including
+PRs, commits, staged changes, working-tree changes, and supplied patches.
+Select it explicitly; its upstream metadata disables implicit invocation. Apply
+the relevant repository standards through the policy and owning language skills.
 
 ## Isolate and verify changes
 

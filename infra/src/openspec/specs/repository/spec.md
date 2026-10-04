@@ -99,8 +99,12 @@ specifications and maintained changes in its own `openspec/` workspace.
 `infra/src/openspec` SHALL describe evolution of the repository itself,
 including shared structure, build system and development workflows. The
 repository root SHALL NOT collect component specifications or change records.
-Maintained work SHALL preserve outcome, decisions, tasks and requirement
-deltas. Existing task authority MUST survive workflow transitions.
+Every repository change MUST use an OpenSpec change in its owning workspace,
+including trivial edits, documentation, configuration, and dependency changes.
+A matching active change SHALL be reused when available, and artifacts SHALL
+remain proportional to scope. Read-only questions and reviews do not require
+a change record. Maintained work SHALL preserve outcome, decisions, tasks and
+requirement deltas. Existing task authority MUST survive workflow transitions.
 
 #### Scenario: Change a component contract
 
@@ -127,6 +131,19 @@ deltas. Existing task authority MUST survive workflow transitions.
 - **WHEN** a project has its own Bazel module
 - **THEN** repository OpenSpec validation still checks its declared local workspace
 - **AND** a successful repository check does not omit that project's requirements
+
+#### Scenario: Make a trivial change
+
+- **WHEN** an agent makes a one-line repository correction
+- **THEN** it selects or creates a matching owner-local OpenSpec change before
+  editing, with small artifacts and skip_specs if behavior is unchanged
+- **AND** the record adds no approval gate to already authorized work
+
+#### Scenario: Conduct a read-only review
+
+- **WHEN** the task only inspects a bounded change set and reports findings
+- **THEN** no new OpenSpec change is required for that review
+- **AND** the review itself does not authorize implementation or publication
 
 ### Requirement: Legacy goal migration and deprecation
 

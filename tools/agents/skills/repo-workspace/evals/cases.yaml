@@ -19,4 +19,7 @@
         /var/tmp, or other shared system locations unless a tool cannot use
         workspace scratch at all and states that reason; removes only its own
         residue on handoff without deleting unrelated temporary files; and
-        preserves unrelated, shared, or ambiguous work. Otherwise fail.
+        preserves unrelated, shared, or ambiguous work. It selects or creates a
+        matching owner-local OpenSpec change after isolation and before source
+        or configuration edits, even for small changes, without redundant
+        approval. Otherwise fail.

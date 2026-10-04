@@ -27,7 +27,7 @@ for that exact operation and scope.
 3. Inspect the real generated targets with `bazel_agent bazel query`; label
    maps vary by package and are the source of truth. Follow `bazel-agent` and
    `repo-bazel` for every invocation.
-4. Load `repo-secrets` for secret-valued work and `openspec` when the change
+4. Load `repo-secrets` for secret-valued work and `repo-openspec` when the change
    needs durable requirements or continuation state.
 
 ## Keep the shared flow intact
