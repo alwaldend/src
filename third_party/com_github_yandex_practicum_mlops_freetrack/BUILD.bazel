@@ -1,0 +1,36 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+
+package_group(
+    name = "course_consumers",
+    packages = ["//projects/mlops_2026/..."],
+)
+
+alias(
+    name = "data.csv",
+    actual = "@com_github_yandex_practicum_mlops_freetrack//:data.csv",
+    visibility = [":course_consumers"],
+)
+
+alias(
+    name = "dataset.csv",
+    actual = "@com_github_yandex_practicum_mlops_freetrack//:dataset.csv",
+    visibility = [":course_consumers"],
+)
+
+alias(
+    name = "train_and_save_model",
+    actual = "@com_github_yandex_practicum_mlops_freetrack//:train_and_save_model",
+    visibility = [":course_consumers"],
+)
+
+docs_filegroup(
+    name = "docs",
+    srcs = ["README.md"],
+    visibility = ["//third_party:__pkg__"],
+)
+
+alias(
+    name = "recommender_lib",
+    actual = "@com_github_yandex_practicum_mlops_freetrack//:recommender",
+    visibility = [":course_consumers"],
+)

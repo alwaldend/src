@@ -1,7 +1,7 @@
+import os
 import typing
-from os import environ as os_environ
 
-from . import arguments, functions
+from autoscroll._internal import arguments, functions
 
 SCROLLING_SPEED: int = 300
 SCROLLING_ACCELERATION_DISTANCE: int = 10
@@ -21,7 +21,7 @@ ICON_ERROR: str = (
     "\npip install pyside6\n"
 )
 
-CONFIG_PATH: str = f"{os_environ.get('HOME')}/.config/autoscroll/config.txt"
+CONFIG_PATH: str = f"{os.environ.get('HOME')}/.config/autoscroll/config.txt"
 CONFIG_ENABLE: bool = False
 CONFIG_INTERVAL: int = 5
 CONFIG_ERROR_ENABLE: str = "you are trying to enable the config ('enable' is set to 'True'), but the path is not valid"

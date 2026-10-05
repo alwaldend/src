@@ -1,0 +1,18 @@
+load("@rules_python//python:defs.bzl", "py_library")
+
+py_library(
+    name = "application_lib",
+    srcs = [
+        "__init__.py",
+        "app.py",
+        "data.py",
+    ],
+    visibility = ["//projects/mlops_2026:__subpackages__"],
+    deps = [
+        "//projects/mlops_2026/internal/recommender/http:http_lib",
+        "//projects/mlops_2026/internal/recommender/http/v1:v1_lib",
+        "//projects/mlops_2026/internal/recommender/service:service_lib",
+        "@com_alwaldend_src_pip//fastapi",
+        "@rules_python//python/runfiles",
+    ],
+)

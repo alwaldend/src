@@ -1,0 +1,9 @@
+load("@rules_python//python:defs.bzl", "py_binary")
+
+# gazelle:ignore
+py_binary(
+    name = "build_model",
+    srcs = ["build_model.py"],
+    main = "build_model.py",
+    visibility = ["//projects/mlops_2026:__subpackages__"],
+)

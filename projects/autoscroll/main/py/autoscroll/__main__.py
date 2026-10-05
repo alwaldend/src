@@ -1,4 +1,4 @@
-from .main import cli
+from autoscroll import main
 
 if __name__ == "__main__":
-    cli()
+    main.cli()

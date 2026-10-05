@@ -1,6 +1,6 @@
 import sys
 
-from . import _internal
+from autoscroll import _internal
 
 
 def cli() -> None:

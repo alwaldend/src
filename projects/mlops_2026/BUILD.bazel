@@ -1,8 +1,54 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
+load("//projects/mlops_2026/internal/recommender/training:model.bzl", "course_model")
 
 docs_filegroup(
     name = "docs",
     srcs = glob(["*.md"]),
     visibility = ["//projects:__pkg__"],
-    deps = ["//projects/mlops_2026/openspec:docs"],
+    deps = [
+        ":docs_assets",
+        "//projects/mlops_2026/openspec:docs",
+    ],
+)
+
+course_model(
+    name = "model",
+    out = "model.pkl",
+    data = "//third_party/com_github_yandex_practicum_mlops_freetrack:data.csv",
+    dataset = "//third_party/com_github_yandex_practicum_mlops_freetrack:dataset.csv",
+    tags = ["manual"],
+    trainer = "//third_party/com_github_yandex_practicum_mlops_freetrack:train_and_save_model",
+    visibility = ["//projects/mlops_2026:__subpackages__"],
+)
+
+# gazelle:resolve py python @rules_python//python/runfiles
+# gazelle:resolve py python.runfiles @rules_python//python/runfiles
+
+# gazelle:python_default_visibility //projects/mlops_2026:__subpackages__
+
+mermaid_site_svg(
+    name = "architecture",
+    src = "architecture.mmd",
+    out = "rendered/architecture.svg",
+)
+
+docs_filegroup(
+    name = "docs_assets",
+    srcs = [":architecture"],
+    prefix = "content/docs/projects/mlops_2026/assets",
+)
+
+# gazelle:resolve py recommender //third_party/com_github_yandex_practicum_mlops_freetrack:recommender_lib
+
+mermaid_site_webp(
+    name = "architecture_preview",
+    src = "architecture.mmd",
+    out = "rendered/architecture.webp",
+    aspect_ratio = [
+        5,
+        2,
+    ],
+    color_scheme = "dark",
+    tags = ["manual"],
 )

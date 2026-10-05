@@ -12,7 +12,7 @@
         "rankSpacing": 40,
         "padding": 12,
         "subGraphTitleMargin": {
-            "top": -16,
+            "top": -10.5,
             "bottom": 0
         },
         "edgeSpacing": 44

@@ -1,12 +1,12 @@
-from sys import argv as sys_argv
+import sys
 
 import PySide6.QtCore
 import PySide6.QtSvgWidgets
 import PySide6.QtWidgets
 
-from .functions import get_path
+from autoscroll._internal import functions
 
-application = PySide6.QtWidgets.QApplication(sys_argv)
+application = PySide6.QtWidgets.QApplication(sys.argv)
 application.setQuitOnLastWindowClosed(False)
 
 
@@ -25,7 +25,7 @@ class Icon(PySide6.QtSvgWidgets.QSvgWidget):
         self.setAttribute(PySide6.QtCore.Qt.WA_TranslucentBackground)
 
     def update_icon(self, path: str, size: int) -> None:
-        self.load(get_path(path))
+        self.load(functions.get_path(path))
         self.icon_size = size
         self.resize(size, size)
 

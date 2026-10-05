@@ -1,6 +1,10 @@
 schema: spec-driven
 
 context: |
-  This workspace owns the mlops_2026 MLOps course placeholder.
-  README.md owns the course description and external link.
-  There is no application code or deployment behavior yet.
+  This workspace owns the mlops_2026 MLOps course and recommender application.
+  README.md owns course metadata and supported local commands.
+  FastAPI is assembled through factories and run with Uvicorn via Bazel.
+  App implementation lives under internal/recommender; cmd/recommender is its entry point.
+  Pinned upstream datasets are runfiles; training produces a declared model.pkl.
+  The versioned recommendation endpoint loads the packaged model during lifespan.
+  Shared typed responses live under internal/models. There is no deployment target.

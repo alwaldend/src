@@ -1,0 +1,10 @@
+id: python-namespaced-imports
+language: Python
+severity: error
+message: Import the module and access its members through its namespace.
+rule:
+  any:
+    - kind: import_from_statement
+    - all:
+        - kind: import_statement
+        - regex: '\b(?:[A-Za-z_]\w*\.){2,}[A-Za-z_]\w*'

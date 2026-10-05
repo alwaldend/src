@@ -2,6 +2,7 @@ load("@aspect_rules_lint//format:defs.bzl", "format_multirun", "format_test")
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 load("@rules_java//java:defs.bzl", "java_binary")
 load("@rules_multirun//:defs.bzl", "command", "multirun")
+load("@rules_python//python:defs.bzl", "py_test")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 load("@rules_shell//shell:sh_test.bzl", "sh_test")
 
@@ -301,6 +302,7 @@ test_suite(
     tests = [
         ":go_module_quality_test",
         ":lua_quality_test",
+        ":python_import_quality_test",
         ":qt_xml_quality_test",
         ":repo_format_test",
         "//tools/bazel_module/cmd/update:freshness_test",
@@ -328,4 +330,29 @@ docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
     visibility = ["//tools:__pkg__"],
+)
+
+# Like repo_format_test, this checks the complete tracked checkout.
+py_test(
+    name = "python_import_quality_test",
+    srcs = ["python_import_quality.py"],
+    args = [
+        "--tool=$(rlocationpath //third_party/com_github_ast_grep_ast_grep:ast-grep)",
+        "--rule=$(rlocationpath :python_namespaced_imports.yaml)",
+        "--cases=$(rlocationpath :python_import_cases.json)",
+        "--workspace=$(rlocationpath //:MODULE.bazel)",
+    ],
+    data = [
+        "python_import_cases.json",
+        "python_namespaced_imports.yaml",
+        "//:MODULE.bazel",
+        "//third_party/com_github_ast_grep_ast_grep:ast-grep",
+    ],
+    main = "python_import_quality.py",
+    tags = [
+        "external",
+        "no-cache",
+        "no-sandbox",
+    ],
+    deps = ["@rules_python//python/runfiles"],
 )

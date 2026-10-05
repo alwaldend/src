@@ -57,3 +57,13 @@ The integration test intentionally uses the upstream rule's `no_sandbox` mode
 so it can inspect files that are tracked by Git but not declared in BUILD
 files. This is a local-checkout guarantee, like the root Buildifier test; tool
 acquisition remains hermetic and pinned through Bazel.
+
+The quality suite also runs pinned ast-grep against every tracked first-party
+Python file, rejecting symbol imports in favor of module imports and
+qualified member access. Explicit public re-exports listed in `__all__` may
+use direct symbol imports in `__init__.py`; wildcard imports remain forbidden.
+Its syntax fixtures distinguish real imports from
+comments and strings. Module from-imports are verified against source paths
+and pinned Python module specifications without executing imported packages.
+Like formatting, this complete-checkout check is local
+and uncached; downloaded external repositories are outside its coverage.

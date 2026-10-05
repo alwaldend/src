@@ -1,0 +1,12 @@
+http_archive = use_repo_rule("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "com_github_yandex_practicum_mlops_freetrack",
+    build_file = "//third_party/com_github_yandex_practicum_mlops_freetrack:freetrack.BUILD.bazel",
+    integrity = "sha256-PeR/BlcR/3LbnWwz/IIoj7jTPbHNmrnvvyUexgiRufU=",
+    patch_args = ["-p1"],
+    patches = ["//third_party/com_github_yandex_practicum_mlops_freetrack:load_model_path.patch"],
+    strip_prefix = "mlops-freetrack-a08aadd41a411d2c8b5e897dc9d423ce97d1fa42",
+    type = "tar.gz",
+    urls = ["https://codeload.github.com/Yandex-Practicum/mlops-freetrack/tar.gz/a08aadd41a411d2c8b5e897dc9d423ce97d1fa42"],
+)

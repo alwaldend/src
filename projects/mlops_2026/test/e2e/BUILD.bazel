@@ -1,0 +1,42 @@
+load("@rules_python//python:defs.bzl", "py_binary", "py_test")
+
+# gazelle:ignore
+py_binary(
+    name = "isolation",
+    testonly = True,
+    srcs = ["isolation.py"],
+    data = ["//projects/mlops_2026:model"],
+    deps = [
+        "//projects/mlops_2026/internal/recommender/application:application_lib",
+        "//projects/mlops_2026/internal/recommender/service:service_lib",
+        "@com_alwaldend_src_pip//fastapi",
+        "@com_alwaldend_src_pip//uvicorn",
+    ],
+)
+
+py_test(
+    name = "recommender_test",
+    srcs = ["recommender_test.py"],
+    data = [
+        ":isolation",
+        "//projects/mlops_2026/cmd/recommender",
+    ],
+    deps = ["@rules_python//python/runfiles"],
+)
+
+py_test(
+    name = "model_test",
+    size = "large",
+    srcs = ["model_test.py"],
+    data = [
+        "//projects/mlops_2026:model",
+        "//projects/mlops_2026/internal/recommender/training:build_model",
+        "//third_party/com_github_yandex_practicum_mlops_freetrack:train_and_save_model",
+    ],
+    tags = ["manual"],
+    deps = [
+        "//third_party/com_github_yandex_practicum_mlops_freetrack:recommender_lib",
+        "@com_alwaldend_src_pip//joblib",
+        "@rules_python//python/runfiles",
+    ],
+)

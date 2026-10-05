@@ -4,7 +4,7 @@ import typing
 
 import pynput.mouse
 
-from . import support
+from autoscroll._internal import support
 
 
 class Autoscroll(support.Base):

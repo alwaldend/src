@@ -1,0 +1,14 @@
+load("@rules_python//python:defs.bzl", "py_library")
+
+py_library(
+    name = "service_lib",
+    srcs = [
+        "__init__.py",
+        "recommendations.py",
+    ],
+    visibility = ["//projects/mlops_2026:__subpackages__"],
+    deps = [
+        "//projects/mlops_2026/internal/models:models_lib",
+        "//third_party/com_github_yandex_practicum_mlops_freetrack:recommender_lib",
+    ],
+)

@@ -1,3 +1,3 @@
-from .autoscroll import Autoscroll
+from autoscroll._internal.autoscroll import Autoscroll
 
-__all__ = ("Autoscroll",)
+__all__: tuple[str, ...] = ("Autoscroll",)
