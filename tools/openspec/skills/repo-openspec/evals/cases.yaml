@@ -77,6 +77,21 @@
         artifacts small. Without a behavior delta it uses skip_specs: true
         rather than inventing a requirement. It adds no approval or goal step.
 
+- description: Preserves an explicit implementation request through planning
+  vars:
+    request: >-
+      Fix the documented runner examples and finish delivery. A new OpenSpec
+      change is required first. If you use openspec-propose, should you stop
+      after planning and ask me again to implement? Explain without tools.
+  assert:
+    - type: llm-rubric
+      value: >-
+        Preserves the explicit fix and delivery authority, creates proportional
+        planning artifacts, and transitions to openspec-apply-change without
+        requesting another implementation instruction. Distinguishes this
+        request from an explicitly planning-only request. Does not edit the
+        generated upstream skills or infer deployment permission.
+
 - description: Routes operation procedures to upstream skills
   vars:
     request: >-

@@ -15,6 +15,9 @@
         exact configuration, completes a fresh minimal response and a separate
         fresh harmless tool round trip, changes the shared default only after
         explicit authorization and successful checks, restores the previous
-        configuration on failure, mirrors intentional host edits into their
-        checked-in owner, and obtains authority before any billable provider
+        configuration on failure through the owning declarative workflow,
+        defines persistent host changes in their checked-in owner and deploys
+        them through that workflow, requires approval for any exact imperative
+        exception instead of reconciling host edits later, and obtains
+        authority before any billable provider
         request unless already granted. Otherwise fail.

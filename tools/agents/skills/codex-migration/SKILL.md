@@ -30,11 +30,17 @@ do not prove that migrated conversation history is portable.
 In a concurrent environment, prefer a tested opt-in profile so existing
 sessions retain their provider. Change the shared default only when the user
 explicitly requests that disruption and the exact provider, model, auth path,
-and tool round trip have passed. Restore the previous configuration if any
-validation fails.
+and tool round trip have passed. Define persistent changes in the owning
+checked-in Ansible role and deploy through its declarative workflow within
+the user's authorized scope. An imperative host edit requires approval for
+that exact exception under `AGENTS.md`; testing an isolated candidate does
+not authorize one. If validation fails, retain the shared default; if a
+deployed candidate fails, restore the prior desired state through the owning
+workflow.
 
-Before handoff, mirror every intentional host edit into its owning checked-in
-role, validate the packaged desired state without deploying it, and report the
+Before deployment, validate the packaged desired state. Before handoff, confirm
+every intentional host change is represented in its owning checked-in role,
+including any approved imperative exception, and report the
 new-session command plus any credential prerequisite. A model request can cost
 money or disclose in-scope content to an external provider; obtain authority
 immediately before testing unless the current request already grants it.

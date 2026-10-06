@@ -66,6 +66,13 @@ approval requirement. Passing CLI structural validation alone does not prove
 implementation acceptance; use the owning checks against the actual candidate.
 Use `repo-delivery` for publication.
 
+When planning is required to carry out an explicit implementation request,
+complete the proportional planning artifacts and continue with
+`openspec-apply-change` in the same task. Upstream instructions to stop after
+planning or request a new implementation instruction do not revoke authority
+already granted by the user. An explicitly planning-only request ends after
+its requested artifacts; do not infer implementation or deployment authority.
+
 ## Preserve managed discovery
 
 `//.agents:write_skills` owns discovery. The repository-specific skill lives
