@@ -194,7 +194,7 @@ list.
 
 - Build and inspect the rendered page: `bazel_agent bazel build
 //projects/alwaldend.com:site`, then read the generated post under
-  `bazel-bin/projects/alwaldend.com/site.dest/blog/<slug>/`.
+  `bazel-bin/projects/alwaldend.com/site.destination/blog/<slug>/`.
 - Check inconsistencies against the repository's other pages: heading case and
   depth, list and code-fence style, link text, terminology, and any spelling
   that conflicts with the repository's established usage.

@@ -108,7 +108,7 @@ Invoke every Bazel command through `bazel_agent`. From the plugin workspace,
 update its lock and validate its complete, intentionally small graph:
 
 ```sh
-bazel_agent mod deps --lockfile_mode=update
+bazel_agent bazel mod deps --lockfile_mode=update
 bazel_agent bazel test //...
 bazel_agent bazel build //...
 ```
@@ -117,7 +117,7 @@ From the repository root, update the parent lock when its module graph changed,
 run Gazelle, inspect the resulting diff, and validate the integration:
 
 ```sh
-bazel_agent mod deps --lockfile_mode=update
+bazel_agent bazel mod deps --lockfile_mode=update
 bazel_agent bazel run //:gazelle
 bazel_agent bazel test //path/to/affected/package:all
 bazel_agent bazel build //path/to/affected/package:all

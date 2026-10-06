@@ -43,9 +43,10 @@ in another file.
   Pages repository.
 - Build flags that matter: `--panicOnWarning` fails the build on any Hugo
   warning, and `--printPathWarnings` reports unresolved paths. The site always
-  builds expired and future content, and only its local preview adds
-  `--buildDrafts`, so a `draft: true` page appears in preview but never in a
-  release build. Because every project landing is part of this one build,
+  builds expired and future content. Ordinary `:site` builds and local preview
+  add `--buildDrafts`; release builds exclude drafts. A `draft: true` page can
+  therefore be inspected in ordinary build output while staying out of the
+  release site. Because every project landing is part of this one build,
   `--panicOnWarning` means a landing content error fails the whole site and
   the blog deployment. Keep landing content small and validate with the site
   build before publishing. Do not silence these flags to get a build through;

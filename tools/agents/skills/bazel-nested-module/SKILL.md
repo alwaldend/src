@@ -87,7 +87,7 @@ Follow the root `AGENTS.md` and the `repo-bazel` skill. Inspect all existing
 Update, rather than hand-edit, module locks after dependency changes:
 
 ```sh
-bazel_agent mod deps --lockfile_mode=update
+bazel_agent bazel mod deps --lockfile_mode=update
 ```
 
 Run that command from every affected workspace root. Then run Gazelle where

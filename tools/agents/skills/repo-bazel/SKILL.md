@@ -8,7 +8,7 @@ description: Build, test, query, and maintain targets in this Bazel monorepo. Us
 ## Inspect before editing
 
 1. Follow the `bazel-agent` skill for every repository Bazel invocation. Use
-   `bazel_agent <command> ...`; do not repeat its flags or call `bazel`
+   `bazel_agent bazel <command> ...`; do not repeat its flags or call `bazel`
    directly.
 2. Read the nearest `AGENTS.md` and the applicable `BUILD.bazel` files.
 3. Inspect `.bazelrc` and its imports before changing flags. Preserve the final

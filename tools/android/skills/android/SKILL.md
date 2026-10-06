@@ -142,12 +142,12 @@ Android SDK. The debug APK lands at
 
 ### Troubleshooting "App not installed"
 
-The most common cause is a signature mismatch with an existing install.
-Uninstall the old version first:
-
-```sh
-adb uninstall <package>
-```
+Inspect the actual installation error before choosing a remedy. A signature
+mismatch with an existing install requires a compatible signing key or a
+separate test installation, such as another application ID or disposable
+device. Uninstalling can delete application data; obtain explicit approval
+for that removal and address any required backup before running
+`adb uninstall <package>`.
 
 Other causes to check:
 
