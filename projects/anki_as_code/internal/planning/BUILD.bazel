@@ -1,0 +1,17 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "planning",
+    srcs = [
+        "doc.go",
+        "plan.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/planning",
+    visibility = ["//projects/anki_as_code/internal:__subpackages__"],
+    deps = [
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/ankiformat",
+        "//projects/anki_as_code/internal/model",
+        "@org_golang_google_protobuf//proto",
+    ],
+)

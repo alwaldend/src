@@ -1,5 +1,8 @@
 load("@rules_docs//docs:defs.bzl", "docs_filegroup")
 
+# gazelle:resolve go github.com/ankitects/anki/proto/anki/decks //third_party/com_github_ankitects_anki:decks
+# gazelle:resolve go github.com/ankitects/anki/proto/anki/notetypes //third_party/com_github_ankitects_anki:notetypes
+
 alias(
     name = "anki_as_code",
     actual = "//projects/anki_as_code/cmd/anki_as_code",
@@ -10,4 +13,5 @@ docs_filegroup(
     name = "docs",
     srcs = ["README.md"],
     visibility = ["//projects:__pkg__"],
+    deps = ["//projects/anki_as_code/docs:assets"],
 )

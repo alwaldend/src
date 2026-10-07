@@ -1,0 +1,26 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "textstore",
+    srcs = [
+        "appearance.go",
+        "discovery.go",
+        "doc.go",
+        "export.go",
+        "notes.go",
+        "snapshot.go",
+        "text.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/textstore",
+    visibility = ["//projects/anki_as_code/internal/collection:__pkg__"],
+    deps = [
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/ankiformat",
+        "//projects/anki_as_code/internal/model",
+        "//projects/anki_as_code/internal/validation",
+        "@com_github_burntsushi_toml//:toml",
+        "@org_golang_google_protobuf//encoding/protojson",
+        "@org_golang_google_protobuf//proto",
+        "@org_golang_google_protobuf//reflect/protoreflect",
+    ],
+)

@@ -1,0 +1,22 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "repository",
+    srcs = [
+        "doc.go",
+        "repository.go",
+        "snapshot.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/repository",
+    visibility = ["//projects/anki_as_code/internal/collection:__pkg__"],
+    deps = [
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/ankiformat",
+        "//projects/anki_as_code/internal/model",
+        "//projects/anki_as_code/internal/planning",
+        "//projects/anki_as_code/internal/validation",
+        "//third_party/com_github_ankitects_anki:notetypes",
+        "@org_golang_google_protobuf//proto",
+        "@org_modernc_sqlite//:sqlite",
+    ],
+)

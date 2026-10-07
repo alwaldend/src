@@ -1,0 +1,42 @@
+load("@rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "collection",
+    srcs = [
+        "collection.go",
+        "doc.go",
+        "identity.go",
+        "plan.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/collection",
+    visibility = ["//projects/anki_as_code:__subpackages__"],
+    deps = [
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/archive",
+        "//projects/anki_as_code/internal/planning",
+        "//projects/anki_as_code/internal/repository",
+        "//projects/anki_as_code/internal/textstore",
+    ],
+)
+
+go_test(
+    name = "collection_test",
+    srcs = [
+        "collection_test.go",
+        "discovery_test.go",
+        "fixture_test.go",
+        "identity_test.go",
+        "large_collection_test.go",
+        "review_workflow_test.go",
+        "schema_test.go",
+    ],
+    embed = [":collection"],
+    deps = [
+        "//projects/anki_as_code/internal/archive",
+        "//projects/anki_as_code/internal/model",
+        "//projects/anki_as_code/internal/repository",
+        "//projects/anki_as_code/internal/textstore",
+        "@com_github_klauspost_compress//zstd",
+        "@org_golang_google_protobuf//proto",
+    ],
+)

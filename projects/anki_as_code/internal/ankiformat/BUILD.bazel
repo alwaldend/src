@@ -1,0 +1,22 @@
+load("@rules_go//go:def.bzl", "go_library")
+
+go_library(
+    name = "ankiformat",
+    srcs = [
+        "deck.go",
+        "doc.go",
+        "names.go",
+        "plain_text.go",
+        "protobuf.go",
+    ],
+    importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/ankiformat",
+    visibility = ["//projects/anki_as_code/internal:__subpackages__"],
+    deps = [
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/model",
+        "//third_party/com_github_ankitects_anki:decks",
+        "@org_golang_google_protobuf//proto",
+        "@org_golang_x_net//html",
+        "@org_golang_x_text//cases",
+    ],
+)

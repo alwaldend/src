@@ -1,0 +1,25 @@
+flowchart LR
+    cli[CLI commands] --> app[App facade]
+    app --> collection[Collection orchestration]
+    collection --> textstore[Textstore: TOML files]
+    collection --> repository[Repository: SQLite]
+    collection --> archive[Archive: ZIP and file resources]
+    collection --> planning[Planning: resource changes]
+    collection --> schema[Collection protobuf messages]
+    model[Model: runtime wrappers and snapshots] --> schema
+    repository --> validation[Validation: desired state rules]
+    repository --> planning
+    repository --> ankiformat[Anki format: encoding and normalization]
+    textstore --> validation
+    textstore --> ankiformat
+    validation --> ankiformat
+    validation --> model
+    planning --> ankiformat
+    planning --> model
+    ankiformat --> model
+    textstore --> model
+    repository --> model
+    planning --> schema
+    ankiformat --> schema
+    textstore --> schema
+    repository --> schema

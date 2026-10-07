@@ -1,0 +1,22 @@
+load("@rules_docs//docs:defs.bzl", "docs_filegroup")
+load("//projects/alwaldend.com/pkg/mermaid:defs.bzl", "mermaid_site_svg", "mermaid_site_webp")
+
+mermaid_site_svg(
+    name = "architecture",
+    src = "architecture.mmd",
+    out = "rendered/architecture.svg",
+)
+
+docs_filegroup(
+    name = "assets",
+    srcs = [":architecture"],
+    prefix = "content/docs/projects/anki_as_code/assets",
+    visibility = ["//projects/anki_as_code:__pkg__"],
+)
+
+mermaid_site_webp(
+    name = "architecture_preview",
+    src = "architecture.mmd",
+    out = "rendered/architecture.webp",
+    tags = ["manual"],
+)

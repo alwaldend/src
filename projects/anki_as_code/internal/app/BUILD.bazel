@@ -8,4 +8,8 @@ go_library(
     ],
     importpath = "git.alwaldend.com/alwaldend/src/projects/anki_as_code/internal/app",
     visibility = ["//projects/anki_as_code/cmd/anki_as_code:__pkg__"],
+    deps = [
+        "//projects/anki_as_code/api/collection",
+        "//projects/anki_as_code/internal/collection",
+    ],
 )
